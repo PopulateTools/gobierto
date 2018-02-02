@@ -46,7 +46,10 @@ module GobiertoAdmin
                   refute has_selector?("img")
                   attach_file "person_avatar_file", "test/fixtures/files/gobierto_people/people/avatar.jpg"
                 end
+              end
+              click_on('Close (Esc)')
 
+              within "form.new_person" do
                 fill_in "person_name", with: "Person Name"
                 fill_in "Charge", with: "Person Charge"
 

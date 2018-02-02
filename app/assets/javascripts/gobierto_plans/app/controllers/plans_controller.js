@@ -183,8 +183,8 @@ this.GobiertoPlans.PlansController = (function() {
         },
         methods: {
           getJson: function() {
-            $.getJSON('/sandbox/data/planification.json', function(json) {
-              this.json = json;
+            $.getJSON(window.location.href, function(json) {
+              this.json = JSON.parse(json["plan_tree"]);
             }.bind(this));
           },
           color: function() {

@@ -12,9 +12,11 @@ es:
           de los proyectos cada tres meses.
         ends: Fin
         global_execution: Estado de ejecución global
-        latest_update: Última actualización %{date}
+        latest_update_html: "<strong>Última actualización:</strong> %{date}"
+        loading: Cargando...
         percentage_progress: "% progreso"
         progress: Progreso
+        projects: Proyectos
         starts: Inicio
         status: Estado
         title: Sigue la evolución del plan de gobierno

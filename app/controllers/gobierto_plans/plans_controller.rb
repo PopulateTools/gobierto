@@ -17,11 +17,12 @@ module GobiertoPlans
       @node_number = GobiertoPlans::CategoriesNode.where(category_id: @plan.categories.pluck(:id)).pluck(:node_id).uniq.size
 
       @levels = @plan.categories.maximum("level")
-      plan_tree = plan_tree(@plan.categories.where(parent_id: nil))
 
       respond_to do |format|
         format.html
         format.json do
+          plan_tree = plan_tree(@plan.categories.where(parent_id: nil))
+
           render(
             json: { plan_tree: plan_tree }
           )
@@ -46,7 +47,7 @@ module GobiertoPlans
       for i in 0..category.level
         index = categories.where(level: category.level).index(category)
         uid = index.to_s + uid
-        if category.parent_id != nil
+        if category.parent_id.nil?
           category = categories.where(id: category.parent_id).first
           uid = "." + uid
         end
@@ -114,7 +115,7 @@ module GobiertoPlans
                    level: category.level,
                    attributes: { title: category.name_translations,
                                  parent_id: category.parent_id,
-                                 progress: category_nodes.sum(:progress)/category_nodes.size },
+                                 progress: category_nodes.sum(:progress) / category_nodes.size },
                    children: nodes }
                else
                  { id: category.id,

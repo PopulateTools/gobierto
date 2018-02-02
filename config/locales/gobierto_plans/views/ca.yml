@@ -12,9 +12,11 @@ ca:
           dels projectes cada tres mesos.
         ends: Fi
         global_execution: Estat d'execució global
-        latest_update: Darrera actualització %{date}
+        latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
+        loading: Carregant...
         percentage_progress: "% progrés"
         progress: Progrés
+        projects: Projectes
         starts: Inici
         status: Estat
         title: Segueix l'evolució del pla de govern

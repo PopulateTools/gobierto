@@ -9,8 +9,9 @@
         <p>
           <%= t(".description") %>
         </p>
-        <%= t(".latest_update", date: l(@plan.updated_at.to_date, format: :long)) %>
-
+        <p>
+          <%= t(".latest_update_html", date: l(@plan.updated_at.to_date, format: :long)) %>
+        </p>
       </div>
 
       <div class="pure-u-1 pure-u-md-12-24 right">
@@ -206,7 +207,7 @@
 <script type="text/x-template" id="table-view-template">
   <table>
     <thead>
-      <th>Proyecto</th>
+      <th><%= t(".projects") %></th>
       <th><%= t(".starts") %></th>
       <th><%= t(".ends") %></th>
       <th><%= t(".progress") %></th>

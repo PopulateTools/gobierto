@@ -155,7 +155,12 @@ $white: $color_main_negative;
       padding: 1em 0 0;
       border-top: 1px solid;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
+
+      > :not(:first-child) {
+        flex: 1;
+        text-align: right;
+      }
 
       .node-title {
         flex-basis: 75%;

@@ -36,6 +36,8 @@ en:
           feedback_emails_desc: The feedback (opinions about budget lines) will be
             sent to this email
           options: Options
+          providers: Providers and Invoices
+          providers_desc1: Enable the section Providers and Invoices
           receipt: Taxes receipt
           receipt_desc1: Enable budgets taxes receipt section
           receipt_desc2_html: "<strong>Important:</strong> it's necessary to fill

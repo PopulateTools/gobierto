@@ -37,6 +37,8 @@ es:
           feedback_emails_desc: Las participaciones (opinión sobre partidas y petición
             de más información) se enviarán a esta dirección
           options: Opciones
+          providers: Proveedores y Facturas
+          providers_desc1: Habilita la sección Proveedores y Facturas
           receipt: Recibo de tus impuestos
           receipt_desc1: Habilita la sección El recibo de tus impuestos
           receipt_desc2_html: "<strong>Importante:</strong> debes de rellenar el JSON

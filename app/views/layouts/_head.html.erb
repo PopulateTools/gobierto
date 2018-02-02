@@ -6,7 +6,7 @@
        type:     'website',
        url:      request.url,
        image:    {
-         _: @site.configuration.logo_with_fallback
+         _: current_site.configuration.logo_with_fallback
        }
      },
      twitter: {
@@ -15,7 +15,7 @@
        description: :description,
        title: :title,
        image: {
-         _: @site.configuration.logo_with_fallback
+         _: current_site.configuration.logo_with_fallback
        }
      } %>
 
@@ -36,6 +36,19 @@
       indexes: [<%= algolia_search_client.search_in_indexes.html_safe %>],
       filters: "site_id:<%= algolia_search_client.site.id %>"
     };
+    window.populateData = {
+      token: "<%= current_site.configuration.populate_data_api_token %>",
+      <% if current_site.place %>
+        municipalityId: "<%= current_site.place.id %>",
+        municipalityName: "<%= current_site.place.name %>",
+        provinceId: "<%= current_site.place.province.id %>",
+        provinceName: "<%= current_site.place.province.name %>",
+        ccaaId: "<%= current_site.place.province.autonomous_region.id %>",
+        ccaaName: "<%= current_site.place.province.autonomous_region.name %>",
+      <% end %>
+      year: <%= APP_CONFIG["gobierto_observatory"]["year"] %>,
+      endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"
+    }
   </script>
 
   <%= csrf_meta_tags %>

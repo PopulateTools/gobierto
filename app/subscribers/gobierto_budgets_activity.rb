@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 module Subscribers
-  class GobiertoBudgetsBudgetLineActivity < ::Subscribers::Base
+  class GobiertoBudgetsActivity < ::Subscribers::Base
 
     def budgets_updated(event)
       create_activity_from_event(event, "gobierto_budgets.budgets_updated")
+    end
+
+    def providers_updated(event)
+      create_activity_from_event(event, "gobierto_budgets.providers_updated")
     end
 
     private

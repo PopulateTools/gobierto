@@ -251,7 +251,7 @@ GEM
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
     memoist (0.16.0)
-    meta-tags (2.7.0)
+    meta-tags (2.7.1)
       actionpack (>= 3.2.0, < 5.3)
     metaclass (0.0.4)
     method_source (0.9.0)
@@ -314,7 +314,7 @@ GEM
     powerpack (0.1.1)
     public_suffix (3.0.1)
     puma (3.11.2)
-    rack (2.0.3)
+    rack (2.0.4)
     rack-protection (2.0.0)
       rack
     rack-test (0.8.2)

@@ -113,6 +113,17 @@
 
         </div>
 
+        <div class="option">
+          <%= f.check_box :providers_enabled %>
+          <%= f.label :providers_enabled do %>
+            <span></span>
+            <%= t('.providers') %>
+            <div class="inline_help">
+              <%= t('.providers_desc1') %>
+            </div>
+          <% end %>
+        </div>
+
       </div>
     </div>
   </div>

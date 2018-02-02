@@ -225,8 +225,6 @@ this.GobiertoPlans.PlansController = (function() {
 
       //close everything
       $(document).click(function (e) {
-        e.preventDefault();
-
         // if the target of the click isn't the container nor a descendant of the container REVIEW
         var container = $(".planification-content");
         if (!container.is(e.target) && container.has(e.target).length === 0) {

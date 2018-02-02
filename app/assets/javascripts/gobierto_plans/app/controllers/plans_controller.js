@@ -30,16 +30,20 @@ this.GobiertoPlans.PlansController = (function() {
         },
         methods: {
           open: function() {
-            // { ...this.model } conversion to ES5
-            var _extends =
-              Object.assign ||
-              function(a) {
-                for (var c, b = 1; b < arguments.length; b++)
-                  for (var d in ((c = arguments[b]), c))
-                    Object.prototype.hasOwnProperty.call(c, d) && (a[d] = c[d]);
-                return a;
-              },
-              model = _extends({}, (void 0).model);
+            // { ...this.model } conversion to ES2015
+            var _extends = Object.assign || function(target) {
+              for (var i = 1; i < arguments.length; i++) {
+                var source = arguments[i];
+                for (var key in source) {
+                  if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+              return target;
+            };
+
+            var model = _extends({}, model);
 
             // Trigger event
             this.$emit('selection', model);
@@ -71,16 +75,20 @@ this.GobiertoPlans.PlansController = (function() {
             var l = this.model.level;
 
             if (l === 1) {
-              // { ...this.model } conversion to ES5
-              var _extends =
-                Object.assign ||
-                function(a) {
-                  for (var c, b = 1; b < arguments.length; b++)
-                    for (var d in ((c = arguments[b]), c))
-                      Object.prototype.hasOwnProperty.call(c, d) && (a[d] = c[d]);
-                  return a;
-                },
-                model = _extends({}, (void 0).model);
+              // { ...this.model } conversion to ES2015
+              var _extends = Object.assign || function(target) {
+                for (var i = 1; i < arguments.length; i++) {
+                  var source = arguments[i];
+                  for (var key in source) {
+                    if (Object.prototype.hasOwnProperty.call(source, key)) {
+                      target[key] = source[key];
+                    }
+                  }
+                }
+                return target;
+              };
+
+              var model = _extends({}, model);
 
               this.$emit('selection', model);
 
@@ -106,19 +114,23 @@ this.GobiertoPlans.PlansController = (function() {
           return {}
         },
         methods: {
-          getProject: function(project) {
-            // { ...this.model } conversion to ES5
+          getProject: function(model) {
             var l = this.model.level;
 
-            var _extends =
-              Object.assign ||
-              function(a) {
-                for (var c, b = 1; b < arguments.length; b++)
-                  for (var d in ((c = arguments[b]), c))
-                    Object.prototype.hasOwnProperty.call(c, d) && (a[d] = c[d]);
-                return a;
-              },
-              project = _extends({}, (void 0).project);
+            // { ...this.model } conversion to ES2015
+            var _extends = Object.assign || function(target) {
+              for (var i = 1; i < arguments.length; i++) {
+                var source = arguments[i];
+                for (var key in source) {
+                  if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+              return target;
+            };
+
+            var project = _extends({}, model);
 
             this.$emit('selection', project);
 
@@ -154,13 +166,18 @@ this.GobiertoPlans.PlansController = (function() {
         computed: {
           detail: function() {
             if (!this.json.length) return {}
+
             var detail = {};
+            var data = this.json;
+
             detail = {
-              roots: this.json.length,
-              lines: _.flatten(_.map(this.json, 'children')).length,
-              actions: this.json.length,
-              projects: this.json.length
+              l0: data.length,
+              l1: _.sumBy(data, 'children_levels.level_1'),
+              l2: _.sumBy(data, 'children_levels.level_2'),
+              l3: _.sumBy(data, 'children_levels.level_3'),
+              progress: _.meanBy(data, 'children_progress')
             };
+
             return detail
           }
         },

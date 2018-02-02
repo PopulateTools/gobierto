@@ -20,14 +20,14 @@
 
         <div class="header-resume">
           <h3>Estado de ejecución global</h3>
-          <span>38%</span>
+          <span>{{ detail.progress | percent }}</span>
         </div>
 
         <div class="header-detail">
-          <div>{{ detail.roots }} ejes</div>
-          <div>{{ detail.lines }} líneas de actuación</div>
-          <div>{{ detail.actions }} actuaciones</div>
-          <div>{{ detail.projects }} proyectos</div>
+          <div>{{ detail.l0 }} ejes</div>
+          <div>{{ detail.l1 }} líneas de actuación</div>
+          <div>{{ detail.l2 }} actuaciones</div>
+          <div>{{ detail.l3 }} proyectos</div>
         </div>
 
       </div>

@@ -176,7 +176,8 @@ this.GobiertoPlans.PlansController = (function() {
             $.getJSON(window.location.href, function(json) {
               var data = json["plan_tree"];
 
-              // REVIEW: No se lleva bien las clases
+              // Show spinner
+              $(".js-toggle-overlay").removeClass('is-active');
 
               // Sort values by title
               // data = _.sortBy(data, function (o) {

@@ -47,7 +47,7 @@ module GobiertoPlans
       for i in 0..category.level
         index = categories.where(level: category.level).index(category)
         uid = index.to_s + uid
-        if category.parent_id.nil?
+        unless category.parent_id.nil?
           category = categories.where(id: category.parent_id).first
           uid = "." + uid
         end

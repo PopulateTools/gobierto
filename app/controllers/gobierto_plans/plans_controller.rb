@@ -81,7 +81,7 @@ module GobiertoPlans
                      []
                    end
 
-        category_node = category.nodes.first
+        category_nodes = category.nodes
 
         data = if category.level.zero?
                  { id: category.id,
@@ -92,18 +92,30 @@ module GobiertoPlans
                                  progress: children_progress(category),
                                  img: @plan.configuration_data["level0_options"].find { |option| option["slug"] == category.slug }["logo"] },
                    children: children }
-               elsif category_node.present?
+               elsif category_nodes.any?
+                 nodes = []
+
+                 category_nodes.each_with_index do |node, index|
+                   nodes.push(id: node.id,
+                              uid: uid(category) + "." + index.to_s,
+                              level: category.level + 1,
+                              attributes: { title: node.name_translations,
+                                            parent_id: category.id,
+                                            progress: node.progress,
+                                            starts_at: node.starts_at,
+                                            ends_at: node.ends_at,
+                                            status: node.status_translations,
+                                            options: node.options },
+                              children: [])
+                 end
+
                  { id: category.id,
                    uid: uid(category),
                    level: category.level,
                    attributes: { title: category.name_translations,
                                  parent_id: category.parent_id,
-                                 progress: category_node.progress,
-                                 starts_at: category_node.starts_at,
-                                 ends_at: category_node.ends_at,
-                                 status: category_node.status_translations,
-                                 options: category_node.options },
-                   children: children }
+                                 progress: category_nodes.sum(:progress)/category_nodes.size },
+                   children: nodes }
                else
                  { id: category.id,
                    uid: uid(category),

@@ -44,7 +44,7 @@ module GobiertoAdmin
 
                 within ".avatar_file_field" do
                   refute has_selector?("img")
-                  attach_file "person_avatar_file", "test/fixtures/files/gobierto_people/people/avatar.jpg"
+                  attach_file "person_avatar_image", "test/fixtures/files/gobierto_people/people/avatar.jpg"
                 end
               end
               click_on('Close (Esc)')

@@ -8,7 +8,7 @@ this.GobiertoAdmin.PersonController = (function() {
   };
 
   function _cropImage() {
-    $("#person_avatar_file").change(function () {
+    $("#person_avatar_image").change(function () {
       var $loaded_image = this;
 
       $.magnificPopup.open({

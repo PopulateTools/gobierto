@@ -42,7 +42,7 @@ module GobiertoAdmin
 
               within "form.edit_person" do
                 within ".avatar_file_field" do
-                  attach_file "person_avatar_file", "test/fixtures/files/gobierto_people/people/avatar.jpg"
+                  attach_file "person_avatar_image", "test/fixtures/files/gobierto_people/people/avatar.jpg"
                 end
               end
 

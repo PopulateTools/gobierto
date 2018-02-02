@@ -14,8 +14,10 @@ module GobiertoPlans
 
     def show
       @plan = find_plan
+      @node_number = GobiertoPlans::CategoriesNode.where(category_id: @plan.categories.pluck(:id)).pluck(:node_id).uniq.size
+
       @levels = @plan.categories.maximum("level")
-      plan_tree = plan_tree(@plan.categories.where(parent_id: 0))
+      plan_tree = plan_tree(@plan.categories.where(parent_id: nil))
 
       respond_to do |format|
         format.html
@@ -44,7 +46,7 @@ module GobiertoPlans
       for i in 0..category.level
         index = categories.where(level: category.level).index(category)
         uid = index.to_s + uid
-        if category.parent_id != 0
+        if category.parent_id != nil
           category = categories.where(id: category.parent_id).first
           uid = "." + uid
         end

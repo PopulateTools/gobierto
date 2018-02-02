@@ -4,11 +4,13 @@
     <div class="pure-g header_block_inline m_b_1">
       <div class="pure-u-1 pure-u-md-12-24">
         <h2 class="with_description">
-          <%= @plan.title %>
+          <%= t(".title") %>
         </h2>
         <p>
-          <%= @plan.description %>
+          <%= t(".description") %>
         </p>
+        <%= t(".latest_update", date: l(@plan.updated_at.to_date, format: :long)) %>
+
       </div>
 
       <div class="pure-u-1 pure-u-md-12-24 right">
@@ -21,7 +23,7 @@
       <div class="planification-header m_v_3" v-show="json.length">
 
         <div class="header-resume">
-          <h3>Estado de ejecución global</h3>
+          <h3><%= t(".global_execution") %></h3>
           <span>{{ detail.progress | percent }}</span>
         </div>
 
@@ -31,6 +33,9 @@
               <%= @plan.categories.where(level: i).size %> <%= @plan.configuration_data["level" + i.to_s] %>
             </div>
           <% end %>
+          <div>
+            <%= @node_number %> <%= @plan.configuration_data["level" + (@levels + 1).to_s] %>
+          </div>
         </div>
 
       </div>
@@ -45,8 +50,8 @@
 
         <section class="level_1" v-if="isOpen(1)" :class="['cat_' + color() ]">
           <div class="lines-header">
-            <div>{{ (activeNode.children || []).length }} lineas de actuación</div>
-            <div>% progress</div>
+            <div>{{ (activeNode.children || []).length }} <%= @plan.configuration_data["level" + (@levels - 1).to_s] %></div>
+            <div><%= t(".percentage_progress") %></div>
           </div>
 
           <ul class="lines-list">
@@ -73,7 +78,7 @@
                   <div><i class="fa fa-caret-down"></i></div>
                   <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
                 </div>
-                <div>{{ (activeNode.children || []).length }} actuaciones</div>
+                <div>{{ (activeNode.children || []).length }} <%= @plan.configuration_data["level" + @levels.to_s] %></div>
                 <div>{{ (activeNode.attributes || {}).percent || 0 | percent }}</div>
               </div>
 
@@ -130,19 +135,19 @@
                 </div>
                 <div class="project-mandatory">
                   <div class="row">
-                    <div class="mandatory-title">Progreso</div>
+                    <div class="mandatory-title"><%= t(".progress") %></div>
                     <div class="mandatory-desc mandatory-desc--large">{{ activeNode.attributes.progress | percent }}</div>
                   </div>
                   <div class="row">
-                    <div class="mandatory-title">Inicio</div>
+                    <div class="mandatory-title"><%= t(".starts") %></div>
                     <div class="mandatory-desc">{{ activeNode.attributes.starts_at | date }}</div>
                   </div>
                   <div class="row">
-                    <div class="mandatory-title">Fin</div>
+                    <div class="mandatory-title"><%= t(".ends") %></div>
                     <div class="mandatory-desc">{{ activeNode.attributes.ends_at | date }}</div>
                   </div>
                   <div class="row">
-                    <div class="mandatory-title">Estado</div>
+                    <div class="mandatory-title"><%= t(".status") %></div>
                     <div class="mandatory-desc">{{ activeNode.attributes.status | translate }}</div>
                   </div>
                 </div>
@@ -181,7 +186,7 @@
       <div><i class="fa" :class="[(isOpen) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
       <h3><a @click="setActive" data-turbolinks="false">{{ model.attributes.title | translate }}</a></h3>
     </div>
-    <div>{{ (model.children || []).length }} actuaciones</div>
+    <div>{{ (model.children || []).length }} <%= @plan.configuration_data["level" + @levels.to_s] %></div>
     <div>{{ model.attributes.percent || 0 | percent }}</div>
   </div>
 </script>
@@ -191,9 +196,9 @@
   <table>
     <thead>
       <th>Proyecto</th>
-      <th>Inicio</th>
-      <th>Estado</th>
-      <th>Progreso</th>
+      <th><%= t(".starts") %></th>
+      <th><%= t(".ends") %></th>
+      <th><%= t(".progress") %></th>
     </thead>
     <tbody>
       <tr v-for="row in model.children" @click="getProject(row)">

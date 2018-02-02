@@ -24,7 +24,7 @@
 
         <div class="header-resume">
           <h3><%= t(".global_execution") %></h3>
-          <span>{{ detail.progress | percent }}</span>
+          <span>{{ globalProgress | percent }}</span>
         </div>
 
         <div class="header-detail">
@@ -79,7 +79,7 @@
                   <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
                 </div>
                 <div>{{ (activeNode.children || []).length }} <%= @plan.configuration_data["level" + @levels.to_s] %></div>
-                <div>{{ (activeNode.attributes || {}).percent || 0 | percent }}</div>
+                <div>{{ (activeNode.attributes || {}).progress || 0 | percent }}</div>
               </div>
 
               <ul class="action-line--list">
@@ -187,7 +187,7 @@
       <h3><a @click="setActive" data-turbolinks="false">{{ model.attributes.title | translate }}</a></h3>
     </div>
     <div>{{ (model.children || []).length }} <%= @plan.configuration_data["level" + @levels.to_s] %></div>
-    <div>{{ model.attributes.percent || 0 | percent }}</div>
+    <div>{{ (model.attributes || {}).progress || 0 | percent }}</div>
   </div>
 </script>
 

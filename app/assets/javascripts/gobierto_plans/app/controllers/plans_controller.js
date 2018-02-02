@@ -10,7 +10,7 @@ this.GobiertoPlans.PlansController = (function() {
 
       // filters
       Vue.filter('translate', function (key) {
-        return key[I18n.locale] || key["es"] || key["en"] // fallback translations
+        return key[I18n.locale] || key["es"] || key["en"] || Object.values(key)[0] // fallback translations
       });
 
       Vue.filter('percent', function (value) {
@@ -164,27 +164,16 @@ this.GobiertoPlans.PlansController = (function() {
           }
         },
         computed: {
-          detail: function() {
-            if (!this.json.length) return {}
-
-            var detail = {};
-            var data = this.json;
-
-            detail = {
-              l0: data.length,
-              l1: _.sumBy(data, 'children_levels.level_1'),
-              l2: _.sumBy(data, 'children_levels.level_2'),
-              l3: _.sumBy(data, 'children_levels.level_3'),
-              progress: _.meanBy(data, 'children_progress')
-            };
-
-            return detail
+          globalProgress: function () {
+            return _.meanBy(this.json, 'attributes.progress')
           }
         },
         methods: {
           getJson: function() {
             $.getJSON(window.location.href, function(json) {
-              this.json = JSON.parse(json["plan_tree"]);
+              var data = JSON.parse(json["plan_tree"]);
+              // data = _.sortBy(data, 'attributes.title')
+              this.json = data;
             }.bind(this));
           },
           color: function() {

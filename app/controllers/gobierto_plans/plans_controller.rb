@@ -110,7 +110,7 @@ module GobiertoPlans
                    level: category.level,
                    attributes: { title: category.name_translations,
                                  parent_id: category.parent_id,
-                                 children_progress: children_progress(category) },
+                                 progress: children_progress(category) },
                    children: children }
                end
 

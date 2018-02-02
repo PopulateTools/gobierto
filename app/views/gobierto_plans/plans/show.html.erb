@@ -38,7 +38,7 @@
         </div>
 
         <div class="header-detail">
-          <% for i in 0..@levels %>
+          <% for i in 0..(@levels) %>
             <div>
               <%= @plan.categories.where(level: i).size %> <%= @plan.configuration_data["level" + i.to_s][I18n.locale.to_s] %>
             </div>

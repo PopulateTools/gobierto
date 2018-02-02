@@ -8,6 +8,6 @@ political_agendas:
   ends_at: <%= 3.month.from_now %>
   options: <%= { 'objetivos' => 'Improve pedestrian and vehicle safety',
                  'temporality' => 'annual' }.to_json %>
-  categories: basic_needs
+  categories: center_basic_needs
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00

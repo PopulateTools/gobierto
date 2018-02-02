@@ -47,13 +47,3 @@ center_basic_needs:
   level: 2
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
-
-basic_needs:
-  name_translations: <%= { 'en' => 'Cubrir las necesidades básicas de las familias a las familias',
-                           'es' => 'To cover the basic needs of families to families' }.to_json %>
-  parent_id: <%= ActiveRecord::FixtureSet.identify(:center_basic_needs) %>
-  plan: strategic_plan
-  slug: basic-needs
-  level: 3
-  created_at: 2016-11-01 00:02:00
-  updated_at: 2016-11-01 00:02:00

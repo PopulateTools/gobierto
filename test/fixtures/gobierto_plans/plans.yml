@@ -10,16 +10,13 @@ strategic_plan:
   updated_at: 2016-11-01 00:02:00
   plan_type: pam
   configuration_data: <%= {
-    "level0" => "eixos",
-    "level1" => "línies d'actuació",
-    "level2" => "actuacions",
-    "level3" => "projectes",
+    "level0" => {"ca"=>"projectes", "es"=>"proyectos", "en"=>"projects"},
+    "level1" => {"ca"=>"línies d'actuació", "es"=>"líneas de actuación", "en"=>"lines of action"},
+    "level2" => {"ca"=>"actuacions", "es"=>"actuaciones", "en"=>"actions"},
+    "level3" => {"ca"=>"projectes", "es"=>"proyectos", "en"=>"projects"},
     "level0_options" => [ { "slug" => "people-and-families",
-                            "colour" => "#FF0000",
                             "logo" => "http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png" },
                           { "slug" => "city",
-                            "colour" => "#00FF00",
                             "logo" => "http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png" },
                           { "slug" => "economy",
-                            "colour" => "#FFFF00",
                             "logo" => "http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png" }]}.to_yaml.inspect %>

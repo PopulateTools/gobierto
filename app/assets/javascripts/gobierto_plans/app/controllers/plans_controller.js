@@ -43,7 +43,7 @@ this.GobiertoPlans.PlansController = (function() {
               return target;
             };
 
-            var model = _extends({}, model);
+            var model = _extends({}, this.model);
 
             // Trigger event
             this.$emit('selection', model);
@@ -88,7 +88,7 @@ this.GobiertoPlans.PlansController = (function() {
                 return target;
               };
 
-              var model = _extends({}, model);
+              var model = _extends({}, this.model);
 
               this.$emit('selection', model);
 

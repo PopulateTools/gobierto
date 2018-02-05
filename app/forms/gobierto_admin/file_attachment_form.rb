@@ -34,8 +34,6 @@ module GobiertoAdmin
 
     trackable_on :file_attachment
 
-    notify_changed :name
-
     def initialize(attributes)
       attributes = attributes.to_h.with_indifferent_access
       super(attributes.except(:name, :archived_at))

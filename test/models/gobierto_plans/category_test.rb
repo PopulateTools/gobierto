@@ -5,7 +5,7 @@ require "test_helper"
 module GobiertoPlans
   class CategoryTest < ActiveSupport::TestCase
     def category
-      @category ||= gobierto_plans_categories(:basic_needs)
+      @category ||= gobierto_plans_categories(:center_basic_needs)
     end
 
     def test_valid

@@ -11,12 +11,19 @@ module GobiertoPlans
     belongs_to :parent_category, class_name: "GobiertoPlans::Category", foreign_key: :parent_id
     has_many :categories, foreign_key: :parent_id
 
-    acts_as_tree order: "id"
-
     translates :name
 
     def attributes_for_slug
       [name]
+    end
+
+    def descendants(children_array = [])
+      children = GobiertoPlans::Category.where(parent_id: id)
+      children_array += children.all
+      children.each do |child|
+        child.descendants(children_array)
+      end
+      children_array
     end
   end
 end

@@ -11,5 +11,6 @@ es:
           currency: Moneda
           date: Fecha
           text: Texto
+          url: URL
     models:
       gobierto_common/content_block_field: Campo

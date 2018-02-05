@@ -6,11 +6,6 @@ module GobiertoPeople
 
       attr_reader :person, :site, :configuration
 
-      SYNC_RANGE = {
-        start_date: DateTime.now - 2.days,
-        end_date:   DateTime.now + 1.year
-      }
-
       TARGET_CALENDAR_NAME = 'gobierto'
 
       def self.sync_person_events(person)
@@ -59,41 +54,52 @@ module GobiertoPeople
 
         log_missing_folder_error(TARGET_CALENDAR_NAME) and return if target_folder.nil?
 
-        target_folder.expanded_items(SYNC_RANGE)
+        # summarized events does not include events description
+        sumarized_events = target_folder.expanded_items(start_date: GobiertoCalendars.sync_range_start, end_date: GobiertoCalendars.sync_range_end)
+
+        if sumarized_events.present?
+          items_ids = sumarized_events.map { |i| i.id }
+          ::Exchanger::GetItem.run(item_ids: items_ids).items
+        else
+          nil
+        end
       end
 
-      def sync_event(item)
+      def sync_event(event)
         filter_result = GobiertoCalendars::FilteringRuleApplier.filter({
-          title: item.subject,
-          description: "" # TODO: https://github.com/PopulateTools/gobierto/issues/1127
+          title: event.subject,
+          description: event.body.text
         }, configuration.filtering_rules)
 
-        filter_result = GobiertoCalendars::FilteringRuleApplier::REMOVE if is_private?(item)
+        filter_result.action = GobiertoCalendars::FilteringRuleApplier::REMOVE if is_private?(event)
 
-        state = filter_result == GobiertoCalendars::FilteringRuleApplier::CREATE_PENDING ?
+        state = (filter_result.action == GobiertoCalendars::FilteringRuleApplier::CREATE_PENDING) ?
           GobiertoCalendars::Event.states[:pending] :
           GobiertoCalendars::Event.states[:published]
 
         event_params = {
-          starts_at: item.start,
-          ends_at: item.end,
+          starts_at: event.start,
+          ends_at: event.end,
           state: state,
-          external_id: item.id,
-          title: item.subject,
+          external_id: event.id,
+          title: filter_result.event_attributes[:title],
+          description: filter_result.event_attributes[:description],
           site_id: site.id,
           person_id: person.id
         }
 
-        if item.location.present?
-          event_params.merge!(locations_attributes: { "0" => { name: item.location } })
+        if event.location.present?
+          event_params.merge!(locations_attributes: { "0" => { name: event.location } })
         else
           event_params.merge!(locations_attributes: { "0" => { "_destroy" => "1" } })
         end
 
-        if filter_result == GobiertoCalendars::FilteringRuleApplier::REMOVE
+        if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
           GobiertoPeople::PersonEventForm.new(event_params).destroy
         else
-          GobiertoPeople::PersonEventForm.new(event_params).save
+          unless GobiertoPeople::PersonEventForm.new(event_params).save
+            Rails.logger.info "[Microsoft Exchange Integration] Invalid event: #{event_params}"
+          end
         end
       end
 
@@ -105,7 +111,7 @@ module GobiertoPeople
         if calendar_items && calendar_items.any?
           received_external_ids = calendar_items.map(&:id)
           person.events
-                .where(starts_at: SYNC_RANGE[:start_date]..SYNC_RANGE[:end_date])
+                .where(starts_at: GobiertoCalendars.sync_range)
                 .where.not(external_id: nil)
                 .where.not(external_id: received_external_ids)
                 .update_all(state: GobiertoCalendars::Event.states[:pending])

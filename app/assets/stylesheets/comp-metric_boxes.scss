@@ -14,6 +14,10 @@
       padding: .8em 1em;
       min-height: 100px;
       position: relative;
+
+      &.nomargin {
+        margin: 0
+      }
     }
 
     h3 {
@@ -26,6 +30,17 @@
     .metric {
       font-size: 2em;
       font-weight: 600;
+
+      small {
+        display: block;
+        margin: 13px 0;
+        font-weight: initial;
+        font-size: 24px;
+      }
+
+      span.small {
+        font-weight: initial;
+      }
     }
     .explanation {
       font-size: .75em;
@@ -35,6 +50,12 @@
       bottom: .8em;
       @include screen(768) {
         display: none;
+      }
+
+      &.explanation--relative {
+        position: relative;
+        bottom: auto;
+        font-size: .875em;
       }
     }
     span.not_av {
@@ -75,6 +96,18 @@
         position: absolute;
       }
     }
+    .metric_details {
+      margin: 41.2px 0 0;
+
+      &.flex {
+        display: flex;
+
+        label {
+          margin-right: 24px;
+          font-size: 0.875em;
+        }
+      }
+    }
   }
   .metric_box:first-child {
     .inner {
@@ -99,6 +132,14 @@
         }
         th, td {
           padding: .25em 0;
+        }
+        &.flex {
+          display: flex;
+
+          label {
+            margin-right: 24px;
+            font-size: 0.875em;
+          }
         }
       }
     }

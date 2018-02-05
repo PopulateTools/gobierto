@@ -36,18 +36,31 @@ module GobiertoPeople
 
       def setup_mocks_for_synchronization(canned_responses)
         # mock event items
-        mock_event_items = []
+        mock_summarized_event_items = []
+        mock_complete_event_items = []
 
         canned_responses.each do |canned_response|
-          event_item = mock
-          event_item.stubs(canned_response)
-          mock_event_items << event_item
+          sumarized_event_item = mock
+          sumarized_event_item.stubs(canned_response.except(:body))
+
+          complete_event_item = mock
+          event_body = mock
+          event_body.stubs(text: canned_response[:body])
+          complete_event_item.stubs(canned_response.merge(body: event_body))
+
+          mock_summarized_event_items << sumarized_event_item
+          mock_complete_event_items << complete_event_item
         end
 
         # mock target folder
         target_folder = mock
-        target_folder.stubs(:expanded_items).returns(mock_event_items)
+        target_folder.stubs(:expanded_items).returns(mock_summarized_event_items)
         target_folder.stubs(:display_name).returns(CalendarIntegration::TARGET_CALENDAR_NAME)
+
+        # mock get events with description
+        fake_collection = mock
+        Exchanger::GetItem.stubs(:run).returns(fake_collection)
+        fake_collection.stubs(:items).returns(mock_complete_event_items)
 
         # mock root folder
         root_folder = mock
@@ -70,6 +83,7 @@ module GobiertoPeople
           end: 2.hours.from_now,
           id: 'external-id-1',
           subject: 'Event 1',
+          body: 'Event 1 long description',
           sensitivity: 'Normal',
           location: 'Location 1'
         }
@@ -94,6 +108,7 @@ module GobiertoPeople
         event_2 = {
           id: 'external-id-2',
           subject: 'Event 2',
+          body: nil,
           sensitivity: 'Private',
           start: 1.hour.from_now,
           end: 2.hours.from_now,
@@ -110,6 +125,7 @@ module GobiertoPeople
 
         event = richard.events.find_by(external_id: 'external-id-1')
         assert_equal 'Event 1', event.title
+        assert_equal 'Event 1 long description', event.description
         assert_equal 1, event.locations.size
         assert_equal 'Location 1', event.first_location.name
       end
@@ -122,6 +138,7 @@ module GobiertoPeople
 
         event_1 = event_attributes.merge(
           subject: 'Updated event',
+          body: 'Updated description',
           location: 'Updated location'
         )
 
@@ -133,6 +150,7 @@ module GobiertoPeople
         event = richard.events.find_by(external_id: 'external-id-1')
 
         assert_equal 'Updated event', event.title
+        assert_equal 'Updated description', event.description
         assert_equal 'Updated location', event.first_location.name
         assert_equal 1, event.locations.size
       end
@@ -213,22 +231,19 @@ module GobiertoPeople
         filtering_rule.condition = :not_contains
         filtering_rule.action = :ignore
         filtering_rule.value = "@"
+        filtering_rule.remove_filtering_text = true
         filtering_rule.save!
 
-        event_1 = {
-          start: 1.hour.from_now,
-          end: 2.hours.from_now,
-          id: 'external-id-1',
-          subject: '@ Event 1',
-          sensitivity: 'Normal',
-          location: 'Location 1'
-        }
+        event_1 = event_attributes.merge(
+          subject: '@ Event 1'
+        )
 
         event_2 = {
           start: 1.hour.from_now,
           end: 2.hours.from_now,
           id: 'external-id-2',
           subject: 'Event 2',
+          body: nil,
           sensitivity: 'Normal',
           location: 'Location 2'
         }
@@ -241,7 +256,8 @@ module GobiertoPeople
 
         # event 1 checks
         event = richard.events.find_by(external_id: 'external-id-1')
-        assert_equal '@ Event 1', event.title
+        assert_equal 'Event 1', event.title
+        assert_equal 'Event 1 long description', event.description
         assert_equal 1, event.locations.size
         assert_equal 'Location 1', event.first_location.name
       end

@@ -48,52 +48,52 @@
         <table class="med_bg dynamic-content-wrapper" id="filtering-rules">
           <%= f.fields_for :filtering_rules do |filtering_rule_form| %>
             <tbody class="dynamic-content-record-wrapper content-block-record-<%= filtering_rule_form.object.id || "new" %>">
-              <tr class="dynamic-content-record-form">
+              <tr class="dynamic-content-record-form" style="vertical-align:middle">
+                <td width="7%">
+                  <%= t('.filter_events_label') %>
+                </td>
                 <td>
-                  <div class="inline p_0_5">Si el</div>
-                  <div class="select_control select_compact inline">
+                  <div class="select_control select_compact">
                     <%= filtering_rule_form.select :field, options_for_enum(filtering_rule_form.object, :field), prompt: true %>
                   </div>
                 </td>
                 <td>
-                  <div class="p_0_5">
-                    <div class="select_control select_compact ">
-                      <%= filtering_rule_form.select :condition, options_for_enum(filtering_rule_form.object, :condition), prompt: true %>
-                    </div>
+                  <div class="select_control select_compact">
+                    <%= filtering_rule_form.select :condition, options_for_enum(filtering_rule_form.object, :condition), prompt: true %>
                   </div>
                 </td>
                 <td>
-                  <div class="p_0_5">
-                    <%= filtering_rule_form.text_field :value, class: "slim" %>
+                  <div class="select_control select_compact">
+                    <%= filtering_rule_form.text_field :value, placeholder: t('.placeholders.filter_text') %>
                   </div>
                 </td>
                 <td>
-                  <div class="p_0_5">
-                    <div class="select_control select_compact">
-                      <%= filtering_rule_form.select :action, options_for_enum(filtering_rule_form.object, :action), prompt: true %>
-                    </div>
+                  <div class="select_control select_compact">
+                    <%= filtering_rule_form.select :action, options_for_enum(filtering_rule_form.object, :action), prompt: true %>
                   </div>
                 </td>
+                <td width="25%">
+                  <%= filtering_rule_form.check_box :remove_filtering_text %>
+                  <%= filtering_rule_form.label :remove_filtering_text do %>
+                    <span></span>
+                    <%= filtering_rule_form.object.class.human_attribute_name(:remove_filtering_text) %>
+                  <% end %>
+                </td>
                 <td>
-                  <div class="p_0_5">
-                    <%= filtering_rule_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
-
-                    <%= link_to "#", data: { behavior: "delete_record" } do %>
-                      <i class="fa fa-trash"></i>
-                    <% end %>
-                  </div>
+                  <%= filtering_rule_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
+                  <%= link_to "#", data: { behavior: "delete_record" } do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
                 </td>
               </tr>
             </tbody>
           <% end %>
 
           <tr>
-            <td colspan="5">
-              <div class="p_1">
-                <%= link_to "#", data: { behavior: "add_child" } do %>
-                  <%== %Q{<i class="fa fa-plus-circle"></i> #{t('.add_rule')}} %>
-                <% end %>
-              </div>
+            <td colspan="7" class="p_1">
+              <%= link_to "#", data: { behavior: "add_child" } do %>
+                <%== %Q{<i class="fa fa-plus-circle"></i> #{t('.add_rule')}} %>
+              <% end %>
             </td>
           </tr>
         </table>

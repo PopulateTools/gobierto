@@ -37,7 +37,8 @@ module GobiertoAdmin
       :populate_data_api_token,
       :home_page,
       :home_page_item_id,
-      :raw_configuration_variables
+      :raw_configuration_variables,
+      :auth_modules
     )
 
     attr_reader :logo_url
@@ -57,7 +58,10 @@ module GobiertoAdmin
     validates :home_page, presence: true
 
     def save
-      save_site if valid?
+      if valid? && save_site
+        after_save_callback
+        return site
+      end
     end
 
     def site
@@ -66,6 +70,17 @@ module GobiertoAdmin
 
     def site_modules
       @site_modules ||= site.configuration.modules
+    end
+
+    def auth_modules
+      @auth_modules = if @auth_modules
+                        @auth_modules & AUTH_MODULES.select do |auth_module|
+                          domains = auth_module.domains
+                          !domains || domains.include?(site.domain)
+                        end.map(&:name)
+                      else
+                        site.configuration.auth_modules
+                      end
     end
 
     def head_markup
@@ -173,7 +188,10 @@ module GobiertoAdmin
         site_attributes.configuration.privacy_page_id = privacy_page_id
         site_attributes.configuration.populate_data_api_token = populate_data_api_token
         site_attributes.configuration.raw_configuration_variables = raw_configuration_variables
+        site_attributes.configuration.auth_modules = auth_modules
       end
+
+      @municipality_id_changed = @site.municipality_id_changed?
 
       if @site.valid?
         @site.save
@@ -188,7 +206,15 @@ module GobiertoAdmin
       visibility_level == "draft"
     end
 
+    def municipality_id_changed?
+      @municipality_id_changed
+    end
+
     protected
+
+    def after_save_callback
+      ::GobiertoBudgets::GenerateAnnualLinesJob.perform_later(@site) if municipality_id_changed?
+    end
 
     def promote_errors(errors_hash)
       errors_hash.each do |attribute, message|

@@ -27,7 +27,7 @@ class User::RegistrationForm
   def save_user
     @user = user.tap do |user_attributes|
       user_attributes.email = email
-      user_attributes.source_site = site
+      user_attributes.site = site
       user_attributes.creation_ip = creation_ip
       user_attributes.referrer_entity = referrer_entity
       user_attributes.referrer_url = referrer_url

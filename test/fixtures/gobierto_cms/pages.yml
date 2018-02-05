@@ -12,6 +12,7 @@ privacy:
   slug: 'privacy'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
+  collection: site_pages
 
 cookies:
   title_translations: <%= {'en' => 'Cookies' }.to_json %>
@@ -74,3 +75,11 @@ about_participation:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: site_pages
+
+generic_site_page:
+  title_translations: <%= {'en' => 'Generic page' }.to_json %>
+  body_translations: <%= {'en' => 'Generic page' }.to_json %>
+  slug: 'generic-page'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+

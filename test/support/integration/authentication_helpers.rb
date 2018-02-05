@@ -9,9 +9,11 @@ module Integration
     end
 
     def with_signed_in_user(user)
-      sign_in_user(user)
-      yield
-      sign_out_user
+      with_current_site(user.site) do
+        sign_in_user(user)
+        yield
+        sign_out_user
+      end
     end
 
     private

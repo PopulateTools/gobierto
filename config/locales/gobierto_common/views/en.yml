@@ -6,6 +6,7 @@ en:
         attachment: Attachment
         download: Download
         download_attachment: Download attachment
+        view_content: View content
     events:
       gobierto_common_collection_created: Collection created
       gobierto_common_collection_updated: Collection updated

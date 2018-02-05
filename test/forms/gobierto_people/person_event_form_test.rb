@@ -1,11 +1,36 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/event_helpers"
 
 module GobiertoPeople
   class PersonEventFormTest < ActiveSupport::TestCase
-    def valid_event_form
-      @valid_event_form ||= PersonEventForm.new(
+
+    include ::EventHelpers
+
+    def site
+      @site ||= sites(:madrid)
+    end
+
+    def event
+      @event ||= gobierto_calendars_events(:richard_published)
+    end
+
+    def richard
+      @richard ||= gobierto_people_people(:richard)
+    end
+    alias person richard
+
+    def tamara
+      @tamara ||= gobierto_people_people(:tamara)
+    end
+
+    def nelson
+      @nelson ||= gobierto_people_people(:nelson)
+    end
+
+    def event_attributes
+      @event_attributes ||= {
         external_id: "123",
         site_id: site.id,
         person_id: person.id,
@@ -16,29 +41,17 @@ module GobiertoPeople
         state: event.state,
         locations: [],
         attendees: []
-      )
+      }
     end
 
-    def invalid_recurring_event_form
-      @valid_event_form ||= PersonEventForm.new(
-        external_id: "123",
-        site_id: site.id,
-        person_id: person.id,
-        title: event.title,
-        description: event.description,
-        starts_at: 4.months.from_now,
-        ends_at: 4.months.from_now,
-        state: event.state,
-        locations: [],
-        attendees: [],
-        recurring: true
-      )
+    def valid_event_form
+      @valid_event_form ||= PersonEventForm.new(event_attributes)
     end
 
     def invalid_event_form
       @invalid_event_form ||= PersonEventForm.new(
         external_id: nil,
-        site_id: nil,
+        site_id: site.id,
         person_id: nil,
         title: nil,
         description: nil,
@@ -50,18 +63,6 @@ module GobiertoPeople
       )
     end
 
-    def site
-      @site ||= sites(:madrid)
-    end
-
-    def event
-      @event ||= gobierto_calendars_events(:richard_published)
-    end
-
-    def person
-      @person ||= gobierto_people_people(:richard)
-    end
-
     def test_save_with_valid_attributes
       assert valid_event_form.save
     end
@@ -70,16 +71,20 @@ module GobiertoPeople
       invalid_event_form.save
 
       assert_equal 1, invalid_event_form.errors.messages[:collection].size
-      assert_equal 1, invalid_event_form.errors.messages[:site].size
       assert_equal 1, invalid_event_form.errors.messages[:external_id].size
       assert_equal 1, invalid_event_form.errors.messages[:title].size
       assert_equal 1, invalid_event_form.errors.messages[:ends_at].size
     end
 
-    def test_error_messages_with_invalid_recurring_event
-      invalid_recurring_event_form.save
+    def test_save_event_out_of_sync_range
+      very_future_date = ::GobiertoCalendars.sync_range_end + 1.day
+      very_old_date    = ::GobiertoCalendars.sync_range_start - 1.day
 
-      assert_equal 1, invalid_recurring_event_form.errors.messages[:starts_at].size
+      very_future_event = PersonEventForm.new(event_attributes.merge(starts_at: very_future_date))
+      very_old_event    = PersonEventForm.new(event_attributes.merge(starts_at: very_old_date))
+
+      refute very_future_event.save
+      refute very_old_event.save
     end
 
     def test_destroy
@@ -89,5 +94,21 @@ module GobiertoPeople
         valid_event_form.destroy
       end
     end
+
+    def test_scopes_event_search_on_person_when_external_id_collides
+      event_1 = create_event(person: richard, title: 'Richard event', external_id: '123')
+      event_2 = create_event(person: tamara,  title: 'Tamara event',  external_id: '123')
+      event_3 = create_event(person: nelson,  title: 'Nelson event',  external_id: '123')
+
+      # permutate order of all three events so test never passes by accident
+      event_3_form = PersonEventForm.new(site_id: site.id, person_id: nelson.id,  external_id: '123')
+      event_1_form = PersonEventForm.new(site_id: site.id, person_id: richard.id, external_id: '123')
+      event_2_form = PersonEventForm.new(site_id: site.id, person_id: tamara.id,  external_id: '123')
+
+      assert_equal 'Richard event', event_1_form.person_event.title
+      assert_equal 'Tamara event',  event_2_form.person_event.title
+      assert_equal 'Nelson event',  event_3_form.person_event.title
+    end
+
   end
 end

@@ -28,6 +28,7 @@ module GobiertoParticipation
 
     scope :sorted, -> { order(position: :asc, id: :asc) }
     scope :active, -> { where(active: true) }
+    # information and results stages are only visible if they also have an associated page
     scope :published, -> { where("gpart_process_stages.visibility_level=1 AND
                                   (gpart_process_stages.stage_type NOT IN (0,6) OR
                                   (gpart_process_stages.stage_type IN (0,6) AND

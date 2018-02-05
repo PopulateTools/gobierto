@@ -28,7 +28,7 @@ module GobiertoParticipation
     end
 
     def find_participation_news
-      ::GobiertoCms::Page.pages_in_collections_and_container_type(current_site, "GobiertoParticipation").active.sorted.limit(5)
+      ::GobiertoCms::Page.news_in_collections_and_container_type(current_site, "GobiertoParticipation").active.sorted.limit(5)
     end
 
     def find_participation_activities

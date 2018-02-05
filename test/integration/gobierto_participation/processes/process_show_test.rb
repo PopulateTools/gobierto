@@ -132,20 +132,36 @@ module GobiertoParticipation
 
     def test_subscription_block
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit process_path(gender_violence_process)
-            within ".slim_nav_bar" do
-              assert has_link? "Follow process"
-            end
-
-            click_on "Follow process"
-            assert has_link? "Process followed!"
-
-            click_on "Process followed!"
+        with_signed_in_user(user) do
+          visit process_path(gender_violence_process)
+          within ".slim_nav_bar" do
             assert has_link? "Follow process"
           end
+
+          click_on "Follow process"
+          assert has_link? "Process followed!"
+
+          click_on "Process followed!"
+          assert has_link? "Follow process"
         end
+      end
+    end
+
+    def test_site_subscription
+      with_signed_in_user(user) do
+
+        visit process_path(gender_violence_process)
+        within ".slim_nav_bar" do
+          assert has_link? "Follow process"
+        end
+
+        within 'footer' do
+          click_on "Subscribe"
+        end
+
+        assert has_content? "Process followed!"
+        assert has_link? "Manage your alerts"
+
       end
     end
 

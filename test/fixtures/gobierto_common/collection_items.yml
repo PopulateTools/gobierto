@@ -12,7 +12,7 @@ collection_item_attachment:
 consultation_faq_on_site:
   collection: site_pages
   item: consultation_faq
-  item_type: 'GobiertoCms::News'
+  item_type: 'GobiertoCms::Page'
   container: madrid (Site)
 
 collection_item_themes:

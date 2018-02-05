@@ -10,6 +10,7 @@ module GobiertoBudgets
     def import!
       calculate_totals
       calculate_bubbles
+      calculate_annual_data
       reset_cache
       publish_event
     end
@@ -26,6 +27,10 @@ module GobiertoBudgets
       GobiertoBudgets::Data::Bubbles.dump(site.place)
     end
 
+    def calculate_annual_data
+      GobiertoBudgets::Data::Annual.new(site: site, year: year).generate_files
+    end
+
     def reset_cache
       Rails.cache.clear
     end
@@ -33,7 +38,7 @@ module GobiertoBudgets
     def publish_event
       action = 'budgets_updated'
 
-      Publishers::GobiertoBudgetsBudgetLineActivity.broadcast_event(action, {
+      Publishers::GobiertoBudgetsActivity.broadcast_event(action, {
         action: action,
         site_id: site.id
       })

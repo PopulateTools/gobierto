@@ -107,7 +107,7 @@ module GobiertoAdmin
             end
 
             assert has_content?("My file_attachment")
-            refute has_content?(attachment.name)
+            assert has_no_content?(attachment.name)
           end
         end
       end

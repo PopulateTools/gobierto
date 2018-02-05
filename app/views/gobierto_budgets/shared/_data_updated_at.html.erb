@@ -1,5 +1,5 @@
 <p>
   <% if @budgets_data_updated_at %>
-    <strong><%= t('.last_update') %></strong>: <%= l(@budgets_data_updated_at, format: '%d %B %Y') %>.
+    <strong><%= t('.last_update') %></strong>: <%= l(@budgets_data_updated_at, format: '%d %B %Y').downcase %>.
   <% end %>
 </p>

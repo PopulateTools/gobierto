@@ -4,6 +4,19 @@ data:
   read:
     - config/locales/**/%{locale}.yml
     - config/locales/**/*/%{locale}.yml
+    - vendor/auth_strategies/**/config/locales/**/%{locale}.yml
+    - vendor/auth_strategies/**/config/locales/**/*/%{locale}.yml
+search:
+  paths:
+    - app/
+    - vendor/auth_strategies/
+  relative_roots:
+    - app/controllers
+    - app/helpers
+    - app/mailers
+    - app/presenters
+    - app/views
+    - vendor/auth_strategies/null_strategy/app/views
 ignore_missing:
   - 'gobierto_budgets.visualizations.*'
   - 'layouts.sandbox.*'
@@ -12,6 +25,7 @@ ignore_missing:
   - 'gobierto_observatory.cards.*'
   - 'gobierto_budgets.budgets.index_old.*'
   - 'gobierto_budgets.budgets.guide.*'
+  - 'gobierto_budgets.invoices.show.table.fields.*'
 
 ignore_unused:
   - 'number.*'
@@ -33,6 +47,7 @@ ignore_unused:
   - 'gobierto_budgets.visualizations.I_custom'
   - 'gobierto_budgets.budgets.index.*'
   - 'gobierto_budgets.budgets_execution.*'
+  - 'gobierto_budgets.invoices.show.table.fields.*'
   - 'gobierto_people.activities.gobierto_people_person*'
   - 'invisible_captcha.*'
   - '*.events.*'

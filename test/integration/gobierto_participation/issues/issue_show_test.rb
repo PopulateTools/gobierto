@@ -125,20 +125,18 @@ module GobiertoParticipation
 
     def test_subscription_block
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit @path
+        with_signed_in_user(user) do
+          visit @path
 
-            within ".slim_nav_bar" do
-              assert has_link? "Follow theme"
-            end
-
-            click_on "Follow theme"
-            assert has_link? "Theme followed!"
-
-            click_on "Theme followed!"
+          within ".slim_nav_bar" do
             assert has_link? "Follow theme"
           end
+
+          click_on "Follow theme"
+          assert has_link? "Theme followed!"
+
+          click_on "Theme followed!"
+          assert has_link? "Follow theme"
         end
       end
     end

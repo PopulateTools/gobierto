@@ -24,11 +24,18 @@ class ApplicationController < ActionController::Base
   end
 
   def current_site
-    @current_site ||= if request.env['gobierto_site'].present?
-                        request.env['gobierto_site']
-                      else
-                        Site.first if Rails.env.test?
-                      end
+    @current_site ||= begin
+      site = if request.env['gobierto_site'].present?
+        request.env['gobierto_site']
+      else
+        Site.first if Rails.env.test?
+      end
+      ::GobiertoCore::CurrentScope.current_site = site
+      Rails.logger.info "====================================================="
+      Rails.logger.info ::GobiertoCore::CurrentScope.current_site.try(:domain)
+      Rails.logger.info "====================================================="
+      site
+    end
   end
 
   private
@@ -105,7 +112,9 @@ class ApplicationController < ActionController::Base
   end
 
   def page_preview_url(page, options = {})
-    options.merge!(preview_token: current_admin.preview_token) unless page.active?
+    if page.draft? || (page.process && page.process.draft?)
+      options.merge!(preview_token: current_admin.preview_token)
+    end
     page.to_url(options)
   end
 end

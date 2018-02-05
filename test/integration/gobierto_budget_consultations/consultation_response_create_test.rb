@@ -32,8 +32,8 @@ module GobiertoBudgetConsultations
       @user ||= users(:peter)
     end
 
-    def unverified_user
-      @unverified_user ||= users(:susan)
+    def site_unverified_user
+      @site_unverified_user ||= users(:janet)
     end
 
     def test_consultation_response_creation_when_not_signed_in
@@ -45,103 +45,93 @@ module GobiertoBudgetConsultations
     end
 
     def test_consultation_response_creation_when_user_is_not_verified
-      with_current_site(site) do
-        with_signed_in_user(unverified_user) do
-          # Force referer detection
-          Capybara.current_session.driver.header "Referer", @path
-          visit @path
+      with_signed_in_user(site_unverified_user) do
+        # Force referer detection
+        Capybara.current_session.driver.header "Referer", @path
+        visit @path
 
-          assert has_content?("The process in which you want to participate requires to verify your register in")
+        assert has_content?("The process in which you want to participate requires to verify your register in")
 
-          assert has_content?("Confirm your identity")
+        assert has_content?("Confirm your identity")
 
-          fill_in :user_verification_document_number, with: "00000000D"
+        fill_in :user_verification_document_number, with: "00000000D"
 
-          select "1993", from: :user_verification_date_of_birth_1i
-          select "January", from: :user_verification_date_of_birth_2i
-          select "1", from: :user_verification_date_of_birth_3i
+        select "1993", from: :user_verification_date_of_birth_1i
+        select "January", from: :user_verification_date_of_birth_2i
+        select "1", from: :user_verification_date_of_birth_3i
 
-          click_on "Verify"
+        click_on "Verify"
 
-          assert has_content?("Your identity has been verified successfully")
+        assert has_content?("Your identity has been verified successfully")
 
-          assert_equal @path, page.current_path
-        end
+        assert_equal @path, page.current_path
       end
     end
 
     def test_consultation_response_creation_when_consultation_is_closed
-      with_current_site(site) do
-        with_signed_in_user(user) do
-          visit @closed_path
+      with_signed_in_user(user) do
+        visit @closed_path
 
-          assert has_content?("This consultation doesn't allow participations.")
-        end
+        assert has_content?("This consultation doesn't allow participations.")
       end
     end
 
     def test_consultation_response_creation_workflow
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit @path
+        with_signed_in_user(user) do
+          visit @path
 
-            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
-            page.find("button", text: "Reduce").trigger("click")
-            assert_equal "Surplus", page.all(".budget-figure").last.text
-            sleep 2
-            page.find("button", text: "Increase").trigger("click")
-            assert_equal "Balanced", page.all(".budget-figure").last.text
+          page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
+          page.find("button", text: "Reduce").trigger("click")
+          assert_equal "Surplus", page.all(".budget-figure").last.text
+          sleep 2
+          page.find("button", text: "Increase").trigger("click")
+          assert_equal "Balanced", page.all(".budget-figure").last.text
 
-            assert page.find("a.budget-next i")["class"].include?("fa-check")
-            page.find("a.budget-next").trigger("click")
+          assert page.find("a.budget-next i")["class"].include?("fa-check")
+          page.find("a.budget-next").trigger("click")
 
-            assert has_content?("Thanks for your response")
-          end
+          assert has_content?("Thanks for your response")
         end
       end
     end
 
     def test_consultation_response_creation_workflow_deficit_and_balance_required
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit @path
+        with_signed_in_user(user) do
+          visit @path
 
-            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
-            page.find("button", text: "Increase").trigger("click")
-            assert_equal "Deficit", page.all(".budget-figure").last.text
-            sleep 2
-            page.find("button", text: "Increase").trigger("click")
-            assert_equal "Deficit", page.all(".budget-figure").last.text
+          page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
+          page.find("button", text: "Increase").trigger("click")
+          assert_equal "Deficit", page.all(".budget-figure").last.text
+          sleep 2
+          page.find("button", text: "Increase").trigger("click")
+          assert_equal "Deficit", page.all(".budget-figure").last.text
 
-            assert page.find("a.budget-next i")["class"].include?("fa-times")
-            page.find("a.budget-next").trigger("click")
+          assert page.find("a.budget-next i")["class"].include?("fa-times")
+          page.find("a.budget-next").trigger("click")
 
-            refute has_content?("Estupendo, muchas gracias por tu aportación")
-          end
+          assert has_no_content?("Estupendo, muchas gracias por tu aportación")
         end
       end
     end
 
     def test_consultation_response_creation_workflow_deficit_and_balance_not_required
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit gobierto_budget_consultations_consultation_new_response_path(consultation_not_requiring_balance)
+        with_signed_in_user(user) do
+          visit gobierto_budget_consultations_consultation_new_response_path(consultation_not_requiring_balance)
 
-            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
-            page.find("button", text: "Increase").trigger("click")
-            assert_equal "Deficit", page.all(".budget-figure").last.text
-            sleep 2
-            page.find("button", text: "Increase").trigger("click")
-            assert_equal "Deficit", page.all(".budget-figure").last.text
-            sleep 2
-            assert page.find("a.budget-next i")["class"].include?("fa-check")
-            page.find("a.budget-next").trigger("click")
+          page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
+          page.find("button", text: "Increase").trigger("click")
+          assert_equal "Deficit", page.all(".budget-figure").last.text
+          sleep 2
+          page.find("button", text: "Increase").trigger("click")
+          assert_equal "Deficit", page.all(".budget-figure").last.text
+          sleep 2
+          assert page.find("a.budget-next i")["class"].include?("fa-check")
+          page.find("a.budget-next").trigger("click")
 
-            assert has_content?("Thanks for your response")
-          end
+          assert has_content?("Thanks for your response")
         end
       end
     end

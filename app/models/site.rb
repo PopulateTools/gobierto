@@ -20,6 +20,7 @@ class Site < ApplicationRecord
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
   has_many :notifications, dependent: :destroy, class_name: "User::Notification"
+  has_many :users, dependent: :nullify
 
   # GobiertoBudgets integration
   has_many :custom_budget_lines_categories, dependent: :destroy, class_name: "GobiertoBudgets::Category"
@@ -42,6 +43,9 @@ class Site < ApplicationRecord
 
   # Gobierto Core integration
   has_many :site_templates, dependent: :destroy, class_name: "GobiertoCore::SiteTemplate"
+
+  # Gobierto Indicators
+  has_many :indicators, dependent: :destroy, class_name: "GobiertoIndicators::Indicator"
 
   # Gobierto Attachments integration
   has_many :attachments, dependent: :destroy, class_name: "GobiertoAttachments::Attachment"

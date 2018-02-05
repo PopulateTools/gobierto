@@ -91,8 +91,6 @@ es:
           no_posts: Todavía no se ha publicado ningún post.
           title: El blog de %{person_name}, %{person_charge}
         show:
-          subscribable_box:
-            title: Recibe actualizaciones
           title: El blog de %{person_name}, %{person_charge}
       person_statements:
         index:
@@ -101,8 +99,6 @@ es:
           title: Bienes y Actividades de %{person_name}
         show:
           download: Descargar declaración (%{file_size})
-          subscribable_box:
-            title: Recibe actualizaciones
           title: Bienes y Actividades de %{person_name}
           view_previous: Ver anteriores
       show:
@@ -147,8 +143,6 @@ es:
       show:
         filtering_by_tag: Filtrando por "%{tag}"
         go_back: Volver
-        subscribable_box:
-          title: Recibe alertas en tu correo-e
     person_posts:
       index:
         subscribable_box:

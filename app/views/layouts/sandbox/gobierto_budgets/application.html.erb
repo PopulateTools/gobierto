@@ -1,4 +1,7 @@
+
 <% content_for :javascript_include do %>
+  <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
+
   <script type="text/javascript">
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";

@@ -127,16 +127,7 @@ module GobiertoAttachments
     end
 
     def human_readable_path
-      url_helpers.gobierto_attachments_attachment_path(id: obscured_id)
-    end
-
-    # use a bijective function to generate a short unique readable ID
-    def obscured_id
-      (id * 2) + 1
-    end
-
-    def self.get_clear_id(obscured_id)
-      (obscured_id.to_i - 1) / 2
+      url_helpers.gobierto_attachments_attachment_path(id: id)
     end
 
     def add_item_to_collection

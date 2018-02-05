@@ -5,13 +5,27 @@ module GobiertoAttachments
     layout false
 
     def show
+      if @attachment.file_size < 100.megabytes
+        tempfile = open(@attachment.url)
+        mime_type = FileMagic.new(FileMagic::MAGIC_MIME).file(tempfile.path, true)
+
+        send_data(
+          tempfile.read,
+          filename: @attachment.file_name,
+          type: mime_type,
+          disposition: 'inline',
+          stream: 'true',
+          buffer_size: '4096'
+        )
+      else
+        redirect_to @attachment.url
+      end
     end
 
     private
 
     def load_attachment
-      obscured_id = params[:id]
-      @attachment = current_site.attachments.find(Attachment.get_clear_id(obscured_id))
+      @attachment = current_site.attachments.find(params[:id])
     end
 
   end

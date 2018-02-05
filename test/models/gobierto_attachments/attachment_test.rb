@@ -182,23 +182,9 @@ module GobiertoAttachments
     end
 
     def test_human_readable_path
-      attachment.id = 0
+      attachment.id = 1
 
       assert_equal '/docs/1', attachment.human_readable_path
-    end
-
-    def test_obscured_id
-      pdf_attachment.id = 0
-      xlsx_attachment.id = 1
-
-      assert_equal 1, pdf_attachment.obscured_id
-      assert_equal 3, xlsx_attachment.obscured_id
-    end
-
-    def test_get_clear_id_from_obscured_id
-      assert_equal 0, Attachment.get_clear_id(1)
-      assert_equal 1, Attachment.get_clear_id(3)
-      assert_equal 11, Attachment.get_clear_id('23')
     end
 
   end

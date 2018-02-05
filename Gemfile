@@ -20,6 +20,7 @@ gem "redcarpet", require: true
 gem "responders"
 gem "rollbar"
 gem "ruby_px"
+gem "ruby-filemagic"
 
 # Frontend
 gem "bourbon", "~> 4.3.4"

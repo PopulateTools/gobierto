@@ -3,11 +3,23 @@ political_agendas:
                             'es' => 'Publicar agendas políticas' }.to_json %>
   status_translations: <%= { 'en' => 'In progress',
                              'es' => 'En progreso' }.to_json %>
-  progress: 50.25
+  progress: 50
   starts_at: <%= 3.month.ago %>
   ends_at: <%= 3.month.from_now %>
   options: <%= { 'objetivos' => 'Improve pedestrian and vehicle safety',
                  'temporality' => 'annual' }.to_json %>
   categories: center_basic_needs
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+scholarships_kindergartens:
+  name_translations: <%= { 'en' => 'Becas en guarderías',
+                           'es' => 'Scholarships in kindergartens' }.to_json %>
+  status_translations: <%= { 'en' => 'Active',
+                             'es' => 'Activo' }.to_json %>
+  progress: 0
+  starts_at: <%= 4.month.ago %>
+  ends_at: <%= 5.month.from_now %>
+  categories: center_scholarships
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00

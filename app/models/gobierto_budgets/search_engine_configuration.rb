@@ -3,7 +3,13 @@ module GobiertoBudgets
     class Year
       def self.last
         Date.today.year.downto(first) do |year|
-          return year if GobiertoCore::CurrentScope.current_site.present? && GobiertoBudgets::BudgetLine.any_data?(site: GobiertoCore::CurrentScope.current_site, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, year: year)
+          if GobiertoCore::CurrentScope.current_site.present?
+            if GobiertoBudgets::BudgetLine.any_data?(site: GobiertoCore::CurrentScope.current_site, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, year: year)
+              if year == Date.today.year && (GobiertoCore::CurrentScope.current_site.gobierto_budgets_settings && !GobiertoCore::CurrentScope.current_site.gobierto_budgets_settings.settings["budgets_elaboration"])
+                return year
+              end
+            end
+          end
         end
         2017
       end

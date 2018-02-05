@@ -21,7 +21,7 @@ module GobiertoPlans
       respond_to do |format|
         format.html
         format.json do
-          plan_tree = plan_tree(@plan.categories.where(parent_id: nil))
+          plan_tree = GobiertoPlans::PlanTree.new(@plan).call
 
           render(
             json: { plan_tree: plan_tree }
@@ -38,99 +38,6 @@ module GobiertoPlans
 
     def load_plans
       @plans = current_site.plans
-    end
-
-    def uid(category)
-      uid = ""
-      categories = category.plan.categories
-
-      for i in 0..category.level
-        index = categories.where(level: category.level).index(category)
-        uid = index.to_s + uid
-        unless category.parent_id.nil?
-          category = categories.where(id: category.parent_id).first
-          uid = "." + uid
-        end
-      end
-
-      uid
-    end
-
-    def children_progress(category)
-      descendants_array = category.descendants
-      descendants = GobiertoPlans::Category.where(id: descendants_array.map(&:id))
-      max_level = descendants.maximum(:level)
-
-      descendants_leaves = descendants.where(level: max_level)
-      if descendants_leaves.any?
-        descendants_leaves_id = descendants_leaves.pluck(:id)
-        node_ids = GobiertoPlans::CategoriesNode.where(category_id: descendants_leaves_id).pluck(:node_id)
-        nodes = GobiertoPlans::Node.where(id: node_ids)
-        progress_sum = nodes.sum(:progress)/node_ids.length
-      else
-        0
-      end
-    end
-
-    def plan_tree(categories, tree = [])
-      categories.each do |category|
-        categories = @plan.categories.where(parent_id: category.id)
-
-        children = if categories.any?
-                     plan_tree(categories)
-                   else
-                     []
-                   end
-
-        category_nodes = category.nodes
-
-        data = if category.level.zero?
-                 { id: category.id,
-                   uid: uid(category),
-                   level: category.level,
-                   attributes: { title: category.name_translations,
-                                 parent_id: category.parent_id,
-                                 progress: children_progress(category),
-                                 img: @plan.configuration_data["level0_options"].find { |option| option["slug"] == category.slug }["logo"] },
-                   children: children }
-               elsif category_nodes.any?
-                 nodes = []
-
-                 category_nodes.each_with_index do |node, index|
-                   nodes.push(id: node.id,
-                              uid: uid(category) + "." + index.to_s,
-                              level: category.level + 1,
-                              attributes: { title: node.name_translations,
-                                            parent_id: category.id,
-                                            progress: node.progress,
-                                            starts_at: node.starts_at,
-                                            ends_at: node.ends_at,
-                                            status: node.status_translations,
-                                            options: node.options },
-                              children: [])
-                 end
-
-                 { id: category.id,
-                   uid: uid(category),
-                   level: category.level,
-                   attributes: { title: category.name_translations,
-                                 parent_id: category.parent_id,
-                                 progress: category_nodes.sum(:progress) / category_nodes.size },
-                   children: nodes }
-               else
-                 { id: category.id,
-                   uid: uid(category),
-                   level: category.level,
-                   attributes: { title: category.name_translations,
-                                 parent_id: category.parent_id,
-                                 progress: children_progress(category) },
-                   children: children }
-               end
-
-        tree.push(data)
-      end
-
-      tree
     end
   end
 end

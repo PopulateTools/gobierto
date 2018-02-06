@@ -24,7 +24,8 @@ module GobiertoPlans
           plan_tree = GobiertoPlans::PlanTree.new(@plan).call
 
           render(
-            json: { plan_tree: plan_tree }
+            json: { plan_tree: plan_tree,
+                    option_keys: @plan.configuration_data["option_keys"] }
           )
         end
       end

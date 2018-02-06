@@ -150,6 +150,7 @@ this.GobiertoPlans.PlansController = (function() {
         name: 'gobierto-planification',
         data: {
           json: {},
+          option_keys: [],
           activeNode: {},
           showTable: {},
           rootid: 0
@@ -175,6 +176,7 @@ this.GobiertoPlans.PlansController = (function() {
           getJson: function() {
             $.getJSON(window.location.href, function(json) {
               var data = json["plan_tree"];
+              var option_keys = json["option_keys"];
 
               // Show spinner
               $(".js-toggle-overlay").removeClass('is-active');
@@ -186,6 +188,7 @@ this.GobiertoPlans.PlansController = (function() {
               // });
 
               this.json = data;
+              this.option_keys = option_keys;
             }.bind(this));
           },
           color: function() {

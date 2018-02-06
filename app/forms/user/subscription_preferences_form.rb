@@ -27,10 +27,11 @@ class User::SubscriptionPreferencesForm
     if @user.valid?
       @user.save
 
-      update_subscriptions_to_modules(modules)
-      update_subscriptions_to_people(gobierto_people_people)
-      update_subscription_to_site(site_to_subscribe)
-      update_subscriptions_to_consultations(gobierto_budget_consultations_consultations)
+      update_subscription_to_site(site_to_subscribe) || begin
+        update_subscriptions_to_modules(modules)
+        update_subscriptions_to_people(gobierto_people_people)
+        update_subscriptions_to_consultations(gobierto_budget_consultations_consultations)
+      end
 
       @user
     else
@@ -82,11 +83,13 @@ class User::SubscriptionPreferencesForm
   end
 
   def update_subscription_to_site(site_to_subscribe_id)
-    if site_to_subscribe_id != "0"
+    site_subscription = site_to_subscribe_id != "0"
+    if site_subscription
       @user.subscribe_to!(site, site)
     else
       @user.unsubscribe_from!(site, site)
     end
+    site_subscription
   end
 
   def update_subscriptions_to_consultations(budget_consultations)

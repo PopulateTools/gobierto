@@ -23,7 +23,7 @@ class User::SubscriptionPreferencesForm
   end
 
   def module_level_subscriptions
-    @module_level_subscriptions ||= filter_subscriptions_by_available_modules(user.subscriptions.specific.where(site: site)).map { |m| m.subscribable_type.underscore }
+    @module_level_subscriptions ||= filter_subscriptions_by_available_modules(user.subscriptions.generic.where(site: site)).map { |m| m.subscribable_type.underscore }
   end
 
   private

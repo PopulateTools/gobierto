@@ -150,7 +150,7 @@ this.GobiertoPlans.PlansController = (function() {
         name: 'gobierto-planification',
         data: {
           json: {},
-          option_keys: [],
+          optionKeys: [],
           activeNode: {},
           showTable: {},
           rootid: 0
@@ -170,25 +170,27 @@ this.GobiertoPlans.PlansController = (function() {
         computed: {
           globalProgress: function () {
             return _.meanBy(this.json, 'attributes.progress')
+          },
+          availableOpts: function () {
+            // Filter options object only to those values present in the configuration (optionKeys)
+            return _.pick(this.activeNode.attributes.options, _.filter(_.keys(this.activeNode.attributes.options), function (o) {
+              return _.includes(_.keys(this.optionKeys), o.toString().toLowerCase())
+            }.bind(this)));
           }
         },
         methods: {
           getJson: function() {
             $.getJSON(window.location.href, function(json) {
               var data = json["plan_tree"];
-              var option_keys = json["option_keys"];
+              var optionKeys = json["option_keys"];
 
-              // Show spinner
+              // Hide spinner
               $(".js-toggle-overlay").removeClass('is-active');
 
-              // Sort values by title
-              // data = _.sortBy(data, function (o) {
-              //   var key = o.attributes.title;
-              //   return key[I18n.locale] || key["es"] || key["en"] || Object.values(key)[0]
-              // });
-
               this.json = data;
-              this.option_keys = option_keys;
+              this.optionKeys = Object.keys(optionKeys).reduce(function(c, k) {
+                return (c[k.toLowerCase()] = optionKeys[k]), c;
+              }, {});
             }.bind(this));
           },
           color: function() {

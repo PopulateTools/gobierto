@@ -120,16 +120,17 @@
 
               <div class="node-project-detail">
                 <div class="project-optional">
-                  <div class="row" v-for="(value, key) in activeNode.attributes.options">
+                  <%# TODO: Filtrar los valores permitidos %>
+                  <div class="row" v-for="(value, key) in availableOpts">
                     <template v-if="typeOf(value) !== 'object'">
-                      <div class="optional-title">{{ key }}</div>
+                      <div class="optional-title">{{ optionKeys[key] | translate }}</div>
                       <div class="optional-desc">{{ value }}</div>
                     </template>
                     <template v-else>
                       <div class="optional-container">
-                        <div class="optional-title">{{ key }}</div>
+                        <div class="optional-title">{{ optionKeys[key] | translate }}</div>
                         <div class="optional-obj" v-for="(_value, _key) in value">
-                          <div class="optional-title">{{ _key }}</div>
+                          <div class="optional-title">{{ optionKeys[_key] | translate }}</div>
                           <div class="optional-desc">
                             <template v-if="typeOf(_value) === 'string'">
                               {{ _value }}

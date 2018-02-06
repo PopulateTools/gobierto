@@ -17,33 +17,28 @@ module GobiertoPlans
       [name]
     end
 
-    def descendants(children_array = [])
-      children = GobiertoPlans::Category.where(parent_id: id)
-      children_array += children.all
-      children.each do |child|
-        children_array = child.descendants(children_array)
+    def descendants
+      children = self.class.where(parent_id: id)
+      children.dup.each do |child|
+        children += child.descendants
       end
-      children_array
+      children
     end
 
     def uid(uid = "")
-      uid = if parent_id && parent_id.positive?
-              parent = GobiertoPlans::Category.find(parent_id)
-              index = GobiertoPlans::Category.where(parent_id: parent).index(self)
-              uid = "." + index.to_s + uid
-              parent.uid(uid)
-            else
-              roots = GobiertoPlans::Category.where(parent_id: nil)
-              index = roots.index(self)
-              index.to_s + uid
-            end
-
-      uid
+      if parent_id && parent_id.positive?
+        index = self.class.where(parent_id: parent_category).index(self)
+        uid = "." + index.to_s + uid
+        parent_category.uid(uid)
+      else
+        index = self.class.where(parent_id: nil).index(self)
+        index.to_s + uid
+      end
     end
 
     def children_progress
       descendants_array = descendants
-      descendants = GobiertoPlans::Category.where(id: descendants_array.map(&:id))
+      descendants = self.class.where(id: descendants_array.map(&:id))
       max_level = descendants.maximum(:level)
 
       descendants_leaves = descendants.where(level: max_level)
@@ -51,7 +46,7 @@ module GobiertoPlans
         descendants_leaves_id = descendants_leaves.pluck(:id)
         node_ids = GobiertoPlans::CategoriesNode.where(category_id: descendants_leaves_id).pluck(:node_id)
         nodes = GobiertoPlans::Node.where(id: node_ids)
-        progress_sum = nodes.sum(:progress)/node_ids.length
+        nodes.average(:progress).to_f
       else
         0
       end

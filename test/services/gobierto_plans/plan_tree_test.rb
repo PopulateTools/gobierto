@@ -16,7 +16,7 @@ class GobiertoPlans::PlanTreeTest < ActiveSupport::TestCase
   end
 
   def plan_tree_json
-    File.read(Rails.root.join("test/fixtures/gobierto_plans/plan_tree.json"))
+    File.read(Rails.root.join("test/fixtures/gobierto_plans/plan_tree.json")).strip
   end
 
   def test_call

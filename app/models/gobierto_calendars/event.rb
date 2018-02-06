@@ -111,7 +111,7 @@ module GobiertoCalendars
     end
 
     def attributes_for_slug
-      [starts_at.strftime('%F'), title]
+      [Time.now.strftime("%F"), title]
     end
 
     def add_item_to_collection

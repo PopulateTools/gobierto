@@ -62,6 +62,19 @@ module GobiertoPlans
       end
     end
 
+    def test_global_execution
+      with_javascript do
+        with_current_site(site) do
+          visit @path
+          within "div.header-resume" do
+            within "span" do
+              assert has_content?("0.08333333333333334")
+            end
+          end
+        end
+      end
+    end
+
     def test_navigating_tree
       with_javascript do
         with_current_site(site) do

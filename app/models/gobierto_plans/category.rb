@@ -21,7 +21,7 @@ module GobiertoPlans
       children = GobiertoPlans::Category.where(parent_id: id)
       children_array += children.all
       children.each do |child|
-        child.descendants(children_array)
+        children_array = child.descendants(children_array)
       end
       children_array
     end

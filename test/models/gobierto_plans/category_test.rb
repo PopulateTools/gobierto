@@ -34,7 +34,7 @@ module GobiertoPlans
     end
 
     def test_descendants
-      assert_equal 1, axe.descendants.size
+      assert_equal 3, axe.descendants.size
       assert_equal 2, action_line.descendants.size
       assert_equal 0, action.descendants.size
     end

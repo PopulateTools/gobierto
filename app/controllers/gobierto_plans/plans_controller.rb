@@ -8,18 +8,18 @@ module GobiertoPlans
 
     def index
       # TODO: Pending adaptation to new plans
-      plan = current_site.plans.first
-      redirect_to gobierto_plans_plan_path(id: plan.slug)
+      redirect_to gobierto_plans_plan_path(id: @plans.first.slug)
     end
 
     def show
       @plan = find_plan
-      @node_number = GobiertoPlans::CategoriesNode.where(category_id: @plan.categories.pluck(:id)).pluck(:node_id).uniq.size
-
-      @levels = @plan.categories.maximum("level")
 
       respond_to do |format|
-        format.html
+        format.html do
+          @node_number = @plan.nodes.count
+          @levels = @plan.levels
+        end
+
         format.json do
           plan_tree = GobiertoPlans::PlanTree.new(@plan).call
 
@@ -33,7 +33,7 @@ module GobiertoPlans
     private
 
     def find_plan
-      current_site.plans.find_by!(slug: params[:id])
+      @plans.find_by!(slug: params[:id])
     end
 
     def load_plans

@@ -12,5 +12,9 @@ module GobiertoPlans
     serialize :configuration_data
 
     translates :title, :description
+
+    def levels
+      categories.maximum("level")
+    end
   end
 end

@@ -43,15 +43,18 @@
                 <% end %>
               </div>
               <% if @user_notification_modules.length > 1 %>
-                <%= f.collection_check_boxes(:modules, @user_notification_modules, :first, :first) do |b| %>
-                  <div class="option ">
-                    <%= b.check_box({"data-selected" => f.object.modules.include?(b.value)}) %>
-                    <%= b.label do %>
-                      <span></span>
-                      <%= t(".modules.#{b.text}") %>
-                    <% end %>
-                  </div>
-                <% end %>
+                <div id="modules_selection">
+                  <hr>
+                  <%= f.collection_check_boxes(:modules, @user_notification_modules, :first, :last) do |b| %>
+                    <div class="option ">
+                      <%= b.check_box({"data-selected" => f.object.module_level_subscriptions.include?(b.value), "data-area" => b.value}) %>
+                      <%= b.label do %>
+                        <span></span>
+                        <%= t(".modules.#{b.text}") %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
               <% end %>
             </div>
           </div>
@@ -62,11 +65,11 @@
         <div class="padded padded_line_box compact">
           <% if current_site.configuration.gobierto_budget_consultations_enabled? && @user_notification_gobierto_budget_consultations_consultations.any? %>
             <h3><%= t('.consultations') %></h3>
-            <div class="form_item">
+            <div class="form_item" id="area_gobierto_budget_consultations">
               <div class="options compact">
                 <%= f.collection_check_boxes(:gobierto_budget_consultations_consultations, @user_notification_gobierto_budget_consultations_consultations, :id, :title) do |b| %>
                   <div class="option ">
-                    <%= b.check_box({"data-selected" => f.object.gobierto_budget_consultations_consultations.include?(b.value)}) %>
+                    <%= b.check_box({"data-selected" => f.object.specific_subscriptions.include?(b.object)}) %>
                     <%= b.label do %>
                       <span></span>
                       <%= b.text %>
@@ -79,11 +82,30 @@
 
           <% if current_site.configuration.gobierto_people_enabled? && @user_notification_gobierto_people_people.any? %>
             <h3><%= t('.people') %></h3>
-            <div class="form_item">
+            <div class="form_item" id="area_gobierto_people">
               <div class="options compact">
                 <%= f.collection_check_boxes(:gobierto_people_people, @user_notification_gobierto_people_people, :id, :name) do |b| %>
                   <div class="option ">
-                    <%= b.check_box({"data-selected" => f.object.gobierto_people_people.include?(b.value)}) %>
+                    <%= b.check_box({"data-selected" => f.object.specific_subscriptions.include?(b.object)}) %>
+                    <%# <%= b.check_box({"data-selected" => f.object.gobierto_people_people.include?(b.value)}) %1> %>
+                    <%= b.label do %>
+                      <span></span>
+                      <%= b.text %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+
+          <% if current_site.configuration.gobierto_participation_enabled? && @user_notification_gobierto_participation_processes.any? %>
+            <h3><%= t('.participation') %></h3>
+            <div class="form_item" id="area_gobierto_participation">
+              <div class="options compact">
+                <%= f.collection_check_boxes(:gobierto_participation_processes, @user_notification_gobierto_participation_processes, :id, :title) do |b| %>
+                  <div class="option ">
+                    <%= b.check_box({"data-selected" => f.object.specific_subscriptions.include?(b.object)}) %>
+                    <%# <%= b.check_box({"data-selected" => f.object.gobierto_participation_processes.include?(b.value)}) %1> %>
                     <%= b.label do %>
                       <span></span>
                       <%= b.text %>

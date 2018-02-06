@@ -3,24 +3,60 @@ this.User.SubscriptionPreferencesController = (function() {
 
   SubscriptionPreferencesController.prototype.index = function(){
     _handleSiteSelected();
+    _handleAreaSelected('gobierto_budget_consultations');
+    _handleAreaSelected('gobierto_people');
+    _handleAreaSelected('gobierto_participation');
   };
 
   function _handleSiteSelected(){
     $('#user_subscription_preferences_site_to_subscribe').on('change', function(e){
       if($(this).is(':checked') === false){
-        _uncheckAllOptions();
+        _uncheckAllModuleOptions();
       } else {
-        _checkAllOoptions();
+
+        _checkAllModuleOptions();
       }
     });
   }
 
-  function _checkAllOoptions(){
-    $('input[data-selected]').prop('checked', 'checked');
+  function _handleAreaSelected(area_name){
+    $('#user_subscription_preferences_modules_'.concat(area_name)).on('change', function(e){
+      if($(this).is(':checked') === false){
+        _uncheckAllAreaOptions(area_name);
+      } else {
+        _checkAllAreaOptions(area_name);
+      }
+    });
   }
 
-  function _uncheckAllOptions(){
-    $('input[data-selected]').each(function(){
+  function _checkAllModuleOptions(){
+    $('#modules_selection input[data-selected]').each(function(){
+      $(this).prop('checked', 'checked');
+      $(this).prop('disabled', true);
+      _checkAllAreaOptions($(this).data('area'));
+    });
+  }
+
+  function _uncheckAllModuleOptions(){
+    $('#modules_selection input[data-selected]').each(function(){
+      $(this).prop('disabled', false);
+      if($(this).data('selected') === false){
+        $(this).prop('checked', null);
+        _uncheckAllAreaOptions($(this).data('area'))
+      }
+    });
+  }
+
+  function _checkAllAreaOptions(area_name){
+    $('#area_'.concat(area_name, ' input[data-selected]')).each(function(){
+      $(this).prop('checked', 'checked');
+      $(this).prop('disabled', true);
+    });
+  }
+
+  function _uncheckAllAreaOptions(area_name){
+    $('#area_'.concat(area_name, ' input[data-selected]')).each(function(){
+      $(this).prop('disabled', false);
       if($(this).data('selected') === false){
         $(this).prop('checked', null);
       }

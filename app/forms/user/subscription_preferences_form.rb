@@ -18,6 +18,14 @@ class User::SubscriptionPreferencesForm
     save_subscriptions if valid?
   end
 
+  def specific_subscriptions
+    @specific_subscriptions ||= filter_subscriptions_by_available_modules(user.subscriptions.specific.where(site: site)).map(&:subscribable)
+  end
+
+  def module_level_subscriptions
+    @module_level_subscriptions ||= filter_subscriptions_by_available_modules(user.subscriptions.specific.where(site: site)).map { |m| m.subscribable_type.underscore }
+  end
+
   private
 
   def modules_classes
@@ -120,5 +128,12 @@ class User::SubscriptionPreferencesForm
 
   def broader_level_subscription_to?(subscribable)
     user.subscribed_to?(subscribable, site, :user_subscribed_by_broader_subscription_to?)
+  end
+
+  def filter_subscriptions_by_available_modules(subscriptions)
+    available_modules_regexp = Regexp.new("^[#{site.configuration.modules_with_notifications.join("|")}]")
+    subscriptions.select do |sub|
+      available_modules_regexp.match?(sub.subscribable_type)
+    end
   end
 end

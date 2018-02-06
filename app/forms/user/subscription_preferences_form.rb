@@ -62,6 +62,7 @@ class User::SubscriptionPreferencesForm
 
   def update_subscriptions_to_people(people)
     people = Array(people)
+    return if broader_level_subscription_to?(GobiertoPeople::Person.new)
 
     people.each do |person_id|
       next if person_id.blank?
@@ -90,6 +91,7 @@ class User::SubscriptionPreferencesForm
 
   def update_subscriptions_to_consultations(budget_consultations)
     budget_consultations = Array(budget_consultations)
+    return if broader_level_subscription_to?(GobiertoBudgetConsultations::Consultation.new)
 
     budget_consultations.each do |consultation_id|
       next if consultation_id.blank?

@@ -19,6 +19,12 @@ class User::SubscriptionPreferencesForm
 
   private
 
+  def modules_classes
+    @modules_classes ||= modules.reject(&:blank?).map do |mod|
+      mod.camelize.constantize
+    end
+  end
+
   def save_subscriptions
     @user = user.tap do |user_attributes|
       user_attributes.notification_frequency = notification_frequency
@@ -28,7 +34,7 @@ class User::SubscriptionPreferencesForm
       @user.save
 
       update_subscription_to_site(site_to_subscribe) || begin
-        update_subscriptions_to_modules(modules)
+        update_subscriptions_to_modules
         update_subscriptions_to_people(gobierto_people_people)
         update_subscriptions_to_consultations(gobierto_budget_consultations_consultations)
       end
@@ -47,20 +53,10 @@ class User::SubscriptionPreferencesForm
     end
   end
 
-  def update_subscriptions_to_modules(modules)
-    modules = Array(modules)
-    modules.each do |module_name|
-      next if module_name.blank?
-
-      gobierto_module = module_name.camelize.constantize
-      @user.subscribe_to!(gobierto_module, site)
-    end
-
-    (site.configuration.modules.map(&:underscore) - modules).each do |module_name|
-      next if module_name.blank?
-
-      gobierto_module = module_name.camelize.constantize
-      @user.unsubscribe_from!(gobierto_module, site)
+  def update_subscriptions_to_modules
+    site.configuration.modules.reject(&:blank?).map(&:constantize).each do |mod|
+      next if broader_level_subscription_to?(mod)
+      modules_classes.include?(mod) ? @user.subscribe_to!(mod, site) : @user.unsubscribe_from!(mod, site)
     end
   end
 
@@ -108,5 +104,9 @@ class User::SubscriptionPreferencesForm
       consultation = site.budget_consultations.find(consultation_id)
       @user.unsubscribe_from!(consultation, site)
     end
+  end
+
+  def broader_level_subscription_to?(subscribable)
+    user.subscribed_to?(subscribable, site, :user_subscribed_by_broader_subscription_to?)
   end
 end

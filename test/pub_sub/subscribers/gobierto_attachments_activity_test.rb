@@ -12,7 +12,7 @@ class Subscribers::GobiertoAttachmentsActivityTest < ActiveSupport::TestCase
   end
 
   def subject
-    @subject ||= Subscribers::GobiertoAttachmentsActivity.new("trackable")
+    @subject ||= Subscribers::GobiertoAttachmentsAttachmentActivity.new("trackable")
   end
 
   def attachment
@@ -27,20 +27,33 @@ class Subscribers::GobiertoAttachmentsActivityTest < ActiveSupport::TestCase
     @ip_address ||= IPAddr.new("1.2.3.4")
   end
 
-  def test_attachment_updated_event_handling
-    activity_subject = gobierto_attachments_attachments(:pdf_collection_attachment)
-
+  def test_attachment_created_event_handling
     assert_difference "Activity.count" do
-      subject.updated Event.new(name: "trackable", payload: {
-                                  gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
-                                })
+      subject.attachment_created Event.new(name: "activities/gobierto_attachments_attachments.attachment_created", payload: {
+                                        subject: attachment, author: admin, ip: IP, site_id: site.id
+                                        })
     end
 
     activity = Activity.last
     assert_equal attachment, activity.subject
     assert_equal admin, activity.author
-    assert_equal "gobierto_attachments.attachment.updated", activity.action
-    refute activity.admin_activity
+    assert_equal "gobierto_attachments.attachment_created", activity.action
+    assert activity.admin_activity
+    assert_equal site.id, activity.site_id
+  end
+
+  def test_attachment_updated_event_handling
+    assert_difference "Activity.count" do
+      subject.attachment_updated Event.new(name: "activities/gobierto_attachments_attachments.attachment_updated", payload: {
+                                        subject: attachment, author: admin, ip: IP, site_id: site.id
+                                        })
+    end
+
+    activity = Activity.last
+    assert_equal attachment, activity.subject
+    assert_equal admin, activity.author
+    assert_equal "gobierto_attachments.attachment_updated", activity.action
+    assert activity.admin_activity
     assert_equal site.id, activity.site_id
   end
 end

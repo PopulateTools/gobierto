@@ -10,6 +10,10 @@
   </h1>
 <% end %>
 
+<% content_for(:current_submodule_link) do %>
+  <%= link_to @issue.name, gobierto_participation_issue_path(@issue) %>
+<% end %>
+
 <% content_for :subscribable_button do %>
   <%= render 'user/subscriptions/subscribable_button', subscribable: @issue %>
 <% end %>

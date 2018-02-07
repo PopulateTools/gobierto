@@ -1,27 +1,31 @@
+## green city group stages
+
 green_city_group_information_stage:
-  process: green_city_group
+  process: green_city_group_active_empty
   slug: information
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
 
 green_city_group_meetings_stage:
-  process: green_city_group
+  process: green_city_group_active_empty
   slug: meetings
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:agenda] %>
 
 green_city_group_polls_stage:
-  process: green_city_group
+  process: green_city_group_active_empty
   slug: polls
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
 
 green_city_group_ideas_stage:
-  process: green_city_group
+  process: green_city_group_active_empty
   slug: ideas
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:contributions] %>
 
 green_city_group_results_stage:
-  process: green_city_group
+  process: green_city_group_active_empty
   slug: results
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:pages] %>
+
+# cultural city group stages
 
 cultural_city_group_information_stage:
   process: cultural_city_group
@@ -47,6 +51,23 @@ cultural_city_group_results_stage:
   process: cultural_city_group
   slug: results
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:pages] %>
+
+# bowling group stages
+
+bowling_ideas_stage:
+  process: bowling_group_very_active
+  title_translations: <%= { 'en' => 'Suggest ideas', 'es' => 'Sugiere ideas para la petanca' }.to_json %>
+  description_translations: <%= { 'en' => 'Suggest ideas description', 'es' => 'Sugiere ideas descripción' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Add your idea', 'es' => 'Aportar idea' }.to_json %>
+  slug: sugiere-idea-petanca
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:contributions] %>
+  active: true
+  starts: <%= 3.days.ago %>
+  ends: <%= 2.days.ago %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
+  menu_translations: <%= { 'en' => 'Contributions', 'es' => 'Ideas' }.to_json %>
+
+# local budgets process stages
 
 local_budgets_information_stage:
   process: local_budgets_process
@@ -97,6 +118,8 @@ local_budgets_results_stage:
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:pages] %>
   active: true
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
+
+# gender violence process stages
 
 gender_violence_process_information_stage:
   process: gender_violence_process
@@ -163,6 +186,8 @@ gender_violence_process_results_stage:
   position: 5
   menu_translations: <%= { 'en' => 'Results', 'es' => 'Resultados' }.to_json %>
 
+# commission for carnival festivities process stages
+
 commission_for_carnival_festivities_information_stage:
   process: commission_for_carnival_festivities
   slug: information
@@ -200,6 +225,8 @@ commission_for_carnival_festivities_results_stage:
   slug: results
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:pages] %>
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
+
+# sport process stages
 
 sport_process_information_stage:
   process: sport_city_process

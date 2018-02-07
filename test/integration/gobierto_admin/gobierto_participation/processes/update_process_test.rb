@@ -26,7 +26,7 @@ module GobiertoAdmin
       end
 
       def group
-        @group ||= gobierto_participation_processes(:green_city_group)
+        @group ||= gobierto_participation_processes(:green_city_group_active_empty)
       end
 
       def cms_page

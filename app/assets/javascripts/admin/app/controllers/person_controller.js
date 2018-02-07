@@ -13,25 +13,26 @@ this.GobiertoAdmin.PersonController = (function() {
 
       $.magnificPopup.open({
         items: {
-          src: '#test-popup',
-          type: 'inline'
+          src: '#test-popup'
         },
+        // mainClass: 'modal-full-width',
+        type: 'inline',
         callbacks: {
           open: function() {
             if ($loaded_image.files && $loaded_image.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function () {
-                  var dataURL = reader.result;
-                  var output = document.getElementById('image');
-                  output.src = dataURL;
+              var reader = new FileReader();
+              reader.onload = function () {
+                var dataURL = reader.result;
+                var output = document.getElementById('image');
+                output.src = dataURL;
 
-                  var cropper = new Cropper(output, {
-                      aspectRatio: 1 / 1,
-                      minCropBoxWidth: 500,
-                      minCropBoxHeight: 500
-                  });
-                }
-                reader.readAsDataURL($loaded_image.files[0]);
+                var cropper = new Cropper(output, {
+                  aspectRatio: 1 / 1,
+                  minCropBoxWidth: 500,
+                  minCropBoxHeight: 500
+                });
+              }
+              reader.readAsDataURL($loaded_image.files[0]);
             }
           }
         }

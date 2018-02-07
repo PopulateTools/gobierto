@@ -106,7 +106,7 @@
     <div class="navigation-footer">
 
       <div class="footer-top js-secondary_nav">
-        <%= render "gobierto_participation/layouts/secondary_nav" %>
+        <%= render_if_exists "#{current_module}/layouts/secondary_nav" %>
       </div>
 
       <div class="footer-bottom p_v_1">

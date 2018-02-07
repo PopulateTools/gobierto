@@ -1189,4 +1189,10 @@ $lighter_black: rgba($color_headers, .7);
       border-color: $color_main_negative;
     }
   }
+
+  .cms_page {
+    .breadcrumb {
+      background: transparent;
+    }
+  }
 }

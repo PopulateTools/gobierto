@@ -514,10 +514,10 @@ ca:
         are_from: son de
         check_detail: Consulta el detall
         companies: companyies
-        description: A quins proveïdors contracta el Ajuntament? Quines factures paga?
+        description: A quins proveïdors contracta l'Ajuntament? Quines factures paga?
           Des d'aquesta secció podràs consultar un resume i tenir contexte de l'informació
           agregada, així com revisar el detall de cadascun dels pagaments que realitza
-          el Ajuntament.
+          l'Ajuntament.
         freelances: autònoms
         invoices: Factures
         invoices_from_which: De les quals

@@ -47,7 +47,6 @@ module GobiertoAdmin
                   attach_file "person_avatar_image", "test/fixtures/files/gobierto_people/people/avatar.jpg"
                 end
               end
-              click_on('Close (Esc)')
 
               within "form.new_person" do
                 fill_in "person_name", with: "Person Name"

@@ -68,3 +68,12 @@ bad_losers_unpopular_contribution:
   slug: bad-losers-unpopular-contribution
   comments_count: 0
   created_at: <%= 2.months.ago %>
+
+center_idea:
+  site: madrid
+  title: "Mi idea para el centro"
+  description: "El centro tiene que salir fuera para dejar de ser centro"
+  user: peter
+  contribution_container: center_contributions
+  slug: idea-center
+  created_at: <%= 2.days.ago %>

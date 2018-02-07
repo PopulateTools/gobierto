@@ -2,6 +2,5 @@
 en:
   gobierto_attachments:
     events:
-      gobierto_attachments_attachment_created: "%{subject_name}"
-      gobierto_attachments_attachment_name_changed: "%{subject_name}"
-      gobierto_attachments_attachment_updated: "%{subject_name}"
+      gobierto_attachments_attachment_created: Attachment created
+      gobierto_attachments_attachment_updated: Attachment updated

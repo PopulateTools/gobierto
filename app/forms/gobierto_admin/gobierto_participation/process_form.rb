@@ -4,7 +4,6 @@ module GobiertoAdmin
   module GobiertoParticipation
     class ProcessForm
       include ActiveModel::Model
-      prepend ::GobiertoCommon::Trackable
 
       attr_accessor(
         :id,
@@ -29,10 +28,6 @@ module GobiertoAdmin
 
       validates :site, :title_translations, :process_type, presence: true
       validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
-
-      trackable_on :process
-
-      notify_changed :visibility_level
 
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
@@ -171,9 +166,7 @@ module GobiertoAdmin
         build_information_stage if process.stages.empty?
 
         if @process.valid?
-          run_callbacks(:save) do
-            @process.save
-          end
+          @process.save
 
           @process
         else

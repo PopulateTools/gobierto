@@ -36,7 +36,7 @@ module GobiertoParticipation
         visit @path
 
         within "nav.sub-nav" do
-          assert has_link? "Issues"
+          assert has_link? "Scopes"
           assert has_link? "Processes"
         end
       end

@@ -32,7 +32,7 @@ module GobiertoParticipation
         visit @path
 
         within "nav.sub-nav" do
-          assert has_content? "Issues"
+          assert has_content? "Scopes"
           assert has_content? "Processes"
         end
       end

@@ -36,3 +36,26 @@ richard_draft:
   attachment_size:
   published_on: <%= 1.year.ago.to_date %>
   visibility_level: <%= GobiertoPeople::PersonStatement.visibility_levels["draft"] %>
+
+tamara_current:
+  person: tamara
+  site: madrid
+  title_translations: <%= {
+    'en' => 'Declaración de Tamara',
+    'es' => 'Declaración de Tamara'
+  }.to_json %>
+  slug: <%= "#{Date.current.strftime('%F')}-declaracion-de-tamara" %>
+  # published before nelson_current
+  published_on: <%= 1.day.ago %>
+  visibility_level: <%= GobiertoPeople::PersonStatement.visibility_levels["active"] %>
+
+nelson_current:
+  person: nelson
+  site: madrid
+  title_translations: <%= {
+    'en' => 'Declaración de Nelson',
+    'es' => 'Declaración de Nelson'
+  }.to_json %>
+  slug: <%= "#{Date.current.strftime('%F')}-declaracion-de-nelson" %>
+  published_on: <%= 10.days.ago %>
+  visibility_level: <%= GobiertoPeople::PersonStatement.visibility_levels["active"] %>

@@ -5,7 +5,7 @@ module GobiertoPeople
 
     def index
       @people = current_site.people.active
-      @statements = current_site.person_statements.active.sorted
+      @statements = current_site.person_statements.active.sorted_by_person_position
 
       respond_to do |format|
         format.html

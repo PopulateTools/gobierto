@@ -68,11 +68,11 @@ $(document).on('turbolinks:load', function() {
     }, 200);
 
     // REVIEW:
-    if ($(this).prev().find('a').attr('href') === "/participacion") {
-      $('.js-secondary_nav').addClass('is-open');
-    } else {
-      $('.js-secondary_nav').removeClass('is-open');
-    }
+    // if ($(this).prev().find('a').attr('href') === "/participacion") {
+    //   $('.js-secondary_nav').addClass('is-open');
+    // } else {
+    //   $('.js-secondary_nav').removeClass('is-open');
+    // }
   });
 
 });

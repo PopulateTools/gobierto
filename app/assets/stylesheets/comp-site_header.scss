@@ -558,11 +558,7 @@ header {
             width: 100%;
 
             .footer-top {
-              display: none;
-
-              &.is-open {
-                display: block;
-              }
+              display: block;
 
               a {
                 text-decoration: underline;

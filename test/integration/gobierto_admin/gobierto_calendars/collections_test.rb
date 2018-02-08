@@ -20,7 +20,7 @@ module GobiertoAdmin
       end
 
       def process
-        @process ||= gobierto_participation_processes(:green_city_group)
+        @process ||= gobierto_participation_processes(:green_city_group_active_empty)
       end
 
       def person

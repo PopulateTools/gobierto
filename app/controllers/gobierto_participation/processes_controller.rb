@@ -8,7 +8,7 @@ module GobiertoParticipation
 
     def index
       @processes = current_site.processes.process.active
-      @groups = current_site.processes.group_process.active
+      @groups = CollectionDecorator.new(current_site.processes.group_process.active, decorator: GobiertoParticipation::ProcessDecorator)
     end
 
     def show

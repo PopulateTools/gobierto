@@ -60,6 +60,7 @@ class Site < ApplicationRecord
   has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
   has_many :comments, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
   has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
+  has_many :votes, dependent: :destroy, class_name: "GobiertoParticipation::Vote"
 
   serialize :configuration_data
 

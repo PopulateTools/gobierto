@@ -50,10 +50,12 @@ module GobiertoParticipation
       [title]
     end
 
-    def number_participants
-      user_ids = comments.map(&:user_id) + votes.map(&:user_id)
-      user_ids.uniq
-      user_ids.size
+    def participants_ids
+      (comments.map(&:user_id) + votes.map(&:user_id)).uniq
+    end
+
+    def participants_count
+      participants_ids.size
     end
 
     def resource_path

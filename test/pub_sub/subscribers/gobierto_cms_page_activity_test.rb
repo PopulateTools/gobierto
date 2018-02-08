@@ -27,20 +27,33 @@ class Subscribers::GobiertoCmsPageActivityTest < ActiveSupport::TestCase
     @ip_address ||= IPAddr.new("1.2.3.4")
   end
 
-  def test_page_updated_event_handling
-    activity_subject = gobierto_cms_pages(:consultation_faq)
-
+  def test_page_created_event_handling
     assert_difference "Activity.count" do
-      subject.updated Event.new(name: "trackable", payload: {
-                                  gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
-                                })
+      subject.page_created Event.new(name: "activities/gobierto_cms_pages.page_created", payload: {
+                                       subject: page, author: admin, ip: IP, site_id: site.id
+                                     })
     end
 
     activity = Activity.last
     assert_equal page, activity.subject
     assert_equal admin, activity.author
-    assert_equal "gobierto_cms.page.updated", activity.action
-    refute activity.admin_activity
+    assert_equal "gobierto_cms.page_created", activity.action
+    assert activity.admin_activity
+    assert_equal site.id, activity.site_id
+  end
+
+  def test_page_updated_event_handling
+    assert_difference "Activity.count" do
+      subject.page_updated Event.new(name: "activities/gobierto_cms_pages.page_updated", payload: {
+                                       subject: page, author: admin, ip: IP, site_id: site.id
+                                     })
+    end
+
+    activity = Activity.last
+    assert_equal page, activity.subject
+    assert_equal admin, activity.author
+    assert_equal "gobierto_cms.page_updated", activity.action
+    assert activity.admin_activity
     assert_equal site.id, activity.site_id
   end
 end

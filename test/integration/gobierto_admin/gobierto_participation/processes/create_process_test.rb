@@ -5,7 +5,6 @@ require 'test_helper'
 module GobiertoAdmin
   module GobiertoParticipation
     class CreateProcessTest < ActionDispatch::IntegrationTest
-
       def setup
         super
         @path = admin_participation_path
@@ -64,6 +63,12 @@ module GobiertoAdmin
 
               # check information stage are created
               assert_equal 1, process.stages.size
+
+              activity = Activity.last
+              assert_equal process, activity.subject
+              assert_equal admin, activity.author
+              assert_equal site.id, activity.site_id
+              assert_equal "gobierto_participation.process_created", activity.action
             end
           end
         end

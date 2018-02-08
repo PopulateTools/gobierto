@@ -110,10 +110,6 @@ module GobiertoAdmin
         ::GobiertoParticipation::ProcessStage
       end
 
-      def notify?
-        process.created_at == process.updated_at
-      end
-
       private
 
       def build_process(args = {})

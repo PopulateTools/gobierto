@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="navigation-subitem-container">
-          <div class="navigation-subitem js-slider">
+          <div class="navigation-subitem js-slider <%= class_if("is-open", site_module.underscore == current_module) %>">
             <div class="subitem-container">
               <%= render_if_exists "#{site_module.underscore}/layouts/navigation.sub", { show_main: true } %>
             </div>

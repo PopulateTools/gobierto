@@ -26,7 +26,7 @@ module GobiertoAdmin
       end
 
       def group
-        @group ||= gobierto_participation_processes(:green_city_group)
+        @group ||= gobierto_participation_processes(:green_city_group_active_empty)
       end
 
       def cms_page
@@ -168,6 +168,27 @@ module GobiertoAdmin
             within "form.edit_process_stage_page" do
               assert has_select?("process_stage_page_page_id", selected: cms_page.title)
             end
+          end
+        end
+      end
+
+      def test_update_process_with_empty_slug
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit edit_admin_participation_process_path(process)
+
+            assert_equal "pacto-social-fin-vilencia-de-genero", process.slug
+
+            fill_in "process_slug", with: ""
+
+            click_button "Update"
+
+            assert has_message? "Process was successfully updated"
+
+            process.reload
+
+            refute_equal "pacto-social-fin-vilencia-de-genero", process.slug
+            assert_equal "social-agreement-against-gender-violence", process.slug
           end
         end
       end

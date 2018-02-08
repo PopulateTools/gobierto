@@ -29,7 +29,7 @@ module GobiertoParticipation
     end
 
     def green_city_group
-      @green_city_group ||= gobierto_participation_processes(:green_city_group)
+      @green_city_group ||= gobierto_participation_processes(:green_city_group_active_empty)
     end
 
     def test_breadcrumb_items

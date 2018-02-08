@@ -511,13 +511,12 @@ ca:
         all_invoices: Totes les factures
         amount_distribution: Distribució per imports
         and_more_html: i <span id="providers-number"></span> proveïdors més
-        are_from: son de
+        are_from: són de
         check_detail: Consulta el detall
-        companies: companyies
-        description: A quins proveïdors contracta el Ajuntament? Quines factures paga?
-          Des d'aquesta secció podràs consultar un resume i tenir contexte de l'informació
-          agregada, així com revisar el detall de cadascun dels pagaments que realitza
-          el Ajuntament.
+        companies: empreses
+        description: A quins proveïdors contracta l'Ajuntament? Quines factures paga?
+          Des d'aquesta secció podràs consultar i revisar el detall de cadascun dels
+          pagaments que realitza l'Ajuntament.
         freelances: autònoms
         invoices: Factures
         invoices_from_which: De les quals
@@ -534,7 +533,7 @@ ca:
         mean_and_median_summary: És a dir, la meitat de les factures són d'aquest
           import o inferior
         mean_summary: Import resultant de sumar els imports de totes les factures
-          dividit pel número de factures
+          dividit pel nombre de factures
         median_amount: mediana dels imports
         months_distribution: Distribució per mesos
         percentile_10_html: El <span id="percentile10"></span> de les factures concentren

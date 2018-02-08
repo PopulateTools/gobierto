@@ -171,6 +171,27 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_update_process_with_empty_slug
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit edit_admin_participation_process_path(process)
+
+            assert_equal "pacto-social-fin-vilencia-de-genero", process.slug
+
+            fill_in "process_slug", with: ""
+
+            click_button "Update"
+
+            assert has_message? "Process was successfully updated"
+
+            process.reload
+
+            refute_equal "pacto-social-fin-vilencia-de-genero", process.slug
+            assert_equal "social-agreement-against-gender-violence", process.slug
+          end
+        end
+      end
     end
   end
 end

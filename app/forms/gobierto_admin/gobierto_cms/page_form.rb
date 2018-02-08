@@ -4,7 +4,6 @@ module GobiertoAdmin
   module GobiertoCms
     class PageForm
       include ActiveModel::Model
-      prepend ::GobiertoCommon::Trackable
 
       attr_accessor(
         :id,
@@ -25,10 +24,6 @@ module GobiertoAdmin
 
       validates :site, :visibility_level, :collection_id, presence: true
       validate :confirm_presence_of_homepage
-
-      trackable_on :page
-
-      notify_changed :visibility_level
 
       def save
         save_page if valid?
@@ -113,10 +108,8 @@ module GobiertoAdmin
         end
 
         if @page.valid?
+          @page.save
 
-          run_callbacks(:save) do
-            @page.save
-          end
           save_section_item(@page.id, section, parent)
 
           @page

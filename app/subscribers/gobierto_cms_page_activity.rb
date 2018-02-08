@@ -1,27 +1,25 @@
 # frozen_string_literal: true
 
 module Subscribers
-  class GobiertoCmsActivity < ::Subscribers::Base
-    def updated(event)
-      create_activity_from_event(event, 'updated')
+  class GobiertoCmsPageActivity < ::Subscribers::Base
+    def page_created(event)
+      create_activity_from_event(event, "gobierto_cms.page_created")
     end
 
-    def visibility_level_changed(event)
-      create_activity_from_event(event, 'published')
+    def page_updated(event)
+      create_activity_from_event(event, "gobierto_cms.page_updated")
     end
 
     private
 
     def create_activity_from_event(event, action)
-      subject = GlobalID::Locator.locate event.payload[:gid]
-      return unless subject.class.parent == GobiertoCms
-      author = GobiertoAdmin::Admin.find_by id: event.payload[:admin_id]
+      subject = event.payload[:subject]
+      author = GobiertoAdmin::Admin.find_by id: event.payload[:author].id
       # When the author is nil, we can asume the action has been performed by an integration
       return if author.nil?
-      action = subject.class.name.underscore.tr('/', '.') + '.' + action
 
       recipient = unless subject.collection.container.is_a?(Module)
-                    subject.collection.container
+                    subject.collection
                   else
                     nil
                   end
@@ -31,7 +29,7 @@ module Subscribers
                        subject_ip: author.last_sign_in_ip,
                        action: action,
                        recipient: recipient,
-                       admin_activity: false,
+                       admin_activity: true,
                        site_id: event.payload[:site_id]
     end
   end

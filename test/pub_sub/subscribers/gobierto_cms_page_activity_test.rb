@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class Subscribers::GobiertoCmsActivityTest < ActiveSupport::TestCase
+class Subscribers::GobiertoCmsPageActivityTest < ActiveSupport::TestCase
   class Event < OpenStruct; end
 
   IP = "1.2.3.4"
@@ -12,7 +12,7 @@ class Subscribers::GobiertoCmsActivityTest < ActiveSupport::TestCase
   end
 
   def subject
-    @subject ||= Subscribers::GobiertoCmsActivity.new("trackable")
+    @subject ||= Subscribers::GobiertoCmsPageActivity.new("activities")
   end
 
   def page

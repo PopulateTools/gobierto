@@ -66,7 +66,7 @@
 
           <ul class="lines-list">
             <li class="mb2" v-for="(model, index) in activeNode.children">
-              <node-list :model="model" :key="model.id" @selection="setSelection"></node-list>
+              <node-list :model="model" :key="model.id" :level="levelKeys" @selection="setSelection"></node-list>
             </li>
           </ul>
         </section>
@@ -77,7 +77,7 @@
           <div class="node-breadcrumb mb2" v-if="false">
             <a data-turbolinks="false" @click.stop="getParent">
               <i class="fa fa-caret-left"></i>
-              Ver todo en {{ ((json[rootid] || {}).attributes || {}).title | translate }}
+              <%= t(".see_all") %> {{ ((json[rootid] || {}).attributes || {}).title | translate }}
             </a>
           </div>
 
@@ -94,7 +94,7 @@
 
               <ul class="action-line--list">
                 <li v-for="(model, index) in activeNode.children">
-                  <node-list :model="model" :key="model.id" @toggle="toggle(index)"></node-list>
+                  <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(index)"></node-list>
                   <transition name="slide-fade">
                     <table-view :model="model" :key="model.id" @selection="setSelection" v-if="showTable[index]"></table-view>
                   </transition>
@@ -109,7 +109,7 @@
           <div class="node-breadcrumb mb2" v-if="false">
             <a data-turbolinks="false" @click.stop="getParent">
               <i class="fa fa-caret-left"></i>
-              Ver todo en {{ ((json[rootid] || {}).attributes || {}).title | translate }}
+              <%= t(".see_all") %> {{ ((json[rootid] || {}).attributes || {}).title | translate }}
             </a>
           </div>
 
@@ -199,7 +199,7 @@
       <div><i class="fa" :class="[(isOpen) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
       <h3><a @click.stop="setActive" data-turbolinks="false">{{ model.attributes.title | translate }}</a></h3>
     </div>
-    <div>{{ (model.children || []).length }} <%= @plan.configuration_data["level" + @levels.to_s][I18n.locale.to_s] %></div>
+    <div>{{ (model.children || []).length }} {{ getLabel(model.level) | translate }}</div>
     <div>{{ (model.attributes || {}).progress || 0 | percent }}</div>
   </div>
 </script>

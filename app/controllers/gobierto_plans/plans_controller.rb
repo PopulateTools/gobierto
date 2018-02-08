@@ -25,7 +25,8 @@ module GobiertoPlans
 
           render(
             json: { plan_tree: plan_tree,
-                    option_keys: @plan.configuration_data["option_keys"] }
+                    option_keys: @plan.configuration_data["option_keys"],
+                    level_keys: level_keys }
           )
         end
       end
@@ -39,6 +40,10 @@ module GobiertoPlans
 
     def load_plans
       @plans = current_site.plans
+    end
+
+    def level_keys
+      @plan.configuration_data.select { |k| k =~ /level\d\z/ }
     end
   end
 end

@@ -67,7 +67,7 @@ this.GobiertoPlans.PlansController = (function() {
       // define the node list component
       Vue.component('node-list', {
         template: '#node-list-template',
-        props: ['model'],
+        props: ['model', 'level'],
         data: function() {
           return {
             isOpen: false
@@ -105,6 +105,9 @@ this.GobiertoPlans.PlansController = (function() {
               this.$emit("toggle");
               this.isOpen = !this.isOpen;
             }
+          },
+          getLabel: function(level) {
+            return this.level["level" + (level + 1)]
           }
         }
       });
@@ -150,6 +153,7 @@ this.GobiertoPlans.PlansController = (function() {
         name: 'gobierto-planification',
         data: {
           json: {},
+          levelKeys: {},
           optionKeys: [],
           activeNode: {},
           showTable: {},
@@ -183,11 +187,13 @@ this.GobiertoPlans.PlansController = (function() {
             $.getJSON(window.location.href, function(json) {
               var data = json["plan_tree"];
               var optionKeys = json["option_keys"];
+              var levelKeys = json["level_keys"];
 
               // Hide spinner
               $(".js-toggle-overlay").removeClass('is-active');
 
               this.json = data;
+              this.levelKeys = levelKeys;
               this.optionKeys = Object.keys(optionKeys).reduce(function(c, k) {
                 return (c[k.toLowerCase()] = optionKeys[k]), c;
               }, {});

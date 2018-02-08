@@ -58,7 +58,7 @@ module GobiertoParticipation
 
           click_button "Create"
 
-          assert_equal site.contributions.size, 5
+          assert_equal site.contributions.size, 6
 
           # Avoids the error of the test that verifies to be logged because it does not have layout
           visit containers_path

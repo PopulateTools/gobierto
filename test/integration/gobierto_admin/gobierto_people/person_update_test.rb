@@ -41,11 +41,9 @@ module GobiertoAdmin
 
               within "form.edit_person" do
                 within ".avatar_file_field" do
-                  attach_file "person_avatar_image", "test/fixtures/files/gobierto_people/people/giant_avatar.jpg"
+                  attach_file "person_avatar_image", "test/fixtures/files/gobierto_people/people/avatar-small.jpg"
                 end
               end
-
-              click_on("Close (Esc)")
 
               within "form.edit_person" do
                 fill_in "person_name", with: "Person Name"

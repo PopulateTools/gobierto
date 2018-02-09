@@ -31,7 +31,7 @@ module GobiertoAdmin
       y = y.to_i
       height = h.to_i
 
-      if x.present? && x >= 0
+      if x.present? && w.positive? && x >= 0
         x = x.to_i
         width = w.to_i
 
@@ -53,7 +53,7 @@ module GobiertoAdmin
         end
 
         file_from_url(image_response["secure_url"], file)
-      elsif x.present? && x.negative?
+      elsif x.present? && w.positive? && x.negative?
         # Crop
         image_response = ::GobiertoAdmin::CloudinaryService.new(path: file.tempfile.path,
                                                                 crop: :crop,

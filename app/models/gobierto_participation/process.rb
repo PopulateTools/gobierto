@@ -115,6 +115,10 @@ module GobiertoParticipation
       url_helpers.gobierto_participation_process_url({ id: slug }.merge(host: site.domain))
     end
 
+    def to_url(options = {})
+      url_helpers.gobierto_participation_process_url(parameterize.merge(id: self.slug, host: app_host).merge(options))
+    end
+
     private
 
     def create_collections

@@ -57,6 +57,12 @@ module GobiertoAdmin
             assert_equal "Edited process title", process.title
             assert_equal "Women", process.issue.name
             assert_equal "Center", process.scope.name
+
+            activity = Activity.last
+            assert_equal process, activity.subject
+            assert_equal admin, activity.author
+            assert_equal site.id, activity.site_id
+            assert_equal "gobierto_participation.process_updated", activity.action
           end
         end
       end

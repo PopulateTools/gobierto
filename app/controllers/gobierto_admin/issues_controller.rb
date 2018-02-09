@@ -67,9 +67,9 @@ module GobiertoAdmin
       @issue = find_issue
 
       if @issue.destroy
-        redirect_to admin_issues_path(@issue), notice: t('.success')
+        redirect_to admin_issues_path(@issue), notice: t(".success")
       else
-        redirect_to admin_issues_path(@issue), alert: t('.has_items')
+        redirect_to admin_issues_path(@issue), alert: t(".has_items")
       end
     end
 

@@ -341,6 +341,13 @@ module Subscribers
 end
 ```
 
+If you want the activities to be viewed from the "Activity log", you should make
+sure to mark:
+
+```ruby
+admin_activity: true
+```
+
 These events have to be called from the controller with **track_create_activity**:
 
 ```ruby

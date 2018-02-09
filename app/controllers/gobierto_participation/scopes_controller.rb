@@ -12,10 +12,14 @@ module GobiertoParticipation
       @scope_notifications = find_scope_notifications
       @scope_events = find_scope_events
       @processes = current_site.processes.process.where(scope: @scope).active
-      @groups = current_site.processes.group_process.where(scope: @scope).active
+      @groups = CollectionDecorator.new(find_groups, decorator: GobiertoParticipation::ProcessDecorator)
     end
 
     private
+
+    def find_groups
+      current_site.processes.group_process.where(scope: @scope).active
+    end
 
     def find_scope
       current_site.scopes.find_by!(slug: params[:id])
@@ -31,8 +35,7 @@ module GobiertoParticipation
                                  .in_process(@scope.processes)
                                  .sorted
                                  .limit(5)
-                                 .includes(:subject, :author, :recipient)
-                                 .page(params[:page]))
+                                 .includes(:subject, :author, :recipient))
     end
 
     def find_scope_events

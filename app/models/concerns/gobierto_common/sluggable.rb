@@ -5,7 +5,7 @@ module GobiertoCommon
     extend ActiveSupport::Concern
 
     included do
-      before_create :set_slug
+      before_validation :set_slug
       after_destroy :add_archived_to_slug
     end
 

@@ -5,7 +5,7 @@ require "test_helper"
 module GobiertoParticipation
   class VoteTest < ActiveSupport::TestCase
     def vote
-      @vote ||= gobierto_participation_votes(:culture_vote)
+      @vote ||= gobierto_participation_votes(:activities_susan_vote)
     end
 
     def test_valid

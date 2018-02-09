@@ -34,6 +34,8 @@ module GobiertoAdmin
         @page_form = PageForm.new(page_params.merge(site_id: current_site.id, admin_id: current_admin.id, collection_id: @collection))
 
         if @page_form.save
+          track_create_activity
+
           redirect_to(
             edit_admin_cms_page_path(@page_form.page.id, collection_id: @collection.id),
             notice: t(".success_html", link: gobierto_cms_page_preview_url(@page_form.page, host: current_site.domain))
@@ -49,6 +51,8 @@ module GobiertoAdmin
         @page_form = PageForm.new(page_params.merge(id: @page.id, admin_id: current_admin.id, site_id: current_site.id, collection_id: @collection.id))
 
         if @page_form.save
+          track_update_activity
+
           redirect_to(
             edit_admin_cms_page_path(@page_form.page.id, collection_id: @collection),
             notice: t(".success_html", link: gobierto_cms_page_preview_url(@page_form.page, host: current_site.domain))
@@ -96,6 +100,14 @@ module GobiertoAdmin
 
       def get_page_visibility_levels
         ::GobiertoCms::Page.visibility_levels
+      end
+
+      def track_create_activity
+        Publishers::GobiertoCmsPageActivity.broadcast_event("page_created", default_activity_params.merge(subject: @page_form.page))
+      end
+
+      def track_update_activity
+        Publishers::GobiertoCmsPageActivity.broadcast_event("page_updated", default_activity_params.merge(subject: @page))
       end
 
       def page_params

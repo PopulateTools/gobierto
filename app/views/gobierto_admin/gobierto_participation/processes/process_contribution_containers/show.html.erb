@@ -48,7 +48,7 @@
     <tr>
       <!-- TODO: Edit <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '' %></td> -->
       <td><%= contribution.title %></td>
-      <td><%= contribution.number_participants %></td>
+      <td><%= contribution.participants_count %></td>
       <% @votes_headers.each do |weight, values| %>
         <td><%= contribution.votes_distribution[weight] %></td>
       <% end %>

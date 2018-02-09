@@ -34,7 +34,7 @@ module GobiertoPeople
     end
 
     def attributes_for_slug
-      [created_at.strftime("%F"), title]
+      [Time.now.strftime("%F"), title]
     end
 
     def resource_path

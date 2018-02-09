@@ -41,15 +41,22 @@ module GobiertoParticipation
     end
 
     def comments_count
-      contributions.sum(:comments_count)
+      contributions.sum(&:comments_count)
     end
 
     def participants_count
-      contributions.sum(&:number_participants)
+      participants_ids.size
     end
 
     def days_left
       (ends - Date.current).to_i
     end
+
+    private
+
+    def participants_ids
+      contributions.flat_map(&:participants_ids).uniq
+    end
+
   end
 end

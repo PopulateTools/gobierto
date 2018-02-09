@@ -507,9 +507,8 @@ es:
         check_detail: Consulta el detalle
         companies: compañías
         description: "¿A qué proveedores contrata el Ayuntamiento? ¿Qué facturas paga?
-          Desde esta sección podrás consultar un resumen y tener contexto de la información
-          agregada, así como revisar el detalle de cada uno de los pagos que realiza
-          el Ayuntamiento."
+          Desde esta sección podrás consultar y revisar el detalle de cada uno de
+          los pagos que realiza el Ayuntamiento."
         freelances: autónomos
         invoices: Facturas
         invoices_from_which: De los cuales

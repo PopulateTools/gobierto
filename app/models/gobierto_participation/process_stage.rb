@@ -145,9 +145,5 @@ module GobiertoParticipation
     def url_helpers
       Rails.application.routes.url_helpers
     end
-
-    def attributes_for_slug
-      [title]
-    end
   end
 end

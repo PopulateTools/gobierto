@@ -2,10 +2,11 @@
 
 require "test_helper"
 
-module GobiertoCms
+module GobiertoParticipation
   class ProcessTest < ActiveSupport::TestCase
+
     def green_city_group
-      @green_city_group ||= gobierto_participation_processes(:green_city_group)
+      @green_city_group ||= gobierto_participation_processes(:green_city_group_active_empty)
     end
     alias group_without_stages green_city_group
 

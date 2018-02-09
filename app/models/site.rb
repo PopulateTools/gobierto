@@ -44,6 +44,9 @@ class Site < ApplicationRecord
   # Gobierto Core integration
   has_many :site_templates, dependent: :destroy, class_name: "GobiertoCore::SiteTemplate"
 
+  # Gobierto Plans integration
+  has_many :plans, dependent: :destroy, class_name: "GobiertoPlans::Plan"
+
   # Gobierto Indicators
   has_many :indicators, dependent: :destroy, class_name: "GobiertoIndicators::Indicator"
 
@@ -60,6 +63,7 @@ class Site < ApplicationRecord
   has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
   has_many :comments, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
   has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
+  has_many :votes, dependent: :destroy, class_name: "GobiertoParticipation::Vote"
 
   serialize :configuration_data
 

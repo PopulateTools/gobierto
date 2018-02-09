@@ -1,0 +1,23 @@
+---
+ca:
+  gobierto_plans:
+    layouts:
+      application:
+        plans: Planes
+    plans:
+      show:
+        description: Al començament de legislatura es traça un pla amb tots els projectes
+          per als 4 anys de govern. Consulta quins són els plans, les àrees prioritàries,
+          i com es van desenvolupant els diferents projectes. actualitzem el progrés
+          dels projectes cada tres mesos.
+        ends: Fi
+        global_execution: Estat d'execució global
+        latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
+        loading: Carregant...
+        percentage_progress: "% progrés"
+        progress: Progrés
+        projects: Projectes
+        see_all: Veure tot en
+        starts: Inici
+        status: Estat
+        title: Segueix l'evolució del pla de govern

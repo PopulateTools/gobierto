@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125152553) do
+ActiveRecord::Schema.define(version: 20180201082942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -699,6 +699,58 @@ ActiveRecord::Schema.define(version: 20180125152553) do
     t.index ["user_id"], name: "index_gpart_votes_on_user_id"
     t.index ["votable_id", "votable_type", "vote_scope"], name: "index_gpart_votes_on_votable_id_and_votable_type_and_vote_scope"
     t.index ["votable_type", "votable_id"], name: "index_gpart_votes_on_votable_type_and_votable_id"
+  end
+
+  create_table "gplan_categories", force: :cascade do |t|
+    t.jsonb "name_translations"
+    t.integer "level", default: 0, null: false
+    t.integer "parent_id"
+    t.bigint "plan_id"
+    t.string "slug", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_translations"], name: "index_gplan_categories_on_name_translations", using: :gin
+    t.index ["plan_id"], name: "index_gplan_categories_on_plan_id"
+  end
+
+  create_table "gplan_categories_nodes", id: false, force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "node_id"
+    t.index ["category_id"], name: "index_gplan_categories_nodes_on_category_id"
+    t.index ["node_id"], name: "index_gplan_categories_nodes_on_node_id"
+  end
+
+  create_table "gplan_nodes", force: :cascade do |t|
+    t.jsonb "name_translations"
+    t.float "progress"
+    t.jsonb "status_translations"
+    t.date "starts_at"
+    t.date "ends_at"
+    t.jsonb "options"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_translations"], name: "index_gplan_nodes_on_name_translations", using: :gin
+  end
+
+  create_table "gplan_plan_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gplan_plans", force: :cascade do |t|
+    t.jsonb "title_translations"
+    t.jsonb "description_translations"
+    t.integer "year"
+    t.jsonb "configuration_data"
+    t.bigint "plan_type_id"
+    t.bigint "site_id"
+    t.string "slug", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plan_type_id"], name: "index_gplan_plans_on_plan_type_id"
+    t.index ["site_id"], name: "index_gplan_plans_on_site_id"
+    t.index ["title_translations"], name: "index_gplan_plans_on_title_translations", using: :gin
   end
 
   create_table "issues", force: :cascade do |t|

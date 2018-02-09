@@ -29,6 +29,14 @@ module GobiertoParticipation
       @groups ||= site.processes.group_process.where(scope: scope_center)
     end
 
+    def scope_notifications
+      @scope_notifications ||= site.activities.no_admin.in_process(processes)
+    end
+
+    def scope_notifications_titles_match
+      @scope_notifications_titles ||= Regexp.new("Contribution created")
+    end
+
     def test_menu_subsections
       with_current_site(site) do
         visit @path
@@ -154,6 +162,17 @@ module GobiertoParticipation
         visit @path
 
         assert_equal scope_center.events.size, all(".place_events-item").size
+      end
+    end
+
+    def test_scope_with_notifications
+      with_current_site(site) do
+        visit @path
+
+        assert_operator all(".place_latest-item").size, :<=, 5
+        all(".place_latest-item").each do |element|
+          assert_match scope_notifications_titles_match, element.text
+        end
       end
     end
 

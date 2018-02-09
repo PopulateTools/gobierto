@@ -25,6 +25,7 @@ module GobiertoPeople
     belongs_to :site
 
     scope :sorted, -> { order(published_on: :desc, created_at: :desc) }
+    scope :sorted_by_person_position, -> { joins(:person).order("#{Person.table_name}.position ASC, published_on DESC, #{table_name}.created_at DESC") }
 
     enum visibility_level: { draft: 0, active: 1 }
 

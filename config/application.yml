@@ -26,6 +26,9 @@ default: &default
     -
       name: Gobierto Participation
       namespace: GobiertoParticipation
+    -
+      name: Gobierto Plans
+      namespace: GobiertoPlans
   site_modules_with_root_path:
     -
       name: Gobierto Budgets
@@ -39,6 +42,9 @@ default: &default
     -
       name: Gobierto Observatory
       namespace: GobiertoObservatory
+    -
+      name: Gobierto Plans
+      namespace: GobiertoPlans
     -
       name: Gobierto Indicators
       namespace: GobiertoIndicators

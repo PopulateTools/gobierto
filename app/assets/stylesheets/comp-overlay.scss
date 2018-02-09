@@ -17,12 +17,12 @@
 
     .overlay-content {
       position: absolute;
-      top: 15rem;
+      top: 50%;
       margin: 0 auto;
       font-size: $f2;
       color: $color_main_negative;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%, -50%);
     }
   }
 

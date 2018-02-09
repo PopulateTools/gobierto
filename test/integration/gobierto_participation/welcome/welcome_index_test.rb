@@ -21,6 +21,14 @@ module GobiertoParticipation
       @poll ||= gobierto_participation_polls(:ordinance_of_terraces_published)
     end
 
+    def issues
+      @issues ||= site.issues.sorted
+    end
+
+    def processes
+      @processes ||= site.processes.process.active
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
         visit @path
@@ -141,8 +149,20 @@ module GobiertoParticipation
         visit @path
 
         assert has_content?("My Template")
-        assert has_no_content?("Ongoing processes")
-        assert has_no_content?("Themes")
+
+        assert has_content?("Diary")
+        assert has_content?("The last")
+        assert has_content?("News")
+
+        assert has_content?("Themes")
+        issues.each do |issue|
+          assert has_link?(issue.name)
+        end
+
+        assert has_content?("Ongoing processes")
+        processes.each do |process|
+          assert has_link?(process.title)
+        end
       end
     end
   end

@@ -16,6 +16,7 @@ module GobiertoParticipation
     delegate :persisted?, to: :vote
 
     validates :site, presence: true
+    validate :contribution_container_must_be_open
 
     def save
       save_vote if valid?
@@ -40,7 +41,19 @@ module GobiertoParticipation
     end
 
     def vote_class
-      ::GobiertoParticipation::Vote
+      Vote
+    end
+
+    def votable_class
+      votable_type.constantize
+    end
+
+    def contribution_class
+      Contribution
+    end
+
+    def comment_class
+      Comment
     end
 
     def save_vote
@@ -61,6 +74,24 @@ module GobiertoParticipation
 
         false
       end
+    end
+
+    def contribution_container
+      if votable_type == contribution_class.to_s
+        votable.contribution_container
+      elsif votable_type == comment_class.to_s && votable.commentable_type == contribution_class.to_s
+        votable.commentable.contribution_container
+      end
+    end
+
+    def contribution_container_must_be_open
+      if contribution_container.present? && !contribution_container.contributions_allowed?
+        errors.add(:contribution_container, 'Contributions period has finished')
+      end
+    end
+
+    def votable
+      votable_class.find(votable_id)
     end
 
     protected

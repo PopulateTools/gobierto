@@ -99,7 +99,7 @@ module GobiertoParticipation
 
         # check groups details
 
-        assert_equal 6, find_interactions_count_by_group_title(group_with_many_contributions.title)
+        assert_equal 8, find_interactions_count_by_group_title(group_with_many_contributions.title)
         assert_equal 3, find_participants_count_by_group_title(group_with_many_contributions.title)
 
         assert_equal 0, find_interactions_count_by_group_title(group_without_contributions.title)

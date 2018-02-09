@@ -79,6 +79,8 @@ ca:
         show:
           all: Tots
           best_ratings: Millors puntuacions
+          contributions_ended: El període d'aportacions ha finalitzat
+          contributions_start_html: El període d'aportacions començarà el <strong>%{date}</strong>
           idea:
             one: 1 idea
             other: "%{count} idees"

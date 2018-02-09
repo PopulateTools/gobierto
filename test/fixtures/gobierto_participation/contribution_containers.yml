@@ -24,17 +24,43 @@ neighbors_contributions:
   slug: sport-facilities-contributions
   visibility_user_level: <%= GobiertoParticipation::ContributionContainer.visibility_user_levels['verified'] %>
 
-bowling_group_contributions:
+bowling_group_contributions_current:
   site: madrid
   admin: tony
   process: bowling_group_very_active
-  title_translations: <%= { 'es' => '¿Qué podemos hacer para mejorar el grupo de petanca?' }.to_json %>
-  description_translations: <%= { 'es' => 'Ideas para mejorar el grupo de petanca.' }.to_json %>
+  title_translations: <%= { 'es' => '¿Qué podemos hacer para mejorar el grupo de petanca?', 'en' => 'What can we do to improve the bowling group?' }.to_json %>
+  description_translations: <%= { 'es' => 'Esta es la descripción de la piscina. Ideas para mejorar el grupo de petanca.', 'en' => 'This is the container description. Write ideas to improve the bowling group.' }.to_json %>
   visibility_level: <%= GobiertoParticipation::ContributionContainer.visibility_levels[:active] %>
   contribution_type: <%= GobiertoParticipation::ContributionContainer.contribution_types[:idea] %>
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
   slug: lawn-bowling-contributions
+  visibility_user_level: <%= GobiertoParticipation::ContributionContainer.visibility_user_levels['registered'] %>
+
+bowling_group_contributions_future:
+  site: madrid
+  admin: tony
+  process: bowling_group_very_active
+  title_translations: <%= { 'es' => 'Esta piscina todavía no ha empezado', 'en' => 'This container has not started' }.to_json %>
+  description_translations: <%= { 'es' => 'Esta es la descripción de la piscina. Esta piscina todavía no ha empezado.' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ContributionContainer.visibility_levels[:active] %>
+  contribution_type: <%= GobiertoParticipation::ContributionContainer.contribution_types[:idea] %>
+  starts: <%= 10.days.from_now %>
+  ends: <%= 30.days.from_now %>
+  slug: lawn-bowling-future-contributions
+  visibility_user_level: <%= GobiertoParticipation::ContributionContainer.visibility_user_levels['registered'] %>
+
+bowling_group_contributions_past:
+  site: madrid
+  admin: tony
+  process: bowling_group_very_active
+  title_translations: <%= { 'es' => 'Esta piscina ya ha caducado', 'en' => 'This container has already finished' }.to_json %>
+  description_translations: <%= { 'es' => 'Esta es la descripción de la piscina. Esta piscina ya ha caducado.' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ContributionContainer.visibility_levels[:active] %>
+  contribution_type: <%= GobiertoParticipation::ContributionContainer.contribution_types[:idea] %>
+  starts: <%= 3.months.ago %>
+  ends: <%= 1.month.ago %>
+  slug: lawn-bowling-past-contributions
   visibility_user_level: <%= GobiertoParticipation::ContributionContainer.visibility_user_levels['registered'] %>
 
 local_budgest_process_contributions_empty:

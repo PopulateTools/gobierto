@@ -112,4 +112,10 @@ $(document).on('turbolinks:load', function() {
   $('[data-toggle-target]').hide();
   $('[data-toggle]').each(function(){ toggleTarget($(this)) });
   $('[data-toggle]').click(function(){ toggleTarget($(this)) });
+
+  // js-disabled elements
+  $('.js-disabled').click(function(e) {
+    console.log("It's disabled!");
+    e.preventDefault();
+  });
 });

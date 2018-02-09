@@ -52,6 +52,26 @@ module GobiertoParticipation
       (ends - Date.current).to_i
     end
 
+    def contributions_allowed?
+      active? && open?
+    end
+
+    def contributions_forbidden?
+      !contributions_allowed?
+    end
+
+    def open?
+      !future? && !past?
+    end
+
+    def future?
+      starts > Time.zone.now
+    end
+
+    def past?
+      ends <= Time.zone.now
+    end
+
     private
 
     def participants_ids

@@ -30,6 +30,14 @@
           <h3><%= contribution_container.title %></h3>
           <p><%= contribution_container.description %></p>
 
+          <% if contribution_container.past? %>
+            <p><%= t('gobierto_participation.processes.contribution_containers.show.contributions_ended') %></p>
+          <% end %>
+
+          <% if contribution_container.future? %>
+            <p><%= t('gobierto_participation.processes.contribution_containers.show.contributions_start_html', date: l(contribution_container.starts, format: :short)) %></p>
+          <% end %>
+
           <div class="meta right">
             <div class="ib"><i class="fa fa-comment"></i><%= contribution_container.contributions.size %></div>
             <div class="ib"><i class="fa fa-users"></i><%= contribution_container.contributions.distinct.pluck(:user_id).size %></div>

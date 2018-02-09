@@ -23,6 +23,13 @@ module GobiertoParticipation
       )
     end
 
+    def past_contribution_container_path
+      @container_path ||= gobierto_participation_process_contribution_container_path(
+        process_id: gobierto_participation_processes(:bowling_group_very_active).slug,
+        id: past_contribution_container.slug
+      )
+    end
+
     def contribution_path
       @contribution_path ||= gobierto_participation_process_contribution_container_path(
         process_id: process.slug,
@@ -37,6 +44,10 @@ module GobiertoParticipation
 
     def contribution_container
       @contribution_container ||= gobierto_participation_contribution_containers(:children_contributions)
+    end
+
+    def past_contribution_container
+      @past_contribution_container ||= gobierto_participation_contribution_containers(:bowling_group_contributions_past)
     end
 
     def contributions
@@ -175,6 +186,26 @@ module GobiertoParticipation
           end
 
           find(".modal_like_control a", visible: false).click
+        end
+      end
+    end
+
+    def test_cant_vote_contributions_on_closed_contribution_container
+      with_javascript do
+        with_signed_in_user(user) do
+          visit past_contribution_container_path
+
+          assert has_content? 'This container has already finished'
+
+          # ensure button to create contribution is disabled
+          assert find('a.js-disabled.disabled-grayed.disabled-cursor').present?
+
+          page.find('[data-url="/participacion/p/grupo-de-petanca/aportaciones/lawn-bowling-past-contributions/contributions/contribution-on-closed-container"]', visible: false).trigger("click")
+
+          sleep 1
+
+          # ensure buttons to rate contributions are disabled
+          assert_equal 4, all('a.action_button.js-disabled.disabled-cursor').size
         end
       end
     end

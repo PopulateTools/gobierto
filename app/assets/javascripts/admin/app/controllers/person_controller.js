@@ -66,6 +66,13 @@ this.GobiertoAdmin.PersonController = (function() {
               var dataURL = reader.result;
 
               var output = document.getElementById('image');
+
+              // Hack: Clear cropper
+              if (output.classList.contains("cropper-hidden")) {
+                output.src= "";
+                output.cropper.destroy();
+              }
+
               output.src = dataURL;
 
               var cropper = new Cropper(output, {

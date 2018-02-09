@@ -17,7 +17,7 @@ Gobierto modules implement well defined and isolated features of the application
 - Gobierto Participation: participation in phased processes.
 - Gobierto Indicators: indicators ita, informparticipa and gci
 
-Modules can be activated or disabled by the **metadministrator**, but their code will be included in all the installations of Gobierto.
+Modules can be activated or disabled by the **manager**, but their code will be included in all the installations of Gobierto.
 
 This page describes the steps needed to create a new module and integrate it in the application.
 
@@ -39,11 +39,12 @@ default: &default
 When you create a module, you must define the root_path in config/routes.rb
 
 ```ruby
-  # Gobierto People module
-  namespace :gobierto_people, path: "/" do
-    constraints GobiertoSiteConstraint.new do
-      get "cargos-y-agendas" => "welcome#index", as: :root
-
+# Gobierto People module
+namespace :gobierto_people, path: "/" do
+  constraints GobiertoSiteConstraint.new do
+    get "cargos-y-agendas" => "welcome#index", as: :root
+  end
+end
 ```
 
 Nowadays, we have 5 modules (Gobierto Budgets, Gobierto People, Gobierto Participation, Gobierto Observatory and Gobierto Indicators) that have root_path to be the home page.
@@ -451,3 +452,8 @@ module GobiertoSeeds
   end
 end
 ```
+
+
+## Notifications
+
+Does the new module expose resources to be subscribed to? Examples of subscribable resources are people agendas, or a participatory process. If so you need to add it to the constant [`MODULES_WITH_NOTIFICATIONS`](https://github.com/PopulateTools/gobierto/blob/41-ibm-notes-attachments/app/models/site_configuration.rb#L21).

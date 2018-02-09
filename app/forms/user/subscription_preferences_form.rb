@@ -8,6 +8,7 @@ class User::SubscriptionPreferencesForm
     :modules,
     :gobierto_people_people,
     :gobierto_budget_consultations_consultations,
+    :gobierto_participation_processes,
     :site_to_subscribe
   )
 
@@ -17,7 +18,21 @@ class User::SubscriptionPreferencesForm
     save_subscriptions if valid?
   end
 
+  def specific_subscriptions
+    @specific_subscriptions ||= filter_subscriptions_by_available_modules(user.subscriptions.specific.where(site: site)).map(&:subscribable)
+  end
+
+  def module_level_subscriptions
+    @module_level_subscriptions ||= filter_subscriptions_by_available_modules(user.subscriptions.generic.where(site: site)).map { |m| m.subscribable_type.underscore }
+  end
+
   private
+
+  def modules_classes
+    @modules_classes ||= modules.reject(&:blank?).map do |mod|
+      mod.camelize.constantize
+    end
+  end
 
   def save_subscriptions
     @user = user.tap do |user_attributes|
@@ -27,10 +42,12 @@ class User::SubscriptionPreferencesForm
     if @user.valid?
       @user.save
 
-      update_subscriptions_to_modules(modules)
-      update_subscriptions_to_people(gobierto_people_people)
-      update_subscription_to_site(site_to_subscribe)
-      update_subscriptions_to_consultations(gobierto_budget_consultations_consultations)
+      update_subscription_to_site(site_to_subscribe) || begin
+        update_subscriptions_to_modules
+        update_subscriptions_to_people(gobierto_people_people)
+        update_subscriptions_to_consultations(gobierto_budget_consultations_consultations)
+        update_subscriptions_to_participation
+      end
 
       @user
     else
@@ -46,25 +63,16 @@ class User::SubscriptionPreferencesForm
     end
   end
 
-  def update_subscriptions_to_modules(modules)
-    modules = Array(modules)
-    modules.each do |module_name|
-      next if module_name.blank?
-
-      gobierto_module = module_name.camelize.constantize
-      @user.subscribe_to!(gobierto_module, site)
-    end
-
-    (site.configuration.modules.map(&:underscore) - modules).each do |module_name|
-      next if module_name.blank?
-
-      gobierto_module = module_name.camelize.constantize
-      @user.unsubscribe_from!(gobierto_module, site)
+  def update_subscriptions_to_modules
+    site.configuration.modules.reject(&:blank?).map(&:constantize).each do |mod|
+      next if broader_level_subscription_to?(mod)
+      modules_classes.include?(mod) ? @user.subscribe_to!(mod, site) : @user.unsubscribe_from!(mod, site)
     end
   end
 
   def update_subscriptions_to_people(people)
     people = Array(people)
+    return if broader_level_subscription_to?(GobiertoPeople::Person.new)
 
     people.each do |person_id|
       next if person_id.blank?
@@ -82,15 +90,18 @@ class User::SubscriptionPreferencesForm
   end
 
   def update_subscription_to_site(site_to_subscribe_id)
-    if site_to_subscribe_id != "0"
+    site_subscription = site_to_subscribe_id != "0"
+    if site_subscription
       @user.subscribe_to!(site, site)
     else
       @user.unsubscribe_from!(site, site)
     end
+    site_subscription
   end
 
   def update_subscriptions_to_consultations(budget_consultations)
     budget_consultations = Array(budget_consultations)
+    return if broader_level_subscription_to?(GobiertoBudgetConsultations::Consultation.new)
 
     budget_consultations.each do |consultation_id|
       next if consultation_id.blank?
@@ -104,6 +115,25 @@ class User::SubscriptionPreferencesForm
 
       consultation = site.budget_consultations.find(consultation_id)
       @user.unsubscribe_from!(consultation, site)
+    end
+  end
+
+  def update_subscriptions_to_participation
+    return if broader_level_subscription_to?(GobiertoParticipation::Process.new)
+
+    site.processes.active.each do |process|
+      gobierto_participation_processes.include?(process.id.to_s) ? user.subscribe_to!(process, site) : user.unsubscribe_from!(process, site)
+    end
+  end
+
+  def broader_level_subscription_to?(subscribable)
+    user.subscribed_to?(subscribable, site, :user_subscribed_by_broader_subscription_to?)
+  end
+
+  def filter_subscriptions_by_available_modules(subscriptions)
+    available_modules_regexp = Regexp.new("^[#{site.configuration.modules_with_notifications.join("|")}]")
+    subscriptions.select do |sub|
+      available_modules_regexp.match?(sub.subscribable_type)
     end
   end
 end

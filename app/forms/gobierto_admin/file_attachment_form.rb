@@ -3,7 +3,6 @@
 module GobiertoAdmin
   class FileAttachmentForm
     include ActiveModel::Model
-    prepend ::GobiertoCommon::Trackable
 
     attr_accessor(
       :id,
@@ -31,10 +30,6 @@ module GobiertoAdmin
     validates :site, presence: true
     validate :file_is_not_duplicated, if: -> { file.present? }
     validate :file_size_within_range, if: -> { file.present? }
-
-    trackable_on :file_attachment
-
-    notify_changed :name
 
     def initialize(attributes)
       attributes = attributes.to_h.with_indifferent_access
@@ -107,23 +102,21 @@ module GobiertoAdmin
 
     def save_file_attachment
       @file_attachment = file_attachment.tap do |file_attachment_attributes|
-        file_attachment_attributes.collection      = collection if collection_id
-        file_attachment_attributes.site            = site
-        file_attachment_attributes.admin_id        = admin_id
-        file_attachment_attributes.name            = name
-        file_attachment_attributes.description     = description
-        file_attachment_attributes.slug            = slug
-        file_attachment_attributes.url             = url
-        file_attachment_attributes.file_name       = file_name
-        file_attachment_attributes.file_size       = file_size
-        file_attachment_attributes.file_digest     = file_digest
+        file_attachment_attributes.collection = collection if collection_id
+        file_attachment_attributes.site = site
+        file_attachment_attributes.admin_id = admin_id
+        file_attachment_attributes.name = name
+        file_attachment_attributes.description = description
+        file_attachment_attributes.slug = slug
+        file_attachment_attributes.url = url
+        file_attachment_attributes.file_name = file_name
+        file_attachment_attributes.file_size = file_size
+        file_attachment_attributes.file_digest = file_digest
         file_attachment_attributes.current_version = current_version
       end
 
       if @file_attachment.valid?
-        run_callbacks(:save) do
-          @file_attachment.save
-        end
+        @file_attachment.save
 
         @file_attachment
       else
@@ -149,10 +142,9 @@ module GobiertoAdmin
     def file_is_not_duplicated
       attachment_hit = site.attachments.find_by(file_digest: file_attachment_class.file_digest(file))
 
-      if attachment_hit.present? && ( !persisted? || (persisted? && id != attachment_hit.id) )
+      if attachment_hit.present? && (!persisted? || (persisted? && id != attachment_hit.id))
         errors.add(:file_digest,
-          I18n.t('errors.messages.already_uploaded_html', url: admin_edit_attachment_path(attachment_hit))
-        )
+                   I18n.t("errors.messages.already_uploaded_html", url: admin_edit_attachment_path(attachment_hit)))
       end
     end
 
@@ -160,7 +152,7 @@ module GobiertoAdmin
       max_size = file_attachment_class::MAX_FILE_SIZE_IN_BYTES
 
       if file.size > max_size
-        errors.add(:file_size, "#{I18n.t('activerecord.messages.gobierto_attachments/attachment.file_too_big')} (#{file_attachment_class::MAX_FILE_SIZE_IN_MBYTES} Mb)")
+        errors.add(:file_size, "#{I18n.t("activerecord.messages.gobierto_attachments/attachment.file_too_big")} (#{file_attachment_class::MAX_FILE_SIZE_IN_MBYTES} Mb)")
       end
     end
 

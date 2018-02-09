@@ -1,7 +1,7 @@
 class User::EditPasswordForm
   include ActiveModel::Model
 
-  attr_accessor :user_id, :password, :password_confirmation
+  attr_accessor :user_id, :password, :password_confirmation, :site
   attr_reader :user
 
   validates :user, :password, presence: true
@@ -12,7 +12,7 @@ class User::EditPasswordForm
   end
 
   def user
-    @user ||= User.find_by(id: user_id)
+    @user ||= site.users.find_by(id: user_id)
   end
 
   private

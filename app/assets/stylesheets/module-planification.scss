@@ -1,0 +1,502 @@
+/*
+ * Planification
+ *
+ */
+
+// Vars
+$nodeLevel1IllustrationWidth: 33%;
+$nodeLevel1Height:150px;
+$white: $color_main_negative;
+
+// Colors (might be set somewhere else)
+// $node-colors: (
+//   1: #DB524B,
+//   2: #00909E,
+//   3: #F1AD44,
+//   4: #85A81C,
+//   5: #00529E
+// );
+//
+// // Functions
+// @function getColor($key) {
+//   @if map-has-key($node-colors, $key) {
+//     @return map-get($node-colors, $key);
+//   }
+//
+//   @warn "Unknown `#{$key}` in module-planification/$node-colors.";
+//   @return null;
+// }
+
+// styles only concern this module
+.gobierto_planification {
+  min-height: 300px;
+
+  .planification-header {
+    border-top: 1px solid $color_1_soft;
+    border-bottom: 1px solid $color_1_soft;
+    padding: 1rem;
+    display: flex;
+
+    .header-resume{
+      flex-basis: $nodeLevel1IllustrationWidth;
+
+      h3 {
+        margin-top: 0;
+      }
+
+      span {
+        font-size: $f1;
+      }
+    }
+  }
+
+  .planification-content {
+    display: flex;
+
+    .lines-header {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 0 20px;
+      color: $color_text;
+      font-size: $f7;
+    }
+
+    .lines-list {
+      margin: 0;
+      padding: 0;
+
+      li {
+        list-style: none;
+      }
+    }
+  }
+
+  // @component node-root (main axis)
+  .node-root {
+    position: relative;
+    display: flex;
+    min-height: $nodeLevel1Height;
+
+    &:hover {
+      opacity: .9;
+    }
+
+    a {
+      display: flex;
+      width: 100%;
+      color: $white;
+      text-decoration: none;
+      max-height: $nodeLevel1Height;
+      cursor: pointer;
+    }
+
+    .node-img {
+      flex: 0 0 $nodeLevel1IllustrationWidth;
+      mix-blend-mode: multiply;
+
+      img {
+        max-height: $nodeLevel1Height;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .node-info {
+      position: relative;
+      flex: 1;
+
+      .info-progress {
+        top: 0;
+        left: 0;
+        position: absolute;
+        height: 100%;
+        z-index: 1;
+      }
+
+      .info-content {
+        position: relative;
+        z-index: 2;
+        box-sizing: border-box;
+        padding: 2em;
+        color: $white;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        h3 {
+          color: $white;
+          margin: 0 0 .25em 0;
+          font-size: $f3;
+        }
+
+        span {
+          font-size: $f3;
+          font-weight: 200;
+        }
+      }
+    }
+
+    // node-root styles color-dependents
+    // @for $i from 1 through length($node-colors) {
+    //   // Get color from position `i` of `node-colors` array keys
+    //   $color: getColor(nth(map-keys($node-colors), $i));
+    //
+    //   &.cat_#{$i} {
+    //     background-color: transparentize($color, .05);
+    //     .progress {
+    //       background-color: $color;
+    //     }
+    //   }
+    // }
+  }
+
+  // @component node-list (action lines)
+  .node-list {
+      padding: 1em 0 0;
+      border-top: 1px solid;
+      display: flex;
+      justify-content: flex-start;
+
+      > :not(:first-child) {
+        flex: 1;
+        text-align: right;
+      }
+
+      .node-title {
+        flex-basis: 75%;
+        display: flex;
+
+        :first-child {
+          flex: 0;
+        }
+      }
+
+      h3 {
+        margin: 0 0 0.5em;
+
+        a {
+          display: block;
+          text-decoration: none;
+          cursor: pointer;
+
+          &::first-letter {
+            text-transform: uppercase;
+          }
+        }
+
+        &:hover {
+          opacity: 0.75;
+        }
+      }
+
+      .fa {
+        padding: .15em .45em;
+        line-height: 1;
+        @include border-radius(3px);
+      }
+    }
+
+  .node-breadcrumb {
+    display: inline-block;
+    @include border-radius(6px);
+
+    .fa {
+      padding: .15em .45em;
+      line-height: 1;
+      @include border-radius(3px);
+    }
+
+    a {
+      text-decoration: none;
+      font-size: $f7;
+      font-weight: 700;
+      padding: .25em;
+      cursor: pointer;
+    }
+  }
+
+  .node-action-line {
+    background-color: $color_main_negative;
+    @include border-radius(6px);
+
+    .action-line--header {
+      padding: 1em 1em 0.25em;
+      border-top: 0;
+      @include border-radius($top:6px);
+    }
+
+    .action-line--list {
+      padding: 1em 2em;
+      color: $color_text;
+      @include border-radius($bottom:6px);
+
+      li {
+        list-style: none;
+      }
+
+      .node-list {
+        padding: 1em 0;
+        border-color: rgba($color_text, .35);
+      }
+
+      a {
+        color: $color_text;
+        font-size: $f5;
+        text-decoration: none;
+        cursor: pointer;
+
+        &::first-letter {
+          text-transform: uppercase;
+        }
+      }
+
+      table {
+        margin: 0 0 1em;
+        padding: 0 0 0 1.5rem;
+        border-spacing: 0 .5em;
+        border-collapse: separate;
+
+        th:not(:first-child),
+        td:not(:first-child) {
+          text-align: center;
+        }
+
+        td {
+          border-top: 0;
+
+          &:first-child {
+            width: 60%;
+          }
+        }
+
+        thead {
+          color: rgba($color_text, .35);
+          text-transform: uppercase;
+          padding: .25em 0;
+
+          th {
+            font-weight: normal;
+            border-top: 1px solid rgba($color_text, .35);
+            border-bottom: 1px solid rgba($color_text, .35);
+          }
+        }
+
+        tbody {
+          margin: 1em 0;
+
+          tr {
+            &:hover {
+              cursor: pointer;
+
+              td:first-child {
+                @include border-radius($left:6px);
+              }
+
+              td:last-child {
+                @include border-radius($right:6px);
+              }
+            }
+
+            td {
+              margin: 1em 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .node-project-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    color: $color_text;
+
+    > :first-child {
+      margin-right: 1em;
+    }
+
+    > :last-child {
+      margin-left: 1em;
+    }
+
+    .project-optional {
+      flex: 1 1 0;
+
+      .row {
+        width: 100%;
+        padding: 1em 0;
+        display: flex;
+        justify-content: left;
+      }
+
+      .optional-container {
+        width: 100%;
+      }
+
+      .optional-title {
+        font-weight: bold;
+        text-transform: uppercase;
+        flex-basis: 25%;
+      }
+
+      .optional-desc {
+        flex-basis: 75%;
+
+        &:first-letter {
+          text-transform: uppercase;
+        }
+
+        > div {
+          margin: 0 0 .5em;
+        }
+      }
+
+      .optional-obj {
+        display: flex;
+        margin: 0 0 1em;
+
+        .optional-title {
+          font-weight: normal;
+          text-transform: none;
+
+          &:first-letter {
+            text-transform: uppercase;
+          }
+        }
+      }
+
+    }
+
+    .project-mandatory {
+      padding: 1em;
+      flex-basis: 33%;
+      @include border-radius(3px);
+
+      .mandatory-title {
+        font-weight: 200;
+        text-transform: uppercase;
+        color: rgba($color_text, .5);
+      }
+
+      .mandatory-desc {
+        color: $color_text;
+        margin: 0 0 1em;
+
+        &.mandatory-desc--large {
+          font-size: $f2;
+        }
+      }
+    }
+  }
+
+  // Animations
+  .slide-fade-enter-active,
+  .slide-fade-leave-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-enter, .slide-fade-leave-to {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  section.level_0 {
+    flex: 1 1 0%;
+  }
+
+  section:not(.level_0) {
+    flex: 10;
+    padding: 2em 3em;
+
+    /* COLOR MANAGER */
+    // @for $i from 1 through length($node-colors) {
+    //   // Get color from position `i` of `node-colors` array keys
+    //   $color: getColor(nth(map-keys($node-colors), $i));
+    //
+    //   &.cat_#{$i} {
+    //     background: transparentize($color, .9);
+    //     color: $color;
+    //
+    //     .node-list {
+    //       .node-title {
+    //         h3, h3 a {
+    //           color: $color;
+    //         }
+    //
+    //         .fa {
+    //           background: transparentize($color, .9);
+    //         }
+    //       }
+    //
+    //       // Negative version nodes
+    //       &.cat--negative {
+    //         .node-title {
+    //           h3, h3 a {
+    //             color: $color_main_negative;
+    //           }
+    //
+    //           .fa {
+    //             background: $color_main_negative;
+    //             color: $color;
+    //           }
+    //         }
+    //       }
+    //     }
+    //
+    //     .node-breadcrumb {
+    //       border: 1px solid transparentize($color, .25);
+    //       color: $color;
+    //
+    //       a {
+    //         color: $color;
+    //       }
+    //
+    //       .fa {
+    //         background: transparentize($color, .9);
+    //       }
+    //     }
+    //
+    //     .node-action-line {
+    //       table {
+    //         tbody {
+    //           tr {
+    //             &:hover {
+    //               td {
+    //                 background-color: rgba($color, .2);
+    //               }
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
+    //
+    //     .node-project-detail {
+    //       .project-optional {
+    //         .row {
+    //           border-top: 1px solid rgba($color, .2);
+    //         }
+    //       }
+    //       .project-mandatory {
+    //         background-color: rgba($color, .2);
+    //       }
+    //     }
+    //
+    //     // Negative version nodes
+    //     .cat--negative {
+    //       background: $color;
+    //       color: $color_main_negative;
+    //
+    //       h3, h3 a {
+    //         color: $color_main_negative;
+    //       }
+    //
+    //       .fa {
+    //         background: $color_main_negative;
+    //         color: $color;
+    //       }
+    //     }
+    //   }
+    // }
+  }
+}

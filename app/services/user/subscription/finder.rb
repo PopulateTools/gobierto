@@ -13,8 +13,8 @@ class User::Subscription::Finder
 
   private
 
-  def self.subscriptions_scope_for(subject_type, subject_id, site_id)
-    conditions = [{subscribable_type: subject_type, subscribable_id: subject_id, site_id: site_id}]
+  def self.subscriptions_scope_for(subject_type, subject_id, site_id, exclude_specific_subscription: false)
+    conditions = exclude_specific_subscription ? [] : [{subscribable_type: subject_type, subscribable_id: subject_id, site_id: site_id}]
 
     if subject_id.present?
       conditions.push({subscribable_type: subject_type, subscribable_id: nil, site_id: site_id})
@@ -42,7 +42,7 @@ class User::Subscription::Finder
   private_class_method :subscriptions_scope_for
 
   def self.find_broader_user_subscriptions_for(subject_type, subject_id, site_id)
-    subscriptions_scope_for(subject_type, subject_id, site_id).where(site_id: site_id).where.not(subscribable_type: subject_type, subscribable_id: subject_id).pluck(:user_id).uniq
+    subscriptions_scope_for(subject_type, subject_id, site_id, exclude_specific_subscription: true).pluck(:user_id).uniq
   end
   private_class_method :find_broader_user_subscriptions_for
 

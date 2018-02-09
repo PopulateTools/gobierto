@@ -28,7 +28,7 @@ class User::SubscriptionPreferencesController < User::BaseController
       gobierto_people_people: [],
       gobierto_budget_consultations_consultations: [],
       gobierto_participation_issue: [],
-      gobierto_participation_process: []
+      gobierto_participation_processes: []
     )
   end
 end

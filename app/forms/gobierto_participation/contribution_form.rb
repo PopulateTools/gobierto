@@ -56,9 +56,7 @@ module GobiertoParticipation
         contribution_attributes.description = description
       end
 
-      if @contribution.valid?
-        @contribution.save
-
+      if @contribution.save
         @contribution
       else
         promote_errors(@contribution.errors)

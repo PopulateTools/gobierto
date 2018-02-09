@@ -13,6 +13,10 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
     @user ||= users(:dennis)
   end
 
+  def other_site_user
+    @other_site_user ||= users(:charles)
+  end
+
   def recoverable_user
     @recoverable_user ||= users(:dennis)
   end
@@ -104,6 +108,18 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
       click_on "Recover"
 
       assert has_message?("Please check your inbox to get instructions")
+    end
+  end
+
+  def test_password_reset_request_from_other_site_user
+    with_current_site(site) do
+      visit @password_request_path
+
+      fill_in :user_password_email, with: other_site_user.email
+
+      click_button "Recover"
+
+      assert has_message?("The email address specified doesn't seem to be valid")
     end
   end
 end

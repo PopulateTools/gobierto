@@ -16,6 +16,7 @@ In this tutorial we are going to show you how to install Gobierto in a simple Li
 - Postgresql
 - ElasticSearch
 - Memcached
+- Redis
 - Webserver (we recommend Nginx)
 - Dependencies (to be installed using `apt-get`):
   - build-essential
@@ -27,13 +28,15 @@ In this tutorial we are going to show you how to install Gobierto in a simple Li
   - imagemagick
   - libpq-dev
   - nodejs
+  - redis-server
 
-- PostgreSQL, ElasticSearch, Memcached and the webserver must be up and running
+- PostgreSQL, ElasticSearch, Memcached, Redis and the webserver must be up and running
 
 **External requirements:**
 
 - Amazon AWS S3 keys
 - Rollbar, as exception notification tool (you can replace it easily)
+- An account in [Algolia](http://algolia.com/)
 
 We recommend you to prepare the credentials from these services before you continue with this
 tutorial.
@@ -63,9 +66,7 @@ and this guide is going to follow those conventions. Feel free to adapt the guid
   - `/var/www/gobierto/releases
   - `/var/www/gobierto/repo
 
-2 - Update `config/settings/production.yml` with:
-  - the final domain (replacing `gobierto.es`)
-  - Mailchimp API resource URI of the list. Leave it blank if you don't want to use Mailchimp
+2 - Copy `.env.example` to `.rbenv-vars` and fill all the variables following [this guide](https://github.com/PopulateTools/gobierto/blob/master/docs/environment-variables.md).
 
 3 - Create `/var/www/gobierto/shared/config/database.yml` with the following content:
 
@@ -79,49 +80,24 @@ production:
   password:
 ```
 
-4 - Create `/var/www/gobierto/shared/config/secrets.yml`
-
-```yaml
-production:
-  secret_key_base: ''
-  rollbar_access_token: ''
-  elastic_url: 'http://localhost:9200'
-  mailchimp_api_key: ''
-  amazon_access_key: ''
-  amazon_secret_key: ''
-```
-
-4.1 - Run `rake secret` in your dev environment and paste the result as `secret_key_base`
-
-4.2 - Paste your Rollbar API key. If you don't use Rollbar, leave that variable in blank
-
-4.3 - Update the URL of the ElasticSearch in case you use a remote server
-
-4.4 - Paste your Mailchimp API Key
-
-4.5 - Paste Amazon credentials
-
 5 - Deploy the site
 
 Back to your development environment, we are going to deploy the site, following these steps:
 
-5.1 - Create the file `config/deploy/production.rb` based on `config/deploy/production.rb.example`,
-updating the host
+5.1 - Check the server configuration: `$ bundle exec cap production deploy:check`
 
-5.2 - Check the server configuration: `$ bundle exec cap production deploy:check`
+5.2 - Deploy! `$ bundle exec cap production deploy`
 
-5.3 - Deploy! `$ bundle exec cap production deploy`
-
-5.4 - In the remote server, check that `/var/www/gobierto/current/` has been created as a symlink
+5.3 - In the remote server, check that `/var/www/gobierto/current/` has been created as a symlink
 
 Notice that you can change the way to deploy the application. We prefer [Capistrano](http://capistranorb.com) and that's the configured option, but if you want to deploy in a different way just update the code in the fork of your project and that's all.
 
 6 - Load the data
 
 Once the application is working in production (without working in the HTTP server yet) we need to
-load the data.
+load budgets data (if you enable the budgets module).
 
-Please, refer to our [README page](https://github.com/PopulateTools/gobierto/blob/master/README.md)
+Please, refer to this section in [Gobierto Budgets comparator README page](https://github.com/PopulateTools/gobierto-comparador-presupuestos#carga-algunos-datos)
 to understand which scripts you need to run.
 
 Because you are in a remote server, you need to setup an environment variable named `RAILS_ENV` with
@@ -138,8 +114,8 @@ server {
   passenger_enabled on;
   client_max_body_size 50M;
 
-  access_log      /var/log/nginx/presupuestos-gobierto_access.log;
-  error_log       /var/log/nginx/presupuestos-gobierto_error.log;
+  access_log      /var/log/nginx/gobierto_access.log;
+  error_log       /var/log/nginx/gobierto_error.log;
 
   root /var/www/gobierto/current/public;
 

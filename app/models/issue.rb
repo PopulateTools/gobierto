@@ -21,16 +21,12 @@ class Issue < ApplicationRecord
     self.name
   end
 
-  def parameterize
-    { slug: slug }
-  end
-
   def attributes_for_slug
     [name]
   end
 
   def to_url(options = {})
-    url_helpers.gobierto_participation_issue_url(parameterize.merge(id: self.id, host: app_host).merge(options))
+    url_helpers.gobierto_participation_issue_url(parameterize.merge(id: self.slug, host: app_host).merge(options))
   end
 
   def active_pages

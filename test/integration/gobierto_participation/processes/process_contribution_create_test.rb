@@ -46,6 +46,8 @@ module GobiertoParticipation
         with_signed_in_user(user, logout=false) do
           visit container_path
 
+          assert_equal 4, contributions.size
+
           page.find("a", text: "Have an idea!").trigger("click")
 
           assert has_content? "WRITE YOUR IDEA CONCISE"
@@ -61,6 +63,7 @@ module GobiertoParticipation
           visit container_path
 
           assert has_content? "My contribution"
+          assert_equal 5, contribution_container.contributions.size
         end
       end
     end

@@ -18,7 +18,7 @@ class User::NewPasswordForm
   end
 
   def user
-    @user ||= User.find_by(email: email)
+    @user ||= site.users.find_by(email: email)
   end
 
   private

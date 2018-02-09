@@ -35,8 +35,7 @@ module GobiertoParticipation
                                  .in_process(@scope.processes)
                                  .sorted
                                  .limit(5)
-                                 .includes(:subject, :author, :recipient)
-                                 .page(params[:page]))
+                                 .includes(:subject, :author, :recipient))
     end
 
     def find_scope_events

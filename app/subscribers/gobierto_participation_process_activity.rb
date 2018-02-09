@@ -2,13 +2,12 @@
 
 module Subscribers
   class GobiertoParticipationProcessActivity < ::Subscribers::Base
-
     def process_created(event)
-      create_activity_from_event(event, 'gobierto_participation.process_created')
+      create_activity_from_event(event, "gobierto_participation.process_created")
     end
 
     def process_updated(event)
-      create_activity_from_event(event, 'gobierto_participation.process_updated')
+      create_activity_from_event(event, "gobierto_participation.process_updated")
     end
 
     private
@@ -22,5 +21,4 @@ module Subscribers
                        admin_activity: true
     end
   end
-
 end

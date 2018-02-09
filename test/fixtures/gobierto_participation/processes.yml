@@ -118,3 +118,15 @@ commission_for_carnival_festivities:
   ends: <%= 6.months.from_now %>
   issue: culture
   header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
+
+center_scope_process:
+  site: madrid
+  title_translations: <%= { 'en' => 'Center process', 'es' => 'Proceso del centro' }.to_json %>
+  body_translations: <%= { 'en' => 'Enjoy the center', 'es' => 'Disfruta del centro' }.to_json %>
+  slug: center
+  process_type: <%= GobiertoParticipation::Process.process_types[:process] %>
+  visibility_level: <%= Site.visibility_levels["active"] %>
+  starts: <%= 3.days.ago %>
+  ends: <%= 30.days.from_now %>
+  issue: culture
+  scope: center

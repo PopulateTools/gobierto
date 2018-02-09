@@ -44,7 +44,11 @@ fixtures_to_load = [
   "gobierto_participation/areas",
   "gobierto_common/collection_items",
   "gobierto_common/scopes",
-  "gobierto_admin/permissions"
+  "gobierto_admin/permissions",
+  "gobierto_plans/plan_types",
+  "gobierto_plans/plans",
+  "gobierto_plans/categories",
+  "gobierto_plans/nodes"
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")

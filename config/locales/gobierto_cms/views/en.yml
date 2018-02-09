@@ -3,6 +3,7 @@ en:
   gobierto_cms:
     events:
       gobierto_cms_page_created: Page created
+      gobierto_cms_page_published: Page published
       gobierto_cms_page_updated: Page updated
       gobierto_cms_section_created: Section created
       gobierto_cms_section_item_created: Page added to section

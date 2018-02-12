@@ -76,4 +76,11 @@ module ApplicationHelper
       answerable_polls.first
     end
   end
+
+  def content_for_if(name, condition, &block)
+    if condition
+      content_for(name, &block)
+    end
+    yield
+  end
 end

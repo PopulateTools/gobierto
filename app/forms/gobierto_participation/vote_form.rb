@@ -41,7 +41,7 @@ module GobiertoParticipation
     end
 
     def vote_class
-      Vote
+      ::GobiertoParticipation::Vote
     end
 
     def votable_class
@@ -49,11 +49,11 @@ module GobiertoParticipation
     end
 
     def contribution_class
-      Contribution
+      ::GobiertoParticipation::Contribution
     end
 
     def comment_class
-      Comment
+      ::GobiertoParticipation::Comment
     end
 
     def save_vote

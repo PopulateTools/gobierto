@@ -1,0 +1,21 @@
+<nav class="nav main-nav" role="navigation" aria-hidden="false">
+  <div class="column">
+    <% if try(:current_process).nil? %>
+      <% if global_navigation_section? %>
+        <%= render "layouts/global_navigation", { show_active: true } %>
+      <% else %>
+        <% current_site.configuration.modules.each do |site_module| %>
+          <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main", { show_active: true } %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= render "gobierto_participation/layouts/process_breadcrumb" %>
+    <% end %>
+  </div>
+</nav>
+
+<nav class="nav sub-nav" role="navigation" aria-hidden="false">
+  <div class="column">
+    <%= render_if_exists "#{current_module}/layouts/navigation.sub" %>
+  </div>
+</nav>

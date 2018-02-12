@@ -43,7 +43,7 @@ module GobiertoPlans
           assert has_content? "Latest update: November 01, 2016"
 
           assert has_content? "#{axes.size} axes"
-          assert has_content? "#{action_lines.size} lines of action"
+          assert has_content? "1 line of action"
           assert has_content? "#{actions.size} actions"
           assert has_content? "#{projects.size} projects"
 
@@ -89,11 +89,11 @@ module GobiertoPlans
           within ".planification-content" do
             within "section.level_1.cat_3" do
               within ".lines-header" do
-                assert has_content?("#{action_lines.size} lines of action")
+                assert has_content?("1 line of action")
               end
               within ".lines-list" do
                 assert has_content?(action_lines.first.name)
-                assert has_content?("#{actions.size} actions")
+                assert has_content?("2 actions")
 
                 assert has_content?((projects.sum(:progress) / projects.size) / 100)
               end

@@ -41,8 +41,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within ".sub-nav" do
-          assert has_content? "Issues"
+        within "nav.sub-nav" do
+          assert has_content? "Scopes"
           assert has_content? "Processes"
         end
       end

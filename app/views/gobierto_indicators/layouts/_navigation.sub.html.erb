@@ -1,9 +1,9 @@
-<div class="sub-nav-item">
+<div class="sub-nav-item <%= class_if(' active', action_name == 'ita' ) %>">
   <%= link_to t("gobierto_indicators.layouts.navigation.sub.ita"), gobierto_indicators_root_path %>
 </div>
-<div class="sub-nav-item">
+<div class="sub-nav-item <%= class_if(' active', action_name == 'gci') %>">
   <%= link_to t("gobierto_indicators.layouts.navigation.sub.gci"), gobierto_indicators_indicators_gci_path %>
 </div>
-<div class="sub-nav-item">
+<div class="sub-nav-item <%= class_if(' active', action_name == 'ip') %>">
   <%= link_to t("gobierto_indicators.layouts.navigation.sub.ip"), gobierto_indicators_indicators_ip_path %>
 </div>

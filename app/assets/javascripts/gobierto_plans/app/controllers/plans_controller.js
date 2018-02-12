@@ -106,8 +106,9 @@ this.GobiertoPlans.PlansController = (function() {
               this.isOpen = !this.isOpen;
             }
           },
-          getLabel: function(level) {
-            return this.level["level" + (level + 1)]
+          getLabel: function(level, number_of_elements) {
+            var key = this.level["level" + (level + 1)]
+            return (number_of_elements == 1 ? key["one"] : key["other"])
           }
         }
       });

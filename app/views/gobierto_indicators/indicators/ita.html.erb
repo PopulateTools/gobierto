@@ -1,5 +1,9 @@
 <% title t('.title', year: @year) %>
 
+<% content_for(:current_submodule_link) do %>
+  <%= link_to "ITA", gobierto_indicators_indicators_ita_path %>
+<% end %>
+
 <div id="indicator-form" data-type="boolean"></div>
 
 <div class="column indicators-tree">

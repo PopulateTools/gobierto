@@ -39,6 +39,7 @@ en:
       search: Search...
       session:
         alerts: Your alerts
+        login: Login or sign up
         notifications: Notifications
         sign_in: Sign in
         sign_out: Sign out

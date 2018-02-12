@@ -1,3 +1,7 @@
+<% content_for(:current_submodule_link) do %>
+  <%= link_to title(@plan.title), gobierto_plans_plan_path(@plan.slug) %>
+<% end %>
+
 <div class="column">
   <div class="block">
 
@@ -40,11 +44,11 @@
         <div class="header-detail">
           <% for i in 0..(@levels) %>
             <div>
-              <%= @plan.categories.where(level: i).size %> <%= @plan.configuration_data["level" + i.to_s][I18n.locale.to_s] %>
+              <%= level_name_pluralize(@plan.categories.where(level: i).size, @plan.configuration_data["level" + i.to_s]) %>
             </div>
           <% end %>
           <div>
-            <%= @node_number %> <%= @plan.configuration_data["level" + (@levels + 1).to_s][I18n.locale.to_s] %>
+            <%= level_name_pluralize(@node_number, @plan.configuration_data["level" + (@levels + 1).to_s]) %>
           </div>
         </div>
 
@@ -60,7 +64,8 @@
 
         <section class="level_1" v-if="isOpen(1)" :class="['cat_' + color() ]">
           <div class="lines-header">
-            <div>{{ (activeNode.children || []).length }} <%= @plan.configuration_data["level" + (@levels - 1).to_s][I18n.locale.to_s] %></div>
+            <div><%= level_name_pluralize(@plan.categories.where(level: 1).size, @plan.configuration_data["level1"]) %></div>
+
             <div><%= t(".percentage_progress") %></div>
           </div>
 
@@ -88,7 +93,7 @@
                   <div><i class="fa fa-caret-down"></i></div>
                   <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
                 </div>
-                <div>{{ (activeNode.children || []).length }} <%= @plan.configuration_data["level" + @levels.to_s][I18n.locale.to_s] %></div>
+                <div><%= level_name_pluralize(@plan.categories.where(level: 2).size, @plan.configuration_data["level2"]) %></div>
                 <div>{{ (activeNode.attributes || {}).progress || 0 | percent }}</div>
               </div>
 
@@ -199,7 +204,7 @@
       <div><i class="fa" :class="[(isOpen) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
       <h3><a @click.stop="setActive" data-turbolinks="false">{{ model.attributes.title | translate }}</a></h3>
     </div>
-    <div>{{ (model.children || []).length }} {{ getLabel(model.level) | translate }}</div>
+    <div>{{ (model.children || []).length }} {{ getLabel(model.level, (model.children || []).length) | translate }}</div>
     <div>{{ (model.attributes || {}).progress || 0 | percent }}</div>
   </div>
 </script>

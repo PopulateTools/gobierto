@@ -41,6 +41,7 @@ ca:
       search: Cerca...
       session:
         alerts: Les teves alertes
+        login: Fes login o registra't
         notifications: Notificacions
         sign_in: Iniciar sessió
         sign_out: Surt

@@ -59,7 +59,7 @@ module GobiertoParticipation
 
         menu_items = process.stages.map(&:menu)
 
-        within ".sub-nav" do
+        within "nav.sub-nav" do
           menu_items.each do |menu_item|
             assert has_link? menu_item
           end

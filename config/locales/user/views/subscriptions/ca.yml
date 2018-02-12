@@ -37,6 +37,7 @@ ca:
         follow_issue: Segueix el tema
         follow_person: Segueix la persona
         follow_process: Segueix el procés
+        follow_group_process: Segueix el grup
         follow_scope: Segueix l´àmbit
         issue_followed: Tema seguit!
         manage_subscriptions: Gestionar les teves alertes

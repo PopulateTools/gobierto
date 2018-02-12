@@ -29,7 +29,7 @@ en:
         header_image: Header image
         header_image_url: Header image URL
         issue_id: Theme
-        process_type: Group type
+        process_type: Type
         scope_id: Scope
         slug: Slug
         stages: Stages

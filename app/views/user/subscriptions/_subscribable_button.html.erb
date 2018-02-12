@@ -10,7 +10,7 @@
           <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
             <%= link_to "#", class: "button button-feed" do %>
               <i class="fa fa-star"></i>
-              <%= t(".#{subscribable.class.name.demodulize.downcase}_followed") %>
+              <%= subscription_message(subscribable, "followed") %>
             <% end %>
             <ul class="pure-menu-children">
               <li class="pure-menu-item">
@@ -31,7 +31,7 @@
         method: :delete,
         class: "button button-feed") do %>
           <i class="fa fa-star"></i>
-          <%= t(".#{subscribable.class.name.demodulize.downcase}_followed") %>
+          <%= subscription_message(subscribable, "followed") %>
       <% end %>
     <% end %>
   <% else %>
@@ -46,7 +46,7 @@
       method: :post,
       class: "button button-feed") do %>
         <i class="fa fa-rss"></i>
-        <%= t(".follow_#{subscribable.class.name.demodulize.downcase}") %>
+        <%= subscription_message(subscribable, "follow") %>
     <% end %>
   <% end %>
 <% else %>
@@ -54,6 +54,6 @@
     new_user_sessions_path(open_modal: true),
     class: "button button-feed") do %>
       <i class="fa fa-rss"></i>
-    <%= t(".follow_#{subscribable.class.name.demodulize.downcase}") %>
+      <%= subscription_message(subscribable, "follow") %>
   <% end %>
 <% end %>

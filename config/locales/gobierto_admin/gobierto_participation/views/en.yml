@@ -7,10 +7,11 @@ en:
           agenda: Agenda
           contributions: Contributions
           documents: Documents
+          group_process: Group
           information: Information
           news: News
           polls: Polls
-          stage: Process
+          process: Process
           stages: Stages
           votings: Votings
       welcome:

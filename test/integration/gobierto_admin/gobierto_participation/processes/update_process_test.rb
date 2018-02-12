@@ -81,7 +81,7 @@ module GobiertoAdmin
                 click_button "Update"
               end
 
-              assert has_message? "Process was successfully updated"
+              assert has_message? "Group was successfully updated"
 
               visit admin_participation_path
 

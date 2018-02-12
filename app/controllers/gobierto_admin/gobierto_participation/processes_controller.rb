@@ -34,7 +34,7 @@ module GobiertoAdmin
           redirect_to(
             edit_admin_participation_process_path(@process_form.process),
             notice: [
-              t(".success_html", link: gobierto_participation_process_preview_url(@process_form.process, host: current_site.domain)),
+              t(".success_#{@process_form.process.process_type}_html", link: gobierto_participation_process_preview_url(@process_form.process, host: current_site.domain)),
               t(".add_stages")
             ]
           )
@@ -54,7 +54,7 @@ module GobiertoAdmin
           track_update_process
           redirect_to(
             edit_admin_participation_process_path(@process),
-            notice: t(".success_html", link: gobierto_participation_process_preview_url(@process_form.process, host: current_site.domain))
+            notice: t(".success_#{@process.process_type}_html", link: gobierto_participation_process_preview_url(@process_form.process, host: current_site.domain))
           )
         else
           @issues = find_issues
@@ -68,14 +68,14 @@ module GobiertoAdmin
         @process = find_process
         @process.destroy
 
-        redirect_to admin_participation_path, notice: t(".success")
+        redirect_to admin_participation_path, notice: t(".success_#{@process.process_type}")
       end
 
       def recover
         @process = find_archived_process
         @process.restore
 
-        redirect_to admin_participation_path, notice: t(".success")
+        redirect_to admin_participation_path, notice: t(".success_#{@process.process_type}")
       end
 
       def update_current_stage

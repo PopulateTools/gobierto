@@ -34,10 +34,10 @@ en:
       subscribable_button:
         event_followed: Event followed!
         follow_event: Follow event
+        follow_group_process: Follow group
         follow_issue: Follow theme
         follow_person: Follow person
         follow_process: Follow process
-        follow_group_process: Follow group
         follow_scope: Follow scope
         issue_followed: Theme followed!
         manage_subscriptions: Manage your alerts

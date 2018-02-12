@@ -100,7 +100,7 @@ this.GobiertoAdmin.PersonController = (function() {
       image.onload = function () {
         var height = this.height;
         var width = this.width;
-        if ((height < 500 || width < 500)) {
+        if ((height > 500 || width > 500)) {
           openCropModal(loaded_image);
         } else {
           $('#saved_image').hide();

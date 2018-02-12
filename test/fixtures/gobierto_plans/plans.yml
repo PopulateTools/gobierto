@@ -10,10 +10,14 @@ strategic_plan:
   updated_at: 2016-11-01 00:02:00
   plan_type: pam
   configuration_data: <%= {
-    "level0" => {"ca"=>"eixos", "es"=>"ejes", "en"=>"axes"},
-    "level1" => {"ca"=>"línies d'actuació", "es"=>"líneas de actuación", "en"=>"lines of action"},
-    "level2" => {"ca"=>"actuacions", "es"=>"actuaciones", "en"=>"actions"},
-    "level3" => {"ca"=>"projectes", "es"=>"proyectos", "en"=>"projects"},
+    "level0" => {"one" => {"ca"=>"eix", "es"=>"eje", "en"=>"axis"},
+                 "other" => {"ca"=>"eixos", "es"=>"ejes", "en"=>"axes"}},
+    "level1" => {"one" => {"ca"=>"línia d'actuació", "es"=>"línea de actuación", "en"=>"line of action"},
+                 "other" => {"ca"=>"línies d'actuació", "es"=>"líneas de actuación", "en"=>"lines of action"}},
+    "level2" => {"one" => {"ca"=>"actuació", "es"=>"actuación", "en"=>"action"},
+                 "other" => {"ca"=>"actuacions", "es"=>"actuaciones", "en"=>"actions"}},
+    "level3" => {"one" => {"ca"=>"projecte", "es"=>"proyecto", "en"=>"project"},
+                 "other" => {"ca"=>"projectes", "es"=>"proyectos", "en"=>"projects"}},
     "level0_options" => [ { "slug" => "people-and-families",
                             "logo" => "http://gobierto.es/assets/v2/logo-gobierto.svg" },
                           { "slug" => "city",

@@ -4,7 +4,11 @@ module GobiertoPeople
   module IbmNotes
     class CalendarIntegration
 
+      include CalendarServiceHelpers
+
       def self.sync_person_events(person)
+        logger.log_synchronization_start(person_id: person.id, person_name: person.name)
+
         received_events_ids = get_person_events_urls(person).map do |event_url|
           response_data = ::IbmNotes::Api.get_event(request_params_for_event_request(person, event_url))
 
@@ -15,17 +19,21 @@ module GobiertoPeople
           process_event(event_data, event_url, person)
         end.compact.flatten
 
+        logger.log_available_events_count(received_events_ids.size)
+
         person.events.upcoming.synchronized.each do |event|
           unless received_events_ids.include?(event.external_id)
             event.pending!
           end
         end
       rescue ::IbmNotes::InvalidCredentials
-        Rails.logger.info "[#{person.site.name} calendar integration] Invalid credentials for site"
+        logger.log_message("Invalid credentials for site")
       rescue ::IbmNotes::ServiceUnavailable
-        Rails.logger.info "[#{person.site.name} calendar integration] IBM Notes calendar API is down"
+        logger.log_message("IBM Notes calendar API is down")
       rescue ::JSON::ParserError
-        Rails.logger.info "[#{person.site.name} calendar integration] JSON parser error"
+        logger.log_message("JSON parser error")
+      ensure
+        logger.log_synchronization_end(person_id: person.id, person_name: person.name)
       end
 
       def self.sync_event(ibm_notes_event, person)
@@ -60,13 +68,15 @@ module GobiertoPeople
           notify: true
         }
 
+        event_form = GobiertoPeople::PersonEventForm.new(person_event_params)
+
         if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
-          GobiertoPeople::PersonEventForm.new(person_event_params).destroy
+          logger.log_destroy_rule
+          event_form.destroy
           nil
         else
-          event = GobiertoPeople::PersonEventForm.new(person_event_params)
-          event.save
-          event.external_id
+          if !event_form.save then logger.log_invalid_event(event_form.errors.messages) end
+          event_form.external_id
         end
       end
 
@@ -171,6 +181,11 @@ module GobiertoPeople
         ::GobiertoCalendars::IbmNotesCalendarConfiguration.find_by(collection_id: person.calendar.id)
       end
       private_class_method :person_calendar_configuration
+
+      # HACK - Refactor IBM Notes service so it uses instance methods
+      def self.logger
+        CalendarIntegration.new
+      end
 
     end
   end

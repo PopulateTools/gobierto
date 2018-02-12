@@ -39,6 +39,7 @@ es:
         follow_person: Seguir persona
         follow_process: Seguir proceso
         follow_scope: Seguir ámbito
+        group_process_followed: "¡Grupo seguido!"
         issue_followed: "¡Tema seguido!"
         manage_subscriptions: Gestionar tus alertas
         person_followed: "¡Persona seguida!"

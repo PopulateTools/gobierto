@@ -85,7 +85,7 @@ module GobiertoParticipation
         visit process_contribution_containers_path
 
         within ".slim_nav_bar" do
-          assert has_content? "Follow process"
+          assert has_content? "Follow group"
         end
       end
     end

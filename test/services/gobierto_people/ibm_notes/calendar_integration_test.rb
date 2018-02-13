@@ -133,7 +133,7 @@ module GobiertoPeople
         )
       end
 
-      def test_sync_events_v9
+      def test_sync_events_v9_with_description
         configure_ibm_notes_calendar_with_description
 
         Timecop.freeze(freeze_date) do
@@ -155,6 +155,34 @@ module GobiertoPeople
 
           assert_equal "CAEM", recurrent_events_instances.first.title
           assert_equal rst_to_utc("2017-05-05 09:00:00"), recurrent_events_instances.first.starts_at
+        end
+      end
+
+      def test_sync_events_v9_without_description
+        configure_ibm_notes_calendar_without_description
+
+        Timecop.freeze(freeze_date) do
+          VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
+            CalendarIntegration.sync_person_events(richard)
+          end
+
+          non_recurrent_events = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
+          recurrent_events_instances = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$")
+
+          assert_equal 2, non_recurrent_events.count
+          assert_equal 1, recurrent_events_instances.count
+
+          assert_equal "Buscar alcaldessa al seu despatx i Sortida cap a l'acte Gran Via Corts Catalanes, 400", non_recurrent_events.first.title
+          assert_equal rst_to_utc("2017-05-04 18:45:00"), non_recurrent_events.first.starts_at.utc
+          assert_nil non_recurrent_events.first.description
+
+          assert_equal "Lliurament Premis Rac", non_recurrent_events.second.title
+          assert_equal rst_to_utc("2017-05-04 19:30:00"), non_recurrent_events.second.starts_at.utc
+          assert_nil non_recurrent_events.second.description
+
+          assert_equal "CAEM", recurrent_events_instances.first.title
+          assert_equal rst_to_utc("2017-05-05 09:00:00"), recurrent_events_instances.first.starts_at
+          assert_nil recurrent_events_instances.first.description
         end
       end
 

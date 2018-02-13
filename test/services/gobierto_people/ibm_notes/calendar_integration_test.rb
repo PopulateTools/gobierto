@@ -9,7 +9,7 @@ module GobiertoPeople
       include ::CalendarIntegrationHelpers
 
       def freeze_date
-        Time.zone.parse("2016-12-05 01:00:00")
+        Time.zone.parse("2017-03-01 01:00:00")
       end
 
       def filtering_rule

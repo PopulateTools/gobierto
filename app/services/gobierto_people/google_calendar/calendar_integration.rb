@@ -10,11 +10,15 @@ module GobiertoPeople
       USERNAME = "default"
       SCOPE = Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY
 
+      include CalendarServiceHelpers
+
       def self.sync_person_events(person)
         new(person).sync!
       end
 
       def sync!
+        log_synchronization_start(person_id: person.id, person_name: person.name)
+
         set_google_calendar_id!
         import_events!
         delete_unreceived_events!
@@ -46,8 +50,22 @@ module GobiertoPeople
       end
 
       def sync_calendar_events(calendar)
-        response = service.list_events(calendar.id, always_include_email: true, time_min: GobiertoCalendars.sync_range_start.iso8601)
-        response.items.each do |event|
+        log_message("Syncing calendar '#{calendar.summary}'")
+
+        event_items = service.list_events(
+          calendar.id,
+          always_include_email: true,
+          time_min: GobiertoCalendars.sync_range_start.iso8601,
+          time_max: GobiertoCalendars.sync_range_end.iso8601,
+          max_results: 2500,
+          order_by: 'startTime',
+          single_events: true
+        ).items
+
+        log_available_events_count(event_items.size)
+
+        event_items.each do |event|
+
           next if is_private?(event)
 
           if is_recurring?(event)
@@ -111,14 +129,16 @@ module GobiertoPeople
           event_params.merge!(locations_attributes: {"0" => {"_destroy" => "1" }})
         end
 
+        event_form = GobiertoPeople::PersonEventForm.new(event_params)
+
         if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
-          GobiertoPeople::PersonEventForm.new(event_params).destroy
+          log_destroy_rule
+          event_form.destroy
         else
-          gobierto_event = GobiertoPeople::PersonEventForm.new(event_params)
-          if gobierto_event.save
+          if event_form.save
             received_event_ids.push(event.id)
           else
-            Rails.logger.info "[Google Calendar Integration] Invalid event: #{event_params}"
+            log_invalid_event(event_form.errors.messages)
           end
         end
       end
@@ -141,11 +161,17 @@ module GobiertoPeople
       end
 
       def import_events!
-        service.list_calendar_lists(max_results: 100).items.each do |calendar|
+        available_calendars = service.list_calendar_lists(max_results: 100).items
+
+        log_available_calendars_count(available_calendars.size)
+
+        available_calendars.each do |calendar|
           if configuration.calendars.present? && configuration.calendars.include?(calendar.id)
             sync_calendar_events(calendar)
           end
         end
+
+        log_synchronization_end(person_id: person.id, person_name: person.name)
       end
 
       def delete_unreceived_events!

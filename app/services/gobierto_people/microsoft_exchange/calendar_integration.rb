@@ -4,6 +4,8 @@ module GobiertoPeople
   module MicrosoftExchange
     class CalendarIntegration
 
+      include CalendarServiceHelpers
+
       attr_reader :person, :site, :configuration
 
       TARGET_CALENDAR_NAME = 'gobierto'
@@ -13,9 +15,11 @@ module GobiertoPeople
       end
 
       def sync
-        Rails.logger.info "#{log_preffix} Syncing events for #{person.name} (id: #{person.id})"
+        log_synchronization_start(person_id: person.id, person_name: person.name)
 
-        calendar_items = get_calendar_items
+        calendar_items = get_calendar_items || []
+
+        log_available_events_count(calendar_items.size)
 
         mark_unreceived_events_as_drafts(calendar_items)
 
@@ -23,9 +27,11 @@ module GobiertoPeople
           sync_event(item)
         end
       rescue ::Errno::EADDRNOTAVAIL, ::SocketError, ::ArgumentError, ::Addressable::URI::InvalidURIError
-        Rails.logger.info "#{log_preffix} Invalid endpoint address for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}"
+        log_message("Invalid endpoint address for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}")
       rescue ::HTTPClient::ConnectTimeoutError
-        Rails.logger.info "#{log_preffix} Timeout error for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}"
+        log_message("Timeout error for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}")
+      ensure
+        log_synchronization_end(person_id: person.id, person_name: person.name)
       end
 
       private
@@ -48,11 +54,11 @@ module GobiertoPeople
       def get_calendar_items
         root_folder = Exchanger::Folder.find(:calendar)
 
-        log_missing_folder_error('root') and return if root_folder.nil?
+        log_missing_folder_error('root') and return [] if root_folder.nil?
 
         target_folder = root_folder.folders.find { |folder| folder.display_name == TARGET_CALENDAR_NAME }
 
-        log_missing_folder_error(TARGET_CALENDAR_NAME) and return if target_folder.nil?
+        log_missing_folder_error(TARGET_CALENDAR_NAME) and return [] if target_folder.nil?
 
         # summarized events does not include events description
         sumarized_events = target_folder.expanded_items(start_date: GobiertoCalendars.sync_range_start, end_date: GobiertoCalendars.sync_range_end)
@@ -94,12 +100,13 @@ module GobiertoPeople
           event_params.merge!(locations_attributes: { "0" => { "_destroy" => "1" } })
         end
 
+        event_form = GobiertoPeople::PersonEventForm.new(event_params)
+
         if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
-          GobiertoPeople::PersonEventForm.new(event_params).destroy
-        else
-          unless GobiertoPeople::PersonEventForm.new(event_params).save
-            Rails.logger.info "[Microsoft Exchange Integration] Invalid event: #{event_params}"
-          end
+          log_destroy_rule
+          event_form.destroy
+        elsif !event_form.save
+          log_invalid_event(event_form.errors.messages)
         end
       end
 
@@ -118,12 +125,8 @@ module GobiertoPeople
         end
       end
 
-      def log_preffix
-        "[SYNC AGENDAS][MICROSOFT EXCHANGE]"
-      end
-
       def log_missing_folder_error(folder_name)
-        Rails.logger.info "#{log_preffix} Can't find #{folder_name} calendar folder for #{person.name} (id: #{person.id}). Wrong username, password or endpoint?"
+        log_message("Can't find #{folder_name} calendar folder for #{person.name} (id: #{person.id}). Wrong username, password or endpoint?")
       end
 
     end

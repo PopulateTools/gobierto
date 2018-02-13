@@ -65,6 +65,8 @@ module GobiertoPeople
           calendar.id,
           always_include_email: true,
           time_min: GobiertoCalendars.sync_range_start.iso8601,
+          time_max: GobiertoCalendars.sync_range_end.iso8601,
+          max_results: 2500,
           single_events: true
         ).items
 

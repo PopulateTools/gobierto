@@ -66,6 +66,8 @@ module GobiertoAdmin
 
               click_link "Published events"
 
+              sleep 1
+
               assert_equal 1, page.all("a").select{ |a| a.text == "Archived elements" }.length
             end
           end

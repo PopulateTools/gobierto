@@ -49,6 +49,28 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_single_archive_link
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
+
+              within "#person-event-item-#{themes_event.id}" do
+                find("a[data-method='delete']").click
+              end
+
+              assert has_message?("Event was successfully archived")
+
+              assert has_link?("Archived elements")
+
+              click_link "Published events"
+
+              assert_equal 1, page.all("a").select{ |a| a.text == "Archived elements" }.length
+            end
+          end
+        end
+      end
     end
   end
 end

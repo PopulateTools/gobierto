@@ -95,7 +95,6 @@
       <% end %>
     </tbody>
   </table>
-</div>
 
   <% unless @archived_events.empty? %>
     <div class="m_v_1 right">
@@ -139,22 +138,22 @@
               </td>
               <td>
                 <%= link_to t("gobierto_admin.shared.recover.element"),
-                            admin_calendars_event_recover_path(event, process_id: (current_process.id if !defined?(current_process).nil?)),
-                            title: t("gobierto_admin.shared.recover.element"),
-                            method: :put,
-                            data: { confirm: t("gobierto_admin.shared.recover.confirm") } %>
+                  admin_calendars_event_recover_path(event, process_id: (current_process.id if !defined?(current_process).nil?)),
+                  title: t("gobierto_admin.shared.recover.element"),
+                  method: :put,
+                  data: { confirm: t("gobierto_admin.shared.recover.confirm") } %>
 
-              </td>
+            </td>
             </tr>
           <% end %>
         </tbody>
       </table>
     </div>
   <% end %>
-
+</div>
 
 <%= javascript_tag do %>
-  $('a[data-toggle]').on('click', function(e){
-     $("div#archived-list").toggle();
-  });
+$('a[data-toggle]').on('click', function(e){
+  $("div#archived-list").toggle();
+});
 <% end %>

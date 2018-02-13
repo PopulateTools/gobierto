@@ -59,7 +59,7 @@ module GobiertoCms
     end
 
     def process
-      collection_item = GobiertoCommon::CollectionItem.where(item_id: id, item_type: %W(GobiertoCms::News GobiertoCms::Page), container_type: "GobiertoParticipation::Process").first
+      collection_item = GobiertoCommon::CollectionItem.pages_and_news.by_container_type("GobiertoParticipation::Process").where(item_id: id).first
       collection_item.present? ? collection_item.container : nil
     end
 
@@ -69,34 +69,34 @@ module GobiertoCms
 
     # returns pages belonging to site pages collection
     def self.pages_in_collections(site)
-      pages_ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoCms::Page').pluck(:item_id)
+      pages_ids = GobiertoCommon::CollectionItem.pages.pluck(:item_id)
       where(id: pages_ids, site: site)
     end
 
     # returns news belonging to site news collection
     def self.news_in_collections(site)
-      news_ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoCms::News').pluck(:item_id)
+      news_ids = GobiertoCommon::CollectionItem.news.pluck(:item_id)
       where(id: news_ids, site: site)
     end
 
     # returns pages belonging to module pages collection
     # sample call: *.pages_in_collections_and_container_type(current_site, 'GobiertoParticipation')
     def self.pages_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoCms::Page', container_type: container_type).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.pages.by_container_type(container_type).pluck(:item_id)
       where(id: ids, site: site)
     end
 
     # returns news belonging to module news collection
     # sample call: *.news_in_collections_and_container_type(current_site, 'GobiertoParticipation')
     def self.news_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoCms::News', container_type: container_type).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.news.by_container_type(container_type).pluck(:item_id)
       where(id: ids, site: site)
     end
 
     ## Methods to find items belonging to process, issue, etc.
     # sample call: *.pages_in_collections_and_container(current_site, @issue)
     def self.pages_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.where(item_type: %W(GobiertoCms::News GobiertoCms::Page), container_type: container.class.name, container_id: container.id).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.pages_and_news.by_container(container).pluck(:item_id)
       where(id: ids, site: site)
     end
 

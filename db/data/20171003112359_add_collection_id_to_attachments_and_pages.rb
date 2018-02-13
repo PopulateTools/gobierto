@@ -2,7 +2,7 @@
 
 class AttachmentsCreateSlugs < ActiveRecord::Migration[5.1]
   def self.up
-    page_ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCms::Page").pluck(:item_id)
+    page_ids = GobiertoCommon::CollectionItem.pages.pluck(:item_id)
     pages = GobiertoCms::Page.where(id: page_ids)
 
     pages.all.each do |p|
@@ -13,7 +13,7 @@ class AttachmentsCreateSlugs < ActiveRecord::Migration[5.1]
       end
     end
 
-    attachment_ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoAttachments::Attachment").pluck(:item_id)
+    attachment_ids = GobiertoCommon::CollectionItem.attachments.pluck(:item_id)
     attachments = GobiertoAttachments::Attachment.where(id: page_ids)
 
     attachments.all.each do |p|

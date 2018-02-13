@@ -81,6 +81,8 @@ es:
         show:
           all: Todas
           best_ratings: Mejor valoradas
+          contributions_ended: El periodo de aportaciones ha finalizado
+          contributions_start_html: El periodo de aportaciones comenzará el <strong>%{date}</strong>
           idea:
             one: 1 idea
             other: "%{count} ideas"

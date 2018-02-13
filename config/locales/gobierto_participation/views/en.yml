@@ -81,6 +81,8 @@ en:
         show:
           all: All
           best_ratings: Best ratings
+          contributions_ended: The contributions period has ended
+          contributions_start_html: The contributions period starts on <strong>%{date}</strong>
           idea:
             one: 1 idea
             other: "%{count} ideas"

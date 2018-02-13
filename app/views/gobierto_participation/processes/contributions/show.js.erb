@@ -4,11 +4,14 @@ $(".contributions_content").append('<%=j render "contribution" %>');
 
 $('.action_button').on('click', function(e) {
   e.preventDefault();
-  $('.action_button .action_description').hide();
-  $(this).velocity("callout.pulse", { duration: 100});
-  $(this).addClass('selected');
-  $(this).find('.action_description').velocity("callout.pulse", { duration: 100});
-  $(this).find('.action_description').velocity('fadeIn', { duration: 150 });
+
+  if (!$(this).hasClass('js-disabled')) {
+    $('.action_button .action_description').hide();
+    $(this).velocity("callout.pulse", { duration: 100});
+    $(this).addClass('selected');
+    $(this).find('.action_description').velocity("callout.pulse", { duration: 100});
+    $(this).find('.action_description').velocity('fadeIn', { duration: 150 });
+  }
 });
 
 $('.action_button').hover(

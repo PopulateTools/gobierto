@@ -22,14 +22,25 @@
       <div class="pure-u-1 pure-u-md-2-24"></div>
 
         <div class="pure-u-1 pure-u-md-5-24 contribution_action">
-          <% if current_user %>
-            <%= link_to t(".put_#{@contribution_container.contribution_type}"), new_gobierto_participation_process_contribution_container_contribution_path(process_id: current_process.slug, contribution_container_id: @contribution_container.slug), class: "button", remote: true %></a>
+          <% if @contribution_container.contributions_allowed? %>
+            <% if current_user %>
+              <%= link_to t(".put_#{@contribution_container.contribution_type}"), new_gobierto_participation_process_contribution_container_contribution_path(process_id: current_process.slug, contribution_container_id: @contribution_container.slug), class: "button", remote: true %></a>
+            <% else %>
+              <%= link_to t(".login_signup_#{@contribution_container.contribution_type}"), new_user_sessions_path(open_modal: true), class: 'button open_remote_modal' %>
+            <% end %>
+            <p><%= t('.term_html', date: l(@contribution_container.ends, format: :day_month)) %></p>
           <% else %>
-            <%= link_to t(".login_signup_#{@contribution_container.contribution_type}"), new_user_sessions_path(open_modal: true), class: 'button open_remote_modal' %>
+            <%= link_to t(".put_#{@contribution_container.contribution_type}"), nil, class: 'button disabled-grayed disabled-cursor js-disabled' %></a>
           <% end %>
-          <p>
-            <%= t('.term_html', date: l(@contribution_container.ends, format: :day_month)) %>
-          </p>
+
+          <% if @contribution_container.past? %>
+            <p><%= t('.contributions_ended') %></p>
+          <% end %>
+
+          <% if @contribution_container.future? %>
+            <p><%= t('.contributions_start_html', date: l(@contribution_container.starts, format: :short)) %></p>
+          <% end %>
+
         </div>
     </div>
 

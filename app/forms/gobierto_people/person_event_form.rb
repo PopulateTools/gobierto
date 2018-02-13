@@ -144,7 +144,7 @@ module GobiertoPeople
     end
 
     def event_in_sync_range_window
-      errors.add(:starts_at) unless GobiertoCalendars.sync_range.cover?(starts_at)
+      errors.add(:starts_at, 'is out of sync range') unless GobiertoCalendars.sync_range.cover?(starts_at)
     end
 
     def save_person_event

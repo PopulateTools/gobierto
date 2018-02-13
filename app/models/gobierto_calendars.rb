@@ -13,7 +13,7 @@ module GobiertoCalendars
   end
 
   def self.sync_range_end
-    DateTime.now + 1.year
+    DateTime.now + 10.months
   end
 
   def self.sync_range

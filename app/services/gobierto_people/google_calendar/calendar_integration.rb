@@ -6,8 +6,8 @@ require 'fileutils'
 module GobiertoPeople
   module GoogleCalendar
     class CalendarIntegration
-      CLIENT_SECRETS_PATH = Rails.root.join('config', 'google_calendar_integration_client_secret.json')
-      USERNAME = 'default'
+      CLIENT_SECRETS_PATH = Rails.root.join("config", "google_calendar_integration_client_secret.json")
+      USERNAME = "default"
       SCOPE = Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY
 
       include CalendarServiceHelpers
@@ -20,18 +20,8 @@ module GobiertoPeople
         log_synchronization_start(person_id: person.id, person_name: person.name)
 
         set_google_calendar_id!
-
-        available_calendars = service.list_calendar_lists(max_results: 100).items
-
-        log_available_calendars_count(available_calendars.size)
-
-        available_calendars.each do |calendar|
-          if configuration.calendars.present? && configuration.calendars.include?(calendar.id)
-            sync_calendar_events(calendar)
-          end
-        end
-
-        log_synchronization_end(person_id: person.id, person_name: person.name)
+        import_events!
+        delete_unreceived_events!
       end
 
       def calendars
@@ -47,13 +37,14 @@ module GobiertoPeople
         @service = Google::Apis::CalendarV3::CalendarService.new
         @service.client_options.application_name = person.site.name
         @service.authorization = authorize(person)
+        @received_event_ids = []
       end
 
-      attr_reader :person, :configuration, :service
+      attr_reader :person, :configuration, :service, :received_event_ids
 
       def set_google_calendar_id!
         if @configuration.google_calendar_id.nil?
-          @configuration.google_calendar_id = calendars.select{ |c| c.primary? }.first.id
+          @configuration.google_calendar_id = calendars.detect{ |c| c.primary? }.id
           @configuration.save
         end
       end
@@ -107,7 +98,7 @@ module GobiertoPeople
         end
       end
 
-      def sync_event(event, i = nil)
+      def sync_event(event, occurrence = nil)
         filter_result = GobiertoCalendars::FilteringRuleApplier.filter({
           title: event.summary,
           description: event.description
@@ -129,7 +120,7 @@ module GobiertoPeople
           ends_at: parse_date(event.end),
           state: state,
           attendees: event_attendees(event),
-          notify: i.nil? || i == 0
+          notify: occurrence.nil? || occurrence == 0
         }
 
         if event.location.present?
@@ -143,8 +134,12 @@ module GobiertoPeople
         if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
           log_destroy_rule
           event_form.destroy
-        elsif !event_form.save
-          log_invalid_event(event_form.errors.messages)
+        else
+          if event_form.save
+            received_event_ids.push(event.id)
+          else
+            log_invalid_event(event_form.errors.messages)
+          end
         end
       end
 
@@ -163,6 +158,26 @@ module GobiertoPeople
         if time_attribute
           time_attribute.date_time || DateTime.parse(time_attribute.date)
         end
+      end
+
+      def import_events!
+        available_calendars = service.list_calendar_lists(max_results: 100).items
+
+        log_available_calendars_count(available_calendars.size)
+
+        available_calendars.each do |calendar|
+          if configuration.calendars.present? && configuration.calendars.include?(calendar.id)
+            sync_calendar_events(calendar)
+          end
+        end
+
+        log_synchronization_end(person_id: person.id, person_name: person.name)
+      end
+
+      def delete_unreceived_events!
+        person.events.upcoming.synchronized.
+          where.not(external_id: received_event_ids).
+          each(&:pending!)
       end
     end
   end

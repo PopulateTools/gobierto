@@ -81,6 +81,8 @@ en:
         show:
           all: All
           best_ratings: Best ratings
+          contributions_ended: The contributions period has ended
+          contributions_start_html: The contributions period starts on <strong>%{date}</strong>
           idea:
             one: 1 idea
             other: "%{count} ideas"
@@ -171,7 +173,9 @@ en:
         current: Current stage
         next_stage: Next fase
       show:
-        about: About this process
+        about:
+          group_process: About this group
+          process: About this process
         appointments: Face-to-face appointments
         interesting_information: Interesting information
         issue: Issue

@@ -81,6 +81,8 @@ es:
         show:
           all: Todas
           best_ratings: Mejor valoradas
+          contributions_ended: El periodo de aportaciones ha finalizado
+          contributions_start_html: El periodo de aportaciones comenzará el <strong>%{date}</strong>
           idea:
             one: 1 idea
             other: "%{count} ideas"
@@ -172,7 +174,9 @@ es:
         current: Fase actual
         next_stage: Próxima fase
       show:
-        about: Sobre este proceso
+        about:
+          group_process: Sobre este grupo
+          process: Sobre este proceso
         appointments: Citas presenciales
         interesting_information: Información de interés
         issue: Tema

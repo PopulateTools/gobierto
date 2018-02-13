@@ -79,6 +79,8 @@ ca:
         show:
           all: Tots
           best_ratings: Millors puntuacions
+          contributions_ended: El període d'aportacions ha finalitzat
+          contributions_start_html: El període d'aportacions començarà el <strong>%{date}</strong>
           idea:
             one: 1 idea
             other: "%{count} idees"
@@ -170,7 +172,9 @@ ca:
         current: Fase actual
         next_stage: Propera fase
       show:
-        about: Sobre aquest procés
+        about:
+          group_process: Sobre aquest grup
+          process: Sobre aquest procés
         appointments: Cites presencials
         interesting_information: Informació d'interès
         issue: Tema

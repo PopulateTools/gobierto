@@ -7,10 +7,11 @@ es:
           agenda: Agenda
           contributions: Aportaciones
           documents: Documentos
+          group_process: Grupo
           information: Información
           news: Noticias
           polls: Encuestas
-          stage: Proceso
+          process: Proceso
           stages: Fases
           votings: Votaciones
       welcome:

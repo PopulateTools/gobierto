@@ -9,7 +9,7 @@ module GobiertoParticipation
     end
 
     def process
-      @process ||= gobierto_participation_processes(:sport_city_process)
+      @process ||= gobierto_participation_processes(:bowling_group_very_active)
     end
 
     def process_contribution_containers_path
@@ -20,6 +20,26 @@ module GobiertoParticipation
 
     def process_contribution_containers
       @process_contribution_containers ||= process.contribution_containers
+    end
+
+    def current_container
+      @current_container ||= gobierto_participation_contribution_containers(:bowling_group_contributions_current)
+    end
+
+    def future_container
+      @future_container ||= gobierto_participation_contribution_containers(:bowling_group_contributions_future)
+    end
+
+    def past_container
+      @past_container ||= gobierto_participation_contribution_containers(:bowling_group_contributions_past)
+    end
+
+    def contribution_container_wrapper(container)
+      container_path = gobierto_participation_process_contribution_container_path(
+        container.slug,
+        process_id: container.process.slug
+      )
+      find(:xpath, "//a[@href='#{container_path}']")
     end
 
     def test_breadcrumb_items
@@ -37,12 +57,12 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_contribution_containers_path
 
+        menu_items = process.stages.map(&:menu)
+
         within "nav.sub-nav" do
-          assert has_link? "Information"
-          assert has_link? "Agenda"
-          refute has_link? "Polls"
-          assert has_link? "Contributions"
-          refute has_link? "Results"
+          menu_items.each do |menu_item|
+            assert has_link? menu_item
+          end
         end
       end
     end
@@ -65,7 +85,7 @@ module GobiertoParticipation
         visit process_contribution_containers_path
 
         within ".slim_nav_bar" do
-          assert has_content? "Follow process"
+          assert has_content? "Follow group"
         end
       end
     end
@@ -75,8 +95,24 @@ module GobiertoParticipation
         visit process_contribution_containers_path
 
         assert_equal process_contribution_containers.size, all(".themed").size
-        assert has_content? "Ideas for activities for children"
-        assert has_link? "What activities for children we can start up?"
+
+        within contribution_container_wrapper(current_container) do
+          assert has_content? 'What can we do to improve the bowling group?'
+          assert has_content? 'This is the container description'
+
+          assert has_content? current_container.comments_count
+          assert has_content? current_container.participants_count
+        end
+
+        within contribution_container_wrapper(future_container) do
+          assert has_content? 'This container has not started'
+          assert has_content? 'The contributions period starts on'
+        end
+
+        within contribution_container_wrapper(past_container) do
+          assert has_content? 'This container has already finished'
+          assert has_content? 'The contributions period has ended'
+        end
       end
     end
   end

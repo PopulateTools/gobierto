@@ -33,23 +33,23 @@ module GobiertoCommon
     end
 
     def news_in_collection
-      collection_items.where(item_type: "GobiertoCms::News").pluck(:item_id)
+      collection_items.news.pluck(:item_id)
     end
 
     def pages_in_collection
-      collection_items.where(item_type: "GobiertoCms::Page").pluck(:item_id)
+      collection_items.pages.pluck(:item_id)
     end
 
     def pages_or_news_in_collection
-      collection_items.where(item_type: %w(GobiertoCms::News GobiertoCms::Page)).pluck(:item_id)
+      collection_items.pages_and_news.pluck(:item_id)
     end
 
     def file_attachments_in_collection
-      collection_items.where(item_type: "GobiertoAttachments::Attachment").pluck(:item_id)
+      collection_items.attachments.pluck(:item_id)
     end
 
     def events_in_collection
-      collection_items.where(item_type: "GobiertoCalendars::Event").pluck(:item_id)
+      collection_items.events.pluck(:item_id)
     end
 
     def container

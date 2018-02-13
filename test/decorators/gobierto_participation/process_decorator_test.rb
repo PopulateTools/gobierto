@@ -23,7 +23,7 @@ module GobiertoParticipation
 
     def test_interactions_count
       assert_equal 0, empty_group_decorator.interactions_count
-      assert_equal 6, active_group_decorator.interactions_count
+      assert_equal 8, active_group_decorator.interactions_count
     end
 
     def test_participants_count

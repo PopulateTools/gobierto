@@ -71,17 +71,17 @@ module GobiertoAttachments
     end
 
     def self.file_attachments_in_collections(site)
-      ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoAttachments::Attachment').map(&:item_id)
+      ids = GobiertoCommon::CollectionItem.attachments.map(&:item_id)
       where(id: ids, site: site)
     end
 
     def self.attachments_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoAttachments::Attachment", container_type: container_type).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.attachments.by_container_type(container_type).pluck(:item_id)
       where(id: ids, site: site)
     end
 
     def self.attachments_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoAttachments::Attachment", container: container).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.attachments.by_container(container).pluck(:item_id)
       where(id: ids, site: site)
     end
 

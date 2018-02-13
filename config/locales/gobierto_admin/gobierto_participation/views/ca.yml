@@ -7,10 +7,11 @@ ca:
           agenda: Agenda
           contributions: Aportacions
           documents: Documents
+          group_process: Grup
           information: Informació
           news: Noticies
           polls: Enquestes
-          stage: Procés
+          process: Procés
           stages: Fases
           votings: Votacions
       welcome:

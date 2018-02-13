@@ -17,9 +17,16 @@ module GobiertoPeople
       def sync!
         set_google_calendar_id!
 
+        received_events_ids = []
         service.list_calendar_lists(max_results: 100).items.each do |calendar|
           if configuration.calendars.present? && configuration.calendars.include?(calendar.id)
-            sync_calendar_events(calendar)
+            received_events_ids.concat sync_calendar_events(calendar)
+          end
+        end
+
+        person.events.upcoming.synchronized.each do |event|
+          unless received_events_ids.include?(event.external_id)
+            event.pending!
           end
         end
       end
@@ -43,14 +50,17 @@ module GobiertoPeople
 
       def set_google_calendar_id!
         if @configuration.google_calendar_id.nil?
-          @configuration.google_calendar_id = calendars.select{ |c| c.primary? }.first.id
+          @configuration.google_calendar_id = calendars.detect{ |c| c.primary? }.id
           @configuration.save
         end
       end
 
       def sync_calendar_events(calendar)
+        received_events_ids = []
+
         response = service.list_events(calendar.id, always_include_email: true, time_min: GobiertoCalendars.sync_range_start.iso8601)
         response.items.each do |event|
+          received_events_ids.push event.id
           next if is_private?(event)
 
           if is_recurring?(event)
@@ -61,6 +71,8 @@ module GobiertoPeople
             sync_event(event)
           end
         end
+
+        received_events_ids.compact
       end
 
       def is_private?(event)
@@ -83,7 +95,7 @@ module GobiertoPeople
         end
       end
 
-      def sync_event(event, i = nil)
+      def sync_event(event, occurrence = nil)
         filter_result = GobiertoCalendars::FilteringRuleApplier.filter({
           title: event.summary,
           description: event.description
@@ -105,7 +117,7 @@ module GobiertoPeople
           ends_at: parse_date(event.end),
           state: state,
           attendees: event_attendees(event),
-          notify: i.nil? || i == 0
+          notify: occurrence.nil? || occurrence == 0
         }
 
         if event.location.present?

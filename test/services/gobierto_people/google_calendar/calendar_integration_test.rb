@@ -124,11 +124,64 @@ module GobiertoPeople
         ## Configure site and person
         configure_google_calendar_integration(
           collection: richard.calendar,
-          data: { calendars: [calendar1.id, calendar2.id] }
+          data: { calendars: [calendar1.id, calendar2.id], without_description: "0" }
         )
       end
 
-      def test_sync_events
+      def test_sync_events_without_description
+        calendar_configuration = GobiertoCalendars::CalendarConfiguration.find_by(collection: richard.calendar)
+        calendar_configuration.without_description = "1"
+        calendar_configuration.save
+
+        Publishers::Trackable.expects(:broadcast_event).times(3)
+
+        assert_difference "GobiertoCalendars::Event.count", 4 do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        # Event 2 checks
+        event = richard.events.find_by external_id: "event2"
+        assert_equal "@ Event 2", event.title
+        assert_equal richard, event.collection.container
+        assert_empty event.locations
+        assert_equal 2, event.attendees.size
+        assert_equal richard, event.attendees.first.person
+        assert_nil event.attendees.second.person
+        assert_equal "Wadus person", event.attendees.second.name
+        assert_nil event.description
+
+        # Event 3 checks
+        event = site.events.find_by external_id: "event3"
+        assert_equal "Event 3", event.title
+        assert_equal richard, event.collection.container
+        assert_equal "Patio de mi casa 1, 28005, Madrid", event.locations.first.name
+        assert_equal 2, event.attendees.size
+        assert_equal richard, event.attendees.first.person
+        assert_equal "Wadus person", event.attendees.second.name
+        assert_nil event.description
+
+        # Event 5 checks
+        event = site.events.find_by external_id: "event4_instance_1"
+        assert_equal "Event 5", event.title
+        assert_equal richard, event.collection.container
+        assert_empty event.locations
+        assert_equal 2, event.attendees.size
+        assert_equal richard, event.attendees.first.person
+        assert_equal "Wadus person", event.attendees.second.name
+        assert_nil event.description
+
+        # Event 6 checks
+        event = site.events.find_by external_id: "event4_instance_2"
+        assert_equal "Event 6", event.title
+        assert_equal richard, event.collection.container
+        assert_empty event.locations
+        assert_equal 2, event.attendees.size
+        assert_equal richard, event.attendees.first.person
+        assert_equal "Wadus person", event.attendees.second.name
+        assert_nil event.description
+      end
+
+      def test_sync_events_with_description
         Publishers::Trackable.expects(:broadcast_event).times(3)
 
         assert_difference "GobiertoCalendars::Event.count", 4 do

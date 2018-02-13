@@ -28,6 +28,8 @@ ca:
             username: ex. perico85
           remove_configuration: Eliminar configuració
           sync: Sincronitzar ara
+          without_description: No importar la descripció de l'esdeveniment
+          manage: Gestiona la configuració del calendari
         gobierto_people_person_navigation:
           calendar_configuration: Configuració del calendari
         google_calendar_fields:

@@ -33,7 +33,7 @@ module GobiertoPeople
 
         filter_result = GobiertoCalendars::FilteringRuleApplier.filter({
           title: ibm_notes_event.title,
-          description: ibm_notes_event.description,
+          description: (ibm_notes_event.description unless configuration.without_description == "1"),
         }, configuration.filtering_rules)
 
         state = filter_result.action == GobiertoCalendars::FilteringRuleApplier::CREATE_PENDING ?

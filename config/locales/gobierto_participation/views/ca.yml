@@ -172,7 +172,9 @@ ca:
         current: Fase actual
         next_stage: Propera fase
       show:
-        about: Sobre aquest procés
+        about:
+          group_process: Sobre aquest grup
+          process: Sobre aquest procés
         appointments: Cites presencials
         interesting_information: Informació d'interès
         issue: Tema

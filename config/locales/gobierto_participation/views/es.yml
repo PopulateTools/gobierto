@@ -174,7 +174,9 @@ es:
         current: Fase actual
         next_stage: Próxima fase
       show:
-        about: Sobre este proceso
+        about:
+          group_process: Sobre este grupo
+          process: Sobre este proceso
         appointments: Citas presenciales
         interesting_information: Información de interés
         issue: Tema

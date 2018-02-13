@@ -80,6 +80,8 @@ ignore_unused:
   - 'gobierto_participation.processes.contribution_containers.show.proposal.*'
   - 'gobierto_participation.processes.contribution_containers.show.question.*'
   - 'gobierto_participation.processes.contributions.form.*'
+  - 'gobierto_admin.gobierto_participation.processes.edit.*'
+  - 'gobierto_admin.gobierto_participation.processes.*.success_*'
 
 translation:
   api_key: ''

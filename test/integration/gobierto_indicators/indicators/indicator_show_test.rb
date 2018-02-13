@@ -50,13 +50,21 @@ module GobiertoIndicators
 
           assert has_content? "2017"
 
-          click_on "2017"
+          assert has_content? "S - Serveis de ciutat"
+          assert has_content? "Habitatges"
+          assert has_content? "Nombre total de llars"
+          assert has_content? "16366"
 
-          within "div#popup-year" do
-            within "table.med_bg tbody" do
-              assert has_selector?("tr", count: gci_years.size)
-            end
+          within 'li.item.item-lvl-2' do
+            find('div[class=item-text]').trigger('click')
           end
+
+          assert has_content? "Nombre total de llars"
+          assert has_content? "16366"
+          assert has_content? "Calculation"
+          assert has_content? "Suma total d'habitatges amb persones empadronades"
+          assert has_content? "Source"
+          assert has_content? "Ajuntament: Padró Municipal d'Habitants"
         end
       end
     end

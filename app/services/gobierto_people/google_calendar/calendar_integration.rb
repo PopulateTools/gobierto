@@ -65,6 +65,7 @@ module GobiertoPeople
 
           if is_recurring?(event)
             service.list_event_instances(calendar.id, event.id).items.each_with_index do |event, i|
+              received_events_ids.push event.id
               sync_event(event, i)
             end
           else
@@ -72,7 +73,7 @@ module GobiertoPeople
           end
         end
 
-        received_events_ids.compact
+        received_events_ids
       end
 
       def is_private?(event)

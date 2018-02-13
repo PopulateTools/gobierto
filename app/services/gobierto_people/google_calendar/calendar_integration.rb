@@ -67,6 +67,7 @@ module GobiertoPeople
           time_min: GobiertoCalendars.sync_range_start.iso8601,
           time_max: GobiertoCalendars.sync_range_end.iso8601,
           max_results: 2500,
+          order_by: 'startTime',
           single_events: true
         ).items
 

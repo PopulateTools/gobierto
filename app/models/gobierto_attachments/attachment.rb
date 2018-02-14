@@ -131,7 +131,7 @@ module GobiertoAttachments
     end
 
     def human_readable_url
-      url_helpers.gobierto_attachments_attachment_url(id: id, host: app_host)
+      url_helpers.gobierto_attachments_attachment_url(id: id, host: site.domain)
     end
 
     def add_item_to_collection

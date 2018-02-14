@@ -187,5 +187,10 @@ module GobiertoAttachments
       assert_equal '/docs/1', attachment.human_readable_path
     end
 
+    def test_human_readable_url
+      expected_url = "http://madrid.gobierto.test/docs/#{attachment.id}"
+      assert_equal expected_url, attachment.human_readable_url
+    end
+
   end
 end

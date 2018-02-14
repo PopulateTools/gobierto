@@ -368,7 +368,6 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
-    ruby-filemagic (0.7.2)
     ruby-prof (0.17.0)
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
@@ -522,7 +521,6 @@ DEPENDENCIES
   responders
   rollbar
   rubocop
-  ruby-filemagic
   ruby_px
   sass-rails (~> 5.0.0)
   savon (~> 2.11.1)

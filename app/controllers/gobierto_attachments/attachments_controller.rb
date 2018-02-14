@@ -5,24 +5,22 @@ module GobiertoAttachments
     layout false
 
     def show
-      if @attachment.file_size < 100.megabytes
-        tempfile = open(@attachment.url)
-        mime_type = FileMagic.new(FileMagic::MAGIC_MIME).file(tempfile.path, true)
-
-        send_data(
-          tempfile.read,
-          filename: @attachment.file_name,
-          type: mime_type,
-          disposition: 'inline',
-          stream: 'true',
-          buffer_size: '4096'
-        )
+      if direct_visit?
+        render 'show'
       else
         redirect_to @attachment.url
       end
     end
 
     private
+
+    def direct_visit?
+      # When the browser loads the page adds the Accept header "text/html", otherwise
+      # it uses a different header.
+      # For example, when the doc URL is used in an <img> tag, in Firefox the
+      # Accept header is */*, and in Safari is the MIME-Type of the image.
+      request.headers["Accept"].include?("text/html")
+    end
 
     def load_attachment
       @attachment = current_site.attachments.find(params[:id])

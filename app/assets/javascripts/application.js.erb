@@ -21,6 +21,8 @@
 //= require klass
 //= require algoliasearch.min
 //= require_directory ./settings/
+//= require moment
+//= require moment-with-locales
 
 //= require module-sessions
 //= require module-site_header
@@ -110,4 +112,9 @@ $(document).on('turbolinks:load', function() {
   $('[data-toggle-target]').hide();
   $('[data-toggle]').each(function(){ toggleTarget($(this)) });
   $('[data-toggle]').click(function(){ toggleTarget($(this)) });
+
+  // js-disabled elements
+  $('.js-disabled').click(function(e) {
+    e.preventDefault();
+  });
 });

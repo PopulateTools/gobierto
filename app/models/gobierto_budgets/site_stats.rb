@@ -14,6 +14,13 @@ module GobiertoBudgets
         .last
     end
 
+    def providers_data_updated_at
+      @site.activities.where('action ~* ?', "gobierto_budgets.providers_updated")
+        .order(created_at: :asc)
+        .pluck(:created_at)
+        .last
+    end
+
     def has_data?(variable, year)
       r = send(variable, year)
       r.present? && r != 0

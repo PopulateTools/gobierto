@@ -29,14 +29,14 @@ module GobiertoParticipation
     end
 
     def green_city_group
-      @green_city_group ||= gobierto_participation_processes(:green_city_group)
+      @green_city_group ||= gobierto_participation_processes(:green_city_group_active_empty)
     end
 
     def test_breadcrumb_items
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
           assert has_link? gender_violence_process.title
         end
@@ -48,7 +48,7 @@ module GobiertoParticipation
         processes.each do |process|
           visit process_path(process)
 
-          within ".sub-nav" do
+          within "nav.sub-nav" do
             assert has_link? "Information"
             assert has_link? "Agenda"
             refute has_link? "Ideas"
@@ -62,7 +62,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within "menu.secondary_nav" do
+        within "nav.sub-nav menu.secondary_nav" do
           assert has_link? "News"
           assert has_link? "Agenda"
           assert has_link? "Documents"
@@ -75,12 +75,14 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
           assert has_link? gender_violence_process.title
         end
 
-        click_link "News"
+        within "nav.sub-nav menu.secondary_nav" do
+          click_link "News"
+        end
 
         assert_equal gobierto_participation_process_pages_path(process_id: gender_violence_process.slug), current_path
 
@@ -92,7 +94,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        click_link "Agenda"
+        within "nav.sub-nav menu.secondary_nav" do
+          click_link "Agenda"
+        end
 
         assert_equal gobierto_participation_process_events_path(process_id: gender_violence_process.slug), current_path
       end
@@ -102,7 +106,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        click_link "Documents"
+        within "nav.sub-nav menu.secondary_nav" do
+          click_link "Documents"
+        end
 
         assert_equal gobierto_participation_process_attachments_path(process_id: gender_violence_process.slug), current_path
 
@@ -114,7 +120,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        click_link "Activity"
+        within "nav.sub-nav menu.secondary_nav" do
+          click_link "Activity"
+        end
 
         assert_equal gobierto_participation_process_activities_path(process_id: gender_violence_process.slug), current_path
 
@@ -285,7 +293,8 @@ module GobiertoParticipation
     def test_process_information_stage
       with_current_site(site) do
         visit process_path(gender_violence_process)
-        click_link "Information"
+
+        page.all('a', text: 'Information').first.click
 
         assert has_selector?("h1", text: "Privacy")
       end

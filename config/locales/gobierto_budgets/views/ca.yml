@@ -476,6 +476,25 @@ ca:
         option2: Apropiat
         option3: Molt
         thanks: 'Gràcies por la teva opinió. Això es el que pensa la resta de la gent:'
+    invoices:
+      show:
+        fromto: De a Nº Fact.
+        invoiced: Import facturat
+        more: Més de
+        table:
+          fields:
+            date: Data
+            paid: Pagat
+            provider_id: NIF
+            provider_name: Proveïdor
+            subject: Concepte
+            value: Quantitat
+          pager:
+            first: Primer
+            format: Pàgines %{tpl} de %{tpl2}
+            last: Últim
+            next: Següent
+            prev: Anterior
     layouts:
       application:
         budgets: Pressupostos
@@ -484,8 +503,46 @@ ca:
         elaboration: Elaboració
         execution: Execució
         guide: Guia
+        providers: Proveïdors i Factures
         receipt: Rebut
         summary: Resum
+    providers:
+      index:
+        all_invoices: Totes les factures
+        amount_distribution: Distribució per imports
+        and_more_html: i <span id="providers-number"></span> proveïdors més
+        are_from: són de
+        check_detail: Consulta el detall
+        companies: empreses
+        description: A quins proveïdors contracta l'Ajuntament? Quines factures paga?
+          Des d'aquesta secció podràs consultar i revisar el detall de cadascun dels
+          pagaments que realitza l'Ajuntament.
+        freelances: autònoms
+        invoices: Factures
+        invoices_from_which: De les quals
+        invoices_sum: factures sumen un total de
+        largest_provider_html: El major proveïdor suposa un <span id="largestProvider"></span>
+          de tota la facturació
+        last_12_months: Últims 12 mesos
+        less_than_1000_html: El <span id="lessThan1000"></span> de les factures són
+          menors de 1.000 €
+        loading: Carregant...
+        main_providers: Principals proveïdors
+        mean_amount: import mig
+        mean_and_median: Mitjana i mediana
+        mean_and_median_summary: És a dir, la meitat de les factures són d'aquest
+          import o inferior
+        mean_summary: Import resultant de sumar els imports de totes les factures
+          dividit pel nombre de factures
+        median_amount: mediana dels imports
+        months_distribution: Distribució per mesos
+        percentile_10_html: El <span id="percentile10"></span> de les factures concentren
+          el 10 % de la facturació
+        percentile_50_html: El <span id="percentile50"></span> de les factures concentren
+          el 50 % de la facturació
+        sum_amount: IMPORT ACUMULAT
+        this_year: Aquest any
+        view_data_from: Veure les dades de
     receipts:
       show:
         description: Part del pressupost del teu municipi se financia directament

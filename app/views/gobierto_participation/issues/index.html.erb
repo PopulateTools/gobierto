@@ -4,6 +4,10 @@
   </strong>
 <% end %>
 
+<% content_for(:current_submodule_link) do %>
+  <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path %>
+<% end %>
+
 <%= content_for :body_attributes do %>
   class='theme-participation gobierto_participation'
 <% end %>
@@ -19,7 +23,7 @@
     <div class="pure-u-1">
       <div class="pure-g three_by_three small_column">
         <% @issues.each do |issue| %>
-          <%= render 'theme_teaser', issue: issue, meta: false %>
+          <%= render 'issue_teaser', issue: issue, meta: false %>
         <% end %>
       </div>
     </div>

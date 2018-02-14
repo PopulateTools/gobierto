@@ -15,6 +15,7 @@ module GobiertoParticipation
     delegate :persisted?, to: :flag
 
     validates :site, presence: true
+    validate :contribution_container_must_be_open
 
     def save
       save_flag if valid?
@@ -32,6 +33,18 @@ module GobiertoParticipation
       @site ||= Site.find_by(id: site_id)
     end
 
+    def comment
+      flaggable_type == comment_class.to_s ? comment_class.find(flaggable_id) : nil
+    end
+
+    def contribution
+      comment.commentable_type == contribution_class.to_s ? contribution_class.find(comment.commentable_id) : nil
+    end
+
+    def contribution_container
+      contribution ? contribution.contribution_container : nil
+    end
+
     private
 
     def build_flag
@@ -40,6 +53,14 @@ module GobiertoParticipation
 
     def flag_class
       ::GobiertoParticipation::Flag
+    end
+
+    def comment_class
+      ::GobiertoParticipation::Comment
+    end
+
+    def contribution_class
+      ::GobiertoParticipation::Contribution
     end
 
     def save_flag
@@ -58,6 +79,12 @@ module GobiertoParticipation
         promote_errors(@flag.errors)
 
         false
+      end
+    end
+
+    def contribution_container_must_be_open
+      if comment.present? && contribution_container.present? && !contribution_container.contributions_allowed?
+        errors.add(:contribution_container, 'Contributions period has finished')
       end
     end
 

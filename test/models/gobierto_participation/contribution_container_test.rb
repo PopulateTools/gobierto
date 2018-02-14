@@ -7,6 +7,16 @@ module GobiertoParticipation
   class ContributionContainerTest < ActiveSupport::TestCase
     include ::GobiertoCommon::HasVisibilityUserLevelsTest
 
+    def bowling_contributions
+      @bowling_contributions ||= gobierto_participation_contribution_containers(:bowling_group_contributions_current)
+    end
+    alias contribution_container bowling_contributions
+
+    def neighbors_contributions
+      @neighbors_contributions ||= gobierto_participation_contribution_containers(:neighbors_contributions)
+    end
+    alias unpopular_contribution_container neighbors_contributions
+
     def setup
       super
       setup_visibility_user_levels_test(
@@ -15,10 +25,6 @@ module GobiertoParticipation
         registered_level_resource: gobierto_participation_contribution_containers(:children_contributions),
         verified_level_resource: gobierto_participation_contribution_containers(:neighbors_contributions)
       )
-    end
-
-    def contribution_container
-      @contribution_container ||= gobierto_participation_contribution_containers(:children_contributions)
     end
 
     def test_valid
@@ -30,5 +36,20 @@ module GobiertoParticipation
 
       assert contribution_container.slug.include?("archived-")
     end
+
+    def test_comments_count
+      assert_equal 0, unpopular_contribution_container.comments_count
+
+      # susan commented once, reed commented twice
+      assert_equal 3, contribution_container.comments_count
+    end
+
+    def test_participants_count
+      assert_equal 0, unpopular_contribution_container.participants_count
+
+      # susan & peter created contributions, susan & reed commented, peter voted
+      assert_equal 3, contribution_container.participants_count
+    end
+
   end
 end

@@ -3,7 +3,7 @@ module GobiertoBudgets
     def show
       @place = INE::Places::Place.find_by_slug(params[:id])
       @year = params[:year].to_i
-      @area_name = 'functional'
+      @area_name = GobiertoBudgets::FunctionalArea.area_name
 
       @kind = GobiertoBudgets::BudgetLine::EXPENSE
       results = GobiertoBudgets::BudgetLine.search({

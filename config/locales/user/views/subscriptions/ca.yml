@@ -19,6 +19,7 @@ ca:
           immediate: Inmediates
           submit: Desa
           weekly: Resum setmanal
+        participation: Participació
         people: Persones
         submit: Desa
         title: Les teves alertes
@@ -33,10 +34,12 @@ ca:
       subscribable_button:
         event_followed: Esdeveniment seguit!
         follow_event: Segueix l'esdeveniment
+        follow_group_process: Segueix el grup
         follow_issue: Segueix el tema
         follow_person: Segueix la persona
         follow_process: Segueix el procés
         follow_scope: Segueix l´àmbit
+        group_process_followed: Grup seguit!
         issue_followed: Tema seguit!
         manage_subscriptions: Gestionar les teves alertes
         person_followed: Persona seguida!

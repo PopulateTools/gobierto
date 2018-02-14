@@ -8,9 +8,9 @@
 
       <div class="ib p_h_r_0_5">
         <% if event.starts_at.day == event.ends_at.day %>
-          <strong><%= l(event.starts_at, format: '%e %b') %></strong>
+          <strong><%= l(event.starts_at, format: '%e %b %Y') %></strong>
         <% else %>
-          <strong><%= t('.from_to', starts: l(event.starts_at, format: '%e %b'), ends: l(event.ends_at, format: '%e %b')) %></strong>
+          <strong><%= t('.from_to', starts: l(event.starts_at, format: '%e %b %Y'), ends: l(event.ends_at, format: '%e %b %Y')) %></strong>
         <% end %>
       </div>
 

@@ -1,0 +1,41 @@
+//Overlays
+.overlay-container {
+  position: relative;
+
+  .overlay {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.1);
+    z-index: 2;
+    cursor: pointer;
+
+    .overlay-content {
+      position: absolute;
+      top: 50%;
+      margin: 0 auto;
+      font-size: $f2;
+      color: $color_main_negative;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &.is-active {
+    overflow: hidden;
+
+    .overlay {
+      display: block;
+    }
+
+    > div:not(.overlay) {
+      filter: blur(5px);
+      overflow: hidden;
+    }
+  }
+}

@@ -1,0 +1,236 @@
+<% content_for(:current_submodule_link) do %>
+  <%= link_to title(@plan.title), gobierto_plans_plan_path(@plan.slug) %>
+<% end %>
+
+<div class="column">
+  <div class="block">
+
+    <div class="pure-g header_block_inline m_b_1">
+      <div class="pure-u-1 pure-u-md-12-24">
+        <h2 class="with_description">
+          <%= t(".title") %>
+        </h2>
+        <p>
+          <%= t(".description") %>
+        </p>
+        <p>
+          <%= t(".latest_update_html", date: l(@plan.updated_at.to_date, format: :long)) %>
+        </p>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-12-24 right">
+        <%= image_tag('illustrations/presupuestos.jpg', class: 'medium_img') %>
+      </div>
+    </div>
+
+    <div class="overlay-container is-active js-toggle-overlay">
+
+      <div class="overlay">
+        <div class="overlay-content">
+          <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+          <span class="sr-only"><%= t('.loading') %></span>
+        </div>
+      </div>
+
+      <div id="gobierto-planification" class="gobierto_planification">
+
+      <div class="planification-header m_v_3" v-show="json.length">
+
+        <div class="header-resume">
+          <h3><%= t(".global_execution") %></h3>
+          <span>{{ globalProgress | percent }}</span>
+        </div>
+
+        <div class="header-detail">
+          <% for i in 0..(@levels) %>
+            <div>
+              <%= level_name_pluralize(@plan.categories.where(level: i).size, @plan.configuration_data["level" + i.to_s]) %>
+            </div>
+          <% end %>
+          <div>
+            <%= level_name_pluralize(@node_number, @plan.configuration_data["level" + (@levels + 1).to_s]) %>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="planification-content">
+
+        <section class="level_0">
+          <div class="node-root" v-for="(model, index) in json" :class="['cat_' + setRootColor(index) ]">
+            <node-root :model="model" :key="model.id" @selection="setSelection"></node-root>
+          </div>
+        </section>
+
+        <section class="level_1" v-if="isOpen(1)" :class="['cat_' + color() ]">
+          <div class="lines-header">
+            <div><%= level_name_pluralize(@plan.categories.where(level: 1).size, @plan.configuration_data["level1"]) %></div>
+
+            <div><%= t(".percentage_progress") %></div>
+          </div>
+
+          <ul class="lines-list">
+            <li class="mb2" v-for="(model, index) in activeNode.children">
+              <node-list :model="model" :key="model.id" :level="levelKeys" @selection="setSelection"></node-list>
+            </li>
+          </ul>
+        </section>
+
+        <section class="level_2" v-if="isOpen(2)" :class="['cat_' + color() ]">
+
+          <%# FIXME: breadcrumb hidden TEMPORARILY %>
+          <div class="node-breadcrumb mb2" v-if="false">
+            <a data-turbolinks="false" @click.stop="getParent">
+              <i class="fa fa-caret-left"></i>
+              <%= t(".see_all") %> {{ ((json[rootid] || {}).attributes || {}).title | translate }}
+            </a>
+          </div>
+
+          <div class="node-action-line">
+
+              <div class="action-line--header node-list cat--negative">
+                <div class="node-title">
+                  <div><i class="fa fa-caret-down"></i></div>
+                  <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
+                </div>
+                <div><%= level_name_pluralize(@plan.categories.where(level: 2).size, @plan.configuration_data["level2"]) %></div>
+                <div>{{ (activeNode.attributes || {}).progress || 0 | percent }}</div>
+              </div>
+
+              <ul class="action-line--list">
+                <li v-for="(model, index) in activeNode.children">
+                  <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(index)"></node-list>
+                  <transition name="slide-fade">
+                    <table-view :model="model" :key="model.id" @selection="setSelection" v-if="showTable[index]"></table-view>
+                  </transition>
+                </li>
+              </ul>
+            </div>
+        </section>
+
+        <section class="level_3" v-if="isOpen(3)" :class="['cat_' + color() ]">
+
+          <%# FIXME: breadcrumb hidden TEMPORARILY %>
+          <div class="node-breadcrumb mb2" v-if="false">
+            <a data-turbolinks="false" @click.stop="getParent">
+              <i class="fa fa-caret-left"></i>
+              <%= t(".see_all") %> {{ ((json[rootid] || {}).attributes || {}).title | translate }}
+            </a>
+          </div>
+
+          <div class="node-action-line">
+              <div class="action-line--header node-list cat--negative">
+                <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
+              </div>
+
+              <div class="node-project-detail">
+                <div class="project-optional">
+                  <%# TODO: Filtrar los valores permitidos %>
+                  <div class="row" v-for="(value, key) in availableOpts">
+                    <template v-if="typeOf(value) !== 'object'">
+                      <div class="optional-title">{{ optionKeys[key] | translate }}</div>
+                      <div class="optional-desc">{{ value }}</div>
+                    </template>
+                    <template v-else>
+                      <div class="optional-container">
+                        <div class="optional-title">{{ optionKeys[key] | translate }}</div>
+                        <div class="optional-obj" v-for="(_value, _key) in value">
+                          <div class="optional-title">{{ optionKeys[_key] | translate }}</div>
+                          <div class="optional-desc">
+                            <template v-if="typeOf(_value) === 'string'">
+                              {{ _value }}
+                            </template>
+                            <template v-if="typeOf(_value) === 'array'">
+                              <div v-for="(_val, _key) in _value">{{ _val }}</div>
+                            </template>
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+                <div class="project-mandatory">
+                  <div class="row">
+                    <div class="mandatory-title"><%= t(".progress") %></div>
+                    <div class="mandatory-desc mandatory-desc--large">{{ activeNode.attributes.progress | percent }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="mandatory-title"><%= t(".starts") %></div>
+                    <div class="mandatory-desc">{{ activeNode.attributes.starts_at | date }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="mandatory-title"><%= t(".ends") %></div>
+                    <div class="mandatory-desc">{{ activeNode.attributes.ends_at | date }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="mandatory-title"><%= t(".status") %></div>
+                    <div class="mandatory-desc">{{ activeNode.attributes.status | translate }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </section>
+
+      </div>
+
+    </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- node root template -->
+<script type="text/x-template" id="node-root-template">
+  <a @click="open" data-turbolinks="false">
+    <div class="node-img js-img">
+      <img :src="model.attributes.img" alt="">
+    </div>
+    <div class="node-info js-info">
+      <div class="info-progress progress" :style="{ width: model.attributes.complete }"></div>
+      <div class="info-content">
+        <h3>{{ model.attributes.title | translate }}</h3>
+        <span>{{ model.attributes.complete }}</span>
+      </div>
+    </div>
+  </a>
+</script>
+
+<!-- node list template -->
+<script type="text/x-template" id="node-list-template">
+  <div class="node-list">
+    <div class="node-title">
+      <div><i class="fa" :class="[(isOpen) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
+      <h3><a @click.stop="setActive" data-turbolinks="false">{{ model.attributes.title | translate }}</a></h3>
+    </div>
+    <div>{{ (model.children || []).length }} {{ getLabel(model.level, (model.children || []).length) | translate }}</div>
+    <div>{{ (model.attributes || {}).progress || 0 | percent }}</div>
+  </div>
+</script>
+
+<!-- table view template -->
+<script type="text/x-template" id="table-view-template">
+  <table>
+    <thead>
+      <th><%= t(".projects") %></th>
+      <th><%= t(".starts") %></th>
+      <th><%= t(".ends") %></th>
+      <th><%= t(".progress") %></th>
+    </thead>
+    <tbody>
+      <tr v-for="row in model.children" @click.stop="getProject(row)">
+        <td>{{ row.attributes.title | translate }}</td>
+        <td>{{ row.attributes.starts_at | date }}</td>
+        <td>{{ row.attributes.status | translate }}</td>
+        <td>{{ row.attributes.progress | percent }}</td>
+      </tr>
+    </tbody>
+  </table>
+</script>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoPlans.plans_controller.show();
+  <% end %>
+<% end %>

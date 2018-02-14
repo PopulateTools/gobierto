@@ -32,7 +32,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".sub-nav" do
+        within "nav.sub-nav" do
           assert has_content? "Agendas"
           assert has_content? "Officials"
           assert has_content? "Statements"
@@ -43,7 +43,7 @@ module GobiertoPeople
 
         visit @path
 
-        within ".sub-nav" do
+        within "nav.sub-nav" do
           assert has_content? "Agendas"
           assert has_content? "Officials"
           assert has_content? "Statements"
@@ -55,7 +55,7 @@ module GobiertoPeople
 
         visit @path
 
-        within ".sub-nav" do
+        within "nav.sub-nav" do
           assert has_content? "Agendas"
           assert has_no_content? "Officials"
           assert has_no_content? "Statements"

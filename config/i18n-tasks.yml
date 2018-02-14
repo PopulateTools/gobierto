@@ -25,6 +25,7 @@ ignore_missing:
   - 'gobierto_observatory.cards.*'
   - 'gobierto_budgets.budgets.index_old.*'
   - 'gobierto_budgets.budgets.guide.*'
+  - 'gobierto_budgets.invoices.show.table.fields.*'
 
 ignore_unused:
   - 'number.*'
@@ -46,6 +47,7 @@ ignore_unused:
   - 'gobierto_budgets.visualizations.I_custom'
   - 'gobierto_budgets.budgets.index.*'
   - 'gobierto_budgets.budgets_execution.*'
+  - 'gobierto_budgets.invoices.show.table.fields.*'
   - 'gobierto_people.activities.gobierto_people_person*'
   - 'invisible_captcha.*'
   - '*.events.*'
@@ -78,6 +80,8 @@ ignore_unused:
   - 'gobierto_participation.processes.contribution_containers.show.proposal.*'
   - 'gobierto_participation.processes.contribution_containers.show.question.*'
   - 'gobierto_participation.processes.contributions.form.*'
+  - 'gobierto_admin.gobierto_participation.processes.edit.*'
+  - 'gobierto_admin.gobierto_participation.processes.*.success_*'
 
 translation:
   api_key: ''

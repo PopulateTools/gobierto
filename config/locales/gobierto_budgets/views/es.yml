@@ -468,6 +468,25 @@ es:
         option3: Mucho
         thanks: 'Gracias por tu opinión. Esto es lo que piensa el resto de la gente
           que ha opinado:'
+    invoices:
+      show:
+        fromto: De A Nº Fact.
+        invoiced: Importe facturado
+        more: Más de
+        table:
+          fields:
+            date: Fecha
+            paid: Pagado
+            provider_id: NIF
+            provider_name: Proveedor
+            subject: Concepto
+            value: Cantidad
+          pager:
+            first: Primero
+            format: Páginas %{tpl} de %{tpl2}
+            last: Último
+            next: Siguiente
+            prev: Anterior
     layouts:
       application:
         budgets: Presupuestos
@@ -476,8 +495,46 @@ es:
         elaboration: Elaboración
         execution: Ejecución
         guide: Guía
+        providers: Proveedores y Facturas
         receipt: Recibo
         summary: Resumen
+    providers:
+      index:
+        all_invoices: Todas las facturas
+        amount_distribution: Distribución por importes
+        and_more_html: y <span id="providers-number">n</span> proveedores más
+        are_from: son de
+        check_detail: Consulta el detalle
+        companies: compañías
+        description: "¿A qué proveedores contrata el Ayuntamiento? ¿Qué facturas paga?
+          Desde esta sección podrás consultar y revisar el detalle de cada uno de
+          los pagos que realiza el Ayuntamiento."
+        freelances: autónomos
+        invoices: Facturas
+        invoices_from_which: De los cuales
+        invoices_sum: facturas suman un total de
+        largest_provider_html: El mayor proveedor supone un <span id="largestProvider"></span>
+          de toda la facturación
+        last_12_months: Últimos 12 meses
+        less_than_1000_html: El <span id="lessThan1000"></span> de las facturas son
+          menores de 1.000 €
+        loading: Cargando...
+        main_providers: Principales proveedores
+        mean_amount: importe medio
+        mean_and_median: Media y mediana
+        mean_and_median_summary: Es decir, la mitad de las facturas son de este importe
+          o inferior
+        mean_summary: Importe resultante de sumar los importes de todas las facturas
+          y dividirlo por el número de facturas
+        median_amount: importe mediano
+        months_distribution: Distribución por meses
+        percentile_10_html: El <span id="percentile10"></span> de las facturas concentran
+          el 10 % de la facturación
+        percentile_50_html: El <span id="percentile50"></span> de las facturas concentran
+          el 50 % de la facturación
+        sum_amount: IMPORTE ACUMULADO
+        this_year: Este año
+        view_data_from: Ver datos de
     receipts:
       show:
         description: Parte del presupuesto de tu municipio se financia directamente

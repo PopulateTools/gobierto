@@ -21,6 +21,9 @@
 @import "datepicker.min";
 @import "simple_calendar";
 @import "fullcalendar.min";
+@import "dc.min";
+@import "jsgrid.min";
+@import "jsgrid-theme.min";
 
 /*
  * Gobierto libraries
@@ -61,12 +64,14 @@
 @import "comp-contributions";
 @import "comp-menu-horizontal";
 @import "comp-cms";
+@import "comp-overlay";
 @import "comp-tree";
 
 @import "comp-graph-treemap";
 @import "comp-graph-vis_lines_table";
 @import "comp-graph-vis_bubbles";
 @import "comp-graph-slider";
+@import "comp-graph-dc";
 
 @import "module-activity";
 @import "module-budget_vis";
@@ -75,6 +80,8 @@
 @import "module-people";
 @import "module-observatory";
 @import "module-participation";
+@import "module-planification";
+@import "module-planification-custom";
 @import "module-people";
 
 @import "module-admin";
@@ -158,8 +165,12 @@ a.soft_cta:hover {
   padding: .2em;
   display: inline-block;
 }
-
-
+.disabled-grayed {
+  background-color: gray !important;
+}
+.disabled-cursor {
+  cursor: not-allowed;
+}
 
 #lines_tooltip {
   table {

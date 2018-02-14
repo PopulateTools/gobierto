@@ -1,0 +1,23 @@
+---
+es:
+  gobierto_plans:
+    layouts:
+      application:
+        plans: Planes
+    plans:
+      show:
+        description: Al comienzo de legislatura se traza un plan con todos los proyectos
+          para los 4 años de gobierno. Consulta cuales son los planes, las áreas prioritarias,
+          y cómo se van desarrollando los distintos proyectos. Actualizamos el progreso
+          de los proyectos cada tres meses.
+        ends: Fin
+        global_execution: Estado de ejecución global
+        latest_update_html: "<strong>Última actualización:</strong> %{date}"
+        loading: Cargando...
+        percentage_progress: "% progreso"
+        progress: Progreso
+        projects: Proyectos
+        see_all: Ver todo en
+        starts: Inicio
+        status: Estado
+        title: Sigue la evolución del plan de gobierno

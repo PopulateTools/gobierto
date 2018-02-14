@@ -62,8 +62,8 @@ ca:
         title: Impost sobre els Béns Immobles
       income:
         first_column: ''
-        second_column: Renda bruta
-        third_column: Renda disponible
+        second_column: Bruta
+        third_column: Disponible
         title: Renda municipal
       income_overview:
         figure_first: "%{province}"

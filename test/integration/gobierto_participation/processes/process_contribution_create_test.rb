@@ -43,10 +43,10 @@ module GobiertoParticipation
 
     def test_contribution_create
       with_javascript do
-        with_signed_in_user(user) do
+        with_signed_in_user(user, logout=false) do
           visit container_path
 
-          assert_equal contributions.size, 4
+          assert_equal 4, contributions.size
 
           page.find("a", text: "Have an idea!").trigger("click")
 
@@ -58,17 +58,19 @@ module GobiertoParticipation
 
           click_button "Create"
 
-          assert_equal site.contributions.size, 5
+          sleep 1
 
-          # Avoids the error of the test that verifies to be logged because it does not have layout
-          visit containers_path
+          visit container_path
+
+          assert has_content? "My contribution"
+          assert_equal 5, contribution_container.contributions.size
         end
       end
     end
 
     def test_contribution_errors
       with_javascript do
-        with_signed_in_user(user) do
+        with_signed_in_user(user, logout=false) do
           visit container_path
 
           assert_equal contributions.size, 4
@@ -81,9 +83,6 @@ module GobiertoParticipation
           click_button "Create"
 
           assert has_alert?("Title can't be blank")
-
-          # Avoids the error of the test that verifies to be logged because it does not have layout
-          visit containers_path
         end
       end
     end

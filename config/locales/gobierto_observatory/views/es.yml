@@ -62,8 +62,8 @@ es:
         title: Impuesto sobre bienes inmuebles
       income:
         first_column: ''
-        second_column: Renta bruta
-        third_column: Renta disponible
+        second_column: Bruta
+        third_column: Disponible
         title: Renta municipal
       income_overview:
         figure_first: "%{province}"

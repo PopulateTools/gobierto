@@ -19,11 +19,12 @@ module GobiertoParticipation
     end
 
     def open_and_active_group
-      @open_and_active_group ||= gobierto_participation_processes(:green_city_group)
+      @open_and_active_group ||= gobierto_participation_processes(:green_city_group_active_empty)
     end
+    alias group_without_contributions open_and_active_group
 
     def draft_group
-      @draft_group ||= gobierto_participation_processes(:cultural_city_group)
+      @draft_group ||= gobierto_participation_processes(:cultural_city_group_draft)
     end
 
     def future_closed_group
@@ -34,11 +35,26 @@ module GobiertoParticipation
       @past_closed_group ||= gobierto_participation_processes(:dance_studio_group_ended)
     end
 
+    def bowling_group_very_active
+      @bowling_group_very_active ||= gobierto_participation_processes(:bowling_group_very_active)
+    end
+    alias group_with_many_contributions bowling_group_very_active
+
+    def find_participants_count_by_group_title(group_title)
+      group_node = page.find('div.pure-u-1.pure-u-md-1-3', text: group_title)
+      group_node.find('div.ib i.fa.fa-users').find(:xpath, '..').text().to_i
+    end
+
+    def find_interactions_count_by_group_title(group_title)
+      group_node = page.find('div.pure-u-1.pure-u-md-1-3', text: group_title)
+      group_node.find('div.ib i.fa.fa-comment').find(:xpath, '..').text().to_i
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
         visit @path
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
         end
       end
@@ -48,8 +64,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within ".sub-nav" do
-          assert has_link? "Issues"
+        within "nav.sub-nav" do
+          assert has_link? "Scopes"
           assert has_link? "Processes"
         end
       end
@@ -59,7 +75,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within "menu.secondary_nav" do
+        within "nav.sub-nav menu.secondary_nav" do
           assert has_link? "News"
           assert has_link? "Agenda"
           assert has_link? "Documents"
@@ -80,6 +96,14 @@ module GobiertoParticipation
         refute has_link?(draft_group.title)
         assert has_link?(future_closed_group.title)
         assert has_link?(past_closed_group.title)
+
+        # check groups details
+
+        assert_equal 8, find_interactions_count_by_group_title(group_with_many_contributions.title)
+        assert_equal 3, find_participants_count_by_group_title(group_with_many_contributions.title)
+
+        assert_equal 0, find_interactions_count_by_group_title(group_without_contributions.title)
+        assert_equal 0, find_participants_count_by_group_title(group_without_contributions.title)
       end
     end
 

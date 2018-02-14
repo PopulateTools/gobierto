@@ -16,6 +16,7 @@ module GobiertoParticipation
     delegate :persisted?, to: :comment
 
     validates :site, presence: true
+    validate :contribution_container_must_be_open
 
     def save
       save_comment if valid?
@@ -33,6 +34,14 @@ module GobiertoParticipation
       @site ||= Site.find_by(id: site_id)
     end
 
+    def contribution
+      commentable_type == contribution_class.to_s ? contribution_class.find(commentable_id) : nil
+    end
+
+    def contribution_container
+      contribution ? contribution.contribution_container : nil
+    end
+
     private
 
     def build_comment
@@ -41,6 +50,10 @@ module GobiertoParticipation
 
     def comment_class
       ::GobiertoParticipation::Comment
+    end
+
+    def contribution_class
+      ::GobiertoParticipation::Contribution
     end
 
     def save_comment
@@ -60,6 +73,12 @@ module GobiertoParticipation
         promote_errors(@comment.errors)
 
         false
+      end
+    end
+
+    def contribution_container_must_be_open
+      if contribution_container.present? && !contribution_container.contributions_allowed?
+        errors.add(:contribution_container, 'Contributions period has finished')
       end
     end
 

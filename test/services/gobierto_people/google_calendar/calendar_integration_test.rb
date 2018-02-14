@@ -29,13 +29,13 @@ module GobiertoPeople
 
         ## Mocks
         date1 = mock
-        date1.stubs(date_time: Time.now)
+        date1.stubs(date_time: 48.hours.from_now)
         date2 = mock
-        date2.stubs(date_time: 1.hour.from_now)
+        date2.stubs(date_time: 49.hours.from_now)
 
         # Private event, ignored
         event1 = mock
-        event1.stubs(visibility: "private")
+        event1.stubs(visibility: "private", id: "event1")
 
         creator_event2 = mock
         creator_event2.stubs(email: google_calendar_id)
@@ -87,13 +87,13 @@ module GobiertoPeople
 
 
         calendar1 = mock
-        calendar1.stubs(id: google_calendar_id, primary?: true)
+        calendar1.stubs(id: google_calendar_id, primary?: true, summary: 'Calendar 1')
 
         calendar2 = mock
-        calendar2.stubs(id: 2, primary?: false)
+        calendar2.stubs(id: 2, primary?: false, summary: 'Calendar 2')
 
         calendar3 = mock
-        calendar3.stubs(id: 3, primary?: false)
+        calendar3.stubs(id: 3, primary?: false, summary: 'Calendar 3')
 
         calendar_1_items_response = mock
         calendar_1_items_response.stubs(:items).returns([event1, event2])
@@ -233,6 +233,44 @@ module GobiertoPeople
         assert_nil event.attendees.second.person
         assert_equal "Wadus person", event.attendees.second.name
         assert_equal "Event 2 description", event.description
+      end
+
+      def test_sync_events_removes_deleted_events
+        CalendarIntegration.sync_person_events(richard)
+        event = richard.events.find_by external_id: "event2"
+        assert event.published?
+
+        ## Update mocks to remove event2
+        event1 = mock
+        event1.stubs(visibility: "private", id: "event1")
+
+        calendar1 = mock
+        calendar1.stubs(id: google_calendar_id, primary?: true, summary: 'Calendar 1')
+
+        calendar_1_items_response = mock
+        calendar_1_items_response.stubs(:items).returns([event1])
+
+        client_options = mock
+        client_options.stubs(:application_name=).returns(true)
+
+        calendar_items_response = mock
+        calendar_items_response.stubs(:items).returns([calendar1])
+
+        ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:list_calendar_lists).returns(calendar_items_response)
+        ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:list_events).with(calendar1.id, instance_of(Hash)).returns(calendar_1_items_response)
+        ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:client_options).returns(client_options)
+        ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:authorization=).returns(true)
+
+        ## Configure site and person
+        configure_google_calendar_integration(
+          collection: richard.calendar,
+          data: { calendars: [calendar1.id] }
+        )
+
+        CalendarIntegration.sync_person_events(richard)
+
+        event.reload
+        refute event.published?
       end
     end
   end

@@ -16,7 +16,7 @@ class SiteNavigationTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      within ".main-nav" do
+      within "nav.main-nav" do
         assert has_link?("Budgets")
         assert has_link?("Officials and Agendas")
         assert has_link?("CMS")

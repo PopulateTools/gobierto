@@ -1,0 +1,133 @@
+[
+  {
+    "id": 760939060,
+    "uid": "0",
+    "parent_id": 0,
+    "children_progress": 0,
+    "children_levels": {
+
+    },
+    "level": 0,
+    "attributes": {
+      "title": {
+        "en": "City",
+        "es": "Ciudad"
+      },
+      "img": "http:\/\/santander.es\/sites\/default\/themes\/custom\/ayuntamiento\/img\/logo-ayto-santander.png"
+    },
+    "children": [
+
+    ]
+  },
+  {
+    "id": 806940941,
+    "uid": "1",
+    "parent_id": 0,
+    "children_progress": 0,
+    "children_levels": {
+
+    },
+    "level": 0,
+    "attributes": {
+      "title": {
+        "en": "Economy",
+        "es": "Econom\u00eda"
+      },
+      "img": "http:\/\/santander.es\/sites\/default\/themes\/custom\/ayuntamiento\/img\/logo-ayto-santander.png"
+    },
+    "children": [
+
+    ]
+  },
+  {
+    "id": 309767805,
+    "uid": "2",
+    "parent_id": 0,
+    "children_progress": 50.25,
+    "children_levels": {
+      "level_1": 1,
+      "level_2": 1,
+      "level_3": 1,
+      "level_4": 1
+    },
+    "level": 0,
+    "attributes": {
+      "title": {
+        "en": "People and families",
+        "es": "Personas y familias"
+      },
+      "img": "http:\/\/santander.es\/sites\/default\/themes\/custom\/ayuntamiento\/img\/logo-ayto-santander.png"
+    },
+    "children": [
+      {
+        "id": 953101899,
+        "uid": "2.0",
+        "parent_id": 309767805,
+        "children_progress": 50.25,
+        "children_levels": {
+          "level_2": 1,
+          "level_3": 1,
+          "level_4": 1
+        },
+        "level": 1,
+        "attributes": {
+          "title": {
+            "en": "Provide social assistance to individuals and families who need it for lack of resources",
+            "es": "Proporcionar asistencia social a las personas y familias que la necesiten por falta de recursos"
+          }
+        },
+        "children": [
+          {
+            "id": 1059973494,
+            "uid": "2.0.0",
+            "parent_id": 953101899,
+            "children_progress": 50.25,
+            "children_levels": {
+              "level_3": 1,
+              "level_4": 1
+            },
+            "level": 2,
+            "attributes": {
+              "title": {
+                "en": "Necesidades b\u00e1sicas de las familias del Distrito Centro",
+                "es": "Basic needs of District Center families"
+              }
+            },
+            "children": [
+              {
+                "id": 812454004,
+                "uid": "2.0.0.0",
+                "parent_id": 1059973494,
+                "children_progress": 0,
+                "children_levels": {
+                  "level_4": 1
+                },
+                "level": 3,
+                "attributes": {
+                  "title": {
+                    "en": "Cubrir las necesidades b\u00e1sicas de las familias a las familias",
+                    "es": "To cover the basic needs of families to families"
+                  },
+                  "progress": 50.25,
+                  "starts_at": "2017-11-01",
+                  "ends_at": "2018-05-01",
+                  "status": {
+                    "en": "In progress",
+                    "es": "En progreso"
+                  },
+                  "options": {
+                    "objetivos": "Improve pedestrian and vehicle safety",
+                    "temporality": "annual"
+                  }
+                },
+                "children": [
+
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

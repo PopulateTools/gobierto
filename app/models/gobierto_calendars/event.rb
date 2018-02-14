@@ -73,12 +73,12 @@ module GobiertoCalendars
     enum state: { pending: 0, published: 1 }
 
     def self.events_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container_type: container_type).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.events.by_container_type(container_type).pluck(:item_id)
       where(id: ids, site: site).published
     end
 
     def self.events_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container: container).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.events.by_container(container).pluck(:item_id)
       where(id: ids, site: site).published
     end
 
@@ -111,7 +111,7 @@ module GobiertoCalendars
     end
 
     def attributes_for_slug
-      [starts_at.strftime('%F'), title]
+      [Time.now.strftime("%F"), title]
     end
 
     def add_item_to_collection
@@ -144,7 +144,7 @@ module GobiertoCalendars
     end
 
     def first_issue
-      collection_item = GobiertoCommon::CollectionItem.where(item: self, container_type: "Issue").first
+      collection_item = GobiertoCommon::CollectionItem.issues.where(item: self).first
 
       collection_item.container if collection_item
     end

@@ -91,8 +91,6 @@ ca:
           no_posts: Encara no hi ha posts publicats.
           title: El blog de %{person_name}, %{person_charge}
         show:
-          subscribable_box:
-            title: Rebeix actualitzacions al teu correu-e
           title: El blog de %{person_name}, %{person_charge}
       person_statements:
         index:
@@ -100,8 +98,6 @@ ca:
           title: Béns i activitats de %{person_name}
         show:
           download: Descarregar declaració (%{file_size})
-          subscribable_box:
-            title: Rebeix actualitzacions al teu correu-e
           title: Béns i activitats de %{person_name}
           view_previous: Veure anteriors
       show:
@@ -146,8 +142,6 @@ ca:
       show:
         filtering_by_tag: Filtrant per "%{tag}"
         go_back: Tornar
-        subscribable_box:
-          title: Rebeix una alerta al teu correu-e
     person_posts:
       index:
         subscribable_box:

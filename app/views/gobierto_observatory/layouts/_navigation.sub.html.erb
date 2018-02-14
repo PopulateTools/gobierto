@@ -3,3 +3,7 @@
     <%= link_to t("gobierto_observatory.layouts.menu_subsections.#{subsection}"), gobierto_observatory_root_path(anchor: subsection), data: { turbolinks: false } %>
   </div>
 <% end %>
+
+<% content_for(:current_submodule_link) do %>
+  <%= link_to t("gobierto_observatory.layouts.menu_subsections.poblacion"), gobierto_observatory_root_path(anchor: "poblacion"), data: { turbolinks: false } %>
+<% end %>

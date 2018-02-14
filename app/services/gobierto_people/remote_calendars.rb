@@ -12,23 +12,9 @@ module GobiertoPeople
 
         I18n.locale = site.configuration.default_locale
 
-        log_agenda_synchronization(collection, container, site)
-
         calendar_integration.sync_person_events(container)
         Publishers::AdminGobiertoCalendarsActivity.broadcast_event('calendars_synchronized', { ip: '127.0.0.1',  subject: container, site_id: site.id })
       end
-    end
-
-    def self.log_agenda_synchronization(collection, container, site)
-      message = %Q(
-        ------------------------------ [SYNC CALENDAR] ------------------------------
-        Site: #{site.domain}
-        Integration service: #{collection.calendar_integration}
-        Container class: #{container.class}
-        Container identifier: #{collection.container_printable_name}
-        -----------------------------------------------------------------------------
-      )
-      Rails.logger.info(message)
     end
 
   end

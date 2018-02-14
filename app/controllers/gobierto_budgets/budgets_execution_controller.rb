@@ -4,7 +4,7 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
   def index
     unless @any_budgets_execution_data_for_year = GobiertoBudgets::BudgetLine.any_data?(site: current_site, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
       flash[:alert] = t('controllers.gobierto_budgets.budgets_execution.index.alert', year: @year)
-      redirect_to gobierto_budgets_budgets_execution_path(@year -1) and return
+      redirect_to gobierto_budgets_budgets_execution_path(@year - 1) and return
     end
 
     @any_economic_income_budget_lines    = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::EconomicArea,   index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)

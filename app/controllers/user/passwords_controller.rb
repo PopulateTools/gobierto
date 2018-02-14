@@ -18,10 +18,10 @@ class User::PasswordsController < User::BaseController
   end
 
   def edit
-    user = User.confirmed.find_by_reset_password_token(params[:reset_password_token])
+    user = current_site.users.confirmed.find_by_reset_password_token(params[:reset_password_token])
 
     if user
-      @user_password_form = User::EditPasswordForm.new(user_id: user.id)
+      @user_password_form = User::EditPasswordForm.new(user_id: user.id, site: current_site)
     else
       redirect_to new_user_sessions_path, alert: t(".error")
     end
@@ -29,7 +29,7 @@ class User::PasswordsController < User::BaseController
 
   def update
     @user_password_form = User::EditPasswordForm.new(
-      user_edit_password_params
+      user_edit_password_params.merge(site: current_site)
     )
 
     if @user_password_form.save

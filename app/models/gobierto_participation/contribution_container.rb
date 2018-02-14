@@ -41,15 +41,42 @@ module GobiertoParticipation
     end
 
     def comments_count
-      contributions.sum(:comments_count)
+      contributions.sum(&:comments_count)
     end
 
     def participants_count
-      contributions.sum(&:number_participants)
+      participants_ids.size
     end
 
     def days_left
       (ends - Date.current).to_i
     end
+
+    def contributions_allowed?
+      active? && open?
+    end
+
+    def contributions_forbidden?
+      !contributions_allowed?
+    end
+
+    def open?
+      !future? && !past?
+    end
+
+    def future?
+      starts > Time.zone.now
+    end
+
+    def past?
+      ends <= Time.zone.now
+    end
+
+    private
+
+    def participants_ids
+      contributions.flat_map(&:participants_ids).uniq
+    end
+
   end
 end

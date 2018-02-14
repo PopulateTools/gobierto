@@ -1,6 +1,4 @@
 //= require algolia/v3/algoliasearch.min
-//= require moment
-//= require moment-with-locales
 //= require fullcalendar
 //= require ./app/init
 //= require_tree ./app

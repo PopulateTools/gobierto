@@ -41,6 +41,7 @@ es:
       search: Busca...
       session:
         alerts: Tus alertas
+        login: Haz login o regístrate
         notifications: Notificaciones
         sign_in: Iniciar sesión
         sign_out: Cerrar sesión

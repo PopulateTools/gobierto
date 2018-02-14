@@ -90,8 +90,6 @@ en:
           no_posts: There aren't posts published.
           title: "%{person_name}, %{person_charge}'s blog"
         show:
-          subscribable_box:
-            title: Receive updates in your inbox
           title: "%{person_name}, %{person_charge}'s blog"
       person_statements:
         index:
@@ -99,8 +97,6 @@ en:
           title: "%{person_name}'s goods and Activities"
         show:
           download: Download statement (%{file_size})
-          subscribable_box:
-            title: Receive updates in your inbox
           title: "%{person_name}'s goods and Activities"
           view_previous: View previous
       show:
@@ -145,8 +141,6 @@ en:
       show:
         filtering_by_tag: Filtering by "%{tag}"
         go_back: Go back
-        subscribable_box:
-          title: Receive alerts in your inbox
     person_posts:
       index:
         subscribable_box:

@@ -24,7 +24,7 @@ module GobiertoBudgets
         tmp_file.write(@file_content.to_json)
         tmp_file.close
         file = ActionDispatch::Http::UploadedFile.new(filename: "bubbles.json", tempfile: tmp_file)
-        ::FileUploader::S3.new(file: file, file_name: self.class.file_name_for(place)).call
+        ::FileUploader::S3.new(file: file, file_name: self.class.file_name_for(place)).upload!
       end
 
       def build_data_file

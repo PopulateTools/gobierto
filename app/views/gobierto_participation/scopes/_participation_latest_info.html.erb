@@ -7,9 +7,7 @@
         <h3 class="agenda_title"><%= t('.agenda') %></h3>
         <div class="p_1  content_block">
           <% if @scope_events %>
-            <% @scope_events.each do |event| %>
-              <%= render 'gobierto_participation/processes/place_event', { event: event } %>
-            <% end %>
+            <%= render partial: "gobierto_participation/shared/events/place_event", collection: @scope_events %>
           <% else %>
             <%= t('.no_events') %>
           <% end %>

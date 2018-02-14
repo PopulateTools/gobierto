@@ -15,6 +15,8 @@ module GobiertoParticipation
 
     delegate :persisted?, to: :contribution
 
+    validate :contribution_container_must_be_open
+
     def save
       save_contribution if valid?
     end
@@ -29,6 +31,10 @@ module GobiertoParticipation
 
     def site
       @site ||= Site.find_by(id: site_id)
+    end
+
+    def contribution_container
+      @contribution_container ||= ContributionContainer.find_by(id: contribution_container_id)
     end
 
     private
@@ -50,14 +56,18 @@ module GobiertoParticipation
         contribution_attributes.description = description
       end
 
-      if @contribution.valid?
-        @contribution.save
-
+      if @contribution.save
         @contribution
       else
         promote_errors(@contribution.errors)
 
         false
+      end
+    end
+
+    def contribution_container_must_be_open
+      unless contribution_container.contributions_allowed?
+        errors.add(:contribution_container, 'Contributions period has finished')
       end
     end
 

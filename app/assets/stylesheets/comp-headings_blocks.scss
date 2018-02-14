@@ -52,6 +52,31 @@ h1, h2, h3, h4 {
       }
     }
   }
+  .common-links {
+    text-transform: uppercase;
+    font-weight: 200;
+
+    > span::after {
+      content: "\00b7";
+      margin: 0 14px;
+    }
+
+    > span:last-child::after {
+      content: none;
+    }
+  }
+  .decorator {
+    position: relative;
+
+    &::before {
+      content: ' ';
+      width: 50px;
+      height: 5px;
+      background-color: $color_main_soft;
+      position: absolute;
+      top: -0.5em;
+    }
+  }
 }
 .with_separator {
   font-size: 1.25em;

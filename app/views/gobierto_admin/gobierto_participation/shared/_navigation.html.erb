@@ -1,8 +1,7 @@
 <div class="tabs">
   <ul>
-
     <li class="<%= class_if('active', controller_name == 'processes') %>">
-      <%= link_to t('.stage'), edit_admin_participation_process_path(current_process), data: { turbolinks: false } %>
+      <%= link_to t(".#{current_process.process_type}"), edit_admin_participation_process_path(current_process), data: { turbolinks: false } %>
     </li>
 
     <li class="<%= class_if('active', controller_name.include?('stages') || controller_name.include?('process_stage_pages')) %>">

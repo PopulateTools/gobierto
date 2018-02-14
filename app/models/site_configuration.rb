@@ -22,7 +22,7 @@ class SiteConfiguration
 
   DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze
 
-  MODULES_WITH_NOTIFICATONS = ["GobiertoPeople", "GobiertoBudgetConsultations"]
+  MODULES_WITH_NOTIFICATONS = ["GobiertoPeople", "GobiertoBudgetConsultations", "GobiertoParticipation"]
 
   attr_accessor *PROPERTIES
 

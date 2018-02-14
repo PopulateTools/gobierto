@@ -130,6 +130,10 @@ module GobiertoAttachments
       url_helpers.gobierto_attachments_attachment_path(id: id)
     end
 
+    def human_readable_url
+      url_helpers.gobierto_attachments_attachment_url(id: id, host: app_host)
+    end
+
     def add_item_to_collection
       if collection
         collection.append(self)

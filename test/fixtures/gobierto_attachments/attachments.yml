@@ -76,3 +76,33 @@ santander_attachment:
   slug: santander-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+
+# Use real AWS url for testing purposes
+
+pdf_attachment_uploaded:
+  name: PDF attachment available in AWS
+  file_size: 162595
+  file_name: documento.pdf
+  file_digest: c36dbae3d3733934a389f858a383b980
+  url: http://gobierto-public-resources.s3.amazonaws.com/gobierto-attachments/documento.pdf
+  description: Description of a PDF attachment available in AWS
+  current_version: 1
+  site: madrid
+  slug: pdf-attachment-aws-slug
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+# Use real AWS url for testing purposes
+
+png_attachment_uploaded:
+  name: PNG attachment available in AWS
+  file_size: 223362
+  file_name: imagen.png
+  file_digest: 1f175ea405310aed9007c436daa39f5b
+  url: https://gobierto-public-resources.s3.amazonaws.com/gobierto-attachments/imagen.png
+  description: Description of an attachment with a PNG image available in AWS
+  current_version: 1
+  site: madrid
+  slug: png-attachment-aws-slug
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

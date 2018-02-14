@@ -15,7 +15,7 @@ module GobiertoAdmin
       end
 
       def attachment_attributes
-        @attachment_attributes ||= %w(id site_id name description file_name file_digest url file_size current_version created_at)
+        @attachment_attributes ||= %w(id site_id name description file_name file_digest url human_readable_url file_size current_version created_at)
       end
 
       def pdf_file
@@ -55,7 +55,7 @@ module GobiertoAdmin
 
         assert_response :success
 
-        assert_equal 5, attachments.size
+        assert_equal 7, attachments.size
         assert array_match(attachment_attributes, attachment.keys)
 
         assert_equal "Attachment Name", attachment["name"]

@@ -19,7 +19,8 @@ module GobiertoAttachments
       # it uses a different header.
       # For example, when the doc URL is used in an <img> tag, in Firefox the
       # Accept header is */*, and in Safari is the MIME-Type of the image.
-      request.headers["Accept"].include?("text/html")
+      accept_header = request.headers["Accept"]
+      accept_header && accept_header.include?("text/html")
     end
 
     def load_attachment

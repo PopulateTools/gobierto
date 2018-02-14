@@ -45,21 +45,8 @@ module GobiertoCms
     scope :sorted, -> { order(id: :desc) }
     scope :sort_by_updated_at, -> { order(updated_at: :desc) }
 
-    def main_image
-      attachments.each do |attachment|
-        return attachment.url if attachment.content_type.start_with?("image/")
-      end
-      nil
-    end
-
     def section
-      if GobiertoCms::SectionItem.where(item: self).first
-        GobiertoCms::SectionItem.where(item: self).first.section
-      end
-    end
-
-    def template
-      collection.item_type.split('::').last.downcase
+      GobiertoCms::SectionItem.find_by(item: self).try(:section)
     end
 
     # returns pages belonging to site pages collection
@@ -99,65 +86,24 @@ module GobiertoCms
       [title]
     end
 
-    def resource_path
-      to_url
-    end
-
-    def belongs_to_collection_of_news?
-      collection && collection.item_type == 'GobiertoCms::News'
-    end
-
-    def belongs_to_collection_of_pages?
-      collection && collection.item_type == 'GobiertoCms::Page'
-    end
-
-    def to_path(options = {})
-      if collection
-        if collection.container_type == "GobiertoParticipation::Process"
-          url_helpers.gobierto_participation_process_page_path({ id: slug, process_id: collection.container.slug }.merge(options))
-        elsif collection.container_type == "GobiertoParticipation"
-          if  belongs_to_collection_of_news?
-            url_helpers.gobierto_participation_news_path({ id: slug }.merge(options))
-          elsif belongs_to_collection_of_pages?
-            url_helpers.gobierto_participation_page_path({ id: slug }.merge(options))
-          end
-        elsif section.present? || options[:section]
-          options.delete(:section)
-          url_helpers.gobierto_cms_section_item_path({ id: slug, slug_section: section.slug }.merge(options))
-        else
-          url_helpers.gobierto_cms_page_path({ id: slug }.merge(options))
-        end
-      end
-    end
-
-    def to_url(options = {})
-      host = site.domain
-      if collection
-        if collection.container_type == "GobiertoParticipation::Process"
-          url_helpers.gobierto_participation_process_page_url({ id: slug, process_id: collection.container.slug, host: host }.merge(options))
-        elsif collection.container_type == "GobiertoParticipation"
-          if  belongs_to_collection_of_news?
-            url_helpers.gobierto_participation_news_url({ id: slug, host: host }.merge(options))
-          elsif belongs_to_collection_of_pages?
-            url_helpers.gobierto_participation_page_url({ id: slug, host: host }.merge(options))
-          end
-        elsif section.present? || options[:section]
-          options.delete(:section)
-          url_helpers.gobierto_cms_section_item_url({ id: slug, slug_section: section.slug, host: host }.merge(options))
-        else
-          url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: host).merge(options))
-        end
-      end
-    end
-
     def add_item_to_collection
       if collection
         collection.append(self)
       end
     end
 
+    private
+
     def searchable_body
       searchable_translated_attribute(body_translations)
+    end
+
+    def resource_path
+      if collection.item_type == "GobiertoCms::Page"
+        url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: site.domain))
+      elsif collection.item_type == "GobiertoCms::News"
+        url_helpers.gobierto_cms_news_url({ id: slug }.merge(host: site.domain))
+      end
     end
   end
 end

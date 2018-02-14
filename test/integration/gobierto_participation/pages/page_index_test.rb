@@ -45,7 +45,7 @@ module GobiertoParticipation
               if stage.visibility_level == "published"
                 assert has_link? stage.stage_type.capitalize
               else
-                refute has_link? stage.stage_type.capitalize
+                assert has_no_link? stage.stage_type.capitalize
               end
             end
           end

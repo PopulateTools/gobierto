@@ -25,8 +25,8 @@ module GobiertoAdmin
 
             assert has_content?("Options")
 
-            refute has_checked_field?("gobierto_budgets_options_elaboration_enabled")
-            refute has_checked_field?("gobierto_budgets_options_budget_lines_feedback_enabled")
+            assert has_no_checked_field?("gobierto_budgets_options_elaboration_enabled")
+            assert has_no_checked_field?("gobierto_budgets_options_budget_lines_feedback_enabled")
 
             check "gobierto_budgets_options_elaboration_enabled"
             check "gobierto_budgets_options_budget_lines_feedback_enabled"

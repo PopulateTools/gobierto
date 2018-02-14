@@ -10,8 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::UnknownFormat, with: :render_404
 
   helper_method :helpers, :load_current_module_sub_sections, :current_site, :current_module,
-                :current_module_body_class, :available_locales, :gobierto_people_event_preview_url,
-                :page_preview_url
+                :current_module_body_class, :available_locales, :gobierto_people_event_preview_url
 
   before_action :set_current_site, :authenticate_user_in_site, :set_locale
 
@@ -109,12 +108,5 @@ class ApplicationController < ActionController::Base
       options.merge!(preview_token: current_admin.preview_token)
     end
     gobierto_people_person_event_url(@person.slug, event.slug, options)
-  end
-
-  def page_preview_url(page, options = {})
-    if page.draft? || (page.process && page.process.draft?)
-      options.merge!(preview_token: current_admin.preview_token)
-    end
-    page.to_url(options)
   end
 end

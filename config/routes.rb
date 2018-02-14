@@ -327,9 +327,12 @@ Rails.application.routes.draw do
   # Gobierto CMS module
   namespace :gobierto_cms, path: "" do
     constraints GobiertoSiteConstraint.new do
-      resources :pages, only: [:index, :show], path: "paginas"
-      get "/s/:slug_section/:id" => "pages#show", as: :section_item
-      get "/s/:slug_section" => "sections#show", as: :section
+      get "/s/:slug_section/:id" => "pages#show",    as: :section_item
+      get "/s/:slug_section"     => "sections#show", as: :section
+      get "/paginas/:id"         => "pages#index",   as: :pages
+      get "/pagina/:id"          => "pages#show",    as: :page
+      get "/noticias/:id"        => "news#index",    as: :news_index
+      get "/noticia/:id"         => "news#show",     as: :news
     end
   end
 
@@ -353,29 +356,26 @@ Rails.application.routes.draw do
         resources :attachments, only: [:index, :show], controller: "processes/attachments", path: "documentos"
         resources :past_process_events, only: [:index], controller: "processes/past_process_events", as: :past_process_events, path: "agendas/eventos-pasados"
         resources :events, only: [:index, :show], controller: "processes/events", path: "agendas"
-        resources :pages, only: [:index, :show], controller: "processes/pages", path: "noticias"
+        resources :news, only: [:index], controller: "processes/news", path: "noticias"
         resources :activities, only: [:index], controller: "processes/activities", path: "actividad"
       end
 
       resources :issues, only: [:index, :show], path: "temas" do
         resources :attachments, only: [:index, :show], controller: "issues/attachments", path: "documentos"
         resources :events, only: [:index, :show], controller: "issues/events", path: "agendas"
-        resources :pages, only: [:index, :show], controller: "issues/pages", path: "noticias"
         resources :activities, only: [:index], controller: "issues/activities", path: "actividad"
       end
 
       resources :scopes, only: [:index, :show], path: "ambitos" do
         resources :attachments, only: [:index, :show], controller: "scopes/attachments", path: "documentos"
         resources :events, only: [:index, :show], controller: "scopes/events", path: "agendas"
-        resources :pages, only: [:index, :show], controller: "scopes/pages", path: "noticias"
         resources :activities, only: [:index], controller: "scopes/activities", path: "actividad"
       end
 
       resources :attachments, only: [:index, :show], controller: "attachments", path: "documentos"
       resources :past_participation_events, only: [:index], controller: "past_participation_events", as: :past_participation_events, path: "agendas/eventos-pasados"
       resources :events, only: [:index, :show], controller: "events", path: "agendas"
-      resources :pages, only: [:show], controller: "pages", path: "paginas"
-      resources :news, only: [:index, :show], controller: "news", path: "noticias"
+      resources :news, only: [:index], controller: "news", path: "noticias"
       resources :activities, only: [:index], controller: "activities", path: "actividad"
     end
   end

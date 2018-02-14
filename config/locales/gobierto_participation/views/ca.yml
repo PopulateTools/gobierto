@@ -68,12 +68,6 @@ ca:
         agenda: Agenda
         documents: Documents
         news: Notícies
-    news:
-      show:
-        news: Notícies
-    pages:
-      show:
-        pages: Pàgines
     processes:
       contribution_containers:
         show:
@@ -237,7 +231,7 @@ ca:
           agenda_for_container: Agenda d'
       filter_by_theme: Filtrar per tema
       from_to: "%{starts} al %{ends}"
-      new: Notícies
+      news: Notícies
       news_for: Notícies de %{container}
       no_activities: No hi ha actualitzacions relacionades
       no_documents: No hi ha documents relacionats

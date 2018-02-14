@@ -17,9 +17,9 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
           within '.people-navigation' do
-            refute has_link?('Biography and CV')
-            refute has_link?('Blog')
-            refute has_link?('Goods and Activities')
+            assert has_no_link?('Biography and CV')
+            assert has_no_link?('Blog')
+            assert has_no_link?('Goods and Activities')
           end
         end
       end

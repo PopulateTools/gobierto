@@ -39,7 +39,7 @@ module GobiertoParticipation
 
         assert_equal participation_attachments.size, all(".news_teaser").size
 
-        refute has_content? "See all documents"
+        assert has_no_content? "See all documents"
 
         assert has_link? "PDF Collection On Participation"
         assert has_link? "XLSX Attachment Event"

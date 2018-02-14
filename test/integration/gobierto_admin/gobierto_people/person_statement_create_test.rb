@@ -44,7 +44,7 @@ module GobiertoAdmin
                 fill_in "person_statement_published_on", with: "2017-01-01"
 
                 within ".attachment_file_field" do
-                  refute has_selector?("a")
+                  assert has_no_selector?("a")
                   attach_file "person_statement_attachment_file", "test/fixtures/files/gobierto_people/people/person_statement/attachment.pdf"
                 end
 

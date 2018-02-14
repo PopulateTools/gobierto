@@ -9,7 +9,7 @@ module GobiertoCommon
     after_commit :reindex_page, on: [:create, :update]
 
     scope :news, -> { where(item_type: 'GobiertoCms::News') }
-    scope :pages, -> { where(item_type: 'GobiertoCms::Page') }
+    scope :pages, -> { where(item_type: %w(GobiertoCms::Page GobiertoCms::News)) }
     scope :attachments, -> { where(item_type: 'GobiertoAttachments::Attachment') }
     scope :events, -> { where(item_type: 'GobiertoCalendars::Event') }
     scope :issues, -> { where(item_type: 'Issue') }

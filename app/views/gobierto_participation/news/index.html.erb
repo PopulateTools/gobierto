@@ -8,31 +8,33 @@
       <div class='pure-u-1 pure-u-lg-1-3'>
         <div class='content_side'>
           <h2 class='with_separator'>
-            <%= t('gobierto_participation.shared.news_for', container: t('gobierto_participation.shared.participation')) %>
+            <%= title t('gobierto_participation.shared.news_for', container: participation_news_page_container) %>
           </h2>
 
-          <% if @issue %>
+          <% if @issue || @scope %>
             <div>
               <small><%= link_to t('gobierto_participation.shared.all_news'), gobierto_participation_news_index_path %></small>
             </div>
           <% end %>
 
-          <h4 class="with_light_separator m_t_1"><%= t('gobierto_participation.shared.filter_by_theme') %></h4>
+          <% if @issues %>
+            <h4 class="with_light_separator m_t_1"><%= t('gobierto_participation.shared.filter_by_theme') %></h4>
 
-          <ul class="link_list">
-            <% @issues.each do |issue| %>
-              <li>
-                <%= link_to issue.name , gobierto_participation_news_index_path(issue_id: issue.slug) %>
-              </li>
-            <% end %>
-          </ul>
+            <ul class="link_list">
+              <% @issues.each do |issue| %>
+                <li>
+                  <%= link_to_unless @issue == issue, issue.name , gobierto_participation_news_index_path(issue_id: issue.slug) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
         </div>
       </div>
 
       <div class='pure-u-1 pure-u-lg-2-3'>
-        <% if @pages && @pages.any? %>
+        <% if @pages.any? %>
           <% @pages.each do |page| %>
-            <%= render 'gobierto_participation/shared/pages/page_teaser', { page: page, issue: @issue } %>
+            <%= render "gobierto_participation/shared/pages/page_teaser", { page: GobiertoCms::PageDecorator.new(page), issue: @issue } %>
           <% end %>
 
           <%= paginate @pages %>

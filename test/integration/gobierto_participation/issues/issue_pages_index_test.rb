@@ -13,7 +13,7 @@ module GobiertoParticipation
     end
 
     def issue_pages_path
-      @issue_pages_path ||= gobierto_participation_issue_pages_path(
+      @issue_pages_path ||= gobierto_participation_news_index_path(
         issue_id: issue.slug
       )
     end

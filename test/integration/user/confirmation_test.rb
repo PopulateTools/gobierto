@@ -51,8 +51,8 @@ class User::ConfirmationTest < ActionDispatch::IntegrationTest
     with_current_site(auth_strategy_site) do
       visit new_user_confirmations_path(confirmation_token: unconfirmed_user_in_auth_strategy_site.confirmation_token)
 
-      refute has_field? :user_confirmation_password
-      refute has_field? :user_confirmation_password_confirmation
+      assert has_no_field? :user_confirmation_password
+      assert has_no_field? :user_confirmation_password_confirmation
 
       fill_in :user_confirmation_name, with: "User name"
       select "1992", from: :user_confirmation_date_of_birth_1i

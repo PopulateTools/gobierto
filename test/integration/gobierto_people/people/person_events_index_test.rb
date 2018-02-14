@@ -51,7 +51,7 @@ module GobiertoPeople
 
             within ".events-summary" do
               assert has_content?("Agenda")
-              refute has_link?("View more")
+              assert has_no_link?("View more")
               assert has_link?("Past events")
 
               upcoming_events.each do |event|
@@ -104,14 +104,14 @@ module GobiertoPeople
           visit @path
 
           assert has_link?("View more")
-          refute has_link?("Event 8")
+          assert has_no_link?("Event 8")
           click_link "View more"
 
           assert has_link?("Event 8")
           assert has_link?("View more")
 
           assert has_link?("Event 18")
-          refute has_link?("View more")
+          assert has_no_link?("View more")
         end
       end
 

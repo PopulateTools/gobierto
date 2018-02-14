@@ -53,7 +53,7 @@ module GobiertoAdmin
 
         assert_equal "PDF Attachment Name", attachment["name"]
         assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/pdf-attachment.pdf", attachment["url"]
-        assert_equal 2, cms_page.reload.attachments.count
+        assert_equal 3, cms_page.reload.attachments.count
       end
 
       def test_attachings_create_error

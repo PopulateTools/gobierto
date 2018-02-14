@@ -41,7 +41,7 @@ module GobiertoParticipation
 
         click_link "See all documents"
 
-        refute has_content? "Documents on Participation"
+        assert has_no_content? "Documents on Participation"
       end
     end
   end

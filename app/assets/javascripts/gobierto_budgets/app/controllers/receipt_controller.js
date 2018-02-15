@@ -55,10 +55,8 @@ this.GobiertoBudgets.ReceiptController = (function() {
           return attr['name_' + this.locale] || attr['name'];
         },
         ratio: function(percentage) {
-          return this.total * (percentage/100.0);
-        },
-        formatMoney: function(m) {
-          return accounting.formatMoney(m, "€", 2, ".", ",").replace(/,0+ €$/, ' €')
+          // Last item in array is the newest
+          return this.total(this.categories.length - 1) * (percentage/100.0);
         },
         getValue: function (obj, o) {
           if (!obj) return

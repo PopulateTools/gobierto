@@ -118,13 +118,13 @@
             <div class="bill_row">
               <div class="toggle"><i class="fa fa-plus"></i></div>
               <div class="line"><%= parent.name %></div>
-              <div class="figure">{{ formatMoney(ratio(<%= parent.percentage_of_total %>)) }}</div>
+              <div class="figure">{{ ratio(<%= parent.percentage_of_total %>) | format }}</div>
 
               <div class="hidden children">
                 <% budget_lines.each do |budget_line| %>
                   <div class="bill_row_child">
                     <div class="line"><%= budget_line.name %></div>
-                    <div class="figure">{{ formatMoney(ratio(<%= budget_line.percentage_of_total %>)) }}</div>
+                    <div class="figure">{{ ratio(<%= budget_line.percentage_of_total %>) | format }}</div>
                   </div>
                 <% end %>
               </div>

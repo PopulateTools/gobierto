@@ -38,6 +38,19 @@ xlsx_attachment:
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
+xlsx_attachment_event:
+  name: XLSX Attachment Event
+  file_size: 3622
+  file_name: xlsx-attachment-event.xlsx
+  file_digest: 9cfd24e26ae096263cb82cd13bcd2feb
+  url: http://host.com/attachments/xslsx-attachment-event.xlsx
+  description: Description of a XLSX attachment event
+  current_version: 1
+  site: madrid
+  slug: xlsx-attachment-event-slug
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
 attachment:
   name: Attachment Name
   file_size: 49

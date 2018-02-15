@@ -3,7 +3,7 @@
 require "test_helper"
 
 module GobiertoParticipation
-  class ProcessEventsShowTest < ActionDispatch::IntegrationTest
+  class ProcessAttachmentsIndexTest < ActionDispatch::IntegrationTest
     def site
       @site ||= sites(:madrid)
     end
@@ -16,20 +16,19 @@ module GobiertoParticipation
       @process ||= gobierto_participation_processes(:gender_violence_process)
     end
 
-    def process_event
-      @process_event ||= gobierto_calendars_events(:reading_club)
-    end
-
-    def process_event_path
-      @process_event_path ||= gobierto_participation_process_event_path(
-        process_event.slug,
+    def process_attachments_path
+      @process_attachments_path ||= gobierto_participation_process_attachments_path(
         process_id: process.slug
       )
     end
 
+    def process_attachments
+      @process_attachments ||= ::GobiertoAttachments::Attachment.attachments_in_collections_and_container(site, process)
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
-        visit process_event_path
+        visit process_attachments_path
 
         within "nav.main-nav" do
           assert has_link? "Participation"
@@ -40,12 +39,11 @@ module GobiertoParticipation
 
     def test_menu_subsections
       with_current_site(site) do
-        visit process_event_path
+        visit process_attachments_path
 
         within "nav.sub-nav" do
           assert has_link? "Information"
           assert has_link? "Agenda"
-
           refute has_link? "Polls"
           refute has_link? "Contributions"
           refute has_link? "Results"
@@ -55,7 +53,7 @@ module GobiertoParticipation
 
     def test_secondary_nav
       with_current_site(site) do
-        visit process_event_path
+        visit process_attachments_path
 
         within "nav.sub-nav menu.secondary_nav" do
           assert has_link? "News"
@@ -63,16 +61,13 @@ module GobiertoParticipation
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
-
-        # TODO: check that these links redirect to their corresponding pages
-        # applying the right scope (single process/group scope)
       end
     end
 
     def test_subscription_block
       with_javascript do
         with_signed_in_user(user) do
-          visit process_event_path
+          visit process_attachments_path
 
           within ".slim_nav_bar" do
             assert has_link? "Follow process"
@@ -87,21 +82,12 @@ module GobiertoParticipation
       end
     end
 
-    def test_process_event_show
+    def test_process_attachments_index
       with_current_site(site) do
-        visit process_event_path
+        visit process_attachments_path
 
-        within ".event_wrapper" do
-          assert has_content? "Intensive reading club in english"
-          assert has_content? "Intensive reading club in english description"
-
-          within ".document" do
-            assert has_content? "XLSX Attachment Event"
-          end
-        end
-
-        assert has_content? "Agenda"
-        # TODO: refute has_content? "Agenda for #{process.title}"
+        assert_equal process_attachments.size, all(".news_teaser").size
+        assert has_content? "PDF Collection Attachment Name"
       end
     end
   end

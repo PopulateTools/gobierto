@@ -4,14 +4,14 @@ consultation_faq_xlsx_attachment:
   attachable: consultation_faq
   attachable_type: GobiertoCms::Page
 
-about_site_xlsx_attachment:
-  site: madrid
-  attachment: xlsx_attachment
-  attachable: about_site
-  attachable_type: GobiertoCms::Page
-
 about_site_xlsx_event_attachment:
   site: madrid
   attachment: xlsx_attachment
   attachable: richard_published
+  attachable_type: GobiertoCalendars::Event
+
+xlsx_attachment_event_reading_club:
+  site: madrid
+  attachment: xlsx_attachment_event
+  attachable: reading_club
   attachable_type: GobiertoCalendars::Event

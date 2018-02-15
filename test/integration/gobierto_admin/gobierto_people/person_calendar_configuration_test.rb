@@ -241,6 +241,62 @@ module GobiertoAdmin
         end
       end
 
+      def test_sync_calendars_with_default_locale
+        configure_google_calendar_integration(
+          collection: person.calendar,
+          data: google_calendar_configuration
+        )
+
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit @person_events_path
+
+            click_link 'Agenda'
+            click_link 'Configuration'
+
+            check 'Calendar 1'
+
+            click_button 'Update'
+
+            site.configuration.default_locale = 'es'
+            site.save
+
+            click_link 'Sync now'
+
+            assert has_text? 'Last sync: less than a minute ago'
+
+            event = person.events.find_by external_id: "event2"
+            assert_equal event.title_translations['es'], event.title
+            assert_equal event.description_translations['es'], event.description
+
+            rest_of_locales = I18n.available_locales - ["es".to_sym]
+
+            rest_of_locales.each do |locale|
+              assert_nil event.title_translations[locale.to_s]
+              assert_nil event.description_translations[locale.to_s]
+            end
+
+            site.configuration.default_locale = 'ca'
+            site.save
+
+            click_link 'Sync now'
+
+            assert has_text? 'Last sync: less than a minute ago'
+
+            event = person.events.find_by external_id: "event2"
+            assert_equal event.title_translations['ca'], event.title
+            assert_equal event.description_translations['ca'], event.description
+
+            rest_of_locales = I18n.available_locales - ["ca".to_sym]
+
+            rest_of_locales.each do |locale|
+              assert_nil event.title_translations[locale.to_s]
+              assert_nil event.description_translations[locale.to_s]
+            end
+          end
+        end
+      end
+
       def test_configure_new_google_calendar_integration
         with_javascript do
           with_signed_in_admin(admin) do

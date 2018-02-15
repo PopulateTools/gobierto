@@ -82,28 +82,23 @@
 
     @include min-screen(740) {
       padding: 0 0.5em;
+
+      @include flexbox(1em, row);
     }
 
-    & > * {
-      margin: 0 0.5em;
-    }
-
-    & > :first-child {
-      margin-left: 0;
-    }
-
-    & > :last-child {
-      margin-right: 0;
-    }
+    @include flexbox(1em, column);
 
     .bg {
       display: flex;
-      width: 100%;
       align-items: center;
       justify-content: space-between;
       background: #f2f9fa;
       padding: 0 0.5em;
       border-radius: 4px;
+
+      @include min-screen(740) {
+        width: 100%;
+      }
 
       &:not(:last-child) {
         opacity: .5;

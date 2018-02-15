@@ -55,7 +55,7 @@ module GobiertoAdmin
 
         assert_response :success
 
-        assert_equal 5, attachments.size
+        assert_equal 6, attachments.size
         assert array_match(attachment_attributes, attachment.keys)
 
         assert_equal "Attachment Name", attachment["name"]

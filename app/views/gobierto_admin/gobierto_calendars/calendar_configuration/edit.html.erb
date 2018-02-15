@@ -34,10 +34,10 @@
 
       <% if integration_name.present? %>
         <div class="option">
-          <%= f.check_box :clear_calendar_configuration %>
-          <%= f.label :clear_calendar_configuration do %>
+          <%= f.check_box :without_description %>
+          <%= f.label :without_description do %>
             <span></span>
-            <%= t('.remove_configuration') %>
+            <%= t('.without_description') %>
           <% end %>
         </div>
 
@@ -97,6 +97,16 @@
             </td>
           </tr>
         </table>
+
+        <h3><%= t('.manage') %></h3>
+
+        <div class="option">
+          <%= f.check_box :clear_calendar_configuration %>
+          <%= f.label :clear_calendar_configuration do %>
+            <span></span>
+            <%= t('.remove_configuration') %>
+          <% end %>
+        </div>
       <% end %>
     </div>
 

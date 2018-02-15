@@ -2,7 +2,6 @@
 
 module GobiertoCalendars
   class GoogleCalendarConfiguration < CalendarConfiguration
-
     def google_calendar_credentials
       data['google_calendar_credentials']
     end
@@ -26,6 +25,5 @@ module GobiertoCalendars
     def calendars
       data['calendars']
     end
-
   end
 end

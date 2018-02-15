@@ -20,6 +20,7 @@ en:
             microsoft_exchange_url: Calendar URL
             microsoft_exchange_usr: Microsoft Exchange account
           last_sync: Last sync
+          manage: Manage calendar configuration
           microsoft_exchange: Microsoft Exchange
           placeholders:
             filter_text: Text to be filtered
@@ -28,6 +29,7 @@ en:
             username: ex. someone85
           remove_configuration: Remove calendar configuration
           sync: Sync now
+          without_description: Don't import event description
         gobierto_people_person_navigation:
           calendar_configuration: Calendar configuration
         google_calendar_fields:

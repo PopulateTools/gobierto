@@ -20,6 +20,7 @@ ca:
             microsoft_exchange_url: URL del calendari
             microsoft_exchange_usr: Compte de Microsoft Exchange
           last_sync: Darrera sincronització
+          manage: Gestiona la configuració del calendari
           microsoft_exchange: Microsoft Exchange
           placeholders:
             filter_text: Text pel qual filtrar
@@ -28,6 +29,7 @@ ca:
             username: ex. perico85
           remove_configuration: Eliminar configuració
           sync: Sincronitzar ara
+          without_description: No importar la descripció de l'esdeveniment
         gobierto_people_person_navigation:
           calendar_configuration: Configuració del calendari
         google_calendar_fields:

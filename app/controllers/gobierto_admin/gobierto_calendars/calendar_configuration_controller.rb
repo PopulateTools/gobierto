@@ -35,6 +35,8 @@ module GobiertoAdmin
       end
 
       def sync_calendars
+        I18n.locale = current_site.configuration.default_locale
+
         @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection: @collection)
         if (calendar_integration = @calendar_configuration_form.calendar_integration_class).present?
           calendar_integration.sync_person_events(@calendar_configuration_form.collection_container)

@@ -147,14 +147,28 @@ module GobiertoPeople
       errors.add(:starts_at, 'is out of sync range') unless GobiertoCalendars.sync_range.cover?(starts_at)
     end
 
+    def title_translations
+      h = available_locales_to_hash
+      h.merge({site.configuration.default_locale => title})
+    end
+
+    def description_translations
+      h = available_locales_to_hash
+      h.merge({site.configuration.default_locale => description})
+    end
+
+    def available_locales_to_hash
+      Hash[I18n.available_locales.map {|x| [x, nil]}]
+    end
+
     def save_person_event
       @person_event = person_event.tap do |person_event_attributes|
         person_event_attributes.site_id = site_id
         person_event_attributes.external_id = external_id
         person_event_attributes.collection = collection
         person_event_attributes.state = state
-        person_event_attributes.title = title
-        person_event_attributes.description = description
+        person_event_attributes.title_translations = title_translations
+        person_event_attributes.description_translations = description_translations
         person_event_attributes.starts_at = starts_at
         person_event_attributes.ends_at = ends_at
         person_event_attributes.locations = locations

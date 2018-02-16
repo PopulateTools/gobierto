@@ -37,7 +37,7 @@ module GobiertoCms
         visit @path
 
         assert has_selector?("h1", text: cms_page.title)
-        assert has_content?(cms_page.body)
+        assert has_text?('This is the')
 
         if cms_page.attachments && cms_page.attachments.any?
           within ".page_attachments" do

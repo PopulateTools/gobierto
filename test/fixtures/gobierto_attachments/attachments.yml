@@ -3,7 +3,7 @@ pdf_attachment:
   file_size: 10022
   file_name: pdf-attachment.pdf
   file_digest: 44036997d456028a88d634afa64037ae
-  url: http://host.com/attachments/pdf-attachment.pdf
+  url: http://host.com/attachments/super-long-and-ugly-aws-id/pdf-attachment.pdf
   description: Description of a PDF attachment
   current_version: 1
   site: madrid
@@ -16,7 +16,7 @@ pdf_collection_attachment:
   file_size: 10022
   file_name: pdf-collection-attachment.pdf
   file_digest: 44036997d456028a88d634afa64037ae1a
-  url: http://host.com/attachments/pdf-collection-attachment.pdf
+  url: http://host.com/attachments/super-long-and-ugly-aws-id/pdf-collection-attachment.pdf
   description: Description of a PDF attachment
   current_version: 1
   site: madrid
@@ -30,7 +30,7 @@ xlsx_attachment:
   file_size: 3604
   file_name: xlsx-attachment.xlsx
   file_digest: 9cfd24e26ae096263cb82cd13bcd2feb
-  url: http://host.com/attachments/xslsx-attachment.xlsx
+  url: http://host.com/attachments/super-long-and-ugly-aws-id/xslsx-attachment.xlsx
   description: Description of a XLSX attachment
   current_version: 2
   site: madrid
@@ -56,7 +56,7 @@ attachment:
   file_size: 49
   file_name: attachment
   file_digest: b6db2818dffd2fb2fc20836bebd59b87
-  url: http://host.com/attachments/attachment
+  url: http://host.com/attachments/super-long-and-ugly-aws-id/attachment
   description: Description of attachment without extension
   current_version: 3
   site: madrid
@@ -69,7 +69,7 @@ txt_pdf_attachment:
   file_size: 10312
   file_name: txt-pdf-attachment.txt.pdf
   file_digest: 0113fca2b2e2396c7b1a26fad897417b
-  url: http://host.com/attachments/txt-pdf-attachment.txt.pdf
+  url: http://host.com/attachments/super-long-and-ugly-aws-id/txt-pdf-attachment.txt.pdf
   description: Description of attachment with two extensions in name
   current_version: 4
   site: madrid
@@ -82,10 +82,40 @@ santander_attachment:
   file_size: 49
   file_name: santander-attachment
   file_digest: santander-attachment-file-digest
-  url: http://host.com/attachments/santander-attachment
+  url: http://host.com/attachments/super-long-and-ugly-aws-id/santander-attachment
   description: An attachment belonging to other site
   current_version: 1
   site: santander
   slug: santander-attachment-slug
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+# Use real AWS url for testing purposes
+
+pdf_attachment_uploaded:
+  name: PDF attachment available in AWS
+  file_size: 162595
+  file_name: documento.pdf
+  file_digest: c36dbae3d3733934a389f858a383b980
+  url: http://gobierto-public-resources.s3.amazonaws.com/gobierto-attachments/documento.pdf
+  description: Description of a PDF attachment available in AWS
+  current_version: 1
+  site: madrid
+  slug: pdf-attachment-aws-slug
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+# Use real AWS url for testing purposes
+
+png_attachment_uploaded:
+  name: PNG attachment available in AWS
+  file_size: 223362
+  file_name: imagen.png
+  file_digest: 1f175ea405310aed9007c436daa39f5b
+  url: https://gobierto-public-resources.s3.amazonaws.com/gobierto-attachments/imagen.png
+  description: Description of an attachment with a PNG image available in AWS
+  current_version: 1
+  site: madrid
+  slug: png-attachment-aws-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>

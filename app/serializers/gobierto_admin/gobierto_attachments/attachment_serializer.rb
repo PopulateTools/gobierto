@@ -9,6 +9,7 @@ module GobiertoAdmin
         :file_name,
         :file_digest,
         :url,
+        :human_readable_url,
         :file_size,
         :current_version,
         :created_at

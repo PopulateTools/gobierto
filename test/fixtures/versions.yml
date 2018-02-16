@@ -45,3 +45,19 @@ pdf_collection_attachment_create:
   whodunnit:
   object:
   created_at: <%= Time.now %>
+
+pdf_attachment_uploaded_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:pdf_attachment_uploaded) %>
+  event: create
+  whodunnit:
+  object:
+  created_at: <%= Time.now %>
+
+png_attachment_uploaded_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:png_attachment_uploaded) %>
+  event: create
+  whodunnit:
+  object:
+  created_at: <%= Time.now %>

@@ -100,7 +100,7 @@
             <%= file_attachment.try(:name) %>
             <br>
           <% end %>
-          <%= link_to file_attachment.file_name, file_attachment.url, target: '_blank' %>
+          <%= link_to file_attachment.file_name, file_attachment.human_readable_path, target: '_blank' %>
         </td>
         <td><%= time_ago_in_words(file_attachment.created_at) %></td>
         <td><%= time_ago_in_words(file_attachment.updated_at) %></td>

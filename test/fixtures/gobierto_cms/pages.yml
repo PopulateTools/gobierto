@@ -61,8 +61,9 @@ notice_2:
   collection: gender_violence_process_news
 
 about_site:
-  title_translations: <%= {'en' => 'About site' }.to_json %>
-  body_translations: <%= {'en' => 'Sobre el sitio' }.to_json %>
+  title_translations: <%= { 'es' => 'Sobre el sitio', 'en' => 'About site' }.to_json %>
+  body_translations: <%= { "en" => "This is the <strong>body</strong> of the page that contains an image:<br><img src='#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:png_attachment_uploaded), host: 'madrid.gobierto.test')}' alt='The image'> and a <a href='#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:pdf_attachment_uploaded), host: 'madrid.gobierto.test')}'>link to a doc</a>." }.to_json %>
+  body_source_translations: <%= { "en" => "This is the **body** of a page that contains an image:\r\n\r\n![The image](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:png_attachment_uploaded), host: 'madrid.gobierto.test')})\r\n\r\n and a [link to a doc](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:pdf_attachment_uploaded), host: 'madrid.gobierto.test')})." }.to_json %>
   slug: 'about-site'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
@@ -82,4 +83,3 @@ generic_site_page:
   slug: 'generic-page'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
-

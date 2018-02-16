@@ -19,8 +19,8 @@ module GobiertoAttachments::AttachableTest
     assert_equal 1, attachable_without_attachment.attachments.size
     assert_equal 2, attachable_with_attachment.attachments.size
 
-    assert_equal "http://host.com/attachments/pdf-attachment.pdf", attachable_without_attachment.attachments.first.url
-    assert_equal "http://host.com/attachments/xslsx-attachment.xlsx", attachable_with_attachment.attachments.first.url
+    assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/pdf-attachment.pdf", attachable_without_attachment.attachments.first.url
+    assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/xslsx-attachment.xlsx", attachable_with_attachment.attachments.first.url
   end
 
   def test_unlink_attachment

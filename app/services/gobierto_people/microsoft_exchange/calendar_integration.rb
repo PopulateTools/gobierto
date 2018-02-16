@@ -74,7 +74,7 @@ module GobiertoPeople
       def sync_event(event)
         filter_result = GobiertoCalendars::FilteringRuleApplier.filter({
           title: event.subject,
-          description: event.body.text
+          description: (event.body.text unless configuration.without_description == "1")
         }, configuration.filtering_rules)
 
         filter_result.action = GobiertoCalendars::FilteringRuleApplier::REMOVE if is_private?(event)

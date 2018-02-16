@@ -18,7 +18,8 @@ module GobiertoAdmin
         :microsoft_exchange_url,
         :clear_calendar_configuration,
         :calendars,
-        :filtering_rules
+        :filtering_rules,
+        :without_description
       )
 
       validates(
@@ -100,6 +101,12 @@ module GobiertoAdmin
         @ibm_notes_url ||= if calendar_configuration.respond_to?(:ibm_notes_url)
                              calendar_configuration.ibm_notes_url.try(:strip)
                            end
+      end
+
+      def without_description
+        @without_description ||= if calendar_configuration.respond_to?(:without_description)
+                                   calendar_configuration.without_description
+                                 end
       end
 
       def microsoft_exchange_usr
@@ -254,7 +261,8 @@ module GobiertoAdmin
         {
           ibm_notes_usr: ibm_notes_usr,
           ibm_notes_pwd: encrypted_ibm_notes_pwd,
-          ibm_notes_url: ibm_notes_url
+          ibm_notes_url: ibm_notes_url,
+          without_description: without_description
         }
       end
 
@@ -262,7 +270,8 @@ module GobiertoAdmin
         {
           microsoft_exchange_usr: microsoft_exchange_usr,
           microsoft_exchange_pwd: encrypted_microsoft_exchange_pwd,
-          microsoft_exchange_url: microsoft_exchange_url
+          microsoft_exchange_url: microsoft_exchange_url,
+          without_description: without_description
         }
       end
 
@@ -270,7 +279,8 @@ module GobiertoAdmin
         {
           calendars: calendars.select { |c| !c.blank? },
           google_calendar_credentials: calendar_configuration.google_calendar_credentials,
-          google_calendar_id: calendar_configuration.google_calendar_id
+          google_calendar_id: calendar_configuration.google_calendar_id,
+          without_description: without_description
         }
       end
 

@@ -2,7 +2,6 @@
 
 module GobiertoCalendars
   class MicrosoftExchangeCalendarConfiguration < CalendarConfiguration
-
     def microsoft_exchange_usr
       data['microsoft_exchange_usr']
     end
@@ -26,6 +25,5 @@ module GobiertoCalendars
     def microsoft_exchange_url=(microsoft_exchange_url)
       data['microsoft_exchange_url'] = microsoft_exchange_url
     end
-
   end
 end

@@ -35,6 +35,8 @@ module GobiertoAdmin
       end
 
       def sync_calendars
+        I18n.locale = current_site.configuration.default_locale
+
         @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection: @collection)
         if (calendar_integration = @calendar_configuration_form.calendar_integration_class).present?
           calendar_integration.sync_person_events(@calendar_configuration_form.collection_container)
@@ -82,6 +84,7 @@ module GobiertoAdmin
           :microsoft_exchange_pwd,
           :microsoft_exchange_url,
           :clear_calendar_configuration,
+          :without_description,
           filtering_rules_attributes: [:id, :field, :condition, :value, :action, :_destroy, :remove_filtering_text],
           calendars: []
         )

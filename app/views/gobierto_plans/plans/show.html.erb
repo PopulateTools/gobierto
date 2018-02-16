@@ -78,11 +78,10 @@
 
         <section class="level_2" v-if="isOpen(2)" :class="['cat_' + color() ]">
 
-          <%# FIXME: breadcrumb hidden TEMPORARILY %>
-          <div class="node-breadcrumb mb2" v-if="false">
-            <a data-turbolinks="false" @click.stop="getParent">
+          <div class="node-breadcrumb mb2">
+            <a data-turbolinks="false" @click.stop="setParent">
               <i class="fa fa-caret-left"></i>
-              <%= t(".see_all") %> {{ ((json[rootid] || {}).attributes || {}).title | translate }}
+              <%= t(".see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
             </a>
           </div>
 
@@ -111,10 +110,10 @@
         <section class="level_3" v-if="isOpen(3)" :class="['cat_' + color() ]">
 
           <%# FIXME: breadcrumb hidden TEMPORARILY %>
-          <div class="node-breadcrumb mb2" v-if="false">
+          <div class="node-breadcrumb mb2">
             <a data-turbolinks="false" @click.stop="getParent">
               <i class="fa fa-caret-left"></i>
-              <%= t(".see_all") %> {{ ((json[rootid] || {}).attributes || {}).title | translate }}
+              <%= t(".see_all") %>
             </a>
           </div>
 
@@ -125,7 +124,6 @@
 
               <div class="node-project-detail">
                 <div class="project-optional">
-                  <%# TODO: Filtrar los valores permitidos %>
                   <div class="row" v-for="(value, key) in availableOpts">
                     <template v-if="typeOf(value) !== 'object'">
                       <div class="optional-title">{{ optionKeys[key] | translate }}</div>

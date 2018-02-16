@@ -128,6 +128,11 @@ $white: $color_main_negative;
           color: $white;
           margin: 0 0 .25em 0;
           font-size: $f3;
+
+          &::before {
+            counter-increment: section;
+            content: counter(section) ". ";
+          }
         }
 
         span {
@@ -403,6 +408,7 @@ $white: $color_main_negative;
 
   section.level_0 {
     flex: 1 1 0%;
+    counter-reset: section;
   }
 
   section:not(.level_0) {

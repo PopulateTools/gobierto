@@ -165,7 +165,7 @@ this.GobiertoPlans.PlansController = (function() {
         },
         watch: {
           activeNode: {
-            handler: function(node) {
+            handler: function(node, old) {
               this.showTable = {};
               this.isOpen(node.level);
             },
@@ -216,6 +216,8 @@ this.GobiertoPlans.PlansController = (function() {
             }
           },
           isOpen: function(level) {
+            if (this.activeNode.level === undefined) return false
+            console.log(level, this.activeNode.level, ((level - 1) <= this.activeNode.level));
             return (level - 1) <= this.activeNode.level;
           },
           typeOf: function(val) {
@@ -230,7 +232,24 @@ this.GobiertoPlans.PlansController = (function() {
             Vue.set(this.showTable, i, !(this.showTable[i]));
           },
           getParent: function() {
-            this.activeNode = this.json[this.rootid].children[this.activeNode.parent];
+            // From uid, turno into array all parents, and drop last item (myself)
+            var ancestors = _.dropRight(this.activeNode.uid.split('.')).map(Number);
+
+            // DEBUG: eliminar esto, los roots estan desplazados en 5
+            ancestors[0] = ancestors[0] - 5;
+
+            var current = this.json; // First item. ROOT item
+            ancestors.forEach(function(id) {
+              if (!_.isArray(current)) {
+                current = current.children;
+              }
+              current = current[id];
+            });
+
+            return current || {}
+          },
+          setParent: function() {
+            this.activeNode = this.getParent();
           }
         }
       });

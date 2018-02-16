@@ -37,7 +37,7 @@ this.GobiertoBudgets.ReceiptController = (function() {
       },
       filters: {
         format: function (m) {
-          return accounting.formatMoney(m, "€", 2, ".", ",").replace(/,0+ €$/, ' €')
+          return accounting.formatMoney(m, "€", 0, ".", ",").replace(/,0+ €$/, ' €')
         },
         percent: function (value) {
           if (!value) return

@@ -5,7 +5,11 @@
   .padding {
     padding: 1em;
 
-    @include min-screen(740) {
+    @include screen(740, 1024) {
+      padding: 3em 2em 1em 2em;
+    }
+
+    @include min-screen(1025) {
       padding: 3em 3em 1em 3em;
     }
   }

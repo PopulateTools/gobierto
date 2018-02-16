@@ -15,18 +15,19 @@
       <div class="pure-u-1">
         <div class="receipt">
           <div class="padding">
-
-            <div class="pure-g m_b_1 desktop_only">
-              <div class="pure-u-1 pure-u-md-15-24"></div>
-              <div class="pure-u-1 pure-u-md-9-24 receipt_calc">
-                <div class="bg bg--transparent">
-                  <span><strong>{{ getYear(0) }}</strong></span>
-                </div>
-                <div class="bg bg--transparent">
-                  <span><strong>{{ getYear(1) }}</strong></span>
-                </div>
-                <div class="bg bg--transparent">
-                  <span><strong>{{ getYear(2) }}</strong></span>
+            <div class="desktop_only">
+              <div class="pure-g m_b_1">
+                <div class="pure-u-1 pure-u-md-15-24"></div>
+                <div class="pure-u-1 pure-u-md-9-24 receipt_calc">
+                  <div class="bg bg--transparent">
+                    <span><strong>{{ getYear(0) }}</strong></span>
+                  </div>
+                  <div class="bg bg--transparent">
+                    <span><strong>{{ getYear(1) }}</strong></span>
+                  </div>
+                  <div class="bg bg--transparent">
+                    <span><strong>{{ getYear(2) }}</strong></span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -42,14 +43,17 @@
               <div class="pure-u-1 pure-u-md-2-24 receipt_separator"></div>
               <div class="pure-u-1 pure-u-md-9-24 receipt_calc">
                 <div class="bg">
+                  <small>{{ getYear(0) }}</small>
                   <small></small>
                   <span>{{ getValue(selected[index], 0) | format }}</span>
                 </div>
                 <div class="bg">
+                  <small>{{ getYear(1) }}</small>
                   <small>{{ getDiff(selected[index], 1) | percent }}</small>
                   <span>{{ getValue(selected[index], 1) | format }}</span>
                 </div>
                 <div class="bg">
+                  <small>{{ getYear(2) }}</small>
                   <small>{{ getDiff(selected[index], 2) | percent }}</small>
                   <span>{{ getValue(selected[index], 2) | format }}</span>
                 </div>
@@ -59,17 +63,19 @@
           </div>
 
           <div class="padding receipt_result">
-            <div class="pure-g m_b_1 desktop_only">
-              <div class="pure-u-1 pure-u-md-15-24"></div>
-              <div class="pure-u-1 pure-u-md-9-24 receipt_calc">
-                <div class="bg bg--transparent">
-                  <span><strong>{{ getYear(0) }}</strong></span>
-                </div>
-                <div class="bg bg--transparent">
-                  <span><strong>{{ getYear(1) }}</strong></span>
-                </div>
-                <div class="bg bg--transparent">
-                  <span><strong>{{ getYear(2) }}</strong></span>
+            <div class="desktop_only">
+              <div class="pure-g m_b_1">
+                <div class="pure-u-1 pure-u-md-15-24"></div>
+                <div class="pure-u-1 pure-u-md-9-24 receipt_calc">
+                  <div class="bg bg--transparent">
+                    <span><strong>{{ getYear(0) }}</strong></span>
+                  </div>
+                  <div class="bg bg--transparent">
+                    <span><strong>{{ getYear(1) }}</strong></span>
+                  </div>
+                  <div class="bg bg--transparent">
+                    <span><strong>{{ getYear(2) }}</strong></span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -77,14 +83,17 @@
               <div class="pure-u-1 pure-u-md-15-24"><h3><%= t('.your_contribution', site_name: current_site.name) %></h3></div>
               <div class="pure-u-1 pure-u-md-9-24 receipt_calc">
                 <div class="bg">
+                  <small>{{ getYear(0) }}</small>
                   <small></small>
                   <span>{{ total(0) | format }}</span>
                 </div>
                 <div class="bg">
+                  <small>{{ getYear(1) }}</small>
                   <small>{{ (total(1) - total(0)) / total(1) | percent }}</small>
                   <span>{{ total(1) | format }}</span>
                 </div>
                 <div class="bg">
+                  <small>{{ getYear(2) }}</small>
                   <small>{{ (total(2) - total(1)) / total(2) | percent }}</small>
                   <span>{{ total(2) | format }}</span>
                 </div>

@@ -80,13 +80,12 @@
     display: flex;
     padding: 0.5em 0;
 
+    @include flexbox(1em, column);
     @include min-screen(740) {
       padding: 0 0.5em;
 
       @include flexbox(1em, row);
     }
-
-    @include flexbox(1em, column);
 
     .bg {
       display: flex;
@@ -98,6 +97,14 @@
 
       @include min-screen(740) {
         width: 100%;
+      }
+
+      > small:first-child {
+        display: inline-block;
+
+        @include min-screen(740) {
+          display: none;
+        }
       }
 
       &:not(:last-child) {

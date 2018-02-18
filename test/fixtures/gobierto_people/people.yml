@@ -8,6 +8,10 @@ richard:
     'en' => 'Left the Secret Avengers, to participate in The Thanos Imperative. Presumed killed in The Thanos Imperative.',
     'es' => 'Abandonó los Vengadores Secretos para participar en The Thanos Imperative. Presumiblemente muerto ahí'
   }.to_json %>
+  bio_source_translations: <%= {
+    'en' => 'Left the Secret Avengers, to participate in The Thanos Imperative. Presumed killed in The Thanos Imperative.',
+    'es' => 'Abandonó los Vengadores Secretos para participar en The Thanos Imperative. Presumiblemente muerto ahí'
+  }.to_json %>
   bio_url: https://en.wikipedia.org/wiki/Nova_(Richard_Rider)
   avatar_url: https://upload.wikimedia.org/wikipedia/en/2/26/Nova1adigranov.jpg
   visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
@@ -25,6 +29,10 @@ nelson:
   slug: horatio-nelson
   charge_translations: <%= { 'en' => 'Navy Commander', 'es' => 'Comandante' }.to_json %>
   bio_translations: <%= {
+    'en' => 'Vice Admiral Horatio Nelson is a British flag officer in the Royal Navy. He was killed during his victory at the Battle of Trafalgar.',
+    'es' => 'Vice Admirante Horatio Nelson es un oficial de bandera británico de la Marina Real.'
+  }.to_json %>
+  bio_source_translations: <%= {
     'en' => 'Vice Admiral Horatio Nelson is a British flag officer in the Royal Navy. He was killed during his victory at the Battle of Trafalgar.',
     'es' => 'Vice Admirante Horatio Nelson es un oficial de bandera británico de la Marina Real.'
   }.to_json %>
@@ -48,6 +56,10 @@ tamara:
     'en' => 'Former member of the main Avengers team.',
     'es' => 'Antigua miembro de los vengadores'
   }.to_json %>
+  bio_source_translations: <%= {
+    'en' => 'Former member of the main Avengers team.',
+    'es' => 'Antigua miembro de los vengadores'
+  }.to_json %>
   bio_url: https://en.wikipedia.org/wiki/Captain_Universe
   avatar_url: https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Captain_Universe.jpg/381px-Captain_Universe.jpg
   visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
@@ -65,6 +77,10 @@ juana:
   slug: juana-de-arco
   charge_translations: <%= { 'en' => 'Heroine of France', 'es' => 'Heroína de Francia' }.to_json %>
   bio_translations: <%= {
+    'en' => 'Heroine of France',
+    'es' => 'Heroína de Francia'
+  }.to_json %>
+  bio_source_translations: <%= {
     'en' => 'Heroine of France',
     'es' => 'Heroína de Francia'
   }.to_json %>
@@ -88,6 +104,10 @@ kali:
     'en' => 'One of the goddesses of Hinduism',
     'es' => 'Una de las diosas del hinduismo'
   }.to_json %>
+  bio_source_translations: <%= {
+    'en' => 'One of the goddesses of Hinduism',
+    'es' => 'Una de las diosas del hinduismo'
+  }.to_json %>
   bio_url: https://en.wikipedia.org/wiki/Kali
   avatar_url: https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Kali_by_Raja_Ravi_Varma.jpg/552px-Kali_by_Raja_Ravi_Varma.jpg
   visibility_level: <%= GobiertoPeople::Person.visibility_levels['active'] %>
@@ -105,6 +125,10 @@ neil:
   slug: neil-patrick
   charge_translations: <%= { 'en' => 'Opposition', 'es' => 'Opposition' }.to_json %>
   bio_translations: <%= {
+    'en' => 'Opposition Head',
+    'es' => 'Jefe de la Oposición'
+  }.to_json %>
+  bio_source_translations: <%= {
     'en' => 'Opposition Head',
     'es' => 'Jefe de la Oposición'
   }.to_json %>

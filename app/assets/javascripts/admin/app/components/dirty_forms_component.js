@@ -25,7 +25,6 @@ this.GobiertoAdmin.DirtyFormsComponent = (function() {
 
     checkingForm.on("submit", _unsetDirty);
     checkingForm.on("change", "input, select, textarea", _setDirty);
-    checkingForm.on("trix-change", _setDirty);
     checkingForm.on("datepicker-change", _setDirty);
   }
 

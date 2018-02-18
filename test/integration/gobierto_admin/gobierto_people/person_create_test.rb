@@ -114,7 +114,7 @@ module GobiertoAdmin
                 assert has_select?("Political group", selected: political_group.name)
 
                 assert_equal(
-                  "<div>Person Bio</div>",
+                  "Person Bio",
                   find("#person_bio_translations_en", visible: false).value
                 )
 
@@ -136,7 +136,7 @@ module GobiertoAdmin
                 assert has_field?("Charge", with: "Cargo persona")
 
                 assert_equal(
-                  "<div>Bio Persona</div>",
+                  "Bio Persona",
                   find("#person_bio_translations_es", visible: false).value
                 )
               end

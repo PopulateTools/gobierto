@@ -109,15 +109,17 @@
 
         <section class="level_3" v-if="isOpen(3)" :class="['cat_' + color() ]">
 
-          <%# FIXME: breadcrumb hidden TEMPORARILY %>
-          <div class="node-breadcrumb mb2">
-            <a data-turbolinks="false" @click.stop="getParent">
-              <i class="fa fa-caret-left"></i>
-              <%= t(".see_all") %>
-            </a>
-          </div>
+          <template v-for="level in activeNode.level">
+            <div class="node-breadcrumb" :style="{ marginLeft: (level - 1) + 'em', marginBottom: '0.5em' }">
+              <a data-turbolinks="false" @click.stop="setParent">
+                <i class="fa fa-caret-left"></i>
+                {{ (getParent(level).attributes || {}).title | translate }}
+              </a>
+            </div>
+            <br>
+          </template>
 
-          <div class="node-action-line">
+          <div class="node-action-line" :style="{ marginLeft: activeNode.level + 'em' }">
               <div class="action-line--header node-list cat--negative">
                 <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
               </div>

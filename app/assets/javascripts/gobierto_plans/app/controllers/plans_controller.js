@@ -218,6 +218,10 @@ this.GobiertoPlans.PlansController = (function() {
             Vue.set(this.showTable, i, !(this.showTable[i]));
           },
           getParent: function() {
+
+            // Initialize args
+            var breakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
             // From uid, turno into array all parents, and drop last item (myself)
             var ancestors = _.dropRight(this.activeNode.uid.split('.')).map(Number);
 
@@ -225,12 +229,17 @@ this.GobiertoPlans.PlansController = (function() {
             ancestors[0] = ancestors[0] - 5;
 
             var current = this.json; // First item. ROOT item
-            ancestors.forEach(function(id) {
+            for (var i = 0; i < ancestors.length; i++) {
+              if (i === breakpoint) {
+                // If there is breakpoint, I get the corresponding ancestor set by breakpoint
+                break;
+              }
+
               if (!_.isArray(current)) {
                 current = current.children;
               }
-              current = current[id];
-            });
+              current = current[i];
+            }
 
             return current || {}
           },

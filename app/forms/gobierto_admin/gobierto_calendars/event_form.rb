@@ -11,6 +11,7 @@ module GobiertoAdmin
         :site_id,
         :title_translations,
         :description_translations,
+        :description_source_translations,
         :starts_at,
         :ends_at,
         :attachment_ids,
@@ -180,6 +181,7 @@ module GobiertoAdmin
           event_attributes.state = state
           event_attributes.title_translations = title_translations
           event_attributes.description_translations = description_translations
+          event_attributes.description_source_translations = description_source_translations
           event_attributes.starts_at = starts_at
           event_attributes.ends_at = ends_at
           event_attributes.admin_id = admin_id

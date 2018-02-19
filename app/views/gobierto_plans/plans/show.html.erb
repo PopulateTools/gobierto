@@ -111,7 +111,7 @@
 
           <template v-for="level in activeNode.level">
             <div class="node-breadcrumb" :style="{ marginLeft: (level - 1) + 'em', marginBottom: '0.5em' }">
-              <a data-turbolinks="false" @click.stop="setParent">
+              <a data-turbolinks="false" @click.stop="setParent(level)">
                 <i class="fa fa-caret-left"></i>
                 {{ (getParent(level).attributes || {}).title | translate }}
               </a>

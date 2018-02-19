@@ -218,7 +218,6 @@ this.GobiertoPlans.PlansController = (function() {
             Vue.set(this.showTable, i, !(this.showTable[i]));
           },
           getParent: function() {
-
             // Initialize args
             var breakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
 
@@ -231,7 +230,6 @@ this.GobiertoPlans.PlansController = (function() {
             var current = this.json; // First item. ROOT item
             for (var i = 0; i < ancestors.length; i++) {
               if (i === breakpoint) {
-                console.log(this.activeNode.uid, current.uid);
                 // If there is breakpoint, I get the corresponding ancestor set by breakpoint
                 break;
               }
@@ -245,7 +243,12 @@ this.GobiertoPlans.PlansController = (function() {
             return current || {}
           },
           setParent: function() {
-            this.activeNode = this.getParent();
+            // Initialize args
+            var breakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+            //hack 3rd level (3rd level has no SECTION)
+            if (breakpoint === 3) breakpoint = breakpoint - 1;
+
+            this.activeNode = this.getParent(breakpoint);
           }
         }
       });

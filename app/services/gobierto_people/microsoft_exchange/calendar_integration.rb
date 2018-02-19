@@ -10,11 +10,22 @@ module GobiertoPeople
 
       TARGET_CALENDAR_NAME = 'gobierto'
 
-      def self.sync_person_events(person)
-        new(person).sync
+      def initialize(person)
+        @person = person
+        @site = person.site
+        @configuration = ::GobiertoCalendars::MicrosoftExchangeCalendarConfiguration.find_by(collection_id: person.calendar.id)
+
+        Exchanger.configure do |config|
+          config.endpoint = configuration.microsoft_exchange_url
+          config.username = configuration.microsoft_exchange_usr
+          config.password = ::SecretAttribute.decrypt(configuration.microsoft_exchange_pwd)
+          config.debug    = false
+          config.insecure_ssl = true
+          config.ssl_version  = :TLSv1
+        end
       end
 
-      def sync
+      def sync!
         log_synchronization_start(person_id: person.id, person_name: person.name)
 
         calendar_items = get_calendar_items || []
@@ -35,21 +46,6 @@ module GobiertoPeople
       end
 
       private
-
-      def initialize(person)
-        @person = person
-        @site = person.site
-        @configuration = ::GobiertoCalendars::MicrosoftExchangeCalendarConfiguration.find_by(collection_id: person.calendar.id)
-
-        Exchanger.configure do |config|
-          config.endpoint = configuration.microsoft_exchange_url
-          config.username = configuration.microsoft_exchange_usr
-          config.password = ::SecretAttribute.decrypt(configuration.microsoft_exchange_pwd)
-          config.debug    = false
-          config.insecure_ssl = true
-          config.ssl_version  = :TLSv1
-        end
-      end
 
       def get_calendar_items
         root_folder = Exchanger::Folder.find(:calendar)

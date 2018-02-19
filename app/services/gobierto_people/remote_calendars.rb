@@ -12,7 +12,7 @@ module GobiertoPeople
 
         I18n.locale = site.configuration.default_locale
 
-        calendar_integration.sync_person_events(container)
+        calendar_integration.new(container).sync!
         Publishers::AdminGobiertoCalendarsActivity.broadcast_event('calendars_synchronized', { ip: '127.0.0.1',  subject: container, site_id: site.id })
       end
     end

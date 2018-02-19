@@ -253,10 +253,23 @@ this.GobiertoPlans.PlansController = (function() {
           $('section.level_0').velocity({
             flex: "0 0 25%"
           });
+          $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
+
+          return
         }
-        if (l !== 0) $('section.level_' + l).hide();
-        $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
-        $('section.level_' + (l + 1)).css("display: flex");
+
+        if (l !== 0 && l < 3) {
+          $('section.level_' + l).hide();
+          $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
+
+          return
+        } else if (l >= 3) {
+          $('section.level_' + (l - 1)).hide();
+          $('section.level_' + l).velocity("transition.slideRightBigIn");
+
+          return
+        }
+
       }
 
       //close everything

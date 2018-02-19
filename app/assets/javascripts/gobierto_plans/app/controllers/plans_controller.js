@@ -224,9 +224,6 @@ this.GobiertoPlans.PlansController = (function() {
             // From uid, turno into array all parents, and drop last item (myself)
             var ancestors = _.dropRight(this.activeNode.uid.split('.')).map(Number);
 
-            // DEBUG: eliminar esto, los roots estan desplazados en 5
-            ancestors[0] = ancestors[0] - 5;
-
             var current = this.json; // First item. ROOT item
             for (var i = 0; i < ancestors.length; i++) {
               if (i === breakpoint) {

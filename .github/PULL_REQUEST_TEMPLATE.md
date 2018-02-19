@@ -7,6 +7,11 @@ Closes #N
 ### How should this be manually tested?
 
 
+### Screenshots
+
+#### Before this PR
+
+#### After this PR
 
 ### Does this PR changes any configuration file?
 

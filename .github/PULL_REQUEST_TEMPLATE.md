@@ -1,19 +1,19 @@
 Closes #N
 
 
-#### :v: What does this PR do?
+## :v: What does this PR do?
 
 
-#### :mag: How should this be manually tested?
+## :mag: How should this be manually tested?
 
 
-#### :eyes: Screenshots
+## :eyes: Screenshots
 
-##### Before this PR
+### Before this PR
 
-##### After this PR
+### After this PR
 
-#### :shipit: Does this PR changes any configuration file?
+## :shipit: Does this PR changes any configuration file?
 
 - [ ] new environment variable in `.env.example`?
 - [ ] new entry in `config/application.yml`?

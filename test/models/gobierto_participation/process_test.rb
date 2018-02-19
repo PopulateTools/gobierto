@@ -36,7 +36,7 @@ module GobiertoParticipation
     end
 
     def process_events
-      [gobierto_calendars_events(:reading_club)]
+      [gobierto_calendars_events(:reading_club), gobierto_calendars_events(:swimming_lessons)]
     end
 
     def test_valid

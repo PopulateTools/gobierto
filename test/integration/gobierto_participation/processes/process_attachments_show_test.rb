@@ -93,6 +93,10 @@ module GobiertoParticipation
           assert has_content? "Description of a PDF attachment"
           assert has_content? "PDF · 9,8 KB"
         end
+
+        click_link "See all documents"
+
+        assert has_content? "Documents for #{process.title}"
       end
     end
   end

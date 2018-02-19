@@ -97,5 +97,24 @@ module GobiertoParticipation
         end
       end
     end
+
+    def test_process_event_show_see_all_events
+      with_current_site(site) do
+        visit process_events_path
+
+        click_link "See all events"
+
+        assert has_content? "Diary for Participation"
+
+        assert has_link? "Innovation course"
+        assert has_content? "Innovation course description"
+
+        assert has_link? "Swimming lessons for elders"
+        assert has_content? "Swimming lessons for elders description"
+
+        assert has_link? "Intensive reading club in english"
+        assert has_content? "Intensive reading club in english description"
+      end
+    end
   end
 end

@@ -231,6 +231,7 @@ this.GobiertoPlans.PlansController = (function() {
             var current = this.json; // First item. ROOT item
             for (var i = 0; i < ancestors.length; i++) {
               if (i === breakpoint) {
+                console.log(this.activeNode.uid, current.uid);
                 // If there is breakpoint, I get the corresponding ancestor set by breakpoint
                 break;
               }
@@ -238,7 +239,7 @@ this.GobiertoPlans.PlansController = (function() {
               if (!_.isArray(current)) {
                 current = current.children;
               }
-              current = current[i];
+              current = current[ancestors[i]];
             }
 
             return current || {}

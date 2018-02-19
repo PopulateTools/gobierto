@@ -186,10 +186,10 @@
       <img :src="model.attributes.img" alt="">
     </div>
     <div class="node-info js-info">
-      <div class="info-progress progress" :style="{ width: model.attributes.complete }"></div>
+      <div class="info-progress progress" :style="{ width: progressWidth }"></div>
       <div class="info-content">
         <h3>{{ model.attributes.title | translate }}</h3>
-        <span>{{ model.attributes.complete }}</span>
+        <span>{{ model.attributes.progress | percent }}</span>
       </div>
     </div>
   </a>

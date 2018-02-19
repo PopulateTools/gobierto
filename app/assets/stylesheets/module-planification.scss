@@ -8,25 +8,6 @@ $nodeLevel1IllustrationWidth: 33%;
 $nodeLevel1Height:150px;
 $white: $color_main_negative;
 
-// Colors (might be set somewhere else)
-// $node-colors: (
-//   1: #DB524B,
-//   2: #00909E,
-//   3: #F1AD44,
-//   4: #85A81C,
-//   5: #00529E
-// );
-//
-// // Functions
-// @function getColor($key) {
-//   @if map-has-key($node-colors, $key) {
-//     @return map-get($node-colors, $key);
-//   }
-//
-//   @warn "Unknown `#{$key}` in module-planification/$node-colors.";
-//   @return null;
-// }
-
 // styles only concern this module
 .gobierto_planification {
   min-height: 300px;
@@ -406,103 +387,28 @@ $white: $color_main_negative;
     opacity: 0;
   }
 
+  // Sections
   section.level_0 {
     flex: 1 1 0%;
     counter-reset: section;
+
+    &.is-open {
+      .js-img {
+        display: none;
+      }
+
+      .js-info {
+        padding: 1.5em;
+
+        h3, span {
+          font-size: $f4;
+        }
+      }
+    }
   }
 
   section:not(.level_0) {
     flex: 10;
     padding: 2em 3em;
-
-    /* COLOR MANAGER */
-    // @for $i from 1 through length($node-colors) {
-    //   // Get color from position `i` of `node-colors` array keys
-    //   $color: getColor(nth(map-keys($node-colors), $i));
-    //
-    //   &.cat_#{$i} {
-    //     background: transparentize($color, .9);
-    //     color: $color;
-    //
-    //     .node-list {
-    //       .node-title {
-    //         h3, h3 a {
-    //           color: $color;
-    //         }
-    //
-    //         .fa {
-    //           background: transparentize($color, .9);
-    //         }
-    //       }
-    //
-    //       // Negative version nodes
-    //       &.cat--negative {
-    //         .node-title {
-    //           h3, h3 a {
-    //             color: $color_main_negative;
-    //           }
-    //
-    //           .fa {
-    //             background: $color_main_negative;
-    //             color: $color;
-    //           }
-    //         }
-    //       }
-    //     }
-    //
-    //     .node-breadcrumb {
-    //       border: 1px solid transparentize($color, .25);
-    //       color: $color;
-    //
-    //       a {
-    //         color: $color;
-    //       }
-    //
-    //       .fa {
-    //         background: transparentize($color, .9);
-    //       }
-    //     }
-    //
-    //     .node-action-line {
-    //       table {
-    //         tbody {
-    //           tr {
-    //             &:hover {
-    //               td {
-    //                 background-color: rgba($color, .2);
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //
-    //     .node-project-detail {
-    //       .project-optional {
-    //         .row {
-    //           border-top: 1px solid rgba($color, .2);
-    //         }
-    //       }
-    //       .project-mandatory {
-    //         background-color: rgba($color, .2);
-    //       }
-    //     }
-    //
-    //     // Negative version nodes
-    //     .cat--negative {
-    //       background: $color;
-    //       color: $color_main_negative;
-    //
-    //       h3, h3 a {
-    //         color: $color_main_negative;
-    //       }
-    //
-    //       .fa {
-    //         background: $color_main_negative;
-    //         color: $color;
-    //       }
-    //     }
-    //   }
-    // }
   }
 }

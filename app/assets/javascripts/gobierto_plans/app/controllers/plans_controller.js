@@ -31,6 +31,12 @@ this.GobiertoPlans.PlansController = (function() {
         data: function() {
           return {}
         },
+        computed: {
+          progressWidth: function () {
+            // Apply programatically a vue global filter
+            return Vue.filter('percent')(this.model.attributes.progress)
+          }
+        },
         methods: {
           open: function() {
             // { ...this.model } conversion to ES2015
@@ -55,8 +61,8 @@ this.GobiertoPlans.PlansController = (function() {
             $('section.level_0 .js-img').hide();
             $('section.level_0 .js-info').velocity({padding: "1.5em"});
             $('section.level_0 .js-info h3, section.level_1 .js-info span').velocity({"font-size": "1.25rem" });
-
             $('section.level_0').velocity({flex: "0 0 25%"});
+
             $('section.level_1').velocity("transition.slideRightBigIn");
             $('section.level_1').css("display: flex");
 
@@ -217,7 +223,6 @@ this.GobiertoPlans.PlansController = (function() {
           },
           isOpen: function(level) {
             if (this.activeNode.level === undefined) return false
-            console.log(level, this.activeNode.level, ((level - 1) <= this.activeNode.level));
             return (level - 1) <= this.activeNode.level;
           },
           typeOf: function(val) {

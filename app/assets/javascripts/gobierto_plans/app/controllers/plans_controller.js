@@ -56,16 +56,6 @@ this.GobiertoPlans.PlansController = (function() {
 
             // Trigger event
             this.$emit('selection', model);
-
-            // REVIEW: Revisar este bloque
-            $('section.level_0 .js-img').hide();
-            $('section.level_0 .js-info').velocity({padding: "1.5em"});
-            $('section.level_0 .js-info h3, section.level_1 .js-info span').velocity({"font-size": "1.25rem" });
-            $('section.level_0').velocity({flex: "0 0 25%"});
-
-            $('section.level_1').velocity("transition.slideRightBigIn");
-            $('section.level_1').css("display: flex");
-
           }
         }
       });
@@ -100,11 +90,6 @@ this.GobiertoPlans.PlansController = (function() {
               var model = _extends({}, this.model);
 
               this.$emit('selection', model);
-
-              // hacky
-              $('section.level_' + l).hide();
-              $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
-              $('section.level_' + (l + 1)).css("display: flex");
             }
 
             if (l === 2) {
@@ -146,11 +131,6 @@ this.GobiertoPlans.PlansController = (function() {
             var project = _extends({}, model);
 
             this.$emit('selection', project);
-
-            // hacky
-            $('section.level_' + l).hide();
-            $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
-            $('section.level_' + (l + 1)).css("display: flex");
           }
         }
       });
@@ -174,6 +154,7 @@ this.GobiertoPlans.PlansController = (function() {
             handler: function(node, old) {
               this.showTable = {};
               this.isOpen(node.level);
+              animate(node.level);
             },
             deep: true
           }
@@ -259,18 +240,32 @@ this.GobiertoPlans.PlansController = (function() {
         }
       });
 
+      // Velocity Animates
+      function animate(l) {
+        if (l === 0) {
+          $('section.level_0 .js-img').hide();
+          $('section.level_0 .js-info').velocity({
+            padding: "1.5em"
+          });
+          $('section.level_0 .js-info h3, section.level_1 .js-info span').velocity({
+            "font-size": "1.25rem"
+          });
+          $('section.level_0').velocity({
+            flex: "0 0 25%"
+          });
+        }
+        if (l !== 0) $('section.level_' + l).hide();
+        $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
+        $('section.level_' + (l + 1)).css("display: flex");
+      }
+
       //close everything
       $(document).click(function (e) {
-        // if the target of the click isn't the container nor a descendant of the container REVIEW
-        // var container = $(".planification-content");
+        // if the target of the click isn't the container nor a descendant of the container
         if (!$(e.target).closest('.planification-content').length) {
-        // if (!container.is(e.target) && container.has(e.target).length === 0) {
           app.activeNode = {};
-
-          $('section.level_0').removeAttr('style');
-          $('section.level_0 .js-img').removeAttr('style');
-          $('section.level_0 .js-info').removeAttr('style');
-          $('section.level_0 .js-info h3, section.level_1 .js-info span').removeAttr('style');
+          // Restore styles
+          $('section.level_0, section.level_0 .js-img, section.level_0 .js-info, section.level_0 .js-info h3, section.level_1 .js-info span').removeAttr('style');
         }
       });
     };

@@ -391,20 +391,6 @@ $white: $color_main_negative;
   section.level_0 {
     flex: 1 1 0%;
     counter-reset: section;
-
-    &.is-open {
-      .js-img {
-        display: none;
-      }
-
-      .js-info {
-        padding: 1.5em;
-
-        h3, span {
-          font-size: $f4;
-        }
-      }
-    }
   }
 
   section:not(.level_0) {

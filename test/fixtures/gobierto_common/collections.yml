@@ -93,3 +93,10 @@ site_pages:
   item_type: GobiertoCms::Page
 
 ## /end
+
+participation_calendar:
+  site: madrid
+  title_translations: <%= {'en' => 'Participation events', 'es' => 'Eventos de participación' }.to_json %>
+  slug: participation-calendar
+  container_type: GobiertoParticipation
+  item_type: GobiertoCalendars::Event

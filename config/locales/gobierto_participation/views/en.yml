@@ -226,6 +226,7 @@ en:
       all_events: View all events
       all_news: Show all news
       consultation_processes: Consult and participate in specific processes.
+      current_events: View current events
       diary_for: Diary for %{container}
       documents: Documents
       documents_for: Documents for %{container}
@@ -245,6 +246,7 @@ en:
       no_news: No related news
       ongoing_processes: Ongoing processes
       participation: Participation
+      past_events: View past events
       published_at: Posted on %{date} by %{site}
     welcome:
       index:

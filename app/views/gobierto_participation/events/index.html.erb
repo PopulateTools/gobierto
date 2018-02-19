@@ -32,12 +32,30 @@
               </li>
             <% end %>
           </ul>
-
+          <% unless @past_events %>
+            <div>
+              <small><%= link_to t('gobierto_participation.shared.past_events'), gobierto_participation_past_participation_events_path %></small>
+            </div>
+          <% end %>
         </div>
       </div>
 
 
       <div class="pure-u-1 pure-u-lg-2-3">
+        <div class="events-summary">
+          <div class="events-filter">
+            <div class="pure-g block" >
+              <div class="pure-u-1 pure-u-md-1-2">
+                <% if @past_events %>
+                  <h2 class="filter-option <%= class_if("active", !controller_name.include?("past_participation_events")) %>">
+                    <%= link_to t("gobierto_participation.shared.current_events"), gobierto_participation_events_path %>
+                  </h2>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <% if @events.any? %>
           <div class="events_list">
             <% @events.each do |event| %>

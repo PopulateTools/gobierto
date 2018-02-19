@@ -432,4 +432,43 @@ swimming_lessons_on_scope:
   item: swimming_lessons (GobiertoCalendars::Event)
   container: old_town (GobiertoCommon::Scope)
 
+# intervention_with_children
+
+intervention_with_children_on_process:
+  collection: gender_violence_process_calendar
+  item: intervention_with_children (GobiertoCalendars::Event)
+  container: gender_violence_process (GobiertoParticipation::Process)
+
+intervention_with_children_on_site:
+  collection: gender_violence_process_calendar
+  item: intervention_with_children (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+intervention_with_children_on_participation:
+  collection: gender_violence_process_calendar
+  item: intervention_with_children (GobiertoCalendars::Event)
+  container_type: GobiertoParticipation
+
+intervention_with_children_on_issue:
+  collection: gender_violence_process_calendar
+  item: intervention_with_children (GobiertoCalendars::Event)
+  container: women (Issue)
+
+intervention_with_children_on_scope:
+  collection: gender_violence_process_calendar
+  item: intervention_with_children (GobiertoCalendars::Event)
+  container: old_town (GobiertoCommon::Scope)
+
+# participation_calendar
+
+presentation_participation_event_on_site:
+  collection: participation_calendar
+  item: presentation_participation (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+presentation_participation_event_on_participation:
+  collection: participation_calendar
+  item: presentation_participation (GobiertoCalendars::Event)
+  container_type: GobiertoParticipation
+
 ## /end Events collection items

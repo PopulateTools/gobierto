@@ -100,7 +100,7 @@
                 <li v-for="(model, index) in activeNode.children">
                   <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(index)"></node-list>
                   <transition name="slide-fade">
-                    <table-view :model="model" :key="model.id" @selection="setSelection" v-if="showTable[index]"></table-view>
+                    <table-view :model="model" :key="model.id" :header="showTableHeader" @selection="setSelection" v-if="showTable[index]"></table-view>
                   </transition>
                 </li>
               </ul>
@@ -212,7 +212,7 @@
 <!-- table view template -->
 <script type="text/x-template" id="table-view-template">
   <table>
-    <thead>
+    <thead v-if="header">
       <th><%= t(".projects") %></th>
       <th><%= t(".starts") %></th>
       <th><%= t(".ends") %></th>

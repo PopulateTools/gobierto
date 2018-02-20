@@ -107,7 +107,7 @@ this.GobiertoPlans.PlansController = (function() {
       // define the table view component
       Vue.component('table-view', {
         template: '#table-view-template',
-        props: ['model'],
+        props: ['model', 'header'],
         data: function() {
           return {}
         },
@@ -144,6 +144,7 @@ this.GobiertoPlans.PlansController = (function() {
           optionKeys: [],
           activeNode: {},
           showTable: {},
+          showTableHeader: true,
           rootid: 0
         },
         created: function() {
@@ -176,12 +177,14 @@ this.GobiertoPlans.PlansController = (function() {
               var data = json["plan_tree"];
               var optionKeys = json["option_keys"];
               var levelKeys = json["level_keys"];
+              var showTableHeader = json["show_table_header"];
 
               // Hide spinner
               $(".js-toggle-overlay").removeClass('is-active');
 
               this.json = data;
               this.levelKeys = levelKeys;
+              this.showTableHeader = showTableHeader;
               this.optionKeys = Object.keys(optionKeys).reduce(function(c, k) {
                 return (c[k.toLowerCase()] = optionKeys[k]), c;
               }, {});

@@ -118,7 +118,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_events_path
 
-        click_link "See all events"
+        click_link "View all events"
 
         assert has_content? "Diary for Participation"
 
@@ -130,6 +130,24 @@ module GobiertoParticipation
 
         assert has_link? "Intensive reading club in english"
         assert has_content? "Intensive reading club in english description"
+      end
+    end
+
+    def test_process_calendar_filter
+      with_current_site(site) do
+        visit process_events_path + "?date=" + process_current_events.first.starts_at.to_date.to_s
+
+        refute_equal process_current_events.size, all(".event-content").size
+        assert has_link? "Intensive reading club in english"
+        assert has_link? "View all events"
+        assert has_link? "View past events"
+
+        visit process_events_path + "?date=" + process_current_events.second.starts_at.to_date.to_s
+
+        refute_equal process_current_events.size, all(".event-content").size
+        assert has_link? "Swimming lessons for elders"
+        assert has_link? "View all events"
+        assert has_link? "View past events"
       end
     end
   end

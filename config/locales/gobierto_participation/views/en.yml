@@ -26,7 +26,7 @@ en:
       gobierto_participation_process_updated: Process / group updated
       index:
         agenda_for_container: Diary for %{container_title}
-        all_events: See all events
+        all_events: View all events
         displaying_events_of: Displaying events of %{date}
         go_back: Go back
       show:
@@ -223,7 +223,7 @@ en:
         and make conclusions accessible.
       all_activities: See all updates
       all_attachments: See all documents
-      all_events: See all events
+      all_events: View all events
       all_news: Show all news
       consultation_processes: Consult and participate in specific processes.
       current_events: View current events

@@ -39,7 +39,7 @@ module GobiertoAdmin
 
         @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection: @collection)
         if (calendar_integration = @calendar_configuration_form.calendar_integration_class).present?
-          calendar_integration.sync_person_events(@calendar_configuration_form.collection_container)
+          calendar_integration.new(@calendar_configuration_form.collection_container).sync!
           publish_calendar_sync_activity(@calendar_configuration_form)
         end
         redirect_to(

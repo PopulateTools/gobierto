@@ -58,11 +58,6 @@ module GobiertoCms
       end
     end
 
-    def process
-      collection_item = GobiertoCommon::CollectionItem.pages_and_news.by_container_type("GobiertoParticipation::Process").where(item_id: id).first
-      collection_item.present? ? collection_item.container : nil
-    end
-
     def template
       collection.item_type.split('::').last.downcase
     end

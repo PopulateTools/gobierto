@@ -1,7 +1,7 @@
 <div class='news_teaser'>
   <h3>
     <% if try(:current_process).present? || page.process %>
-      <% current_process ||= page.process %>
+      <% current_process ||= !page.process.nil? ? page.process : try(:current_process) %>
       <%= link_to page.title, gobierto_participation_process_page_path(id: page.slug, process_id: current_process.slug) %>
     <% elsif current_module == "gobierto_participation" %>
       <% if page.belongs_to_collection_of_news? %>

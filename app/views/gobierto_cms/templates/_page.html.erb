@@ -3,6 +3,7 @@
     <main class="content">
       <div class="pure-g">
         <div class="pure-u-1 pure-u-md-1-4" data-sidebar>
+
           <menu class="side_navigation">
             <% if @collection && !@section %>
               <ul>
@@ -18,9 +19,11 @@
               <%= section_tag(@section.section_items.first_level, @section_item.hierarchy_and_children) %>
             <% end %>
           </menu>
+
         </div>
 
         <div class="pure-u-1 pure-u-md-3-4" data-main>
+
           <article>
             <div class="breadcrumb">
               <% if @collection && !@section %>
@@ -36,14 +39,14 @@
 
             <h1><%= @page.title %></h1>
 
-            <%= raw render_liquid(@page.body) %>
+            <%== render_liquid(@page.body) %>
 
             <% if @page.attachments && @page.attachments.any? %>
               <div class="page_attachments">
                 <h3><%= t('.documents') %></h3>
                 <% @page.attachments.each do |attachment| %>
                   <div class="file">
-                    <%= link_to attachment.url do %>
+                    <%= link_to attachment.human_readable_path do %>
                       <div class="icon"><%= filetype_icon(attachment) %></div>
                       <h4><%= attachment.name %></h4>
                       <div class="meta">
@@ -55,6 +58,7 @@
               </div>
             <% end %>
           </article>
+
         </div>
       </div>
     </main>

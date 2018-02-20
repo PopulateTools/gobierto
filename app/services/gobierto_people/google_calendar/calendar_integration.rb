@@ -12,8 +12,14 @@ module GobiertoPeople
 
       include CalendarServiceHelpers
 
-      def self.sync_person_events(person)
-        new(person).sync!
+      def initialize(person)
+        @person = person
+        @configuration = GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: person.calendar.id)
+
+        @service = Google::Apis::CalendarV3::CalendarService.new
+        @service.client_options.application_name = person.site.name
+        @service.authorization = authorize(person)
+        @received_event_ids = []
       end
 
       def sync!
@@ -29,16 +35,6 @@ module GobiertoPeople
       end
 
       private
-
-      def initialize(person)
-        @person = person
-        @configuration = GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: person.calendar.id)
-
-        @service = Google::Apis::CalendarV3::CalendarService.new
-        @service.client_options.application_name = person.site.name
-        @service.authorization = authorize(person)
-        @received_event_ids = []
-      end
 
       attr_reader :person, :configuration, :service, :received_event_ids
 
@@ -101,7 +97,7 @@ module GobiertoPeople
       def sync_event(event, occurrence = nil)
         filter_result = GobiertoCalendars::FilteringRuleApplier.filter({
           title: event.summary,
-          description: event.description
+          description: (event.description unless configuration.without_description == "1")
         }, configuration.filtering_rules)
 
         filter_result.action = GobiertoCalendars::FilteringRuleApplier::REMOVE if is_private?(event)

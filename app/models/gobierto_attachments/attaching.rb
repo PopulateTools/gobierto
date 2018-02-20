@@ -21,7 +21,18 @@ module GobiertoAttachments
 
     def add_item_to_collection
       if attachable.collection
-        attachable.collection.append(attachment)
+        attachments_collection = GobiertoCommon::Collection.find_by(container: attachable.collection.container,
+                                                                    item_type: "GobiertoAttachments::Attachment")
+
+        unless attachments_collection
+          attachments_collection = site.collections.create container: attachable.collection.container,
+                                                           item_type: "GobiertoAttachments::Attachment",
+                                                           slug: "attachment-#{attachable.collection.slug}",
+                                                           title: I18n.t("gobierto_participation.shared.documents")
+        end
+        attachment.update(collection: attachments_collection)
+
+        attachments_collection.append(attachment)
       end
     end
   end

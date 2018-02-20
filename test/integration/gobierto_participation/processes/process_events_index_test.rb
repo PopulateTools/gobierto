@@ -90,19 +90,30 @@ module GobiertoParticipation
         visit process_events_path
 
         within ".events_list" do
-          assert_equal process_events.size, all(".person_event-item").size
-
-          assert has_content? "Swimming lessons for elders"
-          assert has_content? "Instalaciones Deportivas Canal de Isabel II"
-          assert has_link? "Av. de Filipinas, 54, 28003 Madrid"
+          assert_equal process_events.size, all(".event-content").size
 
           assert has_content? "Intensive reading club in english"
+          assert has_content? "Intensive reading club in english description"
         end
+      end
+    end
 
-        assert has_content? "Agenda"
-        # TODO: refute has_content? "Agenda for #{process.title}"
+    def test_process_event_show_see_all_events
+      with_current_site(site) do
+        visit process_events_path
 
-        assert all(".has-events").size >= 1
+        click_link "See all events"
+
+        assert has_content? "Diary for Participation"
+
+        assert has_link? "Innovation course"
+        assert has_content? "Innovation course description"
+
+        assert has_link? "Swimming lessons for elders"
+        assert has_content? "Swimming lessons for elders description"
+
+        assert has_link? "Intensive reading club in english"
+        assert has_content? "Intensive reading club in english description"
       end
     end
   end

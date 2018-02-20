@@ -29,8 +29,9 @@
 
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "person[bio_translations][#{locale}]", f.object.class.human_attribute_name(:bio) %>
-            <%= rich_text_area_tag "person[bio_translations][#{locale}]", f.object.bio_translations && f.object.bio_translations[locale], attachment_path: admin_people_file_attachments_path %>
+            <%= text_area_tag "person[bio_source_translations][#{locale}]", f.object.bio_source_translations && f.object.bio_source_translations[locale], attachment_path: admin_attachments_file_attachments_path, lang: locale, data: { wysiwyg: true } %>
           </div>
+          <%= hidden_field_tag "person[bio_translations][#{locale}]", f.object.bio_translations && f.object.bio_translations[locale], id: "person_bio_translations_#{locale}" %>
         <% end %>
       </div>
 

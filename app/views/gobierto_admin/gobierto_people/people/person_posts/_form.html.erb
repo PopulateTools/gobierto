@@ -13,8 +13,9 @@
 
       <div class="form_item textarea">
         <%= f.label :body %>
-        <%= f.rich_text_area :body, attachment_path: admin_people_file_attachments_path %>
+        <%= f.text_area :body_source, attachment_path: admin_people_file_attachments_path, data: {wysiwyg: true} %>
       </div>
+      <%= f.hidden_field :body %>
 
       <div class="form_item input_text">
         <%= f.label :tags %>

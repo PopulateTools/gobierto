@@ -47,12 +47,12 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
             populateParent(sectionId, parentId, sectionItemId);
           }
         }
-      else {
-        $section.val("");
-        $level1.hide();
-        $level2.hide();
-        $parent.empty();
-      }
+        else {
+          $section.val("");
+          $level1.hide();
+          $level2.hide();
+          $parent.empty();
+        }
     });
 
     $('#page_section').change(function(e){
@@ -105,10 +105,10 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
   function getSections(sectionSelected) {
     // Get sections
     $.getJSON(
-        '/admin/cms/sections',
-        function(data) {
-          appendSections(data['sections'], sectionSelected);
-        }
+      '/admin/cms/sections',
+      function(data) {
+        appendSections(data['sections'], sectionSelected);
+      }
     );
   }
 
@@ -119,11 +119,11 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
     numOptions = sections.length;
     $section.prepend("<option value='' selected='selected'></option>");
     for (i = 0; i < numOptions; i++) {
-        anOption = document.createElement('option');
-        anOption.value = sections[i]['id'];
-        anOption.innerHTML = sections[i]['title'];
+      anOption = document.createElement('option');
+      anOption.value = sections[i]['id'];
+      anOption.innerHTML = sections[i]['title'];
 
-        $section.append(anOption);
+      $section.append(anOption);
     }
     $section.append('<option value="0">' + I18n.t('gobierto_admin.gobierto_cms.pages.form.new_section') + '</option>');
 
@@ -170,13 +170,13 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
   function appendParents(parent, nodes, level) {
     // Add some <option>s
     for (var i in nodes) {
-        anOption = document.createElement('option');
-        anOption.value = nodes[i]['id'];
-        anOption.innerHTML = ("-".repeat(level)) + " " + nodes[i]['name'];
-        parent.append(anOption);
-        if(nodes[i].children.length >= 1) {
-          appendParents(parent, nodes[i].children, level + 1)
-        }
+      anOption = document.createElement('option');
+      anOption.value = nodes[i]['id'];
+      anOption.innerHTML = "-".repeat(level) + " " + nodes[i]['name'];
+      parent.append(anOption);
+      if(nodes[i].children.length >= 1) {
+        appendParents(parent, nodes[i].children, level + 1)
+      }
     }
   }
 

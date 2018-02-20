@@ -30,7 +30,7 @@ module GobiertoAdmin
       end
 
       def attachment_attributes
-        @attachment_attributes ||= %w(id site_id name description file_name file_digest url file_size current_version created_at)
+        @attachment_attributes ||= %w(id site_id name description file_name file_digest url human_readable_url file_size current_version created_at)
       end
 
       def test_attachings_create_success
@@ -52,7 +52,7 @@ module GobiertoAdmin
         assert array_match(attachment_attributes, attachment.keys)
 
         assert_equal "PDF Attachment Name", attachment["name"]
-        assert_equal "http://host.com/attachments/pdf-attachment.pdf", attachment["url"]
+        assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/pdf-attachment.pdf", attachment["url"]
         assert_equal 2, cms_page.reload.attachments.count
       end
 

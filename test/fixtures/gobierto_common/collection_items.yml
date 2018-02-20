@@ -1,13 +1,78 @@
 ## Attachments collection items
 
-collection_item_attachment:
+# pdf_collection_attachment
+
+pdf_collection_attachment_on_process:
   collection: gender_violence_process_documents
   item: pdf_collection_attachment (GobiertoAttachments::Attachment)
   container: gender_violence_process (GobiertoParticipation::Process)
 
+pdf_collection_attachment_on_site:
+  collection: files
+  item: pdf_collection_attachment (GobiertoAttachments::Attachment)
+  item_type: 'GobiertoAttachments::Attachment'
+  container: madrid (Site)
+
+pdf_collection_attachment_on_participation_on_participation:
+  collection: gender_violence_process_documents
+  item: pdf_collection_attachment (GobiertoAttachments::Attachment)
+  container_type: GobiertoParticipation
+
+collection_item_attachment_on_issue:
+  collection: gender_violence_process_documents
+  item: pdf_collection_attachment (GobiertoAttachments::Attachment)
+  container: women (Issue)
+
+collection_item_attachment_on_scope:
+  collection: gender_violence_process_documents
+  item: pdf_collection_attachment (GobiertoAttachments::Attachment)
+  container: old_town (GobiertoCommon::Scope)
+
+# xlsx_attachment_event
+
+xlsx_attachment_event_on_process:
+  collection: gender_violence_process_documents
+  item: xlsx_attachment_event (GobiertoAttachments::Attachment)
+  container: gender_violence_process (GobiertoParticipation::Process)
+
+xlsx_attachment_event_on_site:
+  collection: gender_violence_process_documents
+  item: xlsx_attachment_event
+  item_type: 'GobiertoAttachments::Attachment'
+  container: madrid (Site)
+
+xlsx_attachment_event_on_participation:
+  collection: gender_violence_process_documents
+  item: xlsx_attachment_event (GobiertoAttachments::Attachment)
+  container_type: GobiertoParticipation
+
+xlsx_attachment_event_on_issue:
+  collection: gender_violence_process_documents
+  item: xlsx_attachment_event (GobiertoAttachments::Attachment)
+  container: women (Issue)
+
+xlsx_attachment_event_on_scope:
+  collection: gender_violence_process_documents
+  item: xlsx_attachment_event (GobiertoAttachments::Attachment)
+  container: old_town (GobiertoCommon::Scope)
+
+# participation_documents
+
+pdf_on_participation_on_site:
+  collection: participation_documents
+  item: pdf_on_participation (GobiertoAttachments::Attachment)
+  container: madrid (Site)
+
+pdf_on_participation_on_participation:
+  collection: participation_documents
+  item: pdf_on_participation (GobiertoAttachments::Attachment)
+  container_type: GobiertoParticipation
+
 ## /end Attachments collection items
 
 ## Pages collection items
+
+# consultation_faq
 
 consultation_faq_on_site:
   collection: site_pages
@@ -15,33 +80,139 @@ consultation_faq_on_site:
   item_type: 'GobiertoCms::Page'
   container: madrid (Site)
 
-collection_item_themes:
+# themes
+
+themes_on_process:
   collection: news
   item: themes
   item_type: 'GobiertoCms::News'
   container: sport_city_process (GobiertoParticipation::Process)
 
-collection_item_themes_draft:
+themes_on_site:
+  collection: news
+  item: themes
+  item_type: 'GobiertoCms::News'
+  container: madrid (Site)
+
+themes_on_participation:
+  collection: news
+  item: themes
+  item_type: 'GobiertoCms::News'
+  container_type: GobiertoParticipation
+
+themes_on_issue:
+  collection: news
+  item: themes
+  item_type: 'GobiertoCms::News'
+  container: culture (Issue)
+
+themes_on_scope:
+  collection: news
+  item: themes
+  item_type: 'GobiertoCms::News'
+  container: old_town (GobiertoCommon::Scope)
+
+# themes_draft
+
+themes_draft_on_process:
   collection: news
   item: themes_draft
   item_type: 'GobiertoCms::News'
   container: sport_city_process (GobiertoParticipation::Process)
 
-news_collection_notice_1:
+themes_draft_on_site:
+  collection: news
+  item: themes_draft
+  item_type: 'GobiertoCms::News'
+  container: madrid (Site)
+
+themes_draft_on_participation:
+  collection: news
+  item: themes_draft
+  item_type: 'GobiertoCms::News'
+  container_type: GobiertoParticipation
+
+themes_draft_on_issue:
+  collection: news
+  item: themes_draft (GobiertoAttachments::Attachment)
+  item_type: 'GobiertoCms::News'
+  container: culture (Issue)
+
+themes_draft_on_scope:
+  collection: news
+  item: themes_draft (GobiertoAttachments::Attachment)
+  item_type: 'GobiertoCms::News'
+  container: old_town (GobiertoCommon::Scope)
+
+# notice_1
+
+notice_1_on_process:
   collection: gender_violence_process_news
   item_id: <%= ActiveRecord::FixtureSet.identify(:notice_1) %>
   item_type: 'GobiertoCms::News'
   container: gender_violence_process (GobiertoParticipation::Process)
 
-news_collection_notice_2:
+notice_1_on_site:
+  collection: gender_violence_process_news
+  item: notice_1
+  item_type: 'GobiertoCms::News'
+  container: madrid (Site)
+
+notice_1_on_participation:
+  collection: gender_violence_process_news
+  item: notice_1
+  item_type: 'GobiertoCms::News'
+  container_type: GobiertoParticipation
+
+notice_1_on_issue:
+  collection: gender_violence_process_news
+  item: notice_1
+  item_type: 'GobiertoCms::News'
+  container: women (Issue)
+
+notice_1_on_scope:
+  collection: gender_violence_process_news
+  item: notice_1
+  item_type: 'GobiertoCms::News'
+  container: old_town (GobiertoCommon::Scope)
+
+# notice_2
+
+notice_2_on_site:
   collection: gender_violence_process_news
   item_id: <%= ActiveRecord::FixtureSet.identify(:notice_2) %>
   item_type: 'GobiertoCms::News'
   container: gender_violence_process (GobiertoParticipation::Process)
 
+notice_2_on_site:
+  collection: gender_violence_process_news
+  item: notice_2
+  item_type: 'GobiertoCms::News'
+  container: madrid (Site)
+
+notice_2_on_participation:
+  collection: gender_violence_process_news
+  item: notice_2
+  item_type: 'GobiertoCms::News'
+  container_type: GobiertoParticipation
+
+notice_2_on_issue:
+  collection: gender_violence_process_news
+  item: notice_2
+  item_type: 'GobiertoCms::News'
+  container: women (Issue)
+
+notice_2_on_scope:
+  collection: gender_violence_process_news
+  item: notice_2
+  item_type: 'GobiertoCms::News'
+  container: old_town (GobiertoCommon::Scope)
+
+# about_site
+
 site_page_1:
-  collection: site_pages (GobiertoCommon::Collection)
-  item_id: <%= ActiveRecord::FixtureSet.identify(:about_site) %>
+  collection: site_pages
+  item: about_site
   item_type: 'GobiertoCms::Page'
   container: madrid (Site)
 
@@ -221,36 +392,68 @@ tamara_published_past_site:
 
 # reading_club
 
-reading_club_process:
+reading_club_on_process:
   collection: gender_violence_process_calendar
   item: reading_club (GobiertoCalendars::Event)
   container: gender_violence_process (GobiertoParticipation::Process)
 
-reading_club_processes:
+reading_club_on_site:
+  collection: gender_violence_process_calendar
+  item: reading_club (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+reading_club_on_participation:
   collection: gender_violence_process_calendar
   item: reading_club (GobiertoCalendars::Event)
   container_type: GobiertoParticipation
 
-reading_club_site:
+reading_club_on_issue:
   collection: gender_violence_process_calendar
   item: reading_club (GobiertoCalendars::Event)
-  container: madrid (Site)
+  container: women (Issue)
+
+reading_club_on_scope:
+  collection: gender_violence_process_calendar
+  item: reading_club (GobiertoCalendars::Event)
+  container: old_town (GobiertoCommon::Scope)
 
 # swimming_lessons
 
-swimming_lessons_process:
+swimming_lessons_on_process:
   collection: gender_violence_process_calendar
   item: swimming_lessons (GobiertoCalendars::Event)
   container: gender_violence_process (GobiertoParticipation::Process)
 
-swimming_lessons_processes:
+swimming_lessons_on_site:
+  collection: gender_violence_process_calendar
+  item: swimming_lessons (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+swimming_lessons_on_participation:
   collection: gender_violence_process_calendar
   item: swimming_lessons (GobiertoCalendars::Event)
   container_type: GobiertoParticipation
 
-swimming_lessons_site:
+swimming_lessons_on_issue:
   collection: gender_violence_process_calendar
   item: swimming_lessons (GobiertoCalendars::Event)
+  container: women (Issue)
+
+swimming_lessons_on_scope:
+  collection: gender_violence_process_calendar
+  item: swimming_lessons (GobiertoCalendars::Event)
+  container: old_town (GobiertoCommon::Scope)
+
+# participation_calendar
+
+innovation_event_on_site:
+  collection: participation_calendar
+  item: innovation_event (GobiertoCalendars::Event)
   container: madrid (Site)
+
+innovation_event_on_participation:
+  collection: participation_calendar
+  item: innovation_event (GobiertoCalendars::Event)
+  container_type: GobiertoParticipation
 
 ## /end Events collection items

@@ -17,7 +17,7 @@ module GobiertoParticipation
     end
 
     def process_event
-      @process_event ||= gobierto_calendars_events(:swimming_lessons)
+      @process_event ||= gobierto_calendars_events(:reading_club)
     end
 
     def process_event_path
@@ -92,13 +92,26 @@ module GobiertoParticipation
         visit process_event_path
 
         within ".event_wrapper" do
-          assert has_content? "Swimming lessons for elders"
-          assert has_content? "Instalaciones Deportivas Canal de Isabel II"
-          assert has_link? "Av. de Filipinas, 54, 28003 Madrid"
+          assert has_content? "Intensive reading club in english"
+          assert has_content? "Intensive reading club in english description"
+
+          within ".document" do
+            assert has_content? "XLSX Attachment Event"
+          end
         end
 
         assert has_content? "Agenda"
         # TODO: refute has_content? "Agenda for #{process.title}"
+      end
+    end
+
+    def test_process_event_show_see_all_events
+      with_current_site(site) do
+        visit process_event_path
+
+        click_link "See all events"
+
+        assert_equal process.events.size, all(".event-content").size
       end
     end
   end

@@ -384,4 +384,11 @@ Rails.application.routes.draw do
       root "exports#index"
     end
   end
+
+  # Gobierto Attachments module
+  namespace :gobierto_attachments, path: 'docs' do
+    constraints GobiertoSiteConstraint.new do
+      resources :attachments, only: [:show], path: ''
+    end
+  end
 end

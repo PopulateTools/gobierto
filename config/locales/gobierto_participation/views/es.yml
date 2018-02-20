@@ -1,6 +1,7 @@
 ---
 es:
   gobierto_participation:
+    all_attachments: Ver todos los documentos
     comments:
       comment:
         comments_html: "<strong>%{comments}</strong> comentarios"
@@ -75,7 +76,6 @@ es:
     pages:
       show:
         pages: Páginas
-    participation_attachments: Ver todos los documentos de Participación
     processes:
       contribution_containers:
         show:

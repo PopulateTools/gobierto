@@ -18,7 +18,10 @@ module GobiertoCommon
         collection_container.container_path
       end
 
+      def process
+        collection_item = GobiertoCommon::CollectionItem.by_container_type("GobiertoParticipation::Process").where(item_id: id).first
+        collection_item.present? ? collection_item.container : nil
+      end
     end
-
   end
 end

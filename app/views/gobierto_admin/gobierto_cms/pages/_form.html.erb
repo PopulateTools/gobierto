@@ -16,7 +16,7 @@
             <%= label_tag "page[body_translations][#{locale}]", f.object.class.human_attribute_name(:body) %>
             <%= text_area_tag "page[body_source_translations][#{locale}]", f.object.body_source_translations && f.object.body_source_translations[locale], attachment_path: admin_attachments_file_attachments_path, lang: locale, data: { wysiwyg: true } %>
           </div>
-          <%= hidden_field_tag "page[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], id: "body_translations_#{locale}" %>
+          <%= hidden_field_tag "page[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], id: "page_body_translations_#{locale}" %>
         <% end %>
 
       </div>
@@ -81,24 +81,5 @@
   <%= javascript_tag do %>
     window.GobiertoAdmin.gobierto_attachments_controller.index();
     window.GobiertoAdmin.gobierto_cms_controller.edit("<%= @section_id.nil? ? 'null' : @section_id %>", "<%= @parent_id.nil? ? 'null' : @parent_id %>", "<%= @page_section_item_id %>");
-    $('[data-wysiwyg]').each(function(){
-      var $el = $(this);
-      var simplemde = new SimpleMDE({
-        element: $el[0],
-        autofocus: true,
-        forceSync: true,
-        spellChecker: false,
-        renderingConfig: {
-          singleLineBreaks: false
-        },
-        status: false
-      });
-
-      $el.data({editor: simplemde});
-      var lang = simplemde.element.attributes.lang.value;
-      simplemde.codemirror.on("change", function(){
-        $('#body_translations_' + lang).val(simplemde.markdown(simplemde.value()))
-      });
-    });
   <% end %>
 <% end %>

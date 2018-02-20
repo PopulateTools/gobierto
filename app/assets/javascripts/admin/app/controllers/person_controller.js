@@ -56,7 +56,6 @@ this.GobiertoAdmin.PersonController = (function() {
       items: {
         src: '#crop-popup'
       },
-      mainClass: 'modal-full-width',
       type: 'inline',
       callbacks: {
         open: function() {

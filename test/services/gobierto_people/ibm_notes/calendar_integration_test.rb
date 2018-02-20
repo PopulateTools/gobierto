@@ -133,12 +133,16 @@ module GobiertoPeople
         )
       end
 
+      def calendar_service
+        CalendarIntegration.new(richard)
+      end
+
       def test_sync_events_v9_with_description
         configure_ibm_notes_calendar_with_description
 
         Timecop.freeze(freeze_date) do
           VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           non_recurrent_events = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
@@ -163,7 +167,7 @@ module GobiertoPeople
 
         Timecop.freeze(freeze_date) do
           VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           non_recurrent_events = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
@@ -191,7 +195,7 @@ module GobiertoPeople
 
         Timecop.freeze(freeze_date) do
           VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           # Change arbitrary data, and check it gets  updated accordingly after the
@@ -208,7 +212,7 @@ module GobiertoPeople
           recurrent_event_instance.save!
 
           VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           non_recurrent_event.reload
@@ -228,7 +232,7 @@ module GobiertoPeople
 
         Timecop.freeze(freeze_date) do
           VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           # Add new data to events, and check it is removed after sync
@@ -238,7 +242,7 @@ module GobiertoPeople
           assert 1, event.locations.size
 
           VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           event.reload
@@ -253,7 +257,7 @@ module GobiertoPeople
 
         Timecop.freeze(freeze_date) do
           VCR.use_cassette("ibm_notes/person_events_collection_v8", decode_compressed_response: true, match_requests_on: [:host, :path]) do
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           non_recurrent_events = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
@@ -283,7 +287,7 @@ module GobiertoPeople
         Timecop.freeze(Time.zone.parse("2017-05-03")) do
           VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
             # Returns 3 events, all of them upcoming
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           richard_synchronized_events = richard.events.synchronized
@@ -295,7 +299,7 @@ module GobiertoPeople
         Timecop.freeze(Time.zone.parse("2017-05-05 01:00:00")) do
           VCR.use_cassette("ibm_notes/person_events_collection_v9_mark_as_pending", decode_compressed_response: true, match_requests_on: [:host, :path]) do
             # Returns first event from the previous set, which is now past
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           richard_synchronized_events = richard.events.synchronized.order(:external_id)
@@ -314,7 +318,7 @@ module GobiertoPeople
         Timecop.freeze(freeze_date) do
           refute GobiertoCalendars::Event.exists?(external_id: new_ibm_notes_event.id)
 
-          created_event_external_id = CalendarIntegration.sync_event(new_ibm_notes_event, richard)
+          created_event_external_id = calendar_service.sync_event(new_ibm_notes_event)
 
           assert GobiertoCalendars::Event.exists?(external_id: new_ibm_notes_event.id)
           assert_equal created_event_external_id, new_ibm_notes_event.id
@@ -332,7 +336,7 @@ module GobiertoPeople
         configure_ibm_notes_calendar_with_description
 
         Timecop.freeze(freeze_date) do
-          CalendarIntegration.sync_event(outdated_ibm_notes_event, richard)
+          calendar_service.sync_event(outdated_ibm_notes_event)
 
           updated_gobierto_event = GobiertoCalendars::Event.find_by(external_id: outdated_ibm_notes_event.id)
 
@@ -345,10 +349,10 @@ module GobiertoPeople
         configure_ibm_notes_calendar_with_description
 
         Timecop.freeze(freeze_date) do
-          CalendarIntegration.sync_event(outdated_ibm_notes_event, richard)
+          calendar_service.sync_event(outdated_ibm_notes_event)
 
           assert_no_difference "GobiertoCalendars::Event.count" do
-            CalendarIntegration.sync_event(outdated_ibm_notes_event, richard)
+            calendar_service.sync_event(outdated_ibm_notes_event)
           end
         end
       end
@@ -363,28 +367,28 @@ module GobiertoPeople
           ibm_notes_event = create_ibm_notes_event(location: nil)
           gobierto_event = GobiertoCalendars::Event.find_by!(external_id: ibm_notes_event.id)
 
-          CalendarIntegration.sync_event(ibm_notes_event, richard)
+          calendar_service.sync_event(ibm_notes_event)
 
           gobierto_event.reload
           assert gobierto_event.locations.empty?
 
           ibm_notes_event.location = "Location name added afterwards"
 
-          CalendarIntegration.sync_event(ibm_notes_event, richard)
+          calendar_service.sync_event(ibm_notes_event)
           gobierto_event.reload
 
           assert_equal "Location name added afterwards", gobierto_event.locations.first.name
 
           ibm_notes_event.location = "Location name updated afterwards"
 
-          CalendarIntegration.sync_event(ibm_notes_event, richard)
+          calendar_service.sync_event(ibm_notes_event)
           gobierto_event.reload
 
           assert_equal "Location name updated afterwards", gobierto_event.locations.first.name
 
           ibm_notes_event.location = nil
 
-          CalendarIntegration.sync_event(ibm_notes_event, richard)
+          calendar_service.sync_event(ibm_notes_event)
           gobierto_event.reload
 
           assert gobierto_event.locations.empty?
@@ -397,7 +401,7 @@ module GobiertoPeople
         Timecop.freeze(freeze_date) do
           # Cassette contains one confirmed attendee and two requested participants.
           VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           event = richard.events.find_by(external_id: "D2E5B40E6AAEAED4C125808E0035A6A0-Lotus_Notes_Generated/20170503T073000Z")
@@ -415,7 +419,7 @@ module GobiertoPeople
           event.attendees.second.delete
 
           VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           assert_equal 4, attendees.reload.size
@@ -428,7 +432,7 @@ module GobiertoPeople
         ibm_notes_event = create_ibm_notes_event_recurring_invalid_event(location: nil)
 
         Timecop.freeze(freeze_date) do
-          CalendarIntegration.sync_event(ibm_notes_event, richard)
+          calendar_service.sync_event(ibm_notes_event)
 
           gobierto_event = GobiertoCalendars::Event.find_by(external_id: ibm_notes_event.id)
           assert gobierto_event.nil?
@@ -447,7 +451,7 @@ module GobiertoPeople
 
         Timecop.freeze(freeze_date) do
           VCR.use_cassette("ibm_notes/person_events_collection_v8", decode_compressed_response: true, match_requests_on: [:host, :path]) do
-            CalendarIntegration.sync_person_events(richard)
+            calendar_service.sync!
           end
 
           non_recurrent_events = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")

@@ -104,5 +104,15 @@ module GobiertoParticipation
         # TODO: refute has_content? "Agenda for #{process.title}"
       end
     end
+
+    def test_process_event_show_see_all_events
+      with_current_site(site) do
+        visit process_event_path
+
+        click_link "See all events"
+
+        assert_equal process.events.upcoming.size, all(".event-content").size
+      end
+    end
   end
 end

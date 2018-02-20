@@ -96,6 +96,7 @@ module GobiertoAdmin
           :name, :email, :bio_file, :avatar_file, :visibility_level, :category, :party, :political_group_id, :google_calendar_token,
           charge_translations: [*I18n.available_locales],
           bio_translations: [*I18n.available_locales],
+          bio_source_translations: [*I18n.available_locales],
           content_block_records_attributes: [
             :id,
             :content_block_id,

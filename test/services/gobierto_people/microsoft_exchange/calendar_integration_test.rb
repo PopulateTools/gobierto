@@ -101,6 +101,10 @@ module GobiertoPeople
         }
       end
 
+      def calendar_service
+        CalendarIntegration.new(richard)
+      end
+
       def test_sync_returns_nil
         configure_microsoft_exchange_calendar_with_description
 
@@ -113,7 +117,7 @@ module GobiertoPeople
         Exchanger::Folder.stubs(:find).returns(root_folder)
 
         assert_difference 'GobiertoCalendars::Event.count', 0 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
       end
 
@@ -134,7 +138,7 @@ module GobiertoPeople
         setup_mocks_for_synchronization([event_1, event_2])
 
         assert_difference 'GobiertoCalendars::Event.count', 1 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
 
         # event 1 checks
@@ -163,7 +167,7 @@ module GobiertoPeople
         setup_mocks_for_synchronization([event_1, event_2])
 
         assert_difference 'GobiertoCalendars::Event.count', 1 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
 
         # event 1 checks
@@ -179,7 +183,7 @@ module GobiertoPeople
         configure_microsoft_exchange_calendar_with_description
 
         setup_mocks_for_synchronization([event_attributes])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         # simulate attributes are updated from OWA
 
@@ -190,7 +194,7 @@ module GobiertoPeople
         )
 
         setup_mocks_for_synchronization([event_1])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         # assert attributes get updated in Gobierto
 
@@ -206,7 +210,7 @@ module GobiertoPeople
         configure_microsoft_exchange_calendar_with_description
 
         setup_mocks_for_synchronization([event_attributes])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event_1 = event_attributes.merge(
           subject: 'Updated event',
@@ -216,7 +220,7 @@ module GobiertoPeople
 
         setup_mocks_for_synchronization([event_1])
         assert_difference 'GobiertoCalendars::Event.count', -1 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
 
         # assert attributes get updated in Gobierto
@@ -235,7 +239,7 @@ module GobiertoPeople
         event_2 = event_attributes.merge(id: 'external-id-2')
 
         setup_mocks_for_synchronization([event_1, event_2])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event = richard.events.find_by(external_id: 'external-id-1')
 
@@ -244,7 +248,7 @@ module GobiertoPeople
         # sync, only receiving the second event
 
         setup_mocks_for_synchronization([event_2])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         # check first event is unpublished
 
@@ -261,7 +265,7 @@ module GobiertoPeople
 
         # syncrhonize event with location
         setup_mocks_for_synchronization([event_attributes])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event = richard.events.find_by(external_id: 'external-id-1')
         assert_equal 1, event.locations.size
@@ -271,7 +275,7 @@ module GobiertoPeople
         event_1 = event_attributes.merge(location: '')
 
         setup_mocks_for_synchronization([event_1])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         # assert location is deleted in Gobierto
 
@@ -306,7 +310,7 @@ module GobiertoPeople
         setup_mocks_for_synchronization([event_1, event_2])
 
         assert_difference 'GobiertoCalendars::Event.count', 1 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
 
         # event 1 checks

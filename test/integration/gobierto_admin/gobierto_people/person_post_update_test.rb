@@ -58,7 +58,7 @@ module GobiertoAdmin
                 assert has_field?("person_post_title", with: "Post Title")
 
                 assert_equal(
-                  "<div>Post Body</div>",
+                  "Post Body",
                   find("#person_post_body", visible: false).value
                 )
 

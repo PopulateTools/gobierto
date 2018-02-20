@@ -70,6 +70,7 @@ module GobiertoAdmin
           params.require(:person_post).permit(
             :title,
             :body,
+            :body_source,
             :tags,
             :visibility_level
           )

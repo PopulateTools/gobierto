@@ -100,3 +100,14 @@ participation_calendar:
   slug: participation-calendar
   container_type: GobiertoParticipation
   item_type: GobiertoCalendars::Event
+
+## Participation collections of documents
+
+participation_documents:
+  site: madrid
+  title_translations: <%= {'en' => 'Participation documents', 'es' => 'Documentos de participación' }.to_json %>
+  slug: participation-documents
+  container_type: GobiertoParticipation
+  item_type: GobiertoAttachments::Attachment
+
+## /end

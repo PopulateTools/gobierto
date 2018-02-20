@@ -13,6 +13,7 @@ module GobiertoAdmin
         :person_id,
         :title,
         :body,
+        :body_source,
         :tags,
         :visibility_level
       )
@@ -96,6 +97,7 @@ module GobiertoAdmin
           person_post_attributes.site_id = site_id
           person_post_attributes.title = title
           person_post_attributes.body = body
+          person_post_attributes.body_source = body_source
           person_post_attributes.tags = tags
           person_post_attributes.visibility_level = visibility_level
         end

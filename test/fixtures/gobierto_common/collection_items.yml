@@ -56,6 +56,18 @@ xlsx_attachment_event_on_scope:
   item: xlsx_attachment_event (GobiertoAttachments::Attachment)
   container: old_town (GobiertoCommon::Scope)
 
+# participation_documents
+
+pdf_on_participation_on_site:
+  collection: participation_documents
+  item: pdf_on_participation (GobiertoAttachments::Attachment)
+  container: madrid (Site)
+
+pdf_on_participation_on_participation:
+  collection: participation_documents
+  item: pdf_on_participation (GobiertoAttachments::Attachment)
+  container_type: GobiertoParticipation
+
 ## /end Attachments collection items
 
 ## Pages collection items
@@ -417,7 +429,7 @@ swimming_lessons_on_site:
   item: swimming_lessons (GobiertoCalendars::Event)
   container: madrid (Site)
 
-swimming_lessons_on_process:
+swimming_lessons_on_participation:
   collection: gender_violence_process_calendar
   item: swimming_lessons (GobiertoCalendars::Event)
   container_type: GobiertoParticipation
@@ -469,6 +481,17 @@ presentation_participation_event_on_site:
 presentation_participation_event_on_participation:
   collection: participation_calendar
   item: presentation_participation (GobiertoCalendars::Event)
+
+# participation_calendar
+
+innovation_event_on_site:
+  collection: participation_calendar
+  item: innovation_event (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+innovation_event_on_participation:
+  collection: participation_calendar
+  item: innovation_event (GobiertoCalendars::Event)
   container_type: GobiertoParticipation
 
 ## /end Events collection items

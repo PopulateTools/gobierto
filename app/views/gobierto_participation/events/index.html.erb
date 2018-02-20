@@ -15,11 +15,6 @@
           <h2 class='with_separator'>
             <%= t('gobierto_participation.shared.diary_for', container: t('gobierto_participation.shared.participation')) %>
           </h2>
-          <% if @issue %>
-            <div>
-              <small><%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %></small>
-            </div>
-          <% end %>
 
           <%= render 'gobierto_participation/shared/events/calendar_component', events: @events %>
 
@@ -33,9 +28,12 @@
             <% end %>
           </ul>
           <% unless @past_events %>
-            <div>
-              <small><%= link_to t('gobierto_participation.shared.past_events'), gobierto_participation_past_participation_events_path %></small>
-            </div>
+            <small><%= link_to t('gobierto_participation.shared.past_events'), gobierto_participation_past_participation_events_path %></small>
+          <% end %>
+          <% if params[:issue_id] %>
+            <small>
+              <%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %>
+            </small>
           <% end %>
         </div>
       </div>

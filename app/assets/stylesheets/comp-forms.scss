@@ -50,7 +50,7 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
     width: 100%;
     outline: none;
   }
-  textarea, .rich-text-area trix-editor {
+  textarea {
     box-sizing: border-box;
     min-height: 300px;
   }
@@ -622,10 +622,6 @@ option, select {
 .ui-autocomplete {
   z-index: 1500;
 }
-trix-toolbar .button_group button.attach::before {
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA%2FPjxzdmcgaGVpZ2h0PSIxNnB4IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyNCAxNiIgd2lkdGg9IjI0cHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c2tldGNoPSJodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2gvbnMiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48dGl0bGUvPjxkZXNjLz48ZGVmcy8%2BPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSI%2BPGcgZmlsbD0iIzAwMDAwMCIgaWQ9IkNvcmUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMjYuMDAwMDAwLCAtNDYuMDAwMDAwKSI%2BPGcgaWQ9ImJhY2t1cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTI2LjAwMDAwMCwgNDYuMDAwMDAwKSI%2BPHBhdGggZD0iTTE5LjQsNiBDMTguNywyLjYgMTUuNywwIDEyLDAgQzkuMSwwIDYuNiwxLjYgNS40LDQgQzIuMyw0LjQgMCw2LjkgMCwxMCBDMCwxMy4zIDIuNywxNiA2LDE2IEwxOSwxNiBDMjEuOCwxNiAyNCwxMy44IDI0LDExIEMyNCw4LjQgMjEuOSw2LjIgMTkuNCw2IEwxOS40LDYgWiBNMTQsOSBMMTQsMTMgTDEwLDEzIEwxMCw5IEw3LDkgTDEyLDQgTDE3LDkgTDE0LDkgTDE0LDkgWiIgaWQ9IlNoYXBlIi8%2BPC9nPjwvZz48L2c%2BPC9zdmc%2B);
-}
-
 
 .actions_block {
   border-top: 1px solid $color_separator;

@@ -90,5 +90,19 @@ module GobiertoParticipation
         assert has_content? "PDF Collection Attachment Name"
       end
     end
+
+    def test_process_event_show_see_all_events
+      with_current_site(site) do
+        visit process_attachments_path
+
+        click_link "See all documents"
+
+        assert has_content? "Documents for Participation"
+
+        assert has_link? "PDF Collection On Participation"
+        assert has_link? "XLSX Attachment Event"
+        assert has_link? "PDF Collection Attachment Name"
+      end
+    end
   end
 end

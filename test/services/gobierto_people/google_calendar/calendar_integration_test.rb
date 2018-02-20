@@ -128,6 +128,10 @@ module GobiertoPeople
         )
       end
 
+      def calendar_service
+        CalendarIntegration.new(richard)
+      end
+
       def test_sync_events_without_description
         calendar_configuration = GobiertoCalendars::CalendarConfiguration.find_by(collection: richard.calendar)
         calendar_configuration.without_description = "1"
@@ -136,7 +140,7 @@ module GobiertoPeople
         Publishers::Trackable.expects(:broadcast_event).times(3)
 
         assert_difference "GobiertoCalendars::Event.count", 4 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
 
         # Event 2 checks
@@ -185,7 +189,7 @@ module GobiertoPeople
         Publishers::Trackable.expects(:broadcast_event).times(3)
 
         assert_difference "GobiertoCalendars::Event.count", 4 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
 
         # Event 2 checks
@@ -228,37 +232,37 @@ module GobiertoPeople
       end
 
       def test_sync_events_updates_event_attributes
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event = richard.events.find_by external_id: "event2"
         event.title = "Event 2 updated"
         event.save
 
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event.reload
         assert_equal "@ Event 2", event.title
       end
 
       def test_sync_events_removes_deleted_event_attributes
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event = richard.events.find_by external_id: "event2"
         GobiertoCalendars::EventLocation.create!(event: event, name: "I'll be deleted")
 
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event.reload
         assert event.locations.empty?
       end
 
       def test_sync_attendees
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event = richard.events.find_by external_id: "event2"
         event.attendees.second.delete
 
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event.reload
         assert_equal 2, event.attendees.reload.size
@@ -273,7 +277,7 @@ module GobiertoPeople
         filtering_rule.save!
 
         assert_difference "GobiertoCalendars::Event.count", 1 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
 
         # Event 2 checks
@@ -289,7 +293,7 @@ module GobiertoPeople
       end
 
       def test_sync_events_removes_deleted_events
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
         event = richard.events.find_by external_id: "event2"
         assert event.published?
 
@@ -320,7 +324,7 @@ module GobiertoPeople
           data: { calendars: [calendar1.id] }
         )
 
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event.reload
         refute event.published?

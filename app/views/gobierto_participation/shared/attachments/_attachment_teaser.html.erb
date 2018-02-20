@@ -1,6 +1,8 @@
 <div class='news_teaser'>
   <h3>
-    <% if try(:current_process).present? %>
+    <% if try(:current_process).present? || attachment.process %>
+      <% current_process ||= !attachment.process.nil? ? attachment.process : try(:current_process) %>
+
       <%= link_to gobierto_participation_process_attachment_path(process_id: current_process.slug, id: attachment.slug) do %>
         <%= filetype_icon(attachment) %><%= attachment.name %>
       <% end %>

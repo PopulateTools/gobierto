@@ -25,9 +25,7 @@
             <%= t('gobierto_participation.shared.documents_for', container: current_process.title) %>
           </h2>
 
-          <div>
-            <small><%= link_to t('gobierto_participation.participation_attachments'), gobierto_participation_process_attachments_path(process_id: current_process.slug) %></small>
-          </div>
+          <small><%= link_to t('gobierto_participation.all_attachments'), gobierto_participation_process_attachments_path(process_id: current_process.slug) %></small>
 
           <% pending do %>
             <h4 class='with_light_separator m_t_1'><%= t('gobierto_participation.shared.filter_by_theme') %></h4>

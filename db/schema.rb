@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180201082942) do
+ActiveRecord::Schema.define(version: 20180218084420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -324,7 +324,9 @@ ActiveRecord::Schema.define(version: 20180201082942) do
     t.string "slug", null: false
     t.integer "collection_id"
     t.datetime "archived_at"
+    t.jsonb "description_source_translations"
     t.index ["archived_at"], name: "index_gc_events_on_archived_at"
+    t.index ["description_source_translations"], name: "index_gc_events_on_description_source_translations", using: :gin
     t.index ["description_translations"], name: "index_gc_events_on_description_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gc_events_on_site_id_and_slug", unique: true
     t.index ["title_translations"], name: "index_gc_events_on_title_translations", using: :gin
@@ -440,7 +442,9 @@ ActiveRecord::Schema.define(version: 20180201082942) do
     t.jsonb "bio_translations"
     t.string "slug", null: false
     t.string "google_calendar_token"
+    t.jsonb "bio_source_translations"
     t.index ["admin_id"], name: "index_gp_people_on_admin_id"
+    t.index ["bio_source_translations"], name: "index_gp_people_on_bio_source_translations", using: :gin
     t.index ["bio_translations"], name: "index_gp_people_on_bio_translations", using: :gin
     t.index ["category", "party"], name: "index_gp_people_on_category_and_party"
     t.index ["category"], name: "index_gp_people_on_category"
@@ -462,6 +466,7 @@ ActiveRecord::Schema.define(version: 20180201082942) do
     t.datetime "updated_at", null: false
     t.integer "site_id", null: false
     t.string "slug", null: false
+    t.text "body_source"
     t.index ["person_id"], name: "index_gp_person_posts_on_person_id"
     t.index ["site_id", "slug"], name: "index_gp_person_posts_on_site_id_and_slug", unique: true
     t.index ["tags"], name: "index_gp_person_posts_on_tags", using: :gin

@@ -296,19 +296,13 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           var localeSuffix = "";
           if(locale !== undefined)
             localeSuffix = "[lang="+locale+"]";
-          var element = document.querySelector("trix-editor" + localeSuffix);
-          if(element === null || element.editor === null) {
-            element = $('[data-wysiwyg]' + localeSuffix);
-            if(element.length) {
-              var html = '<a href="'+attachment.human_readable_url+'" target="_blank">'+attachment.file_name+' <span class="size">('+ this.bytesToSize(attachment.file_size) +')</span></a>' + "\n";
-              var editor = element.data('editor');
-              var doc = doc = editor.codemirror.getDoc();
-              var cursor = doc.getCursor();
-              doc.replaceRange(html, cursor);
-            }
-          } else {
-            var html = '<div><a href="'+attachment.human_readable_url+'" target="_blank" data-trix-content-type="application/'+this.fileExtension(attachment.file_name)+'"><figure class="attachment attachment-file '+this.fileExtension(attachment.file_name)+'"><figcaption class="caption">'+attachment.file_name+' <span class="size">('+ this.bytesToSize(attachment.file_size) +')</span></figcaption></figure></a></div>';
-            element.editor.insertHTML(html);
+          var element = $('[data-wysiwyg]' + localeSuffix);
+          if(element.length) {
+            var html = '<a href="'+attachment.human_readable_url+'" target="_blank">'+attachment.file_name+' <span class="size">('+ this.bytesToSize(attachment.file_size) +')</span></a>' + "\n";
+            var editor = element.data('editor');
+            var doc = doc = editor.codemirror.getDoc();
+            var cursor = doc.getCursor();
+            doc.replaceRange(html, cursor);
           }
         },
         copyUrlToClipboard: function(attachment) {

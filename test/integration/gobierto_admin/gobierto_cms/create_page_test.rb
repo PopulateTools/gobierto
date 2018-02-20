@@ -60,12 +60,12 @@ module GobiertoAdmin
               assert has_selector?("h1", text: "Sport city")
 
               fill_in "page_title_translations_en", with: "My page"
-              find("#body_translations_en", visible: false).set("The content of the page")
+              find("#page_body_translations_en", visible: false).set("The content of the page")
               fill_in "page_slug", with: "new-page"
 
               click_link "ES"
               fill_in "page_title_translations_es", with: "Mi página"
-              find("#body_translations_es", visible: false).set("Contenido de la página")
+              find("#page_body_translations_es", visible: false).set("Contenido de la página")
 
               click_button "Create"
 
@@ -74,14 +74,14 @@ module GobiertoAdmin
 
               assert_equal(
                 "The content of the page",
-                find("#body_translations_en", visible: false).value
+                find("#page_body_translations_en", visible: false).value
               )
 
               click_link "ES"
 
               assert_equal(
                 "Contenido de la página",
-                find("#body_translations_es", visible: false).value
+                find("#page_body_translations_es", visible: false).value
               )
             end
           end

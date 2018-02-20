@@ -59,17 +59,20 @@ this.GobiertoBudgets.InvoicesController = (function() {
           range: [0, 1, 2, 3, 4, 5]
         };
         var rangeFormat = d3.scale.threshold().domain(_r.domain).range(_r.range);
+        var intl = new Intl.DateTimeFormat(I18n.locale); // Improve performance
 
         // pre-calculate for better performance
-        data.forEach(function(d) {
+        for (var i = 0, l = data.length; i < l; i++) {
+          var d = data[i];
+
           d.dd = new Date(d.date);
-          d.datel10n = new Date(d.date).toLocaleDateString(I18n.locale)
+          d.datel10n = intl.format(d.dd);
           d.month = moment(d.dd).endOf('month')._d;
           d.range = rangeFormat(+d.value);
           d.paid = (d.paid == 'true');
           d.value = Number(d.value);
           d.freelance = (d.freelance == 'true');
-        });
+        }
 
         // See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
         ndx = crossfilter(data);

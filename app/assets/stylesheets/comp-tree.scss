@@ -5,6 +5,13 @@
 
   ul, li {
     list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @include min-screen(768) {
+      margin: auto;
+      padding: auto;
+    }
   }
 
   .item-root {
@@ -164,8 +171,11 @@
     .item-title {
       border-bottom: 1px solid $color_1_soft;
       padding: .5em;
-      margin: .5em;
       cursor: pointer;
+
+      @include min-screen(768) {
+        margin: .5em;
+      }
 
       > * {
         display: inline-block;

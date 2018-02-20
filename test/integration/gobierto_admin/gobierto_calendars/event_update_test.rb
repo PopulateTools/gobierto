@@ -97,7 +97,7 @@ module GobiertoAdmin
                 assert has_field?("event_starts_at", with: "2017-01-01 00:00")
                 assert has_field?("event_ends_at", with: "2017-01-01 00:01")
                 assert_equal(
-                  "<div>Event Description</div>",
+                  "Event Description",
                   find("#event_description_translations_en", visible: false).value
                 )
 
@@ -119,7 +119,7 @@ module GobiertoAdmin
 
                 assert has_field?("event_title_translations_es", with: "Título Evento")
                 assert_equal(
-                  "<div>Descripción Evento</div>",
+                  "Descripción Evento",
                   find("#event_description_translations_es", visible: false).value
                 )
               end

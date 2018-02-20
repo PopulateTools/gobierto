@@ -26,7 +26,7 @@
 
         <%= render 'gobierto_participation/shared/events/calendar_component', events: @events %>
         <div>
-          <small><%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %></small>
+          <small><%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_process_events_path(current_process.slug) %></small>
         </div>
       </div>
 

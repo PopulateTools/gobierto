@@ -37,7 +37,7 @@ module GobiertoParticipation
           visit process_polls_path
 
           # published open polls apear
-          assert has_content? 'Should the main street be pedestrianized?'
+          assert has_content? 'What do the residents of the neighborhood think?'
           assert has_content? 'General aspects of the ordinance'
 
           # draft, future and past polls are hidden

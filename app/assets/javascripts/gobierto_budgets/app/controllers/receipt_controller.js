@@ -33,7 +33,9 @@ this.GobiertoBudgets.ReceiptController = (function() {
       },
       created: function () {
         this.selected = Array(this.data.length).fill(0); // Assign BEFORE compile the template to avoid render twice
-        this.categories = _.keys(this.data[0].options[0].value).sort(); // Shortcut for columns
+
+        var years = _.keys(this.data[0].options[0].value).sort(); // Shortcut for columns
+        this.categories = (years.length > 3) ? _.takeRight(years, 3) : years; // Max. 3 years 
       },
       filters: {
         format: function (m) {

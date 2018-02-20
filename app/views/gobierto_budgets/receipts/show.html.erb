@@ -19,14 +19,8 @@
               <div class="pure-g m_b_1">
                 <div class="pure-u-1 pure-u-md-14-24 pure-u-xl-15-24"></div>
                 <div class="pure-u-1 pure-u-md-10-24 pure-u-xl-9-24 receipt_calc">
-                  <div class="bg bg--transparent">
-                    <span><strong>{{ getYear(0) }}</strong></span>
-                  </div>
-                  <div class="bg bg--transparent">
-                    <span><strong>{{ getYear(1) }}</strong></span>
-                  </div>
-                  <div class="bg bg--transparent">
-                    <span><strong>{{ getYear(2) }}</strong></span>
+                  <div class="bg bg--transparent" v-for="(year, i) in categories">
+                    <span><strong>{{ getYear(i) }}</strong></span>
                   </div>
                 </div>
               </div>
@@ -42,20 +36,11 @@
               </div>
               <div class="pure-u-1 pure-u-md-1-24 pure-u-xl-2-24 receipt_separator"></div>
               <div class="pure-u-1 pure-u-md-10-24 pure-u-xl-9-24 receipt_calc">
-                <div class="bg">
-                  <small>{{ getYear(0) }}</small>
-                  <small></small>
-                  <span>{{ getValue(selected[index], 0) | format }}</span>
-                </div>
-                <div class="bg">
-                  <small>{{ getYear(1) }}</small>
-                  <small>{{ getDiff(selected[index], 1) | percent }}</small>
-                  <span>{{ getValue(selected[index], 1) | format }}</span>
-                </div>
-                <div class="bg">
-                  <small>{{ getYear(2) }}</small>
-                  <small>{{ getDiff(selected[index], 2) | percent }}</small>
-                  <span>{{ getValue(selected[index], 2) | format }}</span>
+                <div class="bg" v-for="(year, i) in categories">
+                  <small>{{ getYear(i) }}</small>
+                  <small v-if="i !== 0">{{ getDiff(selected[index], i) | percent }}</small>
+                  <small v-else></small>
+                  <span>{{ getValue(selected[index], i) | format }}</span>
                 </div>
               </div>
             </div>
@@ -67,14 +52,8 @@
               <div class="pure-g m_b_1">
                 <div class="pure-u-1 pure-u-md-14-24 pure-u-xl-15-24"></div>
                 <div class="pure-u-1 pure-u-md-10-24 pure-u-xl-9-24 receipt_calc">
-                  <div class="bg bg--transparent">
-                    <span><strong>{{ getYear(0) }}</strong></span>
-                  </div>
-                  <div class="bg bg--transparent">
-                    <span><strong>{{ getYear(1) }}</strong></span>
-                  </div>
-                  <div class="bg bg--transparent">
-                    <span><strong>{{ getYear(2) }}</strong></span>
+                  <div class="bg bg--transparent" v-for="(year, i) in categories">
+                    <span><strong>{{ getYear(i) }}</strong></span>
                   </div>
                 </div>
               </div>
@@ -82,20 +61,11 @@
             <div class="pure-g">
               <div class="pure-u-1 pure-u-md-14-24 pure-u-xl-15-24"><h3><%= t('.your_contribution', site_name: current_site.name) %></h3></div>
               <div class="pure-u-1 pure-u-md-10-24 pure-u-xl-9-24 receipt_calc">
-                <div class="bg">
-                  <small>{{ getYear(0) }}</small>
-                  <small></small>
-                  <span>{{ total(0) | format }}</span>
-                </div>
-                <div class="bg">
-                  <small>{{ getYear(1) }}</small>
-                  <small>{{ (total(1) - total(0)) / total(1) | percent }}</small>
-                  <span>{{ total(1) | format }}</span>
-                </div>
-                <div class="bg">
-                  <small>{{ getYear(2) }}</small>
-                  <small>{{ (total(2) - total(1)) / total(2) | percent }}</small>
-                  <span>{{ total(2) | format }}</span>
+                <div class="bg" v-for="(year, i) in categories">
+                  <small>{{ getYear(i) }}</small>
+                  <small v-if="i !== 0">{{ (total(i) - total(i - 1)) / total(i) | percent }}</small>
+                  <small v-else></small>
+                  <span>{{ total(i) | format }}</span>
                 </div>
               </div>
             </div>

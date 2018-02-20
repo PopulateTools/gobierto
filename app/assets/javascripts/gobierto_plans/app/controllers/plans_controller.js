@@ -257,7 +257,7 @@ this.GobiertoPlans.PlansController = (function() {
           $('section.level_0 .js-info').velocity({
             padding: "1.5em"
           });
-          $('section.level_0 .js-info h3, section.level_1 .js-info span').velocity({
+          $('section.level_0 .js-info h3, section.level_0 .js-info span').css({
             "font-size": "1.25rem"
           });
           $('section.level_0').velocity({

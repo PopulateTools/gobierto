@@ -222,3 +222,19 @@ swimming_lessons:
   starts_at: <%= 2.days.from_now %>
   ends_at: <%= 2.days.from_now + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["published"] %>
+
+innovation_event:
+  site: madrid
+  collection: participation_calendar
+  title_translations: <%= {
+    'en' => 'Innovation course',
+    'es' => 'Curso de innovación'
+  }.to_json %>
+  slug: <%= "#{2.days.from_now.strftime('%F')}-innovation_event" %>
+  description_translations: <%= {
+    'en' => 'Innovation course description',
+    'es' => 'Curso de innovación descripción'
+  }.to_json %>
+  starts_at: <%= 2.days.from_now %>
+  ends_at: <%= 2.days.from_now + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>

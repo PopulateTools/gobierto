@@ -73,6 +73,10 @@
               display: inline-flex;
               justify-content: space-around;
 
+              &:only-child {
+                display: block;
+              }
+
               .check-container {
                 width: 62px;
                 height: 62px;

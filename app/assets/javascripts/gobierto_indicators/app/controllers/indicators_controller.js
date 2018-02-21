@@ -73,6 +73,13 @@ this.GobiertoIndicators.IndicatorsController = (function() {
             return parseValue(p);
           }
         },
+        mounted: function () {
+          $('#indicators-tree').velocity('scroll', {
+            duration: 500,
+            offset: -40,
+            easing: 'ease-in-out'
+          });
+        },
         methods: {
           getLevelClass: function(lvl) {
             return "item-lvl-" + lvl

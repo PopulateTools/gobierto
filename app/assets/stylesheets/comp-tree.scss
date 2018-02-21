@@ -5,17 +5,18 @@
 
   ul, li {
     list-style: none;
-    margin: 0;
-    padding: 0;
-
-    @include min-screen(768) {
-      margin: auto;
-      padding: auto;
-    }
   }
 
   .item-root {
     padding: 0;
+
+    ul {
+      padding: 0;
+
+      @include min-screen(768) {
+        padding-left: 40px; // default
+      }
+    }
 
     &.item-root--notree {
       .item {
@@ -153,7 +154,9 @@
     }
 
     &.item-lvl-1 {
-      width: 90%;
+      @include min-screen(768) {
+        width: 90%;
+      }
     }
 
     &.item-lvl-0,
@@ -161,6 +164,9 @@
       font-size: $f5;
 
       > .item-title {
+        display: flex;
+        align-items: center;
+
         .item-text {
           text-decoration: none;
           font-weight: bold;
@@ -172,6 +178,7 @@
       border-bottom: 1px solid $color_1_soft;
       padding: .5em;
       cursor: pointer;
+      display: flex;
 
       @include min-screen(768) {
         margin: .5em;
@@ -207,7 +214,11 @@
 
       .item-text {
         text-decoration: underline;
-        max-width: 90%;
+        max-width: 80%;
+
+        @include min-screen(768) {
+          max-width: 90%;
+        }
 
         &::first-letter {
           text-transform: uppercase;
@@ -216,6 +227,12 @@
 
       .item-check {
         float: right;
+        margin-left: auto;
+        align-self: center;
+
+        @include min-screen(768) {
+          align-self: auto;
+        }
 
         .check-container {
           width: 18px;

@@ -545,15 +545,15 @@ ca:
         view_data_from: Veure les dades de
     receipts:
       show:
-        description: Part del pressupost del teu municipi se financia directament
-          d'impostos i taxes locals. Calcula quant aportes tu al pressupost d'acord
-          a la teva casa, vehicles...
+        description: Part del pressupost del teu municipi es finança directament d'impostos
+          i taxes locals. Calcula quant aportes tu al pressupost d'acord a la teva
+          casa, vehicles...
         detail: Detall de la teva contribució
         pick_to_calculate: Selecciona per calcular
         share: Comparteix-ho
-        share_text: Comprova com és la teva aportació al pressupost de
-        title: Quina es la teva contribució al pressupost de %{site_name}?
-        your_contribution: La teva contribució als pressupostos de %{site_name}
+        share_text: Comprova com és la teva aportació al pressupost de d'
+        title: Quina es la teva contribució al pressupost de l'%{site_name}?
+        your_contribution: La teva contribució als pressupostos de l'%{site_name}
     shared:
       data_updated_at:
         last_update: Última actualització

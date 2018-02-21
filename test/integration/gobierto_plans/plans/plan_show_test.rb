@@ -91,6 +91,7 @@ module GobiertoPlans
               within ".lines-header" do
                 assert has_content?("1 line of action")
               end
+
               within ".lines-list" do
                 assert has_content?(action_lines.first.name)
                 assert has_content?("2 actions")
@@ -101,6 +102,7 @@ module GobiertoPlans
               assert has_selector?("h3", text: action_lines.first.name)
               find("h3", text: action_lines.first.name).click
             end
+
             within "section.level_2.cat_3" do
               assert has_content?(action_lines.first.name)
 
@@ -117,6 +119,101 @@ module GobiertoPlans
             within "section.level_3.cat_3" do
               find("h3", text: projects.first.name)
               assert has_content?(projects.first.status)
+            end
+          end
+        end
+      end
+    end
+
+    def test_show_table_header
+      with_javascript do
+        with_current_site(site) do
+          visit @path
+
+          within "section.level_0" do
+            within "div.node-root.cat_3" do
+              find("a").trigger("click")
+            end
+          end
+
+          within ".planification-content" do
+            within "section.level_1.cat_3" do
+              find("h3", text: action_lines.first.name).click
+            end
+
+            within "section.level_2.cat_3" do
+              within "ul.action-line--list" do
+                find("h3", text: actions.first.name).click
+                refute has_selector?("thead", count: 1)
+              end
+            end
+          end
+
+          plan.configuration_data["show_table_header"] = true
+          plan.save
+
+          visit @path
+
+          within "section.level_0" do
+            within "div.node-root.cat_3" do
+              find("a").trigger("click")
+            end
+          end
+
+          within ".planification-content" do
+            within "section.level_1.cat_3" do
+              find("h3", text: action_lines.first.name).click
+            end
+
+            within "section.level_2.cat_3" do
+              within "ul.action-line--list" do
+                find("h3", text: actions.first.name).click
+                assert has_selector?("thead", count: 1)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    def test_plan_breadcrumbs
+      with_javascript do
+        with_current_site(site) do
+          visit @path
+
+          within "section.level_0" do
+            within "div.node-root.cat_3" do
+              find("a").trigger("click")
+            end
+          end
+
+          within ".planification-content" do
+            within "section.level_1.cat_3" do
+              find("h3", text: action_lines.first.name).click
+            end
+
+            within "section.level_2.cat_3" do
+              within "ul.action-line--list" do
+                find("h3", text: actions.first.name).click
+              end
+              assert has_selector?("div.node-breadcrumb", count: 1)
+
+              within "ul.action-line--list" do
+                find("td", text: projects.first.name).click
+              end
+            end
+
+            within "section.level_3.cat_3" do
+              assert has_selector?("div.node-breadcrumb", count: 3)
+
+              all("div.node-breadcrumb")[0].click
+            end
+
+            refute has_selector?("section.level_2.cat_3", count: 1)
+            refute has_selector?("section.level_3.cat_3", count: 1)
+
+            within ".lines-header" do
+              assert has_content?("1 line of action")
             end
           end
         end

@@ -27,7 +27,7 @@
       </div>
     </div>
     <ul v-show="open" v-if="hasChildren">
-      <item-tree class="item" v-for="model in model.children" :model="model" :key="model.id"></item-tree>
+      <item-tree class="item" v-for="model in model.children" :model="model" :key="model.id" ref="inode"></item-tree>
     </ul>
   </li>
 </script>

@@ -227,6 +227,7 @@ es:
       all_events: Ver todos los eventos
       all_news: Ver todas las noticias
       consultation_processes: Consulta y participa en procesos específicos.
+      current_events: Ver eventos actuales
       diary_for: Agenda de %{container}
       documents: Documentos
       documents_for: Documentos de %{container}
@@ -246,6 +247,7 @@ es:
       no_news: No hay noticias relacionadas
       ongoing_processes: Procesos en marcha
       participation: Participación
+      past_events: Ver eventos pasados
       published_at: Publicado el %{date} por el %{site}
     welcome:
       index:

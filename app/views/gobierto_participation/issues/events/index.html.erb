@@ -40,9 +40,7 @@
             </ul>
           <% end %>
 
-          <div>
-            <small><%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %></small>
-          </div>
+          <small><%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %></small>
         </div>
       </div>
 
@@ -59,7 +57,6 @@
         <% end %>
 
         <%= paginate @events, window: 3, outer_window: 2 %>
-
       </div>
     </div>
   </div>

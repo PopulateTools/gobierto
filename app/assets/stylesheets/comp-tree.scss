@@ -14,7 +14,7 @@
       padding: 0;
 
       @include min-screen(768) {
-        padding-left: 40px; // default
+        padding-left: 40px; // browser default
       }
     }
 
@@ -28,8 +28,10 @@
         &.item-lvl-1 {
           width: 100%;
 
-          .item-lvl-1 {
-            width: 90%;
+          @include min-screen(768) {
+            .item-lvl-1 {
+              width: 90%;
+            }
           }
         }
 
@@ -41,6 +43,11 @@
 
         .item-title {
           display: flex;
+          flex-wrap: wrap;
+
+          @include min-screen(768) {
+            flex-wrap: nowrap;
+          }
 
           .item-text {
             font-size: $f5;
@@ -55,7 +62,12 @@
           .item-check {
             flex-basis: 160px;
             flex-direction: column;
-            margin-left: auto;
+            margin: 1em auto 0;
+
+            @include min-screen(768) {
+              flex-wrap: nowrap;
+              margin: auto;
+            }
 
             > .row {
               display: inline-flex;

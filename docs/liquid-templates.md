@@ -1,9 +1,34 @@
 # Gobierto template engine
 
-[Liquid](https://github.com/Shopify/liquid) is very popular template engine written to be simple and secure. Gobierto implements a few Liquid tags to embed dynamic content in the site HTML blocks. In the future, all Gobierto templates will be fully customizable using Liquid and the administrator UI.
+We use [Liquid](https://github.com/Shopify/liquid) to allow for the customization of templates through the UI, and providing some tags to make dynamic calls to the application from the Liquid templates. This is a work in progress, we'll be implementing more tags and the possibility of editing a template through the admin UI.
 
-This is a work in progress, we'll be implementing more tags and the possibility of editing a template through the admin UI.
+[Tags](#tags): 
 
+- [image_filter](#image_filter)
+- [liquid_i18n](#liquid_i18n)
+- [list_children_pages](#list_children_pages)
+- [page_title](#page_title)
+- [show_poll](#show_poll)
+
+[Templates](#templates)
+
+<hr>
+
+## image_filter
+
+Renders the path of an image
+
+- Usage: `{{ 'Gobierto-Avatar@2x.png' | image_url }}`
+
+- Returns: "/assets/Gobierto-Avatar@2x-3b3e639a0e0ee13213cef48aa336b233072d17689b95887788c48f529e16ddf6.png"
+
+## liquid_i18n
+
+Renders i18n key translation
+
+- Usage `{{ 'gobierto_participation.shared.no_events' | t }}`
+
+- Returns: "No related events"
 
 ## list_children_pages
 
@@ -35,7 +60,6 @@ In the context of a CMS section, it renders the children pages of the given page
 </div>
 ```
 
-
 ## page_title
 
 Renders the title of a page (an instance of`GobiertoCms::Page`)
@@ -58,22 +82,6 @@ Renders the path of a page (an instance of`GobiertoCms::Page`)
 
 - Returns: "/paginas/about"
 
-## image_filter
-
-Renders the path of an image
-
-- Usage: `{{ 'Gobierto-Avatar@2x.png' | image_url }}`
-
-- Returns: "/assets/Gobierto-Avatar@2x-3b3e639a0e0ee13213cef48aa336b233072d17689b95887788c48f529e16ddf6.png"
-
-## liquid_i18n
-
-Renders i18n key translation
-
-- Usage `{{ 'gobierto_participation.shared.no_events' | t }}`
-
-- Returns: "No related events"
-
 ## show_poll
 
 Renders a poll
@@ -82,8 +90,13 @@ Renders a poll
 
 - Returns: Poll with options
 
-## Available templates
 
-### GobiertoParticipation home
+## Templates
 
-It is available as template GobiertoParticipation home (gobierto_participation/welcome/index.liquid)
+### gobierto_participation/welcome/index.liquid
+
+Allows for the customization of Gobierto Participation home page
+
+### gobierto_participation/layouts/navigation_process.liquid
+
+Allows for the customization of Gobierto Participation main submenu navigation

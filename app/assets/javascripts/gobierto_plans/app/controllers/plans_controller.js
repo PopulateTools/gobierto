@@ -107,30 +107,32 @@ this.GobiertoPlans.PlansController = (function() {
       // define the table view component
       Vue.component('table-view', {
         template: '#table-view-template',
-        props: ['model', 'header'],
+        props: ['model', 'header', 'open'],
         data: function() {
           return {}
         },
         methods: {
           getProject: function(model) {
-            var l = this.model.level;
+            if (this.open) {
+              var l = this.model.level;
 
-            // { ...this.model } conversion to ES2015
-            var _extends = Object.assign || function(target) {
-              for (var i = 1; i < arguments.length; i++) {
-                var source = arguments[i];
-                for (var key in source) {
-                  if (Object.prototype.hasOwnProperty.call(source, key)) {
-                    target[key] = source[key];
+              // { ...this.model } conversion to ES2015
+              var _extends = Object.assign || function(target) {
+                for (var i = 1; i < arguments.length; i++) {
+                  var source = arguments[i];
+                  for (var key in source) {
+                    if (Object.prototype.hasOwnProperty.call(source, key)) {
+                      target[key] = source[key];
+                    }
                   }
                 }
-              }
-              return target;
-            };
+                return target;
+              };
 
-            var project = _extends({}, model);
+              var project = _extends({}, model);
 
-            this.$emit('selection', project);
+              this.$emit('selection', project);
+            }
           }
         }
       });
@@ -145,6 +147,7 @@ this.GobiertoPlans.PlansController = (function() {
           activeNode: {},
           showTable: {},
           showTableHeader: true,
+          openNode: false,
           rootid: 0
         },
         created: function() {
@@ -174,10 +177,16 @@ this.GobiertoPlans.PlansController = (function() {
         methods: {
           getJson: function() {
             $.getJSON(window.location.href, function(json) {
+              // Tree with categories and the leaves (nodes)
               var data = json["plan_tree"];
+              // Nodes can have variable attributes and these are their keys
               var optionKeys = json["option_keys"];
+              // Keys for different levels
               var levelKeys = json["level_keys"];
+              // If you can see the table header
               var showTableHeader = json["show_table_header"];
+              // If you can open a node (project)
+              var openNode = json["open_node"];
 
               // Hide spinner
               $(".js-toggle-overlay").removeClass('is-active');
@@ -185,6 +194,7 @@ this.GobiertoPlans.PlansController = (function() {
               this.json = data;
               this.levelKeys = levelKeys;
               this.showTableHeader = showTableHeader;
+              this.openNode = openNode;
               this.optionKeys = Object.keys(optionKeys).reduce(function(c, k) {
                 return (c[k.toLowerCase()] = optionKeys[k]), c;
               }, {});

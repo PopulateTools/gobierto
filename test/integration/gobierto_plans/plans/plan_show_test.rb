@@ -196,7 +196,7 @@ module GobiertoPlans
               within "ul.action-line--list" do
                 find("h3", text: actions.first.name).click
               end
-              assert has_selector?("div.node-breadcrumb", count: 1)
+              assert has_selector?("div.node-breadcrumb")
 
               within "ul.action-line--list" do
                 find("td", text: projects.first.name).click
@@ -209,11 +209,68 @@ module GobiertoPlans
               all("div.node-breadcrumb")[0].click
             end
 
-            refute has_selector?("section.level_2.cat_3", count: 1)
-            refute has_selector?("section.level_3.cat_3", count: 1)
+            refute has_selector?("section.level_2.cat_3")
+            refute has_selector?("section.level_3.cat_3")
 
             within ".lines-header" do
               assert has_content?("1 line of action")
+            end
+          end
+        end
+      end
+
+      def test_open_nodes
+        with_javascript do
+          with_current_site(site) do
+            visit @path
+
+            within "section.level_0" do
+              within "div.node-root.cat_3" do
+                find("a").trigger("click")
+              end
+            end
+
+            within ".planification-content" do
+              within "section.level_1.cat_3" do
+                find("h3", text: action_lines.first.name).click
+              end
+
+              within "section.level_2.cat_3" do
+                within "ul.action-line--list" do
+                  find("h3", text: actions.first.name).click
+                end
+              end
+
+              within "section.level_3 cat_3" do
+                refute has_selector?("h3", text: projects.first.name)
+              end
+            end
+
+            plan.configuration_data["open_node"] = true
+            plan.save
+
+            visit @path
+
+            within "section.level_0" do
+              within "div.node-root.cat_3" do
+                find("a").trigger("click")
+              end
+            end
+
+            within ".planification-content" do
+              within "section.level_1.cat_3" do
+                find("h3", text: action_lines.first.name).click
+              end
+
+              within "section.level_2.cat_3" do
+                within "ul.action-line--list" do
+                  find("h3", text: actions.first.name).click
+                end
+              end
+
+              within "section.level_3 cat_3" do
+                assert has_selector?("h3", text: projects.first.name)
+              end
             end
           end
         end

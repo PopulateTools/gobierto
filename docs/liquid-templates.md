@@ -2,7 +2,7 @@
 
 We use [Liquid](https://github.com/Shopify/liquid) to allow for the customization of templates through the UI, and providing some tags to make dynamic calls to the application from the Liquid templates. This is a work in progress, we'll be implementing more tags and the possibility of editing a template through the admin UI.
 
-[Tags](#tags): 
+Tags: 
 
 - [image_filter](#image_filter)
 - [liquid_i18n](#liquid_i18n)
@@ -13,6 +13,7 @@ We use [Liquid](https://github.com/Shopify/liquid) to allow for the customizatio
 [Templates](#templates)
 
 <hr>
+
 
 ## image_filter
 

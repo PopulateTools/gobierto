@@ -39,14 +39,16 @@ this.GobiertoIndicators.IndicatorsController = (function() {
             }
           },
           viewDetail: function() {
-            var ancestors = [];
-            var parent = this.$parent;
-            // get all my parents models
-            while (parent.model !== undefined) {
-              ancestors.push(parent.model);
-              parent = parent.$parent;
+            if (!this.hasChildren) {
+              var ancestors = [];
+              var parent = this.$parent;
+              // get all my parents models
+              while (parent.model !== undefined) {
+                ancestors.push(parent.model);
+                parent = parent.$parent;
+              }
+              this.$root.selected = _.extend(this.model, { ancestors: ancestors.reverse() });
             }
-            this.$root.selected = _.extend(this.model, { ancestors: ancestors.reverse() });
           },
           getLevelClass: function(lvl) {
             return "item-lvl-" + lvl

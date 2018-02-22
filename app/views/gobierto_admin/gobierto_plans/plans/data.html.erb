@@ -8,7 +8,7 @@
 
 <%= render 'gobierto_admin/gobierto_plans/shared/navigation' %>
 
-<% if @plan.categories || @plan.nodes %>
+<% if @plan.categories.any? || @plan.nodes.any? %>
   <%= t(".there_are", info: @plan.to_s) %>
   <br>
   <%= t(".latest_update", datetime: l(@plan.updated_at, format: :long)) %>

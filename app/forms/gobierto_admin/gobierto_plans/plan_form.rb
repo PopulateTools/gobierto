@@ -19,6 +19,9 @@ module GobiertoAdmin
         :slug
       )
 
+      validates :site_id, presence: true
+      validate :configuration_data_format
+
       delegate :persisted?, to: :plan
 
       def save
@@ -74,6 +77,14 @@ module GobiertoAdmin
 
           false
         end
+      end
+
+      def configuration_data_format
+        return if configuration_data.blank? || configuration_data.is_a?(Hash)
+
+        JSON.parse(configuration_data)
+      rescue JSON::ParserError
+        errors.add :configuration_data, I18n.t("errors.messages.invalid")
       end
 
       protected

@@ -73,7 +73,7 @@
 
 <% unless @archived_plans.empty? %>
   <div class="m_v_1 right">
-    <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggle: true} %>
+    <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggleplan: true} %>
   </div>
 
   <div id="archived-plan-list" style="display:none">
@@ -173,7 +173,7 @@
 
 <% unless @archived_plan_types.empty? %>
   <div class="m_v_1 right">
-    <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggle: true} %>
+    <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggleplantype: true} %>
   </div>
 
   <div id="archived-plan-type-list" style="display:none">
@@ -213,8 +213,11 @@
 
 
 <%= javascript_tag do %>
-  $('a[data-toggle]').on('click', function(e){
-     $("div#archived-plan-type-list").toggle();
+  $('a[data-toggleplan]').on('click', function(e){
      $("div#archived-plan-list").toggle();
+  });
+
+  $('a[data-toggleplantype]').on('click', function(e){
+     $("div#archived-plan-type-list").toggle();
   });
 <% end %>

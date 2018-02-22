@@ -14,8 +14,6 @@ module GobiertoPlans
     has_many :categories
     has_many :nodes, through: :categories
 
-    serialize :configuration_data
-
     translates :title, :introduction, :title_for_menu
 
     enum visibility_level: { draft: 0, published: 1 }
@@ -23,6 +21,11 @@ module GobiertoPlans
     after_restore :set_slug
 
     validates :site, :title, :introduction, :title_for_menu, :plan_type_id, presence: true
+
+    def configuration_data
+      data = read_attribute(:configuration_data)
+      JSON.parse(data) unless data.empty?
+    end
 
     def levels
       categories.maximum("level")
@@ -35,14 +38,18 @@ module GobiertoPlans
     def to_s
       text = ""
       # "5 cats, 43 subcats, 151 subsubcats, 161 nodes"
-      if levels.positive?
+      if levels && levels.positive?
         (0..(levels)).each do |level|
           category_size = categories.where(level: level).size
           text += category_size.to_s + " " + level_key(category_size, level) + ", "
         end
       end
 
-      text += node_size.to_s + " " + level_key(node_size, levels + 1)
+      if nodes.any?
+        text += node_size.to_s + " " + level_key(node_size, levels + 1)
+      end
+
+      text
     end
 
     def attributes_for_slug

@@ -3,7 +3,9 @@
 <% end %>
 
 <% if @plan.css.present? %>
-  <%= render_liquid @plan.css %>
+  <style type='text/css'>
+    <%= render_liquid @plan.css %>
+  </style>
 <% end %>
 
 <div class="column">

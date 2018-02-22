@@ -129,6 +129,18 @@ Rails.application.routes.draw do
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
     end
 
+    namespace :gobierto_plans, as: :plans, path: :plans do
+      get "/" => "welcome#index"
+
+      resources :plans, only: [:show, :new, :create, :edit, :update, :destroy], path: "" do
+        get :data
+        put :recover
+      end
+      resources :plan_types, only: [:new, :create, :edit, :update, :destroy], path: :plan_types do
+        put :recover
+      end
+    end
+
     namespace :gobierto_cms, as: :cms, path: :cms do
       resources :pages, only: [:index, :new, :edit, :create, :update, :destroy] do
         put :recover

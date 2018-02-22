@@ -1,0 +1,49 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_plans:
+      plan_types:
+        edit:
+          title: Edita el tipus de pla
+        form:
+          placeholders:
+            name: Nom del tipus de pla
+            slug: sobre-de-aquest-tipus-de-pla
+        new:
+          title: Nou tipus de pla
+      plans:
+        data:
+          latest_update: 'Última actualització mitjançant l''API: %{datetime} - Torneu
+            a importar ara'
+          no_data: Cap dada carregat encara
+          there_are: Hay %{info}
+          title: Dades
+        edit:
+          title: Configuració
+        form:
+          placeholders:
+            configuration_data: '{ "open_node" => true }'
+            css: <style type="text/css">...</style>
+            introduction: Introducció del pla
+            slug: sobre-de-aquest-pla
+            title: Titol del tipus de pla
+            title_for_menu: Títol del pla al menú
+            year: 2018
+        new:
+          title: Nou tipus de pla
+      shared:
+        navigation:
+          configuration_tab: Configuració
+          data_tab: Dades
+      welcome:
+        index:
+          header:
+            elements: Elements
+            status: Estat
+            title: Títol
+            type: Tipus
+          new: Nou
+          plan_list: Llista de plans
+          title: Plans
+          type_list: Llista de tipus de plans
+          view_plan: Veure pla

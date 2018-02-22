@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180218084420) do
+ActiveRecord::Schema.define(version: 20180221140043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -741,11 +741,14 @@ ActiveRecord::Schema.define(version: 20180218084420) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug", default: "", null: false
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_gplan_plan_types_on_archived_at"
   end
 
   create_table "gplan_plans", force: :cascade do |t|
     t.jsonb "title_translations"
-    t.jsonb "description_translations"
+    t.jsonb "introduction_translations"
     t.integer "year"
     t.jsonb "configuration_data"
     t.bigint "plan_type_id"
@@ -753,6 +756,11 @@ ActiveRecord::Schema.define(version: 20180218084420) do
     t.string "slug", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.jsonb "title_for_menu_translations"
+    t.text "css"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_gplan_plans_on_archived_at"
     t.index ["plan_type_id"], name: "index_gplan_plans_on_plan_type_id"
     t.index ["site_id"], name: "index_gplan_plans_on_site_id"
     t.index ["title_translations"], name: "index_gplan_plans_on_title_translations", using: :gin

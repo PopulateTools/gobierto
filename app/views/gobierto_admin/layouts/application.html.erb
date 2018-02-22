@@ -141,6 +141,12 @@
             </li>
             <% end %>
 
+            <% if show_module_link?("GobiertoPlans") %>
+            <li>
+              <%= link_to t(".plans"), admin_plans_path %>
+            </li>
+            <% end %>
+
             <li class="sep"></li>
 
             <li>

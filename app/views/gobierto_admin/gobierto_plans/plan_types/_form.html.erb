@@ -1,0 +1,21 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @plan_type_form %>
+
+<%= form_for(
+  @plan_type_form, as: :plan_type,
+  url: @plan_type_form.persisted? ? admin_plans_plan_type_path(@plan_type_form) : admin_plans_plan_types_path(@plan_type)) do |f| %>
+
+  <div class="form_item input_text">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: t(".placeholders.name") %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :slug %>
+    <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+  </div>
+
+  <div class="actions right">
+    <%= f.submit %>
+  </div>
+
+<% end %>

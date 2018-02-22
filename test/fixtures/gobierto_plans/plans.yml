@@ -1,8 +1,11 @@
 strategic_plan:
   title_translations: <%= { 'en' => 'Strategic Plan 2014-2018',
                             'es' => 'Plan Estratégico 2014-2018' }.to_json %>
-  description_translations: <%= { 'en' => 'Strategic Plan description',
-                                  'es' => 'Plan Estratégico descripción' }.to_json %>
+  introduction_translations: <%= { 'en' => 'Strategic Plan introduction',
+                                  'es' => 'Plan Estratégico introduction' }.to_json %>
+  title_for_menu_translations: <%= { 'en' => 'Strategic Plan menu',
+                                     'es' => 'Plan Estratégico menú' }.to_json %>
+  css: "p { color: red; }"
   year: "2012"
   slug: strategic-plan
   site: madrid

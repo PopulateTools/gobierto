@@ -2,16 +2,20 @@
   <%= link_to title(@plan.title), gobierto_plans_plan_path(@plan.slug) %>
 <% end %>
 
+<% if @plan.css.present? %>
+  <%= render_liquid @plan.css %>
+<% end %>
+
 <div class="column">
   <div class="block">
 
     <div class="pure-g header_block_inline m_b_1">
       <div class="pure-u-1 pure-u-md-12-24">
         <h2 class="with_description">
-          <%= t(".title") %>
+          <%= @plan.title %>
         </h2>
         <p>
-          <%= t(".description") %>
+          <%= @plan.introduction %>
         </p>
         <p>
           <%= t(".latest_update_html", date: l(@plan.updated_at.to_date, format: :long)) %>

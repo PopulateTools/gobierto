@@ -1,0 +1,14 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_plans:
+      plans:
+        create:
+          success_html: Pla s'ha creat correctament. <a href="%{link}">Veure el pla</a>.
+        destroy:
+          success: El tipus de pla s'ha esborrat correctament.
+        recover:
+          success: El tipus de pla s'ha recuperat correctament.
+        update:
+          success_html: El tipus de pla s'ha actualizat correctament. <a href="%{link}">Veure
+            el pla</a>.

@@ -1,0 +1,11 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_plans.welcome.index.title"), admin_plans_path %> »
+  <%= t(".title") %>
+</div>
+
+<h1><%= @plan.title %></h1>
+
+<%= render 'gobierto_admin/gobierto_plans/shared/navigation' %>
+
+<%= render 'form' %>

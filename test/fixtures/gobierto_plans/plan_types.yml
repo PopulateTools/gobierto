@@ -1,2 +1,3 @@
 pam:
-  name: pam
+  name: "pam"
+  slug: "pam"

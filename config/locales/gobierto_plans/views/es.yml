@@ -1,15 +1,16 @@
 ---
 es:
   gobierto_plans:
+    events:
+      gobierto_plans_plan_created: Plan creado
+      gobierto_plans_plan_type_created: Tipo de plan creado
+      gobierto_plans_plan_type_updated: Tipo de plan actualizado
+      gobierto_plans_plan_updated: Plan actualizado
     layouts:
       application:
         plans: Planes
     plans:
       show:
-        description: Al comienzo de legislatura se traza un plan con todos los proyectos
-          para los 4 años de gobierno. Consulta cuales son los planes, las áreas prioritarias,
-          y cómo se van desarrollando los distintos proyectos. Actualizamos el progreso
-          de los proyectos cada tres meses.
         ends: Fin
         global_execution: Estado de ejecución global
         latest_update_html: "<strong>Última actualización:</strong> %{date}"
@@ -20,4 +21,3 @@ es:
         see_all: Ver todo en
         starts: Inicio
         status: Estado
-        title: Sigue la evolución del plan de gobierno

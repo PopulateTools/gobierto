@@ -16,8 +16,12 @@ module GobiertoParticipation
       @participation_events_path ||= gobierto_participation_events_path
     end
 
-    def participation_events
-      @participation_events ||= ::GobiertoCalendars::Event.events_in_collections_and_container_type(site, "GobiertoParticipation")
+    def participation_current_events
+      @participation_current_events ||= ::GobiertoCalendars::Event.events_in_collections_and_container_type(site, "GobiertoParticipation").upcoming
+    end
+
+    def participation_past_events
+      @participation_past_events ||= ::GobiertoCalendars::Event.events_in_collections_and_container_type(site, "GobiertoParticipation").past
     end
 
     def test_secondary_nav
@@ -37,11 +41,41 @@ module GobiertoParticipation
       with_current_site(site) do
         visit participation_events_path
 
-        assert_equal participation_events.size, all(".event-content").size
+        assert_equal participation_current_events.size, all(".event-content").size
 
         assert has_link? "Swimming lessons for elders"
-        assert has_link? "Innovation course"
         assert has_link? "Intensive reading club in english"
+      end
+    end
+
+    def test_participation_past_events_index
+      with_current_site(site) do
+        visit participation_events_path
+
+        click_link "View past events"
+        assert_equal participation_past_events.size, all(".event-content").size
+
+        click_link "View current events"
+        assert_equal participation_current_events.size, all(".event-content").size
+      end
+    end
+
+    def test_participation_calendar_filter
+      with_current_site(site) do
+        visit gobierto_participation_events_path(date: participation_current_events.first.starts_at.to_date.to_s)
+
+        refute_equal participation_current_events.size, all(".event-content").size
+        assert has_link? "Swimming lessons for elders"
+        assert has_link? "Innovation course"
+        assert has_link? "View all events"
+        assert has_link? "View past events"
+
+        visit gobierto_participation_events_path(date: participation_current_events.second.starts_at.to_date.to_s)
+
+        refute_equal participation_current_events.size, all(".event-content").size
+        assert has_link? "Intensive reading club in english"
+        assert has_link? "View all events"
+        assert has_link? "View past events"
       end
     end
   end

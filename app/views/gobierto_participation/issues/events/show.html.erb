@@ -19,9 +19,7 @@
         <p class="soft"><%= t('gobierto_participation.shared.agenda_p1') %></p>
 
         <%= render 'gobierto_participation/shared/events/calendar_component', events: @events %>
-        <div>
-          <small><%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %></small>
-        </div>
+        <small><%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %></small>
       </div>
 
       <div class="pure-u-1 pure-u-lg-2-3 event_wrapper">

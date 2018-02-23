@@ -351,6 +351,7 @@ Rails.application.routes.draw do
           resources :answers, only: [:new, :create], controller: "processes/poll_answers"
         end
         resources :attachments, only: [:index, :show], controller: "processes/attachments", path: "documentos"
+        resources :past_process_events, only: [:index], controller: "processes/past_process_events", as: :past_process_events, path: "agendas/eventos-pasados"
         resources :events, only: [:index, :show], controller: "processes/events", path: "agendas"
         resources :pages, only: [:index, :show], controller: "processes/pages", path: "noticias"
         resources :activities, only: [:index], controller: "processes/activities", path: "actividad"
@@ -371,6 +372,7 @@ Rails.application.routes.draw do
       end
 
       resources :attachments, only: [:index, :show], controller: "attachments", path: "documentos"
+      resources :past_participation_events, only: [:index], controller: "past_participation_events", as: :past_participation_events, path: "agendas/eventos-pasados"
       resources :events, only: [:index, :show], controller: "events", path: "agendas"
       resources :pages, only: [:show], controller: "pages", path: "paginas"
       resources :news, only: [:index, :show], controller: "news", path: "noticias"

@@ -164,7 +164,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal issue.events.size, all(".event-content").size
+        assert_equal issue.events.upcoming.size, all(".event-content").size
       end
     end
 

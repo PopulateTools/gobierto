@@ -212,7 +212,7 @@ module GobiertoParticipation
 
         events_titles = gender_violence_process.events.map(&:title)
 
-        assert array_match ["Intensive reading club in english", "Swimming lessons for elders"], events_titles
+        assert array_match ["Intensive reading club in english", "Swimming lessons for elders", "Talk intervention with children"], events_titles
       end
     end
 

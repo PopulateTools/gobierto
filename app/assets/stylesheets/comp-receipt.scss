@@ -5,7 +5,11 @@
   .padding {
     padding: 1em;
 
-    @include min-screen(740) {
+    @include screen(740, 1024) {
+      padding: 3em 2em 1em 2em;
+    }
+
+    @include min-screen(1025) {
       padding: 3em 3em 1em 3em;
     }
   }
@@ -80,20 +84,49 @@
     display: flex;
     padding: 0.5em 0;
 
+    @include flexbox(1em, column);
     @include min-screen(740) {
       padding: 0 0.5em;
+
+      @include flexbox(1em, row);
     }
 
     .bg {
       display: flex;
-      width: 100%;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: space-between;
       background: #f2f9fa;
       padding: 0 0.5em;
+      border-radius: 4px;
+
+      @include min-screen(740) {
+        width: 100%;
+      }
+
+      > small:first-child {
+        display: inline-block;
+
+        @include min-screen(740) {
+          display: none;
+        }
+      }
+
+      &:not(:last-child) {
+        opacity: .5;
+      }
 
       span {
         font-size: 1.15em;
+      }
+
+      small {
+        color: $color_meta_text;
+        font-size: 90%;
+      }
+
+      &.bg--transparent {
+        background: transparent;
+        justify-content: center;
       }
     }
   }
@@ -102,10 +135,6 @@
     border-top: 1px solid #d7e2e4;
     padding-top: 2em;
     padding-bottom: 2em;
-
-    .pure-u-1 {
-      padding: 0;
-    }
 
     h3 {
       margin: 0;

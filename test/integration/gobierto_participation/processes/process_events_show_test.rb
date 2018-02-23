@@ -109,9 +109,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_event_path
 
-        click_link "See all events"
+        click_link "View all events"
 
-        assert_equal process.events.size, all(".event-content").size
+        assert_equal process.events.upcoming.size, all(".event-content").size
       end
     end
   end

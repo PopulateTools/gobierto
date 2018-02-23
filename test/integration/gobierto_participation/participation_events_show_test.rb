@@ -33,11 +33,15 @@ module GobiertoParticipation
       end
     end
 
-    def test_participation_event_show
+    def test_participation_event_show_without_documents
       with_current_site(site) do
         visit participation_event_path
 
         assert has_content? "Innovation course"
+
+        within ".person_event-item" do
+          refute has_content? "Documents"
+        end
       end
     end
   end

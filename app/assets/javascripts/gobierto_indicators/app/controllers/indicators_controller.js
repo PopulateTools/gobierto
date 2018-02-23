@@ -130,10 +130,10 @@ this.GobiertoIndicators.IndicatorsController = (function() {
 
       // Helper to format values
       function parseValue(val) {
-        if (_.isNumber(parseFloat(val)) && val.toString().includes("%")) {
+        if (_.isNumber(parseFloat(val)) && val.toString().indexOf("%") !== -1) {
           // percent
           val = (parseFloat(val) / 100).toLocaleString(I18n.locale, { style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        } else if (_.isNumber(parseFloat(val)) && val.toString().includes("€")) {
+        } else if (_.isNumber(parseFloat(val)) && val.toString().indexOf("€")!== -1) {
           // currency
           val = parseFloat(val).toLocaleString(I18n.locale, { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 });
         } else if (!_.isNaN(parseFloat(val))) {

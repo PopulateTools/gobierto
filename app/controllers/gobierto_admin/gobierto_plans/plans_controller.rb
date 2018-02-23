@@ -2,10 +2,7 @@
 
 module GobiertoAdmin
   module GobiertoPlans
-    class PlansController < BaseController
-      before_action { module_enabled!(current_site, "GobiertoPlans") }
-      before_action { module_allowed!(current_admin, "GobiertoPlans") }
-
+    class PlansController < GobiertoAdmin::GobiertoPlans::BaseController
       def new
         @plan_form = PlanForm.new(site_id: current_site.id)
         @plan_visibility_levels = plan_visibility_levels
@@ -30,7 +27,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_plans_plan_path(@plan_form.plan.slug),
-            notice: t(".success_html")
+            notice: t(".success_html", link: gobierto_plans_plan_preview_url(@plan_form.plan, host: current_site.domain))
           )
         else
           @plan_types = find_plan_types
@@ -52,7 +49,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_plans_plan_path(@plan.slug),
-            notice: t(".success_html")
+            notice: t(".success_html", link: gobierto_plans_plan_preview_url(@plan_form.plan, host: current_site.domain))
           )
         else
           @plan_types = find_plan_types
@@ -78,7 +75,7 @@ module GobiertoAdmin
       end
 
       def data
-        @plan = find_plan_by_params_id
+        @plan = find_plan_by_slug
       end
 
       private
@@ -114,11 +111,7 @@ module GobiertoAdmin
       end
 
       def find_plan_by_slug
-        current_site.plans.find_by(slug: params[:id])
-      end
-
-      def find_plan_by_params_id
-        current_site.plans.find_by(slug: params[:plan_id])
+        current_site.plans.find_by(slug: params[:plan_id] || params[:id])
       end
 
       def find_plan

@@ -2,10 +2,7 @@
 
 module GobiertoAdmin
   module GobiertoPlans
-    class PlanTypesController < BaseController
-      before_action { module_enabled!(current_site, "GobiertoPlans") }
-      before_action { module_allowed!(current_admin, "GobiertoPlans") }
-
+    class PlanTypesController < GobiertoAdmin::GobiertoPlans::BaseController
       def new
         @plan_type_form = PlanTypeForm.new
       end

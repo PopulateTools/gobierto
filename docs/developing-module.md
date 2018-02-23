@@ -16,6 +16,7 @@ Gobierto modules implement well defined and isolated features of the application
 - Gobierto CMS: small CMS system.
 - Gobierto Participation: participation in phased processes.
 - Gobierto Indicators: indicators ita, informparticipa and gci
+- Gobierto Plans: plans
 
 Modules can be activated or disabled by the **manager**, but their code will be included in all the installations of Gobierto.
 
@@ -67,6 +68,9 @@ default: &default
     -
       name: Gobierto Indicators
       namespace: GobiertoIndicators
+    -
+      name: Gobierto Plans
+      namespace: GobiertoPlans
 ```
 
 This namespace is applied to models, assets, helpers, controllers, views, I18n keys, tests, and the routes. This guide covers the steps you need to follow on each of those resources to enable the new module.

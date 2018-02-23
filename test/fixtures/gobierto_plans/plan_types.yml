@@ -1,3 +1,7 @@
 pam:
   name: "pam"
   slug: "pam"
+
+pu:
+  name: "Plan Urbanístico"
+  slug: "pu"

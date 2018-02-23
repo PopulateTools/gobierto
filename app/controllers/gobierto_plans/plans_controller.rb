@@ -2,13 +2,14 @@
 
 module GobiertoPlans
   class PlansController < GobiertoPlans::ApplicationController
+    include ::PreviewTokenHelper
     include User::SessionHelper
 
     before_action :load_plans, only: [:index, :show]
 
     def index
       # TODO: Pending adaptation to new plans
-      redirect_to gobierto_plans_plan_path(id: @plans.first.slug)
+      redirect_to gobierto_plans_plan_path(id: @plans.last.slug)
     end
 
     def show
@@ -39,7 +40,7 @@ module GobiertoPlans
     end
 
     def load_plans
-      @plans = current_site.plans
+      @plans = valid_preview_token? ? current_site.plans.draft : current_site.plans.sort_by_updated_at.published
     end
 
     def level_keys

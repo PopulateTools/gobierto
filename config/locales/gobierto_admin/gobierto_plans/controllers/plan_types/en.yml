@@ -6,8 +6,8 @@ en:
         create:
           success: Plan type created successfully.
         destroy:
-          success: Plan type archived successfully
           has_items: You can't archive a type of plan while having associated elements.
+          success: Plan type archived successfully
         recover:
           success: Plan type has been successfully recovered
         update:

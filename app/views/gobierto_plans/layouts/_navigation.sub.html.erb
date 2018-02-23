@@ -1,4 +1,4 @@
-<% @plans.each do |plan| %>
+<% current_site.plans.published.each do |plan| %>
   <div class="sub-nav-item">
     <%= link_to plan.title_for_menu, gobierto_plans_plan_path(id: plan.slug) %>
   </div>

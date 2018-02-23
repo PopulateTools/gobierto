@@ -14,6 +14,8 @@ module GobiertoPlans
     validates :name, presence: true
     validates :slug, uniqueness: true
 
+    scope :sort_by_updated_at, -> { order(updated_at: :desc) }
+
     def attributes_for_slug
       [name]
     end

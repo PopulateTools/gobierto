@@ -22,6 +22,8 @@ module GobiertoPlans
 
     validates :site, :title, :introduction, :title_for_menu, :plan_type_id, presence: true
 
+    scope :sort_by_updated_at, -> { order(updated_at: :desc) }
+
     def configuration_data
       data = read_attribute(:configuration_data)
       JSON.parse(data) unless data.empty?

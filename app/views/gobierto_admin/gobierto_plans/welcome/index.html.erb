@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<table>
+<table id="plans">
   <thead>
     <tr>
       <th class="icon_col"></th>
@@ -53,7 +53,7 @@
         <%= t(".visibility_level.#{plan.visibility_level}") %>
       </td>
       <td>
-        <%= link_to edit_admin_plans_plan_path(plan.slug), target: "_blank", class: "view_item" do %>
+        <%= link_to gobierto_plans_plan_preview_url(plan, host: current_site.domain), target: "_blank", class: "view_item" do %>
           <i class="fa fa-eye"></i>
           <%= t(".view_plan") %>
         <% end %>
@@ -139,7 +139,7 @@
   </div>
 </div>
 
-<table>
+<table id="plan_types">
   <thead>
     <tr>
       <th class="icon_col"></th>

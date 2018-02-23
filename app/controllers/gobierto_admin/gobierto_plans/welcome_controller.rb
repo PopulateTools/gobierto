@@ -2,15 +2,12 @@
 
 module GobiertoAdmin
   module GobiertoPlans
-    class WelcomeController < GobiertoAdmin::BaseController
-      before_action { module_enabled!(current_site, "GobiertoPlans") }
-      before_action { module_allowed!(current_admin, "GobiertoPlans") }
-
+    class WelcomeController < GobiertoAdmin::GobiertoPlans::BaseController
       def index
-        @plans = current_site.plans
-        @plan_types = ::GobiertoPlans::PlanType.all
-        @archived_plan_types = ::GobiertoPlans::PlanType.only_archived
-        @archived_plans = current_site.plans.only_archived
+        @plans = current_site.plans.sort_by_updated_at
+        @plan_types = ::GobiertoPlans::PlanType.all.sort_by_updated_at
+        @archived_plan_types = ::GobiertoPlans::PlanType.only_archived.sort_by_updated_at
+        @archived_plans = current_site.plans.only_archived.sort_by_updated_at
 
         @plan_form = GobiertoPlans::PlanForm.new(site_id: current_site.id)
         @plan_type_form = GobiertoPlans::PlanTypeForm.new

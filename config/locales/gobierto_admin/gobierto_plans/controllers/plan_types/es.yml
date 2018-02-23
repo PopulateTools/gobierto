@@ -6,8 +6,8 @@ es:
         create:
           success: El tipo de plan ha sido creado correctamente.
         destroy:
-          success: El tipo de plan ha sido eliminado correctamente
           has_items: No puedes archivar un tipo de plan mientras tenga elementos asociados.
+          success: El tipo de plan ha sido eliminado correctamente
         recover:
           success: El tipo de plan ha sido recuperado correctamente
         update:

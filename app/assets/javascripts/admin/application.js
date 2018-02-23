@@ -26,7 +26,7 @@
 //= require sticky-kit.min
 //= require simplemde.min
 //= require_tree ./app
-//= require_tree ./lib
+//= require_tree ../../../../lib/assets/javascripts/polyfills/
 //= require module-admin
 
 $(document).on('turbolinks:load', function() {

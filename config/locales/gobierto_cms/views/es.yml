@@ -9,10 +9,3 @@ es:
       gobierto_cms_section_item_created: Página añadida a sección
       gobierto_cms_section_item_deleted: Página borrada de sección
       gobierto_cms_section_updated: Sección actualizada
-    pages:
-      index:
-        filter: Filtrar por tema
-        title: Noticias
-    templates:
-      page:
-        documents: Documentos

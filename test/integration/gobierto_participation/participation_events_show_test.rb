@@ -40,7 +40,7 @@ module GobiertoParticipation
         assert has_content? "Innovation course"
 
         within ".person_event-item" do
-          refute has_content? "Documents"
+          assert has_no_content? "Documents"
         end
       end
     end

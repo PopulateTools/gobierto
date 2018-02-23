@@ -61,7 +61,7 @@
           </td>
           <td>
             <% unless section.section_items.empty? %>
-              <%= link_to gobierto_cms_section_path(slug_section: section.slug), target: "_blank", class: "view_item" do %>
+              <%= link_to gobierto_cms_section_path(section.slug), target: "_blank", class: "view_item" do %>
                 <i class="fa fa-eye"></i>
                 <%= t(".view_section") %>
               <% end %>
@@ -105,7 +105,7 @@
               <% end %>
             </td>
             <td>
-              <%= link_to admin_common_collection_path(collection), target: "_blank", class: "view_item" do %>
+              <%= link_to gobierto_cms_pages_path(collection.slug), target: "_blank", class: "view_item" do %>
                 <i class="fa fa-eye"></i>
                 <%= t(".view_collection") %>
               <% end %>

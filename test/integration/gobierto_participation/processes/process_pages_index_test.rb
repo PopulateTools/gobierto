@@ -16,19 +16,19 @@ module GobiertoParticipation
       @process ||= gobierto_participation_processes(:gender_violence_process)
     end
 
-    def process_pages_path
-      @process_pages_path ||= gobierto_participation_process_pages_path(
+    def process_news_path
+      @process_news_path ||= gobierto_participation_process_news_index_path(
         process_id: process.slug
       )
     end
 
-    def process_pages
-      @process_pages ||= process.news
+    def process_news
+      @process_news ||= process.news
     end
 
     def test_breadcrumb_items
       with_current_site(site) do
-        visit process_pages_path
+        visit process_news_path
 
         within "nav.main-nav" do
           assert has_link? "Participation"
@@ -39,21 +39,21 @@ module GobiertoParticipation
 
     def test_menu_subsections
       with_current_site(site) do
-        visit process_pages_path
+        visit process_news_path
 
         within "nav.sub-nav" do
           assert has_link? "Information"
           assert has_link? "Agenda"
-          refute has_link? "Polls"
-          refute has_link? "Contributions"
-          refute has_link? "Results"
+          assert has_no_link? "Polls"
+          assert has_no_link? "Contributions"
+          assert has_no_link? "Results"
         end
       end
     end
 
     def test_secondary_nav
       with_current_site(site) do
-        visit process_pages_path
+        visit process_news_path
 
         within "nav.sub-nav menu.secondary_nav" do
           assert has_link? "News"
@@ -67,7 +67,7 @@ module GobiertoParticipation
     def test_subscription_block
       with_javascript do
         with_signed_in_user(user) do
-          visit process_pages_path
+          visit process_news_path
 
           within ".slim_nav_bar" do
             assert has_link? "Follow process"
@@ -82,11 +82,11 @@ module GobiertoParticipation
       end
     end
 
-    def test_process_pages_index
+    def test_process_news_index
       with_current_site(site) do
-        visit process_pages_path
+        visit process_news_path
 
-        assert_equal process_pages.size, all(".news_teaser").size
+        assert_equal process_news.size, all(".news_teaser").size
         assert has_content? "Notice 1 body"
         assert has_link? "Notice 1 title"
         assert has_content? "Notice 2 body"

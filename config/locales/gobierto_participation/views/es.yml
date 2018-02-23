@@ -70,12 +70,6 @@ es:
         agenda: Agenda
         documents: Documentos
         news: Noticias
-    news:
-      show:
-        news: Noticias
-    pages:
-      show:
-        pages: Páginas
     processes:
       contribution_containers:
         show:
@@ -239,7 +233,7 @@ es:
           agenda_for_container: Agenda de
       filter_by_theme: Filtrar por tema
       from_to: "%{starts} al %{ends}"
-      new: Noticia
+      news: Noticia
       news_for: Noticias de %{container}
       no_activities: No hay actualizaciones relacionadas
       no_documents: No hay documentos relacionados

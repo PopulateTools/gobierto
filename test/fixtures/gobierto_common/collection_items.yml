@@ -73,11 +73,24 @@ pdf_on_participation_on_participation:
 ## Pages collection items
 
 # consultation_faq
-
 consultation_faq_on_site:
   collection: site_pages
   item: consultation_faq
   item_type: 'GobiertoCms::Page'
+  container: madrid (Site)
+
+# how_to_participate
+how_to_participate_participation_pages:
+  collection: participation_pages
+  item: how_to_participate
+  item_type: 'GobiertoCms::Page'
+  container: madrid (Site)
+
+# site news
+site_news_1_on_site:
+  collection: site_news
+  item: site_news_1
+  item_type: 'GobiertoCms::News'
   container: madrid (Site)
 
 # themes

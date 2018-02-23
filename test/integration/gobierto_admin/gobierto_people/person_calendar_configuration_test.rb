@@ -189,7 +189,7 @@ module GobiertoAdmin
             click_button 'Update'
 
             assert has_link?('Sync now')
-            refute has_text? 'Last sync:'
+            assert has_no_text? 'Last sync:'
             assert_difference 'Activity.where(subject: person, action: "admin_gobierto_calendars.calendars_synchronized").count' do
               click_link 'Sync now'
             end
@@ -327,19 +327,19 @@ module GobiertoAdmin
             click_link 'Agenda'
             click_link 'Configuration'
 
-            refute has_field?('google_calendar_invitation_url')
+            assert has_no_field?('google_calendar_invitation_url')
 
-            refute has_checked_field?('Calendar 1')
-            refute has_checked_field?('Calendar 2')
-            refute has_checked_field?('Calendar 3')
+            assert has_no_checked_field?('Calendar 1')
+            assert has_no_checked_field?('Calendar 2')
+            assert has_no_checked_field?('Calendar 3')
 
             check 'Calendar 1'
 
             click_button 'Update'
 
             assert has_checked_field?('Calendar 1')
-            refute has_checked_field?('Calendar 2')
-            refute has_checked_field?('Calendar 3')
+            assert has_no_checked_field?('Calendar 2')
+            assert has_no_checked_field?('Calendar 3')
 
             # clear calendar configuration
             assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: 'default') do

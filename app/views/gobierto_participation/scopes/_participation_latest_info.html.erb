@@ -45,7 +45,7 @@
           <% end %>
         </div>
         <% if @scope_news.any? %>
-          <%= link_to t('.show_more_news'), gobierto_participation_scope_pages_path(@scope.slug) %>
+          <%= link_to t('.show_more_news'), gobierto_participation_news_index_path(scope_id: @scope.slug) %>
         <% end %>
       </div>
     </div>

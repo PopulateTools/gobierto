@@ -69,13 +69,11 @@ module GobiertoParticipation
           click_link "News"
         end
 
-        assert_equal gobierto_participation_scope_pages_path(scope_id: scope_center.slug), current_path
-
         within "nav.main-nav" do
           assert has_link? "Participation"
         end
 
-        assert has_selector?("h2", text: "News")
+        assert has_selector?("h2", text: "News for Center")
       end
     end
 

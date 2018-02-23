@@ -180,7 +180,7 @@ module Integration
           end
         end
 
-        refute has_selector?(".dynamic-content-record-wrapper.content-block-record-#{content_block_record.id}")
+        assert has_no_selector?(".dynamic-content-record-wrapper.content-block-record-#{content_block_record.id}")
       end
     end
   end

@@ -40,7 +40,6 @@ module GobiertoPlans
           visit @path
 
           assert has_content? "Strategic Plan introduction"
-          assert has_content? "Latest update: November 01, 2016"
 
           assert has_content? "#{axes.size} axes"
           assert has_content? "1 line of action"

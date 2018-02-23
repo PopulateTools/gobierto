@@ -15,6 +15,9 @@ module GobiertoPlans
     def show
       @plan = find_plan
 
+      @site_stats = GobiertoPlans::SiteStats.new site: @site, plan: @plan
+      @plan_updated_at = @site_stats.plan_updated_at
+
       respond_to do |format|
         format.html do
           @node_number = @plan.nodes.count

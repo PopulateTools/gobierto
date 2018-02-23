@@ -13,8 +13,7 @@ es:
           title: Nuevo tipo de plan
       plans:
         data:
-          latest_update: 'Última actualización a través de API: %{datetime} - Importar
-            de nuevo ahora'
+          latest_update: 'Última actualización a través de API: %{datetime}'
           no_data: Ningún dato cargado todavía
           there_are: Hay %{info}
           title: Datos

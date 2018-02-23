@@ -13,7 +13,7 @@ en:
           title: New plan type
       plans:
         data:
-          latest_update: 'Last updated via API: %{datetime} - Import again now'
+          latest_update: 'Last updated via API: %{datetime}'
           no_data: No data loaded yet
           there_are: There are %{info}
           title: Data
@@ -34,7 +34,7 @@ en:
       shared:
         navigation:
           configuration_tab: Configuration
-          data_tab: Dates
+          data_tab: Data
       welcome:
         index:
           header:

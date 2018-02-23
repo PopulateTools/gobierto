@@ -13,10 +13,9 @@ ca:
           title: Nou tipus de pla
       plans:
         data:
-          latest_update: 'Última actualització mitjançant l''API: %{datetime} - Torneu
-            a importar ara'
-          no_data: Cap dada carregat encara
-          there_are: Hay %{info}
+          latest_update: 'Última actualització mitjançant l''API: %{datetime}'
+          no_data: Encara no hi ha dades carregades
+          there_are: Hi ha %{info}
           title: Dades
         edit:
           title: Configuració

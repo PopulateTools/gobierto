@@ -92,7 +92,7 @@ module GobiertoAdmin
 
                 within accomplishments_content_block do
                   assert has_content? "Ate 33 meatballs in 45 minutes"
-                  refute has_content? "meatballs_photo.png"
+                  assert has_no_content? "meatballs_photo.png"
                 end
               end
             end

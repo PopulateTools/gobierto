@@ -51,7 +51,7 @@ module GobiertoAdmin
               preview_link.click
             end
 
-            assert_equal gobierto_participation_process_page_path(published_page.slug, process_id: sport_city_process.slug), current_path
+            assert_equal gobierto_cms_news_path(published_page.slug), current_path
             assert has_selector?("h1", text: published_page.title)
           end
         end
@@ -74,7 +74,7 @@ module GobiertoAdmin
               preview_link.click
             end
 
-            assert_equal gobierto_participation_process_page_path(draft_page.slug, process_id: sport_city_process.slug), current_path
+            assert_equal gobierto_cms_news_path(draft_page.slug), current_path
             assert has_selector?("h1", text: draft_page.title)
           end
         end
@@ -83,11 +83,10 @@ module GobiertoAdmin
       def test_preview_draft_page_if_not_admin
         with_current_site(site) do
           assert_raises ActiveRecord::RecordNotFound do
-            visit gobierto_cms_page_path(draft_page.slug)
+            visit gobierto_cms_news_path(draft_page.slug)
           end
 
-          # assert_response :not_found
-          refute has_selector?("h1", text: draft_page.title)
+          assert has_no_selector?("h1", text: draft_page.title)
         end
       end
     end

@@ -73,11 +73,24 @@ pdf_on_participation_on_participation:
 ## Pages collection items
 
 # consultation_faq
-
 consultation_faq_on_site:
   collection: site_pages
   item: consultation_faq
   item_type: 'GobiertoCms::Page'
+  container: madrid (Site)
+
+# how_to_participate
+how_to_participate_participation_pages:
+  collection: participation_pages
+  item: how_to_participate
+  item_type: 'GobiertoCms::Page'
+  container: madrid (Site)
+
+# site news
+site_news_1_on_site:
+  collection: site_news
+  item: site_news_1
+  item_type: 'GobiertoCms::News'
   container: madrid (Site)
 
 # themes
@@ -443,6 +456,44 @@ swimming_lessons_on_scope:
   collection: gender_violence_process_calendar
   item: swimming_lessons (GobiertoCalendars::Event)
   container: old_town (GobiertoCommon::Scope)
+
+# intervention_with_children
+
+intervention_with_children_on_process:
+  collection: gender_violence_process_calendar
+  item: intervention_with_children (GobiertoCalendars::Event)
+  container: gender_violence_process (GobiertoParticipation::Process)
+
+intervention_with_children_on_site:
+  collection: gender_violence_process_calendar
+  item: intervention_with_children (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+intervention_with_children_on_participation:
+  collection: gender_violence_process_calendar
+  item: intervention_with_children (GobiertoCalendars::Event)
+  container_type: GobiertoParticipation
+
+intervention_with_children_on_issue:
+  collection: gender_violence_process_calendar
+  item: intervention_with_children (GobiertoCalendars::Event)
+  container: women (Issue)
+
+intervention_with_children_on_scope:
+  collection: gender_violence_process_calendar
+  item: intervention_with_children (GobiertoCalendars::Event)
+  container: old_town (GobiertoCommon::Scope)
+
+# participation_calendar
+
+presentation_participation_event_on_site:
+  collection: participation_calendar
+  item: presentation_participation (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+presentation_participation_event_on_participation:
+  collection: participation_calendar
+  item: presentation_participation (GobiertoCalendars::Event)
 
 # participation_calendar
 

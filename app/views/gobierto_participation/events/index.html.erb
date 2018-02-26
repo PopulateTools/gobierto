@@ -16,7 +16,7 @@
             <%= t('gobierto_participation.shared.diary_for', container: t('gobierto_participation.shared.participation')) %>
           </h2>
 
-          <%= render 'gobierto_participation/shared/events/calendar_component', events: @events %>
+          <%= render 'gobierto_participation/shared/events/calendar_component', events: @calendar_events %>
 
           <h4 class="with_light_separator m_t_1"><%= t('gobierto_participation.shared.filter_by_theme') %></h4>
 
@@ -27,19 +27,26 @@
               </li>
             <% end %>
           </ul>
-
-          <% if params[:issue_id] %>
-            <div>
-              <small>
-                <%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %>
-              </small>
-            </div>
+          <% if params[:issue_id] || params[:date] %>
+            <small>
+              <%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %>
+            </small>
+          <% end %>
+          <br>
+          <% unless @past_events %>
+            <small><%= link_to t('gobierto_participation.shared.past_events'), gobierto_participation_past_participation_events_path %></small>
           <% end %>
         </div>
       </div>
 
-
       <div class="pure-u-1 pure-u-lg-2-3">
+
+        <% if @past_events %>
+          <p class="m_b_2 m_t_0 ">
+            <%= link_to t("gobierto_participation.shared.current_events"), gobierto_participation_events_path %>
+          </p>
+        <% end %>
+
         <% if @events.any? %>
           <div class="events_list">
             <% @events.each do |event| %>

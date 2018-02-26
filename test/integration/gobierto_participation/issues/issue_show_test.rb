@@ -61,13 +61,11 @@ module GobiertoParticipation
           click_link "News"
         end
 
-        assert_equal gobierto_participation_issue_pages_path(issue_id: issue.slug), current_path
-
         within "nav.main-nav" do
           assert has_link? "Participation"
         end
 
-        assert has_selector?("h2", text: "News")
+        assert has_selector?("h2", text: "News for Women")
       end
     end
 
@@ -164,7 +162,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal issue.events.size, all(".event-content").size
+        assert_equal issue.events.upcoming.size, all(".event-content").size
       end
     end
 

@@ -13,7 +13,7 @@ module GobiertoParticipation
     end
 
     def scope_pages_path
-      @scope_pages_path ||= gobierto_participation_scope_pages_path(
+      @scope_pages_path ||= gobierto_participation_news_index_path(
         scope_id: scope.slug
       )
     end

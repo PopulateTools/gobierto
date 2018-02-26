@@ -53,7 +53,7 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         visit @past_consultation_path
 
-        refute has_link?("Do you want to opinate?")
+        assert has_no_link?("Do you want to opinate?")
         assert has_content?("Sorry, this consultation is closed")
       end
     end
@@ -62,7 +62,7 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         visit @upcoming_consultation_path
 
-        refute has_link?("Do you want to opinate?")
+        assert has_no_link?("Do you want to opinate?")
         assert has_content?("You'll be able to participate since the #{l(upcoming_consultation.opens_on, format: :long).downcase}")
       end
     end
@@ -75,7 +75,7 @@ module GobiertoBudgetConsultations
           visit @path
         end
 
-        refute has_link?("Do you want to opinate?")
+        assert has_no_link?("Do you want to opinate?")
       end
     end
 

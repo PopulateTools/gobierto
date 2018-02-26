@@ -51,8 +51,8 @@ module GobiertoParticipation
           within "nav.sub-nav" do
             assert has_link? "Information"
             assert has_link? "Agenda"
-            refute has_link? "Ideas"
-            refute has_link? "Polls"
+            assert has_no_link? "Ideas"
+            assert has_no_link? "Polls"
           end
         end
       end
@@ -84,7 +84,7 @@ module GobiertoParticipation
           click_link "News"
         end
 
-        assert_equal gobierto_participation_process_pages_path(process_id: gender_violence_process.slug), current_path
+        assert_equal gobierto_participation_process_news_index_path(process_id: gender_violence_process.slug), current_path
 
         assert has_selector?("h2", text: "News")
       end
@@ -212,7 +212,7 @@ module GobiertoParticipation
 
         events_titles = gender_violence_process.events.map(&:title)
 
-        assert array_match ["Intensive reading club in english", "Swimming lessons for elders"], events_titles
+        assert array_match ["Intensive reading club in english", "Swimming lessons for elders", "Talk intervention with children"], events_titles
       end
     end
 
@@ -246,7 +246,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit gobierto_participation_process_path(green_city_group.slug)
 
-        refute has_content? "Process stages"
+        assert has_no_content? "Process stages"
       end
     end
 
@@ -276,7 +276,7 @@ module GobiertoParticipation
           # just title  and CTA of current stage
           assert has_content? "Current stage"
           assert has_link? "Participate"
-          refute has_selector? ".dots-container"
+          assert has_no_selector? ".dots-container"
         end
       end
     end
@@ -286,7 +286,7 @@ module GobiertoParticipation
         visit process_path(green_city_group)
 
         # hide progress map
-        refute has_selector? "#progress_map"
+        assert has_no_selector? "#progress_map"
       end
     end
 

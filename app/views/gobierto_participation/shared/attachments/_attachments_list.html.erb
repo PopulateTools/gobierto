@@ -1,6 +1,6 @@
-<h4 class='with_light_separator m_t_1'><%= t('gobierto_participation.shared.documents') %></h4>
-<div class='document_list m_b_2'>
-  <% if attachable.attachments && attachable.attachments.any? %>
+<% if attachable.attachments && attachable.attachments.any? %>
+  <h4 class='with_light_separator m_t_1'><%= t('gobierto_participation.shared.documents') %></h4>
+  <div class='document_list m_b_2'>
     <% attachable.attachments.each do |attachment| %>
       <div class='document'>
         <%= link_to attachment.name , attachment.human_readable_path, target: '_blank' %>
@@ -15,5 +15,5 @@
         </div>
       </div>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>

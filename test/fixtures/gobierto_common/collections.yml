@@ -1,5 +1,12 @@
 ## GobiertoParticipation Process collections of pages, events and attachments
 
+participation_pages:
+  site: madrid
+  title_translations: <%= {'en' => 'Participation pages', 'es' => 'Páginas participación' }.to_json %>
+  slug: participation-pages
+  container_type: GobiertoParticipation
+  item_type: GobiertoCms::Page
+
 files:
   site: madrid
   title_translations: <%= {'en' => 'Files', 'es' => 'Ficheros' }.to_json %>
@@ -83,7 +90,7 @@ neil_calendar:
 
 ## /end
 
-## Site collections of news
+## Site collections of pages
 
 site_pages:
   site: madrid
@@ -92,9 +99,14 @@ site_pages:
   container: madrid (Site)
   item_type: GobiertoCms::Page
 
-## /end
+site_news:
+  site: madrid
+  title_translations: <%= {'en' => 'Site news', 'es' => 'Noticias del sitio' }.to_json %>
+  slug: site-news
+  container: madrid (Site)
+  item_type: GobiertoCms::News
 
-## Participation collections of events
+## /end
 
 participation_calendar:
   site: madrid
@@ -102,7 +114,6 @@ participation_calendar:
   slug: participation-calendar
   container_type: GobiertoParticipation
   item_type: GobiertoCalendars::Event
-
 
 ## Participation collections of documents
 

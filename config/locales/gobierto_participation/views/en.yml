@@ -26,7 +26,7 @@ en:
       gobierto_participation_process_updated: Process / group updated
       index:
         agenda_for_container: Diary for %{container_title}
-        all_events: See all events
+        all_events: View all events
         displaying_events_of: Displaying events of %{date}
         go_back: Go back
       show:
@@ -70,12 +70,6 @@ en:
         agenda: Agenda
         documents: Documents
         news: News
-    news:
-      show:
-        news: News
-    pages:
-      show:
-        pages: Pages
     processes:
       contribution_containers:
         show:
@@ -223,9 +217,10 @@ en:
         and make conclusions accessible.
       all_activities: See all updates
       all_attachments: See all documents
-      all_events: See all events
+      all_events: View all events
       all_news: Show all news
       consultation_processes: Consult and participate in specific processes.
+      current_events: View current events
       diary_for: Diary for %{container}
       documents: Documents
       documents_for: Documents for %{container}
@@ -237,7 +232,7 @@ en:
           agenda_for_container: Diary for
       filter_by_theme: Filter by theme
       from_to: "%{starts} to %{ends}"
-      new: New
+      news: News
       news_for: News for %{container}
       no_activities: No related updates
       no_documents: No related documents
@@ -245,6 +240,7 @@ en:
       no_news: No related news
       ongoing_processes: Ongoing processes
       participation: Participation
+      past_events: View past events
       published_at: Posted on %{date} by %{site}
     welcome:
       index:

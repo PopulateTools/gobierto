@@ -68,12 +68,6 @@ ca:
         agenda: Agenda
         documents: Documents
         news: Notícies
-    news:
-      show:
-        news: Notícies
-    pages:
-      show:
-        pages: Pàgines
     processes:
       contribution_containers:
         show:
@@ -225,6 +219,7 @@ ca:
       all_events: Veure tots els esdeveniments
       all_news: Veure totes les notícies
       consultation_processes: Consulta i participa en processos específics.
+      current_events: Veure esdeveniments actuals
       diary_for: Agenda de %{container}
       documents: Documents
       documents_for: Documents de %{container}
@@ -236,7 +231,7 @@ ca:
           agenda_for_container: Agenda d'
       filter_by_theme: Filtrar per tema
       from_to: "%{starts} al %{ends}"
-      new: Notícies
+      news: Notícies
       news_for: Notícies de %{container}
       no_activities: No hi ha actualitzacions relacionades
       no_documents: No hi ha documents relacionats
@@ -244,6 +239,7 @@ ca:
       no_news: No hi ha notícies relacionades
       ongoing_processes: Processos en marxa
       participation: Participació
+      past_events: Veure esdeveniments passats
       published_at: Publicat el %{date} per %{site}
     welcome:
       index:

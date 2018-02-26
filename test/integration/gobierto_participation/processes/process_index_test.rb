@@ -93,7 +93,7 @@ module GobiertoParticipation
 
         assert has_link?(open_and_active_process.title)
         assert has_link?(open_and_active_group.title)
-        refute has_link?(draft_group.title)
+        assert has_no_link?(draft_group.title)
         assert has_link?(future_closed_group.title)
         assert has_link?(past_closed_group.title)
 

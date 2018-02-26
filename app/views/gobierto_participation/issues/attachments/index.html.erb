@@ -21,9 +21,7 @@
             <%= t('gobierto_participation.shared.documents_for', container: @issue.name) %>
           </h2>
 
-          <div>
-            <small><%= link_to t('gobierto_participation.shared.all_attachments'), gobierto_participation_attachments_path %></small>
-          </div>
+          <small><%= link_to t('gobierto_participation.shared.all_attachments'), gobierto_participation_attachments_path %></small>
 
           <% pending do %>
             <%= render 'gobierto_participation/shared/attachments/attachments_filter', { issues: @issues } %>

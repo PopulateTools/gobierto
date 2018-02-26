@@ -98,11 +98,11 @@ module GobiertoPeople
         visit gobierto_people_person_path(richard.slug)
 
         within ".people-navigation" do
-          refute has_link? "Agenda"
-          refute has_link? "Goods and Activities"
+          assert has_no_link? "Agenda"
+          assert has_no_link? "Goods and Activities"
         end
 
-        refute has_selector? "div .upcoming-events"
+        assert has_no_selector? "div .upcoming-events"
       end
     end
   end

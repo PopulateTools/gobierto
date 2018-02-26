@@ -29,10 +29,14 @@ module GobiertoParticipation
       @events = if params[:date]
                   find_events_by_date params[:date]
                 else
-                  if @issue
-                    GobiertoCalendars::Event.events_in_collections_and_container(current_site, @issue).page(params[:page]).upcoming.sorted.page params[:page]
+                  if @past_events
+                    @container_events.past.sorted_backwards.page params[:page]
                   else
-                    @container_events.upcoming.sorted.page params[:page]
+                    if @issue
+                      GobiertoCalendars::Event.events_in_collections_and_container(current_site, @issue).page(params[:page]).upcoming.sorted.page params[:page]
+                    else
+                      @container_events.upcoming.sorted.page params[:page]
+                    end
                   end
                 end
 

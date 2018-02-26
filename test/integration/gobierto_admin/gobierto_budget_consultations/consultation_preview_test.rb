@@ -76,7 +76,7 @@ module GobiertoBudgetConsultations
         end
 
         # assert_response :not_found
-        refute has_selector?("h2", text: draft_consultation.title)
+        assert has_no_selector?("h2", text: draft_consultation.title)
       end
     end
   end

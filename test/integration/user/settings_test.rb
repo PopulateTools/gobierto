@@ -47,8 +47,8 @@ class User::SettingsTest < ActionDispatch::IntegrationTest
       with_current_user(auth_strategy_site_user) do
         visit @path
 
-        refute has_field? :user_confirmation_password
-        refute has_field? :user_confirmation_password_confirmation
+        assert has_no_field? :user_confirmation_password
+        assert has_no_field? :user_confirmation_password_confirmation
 
         fill_in :user_settings_name, with: "New name"
         select "1992", from: :user_settings_date_of_birth_1i

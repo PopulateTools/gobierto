@@ -33,7 +33,7 @@ module GobiertoAdmin
       with_signed_in_admin(regular_admin) do
         visit @path
 
-        refute has_selector?("form.new_admin")
+        assert has_no_selector?("form.new_admin")
       end
     end
 

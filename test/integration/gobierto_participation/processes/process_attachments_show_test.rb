@@ -46,9 +46,9 @@ module GobiertoParticipation
           assert has_link? "Information"
           assert has_link? "Agenda"
 
-          refute has_link? "Polls"
-          refute has_link? "Contributions"
-          refute has_link? "Results"
+          assert has_no_link? "Polls"
+          assert has_no_link? "Contributions"
+          assert has_no_link? "Results"
         end
       end
     end

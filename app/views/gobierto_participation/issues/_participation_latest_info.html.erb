@@ -45,7 +45,7 @@
           <% end %>
         </div>
         <% if @issue_news.any? %>
-          <%= link_to t('.show_more_news'), gobierto_participation_issue_pages_path(@issue.slug) %>
+          <%= link_to t('.show_more_news'), gobierto_participation_news_index_path(issue_id: @issue.slug) %>
         <% end %>
       </div>
     </div>

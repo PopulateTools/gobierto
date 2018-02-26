@@ -72,13 +72,14 @@ $white: $color_main_negative;
     }
 
     .node-img {
-      flex: 0 0 $nodeLevel1IllustrationWidth;
+      max-height: $nodeLevel1Height;
+      width: $nodeLevel1IllustrationWidth;
       mix-blend-mode: multiply;
+      overflow: hidden;
 
       img {
-        max-height: $nodeLevel1Height;
-        width: 100%;
         object-fit: cover;
+        min-width: 100%;
       }
     }
 
@@ -122,19 +123,6 @@ $white: $color_main_negative;
         }
       }
     }
-
-    // node-root styles color-dependents
-    // @for $i from 1 through length($node-colors) {
-    //   // Get color from position `i` of `node-colors` array keys
-    //   $color: getColor(nth(map-keys($node-colors), $i));
-    //
-    //   &.cat_#{$i} {
-    //     background-color: transparentize($color, .05);
-    //     .progress {
-    //       background-color: $color;
-    //     }
-    //   }
-    // }
   }
 
   // @component node-list (action lines)

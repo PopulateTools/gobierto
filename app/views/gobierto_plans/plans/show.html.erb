@@ -64,7 +64,7 @@
 
         <section class="level_1" v-if="isOpen(1)" :class="['cat_' + color() ]">
           <div class="lines-header">
-            <div><%= level_name_pluralize(@plan.categories.where(level: 1).size, @plan.configuration_data["level1"]) %></div>
+            <div>{{ (activeNode.children || []).length }} {{ getLabel(activeNode.level, (activeNode.children || []).length) | translate }}</div>
 
             <div><%= t(".percentage_progress") %></div>
           </div>
@@ -92,7 +92,7 @@
                   <div><i class="fa fa-caret-down"></i></div>
                   <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
                 </div>
-                <div><%= level_name_pluralize(@plan.categories.where(level: 2).size, @plan.configuration_data["level2"]) %></div>
+                <div>{{ (activeNode.children || []).length }} {{ getLabel(activeNode.level, (activeNode.children || []).length) | translate }}</div>
                 <div>{{ (activeNode.attributes || {}).progress || 0 | percent }}</div>
               </div>
 

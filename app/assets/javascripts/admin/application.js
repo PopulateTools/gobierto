@@ -17,6 +17,8 @@
 //= require codemirror/mode/htmlmixed/htmlmixed
 //= require codemirror/mode/markdown/markdown
 //= require select2.min
+//= require cropper
+//= require cropper.min
 //= require air-datepicker/datepicker.min
 //= require air-datepicker/i18n/datepicker.es
 //= require air-datepicker/i18n/datepicker.en

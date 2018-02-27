@@ -21,7 +21,11 @@ module GobiertoAdmin
         :visibility_level,
         :category,
         :political_group_id,
-        :party
+        :party,
+        :logo_crop_x,
+        :logo_crop_y,
+        :logo_crop_w,
+        :logo_crop_h
       )
 
       delegate :persisted?, to: :person
@@ -94,7 +98,11 @@ module GobiertoAdmin
             site: site,
             collection: person.model_name.collection,
             attribute_name: :avatar,
-            file: avatar_file
+            file: avatar_file,
+            x: logo_crop_x.to_f,
+            y: logo_crop_y.to_f,
+            w: logo_crop_w.to_f,
+            h: logo_crop_h.to_f
           ).call
         end
       end

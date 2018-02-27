@@ -53,7 +53,13 @@ module GobiertoAdmin
       end
 
       def update
-        @person_form = PersonForm.new(person_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id))
+        @person_form = PersonForm.new(person_params.merge(id: params[:id],
+                                                          admin_id: current_admin.id,
+                                                          site_id: current_site.id,
+                                                          logo_crop_x: params[:person][:logo_crop_x],
+                                                          logo_crop_y: params[:person][:logo_crop_y],
+                                                          logo_crop_w: params[:person][:logo_crop_w],
+                                                          logo_crop_h: params[:person][:logo_crop_h]))
 
         if @person_form.save
           redirect_to(
@@ -93,7 +99,9 @@ module GobiertoAdmin
 
       def person_params
         params.require(:person).permit(
-          :name, :email, :bio_file, :avatar_file, :visibility_level, :category, :party, :political_group_id, :google_calendar_token,
+          :name, :email, :bio_file, :avatar_file, :visibility_level, :category,
+          :party, :political_group_id, :google_calendar_token,
+          :logo_crop_x, :logo_crop_y, :logo_crop_w, :logo_crop_h,
           charge_translations: [*I18n.available_locales],
           bio_translations: [*I18n.available_locales],
           bio_source_translations: [*I18n.available_locales],
@@ -109,7 +117,7 @@ module GobiertoAdmin
       end
 
       def ignored_person_attributes
-        %w( created_at updated_at statements_count posts_count position charge bio slug google_calendar_token site_id )
+        %w(created_at updated_at statements_count posts_count position charge bio slug google_calendar_token site_id)
       end
 
       def gobierto_people_person_preview_url(person, options = {})
@@ -121,20 +129,19 @@ module GobiertoAdmin
         @person = find_person
 
         if !PersonPolicy.new(current_admin: current_admin, person: @person).manage?
-          redirect_to(admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
+          redirect_to(admin_people_people_path, alert: t("gobierto_admin.admin_unauthorized")) and return false
         end
       end
 
       def create_person_allowed!
         if !PersonPolicy.new(current_admin: current_admin, current_site: current_site).create?
-          redirect_to(admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
+          redirect_to(admin_people_people_path, alert: t("gobierto_admin.admin_unauthorized")) and return false
         end
       end
 
       def site_people_policy
         PersonPolicy.new(current_admin: current_admin, current_site: current_site)
       end
-
     end
   end
 end

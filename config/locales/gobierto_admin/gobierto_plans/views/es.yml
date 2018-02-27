@@ -10,6 +10,7 @@ es:
             name: Nombre del tipo de plan
             slug: acerca-de-este-tipo-de-plan
         index:
+          delete: Borrar
           header:
             type: Tipo
           new: Nuevo

@@ -10,6 +10,7 @@ ca:
             name: Nom del tipus de pla
             slug: sobre-de-aquest-tipus-de-pla
         index:
+          delete: Esborrar
           header:
             type: Tipus
           new: Nou

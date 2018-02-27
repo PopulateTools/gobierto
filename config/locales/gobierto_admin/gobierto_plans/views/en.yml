@@ -10,6 +10,7 @@ en:
             name: Plan type name
             slug: about-this-type-of-plan
         index:
+          delete: Delete
           header:
             type: Type
           new: New

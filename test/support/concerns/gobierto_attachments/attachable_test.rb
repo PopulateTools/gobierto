@@ -9,6 +9,10 @@ module GobiertoAttachments::AttachableTest
     @xlsx_attachment ||= gobierto_attachments_attachments(:xlsx_attachment)
   end
 
+  def png_attachment
+    @png_attachment ||= gobierto_attachments_attachments(:png_attachment_uploaded)
+  end
+
   def attachables
     [attachable_without_attachment, attachable_with_attachment]
   end
@@ -17,7 +21,7 @@ module GobiertoAttachments::AttachableTest
     attachables.each { |attachable| attachable.link_attachment(pdf_attachment) }
 
     assert_equal 1, attachable_without_attachment.attachments.size
-    assert_equal 2, attachable_with_attachment.attachments.size
+    assert_equal 3, attachable_with_attachment.attachments.size
 
     assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/pdf-attachment.pdf", attachable_without_attachment.attachments.first.url
     assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/xslsx-attachment.xlsx", attachable_with_attachment.attachments.first.url
@@ -26,7 +30,7 @@ module GobiertoAttachments::AttachableTest
   def test_unlink_attachment
     attachable_with_attachment.unlink_attachment(xlsx_attachment)
 
-    assert_equal 0, attachable_with_attachment.attachments.size
+    assert_equal 1, attachable_with_attachment.attachments.size
   end
 
   def test_unlink_attachment_preserves_attachment
@@ -42,6 +46,6 @@ module GobiertoAttachments::AttachableTest
     end
 
     assert_equal [pdf_attachment], attachable_without_attachment.attachments
-    assert_equal [xlsx_attachment, pdf_attachment], attachable_with_attachment.attachments.order(:name)
+    assert_equal [xlsx_attachment, png_attachment, pdf_attachment], attachable_with_attachment.attachments.order(:name)
   end
 end

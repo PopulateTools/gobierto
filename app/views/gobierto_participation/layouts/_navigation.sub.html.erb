@@ -8,7 +8,7 @@
   <% current_process.published_stages.each do |stage| %>
     <div class="sub-nav-item">
       <% if !["information", "results"].include?(stage.stage_type) || (["information", "results"].include?(stage.stage_type) && stage.process_stage_page.present?) %>
-        <%= link_to stage.menu, stage_url(stage) %>
+        <%= link_to stage.menu, stage_path(stage) %>
       <% end %>
     </div>
   <% end %>

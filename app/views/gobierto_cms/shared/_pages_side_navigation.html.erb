@@ -1,0 +1,15 @@
+<menu class="side_navigation">
+  <% if @section %>
+    <%= section_tree(@section.section_items.first_level, @section_item.hierarchy_and_children) %>
+  <% elsif @collection %>
+    <ul>
+      <li><%= link_to @collection.title, gobierto_cms_pages_path(@collection.slug) %></a>
+        <ul>
+          <% @pages.each do |page| %>
+            <li><%= link_to page.title, gobierto_cms_page_path(page.slug) %></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  <% end %>
+</menu>

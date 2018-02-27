@@ -80,7 +80,7 @@ module GobiertoAdmin
           end
 
           # assert_response :not_found
-          refute has_selector?("h2", text: draft_person.name)
+          assert has_no_selector?("h2", text: draft_person.name)
         end
       end
     end

@@ -70,12 +70,6 @@ en:
         agenda: Agenda
         documents: Documents
         news: News
-    news:
-      show:
-        news: News
-    pages:
-      show:
-        pages: Pages
     processes:
       contribution_containers:
         show:
@@ -238,7 +232,7 @@ en:
           agenda_for_container: Diary for
       filter_by_theme: Filter by theme
       from_to: "%{starts} to %{ends}"
-      new: New
+      news: News
       news_for: News for %{container}
       no_activities: No related updates
       no_documents: No related documents

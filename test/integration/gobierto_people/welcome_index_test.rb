@@ -88,7 +88,7 @@ module GobiertoPeople
             assert has_link?("Opposition")
             assert has_link?("Executive")
             assert has_link?("Political groups")
-            refute has_link?("All")
+            assert has_no_link?("All")
           end
 
           government_people.each do |person|
@@ -125,16 +125,16 @@ module GobiertoPeople
 
           within ".people-summary" do
             assert has_link? government_member.name
-            refute has_link? opposition_member.name
-            refute has_link? executive_member.name
+            assert has_no_link? opposition_member.name
+            assert has_no_link? executive_member.name
             assert has_link?("View all")
           end
 
           within ".events-summary" do
             assert has_link? government_event.title
-            refute has_link? government_past_event.title
-            refute has_link? opposition_event.title
-            refute has_link? executive_past_event.title
+            assert has_no_link? government_past_event.title
+            assert has_no_link? opposition_event.title
+            assert has_no_link? executive_past_event.title
           end
 
           click_link "Executive"
@@ -142,17 +142,17 @@ module GobiertoPeople
           sleep 1
 
           within ".people-summary" do
-            refute has_link? government_member.name
-            refute has_link? opposition_member.name
+            assert has_no_link? government_member.name
+            assert has_no_link? opposition_member.name
             assert has_link? executive_member.name
             assert has_link?("View all")
           end
 
           within ".events-summary" do
             assert has_content? "There are no future events. Take a look at past ones"
-            refute has_link? government_event.title
-            refute has_link? government_past_event.title
-            refute has_link? opposition_event.title
+            assert has_no_link? government_event.title
+            assert has_no_link? government_past_event.title
+            assert has_no_link? opposition_event.title
             assert has_link? executive_past_event.title
           end
 
@@ -161,17 +161,17 @@ module GobiertoPeople
           sleep 1
 
           within ".people-summary" do
-            refute has_link? government_member.name
+            assert has_no_link? government_member.name
             assert has_link? opposition_member.name
-            refute has_link? executive_member.name
+            assert has_no_link? executive_member.name
             assert has_link?("View all")
           end
 
           within ".events-summary" do
-            refute has_link? government_event.title
-            refute has_link? government_past_event.title
+            assert has_no_link? government_event.title
+            assert has_no_link? government_past_event.title
             assert has_link? opposition_event.title
-            refute has_link? executive_past_event.title
+            assert has_no_link? executive_past_event.title
           end
         end
       end

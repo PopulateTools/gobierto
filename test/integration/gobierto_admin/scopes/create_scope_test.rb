@@ -54,17 +54,13 @@ module GobiertoAdmin
 
             assert has_content?("New scope name")
 
-            # assert scope was created
-
-            scope = site.scopes.last
+            scope = site.scopes.order(created_at: :desc).first
 
             assert_equal "New scope name", scope.name
             assert_equal "New scope description", scope.description
 
             assert_equal "Nombre del nuevo ámbito", scope.name_es
             assert_equal "Descripción del nuevo ámbito", scope.description_es
-
-            # assert create activity was generated
 
             activity = Activity.last
 

@@ -43,7 +43,7 @@ module GobiertoAdmin
               assert has_selector?("tr#user-item-#{user.id}")
             end
             users_in_other_site.each do |user|
-              refute has_selector?("tr#user-item-#{user.id}")
+              assert has_no_selector?("tr#user-item-#{user.id}")
             end
           end
         end

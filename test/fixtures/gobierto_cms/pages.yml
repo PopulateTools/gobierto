@@ -1,3 +1,11 @@
+site_news_1:
+  title_translations: <%= { 'en' => 'Site news 1', 'es' => 'Noticias sitio 1' }.to_json %>
+  body_translations: <%= { 'en' => 'Site news 1', 'es' => 'Noticias sitio 1' }.to_json %>
+  slug: 'site-news-1'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: site_news
+
 consultation_faq:
   title_translations: <%= { 'en' => 'Consultation page FAQ', 'es' => 'FAQ consultas' }.to_json %>
   body_translations: <%= { 'en' => 'This is the <strong>body</strong> of the page', 'es' => 'Cuerpo <strong>página</strong> consultas' }.to_json %>
@@ -83,3 +91,12 @@ generic_site_page:
   slug: 'generic-page'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
+
+how_to_participate:
+  title_translations: <%= {'en' => 'How to participate' }.to_json %>
+  body_translations: <%= {'en' => 'How to participate' }.to_json %>
+  slug: 'how-to-participate'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: participation_pages
+

@@ -34,7 +34,7 @@ module GobiertoAttachments
 
       def test_view_attachment_included_in_page
         with_current_site(site) do
-          visit gobierto_cms_page_url(page_with_attachments, host: site.domain)
+          visit gobierto_cms_page_path(page_with_attachments.slug)
 
           # image will be rendered inside page, the URL will be the friendly one,
           # since it's been added by the user in the page markdown editor

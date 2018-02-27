@@ -5,14 +5,10 @@ module GobiertoAdmin
     include LayoutPolicyHelper
 
     skip_before_action :authenticate_user_in_site
-    before_action :authenticate_admin!
-    before_action :set_admin_site
+    before_action :authenticate_admin!, :set_admin_site
 
-    helper_method :current_admin, :admin_signed_in?
-    helper_method :current_site, :managing_site?
-    helper_method :managed_sites
-    helper_method :can_manage_sites?
-    helper_method :gobierto_cms_page_preview_url
+    helper_method :current_admin, :admin_signed_in?, :current_site, :managing_site?,
+                  :managed_sites, :can_manage_sites?, :gobierto_cms_page_preview_path
 
     rescue_from Errors::NotAuthorized, with: :raise_admin_not_authorized
 
@@ -47,11 +43,6 @@ module GobiertoAdmin
       end
     end
 
-    def gobierto_cms_page_preview_url(page, options = {})
-      options.merge!(preview_token: current_admin.preview_token) unless page.active?
-      page.to_url(options)
-    end
-
     protected
 
     def raise_module_not_enabled
@@ -67,5 +58,15 @@ module GobiertoAdmin
         alert: t("gobierto_admin.module_helper.not_enabled")
       )
     end
+
+    def gobierto_cms_page_preview_path(page, options = {})
+      options.merge!(preview_token: current_admin.preview_token) unless page.active?
+      if page.collection.item_type == "GobiertoCms::Page"
+        gobierto_cms_page_path(page.slug, options)
+      elsif page.collection.item_type == "GobiertoCms::News"
+        gobierto_cms_news_path(page.slug, options)
+      end
+    end
+
   end
 end

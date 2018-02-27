@@ -48,10 +48,10 @@ module GobiertoParticipation
           sign_out_user
           with_current_site(site) do
             visit container_path registered_level_contribution_container
-            refute has_link? 'Have an idea!', href: new_participation_path(registered_level_contribution_container)
+            assert has_no_link? 'Have an idea!', href: new_participation_path(registered_level_contribution_container)
 
             visit container_path verified_level_contribution_container
-            refute has_link? 'Have an idea!', href: new_participation_path(verified_level_contribution_container)
+            assert has_no_link? 'Have an idea!', href: new_participation_path(verified_level_contribution_container)
           end
         end
 

@@ -40,10 +40,10 @@ module GobiertoAdmin
               visit @path
 
               within "form.new_person" do
-                refute has_field?("person_charge_translations_ca", visible: false)
+                assert has_no_field?("person_charge_translations_ca", visible: false)
 
                 within ".avatar_file_field" do
-                  refute has_selector?("img")
+                  assert has_no_selector?("img")
                   attach_file "person_avatar_file", "test/fixtures/files/gobierto_people/people/avatar.jpg"
                 end
 
@@ -68,7 +68,7 @@ module GobiertoAdmin
                 find("#person_bio_translations_en", visible: false).set("Person Bio")
 
                 within ".bio_file_field" do
-                  refute has_selector?("a")
+                  assert has_no_selector?("a")
                   attach_file "person_bio_file", "test/fixtures/files/gobierto_people/people/bio.pdf"
                 end
 

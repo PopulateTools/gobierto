@@ -126,7 +126,7 @@ module GobiertoAdmin
             visit gobierto_people_person_event_path(person.slug, pending_event.slug)
           end
 
-          refute has_selector?("h2", text: pending_event.title)
+          assert has_no_selector?("h2", text: pending_event.title)
 
           person.draft!
 
@@ -134,7 +134,7 @@ module GobiertoAdmin
             visit gobierto_people_person_event_path(person.slug, pending_event.slug)
           end
 
-          refute has_selector?("h2", text: pending_event.title)
+          assert has_no_selector?("h2", text: pending_event.title)
         end
       end
     end

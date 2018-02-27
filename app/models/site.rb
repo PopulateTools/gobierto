@@ -15,8 +15,6 @@ class Site < ApplicationRecord
   has_many :content_blocks, dependent: :destroy, class_name: "GobiertoCommon::ContentBlock"
   has_many :custom_user_fields, dependent: :destroy, class_name: "GobiertoCommon::CustomUserField"
 
-  has_many :scopes, dependent: :destroy, class_name: "GobiertoCommon::Scope"
-
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
   has_many :notifications, dependent: :destroy, class_name: "User::Notification"
@@ -59,6 +57,7 @@ class Site < ApplicationRecord
 
   # Gobierto Participation integration
   has_many :issues, -> { sorted }, dependent: :destroy, class_name: "Issue"
+  has_many :scopes, -> { sorted }, dependent: :destroy, class_name: "GobiertoCommon::Scope"
   has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
   has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
   has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"

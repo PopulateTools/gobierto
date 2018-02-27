@@ -30,8 +30,8 @@ module GobiertoPeople
           visit gobierto_people_person_path(tamara.slug)
 
           within '.people-navigation' do
-            refute has_link?('Trips')
-            refute has_link?('Gifts')
+            assert has_no_link?('Trips')
+            assert has_no_link?('Gifts')
           end
         end
       end

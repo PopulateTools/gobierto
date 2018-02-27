@@ -8,7 +8,7 @@ module GobiertoParticipation
     include ::GobiertoCommon::HasVisibilityUserLevelsTest
 
     def bowling_contributions
-      @bowling_contributions ||= gobierto_participation_contribution_containers(:bowling_group_contributions)
+      @bowling_contributions ||= gobierto_participation_contribution_containers(:bowling_group_contributions_current)
     end
     alias contribution_container bowling_contributions
 

@@ -1,0 +1,120 @@
+<nav class="navigation js-mobile-nav">
+
+  <div class="navigation-wrap">
+    <div class="navigation-item column">
+      <div class="main-nav-item">
+        <div class="search-box">
+          <i class="fa fa-search"></i>
+          <input id="gobierto_search" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
+          <div id="search_results" class="search_result_list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if global_navigation_section? %>
+    <% global_navigation_section.section_items.first_level.each do |section_item| %>
+      <div class="navigation-wrap">
+        <div class="navigation-item column">
+          <% if section_item.item_type == "GobiertoCms::Section" %>
+            <%= render partial: "gobierto_cms/layouts/navigation", locals: { section: section_item.item } %>
+          <% elsif section_item.item_type == "GobiertoModule" %>
+            <%= render_if_exists "#{section_item.item_id.underscore}/layouts/navigation.main", { show_active: false } %>
+          <% end %>
+          <div class="dropdown-button js-item-toggle">
+            <div class="button-container">
+              <i class="fa fa-caret-down"></i>
+            </div>
+          </div>
+        </div>
+        <div class="navigation-subitem-container">
+          <div class="navigation-subitem js-slider">
+            <div class="subitem-container">
+              <% if section_item.item_type == "GobiertoModule" %>
+                <%= render_if_exists "#{section_item.item_id.underscore}/layouts/navigation.sub" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <!-- Modules loop -->
+    <% current_site.configuration.modules.each do |site_module| %>
+      <div class="navigation-wrap">
+        <div class="navigation-item column">
+          <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main", { show_active: false } %>
+          <div class="dropdown-button js-item-toggle">
+            <div class="button-container">
+              <i class="fa fa-caret-down"></i>
+            </div>
+          </div>
+        </div>
+        <div class="navigation-subitem-container">
+          <div class="navigation-subitem js-slider <%= class_if("is-open", site_module.underscore == current_module) %>">
+            <div class="subitem-container">
+              <%= render_if_exists "#{site_module.underscore}/layouts/navigation.sub", { show_main: true } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="navigation-wrap">
+    <% if user_signed_in? %>
+      <div class="navigation-item column">
+        <div class="main-nav-item">
+          <a href="#">
+            Hola, <%= current_user.name %>
+          </a>
+        </div>
+        <div class="dropdown-button js-item-toggle">
+          <div class="button-container">
+            <i class="fa fa-caret-down"></i>
+          </div>
+        </div>
+      </div>
+      <div class="navigation-subitem-container">
+        <div class="navigation-subitem js-slider">
+          <div class="subitem-account">
+            <div class="account-out">
+              <%= link_to user_sessions_path, method: :delete do %>
+                <i class="fa fa-sign-out"></i>
+                <%= t("layouts.application.session.sign_out") %>
+              <% end %>
+            </div>
+            <div class="account-details">
+              <%= link_to t("layouts.application.session.title"), user_settings_path %>
+              <%= link_to t("layouts.application.session.notifications"), user_notifications_path %>
+              <%= link_to t("layouts.application.session.alerts"), user_subscriptions_path %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="navigation-item column">
+        <div class="main-nav-item">
+          <%= link_to t('layouts.application.session.login'), new_user_sessions_path, data: { turbolinks: false } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- nav-footer -->
+  <div class="navigation-wrap">
+    <div class="navigation-footer">
+
+      <div class="footer-top js-secondary_nav">
+        <%= render_if_exists "#{current_module}/layouts/secondary_nav" %>
+      </div>
+
+      <div class="footer-bottom p_v_1">
+        <div class="column">
+          <%== @site.configuration.links_markup %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>

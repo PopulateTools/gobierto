@@ -2,7 +2,6 @@
 
 module GobiertoCalendars
   class IbmNotesCalendarConfiguration < CalendarConfiguration
-
     def ibm_notes_usr
       data['ibm_notes_usr']
     end
@@ -26,6 +25,5 @@ module GobiertoCalendars
     def ibm_notes_url=(ibm_notes_url)
       data['ibm_notes_url'] = ibm_notes_url
     end
-
   end
 end

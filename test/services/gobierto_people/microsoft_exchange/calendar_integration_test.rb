@@ -26,11 +26,31 @@ module GobiertoPeople
         @filtering_rule ||= gobierto_calendars_filtering_rules(:richard_calendar_configuration_filter)
       end
 
-      def microsoft_exchange_configuration
-        @microsoft_exchange_configuration ||= {
+      def configure_microsoft_exchange_calendar_with_description
+        @configure_microsoft_exchange_calendar_with_description ||= configure_microsoft_exchange_calendar_integration(collection: richard.calendar,
+                                                                                                                      data: microsoft_exchange_configuration_with_description)
+      end
+
+      def microsoft_exchange_configuration_with_description
+        @microsoft_exchange_configuration_with_description ||= {
           microsoft_exchange_url: 'http://example.com/ews/exchange.asmx',
           microsoft_exchange_usr: 'richard-me-username',
-          microsoft_exchange_pwd: 'richard-me-password'
+          microsoft_exchange_pwd: 'richard-me-password',
+          without_description: '0'
+        }
+      end
+
+      def configure_microsoft_exchange_calendar_without_description
+        @configure_microsoft_exchange_calendar_without_description ||= configure_microsoft_exchange_calendar_integration(collection: richard.calendar,
+                                                                                                                         data: microsoft_exchange_configuration_without_description)
+      end
+
+      def microsoft_exchange_configuration_without_description
+        @microsoft_exchange_configuration_without_description ||= {
+          microsoft_exchange_url: 'http://example.com/ews/exchange.asmx',
+          microsoft_exchange_usr: 'richard-me-username',
+          microsoft_exchange_pwd: 'richard-me-password',
+          without_description: '1'
         }
       end
 
@@ -69,14 +89,6 @@ module GobiertoPeople
         Exchanger::Folder.stubs(:find).returns(root_folder)
       end
 
-      def setup
-        super
-        configure_microsoft_exchange_calendar_integration(
-          collection: richard.calendar,
-          data: microsoft_exchange_configuration
-        )
-      end
-
       def event_attributes
         {
           start: 1.hour.from_now,
@@ -89,7 +101,13 @@ module GobiertoPeople
         }
       end
 
+      def calendar_service
+        CalendarIntegration.new(richard)
+      end
+
       def test_sync_returns_nil
+        configure_microsoft_exchange_calendar_with_description
+
         target_folder = mock
         target_folder.stubs(:expanded_items).returns(nil)
         target_folder.stubs(:display_name).returns(CalendarIntegration::TARGET_CALENDAR_NAME)
@@ -99,11 +117,13 @@ module GobiertoPeople
         Exchanger::Folder.stubs(:find).returns(root_folder)
 
         assert_difference 'GobiertoCalendars::Event.count', 0 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
       end
 
-      def test_sync_events
+      def test_sync_events_with_description
+        configure_microsoft_exchange_calendar_with_description
+
         event_1 = event_attributes
         event_2 = {
           id: 'external-id-2',
@@ -118,7 +138,7 @@ module GobiertoPeople
         setup_mocks_for_synchronization([event_1, event_2])
 
         assert_difference 'GobiertoCalendars::Event.count', 1 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
 
         # event 1 checks
@@ -130,9 +150,40 @@ module GobiertoPeople
         assert_equal 'Location 1', event.first_location.name
       end
 
+      def test_sync_events_without_description
+        configure_microsoft_exchange_calendar_without_description
+
+        event_1 = event_attributes
+        event_2 = {
+          id: 'external-id-2',
+          subject: 'Event 2',
+          body: nil,
+          sensitivity: 'Private',
+          start: 1.hour.from_now,
+          end: 2.hours.from_now,
+          location: nil
+        }
+
+        setup_mocks_for_synchronization([event_1, event_2])
+
+        assert_difference 'GobiertoCalendars::Event.count', 1 do
+          calendar_service.sync!
+        end
+
+        # event 1 checks
+
+        event = richard.events.find_by(external_id: 'external-id-1')
+        assert_equal 'Event 1', event.title
+        assert_nil event.description
+        assert_equal 1, event.locations.size
+        assert_equal 'Location 1', event.first_location.name
+      end
+
       def test_sync_events_updates_event_attributes
+        configure_microsoft_exchange_calendar_with_description
+
         setup_mocks_for_synchronization([event_attributes])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         # simulate attributes are updated from OWA
 
@@ -143,7 +194,7 @@ module GobiertoPeople
         )
 
         setup_mocks_for_synchronization([event_1])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         # assert attributes get updated in Gobierto
 
@@ -156,8 +207,10 @@ module GobiertoPeople
       end
 
       def test_sync_events_after_being_unpublished
+        configure_microsoft_exchange_calendar_with_description
+
         setup_mocks_for_synchronization([event_attributes])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event_1 = event_attributes.merge(
           subject: 'Updated event',
@@ -167,7 +220,7 @@ module GobiertoPeople
 
         setup_mocks_for_synchronization([event_1])
         assert_difference 'GobiertoCalendars::Event.count', -1 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
 
         # assert attributes get updated in Gobierto
@@ -176,6 +229,8 @@ module GobiertoPeople
       end
 
       def test_unreceived_events_are_drafted
+        configure_microsoft_exchange_calendar_with_description
+
         other_person_event = create_event(person: tamara, external_id: 'Tamara synced event')
 
         # sync two events
@@ -184,7 +239,7 @@ module GobiertoPeople
         event_2 = event_attributes.merge(id: 'external-id-2')
 
         setup_mocks_for_synchronization([event_1, event_2])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event = richard.events.find_by(external_id: 'external-id-1')
 
@@ -193,7 +248,7 @@ module GobiertoPeople
         # sync, only receiving the second event
 
         setup_mocks_for_synchronization([event_2])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         # check first event is unpublished
 
@@ -206,9 +261,11 @@ module GobiertoPeople
       end
 
       def test_sync_events_removes_deleted_locations
+        configure_microsoft_exchange_calendar_with_description
+
         # syncrhonize event with location
         setup_mocks_for_synchronization([event_attributes])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         event = richard.events.find_by(external_id: 'external-id-1')
         assert_equal 1, event.locations.size
@@ -218,7 +275,7 @@ module GobiertoPeople
         event_1 = event_attributes.merge(location: '')
 
         setup_mocks_for_synchronization([event_1])
-        CalendarIntegration.sync_person_events(richard)
+        calendar_service.sync!
 
         # assert location is deleted in Gobierto
 
@@ -227,6 +284,8 @@ module GobiertoPeople
       end
 
       def test_filter_events
+        configure_microsoft_exchange_calendar_with_description
+
         # Create a rule with contains condition
         filtering_rule.condition = :not_contains
         filtering_rule.action = :ignore
@@ -251,7 +310,7 @@ module GobiertoPeople
         setup_mocks_for_synchronization([event_1, event_2])
 
         assert_difference 'GobiertoCalendars::Event.count', 1 do
-          CalendarIntegration.sync_person_events(richard)
+          calendar_service.sync!
         end
 
         # event 1 checks

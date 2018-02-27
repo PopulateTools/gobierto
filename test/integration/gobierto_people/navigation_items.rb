@@ -6,10 +6,10 @@ module GobiertoPeople
         visit @path
 
           within ".filter_boxed" do
-            refute has_link?('Government Team')
-            refute has_link?('Opposition')
-            refute has_link?('Executive')
-            refute has_link?("Political groups")
+            assert has_no_link?('Government Team')
+            assert has_no_link?('Opposition')
+            assert has_no_link?('Executive')
+            assert has_no_link?("Political groups")
         end
       end
     end
@@ -18,7 +18,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within '.sub-nav' do
+        within 'nav.sub-nav' do
           assert has_link? 'Blogs'
         end
       end

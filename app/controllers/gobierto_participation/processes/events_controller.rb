@@ -39,35 +39,38 @@ module GobiertoParticipation
       end
 
       def find_process_events
-        ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process)
+        @container_events = ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process)
       end
 
       def set_events
-        @events = find_process_events.sorted.page params[:page]
+        @events = find_process_events.sorted
         @events = @events.events_in_collections_and_container(current_site, @issue) if @issue
 
-        if params[:date]
-          filter_events_by_date(params[:date])
-        else
-          if @past_events
-            @events = @events.past.sorted_backwards
-          else
-            if @events.upcoming.empty?
-              @no_upcoming_events = true
-              @events = @events.past.sorted_backwards
-            else
-              @events = @events.upcoming.sorted
-            end
-          end
-        end
+        @events = if params[:date]
+                    filter_events_by_date(params[:date])
+                  else
+                    if @past_events
+                      @events.past.sorted_backwards
+                    else
+                      if @events.upcoming.empty?
+                        @no_upcoming_events = true
+                        @events.past.sorted_backwards
+                      else
+                        @events.upcoming.sorted
+                      end
+                    end
+                  end
+
+        @events = @events.page params[:page]
+        @calendar_events = @container_events
       end
 
       def filter_events_by_date(date)
         @filtering_date = Date.parse(date)
-        @events = @events.by_date(@filtering_date)
-        @events = (@filtering_date >= Time.now ? @events.sorted : @events.sorted_backwards)
+        events = @container_events.by_date(@filtering_date)
+        events = (@filtering_date >= Time.now ? events.sorted : events.sorted_backwards)
       rescue ArgumentError
-        @events
+        events
       end
     end
   end

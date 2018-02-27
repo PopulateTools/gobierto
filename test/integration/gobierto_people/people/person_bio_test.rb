@@ -42,8 +42,8 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          refute has_selector?("h3", text: "Contact methods")
-          refute has_selector?("h3", text: "Associations")
+          assert has_no_selector?("h3", text: "Contact methods")
+          assert has_no_selector?("h3", text: "Associations")
 
           assert has_selector?("h3", text: "Accomplishments")
 

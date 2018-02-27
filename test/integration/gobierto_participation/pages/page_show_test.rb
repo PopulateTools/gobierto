@@ -28,7 +28,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
           assert has_link? gender_violence_process.title
         end
@@ -39,12 +39,12 @@ module GobiertoParticipation
       with_current_site(site) do
         processes.each do |process|
           visit process_path(process)
-          within ".sub-nav" do
+          within "nav.sub-nav" do
             process.published_stages.each do |stage|
               if stage.visibility_level == "published"
                 assert has_link? stage.stage_type.capitalize
               else
-                refute has_link? stage.stage_type.capitalize
+                assert has_no_link? stage.stage_type.capitalize
               end
             end
           end
@@ -56,7 +56,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within "menu.secondary_nav" do
+        within "nav.sub-nav menu.secondary_nav" do
           assert has_link? "News"
           assert has_link? "Agenda"
           assert has_link? "Documents"
@@ -89,7 +89,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        click_link "News"
+        within "nav.sub-nav menu.secondary_nav" do
+          click_link "News"
+        end
 
         assert has_selector?("h2", text: "News")
         click_link "Notice 1 title"

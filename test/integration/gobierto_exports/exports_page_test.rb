@@ -38,7 +38,7 @@ module GobiertoExports
           visit @path
 
           assert has_selector?("h3", text: "Agendas")
-          refute has_selector?("h3", text: "Statements")
+          assert has_no_selector?("h3", text: "Statements")
         end
       end
     end

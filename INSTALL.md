@@ -4,8 +4,8 @@ In this tutorial we are going to show you how to install Gobierto in a simple Li
 
 **Server requirements:**
 
-- 4 Gb RAM
-- 40 Gb HD
+- 6 Gb RAM as a minimum
+- 40 Gb HD as a minimum
 - 2 x CPU cores
 
 **Software requirements:**
@@ -28,7 +28,6 @@ In this tutorial we are going to show you how to install Gobierto in a simple Li
   - imagemagick
   - libpq-dev
   - nodejs
-  - redis-server
 
 - PostgreSQL, ElasticSearch, Memcached, Redis and the webserver must be up and running
 
@@ -36,15 +35,15 @@ In this tutorial we are going to show you how to install Gobierto in a simple Li
 
 - Amazon AWS S3 keys
 - Rollbar, as exception notification tool (you can replace it easily)
-- An account in [Algolia](http://algolia.com/)
+- An account in [Algolia](http://algolia.com/). You'll need the API keys.
+- An account in [Cloudinary](https://cloudinary.com/). You'll need the API keys.
 
 We recommend you to prepare the credentials from these services before you continue with this
 tutorial.
 
 ## Database setup
 
-1 - Create the database:
-  - `createdb gobierto`
+Create the database: `createdb gobierto`.
 
 ## Application setup
 
@@ -53,22 +52,22 @@ and this guide is going to follow those conventions. Feel free to adapt the guid
 
 ### Setup folders
 
-1 - Choose a destionation folder and create it. In our case, we prefer `/var/www/gobierto`:
+1. Choose a destionation folder and create it. In our case, we prefer `/var/www/gobierto`:
 
   - `/var/www/gobierto/`
-  - `/var/www/gobierto/shared
-  - `/var/www/gobierto/shared/bundle
-  - `/var/www/gobierto/shared/config
-  - `/var/www/gobierto/shared/log
-  - `/var/www/gobierto/shared/public
-  - `/var/www/gobierto/shared/tmp
-  - `/var/www/gobierto/shared/vendor
-  - `/var/www/gobierto/releases
-  - `/var/www/gobierto/repo
+  - `/var/www/gobierto/shared`
+  - `/var/www/gobierto/shared/bundle`
+  - `/var/www/gobierto/shared/config`
+  - `/var/www/gobierto/shared/log`
+  - `/var/www/gobierto/shared/public`
+  - `/var/www/gobierto/shared/tmp`
+  - `/var/www/gobierto/shared/vendor`
+  - `/var/www/gobierto/releases`
+  - `/var/www/gobierto/repo`
 
-2 - Copy `.env.example` to `.rbenv-vars` and fill all the variables following [this guide](https://github.com/PopulateTools/gobierto/blob/master/docs/environment-variables.md).
+2. Copy `.env.example` to `/var/www/gobierto/shared/.rbenv-vars` and fill all the variables following [this guide](https://github.com/PopulateTools/gobierto/blob/master/docs/environment-variables.md).
 
-3 - Create `/var/www/gobierto/shared/config/database.yml` with the following content:
+3. Create `/var/www/gobierto/shared/config/database.yml` with the following content:
 
 ```yaml
 production:
@@ -80,19 +79,19 @@ production:
   password:
 ```
 
-5 - Deploy the site
+4. Deploy the site
 
 Back to your development environment, we are going to deploy the site, following these steps:
 
-5.1 - Check the server configuration: `$ bundle exec cap production deploy:check`
+  1. Check the server configuration: `$ bundle exec cap production deploy:check`
 
-5.2 - Deploy! `$ bundle exec cap production deploy`
+  2. Deploy! `$ bundle exec cap production deploy`
 
-5.3 - In the remote server, check that `/var/www/gobierto/current/` has been created as a symlink
+  3. In the remote server, check that `/var/www/gobierto/current/` has been created as a symlink
 
 Notice that you can change the way to deploy the application. We prefer [Capistrano](http://capistranorb.com) and that's the configured option, but if you want to deploy in a different way just update the code in the fork of your project and that's all.
 
-6 - Load the data
+5. Load the data
 
 Once the application is working in production (without working in the HTTP server yet) we need to
 load budgets data (if you enable the budgets module).

@@ -13,6 +13,7 @@ module GobiertoAdmin
         :charge_translations,
         :email,
         :bio_translations,
+        :bio_source_translations,
         :bio_file,
         :bio_url,
         :avatar_file,
@@ -128,6 +129,7 @@ module GobiertoAdmin
           person_attributes.charge_translations = charge_translations
           person_attributes.email = email
           person_attributes.bio_translations = bio_translations
+          person_attributes.bio_source_translations = bio_source_translations
           person_attributes.bio_url = bio_url
           person_attributes.avatar_url = avatar_url
           person_attributes.visibility_level = visibility_level

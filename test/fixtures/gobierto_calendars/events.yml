@@ -10,6 +10,10 @@ richard_pending:
     'en' => 'Reunión con los vecinos del distrito centro para comentar la posibilidad de reubicar el centro de salud de Universidad en el nuevo edificio de Bomberos.',
     'es' => 'Reunión con los vecinos del distrito centro para comentar la posibilidad de reubicar el centro de salud de Universidad en el nuevo edificio de Bomberos.'
   }.to_json %>
+  description_source_translations: <%= {
+    'en' => 'Reunión con los vecinos del distrito centro para comentar la posibilidad de reubicar el centro de salud de Universidad en el nuevo edificio de Bomberos.',
+    'es' => 'Reunión con los vecinos del distrito centro para comentar la posibilidad de reubicar el centro de salud de Universidad en el nuevo edificio de Bomberos.'
+  }.to_json %>
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["pending"] %>
@@ -26,6 +30,10 @@ richard_published:
     'en' => 'The <strong>President</strong> will analyze the progress of the measures adopted in the first days of the Government.',
     'es' => 'El <strong>Presidente</strong> analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
   }.to_json %>
+  description_source_translations: <%= {
+    'en' => 'The <strong>President</strong> will analyze the progress of the measures adopted in the first days of the Government.',
+    'es' => 'El <strong>Presidente</strong> analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+  }.to_json %>
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["published"] %>
@@ -39,6 +47,10 @@ neil_published:
   }.to_json %>
   slug: <%= "#{1.month.from_now.strftime('%F')}-future-opposition-event" %>
   description_translations: <%= {
+    'en' => 'Winter is coming.',
+    'es' => 'Se acerca el invierno..',
+  }.to_json %>
+  description_source_translations: <%= {
     'en' => 'Winter is coming.',
     'es' => 'Se acerca el invierno..',
   }.to_json %>
@@ -59,6 +71,10 @@ richard_published_just_attending:
     'en' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
     'es' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
   }.to_json %>
+  description_source_translations: <%= {
+    'en' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+    'es' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+  }.to_json %>
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["published"] %>
@@ -72,6 +88,10 @@ richard_published_past:
   }.to_json %>
   slug: <%= "#{1.month.ago.strftime('%F')}-past-government-event" %>
   description_translations: <%= {
+    'en' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+    'es' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.'
+  }.to_json %>
+  description_source_translations: <%= {
     'en' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
     'es' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.'
   }.to_json %>
@@ -91,6 +111,10 @@ nelson_tomorrow:
     'en' => 'Have tea with biscuits',
     'es' => 'Have tea with biscuits'
   }.to_json %>
+  description_source_translations: <%= {
+    'en' => 'Have tea with biscuits',
+    'es' => 'Have tea with biscuits'
+  }.to_json %>
   starts_at: <%= 1.day.from_now %>
   ends_at: <%= 1.day.from_now + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["published"] %>
@@ -99,8 +123,8 @@ nelson_tomorrow_fixed:
   site: madrid
   collection: nelson_calendar
   title_translations: <%= {
-  'en' => 'Nelson tomorrow fixed event',
-  'es' => 'Nelson tomorrow fixed event'
+    'en' => 'Nelson tomorrow fixed event',
+    'es' => 'Nelson tomorrow fixed event'
   }.to_json %>
   slug: 2016-04-14-nelson-tomorrow-fixed-event
   starts_at: <%= Time.zone.parse('2014-04-16 8:00') %>
@@ -119,6 +143,10 @@ nelson_yesterday:
     'en' => 'Have tea with biscuits',
     'es' => 'Have tea with biscuits'
   }.to_json %>
+  description_source_translations: <%= {
+    'en' => 'Have tea with biscuits',
+    'es' => 'Have tea with biscuits'
+  }.to_json %>
   starts_at: <%= 1.day.ago %>
   ends_at: <%= 1.day.ago + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["published"] %>
@@ -127,8 +155,8 @@ nelson_yesterday_fixed:
   site: madrid
   collection: nelson_calendar
   title_translations: <%= {
-  'en' => 'Nelson yesterday fixed event',
-  'es' => 'Nelson yesterday fixed event'
+    'en' => 'Nelson yesterday fixed event',
+    'es' => 'Nelson yesterday fixed event'
   }.to_json %>
   slug: 2014-04-14-nelson-yesterday-fixed-event
   starts_at: <%= Time.zone.parse('2014-04-14 8:00') %>
@@ -144,6 +172,10 @@ tamara_published_past:
   }.to_json %>
   slug: <%= "#{15.days.ago.strftime('%F')}-pasat-executive-event" %>
   description_translations: <%= {
+    'en' => 'Executive member event.',
+    'es' => 'Executive member event.'
+  }.to_json %>
+  description_source_translations: <%= {
     'en' => 'Executive member event.',
     'es' => 'Executive member event.'
   }.to_json %>
@@ -163,6 +195,10 @@ reading_club:
     'en' => 'Intensive reading club in english description',
     'es' => 'Club de lectura intensivo en inglés descipción'
   }.to_json %>
+  description_source_translations: <%= {
+    'en' => 'Intensive reading club in english description',
+    'es' => 'Club de lectura intensivo en inglés descipción'
+  }.to_json %>
   starts_at: <%= 7.days.from_now %>
   ends_at: <%= 7.days.from_now + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["published"] %>
@@ -179,6 +215,58 @@ swimming_lessons:
     'en' => 'Swimming lessons for elders description',
     'es' => 'Curso de natación para mayores descripción'
   }.to_json %>
+  description_source_translations: <%= {
+    'en' => 'Swimming lessons for elders description',
+    'es' => 'Curso de natación para mayores descripción'
+  }.to_json %>
   starts_at: <%= 2.days.from_now %>
   ends_at: <%= 2.days.from_now + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+innovation_event:
+  site: madrid
+  collection: participation_calendar
+  title_translations: <%= {
+    'en' => 'Innovation course',
+    'es' => 'Curso de innovación'
+  }.to_json %>
+  slug: <%= "#{2.days.from_now.strftime('%F')}-innovation_event" %>
+  description_translations: <%= {
+    'en' => 'Innovation course description',
+    'es' => 'Curso de innovación descripción'
+  }.to_json %>
+  starts_at: <%= 2.days.from_now %>
+  ends_at: <%= 2.days.from_now + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+intervention_with_children:
+  site: madrid
+  collection: gender_violence_process_calendar
+  title_translations: <%= {
+    'en' => 'Talk intervention with children',
+    'es' => 'Charla Intervención con niños'
+  }.to_json %>
+  slug: <%= "#{20.days.ago.strftime('%F')}-intervention-with-children" %>
+  description_translations: <%= {
+    'en' => 'Intervention with children description',
+    'es' => 'Intervención con niños descripción'
+  }.to_json %>
+  starts_at: <%= 20.days.ago %>
+  ends_at: <%= 20.days.ago + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+presentation_participation:
+  site: madrid
+  collection: participation_calendar
+  title_translations: <%= {
+    'en' => 'Presentation of the participation website',
+    'es' => 'Presentación de la web de participación descripción'
+  }.to_json %>
+  slug: <%= "#{10.days.ago.strftime('%F')}-presentation_participation" %>
+  description_translations: <%= {
+    'en' => 'Presentation of the participation website description',
+    'es' => 'Presentación de la web de participación descripción'
+  }.to_json %>
+  starts_at: <%= 10.days.ago %>
+  ends_at: <%= 10.days.ago + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["published"] %>

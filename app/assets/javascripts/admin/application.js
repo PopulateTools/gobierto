@@ -1,4 +1,3 @@
-//= require trix
 //= require jquery.geocomplete
 //= require jquery.autocomplete
 //= require cleave
@@ -24,16 +23,13 @@
 //= require air-datepicker/i18n/datepicker.es
 //= require air-datepicker/i18n/datepicker.en
 //= require air-datepicker/i18n/datepicker.ca
-//= require ./trix_events
-//= require ./trix_toolbar
 //= require ./module-admin-search
 //= require ./app/init
 //= require sticky-kit.min
 //= require simplemde.min
 //= require_tree ./app
-
+//= require_tree ./lib
 //= require module-admin
-
 
 $(document).on('turbolinks:load', function() {
   $('.open_remote_modal').magnificPopup({
@@ -72,6 +68,25 @@ $(document).on('turbolinks:load', function() {
 
   $autocomplete.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchOptions));
 
+  $('[data-wysiwyg]').each(function(){
+    var $el = $(this);
+    var simplemde = new SimpleMDE({
+      element: $el[0],
+      autofocus: true,
+      forceSync: true,
+      spellChecker: false,
+      renderingConfig: {
+        singleLineBreaks: false
+      },
+      status: false
+    });
+
+    $el.data({editor: simplemde});
+    simplemde.codemirror.on("change", function(){
+      var id = "#" + $el.attr('id').replace('_source', '');
+      $(id).val(simplemde.markdown(simplemde.value()))
+    });
+  });
 });
 
 function addDatepickerBehaviors() {

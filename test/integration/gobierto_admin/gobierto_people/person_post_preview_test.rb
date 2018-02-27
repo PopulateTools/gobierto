@@ -126,7 +126,7 @@ module GobiertoAdmin
             visit gobierto_people_person_post_path(draft_post.person.slug, draft_post.slug)
           end
 
-          refute has_selector?("h1", text: draft_post.title)
+          assert has_no_selector?("h1", text: draft_post.title)
 
           draft_post.person.draft!
 
@@ -134,7 +134,7 @@ module GobiertoAdmin
             visit gobierto_people_person_post_path(draft_post.person.slug, draft_post.slug)
           end
 
-          refute has_selector?("h1", text: draft_post.title)
+          assert has_no_selector?("h1", text: draft_post.title)
         end
       end
     end

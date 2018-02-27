@@ -41,8 +41,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within ".sub-nav" do
-          assert has_content? "Issues"
+        within "nav.sub-nav" do
+          assert has_content? "Scopes"
           assert has_content? "Processes"
         end
       end
@@ -69,13 +69,11 @@ module GobiertoParticipation
           click_link "News"
         end
 
-        assert_equal gobierto_participation_scope_pages_path(scope_id: scope_center.slug), current_path
-
         within "nav.main-nav" do
           assert has_link? "Participation"
         end
 
-        assert has_selector?("h2", text: "News")
+        assert has_selector?("h2", text: "News for Center")
       end
     end
 

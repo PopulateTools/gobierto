@@ -1,8 +1,6 @@
 module GobiertoAdmin
   module GobiertoCommon
     class CollectionsController < BaseController
-      helper_method :gobierto_common_page_preview_url
-
       before_action :load_collection, only: [:show, :edit, :update]
       before_action :redirect_to_custom_show, only: [:show]
 
@@ -129,11 +127,6 @@ module GobiertoAdmin
 
       def type_names
         ::GobiertoCommon::Collection.type_classes(params["item_type"])
-      end
-
-      def gobierto_common_page_preview_url(page, options = {})
-        options.merge!(preview_token: current_admin.preview_token) unless page.active?
-        gobierto_cms_page_url(page.slug, options)
       end
 
       def load_collection

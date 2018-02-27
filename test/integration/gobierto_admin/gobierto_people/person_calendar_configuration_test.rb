@@ -18,7 +18,8 @@ module GobiertoAdmin
         @ibm_notes_configuration ||= {
           ibm_notes_usr: 'ibm-notes-usr',
           ibm_notes_pwd: 'ibm-notes-pwd',
-          ibm_notes_url: 'http://ibm-calendar/richard'
+          ibm_notes_url: 'http://ibm-calendar/richard',
+          without_description: '0'
         }
       end
 
@@ -26,13 +27,15 @@ module GobiertoAdmin
         @microsoft_exchange_configuration ||= {
           microsoft_exchange_usr: 'microsoft-exchange-usr',
           microsoft_exchange_pwd: 'microsoft-exchange-pwd',
-          microsoft_exchange_url: 'http://me-calendar/richard'
+          microsoft_exchange_url: 'http://me-calendar/richard',
+          without_description: '0'
         }
       end
 
       def google_calendar_configuration
         @google_calendar_configuration ||= {
-          google_calendar_credentials: 'person_credentials'
+          google_calendar_credentials: 'person_credentials',
+          without_description: '0'
         }
       end
 
@@ -45,16 +48,39 @@ module GobiertoAdmin
         calendar1 = mock
         calendar1.stubs(id: google_calendar_id, primary?: true, summary: 'Calendar 1')
 
+        creator_event2 = mock
+        creator_event2.stubs(email: google_calendar_id)
+
+        date1 = mock
+        date1.stubs(date_time: Time.now)
+        date2 = mock
+        date2.stubs(date_time: 1.hour.from_now)
+
+        # Single event, organized by richard, with two attendees
+        event2 = mock
+        event2.stubs(visibility: nil, location: nil, creator: creator_event2, recurrence: nil, id: "event2",
+                     summary: "@ Event 2", start: date1, end: date2, attendees: [], description: "Event 2 description")
+
+        calendar_1_items_response = mock
+        calendar_1_items_response.stubs(:items).returns([event2])
+
         calendar2 = mock
         calendar2.stubs(id: 2, primary?: false, summary: 'Calendar 2')
 
         calendar3 = mock
         calendar3.stubs(id: 3, primary?: false, summary: 'Calendar 3')
 
-        @calendars_mock = mock
-        @calendars_mock.stubs(:calendars).returns([calendar1, calendar2, calendar3])
-        @calendars_mock.stubs(:sync!).returns(nil)
-        ::GobiertoPeople::GoogleCalendar::CalendarIntegration.stubs(:new).returns(@calendars_mock)
+        calendar_items_response = mock
+        calendar_items_response.stubs(:items).returns([calendar1, calendar2, calendar3])
+
+        client_options = mock
+        client_options.stubs(:application_name=).returns(true)
+
+        ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:list_calendar_lists).returns(calendar_items_response)
+        ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:list_events).with(calendar1.id, instance_of(Hash)).returns(calendar_1_items_response)
+        ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:client_options).returns(client_options)
+        ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:authorization=).returns(true)
+        ::Google::Auth::UserAuthorizer.any_instance.stubs(:get_credentials).returns(true)
 
         setup_authorizable_resource_test(gobierto_admin_admins(:steve), @person_events_path)
        end
@@ -153,20 +179,120 @@ module GobiertoAdmin
 
         with_signed_in_admin(admin) do
           with_current_site(site) do
-            @calendars_mock.expects(:sync!).at_least_once
-
             visit @person_events_path
 
             click_link 'Agenda'
             click_link 'Configuration'
 
+            check 'Calendar 1'
+
+            click_button 'Update'
+
             assert has_link?('Sync now')
-            refute has_text? 'Last sync:'
+            assert has_no_text? 'Last sync:'
             assert_difference 'Activity.where(subject: person, action: "admin_gobierto_calendars.calendars_synchronized").count' do
               click_link 'Sync now'
             end
 
             assert has_text? 'Last sync: less than a minute ago'
+
+            refute_nil person.events.find_by external_id: "event2"
+          end
+        end
+      end
+
+      def test_sync_calendars_without_description
+        configure_google_calendar_integration(
+          collection: person.calendar,
+          data: google_calendar_configuration
+        )
+
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit @person_events_path
+
+            click_link 'Agenda'
+            click_link 'Configuration'
+
+            check 'Calendar 1'
+            check "Don't import event description"
+
+            click_button 'Update'
+
+            click_link 'Sync now'
+
+            assert has_text? 'Last sync: less than a minute ago'
+
+            event = person.events.find_by external_id: "event2"
+            refute_nil event
+            assert_nil event.description
+
+            check 'Calendar 1'
+            uncheck "Don't import event description"
+
+            click_button 'Update'
+            click_link 'Sync now'
+            assert has_text? 'Last sync: less than a minute ago'
+
+            event = person.events.find_by external_id: "event2"
+            refute_nil event
+            assert_equal "Event 2 description", event.description
+          end
+        end
+      end
+
+      def test_sync_calendars_with_default_locale
+        configure_google_calendar_integration(
+          collection: person.calendar,
+          data: google_calendar_configuration
+        )
+
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit @person_events_path
+
+            click_link 'Agenda'
+            click_link 'Configuration'
+
+            check 'Calendar 1'
+
+            click_button 'Update'
+
+            site.configuration.default_locale = 'es'
+            site.save
+
+            click_link 'Sync now'
+
+            assert has_text? 'Last sync: less than a minute ago'
+
+            event = person.events.find_by external_id: "event2"
+            assert_equal event.title_translations['es'], event.title
+            assert_equal event.description_translations['es'], event.description
+
+            rest_of_locales = I18n.available_locales - ["es".to_sym]
+
+            rest_of_locales.each do |locale|
+              assert_nil event.title_translations[locale.to_s]
+              assert_nil event.description_translations[locale.to_s]
+            end
+
+            site.configuration.default_locale = 'ca'
+            site.save
+
+            click_link 'Sync now'
+
+            assert has_text? 'Last sync: less than a minute ago'
+
+            event = person.events.find_by external_id: "event2"
+            assert_equal event.title_translations['ca'], event.title
+            assert_equal event.description_translations['ca'], event.description
+
+            rest_of_locales = I18n.available_locales - ["ca".to_sym]
+
+            rest_of_locales.each do |locale|
+              assert_nil event.title_translations[locale.to_s]
+              assert_nil event.description_translations[locale.to_s]
+            end
           end
         end
       end
@@ -201,19 +327,19 @@ module GobiertoAdmin
             click_link 'Agenda'
             click_link 'Configuration'
 
-            refute has_field?('google_calendar_invitation_url')
+            assert has_no_field?('google_calendar_invitation_url')
 
-            refute has_checked_field?('Calendar 1')
-            refute has_checked_field?('Calendar 2')
-            refute has_checked_field?('Calendar 3')
+            assert has_no_checked_field?('Calendar 1')
+            assert has_no_checked_field?('Calendar 2')
+            assert has_no_checked_field?('Calendar 3')
 
             check 'Calendar 1'
 
             click_button 'Update'
 
             assert has_checked_field?('Calendar 1')
-            refute has_checked_field?('Calendar 2')
-            refute has_checked_field?('Calendar 3')
+            assert has_no_checked_field?('Calendar 2')
+            assert has_no_checked_field?('Calendar 3')
 
             # clear calendar configuration
             assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: 'default') do

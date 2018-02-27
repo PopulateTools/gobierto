@@ -21,7 +21,7 @@ park_reed_comment:
   site: madrid
   votes_count: 1
 
-# comments on small balls contribution
+# comments on small balls contribution (bowling group)
 
 reed_comment_on_small_balls:
   body: "Si, yo la verdad es que no las veo muy bien."
@@ -29,7 +29,7 @@ reed_comment_on_small_balls:
   user: reed
   site: madrid
 
-# comments on bad losers contribution
+# comments on bad losers contribution (bowling group)
 
 reed_comment_on_bad_losers:
   body: "¡¡Y además Eustaquio es un tramposo!!"
@@ -41,5 +41,13 @@ reed_comment_on_bad_losers:
 susan_comment_on_bad_losers:
   body: "A veces la gente se acaba insultando!"
   commentable: bad_losers_contribution (GobiertoParticipation::Contribution)
+  user: susan
+  site: madrid
+
+# comments on contribution on closed container (bowling group)
+
+susan_comment_on_closed_contribution_container:
+  body: Ya no se pueden escribir más comentarios porque el contenedor está cerrado
+  commentable: contribution_on_closed_container (GobiertoParticipation::Contribution)
   user: susan
   site: madrid

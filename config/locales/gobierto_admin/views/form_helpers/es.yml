@@ -1,6 +1,0 @@
----
-es:
-  gobierto_admin:
-    form_helpers:
-      rich_text_area:
-        hints: Arrastra y suelta una imagen para incluirla.

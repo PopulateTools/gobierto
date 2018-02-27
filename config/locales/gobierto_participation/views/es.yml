@@ -1,6 +1,7 @@
 ---
 es:
   gobierto_participation:
+    all_attachments: Ver todos los documentos
     comments:
       comment:
         comments_html: "<strong>%{comments}</strong> comentarios"
@@ -69,18 +70,13 @@ es:
         agenda: Agenda
         documents: Documentos
         news: Noticias
-    news:
-      show:
-        news: Noticias
-    pages:
-      show:
-        pages: Páginas
-    participation_attachments: Ver todos los documentos de Participación
     processes:
       contribution_containers:
         show:
           all: Todas
           best_ratings: Mejor valoradas
+          contributions_ended: El periodo de aportaciones ha finalizado
+          contributions_start_html: El periodo de aportaciones comenzará el <strong>%{date}</strong>
           idea:
             one: 1 idea
             other: "%{count} ideas"
@@ -172,7 +168,9 @@ es:
         current: Fase actual
         next_stage: Próxima fase
       show:
-        about: Sobre este proceso
+        about:
+          group_process: Sobre este grupo
+          process: Sobre este proceso
         appointments: Citas presenciales
         interesting_information: Información de interés
         issue: Tema
@@ -223,6 +221,7 @@ es:
       all_events: Ver todos los eventos
       all_news: Ver todas las noticias
       consultation_processes: Consulta y participa en procesos específicos.
+      current_events: Ver eventos actuales
       diary_for: Agenda de %{container}
       documents: Documentos
       documents_for: Documentos de %{container}
@@ -234,7 +233,7 @@ es:
           agenda_for_container: Agenda de
       filter_by_theme: Filtrar por tema
       from_to: "%{starts} al %{ends}"
-      new: Noticia
+      news: Noticia
       news_for: Noticias de %{container}
       no_activities: No hay actualizaciones relacionadas
       no_documents: No hay documentos relacionados
@@ -242,6 +241,7 @@ es:
       no_news: No hay noticias relacionadas
       ongoing_processes: Procesos en marcha
       participation: Participación
+      past_events: Ver eventos pasados
       published_at: Publicado el %{date} por el %{site}
     welcome:
       index:

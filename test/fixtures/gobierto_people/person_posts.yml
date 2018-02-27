@@ -4,6 +4,7 @@ richard_about_me:
   title: About me
   slug: <%= "#{Date.current.strftime('%F')}-about-me" %>
   body: Article about my professional career in politics.
+  body_source: Article about my professional career in politics.
   tags: <%= ["Personal", "Career", "Richard Rider"] %>
   visibility_level: <%= GobiertoPeople::PersonPost.visibility_levels["active"] %>
   created_at: <%= Date.current %>
@@ -14,6 +15,7 @@ richard_achievements:
   title: Achievements
   slug: <%= "#{1.week.ago.strftime('%F')}-achievements" %>
   body: Article about my professional achievements.
+  body_source: Article about my professional achievements.
   tags:
   visibility_level: <%= GobiertoPeople::PersonPost.visibility_levels["active"] %>
   created_at: <%= 1.week.ago %>
@@ -24,6 +26,7 @@ richard_draft:
   title: Draft Post
   slug: <%= "#{1.week.ago.strftime('%F')}-draft-post" %>
   body: Article about how to not finish a post.
+  body_source: Article about how to not finish a post.
   tags:
   visibility_level: <%= GobiertoPeople::PersonPost.visibility_levels["draft"] %>
   created_at: <%= 1.week.ago %>

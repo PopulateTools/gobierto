@@ -20,6 +20,7 @@ gem "redcarpet", require: true
 gem "responders"
 gem "rollbar"
 gem "ruby_px"
+gem "before_renders"
 
 # Frontend
 gem "bourbon", "~> 4.3.4"

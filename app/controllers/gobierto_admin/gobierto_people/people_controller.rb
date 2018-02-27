@@ -104,6 +104,7 @@ module GobiertoAdmin
           :logo_crop_x, :logo_crop_y, :logo_crop_w, :logo_crop_h,
           charge_translations: [*I18n.available_locales],
           bio_translations: [*I18n.available_locales],
+          bio_source_translations: [*I18n.available_locales],
           content_block_records_attributes: [
             :id,
             :content_block_id,

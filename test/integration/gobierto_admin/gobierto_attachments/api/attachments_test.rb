@@ -15,7 +15,7 @@ module GobiertoAdmin
       end
 
       def attachment_attributes
-        @attachment_attributes ||= %w(id site_id name description file_name file_digest url file_size current_version created_at)
+        @attachment_attributes ||= %w(id site_id name description file_name file_digest url human_readable_url file_size current_version created_at)
       end
 
       def pdf_file
@@ -55,14 +55,14 @@ module GobiertoAdmin
 
         assert_response :success
 
-        assert_equal 5, attachments.size
+        assert_equal 8, attachments.size
         assert array_match(attachment_attributes, attachment.keys)
 
         assert_equal "Attachment Name", attachment["name"]
         assert_equal 49, attachment["file_size"]
         assert_equal "attachment", attachment["file_name"]
         assert_equal "b6db2818dffd2fb2fc20836bebd59b87", attachment["file_digest"]
-        assert_equal "http://host.com/attachments/attachment", attachment["url"]
+        assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/attachment", attachment["url"]
         assert_equal "Description of attachment without extension", attachment["description"]
         assert_equal 3, attachment["current_version"]
         assert_equal site.id, attachment["site_id"]
@@ -120,7 +120,7 @@ module GobiertoAdmin
 
         assert array_match(attachment_attributes, attachment.keys)
         assert_equal "PDF Attachment Name", attachment["name"]
-        assert_equal "http://host.com/attachments/pdf-attachment.pdf", attachment["url"]
+        assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/pdf-attachment.pdf", attachment["url"]
       end
 
       def test_attachments_show_error
@@ -145,7 +145,7 @@ module GobiertoAdmin
           }
         }
 
-        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/new-pdf-attachment.pdf")
+        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
 
         post admin_attachments_api_attachments_path(payload)
 
@@ -158,7 +158,7 @@ module GobiertoAdmin
 
         assert_equal "New attachment name", attachment["name"]
         assert_equal "new-pdf-attachment.pdf", attachment["file_name"]
-        assert_equal "http://host.com/attachments/new-pdf-attachment.pdf", attachment["url"]
+        assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf", attachment["url"]
         assert_equal 1, attachment["current_version"]
       end
 
@@ -190,7 +190,7 @@ module GobiertoAdmin
           }
         }
 
-        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/new-pdf-attachment.pdf")
+        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
 
         patch admin_attachments_api_attachment_path(pdf_attachment.id), params: payload
 
@@ -201,7 +201,7 @@ module GobiertoAdmin
         assert_equal "Replace with new PDF file", db_pdf_attachment.name
         assert_nil db_pdf_attachment.description
         assert_equal "new-pdf-attachment.pdf", db_pdf_attachment.file_name
-        assert_equal "http://host.com/attachments/new-pdf-attachment.pdf", db_pdf_attachment.url
+        assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf", db_pdf_attachment.url
         assert_equal 2, db_pdf_attachment.current_version
 
         # Check HTTP response returns updated info
@@ -217,7 +217,7 @@ module GobiertoAdmin
         assert_equal "Replace with new PDF file", attachment["name"]
         assert_nil attachment["description"]
         assert_equal "new-pdf-attachment.pdf", attachment["file_name"]
-        assert_equal "http://host.com/attachments/new-pdf-attachment.pdf", attachment["url"]
+        assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf", attachment["url"]
         assert_equal 2, attachment["current_version"]
       end
 

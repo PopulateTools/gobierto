@@ -31,6 +31,11 @@
  */
 @import "populities";
 
+/*
+ * Helpers
+ *
+ */
+@import "mixins";
 
 /*
  * Gobierto components
@@ -109,7 +114,6 @@
 
 
 
-
 /*
  * Some defaults
  *
@@ -165,8 +169,12 @@ a.soft_cta:hover {
   padding: .2em;
   display: inline-block;
 }
-
-
+.disabled-grayed {
+  background-color: gray !important;
+}
+.disabled-cursor {
+  cursor: not-allowed;
+}
 
 #lines_tooltip {
   table {

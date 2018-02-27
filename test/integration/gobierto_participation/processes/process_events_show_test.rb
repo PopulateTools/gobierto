@@ -17,7 +17,7 @@ module GobiertoParticipation
     end
 
     def process_event
-      @process_event ||= gobierto_calendars_events(:swimming_lessons)
+      @process_event ||= gobierto_calendars_events(:reading_club)
     end
 
     def process_event_path
@@ -31,7 +31,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_event_path
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
           assert has_link? process.title
         end
@@ -42,13 +42,13 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_event_path
 
-        within ".sub-nav" do
+        within "nav.sub-nav" do
           assert has_link? "Information"
           assert has_link? "Agenda"
 
-          refute has_link? "Polls"
-          refute has_link? "Contributions"
-          refute has_link? "Results"
+          assert has_no_link? "Polls"
+          assert has_no_link? "Contributions"
+          assert has_no_link? "Results"
         end
       end
     end
@@ -57,7 +57,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_event_path
 
-        within "menu.secondary_nav" do
+        within "nav.sub-nav menu.secondary_nav" do
           assert has_link? "News"
           assert has_link? "Agenda"
           assert has_link? "Documents"
@@ -92,13 +92,26 @@ module GobiertoParticipation
         visit process_event_path
 
         within ".event_wrapper" do
-          assert has_content? "Swimming lessons for elders"
-          assert has_content? "Instalaciones Deportivas Canal de Isabel II"
-          assert has_link? "Av. de Filipinas, 54, 28003 Madrid"
+          assert has_content? "Intensive reading club in english"
+          assert has_content? "Intensive reading club in english description"
+
+          within ".document" do
+            assert has_content? "XLSX Attachment Event"
+          end
         end
 
         assert has_content? "Agenda"
-        # TODO: refute has_content? "Agenda for #{process.title}"
+        # TODO: assert has_no_content? "Agenda for #{process.title}"
+      end
+    end
+
+    def test_process_event_show_see_all_events
+      with_current_site(site) do
+        visit process_event_path
+
+        click_link "View all events"
+
+        assert_equal process.events.upcoming.size, all(".event-content").size
       end
     end
   end

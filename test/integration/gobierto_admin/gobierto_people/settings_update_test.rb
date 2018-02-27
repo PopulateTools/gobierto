@@ -44,7 +44,7 @@ module GobiertoAdmin
               assert has_field?("gobierto_people_settings_home_text_en", with: "Texto English")
               assert has_checked_field?("Agendas")
               assert has_checked_field?("Blogs")
-              refute has_checked_field?("Statements")
+              assert has_no_checked_field?("Statements")
             end
           end
         end

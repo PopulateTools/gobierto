@@ -10,4 +10,4 @@ Rails.application.config.assets.version = "1.0"
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w(trix_es.js trix_ca.js trix_en.js gobierto_consultations/application_desktop.js)
+Rails.application.config.assets.precompile += %w(gobierto_consultations/application_desktop.js)

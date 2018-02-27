@@ -5,11 +5,16 @@ ca:
       processes:
         create:
           add_stages: Ara pots afegir fases
-          success_html: Procés creat correctament. <a href="%{link}">Veure procés</a>.
+          success_group_process_html: Grup creat correctament. <a href="%{link}">Veure
+            grup</a>.
+          success_process_html: Procés creat correctament. <a href="%{link}">Veure
+            procés</a>.
         destroy:
-          success: El procés ha estat arxivat correctament
+          success_group_process: El grup ha estat arxivat correctament
+          success_process: El procés ha estat arxivat correctament
         edit:
-          title: Edita el procés
+          edit_group_process: Edita el grup
+          edit_process: Edita el procés
         form:
           duration: Durada
           placeholders:
@@ -68,6 +73,10 @@ ca:
             manage: Gestionar
             published: Publicada
         recover:
-          success: El procés ha estat recuperat correctament
+          success_group_process: El grup ha estat recuperat correctament
+          success_process: El procés ha estat recuperat correctament
         update:
-          success_html: Procés actualitzat correctament. <a href="%{link}">Veure procés</a>.
+          success_group_process_html: Grup actualitzat correctament. <a href="%{link}">Veure
+            grup</a>.
+          success_process_html: Procés actualitzat correctament. <a href="%{link}">Veure
+            procés</a>.

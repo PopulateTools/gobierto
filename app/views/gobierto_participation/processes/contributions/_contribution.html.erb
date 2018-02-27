@@ -18,7 +18,7 @@
           </div>
         </div>
 
-        <%= render partial: 'gobierto_participation/processes/contributions/comments', locals: { commentable: @contribution } %>
+        <%= render partial: 'gobierto_participation/processes/contributions/comments', locals: { commentable: @contribution, disabled: @contribution.contribution_container.contributions_forbidden? } %>
       </div>
 
       <% if user_signed_in? %>
@@ -27,61 +27,21 @@
           <h3><%= t(".values_this_#{@contribution_container.contribution_type}") %></h3>
 
           <div class="element_eval_actions">
-            <div>
-              <%= link_to gobierto_participation_process_contribution_container_contribution_vote_path(contribution_id: @contribution.slug,
-                                                                                                       contribution_container_id: @contribution.contribution_container.slug,
-                                                                                                       process_id: @process.slug,
-                                                                                                       vote_weight: 2,
-                                                                                                       votable_id: @contribution.id,
-                                                                                                       votable_type: @contribution.class),
-                          class: "action_button love #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, 2)) }",
-                          method: :post,
-                          remote: true do %>
-                <div class="action_description"><%= t('.enchants') %></div>
-              <% end %>
-            </div>
 
-            <div>
-              <%= link_to gobierto_participation_process_contribution_container_contribution_vote_path(contribution_id: @contribution.slug,
-                                                                                                       contribution_container_id: @contribution.contribution_container.slug,
-                                                                                                       process_id: @process.slug,
-                                                                                                       vote_weight: 1,
-                                                                                                       votable_id: @contribution.id,
-                                                                                                       votable_type: @contribution.class),
-                          class: "action_button like #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, 1)) }",
-                          method: :post,
-                          remote: true do %>
-                <div class="action_description"><%= t('.like') %></div>
-              <% end %>
-            </div>
+            <% eval_actions = [ { weight: 2, class: 'love', text: t('.enchants') },
+                                { weight: 1, class: 'like', text: t('.like') },
+                                { weight: 0, class: 'pse', text: t('.indifferent') },
+                                { weight: -1, class: 'reject', text: t('.not_like') } ] %>
 
-            <div>
-              <%= link_to gobierto_participation_process_contribution_container_contribution_vote_path(contribution_id: @contribution.slug,
-                                                                                                       contribution_container_id: @contribution.contribution_container.slug,
-                                                                                                       process_id: @process.slug,
-                                                                                                       vote_weight: 0,
-                                                                                                       votable_id: @contribution.id,
-                                                                                                       votable_type: @contribution.class),
-                          class: "action_button pse #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, 0)) }",
-                          method: :post,
-                          remote: true do %>
-                <div class="action_description"><%= t('.indifferent') %></div>
-              <% end %>
-            </div>
-
-            <div>
-              <%= link_to gobierto_participation_process_contribution_container_contribution_vote_path(contribution_id: @contribution.slug,
-                                                                                                       contribution_container_id: @contribution.contribution_container.slug,
-                                                                                                       process_id: @process.slug,
-                                                                                                       vote_weight: -1,
-                                                                                                       votable_id: @contribution.id,
-                                                                                                       votable_type: @contribution.class),
-                          class: "action_button reject #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, -1)) }",
-                          method: :post,
-                          remote: true do %>
-                <div class="action_description"><%= t('.not_like') %></div>
-              <% end %>
-            </div>
+            <% for eval_action in eval_actions do %>
+              <%= render partial: 'contribution_vote_action', locals: {
+                    contribution: @contribution,
+                    process: @process,
+                    vote_weight: eval_action[:weight],
+                    vote_weight_class: eval_action[:class],
+                    action_description_text: eval_action[:text]
+              } %>
+            <% end %>
           </div>
         <% end %>
       </div>

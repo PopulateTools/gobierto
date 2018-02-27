@@ -44,7 +44,7 @@ module GobiertoPeople
 
         within '.filter_boxed' do
           assert has_link?('Marvel')
-          refute has_link?('DC')
+          assert has_no_link?('DC')
         end
       end
     end

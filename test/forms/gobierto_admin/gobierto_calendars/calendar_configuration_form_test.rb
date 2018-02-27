@@ -23,7 +23,8 @@ module GobiertoAdmin
           calendar_integration: 'ibm_notes',
           ibm_notes_usr: 'ibm-username',
           ibm_notes_pwd: 'ibm-password',
-          ibm_notes_url: 'http://calendar-endpoint.com'
+          ibm_notes_url: 'http://calendar-endpoint.com',
+          without_description: '0'
         }
       end
 
@@ -31,7 +32,8 @@ module GobiertoAdmin
         @microsoft_exchange_configuration ||= {
           microsoft_exchange_usr: 'me-username',
           microsoft_exchange_pwd: 'me-password',
-          microsoft_exchange_url: 'http://example.com/ews/exchange.asmx'
+          microsoft_exchange_url: 'http://example.com/ews/exchange.asmx',
+          without_description: '0'
         }
       end
 
@@ -90,8 +92,8 @@ module GobiertoAdmin
 
         calendar_configuration = collection.calendar_configuration
 
-        microsoft_exchange_keys = ['microsoft_exchange_usr', 'microsoft_exchange_pwd', 'microsoft_exchange_url']
-        ibm_notes_keys = ['ibm_notes_usr', 'ibm_notes_pwd', 'ibm_notes_url']
+        microsoft_exchange_keys = ['microsoft_exchange_usr', 'microsoft_exchange_pwd', 'microsoft_exchange_url', 'without_description']
+        ibm_notes_keys = ['ibm_notes_usr', 'ibm_notes_pwd', 'ibm_notes_url', 'without_description']
 
         assert array_match(microsoft_exchange_keys, calendar_configuration.data.keys)
 
@@ -139,7 +141,6 @@ module GobiertoAdmin
         calendar_configuration_form = CalendarConfigurationForm.new(ibm_notes_calendar_configuration_attributes)
         assert_equal ::GobiertoPeople::IbmNotes::CalendarIntegration, calendar_configuration_form.calendar_integration_class
       end
-
     end
   end
 end

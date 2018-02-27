@@ -54,7 +54,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
         end
       end
@@ -64,8 +64,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within ".sub-nav" do
-          assert has_link? "Issues"
+        within "nav.sub-nav" do
+          assert has_link? "Scopes"
           assert has_link? "Processes"
         end
       end
@@ -75,7 +75,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within "menu.secondary_nav" do
+        within "nav.sub-nav menu.secondary_nav" do
           assert has_link? "News"
           assert has_link? "Agenda"
           assert has_link? "Documents"
@@ -93,13 +93,13 @@ module GobiertoParticipation
 
         assert has_link?(open_and_active_process.title)
         assert has_link?(open_and_active_group.title)
-        refute has_link?(draft_group.title)
+        assert has_no_link?(draft_group.title)
         assert has_link?(future_closed_group.title)
         assert has_link?(past_closed_group.title)
 
         # check groups details
 
-        assert_equal 6, find_interactions_count_by_group_title(group_with_many_contributions.title)
+        assert_equal 8, find_interactions_count_by_group_title(group_with_many_contributions.title)
         assert_equal 3, find_participants_count_by_group_title(group_with_many_contributions.title)
 
         assert_equal 0, find_interactions_count_by_group_title(group_without_contributions.title)

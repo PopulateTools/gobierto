@@ -49,7 +49,7 @@ module GobiertoAdmin
 
               assert_equal(
                 "These are the themes",
-                find("#body_translations_en", visible: false).value
+                find("#page_body_translations_en", visible: false).value
               )
             end
           end

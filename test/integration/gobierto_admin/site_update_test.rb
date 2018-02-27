@@ -192,11 +192,11 @@ YAML
     def test_unauthorized_admin_access
       with_signed_in_admin(unauthorized_admin) do
         visit admin_root_path
-        refute has_link?("Customize site")
+        assert has_no_link?("Customize site")
 
         visit @path
 
-        refute has_selector?("form.edit_site")
+        assert has_no_selector?("form.edit_site")
         assert has_content?("You are not authorized to perform this action")
       end
     end

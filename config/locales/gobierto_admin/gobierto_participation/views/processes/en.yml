@@ -5,11 +5,16 @@ en:
       processes:
         create:
           add_stages: Now you can add stages
-          success_html: Process was successfully created. <a href="%{link}">View process</a>.
+          success_group_process_html: Group was successfully created. <a href="%{link}">View
+            group</a>.
+          success_process_html: Process was successfully created. <a href="%{link}">View
+            process</a>.
         destroy:
-          success: The process has been archived correctly
+          success_group_process: The group has been archived correctly
+          success_process: The process has been archived correctly
         edit:
-          title: Edit process
+          edit_group_process: Edit group
+          edit_process: Edit process
         form:
           duration: Duration
           placeholders:
@@ -68,6 +73,10 @@ en:
             manage: Manage
             published: Published
         recover:
-          success: The process has been recovered correctly
+          success_group_process: The group has been recovered correctly
+          success_process: The process has been recovered correctly
         update:
-          success_html: Process was successfully updated. <a href="%{link}">View process</a>.
+          success_group_process_html: Group was successfully updated. <a href="%{link}">View
+            group</a>.
+          success_process_html: Process was successfully updated. <a href="%{link}">View
+            process</a>.

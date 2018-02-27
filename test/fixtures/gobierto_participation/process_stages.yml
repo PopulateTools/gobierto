@@ -211,6 +211,7 @@ commission_for_carnival_festivities_polls_stage:
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
   active: true
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
+  menu_translations: <%= { 'en' => 'Polls', 'es' => 'Encuestas' }.to_json %>
 
 commission_for_carnival_festivities_ideas_stage:
   process: commission_for_carnival_festivities

@@ -145,6 +145,7 @@ module GobiertoAdmin
           locations_attributes: [:id, :name, :address, :lat, :lng, :_destroy],
           attendees_attributes: [:id, :person_id, :name, :charge, :_destroy],
           title_translations: [*I18n.available_locales],
+          description_source_translations: [*I18n.available_locales],
           description_translations: [*I18n.available_locales]
         )
       end

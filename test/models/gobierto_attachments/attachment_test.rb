@@ -67,7 +67,7 @@ module GobiertoAttachments
     end
 
     def test_create_attachment
-      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/new-pdf-attachment.pdf")
+      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
 
       new_attachment = Attachment.create!(
         site: site,
@@ -82,7 +82,7 @@ module GobiertoAttachments
       assert_equal "New attachment description", new_attachment.description
       assert_equal "new-pdf-attachment.pdf", new_attachment.file_name
       assert_equal file_digest(uploaded_new_pdf_file), new_attachment.file_digest
-      assert_equal "http://host.com/attachments/new-pdf-attachment.pdf", new_attachment.url
+      assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf", new_attachment.url
       assert_equal uploaded_new_pdf_file.size, new_attachment.file_size
 
       assert_equal 1, new_attachment.current_version
@@ -108,7 +108,7 @@ module GobiertoAttachments
     end
 
     def test_update_attachment
-      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/new-pdf-attachment.pdf")
+      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
 
       pdf_attachment.update_attributes!(
         name: "(EDITED) PDF Attachment Name",
@@ -125,12 +125,12 @@ module GobiertoAttachments
       assert_equal "(EDITED) Description of a PDF attachment", pdf_attachment.description
       assert_equal "new-pdf-attachment.pdf", pdf_attachment.file_name
       assert_equal file_digest(uploaded_new_pdf_file), pdf_attachment.file_digest
-      assert_equal "http://host.com/attachments/new-pdf-attachment.pdf", pdf_attachment.url
+      assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf", pdf_attachment.url
       assert_equal uploaded_new_pdf_file.size, pdf_attachment.file_size
     end
 
     def test_update_attachment_file
-      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/new-pdf-attachment.pdf")
+      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
 
       pdf_attachment.update_attributes!(file: uploaded_new_pdf_file)
 
@@ -180,5 +180,17 @@ module GobiertoAttachments
 
       assert attachment.slug.include?("archived-")
     end
+
+    def test_human_readable_path
+      attachment.id = 1
+
+      assert_equal '/docs/1', attachment.human_readable_path
+    end
+
+    def test_human_readable_url
+      expected_url = "http://madrid.gobierto.test/docs/#{attachment.id}"
+      assert_equal expected_url, attachment.human_readable_url
+    end
+
   end
 end

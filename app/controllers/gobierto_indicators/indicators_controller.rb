@@ -89,7 +89,7 @@ module GobiertoIndicators
       else
         @years = @indicators.pluck(:year).map(&:to_s)
       end
-      @years = @years.sort { |x, y| x <=> y }
+      @years = @years.sort { |x, y| x <=> y }.reverse!
     end
 
     def load_year
@@ -99,7 +99,7 @@ module GobiertoIndicators
         elsif params[:action] == "ip"
           redirect_to gobierto_indicators_indicators_ip_path(year: @indicators.last.year)
         elsif params[:action] == "gci"
-          redirect_to gobierto_indicators_indicators_gci_path(year: @years.last)
+          redirect_to gobierto_indicators_indicators_gci_path(year: @years.first)
         end
       else
         @year = params[:year].to_i

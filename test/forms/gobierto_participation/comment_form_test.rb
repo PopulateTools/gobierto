@@ -4,14 +4,19 @@ require "test_helper"
 
 module GobiertoParticipation
   class CommentFormTest < ActiveSupport::TestCase
-    def valid_comment_form
-      @valid_comment_form ||= CommentForm.new(
+
+    def comment_form_attributes
+      @comment_form_attributes ||= {
         site_id: site.id,
         user_id: comment.user_id,
         commentable_type: comment.commentable_type,
         commentable_id: comment.commentable_id,
         body: comment.body
-      )
+      }
+    end
+
+    def valid_comment_form
+      @valid_comment_form ||= CommentForm.new(comment_form_attributes)
     end
 
     def invalid_comment_form
@@ -32,6 +37,10 @@ module GobiertoParticipation
       @site ||= sites(:madrid)
     end
 
+    def past_contribution_container
+      @past_contribution_container ||= gobierto_participation_contribution_containers(:bowling_group_contributions_past)
+    end
+
     def test_save_with_valid_attributes
       assert valid_comment_form.save
     end
@@ -40,6 +49,19 @@ module GobiertoParticipation
       invalid_comment_form.save
 
       assert_equal 1, invalid_comment_form.errors.messages[:site].size
+    end
+
+    def test_comment_on_closed_contribution_container
+      contribution = past_contribution_container.contributions.first
+
+      comment_form = CommentForm.new(comment_form_attributes.merge(
+        commentable_id: contribution.id,
+        commentable_type: contribution.class.to_s
+      ))
+
+      refute comment_form.save
+
+      assert comment_form.errors.messages[:contribution_container].present?
     end
   end
 end

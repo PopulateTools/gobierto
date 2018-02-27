@@ -7,7 +7,7 @@ module GobiertoAdmin
     class IndexPlanTypeTest < ActionDispatch::IntegrationTest
       def setup
         super
-        @path = admin_plans_path
+        @path = admin_plans_plan_types_path
       end
 
       def admin

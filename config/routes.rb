@@ -130,9 +130,7 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_plans, as: :plans, path: :plans do
-      get "/" => "welcome#index"
-
-      resources :plans, path: "" do
+      resources :plans, except: [:show], path: "" do
         get :data
         put :recover
       end

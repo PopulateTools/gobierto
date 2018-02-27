@@ -9,6 +9,11 @@ es:
           placeholders:
             name: Nombre del tipo de plan
             slug: acerca-de-este-tipo-de-plan
+        index:
+          header:
+            type: Tipo
+          new: Nuevo
+          title: Tipos de planes
         new:
           title: Nuevo tipo de plan
       plans:
@@ -27,15 +32,7 @@ es:
             introduction: Introducción del plan
             slug: acerca-de-este-plan
             title: Título del plan
-            title_for_menu: Título del plan en el menú
             year: 2018
-        new:
-          title: Nuevo plan
-      shared:
-        navigation:
-          configuration_tab: Configuración
-          data_tab: Datos
-      welcome:
         index:
           header:
             elements: Elementos
@@ -43,7 +40,12 @@ es:
             title: Título
             type: Tipo
           new: Nuevo
-          plan_list: Lista de planes
           title: Planes
-          type_list: Lista de tipos de planes
+          types: Tipos
           view_plan: Ver plan
+        new:
+          title: Nuevo plan
+      shared:
+        navigation:
+          configuration_tab: Configuración
+          data_tab: Datos

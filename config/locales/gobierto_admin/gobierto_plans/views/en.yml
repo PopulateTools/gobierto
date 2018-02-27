@@ -9,6 +9,11 @@ en:
           placeholders:
             name: Plan type name
             slug: about-this-type-of-plan
+        index:
+          header:
+            type: Type
+          new: New
+          title: Plan types
         new:
           title: New plan type
       plans:
@@ -27,15 +32,7 @@ en:
             introduction: Plan introduction
             slug: about-this-plan
             title: Plan title
-            title_for_menu: Plan title in the menu
             year: 2018
-        new:
-          title: New plan
-      shared:
-        navigation:
-          configuration_tab: Configuration
-          data_tab: Data
-      welcome:
         index:
           header:
             elements: Elements
@@ -43,7 +40,12 @@ en:
             title: Title
             type: Type
           new: New
-          plan_list: Plans list
           title: Plans
-          type_list: Plan types list
+          types: Types
           view_plan: View plan
+        new:
+          title: New plan
+      shared:
+        navigation:
+          configuration_tab: Configuration
+          data_tab: Data

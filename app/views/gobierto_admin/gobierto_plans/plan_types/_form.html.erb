@@ -2,11 +2,17 @@
 
 <%= form_for(
   @plan_type_form, as: :plan_type,
-  url: @plan_type_form.persisted? ? admin_plans_plan_type_path(@plan_type_form) : admin_plans_plan_types_path(@plan_type)) do |f| %>
+  url: @plan_type_form.persisted? ? admin_plans_plan_type_path(@plan_type_form) : admin_plans_plan_types_path(@plan_type), data: { 'globalized-form-container' => true }) do |f| %>
 
-  <div class="form_item input_text">
-    <%= f.label :name %>
-    <%= f.text_field :name, placeholder: t(".placeholders.name") %>
+  <div class="globalized_fields">
+    <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+    <% current_site.configuration.available_locales.each do |locale| %>
+      <div class="form_item input_text" data-locale="<%= locale %>">
+        <%= label_tag "plan_type[name_translations][#{locale}]", f.object.class.human_attribute_name(:name) %>
+        <%= text_field_tag "plan_type[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t(".placeholders.name", locale: locale.to_sym) %>
+      </div>
+    <% end %>
   </div>
 
   <div class="form_item input_text">

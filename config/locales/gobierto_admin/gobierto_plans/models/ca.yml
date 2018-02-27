@@ -6,10 +6,9 @@ ca:
         configuration_data: Configuració
         css: CSS
         introduction: Introducció
-        plan_type: Tipus de pla
+        plan_type_id: Tipus
         slug: url
         title: Títol
-        title_for_menu: Títol per al menú
         year: Any
       gobierto_admin/gobierto_plans/plan_type_form:
         name: Nom

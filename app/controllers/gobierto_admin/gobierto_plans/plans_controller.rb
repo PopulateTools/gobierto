@@ -3,6 +3,11 @@
 module GobiertoAdmin
   module GobiertoPlans
     class PlansController < GobiertoAdmin::GobiertoPlans::BaseController
+      def index
+        @plans = current_site.plans.sort_by_updated_at
+        @archived_plans = current_site.plans.only_archived.sort_by_updated_at
+      end
+
       def new
         @plan_form = PlanForm.new(site_id: current_site.id)
         @plan_visibility_levels = plan_visibility_levels
@@ -10,7 +15,7 @@ module GobiertoAdmin
       end
 
       def edit
-        @plan = find_plan_by_slug
+        @plan = find_plan
         @plan_types = find_plan_types
         @plan_visibility_levels = plan_visibility_levels
 
@@ -26,7 +31,7 @@ module GobiertoAdmin
           track_create_activity
 
           redirect_to(
-            edit_admin_plans_plan_path(@plan_form.plan.slug),
+            edit_admin_plans_plan_path(@plan_form.plan),
             notice: t(".success_html", link: gobierto_plans_plan_preview_url(@plan_form.plan, host: current_site.domain))
           )
         else
@@ -48,7 +53,7 @@ module GobiertoAdmin
           track_update_activity
 
           redirect_to(
-            edit_admin_plans_plan_path(@plan.slug),
+            edit_admin_plans_plan_path(@plan),
             notice: t(".success_html", link: gobierto_plans_plan_preview_url(@plan_form.plan, host: current_site.domain))
           )
         else
@@ -64,18 +69,18 @@ module GobiertoAdmin
 
         @plan.destroy
 
-        redirect_to admin_plans_path, notice: t(".success")
+        redirect_to admin_plans_plans_path, notice: t(".success")
       end
 
       def recover
         @plan = find_archived_plan
         @plan.restore
 
-        redirect_to admin_plans_path, notice: t(".success")
+        redirect_to admin_plans_plans_path, notice: t(".success")
       end
 
       def data
-        @plan = find_plan_by_slug
+        @plan = find_plan
       end
 
       private
@@ -101,7 +106,6 @@ module GobiertoAdmin
           :visibility_level,
           :css,
           title_translations: [*I18n.available_locales],
-          title_for_menu_translations: [*I18n.available_locales],
           introduction_translations: [*I18n.available_locales]
         )
       end
@@ -115,7 +119,7 @@ module GobiertoAdmin
       end
 
       def find_plan
-        current_site.plans.find(params[:id])
+        current_site.plans.find(params[:id] || params[:plan_id])
       end
 
       def find_archived_plan
@@ -127,7 +131,7 @@ module GobiertoAdmin
       end
 
       def find_plan_types
-        ::GobiertoPlans::PlanType.all.collect { |plan_type| [plan_type.name, plan_type.id] }
+        current_site.plan_types.all.collect { |plan_type| [plan_type.name, plan_type.id] }
       end
     end
   end

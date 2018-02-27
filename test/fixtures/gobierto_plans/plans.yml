@@ -3,8 +3,6 @@ strategic_plan:
                             'es' => 'Plan Estratégico 2014-2018' }.to_json %>
   introduction_translations: <%= { 'en' => 'Strategic Plan introduction',
                                   'es' => 'Plan Estratégico introduction' }.to_json %>
-  title_for_menu_translations: <%= { 'en' => 'Strategic Plan menu',
-                                     'es' => 'Plan Estratégico menú' }.to_json %>
   css: ".gobierto_planification section.level_0 .cat_1 {
           background-color: rgba(0, 191, 255, 0.95);
         }

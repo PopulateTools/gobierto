@@ -8,7 +8,5 @@ en:
         destroy:
           has_items: You can't archive a type of plan while having associated elements.
           success: Plan type archived successfully
-        recover:
-          success: Plan type has been successfully recovered
         update:
           success: Plan type updated successfully.

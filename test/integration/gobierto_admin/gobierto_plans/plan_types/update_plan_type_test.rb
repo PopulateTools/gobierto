@@ -25,17 +25,17 @@ module GobiertoAdmin
       def test_update_plan_type
         with_signed_in_admin(admin) do
           with_current_site(site) do
-            visit edit_admin_plans_plan_type_path(plan_type.slug)
+            visit edit_admin_plans_plan_type_path(plan_type)
 
             within "form" do
-              fill_in "plan_type_name", with: "Edited plan type name"
+              fill_in "plan_type_name_translations_en", with: "Edited plan type name"
 
               click_button "Update"
             end
 
             assert has_message? "Plan type updated successfully."
 
-            visit admin_plans_path
+            visit admin_plans_plans_path
 
             assert has_content? "Edited plan type name"
 

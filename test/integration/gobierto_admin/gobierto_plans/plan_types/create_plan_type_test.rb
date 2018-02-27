@@ -24,7 +24,11 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              fill_in "plan_type_name", with: "New plan type title"
+              fill_in "plan_type_name_translations_en", with: "New plan type title"
+
+              click_link "ES"
+
+              fill_in "plan_type_name_translations_es", with: "Título del nuevo tipo de plan"
 
               click_button "Create"
 
@@ -33,6 +37,8 @@ module GobiertoAdmin
               plan_type = ::GobiertoPlans::PlanType.last
 
               assert_equal "New plan type title", plan_type.name
+
+              assert_equal "Título del nuevo tipo de plan", plan_type.name_es
 
               assert_equal "new-plan-type-title", plan_type.slug
 

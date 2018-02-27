@@ -8,7 +8,5 @@ es:
         destroy:
           has_items: No puedes archivar un tipo de plan mientras tenga elementos asociados.
           success: El tipo de plan ha sido eliminado correctamente
-        recover:
-          success: El tipo de plan ha sido recuperado correctamente
         update:
           success: El tipo de plan ha sido actualizado correctamente.

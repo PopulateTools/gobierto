@@ -6,10 +6,9 @@ es:
         configuration_data: Configuración
         css: CSS
         introduction: Introducción
-        plan_type: Tipo de plan
+        plan_type_id: Tipo
         slug: url
         title: Título
-        title_for_menu: Título para el menú
         year: Año
       gobierto_admin/gobierto_plans/plan_type_form:
         name: Nombre

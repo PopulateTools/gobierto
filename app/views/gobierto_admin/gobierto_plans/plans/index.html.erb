@@ -5,14 +5,9 @@
 
 <h1><%= t('.title') %></h1>
 
-<div class="pure-g">
-  <div class="pure-u-1-2">
-    <h3 class="m_t_0"><%= t('.plan_list') %></h3>
-  </div>
-
-  <div class="pure-u-1-2 admin_tools right">
-    <%= link_to t(".new"), new_admin_plans_plan_path, class: "button" %>
-  </div>
+<div class="admin_tools right">
+  <%= link_to t(".types"), admin_plans_plan_types_path, class: "button" %>
+  <%= link_to t(".new"), new_admin_plans_plan_path, class: "button" %>
 </div>
 
 <table id="plans">
@@ -31,12 +26,12 @@
   <% @plans.each do |plan| %>
     <tr id="plan-item-<%= plan.id %>">
       <td>
-        <%= link_to edit_admin_plans_plan_path(plan.slug) do %>
+        <%= link_to edit_admin_plans_plan_path(plan) do %>
           <i class="fa fa-edit"></i>
         <% end %>
       </td>
       <td>
-        <%= plan.plan_type.name %>
+        <%= link_to plan.plan_type.name, edit_admin_plans_plan_path(plan) %>
       </td>
       <td>
         <%= plan.title %>
@@ -92,12 +87,12 @@
       <% @archived_plans.each do |plan| %>
         <tr id="plan-item-<%= plan.id %>">
           <td>
-            <%= link_to edit_admin_plans_plan_path(plan.slug) do %>
+            <%= link_to edit_admin_plans_plan_path(plan) do %>
               <i class="fa fa-edit"></i>
             <% end %>
           </td>
           <td>
-            <%= plan.plan_type.name %>
+            <%= link_to plan.plan_type.name, edit_admin_plans_plan_path(plan) %>
           </td>
           <td>
             <%= plan.title %>
@@ -127,97 +122,8 @@
   </div>
 <% end %>
 
-<br>
-
-<div class="pure-g">
-  <div class="pure-u-1-2">
-    <h3 class="m_t_0"><%= t('.type_list') %></h3>
-  </div>
-
-  <div class="pure-u-1-2 admin_tools right">
-    <%= link_to t(".new"), new_admin_plans_plan_type_path, class: "button" %>
-  </div>
-</div>
-
-<table id="plan_types">
-  <thead>
-    <tr>
-      <th class="icon_col"></th>
-      <th><%= t(".header.type") %></th>
-      <th class="icon_col"></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @plan_types.each do |plan_type| %>
-    <tr id="plan-type-item-<%= plan_type.id %>">
-      <td>
-        <%= link_to edit_admin_plans_plan_type_path(plan_type.slug) do %>
-          <i class="fa fa-edit"></i>
-        <% end %>
-      </td>
-      <td>
-        <%= plan_type.name %>
-      </td>
-      <td>
-        <%= link_to admin_plans_plan_type_path(plan_type.id),
-                    title: t("gobierto_admin.shared.archive.element"),
-                    method: :delete,
-                    data: { confirm: t("gobierto_admin.shared.archive.confirm") } do %>
-          <i class="fa fa-trash"></i>
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<% unless @archived_plan_types.empty? %>
-  <div class="m_v_1 right">
-    <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggleplantype: true} %>
-  </div>
-
-  <div id="archived-plan-type-list" style="display:none">
-    <table>
-      <thead>
-        <tr>
-          <th class="icon_col"></th>
-          <th><%= t(".header.type") %></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @archived_plan_types.each do |plan_type| %>
-        <tr id="plan-type-item-<%= plan_type.id %>">
-          <td>
-            <%= link_to edit_admin_plans_plan_type_path(plan_type.slug) do %>
-              <i class="fa fa-edit"></i>
-            <% end %>
-          </td>
-          <td>
-            <%= plan_type.name %>
-          </td>
-          <td>
-            <%= link_to t("gobierto_admin.shared.recover.element"),
-                        admin_plans_plan_type_recover_path(plan_type.id),
-                        title: t("gobierto_admin.shared.recover.element"),
-                        method: :put,
-                        data: { confirm: t("gobierto_admin.shared.recover.confirm") } %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-<% end %>
-
-
-
 <%= javascript_tag do %>
   $('a[data-toggleplan]').on('click', function(e){
      $("div#archived-plan-list").toggle();
-  });
-
-  $('a[data-toggleplantype]').on('click', function(e){
-     $("div#archived-plan-type-list").toggle();
   });
 <% end %>

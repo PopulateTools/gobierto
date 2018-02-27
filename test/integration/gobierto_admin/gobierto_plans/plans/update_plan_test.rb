@@ -25,25 +25,23 @@ module GobiertoAdmin
       def test_update_plan
         with_signed_in_admin(admin) do
           with_current_site(site) do
-            visit edit_admin_plans_plan_path(plan.slug)
+            visit edit_admin_plans_plan_path(plan)
 
             within "form" do
               fill_in "plan_title_translations_en", with: "Edited plan title"
-              fill_in "plan_title_for_menu_translations_en", with: "Edited plan title menu"
 
               click_button "Update"
             end
 
             assert has_message? "Plan updated successfully."
 
-            visit admin_plans_path
+            visit admin_plans_plans_path
 
             assert has_content? "Edited plan title"
 
             plan.reload
 
             assert_equal "Edited plan title", plan.title
-            assert_equal "Edited plan title menu", plan.title_for_menu
 
             activity = Activity.last
             assert_equal plan, activity.subject

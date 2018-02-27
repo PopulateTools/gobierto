@@ -18,11 +18,6 @@
           </div>
 
           <div class="form_item textarea" data-locale="<%= locale %>">
-            <%= label_tag "plan[title_for_menu_translations][#{locale}]", f.object.class.human_attribute_name(:title_for_menu) %>
-            <%= text_field_tag "plan[title_for_menu_translations][#{locale}]", f.object.title_for_menu_translations && f.object.title_for_menu_translations[locale], placeholder: t('.placeholders.title_for_menu', locale: locale) %>
-          </div>
-
-          <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "plan[introduction_translations][#{locale}]", f.object.class.human_attribute_name(:introduction) %>
             <%= text_area_tag "plan[introduction_translations][#{locale}]", f.object.introduction_translations && f.object.introduction_translations[locale], placeholder: t('.placeholders.introduction', locale: locale) %>
           </div>

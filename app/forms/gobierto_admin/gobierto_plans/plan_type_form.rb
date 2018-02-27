@@ -7,11 +7,17 @@ module GobiertoAdmin
 
       attr_accessor(
         :id,
-        :name,
-        :slug
+        :name_translations,
+        :slug,
+        :site_id
       )
+      validates :site_id, presence: true
 
       delegate :persisted?, to: :plan_type
+
+      def site
+        @site ||= Site.find_by(id: site_id)
+      end
 
       def save
         save_plan_type if valid?
@@ -33,7 +39,8 @@ module GobiertoAdmin
 
       def save_plan_type
         @plan_type = plan_type.tap do |plan_type_attributes|
-          plan_type_attributes.name = name
+          plan_type_attributes.site_id = site_id
+          plan_type_attributes.name_translations = name_translations
           plan_type_attributes.slug = slug
         end
 

@@ -8,7 +8,5 @@ ca:
         destroy:
           has_items: No es pot arxivar un tipus de pla mentre tingui elements associats.
           success: El pla s'ha esborrat correctament.
-        recover:
-          success: El pla s'ha recuperat correctament.
         update:
           success: El pla pla s'ha actualizat correctament.

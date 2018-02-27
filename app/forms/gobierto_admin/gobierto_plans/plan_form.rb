@@ -9,7 +9,6 @@ module GobiertoAdmin
         :id,
         :site_id,
         :title_translations,
-        :title_for_menu_translations,
         :css,
         :introduction_translations,
         :year,
@@ -58,7 +57,6 @@ module GobiertoAdmin
         @plan = plan.tap do |plan_attributes|
           plan_attributes.site_id = site_id
           plan_attributes.title_translations = title_translations
-          plan_attributes.title_for_menu_translations = title_for_menu_translations
           plan_attributes.introduction_translations = introduction_translations
           plan_attributes.css = css
           plan_attributes.configuration_data = configuration_data

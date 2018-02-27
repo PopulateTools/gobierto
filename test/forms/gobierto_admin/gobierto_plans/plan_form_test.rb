@@ -12,7 +12,6 @@ module GobiertoAdmin
           slug: "#{plan.slug}-2",
           plan_type_id: plan.plan_type.id,
           introduction_translations: { I18n.locale => plan.introduction },
-          title_for_menu_translations: { I18n.locale => plan.title_for_menu },
           css: plan.css,
           configuration_data: plan.configuration_data,
           year: plan.year
@@ -26,7 +25,6 @@ module GobiertoAdmin
           slug: nil,
           plan_type_id: plan.plan_type.id,
           introduction_translations: nil,
-          title_for_menu_translations: nil,
           css: nil,
           configuration_data: nil,
           year: nil

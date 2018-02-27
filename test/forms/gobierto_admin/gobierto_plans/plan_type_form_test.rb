@@ -7,15 +7,17 @@ module GobiertoAdmin
     class PlanTypeFormTest < ActiveSupport::TestCase
       def valid_plan_type_form
         @valid_plan_type_form ||= PlanTypeForm.new(
-          name: plan_type.name,
-          slug: "#{plan_type.slug}-2"
+          name_translations: { I18n.locale => plan_type.name },
+          slug: "#{plan_type.slug}-2",
+          site_id: site.id
         )
       end
 
       def invalid_plan_type_form
         @invalid_plan_type_form ||= PlanTypeForm.new(
-          name: nil,
-          slug: nil
+          name_translations: nil,
+          slug: nil,
+          site_id: site.id
         )
       end
 

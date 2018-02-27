@@ -14,13 +14,13 @@ module GobiertoPlans
     has_many :categories
     has_many :nodes, through: :categories
 
-    translates :title, :introduction, :title_for_menu
+    translates :title, :introduction
 
     enum visibility_level: { draft: 0, published: 1 }
 
     after_restore :set_slug
 
-    validates :site, :title, :introduction, :title_for_menu, :plan_type_id, presence: true
+    validates :site, :title, :introduction, :plan_type_id, presence: true
 
     scope :sort_by_updated_at, -> { order(updated_at: :desc) }
 

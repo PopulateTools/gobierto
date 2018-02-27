@@ -9,6 +9,11 @@ ca:
           placeholders:
             name: Nom del tipus de pla
             slug: sobre-de-aquest-tipus-de-pla
+        index:
+          header:
+            type: Tipus
+          new: Nou
+          title: Tipus de plans
         new:
           title: Nou tipus de pla
       plans:
@@ -27,15 +32,7 @@ ca:
             introduction: Introducció del pla
             slug: sobre-de-aquest-pla
             title: Titol del tipus de pla
-            title_for_menu: Títol del pla al menú
             year: 2018
-        new:
-          title: Nou tipus de pla
-      shared:
-        navigation:
-          configuration_tab: Configuració
-          data_tab: Dades
-      welcome:
         index:
           header:
             elements: Elements
@@ -43,7 +40,12 @@ ca:
             title: Títol
             type: Tipus
           new: Nou
-          plan_list: Llista de plans
           title: Plans
-          type_list: Llista de tipus de plans
+          types: Tipus
           view_plan: Veure pla
+        new:
+          title: Nou tipus de pla
+      shared:
+        navigation:
+          configuration_tab: Configuració
+          data_tab: Dades

@@ -25,13 +25,11 @@ module GobiertoAdmin
               visit @path
 
               fill_in "plan_title_translations_en", with: "New plan title"
-              fill_in "plan_title_for_menu_translations_en", with: "New plan title for menu"
               fill_in "plan_introduction_translations_en", with: "New plan introduction"
 
               click_link "ES"
 
               fill_in "plan_title_translations_es", with: "Título del nuevo plan"
-              fill_in "plan_title_for_menu_translations_es", with: "Título del menú del nuevo plan"
               fill_in "plan_introduction_translations_es", with: "Introducción del nuevo plan"
 
               select "pam", from: "plan_plan_type_id"
@@ -43,11 +41,9 @@ module GobiertoAdmin
               plan = site.plans.last
 
               assert_equal "New plan title", plan.title
-              assert_equal "New plan title for menu", plan.title_for_menu
               assert_equal "New plan introduction", plan.introduction
 
               assert_equal "Título del nuevo plan", plan.title_es
-              assert_equal "Título del menú del nuevo plan", plan.title_for_menu_es
               assert_equal "Introducción del nuevo plan", plan.introduction_es
 
               assert_equal "pam", plan.plan_type.name

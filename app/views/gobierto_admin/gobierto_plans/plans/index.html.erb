@@ -6,7 +6,10 @@
 <h1><%= t('.title') %></h1>
 
 <div class="admin_tools right">
-  <%= link_to t(".types"), admin_plans_plan_types_path, class: "button" %>
+  <%= link_to admin_plans_plan_types_path do %>
+    <i class="fa fa-cog"></i>
+    <%= t(".types") %>
+  <% end %>
   <%= link_to t(".new"), new_admin_plans_plan_path, class: "button" %>
 </div>
 

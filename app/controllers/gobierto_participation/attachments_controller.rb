@@ -2,11 +2,6 @@
 
 module GobiertoParticipation
   class AttachmentsController < GobiertoParticipation::ApplicationController
-    def show
-      @attachment = find_attachment
-      @issues = current_site.issues
-    end
-
     def index
       @issue = find_issue if params[:issue_id]
       @issues = current_site.issues
@@ -22,10 +17,6 @@ module GobiertoParticipation
 
     def find_issue
       current_site.issues.find_by_slug!(params[:issue_id])
-    end
-
-    def find_attachment
-      find_attachments.find_by_slug!(params[:id])
     end
 
     def find_attachments

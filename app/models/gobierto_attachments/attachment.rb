@@ -117,13 +117,7 @@ module GobiertoAttachments
     end
 
     def to_url(options = {})
-      if collection
-        if collection.container_type == "GobiertoParticipation::Process"
-          url_helpers.gobierto_participation_process_attachment_url({ id: slug, process_id: collection.container.slug, host: app_host }.merge(options))
-        elsif collection.container_type == "GobiertoParticipation"
-          url_helpers.gobierto_participation_attachment_url({ id: slug, host: app_host }.merge(options))
-        end
-      end
+      return url_helpers.gobierto_attachments_document_url({ id: slug, host: app_host }.merge(options))
     end
 
     def human_readable_path

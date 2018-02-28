@@ -6,7 +6,7 @@ module GobiertoPlans
   class PlanShowTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = gobierto_plans_plan_path(plan.slug)
+      @path = gobierto_plans_path(slug: plan_type.slug, year: plan.year)
     end
 
     def site
@@ -15,6 +15,10 @@ module GobiertoPlans
 
     def plan
       @plan ||= gobierto_plans_plans(:strategic_plan)
+    end
+
+    def plan_type
+      @plan_type ||= plan.plan_type
     end
 
     def axes
@@ -38,6 +42,8 @@ module GobiertoPlans
       with_javascript do
         with_current_site(site) do
           visit @path
+
+          assert has_content? "2012"
 
           assert has_content? "Strategic Plan introduction"
 

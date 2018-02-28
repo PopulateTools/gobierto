@@ -51,7 +51,7 @@
         <%= t(".visibility_level.#{plan.visibility_level}") %>
       </td>
       <td>
-        <%= link_to gobierto_plans_plan_preview_url(plan, host: current_site.domain), target: "_blank", class: "view_item" do %>
+        <%= link_to gobierto_plans_plan_type_preview_url(plan, host: current_site.domain), target: "_blank", class: "view_item" do %>
           <i class="fa fa-eye"></i>
           <%= t(".view_plan") %>
         <% end %>

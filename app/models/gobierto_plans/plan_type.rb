@@ -19,5 +19,9 @@ module GobiertoPlans
     def attributes_for_slug
       [name]
     end
+
+    def recent_plan_date
+      plans.published.pluck(:year).sort.reverse!.first
+    end
   end
 end

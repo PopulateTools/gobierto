@@ -259,8 +259,8 @@ ActiveRecord::Schema.define(version: 20180226181257) do
     t.string "sharing_token"
     t.string "document_number_digest"
     t.jsonb "user_information"
+    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id"
-    t.index ["document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true
     t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
@@ -317,9 +317,9 @@ ActiveRecord::Schema.define(version: 20180226181257) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
-    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"

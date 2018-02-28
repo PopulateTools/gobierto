@@ -32,7 +32,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_plans_plan_path(@plan_form.plan),
-            notice: t(".success_html", link: gobierto_plans_plan_preview_url(@plan_form.plan, host: current_site.domain))
+            notice: t(".success_html", link: gobierto_plans_plan_type_preview_url(@plan_form.plan, host: current_site.domain))
           )
         else
           @plan_types = find_plan_types
@@ -54,7 +54,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_plans_plan_path(@plan),
-            notice: t(".success_html", link: gobierto_plans_plan_preview_url(@plan_form.plan, host: current_site.domain))
+            notice: t(".success_html", link: gobierto_plans_plan_type_preview_url(@plan_form.plan, host: current_site.domain))
           )
         else
           @plan_types = find_plan_types

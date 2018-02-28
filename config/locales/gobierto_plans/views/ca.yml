@@ -9,7 +9,7 @@ ca:
     layouts:
       application:
         plans: Planes
-    plans:
+    plan_types:
       show:
         ends: Fi
         global_execution: Estat d'execució global

@@ -48,7 +48,10 @@ module GobiertoAdmin
 
         assert_equal 1, invalid_plan_form.errors.messages[:title].size
         assert_equal 1, invalid_plan_form.errors.messages[:introduction].size
+        assert_equal 1, invalid_plan_form.errors.messages[:year].size
         assert_equal 0, invalid_plan_form.errors.messages[:slug].size
+        assert_equal 0, invalid_plan_form.errors.messages[:css].size
+        assert_equal 0, invalid_plan_form.errors.messages[:configuration_data].size
       end
     end
   end

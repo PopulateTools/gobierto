@@ -1,8 +1,8 @@
-this.GobiertoPlans.PlansController = (function() {
+this.GobiertoPlans.PlanTypesController = (function() {
 
-    function PlansController() {}
+    function PlanTypesController() {}
 
-    PlansController.prototype.show = function() {
+    PlanTypesController.prototype.show = function() {
       _loadPlan();
     };
 
@@ -252,7 +252,7 @@ this.GobiertoPlans.PlansController = (function() {
     };
 
 
-    return PlansController;
+    return PlanTypesController;
   })();
 
-  this.GobiertoPlans.plans_controller = new GobiertoPlans.PlansController;
+  this.GobiertoPlans.plan_types_controller = new GobiertoPlans.PlanTypesController;

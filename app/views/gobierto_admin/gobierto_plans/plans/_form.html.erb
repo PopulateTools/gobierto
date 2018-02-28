@@ -24,6 +24,11 @@
         <% end %>
       </div>
 
+      <div class="form_item input_text">
+        <%= f.label :year %>
+        <%= f.text_field :year, placeholder: t('.placeholders.year') %>
+      </div>
+
       <div class="form_item textarea">
         <%= f.label :configuration_data %>
         <%= f.text_area :configuration_data, placeholder: t('.placeholders.configuration_data') %>
@@ -32,11 +37,6 @@
       <div class="form_item textarea code">
         <%= f.label :css %>
         <%= f.text_area :css, placeholder: t('.placeholders.css') %>
-      </div>
-
-      <div class="form_item input_text">
-        <%= f.label :year %>
-        <%= f.text_field :year, placeholder: t('.placeholders.year') %>
       </div>
 
       <div class="form_item input_text">

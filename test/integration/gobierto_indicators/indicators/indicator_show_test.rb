@@ -8,6 +8,10 @@ module GobiertoIndicators
       @ita_path ||= gobierto_indicators_indicators_ita_path(2014)
     end
 
+    def ip_path
+      @ip_path ||= gobierto_indicators_indicators_ip_path(2012)
+    end
+
     def gci_path
       @gci_path ||= gobierto_indicators_indicators_gci_path
     end
@@ -31,6 +35,20 @@ module GobiertoIndicators
 
           assert has_content? "The indicators ITA (Index of Transparency of the City councils)"
           assert has_content? "S'especifiquen dades biogràfiques de l'Alcalde/ssa i dels regidors/ores de l'Ajuntament?"
+          within ".item-check" do
+            assert page.find("i")["class"].include?("fa-check")
+          end
+        end
+      end
+    end
+
+    def test_indicator_ita
+      with_javascript do
+        with_current_site(site) do
+          visit ip_path
+
+          assert has_content? "Infoparticipa és un projecte desenvolupat per el LPCCP, des de l'any 2012"
+          assert has_content? "Es dóna informació bàsica sobre l'Alcalde: nom i cognoms, foto i partit polític?"
           within ".item-check" do
             assert page.find("i")["class"].include?("fa-check")
           end

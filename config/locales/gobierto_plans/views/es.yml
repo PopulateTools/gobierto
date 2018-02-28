@@ -9,7 +9,7 @@ es:
     layouts:
       application:
         plans: Planes
-    plans:
+    plan_types:
       show:
         ends: Fin
         global_execution: Estado de ejecución global

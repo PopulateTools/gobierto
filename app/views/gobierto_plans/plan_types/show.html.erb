@@ -1,5 +1,5 @@
 <% content_for(:current_submodule_link) do %>
-  <%= link_to title(@plan.title), gobierto_plans_plan_path(@plan.slug) %>
+  <%= link_to title(@plan.title), gobierto_plans_path(slug: @plan.plan_type.slug, year: '') %>
 <% end %>
 
 <% if @plan.css.present? %>
@@ -11,21 +11,24 @@
 <div class="column">
   <div class="block">
 
-    <div class="pure-g header_block_inline m_b_1">
+    <div class="pure-g header_block_inline">
       <div class="pure-u-1 pure-u-md-12-24">
-        <h2 class="with_description">
-          <%= @plan.title %>
-        </h2>
-        <p>
+        <div class="inline_header">
+          <h2 class="with_description p_h_r_1"><%= @plan.title %></h2>
+          <%= render partial: 'layouts/year_breadcrumb', locals: {path_calculation_method: :gobierto_plans_path} %>
+        </div>
+
+        <p v-if="!selected">
           <%= @plan.introduction %>
         </p>
+
         <p>
           <%= t(".latest_update_html", date: l(@plan_updated_at, format: :long)) %>
         </p>
       </div>
 
-      <div class="pure-u-1 pure-u-md-12-24 right">
-        <%= image_tag('illustrations/presupuestos.jpg', class: 'medium_img') %>
+      <div class="pure-u-1 pure-u-md-12-24 right" v-if="!selected">
+        <%= image_tag('illustrations/presupuestos.jpg', class: 'img_header m_v_4') %>
       </div>
     </div>
 
@@ -238,6 +241,6 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
-    window.GobiertoPlans.plans_controller.show();
+    window.GobiertoPlans.plan_types_controller.show();
   <% end %>
 <% end %>

@@ -20,9 +20,10 @@ module GobiertoPlans
 
     after_restore :set_slug
 
-    validates :site, :title, :introduction, :plan_type_id, presence: true
+    validates :site, :title, :introduction, :plan_type_id, :year, presence: true
 
     scope :sort_by_updated_at, -> { order(updated_at: :desc) }
+    scope :sort_by_year, -> { order(year: :desc) }
 
     def configuration_data
       data = read_attribute(:configuration_data)

@@ -1,3 +1,9 @@
+ip12:
+  name: "ip"
+  year: "2012"
+  site: madrid
+  indicator_response: "[{\"id\":0,\"level\":0,\"attributes\":{\"title\":\"I - Infoparticipa\"},\"children\":[{\"id\":0,\"level\":1,\"attributes\":{\"title\":\"Qui són els representants polítics\"},\"children\":[{\"id\":1,\"level\":2,\"attributes\":{\"title\":\"Es dóna informació bàsica sobre l'Alcalde: nom i cognoms, foto i partit polític?\",\"checked\":true,\"links\":[{\"link\":{\"title\":\"Dades biogràfiques de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Competències de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Dades biogràfiques i competències delegades de regidors i regidores\",\"url\":\"https://www.gobierto.es\"}}]}}]}]}]"
+
 ita12:
   name: "ita"
   year: "2012"

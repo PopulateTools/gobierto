@@ -34,7 +34,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: collection_id),
-            notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
+            notice: t(".success_html", link: gobierto_attachments_document_url(id: @file_attachment_form.slug))
           )
         else
           render :edit
@@ -56,7 +56,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: collection_id),
-            notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
+            notice: t(".success_html", link: gobierto_attachments_document_url(id: @file_attachment_form.slug))
           )
         else
           render :edit, collection_id: collection_id

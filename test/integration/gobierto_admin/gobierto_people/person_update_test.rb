@@ -7,7 +7,6 @@ require "support/concerns/gobierto_admin/authorizable_resource_test_module"
 module GobiertoAdmin
   module GobiertoPeople
     class PersonUpdateTest < ActionDispatch::IntegrationTest
-
       include Integration::DynamicContentHelpers
       include ::GobiertoAdmin::AuthorizableResourceTestModule
 
@@ -42,9 +41,11 @@ module GobiertoAdmin
 
               within "form.edit_person" do
                 within ".avatar_file_field" do
-                  attach_file "person_avatar_file", "test/fixtures/files/gobierto_people/people/avatar.jpg"
+                  attach_file "person_avatar_image", "test/fixtures/files/gobierto_people/people/avatar-small.jpg"
                 end
+              end
 
+              within "form.edit_person" do
                 fill_in "person_name", with: "Person Name"
                 fill_in "person_charge_translations_en", with: "Person Charge"
 

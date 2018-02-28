@@ -42,6 +42,11 @@ AWS_SECRET_ACCESS_KEY=
 AWS_REGION=eu-west-1
 S3_BUCKET_NAME=gobierto-dev
 
+# Cloudinary credentials to crop images
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
 # Google Places API Key, to geolocalize places
 GOOGLE_PLACES_API_KEY=
 
@@ -95,6 +100,7 @@ Gobierto uses ElasticSearch and Redis.
 - `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `S3_BUCKET_NAME`: Amazon S3 credentials, region and bucket name
 - `GOOGLE_PLACES_API_KEY`: Google Places API key
 - `ALGOLIA_SEARCH_API_KEY`, `ALGOLIA_APPLICATION_ID`, `ALGOLIA_API_KEY`: Algolia API keys
+- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`: Cloudinary API keys. Sign up for a [free](https://cloudinary.com/users/register/free) account to cropping the user's avatar
 
 ### Asymmetric encryption
 

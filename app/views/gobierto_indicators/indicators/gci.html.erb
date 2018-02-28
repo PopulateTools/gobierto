@@ -37,7 +37,7 @@
       </ul>
 
       <ul v-for="model in json" class="item-root" v-else>
-        <item-tree class="item" :model="model"></item-tree>
+        <item-tree class="item" :model="model" ref="inode"></item-tree>
       </ul>
 
     </div>

@@ -1,6 +1,6 @@
 <!-- item template -->
 <script type="text/x-template" id="item-tree-template">
-  <li :class="getLevelClass(model.level)">
+  <li :class="getLevelClass(model.level)" @click="viewDetail">
     <div @click="toggle" class="item-title">
       <div class="item-toggle p_h_r_1" v-if="hasChildren">
         <div class="toggle-container">
@@ -12,7 +12,7 @@
       <div class="item-text" v-if="hasChildren">
         {{model.attributes.title}}
       </div>
-      <div class="item-text" @click="viewDetail" v-else>
+      <div class="item-text" v-else>
         {{model.attributes.title}}
       </div>
 
@@ -27,7 +27,7 @@
       </div>
     </div>
     <ul v-show="open" v-if="hasChildren">
-      <item-tree class="item" v-for="model in model.children" :model="model" :key="model.id"></item-tree>
+      <item-tree class="item" v-for="model in model.children" :model="model" :key="model.id" ref="inode"></item-tree>
     </ul>
   </li>
 </script>

@@ -10,6 +10,14 @@
   .item-root {
     padding: 0;
 
+    ul {
+      padding: 0;
+
+      @include min-screen(768) {
+        padding-left: 40px; // browser default
+      }
+    }
+
     &.item-root--notree {
       .item {
 
@@ -20,8 +28,10 @@
         &.item-lvl-1 {
           width: 100%;
 
-          .item-lvl-1 {
-            width: 90%;
+          @include min-screen(768) {
+            .item-lvl-1 {
+              width: 90%;
+            }
           }
         }
 
@@ -33,6 +43,11 @@
 
         .item-title {
           display: flex;
+          flex-wrap: wrap;
+
+          @include min-screen(768) {
+            flex-wrap: nowrap;
+          }
 
           .item-text {
             font-size: $f5;
@@ -47,11 +62,20 @@
           .item-check {
             flex-basis: 160px;
             flex-direction: column;
-            margin-left: auto;
+            margin: 1em auto 0;
+
+            @include min-screen(768) {
+              flex-wrap: nowrap;
+              margin: auto;
+            }
 
             > .row {
               display: inline-flex;
               justify-content: space-around;
+
+              &:only-child {
+                display: block;
+              }
 
               .check-container {
                 width: 62px;
@@ -146,7 +170,9 @@
     }
 
     &.item-lvl-1 {
-      width: 90%;
+      @include min-screen(768) {
+        width: 90%;
+      }
     }
 
     &.item-lvl-0,
@@ -154,6 +180,9 @@
       font-size: $f5;
 
       > .item-title {
+        display: flex;
+        align-items: center;
+
         .item-text {
           text-decoration: none;
           font-weight: bold;
@@ -164,8 +193,12 @@
     .item-title {
       border-bottom: 1px solid $color_1_soft;
       padding: .5em;
-      margin: .5em;
       cursor: pointer;
+      display: flex;
+
+      @include min-screen(768) {
+        margin: .5em;
+      }
 
       > * {
         display: inline-block;
@@ -197,7 +230,11 @@
 
       .item-text {
         text-decoration: underline;
-        max-width: 90%;
+        max-width: 80%;
+
+        @include min-screen(768) {
+          max-width: 90%;
+        }
 
         &::first-letter {
           text-transform: uppercase;
@@ -206,6 +243,12 @@
 
       .item-check {
         float: right;
+        margin-left: auto;
+        align-self: center;
+
+        @include min-screen(768) {
+          align-self: auto;
+        }
 
         .check-container {
           width: 18px;

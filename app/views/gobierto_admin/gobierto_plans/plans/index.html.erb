@@ -34,10 +34,10 @@
         <% end %>
       </td>
       <td>
-        <%= link_to plan.plan_type.name, edit_admin_plans_plan_path(plan) %>
+        <%= plan.plan_type.name %>
       </td>
       <td>
-        <%= plan.title %>
+        <%= link_to plan.title, edit_admin_plans_plan_path(plan) %>
       </td>
       <td>
         <%= plan.node_size %>

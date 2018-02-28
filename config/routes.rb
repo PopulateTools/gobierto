@@ -393,4 +393,10 @@ Rails.application.routes.draw do
       resources :attachments, only: [:show], path: ''
     end
   end
+
+  namespace :gobierto_attachments, path: "" do
+    constraints GobiertoSiteConstraint.new do
+      get "/documento/:id" => 'attachment_documents#show', as: :document
+    end
+  end
 end

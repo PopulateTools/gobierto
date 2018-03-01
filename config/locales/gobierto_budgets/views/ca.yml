@@ -524,6 +524,7 @@ ca:
         largest_provider_html: El major proveïdor suposa un <span id="largestProvider"></span>
           de tota la facturació
         last_12_months: Últims 12 mesos
+        last_3_months: Últims 3 mesos
         less_than_1000_html: El <span id="lessThan1000"></span> de les factures són
           menors de 1.000 €
         loading: Carregant...

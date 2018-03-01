@@ -37,7 +37,8 @@
         <div id="invoices-filters" class="button-group ib" role="group">
           <button class="button-grouped sort-G" data-toggle="<%= @year - 1 %>"><%= @year - 1 %></button>
           <button class="button-grouped sort-G" data-toggle="<%= @year %>"><%= t('.this_year') %></button>
-          <button class="button-grouped active sort-G" data-toggle="12m"><%= t('.last_12_months') %></button>
+          <button class="button-grouped sort-G" data-toggle="12m"><%= t('.last_12_months') %></button>
+          <button class="button-grouped active sort-G" data-toggle="3m"><%= t('.last_3_months') %></button>
         </div>
       </div>
     </div>

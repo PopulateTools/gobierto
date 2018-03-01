@@ -503,6 +503,7 @@ en:
         largest_provider_html: The largest provider means <span id="largestProvider"></span>
           of the whole invoicing
         last_12_months: Last 12 months
+        last_3_months: Last 3 months
         less_than_1000_html: The <span id="lessThan1000"></span> of the invoices are
           smaller than 1,000 €
         loading: Loading...

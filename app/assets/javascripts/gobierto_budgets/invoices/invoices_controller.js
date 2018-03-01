@@ -16,7 +16,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       getData(filter);
     });
 
-    getData('12m');
+    getData('3m');
   };
 
   // Global variables
@@ -30,7 +30,9 @@ this.GobiertoBudgets.InvoicesController = (function() {
   function getData(filter) {
     var dateRange;
 
-    if (filter === '12m'){
+    if (filter === '3m'){
+      dateRange = moment().subtract(3, 'month').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
+    } else if (filter === '12m'){
       dateRange = moment().subtract(1, 'year').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
     } else {
       var d1 = new Date(filter, 0, 1);
@@ -98,6 +100,11 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Return the filter callback function based on filter selected
     switch (f) {
+      case '3m':
+        cb = function (o) {
+          return moment(new Date(o.date)) > moment().subtract(3, 'months')
+        }
+        break;
       case '12m':
         cb = function (o) {
           return moment(new Date(o.date)) > moment().subtract(12, 'months')

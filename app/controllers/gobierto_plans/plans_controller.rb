@@ -26,7 +26,9 @@ module GobiertoPlans
           render(
             json: { plan_tree: plan_tree,
                     option_keys: @plan.configuration_data["option_keys"],
-                    level_keys: level_keys }
+                    level_keys: level_keys,
+                    show_table_header: @plan.configuration_data["show_table_header"],
+                    open_node: @plan.configuration_data["open_node"] }
           )
         end
       end

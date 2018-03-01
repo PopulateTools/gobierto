@@ -64,7 +64,7 @@
 
         <section class="level_1" v-if="isOpen(1)" :class="['cat_' + color() ]">
           <div class="lines-header">
-            <div><%= level_name_pluralize(@plan.categories.where(level: 1).size, @plan.configuration_data["level1"]) %></div>
+            <div>{{ (activeNode.children || []).length }} {{ getLabel(activeNode.level, (activeNode.children || []).length) | translate }}</div>
 
             <div><%= t(".percentage_progress") %></div>
           </div>
@@ -78,11 +78,10 @@
 
         <section class="level_2" v-if="isOpen(2)" :class="['cat_' + color() ]">
 
-          <%# FIXME: breadcrumb hidden TEMPORARILY %>
-          <div class="node-breadcrumb mb2" v-if="false">
-            <a data-turbolinks="false" @click.stop="getParent">
+          <div class="node-breadcrumb mb2">
+            <a data-turbolinks="false" @click.stop="setParent">
               <i class="fa fa-caret-left"></i>
-              <%= t(".see_all") %> {{ ((json[rootid] || {}).attributes || {}).title | translate }}
+              <%= t(".see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
             </a>
           </div>
 
@@ -93,7 +92,7 @@
                   <div><i class="fa fa-caret-down"></i></div>
                   <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
                 </div>
-                <div><%= level_name_pluralize(@plan.categories.where(level: 2).size, @plan.configuration_data["level2"]) %></div>
+                <div>{{ (activeNode.children || []).length }} {{ getLabel(activeNode.level, (activeNode.children || []).length) | translate }}</div>
                 <div>{{ (activeNode.attributes || {}).progress || 0 | percent }}</div>
               </div>
 
@@ -101,7 +100,7 @@
                 <li v-for="(model, index) in activeNode.children">
                   <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(index)"></node-list>
                   <transition name="slide-fade">
-                    <table-view :model="model" :key="model.id" @selection="setSelection" v-if="showTable[index]"></table-view>
+                    <table-view :model="model" :key="model.id" :header="showTableHeader" :open="openNode" @selection="setSelection" v-if="showTable[index]"></table-view>
                   </transition>
                 </li>
               </ul>
@@ -110,22 +109,23 @@
 
         <section class="level_3" v-if="isOpen(3)" :class="['cat_' + color() ]">
 
-          <%# FIXME: breadcrumb hidden TEMPORARILY %>
-          <div class="node-breadcrumb mb2" v-if="false">
-            <a data-turbolinks="false" @click.stop="getParent">
-              <i class="fa fa-caret-left"></i>
-              <%= t(".see_all") %> {{ ((json[rootid] || {}).attributes || {}).title | translate }}
-            </a>
-          </div>
+          <template v-for="level in activeNode.level">
+            <div class="node-breadcrumb" :style="{ marginLeft: (level - 1) + 'em', marginBottom: '0.5em' }">
+              <a data-turbolinks="false" @click.stop="setParent(level)">
+                <i class="fa fa-caret-left"></i>
+                {{ (getParent(level).attributes || {}).title | translate }}
+              </a>
+            </div>
+            <br>
+          </template>
 
-          <div class="node-action-line">
+          <div class="node-action-line" :style="{ marginLeft: activeNode.level + 'em' }">
               <div class="action-line--header node-list cat--negative">
                 <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
               </div>
 
               <div class="node-project-detail">
                 <div class="project-optional">
-                  <%# TODO: Filtrar los valores permitidos %>
                   <div class="row" v-for="(value, key) in availableOpts">
                     <template v-if="typeOf(value) !== 'object'">
                       <div class="optional-title">{{ optionKeys[key] | translate }}</div>
@@ -188,10 +188,10 @@
       <img :src="model.attributes.img" alt="">
     </div>
     <div class="node-info js-info">
-      <div class="info-progress progress" :style="{ width: model.attributes.complete }"></div>
+      <div class="info-progress progress" :style="{ width: progressWidth }"></div>
       <div class="info-content">
         <h3>{{ model.attributes.title | translate }}</h3>
-        <span>{{ model.attributes.complete }}</span>
+        <span>{{ model.attributes.progress | percent }}</span>
       </div>
     </div>
   </a>
@@ -212,14 +212,14 @@
 <!-- table view template -->
 <script type="text/x-template" id="table-view-template">
   <table>
-    <thead>
+    <thead v-if="header">
       <th><%= t(".projects") %></th>
       <th><%= t(".starts") %></th>
       <th><%= t(".ends") %></th>
       <th><%= t(".progress") %></th>
     </thead>
     <tbody>
-      <tr v-for="row in model.children" @click.stop="getProject(row)">
+      <tr v-for="row in model.children" @click.stop="getProject(row)" :style="{ cursor: (!open) ? 'auto' : '' }">
         <td>{{ row.attributes.title | translate }}</td>
         <td>{{ row.attributes.starts_at | date }}</td>
         <td>{{ row.attributes.status | translate }}</td>

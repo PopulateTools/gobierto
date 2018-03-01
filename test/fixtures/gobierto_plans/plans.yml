@@ -10,6 +10,8 @@ strategic_plan:
   updated_at: 2016-11-01 00:02:00
   plan_type: pam
   configuration_data: <%= {
+    "show_table_header" => false,
+    "open_node" => true,
     "level0" => {"one" => {"ca"=>"eix", "es"=>"eje", "en"=>"axis"},
                  "other" => {"ca"=>"eixos", "es"=>"ejes", "en"=>"axes"}},
     "level1" => {"one" => {"ca"=>"línia d'actuació", "es"=>"línea de actuación", "en"=>"line of action"},

@@ -6,8 +6,10 @@ module GobiertoBudgets
       class UnsupportedFormat < StandardError; end
 
       FORMATS = {
-        json: { serializer: ->(data) { data.to_json } },
-        csv:  { serializer: ->(data) { GobiertoExports::CSVRenderer.new(data).to_csv } }
+        json: { serializer: ->(data) { data.to_json },
+                content_type: 'application/json; charset=utf-8' },
+        csv:  { serializer: ->(data) { GobiertoExports::CSVRenderer.new(data).to_csv },
+                content_type: 'text/csv; charset=utf-8' }
       }
 
       attr_accessor :site, :year
@@ -34,7 +36,8 @@ module GobiertoBudgets
         FORMATS.each do |format_key, configuration|
           file_urls << FileUploader::S3.new(
             file_name: filename(format_key),
-            content: configuration[:serializer].call(@place_budget_lines)
+            content: configuration[:serializer].call(@place_budget_lines),
+            content_type: configuration[:content_type]
           ).upload!
         end
         file_urls

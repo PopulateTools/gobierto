@@ -17,6 +17,25 @@ input[type=text], input[type=email], input[type=number], input[type=submit], inp
     margin: 0 0 1em 0;
   }
 }
+
+input, textarea {
+  // Pseudoclasses does not work if they're grouped
+  $placeholder-opacity: .25;
+
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  &::placeholder {
+    opacity: $placeholder-opacity;
+  }
+  /* Internet Explorer 10-11 */
+  &:-ms-input-placeholder{
+    opacity: $placeholder-opacity;
+  }
+  /* Microsoft Edge */
+  &::-ms-input-placeholder {
+    opacity: $placeholder-opacity;
+  }
+}
+
 input[type=text].slim {
   height: auto;
   padding: .25em;

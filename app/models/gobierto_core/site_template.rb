@@ -16,15 +16,15 @@ module GobiertoCore
                                                         site.id, template_path)
     end
 
-    def self.liquid_str(site, liquid_path)
-      if /\A\w+\/\w+\/\w+/.match(liquid_path)
-        if GobiertoCore::SiteTemplate.current_site_has_custom_template?(site, liquid_path)
-          GobiertoCore::SiteTemplate.current_site_custom_template(site, liquid_path).first.markup
-        elsif File.exist?("app/views/" + liquid_path + ".liquid")
-          File.read("app/views/" + liquid_path + ".liquid")
+    def self.liquid_str(site, liquid)
+      if /\A\w+\/\w+\/\w+/.match?(liquid)
+        if GobiertoCore::SiteTemplate.current_site_has_custom_template?(site, liquid)
+          GobiertoCore::SiteTemplate.current_site_custom_template(site, liquid).first.markup
+        elsif File.exist?("app/views/" + liquid + ".liquid")
+          File.read("app/views/" + liquid + ".liquid")
         end
       else
-        liquid_path
+        liquid
       end
     end
   end

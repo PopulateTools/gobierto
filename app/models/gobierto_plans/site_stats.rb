@@ -14,9 +14,9 @@ module GobiertoPlans
                                  .last
 
       if activity_updated_at
-        [@plan.updated_at, activity_updated_at].max
+        [@plan.updated_at, activity_updated_at].max.to_date
       else
-        @plan.updated_at
+        @plan.updated_at.to_date
       end
     end
   end

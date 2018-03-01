@@ -14,9 +14,9 @@ module GobiertoIndicators
                                  .last
 
       if activity_updated_at
-        [@indicator.updated_at, activity_updated_at].max
+        [@indicator.updated_at, activity_updated_at].max.to_date
       else
-        @indicator.updated_at
+        @indicator.updated_at.to_date
       end
     end
   end

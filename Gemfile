@@ -79,6 +79,9 @@ gem "exchanger"
 # Web Services
 gem "savon", "~> 2.11.1"
 
+# Image management
+gem "cloudinary"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

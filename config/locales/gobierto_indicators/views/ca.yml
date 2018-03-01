@@ -1,6 +1,8 @@
 ---
 ca:
   gobierto_indicators:
+    events:
+      gobierto_indicators_indicator_updated: Indicator actualitzat
     indicators:
       gci:
         gci_description: Els indicadors GCI (Global City Indicators), que reflecteixen
@@ -24,6 +26,8 @@ ca:
           a través d'un conjunt integrat de 80 indicadors agrupat en diverses àrees.
         ita_title: Indicadors ITA
         title: Indicadors %{year}
+      shared:
+        latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
       template:
         calculation: Càlcul
         'false': no es compleix

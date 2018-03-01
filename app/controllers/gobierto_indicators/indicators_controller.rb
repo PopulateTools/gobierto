@@ -15,6 +15,8 @@ module GobiertoIndicators
     def ip
       load_boolean_indicator
 
+      indicator_update_datetime
+
       respond_to do |format|
         format.html
         format.json do
@@ -27,6 +29,8 @@ module GobiertoIndicators
 
     def ita
       load_boolean_indicator
+
+      indicator_update_datetime
 
       respond_to do |format|
         format.html
@@ -50,6 +54,8 @@ module GobiertoIndicators
 
       @indicator.delete_if { |letter| letter["children"] == [] }
 
+      indicator_update_datetime
+
       respond_to do |format|
         format.html
         format.json do
@@ -61,6 +67,17 @@ module GobiertoIndicators
     end
 
     private
+
+    def indicator_update_datetime
+      indicator = if params[:action] == "gci"
+                    current_site.indicators.find_by(name: params[:action])
+                  else
+                    current_site.indicators.find_by(name: params[:action], year: params[:year])
+                  end
+
+      @site_stats = GobiertoIndicators::SiteStats.new site: current_site, indicator: indicator
+      @indicator_updated_at = @site_stats.indicator_updated_at
+    end
 
     def load_indicators
       @indicators = current_site.indicators.where(name: params[:action])

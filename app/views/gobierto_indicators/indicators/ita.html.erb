@@ -20,6 +20,10 @@
         <p v-if="!selected">
           <%= t('.ita_description') %>
         </p>
+
+        <p>
+          <%= t("gobierto_indicators.indicators.shared.latest_update_html", date: l(@indicator_updated_at, format: :long)) %>
+        </p>
       </div>
 
       <div class="pure-u-1 pure-u-md-12-24 right" v-if="!selected">

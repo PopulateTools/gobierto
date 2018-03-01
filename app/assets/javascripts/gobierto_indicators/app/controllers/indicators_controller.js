@@ -67,9 +67,17 @@ this.GobiertoIndicators.IndicatorsController = (function() {
           }
         },
         created: function () {
-          // Creates a hash
+          var hash = window.location.hash;
           var _model = this.model.id;
-          window.location.hash += "&v=" + _model;
+          var hasValue = (hash.indexOf('v') !== -1);
+
+          // Set the hash if not exists
+          if (!hasValue) {
+            window.location.hash += "&v=" + _model;
+          } else {
+            // Or updates it
+            window.location.hash = hash.replace(hash.split('&')[1], "v=" + _model)
+          }
         },
         computed: {
           value: function (i) {
@@ -189,6 +197,7 @@ this.GobiertoIndicators.IndicatorsController = (function() {
 
                 // Apply hash if exits
                 if (window.location.hash !== "") {
+                  // Strip '#' char
                   var hash = window.location.hash.substr(1);
                   // ancestors ids
                   var _a = hash.split('&')[0].split('=')[1].split(',').map(function(x) { return parseInt(x) });
@@ -197,7 +206,7 @@ this.GobiertoIndicators.IndicatorsController = (function() {
                   // find the id in the tree
                   var model = findById(parseInt(_v), this.json)[0];
 
-                  // Get the ancestors models from the refs 
+                  // Get the ancestors models from the refs
                   var vm = this;
                   this.$nextTick(function () {
                     var ancestors = [vm.$refs.inode[_a[0]].model, vm.$refs.inode[_a[0]].$refs.inode[_a[1]].model]

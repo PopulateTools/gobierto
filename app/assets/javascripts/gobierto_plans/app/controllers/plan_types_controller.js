@@ -31,6 +31,12 @@ this.GobiertoPlans.PlanTypesController = (function() {
         data: function() {
           return {}
         },
+        computed: {
+          progressWidth: function () {
+            // Apply programatically a vue global filter
+            return Vue.filter('percent')(this.model.attributes.progress)
+          }
+        },
         methods: {
           open: function() {
             // { ...this.model } conversion to ES2015
@@ -50,16 +56,6 @@ this.GobiertoPlans.PlanTypesController = (function() {
 
             // Trigger event
             this.$emit('selection', model);
-
-            // REVIEW: Revisar este bloque
-            $('section.level_0 .js-img').hide();
-            $('section.level_0 .js-info').velocity({padding: "1.5em"});
-            $('section.level_0 .js-info h3, section.level_1 .js-info span').velocity({"font-size": "1.25rem" });
-
-            $('section.level_0').velocity({flex: "0 0 25%"});
-            $('section.level_1').velocity("transition.slideRightBigIn");
-            $('section.level_1').css("display: flex");
-
           }
         }
       });
@@ -94,11 +90,6 @@ this.GobiertoPlans.PlanTypesController = (function() {
               var model = _extends({}, this.model);
 
               this.$emit('selection', model);
-
-              // hacky
-              $('section.level_' + l).hide();
-              $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
-              $('section.level_' + (l + 1)).css("display: flex");
             }
 
             if (l === 2) {
@@ -116,35 +107,32 @@ this.GobiertoPlans.PlanTypesController = (function() {
       // define the table view component
       Vue.component('table-view', {
         template: '#table-view-template',
-        props: ['model'],
+        props: ['model', 'header', 'open'],
         data: function() {
           return {}
         },
         methods: {
           getProject: function(model) {
-            var l = this.model.level;
+            if (this.open) {
+              var l = this.model.level;
 
-            // { ...this.model } conversion to ES2015
-            var _extends = Object.assign || function(target) {
-              for (var i = 1; i < arguments.length; i++) {
-                var source = arguments[i];
-                for (var key in source) {
-                  if (Object.prototype.hasOwnProperty.call(source, key)) {
-                    target[key] = source[key];
+              // { ...this.model } conversion to ES2015
+              var _extends = Object.assign || function(target) {
+                for (var i = 1; i < arguments.length; i++) {
+                  var source = arguments[i];
+                  for (var key in source) {
+                    if (Object.prototype.hasOwnProperty.call(source, key)) {
+                      target[key] = source[key];
+                    }
                   }
                 }
-              }
-              return target;
-            };
+                return target;
+              };
 
-            var project = _extends({}, model);
+              var project = _extends({}, model);
 
-            this.$emit('selection', project);
-
-            // hacky
-            $('section.level_' + l).hide();
-            $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
-            $('section.level_' + (l + 1)).css("display: flex");
+              this.$emit('selection', project);
+            }
           }
         }
       });
@@ -158,6 +146,8 @@ this.GobiertoPlans.PlanTypesController = (function() {
           optionKeys: [],
           activeNode: {},
           showTable: {},
+          showTableHeader: true,
+          openNode: false,
           rootid: 0
         },
         created: function() {
@@ -165,9 +155,10 @@ this.GobiertoPlans.PlanTypesController = (function() {
         },
         watch: {
           activeNode: {
-            handler: function(node) {
+            handler: function(node, old) {
               this.showTable = {};
               this.isOpen(node.level);
+              animate(node.level);
             },
             deep: true
           }
@@ -186,15 +177,24 @@ this.GobiertoPlans.PlanTypesController = (function() {
         methods: {
           getJson: function() {
             $.getJSON(window.location.href, function(json) {
+              // Tree with categories and the leaves (nodes)
               var data = json["plan_tree"];
+              // Nodes can have variable attributes and these are their keys
               var optionKeys = json["option_keys"];
+              // Keys for different levels
               var levelKeys = json["level_keys"];
+              // If you can see the table header
+              var showTableHeader = json["show_table_header"];
+              // If you can open a node (project)
+              var openNode = json["open_node"];
 
               // Hide spinner
               $(".js-toggle-overlay").removeClass('is-active');
 
               this.json = data;
               this.levelKeys = levelKeys;
+              this.showTableHeader = showTableHeader;
+              this.openNode = openNode;
               this.optionKeys = Object.keys(optionKeys).reduce(function(c, k) {
                 return (c[k.toLowerCase()] = optionKeys[k]), c;
               }, {});
@@ -216,6 +216,7 @@ this.GobiertoPlans.PlanTypesController = (function() {
             }
           },
           isOpen: function(level) {
+            if (this.activeNode.level === undefined) return false
             return (level - 1) <= this.activeNode.level;
           },
           typeOf: function(val) {
@@ -229,24 +230,83 @@ this.GobiertoPlans.PlanTypesController = (function() {
           toggle: function(i) {
             Vue.set(this.showTable, i, !(this.showTable[i]));
           },
+          getLabel: function(level, number_of_elements) {
+            var l = (_.keys(this.levelKeys).length === (level + 1)) ? level : (level + 1);
+            var key = this.levelKeys["level" + l];
+            return (number_of_elements == 1 ? key["one"] : key["other"]);
+          },
           getParent: function() {
-            this.activeNode = this.json[this.rootid].children[this.activeNode.parent];
+            // Initialize args
+            var breakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+            // From uid, turno into array all parents, and drop last item (myself)
+            var ancestors = _.dropRight(this.activeNode.uid.split('.')).map(Number);
+
+            var current = this.json; // First item. ROOT item
+            for (var i = 0; i < ancestors.length; i++) {
+              if (i === breakpoint) {
+                // If there is breakpoint, I get the corresponding ancestor set by breakpoint
+                break;
+              }
+
+              if (!_.isArray(current)) {
+                current = current.children;
+              }
+              current = current[ancestors[i]];
+            }
+
+            return current || {}
+          },
+          setParent: function() {
+            // Initialize args
+            var breakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+            //hack 3rd level (3rd level has no SECTION)
+            if (breakpoint === 3) breakpoint = breakpoint - 1;
+
+            this.activeNode = this.getParent(breakpoint);
           }
         }
       });
 
+      // Velocity Animates
+      function animate(l) {
+        if (l === 0) {
+          $('section.level_0 .js-img').hide();
+          $('section.level_0 .js-info').velocity({
+            padding: "1.5em"
+          });
+          $('section.level_0 .js-info h3, section.level_0 .js-info span').css({
+            "font-size": "1.25rem"
+          });
+          $('section.level_0').velocity({
+            flex: "0 0 25%"
+          });
+          $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
+
+          return
+        }
+
+        if (l !== 0 && l < 3) {
+          $('section.level_' + l).hide();
+          $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
+
+          return
+        } else if (l >= 3) {
+          $('section.level_' + (l - 1)).hide();
+          $('section.level_' + l).velocity("transition.slideRightBigIn");
+
+          return
+        }
+
+      }
+
       //close everything
       $(document).click(function (e) {
-        // if the target of the click isn't the container nor a descendant of the container REVIEW
-        // var container = $(".planification-content");
+        // if the target of the click isn't the container nor a descendant of the container
         if (!$(e.target).closest('.planification-content').length) {
-        // if (!container.is(e.target) && container.has(e.target).length === 0) {
           app.activeNode = {};
-
-          $('section.level_0').removeAttr('style');
-          $('section.level_0 .js-img').removeAttr('style');
-          $('section.level_0 .js-info').removeAttr('style');
-          $('section.level_0 .js-info h3, section.level_1 .js-info span').removeAttr('style');
+          // Restore styles
+          $('section.level_0, section.level_0 .js-img, section.level_0 .js-info, section.level_0 .js-info h3, section.level_1 .js-info span').removeAttr('style');
         }
       });
     };

@@ -6,7 +6,7 @@ module FileUploader
   class S3
     attr_reader :file, :file_name
 
-    def initialize(file_name:, content: nil, file: nil, content_disposition: nil, bucket_name: nil)
+    def initialize(file_name:, content: nil, file: nil, content_disposition: nil, content_type: nil, bucket_name: nil)
       @file = if content.present?
                 @tmp_file = Tempfile.new
                 @tmp_file.binmode
@@ -19,6 +19,7 @@ module FileUploader
       @file_name = file_name
       @bucket_name = bucket_name
       @content_disposition = content_disposition
+      @content_type = content_type
     end
 
     def call
@@ -37,6 +38,7 @@ module FileUploader
       File.open(file.tempfile, 'rb') do |file_body|
         options = { body: file_body }
         options[:content_disposition] = @content_disposition if @content_disposition.present?
+        options[:content_type] = @content_type if @content_type.present?
 
         object.put(options)
       end

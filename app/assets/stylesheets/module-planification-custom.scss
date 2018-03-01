@@ -372,3 +372,59 @@ $color_pam_5: #00529E;
   }
 
 }
+
+/*
+
+TEMPLATE STYLES
+
+Hint:
+Replace variable $color_pam_1 with ternary color, f.e. 123,123,123 (No parenthesis, no quotes, just 2 commas)
+If you need extra colors, add this block again renaming cat_1 (cat_2, cat_3, cat_4....)
+
+
+.gobierto_planification section:not(.level_0).cat_1,
+.gobierto_planification section:not(.level_0).cat_1 .node-list .node-title h3,
+.gobierto_planification section:not(.level_0).cat_1 .node-list .node-title h3 a,
+.gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb,
+.gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb a,
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
+.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+  color: rgb($color_pam_1);
+}
+.gobierto_planification section:not(.level_0).cat_1,
+.gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb .fa,
+.gobierto_planification section:not(.level_0).cat_1 .node-list .node-title .fa {
+  background: rgba($color_pam_1, 0.1);
+}
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative,
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative h3,
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative h3 a,
+.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title h3,
+.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title h3 a {
+  color: white;
+}
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
+.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+  background: white;
+}
+.gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb {
+  border: 1px solid rgba($color_pam_1, 0.75);
+}
+.gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-mandatory,
+.gobierto_planification section:not(.level_0).cat_1 .node-action-line table tbody tr:hover td {
+  background-color: rgba($color_pam_1, 0.2);
+}
+.gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-optional .row {
+  border-top: 1px solid rgba($color_pam_1, 0.2);
+}
+.gobierto_planification section.level_0 .cat_1 {
+  background-color: rgba($color_pam_1, 0.95);
+}
+.gobierto_planification section.level_0 .cat_1 .progress {
+  background-color: rgb($color_pam_1);
+}
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative {
+  background: rgb($color_pam_1);
+}
+
+*/

@@ -96,6 +96,7 @@ module GobiertoPlans
               within ".lines-header" do
                 assert has_content?("1 line of action")
               end
+
               within ".lines-list" do
                 assert has_content?(action_lines.first.name)
                 assert has_content?("2 actions")
@@ -106,6 +107,7 @@ module GobiertoPlans
               assert has_selector?("h3", text: action_lines.first.name)
               find("h3", text: action_lines.first.name).click
             end
+
             within "section.level_2.cat_3" do
               assert has_content?(action_lines.first.name)
 
@@ -116,12 +118,160 @@ module GobiertoPlans
                 assert has_selector?("div", text: (projects.last.progress / 100).to_s)
 
                 find("td", text: projects.first.name).click
+
+                assert has_content?(projects.first.status)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    def test_show_table_header
+      with_javascript do
+        with_current_site(site) do
+          visit @path
+
+          within "section.level_0" do
+            within "div.node-root.cat_3" do
+              find("a").trigger("click")
+            end
+          end
+
+          within ".planification-content" do
+            within "section.level_1.cat_3" do
+              find("h3", text: action_lines.first.name).click
+            end
+
+            within "section.level_2.cat_3" do
+              within "ul.action-line--list" do
+                find("h3", text: actions.first.name).click
+                refute has_selector?("thead", count: 1)
+              end
+            end
+          end
+
+          hash = plan.configuration_data
+          hash["show_table_header"] = true
+          plan.update_attribute(:configuration_data, JSON.pretty_generate(hash))
+
+          visit @path
+
+          within "section.level_0" do
+            within "div.node-root.cat_3" do
+              find("a").trigger("click")
+            end
+          end
+
+          within ".planification-content" do
+            within "section.level_1.cat_3" do
+              find("h3", text: action_lines.first.name).click
+            end
+
+            within "section.level_2.cat_3" do
+              within "ul.action-line--list" do
+                find("h3", text: actions.first.name).click
+                refute has_selector?("thead", count: 1)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    def test_plan_breadcrumbs
+      with_javascript do
+        with_current_site(site) do
+          visit @path
+
+          hash = plan.configuration_data
+          hash["open_node"] = true
+          plan.update_attribute(:configuration_data, JSON.pretty_generate(hash))
+
+          within "section.level_0" do
+            within "div.node-root.cat_3" do
+              find("a").trigger("click")
+            end
+          end
+
+          within ".planification-content" do
+            within "section.level_1.cat_3" do
+              find("h3", text: action_lines.first.name).click
+            end
+
+            within "section.level_2.cat_3" do
+              within "ul.action-line--list" do
+                find("h3", text: actions.first.name).click
+              end
+              assert has_selector?("div.node-breadcrumb")
+
+              within "ul.action-line--list" do
+                find("td", text: projects.first.name).click
               end
             end
 
-            within "section.level_3.cat_3" do
-              find("h3", text: projects.first.name)
-              assert has_content?(projects.first.status)
+            all("div.node-breadcrumb")[0].click
+
+            within ".lines-header" do
+              assert has_content?("1 line of action")
+            end
+          end
+        end
+      end
+
+      def test_open_nodes
+        with_javascript do
+          with_current_site(site) do
+            visit @path
+
+            within "section.level_0" do
+              within "div.node-root.cat_3" do
+                find("a").trigger("click")
+              end
+            end
+
+            within ".planification-content" do
+              within "section.level_1.cat_3" do
+                find("h3", text: action_lines.first.name).click
+              end
+
+              within "section.level_2.cat_3" do
+                within "ul.action-line--list" do
+                  find("h3", text: actions.first.name).click
+                end
+              end
+
+              within "section.level_3 cat_3" do
+                refute has_selector?("h3", text: projects.first.name)
+              end
+            end
+
+            hash = plan.configuration_data
+            hash["open_node"] = true
+            plan.update_attribute(:configuration_data, JSON.pretty_generate(hash))
+
+            visit @path
+
+            within "section.level_0" do
+              within "div.node-root.cat_3" do
+                find("a").trigger("click")
+              end
+            end
+
+            within ".planification-content" do
+              within "section.level_1.cat_3" do
+                find("h3", text: action_lines.first.name).click
+              end
+
+              within "section.level_2.cat_3" do
+                within "ul.action-line--list" do
+                  find("h3", text: actions.first.name).click
+                end
+              end
+
+              within "section.level_3 cat_3" do
+                assert has_selector?("h3", text: projects.first.name)
+              end
             end
           end
         end

@@ -32,7 +32,7 @@ ca:
               rgba(0, 191, 255, 0.95); }"
             introduction: Introducció del pla
             slug: sobre-de-aquest-pla
-            title: Titol del tipus de pla
+            title: Titol del pla
             year: 2018
         index:
           header:
@@ -45,7 +45,7 @@ ca:
           types: Tipus
           view_plan: Veure pla
         new:
-          title: Nou tipus de pla
+          title: Nou pla
       shared:
         navigation:
           configuration_tab: Configuració

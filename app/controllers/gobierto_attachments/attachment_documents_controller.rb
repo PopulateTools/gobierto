@@ -23,7 +23,7 @@ module GobiertoAttachments
 
     def set_context
       @current_module = @attachment.module
-      @current_process ||= (@collection.container_type == "GobiertoParticipation::Process") ? @collection.container : nil
+      @current_process ||= (@collection && @collection.container_type == "GobiertoParticipation::Process") ? @collection.container : nil
     end
   end
 end

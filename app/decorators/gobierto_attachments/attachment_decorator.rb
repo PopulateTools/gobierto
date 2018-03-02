@@ -17,8 +17,8 @@ module GobiertoAttachments
 
     def initialize(attachment, context = nil, item_type = nil)
       @object = attachment
-      @context = context || attachment.collection.container_type
-      @item_type = item_type || attachment.collection.item_type
+      @context = context || attachment.collection.try(:container_type)
+      @item_type = item_type || attachment.collection.try(:item_type) || 'attachment'
       @layout_configuration ||= OpenStruct.new(CONTEXT_CONFIGURATION[@context] || CONTEXT_CONFIGURATION[:default])
     end
 

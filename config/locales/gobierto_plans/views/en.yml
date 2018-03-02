@@ -1,15 +1,16 @@
 ---
 en:
   gobierto_plans:
+    events:
+      gobierto_plans_plan_created: Plan created
+      gobierto_plans_plan_type_created: Plan type created
+      gobierto_plans_plan_type_updated: Plan type updated
+      gobierto_plans_plan_updated: Plan updated
     layouts:
       application:
         plans: Planes
-    plans:
+    plan_types:
       show:
-        description: At the beginning of the legislature, a plan is drawn up with
-          all the projects for the 4 years of government. Consult what are the plans,
-          the areas and how the different projects are being developed. We update
-          the progress of projects every three months.
         ends: End
         global_execution: State of global execution
         latest_update_html: "<strong>Latest update:</strong> %{date}"
@@ -20,4 +21,3 @@ en:
         see_all: See all in
         starts: Start
         status: Status
-        title: Follow the evolution of the government plan

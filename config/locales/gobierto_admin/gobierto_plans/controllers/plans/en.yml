@@ -1,0 +1,13 @@
+---
+en:
+  gobierto_admin:
+    gobierto_plans:
+      plans:
+        create:
+          success_html: Plan created successfully. <a href="%{link}">View the plan</a>.
+        destroy:
+          success: Plan archived successfully.
+        recover:
+          success: Plan has been successfully recovered.
+        update:
+          success_html: Plan updated successfully. <a href="%{link}">View the plan</a>.

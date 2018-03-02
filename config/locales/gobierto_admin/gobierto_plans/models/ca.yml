@@ -1,0 +1,15 @@
+---
+ca:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_plans/plan_form:
+        configuration_data: Configuració
+        css: CSS
+        introduction: Introducció
+        plan_type_id: Tipus
+        slug: url
+        title: Títol
+        year: Any
+      gobierto_admin/gobierto_plans/plan_type_form:
+        name: Nom
+        slug: url

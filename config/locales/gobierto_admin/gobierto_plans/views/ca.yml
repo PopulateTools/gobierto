@@ -1,0 +1,52 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_plans:
+      plan_types:
+        edit:
+          title: Edita el tipus de pla
+        form:
+          placeholders:
+            name: Nom del tipus de pla
+            slug: sobre-de-aquest-tipus-de-pla
+        index:
+          delete: Esborrar
+          header:
+            type: Tipus
+          new: Nou
+          title: Tipus de plans
+        new:
+          title: Nou tipus de pla
+      plans:
+        data:
+          latest_update: 'Última actualització mitjançant l''API: %{datetime}'
+          no_data: Encara no hi ha dades carregades
+          there_are: Hi ha %{info}
+          title: Dades
+        edit:
+          title: Configuració
+        form:
+          placeholders:
+            configuration_data: '{ "open_node": true }'
+            css: ".gobierto_planification section.level_0 .cat_1 { background-color:
+              rgba(0, 191, 255, 0.95); }"
+            introduction: Introducció del pla
+            slug: sobre-de-aquest-pla
+            title: Titol del pla
+            year: 2018
+        index:
+          header:
+            elements: Elements
+            status: Estat
+            title: Títol
+            type: Tipus
+          new: Nou
+          title: Plans
+          types: Tipus
+          view_plan: Veure pla
+        new:
+          title: Nou pla
+      shared:
+        navigation:
+          configuration_tab: Configuració
+          data_tab: Dades

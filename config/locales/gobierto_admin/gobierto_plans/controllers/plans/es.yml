@@ -1,0 +1,15 @@
+---
+es:
+  gobierto_admin:
+    gobierto_plans:
+      plans:
+        create:
+          success_html: El plan ha sido creado correctamente. <a href="%{link}">Ver
+            el plan</a>.
+        destroy:
+          success: El plan ha sido eliminado correctamente.
+        recover:
+          success: El plan ha sido recuperado correctamente.
+        update:
+          success_html: El plan ha sido actualizado correctamente. <a href="%{link}">Ver
+            el plan</a>.

@@ -1,0 +1,15 @@
+---
+en:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_plans/plan_form:
+        configuration_data: Configuration
+        css: CSS
+        introduction: Introduction
+        plan_type_id: Type
+        slug: url
+        title: Title
+        year: Year
+      gobierto_admin/gobierto_plans/plan_type_form:
+        name: Name
+        slug: url

@@ -1,0 +1,12 @@
+---
+en:
+  gobierto_admin:
+    gobierto_plans:
+      plan_types:
+        create:
+          success: Plan type created successfully.
+        destroy:
+          has_items: You can't archive a type of plan while having associated elements.
+          success: Plan type archived successfully
+        update:
+          success: Plan type updated successfully.

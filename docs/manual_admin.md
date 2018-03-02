@@ -370,6 +370,100 @@ ToDo
 
 Los datos del módulo de Observatorio se cargan y se visualizan automáticamente.
 
+### Planes
+
+El módulo de planes actualmente se carga y se visualiza automáticamente.
+
+Un administrador, puede realizar los siguientes cambios en un plan:
+
+- Subir imágenes personalizadas por categoría.
+
+  ```
+  "level0_options": [
+    {
+      "slug": "economia-emprenedoria-i-ocupacio",
+      "logo": "http://www.madrid.es/assets/images/logo-madrid.png"
+    }
+  ```
+
+- Decidir si se quieren visualizar el detalle de los proyectos o no
+
+  ```
+  "open_node": false
+  ```
+
+- Seleccionar si quieres ver la cabecera de la tabla que presenta el listado de proyectos.
+
+  ```
+  "show_table_header": false
+  ```
+
+- Definir traducciones en singular y plural para los distintos niveles del plan.
+
+  ```
+  "level0": {"one": {"ca": "eix", "es": "eje", "en": "axis"},
+           "other": {"ca": "eixos", "es": "ejes", "en": "axes"}}
+  ```
+
+- Definir las traducciones para las posibles opciones que tiene un proyecto.
+
+  ```
+  "option_keys": {
+    "GOALS": {
+      "ca": "Metes",
+      "es": "Objetivos",
+      "en": "Goals"
+    }, ...
+  ```
+
+- Subir CSS personalizados para los colores de las categorías.
+
+  ```
+  .gobierto_planification section:not(.level_0).cat_1,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title h3,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title h3 a,
+  .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb,
+  .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb a,
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+    color: rgb(123,123,123);
+  }
+  .gobierto_planification section:not(.level_0).cat_1,
+  .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb .fa,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title .fa {
+    background: rgba(123,123,123, 0.1);
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative,
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative h3,
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative h3 a,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title h3,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title h3 a {
+    color: white;
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+    background: white;
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb {
+    border: 1px solid rgba(123,123,123, 0.75);
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-mandatory,
+  .gobierto_planification section:not(.level_0).cat_1 .node-action-line table tbody tr:hover td {
+    background-color: rgba(123,123,123, 0.2);
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-optional .row {
+    border-top: 1px solid rgba(123,123,123, 0.2);
+  }
+  .gobierto_planification section.level_0 .cat_1 {
+    background-color: rgba(123,123,123, 0.95);
+  }
+  .gobierto_planification section.level_0 .cat_1 .progress {
+    background-color: rgb(123,123,123);
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative {
+    background: rgb(123,123,123);
+  }
+  ```
 
 ## Preguntas frecuentes
 

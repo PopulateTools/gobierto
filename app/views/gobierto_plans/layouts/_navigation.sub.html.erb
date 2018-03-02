@@ -1,5 +1,7 @@
-<% current_site.plans.each do |plan| %>
-  <div class="sub-nav-item">
-    <%= link_to plan.title, gobierto_plans_plan_path(id: plan.slug) %>
+<% current_site.plan_types.each do |plan_type| %>
+  <div class="sub-nav-item <%= class_if(' active', plan_type.slug == params[:slug] ) %>">
+    <% if plan_type.plans.published.any? %>
+      <%= link_to plan_type.name, gobierto_plans_path(slug: plan_type.slug, year: plan_type.recent_plan_date) %>
+    <% end %>
   </div>
 <% end %>

@@ -1,0 +1,52 @@
+---
+es:
+  gobierto_admin:
+    gobierto_plans:
+      plan_types:
+        edit:
+          title: Editar tipo de plan
+        form:
+          placeholders:
+            name: Nombre del tipo de plan
+            slug: acerca-de-este-tipo-de-plan
+        index:
+          delete: Borrar
+          header:
+            type: Tipo
+          new: Nuevo
+          title: Tipos de planes
+        new:
+          title: Nuevo tipo de plan
+      plans:
+        data:
+          latest_update: 'Última actualización a través de API: %{datetime}'
+          no_data: Ningún dato cargado todavía
+          there_are: Hay %{info}
+          title: Datos
+        edit:
+          title: Configuración
+        form:
+          placeholders:
+            configuration_data: '{ "open_node": true }'
+            css: ".gobierto_planification section.level_0 .cat_1 { background-color:
+              rgba(0, 191, 255, 0.95); }"
+            introduction: Introducción del plan
+            slug: acerca-de-este-plan
+            title: Título del plan
+            year: 2018
+        index:
+          header:
+            elements: Elementos
+            status: Estado
+            title: Título
+            type: Tipo
+          new: Nuevo
+          title: Planes
+          types: Tipos
+          view_plan: Ver plan
+        new:
+          title: Nuevo plan
+      shared:
+        navigation:
+          configuration_tab: Configuración
+          data_tab: Datos

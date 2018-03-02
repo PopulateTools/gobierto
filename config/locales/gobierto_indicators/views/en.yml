@@ -1,6 +1,8 @@
 ---
 en:
   gobierto_indicators:
+    events:
+      gobierto_indicators_indicator_updated: Indicator updated
     indicators:
       gci:
         gci_description: The GCI indicators (Global City Indicators), which reflect
@@ -25,6 +27,8 @@ en:
           areas.
         ita_title: ITA indicators
         title: Indicators %{year}
+      shared:
+        latest_update_html: "<strong>Latest update:</strong> %{date}"
       template:
         calculation: Calculation
         'false': it's not true

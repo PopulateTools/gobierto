@@ -1,0 +1,12 @@
+---
+es:
+  gobierto_admin:
+    gobierto_plans:
+      plan_types:
+        create:
+          success: El tipo de plan ha sido creado correctamente.
+        destroy:
+          has_items: No puedes archivar un tipo de plan mientras tenga elementos asociados.
+          success: El tipo de plan ha sido eliminado correctamente
+        update:
+          success: El tipo de plan ha sido actualizado correctamente.

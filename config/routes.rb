@@ -129,6 +129,16 @@ Rails.application.routes.draw do
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
     end
 
+    namespace :gobierto_plans, as: :plans, path: :plans do
+      resources :plans, except: [:show], path: "" do
+        get :data
+        put :recover
+      end
+      resources :plan_types, except: [:show], path: :plan_types do
+        put :recover
+      end
+    end
+
     namespace :gobierto_cms, as: :cms, path: :cms do
       resources :pages, only: [:index, :new, :edit, :create, :update, :destroy] do
         put :recover
@@ -308,9 +318,8 @@ Rails.application.routes.draw do
   # Gobierto Plans module
   namespace :gobierto_plans, path: "planes" do
     constraints GobiertoSiteConstraint.new do
-      get "/" => "plans#index", as: :root
-
-      resources :plans, only: [:show], path: ""
+      get "/" => "plan_types#index", as: :root
+      get ":slug/:year" => "plan_types#show"
     end
   end
 

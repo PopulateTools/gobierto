@@ -1,15 +1,16 @@
 ---
 ca:
   gobierto_plans:
+    events:
+      gobierto_plans_plan_created: Pla creat
+      gobierto_plans_plan_type_created: Tipus de pla creat
+      gobierto_plans_plan_type_updated: Tipus de pla actualitzat
+      gobierto_plans_plan_updated: Pla actualitzat
     layouts:
       application:
         plans: Planes
-    plans:
+    plan_types:
       show:
-        description: Al començament de legislatura es traça un pla amb tots els projectes
-          per als 4 anys de govern. Consulta quins són els plans, les àrees prioritàries,
-          i com es van desenvolupant els diferents projectes. actualitzem el progrés
-          dels projectes cada tres mesos.
         ends: Fi
         global_execution: Estat d'execució global
         latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
@@ -20,4 +21,3 @@ ca:
         see_all: Veure tot en
         starts: Inici
         status: Estat
-        title: Segueix l'evolució del pla de govern

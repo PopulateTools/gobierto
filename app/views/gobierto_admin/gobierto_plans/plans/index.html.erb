@@ -1,0 +1,132 @@
+<div class='admin_breadcrumb'>
+  <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
+  <%= t('.title') %>
+</div>
+
+<h1><%= t('.title') %></h1>
+
+<div class="admin_tools right">
+  <%= link_to admin_plans_plan_types_path do %>
+    <i class="fa fa-cog"></i>
+    <%= t(".types") %>
+  <% end %>
+  <%= link_to t(".new"), new_admin_plans_plan_path, class: "button" %>
+</div>
+
+<table id="plans">
+  <thead>
+    <tr>
+      <th class="icon_col"></th>
+      <th><%= t(".header.type") %></th>
+      <th><%= t(".header.title") %></th>
+      <th><%= t(".header.elements") %></th>
+      <th><%= t(".header.status") %></th>
+      <th></th>
+      <th class="icon_col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @plans.each do |plan| %>
+    <tr id="plan-item-<%= plan.id %>">
+      <td>
+        <%= link_to edit_admin_plans_plan_path(plan) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+      </td>
+      <td>
+        <%= plan.plan_type.name %>
+      </td>
+      <td>
+        <%= link_to plan.title, edit_admin_plans_plan_path(plan) %>
+      </td>
+      <td>
+        <%= plan.node_size %>
+      </td>
+      <td>
+        <% if plan.draft? %>
+          <i class="fa fa-lock"></i>
+        <% else %>
+          <i class="fa fa-check"></i>
+        <% end %>
+        <%= t(".visibility_level.#{plan.visibility_level}") %>
+      </td>
+      <td>
+        <%= link_to gobierto_plans_plan_type_preview_url(plan, host: current_site.domain), target: "_blank", class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_plan") %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to admin_plans_plan_path(plan.id),
+                    title: t("gobierto_admin.shared.archive.element"),
+                    method: :delete,
+                    data: { confirm: t("gobierto_admin.shared.archive.confirm") } do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<% unless @archived_plans.empty? %>
+  <div class="m_v_1 right">
+    <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggleplan: true} %>
+  </div>
+
+  <div id="archived-plan-list" style="display:none">
+    <table>
+      <thead>
+        <tr>
+          <th class="icon_col"></th>
+          <th><%= t(".header.type") %></th>
+          <th><%= t(".header.title") %></th>
+          <th><%= t(".header.elements") %></th>
+          <th><%= t(".header.status") %></th>
+          <th class="icon_col"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @archived_plans.each do |plan| %>
+        <tr id="plan-item-<%= plan.id %>">
+          <td>
+            <%= link_to edit_admin_plans_plan_path(plan) do %>
+              <i class="fa fa-edit"></i>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to plan.plan_type.name, edit_admin_plans_plan_path(plan) %>
+          </td>
+          <td>
+            <%= plan.title %>
+          </td>
+          <td>
+            <%= plan.node_size %>
+          </td>
+          <td>
+            <% if plan.draft? %>
+              <i class="fa fa-lock"></i>
+            <% else %>
+              <i class="fa fa-check"></i>
+            <% end %>
+            <%= t(".visibility_level.#{plan.visibility_level}") %>
+          </td>
+          <td>
+            <%= link_to t("gobierto_admin.shared.recover.element"),
+                        admin_plans_plan_recover_path(plan.id),
+                        title: t("gobierto_admin.shared.recover.element"),
+                        method: :put,
+                        data: { confirm: t("gobierto_admin.shared.recover.confirm") } %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $('a[data-toggleplan]').on('click', function(e){
+     $("div#archived-plan-list").toggle();
+  });
+<% end %>

@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+namespace :gobierto_attachments do
+  desc 'Set collection_id of attachments with collection blank from collection_item association'
+  task set_missing_collections: :environment do
+    GobiertoAttachments::Attachment.where(collection: nil).each do |attachment|
+      associations = GobiertoCommon::CollectionItem.where(item: attachment)
+      collection_item = associations.find_by(container_type: 'GobiertoParticipation::Process') ||
+        associations.find_by(container_type: 'GobiertoParticipation') ||
+        associations.find_by(container_type: 'Site')
+      if collection_item
+        attachment.update_attribute(:collection_id, collection_item.collection_id)
+        puts "== Associated to collection #{collection_item.collection.title} attachment with id: #{attachment.id}"
+      else
+        puts "== Couldn't find a group for attachment with id: #{attachment.id}"
+      end
+    end
+  end
+end

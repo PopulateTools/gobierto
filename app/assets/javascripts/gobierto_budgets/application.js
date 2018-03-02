@@ -17,11 +17,19 @@ $(document).on('turbolinks:load', function() {
   if($('#expense-treemap').length && !$('#expense-treemap svg').length){
     window.expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);
     window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
+
+    window.addEventListener("resize", _.debounce(function () {
+      window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
+    }, 250));
   }
 
   if($('#treemap').length && !$('#treemap svg').length){
     window.expenseTreemap = new TreemapVis('#treemap', 'big', true);
     window.expenseTreemap.render($('#treemap').data('url'));
+
+    window.addEventListener("resize", _.debounce(function () {
+      window.expenseTreemap.render($('#treemap').data('url'));
+    }, 250));
   }
 
   if($('.vis-bubbles-expense').length && $('.vis-bubbles-income').length && !$('.vis-bubbles-expense svg').length && !$('.vis-bubbles-income svg').length) {

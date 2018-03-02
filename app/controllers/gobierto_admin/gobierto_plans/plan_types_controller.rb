@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoPlans
     class PlanTypesController < GobiertoAdmin::GobiertoPlans::BaseController
       def index
-        @plan_types = ::GobiertoPlans::PlanType.all.sort_by_updated_at
+        @plan_types = find_plan_types
       end
 
       def new
@@ -92,6 +92,10 @@ module GobiertoAdmin
 
       def find_plan_type
         current_site.plan_types.find(params[:id])
+      end
+
+      def find_plan_types
+        current_site.plan_types.sort_by_updated_at
       end
     end
   end

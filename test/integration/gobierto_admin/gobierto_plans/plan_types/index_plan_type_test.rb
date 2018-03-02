@@ -19,7 +19,7 @@ module GobiertoAdmin
       end
 
       def plan_types
-        @plan_types ||= ::GobiertoPlans::PlanType.all
+        @plan_types ||= site.plan_types.all
       end
 
       def test_plan_types_index

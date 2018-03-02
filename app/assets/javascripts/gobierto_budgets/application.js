@@ -38,15 +38,19 @@ $(document).on('turbolinks:load', function() {
     getBubbleData.getData(function() {
       var sliderBubbles = new VisSlider('.timeline', window.budgetLevels);
 
-      window.addEventListener("resize", _.debounce(function () {
-        var sliderBubbles = new VisSlider('.timeline', window.budgetLevels);
-      }, 250));
-
       var visBubblesExpense = new VisBubbles('.vis-bubbles-expense', 'expense', window.budgetLevels);
       visBubblesExpense.render();
 
       var visBubblesIncome = new VisBubbles('.vis-bubbles-income', 'income', window.budgetLevels);
       visBubblesIncome.render();
+
+      window.addEventListener("resize", _.debounce(function () {
+        var sliderBubbles = new VisSlider('.timeline', window.budgetLevels);
+        visBubblesExpense.resize();
+        visBubblesIncome.resize();
+
+        var bubbleLegend = (window.innerWidth >= 1024) ? new VisBubbleLegend('.bubble_legend') : $('.bubble_legend svg').remove();
+      }, 250));
 
       $(document).on('visSlider:yearChanged', function(e, year) {
         visBubblesIncome.update(year);

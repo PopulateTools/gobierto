@@ -60,6 +60,14 @@ var VisLinesExecution = Class.extend({
     }
   },
   setScales: function(callback) {
+
+    if (this.svg) {
+      // Destroy the container and render again
+      this.svg.parent().remove();
+      this.isMobile = window.innerWidth <= 768;
+      this.render()
+    }
+
     // Chart dimensions
     this.margin = {top: 55, right: 0, bottom: 50, left: this.isMobile ? 0 : 385};
     this.width = this._width() - this.margin.left - this.margin.right;
@@ -100,6 +108,7 @@ var VisLinesExecution = Class.extend({
     }
   },
   updateRender: function(callback) {
+
     this.nested = d3.nest()
       .key(function(d) { return d.parent_id;})
       .sortValues(function(a, b) {

@@ -18,6 +18,11 @@ $( document ).on('turbolinks:load', function() {
     var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', expensesKind)
     vis_expenses_execution.render();
 
+    window.addEventListener("resize", _.debounce(function () {
+      vis_expenses_execution.setScales();
+      vis_expenses_execution.updateRender();
+    }, 250));
+
     $('.expenses_execution .tooltiped').tipsy({
       gravity: 's',
       trigger: 'hover',
@@ -42,6 +47,11 @@ $( document ).on('turbolinks:load', function() {
     // Render the new category
     var vis_expenses_execution = new VisLinesExecution('.income_execution', 'I', incomeKind)
     vis_expenses_execution.render();
+
+    window.addEventListener("resize", _.debounce(function () {
+      vis_expenses_execution.setScales();
+      vis_expenses_execution.updateRender();
+    }, 250));
 
     $('.income_execution .tooltiped').tipsy({
       gravity: 's',

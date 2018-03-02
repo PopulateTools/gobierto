@@ -409,6 +409,7 @@ es:
           tooltip: Se ha ejecutado un
           tooltip_budgeted: Presupuestado inicial
           tooltip_budgeted_updated: Presupuestado actualizado
+          tooltip_executed_amount: Importe ejecutado
       widget_template_deviation:
         expense: Gastos
         income: Ingresos

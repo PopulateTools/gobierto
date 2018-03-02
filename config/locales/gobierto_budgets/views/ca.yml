@@ -417,6 +417,7 @@ ca:
           tooltip: S'ha executat un
           tooltip_budgeted: Pressupostat inicial
           tooltip_budgeted_updated: Pressupostat actualitzat
+          tooltip_executed_amount: Import executat
       widget_template_deviation:
         expense: Despeses
         income: Ingressos

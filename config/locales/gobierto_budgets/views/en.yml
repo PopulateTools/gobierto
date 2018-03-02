@@ -397,6 +397,7 @@ en:
           tooltip: It has been executed by a
           tooltip_budgeted: Initial budget
           tooltip_budgeted_updated: Updated budget
+          tooltip_executed_amount: Executed amount
       widget_template_deviation:
         expense: Expense
         income: Income

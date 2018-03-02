@@ -8,9 +8,10 @@ namespace :gobierto_attachments do
       collection_item = associations.find_by(container_type: 'GobiertoParticipation::Process') ||
         associations.find_by(container_type: 'GobiertoParticipation') ||
         associations.find_by(container_type: 'Site')
-      if collection_item
-        attachment.update_attribute(:collection_id, collection_item.collection_id)
-        puts "== Associated to collection #{collection_item.collection.title} attachment with id: #{attachment.id}"
+      if collection_item && (collections = GobiertoCommon::Collection.where(title_translations: collection_item.collection.title_translations, item_type: 'GobiertoAttachments::Attachment')).any?
+        collection = collections.first
+        attachment.update_attribute(:collection_id, collection.id)
+        puts "== Associated to collection #{collection.title} attachment with id: #{attachment.id}"
       else
         puts "== Couldn't find a group for attachment with id: #{attachment.id}"
       end

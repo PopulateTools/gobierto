@@ -516,6 +516,7 @@ es:
         largest_provider_html: El mayor proveedor supone un <span id="largestProvider"></span>
           de toda la facturación
         last_12_months: Últimos 12 meses
+        last_3_months: Últimos 3 meses
         less_than_1000_html: El <span id="lessThan1000"></span> de las facturas son
           menores de 1.000 €
         loading: Cargando...

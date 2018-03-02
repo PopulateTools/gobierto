@@ -38,6 +38,10 @@ $(document).on('turbolinks:load', function() {
     getBubbleData.getData(function() {
       var sliderBubbles = new VisSlider('.timeline', window.budgetLevels);
 
+      window.addEventListener("resize", _.debounce(function () {
+        var sliderBubbles = new VisSlider('.timeline', window.budgetLevels);
+      }, 250));
+
       var visBubblesExpense = new VisBubbles('.vis-bubbles-expense', 'expense', window.budgetLevels);
       visBubblesExpense.render();
 

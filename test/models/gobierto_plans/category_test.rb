@@ -40,21 +40,21 @@ module GobiertoPlans
     end
 
     def test_uid
-      assert_equal "2", axe.uid
+      assert_equal axe.calculate_uid, axe.uid
       assert_equal axe.level, axe.uid.split(".").size - 1
 
-      assert_equal "2.0", action_line.uid
+      assert_equal action_line.calculate_uid, action_line.uid
       assert_equal action_line.level, action_line.uid.split(".").size - 1
 
-      assert_equal "2.0.0", action.uid
+      assert_equal action.calculate_uid, action.uid
       assert_equal action.level, action.uid.split(".").size - 1
     end
 
     def test_children_progress
-      assert_equal 25.0, action_line.children_progress
+      assert_equal action_line.progress, action_line.children_progress
       assert_equal action_line.children_progress, projects.sum(:progress) / projects.size
 
-      assert_equal 0, action.children_progress
+      assert_equal action.progress, action.children_progress
     end
   end
 end

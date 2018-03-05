@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180226181257) do
+ActiveRecord::Schema.define(version: 20180305102456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -714,6 +714,8 @@ ActiveRecord::Schema.define(version: 20180226181257) do
     t.string "slug", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "progress"
+    t.string "uid"
     t.index ["name_translations"], name: "index_gplan_categories_on_name_translations", using: :gin
     t.index ["plan_id"], name: "index_gplan_categories_on_plan_id"
   end

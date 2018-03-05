@@ -18,7 +18,7 @@ class GobiertoPlans::PlanTree
     categories.each do |category|
       categories = @plan.categories.where(parent_id: category.id)
 
-      children = if categories.any?
+      children = if categories.exists?
                    plan_tree(categories)
                  else
                    []
@@ -32,10 +32,10 @@ class GobiertoPlans::PlanTree
                  level: category.level,
                  attributes: { title: category.name_translations,
                                parent_id: category.parent_id,
-                               progress: category.children_progress,
+                               progress: category.progress,
                                img: @plan.configuration_data["level0_options"].find { |option| option["slug"] == category.slug }["logo"] },
                  children: children }
-             elsif category_nodes.any?
+             elsif category_nodes.exists?
                nodes = []
 
                category_nodes.each_with_index do |node, index|
@@ -57,7 +57,7 @@ class GobiertoPlans::PlanTree
                  level: category.level,
                  attributes: { title: category.name_translations,
                                parent_id: category.parent_id,
-                               progress: category_nodes.sum(:progress) / category_nodes.size },
+                               progress: category.progress },
                  children: nodes }
              else
                { id: category.id,
@@ -65,7 +65,7 @@ class GobiertoPlans::PlanTree
                  level: category.level,
                  attributes: { title: category.name_translations,
                                parent_id: category.parent_id,
-                               progress: category.children_progress },
+                               progress: category.progress },
                  children: children }
              end
 

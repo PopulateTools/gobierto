@@ -25,30 +25,30 @@ module GobiertoPlans
       children
     end
 
-    def uid(uid = "")
+    def calculate_uid(uid = "")
       if parent_id && parent_id.positive?
         index = self.class.where(parent_id: parent_category).index(self)
         uid = "." + index.to_s + uid
-        parent_category.uid(uid)
+        parent_category.calculate_uid(uid)
       else
-        index = self.class.where(parent_id: nil).index(self)
+        index = self.class.where(parent_id: nil, plan_id: plan_id).index(self)
         index.to_s + uid
       end
     end
 
     def children_progress
       descendants_array = descendants
-      descendants = self.class.where(id: descendants_array.map(&:id))
+      descendants = self.class.where(id: descendants_array.pluck(:id))
       max_level = descendants.maximum(:level)
 
       descendants_leaves = descendants.where(level: max_level)
-      if descendants_leaves.any?
+      if descendants_leaves.exists?
         descendants_leaves_id = descendants_leaves.pluck(:id)
         node_ids = GobiertoPlans::CategoriesNode.where(category_id: descendants_leaves_id).pluck(:node_id)
         nodes = GobiertoPlans::Node.where(id: node_ids)
         nodes.average(:progress).to_f
       else
-        0
+        nil
       end
     end
   end

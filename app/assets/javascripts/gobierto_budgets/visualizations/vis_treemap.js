@@ -27,7 +27,8 @@ var TreemapVis = Class.extend({
     $(this.containerId).html('');
 
     // Chart dimensions
-    this.containerWidth = parseInt(d3.select(this.containerId).style('width'), 10);
+    this.containerWidth = d3.select(this.containerId).parent().node().getBoundingClientRect().width;
+
     this.width = this.containerWidth - this.margin.left - this.margin.right;
     this.height = (this.containerWidth / this.sizeFactor) - this.margin.top - this.margin.bottom;
 

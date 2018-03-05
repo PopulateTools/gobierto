@@ -17,11 +17,19 @@ $(document).on('turbolinks:load', function() {
   if($('#expense-treemap').length && !$('#expense-treemap svg').length){
     window.expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);
     window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
+
+    window.addEventListener("resize", _.debounce(function () {
+      window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
+    }, 250));
   }
 
   if($('#treemap').length && !$('#treemap svg').length){
     window.expenseTreemap = new TreemapVis('#treemap', 'big', true);
     window.expenseTreemap.render($('#treemap').data('url'));
+
+    window.addEventListener("resize", _.debounce(function () {
+      window.expenseTreemap.render($('#treemap').data('url'));
+    }, 250));
   }
 
   if($('.vis-bubbles-expense').length && $('.vis-bubbles-income').length && !$('.vis-bubbles-expense svg').length && !$('.vis-bubbles-income svg').length) {
@@ -35,6 +43,14 @@ $(document).on('turbolinks:load', function() {
 
       var visBubblesIncome = new VisBubbles('.vis-bubbles-income', 'income', window.budgetLevels);
       visBubblesIncome.render();
+
+      window.addEventListener("resize", _.debounce(function () {
+        var sliderBubbles = new VisSlider('.timeline', window.budgetLevels);
+        visBubblesExpense.resize();
+        visBubblesIncome.resize();
+
+        var bubbleLegend = (window.innerWidth >= 1024) ? new VisBubbleLegend('.bubble_legend') : $('.bubble_legend svg').remove();
+      }, 250));
 
       $(document).on('visSlider:yearChanged', function(e, year) {
         visBubblesIncome.update(year);

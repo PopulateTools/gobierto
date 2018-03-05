@@ -14,7 +14,7 @@ var VisBubbles = Class.extend({
     d3.formatDefaultLocale(eval(this.locale));
 
     this.margin = {top: 20, right: 10, bottom: 20, left: 10},
-    this.width = parseInt(d3.select(this.container).style('width')) - this.margin.left - this.margin.right;
+    this.width = parseInt(d3.select(this.container).parent().node().getBoundingClientRect().width) - this.margin.left - this.margin.right;
     this.height = this.isMobile ? 320 : 520 - this.margin.top - this.margin.bottom;
     this.center = { x: this.width / 2, y: this.height / 2 };
 
@@ -52,6 +52,11 @@ var VisBubbles = Class.extend({
   },
   render: function() {
     this.updateRender();
+  },
+  resize: function() {
+    this.svg.parent().remove();
+    this.init(this.container, this.budget_category, this.data);
+    this.render();
   },
   createNodes: function(rawData, year) {
     var data = rawData;
@@ -127,6 +132,7 @@ var VisBubbles = Class.extend({
     this.simulation.alpha(1).restart();
   },
   updateRender: function(callback) {
+
     var budgetCategory = this.budget_category;
     this.nodes = this.createNodes(this.data, this.currentYear);
 

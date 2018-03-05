@@ -48,7 +48,6 @@ center_basic_needs:
   plan: strategic_plan
   slug: center-basic-needs
   level: 2
-  progress: 0
   uid: "2.0.0"
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00

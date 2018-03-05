@@ -117,11 +117,11 @@
 <script type="text/x-template" id="file-list-template">
   <small>
     <a @click.prevent="showFiles = !showFiles" href="#" class="tool_title show-files">
-      <i :class="[showFiles ? 'fa-caret-down' : 'fa-caret-right']" class="fa p_h_r_0_25 soft" aria-hidden="true" v-if="attachments.length"></i>
+      <i class="fa fa-caret-down p_h_r_0_25 soft" aria-hidden="true" v-if="attachments.length"></i>
       <strong><%= t('.attachments') %></strong>
     </a>
 
-    <div class="file-list" v-if="showFiles">
+    <div class="file-list" v-if="attachments.length">
       <ul>
         <li v-for="attachment in attachments" :key="attachment.id">
           <a @mouseover="popover" :href="attachment.human_readable_path" target="_blank" :data-attachment-id="attachment.id">{{attachment.name || attachment.file_name}}</a>

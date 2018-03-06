@@ -18,6 +18,18 @@ module GobiertoAttachments
     end
 
     def test_create_attaching
+      attaching = GobiertoAttachments::Attaching.create!(
+        attachment: pdf_attachment,
+        attachable: attachable
+      )
+
+      assert attaching.valid?
+
+      assert_equal attaching.attachment.collection.site, attachable.site
+    end
+
+    def test_create_attaching_creating_collection
+      site.collections.where(item_type: "GobiertoAttachments::Attachment").each(&:destroy)
 
       attaching = GobiertoAttachments::Attaching.create!(
         attachment: pdf_attachment,

@@ -32,7 +32,8 @@ module GobiertoAttachments
     end
 
     def create_collection
-      site.collections.create container: attachable.collection.container,
+      site.collections.create container_type: attachable.collection.container_type,
+                              container_id: attachable.collection.container_id,
                               item_type: attachment.class.name,
                               slug: "attachment-#{attachable.collection.slug}",
                               title: I18n.t("gobierto_participation.shared.documents")

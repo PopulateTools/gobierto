@@ -99,7 +99,7 @@ GEM
     case_transform (0.2)
       activesupport
     cliver (0.3.2)
-    cloudinary (1.9.0)
+    cloudinary (1.9.1)
       aws_cf_signer
       rest-client
     cocoon (1.2.11)

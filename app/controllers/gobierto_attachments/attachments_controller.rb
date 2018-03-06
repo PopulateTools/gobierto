@@ -24,7 +24,7 @@ module GobiertoAttachments
     end
 
     def load_attachment
-      @attachment = current_site.attachments.find(params[:id])
+      @attachment = current_site.attachments.find_by(id: params[:id]) || current_site.attachments.find_by!(slug: params[:id])
     end
 
   end

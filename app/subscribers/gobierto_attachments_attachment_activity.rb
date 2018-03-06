@@ -18,7 +18,7 @@ module Subscribers
       # When the author is nil, we can asume the action has been performed by an integration
       return if author.nil?
 
-      recipient = unless subject.collection.container.is_a?(Module)
+      recipient = unless subject.collection.blank? || subject.collection.container.is_a?(Module)
                     subject.collection
                   else
                     nil

@@ -362,7 +362,7 @@ Rails.application.routes.draw do
         resources :polls, only: [:index], controller: "processes/polls", path: "encuestas" do
           resources :answers, only: [:new, :create], controller: "processes/poll_answers"
         end
-        resources :attachments, only: [:index, :show], controller: "processes/attachments", path: "documentos"
+        resources :attachments, only: [:index], controller: "processes/attachments", path: "documentos"
         resources :past_process_events, only: [:index], controller: "processes/past_process_events", as: :past_process_events, path: "agendas/eventos-pasados"
         resources :events, only: [:index, :show], controller: "processes/events", path: "agendas"
         resources :news, only: [:index], controller: "processes/news", path: "noticias"
@@ -370,18 +370,18 @@ Rails.application.routes.draw do
       end
 
       resources :issues, only: [:index, :show], path: "temas" do
-        resources :attachments, only: [:index, :show], controller: "issues/attachments", path: "documentos"
+        resources :attachments, only: [:index], controller: "issues/attachments", path: "documentos"
         resources :events, only: [:index, :show], controller: "issues/events", path: "agendas"
         resources :activities, only: [:index], controller: "issues/activities", path: "actividad"
       end
 
       resources :scopes, only: [:index, :show], path: "ambitos" do
-        resources :attachments, only: [:index, :show], controller: "scopes/attachments", path: "documentos"
+        resources :attachments, only: [:index], controller: "scopes/attachments", path: "documentos"
         resources :events, only: [:index, :show], controller: "scopes/events", path: "agendas"
         resources :activities, only: [:index], controller: "scopes/activities", path: "actividad"
       end
 
-      resources :attachments, only: [:index, :show], controller: "attachments", path: "documentos"
+      resources :attachments, only: [:index], controller: "attachments", path: "documentos"
       resources :past_participation_events, only: [:index], controller: "past_participation_events", as: :past_participation_events, path: "agendas/eventos-pasados"
       resources :events, only: [:index, :show], controller: "events", path: "agendas"
       resources :news, only: [:index], controller: "news", path: "noticias"
@@ -400,6 +400,12 @@ Rails.application.routes.draw do
   namespace :gobierto_attachments, path: 'docs' do
     constraints GobiertoSiteConstraint.new do
       resources :attachments, only: [:show], path: ''
+    end
+  end
+
+  namespace :gobierto_attachments, path: "" do
+    constraints GobiertoSiteConstraint.new do
+      get "/documento/:id" => 'attachment_documents#show', as: :document
     end
   end
 end

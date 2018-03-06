@@ -21,9 +21,8 @@ module GobiertoParticipation
     end
 
     def process_attachment_path
-      @process_attachment_path ||= gobierto_participation_process_attachment_path(
-        process_attachment.slug,
-        process_id: process.slug
+      @process_attachment_path ||= gobierto_attachments_document_path(
+        process_attachment.slug
       )
     end
 

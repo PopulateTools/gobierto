@@ -125,3 +125,12 @@ participation_documents:
   item_type: GobiertoAttachments::Attachment
 
 ## /end
+
+
+santander_participation_docs:
+  site: santander
+  title_translations: <%= {'en' => 'Santander docs', 'es' => 'Santander documentos' }.to_json %>
+  slug: santander-attachments
+  container_type: GobiertoParticipation
+  item_type: GobiertoAttachments::Attachment
+

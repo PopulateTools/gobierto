@@ -17,7 +17,7 @@ module GobiertoParticipation
     end
 
     def participation_attachment_path
-      @participation_attachment_path ||= gobierto_participation_attachment_path(participation_attachment.slug)
+      @participation_attachment_path ||= gobierto_attachments_document_path(participation_attachment.slug)
     end
 
     def test_secondary_nav

@@ -411,7 +411,8 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
       data: function(){
         return {
           attachments: [],
-          showFiles: false
+          showFiles: true,
+          fileListClass: 'fa-caret-down'
         }
       },
       methods: {
@@ -431,10 +432,30 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             success: function(response, textStatus, jqXHR){
               if(jqXHR.status == 200){
                 Vue.set(self, 'attachments', response.attachments);
+
+                if(response.attachments.length > 0) {
+                  self.showFiles = true;
+                  self.fileListClass = 'fa-caret-down';
+                } else {
+                  self.showFiles = false;
+                  self.fileListClass = '';
+                }
               }
-            },
+            }
           });
         },
+        toggleList: function(){
+          var self = this;
+
+          self.showFiles = self.showFiles
+          if(self.attachments.length > 0) {
+            if(self.showFiles) {
+              self.fileListClass = 'fa-caret-down';
+            } else {
+              self.fileListClass = 'fa-caret-right';
+            }
+          }
+        }
       },
       mounted: function() {
         var self = this;
@@ -457,6 +478,10 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           self.attachments.splice(index, 1);
           self.showFiles = true;
         });
+      },
+      created: function () {
+        var self = this;
+        self.fetchData();
       }
     })
 

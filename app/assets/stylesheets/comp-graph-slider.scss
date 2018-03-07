@@ -29,23 +29,28 @@
   .year-circles {
     fill: $color_separator;
     stroke: white;
+
     circle {
       cursor: pointer;
     }
   }
+
   .track {
     stroke: $color_secondary;
     stroke-width: 10px;
   }
+
   .track-inset {
     stroke: $color_secondary;
     stroke-width: 8px;
   }
+
   .track-overlay {
     pointer-events: stroke;
     stroke-width: 65px;
     stroke: transparent;
   }
+
   .handle {
     fill: $color_1;
     stroke: white;
@@ -53,8 +58,10 @@
     stroke-width: 1.25px;
     cursor: pointer;
   }
+
   .proposal {
     fill: $color_proposal_bg;
+
     text {
       fill: $color_proposal;
       text-transform: uppercase;

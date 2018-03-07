@@ -15,10 +15,10 @@
     }
 
     .inner {
-      margin: 0 .5em;
+      margin: 0 0.5em;
       min-height: 100px;
       position: relative;
-      border: 1px solid #F0F0F0;
+      border: 1px solid #f0f0f0;
       transition: 0.3s;
 
       .padded {
@@ -33,13 +33,15 @@
       &:hover,
       &:focus,
       &:active {
-        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.10);
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.1);
       }
     }
   }
+
   .story_box:first-child .inner {
     margin-left: 0;
   }
+
   .story_box:last-child .inner {
     margin-right: 0;
   }

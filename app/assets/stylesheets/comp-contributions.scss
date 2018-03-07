@@ -34,6 +34,7 @@ body.contributions_layout {
 
     .circle {
       @include circle(5em);
+
       border: 2px solid $color_main;
       margin: 1em auto;
 
@@ -54,6 +55,7 @@ body.contributions_layout {
         width: 100%;
         margin-bottom: 0;
       }
+
       p {
         text-align: center;
         margin-top: 0.25em;
@@ -91,12 +93,12 @@ body.contributions_layout {
   // Pool
   .contributions_content {
     box-sizing: border-box;
-    border-top: 8px solid rgba(0,0,0,.1);
+    border-top: 8px solid rgba(0,0,0,0.1);
     position: relative;
     margin: 0 auto;
     height: calc(750px + 2.5em);
     width: 100%;
-    background-image: linear-gradient(-128deg, #2FB585 0%, #2F9EB5 100%);
+    background-image: linear-gradient(-128deg, #2fb585 0%, #2f9eb5 100%);
     overflow: hidden;
     will-change: transform;
 
@@ -148,18 +150,20 @@ body.contributions_layout {
       width: 300px;
       height: 120px;
       border-radius: 16px;
-      box-shadow: 0 1px 2px 2px rgba(0,0,0,0.10);
+      box-shadow: 0 1px 2px 2px rgba(0,0,0,0.1);
       padding: 1em;
 
       .title {
         text-align: center;
       }
     }
+
     .gradient_bar {
       width: 100%;
       height: 6px;
       border-radius: 6px;
     }
+
     .contribution_legend {
       position: absolute;
       top: 0.5em;
@@ -175,7 +179,7 @@ body.contributions_layout {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,.5);
+  background: rgba(0,0,0,0.5);
 
 }
 
@@ -185,10 +189,10 @@ body.contributions_layout {
   max-width: 1000px;
   min-width: 750px;
   top: 0;
-  background: #FFF;
+  background: #fff;
   border-radius: 6px;
   line-height: 1.3;
-  box-shadow: 0 5px 10px 10px rgba(0,0,0,0.10);
+  box-shadow: 0 5px 10px 10px rgba(0,0,0,0.1);
   z-index: 2;
 
   .contribution_card_new_header {
@@ -196,11 +200,14 @@ body.contributions_layout {
     font-weight: bold;
     border-radius: 6px 6px 0 0;
   }
+
   .contribution_card_new_wrapper {
     padding: 2em 2em 0 2em;
   }
+
   .form_item {
     margin: 0 0 2em 0;
+
     textarea {
       height: 200px;
     }
@@ -213,10 +220,10 @@ body.contributions_layout {
   max-width: 1000px;
   top: 0;
   padding: 3em 4em;
-  background: #FFF;
+  background: #fff;
   border-radius: 6px;
   line-height: 1.3;
-  box-shadow: 0 5px 10px 10px rgba(0,0,0,0.10);
+  box-shadow: 0 5px 10px 10px rgba(0,0,0,0.1);
   z-index: 2;
 
   .contribution_card_expanded_wrapper {
@@ -229,61 +236,74 @@ body.contributions_layout {
     padding: 0 5% 0 0;
     margin: 0 5% 0 0;
     overflow: auto;
+
     h1 {
       margin: 0;
       font-size: $f4;
     }
+
     .meta {
       font-weight: bold;
       display: inline-block;
+
       .date {
         font-weight: normal;
         font-size: $f7;
-        opacity: .5;
+        opacity: 0.5;
       }
     }
+
     .comments_container {
-      opacity: .8;
+      opacity: 0.8;
+
       .comment {
         padding: 1em 0 0 0;
         margin: 0 0 2em 0;
       }
+
       h3 {
         border-bottom: 1px solid rgba(0,0,0,0.1);
         color: $color_text;
         font-size: $f6;
         font-weight: normal;
-        padding: 1.5em 0 .25em 0;
+        padding: 1.5em 0 0.25em 0;
       }
+
       .comment_actions {
         text-align: right;
         border-top: 1px solid rgba(0,0,0,0.1);
-        padding: .5em 0 0 0;
+        padding: 0.5em 0 0 0;
         margin: 1em 0 0 0;
         font-size: $f7;
+
         div {
           display: inline-block;
         }
+
         a {
           margin: 0 0 0 1.5em;
           color: lighten($color_text, 15%);
           text-decoration: none;
         }
+
         a:hover {
           color: darken($color_separator, 10%);
         }
+
         a.active {
 
         }
 
       }
     }
+
     .comment_new {
       border-top: 1px solid $color_separator;
       padding: 3em 0;
       margin: 3em 0;
     }
   }
+
   .contribution_actions {
     flex-basis: 25%;
 
@@ -297,12 +317,14 @@ body.contributions_layout {
 
 .element_eval_actions {
   padding: 2em 0;
+
   .action_button_bg  {
     width: 116px;
     height: 494px;
     margin: auto;
     background: url(asset_path('illustrations/emoji_eval_col.svg')) no-repeat center center;
   }
+
   a.action_button  {
     position: relative;
     width: 111px;
@@ -310,57 +332,68 @@ body.contributions_layout {
     margin: 1em 0;
     border-radius: 100%;
     display: block;
+
     .action_description {
       display: none;
       position: absolute;
-      padding: .25em 1em;
+      padding: 0.25em 1em;
       top: 38px;
       left: 130px;
       font-size: $f7;
       font-weight: bold;
       border-radius: 20px;
-      color: #FFF;
+      color: #fff;
       white-space: nowrap;
     }
   }
+
   a.action_button:hover {
-    opacity: .9;
+    opacity: 0.9;
   }
+
   a.action_button:hover:after {
     content: "";
   }
+
   a.love {
-    background: url(asset_path('illustrations/emoji_1_love.svg')) #00B076 no-repeat center center;
+    background: url(asset_path('illustrations/emoji_1_love.svg')) #00b076 no-repeat center center;
     width: 91px;
     height: 91px;
     margin-left: 10px;
+
     .action_description {
       top: 32px;
       left: 120px;
-      background: #00B076;
+      background: #00b076;
     }
   }
+
   a.like {
-    background: url(asset_path('illustrations/emoji_2_like.svg')) #0090A5 no-repeat center center;
+    background: url(asset_path('illustrations/emoji_2_like.svg')) #0090a5 no-repeat center center;
+
     .action_description {
-      background: #0090A5;
+      background: #0090a5;
     }
   }
+
   a.pse {
     background: url(asset_path('illustrations/emoji_3_pse.svg')) #987172 no-repeat center center;
+
     .action_description {
       background: #987172;
     }
   }
+
   a.reject {
-    background: url(asset_path('illustrations/emoji_4_reject.svg')) #FF4E42 no-repeat center center;
+    background: url(asset_path('illustrations/emoji_4_reject.svg')) #ff4e42 no-repeat center center;
     width: 90px;
     height: 90px;
     margin-left: 10px;
+
     .action_description {
       top: 32px;
       left: 120px;
-      background: #FF4E42;
+      background: #ff4e42;
     }
   }
 }

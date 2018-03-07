@@ -1,6 +1,7 @@
 @mixin flexbox($gap: 0, $dir: row) {
   display: flex;
   flex-direction: $dir;
+
   @if $dir == row {
     & > * {
       margin: 0 $gap/2;
@@ -13,8 +14,10 @@
     & > :last-child {
       margin-right: 0;
     }
-  } @else
-  if $dir == column {
+  }
+
+  @else
+    if $dir == column {
     & > * {
       margin-bottom: $gap/2;
     }

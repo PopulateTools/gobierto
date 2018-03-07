@@ -59,7 +59,7 @@ $white: $color_main_negative;
     min-height: $nodeLevel1Height;
 
     &:hover {
-      opacity: .9;
+      opacity: 0.9;
     }
 
     a {
@@ -108,7 +108,7 @@ $white: $color_main_negative;
 
         h3 {
           color: $white;
-          margin: 0 0 .25em 0;
+          margin: 0 0 0.25em 0;
           font-size: $f3;
 
           &::before {
@@ -127,57 +127,60 @@ $white: $color_main_negative;
 
   // @component node-list (action lines)
   .node-list {
-      padding: 1em 0 0;
-      border-top: 1px solid;
+    padding: 1em 0 0;
+    border-top: 1px solid;
+    display: flex;
+    justify-content: flex-start;
+
+    > :not(:first-child) {
+      flex: 1;
+      text-align: right;
+    }
+
+    .node-title {
+      flex-basis: 65%;
       display: flex;
-      justify-content: flex-start;
 
-      > :not(:first-child) {
-        flex: 1;
-        text-align: right;
-      }
-
-      .node-title {
-        flex-basis: 65%;
-        display: flex;
-
-        :first-child {
-          flex: 0;
-        }
-      }
-
-      h3 {
-        margin: 0 0 0.5em;
-
-        a {
-          display: block;
-          text-decoration: none;
-          cursor: pointer;
-
-          &::first-letter {
-            text-transform: uppercase;
-          }
-        }
-
-        &:hover {
-          opacity: 0.75;
-        }
-      }
-
-      .fa {
-        padding: .15em .45em;
-        line-height: 1;
-        @include border-radius(3px);
+      :first-child {
+        flex: 0;
       }
     }
 
+    h3 {
+      margin: 0 0 0.5em;
+
+      a {
+        display: block;
+        text-decoration: none;
+        cursor: pointer;
+
+        &::first-letter {
+          text-transform: uppercase;
+        }
+      }
+
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+
+    .fa {
+      padding: 0.15em 0.45em;
+      line-height: 1;
+
+      @include border-radius(3px);
+    }
+  }
+
   .node-breadcrumb {
     display: inline-block;
+
     @include border-radius(6px);
 
     .fa {
-      padding: .15em .45em;
+      padding: 0.15em 0.45em;
       line-height: 1;
+
       @include border-radius(3px);
     }
 
@@ -185,24 +188,27 @@ $white: $color_main_negative;
       text-decoration: none;
       font-size: $f7;
       font-weight: 700;
-      padding: .25em;
+      padding: 0.25em;
       cursor: pointer;
     }
   }
 
   .node-action-line {
     background-color: $color_main_negative;
+
     @include border-radius(6px);
 
     .action-line--header {
       padding: 1em 1em 0.25em;
       border-top: 0;
+
       @include border-radius($top:6px);
     }
 
     .action-line--list {
       padding: 1em 2em;
       color: $color_text;
+
       @include border-radius($bottom:6px);
 
       li {
@@ -211,7 +217,7 @@ $white: $color_main_negative;
 
       .node-list {
         padding: 1em 0;
-        border-color: rgba($color_text, .35);
+        border-color: rgba($color_text, 0.35);
       }
 
       a {
@@ -228,7 +234,7 @@ $white: $color_main_negative;
       table {
         margin: 0 0 1em;
         padding: 0 0 0 1.5rem;
-        border-spacing: 0 .5em;
+        border-spacing: 0 0.5em;
         border-collapse: separate;
 
         th:not(:first-child),
@@ -245,14 +251,14 @@ $white: $color_main_negative;
         }
 
         thead {
-          color: rgba($color_text, .35);
+          color: rgba($color_text, 0.35);
           text-transform: uppercase;
-          padding: .25em 0;
+          padding: 0.25em 0;
 
           th {
             font-weight: normal;
-            border-top: 1px solid rgba($color_text, .35);
-            border-bottom: 1px solid rgba($color_text, .35);
+            border-top: 1px solid rgba($color_text, 0.35);
+            border-bottom: 1px solid rgba($color_text, 0.35);
           }
         }
 
@@ -323,7 +329,7 @@ $white: $color_main_negative;
         }
 
         > div {
-          margin: 0 0 .5em;
+          margin: 0 0 0.5em;
         }
       }
 
@@ -346,12 +352,13 @@ $white: $color_main_negative;
     .project-mandatory {
       padding: 1em;
       flex-basis: 33%;
+
       @include border-radius(3px);
 
       .mandatory-title {
         font-weight: 200;
         text-transform: uppercase;
-        color: rgba($color_text, .5);
+        color: rgba($color_text, 0.5);
       }
 
       .mandatory-desc {
@@ -368,8 +375,9 @@ $white: $color_main_negative;
   // Animations
   .slide-fade-enter-active,
   .slide-fade-leave-active {
-    transition: all .3s ease;
+    transition: all 0.3s ease;
   }
+
   .slide-fade-enter, .slide-fade-leave-to {
     transform: translateY(-10px);
     opacity: 0;

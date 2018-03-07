@@ -24,6 +24,7 @@
     background: #f2f9fa;
     font-weight: 600;
   }
+
   .receipt_dropdown {
     padding: 0.5em 0;
     position: relative;
@@ -54,21 +55,22 @@
     }
 
     &:after {
-        position: absolute;
-        top: 50%;
-        right: 1.25rem;
-        display: inline-block;
-        content: "";
-        width: 0;
-        height: 0;
-        margin-top: -0.15em;
-        pointer-events: none;
-        border-top: 0.5em solid;
-        border-right: 0.5em solid transparent;
-        border-bottom: 0.5em solid transparent;
-        border-left: 0.5em solid transparent;
-      }
+      position: absolute;
+      top: 50%;
+      right: 1.25rem;
+      display: inline-block;
+      content: "";
+      width: 0;
+      height: 0;
+      margin-top: -0.15em;
+      pointer-events: none;
+      border-top: 0.5em solid;
+      border-right: 0.5em solid transparent;
+      border-bottom: 0.5em solid transparent;
+      border-left: 0.5em solid transparent;
+    }
   }
+
   .receipt_separator {
     display: none;
 
@@ -80,11 +82,13 @@
       background-repeat: repeat-x;
     }
   }
+
   .receipt_calc {
     display: flex;
     padding: 0.5em 0;
 
     @include flexbox(1em, column);
+
     @include min-screen(740) {
       padding: 0 0.5em;
 
@@ -112,7 +116,7 @@
       }
 
       &:not(:last-child) {
-        opacity: .5;
+        opacity: 0.5;
       }
 
       span {
@@ -206,15 +210,18 @@
         margin: 0;
       }
     }
+
     .line {
       font-weight: 600;
       font-size: 1.15em;
       flex-basis: 70%;
     }
+
     .figure {
       opacity: 0.7;
       font-size: 1.15em;
     }
+
     .children {
       flex-basis: 100%;
       margin-top: 0.5em;
@@ -235,6 +242,7 @@
           font-size: 1em;
           opacity: 0.5;
         }
+
         .figure {
           font-size: 1em;
         }

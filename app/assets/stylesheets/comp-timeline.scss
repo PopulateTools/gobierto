@@ -26,7 +26,7 @@
     margin-top: 0.5em;
 
     strong {
-      padding: 0 .5em;
+      padding: 0 0.5em;
     }
   }
 
@@ -81,6 +81,7 @@
 
     .circle {
       @include circle(2em);
+
       position: absolute;
       top: 1em;
       right: 1em;

@@ -11,43 +11,43 @@ $font_serif: 'Georgia, serif';
  *
  */
 $color_text: #767168;
-$color_main: #00909E;
+$color_main: #00909e;
 $color_main_soft: #cce8eb;
-$color_proposal_bg: #FFFAD8;
-$color_proposal: #B59200;
-$color_dark: #005D67;
-$color_dark_sep: transparentize($color_dark, .9);
+$color_proposal_bg: #fffad8;
+$color_proposal: #b59200;
+$color_dark: #005d67;
+$color_dark_sep: transparentize($color_dark, 0.9);
 $color_1: $color_main;
-$color_1_soft: transparentize($color_main, .94);
+$color_1_soft: transparentize($color_main, 0.94);
 $background: $color_1;
-$color_secondary: #F0F0F0;
-$color_main_negative: #FFF;
-$color_separator: #D6D6D6;
-$color_neutral_soft: #F5F4F4;
-$color_highlight: #F1F4BE;
-$color_meta_text: #A5A5A5;
+$color_secondary: #f0f0f0;
+$color_main_negative: #fff;
+$color_separator: #d6d6d6;
+$color_neutral_soft: #f5f4f4;
+$color_highlight: #f1f4be;
+$color_meta_text: #a5a5a5;
 $text_soft: $color_meta_text;
 
-$color_facebook: #3A589A;
-$color_twitter: #00ABEF;
-$color_link: #276D97;
+$color_facebook: #3a589a;
+$color_twitter: #00abef;
+$color_link: #276d97;
 $color_headers: #676767;
 
-$separator: #F0F0F0;
+$separator: #f0f0f0;
 
 /* visualizations */
-$color_vis_place: #E9AD00;
-$color_vis_province: #A479F4;
-$color_vis_com: #AAC44B;
+$color_vis_place: #e9ad00;
+$color_vis_province: #a479f4;
+$color_vis_com: #aac44b;
 $color_vis_country: #008998;
 
 /* logo colors */
-$color_logo_yellow: #F8B206 /* #E9AD00 */;
-$color_logo_pink: #F39B95;
-$color_logo_blue: #388F9C;
+$color_logo_yellow: #f8b206 ;
+$color_logo_pink: #f39b95;
+$color_logo_blue: #388f9c;
 
-$test_color: transparentize($color_logo_yellow, .8);
-$color_warn: #981F2E;
+$test_color: transparentize($color_logo_yellow, 0.8);
+$color_warn: #981f2e;
 $color_success: #2ca25f;
 
 .color_bg_main {

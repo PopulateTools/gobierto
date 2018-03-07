@@ -40,40 +40,50 @@ footer {
   border-color: $color_main_soft;
   padding: 3em 0;
   margin: 10em 0 0 0;
+
   .logo {
     max-width: 275px;
   }
+
   ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
+
     li {
       margin: 0 1em 0 0;
       display: block;
     }
   }
+
   a {
     color: $color_main;
     text-decoration: none;
   }
+
   .copyright_notice {
-    opacity: .5em;
+    opacity: 0.5em;
   }
+
   .footer_tools {
     margin-top: 3em;
   }
+
   .box {
     background: none;
     margin: 0;
+
     .inner {
       padding: 0;
+
       h3 {
         display: none;
       }
     }
   }
+
   .gobierto_notice {
-    opacity: .5;
+    opacity: 0.5;
     margin-top: 5em;
   }
 }
@@ -82,6 +92,7 @@ footer {
  * Grid paddings (for boxes)
  *
  */
+
 /* 2x2 grid paddings */
 .two_by_two {
   & > div {
@@ -93,6 +104,7 @@ footer {
         padding: 0 0.75em 1em 0;
       }
     }
+
     &:nth-child(even) {
       @include min-screen(740) {
         padding: 0 0 1em 0.75em;
@@ -113,14 +125,17 @@ footer {
     &:nth-child(3n) {
       padding-right: 0;
     }
+
     &:nth-child(3n+1) {
       padding-left: 0;
     }
+
     &:first-child {
       @include min-screen(740) {
         padding: 0 0.75em 2em 0;
       }
     }
+
     &:last-child {
       @include min-screen(740) {
         padding: 0 0 2em 0.75em;
@@ -148,6 +163,7 @@ footer {
         padding: 0 0 2em 0.75em;
       }
     }
+
     &:nth-child(4n+1) {
       @include min-screen(740) {
         padding: 0 0.75em 2em 0;

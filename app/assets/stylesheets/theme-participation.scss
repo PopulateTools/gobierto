@@ -1,30 +1,34 @@
 $blue: #0072bc;
-$medium_blue: #22A3D8;
-$light_blue: #92D1EB;
-$lighter_blue: #E5F3F5;
-$light_bg: #ECFAFC;
+$medium_blue: #22a3d8;
+$light_blue: #92d1eb;
+$lighter_blue: #e5f3f5;
+$light_bg: #ecfafc;
 $green: #00b585;
 $black: #333;
-$light_black: #4A4A4A;
-$lighter_black: rgba($color_headers, .7);
+$light_black: #4a4a4a;
+$lighter_black: rgba($color_headers, 0.7);
 
 .theme-participation {
   header .site_header .main-nav {
     background-color: $light_bg;
   }
+
   header .site_header .main-nav .main-nav-item:hover,
   header .site_header .sub-nav .sub-nav-item:hover {
-    border-color: transparentize(#22A3D8, .5);
+    border-color: transparentize(#22a3d8, 0.5);
   }
+
   header .site_header .main-nav a,
   header .site_header .sub-nav a {
     color: $medium_blue;
   }
+
   header .site_header .main-nav .main-nav-item.active {
     border-color: $medium_blue;
   }
+
   header .site_header .secondary_nav li a {
-    color: #A5A5A5;
+    color: #a5a5a5;
   }
 
   .button,
@@ -36,7 +40,7 @@ $lighter_black: rgba($color_headers, .7);
     color: $color_main_negative;
 
     &:disabled {
-      background: transparentize($green, .9);
+      background: transparentize($green, 0.9);
     }
   }
 
@@ -48,7 +52,7 @@ $lighter_black: rgba($color_headers, .7);
     background: darken($green, 5%);
 
     &:disabled {
-      background: transparentize($green, .9);
+      background: transparentize($green, 0.9);
     }
   }
 
@@ -71,6 +75,7 @@ $lighter_black: rgba($color_headers, .7);
   .gradient-bg {
     margin: 0 0 2em;
     padding: 4em 0 0;
+
     @media (min-width: 768px) {
       margin-bottom: 5em;
     }
@@ -78,6 +83,7 @@ $lighter_black: rgba($color_headers, .7);
     a {
       // color: $green;
     }
+
     .button {
       color: $color_main_negative;
     }
@@ -90,7 +96,7 @@ $lighter_black: rgba($color_headers, .7);
         color: $green;
         background: $color_main_negative;
         border: 1px solid $green;
-        margin-top: -.25em;
+        margin-top: -0.25em;
 
         .fa {
           color: $green;
@@ -128,6 +134,7 @@ $lighter_black: rgba($color_headers, .7);
       color: $blue;
     }
   }
+
   /* content_blocks */
   .content_block {
     h2 {
@@ -136,16 +143,19 @@ $lighter_black: rgba($color_headers, .7);
     }
 
     .bt {
-      border-top: 1px solid transparentize($green, .7);
+      border-top: 1px solid transparentize($green, 0.7);
     }
+
     .bb {
-      border-bottom: 1px solid transparentize($green, .7);
+      border-bottom: 1px solid transparentize($green, 0.7);
     }
+
     .bl {
-      border-top: 1px solid transparentize($green, .7);
+      border-top: 1px solid transparentize($green, 0.7);
     }
+
     .br {
-      border-top: 1px solid transparentize($green, .7);
+      border-top: 1px solid transparentize($green, 0.7);
     }
   }
 
@@ -188,6 +198,7 @@ $lighter_black: rgba($color_headers, .7);
   .questions {
     text-align: left;
     max-width: 16em;
+
     @include min-screen(740) {
       margin: 2em auto 0.5em;
     }
@@ -197,7 +208,7 @@ $lighter_black: rgba($color_headers, .7);
       font-size: 1.15em;
       color: $green;
       background: $color_main_negative;
-      box-shadow: 0 1px 2px 0 rgba(0,0,0,0.20);
+      box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
       border-radius: 100px;
       padding: 0.25em 0.75em;
       margin-bottom: 0.35em;
@@ -206,6 +217,7 @@ $lighter_black: rgba($color_headers, .7);
       display: inline-block;
       padding-left: 1.85rem;
       width: 100%;
+
       @include min-screen(740) {
         font-size: 1.25em;
       }
@@ -238,20 +250,24 @@ $lighter_black: rgba($color_headers, .7);
       -ms-user-select: none;
       user-select: none;
     }
+
     /* Focus */
     .control input:focus ~ .control-indicator {
       box-shadow: 0 0 0 0.075rem $color_main_negative, 0 0 0 0.2rem $green;
     }
+
     /* Checked state */
     .control input:checked ~ .control-indicator {
       color: $color_main_negative;
       background-color: $green;
     }
+
     /* Active */
     .control input:active ~ .control-indicator {
       color: $color_main_negative;
-      background-color: rgba($green, .5);
+      background-color: rgba($green, 0.5);
     }
+
     /* Radio modifiers */
     .radio .control-indicator {
       border-radius: 50%;
@@ -261,6 +277,7 @@ $lighter_black: rgba($color_headers, .7);
       background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTQsMUMyLjMsMSwxLDIuMywxLDRzMS4zLDMsMywzczMtMS4zLDMtM1M1LjcsMSw0LDF6Ii8+DQo8L3N2Zz4NCg==");
     }
   }
+
   /* Agenda */
   .with_separator {
     color: $medium_blue;
@@ -302,6 +319,7 @@ $lighter_black: rgba($color_headers, .7);
       .latest-content,
       .news-content {
         padding: 0;
+
         @include min-screen(740) {
           padding: 0 0 0 1em;
         }
@@ -311,6 +329,7 @@ $lighter_black: rgba($color_headers, .7);
           text-transform: none;
           font-weight: 600;
           margin: 0 0 0.25em;
+
           @include multiline-ellipsis(2);
         }
 
@@ -326,6 +345,7 @@ $lighter_black: rgba($color_headers, .7);
       }
     }
   }
+
   /* Current processes */
   .current_processes {
     h3 {
@@ -343,7 +363,7 @@ $lighter_black: rgba($color_headers, .7);
       }
 
       svg {
-        color: rgba($green, .7);
+        color: rgba($green, 0.7);
         margin-right: 0.25em;
       }
     }
@@ -377,6 +397,7 @@ $lighter_black: rgba($color_headers, .7);
     margin: 1em;
     text-decoration: none;
     padding: 1em 1em 2em;
+
     @include min-screen(740) {
       // TODO: this breaks polls#index height: calc(100% - 3em);
     }
@@ -414,7 +435,7 @@ $lighter_black: rgba($color_headers, .7);
     }
 
     .circle_teaser {
-      background: rgba($green, .1);
+      background: rgba($green, 0.1);
     }
   }
 
@@ -434,6 +455,7 @@ $lighter_black: rgba($color_headers, .7);
   .content_block.fixed_height {
     min-height: 18em;
   }
+
   /* Process page */
   .processes_home {
     .content_block {
@@ -443,6 +465,7 @@ $lighter_black: rgba($color_headers, .7);
     > div {
       padding-bottom: 1em !important;
       margin-bottom: 0;
+
       @include min-screen(740) {
         padding-bottom: 0 !important;
       }
@@ -461,7 +484,7 @@ $lighter_black: rgba($color_headers, .7);
     color: $color_headers;
 
     &:before {
-      background: rgba($color_text, .3);
+      background: rgba($color_text, 0.3);
     }
   }
 
@@ -493,6 +516,7 @@ $lighter_black: rgba($color_headers, .7);
   .badge {
     background-color: $medium_blue;
     margin-bottom: 0.5em;
+
     @include min-screen(740) {
       margin-bottom: 0;
     }
@@ -534,7 +558,7 @@ $lighter_black: rgba($color_headers, .7);
 
       .circle {
         border: none;
-        background: rgba($green, .1);
+        background: rgba($green, 0.1);
         color: white;
         font-weight: 700;
         font-size: 1em;
@@ -549,9 +573,11 @@ $lighter_black: rgba($color_headers, .7);
       }
     }
   }
+
   /* Agenda */
   .calendar-component {
     padding: 0;
+
     @include min-screen(740) {
       max-width: 75%;
     }
@@ -612,6 +638,7 @@ $lighter_black: rgba($color_headers, .7);
         background: $medium_blue;
         color: white;
         margin-bottom: 1em;
+
         @include min-screen(740) {
           width: 10%;
           margin-bottom: 0;
@@ -629,6 +656,7 @@ $lighter_black: rgba($color_headers, .7);
 
       .event-content {
         padding-left: 0;
+
         @include min-screen(740) {
           padding: 0 0 0 1.5em;
         }
@@ -673,6 +701,7 @@ $lighter_black: rgba($color_headers, .7);
         .button {
           margin-bottom: 0;
           margin-right: 0.25em;
+
           @include min-screen(740) {
             margin-right: 0;
           }
@@ -680,6 +709,7 @@ $lighter_black: rgba($color_headers, .7);
 
         .ib {
           margin-bottom: 0.5em;
+
           @include min-screen(740) {
             margin-bottom: 0;
           }
@@ -693,7 +723,7 @@ $lighter_black: rgba($color_headers, .7);
       height: 32px;
       background: white;
       border: 1px solid $lighter_black;
-      box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.50);
+      box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
       border-radius: 4px;
     }
   }
@@ -711,7 +741,7 @@ $lighter_black: rgba($color_headers, .7);
       &:active,
       &:focus,
       &:hover {
-        color: darken($green, .2);
+        color: darken($green, 0.2);
       }
     }
 
@@ -749,7 +779,7 @@ $lighter_black: rgba($color_headers, .7);
           height: 0;
           border-left: 4px solid transparent;
           border-right: 4px solid transparent;
-          border-top: 6px solid #22A3D8;
+          border-top: 6px solid #22a3d8;
           position: absolute;
           top: -10px;
           left: 3px;
@@ -762,7 +792,7 @@ $lighter_black: rgba($color_headers, .7);
           .tooltip-text {
             color: $green;
             background-color: $color_main_negative;
-            border: 1px solid transparentize($green, .7);
+            border: 1px solid transparentize($green, 0.7);
             visibility: hidden;
             width: 200px;
             text-align: center;
@@ -777,28 +807,30 @@ $lighter_black: rgba($color_headers, .7);
 
             &::after, &::before {
               bottom: 100%;
-            	left: 50%;
-            	border: solid transparent;
-            	content: " ";
-            	height: 0;
-            	width: 0;
-            	position: absolute;
-            	pointer-events: none;
+              left: 50%;
+              border: solid transparent;
+              content: " ";
+              height: 0;
+              width: 0;
+              position: absolute;
+              pointer-events: none;
             }
 
             &::after {
               border-color: rgba(255, 255, 255, 0);
-            	border-bottom-color: $color_main_negative;
-            	border-width: 10px;
-            	margin-left: -10px;
+              border-bottom-color: $color_main_negative;
+              border-width: 10px;
+              margin-left: -10px;
             }
+
             &::before {
               border-color: rgba($green, 0);
-            	border-bottom-color: transparentize($green, .7);
-            	border-width: 11px;
-            	margin-left: -11px;
+              border-bottom-color: transparentize($green, 0.7);
+              border-width: 11px;
+              margin-left: -11px;
             }
           }
+
           &:hover .tooltip-text {
             visibility: visible;
           }
@@ -817,6 +849,7 @@ $lighter_black: rgba($color_headers, .7);
       }
     }
   }
+
   /* News */
   .news_teaser {
     h3 {
@@ -830,6 +863,7 @@ $lighter_black: rgba($color_headers, .7);
 
   .document {
     margin-bottom: 0.5em;
+
     @include ellipsis;
 
     a {
@@ -885,10 +919,12 @@ $lighter_black: rgba($color_headers, .7);
       }
     }
   }
+
   /* Theme list */
   .slim_headline {
     color: $black;
   }
+
   /* Contributions home */
   .contributions_home {
     h2:not(.left) {
@@ -928,6 +964,7 @@ $lighter_black: rgba($color_headers, .7);
           padding: 1em;
           margin: 0 0 2em;
           font-size: $f5;
+
           @include border-radius(6px, 6px, 0, 0)
         }
       }
@@ -952,6 +989,7 @@ $lighter_black: rgba($color_headers, .7);
         position: absolute;
         bottom: 2em;
         left: 3em;
+
         @include reset_ul_li;
 
         ul {
@@ -1009,7 +1047,9 @@ $lighter_black: rgba($color_headers, .7);
       opacity: 1;
       border: 1px solid $green;
       color: $green;
+
       @include border-radius(50%);
+
       margin: 1.5em 1em 0 0;
       text-decoration: none;
       padding: 0;
@@ -1037,6 +1077,7 @@ $lighter_black: rgba($color_headers, .7);
       margin: 0.5em 0.5em 0 0;
     }
   }
+
   @include screen(740) {
     .modal.modal_poll {
       padding: 0;
@@ -1095,6 +1136,7 @@ $lighter_black: rgba($color_headers, .7);
       }
     }
   }
+
   /* Contributions page */
   .contributions_container {
     border-top: 3px solid $green;
@@ -1140,6 +1182,7 @@ $lighter_black: rgba($color_headers, .7);
           text-transform: none;
           font-size: 1.25em;
           margin-right: 0;
+
           @include min-screen(740) {
             padding: 0.7em 1em;
           }
@@ -1161,6 +1204,7 @@ $lighter_black: rgba($color_headers, .7);
       .radio_toggle {
         margin: 1em auto;
         max-width: 120px;
+
         @include min-screen(740) {
           margin: inherit;
         }

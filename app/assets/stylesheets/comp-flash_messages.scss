@@ -13,6 +13,7 @@
     margin: 0 1em 0 0;
     vertical-align: top;
   }
+
   &.slim {
     padding: 1em;
     font-size: 0.9em;
@@ -20,27 +21,31 @@
 }
 
 .success {
-  background: #CCCC00;
-  border-color: darken(#CCCC00, 20%);
-  color: #FFF;
+  background: #cc0;
+  border-color: darken(#cc0, 20%);
+  color: #fff;
 }
+
 .error {
-  background: #FF9966;
-  border-color: darken(#FF9966, 20%);
-  color: #FFF;
+  background: #f96;
+  border-color: darken(#f96, 20%);
+  color: #fff;
 }
+
 .alert {
-  background: #FFEBE0;
-  border-color: darken(#FFEBE0, 20%);
-  color: #AE5D3B;
+  background: #ffebe0;
+  border-color: darken(#ffebe0, 20%);
+  color: #ae5d3b;
 }
+
 .notice {
-  background: #F5F5CC;
-  border-color: darken(#F5F5CC, 20%);
-  color: #787A03;
+  background: #f5f5cc;
+  border-color: darken(#f5f5cc, 20%);
+  color: #787a03;
 }
+
 .field_with_errors {
   input {
-    border: 1px solid #FF9966;
+    border: 1px solid #f96;
   }
 }

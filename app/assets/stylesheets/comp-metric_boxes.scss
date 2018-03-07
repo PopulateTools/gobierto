@@ -8,10 +8,11 @@
 
   .metric_box {
     box-sizing: border-box;
+
     .inner {
-      background: transparentize($color_main, .85);
-      margin: 0 .5em;
-      padding: .8em 1em;
+      background: transparentize($color_main, 0.85);
+      margin: 0 0.5em;
+      padding: 0.8em 1em;
       min-height: 100px;
       position: relative;
 
@@ -22,11 +23,12 @@
 
     h3 {
       color: $color_main;
-      margin: 0 0 .75em 0;
+      margin: 0 0 0.75em 0;
       font-size: 1em;
       opacity: 0.6;
       font-weight: 600;
     }
+
     .metric {
       font-size: 2em;
       font-weight: 600;
@@ -42,12 +44,14 @@
         font-weight: initial;
       }
     }
+
     .explanation {
-      font-size: .75em;
-      opacity: .6;
+      font-size: 0.75em;
+      opacity: 0.6;
       position: absolute;
       line-height: 1.4;
-      bottom: .8em;
+      bottom: 0.8em;
+
       @include screen(768) {
         display: none;
       }
@@ -55,26 +59,29 @@
       &.explanation--relative {
         position: relative;
         bottom: auto;
-        font-size: .875em;
+        font-size: 0.875em;
       }
     }
+
     span.not_av {
       font-size: 1em;
-      opacity: .5;
+      opacity: 0.5;
     }
+
     .explanation_bar {
-      font-size: .75em;
+      font-size: 0.75em;
       position: absolute;
-      bottom: .8em;
+      bottom: 0.8em;
       width: calc(100% - 3em);
 
     }
+
     .bar {
       display: inline-block;
       width: 25%;
       opacity: 1;
       height: 10px;
-      background: rgba($color_main, .1);
+      background: rgba($color_main, 0.1);
       margin-right: 0.25rem;
 
       .line {
@@ -83,19 +90,22 @@
         background: $color_main
       }
     }
+
     .tooltiped {
       text-decoration: underline;
       cursor: pointer;
     }
+
     .diff {
       opacity: 0.6;
-      font-size: .75em;
+      font-size: 0.75em;
 
       @include min-screen(768) {
-        bottom: .8em;
+        bottom: 0.8em;
         position: absolute;
       }
     }
+
     .metric_details {
       margin: 41.2px 0 0;
 
@@ -109,30 +119,36 @@
       }
     }
   }
+
   .metric_box:first-child {
     .inner {
       margin-left: 0;
     }
   }
+
   .metric_box:last-child {
     .inner {
       margin-right: 0;
     }
   }
 }
+
 .metric_boxes_detailed {
   .metric_box {
     .inner {
-      padding: .8em 1em 2em 1em;
+      padding: 0.8em 1em 2em 1em;
 
       .metric_details {
         margin: 1em 0;
+
         th {
           text-align: left;
         }
+
         th, td {
-          padding: .25em 0;
+          padding: 0.25em 0;
         }
+
         &.flex {
           display: flex;
 

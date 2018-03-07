@@ -6,12 +6,15 @@ input[type=text], input[type=email], input[type=number], input[type=submit], inp
   box-sizing: border-box;
   height: 74px;
   padding: 0 1em;
-  margin: 0 .5em 0 0;
+  margin: 0 0.5em 0 0;
   display: inline-block;
   vertical-align: middle;
+
   @include border-radius(6px);
+
   border: 1px solid $color_separator;
   background: #fafafa;
+
   @include screen(740) {
     width: 100%;
     margin: 0 0 1em 0;
@@ -20,16 +23,18 @@ input[type=text], input[type=email], input[type=number], input[type=submit], inp
 
 input, textarea {
   // Pseudoclasses does not work if they're grouped
-  $placeholder-opacity: .25;
+  $placeholder-opacity: 0.25;
 
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   &::placeholder {
     opacity: $placeholder-opacity;
   }
+
   /* Internet Explorer 10-11 */
   &:-ms-input-placeholder{
     opacity: $placeholder-opacity;
   }
+
   /* Microsoft Edge */
   &::-ms-input-placeholder {
     opacity: $placeholder-opacity;
@@ -38,61 +43,72 @@ input, textarea {
 
 input[type=text].slim {
   height: auto;
-  padding: .25em;
+  padding: 0.25em;
 }
+
 input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input[type=password]:focus, input[type=file]:focus, .button:focus, button:focus, select:focus, textarea:focus {
   border-color: #51a7e8;
   outline: none;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(81, 167, 232, 0.5);
-  background: #FFF;
+  background: #fff;
 }
+
 .form_item.input_text, .form_item.textarea, .select_control, .file_field {
   position: relative;
   margin: 0 0 1em 0;
+
   label {
     position: absolute;
     width: calc(100% - 1.75rem);
-    top: .5rem;
+    top: 0.5rem;
     left: 1rem;
     text-transform: uppercase;
-    font-size: .75em;
+    font-size: 0.75em;
     font-weight: 700;
+
     .indication {
       float: right;
       font-weight: normal;
-      opacity: .5;
+      opacity: 0.5;
     }
   }
 
   input, textarea {
-    padding: 1.9rem 1rem .25rem 1rem;
+    padding: 1.9rem 1rem 0.25rem 1rem;
     width: 100%;
     outline: none;
   }
+
   textarea {
     box-sizing: border-box;
     min-height: 300px;
   }
 }
+
 .select_control {
   background: #fafafa;
+
   select {
     padding: 0 15px;
     height: 47px;
   }
 }
+
 .select_control.select_compact {
-  font-size: .85em;
-  margin: 0 0 .5em 0;
+  font-size: 0.85em;
+  margin: 0 0 0.5em 0;
+
   select, input {
     margin-top: 0;
     padding: 2px 10px;
     height: initial;
   }
+
   input {
     height: 40px;
   }
 }
+
 .select_control.selects_inline {
   select {
     width: initial;
@@ -100,26 +116,33 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
     max-width: 25%;
   }
 }
+
 .file_field {
   border: 1px solid $color_separator;
+
   @include border-radius(6px);
+
   padding: 2.5em 1em 1em 1em;
+
   input[type=file] {
     padding: 0;
     border: none;
     height: initial;
   }
+
   img {
     max-width: 100%;
     height: auto;
   }
 }
+
 input[type=submit], .button, button {
   @include transition;
+
   border: 0;
   height: initial;
   background: $color_main;
-  color: #FFF;
+  color: #fff;
   padding: 1em 2em;
   text-align: center;
   text-transform: uppercase;
@@ -135,80 +158,104 @@ input[type=submit].button {
   text-transform: uppercase !important;
   font-weight: 700 !important;
 }
+
 input[type=submit]:hover, .button:hover, button:hover {
   background: darken($color_main, 10%);
 }
+
 button a, a.button, .button {
-  color: #FFF;
+  color: #fff;
   text-decoration: none;
 }
+
 a.button:hover {
   text-decoration: none;
 }
+
 .button:hover, button {
-  color: #FFF;
+  color: #fff;
 }
+
 button.soft, .button.soft {
-  background: transparentize($color_main, .35);
+  background: transparentize($color_main, 0.35);
 }
+
 button.light, .button.light {
   background: $color_main_negative;
   border: 1px solid $color_separator;
   color: $color_main;
 }
+
 button.gigantic, .button.gigantic {
   font-size: 1.3em;
   height: initial;
   padding: 1.4em 4em 1.2em;
   margin: 1em 0;
+
   @include border-radius(2em);
+
   text-decoration: none;
 }
+
 button.small, .button.small {
-  font-size: .85em;
-  padding: .45em 1em .3em;
+  font-size: 0.85em;
+  padding: 0.45em 1em 0.3em;
   height: initial;
   line-height: 1.2em;
   // font-weight: 300;
   @include border-radius(4px);
+
   display: inline-block;
 }
+
 button.light:hover, .button.light:hover {
-  background: rgba($color_main, .2);
+  background: rgba($color_main, 0.2);
 }
+
 .button_light {
-  background: rgba($color_1, .2);
+  background: rgba($color_1, 0.2);
+
   @include transition;
-  font-size: .75em;
+
+  font-size: 0.75em;
   text-decoration: none;
-  padding: .5em 1.5em;
+  padding: 0.5em 1.5em;
   line-height: 1.2em;
+
   @include border-radius(20px);
+
   margin: 1em 0;
   display: inline-block;
 }
+
 .button_light:hover {
-  background: rgba($color_1, .3);
+  background: rgba($color_1, 0.3);
   text-decoration: none;
 }
+
 button.outline, .button.outline {
-  background: #FFF;
-  border: 1px solid transparentize($color_1, .75);
+  background: #fff;
+  border: 1px solid transparentize($color_1, 0.75);
   color: $color_main;
 }
+
 button.outline:hover, .button.outline:hover {
   background: $color_1_soft;
   text-decoration: none;
 }
+
 input[type="checkbox"], input[type="radio"] {
   display: none;
 }
+
 input[type="checkbox"] + label, input[type="radio"] + label {
   cursor: pointer;
   display: block;
   padding: 14px;
+
   @include transition;
 }
+
 .inline_filter {
   display: inline-block;
   width: 49%;
@@ -236,6 +283,7 @@ input[type="checkbox"] + label, input[type="radio"] + label {
     padding-right: 1em;
   }
 }
+
 .button-group {
   // letter-spacing: -.31em;
 
@@ -243,17 +291,19 @@ input[type="checkbox"] + label, input[type="radio"] + label {
     background: white;
     color: $color_headers;
     font-weight: 400;
-    border: 1px solid #CECECE;
+    border: 1px solid #cecece;
     padding: 0 0.5em;
     margin: 0;
     border-radius: 0;
     font-size: 14px;
   }
+
   .button-grouped+.button-grouped {
     @media (min-width: 768px) {
       margin-left: -5px;
     }
   }
+
   .button-grouped:first-child {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
@@ -261,34 +311,38 @@ input[type="checkbox"] + label, input[type="radio"] + label {
     border-bottom-left-radius: 2px;
     margin-left: 0;
   }
+
   .button-grouped:last-child {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
   }
+
   .active {
-    background: #F4F4F4;
+    background: #f4f4f4;
     box-shadow: inset 0 0 3px 0 rgba(0,0,0,0.25);
     // font-weight: 600;
   }
 }
+
 .inline_button {
-  background: rgba($color_main, .1);
+  background: rgba($color_main, 0.1);
   border-radius: 4px;
   color: $color_main;
   font-weight: 600;
   text-decoration: none;
-  padding: 0.35em .75em;
+  padding: 0.35em 0.75em;
   transition: 0.3s;
 
   &:hover,
   &:active,
   &:focus {
-    background: rgba($color_main, .15);
+    background: rgba($color_main, 0.15);
     text-decoration: none;
   }
 }
+
 .button.outline.rounded {
   text-transform: none;
   padding: 0.2em 1em;
@@ -299,9 +353,11 @@ input[type="checkbox"] + label, input[type="radio"] + label {
     font-size: 85%;
   }
 }
+
 .button.outline.rounded.wide {
   padding: 0.1em 1.5em;
 }
+
 .button.outline.rounded.checked {
   background: $color_main;
 
@@ -313,7 +369,7 @@ input[type="checkbox"] + label, input[type="radio"] + label {
 .button.outline.rounded.fat {
   padding: 0.75em 1.5em !important;
   border-radius: 30px !important;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.20);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
 
   &:focus,
   &:active,
@@ -325,7 +381,7 @@ input[type="checkbox"] + label, input[type="radio"] + label {
 .button.outline.rounded.fat {
   padding: 0.75em 1.5em !important;
   border-radius: 30px !important;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.20);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
 
   &:focus,
   &:active,
@@ -339,44 +395,57 @@ input[type="checkbox"] + label span, input[type="radio"] + label span {
   width: 19px;
   height: 19px;
   border: 1px solid $color_main;
-  background: #FFF;
+  background: #fff;
+
   @include border-radius(3px);
+
   margin: -4px 11px 0 0;
   vertical-align: middle;
   cursor: pointer;
 }
+
 .password_protected {
   display: none;
 }
+
 input[type="checkbox"] + label:hover, input[type="radio"] + label:hover {
-  background: rgba($color_main, .1);
+  background: rgba($color_main, 0.1);
 }
+
 input[type="checkbox"]:checked + label, input[type="radio"]:checked + label {
-  background: rgba($color_main, .2);
+  background: rgba($color_main, 0.2);
+
   .password_protected {
-    margin: .5em 0;
-    font-size: .85em;
+    margin: 0.5em 0;
+    font-size: 0.85em;
     line-height: 1.2em;
     display: block;
     padding: 0 0 0 29px;
+
     p {
-      margin: 0 0 .5em 0;
+      margin: 0 0 0.5em 0;
     }
+
     input {
       padding: 5px;
+
       @include border-radius(3px);
+
       height: initial;
       width: 100%;
-      margin: .25em 0;
+      margin: 0.25em 0;
     }
   }
 }
+
 input[type="checkbox"]:checked + label span, input[type="radio"]:checked + label span {
   background: $color_main;
 }
+
 input[type="radio"] + label span {
   @include border-radius(13px);
 }
+
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -384,73 +453,90 @@ select {
   border: none;
   cursor: pointer;
 }
+
 select::-ms-expand { /* for IE 11 */
   display: none;
 }
+
 input[type=submit]:disabled, .button:disabled, button:disabled {
   background: darken($color_main, 20%);
   color: darken(#fff, 20%);
 }
+
 option, select {
   font-weight: 400;
   padding: 18px;
   width: 100%;
+
   /*font-size: .8em;
   border: 1px solid #CCC;
   background: #F1F1F1;
   */
 }
+
 .option {
-	padding: 0;
+  padding: 0;
   position: relative;
+
   .inline_help {
     margin-left: 2.6em;
   }
 }
+
 .option.separate {
   margin-top: 1em;
   padding-top: 1em;
 }
+
 .form_item.input_text, .form_item.textarea, .select_control, .file_field {
   position: relative;
   margin: 0 0 2em 0;
+
   label {
     position: absolute;
-    top: .5rem;
+    top: 0.5rem;
     left: 1rem;
     text-transform: uppercase;
-    font-size: .75em;
+    font-size: 0.75em;
     font-weight: 700;
   }
+
   input, textarea {
-    padding: 1.75rem 1rem 0.5rem .95rem;
+    padding: 1.75rem 1rem 0.5rem 0.95rem;
     width: 100%;
     outline: none;
   }
+
   textarea {
     box-sizing: border-box;
     height: 300px;
     font-size: 1em;
   }
+
   input[type=password] {
     height: 67px;
-    padding: 1.5rem 1rem .25rem 1rem;
+    padding: 1.5rem 1rem 0.25rem 1rem;
   }
 }
+
 .select_control, .options_cont {
   box-sizing: border-box;
   border: 1px solid $color_separator;
+
   @include border-radius(6px);
+
   select {
     margin: 1rem 0 0 0;
     padding: 20px 0 13px 13px;
     height: 56px;
     outline: none;
   }
+
   select::-moz-focus-inner {
     border: 0;
     outline: none;
   }
+
   option {
     display: block;
     height: initial;
@@ -459,55 +545,69 @@ option, select {
     outline: none;
   }
 }
+
 .options_cont {
   margin: 0 0 1em 0;
+
   > label {
-    margin: .5rem 1rem;
+    margin: 0.5rem 1rem;
     display: block;
     text-transform: uppercase;
-    font-size: .75em;
+    font-size: 0.75em;
     font-weight: 700;
   }
 }
+
 .form_item.textarea.code {
   background: none;
+
   textarea {
-    font-size: .85em;
+    font-size: 0.85em;
   }
 }
+
 .form_item {
   position: relative;
+
   .options {
     .option {
       display: block;
       margin: 0 0 1em 0;
     }
+
     .option_suboptions {
       padding: 0 0 0 3em;
+
       .option {
 
       }
     }
   }
+
   .options.options_cont {
     .option {
       margin: 0 1em 1em 1em;
-      font-size: .85em;
+      font-size: 0.85em;
       box-sizing: border-box;
     }
   }
+
   .options.compact {
-    font-size: .85em;
+    font-size: 0.85em;
+
     .option {
       border: none;
       margin-bottom: 1em;
     }
+
     input[type="checkbox"] + label, input[type="radio"] + label {
       padding: 5px 9px 5px 2.6em;
       margin: -9px 0 0 -9px;
+
       @include border-radius(3px);
 
     }
+
     input[type="checkbox"] + label span, input[type="radio"] + label span {
       position: absolute;
       top: 1em;
@@ -515,37 +615,45 @@ option, select {
       height: 14px;
       width: 14px;
     }
+
     .option_contextual {
-      background: rgba($color_main, .2);
-      padding: .5em 1em .5em 2.5em;
-      margin-left: calc(-.5rem - 1px);
+      background: rgba($color_main, 0.2);
+      padding: 0.5em 1em 0.5em 2.5em;
+      margin-left: calc(-0.5rem - 1px);
       margin-top: -1px;
+
       .form_item {
         margin-bottom: 1em;
       }
+
       label {
         display: block;
       }
+
       input:not([data-timepicker="true"]) {
         width: 100%;
         height: initial;
-        padding: .5em;
+        padding: 0.5em;
       }
+
       textarea {
         width: 100%;
       }
     }
   }
+
   .fa {
-    margin: 0 .5em;
-    opacity: .5;
+    margin: 0 0.5em;
+    opacity: 0.5;
   }
+
   .fa-question-circle {
     position: absolute;
-    top: .5rem;
+    top: 0.5rem;
     right: 0;
   }
 }
+
 .widget_save {
   .form_item {
     .options.compact {
@@ -555,22 +663,26 @@ option, select {
     }
   }
 }
+
 .disclaimer {
-	font-size: .75em;
-	opacity: .5;
+  font-size: 0.75em;
+  opacity: 0.5;
 }
 
 .slim_search {
-	label {
-		font-weight: 200;
-		padding: 0 1em 0 0;
-	}
-	input[type=text] {
-		height: 40px;
-		width: 300px;
-	}
-	margin-top: .8em;
+  label {
+    font-weight: 200;
+    padding: 0 1em 0 0;
+  }
+
+  input[type=text] {
+    height: 40px;
+    width: 300px;
+  }
+
+  margin-top: 0.8em;
 }
+
 .attach_file input[type=file] {
   padding: 1em;
   height: auto;
@@ -580,14 +692,16 @@ option, select {
   Progress
  */
 .circles_progress {
-  margin-top: .25em;
+  margin-top: 0.25em;
   padding-left: 0;
+
   @include reset_ul_li;
 
   li {
     a {
       display: inline-block;
-      padding: .35em;
+      padding: 0.35em;
+
       span {
         display: block;
         float: left;
@@ -595,11 +709,13 @@ option, select {
         height: 8px;
         background: #ccc;
         border-radius: 50%;
+
         &.active {
           background: $color_main;
         }
       }
     }
+
     a:hover {
       background: $color_secondary;
       border-radius: 50%;
@@ -616,7 +732,7 @@ option, select {
 .autocomplete-suggestions {
   border: 1px solid #999;
   font-size: 12px;
-  background: #FFF;
+  background: #fff;
   cursor: default;
   overflow: auto;
   -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
@@ -625,9 +741,10 @@ option, select {
 }
 .autocomplete-suggestion { padding: 2px 10px; white-space: nowrap; overflow: hidden; }
 .autocomplete-no-suggestion { padding: 2px 10px;}
-.autocomplete-selected { background: $color_main; color: #FFF; }
+.autocomplete-selected { background: $color_main; color: #fff; }
 .autocomplete-suggestions strong { font-weight: bold; color: #000; }
 .autocomplete-group { }
+
 .autocomplete-group strong {
   font-weight: bold;
   font-size: 14px;
@@ -638,6 +755,7 @@ option, select {
   display: block;
   border-bottom: 1px solid $separator;
 }
+
 .ui-autocomplete {
   z-index: 1500;
 }
@@ -651,7 +769,7 @@ option, select {
 .follow_item {
   button, .button {
     width: 100%;
-    margin: .5em 0 1em 0;
+    margin: 0.5em 0 1em 0;
   }
 
 }
@@ -664,11 +782,13 @@ option, select {
     margin-right: 0.5em;
     font-weight: 600;
   }
+
   input {
     position: absolute;
     margin-left: -9999px;
     visibility: hidden;
   }
+
   label {
     width: 100%;
     padding: 0 !important;
@@ -684,11 +804,13 @@ option, select {
       background: rgba($color_main, 0.5) !important;
     }
   }
+
   label:before, label:after {
     display: block;
     position: absolute;
     content: "";
   }
+
   label:before {
     top: 1px;
     left: 1px;
@@ -698,25 +820,28 @@ option, select {
     border-radius: 60px;
     transition: background 0.4s;
   }
+
   label:after {
     top: 4px;
     left: 4px;
     bottom: 4px;
     width: 16px;
-    background-color: #dddddd;
+    background-color: #ddd;
     border-radius: 52px;
     transition: margin 0.4s, background 0.4s;
   }
+
   input:checked + label:after {
     margin-left: 45px;
     background-color: $color_main;
   }
 }
+
 .inline_login_cta {
   a {
     margin: 2em 0;
     background: $color_main;
-    color: #FFF;
+    color: #fff;
     border-radius: 6px;
     text-align: center;
     padding: 2em;

@@ -4,82 +4,104 @@
  */
 .social_share, .search_icon {
   display: inline-block;
-  padding: .35em .75em;
+  padding: 0.35em 0.75em;
   margin: 1em 1em 0 0;
-  color: #FFF;
+  color: #fff;
   text-decoration: none;
+
   @include border-radius(3px);
+
   .fa {
     margin: 0;
     display: inline-block;
   }
 }
+
 a.social_share {
   .fa {
     // margin: 0 .2em 0 0;
   }
 }
+
 .social_share_container {
   .social_share, .search_icon {
     @include border-radius(16px);
-    padding: .25em 2em;
+
+    padding: 0.25em 2em;
     text-decoration: none;
+
     .fa {
-      margin: 0 .2em 0 0;
+      margin: 0 0.2em 0 0;
     }
   }
+
   .social_share:hover, .search_icon:hover {
     text-decoration: none;
   }
 }
+
 .social_share:hover {
-  color: #FFF;
+  color: #fff;
 }
+
 .facebook {
   background: $color_facebook;
 }
+
 .twitter {
   background: $color_twitter;
 }
+
 .linkedin {
-  background: #0074B5;
+  background: #0074b5;
 }
+
 .email {
   background: $color_main;
 }
+
 .whatsapp {
-  background: #0DC143;
+  background: #0dc143;
 }
+
 .telegram {
-  background: #2DA0DA;
+  background: #2da0da;
 }
+
 .code {
   background: $color_main;
 }
+
 .facebook:hover {
-  background: darken(#3A589A, 10%);
+  background: darken(#3a589a, 10%);
 }
+
 .twitter:hover {
-  background: darken(#00ABEF, 10%);
+  background: darken(#00abef, 10%);
 }
+
 .email:hover {
   background: darken($color_main, 10%);
 }
+
 .linkedin:hover {
-  background: darken(#0074B5, 10%);
+  background: darken(#0074b5, 10%);
 }
+
 .code:hover {
   background: darken($color_main, 10%);
 }
+
 .social_links_container {
   z-index: 1;
 
   > a {
     @include border-radius(3em);
-    margin: 0 .5em 0 0;
-    font-size: .85em;
-    padding: .2em .1em;
-    color: #FFF;
+
+    margin: 0 0.5em 0 0;
+    font-size: 0.85em;
+    padding: 0.2em 0.1em;
+    color: #fff;
     display: inline-block;
     width: 2.25em;
     box-sizing: border-box;

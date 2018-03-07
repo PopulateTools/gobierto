@@ -5,42 +5,51 @@
 h1, h2, h3, h4 {
   line-height: 1.2em;
   color: $color_main;
+
   .soft {
     color: $color_meta_text;
     font-weight: normal;
   }
 }
+
 .block {
   position: relative;
   margin: 0 0 1em 0;
+
   h1, h2 {
     font-weight: 200;
     text-transform: uppercase;
     font-size: 1.6em;
     margin: 2em 0;
   }
+
   h2.with_description {
-    margin-bottom: .35em;
+    margin-bottom: 0.35em;
   }
+
   .description {
     width: 50%;
-    font-size: .85em;
+    font-size: 0.85em;
     margin: 0 0 3em 0;
     line-height: 1.3em;
-    opacity: .6;
+    opacity: 0.6;
   }
+
   .slim {
     margin: 0;
   }
+
   .to_r {
     position: absolute;
     right: 0;
     top: 0;
   }
+
   .half_description {
     .block_1 p {
       margin-bottom: 0;
     }
+
     .block_2 {
       p {
         opacity: 0.6;
@@ -52,6 +61,7 @@ h1, h2, h3, h4 {
       }
     }
   }
+
   .common-links {
     text-transform: uppercase;
     font-weight: 200;
@@ -65,6 +75,7 @@ h1, h2, h3, h4 {
       content: none;
     }
   }
+
   .decorator {
     position: relative;
 
@@ -78,6 +89,7 @@ h1, h2, h3, h4 {
     }
   }
 }
+
 .with_separator {
   font-size: 1.25em;
   color: $color_main;
@@ -90,28 +102,34 @@ h1, h2, h3, h4 {
     }
   }
 }
+
 .dynamic-content {
   .block {
     margin-bottom: 3em;
   }
 }
+
 .block.slim {
-  font-size: .75em;
+  font-size: 0.75em;
 }
+
 h1.light {
   font-weight: 200;
 }
+
 h2.lite {
-  margin: 0 0 .5em 0;
+  margin: 0 0 0.5em 0;
   font-size: 1em;
 }
+
 h1, h2 {
   span.element_title {
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-weight: normal;
     padding-left: 1em;
   }
 }
+
 p.intro {
   font-size: 1.6em;
   line-height: 1.3em;
@@ -123,9 +141,10 @@ p.intro {
     margin: 0 0 1em 0;
   }
 }
+
 .block_section {
   text-transform: uppercase;
-  font-size: .85em;
+  font-size: 0.85em;
   color: $color_meta_text;
 }
 
@@ -142,61 +161,76 @@ p.intro {
  */
 .box {
   background: $color_1_soft;
+
   @include border-radius(6px);
+
   .inner {
     padding: 1em 2em;
   }
 }
+
 .slim_box {
   margin: 1em 0;
+
   .inner {
     padding: 1em;
   }
+
   h3 {
-    margin: 0 0 .75em 0;
+    margin: 0 0 0.75em 0;
     font-size: 1.1em;
     font-weight: 600;
   }
+
   input[type=text], input[type=email] {
     width: 50%;
   }
+
   input[type=text], input[type=email], input[type=submit] {
     height: 45px;
-    padding: .25em 1em;
+    padding: 0.25em 1em;
   }
 }
+
 .disclaimer {
   text-align: left;
-  font-size: .85em;
-  margin: .5em 0 1.5em 0;
+  font-size: 0.85em;
+  margin: 0.5em 0 1.5em 0;
   width: 70%;
 }
+
 .color_neutral_soft {
   background: $color_neutral_soft;
 }
+
 .fully_linked {
   margin: 0 0 1em 0;
   font-size: 1.4em;
   text-transform: uppercase;
   font-weight: 200;
+
   .linked_headline {
     font-size: 1em;
     margin: 0;
     font-weight: 300;
   }
+
   a {
     display: block;
     text-decoration: none;
     padding: 1.5em;
   }
+
   a:hover {
     text-decoration: none;
     background: darken($color_1_soft, 15%);
   }
+
   .fa {
     margin-right: 1em;
   }
 }
+
 .medium_img {
   height: auto;
   max-width: 100%;
@@ -206,10 +240,11 @@ p.intro {
     max-width: 500px;
   }
 }
+
 .content_block {
   text-align: left;
   position: relative;
-  box-shadow: 0 1px 2px 1px rgba(0,0,0,0.20);
+  box-shadow: 0 1px 2px 1px rgba(0,0,0,0.2);
   border-radius: 4px;
   background-color: white;
   background-repeat: no-repeat;
@@ -227,6 +262,7 @@ p.intro {
   .lead {
     color: $color_text;
     font-size: 1.25em;
+
     a {
 
     }
@@ -239,10 +275,12 @@ p.intro {
     margin: 0 auto;
     border-radius: 50%;
   }
+
   h2 {
     font-size: 1.625em;
     margin-top: 0.25em;
   }
+
   p {
     color: $color_text;
   }
@@ -262,6 +300,7 @@ p.intro {
     }
   }
 }
+
 a.content_block {
   &:hover,
   &:focus,
@@ -270,10 +309,12 @@ a.content_block {
     box-shadow: 0 1px 6px 1px rgba(0,0,0,0.2);
   }
 }
+
 .content_block.cover_bottom_left {
   background-size: auto;
   background-position: bottom left;
 }
+
 .content_block.filled_block {
   background-color: $color_main;
 
@@ -281,14 +322,16 @@ a.content_block {
     font-size: 1.25em;
     margin-top: 0.25em;
     color: white;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.20);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
   }
+
   p, a {
     color: white;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.20);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
     text-decoration: none;
   }
 }
+
 .content_block.align_right {
   @include min-screen(740) {
     text-align: right;
@@ -306,11 +349,13 @@ a.content_block {
     h2 {
       margin-bottom: 0.25em;
     }
+
     p {
       margin-top: 0;
     }
   }
 }
+
 .content_block.align_bottom_right {
   text-align: left;
 
@@ -329,11 +374,13 @@ a.content_block {
     h2 {
       margin-bottom: 0.25em;
     }
+
     p {
       margin-top: 0;
     }
   }
 }
+
 .content_block.align_bottom {
   text-align: left;
 
@@ -351,11 +398,13 @@ a.content_block {
     h2 {
       margin-bottom: 0.25em;
     }
+
     p {
       margin-top: 0;
     }
   }
 }
+
 .content_block.mask_bottom {
   &:before {
     border-radius: 4px;
@@ -375,33 +424,38 @@ a.content_block {
   margin: 2em 0;
   width: 100%;
   height: 1px;
-  opacity: .5;
+  opacity: 0.5;
 }
+
 .separator_v {
   border-left: 1px solid $color_separator;
   margin: 0 1em;
   display: inline-block;
   height: 3em;
-  margin-top: -.25em;
+  margin-top: -0.25em;
   vertical-align: top;
 }
+
 .separator.half {
   width: 50%;
   margin-left: auto;
   margin-right: auto;
 }
+
 .separator.quarter {
   width: 25%;
   margin-left: auto;
   margin-right: auto;
 }
+
 .separator_blue_medium {
-  border-top: 3px solid transparentize($color_main, .65);
+  border-top: 3px solid transparentize($color_main, 0.65);
 }
+
 .separator_responsive {
   margin: 4em 0;
   border: none;
-  border-top: 1px solid #DEEFF1;
+  border-top: 1px solid #deeff1;
 
   @media (min-width: 768px) {
     min-width: 175%;
@@ -409,6 +463,7 @@ a.content_block {
     margin-left: -37.5%;
   }
 }
+
 .separator_responsive.quarter {
   margin: 4em auto;
   max-width: 10em;
@@ -416,22 +471,25 @@ a.content_block {
 }
 
 .block_color {
-  background: transparentize($color_main, .94);
+  background: transparentize($color_main, 0.94);
   border-top: 4px solid $color_main;
 }
+
 .section_separator {
   margin: 1em 0;
   text-align: center;
   color: $text_soft;
-  font-size: .85em;
+  font-size: 0.85em;
   line-height: 1.4em;
+
   .sep {
     width: 10%;
     border-top: 1px solid $text_soft;
     height: 1px;
     margin: 1em auto;
-    opacity: .5;
+    opacity: 0.5;
   }
+
   p {
     margin: 0;
   }
@@ -439,6 +497,7 @@ a.content_block {
 
 .padded_line_box {
   @include border-radius(6px);
+
   border: 1px solid $color_separator;
   padding:  2em 3em;
   box-sizing: border-box;
@@ -451,13 +510,14 @@ a.content_block {
     margin: 0 0 1em 0;
   }
 }
+
 .padded_line_box.compact {
   padding: 1em 1.5em;
 }
 
 .see_more {
   display: block;
-  padding: .75em 1em;
+  padding: 0.75em 1em;
   margin: 0 0 2em 0;
   font-size: 1em;
   text-align: center;
@@ -466,6 +526,7 @@ a.content_block {
   font-weight: 600;
   background: $color_1_soft;
 }
+
 .see_more:hover {
   text-decoration: none;
   background: darken($color_1_soft, 15%);
@@ -473,17 +534,21 @@ a.content_block {
 
 .inpage_section {
   @include border-radius(4px);
+
   text-align: center;
   background: $color_neutral_soft;
   padding: 1em;
   margin: 2em 0;
+
   ul, li {
     margin: 0;
     padding: 0;
     list-style-type: none;
   }
+
   li {
     display: inline-block;
+
     a {
       margin: 0 1em;
     }
@@ -497,6 +562,7 @@ a.content_block {
   padding-top: 1em;
   border-top: 3px solid $color_main;
 }
+
 .with_light_separator {
   position: relative;
   margin-top: 2em;
@@ -508,9 +574,10 @@ a.content_block {
     top: -1em;
     width: 2em;
     height: 3px;
-    background: rgba($color_main, .5);
+    background: rgba($color_main, 0.5);
   }
 }
+
 .accent {
   font-weight: 600;
   color: $color_main;
@@ -518,36 +585,43 @@ a.content_block {
 
 .date_badge {
   box-sizing: border-box;
-  padding: .3em 0;
+  padding: 0.3em 0;
   background-color: $color_main;
   text-align: center;
   background: $color_1_soft;
+
   @include border-radius(4px);
+
   color: $color_main;
 
   .day, .month, .hour {
     margin: 0;
     line-height: 1.4em;
   }
+
   .day {
     font-size: 1.4em;
     font-weight: 600;
   }
+
   .month, .hour {
-    font-size: .85em;
+    font-size: 0.85em;
   }
+
   .hour {
-    opacity: .5;
+    opacity: 0.5;
   }
 }
 
 .badge {
   box-sizing: border-box;
-  padding: .3em 0;
+  padding: 0.3em 0;
   background-color: $color_main;
   text-align: center;
   background: $color_1_soft;
+
   @include border-radius(4px);
+
   color: $color_main;
 
   strong {

@@ -7,7 +7,7 @@ table {
 
   td,
   th {
-    border-top: 1px solid transparentize($color_main, .85);
+    border-top: 1px solid transparentize($color_main, 0.85);
     padding: 0.4em 0.5em;
     font-size: 0.85em;
     line-height: 1.4em;
@@ -27,7 +27,7 @@ table {
 
   tr.summary_row {
     td {
-      border-top: 3px solid transparentize($color_main, .65);
+      border-top: 3px solid transparentize($color_main, 0.65);
       padding-top: 1em;
     }
   }
@@ -40,7 +40,7 @@ table {
 
   tr.summary_row_end {
     td {
-      border-bottom: 3px solid transparentize($color_main, .65);
+      border-bottom: 3px solid transparentize($color_main, 0.65);
       padding-bottom: 1em;
     }
   }
@@ -52,12 +52,15 @@ tr {
 
 td.bar {
   padding-right: 0;
+
   div.bar {
     background: $color_vis_country;
     height: 18px;
+
     @include border-radius(3px);
   }
 }
+
 td.variation {
   padding-left: 0;
 }
@@ -67,8 +70,10 @@ td.visibility_level {
 }
 
 .table_cont_round {
-  background: transparentize($color_main, .94); // rgba($color_main, .06);
+  background: transparentize($color_main, 0.94); // rgba($color_main, .06);
+
   @include border-radius(6px);
+
   padding: 0.5em 0;
 }
 
@@ -89,7 +94,7 @@ table.explore_slow {
 
   tr.group {
     td {
-      border-top: 3px solid transparentize($color_main, .85);
+      border-top: 3px solid transparentize($color_main, 0.85);
     }
   }
 
@@ -110,7 +115,7 @@ table.explore_slow {
     @include transition;
 
     td:not(.level_1) {
-      background: rgba($color_main, .1) !important;
+      background: rgba($color_main, 0.1) !important;
     }
   }
 
@@ -140,8 +145,8 @@ table.med_bg {
 
   td,
   th {
-    border-top: 1px solid transparentize($color_main, .85);
-    background: transparentize($color_main, .94);
+    border-top: 1px solid transparentize($color_main, 0.85);
+    background: transparentize($color_main, 0.94);
     padding: 0.7em 1em 0.4em;
     font-size: 0.85em;
 
@@ -165,7 +170,7 @@ table.med_bg {
 
     td,
     th {
-      background: rgba($color_main, .1) !important;
+      background: rgba($color_main, 0.1) !important;
     }
   }
 
@@ -209,10 +214,10 @@ th.icon_col {
 
 table.block_content {
   th {
-    background: transparentize($color_main, .85);
+    background: transparentize($color_main, 0.85);
     text-align: left;
     text-transform: uppercase;
-    color: transparentize($color_main, .5);
+    color: transparentize($color_main, 0.5);
     border: none;
   }
 
@@ -226,19 +231,19 @@ table.block_content {
 
   tr:visible:nth-child(2n-1) {
     td {
-      background: transparentize($color_main, .95);
+      background: transparentize($color_main, 0.95);
     }
   }
 
   tr:nth-child(2n-1) {
     td {
-      background: transparentize($color_main, .95);
+      background: transparentize($color_main, 0.95);
     }
   }
 
   tr:hover {
     td {
-      background: transparentize($color_main, .9);
+      background: transparentize($color_main, 0.9);
     }
   }
 
@@ -278,14 +283,16 @@ table.block_content {
 .gobierto_admin {
   table.results_report {
     th, td {
-      border-top: 6px solid #FFF;
-      border-left: 2px solid #FFF;
+      border-top: 6px solid #fff;
+      border-left: 2px solid #fff;
     }
+
     th {
       color: $color_main;
       text-transform: none;
       font-weight: normal;
     }
+
     th.question_title {
       font-weight: bold;
     }

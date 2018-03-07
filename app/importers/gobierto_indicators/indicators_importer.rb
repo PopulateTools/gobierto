@@ -2,7 +2,7 @@
 
 module GobiertoIndicators
   class IndicatorsImporter
-    def initialize(name, site, response, year: nil)
+    def initialize(name, site, response, year = nil)
       @name = name
       @site = site
       @response = response

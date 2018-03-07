@@ -141,7 +141,7 @@ GEM
     elasticsearch-transport (6.0.1)
       faraday
       multi_json
-    erubi (1.7.0)
+    erubi (1.7.1)
     exchanger (0.2.1)
       activesupport (>= 2.2.2)
       httpclient (>= 2.1.5.2)
@@ -186,7 +186,7 @@ GEM
       concurrent-ruby (~> 1.0)
     i18n-js (3.0.5)
       i18n (>= 0.6.6, < 2)
-    i18n-tasks (0.9.20)
+    i18n-tasks (0.9.21)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
       easy_translate (>= 0.5.1)
@@ -194,7 +194,7 @@ GEM
       highline (>= 1.7.3)
       i18n
       parser (>= 2.2.3.0)
-      rainbow (~> 2.2)
+      rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
     ine-places (0.2.0)
       activesupport (>= 4.2)
@@ -307,7 +307,7 @@ GEM
     parallel (1.12.1)
     paranoia (2.4.0)
       activerecord (>= 4.0, < 5.2)
-    parser (2.5.0.2)
+    parser (2.5.0.3)
       ast (~> 2.4.0)
     patron (0.10.0)
     pg (0.21.0)
@@ -346,8 +346,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rainbow (2.2.2)
-      rake
+    rainbow (3.0.0)
     rake (12.3.0)
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)

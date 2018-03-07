@@ -15,7 +15,8 @@
   color: $color_headers;
 
   &#read_later {
-    input[type=submit], .button {
+    input[type=submit],
+    .button {
       padding: 0 1em;
     }
   }
@@ -87,7 +88,10 @@
     opacity: 1;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     color: #946b04;
   }
 
@@ -157,7 +161,7 @@
 
       &:hover,
       &.active {
-        background: darken(#fef0cd, 5%)
+        background: darken(#fef0cd, 5%);
       }
 
       .drag-call {

@@ -2,7 +2,8 @@
  * Social Buttons
  *
  */
-.social_share, .search_icon {
+.social_share,
+.search_icon {
   display: inline-block;
   padding: 0.35em 0.75em;
   margin: 1em 1em 0 0;
@@ -24,7 +25,8 @@ a.social_share {
 }
 
 .social_share_container {
-  .social_share, .search_icon {
+  .social_share,
+  .search_icon {
     @include border-radius(16px);
 
     padding: 0.25em 2em;
@@ -35,7 +37,8 @@ a.social_share {
     }
   }
 
-  .social_share:hover, .search_icon:hover {
+  .social_share:hover,
+  .search_icon:hover {
     text-decoration: none;
   }
 }
@@ -111,9 +114,9 @@ a.social_share {
 
 @include min-screen(740) {
   .social_links_container {
-    a.whatsapp, a.telegram {
+    a.whatsapp,
+    a.telegram {
       display: none;
     }
   }
-
 }

@@ -6,7 +6,7 @@ body.contributions_layout {
 }
 
 .contributions_container {
-  box-shadow: 0 1px 2px 2px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   border-top: 3px solid $color_main;
   border-radius: 0;
   max-width: 1200px;
@@ -14,7 +14,7 @@ body.contributions_layout {
   position: relative;
 
   .contributions_header {
-    border-bottom: 4px solid rgba(0,0,0,0.1);
+    border-bottom: 4px solid rgba(0, 0, 0, 0.1);
 
     .wrapper {
       width: 100%;
@@ -93,7 +93,7 @@ body.contributions_layout {
   // Pool
   .contributions_content {
     box-sizing: border-box;
-    border-top: 8px solid rgba(0,0,0,0.1);
+    border-top: 8px solid rgba(0, 0, 0, 0.1);
     position: relative;
     margin: 0 auto;
     height: calc(750px + 2.5em);
@@ -108,7 +108,7 @@ body.contributions_layout {
       top: 50%;
       color: white;
       z-index: 1;
-      text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
     }
 
     .previous_contribution {
@@ -150,7 +150,7 @@ body.contributions_layout {
       width: 300px;
       height: 120px;
       border-radius: 16px;
-      box-shadow: 0 1px 2px 2px rgba(0,0,0,0.1);
+      box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
       padding: 1em;
 
       .title {
@@ -169,7 +169,7 @@ body.contributions_layout {
       top: 0.5em;
       right: 1em;
       color: white;
-      text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     }
   }
 }
@@ -179,8 +179,7 @@ body.contributions_layout {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
-
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .contribution_card_new {
@@ -192,7 +191,7 @@ body.contributions_layout {
   background: #fff;
   border-radius: 6px;
   line-height: 1.3;
-  box-shadow: 0 5px 10px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.1);
   z-index: 2;
 
   .contribution_card_new_header {
@@ -223,7 +222,7 @@ body.contributions_layout {
   background: #fff;
   border-radius: 6px;
   line-height: 1.3;
-  box-shadow: 0 5px 10px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.1);
   z-index: 2;
 
   .contribution_card_expanded_wrapper {
@@ -262,7 +261,7 @@ body.contributions_layout {
       }
 
       h3 {
-        border-bottom: 1px solid rgba(0,0,0,0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         color: $color_text;
         font-size: $f6;
         font-weight: normal;
@@ -271,7 +270,7 @@ body.contributions_layout {
 
       .comment_actions {
         text-align: right;
-        border-top: 1px solid rgba(0,0,0,0.1);
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
         padding: 0.5em 0 0 0;
         margin: 1em 0 0 0;
         font-size: $f7;
@@ -289,11 +288,6 @@ body.contributions_layout {
         a:hover {
           color: darken($color_separator, 10%);
         }
-
-        a.active {
-
-        }
-
       }
     }
 
@@ -311,21 +305,20 @@ body.contributions_layout {
       margin: 0;
       font-size: $f4;
     }
-
   }
 }
 
 .element_eval_actions {
   padding: 2em 0;
 
-  .action_button_bg  {
+  .action_button_bg {
     width: 116px;
     height: 494px;
     margin: auto;
     background: url(asset_path('illustrations/emoji_eval_col.svg')) no-repeat center center;
   }
 
-  a.action_button  {
+  a.action_button {
     position: relative;
     width: 111px;
     height: 111px;
@@ -351,7 +344,7 @@ body.contributions_layout {
     opacity: 0.9;
   }
 
-  a.action_button:hover:after {
+  a.action_button:hover::after {
     content: "";
   }
 

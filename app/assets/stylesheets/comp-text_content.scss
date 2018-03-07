@@ -6,15 +6,12 @@
 .text_page {
   header.text_page_header {
     text-align: center;
-
-    h1 {
-
-    }
   }
-
 }
 
-figure.png, figure.jpg, figure.gif {
+figure.png,
+figure.jpg,
+figure.gif {
   margin: 1em 0;
 
   img {
@@ -200,7 +197,6 @@ figure.png, figure.jpg, figure.gif {
         display: inline;
         background: none;
         padding: 0;
-        margin: 0;
 
         a {
           padding: 0;

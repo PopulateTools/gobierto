@@ -160,9 +160,9 @@ table.med_bg {
     font-weight: normal;
     font-size: 0.75em;
     text-align: left;
+    text-align: right;
     opacity: 0.5;
     border: none;
-    text-align: right;
   }
 
   tr:hover {
@@ -282,7 +282,8 @@ table.block_content {
 
 .gobierto_admin {
   table.results_report {
-    th, td {
+    th,
+    td {
       border-top: 6px solid #fff;
       border-left: 2px solid #fff;
     }

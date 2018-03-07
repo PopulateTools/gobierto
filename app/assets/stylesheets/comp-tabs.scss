@@ -55,7 +55,8 @@
 .sub_filter {
   font-size: 0.85em;
 
-  ul, li {
+  ul,
+  li {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -72,7 +73,7 @@
     font-weight: bold;
   }
 
-  li.active:after {
+  li.active::after {
     top: 110%;
     left: 50%;
     border: solid transparent;
@@ -139,7 +140,7 @@
       }
     }
 
-    li.active:after {
+    li.active::after {
       top: 101%;
       left: 50%;
       border: solid transparent;

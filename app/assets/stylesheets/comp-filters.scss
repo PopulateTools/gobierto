@@ -32,7 +32,8 @@
     text-decoration: none;
   }
 
-  a.active, a.active:hover {
+  a.active,
+  a.active:hover {
     border: 1px solid rgba($color_main, 0.2);
     background: $color_main_negative;
   }
@@ -71,7 +72,8 @@
     margin: 0 0 0 1em;
   }
 
-  ul, li {
+  ul,
+  li {
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -92,14 +94,15 @@
     text-decoration: none;
     padding: 1px 7px;
     margin: 0;
-
   }
 
   li:last-child a {
     border: none;
   }
 
-  li a:hover, li a.buttonSelected, a.active {
+  li a:hover,
+  li a.buttonSelected,
+  a.active {
     background: #d1eaed;
   }
 }

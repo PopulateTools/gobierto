@@ -31,7 +31,8 @@
   }
 }
 
-.news_teaser, .news_article {
+.news_teaser,
+.news_article {
   .meta {
     font-size: $f7;
     opacity: 0.5;
@@ -39,15 +40,12 @@
 }
 
 .content {
-  .inner,
   // article:not(.news_article)
-  {
+  .inner {
     max-width: 650px;
     margin: 0 auto;
     text-align: left;
-  }
 
-  .inner {
     @media (min-width: 768px) {
       padding: 0;
       padding-top: 5em;
@@ -97,13 +95,6 @@
 
     h3 {
       font-size: $f5;
-    }
-
-    h4 {
-      font-size: $f6;
-    }
-
-    h3 {
       margin-top: 2em;
 
       small {
@@ -112,6 +103,7 @@
     }
 
     h4 {
+      font-size: $f6;
       font-weight: 600;
       text-transform: uppercase;
       margin-top: 2em;
@@ -276,7 +268,7 @@
       line-height: 1.5;
     }
 
-    li:before {
+    li::before {
       @include circle(18px);
 
       content: counter(list);

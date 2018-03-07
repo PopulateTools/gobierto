@@ -8,7 +8,6 @@
  *
  */
 
-
 /*
  * Vendor libraries
  *
@@ -32,7 +31,6 @@
  *
  */
 @import "populities";
-
 
 /*
  * Gobierto components
@@ -119,7 +117,6 @@ footer {
 
   padding: 1em 2em;
   display: inline-block;
-
 }
 
 a.soft_cta:hover {
@@ -175,7 +172,7 @@ a.soft_cta:hover {
 }
 
 .invisible {
-  visibility: hidden
+  visibility: hidden;
 }
 
 a.list_view_more {

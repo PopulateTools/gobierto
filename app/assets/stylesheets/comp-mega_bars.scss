@@ -44,7 +44,7 @@
 
     .label {
       left: 20px;
-      text-shadow: -1px -1px 0 $color_main,  1px -1px 0 $color_main, -1px 1px 0 $color_main, 1px 1px 0 $color_main;
+      text-shadow: -1px -1px 0 $color_main, 1px -1px 0 $color_main, -1px 1px 0 $color_main, 1px 1px 0 $color_main;
 
       @media (min-width: 740px) {
         left: 40px;

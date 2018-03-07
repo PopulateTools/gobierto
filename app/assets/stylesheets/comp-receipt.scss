@@ -45,16 +45,16 @@
       line-height: 1.5;
       background-color: white;
       border: 0;
+      border: 1px solid #aeaeae;
       border-radius: 4px;
       cursor: pointer;
       outline: 0;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      border: 1px solid #aeaeae;
     }
 
-    &:after {
+    &::after {
       position: absolute;
       top: 50%;
       right: 1.25rem;
@@ -76,7 +76,7 @@
 
     @include min-screen(740) {
       display: block;
-      background-image: linear-gradient(to right, $color_main 33%, rgba(255,255,255,0) 0%);
+      background-image: linear-gradient(to right, $color_main 33%, rgba(255, 255, 255, 0) 0%);
       background-position: bottom;
       background-size: 7px 2px;
       background-repeat: repeat-x;
@@ -249,5 +249,4 @@
       }
     }
   }
-
 }

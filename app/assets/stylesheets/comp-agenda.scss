@@ -2,7 +2,8 @@
 .place_event-item,
 .place_news-item,
 .place_latest-item {
-  .month, .hour {
+  .month,
+  .hour {
     font-size: 0.85em;
   }
 
@@ -22,7 +23,8 @@
     font-size: 0.85em;
   }
 
-  h2, h3 {
+  h2,
+  h3 {
     margin: 0.5em 0 0.75em 0;
   }
 
@@ -47,10 +49,6 @@
   .person-name {
     h2 {
       margin-top: 0;
-    }
-
-    .soft {
-
     }
   }
 }

@@ -17,7 +17,7 @@
       position: relative;
 
       &.nomargin {
-        margin: 0
+        margin: 0;
       }
     }
 
@@ -73,7 +73,6 @@
       position: absolute;
       bottom: 0.8em;
       width: calc(100% - 3em);
-
     }
 
     .bar {
@@ -87,7 +86,7 @@
       .line {
         opacity: 1;
         height: 10px;
-        background: $color_main
+        background: $color_main;
       }
     }
 
@@ -145,7 +144,8 @@
           text-align: left;
         }
 
-        th, td {
+        th,
+        td {
           padding: 0.25em 0;
         }
 

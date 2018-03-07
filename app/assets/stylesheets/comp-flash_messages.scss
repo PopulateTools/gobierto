@@ -2,7 +2,10 @@
  * Flash messages
  *
  */
-.success, .error, .alert, .notice {
+.success,
+.error,
+.alert,
+.notice {
   padding: 1em;
   margin-bottom: 2em;
   font-size: $f5;

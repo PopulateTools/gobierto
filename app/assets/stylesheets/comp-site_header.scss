@@ -76,7 +76,9 @@ header {
       }
     }
 
-    .user_links, .language_selector, .pure-menu {
+    .user_links,
+    .language_selector,
+    .pure-menu {
       display: inline-block;
       width: initial;
     }
@@ -100,7 +102,6 @@ header {
             background-color: darken($color_secondary, 7.5%);
           }
         }
-
       }
     }
 
@@ -117,7 +118,7 @@ header {
       @include border-radius(75px);
 
       &:hover {
-        background: darken($color_1_soft, 25%);;
+        background: darken($color_1_soft, 25%);
       }
 
       i {
@@ -408,7 +409,8 @@ header {
       margin: 0;
       padding: 0;
 
-      ul, li {
+      ul,
+      li {
         margin: 0;
         padding: 0;
         list-style-type: none;
@@ -480,7 +482,6 @@ header {
             }
           }
         }
-
       }
 
       .navigation {
@@ -499,7 +500,7 @@ header {
             }
           }
 
-          &:not(first-child) {
+          &:not(:first-child) {
             border-top: 5px solid #fff;
           }
 
@@ -524,7 +525,6 @@ header {
                 @include font($f5, $color_1, $fBold);
               }
             }
-
           }
 
           .navigation-subitem-container {
@@ -605,7 +605,6 @@ header {
               }
             }
           }
-
         }
 
         .secondary_nav {
@@ -619,7 +618,6 @@ header {
             }
           }
         }
-
       }
     }
   }
@@ -699,7 +697,8 @@ header {
           display: block;
           text-align: left;
 
-          &, &:hover {
+          &,
+          &:hover {
             border-top: 0;
           }
 
@@ -718,7 +717,8 @@ header {
         }
 
         .sub-nav-item {
-          &, &:hover {
+          &,
+          &:hover {
             border-bottom: 0;
           }
 
@@ -727,7 +727,6 @@ header {
           }
         }
       }
-
     }
   }
 }

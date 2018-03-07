@@ -8,13 +8,14 @@
   // border-bottom: 1px solid #DFDFDF;
   padding: 1em 0;
 
-  a,span {
+  a,
+  span {
     margin: 0 0.5em;
     font-size: 1.15em;
   }
 
   a:first-child {
-    margin-left: 0
+    margin-left: 0;
   }
 }
 
@@ -29,9 +30,6 @@
 
   .bread_hover {
     max-width: 100px;
-  }
-
-  .bread_hover {
     display: inline-block;
   }
 
@@ -85,8 +83,8 @@
   position: absolute;
   background: #fff;
   padding: 2em 1em 1em 2em;
-  margin-left: calc( -2em - 1px);
-  margin-top: calc( -3.5em - 1px);
+  margin-left: calc(-2em - 1px);
+  margin-top: calc(-3.5em - 1px);
   border: 1px solid #dfdfdf;
 
   @include border-radius(4px);
@@ -114,7 +112,8 @@
     font-size: 0.85em;
   }
 
-  td.selected, td.selected_no_children {
+  td.selected,
+  td.selected_no_children {
     border-left: 2px solid rgba($color_main, 0.5);
     position: relative;
   }
@@ -136,7 +135,8 @@
   display: inline-block;
 }
 
-.open_line_browser, .close_line_browser {
+.open_line_browser,
+.close_line_browser {
   opacity: 0.5;
   color: $color_main;
   cursor: pointer;

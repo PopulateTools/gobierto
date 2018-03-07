@@ -8,7 +8,6 @@
  *
  */
 
-
 /*
  * Vendor libraries
  *
@@ -85,7 +84,6 @@
 @import "module-participation";
 @import "module-planification";
 @import "module-planification-custom";
-@import "module-people";
 @import "module-admin";
 
 /*
@@ -100,16 +98,12 @@
  */
 @import "css-print";
 
-
 /*
  * Fonts
  *
  */
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
 @import "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-
-
-
 
 /*
  * Some defaults
@@ -143,10 +137,6 @@ a:hover {
   text-decoration: underline;
 }
 
-
-
-
-
 /* ToDo: Review & generalize components */
 
 /*
@@ -160,7 +150,6 @@ a:hover {
 
   padding: 1em 2em;
   display: inline-block;
-
 }
 
 a.soft_cta:hover {
@@ -293,7 +282,6 @@ a.soft_cta:hover {
   }
 }
 
-
 // Hidden utilities
 .hidden-xs {
   display: none;
@@ -304,7 +292,6 @@ a.soft_cta:hover {
     display: block;
   }
 }
-
 
 /*
  * Tips
@@ -334,19 +321,15 @@ a.soft_cta:hover {
     background: white;
     border: 1px solid #979797;
     border-radius: 4px;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
     color: $color_text;
     line-height: 1.3;
   }
 }
 
-
 .invisible {
-  visibility: hidden
+  visibility: hidden;
 }
-
-
-
 
 a.list_view_more {
   @include border-radius(3px);
@@ -362,8 +345,6 @@ a.list_view_more {
   text-transform: uppercase;
   font-weight: 600;
 }
-
-
 
 html.turbolinks-progress-bar::before {
   background-color: $color_main !important;
@@ -400,7 +381,7 @@ html.turbolinks-progress-bar::before {
     width: 135px;
     display: inline-block;
     vertical-align: top;
-    line-height: 1.4em
+    line-height: 1.4em;
   }
 
   a:hover {
@@ -413,7 +394,9 @@ html.turbolinks-progress-bar::before {
 }
 
 .open_data {
-  h1 + .subtitle, h2 + .subtitle, h3 + .subtitle {
+  h1 + .subtitle,
+  h2 + .subtitle,
+  h3 + .subtitle {
     margin: -1em 0 2em 0;
   }
 
@@ -422,7 +405,8 @@ html.turbolinks-progress-bar::before {
     padding: 2em 0;
     margin: 2em 0;
 
-    h2, h3 {
+    h2,
+    h3 {
       margin-top: 0;
     }
 

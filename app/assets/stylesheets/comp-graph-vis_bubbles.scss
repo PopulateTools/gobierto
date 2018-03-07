@@ -15,7 +15,7 @@
     min-width: 200px;
     max-width: 250px;
     border: 1px solid #979797;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
     border-radius: 4px;
 
     .line-name {
@@ -34,20 +34,20 @@
       }
     }
 
-    @media (max-width: 590px){
+    @media (max-width: 590px) {
       position: fixed;
       bottom: -1px;
       width: calc(96%);
+      width: auto !important;
       left: -1px !important;
       right: -1px !important;
       top: auto !important;
-      width: auto !important;
       max-width: none;
     }
   }
 
   @media (min-width: 740px) {
-    .tooltip:before {
+    .tooltip::before {
       border-radius: 2px;
       position: absolute;
       top: -14px;
@@ -61,7 +61,7 @@
       content: '';
     }
 
-    .tooltip:after {
+    .tooltip::after {
       border-radius: 2px;
       position: absolute;
       top: -12px;
@@ -100,7 +100,7 @@
     text {
       fill: $color_1;
       font-weight: 600;
-      text-shadow: 1px 1px 0 rgba(255,255,255,0.7), -1px -1px 0 rgba(255,255,255,0.7), -1px 1px 0 rgba(255,255,255,0.7), 1px -1px 0 rgba(255,255,255,0.7);
+      text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7), -1px -1px 0 rgba(255, 255, 255, 0.7), -1px 1px 0 rgba(255, 255, 255, 0.7), 1px -1px 0 rgba(255, 255, 255, 0.7);
     }
 
     .legend-label {

@@ -3,7 +3,8 @@
   $checked: #73d600;
   $unchecked: #d6003b;
 
-  ul, li {
+  ul,
+  li {
     list-style: none;
   }
 
@@ -108,7 +109,7 @@
           font-weight: bold;
 
           .extrainfo-content {
-            display:flex;
+            display: flex;
             width: 100%;
 
             .extrainfo-block {
@@ -283,5 +284,4 @@
       }
     }
   }
-
 }

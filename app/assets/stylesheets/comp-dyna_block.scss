@@ -41,13 +41,13 @@ body.gobierto_admin {
       }
     }
 
-    .new_row_content, .dynamic-content-record-form {
+    .new_row_content,
+    .dynamic-content-record-form {
       display: none;
 
       td {
         background: transparentize($color_main, 0.95);
         padding: 0.7em 0.5em 0.4em;
-
       }
 
       .edit_cell {
@@ -60,7 +60,9 @@ body.gobierto_admin {
         }
       }
 
-      input[type=text], input[type=number], select {
+      input[type=text],
+      input[type=number],
+      select {
         width: 100%;
         padding: 0.5em;
         margin: 0 0 0.5em 0;
@@ -78,7 +80,9 @@ body.gobierto_admin {
         margin: 0.5em 0 1em 0;
       }
 
-      button, a.button, input[type=submit] {
+      button,
+      a.button,
+      input[type=submit] {
         padding: 0.5em 0.75em;
         height: initial;
         margin: 0.7em 1em 0.7em 0;
@@ -88,7 +92,8 @@ body.gobierto_admin {
       }
     }
 
-    .new_row_content:hover, .dynamic-content-record-form:hover {
+    .new_row_content:hover,
+    .dynamic-content-record-form:hover {
       .edit_cell {
         display: block;
       }
@@ -122,7 +127,8 @@ body.gobierto_admin {
       }
     }
 
-    th:first-child, td:first-child {
+    th:first-child,
+    td:first-child {
       padding-left: 1.25em;
     }
 
@@ -132,19 +138,23 @@ body.gobierto_admin {
     }
 
     table {
-      td, th {
+      td,
+      th {
         padding: 0.4em 0.5em 0.45em;
       }
     }
   }
 
-  .warn, a.warn, .warn a {
+  .warn,
+  a.warn,
+  .warn a {
     color: $color_warn;
     font-weight: 600;
   }
 
   .dyna_block.new_block {
-    a, label {
+    a,
+    label {
       display: block;
       padding: 0;
     }
@@ -172,21 +182,19 @@ body.gobierto_admin {
 
       @include border-radius(6px);
 
-      select, input {
+      select,
+      input {
         height: initial;
         padding: 0.25em;
         width: initial;
         display: inline-block;
       }
 
-      select, option {
+      select,
+      option {
         -webkit-appearance: menulist;
-        moz-appearance: menulist;
+        -moz-appearance: menulist;
         appearance: menulist;
-      }
-
-      input {
-
       }
 
       .locale_field {

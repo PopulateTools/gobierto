@@ -24,12 +24,13 @@
       font-size: 1.2em;
     }
 
-    .item_type, .updated_at {
+    .item_type,
+    .updated_at {
       opacity: 0.5;
       text-transform: uppercase;
     }
 
-    .item_type:after {
+    .item_type::after {
       content: " · ";
     }
   }

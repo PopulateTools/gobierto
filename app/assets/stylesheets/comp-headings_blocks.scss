@@ -2,7 +2,10 @@
  * Headings
  *
  */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   line-height: 1.2em;
   color: $color_main;
 
@@ -16,7 +19,8 @@ h1, h2, h3, h4 {
   position: relative;
   margin: 0 0 1em 0;
 
-  h1, h2 {
+  h1,
+  h2 {
     font-weight: 200;
     text-transform: uppercase;
     font-size: 1.6em;
@@ -93,8 +97,11 @@ h1, h2, h3, h4 {
 .with_separator {
   font-size: 1.25em;
   color: $color_main;
-  border-top-color: $color_main;
   margin-top: 0;
+  display: inline-block;
+  min-width: 10em;
+  padding-top: 1em;
+  border-top: 3px solid $color_main;
 
   & ~ .soft {
     @include min-screen(740) {
@@ -122,7 +129,8 @@ h2.lite {
   font-size: 1em;
 }
 
-h1, h2 {
+h1,
+h2 {
   span.element_title {
     font-size: 0.9rem;
     font-weight: normal;
@@ -154,7 +162,6 @@ p.intro {
   font-size: 1.25em;
 }
 
-
 /*
  * Content Boxes
  *
@@ -182,11 +189,14 @@ p.intro {
     font-weight: 600;
   }
 
-  input[type=text], input[type=email] {
+  input[type=text],
+  input[type=email] {
     width: 50%;
   }
 
-  input[type=text], input[type=email], input[type=submit] {
+  input[type=text],
+  input[type=email],
+  input[type=submit] {
     height: 45px;
     padding: 0.25em 1em;
   }
@@ -244,7 +254,7 @@ p.intro {
 .content_block {
   text-align: left;
   position: relative;
-  box-shadow: 0 1px 2px 1px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   background-color: white;
   background-repeat: no-repeat;
@@ -262,10 +272,6 @@ p.intro {
   .lead {
     color: $color_text;
     font-size: 1.25em;
-
-    a {
-
-    }
   }
 
   .circle_teaser {
@@ -291,7 +297,7 @@ p.intro {
     opacity: 0.5;
     font-size: 0.825em;
 
-    & > div:not(last-child) {
+    & > div:not(:last-child) {
       margin-right: 0.25em;
     }
 
@@ -306,7 +312,7 @@ a.content_block {
   &:focus,
   &:active {
     text-decoration: none;
-    box-shadow: 0 1px 6px 1px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -322,12 +328,13 @@ a.content_block {
     font-size: 1.25em;
     margin-top: 0.25em;
     color: white;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   }
 
-  p, a {
+  p,
+  a {
     color: white;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     text-decoration: none;
   }
 }
@@ -362,7 +369,6 @@ a.content_block {
   @include min-screen(740) {
     text-align: right;
   }
-
 
   > div {
     @include min-screen(740) {
@@ -406,7 +412,7 @@ a.content_block {
 }
 
 .content_block.mask_bottom {
-  &:before {
+  &::before {
     border-radius: 4px;
     content: '';
     position: absolute;
@@ -414,7 +420,7 @@ a.content_block {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: linear-gradient(to bottom,transparent, #000);
+    background-image: linear-gradient(to bottom, transparent, #000);
     opacity: 0.9;
   }
 }
@@ -499,7 +505,7 @@ a.content_block {
   @include border-radius(6px);
 
   border: 1px solid $color_separator;
-  padding:  2em 3em;
+  padding: 2em 3em;
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
@@ -540,7 +546,8 @@ a.content_block {
   padding: 1em;
   margin: 2em 0;
 
-  ul, li {
+  ul,
+  li {
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -553,14 +560,6 @@ a.content_block {
       margin: 0 1em;
     }
   }
-
-}
-
-.with_separator {
-  display: inline-block;
-  min-width: 10em;
-  padding-top: 1em;
-  border-top: 3px solid $color_main;
 }
 
 .with_light_separator {
@@ -568,7 +567,7 @@ a.content_block {
   margin-top: 2em;
   margin-bottom: 0;
 
-  &:before {
+  &::before {
     content: '';
     position: absolute;
     top: -1em;
@@ -594,7 +593,9 @@ a.content_block {
 
   color: $color_main;
 
-  .day, .month, .hour {
+  .day,
+  .month,
+  .hour {
     margin: 0;
     line-height: 1.4em;
   }
@@ -604,7 +605,8 @@ a.content_block {
     font-weight: 600;
   }
 
-  .month, .hour {
+  .month,
+  .hour {
     font-size: 0.85em;
   }
 

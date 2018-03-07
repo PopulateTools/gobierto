@@ -1,6 +1,11 @@
 this.GobiertoAdmin.GobiertoBudgetsController = (function() {
   function GobiertoBudgetsController() {}
 
+  GobiertoBudgetsController.prototype.options = function(options) {
+    _handleMunicipalitiesAutocomplete(options);
+    _comparison_tool_checkboxes();
+  };
+
   function _handleMunicipalitiesAutocomplete(options) {
     var $field = $("#gobierto_budgets_options_comparison_compare_municipalities");
     console.log(options);
@@ -27,9 +32,15 @@ this.GobiertoAdmin.GobiertoBudgetsController = (function() {
     });
   }
 
-  GobiertoBudgetsController.prototype.options = function(options) {
-    _handleMunicipalitiesAutocomplete(options);
-  };
+  function _comparison_tool_checkboxes() {
+    $("input[name='gobierto_budgets_options[comparison_tool_enabled]']").change(function () {
+      if(!($("input[name='gobierto_budgets_options[comparison_tool_enabled]']").is(':checked'))) {
+        $("input[name='gobierto_budgets_options[comparison_context_table_enabled]']").removeAttr('checked');
+        $("input[name='gobierto_budgets_options[comparison_compare_municipalities_enabled]']").removeAttr('checked');
+        $("input[name='gobierto_budgets_options[comparison_show_widget]']").removeAttr('checked');
+      }
+    });
+  }
 
   return GobiertoBudgetsController;
 })();

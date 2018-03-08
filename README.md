@@ -1,7 +1,6 @@
 [![CircleCI](https://circleci.com/gh/PopulateTools/gobierto.svg?style=svg)](https://circleci.com/gh/PopulateTools/gobierto)
 [![codecov](https://codecov.io/gh/PopulateTools/gobierto/branch/master/graph/badge.svg)](https://codecov.io/gh/PopulateTools/gobierto)
 
-
 <img src="https://gobierto.es/assets/logo_gobierto.png" width="250" height="auto">
 
 _This README is available [in English](README_EN.md)_

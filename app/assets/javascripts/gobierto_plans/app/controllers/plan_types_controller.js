@@ -309,7 +309,7 @@ this.GobiertoPlans.PlanTypesController = (function() {
           $('section.level_0, section.level_0 .js-img, section.level_0 .js-info, section.level_0 .js-info h3, section.level_1 .js-info span').removeAttr('style');
         }
       });
-    };
+    }
 
 
     return PlanTypesController;

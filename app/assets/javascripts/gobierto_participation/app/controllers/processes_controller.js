@@ -15,7 +15,7 @@ this.GobiertoParticipation.ProcessesController = (function() {
           $('#timeline').velocity('scroll', { duration: 1500 });
         });
       }
-    };
+    }
 
     return ProcessesController;
   })();

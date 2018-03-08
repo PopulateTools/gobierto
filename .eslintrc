@@ -1,4 +1,15 @@
 {
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jquery": true,
+  },
+  "globals": {
+    "_": true,
+    "Vue": true,
+    "I18n": true,
+    "d3": true,
+  },
   "rules": {
     "accessor-pairs": "off",
     "array-bracket-newline": "off",

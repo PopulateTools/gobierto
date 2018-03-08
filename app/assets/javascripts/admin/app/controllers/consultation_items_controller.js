@@ -51,7 +51,7 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
     $(wrapper).find("li").each(function(index) {
       $(this).attr("data-pos", index + 1);
     });
-  };
+  }
 
   function _buildPositions(wrapper) {
     var positions = [];
@@ -64,7 +64,7 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
     });
 
     return positions;
-  };
+  }
 
   function _requestUpdate(wrapper, positions) {
     $.ajax({
@@ -72,7 +72,7 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
       method: "POST",
       data: { positions: positions }
     });
-  };
+  }
 
   return ConsultationItemsController;
 })();

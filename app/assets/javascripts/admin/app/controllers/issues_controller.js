@@ -33,7 +33,7 @@ this.GobiertoAdmin.IssuesController = (function() {
     $(wrapper).find("tr").each(function(index) {
       $(this).attr("data-pos", index + 1);
     });
-  };
+  }
 
   function _buildPositions(wrapper) {
     var positions = [];
@@ -46,7 +46,7 @@ this.GobiertoAdmin.IssuesController = (function() {
     });
 
     return positions;
-  };
+  }
 
   function _requestUpdate(wrapper, positions) {
     $.ajax({
@@ -54,7 +54,7 @@ this.GobiertoAdmin.IssuesController = (function() {
       method: "POST",
       data: { positions: positions }
     });
-  };
+  }
 
   return IssuesController;
 })();

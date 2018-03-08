@@ -217,7 +217,7 @@ this.GobiertoIndicators.IndicatorsController = (function() {
             }
         }
       });
-    };
+    }
 
     return IndicatorsController;
   })();

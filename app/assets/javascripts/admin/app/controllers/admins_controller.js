@@ -40,7 +40,7 @@ this.GobiertoAdmin.AdminsController = (function() {
           }
         }
       });
-    };
+    }
 
     function _addChangeAuthorizationLevelBehaviors() {
       var $regular  = $("[data-behavior='authorization-level-regular']");
@@ -75,7 +75,7 @@ this.GobiertoAdmin.AdminsController = (function() {
           $('#people_permissions').hide('slow');
         }
       });
-    };
+    }
 
     function _addToggleAllPeopleBehaviors() {
       $('#admin_all_people_permitted').click(function() {
@@ -83,7 +83,7 @@ this.GobiertoAdmin.AdminsController = (function() {
           $("[data-class='site_person'] input[type='checkbox']").prop('checked', false);
         }
       });
-    };
+    }
 
     function _addTogglePersonBehaviors() {
       $("[data-class='site_person'] input[type='checkbox']").click(function() {
@@ -91,7 +91,7 @@ this.GobiertoAdmin.AdminsController = (function() {
           $('#admin_all_people_permitted').prop('checked', false);
         }
       });
-    };
+    }
 
     return AdminsController;
   })();

@@ -140,17 +140,17 @@ var VisIndicators = Class.extend({
 
     function returnValue(row) {
       return typeof row !== 'undefined' ? format(row.value) : '—';
-    };
+    }
 
     function customClass(row) {
       return typeof row !== 'undefined' ? 'center number ' + color(row.value) : 'center empty';
-    };
+    }
 
     function extractValue(row, key) {
       return row.find(function(d) {
         return d.key === key;
       });
-    };
+    }
 
     var columns = [
       { head: I18n.t('gobierto_admin.gobierto_budget_consultations.consultations.consultation_responses.index.questions'), headCl: 'title', cl: 'title', html: function(d) { return d.key; } },

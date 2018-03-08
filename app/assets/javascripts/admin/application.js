@@ -145,7 +145,7 @@ function addDatepickerBehaviors() {
       index++;
     });
   }
-};
+}
 
 function initializePageWithOnlyOneDatepicker() {
   $('.air-datepicker').datepicker({
@@ -155,4 +155,4 @@ function initializePageWithOnlyOneDatepicker() {
       $(instance.el).trigger("datepicker-change");
     }
   });
-};
+}

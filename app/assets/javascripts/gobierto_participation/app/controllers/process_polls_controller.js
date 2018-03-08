@@ -101,7 +101,7 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
   function extractIndex(elementId) {
     var splitted = elementId.split('_');
     return splitted[splitted.length - 1];
-  };
+  }
 
   function _preventAnchorsDefaultBehavior() {
     var $anchors = $('.poll_option').find('a');
@@ -109,7 +109,7 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
     $anchors.click(function(e) {
       e.preventDefault();
     });
-  };
+  }
 
   function _addNextQuestionButtonBehaviors() {
     var $submitInput = $("input[data-behavior='next_question']");
@@ -140,7 +140,7 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
         // form is submitted by JavaScript
       }
     });
-  };
+  }
 
   return ProcessPollsController;
 })();

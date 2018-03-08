@@ -27,7 +27,7 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
             data: { active_stage_id: $("input[name='process[stages_attributes][active]']:checked").val() }
         });
     });
-  };
+  }
 
   function _handleSortableList() {
     var wrapper = "ul[data-behavior=sortable]";
@@ -53,7 +53,7 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
     $(wrapper).find("div.list_item").each(function(index) {
       $(this).attr("data-pos", index + 1);
     });
-  };
+  }
 
   function _buildPositions(wrapper) {
     var positions = [];
@@ -66,7 +66,7 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
     });
 
     return positions;
-  };
+  }
 
   function _requestUpdate(wrapper, positions) {
     $.ajax({
@@ -74,7 +74,7 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
       method: "POST",
       data: { positions: positions }
     });
-  };
+  }
 
   return ProcessStagesController;
 })();

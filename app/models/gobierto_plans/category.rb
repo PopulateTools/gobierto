@@ -13,6 +13,9 @@ module GobiertoPlans
 
     translates :name
 
+    scope :sort_by_id, -> { order('id ASC') }
+    scope :sort_by_uid, -> { order('uid ASC') }
+
     def attributes_for_slug
       [name]
     end
@@ -27,11 +30,11 @@ module GobiertoPlans
 
     def calculate_uid(uid = "")
       if parent_id && parent_id.positive?
-        index = self.class.where(parent_id: parent_category).index(self)
+        index = self.class.where(parent_id: parent_category).sort_by_id.index(self)
         uid = "." + index.to_s + uid
         parent_category.calculate_uid(uid)
       else
-        index = self.class.where(parent_id: nil, plan_id: plan_id).index(self)
+        index = self.class.where(parent_id: nil, plan_id: plan_id).sort_by_id.index(self)
         index.to_s + uid
       end
     end

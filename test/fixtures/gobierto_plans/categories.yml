@@ -4,7 +4,7 @@ city:
   plan: strategic_plan
   slug: city
   level: 0
-  uid: "0"
+  uid: "2"
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
 
@@ -25,7 +25,7 @@ people_and_families:
   slug: people-and-families
   level: 0
   progress: 25.0
-  uid: "2"
+  uid: "0"
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
 
@@ -37,7 +37,7 @@ welfare_payments:
   slug: welfare-payments
   level: 1
   progress: 25.0
-  uid: "2.0"
+  uid: "0.0"
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
 
@@ -48,7 +48,7 @@ center_basic_needs:
   plan: strategic_plan
   slug: center-basic-needs
   level: 2
-  uid: "2.0.0"
+  uid: "0.0.1"
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
 
@@ -60,6 +60,6 @@ center_scholarships:
   slug: center-basic-needs
   level: 2
   progress: 50.0
-  uid: "2.0.1"
+  uid: "0.0.0"
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00

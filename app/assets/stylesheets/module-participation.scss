@@ -69,7 +69,6 @@
         font-weight: 700;
         background: darken($color_main, 15%);
         height: initial;
-
       }
     }
 
@@ -81,10 +80,11 @@
   }
 
   .consultation:nth-of-type(2n) {
-    float: right; 
+    float: right;
   }
 
-  .consultation.get_lead, .consultation.stats {
+  .consultation.get_lead,
+  .consultation.stats {
     background: rgba($color_main, 0.1);
     padding: 1.5rem;
     color: $color_text;
@@ -166,13 +166,15 @@
         text-align: left;
         height: 65px;
 
-        input[type="checkbox"] + label, input[type="radio"] + label {
+        input[type="checkbox"] + label,
+        input[type="radio"] + label {
           box-sizing: border-box;
           padding: 20px;
         }
       }
 
-      button, .button {
+      button,
+      .button {
         width: 100%;
         margin: 1em auto;
       }
@@ -212,6 +214,5 @@
         opacity: 1;
       }
     }
-
   }
 }

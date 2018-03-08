@@ -1,12 +1,15 @@
 /* colors */
-header.main, menu.main {
+header.main,
+menu.main {
   background: lighten($color_logo_yellow, 30%);
 
   a {
     color: darken($color_logo_yellow, 20%);
   }
 
-  a:hover, a.pure-menu-link:hover, input.pure-menu-link:hover {
+  a:hover,
+  a.pure-menu-link:hover,
+  input.pure-menu-link:hover {
     background: lighten($color_logo_yellow, 35%);
   }
 }
@@ -158,7 +161,8 @@ menu.main {
   float: right;
   box-sizing: border-box;
 
-  .admin_content, footer {
+  .admin_content,
+  footer {
     padding: 3em 4em;
   }
 }
@@ -219,7 +223,6 @@ menu.main {
   }
 }
 
-
 /* Headings */
 body.gobierto_admin {
   h1 {
@@ -231,7 +234,6 @@ body.gobierto_admin {
     text-transform: uppercase;
   }
 }
-
 
 .form_block {
   margin: 3em 0;
@@ -277,14 +279,13 @@ body.gobierto_admin {
   }
 }
 
-
-
 /* Forms modification */
 .admin_tools {
   margin: 0 0 2em 0;
   font-size: 0.9em;
 
-  .button, button {
+  .button,
+  button {
     height: initial;
     padding: 0.25em 1em 0.2em;
     font-weight: 500;
@@ -302,12 +303,11 @@ body.gobierto_admin {
 }
 
 .admin_tools.right {
-  .button, button {
+  .button,
+  button {
     margin-left: 0.25em;
   }
 }
-
-
 
 .widget_save {
   background: $color_neutral_soft;
@@ -338,8 +338,6 @@ body.gobierto_admin {
   }
 }
 
-
-
 .view_item {
   text-decoration: none;
   font-size: 0.8em;
@@ -353,7 +351,6 @@ body.gobierto_admin {
 .view_item:hover {
   text-decoration: none;
 }
-
 
 .inline_help {
   font-size: 0.85em;
@@ -388,14 +385,10 @@ pre {
   background: $color_separator;
   padding: 0.5em 1em;
   margin: 1em 0 2em 0;
-
-  code {
-
-  }
 }
 
-
-.list_item, .list_item_with_editable_content {
+.list_item,
+.list_item_with_editable_content {
   margin: 0 0 0.5em 0;
   display: flex;
 
@@ -410,7 +403,8 @@ pre {
     @include border-radius(3px);
   }
 
-  div.main, label.main {
+  div.main,
+  label.main {
     display: flex;
     flex-grow: 10;
     background: $color_secondary;
@@ -442,7 +436,8 @@ pre {
     }
   }
 
-  .mandatory, .inline_notice {
+  .mandatory,
+  .inline_notice {
     display: flex;
     margin: 0 1em 0 0;
   }
@@ -461,13 +456,15 @@ pre {
     }
   }
 
-  input[type="checkbox"], input[type="radio"] {
+  input[type="checkbox"],
+  input[type="radio"] {
     display: initial;
     margin-right: 0.5em;
   }
 }
 
-.list_item.with_mandatory_column, .list_item_with_editable_content.with_mandatory_column {
+.list_item.with_mandatory_column,
+.list_item_with_editable_content.with_mandatory_column {
   label.main {
     width: 50%;
   }
@@ -512,7 +509,6 @@ pre {
       padding: 0.25em 0.5em;
       margin: 0 0 0.5em 0;
     }
-
   }
 
   .field_locale {
@@ -592,7 +588,8 @@ pre {
       background: rgba($color_main, 0.3);
     }
 
-    a.selected, a.selected.locale_option:hover {
+    a.selected,
+    a.selected.locale_option:hover {
       background: $color_main;
       color: #fff;
     }
@@ -629,7 +626,6 @@ pre {
   margin: 0 0 1em 0;
   display: inline-block;
 }
-
 
 /*
  * Activities
@@ -682,7 +678,8 @@ pre {
   }
 }
 
-.global_menu, a .global_menu {
+.global_menu,
+a .global_menu {
   border-radius: 3px;
   font-size: 1em;
   background: $color_logo_blue;
@@ -702,7 +699,7 @@ pre {
       padding-left: 0;
 
       li {
-        border-top:  1px solid rgba(0, 144, 158, 0.15);
+        border-top: 1px solid rgba(0, 144, 158, 0.15);
         font-weight: 600;
         padding: 0.5em 0;
       }
@@ -714,7 +711,7 @@ pre {
       top: -0.35rem;
       left: -1.25rem;
       background: #f5f4f4;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
       border-radius: 4px;
       z-index: 1;
       padding: 0.75rem 1.25rem;
@@ -776,7 +773,8 @@ pre {
     cursor: pointer;
   }
 
-  ul, li {
+  ul,
+  li {
     list-style-type: none;
   }
 }
@@ -802,10 +800,6 @@ pre {
   }
 
   .gobierto_admin {
-    .select2-container {
-
-    }
-
     .select2-container--default .select2-selection--single {
       background-color: initial;
       padding: 32px 0 9px 7px;

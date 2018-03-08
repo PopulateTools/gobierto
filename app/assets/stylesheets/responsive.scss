@@ -73,12 +73,14 @@
   }
 
   table {
-    td, th {
+    td,
+    th {
       padding: 0.25em 0.4em;
       line-height: 1.2em;
     }
 
-    td.bar, th.bar {
+    td.bar,
+    th.bar {
       display: none;
       padding: 0;
       width: 30px;

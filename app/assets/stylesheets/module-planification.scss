@@ -18,7 +18,7 @@ $white: $color_main_negative;
     padding: 1rem;
     display: flex;
 
-    .header-resume{
+    .header-resume {
       flex-basis: $nodeLevel1IllustrationWidth;
 
       h3 {
@@ -324,7 +324,7 @@ $white: $color_main_negative;
       .optional-desc {
         flex-basis: 75%;
 
-        &:first-letter {
+        &::first-letter {
           text-transform: uppercase;
         }
 
@@ -341,12 +341,11 @@ $white: $color_main_negative;
           font-weight: normal;
           text-transform: none;
 
-          &:first-letter {
+          &::first-letter {
             text-transform: uppercase;
           }
         }
       }
-
     }
 
     .project-mandatory {
@@ -378,7 +377,8 @@ $white: $color_main_negative;
     transition: all 0.3s ease;
   }
 
-  .slide-fade-enter, .slide-fade-leave-to {
+  .slide-fade-enter,
+  .slide-fade-leave-to {
     transform: translateY(-10px);
     opacity: 0;
   }

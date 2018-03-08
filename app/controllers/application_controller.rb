@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::UnknownFormat, with: :render_404
 
   helper_method :helpers, :load_current_module_sub_sections, :current_site, :current_module,
-                :current_module_body_class, :available_locales, :gobierto_people_event_preview_url
+                :current_module_body_class, :available_locales, :gobierto_people_event_preview_url,
+                :gobierto_cms_page_or_new_path
 
   before_action :set_current_site, :authenticate_user_in_site, :set_locale
 
@@ -108,5 +109,13 @@ class ApplicationController < ActionController::Base
       options.merge!(preview_token: current_admin.preview_token)
     end
     gobierto_people_person_event_url(@person.slug, event.slug, options)
+  end
+
+  def gobierto_cms_page_or_new_path(page, options = {})
+    if page.collection.item_type == "GobiertoCms::Page"
+      gobierto_cms_page_path(page.slug, options)
+    elsif page.collection.item_type == "GobiertoCms::News"
+      gobierto_cms_news_path(page.slug, options)
+    end
   end
 end

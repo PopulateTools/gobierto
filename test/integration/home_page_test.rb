@@ -16,6 +16,10 @@ class HomePageTest < ActionDispatch::IntegrationTest
     @faq_page ||= gobierto_cms_pages(:consultation_faq)
   end
 
+  def privacy_page
+    @privacy_page ||= gobierto_cms_pages(:privacy)
+  end
+
   def test_greeting_to_first_active_module
     with_current_site(site) do
       visit @path
@@ -33,6 +37,16 @@ class HomePageTest < ActionDispatch::IntegrationTest
       visit @path
 
       assert has_content?("Consultation page FAQ")
+    end
+  end
+
+  def test_privacy_page
+    with_current_site(site) do
+      visit @path
+
+      assert has_link?("By signing up you agree to the Privacy Policy")
+      privacy_page_link = find("a", text: "By signing up you agree to the Privacy Policy")
+      assert privacy_page_link[:href].include?(gobierto_cms_page_path(privacy_page.slug))
     end
   end
 end

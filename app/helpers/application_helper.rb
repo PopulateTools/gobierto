@@ -25,7 +25,7 @@ module ApplicationHelper
 
   def privacy_policy_page_link
     if current_site && current_site.configuration.privacy_page?
-      link_to t("layouts.accept_privacy_policy_signup"), current_site.configuration.privacy_page
+      link_to t("layouts.accept_privacy_policy_signup"), gobierto_cms_page_or_new_path(current_site.configuration.privacy_page)
     end
   end
 

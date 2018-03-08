@@ -228,5 +228,5 @@ Now you can start using Gobierto:
 1. Start the server with `bin/rails s`
 2. Go to http://madrid.gobierto.test to see a demo site
 3. Go to the administrator: http://madrid.gobierto.test/admin
-4. See [admin namespace](docs/admin-namespace.md) for some admin credentials
-5. See [user namespace](docs/user-namespace.md) for some user credentials
+4. See [admin namespace](admin-namespace.md) for some admin credentials
+5. See [user namespace](user-namespace.md) for some user credentials

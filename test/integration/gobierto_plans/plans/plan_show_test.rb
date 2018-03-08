@@ -55,7 +55,7 @@ module GobiertoPlans
           within "section.level_0" do
             assert has_selector?("div.node-root", count: axes.size)
 
-            axes.each_with_index do |axe, index|
+            axes.sort_by_uid.each_with_index do |axe, index|
               assert has_selector?("div.node-root.cat_#{index + 1}")
 
               within "div.node-root.cat_#{index + 1}" do
@@ -86,35 +86,35 @@ module GobiertoPlans
           visit @path
 
           within "section.level_0" do
-            within "div.node-root.cat_3" do
+            within "div.node-root.cat_1" do
               find("a").trigger("click")
             end
           end
 
           within ".planification-content" do
-            within "section.level_1.cat_3" do
+            within "section.level_1.cat_1" do
               within ".lines-header" do
                 assert has_content?("1 line of action")
               end
 
               within ".lines-list" do
-                assert has_content?(action_lines.first.name)
+                assert has_content?(action_lines.sort_by_uid.first.name)
                 assert has_content?("2 actions")
 
                 assert has_content?((projects.sum(:progress) / projects.size) / 100)
               end
 
-              assert has_selector?("h3", text: action_lines.first.name)
-              find("h3", text: action_lines.first.name).click
+              assert has_selector?("h3", text: action_lines.sort_by_uid.first.name)
+              find("h3", text: action_lines.sort_by_uid.first.name).click
             end
 
-            within "section.level_2.cat_3" do
-              assert has_content?(action_lines.first.name)
+            within "section.level_2.cat_1" do
+              assert has_content?(action_lines.sort_by_uid.first.name)
 
               within "ul.action-line--list" do
                 assert has_selector?("li", count: actions.size)
 
-                find("h3", text: actions.first.name).click
+                find("h3", text: actions.sort_by_uid.first.name).click
                 assert has_selector?("div", text: (projects.last.progress / 100).to_s)
 
                 find("td", text: projects.first.name).click
@@ -133,19 +133,19 @@ module GobiertoPlans
           visit @path
 
           within "section.level_0" do
-            within "div.node-root.cat_3" do
+            within "div.node-root.cat_1" do
               find("a").trigger("click")
             end
           end
 
           within ".planification-content" do
-            within "section.level_1.cat_3" do
-              find("h3", text: action_lines.first.name).click
+            within "section.level_1.cat_1" do
+              find("h3", text: action_lines.sort_by_uid.first.name).click
             end
 
-            within "section.level_2.cat_3" do
+            within "section.level_2.cat_1" do
               within "ul.action-line--list" do
-                find("h3", text: actions.first.name).click
+                find("h3", text: actions.sort_by_uid.first.name).click
                 refute has_selector?("thead", count: 1)
               end
             end
@@ -158,19 +158,19 @@ module GobiertoPlans
           visit @path
 
           within "section.level_0" do
-            within "div.node-root.cat_3" do
+            within "div.node-root.cat_1" do
               find("a").trigger("click")
             end
           end
 
           within ".planification-content" do
-            within "section.level_1.cat_3" do
-              find("h3", text: action_lines.first.name).click
+            within "section.level_1.cat_1" do
+              find("h3", text: action_lines.sort_by_uid.first.name).click
             end
 
-            within "section.level_2.cat_3" do
+            within "section.level_2.cat_1" do
               within "ul.action-line--list" do
-                find("h3", text: actions.first.name).click
+                find("h3", text: actions.sort_by_uid.first.name).click
                 assert has_selector?("thead", count: 1)
               end
             end
@@ -189,19 +189,19 @@ module GobiertoPlans
           plan.update_attribute(:configuration_data, JSON.pretty_generate(hash))
 
           within "section.level_0" do
-            within "div.node-root.cat_3" do
+            within "div.node-root.cat_1" do
               find("a").trigger("click")
             end
           end
 
           within ".planification-content" do
-            within "section.level_1.cat_3" do
-              find("h3", text: action_lines.first.name).click
+            within "section.level_1.cat_1" do
+              find("h3", text: action_lines.sort_by_uid.first.name).click
             end
 
-            within "section.level_2.cat_3" do
+            within "section.level_2.cat_1" do
               within "ul.action-line--list" do
-                find("h3", text: actions.first.name).click
+                find("h3", text: actions.sort_by_uid.first.name).click
               end
               assert has_selector?("div.node-breadcrumb")
 
@@ -232,12 +232,12 @@ module GobiertoPlans
 
             within ".planification-content" do
               within "section.level_1.cat_3" do
-                find("h3", text: action_lines.first.name).click
+                find("h3", text: action_lines.sort_by_uid.first.name).click
               end
 
               within "section.level_2.cat_3" do
                 within "ul.action-line--list" do
-                  find("h3", text: actions.first.name).click
+                  find("h3", text: actions.sort_by_uid.first.name).click
                 end
               end
 
@@ -260,12 +260,12 @@ module GobiertoPlans
 
             within ".planification-content" do
               within "section.level_1.cat_3" do
-                find("h3", text: action_lines.first.name).click
+                find("h3", text: action_lines.sort_by_uid.first.name).click
               end
 
               within "section.level_2.cat_3" do
                 within "ul.action-line--list" do
-                  find("h3", text: actions.first.name).click
+                  find("h3", text: actions.sort_by_uid.first.name).click
                 end
               end
 

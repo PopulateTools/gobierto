@@ -64,7 +64,7 @@
 
       <div class="pure-u-1 pure-u-md-1-3 ">
         <div class="padded padded_line_box compact">
-          <% if current_site.configuration.gobierto_budget_consultations_enabled? && @user_notification_gobierto_budget_consultations_consultations.any? %>
+          <% if current_site.configuration.available_module?("GobiertoBudgetConsultations") && current_site.configuration.gobierto_budget_consultations_enabled? && @user_notification_gobierto_budget_consultations_consultations.any? %>
             <% mod_name = "gobierto_budget_consultations"
                disabled = site_subscription || @user_subscription_preferences_form.module_level_subscriptions.include?(mod_name) %>
             <h3><%= t('.consultations') %></h3>
@@ -83,7 +83,7 @@
             </div>
           <% end %>
 
-          <% if current_site.configuration.gobierto_people_enabled? && @user_notification_gobierto_people_people.any? %>
+          <% if current_site.configuration.available_module?("GobiertoPeople") && current_site.configuration.gobierto_people_enabled? && @user_notification_gobierto_people_people.any? %>
             <% mod_name = "gobierto_people"
                disabled = site_subscription || @user_subscription_preferences_form.module_level_subscriptions.include?(mod_name) %>
             <h3><%= t('.people') %></h3>
@@ -102,7 +102,7 @@
             </div>
           <% end %>
 
-          <% if current_site.configuration.gobierto_participation_enabled? && @user_notification_gobierto_participation_processes.any? %>
+          <% if current_site.configuration.available_module?("GobiertoParticipation") && current_site.configuration.gobierto_participation_enabled? && @user_notification_gobierto_participation_processes.any? %>
             <% mod_name = "gobierto_participation"
                disabled = site_subscription || @user_subscription_preferences_form.module_level_subscriptions.include?(mod_name) %>
             <h3><%= t('.participation') %></h3>

@@ -97,7 +97,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
                           .click(closeModal);
   }
 
-  function restoreModalContent(item) {
+  function restoreModalContent() {
     var modalId = $modalStateBackup.attr('id');
     var $questionModalWrapper = $('#' + modalId);
 
@@ -197,7 +197,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     $existingQuestionModals.last().after($newQuestionModal);
 
     // reload selector
-    var $newQuestionModal = $('#edit_question_' + questionIdx);
+    $newQuestionModal = $('#edit_question_' + questionIdx);
 
     // update question destroy flag
     var $newQuestionDestroyInput = $newQuestionModal.find('#new_question_destroy_scaffold_input');
@@ -300,7 +300,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
       handle: '.custom_handle',
       forcePlaceholderSize: true,
       placeholder: '<div class="list_item poll_question_summary"></div>',
-      update: function(e, ui) {
+      update: function() {
         refreshSortableQuestionsPositions($sortableQuestionsWrapper);
       }
     });
@@ -323,7 +323,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     });
   }
 
-  function handleConfirmEditQuestion(e) {
+  function handleConfirmEditQuestion() {
     // update the label in the summary.
 
     var $questionModalWrapper = $(this).closest('.modal');
@@ -345,13 +345,13 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     var $showAnswerTemplatesLinks = $('input[data-behavior=show_answer_templates]');
     var $hideAnswerTemplatesLinks = $('input[data-behavior=hide_answer_templates]');
 
-    $showAnswerTemplatesLinks.off('click').click(function(e) {
+    $showAnswerTemplatesLinks.off('click').click(function() {
       var $questionModalWrapper = $(this).closest('.modal');
 
       $questionModalWrapper.find('.question_answer_templates').show('slow');
     });
 
-    $hideAnswerTemplatesLinks.off('click').click(function(e) {
+    $hideAnswerTemplatesLinks.off('click').click(function() {
       var $questionModalWrapper = $(this).closest('.modal');
 
       $questionModalWrapper.find('.question_answer_templates').hide('slow');
@@ -400,8 +400,8 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     var $previewAnswerWrapper = $('#question_' + questionIdx + '_preview_answer_' + answerIdx);
 
     // update label text with input text
-    $answerInput = $editAnswerWrapper.find('input');
-    $answerLabel = $previewAnswerWrapper.find('label');
+    var $answerInput = $editAnswerWrapper.find('input');
+    var $answerLabel = $previewAnswerWrapper.find('label');
     $answerLabel.text($answerInput.val());
 
     $previewAnswerWrapper.show();
@@ -426,8 +426,8 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     var $previewAnswerWrapper = $('#question_' + questionIdx + '_preview_answer_' + answerIdx);
 
     // restore input text with label text
-    $answerInput = $editAnswerWrapper.find('input');
-    $answerLabel = $previewAnswerWrapper.find('label');
+    var $answerInput = $editAnswerWrapper.find('input');
+    var $answerLabel = $previewAnswerWrapper.find('label');
     $answerInput.val($answerLabel.text());
 
     $previewAnswerWrapper.show();
@@ -455,7 +455,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     $previewAnswerWrapper.hide();
     $editAnswerWrapper.hide();
 
-    var $destroyInput = $editAnswerWrapper.find('#' + generateIdForAnswerTemplateAttribute(questionIdx, answerIdx, '_destroy')).prop('value', '1');
+    $editAnswerWrapper.find('#' + generateIdForAnswerTemplateAttribute(questionIdx, answerIdx, '_destroy')).prop('value', '1');
   }
 
   function _addAddAnswerTemplateBehaviors() {
@@ -524,7 +524,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
         handle: '.custom_handle',
         forcePlaceholderSize: true,
         placeholder: '<div class="answer_template"></div>',
-        update: function(e, ui) {
+        update: function() {
           refreshSortableAnswerTemplatesPositions($($sortableAnswerTemplatesWrapper));
         }
       });

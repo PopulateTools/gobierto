@@ -131,7 +131,7 @@ var VisIndicators = Class.extend({
     placeList
       .append('li')
       .attr('class', 'figure-row')
-      .html(function(d) { return d.location + '<span class="f_right">' + format(d.responses); + '</span>' });
+      .html(function(d) { return d.location + '<span class="f_right">' + format(d.responses) + '</span>' });
 
     // TABLE
     var color = d3.scaleQuantile()

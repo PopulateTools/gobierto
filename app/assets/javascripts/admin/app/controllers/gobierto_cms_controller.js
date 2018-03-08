@@ -116,9 +116,10 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
     var $section = $('#page_section');
 
     $section.empty();
-    numOptions = sections.length;
+    var numOptions = sections.length;
+    var anOption;
     $section.prepend("<option value='' selected='selected'></option>");
-    for (i = 0; i < numOptions; i++) {
+    for (var i = 0; i < numOptions; i++) {
       anOption = document.createElement('option');
       anOption.value = sections[i]['id'];
       anOption.innerHTML = sections[i]['title'];
@@ -143,7 +144,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
       $.getJSON(
         '/admin/cms/sections/' + section + '/section_items/',
         function(data) {
-          var i, theContainer, theSelect, theOptions, numOptions, anOption;
+          var theOptions;
           theOptions = data['section_items'];
 
           $parent.append('<option value="0">' + I18n.t('gobierto_admin.gobierto_cms.pages.form.without_parent') + '</option>');
@@ -168,6 +169,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
   }
 
   function appendParents(parent, nodes, level) {
+    var anOption;
     // Add some <option>s
     for (var i in nodes) {
       anOption = document.createElement('option');

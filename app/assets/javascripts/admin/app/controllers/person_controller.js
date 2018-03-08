@@ -21,8 +21,6 @@ this.GobiertoAdmin.PersonController = (function() {
           $crop_h = $("input#logo_crop_h");
       var output = document.getElementById('image');
 
-      var imgurl = output.cropper.getCroppedCanvas().toDataURL("image/png");
-
       $.magnificPopup.close();
 
       $('#saved_image').hide();
@@ -74,7 +72,7 @@ this.GobiertoAdmin.PersonController = (function() {
 
               output.src = dataURL;
 
-              var cropper = new Cropper(output, {
+              new Cropper(output, {
                 aspectRatio: 1 / 1,
                 minCropBoxWidth: 500,
                 minCropBoxHeight: 500

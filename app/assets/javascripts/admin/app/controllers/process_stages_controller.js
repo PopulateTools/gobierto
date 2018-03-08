@@ -1,3 +1,4 @@
+/*global addDatepickerBehaviors */
 this.GobiertoAdmin.ProcessStagesController = (function() {
 
   function ProcessStagesController() {}

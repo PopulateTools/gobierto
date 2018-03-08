@@ -31,6 +31,7 @@
 //= require_tree ../../../../lib/assets/javascripts/polyfills/
 //= require module-admin
 
+/*global AUTOCOMPLETE_DEFAULTS */
 $(document).on('turbolinks:load', function() {
   $('.open_remote_modal').magnificPopup({
     type: 'ajax',
@@ -102,7 +103,7 @@ function addDatepickerBehaviors() {
       $(toDatePicker).datepicker({
         autoClose: true,
         startDate: new Date($(toDatePicker).data('startdate')),
-        onSelect: function onSelect(_, _, instance) {
+        onSelect: function onSelect(a, b, instance) {
           $(instance.el).trigger("datepicker-change");
         }
       });

@@ -116,7 +116,7 @@
 
 <script type="text/x-template" id="file-list-template">
   <small>
-    <a @click.prevent="showFiles = !showFiles" @click="toggleList" href="#" class="tool_title show-files">
+    <a @click.prevent="toggleList" href="#" class="tool_title show-files">
       <i :class="fileListClass" class="fa p_h_r_0_25 soft" aria-hidden="true"></i>
       <strong><%= t('.attachments') %></strong>
     </a>

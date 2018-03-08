@@ -415,6 +415,11 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           fileListClass: 'fa-caret-down'
         }
       },
+      computed: {
+        fetchfileListClass: function(){
+          this.modifyfileListClass();
+        }
+      },
       methods: {
         popover: function(e) {
           bus.$emit('file-popover:load', {id: $(e.target).data('attachment-id')});
@@ -444,10 +449,9 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             }
           });
         },
-        toggleList: function(){
+        modifyfileListClass: function(){
           var self = this;
 
-          self.showFiles = self.showFiles
           if(self.attachments.length > 0) {
             if(self.showFiles) {
               self.fileListClass = 'fa-caret-down';
@@ -455,6 +459,12 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
               self.fileListClass = 'fa-caret-right';
             }
           }
+        },
+        toggleList: function(){
+          var self = this;
+
+          self.showFiles = !self.showFiles;
+          this.modifyfileListClass();
         }
       },
       mounted: function() {
@@ -478,10 +488,6 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           self.attachments.splice(index, 1);
           self.showFiles = true;
         });
-      },
-      created: function () {
-        var self = this;
-        self.fetchData();
       }
     })
 

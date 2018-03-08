@@ -5,7 +5,7 @@
 
 // Vars
 $nodeLevel1IllustrationWidth: 33%;
-$nodeLevel1Height:150px;
+$nodeLevel1Height: 150px;
 $white: $color_main_negative;
 
 // styles only concern this module
@@ -202,14 +202,14 @@ $white: $color_main_negative;
       padding: 1em 1em 0.25em;
       border-top: 0;
 
-      @include border-radius($top:6px);
+      @include border-radius($top: 6px);
     }
 
     .action-line--list {
       padding: 1em 2em;
       color: $color_text;
 
-      @include border-radius($bottom:6px);
+      @include border-radius($bottom: 6px);
 
       li {
         list-style: none;
@@ -270,11 +270,11 @@ $white: $color_main_negative;
               cursor: pointer;
 
               td:first-child {
-                @include border-radius($left:6px);
+                @include border-radius($left: 6px);
               }
 
               td:last-child {
-                @include border-radius($right:6px);
+                @include border-radius($right: 6px);
               }
             }
 

@@ -128,9 +128,9 @@ menu.main {
       text-decoration: none;
     }
 
-    a:hover {
-      // background: transparentize($color_logo_yellow, .7);
-    }
+    // a:hover {
+    //   // background: transparentize($color_logo_yellow, .7);
+    // }
   }
 }
 
@@ -451,6 +451,7 @@ pre {
     display: flex;
     padding: 4px 0;
     // width: 70px;
+
     .fa {
       margin: 0 0 0 1em;
     }

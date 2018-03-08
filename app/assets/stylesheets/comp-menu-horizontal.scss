@@ -19,7 +19,7 @@
       &.active {
         font-weight: 400;
         background: transparentize($color_main, 0.85);
-        border: none;
+        border: 0;
 
         &:hover::after {
           border-top-color: #eee;

@@ -34,7 +34,7 @@ table {
 
   tr.no_border {
     td {
-      border: none;
+      border: 0;
     }
   }
 
@@ -86,7 +86,7 @@ table.explore_slow {
     text-transform: uppercase;
     font-weight: 600;
     font-size: small;
-    border-top: none;
+    border-top: 0;
     padding: 0.5em 1em;
     display: table-cell;
     vertical-align: middle;
@@ -162,7 +162,7 @@ table.med_bg {
     text-align: left;
     text-align: right;
     opacity: 0.5;
-    border: none;
+    border: 0;
   }
 
   tr:hover {
@@ -218,7 +218,7 @@ table.block_content {
     text-align: left;
     text-transform: uppercase;
     color: transparentize($color_main, 0.5);
-    border: none;
+    border: 0;
   }
 
   th.center {
@@ -226,7 +226,7 @@ table.block_content {
   }
 
   td {
-    border: none;
+    border: 0;
   }
 
   tr:visible:nth-child(2n-1) {

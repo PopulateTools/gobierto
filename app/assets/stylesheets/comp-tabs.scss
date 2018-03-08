@@ -21,7 +21,7 @@
       display: inline-block;
 
       a {
-        border: none;
+        border: 0;
         background: rgba($color_main, 0.1);
         color: $color_text;
         font-weight: 200;
@@ -136,7 +136,7 @@
         background: $color_1_soft;
         color: $color_main;
         font-weight: bold;
-        border: none;
+        border: 0;
       }
     }
 

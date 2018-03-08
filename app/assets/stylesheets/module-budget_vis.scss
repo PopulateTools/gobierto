@@ -266,7 +266,7 @@
 
       th,
       td {
-        border: none;
+        border: 0;
         white-space: nowrap;
         font-size: 1em;
         width: 50%;
@@ -303,7 +303,7 @@
 
     td,
     th {
-      border: none;
+      border: 0;
       padding: 0.35em 1em 0.1em;
     }
 
@@ -343,7 +343,7 @@
     }
 
     .deviation_table_container:last-child {
-      border-bottom: none;
+      border-bottom: 0;
     }
   }
 

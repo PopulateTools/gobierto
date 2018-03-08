@@ -24,24 +24,15 @@ header {
       @media (max-width: $wSmall) {
         @content;
       }
-    }
-
-    @else
-      if $point == md {
+    } @else if $point == md {
       @media (max-width: $wMedium) {
         @content;
       }
-    }
-
-    @else
-      if $point == lg {
+    } @else if $point == lg {
       @media (max-width: $wLarge) {
         @content;
       }
-    }
-
-    @else
-      if $point == xl {
+    } @else if $point == xl {
       @media (max-width: $wExtraLarge) {
         @content;
       }
@@ -504,9 +495,9 @@ header {
             border-top: 5px solid #fff;
           }
 
-          &:nth-last-child(2) {
-            // border-bottom: 5px solid #fff;
-          }
+          // &:nth-last-child(2) {
+          //   // border-bottom: 5px solid #fff;
+          // }
 
           .navigation-item {
             padding: 0.5em 0;

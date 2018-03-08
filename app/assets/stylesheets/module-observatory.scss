@@ -62,7 +62,7 @@
     }
 
     &:last-child {
-      border-bottom: none;
+      border-bottom: 0;
     }
 
     .section_desc {
@@ -119,6 +119,7 @@
     @include min-screen(768) {
       width: calc(100% + 4em);
       // asumming 3 elements per col
+
       [class*="pure-u"]:nth-child(3n+1) {
         margin-left: -1em;
       }

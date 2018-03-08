@@ -460,7 +460,7 @@ a.content_block {
 
 .separator_responsive {
   margin: 4em 0;
-  border: none;
+  border: 0;
   border-top: 1px solid #deeff1;
 
   @media (min-width: 768px) {

@@ -150,7 +150,7 @@ textarea:focus {
 
   input[type=file] {
     padding: 0;
-    border: none;
+    border: 0;
     height: initial;
   }
 
@@ -176,6 +176,7 @@ button {
   cursor: pointer;
   text-decoration: none;
 }
+
 // TODO
 input[type=submit].button {
   border: 0 !important;
@@ -482,7 +483,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border: none;
+  border: 0;
   cursor: pointer;
 }
 
@@ -632,7 +633,7 @@ select {
     font-size: 0.85em;
 
     .option {
-      border: none;
+      border: 0;
       margin-bottom: 1em;
     }
 
@@ -707,6 +708,8 @@ select {
 }
 
 .slim_search {
+  margin-top: 0.8em;
+
   label {
     font-weight: 200;
     padding: 0 1em 0 0;
@@ -716,8 +719,6 @@ select {
     height: 40px;
     width: 300px;
   }
-
-  margin-top: 0.8em;
 }
 
 .attach_file input[type=file] {

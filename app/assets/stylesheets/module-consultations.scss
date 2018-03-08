@@ -476,7 +476,7 @@ img.side_50 {
   margin-bottom: 1rem;
 
   @include min-screen(768) {
-    border-top: none;
+    border-top: 0;
     margin-bottom: 0;
   }
 }
@@ -913,7 +913,7 @@ img.side_50 {
 
 .consultation-confirm.deficit {
   background: #a91900;
-  border: none;
+  border: 0;
   text-align: left;
   top: 0;
 }

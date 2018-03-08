@@ -105,9 +105,9 @@ $lighter_black: rgba($color_headers, 0.7);
       margin-bottom: 5em;
     }
 
-    a {
-      // color: $green;
-    }
+    // a {
+    //   // color: $green;
+    // }
 
     .button {
       color: $color_main_negative;
@@ -181,7 +181,7 @@ $lighter_black: rgba($color_headers, 0.7);
   }
 
   .content_block.simple_big_header.emoji_block {
-    border-top: none;
+    border-top: 0;
   }
 
   .content_block.featured_poll {
@@ -362,6 +362,7 @@ $lighter_black: rgba($color_headers, 0.7);
       }
     }
   }
+
   // TODO: Move comp_headings_blocks
   .content_block.light {
     padding: 1em;
@@ -378,6 +379,7 @@ $lighter_black: rgba($color_headers, 0.7);
       margin-bottom: 0;
     }
   }
+
   // TODO: Move comp_headings_blocks
   .content_block.themed {
     display: flex;
@@ -392,9 +394,9 @@ $lighter_black: rgba($color_headers, 0.7);
     text-decoration: none;
     padding: 1em 1em 2em;
 
-    @include min-screen(740) {
-      // TODO: this breaks polls#index height: calc(100% - 3em);
-    }
+    // @include min-screen(740) {
+    //   // TODO: this breaks polls#index height: calc(100% - 3em);
+    // }
 
     h3 {
       font-size: 1.25em;
@@ -551,7 +553,7 @@ $lighter_black: rgba($color_headers, 0.7);
       }
 
       .circle {
-        border: none;
+        border: 0;
         background: rgba($green, 0.1);
         color: white;
         font-weight: 700;
@@ -600,6 +602,7 @@ $lighter_black: rgba($color_headers, 0.7);
         color: $green;
         font-weight: 700;
       }
+
       // FIXME: Think about a better solution
       .today {
         background: $light_black;
@@ -886,7 +889,7 @@ $lighter_black: rgba($color_headers, 0.7);
 
     hr {
       margin: 2em 0;
-      border: none;
+      border: 0;
       border-top: 1px solid $separator;
     }
 

@@ -1,0 +1,7 @@
+{
+  "globals": {
+    "GobiertoAdmin": true,
+    "VisAgeReport": true,
+    "VisIndicators": true,
+  },
+}

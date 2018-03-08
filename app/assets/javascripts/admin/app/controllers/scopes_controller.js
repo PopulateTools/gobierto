@@ -7,14 +7,13 @@ this.GobiertoAdmin.ScopesController = (function() {
 
   function _handleSortableList() {
     var wrapper = "tbody[data-behavior=sortable]";
-    var positions = [];
 
     $(wrapper).sortable({
       items: 'tr',
       handle: '.custom_handle',
       forcePlaceholderSize: true,
       placeholder: '<tr><td colspan="8">&nbsp;&nbsp;</td></tr>',
-      update: function(e, ui) {
+      update: function() {
         _refreshPositions(wrapper);
         _requestUpdate(wrapper, _buildPositions(wrapper));
       },

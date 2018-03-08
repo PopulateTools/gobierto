@@ -1,11 +1,11 @@
 this.GobiertoAdmin.GlobalizedFormsComponent = (function() {
   function GlobalizedFormsComponent() {}
 
-  GlobalizedFormsComponent.prototype.handle = function(message) {
+  GlobalizedFormsComponent.prototype.handle = function() {
     $(document).on("turbolinks:load", _handleGlobalizedForm);
   };
 
-  GlobalizedFormsComponent.prototype.handleGlobalizedForm = function(message) {
+  GlobalizedFormsComponent.prototype.handleGlobalizedForm = function() {
     _handleGlobalizedForm();
   };
 
@@ -39,7 +39,7 @@ this.GobiertoAdmin.GlobalizedFormsComponent = (function() {
     _activateLocale($(this).data('toggle-edit-locale'), container);
   }
 
-  function _changeHandler(e){
+  function _changeHandler(){
     _checkCompleted(_findGlobalizedFormContainers());
   }
 

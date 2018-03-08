@@ -119,10 +119,10 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
               attachment: self.attachment
             },
             beforeSend: function(xhr){ xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')); },
-            success: function(response, textStatus, jqXHR){
+            success: function(){
               bus.$emit('site-attachments:load');
             },
-            error: function(jqXHR, textStatus, errorThrown){
+            error: function(jqXHR){
               self.errorMessage = jqXHR.responseJSON.error;
               setTimeout(function(){
                 self.errorMessage = null;
@@ -344,7 +344,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           if (date === undefined || date === null) return "";
           return I18n.l("date.formats.short", date);
         },
-        fetchData: function(q){
+        fetchData: function(){
           var self = this;
           $.ajax({
             url: '/admin/attachments/api/attachments',
@@ -376,7 +376,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
               attachable_type: this.attachableType
             },
             beforeSend: function(xhr){ xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')); },
-            success: function(response, textStatus, jqXHR){
+            success: function(){
               bus.$emit('file-list:load');
             },
             complete: function(){

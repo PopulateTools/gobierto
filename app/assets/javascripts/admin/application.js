@@ -48,7 +48,7 @@ $(document).on('turbolinks:load', function() {
 
   addDatepickerBehaviors();
 
-  $('#site_visibility_level_active').on('click', function(e){
+  $('#site_visibility_level_active').on('click', function(){
     $('#site_username').val('');
     $('#site_password').val('');
   });
@@ -95,8 +95,6 @@ function addDatepickerBehaviors() {
   } else if($('.air-datepicker').length){
     var $fromDatePickers = $('.air-datepicker:even');
     var $toDatePickers   = $('.air-datepicker:odd');
-
-    var index = 0;
 
     $toDatePickers.each(function(index, toDatePicker) {
 

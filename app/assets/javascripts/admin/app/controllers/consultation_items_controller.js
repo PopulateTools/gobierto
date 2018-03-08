@@ -29,10 +29,9 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
 
   function _handleSortableList() {
     var wrapper = "ul[data-behavior=sortable]";
-    var positions = [];
 
     $(wrapper).sortable({
-      update: function(e, ui) {
+      update: function() {
         _refreshPositions(wrapper);
         _requestUpdate(wrapper, _buildPositions(wrapper));
       },

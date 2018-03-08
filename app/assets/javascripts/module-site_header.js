@@ -34,7 +34,7 @@ $(document).on('turbolinks:load', function() {
     });
   });
 
-  $('.site_header_logo .search_control input').on('focusout', function(e) {
+  $('.site_header_logo .search_control input').on('focusout', function() {
     $('.search_control').velocity("fadeOut");
   });
 

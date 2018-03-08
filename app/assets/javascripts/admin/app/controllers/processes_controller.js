@@ -1,8 +1,5 @@
 this.GobiertoAdmin.ProcessesController = (function() {
 
-  var $stageModalBackup;
-  var restoreModalContentFlag = false;
-
   function ProcessesController() {}
 
   ProcessesController.prototype.form = function() {

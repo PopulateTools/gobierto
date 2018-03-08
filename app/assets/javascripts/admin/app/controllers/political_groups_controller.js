@@ -7,13 +7,12 @@ this.GobiertoAdmin.PoliticalGroupsController = (function() {
 
   function _handleSortableList() {
     var wrapper = "tbody[data-behavior=sortable]";
-    var positions = [];
 
     $(wrapper).sortable({
       items: 'tr',
       forcePlaceholderSize: true,
       placeholder: '<tr><td colspan="3">&nbsp;&nbsp;</td></tr>',
-      update: function(e, ui) {
+      update: function() {
         _refreshPositions(wrapper);
         _requestUpdate(wrapper, _buildPositions(wrapper));
       },

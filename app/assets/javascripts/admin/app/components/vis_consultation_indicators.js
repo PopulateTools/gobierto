@@ -1,5 +1,5 @@
 'use strict';
-
+/* exported VisIndicators */
 var VisIndicators = Class.extend({
   init: function(divId, url) {
     this.container = divId;
@@ -94,7 +94,7 @@ var VisIndicators = Class.extend({
       this.updateRender();
     }
   },
-  updateRender: function(callback) {
+  updateRender: function() {
     var format = d3.format('.0%');
 
     // TOTAL PARTICIPANTS

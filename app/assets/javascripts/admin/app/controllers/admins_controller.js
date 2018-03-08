@@ -29,8 +29,8 @@ this.GobiertoAdmin.AdminsController = (function() {
           $sitePeople.hide('slow');
 
           var siteCheckboxes = $("[data-behavior='toggle_site']");
-          var sitePermissions = $.map(siteCheckboxes, function (val, i) {
-            if (val.checked) {
+          var sitePermissions = $.map(siteCheckboxes, function (val) {
+            if (val.checked) {
               return val.checked;
             }
           });

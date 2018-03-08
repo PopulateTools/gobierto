@@ -22,7 +22,6 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
         $.ajax({
             type: "POST",
             url: '/admin/participation/processes/' + subStr[2] + '/update_current_stage',
-            type: 'POST',
             dataType: 'json',
             data: { active_stage_id: $("input[name='process[stages_attributes][active]']:checked").val() }
         });
@@ -31,10 +30,9 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
 
   function _handleSortableList() {
     var wrapper = "ul[data-behavior=sortable]";
-    var positions = [];
 
     $(wrapper).sortable({
-      update: function(e, ui) {
+      update: function() {
         _refreshPositions(wrapper);
         _requestUpdate(wrapper, _buildPositions(wrapper));
       },

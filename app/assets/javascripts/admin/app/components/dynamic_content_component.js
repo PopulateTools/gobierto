@@ -247,7 +247,7 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
 
     wrapper.find(".dynamic-content-record-view .content-block-record-value").each(function(index) {
       var fieldText = formState[index];
-      var urlPattern = new RegExp('^https?:\/\/.*$')
+      var urlPattern = new RegExp('^https?://.*$')
 
       if (urlPattern.test(fieldText)) {
         $(this).html('<a href="' + fieldText + '">' + fieldText + '</a>');

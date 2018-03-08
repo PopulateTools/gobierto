@@ -28,18 +28,14 @@ this.GobiertoAdmin.SectionsController = (function() {
           }
       );
 
-      function handle_drag_stop(node, event) {
+      function handle_drag_stop(node) {
         $.ajax({
            url: window.location.href + '/section_items/' + node.id,
            type: 'PUT',
            dataType: 'json',
            data: { tree: $('#tree1').tree('toJson') },
-           success:function(data){
-
-           },
-           error:function(data){
-
-           }
+           success:function(){},
+           error:function(){}
         });
       }
 
@@ -93,9 +89,7 @@ this.GobiertoAdmin.SectionsController = (function() {
                  }
                );
              },
-             error:function(data){
-
-             }
+             error:function(){}
           });
         }
       });

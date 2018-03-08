@@ -9,6 +9,7 @@
     "Vue": true,
     "I18n": true,
     "d3": true,
+    "accounting": true,
   },
   "rules": {
     "accessor-pairs": "off",
@@ -92,7 +93,7 @@
     "no-compare-neg-zero": "error",
     "no-cond-assign": "error",
     "no-confusing-arrow": "off",
-    "no-console": "error",
+    "no-console": ["error", { allow: ["warn", "error"] }],
     "no-const-assign": "error",
     "no-constant-condition": "error",
     "no-continue": "off",

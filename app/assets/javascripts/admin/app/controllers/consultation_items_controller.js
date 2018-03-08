@@ -29,10 +29,9 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
 
   function _handleSortableList() {
     var wrapper = "ul[data-behavior=sortable]";
-    var positions = [];
 
     $(wrapper).sortable({
-      update: function(e, ui) {
+      update: function() {
         _refreshPositions(wrapper);
         _requestUpdate(wrapper, _buildPositions(wrapper));
       },
@@ -51,7 +50,7 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
     $(wrapper).find("li").each(function(index) {
       $(this).attr("data-pos", index + 1);
     });
-  };
+  }
 
   function _buildPositions(wrapper) {
     var positions = [];
@@ -64,7 +63,7 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
     });
 
     return positions;
-  };
+  }
 
   function _requestUpdate(wrapper, positions) {
     $.ajax({
@@ -72,7 +71,7 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
       method: "POST",
       data: { positions: positions }
     });
-  };
+  }
 
   return ConsultationItemsController;
 })();

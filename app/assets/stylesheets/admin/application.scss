@@ -8,7 +8,6 @@
  *
  */
 
-
 /*
  * Vendor libraries
  *
@@ -33,7 +32,6 @@
  */
 @import "populities";
 
-
 /*
  * Gobierto components
  *
@@ -57,8 +55,6 @@
 @import "comp-dyna_block";
 @import "comp-indicator_widget";
 @import "comp-simplemde_editor";
-
-
 @import "module-admin";
 @import "module-consultations";
 @import "css-print";
@@ -78,6 +74,7 @@ html {
   margin: 0;
   padding: 0;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -86,16 +83,21 @@ body {
   line-height: 24px;
   color: $color_text;
 }
+
 .pure-g [class*="pure-u"] {
   font-family: $font_text;
 }
+
 a {
   color: $color_main;
+
   @include transition;
 }
+
 a:hover {
   text-decoration: underline;
 }
+
 footer {
   clear: both;
   margin: 5em 0 0 0;
@@ -109,21 +111,25 @@ footer {
  *
  */
 .soft_cta {
-  background: rgba($color_main, .1);
+  background: rgba($color_main, 0.1);
+
   @include border-radius(6px);
+
   padding: 1em 2em;
   display: inline-block;
+}
 
-}
 a.soft_cta:hover {
-  background: rgba($color_main, .2);
+  background: rgba($color_main, 0.2);
 }
+
 .small {
-  font-size: .85em;
+  font-size: 0.85em;
 }
+
 .highlight {
-  background: #F1F4BE;
-  padding: .2em;
+  background: #f1f4be;
+  padding: 0.2em;
   display: inline-block;
 }
 
@@ -134,11 +140,13 @@ a.soft_cta:hover {
     }
   }
 }
+
 .help {
-  font-size: .75em;
+  font-size: 0.75em;
   float: right;
+
   a {
-    color: rgba($color_main, .5);
+    color: rgba($color_main, 0.5);
   }
 }
 
@@ -147,13 +155,15 @@ a.soft_cta:hover {
  *
  */
 .tip {
-  font-size: .85em;
+  font-size: 0.85em;
   font-weight: 700;
   line-height: 1.2em;
+
   a {
-    color: rgba($color_main, .7);
+    color: rgba($color_main, 0.7);
     text-decoration: none;
   }
+
   .fa {
     display: block;
     line-height: 2em;
@@ -162,19 +172,20 @@ a.soft_cta:hover {
 }
 
 .invisible {
-  visibility: hidden
+  visibility: hidden;
 }
 
 a.list_view_more {
   @include border-radius(3px);
+
   display: block;
   background: $color_1_soft;
   color: $text_soft;
-  padding: .5em 0 .4em 0;
+  padding: 0.5em 0 0.4em 0;
   text-align: center;
   margin: 1em 0;
   text-decoration: none;
-  font-size: .8em;
+  font-size: 0.8em;
   text-transform: uppercase;
   font-weight: 600;
 }
@@ -196,6 +207,7 @@ html.turbolinks-progress-bar::before {
       border: 1px solid darken($color_1_soft, 5%);
       background: $color_1_soft;
     }
+
     a:hover {
       background: $color_main_soft;
     }
@@ -206,16 +218,20 @@ html.turbolinks-progress-bar::before {
   border: 2px dashed $color_1_soft;
   background: $color_1_soft;
   padding: 1em;
-  font-size: .85rem;
+  font-size: 0.85rem;
 
   .section_canvas_tools {
     text-align: right;
     margin: 0 0 1em 0;
+
     a {
-      padding: .5em .75em;
+      padding: 0.5em 0.75em;
+
       @include border-radius(3px);
+
       text-align: center;
     }
+
     a:hover {
       background: darken($color_1_soft, 20%);
     }
@@ -230,20 +246,23 @@ ul.jqtree-tree {
     color: $color_text;
     margin-left: 1em;
   }
+
   .jqtree-element {
-    padding: .25em .5em;
+    padding: 0.25em 0.5em;
     border-top: 1px solid darken($color_1_soft, 10%);
 
     &:hover {
       background: darken($color_1_soft, 20%);
     }
+
     .fa {
       float: right;
       margin-top: 4px;
     }
   }
+
   .jqtree-toggler {
-    font-size: .65rem;
+    font-size: 0.65rem;
   }
 }
 

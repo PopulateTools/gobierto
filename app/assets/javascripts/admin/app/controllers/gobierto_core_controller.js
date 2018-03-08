@@ -5,7 +5,7 @@ this.GobiertoAdmin.GobiertoCoreController = (function() {
     _loadCodeMirror();
   };
 
-  function _loadCodeMirror(review_path) {
+  function _loadCodeMirror() {
     var te_html = document.getElementById("code");
 
     window.editor_html = CodeMirror.fromTextArea(te_html, {

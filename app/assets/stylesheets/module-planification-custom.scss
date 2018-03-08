@@ -1,12 +1,11 @@
 /* COLOR MANAGER */
-$color_pam_1: #DB524B;
-$color_pam_2: #00909E;
-$color_pam_3: #F1AD44;
-$color_pam_4: #85A81C;
-$color_pam_5: #00529E;
+$color_pam_1: #db524b;
+$color_pam_2: #00909e;
+$color_pam_3: #f1ad44;
+$color_pam_4: #85a81c;
+$color_pam_5: #00529e;
 
 .gobierto_planification {
-
   section.level_0 {
     .cat_1 {
       background-color: rgba($color_pam_1, 0.95);
@@ -370,7 +369,6 @@ $color_pam_5: #00529E;
       }
     }
   }
-
 }
 
 /*
@@ -380,7 +378,6 @@ TEMPLATE STYLES
 Hint:
 Replace variable $color_pam_1 with ternary color, f.e. 123,123,123 (No parenthesis, no quotes, just 2 commas)
 If you need extra colors, add this block again renaming cat_1 (cat_2, cat_3, cat_4....)
-
 
 .gobierto_planification section:not(.level_0).cat_1,
 .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title h3,

@@ -7,51 +7,61 @@
     color: $color_proposal;
     text-transform: uppercase;
     font-weight: 600;
-    padding: .5em;
+    padding: 0.5em;
     font-size: 1em;
     margin: 0;
   }
+
   span {
-    font-size: .9em;
-    margin: 0 .5em 0 .25em;
+    font-size: 0.9em;
+    margin: 0 0.5em 0 0.25em;
   }
 }
 
 .metric_boxes .metric_box.cta {
   text-align: center;
   padding: 0;
+
   .inner {
     padding: 0;
-    background: #E9AD00;
+    background: #e9ad00;
     min-height: 100px;
+
     @include transition;
   }
-  .inner:hover {
-    background: darken(#E9AD00, 10%);
 
+  .inner:hover {
+    background: darken(#e9ad00, 10%);
   }
+
   a {
-    padding: 1.85em .5em ;
-    color: #FFF;
+    padding: 1.85em 0.5em;
+    color: #fff;
     display: inline-block;
     font-size: 1em;
     text-decoration: none;
+
     .main {
       text-transform: uppercase;
     }
+
     .lite {
       font-weight: 300;
-      font-size: .85rem;
+      font-size: 0.85rem;
     }
   }
+
   .fa {
-    background: #FFF;
+    background: #fff;
     color: $color_logo_yellow;
-    padding: .75em;
+    padding: 0.75em;
+
     @include border-radius(3px);
-    margin-left: .5em;
+
+    margin-left: 0.5em;
   }
 }
+
 .metric_boxes .metric.cta:hover {
   border: 1px solid red;
 }
@@ -68,81 +78,101 @@
     }
   }
 }
+
 .budget_line_feedback {
-  background: #F5F4F4;
+  background: #f5f4f4;
   text-align: center;
   padding: 3em;
+
   .options {
     margin: 1.5em 0;
+
     .button {
-      margin: 0 .2em;
+      margin: 0 0.2em;
+
       span {
         display: block;
         text-transform: uppercase;
       }
     }
   }
+
   .reply {
     max-width: 60em;
     margin: auto;
     padding: 2em;
-    background: #FFF;
+    background: #fff;
+
     @include border-radius(6px);
+
     .inner {
       margin: 0 20%;
     }
   }
+
   .options.yes_no {
     font-size: 1.5em;
+
     .button {
       font-weight: bold;
     }
-
   }
+
   .form_item {
     text-align: left;
+
     .form_item_cont {
       label {
         width: 75px;
       }
+
       .i_text {
         width: 60%;
       }
     }
   }
+
   .submit_item {
     text-align: left;
     margin-left: 87px;
   }
+
   .recover_password {
-    font-size: .8em;
+    font-size: 0.8em;
   }
+
   .button.empty {
     color: $color_text;
     cursor: auto;
   }
 }
+
 .small_button {
   background: $color_1;
+
   @include border-radius(3px);
-  padding: .1em .75em 0;
-  color: #FFF;
+
+  padding: 0.1em 0.75em 0;
+  color: #fff;
   display: inline-block;
   text-decoration: none;
-
 }
+
 .small_button:hover {
   background: darken($color_1, 5%);
   text-decoration: none;
 }
+
 .button.empty {
-  background: #FFF;
+  background: #fff;
   border: 1px solid $text_soft;
+
   span {
     display: block;
     text-transform: uppercase;
   }
 }
+
 .sep {
   border-top: 1px solid $separator;
   margin: 1em 0;

@@ -19,10 +19,12 @@
           font-size: $f3;
         }
       }
+
       @media (min-width: 740px) {
         top: 30%;
       }
     }
+
     .filled {
       height: 200px;
 
@@ -36,17 +38,19 @@
       margin-bottom: 0;
     }
   }
+
   .bar.income {
-    background: rgba($color_main, .1);
+    background: rgba($color_main, 0.1);
 
     .label {
       left: 20px;
-      text-shadow: -1px -1px 0 $color_main,  1px -1px 0 $color_main, -1px 1px 0 $color_main, 1px 1px 0 $color_main;
+      text-shadow: -1px -1px 0 $color_main, 1px -1px 0 $color_main, -1px 1px 0 $color_main, 1px 1px 0 $color_main;
 
       @media (min-width: 740px) {
         left: 40px;
       }
     }
+
     .filled {
       background: rgba($color_main, 1);
     }
@@ -55,12 +59,13 @@
       margin-right: 0.5rem;
     }
   }
+
   .bar.expense {
-    background: rgba(#F88F59, .1);
+    background: rgba(#f88f59, 0.1);
 
     .label {
       left: 20px;
-      text-shadow: -1px -1px 0 #F88F59, 1px -1px 0 #F88F59, -1px 1px 0 #F88F59, 1px 1px 0 #F88F59;
+      text-shadow: -1px -1px 0 #f88f59, 1px -1px 0 #f88f59, -1px 1px 0 #f88f59, 1px 1px 0 #f88f59;
 
       @media (min-width: 740px) {
         right: 40px;
@@ -71,8 +76,9 @@
         }
       }
     }
+
     .filled {
-      background: rgba(#F88F59, 1);
+      background: rgba(#f88f59, 1);
 
       @media (min-width: 740px) {
         float: right;

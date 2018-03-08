@@ -8,7 +8,6 @@ this.GobiertoAdmin.GobiertoBudgetsController = (function() {
 
   function _handleMunicipalitiesAutocomplete(options) {
     var $field = $("#gobierto_budgets_options_comparison_compare_municipalities");
-    console.log(options);
     $field.select2({
       multiple: true,
       ajax: {

@@ -2,11 +2,13 @@
 .place_event-item,
 .place_news-item,
 .place_latest-item {
-  .month, .hour {
-    font-size: .85em;
-  }
+  .month,
   .hour {
-    opacity: .5;
+    font-size: 0.85em;
+  }
+
+  .hour {
+    opacity: 0.5;
   }
 }
 
@@ -18,31 +20,35 @@
   // border-bottom: 1px solid $color_separator;
 
   .meta {
-    font-size: .85em;
+    font-size: 0.85em;
   }
-  h2, h3 {
-    margin: .5em 0 .75em 0;
+
+  h2,
+  h3 {
+    margin: 0.5em 0 0.75em 0;
   }
+
   .event-data {
     border-top: 1px solid $color_separator;
   }
+
   .event-description {
     padding: 2em 0;
   }
+
   .person-item {
     padding: 0 0 1em 0;
-    border: none;
+    border: 0;
   }
+
   .event-locations {
     box-sizing: border-box;
     padding: 0 0 0 2em;
   }
+
   .person-name {
     h2 {
       margin-top: 0;
-    }
-    .soft {
-
     }
   }
 }

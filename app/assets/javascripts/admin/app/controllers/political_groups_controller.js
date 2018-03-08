@@ -7,13 +7,12 @@ this.GobiertoAdmin.PoliticalGroupsController = (function() {
 
   function _handleSortableList() {
     var wrapper = "tbody[data-behavior=sortable]";
-    var positions = [];
 
     $(wrapper).sortable({
       items: 'tr',
       forcePlaceholderSize: true,
       placeholder: '<tr><td colspan="3">&nbsp;&nbsp;</td></tr>',
-      update: function(e, ui) {
+      update: function() {
         _refreshPositions(wrapper);
         _requestUpdate(wrapper, _buildPositions(wrapper));
       },
@@ -32,7 +31,7 @@ this.GobiertoAdmin.PoliticalGroupsController = (function() {
     $(wrapper).find("tr").each(function(index) {
       $(this).attr("data-pos", index + 1);
     });
-  };
+  }
 
   function _buildPositions(wrapper) {
     var positions = [];
@@ -45,7 +44,7 @@ this.GobiertoAdmin.PoliticalGroupsController = (function() {
     });
 
     return positions;
-  };
+  }
 
   function _requestUpdate(wrapper, positions) {
     $.ajax({
@@ -53,7 +52,7 @@ this.GobiertoAdmin.PoliticalGroupsController = (function() {
       method: "POST",
       data: { positions: positions }
     });
-  };
+  }
 
   return PoliticalGroupsController;
 })();

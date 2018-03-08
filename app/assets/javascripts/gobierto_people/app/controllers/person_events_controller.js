@@ -54,7 +54,7 @@ this.GobiertoPeople.PersonEventsController = (function() {
       }
     });
     nextStep();
-  };
+  }
 
   function _reorganizeHTML() {
     // move list view inside calendar component
@@ -69,7 +69,7 @@ this.GobiertoPeople.PersonEventsController = (function() {
     if ($('.person_event-list').is(':visible')) {
       hideFullcalendarViewItems();
     }
-  };
+  }
 
   function _addSwitchViewBehaviors() {
     $('.fc-right > .fc-button-group > .fc-state-default').not('[data-behavior="show_list_view"]').click(function() {
@@ -81,7 +81,7 @@ this.GobiertoPeople.PersonEventsController = (function() {
       $('.person_event-list').show();
       hideFullcalendarViewItems();
     });
-  };
+  }
 
   function hideFullcalendarViewItems() {
     $('.fc-view-container').hide();

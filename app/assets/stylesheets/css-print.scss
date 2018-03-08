@@ -3,33 +3,42 @@
   body {
     counter-reset: section;
   }
+
   @page {
     margin: 1.5cm 0.7cm;
   }
+
   header.meta {
     display: none;
   }
+
   .column.consultation {
     max-width: none;
     float: left;
   }
+
   .consultation-info {
     display: none;
   }
+
   footer {
     display: none;
   }
+
   #consultation-desktop-app .pure-g {
     -webkit-flex-flow: column wrap;
     -ms-flex-flow: column wrap;
   }
+
   .consultation-info,
   .consultation-card {
     display: none;
   }
+
   .consultation-box {
     margin: 0;
   }
+
   .consultation-lead {
     font-size: 16pt;
     color: #111;
@@ -48,6 +57,7 @@
     page-break-inside: avoid;
     display: block !important;
   }
+
   .card-headline {
     line-height: 1;
     margin-bottom: 0;
@@ -57,10 +67,12 @@
     color: #333;
     display: inline-block;
   }
+
   .card-headline::before {
     counter-increment: section;
     content: counter(section) ". ";
   }
+
   .card-figure {
     position: relative;
     float: none;
@@ -68,20 +80,24 @@
     color: #333;
     font-weight: 400;
   }
+
   .card-figure h2 {
     display: inline-block;
     color: #333;
   }
+
   .card-figure::before {
     content: "(";
     font-size: 1.5em;
     color: #333;
   }
+
   .card-figure::after {
     font-size: 1.5em;
     color: #333;
     content: ")";
   }
+
   .card-description {
     padding: 0;
     font-size: 9pt;
@@ -91,6 +107,7 @@
     width: 83%;
     display: inline-block;
   }
+
   .budget-ask {
     box-shadow: none;
     width: 15%;
@@ -98,12 +115,15 @@
     margin-bottom: 0;
     float: right;
   }
+
   .select-lead {
     display: none;
   }
+
   .select-pct {
     background: white;
   }
+
   .desktop .pct {
     padding: 0;
     font-size: 11pt;
@@ -113,9 +133,11 @@
     position: relative;
     text-align: left;
   }
+
   .pct {
     color: #111;
   }
+
   .pct::after {
     position: absolute;
     right: 0;
@@ -124,11 +146,13 @@
     margin-left: 0.5rem;
     padding: 0.25cm 0.4cm;
   }
+
   .select-pct {
     padding: 0;
     -webkit-flex-flow: column wrap;
     -ms-flex-flow: column wrap;
   }
+
   .border {
     margin: 0;
   }
@@ -139,10 +163,12 @@
   .tabs {
     display: none;
   }
+
   .admin_content_column {
     padding-top: none;
     float: none;
   }
+
   .card_container {
     width: 20%;
     display: inline-block;
@@ -153,10 +179,12 @@
       position: relative;
       padding: 0;
     }
+
     .widget_figure {
       font-size: 1.5rem;
     }
   }
+
   #table_report {
     page-break-inside: avoid;
 
@@ -164,6 +192,7 @@
     tr th {
       color: #111 !important;
     }
+
     .bg-scale--3,
     .bg-scale--5,
     .bg-scale--4 {

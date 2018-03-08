@@ -1,5 +1,5 @@
 'use strict';
-
+/* exported VisAgeReport */
 var VisAgeReport = Class.extend({
   init: function(divId, url) {
     this.container = divId;
@@ -107,7 +107,7 @@ var VisAgeReport = Class.extend({
       this.updateRender();
     }
   },
-  updateRender: function(callback) {
+  updateRender: function() {
     this.xScale
       .rangeRound([0, this.width])
       .domain(this.ageGroups.map(function(d) { return d.age_group }));

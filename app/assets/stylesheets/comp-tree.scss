@@ -1,9 +1,10 @@
 .indicators-tree {
 
-  $checked: #73D600;
-  $unchecked: #D6003B;
+  $checked: #73d600;
+  $unchecked: #d6003b;
 
-  ul, li {
+  ul,
+  li {
     list-style: none;
   }
 
@@ -20,7 +21,6 @@
 
     &.item-root--notree {
       .item {
-
         &.item-lvl-0 {
           font-size: $f5;
         }
@@ -53,6 +53,7 @@
             font-size: $f5;
             text-decoration: none;
             flex-basis: 75%;
+
             span {
               font-size: $f3;
               color: $color_meta_text;
@@ -83,7 +84,7 @@
                 text-align: center;
 
                 &.check-container--unchecked {
-                  opacity: .25;
+                  opacity: 0.25;
                 }
 
                 > * {
@@ -108,7 +109,7 @@
           font-weight: bold;
 
           .extrainfo-content {
-            display:flex;
+            display: flex;
             width: 100%;
 
             .extrainfo-block {
@@ -117,18 +118,19 @@
               &:first-child {
                 margin-right: 1em;
               }
+
               &:last-child {
                 margin-left: 1em;
               }
             }
 
             .extrainfo-title {
-              padding: 0 0 .5em;
+              padding: 0 0 0.5em;
               border-bottom: 1px solid $color_main;
             }
 
             .extrainfo-value {
-              margin: .5em 0;
+              margin: 0.5em 0;
               color: $color_text;
               font-size: $f7;
               font-weight: normal;
@@ -138,7 +140,7 @@
           a {
             display: block;
             font-weight: normal;
-            padding: .5em 0;
+            padding: 0.5em 0;
 
             i {
               padding-left: 1em;
@@ -157,6 +159,7 @@
     &.item-lvl-0 {
       > .item-title {
         @include border-radius(4px);
+
         background-color: $color_main;
         color: $color_main_negative;
 
@@ -192,12 +195,12 @@
 
     .item-title {
       border-bottom: 1px solid $color_1_soft;
-      padding: .5em;
+      padding: 0.5em;
       cursor: pointer;
       display: flex;
 
       @include min-screen(768) {
-        margin: .5em;
+        margin: 0.5em;
       }
 
       > * {
@@ -206,12 +209,14 @@
 
       .item-toggle {
         .toggle-container {
-          background-color: transparentize($color_1, .88);
+          background-color: transparentize($color_1, 0.88);
           color: $color_1;
           width: 18px;
           height: 18px;
           cursor: pointer;
+
           @include border-radius(4px);
+
           display: flex;
           justify-content: center;
           align-items: center;
@@ -225,7 +230,7 @@
 
       .item-id {
         float: left;
-        color: rgba($color_meta_text, .5);
+        color: rgba($color_meta_text, 0.5);
       }
 
       .item-text {
@@ -253,18 +258,21 @@
         .check-container {
           width: 18px;
           height: 18px;
+
           @include border-radius(50%);
+
           display: flex;
           justify-content: center;
           align-items: center;
 
           &.check-container--true {
             color: $checked;
-            background-color: rgba($checked, .3);
+            background-color: rgba($checked, 0.3);
           }
+
           &.check-container--false {
             color: $unchecked;
-            background-color: rgba($unchecked, .1);
+            background-color: rgba($unchecked, 0.1);
           }
 
           > * {
@@ -276,5 +284,4 @@
       }
     }
   }
-
 }

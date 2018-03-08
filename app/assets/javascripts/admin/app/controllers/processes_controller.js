@@ -1,8 +1,5 @@
 this.GobiertoAdmin.ProcessesController = (function() {
 
-  var $stageModalBackup;
-  var restoreModalContentFlag = false;
-
   function ProcessesController() {}
 
   ProcessesController.prototype.form = function() {
@@ -15,7 +12,7 @@ this.GobiertoAdmin.ProcessesController = (function() {
       var $datepickersWrapper = $("[data-behavior='process_datepickers']");
       $datepickersWrapper.toggle('slow');
     });
-  };
+  }
 
   return ProcessesController;
 })();

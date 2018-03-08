@@ -1,5 +1,5 @@
 'use strict';
-
+/* exported VisIndicators */
 var VisIndicators = Class.extend({
   init: function(divId, url) {
     this.container = divId;
@@ -94,7 +94,7 @@ var VisIndicators = Class.extend({
       this.updateRender();
     }
   },
-  updateRender: function(callback) {
+  updateRender: function() {
     var format = d3.format('.0%');
 
     // TOTAL PARTICIPANTS
@@ -131,7 +131,7 @@ var VisIndicators = Class.extend({
     placeList
       .append('li')
       .attr('class', 'figure-row')
-      .html(function(d) { return d.location + '<span class="f_right">' + format(d.responses); + '</span>' });
+      .html(function(d) { return d.location + '<span class="f_right">' + format(d.responses) + '</span>' });
 
     // TABLE
     var color = d3.scaleQuantile()
@@ -140,17 +140,17 @@ var VisIndicators = Class.extend({
 
     function returnValue(row) {
       return typeof row !== 'undefined' ? format(row.value) : '—';
-    };
+    }
 
     function customClass(row) {
       return typeof row !== 'undefined' ? 'center number ' + color(row.value) : 'center empty';
-    };
+    }
 
     function extractValue(row, key) {
       return row.find(function(d) {
         return d.key === key;
       });
-    };
+    }
 
     var columns = [
       { head: I18n.t('gobierto_admin.gobierto_budget_consultations.consultations.consultation_responses.index.questions'), headCl: 'title', cl: 'title', html: function(d) { return d.key; } },

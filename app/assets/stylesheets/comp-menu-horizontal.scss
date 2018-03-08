@@ -8,7 +8,7 @@
     margin-bottom: 50px;
 
     li {
-      border: 1px solid transparentize($color_main, .85);
+      border: 1px solid transparentize($color_main, 0.85);
       text-transform: uppercase;
       font-weight: 200;
 
@@ -18,8 +18,8 @@
 
       &.active {
         font-weight: 400;
-        background: transparentize($color_main, .85);
-        border: none;
+        background: transparentize($color_main, 0.85);
+        border: 0;
 
         &:hover::after {
           border-top-color: #eee;
@@ -31,7 +31,7 @@
           border: solid transparent;
           content: " ";
           position: absolute;
-          border-top-color: transparentize($color_main, .85);
+          border-top-color: transparentize($color_main, 0.85);
           border-width: 15px;
           margin-left: -15px;
         }

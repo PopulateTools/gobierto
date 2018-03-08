@@ -31,6 +31,7 @@
 //= require_tree ../../../../lib/assets/javascripts/polyfills/
 //= require module-admin
 
+/*global AUTOCOMPLETE_DEFAULTS */
 $(document).on('turbolinks:load', function() {
   $('.open_remote_modal').magnificPopup({
     type: 'ajax',
@@ -48,7 +49,7 @@ $(document).on('turbolinks:load', function() {
 
   addDatepickerBehaviors();
 
-  $('#site_visibility_level_active').on('click', function(e){
+  $('#site_visibility_level_active').on('click', function(){
     $('#site_username').val('');
     $('#site_password').val('');
   });
@@ -96,15 +97,13 @@ function addDatepickerBehaviors() {
     var $fromDatePickers = $('.air-datepicker:even');
     var $toDatePickers   = $('.air-datepicker:odd');
 
-    var index = 0;
-
     $toDatePickers.each(function(index, toDatePicker) {
 
       // Datepicker end time
       $(toDatePicker).datepicker({
         autoClose: true,
         startDate: new Date($(toDatePicker).data('startdate')),
-        onSelect: function onSelect(_, _, instance) {
+        onSelect: function onSelect(a, b, instance) {
           $(instance.el).trigger("datepicker-change");
         }
       });
@@ -145,7 +144,7 @@ function addDatepickerBehaviors() {
       index++;
     });
   }
-};
+}
 
 function initializePageWithOnlyOneDatepicker() {
   $('.air-datepicker').datepicker({
@@ -155,4 +154,4 @@ function initializePageWithOnlyOneDatepicker() {
       $(instance.el).trigger("datepicker-change");
     }
   });
-};
+}

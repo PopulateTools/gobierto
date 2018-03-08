@@ -1,3 +1,4 @@
+/*global addDatepickerBehaviors */
 this.GobiertoAdmin.ProcessStagesController = (function() {
 
   function ProcessStagesController() {}
@@ -22,19 +23,17 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
         $.ajax({
             type: "POST",
             url: '/admin/participation/processes/' + subStr[2] + '/update_current_stage',
-            type: 'POST',
             dataType: 'json',
             data: { active_stage_id: $("input[name='process[stages_attributes][active]']:checked").val() }
         });
     });
-  };
+  }
 
   function _handleSortableList() {
     var wrapper = "ul[data-behavior=sortable]";
-    var positions = [];
 
     $(wrapper).sortable({
-      update: function(e, ui) {
+      update: function() {
         _refreshPositions(wrapper);
         _requestUpdate(wrapper, _buildPositions(wrapper));
       },
@@ -53,7 +52,7 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
     $(wrapper).find("div.list_item").each(function(index) {
       $(this).attr("data-pos", index + 1);
     });
-  };
+  }
 
   function _buildPositions(wrapper) {
     var positions = [];
@@ -66,7 +65,7 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
     });
 
     return positions;
-  };
+  }
 
   function _requestUpdate(wrapper, positions) {
     $.ajax({
@@ -74,7 +73,7 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
       method: "POST",
       data: { positions: positions }
     });
-  };
+  }
 
   return ProcessStagesController;
 })();

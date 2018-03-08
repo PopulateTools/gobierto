@@ -26,7 +26,7 @@
     margin-top: 0.5em;
 
     strong {
-      padding: 0 .5em;
+      padding: 0 0.5em;
     }
   }
 
@@ -53,7 +53,7 @@
 
   /* Active line which fills the timeline */
   // TODO: Fix active bar for the current process
-  .timeline_row.active:not(:last-child):not(:nth-child(2)):before {
+  .timeline_row.active:not(:last-child):not(:nth-child(2))::before {
     margin-top: 1.25em;
     z-index: 1;
     content: '';
@@ -81,6 +81,7 @@
 
     .circle {
       @include circle(2em);
+
       position: absolute;
       top: 1em;
       right: 1em;
@@ -91,7 +92,7 @@
       }
     }
 
-    &:before {
+    &::before {
       content: '';
       position: absolute;
       background: $color_main_soft;
@@ -106,7 +107,7 @@
       }
     }
 
-    &:after {
+    &::after {
       content: '';
       z-index: 2;
       position: absolute;
@@ -124,7 +125,7 @@
   }
 
   .current .content_block {
-    &:after {
+    &::after {
       @include min-screen(1200) {
         left: -7.35%;
       }

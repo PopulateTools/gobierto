@@ -5,38 +5,45 @@
 .tab {
   display: none;
 }
+
 .tab.active {
   display: block;
 }
+
 .tabs {
   @include tabs;
+
   ul {
-    border-color: rgba($color_main, .41);
+    border-color: rgba($color_main, 0.41);
+
     li {
       height: initial;
       display: inline-block;
-      a {
-        border: none;
-        background: rgba($color_main, .1);
-        color: $color_text;
 
+      a {
+        border: 0;
+        background: rgba($color_main, 0.1);
+        color: $color_text;
         font-weight: 200;
 
         @include min-screen(768) {
-          padding: .75em 3em .25em;
+          padding: 0.75em 3em 0.25em;
           margin: 0 1em;
         }
-        padding: .75em 1em .25em;
-        margin: 0 .25em;
+
+        padding: 0.75em 1em 0.25em;
+        margin: 0 0.25em;
       }
+
       a:hover {
-        background: rgba($color_main, .3);
+        background: rgba($color_main, 0.3);
       }
     }
+
     li.active {
       a {
-        border: 1px solid rgba($color_main, .41);
-        border-bottom: 1px solid #FFF;
+        border: 1px solid rgba($color_main, 0.41);
+        border-bottom: 1px solid #fff;
         background: $color_main_negative;
         color: $color_text;
         margin-bottom: -1px;
@@ -46,22 +53,27 @@
 }
 
 .sub_filter {
-  font-size: .85em;
-  ul, li {
+  font-size: 0.85em;
+
+  ul,
+  li {
     list-style-type: none;
     margin: 0;
     padding: 0;
   }
+
   li {
     display: inline-block;
     margin-right: 1em;
     font-weight: normal;
   }
+
   li.active {
     position: relative;
     font-weight: bold;
   }
-  li.active:after {
+
+  li.active::after {
     top: 110%;
     left: 50%;
     border: solid transparent;
@@ -74,10 +86,12 @@
     border-top-color: $color_main;
     border-width: 10px;
     margin-left: -10px;
+
     @include border-radius(2px);
   }
+
   li:hover a {
-    background: transparentize($color_main, .8);
+    background: transparentize($color_main, 0.8);
   }
 }
 
@@ -88,7 +102,7 @@
   ul {
     list-style-type: none;
     padding-left: 0;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
 
     li {
       position: relative;
@@ -98,7 +112,7 @@
       a {
         text-transform: uppercase;
         text-decoration: none;
-        padding: .4em .6em .4em;
+        padding: 0.4em 0.6em 0.4em;
         display: inline-block;
         border: 1px solid $color_separator;
         color: $text_soft;
@@ -110,20 +124,23 @@
         }
       }
     }
+
     li:hover {
       a {
         background: $color_1_soft;
       }
     }
+
     li.active {
       a {
         background: $color_1_soft;
         color: $color_main;
         font-weight: bold;
-        border: none;
+        border: 0;
       }
     }
-    li.active:after {
+
+    li.active::after {
       top: 101%;
       left: 50%;
       border: solid transparent;
@@ -136,16 +153,18 @@
       border-top-color: $color_1_soft;
       border-width: 10px;
       margin-left: -10px;
+
       @include border-radius(2px);
     }
   }
 }
+
 .filter_boxed.compact {
   ul {
     li {
       a {
-        padding: .25em 1em .2em;
-        margin: 0 .5em 0 0;
+        padding: 0.25em 1em 0.2em;
+        margin: 0 0.5em 0 0;
       }
     }
   }

@@ -158,10 +158,6 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     });
   }
 
-  function _addChild(wrapper) {
-    wrapper.find("[data-behavior=add_child]").trigger("click");
-  }
-
   function _cleanupRecordField(selector) {
     if ( (selector.attr("type") === "hidden") && !(selector.attr("data-clear-value") === "true") ) {
       return true;
@@ -208,7 +204,7 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     selector.datepicker({
       language: locale,
       autoClose: true,
-      onSelect: function onSelect(_, _, instance) {
+      onSelect: function onSelect(a, b, instance) {
         $(instance.el).trigger("datepicker-change");
       }
     });
@@ -219,7 +215,7 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
       return true;
     }
 
-    var cleaveCurrency = new Cleave(selector, {
+    new Cleave(selector, {
       numeral: true,
       numeralThousandsGroupStyle: "thousand",
       numeralDecimalMark: I18n.t('number.currency.format.separator'),
@@ -247,7 +243,7 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
 
     wrapper.find(".dynamic-content-record-view .content-block-record-value").each(function(index) {
       var fieldText = formState[index];
-      var urlPattern = new RegExp('^https?:\/\/.*$')
+      var urlPattern = new RegExp('^https?://.*$')
 
       if (urlPattern.test(fieldText)) {
         $(this).html('<a href="' + fieldText + '">' + fieldText + '</a>');

@@ -1,10 +1,10 @@
 .home-cms {
-
   #transparency .block-title {
     background-size: cover;
     background-position-y: 40%;
     background-image: linear-gradient(-180deg, rgba(#000, 0) 40px, #000 100%), url(asset_path('illustrations/transparency-bg.png'));
   }
+
   #participation .block-title {
     background-size: cover;
     background-position-y: 55%;
@@ -13,7 +13,8 @@
 
   .header {
     margin: 1em 0 3em 0;
-    @include min-screen(768){
+
+    @include min-screen(768) {
       width: 75%;
     }
 
@@ -69,7 +70,7 @@
         display: flex;
         flex-wrap: wrap;
         padding-left: 0;
-        margin: .5em 0;
+        margin: 0.5em 0;
 
         li {
           flex: 0 0 33%;

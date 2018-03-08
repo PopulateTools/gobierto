@@ -18,28 +18,27 @@ header {
     font-style: $style;
     color: $color;
   }
+
   @mixin breakpoint($point) {
     @if $point == sm {
       @media (max-width: $wSmall) {
         @content;
       }
-    } @else
-    if $point == md {
+    } @else if $point == md {
       @media (max-width: $wMedium) {
         @content;
       }
-    } @else
-    if $point == lg {
+    } @else if $point == lg {
       @media (max-width: $wLarge) {
         @content;
       }
-    } @else
-    if $point == xl {
+    } @else if $point == xl {
       @media (max-width: $wExtraLarge) {
         @content;
       }
     }
   }
+
   @mixin flex-align($horizontal: center, $vertical: center) {
     display: flex;
     justify-content: $horizontal;
@@ -57,9 +56,10 @@ header {
 
     a {
       display: inline-block;
-      padding: .75em .5em .6em;
+      padding: 0.75em 0.5em 0.6em;
       text-decoration: none;
       margin: 0;
+
       @include font(0.85em, $color_text, $fExtraLight);
 
       &:hover {
@@ -67,7 +67,9 @@ header {
       }
     }
 
-    .user_links, .language_selector, .pure-menu {
+    .user_links,
+    .language_selector,
+    .pure-menu {
       display: inline-block;
       width: initial;
     }
@@ -80,17 +82,17 @@ header {
       .pure-menu-children {
         background-color: $color_secondary;
         min-width: 150px;
+
         @include box-shadow(0, 5px, 10px);
 
         .pure-menu-link {
           display: block;
-          padding: .5em 1em;
+          padding: 0.5em 1em;
 
           &:hover {
             background-color: darken($color_secondary, 7.5%);
           }
         }
-
       }
     }
 
@@ -102,11 +104,12 @@ header {
       background: $color_1_soft;
       text-transform: initial;
       border: 1px solid transparent;
+
       @include font($f7, $color_1, $fBold);
       @include border-radius(75px);
 
       &:hover {
-        background: darken($color_1_soft, 25%);;
+        background: darken($color_1_soft, 25%);
       }
 
       i {
@@ -116,7 +119,6 @@ header {
   }
 
   .site_header {
-
     a {
       text-decoration: none;
     }
@@ -149,10 +151,11 @@ header {
       .search_result_list {
         @include box-shadow(0, 0, 10px);
         @include border-radius(4px);
+
         width: 250px;
         background: $color_neutral_soft;
         z-index: 1000;
-        font-size: .85em;
+        font-size: 0.85em;
         line-height: 1.2em;
         position: absolute;
         bottom: 3em;
@@ -171,10 +174,11 @@ header {
           padding: 1em;
 
           h2 {
-            margin: .25em 0;
+            margin: 0.25em 0;
             font-size: 1rem;
           }
         }
+
         .result:hover {
           background: darken($color_neutral_soft, 2%);
         }
@@ -189,10 +193,11 @@ header {
       cursor: pointer;
 
       .button-container {
-        background-color: transparentize($color_1, .88);
+        background-color: transparentize($color_1, 0.88);
         color: $color_1;
         width: 19px;
         height: 15px;
+
         @include border-radius(1px);
         @include flex-align();
       }
@@ -234,10 +239,11 @@ header {
         align-items: center;
 
         .hamburger_container {
-          background-color: rgba($color_main, .04);
+          background-color: rgba($color_main, 0.04);
           float: right;
           width: 38px;
           height: 38px;
+
           @include border-radius(3px);
 
           &.hamburger_container--transparent {
@@ -292,7 +298,7 @@ header {
 
         .social_links_container {
           text-align: center;
-          font-size: .85em;
+          font-size: 0.85em;
           display: inline;
 
           .social_share {
@@ -307,7 +313,7 @@ header {
           bottom: 1em;
           right: 1em;
           text-align: center;
-          font-size: .85em;
+          font-size: 0.85em;
           display: inline;
           z-index: 1;
           color: $color_1;
@@ -326,7 +332,8 @@ header {
         border-top: 5px solid transparent;
 
         &:hover {
-          border-top: 5px solid rgba($color_1, .5);
+          border-top: 5px solid rgba($color_1, 0.5);
+
           @include transition;
         }
 
@@ -345,6 +352,7 @@ header {
         height: 100%;
         width: 100%;
         text-transform: uppercase;
+
         @include font($f5, $color_1, $fExtraLight);
       }
     }
@@ -364,7 +372,8 @@ header {
         border-bottom: 2px solid transparent;
 
         &:hover {
-          border-bottom: 2px solid rgba($color_1, .5);
+          border-bottom: 2px solid rgba($color_1, 0.5);
+
           @include transition;
         }
 
@@ -381,6 +390,7 @@ header {
         height: 100%;
         width: 100%;
         text-transform: uppercase;
+
         @include font(1em, $color_1, $fExtraLight);
       }
     }
@@ -389,14 +399,18 @@ header {
       float: right;
       margin: 0;
       padding: 0;
-      ul, li {
+
+      ul,
+      li {
         margin: 0;
         padding: 0;
         list-style-type: none;
       }
+
       li {
         display: inline-block;
         padding: 0 0 0 1em;
+
         a {
           padding: 6px 0;
           font-size: $f7;
@@ -406,17 +420,17 @@ header {
           line-height: 1.2;
           border-bottom: 2px solid transparent;
         }
+
         a:hover {
-          border-bottom: 2px solid transparentize($color_1, .5);
+          border-bottom: 2px solid transparentize($color_1, 0.5);
+
           @include transition;
         }
       }
     }
 
     .site_header--mobile {
-
       .header {
-
         .sub-nav-flex {
           @include flex-align(space-between);
         }
@@ -432,9 +446,10 @@ header {
             background-color: #fff;
 
             .submenu-dropdown {
-              background-color: rgba($color_1, .04);
-              border-top: 1px solid rgba($color_1, .2);
-              box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
+              background-color: rgba($color_1, 0.04);
+              border-top: 1px solid rgba($color_1, 0.2);
+              box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
+
               @include border-radius(1px);
 
               .dropdown-items {
@@ -458,7 +473,6 @@ header {
             }
           }
         }
-
       }
 
       .navigation {
@@ -468,9 +482,8 @@ header {
         position: relative;
 
         .navigation-wrap {
-
           &:first-child {
-            border-top: 1px solid rgba($color_1, .2);
+            border-top: 1px solid rgba($color_1, 0.2);
             width: 100%;
 
             .main-nav-item {
@@ -478,16 +491,17 @@ header {
             }
           }
 
-          &:not(first-child) {
+          &:not(:first-child) {
             border-top: 5px solid #fff;
           }
 
-          &:nth-last-child(2) {
-            // border-bottom: 5px solid #fff;
-          }
+          // &:nth-last-child(2) {
+          //   // border-bottom: 5px solid #fff;
+          // }
 
           .navigation-item {
-            padding: .5em 0;
+            padding: 0.5em 0;
+
             @include flex-align(space-between);
 
             .main-nav-item {
@@ -502,14 +516,13 @@ header {
                 @include font($f5, $color_1, $fBold);
               }
             }
-
           }
 
           .navigation-subitem-container {
             background-color: #fff;
 
             .navigation-subitem {
-              background-color: rgba($color_main, .04);
+              background-color: rgba($color_main, 0.04);
 
               &.is-open {
                 display: block;
@@ -518,8 +531,9 @@ header {
               .subitem-container {
                 columns: 2;
                 text-transform: uppercase;
-                padding: .5em 0;
+                padding: 0.5em 0;
                 margin: 0 1rem;
+
                 @include font(0.85em, $color_text, $fExtraLight);
 
                 .secondary_nav {
@@ -530,7 +544,7 @@ header {
               .subitem-account {
                 display: flex;
                 margin: 0 1rem;
-                padding: .5em 0;
+                padding: 0.5em 0;
 
                 > * {
                   flex: 1;
@@ -538,6 +552,7 @@ header {
 
                 .account-out {
                   text-decoration: underline;
+
                   @include font(0.85em, $color_1, $fRegular);
                 }
 
@@ -562,6 +577,7 @@ header {
 
               a {
                 text-decoration: underline;
+
                 @include font(0.85em, $color_1, $fRegular);
 
                 &:hover {
@@ -575,11 +591,11 @@ header {
 
               a {
                 text-decoration: underline;
+
                 @include font(0.85em, $color_text, $fRegular);
               }
             }
           }
-
         }
 
         .secondary_nav {
@@ -593,7 +609,6 @@ header {
             }
           }
         }
-
       }
     }
   }
@@ -663,7 +678,7 @@ header {
       }
 
       .main-nav {
-        border-top: 1px solid rgba($color_1, .2);
+        border-top: 1px solid rgba($color_1, 0.2);
 
         &.nav {
           display: none;
@@ -673,7 +688,8 @@ header {
           display: block;
           text-align: left;
 
-          &, &:hover {
+          &,
+          &:hover {
             border-top: 0;
           }
 
@@ -692,8 +708,8 @@ header {
         }
 
         .sub-nav-item {
-
-          &, &:hover {
+          &,
+          &:hover {
             border-bottom: 0;
           }
 
@@ -702,7 +718,6 @@ header {
           }
         }
       }
-
     }
   }
 }

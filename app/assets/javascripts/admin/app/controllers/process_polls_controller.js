@@ -52,12 +52,12 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     $('[data-behavior=add_answer]').remove();
     $('.answer_template .list_item > label').css('margin-right', 0);
     $('.answer_template .list_item > label').css('width', 'calc(100% - 65px)');
-  };
+  }
 
   function extractIndex(elementId) {
     var splitted = elementId.split('_');
     return splitted[splitted.length - 1];
-  };
+  }
 
   function _addEditQuestionModalBehaviors() {
 
@@ -95,9 +95,9 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
 
     $('.close_poll_modal').unbind('click', closeModal)
                           .click(closeModal);
-  };
+  }
 
-  function restoreModalContent(item) {
+  function restoreModalContent() {
     var modalId = $modalStateBackup.attr('id');
     var $questionModalWrapper = $('#' + modalId);
 
@@ -123,7 +123,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     }
 
     restoreModalContentFlag = false;
-  };
+  }
 
   function updateQuestionSummaryTitle() {
     var questionIdx = extractIndex($modalStateBackup.attr('id'));
@@ -134,7 +134,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     }
 
     $('#question_summary_' + questionIdx).find('label').text(questionTitle);
-  };
+  }
 
   function closeModal(e) {
     if ($(e.target).attr('data-behavior') === 'cancel_save_question') {
@@ -159,7 +159,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
       createNewQuestionSummary($existingQuestions, questionIdx);
       deleteLastCreatedQuestionIdx = questionIdx; // will be removed if clicking on cancel button
     });
-  };
+  }
 
   function createNewQuestionSummary($existingQuestions, questionIdx) {
     var $questionSummaryScaffold = $('#question_summary_scaffold');
@@ -184,7 +184,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
 
     // Single instance of magnificPopup with several items inside. Open the last one.
     $('[href="#edit_question_' + questionIdx + '"]').magnificPopup('open', questionIdx + 1);
-  };
+  }
 
   function createNewQuestionModal(questionIdx) {
     var $questionModalScaffold = $('#edit_question_modal_scaffold');
@@ -197,7 +197,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     $existingQuestionModals.last().after($newQuestionModal);
 
     // reload selector
-    var $newQuestionModal = $('#edit_question_' + questionIdx);
+    $newQuestionModal = $('#edit_question_' + questionIdx);
 
     // update question destroy flag
     var $newQuestionDestroyInput = $newQuestionModal.find('#new_question_destroy_scaffold_input');
@@ -249,13 +249,13 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     _addAddAnswerTemplateBehaviors();
     _addToggleAnswerTemplatesVisibilityBehaviors();
     window.GobiertoAdmin.globalized_forms_component.handleGlobalizedForm();
-  };
+  }
 
   function _addDeleteQuestionBehaviors() {
     var $destroyLinks = $('a[data-behavior=delete_record]');
 
     $destroyLinks.off('click').click(handleDeleteQuestion);
-  };
+  }
 
   function handleDeleteQuestion(e) {
     e.preventDefault();
@@ -269,13 +269,13 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     $destroyFlag.prop('value', '1');
     $summaryWrapper.hide();
     $questionModalWrapper.hide();
-  };
+  }
 
   function _addEditQuestionBehaviors() {
     var $editLinks = $('a[data-behavior=edit_record]');
 
     $editLinks.off('click').click(handleEditQuestion);
-  };
+  }
 
   function handleEditQuestion(e) {
     e.preventDefault();
@@ -284,13 +284,13 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     var questionIdx = extractIndex($summaryWrapper.attr('id'));
 
     saveQuestionModalState(questionIdx);
-  };
+  }
 
   function _addConfirmEditQuestionBehaviors() {
     var $saveQuestionButtons = $('[data-behavior=save_question]');
 
     $saveQuestionButtons.off('click').click(handleConfirmEditQuestion);
-  };
+  }
 
   function _handleSortableQuestions() {
     var $sortableQuestionsWrapper = $('#poll_questions_summaries');
@@ -300,11 +300,11 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
       handle: '.custom_handle',
       forcePlaceholderSize: true,
       placeholder: '<div class="list_item poll_question_summary"></div>',
-      update: function(e, ui) {
+      update: function() {
         refreshSortableQuestionsPositions($sortableQuestionsWrapper);
       }
     });
-  };
+  }
 
   function refreshSortableQuestionsPositions($sortableQuestionsWrapper) {
     var positions = [];
@@ -321,9 +321,9 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
       var $questionOrderInput = $('#poll_questions_attributes_' + item['questionIdx'] + '_order');
       $questionOrderInput.val(item['order']);
     });
-  };
+  }
 
-  function handleConfirmEditQuestion(e) {
+  function handleConfirmEditQuestion() {
     // update the label in the summary.
 
     var $questionModalWrapper = $(this).closest('.modal');
@@ -339,30 +339,30 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     $titleLabel.text(questionTitle);
 
     deleteLastCreatedQuestionIdx = undefined;
-  };
+  }
 
   function _addToggleAnswerTemplatesVisibilityBehaviors() {
     var $showAnswerTemplatesLinks = $('input[data-behavior=show_answer_templates]');
     var $hideAnswerTemplatesLinks = $('input[data-behavior=hide_answer_templates]');
 
-    $showAnswerTemplatesLinks.off('click').click(function(e) {
+    $showAnswerTemplatesLinks.off('click').click(function() {
       var $questionModalWrapper = $(this).closest('.modal');
 
       $questionModalWrapper.find('.question_answer_templates').show('slow');
     });
 
-    $hideAnswerTemplatesLinks.off('click').click(function(e) {
+    $hideAnswerTemplatesLinks.off('click').click(function() {
       var $questionModalWrapper = $(this).closest('.modal');
 
       $questionModalWrapper.find('.question_answer_templates').hide('slow');
     });
-  };
+  }
 
   function _addEditAnswerTemplateBehaviors() {
     var $editLinks = $('.edit_link');
 
     $editLinks.off('click').click(handleEditAnswerTemplate);
-  };
+  }
 
   function handleEditAnswerTemplate(e) {
     e.preventDefault();
@@ -380,13 +380,13 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
 
     // set focus on text input
     $('#poll_questions_attributes_' + questionIdx + '_answer_templates_attributes_' + answerIdx + '_text').focus();
-  };
+  }
 
   function _addConfirmEditAnswerTemplateBehaviors() {
     var $confirmEditLinks = $('[data-behavior=confirm_edit_answer]');
 
     $confirmEditLinks.off('click').click(handleConfirmEditAnswerTemplate);
-  };
+  }
 
   function handleConfirmEditAnswerTemplate(e) {
     e.preventDefault();
@@ -400,19 +400,19 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     var $previewAnswerWrapper = $('#question_' + questionIdx + '_preview_answer_' + answerIdx);
 
     // update label text with input text
-    $answerInput = $editAnswerWrapper.find('input');
-    $answerLabel = $previewAnswerWrapper.find('label');
+    var $answerInput = $editAnswerWrapper.find('input');
+    var $answerLabel = $previewAnswerWrapper.find('label');
     $answerLabel.text($answerInput.val());
 
     $previewAnswerWrapper.show();
     $editAnswerWrapper.hide();
-  };
+  }
 
   function _addCancelEditAnswerTemplateBehaviors() {
     var $cancelEditLinks = $('[data-behavior=cancel_edit_answer]');
 
     $cancelEditLinks.off('click').click(handleCancelEditAnswerTemplate);
-  };
+  }
 
   function handleCancelEditAnswerTemplate(e) {
     e.preventDefault();
@@ -426,19 +426,19 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     var $previewAnswerWrapper = $('#question_' + questionIdx + '_preview_answer_' + answerIdx);
 
     // restore input text with label text
-    $answerInput = $editAnswerWrapper.find('input');
-    $answerLabel = $previewAnswerWrapper.find('label');
+    var $answerInput = $editAnswerWrapper.find('input');
+    var $answerLabel = $previewAnswerWrapper.find('label');
     $answerInput.val($answerLabel.text());
 
     $previewAnswerWrapper.show();
     $editAnswerWrapper.hide();
-  };
+  }
 
   function _addDeleteAnswerTemplateBehaviors() {
     var $deleteAnswerLinks = $('[data-behavior=delete_answer]');
 
     $deleteAnswerLinks.off('click').click(handleDeleteAnswerTemplate);
-  };
+  }
 
   function handleDeleteAnswerTemplate(e) {
     e.preventDefault();
@@ -455,14 +455,14 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     $previewAnswerWrapper.hide();
     $editAnswerWrapper.hide();
 
-    var $destroyInput = $editAnswerWrapper.find('#' + generateIdForAnswerTemplateAttribute(questionIdx, answerIdx, '_destroy')).prop('value', '1');
-  };
+    $editAnswerWrapper.find('#' + generateIdForAnswerTemplateAttribute(questionIdx, answerIdx, '_destroy')).prop('value', '1');
+  }
 
   function _addAddAnswerTemplateBehaviors() {
     var $addAnswerLinks = $('[data-behavior=add_answer]');
 
     $addAnswerLinks.off('click').click(handleAddAnswerTemplate);
-  };
+  }
 
   function handleAddAnswerTemplate(e) {
     e.preventDefault();
@@ -513,7 +513,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     _addCancelEditAnswerTemplateBehaviors();
     _addDeleteAnswerTemplateBehaviors();
     _handleSortableAnswerTemplates();
-  };
+  }
 
   function _handleSortableAnswerTemplates() {
     var $sortableAnswerTemplatesWrappers = $('.question_answer_templates');
@@ -524,12 +524,12 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
         handle: '.custom_handle',
         forcePlaceholderSize: true,
         placeholder: '<div class="answer_template"></div>',
-        update: function(e, ui) {
+        update: function() {
           refreshSortableAnswerTemplatesPositions($($sortableAnswerTemplatesWrapper));
         }
       });
     });
-  };
+  }
 
   function refreshSortableAnswerTemplatesPositions($sortableAnswerTemplatesWrapper) {
     var positions = [];
@@ -550,7 +550,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
       var $answerTemplateOrderInput = $('#' + generateIdForAnswerTemplateAttribute(questionIdx, item['answerTemplateIdx'], 'order'));
       $answerTemplateOrderInput.val(item['order']);
     });
-  };
+  }
 
   function saveQuestionModalState(questionIdx) {
     var $questionModalWrapper = findQuestionModal(questionIdx);
@@ -559,15 +559,15 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
 
   function findQuestionModal(questionIdx) {
     return $('#edit_question_' + questionIdx);
-  };
+  }
 
   function generateNameForAnswerTemplateAttribute(questionIdx, answerIdx, attributeName) {
     return 'poll[questions_attributes][' + questionIdx + '][answer_templates_attributes][' + answerIdx + '][' + attributeName + ']';
-  };
+  }
 
   function generateIdForAnswerTemplateAttribute(questionIdx, answerIdx, attributeName) {
     return 'poll_questions_attributes_' + questionIdx + '_answer_templates_attributes_' + answerIdx + '_' + attributeName;
-  };
+  }
 
   return ProcessPollsController;
 })();

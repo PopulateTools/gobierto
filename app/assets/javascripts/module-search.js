@@ -95,7 +95,7 @@ $(document).on('turbolinks:load', function() {
     }
   }
 
-  $input.on('keyup', function(e){
+  $input.on('keyup', function(){
     var q = $(this).val();
     var queries = [];
     window.searchClient.indexes.forEach(function(index){

@@ -86,6 +86,20 @@ how_to_participate_participation_pages:
   item_type: 'GobiertoCms::Page'
   container: madrid (Site)
 
+# about_participation
+about_participation_on_site:
+  collection: site_pages
+  item: about_participation
+  item_type: 'GobiertoCms::Page'
+  container: madrid (Site)
+
+# about_participation_details
+about_participation_details_on_site:
+  collection: site_pages
+  item: about_participation_details
+  item_type: 'GobiertoCms::Page'
+  container: madrid (Site)
+
 # site news
 site_news_1_on_site:
   collection: site_news

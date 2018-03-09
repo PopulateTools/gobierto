@@ -298,7 +298,15 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             localeSuffix = "[lang="+locale+"]";
           var element = $('[data-wysiwyg]' + localeSuffix);
           if(element.length) {
-            var html = '<a href="'+attachment.human_readable_url+'" target="_blank">'+attachment.file_name+' <span class="size">('+ this.bytesToSize(attachment.file_size) +')</span></a>' + "\n";
+            var html;
+
+            var imageExtensions = ['JPG','JPEG','PNG','GIF','BMP','TIFF'];
+            if (imageExtensions.indexOf(this.fileExtension(attachment.file_name)) != -1) {
+              html = "![](" + attachment.human_readable_url +")";
+            } else {
+              html = '<a href="'+attachment.human_readable_url+'" target="_blank">'+attachment.file_name+' <span class="size">('+ this.bytesToSize(attachment.file_size) +')</span></a>' + "\n";
+            }
+
             var editor = element.data('editor');
             var doc = doc = editor.codemirror.getDoc();
             var cursor = doc.getCursor();

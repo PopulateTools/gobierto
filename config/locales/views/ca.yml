@@ -140,6 +140,7 @@ ca:
     edit: Edita
     forms:
       max_characters: Màx. %{length} caràcters
+      required: Obligatori
       required_and_max_characters: Obligatori i Màx. %{length} caràcters
     of: de
     pagination:

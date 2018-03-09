@@ -83,4 +83,39 @@ module ApplicationHelper
     end
     yield
   end
+
+  def attribute_indication(model, attribute)
+    validates_presence = validated_attrs_for(model, :presence).include?(attribute)
+    validates_length = validated_attrs_for(model, :length).include?(attribute)
+
+    if validates_presence || validates_length
+      content_tag(:span, class: 'indication') do
+        if validates_presence && validates_length
+          I18n.t("views.forms.required_and_max_characters", length: get_maxlength(model, attribute))
+        elsif validates_presence
+          I18n.t("views.forms.required")
+        elsif validates_length
+          I18n.t("views.forms.max_characters", length: get_maxlength(model, attribute))
+        end
+      end
+    end
+  end
+
+  def validated_attrs_for(model, validation)
+    if validation.is_a?(String) || validation.is_a?(Symbol)
+      klass = 'ActiveRecord::Validations::' \
+              "#{validation.to_s.camelize}Validator"
+      validation = klass.constantize
+    end
+    model.validators
+         .select { |v| v.is_a?(validation) }
+         .map(&:attributes)
+         .flatten
+  end
+
+  def get_maxlength(model, attribute)
+    model.validators_on(attribute)
+         .detect { |v| v.is_a?(ActiveModel::Validations::LengthValidator) }
+         .options[:maximum]
+  end
 end

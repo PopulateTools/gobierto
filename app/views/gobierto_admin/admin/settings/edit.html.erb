@@ -9,12 +9,19 @@
     <div class="pure-u-1 pure-u-md-16-24">
 
       <div class="form_item input_text">
+        <%= label_tag "admin[name]" do %>
+          <%= t("activemodel.attributes.gobierto_admin/admin_form.name") %>
+          <span class="indication"><%= t('views.forms.required') %></span>
+        <% end %>
         <%= f.label :name, t("activemodel.attributes.gobierto_admin/admin_form.name") %>
         <%= f.text_field :name, placeholder: t(".placeholders.name") %>
       </div>
 
       <div class="form_item input_text">
-        <%= f.label :email, t("activemodel.attributes.gobierto_admin/admin_form.email") %>
+        <%= label_tag "admin[email]" do %>
+          <%= t("activemodel.attributes.gobierto_admin/admin_form.email") %>
+          <span class="indication"><%= t('views.forms.required') %></span>
+        <% end %>
         <%= f.email_field :email, placeholder: t(".placeholders.email") %>
       </div>
 

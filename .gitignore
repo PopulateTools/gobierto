@@ -37,3 +37,8 @@ config/deploy/production.rb
 
 # Uploaded files
 /public/system/attachments
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity

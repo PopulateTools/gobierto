@@ -34,6 +34,9 @@ gem "therubyracer"
 gem "turbolinks"
 gem "uglifier", ">= 1.3.0"
 
+# Webpack
+gem "webpacker", "~> 3.0"
+
 # Elasticsearch
 gem "elasticsearch"
 gem "elasticsearch-extensions"

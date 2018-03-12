@@ -48,7 +48,7 @@ module GobiertoAdmin
               edit_admin_participation_process_contribution_container_path(
                 process_id: @process.id,
                 id: @contribution_container_form.contribution_container.id), notice: t(".success_html",
-                                                                             link: gobierto_participation_contribution_container_preview_url(@contribution_container_form.contribution_container))
+                                                                             link: gobierto_participation_contribution_container_preview_url(@contribution_container_form.contribution_container, host: current_site.domain))
             )
           else
             render :edit
@@ -69,7 +69,7 @@ module GobiertoAdmin
               edit_admin_participation_process_contribution_container_path(
                 id: @contribution_container_form.contribution_container.id,
                 process_id: @process.id), notice: t(".success_html",
-                                          link: gobierto_participation_contribution_container_preview_url(@contribution_container_form.contribution_container))
+                                          link: gobierto_participation_contribution_container_preview_url(@contribution_container_form.contribution_container, host: current_site.domain))
             )
           else
             @contribution_container_visibility_levels = contribution_container_visibility_levels

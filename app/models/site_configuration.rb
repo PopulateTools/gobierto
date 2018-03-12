@@ -42,6 +42,10 @@ class SiteConfiguration
     @modules.select { |site_module| SITE_MODULES.include?(site_module) }
   end
 
+  def available_module?(site_module)
+    modules.include?(site_module)
+  end
+
   def auth_modules
     return DEFAULT_MISSING_MODULES.map(&:name) if @auth_modules.nil?
 
@@ -106,7 +110,7 @@ class SiteConfiguration
   #
   SITE_MODULES.each do |site_module|
     define_method "#{site_module.underscore}_enabled?" do
-      modules.include?(site_module)
+      available_module?(site_module)
     end
   end
 end

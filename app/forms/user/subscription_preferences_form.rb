@@ -120,6 +120,7 @@ class User::SubscriptionPreferencesForm
 
   def update_subscriptions_to_participation
     return if broader_level_subscription_to?(GobiertoParticipation::Process.new)
+    return if gobierto_participation_processes.nil?
 
     site.processes.active.each do |process|
       gobierto_participation_processes.include?(process.id.to_s) ? user.subscribe_to!(process, site) : user.unsubscribe_from!(process, site)

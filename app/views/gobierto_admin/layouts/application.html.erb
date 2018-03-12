@@ -4,18 +4,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
   <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'admin/application', 'data-turbolinks-track' => true %>
+
   <%= csrf_meta_tags %>
 
   <% if Rails.env.production? %>
     <%= render 'layouts/analytics_header_site' %>
   <% end %>
 
-  <script type="text/javascript">
-    I18n.defaultLocale = "<%= I18n.default_locale %>";
-    I18n.locale = "<%= I18n.locale %>";
-  </script>
 </head>
 
 <body <%= yield(:body_attributes) %> class="gobierto_admin">
@@ -198,6 +193,14 @@
   <% if Rails.env.production? %>
     <%= render "gobierto_admin/layouts/analytics_footer_site" %>
   <% end %>
+
+  <%= javascript_pack_tag 'vendor' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <script type="text/javascript">
+    I18n.defaultLocale = "<%= I18n.default_locale %>";
+    I18n.locale = "<%= I18n.locale %>";
+  </script>
 
   <%= javascript_tag data: { "turbolinks-eval" => false } do %>
     window.GobiertoAdmin.dirty_forms_component.handle("<%= t(".dirty_forms.message") %>");

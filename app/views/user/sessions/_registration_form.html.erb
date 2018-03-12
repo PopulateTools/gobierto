@@ -1,6 +1,9 @@
 <%= form_for(@user_registration_form, as: :user_registration, url: :user_registrations, html: { id: "user-registration-form" }) do |f| %>
   <div class="form_item input_text">
-    <%= f.label :email %>
+    <%= label_tag "user_registration[email]" do %>
+      <%= f.object.class.human_attribute_name(:email) %>
+      <span class="indication"><%= t('views.forms.required') %></span>
+    <% end %>
     <%= f.email_field :email %>
   </div>
 

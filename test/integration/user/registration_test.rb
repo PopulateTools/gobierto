@@ -24,6 +24,14 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @registration_path
 
+      within "form#user-registration-form.new_user_registration" do
+        within "label" do
+          within "span.indication" do
+            assert has_content?("Required")
+          end
+        end
+      end
+
       fill_in :user_registration_email, with: "user@email.dev"
 
       click_on "Let's go"

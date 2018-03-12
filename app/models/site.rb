@@ -1,4 +1,6 @@
 class Site < ApplicationRecord
+  include GobiertoCommon::Validatable
+
   RESERVED_SUBDOMAINS = %W(presupuestos hosted)
 
   has_many :activities

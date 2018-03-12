@@ -23,7 +23,10 @@
         <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
       </div>
       <div class="form_item select_control">
-        <%= f.label :container_global_id %>
+        <%= label_tag "collection[container_global_id]" do %>
+          <%= f.object.class.human_attribute_name(:container_global_id) %>
+          <span class="indication"><%= t('views.forms.required') %></span>
+        <% end %>
         <%= f.select :container_global_id,
                      options_for_select(@containers, selected: @container_selected),
                      include_blank: true %>

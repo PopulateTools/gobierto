@@ -26,6 +26,15 @@ class ListChildrenPages < Liquid::Tag
     return ""
   end
 
+  def gobierto_cms_page_or_news_path(page, options = {})
+    url_helpers = Rails.application.routes.url_helpers
+    if page.collection.item_type == "GobiertoCms::Page"
+      url_helpers.gobierto_cms_page_path(page.slug, options)
+    elsif page.collection.item_type == "GobiertoCms::News"
+      url_helpers.gobierto_cms_news_path(page.slug, options)
+    end
+  end
+
   def children_pages(nodes, level)
     html = []
     if level.positive?
@@ -33,8 +42,9 @@ class ListChildrenPages < Liquid::Tag
         html << "<div class='page_children'>"
         nodes.each do |node|
           html << "<div class='page_child'>"
-          html << "<a href='" + node.item.to_path + "'>" + node.item.title + "</a>"
-          if node.children.any? && level.positive?
+          html << ActionController::Base.helpers.link_to(node.item.title,
+                                                          gobierto_cms_page_or_news_path(node.item))
+          if node.children.any?
             html << children_pages(node.children, level - 1)
           end
           html << "</div>"

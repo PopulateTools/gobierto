@@ -24,7 +24,7 @@ module GobiertoBudgets
       end
 
       def get_url(format)
-        file = FileUploader::S3.new(file_name: filename(format))
+        file = GobiertoCommon::FileUploadService.new(file_name: filename(format))
         file.uploaded_file_exists? && file.call
       end
 
@@ -34,7 +34,7 @@ module GobiertoBudgets
         calculate_place_budget_lines
 
         FORMATS.each do |format_key, configuration|
-          file_urls << FileUploader::S3.new(
+          file_urls << GobiertoCommon::FileUploadService.new(
             file_name: filename(format_key),
             content: configuration[:serializer].call(@place_budget_lines),
             content_type: configuration[:content_type]

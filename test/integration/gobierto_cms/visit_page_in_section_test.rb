@@ -33,7 +33,7 @@ module GobiertoCms
 
         within "article" do
           assert has_selector?("h1", text: cms_page.title)
-          assert has_content?(cms_page.body)
+          assert has_content?("About participation description")
         end
       end
     end

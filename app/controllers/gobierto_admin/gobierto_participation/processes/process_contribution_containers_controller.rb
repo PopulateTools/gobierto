@@ -4,6 +4,9 @@ module GobiertoAdmin
   module GobiertoParticipation
     module Processes
       class ProcessContributionContainersController < Processes::BaseController
+
+        helper_method :gobierto_participation_contribution_container_preview_url
+
         def index
           @contribution_containers = find_process.contribution_containers
           @archived_contribution_containers = find_process.contribution_containers.only_archived
@@ -42,11 +45,10 @@ module GobiertoAdmin
             track_create_activity
 
             redirect_to(
-              edit_admin_participation_process_contribution_container_path(process_id: @process.id,
-                                                                           id: @contribution_container_form.contribution_container.id),
-              notice: t(".success_html", link: gobierto_participation_process_contribution_container_url(@contribution_container_form.contribution_container.slug,
-                                                                                                                 process_id: @process.slug,
-                                                                                                                 host: current_site.domain))
+              edit_admin_participation_process_contribution_container_path(
+                process_id: @process.id,
+                id: @contribution_container_form.contribution_container.id), notice: t(".success_html",
+                                                                             link: gobierto_participation_contribution_container_preview_url(@contribution_container_form.contribution_container, host: current_site.domain))
             )
           else
             render :edit
@@ -64,11 +66,10 @@ module GobiertoAdmin
             track_update_activity
 
             redirect_to(
-              edit_admin_participation_process_contribution_container_path(id: @contribution_container_form.contribution_container.id,
-                                                                           process_id: @process.id),
-              notice: t(".success_html", link: gobierto_participation_process_contribution_container_url(@contribution_container_form.contribution_container.slug,
-                                                                                                                 process_id: @process.slug,
-                                                                                                                 host: current_site.domain))
+              edit_admin_participation_process_contribution_container_path(
+                id: @contribution_container_form.contribution_container.id,
+                process_id: @process.id), notice: t(".success_html",
+                                          link: gobierto_participation_contribution_container_preview_url(@contribution_container_form.contribution_container, host: current_site.domain))
             )
           else
             @contribution_container_visibility_levels = contribution_container_visibility_levels
@@ -137,6 +138,16 @@ module GobiertoAdmin
 
         def find_process
           current_site.processes.find(params[:process_id])
+        end
+
+        def gobierto_participation_contribution_container_preview_url(contribution_container, options = {})
+          if contribution_container.draft?
+            options.merge!(preview_token: current_admin.preview_token)
+          end
+          gobierto_participation_process_contribution_container_url(contribution_container.process.slug,
+                                                                    contribution_container.slug,
+                                                                    options)
+
         end
       end
     end

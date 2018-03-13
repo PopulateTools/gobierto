@@ -31,6 +31,7 @@ module GobiertoAdmin
               assert find("#gobierto_budgets_options_receipt_enabled", visible: false).checked?
               refute find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).checked?
               refute find("#gobierto_budgets_options_providers_enabled", visible: false).checked?
+              refute find("#gobierto_budgets_options_indicators_enabled", visible: false).checked?
 
               find("#gobierto_budgets_options_elaboration_enabled", visible: false).trigger(:click)
               find("#gobierto_budgets_options_budget_lines_feedback_enabled", visible: false).trigger(:click)
@@ -40,6 +41,7 @@ module GobiertoAdmin
               find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).trigger(:click)
               find("#gobierto_budgets_options_comparison_context_table_enabled", visible: false).trigger(:click)
               find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).trigger(:click)
+              find("#gobierto_budgets_options_indicators_enabled", visible: false).trigger(:click)
 
               click_button "Save"
 
@@ -51,6 +53,7 @@ module GobiertoAdmin
               assert has_field?("gobierto_budgets_options_receipt_configuration", with: "{}")
               refute find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).checked?
               refute find("#gobierto_budgets_options_comparison_context_table_enabled", visible: false).checked?
+              assert find("#gobierto_budgets_options_indicators_enabled", visible: false).checked?
             end
           end
         end

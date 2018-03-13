@@ -124,6 +124,17 @@
           <% end %>
         </div>
 
+        <div class="option">
+          <%= f.check_box :indicators_enabled %>
+          <%= f.label :indicators_enabled do %>
+            <span></span>
+            <%= t('.indicators') %>
+            <div class="inline_help">
+              <%= t('.indicators_desc1') %>
+            </div>
+          <% end %>
+        </div>
+
       </div>
     </div>
   </div>

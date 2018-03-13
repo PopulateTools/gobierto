@@ -1,12 +1,16 @@
 //= require ./execution
 //= require_directory ./components/
 //= require_directory ./visualizations/
+//= require_directory ./cards/
 //= require_directory ./lib/
 //= require d3-jetpack
 //= require ./app/init
 //= require_tree ./app
 
 $(document).on('turbolinks:load', function() {
+
+  var popCard = new GrossSavingCard('.gross_saving_card', populateData.municipalityId);
+  popCard.render();
 
   if(isDesktop()) {
     rebindAll();

@@ -60,6 +60,9 @@ es:
         vs_previous_year: vs. ejercicio anterior
         vs_previous_year_tooltip: Comparación con los datos del ejercicio anterior
     budgets:
+      cards:
+        gross_saving:
+          title: Ahorro bruto
       guide:
         budget_execution: La ejecución presupuestaria
         budget_execution_p1_html: 'Aprobar un presupuesto no significa que se quede
@@ -496,6 +499,7 @@ es:
         elaboration: Elaboración
         execution: Ejecución
         guide: Guía
+        indicators: Indicadores
         providers: Proveedores y Facturas
         receipt: Recibo
         summary: Resumen

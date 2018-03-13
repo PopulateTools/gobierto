@@ -36,6 +36,8 @@ ca:
             partides del pressupost
           feedback_emails_desc: Les participacions (opinió sobre partides i petició
             de més informació) s'enviaràn a aquesta direcció
+          indicators: Indicadors
+          indicators_desc1: Habilita la secció Indicadors
           options: Opcions
           providers: Proveïdors i Factures
           providers_desc1: Habilita la secció Proveïdors i Factures

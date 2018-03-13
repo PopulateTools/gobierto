@@ -32,3 +32,8 @@
     <%= link_to t('gobierto_budgets.layouts.menu_subsections.providers'), gobierto_budgets_providers_path, class: class_if('active', controller_name == 'providers'), data: { turbolinks: false }  %>
   </div>
 <% end %>
+<% if budgets_indicators_active? %>
+  <div class="sub-nav-item<%= class_if(' active', controller_name == 'indicators') %>">
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.indicators'), gobierto_budgets_indicators_path, class: class_if('active', controller_name == 'indicators'), data: { turbolinks: false }  %>
+  </div>
+<% end %>

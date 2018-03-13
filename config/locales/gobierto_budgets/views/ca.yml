@@ -60,6 +60,9 @@ ca:
         vs_previous_year: vs. exercici anterior
         vs_previous_year_tooltip: Comparació amb les dades de l'exercici anterior
     budgets:
+      cards:
+        gross_saving:
+          title: Estalvi brut
       guide:
         budget_execution: L'execució pressupostària
         budget_execution_p1_html: Aprovar un pressupost no vol dir que es quedi escrit
@@ -504,6 +507,7 @@ ca:
         elaboration: Elaboració
         execution: Execució
         guide: Guia
+        indicators: Indicadors
         providers: Proveïdors i Factures
         receipt: Rebut
         summary: Resum

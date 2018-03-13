@@ -59,6 +59,9 @@ en:
         vs_previous_year: vs. previous year
         vs_previous_year_tooltip: Comparision with the data of the previous year
     budgets:
+      cards:
+        gross_saving:
+          title: Gross saving
       guide:
         budget_execution: Budget execution
         budget_execution_p1_html: 'Approving a budget does not mean that it is written
@@ -482,6 +485,7 @@ en:
         elaboration: Elaboration
         execution: Execution
         guide: Guide
+        indicators: Indicators
         providers: Providers and Invoices
         receipt: Receipt
         summary: Summary

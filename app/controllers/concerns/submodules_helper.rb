@@ -9,7 +9,7 @@ module SubmodulesHelper
                   :budget_lines_feedback_active?, :gobierto_budgets_feedback_emails,
                   :budgets_receipt_active?, :budgets_receipt_configuration, :submodule_has_content?,
                   :budgets_comparison_context_table_enabled, :budgets_comparison_compare_municipalities,
-                  :budgets_comparison_show_widget, :budgets_providers_active?
+                  :budgets_comparison_show_widget, :budgets_providers_active?, :budgets_indicators_active?
   end
 
   private
@@ -48,6 +48,10 @@ module SubmodulesHelper
 
   def budgets_providers_active?
     current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_providers_enabled"]
+  end
+
+  def budgets_indicators_active?
+    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_indicators_enabled"]
   end
 
   def available_submodules

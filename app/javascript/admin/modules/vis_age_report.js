@@ -1,6 +1,6 @@
-'use strict';
-
 /* exported VisAgeReport */
+import Class from '../../shared/klass.js'
+
 var VisAgeReport = Class.extend({
   init: function(divId, url) {
     this.container = divId;

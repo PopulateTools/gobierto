@@ -1,5 +1,6 @@
-'use strict';
 /* exported VisIndicators */
+import Class from '../../shared/klass.js'
+
 var VisIndicators = Class.extend({
   init: function(divId, url) {
     this.container = divId;

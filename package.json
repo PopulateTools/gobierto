@@ -1,20 +1,32 @@
 {
   "dependencies": {
     "@rails/webpacker": "^3.3.0",
+    "accounting": "^0.4.1",
     "air-datepicker": "^2.2.3",
+    "algoliasearch": "^3.25.1",
     "cleave.js": "^1.1.3",
     "codemirror": "^5.35.0",
     "cropperjs": "^1.3.2",
+    "d3": "^4.13.0",
     "geocomplete": "^1.7.0",
     "i18n-js": "^3.0.3",
     "jqtree": "^1.4.4",
     "jquery": "^3.3.1",
     "jquery-autocomplete": "^1.2.8",
+    "jquery-ui": "^1.12.1",
+    "jquery-ujs": "^1.2.2",
+    "jquery-visible": "^1.2.0",
     "jquery.tipsy": "^1.0.3",
+    "lodash": "^4.17.5",
+    "magnific-popup": "^1.1.0",
+    "moment": "^2.21.0",
+    "mustache": "^2.3.0",
     "select2": "^4.0.6-rc.1",
     "simplemde": "^1.11.2",
     "sticky-kit": "^1.1.3",
-    "webpack-rails-i18n-js-plugin": "^1.3.0"
+    "turbolinks": "^5.1.1",
+    "velocity-animate": "^1.5.1",
+    "velocity-ui-pack": "^1.2.2"
   },
   "devDependencies": {
     "webpack-cli": "^2.0.10",

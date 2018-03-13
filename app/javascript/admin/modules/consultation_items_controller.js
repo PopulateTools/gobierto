@@ -1,4 +1,4 @@
-this.GobiertoAdmin.ConsultationItemsController = (function() {
+window.GobiertoAdmin.ConsultationItemsController = (function() {
   function ConsultationItemsController() {}
 
   ConsultationItemsController.prototype.edit = function() {
@@ -76,4 +76,4 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
   return ConsultationItemsController;
 })();
 
-this.GobiertoAdmin.consultation_items_controller = new GobiertoAdmin.ConsultationItemsController;
+window.GobiertoAdmin.consultation_items_controller = new GobiertoAdmin.ConsultationItemsController;

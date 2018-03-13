@@ -5,9 +5,10 @@ const webpack = require('webpack')
 environment.plugins.prepend(
   'Provide',
   new webpack.ProvidePlugin({
+    I18n: 'i18n-js',
     $: 'jquery',
     jQuery: 'jquery',
-    jquery: 'jquery',
+    jquery: 'jquery'
   })
 )
 

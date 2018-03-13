@@ -1,4 +1,4 @@
-this.GobiertoAdmin.GobiertoCoreController = (function() {
+window.GobiertoAdmin.GobiertoCoreController = (function() {
   function GobiertoCoreController() {}
 
   GobiertoCoreController.prototype.index = function() {
@@ -22,4 +22,4 @@ this.GobiertoAdmin.GobiertoCoreController = (function() {
   return GobiertoCoreController;
 })();
 
-this.GobiertoAdmin.gobierto_core_controller = new GobiertoAdmin.GobiertoCoreController;
+window.GobiertoAdmin.gobierto_core_controller = new GobiertoAdmin.GobiertoCoreController;

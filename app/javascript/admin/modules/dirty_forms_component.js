@@ -1,4 +1,4 @@
-this.GobiertoAdmin.DirtyFormsComponent = (function() {
+window.GobiertoAdmin.DirtyFormsComponent = (function() {
   var isDirty;
   var t1, t2;
 
@@ -48,4 +48,4 @@ this.GobiertoAdmin.DirtyFormsComponent = (function() {
   return DirtyFormsComponent;
 })();
 
-this.GobiertoAdmin.dirty_forms_component = new GobiertoAdmin.DirtyFormsComponent;
+window.GobiertoAdmin.dirty_forms_component = new GobiertoAdmin.DirtyFormsComponent;

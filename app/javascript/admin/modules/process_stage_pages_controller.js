@@ -1,4 +1,4 @@
-this.GobiertoAdmin.ProcessStagePagesController = (function() {
+window.GobiertoAdmin.ProcessStagePagesController = (function() {
 
   function ProcessStagePagesController() {}
 
@@ -17,4 +17,4 @@ this.GobiertoAdmin.ProcessStagePagesController = (function() {
   return ProcessStagePagesController;
 })();
 
-this.GobiertoAdmin.process_stage_pages_controller = new GobiertoAdmin.ProcessStagePagesController;
+window.GobiertoAdmin.process_stage_pages_controller = new GobiertoAdmin.ProcessStagePagesController;

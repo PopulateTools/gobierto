@@ -1,4 +1,4 @@
-this.GobiertoAdmin.PersonEventsController = (function() {
+window.GobiertoAdmin.PersonEventsController = (function() {
   function PersonEventsController() {}
 
   PersonEventsController.prototype.edit = function(wrapper, namespace) {
@@ -8,4 +8,4 @@ this.GobiertoAdmin.PersonEventsController = (function() {
   return PersonEventsController;
 })();
 
-this.GobiertoAdmin.person_events_controller = new GobiertoAdmin.PersonEventsController;
+window.GobiertoAdmin.person_events_controller = new GobiertoAdmin.PersonEventsController;

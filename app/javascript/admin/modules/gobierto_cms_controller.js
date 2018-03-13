@@ -1,4 +1,4 @@
-this.GobiertoAdmin.GobiertoCmsController = (function() {
+window.GobiertoAdmin.GobiertoCmsController = (function() {
   function GobiertoCmsController() {}
 
   GobiertoCmsController.prototype.edit = function(sectionId, parentId, sectionItemId) {
@@ -185,4 +185,4 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
   return GobiertoCmsController;
 })();
 
-this.GobiertoAdmin.gobierto_cms_controller = new GobiertoAdmin.GobiertoCmsController;
+window.GobiertoAdmin.gobierto_cms_controller = new GobiertoAdmin.GobiertoCmsController;

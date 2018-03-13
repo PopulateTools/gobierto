@@ -1,4 +1,4 @@
-this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
+window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
   function GobiertoAttachmentsController() {}
 
   GobiertoAttachmentsController.prototype.index = function() {
@@ -499,4 +499,4 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
   return GobiertoAttachmentsController;
 })();
 
-this.GobiertoAdmin.gobierto_attachments_controller = new GobiertoAdmin.GobiertoAttachmentsController;
+window.GobiertoAdmin.gobierto_attachments_controller = new GobiertoAdmin.GobiertoAttachmentsController;

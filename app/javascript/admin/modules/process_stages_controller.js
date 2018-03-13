@@ -1,5 +1,5 @@
 /*global addDatepickerBehaviors */
-this.GobiertoAdmin.ProcessStagesController = (function() {
+window.GobiertoAdmin.ProcessStagesController = (function() {
 
   function ProcessStagesController() {}
 
@@ -78,4 +78,4 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
   return ProcessStagesController;
 })();
 
-this.GobiertoAdmin.process_stages_controller = new GobiertoAdmin.ProcessStagesController;
+window.GobiertoAdmin.process_stages_controller = new GobiertoAdmin.ProcessStagesController;

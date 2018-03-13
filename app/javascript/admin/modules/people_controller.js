@@ -1,4 +1,4 @@
-this.GobiertoAdmin.PeopleController = (function() {
+window.GobiertoAdmin.PeopleController = (function() {
   function PeopleController() {}
 
   PeopleController.prototype.index = function() {
@@ -57,4 +57,4 @@ this.GobiertoAdmin.PeopleController = (function() {
   return PeopleController;
 })();
 
-this.GobiertoAdmin.people_controller = new GobiertoAdmin.PeopleController;
+window.GobiertoAdmin.people_controller = new GobiertoAdmin.PeopleController;

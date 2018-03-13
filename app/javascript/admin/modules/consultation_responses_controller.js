@@ -1,4 +1,4 @@
-this.GobiertoAdmin.ConsultationResponsesController = (function() {
+window.GobiertoAdmin.ConsultationResponsesController = (function() {
   function ConsultationResponsesController() {}
 
   ConsultationResponsesController.prototype.index = function(dataUrl) {
@@ -16,4 +16,4 @@ this.GobiertoAdmin.ConsultationResponsesController = (function() {
   return ConsultationResponsesController;
 })();
 
-this.GobiertoAdmin.consultation_responses_controller = new GobiertoAdmin.ConsultationResponsesController;
+window.GobiertoAdmin.consultation_responses_controller = new GobiertoAdmin.ConsultationResponsesController;

@@ -1,4 +1,4 @@
-this.GobiertoAdmin.GlobalizedFormsComponent = (function() {
+window.GobiertoAdmin.GlobalizedFormsComponent = (function() {
   function GlobalizedFormsComponent() {}
 
   GlobalizedFormsComponent.prototype.handle = function() {
@@ -76,4 +76,4 @@ this.GobiertoAdmin.GlobalizedFormsComponent = (function() {
   return GlobalizedFormsComponent;
 })();
 
-this.GobiertoAdmin.globalized_forms_component = new GobiertoAdmin.GlobalizedFormsComponent;
+window.GobiertoAdmin.globalized_forms_component = new GobiertoAdmin.GlobalizedFormsComponent;

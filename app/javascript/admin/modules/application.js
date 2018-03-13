@@ -1,36 +1,3 @@
-//= require jquery.geocomplete
-//= require jquery.autocomplete
-//= require cleave
-//= require tipsy
-//= require tree.jquery
-//= require codemirror
-//= require codemirror/addon/fold/foldcode
-//= require codemirror/addon/fold/foldgutter
-//= require codemirror/addon/fold/brace-fold
-//= require codemirror/addon/fold/xml-fold
-//= require codemirror/addon/fold/indent-fold
-//= require codemirror/addon/fold/markdown-fold
-//= require codemirror/addon/fold/comment-fold.js
-//= require codemirror/mode/javascript/javascript
-//= require codemirror/mode/xml/xml
-//= require codemirror/mode/css/css
-//= require codemirror/mode/htmlmixed/htmlmixed
-//= require codemirror/mode/markdown/markdown
-//= require select2.min
-//= require cropper
-//= require cropper.min
-//= require air-datepicker/datepicker.min
-//= require air-datepicker/i18n/datepicker.es
-//= require air-datepicker/i18n/datepicker.en
-//= require air-datepicker/i18n/datepicker.ca
-//= require ./module-admin-search
-//= require ./app/init
-//= require sticky-kit.min
-//= require simplemde.min
-//= require_tree ./app
-//= require_tree ../../../../lib/assets/javascripts/polyfills/
-//= require module-admin
-
 /*global AUTOCOMPLETE_DEFAULTS */
 $(document).on('turbolinks:load', function() {
   $('.open_remote_modal').magnificPopup({

@@ -1,4 +1,4 @@
-this.GobiertoAdmin.ContentBlocksController = (function() {
+window.GobiertoAdmin.ContentBlocksController = (function() {
   function ContentBlocksController() {}
 
   ContentBlocksController.prototype.edit = function(wrapper, namespace) {
@@ -8,4 +8,4 @@ this.GobiertoAdmin.ContentBlocksController = (function() {
   return ContentBlocksController;
 })();
 
-this.GobiertoAdmin.content_blocks_controller = new GobiertoAdmin.ContentBlocksController;
+window.GobiertoAdmin.content_blocks_controller = new GobiertoAdmin.ContentBlocksController;

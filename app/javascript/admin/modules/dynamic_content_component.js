@@ -1,4 +1,4 @@
-this.GobiertoAdmin.DynamicContentComponent = (function() {
+window.GobiertoAdmin.DynamicContentComponent = (function() {
   function DynamicContentComponent() {}
 
   DynamicContentComponent.prototype.handle = function(wrapper, namespace) {
@@ -266,4 +266,4 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   return DynamicContentComponent;
 })();
 
-this.GobiertoAdmin.dynamic_content_component = new GobiertoAdmin.DynamicContentComponent;
+window.GobiertoAdmin.dynamic_content_component = new GobiertoAdmin.DynamicContentComponent;

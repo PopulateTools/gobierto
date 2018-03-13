@@ -1,4 +1,4 @@
-this.GobiertoAdmin.GobiertoBudgetsController = (function() {
+window.GobiertoAdmin.GobiertoBudgetsController = (function() {
   function GobiertoBudgetsController() {}
 
   GobiertoBudgetsController.prototype.options = function(options) {
@@ -44,4 +44,4 @@ this.GobiertoAdmin.GobiertoBudgetsController = (function() {
   return GobiertoBudgetsController;
 })();
 
-this.GobiertoAdmin.gobierto_budgets_controller = new GobiertoAdmin.GobiertoBudgetsController;
+window.GobiertoAdmin.gobierto_budgets_controller = new GobiertoAdmin.GobiertoBudgetsController;

@@ -1,4 +1,4 @@
-this.GobiertoAdmin.SectionsController = (function() {
+window.GobiertoAdmin.SectionsController = (function() {
   function SectionsController() {}
 
   SectionsController.prototype.show = function() {
@@ -130,4 +130,4 @@ this.GobiertoAdmin.SectionsController = (function() {
   return SectionsController;
 })();
 
-this.GobiertoAdmin.sections_controller = new GobiertoAdmin.SectionsController;
+window.GobiertoAdmin.sections_controller = new GobiertoAdmin.SectionsController;

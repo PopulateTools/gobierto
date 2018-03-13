@@ -1,4 +1,4 @@
-this.GobiertoAdmin.AdminsController = (function() {
+window.GobiertoAdmin.AdminsController = (function() {
 
     function AdminsController() {}
 
@@ -96,4 +96,4 @@ this.GobiertoAdmin.AdminsController = (function() {
     return AdminsController;
   })();
 
-  this.GobiertoAdmin.admins_controller = new GobiertoAdmin.AdminsController;
+  window.GobiertoAdmin.admins_controller = new GobiertoAdmin.AdminsController;

@@ -1,4 +1,4 @@
-this.GobiertoAdmin.SitesController = (function() {
+window.GobiertoAdmin.SitesController = (function() {
   function SitesController() {}
 
   function _handleSiteLocationAutocomplete() {
@@ -84,4 +84,4 @@ this.GobiertoAdmin.SitesController = (function() {
   return SitesController;
 })();
 
-this.GobiertoAdmin.sites_controller = new GobiertoAdmin.SitesController;
+window.GobiertoAdmin.sites_controller = new GobiertoAdmin.SitesController;

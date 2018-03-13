@@ -1,4 +1,4 @@
-this.GobiertoAdmin.ProcessPollsController = (function() {
+window.GobiertoAdmin.ProcessPollsController = (function() {
 
   var $modalStateBackup;
   var restoreModalContentFlag = false;
@@ -572,4 +572,4 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
   return ProcessPollsController;
 })();
 
-this.GobiertoAdmin.process_polls_controller = new GobiertoAdmin.ProcessPollsController;
+window.GobiertoAdmin.process_polls_controller = new GobiertoAdmin.ProcessPollsController;

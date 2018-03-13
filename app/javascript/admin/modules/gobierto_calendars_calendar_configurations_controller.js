@@ -1,4 +1,4 @@
-this.GobiertoAdmin.GobiertoCalendarsCalendarConfigurationsController = (function() {
+window.GobiertoAdmin.GobiertoCalendarsCalendarConfigurationsController = (function() {
   function GobiertoCalendarsCalendarConfigurationsController() {}
 
   GobiertoCalendarsCalendarConfigurationsController.prototype.edit = function(wrapper, namespace) {
@@ -37,4 +37,4 @@ this.GobiertoAdmin.GobiertoCalendarsCalendarConfigurationsController = (function
   return GobiertoCalendarsCalendarConfigurationsController;
 })();
 
-this.GobiertoAdmin.gobierto_calendars_calendar_configurations_controller = new GobiertoAdmin.GobiertoCalendarsCalendarConfigurationsController;
+window.GobiertoAdmin.gobierto_calendars_calendar_configurations_controller = new GobiertoAdmin.GobiertoCalendarsCalendarConfigurationsController;

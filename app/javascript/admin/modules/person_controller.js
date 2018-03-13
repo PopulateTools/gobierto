@@ -1,4 +1,4 @@
-this.GobiertoAdmin.PersonController = (function() {
+window.GobiertoAdmin.PersonController = (function() {
   function PersonController() {}
 
   PersonController.prototype.form = function() {
@@ -109,4 +109,4 @@ this.GobiertoAdmin.PersonController = (function() {
   return PersonController;
 })();
 
-this.GobiertoAdmin.person_controller = new GobiertoAdmin.PersonController;
+window.GobiertoAdmin.person_controller = new GobiertoAdmin.PersonController;

@@ -195,7 +195,7 @@
   <% end %>
 
   <%= javascript_pack_tag 'vendor' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'admin', 'data-turbolinks-track': 'reload' %>
 
   <script type="text/javascript">
     I18n.defaultLocale = "<%= I18n.default_locale %>";
@@ -206,7 +206,6 @@
     window.GobiertoAdmin.dirty_forms_component.handle("<%= t(".dirty_forms.message") %>");
     window.GobiertoAdmin.globalized_forms_component.handle();
   <% end %>
-
 
   <%= yield :javascript_hook %>
 

@@ -1,4 +1,4 @@
-this.GobiertoAdmin.ProcessesController = (function() {
+window.GobiertoAdmin.ProcessesController = (function() {
 
   function ProcessesController() {}
 
@@ -17,4 +17,4 @@ this.GobiertoAdmin.ProcessesController = (function() {
   return ProcessesController;
 })();
 
-this.GobiertoAdmin.processes_controller = new GobiertoAdmin.ProcessesController;
+window.GobiertoAdmin.processes_controller = new GobiertoAdmin.ProcessesController;

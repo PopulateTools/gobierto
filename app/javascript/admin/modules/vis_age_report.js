@@ -1,4 +1,5 @@
 'use strict';
+
 /* exported VisAgeReport */
 var VisAgeReport = Class.extend({
   init: function(divId, url) {

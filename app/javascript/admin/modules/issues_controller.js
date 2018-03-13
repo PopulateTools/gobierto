@@ -1,7 +1,7 @@
-this.GobiertoAdmin.PoliticalGroupsController = (function() {
-  function PoliticalGroupsController() {}
+window.GobiertoAdmin.IssuesController = (function() {
+  function IssuesController() {}
 
-  PoliticalGroupsController.prototype.index = function() {
+  IssuesController.prototype.index = function() {
     _handleSortableList();
   };
 
@@ -10,8 +10,9 @@ this.GobiertoAdmin.PoliticalGroupsController = (function() {
 
     $(wrapper).sortable({
       items: 'tr',
+      handle: '.custom_handle',
       forcePlaceholderSize: true,
-      placeholder: '<tr><td colspan="3">&nbsp;&nbsp;</td></tr>',
+      placeholder: '<tr><td colspan="8">&nbsp;&nbsp;</td></tr>',
       update: function() {
         _refreshPositions(wrapper);
         _requestUpdate(wrapper, _buildPositions(wrapper));
@@ -54,7 +55,7 @@ this.GobiertoAdmin.PoliticalGroupsController = (function() {
     });
   }
 
-  return PoliticalGroupsController;
+  return IssuesController;
 })();
 
-this.GobiertoAdmin.political_groups_controller = new GobiertoAdmin.PoliticalGroupsController;
+window.GobiertoAdmin.issues_controller = new GobiertoAdmin.IssuesController;

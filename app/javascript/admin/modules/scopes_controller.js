@@ -1,7 +1,7 @@
-this.GobiertoAdmin.IssuesController = (function() {
-  function IssuesController() {}
+window.GobiertoAdmin.ScopesController = (function() {
+  function ScopesController() {}
 
-  IssuesController.prototype.index = function() {
+  ScopesController.prototype.index = function() {
     _handleSortableList();
   };
 
@@ -55,7 +55,7 @@ this.GobiertoAdmin.IssuesController = (function() {
     });
   }
 
-  return IssuesController;
+  return ScopesController;
 })();
 
-this.GobiertoAdmin.issues_controller = new GobiertoAdmin.IssuesController;
+window.GobiertoAdmin.scopes_controller = new GobiertoAdmin.ScopesController;

@@ -18,7 +18,7 @@ module GobiertoParticipation
       end
 
       def find_contribution_containers
-        current_process.contribution_containers.active
+        current_process.contribution_containers
       end
     end
   end

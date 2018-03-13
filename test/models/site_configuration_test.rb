@@ -25,6 +25,10 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     assert_equal ["GobiertoDevelopment"], site_configuration.modules
   end
 
+  def test_available_modules?
+    assert site_configuration.available_module?("GobiertoDevelopment")
+  end
+
   def test_modules?
     assert site_configuration.modules?
   end
@@ -90,7 +94,7 @@ class SiteConfigurationTest < ActiveSupport::TestCase
   def site_configuration_params
     @site_configuration_params ||= begin
       {
-        "modules"           => %w(Wadus GobiertoDevelopment), # Note that the "Wadus" module is not standard
+        "modules"           => ["Wadus", "GobiertoDevelopment"], # Note that the "Wadus" module is not standard
         "logo"              => "gobierto_development.png",
         "links_markup"      => %(<a href="http://madrid.es">Ayuntamiento de Madrid</a>),
         "demo"              => true,

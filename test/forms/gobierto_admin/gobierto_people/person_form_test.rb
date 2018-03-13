@@ -40,6 +40,16 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def uploaded_file
+        @uploaded_file ||= begin
+                             tmp_file = Tempfile.new
+                             tmp_file.binmode
+                             tmp_file.write("Test content")
+                             ActionDispatch::Http::UploadedFile.new(tempfile: tmp_file,
+                                                                    original_filename: "file.pdf")
+                           end
+      end
+
       def test_save_with_valid_attributes
         assert valid_person_form.save
         assert valid_person_form.person.google_calendar_token.present?
@@ -74,7 +84,7 @@ module GobiertoAdmin
       end
 
       def test_content_block_records_are_assigned_after_site_id
-        person_params = { name: person.name, content_block_records_attributes: { "0" => { attachment_file: "file.pdf" } } }
+        person_params = { name: person.name, content_block_records_attributes: { "0" => { attachment_file: uploaded_file } } }
 
         ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/file.pdf")
 

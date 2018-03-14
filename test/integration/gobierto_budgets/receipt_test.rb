@@ -8,12 +8,10 @@ class GobiertoBudgets::ReceiptTest < ActionDispatch::IntegrationTest
   end
 
   def test_greeting
-    with_javascript do
-      with_current_site(site) do
-        visit gobierto_budgets_receipt_path
+    with_current_site(site) do
+      visit gobierto_budgets_receipt_path
 
-        assert has_content?("Your contribution to Ayuntamiento de Madrid")
-      end
+      assert has_content?("Your contribution to Ayuntamiento de Madrid")
     end
   end
 end

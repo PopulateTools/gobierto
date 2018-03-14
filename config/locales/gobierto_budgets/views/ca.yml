@@ -60,6 +60,9 @@ ca:
         vs_previous_year: vs. exercici anterior
         vs_previous_year_tooltip: Comparació amb les dades de l'exercici anterior
     budgets:
+      meta:
+        time: " al "
+        where: 'A '
       cards:
         debt_level:
           title: Nivell d'endeutament
@@ -77,8 +80,6 @@ ca:
           title: Finançament inversions
         liability_cost:
           title: Cost deute
-        municipal_budget_line:
-          title: Partida de pressupostos municipals
         net_saving:
           title: Ahorro net
         net_savings_rate:
@@ -91,8 +92,6 @@ ca:
           title: Capacitat d'autofinançament
         tax_autonomy:
           title: Autonomia fiscal
-        total_municipal_budgets:
-          title: Total de pressupostos municipals
       guide:
         budget_execution: L'execució pressupostària
         budget_execution_p1_html: Aprovar un pressupost no vol dir que es quedi escrit

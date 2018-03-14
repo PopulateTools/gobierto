@@ -16,7 +16,7 @@ var SimpleCard = Class.extend({
 
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
-      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_observatory.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_observatory.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_observatory.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(value))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
+      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_budgets.budgets.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_budgets.budgets.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_budgets.budgets.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(value))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
 
     this.div.selectAll('.fb-sharer')
       .attr('target', '_blank')
@@ -42,12 +42,6 @@ var SimpleCard = Class.extend({
     this.div.selectAll('.widget_title')
       .attr('title', I18n.t('gobierto_budgets.budgets.cards.' + cardName + '.title'))
       .text(I18n.t('gobierto_budgets.budgets.cards.' + cardName + '.title'));
-
-    // Append backface info
-    this.div.selectAll('.js-data-desc')
-      .text(json.metadata.indicator.description);
-    this.div.selectAll('.js-data-freq')
-      .text(formatDate(parsedDate));
 
     if (typeof json.data[1] !== 'undefined') {
       var spark = new Sparkline(divClass + ' .sparkline', json.data, trend, freq);

@@ -61,6 +61,9 @@ es:
         vs_previous_year_tooltip: Comparación con los datos del ejercicio anterior
     budgets:
       cards:
+        meta:
+          time: " en "
+          where: 'En '
         debt_level:
           title: Nivel de endeudamiento
         expenditure_rigidity:
@@ -77,8 +80,6 @@ es:
           title: Financiación inversiones
         liability_cost:
           title: Coste deuda
-        municipal_budget_line:
-          title: Partida de presupuestos municipales
         net_saving:
           title: Ahorro neto
         net_savings_rate:
@@ -91,8 +92,6 @@ es:
           title: Capacidad de autofinanciación
         tax_autonomy:
           title: Autonomía fiscal
-        total_municipal_budgets:
-          title: Total de presupuestos municipales
       guide:
         budget_execution: La ejecución presupuestaria
         budget_execution_p1_html: 'Aprobar un presupuesto no significa que se quede

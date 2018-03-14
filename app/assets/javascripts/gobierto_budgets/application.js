@@ -45,12 +45,6 @@ $(document).on('turbolinks:load', function() {
   var perCapitaTaxBurdenCard = new PerCapitaTaxBurdenCard('.per_capita_tax_burden_card', window.populateData.municipalityId);
   perCapitaTaxBurdenCard.render();
 
-  var municipalBudgetLineCard = new MunicipalBudgetLineCard('.municipal_budget_line_card', window.populateData.municipalityId);
-  municipalBudgetLineCard.render();
-
-  var totalMunicipalBudgetsCard = new TotalMunicipalBudgetsCard('.total_municipal_budgets_card', window.populateData.municipalityId);
-  totalMunicipalBudgetsCard.render();
-
   var financialRiskCard = new FinancialRiskCard('.financial_risk_card', window.populateData.municipalityId);
   financialRiskCard.render();
 

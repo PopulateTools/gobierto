@@ -59,6 +59,9 @@ en:
         vs_previous_year: vs. previous year
         vs_previous_year_tooltip: Comparision with the data of the previous year
     budgets:
+      meta:
+        time: " in "
+        where: 'At '
       cards:
         debt_level:
           title: Debt level
@@ -76,8 +79,6 @@ en:
           title: Investment financing
         liability_cost:
           title: Liability cost
-        municipal_budget_line:
-          title: Municipal budget line
         net_saving:
           title: Net saving
         net_savings_rate:
@@ -90,8 +91,6 @@ en:
           title: Self financing capacity
         tax_autonomy:
           title: Tax autonomy
-        total_municipal_budgets:
-          title: Total municipal budgets
       guide:
         budget_execution: Budget execution
         budget_execution_p1_html: 'Approving a budget does not mean that it is written

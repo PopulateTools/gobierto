@@ -25,4 +25,6 @@
 #   - file: "app/assets/javascripts/i18n/translations.js"
 #     only: "*"
 #
-export_i18n_js: "app/javascript/shared"
+export_i18n_js: false
+translations:
+  - file: "app/javascript/i18n/translations.js"

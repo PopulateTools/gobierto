@@ -1,3 +1,5 @@
+import { Cropper } from 'shared'
+
 window.GobiertoAdmin.PersonController = (function() {
   function PersonController() {}
 

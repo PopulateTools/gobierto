@@ -1,4 +1,5 @@
-/*global addDatepickerBehaviors */
+import { addDatepickerBehaviors } from './application';
+
 window.GobiertoAdmin.ProcessStagesController = (function() {
 
   function ProcessStagesController() {}

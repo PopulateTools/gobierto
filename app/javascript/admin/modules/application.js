@@ -1,4 +1,4 @@
-import { AUTOCOMPLETE_DEFAULTS } from 'shared'
+import { AUTOCOMPLETE_DEFAULTS, SimpleMDE } from 'shared'
 
 $(document).on('turbolinks:load', function() {
   $('.open_remote_modal').magnificPopup({
@@ -123,3 +123,5 @@ function initializePageWithOnlyOneDatepicker() {
     }
   });
 }
+
+export { addDatepickerBehaviors }

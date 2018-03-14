@@ -1,5 +1,5 @@
 /* exported VisAgeReport */
-import { Class } from 'shared'
+import { Class, accounting } from 'shared'
 
 var VisAgeReport = Class.extend({
   init: function(divId, url) {

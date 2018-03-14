@@ -19,7 +19,7 @@ environment.plugins.append('CommonChunkVendor',
   })
 )
 
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
 
 module.exports = environment

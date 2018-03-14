@@ -1,5 +1,5 @@
 /* exported VisIndicators */
-import { Class } from 'shared'
+import { Class, accounting } from 'shared'
 
 var VisIndicators = Class.extend({
   init: function(divId, url) {

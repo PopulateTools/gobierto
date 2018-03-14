@@ -1,4 +1,4 @@
-export default class Class {
+export class Class {
   static extend(prop) {
     // Este es el proto de la clase de la que se extiende
     // (es decir, el padre)

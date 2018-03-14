@@ -1,4 +1,5 @@
-/*global AUTOCOMPLETE_DEFAULTS */
+import { AUTOCOMPLETE_DEFAULTS } from 'shared'
+
 $(document).on('turbolinks:load', function() {
   $('.open_remote_modal').magnificPopup({
     type: 'ajax',

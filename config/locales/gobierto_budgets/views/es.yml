@@ -502,6 +502,7 @@ es:
         option3: Mucho
         thanks: 'Gracias por tu opinión. Esto es lo que piensa el resto de la gente
           que ha opinado:'
+    indicators: Indicadores
     indicators_intro: 'Conoce los presupuestos de %{place} a través de sus principales
       cifras: ahorro bruto, inversión por habitante o financiación de inversiones.'
     invoices:

@@ -510,6 +510,7 @@ ca:
         option2: Apropiat
         option3: Molt
         thanks: 'Gràcies por la teva opinió. Això es el que pensa la resta de la gent:'
+    indicators: Indicadors
     indicators_intro: 'Coneix els pressupostos de %{place} a partir de les principals
       xifres: estalvi brut, inversió per habitant o finançament d''inversions.'
     invoices:

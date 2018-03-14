@@ -488,6 +488,7 @@ en:
         option2: Good
         option3: Too much
         thanks: 'Thanks for your opinion. This is what the rest of the people think:'
+    indicators: Indicators
     indicators_intro: 'Understand the budgets of %{place} through its main figures:
       gross savings, per capita investment or investment financing.'
     invoices:

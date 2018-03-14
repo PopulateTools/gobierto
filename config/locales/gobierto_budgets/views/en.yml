@@ -60,8 +60,38 @@ en:
         vs_previous_year_tooltip: Comparision with the data of the previous year
     budgets:
       cards:
+        debt_level:
+          title: Debt level
+        expenditure_rigidity:
+          title: Expenditure rigidity
+        financial_charge:
+          title: Financial charge
+        financial_risk:
+          title: Financial risk
         gross_saving:
           title: Gross saving
+        gross_savings_rate:
+          title: Gross savings rate
+        investment_financing:
+          title: Investment financing
+        liability_cost:
+          title: Liability cost
+        municipal_budget_line:
+          title: Municipal budget line
+        net_saving:
+          title: Net saving
+        net_savings_rate:
+          title: Net savings rate
+        per_capita_investment:
+          title: Per capita investment
+        per_capita_tax_burden:
+          title: Per capita tax burden
+        self_financing_capacity:
+          title: Self financing capacity
+        tax_autonomy:
+          title: Tax autonomy
+        total_municipal_budgets:
+          title: Total municipal budgets
       guide:
         budget_execution: Budget execution
         budget_execution_p1_html: 'Approving a budget does not mean that it is written
@@ -458,6 +488,8 @@ en:
         option2: Good
         option3: Too much
         thanks: 'Thanks for your opinion. This is what the rest of the people think:'
+    indicators_intro: 'Understand the budgets of %{place} through its main figures:
+      gross savings, per capita investment or investment financing.'
     invoices:
       show:
         fromto: From To No. Inv.

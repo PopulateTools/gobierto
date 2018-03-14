@@ -8,8 +8,6 @@
     "_": true,
     "Vue": true,
     "I18n": true,
-    "d3": true,
-    "accounting": true,
   },
   "parserOptions": {
     "sourceType": "module"

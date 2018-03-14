@@ -1,7 +1,6 @@
-/* exported VisAgeReport */
-import { Class, accounting } from 'shared'
+import { Class, accounting, d3 } from 'shared'
 
-var VisAgeReport = Class.extend({
+export var VisAgeReport = Class.extend({
   init: function(divId, url) {
     this.container = divId;
     this.data = null;

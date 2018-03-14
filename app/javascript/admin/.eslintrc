@@ -1,12 +1,5 @@
 {
   "globals": {
     "GobiertoAdmin": true,
-    "VisAgeReport": true,
-    "VisIndicators": true,
-    "CodeMirror": true,
-    "Cropper": true,
-    "Cleave": true,
-    "Turbolinks": true,
-    "SimpleMDE": true,
   },
 }

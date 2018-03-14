@@ -9,7 +9,7 @@ $(document).on('turbolinks:load', function() {
     function generateArrays () {
       tabs = document.querySelectorAll('[role="tab"]');
       panels = document.querySelectorAll('[role="tabpanel"]');
-    };
+    }
 
     // For easy reference
     var keys = {
@@ -32,9 +32,9 @@ $(document).on('turbolinks:load', function() {
     };
 
     // Bind listeners
-    for (i = 0; i < tabs.length; ++i) {
+    for (var i = 0; i < tabs.length; ++i) {
       addListeners(i);
-    };
+    }
 
     function addListeners (index) {
       tabs[index].addEventListener('click', clickEventListener);
@@ -43,13 +43,13 @@ $(document).on('turbolinks:load', function() {
 
       // Build an array with all tabs (<button>s) in it
       tabs[index].index = index;
-    };
+    }
 
     // When a tab is clicked, activateTab is fired to activate it
     function clickEventListener (event) {
       var tab = event.target;
       activateTab(tab, false);
-    };
+    }
 
     // Handle keydown on tabs
     function keydownEventListener (event) {
@@ -73,8 +73,8 @@ $(document).on('turbolinks:load', function() {
         case keys.down:
           determineOrientation(event);
           break;
-      };
-    };
+      }
+    }
 
     // Handle keyup on tabs
     function keyupEventListener (event) {
@@ -89,8 +89,8 @@ $(document).on('turbolinks:load', function() {
         case keys.space:
           activateTab(event.target);
           break;
-      };
-    };
+      }
+    }
 
     // When a tablist’s aria-orientation is set to vertical,
     // only up and down arrow should function.
@@ -104,18 +104,18 @@ $(document).on('turbolinks:load', function() {
         if (key === keys.up || key === keys.down) {
           event.preventDefault();
           proceed = true;
-        };
+        }
       }
       else {
         if (key === keys.left || key === keys.right) {
           proceed = true;
-        };
-      };
+        }
+      }
 
       if (proceed) {
         switchTabOnArrowPress(event);
-      };
-    };
+      }
+    }
 
     // Either focus the next, previous, first, or last tab
     // depening on key pressed
@@ -133,10 +133,10 @@ $(document).on('turbolinks:load', function() {
           }
           else if (pressed === keys.right || pressed == keys.down) {
             focusFirstTab();
-          };
-        };
-      };
-    };
+          }
+        }
+      }
+    }
 
     // Activates any given tab panel
     function activateTab (tab, setFocus) {
@@ -163,30 +163,30 @@ $(document).on('turbolinks:load', function() {
       // Set focus when required
       if (setFocus) {
         tab.focus();
-      };
-    };
+      }
+    }
 
     // Deactivate all tabs and tab panels
     function deactivateTabs () {
-      for (t = 0; t < tabs.length; t++) {
+      for (var t = 0; t < tabs.length; t++) {
         tabs[t].setAttribute('tabindex', '-1');
         tabs[t].setAttribute('aria-selected', 'false');
-      };
+      }
 
-      for (p = 0; p < panels.length; p++) {
+      for (var p = 0; p < panels.length; p++) {
         panels[p].setAttribute('hidden', 'hidden');
-      };
-    };
+      }
+    }
 
     // Make a guess
     function focusFirstTab () {
       tabs[0].focus();
-    };
+    }
 
     // Make a guess
     function focusLastTab () {
       tabs[tabs.length - 1].focus();
-    };
+    }
 
     // Determine whether there should be a delay
     // when user navigates with the arrow keys
@@ -202,10 +202,10 @@ $(document).on('turbolinks:load', function() {
         else {
           // If no value is specified, default to 300ms
           delay = 300;
-        };
-      };
+        }
+      }
 
       return delay;
-    };
+    }
   })();
 });

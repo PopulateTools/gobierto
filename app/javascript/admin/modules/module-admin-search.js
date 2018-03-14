@@ -1,4 +1,5 @@
-/*global rebindAll */
+import { rebindAll } from 'shared'
+
 $(document).on('turbolinks:load', function() {
   var $input_admin = $('input#pages_search');
   var $resultsContainerAdmin = $('#search_pages');

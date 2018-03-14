@@ -1,3 +1,5 @@
+import { CodeMirror } from 'shared'
+
 window.GobiertoAdmin.GobiertoCoreController = (function() {
   function GobiertoCoreController() {}
 

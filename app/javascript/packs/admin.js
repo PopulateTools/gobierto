@@ -8,4 +8,4 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'shared'
-import Admin from 'admin'
+import 'admin'

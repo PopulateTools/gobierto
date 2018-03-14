@@ -10,7 +10,6 @@ import 'mustache'
 import 'velocity-animate'
 import 'velocity-ui-pack'
 // import 'lodash' (defined in webpack.config as global)
-import * as d3 from 'd3'
 // Falta d3-legend
 // Falta d3-locale
 // Falta d3-voronoi (editado??)
@@ -20,10 +19,8 @@ import 'moment'
 
 // Module admin
 import 'geocomplete'
-import 'cleave.js'
 import 'jquery.tipsy'
 import 'jqtree'
-import 'codemirror'
 import 'select2'
 import 'air-datepicker'
 import 'sticky-kit/dist/sticky-kit.js'

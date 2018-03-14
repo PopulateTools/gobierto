@@ -1,3 +1,6 @@
+import { VisAgeReport } from './vis_age_report.js'
+import { VisIndicators } from './vis_consultation_indicators.js'
+
 window.GobiertoAdmin.ConsultationResponsesController = (function() {
   function ConsultationResponsesController() {}
 

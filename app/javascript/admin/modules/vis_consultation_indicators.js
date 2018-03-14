@@ -1,7 +1,6 @@
-/* exported VisIndicators */
-import { Class, accounting } from 'shared'
+import { Class, accounting, d3 } from 'shared'
 
-var VisIndicators = Class.extend({
+export var VisIndicators = Class.extend({
   init: function(divId, url) {
     this.container = divId;
     this.data = null;

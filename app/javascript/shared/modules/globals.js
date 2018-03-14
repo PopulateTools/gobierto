@@ -1,5 +1,5 @@
 // Global util functions
-function rebindAll() {
+export function rebindAll() {
   $('.tipsit').tipsy({fade: false, gravity: 's', html: true});
   $('.tipsit-n').tipsy({fade: false, gravity: 'n', html: true});
   $('.tipsit-w').tipsy({fade: false, gravity: 'w', html: true});
@@ -7,11 +7,11 @@ function rebindAll() {
   $('.tipsit-treemap').tipsy({fade: false, gravity: $.fn.tipsy.autoNS, html: true});
 }
 
-function isDesktop(){
+export function isDesktop(){
   return $(window).width() > 740;
 }
 
-function isMobile() {
+export function isMobile() {
   return !isDesktop();
 }
 
@@ -61,7 +61,7 @@ $(document).on('turbolinks:load', function() {
     mainClass: 'mfp-fade'
   });
 
-  $('.close_modal').click(function(e) {
+  $('.close_modal').click(function() {
     $.magnificPopup.close();
   });
 

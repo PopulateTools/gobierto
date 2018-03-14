@@ -1,3 +1,5 @@
+import { Cleave } from 'shared'
+
 window.GobiertoAdmin.DynamicContentComponent = (function() {
   function DynamicContentComponent() {}
 

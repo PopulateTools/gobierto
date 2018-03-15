@@ -7,6 +7,10 @@ machine:
     RETRY_FAILING_TEST: true
   ruby:
     version: 2.5.0
+  node:
+    version: 8.2.0
+  yarn:
+    version: 1.1.0
 
 dependencies:
   cache_directories:

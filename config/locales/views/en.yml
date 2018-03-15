@@ -110,6 +110,8 @@ en:
       scopes_scope_created: Scope created
       scopes_scope_updated: Scope updated
   shared:
+    download_open_data:
+      exports: Download data in a reusable format
     poll_question:
       multiple_choice_msg: You can choose several options
     poll_teaser:

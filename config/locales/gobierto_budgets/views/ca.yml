@@ -77,6 +77,9 @@ ca:
           title: Finançament inversions
         liability_cost:
           title: Cost deute
+        meta:
+          time: " al "
+          where: 'A '
         net_saving:
           title: Ahorro net
         net_savings_rate:
@@ -341,9 +344,6 @@ ca:
         total_expenses: Despesa total
         total_expenses_tooltip: Pressupost inicial de despesa
         visualize: Visualitza les despeses per habitant o el total
-      meta:
-        time: " al "
-        where: 'A '
     budgets_elaboration:
       index:
         at_a_glance: Evolució de la despesa i comparació

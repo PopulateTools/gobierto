@@ -77,6 +77,9 @@ es:
           title: Financiación inversiones
         liability_cost:
           title: Coste deuda
+        meta:
+          time: " en "
+          where: 'En '
         net_saving:
           title: Ahorro neto
         net_savings_rate:
@@ -330,9 +333,6 @@ es:
         total_expenses: Gasto total
         total_expenses_tooltip: Presupuesto inicial
         visualize: Visualiza los gastos por habitante o el total
-      meta:
-        time: " en "
-        where: 'En '
     budgets_elaboration:
       index:
         at_a_glance: Evolución del gasto y comparación

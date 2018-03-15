@@ -76,6 +76,9 @@ en:
           title: Investment financing
         liability_cost:
           title: Liability cost
+        meta:
+          time: " in "
+          where: 'At '
         net_saving:
           title: Net saving
         net_savings_rate:
@@ -324,9 +327,6 @@ en:
         total_expenses: Total expenses
         total_expenses_tooltip: Starting budget
         visualize: Visualize expenses per inhabitant or the total
-      meta:
-        time: " in "
-        where: 'At '
     budgets_elaboration:
       index:
         at_a_glance: At a glance

@@ -16,6 +16,8 @@ dependencies:
   cache_directories:
     - elasticsearch-2.4.1
     - bin
+  override:
+    - npm install
   pre:
     - yarn install
   post:

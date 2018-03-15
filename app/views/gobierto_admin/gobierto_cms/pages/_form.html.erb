@@ -15,7 +15,7 @@
             <%= text_field_tag "page[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
 
-          <div class="form_item textarea" data-locale="<%= locale %>">
+          <div class="form_item textarea has-indication" data-locale="<%= locale %>">
             <%= label_tag "page[body_translations][#{locale}]" do %>
               <%= f.object.class.human_attribute_name(:body) %>
               <%= attribute_indication(@page_form.page.class, :body) %>

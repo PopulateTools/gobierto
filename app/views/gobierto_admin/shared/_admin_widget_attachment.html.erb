@@ -42,7 +42,7 @@
         <div class="p_2">
           <h3><%= t('.latest_documents') %></h3>
 
-          <input type="text" placeholder="<%= t('.search') %>..." v-model="q" :value="q" @keyup="search" class="slim"/>
+          <input type="text" placeholder="<%= t('.search') %>..." v-model="q" @keyup="search" class="slim"/>
 
           <table class="m_v_1" v-if="attachments.length">
             <tbody>

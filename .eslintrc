@@ -3,6 +3,7 @@
     "es6": true,
     "browser": true,
     "jquery": true,
+    "node": true,
   },
   "globals": {
     "_": true,

@@ -1,3 +1,5 @@
+import { Vue } from 'shared'
+
 window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
   function GobiertoAttachmentsController() {}
 

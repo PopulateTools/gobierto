@@ -1,5 +1,6 @@
 const { environment } = require('@rails/webpacker')
 const webpack = require('webpack')
+const merge = require('webpack-merge')
 
 environment.plugins.append(
   'Provide',
@@ -8,7 +9,7 @@ environment.plugins.append(
     'window.$': 'jquery',
     jQuery: 'jquery',
     'window.jQuery': 'jquery',
-    _: 'lodash',
+    _: 'lodash'
   })
 )
 
@@ -22,4 +23,13 @@ environment.plugins.append('CommonChunkVendor',
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
 
-module.exports = environment
+const envConfig = module.exports = environment
+const aliasConfig = module.exports = {
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.esm.js'
+    }
+  }
+}
+
+module.exports = merge(envConfig.toWebpackConfig(), aliasConfig)

@@ -17,11 +17,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
     var fileUtils = {
       methods: {
         fileExtension: function(name){
-          if(name.indexOf('.') !== -1){
-            return name.split('.')[1].toUpperCase();
-          } else {
-            return name.toUpperCase();
-          }
+          return name.split('.').pop().toUpperCase()
         },
         bytesToSize: function(bytes) {
           var sizes = ['bytes', 'Kb', 'Mb', 'Gb', 'Tb'];

@@ -116,7 +116,7 @@ GEM
     crass (1.0.3)
     d3-rails (4.13.0)
       railties (>= 3.1)
-    dalli (2.7.6)
+    dalli (2.7.7)
     data_migrate (3.5.0)
       rails (>= 4.1)
     declarative (0.0.10)

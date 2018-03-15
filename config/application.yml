@@ -67,7 +67,7 @@ default: &default
     endpoint: <%= ENV["POPULATE_DATA_ENDPOINT"] %>
   gobierto_observatory:
     year: 2015
-  file_uploads_adapter: s3
+  file_uploads_adapter: filesystem
   auth_modules:
     -
       name: null_strategy

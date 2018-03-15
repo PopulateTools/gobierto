@@ -81,12 +81,12 @@ module GobiertoAdmin
         @bio_url ||= begin
           return person.bio_url unless bio_file.present?
 
-          FileUploadService.new(
+          GobiertoAdmin::FileUploadService.new(
             site: site,
             collection: person.model_name.collection,
             attribute_name: :bio,
             file: bio_file
-          ).call
+          ).upload!
         end
       end
 
@@ -94,7 +94,7 @@ module GobiertoAdmin
         @avatar_url ||= begin
           return person.avatar_url unless avatar_file.present?
 
-          FileUploadService.new(
+          GobiertoAdmin::FileUploadService.new(
             site: site,
             collection: person.model_name.collection,
             attribute_name: :avatar,
@@ -103,7 +103,7 @@ module GobiertoAdmin
             y: logo_crop_y.to_f,
             w: logo_crop_w.to_f,
             h: logo_crop_h.to_f
-          ).call
+          ).upload!
         end
       end
 

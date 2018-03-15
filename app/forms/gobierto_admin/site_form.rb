@@ -143,12 +143,12 @@ module GobiertoAdmin
       @logo_url ||= begin
         return site.configuration.logo unless logo_file.present?
 
-        FileUploadService.new(
+        GobiertoAdmin::FileUploadService.new(
           site: site,
           collection: site.model_name.collection,
           attribute_name: :logo,
           file: logo_file
-        ).call
+        ).upload!
       end
     end
 

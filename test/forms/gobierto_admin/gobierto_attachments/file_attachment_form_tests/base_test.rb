@@ -9,9 +9,15 @@ module GobiertoAdmin
 
         def setup
           super
-          ::FileUploader::S3.any_instance
-                            .stubs(:call)
-                            .returns('http://www.domain.com/logo-madrid.png')
+          [::FileUploader::S3, ::FileUploader::Local].each do |file_uploader|
+            file_uploader.any_instance
+              .stubs(:upload!)
+              .returns('http://www.domain.com/logo-madrid.png')
+            file_uploader.any_instance
+              .stubs(:call)
+              .returns('http://www.domain.com/logo-madrid.png')
+
+          end
         end
 
         def site

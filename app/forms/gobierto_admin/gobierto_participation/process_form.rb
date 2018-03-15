@@ -91,12 +91,12 @@ module GobiertoAdmin
         @header_image_url ||= begin
           return process.header_image_url unless header_image.present?
 
-          FileUploadService.new(
+          GobiertoAdmin::FileUploadService.new(
             site: site,
             collection: process.model_name.collection,
             attribute_name: :header_image,
             file: header_image
-          ).call
+          ).upload!
         end
       end
 

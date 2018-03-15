@@ -59,9 +59,6 @@ en:
         vs_previous_year: vs. previous year
         vs_previous_year_tooltip: Comparision with the data of the previous year
     budgets:
-      meta:
-        time: " in "
-        where: 'At '
       cards:
         debt_level:
           title: Debt level
@@ -327,6 +324,9 @@ en:
         total_expenses: Total expenses
         total_expenses_tooltip: Starting budget
         visualize: Visualize expenses per inhabitant or the total
+      meta:
+        time: " in "
+        where: 'At '
     budgets_elaboration:
       index:
         at_a_glance: At a glance

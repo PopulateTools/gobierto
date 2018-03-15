@@ -60,9 +60,6 @@ ca:
         vs_previous_year: vs. exercici anterior
         vs_previous_year_tooltip: Comparació amb les dades de l'exercici anterior
     budgets:
-      meta:
-        time: " al "
-        where: 'A '
       cards:
         debt_level:
           title: Nivell d'endeutament
@@ -344,6 +341,9 @@ ca:
         total_expenses: Despesa total
         total_expenses_tooltip: Pressupost inicial de despesa
         visualize: Visualitza les despeses per habitant o el total
+      meta:
+        time: " al "
+        where: 'A '
     budgets_elaboration:
       index:
         at_a_glance: Evolució de la despesa i comparació

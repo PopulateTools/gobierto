@@ -1,17 +1,24 @@
+<script type="text/javascript">
+  window.populateDataYear = {
+    currentYear: <%= @year %>
+  }
+</script>
+
 <div class="column">
   <div class="content gobierto_observatory">
     <div class="block">
       <div class="pure-g header_block_inline">
-
         <div class="pure-u-1 pure-u-md-12-24">
-
           <div class="inline_header">
             <h2 class="with_description p_h_r_1"><%= t('gobierto_budgets.indicators') %></h2>
+            <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
           </div>
 
           <p>
             <%= t("gobierto_budgets.indicators_intro", place: @site.place.name) %>
           </p>
+
+          <%= render('gobierto_budgets/shared/data_updated_at') %>
 
           <p class="m_v_0_25"><%= link_to t('gobierto_budgets.budgets.index.budget_guide'), gobierto_budgets_budgets_guide_path %>.</p>
         </div>

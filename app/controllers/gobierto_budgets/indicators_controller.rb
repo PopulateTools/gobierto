@@ -10,7 +10,8 @@ class GobiertoBudgets::IndicatorsController < GobiertoBudgets::ApplicationContro
 
   def load_year
     if params[:year].nil?
-      redirect_to gobierto_budgets_indicators_path(GobiertoBudgets::SearchEngineConfiguration::Year.last)
+      years = GobiertoBudgets::SearchEngineConfiguration::Year.all.delete_if {|x| x == Date.current.year }
+      redirect_to gobierto_budgets_indicators_path(years.first)
     else
       @year = params[:year].to_i
     end

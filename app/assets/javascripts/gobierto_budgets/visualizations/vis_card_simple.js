@@ -14,54 +14,66 @@ var SimpleCard = Class.extend({
     var parsedDate = parseDate(json.data[0].date);
     var formatDate = d3.timeFormat("%b %Y");
 
-    this.div.selectAll('.tw-sharer')
-      .attr('target', '_blank')
-      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_budgets.budgets.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_budgets.budgets.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_budgets.budgets.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(value))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
+    var divCard = $('div[class*="' + divClass.replace('.','') + '"]');
 
-    this.div.selectAll('.fb-sharer')
-      .attr('target', '_blank')
-      .attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href);
+    // If no data exists for the selected year.
+    if(parsedDate.getFullYear() != window.populateDataYear.currentYear) {
+      divCard.hide();
+    } else {
+      this.div.selectAll('.tw-sharer')
+        .attr('target', '_blank')
+        .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_budgets.budgets.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_budgets.budgets.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_budgets.budgets.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(value))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
 
-    this.div.select('.widget_figure')
-      .text(this._printData(value));
+      this.div.selectAll('.fb-sharer')
+        .attr('target', '_blank')
+        .attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href);
 
-    // Append source
-    this.div.selectAll('.widget_src')
-      .attr('title', json.metadata.indicator['source name'])
-      .text(json.metadata.indicator['source name']);
+      this.div.select('.widget_figure')
+        .text(this._printData(value));
 
-    // Append date of last data point
-    this.div.selectAll('.widget_updated')
-      .text(formatDate(parsedDate));
+      // If the data is 0
+      if (divCard.find("div.indicator_widget.padded").find("div.widget_body").find("span.widget_figure").text() == 0) {
+        divCard.hide();
+      }
 
-    // Append update frequency
-    this.div.selectAll('.widget_freq')
-      .text(this._printFreq(json.metadata.frequency_type));
+      // Append source
+      this.div.selectAll('.widget_src')
+        .attr('title', json.metadata.indicator['source name'])
+        .text(json.metadata.indicator['source name']);
 
-    // Append metadata
-    this.div.selectAll('.widget_title')
-      .attr('title', I18n.t('gobierto_budgets.budgets.cards.' + cardName + '.title'))
-      .text(I18n.t('gobierto_budgets.budgets.cards.' + cardName + '.title'));
+      // Append date of last data point
+      this.div.selectAll('.widget_updated')
+        .text(formatDate(parsedDate));
 
-    if (typeof json.data[1] !== 'undefined') {
-      var spark = new Sparkline(divClass + ' .sparkline', json.data, trend, freq);
-      spark.render();
+      // Append update frequency
+      this.div.selectAll('.widget_freq')
+        .text(this._printFreq(json.metadata.frequency_type));
 
-      var pctChange = valueType ? (value / json.data[1][valueType] * 100) - 100 : (value / json.data[1].value * 100) - 100
-      var pctFormat = accounting.formatNumber(pctChange, 2) + '%';
-      var isPositive = pctChange > 0;
+      // Append metadata
+      this.div.selectAll('.widget_title')
+        .attr('title', I18n.t('gobierto_budgets.budgets.cards.' + cardName + '.title'))
+        .text(I18n.t('gobierto_budgets.budgets.cards.' + cardName + '.title'));
 
-      // If is a positive change, attach a plus sign to the number
-      this.div.select('.widget_pct')
-        .text(function() { return isPositive ? '+' + pctFormat : pctFormat; });
+      if (typeof json.data[1] !== 'undefined') {
+        var spark = new Sparkline(divClass + ' .sparkline', json.data, trend, freq);
+        spark.render();
 
-      // Return the correct icon
-      this.div.select('.widget_pct')
-        .append('i')
-        .attr('aria-hidden', 'true')
-        .attr('class', function() {
-          return isPositive ? 'fa fa-caret-up' : 'fa fa-caret-down';
-        });
+        var pctChange = valueType ? (value / json.data[1][valueType] * 100) - 100 : (value / json.data[1].value * 100) - 100
+        var pctFormat = accounting.formatNumber(pctChange, 2) + '%';
+        var isPositive = pctChange > 0;
+
+        // If is a positive change, attach a plus sign to the number
+        this.div.select('.widget_pct')
+          .text(function() { return isPositive ? '+' + pctFormat : pctFormat; });
+
+        // Return the correct icon
+        this.div.select('.widget_pct')
+          .append('i')
+          .attr('aria-hidden', 'true')
+          .attr('class', function() {
+            return isPositive ? 'fa fa-caret-up' : 'fa fa-caret-down';
+          });
+      }
     }
   },
   _printFreq: function(json) {

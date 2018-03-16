@@ -21,7 +21,7 @@ import 'geocomplete'
 import 'jquery.tipsy'
 import 'jqtree'
 import 'select2'
-import 'air-datepicker'
+import 'air-datepicker' // NOTE: translations are imported in shared module
 import 'sticky-kit/dist/sticky-kit.js'
 
 // Expose globals

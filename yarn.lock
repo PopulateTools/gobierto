@@ -4004,13 +4004,7 @@ jquery-visible@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/jquery-visible/-/jquery-visible-1.2.0.tgz#4839cac492f2e7f705fd06b1cde202b5da97c1e9"
 
-jquery.tipsy@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/jquery.tipsy/-/jquery.tipsy-1.0.3.tgz#648f3a9025d342be1c7280f23b70c41835a85b13"
-  dependencies:
-    jquery "*"
-
-jquery@*, "jquery@>= 1.4.3", jquery@>=1.8.0, jquery@>=1.9, "jquery@>=2.0.0 <4.0.0", jquery@^3.2.1, jquery@^3.3.1:
+"jquery@>= 1.4.3", jquery@>=1.8.0, jquery@>=1.9, "jquery@>=2.0.0 <4.0.0", jquery@^3.2.1, jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
@@ -7076,6 +7070,10 @@ timers-browserify@^2.0.4:
   resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.6.tgz#241e76927d9ca05f4d959819022f5b3664b64bae"
   dependencies:
     setimmediate "^1.0.4"
+
+tipsy-1a@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/tipsy-1a/-/tipsy-1a-1.0.0.tgz#3fcc2a1ccc6dbffb96d1d118858ec0f49e0340ca"
 
 tmp@^0.0.33:
   version "0.0.33"

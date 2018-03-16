@@ -5,7 +5,7 @@ import * as I18n from 'i18n-js'
 import 'magnific-popup'
 import 'jquery-visible'
 import 'webpack-jquery-ui'
-import 'jquery.tipsy'
+import 'tipsy-1a'
 import 'mustache'
 import 'velocity-animate'
 import 'velocity-ui-pack' // TODO: include later

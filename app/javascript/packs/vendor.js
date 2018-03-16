@@ -18,7 +18,6 @@ import 'moment'
 
 // Module admin
 import 'geocomplete'
-import 'jquery.tipsy'
 import 'jqtree'
 import 'select2'
 import 'air-datepicker' // NOTE: translations are imported in shared module

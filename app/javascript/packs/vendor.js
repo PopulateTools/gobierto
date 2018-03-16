@@ -8,7 +8,7 @@ import 'webpack-jquery-ui'
 import 'jquery.tipsy'
 import 'mustache'
 import 'velocity-animate'
-import 'velocity-ui-pack'
+import 'velocity-ui-pack' // TODO: include later
 // Falta d3-legend
 // Falta d3-locale
 // Falta d3-voronoi (editado??)

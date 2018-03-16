@@ -10,7 +10,7 @@
     "d3": "^4.13.0",
     "geocomplete": "^1.7.0",
     "i18n-js": "^3.0.3",
-    "jqtree": "^1.4.4",
+    "jqtree": "^1.4.5",
     "jquery": "^3.3.1",
     "jquery-autocomplete": "^1.2.8",
     "jquery-ui": "^1.12.1",

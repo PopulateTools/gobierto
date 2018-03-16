@@ -52,7 +52,7 @@ module GobiertoAdmin
         creator_event2.stubs(email: google_calendar_id)
 
         date1 = mock
-        date1.stubs(date_time: Time.now)
+        date1.stubs(date_time: 3.minutes.from_now)
         date2 = mock
         date2.stubs(date_time: 1.hour.from_now)
 

@@ -15,7 +15,7 @@ module GobiertoPeople
         begin
           calendar_integration.new(container).sync!
           Publishers::AdminGobiertoCalendarsActivity.broadcast_event('calendars_synchronized', { ip: '127.0.0.1',  subject: container, site_id: site.id })
-        rescue Exception => e
+        rescue StandardError => e
           Rollbar.error(e)
         end
       end

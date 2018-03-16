@@ -18,7 +18,7 @@ var DebtLevelCard = Class.extend({
 
         var value = jsonData.data[0].value;
 
-        new SimpleCard(this.container, jsonData, value, 'tax_autonomy');
+        new SimpleCard(this.container, jsonData, value, 'debt_level');
       }.bind(this));
   },
   render: function() {

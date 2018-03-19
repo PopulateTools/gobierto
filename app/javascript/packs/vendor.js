@@ -13,7 +13,7 @@ import 'velocity-ui-pack' // TODO: include later
 // Falta d3-locale
 // Falta d3-voronoi (editado??)
 import 'jquery-autocomplete'
-import 'algoliasearch'
+import algoliasearch from 'algoliasearch'
 import 'moment'
 
 // Module admin
@@ -26,3 +26,4 @@ import 'sticky-kit/dist/sticky-kit.js'
 // Expose globals
 global.$ = global.jQuery = $; // NOTE: jQuery exposed to global (window for node environment) due to script directly in the view
 global.I18n = I18n
+global.algoliasearch = algoliasearch

@@ -75,9 +75,9 @@ window.GobiertoAdmin.DynamicContentComponent = (function() {
         $(this).attr("for", labelFor.replace(fieldIdRegExp, uniqueFieldId));
       });
 
-      _switchToRecordForm(clonedField);
-
       $(recordTemplate).after(clonedField);
+      // Display after render
+      _switchToRecordForm(clonedField);
 
       clonedField.find('[data-remove-component="true"]').remove();
       clonedField.find('[type=checkbox][data-clear-value="true"]').prop('checked', false);

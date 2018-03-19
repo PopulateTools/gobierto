@@ -2,13 +2,14 @@
 import $ from 'jquery'
 import 'jquery-ujs'
 import * as I18n from 'i18n-js'
+import 'babel-polyfill' // NOTE: REQUIRED to use ES6 syntax (https://github.com/rails/webpacker/issues/523)
 import 'magnific-popup'
 import 'jquery-visible'
 import 'webpack-jquery-ui'
 import 'tipsy-1a'
 import 'mustache'
 import 'velocity-animate'
-import 'velocity-ui-pack' // TODO: include later
+import 'velocity-ui-pack'
 // Falta d3-legend
 // Falta d3-locale
 // Falta d3-voronoi (editado??)

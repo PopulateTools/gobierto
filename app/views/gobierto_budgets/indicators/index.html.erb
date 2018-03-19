@@ -51,3 +51,9 @@
     </div>
   </div>
 </div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoBudgets.indicators_controller.index();
+  <% end %>
+<% end %>

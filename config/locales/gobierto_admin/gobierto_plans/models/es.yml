@@ -5,8 +5,8 @@ es:
       gobierto_admin/gobierto_plans/plan_form:
         configuration_data: Configuración
         css: CSS
-        introduction: Introducción
         footer: Pie de página
+        introduction: Introducción
         plan_type_id: Tipo
         slug: url
         title: Título

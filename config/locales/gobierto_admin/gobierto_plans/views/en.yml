@@ -30,8 +30,8 @@ en:
             configuration_data: '{ "open_node": true }'
             css: ".gobierto_planification section.level_0 .cat_1 { background-color:
               rgba(0, 191, 255, 0.95); }"
-            introduction: Plan introduction
             footer: Plan footer
+            introduction: Plan introduction
             slug: about-this-plan
             title: Plan title
             year: 2018

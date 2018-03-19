@@ -6,6 +6,7 @@ es:
         configuration_data: Configuración
         css: CSS
         introduction: Introducción
+        footer: Pie de página
         plan_type_id: Tipo
         slug: url
         title: Título

@@ -31,6 +31,7 @@ ca:
             css: ".gobierto_planification section.level_0 .cat_1 { background-color:
               rgba(0, 191, 255, 0.95); }"
             introduction: Introducció del pla
+            footer: Peu de pàgina del pla
             slug: sobre-de-aquest-pla
             title: Titol del pla
             year: 2018

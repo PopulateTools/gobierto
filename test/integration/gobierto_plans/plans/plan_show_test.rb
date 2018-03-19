@@ -63,6 +63,8 @@ module GobiertoPlans
               end
             end
           end
+
+          assert has_content? "Strategic Plan footer"
         end
       end
     end

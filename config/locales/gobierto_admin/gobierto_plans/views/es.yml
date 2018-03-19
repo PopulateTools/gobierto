@@ -31,6 +31,7 @@ es:
             css: ".gobierto_planification section.level_0 .cat_1 { background-color:
               rgba(0, 191, 255, 0.95); }"
             introduction: Introducción del plan
+            footer: Pie de página del plan
             slug: acerca-de-este-plan
             title: Título del plan
             year: 2018

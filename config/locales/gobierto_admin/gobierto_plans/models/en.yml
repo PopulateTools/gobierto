@@ -6,6 +6,7 @@ en:
         configuration_data: Configuration
         css: CSS
         introduction: Introduction
+        footer: Footer
         plan_type_id: Type
         slug: url
         title: Title

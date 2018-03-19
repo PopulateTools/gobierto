@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305102456) do
+ActiveRecord::Schema.define(version: 20180319122227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -760,6 +760,7 @@ ActiveRecord::Schema.define(version: 20180305102456) do
     t.integer "visibility_level", default: 0, null: false
     t.text "css"
     t.datetime "archived_at"
+    t.jsonb "footer_translations"
     t.index ["archived_at"], name: "index_gplan_plans_on_archived_at"
     t.index ["plan_type_id"], name: "index_gplan_plans_on_plan_type_id"
     t.index ["site_id"], name: "index_gplan_plans_on_site_id"

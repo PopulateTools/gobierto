@@ -6,6 +6,7 @@ ca:
         configuration_data: Configuració
         css: CSS
         introduction: Introducció
+        footer: Peu de pàgina
         plan_type_id: Tipus
         slug: url
         title: Títol

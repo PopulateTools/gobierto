@@ -1,4 +1,4 @@
-this.GobiertoParticipation.PollTeaserController = (function() {
+window.GobiertoParticipation.PollTeaserController = (function() {
 
   function PollTeaserController() {}
 
@@ -53,4 +53,4 @@ this.GobiertoParticipation.PollTeaserController = (function() {
   return PollTeaserController;
 })();
 
-this.GobiertoParticipation.poll_teaser_controller = new GobiertoParticipation.PollTeaserController;
+window.GobiertoParticipation.poll_teaser_controller = new GobiertoParticipation.PollTeaserController;

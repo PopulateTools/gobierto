@@ -1,4 +1,4 @@
-this.GobiertoParticipation = {
+window.GobiertoParticipation = {
   init: function() {}
 };
 

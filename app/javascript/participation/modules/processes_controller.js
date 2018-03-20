@@ -1,4 +1,4 @@
-this.GobiertoParticipation.ProcessesController = (function() {
+window.GobiertoParticipation.ProcessesController = (function() {
 
     function ProcessesController() {}
 
@@ -20,4 +20,4 @@ this.GobiertoParticipation.ProcessesController = (function() {
     return ProcessesController;
   })();
 
-  this.GobiertoParticipation.processes_controller = new GobiertoParticipation.ProcessesController;
+  window.GobiertoParticipation.processes_controller = new GobiertoParticipation.ProcessesController;

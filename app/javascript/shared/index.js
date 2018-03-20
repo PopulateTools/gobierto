@@ -12,7 +12,7 @@ import Turbolinks from 'turbolinks'
 import Cropper from 'cropperjs'
 import accounting from 'accounting'
 import CodeMirror from 'codemirror'
-import d3 from 'd3'
+import * as d3 from 'd3'
 import Cleave from 'cleave.js'
 import Vue from 'vue'
 

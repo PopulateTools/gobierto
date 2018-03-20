@@ -1,4 +1,4 @@
-this.GobiertoParticipation.ProcessPollsController = (function() {
+window.GobiertoParticipation.ProcessPollsController = (function() {
 
   function ProcessPollsController() {}
 
@@ -47,7 +47,7 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
   function showSharePollPage() {
     refreshPageCounter();
 
-    $sharePollPage = $('[data-behavior="share_poll_page"]');
+    var $sharePollPage = $('[data-behavior="share_poll_page"]');
 
     hidePollContentItem(getCurrentQuestion());
     showPollContentItem($sharePollPage);
@@ -56,7 +56,7 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
   function showCannotSavePollPage() {
     refreshPageCounter();
 
-    $errorPage = $('[data-behavior="error_saving_poll"]');
+    var $errorPage = $('[data-behavior="error_saving_poll"]');
 
     hidePollContentItem(getCurrentQuestion());
     showPollContentItem($errorPage);
@@ -76,7 +76,7 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
   }
 
   function _addQuestionOptionsBehaviors() {
-    $('.poll_content .button').click(function(e) {
+    $('.poll_content .button').click(function() {
       var $input = $('#' + $(this).attr('for'));
 
       if ($input.attr('type') === 'radio') {
@@ -145,4 +145,4 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
   return ProcessPollsController;
 })();
 
-this.GobiertoParticipation.process_polls_controller = new GobiertoParticipation.ProcessPollsController;
+window.GobiertoParticipation.process_polls_controller = new GobiertoParticipation.ProcessPollsController;

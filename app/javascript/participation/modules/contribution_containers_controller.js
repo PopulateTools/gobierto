@@ -1,7 +1,9 @@
-this.GobiertoParticipation.ContributionContainersController = (function() {
+import { d3 } from 'shared'
+
+window.GobiertoParticipation.ContributionContainersController = (function() {
   function ContributionContainersController() {}
 
-  ContributionContainersController.prototype.index = function(url){
+  ContributionContainersController.prototype.index = function(){
     _initContributionContainer();
   };
 
@@ -448,7 +450,7 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
     }
 
     function createPagination(page_max) {
-      for (i = 1; i <= page_max; i++) {
+      for (var i = 1; i <= page_max; i++) {
         if (i === 1) {
           $(".circles_progress").append('<li data-page=' + i + ' class="active"><a href=""><span></span></a></li>');
         } else {
@@ -537,7 +539,7 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         .text(function(d) { return d.name['title']; });
 
       card
-        .style('transform', function(d, i) { return 'translate('+ d.x + 'px,' + d.y + 'px' + ') rotate(' + d.z + 'deg) translateZ(0)'; })
+        .style('transform', function(d) { return 'translate('+ d.x + 'px,' + d.y + 'px' + ') rotate(' + d.z + 'deg) translateZ(0)'; })
         .call(drag);
 
       simulation.on('tick', ticked);
@@ -561,4 +563,4 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
   return ContributionContainersController;
 })();
 
-this.GobiertoParticipation.contribution_containers_controller = new GobiertoParticipation.ContributionContainersController;
+window.GobiertoParticipation.contribution_containers_controller = new GobiertoParticipation.ContributionContainersController;

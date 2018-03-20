@@ -16,6 +16,8 @@ var SimpleCard = Class.extend({
 
     var divCard = $('div[class*="' + divClass.replace('.','') + '"]');
 
+    divCard.find("div.indicator_widget.padded").find("div.widget_body").find("div.sparkline").empty();
+
     // If no data exists for the selected year.
     if(parsedDate.getFullYear() != window.populateDataYear.currentYear) {
       divCard.hide();

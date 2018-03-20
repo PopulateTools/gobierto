@@ -513,7 +513,7 @@ DEPENDENCIES
   pg (~> 0.19)
   poltergeist
   puma
-  rails (~> 5.2.0.rc1)
+  rails (~> 5.2.0.rc2)
   rails-html-sanitizer
   redcarpet
   redis (~> 3.3)

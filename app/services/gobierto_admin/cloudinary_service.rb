@@ -14,7 +14,6 @@ module GobiertoAdmin
     def call
       ::Cloudinary::Uploader.upload(@path,
                                     crop: @crop,
-                                    format: "png",
                                     x: @x,
                                     y: @y,
                                     width: @width,

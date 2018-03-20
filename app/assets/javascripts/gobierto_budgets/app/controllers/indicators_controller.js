@@ -35,14 +35,20 @@ this.GobiertoBudgets.IndicatorsController = (function() {
       var netSavingsRateCard = new NetSavingsRateCard('.net_savings_rate_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
       netSavingsRateCard.render();
 
-      var debtLevelCard = new DebtLevelCard('.debt_level_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-      debtLevelCard.render();
-
       var perCapitaInvestmentCard = new PerCapitaInvestmentCard('.per_capita_investment_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
       perCapitaInvestmentCard.render();
 
+      var debtLevelCard = new DebtLevelCard('.debt_level_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
+      debtLevelCard.render();
+
       var perCapitaTaxBurdenCard = new PerCapitaTaxBurdenCard('.per_capita_tax_burden_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
       perCapitaTaxBurdenCard.render();
+
+      var financialRiskCard = new FinancialRiskCard('.financial_risk_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
+      financialRiskCard.render();
+
+      var expenditureRigidityCard = new ExpenditureRigidityCard('.expenditure_rigidity_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
+      expenditureRigidityCard.render();
     });
   }
 

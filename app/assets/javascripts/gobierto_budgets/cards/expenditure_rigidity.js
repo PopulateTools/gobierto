@@ -18,12 +18,7 @@ var ExpenditureRigidityCard = Class.extend({
 
         var value = jsonData.data[0].value;
 
-        if (value == 0) {
-          var divContainer = $('div[class*="' + this.container.replace('.','') + '"]');
-          divContainer.hide();
-        } else {
-          new SimpleCard(this.container, jsonData, value, 'expenditure_rigidity');
-        }
+        new SimpleCard(this.container, jsonData, value, 'expenditure_rigidity');
       }.bind(this));
   },
   render: function() {

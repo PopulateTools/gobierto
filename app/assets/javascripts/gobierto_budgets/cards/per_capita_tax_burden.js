@@ -17,13 +17,7 @@ var PerCapitaTaxBurdenCard = Class.extend({
         if (error) throw error;
 
         var value = jsonData.data[0].value;
-
-        if (value == 0) {
-          var divContainer = $('div[class*="' + this.container.replace('.','') + '"]');
-          divContainer.hide();
-        } else {
-          new SimpleCard(this.container, jsonData, value, 'per_capita_tax_burden');
-        }
+        new SimpleCard(this.container, jsonData, value, 'per_capita_tax_burden');
       }.bind(this));
   },
   render: function() {

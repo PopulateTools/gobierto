@@ -18,12 +18,7 @@ var NetSavingCard = Class.extend({
 
         var value = jsonData.data[0].value;
 
-        if (value == 0) {
-          var divContainer = $('div[class*="' + this.container.replace('.','') + '"]');
-          divContainer.hide();
-        } else {
-          new SimpleCard(this.container, jsonData, value, 'net_saving');
-        }
+        new SimpleCard(this.container, jsonData, value, 'net_saving');
       }.bind(this));
   },
   render: function() {

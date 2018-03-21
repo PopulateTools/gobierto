@@ -1,16 +1,10 @@
-<script type="text/javascript">
-  window.populateDataYear = {
-    currentYear: <%= @year %>
-  }
-</script>
-
 <div class="column">
   <div class="content gobierto_observatory">
     <div class="block">
       <div class="pure-g header_block_inline">
         <div class="pure-u-1 pure-u-md-12-24">
           <div class="inline_header">
-            <h2 class="with_description p_h_r_1"><%= t('gobierto_budgets.indicators') %></h2>
+            <h2 class="with_description p_h_r_1"><%= title t('gobierto_budgets.indicators') %></h2>
             <%= render partial: 'gobierto_budgets/indicators/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_indicators_path} %>
           </div>
 
@@ -31,7 +25,7 @@
 
     <div class="sections">
       <section id="indicators" class="block">
-    		<div class="pure-g padded_cols">
+        <div class="pure-g padded_cols">
           <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'gross_saving_card', data_type: 'figure'} %>
           <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'net_saving_card', data_type: 'figure'} %>
           <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'tax_autonomy_card', data_type: 'figure'} %>
@@ -46,8 +40,8 @@
           <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'per_capita_tax_burden_card', data_type: 'figure'} %>
           <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'financial_risk_card', data_type: 'figure'} %>
           <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'expenditure_rigidity_card', data_type: 'figure'} %>
-    		</div>
-    	</section>
+        </div>
+      </section>
     </div>
   </div>
 </div>
@@ -55,5 +49,8 @@
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
     window.GobiertoBudgets.indicators_controller.index();
+    window.populateDataYear = {
+    currentYear: <%= @year %>
+  }
   <% end %>
 <% end %>

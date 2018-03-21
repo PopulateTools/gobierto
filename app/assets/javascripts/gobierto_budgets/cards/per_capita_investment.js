@@ -18,7 +18,12 @@ var PerCapitaInvestmentCard = Class.extend({
 
         var value = jsonData.data[0].value;
 
-        new SimpleCard(this.container, jsonData, value, 'per_capita_investment');
+        if (value == 0) {
+          var divContainer = $('div[class*="' + this.container.replace('.','') + '"]');
+          divContainer.hide();
+        } else {
+          new SimpleCard(this.container, jsonData, value, 'per_capita_investment');
+        }
       }.bind(this));
   },
   render: function() {

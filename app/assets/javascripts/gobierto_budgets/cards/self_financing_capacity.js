@@ -18,7 +18,12 @@ var SelfFinancingCapacityCard = Class.extend({
 
         var value = jsonData.data[0].value;
 
-        new SimpleCard(this.container, jsonData, value, 'self_financing_capacity');
+        if (value == 0) {
+          var divContainer = $('div[class*="' + this.container.replace('.','') + '"]');
+          divContainer.hide();
+        } else {
+          new SimpleCard(this.container, jsonData, value, 'self_financing_capacity');
+        }
       }.bind(this));
   },
   render: function() {

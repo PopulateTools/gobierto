@@ -18,7 +18,12 @@ var GrossSavingCard = Class.extend({
 
         var value = jsonData.data[0].value;
 
-        new SimpleCard(this.container, jsonData, value, 'gross_saving');
+        if (value == 0) {
+          var divContainer = $('div[class*="' + this.container.replace('.','') + '"]');
+          divContainer.hide();
+        } else {
+          new SimpleCard(this.container, jsonData, value, 'gross_saving');
+        }
       }.bind(this));
   },
   render: function() {

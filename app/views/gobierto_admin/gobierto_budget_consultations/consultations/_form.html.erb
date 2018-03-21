@@ -42,7 +42,10 @@
 
       <div class="form_block">
         <div class="form_item input_text">
-          <%= f.label :title %>
+          <%= label_tag "consultation[title]" do %>
+            <%= f.object.class.human_attribute_name(:title) %>
+            <%= attribute_indication(@consultation_form.consultation.class, :title) %>
+          <% end %>
           <%= f.text_field :title, placeholder: t(".placeholders.title"), autofocus: true %>
           <div class="inline_help">
             <%= t(".hints.title") %>
@@ -52,7 +55,10 @@
 
       <div class="form_block">
         <div class="form_item input_text">
-          <%= f.label :description %>
+          <%= label_tag "consultation[description]" do %>
+            <%= f.object.class.human_attribute_name(:description) %>
+            <%= attribute_indication(@consultation_form.consultation.class, :description) %>
+          <% end %>
           <%= f.text_area :description %>
           <div class="inline_help">
             <%= t(".hints.description") %>
@@ -62,7 +68,10 @@
 
       <div class="form_block">
         <div class="form_item input_text">
-          <%= f.label :opening_date_range %>
+          <%= label_tag "consultation[opening_date_range]" do %>
+            <%= f.object.class.human_attribute_name(:opening_date_range) %>
+            <span class="indication"><%= t('views.forms.required') %></span>
+          <% end %>
           <%= f.text_field :opening_date_range, data: {
               "range": "true",
               "multiple-dates-separator": @opening_date_range_separator,

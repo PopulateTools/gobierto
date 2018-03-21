@@ -690,6 +690,12 @@ select {
     top: 0.5rem;
     right: 0;
   }
+
+  &.textarea.has-indication {
+    .fa-question-circle {
+      top: auto;
+    }
+  }
 }
 
 .widget_save {

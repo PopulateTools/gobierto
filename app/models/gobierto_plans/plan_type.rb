@@ -5,6 +5,7 @@ require_dependency "gobierto_plans"
 module GobiertoPlans
   class PlanType < ApplicationRecord
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::Validatable
 
     belongs_to :site
     has_many :plans, class_name: "GobiertoPlans::Plan", dependent: :restrict_with_error

@@ -1,4 +1,4 @@
-this.GobiertoPeople = {
+window.GobiertoPeople = {
   init: function() {}
 };
 

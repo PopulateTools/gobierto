@@ -11,7 +11,7 @@ import SimpleMDE from 'simplemde'
 import Turbolinks from 'turbolinks'
 import Cropper from 'cropperjs'
 import accounting from 'accounting'
-import CodeMirror from 'codemirror'
+import CodeMirror from 'codemirror' // NOTE: Addons not included
 import * as d3 from 'd3'
 import Cleave from 'cleave.js'
 import Vue from 'vue'

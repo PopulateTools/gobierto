@@ -46,7 +46,9 @@ The development process is the following:
 4. We export the variable in the bottom of the module `export { Dependency }`
 5. In the script that we need this dependency, we add an `import { Dependency } from 'shared'`
 
-The objective of this last block is to gather all external dependencies in the same place for future reuse
+The objective of this last block is to gather all external dependencies in the same place for future reuse.
+
+You may notice there is an `/app/javascript/i18n` folder. It contains translations from rails, and it's generated in an automatic way. Do not alter.
 
 ## Front-end contributing (ES)
 
@@ -92,4 +94,6 @@ El proceso de desarrollo es el siguiente:
 4. Exportamos la variable al final del módulo `export { Dependencia }`
 5. En el script que necesitemos dicha dependencia, hacemos un `import { Dependecia } from 'shared'`
 
-El objetivo de este último bloque es aunar todas las dependencias externas en un mismo sitio para una reutilización en el futuro
+El objetivo de este último bloque es aunar todas las dependencias externas en un mismo sitio para una reutilización en el futuro.
+
+Tal vez hayas notado que hay una carpeta `/app/javascript/i18n`. Contiene traducciones de rails, y se genera de manera automática. No modificar.

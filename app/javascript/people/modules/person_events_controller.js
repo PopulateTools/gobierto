@@ -1,4 +1,4 @@
-this.GobiertoPeople.PersonEventsController = (function() {
+window.GobiertoPeople.PersonEventsController = (function() {
 
   function PersonEventsController() {}
 
@@ -101,4 +101,4 @@ this.GobiertoPeople.PersonEventsController = (function() {
   return PersonEventsController;
 })();
 
-this.GobiertoPeople.person_events_controller = new GobiertoPeople.PersonEventsController;
+window.GobiertoPeople.person_events_controller = new GobiertoPeople.PersonEventsController;

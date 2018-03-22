@@ -25,7 +25,7 @@
   <% end %>
 
   <% unless full_layout? %>
-    <%= render 'layouts/header' %>
+    <%== render_liquid("layouts/header") %>
   <% end %>
 
   <div class="container">
@@ -36,7 +36,7 @@
   </div>
 
   <% unless full_layout? %>
-    <%= render 'layouts/footer' %>
+    <%== render_liquid("layouts/footer") %>
   <% end %>
 
   <% if Rails.env.production? %>

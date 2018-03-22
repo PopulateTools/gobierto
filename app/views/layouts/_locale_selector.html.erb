@@ -1,9 +1,6 @@
+<% byebug %>
 <% if available_locales.length > 1 %>
   <% available_locales.each do |locale| %>
-    <% if I18n.locale.to_s == locale.to_s %>
-      <strong><%= t("locales.#{locale}_short") %></strong>
-    <% else %>
-      <%= link_to t("locales.#{locale}_short"), {locale: locale}, data: { turbolinks: false } %>
-    <% end %>
+
   <% end %>
 <% end %>

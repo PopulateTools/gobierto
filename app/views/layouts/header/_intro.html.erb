@@ -1,0 +1,27 @@
+<div class="slim_nav_bar">
+  <div class="column pure-g">
+    <div class="desktop_only">
+
+      <div class="pure-u-md-1-2">
+        <% byebug %>
+        <% if @current_site.configuration.links_markup.present? %>
+          <%== @current_site.configuration.links_markup %>
+        <% end %>
+      </div>
+
+      <div class="pure-u-md-1-2 right">
+        <%= render "layouts/user_links" %>
+
+        <span id="subscribable_button">
+          <%= yield(:subscribable_button) %>
+        </span>
+
+        <div class="language_selector">
+          <%= render "layouts/locale_selector" %>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

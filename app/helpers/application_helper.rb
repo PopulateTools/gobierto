@@ -34,7 +34,7 @@ module ApplicationHelper
   end
 
   def show_social_links?
-    !params[:controller].include?("user/")
+    !request.url.include?("user/")
   end
 
   def full_layout?

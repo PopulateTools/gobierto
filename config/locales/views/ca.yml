@@ -116,6 +116,8 @@ ca:
       scopes_scope_created: Àmbit creat
       scopes_scope_updated: Àmbit actualitzat
   shared:
+    download_open_data:
+      exports: Descarrega les dades en format reutilitzable
     poll_question:
       multiple_choice_msg: Pots triar diverses opcions
     poll_teaser:

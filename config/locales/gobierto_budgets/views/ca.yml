@@ -501,6 +501,7 @@ ca:
         budgets: Pressupostos
       menu_subsections:
         budget: Pressupost
+        data: Dades
         elaboration: Elaboració
         execution: Execució
         guide: Guia

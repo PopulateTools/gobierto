@@ -127,10 +127,10 @@ GEM
     easy_translate (0.5.1)
       thread
       thread_safe
-    elasticsearch (6.0.1)
-      elasticsearch-api (= 6.0.1)
-      elasticsearch-transport (= 6.0.1)
-    elasticsearch-api (6.0.1)
+    elasticsearch (6.0.2)
+      elasticsearch-api (= 6.0.2)
+      elasticsearch-transport (= 6.0.2)
+    elasticsearch-api (6.0.2)
       multi_json
     elasticsearch-extensions (0.0.27)
       ansi
@@ -138,7 +138,7 @@ GEM
       oj
       patron
       ruby-prof
-    elasticsearch-transport (6.0.1)
+    elasticsearch-transport (6.0.2)
       faraday
       multi_json
     erubi (1.7.1)

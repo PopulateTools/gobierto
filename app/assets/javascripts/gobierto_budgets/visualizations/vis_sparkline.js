@@ -74,7 +74,12 @@ var Sparkline = Class.extend({
     }.bind(this));
   },
   _width: function() {
-    return parseInt(d3.select(this.container).style('width'));
+    var cont = d3.select(this.container);
+    try {
+      return parseInt(cont.style('width'));
+    } catch(e) {
+      return 0;
+    }
   },
   _height: function() {
     return this._width() * 0.2;

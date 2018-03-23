@@ -19,6 +19,7 @@
     "jquery-visible": "^1.2.0",
     "lodash": "^4.17.5",
     "magnific-popup": "^1.1.0",
+    "mailcheck": "^1.1.1",
     "moment": "^2.21.0",
     "mustache": "^2.3.0",
     "select2": "^4.0.6-rc.1",

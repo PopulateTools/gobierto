@@ -23,7 +23,7 @@ window.GobiertoParticipation.ProcessPollsController = (function() {
 
     if (inputType === 'radio' || inputType === 'checkbox') {
       if ($currentQuestion.find('label.checked').length >= 1) {
-        $submitInput.removeProp('disabled');
+        $submitInput.prop('disabled', false)
       } else {
         $submitInput.prop('disabled', true)
       }

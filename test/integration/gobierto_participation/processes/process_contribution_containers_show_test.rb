@@ -78,7 +78,6 @@ module GobiertoParticipation
       with_javascript do
         with_current_site(site) do
           visit contribution_path
-          debugger
           assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
         end
       end

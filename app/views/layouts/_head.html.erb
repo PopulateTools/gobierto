@@ -20,17 +20,17 @@
      } %>
 
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
+  <!-- stylesheets -->
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-
   <!-- vendor libraries -->
   <%= javascript_pack_tag 'vendor' %>
   <!-- module libraries -->
   <%= yield(:javascript_module_link) %>
-
+  <!-- stylesheets hooks -->
   <%= yield(:stylesheet_link) %>
-  
+  <!-- turbolink hooks -->
   <%= yield(:disable_turbolinks_hook) %>
-
+  <!-- locales -->
   <script type="text/javascript">
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";

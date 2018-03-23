@@ -30,8 +30,6 @@ module GobiertoAdmin
 
               click_link cms_page.title
 
-              assert has_no_content?("XLSX Attachment Name")
-              page.find("a.show-files").trigger("click")
               assert has_content?("XLSX Attachment Name")
             end
           end

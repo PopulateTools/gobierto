@@ -8,4 +8,5 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'shared'
+import 'user'
 import 'participation'

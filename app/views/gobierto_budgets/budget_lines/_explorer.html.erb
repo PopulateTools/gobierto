@@ -1,56 +1,58 @@
-<div class="block explore_detail">
+<% cache(["gobierto_budgets/budget_lines/explorer", current_site, I18n.locale]) do %>
+  <div class="block explore_detail">
 
-  <h2><%= t('.explore_the_detail') %></h2>
+    <h2><%= t('.explore_the_detail') %></h2>
 
-  <div class="tabs m_v_2">
-    <ul role="tablist" aria-label="<%= t('.explore_the_detail') %>">
-      <li role="presentation" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::INCOME) %>">
-        <%= link_to(
-              t('.income'),
-              gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name),
-              data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::INCOME, remote: true },
-              id: "ingresos",
-              "aria-controls" => "detail_tab",
-              role:"tab",
-              tabindex:"0",
-              "aria-selected" => (@kind == GobiertoBudgets::BudgetLine::INCOME)
-        )%>
-      </li>
-      <li role="presentation" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::EXPENSE) %>">
-        <%= link_to(
-              t('.expenses'),
-              gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name),
-              data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::EXPENSE, remote: true },
-              id:"gastos",
-              "aria-controls" => "detail_tab",
-              role:"tab",
-              tabindex:"-1",
-              "aria-selected" => (@kind == GobiertoBudgets::BudgetLine::INCOME)
-        )%>
-      </li>
-    </ul>
-  </div>
-
-  <div class="pure-g">
-
-    <div role="tabpanel" id="detail_tab" class="pure-u-1 pure-u-md-2-3 table p_h_r_3" data-budget-lines>
-      <%= render partial: 'gobierto_budgets/budget_lines/index', locals: { place_budget_lines: @place_budget_lines, kind: @kind, area_name: @area_name, year: @year, place: @place }  %>
+    <div class="tabs m_v_2">
+      <ul role="tablist" aria-label="<%= t('.explore_the_detail') %>">
+        <li role="presentation" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::INCOME) %>">
+          <%= link_to(
+                t('.income'),
+                gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name),
+                data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::INCOME, remote: true },
+                id: "ingresos",
+                "aria-controls" => "detail_tab",
+                role:"tab",
+                tabindex:"0",
+                "aria-selected" => (@kind == GobiertoBudgets::BudgetLine::INCOME)
+          )%>
+        </li>
+        <li role="presentation" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::EXPENSE) %>">
+          <%= link_to(
+                t('.expenses'),
+                gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name),
+                data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::EXPENSE, remote: true },
+                id:"gastos",
+                "aria-controls" => "detail_tab",
+                role:"tab",
+                tabindex:"-1",
+                "aria-selected" => (@kind == GobiertoBudgets::BudgetLine::INCOME)
+          )%>
+        </li>
+      </ul>
     </div>
 
-    <div class="pure-u-1 pure-u-md-1-3">
-      <h3><%= t('.search_budget_line') %></h3>
-      <label class="screen-hidden" for="budget_line_search"><%= t('.search_budget_line') %></label>
-      <input id="budget_line_search" type="text" placeholder="<%= t('.search') %>..." data-autocomplete="<%= gobierto_budgets_search_all_categories_path(@place.slug, @year, format: :json) %>">
+    <div class="pure-g">
 
-      <div class="small m_v_3">
-        <p><%= t('.examples') %>:</p>
-        <ul>
-          <% @sample_budget_lines.each do |budget_line| %>
-            <li><%= link_to budget_line.name, gobierto_budgets_budget_line_path(budget_line.to_param) %></li>
-          <% end %>
-        </ul>
+      <div role="tabpanel" id="detail_tab" class="pure-u-1 pure-u-md-2-3 table p_h_r_3" data-budget-lines>
+        <%= render partial: 'gobierto_budgets/budget_lines/index', locals: { place_budget_lines: @place_budget_lines, kind: @kind, area_name: @area_name, year: @year, place: @place }  %>
+      </div>
 
+      <div class="pure-u-1 pure-u-md-1-3">
+        <h3><%= t('.search_budget_line') %></h3>
+        <label class="screen-hidden" for="budget_line_search"><%= t('.search_budget_line') %></label>
+        <input id="budget_line_search" type="text" placeholder="<%= t('.search') %>..." data-autocomplete="<%= gobierto_budgets_search_all_categories_path(@place.slug, @year, format: :json) %>">
+
+        <div class="small m_v_3">
+          <p><%= t('.examples') %>:</p>
+          <ul>
+            <% @sample_budget_lines.each do |budget_line| %>
+              <li><%= link_to budget_line.name, gobierto_budgets_budget_line_path(budget_line.to_param) %></li>
+            <% end %>
+          </ul>
+
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>

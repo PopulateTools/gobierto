@@ -35,72 +35,74 @@
       </div>
     </div>
 
-    <div class="pure-g metric_boxes">
+    <% cache(["gobierto_budgets/metric_boxes", current_site, I18n.locale]) do %>
+      <div class="pure-g metric_boxes">
 
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.expenses_per_inhabitant_tooltip') %>">
-        <div class="inner">
-          <h3><%= t('.expenses_per_inhabitant') %></h3>
-          <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.expenses_per_inhabitant_tooltip') %>">
+          <div class="inner">
+            <h3><%= t('.expenses_per_inhabitant') %></h3>
+            <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
+          </div>
+        </div>
+
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.total_expenses_tooltip') %>">
+          <div class="inner">
+            <h3><%= t('.total_expenses') %></h3>
+            <div class="metric"><%= format_currency @site_stats.total_budget %></div>
+          </div>
+        </div>
+
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.executed_tooltip') %>">
+          <div class="inner">
+            <h3><%= t('.executed') %></h3>
+            <% if @site_stats.total_budget_executed %>
+              <div class="metric">
+                <%= link_to gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) do %>
+                  <%= format_currency @budgets_execution_summary[:last_expenses_execution] %>
+                <% end %>
+              </div>
+
+              <div class="explanation explanation_bar">
+                <% percentage = @budgets_execution_summary[:expenses_execution_percentage] %>
+                <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
+                <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
+                <span><%= t('.executed_percent', percentage: percentage) %></span>
+              </div>
+            <% else %>
+              <% percentage = @site_stats.total_budget_executed_percentage(@year - 1) %>
+              <div class="metric"><span class="not_av"><%= t('.not_available_short') %></span></div>
+              <div class="explanation">
+                <%= t('.executed_percent_other_year_html', year: @year - 1, link: link_to("#{percentage} %", gobierto_budgets_budgets_execution_path)) %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.inhabitants_tooltip') %>">
+          <div class="inner">
+            <h3><%= t('.inhabitants') %></h3>
+            <div class="metric"><%= number_with_precision @site_stats.latest_available(:population, @year)[:value], precision: 0, delimiter: '.' %></div>
+            <% if @site_stats.latest_available(:population, @year)[:year] != @year %>
+              <div class="explanation">
+                <%= t('.data_of_year', year: @site_stats.latest_available(:population, @year)[:year]) %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.debt_tooltip') %>">
+          <div class="inner">
+            <h3><%= t('.debt') %></h3>
+            <div class="metric"><%= format_currency @site_stats.latest_available(:debt, @year)[:value] %></div>
+            <% if @site_stats.latest_available(:debt, @year)[:year] != @year %>
+              <div class="explanation">
+                <%= t('.at_years_end', year: @site_stats.latest_available(:debt, @year)[:year])%>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
-
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.total_expenses_tooltip') %>">
-        <div class="inner">
-          <h3><%= t('.total_expenses') %></h3>
-          <div class="metric"><%= format_currency @site_stats.total_budget %></div>
-        </div>
-      </div>
-
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.executed_tooltip') %>">
-        <div class="inner">
-          <h3><%= t('.executed') %></h3>
-          <% if @site_stats.total_budget_executed %>
-            <div class="metric">
-              <%= link_to gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) do %>
-                <%= format_currency @budgets_execution_summary[:last_expenses_execution] %>
-              <% end %>
-            </div>
-
-            <div class="explanation explanation_bar">
-              <% percentage = @budgets_execution_summary[:expenses_execution_percentage] %>
-              <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
-              <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
-              <span><%= t('.executed_percent', percentage: percentage) %></span>
-            </div>
-          <% else %>
-            <% percentage = @site_stats.total_budget_executed_percentage(@year - 1) %>
-            <div class="metric"><span class="not_av"><%= t('.not_available_short') %></span></div>
-            <div class="explanation">
-              <%= t('.executed_percent_other_year_html', year: @year - 1, link: link_to("#{percentage} %", gobierto_budgets_budgets_execution_path)) %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.inhabitants_tooltip') %>">
-        <div class="inner">
-          <h3><%= t('.inhabitants') %></h3>
-          <div class="metric"><%= number_with_precision @site_stats.latest_available(:population, @year)[:value], precision: 0, delimiter: '.' %></div>
-          <% if @site_stats.latest_available(:population, @year)[:year] != @year %>
-            <div class="explanation">
-              <%= t('.data_of_year', year: @site_stats.latest_available(:population, @year)[:year]) %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.debt_tooltip') %>">
-        <div class="inner">
-          <h3><%= t('.debt') %></h3>
-          <div class="metric"><%= format_currency @site_stats.latest_available(:debt, @year)[:value] %></div>
-          <% if @site_stats.latest_available(:debt, @year)[:year] != @year %>
-            <div class="explanation">
-              <%= t('.at_years_end', year: @site_stats.latest_available(:debt, @year)[:year])%>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
+    <% end %>
   </div>
 
   <% pending do%>
@@ -193,45 +195,47 @@
     </div>
   <% end %>
 
-  <div class="block">
-    <h2 class="with_description"><%= t('.most_interesting_budget_lines') %></h2>
-    <p class="description"><%= t('.most_interesting_budget_lines_description') %></p>
+  <% cache(["gobierto_budgets/interesting_budget_lines", current_site, I18n.locale]) do %>
+    <div class="block">
+      <h2 class="with_description"><%= t('.most_interesting_budget_lines') %></h2>
+      <p class="description"><%= t('.most_interesting_budget_lines_description') %></p>
 
-    <div class="graph" id="expense-treemap"
-                       data-functional-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'functional', level: 2, format: :json) %>"
-                       data-economic-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'economic', level: 2, format: :json) %>">
-    </div>
+      <div class="graph" id="expense-treemap"
+                         data-functional-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'functional', level: 2, format: :json) %>"
+                         data-economic-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'economic', level: 2, format: :json) %>">
+      </div>
 
-    <table class="explore_slow">
-      <thead class="screen-hidden">
-        <tr>
-          <th><%= t('.level_1_category') %></th>
-          <th><%= t('.level_2_category') %></th>
-          <th><%= t('.category_value') %></th>
-          <th><%= t('.category_percentage') %></th>
-          <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
-        </tr>
-      </thead>
+      <table class="explore_slow">
+        <thead class="screen-hidden">
+          <tr>
+            <th><%= t('.level_1_category') %></th>
+            <th><%= t('.level_2_category') %></th>
+            <th><%= t('.category_value') %></th>
+            <th><%= t('.category_percentage') %></th>
+            <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, budget_lines| %>
-            <tr class="group">
-              <td class="level_1" rowspan="<%= budget_lines.count %>">
-                <%= budget_line_denomination @interesting_area, parent_code, GobiertoBudgets::BudgetLine::EXPENSE %>
-              </td>
-              <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
-                    locals: {sub_budget_line: budget_lines.first, last_item: false } %>
-            </tr>
-            <% budget_lines[1..-1].each_with_index do |budget_line, i| %>
-              <tr>
+        <tbody>
+          <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, budget_lines| %>
+              <tr class="group">
+                <td class="level_1" rowspan="<%= budget_lines.count %>">
+                  <%= budget_line_denomination @interesting_area, parent_code, GobiertoBudgets::BudgetLine::EXPENSE %>
+                </td>
                 <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
-                    locals: {sub_budget_line: budget_line, last_item: (i == budget_lines.length - 2) } %>
+                      locals: {sub_budget_line: budget_lines.first, last_item: false } %>
               </tr>
-          <% end %>
-        </tbody>
-      <% end %>
-    </table>
-  </div>
+              <% budget_lines[1..-1].each_with_index do |budget_line, i| %>
+                <tr>
+                  <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
+                      locals: {sub_budget_line: budget_line, last_item: (i == budget_lines.length - 2) } %>
+                </tr>
+            <% end %>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
 
   <% if @budgets_execution_summary[:income_execution_percentage] && @budgets_execution_summary[:expenses_execution_percentage] %>
     <div class="block">

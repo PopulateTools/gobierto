@@ -3,18 +3,38 @@ import { d3 } from 'shared'
 window.GobiertoParticipation.ContributionContainersController = (function() {
   function ContributionContainersController() {}
 
-  ContributionContainersController.prototype.index = function(){
-    _initContributionContainer();
-  };
+  ContributionContainersController.prototype.index = function(contribution_container_data){
+      _initContributionContainer(contribution_container_data);
+    };
 
-  function _initContributionContainer(){
+  function _initContributionContainer(contribution_container_data){
+    var data_origin = contribution_container_data['data_origin'];
+    var data = data_origin;
+    var data_best_ratings = contribution_container_data['data_best_ratings'];
+    var data_worst_ratings = contribution_container_data['data_worst_ratings'];
+    var data_recent = contribution_container_data['data_recent'];
+
+    var data_self = [];
+    var user = "";
+
+    if (contribution_container_data['data_self']) {
+      data_self = contribution_container_data['data_self'];
+      user = contribution_container_data['user'];
+    }
+
+    var users_ideas_origin = contribution_container_data['users_ideas_origin'];
+    var users_best_ratings = contribution_container_data['users_best_ratings'];
+    var users_worst_ratings = contribution_container_data['users_worst_ratings'];
+    var users_recent = contribution_container_data['users_recent']
+    var users_ideas = users_ideas_origin;
+
+    var cardnumber = 12;
+    var page_max = Math.round(data.length/cardnumber);
     var format_date = d3.timeFormat("%Y-%m-%d");
 
-    var page = 1
-
+    var page = 1;
     var viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
 
-    var now = new Date;
     var px, py, vx, vy, offsetX, offsetY, maxVelocity = 8;
 
     var width = d3.select('.contributions_content').node().clientWidth,
@@ -266,7 +286,7 @@ window.GobiertoParticipation.ContributionContainersController = (function() {
 
     function ticked() {
       // Position the cards with a force simulation
-      d3.selectAll('.card').style('transform', function(d, i) { return 'translate('+ d.x + 'px,' + d.y + 'px' + ') rotate(' + d.z + 'deg) translateZ(0)'; });
+      d3.selectAll('.card').style('transform', function(d) { return 'translate('+ d.x + 'px,' + d.y + 'px' + ') rotate(' + d.z + 'deg) translateZ(0)'; });
     }
 
     // Drag functions

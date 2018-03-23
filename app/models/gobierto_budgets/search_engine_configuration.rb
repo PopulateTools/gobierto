@@ -3,9 +3,10 @@
 module GobiertoBudgets
   class SearchEngineConfiguration
     class Year
-      def self.last
-        current_site = GobiertoCore::CurrentScope.current_site
+      def self.last(force = false)
         default_year = 2017
+        return default_year if force
+        current_site = GobiertoCore::CurrentScope.current_site
         return default_year if current_site.nil?
         Rails.cache.fetch("budgets/data/year/last/#{ current_site.try(:id) || "global" }") do
           get_last_year_with_data(default_year, current_site)

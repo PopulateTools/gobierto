@@ -79,12 +79,13 @@ module GobiertoBudgets
 
         result = []
         data.sort_by { |k, _| k }.each do |year, v|
-          next unless year <= GobiertoBudgets::SearchEngineConfiguration::Year.last
-          result.push(
-            date: year.to_s,
-            value: v,
-            dif: data[year - 1] ? delta_percentage(v, data[year - 1]) : 0
-          )
+          if year <= GobiertoBudgets::SearchEngineConfiguration::Year.last(true)
+            result.push(
+              date: year.to_s,
+              value: v,
+              dif: data[year - 1] ? delta_percentage(v, data[year - 1]) : 0
+            )
+          end
         end
 
         result.reverse
@@ -134,12 +135,13 @@ module GobiertoBudgets
 
         result = []
         data.sort_by { |k, _| k }.each do |year, v|
-          next unless year <= GobiertoBudgets::SearchEngineConfiguration::Year.last
-          result.push(
-            date: year.to_s,
-            value: v,
-            dif: data[year - 1] ? delta_percentage(v, data[year - 1]) : 0
-          )
+          if year <= GobiertoBudgets::SearchEngineConfiguration::Year.last(true)
+            result.push(
+              date: year.to_s,
+              value: v,
+              dif: data[year - 1] ? delta_percentage(v, data[year - 1]) : 0
+            )
+          end
         end
 
         result.reverse
@@ -188,12 +190,13 @@ module GobiertoBudgets
 
         result = []
         data.sort_by { |k, _| k }.each do |year, v|
-          next unless year <= GobiertoBudgets::SearchEngineConfiguration::Year.last
-          result.push(
-            date: year.to_s,
-            value: v,
-            dif: data[year - 1] ? delta_percentage(v, data[year - 1]) : 0
-          )
+          if year <= GobiertoBudgets::SearchEngineConfiguration::Year.last
+            result.push(
+              date: year.to_s,
+              value: v,
+              dif: data[year - 1] ? delta_percentage(v, data[year - 1]) : 0
+            )
+          end
         end
 
         result.reverse

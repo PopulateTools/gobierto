@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "actionpack-action_caching", git: "https://github.com/rails/actionpack-action_caching.git", ref: "9044141824650138bf27741e8f0ed95ccd9ef26d"
+gem "actionpack-action_caching"
 gem "active_model_serializers"
 gem "bcrypt", "~> 3.1.0"
 gem "cookies_eu"

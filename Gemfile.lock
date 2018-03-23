@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/rails/actionpack-action_caching.git
-  revision: 9044141824650138bf27741e8f0ed95ccd9ef26d
-  ref: 9044141824650138bf27741e8f0ed95ccd9ef26d
-  specs:
-    actionpack-action_caching (1.1.1)
-      actionpack (>= 4.0.0, < 6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -26,6 +18,8 @@ GEM
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionpack-action_caching (1.2.0)
+      actionpack (>= 4.0.0, < 6)
     actionview (5.1.5)
       activesupport (= 5.1.5)
       builder (~> 3.1)
@@ -477,7 +471,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack-action_caching!
+  actionpack-action_caching
   active_model_serializers
   algoliasearch-rails (~> 1.17)
   aws-sdk (~> 2.6)

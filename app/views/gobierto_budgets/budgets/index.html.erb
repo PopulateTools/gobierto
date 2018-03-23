@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <% cache(["gobierto_budgets/metric_boxes", current_site, I18n.locale]) do %>
+    <% cache(["gobierto_budgets/metric_boxes", current_site, I18n.locale, @year]) do %>
       <div class="pure-g metric_boxes">
 
         <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.expenses_per_inhabitant_tooltip') %>">
@@ -195,7 +195,7 @@
     </div>
   <% end %>
 
-  <% cache(["gobierto_budgets/interesting_budget_lines", current_site, I18n.locale]) do %>
+  <% cache(["gobierto_budgets/interesting_budget_lines", current_site, I18n.locale, @year]) do %>
     <div class="block">
       <h2 class="with_description"><%= t('.most_interesting_budget_lines') %></h2>
       <p class="description"><%= t('.most_interesting_budget_lines_description') %></p>

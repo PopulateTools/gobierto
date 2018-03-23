@@ -4,6 +4,7 @@ module GobiertoAdmin
       before_action :load_collection, only: [:new, :edit, :create, :update, :index]
       before_action :load_person, only: [:new, :edit, :create, :update, :index]
       before_action :manage_event_allowed!, only: [:new, :edit, :create, :update, :index]
+
       def index
         @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
         @events = ::GobiertoCalendars::Event.by_collection(@collection).sorted
@@ -43,7 +44,9 @@ module GobiertoAdmin
         if @event_form.save
           redirect_to(
             edit_admin_calendars_event_path(@event_form.event, collection_id: @collection),
-            notice: t(".success_html", link: @event_form.event.to_url(host: current_site.domain))
+            notice: t(".success_html",
+            link: gobierto_calendars_event_preview_url(@event_form.event,
+                                                       host: current_site.domain))
           )
         else
           @attendees = get_attendees
@@ -61,7 +64,9 @@ module GobiertoAdmin
         if @event_form.save
           redirect_to(
             edit_admin_calendars_event_path(@event, collection_id: @collection),
-            notice: t(".success_html", link: @event_form.event.to_url(host: current_site.domain))
+            notice: t(".success_html",
+            link: gobierto_calendars_event_preview_url(@event_form.event,
+                                                       host: current_site.domain))
           )
         else
           @attendees = get_attendees
@@ -167,7 +172,6 @@ module GobiertoAdmin
           redirect_to(admin_root_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
         end
       end
-
     end
   end
 end

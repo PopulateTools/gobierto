@@ -12,6 +12,7 @@ module GobiertoParticipation
     include GobiertoCommon::Searchable
     include GobiertoCommon::ActsAsCollectionContainer
     include GobiertoAttachments::Attachable
+    include GobiertoCommon::Validatable
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca

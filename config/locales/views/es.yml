@@ -116,6 +116,8 @@ es:
       scopes_scope_created: Ámbito creado
       scopes_scope_updated: Ámbito actualizado
   shared:
+    download_open_data:
+      exports: Descarga los datos en formato reutilizable
     poll_question:
       multiple_choice_msg: Puedes elegir varias opciones
     poll_teaser:
@@ -140,6 +142,7 @@ es:
     edit: Edita
     forms:
       max_characters: Máx. %{length} caracteres
+      required: Obligatorio
       required_and_max_characters: Obligatorio y Máx. %{length} caracteres
     of: of
     pagination:

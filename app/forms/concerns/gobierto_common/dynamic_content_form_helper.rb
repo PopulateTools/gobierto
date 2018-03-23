@@ -77,7 +77,7 @@ module GobiertoCommon
         collection: person.model_name.collection,
         attribute_name: :attachment,
         file: attachment_file
-      ).call
+      ).upload!
     end
 
     def build_content_block_record_for(content_block)

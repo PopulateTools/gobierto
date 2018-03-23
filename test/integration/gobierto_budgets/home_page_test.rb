@@ -25,6 +25,20 @@ class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_menu_subsections
+    with_current_site(site) do
+      visit @path
+
+      within "nav.sub-nav" do
+        assert has_link? "Budgets"
+        assert has_link? "Execution"
+        assert has_link? "Guide"
+        assert has_link? "Receipt"
+        assert has_link? "Data"
+      end
+    end
+  end
+
   def test_metric_boxes
     with_current_site(site) do
       visit @path

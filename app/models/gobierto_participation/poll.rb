@@ -10,6 +10,7 @@ module GobiertoParticipation
 
     include ActsAsParanoidAliases
     include GobiertoCommon::HasVisibilityUserLevels
+    include GobiertoCommon::Validatable
 
     include PollResultsHelpers
 
@@ -33,6 +34,8 @@ module GobiertoParticipation
     accepts_nested_attributes_for :questions, allow_destroy: true
 
     validates_associated :questions, message: I18n.t("activerecord.messages.gobierto_participation/poll.are_not_valid")
+
+    validates :title, presence: true
 
     def answerable?
       published? && open?

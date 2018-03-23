@@ -479,6 +479,7 @@ en:
         budgets: Budgets
       menu_subsections:
         budget: Budget
+        data: Data
         elaboration: Elaboration
         execution: Execution
         guide: Guide

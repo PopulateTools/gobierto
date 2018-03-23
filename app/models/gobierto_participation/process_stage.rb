@@ -6,6 +6,7 @@ module GobiertoParticipation
   class ProcessStage < ApplicationRecord
     include GobiertoCommon::Sortable
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::Validatable
 
     before_destroy :check_stage_active
 

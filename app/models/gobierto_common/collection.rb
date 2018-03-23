@@ -4,6 +4,7 @@ module GobiertoCommon
   class Collection < ApplicationRecord
     include User::Subscribable
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::Validatable
 
     belongs_to :site
     belongs_to :container, polymorphic: true

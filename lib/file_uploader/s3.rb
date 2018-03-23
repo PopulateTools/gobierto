@@ -6,16 +6,8 @@ module FileUploader
   class S3
     attr_reader :file, :file_name
 
-    def initialize(file_name:, content: nil, file: nil, content_disposition: nil, content_type: nil, bucket_name: nil)
-      @file = if content.present?
-                @tmp_file = Tempfile.new
-                @tmp_file.binmode
-                @tmp_file.write(content)
-                @tmp_file.close
-                ActionDispatch::Http::UploadedFile.new(filename: @file_name, tempfile: @tmp_file)
-              else
-                file
-              end
+    def initialize(file_name:, file: nil, content_disposition: nil, content_type: nil, bucket_name: nil)
+      @file = file
       @file_name = file_name
       @bucket_name = bucket_name
       @content_disposition = content_disposition

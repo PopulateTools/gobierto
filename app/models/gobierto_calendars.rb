@@ -9,7 +9,7 @@ module GobiertoCalendars
   end
 
   def self.sync_range_start
-    DateTime.now - 5.days
+    DateTime.now
   end
 
   def self.sync_range_end

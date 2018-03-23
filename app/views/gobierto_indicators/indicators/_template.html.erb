@@ -39,6 +39,7 @@
       <div class="item-id p_h_r_1">{{ model.id }}</div>
       <div class="item-text">
         <span>{{ model.attributes.title }}</span>
+        <p v-if="model.attributes.description">{{ model.attributes.description }}</p>
       </div>
       <div class="item-check" v-if="type == 'boolean'">
         <div class="row">
@@ -93,8 +94,8 @@
 
 <!-- item view wrap template -->
 <script type="text/x-template" id="item-view-wrap-template">
-  <li @click="unselect" class="item item-lvl-1">
-    <div class="item-title">
+  <li class="item item-lvl-1">
+    <div class="item-title" @click="unselect">
       <div class="item-toggle p_h_r_1">
         <div class="toggle-container">
           <i class="fa fa-caret-left"></i>

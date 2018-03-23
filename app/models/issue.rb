@@ -5,6 +5,7 @@ class Issue < ApplicationRecord
   include User::Subscribable
   include GobiertoCommon::ActsAsCollectionContainer
   include GobiertoCommon::Sluggable
+  include GobiertoCommon::Validatable
 
   belongs_to :site
   has_many :processes, class_name: 'GobiertoParticipation::Process', dependent: :restrict_with_error

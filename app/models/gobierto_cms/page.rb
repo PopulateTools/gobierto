@@ -101,7 +101,11 @@ module GobiertoCms
 
     def resource_path
       if collection.item_type == "GobiertoCms::Page"
-        url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: site.domain))
+        if section
+          url_helpers.gobierto_cms_section_item_url({slug_section: section.slug, id: slug}.merge(host: site.domain))
+        else
+          url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: site.domain))
+        end
       elsif collection.item_type == "GobiertoCms::News"
         url_helpers.gobierto_cms_news_url({ id: slug }.merge(host: site.domain))
       end

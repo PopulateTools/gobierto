@@ -1,39 +1,37 @@
-<% cache(["layouts/gobierto_budgets/navigation_sub", current_site, I18n.locale]) do %>
-  <% if budgets_elaboration_active? %>
-    <div class="sub-nav-item<%= class_if(' active', controller_name == 'budgets_elaboration') %>">
-      <% content_for_if(:current_submodule_link, controller_name == 'budgets_elaboration') do %>
-        <%= link_to t('gobierto_budgets.layouts.menu_subsections.elaboration'), gobierto_budgets_budgets_elaboration_path, data: { turbolinks: false }  %>
-      <% end %>
-    </div>
-  <% end %>
-  <div class="sub-nav-item<%= class_if(' active', (controller_name == 'budgets' && action_name == 'index') || controller_name == 'budget_lines') %>">
-    <% content_for_if(:current_submodule_link, (controller_name == 'budgets' && action_name == 'index') || controller_name == 'budget_lines') do %>
-      <%= link_to t('gobierto_budgets.layouts.application.budgets'), gobierto_budgets_budgets_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
+<% if budgets_elaboration_active? %>
+  <div class="sub-nav-item<%= class_if(' active', controller_name == 'budgets_elaboration') %>">
+    <% content_for_if(:current_submodule_link, controller_name == 'budgets_elaboration') do %>
+      <%= link_to t('gobierto_budgets.layouts.menu_subsections.elaboration'), gobierto_budgets_budgets_elaboration_path, data: { turbolinks: false }  %>
     <% end %>
-  </div>
-  <div class="sub-nav-item<%= class_if(' active', controller_name == 'budgets_execution') %>">
-    <% content_for_if(:current_submodule_link, controller_name == 'budgets_execution') do %>
-      <%= link_to t('gobierto_budgets.layouts.menu_subsections.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
-    <% end %>
-  </div>
-  <div class="sub-nav-item<%= class_if(' active', controller_name == 'budgets' && action_name == 'guide') %>">
-    <% content_for_if(:current_submodule_link, controller_name == 'budgets' && action_name == 'guide') do %>
-      <%= link_to t('gobierto_budgets.layouts.menu_subsections.guide'), gobierto_budgets_budgets_guide_path, data: { turbolinks: false } %>
-    <% end %>
-  </div>
-  <% if budgets_receipt_active? %>
-    <div class="sub-nav-item<%= class_if(' active', controller_name == 'receipts') %>">
-      <% content_for_if(:current_submodule_link, controller_name == 'receipts') do %>
-        <%= link_to t('gobierto_budgets.layouts.menu_subsections.receipt'), gobierto_budgets_receipt_path, class: class_if('active', controller_name == 'receipts'), data: { turbolinks: false }  %>
-      <% end %>
-    </div>
-  <% end %>
-  <% if budgets_providers_active? %>
-    <div class="sub-nav-item<%= class_if(' active', controller_name == 'providers') %>">
-      <%= link_to t('gobierto_budgets.layouts.menu_subsections.providers'), gobierto_budgets_providers_path, class: class_if('active', controller_name == 'providers'), data: { turbolinks: false }  %>
-    </div>
-  <% end %>
-  <div class="sub-nav-item">
-    <%= link_to t('gobierto_budgets.layouts.menu_subsections.data'), gobierto_exports_root_path, data: { turbolinks: false }  %>
   </div>
 <% end %>
+<div class="sub-nav-item<%= class_if(' active', (controller_name == 'budgets' && action_name == 'index') || controller_name == 'budget_lines') %>">
+  <% content_for_if(:current_submodule_link, (controller_name == 'budgets' && action_name == 'index') || controller_name == 'budget_lines') do %>
+    <%= link_to t('gobierto_budgets.layouts.application.budgets'), gobierto_budgets_budgets_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
+  <% end %>
+</div>
+<div class="sub-nav-item<%= class_if(' active', controller_name == 'budgets_execution') %>">
+  <% content_for_if(:current_submodule_link, controller_name == 'budgets_execution') do %>
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
+  <% end %>
+</div>
+<div class="sub-nav-item<%= class_if(' active', controller_name == 'budgets' && action_name == 'guide') %>">
+  <% content_for_if(:current_submodule_link, controller_name == 'budgets' && action_name == 'guide') do %>
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.guide'), gobierto_budgets_budgets_guide_path, data: { turbolinks: false } %>
+  <% end %>
+</div>
+<% if budgets_receipt_active? %>
+  <div class="sub-nav-item<%= class_if(' active', controller_name == 'receipts') %>">
+    <% content_for_if(:current_submodule_link, controller_name == 'receipts') do %>
+      <%= link_to t('gobierto_budgets.layouts.menu_subsections.receipt'), gobierto_budgets_receipt_path, class: class_if('active', controller_name == 'receipts'), data: { turbolinks: false }  %>
+    <% end %>
+  </div>
+<% end %>
+<% if budgets_providers_active? %>
+  <div class="sub-nav-item<%= class_if(' active', controller_name == 'providers') %>">
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.providers'), gobierto_budgets_providers_path, class: class_if('active', controller_name == 'providers'), data: { turbolinks: false }  %>
+  </div>
+<% end %>
+<div class="sub-nav-item">
+  <%= link_to t('gobierto_budgets.layouts.menu_subsections.data'), gobierto_exports_root_path, data: { turbolinks: false }  %>
+</div>

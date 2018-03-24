@@ -13,7 +13,7 @@ module GobiertoPlans
       load_years
       @year = @years.first
 
-      redirect_to gobierto_plans_path(slug: @plan_type.slug, year: @year)
+      redirect_to gobierto_plans_plan_path(slug: @plan_type.slug, year: @year)
     end
 
     def show
@@ -74,7 +74,7 @@ module GobiertoPlans
 
     def load_year
       if params[:year].nil?
-        redirect_to gobierto_plans_path(slug: @plans.find_by!(year: @years.first).slug, year: @years.first)
+        redirect_to gobierto_plans_plan_path(slug: @plans.find_by!(year: @years.first).slug, year: @years.first)
       else
         @year = params[:year].to_i
       end

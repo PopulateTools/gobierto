@@ -14,7 +14,7 @@ module GobiertoAdmin
         if plan.draft?
           options.merge!(preview_token: current_admin.preview_token)
         end
-        gobierto_plans_url(plan.plan_type.slug, plan.year, options)
+        gobierto_plans_plan_url(plan.plan_type.slug, plan.year, options)
       end
     end
   end

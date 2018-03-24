@@ -23,7 +23,7 @@ module GobiertoAdmin
       end
 
       def collection
-        @collection ||= gobierto_common_collections(:news)
+        @collection ||= gobierto_common_collections(:site_pages)
       end
 
       def section
@@ -37,7 +37,7 @@ module GobiertoAdmin
               visit @path
 
               within "tr#collection-item-#{collection.id}" do
-                click_link "News"
+                click_link "Site pages"
               end
 
               click_link "New"
@@ -52,6 +52,7 @@ module GobiertoAdmin
               click_button "Create"
 
               assert has_message?("Page created successfully")
+              assert has_link?("View the page", href: "/s/participacion/new-page-with-section?preview_token=nick-preview-token")
               assert has_field?("page_slug", with: "new-page-with-section")
 
               assert_equal(

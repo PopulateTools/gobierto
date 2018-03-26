@@ -55,7 +55,7 @@ AllCops:
   # If a value is specified for TargetRubyVersion then it is used.
   # Else if .ruby-version exists and it contains an MRI version it is used.
   # Otherwise we fallback to the oldest officially supported Ruby version (2.0).
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.4
 
 
 Style/FrozenStringLiteralComment:
@@ -966,16 +966,6 @@ Style/TrailingCommaInArguments:
   # for all parenthesized method calls with arguments.
   EnforcedStyleForMultiline: no_comma
 
-Style/TrailingCommaInArrayLiteral:
-  # If `comma`, the cop requires a comma after the last item in an array or
-  # hash, but only when each item is on its own line.
-  # If `consistent_comma`, the cop requires a comma after the last item of all
-  # non-empty array and hash literals.
-  EnforcedStyleForMultiline: no_comma
-
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: no_comma
-
 # TrivialAccessors requires exact name matches and doesn't allow
 # predicated methods by default.
 Style/TrivialAccessors:
@@ -1106,7 +1096,7 @@ Lint/AssignmentInCondition:
   AllowSafeAssignment: true
 
 # checks whether the end keywords are aligned properly for `do` `end` blocks.
-Layout/BlockAlignment:
+Lint/BlockAlignment:
   # The value `start_of_block` means that the `end` should be aligned with line
   # where the `do` keyword appears.
   # The value `start_of_line` means it should be aligned with the whole
@@ -1115,7 +1105,7 @@ Layout/BlockAlignment:
   EnforcedStyleAlignWith: either
 
 # Align ends correctly.
-Layout/EndAlignment:
+Lint/EndAlignment:
   # The value `keyword` means that `end` should be aligned with the matching
   # keyword (if, while, etc.).
   # The value `variable` means that in assignments, `end` should be aligned
@@ -1126,7 +1116,7 @@ Layout/EndAlignment:
   EnforcedStyleAlignWith: keyword
   AutoCorrect: false
 
-Layout/DefEndAlignment:
+Lint/DefEndAlignment:
   # The value `def` means that `end` should be aligned with the def keyword.
   # The value `start_of_line` means that `end` should be aligned with method
   # calls like `private`, `public`, etc, if present in front of the `def`

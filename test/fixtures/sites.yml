@@ -11,15 +11,13 @@ madrid:
     "home_page" => "GobiertoParticipation",
     "privacy_page_id" => "58988811",
     "google_analytics_id" => "UA-000000-01" }.to_yaml.inspect %>
-  location_name: Madrid
-  municipality_id: <%= INE::Places::Place.find_by_slug("madrid").id %>
-  location_type: INE::Places::Place
-  external_id: <%= INE::Places::Place.find_by_slug("madrid").id %>
-  institution_url: http://www.madrid.es
-  institution_type: Ayuntamiento
-  institution_email: contact@madrid.es
-  institution_address: Fake St., 123
-  institution_document_number: 0123456789A
+  organization_name: Madrid
+  organization_id: <%= INE::Places::Place.find_by_slug("madrid").id %>
+  organization_url: http://www.madrid.es
+  organization_type: Ayuntamiento
+  organization_email: contact@madrid.es
+  organization_address: Fake St., 123
+  organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["active"] %>
 
 santander:
@@ -34,15 +32,13 @@ santander:
     "available_locales" => ["en", "es", "ca"],
     "home_page" => "GobiertoPeople",
     "google_analytics_id" => "UA-000000-02" }.to_yaml.inspect %>
-  location_name: Santander
-  municipality_id: <%= INE::Places::Place.find_by_slug("santander").id %>
-  location_type: INE::Places::Place
-  external_id: <%= INE::Places::Place.find_by_slug("santander").id %>
-  institution_url: http://www.santander.es
-  institution_type: Ayuntamiento
-  institution_email: contact@santander.es
-  institution_address: Fake St., 123
-  institution_document_number: 0123456789A
+  organization_name: Santander
+  organization_id: <%= INE::Places::Place.find_by_slug("santander").id %>
+  organization_url: http://www.santander.es
+  organization_type: Ayuntamiento
+  organization_email: contact@santander.es
+  organization_address: Fake St., 123
+  organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["draft"] %>
 
 huesca:
@@ -57,15 +53,13 @@ huesca:
     "available_locales" => ["en", "es"],
     "home_page" => "GobiertoCms",
     "google_analytics_id" => "UA-000000-03" }.to_yaml.inspect %>
-  location_name: Santander
-  municipality_id: <%= INE::Places::Place.find_by_slug("huesca").id %>
-  location_type: INE::Places::Place
-  external_id: <%= INE::Places::Place.find_by_slug("huesca").id %>
-  institution_url: http://www.huesca.es
-  institution_type: Ayuntamiento
-  institution_email: contact@huesca.es
-  institution_address: Fake St., 123
-  institution_document_number: 0123456789A
+  organization_name: Santander
+  organization_id: <%= INE::Places::Place.find_by_slug("huesca").id %>
+  organization_url: http://www.huesca.es
+  organization_type: Ayuntamiento
+  organization_email: contact@huesca.es
+  organization_address: Fake St., 123
+  organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["draft"] %>
 
 cortegada:
@@ -81,13 +75,11 @@ cortegada:
     "home_page" => "GobiertoParticipation",
     "google_analytics_id" => "UA-000000-04",
     "auth_modules" => ["null_strategy"] }.to_yaml.inspect %>
-  location_name: Cortegada
-  municipality_id: <%= INE::Places::Place.find_by_slug("cortegada").id %>
-  location_type: INE::Places::Place
-  external_id: <%= INE::Places::Place.find_by_slug("cortegada").id %>
-  institution_url: http://www.cortegada.es
-  institution_type: Ayuntamiento
-  institution_email: contact@cortegada.test
-  institution_address: Fake St., 123
-  institution_document_number: 0123456789A
+  organization_name: Cortegada
+  organization_id: <%= INE::Places::Place.find_by_slug("cortegada").id %>
+  organization_url: http://www.cortegada.es
+  organization_type: Ayuntamiento
+  organization_email: contact@cortegada.test
+  organization_address: Fake St., 123
+  organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["active"] %>

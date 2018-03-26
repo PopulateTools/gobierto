@@ -129,10 +129,10 @@ es:
       opinion: Opina
   sites:
     events:
-      sites_site_created: Site creado
-      sites_site_destroyed: Site eliminado
-      sites_site_updated: Site actualizado
-      sites_site_visibility_updated: Site publicado
+      sites_site_created: Sitio creado
+      sites_site_destroyed: Sitio eliminado
+      sites_site_updated: Sitio actualizado
+      sites_site_visibility_updated: Sitio publicado
   users:
     events:
       users_user_updated: Usuario actualizado

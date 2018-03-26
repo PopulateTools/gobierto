@@ -19,8 +19,8 @@ en:
         placeholders:
           domain: gobierto.burjassot.es
           google_analytics_id: UA-000000-01
-          location_name: Burjassot
           name: Ayuntamiento de Burjassot
+          organization_name: Burjassot
           populate_data_api_token: API Token Populate Data
           title: Transparencia y Participación
         username: Username

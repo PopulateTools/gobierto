@@ -285,7 +285,7 @@ Rails.application.routes.draw do
       get "elaboracion" => "budgets_elaboration#index", as: :budgets_elaboration
       get "budgets/treemap(/:year)" => "budget_lines#treemap", as: :budget_lines_treemap
 
-      get "all_categories/:slug/:year" => "search#all_categories", as: :search_all_categories
+      get "all_categories/:year" => "search#all_categories", as: :search_all_categories
 
       get "feedback/step1" => "feedback#step1", as: :feedback_step1
       get "feedback/step2" => "feedback#step2", as: :feedback_step2

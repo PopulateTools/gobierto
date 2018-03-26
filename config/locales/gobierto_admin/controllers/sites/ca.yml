@@ -3,10 +3,10 @@ ca:
   gobierto_admin:
     sites:
       create:
-        success: El site s'ha creat correctament
+        success: El lloc s'ha creat correctament
       destroy:
-        success: El site s'ha eliminat correctament
+        success: El lloc s'ha eliminat correctament
       pages: Pàgines
       sections: Seccions
       update:
-        success: El site s'ha actualizat correctament
+        success: El lloc s'ha actualizat correctament

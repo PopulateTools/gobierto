@@ -75,7 +75,7 @@ class Site < ApplicationRecord
 
   validates :title, presence: true
   validates :domain, presence: true, uniqueness: true, domain: true
-  validate :location_required
+  validate :organization_required
 
   scope :sorted, -> { order(created_at: :desc) }
 
@@ -105,9 +105,11 @@ class Site < ApplicationRecord
                                    end
   end
 
+  # If the organization_id corresponds to a municipality ID,
+  # this method will return an instance of INE::Places::Place
   def place
-    @place ||= if self.municipality_id && self.location_name
-                 INE::Places::Place.find self.municipality_id
+    @place ||= if self.organization_id
+                 INE::Places::Place.find(self.organization_id)
                end
   end
 
@@ -121,10 +123,6 @@ class Site < ApplicationRecord
 
   def to_s
     self.name
-  end
-
-  def slug
-    location_name.tr("_", " ").parameterize
   end
 
   private
@@ -176,10 +174,10 @@ class Site < ApplicationRecord
     end
   end
 
-  def location_required
-    if (self.configuration.modules & %W{ GobiertoBudgetConsultations GobiertoBudgets GobiertoObservatory} ).any?
-      if municipality_id.blank? || location_name.blank?
-        errors.add(:location_name, I18n.t('errors.messages.blank_for_modules'))
+  def organization_required
+    if (self.configuration.modules & %W{ GobiertoBudgetConsultations GobiertoBudgets GobiertoObservatory }).any?
+      if organization_id.blank?
+        errors[:base] << I18n.t('errors.messages.blank_for_modules')
       end
     end
   end

@@ -35,13 +35,13 @@
     <div class="pure-g">
 
       <div role="tabpanel" id="detail_tab" class="pure-u-1 pure-u-md-2-3 table p_h_r_3" data-budget-lines>
-        <%= render partial: 'gobierto_budgets/budget_lines/index', locals: { place_budget_lines: @place_budget_lines, kind: @kind, area_name: @area_name, year: @year, place: @place }  %>
+        <%= render partial: 'gobierto_budgets/budget_lines/index', locals: { place_budget_lines: @place_budget_lines, kind: @kind, area_name: @area_name, year: @year }  %>
       </div>
 
       <div class="pure-u-1 pure-u-md-1-3">
         <h3><%= t('.search_budget_line') %></h3>
         <label class="screen-hidden" for="budget_line_search"><%= t('.search_budget_line') %></label>
-        <input id="budget_line_search" type="text" placeholder="<%= t('.search') %>..." data-autocomplete="<%= gobierto_budgets_search_all_categories_path(@place.slug, @year, format: :json) %>">
+        <input id="budget_line_search" type="text" placeholder="<%= t('.search') %>..." data-autocomplete="<%= gobierto_budgets_search_all_categories_path(@year, format: :json) %>">
 
         <div class="small m_v_3">
           <p><%= t('.examples') %>:</p>

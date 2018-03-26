@@ -9,8 +9,8 @@ module GobiertoAdmin
         title_translations: { I18n.locale => site.title },
         name_translations: { I18n.locale => new_site_name }, # To ensure uniqueness
         domain: new_site_domain, # To ensure uniqueness
-        location_name: site.location_name,
-        municipality_id: 1,
+        organization_name: site.organization_name,
+        organization_id: "1",
         visibility_level: "active",
         default_locale: "es",
         available_locales: %w(es ca),
@@ -24,7 +24,7 @@ module GobiertoAdmin
         title_translations: {},
         name_translations: {},
         domain: site.domain,
-        location_name: site.location_name,
+        organization_name: site.organization_name,
         visibility_level: "active",
         default_locale: nil,
         available_locales: []

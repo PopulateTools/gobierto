@@ -14,7 +14,7 @@ module GobiertoParticipation
       liquid_path = params[:controller] + "/" + action_name
       liquid_str = ::GobiertoCore::SiteTemplate.liquid_str(current_site, liquid_path)
       liquid = to_liquid(liquid_str)
-      liquid_rendered = liquid.render({ "location_name" => current_site.location_name,
+      liquid_rendered = liquid.render({ "location_name" => current_site.organization_name,
                                         "current_user" => current_user },
                                       registers: { controller: self })
 

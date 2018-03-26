@@ -1,3 +1,5 @@
+import { Vue } from 'shared'
+
 window.GobiertoIndicators.IndicatorsController = (function() {
 
     function IndicatorsController() {}

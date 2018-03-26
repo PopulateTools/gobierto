@@ -1,4 +1,4 @@
-import { isMobile } from 'shared'
+import { isMobile, Vue } from 'shared'
 
 window.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
   function ConsultationResponsesController() {}

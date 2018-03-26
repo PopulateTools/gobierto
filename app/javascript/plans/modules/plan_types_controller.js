@@ -1,3 +1,5 @@
+import { Vue } from 'shared'
+
 window.GobiertoPlans.PlanTypesController = (function() {
 
     function PlanTypesController() {}

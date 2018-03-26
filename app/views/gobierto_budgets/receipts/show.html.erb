@@ -117,9 +117,8 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
-    var receiptConfigurationData = <%== budgets_receipt_configuration %>;
     window.GobiertoBudgets.receipt_controller.show({
-      receiptConfiguration: receiptConfigurationData,
+      receiptConfiguration: <%== budgets_receipt_configuration.to_json %>,
     });
   <% end %>
 <% end %>

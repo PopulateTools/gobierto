@@ -1,4 +1,4 @@
-import { Class, d3, accounting } from 'shared'
+import { Class, d3, d3locale, accounting } from 'shared'
 
 export var VisLinesExecution = Class.extend({
   init: function(divId, type, category) {
@@ -6,8 +6,8 @@ export var VisLinesExecution = Class.extend({
     this.locale = I18n.locale;
     this.localeFallback = this.locale === 'en' ? 'es' : this.locale;
 
-    d3.formatDefaultLocale(eval(this.locale));
-    d3.timeFormatDefaultLocale(eval(this.locale));
+    d3.formatDefaultLocale(d3locale[this.locale]);
+    d3.timeFormatDefaultLocale(d3locale[this.locale]);
 
     this.container = divId;
     this.data = null;

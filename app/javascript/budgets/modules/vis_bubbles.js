@@ -1,4 +1,4 @@
-import { Class, d3, accounting } from 'shared'
+import { Class, d3, d3locale, accounting } from 'shared'
 
 export var VisBubbles = Class.extend({
   init: function(divId, budgetCategory, data) {
@@ -11,7 +11,7 @@ export var VisBubbles = Class.extend({
     this.isMobile = window.innerWidth <= 590;
     this.locale = I18n.locale;
 
-    d3.formatDefaultLocale(eval(this.locale));
+    d3.formatDefaultLocale(d3locale[this.locale]);
 
     this.margin = {top: 20, right: 10, bottom: 20, left: 10},
     this.width = parseInt(d3.select(this.container).parent().node().getBoundingClientRect().width) - this.margin.left - this.margin.right;

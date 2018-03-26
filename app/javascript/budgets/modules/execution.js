@@ -1,7 +1,6 @@
 import { VisLinesExecution } from './vis_lines_execution.js'
 
-$( document ).on('turbolinks:load', function() {
-  'use strict';
+$(document).on('turbolinks:load', function() {
 
   function updateExpenses(expensesKind) {
     $('.expenses_execution').html('');

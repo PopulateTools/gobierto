@@ -1,4 +1,4 @@
-import { Class, d3, accounting } from 'shared'
+import { Class, d3, d3locale, accounting } from 'shared'
 
 export var VisRentDistribution = Class.extend({
   init: function(divId, city_id, province_id, current_year) {
@@ -14,7 +14,7 @@ export var VisRentDistribution = Class.extend({
     this.isMobile = window.innerWidth <= 768;
 
     // Set default locale
-    d3.formatDefaultLocale(eval(I18n.locale));
+    d3.formatDefaultLocale(d3locale[this.locale]);
 
     // Chart dimensions
     this.margin = {top: 25, right: 15, bottom: 30, left: 15};

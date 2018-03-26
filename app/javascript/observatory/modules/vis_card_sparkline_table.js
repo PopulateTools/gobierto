@@ -1,8 +1,8 @@
-import { Class, d3, accounting } from 'shared'
+import { Class, d3, d3locale, accounting } from 'shared'
 
 export var SparklineTableCard = Class.extend({
   init: function(divClass, json, value, cardName) {
-    d3.timeFormatDefaultLocale(eval(I18n.locale));
+    d3.timeFormatDefaultLocale(d3locale[this.locale]);
 
     this.div = d3.select(divClass);
     this.dataType = this.div.attr('data-type');

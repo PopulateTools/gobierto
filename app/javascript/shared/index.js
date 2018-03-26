@@ -5,6 +5,7 @@ import './modules/module-search.js'
 import './modules/module-sessions.js'
 import './modules/module-site_header.js'
 import './modules/globals.js'
+import d3locale from './modules/d3-locale.js'
 import { isDesktop, isMobile, rebindAll } from './modules/globals.js'
 import './modules/tabs.js'
 import './modules/velocity_settings.js'
@@ -23,4 +24,4 @@ import Vue from 'vue'
 accounting.settings = settings
 Turbolinks.start()
 
-export { AUTOCOMPLETE_DEFAULTS, Class, d3, accounting, SimpleMDE, Cropper, CodeMirror, Cleave, Turbolinks, isDesktop, isMobile, rebindAll, Vue }
+export { AUTOCOMPLETE_DEFAULTS, Class, d3, d3locale, accounting, SimpleMDE, Cropper, CodeMirror, Cleave, Turbolinks, isDesktop, isMobile, rebindAll, Vue }

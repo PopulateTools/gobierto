@@ -7,7 +7,6 @@ gem "active_model_serializers"
 gem "bcrypt", "~> 3.1.0"
 gem "cookies_eu"
 gem "dalli"
-gem "data_migrate"
 gem "ine-places", "0.2.0"
 gem "jbuilder", "~> 2.5"
 gem "mechanize"
@@ -15,12 +14,13 @@ gem "meta-tags"
 gem "paper_trail"
 gem "paranoia"
 gem "pg", "~> 0.19"
-gem "rails", "~> 5.1.1"
+gem "rails", "~> 5.2.0.rc2"
 gem "redcarpet", require: true
 gem "responders"
 gem "rollbar"
 gem "ruby_px"
 gem "before_renders"
+gem "bootsnap"
 
 # Frontend
 gem "bourbon", "~> 4.3.4"
@@ -85,6 +85,7 @@ gem "cloudinary"
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
+  gem "listen"
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
 end
@@ -95,8 +96,6 @@ group :test do
   gem "codecov", "~> 0.1.9", require: false
   gem "launchy"
   gem "minitest", "5.11.3"
-  gem "minitest-rails"
-  gem "minitest-rails-capybara"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"

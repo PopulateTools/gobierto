@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305102456) do
+ActiveRecord::Schema.define(version: 2018_03_05_102456) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "hstore"
+  enable_extension "plpgsql"
 
   create_table "activities", id: :serial, force: :cascade do |t|
     t.string "action", null: false
@@ -181,11 +181,6 @@ ActiveRecord::Schema.define(version: 20180305102456) do
     t.datetime "updated_at", null: false
     t.index ["site_id", "name"], name: "index_custom_user_fields_on_site_id_and_name", unique: true
     t.index ["site_id"], name: "index_custom_user_fields_on_site_id"
-  end
-
-  create_table "data_migrations", id: false, force: :cascade do |t|
-    t.string "version", null: false
-    t.index ["version"], name: "unique_data_migrations", unique: true
   end
 
   create_table "ga_attachings", force: :cascade do |t|

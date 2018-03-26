@@ -33,7 +33,6 @@ end
 
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
-require "minitest/rails"
 require "minitest/mock"
 require "minitest/reporters"
 require "spy/integration"
@@ -47,6 +46,8 @@ require "support/gobierto_site_constraint_helpers"
 require "support/asymmetric_encryptor_helpers"
 require "support/site_config_helpers"
 require "capybara/email"
+require "capybara/rails"
+require "capybara/minitest"
 require "minitest/retry"
 require "vcr"
 require "mocha/mini_test"
@@ -89,7 +90,6 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
-  require "minitest/rails/capybara"
   require "capybara/poltergeist"
   require "support/integration/authentication_helpers"
   require "support/integration/site_session_helpers"

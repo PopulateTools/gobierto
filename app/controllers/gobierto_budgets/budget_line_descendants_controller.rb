@@ -2,7 +2,7 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
   before_action :load_params
 
   def index
-    conditions = { site: current_site, place: @place, year: @year, kind: @kind, area_name: @area_name }
+    conditions = { site: current_site, year: @year, kind: @kind, area_name: @area_name }
 
     if @parent_code
       conditions.merge!({parent_code: @parent_code})
@@ -10,9 +10,7 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
       conditions.merge!({level: 1})
     end
 
-    @budget_lines = []
-    budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions)
-    @budget_lines = budget_lines
+    @budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions)
 
     if !request.format.json? && @parent_code && @parent_code.length >= 1
       while budget_lines.any?
@@ -34,9 +32,6 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
   private
 
   def load_params
-    @place = @site.place
-    render_404 and return if @place.nil?
-
     @year = params[:year]
     @kind = params[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
     @area_name = params[:area_name] || GobiertoBudgets::FunctionalArea.area_name

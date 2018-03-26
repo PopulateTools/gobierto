@@ -21,7 +21,6 @@ module GobiertoBudgets
       :kind,
       :code,
       :ine_code,
-      :place,
       :province_id,
       :autonomy_id,
       :year,
@@ -90,8 +89,8 @@ module GobiertoBudgets
       @year = params[:year]
       @amount = params[:amount].round(2)
 
-      @place = site.place
-      @ine_code = place.id.to_i
+      place = site.place
+      @ine_code = site.organization_id
       @id = "#{ ine_code }/#{ year }/#{ code }/#{ kind }"
       @category = Category.find_by(site: site, area_name: area.area_name, kind: kind, code: code)
       @name = get_name
@@ -107,9 +106,10 @@ module GobiertoBudgets
       @population ||= self.class.get_population(ine_code, year)
     end
 
-    def to_param
-      { place_id: place_id, year: year, code: code, area_name: area.area_name, kind: kind }
-    end
+    # TODO: remove?
+    # def to_param
+    #   { organization_id: organization_id, year: year, code: code, area_name: area.area_name, kind: kind }
+    # end
 
     def save
       result = GobiertoBudgets::SearchEngine.client.index(index: elastic_search_index, type: area.area_name, id: id, body: elasticsearch_as_json.to_json)

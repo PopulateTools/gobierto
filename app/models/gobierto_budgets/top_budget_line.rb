@@ -17,7 +17,7 @@ module GobiertoBudgets
         { term: { kind: @conditions[:kind] } },
         { term: { year: @conditions[:year] } },
         { term: { level: 3 } },
-        { term: { ine_code: @conditions[:place].id } }
+        { term: { ine_code: @conditions[:site].organization_id } }
       ]
 
       query = {
@@ -38,7 +38,7 @@ module GobiertoBudgets
 
       area = (@conditions[:kind] == BudgetLine::INCOME ? EconomicArea : FunctionalArea)
 
-      total = BudgetTotal.for(@conditions[:place].id, @conditions[:year])
+      total = BudgetTotal.for(@conditions[:site].organization_id, @conditions[:year])
 
       response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast,
                                             type: area.area_name, body: query

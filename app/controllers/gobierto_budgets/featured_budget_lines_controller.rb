@@ -1,7 +1,7 @@
 module GobiertoBudgets
   class FeaturedBudgetLinesController < GobiertoBudgets::ApplicationController
     def show
-      @year = params[:year].to_i
+      @year = params[:id].to_i
       @area_name = GobiertoBudgets::FunctionalArea.area_name
 
       @kind = GobiertoBudgets::BudgetLine::EXPENSE

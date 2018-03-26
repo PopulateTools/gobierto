@@ -3,36 +3,36 @@
 module GobiertoBudgets
   module Data
     class Bubbles
-      def self.dump(place)
-        bubble_data_builder = new(place)
+      def self.dump(site)
+        bubble_data_builder = new(site)
         bubble_data_builder.build_data_file
         bubble_data_builder.upload_file
       end
 
-      def self.file_name_for(place)
-        ["gobierto_budgets", place.id, "data", "bubbles.json"].join("/")
+      def self.file_name_for(organization_id)
+        ["gobierto_budgets", organization_id, "data", "bubbles.json"].join("/")
       end
 
-      def initialize(place)
-        @place = place
+      def initialize(site)
+        @site = site
         @file_content = []
       end
 
-      attr_reader :place
+      attr_reader :site
 
       def upload_file
         GobiertoCommon::FileUploadService.new(content: @file_content.to_json,
-                                              file_name: self.class.file_name_for(place),
+                                              file_name: self.class.file_name_for(site.organization_id),
                                               content_type: "application/json; charset=utf-8").upload!
       end
 
       def build_data_file
-        base_conditions = { place: place, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name, level: 2 }
+        base_conditions = { site: site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name, level: 2 }
         expense_categories.each do |code, name|
           fill_data_for(code, name, base_conditions, "expense")
         end
 
-        base_conditions = { place: place, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, level: 2 }
+        base_conditions = { site: site, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, level: 2 }
         income_categories.each do |code, name|
           fill_data_for(code, name, base_conditions, "income")
         end

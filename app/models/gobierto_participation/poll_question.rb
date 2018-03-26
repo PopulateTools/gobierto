@@ -4,6 +4,7 @@ require_dependency 'gobierto_participation'
 
 module GobiertoParticipation
   class PollQuestion < ApplicationRecord
+    include GobiertoCommon::Validatable
 
     belongs_to :poll
     has_many :answer_templates, -> { order(order: :asc) }, class_name: 'GobiertoParticipation::PollAnswerTemplate', foreign_key: :question_id, dependent: :destroy, autosave: true

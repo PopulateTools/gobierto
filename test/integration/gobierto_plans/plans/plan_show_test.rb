@@ -6,7 +6,7 @@ module GobiertoPlans
   class PlanShowTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = gobierto_plans_path(slug: plan_type.slug, year: plan.year)
+      @path = gobierto_plans_plan_path(slug: plan_type.slug, year: plan.year)
     end
 
     def site

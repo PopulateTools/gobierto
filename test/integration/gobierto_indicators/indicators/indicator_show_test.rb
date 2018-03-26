@@ -78,6 +78,8 @@ module GobiertoIndicators
           end
 
           assert has_content? "Nombre total de llars"
+          assert has_content? "El nombre total d'habitatges amb persones empadronades,
+                               tant en règim de lloguer com en propietat."
           assert has_content? "16366"
           assert has_content? "Calculation"
           assert has_content? "Suma total d'habitatges amb persones empadronades"

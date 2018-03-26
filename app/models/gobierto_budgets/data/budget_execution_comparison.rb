@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   module Data
     class BudgetExecutionComparison
@@ -35,8 +37,8 @@ module GobiertoBudgets
         budget_lines_execution = GobiertoBudgets::BudgetLine.all(where: base_conditions.merge(index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed))
 
         budget_lines_forecast.each do |budget_line_forecast|
-          budget_line_execution = budget_lines_execution.detect{ |bl| bl.code == budget_line_forecast.code }
-          budget_line_forecast_updated = budget_lines_forecast_updated.detect{ |bl| bl.code == budget_line_forecast.code }
+          budget_line_execution = budget_lines_execution.detect { |bl| bl.code == budget_line_forecast.code }
+          budget_line_forecast_updated = budget_lines_forecast_updated.detect { |bl| bl.code == budget_line_forecast.code }
           execution_amount = budget_line_execution.try(:amount) || 0
           forecast_amount = budget_line_forecast_updated ? budget_line_forecast_updated.amount : budget_line_forecast.amount
 
@@ -44,7 +46,7 @@ module GobiertoBudgets
           category += area
           pct_executed = ((execution_amount / forecast_amount) * 100).round(2)
 
-          lines.push({
+          lines.push(
             "parent_id": budget_line_forecast.level == 1 ? budget_line_forecast.code : budget_line_forecast.parent_code,
             "id": budget_line_forecast.code,
             "category": category,
@@ -54,8 +56,8 @@ module GobiertoBudgets
             "budget": budget_line_forecast.amount,
             "budget_updated": budget_line_forecast_updated.try(:amount),
             "executed": execution_amount,
-            "pct_executed": pct_executed,
-          })
+            "pct_executed": pct_executed
+          )
         end
 
         lines

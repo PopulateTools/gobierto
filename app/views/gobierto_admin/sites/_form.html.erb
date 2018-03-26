@@ -8,7 +8,10 @@
 
         <% current_site.configuration.available_locales.each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
-            <%= label_tag "site[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
+            <%= label_tag "site[title_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:title) %>
+              <%= attribute_indication(@site_form.site.class, :title) %>
+            <% end %>
             <%= text_field_tag "site[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
 
@@ -28,7 +31,10 @@
       </div>
 
       <div class="form_item input_text">
-        <%= f.label :domain %>
+        <%= label_tag "site[domain]" do %>
+          <%= f.object.class.human_attribute_name(:domain) %>
+          <%= attribute_indication(@site_form.site.class, :domain) %>
+        <% end %>
         <%= f.text_field :domain, placeholder: t(".placeholders.domain") %>
 
         <div class="inline_help">
@@ -147,7 +153,10 @@
         </div>
 
         <div class="form_item select_control">
-          <%= f.label :home_page %>
+          <%= label_tag "site[home_page]" do %>
+            <%= f.object.class.human_attribute_name(:home_page) %>
+            <span class="indication"><%= t('views.forms.required') %></span>
+          <% end %>
           <%= f.select :home_page, @site_modules_with_root_path.map{ |p| [p.namespace, p.namespace] } %>
         </div>
 

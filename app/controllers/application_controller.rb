@@ -30,9 +30,6 @@ class ApplicationController < ActionController::Base
         Site.first if Rails.env.test?
       end
       ::GobiertoCore::CurrentScope.current_site = site
-      Rails.logger.info "====================================================="
-      Rails.logger.info ::GobiertoCore::CurrentScope.current_site.try(:domain)
-      Rails.logger.info "====================================================="
       site
     end
   end

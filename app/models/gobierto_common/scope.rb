@@ -6,13 +6,14 @@ module GobiertoCommon
     include GobiertoCommon::Sluggable
     include GobiertoCommon::ActsAsCollectionContainer
     include User::Subscribable
+    include GobiertoCommon::Validatable
 
     translates :name, :description
 
     belongs_to :site
     has_many :processes, class_name: "GobiertoParticipation::Process", dependent: :restrict_with_error
 
-    validates :site, presence: true
+    validates :site, :name, presence: true
     validates :slug, uniqueness: { scope: :site }
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }

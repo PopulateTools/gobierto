@@ -1,6 +1,6 @@
-'use strict';
+import { Class, d3, accounting } from 'shared'
 
-var VisBubbles = Class.extend({
+export var VisBubbles = Class.extend({
   init: function(divId, budgetCategory, data) {
     this.container = divId;
     d3.select(this.container).html('');
@@ -131,9 +131,9 @@ var VisBubbles = Class.extend({
     this.simulation.nodes(this.nodes)
     this.simulation.alpha(1).restart();
   },
-  updateRender: function(callback) {
+  updateRender: function() {
 
-    var budgetCategory = this.budget_category;
+    // var budgetCategory = this.budget_category;
     this.nodes = this.createNodes(this.data, this.currentYear);
 
     this.bubbles = this.svg.selectAll('g')

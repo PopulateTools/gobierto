@@ -1,6 +1,6 @@
-'use strict';
+import { Class, d3 } from 'shared'
 
-var getBudgetLevelData = Class.extend({
+export var getBudgetLevelData = Class.extend({
   init: function() {
     this.data = null;
     this.dataUrl = $('body').data('bubbles-data');

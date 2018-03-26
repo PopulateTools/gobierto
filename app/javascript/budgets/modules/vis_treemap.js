@@ -1,6 +1,6 @@
-'use strict';
+import { Class, d3, accounting, rebindAll } from 'shared'
 
-var TreemapVis = Class.extend({
+export var TreemapVis = Class.extend({
   init: function(divId, size, clickable){
     this.containerId = divId;
 
@@ -56,7 +56,7 @@ var TreemapVis = Class.extend({
       this.container.selectAll(".treemap_node")
         .data(this.treemap(root).leaves())
         .enter().append("div")
-        .attr("class", function(d){
+        .attr("class", function(){
           if(this.clickable){
             return "tipsit-treemap treemap_node clickable";
           } else {

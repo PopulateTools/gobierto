@@ -1,6 +1,6 @@
-'use strict';
+import { Class, d3 } from 'shared'
 
-var VisEvoLine = Class.extend({
+export var VisEvoLine = Class.extend({
   init: function(divId, series, current_year) {
     this.container = divId;
     this.data = series;
@@ -72,7 +72,7 @@ var VisEvoLine = Class.extend({
       this.updateRender();
     }
   },
-  updateRender: function(callback) {
+  updateRender: function() {
     this.xScale.domain(d3.extent(this.data.map(function(e) {
       return e.year;
     }))).range([this.margin.left, this.width - this.margin.left - this.margin.right]);

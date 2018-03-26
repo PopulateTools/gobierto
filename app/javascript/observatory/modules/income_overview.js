@@ -1,5 +1,5 @@
 import { Class, d3 } from 'shared'
-import { ComparisonCard } from './vis_card_comparision.js'
+import { ComparisonCard } from './vis_card_comparison.js'
 
 export var IncomeOverviewCard = Class.extend({
   init: function(divClass) {

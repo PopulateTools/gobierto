@@ -1,4 +1,4 @@
-this.GobiertoBudgets = {
+window.GobiertoBudgets = {
   init: function() {}
 };
 

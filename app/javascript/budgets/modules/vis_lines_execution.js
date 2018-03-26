@@ -1,6 +1,6 @@
-'use strict';
+import { Class, d3, accounting } from 'shared'
 
-var VisLinesExecution = Class.extend({
+export var VisLinesExecution = Class.extend({
   init: function(divId, type, category) {
     // Set default locale based on the app setting
     this.locale = I18n.locale;
@@ -59,7 +59,7 @@ var VisLinesExecution = Class.extend({
       this.updateRender();
     }
   },
-  setScales: function(callback) {
+  setScales: function() {
 
     if (this.svg) {
       // Destroy the container and render again
@@ -107,7 +107,7 @@ var VisLinesExecution = Class.extend({
         .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.empty_lines'));
     }
   },
-  updateRender: function(callback) {
+  updateRender: function() {
 
     this.nested = d3.nest()
       .key(function(d) { return d.parent_id;})
@@ -150,7 +150,7 @@ var VisLinesExecution = Class.extend({
       .enter()
       .append('g')
       .attr('class', 'line-group')
-      .attr('transform', function(d, i) {
+      .attr('transform', function(d) {
         return 'translate(' + 0 + ',' + this.y0(d.key) / 14 + ')';
       }.bind(this));
 
@@ -240,7 +240,7 @@ var VisLinesExecution = Class.extend({
 
     this.svg.append('g')
       .attr('class', 'x axis')
-    	.call(this.xAxis);
+      .call(this.xAxis);
 
     /* Legend */
     var legend = this.svg.append('g')
@@ -386,7 +386,7 @@ var VisLinesExecution = Class.extend({
 
     this.tooltip.html(tooltipHtml);
   },
-  _mouseleft: function(d) {
+  _mouseleft: function() {
     d3.selectAll('.tooltip').style('display', 'none');
   },
   _width: function() {

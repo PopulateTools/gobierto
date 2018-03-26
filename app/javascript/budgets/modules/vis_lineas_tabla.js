@@ -1,4 +1,4 @@
-'use strict';
+import { Class, d3 } from 'shared'
 
 Array.prototype.unique = function() {
     var a = this.concat();
@@ -12,7 +12,7 @@ Array.prototype.unique = function() {
     return a;
 };
 
-var VisLineasJ = Class.extend({
+export var VisLineasJ = Class.extend({
   init: function(divId, tableID, measure, series) {
     this.container = divId;
     this.tableContainer = tableID;

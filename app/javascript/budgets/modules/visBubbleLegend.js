@@ -1,6 +1,6 @@
-'use strict';
+import { Class, d3 } from 'shared'
 
-var VisBubbleLegend = Class.extend({
+export var VisBubbleLegend = Class.extend({
   init: function(divId) {
     this.container = divId;
     $(this.container).html('');

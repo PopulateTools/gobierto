@@ -1,4 +1,6 @@
-this.GobiertoBudgets.ReceiptController = (function() {
+import { accounting } from 'shared'
+
+window.GobiertoBudgets.ReceiptController = (function() {
 
   function ReceiptController() {}
 
@@ -13,14 +15,14 @@ this.GobiertoBudgets.ReceiptController = (function() {
       .toggleClass('toggled')
       .find('.fa').toggleClass('fa-plus fa-minus')
       .parent().siblings('.children').toggleClass('hidden');
-    }).find('.children').click(function(e) {
+    }).find('.children').click(function() {
       return false;
     });
   }
 
   function _receiptCalculator(options) {
 
-    var app = new Vue({
+    new Vue({
       el: '#taxes_receipt',
       name: 'taxes-receipt',
       data: function() {
@@ -35,7 +37,7 @@ this.GobiertoBudgets.ReceiptController = (function() {
         this.selected = Array(this.data.length).fill(0); // Assign BEFORE compile the template to avoid render twice
 
         var years = _.keys(this.data[0].options[0].value).sort(); // Shortcut for columns
-        this.categories = (years.length > 3) ? _.takeRight(years, 3) : years; // Max. 3 years 
+        this.categories = (years.length > 3) ? _.takeRight(years, 3) : years; // Max. 3 years
       },
       filters: {
         format: function (m) {
@@ -86,4 +88,4 @@ this.GobiertoBudgets.ReceiptController = (function() {
   return ReceiptController;
 })();
 
-this.GobiertoBudgets.receipt_controller = new GobiertoBudgets.ReceiptController;
+window.GobiertoBudgets.receipt_controller = new GobiertoBudgets.ReceiptController;

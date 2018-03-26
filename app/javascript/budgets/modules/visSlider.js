@@ -1,13 +1,13 @@
-'use strict';
+import { Class, d3 } from 'shared'
 
-var VisSlider = Class.extend({
+export var VisSlider = Class.extend({
   init: function(divId, data) {
     this.container = divId;
     $(this.container).html('');
     this.data = data;
 
     var currentYear = d3.select('body').attr('data-year');
-    var slideYear = currentYear;
+    // var slideYear = currentYear;
     var maxYear = parseInt(d3.select('body').attr('data-max-year'));
     var years = [];
     d3.keys(this.data[0].values).forEach(function(year) {
@@ -15,12 +15,12 @@ var VisSlider = Class.extend({
       if (year <= maxYear)
         years.push(year);
     });
-    var parseYear = d3.timeParse('%Y');
-    var formatYear = d3.timeFormat('%Y');
+    // var parseYear = d3.timeParse('%Y');
+    // var formatYear = d3.timeFormat('%Y');
 
-    var bisectDate = d3.bisector(function(d) {
-      return d;
-    }).left;
+    // var bisectDate = d3.bisector(function(d) {
+    //   return d;
+    // }).left;
 
     var margin = {
       right: 20,
@@ -141,7 +141,7 @@ var VisSlider = Class.extend({
           return 0
         }
       })
-      .attr('text-anchor', function(d, i) {
+      .attr('text-anchor', function(d) {
         if (d == maxYear) {
           return 'end'
         } else if (d == 2010) {

@@ -34,7 +34,9 @@ module User::SessionHelper
   end
 
   def find_current_user
-    User.confirmed.find_by(id: session[:user_id], site: current_site)
+    if session[:user_id].present?
+      User.confirmed.find_by(id: session[:user_id], site_id: current_site.id)
+    end
   end
 
   def after_sign_in_path(referrer_url = nil)

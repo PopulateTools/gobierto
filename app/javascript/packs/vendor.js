@@ -12,7 +12,6 @@ import 'velocity-ui-pack'
 // Falta d3-voronoi (editado??)
 import 'jquery-autocomplete'
 import algoliasearch from 'algoliasearch'
-import 'moment'
 import 'geocomplete'
 import 'jqtree'
 import 'select2'
@@ -20,6 +19,7 @@ import 'air-datepicker' // NOTE: translations are imported in shared module
 import 'sticky-kit/dist/sticky-kit.js'
 import 'fullcalendar'
 import 'mailcheck'
+import 'jsgrid'
 
 // Expose globals
 global.$ = global.jQuery = $; // NOTE: jQuery exposed to global (window for node environment) due to script directly in the view

@@ -2,8 +2,8 @@
   <p></p>
 <% end %>
 
-<!-- load module javascript specifics -->
 <% content_for :javascript_module_link do %>
+  <!-- load module javascript specifics -->
   <%= javascript_pack_tag 'user', 'data-turbolinks-track': true %>
 <% end %>
 

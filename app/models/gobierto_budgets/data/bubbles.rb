@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   module Data
     class Bubbles
@@ -8,7 +10,7 @@ module GobiertoBudgets
       end
 
       def self.file_name_for(place)
-        ['gobierto_budgets', place.id, 'data', 'bubbles.json'].join('/')
+        ["gobierto_budgets", place.id, "data", "bubbles.json"].join("/")
       end
 
       def initialize(place)
@@ -19,23 +21,20 @@ module GobiertoBudgets
       attr_reader :place
 
       def upload_file
-        tmp_file = Tempfile.new
-        tmp_file.binmode
-        tmp_file.write(@file_content.to_json)
-        tmp_file.close
-        file = ActionDispatch::Http::UploadedFile.new(filename: "bubbles.json", tempfile: tmp_file)
-        ::FileUploader::S3.new(file: file, file_name: self.class.file_name_for(place)).upload!
+        GobiertoCommon::FileUploadService.new(content: @file_content.to_json,
+                                              file_name: self.class.file_name_for(place),
+                                              content_type: "application/json; charset=utf-8").upload!
       end
 
       def build_data_file
-        base_conditions = {place: place, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name, level: 2}
+        base_conditions = { place: place, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name, level: 2 }
         expense_categories.each do |code, name|
-          fill_data_for(code, name, base_conditions, 'expense')
+          fill_data_for(code, name, base_conditions, "expense")
         end
 
-        base_conditions = {place: place, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, level: 2}
+        base_conditions = { place: place, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, level: 2 }
         income_categories.each do |code, name|
-          fill_data_for(code, name, base_conditions, 'income')
+          fill_data_for(code, name, base_conditions, "income")
         end
       end
 
@@ -48,37 +47,35 @@ module GobiertoBudgets
       end
 
       def expense_categories
-        all_expense_categories.select{ |code, _| code.length == 2 }
+        all_expense_categories.select { |code, _| code.length == 2 }
       end
 
       def income_categories
-        all_income_categories.select{ |code, _| code.length == 2 }
+        all_income_categories.select { |code, _| code.length == 2 }
       end
 
       def parent_name(collection, code)
-        collection.detect{ |c, _| c == code[0..-2] }.last
-      rescue
-        if code.starts_with?("5")
-          "Ingresos patrimoniales"
-        end
+        collection.detect { |c, _| c == code[0..-2] }.last
+      rescue StandardError
+        "Ingresos patrimoniales" if code.starts_with?("5")
       end
 
       def localized_name_for(code, kind)
-        if kind == 'income'
+        if kind == "income"
           income_categories[code]
         else
           expense_categories[code]
         end
       end
 
-      def fill_data_for(code, name, base_conditions, kind)
+      def fill_data_for(code, _name, base_conditions, kind)
         budget_lines = GobiertoBudgets::BudgetLine.all(where: base_conditions.merge(code: code))
 
         values = {}
         values_per_inhabitant = {}
         years = budget_lines.map(&:year).sort.reverse
-        years.each_with_index do |year, i|
-          if budget_line = budget_lines.detect{ |b| b.year == year}
+        years.each_with_index do |year, _i|
+          if budget_line = budget_lines.detect { |b| b.year == year }
             values.store(year, budget_line.amount)
             values_per_inhabitant.store(year, budget_line.amount_per_inhabitant)
           else
@@ -91,7 +88,7 @@ module GobiertoBudgets
           if i < years.length - 1
             previous = values[year - 1].to_f
             current = values[year].to_f
-            pct_diff.store(year, (((current - previous)/previous)*100).round(2))
+            pct_diff.store(year, (((current - previous) / previous) * 100).round(2))
           else
             pct_diff.store(year, 0)
           end
@@ -106,14 +103,10 @@ module GobiertoBudgets
         }
 
         I18n.locale = :es
-        data.merge!({
-          level_2_es: localized_name_for(code, kind)
-        })
+        data[:level_2_es] = localized_name_for(code, kind)
 
         I18n.locale = :ca
-        data.merge!({
-          level_2_ca: localized_name_for(code, kind)
-        })
+        data[:level_2_ca] = localized_name_for(code, kind)
 
         @file_content.push(data)
       end

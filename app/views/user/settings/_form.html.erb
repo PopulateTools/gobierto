@@ -11,7 +11,10 @@
   </div>
 
   <div class="form_item input_text">
-    <%= f.label :name %>
+    <%= label_tag "user_settings[name]" do %>
+      <%= t("activemodel.attributes.gobierto_admin/admin_form.name") %>
+      <span class="indication"><%= t('views.forms.required') %></span>
+    <% end %>
     <%= f.text_field :name %>
   </div>
 

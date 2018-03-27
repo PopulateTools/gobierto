@@ -6,6 +6,7 @@ module GobiertoParticipation
   class Contribution < ApplicationRecord
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::Validatable
     include GobiertoParticipation::Flaggable
     include GobiertoParticipation::Votable
 

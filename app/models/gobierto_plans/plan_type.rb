@@ -5,6 +5,7 @@ require_dependency "gobierto_plans"
 module GobiertoPlans
   class PlanType < ApplicationRecord
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::Validatable
 
     belongs_to :site
     has_many :plans, class_name: "GobiertoPlans::Plan", dependent: :restrict_with_error
@@ -20,8 +21,8 @@ module GobiertoPlans
       [name]
     end
 
-    def recent_plan_date
-      plans.published.pluck(:year).sort.reverse!.first
+    def self.site_plant_types(site)
+      site.plans.includes(:plan_type).published.group_by(&:plan_type).keys
     end
   end
 end

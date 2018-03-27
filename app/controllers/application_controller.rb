@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::UnknownFormat, with: :render_404
 
   helper_method :helpers, :load_current_module_sub_sections, :current_site, :current_module,
-                :current_module_body_class, :available_locales, :gobierto_people_event_preview_url
+                :current_module_body_class, :available_locales, :gobierto_calendars_event_preview_url
 
   before_action :set_current_site, :authenticate_user_in_site, :set_locale
 
@@ -30,9 +30,6 @@ class ApplicationController < ActionController::Base
         Site.first if Rails.env.test?
       end
       ::GobiertoCore::CurrentScope.current_site = site
-      Rails.logger.info "====================================================="
-      Rails.logger.info ::GobiertoCore::CurrentScope.current_site.try(:domain)
-      Rails.logger.info "====================================================="
       site
     end
   end
@@ -99,14 +96,14 @@ class ApplicationController < ActionController::Base
     redirect_to(root_path) and return false
   end
 
-  def gobierto_people_event_preview_url(event, options = {})
+  def gobierto_calendars_event_preview_url(event, options = {})
     options[:host] ||= current_site.domain
-    # TODO
-    return '#' if @person.nil? || !event.collection.container.is_a?(::GobiertoPeople::Person)
 
-    if event.pending? || @person.draft?
+    if ((event.collection.container.class_name == "GobiertoParticipation::Process" && event.pending?) ||
+        (event.collection.container.class_name == "GobiertoPeople::Person" && event.pending?) ||
+        (@person && @person.draft?))
       options.merge!(preview_token: current_admin.preview_token)
     end
-    gobierto_people_person_event_url(@person.slug, event.slug, options)
+    event.to_url(options)
   end
 end

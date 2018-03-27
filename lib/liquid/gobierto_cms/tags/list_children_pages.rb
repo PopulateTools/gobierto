@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ListChildrenPages < Liquid::Tag
+  include GobiertoCms::PageHelper
+
   def initialize(tag_name, params, tokens)
     super
 
@@ -24,15 +26,6 @@ class ListChildrenPages < Liquid::Tag
     end
   rescue ActiveRecord::RecordNotFound
     return ""
-  end
-
-  def gobierto_cms_page_or_news_path(page, options = {})
-    url_helpers = Rails.application.routes.url_helpers
-    if page.collection.item_type == "GobiertoCms::Page"
-      url_helpers.gobierto_cms_page_path(page.slug, options)
-    elsif page.collection.item_type == "GobiertoCms::News"
-      url_helpers.gobierto_cms_news_path(page.slug, options)
-    end
   end
 
   def children_pages(nodes, level)

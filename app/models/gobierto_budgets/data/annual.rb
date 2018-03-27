@@ -7,10 +7,10 @@ module GobiertoBudgets
 
       FORMATS = {
         json: { serializer: ->(data) { data.to_json },
-                content_type: 'application/json; charset=utf-8' },
+                content_type: "application/json; charset=utf-8" },
         csv:  { serializer: ->(data) { GobiertoExports::CSVRenderer.new(data).to_csv },
-                content_type: 'text/csv; charset=utf-8' }
-      }
+                content_type: "text/csv; charset=utf-8" }
+      }.freeze
 
       attr_accessor :site, :year
 
@@ -24,7 +24,7 @@ module GobiertoBudgets
       end
 
       def get_url(format)
-        file = FileUploader::S3.new(file_name: filename(format))
+        file = GobiertoCommon::FileUploadService.new(file_name: filename(format))
         file.uploaded_file_exists? && file.call
       end
 
@@ -34,7 +34,7 @@ module GobiertoBudgets
         calculate_place_budget_lines
 
         FORMATS.each do |format_key, configuration|
-          file_urls << FileUploader::S3.new(
+          file_urls << GobiertoCommon::FileUploadService.new(
             file_name: filename(format_key),
             content: configuration[:serializer].call(@place_budget_lines),
             content_type: configuration[:content_type]
@@ -50,8 +50,8 @@ module GobiertoBudgets
       end
 
       def filename(format)
-        raise UnsupportedFormat if !FORMATS.keys.include?(format.to_sym)
-        ["gobierto_budgets", place.id, "data", "annual", "#{year}.#{format}"].join("/")
+        raise UnsupportedFormat unless FORMATS.keys.include?(format.to_sym)
+        ["gobierto_budgets", place.id, "data", "annual", "#{ year }.#{ format }"].join("/")
       end
 
       def calculate_place_budget_lines
@@ -69,8 +69,8 @@ module GobiertoBudgets
                                                                             area_name: area.area_name,
                                                                             kind: kind,
                                                                             index: index },
-                                                                            include: [:index, :updated_at],
-                                                                            presenter: presenter)
+                                                                   include: [:index, :updated_at],
+                                                                   presenter: presenter)
               index_budget_lines.each do |line|
                 if (idx = @place_budget_lines.index { |global_line| global_line.id == line.id })
                   @place_budget_lines[idx].merge!(line)

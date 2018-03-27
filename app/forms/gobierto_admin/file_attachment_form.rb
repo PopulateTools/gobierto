@@ -131,12 +131,12 @@ module GobiertoAdmin
     end
 
     def upload_file
-      FileUploadService.new(
+      GobiertoAdmin::FileUploadService.new(
         site: site,
         collection: file_attachment.model_name.collection,
         attribute_name: :file,
         file: file
-      ).call
+      ).upload!
     end
 
     def file_is_not_duplicated

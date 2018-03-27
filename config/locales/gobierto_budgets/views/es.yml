@@ -528,6 +528,7 @@ es:
         budgets: Presupuestos
       menu_subsections:
         budget: Presupuesto
+        data: Datos
         elaboration: Elaboración
         execution: Ejecución
         guide: Guía

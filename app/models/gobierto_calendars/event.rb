@@ -82,6 +82,11 @@ module GobiertoCalendars
       where(id: ids, site: site).published
     end
 
+    def self.events_in_collections_and_container_with_pending(site, container)
+      ids = GobiertoCommon::CollectionItem.events.by_container(container).pluck(:item_id)
+      where(id: ids, site: site)
+    end
+
     def parameterize
       { container_slug: collection.container.slug, slug: slug }
     end

@@ -18,7 +18,10 @@
       </div>
 
       <div class="form_item input_text">
-        <%= f.label :published_on %>
+        <%= label_tag "person_statement[published_on]]" do %>
+          <%= f.object.class.human_attribute_name(:published_on) %>
+          <%= attribute_indication(@person_statement_form.person_statement.class, :published_on) %>
+        <% end %>
         <%= f.text_field :published_on, data: {
             "language": I18n.locale,
             "date-format": "yyyy-mm-dd",

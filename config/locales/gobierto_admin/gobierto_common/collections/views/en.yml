@@ -19,7 +19,7 @@ en:
           title: CMS
           view_collection: See collection
         new_modal:
-          title: New theme
+          title: New collection
         show:
           configuration: Configuration
           file_attachments:

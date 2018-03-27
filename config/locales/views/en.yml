@@ -110,6 +110,8 @@ en:
       scopes_scope_created: Scope created
       scopes_scope_updated: Scope updated
   shared:
+    download_open_data:
+      exports: Download data in a reusable format
     poll_question:
       multiple_choice_msg: You can choose several options
     poll_teaser:
@@ -134,6 +136,7 @@ en:
     edit: Edit
     forms:
       max_characters: Max. %{length} characters
+      required: Required
       required_and_max_characters: Required and Màx. %{length} caràcters
     of: of
     pagination:

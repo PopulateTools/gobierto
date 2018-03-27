@@ -1,33 +1,27 @@
-GIT
-  remote: https://github.com/rails/actionpack-action_caching.git
-  revision: 9044141824650138bf27741e8f0ed95ccd9ef26d
-  ref: 9044141824650138bf27741e8f0ed95ccd9ef26d
-  specs:
-    actionpack-action_caching (1.1.1)
-      actionpack (>= 4.0.0, < 6)
-
 GEM
   remote: https://rubygems.org/
   specs:
-    actioncable (5.1.5)
-      actionpack (= 5.1.5)
+    actioncable (5.2.0.rc2)
+      actionpack (= 5.2.0.rc2)
       nio4r (~> 2.0)
-      websocket-driver (~> 0.6.1)
-    actionmailer (5.1.5)
-      actionpack (= 5.1.5)
-      actionview (= 5.1.5)
-      activejob (= 5.1.5)
+      websocket-driver (>= 0.6.1)
+    actionmailer (5.2.0.rc2)
+      actionpack (= 5.2.0.rc2)
+      actionview (= 5.2.0.rc2)
+      activejob (= 5.2.0.rc2)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 2.0)
-    actionpack (5.1.5)
-      actionview (= 5.1.5)
-      activesupport (= 5.1.5)
+    actionpack (5.2.0.rc2)
+      actionview (= 5.2.0.rc2)
+      activesupport (= 5.2.0.rc2)
       rack (~> 2.0)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    actionview (5.1.5)
-      activesupport (= 5.1.5)
+    actionpack-action_caching (1.2.0)
+      actionpack (>= 4.0.0, < 6)
+    actionview (5.2.0.rc2)
+      activesupport (= 5.2.0.rc2)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
@@ -37,18 +31,22 @@ GEM
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
-    activejob (5.1.5)
-      activesupport (= 5.1.5)
+    activejob (5.2.0.rc2)
+      activesupport (= 5.2.0.rc2)
       globalid (>= 0.3.6)
-    activemodel (5.1.5)
-      activesupport (= 5.1.5)
-    activerecord (5.1.5)
-      activemodel (= 5.1.5)
-      activesupport (= 5.1.5)
-      arel (~> 8.0)
-    activesupport (5.1.5)
+    activemodel (5.2.0.rc2)
+      activesupport (= 5.2.0.rc2)
+    activerecord (5.2.0.rc2)
+      activemodel (= 5.2.0.rc2)
+      activesupport (= 5.2.0.rc2)
+      arel (>= 9.0)
+    activestorage (5.2.0.rc2)
+      actionpack (= 5.2.0.rc2)
+      activerecord (= 5.2.0.rc2)
+      marcel (~> 0.3.1)
+    activesupport (5.2.0.rc2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (~> 0.7)
+      i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.5.2)
@@ -63,15 +61,15 @@ GEM
       algoliasearch (>= 1.17.0, < 2.0.0)
       json (>= 1.5.1)
     ansi (1.5.0)
-    arel (8.0.0)
+    arel (9.0.0)
     ast (2.4.0)
-    aws-sdk (2.11.13)
-      aws-sdk-resources (= 2.11.13)
-    aws-sdk-core (2.11.13)
+    aws-sdk (2.11.20)
+      aws-sdk-resources (= 2.11.20)
+    aws-sdk-core (2.11.20)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.11.13)
-      aws-sdk-core (= 2.11.13)
+    aws-sdk-resources (2.11.20)
+      aws-sdk-core (= 2.11.20)
     aws-ses (0.6.0)
       builder
       mail (> 2.2.5)
@@ -81,11 +79,13 @@ GEM
     aws_cf_signer (0.1.3)
     bcrypt (3.1.11)
     before_renders (0.2.0)
+    bootsnap (1.2.1)
+      msgpack (~> 1.0)
     bourbon (4.3.4)
       sass (~> 3.4)
       thor (~> 0.19)
     builder (3.2.3)
-    byebug (10.0.0)
+    byebug (10.0.1)
     capybara (2.18.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -116,21 +116,19 @@ GEM
     crass (1.0.3)
     d3-rails (4.13.0)
       railties (>= 3.1)
-    dalli (2.7.6)
-    data_migrate (3.5.0)
-      rails (>= 4.1)
+    dalli (2.7.7)
     declarative (0.0.10)
     declarative-option (0.1.0)
-    docile (1.1.5)
+    docile (1.3.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     easy_translate (0.5.1)
       thread
       thread_safe
-    elasticsearch (6.0.1)
-      elasticsearch-api (= 6.0.1)
-      elasticsearch-transport (= 6.0.1)
-    elasticsearch-api (6.0.1)
+    elasticsearch (6.0.2)
+      elasticsearch-api (= 6.0.2)
+      elasticsearch-transport (= 6.0.2)
+    elasticsearch-api (6.0.2)
       multi_json
     elasticsearch-extensions (0.0.27)
       ansi
@@ -138,7 +136,7 @@ GEM
       oj
       patron
       ruby-prof
-    elasticsearch-transport (6.0.1)
+    elasticsearch-transport (6.0.2)
       faraday
       multi_json
     erubi (1.7.1)
@@ -151,7 +149,7 @@ GEM
     execjs (2.7.0)
     faraday (0.14.0)
       multipart-post (>= 1.2, < 3)
-    ffi (1.9.18)
+    ffi (1.9.23)
     flight-for-rails (1.5.1)
       jquery-rails (>= 2.1.4)
       rails (>= 3.1.0)
@@ -179,10 +177,10 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     httpclient (2.8.3)
-    httpi (2.4.2)
+    httpi (2.4.3)
       rack
       socksify
-    i18n (0.9.5)
+    i18n (1.0.0)
       concurrent-ruby (~> 1.0)
     i18n-js (3.0.5)
       i18n (>= 0.6.6, < 2)
@@ -239,11 +237,13 @@ GEM
     logging (2.2.2)
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
-    loofah (2.2.0)
+    loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
+    marcel (0.3.1)
+      mimemagic (~> 0.3.2)
     mechanize (2.7.5)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0)
@@ -261,24 +261,11 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
+    mimemagic (0.3.2)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    minitest-capybara (0.8.2)
-      capybara (~> 2.2)
-      minitest (~> 5.0)
-      rake
-    minitest-metadata (0.6.0)
-      minitest (>= 4.7, < 6.0)
-    minitest-rails (3.0.0)
-      minitest (~> 5.8)
-      railties (~> 5.0)
-    minitest-rails-capybara (3.0.1)
-      capybara (~> 2.7)
-      minitest-capybara (~> 0.8)
-      minitest-metadata (~> 0.6)
-      minitest-rails (~> 3.0)
-    minitest-reporters (1.1.19)
+    minitest-reporters (1.2.0)
       ansi
       builder
       minitest (>= 5.0)
@@ -287,19 +274,20 @@ GEM
       minitest (>= 5.0)
     minitest-stub-const (0.6)
     minitest-stub_any_instance (1.0.2)
-    mocha (1.3.0)
+    mocha (1.4.0)
       metaclass (~> 0.0.1)
+    msgpack (1.2.4)
     multi_json (1.13.1)
     multipart-post (2.0.0)
     net-http-digest_auth (1.4.1)
     net-http-persistent (2.9.4)
     netrc (0.11.0)
-    nio4r (2.2.0)
+    nio4r (2.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     nori (2.6.0)
     ntlm-http (0.1.1)
-    oj (3.3.10)
+    oj (3.5.0)
     os (0.9.6)
     paper_trail (8.1.2)
       activerecord (>= 4.2, < 5.2)
@@ -307,9 +295,9 @@ GEM
     parallel (1.12.1)
     paranoia (2.4.0)
       activerecord (>= 4.0, < 5.2)
-    parser (2.5.0.3)
+    parser (2.5.0.4)
       ast (~> 2.4.0)
-    patron (0.10.0)
+    patron (0.12.1)
     pg (0.21.0)
     poltergeist (1.17.0)
       capybara (~> 2.1)
@@ -319,36 +307,37 @@ GEM
     public_suffix (3.0.2)
     puma (3.11.3)
     rack (2.0.4)
-    rack-protection (2.0.0)
+    rack-protection (2.0.1)
       rack
     rack-test (0.8.3)
       rack (>= 1.0, < 3)
-    rails (5.1.5)
-      actioncable (= 5.1.5)
-      actionmailer (= 5.1.5)
-      actionpack (= 5.1.5)
-      actionview (= 5.1.5)
-      activejob (= 5.1.5)
-      activemodel (= 5.1.5)
-      activerecord (= 5.1.5)
-      activesupport (= 5.1.5)
+    rails (5.2.0.rc2)
+      actioncable (= 5.2.0.rc2)
+      actionmailer (= 5.2.0.rc2)
+      actionpack (= 5.2.0.rc2)
+      actionview (= 5.2.0.rc2)
+      activejob (= 5.2.0.rc2)
+      activemodel (= 5.2.0.rc2)
+      activerecord (= 5.2.0.rc2)
+      activestorage (= 5.2.0.rc2)
+      activesupport (= 5.2.0.rc2)
       bundler (>= 1.3.0)
-      railties (= 5.1.5)
+      railties (= 5.2.0.rc2)
       sprockets-rails (>= 2.0.0)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.0.3)
-      loofah (~> 2.0)
-    railties (5.1.5)
-      actionpack (= 5.1.5)
-      activesupport (= 5.1.5)
+    rails-html-sanitizer (1.0.4)
+      loofah (~> 2.2, >= 2.2.2)
+    railties (5.2.0.rc2)
+      actionpack (= 5.2.0.rc2)
+      activesupport (= 5.2.0.rc2)
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
-    rake (12.3.0)
-    rb-fsevent (0.10.2)
+    rake (12.3.1)
+    rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     redcarpet (3.4.0)
@@ -358,7 +347,7 @@ GEM
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
-    request_store (1.4.0)
+    request_store (1.4.1)
       rack (>= 1.4)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
@@ -370,7 +359,7 @@ GEM
     retriable (3.1.1)
     rollbar (2.15.5)
       multi_json
-    rubocop (0.53.0)
+    rubocop (0.54.0)
       parallel (~> 1.10)
       parser (>= 2.5)
       powerpack (~> 0.1)
@@ -384,7 +373,7 @@ GEM
       activesupport (>= 4.2.5)
     rubyntlm (0.6.2)
     safe_yaml (1.0.4)
-    sass (3.5.5)
+    sass (3.5.6)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -415,8 +404,8 @@ GEM
       multi_json (~> 1.10)
     simple_calendar (2.2.7)
       rails (>= 3.0)
-    simplecov (0.15.1)
-      docile (~> 1.1.0)
+    simplecov (0.16.1)
+      docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
@@ -450,7 +439,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.1.7)
+    uglifier (4.1.8)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -466,7 +455,7 @@ GEM
       crack (>= 0.3.2)
       hashdiff
     webrobots (0.1.2)
-    websocket-driver (0.6.5)
+    websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
     xml-simple (1.1.5)
@@ -477,13 +466,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack-action_caching!
+  actionpack-action_caching
   active_model_serializers
   algoliasearch-rails (~> 1.17)
   aws-sdk (~> 2.6)
   aws-ses (~> 0.6.0)
   bcrypt (~> 3.1.0)
   before_renders
+  bootsnap
   bourbon (~> 4.3.4)
   byebug
   capybara
@@ -494,7 +484,6 @@ DEPENDENCIES
   cookies_eu
   d3-rails (~> 4.8)
   dalli
-  data_migrate
   elasticsearch
   elasticsearch-extensions
   exchanger
@@ -510,11 +499,10 @@ DEPENDENCIES
   kaminari (~> 1.0)
   launchy
   liquid (~> 4.0)
+  listen
   mechanize
   meta-tags
   minitest (= 5.11.3)
-  minitest-rails
-  minitest-rails-capybara
   minitest-reporters
   minitest-retry
   minitest-stub-const
@@ -525,7 +513,7 @@ DEPENDENCIES
   pg (~> 0.19)
   poltergeist
   puma
-  rails (~> 5.1.1)
+  rails (~> 5.2.0.rc2)
   rails-html-sanitizer
   redcarpet
   redis (~> 3.3)

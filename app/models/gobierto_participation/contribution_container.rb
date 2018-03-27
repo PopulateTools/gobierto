@@ -10,6 +10,7 @@ module GobiertoParticipation
     include User::Subscribable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::HasVisibilityUserLevels
+    include GobiertoCommon::Validatable
 
     translates :title, :description
 

@@ -37,3 +37,6 @@
     <%= link_to t('gobierto_budgets.layouts.menu_subsections.indicators'), gobierto_budgets_indicators_path, class: class_if('active', controller_name == 'indicators'), data: { turbolinks: false }  %>
   </div>
 <% end %>
+<div class="sub-nav-item">
+  <%= link_to t('gobierto_budgets.layouts.menu_subsections.data'), gobierto_exports_root_path, data: { turbolinks: false }  %>
+</div>

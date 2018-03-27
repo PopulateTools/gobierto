@@ -1,4 +1,6 @@
-require_dependency 'gobierto_budgets'
+# frozen_string_literal: true
+
+require_dependency "gobierto_budgets"
 
 module GobiertoBudgets
   class Category < ApplicationRecord
@@ -27,7 +29,7 @@ module GobiertoBudgets
     end
 
     def self.default_description(area, kind, code)
-      area.all_descriptions[I18n.locale][area.area_name][kind][code] if (area != CustomArea)
+      area.all_descriptions[I18n.locale][area.area_name][kind][code] if area != CustomArea
     end
 
     private
@@ -39,6 +41,5 @@ module GobiertoBudgets
     def default_description
       self.class.default_description(area, kind, code)
     end
-
   end
 end

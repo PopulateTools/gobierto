@@ -286,17 +286,25 @@
 }
 
 .list_items_from_collection {
-
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 25px;
+
+  @include screen(640, 1024) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include screen(639) {
+    display: block;
+    a {
+      display: block;
+    }
+  }
 
   a {
     text-decoration: none;
     color: $color_text;
     border: 1px solid $color_main_soft;
     padding: 1em;
-    height: 100%;
     transition: box-shadow 0.5s ease;
   }
   a:hover {

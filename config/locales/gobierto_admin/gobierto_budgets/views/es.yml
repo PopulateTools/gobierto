@@ -36,6 +36,8 @@ es:
             partidas del presupuesto
           feedback_emails_desc: Las participaciones (opinión sobre partidas y petición
             de más información) se enviarán a esta dirección
+          indicators: Indicadores
+          indicators_desc1: Habilita la sección Indicadores
           options: Opciones
           providers: Proveedores y Facturas
           providers_desc1: Habilita la sección Proveedores y Facturas

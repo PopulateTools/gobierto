@@ -1,6 +1,7 @@
 //= require ./execution
 //= require_directory ./components/
 //= require_directory ./visualizations/
+//= require_directory ./cards/
 //= require_directory ./lib/
 //= require d3-jetpack
 //= require ./app/init

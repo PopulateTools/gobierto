@@ -294,6 +294,7 @@ Rails.application.routes.draw do
       get "feedback/load_ask_more_information" => "feedback#load_ask_more_information", as: :feedback_load_ask_more_information
       get "recibo" => "receipts#show", as: :receipt
       get "proveedores-facturas" => "providers#index", as: :providers
+      get "indicadores(/:year)" => "indicators#index", as: :indicators
 
       namespace :api do
         get "/categories" => "categories#index"

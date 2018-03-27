@@ -414,7 +414,7 @@ export var VisLineasJ = Class.extend({
 
 
       // create a row for each object in the data
-      var rows = tbody.selectAll("tr")
+      rows = tbody.selectAll("tr")
           .data(this.dataChart.reverse())
           // .data(this.dataChart)
           .enter()
@@ -424,7 +424,7 @@ export var VisLineasJ = Class.extend({
         .on('mouseout', this._mouseoutTable.bind(this));
 
       // create a cell in each row for each column
-      var cells = rows.selectAll("td")
+      rows.selectAll("td")
           .data(function(row) {
 
             var dataChartFiltered = row.values.filter(function(v) {
@@ -434,23 +434,24 @@ export var VisLineasJ = Class.extend({
             dataChartFiltered.map(function(d) { return colors[d.name] != undefined ? d['color']= 'le le-' + colors[d.name] : d['color'] = 'le le-place'; });
 
             return columns.map(function(column) {
+              var value, classed;
                 if (column == 'name') {
-                  var value = this.niceCategory[dataChartFiltered[0][column]] != undefined ? this.niceCategory[dataChartFiltered[0][column]] : dataChartFiltered[0][column];
-                  var classed = this._normalize(dataChartFiltered[0].name)
+                  value = this.niceCategory[dataChartFiltered[0][column]] != undefined ? this.niceCategory[dataChartFiltered[0][column]] : dataChartFiltered[0][column];
+                  classed = this._normalize(dataChartFiltered[0].name)
 
                 } else if (column == 'value') {
-                  var value = dataChartFiltered[0][column] != null ? accounting.formatMoney(dataChartFiltered[0][column]) : '-- €'
-                  var classed = 'value right ' + this._normalize(dataChartFiltered[0].name)
+                  value = dataChartFiltered[0][column] != null ? accounting.formatMoney(dataChartFiltered[0][column]) : '-- €'
+                  classed = 'value right ' + this._normalize(dataChartFiltered[0].name)
                 } else if (column == 'dif') {
                   if (dataChartFiltered[0][column] != null) {
-                    var value = dataChartFiltered[0][column] > 0 ? '+' +dataChartFiltered[0][column] + ' %' : dataChartFiltered[0][column] + ' %'
+                    value = dataChartFiltered[0][column] > 0 ? '+' +dataChartFiltered[0][column] + ' %' : dataChartFiltered[0][column] + ' %'
                   } else {
-                    var value = '--%'
+                    value = '--%'
                   }
-                  var classed = 'dif right ' + this._normalize(dataChartFiltered[0].name)
+                  classed = 'dif right ' + this._normalize(dataChartFiltered[0].name)
                 } else {
-                  var value = dataChartFiltered[0][column]
-                  var classed = this._normalize(dataChartFiltered[0].name)
+                  value = dataChartFiltered[0][column]
+                  classed = this._normalize(dataChartFiltered[0].name)
                 }
                 return {column: column,
                         value: value,
@@ -494,9 +495,9 @@ export var VisLineasJ = Class.extend({
   _mouseover: function () {
     var selected = d3.event.target,
         selectedClass = selected.classList,
-        selectedData = d3.select(selected).data()[0],
-        selectedCx = d3.select(selected).attr('cx'),
-        selectedCy = d3.select(selected).attr('cy');
+        selectedData = d3.select(selected).data()[0];
+        // selectedCx = d3.select(selected).attr('cx'),
+        // selectedCy = d3.select(selected).attr('cy');
 
     var dataChartFiltered = this.dataChart.map(function(d) {
       return d.values.filter(function(v) {
@@ -579,11 +580,11 @@ export var VisLineasJ = Class.extend({
   },
 
   _mouseout: function () {
-    var selected = d3.event.target,
-        selectedClass = selected.classList,
-        selectedData = d3.select(selected).data()[0],
-        selectedCx = d3.select(selected).attr('cx'),
-        selectedCy = d3.select(selected).attr('cy');
+    // var selected = d3.event.target;
+        // selectedClass = selected.classList,
+        // selectedData = d3.select(selected).data()[0],
+        // selectedCx = d3.select(selected).attr('cx'),
+        // selectedCy = d3.select(selected).attr('cy');
 
     this.svgLines.selectAll('.dot_line')
       .transition()
@@ -614,7 +615,7 @@ export var VisLineasJ = Class.extend({
   },
 
   _mouseoutTable: function () {
-    var classed = d3.event.target.classList[d3.event.target.classList.length - 1]
+    // var classed = d3.event.target.classList[d3.event.target.classList.length - 1]
 
     this.svgLines.selectAll('.dot_line')
       .transition()

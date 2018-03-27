@@ -1,4 +1,7 @@
-(function(window, undefined){
+import { flight } from 'shared'
+import { VisLineasJ } from './vis_lineas_tabla.js'
+
+(function(window){
   'use strict';
 
   window.visLine = flight.component(function(){

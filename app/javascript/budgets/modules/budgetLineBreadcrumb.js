@@ -1,3 +1,5 @@
+import { flight } from 'shared'
+
 function limit_length(input, length) {
   if(input === null)
     return "";
@@ -103,14 +105,12 @@ function limit_length(input, length) {
       this.assignHandlersLevel1();
     };
 
-    this.assignHandlersLevel1 = function(level){
+    this.assignHandlersLevel1 = function(){
       var that = this;
       var timeout;
 
       $('[data-level="1"] [data-area-name]').on('mouseenter', function(e){
         e.preventDefault();
-        var level = 1;
-
         var $this = $(this);
 
         if (timeout != null) { clearTimeout(timeout); }
@@ -124,13 +124,13 @@ function limit_length(input, length) {
           that.currentKind = $this.data('kind');
           that.areaName = $this.data('area-name');
 
-          that.renderLevel(2, that.currentKind + '-' + that.areaName, function(result){
+          that.renderLevel(2, that.currentKind + '-' + that.areaName, function(){
             $this.addClass('selected');
           });
         }, 200);
       });
 
-      $('[data-level="1"] [data-area-name]').on('mouseleave', function(e){
+      $('[data-level="1"] [data-area-name]').on('mouseleave', function(){
         if (timeout != null) {
           clearTimeout(timeout);
           timeout = null;
@@ -173,7 +173,7 @@ function limit_length(input, length) {
         }, 200);
       });
 
-      $('[data-level="' + level + '"] [data-code]').on('mouseleave', function(e){
+      $('[data-level="' + level + '"] [data-code]').on('mouseleave', function(){
         if (timeout != null) {
           clearTimeout(timeout);
           timeout = null;

@@ -7,10 +7,8 @@ import 'magnific-popup'
 import 'jquery-visible'
 import 'webpack-jquery-ui'
 import 'tipsy-1a'
-import 'mustache'
 import 'velocity-animate'
 import 'velocity-ui-pack'
-// Falta d3-legend
 // Falta d3-voronoi (editado??)
 import 'jquery-autocomplete'
 import algoliasearch from 'algoliasearch'
@@ -22,7 +20,6 @@ import 'air-datepicker' // NOTE: translations are imported in shared module
 import 'sticky-kit/dist/sticky-kit.js'
 import 'fullcalendar'
 import 'mailcheck'
-import 'd3-jetpack'
 
 // Expose globals
 global.$ = global.jQuery = $; // NOTE: jQuery exposed to global (window for node environment) due to script directly in the view

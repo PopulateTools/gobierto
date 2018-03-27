@@ -16,12 +16,18 @@ import Turbolinks from 'turbolinks'
 import Cropper from 'cropperjs'
 import accounting from 'accounting'
 import CodeMirror from 'codemirror' // NOTE: Addons not included
-import * as d3 from 'd3'
 import Cleave from 'cleave.js'
 import Vue from 'vue'
+// https://www.giacomodebidda.com/how-to-import-d3-plugins-with-webpack/
+import * as d3Base from 'd3'
+import d3Legend from 'd3-svg-legend'
+import { wordwrap, parseAttributes, f, ascendingKey, descendingKey, conventions, drawAxis, attachTooltip, loadData, nestBy, round, clamp, polygonClip } from 'd3-jetpack' // NOTE: some methods returned conflict with d3v4, so must select
+import * as flight from 'flightjs'
+import Mustache from 'mustache'
 
 // Initializations
 accounting.settings = settings
 Turbolinks.start()
+const d3 = Object.assign(d3Base, d3Legend, { wordwrap, parseAttributes, f, ascendingKey, descendingKey, conventions, drawAxis, attachTooltip, loadData, nestBy, round, clamp, polygonClip });
 
-export { AUTOCOMPLETE_DEFAULTS, Class, d3, d3locale, accounting, SimpleMDE, Cropper, CodeMirror, Cleave, Turbolinks, isDesktop, isMobile, rebindAll, Vue }
+export { AUTOCOMPLETE_DEFAULTS, Class, d3, d3locale, accounting, SimpleMDE, Cropper, CodeMirror, Cleave, Turbolinks, isDesktop, isMobile, rebindAll, Vue, Mustache, flight }

@@ -1,3 +1,5 @@
+import { Mustache, flight } from 'shared'
+
 (function(window, undefined){
   'use strict';
 

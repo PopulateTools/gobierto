@@ -1,4 +1,6 @@
-(function(window, undefined){
+import { flight, accounting, d3 } from 'shared'
+
+(function(window){
   'use strict';
 
   window.intelligenceBudgetLinesMeans = flight.component(function(){
@@ -87,13 +89,11 @@
 
     this.renderWidget = function(collection, $container, year, limit){
       var variable = this.$variable.val();
-      var variableFilter1, variableFilter2;
       var f1 = $container.find('[data-select-filter-1] select').val();
       var f2 = $container.find('[data-select-filter-2] select').val();
       var variableFilter1 = (variable == 'amount_per_inhabitant') ? 'avg_per_inhabitant_'+f1 : 'avg_'+f1;
       var variableFilter2 = (variable == 'amount_per_inhabitant') ? 'avg_per_inhabitant_'+f2 : 'avg_'+f2;
       var $tbody = $container.find('tbody');
-      var $thead = $container.find('thead');
       $tbody.html('');
       var i = 0;
       collection.forEach(function(d){

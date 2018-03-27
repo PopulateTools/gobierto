@@ -4,6 +4,14 @@ import { VisSlider } from './visSlider.js'
 import { getBudgetLevelData } from './getBudgetLevelData.js'
 import { VisBubbles } from './vis_bubbles.js'
 import { VisBubbleLegend } from './visBubbleLegend.js'
+// flight components
+import './budgetLineBreadcrumb.js'
+import './dataWidget.js'
+import './featuredBudgetLine.js'
+import './featuredBudgetLineLoadMore.js'
+import './intelligenceBudgetLines.js'
+import './intelligenceBudgetLinesMeans.js'
+import './visLine.js'
 
 $(document).on('turbolinks:load', function() {
 

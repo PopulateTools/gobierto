@@ -1,4 +1,6 @@
-(function(window, undefined){
+import { flight } from 'shared'
+
+(function(window){
   'use strict';
 
   window.featuredBudgetLine = flight.component(function(){
@@ -7,7 +9,7 @@
       this.on(document, "loadFeaturedBudgetLine", this.loadFeaturedBudgetLine);
     });
 
-    this.loadFeaturedBudgetLine = function(e){
+    this.loadFeaturedBudgetLine = function(){
       var url = this.$node.data('featured-budget-line');
       $.ajax({
         url: url,

@@ -1,4 +1,6 @@
-(function(window, undefined){
+import { flight } from 'shared'
+
+(function(window){
   'use strict';
 
   window.featuredBudgetLineLoadMore = flight.component(function(){

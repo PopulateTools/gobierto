@@ -1,4 +1,4 @@
-import { Class, d3 } from 'shared'
+import { Class, d3, accounting } from 'shared'
 
 Array.prototype.unique = function() {
     var a = this.concat();
@@ -217,16 +217,18 @@ export var VisLineasJ = Class.extend({
       this.dataDomain = [d3.min(this.dataChart.map(function(d) { return d3.min(d.values.map(function(v) { return v.value; })); })),
               d3.max(this.dataChart.map(function(d) { return d3.max(d.values.map(function(v) { return v.value; })); }))];
 
+      var min = 0;
       if (this.dataDomain[0] > 100000) {
-        var min = Math.floor((this.dataDomain[0] * .1)/10000.0) * 10000;
+        min = Math.floor((this.dataDomain[0] * .1)/10000.0) * 10000;
       } else {
-        var min = Math.floor((this.dataDomain[0] * .1)/100.0) * 100;
+        min = Math.floor((this.dataDomain[0] * .1)/100.0) * 100;
       }
 
+      var max = 0;
       if (this.dataDomain[1] > 100000) {
-        var max = Math.floor((this.dataDomain[1] * 1.2)/10000.0) * 10000;
+        max = Math.floor((this.dataDomain[1] * 1.2)/10000.0) * 10000;
       } else {
-        var max = Math.ceil(this.dataDomain[1] * 1.2);
+        max = Math.ceil(this.dataDomain[1] * 1.2);
       }
 
       // Set the scales
@@ -365,7 +367,7 @@ export var VisLineasJ = Class.extend({
       var columns = ['color', 'name', 'value', 'dif']
 
       var rows = this.colorScale.domain();
-      rows.push('header')
+      rows.push('header');
 
       var colors = {
         'mean_province': 'province',
@@ -496,7 +498,7 @@ export var VisLineasJ = Class.extend({
         selectedCx = d3.select(selected).attr('cx'),
         selectedCy = d3.select(selected).attr('cy');
 
-    var dataChartFiltered = this.dataChart.map(function(d, i) {
+    var dataChartFiltered = this.dataChart.map(function(d) {
       return d.values.filter(function(v) {
         return v.date.getFullYear() == selectedData.date.getFullYear();
       })[0];
@@ -554,8 +556,8 @@ export var VisLineasJ = Class.extend({
     this.svgLines.selectAll('.v_line')
         .transition()
         .duration(this.duration / 2)
-        .attr('x1', function(d) { return this.xScale(selectedData.date); }.bind(this))
-        .attr('x2', function(d) { return this.xScale(selectedData.date); }.bind(this));
+        .attr('x1', function() { return this.xScale(selectedData.date); }.bind(this))
+        .attr('x2', function() { return this.xScale(selectedData.date); }.bind(this));
 
     d3.select(selected).transition()
       .duration(this.duration)
@@ -583,14 +585,6 @@ export var VisLineasJ = Class.extend({
         selectedCx = d3.select(selected).attr('cx'),
         selectedCy = d3.select(selected).attr('cy');
 
-    // this.svgLines.selectAll('.v_line')
-    //     .transition()
-    //     .duration(this.duration / 3)
-    //     .attr('y1', selectedCy)
-    //     .attr('y2', selectedCy)
-    //     .remove();
-
-
     this.svgLines.selectAll('.dot_line')
       .transition()
       .duration(this.duration)
@@ -617,8 +611,6 @@ export var VisLineasJ = Class.extend({
       .transition()
       .duration(this.duration)
       .style('opacity', this.opacityLow);
-
-
   },
 
   _mouseoutTable: function () {

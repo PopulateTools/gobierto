@@ -1,3 +1,5 @@
+import { flight, accounting, d3 } from 'shared'
+
 (function(window, undefined){
   'use strict';
 

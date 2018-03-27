@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 namespace :db do
+  namespace :migrate do
+    task :with_data do
+    end
+  end
+
   namespace :data do
     desc "Anonymize names and phone numbers"
     task anonymize: :environment do

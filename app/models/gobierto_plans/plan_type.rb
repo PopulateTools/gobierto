@@ -21,8 +21,8 @@ module GobiertoPlans
       [name]
     end
 
-    def recent_plan_date
-      plans.published.pluck(:year).sort.reverse!.first
+    def self.site_plant_types(site)
+      site.plans.includes(:plan_type).published.group_by(&:plan_type).keys
     end
   end
 end

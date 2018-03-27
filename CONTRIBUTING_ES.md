@@ -7,6 +7,8 @@
 * Martín González [github](https://github.com/martgnz) | [twitter](https://twitter.com/martgnz)
 * Alberto Miedes Garcés [github](https://github.com/amiedes) | [twitter](https://twitter.com/amiedes94)
 * Alberto Calderón [github](https://github.com/bertocq) | [twitter](https://twitter.com/bertocq)
+* Adrián Pradilla [github](https://github.com/apradillap) | [twitter](https://twitter.com/apradillap)
+* Eduardo Martínez [github](https://github.com/entantoencuanto) | [twitter](https://twitter.com/apradillap)
 
 ## Código de conducta
 

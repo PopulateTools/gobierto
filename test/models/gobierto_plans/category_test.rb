@@ -54,7 +54,8 @@ module GobiertoPlans
       assert_equal action_line.progress, action_line.children_progress
       assert_equal action_line.children_progress, projects.sum(:progress) / projects.size
 
-      assert_equal action.progress, action.children_progress
+      assert_nil action.progress
+      assert_nil action.children_progress
     end
   end
 end

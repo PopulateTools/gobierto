@@ -100,12 +100,4 @@ module ApplicationHelper
       end
     end
   end
-
-  def gobierto_cms_page_or_news_path(page, options = {})
-    if page.collection.item_type == "GobiertoCms::Page"
-      gobierto_cms_page_path(page.slug, options)
-    elsif page.collection.item_type == "GobiertoCms::News"
-      gobierto_cms_news_path(page.slug, options)
-    end
-  end
 end

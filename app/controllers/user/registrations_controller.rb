@@ -11,7 +11,7 @@ class User::RegistrationsController < User::BaseController
     if @user_registration_form.save
       flash[:notice] = t(".success")
     else
-      if @user_registration_form.errors.added?(:email, :taken)
+      if @user_registration_form.errors.added?(:email, "has already been taken")
         flash[:notice] = t(".email_taken")
       else
         flash[:alert] = t(".error")

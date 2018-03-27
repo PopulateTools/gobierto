@@ -10,6 +10,7 @@ class GobiertoBudgets::SearchEngineConfiguration::YearTest < ActiveSupport::Test
   def setup
     super
     ::GobiertoCore::CurrentScope.current_site = site
+    Rails.cache.clear
   end
 
   def test_last_year_when_no_data

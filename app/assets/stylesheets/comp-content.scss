@@ -284,3 +284,47 @@
 .content_side_nav_location {
   font-size: $f7;
 }
+
+.list_items_from_collection {
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 25px;
+
+  a {
+    text-decoration: none;
+    color: $color_text;
+    border: 1px solid $color_main_soft;
+    padding: 1em;
+    height: 100%;
+    transition: box-shadow 0.5s ease;
+  }
+  a:hover {
+    text-decoration: none;
+    color: $color_text;
+    // background: $color_neutral_soft;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .collection_item {
+    img {
+      width: 100%;
+      height: auto;
+    }
+    span.date {
+      font-size: $f7;
+      opacity: .65;
+    }
+    h2 {
+      font-size: $f5;
+      margin: 0 0 .5rem 0;
+      color: $color_main;
+    }
+    p.description {
+      color: $color_text;
+      font-size: $f7;
+      margin: 0;
+      line-height: 1.4;
+    }
+  }
+}

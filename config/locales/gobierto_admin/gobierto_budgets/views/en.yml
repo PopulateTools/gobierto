@@ -35,6 +35,8 @@ en:
             on budget lines
           feedback_emails_desc: The feedback (opinions about budget lines) will be
             sent to this email
+          indicators: Indicators
+          indicators_desc1: Enable the section Indicators
           options: Options
           providers: Providers and Invoices
           providers_desc1: Enable the section Providers and Invoices

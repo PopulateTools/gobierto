@@ -27,8 +27,7 @@ $(document).on('turbolinks:load', function() {
     $('.expenses_execution .tooltiped').tipsy({
       gravity: 's',
       trigger: 'hover',
-      html: true,
-      live: true
+      html: true
     });
   }
 
@@ -57,8 +56,7 @@ $(document).on('turbolinks:load', function() {
     $('.income_execution .tooltiped').tipsy({
       gravity: 's',
       trigger: 'hover',
-      html: true,
-      live: true
+      html: true
     });
   }
 

@@ -1,16 +1,12 @@
 import { flight } from 'shared'
 
-(function(window){
-  'use strict';
-
-  window.featuredBudgetLineLoadMore = flight.component(function(){
-    this.after('initialize', function() {
-      this.$node.on('click', this.clickHandle.bind(this));
-    });
-
-    this.clickHandle = function(e){
-      e.preventDefault();
-      this.trigger('loadFeaturedBudgetLine');
-    };
+export var featuredBudgetLineLoadMore = flight.component(function(){
+  this.after('initialize', function() {
+    this.$node.on('click', this.clickHandle.bind(this));
   });
-})(window);
+
+  this.clickHandle = function(e){
+    e.preventDefault();
+    this.trigger('loadFeaturedBudgetLine');
+  };
+});

@@ -14,20 +14,20 @@ $(document).on('turbolinks:load', function() {
   }
 
   if($('#expense-treemap').length && !$('#expense-treemap svg').length){
-    window.expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);
-    window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
+    let expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);
+    expenseTreemap.render($('#expense-treemap').data('functional-url'));
 
     window.addEventListener("resize", _.debounce(function () {
-      window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
+      expenseTreemap.render($('#expense-treemap').data('functional-url'));
     }, 250));
   }
 
   if($('#treemap').length && !$('#treemap svg').length){
-    window.expenseTreemap = new TreemapVis('#treemap', 'big', true);
-    window.expenseTreemap.render($('#treemap').data('url'));
+    let expenseTreemap = new TreemapVis('#treemap', 'big', true);
+    expenseTreemap.render($('#treemap').data('url'));
 
     window.addEventListener("resize", _.debounce(function () {
-      window.expenseTreemap.render($('#treemap').data('url'));
+      expenseTreemap.render($('#treemap').data('url'));
     }, 250));
   }
 
@@ -35,7 +35,7 @@ $(document).on('turbolinks:load', function() {
     var getBubbleData = new getBudgetLevelData();
 
     getBubbleData.getData(function() {
-      var sliderBubbles = new VisSlider('.timeline', window.budgetLevels);
+      new VisSlider('.timeline', window.budgetLevels);
 
       var visBubblesExpense = new VisBubbles('.vis-bubbles-expense', 'expense', window.budgetLevels);
       visBubblesExpense.render();
@@ -44,11 +44,16 @@ $(document).on('turbolinks:load', function() {
       visBubblesIncome.render();
 
       window.addEventListener("resize", _.debounce(function () {
-        var sliderBubbles = new VisSlider('.timeline', window.budgetLevels);
+        new VisSlider('.timeline', window.budgetLevels);
+
         visBubblesExpense.resize();
         visBubblesIncome.resize();
 
-        var bubbleLegend = (window.innerWidth >= 1024) ? new VisBubbleLegend('.bubble_legend') : $('.bubble_legend svg').remove();
+        if (window.innerWidth >= 1024) {
+          new VisBubbleLegend('.bubble_legend');
+        } else {
+          $('.bubble_legend svg').remove();
+        }
       }, 250));
 
       $(document).on('visSlider:yearChanged', function(e, year) {
@@ -58,7 +63,7 @@ $(document).on('turbolinks:load', function() {
     });
 
     if (window.innerWidth >= 1024) {
-      var bubbleLegend = new VisBubbleLegend('.bubble_legend');
+      new VisBubbleLegend('.bubble_legend');
     }
   }
 

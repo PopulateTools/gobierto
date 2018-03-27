@@ -1,4 +1,4 @@
-import { d3v3 as d3, crossfilter, dc, moment } from 'shared'
+import { d3v3 as d3, d3locale, crossfilter, dc, moment } from 'shared'
 
 // THIS CONTROLLER LOADS D3.V3 TO ALLOW DC RUN
 window.GobiertoBudgets.InvoicesController = (function() {
@@ -26,8 +26,6 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
   // Markup object shorteners
   var tableHTML = $("#providers-table");
-  // Declaration
-  var bars = dc.barChart("#bars", "group");
 
   function getData(filter) {
     var dateRange;
@@ -220,6 +218,8 @@ window.GobiertoBudgets.InvoicesController = (function() {
   }
 
   function _renderByMonthsChart() {
+    // Declaration
+    var bars = dc.barChart("#bars", "group");
 
     // Dimensions
     var months = ndx.dimension(function(d) {
@@ -253,7 +253,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
     // Customize
     bars.xAxis().tickFormat(function(d) {
-      var _mf = d3.locale(eval(I18n.locale)).timeFormat('%b');
+      var _mf = d3.locale(d3locale[I18n.locale]).timeFormat('%b');
       return _mf(d).toUpperCase();
     });
     bars.yAxis().ticks(5);

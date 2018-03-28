@@ -30,6 +30,7 @@ ca:
             configuration_data: '{ "open_node": true }'
             css: ".gobierto_planification section.level_0 .cat_1 { background-color:
               rgba(0, 191, 255, 0.95); }"
+            footer: Peu de pàgina del pla
             introduction: Introducció del pla
             slug: sobre-de-aquest-pla
             title: Titol del pla

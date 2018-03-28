@@ -30,6 +30,11 @@
             <% end %>
             <%= text_area_tag "plan[introduction_translations][#{locale}]", f.object.introduction_translations && f.object.introduction_translations[locale], placeholder: t('.placeholders.introduction', locale: locale) %>
           </div>
+
+          <div class="form_item textarea" data-locale="<%= locale %>">
+            <%= label_tag "plan[footer_translations][#{locale}]", f.object.class.human_attribute_name(:footer) %>
+            <%= text_area_tag "plan[footer_translations][#{locale}]", f.object.footer_translations && f.object.footer_translations[locale], placeholder: t('.placeholders.footer', locale: locale) %>
+          </div>
         <% end %>
       </div>
 

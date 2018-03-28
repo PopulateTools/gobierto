@@ -61,6 +61,62 @@ In the context of a CMS section, it renders the children pages of the given page
 </div>
 ```
 
+## list_items_from
+
+It renders the items of a collection.
+
+- Arguments:
+  - `collection_slug`: the slug of the collection
+  - `date`: include the date of the page. Default: true
+  - `intro_text`: include the page intro text. Default: true
+  - `limit`: number of items. Default: 4
+  - `order`: order of items. Values: `ASC` or `DESC`. Default: DESC.
+
+- Usage: `{% list_items_from collection_slug | date: true, intro_text: true, limit: 4, order: DESC %}`
+
+- Returns:
+
+```
+<div class="list_items_from_collection">
+  <%= link_to 'collection_item' do %>
+    <div class="collection_item">
+      <img src="http://pam.esplugues.cat/wp-content/uploads/2016/02/Gener15-10885-420x237.jpeg">
+      <span class="date">26 feb 16</span>
+      <h2>Esplugues aprova el Pla d’Actuació Municipal amb un ampli consens</h2>
+      <p class="description">Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. </p>
+    </div>
+  <% end %>
+
+  <%= link_to 'collection_item' do %>
+    <div class="collection_item">
+      <img src="http://pam.esplugues.cat/wp-content/uploads/2016/02/IMG_0505-420x237.jpeg">
+      <span class="date">26 feb 16</span>
+      <h2>Bon govern i transpàrencia, principal demanda de la ciutadania al procés participatiu del Pla d’Actuació Municipal 2016-2019</h2>
+      <p class="description">Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. </p>
+    </div>
+  <% end %>
+
+  <%= link_to 'collection_item' do %>
+    <div class="collection_item">
+      <img src="http://pam.esplugues.cat/wp-content/uploads/2015/11/image2.jpg">
+      <span class="date">26 feb 16</span>
+      <h2>Finalitza el període d’aportacions ciutadanes al Pla d’Actuació Municipal 2016-2019</h2>
+      <p class="description">Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. </p>
+    </div>
+  <% end %>
+
+  <%= link_to 'collection_item' do %>
+    <div class="collection_item">
+      <img src="http://pam.esplugues.cat/wp-content/uploads/2015/11/image1.jpg">
+      <span class="date">26 feb 16</span>
+      <h2>Continua obert el període d’aportacions ciutadanes al Pla d’Actuació Municipal 2016-2019, que s’obre al personal de l’Ajuntament</h2>
+      <p class="description">Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. Intro text if configured. </p>
+    </div>
+  <% end %>
+</div>
+```
+
+
 ## page_title
 
 Renders the title of a page (an instance of`GobiertoCms::Page`)

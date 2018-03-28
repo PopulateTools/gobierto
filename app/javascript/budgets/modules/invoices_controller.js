@@ -22,10 +22,10 @@ window.GobiertoBudgets.InvoicesController = (function() {
   };
 
   // Global variables
-  var data, ndx, _r, _tabledata, _empty, _chartdata = {};
+  var data, ndx, _r, _tabledata, _empty, _chartdata, $tableHTML = {};
 
-  // Markup object shorteners
-  var tableHTML = $("#providers-table");
+  // Markup object shorteners (after DOM rendered)
+  $().ready(() => $tableHTML = $("#providers-table"));
 
   function getData(filter) {
     var dateRange;
@@ -125,7 +125,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
     // If the data filtered is the same as the data total, tabledata = undefined
     _tabledata = (_.isEqual(data, _data)) ? undefined : _data;
-    tableHTML.jsGrid("search");
+    $tableHTML.jsGrid("search");
   }
 
   function _refreshFromTable(_data) {
@@ -443,7 +443,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
     var resetFilters = false;
 
-    tableHTML.jsGrid({
+    $tableHTML.jsGrid({
       width: "100%",
       height: "auto",
       filtering: true,
@@ -485,7 +485,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
             resetFilters = false;
             _tabledata = undefined;
 
-            tableHTML.jsGrid("search");
+            $tableHTML.jsGrid("search");
             _refreshFromTable(data);
           }
         }
@@ -547,7 +547,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
     });
 
     $(".jsgrid-filter-row input").on('input', function() {
-      resetFilters = (_.isEqual(_empty, tableHTML.jsGrid("getFilter")));
+      resetFilters = (_.isEqual(_empty, $tableHTML.jsGrid("getFilter")));
     }.bind(this));
   }
 

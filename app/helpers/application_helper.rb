@@ -84,11 +84,20 @@ module ApplicationHelper
     yield
   end
 
-  def gobierto_cms_page_or_news_path(page, options = {})
-    if page.collection.item_type == "GobiertoCms::Page"
-      gobierto_cms_page_path(page.slug, options)
-    elsif page.collection.item_type == "GobiertoCms::News"
-      gobierto_cms_news_path(page.slug, options)
+  def attribute_indication(model, attribute)
+    validates_presence = model.validated_attrs_for(:presence).include?(attribute)
+    validates_length = model.validated_attrs_for(:length).include?(attribute)
+
+    if validates_presence || validates_length
+      content_tag(:span, class: 'indication') do
+        if validates_presence && validates_length
+          I18n.t("views.forms.required_and_max_characters", length: model.get_maxlength(attribute))
+        elsif validates_presence
+          I18n.t("views.forms.required")
+        elsif validates_length
+          I18n.t("views.forms.max_characters", length: model.get_maxlength(attribute))
+        end
+      end
     end
   end
 end

@@ -294,6 +294,7 @@ Rails.application.routes.draw do
       get "feedback/load_ask_more_information" => "feedback#load_ask_more_information", as: :feedback_load_ask_more_information
       get "recibo" => "receipts#show", as: :receipt
       get "proveedores-facturas" => "providers#index", as: :providers
+      get "indicadores(/:year)" => "indicators#index", as: :indicators
 
       namespace :api do
         get "/categories" => "categories#index"
@@ -319,7 +320,8 @@ Rails.application.routes.draw do
   namespace :gobierto_plans, path: "planes" do
     constraints GobiertoSiteConstraint.new do
       get "/" => "plan_types#index", as: :root
-      get ":slug/:year" => "plan_types#show"
+      get ":slug" => "plan_types#show", as: :plans
+      get ":slug/:year" => "plan_types#show", as: :plan
     end
   end
 

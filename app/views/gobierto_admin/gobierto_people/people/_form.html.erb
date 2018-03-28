@@ -29,7 +29,10 @@
       </div>
 
       <div class="form_item input_text">
-        <%= f.label :name %>
+        <%= label_tag "person[name]" do %>
+          <%= f.object.class.human_attribute_name(:name) %>
+          <%= attribute_indication(@person_form.person.class, :name) %>
+        <% end %>
         <%= f.text_field :name, placeholder: t(".placeholders.name") %>
       </div>
 

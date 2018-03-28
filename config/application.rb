@@ -43,7 +43,8 @@ module Gobierto
       "#{config.root}/lib/validators",
       "#{config.root}/lib/constraints",
       "#{config.root}/lib/errors",
-      "#{config.root}/lib/ibm_notes"
+      "#{config.root}/lib/ibm_notes",
+      "#{config.root}/lib/liquid",
     ]
     config.autoload_paths += required_paths
     config.eager_load_paths += required_paths

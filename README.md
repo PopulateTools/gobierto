@@ -66,6 +66,8 @@ Estas son algunas de las organizaciones que usan Gobierto:
 * [Sencelles](https://gobierto.es/blog/20170314-sencelles-consultas.html)
 * [Generalitat de Catalunya](https://gobierto.es/blog/20170126-generalitat-catalunya.html)
 * [Sant Feliu de Llobregat](https://pressupost.santfeliu.cat/)
+* [Mataró](https://pressupost.mataro.cat/)
+* [Sant Boi de Llobregat](https://agendes.santboi.cat/)
 
 ## Quiénes somos
 

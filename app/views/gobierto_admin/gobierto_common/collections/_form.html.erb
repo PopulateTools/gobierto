@@ -10,7 +10,10 @@
 
         <% current_site.configuration.available_locales.each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
-            <%= label_tag "collection[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
+            <%= label_tag "collection[title_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:title) %>
+              <%= attribute_indication(@collection_form.collection.class, :title) %>
+            <% end %>
             <%= text_field_tag "collection[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
         <% end %>
@@ -20,7 +23,10 @@
         <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
       </div>
       <div class="form_item select_control">
-        <%= f.label :container_global_id %>
+        <%= label_tag "collection[container_global_id]" do %>
+          <%= f.object.class.human_attribute_name(:container_global_id) %>
+          <span class="indication"><%= t('views.forms.required') %></span>
+        <% end %>
         <%= f.select :container_global_id,
                      options_for_select(@containers, selected: @container_selected),
                      include_blank: true %>

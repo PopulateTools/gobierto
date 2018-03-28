@@ -7,6 +7,7 @@ module GobiertoPeople
     include GobiertoCommon::Sortable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::Validatable
 
     translates :charge, :bio
 
@@ -35,7 +36,7 @@ module GobiertoPeople
     enum party: { government: 0, opposition: 1 }
 
     validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }, allow_blank: true
-    validates :site, presence: true
+    validates :site, :name, presence: true
 
     after_create :create_events_collection
 

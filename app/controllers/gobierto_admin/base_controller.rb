@@ -3,6 +3,7 @@ module GobiertoAdmin
     include SessionHelper
     include SiteSessionHelper
     include LayoutPolicyHelper
+    include ::GobiertoCms::PageHelper
 
     skip_before_action :authenticate_user_in_site
     before_action :authenticate_admin!, :set_admin_site
@@ -61,11 +62,7 @@ module GobiertoAdmin
 
     def gobierto_cms_page_preview_path(page, options = {})
       options.merge!(preview_token: current_admin.preview_token) unless page.active?
-      if page.collection.item_type == "GobiertoCms::Page"
-        gobierto_cms_page_path(page.slug, options)
-      elsif page.collection.item_type == "GobiertoCms::News"
-        gobierto_cms_news_path(page.slug, options)
-      end
+      gobierto_cms_page_or_news_path(page, options)
     end
 
   end

@@ -6,6 +6,7 @@ module GobiertoCms
   class Section < ApplicationRecord
     include GobiertoCommon::Sortable
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::Validatable
 
     belongs_to :site
     has_many :section_items, dependent: :destroy, class_name: "GobiertoCms::SectionItem"

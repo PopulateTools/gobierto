@@ -41,11 +41,10 @@ Modules group functionality. Currently, the modules the modules developed are:
 
 - Budgets Visualizacion
 - Budgets Consultations
-
-Right now, in development we have:
-
-- Indicators
+- Observatory
 - Politics and Agendas
+- Participation tools
+- Plan visualization
 
 ## Development
 

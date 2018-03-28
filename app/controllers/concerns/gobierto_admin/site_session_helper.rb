@@ -12,9 +12,6 @@ module GobiertoAdmin
           SiteDecorator.new(managed_sites.include?(site_from_domain) ? site_from_domain : managed_sites.first)
         end
         ::GobiertoCore::CurrentScope.current_site = site
-        Rails.logger.info "[ADMIN] ====================================================="
-        Rails.logger.info ::GobiertoCore::CurrentScope.current_site.try(:domain)
-        Rails.logger.info "[ADMIN] ====================================================="
         site
       end
     end

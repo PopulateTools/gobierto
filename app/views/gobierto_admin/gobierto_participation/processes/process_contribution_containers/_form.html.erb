@@ -6,12 +6,18 @@
 
         <% current_site.configuration.available_locales.each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
-            <%= label_tag "contribution_container[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
+            <%= label_tag "contribution_container[title_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:title) %>
+              <%= attribute_indication(@contribution_container_form.contribution_container.class, :title) %>
+            <% end %>
             <%= text_field_tag "contribution_container[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
 
           <div class="form_item textarea" data-locale="<%= locale %>">
-            <%= label_tag "contribution_container[description_translations][#{locale}]", f.object.class.human_attribute_name(:description) %>
+            <%= label_tag "contribution_container[description_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:description) %>
+              <%= attribute_indication(@contribution_container_form.contribution_container.class, :description) %>
+            <% end %>
             <%= text_area_tag "contribution_container[description_translations][#{locale}]", f.object.description_translations && f.object.description_translations[locale], placeholder: t(".placeholders.description", locale: locale.to_sym) %>
           </div>
         <% end %>

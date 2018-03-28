@@ -6,7 +6,7 @@ module GobiertoParticipation
       case stage.stage_type
         when "information", "results"
           if stage.process_stage_page.present?
-            gobierto_cms_page_path(stage.process_stage_page.page.slug, process_id: stage.process.slug)
+            gobierto_cms_page_or_news_path(stage.process_stage_page.page, process_id: stage.process.slug)
           end
         when "agenda"
           gobierto_participation_process_events_path(process_id: stage.process.slug)

@@ -34,11 +34,11 @@ module GobiertoBudgets
         total_budget_per_inhabitant: total_budget_per_inhabitant
       }
 
-      id = [place.id,year,kind].join("/")
+      id = [place.id, year, kind].join("/")
       GobiertoBudgets::SearchEngine.client.index index: index, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id, body: data
     end
 
-    def get_data(index,place,year,kind,type=nil)
+    def get_data(index, place, year, kind, type = nil)
       query = {
         query: {
           filtered: {
@@ -48,29 +48,28 @@ module GobiertoBudgets
             filter: {
               bool: {
                 must: [
-                  {term: { ine_code: place.id }},
-                  {term: { level: 1 }},
-                  {term: { kind: kind }},
-                  {term: { year: year }},
-                  {missing: { field: 'functional_code'}},
-                  {missing: { field: 'custom_code'}}
+                  { term: { ine_code: place.id } },
+                  { term: { level: 1 } },
+                  { term: { kind: kind } },
+                  { term: { year: year } },
+                  { missing: { field: "functional_code" } },
+                  { missing: { field: "custom_code" } }
                 ]
               }
             }
           }
         },
         aggs: {
-          total_budget: { sum: { field: 'amount' } },
-          total_budget_per_inhabitant: { sum: { field: 'amount_per_inhabitant' } },
+          total_budget: { sum: { field: "amount" } },
+          total_budget_per_inhabitant: { sum: { field: "amount_per_inhabitant" } }
         },
         size: 0
       }
 
-      type ||= (kind == GobiertoBudgets::BudgetLine::EXPENSE) ? GobiertoBudgets::FunctionalArea.area_name : GobiertoBudgets::EconomicArea.area_name
+      type ||= kind == GobiertoBudgets::BudgetLine::EXPENSE ? GobiertoBudgets::FunctionalArea.area_name : GobiertoBudgets::EconomicArea.area_name
 
       result = GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
-      return result['aggregations']['total_budget']['value'].round(2), result['aggregations']['total_budget_per_inhabitant']['value'].round(2)
+      [result["aggregations"]["total_budget"]["value"].round(2), result["aggregations"]["total_budget_per_inhabitant"]["value"].round(2)]
     end
-
   end
 end

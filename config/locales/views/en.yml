@@ -73,9 +73,6 @@ en:
           title: Your account
     mailcheck:
       suggestion_message: Did you mean
-    main_menu:
-      collapse_menu: Close
-      search: Search...
     sandbox:
       application:
         about_the_data: About the data

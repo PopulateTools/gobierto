@@ -13,7 +13,7 @@ module GobiertoParticipation
       def new
         if !current_poll.has_answers_from?(current_user)
           @poll_answer_form = PollAnswerForm.new(poll: current_poll)
-          render :new, layout: "gobierto_participation/layouts/application_simple"
+          render :new
         else
           redirect_to(
             gobierto_participation_process_polls_path(current_process.slug),

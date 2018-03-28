@@ -5,7 +5,7 @@ import { SelfFinancingCapacityCard } from './self_financing_capacity.js'
 import { FinancialChargeCard } from './financial_charge.js'
 import { LiabilityCostCard } from './liability_cost.js'
 import { InvestmentFinancingCard } from './investment_financing.js'
-import { GrossSavingsRateCard } from './gross_saving_rate.js'
+import { GrossSavingsRateCard } from './gross_savings_rate.js'
 import { NetSavingsRateCard } from './net_savings_rate.js'
 import { PerCapitaInvestmentCard } from './per_capita_investment.js'
 import { DebtLevelCard } from './debt_level.js'
@@ -13,7 +13,7 @@ import { PerCapitaTaxBurdenCard } from './per_capita_tax_burden.js'
 import { FinancialRiskCard } from './financial_risk.js'
 import { ExpenditureRigidityCard } from './expenditure_rigidity.js'
 
-this.GobiertoBudgets.IndicatorsController = (function() {
+window.GobiertoBudgets.IndicatorsController = (function() {
 
   function IndicatorsController() {}
 
@@ -70,4 +70,4 @@ this.GobiertoBudgets.IndicatorsController = (function() {
   return IndicatorsController;
 })();
 
-this.GobiertoBudgets.indicators_controller = new GobiertoBudgets.IndicatorsController;
+window.GobiertoBudgets.indicators_controller = new GobiertoBudgets.IndicatorsController;

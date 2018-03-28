@@ -183,6 +183,11 @@ ActiveRecord::Schema.define(version: 2018_03_19_122227) do
     t.index ["site_id"], name: "index_custom_user_fields_on_site_id"
   end
 
+  create_table "data_migrations", id: false, force: :cascade do |t|
+    t.string "version", null: false
+    t.index ["version"], name: "unique_data_migrations", unique: true
+  end
+
   create_table "ga_attachings", force: :cascade do |t|
     t.integer "site_id", null: false
     t.integer "attachment_id", null: false

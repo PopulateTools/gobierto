@@ -15,7 +15,7 @@ module GobiertoPlans
     has_many :categories
     has_many :nodes, through: :categories
 
-    translates :title, :introduction
+    translates :title, :introduction, :footer
 
     enum visibility_level: { draft: 0, published: 1 }
 

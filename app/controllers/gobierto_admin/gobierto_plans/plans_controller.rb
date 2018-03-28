@@ -106,6 +106,7 @@ module GobiertoAdmin
           :visibility_level,
           :css,
           title_translations: [*I18n.available_locales],
+          footer_translations: [*I18n.available_locales],
           introduction_translations: [*I18n.available_locales]
         )
       end

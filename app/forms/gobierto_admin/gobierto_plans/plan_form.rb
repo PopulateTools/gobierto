@@ -9,6 +9,7 @@ module GobiertoAdmin
         :id,
         :site_id,
         :title_translations,
+        :footer_translations,
         :css,
         :introduction_translations,
         :year,
@@ -64,6 +65,7 @@ module GobiertoAdmin
           plan_attributes.visibility_level = visibility_level
           plan_attributes.slug = slug
           plan_attributes.year = year
+          plan_attributes.footer_translations = footer_translations
         end
 
         if @plan.valid?

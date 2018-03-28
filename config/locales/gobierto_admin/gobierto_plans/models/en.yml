@@ -5,6 +5,7 @@ en:
       gobierto_admin/gobierto_plans/plan_form:
         configuration_data: Configuration
         css: CSS
+        footer: Footer
         introduction: Introduction
         plan_type_id: Type
         slug: url

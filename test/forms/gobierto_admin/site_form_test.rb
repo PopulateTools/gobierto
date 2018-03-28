@@ -7,8 +7,8 @@ module GobiertoAdmin
     def valid_site_form
       @valid_site_form ||= SiteForm.new(
         title_translations: { I18n.locale => site.title },
-        name_translations: { I18n.locale => new_site_name }, # To ensure uniqueness
-        domain: new_site_domain, # To ensure uniqueness
+        name_translations: { I18n.locale => new_site_name },
+        domain: new_site_domain,
         organization_name: site.organization_name,
         organization_id: "1",
         visibility_level: "active",
@@ -39,7 +39,7 @@ module GobiertoAdmin
 
     def invalid_google_analytics_id_site_form
       @invalid_google_analytics_id_site_form ||= SiteForm.new(
-        valid_site_form.instance_values.merge(google_analytics_id: "UA-WADUS")
+        valid_site_form.instance_values.merge(google_analytics_id: "UA-FOO")
       )
     end
 
@@ -52,11 +52,11 @@ module GobiertoAdmin
     end
 
     def new_site_name
-      "Wadus"
+      "Foo"
     end
 
     def new_site_domain
-      "wadus.gobierto.test"
+      "foo.gobierto.test"
     end
 
     def test_validation

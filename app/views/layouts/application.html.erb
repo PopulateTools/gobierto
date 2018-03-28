@@ -4,26 +4,17 @@
 <%= render 'layouts/head' %>
 
 <body class="<%= current_module_body_class %> <%= controller_name %> <%= action_name %> <%= controller_name %>_<%= action_name %>" <%= yield(:body_attributes) %>>
-  <%= render 'layouts/demo' %>
 
-  <% unless full_layout? %>
-    <%= render 'layouts/header' %>
-  <% end %>
+  <%= render 'layouts/header' %>
 
   <div class="container">
-
     <%= render "user/shared/flash_messages" %>
     <%= content_for?(:content) ? yield(:content) : yield %>
-
   </div>
 
-  <% unless full_layout? %>
-    <%= render 'layouts/footer' %>
-  <% end %>
+  <%= render 'layouts/footer' %>
 
-  <% if Rails.env.production? %>
-    <%= render 'layouts/analytics_footer_site' %>
-  <% end %>
+  <%= render 'layouts/analytics_footer_site' %>
 
   <%= yield :javascript_hook %>
 

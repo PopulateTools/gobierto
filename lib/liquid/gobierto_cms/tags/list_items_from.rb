@@ -33,7 +33,6 @@ class ListItemsFrom < Liquid::Tag
     html = [ %Q{<div class="list_items_from_collection">} ]
     pages.each do |page|
       page = GobiertoCms::PageDecorator.new(page)
-      html << %Q{<div class="page_child">}
       collection_item_text = [ %Q{<div class="collection_item">} ]
       if page.main_image
         collection_item_text << %Q{ <img src="#{page.main_image}"> }
@@ -47,7 +46,6 @@ class ListItemsFrom < Liquid::Tag
       end
       collection_item_text << "</div>"
       html << helpers.link_to(collection_item_text.join.html_safe, gobierto_cms_page_or_news_path(page))
-      html << "</div>"
     end
     html << "</div>"
     html.join.html_safe

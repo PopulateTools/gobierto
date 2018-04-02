@@ -11,14 +11,9 @@ module GobiertoParticipation
       @news = find_participation_news
       @activities = find_participation_activities
 
-      liquid_path = params[:controller] + "/" + action_name
-      liquid_str = ::GobiertoCore::SiteTemplate.liquid_str(current_site, liquid_path)
-      liquid = to_liquid(liquid_str)
-      liquid_rendered = liquid.render({ "location_name" => current_site.location_name,
-                                        "current_user" => current_user },
-                                      registers: { controller: self })
+      template_content = ::GobiertoCore::SiteTemplate.liquid_str(current_site, "gobierto_participation/welcome/index")
 
-      render inline: liquid_rendered.html_safe, layout: "gobierto_participation/layouts/application"
+      render inline: template_content, type: :liquid, layout: "gobierto_participation/layouts/application"
     end
 
     private

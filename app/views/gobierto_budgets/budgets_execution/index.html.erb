@@ -1,6 +1,6 @@
 <%
-  set_meta_tags title: t('.title', place: @place.name, year: @year)
-  set_meta_tags description: t('.description', place: @place.name, year: @year)
+  set_meta_tags title: t('.title', place: current_site.organization_name, year: @year)
+  set_meta_tags description: t('.description', place: current_site.organization_name, year: @year)
 %>
 
 <% content_for :breadcrumb_current_item do %>

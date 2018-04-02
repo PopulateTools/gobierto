@@ -1,5 +1,4 @@
 class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationController
-  before_action :load_place
   before_action :load_year, except: [:guide]
 
   def index
@@ -9,10 +8,10 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
     @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
 
-    @top_income_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @site.place, kind: GobiertoBudgets::BudgetLine::INCOME).all
-    @top_expense_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @site.place, kind: GobiertoBudgets::BudgetLine::EXPENSE).all
-    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 1, year: @year, kind: @kind, area_name: @area_name })
-    @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 2, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @interesting_area })
+    @top_income_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME).all
+    @top_expense_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE).all
+    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: { site: current_site, level: 1, year: @year, kind: @kind, area_name: @area_name })
+    @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: { site: current_site, level: 2, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @interesting_area })
 
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)
 
@@ -29,11 +28,6 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
   end
 
   private
-
-  def load_place
-    @place = @site.place
-    render_404 and return if @place.nil?
-  end
 
   def load_year
     if params[:year].nil?

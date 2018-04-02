@@ -5,7 +5,6 @@ namespace :gobierto_budgets do
     desc "Check missing categories"
     task :check, [:site_domain] => [:environment] do |_t, args|
       site = Site.find_by!(domain: args[:site_domain])
-      ine_code = site.place.id
 
       missing = []
       [GobiertoBudgets::BudgetLine::INCOME, GobiertoBudgets::BudgetLine::EXPENSE].each do |kind|

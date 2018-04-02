@@ -39,7 +39,7 @@ module GobiertoAdmin
           within "form.edit_site" do
             fill_in "site_title_translations_es", with: "Site Title"
             fill_in "site_name_translations_es", with: "Site Name"
-            fill_in "site_location_name", with: "Site Location"
+            fill_in "site_organization_name", with: "Site Location"
             fill_in "site_domain", with: "test.gobierto.test"
             fill_in "site_head_markup", with: "Site Head markup"
             fill_in "site_foot_markup", with: "Site Foot markup"
@@ -80,7 +80,7 @@ YAML
           within "form.edit_site" do
             assert has_field?("site_name_translations_es", with: "Site Name")
             assert has_field?("site_title_translations_es", with: "Site Title")
-            assert has_field?("site_location_name", with: "Site Location")
+            assert has_field?("site_organization_name", with: "Site Location")
             assert has_field?("site_domain", with: "test.gobierto.test")
             assert has_field?("site_head_markup", with: "Site Head markup")
             assert has_field?("site_foot_markup", with: "Site Foot markup")

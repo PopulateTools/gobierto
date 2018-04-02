@@ -27,7 +27,7 @@ module GobiertoAdmin
             fill_in "site_title_translations_es", with: "Site Title"
             fill_in "site_name_translations_es", with: "Site Name"
 
-            fill_in "site_location_name", with: "Site Location"
+            fill_in "site_organization_name", with: "Site Location"
             fill_in "site_domain", with: "test.gobierto.test"
             fill_in "site_head_markup", with: "Site Head markup"
             fill_in "site_foot_markup", with: "Site Foot markup"
@@ -46,7 +46,7 @@ YAML
             end
 
             # Simulate Location selection in user control
-            find("#site_municipality_id", visible: false).set("1")
+            find("#site_organization_id", visible: false).set("1")
 
             attach_file "site_logo_file", "test/fixtures/files/sites/logo-madrid.png"
 

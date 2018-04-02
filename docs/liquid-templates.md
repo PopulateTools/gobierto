@@ -91,6 +91,21 @@ Renders a poll
 
 - Returns: Poll with options
 
+## i18n_locale
+
+Returns the current user locale
+
+- Usage `{% i18n_locale %}`
+
+- Returns: The current locale
+
+## body_css_classes
+
+Returns the css classes necessary for the body to render successfully the page
+
+- Usage `<body class="{% body_css_classes %}" ...>`
+
+- Returns: CSS classes separated by spaces
 
 ## Templates
 
@@ -101,3 +116,9 @@ Allows for the customization of Gobierto Participation home page
 ### gobierto_participation/layouts/navigation_process.liquid
 
 Allows for the customization of Gobierto Participation main submenu navigation
+
+## Layouts
+
+### layouts/application.liquid
+
+Application layout

@@ -1,4 +1,6 @@
-import { d3v3 as d3, d3locale, crossfilter, dc, moment } from 'shared'
+import { d3locale, crossfilter, moment } from 'shared'
+import * as d3 from 'd3v3'
+import * as dc from 'dc'
 
 // THIS CONTROLLER LOADS D3.V3 TO ALLOW DC RUN
 window.GobiertoBudgets.InvoicesController = (function() {

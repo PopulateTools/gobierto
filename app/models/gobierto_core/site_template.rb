@@ -17,7 +17,7 @@ module GobiertoCore
     end
 
     def self.liquid_str(site, liquid)
-      if /\A\w+\/\w+\/\w+/.match?(liquid)
+      if /\A\w+\/\w+(\/\w+)?/.match?(liquid)
         if GobiertoCore::SiteTemplate.current_site_has_custom_template?(site, liquid)
           GobiertoCore::SiteTemplate.current_site_custom_template(site, liquid).first.markup
         elsif File.exist?("app/views/" + liquid + ".liquid")

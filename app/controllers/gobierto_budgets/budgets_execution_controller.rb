@@ -1,5 +1,5 @@
 class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::ApplicationController
-  before_action :load_place, :load_year
+  before_action :load_year
 
   def index
     unless @any_budgets_execution_data_for_year = GobiertoBudgets::BudgetLine.any_data?(site: current_site, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
@@ -22,11 +22,6 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
   end
 
   private
-
-  def load_place
-    @place = @site.place
-    render_404 and return if @place.nil?
-  end
 
   def load_year
     if params[:year].nil?

@@ -3,10 +3,10 @@ es:
   gobierto_admin:
     sites:
       create:
-        success: El site se ha creado correctamente
+        success: El sitio se ha creado correctamente
       destroy:
-        success: El site se ha eliminado correctamente
+        success: El sitio se ha eliminado correctamente
       pages: Páginas
       sections: Secciones
       update:
-        success: El site se ha actualizado correctamente
+        success: El sitio se ha actualizado correctamente

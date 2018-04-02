@@ -114,7 +114,8 @@ es:
         Puedes verlo <a href="%{url}">aquí</a>.
       array_too_short: es demasiado corto (al menos ${count} elemento)
       blank: no puede estar en blanco
-      blank_for_modules: tiene que ser un municipio para que los módulos activos funcionen
+      blank_for_modules: La organización no está bien configurada. El identificador
+        es obligatorio para los módulos que tienes activados.
       collection_taken: no puede tener otra colección de este tipo.
       confirmation: no coincide
       empty: no puede estar vacío

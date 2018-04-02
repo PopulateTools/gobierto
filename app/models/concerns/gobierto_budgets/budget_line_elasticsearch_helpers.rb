@@ -17,7 +17,7 @@ module GobiertoBudgets
           {term: { code: conditions[:code] }},
           {missing: { field: 'functional_code'}},
           {missing: { field: 'custom_code'}},
-          {term: { ine_code: conditions[:place].id }}
+          {term: { ine_code: conditions[:site].organization_id }}
         ]
 
         query = {
@@ -64,7 +64,7 @@ module GobiertoBudgets
           {term: { year: conditions[:year] }},
           {term: { code: conditions[:functional_code] }},
           {exists: { field: 'functional_code'}},
-          {term: { ine_code: conditions[:place].id }}
+          {term: { ine_code: conditions[:site].organization_id }}
         ]
 
         query = {
@@ -107,7 +107,7 @@ module GobiertoBudgets
 
         terms = [
           {term: { kind: conditions[:kind] }},
-          {term: { ine_code: conditions[:place].id }}
+          {term: { ine_code: conditions[:site].organization_id }}
         ]
 
         terms.push({term: { year: conditions[:year] }}) if conditions[:year]
@@ -406,7 +406,7 @@ module GobiertoBudgets
         areas   = (conditions[:area] ? [conditions[:area]] : BudgetArea.all_areas)
 
         terms = []
-        terms << { term: { ine_code: conditions[:site].place.id } } if conditions[:site]
+        terms << { term: { ine_code: conditions[:site].organization_id } } if conditions[:site]
         terms << { term: { kind: conditions[:kind] } } if conditions[:kind]
         terms << { term: { year: conditions[:year] } } if conditions[:year]
 

@@ -24,7 +24,7 @@ module GobiertoBudgets
     end
 
     def calculate_bubbles
-      GobiertoBudgets::Data::Bubbles.dump(site.place)
+      GobiertoBudgets::Data::Bubbles.dump(site)
     end
 
     def calculate_annual_data

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_19_122227) do
+ActiveRecord::Schema.define(version: 2018_03_26_065211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -792,21 +792,19 @@ ActiveRecord::Schema.define(version: 2018_03_19_122227) do
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|
-    t.string "external_id"
     t.string "domain"
     t.text "configuration_data"
-    t.string "location_name"
-    t.string "location_type"
-    t.string "institution_url"
-    t.string "institution_type"
-    t.string "institution_email"
-    t.string "institution_address"
-    t.string "institution_document_number"
+    t.string "organization_name"
+    t.string "organization_url"
+    t.string "organization_type"
+    t.string "organization_email"
+    t.string "organization_address"
+    t.string "organization_document_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "visibility_level", default: 0, null: false
     t.inet "creation_ip"
-    t.integer "municipality_id"
+    t.string "organization_id"
     t.jsonb "name_translations"
     t.jsonb "title_translations"
     t.index ["domain"], name: "index_sites_on_domain", unique: true

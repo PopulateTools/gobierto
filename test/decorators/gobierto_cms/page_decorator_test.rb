@@ -28,5 +28,9 @@ module GobiertoCms
       assert_equal "gobierto_cms/pages/templates/page", site_page_decorated.template
       assert_equal "gobierto_participation/processes/pages/templates/news", themes_page_decorated.template
     end
+
+    def test_summary
+      assert_equal "This is the body of the page", site_page_decorated.summary
+    end
   end
 end

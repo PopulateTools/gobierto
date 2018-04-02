@@ -34,7 +34,9 @@ module User::SessionHelper
   end
 
   def find_current_user
-    User.confirmed.find_by(id: session[:user_id], site: current_site)
+    if session[:user_id].present?
+      User.confirmed.find_by(id: session[:user_id], site_id: current_site.id)
+    end
   end
 
   def after_sign_in_path(referrer_url = nil)
@@ -56,7 +58,7 @@ module User::SessionHelper
   def raise_user_not_signed_in
     redirect_to(
       auth_path,
-      alert: I18n.t(i18n_key('user_not_signed_in_html'), place_name: current_site.location_name, default: t('user.sessions.user_not_signed_in'))
+      alert: I18n.t(i18n_key('user_not_signed_in_html'), place_name: current_site.organization_name, default: t('user.sessions.user_not_signed_in'))
     )
   end
 

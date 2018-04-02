@@ -23,11 +23,13 @@
       </div>
 
       <div class="form_item input_text">
-        <%= f.label :location_name %>
-        <%= f.text_field(:location_name, placeholder: t(".placeholders.location_name"), data: {
-          autocomplete_url: @services_config.municipalities_suggestions_endpoint
-        }) %>
-        <%= f.hidden_field :municipality_id %>
+        <%= f.label :organization_name %>
+        <%= f.text_field(:organization_name, placeholder: t(".placeholders.organization_name")) %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :organization_id %>
+        <%= f.text_field(:organization_id) %>
       </div>
 
       <div class="form_item input_text">

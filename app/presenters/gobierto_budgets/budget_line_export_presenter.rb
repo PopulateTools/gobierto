@@ -26,7 +26,7 @@ module GobiertoBudgets
        'level',
        'parent_code',
        'updated_at',
-       'municipality_id']
+       'organization_id']
     end
 
     def index_values
@@ -52,8 +52,8 @@ module GobiertoBudgets
       @attributes[:index]
     end
 
-    def municipality_id
-      @attributes[:site].municipality_id
+    def organization_id
+      @attributes[:site].organization_id
     end
 
     def as_json(attrs = {})
@@ -67,7 +67,7 @@ module GobiertoBudgets
         level: level,
         parent_code: parent_code,
         updated_at: updated_at,
-        municipality_id: municipality_id }.merge(index_values)
+        organization_id: organization_id }.merge(index_values)
     end
 
     def as_csv
@@ -84,7 +84,7 @@ module GobiertoBudgets
        level,
        parent_code,
        updated_at,
-       municipality_id]
+       organization_id]
     end
   end
 end

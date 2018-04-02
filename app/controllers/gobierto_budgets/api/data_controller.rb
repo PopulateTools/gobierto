@@ -265,10 +265,6 @@ module GobiertoBudgets
         end.reject(&:nil?)
       end
 
-      def get_places(ine_codes)
-        ine_codes.split(':').map {|code| INE::Places::Place.find code}
-      end
-
       def respond_lines_to_json(data_line)
         respond_to do |format|
           format.json do

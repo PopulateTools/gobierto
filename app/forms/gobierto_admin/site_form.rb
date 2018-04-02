@@ -6,18 +6,16 @@ module GobiertoAdmin
 
     attr_accessor(
       :id,
-      :external_id,
       :title_translations,
       :name_translations,
       :domain,
       :configuration_data,
-      :location_name,
-      :location_type,
-      :institution_url,
-      :institution_type,
-      :institution_email,
-      :institution_address,
-      :institution_document_number,
+      :organization_name,
+      :organization_url,
+      :organization_type,
+      :organization_email,
+      :organization_address,
+      :organization_document_number,
       :head_markup,
       :foot_markup,
       :links_markup,
@@ -29,7 +27,7 @@ module GobiertoAdmin
       :created_at,
       :updated_at,
       :creation_ip,
-      :municipality_id,
+      :organization_id,
       :logo_file,
       :available_locales,
       :default_locale,
@@ -56,6 +54,7 @@ module GobiertoAdmin
     validates :available_locales, length: { minimum: 1 }
     validates :default_locale, presence: true
     validates :home_page, presence: true
+    validates :organization_name, presence: true
 
     def save
       if valid? && save_site
@@ -163,14 +162,13 @@ module GobiertoAdmin
         site_attributes.title_translations = title_translations
         site_attributes.name_translations = name_translations
         site_attributes.domain = domain
-        site_attributes.location_name = location_name
-        site_attributes.municipality_id = municipality_id
-        site_attributes.location_type = location_type
-        site_attributes.institution_url = institution_url
-        site_attributes.institution_type = institution_type
-        site_attributes.institution_email = institution_email
-        site_attributes.institution_address = institution_address
-        site_attributes.institution_document_number = institution_document_number
+        site_attributes.organization_name = organization_name
+        site_attributes.organization_id = organization_id
+        site_attributes.organization_url = organization_url
+        site_attributes.organization_type = organization_type
+        site_attributes.organization_email = organization_email
+        site_attributes.organization_address = organization_address
+        site_attributes.organization_document_number = organization_document_number
         site_attributes.visibility_level = visibility_level
         site_attributes.creation_ip = creation_ip
         site_attributes.configuration.home_page = home_page
@@ -191,7 +189,7 @@ module GobiertoAdmin
         site_attributes.configuration.auth_modules = auth_modules
       end
 
-      @municipality_id_changed = @site.municipality_id_changed?
+      @organization_id_changed = @site.organization_id_changed?
 
       if @site.valid?
         @site.save
@@ -206,14 +204,14 @@ module GobiertoAdmin
       visibility_level == "draft"
     end
 
-    def municipality_id_changed?
-      @municipality_id_changed
+    def organization_id_changed?
+      @organization_id_changed
     end
 
     protected
 
     def after_save_callback
-      ::GobiertoBudgets::GenerateAnnualLinesJob.perform_later(@site) if municipality_id_changed?
+      ::GobiertoBudgets::GenerateAnnualLinesJob.perform_later(@site) if organization_id_changed?
     end
 
     def promote_errors(errors_hash)

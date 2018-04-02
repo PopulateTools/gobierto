@@ -1,33 +1,6 @@
 this.GobiertoAdmin.SitesController = (function() {
   function SitesController() {}
 
-  function _handleSiteLocationAutocomplete() {
-    var locationFieldHandler = "#site_location_name";
-    var municipalityFieldHandler = "#site_municipality_id";
-    var autocompleteOptions = {
-      source: function(request, response) {
-        var element = $(this)[0].element;
-        $.ajax({
-          url: element.data("autocompleteUrl"),
-          crossDomain: true,
-          dataType: "json",
-          method: "GET",
-          data: { query: request.term },
-          success: function(data) {
-            $(municipalityFieldHandler).val('');
-            response(data["suggestions"])
-          },
-        });
-      },
-      select: function(event, ui) {
-        $(municipalityFieldHandler).val(ui.item.data.municipality_id);
-      },
-      minLength: 3
-    }
-
-    $.ui.autocomplete(autocompleteOptions, $(locationFieldHandler));
-  }
-
   function _homePage(site_modules_with_root_path) {
     $(document).ready(function() {
       populateHomePage(site_modules_with_root_path);
@@ -77,7 +50,6 @@ this.GobiertoAdmin.SitesController = (function() {
   }
 
   SitesController.prototype.edit = function(site_modules_with_root_path) {
-    _handleSiteLocationAutocomplete();
     _homePage(site_modules_with_root_path);
   };
 

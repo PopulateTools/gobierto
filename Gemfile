@@ -72,6 +72,7 @@ gem "json_translate", "~> 4.0"
 
 # Liquid
 gem "liquid", "~> 4.0"
+gem "liquid-rails", "~> 0.2.0"
 
 # Google API
 gem "google-api-client"

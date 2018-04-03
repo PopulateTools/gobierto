@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+
+  def body_css_classes
+    classes = []
+    classes.push current_module == 'gobierto_participation' ?  'gobierto_participation theme-participation' : current_module
+    classes.push controller_name
+    classes.push action_name
+    classes.push "#{controller_name}_#{action_name}"
+    classes.join(" ")
+  end
+
   def render_if_exists(partial_path, partial_params = {}, format = "html.erb")
     partial_path_name = Pathname.new(partial_path)
     partial_file_name = "#{partial_path_name.dirname}/_#{partial_path_name.basename}.#{format}"
@@ -38,7 +48,8 @@ module ApplicationHelper
   end
 
   def full_layout?
-    controller_name == "contribution_containers" && action_name == "show"
+    (current_module == "gobierto_participation") &&
+      ((controller_name == "contribution_containers" && action_name == "show") || (controller_name == "poll_answers" && action_name == "new"))
   end
 
   def filetype_icon(attachment)

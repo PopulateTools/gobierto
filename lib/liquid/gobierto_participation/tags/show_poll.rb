@@ -11,31 +11,26 @@ class ShowPoll < Liquid::Tag
   end
 
   def render(context)
-    current_site = context.environments.second["current_site"]
-    current_user = context.environments.first["current_user"]
+    current_site = context.registers[:view].current_site
+    current_user = context.registers[:view].current_user
 
     poll = next_poll(current_site, current_user, @poll_id)
 
-    context.registers[:controller].dup.render(partial: "shared/polls", locals: { poll: poll })
+    context.registers[:view].dup.render(partial: "shared/polls", locals: { poll: poll })
   end
 
   def next_poll(current_site, current_user, poll_id = nil)
     poll = GobiertoParticipation::Poll.by_site(current_site).find(poll_id) if poll_id
     answerable_polls = GobiertoParticipation::Poll.by_site(current_site).answerable.order(ends_at: :asc)
-    answerable_polls_by_user = answerable_polls.detect { |p| p.answerable_by?(current_user) } if current_user
 
     if current_user
       if poll && poll.answerable_by?(current_user)
         poll
-      elsif answerable_polls_by_user
-        answerable_polls_by_user
+      else
+        answerable_polls.detect { |p| p.answerable_by?(current_user) }
       end
     else
-      if poll
-        poll
-      else
-        answerable_polls.first
-      end
+      poll || answerable_polls.first
     end
   rescue ActiveRecord::RecordNotFound
     return ""

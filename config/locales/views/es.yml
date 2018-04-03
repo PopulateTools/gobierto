@@ -77,9 +77,6 @@ es:
           title: Tu cuenta
     mailcheck:
       suggestion_message: "¿Quieres decir"
-    main_menu:
-      collapse_menu: Cierra
-      search: Busca...
     sandbox:
       application:
         about_the_data: Sobre los datos

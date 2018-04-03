@@ -77,9 +77,6 @@ ca:
           title: El teu compte
     mailcheck:
       suggestion_message: Vols dir
-    main_menu:
-      collapse_menu: Tanca
-      search: Cerca...
     sandbox:
       application:
         about_the_data: Sobre les dades

@@ -151,8 +151,10 @@ module GobiertoParticipation
       created_at.strftime("%Y-%m-%d")
     end
 
-    def self.javascript_json
-      all.to_json(only: [:title, :votes_count, :user_id, :slug], methods: [:to_path, :love_pct, :like_pct, :neutral_pct, :hate_pct, :created_at_ymd])
+    def self.json_attributes
+      all.map{ |c| { title: c.title, votes_count: c.votes_count, user_id: c.user_id, slug: c.slug,
+                     to_path: c.to_path, love_pct: c.love_pct, like_pct: c.like_pct, neutral_pct: c.neutral_pct,
+                     hate_pct: c.hate_pct, created_at_ymd: c.created_at_ymd } }
     end
   end
 end

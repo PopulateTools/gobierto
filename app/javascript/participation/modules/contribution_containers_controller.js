@@ -98,20 +98,20 @@ window.GobiertoParticipation.ContributionContainersController = (function() {
       .attr('class', 'fa fa-angle-left fa-3x arrow previous_contribution disabled')
       .on('click', updateContributions);
 
-      createCards(nodes);
+    createCards(nodes);
 
-      var urlHash = window.location.hash;
-      if (urlHash.length) {
+    var urlHash = window.location.hash;
+    if (urlHash.length) {
 
-        var selected_cards = data.filter(function(c) { return c.slug == urlHash.substr(1); });
-        if (selected_cards.length > 0) {
-          $.ajax({
-            type: "GET",
-            dataType: "script",
-            url: selected_cards[0].to_path
-          });
-        }
+      var selected_cards = data.filter(function(c) { return c.slug == urlHash.substr(1); });
+      if (selected_cards.length > 0) {
+        $.ajax({
+          type: "GET",
+          dataType: "script",
+          url: selected_cards[0].to_path
+        });
       }
+    }
 
     $('#next').click(function() {
         page++;

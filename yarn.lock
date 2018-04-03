@@ -39,6 +39,10 @@
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/@types/d3-selection/-/d3-selection-1.0.10.tgz#dcfb0ddfcdfb1ad26aea4351323771e1aea96e84"
 
+"@types/jquery@^2.0.32":
+  version "2.0.49"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.49.tgz#95bd7064caebf65bde10429dff491a1aea05b67d"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -2413,6 +2417,13 @@ detect-node@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/detect-node/-/detect-node-2.0.3.tgz#a2033c09cc8e158d37748fbde7507832bd6ce127"
 
+devbridge-autocomplete@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/devbridge-autocomplete/-/devbridge-autocomplete-1.4.7.tgz#de003a1d3ceb2342f4a98bc64ef19db5fbff83f9"
+  dependencies:
+    "@types/jquery" "^2.0.32"
+    jquery ">=1.7"
+
 diff@^3.3.1, diff@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
@@ -4079,10 +4090,6 @@ jqtree@^1.4.5:
   dependencies:
     jquery ">=1.9"
 
-jquery-autocomplete@^1.2.8:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/jquery-autocomplete/-/jquery-autocomplete-1.2.8.tgz#9927c5d752cf73fc5b6c707431197e16997cc653"
-
 jquery-mousewheel@~3.1.13:
   version "3.1.13"
   resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
@@ -4101,7 +4108,7 @@ jquery-visible@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/jquery-visible/-/jquery-visible-1.2.0.tgz#4839cac492f2e7f705fd06b1cde202b5da97c1e9"
 
-"jquery@2 - 3", "jquery@>= 1.4.3", jquery@>=1.8.0, jquery@>=1.9, "jquery@>=2.0.0 <4.0.0", jquery@^3.2.1, jquery@^3.3.1:
+"jquery@2 - 3", "jquery@>= 1.4.3", jquery@>=1.7, jquery@>=1.8.0, jquery@>=1.9, "jquery@>=2.0.0 <4.0.0", jquery@^3.2.1, jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 

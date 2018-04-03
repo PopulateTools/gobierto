@@ -10,7 +10,7 @@ import 'tipsy-1a'
 import 'velocity-animate'
 import 'velocity-ui-pack'
 // Falta d3-voronoi (editado??)
-import 'jquery-autocomplete'
+import 'devbridge-autocomplete'
 import algoliasearch from 'algoliasearch'
 import 'geocomplete'
 import 'jqtree'

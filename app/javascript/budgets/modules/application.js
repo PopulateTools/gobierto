@@ -81,7 +81,7 @@ $(document).on('turbolinks:load', function() {
     groupBy: 'category'
   };
 
-  $autocomplete.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchOptions));
+  $autocomplete.devbridgeAutocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchOptions));
 
   $(".stick_ip").stick_in_parent()
     .on("sticky_kit:stick", function() {

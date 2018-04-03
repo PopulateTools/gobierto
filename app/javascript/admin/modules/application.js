@@ -35,7 +35,7 @@ $(document).on('turbolinks:load', function() {
     }
   };
 
-  $autocomplete.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchOptions));
+  $autocomplete.devbridgeAutocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchOptions));
 
   $('[data-wysiwyg]').each(function(){
     var $el = $(this);

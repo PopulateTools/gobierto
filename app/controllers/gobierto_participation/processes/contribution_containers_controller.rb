@@ -35,10 +35,10 @@ module GobiertoParticipation
                        I18n.t("gobierto_participation.processes.contribution_containers.show.#{@contribution_container.contribution_type}",
                               count: @contribution_container.contributions.created_at_last_week.count)
 
-        @contribution_container_data = { data_origin: data_origin,
-                                         data_best_ratings: data_best_ratings,
-                                         data_worst_ratings: data_worst_ratings,
-                                         data_recent: data_recent,
+        @contribution_container_data = { data_origin: data_origin.json_attributes,
+                                         data_best_ratings: data_best_ratings.json_attributes,
+                                         data_worst_ratings: data_worst_ratings.json_attributes,
+                                         data_recent: data_recent.json_attributes,
                                          users_ideas_origin: users_ideas_origin,
                                          users_best_ratings: users_best_ratings,
                                          users_worst_ratings: users_worst_ratings,

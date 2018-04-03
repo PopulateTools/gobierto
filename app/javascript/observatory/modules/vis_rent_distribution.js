@@ -1,4 +1,5 @@
 import { Class, d3, d3locale, accounting } from 'shared'
+import './d3-distance-limited-voronoi.js'
 
 export var VisRentDistribution = Class.extend({
   init: function(divId, city_id, province_id, current_year) {

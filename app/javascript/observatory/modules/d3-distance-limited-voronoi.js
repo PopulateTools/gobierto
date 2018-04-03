@@ -1,4 +1,4 @@
-import * as d3 from 'd3v4'
+import { d3 } from 'shared'
 
 d3.distanceLimitedVoronoi = function() {
   /////// Internals ///////

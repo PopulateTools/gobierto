@@ -1,5 +1,3 @@
-import { rebindAll } from 'shared'
-
 $(document).on('turbolinks:load', function() {
   var $input = $('input#gobierto_search');
   var $resultsContainer = $('#search_results, #search_results:hidden');
@@ -87,7 +85,6 @@ $(document).on('turbolinks:load', function() {
           div.appendTo($resultsContainer);
         });
       });
-      rebindAll();
     } else {
       $('<div class="result"><p>'+I18n.t("layouts.search.no_results")+'</p></div>').appendTo($resultsContainer);
     }

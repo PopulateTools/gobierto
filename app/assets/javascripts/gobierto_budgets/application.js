@@ -9,9 +9,7 @@
 
 $(document).on('turbolinks:load', function() {
 
-  if(isDesktop()) {
-    rebindAll();
-  } else {
+  if(!isDesktop()) {
     $('.open_line_browser').hide();
   }
 

@@ -1,5 +1,3 @@
-import { rebindAll } from 'shared'
-
 $(document).on('turbolinks:load', function() {
   var $input_admin = $('input#pages_search');
   var $resultsContainerAdmin = $('#search_pages');
@@ -64,7 +62,6 @@ $(document).on('turbolinks:load', function() {
 
       // After reload partial with pages we have to do pages like draggable
       $(".tipsit").draggable({ revert: true });
-      rebindAll();
     } else {
       $('<div class="result"><p>'+I18n.t("layouts.search.no_results")+'</p></div>').appendTo($resultsContainerAdmin);
     }

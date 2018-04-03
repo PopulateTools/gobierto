@@ -1,4 +1,4 @@
-import { Class, d3, accounting, rebindAll } from 'shared'
+import { Class, d3, accounting } from 'shared'
 
 export var TreemapVis = Class.extend({
   init: function(divId, size, clickable){
@@ -86,7 +86,6 @@ export var TreemapVis = Class.extend({
             }
           }
         })
-       .call(rebindAll)
     }.bind(this));
   }
 });

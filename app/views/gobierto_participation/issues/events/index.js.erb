@@ -4,5 +4,3 @@
 <% else %>
   $("#events-list").html('<%=j render(partial: "event_teaser", locals: { person_events: @events, no_upcoming_events: @no_upcoming_events, people_filter: GobiertoPeople::Person.parties.key(@person_party) || GobiertoPeople::Person.categories.key(@person_category) } ) %>');
 <% end %>
-
-rebindAll();

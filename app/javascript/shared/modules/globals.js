@@ -1,11 +1,4 @@
 // Global util functions
-export function rebindAll() {
-  $('.tipsit').tipsy({fade: false, gravity: 's', html: true});
-  $('.tipsit-n').tipsy({fade: false, gravity: 'n', html: true});
-  $('.tipsit-w').tipsy({fade: false, gravity: 'w', html: true});
-  $('.tipsit-e').tipsy({fade: false, gravity: 'e', html: true});
-  $('.tipsit-treemap').tipsy({fade: false, gravity: $.fn.tipsy.autoNS, html: true});
-}
 
 export function isDesktop(){
   return $(window).width() > 740;
@@ -28,11 +21,15 @@ $(document).on("ajax:complete ajaxSuccess", function() {
     removalDelay: 300,
     mainClass: 'mfp-fade'
   });
+
+  $('.tipsit').tipsy({fade: false, gravity: 's', html: true});
+  $('.tipsit-n').tipsy({fade: false, gravity: 'n', html: true});
+  $('.tipsit-w').tipsy({fade: false, gravity: 'w', html: true});
+  $('.tipsit-e').tipsy({fade: false, gravity: 'e', html: true});
+  $('.tipsit-treemap').tipsy({fade: false, gravity: $.fn.tipsy.autoNS, html: true});
 });
 
 $(document).on('turbolinks:load', function() {
-
-  rebindAll();
 
   // Include here common callbacks and behaviours
 

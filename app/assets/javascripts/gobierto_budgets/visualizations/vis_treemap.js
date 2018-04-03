@@ -86,7 +86,6 @@ var TreemapVis = Class.extend({
             }
           }
         })
-       .call(rebindAll)
     }.bind(this));
   }
 });

@@ -1,4 +1,4 @@
-import { isDesktop, rebindAll, Turbolinks, AUTOCOMPLETE_DEFAULTS } from 'shared'
+import { isDesktop, Turbolinks, AUTOCOMPLETE_DEFAULTS } from 'shared'
 import { TreemapVis } from './vis_treemap.js'
 import { VisSlider } from './visSlider.js'
 import { getBudgetLevelData } from './getBudgetLevelData.js'
@@ -13,9 +13,7 @@ import './visLine.js'
 
 $(document).on('turbolinks:load', function() {
 
-  if(isDesktop()) {
-    rebindAll();
-  } else {
+  if(!isDesktop()) {
     $('.open_line_browser').hide();
   }
 

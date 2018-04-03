@@ -7,7 +7,7 @@ class RenderPartial < Liquid::Tag
   end
 
   def render(context)
-    context.registers[:controller].dup.render(partial: @partial_name)
+    context.registers[:view].dup.render(partial: @partial_name)
   end
 end
 

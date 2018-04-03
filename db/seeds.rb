@@ -49,7 +49,8 @@ fixtures_to_load = [
   "gobierto_plans/plans",
   "gobierto_plans/categories",
   "gobierto_plans/nodes",
-  "gobierto_indicators/indicators"
+  "gobierto_indicators/indicators",
+  "gobierto_core/templates"
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")

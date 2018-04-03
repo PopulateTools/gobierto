@@ -21,7 +21,6 @@ import { IncomeCard } from './income.js'
 import { InvestmentByInhabitantCard } from './investment_by_inhabitant.js'
 import { DebtByInhabitantCard } from './debt_by_inhabitant.js'
 import { IbiCard } from './ibi.js'
-import { BudgetByInhabitantCard } from './budget_by_inhabitant.js'
 import { ConstructionTaxCard } from './construction_tax.js'
 import { CarsTaxCard } from './cars_tax.js'
 import { EconomicTaxCard } from './economic_tax.js'
@@ -121,9 +120,6 @@ $(document).on('turbolinks:load', function() {
 
   var ibi =  new IbiCard('.ibi', window.populateData.municipalityId)
   ibi.render();
-
-  var budget =  new BudgetByInhabitantCard('.budget_by_inhabitant', window.populateData.municipalityId)
-  budget.render();
 
   var constructionTax =  new ConstructionTaxCard('.construction_tax', window.populateData.municipalityId)
   constructionTax.render();

@@ -21,7 +21,7 @@ import Cleave from 'cleave.js'
 import Vue from 'vue'
 // https://www.giacomodebidda.com/how-to-import-d3-plugins-with-webpack/
 import * as d3v4Base from 'd3v4'
-import * as d3v3Base from 'd3'
+import * as d3v3Base from 'd3' // required to run dc.js
 import d3Legend from 'd3-svg-legend'
 import { wordwrap, parseAttributes, f, ascendingKey, descendingKey, conventions, drawAxis, attachTooltip, loadData, nestBy, round, clamp, polygonClip } from 'd3-jetpack' // NOTE: some methods returned conflict with d3v4, so must select
 import * as flight from 'flightjs'

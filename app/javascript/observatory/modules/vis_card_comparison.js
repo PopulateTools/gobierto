@@ -2,7 +2,7 @@ import { Class, d3, d3locale, accounting } from 'shared'
 
 export var ComparisonCard = Class.extend({
   init: function(divClass, json, value_1, value_2, cardName) {
-    d3.timeFormatDefaultLocale(d3locale[this.locale]);
+    d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
 
     this.div = d3.select(divClass);
     this.firstDataType = this.div.attr('data-type-first');

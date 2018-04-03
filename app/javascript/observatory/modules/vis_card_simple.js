@@ -3,7 +3,7 @@ import { Sparkline } from './vis_sparkline.js'
 
 export var SimpleCard = Class.extend({
   init: function(divClass, json, value, cardName, valueType) {
-    d3.timeFormatDefaultLocale(d3locale[this.locale]);
+    d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
 
     this.div = d3.select(divClass);
     this.dataType = this.div.attr('data-type');

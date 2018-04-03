@@ -32,6 +32,7 @@ import * as dc from 'dc'
 // Initializations
 accounting.settings = settings
 Turbolinks.start()
+
 const d3 = Object.assign(d3v4Base, d3Legend, { wordwrap, parseAttributes, f, ascendingKey, descendingKey, conventions, drawAxis, attachTooltip, loadData, nestBy, round, clamp, polygonClip });
 const d3v3 = Object.assign(d3v3Base, d3Legend, { wordwrap, parseAttributes, f, ascendingKey, descendingKey, conventions, drawAxis, attachTooltip, loadData, nestBy, round, clamp, polygonClip });
 

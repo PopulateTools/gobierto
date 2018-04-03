@@ -1,4 +1,3 @@
-
 $(document).on('turbolinks:load', function() {
 
   $('.nav_control, .close').click(function(e) {

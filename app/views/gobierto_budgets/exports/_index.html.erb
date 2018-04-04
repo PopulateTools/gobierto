@@ -1,13 +1,13 @@
 <div class="pure-g data_block" id="section-people">
 
   <div class="pure-u-1 pure-u-md-7-24">
-    <h2><%= t("gobierto_budgets.exports.title") %></h2>
+    <h2><%= t("gobierto_budgets.exports.budget_lines_title") %></h2>
     <p></p>
   </div>
 
   <div class="pure-u-1 pure-u-md-17-24 main_content">
     <div class="data_block subblock">
-      <p><%= t("gobierto_budgets.exports.description") %></p>
+      <p><%= t("gobierto_budgets.exports.budget_lines_description") %></p>
       <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
         <% data = GobiertoBudgets::Data::Annual.new(site: current_site, year: year) %>
         <% if data.any_data? %>
@@ -23,3 +23,31 @@
     </div>
   </div>
 </div>
+
+<% if budgets_providers_active? %>
+  <div class="pure-g data_block" id="section-people">
+
+    <div class="pure-u-1 pure-u-md-7-24">
+      <h2><%= t("gobierto_budgets.exports.invoices_title") %></h2>
+      <p></p>
+    </div>
+
+    <div class="pure-u-1 pure-u-md-17-24 main_content">
+      <div class="data_block subblock">
+        <p><%= t("gobierto_budgets.exports.invoices_description") %></p>
+        <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
+          <% data = GobiertoBudgets::Data::Providers.new(site: current_site, year: year) %>
+          <% if data.any_file? %>
+            <div class="data_subitem">
+              <h3> <%= year %> </h3>
+              <% GobiertoBudgets::Data::Annual::FORMATS.keys.each do |format| %>
+                <% url = data.get_url(format) %>
+                <%= link_to(format.to_s.upcase, url, target: '_blank', class: 'button small', role: 'button') if url %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

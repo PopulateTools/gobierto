@@ -465,8 +465,10 @@ ca:
     events:
       gobierto_budgets_budgets_updated: Pressuposts actualitzats
     exports:
-      description: Compara despeses i ingressos any per any
-      title: Partides del pressupost
+      budget_lines_description: Compara despeses i ingressos any per any
+      budget_lines_title: Partides del pressupost
+      invoices_description: Dades per any
+      invoices_title: Proveïdors i Factures
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: Quant es gasta %{place} en...

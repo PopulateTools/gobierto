@@ -1,13 +1,11 @@
-<div class="breadcrumb year_only">
-  <div class="bread_hover">
-    <div class="bread_links">
-      <%= link_to @year, url_for(current_parameters_with_year(@year)), id: @year, 'aria-haspopup' => 'true', 'aria-label' => 'Escoge el año de los datos', 'aria-owns' => 'popup-year', 'aria-controls' => 'popup-year', 'aria-expanded' => 'false' %>
-      <% if @years.size > 1 %>
+<% if @years.size > 1 %>
+  <div class="breadcrumb year_only">
+    <div class="bread_hover">
+      <div class="bread_links">
+        <%= link_to @year, url_for(current_parameters_with_year(@year)), id: @year, 'aria-haspopup' => 'true', 'aria-label' => 'Escoge el año de los datos', 'aria-owns' => 'popup-year', 'aria-controls' => 'popup-year', 'aria-expanded' => 'false' %>
         <i class="fa fa-sort-down"></i>
-      <% end %>
-    </div>
+      </div>
 
-    <% if @years.size > 1 %>
       <div id="popup-year" class="line_browser clearfix" role="group">
         <div class="bread_links clearfix">
           <%= link_to @year, url_for(current_parameters_with_year(@year)) %>
@@ -19,13 +17,13 @@
             <% @years.each do |year| %>
               <tr role="presentation" >
                 <td data-code="<%= year %>">
-                  <%= link_to year, url_for(current_parameters_with_year(year)) %>
+                <%= link_to year, url_for(current_parameters_with_year(year)) %>
                 </td>
               </tr>
             <% end %>
           </table>
         </div>
       </div>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

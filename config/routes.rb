@@ -320,8 +320,7 @@ Rails.application.routes.draw do
   namespace :gobierto_plans, path: "planes" do
     constraints GobiertoSiteConstraint.new do
       get "/" => "plan_types#index", as: :root
-      get ":slug" => "plan_types#show", as: :plans
-      get ":slug/:year" => "plan_types#show", as: :plan
+      get ":slug(/:year)" => "plan_types#show", as: :plan
     end
   end
 

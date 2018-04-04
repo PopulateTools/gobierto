@@ -21,6 +21,7 @@ module GobiertoPlans
       load_plans
       load_years
       load_year
+      redirect_to gobierto_plans_plan_path(slug: params[:slug], year: @years.first) and return if @year.nil?
       @plan = find_plan
 
       @site_stats = GobiertoPlans::SiteStats.new site: current_site, plan: @plan
@@ -73,9 +74,7 @@ module GobiertoPlans
     end
 
     def load_year
-      if params[:year].nil?
-        redirect_to gobierto_plans_plan_path(slug: @plans.find_by!(year: @years.first).slug, year: @years.first)
-      else
+      if params[:year]
         @year = params[:year].to_i
       end
     end

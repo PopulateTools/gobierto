@@ -27,13 +27,18 @@ class GobiertoPlans::PlanTree
       category_nodes = category.nodes
 
       data = if category.level.zero?
+               logo_url = if logo_options = @plan.configuration_data["level0_options"].find { |option| option["slug"] == category.slug }
+                            logo_options["logo"]
+                          else
+                            ""
+                          end
                { id: category.id,
                  uid: category.uid,
                  level: category.level,
                  attributes: { title: category.name_translations,
                                parent_id: category.parent_id,
                                progress: category.progress,
-                               img: @plan.configuration_data["level0_options"].find { |option| option["slug"] == category.slug }["logo"] },
+                               img: logo_url },
                  children: children }
              elsif category_nodes.exists?
                nodes = []

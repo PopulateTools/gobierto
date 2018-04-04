@@ -43,8 +43,6 @@ module GobiertoPlans
         with_current_site(site) do
           visit @path
 
-          assert has_content? "2012"
-
           assert has_content? "Strategic Plan introduction"
 
           assert has_content? "#{axes.size} axes"

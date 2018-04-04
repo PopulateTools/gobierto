@@ -10,7 +10,8 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
       conditions.merge!({level: 1})
     end
 
-    @budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions)
+    @budget_lines = []
+    budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions)
 
     if !request.format.json? && @parent_code && @parent_code.length >= 1
       while budget_lines.any?

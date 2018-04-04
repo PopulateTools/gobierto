@@ -27,6 +27,10 @@ module Gobierto
 
     config.i18n.default_locale = :es
     config.i18n.available_locales = [:es, :en, :ca]
+    # Custom I18n fallbacks
+    config.after_initialize do
+      I18n.fallbacks = {ca: [:ca, :es, :en], es: [:es, :ca, :en], en: [:en, :es, :ca]}
+    end
 
     config.generators do |g|
       g.test_framework :minitest, spec: false, fixture: true

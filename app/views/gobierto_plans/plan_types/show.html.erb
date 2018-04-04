@@ -1,5 +1,5 @@
 <% content_for(:current_submodule_link) do %>
-  <%= link_to title(@plan.title), gobierto_plans_plans_path(slug: @plan.plan_type.slug) %>
+  <%= link_to title(@plan.title), gobierto_plans_plan_path(slug: @plan.plan_type.slug) %>
 <% end %>
 
 <% if @plan.css.present? %>

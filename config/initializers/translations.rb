@@ -34,7 +34,5 @@ if Translation.table_exists?
   I18n.backend = I18n::Backend::Chain.new(I18n.backend, I18n::Backend::Simple.new)
 end
 
-I18n.fallbacks.map(ca: :es)
-I18n.fallbacks.map(es: :ca)
-I18n.fallbacks.map(en: :es)
+I18n.fallbacks = {ca: [:es, :en], es: [:ca, :en], en: [:es, :ca]}
 

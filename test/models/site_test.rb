@@ -96,4 +96,11 @@ class SiteTest < ActiveSupport::TestCase
     site.save
     assert site.errors.messages[:base].one?
   end
+
+  def test_title_localization_fallback
+    assert_equal "Transparencia y Participción", site.title
+    assert_nil site.title_translations["ca"]
+    I18n.locale = :ca
+    assert_equal "Transparencia y Participción", site.title
+  end
 end

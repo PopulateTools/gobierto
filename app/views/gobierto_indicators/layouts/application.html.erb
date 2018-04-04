@@ -1,5 +1,6 @@
-<% content_for :javascript_include do %>
-  <%= javascript_include_tag 'gobierto_indicators/application', 'data-turbolinks-track' => true %>
+<% content_for :javascript_module_link do %>
+  <!-- load module javascript specifics -->
+  <%= javascript_pack_tag 'indicators', 'data-turbolinks-track': true %>
 <% end %>
 
 <%= render template: "layouts/application" %>

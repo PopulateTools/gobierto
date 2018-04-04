@@ -50,7 +50,7 @@ require "capybara/rails"
 require "capybara/minitest"
 require "minitest/retry"
 require "vcr"
-require "mocha/minitest"
+require "mocha/mini_test"
 
 I18n.locale = I18n.default_locale = :en
 Time.zone = "Madrid"
@@ -122,7 +122,6 @@ class ActionDispatch::IntegrationTest
   self.use_transactional_tests = true
 
   def setup
-    Rails.cache.clear
     $redis.flushdb
     Capybara.current_driver = Capybara.default_driver
   end

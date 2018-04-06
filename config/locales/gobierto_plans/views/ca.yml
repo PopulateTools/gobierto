@@ -8,7 +8,7 @@ ca:
       gobierto_plans_plan_updated: Pla actualitzat
     layouts:
       application:
-        plans: Planes
+        plans: Plans
     plan_types:
       show:
         ends: Fi

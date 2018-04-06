@@ -8,7 +8,7 @@ en:
       gobierto_plans_plan_updated: Plan updated
     layouts:
       application:
-        plans: Planes
+        plans: Plans
     plan_types:
       show:
         ends: End

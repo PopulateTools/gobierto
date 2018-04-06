@@ -9,7 +9,7 @@ module GobiertoPlans
 
     def index
       # HACK: select last plan which at least has one published plan to avoid https://github.com/PopulateTools/issues/issues/304
-      @plan_type = @plan_types.select{ |plan_type| plan_types.plans.published.any? }.last
+      @plan_type = @plan_types.select { |plan_type| plan_type.plans.published.any? }.last
       load_plans
       load_years
       @year = @years.first

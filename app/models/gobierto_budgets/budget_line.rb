@@ -20,6 +20,7 @@ module GobiertoBudgets
       :area,
       :kind,
       :code,
+      :organization_id,
       :ine_code,
       :province_id,
       :autonomy_id,
@@ -51,12 +52,12 @@ module GobiertoBudgets
       end
     end
 
-    def self.get_population(ine_code, year)
-      population = execute_get_population_query(ine_code, year)
+    def self.get_population(organization_id, year)
+      population = execute_get_population_query(organization_id, year)
 
       if population.nil?
-        previous_year_population = execute_get_population_query(ine_code, year - 1)
-        next_year_population = execute_get_population_query(ine_code, year + 1)
+        previous_year_population = execute_get_population_query(organization_id, year - 1)
+        next_year_population = execute_get_population_query(organization_id, year + 1)
 
         population = if previous_year_population && next_year_population
                        (previous_year_population + next_year_population) / 2
@@ -68,11 +69,11 @@ module GobiertoBudgets
       population
     end
 
-    def self.execute_get_population_query(ine_code, census_year)
+    def self.execute_get_population_query(organization_id, census_year)
       result = GobiertoBudgets::SearchEngine.client.get(
         index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
         type: GobiertoBudgets::SearchEngineConfiguration::Data.type_population,
-        id: "#{ ine_code }/#{ census_year }"
+        id: "#{ organization_id }/#{ census_year }"
       )
       result["_source"]["value"]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
@@ -90,8 +91,8 @@ module GobiertoBudgets
       @amount = params[:amount].round(2)
 
       place = site.place
-      @ine_code = site.organization_id
-      @id = "#{ ine_code }/#{ year }/#{ code }/#{ kind }"
+      @organization_id = site.organization_id
+      @id = "#{ organization_id }/#{ year }/#{ code }/#{ kind }"
       @category = Category.find_by(site: site, area_name: area.area_name, kind: kind, code: code)
       @name = get_name
       @description = get_description
@@ -103,7 +104,7 @@ module GobiertoBudgets
     end
 
     def population
-      @population ||= self.class.get_population(ine_code, year)
+      @population ||= self.class.get_population(organization_id, year)
     end
 
     # TODO: remove?

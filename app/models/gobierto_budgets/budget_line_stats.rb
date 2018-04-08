@@ -4,7 +4,7 @@ module GobiertoBudgets
   class BudgetLineStats
     def initialize(options)
       @site = options.fetch :site
-      @place = @site.place
+      @organization_id = @site.organization_id
       @budget_line = options.fetch :budget_line
       @kind = @budget_line.kind
       @area_name = @budget_line.area_name
@@ -83,7 +83,7 @@ module GobiertoBudgets
 
     def budget_line_planned_query(year, attribute)
       year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: @area_name, id: [@place.id, year, @code, @kind].join("/")
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: @area_name, id: [@organization_id, year, @code, @kind].join("/")
       result["_source"][attribute]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
@@ -91,7 +91,7 @@ module GobiertoBudgets
 
     def budget_line_planned_updated_query(year, attribute)
       year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated, type: @area_name, id: [@place.id, year, @code, @kind].join("/")
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated, type: @area_name, id: [@organization_id, year, @code, @kind].join("/")
       result["_source"][attribute]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
@@ -99,7 +99,7 @@ module GobiertoBudgets
 
     def budget_line_executed_query(year, attribute)
       year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, type: @area_name, id: [@place.id, year, @code, @kind].join("/")
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, type: @area_name, id: [@organization_id, year, @code, @kind].join("/")
       result["_source"][attribute]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
@@ -107,7 +107,7 @@ module GobiertoBudgets
 
     def total_budget_planned_query(year, attribute)
       result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-                                                        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, @kind].join("/")
+                                                        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@organization_id, year, @kind].join("/")
       result["_source"][attribute].to_f
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil

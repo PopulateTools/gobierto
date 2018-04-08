@@ -3,7 +3,7 @@ module GobiertoBudgets
 
     def self.load(id, site)
       return nil if id.nil?
-      ine_code, year, code, kind, area_name = id.split('/')
+      organization_id, year, code, kind, area_name = id.split('/')
       area = case area_name
              when EconomicArea.area_name
                EconomicArea
@@ -12,7 +12,7 @@ module GobiertoBudgets
              when CustomArea.area_name
                CustomArea
              end
-      self.new(ine_code: ine_code, year: year, code: code, kind: kind, area: area, site: site)
+      self.new(organization_id: organization_id, year: year, code: code, kind: kind, area: area, site: site)
     end
 
     def initialize(attributes)
@@ -20,7 +20,7 @@ module GobiertoBudgets
     end
 
     def id
-      (@attributes.values_at(:ine_code, :year, :code, :kind) + [@attributes[:area].area_name]).join('/')
+      (@attributes.values_at(:organization_id, :year, :code, :kind) + [@attributes[:area].area_name]).join('/')
     end
 
     def category
@@ -54,7 +54,7 @@ module GobiertoBudgets
     end
 
     def percentage_of_total
-      total_amount = total || GobiertoBudgets::BudgetTotal.for(@attributes[:ine_code], @attributes[:year])
+      total_amount = total || GobiertoBudgets::BudgetTotal.for(@attributes[:organization_id], @attributes[:year])
       ((amount.to_f / total_amount.to_f)*100).round(2)
     end
 

@@ -114,7 +114,8 @@ module GobiertoBudgets
     end
 
     def mean_province_query(year, attribute)
-      filters = [{ term: { province_id: @place.province_id } }]
+      filters = []
+      filters.push(term: { province_id: @site.place.province_id }) if @site.place.present?
       filters.push(term: { code: @code })
       filters.push(term: { kind: @kind })
       filters.push(term: { year: year })

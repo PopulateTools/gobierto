@@ -92,12 +92,13 @@ module GobiertoBudgets
 
       place = site.place
       @organization_id = site.organization_id
+      @ine_code = place ? place.id.to_i : nil
       @id = "#{ organization_id }/#{ year }/#{ code }/#{ kind }"
       @category = Category.find_by(site: site, area_name: area.area_name, kind: kind, code: code)
       @name = get_name
       @description = get_description
-      @province_id = place.province_id.to_i
-      @autonomy_id = place.province.autonomous_region_id.to_i
+      @province_id = place ? place.province_id.to_i : nil
+      @autonomy_id = place ? place.province.autonomous_region_id.to_i : nil
       @level = self.class.get_level(code)
       @parent_code = self.class.get_parent_code(code)
       @amount_per_inhabitant = (amount / population).round(2)

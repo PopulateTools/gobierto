@@ -5,8 +5,8 @@ class GobiertoBudgets::ReceiptsController < GobiertoBudgets::ApplicationControll
   def show
     year = GobiertoBudgets::SearchEngineConfiguration::Year.last
     @area = GobiertoBudgets::FunctionalArea.area_name
-    @parents = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: current_site.place, level: 1, year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @area })
-    @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: current_site.place, level: 2, year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @area })
+    @parents = GobiertoBudgets::BudgetLine.all(where: { site: current_site, level: 1, year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @area })
+    @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: { site: current_site, level: 2, year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @area })
   end
 
   private

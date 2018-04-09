@@ -9,7 +9,7 @@ machine:
     RACK_ENV: test
 
   ruby:
-    version: 2.5.0
+    version: 2.5.1
   node:
     version: 8.2.0
   yarn:

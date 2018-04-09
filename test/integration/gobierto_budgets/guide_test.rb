@@ -21,7 +21,7 @@ class GobiertoBudgets::GuideTest < ActionDispatch::IntegrationTest
   end
 
   def test_greeting
-    with_each_current_site(placed_site, organization_site) do |site|
+    with_each_current_site(placed_site, organization_site) do
       visit @path
 
       assert has_content?("How a municipal budget works")

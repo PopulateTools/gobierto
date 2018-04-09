@@ -21,7 +21,7 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
   end
 
   def test_execution_information
-    with_each_current_site(placed_site, organization_site) do |site|
+    with_each_current_site(placed_site, organization_site) do
       visit @path
 
       assert has_content?("Budget execution")

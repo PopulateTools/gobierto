@@ -6,7 +6,7 @@ machine:
     HOST: gobierto.test
     RETRY_FAILING_TEST: true
   ruby:
-    version: 2.5.0
+    version: 2.5.1
 
 dependencies:
   cache_directories:

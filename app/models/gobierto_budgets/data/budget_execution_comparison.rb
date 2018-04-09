@@ -13,16 +13,15 @@ module GobiertoBudgets
         @year = options[:year]
         @kind = options[:kind]
         @area = options[:area]
-        @place = @site.place
       end
 
-      attr_reader :site, :year, :kind, :area, :place
+      attr_reader :site, :year, :kind, :area
 
       def calculate_lines
-        base_conditions = { site: site, place: place, kind: kind, area_name: area, level: 1, year: year }
+        base_conditions = { site: site, kind: kind, area_name: area, level: 1, year: year }
         lines_level_1 = calculate_lines_with_conditions(base_conditions)
 
-        base_conditions = { site: site, place: place, kind: kind, area_name: area, level: 2, year: year }
+        base_conditions = { site: site, kind: kind, area_name: area, level: 2, year: year }
         lines_level_2 = calculate_lines_with_conditions(base_conditions)
 
         lines_level_1 + lines_level_2

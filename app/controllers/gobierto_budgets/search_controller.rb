@@ -67,7 +67,7 @@ module GobiertoBudgets
             filter: {
               bool: {
                 must: [
-                  {term: { ine_code: organization_id }},
+                  {term: { organization_id: organization_id }},
                   {term: { kind: kind}},
                   {term: { year: year }},
                 ]

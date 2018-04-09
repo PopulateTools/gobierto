@@ -10,20 +10,20 @@ module GobiertoBudgets
     EXECUTED = "E"
     BUDGETED_UPDATED = "BU"
 
-    def self.budgeted_updated_for(ine_code, year, kind = BudgetLine::EXPENSE)
-      BudgetTotal.for(ine_code, year, BudgetTotal::BUDGETED_UPDATED, kind)
+    def self.budgeted_updated_for(organization_id, year, kind = BudgetLine::EXPENSE)
+      BudgetTotal.for(organization_id, year, BudgetTotal::BUDGETED_UPDATED, kind)
     end
 
-    def self.budgeted_for(ine_code, year, kind = BudgetLine::EXPENSE)
-      BudgetTotal.for(ine_code, year, BudgetTotal::BUDGETED, kind)
+    def self.budgeted_for(organization_id, year, kind = BudgetLine::EXPENSE)
+      BudgetTotal.for(organization_id, year, BudgetTotal::BUDGETED, kind)
     end
 
-    def self.execution_for(ine_code, year, kind = BudgetLine::EXPENSE)
-      BudgetTotal.for(ine_code, year, BudgetTotal::EXECUTED, kind)
+    def self.execution_for(organization_id, year, kind = BudgetLine::EXPENSE)
+      BudgetTotal.for(organization_id, year, BudgetTotal::EXECUTED, kind)
     end
 
-    def self.for(ine_code, year, index = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
-      return for_places(ine_code, year) if ine_code.is_a?(Array)
+    def self.for(organization_id, year, index = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
+      return for_organizations(organization_id, year) if organization_id.is_a?(Array)
       index = case index
               when BudgetTotal::EXECUTED
                 SearchEngineConfiguration::TotalBudget.index_executed
@@ -33,7 +33,7 @@ module GobiertoBudgets
                 SearchEngineConfiguration::TotalBudget.index_forecast_updated
               end
 
-      result = SearchEngine.client.get(index: index, type: SearchEngineConfiguration::TotalBudget.type, id: [ine_code, year, kind].join("/"))
+      result = SearchEngine.client.get(index: index, type: SearchEngineConfiguration::TotalBudget.type, id: [organization_id, year, kind].join("/"))
 
       result = result["_source"]["total_budget"].to_f
       result == 0.0 ? nil : result
@@ -41,7 +41,7 @@ module GobiertoBudgets
       nil
     end
 
-    def self.budget_evolution_for(ine_code, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
+    def self.budget_evolution_for(organization_id, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
       query = {
         sort: [
           { year: { order: "asc" } }
@@ -51,7 +51,7 @@ module GobiertoBudgets
             filter: {
               bool: {
                 must: [
-                  { term: { ine_code: ine_code } },
+                  { term: { organization_id: organization_id } },
                   { term: { kind: kind } }
                 ]
               }
@@ -67,8 +67,8 @@ module GobiertoBudgets
       response["hits"]["hits"].map { |h| h["_source"] }
     end
 
-    def self.for_places(ine_codes, year)
-      terms = [{ terms: { ine_code: ine_codes } },
+    def self.for_organizations(organization_ids, year)
+      terms = [{ terms: { organization_id: organization_ids } },
                { term: { year: year } }]
 
       query = {

@@ -14,7 +14,7 @@ module GobiertoBudgets
 
       def generate_json
         options = [
-          { term: { ine_code: @organization_id } },
+          { term: { organization_id: @organization_id } },
           { term: { kind: @kind } },
           { term: { year: @year } }
         ]

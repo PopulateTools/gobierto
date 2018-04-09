@@ -3,7 +3,7 @@ module GobiertoBudgets
 
     def self.load(id, site)
       return nil if id.nil?
-      organization_id, year, code, kind, area_name = id.split('/')
+      organization_id, year, code, kind, area_name = id.split("/")
       area = case area_name
              when EconomicArea.area_name
                EconomicArea
@@ -20,7 +20,7 @@ module GobiertoBudgets
     end
 
     def id
-      (@attributes.values_at(:organization_id, :year, :code, :kind) + [@attributes[:area].area_name]).join('/')
+      (@attributes.values_at(:organization_id, :year, :code, :kind) + [@attributes[:area].area_name]).join("/")
     end
 
     def category

@@ -85,13 +85,12 @@ module GobiertoBudgets
 
         result = []
         data.sort_by { |k, _| k }.each do |year, v|
-          if year <= GobiertoBudgets::SearchEngineConfiguration::Year.last(force_default_last_year)
-            result.push(
-              date: year.to_s,
-              value: v,
-              dif: data[year - 1] ? delta_percentage(v, data[year - 1]) : 0
-            )
-          end
+          next if year > GobiertoBudgets::SearchEngineConfiguration::Year.last(force_default_last_year)
+          result.push(
+            date: year.to_s,
+            value: v,
+            dif: data[year - 1] ? delta_percentage(v, data[year - 1]) : 0
+          )
         end
 
         result.reverse

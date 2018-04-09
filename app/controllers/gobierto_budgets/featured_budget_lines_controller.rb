@@ -6,7 +6,7 @@ module GobiertoBudgets
 
       @kind = GobiertoBudgets::BudgetLine::EXPENSE
       results = GobiertoBudgets::BudgetLine.search({
-          kind: @kind, year: @year, ine_code: current_site.organization_id,
+          kind: @kind, year: @year, organization_id: current_site.organization_id,
           type: @area_name, range_hash: {
             level: {ge: 3},
             amount_per_inhabitant: { gt: 0 }

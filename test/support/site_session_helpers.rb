@@ -14,6 +14,14 @@ module SiteSessionHelpers
     end
   end
 
+  def with_each_current_site(*sites)
+    sites.each do |site|
+      with_current_site(site) do
+        yield(site)
+      end
+    end
+  end
+
   def with_current_site_with_host(site)
     with_current_site(site) do
       with_site_host(site) do

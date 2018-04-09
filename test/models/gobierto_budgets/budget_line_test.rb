@@ -107,7 +107,7 @@ module GobiertoBudgets
         index: "index_forecast",
         type: "economic",
         site_id: site.id,
-        ine_code: budget_line.ine_code,
+        organization_id: budget_line.organization_id,
         year: budget_line.year,
         code: budget_line.code,
         kind: budget_line.kind,

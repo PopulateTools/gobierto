@@ -7,7 +7,6 @@
 <% end %>
 
 <% @budget_lines.map(&:parent_code).uniq.each do |parent_code| %>
-  console.log('disabling ' + <%= parent_code %>);
   var $el = $('[data-budget-line="<%= parent_code %>"]');
   /* Collapses branch - Prevents resending the form when extended */
   $el.on('ajax:beforeSend', 'a', function(event, xhr, settings) {

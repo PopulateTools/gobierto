@@ -48,6 +48,7 @@ module GobiertoAdmin
 
               fill_in "page_title_translations_en", with: "News Title"
               find("#page_body_translations_en", visible: false).set("The content of the page")
+              fill_in "page_published_on", with: "2017-01-01"
 
               click_button "Create"
 

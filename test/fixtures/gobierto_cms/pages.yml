@@ -6,6 +6,7 @@ site_news_1:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: site_news
+  published_on: <%= Date.current %>
 
 consultation_faq:
   title_translations: <%= { 'en' => 'Consultation page FAQ', 'es' => 'FAQ consultas' }.to_json %>
@@ -15,6 +16,7 @@ consultation_faq:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: site_pages
+  published_on: <%= Date.current %>
 
 privacy:
   title_translations: <%= {'en' => 'Privacy', 'es' => 'Privacidad' }.to_json %>
@@ -24,6 +26,7 @@ privacy:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: site_pages
+  published_on: <%= Date.current %>
 
 cookies:
   title_translations: <%= {'en' => 'Cookies' }.to_json %>
@@ -32,6 +35,7 @@ cookies:
   slug: 'cookies'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
   site: madrid
+  published_on: <%= Date.current %>
 
 about:
   title_translations: <%= {'en' => 'About' }.to_json %>
@@ -40,6 +44,7 @@ about:
   slug: 'about'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: santander
+  published_on: <%= Date.current %>
 
 themes:
   title_translations: <%= {'en' => 'Themes in the site' }.to_json %>
@@ -49,6 +54,7 @@ themes:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: news
+  published_on: <%= Date.current %>
 
 themes_draft:
   title_translations: <%= {'en' => 'Themes draft' }.to_json %>
@@ -58,6 +64,7 @@ themes_draft:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
   site: madrid
   collection: news
+  published_on: <%= Date.current %>
 
 notice_1:
   title_translations: <%= {'en' => 'Notice 1 title' }.to_json %>
@@ -67,6 +74,7 @@ notice_1:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: gender_violence_process_news
+  published_on: <%= Date.current %>
 
 notice_2:
   title_translations: <%= {'en' => 'Notice 2 title' }.to_json %>
@@ -76,6 +84,7 @@ notice_2:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: gender_violence_process_news
+  published_on: <%= Date.current %>
 
 about_site:
   title_translations: <%= { 'es' => 'Sobre el sitio', 'en' => 'About site' }.to_json %>
@@ -85,6 +94,7 @@ about_site:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: site_pages
+  published_on: <%= Date.current %>
 
 about_participation:
   title_translations: <%= {'en' => 'About participation' }.to_json %>
@@ -94,6 +104,7 @@ about_participation:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: site_pages
+  published_on: <%= Date.current %>
 
 about_participation_details:
   title_translations: <%= {'en' => 'About participation details' }.to_json %>
@@ -103,6 +114,7 @@ about_participation_details:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: site_pages
+  published_on: <%= Date.current %>
 
 generic_site_page:
   title_translations: <%= {'en' => 'Generic page' }.to_json %>
@@ -111,6 +123,7 @@ generic_site_page:
   slug: 'generic-page'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
+  published_on: <%= Date.current %>
 
 how_to_participate:
   title_translations: <%= {'en' => 'How to participate' }.to_json %>
@@ -120,3 +133,4 @@ how_to_participate:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: participation_pages
+  published_on: <%= Date.current %>

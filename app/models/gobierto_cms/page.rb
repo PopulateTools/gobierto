@@ -39,12 +39,12 @@ module GobiertoCms
 
     enum visibility_level: { draft: 0, active: 1 }
 
-    validates :site, :title, :body, presence: true
+    validates :site, :title, :body, :published_on, presence: true
     validates :slug, uniqueness: { scope: :site }
 
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }
-    scope :sort_by_updated_at, -> { order(updated_at: :desc) }
+    scope :sort_by_published_on, -> { order(published_on: :desc) }
 
     def section
       GobiertoCms::SectionItem.find_by(item: self).try(:section)

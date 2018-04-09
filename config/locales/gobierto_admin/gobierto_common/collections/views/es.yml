@@ -31,6 +31,7 @@ es:
           pages:
             created_at: Creada
             public: Estado
+            published_on: Publicada
             updated_at: Actualizada
             view: Ver página
             visibility_level:

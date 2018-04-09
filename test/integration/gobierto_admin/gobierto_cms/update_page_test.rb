@@ -41,11 +41,14 @@ module GobiertoAdmin
 
               fill_in "page_title_translations_en", with: "Themes updated"
               fill_in "page_slug", with: "themes-updated"
+              fill_in "page_published_on", with: "2017-01-01 00:00"
 
               click_button "Update"
 
               assert has_message?("Page updated successfully")
+
               assert has_field?("page_slug", with: "themes-updated")
+              assert has_field?("page_published_on", with: "2017-01-01 00:00")
 
               assert_equal(
                 "These are the themes",

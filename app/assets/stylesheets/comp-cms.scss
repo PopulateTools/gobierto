@@ -2,13 +2,11 @@ div.home-cms {
   #transparency .block-title {
     background-size: cover;
     background-position-y: 40%;
-    background-image: linear-gradient(-180deg, rgba(#000, 0) 40px, #000 100%), url(asset_path('illustrations/transparency-bg.png'));
   }
 
   #participation .block-title {
     background-size: cover;
     background-position-y: 55%;
-    background-image: linear-gradient(-180deg, rgba(#000, 0) 48px, #000 100%), url(asset_path('illustrations/participation-bg.png'));
   }
 
   .header {

@@ -11,7 +11,7 @@ In this tutorial we are going to show you how to install Gobierto in a simple Li
 **Software requirements:**
 
 - Linux OS (we recommend Ubuntu LTS 14.04)
-- Ruby 2.5.0 (we recomend installing Ruby with [rbenv](https://github.com/rbenv/rbenv))
+- Ruby 2.5.1 (we recomend installing Ruby with [rbenv](https://github.com/rbenv/rbenv))
 - Rubygems
 - Postgresql
 - ElasticSearch

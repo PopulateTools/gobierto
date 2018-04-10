@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_26_065211) do
+ActiveRecord::Schema.define(version: 2018_04_09_145531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -355,6 +355,7 @@ ActiveRecord::Schema.define(version: 2018_03_26_065211) do
     t.integer "collection_id"
     t.jsonb "body_source_translations"
     t.datetime "archived_at"
+    t.datetime "published_on", null: false
     t.index ["archived_at"], name: "index_gcms_pages_on_archived_at"
     t.index ["body_source_translations"], name: "index_gcms_pages_on_body_source_translations", using: :gin
     t.index ["body_translations"], name: "index_gcms_pages_on_body_translations", using: :gin

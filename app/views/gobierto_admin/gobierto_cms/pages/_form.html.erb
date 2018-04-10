@@ -31,6 +31,21 @@
         <%= f.label :slug %>
         <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
       </div>
+
+      <div class="form_item input_text">
+        <%= f.label :published_on %>
+        <%= f.text_field :published_on, data: {
+            "language": I18n.locale,
+            "timepicker": true,
+            "date-format": "yyyy-mm-dd",
+            "time-format": "hh:ii",
+            "startDate": format_time(f, :published_on, 2)
+          },
+          class: "air-datepicker",
+          readonly: !Rails.env.test?
+        %>
+      </div>
+
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

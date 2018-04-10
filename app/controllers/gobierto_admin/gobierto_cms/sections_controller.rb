@@ -21,11 +21,11 @@ module GobiertoAdmin
 
       def show
         @section = find_section
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.sort_by_updated_at.uniq
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.sort_by_published_on.uniq
       end
 
       def pages
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.sort_by_updated_at.search(params[:query]).uniq
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.sort_by_published_on.search(params[:query]).uniq
 
         respond_to do |format|
           format.js { render layout: false }

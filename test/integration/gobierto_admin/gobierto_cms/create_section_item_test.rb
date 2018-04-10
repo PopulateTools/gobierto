@@ -45,6 +45,7 @@ module GobiertoAdmin
               fill_in "page_title_translations_en", with: "My page with section"
               find("#page_body_translations_en", visible: false).set("The content of the page")
               fill_in "page_slug", with: "new-page-with-section"
+              fill_in "page_published_on", with: "2017-01-01 00:00"
 
               find("#permission_1", visible: false).trigger("click")
               find("select#page_section").find("option[value='#{section.id}']").select_option

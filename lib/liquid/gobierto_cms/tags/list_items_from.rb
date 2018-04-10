@@ -55,7 +55,7 @@ class ListItemsFrom < Liquid::Tag
 
   def fetch_pages(current_site)
     collection = current_site.collections.find_by!(slug: @collection_slug)
-    current_site.pages.where(id: collection.pages_in_collection).active.limit(@options[:limit]).order("updated_at #{@options[:order]}")
+    current_site.pages.where(id: collection.pages_in_collection).active.limit(@options[:limit]).order("published_on #{@options[:order]}")
   end
 
   def helpers

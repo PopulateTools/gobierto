@@ -4,6 +4,7 @@ ca:
     attributes:
       gobierto_admin/gobierto_cms/page_form:
         body: Contingut
+        published_on: Data de publicació
         slug: URL
         title: Títol
       gobierto_admin/gobierto_cms/section_form:

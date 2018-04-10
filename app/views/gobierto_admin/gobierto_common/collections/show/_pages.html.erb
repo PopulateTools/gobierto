@@ -4,6 +4,7 @@
     <th><%= GobiertoCms::Page.human_attribute_name(:title) %></th>
     <th><%= t('.created_at') %></th>
     <th><%= t('.updated_at') %></th>
+    <th><%= t('.published_on') %></th>
     <th><%= t('.public') %></th>
     <th></th>
     <th></th>
@@ -16,6 +17,7 @@
         <td><%= link_to page.title, edit_admin_cms_page_path(page.id, collection_id: @collection.id) %></td>
         <td><%= time_ago_in_words(page.created_at) %></td>
         <td><%= time_ago_in_words(page.updated_at) %></td>
+        <td><%= time_ago_in_words(page.published_on) %></td>
         <td class="visibility_level">
           <% if page.draft? %>
             <i class="fa fa-lock"></i>
@@ -54,6 +56,7 @@
         <th><%= GobiertoCms::Page.human_attribute_name(:title) %></th>
         <th><%= t('.created_at') %></th>
         <th><%= t('.updated_at') %></th>
+        <th><%= t('.published_on') %></th>
         <th><%= t('.public') %></th>
         <th></th>
         <th></th>
@@ -66,6 +69,7 @@
             <td><%= page.title %></td>
             <td><%= time_ago_in_words(page.created_at) %></td>
             <td><%= time_ago_in_words(page.updated_at) %></td>
+            <td><%= time_ago_in_words(page.published_on) %></td>
             <td class="visibility_level">
               <%= t(".visibility_level.archived") %>
             </td>

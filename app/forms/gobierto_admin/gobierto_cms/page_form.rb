@@ -17,6 +17,7 @@ module GobiertoAdmin
         :slug,
         :attachment_ids,
         :section,
+        :published_on,
         :parent
       )
 
@@ -51,6 +52,16 @@ module GobiertoAdmin
 
       def visibility_level
         @visibility_level ||= "draft"
+      end
+
+      def published_on
+        @published_on ||= Time.zone.now
+
+        if @published_on.respond_to?(:strftime)
+          @published_on.strftime("%Y-%m-%d %H:%M")
+        else
+          @published_on
+        end
       end
 
       private
@@ -98,6 +109,7 @@ module GobiertoAdmin
           page_attributes.body_source_translations = body_source_translations
           page_attributes.slug = slug
           page_attributes.visibility_level = visibility_level
+          page_attributes.published_on = published_on
           if page.new_record? && attachment_ids.present?
             if attachment_ids.is_a?(String)
               page_attributes.attachment_ids = attachment_ids.split(",")

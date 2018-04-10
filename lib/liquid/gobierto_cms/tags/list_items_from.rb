@@ -38,7 +38,7 @@ class ListItemsFrom < Liquid::Tag
         collection_item_text << %Q{ <img src="#{page.main_image}"> }
       end
       if @options[:date]
-        collection_item_text << %Q{ <span class="date">#{I18n.l(page.updated_at, format: "%d %b %y")}</span> }
+        collection_item_text << %Q{ <span class="date">#{I18n.l(page.published_on, format: "%d %b %y")}</span> }
       end
       collection_item_text << %Q{ <h2>#{page.title}</h2> }
       if @options[:intro_text]
@@ -55,7 +55,7 @@ class ListItemsFrom < Liquid::Tag
 
   def fetch_pages(current_site)
     collection = current_site.collections.find_by!(slug: @collection_slug)
-    current_site.pages.where(id: collection.pages_in_collection).active.limit(@options[:limit]).order("updated_at #{@options[:order]}")
+    current_site.pages.where(id: collection.pages_in_collection).active.limit(@options[:limit]).order("published_on #{@options[:order]}")
   end
 
   def helpers

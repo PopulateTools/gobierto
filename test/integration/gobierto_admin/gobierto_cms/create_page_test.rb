@@ -62,6 +62,7 @@ module GobiertoAdmin
               fill_in "page_title_translations_en", with: "My page"
               find("#page_body_translations_en", visible: false).set("The content of the page")
               fill_in "page_slug", with: "new-page"
+              fill_in "page_published_on", with: "2017-01-01 00:00"
 
               click_link "ES"
               fill_in "page_title_translations_es", with: "Mi página"
@@ -71,6 +72,7 @@ module GobiertoAdmin
 
               assert has_message?("Page created successfully")
               assert has_field?("page_slug", with: "new-page")
+              assert has_field?("page_published_on", with: "2017-01-01 00:00")
 
               assert_equal(
                 "The content of the page",

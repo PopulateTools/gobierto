@@ -176,7 +176,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
         },
         methods: {
           getJson: function() {
-            $.getJSON(window.location.href, function(json) {
+            $.getJSON(window.location.href, {format: 'json'}, function(json) {
               // Tree with categories and the leaves (nodes)
               var data = json["plan_tree"];
               // Nodes can have variable attributes and these are their keys

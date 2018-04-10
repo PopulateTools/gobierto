@@ -7,7 +7,6 @@ machine:
     RETRY_FAILING_TEST: true
     RAILS_ENV: test
     RACK_ENV: test
-
   ruby:
     version: 2.5.1
   node:

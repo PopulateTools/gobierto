@@ -8,8 +8,12 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
     @path = gobierto_budgets_budgets_execution_path(last_year)
   end
 
-  def site
-    @site ||= sites(:madrid)
+  def placed_site
+    @placed_site ||= sites(:madrid)
+  end
+
+  def organization_site
+    @organization_site ||= sites(:organization_wadus)
   end
 
   def last_year
@@ -17,7 +21,7 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
   end
 
   def test_execution_information
-    with_current_site(site) do
+    with_each_current_site(placed_site, organization_site) do
       visit @path
 
       assert has_content?("Budget execution")

@@ -63,8 +63,8 @@ module GobiertoBudgets
       end
 
       def lines
-        @place = INE::Places::Place.find(params[:ine_code])
-        data_line = GobiertoBudgets::Data::Lines.new place: @place, year: params[:year], what: params[:what], kind: params[:kind],
+        data_line = GobiertoBudgets::Data::Lines.new place: current_site.place, organization_id: current_site.organization_id,
+          organization_name: current_site.organization_name, year: params[:year], what: params[:what], kind: params[:kind],
           code: params[:code], area: params[:area], include_next_year: params[:include_next_year],
           comparison: params[:comparison]
 
@@ -74,13 +74,13 @@ module GobiertoBudgets
       def budget_execution_deviation
         year = params[:year].to_i
         kind = params[:kind]
-        ine_code = params[:ine_code]
-        total_budgeted = GobiertoBudgets::BudgetTotal.budgeted_for(ine_code,year,kind)
-        total_executed = GobiertoBudgets::BudgetTotal.execution_for(ine_code,year,kind)
+        organization_id = params[:organization_id]
+        total_budgeted = GobiertoBudgets::BudgetTotal.budgeted_for(organization_id,year,kind)
+        total_executed = GobiertoBudgets::BudgetTotal.execution_for(organization_id,year,kind)
         deviation = total_executed - total_budgeted
         deviation_percentage = helpers.number_with_precision(delta_percentage(total_executed, total_budgeted), precision: 2)
         up_or_down = sign(total_executed, total_budgeted)
-        evolution = deviation_evolution(ine_code, kind)
+        evolution = deviation_evolution(organization_id, kind)
 
         heading = I18n.t("controllers.gobierto_budgets.api.data.budgets_execution_header", kind: kind_literal(kind), year: year)
         respond_to do |format|
@@ -103,10 +103,10 @@ module GobiertoBudgets
       def budget_execution_comparison
         year = params[:year].to_i
         kind = params[:kind]
-        ine_code = params[:ine_code]
+        organization_id = params[:organization_id]
         area = params[:area]
 
-        lines = GobiertoBudgets::Data::BudgetExecutionComparison.extract_lines(site: current_site, year: year, kind: kind, ine_code: ine_code, area: area)
+        lines = GobiertoBudgets::Data::BudgetExecutionComparison.extract_lines(site: current_site, year: year, kind: kind, organization_id: organization_id, area: area)
         site_stats = GobiertoBudgets::SiteStats.new site: current_site, year: year
         last_update = site_stats.budgets_data_updated_at
 
@@ -122,8 +122,8 @@ module GobiertoBudgets
 
       private
 
-      def get_debt(year, ine_code)
-        id = "#{ine_code}/#{year}"
+      def get_debt(year, organization_id)
+        id = "#{organization_id}/#{year}"
 
         begin
           value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
@@ -134,19 +134,19 @@ module GobiertoBudgets
       end
 
       def budget_data(year, field, ranking = true)
-        ine_code = params[:ine_code].to_i
+        organization_id = params[:organization_id]
 
         opts = {year: year, code: @code, kind: @kind, area_name: @area, variable: field}
         results, total_elements = GobiertoBudgets::BudgetLine.for_ranking(opts)
 
         if ranking
-          position = GobiertoBudgets::BudgetLine.place_position_in_ranking(opts.merge(ine_code: ine_code))
+          position = GobiertoBudgets::BudgetLine.place_position_in_ranking(opts.merge(organization_id: organization_id))
         else
           total_elements = 0
           position = 0
         end
 
-        value = results.select {|r| r['ine_code'] == ine_code }.first.try(:[],field)
+        value = results.select {|r| r['organization_id'] == organization_id }.first.try(:[],field)
 
         return {
           value: value,
@@ -156,7 +156,7 @@ module GobiertoBudgets
       end
 
       def budget_data_executed(year, field)
-        id = "#{params[:ine_code]}/#{year}/#{@code}/#{@kind}"
+        id = "#{params[:organization_id]}/#{year}/#{@code}/#{@kind}"
 
         begin
           value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, type: @area, id: id
@@ -191,7 +191,7 @@ module GobiertoBudgets
           _source: false
         }
 
-        id = "#{params[:ine_code]}/#{year}/#{GobiertoBudgets::BudgetLine::EXPENSE}"
+        id = "#{params[:organization_id]}/#{year}/#{GobiertoBudgets::BudgetLine::EXPENSE}"
 
         if ranking
           response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, body: query
@@ -217,7 +217,7 @@ module GobiertoBudgets
       end
 
       def total_budget_data_executed(year, field)
-        id = "#{params[:ine_code]}/#{year}/#{GobiertoBudgets::BudgetLine::EXPENSE}"
+        id = "#{params[:organization_id]}/#{year}/#{GobiertoBudgets::BudgetLine::EXPENSE}"
 
         begin
           value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id
@@ -247,9 +247,9 @@ module GobiertoBudgets
         final_message
       end
 
-      def deviation_evolution(ine_code, kind)
-        response_budgeted = GobiertoBudgets::BudgetTotal.budget_evolution_for(ine_code, GobiertoBudgets::BudgetTotal::BUDGETED, kind)
-        response_executed = GobiertoBudgets::BudgetTotal.budget_evolution_for(ine_code, GobiertoBudgets::BudgetTotal::EXECUTED, kind)
+      def deviation_evolution(organization_id, kind)
+        response_budgeted = GobiertoBudgets::BudgetTotal.budget_evolution_for(organization_id, GobiertoBudgets::BudgetTotal::BUDGETED, kind)
+        response_executed = GobiertoBudgets::BudgetTotal.budget_evolution_for(organization_id, GobiertoBudgets::BudgetTotal::EXECUTED, kind)
 
         response_budgeted.map do |budgeted_result|
           year = budgeted_result['year']

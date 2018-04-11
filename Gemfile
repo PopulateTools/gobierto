@@ -12,9 +12,9 @@ gem "jbuilder", "~> 2.5"
 gem "mechanize"
 gem "meta-tags"
 gem "paper_trail"
-gem "paranoia"
+gem "paranoia", "~> 2.4.0"
 gem "pg", "~> 0.19"
-gem "rails", "~> 5.2.0.rc2"
+gem "rails", "= 5.2.0.rc2"
 gem "redcarpet", require: true
 gem "responders"
 gem "rollbar"
@@ -33,6 +33,9 @@ gem "sass-rails", "~> 5.0.0"
 gem "therubyracer"
 gem "turbolinks"
 gem "uglifier", ">= 1.3.0"
+
+# Webpack
+gem "webpacker", "~> 3.0"
 
 # Elasticsearch
 gem "elasticsearch"
@@ -86,9 +89,7 @@ gem "cloudinary"
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
-  gem "listen"
   gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
 end
 
 group :test do
@@ -112,4 +113,6 @@ end
 group :development do
   gem "puma"
   gem "rubocop"
+  gem "listen"
+  gem "spring-watcher-listen", "~> 2.0.0"
 end

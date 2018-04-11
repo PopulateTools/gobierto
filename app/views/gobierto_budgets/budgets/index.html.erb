@@ -287,8 +287,8 @@
 
       <div class="pure-u-1 pure-u-md-1-2">
         <div class="filter m_v_2" role="tablist" aria-label="<%= t('.visualize') %>">
-          <%= link_to t('.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: current_site.organization_id, year: @year, what: 'per_person', format: :json), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person', 'aria-controls' => 'lines_chart_wrapper' %>
-          <%= link_to t('.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: current_site.organization_id, year: @year, what: 'total_budget', format: :json), "line-widget-type" => "total_budget" }, role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
+          <%= link_to t('.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(organization_id: current_site.organization_id, year: @year, what: 'per_person', format: :json), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person', 'aria-controls' => 'lines_chart_wrapper' %>
+          <%= link_to t('.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(organization_id: current_site.organization_id, year: @year, what: 'total_budget', format: :json), "line-widget-type" => "total_budget" }, role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
         </div>
       </div>
     </div>
@@ -317,8 +317,8 @@
 
       <div class="pure-u-1 pure-u-md-1-2">
         <div class="filter m_v_2" role="tablist" aria-label="<%= t('.visualize') %>">
-          <%= link_to t('.per_person'), '#', class:'active',  data: {"line-widget-series" => "comparison", "line-widget-url" => gobierto_budgets_api_data_lines_path(comparison: budgets_comparison_compare_municipalities, ine_code: current_site.organization_id, year: @year, what: 'per_person', format: :json), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person', 'aria-controls' => 'lines_chart_wrapper' %>
-          <%= link_to t('.in_total'), '#', class:'',  data: {"line-widget-series" => "comparison", "line-widget-url" => gobierto_budgets_api_data_lines_path(comparison: budgets_comparison_compare_municipalities, ine_code: current_site.organization_id, year: @year, what: 'total_budget', format: :json), "line-widget-type" => "total_budget" }, role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
+          <%= link_to t('.per_person'), '#', class:'active',  data: {"line-widget-series" => "comparison", "line-widget-url" => gobierto_budgets_api_data_lines_path(comparison: budgets_comparison_compare_municipalities, organization_id: current_site.organization_id, year: @year, what: 'per_person', format: :json), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person', 'aria-controls' => 'lines_chart_wrapper' %>
+          <%= link_to t('.in_total'), '#', class:'',  data: {"line-widget-series" => "comparison", "line-widget-url" => gobierto_budgets_api_data_lines_path(comparison: budgets_comparison_compare_municipalities, organization_id: current_site.organization_id, year: @year, what: 'total_budget', format: :json), "line-widget-type" => "total_budget" }, role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
         </div>
       </div>
     </div>

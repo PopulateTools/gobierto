@@ -1,7 +1,3 @@
-<% content_for :javascript_include do %>
-  <%= javascript_include_tag "gobierto_participation/application", "data-turbolinks-track" => true %>
-<% end %>
-
 <% content_for(:current_submodule_link) do %>
   <% if controller_name == "welcome" %>
     <%= link_to t("layouts.application.start"), gobierto_participation_root_path %>
@@ -12,6 +8,11 @@
   <%= javascript_tag do %>
     window.GobiertoParticipation.poll_teaser_controller.show();
   <% end %>
+<% end %>
+
+<% content_for :javascript_module_link do %>
+  <!-- load module javascript specifics -->
+  <%= javascript_pack_tag 'participation', 'data-turbolinks-track': true %>
 <% end %>
 
 <% unless try(:current_process).nil? %>

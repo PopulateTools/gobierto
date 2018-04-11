@@ -33,6 +33,7 @@ module GobiertoCms
     def find_page
       page = pages_scope.find_by!(slug: params[:id])
       @collection = page.collection
+      raise ActiveRecord::RecordNotFound if @collection.nil?
       GobiertoCms::PageDecorator.new(page, @current_process.class.name || @collection.container_type, @collection.item_type)
     end
 
@@ -45,7 +46,9 @@ module GobiertoCms
     end
 
     def load_collection_pages
-      @pages = current_site.pages.where(id: @collection.pages_in_collection).active
+      if @collection
+        @pages = current_site.pages.where(id: @collection.pages_in_collection).active
+      end
     end
 
     def check_collection_type

@@ -122,19 +122,8 @@ module GobiertoAdmin
 
       def test_preview_pending_event_if_not_admin
         with_current_site(site) do
-          assert_raises ActiveRecord::RecordNotFound do
-            visit gobierto_people_person_event_path(person.slug, pending_event.slug)
-          end
-
-          assert has_no_selector?("h2", text: pending_event.title)
-
-          person.draft!
-
-          assert_raises ActiveRecord::RecordNotFound do
-            visit gobierto_people_person_event_path(person.slug, pending_event.slug)
-          end
-
-          assert has_no_selector?("h2", text: pending_event.title)
+          visit gobierto_people_person_event_path(person.slug, pending_event.slug)
+          assert_equal 404, page.status_code
         end
       end
     end

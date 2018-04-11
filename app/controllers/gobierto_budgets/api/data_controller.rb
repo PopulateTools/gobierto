@@ -63,8 +63,8 @@ module GobiertoBudgets
       end
 
       def lines
-        @organization_id = params[:organization_id]
-        data_line = GobiertoBudgets::Data::Lines.new place: @place, organization_id: @organization_id, year: params[:year], what: params[:what], kind: params[:kind],
+        data_line = GobiertoBudgets::Data::Lines.new place: current_site.place, organization_id: current_site.organization_id,
+          organization_name: current_site.organization_name, year: params[:year], what: params[:what], kind: params[:kind],
           code: params[:code], area: params[:area], include_next_year: params[:include_next_year],
           comparison: params[:comparison]
 

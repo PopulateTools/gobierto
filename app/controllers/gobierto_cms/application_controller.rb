@@ -22,6 +22,8 @@ module GobiertoCms
     protected
 
     def set_current_module
+      return if @collection.nil?
+
       if params[:process_id]
         @current_module = "gobierto_participation"
       else

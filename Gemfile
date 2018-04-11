@@ -12,7 +12,7 @@ gem "jbuilder", "~> 2.5"
 gem "mechanize"
 gem "meta-tags"
 gem "paper_trail"
-gem "paranoia", "2.4.0"
+gem "paranoia", "~> 2.4.0"
 gem "pg", "~> 0.19"
 gem "rails", "= 5.2.0.rc2"
 gem "redcarpet", require: true

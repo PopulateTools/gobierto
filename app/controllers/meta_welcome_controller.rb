@@ -19,6 +19,7 @@ class MetaWelcomeController < ApplicationController
       else
         page = item
       end
+      render_404 and return if page.nil?
 
       if @section ||= page.section
         @section_item = ::GobiertoCms::SectionItem.find_by!(item: page, section: @section)

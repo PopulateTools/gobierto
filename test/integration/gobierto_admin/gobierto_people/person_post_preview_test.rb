@@ -122,19 +122,8 @@ module GobiertoAdmin
 
       def test_preview_draft_post_if_not_admin
         with_current_site(site) do
-          assert_raises ActiveRecord::RecordNotFound do
-            visit gobierto_people_person_post_path(draft_post.person.slug, draft_post.slug)
-          end
-
-          assert has_no_selector?("h1", text: draft_post.title)
-
-          draft_post.person.draft!
-
-          assert_raises ActiveRecord::RecordNotFound do
-            visit gobierto_people_person_post_path(draft_post.person.slug, draft_post.slug)
-          end
-
-          assert has_no_selector?("h1", text: draft_post.title)
+          visit gobierto_people_person_post_path(draft_post.person.slug, draft_post.slug)
+          assert_equal 404, page.status_code
         end
       end
     end

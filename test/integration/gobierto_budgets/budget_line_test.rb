@@ -8,8 +8,12 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
     @path = gobierto_budgets_budget_line_path("1", last_year, GobiertoBudgets::EconomicArea.area_name, GobiertoBudgets::BudgetLine::EXPENSE)
   end
 
-  def site
-    @site ||= sites(:madrid)
+  def placed_site
+    @placed_site ||= sites(:madrid)
+  end
+
+  def organization_site
+    @organization_site ||= sites(:organization_wadus)
   end
 
   def last_year
@@ -17,7 +21,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
   end
 
   def test_budget_line_information
-    with_current_site(site) do
+    with_each_current_site(placed_site, organization_site) do
       visit @path
 
       assert has_content?("Personal expenses (custom, translated)")
@@ -26,7 +30,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
   end
 
   def test_metric_boxes
-    with_current_site(site) do
+    with_each_current_site(placed_site, organization_site) do
       visit @path
 
       assert has_css?(".metric_box h3", text: "Expense plan. / inh.")
@@ -39,7 +43,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
   end
 
   def test_invalid_budget_line_url
-    with_current_site(site) do
+    with_each_current_site(placed_site, organization_site) do
       visit gobierto_budgets_budget_line_path("1", last_year, GobiertoBudgets::EconomicArea.area_name, "foo")
 
       assert_equal 400, status_code

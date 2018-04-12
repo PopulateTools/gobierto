@@ -17,7 +17,7 @@ module GobiertoBudgets
         { term: { kind: @conditions[:kind] } },
         { term: { year: @conditions[:year] } },
         { term: { level: 3 } },
-        { term: { ine_code: @conditions[:site].organization_id } }
+        { term: { organization_id: @conditions[:site].organization_id } }
       ]
 
       query = {

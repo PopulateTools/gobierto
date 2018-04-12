@@ -19,6 +19,10 @@ class SiteTest < ActiveSupport::TestCase
     @site ||= sites(:madrid)
   end
 
+  def organization_site
+    @organization_site ||= sites(:organization_wadus)
+  end
+
   def draft_site
     @draft_site ||= sites(:santander)
   end
@@ -52,8 +56,7 @@ class SiteTest < ActiveSupport::TestCase
   end
 
   def test_place_when_organization_not_municipality
-    site.organization_id = "XXXX"
-    assert_nil site.place
+    assert_nil organization_site.place
   end
 
   def test_find_by_allowed_domain

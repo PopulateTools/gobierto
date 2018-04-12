@@ -48,3 +48,6 @@ yarn-error.log*
 /node_modules
 yarn-debug.log*
 .yarn-integrity
+
+# I18njs
+app/javascript/i18n/translations.js

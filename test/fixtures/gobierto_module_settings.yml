@@ -129,3 +129,11 @@ gobierto_budgets_settings_madrid:
     }
   ]}
 }.to_json %>
+
+gobierto_budgets_settings_organization_wadus:
+  site: organization_wadus
+  module_name: "GobiertoBudgets"
+  settings: <%= {
+    "budgets_receipt_enabled": true,
+    "budgets_receipt_configuration": {}
+}.to_json %>

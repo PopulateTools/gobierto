@@ -71,11 +71,8 @@ module GobiertoBudgetConsultations
       consultation.draft!
 
       with_signed_in_user(user) do
-        assert_raises(ActiveRecord::RecordNotFound) do
-          visit @path
-        end
-
-        assert has_no_link?("Do you want to opinate?")
+        visit @path
+        assert_equal 404, page.status_code
       end
     end
 

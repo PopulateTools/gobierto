@@ -30,7 +30,7 @@ module GobiertoBudgets
     included do
 
       def algolia_id
-        "#{index}/#{area.area_name}/#{ine_code}/#{year}/#{code}/#{kind}"
+        "#{index}/#{area.area_name}/#{organization_id}/#{year}/#{code}/#{kind}"
       end
 
       def algolia_as_json
@@ -39,7 +39,7 @@ module GobiertoBudgets
           index: index,
           type: area.area_name,
           site_id: site.id,
-          ine_code: ine_code,
+          organization_id: organization_id,
           year: year,
           code: code,
           kind: kind,

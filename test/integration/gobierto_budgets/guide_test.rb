@@ -8,8 +8,12 @@ class GobiertoBudgets::GuideTest < ActionDispatch::IntegrationTest
     @path = gobierto_budgets_budgets_guide_path
   end
 
-  def site
-    @site ||= sites(:madrid)
+  def placed_site
+    @placed_site ||= sites(:madrid)
+  end
+
+  def organization_site
+    @organization_site ||= sites(:organization_wadus)
   end
 
   def last_year
@@ -17,7 +21,7 @@ class GobiertoBudgets::GuideTest < ActionDispatch::IntegrationTest
   end
 
   def test_greeting
-    with_current_site(site) do
+    with_each_current_site(placed_site, organization_site) do
       visit @path
 
       assert has_content?("How a municipal budget works")

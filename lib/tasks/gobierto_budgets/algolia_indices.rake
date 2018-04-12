@@ -7,6 +7,7 @@ namespace :gobierto_budgets do
       site = Site.find_by!(domain: args[:site_domain])
       year = args[:year].to_i
       ine_code = site.place.id
+      organization_id = site.organization_id
 
       puts "== Reindexing records for site #{site.domain}=="
 
@@ -21,7 +22,7 @@ namespace :gobierto_budgets do
           forecast_hits = request_budget_lines_from_elasticsearch(
             GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
             area,
-            ine_code,
+            organization_id,
             year
           )
 
@@ -48,14 +49,14 @@ namespace :gobierto_budgets do
       )
     end
 
-    def request_budget_lines_from_elasticsearch(index, area, ine_code, year)
+    def request_budget_lines_from_elasticsearch(index, area, organization_id, year)
       query = {
         query: {
           filtered: {
             filter: {
               bool: {
                 must: [
-                  { term: { ine_code: ine_code } },
+                  { term: { organization_id: organization_id } },
                   { term: { year: year } }
                 ]
               }

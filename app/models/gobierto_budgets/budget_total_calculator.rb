@@ -5,7 +5,7 @@ module GobiertoBudgets
     def initialize(site, year)
       @site = site
       @year = year
-      @place_attributes = if (place = @site.place?)
+      @place_attributes = if (place = @site.place)
                             { ine_code: place.id.to_i,
                               province_id: place.province.id.to_i,
                               autonomy_id: place.province.autonomous_region.id.to_i }

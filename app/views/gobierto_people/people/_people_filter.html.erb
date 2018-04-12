@@ -1,6 +1,6 @@
 <menu class="filter_boxed">
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
-    <ul role="tablist" aria-label="<%= t('.organigram', name: @site.name) %>">
+    <ul role="tablist" aria-label="<%= t('.organigram', name: whom(@site.name)) %>">
       <% if @present_groups['government'] %>
         <li role="presentation" class="<%= class_if('active', controller_name == 'government_party_people' || controller_name == 'welcome') %>">
           <%= link_to t("gobierto_people.people_filter.parties.government"), gobierto_people_government_party_people_path, tab_attributes(controller_name == 'government_party_people' || controller_name == 'welcome').merge('aria-controls' => 'people-list') %>
@@ -30,7 +30,7 @@
 
     <% if @political_group %>
       <div>
-        <ul role="tablist" aria-label="<%= t('.political_groups', name: @site.name) %>">
+        <ul role="tablist" aria-label="<%= t('.political_groups', name: whom(@site.name)) %>">
           <% @political_groups.each do |political_group| %>
             <li role="presentation" class="<%= class_if('active', @political_group == political_group) %>">
               <%= link_to political_group.name, gobierto_people_political_group_people_path(political_group.slug), tab_attributes(@political_group == political_group).merge('aria-controls' => 'people-list').merge('aria-controls' => 'people-list') %>

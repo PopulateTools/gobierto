@@ -28,7 +28,7 @@
 
         <div class="people-summary person-list item-list">
           <div class="block">
-            <h2><%= t(".people_summary.title", site_name: current_site.name) %></h2>
+            <h2><%= t(".people_summary.title", site_name: whom(current_site.name)) %></h2>
           </div>
 
           <%= render "gobierto_people/welcome/people_filter" %>

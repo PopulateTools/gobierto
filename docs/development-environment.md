@@ -12,6 +12,7 @@
  * *postgres*
  * *redis*
  * *elasticsearch*
+ * *node.js* and *yarn*
 
 ### Ruby
 
@@ -140,6 +141,21 @@ And the `elastic_url` key inside the `config/secrets.yml` file:
 ```yaml
 default: &default
   elastic_url: http://localhost:9200
+```
+
+### Node.js and Yarn
+
+Node.js and Yarn are dependencies to run the javascript assets packer. Gobierto uses [Webpack](https://webpack.js.org/) to package javascripts.
+
+Recommended versions are:
+
+- Node.js >= 8.0
+- Yarn >= 1.1.0
+
+You can install both using Homebrew:
+
+```shell
+brew install nodejs yarn
 ```
 
 ### Application configuration

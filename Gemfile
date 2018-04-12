@@ -34,6 +34,9 @@ gem "therubyracer"
 gem "turbolinks"
 gem "uglifier", ">= 1.3.0"
 
+# Webpack
+gem "webpacker", "~> 3.0"
+
 # Elasticsearch
 gem "elasticsearch"
 gem "elasticsearch-extensions"
@@ -86,9 +89,7 @@ gem "cloudinary"
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
-  gem "listen"
   gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
 end
 
 group :test do
@@ -112,4 +113,6 @@ end
 group :development do
   gem "puma"
   gem "rubocop"
+  gem "listen"
+  gem "spring-watcher-listen", "~> 2.0.0"
 end

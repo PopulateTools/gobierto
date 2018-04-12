@@ -159,7 +159,6 @@
 </div>
 
 <% content_for :javascript_hook do %>
-  <%= javascript_include_tag 'gobierto_budgets/invoices/application', 'data-turbolinks-track' => true %>
   <%= javascript_tag do %>
     window.GobiertoBudgets.invoices_controller.show();
   <% end %>

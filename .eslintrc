@@ -3,13 +3,15 @@
     "es6": true,
     "browser": true,
     "jquery": true,
+    "node": true,
   },
   "globals": {
     "_": true,
     "Vue": true,
     "I18n": true,
-    "d3": true,
-    "accounting": true,
+  },
+  "parserOptions": {
+    "sourceType": "module"
   },
   "rules": {
     "accessor-pairs": "off",

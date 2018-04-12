@@ -111,4 +111,17 @@ module ApplicationHelper
       end
     end
   end
+
+  def whom(entity_name)
+    if I18n.locale == :ca
+      if /\A[aeiou]/i =~ entity_name
+        " l'#{entity_name}"
+      else
+        # TODO: define a setting with the genre of the entity
+        "la #{entity_name}"
+      end
+    else
+      " " + entity_name
+    end
+  end
 end

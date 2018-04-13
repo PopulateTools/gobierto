@@ -37,7 +37,7 @@
 
         <div class="event-description">
           <% if @event.synchronized? %>
-            <%= simple_format @event.description %>
+            <%= @event.formatted_html_description %>
           <% else %>
             <%= raw @event.description %>
           <% end %>

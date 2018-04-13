@@ -22,7 +22,7 @@ module GobiertoPeople
       end
 
       def show
-        @event = find_event
+        @event = ::GobiertoCalendars::EventDecorator.new(find_event)
         if valid_preview_token? && !manage_event?
           redirect_to(
             gobierto_people_person_path(@event.collection.container.slug),

@@ -10,6 +10,7 @@ module GobiertoCalendars
     end
 
     def formatted_html_description
+      return "" if description.blank?
       simple_format description.gsub(/<!--(.*?)-->/, '')
     end
 

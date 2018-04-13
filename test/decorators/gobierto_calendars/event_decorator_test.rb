@@ -16,6 +16,10 @@ module GobiertoCalendars
       expected_output = '<p>alert(1);ContentMore content</p>'
 
       assert_equal expected_output, decorator.formatted_html_description
+
+      event.description_translations = { "ca" => nil, "es" => nil, "en" => nil }
+      decorator = EventDecorator.new(event)
+      assert_equal "", decorator.formatted_html_description
     end
 
   end

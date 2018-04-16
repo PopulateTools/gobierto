@@ -299,7 +299,7 @@ GEM
     parallel (1.12.1)
     paranoia (2.4.1)
       activerecord (>= 4.0, < 5.3)
-    parser (2.5.0.5)
+    parser (2.5.1.0)
       ast (~> 2.4.0)
     patron (0.12.1)
     pg (0.21.0)
@@ -365,7 +365,7 @@ GEM
     retriable (3.1.1)
     rollbar (2.15.5)
       multi_json
-    rubocop (0.54.0)
+    rubocop (0.55.0)
       parallel (~> 1.10)
       parser (>= 2.5)
       powerpack (~> 0.1)

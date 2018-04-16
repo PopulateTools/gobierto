@@ -13,14 +13,7 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
     @budget_lines = budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions)
 
     if !request.format.json? && @parent_code && @parent_code.length >= 1
-      while budget_lines.any?
-        @budget_lines.concat budget_lines
-        children_budget_lines = budget_lines
-        budget_lines = []
-        children_budget_lines.each do |budget_line|
-          budget_lines.concat GobiertoBudgets::BudgetLine.all(where: conditions.merge(parent_code: budget_line.code))
-        end
-      end
+      @budget_lines = expand_children(@budget_lines, conditions)
     end
 
     respond_to do |format|
@@ -30,6 +23,14 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
   end
 
   private
+
+  def expand_children(budget_lines, conditions)
+    budget_lines.concat(budget_lines.map do |budget_line|
+      if budget_line.level < 4
+        expand_children(GobiertoBudgets::BudgetLine.all(where: conditions.merge(parent_code: budget_line.code)), conditions)
+      end
+    end.flatten.compact)
+  end
 
   def load_params
     @year = params[:year]

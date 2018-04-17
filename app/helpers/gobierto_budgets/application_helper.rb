@@ -130,9 +130,7 @@ module GobiertoBudgets
     end
 
     def bubbles_data_path(site)
-      path = GobiertoBudgets::Data::Bubbles.file_name_for(site.organization_id)
-
-      "https://#{ENV['S3_BUCKET_NAME']}.s3-eu-west-1.amazonaws.com/#{path}"
+      GobiertoBudgets::Data::Bubbles.new(current_site).file_url
     end
 
     def budget_line_breadcrumb(budget_line, year, kind)

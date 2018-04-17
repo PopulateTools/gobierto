@@ -26,6 +26,11 @@ module GobiertoBudgets
                                               content_type: "application/json; charset=utf-8").upload!
       end
 
+      def file_url
+        file = GobiertoCommon::FileUploadService.new(file_name: self.class.file_name_for(site.organization_id))
+        file.uploaded_file_exists? && file.call
+      end
+
       def build_data_file
         base_conditions = { site: site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name, level: 2 }
         expense_categories.each do |code, name|

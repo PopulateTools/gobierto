@@ -7,6 +7,7 @@ module GobiertoBudgets
       @organization_id = @site.organization_id
       @year = options.fetch(:year).to_i
       @data = { debt: {}, population: {} }
+      @empty_population = !has_available?(:population)
     end
 
     def budgets_data_updated_at
@@ -26,6 +27,10 @@ module GobiertoBudgets
     def has_data?(variable, year)
       r = send(variable, year)
       r.present? && r != 0
+    end
+
+    def has_available_population_data?
+      !@empty_population
     end
 
     def total_budget_per_inhabitant(year = nil)
@@ -85,6 +90,7 @@ module GobiertoBudgets
 
     def population(year = nil)
       year ||= @year
+      return nil if @empty_population
       @data[:population][year] ||= SearchEngine.client.get(index: SearchEngineConfiguration::Data.index,
                                                            type: SearchEngineConfiguration::Data.type_population, id: [@site.organization_id, year].join("/"))["_source"]["value"]
       @data[:population][year]
@@ -154,6 +160,12 @@ module GobiertoBudgets
         end
       end
       value
+    end
+
+    def has_available?(variable)
+      (SearchEngineConfiguration::Year.first..SearchEngineConfiguration::Year.last).any? do |y|
+        has_data?(variable, y)
+      end
     end
 
     def percentage_difference(options)

@@ -147,7 +147,7 @@ module GobiertoBudgets
     def latest_available(variable, year = nil)
       year ||= @year
       value = {}
-      year.downto(2010).each do |y|
+      year.downto(SearchEngineConfiguration::Year.first).each do |y|
         if has_data?(variable, y)
           value = { value: send(variable, y), year: y }
           break

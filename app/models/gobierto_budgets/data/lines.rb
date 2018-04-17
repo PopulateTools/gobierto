@@ -175,14 +175,6 @@ module GobiertoBudgets
         else
           [
             {
-              "name": "mean_province",
-              "values": mean_province
-            },
-            {
-              "name": "mean_autonomy",
-              "values": mean_autonomy
-            },
-            {
               "name": "mean_national",
               "values": mean_national
             },
@@ -190,7 +182,20 @@ module GobiertoBudgets
               name: @organization_name,
               "values": organization_values
             }
-          ]
+          ].tap do |values|
+            unless place_values.blank?
+              values.unshift(
+                {
+                  "name": "mean_province",
+                  "values": mean_province
+                },
+                {
+                  "name": "mean_autonomy",
+                  "values": mean_autonomy
+                }
+              )
+            end
+          end
         end
       end
 

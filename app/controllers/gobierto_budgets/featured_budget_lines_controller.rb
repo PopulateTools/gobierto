@@ -18,7 +18,7 @@ module GobiertoBudgets
       if @code.present?
         render pick_template, layout: false
       else
-        render head: :success
+        head :ok
       end
     end
 

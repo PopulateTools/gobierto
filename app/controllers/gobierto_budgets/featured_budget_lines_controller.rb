@@ -8,8 +8,8 @@ module GobiertoBudgets
       results = GobiertoBudgets::BudgetLine.search({
           kind: @kind, year: @year, organization_id: current_site.organization_id,
           type: @area_name, range_hash: {
-            level: {ge: 3},
-            amount_per_inhabitant: { gt: 0 }
+            level: { ge: 3 },
+            amount: { gt: 0 }
           }
       })['hits']
 

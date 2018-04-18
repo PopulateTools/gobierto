@@ -52,7 +52,7 @@ module GobiertoBudgets
           {
             index: {
               _index: index,
-              _id: [organization_id, year, codes[:code] + AREA_SUFFIXES[area], kind].join("/"),
+              _id: [organization_id, year, codes[:code], kind].join("/"),
               _type: area.area_name,
               data: base_data.merge(amount: amount.round(2),
                                     code: codes[:code],

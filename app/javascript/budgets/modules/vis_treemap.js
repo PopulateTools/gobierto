@@ -64,7 +64,13 @@ export var TreemapVis = Class.extend({
           }
         }.bind(this))
         .attr("title", function(d){
-          return "<strong>" + d.data.name + "</strong><br>" + accounting.formatMoney(d.data.budget, "€", 0, '.') + "<br>" + accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0, ',') + " /" + I18n.t("gobierto_budgets.visualizations.inhabitant_short");
+          function totalBudgetTooltipStr(str) {
+            return "<br>" + accounting.formatMoney(str, "€", 0, '.');
+          }
+          function perInhabitantTooltipStr(str) {
+            return str ? "<br>" + accounting.formatMoney(str, "€", 0, ',') + " /" + I18n.t("gobierto_budgets.visualizations.inhabitant_short") : "";
+          }
+          return "<strong>" + d.data.name + "</strong>" + totalBudgetTooltipStr(d.data.budget) + perInhabitantTooltipStr(d.data.budget_per_inhabitant);
         }.bind(this))
         .attr("data-url", function(d){
           if(this.clickable){
@@ -77,12 +83,19 @@ export var TreemapVis = Class.extend({
         .style("height", function(d) { return (d.y1 - d.y0) + "px"; })
         .style("background", function(d) { return this.colorScale(d.data.code); }.bind(this))
         .html(function(d) {
+          function getBudgetAmount(d) {
+            if (d.data.budget_per_inhabitant) {
+              return accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0) + "/" + I18n.t("gobierto_budgets.visualizations.inhabitant_short");
+            } else {
+              return accounting.formatMoney(d.data.budget, "€", 0);
+            }
+          }
           if(d.children) {
             return null;
           } else {
             // If the square is small, don't add the text
             if((d.x1 - d.x0) > 70 && (d.y1 - d.y0) > 90) {
-              return "<p><strong>" + d.data.name + "</strong></p><p>" + accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0) + "/" + I18n.t("gobierto_budgets.visualizations.inhabitant_short") + "</p>";
+              return "<p><strong>" + d.data.name + "</strong></p><p>" + getBudgetAmount(d) + "</p>";
             }
           }
         })

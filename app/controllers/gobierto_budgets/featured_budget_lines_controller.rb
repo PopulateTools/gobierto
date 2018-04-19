@@ -13,9 +13,10 @@ module GobiertoBudgets
           }
       })['hits']
 
-      @code = results.sample['code'] if results.any?
-
-      if @code.present?
+      if results.any?
+        random_item = results.sample
+        @code = random_item['code']
+        @population = random_item['population']
         render pick_template, layout: false
       else
         head :ok

@@ -71,7 +71,7 @@ module GobiertoBudgets
         values_per_inhabitant = {}
         years = budget_lines.map(&:year).sort.reverse
         years.each_with_index do |year, _i|
-          if budget_line = budget_lines.detect { |b| b.year == year }
+          if (budget_line = budget_lines.detect { |b| b.year == year })
             values.store(year, budget_line.amount)
             values_per_inhabitant.store(year, budget_line.amount_per_inhabitant)
           else

@@ -27,31 +27,29 @@ module GobiertoBudgets
       end
 
       def build_data_file
-        base_conditions = { site: site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name, level: 2 }
-        expense_categories.each do |code, name|
-          fill_data_for(code, name, base_conditions, "expense")
+        expense_lines.group_by(&:code).each do |code, lines|
+          fill_data_for(code, lines, "expense")
         end
 
-        base_conditions = { site: site, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, level: 2 }
-        income_categories.each do |code, name|
-          fill_data_for(code, name, base_conditions, "income")
+        income_lines.each.group_by(&:code).uniq.each do |code, lines|
+          fill_data_for(code, lines, "income")
         end
       end
 
-      def all_expense_categories
-        GobiertoBudgets::FunctionalArea.all_items[GobiertoBudgets::BudgetLine::EXPENSE]
+      def expense_lines
+        GobiertoBudgets::BudgetLine.all(where: { site: site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name, level: 2 })
       end
 
-      def all_income_categories
-        GobiertoBudgets::EconomicArea.all_items[GobiertoBudgets::BudgetLine::INCOME]
+      def income_lines
+        GobiertoBudgets::BudgetLine.all(where: { site: site, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, level: 2 })
       end
 
       def expense_categories
-        all_expense_categories.select { |code, _| code.length == 2 }
+        GobiertoBudgets::FunctionalArea.all_items[GobiertoBudgets::BudgetLine::EXPENSE]
       end
 
       def income_categories
-        all_income_categories.select { |code, _| code.length == 2 }
+        GobiertoBudgets::EconomicArea.all_items[GobiertoBudgets::BudgetLine::INCOME]
       end
 
       def parent_name(collection, code)
@@ -68,9 +66,7 @@ module GobiertoBudgets
         end
       end
 
-      def fill_data_for(code, _name, base_conditions, kind)
-        budget_lines = GobiertoBudgets::BudgetLine.all(where: base_conditions.merge(code: code))
-
+      def fill_data_for(code, budget_lines, kind)
         values = {}
         values_per_inhabitant = {}
         years = budget_lines.map(&:year).sort.reverse

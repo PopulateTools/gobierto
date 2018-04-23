@@ -39,7 +39,7 @@ module GobiertoBudgets
 
       def mean_filtered_by(conditions={})
         options = conditions.extract!(:options)
-        force_default_last_year = options[:force_default_last_year] || true
+        force_default_last_year = options.has_key?(:force_default_last_year) ? options[:force_default_last_year] : true
 
         filters = conditions.map do |condition, _|
           { term: conditions.slice(condition) }

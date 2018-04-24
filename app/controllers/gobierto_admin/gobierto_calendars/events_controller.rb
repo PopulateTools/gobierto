@@ -148,7 +148,7 @@ module GobiertoAdmin
       end
 
       def collection_container
-        collection.container if collection
+        collection&.container
       end
 
       def get_calendar_event_states
@@ -194,8 +194,8 @@ module GobiertoAdmin
       end
 
       def check_gobierto_people_permissions!
-        module_enabled!(current_site, 'GobiertoPeople')
-        module_allowed!(current_admin, 'GobiertoPeople')
+        module_enabled!(current_site, "GobiertoPeople")
+        module_allowed!(current_admin, "GobiertoPeople")
       end
 
       def check_person_permissions!

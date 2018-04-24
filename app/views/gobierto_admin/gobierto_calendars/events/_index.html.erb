@@ -103,7 +103,7 @@
       <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggle: true} %>
     </div>
 
-    <div id="archived-list" style="display:none">
+    <div id="archived-list" style="<%= params[:archived_events_page] ? '' : 'display:none' %>">
       <table class="person-events-list">
         <thead>
           <tr>
@@ -150,11 +150,10 @@
           <% end %>
         </tbody>
       </table>
+
+      <%= paginate @archived_events, param_name: :archived_events_page, remote: true %>
     </div>
   <% end %>
-
-  <%= paginate @archived_events, param_name: :archived_events_page, remote: true %>
-
 </div>
 
 <%= javascript_tag do %>

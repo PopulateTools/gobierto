@@ -17,6 +17,7 @@ module GobiertoAdmin
                                        .where(collection: collection)
                                        .sorted
                                        .page(params[:archived_events_page])
+                                       .per(::GobiertoCalendars::Event::ADMIN_PAGE_SIZE)
 
         case params[:scope]
         when "pending"
@@ -27,7 +28,7 @@ module GobiertoAdmin
           @events = @events.past
         end
 
-        @events = @events.page(params[:events_page])
+        @events = @events.page(params[:events_page]).per(::GobiertoCalendars::Event::ADMIN_PAGE_SIZE)
       end
 
       def new

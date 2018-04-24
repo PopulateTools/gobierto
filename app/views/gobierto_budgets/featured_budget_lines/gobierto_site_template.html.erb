@@ -8,11 +8,13 @@
     <strong class="wadus"><%= link_to budget_line_denomination(@area_name, @code, @kind), gobierto_budgets_budget_line_path(@code.parameterize, @year, @area_name, @kind) %>?</strong>
   </div>
 
-  <div class="pure-u-1 pure-u-md-1-6" data-widget-template="#widget-template"
-                             data-widget-type="per_person"
-                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_per_inhabitant_path(organization_id: current_site.organization_id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>"
-                             title="<%= t('.per_person') %>">
-  </div>
+  <% if @population %>
+    <div class="pure-u-1 pure-u-md-1-6" data-widget-template="#widget-template"
+                                        data-widget-type="per_person"
+                                        data-widget-data-url="<%= gobierto_budgets_api_data_budget_per_inhabitant_path(organization_id: current_site.organization_id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>"
+                                        title="<%= t('.per_person') %>">
+    </div>
+  <% end %>
 
   <div class="pure-u-1 pure-u-md-1-6" data-widget-template="#widget-template"
                              data-widget-type="budget"

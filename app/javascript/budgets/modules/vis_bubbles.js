@@ -63,7 +63,7 @@ export var VisBubbles = Class.extend({
     if(this.locale === 'en') this.locale = 'es';
 
     this.maxAmount = d3.max(data, function (d) { return d.values[year] }.bind(this));
-    this.filtered = data.filter(function(d) { return d.budget_category === this.budget_category && d.values_per_inhabitant[year] > 1; }.bind(this));
+    this.filtered = data.filter(function(d) { return d.budget_category === this.budget_category; }.bind(this));
 
     this.radiusScale = d3.scaleSqrt()
       .range(this.isMobile ? [0, 80] : [0, 120])
@@ -84,19 +84,20 @@ export var VisBubbles = Class.extend({
           pct_diffs: d.pct_diff,
           id: d.id,
           values_per_inhabitant: d.values_per_inhabitant,
-          radius: this.radiusScale(d.values[year]),
+          radius: d.values[year] ? this.radiusScale(d.values[year]) : 0,
           value: d.values[year],
           name: d['level_2_' + this.locale],
           pct_diff: d.pct_diff[year],
           per_inhabitant: d.values_per_inhabitant[year],
           x: Math.random() * 600,
-          y: this.nodeScale(d.pct_diff[year]),
+          y: d.pct_diff[year] ? this.nodeScale(d.pct_diff[year]) : 0,
           year: year
         };
       }.bind(this))
     } else {
       this.nodes.forEach(function(d) {
         d.radius = this.radiusScale(d.values[year])
+        d.radius = d.values[year] ? this.radiusScale(d.values[year]) : 0
         d.value = d.values[year]
         d.pct_diff = d.pct_diffs[year]
         d.per_inhabitant = d.values_per_inhabitant[year]
@@ -182,10 +183,13 @@ export var VisBubbles = Class.extend({
     function getString(d) {
       return d > 0 ? I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_up') : I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_down');
     }
+    function perInhabitantTooltipStr(d) {
+      return d ? '<div class="clear_b">' + accounting.formatMoney(d, "€", 0, ".", ",") + ' ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_per_inhabitant') + '</div>' : '';
+    }
 
     this.tooltip.html('<div class="line-name"><strong>' + d.name + '</strong></div> \
                        <div>' + accounting.formatMoney(d.value, "€", 0, ".", ",") + '</div> \
-                       <div class="clear_b">' + accounting.formatMoney(d.per_inhabitant, "€", 0, ".", ",") + ' ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_per_inhabitant') + '</div> \
+                       ' + perInhabitantTooltipStr(d.per_inhabitant) + ' \
                        <div class="line-pct">' + getString(d.pct_diff) + ' ' + accounting.formatNumber(d.pct_diff, 1) + ' %</span> ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_article') + ' ' + (d.year - 1) + '</div>');
   },
   _mouseleft: function() {

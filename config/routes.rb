@@ -82,7 +82,7 @@ Rails.application.routes.draw do
         collection do
           resource :people_sort, only: [:create], controller: "people/people_sort", path: :people_sort
         end
-        resources :person_events, only: [:index, :new, :create, :edit, :update], controller: "people/person_events", as: :events, path: :events
+        resources :person_events, only: [:new, :create, :edit, :update], controller: "people/person_events", as: :events, path: :events
         resources :person_statements, only: [:index, :new, :create, :edit, :update], controller: "people/person_statements", as: :statements, path: :statements
         resources :person_posts, only: [:index, :new, :create, :edit, :update], controller: "people/person_posts", as: :posts, path: :blog
       end

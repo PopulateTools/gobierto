@@ -310,7 +310,7 @@ GEM
     powerpack (0.1.1)
     public_suffix (3.0.2)
     puma (3.11.4)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-protection (2.0.1)
       rack
     rack-proxy (0.6.4)
@@ -524,7 +524,7 @@ DEPENDENCIES
   pg (~> 0.19)
   poltergeist
   puma
-  rails (~> 5.2.0.rc2)
+  rails (~> 5.2.0)
   rails-html-sanitizer
   redcarpet
   redis (~> 3.3)

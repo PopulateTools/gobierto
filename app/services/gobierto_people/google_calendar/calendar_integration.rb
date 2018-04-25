@@ -22,6 +22,10 @@ module GobiertoPeople
         @received_event_ids = []
       end
 
+      def integration_log_preffix
+        "[Google Calendar]"
+      end
+
       def sync!
         log_synchronization_start(person_id: person.id, person_name: person.name)
 

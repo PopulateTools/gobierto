@@ -26,10 +26,10 @@ module IbmNotes
       response_page = get_response_page(params)
       begin
         if response_page.uri.path == URI.parse(params[:endpoint]).path
+          log_message "[GET #{params[:endpoint]}][HTTP #{response_page.code}]"
           if response_page.code.to_i == 200
             JSON.parse(response_page.body)
           else
-            Rails.logger.info "[IBM Notes GET #{params[:endpoint]}] ERROR response code = #{response_page.code}"
             raise IbmNotes::ServiceUnavailable
           end
         else
@@ -43,7 +43,7 @@ module IbmNotes
         end
       end
     rescue ::Mechanize::ResponseCodeError
-      Rails.logger.info "[IBM Notes GET #{params[:endpoint]} ] Mechanize response code error"
+      log_message "[GET #{params[:endpoint]}][Mechanize response code error]"
       return nil
     end
 
@@ -60,6 +60,10 @@ module IbmNotes
       agent.user_agent_alias = "Mac Safari"
       agent.agent.http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       agent
+    end
+
+    def self.log_message(message)
+      Rails.logger.info "[SYNC-AGENDAS][IBM Notes]#{message}"
     end
   end
 end

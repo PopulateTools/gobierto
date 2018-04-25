@@ -4,7 +4,7 @@ module GobiertoPeople
     extend ActiveSupport::Concern
 
     def log_message(message)
-      Rails.logger.info("[SYNC-AGENDAS] #{message}")
+      Rails.logger.info("[SYNC-AGENDAS]#{integration_log_preffix} #{message}")
     end
 
     def log_synchronization_start(calendar_identifiers = {})
@@ -12,7 +12,7 @@ module GobiertoPeople
     end
 
     def log_synchronization_end(calendar_identifiers = {})
-      log_message("Synchronization of '#{calendar_identifiers}' has finished.")
+      log_message("Synchronization of #{calendar_identifiers} has finished.")
     end
 
     def log_available_calendars_count(calendars_size)

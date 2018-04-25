@@ -25,6 +25,10 @@ module GobiertoPeople
         end
       end
 
+      def integration_log_preffix
+        "[Microsoft Exchange]"
+      end
+
       def sync!
         log_synchronization_start(person_id: person.id, person_name: person.name)
 

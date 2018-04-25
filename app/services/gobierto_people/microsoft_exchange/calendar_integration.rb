@@ -61,10 +61,17 @@ module GobiertoPeople
 
         if sumarized_events.present?
           items_ids = sumarized_events.map { |i| i.id }
-          ::Exchanger::GetItem.run(item_ids: items_ids).items
+          request_calendar_items(items_ids)
         else
           nil
         end
+      end
+
+      def request_calendar_items(items_ids)
+        ::Exchanger::GetItem.run(item_ids: items_ids).items
+      rescue ::HTTPClient::ReceiveTimeoutError
+        log_message("Timeout error for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}")
+        nil
       end
 
       def sync_event(event)

@@ -27,6 +27,7 @@ ignore_missing:
   - 'gobierto_budgets.budgets.index_old.*'
   - 'gobierto_budgets.budgets.guide.*'
   - 'gobierto_budgets.invoices.show.table.fields.*'
+  - 'grammatical_particles.*'
 
 ignore_unused:
   - 'number.*'
@@ -84,6 +85,7 @@ ignore_unused:
   - 'gobierto_participation.processes.contributions.form.*'
   - 'gobierto_admin.gobierto_participation.processes.edit.*'
   - 'gobierto_admin.gobierto_participation.processes.*.success_*'
+  - 'grammatical_particles.*'
 
 translation:
   api_key: ''

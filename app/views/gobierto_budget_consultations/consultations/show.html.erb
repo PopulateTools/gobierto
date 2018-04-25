@@ -10,7 +10,7 @@
           <div class="arrow-right"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>
         </div>
 
-        <p><%= t('.explanation') %></p>
+        <p><%= t('.explanation', of_our_organization_name: @site.determined_organization_name(:of_our)) %></p>
       </div>
     <% end %>
     <a class="consultation-deadline" href="/sandbox/consultation_faq.html"><%= t('.open_until', date: l(@consultation.closes_on, format: :long).downcase) %></a>

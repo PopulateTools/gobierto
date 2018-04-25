@@ -270,7 +270,7 @@ ca:
         context: Context
         data_of_year: "* dades del %{year}"
         debt: Deute
-        debt_tooltip: Deute del sector d’administracions públiques de l’Ajuntament
+        debt_tooltip: Deute del sector d’administracions públiques %{of_the_organization_name}
         description: En aquesta pàgina pots aprendre sobre la distribució del pressupost,
           l'estat d'execució de cada partida i com ha evolucionat la despesa per habitant
         executed: Execució
@@ -305,7 +305,7 @@ ca:
         main_budget_levels_tooltip_article: des de
         main_budget_levels_tooltip_down: Ha baixat un
         main_budget_levels_tooltip_up: Ha pujat un
-        main_budget_lines: Els principals ingressos i despeses del teu ajuntament
+        main_budget_lines: Els principals ingressos i despeses %{from_your_organization_name}
         main_budget_lines_expense: Despeses
         main_budget_lines_income: Ingressos
         more: més
@@ -370,7 +370,7 @@ ca:
         header: Elaboració del pressupost
         in_total: En total
         main_budget_levels_timeline: Compara despeses i ingressos any per any
-        main_budget_lines: Els principals ingressos i despeses del teu ajuntament
+        main_budget_lines: Els principals ingressos i despeses %{from_your_organization_name}
         main_budget_lines_expense: Despeses
         main_budget_lines_income: Ingressos
         metric_boxes_data: Les dades
@@ -479,8 +479,8 @@ ca:
         total: Despesa total
     feedback:
       ask_more_information:
-        ask_for_feedback: Escriu el teu email per a que el teu ajuntament et puga
-          contestar
+        ask_for_feedback: Escriu el teu email per a que %{your_organization_name}
+          et puga contestar
         send: Enviar
         your_email: El teu correu
       follow:
@@ -554,9 +554,9 @@ ca:
         are_from: són de
         check_detail: Consulta el detall
         companies: empreses
-        description: A quins proveïdors contracta l'Ajuntament? Quines factures paga?
-          Des d'aquesta secció podràs consultar i revisar el detall de cadascun dels
-          pagaments que realitza l'Ajuntament.
+        description: A quins proveïdors contracta %{the_organization_name}? Quines
+          factures paga? Des d'aquesta secció podràs consultar i revisar el detall
+          de cadascun dels pagaments que realitza %{the_organization_name}.
         freelances: autònoms
         invoices: Factures
         invoices_from_which: De les quals
@@ -600,7 +600,7 @@ ca:
         last_update: Última actualització
       enough_information:
         enough_information: Suficient informació?
-        enough_information_cta: Demana al teu Ajuntament
+        enough_information_cta: Demana %{to_your_organization_name}
         enough_information_desc: Si considera que s'ha d'incloure més informació d'aquestes
           dades per tenir una visió més completa de la mateixa o sobre l'ús dels seus
           impostos, comuniqui-ho i li contestarem

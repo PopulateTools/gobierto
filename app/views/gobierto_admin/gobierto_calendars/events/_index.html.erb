@@ -96,7 +96,7 @@
     </tbody>
   </table>
 
-  <%= paginate @events, param_name: :events_page, remote: true %>
+  <%= paginate @events, param_name: :events_page, remote: true, params: { archived_events_page: nil } %>
 
   <% unless @archived_events.empty? %>
     <div class="m_v_1 right">
@@ -151,7 +151,7 @@
         </tbody>
       </table>
 
-      <%= paginate @archived_events, param_name: :archived_events_page, remote: true %>
+      <%= paginate @archived_events, param_name: :archived_events_page, remote: true, params: { events_page: nil } %>
     </div>
   <% end %>
 </div>

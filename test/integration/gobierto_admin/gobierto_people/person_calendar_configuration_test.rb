@@ -42,7 +42,7 @@ module GobiertoAdmin
       def setup
         super
         clear_calendar_configurations
-        @person_events_path = admin_people_person_events_path(person)
+        @person_events_path = admin_calendars_events_path(collection_id: person.events_collection.id)
 
         ## Mocks
         calendar1 = mock

@@ -7,8 +7,17 @@ module GobiertoAdmin
         def index
           @collection = current_process.events_collection
           @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
-          @events = ::GobiertoCalendars::Event.where(id: @collection.events_in_collection).sorted_backwards
-          @archived_events = current_site.events.only_archived.where(collection_id: @collection.id).sorted
+
+          @events = ::GobiertoCalendars::Event.where(id: @collection.events_in_collection)
+                                              .sorted_backwards
+                                              .page(params[:events_page])
+                                              .per(::GobiertoCalendars::Event::ADMIN_PAGE_SIZE)
+
+          @archived_events = current_site.events
+                                         .only_archived.where(collection_id: @collection.id)
+                                         .sorted
+                                         .page(params[:archived_events_page])
+                                         .per(::GobiertoCalendars::Event::ADMIN_PAGE_SIZE)
         end
       end
     end

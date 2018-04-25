@@ -1,14 +1,23 @@
 module GobiertoAdmin
   module GobiertoCalendars
     class EventsController < BaseController
+
       before_action :load_collection, only: [:new, :edit, :create, :update, :index]
       before_action :load_person, only: [:new, :edit, :create, :update, :index]
+      before_action :person_allowed!, if: :person_collection?
       before_action :manage_event_allowed!, only: [:new, :edit, :create, :update, :index]
 
+      attr_reader :collection
+
       def index
-        @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
-        @events = ::GobiertoCalendars::Event.by_collection(@collection).sorted
-        @archived_events = current_site.events.only_archived.where(collection_id: @collection.id).sorted
+        @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(collection)
+        @events = ::GobiertoCalendars::Event.by_collection(collection).sorted
+        @archived_events = current_site.events
+                                       .only_archived
+                                       .where(collection: collection)
+                                       .sorted
+                                       .page(params[:archived_events_page])
+                                       .per(::GobiertoCalendars::Event::ADMIN_PAGE_SIZE)
 
         case params[:scope]
         when "pending"
@@ -18,10 +27,12 @@ module GobiertoAdmin
         when "past"
           @events = @events.past
         end
+
+        @events = @events.page(params[:events_page]).per(::GobiertoCalendars::Event::ADMIN_PAGE_SIZE)
       end
 
       def new
-        @event_form = EventForm.new(collection_id: @collection.id)
+        @event_form = EventForm.new(collection_id: collection.id)
         @attendees = get_attendees
         @event_states = get_calendar_event_states
       end
@@ -32,18 +43,18 @@ module GobiertoAdmin
         @attendees = get_attendees
 
         @event_form = EventForm.new(
-          @event.attributes.except(*ignored_event_attributes).merge(collection_id: @collection.id)
+          @event.attributes.except(*ignored_event_attributes).merge(collection_id: collection.id)
         )
       end
 
       def create
         @event_form = EventForm.new(
-          event_params.merge(collection_id: @collection.id, admin_id: current_admin.id, site_id: current_site.id)
+          event_params.merge(collection_id: collection.id, admin_id: current_admin.id, site_id: current_site.id)
         )
 
         if @event_form.save
           redirect_to(
-            edit_admin_calendars_event_path(@event_form.event, collection_id: @collection),
+            edit_admin_calendars_event_path(@event_form.event, collection_id: collection),
             notice: t(".success_html",
             link: gobierto_calendars_event_preview_url(@event_form.event,
                                                        host: current_site.domain))
@@ -58,12 +69,12 @@ module GobiertoAdmin
       def update
         @event = find_event
         @event_form = EventForm.new(
-          event_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id, collection_id: @collection.id)
+          event_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id, collection_id: collection.id)
         )
 
         if @event_form.save
           redirect_to(
-            edit_admin_calendars_event_path(@event, collection_id: @collection),
+            edit_admin_calendars_event_path(@event, collection_id: collection),
             notice: t(".success_html",
             link: gobierto_calendars_event_preview_url(@event_form.event,
                                                        host: current_site.domain))
@@ -108,7 +119,7 @@ module GobiertoAdmin
 
       def load_person
         if person_collection?
-          @person = @collection.container
+          @person = collection_container
         end
       end
 
@@ -125,7 +136,7 @@ module GobiertoAdmin
       end
 
       def get_attendees
-        person_id = person_collection? ? @collection.container.id : 0
+        person_id = person_collection? ? collection_container.id : 0
         current_site.people
           .where.not(id: person_id)
           .active
@@ -133,7 +144,11 @@ module GobiertoAdmin
       end
 
       def person_collection?
-        @collection.container.is_a?(::GobiertoPeople::Person)
+        collection_container.is_a?(::GobiertoPeople::Person)
+      end
+
+      def collection_container
+        collection&.container
       end
 
       def get_calendar_event_states
@@ -165,13 +180,31 @@ module GobiertoAdmin
                          current_site: current_site,
                          current_admin: current_admin,
                          event: try(:@event),
-                         collection_id: try(:@collection) ? @collection.id : nil
+                         collection_id: try(:@collection) ? collection.id : nil
                        )
 
         if !event_policy.manage? || (try(:@collection).container.nil? if try(:@collection))
           redirect_to(admin_root_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
         end
       end
+
+      def person_allowed!
+        check_gobierto_people_permissions!
+        check_person_permissions!
+      end
+
+      def check_gobierto_people_permissions!
+        module_enabled!(current_site, "GobiertoPeople")
+        module_allowed!(current_admin, "GobiertoPeople")
+      end
+
+      def check_person_permissions!
+        person_policy = GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: @person)
+        if !person_policy.manage?
+          redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
+        end
+      end
+
     end
   end
 end

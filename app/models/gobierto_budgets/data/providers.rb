@@ -55,13 +55,9 @@ module GobiertoBudgets
 
       protected
 
-      def place
-        site.place
-      end
-
       def filename(format)
         raise UnsupportedFormat unless FORMATS.keys.include?(format.to_sym)
-        ["gobierto_budgets", place.id, "data", "providers", "#{ year }.#{ format }"].join("/")
+        ["gobierto_budgets", site.organization_id, "data", "providers", "#{ year }.#{ format }"].join("/")
       end
 
       def format_data(format)
@@ -83,7 +79,7 @@ module GobiertoBudgets
       end
 
       def format_uri(format)
-        URI("#{ endpoint }/datasets/ds-facturas-municipio.#{ format }?filter_by_location_id=#{ site.place.id }&date_date_range=#{ date_range }&sort_asc_by=date")
+        URI("#{ endpoint }/datasets/ds-facturas-municipio.#{ format }?filter_by_location_id=#{ site.organization_id }&date_date_range=#{ date_range }&sort_asc_by=date")
       end
 
       def request_response(format)

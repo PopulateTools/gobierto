@@ -6,16 +6,16 @@
       <% if value.is_a?(Array) %>
 
         <% value.each do |message| %>
-          <li><%= raw message %></li>
-        <% end %> 
+          <li><%= sanitize message %></li>
+        <% end %>
 
       <% else %>
 
-        <li><%= raw value %></li>
-        
+        <li><%= sanitize value %></li>
+
       <% end %>
 
     </ul>
   </div>
-  
+
 <% end %>

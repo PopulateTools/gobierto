@@ -2,6 +2,8 @@ module Liquid
   module Rails
     class TemplateHandler
 
+      include ActionView::Helpers::SanitizeHelper
+
       def render(template, local_assigns={})
         assigns = if @controller.respond_to?(:liquid_assigns, true)
           @controller.send(:liquid_assigns)
@@ -16,9 +18,10 @@ module Liquid
         end
         assigns.merge!(local_assigns.stringify_keys)
 
-        liquid      = Liquid::Template.parse(template)
+        liquid = Liquid::Template.parse(template)
         liquid.send(render_method, assigns, filters: filters, registers: registers).html_safe
       end
+
     end
   end
 end

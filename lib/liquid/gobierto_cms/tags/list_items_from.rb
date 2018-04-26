@@ -48,7 +48,7 @@ class ListItemsFrom < Liquid::Tag
       html << helpers.link_to(collection_item_text.join.html_safe, gobierto_cms_page_or_news_path(page))
     end
     html << "</div>"
-    html.join.html_safe
+    sanitize(html.join)
   end
 
   private

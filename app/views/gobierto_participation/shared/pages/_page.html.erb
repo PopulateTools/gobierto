@@ -31,7 +31,7 @@
           <%= l(page.published_on, format: :long) %>
         </time>
       </div>
-      <%= raw page.body %>
+      <%= sanitize page.body %>
       <div class='note'>
         <%= t('gobierto_participation.shared.published_at', date: l(page.published_on, format: :long), site: current_site.name) %>
       </div>

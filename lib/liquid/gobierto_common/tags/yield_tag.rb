@@ -1,6 +1,8 @@
 class YieldTag < ::Liquid::Tag
   Syntax = /(#{::Liquid::QuotedFragment}+)/
 
+  include ActionView::Helpers::SanitizeHelper
+
   def initialize(tag_name, markup, context)
     super
 
@@ -14,7 +16,7 @@ class YieldTag < ::Liquid::Tag
   def render(context)
     @context = context
 
-    @context.registers[:view].content_for(@identifier).try(:html_safe)
+    sanitize(@context.registers[:view].content_for(@identifier))
   end
 end
 

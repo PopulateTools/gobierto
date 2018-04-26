@@ -4,7 +4,7 @@
     <%= l(attachment.updated_at, format: :long) %>
   </time>
 </div>
-<%= raw attachment.description %>
+<%= sanitize attachment.description %>
 <div class='document'>
   <div class='soft'>
     <small>

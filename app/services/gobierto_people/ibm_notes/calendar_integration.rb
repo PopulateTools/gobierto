@@ -25,10 +25,19 @@ module GobiertoPeople
         @calendar_configuration = find_calendar_configuration
       end
 
+      def integration_log_preffix
+        "[IBM Notes]"
+      end
+
       def sync!
         log_synchronization_start(person_id: person.id, person_name: person.name)
 
-        received_events_ids = get_person_events_urls.map do |event_url|
+        person_event_urls = get_person_events_urls
+        processing_url_index = 0
+
+        received_events_ids = person_event_urls.map do |event_url|
+          log_message "Processing URL (#{processing_url_index += 1}/#{person_event_urls.size}): #{event_url}"
+
           response_data = ::IbmNotes::Api.get_event(request_params_for_event_request(event_url))
 
           next if response_data.nil? || response_data['events'].blank?
@@ -110,11 +119,12 @@ module GobiertoPeople
         end
       end
 
-      def get_person_event_instances_urls(href)
-        response_data = ::IbmNotes::Api.get_recurrent_event_instances(request_params_for_event_request(href))
+      def event_instances_urls(recurrent_event_href)
+        response_data = ::IbmNotes::Api.get_recurrent_event_instances(request_params_for_event_request(recurrent_event_href))
 
-        if response_data && response_data['instances'].present?
-          response_data['instances'].map { |instance_data| instance_data['href'] }
+        if response_data && response_data["instances"].present?
+          event_instances_urls = response_data["instances"].map { |instance_data| instance_data["href"] }
+          event_instances_urls.select { |url| GobiertoCalendars.sync_range.cover?(Time.zone.parse(url.split("/").last)) }
         else
           []
         end
@@ -141,7 +151,7 @@ module GobiertoPeople
         processed_events_ids = []
 
         if self.class.recurring_event?(event_data)
-          instances_urls = get_person_event_instances_urls(event_url)
+          instances_urls = event_instances_urls(event_url)
 
           instances_urls.each do |event_url|
             response_event = ::IbmNotes::Api.get_event(request_params_for_event_request(event_url))

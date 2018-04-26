@@ -465,6 +465,44 @@ module GobiertoPeople
           assert_equal rst_to_utc("2017-05-05 16:00:00"), non_recurrent_events.first.starts_at
         end
       end
+
+      def test_event_instances_urls
+        api_host = "https://example.com"
+        recurrent_event_href = "/mail/foobar.nsf/api/calendar/events/E2128A9CA256D103C125801D004F0A76_1-Lotus_ReadRange_Generated"
+        recurrent_event_url = "#{api_host}#{recurrent_event_href}"
+
+        past_instance_recurrence_id  = "#{1.year.ago.strftime("%Y%m%d")}T183000Z"
+        close_instance_recurrence_id = "#{1.day.from_now.strftime("%Y%m%d")}T183000Z"
+        far_instance_recurrence_id   = "#{1.year.from_now.strftime("%Y%m%d")}T183000Z"
+
+        response_data = {
+          "instances" => [
+            {
+              "recurrenceId" => past_instance_recurrence_id,
+              "href" => "#{recurrent_event_href}/#{past_instance_recurrence_id}"
+            },
+            {
+              "recurrenceId" => close_instance_recurrence_id,
+              "href" => "#{recurrent_event_href}/#{close_instance_recurrence_id}"
+            },
+            {
+              "recurrenceId" => far_instance_recurrence_id,
+              "href" => "#{recurrent_event_href}/#{far_instance_recurrence_id}"
+            }
+          ]
+        }
+
+        calendar_integration = ::GobiertoPeople::IbmNotes::CalendarIntegration.new(richard)
+
+        ::IbmNotes::Api.stubs(:get_recurrent_event_instances).returns(response_data)
+
+        filtered_urls = calendar_integration.send(:event_instances_urls, recurrent_event_url)
+
+        # ensure event instances out of sync range are filtered
+        assert_equal 1, filtered_urls.size
+        assert filtered_urls.first.include?(close_instance_recurrence_id)
+      end
+
     end
   end
 end

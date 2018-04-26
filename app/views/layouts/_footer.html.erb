@@ -15,7 +15,7 @@
 
       <div class="pure-u-1 pure-u-md-15-24 custom_html_footer">
       <% if @site.configuration.foot_markup.present? %>
-        <%= render_liquid @site.configuration.foot_markup %>
+        <%= render_liquid(@site.configuration.foot_markup, skip_sanitization=true) %>
       <% end %>
       </div>
 

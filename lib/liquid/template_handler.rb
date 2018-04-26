@@ -2,8 +2,6 @@ module Liquid
   module Rails
     class TemplateHandler
 
-      include ActionView::Helpers::SanitizeHelper
-
       def render(template, local_assigns={})
         assigns = if @controller.respond_to?(:liquid_assigns, true)
           @controller.send(:liquid_assigns)

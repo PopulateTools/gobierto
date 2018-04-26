@@ -257,7 +257,7 @@ es:
         context: Contexto
         data_of_year: "* datos del %{year}"
         debt: Deuda
-        debt_tooltip: Deuda del sector de las administraciones públicas del Ayuntamiento
+        debt_tooltip: Deuda del sector de las administraciones públicas %{of_the_organization_name}
         description: En esta página te contamos cúal es la distribución de los presupuestos,
           cuál es el estado de ejecución de cada partida, quiénes son los proveedores
           con los que trabajamos, y cómo ha evolucionado el gasto por habitante.
@@ -294,7 +294,7 @@ es:
         main_budget_levels_tooltip_article: desde
         main_budget_levels_tooltip_down: Ha bajado un
         main_budget_levels_tooltip_up: Ha subido un
-        main_budget_lines: Los principales ingresos y gastos de tu ayuntamiento
+        main_budget_lines: Los principales ingresos y gastos %{from_your_organization_name}
         main_budget_lines_expense: Gastos
         main_budget_lines_income: Ingresos
         more: más
@@ -361,7 +361,7 @@ es:
         header: Elaboración del presupuesto
         in_total: En total
         main_budget_levels_timeline: Compara gastos e ingresos año por año
-        main_budget_lines: Los principales ingresos y gastos de tu ayuntamiento
+        main_budget_lines: Los principales ingresos y gastos %{from_your_organization_name}
         main_budget_lines_expense: Gastos
         main_budget_lines_income: Ingresos
         metric_boxes_data: Los datos
@@ -472,7 +472,8 @@ es:
         total: Gasto total
     feedback:
       ask_more_information:
-        ask_for_feedback: Escribe tu correo para que tu ayuntamiento te pueda contestar
+        ask_for_feedback: Escribe tu correo para que %{your_organization_name} te
+          pueda contestar
         send: Enviar
         your_email: Tu correo-e
       follow:
@@ -546,9 +547,9 @@ es:
         are_from: son de
         check_detail: Consulta el detalle
         companies: compañías
-        description: "¿A qué proveedores contrata el Ayuntamiento? ¿Qué facturas paga?
-          Desde esta sección podrás consultar y revisar el detalle de cada uno de
-          los pagos que realiza el Ayuntamiento."
+        description: "¿A qué proveedores contrata %{the_organization_name}? ¿Qué facturas
+          paga? Desde esta sección podrás consultar y revisar el detalle de cada uno
+          de los pagos que realiza %{the_organization_name}."
         freelances: autónomos
         invoices: Facturas
         invoices_from_which: De los cuales
@@ -592,7 +593,7 @@ es:
         last_update: Datos actualizados
       enough_information:
         enough_information: "¿Suficiente información?"
-        enough_information_cta: Pide a tu Ayuntamiento
+        enough_information_cta: Pide %{to_your_organization_name}
         enough_information_desc: Si considera que se tienen que incluir más información
           de estos datos para tener una visión más completa de la misma o sobre el
           uso de tus impuestos, comunicánoslo y te contestaremos

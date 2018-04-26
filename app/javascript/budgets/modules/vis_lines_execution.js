@@ -193,7 +193,11 @@ export var VisLinesExecution = Class.extend({
       .attr('x', 0)
       .attr('height', this.y1.bandwidth() )
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('width', function(d) { return this.x(d.pct_executed); }.bind(this))
+      .attr('width', function(d) {
+        if (d.pct_executed == 0) {
+          return 0;
+        } else {
+        return this.x(d.pct_executed); } }.bind(this))
       .attr('fill', function(d) {
         var levelTwoColor = d3.rgb(this.color(this.executionKind));
         levelTwoColor.opacity = this.isMobile ? 0.3 : 0.5;

@@ -10,7 +10,7 @@
           </div>
 
           <p>
-            <%= t('.description') %>
+            <%= t('.description', the_organization_name: @site.determined_organization_name(:the)) %>
           </p>
 
           <%= render('gobierto_budgets/shared/data_updated_at') %>

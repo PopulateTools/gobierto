@@ -31,7 +31,6 @@ en:
             pending: Pending
             published: Published
         index:
-          all_events: All
           configuration: Configuration
           header:
             date: Date
@@ -42,6 +41,7 @@ en:
           past_events: Past events
           pending_events: Moderation pending
           published_events: Published events
+          upcoming_events: Upcoming
           view_event: View event
           visibility_level:
             archived: Archived

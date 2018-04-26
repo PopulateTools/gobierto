@@ -13,6 +13,10 @@ module GobiertoAdmin
         @events_count ||= events.count
       end
 
+      def upcoming_events_count
+        @upcoming_events_count ||= events.upcoming.count
+      end
+
       def pending_events_count
         @pending_events_count ||= events.pending.count
       end

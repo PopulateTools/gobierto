@@ -26,6 +26,8 @@ module GobiertoAdmin
           @events = @events.published
         when "past"
           @events = @events.past
+        else
+          @events = @events.upcoming
         end
 
         @events = @events.page(params[:events_page]).per(::GobiertoCalendars::Event::ADMIN_PAGE_SIZE)

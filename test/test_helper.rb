@@ -50,7 +50,7 @@ require "capybara/rails"
 require "capybara/minitest"
 require "minitest/retry"
 require "vcr"
-require "mocha/mini_test"
+require "mocha/minitest"
 
 I18n.locale = I18n.default_locale = :en
 Time.zone = "Madrid"

@@ -151,13 +151,19 @@ namespace :gobierto_budgets do
     end
 
     def create_categories_index
-      GobiertoBudgets::SearchEngine.client.indices.delete index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index
-      GobiertoBudgets::SearchEngine.client.indices.create index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index
+      index = GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index
+      if GobiertoBudgets::SearchEngine.client.indices.exists? index: index
+        GobiertoBudgets::SearchEngine.client.indices.delete index: index
+      end
+      GobiertoBudgets::SearchEngine.client.indices.create index: index
     end
 
     def create_data_index
-      GobiertoBudgets::SearchEngine.client.indices.delete index: GobiertoBudgets::SearchEngineConfiguration::Data.index
-      GobiertoBudgets::SearchEngine.client.indices.create index: GobiertoBudgets::SearchEngineConfiguration::Data.index
+      index = GobiertoBudgets::SearchEngineConfiguration::Data.index
+      if GobiertoBudgets::SearchEngine.client.indices.exists? index: index
+        GobiertoBudgets::SearchEngine.client.indices.delete index: index
+      end
+      GobiertoBudgets::SearchEngine.client.indices.create index: index
     end
 
     def create_categories_mapping

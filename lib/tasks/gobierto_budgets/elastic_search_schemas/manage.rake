@@ -4,14 +4,12 @@ namespace :gobierto_budgets do
   namespace :elastic_search_schemas do
     namespace :manage do
       def indexes
-        [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-         GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed,
-         GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series,
-         GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated]
+        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.all_indices
       end
 
       def types
-        GobiertoBudgets::BudgetArea.all_areas_names
+        GobiertoBudgets::BudgetArea.all_areas_names +
+          [GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type]
       end
 
       def create_budgets_mapping(index, type)
@@ -77,7 +75,6 @@ namespace :gobierto_budgets do
 
       desc 'Reset ElasticSearch'
       task :reset => :environment do
-
         indexes.each do |index|
           if GobiertoBudgets::SearchEngine.client.indices.exists? index: index
             puts "- Deleting #{index}..."

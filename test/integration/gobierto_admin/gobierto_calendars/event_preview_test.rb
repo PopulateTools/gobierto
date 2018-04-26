@@ -11,7 +11,7 @@ module GobiertoAdmin
 
       def setup
         super
-        @path = admin_people_person_events_path(person)
+        @path = admin_calendars_events_path(collection_id: person.events_collection.id)
         setup_authorizable_resource_preview_test(
           gobierto_admin_admins(:steve),
           gobierto_people_person_event_path(person.slug, published_event.slug),

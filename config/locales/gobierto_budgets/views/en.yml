@@ -253,7 +253,7 @@ en:
         context: Context
         data_of_year: "* as of %{year}"
         debt: Debt
-        debt_tooltip: Debt of the local administration with the City council
+        debt_tooltip: Debt of the local administration %{of_the_organization_name}
         description: In this site you can learn about the budget's income and expenses,
           the status of the execution, the different providers we work with and the
           evolution of the expense per inhabitant.
@@ -289,7 +289,7 @@ en:
         main_budget_levels_tooltip_article: since
         main_budget_levels_tooltip_down: Has gone down
         main_budget_levels_tooltip_up: Has risen
-        main_budget_lines: Main income and expenses from your council
+        main_budget_lines: Main income and expenses %{from_your_organization_name}
         main_budget_lines_expense: Expense
         main_budget_lines_income: Income
         more: more
@@ -353,7 +353,7 @@ en:
         header: Budgets elaboration
         in_total: Total
         main_budget_levels_timeline: Compare income and expenses year by year
-        main_budget_lines: Main income and expenses from your council
+        main_budget_lines: Main income and expenses %{from_your_organization_name}
         main_budget_lines_expense: Expense
         main_budget_lines_income: Income
         metric_boxes_data: Data
@@ -532,10 +532,10 @@ en:
         are_from: are from
         check_detail: Check the detail
         companies: companies
-        description: Which providers hires your municipality? Which invoices are paid?
-          From this section you'll be able to check a summary and have a context of
-          all the information aggregated, and also check the detail of each payment
-          the municipality does.
+        description: Which providers hires %{the_organization_name}? Which invoices
+          are paid? From this section you'll be able to check a summary and have a
+          context of all the information aggregated, and also check the detail of
+          each payment %{the_organization_name} does.
         freelances: freelances
         invoices: Invoices
         invoices_from_which: From which
@@ -578,7 +578,7 @@ en:
         last_update: Last update
       enough_information:
         enough_information: Enough information?
-        enough_information_cta: Ask your municipality
+        enough_information_cta: Ask %{to_your_organization_name}
         enough_information_desc: If you think it's necessary to include more information
           about this data or about the usage of your taxes ask your municipality
     visualizations:

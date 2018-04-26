@@ -7,6 +7,7 @@ module GobiertoCalendars
     acts_as_paranoid column: :archived_at
 
     paginates_per 8
+    ADMIN_PAGE_SIZE = 40
 
     attr_accessor :admin_id
 

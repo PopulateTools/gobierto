@@ -39,8 +39,8 @@ module GobiertoBudgets
         organization_id: organization_id,
         year: year,
         kind: kind,
-        total_budget: total_budget,
-        total_budget_per_inhabitant: total_budget_per_inhabitant
+        total_budget: total_budget.to_f,
+        total_budget_per_inhabitant: total_budget_per_inhabitant.to_f
       })
 
       id = [organization_id, year, kind].join("/")

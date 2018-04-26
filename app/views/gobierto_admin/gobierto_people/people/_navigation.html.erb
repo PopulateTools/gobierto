@@ -4,7 +4,7 @@
       <%= link_to t(".person"), edit_admin_people_person_path(@person) %>
     </li>
     <li class="<%= class_if("active", controller_name.include?("events")) %>">
-      <%= link_to t(".agenda"), admin_people_person_events_path(@person) %>
+      <%= link_to t(".agenda"), admin_calendars_events_path(collection_id: @person.events_collection) %>
     </li>
     <li class="<%= class_if("active", controller_name == "person_statements") %>">
       <%= link_to t(".statements"), admin_people_person_statements_path(@person) %>

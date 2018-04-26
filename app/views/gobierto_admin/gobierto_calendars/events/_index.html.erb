@@ -96,12 +96,14 @@
     </tbody>
   </table>
 
+  <%= paginate @events, param_name: :events_page, remote: true, params: { archived_events_page: nil } %>
+
   <% unless @archived_events.empty? %>
     <div class="m_v_1 right">
       <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggle: true} %>
     </div>
 
-    <div id="archived-list" style="display:none">
+    <div id="archived-list" style="<%= params[:archived_events_page] ? '' : 'display:none' %>">
       <table class="person-events-list">
         <thead>
           <tr>
@@ -148,12 +150,12 @@
           <% end %>
         </tbody>
       </table>
+
+      <%= paginate @archived_events, param_name: :archived_events_page, remote: true, params: { events_page: nil } %>
     </div>
   <% end %>
 </div>
 
 <%= javascript_tag do %>
-$('a[data-toggle]').on('click', function(e){
-  $("div#archived-list").toggle();
-});
+  window.GobiertoAdmin.gobierto_calendars_events_controller.index();
 <% end %>

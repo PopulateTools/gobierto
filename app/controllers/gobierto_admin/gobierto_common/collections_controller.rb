@@ -145,7 +145,7 @@ module GobiertoAdmin
           end
         when "GobiertoCalendars::Event"
           if @collection.container.is_a?(::GobiertoPeople::Person)
-            redirect_to admin_people_person_events_path(@collection.container) and return false
+            redirect_to admin_calendars_events_path(collection_id: @collection.id) and return false
           elsif @collection.container.is_a?(::GobiertoParticipation::Process)
             redirect_to admin_participation_process_events_path(@collection.container) and return false
           end

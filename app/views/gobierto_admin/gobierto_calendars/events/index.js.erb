@@ -5,3 +5,9 @@ $('[data-scope]').removeClass('active');
 <% else %>
   $('[data-scope="all"]').addClass('active');
 <% end %>
+
+<% if params[:events_page] %>
+  $('#events').velocity('scroll', { duration: 500 });
+<% elsif params[:archived_events_page] %>
+  $('#archived-list').velocity('scroll', { duration: 500 });
+<% end %>

@@ -39,7 +39,7 @@ module GobiertoBudgets
 
       def mean_filtered_by(conditions={})
         options = conditions.extract!(:options)
-        force_default_last_year = options[:force_default_last_year] || true
+        force_default_last_year = options.has_key?(:force_default_last_year) ? options[:force_default_last_year] : true
 
         filters = conditions.map do |condition, _|
           { term: conditions.slice(condition) }
@@ -175,14 +175,6 @@ module GobiertoBudgets
         else
           [
             {
-              "name": "mean_province",
-              "values": mean_province
-            },
-            {
-              "name": "mean_autonomy",
-              "values": mean_autonomy
-            },
-            {
               "name": "mean_national",
               "values": mean_national
             },
@@ -190,7 +182,20 @@ module GobiertoBudgets
               name: @organization_name,
               "values": organization_values
             }
-          ]
+          ].tap do |values|
+            unless place_values.blank?
+              values.unshift(
+                {
+                  "name": "mean_province",
+                  "values": mean_province
+                },
+                {
+                  "name": "mean_autonomy",
+                  "values": mean_autonomy
+                }
+              )
+            end
+          end
         end
       end
 

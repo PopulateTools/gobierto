@@ -23,15 +23,19 @@ end
 
 Translation = I18n::Backend::Gobierto::Translation
 
-if Translation.table_exists?
-  I18n.backend = I18n::Backend::Gobierto.new
+begin
+  if Translation.table_exists?
+    I18n.backend = I18n::Backend::Gobierto.new
 
-  I18n::Backend::Gobierto.send(:include, I18n::Backend::GobiertoCore::Memoize)
-  I18n::Backend::Simple.send(:include, I18n::Backend::GobiertoCore::Memoize)
-  I18n::Backend::Simple.send(:include, I18n::Backend::Pluralization)
-  I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
+    I18n::Backend::Gobierto.send(:include, I18n::Backend::GobiertoCore::Memoize)
+    I18n::Backend::Simple.send(:include, I18n::Backend::GobiertoCore::Memoize)
+    I18n::Backend::Simple.send(:include, I18n::Backend::Pluralization)
+    I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
 
-  I18n.backend = I18n::Backend::Chain.new(I18n.backend, I18n::Backend::Simple.new)
+    I18n.backend = I18n::Backend::Chain.new(I18n.backend, I18n::Backend::Simple.new)
+  end
+rescue ActiveRecord::NoDatabaseError
+  puts $!
 end
 
 I18n.fallbacks.map(ca: :es)

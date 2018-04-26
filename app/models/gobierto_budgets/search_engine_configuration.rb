@@ -47,6 +47,10 @@ module GobiertoBudgets
     end
 
     class BudgetLine
+      def self.all_indices
+        [index_forecast, index_executed, index_executed_series, index_forecast_updated]
+      end
+
       def self.index_forecast
         "budgets-forecast-v3"
       end

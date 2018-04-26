@@ -7,9 +7,11 @@ namespace :gobierto_budgets do
       BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series].freeze
       BUDGETS_TYPES = GobiertoBudgets::BudgetArea.all_areas_names
 
+      create_categories_index
+      create_data_index
+
       create_categories_mapping
       create_data_mapping
-      create_all_budgets_mapping
 
       import_categories
 
@@ -148,6 +150,22 @@ namespace :gobierto_budgets do
       end
     end
 
+    def create_categories_index
+      index = GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index
+      if GobiertoBudgets::SearchEngine.client.indices.exists? index: index
+        GobiertoBudgets::SearchEngine.client.indices.delete index: index
+      end
+      GobiertoBudgets::SearchEngine.client.indices.create index: index
+    end
+
+    def create_data_index
+      index = GobiertoBudgets::SearchEngineConfiguration::Data.index
+      if GobiertoBudgets::SearchEngine.client.indices.exists? index: index
+        GobiertoBudgets::SearchEngine.client.indices.delete index: index
+      end
+      GobiertoBudgets::SearchEngine.client.indices.create index: index
+    end
+
     def create_categories_mapping
       m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index, type: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type
       return unless m.empty?
@@ -181,91 +199,6 @@ namespace :gobierto_budgets do
       end
 
       GobiertoBudgets::SearchEngine.client.bulk(body: categories)
-    end
-
-    def create_all_budgets_mapping
-      BUDGETS_INDEXES.each do |index|
-        BUDGETS_TYPES.each do |type|
-          if index == GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series
-            create_budgets_execution_series_mapping(index, type)
-          else
-            create_budgets_mapping(index, type)
-          end
-        end
-
-        create_total_budgets_mapping(index)
-      end
-    end
-
-    def create_budgets_mapping(index, type)
-      m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
-      return unless m.empty?
-
-      puts "== Creating budgets mapping =="
-      GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
-        type.to_sym => {
-          properties: {
-            organization_id:       { type: "string", index: "not_analyzed" },
-            ine_code:              { type: "integer", index: "not_analyzed" },
-            year:                  { type: "integer", index: "not_analyzed" },
-            amount:                { type: "double", index: "not_analyzed" },
-            code:                  { type: "string", index: "not_analyzed" },
-            parent_code:           { type: "string", index: "not_analyzed" },
-            functional_code:       { type: "string", index: "not_analyzed" },
-            custom_code:           { type: "string", index: "not_analyzed" },
-            level:                 { type: "integer", index: "not_analyzed" },
-            kind:                  { type: "string", index: "not_analyzed" }, # income I / expense G
-            province_id:           { type: "integer", index: "not_analyzed" },
-            autonomy_id:           { type: "integer", index: "not_analyzed" },
-            amount_per_inhabitant: { type: "double", index: "not_analyzed" }
-          }
-        }
-      }
-    end
-
-    def create_budgets_execution_series_mapping(index, type)
-      m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
-      return unless m.empty?
-
-      puts "== Creating budgets execution series mapping =="
-      GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
-        type.to_sym => {
-          properties: {
-            organization_id: { type: "string", index: "not_analyzed" },
-            ine_code:        { type: "integer", index: "not_analyzed" },
-            kind:            { type: "string", index: "not_analyzed" }, # income I / expense G
-            code:            { type: "string", index: "not_analyzed" },
-            values: {
-              properties: {
-                date:       { type: "string", index: "not_analyzed" },
-                amount:     { type: "double", index: "not_analyzed" }
-              }
-            }
-          }
-        }
-      }
-    end
-
-    def create_total_budgets_mapping(index)
-      type = GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
-      m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
-      return unless m.empty?
-
-      puts "== Creating total budgets mapping =="
-      GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
-        type.to_sym => {
-          properties: {
-            organization_id:             { type: "string", index: "not_analyzed" },
-            ine_code:                    { type: "integer", index: "not_analyzed" },
-            province_id:                 { type: "integer", index: "not_analyzed" },
-            autonomy_id:                 { type: "integer", index: "not_analyzed" },
-            year:                        { type: "integer", index: "not_analyzed" },
-            kind:                        { type: "string", index: "not_analyzed" }, # income I / expense G
-            total_budget:                { type: "double", index: "not_analyzed" },
-            total_budget_per_inhabitant: { type: "double", index: "not_analyzed" }
-          }
-        }
-      }
     end
 
     def create_data_mapping

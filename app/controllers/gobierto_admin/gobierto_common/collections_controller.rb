@@ -7,22 +7,22 @@ module GobiertoAdmin
       def show
         @new_item_path = case @collection.item_type
                          when "GobiertoCms::Page"
-                           @pages = ::GobiertoCms::Page.where(id: @collection.pages_or_news_in_collection).sorted
-                           @archived_pages = current_site.pages.only_archived.where(collection_id: @collection.id).sorted
-                           new_admin_cms_page_path(collection_id: @collection)
+                            @pages = ::GobiertoCms::Page.where(id: @collection.pages_or_news_in_collection).sorted
+                            @archived_pages = current_site.pages.only_archived.where(collection_id: @collection.id).sorted
+                            new_admin_cms_page_path(collection_id: @collection)
                          when "GobiertoCms::News"
-                           @pages = ::GobiertoCms::Page.where(id: @collection.pages_or_news_in_collection).sorted
-                           @archived_pages = current_site.pages.only_archived.where(id: @collection.pages_or_news_in_collection).sorted
-                           new_admin_cms_page_path(collection_id: @collection)
+                            @pages = ::GobiertoCms::Page.where(id: @collection.pages_or_news_in_collection).sorted
+                            @archived_pages = current_site.pages.only_archived.where(id: @collection.pages_or_news_in_collection).sorted
+                            new_admin_cms_page_path(collection_id: @collection)
                          when "GobiertoAttachments::Attachment"
-                           @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection).sorted
-                           @archived_file_attachments = current_site.attachments.only_archived.where(collection_id: @collection.id).sorted
-                           new_admin_attachments_file_attachment_path(collection_id: @collection)
+                            @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection).sorted
+                            @archived_file_attachments = current_site.attachments.only_archived.where(collection_id: @collection.id).sorted
+                            new_admin_attachments_file_attachment_path(collection_id: @collection)
                          when "GobiertoCalendars::Event"
-                           @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
-                           @archived_events = current_site.events.only_archived.where(collection_id: @collection.id).sorted
-                           @events = ::GobiertoCalendars::Event.by_collection(@collection).sorted
-                           nil
+                            @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
+                            @archived_events = current_site.events.only_archived.where(collection_id: @collection.id).sorted
+                            @events = ::GobiertoCalendars::Event.by_collection(@collection).sorted.page(params[:event_page]).per(::GobiertoCalendars::Event::ADMIN_PAGE_SIZE)
+                            nil
                          end
       end
 

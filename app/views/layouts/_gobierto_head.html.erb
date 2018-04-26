@@ -46,6 +46,8 @@
       provinceName: "<%= current_site.place.province.name %>",
       ccaaId: "<%= current_site.place.province.autonomous_region.id %>",
       ccaaName: "<%= current_site.place.province.autonomous_region.name %>",
+    <% else %>
+      municipalityId: "<%= current_site.organization_id %>",
     <% end %>
     year: <%= APP_CONFIG["gobierto_observatory"]["year"] %>,
     endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"

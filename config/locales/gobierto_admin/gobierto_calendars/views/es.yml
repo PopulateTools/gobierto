@@ -31,7 +31,6 @@ es:
             pending: Pendiente
             published: Publicado
         index:
-          all_events: Todos
           configuration: Configuración
           header:
             date: Fecha
@@ -42,6 +41,7 @@ es:
           past_events: Eventos pasados
           pending_events: Pendientes de moderar
           published_events: Eventos publicados
+          upcoming_events: Próximos
           view_event: Ver evento
           visibility_level:
             archived: Archivado

@@ -60,20 +60,19 @@ module GobiertoAdmin
       end
 
       def test_preview_active_person_pending_event
-        with_signed_in_admin(admin) do
-          with_current_site(site) do
-            visit @path
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
 
-            within "tr#person-event-item-#{pending_event.id}" do
-              preview_link = find("a", text: "View event")
+              click_link "Moderation pending"
 
-              assert preview_link[:href].include?(admin.preview_token)
+              within "tr#person-event-item-#{pending_event.id}" do
+                expected_preview_url = "#{gobierto_people_person_event_url(person.slug, pending_event.slug, host: site.domain)}?preview_token=#{admin.preview_token}"
 
-              preview_link.click
+                assert_equal expected_preview_url, find_link("View event")[:href]
+              end
             end
-
-            assert_equal gobierto_people_person_event_path(person.slug, pending_event.slug), current_path
-            assert has_selector?("h2", text: pending_event.title)
           end
         end
       end
@@ -81,20 +80,17 @@ module GobiertoAdmin
       def test_preview_draft_person_published_event
         person.draft!
 
-        with_signed_in_admin(admin) do
-          with_current_site(site) do
-            visit @path
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
 
-            within "tr#person-event-item-#{published_event.id}" do
-              preview_link = find("a", text: "View event")
+              within "tr#person-event-item-#{published_event.id}" do
+                expected_preview_url = "#{gobierto_people_person_event_url(person.slug, published_event.slug, host: site.domain)}?preview_token=#{admin.preview_token}"
 
-              assert preview_link[:href].include?(admin.preview_token)
-
-              preview_link.click
+                assert_equal expected_preview_url, find_link("View event")[:href]
+              end
             end
-
-            assert_equal gobierto_people_person_event_path(person.slug, published_event.slug), current_path
-            assert has_selector?("h2", text: published_event.title)
           end
         end
       end
@@ -102,20 +98,19 @@ module GobiertoAdmin
       def test_preview_draft_person_pending_event
         person.draft!
 
-        with_signed_in_admin(admin) do
-          with_current_site(site) do
-            visit @path
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
 
-            within "tr#person-event-item-#{pending_event.id}" do
-              preview_link = find("a", text: "View event")
+              click_link "Moderation pending"
 
-              assert preview_link[:href].include?(admin.preview_token)
+              within "tr#person-event-item-#{pending_event.id}" do
+                expected_preview_url = "#{gobierto_people_person_event_url(person.slug, pending_event.slug, host: site.domain)}?preview_token=#{admin.preview_token}"
 
-              preview_link.click
+                assert_equal expected_preview_url, find_link("View event")[:href]
+              end
             end
-
-            assert_equal gobierto_people_person_event_path(person.slug, pending_event.slug), current_path
-            assert has_selector?("h2", text: pending_event.title)
           end
         end
       end

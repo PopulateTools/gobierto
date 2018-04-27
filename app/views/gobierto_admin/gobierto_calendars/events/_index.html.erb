@@ -3,9 +3,9 @@
 
     <div class="pure-u-1 pure-u-md-3-5 sub_filter">
       <ul>
-        <li class="all-events-filter active" data-scope="all">
-          <%= link_to t(".all_events"), admin_calendars_events_path(collection_id: collection), remote: true %>
-          (<%= @events_presenter.events_count %>)
+        <li class="upcoming-events-filter active" data-scope="upcoming">
+          <%= link_to t(".upcoming_events"), admin_calendars_events_path(collection_id: collection), remote: true %>
+          (<%= @events_presenter.upcoming_events_count %>)
         </li>
         <li class="pending-events-filter <%= class_if("warn", @events_presenter.pending_events_count > 0) %>" data-scope="pending">
           <%= link_to t(".pending_events"), admin_calendars_events_path(collection_id: collection, scope: :pending), remote: true %>
@@ -63,7 +63,7 @@
             <% end %>
           </td>
           <td>
-            <%= l(event.starts_at, format: :short) %>
+            <%= l(event.starts_at, format: :long) %>
           </td>
           <td>
             <% if event.first_location %>
@@ -128,7 +128,7 @@
                 <%= event.title %>
               </td>
               <td>
-                <%= l(event.starts_at, format: :short) %>
+                <%= l(event.starts_at, format: :long) %>
               </td>
               <td>
                 <% if event.first_location %>

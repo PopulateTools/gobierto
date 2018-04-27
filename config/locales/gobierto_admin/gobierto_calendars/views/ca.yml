@@ -31,7 +31,6 @@ ca:
             pending: Pendent
             published: Publicat
         index:
-          all_events: Tots
           configuration: Configuració
           header:
             date: Data
@@ -42,6 +41,7 @@ ca:
           past_events: Esdeveniments passats
           pending_events: Pendents de moderar
           published_events: Esdeveniments publicats
+          upcoming_events: Pròxims
           view_event: Veure esdeveniment
           visibility_level:
             archived: Archivat

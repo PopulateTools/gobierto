@@ -1,7 +1,11 @@
 module GobiertoCommon
   class Search
-    def initialize(site)
+
+    attr_reader :site, :current_module_class
+
+    def initialize(site, current_module_class=nil)
       @site = site
+      @current_module_class = current_module_class || GobiertoCms
     end
 
     def search_in_indexes
@@ -12,12 +16,14 @@ module GobiertoCommon
       end.map(&add_quotes).join(',')
     end
 
-    attr_reader :site
-
     private
 
     def modules_to_search
-      @modules_to_search ||= (site.configuration.modules + site.configuration.default_modules).map(&:constantize)
+      @modules_to_search ||= begin
+        modules_classes = (site.configuration.modules + site.configuration.default_modules).map(&:constantize)
+        modules_classes.delete(current_module_class)
+        modules_classes.unshift(current_module_class) # make current module results appear first
+      end
     end
 
     def models_to_search

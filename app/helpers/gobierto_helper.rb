@@ -33,7 +33,7 @@ module GobiertoHelper
   end
 
   def algolia_search_client
-    @algolia_search_client ||= GobiertoCommon::Search.new(current_site)
+    @algolia_search_client ||= GobiertoCommon::Search.new(current_site, current_module_class)
   end
 
   private

@@ -2,7 +2,6 @@
 
 class ListChildrenPages < Liquid::Tag
   include GobiertoCms::PageHelper
-  include ActionView::Helpers::SanitizeHelper
 
   def initialize(tag_name, params, tokens)
     super
@@ -46,7 +45,7 @@ class ListChildrenPages < Liquid::Tag
         html << "</div>"
       end
     end
-    sanitize(html.join)
+    html.join.html_safe
   end
 end
 

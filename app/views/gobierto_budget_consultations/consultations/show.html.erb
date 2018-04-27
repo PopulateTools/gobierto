@@ -1,6 +1,6 @@
 <div class="column consultation">
   <div class="consultation-intro-wrapper">
-    <%= sanitize @consultation.description %>
+    <%= raw @consultation.description %>
   </div>
   <% if @consultation.open? %>
     <%= link_to gobierto_budget_consultations_consultation_item_summary_path(@consultation), class: "consultation-link", data:{ consultation_link: true }, role: "button" do %>

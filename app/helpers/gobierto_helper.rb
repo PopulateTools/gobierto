@@ -29,7 +29,7 @@ module GobiertoHelper
     renderer = Redcarpet::Render::HTML.new(options)
     markdown = Redcarpet::Markdown.new(renderer, extensions)
 
-    sanitize markdown.render(text)
+    markdown.render(text).html_safe
   end
 
   def algolia_search_client

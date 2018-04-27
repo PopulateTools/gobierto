@@ -31,7 +31,7 @@
     </div>
 
     <% if @site.configuration.head_markup.present? %>
-      <%= render_liquid(@site.configuration.head_markup, skip_sanitization=true) %>
+      <%= render_liquid @site.configuration.head_markup %>
     <% end %>
 
     <div class="site_header">

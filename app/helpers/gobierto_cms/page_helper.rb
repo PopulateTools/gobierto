@@ -12,7 +12,7 @@ module GobiertoCms
         html << "</li>"
       end
       html << "</ul>"
-      sanitize(html.join)
+      html.join.html_safe
     end
 
     def gobierto_cms_page_or_news_path(page, options = {})

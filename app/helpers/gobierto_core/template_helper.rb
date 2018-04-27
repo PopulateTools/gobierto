@@ -15,7 +15,7 @@ module GobiertoCore
         end
       end
       html << "</ul>"
-      sanitize(html.join)
+      html.join.html_safe
     end
   end
 end

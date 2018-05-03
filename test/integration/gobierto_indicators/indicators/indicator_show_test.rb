@@ -64,7 +64,7 @@ module GobiertoIndicators
                                reflect The quality of life of the city is defined
                                by the World Bank, association with the purpose of
                                fighting poverty and supporting development. The
-                               indicators may vary according to the selected year."
+                               indicators may vary according to the selected year.".squish
 
           assert has_content? "2017"
 
@@ -79,7 +79,7 @@ module GobiertoIndicators
 
           assert has_content? "Nombre total de llars"
           assert has_content? "El nombre total d'habitatges amb persones empadronades,
-                               tant en règim de lloguer com en propietat."
+                               tant en règim de lloguer com en propietat.".squish
           assert has_content? "16366"
           assert has_content? "Calculation"
           assert has_content? "Suma total d'habitatges amb persones empadronades"

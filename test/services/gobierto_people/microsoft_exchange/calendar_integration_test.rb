@@ -283,6 +283,22 @@ module GobiertoPeople
         assert event.locations.empty?
       end
 
+      def test_sync_with_errors
+        configure_microsoft_exchange_calendar_with_description
+
+        ::Exchanger::Folder.stubs(:find).raises(::Addressable::URI::InvalidURIError)
+
+        assert_raises ::GobiertoCalendars::CalendarIntegration::AuthError do
+          calendar_service.sync!
+        end
+
+        ::Exchanger::Folder.stubs(:find).raises(::HTTPClient::ConnectTimeoutError)
+
+        assert_raises ::GobiertoCalendars::CalendarIntegration::TimeoutError do
+          calendar_service.sync!
+        end
+      end
+
       def test_filter_events
         configure_microsoft_exchange_calendar_with_description
 

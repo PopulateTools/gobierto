@@ -1,0 +1,10 @@
+---
+en:
+  gobierto_calendars:
+    calendar_integration:
+      auth_error:
+        message: Calendar credentials are not valid
+      error:
+        message: There has been a problem synchronizing the calendar
+      timeout_error:
+        message: The connection time to the calendar server has expired

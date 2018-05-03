@@ -43,8 +43,10 @@ module GobiertoPeople
         end
       rescue ::Errno::EADDRNOTAVAIL, ::SocketError, ::ArgumentError, ::Addressable::URI::InvalidURIError
         log_message("Invalid endpoint address for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}")
-      rescue ::HTTPClient::ConnectTimeoutError
+        raise ::GobiertoCalendars::CalendarIntegration::AuthError
+      rescue ::HTTPClient::ConnectTimeoutError, ::HTTPClient::ReceiveTimeoutError
         log_message("Timeout error for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}")
+        raise ::GobiertoCalendars::CalendarIntegration::TimeoutError
       ensure
         log_synchronization_end(person_id: person.id, person_name: person.name)
       end
@@ -65,17 +67,10 @@ module GobiertoPeople
 
         if sumarized_events.present?
           items_ids = sumarized_events.map { |i| i.id }
-          request_calendar_items(items_ids)
+          Exchanger::GetItem.run(item_ids: items_ids).items
         else
           nil
         end
-      end
-
-      def request_calendar_items(items_ids)
-        ::Exchanger::GetItem.run(item_ids: items_ids).items
-      rescue ::HTTPClient::ReceiveTimeoutError
-        log_message("Timeout error for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}")
-        nil
       end
 
       def sync_event(event)

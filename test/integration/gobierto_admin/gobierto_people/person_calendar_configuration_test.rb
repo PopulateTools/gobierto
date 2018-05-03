@@ -297,6 +297,27 @@ module GobiertoAdmin
         end
       end
 
+      def test_sync_calendars_errors
+        configure_ibm_notes_calendar_integration(
+          collection: person.calendar,
+          data: ibm_notes_configuration
+        )
+
+        ::GobiertoPeople::IbmNotes::CalendarIntegration.any_instance
+                                                       .stubs(:sync!)
+                                                       .raises(::GobiertoCalendars::CalendarIntegration::Error)
+
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit edit_admin_calendars_configuration_path(person.calendar)
+
+            click_link "Sync now"
+
+            assert has_content? "There has been a problem synchronizing the calendar"
+          end
+        end
+      end
+
       def test_configure_new_google_calendar_integration
         with_javascript do
           with_signed_in_admin(admin) do

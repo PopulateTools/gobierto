@@ -5,6 +5,7 @@ require "test_helper"
 module GobiertoAdmin
   module GobiertoCms
     class UpdatePageTest < ActionDispatch::IntegrationTest
+
       def setup
         super
         @path = admin_cms_pages_path
@@ -24,6 +25,10 @@ module GobiertoAdmin
 
       def collection
         @collection ||= gobierto_common_collections(:news)
+      end
+
+      def current_uri_query_params
+        URI.parse(current_url).query
       end
 
       def test_update_page
@@ -58,6 +63,22 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_update_page_and_switch_locale
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+
+            visit edit_admin_cms_page_path(cms_page, collection_id: collection.id)
+
+            assert_equal "collection_id=#{collection.id}", current_uri_query_params
+
+            within(".language_selector") { click_link "ES" }
+
+            assert_equal "collection_id=#{collection.id}&locale=es", current_uri_query_params
+          end
+        end
+      end
+
     end
   end
 end

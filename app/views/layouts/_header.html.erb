@@ -56,11 +56,7 @@
 
         <div class="site_header_social">
 
-          <div class="search-box">
-            <i class="fa fa-search"></i>
-            <input id="gobierto_search" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
-            <div id="search_results" class="search_result_list"></div>
-          </div>
+          <%= render "shared/search_box" %>
 
           <div class="social_links_container js-mobile-buttons" data-share>
             <% if show_social_links? %>

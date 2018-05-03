@@ -15,6 +15,15 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
       $(".sort-G[data-toggle=" + filter + "]").addClass('active');
 
+      // Hide table to show spinner
+      $tableHTML.addClass('hidden');
+      // document.querySelector('#invoices-filters').scrollIntoView({
+      //   behavior: 'smooth'
+      // });
+      $('html, body').animate({
+          scrollTop: $('#invoices-filters').offset().top
+        }, 500);
+
       getData(filter);
     });
 
@@ -53,6 +62,8 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
         // Hide spinner
         $(".js-toggle-overlay").removeClass('is-active');
+        // Show table again
+        $tableHTML.removeClass('hidden');
 
         data = _.filter(csv, _callback(filter));
 

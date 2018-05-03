@@ -90,6 +90,7 @@ group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
   gem "spring"
+  gem "puma"
 end
 
 group :test do
@@ -111,7 +112,6 @@ group :test do
 end
 
 group :development do
-  gem "puma"
   gem "rubocop"
   gem "listen"
   gem "spring-watcher-listen", "~> 2.0.0"

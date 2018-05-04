@@ -8,7 +8,7 @@ module GobiertoPeople
 
       attr_reader :person, :site, :configuration
 
-      TARGET_CALENDAR_NAME = 'gobierto'
+      TARGET_CALENDAR_NAME = "gobierto"
 
       def initialize(person)
         @person = person
@@ -58,7 +58,7 @@ module GobiertoPeople
       def get_calendar_items
         root_folder = Exchanger::Folder.find(:calendar)
 
-        folder_exists!(folder: root_folder, folder_name: 'root')
+        folder_exists!(folder: root_folder, folder_name: "root")
 
         target_folder = root_folder.folders.find { |folder| folder.display_name == TARGET_CALENDAR_NAME }
 
@@ -130,13 +130,13 @@ module GobiertoPeople
       end
 
       def folder_exists!(params={})
-        if params[:folder].nil?
-          log_message("Can't find #{params[:folder_name]} calendar folder for #{person.name} (id: #{person.id}). Wrong username, password or endpoint?")
-          if params[:folder_name] == 'root'
-            raise ::GobiertoCalendars::CalendarIntegration::AuthError
-          else
-            raise ::GobiertoCalendars::CalendarIntegration::Error("No se encuentra el calendario #{params[:folder_name]}")
-          end
+        return if params[:folder].present?
+
+        log_message("Can't find #{params[:folder_name]} calendar folder for #{person.name} (id: #{person.id}). Wrong username, password or endpoint?")
+        if params[:folder_name] == "root"
+          raise ::GobiertoCalendars::CalendarIntegration::AuthError
+        else
+          raise ::GobiertoCalendars::CalendarIntegration::Error("No se encuentra el calendario #{params[:folder_name]}")
         end
       end
 

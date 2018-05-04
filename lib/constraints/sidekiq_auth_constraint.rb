@@ -11,4 +11,10 @@ class SidekiqAuthConstraint
     current_admin.god?
   end
 
+  def self.localhost?(request)
+    # Rails bug: this should return true instead
+    # https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/http/request.rb#L405
+    request.local? == 0
+  end
+
 end

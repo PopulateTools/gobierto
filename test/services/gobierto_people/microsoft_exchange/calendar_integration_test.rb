@@ -299,6 +299,27 @@ module GobiertoPeople
         end
       end
 
+      def test_sync_when_root_folder_does_not_exist
+        configure_microsoft_exchange_calendar_with_description
+
+        ::Exchanger::Folder.stubs(:find).returns(nil)
+
+        assert_raise ::GobiertoCalendars::CalendarIntegration::AuthError do
+          calendar_service.sync!
+        end
+      end
+
+      def test_sync_when_target_folder_does_not_exist
+        configure_microsoft_exchange_calendar_with_description
+
+        root_folder = mock
+        root_folder.stubs(:folders).returns([])
+
+        assert_raise ::GobiertoCalendars::CalendarIntegration::Error do
+          calendar_service.sync!
+        end
+      end
+
       def test_filter_events
         configure_microsoft_exchange_calendar_with_description
 

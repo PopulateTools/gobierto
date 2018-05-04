@@ -41,12 +41,14 @@ module GobiertoPeople
         Array(calendar_items).each do |item|
           sync_event(item)
         end
-      rescue ::Errno::EADDRNOTAVAIL, ::SocketError, ::ArgumentError, ::Addressable::URI::InvalidURIError
+      rescue *auth_error_classes
         log_message("Invalid endpoint address for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}")
         raise ::GobiertoCalendars::CalendarIntegration::AuthError
-      rescue ::HTTPClient::ConnectTimeoutError, ::HTTPClient::ReceiveTimeoutError
+      rescue *timeout_error_classes
         log_message("Timeout error for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}")
         raise ::GobiertoCalendars::CalendarIntegration::TimeoutError
+      rescue ::GobiertoCalendars::CalendarIntegration::Error => e
+        raise e
       ensure
         log_synchronization_end(person_id: person.id, person_name: person.name)
       end
@@ -56,11 +58,11 @@ module GobiertoPeople
       def get_calendar_items
         root_folder = Exchanger::Folder.find(:calendar)
 
-        log_missing_folder_error('root') and return [] if root_folder.nil?
+        folder_exists!(folder: root_folder, folder_name: 'root')
 
         target_folder = root_folder.folders.find { |folder| folder.display_name == TARGET_CALENDAR_NAME }
 
-        log_missing_folder_error(TARGET_CALENDAR_NAME) and return [] if target_folder.nil?
+        folder_exists!(folder: target_folder, folder_name: TARGET_CALENDAR_NAME)
 
         # summarized events does not include events description
         sumarized_events = target_folder.expanded_items(start_date: GobiertoCalendars.sync_range_start, end_date: GobiertoCalendars.sync_range_end)
@@ -127,8 +129,29 @@ module GobiertoPeople
         end
       end
 
-      def log_missing_folder_error(folder_name)
-        log_message("Can't find #{folder_name} calendar folder for #{person.name} (id: #{person.id}). Wrong username, password or endpoint?")
+      def folder_exists!(params={})
+        if params[:folder].nil?
+          log_message("Can't find #{params[:folder_name]} calendar folder for #{person.name} (id: #{person.id}). Wrong username, password or endpoint?")
+          if params[:folder_name] == 'root'
+            raise ::GobiertoCalendars::CalendarIntegration::AuthError
+          else
+            raise ::GobiertoCalendars::CalendarIntegration::Error("No se encuentra el calendario #{params[:folder_name]}")
+          end
+        end
+      end
+
+      def auth_error_classes
+        [
+          ::Errno::EADDRNOTAVAIL,
+          ::SocketError,
+          ::ArgumentError,
+          ::Addressable::URI::InvalidURIError,
+          ::GobiertoCalendars::CalendarIntegration::AuthError
+        ]
+      end
+
+      def timeout_error_classes
+        [::HTTPClient::ConnectTimeoutError, ::HTTPClient::ReceiveTimeoutError]
       end
 
     end

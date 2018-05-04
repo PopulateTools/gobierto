@@ -413,7 +413,7 @@ Rails.application.routes.draw do
   end
 
   # Sidekiq admin console
-  constraints lambda {|request| SidekiqAuthConstraint.god_admin?(request) } do
+  constraints lambda {|request| SidekiqAuthConstraint.god_admin?(request) || SidekiqAuthConstraint.localhost?(request) } do
     mount Sidekiq::Web => "/admin/sidekiq", as: :sidekiq_console
   end
 end

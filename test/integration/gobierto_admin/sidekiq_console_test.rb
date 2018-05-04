@@ -17,6 +17,12 @@ module GobiertoAdmin
       @site ||= sites(:madrid)
     end
 
+    def setup
+      super
+      # otherwise we're not running the code we want
+      SidekiqAuthConstraint.stubs(:localhost?).returns(false)
+    end
+
     def test_visit_sidekiq_console_as_god_admin
       with_signed_in_admin(god_admin) do
         visit sidekiq_console_path

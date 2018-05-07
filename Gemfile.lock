@@ -407,6 +407,8 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
+    sidekiq-monitor-stats (0.0.2)
+      sidekiq
     signet (0.8.1)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -540,6 +542,7 @@ DEPENDENCIES
   sass-rails (~> 5.0.0)
   savon (~> 2.11.1)
   sidekiq (~> 5.1.0)
+  sidekiq-monitor-stats
   simple_calendar (~> 2.2)
   spring
   spring-watcher-listen (~> 2.0.0)

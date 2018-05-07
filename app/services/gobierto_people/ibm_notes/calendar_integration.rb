@@ -56,10 +56,13 @@ module GobiertoPeople
         end
       rescue ::IbmNotes::InvalidCredentials
         log_message("Invalid credentials for site")
+        raise ::GobiertoCalendars::CalendarIntegration::AuthError
       rescue ::IbmNotes::ServiceUnavailable
         log_message("IBM Notes calendar API is down")
+        raise ::GobiertoCalendars::CalendarIntegration::TimeoutError
       rescue ::JSON::ParserError
         log_message("JSON parser error")
+        raise ::GobiertoCalendars::CalendarIntegration::Error
       ensure
         log_synchronization_end(person_id: person.id, person_name: person.name)
       end

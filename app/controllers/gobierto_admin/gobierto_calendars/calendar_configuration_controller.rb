@@ -35,16 +35,30 @@ module GobiertoAdmin
       end
 
       def sync_calendars
+        browser_locale = I18n.locale
         I18n.locale = current_site.configuration.default_locale
 
-        @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection: @collection)
+        @calendar_configuration_form = CalendarConfigurationForm.new(
+          current_site: current_site,
+          collection: @collection
+        )
+
         if (calendar_integration = @calendar_configuration_form.calendar_integration_class).present?
           calendar_integration.new(@calendar_configuration_form.collection_container).sync!
           publish_calendar_sync_activity(@calendar_configuration_form)
+
+          I18n.locale = browser_locale
+
+          redirect_to(
+            edit_admin_calendars_configuration_path(@collection),
+            notice: t(".success")
+          )
         end
+      rescue ::GobiertoCalendars::CalendarIntegration::Error => e
+        I18n.locale = browser_locale
         redirect_to(
           edit_admin_calendars_configuration_path(@collection),
-          notice: t('.success')
+          alert: e.message
         )
       end
 

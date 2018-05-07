@@ -439,6 +439,28 @@ module GobiertoPeople
         end
       end
 
+      def test_sync_with_errors
+        configure_ibm_notes_calendar_with_description
+
+        ::IbmNotes::Api.stubs(:get_person_events).raises(::IbmNotes::InvalidCredentials)
+
+        assert_raises ::GobiertoCalendars::CalendarIntegration::AuthError do
+          calendar_service.sync!
+        end
+
+        ::IbmNotes::Api.stubs(:get_person_events).raises(::IbmNotes::ServiceUnavailable)
+
+        assert_raises ::GobiertoCalendars::CalendarIntegration::TimeoutError do
+          calendar_service.sync!
+        end
+
+        ::IbmNotes::Api.stubs(:get_person_events).raises(::JSON::ParserError)
+
+        assert_raises ::GobiertoCalendars::CalendarIntegration::Error do
+          calendar_service.sync!
+        end
+      end
+
       def test_filter_events
         configure_ibm_notes_calendar_with_description
 

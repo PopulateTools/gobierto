@@ -20,13 +20,13 @@ class SidekiqAuthConstraintTest < ActiveSupport::TestCase
 
   def regular_admin_request
     request = mock
-    request.stubs(:session).returns({ admin_id: regular_admin.id })
+    request.stubs(:session).returns(admin_id: regular_admin.id)
     request
   end
 
   def god_admin_request
     request = mock
-    request.stubs(:session).returns({ admin_id: god_admin.id })
+    request.stubs(:session).returns(admin_id: god_admin.id)
     request
   end
 

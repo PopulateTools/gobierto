@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "sidekiq/web"
+
 Rails.application.routes.draw do
   # The root page is kind of dynamic
   constraints GobiertoSiteConstraint.new do
@@ -408,5 +410,10 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       get "/documento/:id" => 'attachment_documents#show', as: :document
     end
+  end
+
+  # Sidekiq admin console
+  constraints lambda {|request| SidekiqAuthConstraint.god_admin?(request) || SidekiqAuthConstraint.localhost?(request) } do
+    mount Sidekiq::Web => "/admin/sidekiq", as: :sidekiq_console
   end
 end

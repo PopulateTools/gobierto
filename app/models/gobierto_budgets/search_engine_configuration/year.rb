@@ -34,11 +34,10 @@ module GobiertoBudgets
             index: ::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
             year: year
           )
-          if year == current_year && budgets_elaboration_disabled?
-            return year
-          end
+          return year if year == current_year && budgets_elaboration_disabled?
         end
-        return default
+
+        default
       end
       private_class_method :last_year_with_data
 

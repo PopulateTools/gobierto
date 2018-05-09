@@ -37,7 +37,7 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
     with_current_site(placed_site) do
       visit gobierto_budgets_budgets_execution_path(available_years.first)
 
-      within '#popup-year' do
+      within "#popup-year" do
         assert has_content? available_years.first
         assert has_content? available_years.second
         assert has_selector?("tr", count: available_years.size)

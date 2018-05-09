@@ -15,7 +15,11 @@ module GobiertoBudgets
 
       def self.get_last_year_with_data(default_year, current_site)
         Date.today.year.downto(first) do |year|
-          next unless GobiertoBudgets::BudgetLine.any_data?(site: GobiertoCore::CurrentScope.current_site, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, year: year)
+          next unless GobiertoBudgets::BudgetLine.any_data?(
+            site: GobiertoCore::CurrentScope.current_site,
+            index: BudgetLine.index_forecast,
+            year: year
+          )
           if year == Date.today.year && (GobiertoCore::CurrentScope.current_site.gobierto_budgets_settings && !GobiertoCore::CurrentScope.current_site.gobierto_budgets_settings.settings["budgets_elaboration"])
             return year
           end
@@ -29,6 +33,14 @@ module GobiertoBudgets
 
       def self.all
         @all ||= (first..last).to_a.reverse
+      end
+
+      def self.with_data
+        @with_data ||= begin
+          all.select do |year|
+            ::GobiertoBudgets::BudgetLine.any_data?(site: GobiertoCore::CurrentScope.current_site, year: year)
+          end
+        end
       end
     end
 

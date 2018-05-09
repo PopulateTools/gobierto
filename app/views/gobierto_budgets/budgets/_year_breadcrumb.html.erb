@@ -1,5 +1,6 @@
 <div class="breadcrumb year_only">
   <div class="bread_hover">
+
     <div class="bread_links">
       <%= link_to @year, send(path_calculation_method, @year), id: @year, 'aria-haspopup' => 'true', 'aria-label' => 'Escoge el año de los datos', 'aria-owns' => 'popup-year', 'aria-controls' => 'popup-year', 'aria-expanded' => 'false' %>
       <i class="fa fa-sort-down"></i>
@@ -13,7 +14,7 @@
 
       <div class="col" data-level="0">
         <table  class="med_bg">
-          <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
+          <% GobiertoBudgets::SearchEngineConfiguration::Year.with_data.each do |year| %>
             <tr role="presentation" >
               <td data-code="<%= year %>"><%= link_to year, url_for(current_parameters_with_year(year)) %></td>
             </tr>
@@ -21,5 +22,6 @@
         </table>
       </div>
     </div>
+
   </div>
 </div>

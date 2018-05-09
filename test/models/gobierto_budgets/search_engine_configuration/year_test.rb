@@ -47,9 +47,11 @@ module GobiertoBudgets
       def test_with_data
         subject_class.stubs(:all).returns((2010..2012).to_a.reverse)
 
-        GobiertoBudgets::BudgetLine.expects(:any_data?).with(site: site, year: 2010).returns(true)
-        GobiertoBudgets::BudgetLine.expects(:any_data?).with(site: site, year: 2011).returns(false)
-        GobiertoBudgets::BudgetLine.expects(:any_data?).with(site: site, year: 2012).returns(true)
+        args = { site: site, index: nil }
+
+        GobiertoBudgets::BudgetLine.expects(:any_data?).with(args.merge(year: 2010)).returns(true)
+        GobiertoBudgets::BudgetLine.expects(:any_data?).with(args.merge(year: 2011)).returns(false)
+        GobiertoBudgets::BudgetLine.expects(:any_data?).with(args.merge(year: 2012)).returns(true)
 
         expected_years = [2010, 2012]
 

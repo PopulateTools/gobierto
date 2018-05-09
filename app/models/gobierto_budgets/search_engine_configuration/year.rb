@@ -6,10 +6,7 @@ module GobiertoBudgets
 
       def self.last(force = false)
         return default if force || current_site.nil?
-
-        Rails.cache.fetch("budgets/data/year/last/#{ current_site.try(:id) || "global" }") do
-          last_year_with_data
-        end
+        cached(:last) { last_year_with_data }
       end
 
       def self.first
@@ -17,13 +14,13 @@ module GobiertoBudgets
       end
 
       def self.all
-        @all ||= last.downto(first).to_a
+        cached(:all) { last.downto(first).to_a }
       end
 
-      def self.with_data
-        @with_data ||= begin
+      def self.with_data(params={})
+        cached :with_data, params do
           all.select do |year|
-            ::GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: year)
+            ::GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: year, index: params[:index])
           end
         end
       end
@@ -64,6 +61,13 @@ module GobiertoBudgets
         GobiertoCore::CurrentScope.current_site
       end
       private_class_method :current_site
+
+      def self.cached(method_name, args={})
+        cache_key = "#{name.underscore}/#{method_name}/#{current_site&.id || 'global'}"
+        cache_key += args.to_s if args.any?
+        Rails.cache.fetch(cache_key) { yield }
+      end
+      private_class_method :cached
 
     end
   end

@@ -40,9 +40,11 @@ window.GobiertoBudgets.InvoicesController = (function() {
     var dateRange;
 
     if (filter === '3m'){
-      dateRange = moment().subtract(3, 'month').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
+      dateRange = moment().subtract(3, 'day').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
+      // dateRange = moment().subtract(3, 'month').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
     } else if (filter === '12m'){
-      dateRange = moment().subtract(1, 'year').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
+      dateRange = moment().subtract(1, 'day').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
+      // dateRange = moment().subtract(1, 'year').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
     } else {
       var d1 = new Date(filter, 0, 1);
       var d2 = new Date(filter, 11, 31);
@@ -66,6 +68,19 @@ window.GobiertoBudgets.InvoicesController = (function() {
         $tableHTML.removeClass('hidden');
 
         data = _.filter(csv, _callback(filter));
+
+        if (!data.length) {
+          alert(I18n.t('gobierto_budgets.invoices.show.empty'));
+
+          // if there's no data, get all available filters and trigger a new one
+          let filters = [];
+          $('#invoices-filters button[data-toggle]').each(function() { filters.push($(this).attr('data-toggle')) });
+          let previousFilter = (filters.indexOf(filter) > 0) ? filters[filters.indexOf(filter) - 1] : alert('Any filter has data.')
+
+          // trigger another filter automatically
+          $('#invoices-filters button[data-toggle=' + previousFilter + ']').trigger('click');
+          return
+        }
 
         _r = {
           domain: [501, 1001, 5001, 10001, 15001],

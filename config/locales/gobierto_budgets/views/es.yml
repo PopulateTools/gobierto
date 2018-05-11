@@ -510,6 +510,7 @@ es:
     invoices:
       show:
         fromto: De A Nº Fact.
+        empty: No hay datos para el filtro seleccionado
         invoiced: Importe facturado
         more: Más de
         table:

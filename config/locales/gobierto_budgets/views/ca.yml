@@ -517,6 +517,7 @@ ca:
     invoices:
       show:
         fromto: De a Nº Fact.
+        empty: No n'hi ha dades pel filtre seleccionat
         invoiced: Import facturat
         more: Més de
         table:

@@ -516,8 +516,9 @@ ca:
       xifres: estalvi brut, inversió per habitant o finançament d''inversions.'
     invoices:
       show:
-        empty: No n'hi ha dades pel filtre seleccionat
+        filter_empty: No n'hi ha dades pel filtre seleccionat
         fromto: De a Nº Fact.
+        full_empty: Cap filtre té dades.
         invoiced: Import facturat
         more: Més de
         table:

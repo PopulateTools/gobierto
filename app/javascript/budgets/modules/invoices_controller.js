@@ -68,7 +68,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
         data = _.filter(csv, _callback(filter));
 
         if (!data.length) {
-          alert(I18n.t('gobierto_budgets.invoices.show.empty'));
+          alert(I18n.t('gobierto_budgets.invoices.show.filter_empty'));
 
           // if there's no data, get all available filters and trigger a new one
           let filters = [];

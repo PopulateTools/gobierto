@@ -416,22 +416,13 @@ Layout/EmptyLineBetweenDefs:
   AllowAdjacentOneLineDefs: false
 
 Layout/EmptyLinesAroundBlockBody:
-  EnforcedStyle: no_empty_lines
-  SupportedStyles:
-    - empty_lines
-    - no_empty_lines
+  Enabled: false
 
 Layout/EmptyLinesAroundClassBody:
-  EnforcedStyle: no_empty_lines
-  SupportedStyles:
-    - empty_lines
-    - no_empty_lines
+  Enabled: false
 
 Layout/EmptyLinesAroundModuleBody:
-  EnforcedStyle: no_empty_lines
-  SupportedStyles:
-    - empty_lines
-    - no_empty_lines
+  Enabled: false
 
 # Checks whether the source file has a utf-8 encoding comment or not
 # AutoCorrectEncodingComment must match the regex
@@ -928,10 +919,7 @@ Layout/SpaceInsideHashLiteralBraces:
     - compact
 
 Layout/SpaceInsideStringInterpolation:
-  EnforcedStyle: space
-  SupportedStyles:
-    - space
-    - no_space
+  Enabled: false
 
 Style/SymbolArray:
   EnforcedStyle: brackets
@@ -1096,7 +1084,7 @@ Lint/AssignmentInCondition:
   AllowSafeAssignment: true
 
 # checks whether the end keywords are aligned properly for `do` `end` blocks.
-Lint/BlockAlignment:
+Layout/BlockAlignment:
   # The value `start_of_block` means that the `end` should be aligned with line
   # where the `do` keyword appears.
   # The value `start_of_line` means it should be aligned with the whole
@@ -1105,7 +1093,7 @@ Lint/BlockAlignment:
   EnforcedStyleAlignWith: either
 
 # Align ends correctly.
-Lint/EndAlignment:
+Layout/EndAlignment:
   # The value `keyword` means that `end` should be aligned with the matching
   # keyword (if, while, etc.).
   # The value `variable` means that in assignments, `end` should be aligned
@@ -1116,7 +1104,7 @@ Lint/EndAlignment:
   EnforcedStyleAlignWith: keyword
   AutoCorrect: false
 
-Lint/DefEndAlignment:
+Layout/DefEndAlignment:
   # The value `def` means that `end` should be aligned with the def keyword.
   # The value `start_of_line` means that `end` should be aligned with method
   # calls like `private`, `public`, etc, if present in front of the `def`

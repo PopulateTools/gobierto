@@ -509,8 +509,8 @@ es:
       cifras: ahorro bruto, inversión por habitante o financiación de inversiones.'
     invoices:
       show:
-        fromto: De A Nº Fact.
         empty: No hay datos para el filtro seleccionado
+        fromto: De A Nº Fact.
         invoiced: Importe facturado
         more: Más de
         table:

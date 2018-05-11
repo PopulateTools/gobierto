@@ -40,11 +40,9 @@ window.GobiertoBudgets.InvoicesController = (function() {
     var dateRange;
 
     if (filter === '3m'){
-      dateRange = moment().subtract(3, 'day').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
-      // dateRange = moment().subtract(3, 'month').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
+      dateRange = moment().subtract(3, 'month').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
     } else if (filter === '12m'){
-      dateRange = moment().subtract(1, 'day').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
-      // dateRange = moment().subtract(1, 'year').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
+      dateRange = moment().subtract(1, 'year').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
     } else {
       var d1 = new Date(filter, 0, 1);
       var d2 = new Date(filter, 11, 31);

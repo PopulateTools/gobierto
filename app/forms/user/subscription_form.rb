@@ -1,5 +1,6 @@
-class User::SubscriptionForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::SubscriptionForm < BaseForm
 
   attr_accessor(
     :user,
@@ -68,9 +69,4 @@ class User::SubscriptionForm
     user.toggle_subscription!(subscribable, site)
   end
 
-  def promote_errors(errors_hash)
-    errors_hash.each do |attribute, message|
-      errors.add(attribute, message)
-    end
-  end
 end

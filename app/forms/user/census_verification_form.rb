@@ -1,5 +1,6 @@
-class User::CensusVerificationForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::CensusVerificationForm < BaseForm
 
   attr_accessor(
     :site_id,
@@ -75,11 +76,4 @@ class User::CensusVerificationForm
     census_verification.verify!
   end
 
-  protected
-
-  def promote_errors(errors_hash)
-    errors_hash.each do |attribute, message|
-      errors.add(attribute, message)
-    end
-  end
 end

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
-    class PersonForm
-      include ActiveModel::Model
+    class PersonForm < BaseForm
+
       include ::GobiertoCommon::DynamicContentFormHelper
       prepend ::GobiertoCommon::Trackable
 
@@ -153,13 +155,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

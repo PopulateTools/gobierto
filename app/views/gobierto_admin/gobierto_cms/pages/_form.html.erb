@@ -10,7 +10,7 @@
           <div class="form_item input_text" data-locale="<%= locale %>">
             <%= label_tag "page[title_translations][#{locale}]" do %>
               <%= f.object.class.human_attribute_name(:title) %>
-              <%= attribute_indication(@page_form.page.class, :title) %>
+              <%= attribute_indication_tag required: true %>
             <% end %>
             <%= text_field_tag "page[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
@@ -18,7 +18,7 @@
           <div class="form_item textarea has-indication" data-locale="<%= locale %>">
             <%= label_tag "page[body_translations][#{locale}]" do %>
               <%= f.object.class.human_attribute_name(:body) %>
-              <%= attribute_indication(@page_form.page.class, :body) %>
+              <%= attribute_indication_tag required: true %>
             <% end %>
             <%= text_area_tag "page[body_source_translations][#{locale}]", f.object.body_source_translations && f.object.body_source_translations[locale], attachment_path: admin_attachments_file_attachments_path, lang: locale, data: { wysiwyg: true } %>
           </div>

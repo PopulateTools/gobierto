@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgetConsultations
-    class ConsultationForm
-      include ActiveModel::Model
+    class ConsultationForm < BaseForm
+
       prepend ::GobiertoCommon::Trackable
 
       OPENING_DATE_RANGE_SEPARATOR = " - ".freeze
@@ -114,13 +116,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

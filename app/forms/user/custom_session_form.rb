@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class User::CustomSessionForm
-  include ActiveModel::Model
+class User::CustomSessionForm < BaseForm
 
   attr_accessor(
     :site,

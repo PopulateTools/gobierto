@@ -63,7 +63,7 @@
         </div>
 
         <div class="form_item input_text">
-          <label for="name">Título Máx <span class="indication">Máx 140 caracteres</span></label>
+          <label for="name">Título Máx <%= attribute_length_indication 140 %></label>
           <input type="text" id="name" value="¿Crees que habría que modificar la ordenanza sobre terrazas?">
         </div>
 
@@ -118,7 +118,7 @@
               <div class="form_item input_text">
                 <label for="name">
                   Pregunta
-                  <span class="indication">Máx 140 caracteres</span>
+                  <%= attribute_length_indication 140 %>
                 </label>
                 <input type="text" id="name" value="<%= i %>">
               </div>

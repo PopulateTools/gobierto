@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCalendars
-    class CalendarConfigurationForm
-      include ActiveModel::Model
+    class CalendarConfigurationForm < BaseForm
 
       ENCRYPTED_SETTING_PLACEHOLDER = 'encrypted_setting_placeholder'
 
@@ -282,14 +283,6 @@ module GobiertoAdmin
           google_calendar_id: calendar_configuration.google_calendar_id,
           without_description: without_description
         }
-      end
-
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
       end
 
     end

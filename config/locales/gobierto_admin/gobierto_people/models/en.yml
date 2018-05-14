@@ -22,6 +22,7 @@ en:
         attachment_file: Attached file
         published_on: Publishing date
         title: Title
+        title_translations: Title
       gobierto_admin/gobierto_people/political_group_form:
         name: Group name
     models:

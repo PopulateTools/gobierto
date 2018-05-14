@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
-  class UserForm
-    include ActiveModel::Model
+  class UserForm < BaseForm
 
     attr_accessor(
       :id,
@@ -65,12 +66,6 @@ module GobiertoAdmin
     end
 
     protected
-
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
-      end
-    end
 
     def deliver_confirmation_email
       ::User::UserMailer.confirmation_instructions(user, user.site).deliver_later

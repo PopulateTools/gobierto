@@ -22,6 +22,7 @@ es:
         attachment_file: Fichero adjunto
         published_on: Fecha de publicación
         title: Título
+        title_translations: Título
       gobierto_admin/gobierto_people/political_group_form:
         name: Nombre de la agrupación
     models:

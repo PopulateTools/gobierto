@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoAdmin
-  class IssueForm
-    include ActiveModel::Model
+  class IssueForm < BaseForm
 
     attr_accessor(
       :id,
@@ -61,12 +60,5 @@ module GobiertoAdmin
       end
     end
 
-    protected
-
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
-      end
-    end
   end
 end

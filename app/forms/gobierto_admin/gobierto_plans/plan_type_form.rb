@@ -2,8 +2,7 @@
 
 module GobiertoAdmin
   module GobiertoPlans
-    class PlanTypeForm
-      include ActiveModel::Model
+    class PlanTypeForm < BaseForm
 
       attr_accessor(
         :id,
@@ -55,13 +54,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

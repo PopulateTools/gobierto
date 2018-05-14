@@ -17,7 +17,7 @@ module GobiertoAdmin
 
       def invalid_person_post_form
         @invalid_person_post_form ||= PersonPostForm.new(
-          person_id: nil,
+          person_id: person.id,
           title: nil,
           body: nil,
           tags: []
@@ -39,7 +39,6 @@ module GobiertoAdmin
       def test_error_messages_with_invalid_attributes
         invalid_person_post_form.save
 
-        assert_equal 1, invalid_person_post_form.errors.messages[:person].size
         assert_equal 1, invalid_person_post_form.errors.messages[:title].size
       end
 

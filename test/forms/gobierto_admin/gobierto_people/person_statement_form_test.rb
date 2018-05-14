@@ -19,7 +19,7 @@ module GobiertoAdmin
 
       def invalid_person_statement_form
         @invalid_person_statement_form ||= PersonStatementForm.new(
-          person_id: nil,
+          person_id: person.id,
           title_translations: {},
           published_on: nil
         )
@@ -58,7 +58,6 @@ module GobiertoAdmin
       def test_error_messages_with_invalid_attributes
         invalid_person_statement_form.save
 
-        assert_equal 1, invalid_person_statement_form.errors.messages[:person].size
         assert_equal 1, invalid_person_statement_form.errors.messages[:title_translations].size
         assert_equal 1, invalid_person_statement_form.errors.messages[:published_on].size
       end

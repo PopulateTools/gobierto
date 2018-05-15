@@ -297,7 +297,7 @@ GEM
     ntlm-http (0.1.1)
     oj (3.5.0)
     os (0.9.6)
-    paper_trail (9.0.1)
+    paper_trail (9.0.2)
       activerecord (>= 4.2, < 5.3)
       request_store (~> 1.1)
     parallel (1.12.1)

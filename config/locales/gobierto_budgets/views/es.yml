@@ -509,7 +509,6 @@ es:
       cifras: ahorro bruto, inversión por habitante o financiación de inversiones.'
     invoices:
       show:
-        filter_empty: No hay datos para el filtro seleccionado
         fromto: De A Nº Fact.
         full_empty: Ningún filtro tiene datos
         invoiced: Importe facturado

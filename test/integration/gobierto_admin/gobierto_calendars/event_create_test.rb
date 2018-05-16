@@ -63,7 +63,7 @@ module GobiertoAdmin
                   within all(".cloned-dynamic-content-record-wrapper")[0] do
                     select attendee.name, from: "Person"
                     fill_in "Name", with: ""
-                    fill_in "Charge", with: ""
+                    fill_in "Position", with: ""
 
                     find("a[data-behavior=add_record]").click
                   end

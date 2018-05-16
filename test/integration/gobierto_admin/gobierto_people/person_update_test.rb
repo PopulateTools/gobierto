@@ -47,7 +47,7 @@ module GobiertoAdmin
 
               within "form.edit_person" do
                 fill_in "person_name", with: "Person Name"
-                fill_in "person_charge_translations_en", with: "Person Charge"
+                fill_in "person_charge_translations_en", with: "Person Position"
 
                 within ".person-category-radio-buttons" do
                   find("label", text: "Politician").click
@@ -90,7 +90,7 @@ module GobiertoAdmin
                 end
 
                 assert has_field?("person_name", with: "Person Name")
-                assert has_field?("person_charge_translations_en", with: "Person Charge")
+                assert has_field?("person_charge_translations_en", with: "Person Position")
 
                 within ".person-category-radio-buttons" do
                   with_hidden_elements do

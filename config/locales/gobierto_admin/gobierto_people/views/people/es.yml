@@ -23,7 +23,7 @@ es:
           configuration: Configuración
           drag_to_sort: Arrastra para ordenar
           header:
-            charge: Cargo
+            charge: Position
             events: Eventos
             person: Persona
             posts: Posts

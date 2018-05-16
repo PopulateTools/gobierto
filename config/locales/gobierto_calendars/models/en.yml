@@ -3,7 +3,7 @@ en:
   activerecord:
     attributes:
       gobierto_calendars/event_attendee:
-        charge: Charge
+        charge: Position
         name: Name
         person: Person
       gobierto_calendars/event_location:

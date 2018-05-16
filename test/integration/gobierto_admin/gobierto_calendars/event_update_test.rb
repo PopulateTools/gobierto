@@ -71,7 +71,7 @@ module GobiertoAdmin
 
                       select "", from: "Person"
                       fill_in "Name", with: "Attendee Name"
-                      fill_in "Charge", with: "Attendee Charge"
+                      fill_in "Position", with: "Attendee Position"
 
                       find("a[data-behavior=add_record]").click
                     end
@@ -107,7 +107,7 @@ module GobiertoAdmin
                 end
 
                 assert all(".content-block-record-value").any? { |v| v.text.include?("Attendee Name") }
-                assert all(".content-block-record-value").any? { |v| v.text.include?("Attendee Charge") }
+                assert all(".content-block-record-value").any? { |v| v.text.include?("Attendee Position") }
 
                 within ".person-event-state-radio-buttons" do
                   with_hidden_elements do

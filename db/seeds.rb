@@ -17,6 +17,7 @@ fixtures_to_load = [
   "gobierto_people/departments",
   "gobierto_people/gifts",
   "gobierto_people/interest_groups",
+  "gobierto_people/invitations",
   "gobierto_people/people",
   "gobierto_people/person_statements",
   "gobierto_people/person_posts",

@@ -2,6 +2,7 @@ encyclopedia:
   person: richard
   name: National Geographic Encyclopedia
   reason: Award
+  date: <%= 10.days.ago %>
   meta: <%= {
     "type" => "Bibliographic materials"
   }.to_json %>
@@ -9,10 +10,12 @@ encyclopedia:
 concert_ticket:
   person: richard
   name: Concert ticket
+  date: <%= 5.days.ago %>
 
 aperol_spritz:
   person: tamara
   name: Aperol Spritz bottle
+  date: <%= 2.days.ago %>
   reason: Madrid fair
   meta: <%= {
     "type" => "Consumable or perishable goods"

@@ -8,7 +8,6 @@ module GobiertoPeople
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Validatable
-    include GobiertoCommon::Metadatable
 
     translates :charge, :bio
 
@@ -18,8 +17,6 @@ module GobiertoPeople
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
-
-    metadata_attributes :events_invitations_count
 
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site

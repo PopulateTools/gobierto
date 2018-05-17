@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_17_125644) do
+ActiveRecord::Schema.define(version: 2018_05_17_135224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -432,6 +432,7 @@ ActiveRecord::Schema.define(version: 2018_05_17_125644) do
     t.string "name", null: false
     t.string "reason"
     t.jsonb "meta"
+    t.date "date", null: false
     t.index ["person_id"], name: "index_gp_gifts_on_person_id"
   end
 
@@ -440,6 +441,16 @@ ActiveRecord::Schema.define(version: 2018_05_17_125644) do
     t.string "name", null: false
     t.jsonb "meta"
     t.index ["site_id"], name: "index_gp_interest_groups_on_site_id"
+  end
+
+  create_table "gp_invitations", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.string "organizer", null: false
+    t.string "title", null: false
+    t.string "location"
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.index ["person_id"], name: "index_gp_invitations_on_person_id"
   end
 
   create_table "gp_people", id: :serial, force: :cascade do |t|
@@ -463,7 +474,6 @@ ActiveRecord::Schema.define(version: 2018_05_17_125644) do
     t.string "slug", null: false
     t.string "google_calendar_token"
     t.jsonb "bio_source_translations"
-    t.jsonb "meta"
     t.index ["admin_id"], name: "index_gp_people_on_admin_id"
     t.index ["bio_source_translations"], name: "index_gp_people_on_bio_source_translations", using: :gin
     t.index ["bio_translations"], name: "index_gp_people_on_bio_translations", using: :gin

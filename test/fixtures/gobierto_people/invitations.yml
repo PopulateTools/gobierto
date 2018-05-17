@@ -1,0 +1,14 @@
+richard_paris_invitation:
+  person: richard
+  organizer: Important Paris Association
+  title: Important congress in Paris
+  location: Paris
+  start_date: <%= 2.months.ago %>
+  end_date: <%= 2.months.ago + 2.days %>
+
+tamara_london_invitation:
+  person: tamara
+  organizer: London City Council
+  title: Important conference in London
+  start_date: <%= 3.months.ago %>
+  end_date: <%= 3.months.ago + 1.day %>

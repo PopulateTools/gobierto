@@ -494,8 +494,8 @@ en:
       gross savings, per capita investment or investment financing.'
     invoices:
       show:
+        empty: Any filter has data
         fromto: From To No. Inv.
-        full_empty: Any filter has data
         invoiced: Budget invoiced
         more: More than
         table:

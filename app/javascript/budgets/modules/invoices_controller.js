@@ -74,7 +74,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
           // if there's no data, get all available filters and trigger a new one
           let filters = [];
           $('#invoices-filters button[data-toggle]').each(function() { filters.push($(this).attr('data-toggle')) });
-          let previousFilter = (filters.indexOf(filter) > 0) ? filters[filters.indexOf(filter) - 1] : alert('Any filter has data.')
+          let previousFilter = (filters.indexOf(filter) > 0) ? filters[filters.indexOf(filter) - 1] : alert(I18n.t('gobierto_budgets.invoices.show.empty'))
 
           // trigger another filter automatically
           $('#invoices-filters button[data-toggle=' + previousFilter + ']').trigger('click');

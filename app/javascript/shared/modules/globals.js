@@ -85,7 +85,9 @@ $(document).on('turbolinks:load', function() {
     $content.css({
       'position': 'absolute',
       'top': '100%',
-      'left': '0'
+      'left': '0',
+      'z-index': '1',
+      'width': '100%'
     });
   });
 });

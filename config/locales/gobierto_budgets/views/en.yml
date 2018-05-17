@@ -561,6 +561,7 @@ en:
           the 10 % of the invoicing
         percentile_50_html: The <span id="percentile50"></span> of the invoices mean
           the 50 % of the invoicing
+        previous: Previous
         sum_amount: SUMMED AMOUNT
         this_year: This year
         view_data_from: View data from

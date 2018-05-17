@@ -29,7 +29,6 @@ window.GobiertoBudgets.InvoicesController = (function() {
       const $dropdownContent = $('[data-dropdown]:not(.js-dropdown)')
       for (var i = range[0]; i >= range[1]; i--) {
         $('<button class="button-grouped button-compact sort-G" data-toggle="' + i + '">' + i + '</button>').appendTo($dropdownContent).bind('click', btnOnClick);
-        $('\n').appendTo($dropdownContent);
       }
     })
 

@@ -28,31 +28,50 @@ green_city_group_results_stage:
 # cultural city group stages
 
 cultural_city_group_information_stage:
-  process: cultural_city_group
+  process: cultural_city_group_draft
   slug: information
+  title_translations: <%= { 'en' => 'Information', 'es' => 'Información' }.to_json %>
+  description_translations: <%= { 'en' => 'Information description', 'es' => 'Información descripción' }.to_json %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
+  starts: <%= 3.days.ago %>
+  ends: <%= 2.days.ago %>
+  active: false
+  cta_text_translations: <%= { 'en' => 'More details', 'es' => 'Ver detalles' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
 
 cultural_city_group_meetings_stage:
-  process: cultural_city_group
+  process: cultural_city_group_draft
   slug: meetings
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:agenda] %>
 
 cultural_city_group_polls_stage:
-  process: cultural_city_group
+  process: cultural_city_group_draft
   slug: polls
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
 
 cultural_city_group_ideas_stage:
-  process: cultural_city_group
+  process: cultural_city_group_draft
   slug: ideas
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:contributions] %>
 
 cultural_city_group_results_stage:
-  process: cultural_city_group
+  process: cultural_city_group_draft
   slug: results
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:pages] %>
 
 # bowling group stages
+
+bowling_group_information_stage:
+  process: bowling_group_very_active
+  slug: information
+  title_translations: <%= { 'en' => 'Information', 'es' => 'Información' }.to_json %>
+  description_translations: <%= { 'en' => 'Information description', 'es' => 'Información descripción' }.to_json %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
+  starts: <%= 3.days.ago %>
+  ends: <%= 2.days.ago %>
+  active: false
+  cta_text_translations: <%= { 'en' => 'More details', 'es' => 'Ver detalles' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
 
 bowling_ideas_stage:
   process: bowling_group_very_active

@@ -21,6 +21,9 @@ richard:
   position: 1
   email: richard@example.com
   google_calendar_token: gct1
+  meta: <%= {
+    "events_invitations_count" => 30
+  }.to_json %>
 
 nelson:
   site: madrid
@@ -69,6 +72,9 @@ tamara:
   position: 3
   email: tamara@example.com
   google_calendar_token: gct3
+  meta: <%= {
+    "events_invitations_count" => 10
+  }.to_json %>
 
 juana:
   site: madrid

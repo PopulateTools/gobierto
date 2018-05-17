@@ -16,11 +16,14 @@ module GobiertoCalendars
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
+    include GobiertoCommon::Metadatable
     include GobiertoAttachments::Attachable
 
     validates :site, :collection, presence: true
 
     translates :title, :description
+
+    metadata_attributes :type
 
     algoliasearch_gobierto do
       attribute :site_id, :title_en, :title_es, :title_ca, :searchable_description, :updated_at
@@ -31,6 +34,7 @@ module GobiertoCalendars
 
     belongs_to :site
     belongs_to :collection, class_name: "GobiertoCommon::Collection"
+    belongs_to :department, class_name: "GobiertoPeople::Department"
     has_many :locations, class_name: "EventLocation", dependent: :destroy
     has_many :attendees, class_name: "EventAttendee", dependent: :destroy
 

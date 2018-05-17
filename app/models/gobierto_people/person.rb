@@ -8,6 +8,7 @@ module GobiertoPeople
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Validatable
+    include GobiertoCommon::Metadatable
 
     translates :charge, :bio
 
@@ -18,6 +19,8 @@ module GobiertoPeople
       add_attribute :resource_path, :class_name
     end
 
+    metadata_attributes :events_invitations_count
+
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site
     belongs_to :political_group
@@ -27,6 +30,9 @@ module GobiertoPeople
 
     has_many :statements, class_name: "PersonStatement", dependent: :destroy
     has_many :posts, class_name: "PersonPost", dependent: :destroy
+
+    has_many :received_gifts, class_name: "Gift", dependent: :destroy
+    has_many :trips, dependent: :destroy
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
     scope :by_site, ->(site) { where(site_id: site.id) }

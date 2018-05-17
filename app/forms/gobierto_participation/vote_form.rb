@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoParticipation
-  class VoteForm
-    include ActiveModel::Model
+  class VoteForm < BaseForm
 
     attr_accessor(
       :id,
@@ -94,12 +93,5 @@ module GobiertoParticipation
       votable_class.find(votable_id)
     end
 
-    protected
-
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
-      end
-    end
   end
 end

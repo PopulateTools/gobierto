@@ -7,7 +7,6 @@ module GobiertoPeople
     include GobiertoCommon::Sortable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
-    include GobiertoCommon::Validatable
 
     translates :charge, :bio
 

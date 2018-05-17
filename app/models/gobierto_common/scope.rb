@@ -6,7 +6,6 @@ module GobiertoCommon
     include GobiertoCommon::Sluggable
     include GobiertoCommon::ActsAsCollectionContainer
     include User::Subscribable
-    include GobiertoCommon::Validatable
 
     translates :name, :description
 

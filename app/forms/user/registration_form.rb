@@ -1,5 +1,6 @@
-class User::RegistrationForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::RegistrationForm < BaseForm
 
   attr_accessor(
     :email,
@@ -50,12 +51,6 @@ class User::RegistrationForm
   end
 
   protected
-
-  def promote_errors(errors_hash)
-    errors_hash.each do |attribute, message|
-      errors.add(attribute, message)
-    end
-  end
 
   def deliver_confirmation_email
     User::UserMailer.confirmation_instructions(user, site).deliver_later

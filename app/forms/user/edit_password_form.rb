@@ -1,5 +1,6 @@
-class User::EditPasswordForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::EditPasswordForm < BaseForm
 
   attr_accessor :user_id, :password, :password_confirmation, :site
   attr_reader :user

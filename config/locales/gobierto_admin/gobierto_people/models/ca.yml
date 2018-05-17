@@ -22,6 +22,7 @@ ca:
         attachment_file: Fitxer adjunt
         published_on: Data de publicació
         title: Títol
+        title_translations: Títol
       gobierto_admin/gobierto_people/political_group_form:
         name: Nom de l'grupació
     models:

@@ -51,13 +51,13 @@
         </div>
 
         <div class="form_item input_text">
-          <label for="name">Título <span class="indication">Máx 140 caracteres</span></label>
+          <label for="name">Título <%= attribute_length_indication 140 %></label>
           <input type="text" id="name" value="¿Qué actividades para niños podemos poner en marcha?">
         </div>
 
         <!-- warning, this is not code, do not add the code class to the .form_item -->
         <div class="form_item textarea">
-          <label for="entity">Descripción <span class="indication">Máx 680 caracteres</span></label>
+          <label for="entity">Descripción <%= attribute_length_indication 680 %></label>
           <textarea>Más info... </textarea>
           <div class="inline_help"></div>
         </div>

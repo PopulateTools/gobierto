@@ -7,7 +7,6 @@ module GobiertoPeople
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
-    include GobiertoCommon::Validatable
 
     validates :person, presence: true
     validates :site, presence: true

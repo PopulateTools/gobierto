@@ -9,7 +9,7 @@
         <% end %>
         <%= label_tag "file_attachment[file]" do %>
           <%= t('.file_constraints') %>
-          <span class="indication"><%= t('views.forms.required') %></span>
+          <%= attribute_indication_tag required: true %>
         <% end %>
         <%= f.file_field :file %>
       </div>

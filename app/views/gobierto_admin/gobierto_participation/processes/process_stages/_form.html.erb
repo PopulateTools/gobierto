@@ -19,7 +19,7 @@
       <div class="form_item input_text" data-locale="<%= locale %>">
         <%= label_tag "process_stage[menu_translations][#{locale}]" do %>
           <%= f.object.class.human_attribute_name(:menu) %>
-          <span class="indication"><%= t('views.forms.required_and_max_characters', length: 50) %></span>
+          <%= attribute_indication_tag required: true, max_length: { f: f, attr: :menu_translations } %>
         <% end %>
         <%= text_field_tag "process_stage[menu_translations][#{locale}]", f.object.menu_translations && f.object.menu_translations[locale], placeholder: t(".placeholders.menu", locale: locale.to_sym) %>
       </div>
@@ -27,7 +27,7 @@
       <div class="form_item input_text" data-locale="<%= locale %>">
         <%= label_tag "process_stage[title_translations][#{locale}]" do %>
           <%= f.object.class.human_attribute_name(:title) %>
-          <span class="indication"><%= t('views.forms.required_and_max_characters', length: 140) %></span>
+          <%= attribute_indication_tag required: true, max_length: { f: f, attr: :title_translations } %>
         <% end %>
         <%= text_field_tag "process_stage[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
       </div>
@@ -35,7 +35,7 @@
       <div class="form_item input_text" data-locale="<%= locale %>">
         <%= label_tag "process_stage[description_translations][#{locale}]" do %>
           <%= f.object.class.human_attribute_name(:description) %>
-          <span class="indication"><%= t('views.forms.required_and_max_characters', length: 480) %></span>
+          <%= attribute_indication_tag required: true, max_length: { f: f, attr: :description_translations } %>
         <% end %>
         <%= text_area_tag "process_stage[description_translations][#{locale}]", f.object.description_translations && f.object.description_translations[locale], placeholder: t(".placeholders.description", locale: locale.to_sym) %>
       </div>
@@ -51,7 +51,7 @@
         <div class="form_item input_text" data-locale="<%= locale %>">
           <%= label_tag "process_stage[cta_description_translations][#{locale}]" do %>
             <%= f.object.class.human_attribute_name(:cta_description) %>
-            <span class="indication"><%= t('views.forms.required_and_max_characters', length: 80) %></span>
+            <%= attribute_indication_tag required: true, max_length: { f: f, attr: :cta_description_translations } %>
           <% end %>
           <%= text_field_tag "process_stage[cta_description_translations][#{locale}]", f.object.cta_description_translations && f.object.cta_description_translations[locale], placeholder: t(".placeholders.cta_description", locale: locale.to_sym) %>
         </div>
@@ -59,7 +59,7 @@
         <div class="form_item input_text" data-locale="<%= locale %>">
           <%= label_tag "process_stage[cta_text_translations][#{locale}]" do %>
             <%= f.object.class.human_attribute_name(:cta_text) %>
-            <span class="indication"><%= t('views.forms.required_and_max_characters', length: 50) %></span>
+            <%= attribute_indication_tag required: true, max_length: { f: f, attr: :cta_text_translations } %>
           <% end %>
           <%= text_field_tag "process_stage[cta_text_translations][#{locale}]", f.object.cta_text_translations && f.object.cta_text_translations[locale], placeholder: t(".placeholders.cta_text", locale: locale.to_sym) %>
         </div>

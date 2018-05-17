@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
-  class AdminInvitationForm
-    include ActiveModel::Model
+  class AdminInvitationForm < BaseForm
 
     EMAIL_LIST_DELIMITER = ",".freeze
 

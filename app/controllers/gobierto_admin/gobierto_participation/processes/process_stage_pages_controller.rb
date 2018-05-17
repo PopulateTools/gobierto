@@ -44,9 +44,10 @@ module GobiertoAdmin
           @process_stage_page_selected = @process_stage_page_form.process_stage_page.page_id
 
           if @process_stage_page_form.save
-            redirect_to edit_admin_participation_process_process_stage_process_stage_page_path(@process_stage_page_form.process_stage_page,
-                                                                                               process_id: current_process.id,
-                                                                                               process_stage_id: @process_stage_page_form.process_stage_page.process_stage), notice: t(".success")
+            redirect_path = edit_admin_participation_process_process_stage_process_stage_page_path(
+              @process_stage_page_form.process_stage_page.parameterize
+            )
+            redirect_to redirect_path, notice: t(".success")
           else
             render :update
           end

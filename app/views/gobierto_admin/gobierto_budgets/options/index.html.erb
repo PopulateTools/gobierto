@@ -39,7 +39,7 @@
         <div class="form_item input_text" data-toggle-target="feedback_enabled">
           <%= f.label :feedback_emails do %>
             <%= f.object.class.human_attribute_name(:feedback_emails) %>
-            <span class="indication"><%= t('views.forms.required') %></span>
+            <%= attribute_indication_tag required: true %>
           <% end %>
           <%= f.text_field :feedback_emails %>
           <div class="inline_help">
@@ -62,7 +62,7 @@
         <div class="form_item input_text" data-toggle-target="receipt_enabled">
           <%= f.label :receipt_configuration do %>
             <%= f.object.class.human_attribute_name(:receipt_configuration) %>
-            <span class="indication"><%= t('views.forms.required') %></span>
+            <%= attribute_indication_tag required: true %>
           <% end %>
           <%= f.text_area :receipt_configuration %>
         </div>

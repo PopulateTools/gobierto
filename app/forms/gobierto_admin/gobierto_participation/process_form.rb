@@ -2,8 +2,7 @@
 
 module GobiertoAdmin
   module GobiertoParticipation
-    class ProcessForm
-      include ActiveModel::Model
+    class ProcessForm < BaseForm
 
       attr_accessor(
         :id,
@@ -26,7 +25,8 @@ module GobiertoAdmin
       delegate :polls_stage?, to: :process
       delegate :information_stage?, to: :process
 
-      validates :site, :title_translations, :process_type, presence: true
+      validates :site, :process_type, presence: true
+      validates :title_translations, translated_attribute_presence: true
       validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
 
       def initialize(options = {})
@@ -171,13 +171,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

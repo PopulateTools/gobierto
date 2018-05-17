@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgets
-    class OptionsForm
-      include ActiveModel::Model
+    class OptionsForm < BaseForm
 
       attr_accessor(
         :site,

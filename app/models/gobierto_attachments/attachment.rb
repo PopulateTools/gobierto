@@ -15,7 +15,6 @@ module GobiertoAttachments
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
-    include GobiertoCommon::Validatable
 
     MAX_FILE_SIZE_IN_MBYTES = 50
     MAX_FILE_SIZE_IN_BYTES  = MAX_FILE_SIZE_IN_MBYTES.megabytes

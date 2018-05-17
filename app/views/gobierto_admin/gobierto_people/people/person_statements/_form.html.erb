@@ -11,7 +11,11 @@
 
         <% current_site.configuration.available_locales.each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
-            <%= label_tag "person_statement[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
+            <%= label_tag "person_statement[title_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:title) %>
+              <%= attribute_indication_tag required: true %>
+            <% end %>
+
             <%= text_field_tag "person_statement[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
         <% end %>
@@ -20,7 +24,7 @@
       <div class="form_item input_text">
         <%= label_tag "person_statement[published_on]]" do %>
           <%= f.object.class.human_attribute_name(:published_on) %>
-          <%= attribute_indication(@person_statement_form.person_statement.class, :published_on) %>
+          <%= attribute_indication_tag required: true %>
         <% end %>
         <%= f.text_field :published_on, data: {
             "language": I18n.locale,

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
-  class PersonEventForm
-    include ActiveModel::Model
+  class PersonEventForm < BaseForm
+
     prepend ::GobiertoCommon::Trackable
 
     attr_accessor(
@@ -194,12 +196,5 @@ module GobiertoPeople
       end
     end
 
-    protected
-
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
-      end
-    end
   end
 end

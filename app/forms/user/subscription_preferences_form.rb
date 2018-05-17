@@ -1,5 +1,6 @@
-class User::SubscriptionPreferencesForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::SubscriptionPreferencesForm < BaseForm
 
   attr_accessor(
     :user,
@@ -54,12 +55,6 @@ class User::SubscriptionPreferencesForm
       promote_errors(@user.errors)
 
       false
-    end
-  end
-
-  def promote_errors(errors_hash)
-    errors_hash.each do |attribute, message|
-      errors.add(attribute, message)
     end
   end
 

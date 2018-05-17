@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoAdmin
-  class FileAttachmentForm
-    include ActiveModel::Model
+  class FileAttachmentForm < BaseForm
 
     attr_accessor(
       :id,
@@ -168,12 +167,5 @@ module GobiertoAdmin
       Rails.application.routes.url_helpers
     end
 
-    protected
-
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
-      end
-    end
   end
 end

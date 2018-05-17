@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
-  class CensusImportForm
-    include ActiveModel::Model
+  class CensusImportForm < BaseForm
 
     attr_accessor :site_id, :admin_id, :file
     attr_reader :census_items, :census_import, :record_count

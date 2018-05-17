@@ -124,7 +124,7 @@ neil_published:
   ends_at: <%= 1.month.from_now + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
-  ## Nelson events
+## Nelson events
 
 nelson_tomorrow:
   site: madrid

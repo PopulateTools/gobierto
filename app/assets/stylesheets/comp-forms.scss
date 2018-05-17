@@ -349,6 +349,13 @@ input[type="radio"] + label {
     }
   }
 
+  // Workaround to avoid ERB files whitespace, when dynamic content
+  .button-compact + .button-compact {
+    @media (min-width: 768px) {
+      margin-left: -1px;
+    }
+  }
+
   .button-grouped:first-child {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;

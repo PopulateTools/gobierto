@@ -75,4 +75,17 @@ $(document).on('turbolinks:load', function() {
   $('.js-disabled').click(function(e) {
     e.preventDefault();
   });
+
+  $('.js-dropdown').on('click', function(){
+    const dropdownname = $(this).data('dropdown');
+    const $content = $('[data-dropdown="' + dropdownname + '"]:not(.js-dropdown)')
+
+    $content.toggleClass('hidden');
+    $content.parent().css('position', 'relative');
+    $content.css({
+      'position': 'absolute',
+      'top': '100%',
+      'left': '0'
+    });
+  });
 });

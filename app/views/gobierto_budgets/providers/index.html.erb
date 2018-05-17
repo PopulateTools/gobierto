@@ -33,12 +33,15 @@
     <!-- Filters -->
     <div class="m_b_2">
       <div class="inline_filter">
-        <span class="soft"><%= t('.view_data_from') %>:</span>
+        <span class="soft"><%=- t('.view_data_from') -%>:</span>
         <div id="invoices-filters" class="button-group ib" role="group">
-          <button class="button-grouped sort-G" data-toggle="<%= @year - 1 %>"><%= @year - 1 %></button>
-          <button class="button-grouped sort-G" data-toggle="<%= @year %>"><%= t('.this_year') %></button>
-          <button class="button-grouped sort-G" data-toggle="12m"><%= t('.last_12_months') %></button>
-          <button class="button-grouped active sort-G" data-toggle="3m"><%= t('.last_3_months') %></button>
+          <div class="hidden" data-dropdown="filter-year">
+            <!-- Dynamic content, NOTE: Must be before to avoid an extra space -->
+          </div>
+          <button class="button-grouped js-dropdown" data-dropdown="filter-year">&#9660;</button>
+          <button class="button-grouped sort-G" data-toggle="<%=- @year -%>"><%=- t('.this_year') -%></button>
+          <button class="button-grouped sort-G" data-toggle="12m"><%=- t('.last_12_months') -%></button>
+          <button class="button-grouped active sort-G" data-toggle="3m"><%=- t('.last_3_months') -%></button>
         </div>
       </div>
     </div>

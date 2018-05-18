@@ -7,25 +7,63 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
   InvoicesController.prototype.show = function() {
 
-    $('#invoices-filters button').on('click', function (e) {
+    let municipalityId = window.populateData.municipalityId;
+    let maxYearUrl = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&sort_desc_by=date&limit=1';
+    let minYearUrl = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&sort_asc_by=date&limit=1';
+
+    // Get the dates
+    let getYear = function (url) {
+      return new Promise((resolve) => {
+        d3.csv(url)
+          .header('authorization', 'Bearer ' + window.populateData.token)
+          .get(function(error, csv) {
+            if (error) throw error;
+
+            resolve(moment(_.map(csv, 'date')[0]).year())
+          });
+      })
+    }
+
+    // Insert the buttons to the DOM
+    Promise.all([getYear(maxYearUrl), getYear(minYearUrl)]).then((range) => {
+      const $dropdownContent = $('[data-dropdown]:not(.js-dropdown)')
+      for (var i = range[0]; i >= range[1]; i--) {
+        $('<button class="button-grouped button-compact sort-G" data-toggle="' + i + '">' + i + '</button>')
+          .appendTo($dropdownContent)
+          .bind('click', btnOnClickExtended);
+      }
+    })
+
+    // Click event handler
+    let btnOnClick = function(e) {
       var filter = $(e.target).attr('data-toggle');
 
       // Reset all buttons
       $('.sort-G').removeClass('active');
-
-      $(".sort-G[data-toggle=" + filter + "]").addClass('active');
+      $('.sort-G[data-toggle="' + filter + '"]').addClass('active');
 
       // Hide table to show spinner
       $tableHTML.addClass('hidden');
-      // document.querySelector('#invoices-filters').scrollIntoView({
-      //   behavior: 'smooth'
-      // });
+
       $('html, body').animate({
-          scrollTop: $('#invoices-filters').offset().top
-        }, 500);
+        scrollTop: $('#invoices-filters').offset().top
+      }, 500);
 
       getData(filter);
-    });
+    }
+
+    // Extend btnOnClick functionality just for dynamic content (Promise)
+    // In order to avoid mix logic with old features, since jQuery appendTo method must bind the event itself
+    let btnOnClickExtended = function (e) {
+      // Call original function
+      btnOnClick.call(this, e)
+
+      // Run concrete stuff
+      const $dropdownContent = $('[data-dropdown]:not(.js-dropdown)')
+      $dropdownContent.addClass('hidden')
+    }
+
+    $('#invoices-filters .sort-G').on('click', btnOnClick);
 
     getData('3m');
   };
@@ -66,6 +104,20 @@ window.GobiertoBudgets.InvoicesController = (function() {
         $tableHTML.removeClass('hidden');
 
         data = _.filter(csv, _callback(filter));
+
+        if (!data.length) {
+          // disable empty filter
+          $('#invoices-filters button[data-toggle=' + filter + ']').prop('disabled', true)
+
+          // if there's no data, get all available filters and trigger a new one
+          let filters = [];
+          $('#invoices-filters button[data-toggle]').each(function() { filters.push($(this).attr('data-toggle')) });
+          let previousFilter = (filters.indexOf(filter) > 0) ? filters[filters.indexOf(filter) - 1] : alert(I18n.t('gobierto_budgets.invoices.show.empty'))
+
+          // trigger another filter automatically
+          $('#invoices-filters button[data-toggle=' + previousFilter + ']').trigger('click');
+          return
+        }
 
         _r = {
           domain: [501, 1001, 5001, 10001, 15001],

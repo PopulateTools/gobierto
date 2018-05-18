@@ -35,7 +35,14 @@
       <div class="inline_filter">
         <span class="soft"><%= t('.view_data_from') %>:</span>
         <div id="invoices-filters" class="button-group ib" role="group">
-          <button class="button-grouped sort-G" data-toggle="<%= @year - 1 %>"><%= @year - 1 %></button>
+          <div class="button-wrapper">
+            <button class="button-grouped js-dropdown" data-dropdown="filter-year">
+              <%= t('.previous') %>&nbsp;<small>&#9660;</small>
+            </button>
+            <div class="hidden" data-dropdown="filter-year">
+              <!-- Dynamic content -->
+            </div>
+          </div>
           <button class="button-grouped sort-G" data-toggle="<%= @year %>"><%= t('.this_year') %></button>
           <button class="button-grouped sort-G" data-toggle="12m"><%= t('.last_12_months') %></button>
           <button class="button-grouped active sort-G" data-toggle="3m"><%= t('.last_3_months') %></button>

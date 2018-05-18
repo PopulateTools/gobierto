@@ -42,6 +42,15 @@ window.GobiertoBudgets.InvoicesController = (function() {
       $('.sort-G').removeClass('active');
       $('.sort-G[data-toggle="' + filter + '"]').addClass('active');
 
+      // Reset dropdown
+      const $dropdownText = $('[data-dropdown].js-dropdown')
+      let tpl = `${I18n.t('gobierto_budgets.providers.index.previous')}&nbsp;<small>&#9660;</small>`
+      $dropdownText.html(tpl);
+
+      // Hide dropdown always
+      const $dropdownContent = $('[data-dropdown]:not(.js-dropdown)')
+      $dropdownContent.addClass('hidden')
+
       // Hide table to show spinner
       $tableHTML.addClass('hidden');
 
@@ -59,8 +68,9 @@ window.GobiertoBudgets.InvoicesController = (function() {
       btnOnClick.call(this, e)
 
       // Run concrete stuff
-      const $dropdownContent = $('[data-dropdown]:not(.js-dropdown)')
-      $dropdownContent.addClass('hidden')
+      const $dropdownText = $('[data-dropdown].js-dropdown')
+      let tpl = `${$(e.target).attr('data-toggle')}&nbsp;<small>&#9660;</small>`
+      $dropdownText.html(tpl);
     }
 
     $('#invoices-filters .sort-G').on('click', btnOnClick);

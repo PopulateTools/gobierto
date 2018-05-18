@@ -6,7 +6,6 @@ module GobiertoParticipation
   class Contribution < ApplicationRecord
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
-    include GobiertoCommon::Validatable
     include GobiertoParticipation::Flaggable
     include GobiertoParticipation::Votable
 
@@ -22,8 +21,7 @@ module GobiertoParticipation
       add_attribute :resource_path, :class_name
     end
 
-    validates :title, :user, :contribution_container, presence: true
-    validates_length_of :title, maximum: 140
+    validates :user, :contribution_container, presence: true
 
     scope :sort_by_created_at, -> { reorder(created_at: :desc) }
     scope :created_at_last_week, -> { where("created_at >= ?", 1.week.ago) }

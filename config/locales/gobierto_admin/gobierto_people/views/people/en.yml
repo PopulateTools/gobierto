@@ -23,7 +23,7 @@ en:
           configuration: Configuration
           drag_to_sort: Drag to sort
           header:
-            charge: Charge
+            charge: Position
             events: Events
             person: Person
             posts: Posts

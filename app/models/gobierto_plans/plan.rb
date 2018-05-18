@@ -8,7 +8,6 @@ module GobiertoPlans
 
     include ActsAsParanoidAliases
     include GobiertoCommon::Sluggable
-    include GobiertoCommon::Validatable
 
     belongs_to :site
     belongs_to :plan_type

@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
-  class SiteForm
-    include ActiveModel::Model
+  class SiteForm < BaseForm
 
     GOOGLE_ANALYTICS_ID_REGEXP = /\AUA-\d{4,10}-\d{1,4}\z/
 
@@ -214,10 +215,5 @@ module GobiertoAdmin
       ::GobiertoBudgets::GenerateAnnualLinesJob.perform_later(@site) if organization_id_changed?
     end
 
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
-      end
-    end
   end
 end

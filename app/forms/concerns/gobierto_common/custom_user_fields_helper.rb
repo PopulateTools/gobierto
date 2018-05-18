@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   module CustomUserFieldsHelper
     extend ActiveSupport::Concern

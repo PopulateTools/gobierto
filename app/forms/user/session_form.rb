@@ -1,5 +1,6 @@
-class User::SessionForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::SessionForm < BaseForm
 
   attr_accessor(
     :email,

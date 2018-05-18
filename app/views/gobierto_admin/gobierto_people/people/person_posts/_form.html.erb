@@ -9,7 +9,7 @@
       <div class="form_item input_text">
         <%= label_tag "person_statement[title]]" do %>
           <%= f.object.class.human_attribute_name(:title) %>
-          <%= attribute_indication(@person_post_form.person_post.class, :title) %>
+          <%= attribute_indication_tag required: true %>
         <% end %>
         <%= f.text_field :title, placeholder: t(".placeholders.title") %>
       </div>

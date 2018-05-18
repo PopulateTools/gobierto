@@ -516,7 +516,7 @@ Style/HashSyntax:
   PreferHashRocketsForNonAlnumEndingSymbols: false
 
 Style/IfUnlessModifier:
-  Enabled: True
+  Enabled: false
 
 Layout/IndentationConsistency:
   # The difference between `rails` and `normal` is that the `rails` style

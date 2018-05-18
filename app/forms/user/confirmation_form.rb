@@ -1,5 +1,7 @@
-class User::ConfirmationForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::ConfirmationForm < BaseForm
+
   include GobiertoCommon::CustomUserFieldsHelper
 
   attr_accessor(
@@ -154,12 +156,6 @@ class User::ConfirmationForm
   end
 
   protected
-
-  def promote_errors(errors_hash)
-    errors_hash.each do |attribute, message|
-      errors.add(attribute, message)
-    end
-  end
 
   def deliver_welcome_email
     if user

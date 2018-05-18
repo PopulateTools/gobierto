@@ -1,5 +1,6 @@
-class User::NewPasswordForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::NewPasswordForm < BaseForm
 
   attr_accessor :email, :site
   attr_reader :user

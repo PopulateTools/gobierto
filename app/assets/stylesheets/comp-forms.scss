@@ -342,6 +342,10 @@ input[type="radio"] + label {
       opacity: .5;
     }
 
+    &:hover {
+      @extend .active;
+    }
+
     small {
       line-height: 1;
     }

@@ -2,7 +2,8 @@ google:
   site: madrid
   name: Google
   meta: <%= {
-    "status" => "Inscribed"
+    "status" => "Inscribed",
+    "registry" => "Registry of Interest Groups of Madrid City Council"
   }.to_json %>
 
 coca_cola:

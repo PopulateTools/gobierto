@@ -18,5 +18,10 @@ module GobiertoPeople
       assert_nil accenture.status
     end
 
+    def test_registry
+      assert_equal "Registry of Interest Groups of Madrid City Council", google.registry
+      assert_nil accenture.registry
+    end
+
   end
 end

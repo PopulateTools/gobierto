@@ -13,7 +13,7 @@ module GobiertoPeople
 
     validates :name, presence: true
 
-    metadata_attributes :status
+    metadata_attributes :status, :registry
 
   end
 end

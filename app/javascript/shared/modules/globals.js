@@ -76,18 +76,25 @@ $(document).on('turbolinks:load', function() {
     e.preventDefault();
   });
 
+  // js-dropdown
   $('.js-dropdown').on('click', function(){
+
+    /*
+      HOW TO USE JS-DROPDOWN
+
+      <div>
+        <button class="js-dropdown" data-dropdown="NAME"></button>
+        <div class="hidden" data-dropdown="NAME"></div>
+      </div>
+
+      - Notice that NAME property must be equal both trigger and contents
+      - Add 'js-dropdown' class to the trigger (button tag or whatever) and 'hidden' to the contents
+    */
+
     const dropdownname = $(this).data('dropdown');
     const $content = $('[data-dropdown="' + dropdownname + '"]:not(.js-dropdown)')
 
     $content.toggleClass('hidden');
     $content.parent().css('position', 'relative');
-    $content.css({
-      'position': 'absolute',
-      'top': '100%',
-      'left': '0',
-      'z-index': '1',
-      'width': '100%'
-    });
   });
 });

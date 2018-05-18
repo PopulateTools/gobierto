@@ -28,7 +28,9 @@ window.GobiertoBudgets.InvoicesController = (function() {
     Promise.all([getYear(maxYearUrl), getYear(minYearUrl)]).then((range) => {
       const $dropdownContent = $('[data-dropdown]:not(.js-dropdown)')
       for (var i = range[0]; i >= range[1]; i--) {
-        $('<button class="button-grouped button-compact sort-G" data-toggle="' + i + '">' + i + '</button>').appendTo($dropdownContent).bind('click', btnOnClick);
+        $('<button class="button-grouped button-compact sort-G" data-toggle="' + i + '">' + i + '</button>')
+          .appendTo($dropdownContent)
+          .bind('click', btnOnClickExtended);
       }
     })
 
@@ -38,19 +40,27 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
       // Reset all buttons
       $('.sort-G').removeClass('active');
-
-      $(".sort-G[data-toggle=" + filter + "]").addClass('active');
+      $('.sort-G[data-toggle="' + filter + '"]').addClass('active');
 
       // Hide table to show spinner
       $tableHTML.addClass('hidden');
-      // document.querySelector('#invoices-filters').scrollIntoView({
-      //   behavior: 'smooth'
-      // });
+
       $('html, body').animate({
         scrollTop: $('#invoices-filters').offset().top
       }, 500);
 
       getData(filter);
+    }
+
+    // Extend btnOnClick functionality just for dynamic content (Promise)
+    // In order to avoid mix logic with old features, since jQuery appendTo method must bind the event itself
+    let btnOnClickExtended = function (e) {
+      // Call original function
+      btnOnClick.call(this, e)
+
+      // Run concrete stuff
+      const $dropdownContent = $('[data-dropdown]:not(.js-dropdown)')
+      $dropdownContent.addClass('hidden')
     }
 
     $('#invoices-filters .sort-G').on('click', btnOnClick);

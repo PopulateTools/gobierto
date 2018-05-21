@@ -8,6 +8,7 @@ module GobiertoPeople
     include GobiertoCommon::Metadatable
 
     belongs_to :person
+    belongs_to :department
 
     scope :sorted, -> { order(name: :asc) }
 

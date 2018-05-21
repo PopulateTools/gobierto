@@ -8,6 +8,7 @@ module GobiertoPeople
     include GobiertoCommon::Metadatable
 
     belongs_to :person
+    belongs_to :department
 
     validates :person, :title, :start_date, :end_date, presence: true
 

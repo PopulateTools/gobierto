@@ -2,6 +2,7 @@ encyclopedia:
   person: richard
   name: National Geographic Encyclopedia
   reason: Award
+  department: culture_department
   date: <%= 10.days.ago %>
   meta: <%= {
     "type" => "Bibliographic materials"

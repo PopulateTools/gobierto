@@ -10,6 +10,7 @@ richard_multiple_destinations:
     ]
   }.to_json %>
   title: Trip around Europe
+  department: justice_department
   description: Trip around Europe to talk with several people
   meta: <%= {
     "food_expenses" => 500,

@@ -3,6 +3,7 @@ richard_paris_invitation:
   organizer: Important Paris Association
   title: Important congress in Paris
   location: Paris
+  department: culture_department
   start_date: <%= 2.months.ago %>
   end_date: <%= 2.months.ago + 2.days %>
 
@@ -12,3 +13,6 @@ tamara_london_invitation:
   title: Important conference in London
   start_date: <%= 3.months.ago %>
   end_date: <%= 3.months.ago + 1.day %>
+  meta: <%= {
+    "expenses_financed_by_organizer" => ["Accomodation", "Food"]
+    }.to_json %>

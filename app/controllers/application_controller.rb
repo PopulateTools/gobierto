@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   helper_method :helpers, :load_current_module_sub_sections, :current_site, :current_module,
                 :current_module_class, :available_locales, :gobierto_calendars_event_preview_url
 
-  before_action :set_current_site, :authenticate_user_in_site, :set_locale
+  before_action :set_current_site, :authenticate_user_in_site, :set_locale, :engine_view_paths
 
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -102,5 +102,13 @@ class ApplicationController < ActionController::Base
       options.merge!(preview_token: current_admin.preview_token)
     end
     event.to_url(options)
+  end
+
+  def engine_view_paths
+    if current_site.domain == "madrid.gobierto.test"
+      prepend_view_path Rails.root.join("vendor/gobierto_engines/madriz/app/views")
+    elsif current_site.domain == "huesca.gobierto.test"
+      prepend_view_path Rails.root.join("vendor/gobierto_engines/huejca/app/views")
+    end
   end
 end

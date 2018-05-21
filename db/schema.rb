@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_17_135224) do
+ActiveRecord::Schema.define(version: 2018_05_21_153203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -433,6 +433,8 @@ ActiveRecord::Schema.define(version: 2018_05_17_135224) do
     t.string "reason"
     t.jsonb "meta"
     t.date "date", null: false
+    t.bigint "department_id"
+    t.index ["department_id"], name: "index_gp_gifts_on_department_id"
     t.index ["person_id"], name: "index_gp_gifts_on_person_id"
   end
 
@@ -450,6 +452,9 @@ ActiveRecord::Schema.define(version: 2018_05_17_135224) do
     t.string "location"
     t.date "start_date", null: false
     t.date "end_date", null: false
+    t.jsonb "meta"
+    t.bigint "department_id"
+    t.index ["department_id"], name: "index_gp_invitations_on_department_id"
     t.index ["person_id"], name: "index_gp_invitations_on_person_id"
   end
 
@@ -550,6 +555,8 @@ ActiveRecord::Schema.define(version: 2018_05_17_135224) do
     t.date "end_date", null: false
     t.jsonb "destinations_meta"
     t.jsonb "meta"
+    t.bigint "department_id"
+    t.index ["department_id"], name: "index_gp_trips_on_department_id"
     t.index ["person_id"], name: "index_gp_trips_on_person_id"
   end
 

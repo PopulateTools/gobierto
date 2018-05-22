@@ -32,10 +32,10 @@ module GobiertoAdmin
 
       def initialize(attributes)
         attributes = attributes.to_h.with_indifferent_access
-        super attributes.except(*ingored_constructor_attributes)
+        super attributes.except(*ignored_constructor_attributes)
       end
 
-      def ingored_constructor_attributes
+      def ignored_constructor_attributes
         [:department_id, :meta]
       end
 

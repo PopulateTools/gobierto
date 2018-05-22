@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_09_145531) do
+ActiveRecord::Schema.define(version: 2018_05_22_082718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -312,17 +312,21 @@ ActiveRecord::Schema.define(version: 2018_04_09_145531) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
+    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
     t.datetime "archived_at"
     t.jsonb "description_source_translations"
+    t.jsonb "meta"
+    t.bigint "department_id"
     t.index ["archived_at"], name: "index_gc_events_on_archived_at"
+    t.index ["department_id"], name: "index_gc_events_on_department_id"
     t.index ["description_source_translations"], name: "index_gc_events_on_description_source_translations", using: :gin
     t.index ["description_translations"], name: "index_gc_events_on_description_translations", using: :gin
+    t.index ["meta"], name: "index_gc_events_on_meta", using: :gin
     t.index ["site_id", "slug"], name: "index_gc_events_on_site_id_and_slug", unique: true
     t.index ["title_translations"], name: "index_gc_events_on_title_translations", using: :gin
   end
@@ -418,6 +422,49 @@ ActiveRecord::Schema.define(version: 2018_04_09_145531) do
     t.index ["site_id"], name: "index_gobierto_module_settings_on_site_id"
   end
 
+  create_table "gp_departments", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.string "name", null: false
+    t.index ["site_id"], name: "index_gp_departments_on_site_id"
+  end
+
+  create_table "gp_gifts", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.string "name", null: false
+    t.string "reason"
+    t.jsonb "meta"
+    t.date "date", null: false
+    t.bigint "department_id"
+    t.string "external_id"
+    t.index ["department_id"], name: "index_gp_gifts_on_department_id"
+    t.index ["meta"], name: "index_gp_gifts_on_meta", using: :gin
+    t.index ["person_id"], name: "index_gp_gifts_on_person_id"
+  end
+
+  create_table "gp_interest_groups", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.string "name", null: false
+    t.jsonb "meta"
+    t.index ["meta"], name: "index_gp_interest_groups_on_meta", using: :gin
+    t.index ["site_id"], name: "index_gp_interest_groups_on_site_id"
+  end
+
+  create_table "gp_invitations", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.string "organizer", null: false
+    t.string "title", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.jsonb "meta"
+    t.bigint "department_id"
+    t.jsonb "location"
+    t.string "external_id"
+    t.index ["department_id"], name: "index_gp_invitations_on_department_id"
+    t.index ["location"], name: "index_gp_invitations_on_location", using: :gin
+    t.index ["meta"], name: "index_gp_invitations_on_meta", using: :gin
+    t.index ["person_id"], name: "index_gp_invitations_on_person_id"
+  end
+
   create_table "gp_people", id: :serial, force: :cascade do |t|
     t.integer "site_id"
     t.integer "admin_id"
@@ -505,6 +552,22 @@ ActiveRecord::Schema.define(version: 2018_04_09_145531) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["site_id"], name: "index_gp_settings_on_site_id"
+  end
+
+  create_table "gp_trips", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.string "title", null: false
+    t.string "description"
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.jsonb "destinations_meta"
+    t.jsonb "meta"
+    t.bigint "department_id"
+    t.string "external_id"
+    t.index ["department_id"], name: "index_gp_trips_on_department_id"
+    t.index ["destinations_meta"], name: "index_gp_trips_on_destinations_meta", using: :gin
+    t.index ["meta"], name: "index_gp_trips_on_meta", using: :gin
+    t.index ["person_id"], name: "index_gp_trips_on_person_id"
   end
 
   create_table "gpart_areas", force: :cascade do |t|

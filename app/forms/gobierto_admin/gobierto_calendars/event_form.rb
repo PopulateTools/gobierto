@@ -32,6 +32,15 @@ module GobiertoAdmin
 
       notify_changed :state
 
+      def initialize(attributes)
+        attributes = attributes.to_h.with_indifferent_access
+        super attributes.except(*ignored_constructor_attributes)
+      end
+
+      def ignored_constructor_attributes
+        [:department_id, :meta]
+      end
+
       def save
         save_event if valid?
       end

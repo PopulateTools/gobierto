@@ -312,9 +312,9 @@ ActiveRecord::Schema.define(version: 2018_05_22_082718) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
+    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
@@ -435,6 +435,7 @@ ActiveRecord::Schema.define(version: 2018_05_22_082718) do
     t.jsonb "meta"
     t.date "date", null: false
     t.bigint "department_id"
+    t.string "external_id"
     t.index ["department_id"], name: "index_gp_gifts_on_department_id"
     t.index ["meta"], name: "index_gp_gifts_on_meta", using: :gin
     t.index ["person_id"], name: "index_gp_gifts_on_person_id"
@@ -457,6 +458,7 @@ ActiveRecord::Schema.define(version: 2018_05_22_082718) do
     t.jsonb "meta"
     t.bigint "department_id"
     t.jsonb "location"
+    t.string "external_id"
     t.index ["department_id"], name: "index_gp_invitations_on_department_id"
     t.index ["location"], name: "index_gp_invitations_on_location", using: :gin
     t.index ["meta"], name: "index_gp_invitations_on_meta", using: :gin
@@ -561,6 +563,7 @@ ActiveRecord::Schema.define(version: 2018_05_22_082718) do
     t.jsonb "destinations_meta"
     t.jsonb "meta"
     t.bigint "department_id"
+    t.string "external_id"
     t.index ["department_id"], name: "index_gp_trips_on_department_id"
     t.index ["destinations_meta"], name: "index_gp_trips_on_destinations_meta", using: :gin
     t.index ["meta"], name: "index_gp_trips_on_meta", using: :gin

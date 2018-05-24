@@ -1,0 +1,96 @@
+<div class="column">
+	<h1>Rows</h1>
+	<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+	<h1>Three-in-a-row rowcharts</h1>
+	<div class="pure-g gutters">
+		<div class="pure-u-1 pure-u-md-1-3">
+			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+		</div>
+		<div class="pure-u-1 pure-u-md-1-3">
+			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+		</div>
+		<div class="pure-u-1 pure-u-md-1-3">
+			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+		</div>
+	</div>
+	<h1>Pair rowcharts</h1>
+	<div class="pure-g gutters">
+		<div class="pure-u-1 pure-u-md-1-2">
+			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+		</div>
+		<div class="pure-u-1 pure-u-md-1-2">
+			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+		</div>
+	</div>
+</div>
+
+<!-- Scripting -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript">
+	const rowchart = (context) => {
+	  let container = d3.select(context)
+		let gutter = 20
+	  let margin = {
+	    top: gutter / 1.5,
+	    right: gutter,
+	    bottom: gutter * 1.5,
+	    left: gutter
+	  }
+	  let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
+	  let height = +container.node().getBoundingClientRect().height - margin.top - margin.bottom //min-height
+	  let svg = container.append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+
+	  let tooltip = container.append("div").attr("class", "toolTip")
+
+	  let x = d3.scaleLinear().range([0, width])
+	  let y = d3.scaleBand().range([height, 0])
+
+	  let g = svg.append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+	  d3.json("data/rowchart.json", (error, data) => {
+	    if (error) throw error;
+
+	    data.sort((a,b) => a.value - b.value);
+
+	    x.domain([0, d3.max(data, d => d.value)]);
+	    y.domain(data.map(d => d.name)).padding(0.1);
+
+	    g.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + (height + (gutter / 4)) + ")")
+	      .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0));
+
+	    g.selectAll(".bar")
+	      .data(data)
+	      .enter().append("rect")
+	      .attr("class", "bar")
+	      .attr("x", 0)
+	      .attr("height", y.bandwidth())
+	      .attr("y", d => y(d.name))
+				.transition()
+    		.duration(750)
+	      .attr("width", d => x(d.value))
+	      // .on("mousemove", function(d) {
+	      //   tooltip
+	      //     .style("left", d3.event.pageX - 50 + "px")
+	      //     .style("top", d3.event.pageY - 70 + "px")
+	      //     .style("display", "inline-block")
+	      //     .html((d.name) + "<br>" + "£" + (d.value));
+	      // })
+	      // .on("mouseout", d => tooltip.style("display", "none"));
+
+	    g.append("g")
+	      .attr("class", "y axis")
+				.attr("transform", "translate(" + gutter + ", 0)")
+	      .call(d3.axisLeft(y));
+
+	  });
+	}
+
+	$(".rowchart").each((i, container) => {
+		rowchart(`#${container.id}`)
+	})
+</script>

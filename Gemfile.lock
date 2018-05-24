@@ -307,7 +307,7 @@ GEM
       ast (~> 2.4.0)
     patron (0.12.1)
     pg (0.21.0)
-    poltergeist (1.18.0)
+    poltergeist (1.18.1)
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)

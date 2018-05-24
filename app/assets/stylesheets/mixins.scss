@@ -32,8 +32,8 @@
 
 // pure-g gutters (mixin & helper)
 @mixin gutters($size: 1) {
-  $units: 1rem !default;
-  $size: if(unitless($size), $size * $units, $size);
+  $unit: 1rem !default;
+  $size: if(unitless($size), $size * $unit, $size);
 
   .pure-g.gutters {
     margin: 0 (-$size / 2);

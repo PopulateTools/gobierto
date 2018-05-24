@@ -1,42 +1,42 @@
 [
   {
-    "name": "Baird Hampton",
+    "key": "Baird Hampton",
     "value": 24
   },
   {
-    "name": "Holmes Mckay",
+    "key": "Holmes Mckay",
     "value": 83
   },
   {
-    "name": "Saundra Acosta",
+    "key": "Saundra Acosta",
     "value": 112
   },
   {
-    "name": "Essie Mosley",
+    "key": "Essie Mosley",
     "value": 72
   },
   {
-    "name": "Slater Avila",
+    "key": "Slater Avila",
     "value": 158
   },
   {
-    "name": "Jill Meadows",
+    "key": "Jill Meadows",
     "value": 72
   },
   {
-    "name": "Greer Haney",
+    "key": "Greer Haney",
     "value": 33
   },
   {
-    "name": "Noble England",
+    "key": "Noble England",
     "value": 58
   },
   {
-    "name": "Crystal Gentry",
+    "key": "Crystal Gentry",
     "value": 152
   },
   {
-    "name": "Erica Johnston",
+    "key": "Erica Johnston",
     "value": 51
   }
 ]

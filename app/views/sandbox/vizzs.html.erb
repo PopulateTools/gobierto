@@ -1,7 +1,21 @@
 <div class="column">
-	<h1>Rows</h1>
-	<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
-	<h1>Three-in-a-row rowcharts</h1>
+	<h1>Punchcard</h1>
+	<div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
+	<!-- <h1>Rowchart</h1>
+	<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div> -->
+	<h1>Three-in-a-row punchcards</h1>
+	<div class="pure-g gutters">
+		<div class="pure-u-1 pure-u-md-1-3">
+			<div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
+		</div>
+		<div class="pure-u-1 pure-u-md-1-3">
+			<div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
+		</div>
+		<div class="pure-u-1 pure-u-md-1-3">
+			<div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
+		</div>
+	</div>
+	<!-- <h1>Three-in-a-row rowcharts</h1>
 	<div class="pure-g gutters">
 		<div class="pure-u-1 pure-u-md-1-3">
 			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
@@ -12,8 +26,8 @@
 		<div class="pure-u-1 pure-u-md-1-3">
 			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
 		</div>
-	</div>
-	<h1>Pair rowcharts</h1>
+	</div> -->
+	<!-- <h1>Pair rowcharts</h1>
 	<div class="pure-g gutters">
 		<div class="pure-u-1 pure-u-md-1-2">
 			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
@@ -21,15 +35,15 @@
 		<div class="pure-u-1 pure-u-md-1-2">
 			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 <!-- Scripting -->
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript">
-	const rowchart = (context) => {
+	const rowchart = (context, data) => {
 	  let container = d3.select(context)
-		let gutter = 20
+	  let gutter = 20
 	  let margin = {
 	    top: gutter / 1.5,
 	    right: gutter,
@@ -37,7 +51,7 @@
 	    left: gutter
 	  }
 	  let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
-	  let height = +container.node().getBoundingClientRect().height - margin.top - margin.bottom //min-height
+	  let height = data.length * 25 + margin.top + margin.bottom // row min-height = 25
 	  let svg = container.append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
@@ -50,47 +64,137 @@
 	  let g = svg.append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-	  d3.json("data/rowchart.json", (error, data) => {
-	    if (error) throw error;
+	  data.sort((a, b) => a.value - b.value);
 
-	    data.sort((a,b) => a.value - b.value);
+	  x.domain([0, d3.max(data, d => d.value)]);
+	  y.domain(data.map(d => d.key)).padding(0.1);
 
-	    x.domain([0, d3.max(data, d => d.value)]);
-	    y.domain(data.map(d => d.name)).padding(0.1);
+	  g.append("g")
+	    .attr("class", "x axis")
+	    .attr("transform", "translate(0," + (height + (gutter / 4)) + ")")
+	    .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0));
 
-	    g.append("g")
-	      .attr("class", "x axis")
-	      .attr("transform", "translate(0," + (height + (gutter / 4)) + ")")
-	      .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0));
+	  g.selectAll(".bar")
+	    .data(data)
+	    .enter().append("rect")
+	    .attr("class", "bar")
+	    .attr("x", 0)
+	    .attr("height", y.bandwidth())
+	    .attr("y", d => y(d.key))
+	    .transition()
+	    .duration(750)
+	    .attr("width", d => x(d.value))
+	  // .on("mousemove", function(d) {
+	  //   tooltip
+	  //     .style("left", d3.event.pageX - 50 + "px")
+	  //     .style("top", d3.event.pageY - 70 + "px")
+	  //     .style("display", "inline-block")
+	  //     .html((d.key) + "<br>" + "£" + (d.value));
+	  // })
+	  // .on("mouseout", d => tooltip.style("display", "none"));
 
-	    g.selectAll(".bar")
-	      .data(data)
-	      .enter().append("rect")
-	      .attr("class", "bar")
-	      .attr("x", 0)
-	      .attr("height", y.bandwidth())
-	      .attr("y", d => y(d.name))
-				.transition()
-    		.duration(750)
-	      .attr("width", d => x(d.value))
-	      // .on("mousemove", function(d) {
-	      //   tooltip
-	      //     .style("left", d3.event.pageX - 50 + "px")
-	      //     .style("top", d3.event.pageY - 70 + "px")
-	      //     .style("display", "inline-block")
-	      //     .html((d.name) + "<br>" + "£" + (d.value));
-	      // })
-	      // .on("mouseout", d => tooltip.style("display", "none"));
-
-	    g.append("g")
-	      .attr("class", "y axis")
-				.attr("transform", "translate(" + gutter + ", 0)")
-	      .call(d3.axisLeft(y));
-
-	  });
+	  g.append("g")
+	    .attr("class", "y axis")
+	    .attr("transform", "translate(" + gutter + ", 0)")
+	    .call(d3.axisLeft(y));
 	}
 
-	$(".rowchart").each((i, container) => {
-		rowchart(`#${container.id}`)
-	})
+	const punchcard = (context, data) => {
+		console.log('3')
+		let container = d3.select(context)
+		let gutter = 20
+		let margin = {
+			top: gutter / 1.5,
+			right: gutter,
+			bottom: gutter * 1.5,
+			left: gutter
+		}
+
+		let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
+		let height = data.length * 25 + margin.top + margin.bottom // row min-height = 25
+		let svg = container.append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+
+	  let x = d3.scaleLinear().domain([0, 23]).range([0, width]);
+	  let y = d3.scaleLinear().domain([0, 6]).range([height, 0]);
+
+	  // let xAxis = d3.svgAxis()
+	  //   .scale(x)
+	  //   .orient("bottom")
+	  //   .ticks(24)
+	    // .tickFormat((d, i) => {
+	    //   let m = (d >= 12) ? "p" : "a";
+	    //   return (d % 12 == 0) ? 12 + m : d % 12 + m;
+	    // });
+
+	  // let yAxis = d3.svgAxis().scale(y).orient("left")
+	  //   .ticks(7)
+	    // .tickFormat(function(d) {
+	    //   return days[d];
+	    // });
+
+	  let maxRadius = 30
+	  // let maxRadius = d3.max(_this.data.map(function(d) {
+	  //   return d[2];
+	  // }));
+	  let r = d3.scaleLinear().domain([3, maxRadius]).range([0, 12]);
+
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0, " + height + ")")
+			.call(xAxis);
+
+		svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis);
+
+		svg.selectAll("circle")
+			.data(data)
+			.enter()
+			.append("circle")
+			.attr("class", "circle")
+			.attr("cx", d => x(d[1]))
+			.attr("cy", d => y(d[0]))
+			.transition()
+			.duration(800)
+			.attr("r", d => r(d[2]));
+  // _chart.render = function() {
+  //   console.log('render');
+  // };
+
+  // d3.select(window).on('resize', function() {
+  //   w = parseInt(d3.select(el).style('width'), 10);
+  //   h = parseInt(d3.select(el).style('height'), 10) - 20;
+  //
+  //   x.range([leftPad, w - pad]);
+  //   y.range([pad, h - pad * 2]);
+  //
+  //   svg
+  //     .attr('width', w)
+  //     .attr('height', h);
+  //
+  //   svg.select('.x.axis')
+  //     .attr('transform', 'translate(0, '+ (h - pad) +')')
+  //     .call(xAxis);
+  //
+  //   svg.select('.y.axis')
+  //     .call(yAxis);
+  // });
+
+  // return _chart;
+};
+
+	// $.getJSON("data/rowchart.json", (data) => {
+	//   $(".rowchart").each((i, container) => {
+	//     rowchart(`#${container.id}`, data)
+	//   })
+	// });
+
+	$.getJSON("data/punchcard.json", (data) => {
+	  $(".punchcard").each((i, container) => {
+			console.log(data)
+	    rowchart(`#${container.id}`, data)
+	  })
+	});
 </script>

@@ -1,0 +1,42 @@
+richard_multiple_destinations:
+  person: richard
+  start_date: <%= 2.months.ago %>
+  end_date: <%= 2.months.ago + 5.days %>
+  destinations_meta: <%= {
+    "destinations" => [
+      { "name" => "Paris", "lat" => 48.8588377, "lon" => 2.2770201 },
+      { "name" => "London", "lat" => 51.528308, "lon" => -0.3817789 },
+      { "name" => "Amsterdam", "lat" => 52.3545653, "lon" => 4.7585402 }
+    ]
+  }.to_json %>
+  title: Trip around Europe
+  department: justice_department
+  description: Trip around Europe to talk with several people
+  meta: <%= {
+    "food_expenses" => 500,
+    "accomodation_expenses" => 500,
+    "transport_expenses" => 500,
+    "other_expenses" => 250,
+    "total_expenses" => 1750,
+    "trip_party" => "Sr. Smith and Sra. Sally",
+    "comments" => "Official car"
+  }.to_json %>
+
+tamara_single_destination:
+  person: tamara
+  start_date: <%= 1.month.ago %>
+  end_date: <%= 1.months.ago + 2.days %>
+  destinations_meta: <%= {
+    "destinations" => [
+      { "name" => "Pamplona", "lat" => 42.8157607, "lon" => -1.6850411 }
+    ]
+  }.to_json %>
+  title: Trip to Pamplona
+  description: Trip to Pamplona to talk with someone
+  meta: <%= {
+    "food_expenses" => 40,
+    "accomodation_expenses" => 100,
+    "transport_expenses" => 100,
+    "other_expenses" => 20,
+    "total_expenses" => 260
+  }.to_json %>

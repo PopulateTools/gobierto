@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoParticipation
-  class ContributionForm
-    include ActiveModel::Model
+  class ContributionForm < BaseForm
 
     attr_accessor(
       :id,
@@ -15,6 +14,7 @@ module GobiertoParticipation
 
     delegate :persisted?, to: :contribution
 
+    validates :title, presence: true, length: { maximum: 140 }
     validate :contribution_container_must_be_open
 
     def save
@@ -71,12 +71,5 @@ module GobiertoParticipation
       end
     end
 
-    protected
-
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
-      end
-    end
   end
 end

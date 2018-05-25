@@ -12,7 +12,7 @@
           <div class="form_item input_text" data-locale="<%= locale %>">
             <%= label_tag "collection[title_translations][#{locale}]" do %>
               <%= f.object.class.human_attribute_name(:title) %>
-              <%= attribute_indication(@collection_form.collection.class, :title) %>
+              <%= attribute_indication_tag required: true %>
             <% end %>
             <%= text_field_tag "collection[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
@@ -25,7 +25,7 @@
       <div class="form_item select_control">
         <%= label_tag "collection[container_global_id]" do %>
           <%= f.object.class.human_attribute_name(:container_global_id) %>
-          <span class="indication"><%= t('views.forms.required') %></span>
+          <%= attribute_indication_tag required: true %>
         <% end %>
         <%= f.select :container_global_id,
                      options_for_select(@containers, selected: @container_selected),

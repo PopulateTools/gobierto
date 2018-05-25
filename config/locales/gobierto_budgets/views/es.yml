@@ -509,6 +509,7 @@ es:
       cifras: ahorro bruto, inversión por habitante o financiación de inversiones.'
     invoices:
       show:
+        empty: Ningún filtro tiene datos
         fromto: De A Nº Fact.
         invoiced: Importe facturado
         more: Más de
@@ -574,6 +575,7 @@ es:
           el 10 % de la facturación
         percentile_50_html: El <span id="percentile50"></span> de las facturas concentran
           el 50 % de la facturación
+        previous: Anteriores
         sum_amount: IMPORTE ACUMULADO
         this_year: Este año
         view_data_from: Ver datos de

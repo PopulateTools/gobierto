@@ -7,7 +7,6 @@ module GobiertoPeople
     include GobiertoCommon::Sortable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
-    include GobiertoCommon::Validatable
 
     translates :charge, :bio
 
@@ -27,6 +26,9 @@ module GobiertoPeople
 
     has_many :statements, class_name: "PersonStatement", dependent: :destroy
     has_many :posts, class_name: "PersonPost", dependent: :destroy
+
+    has_many :received_gifts, class_name: "Gift", dependent: :destroy
+    has_many :trips, dependent: :destroy
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
     scope :by_site, ->(site) { where(site_id: site.id) }

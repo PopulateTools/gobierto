@@ -15,6 +15,7 @@ es:
         questions: Algunas de las preguntas
         starts_at: Comienza
         title: Título
+        title_translations: Título
         visibility_user_level: Usuarios
       gobierto_admin/gobierto_participation/poll_form/questions:
         answer_templates: Las respuestas
@@ -35,6 +36,7 @@ es:
         stages: Las fases
         starts: Comienzo
         title: Título
+        title_translations: Título
       gobierto_admin/gobierto_participation/process_information_form:
         information_text: Información
       gobierto_admin/gobierto_participation/process_stage_form:
@@ -43,6 +45,7 @@ es:
         description: Descripción de fase
         ends: Fecha de final
         menu: Menú / Literal
+        menu_translations: Menú / Literal
         slug: Url
         stage_type: Herramienta
         starts: Fecha de comienzo

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCalendars
-    class EventForm
-      include ActiveModel::Model
+    class EventForm < BaseForm
+
       prepend ::GobiertoCommon::Trackable
 
       attr_accessor(
@@ -23,12 +25,21 @@ module GobiertoAdmin
 
       delegate :persisted?, to: :event
 
-      validates :title_translations, presence: true
+      validates :title_translations, translated_attribute_presence: true
       validates :starts_at, :ends_at, :site, :collection, presence: true
 
       trackable_on :event
 
       notify_changed :state
+
+      def initialize(attributes)
+        attributes = attributes.to_h.with_indifferent_access
+        super attributes.except(*ignored_constructor_attributes)
+      end
+
+      def ignored_constructor_attributes
+        [:department_id, :meta]
+      end
 
       def save
         save_event if valid?
@@ -211,13 +222,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

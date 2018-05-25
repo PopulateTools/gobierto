@@ -10,7 +10,6 @@ module GobiertoParticipation
 
     include ActsAsParanoidAliases
     include GobiertoCommon::HasVisibilityUserLevels
-    include GobiertoCommon::Validatable
 
     include PollResultsHelpers
 

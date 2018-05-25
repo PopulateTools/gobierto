@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgetConsultations
-    class ConsultationItemForm
-      include ActiveModel::Model
+    class ConsultationItemForm < BaseForm
 
       attr_accessor(
         :id,
@@ -93,11 +94,6 @@ module GobiertoAdmin
         consultation.consultation_items.map(&:position).max.to_i + 1
       end
 
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

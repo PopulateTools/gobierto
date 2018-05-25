@@ -175,7 +175,7 @@ module GobiertoParticipation
 
           assert has_content? "Interesting information"
 
-          process_duration_text = "#{gender_violence_process.starts.strftime("%e/%m/%y")} to #{gender_violence_process.ends.strftime("%e/%m/%y")}"
+          process_duration_text = "#{gender_violence_process.starts.strftime("%-e/%m/%y")} to #{gender_violence_process.ends.strftime("%-e/%m/%y")}"
 
           assert has_content? process_duration_text
           assert has_content? "Women"

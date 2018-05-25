@@ -12,7 +12,6 @@ module GobiertoParticipation
     include GobiertoCommon::Searchable
     include GobiertoCommon::ActsAsCollectionContainer
     include GobiertoAttachments::Attachable
-    include GobiertoCommon::Validatable
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
@@ -34,7 +33,7 @@ module GobiertoParticipation
     enum visibility_level: { draft: 0, active: 1 }
     enum process_type: { process: 0, group_process: 1 }
 
-    validates :site, :title, presence: true
+    validates :site, presence: true
     validates :slug, uniqueness: { scope: :site }
 
     scope :sorted, -> { order(id: :desc) }

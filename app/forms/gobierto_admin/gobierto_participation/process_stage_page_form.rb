@@ -2,17 +2,12 @@
 
 module GobiertoAdmin
   module GobiertoParticipation
-    class ProcessStagePageForm
-      include ActiveModel::Model
+    class ProcessStagePageForm < BaseForm
 
-      attr_accessor(
-        :id,
-        :process_stage_id,
-        :page_id,
-        :site_id
-      )
+      attr_writer :site_id
+      attr_accessor :id, :process_stage_id, :page_id
 
-      delegate :persisted?, to: :process_stage_page
+      delegate :persisted?, :process, :process_stage, to: :process_stage_page
 
       def save
         save_process_stage_page if valid?
@@ -34,14 +29,22 @@ module GobiertoAdmin
         @process_stage_page ||= process_stage_page_class.find_by(id: id).presence || build_process_stage_page
       end
 
+      def process_stage
+        @process_stage ||= process_stage_class.find(process_stage_id)
+      end
+
       private
 
       def build_process_stage_page
-        process_stage_page_class.new
+        process_stage_page_class.new(process_stage: process_stage)
       end
 
       def process_stage_page_class
         ::GobiertoParticipation::ProcessStagePage
+      end
+
+      def process_stage_class
+        ::GobiertoParticipation::ProcessStage
       end
 
       def save_process_stage_page
@@ -61,13 +64,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

@@ -1,5 +1,6 @@
-class User::NotificationForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::NotificationForm < BaseForm
 
   attr_accessor(
     :user_id,

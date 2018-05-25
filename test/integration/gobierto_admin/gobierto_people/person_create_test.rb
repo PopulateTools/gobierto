@@ -50,7 +50,7 @@ module GobiertoAdmin
 
               within "form.new_person" do
                 fill_in "person_name", with: "Person Name"
-                fill_in "Charge", with: "Person Charge"
+                fill_in "Position", with: "Person Position"
 
                 within ".person-category-radio-buttons" do
                   find("label", text: "Politician").click
@@ -82,7 +82,7 @@ module GobiertoAdmin
 
                 click_link "ES"
 
-                fill_in "Charge", with: "Cargo persona"
+                fill_in "Position", with: "Cargo persona"
                 find("#person_bio_translations_es", visible: false).set("Bio Persona")
 
                 with_stubbed_s3_file_upload do
@@ -99,7 +99,7 @@ module GobiertoAdmin
                 end
 
                 assert has_field?("person_name", with: "Person Name")
-                assert has_field?("Charge", with: "Person Charge")
+                assert has_field?("Position", with: "Person Position")
 
                 within ".person-category-radio-buttons" do
                   with_hidden_elements do
@@ -135,7 +135,7 @@ module GobiertoAdmin
 
                 click_link "ES"
 
-                assert has_field?("Charge", with: "Cargo persona")
+                assert has_field?("Position", with: "Cargo persona")
 
                 assert_equal(
                   "Bio Persona",

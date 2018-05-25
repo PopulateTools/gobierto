@@ -17,7 +17,7 @@ class GobiertoBudgets::IndicatorsTest < ActionDispatch::IntegrationTest
 
       assert has_content?("Understand the budgets of #{ site.organization_name }
                            through its main figures: gross savings, per capita
-                           investment or investment financing.")
+                           investment or investment financing.".squish)
     end
   end
 end

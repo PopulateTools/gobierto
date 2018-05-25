@@ -16,7 +16,7 @@ en:
       events:
         attendees_form:
           header:
-            charge: Charge
+            charge: Position
             name: Name
             person: Person
           title: Attendees

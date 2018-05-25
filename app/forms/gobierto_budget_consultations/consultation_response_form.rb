@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoBudgetConsultations
-  class ConsultationResponseForm
-    include ActiveModel::Model
+  class ConsultationResponseForm < BaseForm
 
     attr_accessor(
       :document_number_digest,
@@ -126,10 +127,5 @@ module GobiertoBudgetConsultations
       ::GobiertoBudgetConsultations::ConsultationResponseItem
     end
 
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
-      end
-    end
   end
 end

@@ -27,4 +27,21 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
       assert has_content?("Budget execution")
     end
   end
+
+  def test_year_breadcrumb
+    available_years = [2017, 2016]
+    GobiertoBudgets::SearchEngineConfiguration::Year.expects(:with_data).with(
+      index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
+    ).returns(available_years)
+
+    with_current_site(placed_site) do
+      visit gobierto_budgets_budgets_execution_path(available_years.first)
+
+      within "#popup-year" do
+        assert has_content? available_years.first
+        assert has_content? available_years.second
+        assert has_selector?("tr", count: available_years.size)
+      end
+    end
+  end
 end

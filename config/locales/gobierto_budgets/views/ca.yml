@@ -516,6 +516,7 @@ ca:
       xifres: estalvi brut, inversió per habitant o finançament d''inversions.'
     invoices:
       show:
+        empty: Cap filtre té dades.
         fromto: De a Nº Fact.
         invoiced: Import facturat
         more: Més de
@@ -581,6 +582,7 @@ ca:
           el 10 % de la facturació
         percentile_50_html: El <span id="percentile50"></span> de les factures concentren
           el 50 % de la facturació
+        previous: Anteriors
         sum_amount: IMPORT ACUMULAT
         this_year: Aquest any
         view_data_from: Veure les dades de

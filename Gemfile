@@ -43,6 +43,7 @@ gem "elasticsearch-extensions"
 
 # Background processing
 gem "sidekiq", "~> 5.1.0"
+gem "sidekiq-monitor-stats"
 
 # AWS SDK client
 gem "aws-sdk", "~> 2.6", require: false
@@ -90,6 +91,7 @@ group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
   gem "spring"
+  gem "puma"
 end
 
 group :test do
@@ -111,8 +113,8 @@ group :test do
 end
 
 group :development do
-  gem "puma"
   gem "rubocop"
   gem "listen"
   gem "spring-watcher-listen", "~> 2.0.0"
+  gem "foreman"
 end

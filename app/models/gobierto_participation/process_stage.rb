@@ -6,7 +6,6 @@ module GobiertoParticipation
   class ProcessStage < ApplicationRecord
     include GobiertoCommon::Sortable
     include GobiertoCommon::Sluggable
-    include GobiertoCommon::Validatable
 
     before_destroy :check_stage_active
 
@@ -21,10 +20,8 @@ module GobiertoParticipation
 
     validates :slug, uniqueness: { scope: [:process_id] }
     validates :title, :description, :menu, presence: true, if: -> { published? }
+
     validates :cta_text, :cta_description, :starts, :ends, presence: true, if: -> { published? && process.process? }
-    validate :cta_text_maximum_length, if: -> { published? && process.process? }
-    validate :cta_description_maximum_length, if: -> { published? && process.process? }
-    validate :menu_maximum_length
     validates :stage_type, presence: true
 
     scope :sorted, -> { order(position: :asc, id: :asc) }
@@ -117,30 +114,6 @@ module GobiertoParticipation
       return true unless active?
       false
       throw(:abort)
-    end
-
-    def cta_text_maximum_length
-      if cta_text_translations
-        cta_text_translations.each do |cta_text_translation|
-          errors.add(:cta_text, "Is too long") if cta_text_translation.length > 32
-        end
-      end
-    end
-
-    def menu_maximum_length
-      if menu_translations
-        menu_translations.each do |menu_translation|
-          errors.add(:menu, "Is too long") if menu_translation.length > 50
-        end
-      end
-    end
-
-    def cta_description_maximum_length
-      if cta_description_translations
-        cta_description_translations.each do |cta_description_translation|
-          errors.add(:cta_description, "Is too long") if cta_description_translation.length > 50
-        end
-      end
     end
 
     def url_helpers

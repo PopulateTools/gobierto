@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
-  class AdminNewPasswordForm
-    include ActiveModel::Model
+  class AdminNewPasswordForm < BaseForm
 
     attr_accessor :email
     attr_reader :admin

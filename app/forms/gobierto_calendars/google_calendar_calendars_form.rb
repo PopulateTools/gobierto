@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoCalendars
-  class GoogleCalendarCalendarsForm
-    include ActiveModel::Model
+  class GoogleCalendarCalendarsForm < BaseForm
 
     attr_accessor(
       :person_id,
@@ -54,12 +55,5 @@ module GobiertoCalendars
       end
     end
 
-    protected
-
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
-      end
-    end
   end
 end

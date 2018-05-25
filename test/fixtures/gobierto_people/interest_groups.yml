@@ -1,0 +1,18 @@
+google:
+  site: madrid
+  name: Google
+  meta: <%= {
+    "status" => "Inscribed",
+    "registry" => "Registry of Interest Groups of Madrid City Council"
+  }.to_json %>
+
+coca_cola:
+  site: madrid
+  name: Coca Cola
+  meta: <%= {
+    "status" => "In process"
+  }.to_json %>
+
+accenture:
+  site: madrid
+  name: Accenture

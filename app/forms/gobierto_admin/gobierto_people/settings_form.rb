@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
-    class SettingsForm
-      include ActiveModel::Model
+    class SettingsForm < BaseForm
 
       ENCRYPTED_SETTING_PLACEHOLDER = 'encrypted_setting_placeholder'
 
@@ -94,14 +95,6 @@ module GobiertoAdmin
         else
           promote_errors(@gobierto_module_settings.errors)
           false
-        end
-      end
-
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
         end
       end
 

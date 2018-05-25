@@ -49,7 +49,7 @@ ignore_unused:
   - 'gobierto_budgets.visualizations.I_custom'
   - 'gobierto_budgets.budgets.index.*'
   - 'gobierto_budgets.budgets_execution.*'
-  - 'gobierto_budgets.invoices.show.table.fields.*'
+  - 'gobierto_budgets.invoices.show.*'
   - 'gobierto_people.activities.gobierto_people_person*'
   - 'invisible_captcha.*'
   - '*.events.*'

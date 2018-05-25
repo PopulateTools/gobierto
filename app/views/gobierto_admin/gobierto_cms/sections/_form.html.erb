@@ -11,7 +11,7 @@
       <div class="form_item input_text" data-locale="<%= locale %>">
         <%= label_tag "section[title_translations][#{locale}]" do %>
           <%= f.object.class.human_attribute_name(:title) %>
-          <%= attribute_indication(@section_form.section.class, :title) %>
+          <%= attribute_indication_tag required: true %>
         <% end %>
         <%= text_field_tag "section[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
       </div>

@@ -15,5 +15,6 @@ ca:
         ends_at: Data de finalització
         starts_at: Data de començament
         title: Títol
+        title_translations: Títol
     models:
       gobierto_admin/gobierto_calendars/event_form: Esdeveniment

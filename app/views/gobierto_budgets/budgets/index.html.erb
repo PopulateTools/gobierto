@@ -18,7 +18,7 @@
       <div class="pure-u-1 pure-u-md-12-24">
         <div class="inline_header">
           <h2 class="with_description p_h_r_1"><%= t('.header') %></h2>
-          <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
+          <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb' %>
         </div>
 
         <p>
@@ -39,7 +39,7 @@
       <div class="pure-g metric_boxes">
 
         <% if @site_stats.has_available_population_data? %>
-          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.expenses_per_inhabitant_tooltip') %>">
+          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.expenses_per_inhabitant_tooltip') %>" data-box="expenses_per_inhabitant">
             <div class="inner">
               <h3><%= t('.expenses_per_inhabitant') %></h3>
               <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
@@ -47,14 +47,14 @@
           </div>
         <% end %>
 
-        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.total_expenses_tooltip') %>">
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.total_expenses_tooltip') %>" data-box="total_expenses">
           <div class="inner">
             <h3><%= t('.total_expenses') %></h3>
             <div class="metric"><%= format_currency @site_stats.total_budget %></div>
           </div>
         </div>
 
-        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.executed_tooltip') %>">
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.executed_tooltip') %>" data-box="executed">
           <div class="inner">
             <h3><%= t('.executed') %></h3>
             <% if @site_stats.total_budget_executed %>
@@ -81,7 +81,7 @@
         </div>
 
         <% if @site_stats.has_available_population_data? %>
-          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.inhabitants_tooltip') %>">
+          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.inhabitants_tooltip') %>" data-box="population">
             <div class="inner">
               <h3><%= t('.inhabitants') %></h3>
               <div class="metric"><%= number_with_precision @site_stats.latest_available(:population, @year)[:value], precision: 0, delimiter: '.' %></div>
@@ -94,7 +94,7 @@
           </div>
         <% end %>
 
-        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.debt_tooltip', of_the_organization_name: @site.determined_organization_name(:of_the)) %>">
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.debt_tooltip', of_the_organization_name: @site.determined_organization_name(:of_the)) %>" data-box="debt">
           <div class="inner">
             <h3><%= t('.debt') %></h3>
             <% if (debt = @site_stats.latest_available(:debt, @year)[:value]) %>

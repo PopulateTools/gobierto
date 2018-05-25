@@ -2,8 +2,7 @@
 
 module GobiertoAdmin
   module GobiertoParticipation
-    class ProcessStageForm
-      include ActiveModel::Model
+    class ProcessStageForm < BaseForm
 
       attr_accessor(
         :id,
@@ -20,7 +19,13 @@ module GobiertoAdmin
         :visibility_level
       )
 
-      delegate :persisted?, to: :process_stage
+      delegate :persisted?, :published?, to: :process_stage
+
+      validates :menu_translations, translated_attribute_length: { maximum: 50 }
+      validates :title_translations, translated_attribute_length: { maximum: 140 }
+      validates :description_translations, translated_attribute_length: { maximum: 480 }
+      validates :cta_text_translations, translated_attribute_length: { maximum: 32 }, if: -> { published? && process.process? }
+      validates :cta_description_translations, translated_attribute_length: { maximum: 80 }, if: -> { published? && process.process? }
 
       def save
         save_process_stage if valid?
@@ -76,13 +81,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

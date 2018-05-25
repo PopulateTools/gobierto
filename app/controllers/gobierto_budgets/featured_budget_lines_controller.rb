@@ -14,10 +14,19 @@ module GobiertoBudgets
       })['hits']
 
       if results.any?
-        random_item = results.sample
-        @code = random_item['code']
-        @population = random_item['population']
-        render pick_template, layout: false
+        random_item = results.map do |r|
+          id = (r.slice("organization_id", "year", "code", "kind").values + [@area_name]).join('/')
+          GobiertoBudgets::BudgetLinePresenter.load(id, current_site)
+        end.select{ |b| b.name.present? }.sample
+
+        if random_item
+          @code = random_item.code
+          site_stats = GobiertoBudgets::SiteStats.new(site: current_site, year: @year)
+          @population = site_stats.population
+          render pick_template, layout: false
+        else
+          head :ok
+        end
       else
         head :ok
       end

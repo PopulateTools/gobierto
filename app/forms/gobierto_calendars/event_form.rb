@@ -15,12 +15,14 @@ module GobiertoCalendars
       :description_source_translations,
       :starts_at,
       :ends_at,
-      :state,
       :notify,
-      :locations,
-      :attendees,
       :meta,
       :department_id
+    )
+    attr_writer(
+      :state,
+      :locations,
+      :attendees
     )
 
     delegate :persisted?, to: :event

@@ -32,11 +32,13 @@
   I18n.defaultLocale = "<%= I18n.default_locale %>";
   I18n.locale = "<%= I18n.locale %>";
 
+  <% if algoliasearch_configured? %>
   window.searchClient = {
     client: algoliasearch('<%= Rails.application.secrets.algolia_application_id %>', '<%= Rails.application.secrets.algolia_search_api_key %>'),
     indexes: [<%= algolia_search_client.search_in_indexes.html_safe %>],
     filters: "site_id:<%= algolia_search_client.site.id %>"
   };
+  <% end %>
   window.populateData = {
     token: "<%= current_site.configuration.populate_data_api_token %>",
     <% if current_site.place %>

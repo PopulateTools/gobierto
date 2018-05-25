@@ -1,20 +1,17 @@
 <div class="column">
 	<h1>Punchcard</h1>
 	<div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
-	<!-- <h1>Rowchart</h1>
-	<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div> -->
-	<h1>Three-in-a-row punchcards</h1>
+	<h1>Pair punchcards</h1>
 	<div class="pure-g gutters">
-		<div class="pure-u-1 pure-u-md-1-3">
+		<div class="pure-u-1 pure-u-md-1-2">
 			<div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
 		</div>
-		<div class="pure-u-1 pure-u-md-1-3">
-			<div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
-		</div>
-		<div class="pure-u-1 pure-u-md-1-3">
+		<div class="pure-u-1 pure-u-md-1-2">
 			<div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
 		</div>
 	</div>
+	<!-- <h1>Rowchart</h1>
+	<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div> -->
 	<!-- <h1>Three-in-a-row rowcharts</h1>
 	<div class="pure-g gutters">
 		<div class="pure-u-1 pure-u-md-1-3">
@@ -100,101 +97,90 @@
 	}
 
 	const punchcard = (context, data) => {
-		console.log('3')
-		let container = d3.select(context)
 		let gutter = 20
 		let margin = {
 			top: gutter / 1.5,
 			right: gutter,
 			bottom: gutter * 1.5,
-			left: gutter
+			left: gutter * 5
 		}
 
+		// helpers
+		// TODO: Esto aquí fuera, el gráfico NO DEBE conocer el tipo de dato
+		let parseTime = d3.timeFormat("%Y/%m/%d")
+
+		// sizes
+		let container = d3.select(context)
 		let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
-		let height = data.length * 25 + margin.top + margin.bottom // row min-height = 25
+		let height = data.length * 25 + margin.top + margin.bottom // TODO: Cambair por algo más grande
 		let svg = container.append("svg")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
 
-	  let x = d3.scaleLinear().domain([0, 23]).range([0, width]);
-	  let y = d3.scaleLinear().domain([0, 6]).range([height, 0]);
+		// scales
+	  let x = d3.scaleTime().range([0, width]);
+	  let y = d3.scalePoint().range([height, 0]);
+		let r = d3.scaleSqrt().range([0, 10]) // tamaño de las bolas
 
-	  // let xAxis = d3.svgAxis()
-	  //   .scale(x)
-	  //   .orient("bottom")
-	  //   .ticks(24)
-	    // .tickFormat((d, i) => {
-	    //   let m = (d >= 12) ? "p" : "a";
-	    //   return (d % 12 == 0) ? 12 + m : d % 12 + m;
-	    // });
+		// domains
+		// TODO: Eliminar referencias a tipos de datos concretos
+		x.domain([
+			new Date(d3.min(data.map(d => d3.min(d.value.map((t) => parseTime(new Date(t.key))))))),
+			new Date(d3.max(data.map(d => d3.max(d.value.map((t) => parseTime(new Date(t.key)))))))
+		]);
+		y.domain(data.map(d => d.key)).padding(0.5);
 
-	  // let yAxis = d3.svgAxis().scale(y).orient("left")
-	  //   .ticks(7)
-	    // .tickFormat(function(d) {
-	    //   return days[d];
-	    // });
+		let g = svg.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-	  let maxRadius = 30
-	  // let maxRadius = d3.max(_this.data.map(function(d) {
-	  //   return d[2];
-	  // }));
-	  let r = d3.scaleLinear().domain([3, maxRadius]).range([0, 12]);
+		// Custom X-axis
+		function xAxis(g) {
+			g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat(d3.timeFormat("%b %y")))
+			g.selectAll(".domain").remove()
+			g.selectAll(".tick line")
+				.attr("y1", 0)
+				.attr("y2", height)
+		}
 
-		svg.append("g")
+		// axis
+		g.append("g")
 			.attr("class", "x axis")
-			.attr("transform", "translate(0, " + height + ")")
-			.call(xAxis);
-
-		svg.append("g")
+			.call(xAxis)
+		g.append("g")
 			.attr("class", "y axis")
-			.call(yAxis);
+			.call(d3.axisLeft(y))
 
-		svg.selectAll("circle")
-			.data(data)
-			.enter()
-			.append("circle")
-			.attr("class", "circle")
-			.attr("cx", d => x(d[1]))
-			.attr("cy", d => y(d[0]))
-			.transition()
-			.duration(800)
-			.attr("r", d => r(d[2]));
-  // _chart.render = function() {
-  //   console.log('render');
-  // };
+		// circles
+		for (var i = 0; i < data.length; i++) {
 
-  // d3.select(window).on('resize', function() {
-  //   w = parseInt(d3.select(el).style('width'), 10);
-  //   h = parseInt(d3.select(el).style('height'), 10) - 20;
-  //
-  //   x.range([leftPad, w - pad]);
-  //   y.range([pad, h - pad * 2]);
-  //
-  //   svg
-  //     .attr('width', w)
-  //     .attr('height', h);
-  //
-  //   svg.select('.x.axis')
-  //     .attr('transform', 'translate(0, '+ (h - pad) +')')
-  //     .call(xAxis);
-  //
-  //   svg.select('.y.axis')
-  //     .call(yAxis);
-  // });
+			let g = svg.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-  // return _chart;
+			r.domain([0, d3.max(data[i].value, d => d.value)]);
+
+			g.selectAll("circle")
+				.data(data[i].value)
+				.enter()
+				.append("circle")
+				.attr("class", "circle")
+				.attr("cx", d => x(new Date(d.key))) // TODO: quitar tipos de dato
+				.attr("cy", d => y(data[i].key))
+				.transition()
+				.duration(800)
+				.attr("r", d => r(d.value));
+		}
 };
 
-	// $.getJSON("data/rowchart.json", (data) => {
-	//   $(".rowchart").each((i, container) => {
-	//     rowchart(`#${container.id}`, data)
-	//   })
-	// });
+	$.getJSON("data/rowchart.json", (data) => {
+	  $(".rowchart").each((i, container) => {
+	    rowchart(`#${container.id}`, data)
+	  })
+	});
 
 	$.getJSON("data/punchcard.json", (data) => {
+		// TODO: Procesar los datos ANTES de pasarselos al gráfico
 	  $(".punchcard").each((i, container) => {
-			console.log(data)
-	    rowchart(`#${container.id}`, data)
+	    punchcard(`#${container.id}`, data)
 	  })
 	});
 </script>

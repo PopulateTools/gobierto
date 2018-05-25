@@ -1,0 +1,38 @@
+.punchcard {
+  min-height: 500px;
+
+  circle {
+    fill: $color_main;
+  }
+
+  line {
+    stroke: $color_meta_text;
+  }
+
+  rect {
+    &:nth-of-type(odd) {
+      fill: rgba($color_main, .2);
+    }
+
+    &:nth-of-type(even) {
+      fill: none;
+    }
+  }
+
+  .y.axis {
+    text-anchor: start;
+
+    .tick text {
+      font-size: $f7;
+      color: $color_text;
+      font-weight: bold;
+    }
+  }
+
+  .x.axis {
+    .tick text {
+      font-size: $f8;
+      color: $color_text;
+    }
+  }
+}

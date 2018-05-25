@@ -98,7 +98,9 @@
 	}
 
 	const punchcard = (context, data) => {
+		// Configurable
 		let gutter = 20
+		let itemHeight = 50
 		let margin = {
 			top: gutter / 1.5,
 			right: gutter,
@@ -109,7 +111,7 @@
 		// sizes
 		let container = d3.select(context)
 		let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
-		let height = data.length * 50 + margin.top + margin.bottom
+		let height = (data.length * itemHeight) + margin.top + margin.bottom
 		let svg = container.append("svg")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
@@ -135,10 +137,11 @@
 			g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat((d, i, arr) => ((arr.length + i) % 3) ? null : d3.timeFormat("%b %y")(d)))
 			g.selectAll(".domain").remove()
 			g.selectAll(".tick line")
-				.attr("y1", 0)
+				.attr("y1", margin.top / 2)
 				.attr("y2", height)
 		}
 
+		// Custom Y-axis
 		function yAxis(g) {
 			g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0))
 			g.selectAll(".domain").remove()
@@ -151,11 +154,18 @@
 		g.append("g")
 			.attr("class", "y axis")
 			.attr("transform", "translate(" + (-margin.left + gutter) + ",0)")
-			.style("text-anchor", "start")
 			.call(yAxis)
 
 		// circles
 		for (var i = 0; i < data.length; i++) {
+
+			svg.append("rect")
+				.attr("x", 0)
+				.attr("y", y(data[i].key) - (itemHeight / 4))
+				.attr("rx", 6)
+				.attr("ry", 6)
+				.attr("width", +container.node().getBoundingClientRect().width)
+				.attr("height", itemHeight);
 
 			// PREPROCESS
 			// TODO: Esto tiene q ir fuera

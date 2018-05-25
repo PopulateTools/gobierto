@@ -32,8 +32,8 @@ module GobiertoPeople
       attributes.each do |_, location_attributes|
         next if location_attributes["_destroy"] == "1"
 
-        location = event.locations.detect{ |l| l.name == location_attributes[:name] } ||
-          event_location_class.new(name: location_attributes[:name])
+        location = event.locations.detect { |l| l.name == location_attributes[:name] } ||
+                   event_location_class.new(name: location_attributes[:name])
 
         @locations.push(location) if location.valid?
       end
@@ -43,7 +43,7 @@ module GobiertoPeople
       @attendees = []
 
       attendees_attributes.each do |attendee_attributes|
-        name  = attendee_attributes[:name]
+        name = attendee_attributes[:name]
         email = attendee_attributes[:email]
 
         attendee_person = attendee_attributes[:person] || site.people.find_by(email: email)
@@ -75,21 +75,21 @@ module GobiertoPeople
     private
 
     def event_in_sync_range_window
-      errors.add(:starts_at, 'is out of sync range') unless GobiertoCalendars.sync_range.cover?(starts_at)
+      errors.add(:starts_at, "is out of sync range") unless GobiertoCalendars.sync_range.cover?(starts_at)
     end
 
     def title_translations
       h = available_locales_to_hash
-      h.merge({site.configuration.default_locale => title})
+      h.merge(site.configuration.default_locale => title)
     end
 
     def description_translations
       h = available_locales_to_hash
-      h.merge({site.configuration.default_locale => description})
+      h.merge(site.configuration.default_locale => description)
     end
 
     def available_locales_to_hash
-      Hash[I18n.available_locales.map {|x| [x, nil]}]
+      Hash[I18n.available_locales.map { |x| [x, nil] }]
     end
 
     def save_event

@@ -36,6 +36,7 @@
 </div>
 
 <!-- Scripting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript">
 	const rowchart = (context, data) => {
@@ -102,7 +103,7 @@
 			top: gutter / 1.5,
 			right: gutter,
 			bottom: gutter * 1.5,
-			left: gutter * 5
+			left: gutter * 15
 		}
 
 		// helpers
@@ -112,7 +113,7 @@
 		// sizes
 		let container = d3.select(context)
 		let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
-		let height = data.length * 25 + margin.top + margin.bottom // TODO: Cambair por algo más grande
+		let height = data.length * 50 + margin.top + margin.bottom
 		let svg = container.append("svg")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
@@ -120,13 +121,13 @@
 		// scales
 	  let x = d3.scaleTime().range([0, width]);
 	  let y = d3.scalePoint().range([height, 0]);
-		let r = d3.scaleSqrt().range([0, 10]) // tamaño de las bolas
+		let r = d3.scaleSqrt().range([0, 15]) // tamaño de las bolas
 
 		// domains
 		// TODO: Eliminar referencias a tipos de datos concretos
 		x.domain([
-			new Date(d3.min(data.map(d => d3.min(d.value.map((t) => parseTime(new Date(t.key))))))),
-			new Date(d3.max(data.map(d => d3.max(d.value.map((t) => parseTime(new Date(t.key)))))))
+			d3.timeMonth(new Date(d3.min(data.map(d => d3.min(d.value.map((t) => parseTime(new Date(t.key)))))))),
+			d3.timeMonth(new Date(d3.max(data.map(d => d3.max(d.value.map((t) => parseTime(new Date(t.key))))))))
 		]);
 		y.domain(data.map(d => d.key)).padding(0.5);
 
@@ -142,16 +143,29 @@
 				.attr("y2", height)
 		}
 
+		function yAxis(g) {
+			g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0))
+			g.selectAll(".domain").remove()
+		}
+
 		// axis
 		g.append("g")
 			.attr("class", "x axis")
 			.call(xAxis)
 		g.append("g")
 			.attr("class", "y axis")
-			.call(d3.axisLeft(y))
+			.attr("transform", "translate(" + (-margin.left + gutter) + ",0)")
+			.style("text-anchor", "start")
+			.call(yAxis)
 
 		// circles
 		for (var i = 0; i < data.length; i++) {
+
+			// PREPROCESS
+			let nest = d3.nest()
+  			.key(d => d3.timeMonth(new Date(d.key)))
+				.rollup(d => _.sumBy(d, 'value'))
+				.entries(data[i].value)
 
 			let g = svg.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -159,7 +173,8 @@
 			r.domain([0, d3.max(data[i].value, d => d.value)]);
 
 			g.selectAll("circle")
-				.data(data[i].value)
+				.data(nest)
+				// .data(data[i].value)
 				.enter()
 				.append("circle")
 				.attr("class", "circle")
@@ -178,7 +193,9 @@
 	});
 
 	$.getJSON("data/punchcard.json", (data) => {
+
 		// TODO: Procesar los datos ANTES de pasarselos al gráfico
+		// para que sea generico
 	  $(".punchcard").each((i, container) => {
 	    punchcard(`#${container.id}`, data)
 	  })

@@ -106,10 +106,6 @@
 			left: gutter * 15
 		}
 
-		// helpers
-		// TODO: Esto aquí fuera, el gráfico NO DEBE conocer el tipo de dato
-		let parseTime = d3.timeFormat("%Y/%m/%d")
-
 		// sizes
 		let container = d3.select(context)
 		let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
@@ -121,13 +117,13 @@
 		// scales
 	  let x = d3.scaleTime().range([0, width]);
 	  let y = d3.scalePoint().range([height, 0]);
-		let r = d3.scaleSqrt().range([0, 15]) // tamaño de las bolas
+		let r = d3.scaleSqrt().range([0, 10]) // tamaño de las bolas
 
 		// domains
 		// TODO: Eliminar referencias a tipos de datos concretos
 		x.domain([
-			d3.timeMonth(new Date(d3.min(data.map(d => d3.min(d.value.map((t) => parseTime(new Date(t.key)))))))),
-			d3.timeMonth(new Date(d3.max(data.map(d => d3.max(d.value.map((t) => parseTime(new Date(t.key))))))))
+			d3.timeMonth(new Date(d3.min(data.map(d => d3.min(d.value.map((t) => d3.timeFormat("%Y/%m/%d")(new Date(t.key)))))))),
+			d3.timeMonth(new Date(d3.max(data.map(d => d3.max(d.value.map((t) => d3.timeFormat("%Y/%m/%d")(new Date(t.key))))))))
 		]);
 		y.domain(data.map(d => d.key)).padding(0.5);
 
@@ -136,7 +132,7 @@
 
 		// Custom X-axis
 		function xAxis(g) {
-			g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat(d3.timeFormat("%b %y")))
+			g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat((d, i, arr) => ((arr.length + i) % 3) ? null : d3.timeFormat("%b %y")(d)))
 			g.selectAll(".domain").remove()
 			g.selectAll(".tick line")
 				.attr("y1", 0)
@@ -162,6 +158,7 @@
 		for (var i = 0; i < data.length; i++) {
 
 			// PREPROCESS
+			// TODO: Esto tiene q ir fuera
 			let nest = d3.nest()
   			.key(d => d3.timeMonth(new Date(d.key)))
 				.rollup(d => _.sumBy(d, 'value'))

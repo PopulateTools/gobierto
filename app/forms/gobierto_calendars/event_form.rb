@@ -138,6 +138,8 @@ module GobiertoCalendars
         event_attributes.description_source_translations = description_source_translations
         event_attributes.starts_at = starts_at
         event_attributes.ends_at = ends_at
+        event_attributes.meta = meta
+        event_attributes.department_id = department_id
         event_attributes.locations = locations
         event_attributes.attendees = attendees
       end

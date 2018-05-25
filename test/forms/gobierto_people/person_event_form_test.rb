@@ -105,9 +105,9 @@ module GobiertoPeople
       event_1_form = PersonEventForm.new(site_id: site.id, person_id: richard.id, external_id: '123')
       event_2_form = PersonEventForm.new(site_id: site.id, person_id: tamara.id,  external_id: '123')
 
-      assert_equal 'Richard event', event_1_form.person_event.title
-      assert_equal 'Tamara event',  event_2_form.person_event.title
-      assert_equal 'Nelson event',  event_3_form.person_event.title
+      assert_equal 'Richard event', event_1_form.event.title
+      assert_equal 'Tamara event',  event_2_form.event.title
+      assert_equal 'Nelson event',  event_3_form.event.title
     end
 
   end

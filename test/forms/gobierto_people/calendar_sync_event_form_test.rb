@@ -4,7 +4,7 @@ require "test_helper"
 require "support/event_helpers"
 
 module GobiertoPeople
-  class PersonEventFormTest < ActiveSupport::TestCase
+  class CalendarSyncEventFormTest < ActiveSupport::TestCase
 
     include ::EventHelpers
 
@@ -45,11 +45,11 @@ module GobiertoPeople
     end
 
     def valid_event_form
-      @valid_event_form ||= PersonEventForm.new(event_attributes)
+      @valid_event_form ||= CalendarSyncEventForm.new(event_attributes)
     end
 
     def invalid_event_form
-      @invalid_event_form ||= PersonEventForm.new(
+      @invalid_event_form ||= CalendarSyncEventForm.new(
         external_id: nil,
         site_id: site.id,
         person_id: nil,
@@ -80,8 +80,8 @@ module GobiertoPeople
       very_future_date = ::GobiertoCalendars.sync_range_end + 1.day
       very_old_date    = ::GobiertoCalendars.sync_range_start - 1.day
 
-      very_future_event = PersonEventForm.new(event_attributes.merge(starts_at: very_future_date))
-      very_old_event    = PersonEventForm.new(event_attributes.merge(starts_at: very_old_date))
+      very_future_event = CalendarSyncEventForm.new(event_attributes.merge(starts_at: very_future_date))
+      very_old_event    = CalendarSyncEventForm.new(event_attributes.merge(starts_at: very_old_date))
 
       refute very_future_event.save
       refute very_old_event.save
@@ -101,9 +101,9 @@ module GobiertoPeople
       event_3 = create_event(person: nelson,  title: 'Nelson event',  external_id: '123')
 
       # permutate order of all three events so test never passes by accident
-      event_3_form = PersonEventForm.new(site_id: site.id, person_id: nelson.id,  external_id: '123')
-      event_1_form = PersonEventForm.new(site_id: site.id, person_id: richard.id, external_id: '123')
-      event_2_form = PersonEventForm.new(site_id: site.id, person_id: tamara.id,  external_id: '123')
+      event_3_form = CalendarSyncEventForm.new(site_id: site.id, person_id: nelson.id,  external_id: '123')
+      event_1_form = CalendarSyncEventForm.new(site_id: site.id, person_id: richard.id, external_id: '123')
+      event_2_form = CalendarSyncEventForm.new(site_id: site.id, person_id: tamara.id,  external_id: '123')
 
       assert_equal 'Richard event', event_1_form.event.title
       assert_equal 'Tamara event',  event_2_form.event.title

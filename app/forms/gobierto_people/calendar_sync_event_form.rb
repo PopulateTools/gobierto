@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoPeople
-  class PersonEventForm < ::GobiertoCalendars::EventForm
+  class CalendarSyncEventForm < ::GobiertoCalendars::EventForm
 
     prepend ::GobiertoCommon::Trackable
 

@@ -129,7 +129,7 @@ module GobiertoPeople
           event_params.merge!(locations_attributes: {"0" => {"_destroy" => "1" }})
         end
 
-        event_form = GobiertoPeople::PersonEventForm.new(event_params)
+        event_form = GobiertoPeople::CalendarSyncEventForm.new(event_params)
 
         if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
           log_destroy_rule

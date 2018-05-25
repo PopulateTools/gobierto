@@ -97,7 +97,7 @@ module GobiertoPeople
           notify: true
         }
 
-        event_form = GobiertoPeople::PersonEventForm.new(person_event_params)
+        event_form = GobiertoPeople::CalendarSyncEventForm.new(person_event_params)
 
         if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
           log_destroy_rule

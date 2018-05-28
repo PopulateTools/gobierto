@@ -20,16 +20,16 @@
 ]
 ```
 - **options**: Optional. Custom configurations
--- itemHeight: Row height. Number (default: 50)
--- gutter: Base padding. Number (default: 20)
--- margins: Set custom SVG margins. Based on gutter value. Object (default: `{
-	    top: gutter / 1.5,
-	    right: gutter,
-	    bottom: gutter * 1.5,
-	    left: gutter
-	  }`)
--- xTickFormat: how to format the X-axis ticks. Function (default: d => d)
--- yTickFormat: how to format the Y-axis ticks. Function (default: d => d)
+    - itemHeight: Row height. Number (default: 50)
+    - gutter: Base padding. Number (default: 20)
+    - margins: Set custom SVG margins. Based on gutter value. Object (default: `{
+    	    top: gutter / 1.5,
+    	    right: gutter,
+    	    bottom: gutter * 1.5,
+    	    left: gutter
+    	  }`)
+    - xTickFormat: how to format the X-axis ticks. Function (default: d => d)
+    - yTickFormat: how to format the Y-axis ticks. Function (default: d => d)
 
 ##### punchcard(context, data, *options*)
 - **context**: Mandatory. HTML selector where to insert chart. Ej: `#punchcard`
@@ -65,13 +65,13 @@
 ]
 ```
 - **options**: Optional. Custom configurations
--- itemHeight: Row height. Number (default: 50)
--- gutter: Base padding. Number (default: 20)
--- margins: Set custom SVG margins. Based on gutter value. Object (default: `{
+    - itemHeight: Row height. Number (default: 50)
+    - gutter: Base padding. Number (default: 20)
+    - margins: Set custom SVG margins. Based on gutter value. Object (default: `{
 	    top: gutter / 1.5,
 	    right: gutter,
 	    bottom: gutter * 1.5,
 	    left: gutter
 	  }`)
--- xTickFormat: how to format the X-axis ticks. Function (default: d => d)
--- yTickFormat: how to format the Y-axis ticks. Function (default: d => d)
+    - xTickFormat: how to format the X-axis ticks. Function (default: d => d)
+    - yTickFormat: how to format the Y-axis ticks. Function (default: d => d)

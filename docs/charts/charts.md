@@ -68,10 +68,10 @@
     - itemHeight: Row height. Number (default: 50)
     - gutter: Base padding. Number (default: 20)
     - margins: Set custom SVG margins. Based on gutter value. Object (default: `{
-	    top: gutter / 1.5,
+	    top: gutter * 1.5,
 	    right: gutter,
 	    bottom: gutter * 1.5,
-	    left: gutter
+	    left: gutter * 15
 	  }`)
     - xTickFormat: how to format the X-axis ticks. Function (default: d => d)
     - yTickFormat: how to format the Y-axis ticks. Function (default: d => d)

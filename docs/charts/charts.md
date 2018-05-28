@@ -33,7 +33,7 @@
     - yTickFormat: how to format the Y-axis ticks. Function (default: d => d)
 
 ### punchcard(context, data, *options*)
-![imagen](https://user-images.githubusercontent.com/817526/40608934-711f12f8-626d-11e8-85ff-8f116b7f049f.png)
+![imagen](https://user-images.githubusercontent.com/817526/40620537-766a521e-6299-11e8-94ca-c67790e4a46c.png)
 - **context**: Mandatory. HTML selector where to insert chart. Ej: `#punchcard`
 - **data**: Mandatory. JSON object to be depicted.
     - The input object, must be an array of key-value objects which value is, as well, another array of key-value objects. Sample:

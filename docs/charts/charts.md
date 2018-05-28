@@ -2,10 +2,10 @@
 
 # Gobierto charts
 
-##### rowchart(context, data, *options*)
+### rowchart(context, data, *options*)
 - **context**: Mandatory. HTML selector where to insert chart. Ej: `#rowchart`
 - **data**: Mandatory. JSON object to be depicted.
--- The input object, must be an array of key-value objects. Sample:
+    - The input object, must be an array of key-value objects. Sample:
 ```json
 [
   {
@@ -31,10 +31,10 @@
     - xTickFormat: how to format the X-axis ticks. Function (default: d => d)
     - yTickFormat: how to format the Y-axis ticks. Function (default: d => d)
 
-##### punchcard(context, data, *options*)
+### punchcard(context, data, *options*)
 - **context**: Mandatory. HTML selector where to insert chart. Ej: `#punchcard`
 - **data**: Mandatory. JSON object to be depicted.
--- The input object, must be an array of key-value objects which value is, as well, another array of key-value objects. Sample:
+    - The input object, must be an array of key-value objects which value is, as well, another array of key-value objects. Sample:
 ```json
 [
   {

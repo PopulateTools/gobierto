@@ -39,29 +39,37 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript">
-	const rowchart = (context, data) => {
-	  let container = d3.select(context)
-	  let gutter = 20
-	  let margin = {
+	// Charts
+	const rowchart = (context, data, options = {}) => {
+		// options
+		let itemHeight = options.itemHeight || 25
+	  let gutter = options.gutter || 20
+	  let margin = options.margins || {
 	    top: gutter / 1.5,
 	    right: gutter,
 	    bottom: gutter * 1.5,
 	    left: gutter
 	  }
+
+		// dimensions
+		let container = d3.select(context)
 	  let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
-	  let height = data.length * 25 + margin.top + margin.bottom // row min-height = 25
+	  let height = (data.length * itemHeight) + margin.top + margin.bottom
 	  let svg = container.append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 
-	  let tooltip = container.append("div").attr("class", "toolTip")
+		// TODO: implementar tooltip
+	  // let tooltip = container.append("div").attr("class", "toolTip")
 
+		// scales
 	  let x = d3.scaleLinear().range([0, width])
 	  let y = d3.scaleBand().range([height, 0])
 
 	  let g = svg.append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+		// TODO: configurable?
 	  data.sort((a, b) => a.value - b.value);
 
 	  x.domain([0, d3.max(data, d => d.value)]);
@@ -96,113 +104,111 @@
 	    .attr("transform", "translate(" + gutter + ", 0)")
 	    .call(d3.axisLeft(y));
 	}
+	const punchcard = (context, data, options = {}) => {
+	  // Configurable
+		let itemHeight = options.itemHeight || 50
+	  let gutter = options.gutter || 20
+	  let margin = options.margins || {
+	    top: gutter / 1.5,
+	    right: gutter,
+	    bottom: gutter * 1.5,
+	    left: gutter * 15
+	  }
 
-	const punchcard = (context, data) => {
-		// Configurable
-		let gutter = 20
-		let itemHeight = 50
-		let margin = {
-			top: gutter / 1.5,
-			right: gutter,
-			bottom: gutter * 1.5,
-			left: gutter * 15
-		}
+	  // dimensions
+	  let container = d3.select(context)
+	  let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
+	  let height = (data.length * itemHeight) + margin.top + margin.bottom
+	  let svg = container.append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
 
-		// sizes
-		let container = d3.select(context)
-		let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
-		let height = (data.length * itemHeight) + margin.top + margin.bottom
-		let svg = container.append("svg")
-			.attr("width", width + margin.left + margin.right)
-			.attr("height", height + margin.top + margin.bottom)
-
-		// scales
+	  // scales
 	  let x = d3.scaleTime().range([0, width]);
 	  let y = d3.scalePoint().range([height, 0]);
-		let r = d3.scaleSqrt().range([0, 10]) // tamaño de las bolas
+	  let r = d3.scaleSqrt().range([0, 10]) // tamaño de las bolas
 
-		// domains
-		// TODO: Eliminar referencias a tipos de datos concretos
-		x.domain([
-			d3.timeMonth(new Date(d3.min(data.map(d => d3.min(d.value.map((t) => d3.timeFormat("%Y/%m/%d")(new Date(t.key)))))))),
-			d3.timeMonth(new Date(d3.max(data.map(d => d3.max(d.value.map((t) => d3.timeFormat("%Y/%m/%d")(new Date(t.key))))))))
-		]);
-		y.domain(data.map(d => d.key)).padding(0.5);
+	  // domains
+	  // TODO: Eliminar referencias a tipos de datos concretos
+	  x.domain([
+	    d3.timeMonth(new Date(d3.min(data.map(d => d3.min(d.value.map((t) => d3.timeFormat("%Y/%m/%d")(new Date(t.key)))))))),
+	    d3.timeMonth(new Date(d3.max(data.map(d => d3.max(d.value.map((t) => d3.timeFormat("%Y/%m/%d")(new Date(t.key))))))))
+	  ]);
+	  y.domain(data.map(d => d.key)).padding(0.5);
 
-		let g = svg.append("g")
-			.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	  let g = svg.append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-		// Custom X-axis
-		function xAxis(g) {
-			g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat((d, i, arr) => ((arr.length + i) % 3) ? null : d3.timeFormat("%b %y")(d)))
-			g.selectAll(".domain").remove()
-			g.selectAll(".tick line")
-				.attr("y1", margin.top / 2)
-				.attr("y2", height)
-		}
+	  // Custom X-axis
+	  function xAxis(g) {
+	    g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat((d, i, arr) => ((arr.length + i) % 3) ? null : d3.timeFormat("%b %y")(d)))
+	    g.selectAll(".domain").remove()
+	    g.selectAll(".tick line")
+	      .attr("y1", margin.top / 2)
+	      .attr("y2", height)
+	  }
 
-		// Custom Y-axis
-		function yAxis(g) {
-			g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0))
-			g.selectAll(".domain").remove()
-		}
+	  // Custom Y-axis
+	  function yAxis(g) {
+	    g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0))
+	    g.selectAll(".domain").remove()
+	  }
 
-		// axis
-		g.append("g")
-			.attr("class", "x axis")
-			.call(xAxis)
-		g.append("g")
-			.attr("class", "y axis")
-			.attr("transform", "translate(" + (-margin.left + gutter) + ",0)")
-			.call(yAxis)
+	  // axis
+	  g.append("g")
+	    .attr("class", "x axis")
+	    .call(xAxis)
+	  g.append("g")
+	    .attr("class", "y axis")
+	    .attr("transform", "translate(" + (-margin.left + gutter) + ",0)")
+	    .call(yAxis)
 
-		// circles
-		for (var i = 0; i < data.length; i++) {
+	  // circles
+	  for (var i = 0; i < data.length; i++) {
 
-			svg.append("rect")
-				.attr("x", 0)
-				.attr("y", y(data[i].key) - (itemHeight / 4))
-				.attr("rx", 6)
-				.attr("ry", 6)
-				.attr("width", +container.node().getBoundingClientRect().width)
-				.attr("height", itemHeight);
+	    svg.append("rect")
+	      .attr("x", 0)
+	      .attr("y", y(data[i].key) - (itemHeight / 4))
+	      .attr("rx", 6)
+	      .attr("ry", 6)
+	      .attr("width", +container.node().getBoundingClientRect().width)
+	      .attr("height", itemHeight);
 
-			// PREPROCESS
-			// TODO: Esto tiene q ir fuera
-			let nest = d3.nest()
-  			.key(d => d3.timeMonth(new Date(d.key)))
-				.rollup(d => _.sumBy(d, 'value'))
-				.entries(data[i].value)
+	    // PREPROCESS
+	    // TODO: Esto tiene q ir fuera
+	    let nest = d3.nest()
+	      .key(d => d3.timeMonth(new Date(d.key)))
+	      .rollup(d => _.sumBy(d, 'value'))
+	      .entries(data[i].value)
 
-			let g = svg.append("g")
-				.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	    let g = svg.append("g")
+	      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-			r.domain([0, d3.max(data[i].value, d => d.value)]);
+	    r.domain([0, d3.max(data[i].value, d => d.value)]);
 
-			g.selectAll("circle")
-				.data(nest)
-				// .data(data[i].value)
-				.enter()
-				.append("circle")
-				.attr("class", "circle")
-				.attr("cx", d => x(new Date(d.key))) // TODO: quitar tipos de dato
-				.attr("cy", d => y(data[i].key))
-				.transition()
-				.duration(800)
-				.attr("r", d => r(d.value));
-		}
-};
+	    g.selectAll("circle")
+	      .data(nest)
+	      .enter()
+	      .append("circle")
+	      .attr("class", "circle")
+	      .attr("cx", d => x(new Date(d.key))) // TODO: quitar tipos de dato
+	      .attr("cy", d => y(data[i].key))
+	      .transition()
+	      .duration(800)
+	      .attr("r", d => r(d.value));
+	  }
+	};
 
+	// datas
 	$.getJSON("data/rowchart.json", (data) => {
 	  $(".rowchart").each((i, container) => {
 	    rowchart(`#${container.id}`, data)
 	  })
 	});
-
 	$.getJSON("data/punchcard.json", (data) => {
 
-		// TODO: Procesar los datos ANTES de pasarselos al gráfico
-		// para que sea generico
+	  // TODO: Procesar los datos ANTES de pasarselos al gráfico
+	  // para que sea generico
 	  $(".punchcard").each((i, container) => {
 	    punchcard(`#${container.id}`, data)
 	  })

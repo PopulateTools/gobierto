@@ -19,13 +19,16 @@
     }
   }
 
+  .title {
+    font-weight: bold;
+  }
+
   .y.axis {
     text-anchor: start;
 
     .tick text {
       font-size: $f7;
       color: $color_text;
-      font-weight: bold;
     }
   }
 

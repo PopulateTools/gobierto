@@ -109,13 +109,14 @@
 		let itemHeight = options.itemHeight || 50
 	  let gutter = options.gutter || 20
 	  let margin = options.margins || {
-	    top: gutter / 1.5,
+	    top: gutter * 1.5,
 	    right: gutter,
 	    bottom: gutter * 1.5,
 	    left: gutter * 15
 	  }
 		let xTickFormat = options.xTickFormat || (d => d)
 		let yTickFormat = options.yTickFormat || (d => d)
+		let title = options.title || ''
 
 	  // dimensions
 	  let container = d3.select(context)
@@ -135,18 +136,17 @@
 			d3.min(data.map(d => d3.min(d.value.map(v => v.key)))),
 			d3.max(data.map(d => d3.max(d.value.map(v => v.key))))
 		]);
-	  y.domain(data.map(d => d.key)).padding(0.5);
-
-	  let g = svg.append("g")
-	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	  y.domain(data.map(d => d.key)).padding(1);
 
 	  // Custom X-axis
 	  function xAxis(g) {
 	    g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
 	    g.selectAll(".domain").remove()
 	    g.selectAll(".tick line")
-	      .attr("y1", margin.top / 2)
-	      .attr("y2", height)
+	      .attr("y1", itemHeight / 2)
+	      .attr("y2", height - (itemHeight / 4))
+	    g.selectAll(".tick text")
+	      .attr("y", (-margin.top / 2) + (itemHeight / 2))
 	  }
 
 	  // Custom Y-axis
@@ -154,6 +154,19 @@
 	    g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0).tickFormat(yTickFormat))
 	    g.selectAll(".domain").remove()
 	  }
+
+		// chart title
+		if (title) {
+			svg.append("text")
+				.attr("x", 0)
+				.attr("y", (margin.top / 2) + (itemHeight / 2))
+				.attr("class", "title")
+				.attr("text-anchor", "start")
+				.text(title);
+		}
+
+		let g = svg.append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
 	  // axis
 	  g.append("g")
@@ -169,7 +182,7 @@
 
 	    svg.append("rect")
 	      .attr("x", 0)
-	      .attr("y", y(data[i].key) - (itemHeight / 4))
+	      .attr("y", y(data[i].key) + margin.top - (itemHeight / 2))
 	      .attr("rx", 6)
 	      .attr("ry", 6)
 	      .attr("width", +container.node().getBoundingClientRect().width)
@@ -227,6 +240,7 @@
 
 		// edit options
 		let opts = {
+			title: 'Reuniones por alto cargo y mes',
 			xTickFormat: (d, i, arr) => ((arr.length + i) % 3) ? null : d3.timeFormat("%b %y")(d)
 		}
 

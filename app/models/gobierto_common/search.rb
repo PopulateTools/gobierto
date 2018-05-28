@@ -3,6 +3,14 @@ module GobiertoCommon
 
     attr_reader :site, :current_module_class
 
+    def self.algoliasearch_configured?
+      s = Rails.application.secrets
+
+      s.algolia_application_id.present? &&
+      s.algolia_api_key.present? &&
+      s.algolia_search_api_key.present?
+    end
+
     def initialize(site, current_module_class=nil)
       @site = site
       @current_module_class = current_module_class || GobiertoCms

@@ -1,0 +1,18 @@
+<div class="search-box">
+
+  <i class="fa fa-search"></i>
+
+  <% if algoliasearch_configured? %>
+
+    <input id="gobierto_search" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
+    <div id="search_results" class="search_result_list"></div>
+
+  <% elsif current_module == "gobierto_budgets" %>
+
+    <input class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>"
+            aria-label="<%= t('layouts.application.search') %>"
+            data-autocomplete="<%= gobierto_budgets_search_all_categories_path(@year || Date.current.year, format: :json) %>">
+
+  <% end %>
+
+</div>

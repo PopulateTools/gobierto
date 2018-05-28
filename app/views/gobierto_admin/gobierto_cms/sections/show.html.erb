@@ -58,11 +58,13 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
+    <% if algoliasearch_configured? %>
     window.searchClient = {
       client: algoliasearch('<%= Rails.application.secrets.algolia_application_id %>', '<%= Rails.application.secrets.algolia_search_api_key %>'),
       indexes: ["<%= GobiertoCms::Page.search_index_name %>"],
       filters: "site_id:<%= algolia_search_client.site.id %>"
     };
+    <% end %>
 
     window.GobiertoAdmin.sections_controller.show();
   <% end %>

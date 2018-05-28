@@ -105,7 +105,7 @@
 	    .call(d3.axisLeft(y));
 	}
 	const punchcard = (context, data, options = {}) => {
-	  // Configurable
+	  // options
 		let itemHeight = options.itemHeight || 50
 	  let gutter = options.gutter || 20
 	  let margin = options.margins || {
@@ -129,11 +129,14 @@
 	  let r = d3.scaleSqrt().range([0, 10]) // tamaño de las bolas
 
 	  // domains
-	  // TODO: Eliminar referencias a tipos de datos concretos
 	  x.domain([
-	    d3.timeMonth(new Date(d3.min(data.map(d => d3.min(d.value.map((t) => d3.timeFormat("%Y/%m/%d")(new Date(t.key)))))))),
-	    d3.timeMonth(new Date(d3.max(data.map(d => d3.max(d.value.map((t) => d3.timeFormat("%Y/%m/%d")(new Date(t.key))))))))
-	  ]);
+			d3.min(data.map(d => d3.min(d.value.map(v => v.key)))),
+			d3.max(data.map(d => d3.max(d.value.map(v => v.key))))
+		]);
+	  // x.domain([
+	  //   d3.timeMonth(new Date(d3.min(data.map(d => d3.min(d.value.map((t) => d3.timeFormat("%Y/%m/%d")(new Date(t.key)))))))),
+	  //   d3.timeMonth(new Date(d3.max(data.map(d => d3.max(d.value.map((t) => d3.timeFormat("%Y/%m/%d")(new Date(t.key))))))))
+	  // ]);
 	  y.domain(data.map(d => d.key)).padding(0.5);
 
 	  let g = svg.append("g")
@@ -207,8 +210,16 @@
 	});
 	$.getJSON("data/punchcard.json", (data) => {
 
-	  // TODO: Procesar los datos ANTES de pasarselos al gráfico
-	  // para que sea generico
+		// preprocess data sample
+		for (var i = 0; i < data.length; i++) {
+			for (var j = 0; j < data[i].value.length; j++) {
+				let d = data[i].value[j]
+
+				d._key = d.key // replace old key
+				d.key = d3.timeMonth(new Date(d3.timeFormat("%Y/%m/%d")(new Date(d.key))))
+			}
+		}
+
 	  $(".punchcard").each((i, container) => {
 	    punchcard(`#${container.id}`, data)
 	  })

@@ -10,9 +10,9 @@
 			<div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
 		</div>
 	</div>
-	<!-- <h1>Rowchart</h1>
-	<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div> -->
-	<!-- <h1>Three-in-a-row rowcharts</h1>
+	<h1>Rowchart</h1>
+	<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+	<h1>Three-in-a-row rowcharts</h1>
 	<div class="pure-g gutters">
 		<div class="pure-u-1 pure-u-md-1-3">
 			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
@@ -23,8 +23,8 @@
 		<div class="pure-u-1 pure-u-md-1-3">
 			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
 		</div>
-	</div> -->
-	<!-- <h1>Pair rowcharts</h1>
+	</div>
+	<h1>Pair rowcharts</h1>
 	<div class="pure-g gutters">
 		<div class="pure-u-1 pure-u-md-1-2">
 			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
@@ -32,7 +32,7 @@
 		<div class="pure-u-1 pure-u-md-1-2">
 			<div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
 		</div>
-	</div> -->
+	</div>
 </div>
 
 <!-- Scripting -->
@@ -50,6 +50,8 @@
 	    bottom: gutter * 1.5,
 	    left: gutter
 	  }
+		let xTickFormat = options.xTickFormat || (d => d)
+		let yTickFormat = options.yTickFormat || (d => d)
 
 		// dimensions
 		let container = d3.select(context)
@@ -69,16 +71,13 @@
 	  let g = svg.append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-		// TODO: configurable?
-	  data.sort((a, b) => a.value - b.value);
-
-	  x.domain([0, d3.max(data, d => d.value)]);
-	  y.domain(data.map(d => d.key)).padding(0.1);
+	  x.domain([0, d3.max(data, d => d.value)])
+	  y.domain(data.map(d => d.key)).padding(0.1)
 
 	  g.append("g")
 	    .attr("class", "x axis")
 	    .attr("transform", "translate(0," + (height + (gutter / 4)) + ")")
-	    .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0));
+	    .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0).tickFormat(xTickFormat))
 
 	  g.selectAll(".bar")
 	    .data(data)
@@ -102,8 +101,9 @@
 	  g.append("g")
 	    .attr("class", "y axis")
 	    .attr("transform", "translate(" + gutter + ", 0)")
-	    .call(d3.axisLeft(y));
+	    .call(d3.axisLeft(y).tickFormat(yTickFormat))
 	}
+
 	const punchcard = (context, data, options = {}) => {
 	  // options
 		let itemHeight = options.itemHeight || 50
@@ -114,6 +114,8 @@
 	    bottom: gutter * 1.5,
 	    left: gutter * 15
 	  }
+		let xTickFormat = options.xTickFormat || (d => d)
+		let yTickFormat = options.yTickFormat || (d => d)
 
 	  // dimensions
 	  let container = d3.select(context)
@@ -126,7 +128,7 @@
 	  // scales
 	  let x = d3.scaleTime().range([0, width]);
 	  let y = d3.scalePoint().range([height, 0]);
-	  let r = d3.scaleSqrt().range([0, 10]) // tamaño de las bolas
+	  let r = d3.scaleSqrt().range([0, 15]) // tamaño de las bolas
 
 	  // domains
 	  x.domain([
@@ -140,7 +142,7 @@
 
 	  // Custom X-axis
 	  function xAxis(g) {
-	    g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat((d, i, arr) => ((arr.length + i) % 3) ? null : d3.timeFormat("%b %y")(d)))
+	    g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
 	    g.selectAll(".domain").remove()
 	    g.selectAll(".tick line")
 	      .attr("y1", margin.top / 2)
@@ -149,7 +151,7 @@
 
 	  // Custom Y-axis
 	  function yAxis(g) {
-	    g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0))
+	    g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0).tickFormat(yTickFormat))
 	    g.selectAll(".domain").remove()
 	  }
 
@@ -176,10 +178,12 @@
 	    let g = svg.append("g")
 	      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-	    r.domain([0, d3.max(data[i].value, d => d.value)]);
+	    r.domain([
+				d3.min(data[i].value, d => d.value),
+				d3.max(data[i].value, d => d.value)
+			]);
 
 	    g.selectAll("circle")
-	      // .data(nest)
 	      .data(data[i].value)
 	      .enter()
 	      .append("circle")
@@ -192,9 +196,13 @@
 	  }
 	};
 
-	// datas
+	// manage data BEFORE chart call
 	$.getJSON("data/rowchart.json", (data) => {
-	  $(".rowchart").each((i, container) => {
+
+		// preprocess the data
+		data.sort((a, b) => a.value - b.value)
+
+		$(".rowchart").each((i, container) => {
 	    rowchart(`#${container.id}`, data)
 	  })
 	});
@@ -217,8 +225,13 @@
 			data[i].value = nest
 		}
 
+		// edit options
+		let opts = {
+			xTickFormat: (d, i, arr) => ((arr.length + i) % 3) ? null : d3.timeFormat("%b %y")(d)
+		}
+
 	  $(".punchcard").each((i, container) => {
-	    punchcard(`#${container.id}`, data)
+	    punchcard(`#${container.id}`, data, opts)
 	  })
 	});
 </script>

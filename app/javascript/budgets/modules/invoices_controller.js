@@ -384,10 +384,11 @@ window.GobiertoBudgets.InvoicesController = (function() {
           .attr("transform", "translate(0,0)")
           .append('text')
           .text(I18n.t('gobierto_budgets.invoices.show.invoiced'))
-          .attr("x", -9 * 3)
+          // .attr("x", -9 * 3)
+          .attr("x", -_labelOffset)
           .attr("y", -9) // Default
           .attr("class", "axis-title")
-          .attr("text-anchor","end");
+          .attr("text-anchor","start");
 
         chart.selectAll('g.axis line.grid-line').attr("y2", function() {
           return Math.abs(+d3.select(this).attr("y2")) + (chart.margins().top / 2)

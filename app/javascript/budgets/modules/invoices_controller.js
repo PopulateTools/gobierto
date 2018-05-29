@@ -448,54 +448,64 @@ window.GobiertoBudgets.InvoicesController = (function() {
         // Apply rounded corners AFTER render, otherwise they don't exist
         chart.selectAll('rect').attr("rx", 4).attr("ry", 4);
 
-        // helper
-        function intervalFormat(d) {
-          var n = Number(_r.domain[d.key])
-          var _s = Number(_r.domain[d.key - 1]) || 1;
-
-          // Last value is not a range
-          if (d.key === _r.domain.length) {
-            return [I18n.t('gobierto_budgets.invoices.show.more') + " " + (_s - 1).toLocaleString(I18n.locale, {
-              style: 'currency',
-              currency: 'EUR',
-              minimumFractionDigits: 0
-            })]
-          }
-
-          var _l = Number(n - 1);
-
-          return [_s, _l].map(n => n.toLocaleString(I18n.locale, {
-            style: 'currency',
-            currency: 'EUR',
-            minimumFractionDigits: 0
-          }))
-        }
-
         // edit labels positions
         chart.selectAll('text.row')
           .text('')
           .selectAll('tspan')
-          .data(d => intervalFormat(d))
+          .data(d => {
+            // helper
+            function intervalFormat(d) {
+              var n = Number(_r.domain[d.key])
+              var _s = Number(_r.domain[d.key - 1]) || 1;
+
+              // Last value is not a range
+              if (d.key === _r.domain.length) {
+                return [I18n.t('gobierto_budgets.invoices.show.more') + " " + (_s - 1).toLocaleString(I18n.locale, {
+                  style: 'currency',
+                  currency: 'EUR',
+                  minimumFractionDigits: 0
+                })]
+              }
+
+              var _l = Number(n - 1);
+
+              return [_s, _l].map(n => n.toLocaleString(I18n.locale, {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0
+              }))
+            }
+
+            return intervalFormat(d)
+          })
           .enter()
           .append('tspan')
           .text(d => d)
-          .attr('x', (d, i) => i === 0 ? -_labelOffset : -_labelOffset + 60)
+          .attr('x', (d, i) => i === 0 ? -_labelOffset : -_labelOffset / 2)
 
         chart.select('g.axis')
-          .attr("transform", "translate(0,0)")
+          .attr('transform', 'translate(0,0)')
           .append('text')
-          .html(function() {
-            // Helper
+          .attr('class', 'axis-title')
+          .attr('y', -9) // Default
+          .selectAll('text')
+          .data(() => {
+            // helper
             function titleFormat(str) {
-              var tabs = "&ensp;&emsp;";
-              return str.replace(" ", tabs.repeat(6) + "&nbsp;").replace(" ", tabs.repeat(3) + "&nbsp;")
+              str = str.split(' ')
+              if (str.length !== 4) throw new Error()
+
+              var last = [str[2], str[3]].join(' ')
+              return [str[0], str[1], last]
             }
 
             return titleFormat(I18n.t('gobierto_budgets.invoices.show.fromto'));
           })
-          .attr("x", -_labelOffset)
-          .attr("y", -9) // Default
-          .attr("class", "axis-title");
+          .enter()
+          .append('tspan')
+          .text(d => d)
+          .attr('x', (d, i) => (i === 0) ? -_labelOffset : (i === 1) ? -_labelOffset / 2 : 0)
+          .attr('text-anchor', (d, i) => (i === 2) ? 'middle' : '')
 
         chart.selectAll('g.axis line.grid-line').attr("y2", function() {
           return Math.abs(+d3.select(this).attr("y2")) + (chart.margins().top / 2)

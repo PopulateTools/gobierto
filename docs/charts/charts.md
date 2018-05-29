@@ -31,6 +31,27 @@
     	  }`)
     - xTickFormat: how to format the X-axis ticks. Function (default: d => d)
     - yTickFormat: how to format the Y-axis ticks. Function (default: d => d)
+- **usage**:
+```HTML
+<!-- The chart size is determined by its parent container-->
+<div id="rowchart" class="rowchart"></div>
+```
+```js
+$.getJSON("data/rowchart.json", (data) => {
+
+  // prepare the data BEFORE the call, e.g. order higher to lower
+  data.sort((a, b) => a.value - b.value)
+
+  // Append any custom option you wish
+  let opts = {
+    itemHeight: 20
+  }
+
+  $(".rowchart").each((i, container) => {
+    rowchart(`#${container.id}`, data, opts)
+  })
+});
+```
 
 ### punchcard(context, data, *options*)
 ![imagen](https://user-images.githubusercontent.com/817526/40620537-766a521e-6299-11e8-94ca-c67790e4a46c.png)
@@ -77,3 +98,37 @@
 	  }`)
     - xTickFormat: how to format the X-axis ticks. Function (default: d => d)
     - yTickFormat: how to format the Y-axis ticks. Function (default: d => d)
+- **usage**:
+```HTML
+<!-- The chart size is determined by its parent container-->
+<div id="punchcard" class="punchcard"></div>
+```
+```js
+$.getJSON("data/punchcard.json", (data) => {
+
+  // prepare the data BEFORE the call, e.g. group by month
+  for (var i = 0; i < data.length; i++) {
+    let nest = d3.nest()
+      .key(d => d3.timeMonth((new Date(d.key))))
+      .rollup(d => _.sumBy(d, 'value'))
+      .entries(data[i].value)
+      .map(g => {
+        g.key = d3.timeMonth(new Date(d3.timeFormat("%Y/%m/%d")(new Date(g.key))))
+        return g
+      })
+
+    // update original data
+    data[i].value = nest
+  }
+
+  // Append any custom option you wish
+  let opts = {
+    title: 'Cool Punchcard',
+    xTickFormat: (d, i, arr) => ((arr.length + i) % 3) ? null : d3.timeFormat("%b %y")(d)
+  }
+
+  $(".punchcard").each((i, container) => {
+    punchcard(`#${container.id}`, data, opts)
+  })
+});
+```

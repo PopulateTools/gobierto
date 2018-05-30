@@ -299,16 +299,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
         }
 
       }
-
-      //close everything
-      $(document).click(function (e) {
-        // if the target of the click isn't the container nor a descendant of the container
-        if (!$(e.target).closest('.planification-content').length) {
-          app.activeNode = {};
-          // Restore styles
-          $('section.level_0, section.level_0 .js-img, section.level_0 .js-info, section.level_0 .js-info h3, section.level_1 .js-info span').removeAttr('style');
-        }
-      });
     }
 
 

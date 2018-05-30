@@ -1,3 +1,4 @@
+// flexgap
 @mixin flexbox($gap: 0, $dir: row) {
   display: flex;
   flex-direction: $dir;
@@ -28,3 +29,19 @@
     }
   }
 }
+
+// pure-g gutters (mixin & helper)
+@mixin gutters($size: 1) {
+  $unit: 1rem !default;
+  $size: if(unitless($size), $size * $unit, $size);
+
+  .pure-g.gutters {
+    margin: 0 (-$size / 2);
+  }
+
+  .pure-g.gutters > [class *=pure-u] {
+    box-sizing: border-box;
+    padding: 0 $size / 2;
+  }
+}
+@include gutters;

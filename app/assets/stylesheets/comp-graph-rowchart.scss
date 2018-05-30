@@ -1,0 +1,32 @@
+.rowchart {
+  min-height: 300px;
+
+  svg {
+    background-color: rgba($color_main, .2);
+  }
+
+  .bar {
+    fill: $color_main;
+  }
+
+  .x.axis {
+    opacity: 0.5;
+
+    .tick text {
+      font-size: $f8;
+    }
+  }
+
+  .y.axis {
+    text-anchor: start;
+
+    .tick text {
+      font-size: $f6;
+    }
+  }
+
+  .tick line,
+  .y .domain {
+    display: none;
+  }
+}

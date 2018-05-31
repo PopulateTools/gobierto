@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/PopulateTools/gobierto_data.git
+  revision: 574330312be0643644a0d7ff221dc84ec47ac12a
+  specs:
+    gobierto_data (0.0.1)
+      actionpack (>= 5.0.0.1)
+      activesupport (>= 5.0.0)
+      aws-sdk (~> 2.11, >= 2.11.45)
+      elasticsearch (~> 6.0, >= 6.0.2)
+      elasticsearch-extensions (~> 0.0.27)
+      ine-places (~> 0.2.0)
+      oj (~> 3.5, >= 3.5.0)
+      sequel (~> 5.8, >= 5.8.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -402,6 +416,7 @@ GEM
       nokogiri (>= 1.4.0)
       nori (~> 2.4)
       wasabi (~> 3.4)
+    sequel (5.8.0)
     sidekiq (5.1.3)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -505,6 +520,7 @@ DEPENDENCIES
   exchanger
   flight-for-rails
   foreman
+  gobierto_data!
   google-api-client
   i18n-js (>= 3.0.0.rc11)
   i18n-tasks
@@ -556,4 +572,4 @@ DEPENDENCIES
   webpacker (~> 3.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

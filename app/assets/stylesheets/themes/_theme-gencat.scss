@@ -16,20 +16,34 @@
       background-color: transparent;
     }
 
-    @for $i from 1 through length($colors) {
-      &.color-#{$i} {
-        background-color: rgba(nth($colors, $i), .2);
+    // If $color_people var is not defined, get default one
+    $colors: if(variable_exists(color_people), $color_people, $color_main);
+
+    // Up to 3, 'cuz we have always THREE boxes
+    @for $i from 1 through 3 {
+
+      $color: null;
+
+      @if $i > length($colors) {
+        // If there is lower than 3 colors, reuse first one
+        $color: nth($colors, 1);
+      } @else {
+        $color: nth($colors, $i);
+      }
+
+      .color-#{$i} {
+        background-color: rgba($color, .2);
 
         > :first-child {
-          border-top: 12px solid nth($colors, $i);
+          border-top: 12px solid $color;
         }
 
         h1 {
-          color: nth($colors, $i);
+          color: $color;
         }
 
         .bar {
-          fill: nth($colors, $i);
+          fill: $color;
         }
       }
     }

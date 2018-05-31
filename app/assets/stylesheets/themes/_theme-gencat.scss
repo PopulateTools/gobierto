@@ -1,9 +1,43 @@
-.theme-people {
+.theme-gencat {
+  .datepicker-container {
+    @include flex-align(space-between);
+    @include flexbox(15%);
+
+    .air-datepicker {
+      padding: 0.4em 0 0.4em 2em;
+      font-size: 0.938em;
+      border-radius: 0;
+      border: 1px solid #ddd;
+      height: 2.667em;
+      box-shadow: none;
+      color: #666;
+      -webkit-appearance: none;
+
+      &:focus {
+        box-shadow: none;
+        border: 1px solid #bcbcbc;
+      }
+    }
+  }
+
+  //@component box
   .box {
     border-radius: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     > :first-child {
       padding: 0 20px;
+    }
+
+    > :last-child {
+      span {
+        padding: 0 20px;
+        color: $text_soft;
+        font-size: $f8;
+      }
     }
 
     h1 {
@@ -31,7 +65,7 @@
         $color: nth($colors, $i);
       }
 
-      .color-#{$i} {
+      &.color-#{$i} {
         background-color: rgba($color, .2);
 
         > :first-child {

@@ -1,4 +1,7 @@
 .theme-gencat {
+  // If $color_people var is not defined, get default one
+  $colors: if(variable_exists(color_people), $color_people, $color_main);
+
   .datepicker-container {
     @include flex-align(space-between);
     @include flexbox(15%);
@@ -56,9 +59,6 @@
       background-color: transparent;
     }
 
-    // If $color_people var is not defined, get default one
-    $colors: if(variable_exists(color_people), $color_people, $color_main);
-
     // Up to 3, 'cuz we have always THREE boxes
     @for $i from 1 through 3 {
 
@@ -85,6 +85,19 @@
         .bar {
           fill: $color;
         }
+      }
+    }
+  }
+
+  //@component punchcard
+  .punchcard {
+    circle {
+      fill: nth($colors, 2);
+    }
+
+    rect {
+      &:nth-of-type(odd) {
+        fill: rgba(nth($colors, 2), .2);
       }
     }
   }

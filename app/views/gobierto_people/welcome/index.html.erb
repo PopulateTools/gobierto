@@ -1,12 +1,12 @@
-<div class="row theme-gencat">
-  <div class="pd-15 datepicker-container mb_20">
+<div class="pd-15 theme-gencat">
+  <div class=" datepicker-container mb_20">
     <p>Des d’aquí podeu accedir a informació exhaustiva sobre la relació de llocs de treball dels empleats públics, quants n’hi ha</p>
-    <div class="dropdown">      
+    <div class="dropdown">
       <input class="air-datepicker datepicker-here" type="text" data-language="ca" data-date-format="d M yyyy" />
       <span class="caret"></span>
     </div>
   </div>
-  <div class="fpca_distribuidora pd-15 pd-30">
+  <div class="fpca_distribuidora pd-30">
     <div class="llistat_destacat_text_avancat">
       <div class="llistat_col-lg-3 nova-altura-dist">
         <div class="col-xs-12 corrector-margins col-sm-4">
@@ -53,6 +53,36 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div>
+    <p><strong>¿Cap a on viatjen els alts carrècs?</strong></p>
+    <%# TODO: Mapa por definir %>
+    <div class="mb_20" style="width: 100%; height: 500px;border: 1px solid #bcbcbc;background:#fafafa"></div>
+    <div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
+  </div>
+  <hr>
+  <div>
+    <div class="col-xs-6">
+      <div>
+        <strong>Regals</strong>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis vero praesentium soluta maxime aperiam fuga sint harum tempora perspiciatis eveniet porro culpa, est eaque pariatur earum in accusamus, odio, qui.</p>
+      </div>
+      <div></div>
+      <div>
+        <button>Ver todos</button>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div>
+        <strong>Invitacions</strong>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis vero praesentium soluta maxime aperiam fuga sint harum tempora perspiciatis eveniet porro culpa, est eaque pariatur earum in accusamus, odio, qui.</p>
+      </div>
+      <div></div>
+      <div>
+        <button>Ver todos</button>
       </div>
     </div>
   </div>
@@ -126,6 +156,110 @@
       .attr("transform", "translate(" + gutter + ", 0)")
       .call(d3.axisLeft(y).tickFormat(yTickFormat))
   }
+  const punchcard = (context, data, options = {}) => {
+	  // options
+		let itemHeight = options.itemHeight || 50
+	  let gutter = options.gutter || 20
+	  let margin = options.margins || {
+	    top: gutter * 1.5,
+	    right: gutter,
+	    bottom: gutter * 1.5,
+	    left: gutter * 15
+	  }
+		let xTickFormat = options.xTickFormat || (d => d)
+		let yTickFormat = options.yTickFormat || (d => d)
+		let title = options.title || ''
+
+	  // dimensions
+	  let container = d3.select(context)
+	  let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
+	  let height = (data.length * itemHeight) + margin.top + margin.bottom
+	  let svg = container.append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+
+	  // scales
+	  let x = d3.scaleTime().range([0, width]);
+	  let y = d3.scalePoint().range([height, 0]);
+	  let r = d3.scaleSqrt().range([0, 15]) // tamaño de las bolas
+
+	  // domains
+	  x.domain([
+			d3.min(data.map(d => d3.min(d.value.map(v => v.key)))),
+			d3.max(data.map(d => d3.max(d.value.map(v => v.key))))
+		]);
+	  y.domain(data.map(d => d.key)).padding(1);
+
+	  // Custom X-axis
+	  function xAxis(g) {
+	    g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
+	    g.selectAll(".domain").remove()
+	    g.selectAll(".tick line")
+	      .attr("y1", itemHeight / 2)
+	      .attr("y2", height - (itemHeight / 4))
+	    g.selectAll(".tick text")
+	      .attr("y", (-margin.top / 2) + (itemHeight / 2))
+	  }
+
+	  // Custom Y-axis
+	  function yAxis(g) {
+	    g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0).tickFormat(yTickFormat))
+	    g.selectAll(".domain").remove()
+	  }
+
+		// chart title
+		if (title) {
+			svg.append("text")
+				.attr("x", 0)
+				.attr("y", (margin.top / 2) + (itemHeight / 2))
+				.attr("class", "title")
+				.attr("text-anchor", "start")
+				.text(title);
+		}
+
+		let g = svg.append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+	  // axis
+	  g.append("g")
+	    .attr("class", "x axis")
+	    .call(xAxis)
+	  g.append("g")
+	    .attr("class", "y axis")
+	    .attr("transform", "translate(" + (-margin.left + gutter) + ",0)")
+	    .call(yAxis)
+
+	  // circles
+	  for (var i = 0; i < data.length; i++) {
+
+	    svg.append("rect")
+	      .attr("x", 0)
+	      .attr("y", y(data[i].key) + margin.top - (itemHeight / 2))
+	      .attr("rx", 6)
+	      .attr("ry", 6)
+	      .attr("width", +container.node().getBoundingClientRect().width)
+	      .attr("height", itemHeight);
+
+	    let g = svg.append("g")
+	      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+	    r.domain([
+				d3.min(data[i].value, d => d.value),
+				d3.max(data[i].value, d => d.value)
+			]);
+
+	    g.selectAll("circle")
+	      .data(data[i].value)
+	      .enter()
+	      .append("circle")
+	      .attr("class", "circle")
+	      .attr("cx", d => x(d.key))
+	      .attr("cy", d => y(data[i].key))
+	      .transition()
+	      .duration(800)
+	      .attr("r", d => r(d.value));
+	  }
+	};
 
   $.getJSON("/rowchart.json", (data) => {
 
@@ -136,4 +270,33 @@
       rowchart(`#${container.id}`, data)
     })
   });
+  $.getJSON("/punchcard.json", (data) => {
+
+		// preprocess data sample
+		for (var i = 0; i < data.length; i++) {
+
+			// reduce data, group by month
+			let nest = d3.nest()
+				.key(d => d3.timeMonth((new Date(d.key))))
+				.rollup(d => _.sumBy(d, 'value'))
+				.entries(data[i].value)
+				.map(g => {
+					g.key = d3.timeMonth(new Date(d3.timeFormat("%Y/%m/%d")(new Date(g.key))))
+					return g
+				})
+
+			// update original data
+			data[i].value = nest
+		}
+
+		// edit options
+		let opts = {
+			title: 'Reuniones por alto cargo y mes',
+			xTickFormat: (d, i, arr) => ((arr.length + i) % 3) ? null : d3.timeFormat("%b %y")(d)
+		}
+
+	  $(".punchcard").each((i, container) => {
+	    punchcard(`#${container.id}`, data, opts)
+	  })
+	});
 </script>

@@ -1,7 +1,10 @@
 <div class="row theme-gencat">
   <div class="pd-15 datepicker-container mb_20">
     <p>Des d’aquí podeu accedir a informació exhaustiva sobre la relació de llocs de treball dels empleats públics, quants n’hi ha</p>
-    <input type="text" data-language="es" data-timepicker="true" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startDate="2017-06-23T12:00:00+00:00" name="person_event[starts_at]" id="" class="air-datepicker" />
+    <div class="dropdown">      
+      <input class="air-datepicker datepicker-here" type="text" data-language="ca" data-date-format="d M yyyy" />
+      <span class="caret"></span>
+    </div>
   </div>
   <div class="fpca_distribuidora pd-15 pd-30">
     <div class="llistat_destacat_text_avancat">
@@ -132,16 +135,5 @@
     $(".rowchart").each((i, container) => {
       rowchart(`#${container.id}`, data)
     })
-  });
-</script>
-<script type="text/javascript">
-  
-
-  $('.air-datepicker').datepicker({
-    autoClose: true,
-    startDate: new Date($('.air-datepicker').data('startdate')),
-    onSelect: function onSelect(_, selectedDate, instance) {
-      $(instance.el).trigger("datepicker-change");
-    }
   });
 </script>

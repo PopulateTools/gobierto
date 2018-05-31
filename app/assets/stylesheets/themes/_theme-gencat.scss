@@ -4,19 +4,25 @@
     @include flexbox(15%);
 
     .air-datepicker {
-      padding: 0.4em 0 0.4em 2em;
+      padding: 0.4em;
       font-size: 0.938em;
       border-radius: 0;
-      border: 1px solid #ddd;
+      border: 1px solid $color_separator;
       height: 2.667em;
       box-shadow: none;
-      color: #666;
-      -webkit-appearance: none;
+      cursor: pointer;
 
       &:focus {
         box-shadow: none;
         border: 1px solid #bcbcbc;
       }
+    }
+
+    .caret {
+      display: block !important;
+      position: absolute;
+      top: 50%;
+      right: 10px;
     }
   }
 

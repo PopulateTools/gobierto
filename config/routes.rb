@@ -255,8 +255,11 @@ Rails.application.routes.draw do
         resources :people, only: [:index], controller: "political_groups/people", path: "/"
       end
 
+      # Departments
+      resources :departments, only: [:index, :show], path: "departamentos"
+
       # Interest groups
-      resources :interest_groups, only: :show, path: "grupos-de-interes"
+      resources :interest_groups, only: [:index, :show], path: "grupos-de-interes"
 
       # People
       resources :people, only: [:show], path: "personas", param: :slug do

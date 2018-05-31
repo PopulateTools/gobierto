@@ -31,6 +31,8 @@ es:
       menu_subsections:
         agendas: Agendas
         blogs: Blogs
+        departments: Departamentos
+        interest_groups: Grupos de Interés
         people: Cargos
         statements: Declaraciones
     people:

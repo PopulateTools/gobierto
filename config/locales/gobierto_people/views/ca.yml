@@ -31,6 +31,8 @@ ca:
       menu_subsections:
         agendas: Agendes
         blogs: Blogs
+        departments: Departaments
+        interest_groups: Grups d'interès
         people: Càrrecs
         statements: Declaracions
     people:

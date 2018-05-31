@@ -30,6 +30,8 @@ en:
       menu_subsections:
         agendas: Agendas
         blogs: Blogs
+        departments: Departments
+        interest_groups: Interest Groups
         people: Officials
         statements: Statements
     people:

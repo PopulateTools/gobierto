@@ -8,7 +8,7 @@ module GobiertoPeople
   end
 
   def self.module_submodules
-    %W( officials agendas blogs statements )
+    %W( officials agendas blogs statements departments interest_groups)
   end
 
   def self.remote_calendar_integrations

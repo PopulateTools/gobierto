@@ -8,6 +8,7 @@ module GobiertoPeople
     include GobiertoCommon::Metadatable
 
     belongs_to :site
+    has_many :events, class_name: "GobiertoCalendars::Event", dependent: :nullify
 
     scope :sorted, -> { order(name: :asc) }
 

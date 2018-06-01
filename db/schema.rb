@@ -312,9 +312,9 @@ ActiveRecord::Schema.define(version: 2018_05_22_082718) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
-    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"

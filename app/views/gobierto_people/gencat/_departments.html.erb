@@ -1,0 +1,53 @@
+<section id="filter-datepicker">
+  <div>
+    <h1>Departamentos</h1>
+    <p>Cualquier organización que se reune con un alto cargo debe registrarse como grupo de interés, y se crea un registro de los encuentros. Aprende más sobre la Normativa de Grupos de Interés. Explora las organizaciones (empresas, fundaciones, asociaciones…) que se reunen con cargos de la Generalitat. </p>
+  </div>
+  <div class="dropdown">
+    <input class="air-datepicker datepicker-here" type="text"
+    data-range="true" data-multiple-dates-separator=" · "
+    data-language="ca" data-date-format="d M yyyy" data-auto-close="true" />
+    <span class="caret"></span>
+  </div>
+</section>
+
+<section class="row">
+  <div class="col-md-5">
+    <div class="box color-1">
+      <div>
+        <h1>6.344</h1>
+        <h5>
+          <div><strong>reunions registrades</strong></div>
+        </h5>
+      </div>
+    </div>
+    <div class="margin_top_xs color-1">
+      <span>Departaments amb més reunions</span>
+      <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+    </div>
+    <div>
+      <a href="" class="show-more bg-danger"><small>Veure tot</small></a>
+    </div>
+  </div>
+  <div class="col-md-5 col-md-offset-2">
+    <div class="box color-3">
+      <div>
+        <h1>6.344</h1>
+        <h5>
+          <div><strong>reunions registrades</strong></div>
+        </h5>
+      </div>
+    </div>
+    <div class="margin_top_xs">
+      <span>Alts càrrec amb més reunions</span>
+      <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+    </div>
+    <div>
+      <a href="" class="show-more bg-danger"><small>Veure tot</small></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
+</section>

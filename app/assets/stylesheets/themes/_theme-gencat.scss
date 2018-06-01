@@ -16,6 +16,41 @@
     }
   }
 
+  //@component color
+  // // REVIEW: No me gusta
+  @for $i from 1 through 3 {
+    // Up to 3, 'cuz we have always THREE boxes
+
+    $color: null;
+
+    @if $i > length($colors) {
+      // If there is lower than 3 colors, reuse first one
+      $color: nth($colors, 1);
+    } @else {
+      $color: nth($colors, $i);
+    }
+
+    .color-#{$i} {
+      background-color: rgba($color, .2);
+
+      > :first-child {
+        border-top: 12px solid $color;
+      }
+
+      svg {
+        background-color: transparent;
+      }
+
+      h1 {
+        color: $color;
+      }
+
+      .bar {
+        fill: $color;
+      }
+    }
+  }
+
   //@component box
   .box {
     border-radius: 0;
@@ -41,39 +76,6 @@
       font-weight: 600;
       text-align: left;
     }
-
-    svg {
-      background-color: transparent;
-    }
-
-    // Up to 3, 'cuz we have always THREE boxes
-    @for $i from 1 through 3 {
-
-      $color: null;
-
-      @if $i > length($colors) {
-        // If there is lower than 3 colors, reuse first one
-        $color: nth($colors, 1);
-      } @else {
-        $color: nth($colors, $i);
-      }
-
-      &.color-#{$i} {
-        background-color: rgba($color, .2);
-
-        > :first-child {
-          border-top: 12px solid $color;
-        }
-
-        h1 {
-          color: $color;
-        }
-
-        .bar {
-          fill: $color;
-        }
-      }
-    }
   }
 
   //@component punchcard
@@ -89,10 +91,15 @@
     }
   }
 
-  //@component map
+  //@component map // TODO: IMCOMPLETE
   #map {
     height: 500px;
     width: 66%;
+  }
+
+  //@component show-more
+  .show-more {
+    padding: 2.5px 30px;
   }
 
   section {
@@ -145,6 +152,7 @@
     }
   }
 
+  // TODO: Rename
   section#obsequis-regals-invitacions {
     header {
       margin-bottom: 40px;
@@ -165,10 +173,6 @@
         text-align: right;
         flex-shrink: 0;
       }
-    }
-
-    .show-more {
-      padding: 2.5px 30px;
     }
 
     .alert {

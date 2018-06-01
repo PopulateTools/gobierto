@@ -1,6 +1,30 @@
-<div>
-  <%= @department.name %>
-</div>
-<div>
-  <%= link_to "Index", gobierto_people_departments_path %>
-</div>
+<% content_for :breadcrumb_current_item do %>
+  <h1>
+    <%= link_to t("gobierto_people.layouts.menu_subsections.departments"), gobierto_people_departments_path %>
+  </h1>
+<% end %>
+
+<h2><%= @department.name %> </h2>
+<h2><%= "#{ @total_events } #{ t(".events") }" %></h2>
+
+<h2><%= "#{ @total_people } #{ t(".people_with_events") }" %></h2>
+
+<h2><%= t(".events_by_people") %></h2>
+<% @events_by_people.map do |person, count| %>
+  <div>
+    <%= content_tag :div, person.name %>
+    <%= content_tag :div, count %>
+  </div>
+<% end %>
+
+<h2><%= t(".events_by_person_and_month") %></h2>
+<% @monthly_events_grouped_by_person.each do |person, punch_card| %>
+  <div>
+    <%= content_tag :div, person.name %>
+    <% punch_card.each do |date, value| %>
+      <div><%= l(date, format: "%b %Y").capitalize %></div>
+      <div><%= value %></div>
+    <% end %>
+  </div>
+<% end %>
+<% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

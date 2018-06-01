@@ -18,6 +18,13 @@ module GobiertoPeople
 
     def show
       @department = @site.departments.find(params[:id])
+      @total_events = @department.events.count
+      @total_people = @department.events.select(:collection_id).distinct.count
+      @events_by_people = transform_id_keys(@department.events.person_events.group(:container_id).order(count: :desc).count, people_model)
+
+      monthly_columns = [:container_id, "extract(year from starts_at)", "extract(month from starts_at)"]
+      @monthly_events_grouped_by_person = transform_id_keys(@department.events.person_events.group(*monthly_columns).count.group_by { |key, _| key[0] }, people_model)
+      @monthly_events_grouped_by_person.transform_values! { |value| base_punchcard_dates.merge(value.to_h.transform_keys { |key| Date.new(key[1], key[2]) }) }
     end
 
     def check_active_submodules
@@ -59,6 +66,10 @@ module GobiertoPeople
 
     def departments_table
       departments_model.table_name
+    end
+
+    def people_model
+      GobiertoPeople::Person
     end
   end
 end

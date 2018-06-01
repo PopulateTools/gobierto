@@ -1,31 +1,18 @@
 .theme-gencat {
   // If $color_people var is not defined, get default one
   $colors: if(variable_exists(color_people), $color_people, $color_main);
+  $color-1: nth($colors, 1);
+  $color-1-light: rgba($color-1, .2);
+  $color-2: if(length($colors) > 1, nth($colors, 2), nth($colors, 1));
+  $color-2-light: rgba($color-2, .2);
+  $color-3: if(length($colors) > 2, nth($colors, 3), nth($colors, 1));
+  $color-3-light: rgba($color-3, .2);
 
-  .datepicker-container {
-    @include flex-align(space-between);
-    @include flexbox(15%);
+  a {
+    color: $color_link;
 
-    .air-datepicker {
-      padding: 0.4em;
-      font-size: 0.938em;
-      border-radius: 0;
-      border: 1px solid $color_separator;
-      height: 2.667em;
-      box-shadow: none;
-      cursor: pointer;
-
-      &:focus {
-        box-shadow: none;
-        border: 1px solid #bcbcbc;
-      }
-    }
-
-    .caret {
-      display: block !important;
-      position: absolute;
-      top: 50%;
-      right: 10px;
+    &:hover {
+      text-decoration: underline;
     }
   }
 
@@ -92,19 +79,100 @@
   //@component punchcard
   .punchcard {
     circle {
-      fill: nth($colors, 2);
+      fill: $color-2;
     }
 
     rect {
       &:nth-of-type(odd) {
-        fill: rgba(nth($colors, 2), .2);
+        fill: $color-2-light;
       }
     }
   }
 
-  .table-list {
-    .flex {
-      @include flex-align(space-between);
+  //@component map
+  #map {
+    height: 500px;
+    width: 66%;
+  }
+
+  section {
+    margin-bottom: 20px;
+  }
+
+  section#filter-datepicker {
+    @include flex-align(space-between);
+    @include flexbox(15%);
+
+    .air-datepicker {
+      padding: 0.4em;
+      font-size: 0.938em;
+      border-radius: 0;
+      border: 1px solid $color_separator;
+      height: 2.667em;
+      box-shadow: none;
+      cursor: pointer;
+
+      &:focus {
+        box-shadow: none;
+        border: 1px solid #bcbcbc;
+      }
+    }
+
+    .caret {
+      display: block !important;
+      position: absolute;
+      top: 50%;
+      right: 10px;
+    }
+  }
+
+  section#map-chart {
+    .map-container {
+      display: flex;
+
+      .map-info {
+        background-color: $color-2-light;
+        flex: 1 1 33%;
+        padding: 20px;
+
+        h1 {
+          color: $color-2;
+          font-size: 60px;
+          font-weight: 600;
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  section#obsequis-regals-invitacions {
+    header {
+      margin-bottom: 40px;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      padding: 10px 0;
+      border-top: 3px solid $color-3-light;
+      @include flex-align(space-between, flex-start);
+      @include flexbox(5%);
+
+      > :last-child {
+        text-align: right;
+        flex-shrink: 0;
+      }
+    }
+
+    .show-more {
+      padding: 2.5px 30px;
+    }
+
+    .alert {
+      padding: 5px 10px;
     }
   }
 }

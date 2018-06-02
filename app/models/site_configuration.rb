@@ -17,7 +17,8 @@ class SiteConfiguration
     :home_page,
     :home_page_item_id,
     :raw_configuration_variables,
-    :auth_modules
+    :auth_modules,
+    :engine_overrides
   ].freeze
 
   DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze
@@ -54,6 +55,10 @@ class SiteConfiguration
 
   def auth_modules_data
     AUTH_MODULES.select { |mod| auth_modules.include?(mod.name) }
+  end
+
+  def engine_overrides
+    @engine_overrides || []
   end
 
   def logo_with_fallback

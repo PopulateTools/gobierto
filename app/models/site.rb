@@ -125,7 +125,7 @@ class Site < ApplicationRecord
   end
 
   def engines_overrides
-    ["gencat"]
+    configuration.engine_overrides
   end
 
   private

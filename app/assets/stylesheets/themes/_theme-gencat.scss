@@ -170,18 +170,34 @@
 
   //@component toggle
   .toggle-container {
+    &,
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
     li {
       margin-bottom: 10px;
     }
 
     a {
-      padding: 10px;
-      @include flex-align(center);
+      padding: 20px;
+      @include flex-align(stretch);
       @include flexbox(5%);
 
+      &:hover {
+        text-decoration: none !important;
+      }
+
       > :first-child {
+        flex-basis: 25%;
         flex-shrink: 0;
-        flex-basis: 33%;
+        text-align: right;
+        display: inline;
+      }
+
+      > :last-child {
+        font-size: $f7;
       }
     }
   }

@@ -42,6 +42,8 @@ module GobiertoAdmin
 
     attr_reader :logo_url
 
+    attr_writer :engine_overrides
+
     delegate :persisted?, to: :site
 
     validates :google_analytics_id,
@@ -81,6 +83,24 @@ module GobiertoAdmin
                       else
                         site.configuration.auth_modules
                       end
+    end
+
+    def engine_overrides_param=(engine_overrides)
+      if engine_overrides.is_a? String
+        engine_overrides = engine_overrides.split(/[;,\s]+/)
+      end
+      engine_overrides_base_path = Rails.root.join("vendor/gobierto_engines/")
+      @engine_overrides = engine_overrides.select do |engine|
+        Dir.exist?(File.join(engine_overrides_base_path, engine))
+      end
+    end
+
+    def engine_overrides
+      @engine_overrides ||= site.configuration.engine_overrides
+    end
+
+    def engine_overrides_param
+      @engine_overrides_param ||= engine_overrides.join(", ")
     end
 
     def head_markup
@@ -188,6 +208,7 @@ module GobiertoAdmin
         site_attributes.configuration.populate_data_api_token = populate_data_api_token
         site_attributes.configuration.raw_configuration_variables = raw_configuration_variables
         site_attributes.configuration.auth_modules = auth_modules
+        site_attributes.configuration.engine_overrides = engine_overrides
       end
 
       @organization_id_changed = @site.organization_id_changed?

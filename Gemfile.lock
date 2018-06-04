@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/PopulateTools/gobierto_data.git
+  revision: 574330312be0643644a0d7ff221dc84ec47ac12a
+  specs:
+    gobierto_data (0.0.1)
+      actionpack (>= 5.0.0.1)
+      activesupport (>= 5.0.0)
+      aws-sdk (~> 2.11, >= 2.11.45)
+      elasticsearch (~> 6.0, >= 6.0.2)
+      elasticsearch-extensions (~> 0.0.27)
+      ine-places (~> 0.2.0)
+      oj (~> 3.5, >= 3.5.0)
+      sequel (~> 5.8, >= 5.8.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -86,13 +100,13 @@ GEM
       thor (~> 0.19)
     builder (3.2.3)
     byebug (10.0.2)
-    capybara (3.1.1)
+    capybara (3.2.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
-      xpath (~> 3.0)
+      xpath (~> 3.1)
     capybara-email (3.0.1)
       capybara (>= 2.4, < 4.0)
       mail
@@ -120,7 +134,7 @@ GEM
     declarative (0.0.10)
     declarative-option (0.1.0)
     docile (1.3.0)
-    domain_name (0.5.20170404)
+    domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (0.7.0)
     easy_translate (0.5.1)
@@ -159,7 +173,7 @@ GEM
       thor (>= 0.13.6)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    google-api-client (0.22.0)
+    google-api-client (0.23.0)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (>= 0.5, < 0.7.0)
       httpclient (>= 2.8.1, < 3.0)
@@ -252,12 +266,12 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (0.3.2)
       mimemagic (~> 0.3.2)
-    mechanize (2.7.5)
+    mechanize (2.7.6)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0)
       mime-types (>= 1.17.2)
       net-http-digest_auth (~> 1.1, >= 1.1.1)
-      net-http-persistent (~> 2.5, >= 2.5.2)
+      net-http-persistent (>= 2.5.2)
       nokogiri (~> 1.6)
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
@@ -288,7 +302,8 @@ GEM
     multi_json (1.13.1)
     multipart-post (2.0.0)
     net-http-digest_auth (1.4.1)
-    net-http-persistent (2.9.4)
+    net-http-persistent (3.0.0)
+      connection_pool (~> 2.2)
     netrc (0.11.0)
     nio4r (2.3.0)
     nokogiri (1.8.2)
@@ -297,7 +312,7 @@ GEM
     ntlm-http (0.1.1)
     oj (3.5.0)
     os (0.9.6)
-    paper_trail (9.1.0)
+    paper_trail (9.1.1)
       activerecord (>= 4.2, < 5.3)
       request_store (~> 1.1)
     parallel (1.12.1)
@@ -402,6 +417,7 @@ GEM
       nokogiri (>= 1.4.0)
       nori (~> 2.4)
       wasabi (~> 3.4)
+    sequel (5.8.0)
     sidekiq (5.1.3)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -451,7 +467,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.1.10)
+    uglifier (4.1.11)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -462,7 +478,7 @@ GEM
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
-    webmock (3.4.1)
+    webmock (3.4.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
@@ -475,7 +491,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
     xml-simple (1.1.5)
-    xpath (3.0.0)
+    xpath (3.1.0)
       nokogiri (~> 1.8)
 
 PLATFORMS
@@ -505,6 +521,7 @@ DEPENDENCIES
   exchanger
   flight-for-rails
   foreman
+  gobierto_data!
   google-api-client
   i18n-js (>= 3.0.0.rc11)
   i18n-tasks
@@ -556,4 +573,4 @@ DEPENDENCIES
   webpacker (~> 3.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

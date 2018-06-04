@@ -8,8 +8,7 @@
 </section>
 
 <section>
-  <h3 class="h3 text-left">Departamentos</h3>
-  <p>Cualquier organización que se reune con un alto cargo debe registrarse como grupo de interés, y se crea un registro de los encuentros. Aprende más sobre la Normativa de Grupos de Interés. Explora las organizaciones (empresas, fundaciones, asociaciones…) que se reunen con cargos de la Generalitat. </p>
+  <h3 class="h3 text-left">Departament d'Afers i Relacions Institucionals i Exteriors i Transparència</h3>
 </section>
 
 <section class="row">
@@ -51,7 +50,12 @@
   </div>
 </section>
 
-<section>
+<section id="map-chart">
+  <p><strong>¿Cap a on viatjen els alts carrècs?</strong></p>
+  <%= render "gobierto_people/gencat/map" %>
+  <div class="margin_top_xs">
+    <a href="" class="show-more bg-info"><small>Veure tot</small></a>
+  </div>
   <div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard color-2 transparent"></div>
 </section>
 

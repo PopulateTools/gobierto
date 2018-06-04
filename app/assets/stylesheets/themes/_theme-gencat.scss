@@ -1,13 +1,13 @@
 .theme-gencat {
+
   // If $color_people var is not defined, get default one
   $colors: if(variable_exists(color_people), $color_people, $color_main);
-  $color-1: nth($colors, 1);
-  $color-1-light: rgba($color-1, .2);
-  $color-2: if(length($colors) > 1, nth($colors, 2), nth($colors, 1));
-  $color-2-light: rgba($color-2, .2);
-  $color-3: if(length($colors) > 2, nth($colors, 3), nth($colors, 1));
-  $color-3-light: rgba($color-3, .2);
+  // functions
+  @function color($i: 1) {
+    @return if($i > length($colors), nth($colors, 1), nth($colors, $i));
+  }
 
+  // defaults
   a {
     color: $color_link;
 
@@ -17,36 +17,38 @@
   }
 
   //@component color
-  // // REVIEW: No me gusta
-  @for $i from 1 through 3 {
-    // Up to 3, 'cuz we have always THREE boxes
-
-    $color: null;
-
-    @if $i > length($colors) {
-      // If there is lower than 3 colors, reuse first one
-      $color: nth($colors, 1);
-    } @else {
-      $color: nth($colors, $i);
-    }
-
+  @for $i from 1 through max(length($colors), 3) {
     .color-#{$i} {
-      background-color: rgba($color, .2);
+      background-color: rgba(color($i), .2);
 
-      > :first-child {
-        border-top: 12px solid $color;
-      }
-
+      // commons
+      &.transparent,
       svg {
         background-color: transparent;
       }
 
-      h1 {
-        color: $color;
+      .color-decorator {
+        border-top: 12px solid color($i);
       }
 
+      h1 {
+        color: color($i);
+      }
+
+      // rowchart
       .bar {
-        fill: $color;
+        fill: color($i);
+      }
+
+      // punchcard
+      circle {
+        fill: color($i);
+      }
+
+      rect:not(.bar) {
+        &:nth-of-type(odd) {
+          fill: rgba(color($i), .2);
+        }
       }
     }
   }
@@ -61,6 +63,10 @@
 
     > :first-child {
       padding: 0 20px;
+    }
+
+    > :only-child {
+      padding: 20px;
     }
 
     > :last-child {
@@ -78,43 +84,16 @@
     }
   }
 
-  //@component punchcard
-  .punchcard {
-    circle {
-      fill: $color-2;
-    }
-
-    rect {
-      &:nth-of-type(odd) {
-        fill: $color-2-light;
-      }
-    }
-  }
-
-  //@component map // TODO: IMCOMPLETE
-  #map {
-    height: 500px;
-    width: 66%;
-  }
-
-  //@component show-more
-  .show-more {
-    padding: 2.5px 30px;
-  }
-
-  section {
-    margin-bottom: 20px;
-  }
-
-  section#filter-datepicker {
-    @include flex-align(space-between);
-    @include flexbox(15%);
+  //@component datepicker
+  .datepicker-container {
+    position: relative;
 
     .air-datepicker {
       padding: 0.4em;
       font-size: 0.938em;
       border-radius: 0;
       border: 1px solid $color_separator;
+      width: 100%;
       height: 2.667em;
       box-shadow: none;
       cursor: pointer;
@@ -129,8 +108,24 @@
       display: block !important;
       position: absolute;
       top: 50%;
-      right: 10px;
+      right: calc(10px + 15px); // column padding
     }
+  }
+
+  //@component show-more
+  .show-more {
+    padding: 2.5px 30px;
+  }
+
+  //@component map // TODO: IMCOMPLETE
+  #map {
+    height: 500px;
+    width: 66%;
+  }
+
+  // Layouts / pages
+  section {
+    margin-bottom: 40px;
   }
 
   section#map-chart {
@@ -138,12 +133,10 @@
       display: flex;
 
       .map-info {
-        background-color: $color-2-light;
         flex: 1 1 33%;
         padding: 20px;
 
         h1 {
-          color: $color-2;
           font-size: 60px;
           font-weight: 600;
           text-align: left;
@@ -152,8 +145,7 @@
     }
   }
 
-  // TODO: Rename
-  section#obsequis-regals-invitacions {
+  section#two-columns-table-list {
     header {
       margin-bottom: 40px;
     }
@@ -165,7 +157,7 @@
 
     li {
       padding: 10px 0;
-      border-top: 3px solid $color-3-light;
+      border-top: 3px solid rgba(color(3), .2);
       @include flex-align(space-between, flex-start);
       @include flexbox(5%);
 

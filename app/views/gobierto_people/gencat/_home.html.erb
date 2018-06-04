@@ -1,19 +1,20 @@
-<section id="filter-datepicker">
-  <p>Des d’aquí podeu accedir a informació exhaustiva sobre la relació de llocs de treball dels empleats públics, quants n’hi ha</p>
-  <div class="dropdown">
+<section class="row">
+  <p class="col-md-9">Des d’aquí podeu accedir a informació exhaustiva sobre la relació de llocs de treball dels empleats públics, quants n’hi ha</p>
+  <div class="col-md-3 datepicker-container">
     <input class="air-datepicker datepicker-here" type="text"
     data-range="true" data-multiple-dates-separator=" · "
     data-language="ca" data-date-format="d M yyyy" data-auto-close="true" />
     <span class="caret"></span>
   </div>
 </section>
+
 <section>
   <div class="fpca_distribuidora pd-30">
     <div class="llistat_destacat_text_avancat">
       <div class="llistat_col-lg-3 nova-altura-dist">
         <div class="col-xs-12 corrector-margins col-sm-4">
           <div class="box color-1 distribuidora-nova-3">
-            <div>
+            <div class="color-decorator">
               <h1>6.344</h1>
               <h5>
                 <div><strong>reunions registrades</strong></div>
@@ -27,7 +28,7 @@
         </div>
         <div class="col-xs-12 corrector-margins col-sm-4">
           <div class="box color-2 distribuidora-nova-3">
-            <div>
+            <div class="color-decorator">
               <h1>5.476</h1>
               <h5>
                 <div><strong>grups d'interès inscrits</strong></div>
@@ -42,7 +43,7 @@
         </div>
         <div class="col-xs-12 corrector-margins col-sm-4">
           <div class="box color-3 distribuidora-nova-3">
-            <div>
+            <div class="color-decorator">
               <h1>877</h1>
               <h5>
                 <div><strong>alts càrrecs</strong></div>
@@ -64,7 +65,7 @@
   <p><strong>¿Cap a on viatjen els alts carrècs?</strong></p>
   <%# TODO: Mapa por definir %>
   <div class="map-container mb_20">
-    <div class="map-info">
+    <div class="map-info color-2">
       <div>
         <h1>12</h1>
         <p>desplazamientos</p>
@@ -82,10 +83,10 @@
       <img src="http://wp-eng-static.washingtonpost.com/quiz_images/cbbf9911-c1ba-4d01-8169-34dcdfdb6383/b3f8570f-0671-4871-b00c-dcf8269314ce.png?ts=1420817167788" style="width:100%;height:100%;object-fit:cover;" alt="">
     </div>
   </div>
-  <div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
+  <div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard color-2 transparent"></div>
 </section>
 <hr>
-<section id="obsequis-regals-invitacions" class="row">
+<section id="two-columns-table-list" class="row">
   <div class="col-md-6">
     <header>
       <p><strong>Regals</strong></p>

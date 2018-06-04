@@ -1,14 +1,18 @@
-<section id="filter-datepicker">
-  <div>
-    <h1>Departamentos</h1>
-    <p>Cualquier organización que se reune con un alto cargo debe registrarse como grupo de interés, y se crea un registro de los encuentros. Aprende más sobre la Normativa de Grupos de Interés. Explora las organizaciones (empresas, fundaciones, asociaciones…) que se reunen con cargos de la Generalitat. </p>
+<section class="row">
+  <div class="col-md-9">
+    breadcrumb > fantastic > magic world
   </div>
-  <div class="dropdown">
+  <div class="col-md-3 datepicker-container">
     <input class="air-datepicker datepicker-here" type="text"
     data-range="true" data-multiple-dates-separator=" · "
     data-language="ca" data-date-format="d M yyyy" data-auto-close="true" />
     <span class="caret"></span>
   </div>
+</section>
+
+<section>
+  <h3 class="h3 text-left">Departamentos</h3>
+  <p>Cualquier organización que se reune con un alto cargo debe registrarse como grupo de interés, y se crea un registro de los encuentros. Aprende más sobre la Normativa de Grupos de Interés. Explora las organizaciones (empresas, fundaciones, asociaciones…) que se reunen con cargos de la Generalitat. </p>
 </section>
 
 <section class="row">
@@ -21,11 +25,12 @@
         </h5>
       </div>
     </div>
-    <div class="margin_top_xs color-1">
-      <span>Departaments amb més reunions</span>
-      <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+    <div class="margin_top_xs">
+      <p>Departaments amb més reunions</p>
+      <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart color-1"></div>
     </div>
-    <div>
+    <div class="margin_top_xs">
+      <p>Consulta les reunions</p>
       <a href="" class="show-more bg-danger"><small>Veure tot</small></a>
     </div>
   </div>
@@ -39,15 +44,16 @@
       </div>
     </div>
     <div class="margin_top_xs">
-      <span>Alts càrrec amb més reunions</span>
-      <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+      <p>Alts càrrec amb més reunions</p>
+      <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart color-3"></div>
     </div>
-    <div>
+    <div class="margin_top_xs">
+      <p>Consulta les reunions</p>
       <a href="" class="show-more bg-danger"><small>Veure tot</small></a>
     </div>
   </div>
 </section>
 
 <section>
-  <div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard"></div>
+  <div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard color-2 transparent"></div>
 </section>

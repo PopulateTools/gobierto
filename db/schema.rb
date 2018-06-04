@@ -312,9 +312,9 @@ ActiveRecord::Schema.define(version: 2018_05_22_082718) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
-    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
@@ -457,8 +457,8 @@ ActiveRecord::Schema.define(version: 2018_05_22_082718) do
     t.date "end_date", null: false
     t.jsonb "meta"
     t.bigint "department_id"
-    t.jsonb "location"
     t.string "external_id"
+    t.jsonb "location"
     t.index ["department_id"], name: "index_gp_invitations_on_department_id"
     t.index ["location"], name: "index_gp_invitations_on_location", using: :gin
     t.index ["meta"], name: "index_gp_invitations_on_meta", using: :gin

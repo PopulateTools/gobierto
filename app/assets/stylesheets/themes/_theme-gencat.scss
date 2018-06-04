@@ -168,6 +168,24 @@
     padding: 2.5px 30px;
   }
 
+  //@component toggle
+  .toggle-container {
+    li {
+      margin-bottom: 10px;
+    }
+
+    a {
+      padding: 10px;
+      @include flex-align(center);
+      @include flexbox(5%);
+
+      > :first-child {
+        flex-shrink: 0;
+        flex-basis: 33%;
+      }
+    }
+  }
+
   //@component map // TODO: IMCOMPLETE
   #map {
     height: 500px;

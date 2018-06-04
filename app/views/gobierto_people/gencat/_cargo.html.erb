@@ -24,7 +24,7 @@
       <li class="color-2">
         <a href="">
           <h1 class="h1">76</h1>
-          <div>viatjes realitzats</div>
+          <div>viatges realitzats</div>
         </a>
       </li>
       <li class="color-3">
@@ -42,102 +42,14 @@
     </ul>
   </div>
   <div class="col-md-8">
-    <section>
-      <figure class="table-list">
-        <figcaption class="mb_20">Últimes reunions</figcaption>
-        <ul class="color-1 transparent">
-          <% 4.times do %>
-          <li>
-            <div>
-              <p>Parlament de Catalunya proclamés la República Catalana</p>
-              <p>Meritxell Serret i Aleu</p>
-            </div>
-            <div>
-              <p>23/06/08</p>
-            </div>
-            <div>
-              <a href=""><small>Veure detalls</small></a>
-            </div>
-          </li>
-          <% end %>
-        </ul>
-      </figure>
-      <div>
-        <a href="" class="show-more color-1"><small>Veure tot</small></a>
-      </div>
-    </section>
-    <section>
-      <figure class="table-list">
-        <figcaption class="mb_20">Últims viatjes</figcaption>
-        <ul class="color-2 transparent">
-          <% 4.times do %>
-          <li>
-            <div>
-              <p>Parlament de Catalunya proclamés la República Catalana</p>
-              <p>Meritxell Serret i Aleu</p>
-            </div>
-            <div>
-              <p>23/06/08</p>
-            </div>
-            <div>
-              <a href=""><small>Veure detalls</small></a>
-            </div>
-          </li>
-          <% end %>
-        </ul>
-      </figure>
-      <div>
-        <a href="" class="show-more color-2"><small>Veure tot</small></a>
-      </div>
-    </section>
-    <section>
-      <figure class="table-list">
-        <figcaption class="mb_20">Últims invitacions</figcaption>
-        <ul class="color-3 transparent">
-          <% 4.times do %>
-          <li>
-            <div>
-              <p>Parlament de Catalunya proclamés la República Catalana</p>
-              <p>Meritxell Serret i Aleu</p>
-            </div>
-            <div>
-              <p>23/06/08</p>
-            </div>
-            <div>
-              <a href=""><small>Veure detalls</small></a>
-            </div>
-          </li>
-          <% end %>
-        </ul>
-      </figure>
-      <div>
-        <a href="" class="show-more color-3"><small>Veure tot</small></a>
-      </div>
-    </section>
-    <section>
-      <figure class="table-list">
-        <figcaption class="mb_20">Últims obsequis</figcaption>
-        <ul class="color-1 transparent">
-          <% 4.times do %>
-          <li>
-            <div>
-              <p>Parlament de Catalunya proclamés la República Catalana</p>
-              <p>Meritxell Serret i Aleu</p>
-            </div>
-            <div>
-              <p>23/06/08</p>
-            </div>
-            <div>
-              <a href=""><small>Veure detalls</small></a>
-            </div>
-          </li>
-          <% end %>
-        </ul>
-      </figure>
-      <div>
-        <a href="" class="show-more color-1"><small>Veure tot</small></a>
-      </div>
-    </section>
+    <figure>
+      <figcaption class="mb_20">Viatges realizats per Jaume I</figcaption>
+      <ul class="color-2 transparent">
+        <% 8.times do %>
+          <%= render "gobierto_people/gencat/cargo-item" %>
+        <% end %>
+      </ul>
+    </figure>
   </div>
 </section>
 

@@ -16,6 +16,15 @@
     }
   }
 
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .alert {
+    padding: 5px 10px;
+  }
+
   //@component color
   @for $i from 1 through max(length($colors), 3) {
     .color-#{$i} {
@@ -133,33 +142,6 @@
       position: absolute;
       top: 50%;
       right: calc(10px + 15px); // column padding
-    }
-  }
-
-  //@component tablelist
-  .table-list {
-    header {
-      margin-bottom: 40px;
-    }
-
-    ul {
-      margin: 0;
-      padding: 0;
-    }
-
-    li {
-      padding: 10px 0;
-      @include flex-align(space-between, flex-start);
-      @include flexbox(5%);
-
-      > :last-child {
-        text-align: right;
-        flex-shrink: 0;
-      }
-    }
-
-    .alert {
-      padding: 5px 10px;
     }
   }
 

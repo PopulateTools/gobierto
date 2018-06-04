@@ -59,124 +59,50 @@
 </section>
 <hr>
 <section id="map-chart">
-  <p><strong>¿Cap a on viatjen els alts carrècs?</strong></p>
+  <p><strong>¿Cap a on viatgen els alts carrècs?</strong></p>
   <%= render "gobierto_people/gencat/map" %>
   <div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard color-2 transparent"></div>
 </section>
 <hr>
 <section class="row">
-  <div class="table-list col-md-6">
-    <header>
+  <div class="col-md-6">
+    <section>
       <p><strong>Regals</strong></p>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis vero praesentium soluta maxime aperiam fuga sint harum tempora perspiciatis eveniet porro culpa, est eaque pariatur earum in accusamus, odio, qui.</p>
       <div class="alert alert-warning">
         <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit</small>
       </div>
-    </header>
+    </section>
     <figure>
       <figcaption class="mb_20">Últims obsequis</figcaption>
       <ul class="color-3 transparent">
-        <li>
-          <div>
-            <p><strong>Parlament de Catalunya proclamés la República Catalana</strong></p>
-            <p>Meritxell Serret i Aleu</p>
-          </div>
-          <div>
-            <p><strong>23/06/08</strong></p>
-            <a href=""><small>Veure detalls</small></a>
-          </div>
-        </li>
-        <li>
-          <div>
-            <p><strong>Parlament de Catalunya proclamés la República Catalana</strong></p>
-            <p>Meritxell Serret i Aleu</p>
-          </div>
-          <div>
-            <p><strong>23/06/08</strong></p>
-            <a href=""><small>Veure detalls</small></a>
-          </div>
-        </li>
-        <li>
-          <div>
-            <p><strong>Parlament de Catalunya proclamés la República Catalana</strong></p>
-            <p>Meritxell Serret i Aleu</p>
-          </div>
-          <div>
-            <p><strong>23/06/08</strong></p>
-            <a href=""><small>Veure detalls</small></a>
-          </div>
-        </li>
-        <li>
-          <div>
-            <p><strong>Parlament de Catalunya proclamés la República Catalana</strong></p>
-            <p>Meritxell Serret i Aleu</p>
-          </div>
-          <div>
-            <p><strong>23/06/08</strong></p>
-            <a href=""><small>Veure detalls</small></a>
-          </div>
-        </li>
+        <% 4.times do %>
+          <%= render "gobierto_people/gencat/home-table-item" %>
+        <% end %>
       </ul>
     </figure>
     <div class="pd-15">
-      <a href="" class="show-more bg-danger"><small>Veure tot</small></a>
+      <a href="" class="show-more"><small>Veure tot</small></a>
     </div>
   </div>
-  <div class="table-list col-md-6">
-    <header>
+  <div class="col-md-6">
+    <section>
       <p><strong>Invitacions</strong></p>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis vero praesentium soluta maxime aperiam fuga sint harum tempora perspiciatis eveniet porro culpa, est eaque pariatur earum in accusamus, odio, qui.</p>
       <div class="alert alert-warning">
         <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit</small>
       </div>
-    </header>
+    </section>
     <figure>
       <figcaption class="mb_20">Últimes invitacions</figcaption>
       <ul class="color-3 transparent">
-        <li>
-          <div>
-            <p><strong>Parlament de Catalunya proclamés la República Catalana</strong></p>
-            <p>Meritxell Serret i Aleu</p>
-          </div>
-          <div>
-            <p><strong>23/06/08</strong><span> ⇥ </span><strong>23/06/08</strong></p>
-            <a href=""><small>Veure detalls</small></a>
-          </div>
-        </li>
-        <li>
-          <div>
-            <p><strong>Parlament de Catalunya proclamés la República Catalana</strong></p>
-            <p>Meritxell Serret i Aleu</p>
-          </div>
-          <div>
-            <p><strong>23/06/08</strong><span> ⇥ </span><strong>23/06/08</strong></p>
-            <a href=""><small>Veure detalls</small></a>
-          </div>
-        </li>
-        <li>
-          <div>
-            <p><strong>Parlament de Catalunya proclamés la República Catalana</strong></p>
-            <p>Meritxell Serret i Aleu</p>
-          </div>
-          <div>
-            <p><strong>23/06/08</strong><span> ⇥ </span><strong>23/06/08</strong></p>
-            <a href=""><small>Veure detalls</small></a>
-          </div>
-        </li>
-        <li>
-          <div>
-            <p><strong>Parlament de Catalunya proclamés la República Catalana</strong></p>
-            <p>Meritxell Serret i Aleu</p>
-          </div>
-          <div>
-            <p><strong>23/06/08</strong><span> ⇥ </span><strong>23/06/08</strong></p>
-            <a href=""><small>Veure detalls</small></a>
-          </div>
-        </li>
+        <% 4.times do %>
+          <%= render "gobierto_people/gencat/home-table-item" %>
+        <% end %>
       </ul>
     </figure>
     <div class="pd-15">
-      <a href="" class="show-more bg-danger"><small>Veure tot</small></a>
+      <a href="" class="show-more"><small>Veure tot</small></a>
     </div>
   </div>
 </section>

@@ -184,6 +184,28 @@
     }
   }
 
+  //@component table item
+  .table-item {
+    padding: 20px 0;
+
+    > div:nth-child(2) {
+      font-size: $f7;
+    }
+
+    > div:nth-child(3) {
+      font-size: $f8;
+
+      .row :last-child {
+        text-align: right;
+      }
+    }
+
+    > div:nth-child(2),
+    > div:nth-child(3) {
+      opacity: .5;
+    }
+  }
+
   //@component map // TODO: IMCOMPLETE
   #map {
     height: 500px;

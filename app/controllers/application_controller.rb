@@ -97,13 +97,9 @@ class ApplicationController < ActionController::Base
 
   def apply_engines_overrides
     engine_overrides = current_site.try(:engines_overrides)
-    if engine_overrides.present?
-      puts "\n\n[DEBUG] Appending overrides directory\n\n"
-      engine_overrides.each do |engine|
-        prepend_view_path Rails.root.join("vendor/gobierto_engines/#{ engine }/app/views")
-      end
-    else
-      puts "\n\n[DEBUG] No overrides to apply\n\n"
+    return if engine_overrides.blank?
+    engine_overrides.each do |engine|
+      prepend_view_path Rails.root.join("vendor/gobierto_engines/#{ engine }/app/views")
     end
   end
 

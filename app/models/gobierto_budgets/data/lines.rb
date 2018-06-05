@@ -153,8 +153,7 @@ module GobiertoBudgets
 
       def place_values(place = nil)
         place = @place unless place.present?
-
-        place ? values_filtered_by(ine_code: place.id) : []
+        place ? values_filtered_by(organization_id: place.id) : []
       end
 
       def organization_values
@@ -169,7 +168,10 @@ module GobiertoBudgets
           }]
           @comparison.map do |place_id|
             if place = INE::Places::Place.find(place_id)
-              { name: place.name, values: place_values(place) }
+              {
+                name: place.name,
+                values: place_values(place).reject { |item| item[:value].zero? }
+              }
             end
           end.compact + place_value
         else

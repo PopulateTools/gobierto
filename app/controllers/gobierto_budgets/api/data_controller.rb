@@ -4,8 +4,9 @@ module GobiertoBudgets
       include GobiertoBudgets::ApplicationHelper
 
       caches_action :total_budget, :total_budget_execution, :population, :total_budget_per_inhabitant,
-                    :budget, :budget_execution, :budget_per_inhabitant, :budget_percentage_over_total, :debt,
-                    :lines
+                    :budget, :budget_execution, :budget_per_inhabitant, :budget_percentage_over_total, :debt3
+
+      caches_action :lines, cache_path: proc { |c| c.request.url }
 
       def budget
         @year = params[:year].to_i

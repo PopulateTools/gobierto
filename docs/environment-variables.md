@@ -50,6 +50,9 @@ CLOUDINARY_API_SECRET=
 # Google Places API Key, to geolocalize places
 GOOGLE_PLACES_API_KEY=
 
+# Google Maps Geocoding API Key, to get coordinates from addresses names or find addresses based on either geographic coordinates or place IDs
+GOOGLE_MAPS_GEOCODING_API_KEY=
+
 # Algolia search engine configuration (https://www.algolia.com)
 ALGOLIA_APPLICATION_ID=
 ALGOLIA_API_KEY=
@@ -99,6 +102,7 @@ Gobierto uses ElasticSearch and Redis.
 - `ROLLBAR_ACCESS_TOKEN`: Rollbar access token
 - `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `S3_BUCKET_NAME`: Amazon S3 credentials, region and bucket name
 - `GOOGLE_PLACES_API_KEY`: Google Places API key
+- `GOOGLE_MAPS_GEOCODING_API_KEY`: Google Maps Geocoding API key
 - `ALGOLIA_SEARCH_API_KEY`, `ALGOLIA_APPLICATION_ID`, `ALGOLIA_API_KEY`: Algolia API keys
 - `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`: Cloudinary API keys. Sign up for a [free](https://cloudinary.com/users/register/free) account to cropping the user's avatar
 

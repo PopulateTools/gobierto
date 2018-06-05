@@ -61,6 +61,9 @@ module Gobierto
       require_dependency config.root.join(*base_strategies_path).join(strategy, 'lib', 'initializer')
     end
 
+    config.engine_sass_config_overrides = []
+    config.engine_sass_theme_dependencies = []
+
     # Do not add wrapper .field_with_errors around form fields with validation errors
     config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
 

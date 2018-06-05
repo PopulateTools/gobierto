@@ -143,7 +143,7 @@ $(document).on('turbolinks:load', function() {
       setFocus = setFocus || true;
       // Deactivate all other tabs
 
-      var currentTabpanel = tab.closest('[role="tabpanel"]');
+      var currentTabpanel = $(tab).closest('[role="tabpanel"]');
 
       deactivateTabs(currentTabpanel);
 

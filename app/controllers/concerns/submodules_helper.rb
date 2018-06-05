@@ -1,6 +1,8 @@
 module SubmodulesHelper
   extend ActiveSupport::Concern
 
+  require_dependency "gobierto_people"
+
   included do
     helper_method :active_submodules, :welcome_submodule_active?, :officials_submodule_active?,
                   :agendas_submodule_active?, :blogs_submodule_active?, :statements_submodule_active?,

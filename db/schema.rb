@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_22_082718) do
+ActiveRecord::Schema.define(version: 2018_06_01_135249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -322,10 +322,12 @@ ActiveRecord::Schema.define(version: 2018_05_22_082718) do
     t.jsonb "description_source_translations"
     t.jsonb "meta"
     t.bigint "department_id"
+    t.bigint "interest_group_id"
     t.index ["archived_at"], name: "index_gc_events_on_archived_at"
     t.index ["department_id"], name: "index_gc_events_on_department_id"
     t.index ["description_source_translations"], name: "index_gc_events_on_description_source_translations", using: :gin
     t.index ["description_translations"], name: "index_gc_events_on_description_translations", using: :gin
+    t.index ["interest_group_id"], name: "index_gc_events_on_interest_group_id"
     t.index ["meta"], name: "index_gc_events_on_meta", using: :gin
     t.index ["site_id", "slug"], name: "index_gc_events_on_site_id_and_slug", unique: true
     t.index ["title_translations"], name: "index_gc_events_on_title_translations", using: :gin

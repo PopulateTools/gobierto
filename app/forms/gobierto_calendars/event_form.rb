@@ -17,7 +17,8 @@ module GobiertoCalendars
       :ends_at,
       :notify,
       :meta,
-      :department_id
+      :department_id,
+      :interest_group_id
     )
     attr_writer(
       :state,

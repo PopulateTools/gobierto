@@ -17,7 +17,7 @@
           <h2 class="with_description p_h_r_0_5"><%= t('.title') %></h2>
           <%= render partial: "gobierto_budgets/shared/year_breadcrumb", locals: {
                 selected_year: @year,
-                selected_year_path: gobierto_budgets_budgets_path(@year),
+                selected_year_path: gobierto_budgets_budgets_execution_path(@year),
                 available_years: available_years
               } %>
         </div>

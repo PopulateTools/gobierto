@@ -44,4 +44,22 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  def test_year_breadcrumb_click
+    available_years = [2017, 2016]
+    GobiertoBudgets::SearchEngineConfiguration::Year.stubs(:with_data).with(
+      index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
+    ).returns(available_years)
+
+    with_current_site(placed_site) do
+      visit gobierto_budgets_budgets_execution_path(available_years.first)
+
+      within "#popup-year" do
+        click_link available_years.first
+      end
+
+      refute_equal current_path, gobierto_budgets_budgets_execution_path(available_years.first)
+    end
+  end
+
 end

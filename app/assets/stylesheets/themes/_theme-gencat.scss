@@ -1,0 +1,232 @@
+.theme-gencat {
+
+  // If $color_people var is not defined, get default one
+  $colors: if(variable_exists(color_people), $color_people, $color_main);
+  // functions
+  @function color($i: 1) {
+    @return if($i > length($colors), nth($colors, 1), nth($colors, $i));
+  }
+
+  // defaults
+  a {
+    color: $color_link;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .alert {
+    padding: 5px 10px;
+  }
+
+  //@component color
+  @for $i from 1 through max(length($colors), 3) {
+    .color-#{$i} {
+      background-color: rgba(color($i), .2);
+
+      // commons
+      &.transparent,
+      svg {
+        background-color: transparent;
+      }
+
+      .color-decorator {
+        border-top: 12px solid color($i);
+      }
+
+      h1 {
+        color: color($i);
+      }
+
+      // rowchart
+      .bar {
+        fill: color($i);
+      }
+
+      // punchcard
+      circle {
+        fill: color($i);
+      }
+
+      rect:not(.bar) {
+        &:nth-of-type(odd) {
+          fill: rgba(color($i), .2);
+        }
+      }
+
+      // table-list
+      li {
+        border-top: 3px solid rgba(color($i), .2);
+      }
+    }
+  }
+
+  //@component breadcrumb
+  .section-breadcrumb {
+    display: inline-block;
+
+    > * {
+      display: inline-block;
+
+      span {
+        text-decoration: underline;
+        text-transform: capitalize;
+      }
+
+      &:not(:last-child)::after {
+        content: ' > ';
+        color: $text_soft;
+      }
+    }
+  }
+
+  //@component box
+  .box {
+    border-radius: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    > :first-child {
+      padding: 0 20px;
+    }
+
+    > :only-child {
+      padding: 20px;
+    }
+
+    > :last-child {
+      span {
+        padding: 0 20px;
+        color: $text_soft;
+        font-size: $f8;
+      }
+    }
+
+    h1 {
+      font-size: 60px;
+      font-weight: 600;
+      text-align: left;
+    }
+  }
+
+  //@component datepicker
+  .datepicker-container {
+    position: relative;
+
+    .air-datepicker {
+      padding: 0.4em;
+      font-size: 0.938em;
+      border-radius: 0;
+      border: 1px solid $color_separator;
+      width: 100%;
+      height: 2.667em;
+      box-shadow: none;
+      cursor: pointer;
+
+      &:focus {
+        box-shadow: none;
+        border: 1px solid #bcbcbc;
+      }
+    }
+
+    .caret {
+      display: block !important;
+      position: absolute;
+      top: 50%;
+      right: calc(10px + 15px); // column padding
+    }
+  }
+
+  //@component show-more
+  .show-more {
+    padding: 2.5px 30px;
+  }
+
+  //@component toggle
+  .toggle-container {
+    &,
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    a {
+      padding: 20px;
+      @include flex-align(stretch);
+      @include flexbox(5%);
+
+      &:hover {
+        text-decoration: none !important;
+      }
+
+      > :first-child {
+        flex-basis: 25%;
+        flex-shrink: 0;
+        text-align: right;
+        display: inline;
+      }
+
+      > :last-child {
+        font-size: $f7;
+      }
+    }
+  }
+
+  //@component table item
+  .table-item {
+    padding: 20px 0;
+
+    > div:nth-child(3) {
+      font-size: $f8;
+
+      .row :last-child {
+        text-align: right;
+      }
+    }
+
+    > div:nth-child(2),
+    > div:nth-child(3) {
+      opacity: .5;
+    }
+  }
+
+  //@component map // TODO: IMCOMPLETE
+  #map {
+    height: 500px;
+    width: 66%;
+  }
+
+  // Layouts / pages
+  section {
+    margin-bottom: 40px;
+  }
+
+  section#map-chart {
+    .map-container {
+      display: flex;
+
+      .map-info {
+        flex: 1 1 33%;
+        padding: 20px;
+
+        h1 {
+          font-size: 60px;
+          font-weight: 600;
+          text-align: left;
+        }
+      }
+    }
+  }
+}

@@ -37,10 +37,16 @@
 @import "mixins";
 
 /*
- * Gobierto components
+ * Gobierto base and themes configuration
  *
  */
 @import "css-conf";
+@import "themes/conf/*";
+
+/*
+ * Gobierto components
+ *
+ */
 @import "comp-dropdown";
 @import "comp-breadcrumbs";
 @import "comp-flash_messages";
@@ -94,6 +100,7 @@
  *
  */
 @import "theme-participation";
+@import "themes/*";
 
 /*
  * Print styles

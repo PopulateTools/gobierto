@@ -1,0 +1,60 @@
+<section class="row">
+  <div class="col-md-9">
+    <%= render "gobierto_people/gencat/breadcrumb" %>
+  </div>
+  <div class="col-md-3">
+    <%= render "gobierto_people/gencat/datepicker" %>
+  </div>
+</section>
+
+<section>
+  <h3 class="h3 text-left">Unió de Pagesos de Catalunya</h3>
+  <p>Situació inscripció registre grup interès: Inscrit</p>
+</section>
+
+<section class="row">
+  <div class="col-md-5">
+    <div class="box color-1">
+      <div>
+        <h1>6.344</h1>
+        <h5>
+          <div><strong>reunions registrades</strong></div>
+        </h5>
+      </div>
+    </div>
+    <div class="margin_top_xs">
+      <p>Departaments amb més reunions</p>
+      <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart color-1"></div>
+    </div>
+    <div class="margin_top_xs">
+      <p>Explora els departaments</p>
+      <a href="" class="show-more bg-danger"><small>Departaments</small></a>
+    </div>
+  </div>
+  <div class="col-md-5 col-md-offset-2">
+    <div class="box color-3">
+      <div>
+        <h1>6.344</h1>
+        <h5>
+          <div><strong>reunions registrades</strong></div>
+        </h5>
+      </div>
+    </div>
+    <div class="margin_top_xs">
+      <p>Alts càrrec amb més reunions</p>
+      <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart color-3"></div>
+    </div>
+    <div class="margin_top_xs">
+      <p>Consulta les reunions</p>
+      <a href="" class="show-more bg-danger"><small>Veure tot</small></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard color-2 transparent"></div>
+</section>
+
+<section class="row">
+  <a href="" class="col-md-12 bg-danger p_2">Accedeix a les dades al portal de Dades Obertes</a>
+</section>

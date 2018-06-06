@@ -1,128 +1,231 @@
-<% title(t("gobierto_people.layouts.application.title")) %>
-<% description([t("gobierto_people.layouts.application.title"), @site.title].join('. ')) %>
-
-<div class="column">
-
-  <div class="pure-g">
-
-    <div class="pure-u-1 pure-u-md-1-2 p_h_r_2">
-
-      <p class="intro "><%= @home_text %></p>
-
-    </div>
-
-    <div class="pure-u-1 pure-u-md-1-2 p_h_l_2">
-
-      <%= render("user/subscriptions/subscribable_box",
-                 subscribable: GobiertoPeople,
-                 title: t(".subscribable_box.title")) %>
-    </div>
-
-  </div>
-
-  <div class="pure-g">
-
-    <% if officials_submodule_active? %>
-
-      <div class="pure-u-1 pure-u-md-1-2 p_h_r_2">
-
-        <div class="people-summary person-list item-list">
-          <div class="block">
-            <h2><%= t(".people_summary.title", site_name: whom(current_site.name)) %></h2>
-          </div>
-
-          <%= render "gobierto_people/welcome/people_filter" %>
-
-          <%= render(partial: "gobierto_people/people/people", locals: { people: @people } ) %>
-
-        </div>
-
-      </div>
-
-    <% end %>
-
-    <% if agendas_submodule_active? %>
-
-      <div class="pure-u-1 pure-u-md-1-2 p_h_l_2">
-
-        <div class="events-summary person_event-list item-list">
-
-          <%= render partial: "gobierto_people/people/person_events", locals: {
-            person_events: @events, people_filter: 'government', no_upcoming_events: @no_upcoming_events
-          } %>
-
-        </div>
-
-      </div>
-
-    <% end %>
-
-  </div>
-
-  <div class="m_v_4">
-    <div class="separator"></div>
-  </div>
-
-  <div class="pure-g">
-
-    <% if statements_submodule_active? %>
-
-      <div class="pure-u-1 pure-u-md-1-2 site-references p_h_r_2">
-
-        <div class="box fully_linked">
-          <%= link_to gobierto_people_statements_path, role: "button" do %>
-            <h2 class="linked_headline">
-              <i class="fa fa-money"></i>
-              <%= t(".statements") %>
-            </h2>
-          <% end %>
-        </div>
-
-        <% if gifts_service_url.present? %>
-          <div class="box fully_linked">
-            <%= link_to gobierto_people_gifts_path, role: "button" do %>
-              <h2 class="linked_headline">
-                <i class="fa fa-gift"></i>
-                <%= t(".gifts") %>
-              </h2>
-            <% end %>
-          </div>
-        <% end %>
-
-        <% if travels_service_url.present? %>
-          <div class="box fully_linked">
-            <%= link_to gobierto_people_travels_path, role: "button" do %>
-              <h2 class="linked_headline">
-                <i class="fa fa-plane"></i>
-                <%= t(".travels") %>
-              </h2>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-
-    <% end %>
-
-    <% if blogs_submodule_active? && submodule_has_content?('blogs') %>
-
-      <div class="pure-u-1 pure-u-md-1-2 p_h_l_2">
-
-        <div class="block">
-          <h2 class="slim"><%= t(".posts_summary.title") %></h2>
-        </div>
-
-        <div class="posts-summary person_post-list item-list">
-
-          <%= render @posts %>
-
-          <%= link_to t(".posts_summary.view_all"), gobierto_people_posts_path, class: "see_more", role: "button" %>
-
-        </div>
-
-      </div>
-
-    <% end %>
-
-  </div>
-
+<%# TODO: RESTAURAR _REAL_index.html.erb una vez esté terminado/integrado %>
+<div class="theme-gencat">
+  <!-- Home -->
+  <%= render "gobierto_people/gencat/home" if false %>
+  <!-- Departamentos -->
+  <%= render "gobierto_people/gencat/departments" if false %>
+  <!-- Departamento -->
+  <%= render "gobierto_people/gencat/department" if false %>
+  <!-- Grupos de interés -->
+  <%= render "gobierto_people/gencat/groups" if false %>
+  <!-- Grupo de interés -->
+  <%= render "gobierto_people/gencat/group" if false %>
+  <!-- Cargos -->
+  <%= render "gobierto_people/gencat/cargos" if false %>
+  <!-- Cargo -->
+  <%= render "gobierto_people/gencat/cargo" if true %>
 </div>
+
+<!-- Scripting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript">
+  // Charts
+  const rowchart = (context, data, options = {}) => {
+    // options
+    let itemHeight = options.itemHeight || 25
+    let gutter = options.gutter || 20
+    let margin = options.margins || {
+      top: gutter / 1.5,
+      right: gutter,
+      bottom: gutter * 1.5,
+      left: gutter
+    }
+    let xTickFormat = options.xTickFormat || (d => d)
+    let yTickFormat = options.yTickFormat || (d => d)
+
+    // dimensions
+    let container = d3.select(context)
+    let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
+    let height = (data.length * itemHeight) + margin.top + margin.bottom
+    let svg = container.append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+
+    // TODO: implementar tooltip
+    // let tooltip = container.append("div").attr("class", "toolTip")
+
+    // scales
+    let x = d3.scaleLinear().range([0, width])
+    let y = d3.scaleBand().range([height, 0])
+
+    let g = svg.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+    x.domain([0, d3.max(data, d => d.value)])
+    y.domain(data.map(d => d.key)).padding(0.1)
+
+    g.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + (height + (gutter / 4)) + ")")
+      .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0).tickFormat(xTickFormat))
+
+    g.selectAll(".bar")
+      .data(data)
+      .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", 0)
+      .attr("height", y.bandwidth())
+      .attr("y", d => y(d.key))
+      .transition()
+      .duration(750)
+      .attr("width", d => x(d.value))
+    // .on("mousemove", function(d) {
+    //   tooltip
+    //     .style("left", d3.event.pageX - 50 + "px")
+    //     .style("top", d3.event.pageY - 70 + "px")
+    //     .style("display", "inline-block")
+    //     .html((d.key) + "<br>" + "£" + (d.value));
+    // })
+    // .on("mouseout", d => tooltip.style("display", "none"));
+
+    g.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + gutter + ", 0)")
+      .call(d3.axisLeft(y).tickFormat(yTickFormat))
+  }
+  const punchcard = (context, data, options = {}) => {
+	  // options
+		let itemHeight = options.itemHeight || 50
+	  let gutter = options.gutter || 20
+	  let margin = options.margins || {
+	    top: gutter * 1.5,
+	    right: gutter,
+	    bottom: gutter * 1.5,
+	    left: gutter * 15
+	  }
+		let xTickFormat = options.xTickFormat || (d => d)
+		let yTickFormat = options.yTickFormat || (d => d)
+		let title = options.title || ''
+
+	  // dimensions
+	  let container = d3.select(context)
+	  let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
+	  let height = (data.length * itemHeight) + margin.top + margin.bottom
+	  let svg = container.append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+
+	  // scales
+	  let x = d3.scaleTime().range([0, width]);
+	  let y = d3.scalePoint().range([height, 0]);
+	  let r = d3.scaleSqrt().range([0, 15]) // tamaño de las bolas
+
+	  // domains
+	  x.domain([
+			d3.min(data.map(d => d3.min(d.value.map(v => v.key)))),
+			d3.max(data.map(d => d3.max(d.value.map(v => v.key))))
+		]);
+	  y.domain(data.map(d => d.key)).padding(1);
+
+	  // Custom X-axis
+	  function xAxis(g) {
+	    g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
+	    g.selectAll(".domain").remove()
+	    g.selectAll(".tick line")
+	      .attr("y1", itemHeight / 2)
+	      .attr("y2", height - (itemHeight / 4))
+	    g.selectAll(".tick text")
+	      .attr("y", (-margin.top / 2) + (itemHeight / 2))
+	  }
+
+	  // Custom Y-axis
+	  function yAxis(g) {
+	    g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0).tickFormat(yTickFormat))
+	    g.selectAll(".domain").remove()
+	  }
+
+		// chart title
+		if (title) {
+			svg.append("text")
+				.attr("x", 0)
+				.attr("y", (margin.top / 2) + (itemHeight / 2))
+				.attr("class", "title")
+				.attr("text-anchor", "start")
+				.text(title);
+		}
+
+		let g = svg.append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+	  // axis
+	  g.append("g")
+	    .attr("class", "x axis")
+	    .call(xAxis)
+	  g.append("g")
+	    .attr("class", "y axis")
+	    .attr("transform", "translate(" + (-margin.left + gutter) + ",0)")
+	    .call(yAxis)
+
+	  // circles
+	  for (var i = 0; i < data.length; i++) {
+
+	    svg.append("rect")
+	      .attr("x", 0)
+	      .attr("y", y(data[i].key) + margin.top - (itemHeight / 2))
+	      .attr("rx", 6)
+	      .attr("ry", 6)
+	      .attr("width", +container.node().getBoundingClientRect().width)
+	      .attr("height", itemHeight);
+
+	    let g = svg.append("g")
+	      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+	    r.domain([
+				d3.min(data[i].value, d => d.value),
+				d3.max(data[i].value, d => d.value)
+			]);
+
+	    g.selectAll("circle")
+	      .data(data[i].value)
+	      .enter()
+	      .append("circle")
+	      .attr("class", "circle")
+	      .attr("cx", d => x(d.key))
+	      .attr("cy", d => y(data[i].key))
+	      .transition()
+	      .duration(800)
+	      .attr("r", d => r(d.value));
+	  }
+	};
+
+  $.getJSON("/rowchart.json", (data) => {
+
+    // preprocess the data
+    data.sort((a, b) => a.value - b.value)
+
+    $(".rowchart").each((i, container) => {
+      rowchart(`#${container.id}`, data)
+    })
+  });
+
+  $.getJSON("/punchcard.json", (data) => {
+
+		// preprocess data sample
+		for (var i = 0; i < data.length; i++) {
+
+			// reduce data, group by month
+			let nest = d3.nest()
+				.key(d => d3.timeMonth((new Date(d.key))))
+				.rollup(d => _.sumBy(d, 'value'))
+				.entries(data[i].value)
+				.map(g => {
+					g.key = d3.timeMonth(new Date(d3.timeFormat("%Y/%m/%d")(new Date(g.key))))
+					return g
+				})
+
+			// update original data
+			data[i].value = nest
+		}
+
+		// edit options
+		let opts = {
+			title: 'Reunions per alt càrrec i mes',
+			xTickFormat: (d, i, arr) => ((arr.length + i) % 3) ? null : d3.timeFormat("%b %y")(d)
+		}
+
+	  $(".punchcard").each((i, container) => {
+	    punchcard(`#${container.id}`, data, opts)
+	  })
+	});
+</script>

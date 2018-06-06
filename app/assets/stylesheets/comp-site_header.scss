@@ -39,16 +39,6 @@ header {
     }
   }
 
-  @mixin flex-align($horizontal: center, $vertical: center) {
-    display: flex;
-    justify-content: $horizontal;
-    align-items: $vertical;
-
-    > * {
-      margin: 0;
-    }
-  }
-
   .slim_nav_bar {
     margin: 0;
     text-transform: uppercase;

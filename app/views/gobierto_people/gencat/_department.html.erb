@@ -1,0 +1,62 @@
+<section class="row">
+  <div class="col-md-9">
+    <%= render "gobierto_people/gencat/breadcrumb" %>
+  </div>
+  <div class="col-md-3">
+    <%= render "gobierto_people/gencat/datepicker" %>
+  </div>
+</section>
+
+<section>
+  <h3 class="h3 text-left">Departament d'Afers i Relacions Institucionals i Exteriors i Transparència</h3>
+</section>
+
+<section class="row">
+  <div class="col-md-5">
+    <div class="box color-1">
+      <div>
+        <h1>6.344</h1>
+        <h5>
+          <div><strong>reunions registrades</strong></div>
+        </h5>
+      </div>
+      <div class="margin_top_xs">
+        <span>Departaments amb més reunions</span>
+        <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+      </div>
+    </div>
+    <div class="margin_top_xs">
+      <a href="" class="show-more bg-danger"><small>Veure tot</small></a>
+    </div>
+  </div>
+  <div class="col-md-5 col-md-offset-2">
+    <div class="box color-3">
+      <div>
+        <h1>6.344</h1>
+        <h5>
+          <div><strong>reunions registrades</strong></div>
+        </h5>
+      </div>
+      <div class="margin_top_xs">
+        <span>Alts càrrec amb més reunions</span>
+        <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+      </div>
+    </div>
+    <div class="margin_top_xs">
+      <a href="" class="show-more bg-danger"><small>Veure tot</small></a>
+    </div>
+  </div>
+</section>
+
+<section id="map-chart">
+  <p><strong>¿Cap a on viatgen els alts carrècs?</strong></p>
+  <%= render "gobierto_people/gencat/map" %>
+  <div class="margin_top_xs">
+    <a href="" class="show-more bg-info"><small>Veure tot</small></a>
+  </div>
+  <div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard color-2 transparent"></div>
+</section>
+
+<section class="row">
+  <a href="" class="col-md-12 bg-danger p_2">Accedeix a les dades al portal de Dades Obertes</a>
+</section>

@@ -1,0 +1,112 @@
+<section class="row">
+  <p class="col-md-9">Des d’aquí podeu accedir a informació exhaustiva sobre la relació de llocs de treball dels empleats públics, quants n’hi ha</p>
+  <div class="col-md-3">
+    <%= render "gobierto_people/gencat/datepicker" %>
+  </div>
+</section>
+
+<section>
+  <div class="fpca_distribuidora pd-30">
+    <div class="llistat_destacat_text_avancat">
+      <div class="llistat_col-lg-3 nova-altura-dist">
+        <div class="col-xs-12 corrector-margins col-sm-4">
+          <div class="box color-1 distribuidora-nova-3">
+            <div class="color-decorator">
+              <h1>6.344</h1>
+              <h5>
+                <div><strong>reunions registrades</strong></div>
+              </h5>
+            </div>
+            <div class="margin_top_xs">
+              <span>Departaments amb més reunions</span>
+              <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 corrector-margins col-sm-4">
+          <div class="box color-2 distribuidora-nova-3">
+            <div class="color-decorator">
+              <h1>5.476</h1>
+              <h5>
+                <div><strong>grups d'interès inscrits</strong></div>
+                <span>o en procès</span>
+              </h5>
+            </div>
+            <div class="margin_top_xs">
+              <span>Grups d'interès amb més reunions</span>
+              <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 corrector-margins col-sm-4">
+          <div class="box color-3 distribuidora-nova-3">
+            <div class="color-decorator">
+              <h1>877</h1>
+              <h5>
+                <div><strong>alts càrrecs</strong></div>
+                <span>amb reunions registrades</span>
+              </h5>
+            </div>
+            <div class="margin_top_xs">
+              <span>Alts càrrec amb més reunions</span>
+              <div id="rowchart-<%= SecureRandom.random_number(100) %>" class="rowchart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr>
+<section id="map-chart">
+  <p><strong>¿Cap a on viatgen els alts carrècs?</strong></p>
+  <%= render "gobierto_people/gencat/map" %>
+  <div id="punchcard-<%= SecureRandom.random_number(100) %>" class="punchcard color-2 transparent"></div>
+</section>
+<hr>
+<section class="row">
+  <div class="col-md-6">
+    <section>
+      <p><strong>Regals</strong></p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis vero praesentium soluta maxime aperiam fuga sint harum tempora perspiciatis eveniet porro culpa, est eaque pariatur earum in accusamus, odio, qui.</p>
+      <div class="alert alert-warning">
+        <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit</small>
+      </div>
+    </section>
+    <figure>
+      <figcaption class="mb_20">Últims obsequis</figcaption>
+      <ul class="color-3 transparent">
+        <% 4.times do %>
+          <%= render "gobierto_people/gencat/home-table-item" %>
+        <% end %>
+      </ul>
+    </figure>
+    <div class="pd-15">
+      <a href="" class="show-more color-3"><small>Veure tot</small></a>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <section>
+      <p><strong>Invitacions</strong></p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis vero praesentium soluta maxime aperiam fuga sint harum tempora perspiciatis eveniet porro culpa, est eaque pariatur earum in accusamus, odio, qui.</p>
+      <div class="alert alert-warning">
+        <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit</small>
+      </div>
+    </section>
+    <figure>
+      <figcaption class="mb_20">Últimes invitacions</figcaption>
+      <ul class="color-3 transparent">
+        <% 4.times do %>
+          <%= render "gobierto_people/gencat/home-table-item" %>
+        <% end %>
+      </ul>
+    </figure>
+    <div class="pd-15">
+      <a href="" class="show-more color-3"><small>Veure tot</small></a>
+    </div>
+  </div>
+</section>
+
+<section class="row">
+  <a href="" class="col-md-12 color-3 p_2">Accedeix a les dades al portal de Dades Obertes</a>
+</section>

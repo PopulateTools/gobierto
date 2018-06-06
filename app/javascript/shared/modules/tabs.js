@@ -142,7 +142,10 @@ $(document).on('turbolinks:load', function() {
     function activateTab (tab, setFocus) {
       setFocus = setFocus || true;
       // Deactivate all other tabs
-      deactivateTabs();
+
+      var currentTabpanel = $(tab).closest('[role="tabpanel"]');
+
+      deactivateTabs(currentTabpanel);
 
       // Remove tabindex attribute
       tab.removeAttribute('tabindex');
@@ -167,14 +170,12 @@ $(document).on('turbolinks:load', function() {
     }
 
     // Deactivate all tabs and tab panels
-    function deactivateTabs () {
-      for (var t = 0; t < tabs.length; t++) {
-        tabs[t].setAttribute('tabindex', '-1');
-        tabs[t].setAttribute('aria-selected', 'false');
-      }
+    function deactivateTabs (currentTabpanel) {
+      var tabsInCurrentTabpanel = $(currentTabpanel).find('[role="tab"]');
 
-      for (var p = 0; p < panels.length; p++) {
-        panels[p].setAttribute('hidden', 'hidden');
+      for (var t = 0; t < tabsInCurrentTabpanel.length; t++) {
+        tabsInCurrentTabpanel[t].setAttribute('tabindex', '-1');
+        tabsInCurrentTabpanel[t].setAttribute('aria-selected', 'false');
       }
     }
 

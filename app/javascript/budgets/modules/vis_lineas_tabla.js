@@ -93,6 +93,9 @@ export var VisLineasJ = Class.extend({
 
     // Chart dimensions
     this.containerWidth = parseInt(d3.select(this.container).style('width'), 10);
+    if (isNaN(this.containerWidth)) {
+      this.containerWidth = 0;
+    }
 
     if (d3.select(this.tableContainer).size() !== 0) {
       this.tableWidth = parseInt(d3.select(this.tableContainer).style('width'), 10);

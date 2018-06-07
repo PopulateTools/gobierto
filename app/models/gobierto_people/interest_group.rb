@@ -5,6 +5,7 @@ require_dependency "gobierto_people"
 module GobiertoPeople
   class InterestGroup < ApplicationRecord
 
+    include GobiertoCommon::Sluggable
     include GobiertoCommon::Metadatable
 
     belongs_to :site
@@ -15,6 +16,14 @@ module GobiertoPeople
     validates :name, presence: true
 
     metadata_attributes :status, :registry
+
+    def to_param
+      slug
+    end
+
+    def attributes_for_slug
+      [name]
+    end
 
   end
 end

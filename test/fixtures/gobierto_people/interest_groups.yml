@@ -1,6 +1,7 @@
 google:
   site: madrid
   name: Google
+  slug: google
   meta: <%= {
     "status" => "Inscribed",
     "registry" => "Registry of Interest Groups of Madrid City Council"
@@ -9,6 +10,7 @@ google:
 coca_cola:
   site: madrid
   name: Coca Cola
+  slug: coca-cola
   meta: <%= {
     "status" => "In process"
   }.to_json %>
@@ -16,3 +18,4 @@ coca_cola:
 accenture:
   site: madrid
   name: Accenture
+  slug: accenture

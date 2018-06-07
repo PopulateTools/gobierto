@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     :algoliasearch_configured?
   )
 
-  before_action :set_current_site, :authenticate_user_in_site, :set_locale
+  before_action :set_current_site, :authenticate_user_in_site, :set_locale, :apply_engines_overrides
 
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -93,6 +93,14 @@ class ApplicationController < ActionController::Base
 
   def algoliasearch_configured?
     ::GobiertoCommon::Search.algoliasearch_configured?
+  end
+
+  def apply_engines_overrides
+    engine_overrides = current_site.try(:engines_overrides)
+    return if engine_overrides.blank?
+    engine_overrides.each do |engine|
+      prepend_view_path Rails.root.join("vendor/gobierto_engines/#{ engine }/app/views")
+    end
   end
 
   protected

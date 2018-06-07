@@ -174,6 +174,7 @@ module GobiertoAdmin
         :raw_configuration_variables,
         :home_page,
         :home_page_item_id,
+        :engine_overrides_param,
         site_modules: [],
         available_locales: [],
         title_translations: [*I18n.available_locales],

@@ -61,6 +61,19 @@ module Gobierto
       require_dependency config.root.join(*base_strategies_path).join(strategy, 'lib', 'initializer')
     end
 
+    # Engine Overrides
+    config.engine_sass_config_overrides = []
+    config.engine_sass_theme_dependencies = []
+
+    base_engines_path = %w(vendor gobierto_engines)
+    available_engines = Dir.chdir(config.root.join(*base_engines_path)) do
+      Dir.glob('*').select { |item| File.directory?(item) }
+    end
+
+    available_engines.each do |engine_dir|
+      require_dependency config.root.join(*base_engines_path).join(engine_dir, "lib", "initializer")
+    end
+
     # Do not add wrapper .field_with_errors around form fields with validation errors
     config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
 

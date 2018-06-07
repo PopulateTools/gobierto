@@ -37,10 +37,18 @@
 @import "mixins";
 
 /*
- * Gobierto components
+ * Gobierto base and themes configuration
  *
  */
 @import "css-conf";
+<% Rails.application.config.engine_sass_config_overrides.each do |config| %>
+  @import "<%= config %>";
+<% end %>
+
+/*
+ * Gobierto components
+ *
+ */
 @import "comp-dropdown";
 @import "comp-breadcrumbs";
 @import "comp-flash_messages";
@@ -94,6 +102,9 @@
  *
  */
 @import "theme-participation";
+<% Rails.application.config.engine_sass_theme_dependencies.each do |dependency| %>
+  @import "<%= dependency %>";
+<% end %>
 
 /*
  * Print styles

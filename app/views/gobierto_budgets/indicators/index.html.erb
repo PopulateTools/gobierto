@@ -57,7 +57,7 @@
   <%= javascript_tag do %>
     window.GobiertoBudgets.indicators_controller.index();
     window.populateDataYear = {
-    currentYear: <%= @year %>
-  }
+      currentYear: <%= @selected_year %>
+    }
   <% end %>
 <% end %>

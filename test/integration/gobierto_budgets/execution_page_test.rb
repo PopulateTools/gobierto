@@ -54,7 +54,7 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
     with_current_site(placed_site) do
       visit gobierto_budgets_budgets_execution_path(available_years.first)
 
-      find_link(available_years.first, visible: false).click
+      all('a', text: available_years.first, visible: false).first.click
 
       refute_equal current_path, gobierto_budgets_budgets_execution_path(available_years.first)
     end

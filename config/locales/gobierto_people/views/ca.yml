@@ -37,6 +37,16 @@ ca:
           description: Llistat de les declaracions de béns i activitats i tots els
             seus elements.
           title: Declaracions
+    interest_groups:
+      index:
+        events_by_interest_group: Grups d'interès amb més reunions
+        interest_groups: grups d'interès inscrits
+      show:
+        events: reunions registrades
+        events_by_department: Amb quins departaments es reuneix aquest grup
+        events_by_person: Alts Càrrecs amb els quals s'ha reunit aquest grup
+        people_with_events: el nombre de Alts Càrrecs amb els quals s'ha reunit aquest
+          grup
     layouts:
       application:
         title: Alts càrrecs i agendes

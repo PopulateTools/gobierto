@@ -37,6 +37,16 @@ es:
           description: Listado de las declaraciones de bienes y actividades y todos
             sus elementos.
           title: Declaraciones de bienes y actividades
+    interest_groups:
+      index:
+        events_by_interest_group: Grupos de interés con más reuniones
+        interest_groups: grupos de interés inscritos
+      show:
+        events: reuniones registradas
+        events_by_department: Con qué departamentos se reúne este grupo
+        events_by_person: Altos cargos con los que se ha reunido este grupo
+        people_with_events: el número de Altos Cargos con los que se ha reunido este
+          grupo
     layouts:
       application:
         title: Altos cargos y Agendas

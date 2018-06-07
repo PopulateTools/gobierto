@@ -1,0 +1,20 @@
+<% content_for :breadcrumb_current_item do %>
+  <h1>
+    <%= link_to t("gobierto_people.layouts.menu_subsections.interest_groups"), gobierto_people_interest_groups_path %>
+  </h1>
+<% end %>
+
+<h2><%= t("gobierto_people.layouts.menu_subsections.interest_groups") %> </h2>
+
+<%= render partial: "interest_group", collection: @interest_groups %>
+
+<h2><%= "#{ @interest_groups_count } #{ t(".interest_groups") }" %></h2>
+
+<h2><%= t(".events_by_interest_group") %></h2>
+<% @events_by_interest_group.map do |interest_group, count| %>
+  <div>
+    <%= render partial: "interest_group", locals: { interest_group: interest_group } %>
+    <%= content_tag :div, count %>
+  </div>
+<% end %>
+<% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

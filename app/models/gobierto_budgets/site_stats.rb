@@ -228,15 +228,10 @@ module GobiertoBudgets
       year = @year
       previous_year = year - 1
 
-      last_expenses_budgeted = BudgetTotal.budgeted_updated_for(organization_id, year)
-      last_income_budgeted = BudgetTotal.budgeted_updated_for(organization_id, year, BudgetLine::INCOME)
-      previous_expenses_budgeted = BudgetTotal.budgeted_updated_for(organization_id, previous_year)
-      previous_income_budgeted = BudgetTotal.budgeted_updated_for(organization_id, previous_year, BudgetLine::INCOME)
-
-      last_expenses_budgeted ||= BudgetTotal.budgeted_for(organization_id, year)
-      last_income_budgeted ||= BudgetTotal.budgeted_for(organization_id, year, BudgetLine::INCOME)
-      previous_expenses_budgeted ||= BudgetTotal.budgeted_for(organization_id, previous_year)
-      previous_income_budgeted ||= BudgetTotal.budgeted_for(organization_id, previous_year, BudgetLine::INCOME)
+      last_expenses_budgeted = BudgetTotal.budgeted_for(organization_id, year)
+      last_income_budgeted = BudgetTotal.budgeted_for(organization_id, year, BudgetLine::INCOME)
+      previous_expenses_budgeted = BudgetTotal.budgeted_for(organization_id, previous_year)
+      previous_income_budgeted = BudgetTotal.budgeted_for(organization_id, previous_year, BudgetLine::INCOME)
 
       last_expenses_execution = BudgetTotal.execution_for(organization_id, year)
       last_income_execution = BudgetTotal.execution_for(organization_id, year, BudgetLine::INCOME)

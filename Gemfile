@@ -23,7 +23,7 @@ gem "before_renders"
 gem "bootsnap"
 
 # Frontend
-gem "bourbon", "~> 4.3.4"
+gem "bourbon", "~> 5.0.1"
 gem "cocoon"
 gem "d3-rails", "~> 4.8"
 gem "flight-for-rails"

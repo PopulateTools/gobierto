@@ -264,6 +264,9 @@ Rails.application.routes.draw do
       # People
       resources :people, only: [:show], path: "personas", param: :slug do
         resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: "biografia"
+        resources :gifts, only: [:index, :show], controller: "people/gifts", path: "obsequios-y-regalos"
+        resources :trips, only: [:index, :show], controller: "people/trips", path: "viajes-y-desplazamientos"
+        resources :invitations, only: [:index, :show], controller: "people/invitations", path: "invitaciones"
         resources :person_messages, only: [:create], controller: "people/person_messages", as: :messages, path: "contacto", param: :slug do
           collection do
             get "/" => "people/person_messages#new", as: :new

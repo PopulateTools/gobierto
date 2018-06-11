@@ -130,6 +130,15 @@ ca:
       subscription_button:
         cancel: Cancelar
         follow: Seguir
+      trips:
+        trip:
+          accomodation_expenses: Hotels i allotjament
+          company: Comitiva
+          expenses: Despeses
+          food_expenses: Dietes y manutenció
+          other_expenses: Altres despeses
+          total_expenses: Total despeses
+          transport_expenses: Transport
       upcoming_events:
         no_upcoming_events: No hi ha esdeveniments programats
         title: Agenda

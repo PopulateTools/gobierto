@@ -131,6 +131,15 @@ es:
       subscription_button:
         cancel: Cancelar
         follow: Seguir
+      trips:
+        trip:
+          accomodation_expenses: Hoteles y alojamiento
+          company: Comitiva
+          expenses: Gastos
+          food_expenses: Dietas y manutención
+          other_expenses: Otros gastos
+          total_expenses: Gastos totales
+          transport_expenses: Transporte
       upcoming_events:
         no_upcoming_events: No hay eventos próximos en esta agenda
         title: Agenda

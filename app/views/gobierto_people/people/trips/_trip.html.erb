@@ -1,0 +1,18 @@
+<div>
+  <%= content_tag :div, trip.destinations.map { |e| e["name"] }.join(", ") %>
+  <%= content_tag :div, link_to(trip.title, gobierto_people_person_trip_path(id: trip.id)) %>
+  <%= content_tag :div, trip.description %>
+  <%= content_tag :div, "#{ l(trip.start_date) }" %>
+  <%= content_tag :div, "#{ l(trip.end_date) }" %>
+  <%= content_tag :div, "#{ t(".company") }: #{ trip.meta["company"] }" %>
+  <% if trip.total_expenses.present? %>
+    <div>
+      <%= t(".expenses") %>
+      <%= content_tag :div, "#{ t(".food_expenses") }: #{ trip.food_expenses }" %>
+      <%= content_tag :div, "#{ t(".accomodation_expenses") }: #{ trip.accomodation_expenses }" %>
+      <%= content_tag :div, "#{ t(".transport_expenses") }: #{ trip.transport_expenses }" %>
+      <%= content_tag :div, "#{ t(".other_expenses") }: #{ trip.other_expenses }" %>
+      <%= content_tag :div, "#{ t(".total_expenses") }: #{ trip.total_expenses }" %>
+    </div>
+  <% end %>
+</div>

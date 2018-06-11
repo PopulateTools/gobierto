@@ -315,6 +315,40 @@ richard_published_past_site:
   item: richard_published_past (GobiertoCalendars::Event)
   container: madrid (Site)
 
+# richard_culture_department_event_google
+
+richard_culture_department_event_google_person:
+  collection: richard_calendar
+  item: richard_culture_department_event_google (GobiertoCalendars::Event)
+  container: richard (GobiertoPeople::Person)
+
+richard_culture_department_event_google_people:
+  collection: richard_calendar
+  item: richard_culture_department_event_google (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+richard_culture_department_event_google_site:
+  collection: richard_calendar
+  item: richard_culture_department_event_google (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+# richard_culture_department_event_accenture
+
+richard_culture_department_event_accenture_person:
+  collection: richard_calendar
+  item: richard_culture_department_event_accenture (GobiertoCalendars::Event)
+  container: richard (GobiertoPeople::Person)
+
+richard_culture_department_event_accenture_people:
+  collection: richard_calendar
+  item: richard_culture_department_event_accenture (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+richard_culture_department_event_accenture_site:
+  collection: richard_calendar
+  item: richard_culture_department_event_accenture (GobiertoCalendars::Event)
+  container: madrid (Site)
+
 # neil_published
 
 neil_published_person:
@@ -415,6 +449,74 @@ tamara_published_past_people:
 tamara_published_past_site:
   collection: tamara_calendar
   item: tamara_published_past (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+# tamara_justice_department_event_without_interest_group
+
+tamara_justice_department_event_without_interest_group_person:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_without_interest_group (GobiertoCalendars::Event)
+  container: tamara (GobiertoPeople::Person)
+
+tamara_justice_department_event_without_interest_group_people:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_without_interest_group (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+tamara_justice_department_event_without_interest_group_site:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_without_interest_group (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+# tamara_justice_department_event_without_interest_group
+
+tamara_justice_department_event_coca_cola_recent_person:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_coca_cola_recent (GobiertoCalendars::Event)
+  container: tamara (GobiertoPeople::Person)
+
+tamara_justice_department_event_coca_cola_recent_people:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_coca_cola_recent (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+tamara_justice_department_event_coca_cola_recent_site:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_coca_cola_recent (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+# tamara_justice_department_event_pepsi_old
+
+tamara_justice_department_event_pepsi_old_person:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_pepsi_old (GobiertoCalendars::Event)
+  container: tamara (GobiertoPeople::Person)
+
+tamara_justice_department_event_pepsi_old_people:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_pepsi_old (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+tamara_justice_department_event_pepsi_old_site:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_pepsi_old (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+# tamara_justice_department_event_pepsi_very_old
+
+tamara_justice_department_event_pepsi_very_old_person:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_pepsi_very_old (GobiertoCalendars::Event)
+  container: tamara (GobiertoPeople::Person)
+
+tamara_justice_department_event_pepsi_very_old_people:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_pepsi_very_old (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+tamara_justice_department_event_pepsi_very_old_site:
+  collection: tamara_calendar
+  item: tamara_justice_department_event_pepsi_very_old (GobiertoCalendars::Event)
   container: madrid (Site)
 
 # reading_club

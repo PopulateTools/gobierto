@@ -32,6 +32,7 @@ class Site < ApplicationRecord
   has_many :people, dependent: :destroy, class_name: "GobiertoPeople::Person"
   has_many :person_posts, through: :people, source: :posts, class_name: "GobiertoPeople::PersonPost"
   has_many :person_statements, through: :people, source: :statements, class_name: "GobiertoPeople::PersonStatement"
+  has_many :interest_groups, dependent: :destroy, class_name: "GobiertoPeople::InterestGroup"
 
   # GobiertoCalendars integration
   has_many :events, class_name: "GobiertoCalendars::Event", dependent: :destroy

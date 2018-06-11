@@ -24,11 +24,15 @@ richard_richard_published_past:
   name:
   charge:
 
-richard_richard_culture_department_event:
-  event: richard_culture_department_event
+richard_richard_culture_department_event_google:
+  event: richard_culture_department_event_google
   person: richard
   name:
   charge:
+
+richard_richard_culture_department_event_accenture:
+  event: richard_culture_department_event_accenture
+  person: richard
 
 ## Tamara
 
@@ -44,11 +48,21 @@ tamara_tamara_published_past:
   name:
   charge:
 
-tamara_tamara_justice_department_event:
-  event: tamara_justice_department_event
+tamara_tamara_justice_department_event_without_interest_group:
+  event: tamara_justice_department_event_without_interest_group
   person: tamara
-  name:
-  charge:
+
+tamara_tamara_justice_department_event_coca_cola_recent:
+  event: tamara_justice_department_event_coca_cola_recent
+  person: tamara
+
+tamara_tamara_justice_department_event_pepsi_old:
+  event: tamara_justice_department_event_pepsi_old
+  person: tamara
+
+tamara_tamara_justice_department_event_pepsi_very_old:
+  event: tamara_justice_department_event_pepsi_very_old
+  person: tamara
 
 ## Nelson
 

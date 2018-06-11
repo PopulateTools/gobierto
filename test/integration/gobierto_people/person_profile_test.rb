@@ -38,10 +38,8 @@ module GobiertoPeople
         visit @path
 
         within ".upcoming-events" do
-          person.events.upcoming.each do |person_event|
-            assert has_link?(person_event.title)
-          end
-
+          assert has_link? "Future government event"
+          assert has_link? "Invited event"
           assert has_link?("View all")
         end
       end

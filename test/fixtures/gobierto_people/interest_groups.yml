@@ -19,3 +19,8 @@ accenture:
   site: madrid
   name: Accenture
   slug: accenture
+
+pepsi:
+  site: madrid
+  name: Pepsi
+  slug: pepsi

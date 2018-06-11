@@ -109,8 +109,12 @@ class ApplicationController < ActionController::Base
     request.env['action_dispatch.remote_ip'].try(:calculate_ip) || request.remote_ip
   end
 
-  def raise_module_not_enabled
-    redirect_to(root_path) and return false
+  def raise_module_not_enabled(redirect = true)
+    if redirect
+      redirect_to(root_path) and return false
+    else
+      head :forbidden
+    end
   end
 
   def gobierto_calendars_event_preview_url(event, options = {})

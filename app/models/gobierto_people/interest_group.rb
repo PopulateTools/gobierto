@@ -25,5 +25,9 @@ module GobiertoPeople
       [name]
     end
 
+    def events_count
+      events.count
+    end
+
   end
 end

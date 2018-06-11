@@ -255,6 +255,9 @@ Rails.application.routes.draw do
         resources :people, only: [:index], controller: "political_groups/people", path: "/"
       end
 
+      # Interest groups
+      resources :interest_groups, only: :show
+
       # People
       resources :people, only: [:show], path: "personas", param: :slug do
         resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: "biografia"
@@ -264,6 +267,13 @@ Rails.application.routes.draw do
           end
         end
         resource :google_calendar_calendars, only: [:edit, :update], controller: "people/google_calendar/calendars", as: :google_calendar_calendars
+      end
+
+      # API
+      namespace :api, path: "gobierto_people/api" do
+        namespace :v1 do
+          resources :interest_groups, only: :index
+        end
       end
     end
 

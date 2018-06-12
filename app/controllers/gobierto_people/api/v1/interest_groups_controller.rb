@@ -9,12 +9,12 @@ module GobiertoPeople
           query = InterestGroupsQuery.new(
             relation: current_site.interest_groups,
             conditions: permitted_conditions,
-            limit: records_to_return
+            limit: params[:limit]
           )
 
           render(
             json: query.results,
-            each_serializer: InterestGroupRowchartSerializer
+            each_serializer: RowchartItemSerializer
           )
         end
 
@@ -33,10 +33,6 @@ module GobiertoPeople
             :from_date,
             :to_date
           ).to_h
-        end
-
-        def records_to_return
-          params[:limit] || 10
         end
 
       end

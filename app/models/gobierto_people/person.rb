@@ -4,6 +4,7 @@ module GobiertoPeople
   class Person < ApplicationRecord
     include GobiertoCommon::DynamicContent
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Sortable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable

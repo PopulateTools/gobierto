@@ -12,6 +12,7 @@ module GobiertoCms
 
     include ActsAsParanoidAliases
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Searchable
     include GobiertoAttachments::Attachable
     include GobiertoCommon::ActsAsCollectionContainer

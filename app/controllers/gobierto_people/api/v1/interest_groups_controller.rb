@@ -31,8 +31,7 @@ module GobiertoPeople
             :department_id,
             :person_id,
             :from_date,
-            :to_date,
-            :limit
+            :to_date
           ).to_h
         end
 

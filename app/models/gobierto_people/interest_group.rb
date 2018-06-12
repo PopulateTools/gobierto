@@ -26,7 +26,7 @@ module GobiertoPeople
     end
 
     def events_count
-      events.count
+      attributes["events_count"] || events.count
     end
 
   end

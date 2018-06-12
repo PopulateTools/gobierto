@@ -256,7 +256,7 @@ Rails.application.routes.draw do
       end
 
       # Interest groups
-      resources :interest_groups, only: :show
+      resources :interest_groups, only: :show, path: "grupos-de-interes"
 
       # People
       resources :people, only: [:show], path: "personas", param: :slug do

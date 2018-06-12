@@ -330,7 +330,7 @@ GEM
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
-    powerpack (0.1.1)
+    powerpack (0.1.2)
     public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.5)
@@ -388,7 +388,7 @@ GEM
     retriable (3.1.1)
     rollbar (2.16.2)
       multi_json
-    rubocop (0.57.1)
+    rubocop (0.57.2)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5)

@@ -12,6 +12,7 @@ module GobiertoPeople
     alias justice_department_interest_group coca_cola
     alias tamara_interest_group coca_cola
     alias interest_group_with_recent_event coca_cola
+    alias tamara_interst_group_with_recent_event coca_cola
 
     def google
       @google ||= gobierto_people_interest_groups(:google)
@@ -23,6 +24,7 @@ module GobiertoPeople
       @pepsi ||= gobierto_people_interest_groups(:pepsi)
     end
     alias interest_group_with_old_event pepsi
+    alias tamara_interst_group_with_old_event pepsi
 
     def justice_department
       @justice_department ||= gobierto_people_departments(:justice_department)
@@ -66,10 +68,18 @@ module GobiertoPeople
       assert query.results.exclude?(interest_group_with_recent_event)
     end
 
+    def test_filter_by_multiple_conditions
+      query = InterestGroupsQuery.new(conditions: {
+        person_id: tamara.id,
+        from_date: 2.months.ago.iso8601
+      })
+
+      assert query.results.include?(tamara_interst_group_with_recent_event)
+      assert query.results.exclude?(tamara_interst_group_with_old_event)
+    end
+
     def test_limit
       query = InterestGroupsQuery.new(limit: 1)
-
-      query_results = query.results
 
       assert_equal 1, query.results.length
     end

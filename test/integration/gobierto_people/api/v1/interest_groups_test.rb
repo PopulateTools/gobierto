@@ -7,6 +7,9 @@ module GobiertoPeople
     module V1
       class InterestGroupsTest < ActionDispatch::IntegrationTest
 
+        FAR_PAST = 10.years.ago.iso8601
+        FAR_FUTURE = 10.years.from_now.iso8601
+
         def madrid
           @madrid ||= sites(:madrid)
         end
@@ -53,7 +56,9 @@ module GobiertoPeople
               gobierto_people_api_v1_interest_groups_path,
               params: {
                 department_id: justice_department.id,
-                person_id: tamara.id
+                person_id: tamara.id,
+                from_date: FAR_PAST,
+                to_date: FAR_FUTURE
               }
             )
 

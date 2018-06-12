@@ -20,8 +20,14 @@ module GobiertoPeople
 
         private
 
+        def parsed_parameters
+          params[:from_date] = Time.zone.parse(params[:from_date]) if params[:from_date]
+          params[:to_date] = Time.zone.parse(params[:to_date]) if params[:to_date]
+          params
+        end
+
         def permitted_conditions
-          params.permit(
+          parsed_parameters.permit(
             :department_id,
             :person_id,
             :from_date,

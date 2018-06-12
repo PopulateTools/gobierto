@@ -69,7 +69,7 @@ module GobiertoPeople
     def process_condition(condition, interest_groups_scope)
       conditions.delete(condition)
       if conditions[:id]
-        conditions[:id] += interest_groups_scope.pluck(:interest_group_id)
+        conditions[:id] &= interest_groups_scope.pluck(:interest_group_id)
       else
         conditions[:id] = interest_groups_scope.pluck(:interest_group_id)
       end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_01_135249) do
+ActiveRecord::Schema.define(version: 2018_06_07_153940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -447,7 +447,9 @@ ActiveRecord::Schema.define(version: 2018_06_01_135249) do
     t.bigint "site_id", null: false
     t.string "name", null: false
     t.jsonb "meta"
+    t.string "slug", null: false
     t.index ["meta"], name: "index_gp_interest_groups_on_meta", using: :gin
+    t.index ["site_id", "slug"], name: "index_gp_interest_groups_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gp_interest_groups_on_site_id"
   end
 
@@ -459,8 +461,8 @@ ActiveRecord::Schema.define(version: 2018_06_01_135249) do
     t.date "end_date", null: false
     t.jsonb "meta"
     t.bigint "department_id"
-    t.jsonb "location"
     t.string "external_id"
+    t.jsonb "location"
     t.index ["department_id"], name: "index_gp_invitations_on_department_id"
     t.index ["location"], name: "index_gp_invitations_on_location", using: :gin
     t.index ["meta"], name: "index_gp_invitations_on_meta", using: :gin

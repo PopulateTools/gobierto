@@ -75,6 +75,8 @@ module GobiertoPeople
     end
 
     def test_person_events_index_pagination
+      government_member.events.destroy_all
+
       10.times do |i|
         create_event(person: government_member, starts_at: (Time.now.tomorrow + i.days).to_s, title: "Event #{i}")
       end

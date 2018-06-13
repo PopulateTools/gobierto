@@ -81,19 +81,42 @@ richard_published_past:
   ends_at: <%= 1.month.ago + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
-richard_culture_department_event:
+richard_culture_department_event_google:
   site: madrid
   collection: richard_calendar
   department: culture_department
+  interest_group: google
   title_translations: <%= {
-    "en" => "Culture department event",
+    "en" => "Culture department event with Google",
   }.to_json %>
-  slug: <%= "#{1.month.from_now.strftime('%F')}-culture-department-event" %>
+  slug: <%= "#{1.month.from_now.strftime('%F')}-culture-department-event-google" %>
   description_translations: <%= {
-    "en" => "Culture department event description.",
+    "en" => "Culture department event with Google description.",
   }.to_json %>
   description_source_translations: <%= {
-    "en" => "Culture department event description.",
+    "en" => "Culture department event with Google description.",
+  }.to_json %>
+  starts_at: <%= 1.month.from_now %>
+  ends_at: <%= 1.month.from_now + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+  meta: <%= {
+    "type" => "Lunch"
+  }.to_json %>
+
+richard_culture_department_event_accenture:
+  site: madrid
+  collection: richard_calendar
+  department: culture_department
+  interest_group: accenture
+  title_translations: <%= {
+    "en" => "Culture department event with Accenture",
+  }.to_json %>
+  slug: <%= "#{1.month.from_now.strftime('%F')}-culture-department-event-accenture" %>
+  description_translations: <%= {
+    "en" => "Culture department event with Accenture description.",
+  }.to_json %>
+  description_source_translations: <%= {
+    "en" => "Culture department event with Accenture description.",
   }.to_json %>
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
@@ -212,7 +235,7 @@ tamara_published_past:
   ends_at: <%= 15.days.ago + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
-tamara_justice_department_event:
+tamara_justice_department_event_without_interest_group:
   site: madrid
   collection: tamara_calendar
   department: justice_department
@@ -232,6 +255,63 @@ tamara_justice_department_event:
   meta: <%= {
     "type" => "Interview"
   }.to_json %>
+
+tamara_justice_department_event_coca_cola_recent:
+  site: madrid
+  collection: tamara_calendar
+  department: justice_department
+  interest_group: coca_cola
+  title_translations: <%= {
+    "en" => "Justice department event with Coca Cola",
+  }.to_json %>
+  slug: <%= "#{1.month.from_now.strftime('%F')}-justice-department-event-coca-cola" %>
+  description_translations: <%= {
+    "en" => "Justice department event with Coca-Cola description.",
+  }.to_json %>
+  description_source_translations: <%= {
+    "en" => "Justice department event with Coca-Cola description.",
+  }.to_json %>
+  starts_at: <%= 1.month.ago %>
+  ends_at: <%= 1.month.ago + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+tamara_justice_department_event_pepsi_old:
+  site: madrid
+  collection: tamara_calendar
+  department: justice_department
+  interest_group: pepsi
+  title_translations: <%= {
+    "en" => "Old justice department event with Pepsi",
+  }.to_json %>
+  slug: <%= "#{2.years.ago.strftime('%F')}-old-justice-department-event-pepsi" %>
+  description_translations: <%= {
+    "en" => "Old justice department event with Pepsi description.",
+  }.to_json %>
+  description_source_translations: <%= {
+    "en" => "Old justice department event with Pepsi description.",
+  }.to_json %>
+  starts_at: <%= 2.years.ago %>
+  ends_at: <%= 2.years.ago + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+tamara_justice_department_event_pepsi_very_old:
+  site: madrid
+  collection: tamara_calendar
+  department: justice_department
+  interest_group: pepsi
+  title_translations: <%= {
+    "en" => "Very old justice department event with Pepsi",
+  }.to_json %>
+  slug: <%= "#{3.years.ago.strftime('%F')}-very-old-justice-department-event-pepsi" %>
+  description_translations: <%= {
+    "en" => "Very old justice department event with Pepsi description.",
+  }.to_json %>
+  description_source_translations: <%= {
+    "en" => "Very old justice department event with Pepsi description.",
+  }.to_json %>
+  starts_at: <%= 3.years.ago %>
+  ends_at: <%= 3.years.ago + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
 
 ## Gender Violence Process events
 

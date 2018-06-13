@@ -7,6 +7,8 @@ module GobiertoPeople
   class WelcomeIndexTest < ActionDispatch::IntegrationTest
     include NavigationItems
 
+    FAR_FUTURE = 10.years.from_now
+
     def setup
       super
       @path = gobierto_people_root_path
@@ -137,23 +139,24 @@ module GobiertoPeople
             assert has_no_link? executive_past_event.title
           end
 
-          click_link "Executive"
+          # simulate all events have passed
+          Timecop.freeze(FAR_FUTURE) do
+            click_link "Executive"
 
-          sleep 1
+            within ".people-summary" do
+              assert has_no_link? government_member.name
+              assert has_no_link? opposition_member.name
+              assert has_link? executive_member.name
+              assert has_link?("View all")
+            end
 
-          within ".people-summary" do
-            assert has_no_link? government_member.name
-            assert has_no_link? opposition_member.name
-            assert has_link? executive_member.name
-            assert has_link?("View all")
-          end
-
-          within ".events-summary" do
-            assert has_content? "There are no future events. Take a look at past ones"
-            assert has_no_link? government_event.title
-            assert has_no_link? government_past_event.title
-            assert has_no_link? opposition_event.title
-            assert has_link? executive_past_event.title
+            within ".events-summary" do
+              assert has_content? "There are no future events. Take a look at past ones"
+              assert has_no_link? government_event.title
+              assert has_no_link? government_past_event.title
+              assert has_no_link? opposition_event.title
+              assert has_link? executive_past_event.title
+            end
           end
 
           click_link "Opposition"
@@ -208,24 +211,24 @@ module GobiertoPeople
 
           click_link "Past events"
 
-          sleep 1
-
           within ".events-summary" do
             assert has_no_content? government_event.title
             assert has_content? government_past_event.title
             assert has_no_content? executive_past_event.title
           end
 
-          click_link "Executive"
+          # simulate all events have passed
+          Timecop.freeze(FAR_FUTURE) do
+            click_link "Executive"
 
-          sleep 1
-
-          within ".events-summary" do
-            assert has_content? "There are no future events. Take a look at past ones"
-            assert has_no_content? government_event.title
-            assert has_no_content? government_past_event.title
-            assert has_content? executive_past_event.title
+            within ".events-summary" do
+              assert has_content? "There are no future events. Take a look at past ones"
+              assert has_no_content? government_event.title
+              assert has_no_content? government_past_event.title
+              assert has_content? executive_past_event.title
+            end
           end
+
         end
       end
     end

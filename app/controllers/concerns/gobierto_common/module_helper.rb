@@ -4,8 +4,8 @@ module GobiertoCommon
 
     private
 
-    def module_enabled!(site, module_namespace)
-      raise_module_not_enabled unless site.configuration.modules.include?(module_namespace.to_s)
+    def module_enabled!(site, module_namespace, redirect = true)
+      raise_module_not_enabled(redirect) unless site.configuration.modules.include?(module_namespace.to_s)
     end
 
     def module_allowed!(current_admin, module_namespace)

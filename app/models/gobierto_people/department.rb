@@ -4,6 +4,8 @@ require_dependency "gobierto_people"
 
 module GobiertoPeople
   class Department < ApplicationRecord
+    include GobiertoCommon::Metadatable
+    include GobiertoCommon::UrlBuildable
 
     include GobiertoCommon::Sluggable
 

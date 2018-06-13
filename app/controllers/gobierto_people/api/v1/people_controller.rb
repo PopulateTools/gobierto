@@ -6,20 +6,46 @@ module GobiertoPeople
       class PeopleController < Api::V1::BaseController
 
         def index
-          query = PeopleQuery.new(
+          top_people = PeopleQuery.new(
             relation: current_site.people,
             conditions: permitted_conditions,
             limit: params[:limit]
-          )
+          ).results
 
-          render json: query.results, each_serializer: RowchartItemSerializer
+          if params[:include_history] == "true"
+            records = PeopleEventsHistoryQuery.new(
+              relation: current_site.people.where(id: top_people.map(&:id)),
+              conditions: permitted_conditions
+            ).results
+
+            result = []
+            result_indexes = {}
+
+            records.each do |record|
+              if (index = result_indexes[record.name])
+                result[index][:value] << { key: record.year_month, value: record.custom_events_count }
+              else
+                result_indexes[record.name] = result.size
+                result << {
+                  key: record.name,
+                  value: [
+                    { key: record.year_month, value: record.custom_events_count }
+                  ]
+                }
+              end
+            end
+
+            render json: result
+          else
+            render json: top_people, each_serializer: RowchartItemSerializer
+          end
         end
 
         private
 
         def parsed_parameters
-          params[:from_date] = Time.zone.parse(params[:from_date]) if params[:from_date]
-          params[:to_date] = Time.zone.parse(params[:to_date]) if params[:to_date]
+          params[:from_date] = Time.zone.parse(params[:from_date]) if params[:from_date].is_a?(String)
+          params[:to_date] = Time.zone.parse(params[:to_date]) if params[:to_date].is_a?(String)
           params
         end
 

@@ -10,7 +10,7 @@ module GobiertoPeople
     end
 
     def value
-      object.attributes["events_count"] || object.events.count
+      object.attributes["custom_events_count"]
     end
 
     def properties

@@ -28,7 +28,7 @@ module GobiertoCommon
     end
 
     def app_host
-      @app_host ||= try(:site)&.domain || ENV.fetch("HOST") { "gobierto.test" }
+      @app_host ||= ENV.fetch("HOST") { "gobierto.test" }
     end
 
     protected

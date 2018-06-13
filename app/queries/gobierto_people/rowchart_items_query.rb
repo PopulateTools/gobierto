@@ -16,9 +16,9 @@ module GobiertoPeople
     end
 
     def results
-      relation.select("#{model.table_name}.*, COUNT(*) AS events_count")
+      relation.select("#{model.table_name}.*, COUNT(*) AS custom_events_count")
               .group(:id)
-              .order("events_count DESC")
+              .order("custom_events_count DESC")
               .limit(limit)
     end
 

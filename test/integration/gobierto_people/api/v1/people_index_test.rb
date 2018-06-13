@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/event_helpers"
 
 module GobiertoPeople
   module Api
     module V1
       class PeopleIndexTest < ActionDispatch::IntegrationTest
+
+        include ::EventHelpers
 
         FAR_PAST = 10.years.ago.iso8601
         FAR_FUTURE = 10.years.from_now.iso8601
@@ -69,6 +72,35 @@ module GobiertoPeople
 
             assert_equal people_with_events_on_justice_department.size, people.size
             assert_equal people.first["key"], tamara.name
+          end
+        end
+
+        def test_people_index_test_with_events_history
+          tamara.attending_events.destroy_all
+          create_event(person: tamara, starts_at: "15-01-2017")
+          create_event(person: tamara, starts_at: "16-01-2017")
+
+          with_current_site(madrid) do
+
+            get(
+              gobierto_people_api_v1_people_path,
+              params: { include_history: true }
+            )
+
+            assert_response :success
+
+            people = JSON.parse(response.body)
+
+            assert_equal people_attending_count, people.size
+
+            tamara_data = people.detect { |item| item["key"] == tamara.name }
+
+            expected_tamara_data = {
+              "key" => tamara.name,
+              "value" => [{ "key" => "2017/01", "value" => 2 }]
+            }
+
+            assert_equal expected_tamara_data, tamara_data
           end
         end
 

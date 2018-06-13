@@ -273,6 +273,7 @@ Rails.application.routes.draw do
       namespace :api, path: "gobierto_people/api" do
         namespace :v1 do
           resources :interest_groups, only: :index
+          resources :people, only: :index
         end
       end
     end

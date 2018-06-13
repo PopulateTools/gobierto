@@ -3,7 +3,7 @@
 require "test_helper"
 
 module GobiertoPeople
-  class InterestGroupRowchartSerializerTest < ActiveSupport::TestCase
+  class RowchartItemSerializerTest < ActiveSupport::TestCase
 
     def madrid
       @madrid ||= sites(:madrid)
@@ -18,15 +18,17 @@ module GobiertoPeople
     end
 
     def serializer
-      InterestGroupRowchartSerializer.new(interest_group)
+      RowchartItemSerializer.new(interest_group)
     end
 
     def test_serialize
-      serializer_output = JSON.parse(serializer.to_json)
+      with_current_site(madrid) do
+        serializer_output = JSON.parse(serializer.to_json)
 
-      assert_equal "Google", serializer_output["key"]
-      assert_equal 1, serializer_output["value"]
-      assert_equal "http://#{madrid.domain}/grupos-de-interes/#{interest_group.slug}", serializer_output["properties"]["url"]
+        assert_equal "Google", serializer_output["key"]
+        assert_equal 1, serializer_output["value"]
+        assert_equal "http://madrid.gobierto.test/grupos-de-interes/#{interest_group.slug}", serializer_output["properties"]["url"]
+      end
     end
 
   end

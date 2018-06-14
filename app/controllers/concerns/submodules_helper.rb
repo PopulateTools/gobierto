@@ -6,6 +6,7 @@ module SubmodulesHelper
   included do
     helper_method :active_submodules, :welcome_submodule_active?, :officials_submodule_active?,
                   :agendas_submodule_active?, :blogs_submodule_active?, :statements_submodule_active?,
+                  :departments_submodule_active?, :interest_groups_submodule_active?,
                   :submodule_path_for, :submodule_title_for, :submodule_controller_for,
                   :budgets_elaboration_active?,
                   :budget_lines_feedback_active?, :gobierto_budgets_feedback_emails,
@@ -77,6 +78,16 @@ module SubmodulesHelper
         root_path: gobierto_people_statements_path,
         layout_title: t('gobierto_people.layouts.menu_subsections.statements'),
         controller_name: 'person_statements'
+      },
+      departments: {
+        root_path: gobierto_people_departments_path,
+        layout_title: t('gobierto_people.layouts.menu_subsections.departments'),
+        controller_name: 'departments'
+      },
+      interest_groups: {
+        root_path: gobierto_people_interest_groups_path,
+        layout_title: t('gobierto_people.layouts.menu_subsections.interest_groups'),
+        controller_name: 'interest_groups'
       }
     }
   end
@@ -93,20 +104,8 @@ module SubmodulesHelper
     active_submodules.size > 1
   end
 
-  def officials_submodule_active?
-    active_submodules.include?('officials')
-  end
-
-  def agendas_submodule_active?
-    active_submodules.include?('agendas')
-  end
-
-  def blogs_submodule_active?
-    active_submodules.include?('blogs')
-  end
-
-  def statements_submodule_active?
-    active_submodules.include?('statements')
+  GobiertoPeople.module_submodules.each do |submodule|
+    define_method("#{ submodule }_submodule_active?") { active_submodules.include?(submodule) }
   end
 
   def submodule_path_for(submodule)

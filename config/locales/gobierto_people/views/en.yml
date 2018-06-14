@@ -1,6 +1,13 @@
 ---
 en:
   gobierto_people:
+    departments:
+      index:
+        events: registered events
+        people_with_events: officials with registered events
+      show:
+        events: registered events
+        people_with_events: officials of this department with registered events
     events:
       gobierto_people_person_post_published: 'Blog updated: %{subject_name}'
       gobierto_people_person_post_updated: 'Post updated: %{subject_name}'
@@ -24,12 +31,20 @@ en:
         statements:
           description: Listing of all statements and it elements.
           title: Statements
+    interest_groups:
+      index:
+        interest_groups: registered interest groups
+      show:
+        events: registered events
+        people_with_events: the number of Officials with which this group has met
     layouts:
       application:
         title: Officials and Agendas
       menu_subsections:
         agendas: Agendas
         blogs: Blogs
+        departments: Departments
+        interest_groups: Interest Groups
         people: Officials
         statements: Statements
     people:
@@ -105,6 +120,15 @@ en:
       subscription_button:
         cancel: Cancel
         follow: Folloe
+      trips:
+        trip:
+          accomodation_expenses: Accomodation
+          company: Committee
+          expenses: Expenses
+          food_expenses: Food
+          other_expenses: Other expenses
+          total_expenses: Total expenses
+          transport_expenses: Transport
       upcoming_events:
         no_upcoming_events: Ther eare no upcoming events
         title: Agenda

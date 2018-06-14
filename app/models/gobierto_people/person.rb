@@ -29,6 +29,7 @@ module GobiertoPeople
     has_many :posts, class_name: "PersonPost", dependent: :destroy
 
     has_many :received_gifts, class_name: "Gift", dependent: :destroy
+    has_many :invitations, dependent: :destroy
     has_many :trips, dependent: :destroy
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }

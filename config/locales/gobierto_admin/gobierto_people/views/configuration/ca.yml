@@ -18,6 +18,8 @@ ca:
           edit:
             agendas: Agendes
             blogs: Blogs
+            departments: Departaments
+            interest_groups: Grups d'interès
             officials: Persones
             placeholders:
               home_text_ca: Text home català

@@ -255,12 +255,18 @@ Rails.application.routes.draw do
         resources :people, only: [:index], controller: "political_groups/people", path: "/"
       end
 
+      # Departments
+      resources :departments, only: [:index, :show], path: "departamentos"
+
       # Interest groups
-      resources :interest_groups, only: :show, path: "grupos-de-interes"
+      resources :interest_groups, only: [:index, :show], path: "grupos-de-interes"
 
       # People
       resources :people, only: [:show], path: "personas", param: :slug do
         resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: "biografia"
+        resources :gifts, only: [:index, :show], controller: "people/gifts", path: "obsequios-y-regalos"
+        resources :trips, only: [:index, :show], controller: "people/trips", path: "viajes-y-desplazamientos"
+        resources :invitations, only: [:index, :show], controller: "people/invitations", path: "invitaciones"
         resources :person_messages, only: [:create], controller: "people/person_messages", as: :messages, path: "contacto", param: :slug do
           collection do
             get "/" => "people/person_messages#new", as: :new

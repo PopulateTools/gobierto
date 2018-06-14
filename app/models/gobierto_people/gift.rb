@@ -14,7 +14,7 @@ module GobiertoPeople
 
     validates :name, presence: true
 
-    metadata_attributes :type
+    metadata_attributes :type, :event_name, :delivered_by, :category_name
 
   end
 end

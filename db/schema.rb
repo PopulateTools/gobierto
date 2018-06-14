@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_07_153940) do
+ActiveRecord::Schema.define(version: 2018_06_14_101232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -427,6 +427,8 @@ ActiveRecord::Schema.define(version: 2018_06_07_153940) do
   create_table "gp_departments", force: :cascade do |t|
     t.bigint "site_id", null: false
     t.string "name", null: false
+    t.string "slug", null: false
+    t.index ["site_id", "slug"], name: "index_gp_departments_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gp_departments_on_site_id"
   end
 

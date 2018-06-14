@@ -1,6 +1,13 @@
 ---
 es:
   gobierto_people:
+    departments:
+      index:
+        events: reuniones registradas
+        people_with_events: altos cargos con reuniones registradas
+      show:
+        events: reuniones registradas
+        people_with_events: altos cargos de este departamento con reuniones registradas
     events:
       gobierto_people_person_post_published: 'Actualización del blog: %{subject_name}'
       gobierto_people_person_post_updated: 'Actualización del post: %{subject_name}'
@@ -25,12 +32,21 @@ es:
           description: Listado de las declaraciones de bienes y actividades y todos
             sus elementos.
           title: Declaraciones de bienes y actividades
+    interest_groups:
+      index:
+        interest_groups: grupos de interés inscritos
+      show:
+        events: reuniones registradas
+        people_with_events: el número de Altos Cargos con los que se ha reunido este
+          grupo
     layouts:
       application:
         title: Altos cargos y Agendas
       menu_subsections:
         agendas: Agendas
         blogs: Blogs
+        departments: Departamentos
+        interest_groups: Grupos de Interés
         people: Cargos
         statements: Declaraciones
     people:
@@ -107,6 +123,15 @@ es:
       subscription_button:
         cancel: Cancelar
         follow: Seguir
+      trips:
+        trip:
+          accomodation_expenses: Hoteles y alojamiento
+          company: Comitiva
+          expenses: Gastos
+          food_expenses: Dietas y manutención
+          other_expenses: Otros gastos
+          total_expenses: Gastos totales
+          transport_expenses: Transporte
       upcoming_events:
         no_upcoming_events: No hay eventos próximos en esta agenda
         title: Agenda

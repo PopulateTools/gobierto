@@ -32,7 +32,11 @@ class Site < ApplicationRecord
   has_many :people, dependent: :destroy, class_name: "GobiertoPeople::Person"
   has_many :person_posts, through: :people, source: :posts, class_name: "GobiertoPeople::PersonPost"
   has_many :person_statements, through: :people, source: :statements, class_name: "GobiertoPeople::PersonStatement"
+  has_many :departments, dependent: :destroy, class_name: "GobiertoPeople::Department"
   has_many :interest_groups, dependent: :destroy, class_name: "GobiertoPeople::InterestGroup"
+  has_many :gifts, through: :people, source: :received_gifts, class_name: "GobiertoPeople::Gift"
+  has_many :invitations, through: :people, class_name: "GobiertoPeople::Invitation"
+  has_many :trips, through: :people, class_name: "GobiertoPeople::Trip"
 
   # GobiertoCalendars integration
   has_many :events, class_name: "GobiertoCalendars::Event", dependent: :destroy

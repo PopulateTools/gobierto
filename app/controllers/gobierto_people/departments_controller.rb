@@ -13,7 +13,7 @@ module GobiertoPeople
     end
 
     def show
-      @department = @site.departments.find(params[:id])
+      @department = @site.departments.find_by_slug!(params[:id])
       @total_events = @department.events.count
       @total_people = @department.events.select(:collection_id).distinct.count
     end

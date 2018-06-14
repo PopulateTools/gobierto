@@ -1,7 +1,9 @@
 culture_department:
   site: madrid
   name: Culture Department
+  slug: culture-department
 
 justice_department:
   site: madrid
   name: Justice Department
+  slug: justice-department

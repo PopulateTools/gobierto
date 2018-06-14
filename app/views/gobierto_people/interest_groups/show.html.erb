@@ -9,19 +9,4 @@
 
 <h2><%= "#{ @total_people } #{ t(".people_with_events") }" %></h2>
 
-<h2><%= t(".events_by_department") %></h2>
-<% @events_by_department.map do |department, count| %>
-  <div>
-    <%= content_tag :div, department.name %>
-    <%= content_tag :div, count %>
-  </div>
-<% end %>
-
-<h2><%= t(".events_by_person") %></h2>
-<% @events_by_people.map do |person, count| %>
-  <div>
-    <%= content_tag :div, person.name %>
-    <%= content_tag :div, count %>
-  </div>
-<% end %>
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

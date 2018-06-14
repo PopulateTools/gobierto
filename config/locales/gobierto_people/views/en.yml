@@ -4,15 +4,10 @@ en:
     departments:
       index:
         events: registered events
-        events_by_department: Events by departments
-        events_by_department_and_month: Events by departments and month
-        people_by_department: Officials with events by department
         people_with_events: officials with registered events
       show:
         events: registered events
-        events_by_people: Officials of this department with more events
-        events_by_person_and_month: Events by Official and month
-        people_with_events: officials of this department with more events
+        people_with_events: officials of this department with registered events
     events:
       gobierto_people_person_post_published: 'Blog updated: %{subject_name}'
       gobierto_people_person_post_updated: 'Post updated: %{subject_name}'
@@ -38,12 +33,9 @@ en:
           title: Statements
     interest_groups:
       index:
-        events_by_interest_group: Interest groups with more events
         interest_groups: registered interest groups
       show:
         events: registered events
-        events_by_department: With which departments does this group meet?
-        events_by_person: Officials with which this group has met
         people_with_events: the number of Officials with which this group has met
     layouts:
       application:

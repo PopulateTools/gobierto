@@ -4,14 +4,9 @@ ca:
     departments:
       index:
         events: reunions registrades
-        events_by_department: Reunions per departament
-        events_by_department_and_month: Reunions per departament i mes
-        people_by_department: Alts càrrecs amb reunions per departament
         people_with_events: alts càrrecs amb reunions registrades
       show:
         events: reunions registrades
-        events_by_people: Alts Càrrecs d'aquest departament amb més reunions
-        events_by_person_and_month: Reunions per Alts Càrrec i mes
         people_with_events: alts càrrecs d'aquest departament amb reunions registrades
     events:
       gobierto_people_person_post_published: 'Actualització del blog: %{subject_name}'
@@ -39,12 +34,9 @@ ca:
           title: Declaracions
     interest_groups:
       index:
-        events_by_interest_group: Grups d'interès amb més reunions
         interest_groups: grups d'interès inscrits
       show:
         events: reunions registrades
-        events_by_department: Amb quins departaments es reuneix aquest grup
-        events_by_person: Alts Càrrecs amb els quals s'ha reunit aquest grup
         people_with_events: el nombre de Alts Càrrecs amb els quals s'ha reunit aquest
           grup
     layouts:

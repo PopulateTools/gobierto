@@ -5,36 +5,11 @@
 <% end %>
 
 <h2><%= t("gobierto_people.layouts.menu_subsections.departments") %> </h2>
+
 <%= render partial: "department", collection: @departments %>
 
 <h2><%= "#{ @total_events } #{ t(".events") }" %></h2>
 
 <h2><%= "#{ @total_people } #{ t(".people_with_events") }" %></h2>
 
-<h2><%= t(".events_by_department") %></h2>
-<% @events_by_department.map do |department, count| %>
-  <div>
-    <%= render partial: "department", locals: { department: department } %>
-    <%= content_tag :div, count %>
-  </div>
-<% end %>
-
-<h2><%= t(".people_by_department") %></h2>
-<% @people_by_department.map do |department, count| %>
-  <div>
-    <%= render partial: "department", locals: { department: department } %>
-    <%= content_tag :div, count %>
-  </div>
-<% end %>
-
-<h2><%= t(".events_by_department_and_month") %></h2>
-<% @monthly_events_grouped_by_department.each do |department, punch_card| %>
-  <div>
-    <%= render partial: "department", locals: { department: department } %>
-    <% punch_card.each do |date, value| %>
-      <div><%= l(date, format: "%b %Y").capitalize %></div>
-      <div><%= value %></div>
-    <% end %>
-  </div>
-<% end %>
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

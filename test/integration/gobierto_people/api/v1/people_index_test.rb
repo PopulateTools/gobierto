@@ -97,7 +97,7 @@ module GobiertoPeople
 
             expected_tamara_data = {
               "key" => tamara.name,
-              "value" => [{ "key" => "2017/01", "value" => 2 }]
+              "value" => [{ "key" => Time.zone.parse("2017/01"), "value" => 2 }]
             }
 
             assert_equal expected_tamara_data, tamara_data

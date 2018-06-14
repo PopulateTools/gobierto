@@ -23,13 +23,13 @@ module GobiertoPeople
 
             records.each do |record|
               if (index = result_indexes[record.name])
-                result[index][:value] << { key: record.year_month, value: record.custom_events_count }
+                result[index][:value] << { key: Time.zone.parse(record.year_month), value: record.custom_events_count }
               else
                 result_indexes[record.name] = result.size
                 result << {
                   key: record.name,
                   value: [
-                    { key: record.year_month, value: record.custom_events_count }
+                    { key: Time.zone.parse(record.year_month), value: record.custom_events_count }
                   ]
                 }
               end

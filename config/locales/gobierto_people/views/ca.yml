@@ -1,18 +1,6 @@
 ---
 ca:
   gobierto_people:
-    departments:
-      index:
-        events: reunions registrades
-        events_by_department: Reunions per departament
-        events_by_department_and_month: Reunions per departament i mes
-        people_events: Alts càrrecs amb més reunions
-        people_with_events: alts càrrecs amb reunions registrades
-      show:
-        events: reunions registrades
-        events_by_people: Alts Càrrecs d'aquest departament amb més reunions
-        events_by_person_and_month: Reunions per Alts Càrrec i mes
-        people_with_events: alts càrrecs d'aquest departament amb reunions registrades
     events:
       gobierto_people_person_post_published: 'Actualització del blog: %{subject_name}'
       gobierto_people_person_post_updated: 'Actualització del post: %{subject_name}'

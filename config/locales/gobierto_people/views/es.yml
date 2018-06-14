@@ -1,18 +1,6 @@
 ---
 es:
   gobierto_people:
-    departments:
-      index:
-        events: reuniones registradas
-        events_by_department: Reuniones por departamentos
-        events_by_department_and_month: Reuniones por departamento y mes
-        people_events: Altos cargos con más reuniones
-        people_with_events: altos cargos con reuniones registradas
-      show:
-        events: reuniones registradas
-        events_by_people: Altos Cargos de este departamento con más reuniones
-        events_by_person_and_month: Reuniones por Alto Cargo y mes
-        people_with_events: altos cargos de este departamento con más reuniones
     events:
       gobierto_people_person_post_published: 'Actualización del blog: %{subject_name}'
       gobierto_people_person_post_updated: 'Actualización del post: %{subject_name}'

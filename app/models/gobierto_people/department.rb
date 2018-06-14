@@ -5,6 +5,8 @@ require_dependency "gobierto_people"
 module GobiertoPeople
   class Department < ApplicationRecord
 
+    include GobiertoCommon::Sluggable
+
     belongs_to :site
     has_many :events, class_name: "GobiertoCalendars::Event"
     has_many :gifts
@@ -15,5 +17,12 @@ module GobiertoPeople
 
     validates :name, presence: true
 
+    def to_param
+      slug
+    end
+
+    def attributes_for_slug
+      [name]
+    end
   end
 end

@@ -140,10 +140,10 @@ GEM
     easy_translate (0.5.1)
       thread
       thread_safe
-    elasticsearch (6.0.2)
-      elasticsearch-api (= 6.0.2)
-      elasticsearch-transport (= 6.0.2)
-    elasticsearch-api (6.0.2)
+    elasticsearch (6.1.0)
+      elasticsearch-api (= 6.1.0)
+      elasticsearch-transport (= 6.1.0)
+    elasticsearch-api (6.1.0)
       multi_json
     elasticsearch-extensions (0.0.27)
       ansi
@@ -151,7 +151,7 @@ GEM
       oj
       patron
       ruby-prof
-    elasticsearch-transport (6.0.2)
+    elasticsearch-transport (6.1.0)
       faraday
       multi_json
     erubi (1.7.1)
@@ -278,7 +278,7 @@ GEM
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
     memoist (0.16.0)
-    meta-tags (2.9.0)
+    meta-tags (2.10.0)
       actionpack (>= 3.2.0, < 5.3)
     metaclass (0.0.4)
     method_source (0.9.0)
@@ -314,9 +314,11 @@ GEM
     ntlm-http (0.1.1)
     oj (3.5.0)
     os (0.9.6)
-    paper_trail (9.1.1)
+    paper_trail (9.2.0)
       activerecord (>= 4.2, < 5.3)
+      paper_trail-association_tracking (< 2)
       request_store (~> 1.1)
+    paper_trail-association_tracking (1.0.0)
     parallel (1.12.1)
     paranoia (2.4.1)
       activerecord (>= 4.0, < 5.3)
@@ -328,7 +330,7 @@ GEM
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
-    powerpack (0.1.1)
+    powerpack (0.1.2)
     public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.5)
@@ -386,7 +388,7 @@ GEM
     retriable (3.1.1)
     rollbar (2.16.2)
       multi_json
-    rubocop (0.57.1)
+    rubocop (0.57.2)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5)

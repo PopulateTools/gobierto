@@ -7,6 +7,7 @@ module GobiertoPeople
 
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Metadatable
+    include GobiertoCommon::UrlBuildable
 
     belongs_to :site
     has_many :events, class_name: "GobiertoCalendars::Event", dependent: :nullify
@@ -21,12 +22,12 @@ module GobiertoPeople
       slug
     end
 
-    def attributes_for_slug
-      [name]
+    def parameterize
+      { id: slug }
     end
 
-    def events_count
-      attributes["events_count"] || events.count
+    def attributes_for_slug
+      [name]
     end
 
   end

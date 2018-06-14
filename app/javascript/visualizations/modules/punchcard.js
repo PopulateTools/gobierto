@@ -14,6 +14,14 @@ export const punchcard = (context, data, options = {}) => {
   let yTickFormat = options.yTickFormat || (d => d)
   let title = options.title || ''
 
+  // parse dates
+  data.forEach((element, elementIndex) => {
+    for (var dateIndex = 0; dateIndex < element.value.length; dateIndex++) {
+      let dateString = element.value[dateIndex].key
+      data[elementIndex].value[dateIndex].key = new Date(dateString)
+    }
+  })
+
   // dimensions
   let container = d3.select(context)
   let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
@@ -36,7 +44,7 @@ export const punchcard = (context, data, options = {}) => {
 
   // Custom X-axis
   function xAxis(g) {
-    g.call(d3.axisTop(x).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
+    g.call(d3.axisTop(x).ticks(d3.timeMonth.every(1)).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
     g.selectAll(".domain").remove()
     g.selectAll(".tick line")
       .attr("y1", itemHeight / 2)

@@ -34,18 +34,5 @@ module GobiertoPeople
       assert_nil accenture.registry
     end
 
-    def test_events_count
-      assert_equal pepsi_events.count, pepsi.events_count
-    end
-
-    def test_events_count_when_attribute_overriden_by_query
-      group = InterestGroup.where(id: pepsi.id)
-                           .select("id, name, 123 AS events_count")
-                           .first
-
-      assert_equal pepsi.name, group.name
-      assert_equal 123, group.events_count
-    end
-
   end
 end

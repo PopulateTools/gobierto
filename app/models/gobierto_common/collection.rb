@@ -3,6 +3,7 @@
 module GobiertoCommon
   class Collection < ApplicationRecord
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Sluggable
 
     belongs_to :site

@@ -5,6 +5,7 @@ require_dependency "gobierto_people"
 module GobiertoPeople
   class PersonPost < ApplicationRecord
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
 

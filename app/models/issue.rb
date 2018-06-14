@@ -3,6 +3,7 @@
 class Issue < ApplicationRecord
   include GobiertoCommon::Sortable
   include User::Subscribable
+  include GobiertoCommon::UrlBuildable
   include GobiertoCommon::ActsAsCollectionContainer
   include GobiertoCommon::Sluggable
 

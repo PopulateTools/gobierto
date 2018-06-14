@@ -6,6 +6,7 @@ module GobiertoPeople
   class PersonStatement < ApplicationRecord
     include ::GobiertoCommon::DynamicContent
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
 

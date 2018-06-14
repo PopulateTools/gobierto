@@ -8,6 +8,7 @@ module GobiertoParticipation
 
     include ActsAsParanoidAliases
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::HasVisibilityUserLevels
 

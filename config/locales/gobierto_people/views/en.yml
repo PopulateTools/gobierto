@@ -1,6 +1,18 @@
 ---
 en:
   gobierto_people:
+    departments:
+      index:
+        events: registered events
+        events_by_department: Events by departments
+        events_by_department_and_month: Events by departments and month
+        people_events: Officials with most meetings
+        people_with_events: officials with registered events
+      show:
+        events: registered events
+        events_by_people: Officials of this department with more events
+        events_by_person_and_month: Events by Official and month
+        people_with_events: officials of this department with more events
     events:
       gobierto_people_person_post_published: 'Blog updated: %{subject_name}'
       gobierto_people_person_post_updated: 'Post updated: %{subject_name}'

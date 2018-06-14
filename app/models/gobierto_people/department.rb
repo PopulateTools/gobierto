@@ -21,6 +21,10 @@ module GobiertoPeople
       slug
     end
 
+    def parameterize
+      { id: slug }
+    end
+
     def attributes_for_slug
       [name]
     end

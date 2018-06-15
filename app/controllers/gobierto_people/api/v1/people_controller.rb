@@ -51,6 +51,7 @@ module GobiertoPeople
 
         def permitted_conditions
           parsed_parameters.permit(
+            :interest_group_id,
             :department_id,
             :from_date,
             :to_date

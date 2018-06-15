@@ -262,6 +262,10 @@ Rails.application.routes.draw do
 
       # Trips
       resources :person_trips, only: [:index], as: :trips, path: "viajes-y-desplazamientos"
+
+      # Invitations
+      resources :person_invitations, only: [:index], as: :invitations, path: "invitaciones"
+
       # People
       resources :people, only: [:show], path: "personas", param: :slug do
         resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: "biografia"

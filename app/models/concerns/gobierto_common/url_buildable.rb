@@ -31,11 +31,5 @@ module GobiertoCommon
       @app_host ||= ENV.fetch("HOST") { "gobierto.test" }
     end
 
-    protected
-
-    def url_helpers
-      Rails.application.routes.url_helpers
-    end
-
   end
 end

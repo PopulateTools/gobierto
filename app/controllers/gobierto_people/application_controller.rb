@@ -6,7 +6,7 @@ module GobiertoPeople
 
     before_action { module_enabled!(current_site, "GobiertoPeople") }
 
-    helper_method :gifts_service_url, :travels_service_url
+    helper_method :gifts_service_url, :trips_service_url
 
     private
 
@@ -15,7 +15,7 @@ module GobiertoPeople
         current_site_configuration_variables["gifts_service_url"]
     end
 
-    def travels_service_url
+    def trips_service_url
       current_site_configuration_variables["travels_service_url_#{I18n.locale}"] ||
         current_site_configuration_variables["travels_service_url"]
     end

@@ -1,10 +1,10 @@
 module GobiertoPeople
-  class PersonTravelsController < GobiertoPeople::ApplicationController
+  class PersonTripsController < GobiertoPeople::ApplicationController
 
     before_action :check_active_submodules
 
     def index
-      redirect_to travels_service_url and return if travels_service_url.present?
+      redirect_to trips_service_url and return if trips_service_url.present?
 
       redirect_back(fallback_location: root_path, notice: t(".error"))
     end

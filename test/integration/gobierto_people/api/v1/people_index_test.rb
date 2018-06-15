@@ -21,6 +21,10 @@ module GobiertoPeople
           @justice_department ||= gobierto_people_departments(:justice_department)
         end
 
+        def coca_cola_group
+          @coca_cola_group ||= gobierto_people_interest_groups(:coca_cola)
+        end
+
         def tamara
           @tamara ||= gobierto_people_people(:tamara)
         end
@@ -36,6 +40,10 @@ module GobiertoPeople
         end
 
         def people_with_events_on_justice_department
+          [tamara]
+        end
+
+        def people_with_events_on_coca_cola_group
           [tamara]
         end
 
@@ -71,6 +79,23 @@ module GobiertoPeople
             people = JSON.parse(response.body)
 
             assert_equal people_with_events_on_justice_department.size, people.size
+            assert_equal people.first["key"], tamara.name
+          end
+        end
+
+        def test_people_index_with_interest_group_filter
+          with_current_site(madrid) do
+            get(
+              gobierto_people_api_v1_people_path,
+              params: {
+                interest_group_id: coca_cola_group.id
+              }
+            )
+            assert_response :success
+
+            people = JSON.parse(response.body)
+
+            assert_equal people_with_events_on_coca_cola_group.size, people.size
             assert_equal people.first["key"], tamara.name
           end
         end

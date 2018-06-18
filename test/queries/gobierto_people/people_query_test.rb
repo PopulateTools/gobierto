@@ -12,15 +12,21 @@ module GobiertoPeople
       @justice_department ||= gobierto_people_departments(:justice_department)
     end
 
+    def coca_cola_interest_group
+      @coca_cola_interest_group ||= gobierto_people_interest_groups(:coca_cola)
+    end
+
     def tamara
       @tamara ||= gobierto_people_people(:tamara)
     end
     alias person_with_justice_department_events tamara
+    alias person_with_coca_cola_events tamara
 
     def richard
       @richard ||= gobierto_people_people(:richard)
     end
     alias person_without_justice_department_events richard
+    alias person_without_coca_cola_events richard
 
     def site
       @site || sites(:madrid)
@@ -48,6 +54,16 @@ module GobiertoPeople
 
       assert query_results.include?(person_with_justice_department_events)
       assert query_results.exclude?(person_without_justice_department_events)
+    end
+
+    def test_filter_by_interest_group
+      query_results = PeopleQuery.new(
+        relation: site.people,
+        conditions: { interest_group_id: coca_cola_interest_group.id }
+      ).results
+
+      assert query_results.include?(person_with_coca_cola_events)
+      assert query_results.exclude?(person_without_coca_cola_events)
     end
 
     def test_filter_by_date

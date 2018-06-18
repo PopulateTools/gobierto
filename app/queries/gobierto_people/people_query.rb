@@ -10,6 +10,10 @@ module GobiertoPeople
         append_condition(:department_id, conditions[:department_id])
       end
 
+      if conditions[:interest_group_id]
+        append_condition(:interest_group_id, conditions[:interest_group_id])
+      end
+
       if conditions[:from_date]
         append_condition(:starts_at, conditions[:from_date], ">=")
       end

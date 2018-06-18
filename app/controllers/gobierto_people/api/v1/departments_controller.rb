@@ -7,15 +7,38 @@ module GobiertoPeople
 
         def index
           query = DepartmentsQuery.new(
-            relation: GobiertoPeople::Department.where(site: current_site),
+            relation: Department.where(site: current_site),
             conditions: permitted_conditions,
             limit: params[:limit]
           )
 
-          render(
-            json: query.results,
-            each_serializer: RowchartItemSerializer
-          )
+          if params[:include_history] == "true"
+            records = DepartmentsQuery.new(
+              relation: Department.where(id: query.results.map(&:id)),
+              conditions: permitted_conditions
+            ).results_with_history
+
+            result = []
+            result_indexes = {}
+
+            records.each do |record|
+              if (index = result_indexes[record.name])
+                result[index][:value] << { key: Time.zone.parse(record.year_month), value: record.custom_events_count }
+              else
+                result_indexes[record.name] = result.size
+                result << {
+                  key: record.name,
+                  value: [
+                    { key: Time.zone.parse(record.year_month), value: record.custom_events_count }
+                  ]
+                }
+              end
+            end
+            render json: result
+          else
+
+            render json: query.results, each_serializer: RowchartItemSerializer
+          end
         end
 
         private

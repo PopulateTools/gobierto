@@ -73,3 +73,7 @@ Site.all.each do |site|
     GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG["site"]["name"], "GobiertoPeople", site)
   end
 end
+
+::GobiertoCore::Template.create template_path: "gobierto_participation/welcome/index"
+::GobiertoCore::Template.create template_path: "gobierto_participation/layouts/navigation_process"
+::GobiertoCore::Template.create template_path: "layouts/application"

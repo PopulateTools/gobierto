@@ -72,6 +72,14 @@ module GobiertoPeople
       statements.active.any?
     end
 
+    def meetings_with_interest_groups
+      events.with_interest_group
+    end
+
+    def interest_groups_count
+      meetings_with_interest_groups.select(:interest_group_id).distinct.count
+    end
+
     private
 
     def person_contact_method_for(service_name, attribute_name)

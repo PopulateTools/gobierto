@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     class PastPersonEventsController < People::PersonEventsController
@@ -11,9 +13,15 @@ module GobiertoPeople
         end
 
         respond_to do |format|
-          format.js { render 'gobierto_people/people/person_events/index' }
-          format.html
+          format.js { render "#{views_path}index" }
+          format.html { render "#{views_path}index" }
         end
+      end
+
+      private
+
+      def views_path
+        "gobierto_people/people/person_events/"
       end
 
     end

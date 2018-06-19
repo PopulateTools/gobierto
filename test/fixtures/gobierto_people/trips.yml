@@ -18,7 +18,7 @@ richard_multiple_destinations:
     "transport_expenses" => 500,
     "other_expenses" => 250,
     "total_expenses" => 1750,
-    "trip_party" => "Sr. Smith and Sra. Sally",
+    "company" => "Sr. Smith and Sra. Sally",
     "comments" => "Official car"
   }.to_json %>
 

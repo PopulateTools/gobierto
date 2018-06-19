@@ -119,6 +119,10 @@ module ApplicationHelper
     end
   end
 
+  def meaningful_date_range?(date_range)
+    date_range.is_a?(Array) && (date_range.first != date_range.last)
+  end
+
   private
 
   def parse_max_length(params)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class WelcomeController < GobiertoPeople::ApplicationController
     include PoliticalGroupsHelper

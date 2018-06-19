@@ -6,7 +6,7 @@ ca:
         events: reunions registrades
         people_with_events: alts càrrecs amb reunions registrades
       show:
-        events: reunions registrades
+        interest_groups_with_events: grups d'interès s'han reunit amb aquest departament
         people_with_events: alts càrrecs d'aquest departament amb reunions registrades
     events:
       gobierto_people_person_post_published: 'Actualització del blog: %{subject_name}'
@@ -203,4 +203,4 @@ ca:
         statements: Salaris i retribucions
         subscribable_box:
           title: Rebre actualitzacions al teu correu-e
-        travels: Viatges i desplaçaments
+        trips: Viatges i desplaçaments

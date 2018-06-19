@@ -6,7 +6,7 @@ en:
         events: registered events
         people_with_events: officials with registered events
       show:
-        events: registered events
+        interest_groups_with_events: interest groups have met with this department
         people_with_events: officials of this department with registered events
     events:
       gobierto_people_person_post_published: 'Blog updated: %{subject_name}'
@@ -201,4 +201,4 @@ en:
         statements: Salaries and retributions
         subscribable_box:
           title: Receive updates in your inbox
-        travels: Travels
+        trips: Trips

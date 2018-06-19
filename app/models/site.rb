@@ -126,11 +126,15 @@ class Site < ApplicationRecord
   end
 
   def to_s
-    self.name
+    name
   end
 
   def engines_overrides
     configuration.engine_overrides
+  end
+
+  def event_attendances
+    ::GobiertoCalendars::EventAttendee.where(person_id: people.pluck(:id))
   end
 
   private

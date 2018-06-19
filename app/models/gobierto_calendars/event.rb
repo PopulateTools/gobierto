@@ -54,6 +54,7 @@ module GobiertoCalendars
     scope :inverse_sorted_by_id, -> { order(id: :asc) }
     scope :sorted_by_id, -> { order(id: :desc) }
     scope :with_interest_group, -> { where.not(interest_group_id: nil) }
+    scope :with_department, -> { where.not(department_id: nil) }
 
     scope :by_collection, ->(collection) do
       where(collection_id: collection.id)

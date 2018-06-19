@@ -5,8 +5,9 @@
 <% end %>
 
 <h2><%= @department.name %> </h2>
-<h2><%= "#{ @total_events } #{ t(".events") }" %></h2>
 
-<h2><%= "#{ @total_people } #{ t(".people_with_events") }" %></h2>
+<h2><%= "#{ @department_stats[:total_people_with_attendances] } #{ t(".people_with_events") }" %></h2>
+
+<h2><%= "#{ @department_stats[:unique_interest_groups] } #{ t(".interest_groups_with_events") }" %></h2>
 
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

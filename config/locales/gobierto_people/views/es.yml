@@ -6,7 +6,7 @@ es:
         events: reuniones registradas
         people_with_events: altos cargos con reuniones registradas
       show:
-        events: reuniones registradas
+        interest_groups_with_events: grupos de interes se han reunido con este departamento
         people_with_events: altos cargos de este departamento con reuniones registradas
     events:
       gobierto_people_person_post_published: 'Actualización del blog: %{subject_name}'
@@ -204,4 +204,4 @@ es:
         statements: Declaraciones de bienes y actividades
         subscribable_box:
           title: Recibe un resumen semanal de las agendas de tus representantes
-        travels: Viajes y desplazamientos
+        trips: Viajes y desplazamientos

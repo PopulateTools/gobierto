@@ -240,8 +240,6 @@ Rails.application.routes.draw do
 
       # Statements
       resources :person_statements, only: [:index], as: :statements, path: "declaraciones"
-      resources :person_gifts, only: [:index], as: :gifts, path: "obsequios-y-regalos"
-      resources :person_travels, only: [:index], as: :travels, path: "viajes-y-desplazamientos"
       resources :people_person_statements, only: [:index, :show], controller: "people/person_statements", as: :person_statements, path: "declaraciones/:person_slug", param: :slug
 
       # Officials
@@ -260,6 +258,15 @@ Rails.application.routes.draw do
 
       # Interest groups
       resources :interest_groups, only: [:index, :show], path: "grupos-de-interes"
+
+      # Gifts
+      resources :person_gifts, only: [:index], as: :gifts, path: "obsequios-y-regalos"
+
+      # Trips
+      resources :person_trips, only: [:index], as: :trips, path: "viajes-y-desplazamientos"
+
+      # Invitations
+      resources :person_invitations, only: [:index], as: :invitations, path: "invitaciones"
 
       # People
       resources :people, only: [:show], path: "personas", param: :slug do

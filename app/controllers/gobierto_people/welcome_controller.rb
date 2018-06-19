@@ -12,6 +12,11 @@ module GobiertoPeople
       @home_text = load_home_text
       set_events
       set_present_groups
+
+      # TODO: this info is only needed for custom engine
+      @gifts = current_site.gifts.limit(4)
+      @invitations = current_site.invitations.limit(4)
+      load_home_statistics
     end
 
     private
@@ -33,8 +38,15 @@ module GobiertoPeople
     end
 
     def load_home_text
-      current_site.gobierto_people_settings &&
-        current_site.gobierto_people_settings.send("home_text_#{I18n.locale}")
+      current_site.gobierto_people_settings&.send("home_text_#{I18n.locale}")
+    end
+
+    def load_home_statistics
+      @home_statistics = {
+        total_events: current_site.event_attendances.count,
+        total_interest_groups: current_site.interest_groups.count,
+        total_people_with_attendances: current_site.event_attendances.select(:person_id).distinct.count
+      }
     end
   end
 end

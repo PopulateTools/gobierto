@@ -30,5 +30,12 @@ module GobiertoPeople
     def attributes_for_slug
       [name]
     end
+
+    def people
+      site.people
+          .joins(attending_person_events: :event)
+          .where("gc_events.department_id = ?", id)
+          .distinct
+    end
   end
 end

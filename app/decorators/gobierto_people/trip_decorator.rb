@@ -2,7 +2,7 @@ module GobiertoPeople
   class TripDecorator < BaseDecorator
 
     CASE_CHANGE_REGEXP = /(?<=[a-z])(?=[A-Z])/
-    SPLIT_COMPANY_REGEXP = /\n|,|#{CASE_CHANGE_REGEXP}/
+    SPLIT_COMPANY_REGEXP = /\n|\s\s|#{CASE_CHANGE_REGEXP}/
 
     def initialize(trip)
       @object = trip

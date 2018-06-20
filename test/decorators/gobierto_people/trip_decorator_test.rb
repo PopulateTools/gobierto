@@ -14,7 +14,7 @@ module GobiertoPeople
       @trip ||= begin
         fixture_item = gobierto_people_trips(:richard_multiple_destinations)
         fixture_item.update_attribute(:meta, fixture_item.meta.merge(
-          "company" => "Member 1, Member 2\nMember 3\nMember 3,member fourMember five"
+          "company" => "Member 1  Member 2\nMember 2\nmember threeMember 4"
         ))
         fixture_item
       end
@@ -24,9 +24,8 @@ module GobiertoPeople
       expected_members = [
         "Member 1",
         "Member 2",
-        "Member 3",
-        "member four",
-        "Member five"
+        "member three",
+        "Member 4"
       ]
 
       assert_equal expected_members, @subject.company_members

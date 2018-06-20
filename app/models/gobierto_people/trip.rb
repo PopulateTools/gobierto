@@ -6,6 +6,7 @@ module GobiertoPeople
   class Trip < ApplicationRecord
 
     include GobiertoCommon::Metadatable
+    include GobiertoCommon::UrlBuildable
 
     belongs_to :person
     belongs_to :department

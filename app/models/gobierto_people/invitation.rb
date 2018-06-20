@@ -6,6 +6,7 @@ module GobiertoPeople
   class Invitation < ApplicationRecord
 
     include GobiertoCommon::Metadatable
+    include GobiertoCommon::UrlBuildable
 
     belongs_to :person
     belongs_to :department
@@ -24,10 +25,6 @@ module GobiertoPeople
 
     def parameterize
       { person_slug: person.slug, id: id }
-    end
-
-    def to_path
-      url_helpers.gobierto_people_person_invitation_path(parameterize)
     end
 
   end

@@ -35,5 +35,21 @@ module GobiertoPeople
       [start_date, end_date]
     end
 
+    def expenses
+      [
+        { kind: meta_attribute_translation(:food_expenses), amount: food_expenses },
+        { kind: meta_attribute_translation(:accomodation_expenses), amount: accomodation_expenses },
+        { kind: meta_attribute_translation(:transport_expenses), amount: transport_expenses },
+        { kind: meta_attribute_translation(:other_expenses), amount: other_expenses },
+        { kind: meta_attribute_translation(:total_expenses), amount: total_expenses }
+      ].reject { |expense| expense[:amount].zero? }
+    end
+
+    private
+
+    def meta_attribute_translation(attribute)
+      I18n.t "activerecord.attributes.gobierto_people/#{model_name.human.downcase}.#{attribute}"
+    end
+
   end
 end

@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# bin/rails does not work because of CircleCI Docker containerization
-bundle exec rails gobierto_budgets:elastic_search_schemas:manage:reset
-bundle exec rails gobierto_budgets:elastic_search_schemas:manage:create
-bundle exec rails gobierto_budgets:fixtures:load
-
-# bundle exec rails does not work in CircleCI
-bundle exec rake test

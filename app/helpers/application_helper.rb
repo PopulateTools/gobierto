@@ -119,8 +119,11 @@ module ApplicationHelper
     end
   end
 
-  def meaningful_date_range?(date_range)
-    date_range.is_a?(Array) && (date_range.first != date_range.last)
+  def meaningful_date_range?(date_range, options = {})
+    return false unless date_range.is_a?(Array)
+
+    date_range.map! { |d| d.change(hour: 0, min: 0, sec: 0) } if options[:only_date]
+    date_range.first != date_range.last
   end
 
   private

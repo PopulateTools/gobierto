@@ -20,8 +20,7 @@ environment.plugins.append('CommonChunkVendor',
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor', // Vendor code
     minChunks: (module) => module.context && module.context.indexOf('node_modules') !== -1
-  }),
-  { before: 'manifest' }
+  })
 )
 
 environment.plugins.append('CommonsChunkManifest',

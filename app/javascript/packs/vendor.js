@@ -11,8 +11,7 @@ import 'velocity-animate'
 import 'velocity-ui-pack'
 // Falta d3-voronoi (editado??)
 import 'devbridge-autocomplete'
-// TODO: fix algolia
-// import algoliasearch from 'algoliasearch'
+import algoliasearch from 'algoliasearch'
 import 'geocomplete'
 import 'jqtree'
 import 'select2'
@@ -25,5 +24,4 @@ import 'jsgrid'
 // Expose globals
 global.$ = global.jQuery = $; // NOTE: jQuery exposed to global (window for node environment) due to script directly in the view
 global.I18n = I18n
-// TODO: fix algolia
-// global.algoliasearch = algoliasearch
+global.algoliasearch = algoliasearch

@@ -20,6 +20,13 @@ environment.plugins.append('CommonChunkVendor',
   })
 )
 
+// Set the ecma version only works on assets:precompile, not with the dev-server
+try {
+  environment.plugins.get("UglifyJs").options.uglifyOptions.ecma = 5;
+} catch(e) {
+  console.log("Ignoring Uglify configuration");
+}
+
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
 

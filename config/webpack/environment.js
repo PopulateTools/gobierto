@@ -30,6 +30,8 @@ environment.plugins.append('CommonsChunkManifest',
   })
 )
 
+environment.plugins.get("UglifyJs").options.uglifyOptions.ecma = 5
+
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
 

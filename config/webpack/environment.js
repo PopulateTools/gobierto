@@ -2,6 +2,9 @@ const { environment } = require('@rails/webpacker')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 
+const manifestPlugin = environment.plugins.get('Manifest')
+manifestPlugin.opts.writeToFileEmit = false
+
 environment.plugins.append(
   'Provide',
   new webpack.ProvidePlugin({
@@ -17,6 +20,14 @@ environment.plugins.append('CommonChunkVendor',
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor', // Vendor code
     minChunks: (module) => module.context && module.context.indexOf('node_modules') !== -1
+  }),
+  { before: 'manifest' }
+)
+
+environment.plugins.append('CommonsChunkManifest',
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'manifest',
+    minChunks: Infinity
   })
 )
 

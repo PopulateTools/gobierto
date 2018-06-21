@@ -42,4 +42,9 @@ const aliasConfig = module.exports = {
   }
 }
 
-module.exports = merge(envConfig.toWebpackConfig(), aliasConfig)
+const config = merge(envConfig.toWebpackConfig(), aliasConfig);
+config.devtool = 'sourcemap';
+
+module.exports = config;
+
+// module.exports = merge(envConfig.toWebpackConfig(), aliasConfig)

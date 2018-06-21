@@ -2,9 +2,6 @@ const { environment } = require('@rails/webpacker')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 
-const manifestPlugin = environment.plugins.get('Manifest')
-manifestPlugin.opts.writeToFileEmit = false
-
 environment.plugins.append(
   'Provide',
   new webpack.ProvidePlugin({
@@ -23,14 +20,12 @@ environment.plugins.append('CommonChunkVendor',
   })
 )
 
-environment.plugins.append('CommonsChunkManifest',
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'manifest',
-    minChunks: Infinity
-  })
-)
-
-environment.plugins.get("UglifyJs").options.uglifyOptions.ecma = 5
+// Set the ecma version only works on assets:precompile, not with the dev-server
+try {
+  environment.plugins.get("UglifyJs").options.uglifyOptions.ecma = 5;
+} catch(e) {
+  console.log("Ignoring Uglify configuration");
+}
 
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())

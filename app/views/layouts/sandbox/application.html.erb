@@ -6,7 +6,6 @@
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <!-- vendor libraries -->
-  <%= javascript_pack_tag 'manifest' %>
   <%= javascript_pack_tag 'vendor' %>
   <!-- module libraries -->
   <%= yield(:javascript_module_link) %>

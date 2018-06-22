@@ -4,6 +4,7 @@ module GobiertoPeople
   class WelcomeController < GobiertoPeople::ApplicationController
     include PoliticalGroupsHelper
     include PeopleClassificationHelper
+    include DatesRangeHelper
 
     before_action :check_active_submodules
 
@@ -44,10 +45,17 @@ module GobiertoPeople
     end
 
     def load_home_statistics
+      people = QueryWithEvents.new(relation: current_site.event_attendances,
+                                   start_date: filter_start_date,
+                                   end_date: filter_end_date,
+                                   not_null: [:department_id])
+      interest_groups = QueryWithEvents.new(relation: current_site.interest_groups,
+                                            start_date: filter_start_date,
+                                            end_date: filter_end_date)
       @home_statistics = {
-        total_events: current_site.event_attendances.count,
-        total_interest_groups: current_site.interest_groups.count,
-        total_people_with_attendances: current_site.event_attendances.select(:person_id).distinct.count
+        total_events: people.relation.count,
+        total_interest_groups: interest_groups.relation.count,
+        total_people_with_attendances: people.relation.select(:person_id).distinct.count
       }
     end
   end

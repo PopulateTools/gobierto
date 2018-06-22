@@ -2,6 +2,8 @@
 
 module GobiertoPeople
   class DepartmentsController < GobiertoPeople::ApplicationController
+    include DatesRangeHelper
+
     DEFAULT_LIMIT = 10
     before_action :check_active_submodules
 
@@ -14,9 +16,16 @@ module GobiertoPeople
 
     def show
       @department = site_departments.find_by_slug!(params[:id])
+      people = QueryWithEvents.new(relation: @department.people.with_event_attendances,
+                                   start_date: filter_start_date,
+                                   end_date: filter_end_date)
+
+      interest_groups = QueryWithEvents.new(relation: @department.events.with_interest_group,
+                                            start_date: filter_start_date,
+                                            end_date: filter_end_date)
       @department_stats = {
-        total_people_with_attendances: @department.people.with_event_attendances.count,
-        unique_interest_groups: @department.events.with_interest_group.select(:interest_group_id).distinct.count
+        total_people_with_attendances: people.relation.count,
+        unique_interest_groups: interest_groups.relation.select(:interest_group_id).distinct.count
       }
     end
 
@@ -27,7 +36,9 @@ module GobiertoPeople
     protected
 
     def site_events
-      current_site.events
+      QueryWithEvents.new(relation: current_site.events,
+                                   start_date: filter_start_date,
+                                   end_date: filter_end_date).relation
     end
 
     def site_departments

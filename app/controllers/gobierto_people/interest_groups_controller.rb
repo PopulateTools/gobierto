@@ -2,6 +2,8 @@
 
 module GobiertoPeople
   class InterestGroupsController < GobiertoPeople::ApplicationController
+    include DatesRangeHelper
+
     DEFAULT_LIMIT = 10
     before_action :check_active_submodules
 
@@ -13,8 +15,11 @@ module GobiertoPeople
 
     def show
       @interest_group = @site.interest_groups.find_by_slug!(params[:id])
-      @total_events = @interest_group.events.count
-      @total_people = @interest_group.events.select(:collection_id).distinct.count
+      events = QueryWithEvents.new(relation: @interest_group.events,
+                                   start_date: filter_start_date,
+                                   end_date: filter_end_date)
+      @total_events = events.relation.count
+      @total_people = events.relation.select(:collection_id).distinct.count
     end
 
     def check_active_submodules

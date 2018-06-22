@@ -1,8 +1,14 @@
 .punchcard {
   min-height: 500px;
+  position: relative;
 
   circle {
     fill: $color_main;
+
+    &:hover {
+      fill: lighten($color_main, 10%);
+      cursor: pointer;
+    }
   }
 
   line {
@@ -10,6 +16,8 @@
   }
 
   rect {
+    pointer-events: none;
+
     &:nth-of-type(odd) {
       fill: rgba($color_main, .2);
     }
@@ -28,14 +36,17 @@
 
     .tick text {
       font-size: $f7;
-      color: $color_text;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
   .x.axis {
     .tick text {
       font-size: $f8;
-      color: $color_text;
+      fill: $color_meta_text;
     }
   }
 }

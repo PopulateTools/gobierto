@@ -1,6 +1,9 @@
 import { d3 } from 'shared'
 
 export const punchcard = (context, data, options = {}) => {
+	// Markup has already a svg inside
+	if ($(`${context} svg`).length !== 0) return
+
   // options
   let itemHeight = options.itemHeight || 50
   let gutter = options.gutter || 20
@@ -33,7 +36,7 @@ export const punchcard = (context, data, options = {}) => {
   // scales
   let x = d3.scaleTime().range([0, width]);
   let y = d3.scalePoint().range([height, 0]);
-  let r = d3.scaleSqrt().range([0, 15]) // tamaño de las bolas
+  let r = d3.scaleSqrt().range([1, 15]) // tamaño de las bolas
 
   // domains
   x.domain([
@@ -42,44 +45,54 @@ export const punchcard = (context, data, options = {}) => {
   ]);
   y.domain(data.map(d => d.key)).padding(1);
 
-  // Custom X-axis
-  function xAxis(g) {
-    g.call(d3.axisTop(x).ticks(d3.timeMonth.every(1)).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
-    g.selectAll(".domain").remove()
-    g.selectAll(".tick line")
-      .attr("y1", itemHeight / 2)
-      .attr("y2", height - (itemHeight / 4))
-    g.selectAll(".tick text")
-      .attr("y", (-margin.top / 2) + (itemHeight / 2))
-  }
-
-  // Custom Y-axis
-  function yAxis(g) {
-    g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0).tickFormat(yTickFormat))
-    g.selectAll(".domain").remove()
-  }
-
   // chart title
   if (title) {
     svg.append("text")
       .attr("x", 0)
-      .attr("y", (margin.top / 2) + (itemHeight / 2))
+      .attr("y", (margin.top / 3) + (itemHeight / 2))
       .attr("class", "title")
       .attr("text-anchor", "start")
       .text(title);
   }
 
-  let g = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	let g = svg.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-  // axis
-  g.append("g")
-    .attr("class", "x axis")
-    .call(xAxis)
-  g.append("g")
-    .attr("class", "y axis")
-    .attr("transform", "translate(" + (-margin.left + gutter) + ",0)")
-    .call(yAxis)
+	// Custom X-axis
+	function xAxis(g) {
+		g.call(d3.axisTop(x).ticks(d3.timeMonth.every(1)).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
+		g.selectAll(".domain").remove()
+		g.selectAll(".tick line")
+			.attr("y1", itemHeight / 2)
+			.attr("y2", height - (itemHeight / 4))
+		g.selectAll(".tick text")
+			.attr("y", (-margin.top / 1.5) + (itemHeight / 2))
+	}
+
+	// Custom Y-axis
+	function yAxis(g) {
+		g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0).tickFormat(yTickFormat))
+		g.selectAll(".domain").remove()
+		g.selectAll(".tick")
+			.on("click", function (d,i) {
+				document.location.href = (data[i].properties || {}).url
+			})
+	}
+
+	// axis
+	g.append("g")
+		.attr("class", "x axis")
+		.call(xAxis)
+
+	g.append("g")
+		.attr("class", "y axis")
+		.attr("transform", "translate(" + (-margin.left + gutter) + ",0)")
+		.call(yAxis)
+
+	// tooltip
+	let tooltip = container.append("div")
+		.attr("id", `${container.node().id}-tooltip`)
+		.attr("class", "graph-tooltip")
 
   // circles
   for (var i = 0; i < data.length; i++) {
@@ -103,10 +116,25 @@ export const punchcard = (context, data, options = {}) => {
     g.selectAll("circle")
       .data(data[i].value)
       .enter()
+			.append("a")
+			.attr("xlink:href", d => (d.properties || {}).url)
       .append("circle")
       .attr("class", "circle")
       .attr("cx", d => x(d.key))
       .attr("cy", () => y(data[i].key))
+			.on("mousemove", function(d, j, arr) {
+				let content = `
+					<div class="tooltip-content bottom">
+						${d.value.toLocaleString()}
+					</div>`
+
+				tooltip
+					.style("opacity", "1")
+					.style("left", `${x(d.key) + margin.left}px`)
+					.style("top", `${d3.select(arr[j]).attr("cy")}px`)
+					.html(content);
+			})
+			.on("mouseout", () => tooltip.style("opacity", "0"))
       .transition()
       .duration(800)
       .attr("r", d => r(d.value));

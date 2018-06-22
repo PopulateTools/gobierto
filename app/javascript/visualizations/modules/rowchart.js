@@ -24,6 +24,7 @@ export const rowchart = (context, data, options = {}) => {
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
 
+  // tooltip
   let tooltip = container.append("div")
     .attr("id", `${container.node().id}-tooltip`)
     .attr("class", "graph-tooltip")

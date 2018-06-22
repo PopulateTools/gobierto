@@ -7,6 +7,8 @@ module GobiertoPeople
 
     before_action :check_active_submodules, except: :show
 
+    LAST_ITEMS_SIZE = 4
+
     def index
       @political_groups = get_political_groups
 
@@ -43,6 +45,12 @@ module GobiertoPeople
 
       @upcoming_events = @person.attending_events.upcoming.sorted.first(3)
       @latest_activity = ActivityCollectionDecorator.new(Activity.for_recipient(@person).limit(30).sorted.page(params[:page]))
+
+      # custom engine
+      @last_events = @person.attending_events.with_interest_group.sorted_backwards.limit(LAST_ITEMS_SIZE)
+      @last_trips = @person.trips.sorted.limit(LAST_ITEMS_SIZE)
+      @last_invitations = @person.invitations.sorted.limit(LAST_ITEMS_SIZE)
+      @last_gifts = @person.received_gifts.sorted.limit(LAST_ITEMS_SIZE)
     end
 
     private

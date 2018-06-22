@@ -6,6 +6,7 @@ module GobiertoPeople
   class Invitation < ApplicationRecord
 
     include GobiertoCommon::Metadatable
+    include GobiertoCommon::UrlBuildable
 
     belongs_to :person
     belongs_to :department
@@ -16,14 +17,14 @@ module GobiertoPeople
 
     validates :person, :organizer, :title, :start_date, :end_date, presence: true
 
-    metadata_attributes :organic_unit, :expenses_financed_by_organizer
+    metadata_attributes(
+      :organic_unit,
+      :expenses_financed_by_organizer,
+      :original_destinations_attribute
+    )
 
     def parameterize
       { person_slug: person.slug, id: id }
-    end
-
-    def to_path
-      url_helpers.gobierto_people_person_invitation_path(parameterize)
     end
 
   end

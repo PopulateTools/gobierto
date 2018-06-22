@@ -7,7 +7,7 @@ module GobiertoPeople
       before_action :check_active_submodules
 
       def index
-        @person_trips = @person.trips
+        @person_trips = CollectionDecorator.new(@person.trips, decorator: TripDecorator)
       end
 
       def show

@@ -3,6 +3,9 @@
 module GobiertoPeople
   module People
     class TripsController < BaseController
+
+      before_action :check_active_submodules
+
       def index
         @person_trips = @person.trips
       end
@@ -10,6 +13,13 @@ module GobiertoPeople
       def show
         @trip = @person.trips.find(params[:id])
       end
+
+      private
+
+      def check_active_submodules
+        redirect_to gobierto_people_root_path unless trips_submodule_active?
+      end
+
     end
   end
 end

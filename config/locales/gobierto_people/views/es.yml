@@ -49,6 +49,9 @@ es:
         interest_groups: Grupos de Interés
         people: Cargos
         statements: Declaraciones
+        trips: Viajes
+        gifts: Obsequios
+        invitations: Invitaciones
     people:
       contact_methods:
         send_email: Envía un correo-e

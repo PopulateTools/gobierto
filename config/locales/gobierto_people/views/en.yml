@@ -47,6 +47,9 @@ en:
         interest_groups: Interest Groups
         people: Officials
         statements: Statements
+        trips: Trips
+        gifts: Gifts
+        invitations: Invitations
     people:
       contact_methods:
         send_email: Send an email

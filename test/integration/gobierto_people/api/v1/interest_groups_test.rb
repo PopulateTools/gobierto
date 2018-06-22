@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/gobierto_people/submodules_helper"
 
 module GobiertoPeople
   module Api
     module V1
       class InterestGroupsTest < ActionDispatch::IntegrationTest
+
+        include ::GobiertoPeople::SubmodulesHelper
 
         FAR_PAST = 10.years.ago.iso8601
         FAR_FUTURE = 10.years.from_now.iso8601
@@ -32,6 +35,11 @@ module GobiertoPeople
 
         def interest_groups_with_events_count
           ::GobiertoCalendars::Event.with_interest_group.pluck(:interest_group_id).uniq.size
+        end
+
+        def setup
+          enable_submodule(madrid, :interest_groups)
+          super
         end
 
         def test_interest_groups_index_test
@@ -68,6 +76,16 @@ module GobiertoPeople
 
             assert_equal 2, interest_groups.size
             assert_equal interest_groups.first["key"], pepsi.name
+          end
+        end
+
+        def test_interest_groups_index_test_with_submodule_disabled
+          disable_submodule(madrid, :interest_groups)
+
+          with_current_site(madrid) do
+            get gobierto_people_api_v1_interest_groups_path
+
+            assert_response :forbidden
           end
         end
 

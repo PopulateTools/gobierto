@@ -1,6 +1,6 @@
 module GobiertoPeople
   def self.table_name_prefix
-    'gp_'
+    "gp_"
   end
 
   def self.searchable_models
@@ -8,7 +8,7 @@ module GobiertoPeople
   end
 
   def self.module_submodules
-    %W( officials agendas blogs statements departments interest_groups)
+    %w(officials agendas blogs statements departments interest_groups trips gifts invitations)
   end
 
   def self.remote_calendar_integrations

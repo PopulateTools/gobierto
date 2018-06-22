@@ -5,6 +5,8 @@ module GobiertoPeople
     module V1
       class PeopleController < Api::V1::BaseController
 
+        before_action :check_active_submodules
+
         def index
           top_people = PeopleQuery.new(
             relation: current_site.people,
@@ -56,6 +58,10 @@ module GobiertoPeople
             :from_date,
             :to_date
           ).to_h
+        end
+
+        def check_active_submodules
+          head :forbidden unless agendas_submodule_active?
         end
 
       end

@@ -5,6 +5,8 @@ module GobiertoPeople
     module V1
       class InterestGroupsController < Api::V1::BaseController
 
+        before_action :check_active_submodules
+
         def index
           query = InterestGroupsQuery.new(
             relation: current_site.interest_groups,
@@ -33,6 +35,10 @@ module GobiertoPeople
             :from_date,
             :to_date
           ).to_h
+        end
+
+        def check_active_submodules
+          head :forbidden unless interest_groups_submodule_active?
         end
 
       end

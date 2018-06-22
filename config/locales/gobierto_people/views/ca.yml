@@ -49,6 +49,9 @@ ca:
         interest_groups: Grups d'interès
         people: Càrrecs
         statements: Declaracions
+        trips: Viatjes
+        gifts: Obsequis
+        invitations: Invitacions
     people:
       contact_methods:
         send_email: Envia un correu-e

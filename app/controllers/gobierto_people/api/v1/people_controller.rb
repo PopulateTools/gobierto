@@ -23,14 +23,25 @@ module GobiertoPeople
 
             records.each do |record|
               if (index = result_indexes[record.name])
-                result[index][:value] << { key: Time.zone.parse(record.year_month), value: record.custom_events_count }
+                result[index][:value] << {
+                  key: Time.zone.parse(record.year_month),
+                  value: record.custom_events_count,
+                  url: gobierto_people_person_past_events_path(record.slug, {page: false}.merge(date_range(record.year_month)))
+                }
               else
                 result_indexes[record.name] = result.size
                 result << {
                   key: record.name,
                   value: [
-                    { key: Time.zone.parse(record.year_month), value: record.custom_events_count }
-                  ]
+                    {
+                      key: Time.zone.parse(record.year_month),
+                      value: record.custom_events_count,
+                      url: gobierto_people_person_past_events_path(record.slug, {page: false}.merge(date_range(record.year_month)))
+                    }
+                  ],
+                  properties: {
+                    url: gobierto_people_person_past_events_path(record.slug, page: false)
+                  }
                 }
               end
             end
@@ -64,6 +75,13 @@ module GobiertoPeople
             :from_date,
             :to_date
           ).to_h
+        end
+
+        def date_range(year_month)
+          {
+            start_date: Time.zone.parse(year_month).to_date.to_s(:db),
+            end_date: (Time.zone.parse(year_month).to_date + 1.month).to_s(:db)
+          }
         end
 
       end

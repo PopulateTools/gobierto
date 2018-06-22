@@ -1,6 +1,9 @@
 import { d3 } from 'shared'
 
 export const rowchart = (context, data, options = {}) => {
+  // Markup has already a svg inside
+  if ($(`${context} svg`).length !== 0) return
+
   // options
   let itemHeight = options.itemHeight || 25
   let gutter = options.gutter || 20
@@ -41,14 +44,18 @@ export const rowchart = (context, data, options = {}) => {
 
   g.selectAll(".bar")
     .data(data)
-    .enter().append("rect")
+    .enter()
+    .append("a")
+    .attr("xlink:href", d => (d.properties || {}).url)
+    .append("rect")
     .attr("class", "bar")
     .attr("x", 0)
-    .attr("height", y.bandwidth())
     .attr("y", d => y(d.key))
+    .attr("height", y.bandwidth())
     .transition()
     .duration(750)
     .attr("width", d => x(d.value))
+
   // .on("mousemove", function(d) {
   //   tooltip
   //     .style("left", d3.event.pageX - 50 + "px")

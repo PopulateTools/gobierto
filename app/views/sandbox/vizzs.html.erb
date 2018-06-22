@@ -45,6 +45,9 @@
 <script type="text/javascript">
 	// Charts
 	const rowchart = (context, data, options = {}) => {
+		// Markup has already a svg inside
+		if ($(`${context} svg`).length !== 0) return
+
 	  // options
 	  let itemHeight = options.itemHeight || 25
 	  let gutter = options.gutter || 20

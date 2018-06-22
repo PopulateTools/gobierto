@@ -2,21 +2,28 @@ base_locale: es
 locales: [en, es, ca]
 data:
   read:
-    - config/locales/**/%{locale}.yml
-    - config/locales/**/*/%{locale}.yml
     - vendor/auth_strategies/**/config/locales/**/%{locale}.yml
     - vendor/auth_strategies/**/config/locales/**/*/%{locale}.yml
+    - vendor/gobierto_engines/**/config/locales/**/%{locale}.yml
+    - vendor/gobierto_engines/**/config/locales/**/*/%{locale}.yml
+    - vendor/gobierto_engines/*/config/locales/**/*/%{locale}.yml
+    - config/locales/**/%{locale}.yml
+    - config/locales/**/*/%{locale}.yml
 search:
   paths:
-    - app/
     - vendor/auth_strategies/
+    - vendor/gobierto_engines/gobierto-gencat-engine/
+    - app/
   relative_roots:
+    - vendor/auth_strategies/null_strategy/app/views
+    - vendor/gobierto_engines/gobierto-gencat-engine/app/views
     - app/controllers
+    - app/decorators
     - app/helpers
     - app/mailers
+    - app/models
     - app/presenters
     - app/views
-    - vendor/auth_strategies/null_strategy/app/views
 ignore_missing:
   - 'gobierto_budgets.visualizations.*'
   - 'layouts.sandbox.*'

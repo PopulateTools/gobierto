@@ -17,8 +17,8 @@ module GobiertoPeople
       set_present_groups
 
       # TODO: this info is only needed for custom engine
-      @gifts = current_site.gifts.limit(4)
-      @invitations = current_site.invitations.limit(4)
+      @gifts = current_site.gifts.limit(4).between_dates(filter_start_date, filter_end_date)
+      @invitations = current_site.invitations.limit(4).between_dates(filter_start_date, filter_end_date)
       load_home_statistics
     end
 

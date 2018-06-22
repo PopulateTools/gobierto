@@ -6,7 +6,7 @@ module GobiertoPeople
   class TripTest < ActiveSupport::TestCase
 
     def trip
-      @trip ||= gobierto_people_trips(:richard_multiple_destinations)
+      @trip ||= gobierto_people_trips(:richard_multiple_destinations_recent)
     end
 
     def paris

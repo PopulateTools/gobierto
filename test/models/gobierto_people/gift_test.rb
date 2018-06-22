@@ -10,7 +10,7 @@ module GobiertoPeople
     end
 
     def concert_ticket
-      @concert_ticket ||= gobierto_people_gifts(:concert_ticket)
+      @concert_ticket ||= gobierto_people_gifts(:concert_ticket_recent)
     end
 
     def test_type

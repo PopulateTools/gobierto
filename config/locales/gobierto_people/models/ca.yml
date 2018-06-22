@@ -9,6 +9,13 @@ ca:
     models:
       gobierto_people/person_message: Missatge
   activerecord:
+    attributes:
+      gobierto_people/trip:
+        accomodation_expenses: Hotels i allotjament
+        food_expenses: Dietes i manutenció
+        other_expenses: Altres despeses
+        total_expenses: Despeses totals
+        transport_expenses: Transport
     models:
       gobierto_people/person: Càrrec
       gobierto_people/person_post: Post

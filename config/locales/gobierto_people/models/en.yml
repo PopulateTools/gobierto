@@ -9,6 +9,13 @@ en:
     models:
       gobierto_people/person_message: Message
   activerecord:
+    attributes:
+      gobierto_people/trip:
+        accomodation_expenses: Accomodation expenses
+        food_expenses: Food expenses
+        other_expenses: Other expenses
+        total_expenses: Total expenses
+        transport_expenses: Transport
     models:
       gobierto_people/person: Officer
       gobierto_people/person_post: Post

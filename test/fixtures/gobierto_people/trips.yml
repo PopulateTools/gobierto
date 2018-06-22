@@ -1,4 +1,4 @@
-richard_multiple_destinations:
+richard_multiple_destinations_recent:
   person: richard
   start_date: <%= 2.months.ago %>
   end_date: <%= 2.months.ago + 5.days %>
@@ -18,9 +18,22 @@ richard_multiple_destinations:
     "transport_expenses" => 500,
     "other_expenses" => 250,
     "total_expenses" => 1750,
-    "trip_party" => "Sr. Smith and Sra. Sally",
+    "company" => "Sr. Smith and Sra. Sally",
     "comments" => "Official car"
   }.to_json %>
+
+richard_single_destination_old:
+  person: richard
+  start_date: <%= 2.years.ago %>
+  end_date: <%= 2.years.ago + 1.day %>
+  destinations_meta: <%= {
+    "destinations" => [
+      { "name" => "Amsterdam", "lat" => 52.3545653, "lon" => 4.7585402 }
+    ]
+  }.to_json %>
+  title: Trip to Amsterdam
+  department: justice_department
+  description: Trip to Amsterdam to talk with someone
 
 tamara_single_destination:
   person: tamara

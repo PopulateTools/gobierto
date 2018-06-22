@@ -6,9 +6,12 @@ module GobiertoPeople
   class Trip < ApplicationRecord
 
     include GobiertoCommon::Metadatable
+    include GobiertoCommon::UrlBuildable
 
     belongs_to :person
     belongs_to :department
+
+    scope :sorted, -> { order(start_date: :desc) }
 
     validates :person, :title, :start_date, :end_date, presence: true
 
@@ -18,12 +21,34 @@ module GobiertoPeople
       :transport_expenses,
       :other_expenses,
       :total_expenses,
-      :trip_party,
-      :comments
+      :company,
+      :comments,
+      :original_destinations_attribute,
+      :purpose
     )
 
     def destinations
       destinations_meta["destinations"] if destinations_meta
+    end
+
+    def duration_dates
+      [start_date, end_date]
+    end
+
+    def expenses
+      [
+        { kind: meta_attribute_translation(:food_expenses), amount: food_expenses },
+        { kind: meta_attribute_translation(:accomodation_expenses), amount: accomodation_expenses },
+        { kind: meta_attribute_translation(:transport_expenses), amount: transport_expenses },
+        { kind: meta_attribute_translation(:other_expenses), amount: other_expenses },
+        { kind: meta_attribute_translation(:total_expenses), amount: total_expenses }
+      ].reject { |expense| expense[:amount].to_i.zero? }
+    end
+
+    private
+
+    def meta_attribute_translation(attribute)
+      I18n.t "activerecord.attributes.gobierto_people/#{model_name.human.downcase}.#{attribute}"
     end
 
   end

@@ -9,8 +9,6 @@ jobs:
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: gobierto
-          # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
-          DISABLE_SPRING: true
       - image: postgres:9.6
         environment:
           POSTGRES_USER: gobierto
@@ -71,14 +69,10 @@ jobs:
       - run: cp .env.example .env
 
       # Setup the database
-      - run: bin/rails db:setup
+      - run: bundle exec rake db:setup
 
       # Run tests
-      - run: script/test
-
-      # Run tests from custom engines
-      - run: script/custom_engines_ci_setup
-      - run: bin/rails test vendor/gobierto_engines/**/test
+      - run: script/ci_test
 
   staging-deploy:
     machine:

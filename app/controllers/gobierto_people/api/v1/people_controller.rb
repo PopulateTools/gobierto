@@ -35,14 +35,6 @@ module GobiertoPeople
               end
             end
 
-            # sort result according to person events count
-            people_order = Hash[
-              *top_people.pluck(:name).each_with_index.collect do |person_name, index|
-                [person_name, index]
-              end.flatten
-            ]
-            result.sort! { |x, y| people_order[x[:key]] <=> people_order[y[:key]] }
-
             render json: result
           else
             render json: top_people, each_serializer: RowchartItemSerializer

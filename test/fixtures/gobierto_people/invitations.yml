@@ -1,7 +1,7 @@
-richard_paris_invitation_recent:
+richard_paris_invitation:
   person: richard
   organizer: Important Paris Association
-  title: Recent important congress in Paris
+  title: Important congress in Paris
   location: <%= {
     "name" => "Paris",
     "lat" => 48.8588377,
@@ -10,19 +10,6 @@ richard_paris_invitation_recent:
   department: culture_department
   start_date: <%= 2.months.ago %>
   end_date: <%= 2.months.ago + 2.days %>
-
-richard_paris_invitation_old:
-  person: richard
-  organizer: Important Paris Association
-  title: Old important congress in Paris
-  location: <%= {
-    "name" => "Paris",
-    "lat" => 48.8588377,
-    "lon" => 2.2770201,
-  }.to_json %>
-  department: culture_department
-  start_date: <%= 2.years.ago %>
-  end_date: <%= 2.years.ago + 2.days %>
 
 tamara_london_invitation:
   person: tamara

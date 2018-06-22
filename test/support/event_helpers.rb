@@ -14,8 +14,7 @@ module EventHelpers
       ends_at: parse_end_date(options),
       state: GobiertoCalendars::Event.states["published"],
       collection: collection,
-      external_id: options[:external_id],
-      interest_group_id: interest_group_id(options),
+      external_id: options[:external_id].presence,
       site: site
     )
 
@@ -46,17 +45,6 @@ module EventHelpers
     else
       parse_start_date(options) + 1.hour
     end
-  end
-
-  def interest_group_id(options)
-    return nil unless options[:interest_group]
-    options[:interest_group].try(:id) || defaults[:interest_group].id
-  end
-
-  def defaults
-    {
-      interest_group: gobierto_people_interest_groups(:google)
-    }
   end
 
 end

@@ -17,10 +17,6 @@ module GobiertoCommon
       )
     end
 
-    def to_anchor
-      "#{model_name.human.downcase}-#{id}"
-    end
-
     private
 
     def parameterize

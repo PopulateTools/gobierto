@@ -6,15 +6,15 @@ module GobiertoPeople
       class DepartmentsController < Api::V1::BaseController
 
         def index
-          top_departments = DepartmentsQuery.new(
+          query = DepartmentsQuery.new(
             relation: Department.where(site: current_site),
             conditions: permitted_conditions,
             limit: params[:limit]
-          ).results
+          )
 
           if params[:include_history] == "true"
             records = DepartmentsQuery.new(
-              relation: Department.where(id: top_departments.map(&:id)),
+              relation: Department.where(id: query.results.map(&:id)),
               conditions: permitted_conditions
             ).results_with_history
 
@@ -34,19 +34,10 @@ module GobiertoPeople
                 }
               end
             end
-
-            # sort result according to department events count
-            departments_order = Hash[
-              *top_departments.pluck(:name).each_with_index.collect do |department_name, index|
-                [department_name, index]
-              end.flatten
-            ]
-            result.sort! { |x, y| departments_order[x[:key]] <=> departments_order[y[:key]] }
-
             render json: result
           else
 
-            render json: top_departments, each_serializer: RowchartItemSerializer
+            render json: query.results, each_serializer: RowchartItemSerializer
           end
         end
 

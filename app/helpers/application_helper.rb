@@ -119,21 +119,6 @@ module ApplicationHelper
     end
   end
 
-  def meaningful_date_range?(date_range, options = {})
-    return false unless date_range.is_a?(Array)
-
-    date_range.map! { |d| d.change(hour: 0, min: 0, sec: 0) } if options[:only_date]
-    date_range.first != date_range.last
-  end
-
-  def simple_pluralize(count, singular, plural)
-    if count == 1 || count =~ /^1(\.0+)?$/
-      singular
-    else
-      plural
-    end
-  end
-
   private
 
   def parse_max_length(params)

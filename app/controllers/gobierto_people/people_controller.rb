@@ -47,7 +47,7 @@ module GobiertoPeople
       @latest_activity = ActivityCollectionDecorator.new(Activity.for_recipient(@person).limit(30).sorted.page(params[:page]))
 
       # custom engine
-      @last_events = @person.attending_events.sorted_backwards.limit(LAST_ITEMS_SIZE)
+      @last_events = @person.attending_events.with_interest_group.sorted_backwards.limit(LAST_ITEMS_SIZE)
       @last_trips = @person.trips.sorted.limit(LAST_ITEMS_SIZE)
       @last_invitations = @person.invitations.sorted.limit(LAST_ITEMS_SIZE)
       @last_gifts = @person.received_gifts.sorted.limit(LAST_ITEMS_SIZE)

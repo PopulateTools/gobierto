@@ -42,7 +42,7 @@ module GobiertoPeople
         { kind: meta_attribute_translation(:transport_expenses), amount: transport_expenses },
         { kind: meta_attribute_translation(:other_expenses), amount: other_expenses },
         { kind: meta_attribute_translation(:total_expenses), amount: total_expenses }
-      ].reject { |expense| expense[:amount].zero? }
+      ].reject { |expense| expense[:amount].to_i.zero? }
     end
 
     private

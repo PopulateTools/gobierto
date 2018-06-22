@@ -9,7 +9,7 @@ module GobiertoPeople
     end
 
     def company_members
-      company.split(SPLIT_COMPANY_REGEXP).map(&:strip).uniq
+      company ? company.split(SPLIT_COMPANY_REGEXP).map(&:strip).uniq : []
     end
 
     def formatted_start_date

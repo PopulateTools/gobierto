@@ -12,7 +12,7 @@ module GobiertoPeople
 
     def trip
       @trip ||= begin
-        fixture_item = gobierto_people_trips(:richard_multiple_destinations)
+        fixture_item = gobierto_people_trips(:richard_multiple_destinations_recent)
         fixture_item.update_attribute(:meta, fixture_item.meta.merge(
           "company" => "Member 1  Member 2\nMember 2\nmember threeMember 4"
         ))

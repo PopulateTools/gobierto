@@ -442,6 +442,7 @@ $lighter_black: rgba($color_headers, 0.7);
   .emoji_block {
     display: block !important;
     background-image: url(asset_path('illustrations/emojis.svg'));
+    background-position: center;
 
     h2 {
       margin-bottom: 2em;

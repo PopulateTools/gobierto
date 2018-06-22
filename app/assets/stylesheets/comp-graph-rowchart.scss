@@ -1,5 +1,6 @@
 .rowchart {
   min-height: 300px;
+  position: relative;
 
   svg {
     background-color: rgba($color_main, .2);

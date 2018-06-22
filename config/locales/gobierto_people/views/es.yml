@@ -46,12 +46,12 @@ es:
         agendas: Agendas
         blogs: Blogs
         departments: Departamentos
+        gifts: Obsequios
         interest_groups: Grupos de Interés
+        invitations: Invitaciones
         people: Cargos
         statements: Declaraciones
         trips: Viajes
-        gifts: Obsequios
-        invitations: Invitaciones
     people:
       contact_methods:
         send_email: Envía un correo-e

@@ -44,12 +44,12 @@ en:
         agendas: Agendas
         blogs: Blogs
         departments: Departments
+        gifts: Gifts
         interest_groups: Interest Groups
+        invitations: Invitations
         people: Officials
         statements: Statements
         trips: Trips
-        gifts: Gifts
-        invitations: Invitations
     people:
       contact_methods:
         send_email: Send an email

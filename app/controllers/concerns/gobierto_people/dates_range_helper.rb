@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module DatesRangeHelper
     extend ActiveSupport::Concern
@@ -19,7 +21,7 @@ module GobiertoPeople
     end
 
     def empty_date_range_param?
-      (params.keys & ["start_date", "end_date"]).empty?
+      (params.keys & %w(start_date end_date)).empty?
     end
 
     private
@@ -40,7 +42,7 @@ module GobiertoPeople
       date = if params[param].present?
                Time.zone.parse(params[param])
              else
-               use_default ? site_configuration_date_range[param] :nil
+               use_default ? site_configuration_date_range[param] : nil
              end
       session[param] = date
     rescue ArgumentError

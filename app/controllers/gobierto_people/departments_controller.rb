@@ -37,8 +37,8 @@ module GobiertoPeople
 
     def site_events
       QueryWithEvents.new(relation: current_site.events,
-                                   start_date: filter_start_date,
-                                   end_date: filter_end_date).relation
+                          start_date: filter_start_date,
+                          end_date: filter_end_date).relation
     end
 
     def site_departments

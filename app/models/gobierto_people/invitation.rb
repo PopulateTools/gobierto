@@ -12,7 +12,7 @@ module GobiertoPeople
     belongs_to :department
 
     scope :sorted, -> { order(start_date: :desc, end_date: :asc, title: :asc) }
-    scope :between_dates, ->(start_date, end_date) do
+    scope :between_dates, lambda { |start_date, end_date|
       if start_date && end_date
         where("start_date >= ? AND end_date <= ?", start_date, end_date)
       elsif start_date
@@ -20,7 +20,7 @@ module GobiertoPeople
       elsif end_date
         where("end_date <= ?", end_date)
       end
-    end
+    }
 
     default_scope { sorted }
 

@@ -24,8 +24,8 @@ module GobiertoPeople
                                             start_date: filter_start_date,
                                             end_date: filter_end_date)
       @department_stats = {
-        total_people_with_attendances: people.relation.count,
-        unique_interest_groups: interest_groups.relation.select(:interest_group_id).distinct.count
+        total_people_with_attendances: people.count,
+        unique_interest_groups: interest_groups.select(:interest_group_id).distinct.count
       }
     end
 
@@ -38,7 +38,7 @@ module GobiertoPeople
     def site_events
       QueryWithEvents.new(source: current_site.events,
                           start_date: filter_start_date,
-                          end_date: filter_end_date).relation.events
+                          end_date: filter_end_date)
     end
 
     def site_departments

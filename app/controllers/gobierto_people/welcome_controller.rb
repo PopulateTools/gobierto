@@ -53,9 +53,9 @@ module GobiertoPeople
                                             start_date: filter_start_date,
                                             end_date: filter_end_date)
       @home_statistics = {
-        total_events: people.relation.count,
-        total_interest_groups: interest_groups.relation.count,
-        total_people_with_attendances: people.relation.select(:person_id).distinct.count
+        total_events: people.count,
+        total_interest_groups: interest_groups.count,
+        total_people_with_attendances: people.select(:person_id).distinct.count
       }
     end
   end

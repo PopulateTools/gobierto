@@ -8,6 +8,10 @@ module GobiertoPeople
 
     attr_reader :relation
 
+    def method_missing(*args, &block)
+      relation.send(*args, &block)
+    end
+
     def initialize(params = {})
       @source = (params[:source] || model)
       add_events_relation

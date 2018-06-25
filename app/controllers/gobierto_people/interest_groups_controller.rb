@@ -8,8 +8,11 @@ module GobiertoPeople
     before_action :check_active_submodules
 
     def index
-      @interest_groups_count = @site.interest_groups.count
-      @interest_groups = @site.interest_groups.joins(:events).group(:id).order("count(#{ events_table }.id) DESC").limit(DEFAULT_LIMIT)
+      interest_groups = QueryWithEvents.new(source: @site.interest_groups,
+                                            start_date: filter_start_date,
+                                            end_date: filter_end_date)
+      @interest_groups_count = interest_groups.count
+      @interest_groups = InterestGroupsQuery.new(relation: interest_groups.relation, limit: DEFAULT_LIMIT).results
       @total_events = events_with_interest_group.count
     end
 
@@ -18,8 +21,8 @@ module GobiertoPeople
       events = QueryWithEvents.new(source: @interest_group.events,
                                    start_date: filter_start_date,
                                    end_date: filter_end_date)
-      @total_events = events.relation.count
-      @total_people = events.relation.select(:collection_id).distinct.count
+      @total_events = events.count
+      @total_people = events.select(:collection_id).distinct.count
     end
 
     def check_active_submodules
@@ -29,7 +32,10 @@ module GobiertoPeople
     protected
 
     def events_with_interest_group
-      @site.events.where.not(interest_group_id: nil)
+      QueryWithEvents.new(source: @site.events,
+                          start_date: filter_start_date,
+                          end_date: filter_end_date,
+                          not_null: [:interest_group_id])
     end
 
     def events_model

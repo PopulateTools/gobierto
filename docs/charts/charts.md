@@ -31,6 +31,7 @@
     	  }`)
     - xTickFormat: how to format the X-axis ticks. Function (default: d => d)
     - yTickFormat: how to format the Y-axis ticks. Function (default: d => d)
+    - tooltipContainer: where is placed the tooltip. String (default: body)
 - **usage**:
 ```HTML
 <!-- The chart size is determined by its parent container-->
@@ -98,6 +99,7 @@ $.getJSON("data/rowchart.json", (data) => {
 	  }`)
     - xTickFormat: how to format the X-axis ticks. Function (default: d => d)
     - yTickFormat: how to format the Y-axis ticks. Function (default: d => d)
+    - tooltipContainer: where is placed the tooltip. String (default: body)
 - **usage**:
 ```HTML
 <!-- The chart size is determined by its parent container-->

@@ -16,6 +16,7 @@ export const punchcard = (context, data, options = {}) => {
   let xTickFormat = options.xTickFormat || (d => d)
   let yTickFormat = options.yTickFormat || (d => d)
   let title = options.title || ''
+	let tooltipContainer = options.tooltipContainer || "body"
 
   // parse dates
   data.forEach((element, elementIndex) => {
@@ -90,7 +91,7 @@ export const punchcard = (context, data, options = {}) => {
 		.call(yAxis)
 
 	// tooltip
-	let tooltip = d3.select("body").append("div")
+	let tooltip = d3.select(tooltipContainer).append("div")
 		.attr("id", `${container.node().id}-tooltip`)
 		.attr("class", "graph-tooltip")
 

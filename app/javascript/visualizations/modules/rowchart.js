@@ -15,6 +15,7 @@ export const rowchart = (context, data, options = {}) => {
   }
   let xTickFormat = options.xTickFormat || (d => d)
   let yTickFormat = options.yTickFormat || (d => d)
+  let tooltipContainer = options.tooltipContainer || "body"
 
   // dimensions
   let container = d3.select(context)
@@ -25,7 +26,7 @@ export const rowchart = (context, data, options = {}) => {
     .attr("height", height + margin.top + margin.bottom)
 
   // tooltip
-  let tooltip = d3.select("body").append("div")
+  let tooltip = d3.select(tooltipContainer).append("div")
     .attr("id", `${container.node().id}-tooltip`)
     .attr("class", "graph-tooltip")
 

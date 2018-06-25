@@ -5,6 +5,8 @@ module GobiertoPeople
     module V1
       class PeopleController < Api::V1::BaseController
 
+        before_action :check_active_submodules
+
         def index
           top_people = PeopleQuery.new(
             relation: current_site.people,
@@ -23,24 +25,14 @@ module GobiertoPeople
 
             records.each do |record|
               if (index = result_indexes[record.name])
-                result[index][:value] << {
-                  key: Time.zone.parse(record.year_month),
-                  value: record.custom_events_count,
-                  url: gobierto_people_person_past_events_path(record.slug, {page: false}.merge(date_range(record.year_month)))
-                }
+                result[index][:value] << record_value_item(record)
               else
                 result_indexes[record.name] = result.size
                 result << {
                   key: record.name,
-                  value: [
-                    {
-                      key: Time.zone.parse(record.year_month),
-                      value: record.custom_events_count,
-                      url: gobierto_people_person_past_events_path(record.slug, {page: false}.merge(date_range(record.year_month)))
-                    }
-                  ],
+                  value: [record_value_item(record)],
                   properties: {
-                    url: gobierto_people_person_past_events_path(record.slug, page: false)
+                    url: gobierto_people_person_past_events_url(record.slug, page: false)
                   }
                 }
               end
@@ -77,10 +69,23 @@ module GobiertoPeople
           ).to_h
         end
 
-        def date_range(year_month)
+        def check_active_submodules
+          head :forbidden unless agendas_submodule_active?
+        end
+
+        def record_value_item(record)
+          year_month = Time.zone.parse(record.year_month)
           {
-            start_date: Time.zone.parse(year_month).to_date.to_s(:db),
-            end_date: (Time.zone.parse(year_month).to_date + 1.month).to_s(:db)
+            key: year_month,
+            value: record.custom_events_count,
+            properties: {
+              url: gobierto_people_person_past_events_url(
+                record.slug,
+                page: false,
+                start_date: year_month.to_date.to_s(:db),
+                end_date: (year_month.to_date + 1.month).to_s(:db)
+              )
+            }
           }
         end
 

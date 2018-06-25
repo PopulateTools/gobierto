@@ -23,5 +23,13 @@ module GobiertoPeople
       { person_slug: person.slug, id: id }
     end
 
+    def singular_route_key
+      :gobierto_people_person_gift
+    end
+
+    def site
+      person.site
+    end
+
   end
 end

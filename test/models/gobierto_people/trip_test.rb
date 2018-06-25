@@ -21,6 +21,10 @@ module GobiertoPeople
       }
     end
 
+    def site
+      @site ||= sites(:madrid)
+    end
+
     def test_destinations
       assert_equal 3, trip.destinations.size
 
@@ -28,7 +32,7 @@ module GobiertoPeople
     end
 
     def test_to_url
-      assert_equal "http://madrid.gobierto.test/personas/#{richard.slug}/viajes-y-desplazamientos/#{trip.id}", trip.to_url
+      assert_equal "http://#{site.domain}/personas/#{richard.slug}/viajes-y-desplazamientos/#{trip.id}", trip.to_url
     end
 
   end

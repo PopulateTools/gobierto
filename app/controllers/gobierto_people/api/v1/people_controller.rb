@@ -32,7 +32,7 @@ module GobiertoPeople
                   key: record.name,
                   value: [record_value_item(record)],
                   properties: {
-                    url: gobierto_people_person_past_events_path(record.slug, page: false)
+                    url: gobierto_people_person_past_events_url(record.slug, page: false)
                   }
                 }
               end
@@ -79,7 +79,7 @@ module GobiertoPeople
             key: year_month,
             value: record.custom_events_count,
             properties: {
-              url: gobierto_people_person_past_events_path(
+              url: gobierto_people_person_past_events_url(
                 record.slug,
                 page: false,
                 start_date: year_month.to_date.to_s(:db),

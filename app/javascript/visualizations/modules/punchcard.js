@@ -90,7 +90,7 @@ export const punchcard = (context, data, options = {}) => {
 		.call(yAxis)
 
 	// tooltip
-	let tooltip = container.append("div")
+	let tooltip = d3.select("body").append("div")
 		.attr("id", `${container.node().id}-tooltip`)
 		.attr("class", "graph-tooltip")
 
@@ -128,10 +128,15 @@ export const punchcard = (context, data, options = {}) => {
 						${d.value.toLocaleString()}
 					</div>`
 
+				let coords = {
+					x: window.pageXOffset + container.node().getBoundingClientRect().left,
+					y: window.pageYOffset + container.node().getBoundingClientRect().top
+				}
+
 				tooltip
 					.style("opacity", "1")
-					.style("left", `${x(d.key) + margin.left}px`)
-					.style("top", `${d3.select(arr[j]).attr("cy")}px`)
+					.style("left", `${coords.x + x(d.key) + margin.left}px`)
+					.style("top", `${coords.y + d3.select(arr[j]).attr("cy")}px`)
 					.html(content);
 			})
 			.on("mouseout", () => tooltip.style("opacity", "0"))

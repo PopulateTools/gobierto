@@ -4,6 +4,7 @@ module GobiertoPeople
     include PoliticalGroupsHelper
     include PreviewTokenHelper
     include PeopleClassificationHelper
+    include DatesRangeHelper
 
     before_action :check_active_submodules, except: :show
 

@@ -7,7 +7,7 @@ module GobiertoPeople
       before_action :check_active_submodules
 
       def index
-        @person_gifts = @person.received_gifts
+        @person_gifts = @person.received_gifts.between_dates(filter_start_date, filter_end_date)
       end
 
       def show

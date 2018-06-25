@@ -45,11 +45,11 @@ module GobiertoPeople
     end
 
     def load_home_statistics
-      people = QueryWithEvents.new(relation: current_site.event_attendances,
+      people = QueryWithEvents.new(source: current_site.event_attendances,
                                    start_date: filter_start_date,
                                    end_date: filter_end_date,
                                    not_null: [:department_id])
-      interest_groups = QueryWithEvents.new(relation: current_site.interest_groups,
+      interest_groups = QueryWithEvents.new(source: current_site.interest_groups,
                                             start_date: filter_start_date,
                                             end_date: filter_end_date)
       @home_statistics = {

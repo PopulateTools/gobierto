@@ -15,7 +15,7 @@ module GobiertoPeople
 
     def show
       @interest_group = @site.interest_groups.find_by_slug!(params[:id])
-      events = QueryWithEvents.new(relation: @interest_group.events,
+      events = QueryWithEvents.new(source: @interest_group.events,
                                    start_date: filter_start_date,
                                    end_date: filter_end_date)
       @total_events = events.relation.count

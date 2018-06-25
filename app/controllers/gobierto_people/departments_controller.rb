@@ -16,11 +16,11 @@ module GobiertoPeople
 
     def show
       @department = site_departments.find_by_slug!(params[:id])
-      people = QueryWithEvents.new(relation: @department.people.with_event_attendances,
+      people = QueryWithEvents.new(source: @department.people.with_event_attendances,
                                    start_date: filter_start_date,
                                    end_date: filter_end_date)
 
-      interest_groups = QueryWithEvents.new(relation: @department.events.with_interest_group,
+      interest_groups = QueryWithEvents.new(source: @department.events,
                                             start_date: filter_start_date,
                                             end_date: filter_end_date)
       @department_stats = {
@@ -36,9 +36,9 @@ module GobiertoPeople
     protected
 
     def site_events
-      QueryWithEvents.new(relation: current_site.events,
+      QueryWithEvents.new(source: current_site.events,
                           start_date: filter_start_date,
-                          end_date: filter_end_date).relation
+                          end_date: filter_end_date).relation.events
     end
 
     def site_departments

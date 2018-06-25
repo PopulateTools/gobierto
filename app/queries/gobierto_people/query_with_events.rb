@@ -4,12 +4,13 @@ module GobiertoPeople
   class QueryWithEvents
 
     class NotImplementedError < StandardError; end
+    class AssociationNotFound < StandardError; end
 
     attr_reader :relation
 
     def initialize(params = {})
-      @relation = (params[:relation] || model.all)
-      @relation = relation.joins(events_association)
+      @source = (params[:source] || model)
+      add_events_relation
       append_condition(:starts_at, params[:start_date], ">=") if params[:start_date]
       append_condition(:ends_at, params[:end_date], "<=") if params[:end_date]
       params[:not_null].each do |attr|
@@ -27,8 +28,18 @@ module GobiertoPeople
       raise NotImplementedError, "Must override this method"
     end
 
-    def events_association
-      @events_association ||= [:event, :events].find { |assoc| relation.reflect_on_association(assoc) }
+    def add_events_relation
+      @relation = if @source.klass == GobiertoCalendars::Event
+                    @source
+                  elsif @source.reflect_on_association(:event)
+                    @source.joins(:event)
+                  elsif @source.reflect_on_association(:events)
+                    @source.joins(:events).distinct
+                  elsif @source.reflect_on_association(:attending_events)
+                    @source.joins(:attending_events).distinct
+                  else
+                    raise AssociationNotFound, "Association with events not found for source"
+                  end
     end
 
     def events_table

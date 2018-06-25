@@ -37,7 +37,7 @@ export const punchcard = (context, data, options = {}) => {
   // scales
   let x = d3.scaleTime().range([0, width]);
   let y = d3.scalePoint().range([height, 0]);
-  let r = d3.scaleSqrt().range([1, 15]) // tamaño de las bolas
+  let r = d3.scaleSqrt().range([3, 15]) // tamaño de las bolas
 
   // domains
   x.domain([

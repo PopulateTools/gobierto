@@ -30,7 +30,7 @@ module GobiertoPeople
 
       assert_equal "Google", serializer_output["key"]
       assert_equal 123, serializer_output["value"]
-      assert_equal "http://www.example.com/grupos-de-interes/#{interest_group.slug}", serializer_output["properties"]["url"]
+      assert_equal "http://#{madrid.domain}/grupos-de-interes/#{interest_group.slug}", serializer_output["properties"]["url"]
     end
 
   end

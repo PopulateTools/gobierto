@@ -35,6 +35,10 @@ module GobiertoPeople
       [start_date, end_date]
     end
 
+    def parameterize
+      { person_slug: person.slug, id: id }
+    end
+
     def expenses
       [
         { kind: meta_attribute_translation(:food_expenses), amount: food_expenses },
@@ -43,6 +47,14 @@ module GobiertoPeople
         { kind: meta_attribute_translation(:other_expenses), amount: other_expenses },
         { kind: meta_attribute_translation(:total_expenses), amount: total_expenses }
       ].reject { |expense| expense[:amount].to_i.zero? }
+    end
+
+    def site
+      person.site
+    end
+
+    def singular_route_key
+      :gobierto_people_person_trip
     end
 
     private

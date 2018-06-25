@@ -7,6 +7,7 @@ module SubmodulesHelper
     helper_method :active_submodules, :welcome_submodule_active?, :officials_submodule_active?,
                   :agendas_submodule_active?, :blogs_submodule_active?, :statements_submodule_active?,
                   :departments_submodule_active?, :interest_groups_submodule_active?,
+                  :trips_submodule_active?, :gifts_submodule_active?, :invitations_submodule_active?,
                   :submodule_path_for, :submodule_title_for, :submodule_controller_for,
                   :budgets_elaboration_active?,
                   :budget_lines_feedback_active?, :gobierto_budgets_feedback_emails,
@@ -61,33 +62,48 @@ module SubmodulesHelper
     {
       officials: {
         root_path: gobierto_people_people_path,
-        layout_title: t('gobierto_people.layouts.menu_subsections.people'),
-        controller_name: 'people'
+        layout_title: t("gobierto_people.layouts.menu_subsections.people"),
+        controller_name: "people"
       },
       agendas: {
         root_path: gobierto_people_events_path,
-        layout_title: t('gobierto_people.layouts.menu_subsections.agendas'),
-        controller_name: 'person_events'
+        layout_title: t("gobierto_people.layouts.menu_subsections.agendas"),
+        controller_name: "person_events"
       },
       blogs: {
         root_path: gobierto_people_posts_path,
-        layout_title: t('gobierto_people.layouts.menu_subsections.blogs'),
-        controller_name: 'person_posts'
+        layout_title: t("gobierto_people.layouts.menu_subsections.blogs"),
+        controller_name: "person_posts"
       },
       statements: {
         root_path: gobierto_people_statements_path,
-        layout_title: t('gobierto_people.layouts.menu_subsections.statements'),
-        controller_name: 'person_statements'
+        layout_title: t("gobierto_people.layouts.menu_subsections.statements"),
+        controller_name: "person_statements"
       },
       departments: {
         root_path: gobierto_people_departments_path,
-        layout_title: t('gobierto_people.layouts.menu_subsections.departments'),
-        controller_name: 'departments'
+        layout_title: t("gobierto_people.layouts.menu_subsections.departments"),
+        controller_name: "departments"
       },
       interest_groups: {
         root_path: gobierto_people_interest_groups_path,
-        layout_title: t('gobierto_people.layouts.menu_subsections.interest_groups'),
-        controller_name: 'interest_groups'
+        layout_title: t("gobierto_people.layouts.menu_subsections.interest_groups"),
+        controller_name: "interest_groups"
+      },
+      trips: {
+        root_path: gobierto_people_trips_path,
+        layout_title: t("gobierto_people.layouts.menu_subsections.trips"),
+        controller_name: "trips"
+      },
+      gifts: {
+        root_path: gobierto_people_gifts_path,
+        layout_title: t("gobierto_people.layouts.menu_subsections.gifts"),
+        controller_name: "gifts"
+      },
+      invitations: {
+        root_path: gobierto_people_invitations_path,
+        layout_title: t("gobierto_people.layouts.menu_subsections.invitations"),
+        controller_name: "invitations"
       }
     }
   end
@@ -121,7 +137,7 @@ module SubmodulesHelper
   end
 
   def submodule_has_content?(submodule)
-    if submodule == 'blogs'
+    if submodule == "blogs"
       return current_site.person_posts.active.any?
     end
     return true

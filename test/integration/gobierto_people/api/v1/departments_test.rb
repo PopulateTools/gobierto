@@ -1,14 +1,22 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/gobierto_people/submodules_helper"
 
 module GobiertoPeople
   module Api
     module V1
       class DepartmentsTest < ActionDispatch::IntegrationTest
 
+        include ::GobiertoPeople::SubmodulesHelper
+
         FAR_PAST = 10.years.ago.iso8601
         FAR_FUTURE = 10.years.from_now.iso8601
+
+        def setup
+          enable_submodule(madrid, :departments)
+          super
+        end
 
         def madrid
           @madrid ||= sites(:madrid)
@@ -68,6 +76,16 @@ module GobiertoPeople
 
             assert_equal 1, departments.size
             assert_equal departments.first["key"], justice_department.name
+          end
+        end
+
+        def test_departments_index_test_with_submodule_disabled
+          disable_submodule(madrid, :departments)
+
+          with_current_site(madrid) do
+            get gobierto_people_api_v1_departments_path
+
+            assert_response :forbidden
           end
         end
 

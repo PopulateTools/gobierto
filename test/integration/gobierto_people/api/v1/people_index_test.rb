@@ -122,7 +122,15 @@ module GobiertoPeople
 
             expected_tamara_data = {
               "key" => tamara.name,
-              "value" => [{ "key" => Time.zone.parse("2017/01"), "value" => 2, "url"=>"/agendas/tamara-devoux/eventos-pasados?end_date=2017-02-01&page=false&start_date=2017-01-01" }],
+              "value" => [
+                {
+                  "key" => Time.zone.parse("2017/01"),
+                  "value" => 2,
+                  "properties" => {
+                    "url" => "/agendas/tamara-devoux/eventos-pasados?end_date=2017-02-01&page=false&start_date=2017-01-01"
+                  }
+                }
+              ],
               "properties" => {
                 "url" => "/agendas/tamara-devoux/eventos-pasados?page=false"
               }

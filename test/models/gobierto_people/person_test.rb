@@ -27,5 +27,9 @@ module GobiertoPeople
       person = ::GobiertoPeople::Person.create!(name: "New Person Name", site: sites(:madrid))
       assert person.events_collection.present?
     end
+
+    def test_to_url
+      assert_equal "http://#{person.site.domain}/personas/#{person.slug}", person.to_url
+    end
   end
 end

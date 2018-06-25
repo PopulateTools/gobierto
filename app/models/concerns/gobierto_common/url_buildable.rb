@@ -11,9 +11,10 @@ module GobiertoCommon
     alias resource_path to_path
 
     def to_url(options = {})
+      host_domain = try(:site)&.domain || app_host
       url_helpers.send(
         "#{singular_route_key}_url",
-        parameterize.merge(host: app_host).merge(options)
+        parameterize.merge(host: host_domain).merge(options)
       )
     end
 

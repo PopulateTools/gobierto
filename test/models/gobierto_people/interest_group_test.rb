@@ -34,5 +34,9 @@ module GobiertoPeople
       assert_nil accenture.registry
     end
 
+    def test_to_url
+      assert_equal "http://madrid.gobierto.test/grupos-de-interes/#{google.slug}", google.to_url
+    end
+
   end
 end

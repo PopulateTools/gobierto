@@ -12,9 +12,11 @@ module GobiertoPeople
     private
 
     def check_active_submodules
-      if !statements_submodule_active?
+      # controller shared by two different submodules
+      unless statements_submodule_active? || gifts_submodule_active?
         redirect_to gobierto_people_root_path
       end
     end
+
   end
 end

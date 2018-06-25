@@ -19,7 +19,9 @@ en:
             agendas: Agendas
             blogs: Blogs
             departments: Departments
+            gifts: Gifts
             interest_groups: Interest groups
+            invitations: Invitations
             officials: Officials
             placeholders:
               home_text_ca: Home text Catalan
@@ -27,5 +29,6 @@ en:
               home_text_es: Home text Spanish
             statements: Statements
             submodules_enabled: Enabled submodules
+            trips: Trips
             update: Update
         title: Configuration

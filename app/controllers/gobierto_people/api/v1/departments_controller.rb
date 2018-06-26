@@ -63,7 +63,7 @@ module GobiertoPeople
             render json: result
           else
 
-            render json: top_departments, each_serializer: RowchartItemSerializer
+            render json: top_departments, each_serializer: DepartmentRowchartSerializer
           end
         end
 

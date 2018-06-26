@@ -12,7 +12,7 @@ module GobiertoPeople
           # permit non-pagination and avoid N+1 queries for custom engines
           @events = @person.events.past.sorted_backwards.includes(:interest_group)
         else
-          @events = @person.events.past.sorted.page params[:page]
+          @events = @person.events.past.sorted_backwards.page params[:page]
         end
 
         respond_to do |format|

@@ -2,6 +2,13 @@
 
 module EventHelpers
 
+  TIME_ALIASES = {
+    past: 1.year.ago,
+    far_past: 10.years.ago,
+    future: 1.year.from_now,
+    far_future: 10.years.from_now
+  }
+
   def create_event(options = {})
     person     = options[:person] || gobierto_people_people(:richard)
     collection = person.events_collection
@@ -28,7 +35,9 @@ module EventHelpers
 
   def parse_start_date(options)
     starts_at_param = options[:starts_at]
-    if starts_at_param && starts_at_param.is_a?(String)
+    if starts_at_param && TIME_ALIASES[starts_at_param]
+      TIME_ALIASES[starts_at_param]
+    elsif starts_at_param && starts_at_param.is_a?(String)
       Time.zone.parse(starts_at_param)
     elsif starts_at_param
       starts_at_param

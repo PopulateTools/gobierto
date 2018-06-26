@@ -72,12 +72,14 @@ module GobiertoPeople
       statements.active.any?
     end
 
-    def meetings_with_interest_groups
-      events.with_interest_group
+    def meetings_with_interest_groups(start_date: nil, end_date: nil)
+      QueryWithEvents.new(source: events.with_interest_group,
+                          start_date: start_date,
+                          end_date: end_date)
     end
 
-    def interest_groups_count
-      meetings_with_interest_groups.select(:interest_group_id).distinct.count
+    def interest_groups_count(start_date: nil, end_date: nil)
+      meetings_with_interest_groups(start_date: start_date, end_date: end_date).select(:interest_group_id).distinct.count
     end
 
     private

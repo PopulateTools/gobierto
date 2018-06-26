@@ -9,11 +9,11 @@ module GobiertoPeople
     end
 
     def filter_start_date
-      date_from_param_or_session(:start_date, empty_date_range_param?) if site_configuration_dates_range?
+      date_from_param_or_session(:start_date) if site_configuration_dates_range?
     end
 
     def filter_end_date
-      date_from_param_or_session(:end_date, empty_date_range_param?) if site_configuration_dates_range?
+      date_from_param_or_session(:end_date) if site_configuration_dates_range?
     end
 
     def site_configuration_dates_range?
@@ -38,13 +38,12 @@ module GobiertoPeople
       nil
     end
 
-    def date_from_param_or_session(param, use_default)
-      date = if params[param].present?
-               Time.zone.parse(params[param])
-             else
-               use_default ? site_configuration_date_range[param] : nil
-             end
-      session[param] = date
+    def date_from_param_or_session(param)
+      if params[param].present?
+        session[param] = Time.zone.parse(params[param])
+      else
+        session[param] ||= site_configuration_date_range[param]
+      end
     rescue ArgumentError
       default_value
     end

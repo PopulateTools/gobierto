@@ -9,7 +9,7 @@ module GobiertoPeople
 
     def index
       @departments_count = site_departments.count
-      @departments = site_departments.joins(:events).group(:id).order("count(#{ events_table }.id) DESC").limit(DEFAULT_LIMIT)
+      @departments = site_departments.joins(:events).group(:id).order(Arel.sql("count(#{ events_table }.id) DESC")).limit(DEFAULT_LIMIT)
       @total_events = site_events.with_department.count
       @total_people = site_events.with_department.select(:collection_id).distinct.count
     end

@@ -29,6 +29,7 @@ export const rowchart = (context, data, options = {}) => {
   let tooltip = d3.select(tooltipContainer).append("div")
     .attr("id", `${container.node().id}-tooltip`)
     .attr("class", "graph-tooltip")
+    .style("transform", "translateX(20%)")
 
   // scales
   let x = d3.scaleLinear().range([0, width])

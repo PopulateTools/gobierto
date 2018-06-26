@@ -8,7 +8,7 @@ export const punchcard = (context, data, options = {}) => {
   let itemHeight = options.itemHeight || 50
   let gutter = options.gutter || 20
   let margin = options.margins || {
-    top: gutter * 1.5,
+    top: gutter * 3.5,
     right: gutter,
     bottom: gutter * 1.5,
     left: gutter * 15
@@ -36,7 +36,7 @@ export const punchcard = (context, data, options = {}) => {
 
   // scales
   let x = d3.scaleTime().range([0, width]);
-  let y = d3.scalePoint().range([height, 0]);
+  let y = d3.scaleBand().range([height, 0]);
   let r = d3.scaleSqrt().range([3, 15]) // tamaño de las bolas
 
   // domains
@@ -44,7 +44,11 @@ export const punchcard = (context, data, options = {}) => {
     d3.min(data.map(d => d3.min(d.value.map(v => v.key)))),
     d3.max(data.map(d => d3.max(d.value.map(v => v.key))))
   ]);
-  y.domain(data.map(d => d.key)).padding(1);
+  y.domain(data.map(d => d.key)).padding(0);
+	r.domain([
+		d3.min(data.map(d => d3.min(d.value.map(v => v.value)))),
+    d3.max(data.map(d => d3.max(d.value.map(v => v.value))))
+	]);
 
   // chart title
   if (title) {
@@ -64,8 +68,9 @@ export const punchcard = (context, data, options = {}) => {
 		g.call(d3.axisTop(x).ticks(d3.timeMonth.every(1)).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
 		g.selectAll(".domain").remove()
 		g.selectAll(".tick line")
-			.attr("y1", itemHeight / 2)
-			.attr("y2", height - (itemHeight / 4))
+			// .attr("transform", `translate(0, ${-margin.top / 2})`)
+			.attr("y1", 0)
+			.attr("y2", height)
 		g.selectAll(".tick text")
 			.attr("y", (-margin.top / 1.5) + (itemHeight / 2))
 	}
@@ -94,55 +99,51 @@ export const punchcard = (context, data, options = {}) => {
 	let tooltip = d3.select(tooltipContainer).append("div")
 		.attr("id", `${container.node().id}-tooltip`)
 		.attr("class", "graph-tooltip")
+		.style("transform", "translate(-50%, -10%)")
 
   // circles
-  for (var i = 0; i < data.length; i++) {
+	let _g = g.selectAll("g.row")
+		.data(data)
+		.enter()
+		.append("g")
+		.attr("class", "row")
+		.attr("transform", d => `translate(0, ${y(d.key)})`)
 
-    svg.append("rect")
-      .attr("x", 0)
-      .attr("y", y(data[i].key) + margin.top - (itemHeight / 2))
-      .attr("rx", 6)
-      .attr("ry", 6)
-      .attr("width", +container.node().getBoundingClientRect().width)
-      .attr("height", itemHeight);
+  _g.append("rect")
+    .attr("x", -margin.left)
+    .attr("rx", 6)
+    .attr("ry", 6)
+    .attr("width", +container.node().getBoundingClientRect().width)
+    .attr("height", y.bandwidth());
 
-    let g = svg.append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+  _g.selectAll("circle")
+    .data((d) => d.value)
+    .enter()
+		.append("a")
+		.attr("xlink:href", d => (d.properties || {}).url)
+    .append("circle")
+    .attr("class", "circle")
+    .attr("cx", d => x(d.key))
+    .attr("cy", y.bandwidth() / 2)
+		.on("mousemove", function(d) {
+			let content = `
+				<div class="tooltip-content bottom">
+					${d.value.toLocaleString()}
+				</div>`
 
-    r.domain([
-      d3.min(data[i].value, d => d.value),
-      d3.max(data[i].value, d => d.value)
-    ]);
+			let coords = {
+				x: window.pageXOffset + container.node().getBoundingClientRect().left,
+				y: window.pageYOffset + container.node().getBoundingClientRect().top
+			}
 
-    g.selectAll("circle")
-      .data(data[i].value)
-      .enter()
-			.append("a")
-			.attr("xlink:href", d => (d.properties || {}).url)
-      .append("circle")
-      .attr("class", "circle")
-      .attr("cx", d => x(d.key))
-      .attr("cy", () => y(data[i].key))
-			.on("mousemove", function(d, j, arr) {
-				let content = `
-					<div class="tooltip-content bottom">
-						${d.value.toLocaleString()}
-					</div>`
-
-				let coords = {
-					x: window.pageXOffset + container.node().getBoundingClientRect().left,
-					y: window.pageYOffset + container.node().getBoundingClientRect().top
-				}
-
-				tooltip
-					.style("opacity", "1")
-					.style("left", `${coords.x + x(d.key) + margin.left}px`)
-					.style("top", `${coords.y + d3.select(arr[j]).attr("cy")}px`)
-					.html(content);
-			})
-			.on("mouseout", () => tooltip.style("opacity", "0"))
-      .transition()
-      .duration(800)
-      .attr("r", d => r(d.value));
-  }
+			tooltip
+				.style("opacity", "1")
+				.style("left", `${coords.x + margin.left + x(d.key)}px`)
+				.style("top", `${coords.y + margin.top + y(d3.select(this.parentNode.parentNode).data()[0].key)}px`)
+				.html(content);
+		})
+		.on("mouseout", () => tooltip.style("opacity", "0"))
+    .transition()
+    .duration(800)
+    .attr("r", d => r(d.value));
 };

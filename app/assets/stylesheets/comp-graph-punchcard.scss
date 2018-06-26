@@ -17,12 +17,14 @@
 
   rect {
     pointer-events: none;
+  }
 
-    &:nth-of-type(odd) {
+  g.row {
+    &:nth-of-type(odd) rect {
       fill: rgba($color_main, .2);
     }
 
-    &:nth-of-type(even) {
+    &:nth-of-type(even) rect {
       fill: none;
     }
   }

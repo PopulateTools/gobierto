@@ -18,7 +18,8 @@ class ApplicationController < ActionController::Base
     :current_module_class,
     :available_locales,
     :gobierto_calendars_event_preview_url,
-    :algoliasearch_configured?
+    :algoliasearch_configured?,
+    :cache_key_preffix
   )
 
   before_action :set_current_site, :authenticate_user_in_site, :set_locale, :apply_engines_overrides
@@ -101,6 +102,10 @@ class ApplicationController < ActionController::Base
     engine_overrides.each do |engine|
       prepend_view_path Rails.root.join("vendor/gobierto_engines/#{ engine }/app/views")
     end
+  end
+
+  def cache_key_preffix
+    "site-#{current_site.id}-#{params.to_unsafe_h.sort.flatten.join('-')}"
   end
 
   protected

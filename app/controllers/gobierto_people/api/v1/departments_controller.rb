@@ -24,27 +24,13 @@ module GobiertoPeople
             result_indexes = {}
 
             records.each do |record|
-              if (index = result_indexes[record.name])
-                result[index][:value] << {
-                  key: Time.zone.parse(record.year_month),
-                  value: record.custom_events_count,
-                  properties: {
-                    url: gobierto_people_department_path(record.slug, start_date: Time.zone.parse(record.year_month).to_date.to_s(:db), end_date: (Time.zone.parse(record.year_month).to_date + 1.month).to_s(:db))
-                  }
-                }
+              if (index = result_indexes[record.short_name])
+                result[index][:value] << record_value_item(record)
               else
-                result_indexes[record.name] = result.size
+                result_indexes[record.short_name] = result.size
                 result << {
-                  key: record.name,
-                  value: [
-                    {
-                      key: Time.zone.parse(record.year_month),
-                      value: record.custom_events_count,
-                      properties: {
-                        url: gobierto_people_department_path(record.slug, start_date: Time.zone.parse(record.year_month).to_date.to_s(:db), end_date: (Time.zone.parse(record.year_month).to_date + 1.month).to_s(:db))
-                      }
-                    }
-                  ],
+                  key: record.short_name,
+                  value: [record_value_item(record)],
                   properties: {
                     url: gobierto_people_department_path(record.slug)
                   }
@@ -63,7 +49,7 @@ module GobiertoPeople
             render json: result
           else
 
-            render json: top_departments, each_serializer: RowchartItemSerializer
+            render json: top_departments, each_serializer: DepartmentRowchartSerializer
           end
         end
 
@@ -88,10 +74,18 @@ module GobiertoPeople
           head :forbidden unless departments_submodule_active?
         end
 
-        def date_range(year_month)
+        def record_value_item(record)
+          year_month = Time.zone.parse(record.year_month)
           {
-            start_date: Time.zone.parse(year_month).to_date.to_s(:db),
-            end_date: (Time.zone.parse(year_month).to_date + 1.month).to_s(:db)
+            key: year_month,
+            value: record.custom_events_count,
+            properties: {
+              url: gobierto_people_department_path(
+                record.slug,
+                start_date: year_month.to_date.to_s(:db),
+                end_date: (year_month.to_date + 1.month).to_s(:db)
+              )
+            }
           }
         end
 

@@ -43,6 +43,8 @@ module GobiertoPeople
         end
 
         def test_departments_index_test
+          justice_department.update_attributes!(name: "Departament de la Presidència")
+
           with_current_site(madrid) do
 
             get gobierto_people_api_v1_departments_path
@@ -50,8 +52,11 @@ module GobiertoPeople
             assert_response :success
 
             departments = JSON.parse(response.body)
+            departments_names = departments.map { |d| d["key"] }
 
             assert_equal departments_with_events_count, departments.size
+            assert departments_names.include?("Presidència")
+            refute departments_names.include?("Departament de la Presidència")
 
             assert array_match(attributes, departments.first.keys)
           end

@@ -7,7 +7,8 @@ module GobiertoPeople
       def index
         if params[:date]
           @filtering_date = Date.parse(params[:date])
-          @events = @person.events.by_date(@filtering_date).sorted.page params[:page]
+          @events = @person.events.by_date(@filtering_date)
+          @events = (@filtering_date.future? ? @events.sorted : @events.sorted_backwards).page params[:page]
         elsif params[:page] == "false"
           # permit non-pagination and avoid N+1 queries for custom engines
           @events = @person.events.past.sorted_backwards.includes(:interest_group)

@@ -137,6 +137,10 @@ class Site < ApplicationRecord
     ::GobiertoCalendars::EventAttendee.where(person_id: people.pluck(:id))
   end
 
+  def departments_available?
+    departments.any? && gobierto_people_settings.submodules_enabled.include?("departments")
+  end
+
   private
 
   def site_configuration_attributes

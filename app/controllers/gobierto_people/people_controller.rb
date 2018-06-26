@@ -5,6 +5,8 @@ module GobiertoPeople
     include PreviewTokenHelper
     include PeopleClassificationHelper
 
+    layout :resolve_layout
+
     before_action :check_active_submodules, except: :show
 
     LAST_ITEMS_SIZE = 4
@@ -89,6 +91,14 @@ module GobiertoPeople
         ).view?
       else
         false
+      end
+    end
+
+    def resolve_layout
+      if action_name == "index" && current_site.departments_available?
+        "gobierto_people/layouts/departments"
+      else
+        "gobierto_people/layouts/application"
       end
     end
 

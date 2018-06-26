@@ -5,7 +5,9 @@ require_relative "navigation_items"
 
 module GobiertoPeople
   class PeopleIndexTest < ActionDispatch::IntegrationTest
+
     include NavigationItems
+
     def setup
       super
       @path = gobierto_people_people_path
@@ -33,17 +35,24 @@ module GobiertoPeople
       ]
     end
 
-    def test_people_index
+    def departments
+      @departments ||= [
+        gobierto_people_departments(:justice_department),
+        gobierto_people_departments(:culture_department)
+      ]
+    end
+
+    def departments_sidebar
+      ".pure-u-1.pure-u-md-7-24"
+    end
+
+    def test_people_index_with_departments_disabled
+      disable_submodule(site, :departments)
+
       with_current_site(site) do
         visit @path
 
         assert has_selector?("h2", text: "#{site.name}'s organization chart")
-      end
-    end
-
-    def test_people_filter
-      with_current_site(site) do
-        visit @path
 
         within ".filter_boxed" do
           assert has_link?("Government Team")
@@ -51,6 +60,18 @@ module GobiertoPeople
           assert has_link?("Executive")
           assert has_link?("All")
           assert has_link?("Political groups")
+        end
+      end
+    end
+
+    def test_people_index_with_departments_enabled
+      with_current_site(site) do
+        visit @path
+
+        assert has_selector?("h2", text: "#{site.name}'s organization chart")
+
+        within departments_sidebar do
+          departments.each { |department| assert has_link? department.name }
         end
       end
     end

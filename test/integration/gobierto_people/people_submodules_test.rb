@@ -70,7 +70,7 @@ module GobiertoPeople
 
         assert_equal current_path, gobierto_people_people_path
 
-        disable_submodules %w(blogs statements)
+        disable_submodules %w(blogs statements departments)
         visit @path
 
         assert_equal current_path, gobierto_people_people_path

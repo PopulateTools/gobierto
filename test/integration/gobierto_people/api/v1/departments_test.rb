@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "support/gobierto_people/submodules_helper"
 
 module GobiertoPeople
   module Api
     module V1
       class DepartmentsTest < ActionDispatch::IntegrationTest
-
-        include ::GobiertoPeople::SubmodulesHelper
 
         FAR_PAST = 10.years.ago.iso8601
         FAR_FUTURE = 10.years.from_now.iso8601

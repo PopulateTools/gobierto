@@ -10,7 +10,9 @@
     <h2><%= title t(".title", site_name: whom(current_site.name)) %></h2>
   </div>
 
-  <%= render "gobierto_people/people/people_filter"  %>
+  <% unless current_site.departments_available? %>
+    <%= render "gobierto_people/people/people_filter"  %>
+  <% end %>
 
   <div class="people-summary people-grid pure-g" id="people-list">
 

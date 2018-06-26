@@ -45,6 +45,7 @@ require "support/message_delivery_helpers"
 require "support/gobierto_site_constraint_helpers"
 require "support/asymmetric_encryptor_helpers"
 require "support/site_config_helpers"
+require "support/gobierto_people/submodules_helper"
 require "capybara/email"
 require "capybara/rails"
 require "capybara/minitest"
@@ -105,6 +106,7 @@ class ActionDispatch::IntegrationTest
   include Integration::PageHelpers
   include Capybara::Email::DSL
   include FileUploaderHelpers
+  include GobiertoPeople::SubmodulesHelper
 
   Capybara.register_driver :poltergeist_custom do |app|
     Capybara::Poltergeist::Driver.new(

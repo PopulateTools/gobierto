@@ -4,9 +4,9 @@ require_dependency "gobierto_people"
 
 module GobiertoPeople
   class Department < ApplicationRecord
+
     include GobiertoCommon::Metadatable
     include GobiertoCommon::UrlBuildable
-
     include GobiertoCommon::Sluggable
 
     belongs_to :site
@@ -18,6 +18,15 @@ module GobiertoPeople
     scope :sorted, -> { order(name: :asc) }
 
     validates :name, presence: true
+
+    SHORT_NAME_TRUNCATE_REGEX = Regexp.new([
+      "Departamento de ",
+      "Departamento ",
+      "Department of ",
+      "Departament de la ",
+      "Departament de ",
+      "Departament d'"
+    ].join("|")).freeze
 
     def to_param
       slug
@@ -37,5 +46,10 @@ module GobiertoPeople
           .where("gc_events.department_id = ?", id)
           .distinct
     end
+
+    def short_name
+      name.gsub(SHORT_NAME_TRUNCATE_REGEX, "")
+    end
+
   end
 end

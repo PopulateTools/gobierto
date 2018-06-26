@@ -10,19 +10,12 @@ module GobiertoPeople
     end
 
     def test_serialize
-      complete_names = [
-        "Departamento de Wadus",
-        "Department of Wadus",
-        "Departament de la Wadus",
-        "Departament de Wadus",
-        "Departament d'Wadus"
-      ]
+      department.update_attributes!(name: "Departament de la Presidència")
 
-      complete_names.each do |name|
-        department.update_attributes!(name: name)
-        serializer_output = JSON.parse(DepartmentRowchartSerializer.new(department).to_json)
-        assert_equal "Wadus", serializer_output["key"]
-      end
+      serializer = DepartmentRowchartSerializer.new(department)
+      serializer_output = JSON.parse(serializer.to_json)
+
+      assert_equal "Presidència", serializer_output["key"]
     end
 
   end

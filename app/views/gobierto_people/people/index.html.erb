@@ -7,13 +7,7 @@
 <div class="column">
 
   <div class="block">
-    <% if try(:current_department) %>
-      <h2><%= title(
-        t(".title", site_name: whom(current_site.name)) + " - #{current_department.name}"
-      ) %></h2>
-    <% else %>
-      <h2><%= title t(".title", site_name: whom(current_site.name)) %></h2>
-    <% end %>
+    <h2><%= title t(".title", site_name: whom(current_site.name)) %></h2>
   </div>
 
   <% unless current_site.departments_available? %>

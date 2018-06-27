@@ -9,7 +9,9 @@
         <% if @sidebar_departments.any? %>
           <ul>
             <% @sidebar_departments.each do |department| %>
-              <li><%= link_to department.name, gobierto_people_department_people_path(department_slug: department.slug) %></li>
+              <li class="<%= class_if('strong', try(:current_department) == department) %>">
+                <%= link_to department.name, gobierto_people_department_people_path(department_slug: department.slug) %>
+              </li>
             <% end %>
           </ul>
         <% else %>

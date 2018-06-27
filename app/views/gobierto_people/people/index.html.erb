@@ -24,7 +24,7 @@
       <% @people.each do |person| %>
 
         <div class="pure-u-1 pure-u-md-1-3">
-          <%= render person %>
+          <%= render person, avatar: !current_site.departments_available? %>
         </div>
 
       <% end %>

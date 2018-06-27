@@ -32,7 +32,7 @@ module GobiertoPeople
                   key: record.short_name,
                   value: [record_value_item(record)],
                   properties: {
-                    url: gobierto_people_department_path(record.slug)
+                    url: gobierto_people_department_path(record.slug, date_range_params.merge(page: false))
                   }
                 }
               end

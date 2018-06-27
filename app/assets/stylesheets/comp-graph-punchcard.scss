@@ -12,7 +12,7 @@
   }
 
   line {
-    stroke: $color_meta_text;
+    stroke: lighten($color_meta_text, 25%);
   }
 
   rect {

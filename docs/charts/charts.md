@@ -32,6 +32,8 @@
     - xTickFormat: how to format the X-axis ticks. Function (default: d => d)
     - yTickFormat: how to format the Y-axis ticks. Function (default: d => d)
     - tooltipContainer: where is placed the tooltip. String selector, e.g. "#some", ".some" (default: body)
+    - tooltipContent: what to render inside the tooltip. String or Object
+        - If it's an object, it means it going to be evaluated. So the expression is: `{ eval: "STRING_TO_BE_EVALUATED" }`
 - **usage**:
 ```HTML
 <!-- The chart size is determined by its parent container-->
@@ -100,6 +102,8 @@ $.getJSON("data/rowchart.json", (data) => {
     - xTickFormat: how to format the X-axis ticks. Function (default: d => d)
     - yTickFormat: how to format the Y-axis ticks. Function (default: d => d)
     - tooltipContainer: where is placed the tooltip. String selector, e.g. "#some", ".some" (default: body)
+    - tooltipContent: what to render inside the tooltip. String or Object
+        - If it's an object, it means it going to be evaluated. So the expression is: `{ eval: "STRING_TO_BE_EVALUATED" }`
 - **usage**:
 ```HTML
 <!-- The chart size is determined by its parent container-->

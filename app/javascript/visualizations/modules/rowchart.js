@@ -16,6 +16,7 @@ export const rowchart = (context, data, options = {}) => {
   let xTickFormat = options.xTickFormat || (d => d)
   let yTickFormat = options.yTickFormat || (d => d)
   let tooltipContainer = options.tooltipContainer || "body"
+  let tooltipContent = options.tooltipContent
 
   // dimensions
   let container = d3.select(context)
@@ -53,10 +54,20 @@ export const rowchart = (context, data, options = {}) => {
     .attr("xlink:href", d => (d.properties || {}).url)
     .append("rect")
     .on("mousemove", function(d) {
-      let content = `
-        <div class="tooltip-content left">
-          ${d.value.toLocaleString()}
-        </div>`
+      let content = undefined
+
+      if (tooltipContent) {
+        let tooltipRenderContent = tooltipContent
+        // An object means the expression must be evaluated
+        if (typeof tooltipContent === "object") {
+          tooltipRenderContent = eval((tooltipContent || {}).eval)
+        }
+
+        content = `
+          <div class="tooltip-content left">
+            ${tooltipRenderContent}
+          </div>`
+      }
 
       let coords = {
         x: window.pageXOffset + container.node().getBoundingClientRect().left,

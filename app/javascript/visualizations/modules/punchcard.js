@@ -17,6 +17,7 @@ export const punchcard = (context, data, options = {}) => {
   let yTickFormat = options.yTickFormat || (d => d)
   let title = options.title || ''
 	let tooltipContainer = options.tooltipContainer || "body"
+	let tooltipContent = options.tooltipContent
 
   // parse dates
   data.forEach((element, elementIndex) => {
@@ -126,10 +127,20 @@ export const punchcard = (context, data, options = {}) => {
     .attr("cx", d => x(d.key))
     .attr("cy", y.bandwidth() / 2)
 		.on("mousemove", function(d) {
-			let content = `
-				<div class="tooltip-content bottom">
-					${d.value.toLocaleString()}
-				</div>`
+			let content = undefined
+
+      if (tooltipContent) {
+        let tooltipRenderContent = tooltipContent
+        // An object means the expression must be evaluated
+        if (typeof tooltipContent === "object") {
+          tooltipRenderContent = eval((tooltipContent || {}).eval)
+        }
+
+        content = `
+          <div class="tooltip-content bottom">
+            ${tooltipRenderContent}
+          </div>`
+      }
 
 			let coords = {
 				x: window.pageXOffset + container.node().getBoundingClientRect().left,

@@ -11,6 +11,10 @@
     background: lighten($color_main, 10%);
     border: 1px solid $color_main;
 
+    &:empty {
+      display: none;
+    }
+
     &::after,
     &::before {
       border: solid transparent;

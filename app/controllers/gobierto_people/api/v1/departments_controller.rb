@@ -70,6 +70,10 @@ module GobiertoPeople
           ).to_h
         end
 
+        def date_range_params
+          parsed_parameters.slice(:from_date, :to_date).permit!.transform_keys{ |k| {"from_date" => "start_date", "to_date" => "end_date"}[k] }.transform_values{ |v| v&.strftime("%Y-%m-%d") }
+        end
+
         def check_active_submodules
           head :forbidden unless departments_submodule_active?
         end

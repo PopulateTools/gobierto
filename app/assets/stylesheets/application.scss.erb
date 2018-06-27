@@ -103,9 +103,6 @@
  *
  */
 @import "theme-participation";
-<% Rails.application.config.engine_sass_theme_dependencies.each do |dependency| %>
-  @import "<%= dependency %>";
-<% end %>
 
 /*
  * Print styles
@@ -496,3 +493,7 @@ body.sessions_new {
 }
 
 @import "responsive";
+
+<% Rails.application.config.engine_sass_theme_dependencies.each do |dependency| %>
+  @import "<%= dependency %>";
+<% end %>

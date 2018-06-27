@@ -15,6 +15,7 @@ module GobiertoPeople
     def index
       @political_groups = get_political_groups
 
+      set_departments
       set_people
       set_events
       set_present_groups
@@ -67,7 +68,11 @@ module GobiertoPeople
     end
 
     def set_people
-      @people = current_site.people.active.sorted
+      @people = QueryWithEvents.new(
+        source: current_site.people.active,
+        start_date: filter_start_date,
+        end_date: filter_end_date
+      ).sorted
       @people = @people.send(Person.categories.key(@person_category)) if @person_category
       @people = @people.send(Person.parties.key(@person_party)) if @person_party
     end
@@ -83,6 +88,14 @@ module GobiertoPeople
       else
         @events = @events.upcoming.sorted.first(10)
       end
+    end
+
+    def set_departments
+      @sidebar_departments = QueryWithEvents.new(
+        source: current_site.departments,
+        start_date: filter_start_date,
+        end_date: filter_end_date
+      )
     end
 
     def admin_permissions_for_person?

@@ -1221,7 +1221,3 @@ Rails/UniqBeforePluck:
 Rails/Validation:
   Include:
     - app/models/**/*.rb
-
-Metrics/BlockLength:
-  Exclude:
-    - '**/*.gemspec'

@@ -255,7 +255,13 @@ module GobiertoPeople
     end
 
     def test_events_summary_with_no_past_events
-      Timecop.freeze(10.years.ago) do
+      freeze_date = 10.years.ago
+      site.events.update_all(
+        starts_at: freeze_date + 1.day,
+        ends_at: freeze_date + 2.days
+      )
+
+      Timecop.freeze freeze_date do
         with_current_site(site) do
           visit @path
 

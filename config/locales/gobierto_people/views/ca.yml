@@ -42,6 +42,8 @@ ca:
     layouts:
       application:
         title: Alts càrrecs i agendes
+      departments:
+        no_departments_within_dates: No hi ha cap departament per aquestes dates
       menu_subsections:
         agendas: Agendes
         blogs: Blogs
@@ -56,6 +58,7 @@ ca:
       contact_methods:
         send_email: Envia un correu-e
       index:
+        no_people_within_range: No hi ha cap alt càrrec per aquestes dates
         subscribable_box:
           title: Rebre una alerta al teu correu-e
         title: Organigrama de %{site_name}

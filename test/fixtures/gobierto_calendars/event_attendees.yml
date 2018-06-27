@@ -90,6 +90,24 @@ nelson_nelson_yesterday_fixed:
   name:
   charge:
 
+## Neil
+
+neil_neil_ecology_department_old:
+  event: neil_ecology_department_old
+  person: neil
+
+neil_neil_tourism_department_very_old:
+  event: neil_tourism_department_very_old
+  person: neil
+
+neil_neil_immigration_department_recent:
+  event: neil_immigration_department_recent
+  person: neil
+
+neil_neil_immigration_department_old:
+  event: neil_immigration_department_old
+  person: neil
+
 ## Custom
 
 custom:

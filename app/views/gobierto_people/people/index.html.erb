@@ -7,24 +7,36 @@
 <div class="column">
 
   <div class="block">
-    <h2><%= title t(".title", site_name: whom(current_site.name)) %></h2>
+    <% if try(:current_department) %>
+      <h2><%= title(
+        t(".title", site_name: whom(current_site.name)) + " - #{current_department.name}"
+      ) %></h2>
+    <% else %>
+      <h2><%= title t(".title", site_name: whom(current_site.name)) %></h2>
+    <% end %>
   </div>
 
   <% unless current_site.departments_available? %>
     <%= render "gobierto_people/people/people_filter"  %>
   <% end %>
 
-  <div class="people-summary people-grid pure-g" id="people-list">
+  <% if @people.empty? && current_site.departments_available? %>
 
-    <% @people.each do |person| %>
+    <p><%= t(".no_people_within_range") %></p>
 
-      <div class="pure-u-1 pure-u-md-1-3">
-        <%= render person %>
-      </div>
+  <% else %>
 
-    <% end %>
+    <div class="people-summary people-grid pure-g" id="people-list">
+      <% @people.each do |person| %>
 
-  </div>
+        <div class="pure-u-1 pure-u-md-1-3">
+          <%= render person %>
+        </div>
+
+      <% end %>
+    </div>
+
+  <% end %>
 
   <div class="pure-g">
 

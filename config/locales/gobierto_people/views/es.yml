@@ -42,6 +42,9 @@ es:
     layouts:
       application:
         title: Altos cargos y Agendas
+      departments:
+        no_departments_within_dates: No hay ningún departamento para este rango de
+          fechas
       menu_subsections:
         agendas: Agendas
         blogs: Blogs
@@ -56,6 +59,7 @@ es:
       contact_methods:
         send_email: Envía un correo-e
       index:
+        no_people_within_range: No hay ningún alto cargo para este rango de fechas
         subscribable_box:
           title: Recibe alertas en tu correo-e
         title: Organigrama de %{site_name}

@@ -75,7 +75,7 @@ module GobiertoPeople
       end
     end
 
-    def test_date_filter_is_mantained_without_date_params
+    def test_date_filter_is_not_mantained_without_date_params
       set_site_dates(site, start_date: FAR_PAST)
       with_current_site(site) do
         visit path_without_date_params
@@ -90,7 +90,7 @@ module GobiertoPeople
 
         visit path_without_date_params
         within ".container" do
-          assert has_content? "3 registered events"
+          assert has_content? "6 registered events"
         end
 
         visit path_with_start_and_end_dates(RECENT_PAST, NEAR_FUTURE)
@@ -100,32 +100,33 @@ module GobiertoPeople
 
         visit path_without_date_params
         within ".container" do
-          assert has_content? "0 registered events"
+          assert has_content? "6 registered events"
         end
       end
     end
 
-    def test_reset_date_filters
-      set_site_dates(site, start_date: RECENT_PAST)
+    def test_bad_date_params
+      set_site_dates(site, start_date: FAR_PAST)
       with_current_site(site) do
         visit path_without_date_params
         within ".container" do
+          assert has_content? "6 registered events"
+        end
+
+        visit path_with_start_and_end_dates("wadus", "wadus")
+        within ".container" do
+          assert has_content? "6 registered events"
+        end
+
+        visit path_with_start_and_end_dates(RECENT_PAST, "wadus")
+        within ".container" do
           assert has_content? "3 registered events"
         end
 
-        visit path_with_start_and_end_dates(RECENT_PAST, NEAR_FUTURE)
-        within ".container" do
-          assert has_content? "0 registered events"
-        end
-
+        visit path_with_start_date("wadus")
         visit path_without_date_params
         within ".container" do
-          assert has_content? "0 registered events"
-        end
-
-        visit path_with_start_and_end_dates(false, false)
-        within ".container" do
-          assert has_content? "3 registered events"
+          assert has_content? "6 registered events"
         end
       end
     end

@@ -24,9 +24,11 @@ module GobiertoPeople
         private
 
         def parsed_parameters
-          params[:from_date] = Time.zone.parse(params[:from_date]) if params[:from_date]
-          params[:to_date] = Time.zone.parse(params[:to_date]) if params[:to_date]
-          params
+          @parsed_parameters ||= begin
+                                   params[:from_date] = Time.zone.parse(params[:from_date]) if params[:from_date]
+                                   params[:to_date] = Time.zone.parse(params[:to_date]) if params[:to_date]
+                                   params
+                                 end
         end
 
         def permitted_conditions

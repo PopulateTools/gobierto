@@ -16,7 +16,8 @@ module GobiertoPeople
 
           render(
             json: query.results,
-            each_serializer: RowchartItemSerializer
+            each_serializer: RowchartItemSerializer,
+            date_range_query: date_range_params.to_query
           )
         end
 

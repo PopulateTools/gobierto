@@ -48,8 +48,7 @@ module GobiertoPeople
 
             render json: result
           else
-
-            render json: top_departments, each_serializer: DepartmentRowchartSerializer
+            render json: top_departments, each_serializer: DepartmentRowchartSerializer, date_range_query: date_range_params.to_query
           end
         end
 

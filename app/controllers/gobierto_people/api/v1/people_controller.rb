@@ -48,7 +48,7 @@ module GobiertoPeople
 
             render json: result
           else
-            render json: top_people, each_serializer: RowchartItemSerializer
+            render json: top_people, each_serializer: RowchartItemSerializer, date_range_query: date_range_params.to_query
           end
         end
 

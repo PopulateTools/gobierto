@@ -8,16 +8,14 @@ module GobiertoPeople
 
     included do
       helper_method :dates_range?, :filter_start_date, :filter_end_date
-
-      before_action :inspect_query_params
     end
 
     def filter_start_date
-      date_from_param_or_session(:start_date) if site_configuration_dates_range?
+      date_from_param(:start_date) if site_configuration_dates_range?
     end
 
     def filter_end_date
-      date_from_param_or_session(:end_date) if site_configuration_dates_range?
+      date_from_param(:end_date) if site_configuration_dates_range?
     end
 
     def site_configuration_dates_range?
@@ -35,11 +33,11 @@ module GobiertoPeople
                                            end_date: parse_date(current_site.configuration.configuration_variables["gobierto_people_default_filter_end_date"]) }
     end
 
-    def parse_date(date)
+    def parse_date(date, fallback = nil)
       return unless date
       Time.zone.parse(date)
     rescue ArgumentError
-      nil
+      fallback
     end
 
     def inspect_query_params
@@ -54,14 +52,20 @@ module GobiertoPeople
       redirect_to(request.path + redirect_query) and return
     end
 
+    def date_from_param(param)
+      if params[param].present?
+        parse_date(params[param], site_configuration_date_range[param])
+      else
+        site_configuration_date_range[param]
+      end
+    end
+
     def date_from_param_or_session(param)
       if params[param].present?
-        session[param] = Time.zone.parse(params[param])
+        session[param] = parse_date(params[param], site_configuration_date_range[param])
       else
         session[param] ||= site_configuration_date_range[param]
       end
-    rescue ArgumentError
-      default_value
     end
   end
 end

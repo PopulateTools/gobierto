@@ -1,42 +1,61 @@
-[
-  {
-    "key": "Baird Hampton",
-    "value": 24
-  },
-  {
-    "key": "Holmes Mckay",
-    "value": 83
-  },
-  {
-    "key": "Saundra Acosta",
-    "value": 112
-  },
-  {
-    "key": "Essie Mosley",
-    "value": 72
-  },
-  {
-    "key": "Slater Avila",
-    "value": 158
-  },
-  {
-    "key": "Jill Meadows",
-    "value": 72
-  },
-  {
-    "key": "Greer Haney",
-    "value": 33
-  },
-  {
-    "key": "Noble England",
-    "value": 58
-  },
-  {
-    "key": "Crystal Gentry",
-    "value": 152
-  },
-  {
-    "key": "Erica Johnston",
-    "value": 51
+[{
+  "key": "Departament de Territori i Sostenibilitat",
+  "value": 1296,
+  "properties": {
+    "url": "http://gobierto.test/departamentos/departament-de-territori-i-sostenibilitat"
   }
-]
+}, {
+  "key": "Departament de Treball, Afers Socials i Famílies",
+  "value": 1211,
+  "properties": {
+    "url": "http://gobierto.test/departamentos/departament-de-treball-afers-socials-i-families"
+  }
+}, {
+  "key": "Departament d'Agricultura, Ramaderia, Pesca i Alimentació",
+  "value": 1195,
+  "properties": {
+    "url": "http://gobierto.test/departamentos/departament-d-agricultura-ramaderia-pesca-i-alimentacio"
+  }
+}, {
+  "key": "Departament de la Presidència",
+  "value": 1170,
+  "properties": {
+    "url": "http://gobierto.test/departamentos/departament-de-la-presidencia"
+  }
+}, {
+  "key": "Departament d'Empresa i Coneixement",
+  "value": 549,
+  "properties": {
+    "url": "http://gobierto.test/departamentos/departament-d-empresa-i-coneixement"
+  }
+}, {
+  "key": "Departament d'Ensenyament",
+  "value": 463,
+  "properties": {
+    "url": "http://gobierto.test/departamentos/departament-d-ensenyament"
+  }
+}, {
+  "key": "Departament de la Vicepresidència i d'Economia i Hisenda",
+  "value": 415,
+  "properties": {
+    "url": "http://gobierto.test/departamentos/departament-de-la-vicepresidencia-i-d-economia-i-hisenda"
+  }
+}, {
+  "key": "Departament de Salut",
+  "value": 247,
+  "properties": {
+    "url": "http://gobierto.test/departamentos/departament-de-salut"
+  }
+}, {
+  "key": "Departament de Cultura",
+  "value": 220,
+  "properties": {
+    "url": "http://gobierto.test/departamentos/departament-de-cultura"
+  }
+}, {
+  "key": "Departament d'Afers i Relacions Institucionals i Exteriors i Transparència",
+  "value": 156,
+  "properties": {
+    "url": "http://gobierto.test/departamentos/departament-d-afers-i-relacions-institucionals-i-exteriors-i-transparencia"
+  }
+}]

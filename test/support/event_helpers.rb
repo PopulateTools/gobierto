@@ -60,17 +60,18 @@ module EventHelpers
 
   def interest_group_id(options)
     return nil unless options[:interest_group]
-    options[:interest_group]&.id || defaults[:interest_group].id
+    options[:interest_group].try(:id) || defaults[:interest_group].id
   end
 
   def department_id(options)
     return nil unless options[:department]
-    options[:department]&.id || defaults[:department].id
+    options[:department].try(:id) || defaults[:department].id
   end
 
   def defaults
     {
-      interest_group: gobierto_people_interest_groups(:google)
+      interest_group: gobierto_people_interest_groups(:google),
+      department: gobierto_people_departments(:justice_department)
     }
   end
 

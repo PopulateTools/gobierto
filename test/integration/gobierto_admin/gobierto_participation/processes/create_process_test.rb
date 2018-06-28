@@ -27,13 +27,12 @@ module GobiertoAdmin
               click_link "New"
 
               fill_in "process_title_translations_en", with: "New process title"
-              fill_in "process_body_translations_en", with: "New process body"
+              find("#process_body_translations_en", visible: false).set("New process body")
 
               click_link "ES"
 
               fill_in "process_title_translations_es", with: "Título del nuevo proceso"
-              fill_in "process_body_translations_es", with: "Descripción del nuevo proceso"
-              fill_in "process_body_translations_es", with: "Descripción del nuevo proceso"
+              find("#process_body_translations_es", visible: false).set("Descripción del nuevo proceso")
               fill_in "process_slug", with: ""
 
               select "Culture", from: "process_issue_id"

@@ -15,14 +15,15 @@ module GobiertoPeople
       )
       @departments_count = @departments.count
 
-      @total_events = QueryWithEvents.new(
+      event_attendances_within_range = QueryWithEvents.new(
         source: current_site.event_attendances,
         start_date: filter_start_date,
         end_date: filter_end_date,
         not_null: [:department_id]
-      ).count
+      )
 
-      @total_people = site_events.with_department.select(:collection_id).distinct.count
+      @total_events = event_attendances_within_range.count
+      @total_people = event_attendances_within_range.pluck(:person_id).uniq.count
     end
 
     def show

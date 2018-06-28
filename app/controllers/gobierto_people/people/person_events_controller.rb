@@ -10,7 +10,9 @@ module GobiertoPeople
           @events = @person.attending_events.by_date(@filtering_date)
           @events = (@filtering_date.future? ? @events.sorted : @events.sorted_backwards).page params[:page]
         else
-          @events = @person.attending_events.upcoming.sorted.page params[:page]
+          @events = QueryWithEvents.new(source: @person.attending_events,
+                                        start_date: filter_start_date,
+                                        end_date: filter_end_date).upcoming.sorted.page params[:page]
         end
 
         respond_to do |format|

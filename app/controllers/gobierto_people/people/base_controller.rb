@@ -3,6 +3,7 @@ module GobiertoPeople
     class BaseController < GobiertoPeople::ApplicationController
 
       include PreviewTokenHelper
+      include DatesRangeHelper
 
       before_action :set_person
 

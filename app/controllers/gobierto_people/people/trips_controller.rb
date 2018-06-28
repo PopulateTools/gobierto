@@ -7,7 +7,7 @@ module GobiertoPeople
       before_action :check_active_submodules
 
       def index
-        @person_trips = CollectionDecorator.new(@person.trips, decorator: TripDecorator)
+        @person_trips = CollectionDecorator.new(@person.trips.between_dates(filter_start_date, filter_end_date), decorator: TripDecorator)
       end
 
       def show

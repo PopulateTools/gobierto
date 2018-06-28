@@ -12,6 +12,15 @@ module GobiertoPeople
     belongs_to :department
 
     scope :sorted, -> { order(start_date: :desc) }
+    scope :between_dates, lambda { |start_date, end_date|
+      if start_date && end_date
+        where("start_date >= ? AND end_date <= ?", start_date, end_date)
+      elsif start_date
+        where("start_date >= ?", start_date)
+      elsif end_date
+        where("end_date <= ?", end_date)
+      end
+    }
 
     validates :person, :title, :start_date, :end_date, presence: true
 

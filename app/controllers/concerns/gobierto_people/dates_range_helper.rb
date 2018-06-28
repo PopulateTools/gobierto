@@ -7,11 +7,19 @@ module GobiertoPeople
     RANGE_PARAM_NAMES = %w(start_date end_date).freeze
 
     included do
-      helper_method :dates_range?, :filter_start_date, :filter_end_date, :date_range_params
+      helper_method :dates_range?, :filter_start_date, :filter_end_date, :date_range_params, :all_start_date, :all_end_date
     end
 
     def date_range_params
       params.slice(:start_date, :end_date).permit(:start_date, :end_date)
+    end
+
+    def all_start_date
+      current_site.events.order(starts_at: :asc).first.starts_at if site_configuration_date_range[:start_date].present?
+    end
+
+    def all_end_date
+      current_site.events.order(ends_at: :desc).first.ends_at if site_configuration_date_range[:end_date].present?
     end
 
     def filter_start_date

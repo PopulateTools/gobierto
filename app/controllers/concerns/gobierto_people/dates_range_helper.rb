@@ -15,11 +15,11 @@ module GobiertoPeople
     end
 
     def all_start_date
-      current_site.events.order(starts_at: :asc).first.starts_at if site_configuration_date_range[:start_date].present?
+      current_site.events.published.order(starts_at: :asc).first.starts_at if site_configuration_date_range[:start_date].present?
     end
 
     def all_end_date
-      current_site.events.order(ends_at: :desc).first.ends_at if site_configuration_date_range[:end_date].present?
+      current_site.events.published.order(ends_at: :desc).first.ends_at if site_configuration_date_range[:end_date].present?
     end
 
     def filter_start_date

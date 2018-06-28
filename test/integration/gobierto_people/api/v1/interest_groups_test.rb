@@ -42,6 +42,10 @@ module GobiertoPeople
           super
         end
 
+        def short_date(date)
+          date[/^\d+-\d+-\d+/]
+        end
+
         def test_interest_groups_index_test
           with_current_site(madrid) do
 
@@ -76,6 +80,7 @@ module GobiertoPeople
 
             assert_equal 2, interest_groups.size
             assert_equal interest_groups.first["key"], pepsi.name
+            assert_match "?end_date=#{ short_date(FAR_FUTURE) }&start_date=#{ short_date(FAR_PAST) }", interest_groups.first["properties"]["url"]
           end
         end
 

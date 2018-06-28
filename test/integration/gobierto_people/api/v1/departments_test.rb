@@ -42,6 +42,10 @@ module GobiertoPeople
           ::GobiertoCalendars::Event.select(:department_id).distinct.count
         end
 
+        def short_date(date)
+          date[/^\d+-\d+-\d+/]
+        end
+
         def test_departments_index_test
           justice_department.update_attributes!(name: "Departament de la Presidència")
 
@@ -81,6 +85,7 @@ module GobiertoPeople
 
             assert_equal 1, departments.size
             assert_equal departments.first["key"], justice_department.name
+            assert_match "?end_date=#{ short_date(FAR_FUTURE) }&start_date=#{ short_date(FAR_PAST) }", departments.first["properties"]["url"]
           end
         end
 

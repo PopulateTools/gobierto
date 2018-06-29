@@ -124,14 +124,19 @@ YAML
 
           # everything is displayed with broad range
 
+          start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+
           visit gobierto_people_department_people_path(
             immigration_department_mixed,
-            start_date: 100.years.ago,
-            end_date: 50.years.from_now
+            start_date: start_date,
+            end_date: end_date
           )
 
           within departments_sidebar do
-            departments.each { |department| assert has_link? department.name }
+            departments.each do |department|
+              assert has_link? department.name
+              assert has_link_to? gobierto_people_department_people_path(department.slug, start_date: start_date, end_date: end_date)
+            end
           end
 
           # only departments with recent events are displayed
@@ -153,7 +158,7 @@ YAML
           visit gobierto_people_department_people_path(
             immigration_department_mixed,
             start_date: 10.years.ago - 1.day,
-            end_date: 10.years.ago +  1.day
+            end_date: 10.years.ago + 1.day
           )
 
           within departments_sidebar do

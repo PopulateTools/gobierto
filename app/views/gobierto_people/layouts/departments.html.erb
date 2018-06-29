@@ -10,7 +10,10 @@
           <ul>
             <% @sidebar_departments.each do |department| %>
               <li class="<%= class_if('strong', try(:current_department) == department) %>">
-                <%= link_to department.name, gobierto_people_department_people_path(department_slug: department.slug) %>
+                <%= link_to department.name, gobierto_people_department_people_path(
+                      department.slug,
+                      date_range_params
+                    ) %>
               </li>
             <% end %>
           </ul>

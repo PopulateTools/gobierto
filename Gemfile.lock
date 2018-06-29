@@ -201,7 +201,7 @@ GEM
       socksify
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
-    i18n-js (3.0.9)
+    i18n-js (3.0.10)
       i18n (>= 0.6.6, < 2)
     i18n-tasks (0.9.21)
       activesupport (>= 4.0.2)

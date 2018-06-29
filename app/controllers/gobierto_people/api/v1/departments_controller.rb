@@ -32,7 +32,7 @@ module GobiertoPeople
                   key: record.short_name,
                   value: [record_value_item(record)],
                   properties: {
-                    url: gobierto_people_department_path(record.slug)
+                    url: gobierto_people_department_path(record.slug, date_range_params.merge(page: false))
                   }
                 }
               end
@@ -48,8 +48,7 @@ module GobiertoPeople
 
             render json: result
           else
-
-            render json: top_departments, each_serializer: DepartmentRowchartSerializer
+            render json: top_departments, each_serializer: DepartmentRowchartSerializer, date_range_query: date_range_params.to_query
           end
         end
 
@@ -70,6 +69,10 @@ module GobiertoPeople
             :from_date,
             :to_date
           ).to_h
+        end
+
+        def date_range_params
+          parsed_parameters.slice(:from_date, :to_date).permit!.transform_keys{ |k| {"from_date" => "start_date", "to_date" => "end_date"}[k] }.transform_values{ |v| v&.strftime("%Y-%m-%d") }
         end
 
         def check_active_submodules

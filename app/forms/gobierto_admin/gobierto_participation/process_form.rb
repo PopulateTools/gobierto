@@ -9,6 +9,7 @@ module GobiertoAdmin
         :site_id,
         :title_translations,
         :body_translations,
+        :body_source_translations,
         :process_type,
         :starts,
         :ends,
@@ -149,6 +150,7 @@ module GobiertoAdmin
           process_attributes.site_id            = site_id
           process_attributes.title_translations = title_translations
           process_attributes.body_translations  = body_translations
+          process_attributes.body_source_translations = body_source_translations
           process_attributes.header_image_url   = header_image_url
           process_attributes.visibility_level   = visibility_level
           process_attributes.process_type       = process_type

@@ -98,7 +98,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
     }
 
     var municipalityId = window.populateData.municipalityId;
-    var url = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&date_date_range='+dateRange+'&sort_asc_by=date';
+    var url = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&date_date_range='+dateRange+'&sort_asc_by=date&except_columns=_id,invoice_id,payment_date,location_id,province_id,autonomous_region_id';
 
     // Show spinner
     $(".js-toggle-overlay").addClass('is-active');

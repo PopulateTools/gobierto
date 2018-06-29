@@ -14,7 +14,11 @@ module GobiertoPeople
     end
 
     def properties
-      { url: object.to_url }
+      { url: "#{ object.to_url}#{ date_range_query }" }
+    end
+
+    def date_range_query
+      "?#{ instance_options[:date_range_query] }" if instance_options[:date_range_query].present?
     end
 
   end

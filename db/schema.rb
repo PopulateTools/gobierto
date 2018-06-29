@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_14_101232) do
+ActiveRecord::Schema.define(version: 2018_06_28_143928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -747,7 +747,9 @@ ActiveRecord::Schema.define(version: 2018_06_14_101232) do
     t.integer "issue_id"
     t.bigint "scope_id"
     t.datetime "archived_at"
+    t.jsonb "body_source_translations"
     t.index ["archived_at"], name: "index_gpart_processes_on_archived_at"
+    t.index ["body_source_translations"], name: "index_gpart_processes_on_body_source_translations", using: :gin
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gpart_processes_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gpart_processes_on_site_id"

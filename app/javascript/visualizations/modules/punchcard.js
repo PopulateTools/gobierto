@@ -121,7 +121,7 @@ export const punchcard = (context, data, options = {}) => {
     .data((d) => d.value)
     .enter()
 		.append("a")
-		.attr("xlink:href", d => (d.properties || {}).url)
+		// .attr("xlink:href", d => (d.properties || {}).url)
     .append("circle")
     .attr("class", "circle")
     .attr("cx", d => x(d.key))

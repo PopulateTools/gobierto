@@ -1,5 +1,7 @@
 <% content_for :content do %>
 
+  <%= yield :custom_top_content %>
+
   <div class="column">
 
     <div class="pure-g">
@@ -10,10 +12,7 @@
           <ul>
             <% @sidebar_departments.each do |department| %>
               <li class="<%= class_if('strong', try(:current_department) == department) %>">
-                <%= link_to department.name, gobierto_people_department_people_path(
-                      department.slug,
-                      date_range_params
-                    ) %>
+                <%= link_to department.name, gobierto_people_department_people_path(department_slug: department.slug) %>
               </li>
             <% end %>
           </ul>

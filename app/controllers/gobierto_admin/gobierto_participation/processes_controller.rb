@@ -124,7 +124,8 @@ module GobiertoAdmin
           :visibility_level,
           :has_duration,
           title_translations: [*I18n.available_locales],
-          body_translations:  [*I18n.available_locales]
+          body_translations:  [*I18n.available_locales],
+          body_source_translations: [*I18n.available_locales]
         )
       end
 

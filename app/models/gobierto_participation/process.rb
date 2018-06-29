@@ -21,7 +21,7 @@ module GobiertoParticipation
       add_attribute :resource_path, :class_name
     end
 
-    translates :title, :body, :information_text
+    translates :title, :body, :body_source, :information_text
 
     belongs_to :site
     belongs_to :issue

@@ -17,8 +17,20 @@
 
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "process[body_translations][#{locale}]", f.object.class.human_attribute_name(:body) %>
-            <%= text_area_tag "process[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], placeholder: t('.placeholders.body', locale: locale) %>
+            <%= text_area_tag(
+                  "process[body_source_translations][#{locale}]",
+                  f.object.body_source_translations && f.object.body_source_translations[locale],
+                  placeholder: t('.placeholders.body', locale: locale),
+                  data: { wysiwyg: true}
+                ) %>
           </div>
+
+          <%= hidden_field_tag(
+                "process[body_translations][#{locale}]",
+                f.object.body_translations && f.object.body_translations[locale],
+                id: "process_body_translations_#{locale}"
+              ) %>
+
         <% end %>
       </div>
 

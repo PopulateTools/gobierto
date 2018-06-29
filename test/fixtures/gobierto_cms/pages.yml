@@ -68,8 +68,8 @@ themes_draft:
 
 notice_1:
   title_translations: <%= {'en' => 'Notice 1 title' }.to_json %>
-  body_translations: <%= {'en' => 'Notice 1 body' }.to_json %>
-  body_source_translations: <%= {'en' => 'Notice 1 body' }.to_json %>
+  body_translations: <%= {'en' => 'Notice 1 <strong>body</strong>' }.to_json %>
+  body_source_translations: <%= {'en' => 'Notice 1 <strong>body</strong>' }.to_json %>
   slug: 'notice-1'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid

@@ -7,12 +7,12 @@ export const punchcard = (context, data, options = {}) => {
   // options
   let itemHeight = options.itemHeight || 50
   let gutter = options.gutter || 20
-  let margin = options.margins || {
+  let margin = _.extend({
     top: gutter * 3.5,
     right: gutter,
     bottom: gutter * 1.5,
     left: gutter * 15
-  }
+  }, options.margins)
   let xTickFormat = options.xTickFormat || (d => d)
   let yTickFormat = options.yTickFormat || (d => d)
   let title = options.title || ''
@@ -26,6 +26,15 @@ export const punchcard = (context, data, options = {}) => {
       data[elementIndex].value[dateIndex].key = new Date(dateString)
     }
   })
+
+	// estimation number of x.axis.ticks to center if there are no so much
+	let xAxisLength = _.max(_.map(data, 'value').map(f => f.length))
+	if (xAxisLength < 5) {
+		margin = _.extend(margin, {
+			left: margin.left * 2,
+			right: margin.right * 10
+		})
+	}
 
   // dimensions
   let container = d3.select(context)
@@ -69,7 +78,6 @@ export const punchcard = (context, data, options = {}) => {
 		g.call(d3.axisTop(x).ticks(d3.timeMonth.every(1)).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
 		g.selectAll(".domain").remove()
 		g.selectAll(".tick line")
-			// .attr("transform", `translate(0, ${-margin.top / 2})`)
 			.attr("y1", 0)
 			.attr("y2", height)
 		g.selectAll(".tick text")

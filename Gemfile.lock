@@ -145,7 +145,7 @@ GEM
       elasticsearch-transport (= 6.1.0)
     elasticsearch-api (6.1.0)
       multi_json
-    elasticsearch-extensions (0.0.27)
+    elasticsearch-extensions (0.0.28)
       ansi
       elasticsearch
       oj
@@ -312,7 +312,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     nori (2.6.0)
     ntlm-http (0.1.1)
-    oj (3.5.0)
+    oj (3.6.3)
     os (0.9.6)
     paper_trail (9.2.0)
       activerecord (>= 4.2, < 5.3)
@@ -324,7 +324,7 @@ GEM
       activerecord (>= 4.0, < 5.3)
     parser (2.5.1.0)
       ast (~> 2.4.0)
-    patron (0.12.1)
+    patron (0.13.1)
     pg (0.21.0)
     poltergeist (1.18.1)
       capybara (>= 2.1, < 4)

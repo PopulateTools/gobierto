@@ -145,11 +145,9 @@ GEM
       elasticsearch-transport (= 6.1.0)
     elasticsearch-api (6.1.0)
       multi_json
-    elasticsearch-extensions (0.0.28)
+    elasticsearch-extensions (0.0.29)
       ansi
       elasticsearch
-      oj
-      patron
       ruby-prof
     elasticsearch-transport (6.1.0)
       faraday
@@ -324,7 +322,6 @@ GEM
       activerecord (>= 4.0, < 5.3)
     parser (2.5.1.0)
       ast (~> 2.4.0)
-    patron (0.13.1)
     pg (0.21.0)
     poltergeist (1.18.1)
       capybara (>= 2.1, < 4)

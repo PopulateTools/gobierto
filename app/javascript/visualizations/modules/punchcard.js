@@ -79,6 +79,24 @@ export const punchcard = (context, data, options = {}) => {
 	// Custom Y-axis
 	function yAxis(g) {
 		g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0).tickFormat(yTickFormat))
+		g.selectAll("text")
+      .each(function() {
+				// max size axis
+				let maxWidth = margin.left - (2 * gutter)
+
+				let self = d3.select(this)
+				let textLength = self.node().getComputedTextLength()
+				let text = self.text();
+
+				while (textLength > maxWidth && text.length > 0) {
+					text = text.slice(0, -1);
+					self.html(`${text}&hellip;`);
+					textLength = self.node().getComputedTextLength();
+				}
+
+				return self.text()
+			});
+
 		g.selectAll(".domain").remove()
 		g.selectAll(".tick")
 			.on("click", function (d,i) {

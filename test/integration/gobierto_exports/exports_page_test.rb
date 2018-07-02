@@ -44,10 +44,9 @@ module GobiertoExports
     end
 
     def test_index_without_any_submodules
-      gp_enabled_submodules.delete("officials")
-      gp_enabled_submodules.delete("agendas")
-      gp_enabled_submodules.delete("blogs")
-      gp_enabled_submodules.delete("statements")
+      %w(officials agendas blogs statements departments).each do |submodule|
+        gp_enabled_submodules.delete(submodule)
+      end
 
       with_current_site(site) do
         with_stubbed_s3_file_upload do

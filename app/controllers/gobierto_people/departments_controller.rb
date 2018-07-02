@@ -8,10 +8,22 @@ module GobiertoPeople
     before_action :check_active_submodules
 
     def index
-      @departments_count = site_departments.count
-      @departments = site_departments.joins(:events).group(:id).order(Arel.sql("count(#{ events_table }.id) DESC")).limit(DEFAULT_LIMIT)
-      @total_events = site_events.with_department.count
-      @total_people = site_events.with_department.select(:collection_id).distinct.count
+      @departments = QueryWithEvents.new(
+        source: site_departments,
+        start_date: filter_start_date,
+        end_date: filter_end_date
+      )
+      @departments_count = @departments.count
+
+      event_attendances_within_range = QueryWithEvents.new(
+        source: current_site.event_attendances,
+        start_date: filter_start_date,
+        end_date: filter_end_date,
+        not_null: [:department_id]
+      )
+
+      @total_events = event_attendances_within_range.count
+      @total_people = event_attendances_within_range.pluck(:person_id).uniq.count
     end
 
     def show

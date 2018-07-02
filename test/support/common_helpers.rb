@@ -13,4 +13,8 @@ module CommonHelpers
     clean_text =~ Regexp.new(elements.join(".*").gsub(/\n|\s/, ""))
   end
 
+  def has_link_to?(location)
+    all("a[href='#{location}']").any?
+  end
+
 end

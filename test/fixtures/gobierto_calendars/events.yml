@@ -147,6 +147,58 @@ neil_published:
   ends_at: <%= 1.month.from_now + 1.hour %>
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
+neil_ecology_department_old:
+  site: madrid
+  collection: neil_calendar
+  department: ecology_department_old
+  title_translations: <%= {
+    'en' => 'Old event of ecology department',
+    'es' => 'Evento viejo del departamento de ecología'
+  }.to_json %>
+  slug: <%= "#{1.year.ago.strftime('%F')}-ecology-department-event" %>
+  starts_at: <%= 1.year.ago %>
+  ends_at: <%= 1.year.ago + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+neil_tourism_department_very_old:
+  site: madrid
+  collection: neil_calendar
+  department: tourism_department_very_old
+  title_translations: <%= {
+    'en' => 'Very old event of toursim department',
+    'es' => 'Evento muy viejo del departamento de turismo',
+  }.to_json %>
+  slug: <%= "#{10.years.ago.strftime('%F')}-tourism-department-event" %>
+  starts_at: <%= 10.years.ago %>
+  ends_at: <%= 10.years.ago + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+neil_immigration_department_recent:
+  site: madrid
+  collection: neil_calendar
+  department: immigration_department_mixed
+  title_translations: <%= {
+    'en' => 'Recent event of immigration department',
+    'es' => 'Evento reciente en el departamento de inmigración'
+  }.to_json %>
+  slug: <%= "#{1.month.ago.strftime('%F')}-immigration-department-recent-event" %>
+  starts_at: <%= 1.month.ago %>
+  ends_at: <%= 1.month.ago + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+neil_immigration_department_old:
+  site: madrid
+  collection: neil_calendar
+  department: immigration_department_mixed
+  title_translations: <%= {
+    'en' => 'Old event of immigration department',
+    'es' => 'Evento viejo en el departamento de inmigración'
+  }.to_json %>
+  slug: <%= "#{1.year.ago.strftime('%F')}-immigration-department-old-event" %>
+  starts_at: <%= 1.year.ago %>
+  ends_at: <%= 1.year.ago + 1.hour %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
 ## Nelson events
 
 nelson_tomorrow:

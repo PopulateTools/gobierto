@@ -40,6 +40,8 @@ en:
     layouts:
       application:
         title: Officials and Agendas
+      departments:
+        no_departments_within_dates: There are no departments for this date range
       menu_subsections:
         agendas: Agendas
         blogs: Blogs
@@ -54,6 +56,7 @@ en:
       contact_methods:
         send_email: Send an email
       index:
+        no_people_within_range: There are no officials for this date range
         subscribable_box:
           title: Receive alerts in your inbox
         title: "%{site_name}'s organization chart"

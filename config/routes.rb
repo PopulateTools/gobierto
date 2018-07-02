@@ -255,6 +255,7 @@ Rails.application.routes.draw do
 
       # Departments
       resources :departments, only: [:index, :show], path: "departamentos"
+      resources :department_people, only: [:index], controller: "departments/people", path: "/personas/departamentos/:department_slug"
 
       # Interest groups
       resources :interest_groups, only: [:index, :show], path: "grupos-de-interes"

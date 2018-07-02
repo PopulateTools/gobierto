@@ -23,6 +23,7 @@ module EventHelpers
       collection: collection,
       external_id: options[:external_id],
       interest_group_id: interest_group_id(options),
+      department_id: department_id(options),
       site: site
     )
 
@@ -62,9 +63,15 @@ module EventHelpers
     options[:interest_group].try(:id) || defaults[:interest_group].id
   end
 
+  def department_id(options)
+    return nil unless options[:department]
+    options[:department].try(:id) || defaults[:department].id
+  end
+
   def defaults
     {
-      interest_group: gobierto_people_interest_groups(:google)
+      interest_group: gobierto_people_interest_groups(:google),
+      department: gobierto_people_departments(:justice_department)
     }
   end
 

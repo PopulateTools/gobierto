@@ -7,7 +7,7 @@ gobierto_people_settings_madrid:
   settings: <%= {
     "home_text_es": "",
     "home_text_en": "Home text English",
-    "submodules_enabled": ["officials", "agendas", "statements", "blogs"]
+    "submodules_enabled": ["officials", "agendas", "statements", "blogs", "departments"]
   }.to_json %>
 
 gobierto_budgets_settings_madrid:

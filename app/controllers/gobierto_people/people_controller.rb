@@ -6,6 +6,8 @@ module GobiertoPeople
     include PeopleClassificationHelper
     include DatesRangeHelper
 
+    layout :resolve_layout
+
     before_action :check_active_submodules, except: :show
 
     LAST_ITEMS_SIZE = 4
@@ -13,6 +15,7 @@ module GobiertoPeople
     def index
       @political_groups = get_political_groups
 
+      set_departments
       set_people
       set_events
       set_present_groups
@@ -65,7 +68,11 @@ module GobiertoPeople
     end
 
     def set_people
-      @people = current_site.people.active.sorted
+      @people = QueryWithEvents.new(
+        source: current_site.people.active,
+        start_date: filter_start_date,
+        end_date: filter_end_date
+      ).sorted
       @people = @people.send(Person.categories.key(@person_category)) if @person_category
       @people = @people.send(Person.parties.key(@person_party)) if @person_party
     end
@@ -83,6 +90,14 @@ module GobiertoPeople
       end
     end
 
+    def set_departments
+      @sidebar_departments = QueryWithEvents.new(
+        source: current_site.departments,
+        start_date: filter_start_date,
+        end_date: filter_end_date
+      )
+    end
+
     def admin_permissions_for_person?
       person = current_site.people.find_by(slug: params[:slug])
       if person && current_admin
@@ -92,6 +107,14 @@ module GobiertoPeople
         ).view?
       else
         false
+      end
+    end
+
+    def resolve_layout
+      if action_name == "index" && current_site.departments_available?
+        "gobierto_people/layouts/departments"
+      else
+        "gobierto_people/layouts/application"
       end
     end
 

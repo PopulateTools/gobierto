@@ -7,12 +7,12 @@ export const punchcard = (context, data, options = {}) => {
   // options
   let itemHeight = options.itemHeight || 50
   let gutter = options.gutter || 20
-  let margin = options.margins || {
+  let margin = _.extend({
     top: gutter * 3.5,
     right: gutter,
     bottom: gutter * 1.5,
     left: gutter * 15
-  }
+  }, options.margins)
   let xTickFormat = options.xTickFormat || (d => d)
   let yTickFormat = options.yTickFormat || (d => d)
   let title = options.title || ''
@@ -26,6 +26,15 @@ export const punchcard = (context, data, options = {}) => {
       data[elementIndex].value[dateIndex].key = new Date(dateString)
     }
   })
+
+	// estimation number of x.axis.ticks to center if there are no so much
+	let xAxisLength = _.max(_.map(data, 'value').map(f => f.length))
+	if (xAxisLength < 5) {
+		margin = _.extend(margin, {
+			left: margin.left * 2,
+			right: margin.right * 10
+		})
+	}
 
   // dimensions
   let container = d3.select(context)
@@ -69,7 +78,6 @@ export const punchcard = (context, data, options = {}) => {
 		g.call(d3.axisTop(x).ticks(d3.timeMonth.every(1)).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
 		g.selectAll(".domain").remove()
 		g.selectAll(".tick line")
-			// .attr("transform", `translate(0, ${-margin.top / 2})`)
 			.attr("y1", 0)
 			.attr("y2", height)
 		g.selectAll(".tick text")
@@ -79,6 +87,24 @@ export const punchcard = (context, data, options = {}) => {
 	// Custom Y-axis
 	function yAxis(g) {
 		g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0).tickFormat(yTickFormat))
+		g.selectAll("text")
+      .each(function() {
+				// max size axis
+				let maxWidth = margin.left - (2 * gutter)
+
+				let self = d3.select(this)
+				let textLength = self.node().getComputedTextLength()
+				let text = self.text();
+
+				while (textLength > maxWidth && text.length > 0) {
+					text = text.slice(0, -1);
+					self.html(`${text}&hellip;`);
+					textLength = self.node().getComputedTextLength();
+				}
+
+				return self.text()
+			});
+
 		g.selectAll(".domain").remove()
 		g.selectAll(".tick")
 			.on("click", function (d,i) {
@@ -121,7 +147,7 @@ export const punchcard = (context, data, options = {}) => {
     .data((d) => d.value)
     .enter()
 		.append("a")
-		.attr("xlink:href", d => (d.properties || {}).url)
+		// .attr("xlink:href", d => (d.properties || {}).url)
     .append("circle")
     .attr("class", "circle")
     .attr("cx", d => x(d.key))

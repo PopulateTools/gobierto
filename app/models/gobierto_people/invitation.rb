@@ -24,7 +24,7 @@ module GobiertoPeople
 
     default_scope { sorted }
 
-    validates :person, :organizer, :title, :start_date, :end_date, presence: true
+    validates :person, :title, :start_date, :end_date, presence: true
 
     metadata_attributes(
       :organic_unit,

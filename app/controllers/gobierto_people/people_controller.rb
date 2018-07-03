@@ -44,7 +44,7 @@ module GobiertoPeople
       @person = PersonDecorator.new(people_scope.find_by!(slug: params[:slug]))
 
       if active_submodules.size == 1 && agendas_submodule_active?
-        redirect_to gobierto_people_person_events_path(@person.slug)
+        redirect_to gobierto_people_person_events_path(@person.slug) and return
       end
 
       @upcoming_events = @person.attending_events.upcoming.sorted.first(3)
@@ -57,6 +57,7 @@ module GobiertoPeople
       @last_trips = @person.trips.between_dates(filter_start_date, filter_end_date).sorted.limit(LAST_ITEMS_SIZE)
       @last_invitations = @person.invitations.between_dates(filter_start_date, filter_end_date).sorted.limit(LAST_ITEMS_SIZE)
       @last_gifts = @person.received_gifts.between_dates(filter_start_date, filter_end_date).sorted.limit(LAST_ITEMS_SIZE)
+      check_people_resources_with_content
     end
 
     private
@@ -65,6 +66,29 @@ module GobiertoPeople
       if !officials_submodule_active?
         redirect_to gobierto_people_root_path
       end
+    end
+
+    def engine_people_resources_with_content
+      return [] unless site_configuration_dates_range?
+      GobiertoPeople.custom_engine_resources.select do |resources|
+        submodule = resources == "events" ? "agendas" : resources
+        active_submodules.include?(submodule) && instance_variable_get("@last_#{resources}")&.exists?
+      end
+    end
+
+    def check_people_resources_with_content
+      return unless (resources = engine_people_resources_with_content).count == 1
+      resources = resources.first
+      path = if resources == "events"
+               if @upcoming_events.present?
+                 gobierto_people_person_events_path(@person.slug)
+               else
+                 gobierto_people_person_past_events_path(@person.slug, date_range_params.merge(page: false))
+               end
+             else
+               send("gobierto_people_person_#{resources}_path", @person.slug, date_range_params)
+             end
+      redirect_to path
     end
 
     def set_people

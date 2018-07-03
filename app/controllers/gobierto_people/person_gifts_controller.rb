@@ -8,6 +8,8 @@ module GobiertoPeople
       redirect_to gifts_service_url and return if gifts_service_url.present?
 
       redirect_back(fallback_location: root_path, notice: t(".error")) unless engine_overrides?
+
+      @gifts = current_site.gifts.between_dates(filter_start_date, filter_end_date).order(date: :desc).limit(40)
     end
 
     private

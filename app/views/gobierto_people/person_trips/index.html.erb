@@ -1,0 +1,7 @@
+<h1><%= t("gobierto_people.people.navigation.trips") %></h1>
+
+<ul>
+  <% @trips.each do |trip| %>
+    <li><%= trip.purpose %></li>
+  <% end %>
+</ul>

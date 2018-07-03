@@ -73,12 +73,11 @@ jobs:
       # Setup the database
       - run: bin/rails db:setup
 
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
       # Run tests
       - run: script/test
-
-      # Run tests from custom engines
-      - run: script/custom_engines_ci_setup
-      - run: bin/rails test vendor/gobierto_engines/**/test
 
   staging-deploy:
     machine:

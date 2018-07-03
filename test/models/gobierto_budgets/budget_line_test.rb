@@ -6,7 +6,7 @@ module GobiertoBudgets
   class BudgetLineTest < ActiveSupport::TestCase
     def setup
       super
-      budget_line.stubs(:population).returns(666)
+      GobiertoBudgets::BudgetLine.stubs(:get_population).returns(666)
     end
 
     def site

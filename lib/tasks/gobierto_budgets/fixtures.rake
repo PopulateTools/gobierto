@@ -129,7 +129,7 @@ namespace :gobierto_budgets do
         category["kind"] = "G"
         economic_budget_lines_for_functional.push(index: {
                                                     _index: index,
-                                                    _id: [organization_id, year, "#{ category["code"] }-1-c}", category["kind"]].join("/"),
+                                                    _id: [organization_id, year, "#{category["code"]}-1-c", category["kind"]].join("/"),
                                                     _type: category["area"],
                                                     data: base_data.merge(amount: rand(1_000_000),
                                                                           code: category["code"],

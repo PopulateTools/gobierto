@@ -21,14 +21,14 @@ module GobiertoBudgets
       end
 
       def test_last_year_when_no_data
-        assert_equal 2017, subject_class.last
+        assert_equal 2018, subject_class.last
       end
 
       def test_last_year_when_data_and_elaboration_enabled
         GobiertoBudgets::BudgetLine.stub(:any_data?, true) do
           site.gobierto_budgets_settings.settings["budgets_elaboration"] = true
           site.save!
-          assert_equal 2017, subject_class.last
+          assert_equal 2018, subject_class.last
         end
       end
 

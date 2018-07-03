@@ -138,6 +138,7 @@ module GobiertoBudgets
         response = SearchEngine.client.search index: index, type: type, body: query
         values = Hash[response["hits"]["hits"].map { |h| h["_source"] }.map { |h| [h["year"], h[@variable]] }]
         values.each do |k, v|
+          v = v.to_f
           dif = 0
           if old_value = values[k - 1]
             dif = delta_percentage(v, old_value)

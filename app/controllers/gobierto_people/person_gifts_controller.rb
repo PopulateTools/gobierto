@@ -7,7 +7,7 @@ module GobiertoPeople
     def index
       redirect_to gifts_service_url and return if gifts_service_url.present?
 
-      redirect_back(fallback_location: root_path, notice: t(".error"))
+      redirect_back(fallback_location: root_path, notice: t(".error")) unless engine_overrides?
     end
 
     private

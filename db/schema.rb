@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_28_143928) do
+ActiveRecord::Schema.define(version: 2018_07_03_140608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -457,7 +457,7 @@ ActiveRecord::Schema.define(version: 2018_06_28_143928) do
 
   create_table "gp_invitations", force: :cascade do |t|
     t.bigint "person_id", null: false
-    t.string "organizer", null: false
+    t.string "organizer"
     t.string "title", null: false
     t.date "start_date", null: false
     t.date "end_date", null: false

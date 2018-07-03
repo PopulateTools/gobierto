@@ -3,6 +3,7 @@ module GobiertoPeople
     class PeopleController < BaseController
 
       include PeopleClassificationHelper
+      include DatesRangeHelper
 
       def index
         @people = @political_group.people.by_site(current_site).active.sorted

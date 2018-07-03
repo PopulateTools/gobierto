@@ -17,7 +17,7 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
   end
 
   def last_year
-    2016
+    2017
   end
 
   def test_execution_information
@@ -46,7 +46,7 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
   end
 
   def test_year_breadcrumb_click
-    available_years = [2016]
+    available_years = [2017]
     GobiertoBudgets::SearchEngineConfiguration::Year.stubs(:with_data).with(
       index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
     ).returns(available_years)

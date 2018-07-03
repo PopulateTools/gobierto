@@ -47,7 +47,7 @@ module GobiertoBudgets
       private_class_method :budgets_elaboration_disabled?
 
       def self.default
-        2017
+        2018
       end
       private_class_method :default
 

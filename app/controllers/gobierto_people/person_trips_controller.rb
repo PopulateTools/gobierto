@@ -1,5 +1,6 @@
 module GobiertoPeople
   class PersonTripsController < GobiertoPeople::ApplicationController
+    include DatesRangeHelper
 
     before_action :check_active_submodules
 

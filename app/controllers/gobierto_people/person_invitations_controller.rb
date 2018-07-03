@@ -2,6 +2,7 @@
 
 module GobiertoPeople
   class PersonInvitationsController < GobiertoPeople::ApplicationController
+    include DatesRangeHelper
 
     before_action :check_active_submodules
 

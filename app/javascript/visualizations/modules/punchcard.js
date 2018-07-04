@@ -1,4 +1,4 @@
-import { d3 } from 'shared'
+import { d3, moment } from 'shared'
 
 export const punchcard = (context, data, options = {}) => {
 	// Markup has already a svg inside
@@ -28,7 +28,8 @@ export const punchcard = (context, data, options = {}) => {
   })
 
 	// estimation number of x.axis.ticks to center if there are no so much
-	let xAxisLength = _.max(_.map(data, 'value').map(f => f.length))
+	let xAxisLimits = d3.extent(_.map(_.flatten(_.map(data, 'value')), 'key'))
+	let xAxisLength = moment(xAxisLimits[1]).diff(xAxisLimits[0], 'months')
 	if (xAxisLength < 5) {
 		margin = _.extend(margin, {
 			left: margin.left * 2,

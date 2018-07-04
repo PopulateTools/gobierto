@@ -40,7 +40,7 @@ module GobiertoPeople
 
             # sort result according to department events count
             departments_order = Hash[
-              *top_departments.pluck(:name).each_with_index.collect do |department_name, index|
+              *top_departments.map(&:short_name).each_with_index.collect do |department_name, index|
                 [department_name, index]
               end.flatten
             ]

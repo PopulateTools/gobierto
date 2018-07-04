@@ -7,7 +7,7 @@ module GobiertoPeople
     RANGE_PARAM_NAMES = %w(start_date end_date).freeze
 
     included do
-      helper_method :dates_range?, :filter_start_date, :filter_end_date, :date_range_params, :all_start_date, :all_end_date
+      helper_method :site_configuration_dates_range?, :filter_start_date, :filter_end_date, :date_range_params, :all_start_date, :all_end_date
     end
 
     def date_range_params

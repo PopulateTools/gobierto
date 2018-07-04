@@ -1,7 +1,7 @@
 import { d3 } from 'shared'
 
 export const rowchart = (context, data, options = {}) => {
-  // Markup has already a svg inside
+  //$(context).empty();
   if ($(`${context} svg`).length !== 0) return
 
   // options

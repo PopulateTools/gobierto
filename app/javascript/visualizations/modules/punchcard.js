@@ -1,6 +1,7 @@
 import { d3, moment } from 'shared'
 
 export const punchcard = (context, data, options = {}) => {
+	//$(context).empty();
 	// Markup has already a svg inside
 	if ($(`${context} svg`).length !== 0) return
 

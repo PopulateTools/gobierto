@@ -96,9 +96,16 @@ class ApplicationController < ActionController::Base
     ::GobiertoCommon::Search.algoliasearch_configured?
   end
 
+  def engine_overrides
+    @engine_overrides ||= current_site.try(:engines_overrides)
+  end
+
+  def engine_overrides?
+    engine_overrides.present?
+  end
+
   def apply_engines_overrides
-    engine_overrides = current_site.try(:engines_overrides)
-    return if engine_overrides.blank?
+    return unless engine_overrides?
     engine_overrides.each do |engine|
       prepend_view_path Rails.root.join("vendor/gobierto_engines/#{ engine }/app/views")
     end

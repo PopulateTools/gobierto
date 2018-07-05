@@ -1,12 +1,15 @@
 module GobiertoPeople
   class PersonTripsController < GobiertoPeople::ApplicationController
+    include DatesRangeHelper
 
     before_action :check_active_submodules
 
     def index
       redirect_to trips_service_url and return if trips_service_url.present?
 
-      redirect_back(fallback_location: root_path, notice: t(".error"))
+      redirect_back(fallback_location: root_path, notice: t(".error")) unless engine_overrides?
+
+      @trips = current_site.trips.between_dates(filter_start_date, filter_end_date).order(start_date: :desc).limit(40)
     end
 
     private

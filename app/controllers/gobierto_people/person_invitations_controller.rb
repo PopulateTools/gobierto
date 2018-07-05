@@ -2,11 +2,12 @@
 
 module GobiertoPeople
   class PersonInvitationsController < GobiertoPeople::ApplicationController
+    include DatesRangeHelper
 
     before_action :check_active_submodules
 
     def index
-      @invitations = current_site.invitations
+      @invitations = current_site.invitations.between_dates(filter_start_date, filter_end_date).order(start_date: :desc).limit(40)
     end
 
     private

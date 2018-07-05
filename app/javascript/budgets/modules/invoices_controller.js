@@ -5,7 +5,11 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
   function InvoicesController() {}
 
+  // Global variables
+  var data, ndx, _r, _tabledata, _empty, _chartdata = {}, $tableHTML = {};
+
   InvoicesController.prototype.show = function() {
+    $tableHTML = $("#providers-table");
 
     let municipalityId = window.populateData.municipalityId;
     let maxYearUrl = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&sort_desc_by=date&limit=1';
@@ -77,12 +81,6 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
     getData('3m');
   };
-
-  // Global variables
-  var data, ndx, _r, _tabledata, _empty, _chartdata, $tableHTML = {};
-
-  // Markup object shorteners (after DOM rendered)
-  $().ready(() => $tableHTML = $("#providers-table"));
 
   function getData(filter) {
     var dateRange;

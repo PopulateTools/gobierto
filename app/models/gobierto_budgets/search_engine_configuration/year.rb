@@ -29,12 +29,9 @@ module GobiertoBudgets
 
       def self.last_year_with_data
         current_year.downto(first) do |year|
-          next unless GobiertoBudgets::BudgetLine.any_data?(
-            site: current_site,
-            index: ::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-            year: year
-          )
-          return year if year == current_year && budgets_elaboration_disabled?
+          if GobiertoBudgets::BudgetLine.any_data?(site: current_site, index: ::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, year: year)
+            return year
+          end
         end
 
         default

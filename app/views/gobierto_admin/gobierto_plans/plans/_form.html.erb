@@ -46,6 +46,11 @@
         <%= f.text_field :year, placeholder: t('.placeholders.year') %>
       </div>
 
+      <div class="form_item file_field">
+        <%= f.label :csv_file %>
+        <%= f.file_field :csv_file %>
+      </div>
+
       <div class="form_item textarea">
         <%= f.label :configuration_data %>
         <%= f.text_area :configuration_data, placeholder: t('.placeholders.configuration_data') %>

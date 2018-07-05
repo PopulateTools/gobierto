@@ -12,6 +12,7 @@ module GobiertoAdmin
         :css,
         :introduction_translations,
         :year,
+        :csv_file,
         :plan_type_id,
         :configuration_data,
         :visibility_level,
@@ -84,6 +85,12 @@ module GobiertoAdmin
         JSON.parse(configuration_data)
       rescue JSON::ParserError
         errors.add :configuration_data, I18n.t("errors.messages.invalid")
+      end
+
+      def csv_file_content
+        @csv_file_content ||= begin
+                                ::CSV.read(csv_file.open, headers: true)
+                              end
       end
 
     end

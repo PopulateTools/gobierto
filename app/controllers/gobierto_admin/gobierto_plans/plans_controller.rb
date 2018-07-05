@@ -105,6 +105,7 @@ module GobiertoAdmin
           :configuration_data,
           :visibility_level,
           :css,
+          :csv_file,
           title_translations: [*I18n.available_locales],
           footer_translations: [*I18n.available_locales],
           introduction_translations: [*I18n.available_locales]

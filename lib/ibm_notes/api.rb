@@ -49,10 +49,13 @@ module IbmNotes
 
     def self.get_response_page(params)
       signin_page = agent.get params[:endpoint]
-      signin_page.form_with(action: "/names.nsf?Login") do |form|
+      result = signin_page.form_with(action: "/names.nsf?Login") do |form|
         form.Username = params[:username]
         form.Password = params[:password]
       end.submit
+    ensure
+      agent.shutdown
+      result
     end
 
     def self.agent

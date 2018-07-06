@@ -7,6 +7,9 @@ ca:
           success_html: Pla s'ha creat correctament. <a href="%{link}">Veure el pla</a>.
         destroy:
           success: El pla s'ha esborrat correctament.
+        import_data:
+          success_html: Les dades s'han importat correctament. <a href="%{link}">Veure
+            el pla</a>.
         recover:
           success: El pla s'ha recuperat correctament.
         update:

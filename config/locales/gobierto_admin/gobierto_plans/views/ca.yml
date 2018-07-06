@@ -23,6 +23,10 @@ ca:
           no_data: Encara no hi ha dades carregades
           there_are: Hi ha %{info}
           title: Dades
+        data_form:
+          confirm_import: Estàs segur? totes les dades actuals seran eliminats
+          disable_with: Carregant...
+          submit: Importa des de fitxer CSV
         edit:
           title: Configuració
         form:

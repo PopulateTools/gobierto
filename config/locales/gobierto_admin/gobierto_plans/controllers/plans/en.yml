@@ -7,6 +7,8 @@ en:
           success_html: Plan created successfully. <a href="%{link}">View the plan</a>.
         destroy:
           success: Plan archived successfully.
+        import_data:
+          success_html: Data imported successfully. <a href="%{link}">View the plan</a>.
         recover:
           success: Plan has been successfully recovered.
         update:

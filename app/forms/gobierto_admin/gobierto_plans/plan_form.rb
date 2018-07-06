@@ -12,7 +12,6 @@ module GobiertoAdmin
         :css,
         :introduction_translations,
         :year,
-        :csv_file,
         :plan_type_id,
         :configuration_data,
         :visibility_level,
@@ -71,18 +70,6 @@ module GobiertoAdmin
         if @plan.valid?
           @plan.save
 
-          if csv_file.present?
-            ActiveRecord::Base.transaction do
-              clear_previous_data
-              import_nodes
-              @plan.categories.each do |category|
-                category.progress = category.children_progress
-                category.uid = category.calculate_uid
-                category.save
-              end
-            end
-          end
-
           @plan
         else
           promote_errors(@plan.errors)
@@ -97,27 +84,6 @@ module GobiertoAdmin
         JSON.parse(configuration_data)
       rescue JSON::ParserError
         errors.add :configuration_data, I18n.t("errors.messages.invalid")
-      end
-
-      def clear_previous_data
-        @plan.nodes.each do |node|
-          node.destroy
-        end
-        @plan.categories.destroy_all
-      end
-
-      def import_nodes
-        csv_file_content.each do |row|
-          row_decorator = ::GobiertoPlans::RowNodeDecorator.new(row, @plan)
-          row_decorator.categories.each(&:save)
-          row_decorator.node.save
-        end
-      end
-
-      def csv_file_content
-        @csv_file_content ||= begin
-                                ::CSV.read(csv_file.open, headers: true)
-                              end
       end
 
     end

@@ -297,8 +297,10 @@ export var VisLineasJ = Class.extend({
         .attr('stroke', this.softGrey);
 
       // --> DRAW VERTICAL LINE
+      var defaultYear = defaultYearForVerticalLine(this.data);
+
       this.svgLines.selectAll('.v_line')
-            .data([this.dataYear])
+            .data([defaultYear])
             .enter()
           .append('line')
             .attr('class', 'v_line')
@@ -308,6 +310,9 @@ export var VisLineasJ = Class.extend({
             .attr('y2', this.height)
             .style('stroke', this.darkGrey);
 
+      // TODO: trigger the animation that updates the table in the right
+      // $("circle.x" + defaultYear.getFullYear()).trigger("mouseover");
+      // $("circle.x2015").trigger("mouseover");
 
       // --> DRAW THE LINES
       this.chart = this.svgLines.append('g')
@@ -504,6 +509,7 @@ export var VisLineasJ = Class.extend({
 
     var dataChartFiltered = this.dataChart.map(function(d) {
       return d.values.filter(function(v) {
+        // console.log("_mouseover was triggered!");
         return v.date.getFullYear() == selectedData.date.getFullYear();
       })[0];
     });
@@ -663,3 +669,27 @@ export var VisLineasJ = Class.extend({
   })()
 
 }); // End object
+
+/**
+ * Returns the most recent year that has data for at least two different municipalities.
+ */
+function defaultYearForVerticalLine(data) {
+  var yearsWithData = {}
+  var defaultYearForVerticalLine = undefined;
+  data.budgets.per_person[0].values.forEach(function(x) { yearsWithData[x.date] = 0 });
+  data.budgets.per_person.forEach(function(x) { x.values.forEach(function(y) { if (y.value) { yearsWithData[y.date] += 1 } }) });
+
+  for (var date in yearsWithData) {
+    if (yearsWithData[date] > 1) {
+      if (!defaultYearForVerticalLine || date > defaultYearForVerticalLine) {
+        defaultYearForVerticalLine = new Date(date);
+      }
+    }
+  }
+
+  if (!defaultYearForVerticalLine) {
+    defaultYearForVerticalLine = this.dataYear;
+  }
+
+  return defaultYearForVerticalLine;
+}

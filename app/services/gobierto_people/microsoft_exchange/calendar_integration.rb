@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 module GobiertoPeople
   module MicrosoftExchange
     class CalendarIntegration
@@ -98,11 +98,11 @@ module GobiertoPeople
           person_id: person.id
         }
 
-        if event.location.present?
-          event_params.merge!(locations_attributes: { "0" => { name: event.location } })
-        else
-          event_params.merge!(locations_attributes: { "0" => { "_destroy" => "1" } })
-        end
+        event_params[:locations_attributes] = if event.location.present?
+                                                { "0" => { name: event.location } }
+                                              else
+                                                { "0" => { "_destroy" => "1" } }
+                                              end
 
         event_form = GobiertoPeople::CalendarSyncEventForm.new(event_params)
 
@@ -129,14 +129,15 @@ module GobiertoPeople
         end
       end
 
-      def folder_exists!(params={})
+      def folder_exists!(params = {})
         return if params[:folder].present?
 
         log_message("Can't find #{params[:folder_name]} calendar folder for #{person.name} (id: #{person.id}). Wrong username, password or endpoint?")
+
         if params[:folder_name] == "root"
           raise ::GobiertoCalendars::CalendarIntegration::AuthError
         else
-          raise ::GobiertoCalendars::CalendarIntegration::Error("No se encuentra el calendario #{params[:folder_name]}")
+          raise ::GobiertoCalendars::CalendarIntegration::Error, "No se encuentra el calendario #{params[:folder_name]}"
         end
       end
 

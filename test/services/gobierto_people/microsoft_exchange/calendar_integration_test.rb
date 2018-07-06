@@ -315,6 +315,8 @@ module GobiertoPeople
         root_folder = mock
         root_folder.stubs(:folders).returns([])
 
+        ::Exchanger::Folder.stubs(:find).returns(root_folder)
+
         assert_raise ::GobiertoCalendars::CalendarIntegration::Error do
           calendar_service.sync!
         end

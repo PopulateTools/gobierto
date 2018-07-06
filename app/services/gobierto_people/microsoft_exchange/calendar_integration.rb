@@ -9,6 +9,7 @@ module GobiertoPeople
       attr_reader :person, :site, :configuration
 
       TARGET_CALENDAR_NAME = "gobierto"
+      EVENTS_BATCH_SIZE = 20
 
       def initialize(person)
         @person = person
@@ -65,14 +66,24 @@ module GobiertoPeople
         folder_exists!(folder: target_folder, folder_name: TARGET_CALENDAR_NAME)
 
         # summarized events does not include events description
-        sumarized_events = target_folder.expanded_items(start_date: GobiertoCalendars.sync_range_start, end_date: GobiertoCalendars.sync_range_end)
+        sumarized_events = target_folder.expanded_items(
+          start_date: GobiertoCalendars.sync_range_start,
+          end_date: GobiertoCalendars.sync_range_end
+        )
 
-        if sumarized_events.present?
-          items_ids = sumarized_events.map { |i| i.id }
-          Exchanger::GetItem.run(item_ids: items_ids).items
-        else
-          nil
+        return nil unless sumarized_events.present?
+
+        # request expanded events in batches to avoid timeout errors
+        calendar_items = []
+        batches = sumarized_events.map(&:id).each_slice(EVENTS_BATCH_SIZE).to_a
+        requested_batches = 0
+
+        batches.each do |batch|
+          log_message("Requesting batch #{requested_batches += 1}/#{batches.size} for #{person.name} (id: #{person.id}).")
+          calendar_items += Exchanger::GetItem.run(item_ids: batch).items
         end
+
+        calendar_items
       end
 
       def sync_event(event)

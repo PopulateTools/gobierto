@@ -36,17 +36,17 @@ module GobiertoPlans
 
     def prefixed_row_data(prefix)
       object.headers.select { |h| prefix.match(h) }.map do |h|
-        [h.sub(prefix, "").downcase, object[h]]
+        [h.sub(prefix, ""), object[h]]
       end.to_h
     end
 
     def node_attributes
-      { "name_#{locale}": node_data["title"],
-        "status_#{locale}": node_data["status"],
-        "progress": node_data["progress"].to_f,
-        starts_at: Time.zone.parse(node_data["start"]),
-        ends_at: Time.zone.parse(node_data["end"]),
-        options: node_data.except("title", "status", "start", "end", "progress") }
+      { "name_#{locale}": node_data["Title"],
+        "status_#{locale}": node_data["Status"],
+        "progress": node_data["Progress"].to_f,
+        starts_at: Time.zone.parse(node_data["Start"]),
+        ends_at: Time.zone.parse(node_data["End"]),
+        options: node_data.except("Title", "Status", "Start", "End", "Progress") }
     end
 
     def node

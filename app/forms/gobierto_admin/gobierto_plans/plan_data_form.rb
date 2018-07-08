@@ -56,9 +56,9 @@ module GobiertoAdmin
 
       def import_nodes
         csv_file_content.each do |row|
-          row_decorator = ::GobiertoPlans::RowNodeDecorator.new(row, @plan)
+          row_decorator = ::GobiertoPlans::RowNodeDecorator.new(row, plan: @plan)
           row_decorator.categories.each(&:save)
-          row_decorator.node.save
+          row_decorator.node&.save
         end
       end
 

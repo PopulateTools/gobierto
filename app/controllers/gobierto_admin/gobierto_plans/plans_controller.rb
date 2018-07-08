@@ -88,6 +88,7 @@ module GobiertoAdmin
         @plan = find_plan
         @plan_data_form = PlanDataForm.new(plan_data_params.merge(plan: @plan))
         if @plan_data_form.save
+          track_import_csv_data_activity
           redirect_to(
             admin_plans_plan_data_path(@plan),
             notice: t(".success_html", link: gobierto_plans_plan_type_preview_url(@plan_data_form.plan, host: current_site.domain))
@@ -105,6 +106,10 @@ module GobiertoAdmin
 
       def track_update_activity
         Publishers::GobiertoPlansPlanActivity.broadcast_event("plan_updated", default_activity_params.merge(subject: @plan))
+      end
+
+      def track_import_csv_data_activity
+        Publishers::GobiertoPlansPlanActivity.broadcast_event("plan_data_csv_imported", default_activity_params.merge(subject: @plan))
       end
 
       def default_activity_params

@@ -3,6 +3,8 @@ es:
   gobierto_plans:
     events:
       gobierto_plans_plan_created: Plan creado
+      gobierto_plans_plan_data_csv_imported: Datos de plan importados desde fichero
+        CSV
       gobierto_plans_plan_type_created: Tipo de plan creado
       gobierto_plans_plan_type_updated: Tipo de plan actualizado
       gobierto_plans_plan_updated: Plan actualizado

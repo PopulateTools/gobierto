@@ -2,6 +2,12 @@
 
 module GobiertoPlans
   class RowNodeDecorator < BaseDecorator
+    STATUS_TRANSLATIONS = {
+      %w(finalitzats terminada completado) => 100.0,
+      %w(actius en\ ejecución) => 50.0,
+      %w(empezada iniciado) => 10.0,
+      %w(en\ cartera pendiente\ de\ iniciar planificada aplazada) => 0.0
+    }.freeze
 
     def initialize(object, options = {})
       if object.is_a? CSV::Row
@@ -45,6 +51,7 @@ module GobiertoPlans
                   category = categories.last
                   (category.nodes.with_name_translation(node_data["Title"], locale).first || category.nodes.new).tap do |node|
                     node.assign_attributes node_attributes
+                    node.progress = progress_from_status(node.status) unless node.progress.present?
                     node.categories << category unless node.categories.include?(category)
                   end
                 end
@@ -69,6 +76,12 @@ module GobiertoPlans
     def node_attributes
       attributes = node_mandatory_columns.invert.transform_values { |column| object[column] }
       attributes.merge(options: node_data.except("Title", "Status", "Start", "End", "Progress"))
+    end
+
+    def progress_from_status(status)
+      status = status.strip.downcase
+      key = STATUS_TRANSLATIONS.keys.find { |k| k.include?(status) }
+      STATUS_TRANSLATIONS[key]
     end
 
     def node_mandatory_columns

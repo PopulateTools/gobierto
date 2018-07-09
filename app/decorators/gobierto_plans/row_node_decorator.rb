@@ -51,7 +51,7 @@ module GobiertoPlans
                   category = categories.last
                   (category.nodes.with_name_translation(node_data["Title"], locale).first || category.nodes.new).tap do |node|
                     node.assign_attributes node_attributes
-                    node.progress = progress_from_status(node.status) unless node.progress.present?
+                    node.progress = progress_from_status(node.status) unless has_progress_column?
                     node.categories << category unless node.categories.include?(category)
                   end
                 end
@@ -67,6 +67,10 @@ module GobiertoPlans
       object.headers.select { |h| prefix.match(h) }.map do |h|
         [h.sub(prefix, ""), object[h]]
       end.to_h
+    end
+
+    def has_progress_column?
+      node_data.has_key? "Progress"
     end
 
     def locale

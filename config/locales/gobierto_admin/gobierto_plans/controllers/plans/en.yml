@@ -8,6 +8,7 @@ en:
         destroy:
           success: Plan archived successfully.
         import_data:
+          missing_file: Please, choose a file for the import.
           success_html: Data imported successfully. <a href="%{link}">View the plan</a>.
         recover:
           success: Plan has been successfully recovered.

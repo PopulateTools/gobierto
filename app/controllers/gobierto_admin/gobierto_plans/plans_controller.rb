@@ -85,6 +85,13 @@ module GobiertoAdmin
       end
 
       def import_data
+        if params[:plan].blank?
+          redirect_to(
+            admin_plans_plan_data_path(@plan),
+            alert: t(".missing_file")
+          ) and return
+        end
+
         @plan = find_plan
         @plan_data_form = PlanDataForm.new(plan_data_params.merge(plan: @plan))
         if @plan_data_form.save

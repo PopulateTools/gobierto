@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoPlans
     class PlanDataForm < BaseForm
 
-      REQUIRED_COLUMNS = %w(Node.Title Node.Status Node.Start Node.End).freeze
+      REQUIRED_COLUMNS = %w(Node.Title Node.Status).freeze
 
       attr_accessor(
         :plan,

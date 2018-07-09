@@ -18,6 +18,10 @@ module GobiertoAdmin
         @event ||= gobierto_calendars_events(:richard_published)
       end
 
+      def external_event
+        @external_event ||= gobierto_calendars_events(:richard_published_just_attending)
+      end
+
       def person
         @person ||= gobierto_people_people(:richard)
       end
@@ -127,6 +131,29 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_update_external_event
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit edit_admin_calendars_event_path(external_event, collection_id: collection)
+
+              within "form.edit_event" do
+                fill_in "event_title_translations_en", with: "Edited title"
+
+                click_button "Update"
+              end
+
+              assert has_message?("Event was successfully updated. See the event.")
+
+              external_event.reload
+
+              assert_equal "justattending", external_event.external_id
+            end
+          end
+        end
+      end
+
     end
   end
 end

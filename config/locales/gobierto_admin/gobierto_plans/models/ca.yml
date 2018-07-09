@@ -15,3 +15,11 @@ ca:
       gobierto_admin/gobierto_plans/plan_type_form:
         name: Nom
         slug: url
+    errors:
+      models:
+        gobierto_admin/gobierto_plans/plan_data_form:
+          attributes:
+            base:
+              file_not_found: Fitxer no trobat
+              invalid_columns: No estan totes les columnes necessàries
+              invalid_format: Format de fitxer invàlid

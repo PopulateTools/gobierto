@@ -4,6 +4,8 @@ module GobiertoAdmin
   module GobiertoPlans
     class PlanDataForm < BaseForm
 
+      REQUIRED_COLUMNS = %w(Node.Title Node.Status Node.Start Node.End).freeze
+
       attr_accessor(
         :plan,
         :csv_file
@@ -42,11 +44,14 @@ module GobiertoAdmin
             calculate_cached_data
           end
         end
-        # Add some kind of rescue from invalid resources
       end
 
       def csv_file_format
-        # Pending
+        errors.add(:base, :file_not_found) unless csv_file.present?
+        errors.add(:base, :invalid_format) unless csv_file_content
+        unless !csv_file_content || (REQUIRED_COLUMNS - csv_file_content.headers).blank? && csv_file_content.headers.any? { |header| /Level \d+/.match?(header) }
+          errors.add(:base, :invalid_columns)
+        end
       end
 
       def clear_previous_data
@@ -73,6 +78,8 @@ module GobiertoAdmin
       def csv_file_content
         @csv_file_content ||= begin
                                 ::CSV.read(csv_file.open, headers: true)
+                              rescue ArgumentError
+                                false
                               end
       end
     end

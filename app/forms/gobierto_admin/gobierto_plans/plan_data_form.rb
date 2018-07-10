@@ -3,6 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class PlanDataForm < BaseForm
+      class CSVRowMissingData < ArgumentError; end
 
       REQUIRED_COLUMNS = %w(Node.Title Node.Status).freeze
 
@@ -44,6 +45,9 @@ module GobiertoAdmin
             calculate_cached_data
           end
         end
+      rescue CSVRowMissingData
+        errors.add(:base, :invalid_row)
+        return false
       end
 
       def csv_file_format
@@ -62,6 +66,7 @@ module GobiertoAdmin
       def import_nodes
         csv_file_content.each do |row|
           row_decorator = ::GobiertoPlans::RowNodeDecorator.new(row, plan: @plan)
+          raise CSVRowMissingData if REQUIRED_COLUMNS.any? { |column| row_decorator[column].blank? }
           row_decorator.categories.each(&:save)
           row_decorator.node&.save
         end

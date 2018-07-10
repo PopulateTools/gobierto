@@ -23,3 +23,4 @@ es:
               file_not_found: Fichero no encontrado
               invalid_columns: No están todas las columnas necesarias
               invalid_format: Formato de fichero inválido
+              invalid_row: Se ha encontrado una fila inválida con datos insuficientes

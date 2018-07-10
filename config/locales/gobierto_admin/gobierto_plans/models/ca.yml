@@ -23,4 +23,4 @@ ca:
               file_not_found: Fitxer no trobat
               invalid_columns: No estan totes les columnes necessàries
               invalid_format: Format de fitxer invàlid
-              invalid_row: Hi ha una fila amb dades insuficients
+              invalid_row: 'Hi ha una fila amb dades invàlid: %{row_data}'

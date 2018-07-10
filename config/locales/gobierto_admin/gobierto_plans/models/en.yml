@@ -23,4 +23,4 @@ en:
               file_not_found: File not found
               invalid_columns: Required columns are missing
               invalid_format: Invalid file format
-              invalid_row: There is an invalid row with missing data
+              invalid_row: 'There is an invalid row: %{row_data}'

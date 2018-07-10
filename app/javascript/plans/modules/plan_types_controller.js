@@ -75,7 +75,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
           setActive: function() {
             var l = this.model.level;
 
-            if (l === 1) {
+            if (this.model.type === "category" && !this.model.max_level) {
               // { ...this.model } conversion to ES2015
               var _extends = Object.assign || function(target) {
                 for (var i = 1; i < arguments.length; i++) {
@@ -94,7 +94,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
               this.$emit('selection', model);
             }
 
-            if (l === 2) {
+            if (this.model.type === "category" && this.model.max_level) {
               this.$emit("toggle");
               this.isOpen = !this.isOpen;
             }

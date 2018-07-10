@@ -99,7 +99,7 @@
                       <li v-for="(model, index) in activeNode.children">
                         <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(index)"></node-list>
                         <transition name="slide-fade">
-                        <table-view :model="model" :key="model.id" :header="showTableHeader" :open="openNode" @selection="setSelection" v-if="true"></table-view>
+                        <table-view :model="model" :key="model.id" :header="showTableHeader" :open="openNode" @selection="setSelection" v-if="showTable[index]"></table-view>
                         </transition>
                       </li>
                     </ul>

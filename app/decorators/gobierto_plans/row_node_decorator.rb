@@ -83,6 +83,7 @@ module GobiertoPlans
     end
 
     def progress_from_status(status)
+      return if status.blank?
       status = status.strip.downcase
       key = STATUS_TRANSLATIONS.keys.find { |k| k.include?(status) }
       STATUS_TRANSLATIONS[key]

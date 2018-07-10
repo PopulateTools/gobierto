@@ -158,7 +158,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
             handler: function(node) {
               this.showTable = {};
               this.isOpen(node.level);
-              animate(node.level);
+              animate(node.level, node.type);
             },
             deep: true
           }
@@ -269,7 +269,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
       });
 
       // Velocity Animates
-      function animate(l) {
+      function animate(l, type) {
         if (l === 0) {
           $('section.level_0 .js-img').hide();
           $('section.level_0 .js-info').velocity({
@@ -285,13 +285,12 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
           return
         }
-
-        if (l !== 0 && l < 3) {
+        if (l !== 0 && type === "category") {
           $('section.level_' + l).hide();
           $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
 
           return
-        } else if (l >= 3) {
+        } else if (type === "node") {
           $('section.level_' + (l - 1)).hide();
           $('section.level_' + l).velocity("transition.slideRightBigIn");
 

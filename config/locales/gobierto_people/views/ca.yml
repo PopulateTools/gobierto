@@ -130,6 +130,14 @@ ca:
         cancel: Cancelar
         follow: Seguir
       trips:
+        by: per
+        in: en
+        meeting_name:
+          one: reunió
+          other: reunions
+        person_name:
+          one: persona
+          other: persones
         trip:
           accomodation_expenses: Hotels i allotjament
           company: Comitiva

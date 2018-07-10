@@ -18,6 +18,10 @@ module GobiertoParticipation
         @poll ||= gobierto_participation_polls(:ordinance_of_terraces_published)
       end
 
+      def poll_with_images
+        @poll_with_images ||= gobierto_participation_polls(:neighbor_opinion_poll)
+      end
+
       def user
         @user ||= users(:peter)
       end
@@ -32,8 +36,8 @@ module GobiertoParticipation
         )
       end
 
-      def answer_poll_path
-        @answer_poll_path ||= new_gobierto_participation_process_poll_answer_path(process.slug, poll)
+      def answer_poll_path(default_poll = poll)
+        @answer_poll_path ||= new_gobierto_participation_process_poll_answer_path(process.slug, default_poll)
       end
 
       def test_answer_poll
@@ -91,6 +95,30 @@ module GobiertoParticipation
           visit answer_poll_path
 
           assert has_message? 'You have already participated in this poll'
+        end
+      end
+
+      def test_answer_poll_with_images
+        with_javascript do
+          with_signed_in_user(user) do
+            visit answer_poll_path(poll_with_images)
+
+            # answer first question
+            find("label", text: "Yes").trigger(:click)
+            find("input.next_question").click
+
+            # lightbox is not yet visible
+            assert page.has_css?("#lightbox", visible: false)
+
+            # click on image preview
+            sleep 2
+            first(".poll_option").first("a").click
+
+            assert_equal(
+              poll_with_images.questions.second.answer_templates.first.image_url,
+              find("#lightbox img")[:src]
+            )
+          end
         end
       end
 

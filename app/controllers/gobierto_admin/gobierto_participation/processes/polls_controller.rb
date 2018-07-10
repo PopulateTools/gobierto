@@ -102,6 +102,7 @@ module GobiertoAdmin
               answer_templates_attributes: [
                 :id,
                 :text,
+                :image_file,
                 :order,
                 :_destroy
               ]

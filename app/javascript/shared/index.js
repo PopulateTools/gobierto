@@ -29,11 +29,13 @@ import * as flight from 'flightjs'
 import Mustache from 'mustache'
 import crossfilter from 'crossfilter2'
 import * as dc from 'dc'
+import Lightbox from 'lightbox2'
 
 // Initializations
 accounting.settings = settings
 Turbolinks.start()
 Vue.config.productionTip = false
+$(document).on('turbolinks:load', function(e) { Lightbox.init() })
 
 const d3 = Object.assign(d3v4Base, d3Legend, { wordwrap, parseAttributes, f, ascendingKey, descendingKey, conventions, drawAxis, attachTooltip, loadData, nestBy, round, clamp, polygonClip });
 const d3v3 = Object.assign(d3v3Base, d3Legend, { wordwrap, parseAttributes, f, ascendingKey, descendingKey, conventions, drawAxis, attachTooltip, loadData, nestBy, round, clamp, polygonClip });

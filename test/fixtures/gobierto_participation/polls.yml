@@ -43,6 +43,21 @@ schedules_draft:
   visibility_level: <%= GobiertoParticipation::Poll.visibility_levels['draft'] %>
   visibility_user_level: <%= GobiertoParticipation::Poll.visibility_user_levels['registered'] %>
 
+cycling_tracks_draft:
+  process: commission_for_carnival_festivities
+  title_translations: <%= {
+    'en' => 'Cycling Tracks',
+    'es' => 'Carriles Bici'
+  }.to_json %>
+  description_translations: <%= {
+    'en' => 'This poll is not yet published',
+    'es' => 'Esta encuesta todavía no está publicada'
+  }.to_json %>
+  starts_at: <%= 3.days.ago %>
+  ends_at: <%= 1.week.from_now %>
+  visibility_level: <%= GobiertoParticipation::Poll.visibility_levels['draft'] %>
+  visibility_user_level: <%= GobiertoParticipation::Poll.visibility_user_levels['registered'] %>
+
 public_spaces_future:
   process: commission_for_carnival_festivities
   title_translations: <%= {

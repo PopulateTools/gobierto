@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_03_140608) do
+ActiveRecord::Schema.define(version: 2018_07_09_144803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -661,6 +661,7 @@ ActiveRecord::Schema.define(version: 2018_07_03_140608) do
     t.bigint "question_id", null: false
     t.string "text", null: false
     t.integer "order", default: 0, null: false
+    t.string "image_url"
     t.index ["question_id"], name: "index_gpart_poll_answer_templates_on_question_id"
   end
 

@@ -77,11 +77,13 @@
 
           <% (1..generic_levels).each do |level_index| %>
             <section class="level_<%= level_index -%>" v-if="isOpen(<%= level_index -%>)" :class="['cat_' + color() ]">
-              <div class="lines-header">
-                <div>{{ (activeNode.children || []).length }} {{ getLabel(activeNode.level, (activeNode.children || []).length) | translate }}</div>
+              <% unless level_index == @levels %>
+                <div class="lines-header">
+                  <div>{{ (activeNode.children || []).length }} {{ getLabel(activeNode.level, (activeNode.children || []).length) | translate }}</div>
 
-                <div><%= t(".percentage_progress") %></div>
-              </div>
+                  <div><%= t(".percentage_progress") %></div>
+                </div>
+              <% end %>
 
               <% if level_index > 1 %>
                 <div class="node-breadcrumb mb2">

@@ -132,14 +132,6 @@ es:
         cancel: Cancelar
         follow: Seguir
       trips:
-        by: por
-        in: en
-        meeting_name:
-          one: reunión
-          other: reuniones
-        person_name:
-          one: persona
-          other: personas
         trip:
           accomodation_expenses: Hoteles y alojamiento
           company: Comitiva

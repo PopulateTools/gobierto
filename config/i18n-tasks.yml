@@ -86,8 +86,6 @@ ignore_unused:
   - 'gobierto_admin.gobierto_participation.processes.edit.*'
   - 'gobierto_admin.gobierto_participation.processes.*.success_*'
   - 'grammatical_particles.*'
-  - 'gobierto_people.people.trips.*'
-  - 'countries.*'
 
 translation:
   api_key: ''

@@ -128,14 +128,6 @@ en:
         cancel: Cancel
         follow: Folloe
       trips:
-        by: by
-        in: in
-        meeting_name:
-          one: meeting
-          other: meetings
-        person_name:
-          one: person
-          other: people
         trip:
           accomodation_expenses: Accomodation
           company: Committee

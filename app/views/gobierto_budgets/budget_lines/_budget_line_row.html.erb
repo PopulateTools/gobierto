@@ -1,6 +1,6 @@
 <tr data-budget-line="<%= budget_line.code %>">
   <td>
-    <% if GobiertoBudgets::BudgetLine.has_children?({code: budget_line.code, level: budget_line.level, area: area_name, year: year, ine_code: place.id, kind: kind}) %>
+    <% if GobiertoBudgets::BudgetLine.has_children?({code: budget_line.code, level: budget_line.level, area: area_name, year: year, organization_id: current_site.organization_id, kind: kind}) %>
       <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe, gobierto_budgets_budget_line_descendants_path(year, area_name, kind, parent_code: budget_line.code), remote: true, 'aria-label' => 'Plus' %>
     <% else %>
       <i class="fa fa-plus-square-o invisible"></i>
@@ -9,7 +9,7 @@
     <%= link_to budget_line.name, gobierto_budgets_budget_line_path(budget_line.to_param) %>
   </td>
   <td class="qty big_qty"><%= number_to_currency budget_line.amount, precision: 0 %></td>
-  <td class="qty"><%= number_to_currency budget_line.amount_per_inhabitant, precision: 0 %></td>
-  <td class="qty"><%= number_with_precision(budget_line.percentage_of_total, precision: 2) + '%' %></td>
+  <%= content_tag :td, number_to_currency(budget_line.amount_per_inhabitant, precision: 0), class: "qty" if budget_line.amount_per_inhabitant %>
+  <td class="qty"><%= number_with_precision(budget_line.percentage_of_total, precision: 2) + ' %' %></td>
   <td class="bar"><div class="bar" style="width:<%= budget_line.percentage_of_total %>%"></div></td>
 </tr>

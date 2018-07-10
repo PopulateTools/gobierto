@@ -16,7 +16,7 @@ class User::VerificationTest < ActiveSupport::TestCase
   end
 
   def test_current_by_site
-    assert_equal user_verification.id, User::Verification.current_by_site(site).id
+    assert_equal user_verification.id, User::Verification.send(user_verification.verification_type).current_by_site(site).id
   end
 
   def test_verify!

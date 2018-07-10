@@ -1,0 +1,427 @@
+/* COLOR MANAGER */
+$color_pam_1: #db524b;
+$color_pam_2: #00909e;
+$color_pam_3: #f1ad44;
+$color_pam_4: #85a81c;
+$color_pam_5: #00529e;
+
+.gobierto_planification {
+  section.level_0 {
+    .cat_1 {
+      background-color: rgba($color_pam_1, 0.95);
+
+      .progress {
+        background-color: $color_pam_1;
+      }
+    }
+
+    .cat_2 {
+      background-color: rgba($color_pam_2, 0.95);
+
+      .progress {
+        background-color: $color_pam_2;
+      }
+    }
+
+    .cat_3 {
+      background-color: rgba($color_pam_3, 0.95);
+
+      .progress {
+        background-color: $color_pam_3;
+      }
+    }
+
+    .cat_4 {
+      background-color: rgba($color_pam_4, 0.95);
+
+      .progress {
+        background-color: $color_pam_4;
+      }
+    }
+
+    .cat_5 {
+      background-color: rgba($color_pam_5, 0.95);
+
+      .progress {
+        background-color: $color_pam_5;
+      }
+    }
+  }
+
+  section:not(.level_0) {
+    &.cat_1 {
+      background: rgba($color_pam_1, 0.1);
+      color: $color_pam_1;
+
+      .node-list .node-title h3,
+      .node-list .node-title h3 a {
+        color: $color_pam_1;
+      }
+
+      .node-list .node-title .fa {
+        background: rgba($color_pam_1, 0.1);
+      }
+
+      .node-list.cat--negative .node-title h3,
+      .node-list.cat--negative .node-title h3 a {
+        color: $color_main_negative;
+      }
+
+      .node-list.cat--negative .node-title .fa {
+        background: $color_main_negative;
+        color: $color_pam_1;
+      }
+
+      .node-breadcrumb {
+        border: 1px solid rgba($color_pam_1, 0.75);
+        color: $color_pam_1;
+      }
+
+      .node-breadcrumb a {
+        color: $color_pam_1;
+      }
+
+      .node-breadcrumb .fa {
+        background: rgba($color_pam_1, 0.1);
+      }
+
+      .node-action-line table tbody tr:hover td {
+        background-color: rgba($color_pam_1, 0.2);
+      }
+
+      .node-project-detail .project-optional .row {
+        border-top: 1px solid rgba($color_pam_1, 0.2);
+      }
+
+      .node-project-detail .project-mandatory {
+        background-color: rgba($color_pam_1, 0.2);
+      }
+
+      .cat--negative {
+        background: $color_pam_1;
+        color: $color_main_negative;
+      }
+
+      .cat--negative h3,
+      .cat--negative h3 a {
+        color: $color_main_negative;
+      }
+
+      .cat--negative .fa {
+        background: $color_main_negative;
+        color: $color_pam_1;
+      }
+    }
+
+    &.cat_2 {
+      background: rgba($color_pam_2, 0.1);
+      color: $color_pam_2;
+
+      .node-list .node-title h3,
+      .node-list .node-title h3 a {
+        color: $color_pam_2;
+      }
+
+      .node-list .node-title .fa {
+        background: rgba($color_pam_2, 0.1);
+      }
+
+      .node-list.cat--negative .node-title h3,
+      .node-list.cat--negative .node-title h3 a {
+        color: $color_main_negative;
+      }
+
+      .node-list.cat--negative .node-title .fa {
+        background: $color_main_negative;
+        color: $color_pam_2;
+      }
+
+      .node-breadcrumb {
+        border: 1px solid rgba($color_pam_2, 0.75);
+        color: $color_pam_2;
+      }
+
+      .node-breadcrumb a {
+        color: $color_pam_2;
+      }
+
+      .node-breadcrumb .fa {
+        background: rgba($color_pam_2, 0.1);
+      }
+
+      .node-action-line table tbody tr:hover td {
+        background-color: rgba($color_pam_2, 0.2);
+      }
+
+      .node-project-detail .project-optional .row {
+        border-top: 1px solid rgba($color_pam_2, 0.2);
+      }
+
+      .node-project-detail .project-mandatory {
+        background-color: rgba($color_pam_2, 0.2);
+      }
+
+      .cat--negative {
+        background: $color_pam_2;
+        color: $color_main_negative;
+      }
+
+      .cat--negative h3,
+      .cat--negative h3 a {
+        color: $color_main_negative;
+      }
+
+      .cat--negative .fa {
+        background: $color_main_negative;
+        color: $color_pam_2;
+      }
+    }
+
+    &.cat_3 {
+      background: rgba($color_pam_3, 0.1);
+      color: $color_pam_3;
+
+      .node-list .node-title h3,
+      .node-list .node-title h3 a {
+        color: $color_pam_3;
+      }
+
+      .node-list .node-title .fa {
+        background: rgba($color_pam_3, 0.1);
+      }
+
+      .node-list.cat--negative .node-title h3,
+      .node-list.cat--negative .node-title h3 a {
+        color: $color_main_negative;
+      }
+
+      .node-list.cat--negative .node-title .fa {
+        background: $color_main_negative;
+        color: $color_pam_3;
+      }
+
+      .node-breadcrumb {
+        border: 1px solid rgba($color_pam_3, 0.75);
+        color: $color_pam_3;
+      }
+
+      .node-breadcrumb a {
+        color: $color_pam_3;
+      }
+
+      .node-breadcrumb .fa {
+        background: rgba($color_pam_3, 0.1);
+      }
+
+      .node-action-line table tbody tr:hover td {
+        background-color: rgba($color_pam_3, 0.2);
+      }
+
+      .node-project-detail .project-optional .row {
+        border-top: 1px solid rgba($color_pam_3, 0.2);
+      }
+
+      .node-project-detail .project-mandatory {
+        background-color: rgba($color_pam_3, 0.2);
+      }
+
+      .cat--negative {
+        background: $color_pam_3;
+        color: $color_main_negative;
+      }
+
+      .cat--negative h3,
+      .cat--negative h3 a {
+        color: $color_main_negative;
+      }
+
+      .cat--negative .fa {
+        background: $color_main_negative;
+        color: $color_pam_3;
+      }
+    }
+
+    &.cat_4 {
+      background: rgba($color_pam_4, 0.1);
+      color: $color_pam_4;
+
+      .node-list .node-title h3,
+      .node-list .node-title h3 a {
+        color: $color_pam_4;
+      }
+
+      .node-list .node-title .fa {
+        background: rgba($color_pam_4, 0.1);
+      }
+
+      .node-list.cat--negative .node-title h3,
+      .node-list.cat--negative .node-title h3 a {
+        color: $color_main_negative;
+      }
+
+      .node-list.cat--negative .node-title .fa {
+        background: $color_main_negative;
+        color: $color_pam_4;
+      }
+
+      .node-breadcrumb {
+        border: 1px solid rgba($color_pam_4, 0.75);
+        color: $color_pam_4;
+      }
+
+      .node-breadcrumb a {
+        color: $color_pam_4;
+      }
+
+      .node-breadcrumb .fa {
+        background: rgba($color_pam_4, 0.1);
+      }
+
+      .node-action-line table tbody tr:hover td {
+        background-color: rgba($color_pam_4, 0.2);
+      }
+
+      .node-project-detail .project-optional .row {
+        border-top: 1px solid rgba($color_pam_4, 0.2);
+      }
+
+      .node-project-detail .project-mandatory {
+        background-color: rgba($color_pam_4, 0.2);
+      }
+
+      .cat--negative {
+        background: $color_pam_4;
+        color: $color_main_negative;
+      }
+
+      .cat--negative h3,
+      .cat--negative h3 a {
+        color: $color_main_negative;
+      }
+
+      .cat--negative .fa {
+        background: $color_main_negative;
+        color: $color_pam_4;
+      }
+    }
+
+    &.cat_5 {
+      background: rgba($color_pam_5, 0.1);
+      color: $color_pam_5;
+
+      .node-list .node-title h3,
+      .node-list .node-title h3 a {
+        color: $color_pam_5;
+      }
+
+      .node-list .node-title .fa {
+        background: rgba($color_pam_5, 0.1);
+      }
+
+      .node-list.cat--negative .node-title h3,
+      .node-list.cat--negative .node-title h3 a {
+        color: $color_main_negative;
+      }
+
+      .node-list.cat--negative .node-title .fa {
+        background: $color_main_negative;
+        color: $color_pam_5;
+      }
+
+      .node-breadcrumb {
+        border: 1px solid rgba($color_pam_5, 0.75);
+        color: $color_pam_5;
+      }
+
+      .node-breadcrumb a {
+        color: $color_pam_5;
+      }
+
+      .node-breadcrumb .fa {
+        background: rgba($color_pam_5, 0.1);
+      }
+
+      .node-action-line table tbody tr:hover td {
+        background-color: rgba($color_pam_5, 0.2);
+      }
+
+      .node-project-detail .project-optional .row {
+        border-top: 1px solid rgba($color_pam_5, 0.2);
+      }
+
+      .node-project-detail .project-mandatory {
+        background-color: rgba($color_pam_5, 0.2);
+      }
+
+      .cat--negative {
+        background: $color_pam_5;
+        color: $color_main_negative;
+      }
+
+      .cat--negative h3,
+      .cat--negative h3 a {
+        color: $color_main_negative;
+      }
+
+      .cat--negative .fa {
+        background: $color_main_negative;
+        color: $color_pam_5;
+      }
+    }
+  }
+}
+
+/*
+
+TEMPLATE STYLES
+
+Hint:
+Replace variable $color_pam_1 with ternary color, f.e. 123,123,123 (No parenthesis, no quotes, just 2 commas)
+If you need extra colors, add this block again renaming cat_1 (cat_2, cat_3, cat_4....)
+
+.gobierto_planification section:not(.level_0).cat_1,
+.gobierto_planification section:not(.level_0).cat_1 .node-list .node-title h3,
+.gobierto_planification section:not(.level_0).cat_1 .node-list .node-title h3 a,
+.gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb,
+.gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb a,
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
+.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+  color: rgb($color_pam_1);
+}
+.gobierto_planification section:not(.level_0).cat_1,
+.gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb .fa,
+.gobierto_planification section:not(.level_0).cat_1 .node-list .node-title .fa {
+  background: rgba($color_pam_1, 0.1);
+}
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative,
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative h3,
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative h3 a,
+.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title h3,
+.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title h3 a {
+  color: white;
+}
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
+.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+  background: white;
+}
+.gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb {
+  border: 1px solid rgba($color_pam_1, 0.75);
+}
+.gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-mandatory,
+.gobierto_planification section:not(.level_0).cat_1 .node-action-line table tbody tr:hover td {
+  background-color: rgba($color_pam_1, 0.2);
+}
+.gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-optional .row {
+  border-top: 1px solid rgba($color_pam_1, 0.2);
+}
+.gobierto_planification section.level_0 .cat_1 {
+  background-color: rgba($color_pam_1, 0.95);
+}
+.gobierto_planification section.level_0 .cat_1 .progress {
+  background-color: rgb($color_pam_1);
+}
+.gobierto_planification section:not(.level_0).cat_1 .cat--negative {
+  background: rgb($color_pam_1);
+}
+
+*/

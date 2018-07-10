@@ -3,8 +3,9 @@ es:
   gobierto_admin:
     sites:
       edit:
-        title: Personalizar site
+        title: Personalizar sitio
       form:
+        authentication_modules: Estrategias de autenticación
         hints:
           domain:
             a_record: Entrada A a %{target}
@@ -12,14 +13,14 @@ es:
             if_domain: Si es un dominio
             if_subdomain: Si es un subdominio
             instructions: 'Importante: este dominio deberá estar creado previamente
-              para que el site funcione correctamente.'
-        modules_enabled: Módulos activados para este site
+              para que el sitio funcione correctamente.'
+        modules_enabled: Módulos activados para este sitio
         password: Contraseña
         placeholders:
           domain: gobierto.burjassot.es
           google_analytics_id: UA-000000-01
-          location_name: Burjassot
           name: Ayuntamiento de Burjassot
+          organization_name: Burjassot
           populate_data_api_token: Token de API de Populate Data
           title: Transparencia y Participación
         username: Nombre de usuario
@@ -31,10 +32,10 @@ es:
         header:
           created_at: Creado
           domain: Dominio
-          site: Site
+          site: Sitio
           status: Estado
-        new: Crear site
+        new: Crear sitio
         title: Sites
-        view_site: Ver site
+        view_site: Ver sitio
       new:
-        title: Crear site
+        title: Crear sitio

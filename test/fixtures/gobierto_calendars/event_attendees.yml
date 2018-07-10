@@ -1,3 +1,5 @@
+## Richard
+
 richard_richard_pending:
   event: richard_pending
   person: richard
@@ -16,23 +18,53 @@ richard_richard_published_just_attending:
   name:
   charge:
 
+richard_richard_published_past:
+  event: richard_published_past
+  person: richard
+  name:
+  charge:
+
+richard_richard_culture_department_event_google:
+  event: richard_culture_department_event_google
+  person: richard
+  name:
+  charge:
+
+richard_richard_culture_department_event_accenture:
+  event: richard_culture_department_event_accenture
+  person: richard
+
+## Tamara
+
 tamara_richard_published:
   event: richard_published
   person: tamara
   name:
   charge:
 
-custom:
-  event: richard_published
-  person:
-  name: John Custom
-  charge: President
-
-richard_richard_published_past:
-  event: richard_published_past
-  person: richard
+tamara_tamara_published_past:
+  event: tamara_published_past
+  person: tamara
   name:
   charge:
+
+tamara_tamara_justice_department_event_without_interest_group:
+  event: tamara_justice_department_event_without_interest_group
+  person: tamara
+
+tamara_tamara_justice_department_event_coca_cola_recent:
+  event: tamara_justice_department_event_coca_cola_recent
+  person: tamara
+
+tamara_tamara_justice_department_event_pepsi_old:
+  event: tamara_justice_department_event_pepsi_old
+  person: tamara
+
+tamara_tamara_justice_department_event_pepsi_very_old:
+  event: tamara_justice_department_event_pepsi_very_old
+  person: tamara
+
+## Nelson
 
 nelson_nelson_tomorrow:
   event: nelson_tomorrow
@@ -58,8 +90,28 @@ nelson_nelson_yesterday_fixed:
   name:
   charge:
 
-tamara_tamara_published_past:
-  event: tamara_published_past
-  person: tamara
-  name:
-  charge:
+## Neil
+
+neil_neil_ecology_department_old:
+  event: neil_ecology_department_old
+  person: neil
+
+neil_neil_tourism_department_very_old:
+  event: neil_tourism_department_very_old
+  person: neil
+
+neil_neil_immigration_department_recent:
+  event: neil_immigration_department_recent
+  person: neil
+
+neil_neil_immigration_department_old:
+  event: neil_immigration_department_old
+  person: neil
+
+## Custom
+
+custom:
+  event: richard_published
+  person:
+  name: John Custom
+  charge: President

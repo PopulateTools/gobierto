@@ -40,8 +40,8 @@ module GobiertoAdmin
           end
 
           within ".site-check-boxes" do
-            uncheck "santander.gobierto.dev"
-            check "madrid.gobierto.dev"
+            uncheck "santander.gobierto.test"
+            check "madrid.gobierto.test"
           end
 
           within ".admin-authorization-level-radio-buttons" do
@@ -59,12 +59,12 @@ module GobiertoAdmin
 
           within ".site-module-check-boxes" do
             assert has_checked_field?("Gobierto Development")
-            refute has_checked_field?("Gobierto Budgets")
+            assert has_no_checked_field?("Gobierto Budgets")
           end
 
           within ".site-check-boxes" do
-            refute has_checked_field?("santander.gobierto.dev")
-            assert has_checked_field?("madrid.gobierto.dev")
+            assert has_no_checked_field?("santander.gobierto.test")
+            assert has_checked_field?("madrid.gobierto.test")
           end
 
           within ".admin-authorization-level-radio-buttons" do
@@ -83,7 +83,7 @@ module GobiertoAdmin
           fill_in "admin_password", with: "wadus"
           fill_in "admin_password_confirmation", with: "wadus"
 
-          refute has_selector?(".site-check-boxes")
+          assert has_no_selector?(".site-check-boxes")
 
           within ".admin-authorization-level-radio-buttons" do
             choose "Regular"
@@ -115,9 +115,9 @@ module GobiertoAdmin
           assert has_field?("admin_name", disabled: true)
           assert has_field?("admin_email", disabled: true)
 
-          refute has_selector?(".site-module-check-boxes")
-          refute has_selector?(".site-check-boxes")
-          refute has_selector?(".admin-authorization-level-radio-buttons")
+          assert has_no_selector?(".site-module-check-boxes")
+          assert has_no_selector?(".site-check-boxes")
+          assert has_no_selector?(".admin-authorization-level-radio-buttons")
 
           assert has_button?("Update", disabled: true)
         end
@@ -139,7 +139,7 @@ module GobiertoAdmin
           end
 
           within ".site-check-boxes" do
-            check "madrid.gobierto.dev"
+            check "madrid.gobierto.test"
           end
 
           within ".admin-authorization-level-radio-buttons" do
@@ -167,7 +167,7 @@ module GobiertoAdmin
           end
 
           within ".site-check-boxes" do
-            check "madrid.gobierto.dev"
+            check "madrid.gobierto.test"
           end
 
           within ".admin-authorization-level-radio-buttons" do

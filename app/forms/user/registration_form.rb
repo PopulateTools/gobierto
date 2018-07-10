@@ -1,5 +1,6 @@
-class User::RegistrationForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::RegistrationForm < BaseForm
 
   attr_accessor(
     :email,
@@ -27,7 +28,7 @@ class User::RegistrationForm
   def save_user
     @user = user.tap do |user_attributes|
       user_attributes.email = email
-      user_attributes.source_site = site
+      user_attributes.site = site
       user_attributes.creation_ip = creation_ip
       user_attributes.referrer_entity = referrer_entity
       user_attributes.referrer_url = referrer_url
@@ -50,12 +51,6 @@ class User::RegistrationForm
   end
 
   protected
-
-  def promote_errors(errors_hash)
-    errors_hash.each do |attribute, message|
-      errors.add(attribute, message)
-    end
-  end
 
   def deliver_confirmation_email
     User::UserMailer.confirmation_instructions(user, site).deliver_later

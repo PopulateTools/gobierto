@@ -17,7 +17,8 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
         madrid_custom_user_field_district.name => { "custom_user_field_id" => madrid_custom_user_field_district.id, "value" => madrid_custom_user_field_district.options.keys.first },
         madrid_custom_user_field_association.name => { "custom_user_field_id" => madrid_custom_user_field_association.id, "value" => "Foo" }
       },
-      document_number: "00000000A"
+      document_number: "00000000A",
+      site: unconfirmed_user.site
     )
   end
 
@@ -31,7 +32,8 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
       date_of_birth_month: nil,
       date_of_birth_day: nil,
       gender: nil,
-      document_number: nil
+      document_number: nil,
+      site: nil
     )
   end
 
@@ -71,6 +73,19 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
     valid_user_confirmation_form.save
     assert unconfirmed_user.reload.confirmed?
     assert unconfirmed_user.census_verified?
+  end
+
+  def test_false_password_enabled_attribute
+    invalid_user_confirmation_form.password_enabled = false
+
+    valid_user_confirmation_form.password_enabled = false
+    valid_user_confirmation_form.password = nil
+    valid_user_confirmation_form.password_confirmation = nil
+
+    refute invalid_user_confirmation_form.save
+    assert_empty invalid_user_confirmation_form.errors.messages[:password]
+
+    assert valid_user_confirmation_form.save
   end
 
   def test_user_notifications_set_up

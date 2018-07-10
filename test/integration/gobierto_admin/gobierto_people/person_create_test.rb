@@ -40,15 +40,17 @@ module GobiertoAdmin
               visit @path
 
               within "form.new_person" do
-                refute has_field?("person_charge_translations_ca", visible: false)
+                assert has_no_field?("person_charge_translations_ca", visible: false)
 
                 within ".avatar_file_field" do
-                  refute has_selector?("img")
-                  attach_file "person_avatar_file", "test/fixtures/files/gobierto_people/people/avatar.jpg"
+                  assert has_no_selector?("img")
+                  attach_file "person_avatar_image", "test/fixtures/files/gobierto_people/people/avatar.jpg"
                 end
+              end
 
+              within "form.new_person" do
                 fill_in "person_name", with: "Person Name"
-                fill_in "Charge", with: "Person Charge"
+                fill_in "Position", with: "Person Position"
 
                 within ".person-category-radio-buttons" do
                   find("label", text: "Politician").click
@@ -68,7 +70,7 @@ module GobiertoAdmin
                 find("#person_bio_translations_en", visible: false).set("Person Bio")
 
                 within ".bio_file_field" do
-                  refute has_selector?("a")
+                  assert has_no_selector?("a")
                   attach_file "person_bio_file", "test/fixtures/files/gobierto_people/people/bio.pdf"
                 end
 
@@ -80,7 +82,7 @@ module GobiertoAdmin
 
                 click_link "ES"
 
-                fill_in "Charge", with: "Cargo persona"
+                fill_in "Position", with: "Cargo persona"
                 find("#person_bio_translations_es", visible: false).set("Bio Persona")
 
                 with_stubbed_s3_file_upload do
@@ -97,7 +99,7 @@ module GobiertoAdmin
                 end
 
                 assert has_field?("person_name", with: "Person Name")
-                assert has_field?("Charge", with: "Person Charge")
+                assert has_field?("Position", with: "Person Position")
 
                 within ".person-category-radio-buttons" do
                   with_hidden_elements do
@@ -114,7 +116,7 @@ module GobiertoAdmin
                 assert has_select?("Political group", selected: political_group.name)
 
                 assert_equal(
-                  "<div>Person Bio</div>",
+                  "Person Bio",
                   find("#person_bio_translations_en", visible: false).value
                 )
 
@@ -133,10 +135,10 @@ module GobiertoAdmin
 
                 click_link "ES"
 
-                assert has_field?("Charge", with: "Cargo persona")
+                assert has_field?("Position", with: "Cargo persona")
 
                 assert_equal(
-                  "<div>Bio Persona</div>",
+                  "Bio Persona",
                   find("#person_bio_translations_es", visible: false).value
                 )
               end

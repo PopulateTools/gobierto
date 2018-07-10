@@ -24,6 +24,8 @@ ca:
           comparison_show_widget_desc: 'Facilita l''accés a la ferramenta de comparació
             de pressupostos de Gobierto: presupuestos.gobierto.es'
           comparison_tool_enabled_desc: Habilita ferramentes de comparació
+          confirm_update_annual_data: Començarà un procés en segon pla per actualitzar
+            els fitxers. Continuar?
           elaboration: Elaboració
           elaboration_desc1: Habilita la secció d'Elaboració del pressupost
           elaboration_desc2_html: "<strong>Important:</strong> es necessari carregar
@@ -34,11 +36,16 @@ ca:
             partides del pressupost
           feedback_emails_desc: Les participacions (opinió sobre partides i petició
             de més informació) s'enviaràn a aquesta direcció
+          indicators: Indicadors
+          indicators_desc1: Habilita la secció Indicadors
           options: Opcions
+          providers: Proveïdors i Factures
+          providers_desc1: Habilita la secció Proveïdors i Factures
           receipt: Recibo de tus impuestos
           receipt_desc1: Habilita la sección El recibo de tus impuestos
           receipt_desc2_html: "<strong>Importante:</strong> debes de rellenar el JSON
             con los datos."
+          update_annual_data: Generar fitxers de partides del pressupost per any
       shared:
         tabs:
           budgets: Pressupost

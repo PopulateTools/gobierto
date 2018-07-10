@@ -1,0 +1,18 @@
+<div id='ibm_notes_fields' style="<%= (integration_name != 'ibm_notes') ? 'display: none;' : '' %>">
+
+  <div class='form_item input_text'>
+    <%= f.label :ibm_notes_usr, t('gobierto_admin.gobierto_calendars.calendar_configuration.edit.labels.ibm_notes_usr') %>
+    <%= f.text_field :ibm_notes_usr, placeholder: t('gobierto_admin.gobierto_calendars.calendar_configuration.edit.placeholders.username') %>
+  </div>
+
+  <div class='form_item input_text'>
+    <%= f.label :ibm_notes_pwd, t('gobierto_admin.gobierto_calendars.calendar_configuration.edit.labels.ibm_notes_pwd') %>
+    <%= f.password_field :ibm_notes_pwd, value: f.object.dummy_ibm_notes_pwd %>
+  </div>
+
+  <div class='form_item input_text'>
+    <%= f.label :ibm_notes_url, t('gobierto_admin.gobierto_calendars.calendar_configuration.edit.labels.ibm_notes_url') %>
+    <%= f.text_field :ibm_notes_url, placeholder: t('gobierto_admin.gobierto_calendars.calendar_configuration.edit.placeholders.ibm_notes_url') %>
+  </div>
+
+</div>

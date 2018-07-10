@@ -3,16 +3,13 @@ module GobiertoAdmin
     include SessionHelper
     include SiteSessionHelper
     include LayoutPolicyHelper
+    include ::GobiertoCms::PageHelper
 
     skip_before_action :authenticate_user_in_site
-    before_action :authenticate_admin!
-    before_action :set_admin_site
+    before_action :authenticate_admin!, :set_admin_site
 
-    helper_method :current_admin, :admin_signed_in?
-    helper_method :current_site, :managing_site?
-    helper_method :managed_sites
-    helper_method :can_manage_sites?
-    helper_method :gobierto_cms_page_preview_url
+    helper_method :current_admin, :admin_signed_in?, :current_site, :managing_site?,
+                  :managed_sites, :can_manage_sites?, :gobierto_cms_page_preview_path
 
     rescue_from Errors::NotAuthorized, with: :raise_admin_not_authorized
 
@@ -43,14 +40,8 @@ module GobiertoAdmin
       if request.host != current_site.domain
         if managed_sites && (site = managed_sites.find_by(domain: request.host))
           enter_site(site.id)
-          redirect_to admin_root_path
         end
       end
-    end
-
-    def gobierto_cms_page_preview_url(page, options = {})
-      options.merge!(preview_token: current_admin.preview_token) unless page.active?
-      page.to_url(options)
     end
 
     protected
@@ -68,5 +59,11 @@ module GobiertoAdmin
         alert: t("gobierto_admin.module_helper.not_enabled")
       )
     end
+
+    def gobierto_cms_page_preview_path(page, options = {})
+      options.merge!(preview_token: current_admin.preview_token) unless page.active?
+      gobierto_cms_page_or_news_path(page, options)
+    end
+
   end
 end

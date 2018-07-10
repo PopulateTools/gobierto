@@ -1,0 +1,30 @@
+<% if question.multiple_choice? %>
+  <div class='help'><%= t('.multiple_choice_msg') %></div>
+  <div class='questions' id="checkboxes">
+    <% question.answer_templates.each_with_index do |answer_template, idx| %>
+      <label class="control radio">
+        <%= check_box_tag "checkboxes", answer_template.id %>
+        <span class="control-indicator"></span>
+        <%= label_tag "poll[questions_attributes][0][answers_attributes][#{idx}][answer_template_id]" do %>
+          <%= answer_template.text %>
+        <% end %>
+      </label>
+      <%= check_box_tag "poll[questions_attributes][0][answers_attributes][#{idx}][answer_template_id]", answer_template.id %>
+      <div class='poll_option'>
+        <%= label_tag "poll[questions_attributes][0][answers_attributes][#{idx}][answer_template_id]", answer_template.text %>
+      </div>
+    <% end %>
+  </div>
+<% elsif question.single_choice? %>
+  <div class='questions'>
+    <% question.answer_templates.each_with_index do |answer_template, idx| %>
+      <label class="control radio">
+        <%= radio_button_tag "radio", answer_template.id %>
+        <span class="control-indicator"></span>
+        <%= label_tag "poll[questions_attributes][0][answers_attributes][#{idx}][answer_template_id][#{answer_template.id}]" do %>
+          <%= answer_template.text %>
+        <% end %>
+      </label>
+    <% end %>
+  </div>
+<% end %>

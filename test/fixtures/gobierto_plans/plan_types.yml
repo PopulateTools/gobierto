@@ -1,0 +1,11 @@
+pam:
+  name_translations: <%= { 'en' => 'pam',
+                           'es' => 'pam' }.to_json %>
+  slug: "pam"
+  site: madrid
+
+pu:
+  name_translations: <%= { 'en' => 'Urban Development Plan',
+                           'es' => 'Plan Urbanístico' }.to_json %>
+  slug: "pu"
+  site: madrid

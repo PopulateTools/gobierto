@@ -4,8 +4,8 @@
   </strong>
 <% end %>
 
-<%= content_for :body_attributes do %>
-  class="theme-participation gobierto_participation"
+<% content_for(:current_submodule_link) do %>
+  <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
 <% end %>
 
 <div class="gradient-bg">

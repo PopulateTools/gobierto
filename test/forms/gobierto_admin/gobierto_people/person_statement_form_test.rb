@@ -19,7 +19,7 @@ module GobiertoAdmin
 
       def invalid_person_statement_form
         @invalid_person_statement_form ||= PersonStatementForm.new(
-          person_id: nil,
+          person_id: person.id,
           title_translations: {},
           published_on: nil
         )
@@ -41,6 +41,16 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def uploaded_file
+        @uploaded_file ||= begin
+                             tmp_file = Tempfile.new
+                             tmp_file.binmode
+                             tmp_file.write("Test content")
+                             ActionDispatch::Http::UploadedFile.new(tempfile: tmp_file,
+                                                                    original_filename: "file.pdf")
+                           end
+      end
+
       def test_save_with_valid_attributes
         assert valid_person_statement_form.save
       end
@@ -48,7 +58,6 @@ module GobiertoAdmin
       def test_error_messages_with_invalid_attributes
         invalid_person_statement_form.save
 
-        assert_equal 1, invalid_person_statement_form.errors.messages[:person].size
         assert_equal 1, invalid_person_statement_form.errors.messages[:title_translations].size
         assert_equal 1, invalid_person_statement_form.errors.messages[:published_on].size
       end
@@ -64,7 +73,7 @@ module GobiertoAdmin
         person_statement_params = {
           title_translations: { I18n.locale => person_statement.title },
           published_on: person_statement.published_on,
-          content_block_records_attributes: { "0" => { attachment_file: "file.pdf" } }
+          content_block_records_attributes: { "0" => { attachment_file: uploaded_file } }
         }
 
         ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/file.pdf")

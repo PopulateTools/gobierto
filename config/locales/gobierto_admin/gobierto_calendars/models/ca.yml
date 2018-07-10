@@ -2,11 +2,19 @@
 ca:
   activemodel:
     attributes:
+      gobierto_admin/gobierto_calendars/calendar_configuration_form:
+        ibm_notes_pwd: La contrasenya
+        ibm_notes_url: La URL
+        ibm_notes_usr: El nom d'usuari
+        microsoft_exchange_pwd: La contrasenya
+        microsoft_exchange_url: La URL
+        microsoft_exchange_usr: El nom d'usuari
       gobierto_admin/gobierto_calendars/event_form:
         attachment_file: Fitxer adjunt
         description: Descripció
         ends_at: Data de finalització
         starts_at: Data de començament
         title: Títol
+        title_translations: Títol
     models:
       gobierto_admin/gobierto_calendars/event_form: Esdeveniment

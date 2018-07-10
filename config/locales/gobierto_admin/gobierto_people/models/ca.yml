@@ -2,10 +2,6 @@
 ca:
   activemodel:
     attributes:
-      gobierto_admin/gobierto_people/person_calendar_configuration_form:
-        microsoft_exchange_pwd: Contrasenya
-        microsoft_exchange_url: URL
-        microsoft_exchange_usr: Compte
       gobierto_admin/gobierto_people/person_form:
         avatar_file: Avatar
         avatar_url: Avatar
@@ -26,6 +22,7 @@ ca:
         attachment_file: Fitxer adjunt
         published_on: Data de publicació
         title: Títol
+        title_translations: Títol
       gobierto_admin/gobierto_people/political_group_form:
         name: Nom de l'grupació
     models:

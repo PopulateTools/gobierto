@@ -6,15 +6,33 @@
       <div class="form_item file_field avatar_file_field">
         <%= f.label :avatar_file, t(".avatar_file_constraints") %>
 
+        <!-- Popup itself -->
+        <div id="crop-popup" class="modal mfp-hide">
+          <div style="margin-right: 1em">
+            <img id="image" width="100%" src="">
+          </div>
+
+          <div class="actions m_v_1 right">
+            <button type="button" id="btnCrop"><%= t(".crop") %></button>
+          </div>
+        </div>
+
         <% if f.object.avatar_url.present? %>
-          <%= image_tag f.object.avatar_url, height: 150 %>
+          <%= image_tag f.object.avatar_url, height: 150, id: :saved_image %>
         <% end %>
 
-        <%= f.file_field :avatar_file %>
+        <%= f.file_field :avatar_file, id: :person_avatar_image %>
+
+        <% %w[x y w h].each do |attribute| %>
+        <%= f.hidden_field "logo_crop_#{attribute}", id:"logo_crop_#{attribute}" %>
+      <% end %>
       </div>
 
       <div class="form_item input_text">
-        <%= f.label :name %>
+        <%= label_tag "person[name]" do %>
+          <%= f.object.class.human_attribute_name(:name) %>
+          <%= attribute_indication_tag required: true %>
+        <% end %>
         <%= f.text_field :name, placeholder: t(".placeholders.name") %>
       </div>
 
@@ -29,8 +47,9 @@
 
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "person[bio_translations][#{locale}]", f.object.class.human_attribute_name(:bio) %>
-            <%= rich_text_area_tag "person[bio_translations][#{locale}]", f.object.bio_translations && f.object.bio_translations[locale], attachment_path: admin_people_file_attachments_path %>
+            <%= text_area_tag "person[bio_source_translations][#{locale}]", f.object.bio_source_translations && f.object.bio_source_translations[locale], attachment_path: admin_attachments_file_attachments_path, lang: locale, data: { wysiwyg: true } %>
           </div>
+          <%= hidden_field_tag "person[bio_translations][#{locale}]", f.object.bio_translations && f.object.bio_translations[locale], id: "person_bio_translations_#{locale}" %>
         <% end %>
       </div>
 

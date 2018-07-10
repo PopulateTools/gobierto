@@ -2,11 +2,19 @@
 es:
   activemodel:
     attributes:
+      gobierto_admin/gobierto_calendars/calendar_configuration_form:
+        ibm_notes_pwd: La constraseña
+        ibm_notes_url: La URL
+        ibm_notes_usr: Usuario
+        microsoft_exchange_pwd: La constraseña
+        microsoft_exchange_url: La URL
+        microsoft_exchange_usr: Usuario
       gobierto_admin/gobierto_calendars/event_form:
         attachment_file: Fichero adjunto
         description: Descripción
         ends_at: Fecha de finalización
         starts_at: Fecha de comienzo
         title: Título
+        title_translations: Título
     models:
       gobierto_admin/gobierto_calendars/event_form: Evento

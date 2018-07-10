@@ -1,0 +1,17 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_people.people.index.title"), admin_people_people_path %> »
+  <%= link_to collection_container.name, edit_admin_people_person_path(collection_container) %> »
+  <%= link_to t("gobierto_admin.gobierto_people.people.person_events.index.title"), admin_calendars_events_path(collection_id: collection_container.events_collection.id) %> »
+  <%= t(".calendar_configuration") %>
+</div>
+
+<h1><%= t("gobierto_admin.gobierto_people.configuration.title") %></h1>
+
+<div class="tabs">
+  <ul>
+    <li class="active">
+      <%= link_to t("gobierto_admin.gobierto_people.settings.title") %>
+    </li>
+  </ul>
+</div>

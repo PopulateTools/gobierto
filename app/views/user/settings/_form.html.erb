@@ -11,19 +11,24 @@
   </div>
 
   <div class="form_item input_text">
-    <%= f.label :name %>
+    <%= label_tag "user_settings[name]" do %>
+      <%= t("activemodel.attributes.gobierto_admin/admin_form.name") %>
+      <%= attribute_indication_tag required: true %>
+    <% end %>
     <%= f.text_field :name %>
   </div>
 
-  <div class="form_item input_text">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
+  <% if @user_settings_form.password_enabled %>
+    <div class="form_item input_text">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
 
-  <div class="form_item input_text">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
+    <div class="form_item input_text">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+  <% end %>
 
   <div class="form_item select_control selects_inline">
     <%= f.label :date_of_birth %>

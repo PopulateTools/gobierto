@@ -1,5 +1,6 @@
-class User::NewPasswordForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::NewPasswordForm < BaseForm
 
   attr_accessor :email, :site
   attr_reader :user
@@ -18,7 +19,7 @@ class User::NewPasswordForm
   end
 
   def user
-    @user ||= User.find_by(email: email)
+    @user ||= site.users.find_by(email: email)
   end
 
   private

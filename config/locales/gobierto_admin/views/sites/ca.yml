@@ -3,8 +3,9 @@ ca:
   gobierto_admin:
     sites:
       edit:
-        title: Personalitzar site
+        title: Personalitzar lloc
       form:
+        authentication_modules: Estratègies d'autenticació
         hints:
           domain:
             a_record: Entrada A a %{target}
@@ -12,14 +13,14 @@ ca:
             if_domain: Si es un domini
             if_subdomain: Si es un subdomini
             instructions: 'Important: aquest domini deurà estar creant previament
-              per a que el site funcione correctament.'
-        modules_enabled: Móduls actius para aquest site
+              per a que el lloc funcione correctament.'
+        modules_enabled: Móduls actius para aquest lloc
         password: Contrasenya
         placeholders:
           domain: gobierto.burjassot.es
           google_analytics_id: UA-000000-01
-          location_name: Burjassot
           name: Ajuntament de Burjassot
+          organization_name: Burjassot
           populate_data_api_token: Token de API de Populate Data
           title: Transparencia i Participció
         username: Noe d'usuari
@@ -31,10 +32,10 @@ ca:
         header:
           created_at: Creat
           domain: Domini
-          site: Site
+          site: Lloc
           status: Estat
-        new: Crear site
+        new: Crear lloc
         title: Sites
-        view_site: Veure site
+        view_site: Veure lloc
       new:
-        title: Crear site
+        title: Crear lloc

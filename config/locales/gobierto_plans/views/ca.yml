@@ -1,0 +1,23 @@
+---
+ca:
+  gobierto_plans:
+    events:
+      gobierto_plans_plan_created: Pla creat
+      gobierto_plans_plan_type_created: Tipus de pla creat
+      gobierto_plans_plan_type_updated: Tipus de pla actualitzat
+      gobierto_plans_plan_updated: Pla actualitzat
+    layouts:
+      application:
+        plans: Plans
+    plan_types:
+      show:
+        ends: Fi
+        global_execution: Estat d'execució global
+        latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
+        loading: Carregant...
+        percentage_progress: "% progrés"
+        progress: Progrés
+        projects: Projectes
+        see_all: Veure tot en
+        starts: Inici
+        status: Estat

@@ -1,0 +1,10 @@
+---
+ca:
+  gobierto_calendars:
+    calendar_integration:
+      auth_error:
+        message: Les credencials del calendari no són vàlides
+      error:
+        message: Hi ha hagut un problema sincronitzant el calendari
+      timeout_error:
+        message: El temps de connexió al servidor de calendaris ha expirat

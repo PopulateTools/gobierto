@@ -1,6 +1,13 @@
 ---
 es:
   gobierto_people:
+    departments:
+      index:
+        events: reuniones registradas
+        people_with_events: altos cargos con reuniones registradas
+      show:
+        interest_groups_with_events: grupos de interes se han reunido con este departamento
+        people_with_events: altos cargos de este departamento con reuniones registradas
     events:
       gobierto_people_person_post_published: 'Actualización del blog: %{subject_name}'
       gobierto_people_person_post_updated: 'Actualización del post: %{subject_name}'
@@ -25,18 +32,34 @@ es:
           description: Listado de las declaraciones de bienes y actividades y todos
             sus elementos.
           title: Declaraciones de bienes y actividades
+    interest_groups:
+      index:
+        interest_groups: grupos de interés inscritos
+      show:
+        events: reuniones registradas
+        people_with_events: el número de Altos Cargos con los que se ha reunido este
+          grupo
     layouts:
       application:
         title: Altos cargos y Agendas
+      departments:
+        no_departments_within_dates: No hay ningún departamento para este rango de
+          fechas
       menu_subsections:
         agendas: Agendas
         blogs: Blogs
+        departments: Departamentos
+        gifts: Obsequios
+        interest_groups: Grupos de Interés
+        invitations: Invitaciones
         people: Cargos
         statements: Declaraciones
+        trips: Viajes
     people:
       contact_methods:
         send_email: Envía un correo-e
       index:
+        no_people_within_range: No hay ningún alto cargo para este rango de fechas
         subscribable_box:
           title: Recibe alertas en tu correo-e
         title: Organigrama de %{site_name}
@@ -47,8 +70,8 @@ es:
         agenda: Agenda
         bio: Biografía y CV
         blog: Blog
-        exports: Descarga los datos en formato reutilizable
         gifts: Obsequios y regalos
+        invitations: Invitaciones
         statements: Bienes y Actividades
         trips: Viajes
       people_filter:
@@ -91,8 +114,6 @@ es:
           no_posts: Todavía no se ha publicado ningún post.
           title: El blog de %{person_name}, %{person_charge}
         show:
-          subscribable_box:
-            title: Recibe actualizaciones
           title: El blog de %{person_name}, %{person_charge}
       person_statements:
         index:
@@ -101,8 +122,6 @@ es:
           title: Bienes y Actividades de %{person_name}
         show:
           download: Descargar declaración (%{file_size})
-          subscribable_box:
-            title: Recibe actualizaciones
           title: Bienes y Actividades de %{person_name}
           view_previous: Ver anteriores
       show:
@@ -112,6 +131,15 @@ es:
       subscription_button:
         cancel: Cancelar
         follow: Seguir
+      trips:
+        trip:
+          accomodation_expenses: Hoteles y alojamiento
+          company: Comitiva
+          expenses: Gastos
+          food_expenses: Dietas y manutención
+          other_expenses: Otros gastos
+          total_expenses: Gastos totales
+          transport_expenses: Transporte
       upcoming_events:
         no_upcoming_events: No hay eventos próximos en esta agenda
         title: Agenda
@@ -147,8 +175,6 @@ es:
       show:
         filtering_by_tag: Filtrando por "%{tag}"
         go_back: Volver
-        subscribable_box:
-          title: Recibe alertas en tu correo-e
     person_posts:
       index:
         subscribable_box:
@@ -186,4 +212,4 @@ es:
         statements: Declaraciones de bienes y actividades
         subscribable_box:
           title: Recibe un resumen semanal de las agendas de tus representantes
-        travels: Viajes y desplazamientos
+        trips: Viajes y desplazamientos

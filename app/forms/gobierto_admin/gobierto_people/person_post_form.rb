@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
-    class PersonPostForm
-      include ActiveModel::Model
+    class PersonPostForm < BaseForm
+
       prepend ::GobiertoCommon::Trackable
 
       TAG_SEPARATOR = ","
@@ -13,6 +15,7 @@ module GobiertoAdmin
         :person_id,
         :title,
         :body,
+        :body_source,
         :tags,
         :visibility_level
       )
@@ -20,7 +23,6 @@ module GobiertoAdmin
       delegate :persisted?, to: :person_post
 
       validates :title, presence: true
-      validates :person, presence: true
 
       trackable_on :person_post
 
@@ -96,6 +98,7 @@ module GobiertoAdmin
           person_post_attributes.site_id = site_id
           person_post_attributes.title = title
           person_post_attributes.body = body
+          person_post_attributes.body_source = body_source
           person_post_attributes.tags = tags
           person_post_attributes.visibility_level = visibility_level
         end
@@ -113,13 +116,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

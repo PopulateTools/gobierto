@@ -2,7 +2,6 @@
 
 module GobiertoAdmin
   class ScopesController < BaseController
-
     def index
       @scopes = current_site.scopes.sorted
 
@@ -36,7 +35,7 @@ module GobiertoAdmin
 
         redirect_to(
           admin_scopes_path(@scope),
-          notice: t('.success')
+          notice: t(".success")
         )
       else
         render(:new_modal, layout: false) && return if request.xhr?
@@ -55,7 +54,7 @@ module GobiertoAdmin
 
         redirect_to(
           admin_scopes_path(@scope),
-          notice: t('.success')
+          notice: t(".success")
         )
       else
         render(:edit_modal, layout: false) && return if request.xhr?
@@ -67,20 +66,20 @@ module GobiertoAdmin
       @scope = find_scope
 
       if @scope.destroy
-        redirect_to admin_scopes_path(@scope), notice: t('.success')
+        redirect_to admin_scopes_path(@scope), notice: t(".success")
       else
-        redirect_to admin_scopes_path(@scope), alert: t('.has_items')
+        redirect_to admin_scopes_path(@scope), alert: t(".has_items")
       end
     end
 
     private
 
     def track_create_activity
-      Publishers::ScopeActivity.broadcast_event('scope_created', default_activity_params.merge(subject: @scope_form.scope))
+      Publishers::ScopeActivity.broadcast_event("scope_created", default_activity_params.merge(subject: @scope_form.scope))
     end
 
     def track_update_activity
-      Publishers::ScopeActivity.broadcast_event('scope_updated', default_activity_params.merge(subject: @scope))
+      Publishers::ScopeActivity.broadcast_event("scope_updated", default_activity_params.merge(subject: @scope))
     end
 
     def default_activity_params
@@ -89,6 +88,7 @@ module GobiertoAdmin
 
     def scope_params
       params.require(:scope).permit(
+        :slug,
         name_translations: [*I18n.available_locales],
         description_translations: [*I18n.available_locales]
       )
@@ -101,6 +101,5 @@ module GobiertoAdmin
     def find_scope
       current_site.scopes.find(params[:id])
     end
-    
   end
 end

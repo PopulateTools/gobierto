@@ -1,0 +1,23 @@
+---
+es:
+  gobierto_plans:
+    events:
+      gobierto_plans_plan_created: Plan creado
+      gobierto_plans_plan_type_created: Tipo de plan creado
+      gobierto_plans_plan_type_updated: Tipo de plan actualizado
+      gobierto_plans_plan_updated: Plan actualizado
+    layouts:
+      application:
+        plans: Planes
+    plan_types:
+      show:
+        ends: Fin
+        global_execution: Estado de ejecución global
+        latest_update_html: "<strong>Última actualización:</strong> %{date}"
+        loading: Cargando...
+        percentage_progress: "% progreso"
+        progress: Progreso
+        projects: Proyectos
+        see_all: Ver todo en
+        starts: Inicio
+        status: Estado

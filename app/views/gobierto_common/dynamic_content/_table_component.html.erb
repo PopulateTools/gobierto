@@ -17,7 +17,16 @@
             <% Array(content_block.records).each do |content_block_record| %>
               <tr>
                 <% Array(content_block_record.fields).each do |content_block_record_field| %>
-                  <td><%= content_block_record_field.value %></td>
+                  <% field_value = content_block_record_field.value.presence %>
+                  <td>
+                    <% if content_block_record_field.url? && field_value %>
+                      <%= link_to field_value, target: '_blank' do %>
+                        <button class="small"><i class="fa fa-external-link"></i> <%= t('.view_content') %></button>
+                      <% end %>
+                    <% else %>
+                      <%= field_value %>
+                    <% end %>
+                  </td>
                 <% end %>
                 <td>
                   <% if content_block_record.attachment_url.present? %>

@@ -15,9 +15,12 @@ module GobiertoParticipation
 
     accepts_nested_attributes_for :answer_templates, allow_destroy: true
 
-    validates :poll, :title_translations, :answer_type, presence: true
-    validates :title, length: { maximum: 140 }
-    validate :title_translations_not_blank
+    validates :poll, :answer_type, presence: true
+    validates(
+      :title_translations,
+      translated_attribute_presence: true,
+      translated_attribute_length: { maximum: 140 }
+    )
     validate :answer_templates_size
 
     validates_associated :answer_templates, message: I18n.t('activerecord.messages.gobierto_participation/poll.are_not_valid')
@@ -43,12 +46,6 @@ module GobiertoParticipation
     def answer_templates_size
       if answer_type && fixed_answer? && answer_templates.size < 2
         errors.add(:answer_templates, I18n.t('activerecord.messages.gobierto_participation/poll_question.not_enough_alternatives'))
-      end
-    end
-
-    def title_translations_not_blank
-      if !title_translations || title_translations.values.select { |value| !value.blank? }.empty?
-        errors.add(:title, I18n.t('errors.messages.blank'))
       end
     end
 

@@ -6,7 +6,7 @@
 
     .bg-image {
       height: 168px;
-      background: rgba($color_main, .1);
+      background: rgba($color_main, 0.1);
 
       svg {
         margin: 1.5em 0 auto;
@@ -14,9 +14,9 @@
     }
 
     .inner {
-      margin: 0 .5em;
+      margin: 0 0.5em;
       position: relative;
-      border: 1px solid #F0F0F0;
+      border: 1px solid #f0f0f0;
       transition: 0.3s;
       min-height: 285px;
 
@@ -38,6 +38,7 @@
             text-transform: uppercase;
           }
         }
+
         .line_figure {
           .figure {
             font-weight: 700;
@@ -49,18 +50,19 @@
             display: inline-block;
             width: 100%;
             height: 10px;
-            background: rgba($color_main, .1);
+            background: rgba($color_main, 0.1);
             margin-right: 0.25rem;
 
             .line {
               height: 10px;
-              background: $color_main
+              background: $color_main;
             }
 
             @media (min-width: 740px) {
               width: 80px;
             }
           }
+
           .zoom {
             i {
               cursor: pointer;
@@ -85,15 +87,19 @@
       }
     }
   }
+
   .line_box:first-child .inner {
     margin-left: 0;
   }
+
   .line_box:last-child .inner {
     margin-right: 0;
   }
+
   .line_box:nth-child(3) .inner {
     margin-right: 0;
   }
+
   .line_box:nth-child(4) .inner {
     margin-left: 0;
   }
@@ -104,10 +110,11 @@
     }
   }
 }
-.tipsy-lines {
 
+.tipsy-lines {
   .tipsy-inner {
     padding: 0;
+
     .table_header {
       background: $color_1;
       padding: 10px 12px 10px 12px;
@@ -125,15 +132,17 @@
         }
       }
     }
+
     .table_wrapper {
       padding: 10px 12px 10px 12px;
 
       table {
         td,
         th {
-          border-top: none;
+          border-top: 0;
           // font-size: 1rem;
         }
+
         .right {
           font-weight: 600;
         }

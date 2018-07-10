@@ -10,8 +10,13 @@
 
 <%= render 'gobierto_admin/gobierto_participation/shared/navigation' %>
 
-<div class='admin_tools right'>
-  <%= link_to t('.new'), new_admin_participation_process_poll_path(current_process), class: 'button', data: { turbolinks: false } %>
+<div class="pure-g">
+  <div class="pure-u-3-4">
+    <strong><%= t('.polls') %></strong>
+  </div>
+  <div class="pure-u-1-4 admin_tools right">
+    <%= link_to t('.new'), new_admin_participation_process_poll_path(current_process), class: 'button', data: { turbolinks: false } %>
+  </div>
 </div>
 
 <table>
@@ -22,6 +27,7 @@
     <th><%= t('.visibility') %></th>
     <th><%= t('.start') %></th>
     <th><%= t('.end') %></th>
+    <th></th>
     <th></th>
   </tr>
 
@@ -59,7 +65,81 @@
           <%= t('.view_poll') %>
         <% end %>
       </td>
+      <td>
+        <%= link_to "<i class='fa fa-trash'></i>".html_safe,
+                    admin_participation_process_poll_path(poll, process_id: current_process.id),
+                    title: t("gobierto_admin.shared.archive.element"),
+                    method: :delete,
+                    data: { confirm: t("gobierto_admin.shared.archive.confirm") } %>
+      </td>
     </tr>
   <% end %>
 
 </table>
+
+<% unless @archived_polls.empty? %>
+  <div class="m_v_1 right">
+    <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggle: true} %>
+  </div>
+
+  <div id="archived-list" style="display:none">
+    <table>
+      <tr>
+        <th></th>
+        <th><%= t('.poll') %></th>
+        <th><%= t('.answers') %></th>
+        <th><%= t('.visibility') %></th>
+        <th><%= t('.start') %></th>
+        <th><%= t('.end') %></th>
+        <th></th>
+        <th></th>
+      </tr>
+
+      <% @archived_polls.each do |poll| %>
+        <tr id="<%="poll-item-#{poll.id}"%>">
+          <% edit_poll_link_path = poll.results_available? ? admin_participation_process_poll_answers_path(current_process, poll) : edit_admin_participation_process_poll_path(current_process, poll) %>
+          <td>
+            <%= link_to edit_poll_link_path, data: { turbolinks: false } do %>
+              <i class='fa fa-edit'></i>
+            <% end %>
+          </td>
+          <td>
+            <%= poll.title %>
+          </td>
+          <td>
+            <%= poll.unique_answers_count %>
+          </td>
+          <td>
+            <%= t(".visibility_level.archived") %>
+          </td>
+          <td>
+            <%= l(poll.starts_at, format: '%e %b %y') %>
+          </td>
+          <td>
+            <%= l(poll.ends_at, format: '%e %b %y') %>
+          </td>
+          <td>
+            <%= link_to gobierto_participation_process_poll_preview_url(current_process, poll, host: current_site.domain), target: '_blank', class: 'view_item' do %>
+              <i class='fa fa-eye'></i>
+              <%= t('.view_poll') %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to t("gobierto_admin.shared.recover.element"),
+                        admin_participation_process_poll_recover_path(poll, process_id: current_process.id),
+                        title: t("gobierto_admin.shared.recover.element"),
+                        method: :put,
+                        data: { confirm: t("gobierto_admin.shared.recover.confirm") } %>
+          </td>
+        </tr>
+      <% end %>
+
+    </table>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $('a[data-toggle]').on('click', function(e){
+     $("div#archived-list").toggle();
+  });
+<% end %>

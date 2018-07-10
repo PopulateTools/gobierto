@@ -67,19 +67,21 @@
 
     <div class="pure-g metric_boxes">
 
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.planned_per_inhabitant_tooltip') %>">
-        <div class="inner">
-          <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.planned_per_inhabitant') %></h3>
-          <div class="metric"><%= number_to_currency @budget_line_stats.amount_per_inhabitant, precision: 2 %></div>
-          <% if @budget_line_stats.amount_per_inhabitant_updated.present? %>
-            <div class="explanation">
-              <%= kind_literal(@kind, false).capitalize %> <%= t('.planned_per_inhabitant_updated') %>: <%= number_to_currency(@budget_line_stats.amount_per_inhabitant_updated, precision: 2) %>
-            </div>
-          <% end %>
+      <% if @budget_line_stats.amount_per_inhabitant.present? %>
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.planned_per_inhabitant_tooltip') %>" data-box="planned_per_inhabitant">
+          <div class="inner">
+            <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.planned_per_inhabitant') %></h3>
+            <div class="metric"><%= number_to_currency @budget_line_stats.amount_per_inhabitant, precision: 2 %></div>
+            <% if @budget_line_stats.amount_per_inhabitant_updated.present? %>
+              <div class="explanation">
+                <%= kind_literal(@kind, false).capitalize %> <%= t('.planned_per_inhabitant_updated') %>: <%= number_to_currency(@budget_line_stats.amount_per_inhabitant_updated, precision: 2) %>
+              </div>
+            <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.planned_tooltip') %>">
+      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.planned_tooltip') %>" data-box="planned">
         <div class="inner">
           <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.planned') %> </h3>
           <div class="metric"><%= format_currency @budget_line_stats.amount %></div>
@@ -94,7 +96,7 @@
       <% unless budget_lines_feedback_active? %>
         <% if !in_elaboration? %>
           <% planned_executed = @budget_line_stats.amount_updated.present? ? @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_updated, year: @year) : @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year) %>
-          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.real_vs_planned_tooltip') %>">
+          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.real_vs_planned_tooltip') %>" data-box="real_vs_planned">
             <div class="inner">
               <h3><%= t('.real_vs_planned') %></h3>
               <% if planned_executed %>
@@ -112,7 +114,7 @@
             </div>
           </div>
         <% else %>
-          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.vs_previous_year_tooltip') %>">
+          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.vs_previous_year_tooltip') %>" data-box="vs_previous_year_tooltip">
             <div class="inner">
               <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.vs_previous_year') %></h3>
               <div class="metric"><%= @budget_line_stats.percentage_difference(variable1: :amount_planned, year1: @year, year2: @year-1) %></div>
@@ -121,22 +123,28 @@
         <% end %>
       <% end %>
 
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.percentage_tooltip') %>">
+      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.percentage_tooltip') %>" data-box="percentage">
         <div class="inner">
           <h3><%= t('.percentage') %></h3>
           <div class="metric"><%= @budget_line_stats.percentage_of_total %></div>
         </div>
       </div>
 
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.avg_province_tooltip') %>">
+      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.avg_province_tooltip') %>" data-box="avg_province">
         <div class="inner">
           <h3><%= t('.avg_province', kind: kind_literal(@kind, false)) %></h3>
-          <div class="metric"><%= format_currency @budget_line_stats.mean_province %></div>
+          <div class="metric">
+            <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name %>
+              <%= format_currency @budget_line_stats.mean_province %>
+            <% else %>
+              <span class="not_av"><%= t('.not_available') %></span>
+            <% end %>
+          </div>
         </div>
       </div>
 
       <% if budget_lines_feedback_active? %>
-        <div class="pure-u-1-2 pure-u-md-1-5 metric_box cta open_budget_line_feedback tipsit" title="<%= t('.give_your_opinion_cta') %>">
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box cta open_budget_line_feedback tipsit" title="<%= t('.give_your_opinion_cta') %>" data-box="feedback">
           <div class="inner">
             <%= link_to gobierto_budgets_feedback_step1_path(year: @year, id: @budget_line.id), remote: true do %>
               <div class="main"><%= t('.raise_hand') %> <i class="fa fa-hand-paper-o"></i></div>
@@ -216,57 +224,53 @@
 
     <div id="lines_chart_wrapper_separator" class="separator"></div>
 
-    <% if budgets_comparison_context_table_enabled %>
+    <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name && budgets_comparison_context_table_enabled %>
       <div id="lines_chart_wrapper" class="pure-g block" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
         <div class="pure-u-1 pure-u-md-1-2 p_h_l_1">
           <h2><%= t('.evolution') %></h2>
           <div id="lines_chart"></div>
         </div>
 
-        <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name %>
-          <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
-            <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
-            <div id="lines_tooltip"></div>
-            <div class="help">
-              <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit-n' %>
-            </div>
+        <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+          <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
+          <div id="lines_tooltip"></div>
+          <div class="help">
+            <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit-n' %>
           </div>
-        <% end %>
+        </div>
 
         <div class="pure-u-1 pure-u-md-1-2">
           <div class="filter m_v_2" role="tablist" aria-label="<%= t('gobierto_budgets.budgets.index.visualize') %>">
-            <%= link_to t('gobierto_budgets.budgets.index.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person','aria-controls' => 'lines_chart_wrapper' %>
-            <%= link_to t('gobierto_budgets.budgets.index.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" =>gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "total_budget" },  role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
+            <%= link_to t('gobierto_budgets.budgets.index.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_budget_line_path(current_site.organization_id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person','aria-controls' => 'lines_chart_wrapper' %>
+            <%= link_to t('gobierto_budgets.budgets.index.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" =>gobierto_budgets_api_data_lines_budget_line_path(current_site.organization_id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "total_budget" },  role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
           </div>
         </div>
       </div>
     <% end %>
 
-    <% if budgets_comparison_compare_municipalities.any? %>
+    <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name && budgets_comparison_compare_municipalities.any? %>
       <div id="lines_chart_comparison_wrapper" class="pure-g block" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
         <div class="pure-u-1 pure-u-md-1-2 p_h_l_1">
           <h2><%= t('.evolution') %></h2>
           <div id="lines_chart_comparison"></div>
         </div>
 
-        <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name %>
-          <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
-            <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
-            <div id="lines_tooltip_comparison"></div>
-            <div class="help">
-              <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit-n' %>
-            </div>
-
-            <% if budgets_comparison_show_widget %>
-              <%= render 'gobierto_budgets/shared/compare' %>
-            <% end %>
+        <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+          <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
+          <div id="lines_tooltip_comparison"></div>
+          <div class="help">
+            <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit-n' %>
           </div>
-        <% end %>
+
+          <% if budgets_comparison_show_widget %>
+            <%= render 'gobierto_budgets/shared/compare' %>
+          <% end %>
+        </div>
 
         <div class="pure-u-1 pure-u-md-1-2">
           <div class="filter m_v_2" role="tablist" aria-label="<%= t('gobierto_budgets.budgets.index.visualize') %>">
-            <%= link_to t('gobierto_budgets.budgets.index.per_person'), '#', class:'active',  data: {"line-widget-series" => "comparison", "line-widget-url" => gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json, comparison: budgets_comparison_compare_municipalities), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person','aria-controls' => 'lines_chart_wrapper' %>
-            <%= link_to t('gobierto_budgets.budgets.index.in_total'), '#', class:'',  data: {"line-widget-series" => "comparison", "line-widget-url" =>gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json, comparison: budgets_comparison_compare_municipalities), "line-widget-type" => "total_budget" },  role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
+            <%= link_to t('gobierto_budgets.budgets.index.per_person'), '#', class:'active',  data: {"line-widget-series" => "comparison", "line-widget-url" => gobierto_budgets_api_data_lines_budget_line_path(current_site.organization_id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json, comparison: budgets_comparison_compare_municipalities), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person','aria-controls' => 'lines_chart_wrapper' %>
+            <%= link_to t('gobierto_budgets.budgets.index.in_total'), '#', class:'',  data: {"line-widget-series" => "comparison", "line-widget-url" =>gobierto_budgets_api_data_lines_budget_line_path(current_site.organization_id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json, comparison: budgets_comparison_compare_municipalities), "line-widget-type" => "total_budget" },  role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
           </div>
         </div>
       </div>

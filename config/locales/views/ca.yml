@@ -1,5 +1,8 @@
 ---
 ca:
+  admin_gobierto_calendars:
+    events:
+      admin_gobierto_calendars_calendars_synchronized: Calendaris sincronitzats
   admins:
     events:
       admins_admin_authorization_level_updated: Nivel autorització admin actualitzat
@@ -38,6 +41,7 @@ ca:
       search: Cerca...
       session:
         alerts: Les teves alertes
+        login: Fes login o registra't
         notifications: Notificacions
         sign_in: Iniciar sessió
         sign_out: Surt
@@ -73,9 +77,6 @@ ca:
           title: El teu compte
     mailcheck:
       suggestion_message: Vols dir
-    main_menu:
-      collapse_menu: Tanca
-      search: Cerca...
     sandbox:
       application:
         about_the_data: Sobre les dades
@@ -111,6 +112,18 @@ ca:
     events:
       scopes_scope_created: Àmbit creat
       scopes_scope_updated: Àmbit actualitzat
+  shared:
+    download_open_data:
+      exports: Descarrega les dades en format reutilitzable
+    poll_question:
+      multiple_choice_msg: Pots triar diverses opcions
+    poll_teaser:
+      answer: Respondre
+      next_question: Següent pregunta
+      submit: Enviar
+    polls:
+      no_unanswered_polls: No hi ha enquestes pendents de contestar.
+      opinion: Opina
   sites:
     events:
       sites_site_created: Site creat
@@ -126,6 +139,7 @@ ca:
     edit: Edita
     forms:
       max_characters: Màx. %{length} caràcters
+      required: Obligatori
       required_and_max_characters: Obligatori i Màx. %{length} caràcters
     of: de
     pagination:

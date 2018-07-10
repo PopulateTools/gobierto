@@ -20,7 +20,7 @@ module GobiertoAdmin
       end
 
       def process
-        @process ||= gobierto_participation_processes(:green_city_group)
+        @process ||= gobierto_participation_processes(:green_city_group_active_empty)
       end
 
       def person
@@ -83,8 +83,8 @@ module GobiertoAdmin
 
               within ".sub_filter ul", match: :first do
                 assert has_selector?(
-                  ".all-events-filter",
-                  text: "All (#{person.events.count})"
+                  ".upcoming-events-filter",
+                  text: "Upcoming (#{person.events.upcoming.count})"
                 )
 
                 assert has_selector?(

@@ -1,17 +1,19 @@
 class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::ApplicationController
-  before_action :load_place, :load_year
+
+  before_action :load_year
+  helper_method :available_years
 
   def index
-    unless @any_budgets_execution_data_for_year = GobiertoBudgets::BudgetLine.any_data?(site: current_site, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
+    unless @any_budgets_execution_data_for_year = any_execution_data?
       flash[:alert] = t('controllers.gobierto_budgets.budgets_execution.index.alert', year: @year)
-      redirect_to gobierto_budgets_budgets_execution_path(@year -1) and return
+      redirect_to gobierto_budgets_budgets_execution_path(@year - 1) and return
     end
 
-    @any_economic_income_budget_lines    = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::EconomicArea,   index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
-    @any_economic_expense_budget_lines   = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::EconomicArea,   index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
-    @any_functional_expense_budget_lines = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::FunctionalArea, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
-    @any_custom_income_budget_lines      = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::CustomArea,     index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
-    @any_custom_expense_budget_lines     = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea,     index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
+    @any_economic_income_budget_lines    = any_execution_data?(kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::EconomicArea)
+    @any_economic_expense_budget_lines   = any_execution_data?(kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::EconomicArea)
+    @any_functional_expense_budget_lines = any_execution_data?(kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::FunctionalArea)
+    @any_custom_income_budget_lines      = any_execution_data?(kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::CustomArea)
+    @any_custom_expense_budget_lines     = any_execution_data?(kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea)
 
     @several_expenses_filters = @any_economic_expense_budget_lines || @any_functional_expense_budget_lines || @any_custom_expense_budget_lines
     @several_income_filters   = @any_economic_income_budget_lines || @any_custom_income_budget_lines
@@ -23,17 +25,35 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
 
   private
 
-  def load_place
-    @place = @site.place
-    render_404 and return if @place.nil?
-  end
-
   def load_year
     if params[:year].nil?
       redirect_to gobierto_budgets_budgets_execution_path(GobiertoBudgets::SearchEngineConfiguration::Year.last)
     else
       @year = params[:year].to_i
     end
+  end
+
+  def any_execution_data?(params={})
+    conditions = default_search_conditions.clone
+    conditions.merge!(area: params[:area]) if params[:area]
+    conditions.merge!(kind: params[:kind]) if params[:kind]
+    GobiertoBudgets::BudgetLine.any_data?(conditions)
+  end
+
+  def default_search_conditions
+    @default_search_conditions ||= {
+      site: current_site,
+      index: search_index,
+      year: @year
+    }
+  end
+
+  def available_years
+    @available_years ||= GobiertoBudgets::SearchEngineConfiguration::Year.with_data(index: search_index)
+  end
+
+  def search_index
+    GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
   end
 
 end

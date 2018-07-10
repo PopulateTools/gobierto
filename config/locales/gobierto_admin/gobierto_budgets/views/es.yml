@@ -24,6 +24,8 @@ es:
           comparison_show_widget_desc: 'Facilita el acceso a la herramienta de comparación
             de presupuestos de Gobierto: presupuestos.gobierto.es'
           comparison_tool_enabled_desc: Habilita herramientas de comparación
+          confirm_update_annual_data: Comenzará un proceso en segundo plano para actualizar
+            los ficheros. ¿Continuar?
           elaboration: Elaboración
           elaboration_desc1: Habilita la sección de Elaboración del presupuesto.
           elaboration_desc2_html: "<strong>Importante:</strong> es necesario que se
@@ -34,11 +36,16 @@ es:
             partidas del presupuesto
           feedback_emails_desc: Las participaciones (opinión sobre partidas y petición
             de más información) se enviarán a esta dirección
+          indicators: Indicadores
+          indicators_desc1: Habilita la sección Indicadores
           options: Opciones
+          providers: Proveedores y Facturas
+          providers_desc1: Habilita la sección Proveedores y Facturas
           receipt: Recibo de tus impuestos
           receipt_desc1: Habilita la sección El recibo de tus impuestos
           receipt_desc2_html: "<strong>Importante:</strong> debes de rellenar el JSON
             con los datos."
+          update_annual_data: Generar ficheros de partidas presupuestarias por año
       shared:
         tabs:
           budgets: Presupuestos

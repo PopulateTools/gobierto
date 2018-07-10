@@ -9,7 +9,10 @@
 
     <% current_site.configuration.available_locales.each do |locale| %>
       <div class="form_item input_text" data-locale="<%= locale %>">
-        <%= label_tag "issue[name_translations][#{locale}]", f.object.class.human_attribute_name(:name) %>
+        <%= label_tag "issue[name_translations][#{locale}]" do %>
+          <%= f.object.class.human_attribute_name(:name) %>
+          <%= attribute_indication_tag required: true %>
+        <% end %>
         <%= text_field_tag "issue[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t(".placeholders.name", locale: locale.to_sym) %>
       </div>
 
@@ -19,11 +22,10 @@
       </div>
     <% end %>
 
-      <div class="form_item input_text">
-        <%= f.label :slug %>
-        <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
-      </div>
-
+    <div class="form_item input_text">
+      <%= f.label :slug %>
+      <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+    </div>
   </div>
 
   <div class="actions right">

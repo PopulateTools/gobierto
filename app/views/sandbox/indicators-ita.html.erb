@@ -1,0 +1,237 @@
+<% title t('.title', year: @year) %>
+
+<% content_for :breadcrumb_current_item do %>
+  <h1>
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.summary'), gobierto_budgets_budgets_path %>
+  </h1>
+<% end %>
+
+<% content_for :body_attributes do %>
+  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{Date.today.year}"} %>
+<% end %>
+
+<div class="column indicators-tree">
+
+  <div class="block">
+
+    <div class="pure-g header_block_inline">
+      <div class="pure-u-1 pure-u-md-12-24">
+        <div class="inline_header">
+          <h2 class="with_description p_h_r_1">INDICADORES ITA</h2>
+          <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb' %>
+        </div>
+
+        <p v-if="!selected">
+          Els indicadors ITA (Índex de Transparència dels Ajuntaments) són una eina que l'organització no governamental Transparència Internacional posa a disposició dels ajuntaments espanyols per mesurar el seu nivell de transparència. Avaluen la gestió realitzada per l’ajuntament d’una ciutat a través d'un conjunt integrat de 80 indicadors agrupat en diverses àrees.
+        </p>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-12-24 right" v-if="!selected">
+        <%= image_tag('illustrations/personaliza.jpg', class: 'img_header m_v_4') %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="block">
+    <div id="indicators-tree" class="p_v_1">
+
+      <ul class="item-root item-root--notree" v-if="selected">
+        <item-view-wrap :model="selected"></item-view-wrap>
+      </ul>
+
+      <ul v-for="model in json" class="item-root" v-else>
+        <item-tree class="item" :model="model"></item-tree>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<!-- item template -->
+<script type="text/x-template" id="item-tree-template">
+  <li :class="getLevelClass(model.level)">
+    <div @click="toggle" class="item-title">
+      <div class="item-toggle p_h_r_1" v-if="hasChildren">
+        <div class="toggle-container">
+          <i class="fa fa-caret-down"></i>
+        </div>
+      </div>
+      <div class="item-id p_h_r_1" v-else>{{model.id + 1}}</div>
+
+      <div class="item-text" v-if="hasChildren">
+        {{model.attributes.title}}
+      </div>
+      <div class="item-text" @click="viewDetail" v-else>
+        <a href="#indicators-tree">
+          {{model.attributes.title}}
+        </a>
+      </div>
+
+      <div class="item-check" v-if="!hasChildren">
+        <div class="check-container" :class="(model.attributes.checked) ? 'check-container--true' : 'check-container--false'">
+          <i class="fa fa-check" v-if="model.attributes.checked"></i>
+          <i class="fa fa-times" v-else></i>
+        </div>
+      </div>
+    </div>
+    <ul v-show="open" v-if="hasChildren">
+      <item-tree class="item" v-for="model in model.children" :model="model" :key="model.id"></item-tree>
+    </ul>
+  </li>
+</script>
+
+<!-- item view template -->
+<script type="text/x-template" id="item-view-template">
+  <li class="item item-lvl-2">
+    <div class="item-title">
+      <div class="item-id p_h_r_1">{{ model.id + 1 }}</div>
+      <div class="item-text">
+        {{ model.attributes.desc }}
+      </div>
+      <div class="item-check">
+        <div class="row">
+          <div class="check-container check-container--true" :class="{ 'check-container--unchecked' : !model.attributes.checked }">
+            <i class="fa fa-check"></i>
+          </div>
+          <div class="check-container check-container--false" :class="{ 'check-container--unchecked' : model.attributes.checked }">
+            <i class="fa fa-times"></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="check-container" :class="{ 'check-container--unchecked' : !model.attributes.checked }">
+            se cumple
+          </div>
+          <div class="check-container" :class="{ 'check-container--unchecked' : model.attributes.checked }">
+            no se cumple
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item-extrainfo p_h_2 mt3">
+      Más información
+      <a href="#">Plantilla del consejo <i class="fa fa-share-square-o"></i></a>
+      <a href="#">Catàleg de llocs de treball de personal funcionari i laboral, amb indicació de les retribucions <i class="fa fa-share-square-o"></i></a>
+      <a href="#">Retribucions dels càrrecs polítics de l'alcalde, regidors i regidores<i class="fa fa-share-square-o"></i></a>
+    </div>
+  </li>
+</script>
+
+<!-- item view wrap template -->
+<script type="text/x-template" id="item-view-wrap-template">
+  <li @click="unselect" class="item item-lvl-1">
+    <div class="item-title">
+      <div class="item-toggle p_h_r_1">
+        <div class="toggle-container">
+          <i class="fa fa-caret-left"></i>
+        </div>
+      </div>
+      <div class="item-text">
+        {{ title }}
+      </div>
+    </div>
+    <ul>
+      <item-view :model="model" v-if="!hasAncestors"></item-view>
+      <item-view-wrap :model="model" v-else></item-view-wrap>
+    </ul>
+  </li>
+</script>
+
+<script type="text/javascript">
+// define the item component
+Vue.component('item-tree', {
+  template: '#item-tree-template',
+  props: ['model'],
+  data() {
+    return {
+      open: true
+    }
+  },
+  computed: {
+    hasChildren() {
+      return this.model.children &&
+        this.model.children.length
+    }
+  },
+  methods: {
+    toggle() {
+      if (this.hasChildren) {
+        this.open = !this.open
+      }
+    },
+    viewDetail() {
+      let ancestors = [];
+      let parent = this.$parent;
+      // get all my parents models
+      while (parent.model !== undefined) {
+        ancestors.push(parent.model);
+        parent = parent.$parent;
+      }
+      this.$root.selected = _.extend(this.model, { ancestors: ancestors.reverse() });
+    },
+    getLevelClass(lvl) {
+      return "item-lvl-" + lvl
+    }
+  }
+});
+
+// define the item view component
+Vue.component('item-view', {
+  template: '#item-view-template',
+  props: ['model'],
+  data() {
+    return {}
+  },
+  methods: {
+    getLevelClass(lvl) {
+      return "item-lvl-" + lvl
+    }
+  }
+});
+
+// define the item view wrap component
+Vue.component('item-view-wrap', {
+  template: '#item-view-wrap-template',
+  props: ['model'],
+  data() {
+    return {}
+  },
+  computed: {
+    title() {
+      let title = this.model.ancestors[0].attributes.title || '';
+      if (this.model.ancestors.length > 0) this.model.ancestors.shift();
+      return title;
+    },
+    hasAncestors() {
+      return this.model.ancestors &&
+        this.model.ancestors.length
+    }
+  },
+  methods: {
+    unselect() {
+      return this.$root.selected = null;
+    }
+  }
+});
+
+var app = new Vue({
+  el: '.indicators-tree',
+  name: 'indicators-tree',
+  data() {
+    return {
+      json: {},
+      selected: null
+    }
+  },
+  created: function() {
+    this.getJson();
+  },
+  methods: {
+    getJson: function() {
+      $.getJSON('./data/generated.json', function(json) {
+        this.json = json;
+      }.bind(this));
+    }
+  }
+});
+</script>

@@ -32,3 +32,7 @@ en:
           one: "%{count}% verified"
           other: "%{count}% verified"
         view_user: View User
+      session_information:
+        created_at: Created
+        last_sign_in: Last sign in
+        site: Site

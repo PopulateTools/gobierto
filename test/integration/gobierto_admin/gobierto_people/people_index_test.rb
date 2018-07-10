@@ -73,7 +73,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            refute has_link? 'New person'
+            assert has_no_link? 'New person'
 
             within "#person-item-#{manageable_person.id}" do
               assert has_link? manageable_person.name
@@ -82,14 +82,14 @@ module GobiertoAdmin
             end
 
             within "#person-item-#{unmanageable_published_person.id}" do
-              refute has_link? unmanageable_published_person.name
+              assert has_no_link? unmanageable_published_person.name
               assert has_link? 'View person'
               assert first('td').all('a').empty?
             end
 
             within "#person-item-#{unmanageable_draft_person.id}" do
-              refute has_link? unmanageable_draft_person.name
-              refute has_link? 'View person'
+              assert has_no_link? unmanageable_draft_person.name
+              assert has_no_link? 'View person'
               assert first('td').all('a').empty?
             end
           end

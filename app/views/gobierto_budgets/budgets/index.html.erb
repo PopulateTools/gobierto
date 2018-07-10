@@ -7,7 +7,7 @@
 <% end %>
 
 <% content_for :body_attributes do %>
-  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{Date.today.year}"} %>
+  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"} %>
 <% end %>
 
 <div class="column">
@@ -18,7 +18,7 @@
       <div class="pure-u-1 pure-u-md-12-24">
         <div class="inline_header">
           <h2 class="with_description p_h_r_1"><%= t('.header') %></h2>
-          <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
+          <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb' %>
         </div>
 
         <p>
@@ -35,72 +35,82 @@
       </div>
     </div>
 
-    <div class="pure-g metric_boxes">
+    <% cache(["gobierto_budgets/metric_boxes", current_site, I18n.locale, @year]) do %>
+      <div class="pure-g metric_boxes">
 
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.expenses_per_inhabitant_tooltip') %>">
-        <div class="inner">
-          <h3><%= t('.expenses_per_inhabitant') %></h3>
-          <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
+        <% if @site_stats.has_available_population_data? %>
+          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.expenses_per_inhabitant_tooltip') %>" data-box="expenses_per_inhabitant">
+            <div class="inner">
+              <h3><%= t('.expenses_per_inhabitant') %></h3>
+              <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.total_expenses_tooltip') %>" data-box="total_expenses">
+          <div class="inner">
+            <h3><%= t('.total_expenses') %></h3>
+            <div class="metric"><%= format_currency @site_stats.total_budget %></div>
+          </div>
         </div>
-      </div>
 
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.total_expenses_tooltip') %>">
-        <div class="inner">
-          <h3><%= t('.total_expenses') %></h3>
-          <div class="metric"><%= format_currency @site_stats.total_budget %></div>
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.executed_tooltip') %>" data-box="executed">
+          <div class="inner">
+            <h3><%= t('.executed') %></h3>
+            <% if @site_stats.total_budget_executed %>
+              <div class="metric">
+                <%= link_to gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) do %>
+                  <%= format_currency @budgets_execution_summary[:last_expenses_execution] %>
+                <% end %>
+              </div>
+
+              <div class="explanation explanation_bar">
+                <% percentage = @budgets_execution_summary[:expenses_execution_percentage] %>
+                <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
+                <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
+                <span><%= t('.executed_percent', percentage: percentage) %></span>
+              </div>
+            <% else %>
+              <% percentage = @site_stats.total_budget_executed_percentage(@year - 1) %>
+              <div class="metric"><span class="not_av"><%= t('.not_available_short') %></span></div>
+              <div class="explanation">
+                <%= t('.executed_percent_other_year_html', year: @year - 1, link: link_to("#{percentage} %", gobierto_budgets_budgets_execution_path)) %>
+              </div>
+            <% end %>
+          </div>
         </div>
-      </div>
 
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.executed_tooltip') %>">
-        <div class="inner">
-          <h3><%= t('.executed') %></h3>
-          <% if @site_stats.total_budget_executed %>
-            <div class="metric">
-              <%= link_to gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) do %>
-                <%= format_currency @budgets_execution_summary[:last_expenses_execution] %>
+        <% if @site_stats.has_available_population_data? %>
+          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.inhabitants_tooltip') %>" data-box="population">
+            <div class="inner">
+              <h3><%= t('.inhabitants') %></h3>
+              <div class="metric"><%= number_with_precision @site_stats.latest_available(:population, @year)[:value], precision: 0, delimiter: '.' %></div>
+              <% if @site_stats.latest_available(:population, @year)[:year] != @year %>
+                <div class="explanation">
+                  <%= t('.data_of_year', year: @site_stats.latest_available(:population, @year)[:year]) %>
+                </div>
               <% end %>
             </div>
+          </div>
+        <% end %>
 
-            <div class="explanation explanation_bar">
-              <% percentage = @budgets_execution_summary[:expenses_execution_percentage] %>
-              <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
-              <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
-              <span><%= t('.executed_percent', percentage: percentage) %></span>
-            </div>
-          <% else %>
-            <% percentage = @site_stats.total_budget_executed_percentage(@year - 1) %>
-            <div class="metric"><span class="not_av"><%= t('.not_available_short') %></span></div>
-            <div class="explanation">
-              <%= t('.executed_percent_other_year_html', year: @year - 1, link: link_to("#{percentage} %", gobierto_budgets_budgets_execution_path)) %>
-            </div>
-          <% end %>
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.debt_tooltip', of_the_organization_name: @site.determined_organization_name(:of_the)) %>" data-box="debt">
+          <div class="inner">
+            <h3><%= t('.debt') %></h3>
+            <% if (debt = @site_stats.latest_available(:debt, @year)[:value]) %>
+              <div class="metric"><%= format_currency @site_stats.latest_available(:debt, @year)[:value] %></div>
+              <% if @site_stats.latest_available(:debt, @year)[:year] != @year %>
+                <div class="explanation">
+                  <%= t('.at_years_end', year: @site_stats.latest_available(:debt, @year)[:year])%>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="metric"><span class="not_av"><%= t('.not_available_short') %></span></div>
+            <% end %>
+          </div>
         </div>
       </div>
-
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.inhabitants_tooltip') %>">
-        <div class="inner">
-          <h3><%= t('.inhabitants') %></h3>
-          <div class="metric"><%= number_with_precision @site_stats.latest_available(:population, @year)[:value], precision: 0, delimiter: '.' %></div>
-          <% if @site_stats.latest_available(:population, @year)[:year] != @year %>
-            <div class="explanation">
-              <%= t('.data_of_year', year: @site_stats.latest_available(:population, @year)[:year]) %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.debt_tooltip') %>">
-        <div class="inner">
-          <h3><%= t('.debt') %></h3>
-          <div class="metric"><%= format_currency @site_stats.latest_available(:debt, @year)[:value] %></div>
-          <% if @site_stats.latest_available(:debt, @year)[:year] != @year %>
-            <div class="explanation">
-              <%= t('.at_years_end', year: @site_stats.latest_available(:debt, @year)[:year])%>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
+    <% end %>
   </div>
 
   <% pending do%>
@@ -143,7 +153,7 @@
   <% end %>
 
   <div class="block">
-    <h2 class="with_description"><%= t('.main_budget_lines') %></h2>
+    <h2 class="with_description"><%= t('.main_budget_lines', from_your_organization_name: @site.determined_organization_name(:from_your)) %></h2>
 
     <div class="pure-g m_t_1">
       <div class="pure-u-1 pure-u-lg-11-24">
@@ -193,45 +203,47 @@
     </div>
   <% end %>
 
-  <div class="block">
-    <h2 class="with_description"><%= t('.most_interesting_budget_lines') %></h2>
-    <p class="description"><%= t('.most_interesting_budget_lines_description') %></p>
+  <% cache(["gobierto_budgets/interesting_budget_lines", current_site, I18n.locale, @year]) do %>
+    <div class="block">
+      <h2 class="with_description"><%= t('.most_interesting_budget_lines') %></h2>
+      <p class="description"><%= t('.most_interesting_budget_lines_description') %></p>
 
-    <div class="graph" id="expense-treemap"
-                       data-functional-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'functional', level: 2, format: :json) %>"
-                       data-economic-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'economic', level: 2, format: :json) %>">
-    </div>
+      <div class="graph" id="expense-treemap"
+                         data-functional-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'functional', level: 2, format: :json) %>"
+                         data-economic-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'economic', level: 2, format: :json) %>">
+      </div>
 
-    <table class="explore_slow">
-      <thead class="screen-hidden">
-        <tr>
-          <th><%= t('.level_1_category') %></th>
-          <th><%= t('.level_2_category') %></th>
-          <th><%= t('.category_value') %></th>
-          <th><%= t('.category_percentage') %></th>
-          <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
-        </tr>
-      </thead>
+      <table class="explore_slow">
+        <thead class="screen-hidden">
+          <tr>
+            <th><%= t('.level_1_category') %></th>
+            <th><%= t('.level_2_category') %></th>
+            <th><%= t('.category_value') %></th>
+            <th><%= t('.category_percentage') %></th>
+            <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, budget_lines| %>
-            <tr class="group">
-              <td class="level_1" rowspan="<%= budget_lines.count %>">
-                <%= budget_line_denomination @interesting_area, parent_code, GobiertoBudgets::BudgetLine::EXPENSE %>
-              </td>
-              <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
-                    locals: {sub_budget_line: budget_lines.first, last_item: false } %>
-            </tr>
-            <% budget_lines[1..-1].each_with_index do |budget_line, i| %>
-              <tr>
+        <tbody>
+          <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, budget_lines| %>
+              <tr class="group">
+                <td class="level_1" rowspan="<%= budget_lines.count %>">
+                  <%= budget_line_denomination @interesting_area, parent_code, GobiertoBudgets::BudgetLine::EXPENSE %>
+                </td>
                 <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
-                    locals: {sub_budget_line: budget_line, last_item: (i == budget_lines.length - 2) } %>
+                      locals: {sub_budget_line: budget_lines.first, last_item: false } %>
               </tr>
-          <% end %>
-        </tbody>
-      <% end %>
-    </table>
-  </div>
+              <% budget_lines[1..-1].each_with_index do |budget_line, i| %>
+                <tr>
+                  <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
+                      locals: {sub_budget_line: budget_line, last_item: (i == budget_lines.length - 2) } %>
+                </tr>
+            <% end %>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
 
   <% if @budgets_execution_summary[:income_execution_percentage] && @budgets_execution_summary[:expenses_execution_percentage] %>
     <div class="block">
@@ -259,65 +271,32 @@
     </div>
   <% end %>
 
-  <div class="featured_b_l block m_v_3" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@site.place.slug, year: @year, template: 'gobierto_site_template') %>">
+  <div class="featured_b_l block m_v_3" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@year, template: 'gobierto_site_template') %>">
   </div>
 
-  <div id="lines_chart_wrapper_separator" class="separator"></div>
 
   <% if budgets_comparison_context_table_enabled %>
-    <div id="lines_chart_wrapper" class="pure-g" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
-      <div class=" pure-u-1 pure-u-md-1-2 block" >
-        <h2><%= t('.at_a_glance') %></h2>
-
-        <div id="lines_chart"></div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2 block">
-        <h2><%= t('.context') %></h2>
-
-        <div id="lines_tooltip"></div>
-        <div class="help">
-          <%= link_to t('.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], target: '_blank', title: t('.note_about_the_data_title'), class: 'tipsit-n' %>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2">
-        <div class="filter m_v_2" role="tablist" aria-label="<%= t('.visualize') %>">
-          <%= link_to t('.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: @place.id, year: @year, what: 'per_person', format: :json), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person', 'aria-controls' => 'lines_chart_wrapper' %>
-          <%= link_to t('.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: @place.id, year: @year, what: 'total_budget', format: :json), "line-widget-type" => "total_budget" }, role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
-        </div>
-      </div>
-    </div>
+    <div id="lines_chart_wrapper_separator" class="separator"></div>
+    <%= render partial: "comparison_chart", locals: { wrapper_id: "lines_chart_wrapper",
+                                                      chart_id: "lines_chart",
+                                                      tooltip_id: "lines_tooltip",
+                                                      line_widget_series: "means",
+                                                      show_widget: false,
+                                                      data_args: { organization_id: current_site.organization_id,
+                                                                   year: @year } } %>
   <% end %>
 
   <% if budgets_comparison_compare_municipalities.any? %>
-    <div id="lines_chart_comparison_wrapper" class="pure-g" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
-      <div class=" pure-u-1 pure-u-md-1-2 block" >
-        <h2><%= t('.at_a_glance') %></h2>
-
-        <div id="lines_chart_comparison"></div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2 block">
-        <h2><%= t('.context') %></h2>
-
-        <div id="lines_tooltip_comparison"></div>
-        <div class="help">
-          <%= link_to t('.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], target: '_blank', title: t('.note_about_the_data_title'), class: 'tipsit-n' %>
-        </div>
-
-        <% if budgets_comparison_show_widget %>
-          <%= render 'gobierto_budgets/shared/compare' %>
-        <% end %>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2">
-        <div class="filter m_v_2" role="tablist" aria-label="<%= t('.visualize') %>">
-          <%= link_to t('.per_person'), '#', class:'active',  data: {"line-widget-series" => "comparison", "line-widget-url" => gobierto_budgets_api_data_lines_path(comparison: budgets_comparison_compare_municipalities, ine_code: @place.id, year: @year, what: 'per_person', format: :json), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person', 'aria-controls' => 'lines_chart_wrapper' %>
-          <%= link_to t('.in_total'), '#', class:'',  data: {"line-widget-series" => "comparison", "line-widget-url" => gobierto_budgets_api_data_lines_path(comparison: budgets_comparison_compare_municipalities, ine_code: @place.id, year: @year, what: 'total_budget', format: :json), "line-widget-type" => "total_budget" }, role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
-        </div>
-      </div>
-    </div>
+    <div id="lines_chart_wrapper_separator" class="separator"></div>
+    <%= render partial: "comparison_chart", locals: { wrapper_id: "lines_chart_comparison_wrapper",
+                                                      chart_id: "lines_chart_comparison",
+                                                      tooltip_id: "lines_tooltip_comparison",
+                                                      line_widget_series: "comparison",
+                                                      show_widget: budgets_comparison_show_widget,
+                                                      data_args: { comparison: budgets_comparison_compare_municipalities,
+                                                                   organization_id: current_site.organization_id,
+                                                                   year: @year } }
+                                                                 %>
   <% end %>
 
   <div class="separator"></div>
@@ -327,4 +306,6 @@
   <% if budget_lines_feedback_active? %>
     <%= render 'gobierto_budgets/shared/enough_information' %>
   <% end %>
+
+  <%= render "shared/download_open_data" %>
 </div>

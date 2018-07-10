@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   module DynamicContentFormHelper
     attr_accessor :content_block_records_attributes
@@ -37,7 +39,7 @@ module GobiertoCommon
 
       attributes.each do |_, content_block_record_attributes|
         next if content_block_record_attributes["_destroy"] == "1"
-        
+
         content_block_record_params = {
           content_block_id: content_block_record_attributes[:content_block_id],
           fields_attributes: content_block_record_attributes[:fields_attributes],
@@ -77,7 +79,7 @@ module GobiertoCommon
         collection: person.model_name.collection,
         attribute_name: :attachment,
         file: attachment_file
-      ).call
+      ).upload!
     end
 
     def build_content_block_record_for(content_block)

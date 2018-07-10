@@ -1,123 +1,46 @@
 ---
 es:
   gobierto_indicators:
-    cards:
-      active_pop:
-        figure_first: del total
-        figure_second: personas
-        title: Población activa
-      births:
-        country: Media estatal
-        place: "%{place}"
-        province: Media provincial
-        title: Tasa de nacimientos
-      budget_by_inhabitant:
-        title: Presupuesto por habitante
-      cars:
-        title: Coches por habitante
-      cars_tax:
-        figure_first: "%{place}"
-        figure_second: media provincial
-        title: Impuesto a los turismos
-      companies:
-        title: Empresas
-      construction_tax:
-        figure_first: "%{place}"
-        figure_second: media provincial
-        title: Impuesto a las construcciones
-      contracts_comparison:
-        figure_first: temporales
-        figure_second: indefinidos
-        title: Contratos en el mes pasado
-      contracts_sector:
-        agricultura: Agricultura
-        construccion: Construcción
-        industria: Industria
-        servicios: Servicios
-        title: Contratos por sector
-      deaths:
-        country: Media estatal
-        place: "%{place}"
-        province: Media provincial
-        title: Tasa de defunciones
-      debt_by_inhabitant:
-        title: Deuda por habitante
-      economic_tax:
-        title: Impuesto a las actividades económicas
-      freelancers:
-        title: Autónomos
-      frequency:
-        daily: Actualización diaria
-        monthly: Actualización mensual
-        weekly: Actualización semanal
-        yearly: Actualización anual
-      houses:
-        figure_first: familiares
-        figure_second: principales
-        title: Viviendas
-      ibi:
-        first_column: ''
-        second_column: Urbano
-        third_column: Rústico
-        title: Impuesto sobre bienes inmuebles
-      income:
-        first_column: ''
-        second_column: Renta bruta
-        third_column: Renta disponible
-        title: Renta municipal
-      income_overview:
-        figure_first: "%{province}"
-        figure_second: España
-        title: Renta bruta
-      investment_by_inhabitant:
-        first_column: "%{place}"
-        second_column: Barcelona
-        third_column: Valencia
-        title: Inversión por habitante
-      meta:
-        time: " en "
-        where: 'En '
-      population:
-        title: Habitantes
-      ss_members:
-        title: Afiliados a la Seguridad Social
-      unemployed_sector:
-        agricultura: Agricultura
-        construccion: Construcción
-        industria: Industria
-        servicios: Servicios
-        title: Desempleados por sector
-      updated: Última actualización
-    graphics:
-      age_distribution:
-        axis: años
-        label: habitantes
-        title: Comprueba la distribución por edades de tu municipio
-      rent_distribution:
-        gross_income: Renta bruta
-        inhabitants: Habitantes
-        million: millón
-        thousand: mil
-        title: Riqueza y población en la provincia
-      unemployment_age:
-        between_25_44: Entre 25 y 44
-        less_25: Menores de 25
-        more_44: Mayores de 44
-        title: Desempleo según la edad
-      unemployment_rate:
-        country: España
-        title: Comparación de la tasa de paro
-      unemployment_sex:
-        men: Hombres
-        title: Desempleo según el sexo
-        women: Mujeres
-    inhabitants: hab
-    intro: 'Conoce %{place} a través de sus principales cifras: la población, el empleo,
-      la economía y los presupuestos.'
+    events:
+      gobierto_indicators_indicator_updated: Indicador actualizado
+    indicators:
+      gci:
+        gci_description: Los indicadores GCI (Global City Indicators), que reflejan
+          la calidad de vida de la ciudad, los define el Banco Mundial, asociación
+          con el propósito de combatir la pobreza y apoyar el desarrollo. Los indicadores
+          pueden variar según el año seleccionado.
+        gci_title: Indicadores GCI
+        title: Indicadores %{year}
+      ip:
+        ip_description: Infoparticipa es un proyecto desarrollado por el LPCCP, desde
+          el año 2012, cuyo objetivo es evaluar la información que se publica en las
+          webs de las administraciones públicas para promover que mejore su transparencia
+          y calidad.
+        ip_title: Indicadores Infoparticipa
+        title: Indicadores %{year}
+      ita:
+        ita_description: Los indicadores ITA (Índice de Transparencia de los Ayuntamientos)
+          son una herramienta que la organización no gubernamental Transparencia Internacional
+          pone a disposición de los ayuntamientos españoles para medir su nivel de
+          transparencia. Evalúan la gestión realizada por el ayuntamiento de una ciudad
+          a través de un conjunto integrado de 80 indicadores agrupados en diversas
+          áreas.
+        ita_title: Indicadores ITA
+        title: Indicadores %{year}
+      shared:
+        latest_update_html: "<strong>Última actualización:</strong> %{date}"
+      template:
+        calculation: Cálculo
+        'false': no se cumple
+        methodology: Metodología
+        more: Más información
+        source: Fuente
+        'true': se cumple
     layouts:
       application:
         indicators: Indicadores
-      menu_subsections:
-        economia: Economía
-        empleo: Empleo
-        poblacion: Población
+      navigation:
+        sub:
+          gci: Indicadores GCI
+          ip: Indicadores Infoparticipa
+          ita: Indicadores ITA

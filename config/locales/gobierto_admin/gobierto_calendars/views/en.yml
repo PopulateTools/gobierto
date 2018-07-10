@@ -16,7 +16,7 @@ en:
       events:
         attendees_form:
           header:
-            charge: Charge
+            charge: Position
             name: Name
             person: Person
           title: Attendees
@@ -31,7 +31,6 @@ en:
             pending: Pending
             published: Published
         index:
-          all_events: All
           configuration: Configuration
           header:
             date: Date
@@ -42,8 +41,10 @@ en:
           past_events: Past events
           pending_events: Moderation pending
           published_events: Published events
+          upcoming_events: Upcoming
           view_event: View event
           visibility_level:
+            archived: Archived
             pending: Draft
             published: Published
         locations_form:

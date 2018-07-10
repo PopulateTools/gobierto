@@ -17,7 +17,7 @@
         <div class="form_item input_text">
           <label>
             <%= t(".title_#{@contribution_container.contribution_type}") %>
-            <span class="indication"><%= t('views.forms.required_and_max_characters', length: 140) %></span>
+            <%= attribute_indication_tag required: true, max_length: { f: f, attr: :title } %>
           </label>
           <%= f.text_field :title, placeholder: t(".placeholders.title_#{@contribution_container.contribution_type}") %>
         </div>

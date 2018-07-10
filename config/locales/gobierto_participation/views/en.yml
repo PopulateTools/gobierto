@@ -1,6 +1,7 @@
 ---
 en:
   gobierto_participation:
+    all_attachments: See all documents
     comments:
       comment:
         comments_html: "<strong>%{comments}</strong> comments"
@@ -21,7 +22,7 @@ en:
       gobierto_participation_poll_created: Poll created
       gobierto_participation_poll_updated: Poll updated
       gobierto_participation_process_created: Process / group created
-      gobierto_participation_process_published: 'Update process: %{subject_name}'
+      gobierto_participation_process_published: New process / group created
       gobierto_participation_process_updated: Process / group updated
       index:
         agenda_for_container: Diary for %{container_title}
@@ -59,33 +60,23 @@ en:
       application:
         title: Participation
       menu_subsections:
-        about: About
-        ideas: Ideas
         issues: Issues
         processes: Processes
-        questions: Ask
+        scopes: Scopes
       process_breadcrumb:
         root: Home
-      process_menu_subsections:
-        contributions: Contributions
-        information: Information
-        meetings: Meetings
-        polls: Polls
-        results: Results
       secondary_nav:
         activity: Activity
         agenda: Agenda
         documents: Documents
         news: News
-    pages:
-      show:
-        news: Noticias
-    participation_attachments: See all the documents of Participation
     processes:
       contribution_containers:
         show:
           all: All
           best_ratings: Best ratings
+          contributions_ended: The contributions period has ended
+          contributions_start_html: The contributions period starts on <strong>%{date}</strong>
           idea:
             one: 1 idea
             other: "%{count} ideas"
@@ -176,7 +167,9 @@ en:
         current: Current stage
         next_stage: Next fase
       show:
-        about: About this process
+        about:
+          group_process: About this group
+          process: About this process
         appointments: Face-to-face appointments
         interesting_information: Interesting information
         issue: Issue
@@ -193,9 +186,28 @@ en:
         process_stages: Process stages
         scope: Scope
       timeline_row:
-        past_stage: Stage has ended
-        upcoming_stage: Stage not yet started
         view_stage: Access this stage
+    scopes:
+      index:
+        intro_html: Your ideas help improve %{location_name} and the lives of all
+          that we reside here. Bring your best ideas to our <strong> permanent spaces
+          participation </ strong>
+      participation_groups:
+        work_groups_description: Check the activity of each group and participate.
+        work_groups_title: Work groups
+      participation_latest_info:
+        agenda: Paritipation Agenda
+        news: News
+        no_events: There are no related events
+        no_news: There are no related news
+        show_more_events: See more events
+        show_more_news: See more news
+        show_more_updates: See more updates
+        the_last: The last
+        up_to_date: "%{site_title} up to date"
+      participation_proccesses:
+        processes_description: Consultation and participation in specific processes.
+        processes_title: Processes in progress
     shared:
       activities_for: Updates for %{container}
       agenda: Agenda
@@ -208,6 +220,7 @@ en:
       all_events: View all events
       all_news: Show all news
       consultation_processes: Consult and participate in specific processes.
+      current_events: View current events
       diary_for: Diary for %{container}
       documents: Documents
       documents_for: Documents for %{container}
@@ -219,7 +232,7 @@ en:
           agenda_for_container: Diary for
       filter_by_theme: Filter by theme
       from_to: "%{starts} to %{ends}"
-      new: New
+      news: News
       news_for: News for %{container}
       no_activities: No related updates
       no_documents: No related documents
@@ -227,6 +240,7 @@ en:
       no_news: No related news
       ongoing_processes: Ongoing processes
       participation: Participation
+      past_events: View past events
       published_at: Posted on %{date} by %{site}
     welcome:
       index:

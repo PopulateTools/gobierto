@@ -10,14 +10,18 @@
 
         <% current_site.configuration.available_locales.each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
-            <%= label_tag "event[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
+            <%= label_tag "event[title_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:title) %>
+              <%= attribute_indication_tag required: true %>
+            <% end %>
             <%= text_field_tag "event[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
 
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "event[description_translations][#{locale}]", f.object.class.human_attribute_name(:description) %>
-            <%= rich_text_area_tag "event[description_translations][#{locale}]", f.object.description_translations && f.object.description_translations[locale], attachment_path: admin_people_file_attachments_path %>
+            <%= text_area_tag "event[description_source_translations][#{locale}]", f.object.description_source_translations && f.object.description_source_translations[locale], attachment_path: admin_attachments_file_attachments_path, lang: locale, data: { wysiwyg: true } %>
           </div>
+          <%= hidden_field_tag "event[description_translations][#{locale}]", f.object.description_translations && f.object.description_translations[locale], id: "event_description_translations_#{locale}" %>
         <% end %>
       </div>
 

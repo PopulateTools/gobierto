@@ -12,10 +12,6 @@
   <% end %>
 <% end %>
 
-<%= content_for :body_attributes do %>
-  class="theme-participation gobierto_participation"
-<% end %>
-
 <div class="gradient-bg">
   <div class="column">
 
@@ -25,9 +21,6 @@
           <h2 class='with_separator'>
             <%= t('gobierto_participation.shared.diary_for', container: @issue.name) %>
           </h2>
-          <div>
-            <small><%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_issue_events_path %></small>
-          </div>
 
           <%= render 'gobierto_participation/shared/events/calendar_component', events: @events %>
 
@@ -42,6 +35,8 @@
               <% end %>
             </ul>
           <% end %>
+
+          <small><%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %></small>
         </div>
       </div>
 
@@ -58,7 +53,6 @@
         <% end %>
 
         <%= paginate @events, window: 3, outer_window: 2 %>
-
       </div>
     </div>
   </div>

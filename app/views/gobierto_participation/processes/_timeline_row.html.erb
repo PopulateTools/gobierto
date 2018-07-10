@@ -1,4 +1,4 @@
-<div class="timeline_row <%= "#{class_if('current', stage.current?)} #{class_if('active', stage.open?)}" %>">
+<div class="timeline_row <%= "#{class_if('current', stage.current?)} #{class_if('active', stage.published?)}" %>">
   <div class="pure-u-1 pure-u-md-4-24">
     <div class="badge">
       <strong><%= "#{l(stage.starts, format: '%d %b').upcase} - #{l(stage.ends, format: '%d %b').upcase}" %></strong>
@@ -11,20 +11,13 @@
     <div class="p_1 content_block">
       <h3 class="toggle_description"><i class="fa fa-caret-right"></i> <%= stage.title %></h3>
 
-      <div class="circle"><%= (index+1).to_s %></div>
+      <div class="circle"><%= (index + 1).to_s %></div>
 
       <div class="description">
         <%= stage.description %>
       </div>
 
-      <% if stage.open? %>
-        <%= link_to t('.view_stage'), process_stage_path(stage) %>
-      <% elsif stage.upcoming? %>
-        <i><%= t('.upcoming_stage') %></i>
-      <% elsif stage.past? %>
-        <i><%= t('.past_stage') %></i>
-      <% end %>
-
+      <%= link_to t('.view_stage'), stage_path(stage) %>
     </div>
   </div>
 </div>

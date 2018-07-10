@@ -6,6 +6,7 @@
     <th><%= GobiertoCms::Page.human_attribute_name(:title) %></th>
     <th><%= t('.created_at') %></th>
     <th></th>
+    <th></th>
   </tr>
 
   <tbody>
@@ -17,12 +18,64 @@
         <td><%= link_to file_attachment.name, edit_admin_attachments_file_attachment_path(file_attachment.id, collection_id: @collection.id) %></td>
         <td><%= time_ago_in_words(file_attachment.created_at) %></td>
         <td>
-          <%= link_to file_attachment.to_url, target: "_blank", class: "view_item" do %>
+          <%= link_to file_attachment.to_url(host: current_site.domain), target: "_blank", class: "view_item" do %>
             <i class="fa fa-eye"></i>
             <%= t(".view") %>
           <% end %>
+        </td>
+        <td>
+          <%= link_to "<i class='fa fa-trash'></i>".html_safe,
+                      admin_attachments_file_attachment_path(file_attachment, process_id: (current_process.id if !defined?(current_process).nil?)),
+                      title: t("gobierto_admin.shared.archive.element"),
+                      method: :delete,
+                      data: { confirm: t("gobierto_admin.shared.archive.confirm") } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<% unless @archived_file_attachments.empty? %>
+  <div class="m_v_1 right">
+    <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggle: true} %>
+  </div>
+
+  <div id="archived-list" style="display:none">
+    <table class="pages-list">
+      <tr>
+        <th></th>
+        <th></th>
+        <th><%= t('.file_name') %></th>
+        <th><%= GobiertoCms::Page.human_attribute_name(:title) %></th>
+        <th><%= t('.created_at') %></th>
+        <th></th>
+      </tr>
+
+      <tbody>
+        <% @archived_file_attachments.each do |file_attachment| %>
+          <tr id="file_attachment-item-<%= file_attachment.id %>">
+            <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_attachments_file_attachment_path(file_attachment.id, collection_id: @collection.id) %></td>
+            <td><%= filetype_icon(file_attachment) %></td>
+            <td><%= file_attachment.file_name %></td>
+            <td><%= file_attachment.name %></td>
+            <td><%= time_ago_in_words(file_attachment.created_at) %></td>
+            <td>
+              <%= link_to t("gobierto_admin.shared.recover.element"),
+                          admin_attachments_file_attachment_recover_path(file_attachment, process_id: (current_process.id if !defined?(current_process).nil?)),
+                          title: t("gobierto_admin.shared.recover.element"),
+                          method: :put,
+                          data: { confirm: t("gobierto_admin.shared.recover.confirm") } %>
+
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $('a[data-toggle]').on('click', function(e){
+     $("div#archived-list").toggle();
+  });
+<% end %>

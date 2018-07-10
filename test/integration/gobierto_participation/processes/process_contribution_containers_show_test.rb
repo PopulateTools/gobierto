@@ -23,6 +23,13 @@ module GobiertoParticipation
       )
     end
 
+    def past_contribution_container_path
+      @container_path ||= gobierto_participation_process_contribution_container_path(
+        process_id: gobierto_participation_processes(:bowling_group_very_active).slug,
+        id: past_contribution_container.slug
+      )
+    end
+
     def contribution_path
       @contribution_path ||= gobierto_participation_process_contribution_container_path(
         process_id: process.slug,
@@ -37,6 +44,10 @@ module GobiertoParticipation
 
     def contribution_container
       @contribution_container ||= gobierto_participation_contribution_containers(:children_contributions)
+    end
+
+    def past_contribution_container
+      @past_contribution_container ||= gobierto_participation_contribution_containers(:bowling_group_contributions_past)
     end
 
     def contributions
@@ -145,40 +156,56 @@ module GobiertoParticipation
 
     def test_vote_contribution
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit container_path
-            assert has_content? "What activities for children we can start up?"
+        with_signed_in_user(user) do
+          visit container_path
+          assert has_content? "What activities for children we can start up?"
 
-            page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
-            assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
-            assert has_content? "Rate the idea"
-            page.find("a.action_button.love").trigger("click")
-            assert has_content? "It enchants to me"
+          page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
+          assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
+          assert has_content? "Rate the idea"
+          page.find("a.action_button.love").trigger("click")
+          assert has_content? "It enchants to me"
 
-            find(".modal_like_control a", visible: false).click
-          end
+          find(".modal_like_control a", visible: false).click
         end
       end
     end
 
     def test_contribution_commments
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit container_path
+        with_signed_in_user(user) do
+          visit container_path
 
-            page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
-            assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
+          page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
+          assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
 
-            within "div.comments_container" do
-              contribution_comments.each do |comment|
-                assert has_selector?("div.comment div")
-              end
+          within "div.comments_container" do
+            contribution_comments.each do |comment|
+              assert has_selector?("div.comment div")
             end
-
-            find(".modal_like_control a", visible: false).click
           end
+
+          find(".modal_like_control a", visible: false).click
+        end
+      end
+    end
+
+    def test_cant_vote_contributions_on_closed_contribution_container
+      with_javascript do
+        with_signed_in_user(user) do
+          visit past_contribution_container_path
+
+          assert has_content? 'This container has already finished'
+
+          # ensure button to create contribution is disabled
+          assert find('a.js-disabled.disabled-grayed.disabled-cursor').present?
+
+          page.find('[data-url="/participacion/p/grupo-de-petanca/aportaciones/lawn-bowling-past-contributions/contributions/contribution-on-closed-container"]', visible: false).trigger("click")
+
+          sleep 1
+
+          # ensure buttons to rate contributions are disabled
+          assert_equal 4, all('a.action_button.js-disabled.disabled-cursor').size
         end
       end
     end

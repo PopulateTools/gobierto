@@ -37,28 +37,26 @@ module GobiertoParticipation
           visit process_polls_path
 
           # published open polls apear
-          assert has_content? 'Should the main street be pedestrianized?'
+          assert has_content? 'What do the residents of the neighborhood think?'
           assert has_content? 'General aspects of the ordinance'
 
           # draft, future and past polls are hidden
-          refute has_content? 'Schedules'
-          refute has_content? 'Public spaces'
-          refute has_content? 'Noise'
+          assert has_no_content? 'Schedules'
+          assert has_no_content? 'Public spaces'
+          assert has_no_content? 'Noise'
         end
       end
 
       def test_disable_participate_link_for_already_answered_polls
-        with_current_site(site) do
-          with_signed_in_user(user_already_answered) do
+        with_signed_in_user(user_already_answered) do
 
-            visit process_polls_path
+          visit process_polls_path
 
-            within "#poll_#{poll.id}" do
-              assert has_content? 'You have already participated in this poll'
-              refute has_content? 'Participate in this poll'
-            end
-
+          within "#poll_#{poll.id}" do
+            assert has_content? 'You have already participated in this poll'
+            assert has_no_content? 'Participate in this poll'
           end
+
         end
       end
 

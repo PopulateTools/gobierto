@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoAdmin
   class CreateScopeTest < ActionDispatch::IntegrationTest
-
     def setup
       super
       @path = admin_scopes_path
@@ -24,8 +23,8 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            click_link 'New'
-            click_button 'Create'
+            click_link "New"
+            click_button "Create"
 
             assert has_alert? "Name can't be blank"
           end
@@ -39,40 +38,36 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            click_link 'New'
+            click_link "New"
 
-            fill_in 'scope_name_translations_en', with: 'New scope name'
-            fill_in 'scope_description_translations_en', with: 'New scope description'
+            fill_in "scope_name_translations_en", with: "New scope name"
+            fill_in "scope_description_translations_en", with: "New scope description"
 
-            click_link 'ES'
+            click_link "ES"
 
-            fill_in 'scope_name_translations_es', with: 'Nombre del nuevo ámbito'
-            fill_in 'scope_description_translations_es', with: 'Descripción del nuevo ámbito'
+            fill_in "scope_name_translations_es", with: "Nombre del nuevo ámbito"
+            fill_in "scope_description_translations_es", with: "Descripción del nuevo ámbito"
 
-            click_button 'Create'
+            click_button "Create"
 
-            assert has_message?('Scope was successfully created')
+            assert has_message?("Scope was successfully created")
 
-            assert has_content?('New scope name')
+            assert has_content?("New scope name")
 
-            # assert scope was created
+            scope = site.scopes.order(created_at: :desc).first
 
-            scope = site.scopes.last
+            assert_equal "New scope name", scope.name
+            assert_equal "New scope description", scope.description
 
-            assert_equal 'New scope name', scope.name
-            assert_equal 'New scope description', scope.description
-
-            assert_equal 'Nombre del nuevo ámbito', scope.name_es
-            assert_equal 'Descripción del nuevo ámbito', scope.description_es
-
-            # assert create activity was generated
+            assert_equal "Nombre del nuevo ámbito", scope.name_es
+            assert_equal "Descripción del nuevo ámbito", scope.description_es
 
             activity = Activity.last
 
             assert_equal scope, activity.subject
             assert_equal admin, activity.author
             assert_equal site.id, activity.site_id
-            assert_equal 'scopes.scope_created', activity.action
+            assert_equal "scopes.scope_created", activity.action
           end
         end
       end

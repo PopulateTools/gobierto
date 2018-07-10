@@ -1,25 +1,34 @@
 module GobiertoBudgets
   class FeaturedBudgetLinesController < GobiertoBudgets::ApplicationController
     def show
-      @place = INE::Places::Place.find_by_slug(params[:id])
-      @year = params[:year].to_i
-      @area_name = 'functional'
+      @year = params[:id].to_i
+      @area_name = GobiertoBudgets::FunctionalArea.area_name
 
       @kind = GobiertoBudgets::BudgetLine::EXPENSE
       results = GobiertoBudgets::BudgetLine.search({
-          kind: @kind, year: @year, ine_code: @place.id,
+          kind: @kind, year: @year, organization_id: current_site.organization_id,
           type: @area_name, range_hash: {
-            level: {ge: 3},
-            amount_per_inhabitant: { gt: 0 }
+            level: { ge: 3 },
+            amount: { gt: 0 }
           }
       })['hits']
 
-      @code = results.sample['code'] if results.any?
+      if results.any?
+        random_item = results.map do |r|
+          id = (r.slice("organization_id", "year", "code", "kind").values + [@area_name]).join('/')
+          GobiertoBudgets::BudgetLinePresenter.load(id, current_site)
+        end.select{ |b| b.name.present? }.sample
 
-      if @code.present?
-        render pick_template, layout: false
+        if random_item
+          @code = random_item.code
+          site_stats = GobiertoBudgets::SiteStats.new(site: current_site, year: @year)
+          @population = site_stats.population
+          render pick_template, layout: false
+        else
+          head :ok
+        end
       else
-        render head: :success
+        head :ok
       end
     end
 

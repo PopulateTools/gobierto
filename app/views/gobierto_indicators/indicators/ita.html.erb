@@ -1,0 +1,57 @@
+<% title t('.title', year: @year) %>
+
+<% content_for(:current_submodule_link) do %>
+  <%= link_to "ITA", gobierto_indicators_indicators_ita_path %>
+<% end %>
+
+<div id="indicator-form" data-type="boolean"></div>
+
+<div class="column indicators-tree">
+
+  <div class="block">
+
+    <div class="pure-g header_block_inline">
+      <div class="pure-u-1 pure-u-md-12-24">
+        <div class="inline_header">
+          <h2 class="with_description p_h_r_1"><%= t('.ita_title') %></h2>
+          <%= render partial: 'layouts/year_breadcrumb', locals: {path_calculation_method: :gobierto_indicators_indicators_ita_path} %>
+        </div>
+
+        <p v-if="!selected">
+          <%= t('.ita_description') %>
+        </p>
+
+        <p class="indicators-update-date">
+          <%= t("gobierto_indicators.indicators.shared.latest_update_html", date: l(@indicator_updated_at, format: :long)) %>
+        </p>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-12-24 right" v-if="!selected">
+        <%= image_tag('illustrations/personaliza.jpg', class: 'img_header m_v_4') %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="block">
+    <div id="indicators-tree" class="p_v_1" data-year="<%= @year %>">
+
+      <ul class="item-root item-root--notree" v-if="selected">
+        <item-view-wrap :model="selected"></item-view-wrap>
+      </ul>
+
+      <ul v-for="model in json" class="item-root" v-else>
+        <item-tree class="item" :model="model" :key="model.id" ref="inode"></item-tree>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<%= render partial: 'gobierto_indicators/indicators/template' %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoIndicators.indicators_controller.show();
+  <% end %>
+<% end %>

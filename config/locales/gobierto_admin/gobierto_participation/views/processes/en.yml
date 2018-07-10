@@ -5,9 +5,16 @@ en:
       processes:
         create:
           add_stages: Now you can add stages
-          success_html: Process was successfully created. <a href="%{link}">View process</a>.
+          success_group_process_html: Group was successfully created. <a href="%{link}">View
+            group</a>.
+          success_process_html: Process was successfully created. <a href="%{link}">View
+            process</a>.
+        destroy:
+          success_group_process: The group has been archived correctly
+          success_process: The process has been archived correctly
         edit:
-          title: Edit process
+          edit_group_process: Edit group
+          edit_process: Edit process
         form:
           duration: Duration
           placeholders:
@@ -38,6 +45,7 @@ en:
             title: Contributions
             visibility_level:
               active: Published
+              archived: Archived
               draft: Draft
           show:
             comments: Comments
@@ -54,27 +62,21 @@ en:
         process_file_attachments:
           index:
             configuration: Configuration
-        process_information:
-          edit:
-            information: Information
-          form:
-            placeholders:
-              information_text: Information
-          update:
-            success: Process was successfully updated
         process_pages:
           index:
             configuration: Configuration
         process_stages:
-          active: Active
-          cancel: Cancel
-          edit: Edit
-          edit_stage: Edit stage
-          placeholders:
-            body: ex. In this stage we intend ...
-            cta_text: ex. Add your idea
-            title: ex. Main stage
-          save: Save
-          stages_and_tools: Stages and tools
+          process_stages:
+            add_new_stage: Add new stage
+            draft: Draft
+            drag_to_sort: Drag to sort
+            manage: Manage
+            published: Published
+        recover:
+          success_group_process: The group has been recovered correctly
+          success_process: The process has been recovered correctly
         update:
-          success_html: Process was successfully updated. <a href="%{link}">View process</a>.
+          success_group_process_html: Group was successfully updated. <a href="%{link}">View
+            group</a>.
+          success_process_html: Process was successfully updated. <a href="%{link}">View
+            process</a>.

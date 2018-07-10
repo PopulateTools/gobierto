@@ -6,152 +6,200 @@ body.gobierto_admin {
   table {
     @extend table.block_content;
   }
+
   .dyna_block {
     margin: 0 0 2em 0;
     border: 1px solid $color_separator;
+
     @include border-radius(6px);
+
     overflow-x: auto;
     line-height: 1.2em;
 
     label {
-      padding: .5em 1.25em;
+      padding: 0.5em 1.25em;
       display: block;
       text-transform: uppercase;
-      font-size: .75em;
+      font-size: 0.75em;
       font-weight: 700;
     }
+
     label + .dyna_block_description {
-      margin: -.5em 0 .5em 1.25em;
+      margin: -0.5em 0 0.5em 1.25em;
       display: block;
-      font-size: .75em;
-      opacity: .5;
+      font-size: 0.75em;
+      opacity: 0.5;
     }
+
     .new_row_add {
       td {
         border-top: 1px solid $color_separator;
+
         a {
           display: block;
         }
       }
     }
-    .new_row_content, .dynamic-content-record-form {
-      display: none;
-      td {
-        background: transparentize($color_main, .95);
-        padding: .7em .5em .4em;
 
+    .new_row_content,
+    .dynamic-content-record-form {
+      display: none;
+
+      td {
+        background: transparentize($color_main, 0.95);
+        padding: 0.7em 0.5em 0.4em;
       }
+
       .edit_cell {
         display: block;
         margin-left: 1px;
-        padding-bottom: .4em;
+        padding-bottom: 0.4em;
+
         a:hover {
           background: initial;
         }
       }
-      input[type=text], input[type=number], select {
+
+      input[type=text],
+      input[type=number],
+      select {
         width: 100%;
-        padding: .5em;
-        margin: 0 0 .5em 0;
+        padding: 0.5em;
+        margin: 0 0 0.5em 0;
         height: initial;
+
         @include border-radius(3px);
       }
+
       select {
         background: white;
         border: 1px solid $color_separator;
       }
+
       h4 {
-        margin: .5em 0 1em 0;
+        margin: 0.5em 0 1em 0;
       }
-      button, a.button, input[type=submit] {
-        padding: .5em .75em;
+
+      button,
+      a.button,
+      input[type=submit] {
+        padding: 0.5em 0.75em;
         height: initial;
-        margin: .7em 1em .7em 0;
+        margin: 0.7em 1em 0.7em 0;
         line-height: 1.4em;
+
         @include border-radius(3px);
       }
     }
-    .new_row_content:hover, .dynamic-content-record-form:hover {
+
+    .new_row_content:hover,
+    .dynamic-content-record-form:hover {
       .edit_cell {
         display: block;
       }
     }
+
     .edit_cell {
       display: none;
       position: absolute;
       margin-left: 1px;
       padding: 0;
+
       a {
         display: inline-block;
-        padding: .5em .75em .5em 1em;
+        padding: 0.5em 0.75em 0.5em 1em;
       }
+
       a:hover {
-        background: transparentize($color_main, .9);
+        background: transparentize($color_main, 0.9);
       }
     }
+
     tr {
       position: relative;
+
       @include transition();
     }
+
     tr:hover {
       td.edit_cell {
         display: block;
       }
     }
-    th:first-child, td:first-child {
+
+    th:first-child,
+    td:first-child {
       padding-left: 1.25em;
     }
+
     th {
-      font-size: .75em;
+      font-size: 0.75em;
       line-height: 1.3em;
     }
+
     table {
-      td, th {
-        padding: .4em .5em .45em;
+      td,
+      th {
+        padding: 0.4em 0.5em 0.45em;
       }
     }
   }
-  .warn, a.warn, .warn a {
+
+  .warn,
+  a.warn,
+  .warn a {
     color: $color_warn;
     font-weight: 600;
   }
+
   .dyna_block.new_block {
-    a, label {
+    a,
+    label {
       display: block;
       padding: 0;
     }
+
     a {
       padding: 1em 1.25em;
     }
+
     a:hover {
-      background: transparentize($color_main, .9);
+      background: transparentize($color_main, 0.9);
     }
   }
+
   .new_block_content {
     padding: 1em;
+
     @include border-radius(6px);
-    background: transparentize($color_main, .9);
+
+    background: transparentize($color_main, 0.9);
+
     .block_column_field {
       margin: 0 0 1em 0;
       padding: 1em;
       border: 1px solid $color_separator;
+
       @include border-radius(6px);
-      select, input {
+
+      select,
+      input {
         height: initial;
-        padding: .25em;
+        padding: 0.25em;
         width: initial;
         display: inline-block;
       }
-      select, option {
+
+      select,
+      option {
         -webkit-appearance: menulist;
-        moz-appearance: menulist;
+        -moz-appearance: menulist;
         appearance: menulist;
       }
-      input {
 
-      }
       .locale_field {
-        padding: .5em 0;
+        padding: 0.5em 0;
+
         label {
           display: inline-block;
           width: 75px;

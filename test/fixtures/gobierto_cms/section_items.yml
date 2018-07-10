@@ -4,3 +4,33 @@ participation_items:
   parent_id: nil
   section: participation
   level: 0
+
+participation_items_child:
+  item: about_participation_details (GobiertoCms::Page)
+  position: 0
+  parent_id: nil
+  section: participation
+  level: 0
+
+santander_navigation_budgets_item:
+  item_id: "GobiertoBudgets"
+  item_type: "GobiertoModule"
+  position: 0
+  parent_id: nil
+  section: global_navigation_santander
+  level: 0
+
+santander_navigation_people_item:
+  item_id: "GobiertoPeople"
+  item_type: "GobiertoModule"
+  position: 1
+  parent_id: nil
+  section: global_navigation_santander
+  level: 0
+
+santander_navigation_section_item:
+  item: cms_pages_santander (GobiertoCms::Section)
+  position: 2
+  parent_id: nil
+  section: global_navigation_santander
+  level: 0

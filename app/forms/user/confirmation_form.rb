@@ -1,10 +1,13 @@
-class User::ConfirmationForm
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class User::ConfirmationForm < BaseForm
+
   include GobiertoCommon::CustomUserFieldsHelper
 
   attr_accessor(
     :confirmation_token,
     :name,
+    :password_enabled,
     :password,
     :password_confirmation,
     :date_of_birth_year,
@@ -13,13 +16,21 @@ class User::ConfirmationForm
     :date_of_birth,
     :gender,
     :creation_ip,
+    :site,
     :document_number
   )
   attr_reader :user
 
   validates :name, :date_of_birth, :gender, :user, presence: true
-  validates :password, presence: true, confirmation: true
+  validates :password, presence: true, confirmation: true, if: :password_enabled
   validate :user_verification
+
+  def initialize(options = {})
+    options = options.to_h.with_indifferent_access
+    ordered_options = options.slice(:site, :confirmation_token).merge!(options)
+
+    super(ordered_options)
+  end
 
   def require_user_verification?
     user.present? && user.referrer_entity == "GobiertoBudgetConsultations::Consultation"
@@ -31,16 +42,37 @@ class User::ConfirmationForm
     confirm_user if save_user
   end
 
+  def password_enabled
+    @password_enabled = true if @password_enabled.nil?
+    @password_enabled
+  end
+
   def user
-    @user ||= User.find_by_confirmation_token(confirmation_token)
+    @user ||= User.find_by(confirmation_token: confirmation_token, site: site)
+  end
+
+  def name
+    @name ||= user.name if user
   end
 
   def email
     @email ||= user.email
   end
 
-  def site
-    @site ||= user.source_site if user
+  def gender
+    @gender ||= user.gender if user
+  end
+
+  def date_of_birth_year
+    @date_of_birth_year ||= user.date_of_birth.try(:year) if user
+  end
+
+  def date_of_birth_month
+    @date_of_birth_month ||= user.date_of_birth.try(:month) if user
+  end
+
+  def date_of_birth_day
+    @date_of_birth_day ||= user.date_of_birth.try(:day) if user
   end
 
   def date_of_birth
@@ -64,7 +96,7 @@ class User::ConfirmationForm
   def save_user
     @user = user.tap do |user_attributes|
       user_attributes.name = name
-      user_attributes.password = password
+      user_attributes.password = password if password_enabled
       user_attributes.date_of_birth = date_of_birth
       user_attributes.gender = gender
       user_attributes.custom_records = custom_records
@@ -125,15 +157,9 @@ class User::ConfirmationForm
 
   protected
 
-  def promote_errors(errors_hash)
-    errors_hash.each do |attribute, message|
-      errors.add(attribute, message)
-    end
-  end
-
   def deliver_welcome_email
     if user
-      User::UserMailer.welcome(user, user.source_site).deliver_later
+      User::UserMailer.welcome(user, user.site).deliver_later
     end
   end
 

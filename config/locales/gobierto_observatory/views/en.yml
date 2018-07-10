@@ -1,0 +1,123 @@
+---
+en:
+  gobierto_observatory:
+    cards:
+      active_pop:
+        figure_first: of total
+        figure_second: people
+        title: Active population
+      births:
+        country: Country average
+        place: "%{place}"
+        province: Province average
+        title: Birth rate
+      budget_by_inhabitant:
+        title: Budget per inhabitant
+      cars:
+        title: Cars per inhabitant
+      cars_tax:
+        figure_first: "%{place}"
+        figure_second: province average
+        title: Passenger cars tax
+      companies:
+        title: Companies
+      construction_tax:
+        figure_first: "%{place}"
+        figure_second: province average
+        title: Construction tax
+      contracts_comparison:
+        figure_first: short term
+        figure_second: long term
+        title: Contracts in the last month
+      contracts_sector:
+        agricultura: Agriculture
+        construccion: Construction
+        industria: Industry
+        servicios: Services
+        title: Contracts by sector
+      deaths:
+        country: Country average
+        place: "%{place}"
+        province: Province average
+        title: Death rate
+      debt_by_inhabitant:
+        title: Debt by inhabitant
+      economic_tax:
+        title: Economic activity tax
+      freelancers:
+        title: Freelancers
+      frequency:
+        daily: Updated daily
+        monthly: Updated monthly
+        weekly: Updated weekly
+        yearly: Updated annually
+      houses:
+        figure_first: family houses
+        figure_second: main houses
+        title: Houses
+      ibi:
+        first_column: ''
+        second_column: City
+        third_column: Rustic
+        title: Land value tax
+      income:
+        first_column: ''
+        second_column: Gross
+        third_column: Net
+        title: Municipality income
+      income_overview:
+        figure_first: "%{place}"
+        figure_second: Spain
+        title: Gross income
+      investment_by_inhabitant:
+        first_column: "%{place}"
+        second_column: Barcelona
+        third_column: Valencia
+        title: Investment by inhabitant
+      meta:
+        time: " in "
+        where: 'At '
+      population:
+        title: Inhabitants
+      ss_members:
+        title: Social Security affiliates
+      unemployed_sector:
+        agricultura: Agriculture
+        construccion: Construction
+        industria: Industry
+        servicios: Services
+        title: Unemployed by sector
+      updated: Last update
+    graphics:
+      age_distribution:
+        axis: years
+        label: inhabitants
+        title: Discover the age distribution of your municipality
+      rent_distribution:
+        gross_income: Gross income
+        inhabitants: Inhabitants
+        million: million
+        thousand: thousand
+        title: Wealth and population in the province
+      unemployment_age:
+        between_25_44: Between 25 and 44
+        less_25: Younger than 25
+        more_44: Older than 44
+        title: Unemployment by age
+      unemployment_rate:
+        country: Spain
+        title: Unemployment rate comparison
+      unemployment_sex:
+        men: Men
+        title: Unemployment by sex
+        women: Women
+    inhabitants: inh
+    intro: 'Understand %{place} through its main figures: the population, the employment
+      market and the economy.'
+    layouts:
+      application:
+        observatory: Observatory
+      menu_subsections:
+        economia: Employment
+        empleo: Economy
+        poblacion: Population

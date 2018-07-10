@@ -21,7 +21,7 @@
         </div>
 
         <p>
-          <%= t('.description', place_name: current_site.place.name) %>
+          <%= t('.description', place_name: current_site.organization_name) %>
         </p>
 
         <%= render('gobierto_budgets/shared/data_updated_at') %>
@@ -34,7 +34,7 @@
   </div>
 
   <div class="block">
-    <h2 class="with_description"><%= t('.main_budget_lines') %></h2>
+    <h2 class="with_description"><%= t('.main_budget_lines', from_your_organization_name: @site.determined_organization_name(:from_your)) %></h2>
 
     <div class="pure-g m_t_1">
       <div class="pure-u-1 pure-u-lg-11-24">
@@ -80,8 +80,8 @@
 
     <div class="pure-u-1">
       <div class="filter m_v_2" role="tablist" aria-label="<%= t('.visualize') %>">
-        <%= link_to t('.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: @place.id, year: @year, what: 'per_person', include_next_year: true, format: :json), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person', 'aria-controls' => 'lines_chart_wrapper' %>
-        <%= link_to t('.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: @place.id, year: @year, what: 'total_budget', include_next_year: true, format: :json), "line-widget-type" => "total_budget" }, role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
+        <%= link_to t('.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(organization_id: current_site.organization_id, year: @year, what: 'per_person', include_next_year: true, format: :json), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person', 'aria-controls' => 'lines_chart_wrapper' %>
+        <%= link_to t('.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(organization_id: current_site.organization_id, year: @year, what: 'total_budget', include_next_year: true, format: :json), "line-widget-type" => "total_budget" }, role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
 
         </div>
     </div>
@@ -91,4 +91,5 @@
 
   <%= render partial: 'gobierto_budgets/budget_lines/explorer' %>
 
+  <%= render "shared/download_open_data" %>
 </div>

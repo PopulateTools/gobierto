@@ -11,10 +11,13 @@ module Integration
       sign_out_admin
     end
 
-    def with_signed_in_user(user)
-      sign_in_user(user)
-      yield
-      sign_out_user
+    def with_signed_in_user(user, logout=true)
+      with_current_site(user.site) do
+        sign_in_user(user)
+        yield
+        # permits skipping logout on some pages that don't have layout, thus no logout link
+        sign_out_user if logout
+      end
     end
 
     def sign_in_admin(admin)

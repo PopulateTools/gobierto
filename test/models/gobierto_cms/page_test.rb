@@ -20,5 +20,22 @@ module GobiertoCms
     def test_valid
       assert page.valid?
     end
+
+    def test_searchable_body
+      assert page.send(:searchable_body).include?("This is the body of the page")
+      assert page.send(:searchable_body).include?("Cuerpo página consultas")
+    end
+
+    def test_searchable_body_on_empty_page
+      new_page = GobiertoCms::Page.new
+      assert_equal "", new_page.send(:searchable_body)
+      assert_equal "", new_page.send(:searchable_body)
+    end
+
+    def test_destroy
+      page.destroy
+
+      assert page.slug.include?("archived-")
+    end
   end
 end

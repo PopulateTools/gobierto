@@ -1,6 +1,13 @@
 ---
 ca:
   gobierto_people:
+    departments:
+      index:
+        events: reunions registrades
+        people_with_events: alts càrrecs amb reunions registrades
+      show:
+        interest_groups_with_events: grups d'interès s'han reunit amb aquest departament
+        people_with_events: alts càrrecs d'aquest departament amb reunions registrades
     events:
       gobierto_people_person_post_published: 'Actualització del blog: %{subject_name}'
       gobierto_people_person_post_updated: 'Actualització del post: %{subject_name}'
@@ -25,20 +32,35 @@ ca:
           description: Llistat de les declaracions de béns i activitats i tots els
             seus elements.
           title: Declaracions
+    interest_groups:
+      index:
+        interest_groups: grups d'interès inscrits
+      show:
+        events: reunions registrades
+        people_with_events: el nombre de Alts Càrrecs amb els quals s'ha reunit aquest
+          grup
     layouts:
       application:
         title: Alts càrrecs i agendes
+      departments:
+        no_departments_within_dates: No hi ha cap departament per aquestes dates
       menu_subsections:
         agendas: Agendes
         blogs: Blogs
+        departments: Departaments
+        gifts: Obsequis
+        interest_groups: Grups d'interès
+        invitations: Invitacions
         people: Càrrecs
         statements: Declaracions
+        trips: Viatjes
     people:
       contact_methods:
         send_email: Envia un correu-e
       index:
+        no_people_within_range: No hi ha cap alt càrrec per aquestes dates
         subscribable_box:
-          title: Rebeix una alerta al teu correu-e
+          title: Rebre una alerta al teu correu-e
         title: Organigrama de %{site_name}
       latest_activity:
         no_activity: Aquest perfil encara no ha registrat cap activitat.
@@ -47,8 +69,8 @@ ca:
         agenda: Agenda
         bio: Biografia i CV
         blog: Blog
-        exports: Descarrega les dades en format reutilitzable
         gifts: Obsequis i regals
+        invitations: Invitacions
         statements: Béns i activitats
         trips: Viatges
       people_filter:
@@ -91,8 +113,6 @@ ca:
           no_posts: Encara no hi ha posts publicats.
           title: El blog de %{person_name}, %{person_charge}
         show:
-          subscribable_box:
-            title: Rebeix actualitzacions al teu correu-e
           title: El blog de %{person_name}, %{person_charge}
       person_statements:
         index:
@@ -100,8 +120,6 @@ ca:
           title: Béns i activitats de %{person_name}
         show:
           download: Descarregar declaració (%{file_size})
-          subscribable_box:
-            title: Rebeix actualitzacions al teu correu-e
           title: Béns i activitats de %{person_name}
           view_previous: Veure anteriors
       show:
@@ -111,6 +129,15 @@ ca:
       subscription_button:
         cancel: Cancelar
         follow: Seguir
+      trips:
+        trip:
+          accomodation_expenses: Hotels i allotjament
+          company: Comitiva
+          expenses: Despeses
+          food_expenses: Dietes y manutenció
+          other_expenses: Altres despeses
+          total_expenses: Total despeses
+          transport_expenses: Transport
       upcoming_events:
         no_upcoming_events: No hi ha esdeveniments programats
         title: Agenda
@@ -146,12 +173,10 @@ ca:
       show:
         filtering_by_tag: Filtrant per "%{tag}"
         go_back: Tornar
-        subscribable_box:
-          title: Rebeix una alerta al teu correu-e
     person_posts:
       index:
         subscribable_box:
-          title: Rebeix una alerta al teu correu-e
+          title: Rebre una alerta al teu correu-e
         switcher:
           subtitle: Filtra per membres de la comunitat
           title: Consulta els blogs de...
@@ -161,7 +186,7 @@ ca:
     person_statements:
       index:
         subscribable_box:
-          title: Rebeix una alerta al teu correu-e
+          title: Rebre una alerta al teu correu-e
         switcher:
           subtitle: Filtra per membres de la comunitat
           title: Consulta les declaracions de...
@@ -184,5 +209,5 @@ ca:
           view_all: Veure tots
         statements: Salaris i retribucions
         subscribable_box:
-          title: Rebeix actualitzacions al teu correu-e
-        travels: Viatges i desplaçaments
+          title: Rebre actualitzacions al teu correu-e
+        trips: Viatges i desplaçaments

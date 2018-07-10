@@ -2,7 +2,7 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
   before_action :load_params
 
   def index
-    conditions = { site: current_site, place: @place, year: @year, kind: @kind, area_name: @area_name }
+    conditions = { site: current_site, year: @year, kind: @kind, area_name: @area_name }
 
     if @parent_code
       conditions.merge!({parent_code: @parent_code})
@@ -10,19 +10,10 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
       conditions.merge!({level: 1})
     end
 
-    @budget_lines = []
-    budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions)
-    @budget_lines = budget_lines
+    @budget_lines = budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions)
 
     if !request.format.json? && @parent_code && @parent_code.length >= 1
-      while budget_lines.any?
-        children_budget_lines = budget_lines
-        budget_lines = []
-        children_budget_lines.each do |budget_line|
-          budget_lines.concat GobiertoBudgets::BudgetLine.all(where: conditions.merge(parent_code: budget_line.code))
-        end
-        @budget_lines.concat budget_lines
-      end
+      @budget_lines = expand_children(@budget_lines, conditions)
     end
 
     respond_to do |format|
@@ -33,10 +24,15 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
 
   private
 
-  def load_params
-    @place = @site.place
-    render_404 and return if @place.nil?
+  def expand_children(budget_lines, conditions)
+    budget_lines.concat(budget_lines.map do |budget_line|
+      if budget_line.level < 4
+        expand_children(GobiertoBudgets::BudgetLine.all(where: conditions.merge(parent_code: budget_line.code)), conditions)
+      end
+    end.flatten.compact)
+  end
 
+  def load_params
     @year = params[:year]
     @kind = params[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
     @area_name = params[:area_name] || GobiertoBudgets::FunctionalArea.area_name

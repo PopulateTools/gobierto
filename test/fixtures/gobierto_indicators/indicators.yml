@@ -1,0 +1,22 @@
+ip12:
+  name: "ip"
+  year: "2012"
+  site: madrid
+  indicator_response: "[{\"id\":0,\"level\":0,\"attributes\":{\"title\":\"I - Infoparticipa\"},\"children\":[{\"id\":0,\"level\":1,\"attributes\":{\"title\":\"Qui són els representants polítics\"},\"children\":[{\"id\":1,\"level\":2,\"attributes\":{\"title\":\"Es dóna informació bàsica sobre l'Alcalde: nom i cognoms, foto i partit polític?\",\"checked\":true,\"links\":[{\"link\":{\"title\":\"Dades biogràfiques de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Competències de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Dades biogràfiques i competències delegades de regidors i regidores\",\"url\":\"https://www.gobierto.es\"}}]}}]}]}]"
+
+ita12:
+  name: "ita"
+  year: "2012"
+  site: madrid
+  indicator_response: "[{\"id\":0,\"level\":0,\"attributes\":{\"title\":\"A - Informació sobre la Corporació Municipal 2012\"},\"children\":[{\"id\":0,\"level\":1,\"attributes\":{\"title\":\"A.1.- Informació sobre els càrrecs electes i el personal\"},\"children\":[{\"id\":1,\"level\":2,\"attributes\":{\"title\":\"S'especifiquen dades biogràfiques de l'Alcalde/ssa i dels regidors/ores de l'Ajuntament?\",\"checked\":true,\"links\":[{\"link\":{\"title\":\"Dades biogràfiques de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Competències de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Dades biogràfiques i competències delegades de regidors i regidores\",\"url\":\"https://www.gobierto.es\"}}]}}]}]}]"
+
+ita14:
+  name: "ita"
+  year: "2014"
+  site: madrid
+  indicator_response: "[{\"id\":0,\"level\":0,\"attributes\":{\"title\":\"A - Informació sobre la Corporació Municipal 2014\"},\"children\":[{\"id\":0,\"level\":1,\"attributes\":{\"title\":\"A.1.- Informació sobre els càrrecs electes i el personal\"},\"children\":[{\"id\":1,\"level\":2,\"attributes\":{\"title\":\"S'especifiquen dades biogràfiques de l'Alcalde/ssa i dels regidors/ores de l'Ajuntament?\",\"checked\":true,\"links\":[{\"link\":{\"title\":\"Dades biogràfiques de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Competències de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Dades biogràfiques i competències delegades de regidors i regidores\",\"url\":\"https://www.gobierto.es\"}}]}}]}]}]"
+
+gci:
+  name: "gci"
+  site: madrid
+  indicator_response: "[{\"id\":1,\"level\":0,\"attributes\":{\"title\":\"S - Serveis de ciutat\"},\"children\":[{\"id\":2,\"level\":1,\"attributes\":{\"title\":\"Habitatges\"},\"children\":[{\"id\":2,\"level\":2,\"attributes\":{\"title\":\"Nombre total de llars\",\"source\":\"Ajuntament: Padró Municipal d'Habitants\",\"description\":\"El nombre total d'habitatges amb persones empadronades, tant en règim de lloguer com en propietat.\",\"methodology\":\"Es considera llar als habitatges amb persones empadronades. No es diferència  el règim de tinència: propietat o lloguer. Les dades de població són a 1 de gener.\",\"calculation\":\"Suma total d'habitatges amb persones empadronades\",\"values\":[{\"2008\":\"15096\"},{\"2009\":\"15192\"},{\"2010\":\"15345\"},{\"2011\":\"15472\"},{\"2012\":\"15759\"},{\"2013\":\"15875\"},{\"2014\":\"15939\"},{\"2015\":\"16034\"},{\"2016\":\"16193\"},{\"2017\":\"16366\"}]}}]}]}]"

@@ -1,0 +1,9 @@
+// @component Dropdown
+[data-dropdown]:not(.js-dropdown) {
+  position: absolute;
+  background-color: $color_main_negative;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}

@@ -47,7 +47,8 @@ module GobiertoAdmin
               assert has_selector?("h1", text: process.title)
 
               fill_in "page_title_translations_en", with: "News Title"
-              find("#body_translations_en", visible: false).set("The content of the page")
+              find("#page_body_translations_en", visible: false).set("The content of the page")
+              fill_in "page_published_on", with: "2017-01-01"
 
               click_button "Create"
 
@@ -85,7 +86,7 @@ module GobiertoAdmin
               end
 
               assert has_content?("My page updated")
-              refute has_content?(cms_page.title)
+              assert has_no_content?(cms_page.title)
             end
           end
         end

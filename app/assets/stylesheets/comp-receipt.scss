@@ -5,7 +5,11 @@
   .padding {
     padding: 1em;
 
-    @include min-screen(740) {
+    @include screen(740, 1024) {
+      padding: 3em 2em 1em 2em;
+    }
+
+    @include min-screen(1025) {
       padding: 3em 3em 1em 3em;
     }
   }
@@ -20,6 +24,7 @@
     background: #f2f9fa;
     font-weight: 600;
   }
+
   .receipt_dropdown {
     padding: 0.5em 0;
     position: relative;
@@ -40,60 +45,92 @@
       line-height: 1.5;
       background-color: white;
       border: 0;
+      border: 1px solid #aeaeae;
       border-radius: 4px;
       cursor: pointer;
       outline: 0;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      border: 1px solid #aeaeae;
     }
 
-    &:after {
-        position: absolute;
-        top: 50%;
-        right: 1.25rem;
-        display: inline-block;
-        content: "";
-        width: 0;
-        height: 0;
-        margin-top: -0.15em;
-        pointer-events: none;
-        border-top: 0.5em solid;
-        border-right: 0.5em solid transparent;
-        border-bottom: 0.5em solid transparent;
-        border-left: 0.5em solid transparent;
-      }
+    &::after {
+      position: absolute;
+      top: 50%;
+      right: 1.25rem;
+      display: inline-block;
+      content: "";
+      width: 0;
+      height: 0;
+      margin-top: -0.15em;
+      pointer-events: none;
+      border-top: 0.5em solid;
+      border-right: 0.5em solid transparent;
+      border-bottom: 0.5em solid transparent;
+      border-left: 0.5em solid transparent;
+    }
   }
+
   .receipt_separator {
     display: none;
 
     @include min-screen(740) {
       display: block;
-      background-image: linear-gradient(to right, $color_main 33%, rgba(255,255,255,0) 0%);
+      background-image: linear-gradient(to right, $color_main 33%, rgba(255, 255, 255, 0) 0%);
       background-position: bottom;
       background-size: 7px 2px;
       background-repeat: repeat-x;
     }
   }
+
   .receipt_calc {
     display: flex;
     padding: 0.5em 0;
 
+    @include flexbox(1em, column);
+
     @include min-screen(740) {
       padding: 0 0.5em;
+
+      @include flexbox(1em, row);
     }
 
     .bg {
       display: flex;
-      width: 100%;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: space-between;
       background: #f2f9fa;
       padding: 0 0.5em;
+      border-radius: 4px;
+
+      @include min-screen(740) {
+        width: 100%;
+      }
+
+      > small:first-child {
+        display: inline-block;
+
+        @include min-screen(740) {
+          display: none;
+        }
+      }
+
+      &:not(:last-child) {
+        opacity: 0.5;
+      }
 
       span {
         font-size: 1.15em;
+      }
+
+      small {
+        color: $color_meta_text;
+        font-size: 90%;
+      }
+
+      &.bg--transparent {
+        background: transparent;
+        justify-content: center;
       }
     }
   }
@@ -102,10 +139,6 @@
     border-top: 1px solid #d7e2e4;
     padding-top: 2em;
     padding-bottom: 2em;
-
-    .pure-u-1 {
-      padding: 0;
-    }
 
     h3 {
       margin: 0;
@@ -177,15 +210,18 @@
         margin: 0;
       }
     }
+
     .line {
       font-weight: 600;
       font-size: 1.15em;
       flex-basis: 70%;
     }
+
     .figure {
       opacity: 0.7;
       font-size: 1.15em;
     }
+
     .children {
       flex-basis: 100%;
       margin-top: 0.5em;
@@ -206,11 +242,11 @@
           font-size: 1em;
           opacity: 0.5;
         }
+
         .figure {
           font-size: 1em;
         }
       }
     }
   }
-
 }

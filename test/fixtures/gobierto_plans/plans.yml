@@ -1,0 +1,99 @@
+strategic_plan:
+  title_translations: <%= { 'en' => 'Strategic Plan 2014-2018',
+                            'es' => 'Plan Estratégico 2014-2018' }.to_json %>
+  introduction_translations: <%= { 'en' => 'Strategic Plan introduction',
+                                  'es' => 'Plan Estratégico introduction' }.to_json %>
+  footer_translations: <%= { 'en' => 'Strategic Plan footer',
+                             'es' => 'Plan Estratégico footer' }.to_json %>
+  css: ".gobierto_planification section.level_0 .cat_1 {
+          background-color: rgba(0, 191, 255, 0.95);
+        }
+        .gobierto_planification section.level_0 .cat_1 .progress {
+          background-color: deepskyblue;
+        }
+        .gobierto_planification section:not(.level_0).cat_1 {
+          background: rgba(0, 191, 255, 0.1);
+          color: deepskyblue;
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title h3,
+        .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title h3 a {
+          color: deepskyblue;
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title .fa {
+          background: rgba(0, 191, 255, 0.1);
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title h3,
+        .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title h3 a {
+          color: white;
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+          background: white;
+          color: deepskyblue;
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb {
+          border: 1px solid rgba(0, 191, 255, 0.75);
+          color: deepskyblue;
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb a {
+          color: deepskyblue;
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb .fa {
+          background: rgba(0, 191, 255, 0.1);
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .node-action-line table tbody tr:hover td {
+          background-color: rgba(0, 191, 255, 0.2);
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-optional .row {
+          border-top: 1px solid rgba(0, 191, 255, 0.2);
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-mandatory {
+          background-color: rgba(0, 191, 255, 0.2);
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .cat--negative {
+          background: deepskyblue;
+          color: white;
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .cat--negative h3,
+        .gobierto_planification section:not(.level_0).cat_1 .cat--negative h3 a {
+          color: white;
+        }
+        .gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa {
+          background: white;
+          color: deepskyblue;
+        }"
+  year: "2012"
+  slug: strategic-plan
+  site: madrid
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+  plan_type: pam
+  visibility_level: <%= ::GobiertoPlans::Plan.visibility_levels['published'] %>
+  configuration_data: <%= JSON.pretty_generate({
+    "level0": {"one": {"ca": "eix", "es": "eje", "en": "axis"},
+               "other": {"ca": "eixos", "es": "ejes", "en": "axes"}},
+    "level1": {"one": {"ca": "línia d'actuació", "es": "línea de actuación", "en": "line of action"},
+               "other": {"ca": "línies d'actuació", "es": "líneas de actuación", "en": "lines of action"}},
+    "level2": {"one": {"ca": "actuació", "es": "actuación", "en": "action"},
+               "other": {"ca": "actuacions", "es": "actuaciones", "en": "actions"}},
+    "level3": {"one": {"ca": "projecte/acció", "es": "proyecto/acción", "en": "project/action"},
+               "other": {"ca": "projectes/accions", "es": "proyectos/acciones", "en": "projects/actions"}},
+    "level0_options": [{ "slug" => "people-and-families",
+                         "logo" => "http://gobierto.es/assets/v2/logo-gobierto.svg" },
+                        { "slug" => "city",
+                          "logo" => "http://gobierto.es/assets/v2/logo-gobierto.svg" },
+                        { "slug" => "economy",
+                          "logo" => "http://gobierto.es/assets/v2/logo-gobierto.svg" }],
+    "option_keys": { "GOALS": {"ca": "Metes",
+                              "es": "Objetivos",
+                              "en": "Goals"},
+                    "DESCRIPTION": {"ca": "Descripció",
+                                    "es": "Descripción",
+                                    "en": "Description"},
+                    "TECHNICAL_SUPERVISOR_AREA": {"ca": "àrea de supervisió tècnica",
+                                                  "es": "área de supervisor técnico",
+                                                  "en": "technical supervisor area"},
+                    "TECHNICAL_SUPERVISOR_DEPARTMENT": {"ca": "departament de supervisió tècnica",
+                                                        "es": "departamento de supervisor técnico",
+                                                        "en": "technical supervisor department"}},
+    "show_table_header": false,
+    "open_node": false }).inspect %>

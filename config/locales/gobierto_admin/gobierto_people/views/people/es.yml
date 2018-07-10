@@ -11,6 +11,7 @@ es:
           category:
             executive: Directivo
             politician: Político
+          crop: Recortar
           party:
             government: Equipo de Gobierno
             opposition: Oposición
@@ -22,7 +23,7 @@ es:
           configuration: Configuración
           drag_to_sort: Arrastra para ordenar
           header:
-            charge: Cargo
+            charge: Position
             events: Eventos
             person: Persona
             posts: Posts

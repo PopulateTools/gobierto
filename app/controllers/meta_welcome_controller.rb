@@ -15,19 +15,22 @@ class MetaWelcomeController < ApplicationController
 
       if item.is_a?(GobiertoCms::Section)
         @section = item
-        @page = GobiertoCms::Page.first_page_in_section(item)
+        page = @section.first_item
       else
-        @page = item
+        page = item
+      end
+      render_404 and return if page.nil?
+
+      if @section ||= page.section
+        @section_item = ::GobiertoCms::SectionItem.find_by!(item: page, section: @section)
+      else
+        @collection = page.collection
+        @pages = current_site.pages.where(id: @collection.pages_in_collection).active
       end
 
-      if @section ||= @page.section
-        @section_item = ::GobiertoCms::SectionItem.find_by!(item: @page, section: @section)
-      else
-        @collection = @page.collection
-        @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection).active
-      end
+      @page = GobiertoCms::PageDecorator.new(page)
 
-      render "gobierto_cms/pages/show"
+      render "gobierto_cms/pages/show", layout: GobiertoCms::ApplicationController::DEFAULT_LAYOUT
     end
   end
 end

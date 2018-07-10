@@ -70,11 +70,13 @@ module GobiertoPeople
         visit @path
 
         assert has_selector?("h2", text: "#{site.name}'s member agendas")
-        refute has_link?("View more")
+        assert has_no_link?("View more")
       end
     end
 
     def test_person_events_index_pagination
+      government_member.events.destroy_all
+
       10.times do |i|
         create_event(person: government_member, starts_at: (Time.now.tomorrow + i.days).to_s, title: "Event #{i}")
       end
@@ -83,11 +85,11 @@ module GobiertoPeople
         visit @path
 
         assert has_link?("View more")
-        refute has_link?("Event 7")
+        assert has_no_link?("Event 7")
         click_link "View more"
 
         assert has_link?("Event 7")
-        refute has_link?("View more")
+        assert has_no_link?("View more")
       end
     end
 
@@ -119,14 +121,14 @@ module GobiertoPeople
 
         within ".agenda-switcher" do
           assert has_link? government_member.name
-          refute has_link? executive_member.name
+          assert has_no_link? executive_member.name
         end
 
         click_link "Opposition"
 
         within ".agenda-switcher" do
-          refute has_link? government_member.name
-          refute has_link? executive_member.name
+          assert has_no_link? government_member.name
+          assert has_no_link? executive_member.name
         end
       end
     end
@@ -153,14 +155,14 @@ module GobiertoPeople
 
           within ".calendar-component" do
             assert has_link? government_event_day
-            refute has_link? executive_event_day
+            assert has_no_link? executive_event_day
           end
 
           click_link "Opposition"
 
           within ".calendar-component" do
-            refute has_link? government_event_day
-            refute has_link? executive_event_day
+            assert has_no_link? government_event_day
+            assert has_no_link? executive_event_day
           end
         end
       end
@@ -185,14 +187,14 @@ module GobiertoPeople
 
           within ".events-summary" do
             assert has_link?(government_event.title)
-            refute has_link?(executive_event.title)
+            assert has_no_link?(executive_event.title)
           end
 
           click_link "Opposition"
 
           within ".events-summary" do
-            refute has_link?(government_event.title)
-            refute has_link?(executive_event.title)
+            assert has_no_link?(government_event.title)
+            assert has_no_link?(executive_event.title)
           end
         end
       end
@@ -211,9 +213,9 @@ module GobiertoPeople
         GobiertoCalendars::Event.person_events.destroy_all
         visit @path
         within '.filter_boxed' do
-          refute has_link? 'Government Team'
-          refute has_link? 'Opposition'
-          refute has_link? 'Executive'
+          assert has_no_link? 'Government Team'
+          assert has_no_link? 'Opposition'
+          assert has_no_link? 'Executive'
           assert has_link? 'All'
         end
       end
@@ -253,7 +255,13 @@ module GobiertoPeople
     end
 
     def test_events_summary_with_no_past_events
-      Timecop.freeze(10.years.ago) do
+      freeze_date = 10.years.ago
+      site.events.update_all(
+        starts_at: freeze_date + 1.day,
+        ends_at: freeze_date + 2.days
+      )
+
+      Timecop.freeze freeze_date do
         with_current_site(site) do
           visit @path
 
@@ -272,9 +280,9 @@ module GobiertoPeople
 
         assert_text("There are no future or past events.")
         within '.filter_boxed' do
-          refute has_link? 'Government Team'
-          refute has_link? 'Opposition'
-          refute has_link? 'Executive'
+          assert has_no_link? 'Government Team'
+          assert has_no_link? 'Opposition'
+          assert has_no_link? 'Executive'
           assert has_link? 'All'
         end
       end
@@ -289,7 +297,7 @@ module GobiertoPeople
           visit @path
 
           within ".events-summary" do
-            refute has_content?(past_event.title)
+            assert has_no_content?(past_event.title)
             assert has_content?(future_event.title)
           end
 
@@ -297,7 +305,7 @@ module GobiertoPeople
 
           within ".events-summary" do
             assert has_content?(past_event.title)
-            refute has_content?(future_event.title)
+            assert has_no_content?(future_event.title)
           end
         end
       end
@@ -309,14 +317,14 @@ module GobiertoPeople
 
         within ".events-summary .events-filter" do
           assert has_link? "Past events"
-          refute has_link? "Agenda"
+          assert has_no_link? "Agenda"
         end
 
         click_link "Past events"
         click_link "Government Team"
 
         within ".events-summary .events-filter" do
-          refute has_link? "Past events"
+          assert has_no_link? "Past events"
           assert has_link? "Agenda"
         end
 
@@ -325,7 +333,7 @@ module GobiertoPeople
 
         within ".events-summary .events-filter" do
           assert has_link? "Past events"
-          refute has_link? "Agenda"
+          assert has_no_link? "Agenda"
         end
       end
     end
@@ -396,7 +404,7 @@ module GobiertoPeople
           visit @path
 
           within ".events-summary" do
-            refute has_content?(past_event.title)
+            assert has_no_content?(past_event.title)
             assert has_content?(future_event.title)
           end
 
@@ -408,7 +416,7 @@ module GobiertoPeople
 
           within ".events-summary" do
             assert has_content?(past_event.title)
-            refute has_content?(future_event.title)
+            assert has_no_content?(future_event.title)
           end
         end
       end

@@ -1,0 +1,7 @@
+<h1><%= t("gobierto_people.people.navigation.invitations") %></h1>
+
+<ul>
+  <% @invitations.each do |invitation| %>
+    <li><%= invitation.title %></li>
+  <% end %>
+</ul>

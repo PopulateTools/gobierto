@@ -1,0 +1,28 @@
+encyclopedia:
+  person: richard
+  name: National Geographic Encyclopedia
+  reason: Award
+  department: culture_department
+  date: <%= 10.days.ago %>
+  meta: <%= {
+    "type" => "Bibliographic materials"
+  }.to_json %>
+
+concert_ticket_recent:
+  person: richard
+  name: Recent concert ticket
+  date: <%= 5.days.ago %>
+
+concert_ticket_old:
+  person: richard
+  name: Old concert ticket
+  date: <%= 2.years.ago %>
+
+aperol_spritz:
+  person: tamara
+  name: Aperol Spritz bottle
+  date: <%= 2.days.ago %>
+  reason: Madrid fair
+  meta: <%= {
+    "type" => "Consumable or perishable goods"
+  }.to_json %>

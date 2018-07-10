@@ -7,9 +7,7 @@
         <h3 class="agenda_title"><%= t('.agenda') %></h3>
         <div class="p_1  content_block">
           <% if @events %>
-            <% @events.each do |event| %>
-              <%= render 'gobierto_participation/processes/place_event', { event: event } %>
-            <% end %>
+            <%= render partial: "gobierto_participation/shared/events/place_event", collection: @events %>
           <% else %>
             <%= t('.no_events') %>
           <% end %>
@@ -47,7 +45,7 @@
           <% end %>
         </div>
         <% if @news.any? %>
-          <%= link_to t('.more_news'), gobierto_participation_pages_path %>
+          <%= link_to t('.more_news'), gobierto_participation_news_index_path %>
         <% end %>
       </div>
     </div>

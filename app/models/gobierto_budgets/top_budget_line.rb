@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class TopBudgetLine
-
     def self.limit(n)
       @limit = n
       self
@@ -13,15 +14,15 @@ module GobiertoBudgets
 
     def self.all
       terms = [
-        {term: { kind: @conditions[:kind] }},
-        {term: { year: @conditions[:year] }},
-        {term: { level: 3 }},
-        {term: { ine_code: @conditions[:place].id }}
+        { term: { kind: @conditions[:kind] } },
+        { term: { year: @conditions[:year] } },
+        { term: { level: 3 } },
+        { term: { organization_id: @conditions[:site].organization_id } }
       ]
 
       query = {
         sort: [
-          { amount: { order: 'desc' } }
+          { amount: { order: "desc" } }
         ],
         query: {
           filtered: {
@@ -37,21 +38,20 @@ module GobiertoBudgets
 
       area = (@conditions[:kind] == BudgetLine::INCOME ? EconomicArea : FunctionalArea)
 
-      total = BudgetTotal.for(@conditions[:place].id, @conditions[:year])
+      total = BudgetTotal.for(@conditions[:site].organization_id, @conditions[:year])
 
       response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                             type: area.area_name, body: query
+                                            type: area.area_name, body: query
 
-      response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
+      response["hits"]["hits"].map { |h| h["_source"] }.map do |row|
         GobiertoBudgets::BudgetLinePresenter.new(row.merge(
-          site: @conditions[:site],
-          kind: @conditions[:kind],
-          area: area,
-          area_name: area.area_name,
-          total: total
+                                                   site: @conditions[:site],
+                                                   kind: @conditions[:kind],
+                                                   area: area,
+                                                   area_name: area.area_name,
+                                                   total: total
         ))
       end
     end
-    
   end
 end

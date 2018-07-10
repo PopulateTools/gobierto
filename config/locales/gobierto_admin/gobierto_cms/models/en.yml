@@ -4,6 +4,7 @@ en:
     attributes:
       gobierto_admin/gobierto_cms/page_form:
         body: Body
+        published_on: Publication date
         slug: URL
         title: Title
       gobierto_admin/gobierto_cms/section_form:

@@ -1,19 +1,14 @@
-<div class='news_teaser'>
+<div class="news_teaser">
   <h3>
-    <% if try(:current_process).present? || page.process %>
-      <% current_process ||= page.process %>
-      <%= link_to page.title, gobierto_participation_process_page_path(id: page.slug, process_id: current_process.slug) %>
-    <% elsif current_module == "gobierto_participation" %>
-      <%= link_to page.title, gobierto_participation_page_path(id: page.slug) %>
-    <% end %>
+    <%= link_to page.title, gobierto_cms_news_path(page.slug) %>
   </h3>
 
-  <div class='meta'>
-    <time><%= time_ago_in_words(page.created_at) %></time>
+  <div class="meta">
+    <time><%= time_ago_in_words(page.published_on) %></time>
   </div>
 
   <% if page.main_image %>
-    <%= image_tag page.main_image, title: page.title, width: '221px', class: 'pure-img m_v_1' %>
+    <%= image_tag page.main_image, title: page.title, width: "221px", class: "pure-img m_v_1" %>
     <p>
       <%= truncate(strip_tags(page.body), length: 60, escape: false) %>
     </p>

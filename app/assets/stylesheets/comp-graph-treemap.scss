@@ -1,10 +1,10 @@
 .treemap_node {
-  font-size: .8em;
+  font-size: 0.8em;
   line-height: 1.2em;
   overflow: hidden;
   position: absolute;
   color: white;
-  padding: 0px;
+  padding: 0;
 }
 
 .treemap_node.clickable {
@@ -14,4 +14,4 @@
 .treemap_node p {
   margin: 0;
   padding: 8px 8px 0 8px;
-} 
+}

@@ -43,51 +43,46 @@ module GobiertoParticipation
 
     def test_contribution_create
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit container_path
+        with_signed_in_user(user, logout=false) do
+          visit container_path
 
-            assert_equal contributions.size, 4
+          assert_equal 4, contributions.size
 
-            page.find("a", text: "Have an idea!").trigger("click")
+          page.find("a", text: "Have an idea!").trigger("click")
 
-            assert has_content? "WRITE YOUR IDEA CONCISE"
-            assert has_content? "DO YOU WANT TO GIVE THEM DETAILS? DEVELOP THE MAIN POINTS OF YOUR IDEA"
+          assert has_content? "WRITE YOUR IDEA CONCISE"
+          assert has_content? "DO YOU WANT TO GIVE THEM DETAILS? DEVELOP THE MAIN POINTS OF YOUR IDEA"
 
-            fill_in :contribution_title, with: "My contribution"
-            fill_in :contribution_description, with: "Contribution description"
+          fill_in :contribution_title, with: "My contribution"
+          fill_in :contribution_description, with: "Contribution description"
 
-            click_button "Create"
+          click_button "Create"
 
-            assert_equal site.contributions.size, 5
+          sleep 1
 
-            # Avoids the error of the test that verifies to be logged because it does not have layout
-            visit containers_path
-          end
+          visit container_path
+
+          assert has_content? "My contribution"
+          assert_equal 5, contribution_container.contributions.size
         end
       end
     end
 
     def test_contribution_errors
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit container_path
+        with_signed_in_user(user, logout=false) do
+          visit container_path
 
-            assert_equal contributions.size, 4
+          assert_equal contributions.size, 4
 
-            page.find("a", text: "Have an idea!").trigger("click")
+          page.find("a", text: "Have an idea!").trigger("click")
 
-            assert has_content? "WRITE YOUR IDEA CONCISE"
-            assert has_content? "DO YOU WANT TO GIVE THEM DETAILS? DEVELOP THE MAIN POINTS OF YOUR IDEA"
+          assert has_content? "WRITE YOUR IDEA CONCISE"
+          assert has_content? "DO YOU WANT TO GIVE THEM DETAILS? DEVELOP THE MAIN POINTS OF YOUR IDEA"
 
-            click_button "Create"
+          click_button "Create"
 
-            assert has_alert?("Title can't be blank")
-
-            # Avoids the error of the test that verifies to be logged because it does not have layout
-            visit containers_path
-          end
+          assert has_alert?("Title can't be blank")
         end
       end
     end

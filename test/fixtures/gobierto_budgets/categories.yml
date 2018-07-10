@@ -12,6 +12,20 @@ economic_1_g:
     'en' => 'Personal expenses are... (custom, translated)'
   }.to_json %>
 
+economic_1_g_organization:
+  site: organization_wadus
+  area_name: economic
+  code: '1'
+  kind: <%= GobiertoBudgets::BudgetLine::EXPENSE %>
+  custom_name_translations: <%= {
+    'es' => 'Gastos de personal (custom, translated)',
+    'en' => 'Personal expenses (custom, translated)'
+  }.to_json %>
+  custom_description_translations: <%= {
+    'es' => 'Los gastos de personal son... (custom, translated)',
+    'en' => 'Personal expenses are... (custom, translated)'
+  }.to_json %>
+
 economic_1_i:
   site: madrid
   area_name: economic

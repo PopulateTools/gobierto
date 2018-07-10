@@ -1,0 +1,70 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @plan_form %>
+
+<%= form_for(@plan_form, as: :plan, url: @plan_form.persisted? ? admin_plans_plan_path(@plan_form) : admin_plans_plans_path(@plan), data: { 'globalized-form-container' => true }) do |f| %>
+  <div class="pure-g">
+    <div class="pure-u-1 pure-u-md-16-24">
+      <div class="form_item select_control">
+        <%= label_tag "plan_type[plan_type_id]" do %>
+          <%= f.object.class.human_attribute_name(:plan_type_id) %>
+          <%= attribute_indication_tag required: true %>
+        <% end %>
+        <%= f.select(:plan_type_id, @plan_types, { include_blank: '-' }) %>
+      </div>
+
+      <div class="globalized_fields">
+        <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+        <% current_site.configuration.available_locales.each do |locale| %>
+          <div class="form_item input_text" data-locale="<%= locale %>">
+            <%= label_tag "plan[title_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:title) %>
+              <%= attribute_indication_tag required: true %>
+            <% end %>
+            <%= text_field_tag "plan[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t('.placeholders.title', locale: locale) %>
+          </div>
+
+          <div class="form_item textarea" data-locale="<%= locale %>">
+            <%= label_tag "plan[introduction_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:introduction) %>
+              <%= attribute_indication_tag required: true %>
+            <% end %>
+            <%= text_area_tag "plan[introduction_translations][#{locale}]", f.object.introduction_translations && f.object.introduction_translations[locale], placeholder: t('.placeholders.introduction', locale: locale) %>
+          </div>
+
+          <div class="form_item textarea" data-locale="<%= locale %>">
+            <%= label_tag "plan[footer_translations][#{locale}]", f.object.class.human_attribute_name(:footer) %>
+            <%= text_area_tag "plan[footer_translations][#{locale}]", f.object.footer_translations && f.object.footer_translations[locale], placeholder: t('.placeholders.footer', locale: locale) %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= label_tag :year do %>
+          <%= f.object.class.human_attribute_name(:year) %>
+          <%= attribute_indication_tag required: true %>
+        <% end %>
+        <%= f.text_field :year, placeholder: t('.placeholders.year') %>
+      </div>
+
+      <div class="form_item textarea">
+        <%= f.label :configuration_data %>
+        <%= f.text_area :configuration_data, placeholder: t('.placeholders.configuration_data') %>
+      </div>
+
+      <div class="form_item textarea code">
+        <%= f.label :css %>
+        <%= f.text_area :css, placeholder: t('.placeholders.css') %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :slug %>
+        <%= f.text_field :slug, placeholder: t('.placeholders.slug') %>
+      </div>
+    </div>
+
+    <div class="pure-u-1 pure-u-md-2-24"></div>
+
+    <%= render partial: 'gobierto_admin/shared/save_widget', locals: { f: f, levels: @plan_visibility_levels } %>
+
+  </div>
+<% end %>

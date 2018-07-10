@@ -6,6 +6,10 @@ en:
         create:
           success_html: Attachment created successfully. <a href="%{link}">View the
             document</a>.
+        destroy:
+          success: Attachment archived successfully
+        recover:
+          success: Attachment recovered successfully
         update:
           success_html: Attachment updated successfully. <a href="%{link}">View the
             document</a>.

@@ -4,7 +4,7 @@
 
     .inner {
       position: relative;
-      margin: 0 .5em;
+      margin: 0 0.5em;
       padding: 1em;
       border: 1px solid $separator;
       min-height: 260px;
@@ -15,11 +15,13 @@
         min-height: 480px;
       }
     }
+
     .vertically_centered {
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
+
     .budget_receipt {
       h3 {
         font-size: 1.5em;
@@ -41,9 +43,10 @@
       &:hover,
       &:focus,
       &:active {
-        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.10);
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
       }
     }
+
     .budget_expense {
       h3 {
         margin-top: 0.5rem;
@@ -64,7 +67,7 @@
         div {
           font-size: 3em;
           border-radius: 50%;
-          border: 1px solid #DDDDDD;
+          border: 1px solid #ddd;
           height: 3em;
           margin: 0 auto;
           width: 3em;
@@ -78,9 +81,11 @@
       }
     }
   }
+
   .banner_block:first-child .inner {
     margin-left: 0;
   }
+
   .banner_block:last-child .inner {
     margin-right: 0;
   }

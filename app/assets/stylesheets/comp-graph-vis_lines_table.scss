@@ -1,7 +1,7 @@
 #vis_lineas_j {
   width: 70%;
   float: left;
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 #density_vis_per {
@@ -22,7 +22,7 @@
   fill: none;
 }
 
-/*Tooltip*/
+/* Tooltip */
 
 .vis_lineas_j_tooltip {
   top: 0;
@@ -33,7 +33,7 @@
   width: 180px;
   height: 70px;
   font-size: 12px;
-  background: #FAF7F5;
+  background: #faf7f5;
   border: 1px solid #424242;
   border-radius: 5px;
   pointer-events: none;
@@ -44,20 +44,37 @@
 
 .le {
   display: inline-block;
+
   @include border-radius(10px);
+
   height: 10px;
   width: 10px;
   margin: 0 10px 0 0;
 }
+
 .le-place {
   background: $color_vis_place;
 }
+
 .le-province {
   background: $color_vis_province;
 }
+
 .le-com {
   background: $color_vis_com;
 }
+
 .le-country {
   background: $color_vis_country;
+}
+
+.line-txt-group {
+  font-size: 1rem;
+  font-weight: 600;
+  fill: #4A4A4A;
+}
+.line-txt-detail {
+  font-size: .875rem;
+  font-weight: 400;
+  fill: #767168;
 }

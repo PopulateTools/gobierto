@@ -5,9 +5,16 @@ es:
       processes:
         create:
           add_stages: Ahora puedes añadir fases
-          success_html: Proceso creado correctamente. <a href="%{link}">Ver proceso</a>.
+          success_group_process_html: Grupo creado correctamente. <a href="%{link}">Ver
+            grupo</a>.
+          success_process_html: Proceso creado correctamente. <a href="%{link}">Ver
+            proceso</a>.
+        destroy:
+          success_group_process: El grupo ha sido archivado correctamente
+          success_process: El proceso ha sido archivado correctamente
         edit:
-          title: Editar proceso
+          edit_group_process: Editar grupo
+          edit_process: Editar proceso
         form:
           duration: Duración
           placeholders:
@@ -38,6 +45,7 @@ es:
             title: Aportaciones
             visibility_level:
               active: Publicada
+              archived: Archivado
               draft: Borrador
           show:
             comments: Comentarios
@@ -54,27 +62,21 @@ es:
         process_file_attachments:
           index:
             configuration: Configuración
-        process_information:
-          edit:
-            information: Información
-          form:
-            placeholders:
-              information_text: Información
-          update:
-            success: Proceso actualizado correctamente
         process_pages:
           index:
             configuration: Configuración
         process_stages:
-          active: Activa
-          cancel: Cancelar
-          edit: Editar
-          edit_stage: Editar fase
-          placeholders:
-            body: ej. En esta fase se pretende...
-            cta_text: ej. Aportar idea
-            title: ej. Fase principal
-          save: Guardar
-          stages_and_tools: Fases y herramientas
+          process_stages:
+            add_new_stage: Añadir nueva fase
+            draft: Borrador
+            drag_to_sort: Arrastra para ordenar
+            manage: Gestionar
+            published: Publicada
+        recover:
+          success_group_process: El grupo ha sido recuperado correctamente
+          success_process: El proceso ha sido recuperado correctamente
         update:
-          success_html: Proceso actualizado correctamente. <a href="%{link}">Ver proceso</a>.
+          success_group_process_html: Grupo actualizado correctamente. <a href="%{link}">Ver
+            grupo</a>.
+          success_process_html: Proceso actualizado correctamente. <a href="%{link}">Ver
+            proceso</a>.

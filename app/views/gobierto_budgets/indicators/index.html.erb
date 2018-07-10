@@ -1,0 +1,63 @@
+<div class="column">
+  <div class="content gobierto_observatory">
+    <div class="block">
+      <div class="pure-g header_block_inline">
+        <div class="pure-u-1 pure-u-md-12-24">
+          <div class="inline_header">
+            <h2 class="with_description p_h_r_1"><%= title t('gobierto_budgets.indicators') %></h2>
+            <%= render(
+                  partial: "gobierto_budgets/shared/year_breadcrumb",
+                  locals: {
+                    selected_year: selected_year,
+                    selected_year_path: gobierto_budgets_indicators_path(selected_year),
+                    available_years: available_years
+                  }
+                ) %>
+          </div>
+
+          <p>
+            <%= t("gobierto_budgets.indicators_intro", place: @site.organization_name) %>
+          </p>
+
+          <%= render('gobierto_budgets/shared/data_updated_at') %>
+
+          <p class="m_v_0_25"><%= link_to t('gobierto_budgets.budgets.index.budget_guide'), gobierto_budgets_budgets_guide_path %>.</p>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-12-24 right">
+          <%= image_tag('illustrations/personaliza.jpg', class: 'img_header m_v_4') %>
+        </div>
+      </div>
+    </div>
+
+    <div class="sections">
+      <section id="indicators" class="block">
+        <div class="pure-g padded_cols">
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'gross_saving_card', data_type: 'currency'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'net_saving_card', data_type: 'currency'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'tax_autonomy_card', data_type: 'percentage'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'self_financing_capacity_card', data_type: 'percentage'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'financial_charge_card', data_type: 'percentage'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'liability_cost_card', data_type: 'percentage'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'investment_financing_card', data_type: 'percentage'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'gross_savings_rate_card', data_type: 'percentage'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'net_savings_rate_card', data_type: 'percentage'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'per_capita_investment_card', data_type: 'currency_per_person'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'debt_level_card', data_type: 'percentage'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'per_capita_tax_burden_card', data_type: 'currency_per_person'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'financial_risk_card', data_type: 'percentage'} %>
+          <%= render 'gobierto_budgets/cards/card_simple', {card_class: 'expenditure_rigidity_card', data_type: 'figure'} %>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoBudgets.indicators_controller.index();
+    window.populateDataYear = {
+      currentYear: <%= @selected_year %>
+    }
+  <% end %>
+<% end %>

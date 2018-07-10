@@ -12,8 +12,8 @@ SECRET_KEY_BASE=
 RACK_ENV=development
 RAILS_ENV=development
 TLD_LENGTH=2
-HOST=gobierto.dev
-BASE_HOST=gobierto.dev
+HOST=gobierto.test
+BASE_HOST=gobierto.test
 PORT=3000
 RAILS_MAX_THREADS=5
 
@@ -42,8 +42,16 @@ AWS_SECRET_ACCESS_KEY=
 AWS_REGION=eu-west-1
 S3_BUCKET_NAME=gobierto-dev
 
+# Cloudinary credentials to crop images
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
 # Google Places API Key, to geolocalize places
 GOOGLE_PLACES_API_KEY=
+
+# Google Maps Geocoding API Key, to get coordinates from addresses names or find addresses based on either geographic coordinates or place IDs
+GOOGLE_MAPS_GEOCODING_API_KEY=
 
 # Algolia search engine configuration (https://www.algolia.com)
 ALGOLIA_APPLICATION_ID=
@@ -55,6 +63,9 @@ MAILER_DELIVERY_METHOD=
 MAILER_SMTP_ADDRESS=
 MAILER_SMTP_USER_NAME=
 MAILER_SMTP_PASSWORD=
+
+# AsymmetricEncryptor
+ASYMMETRIC_ENCRYPTION_KEY=
 ```
 
 ### Rails configuration variables
@@ -91,5 +102,14 @@ Gobierto uses ElasticSearch and Redis.
 - `ROLLBAR_ACCESS_TOKEN`: Rollbar access token
 - `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `S3_BUCKET_NAME`: Amazon S3 credentials, region and bucket name
 - `GOOGLE_PLACES_API_KEY`: Google Places API key
+- `GOOGLE_MAPS_GEOCODING_API_KEY`: Google Maps Geocoding API key
 - `ALGOLIA_SEARCH_API_KEY`, `ALGOLIA_APPLICATION_ID`, `ALGOLIA_API_KEY`: Algolia API keys
+- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`: Cloudinary API keys. Sign up for a [free](https://cloudinary.com/users/register/free) account to cropping the user's avatar
 
+### Asymmetric encryption
+
+The `AsymmetricEncryptor` defined in lib/ looks for a RSA public key defined in config/secrets.yml.
+The instances of `AsymmetricEncryptor` must be initialized with the name of the key in secrets.yml.
+To create a valid key use, for example: `OpenSSL::PKey::RSA.new(2048).public_key.to_pem`
+
+- `ASYMMETRIC_ENCRYPTION_KEY`

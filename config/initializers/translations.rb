@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require "i18n/backend/active_record"
+require "i18n/backend/gobierto"
 require "i18n/backend/fallbacks"
+require "i18n/backend/gobierto/memoize"
 
-I18n::Backend::ActiveRecord.configure do |config|
+I18n::Backend::Gobierto.configure do |config|
   config.cleanup_with_destroy = true # defaults to false
 end
 
@@ -20,19 +21,24 @@ module I18n
   end
 end
 
-Translation = I18n::Backend::ActiveRecord::Translation
+Translation = I18n::Backend::Gobierto::Translation
 
-if Translation.table_exists?
-  I18n.backend = I18n::Backend::ActiveRecord.new
+begin
+  if Translation.table_exists?
+    I18n.backend = I18n::Backend::Gobierto.new
 
-  I18n::Backend::ActiveRecord.send(:include, I18n::Backend::Memoize)
-  I18n::Backend::Simple.send(:include, I18n::Backend::Memoize)
-  I18n::Backend::Simple.send(:include, I18n::Backend::Pluralization)
-  I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
+    I18n::Backend::Gobierto.send(:include, I18n::Backend::GobiertoCore::Memoize)
+    I18n::Backend::Simple.send(:include, I18n::Backend::GobiertoCore::Memoize)
+    I18n::Backend::Simple.send(:include, I18n::Backend::Pluralization)
+    I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
 
-  I18n.backend = I18n::Backend::Chain.new(I18n.backend, I18n::Backend::Simple.new)
+    I18n.backend = I18n::Backend::Chain.new(I18n.backend, I18n::Backend::Simple.new)
+  end
+rescue ActiveRecord::NoDatabaseError
+  puts $!
 end
 
 I18n.fallbacks.map(ca: :es)
 I18n.fallbacks.map(es: :ca)
 I18n.fallbacks.map(en: :es)
+

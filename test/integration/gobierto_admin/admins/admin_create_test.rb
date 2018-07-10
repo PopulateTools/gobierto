@@ -4,7 +4,6 @@ require "test_helper"
 
 module GobiertoAdmin
   class AdminCreateTest < ActionDispatch::IntegrationTest
-
     def setup
       super
       @path = new_admin_admin_path
@@ -34,7 +33,7 @@ module GobiertoAdmin
       with_signed_in_admin(regular_admin) do
         visit @path
 
-        refute has_selector?("form.new_admin")
+        assert has_no_selector?("form.new_admin")
       end
     end
 
@@ -53,7 +52,7 @@ module GobiertoAdmin
             # set authorization level to 'Regular'
             find("label[for='admin_authorization_level_regular']", visible: false).click
 
-            # grant permissions for madrid.gobierto.dev
+            # grant permissions for madrid.gobierto.test
             find("label[for='admin_permitted_sites_#{madrid.id}']").click
 
             click_button "Create"
@@ -102,7 +101,6 @@ module GobiertoAdmin
     def test_create_admin_with_sites_modules_and_people
       with_javascript do
         with_signed_in_admin(admin) do
-
           visit @path
 
           fill_in "admin_name", with: "Admin Name"
@@ -111,7 +109,7 @@ module GobiertoAdmin
           # set authorization level to 'Regular'
           find("label[for='admin_authorization_level_regular']", visible: false).click
 
-          # grant permissions for madrid.gobierto.dev
+          # grant permissions for madrid.gobierto.test
           find("label[for='admin_permitted_sites_#{madrid.id}']").click
 
           # grant permissions for Gobierto People
@@ -128,8 +126,8 @@ module GobiertoAdmin
 
       new_admin = ::GobiertoAdmin::Admin.last
       permissions = new_admin.permissions
-      module_permission = permissions.find_by(resource_name: 'gobierto_people')
-      person_permission = permissions.find_by(resource_name: 'person')
+      module_permission = permissions.find_by(resource_name: "gobierto_people")
+      person_permission = permissions.find_by(resource_name: "person")
 
       # assert site permissions
 
@@ -141,16 +139,15 @@ module GobiertoAdmin
 
       # assert module permissions
 
-      assert_equal 'site_module', module_permission.namespace
+      assert_equal "site_module", module_permission.namespace
       assert_nil module_permission.resource_id
-      assert_equal 'manage', module_permission.action_name
+      assert_equal "manage", module_permission.action_name
 
       # assert person permissions
 
-      assert_equal 'gobierto_people', person_permission.namespace
+      assert_equal "gobierto_people", person_permission.namespace
       assert_equal richard.id, person_permission.resource_id
-      assert_equal 'manage', person_permission.action_name
+      assert_equal "manage", person_permission.action_name
     end
-
   end
 end

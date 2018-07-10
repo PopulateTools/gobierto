@@ -7,14 +7,16 @@ class User::SessionFormTest < ActiveSupport::TestCase
     @valid_user_session_form ||= User::SessionForm.new(
       email: confirmed_user.email,
       password: "gobierto",
-      referrer_url: "http://example.com/home"
+      referrer_url: "http://example.com/home",
+      site: confirmed_user.site
     )
   end
 
   def invalid_user_session_form
     @invalid_user_session_form ||= User::SessionForm.new(
       email: nil,
-      password: nil
+      password: nil,
+      site: nil
     )
   end
 
@@ -35,5 +37,6 @@ class User::SessionFormTest < ActiveSupport::TestCase
 
     assert_equal 1, invalid_user_session_form.errors.messages[:email].size
     assert_equal 1, invalid_user_session_form.errors.messages[:password].size
+    assert_equal 1, invalid_user_session_form.errors.messages[:site].size
   end
 end

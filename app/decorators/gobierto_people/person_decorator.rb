@@ -72,6 +72,16 @@ module GobiertoPeople
       statements.active.any?
     end
 
+    def meetings_with_interest_groups(start_date: nil, end_date: nil)
+      QueryWithEvents.new(source: events.with_interest_group,
+                          start_date: start_date,
+                          end_date: end_date)
+    end
+
+    def interest_groups_count(start_date: nil, end_date: nil)
+      meetings_with_interest_groups(start_date: start_date, end_date: end_date).select(:interest_group_id).distinct.count
+    end
+
     private
 
     def person_contact_method_for(service_name, attribute_name)

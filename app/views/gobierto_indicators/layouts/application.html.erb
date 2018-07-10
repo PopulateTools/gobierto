@@ -1,18 +1,6 @@
-<% content_for :javascript_include do %>
-  <%= javascript_tag do %>
-    window.populateData = {
-      token: "<%= @site.configuration.populate_data_api_token %>",
-      municipalityId: "<%= @site.place.id %>",
-      municipalityName: "<%= @site.place.name %>",
-      provinceId: "<%= @site.place.province.id %>",
-      provinceName: "<%= @site.place.province.name %>",
-      ccaaId: "<%= @site.place.province.autonomous_region.id %>",
-      ccaaName: "<%= @site.place.province.autonomous_region.name %>",
-      year: <%= APP_CONFIG["gobierto_indicators"]["year"] %>,
-      endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"
-    }
-  <% end %>
-  <%= javascript_include_tag 'gobierto_indicators/application', 'data-turbolinks-track' => true %>
+<% content_for :javascript_module_link do %>
+  <!-- load module javascript specifics -->
+  <%= javascript_pack_tag 'indicators', 'data-turbolinks-track': true %>
 <% end %>
 
 <%= render template: "layouts/application" %>

@@ -37,6 +37,7 @@ ca:
             view_poll: Veure enquesta
             visibility: Estat
             visibility_level:
+              archived: Arxivada
               draft: Esborrany
               published: Publicada
           new:

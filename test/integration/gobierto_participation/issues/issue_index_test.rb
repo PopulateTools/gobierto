@@ -14,14 +14,14 @@ module GobiertoParticipation
     end
 
     def issues
-      @issues ||= site.issues.alphabetically_sorted
+      @issues ||= site.issues.sorted
     end
 
     def test_breadcrumb_items
       with_current_site(site) do
         visit @path
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
         end
       end
@@ -31,12 +31,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within ".sub-nav" do
-          assert has_content? "About"
-          assert has_content? "Issues"
+        within "nav.sub-nav" do
+          assert has_content? "Scopes"
           assert has_content? "Processes"
-          assert has_content? "Ask"
-          assert has_content? "Ideas"
         end
       end
     end
@@ -45,7 +42,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within "menu.secondary_nav" do
+        within "nav.sub-nav menu.secondary_nav" do
           assert has_link? "News"
           assert has_link? "Agenda"
           assert has_link? "Documents"

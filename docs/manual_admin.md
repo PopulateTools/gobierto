@@ -4,11 +4,12 @@
 * [Crear y personalizar un nuevo sitio](#crear-y-personalizar-un-nuevo-sitio)
 * [Usuarios](#usuarios)
 * [Módulos](#módulos)
+  * [CMS](#cms)
   * [Altos Cargos y Agendas](#altos-cargos-y-agendas)
-  * [Gestión de páginas](#gestión-de-páginas)
   * [Presupuestos](#presupuestos)
   * [Consultas sobre presupuestos](#consultas-sobre-presupuestos)
-  * [Indicadores](#indicadores)
+  * [Observatorio](#observatorio)
+  * [Planes](#planes)
 * Preguntas frecuentes
 
 ***
@@ -203,6 +204,48 @@ En la pantalla de creación/edición de administrador puedes modificar varios ca
 
 ## Módulos
 
+### CMS
+
+El módulo de CMS permite gestionar páginas de contenido, las colecciones en las que cada página se inserta, y secciones de contenido (agrupaciones arbitrarias de páginas de cualquier colección). El módulo de CMS se puede utilizar para:
+
+- crear páginas sencillas e independientes (cómo las condiciones de uso, términos legales, o una página con indicaciones de contacto)
+- crear una colección de páginas como una sección de preguntas frecuentes con varias páginas, un portal de transparencia, una sección de ayuda, etc.
+
+Conceptos principales: 
+
+- Página: unidad de contenido
+- Colección: agrupación básica de páginas. Cualquier página estará dentro de una colección
+- Sección: agrupación arbitraria de páginas. Una vez que has creado una colección, si quieres organizar sus páginas de una forma especial (definiendo la página principal, secciones, subsecciones, etc) deberás crear una Sección. 
+
+#### Cómo crear y editar una página
+
+1. Si no existe una colección, deberemos crear una (desde CMS, pinchar en Colecciones - Nueva). Una vez que estamos una colección determinada, podremos ver un listado de todas sus páginas o añadir una nueva.
+1. Selecciona **Nueva** o pincha en el **Título de la página** en la tabla para editarla.
+1. Sobre el Título hay un **Selector de idioma**. Cada página es multi-idioma: puedes editar tantas versiones distintas de la misma página como idiomas tenga tu sitio (puedes definir estos idiomas en **Personalizar sitio** en el [menú lateral](#menú_lateral)). Selecciona un idioma para escribir la versión de tu contenido en ese idioma. Aviso: Si haces el contenido en un idioma y dejas el otro sin rellenar, la página se visualizará en el idioma que tenga contenido, independientemente de la elección del usuario. Ejemplo: Si rellenas sólo el contenido en castellano, cuando un usuario seleccione Inglés como idioma del sitio, el contenido de esa página se visualizará en castellano.
+1. Rellena la información de la página. Por defecto, todas las páginas se marcan como **Borrador** (en la parte superior derecha de la pantalla) para que no se hagan públicas inmediatamente. Si quieres hacerla pública, selecciona **Publicada** y se publicará cuando apruebes los cambios en el paso siguiente.
+1. Dale a **Crear** o **Actualizar** para aprobar todos los cambios.
+
+#### Tags de Liquid
+
+Dentro del contenido de una página puedes utilizar algunos tags de Liquid. Consulta la [página sobre Liquid](liquid-templates.md) para más información (en inglés). 
+
+
+Opciones en la columna derecha: 
+
+#### Sección
+
+Al marcar la opción **Incluir en sección** aparecerá un menú desplegable de todas las secciones disponibles para este sitio. Cuando se seleccione una página de este primer menú, se mostrarán las subpáginas que este tiene a su vez. De esta forma se puede elegir la página padre de la página que estamos editando. 
+
+#### Documentos
+
+Puedes incluir archivos e imágenes a una página. Haz click en **Incluir archivo**:
+
+- Se desplegará una ventana que muestra los últimos archivos que se han subido. Pinchando en uno de ellos, se incluirá en la página. 
+- Puedes subir un nuevo archivo desde tu disco duro pinchando en el botón **Incluir archivo** de la parte derecha de la ventana que se ha desplegado. 
+
+Una vez que has incluído un archivo en la página, podrás copiar su URL o incluir automaticamente una referencia en el texto.
+
+
 ### Altos Cargos y Agendas
 
 El módulo de Altos cargos y Agendas contiene información sobre los cargos de la entidad –llamados **Personas**–, **eventos** de sus agendas, declaraciones de bienes y actividades, obsequios... y su blog.
@@ -327,19 +370,6 @@ Cómo crear y editar un post de blog:
 1. Rellena la información del post. Por defecto, todos los posts se marcan como **Borrador** (en la parte superior derecha de la pantalla) para que no se hagan públicos inmediatamente. Si quieres hacerlo público, selecciona **Publicado** y se publicará cuando apruebes los cambios en el paso siguiente.
 1. Dale a **Crear** o **Actualizar** para aprobar todos los cambios.
 
-### Gestión de páginas
-
-El módulo de gestión de páginas permite crear páginas estáticas de contenido donde puedes incluir toda la información de la entidad que no encaja en ninguno de los módulos específicos.
-
-#### Cómo crear y editar una página
-
-1. Selecciona **Nueva** o pincha en el **Título de la página** en la tabla para editarla.
-1. Sobre el Título hay un **Selector de idioma**. Cada página es multi-idioma: puedes editar tantas versiones distintas de la misma página como idiomas tenga tu sitio (puedes definir estos idiomas en **Personalizar sitio** en el [menú lateral](#menú_lateral)). Selecciona un idioma para escribir la versión de tu contenido en ese idioma. Aviso: Si haces el contenido en un idioma y dejas el otro sin rellenar, la página se visualizará en el idioma que tenga contenido, independientemente de la elección del usuario. Ejemplo: Si rellenas sólo el contenido en castellano, cuando un usuario seleccione Inglés como idioma del sitio, el contenido de esa página se visualizará en castellano.
-1. Rellena la información de la página. Por defecto, todas las páginas se marcan como **Borrador** (en la parte superior derecha de la pantalla) para que no se hagan públicas inmediatamente. Si quieres hacerla pública, selecciona **Publicada** y se publicará cuando apruebes los cambios en el paso siguiente.
-1. Dale a **Crear** o **Actualizar** para aprobar todos los cambios.
-
-Puedes incluir imágenes (simplemente arrastrando el archivo de imagen y soltándolo en el cuadro de contenido) y archivos adjuntos.
-
 ### Presupuestos
 Los datos del módulo de presupuestos se cargan y se visualizan automáticamente.
 
@@ -366,10 +396,105 @@ ToDo
 
 ToDo
 
-### Indicadores
+### Observatorio
 
-Los datos del módulo de Indicadores se cargan y se visualizan automáticamente.
+Los datos del módulo de Observatorio se cargan y se visualizan automáticamente.
 
+### Planes
+
+EL módulo de Planes permite visualizar y explorar el contenido de un plan de mandato (PAM), estratégico, etc. Un plan se organiza en una estructura jerarquica de categorias, y un nodo final de ficha de proyecto. La carga del contenido se realiza actualmente via API. 
+
+A través del administrador se pueden definir los tipos de planes que se van a visualizar, y crear N planes por cada tipo de plan. En la edición de un plan se pueden personalizar determinados campos (nombre, descripción, tipo de plan) y se ofrece un fichero JSON que permite personalizar determinados aspectos sobre la visualizacin del plan:
+
+- Subir imágenes personalizadas por categoría.
+
+  ```
+  "level0_options": [
+    {
+      "slug": "economia-emprenedoria-i-ocupacio",
+      "logo": "http://www.madrid.es/assets/images/logo-madrid.png"
+    }
+    ...
+  ```
+
+- Decidir si se quieren visualizar el detalle de los proyectos o no
+
+  ```
+  "open_node": false
+  ```
+
+- Seleccionar si quieres ver la cabecera de la tabla que presenta el listado de proyectos.
+
+  ```
+  "show_table_header": false
+  ```
+
+- Definir traducciones en singular y plural para los distintos niveles del plan.
+
+  ```
+  "level0": {"one": {"ca": "eix", "es": "eje", "en": "axis"},
+           "other": {"ca": "eixos", "es": "ejes", "en": "axes"}}
+  ```
+
+- Definir las traducciones para las posibles opciones que tiene un proyecto.
+
+  ```
+  "option_keys": {
+    "GOALS": {
+      "ca": "Metes",
+      "es": "Objetivos",
+      "en": "Goals"
+    }, ...
+  ```
+
+- Subir CSS personalizados para los colores de las categorías.
+
+  ```
+  .gobierto_planification section:not(.level_0).cat_1,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title h3,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title h3 a,
+  .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb,
+  .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb a,
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+    color: rgb(123,123,123);
+  }
+  .gobierto_planification section:not(.level_0).cat_1,
+  .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb .fa,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title .fa {
+    background: rgba(123,123,123, 0.1);
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative,
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative h3,
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative h3 a,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title h3,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title h3 a {
+    color: white;
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
+  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+    background: white;
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb {
+    border: 1px solid rgba(123,123,123, 0.75);
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-mandatory,
+  .gobierto_planification section:not(.level_0).cat_1 .node-action-line table tbody tr:hover td {
+    background-color: rgba(123,123,123, 0.2);
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-optional .row {
+    border-top: 1px solid rgba(123,123,123, 0.2);
+  }
+  .gobierto_planification section.level_0 .cat_1 {
+    background-color: rgba(123,123,123, 0.95);
+  }
+  .gobierto_planification section.level_0 .cat_1 .progress {
+    background-color: rgb(123,123,123);
+  }
+  .gobierto_planification section:not(.level_0).cat_1 .cat--negative {
+    background: rgb(123,123,123);
+  }
+  ```
 
 ## Preguntas frecuentes
 

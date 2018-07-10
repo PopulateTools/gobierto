@@ -1,6 +1,7 @@
 ---
 ca:
   gobierto_participation:
+    all_attachments: Mostra tots les documents
     comments:
       comment:
         comments_html: "<strong>%{comments}</strong> comentaris"
@@ -19,7 +20,7 @@ ca:
       gobierto_participation_poll_created: Enquesta creada
       gobierto_participation_poll_updated: Enquesta actualitzada
       gobierto_participation_process_created: Procés / grup creat
-      gobierto_participation_process_published: 'Actualització del procés: %{subject_name}'
+      gobierto_participation_process_published: Nou procés / grup creat
       gobierto_participation_process_updated: Procés / grup actualitzat
       index:
         agenda_for_container: Agenda de %{container_title}
@@ -57,33 +58,23 @@ ca:
       application:
         title: Participació
       menu_subsections:
-        about: Sobre
-        ideas: Idees
         issues: Temes
         processes: Processos
-        questions: Pregunta
+        scopes: Àmbits
       process_breadcrumb:
         root: Inici
-      process_menu_subsections:
-        contributions: Contribucions
-        information: Informació
-        meetings: Reunions
-        polls: Enquestes
-        results: Resultats
       secondary_nav:
         activity: Activitat
         agenda: Agenda
         documents: Documents
         news: Notícies
-    pages:
-      show:
-        news: Noticias
-    participation_attachments: Mostra tots les documents de Participació
     processes:
       contribution_containers:
         show:
           all: Tots
           best_ratings: Millors puntuacions
+          contributions_ended: El període d'aportacions ha finalitzat
+          contributions_start_html: El període d'aportacions començarà el <strong>%{date}</strong>
           idea:
             one: 1 idea
             other: "%{count} idees"
@@ -175,7 +166,9 @@ ca:
         current: Fase actual
         next_stage: Propera fase
       show:
-        about: Sobre aquest procés
+        about:
+          group_process: Sobre aquest grup
+          process: Sobre aquest procés
         appointments: Cites presencials
         interesting_information: Informació d'interès
         issue: Tema
@@ -192,9 +185,28 @@ ca:
         process_stages: Fases del procés
         scope: Àmbit
       timeline_row:
-        past_stage: Fase finalitzada
-        upcoming_stage: Fase pendent d'inici
         view_stage: Acceder a aquesta fase
+    scopes:
+      index:
+        intro_html: Las teves idees ajuden a millorar %{location_name} i la vida de
+          tots els que residim aquí. Aporta els teus millors idees en els nostres
+          <strong> espais permanents de participació</strong>.
+      participation_groups:
+        work_groups_description: Consulta l'activitat de cada grup i participa.
+        work_groups_title: Grups de treball
+      participation_latest_info:
+        agenda: Agenda Participació
+        news: Notícies
+        no_events: No hi ha esdeveniments relacionats
+        no_news: No hi ha notícies relacionades
+        show_more_events: Veure més esdeveniments
+        show_more_news: Veure més notícies
+        show_more_updates: Veure més actualitzacions
+        the_last: L'últim
+        up_to_date: "%{site_title} al dia"
+      participation_proccesses:
+        processes_description: Consulta i participa en processos específics.
+        processes_title: Processos en marxa
     shared:
       activities_for: Activitat de %{container}
       agenda: Agenda
@@ -207,6 +219,7 @@ ca:
       all_events: Veure tots els esdeveniments
       all_news: Veure totes les notícies
       consultation_processes: Consulta i participa en processos específics.
+      current_events: Veure esdeveniments actuals
       diary_for: Agenda de %{container}
       documents: Documents
       documents_for: Documents de %{container}
@@ -218,7 +231,7 @@ ca:
           agenda_for_container: Agenda d'
       filter_by_theme: Filtrar per tema
       from_to: "%{starts} al %{ends}"
-      new: Notícies
+      news: Notícies
       news_for: Notícies de %{container}
       no_activities: No hi ha actualitzacions relacionades
       no_documents: No hi ha documents relacionats
@@ -226,6 +239,7 @@ ca:
       no_news: No hi ha notícies relacionades
       ongoing_processes: Processos en marxa
       participation: Participació
+      past_events: Veure esdeveniments passats
       published_at: Publicat el %{date} per %{site}
     welcome:
       index:

@@ -1,0 +1,167 @@
+<div class="column">
+
+<script>
+
+  window.populateData = {
+    "token": "u7kqn_b14BoS-7pXDS0CBQ",
+    "municipalityId": "8121",
+    "municipalityName": "Mataró",
+    "provinceId": "8",
+    "provinceName": "Barcelona",
+    "ccaaId": "9",
+    "ccaaName": "Cataluña",
+    "year": 2015,
+    "endpoint": "https://tbi.populate.tools/gobierto"
+};
+
+</script>
+
+  <main class="content">
+    <!-- Welcome block -->
+    <div class="block">
+      <div class="pure-g header_block_inline">
+        <div class="pure-u-1 pure-u-md-12-24">
+          <div class="inline_header">
+            <h2 class="with_description p_h_r_1">PROVEEDORES Y FACTURAS</h2>
+            <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb' %>
+          </div>
+
+          <p>
+            ¿A qué proveedores contrata el Ayuntamiento? ¿Qué facturas paga? Desde esta sección podrás consultar un resumen y tener contexto de la información agregada, así como revisar el detalle de cada uno de los pagos que realiza el Ayuntamiento.
+          </p>
+
+          <p>
+            <% @budgets_data_updated_at = 10.day.ago %>
+            <% if @budgets_data_updated_at %>
+              <strong>Última actualización</strong>: <%= l(@budgets_data_updated_at, format: '%d %B %Y') %>.
+            <% end %>
+          </p>
+
+          <p class="common-links">
+            <span><a href="">Más información</a></span><span><a href="">Preguntas frecuentes</a></span><span><a href="">Suscribete</a></span>
+          </p>
+
+        </div>
+
+        <div class="pure-u-1 pure-u-md-12-24 right">
+          <%= image_tag('illustrations/consultas.jpg', class: 'img_header m_v_4') %>
+        </div>
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- Filters -->
+    <div class="m_b_2">
+      <div class="inline_filter">
+        <span class="soft">Ver datos de:</span>
+        <div id="invoices-filters" class="button-group ib" role="group">
+          <button class="button-grouped sort-G" data-toggle="2015">2015</button>
+          <button class="button-grouped sort-G" data-toggle="2016">2016</button>
+          <button class="button-grouped sort-G" data-toggle="current">Este año</button>
+          <button class="button-grouped active sort-G" data-toggle="12m">Últimos 12 meses</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boxes-->
+    <div class="pure-g metric_boxes">
+
+      <div class="pure-u-1 pure-u-md-11-24 metric_box">
+        <div class="inner nomargin">
+          <h3>Facturas</h3>
+          <div class="metric"><span id="numberOfInvoices"></span> <span class="small">facturas suman un total de</span> <span id="totalAmount"></span></div>
+          <div class="metric_details flex">
+            <label>De los cuales:</label>
+            <div id="providerType">
+              <strong><span class="percent"></span></strong> son de <strong><span class="number"></span> empresas</strong><br>
+              <strong><span class="percent"></span></strong> son de <strong><span class="number"></span> autónomos</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-12"></div>
+      <div class="pure-u-1 pure-u-md-11-24 metric_box">
+        <div class="inner nomargin">
+          <h3>Media y mediana</h3>
+          <div class="pure-g">
+            <div class="pure-u-1-2">
+              <div class="metric">
+                <span id="meanBudget"></span>&nbsp;<small>importe medio</small>
+              </div>
+            </div>
+            <div class="pure-u-1-2">
+              <div class="metric">
+                <span id="medianBudget"></span>&nbsp;<small>importe mediano</small>
+              </div>
+              <div class="explanation explanation--relative">
+                Es decir, la mitad de las facturas son de este importe o inferior
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Charts -->
+    <div class="block">
+      <div class="pure-g m_t_1">
+        <div class="pure-u-1 pure-u-md-11-24">
+          <div class="pure-g header_block_inline">
+            <div class="pure-u-1-2 p_h_r_0_5">
+              <p class="decorator">El <span id="lessThan1000"></span> de las facturas son menores de 1.000 €</p>
+            </div>
+            <div class="pure-u-1-2">
+              <p class="decorator">El mayor proveedor supone un <span id="largestProvider"></span> de toda la facturación</p>
+            </div>
+            <div class="pure-u-1-2 p_h_r_0_5 mt2">
+              <p class="decorator">El <span id="percentile50"></span> de las facturas concentran el 50 % de la facturación</p>
+            </div>
+            <div class="pure-u-1-2 mt2">
+
+            </div>
+          </div>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-12"></div>
+        <div class="pure-u-1 pure-u-md-11-24">
+          <h3 class="mt1 graph-title">Distribución por meses</h3>
+          <p>IMPORTE ACUMULADO</p>
+          <div id="bars"></div>
+        </div>
+        <div class="pure-u-1 pure-u-md-11-24 m_v_1">
+          <h3 class="mt1 graph-title">Principales proveedores</h3>
+          <div id="hbars1" class="mt1"></div>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-12 m_v_1"></div>
+        <div class="pure-u-1 pure-u-md-11-24 m_v_1">
+          <div class="pure-g">
+            <div class="pure-u-1">
+              <h3 class="mt1 graph-title">Distribución por importes</h3>
+              <div id="hbars2" class="mt1"></div>
+            </div>
+            <div class="pure-u-1">
+              <a href="#providers-table" class="box p_0_5 mt2 center as-block">
+                ...y 123 proveedores más - <strong>Consulta el detalle</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="pure-u-1">
+          <h3 class="mt1 graph-title">Todas las facturas</h3>
+          <div id="providers-table"></div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_include_tag 'gobierto_budgets/invoices/application', 'data-turbolinks-track' => true %>
+  <%= javascript_tag do %>
+    window.GobiertoBudgets.invoices_controller.show();
+  <% end %>
+<% end %>

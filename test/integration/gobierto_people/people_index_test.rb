@@ -5,7 +5,9 @@ require_relative "navigation_items"
 
 module GobiertoPeople
   class PeopleIndexTest < ActionDispatch::IntegrationTest
+
     include NavigationItems
+
     def setup
       super
       @path = gobierto_people_people_path
@@ -33,17 +35,35 @@ module GobiertoPeople
       ]
     end
 
-    def test_people_index
+    def departments
+      @departments ||= [
+        gobierto_people_departments(:justice_department),
+        gobierto_people_departments(:culture_department),
+        gobierto_people_departments(:ecology_department_old),
+        gobierto_people_departments(:tourism_department_very_old),
+        gobierto_people_departments(:immigration_department_mixed)
+      ]
+    end
+
+    def departments_sidebar
+      ".pure-u-1.pure-u-md-7-24"
+    end
+
+    def set_default_dates
+      conf = site.configuration
+      conf.raw_configuration_variables = <<-YAML
+gobierto_people_default_filter_start_date: "2010-01-01"
+YAML
+      site.save
+    end
+
+    def test_people_index_with_departments_disabled
+      disable_submodule(site, :departments)
+
       with_current_site(site) do
         visit @path
 
         assert has_selector?("h2", text: "#{site.name}'s organization chart")
-      end
-    end
-
-    def test_people_filter
-      with_current_site(site) do
-        visit @path
 
         within ".filter_boxed" do
           assert has_link?("Government Team")
@@ -52,6 +72,37 @@ module GobiertoPeople
           assert has_link?("All")
           assert has_link?("Political groups")
         end
+      end
+    end
+
+    def test_people_index_with_departments_enabled
+      with_current_site(site) do
+        visit @path
+
+        assert has_selector?("h2", text: "#{site.name}'s organization chart")
+
+        within departments_sidebar do
+          departments.each { |department| assert has_link? department.name }
+        end
+
+        people.each { |person| assert has_link? person.name }
+      end
+    end
+
+    def test_people_index_with_departments_enabled_and_date_filter
+      set_default_dates
+
+      with_current_site(site) do
+        visit gobierto_people_people_path(end_date: 50.years.ago)
+
+        assert has_selector?("h2", text: "#{site.name}'s organization chart")
+
+        within departments_sidebar do
+          assert has_content? "There are no departments for this date range"
+          departments.each { |department| assert has_no_link? department.name }
+        end
+
+        assert has_content? "There are no officials for this date range"
       end
     end
 

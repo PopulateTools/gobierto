@@ -30,14 +30,14 @@ class User::Verification::CensusVerificationTest < ActiveSupport::TestCase
   def test_verify!
     refute unverified_user_verification.verified?
     refute unverified_user_verification.user.census_verified?
-    refute_equal user_verification.user.source_site, unverified_user_verification.site
+    refute_equal user_verification.user.site, unverified_user_verification.site
 
     unverified_user_verification.stub(:will_verify?, true) do
       unverified_user_verification.verify!
 
       assert unverified_user_verification.reload.verified?
       assert unverified_user_verification.user.reload.census_verified?
-      assert_equal unverified_user_verification.user.source_site, unverified_user_verification.site
+      assert_equal unverified_user_verification.user.site, unverified_user_verification.site
     end
   end
 end

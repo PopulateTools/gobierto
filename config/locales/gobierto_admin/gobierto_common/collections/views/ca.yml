@@ -31,8 +31,10 @@ ca:
           pages:
             created_at: Creada
             public: Pública
+            published_on: Publicada
             updated_at: Actualitzada
             view: Veure pàgina
             visibility_level:
               active: Publicada
+              archived: Arxivada
               draft: Borrador

@@ -1,0 +1,19 @@
+dennis_id_number:
+  user: dennis
+  site: madrid
+  verification_type: <%= User::Verification.verification_types['id_number'] %>
+  verification_data: <%= {
+    'encrypted_id_number' => 'encrypted_id_number',
+    'encryption_key' => 'test_certificate' }.to_yaml.inspect %>
+  version: 0
+  verified: false
+
+reed_id_number:
+  user: reed
+  site: santander
+  verification_type: <%= User::Verification.verification_types['id_number'] %>
+  verification_data: <%= {
+    'encrypted_id_number' => 'encrypted_id_number',
+    'encryption_key' => 'test_certificate' }.to_yaml.inspect %>
+  version: 0
+  verified: false

@@ -38,10 +38,8 @@ module GobiertoPeople
         visit @path
 
         within ".upcoming-events" do
-          person.events.upcoming.each do |person_event|
-            assert has_link?(person_event.title)
-          end
-
+          assert has_link? "Future government event"
+          assert has_link? "Invited event"
           assert has_link?("View all")
         end
       end
@@ -69,20 +67,18 @@ module GobiertoPeople
 
     def test_subscription_block
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit @path
+        with_signed_in_user(user) do
+          visit @path
 
-            within ".slim_nav_bar" do
-              assert has_link? "Follow person"
-            end
-
-            click_on "Follow person"
-            assert has_link? "Person followed!"
-
-            click_on "Person followed!"
+          within ".slim_nav_bar" do
             assert has_link? "Follow person"
           end
+
+          click_on "Follow person"
+          assert has_link? "Person followed!"
+
+          click_on "Person followed!"
+          assert has_link? "Follow person"
         end
       end
     end

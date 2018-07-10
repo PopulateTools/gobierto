@@ -30,9 +30,11 @@ module GobiertoAdmin
           )
         )
         if @file_attachment_form.save
+          track_create_activity
+
           redirect_to(
             edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: collection_id),
-            notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
+            notice: t(".success_html", link: gobierto_attachments_document_url(id: @file_attachment_form.slug, host: @file_attachment_form.site.domain))
           )
         else
           render :edit
@@ -50,16 +52,51 @@ module GobiertoAdmin
         ))
 
         if @file_attachment_form.save
+          track_update_activity
+
           redirect_to(
             edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: collection_id),
-            notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
+            notice: t(".success_html", link: gobierto_attachments_document_url(id: @file_attachment_form.slug, host: @file_attachment_form.site.domain))
           )
         else
           render :edit, collection_id: collection_id
         end
       end
 
+      def destroy
+        @file_attachment = find_file_attachment
+        @file_attachment.destroy
+        process = find_process if params[:process_id]
+
+        if process
+          redirect_to admin_participation_process_file_attachments_path(process_id: process), notice: t(".success")
+        else
+          redirect_to admin_common_collection_path(@file_attachment.collection), notice: t(".success")
+        end
+      end
+
+      def recover
+        @file_attachment = find_archived_file_attachment
+        @file_attachment.restore
+
+        process = find_process if params[:process_id]
+
+        if process
+          redirect_to admin_participation_process_file_attachments_path(process_id: process), notice: t(".success")
+        else
+          redirect_to admin_common_collection_path(@file_attachment.collection), notice: t(".success")
+        end
+      end
+
       private
+
+      def track_create_activity
+        Publishers::GobiertoAttachmentsAttachmentActivity.broadcast_event("attachment_created", default_activity_params.merge(subject: @file_attachment_form.file_attachment))
+      end
+
+      def track_update_activity
+        Publishers::GobiertoAttachmentsAttachmentActivity.broadcast_event("attachment_updated", default_activity_params.merge(subject: @file_attachment))
+      end
 
       def load_collection
         @collection = params[:collection_id] ? current_site.collections.find(params[:collection_id]) : nil
@@ -75,6 +112,18 @@ module GobiertoAdmin
 
       def find_file_attachment
         current_site.attachments.find(params[:id])
+      end
+
+      def find_file_attachment
+        current_site.attachments.find(params[:id])
+      end
+
+      def find_archived_file_attachment
+        current_site.attachments.with_archived.find(params[:file_attachment_id])
+      end
+
+      def find_process
+        current_site.processes.find(params[:process_id])
       end
 
       def find_collection(collection_id)

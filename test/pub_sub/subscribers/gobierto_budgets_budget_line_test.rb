@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class Subscribers::GobiertoBudgetsBudgetLineActivityTest < ActiveSupport::TestCase
+class Subscribers::GobiertoBudgetsActivityTest < ActiveSupport::TestCase
   class Event < OpenStruct; end
 
   LOCALHOST = "127.0.0.1"
@@ -12,7 +12,7 @@ class Subscribers::GobiertoBudgetsBudgetLineActivityTest < ActiveSupport::TestCa
   end
 
   def subject
-    @subject ||= Subscribers::GobiertoBudgetsBudgetLineActivity.new("activities")
+    @subject ||= Subscribers::GobiertoBudgetsActivity.new("activities")
   end
 
   def ip_address
@@ -43,4 +43,21 @@ class Subscribers::GobiertoBudgetsBudgetLineActivityTest < ActiveSupport::TestCa
     assert_equal site.id, activity.site_id
     refute activity.admin_activity
   end
+
+  def test_providers_updated
+    assert_difference "Activity.count" do
+      subject.providers_updated(
+        create_event
+      )
+    end
+
+    activity = Activity.last
+
+    assert_equal site, activity.subject
+    assert_equal ip_address, activity.subject_ip
+    assert_equal "gobierto_budgets.providers_updated", activity.action
+    assert_equal site.id, activity.site_id
+    refute activity.admin_activity
+  end
+
 end

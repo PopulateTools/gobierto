@@ -8,7 +8,7 @@ module GobiertoParticipation
 
     def index
       @processes = current_site.processes.process.active
-      @groups = current_site.processes.group_process.active
+      @groups = CollectionDecorator.new(current_site.processes.group_process.active, decorator: GobiertoParticipation::ProcessDecorator)
     end
 
     def show
@@ -16,7 +16,7 @@ module GobiertoParticipation
       @process_news = find_process_news
       @process_events = find_process_events
       @process_activities = find_process_activities
-      @process_stages = current_process.stages.active
+      @process_stages = current_process.stages.published
     end
 
     private
@@ -26,7 +26,7 @@ module GobiertoParticipation
     end
 
     def find_process_events
-      ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process).first(5)
+      ::GobiertoCalendars::Event.events_in_collections_and_container_with_pending(current_site, current_process).first(5)
     end
 
     def current_process
@@ -46,6 +46,5 @@ module GobiertoParticipation
     def process_stage_path(stage)
       stage.process_stage_path
     end
-
   end
 end

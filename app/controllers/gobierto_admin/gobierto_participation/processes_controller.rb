@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessesController < GobiertoAdmin::BaseController
-
-      before_action { module_enabled!(current_site,  'GobiertoParticipation') }
-      before_action { module_allowed!(current_admin, 'GobiertoParticipation') }
+      before_action { module_enabled!(current_site, "GobiertoParticipation") }
+      before_action { module_allowed!(current_admin, "GobiertoParticipation") }
 
       helper_method :gobierto_participation_process_preview_url
 
@@ -16,8 +17,8 @@ module GobiertoAdmin
 
       def edit
         @process = find_process
-        @issues  = find_issues
-        @scopes  = find_scopes
+        @issues = find_issues
+        @scopes = find_scopes
         @process_visibility_levels = get_process_visibility_levels
 
         @process_form = ProcessForm.new(
@@ -33,8 +34,8 @@ module GobiertoAdmin
           redirect_to(
             edit_admin_participation_process_path(@process_form.process),
             notice: [
-              t('.success_html', link: gobierto_participation_process_preview_url(@process_form.process, host: current_site.domain)),
-              t('.add_stages')
+              t(".success_#{@process_form.process.process_type}_html", link: gobierto_participation_process_preview_url(@process_form.process, host: current_site.domain)),
+              t(".add_stages")
             ]
           )
         else
@@ -53,7 +54,7 @@ module GobiertoAdmin
           track_update_process
           redirect_to(
             edit_admin_participation_process_path(@process),
-            notice: t('.success_html', link: gobierto_participation_process_preview_url(@process_form.process, host: current_site.domain))
+            notice: t(".success_#{@process.process_type}_html", link: gobierto_participation_process_preview_url(@process_form.process, host: current_site.domain))
           )
         else
           @issues = find_issues
@@ -63,10 +64,39 @@ module GobiertoAdmin
         end
       end
 
+      def destroy
+        @process = find_process
+        @process.destroy
+
+        redirect_to admin_participation_path, notice: t(".success_#{@process.process_type}")
+      end
+
+      def recover
+        @process = find_archived_process
+        @process.restore
+
+        redirect_to admin_participation_path, notice: t(".success_#{@process.process_type}")
+      end
+
+      def update_current_stage
+        stages = ::GobiertoParticipation::Process.find(params[:process_id]).stages
+        stages.update_all(active: false)
+        active_stage = ::GobiertoParticipation::ProcessStage.find(params[:active_stage_id])
+        active_stage.update(active: true)
+
+        respond_to do |format|
+          format.js { render layout: false }
+        end
+      end
+
       private
 
       def find_process
         current_site.processes.find(params[:id])
+      end
+
+      def find_archived_process
+        current_site.processes.with_archived.find(params[:process_id])
       end
 
       def current_process
@@ -75,11 +105,11 @@ module GobiertoAdmin
       helper_method :current_process
 
       def find_issues
-        current_site.issues.collect { |issue| [ issue.name, issue.id ] }
+        current_site.issues.collect { |issue| [issue.name, issue.id] }
       end
 
       def find_scopes
-        current_site.scopes.collect { |scope| [ scope.name, scope.id ] }
+        current_site.scopes.collect { |scope| [scope.name, scope.id] }
       end
 
       def process_params
@@ -95,22 +125,12 @@ module GobiertoAdmin
           :has_duration,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales],
-          information_text_translations: [*I18n.available_locales],
-          stages_attributes: [
-            :stage_type,
-            :slug,
-            :starts,
-            :ends,
-            :active,
-            title_translations: [*I18n.available_locales],
-            description_translations: [*I18n.available_locales],
-            cta_text_translations: [*I18n.available_locales]
-          ]
+          body_source_translations: [*I18n.available_locales]
         )
       end
 
       def ignored_process_attributes
-        %w( created_at updated_at site_id title body information_text_translations )
+        %w(created_at updated_at site_id title body archived_at)
       end
 
       def default_activity_params
@@ -118,11 +138,11 @@ module GobiertoAdmin
       end
 
       def track_create_process
-        Publishers::GobiertoParticipationProcessActivity.broadcast_event('process_created', default_activity_params.merge(subject: @process_form.process))
+        Publishers::GobiertoParticipationProcessActivity.broadcast_event("process_created", default_activity_params.merge(subject: @process_form.process))
       end
 
       def track_update_process
-        Publishers::GobiertoParticipationProcessActivity.broadcast_event('process_updated', default_activity_params.merge(subject: @process))
+        Publishers::GobiertoParticipationProcessActivity.broadcast_event("process_updated", default_activity_params.merge(subject: @process))
       end
 
       def get_process_visibility_levels
@@ -135,7 +155,6 @@ module GobiertoAdmin
         end
         gobierto_participation_process_url(process.slug, options)
       end
-
     end
   end
 end

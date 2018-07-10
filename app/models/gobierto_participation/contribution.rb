@@ -21,8 +21,7 @@ module GobiertoParticipation
       add_attribute :resource_path, :class_name
     end
 
-    validates :title, :user, :contribution_container, presence: true
-    validates_length_of :title, maximum: 140
+    validates :user, :contribution_container, presence: true
 
     scope :sort_by_created_at, -> { reorder(created_at: :desc) }
     scope :created_at_last_week, -> { where("created_at >= ?", 1.week.ago) }
@@ -50,10 +49,12 @@ module GobiertoParticipation
       [title]
     end
 
-    def number_participants
-      user_ids = comments.map(&:user_id) + votes.map(&:user_id)
-      user_ids.uniq
-      user_ids.size
+    def participants_ids
+      (comments.map(&:user_id) + votes.map(&:user_id)).uniq
+    end
+
+    def participants_count
+      participants_ids.size
     end
 
     def resource_path
@@ -148,8 +149,10 @@ module GobiertoParticipation
       created_at.strftime("%Y-%m-%d")
     end
 
-    def self.javascript_json
-      all.to_json(only: [:title, :votes_count, :user_id, :slug], methods: [:to_path, :love_pct, :like_pct, :neutral_pct, :hate_pct, :created_at_ymd])
+    def self.json_attributes
+      all.map{ |c| { title: c.title, votes_count: c.votes_count, user_id: c.user_id, slug: c.slug,
+                     to_path: c.to_path, love_pct: c.love_pct, like_pct: c.like_pct, neutral_pct: c.neutral_pct,
+                     hate_pct: c.hate_pct, created_at_ymd: c.created_at_ymd } }
     end
   end
 end

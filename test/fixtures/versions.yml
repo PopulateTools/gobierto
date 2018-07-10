@@ -6,9 +6,25 @@ pdf_attachment_create:
   object:
   created_at: <%= Time.now %>
 
+pdf_on_participation_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:pdf_on_participation) %>
+  event: create
+  whodunnit:
+  object:
+  created_at: <%= Time.now %>
+
 xlsx_attachment_create:
   item_type: GobiertoAttachments::Attachment
   item_id: <%= ActiveRecord::FixtureSet.identify(:xlsx_attachment) %>
+  event: create
+  whodunnit:
+  object:
+  created_at: <%= Time.now %>
+
+xlsx_attachment_event_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:xlsx_attachment_event) %>
   event: create
   whodunnit:
   object:
@@ -33,6 +49,22 @@ txt_pdf_attachment_create:
 pdf_collection_attachment_create:
   item_type: GobiertoAttachments::Attachment
   item_id: <%= ActiveRecord::FixtureSet.identify(:pdf_collection_attachment) %>
+  event: create
+  whodunnit:
+  object:
+  created_at: <%= Time.now %>
+
+pdf_attachment_uploaded_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:pdf_attachment_uploaded) %>
+  event: create
+  whodunnit:
+  object:
+  created_at: <%= Time.now %>
+
+png_attachment_uploaded_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:png_attachment_uploaded) %>
   event: create
   whodunnit:
   object:

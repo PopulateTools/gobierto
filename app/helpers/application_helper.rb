@@ -1,4 +1,16 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
+
+  def body_css_classes
+    classes = []
+    classes.push current_module == 'gobierto_participation' ?  'gobierto_participation theme-participation' : current_module
+    classes.push controller_name
+    classes.push action_name
+    classes.push "#{controller_name}_#{action_name}"
+    classes.join(" ")
+  end
+
   def render_if_exists(partial_path, partial_params = {}, format = "html.erb")
     partial_path_name = Pathname.new(partial_path)
     partial_file_name = "#{partial_path_name.dirname}/_#{partial_path_name.basename}.#{format}"
@@ -16,27 +28,28 @@ module ApplicationHelper
 
     class_name.send(enum_name.to_s.pluralize).reduce({}) do |enum_options, (key, _)|
       enum_options.merge!(
-        { I18n.t("activerecord.attributes.#{class_name.model_name.i18n_key}.#{enum_name.to_s.pluralize}.#{key}", default: key.capitalize) => key }
+        I18n.t("activerecord.attributes.#{class_name.model_name.i18n_key}.#{enum_name.to_s.pluralize}.#{key}", default: key.capitalize) => key
       )
     end
   end
 
   def privacy_policy_page_link
     if current_site && current_site.configuration.privacy_page?
-      link_to t('layouts.accept_privacy_policy_signup'), current_site.configuration.privacy_page
+      link_to t("layouts.accept_privacy_policy_signup"), gobierto_cms_page_or_news_path(current_site.configuration.privacy_page)
     end
   end
 
   def tab_attributes(condition)
-    { role:'tab', 'tabindex' => condition ? 0 : -1, 'aria-selected' => condition }
+    { role: "tab", "tabindex" => condition ? 0 : -1, "aria-selected" => condition }
   end
 
   def show_social_links?
-    !params[:controller].include?('user/')
+    !params[:controller].include?("user/")
   end
 
   def full_layout?
-    controller_name == "contribution_containers" && action_name == "show"
+    (current_module == "gobierto_participation") &&
+      ((controller_name == "contribution_containers" && action_name == "show") || (controller_name == "poll_answers" && action_name == "new"))
   end
 
   def filetype_icon(attachment)
@@ -54,4 +67,83 @@ module ApplicationHelper
     html = "<i class='fa fa-file" + fontawesome_filetype + "-o'></i>"
     html.html_safe
   end
+
+  def current_parameters_with_year(year)
+    params.except(:host, :port, :protocol).merge(year: year).permit!
+  end
+
+  def next_poll(poll_id = nil)
+    poll = GobiertoParticipation::Poll.by_site(current_site).find(poll_id) if poll_id
+    answerable_polls = GobiertoParticipation::Poll.by_site(current_site).answerable.order(ends_at: :asc)
+    answerable_polls_by_user = answerable_polls.detect { |p| p.answerable_by?(current_user) } if current_user
+
+    if current_user
+      if poll && poll.answerable_by?(current_user)
+        poll
+      elsif answerable_polls_by_user
+        answerable_polls_by_user
+      end
+    else
+      answerable_polls.first
+    end
+  end
+
+  def content_for_if(name, condition, &block)
+    if condition
+      content_for(name, &block)
+    end
+    yield
+  end
+
+  def attribute_indication_tag(params = {})
+    text = if params[:required] && params[:max_length]
+             I18n.t "views.forms.required_and_max_characters", length: parse_max_length(params[:max_length])
+           elsif params[:required]
+             I18n.t "views.forms.required"
+           elsif params[:max_length]
+             I18n.t "views.forms.max_characters", length: parse_max_length(params[:max_length])
+           end
+    content_tag(:span, class: "indication") { text }
+  end
+
+  def whom(entity_name)
+    if I18n.locale == :ca
+      if /\A[aeiou]/i =~ entity_name
+        " l'#{entity_name}"
+      else
+        # TODO: define a setting with the genre of the entity
+        "la #{entity_name}"
+      end
+    else
+      " " + entity_name
+    end
+  end
+
+  def meaningful_date_range?(date_range, options = {})
+    return false unless date_range.is_a?(Array)
+
+    date_range.map! { |d| d.change(hour: 0, min: 0, sec: 0) } if options[:only_date]
+    date_range.first != date_range.last
+  end
+
+  def simple_pluralize(count, singular, plural)
+    if count == 1 || count =~ /^1(\.0+)?$/
+      singular
+    else
+      plural
+    end
+  end
+
+  private
+
+  def parse_max_length(params)
+    if params.is_a? Integer
+      params
+    elsif params[:length]
+      params[:length]
+    else
+      params[:f].object.class.max_length(params[:attr])
+    end
+  end
+
 end

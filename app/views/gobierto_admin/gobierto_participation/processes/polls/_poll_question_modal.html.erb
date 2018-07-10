@@ -31,7 +31,7 @@
 
         <%= label_tag intput_name do %>
           <%= ::GobiertoParticipation::PollQuestion.human_attribute_name(:title) %>
-          <span class="indication"><%= t('views.forms.max_characters', length: 140) %></span>
+          <%= attribute_indication_tag required: true %>
         <% end %>
 
         <%= text_field_tag intput_name, input_value %>

@@ -2,11 +2,19 @@
 en:
   activemodel:
     attributes:
+      gobierto_admin/gobierto_calendars/calendar_configuration_form:
+        ibm_notes_pwd: Password
+        ibm_notes_url: URL
+        ibm_notes_usr: Username
+        microsoft_exchange_pwd: Password
+        microsoft_exchange_url: URL
+        microsoft_exchange_usr: Username
       gobierto_admin/gobierto_calendars/event_form:
         attachment_file: Attached file
         description: Description
         ends_at: End date
         starts_at: Start date
         title: Title
+        title_translations: Title
     models:
       gobierto_admin/gobierto_calendars/event_form: Event

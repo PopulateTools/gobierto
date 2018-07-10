@@ -1,4 +1,5 @@
 class Site < ApplicationRecord
+
   RESERVED_SUBDOMAINS = %W(presupuestos hosted)
 
   has_many :activities
@@ -15,11 +16,10 @@ class Site < ApplicationRecord
   has_many :content_blocks, dependent: :destroy, class_name: "GobiertoCommon::ContentBlock"
   has_many :custom_user_fields, dependent: :destroy, class_name: "GobiertoCommon::CustomUserField"
 
-  has_many :scopes, dependent: :destroy, class_name: "GobiertoCommon::Scope"
-
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
   has_many :notifications, dependent: :destroy, class_name: "User::Notification"
+  has_many :users, dependent: :nullify
 
   # GobiertoBudgets integration
   has_many :custom_budget_lines_categories, dependent: :destroy, class_name: "GobiertoBudgets::Category"
@@ -32,6 +32,11 @@ class Site < ApplicationRecord
   has_many :people, dependent: :destroy, class_name: "GobiertoPeople::Person"
   has_many :person_posts, through: :people, source: :posts, class_name: "GobiertoPeople::PersonPost"
   has_many :person_statements, through: :people, source: :statements, class_name: "GobiertoPeople::PersonStatement"
+  has_many :departments, dependent: :destroy, class_name: "GobiertoPeople::Department"
+  has_many :interest_groups, dependent: :destroy, class_name: "GobiertoPeople::InterestGroup"
+  has_many :gifts, through: :people, source: :received_gifts, class_name: "GobiertoPeople::Gift"
+  has_many :invitations, through: :people, class_name: "GobiertoPeople::Invitation"
+  has_many :trips, through: :people, class_name: "GobiertoPeople::Trip"
 
   # GobiertoCalendars integration
   has_many :events, class_name: "GobiertoCalendars::Event", dependent: :destroy
@@ -39,6 +44,16 @@ class Site < ApplicationRecord
   # Gobierto CMS integration
   has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
   has_many :sections, dependent: :destroy, class_name: "GobiertoCms::Section"
+
+  # Gobierto Core integration
+  has_many :site_templates, dependent: :destroy, class_name: "GobiertoCore::SiteTemplate"
+
+  # Gobierto Plans integration
+  has_many :plans, dependent: :destroy, class_name: "GobiertoPlans::Plan"
+  has_many :plan_types, dependent: :destroy, class_name: "GobiertoPlans::PlanType"
+
+  # Gobierto Indicators
+  has_many :indicators, dependent: :destroy, class_name: "GobiertoIndicators::Indicator"
 
   # Gobierto Attachments integration
   has_many :attachments, dependent: :destroy, class_name: "GobiertoAttachments::Attachment"
@@ -48,11 +63,13 @@ class Site < ApplicationRecord
 
   # Gobierto Participation integration
   has_many :issues, -> { sorted }, dependent: :destroy, class_name: "Issue"
+  has_many :scopes, -> { sorted }, dependent: :destroy, class_name: "GobiertoCommon::Scope"
   has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
   has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
   has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
   has_many :comments, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
   has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
+  has_many :votes, dependent: :destroy, class_name: "GobiertoParticipation::Vote"
 
   serialize :configuration_data
 
@@ -62,7 +79,7 @@ class Site < ApplicationRecord
 
   validates :title, presence: true
   validates :domain, presence: true, uniqueness: true, domain: true
-  validate :location_required
+  validate :organization_required
 
   scope :sorted, -> { order(created_at: :desc) }
 
@@ -80,25 +97,6 @@ class Site < ApplicationRecord
     end
   end
 
-  def self.with_agendas_integration_enabled
-    @with_agendas_integration_enabled ||= Site.all.select do |site|
-      site.calendar_integration.present?
-    end
-  end
-
-  def calendar_integration
-    if gobierto_people_settings
-      case gobierto_people_settings.calendar_integration
-      when 'ibm_notes'
-        GobiertoPeople::IbmNotes::CalendarIntegration
-      when 'google_calendar'
-        GobiertoPeople::GoogleCalendar::CalendarIntegration
-      when 'microsoft_exchange'
-        GobiertoPeople::MicrosoftExchange::CalendarIntegration
-      end
-    end
-  end
-
   def gobierto_people_settings
     @gobierto_people_settings ||= if configuration.gobierto_people_enabled?
                                     module_settings.find_by(module_name: "GobiertoPeople")
@@ -108,12 +106,14 @@ class Site < ApplicationRecord
   def gobierto_budgets_settings
     @gobierto_budgets_settings ||= if configuration.gobierto_budgets_enabled?
                                     module_settings.find_by(module_name: "GobiertoBudgets")
-                                  end
+                                   end
   end
 
+  # If the organization_id corresponds to a municipality ID,
+  # this method will return an instance of INE::Places::Place
   def place
-    @place ||= if self.municipality_id && self.location_name
-                 INE::Places::Place.find self.municipality_id
+    @place ||= if self.organization_id
+                 INE::Places::Place.find(self.organization_id)
                end
   end
 
@@ -126,7 +126,19 @@ class Site < ApplicationRecord
   end
 
   def to_s
-    self.name
+    name
+  end
+
+  def engines_overrides
+    configuration.engine_overrides
+  end
+
+  def event_attendances
+    ::GobiertoCalendars::EventAttendee.where(person_id: people.pluck(:id))
+  end
+
+  def departments_available?
+    departments.any? && gobierto_people_settings.submodules_enabled.include?("departments")
   end
 
   private
@@ -178,10 +190,10 @@ class Site < ApplicationRecord
     end
   end
 
-  def location_required
-    if (self.configuration.modules & %W{ GobiertoBudgetConsultations GobiertoBudgets GobiertoIndicators} ).any?
-      if municipality_id.blank? || location_name.blank?
-        errors.add(:location_name, I18n.t('errors.messages.blank_for_modules'))
+  def organization_required
+    if (self.configuration.modules & %W{ GobiertoBudgetConsultations GobiertoBudgets GobiertoObservatory }).any?
+      if organization_id.blank?
+        errors[:base] << I18n.t('errors.messages.blank_for_modules')
       end
     end
   end

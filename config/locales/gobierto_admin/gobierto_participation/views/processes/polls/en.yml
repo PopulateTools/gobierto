@@ -36,6 +36,7 @@ en:
             view_poll: View poll
             visibility: Status
             visibility_level:
+              archived: Archived
               draft: Draft
               published: Published
           new:

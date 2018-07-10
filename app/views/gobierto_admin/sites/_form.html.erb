@@ -8,7 +8,10 @@
 
         <% current_site.configuration.available_locales.each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
-            <%= label_tag "site[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
+            <%= label_tag "site[title_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:title) %>
+              <%= attribute_indication_tag required: true %>
+            <% end %>
             <%= text_field_tag "site[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
 
@@ -20,15 +23,20 @@
       </div>
 
       <div class="form_item input_text">
-        <%= f.label :location_name %>
-        <%= f.text_field(:location_name, placeholder: t(".placeholders.location_name"), data: {
-          autocomplete_url: @services_config.municipalities_suggestions_endpoint
-        }) %>
-        <%= f.hidden_field :municipality_id %>
+        <%= f.label :organization_name %>
+        <%= f.text_field(:organization_name, placeholder: t(".placeholders.organization_name")) %>
       </div>
 
       <div class="form_item input_text">
-        <%= f.label :domain %>
+        <%= f.label :organization_id %>
+        <%= f.text_field(:organization_id) %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= label_tag "site[domain]" do %>
+          <%= f.object.class.human_attribute_name(:domain) %>
+          <%= attribute_indication_tag required: true %>
+        <% end %>
         <%= f.text_field :domain, placeholder: t(".placeholders.domain") %>
 
         <div class="inline_help">
@@ -92,6 +100,10 @@
           <%= f.text_field :populate_data_api_token, placeholder: t(".placeholders.populate_data_api_token") %>
         </div>
 
+        <div class="form_item textarea code">
+          <%= f.label :raw_configuration_variables %>
+          <%= f.text_area :raw_configuration_variables %>
+        </div>
       </div>
 
       <div class="form_block">
@@ -143,7 +155,10 @@
         </div>
 
         <div class="form_item select_control">
-          <%= f.label :home_page %>
+          <%= label_tag "site[home_page]" do %>
+            <%= f.object.class.human_attribute_name(:home_page) %>
+            <%= attribute_indication_tag required: true %>
+          <% end %>
           <%= f.select :home_page, @site_modules_with_root_path.map{ |p| [p.namespace, p.namespace] } %>
         </div>
 
@@ -152,6 +167,30 @@
           <%= f.select :home_page_item_id, grouped_options_for_select(@home_page_items, selected: @home_page_selected) %>
         </div>
 
+      </div>
+
+      <% if @auth_modules.present? %>
+        <div class="form_block">
+          <h2><%= t(".authentication_modules") %></h2>
+          <div class="form_item auth-module-check-boxes">
+            <div class="options compact">
+              <%= f.collection_check_boxes(:auth_modules, @auth_modules, :name, :description) do |b| %>
+                <div class="option">
+                  <%= b.check_box %>
+                  <%= b.label do %>
+                    <span></span>
+                    <%= b.text %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="form_item input_text">
+        <%= f.label :engine_overrides_param %>
+        <%= f.text_field(:engine_overrides_param) %>
       </div>
 
     </div>

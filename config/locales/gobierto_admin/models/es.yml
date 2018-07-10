@@ -12,11 +12,11 @@ es:
         name: Nombre
         password: Contraseña
         password_confirmation: Confirmación de contraseña
-        site_ids: Sites
+        site_ids: Sitios
         site_modules: Módulos
       gobierto_admin/admin_invitation_form:
         emails: Emails
-        site_ids: Sites
+        site_ids: Sitios
       gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/file_attachment_form:
@@ -37,13 +37,14 @@ es:
         home_page: Módulo de inicio
         home_page_item_id: Página de inicio
         links_markup: HTML de Enlaces
-        location_name: Municipio
         logo_file: Logotipo
-        municipality_id: Municipio
         name: Nombre de la entidad
+        organization_id: Identificador de la organización
+        organization_name: Organización
         populate_data_api_token: API token Populate Data
         privacy_page_id: Página de privacidad
-        title: Nombre del site
+        raw_configuration_variables: Otras variables de configuración
+        title: Nombre del sitio
       gobierto_admin/user_form:
         email: Email
         name: Nombre
@@ -59,7 +60,7 @@ es:
       gobierto_admin/file_attachment_form: Cambio en el documento
       gobierto_admin/issue_form: Tema
       gobierto_admin/scope_form: Ámbito
-      gobierto_admin/site_form: Site
+      gobierto_admin/site_form: Sitio
       gobierto_admin/user_form: Usuario
       gobierto_admin/user_password_form: Cambio de contraseña
       gobierto_admin/user_welcome_message_form: Email de bienvenida

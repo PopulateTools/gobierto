@@ -12,12 +12,24 @@ module FileUploader
     end
 
     def call
+      upload || file_uri
+    end
+
+    def upload
+      upload! if !uploaded_file_exists? && @file
+    end
+
+    def upload!
       FileUtils.mkdir_p(file_base_path) unless File.exist?(file_base_path)
       FileUtils.mv(file.tempfile.path, file_path)
       File.chmod(0o664, file_path)
       ObjectSpace.undefine_finalizer(file.tempfile)
 
       file_uri
+    end
+
+    def uploaded_file_exists?
+      File.exists?(file_path)
     end
 
     private

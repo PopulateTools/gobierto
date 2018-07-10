@@ -9,32 +9,51 @@
   width: auto;
   max-width: 750px;
   margin: 20px auto;
+
   @include border-radius(5px);
+
   color: $color_headers;
 
   &#read_later {
-    input[type=submit], .button {
+    input[type=submit],
+    .button {
       padding: 0 1em;
     }
   }
 
   .disclaimer {
-    font-size: .8em;
+    font-size: 0.8em;
     text-align: center;
     margin: 2em 0;
-    opacity: .6;
+    opacity: 0.6;
   }
 }
+
+.cropper-container {
+  border: 1px solid red;
+  padding: 1em;
+}
+
+.modal-full-width {
+  .modal {
+    max-width: 95%;
+    box-sizing: border-box;
+  }
+}
+
 .mfp-container {
   padding: 0;
 }
+
 .mfp-bg {
-  opacity: .6;
+  opacity: 0.6;
 }
+
 .mfp-close-btn-in .mfp-close:hover {
   color: $color_main_negative;
   border-radius: 0;
 }
+
 .modal_background {
   position: relative;
   background-color: $color_main;
@@ -47,6 +66,7 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 .modal-attachments {
   position: relative;
   padding: 0;
@@ -68,7 +88,10 @@
     opacity: 1;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     color: #946b04;
   }
 
@@ -81,6 +104,7 @@
         max-height: 450px;
       }
     }
+
     tr td:not(:first-child) {
       color: $text_soft;
     }
@@ -137,7 +161,7 @@
 
       &:hover,
       &.active {
-        background: darken(#fef0cd, 5%)
+        background: darken(#fef0cd, 5%);
       }
 
       .drag-call {
@@ -161,7 +185,6 @@
   }
 
   .dragged {
-
     .strong {
       color: $color_headers;
     }

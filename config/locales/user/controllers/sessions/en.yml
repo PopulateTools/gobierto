@@ -9,4 +9,4 @@ en:
         success: Signed out successfully
       user_already_authenticated: You are already signed in.
       user_not_authorized: You are not authorized.
-      user_not_signed_in: Regístrate o haz login si ya tienes cuenta para poder continuar.
+      user_not_signed_in: Register or sign in if you have an account to continue.

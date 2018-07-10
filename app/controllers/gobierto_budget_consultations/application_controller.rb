@@ -7,6 +7,9 @@ module GobiertoBudgetConsultations
 
     before_action { module_enabled!(current_site, "GobiertoBudgetConsultations") }
 
+    def set_current_site
+      @site = SiteDecorator.new(current_site)
+    end
     protected
 
     def check_not_responded

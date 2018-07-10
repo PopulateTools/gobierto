@@ -1,6 +1,7 @@
 ---
 es:
   gobierto_participation:
+    all_attachments: Ver todos los documentos
     comments:
       comment:
         comments_html: "<strong>%{comments}</strong> comentarios"
@@ -21,7 +22,7 @@ es:
       gobierto_participation_poll_created: Encuesta creada
       gobierto_participation_poll_updated: Encuesta actualizada
       gobierto_participation_process_created: Proceso / grupo creado
-      gobierto_participation_process_published: 'Actualitzación del proceso: %{subject_name}'
+      gobierto_participation_process_published: Nuevo proceso / grupo creado
       gobierto_participation_process_updated: Proceso / grupo actualizado
       index:
         agenda_for_container: Agenda de %{container_title}
@@ -59,33 +60,23 @@ es:
       application:
         title: Participación
       menu_subsections:
-        about: Acerca de
-        ideas: Ideas
         issues: Temas
         processes: Procesos
-        questions: Pregunta
+        scopes: Ámbitos
       process_breadcrumb:
         root: Inicio
-      process_menu_subsections:
-        contributions: Aportaciones
-        information: Información
-        meetings: Reuniones
-        polls: Encuestas
-        results: Resultados
       secondary_nav:
         activity: Actividad
         agenda: Agenda
         documents: Documentos
         news: Noticias
-    pages:
-      show:
-        news: Noticias
-    participation_attachments: Ver todos los documentos de Participación
     processes:
       contribution_containers:
         show:
           all: Todas
           best_ratings: Mejor valoradas
+          contributions_ended: El periodo de aportaciones ha finalizado
+          contributions_start_html: El periodo de aportaciones comenzará el <strong>%{date}</strong>
           idea:
             one: 1 idea
             other: "%{count} ideas"
@@ -177,7 +168,9 @@ es:
         current: Fase actual
         next_stage: Próxima fase
       show:
-        about: Sobre este proceso
+        about:
+          group_process: Sobre este grupo
+          process: Sobre este proceso
         appointments: Citas presenciales
         interesting_information: Información de interés
         issue: Tema
@@ -194,9 +187,28 @@ es:
         process_stages: Fases del proceso
         scope: Ámbito
       timeline_row:
-        past_stage: Fase finalizada
-        upcoming_stage: Fase pendiente de inicio
         view_stage: Acceder a esta fase
+    scopes:
+      index:
+        intro_html: Tus ideas ayudan a mejorar %{location_name} y la vida de todos
+          los que residimos aquí. Aporta tus mejores ideas en nuestros <strong>espacios
+          permanentes de participación</strong>.
+      participation_groups:
+        work_groups_description: Consulta la actividad de cada grupo y participa.
+        work_groups_title: Grupos de trabajo
+      participation_latest_info:
+        agenda: Agenda Participación
+        news: Noticias
+        no_events: No hay eventos relacionados
+        no_news: No hay noticias relacionadas
+        show_more_events: Ver más eventos
+        show_more_news: Ver más noticias
+        show_more_updates: Ver más actualizaciones
+        the_last: Lo último
+        up_to_date: "%{site_title} al día"
+      participation_proccesses:
+        processes_description: Consulta y participa en procesos específicos.
+        processes_title: Procesos en marcha
     shared:
       activities_for: Actividad de %{container}
       agenda: Agenda
@@ -209,6 +221,7 @@ es:
       all_events: Ver todos los eventos
       all_news: Ver todas las noticias
       consultation_processes: Consulta y participa en procesos específicos.
+      current_events: Ver eventos actuales
       diary_for: Agenda de %{container}
       documents: Documentos
       documents_for: Documentos de %{container}
@@ -220,7 +233,7 @@ es:
           agenda_for_container: Agenda de
       filter_by_theme: Filtrar por tema
       from_to: "%{starts} al %{ends}"
-      new: Noticia
+      news: Noticia
       news_for: Noticias de %{container}
       no_activities: No hay actualizaciones relacionadas
       no_documents: No hay documentos relacionados
@@ -228,6 +241,7 @@ es:
       no_news: No hay noticias relacionadas
       ongoing_processes: Procesos en marcha
       participation: Participación
+      past_events: Ver eventos pasados
       published_at: Publicado el %{date} por el %{site}
     welcome:
       index:

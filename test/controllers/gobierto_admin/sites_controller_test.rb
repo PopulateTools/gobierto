@@ -27,9 +27,9 @@ module GobiertoAdmin
       {
         title_translations: { I18n.locale => "Title" },
         name_translations: { I18n.locale => "Foo" },
-        location_name: "Madrid",
-        municipality_id: 1,
-        domain: "test2.gobierto.dev",
+        organization_name: "Madrid",
+        organization_id: "1",
+        domain: "test2.gobierto.test",
         visibility_level: "active",
         home_page: "GobiertoParticipation"
       }

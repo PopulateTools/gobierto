@@ -8,4 +8,6 @@
       </a>
     <% end %>
   </div>
+<% else %>
+  <div <%= %Q{data-loaded-locale="#{current_site.configuration.default_locale}"}.html_safe %>></div>
 <% end %>

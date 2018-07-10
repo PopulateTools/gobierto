@@ -1,0 +1,45 @@
+.rowchart {
+  min-height: 300px;
+  position: relative;
+
+  svg {
+    background-color: rgba($color_main, .2);
+  }
+
+  .bar {
+    fill: $color_main;
+    font-size: $f6;
+
+    &:hover {
+      fill: lighten($color_main, 10%);
+      cursor: pointer;
+    }
+  }
+
+  .x.axis {
+    opacity: 0.5;
+
+    .tick text {
+      font-size: $f8;
+    }
+  }
+
+  .y.axis {
+    text-anchor: start;
+
+    .tick text {
+      font-size: $f7;
+      pointer-events: none;
+      color: $color_text;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .tick line,
+  .y .domain {
+    display: none;
+  }
+}

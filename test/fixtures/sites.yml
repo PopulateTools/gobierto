@@ -1,30 +1,29 @@
 madrid:
   title_translations: <%= { 'en' => 'Transparencia y Participción', 'es' => 'Transparencia y Participción' }.to_json %>
   name_translations: <%= { 'en' => 'Ayuntamiento de Madrid', 'es' => 'Ayuntamiento de Madrid' }.to_json %>
-  domain: madrid.gobierto.dev
+  domain: madrid.gobierto.test
   configuration_data: <%= {
     "links_markup" => %Q{<a href="http://madrid.es">Ayuntamiento de Madrid</a>},
     "logo" => "http://www.madrid.es/assets/images/logo-madrid.png",
-    "modules" => ["GobiertoBudgets", "GobiertoBudgetConsultations", "GobiertoPeople", "GobiertoCms", "GobiertoParticipation"],
+    "modules" => ["GobiertoBudgets", "GobiertoBudgetConsultations", "GobiertoPeople", "GobiertoCms", "GobiertoParticipation", "GobiertoIndicators", "GobiertoPlans"],
     "default_locale" => "en",
     "available_locales" => ["en", "es"],
     "home_page" => "GobiertoParticipation",
+    "privacy_page_id" => "58988811",
     "google_analytics_id" => "UA-000000-01" }.to_yaml.inspect %>
-  location_name: Madrid
-  municipality_id: <%= INE::Places::Place.find_by_slug("madrid").id %>
-  location_type: INE::Places::Place
-  external_id: <%= INE::Places::Place.find_by_slug("madrid").id %>
-  institution_url: http://www.madrid.es
-  institution_type: Ayuntamiento
-  institution_email: contact@madrid.es
-  institution_address: Fake St., 123
-  institution_document_number: 0123456789A
+  organization_name: Madrid
+  organization_id: <%= INE::Places::Place.find_by_slug("madrid").id %>
+  organization_url: http://www.madrid.es
+  organization_type: Ayuntamiento
+  organization_email: contact@madrid.es
+  organization_address: Fake St., 123
+  organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["active"] %>
 
 santander:
   title_translations: <%= { 'en' => 'Transparencia Ciudadana', 'es' => 'Transparencia Ciudadana' }.to_json %>
   name_translations: <%= { 'en' => 'Ayuntamiento de Santander', 'es' => 'Ayuntamiento de Santander' }.to_json %>
-  domain: santander.gobierto.dev
+  domain: santander.gobierto.test
   configuration_data: <%= {
     "links_markup" => %Q{<a href="http://santander.es">Ayuntamiento de Santander</a>},
     "logo" => "http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png",
@@ -33,36 +32,76 @@ santander:
     "available_locales" => ["en", "es", "ca"],
     "home_page" => "GobiertoPeople",
     "google_analytics_id" => "UA-000000-02" }.to_yaml.inspect %>
-  location_name: Santander
-  municipality_id: <%= INE::Places::Place.find_by_slug("santander").id %>
-  location_type: INE::Places::Place
-  external_id: <%= INE::Places::Place.find_by_slug("santander").id %>
-  institution_url: http://www.santander.es
-  institution_type: Ayuntamiento
-  institution_email: contact@santander.es
-  institution_address: Fake St., 123
-  institution_document_number: 0123456789A
+  organization_name: Santander
+  organization_id: <%= INE::Places::Place.find_by_slug("santander").id %>
+  organization_url: http://www.santander.es
+  organization_type: Ayuntamiento
+  organization_email: contact@santander.es
+  organization_address: Fake St., 123
+  organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["draft"] %>
 
 huesca:
   title_translations: <%= { 'en' => 'Transparencia Ciudadana', 'es' => 'Transparencia Ciudadana' }.to_json %>
   name_translations: <%= { 'en' => 'Ayuntamiento de Huesca', 'es' => 'Ayuntamiento de Huesca' }.to_json %>
-  domain: huesca.gobierto.dev
+  domain: huesca.gobierto.test
   configuration_data: <%= {
     "links_markup" => %Q{<a href="http://www.huesca.es">Ayuntamiento de Huesca</a>},
     "logo" => "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Flag_of_Huesca.svg/500px-Flag_of_Huesca.svg.png",
     "modules" => ["GobiertoBudgets"],
     "default_locale" => "en",
     "available_locales" => ["en", "es"],
-    "home_page" => "GobiertoBudgets",
+    "home_page" => "GobiertoCms",
     "google_analytics_id" => "UA-000000-03" }.to_yaml.inspect %>
-  location_name: Santander
-  municipality_id: <%= INE::Places::Place.find_by_slug("huesca").id %>
-  location_type: INE::Places::Place
-  external_id: <%= INE::Places::Place.find_by_slug("huesca").id %>
-  institution_url: http://www.huesca.es
-  institution_type: Ayuntamiento
-  institution_email: contact@huesca.es
-  institution_address: Fake St., 123
-  institution_document_number: 0123456789A
+  organization_name: Huesca
+  organization_id: <%= INE::Places::Place.find_by_slug("huesca").id %>
+  organization_url: http://www.huesca.es
+  organization_type: Ayuntamiento
+  organization_email: contact@huesca.es
+  organization_address: Fake St., 123
+  organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["draft"] %>
+
+cortegada:
+  title_translations: <%= { 'en' => 'Transparencia Ciudadana', 'es' => 'Transparencia Ciudadana' }.to_json %>
+  name_translations: <%= { 'en' => 'Ayuntamiento de Cortegada', 'es' => 'Ayuntamiento de Cortegada' }.to_json %>
+  domain: cortegada.gobierto.test
+  configuration_data: <%= {
+    "links_markup" => %Q{<a href="http://www.cortegada.es">Ayuntamiento de Cortegada</a>},
+    "logo" => "http://www.cortegada.es/imagenes/Principal/logo_principal.PNG",
+    "modules" => ["GobiertoBudgets", "GobiertoParticipation"],
+    "default_locale" => "en",
+    "available_locales" => ["en", "es"],
+    "home_page" => "GobiertoParticipation",
+    "google_analytics_id" => "UA-000000-04",
+    "auth_modules" => ["null_strategy"] }.to_yaml.inspect %>
+  organization_name: Cortegada
+  organization_id: <%= INE::Places::Place.find_by_slug("cortegada").id %>
+  organization_url: http://www.cortegada.es
+  organization_type: Ayuntamiento
+  organization_email: contact@cortegada.test
+  organization_address: Fake St., 123
+  organization_document_number: 0123456789A
+  visibility_level: <%= Site.visibility_levels["active"] %>
+
+organization_wadus:
+  title_translations: <%= { 'en' => 'Organización Wadus', 'es' => 'Organización Wadus' }.to_json %>
+  name_translations: <%= { 'en' => 'Universidad Wadus', 'es' => 'Organización Wadus' }.to_json %>
+  domain: wadus.gobierto.test
+  configuration_data: <%= {
+    "links_markup" => %Q{},
+    "logo" => "",
+    "modules" => ["GobiertoBudgets"],
+    "default_locale" => "en",
+    "available_locales" => ["en", "es"],
+    "home_page" => "GobiertoBudgets",
+    "google_analytics_id" => "",
+    "auth_modules" => ["null_strategy"] }.to_yaml.inspect %>
+  organization_name: Wadus
+  organization_id: "wadus"
+  organization_url:
+  organization_type:
+  organization_email:
+  organization_address:
+  organization_document_number:
+  visibility_level: <%= Site.visibility_levels["active"] %>

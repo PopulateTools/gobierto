@@ -12,8 +12,8 @@
       <i class="fa fa-cog"></i>
       <%= t(".configuration") %>
     <% end %>
-    <% if @first_page_in_section %>
-      <%= link_to gobierto_cms_section_item_path(@first_page_in_section.slug, slug_section: @section.slug), target: "_blank" do %>
+    <% unless @section.section_items.empty? %>
+      <%= link_to gobierto_cms_section_path(slug_section: @section.slug), target: "_blank" do %>
         <i class="fa fa-link"></i>
         <%= t(".view") %>
       <% end %>
@@ -58,11 +58,13 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
+    <% if algoliasearch_configured? %>
     window.searchClient = {
       client: algoliasearch('<%= Rails.application.secrets.algolia_application_id %>', '<%= Rails.application.secrets.algolia_search_api_key %>'),
       indexes: ["<%= GobiertoCms::Page.search_index_name %>"],
       filters: "site_id:<%= algolia_search_client.site.id %>"
     };
+    <% end %>
 
     window.GobiertoAdmin.sections_controller.show();
   <% end %>

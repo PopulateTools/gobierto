@@ -46,8 +46,4 @@
 
 <%= render "gobierto_common/dynamic_content/table_component", content_blocks: @statement_content_blocks %>
 
-<%= render("user/subscriptions/subscribable_box",
-           subscribable: @statement,
-           title: t(".subscribable_box.title")) %>
-
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

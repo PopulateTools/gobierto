@@ -1,6 +1,0 @@
-#!/bin/sh
-
-bundle exec rails db:setup
-bundle exec rails gobierto_budgets:elasticsearch:drop_indices
-bundle exec rails gobierto_budgets:elasticsearch:create_indices
-bundle exec rails gobierto_budgets:fixtures:load

@@ -21,8 +21,16 @@ module GobiertoAdmin
       @site ||= sites(:madrid)
     end
 
+    def other_site
+      @other_site ||= sites(:santander)
+    end
+
     def users_in_site
-      @users_in_site ||= User.by_source_site(site)
+      @users_in_site ||= User.by_site(site)
+    end
+
+    def users_in_other_site
+      @users_in_other_site ||= User.by_site(other_site)
     end
 
     def test_user_list
@@ -33,6 +41,9 @@ module GobiertoAdmin
           within "table.user-list tbody" do
             users_in_site.each do |user|
               assert has_selector?("tr#user-item-#{user.id}")
+            end
+            users_in_other_site.each do |user|
+              assert has_no_selector?("tr#user-item-#{user.id}")
             end
           end
         end

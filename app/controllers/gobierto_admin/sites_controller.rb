@@ -21,6 +21,7 @@ module GobiertoAdmin
       @available_pages = get_available_pages
       @home_page_items = home_page_items
       @home_page_selected = nil
+      set_auth_modules
     end
 
     def edit
@@ -41,6 +42,7 @@ module GobiertoAdmin
       @available_pages = get_available_pages
       @home_page_items = home_page_items
       @home_page_selected = @site.configuration.home_page_item_id
+      set_auth_modules
     end
 
     def create
@@ -58,6 +60,7 @@ module GobiertoAdmin
       @available_pages = get_available_pages
       @home_page_items = home_page_items
       @home_page_selected = @site_form.site.configuration.home_page_item_id
+      set_auth_modules
 
       if @site_form.save
         track_create_activity
@@ -83,6 +86,7 @@ module GobiertoAdmin
       @available_pages = get_available_pages
       @home_page_items = home_page_items
       @home_page_selected = @site_form.site.configuration.home_page_item_id
+      set_auth_modules
 
       if @site_form.save
         track_update_activity
@@ -114,6 +118,15 @@ module GobiertoAdmin
       APP_CONFIG["site_modules"].map { |site_module| OpenStruct.new(site_module) }
     end
 
+    def set_auth_modules
+      site = params[:id] ? find_site : Site.new
+
+      @auth_modules ||= AUTH_MODULES.select do |auth_module|
+        domains = auth_module.domains
+        !domains || domains.include?(site.domain)
+      end
+    end
+
     def site_modules_with_root_path
       modules_with_root_path = APP_CONFIG["site_modules_with_root_path"].map { |site_module| OpenStruct.new(site_module) }
       modules_with_root_path = modules_with_root_path.push(OpenStruct.new(name: "GobiertoCms", namespace: "GobiertoCms"))
@@ -140,13 +153,12 @@ module GobiertoAdmin
     def site_params
       params.require(:site).permit(
         :domain,
-        :location_name,
-        :location_type,
-        :institution_url,
-        :institution_type,
-        :institution_email,
-        :institution_address,
-        :institution_document_number,
+        :organization_name,
+        :organization_url,
+        :organization_type,
+        :organization_email,
+        :organization_address,
+        :organization_document_number,
         :head_markup,
         :foot_markup,
         :links_markup,
@@ -154,17 +166,20 @@ module GobiertoAdmin
         :google_analytics_id,
         :username,
         :password,
-        :municipality_id,
+        :organization_id,
         :logo_file,
         :default_locale,
         :privacy_page_id,
         :populate_data_api_token,
+        :raw_configuration_variables,
         :home_page,
         :home_page_item_id,
+        :engine_overrides_param,
         site_modules: [],
         available_locales: [],
         title_translations: [*I18n.available_locales],
-        name_translations: [*I18n.available_locales]
+        name_translations: [*I18n.available_locales],
+        auth_modules: []
       )
     end
 

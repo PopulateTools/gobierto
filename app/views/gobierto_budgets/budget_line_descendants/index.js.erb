@@ -1,13 +1,12 @@
 <% @budget_lines.group_by{ |b| b.parent_code.to_s.length }.each do |length, budget_lines| %>
-  <% budget_lines.uniq.group_by{ |b| b.parent_code }.each do |parent_code, budget_lines_children| %>
+  <% budget_lines.group_by{ |b| b.parent_code }.each do |parent_code, budget_lines_children| %>
     var $el = $('[data-budget-line="<%= parent_code %>"]');
-    $el.after('<%=j render partial: 'gobierto_budgets/budget_line_descendants/nested_budget_line', locals: { budget_lines: budget_lines_children, kind: @kind, area_name: @area_name, place: @place, year: @year } %>');
+    $el.after('<%=j render partial: 'gobierto_budgets/budget_line_descendants/nested_budget_line', locals: { budget_lines: budget_lines_children, kind: @kind, area_name: @area_name, year: @year } %>');
     $('[data-budget-line="<%= parent_code %>"] td').find('.fa').toggleClass('fa-plus-square-o fa-minus-square-o');
   <% end %>
 <% end %>
 
-<% @budget_lines.map(&:parent_code).uniq.each do |parent_code| %>
-  console.log('disabling ' + <%= parent_code %>);
+<% @budget_lines.map(&:parent_code).each do |parent_code| %>
   var $el = $('[data-budget-line="<%= parent_code %>"]');
   /* Collapses branch - Prevents resending the form when extended */
   $el.on('ajax:beforeSend', 'a', function(event, xhr, settings) {

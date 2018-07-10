@@ -1,4 +1,7 @@
-<%= render 'gobierto_admin/gobierto_participation/shared/breadcrumb', last_breadcrumb_item: t('gobierto_admin.gobierto_participation.processes.process_contribution_containers.index.title'), process: current_process %>
+<%= render 'gobierto_admin/gobierto_participation/shared/breadcrumb',
+    last_breadcrumb_item: link_to(t('gobierto_admin.gobierto_participation.processes.process_contribution_containers.index.title'),
+                                  admin_participation_process_contribution_containers_path(current_process)),
+    process: current_process %>
 
 <h1><%= @process.title %></h1>
 
@@ -6,7 +9,11 @@
 
 <div class="pure-g">
   <div class="pure-u-3-4">
-    <strong><%= @contribution_container.title  %></strong> » Aportaciones
+    <strong>
+      <%= link_to(t('gobierto_admin.gobierto_participation.processes.process_contribution_containers.index.title'),
+                  admin_participation_process_contribution_containers_path(current_process)) %>
+    </strong>
+    » <%= @contribution_container.title  %>
   </div>
   <div class="pure-u-1-4 admin_tools right">
     <%= link_to edit_admin_participation_process_contribution_container_path(@contribution_container.id, process_id: @contribution_container.process.id) do %>
@@ -19,7 +26,6 @@
     <% end %>
   </div>
 </div>
-
 
 <table>
   <tr>
@@ -42,7 +48,7 @@
     <tr>
       <!-- TODO: Edit <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '' %></td> -->
       <td><%= contribution.title %></td>
-      <td><%= contribution.number_participants %></td>
+      <td><%= contribution.participants_count %></td>
       <% @votes_headers.each do |weight, values| %>
         <td><%= contribution.votes_distribution[weight] %></td>
       <% end %>

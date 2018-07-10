@@ -21,12 +21,12 @@ es:
           next_steps: "¿Qué ocurre ahora?"
           p1: La consulta está abierta hasta el %{date}. Anima a tus vecinos a participar
             para que su opiniones también estén reflejadas, y decidamos entre todos.
-          p2: Tu ayuntamiento recibirá un informe anonimizado con las respuestas,
+          p2: "%{your_organization_name} recibirá un informe anonimizado con las respuestas,
             y el equipo municipal lo utilizará para comprobar cuales son las preferencias
-            de los vecinos y tenerlas en cuenta en la elaboración de los presupuestos.
+            de los vecinos y tenerlas en cuenta en la elaboración de los presupuestos."
           p3: Te enviaremos un aviso cuando se publiquen los resultados de la consulta,
-            y podrás recibir otro aviso cuando el ayuntamiento publique su proyecto
-            de presupuestos.
+            y podrás recibir otro aviso cuando %{the_organization_name} publique su
+            proyecto de presupuestos.
           share_text: He participado en una consulta sobre presupuestos en %{current_site_name}
           thanks: Estupendo, muchas gracias por tu aportación
       consultation_items:
@@ -40,15 +40,15 @@ es:
           balance_deficit: Equilibrio/Déficit
           base_budget: Presupuesto base
           explain_balance_html: "<h4 class='tip-headline'>Equilibrio</h4><p>¡Estupendo!
-            Con tus decisiones el presupuesto quedaría equilibrado: los ingresos del
-            ayuntamiento serían iguales a los gastos, por lo que gastaríamos justo
-            lo que tenemos y no generaríamos deuda.</p>"
+            Con tus decisiones el presupuesto quedaría equilibrado: los ingresos %{of_the_organization_name}
+            serían iguales a los gastos, por lo que gastaríamos justo lo que tenemos
+            y no generaríamos deuda.</p>"
           explain_deficit_html: "<h4 class='tip-headline'>Déficit</h4><p>Con tus decisiones
             estaríamos gastando más de lo que ingresamos, por lo que estaríamos generando
             deuda. Esto no tiene por qué ser necesariamente un problema, siempre que
             sea una cantidad que vayamos a poder afrontar sin complicaciones. Pero
-            si nuestro ayuntamiento ya tiene deuda, haríamos que esta creciese, y
-            por tanto aumentaríamos lo que gastamos en pagar intereses.</p>"
+            si %{our_organization_name} ya tiene deuda, haríamos que esta creciese,
+            y por tanto aumentaríamos lo que gastamos en pagar intereses.</p>"
           explain_surplus_html: "<h4 class='tip-headline'>Superávit</h4><p>Con tus
             decisiones gastaríamos menos de lo que ingresamos en este ejercicio. Eso
             quiere decir que podríamos dedicar ese extra a pagar más deuda en caso
@@ -76,7 +76,7 @@ es:
       show:
         closed: Lo sentimos, esta consulta está cerrada
         explanation: Es sencillo y sólo te llevará unos minutos. Entre todos conseguiremos
-          mejorar la eficiencia de nuestro Ayuntamiento.
+          mejorar la eficiencia %{of_our_organization_name}
         open_until: Consulta abierta hasta el %{date}
         opens_at: Podrás participar en esta consulta a partir del %{date}
         want_to_opinate: "¿Quieres opinar?"

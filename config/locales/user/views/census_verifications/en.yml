@@ -16,6 +16,11 @@ en:
             your register in %{site_name}. Please, confirm your data to continue (they'll
             be verified against the register, if you are not registered we won't be
             abile to verify yourself)
+        contributions:
+          not_verified: The contribution in which you want to participate requires
+            to verify your register in %{site_name}. Please, confirm your data to
+            continue (they'll be verified against the register, if you are not registered
+            we won't be abile to verify yourself)
         flags:
           not_verified: The contribution in which you want to participate requires
             to verify your register in %{site_name}. Please, confirm your data to

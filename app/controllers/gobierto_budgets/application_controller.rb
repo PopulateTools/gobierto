@@ -10,4 +10,7 @@ class GobiertoBudgets::ApplicationController < ApplicationController
 
   before_action { module_enabled!(current_site, "GobiertoBudgets") }
 
+  def set_current_site
+    @site = SiteDecorator.new(current_site)
+  end
 end

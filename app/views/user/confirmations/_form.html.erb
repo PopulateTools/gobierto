@@ -17,15 +17,17 @@
     <%= f.text_field :name %>
   </div>
 
-  <div class="form_item input_text">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
+  <% if @user_confirmation_form.password_enabled %>
+    <div class="form_item input_text">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
 
-  <div class="form_item input_text">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
+    <div class="form_item input_text">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+  <% end %>
 
   <% if @user_confirmation_form.require_user_verification? %>
     <div class="form_item input_text">

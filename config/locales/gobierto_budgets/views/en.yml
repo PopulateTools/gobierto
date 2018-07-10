@@ -59,6 +59,38 @@ en:
         vs_previous_year: vs. previous year
         vs_previous_year_tooltip: Comparision with the data of the previous year
     budgets:
+      cards:
+        debt_level:
+          title: Debt level
+        expenditure_rigidity:
+          title: Expenditure rigidity
+        financial_charge:
+          title: Financial charge
+        financial_risk:
+          title: Financial risk
+        gross_saving:
+          title: Gross saving
+        gross_savings_rate:
+          title: Gross savings rate
+        investment_financing:
+          title: Investment financing
+        liability_cost:
+          title: Liability cost
+        meta:
+          time: " in "
+          where: 'At '
+        net_saving:
+          title: Net saving
+        net_savings_rate:
+          title: Net savings rate
+        per_capita_investment:
+          title: Per capita investment
+        per_capita_tax_burden:
+          title: Per capita tax burden
+        self_financing_capacity:
+          title: Self financing capacity
+        tax_autonomy:
+          title: Tax autonomy
       guide:
         budget_execution: Budget execution
         budget_execution_p1_html: 'Approving a budget does not mean that it is written
@@ -221,7 +253,7 @@ en:
         context: Context
         data_of_year: "* as of %{year}"
         debt: Debt
-        debt_tooltip: Debt of the local administration with the City council
+        debt_tooltip: Debt of the local administration %{of_the_organization_name}
         description: In this site you can learn about the budget's income and expenses,
           the status of the execution, the different providers we work with and the
           evolution of the expense per inhabitant.
@@ -257,7 +289,7 @@ en:
         main_budget_levels_tooltip_article: since
         main_budget_levels_tooltip_down: Has gone down
         main_budget_levels_tooltip_up: Has risen
-        main_budget_lines: Main income and expenses from your council
+        main_budget_lines: Main income and expenses %{from_your_organization_name}
         main_budget_lines_expense: Expense
         main_budget_lines_income: Income
         more: more
@@ -321,7 +353,7 @@ en:
         header: Budgets elaboration
         in_total: Total
         main_budget_levels_timeline: Compare income and expenses year by year
-        main_budget_lines: Main income and expenses from your council
+        main_budget_lines: Main income and expenses %{from_your_organization_name}
         main_budget_lines_expense: Expense
         main_budget_lines_income: Income
         metric_boxes_data: Data
@@ -397,6 +429,7 @@ en:
           tooltip: It has been executed by a
           tooltip_budgeted: Initial budget
           tooltip_budgeted_updated: Updated budget
+          tooltip_executed_amount: Executed amount
       widget_template_deviation:
         expense: Expense
         income: Income
@@ -412,6 +445,11 @@ en:
       incomes: incomes
     events:
       gobierto_budgets_budgets_updated: Budgets updated
+    exports:
+      budget_lines_description: Compare income and expenses year by year
+      budget_lines_title: Budget lines
+      invoices_description: Data per year
+      invoices_title: Providers and Invoices
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: How much does %{place} expend on...
@@ -451,16 +489,82 @@ en:
         option2: Good
         option3: Too much
         thanks: 'Thanks for your opinion. This is what the rest of the people think:'
+    indicators: Indicators
+    indicators_intro: 'Understand the budgets of %{place} through its main figures:
+      gross savings, per capita investment or investment financing.'
+    invoices:
+      show:
+        empty: Any filter has data
+        fromto: From To No. Inv.
+        invoiced: Budget invoiced
+        more: More than
+        table:
+          fields:
+            date: Date
+            paid: Payed
+            provider_id: NIF (SSN)
+            provider_name: Supplier
+            subject: Reason
+            value: Charge
+          pager:
+            first: First
+            format: Pages %{tpl} of %{tpl2}
+            last: Last
+            next: Next
+            prev: Prev
     layouts:
       application:
         budgets: Budgets
       menu_subsections:
         budget: Budget
+        data: Data
         elaboration: Elaboration
         execution: Execution
         guide: Guide
+        indicators: Indicators
+        providers: Providers and Invoices
         receipt: Receipt
         summary: Summary
+    providers:
+      index:
+        all_invoices: All the invoices
+        amount_distribution: Amount distribution
+        and_more_html: and <span id="providers-number"></span> providers
+        are_from: are from
+        check_detail: Check the detail
+        companies: companies
+        description: Which providers hires %{the_organization_name}? Which invoices
+          are paid? From this section you'll be able to check a summary and have a
+          context of all the information aggregated, and also check the detail of
+          each payment %{the_organization_name} does.
+        freelances: freelances
+        invoices: Invoices
+        invoices_from_which: From which
+        invoices_sum: invoices sum a total of
+        largest_provider_html: The largest provider means <span id="largestProvider"></span>
+          of the whole invoicing
+        last_12_months: Last 12 months
+        last_3_months: Last 3 months
+        less_than_1000_html: The <span id="lessThan1000"></span> of the invoices are
+          smaller than 1,000 €
+        loading: Loading...
+        main_providers: Main providers
+        mean_amount: mean amount
+        mean_and_median: Mean and median
+        mean_and_median_summary: That is, half of the invoices are from this amount
+          or less
+        mean_summary: Amount resulting from adding the amounts of all the invoices
+          and dividing it by the number of invoices
+        median_amount: median amount
+        months_distribution: Months distribution
+        percentile_10_html: The <span id="percentile10"></span> of the invoices mean
+          the 10 % of the invoicing
+        percentile_50_html: The <span id="percentile50"></span> of the invoices mean
+          the 50 % of the invoicing
+        previous: Previous
+        sum_amount: SUMMED AMOUNT
+        this_year: This year
+        view_data_from: View data from
     receipts:
       show:
         description: Part of your municipality budget is obtained via taxes. Calculate
@@ -476,7 +580,7 @@ en:
         last_update: Last update
       enough_information:
         enough_information: Enough information?
-        enough_information_cta: Ask your municipality
+        enough_information_cta: Ask %{to_your_organization_name}
         enough_information_desc: If you think it's necessary to include more information
           about this data or about the usage of your taxes ask your municipality
     visualizations:

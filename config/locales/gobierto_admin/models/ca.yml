@@ -37,12 +37,13 @@ ca:
         home_page: Mòdul d'inici
         home_page_item_id: Pàgina d'inici
         links_markup: HTML de Enllaços
-        location_name: Municipi
         logo_file: Logotip
-        municipality_id: Municipi
         name: Nom de l'entitat
+        organization_id: Identificador de l'organització
+        organization_name: Organització
         populate_data_api_token: API token Populate Data
         privacy_page_id: Pàgina privacitat
+        raw_configuration_variables: Altres variables configuració
         title: Nom del site
       gobierto_admin/user_form:
         email: Email

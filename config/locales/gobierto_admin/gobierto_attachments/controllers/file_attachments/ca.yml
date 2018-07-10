@@ -6,6 +6,10 @@ ca:
         create:
           success_html: El document s'ha creat correctament. <a href="%{link}">Veure
             el document</a>.
+        destroy:
+          success: El document s'ha archivat correctament
+        recover:
+          success: El document s'ha recuperat correctament
         update:
           success_html: El document s'ha actualitzat correctament. <a href="%{link}">Veure
             el document</a>.

@@ -25,6 +25,10 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     assert_equal ["GobiertoDevelopment"], site_configuration.modules
   end
 
+  def test_available_modules?
+    assert site_configuration.available_module?("GobiertoDevelopment")
+  end
+
   def test_modules?
     assert site_configuration.modules?
   end
@@ -81,12 +85,16 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     assert site_configuration.privacy_page?
   end
 
+  def test_configuration_variables
+    assert_equal "bar", site_configuration.configuration_variables["foo"]
+  end
+
   private
 
   def site_configuration_params
     @site_configuration_params ||= begin
       {
-        "modules"           => %w(Wadus GobiertoDevelopment), # Note that the "Wadus" module is not standard
+        "modules"           => ["Wadus", "GobiertoDevelopment"], # Note that the "Wadus" module is not standard
         "logo"              => "gobierto_development.png",
         "links_markup"      => %(<a href="http://madrid.es">Ayuntamiento de Madrid</a>),
         "demo"              => true,
@@ -94,7 +102,10 @@ class SiteConfigurationTest < ActiveSupport::TestCase
         "default_locale"    => "ca",
         "available_locales" => %w(ca es),
         "site_id"           => site.id,
-        "privacy_page_id"   => page.id
+        "privacy_page_id"   => page.id,
+        "raw_configuration_variables" => <<-YAML
+foo: bar
+YAML
       }
     end
   end

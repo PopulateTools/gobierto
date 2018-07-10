@@ -23,7 +23,7 @@ module GobiertoAdmin
       end
 
       def collection
-        @collection ||= gobierto_common_collections(:news)
+        @collection ||= gobierto_common_collections(:site_pages)
       end
 
       def section
@@ -37,14 +37,15 @@ module GobiertoAdmin
               visit @path
 
               within "tr#collection-item-#{collection.id}" do
-                click_link "News"
+                click_link "Site pages"
               end
 
               click_link "New"
 
               fill_in "page_title_translations_en", with: "My page with section"
-              find("#body_translations_en", visible: false).set("The content of the page")
+              find("#page_body_translations_en", visible: false).set("The content of the page")
               fill_in "page_slug", with: "new-page-with-section"
+              fill_in "page_published_on", with: "2017-01-01 00:00"
 
               find("#permission_1", visible: false).trigger("click")
               find("select#page_section").find("option[value='#{section.id}']").select_option
@@ -52,11 +53,12 @@ module GobiertoAdmin
               click_button "Create"
 
               assert has_message?("Page created successfully")
+              assert has_link?("View the page", href: "/s/participacion/new-page-with-section?preview_token=nick-preview-token")
               assert has_field?("page_slug", with: "new-page-with-section")
 
               assert_equal(
                 "The content of the page",
-                find("#body_translations_en", visible: false).value
+                find("#page_body_translations_en", visible: false).value
               )
 
               assert find("select#page_parent").value, section.title

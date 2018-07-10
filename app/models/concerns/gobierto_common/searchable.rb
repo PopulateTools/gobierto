@@ -6,6 +6,7 @@ module GobiertoCommon
 
     included do
       include AlgoliaSearch
+      include ActionView::Helpers::SanitizeHelper
 
       def self.search_index_name
         "#{APP_CONFIG["site"]["name"]}_#{Rails.env}_#{name}"
@@ -16,12 +17,21 @@ module GobiertoCommon
       end
 
       def self.trigger_reindex_job(record, remove)
+        return if record.nil?
+
         GobiertoCommon::AlgoliaReindexJob.perform_later(record.class.name, record.id, remove)
       end
     end
 
     def class_name
       self.class.name
+    end
+
+    def searchable_translated_attribute(translations_hash)
+      return "" if translations_hash.nil?
+      attribute_summary = translations_hash.values.join(" ").tr("\n\r", " ").gsub(/\s+/, " ")
+      attribute_summary = strip_tags(attribute_summary)
+      attribute_summary[0..9300]
     end
   end
 end

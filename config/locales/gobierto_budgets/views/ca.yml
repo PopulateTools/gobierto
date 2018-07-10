@@ -37,7 +37,7 @@ ca:
         last_year: L'any passat %{value}
         no_description: No hi ha una descripció associada a aquesta partida.
         no_distribution: No hi ha distribució associada a aquesta partida.
-        no_more_descendants: No hi ha més sub-partides
+        no_more_descendants: No hi ha més subpartides
         not_available: No disp.
         percentage: "% sobre el total del press."
         percentage_tooltip: Percentage del pressupost total que suposa aquesta partida
@@ -60,6 +60,38 @@ ca:
         vs_previous_year: vs. exercici anterior
         vs_previous_year_tooltip: Comparació amb les dades de l'exercici anterior
     budgets:
+      cards:
+        debt_level:
+          title: Nivell d'endeutament
+        expenditure_rigidity:
+          title: Rigidesa de despesa
+        financial_charge:
+          title: Càrrega financera
+        financial_risk:
+          title: Risc financer
+        gross_saving:
+          title: Estalvi brut
+        gross_savings_rate:
+          title: Índex d'estalvi brut
+        investment_financing:
+          title: Finançament inversions
+        liability_cost:
+          title: Cost deute
+        meta:
+          time: " al "
+          where: 'A '
+        net_saving:
+          title: Ahorro net
+        net_savings_rate:
+          title: Índex d'estalvi net
+        per_capita_investment:
+          title: Inversió per habitant
+        per_capita_tax_burden:
+          title: Pressió fiscal per habitant
+        self_financing_capacity:
+          title: Capacitat d'autofinançament
+        tax_autonomy:
+          title: Autonomia fiscal
       guide:
         budget_execution: L'execució pressupostària
         budget_execution_p1_html: Aprovar un pressupost no vol dir que es quedi escrit
@@ -89,9 +121,7 @@ ca:
         economic: Despesa econòmica
         economic_p1: És la classificació que indica la naturalesa de la despesa. Per
           exemple, "despeses de personal", que engloba els sous de tots els treballadors
-          i treballadores de l’Ajuntament. En un pressupost oficial, els apartats
-          principals es diuen capítols. I al seu torn, cada capítol es divideix en
-          articles, conceptes i subconceptes.
+          i treballadores de l’Ajuntament.
         economic_p2: En un pressupost oficial, els apartats principals es diuen capítols.
           I al seu torn, cada capítol es divideix en articles, conceptes i subconceptes.
         execution: Execució pressupostària
@@ -158,8 +188,8 @@ ca:
         how_much_debt_p1: El deute viu d'un municipi indica el que deu l'Ajuntament
           a bancs i altres entitats financeres. Cal no confondre’l amb el total del
           dèficit del municipi (la diferència entre els ingressos i les despeses).
-        how_much_debt_p2: 
-        how_much_debt_p3: 
+        how_much_debt_p2: ''
+        how_much_debt_p3: ''
         how_to_read: Com es llegeix?
         how_to_read_p1_html: 'Tots els pressupostos municipals tenen la mateixa estructura,
           definida legalment en l''<a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2008-19916">Ordre
@@ -187,7 +217,7 @@ ca:
         income_8_desc: Són fiances o dipòsits.
         income_9_desc: Crèdits sol·licitats a bancs o a d’altres entitats privades.
         income_p1: 'Els ingressos es divideixen segons la seva naturalesa econòmica,
-          és a dir, d''on vénen els diners: a través d''impostos, transferències d''altres
+          és a dir, d''on venen els diners: a través d''impostos, transferències d''altres
           administracions, taxes i preus públics o bé de la gestió per tercers del
           patrimoni municipal. I també es divideixen segons la forma, és a dir, si
           és un crèdit bancari, una propietat municipal que s''ha venut o un impost.'
@@ -200,7 +230,7 @@ ca:
           ciutadania i els grups municipals facin al·legacions. Tot seguit, si no
           es produeixen al·legacions, queda aprovat definitivament.
         intro_p3: Perquè el pressupost estigui vigent l’1 de gener ha de quedar aprovat
-          definitivament abans del 31 de desembre de l'any anterior, sinó es prorroga
+          definitivament abans del 31 de desembre de l'any anterior, si no es prorroga
           de forma automàtica el de l’any anterior.
         regular_income: Ingressos corrents
         regular_income_p1: Els impostos, els diners que les administracions transfereixen
@@ -240,7 +270,7 @@ ca:
         context: Context
         data_of_year: "* dades del %{year}"
         debt: Deute
-        debt_tooltip: Deute del sector d’administracions públiques de l’Ajuntament
+        debt_tooltip: Deute del sector d’administracions públiques %{of_the_organization_name}
         description: En aquesta pàgina pots aprendre sobre la distribució del pressupost,
           l'estat d'execució de cada partida i com ha evolucionat la despesa per habitant
         executed: Execució
@@ -275,7 +305,7 @@ ca:
         main_budget_levels_tooltip_article: des de
         main_budget_levels_tooltip_down: Ha baixat un
         main_budget_levels_tooltip_up: Ha pujat un
-        main_budget_lines: Els principals ingressos i despeses del teu ajuntament
+        main_budget_lines: Els principals ingressos i despeses %{from_your_organization_name}
         main_budget_lines_expense: Despeses
         main_budget_lines_income: Ingressos
         more: més
@@ -340,7 +370,7 @@ ca:
         header: Elaboració del pressupost
         in_total: En total
         main_budget_levels_timeline: Compara despeses i ingressos any per any
-        main_budget_lines: Els principals ingressos i despeses del teu ajuntament
+        main_budget_lines: Els principals ingressos i despeses %{from_your_organization_name}
         main_budget_lines_expense: Despeses
         main_budget_lines_income: Ingressos
         metric_boxes_data: Les dades
@@ -419,6 +449,7 @@ ca:
           tooltip: S'ha executat un
           tooltip_budgeted: Pressupostat inicial
           tooltip_budgeted_updated: Pressupostat actualitzat
+          tooltip_executed_amount: Import executat
       widget_template_deviation:
         expense: Despeses
         income: Ingressos
@@ -433,6 +464,11 @@ ca:
       incomes: ingressos
     events:
       gobierto_budgets_budgets_updated: Pressuposts actualitzats
+    exports:
+      budget_lines_description: Compara despeses i ingressos any per any
+      budget_lines_title: Partides del pressupost
+      invoices_description: Dades per any
+      invoices_title: Proveïdors i Factures
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: Quant es gasta %{place} en...
@@ -443,8 +479,8 @@ ca:
         total: Despesa total
     feedback:
       ask_more_information:
-        ask_for_feedback: Escriu el teu email per a que el teu ajuntament et puga
-          contestar
+        ask_for_feedback: Escriu el teu email per a que %{your_organization_name}
+          et puga contestar
         send: Enviar
         your_email: El teu correu
       follow:
@@ -475,25 +511,90 @@ ca:
         option2: Apropiat
         option3: Molt
         thanks: 'Gràcies por la teva opinió. Això es el que pensa la resta de la gent:'
+    indicators: Indicadors
+    indicators_intro: 'Coneix els pressupostos de %{place} a partir de les principals
+      xifres: estalvi brut, inversió per habitant o finançament d''inversions.'
+    invoices:
+      show:
+        empty: Cap filtre té dades.
+        fromto: De a Nº Fact.
+        invoiced: Import facturat
+        more: Més de
+        table:
+          fields:
+            date: Data
+            paid: Pagat
+            provider_id: NIF
+            provider_name: Proveïdor
+            subject: Concepte
+            value: Quantitat
+          pager:
+            first: Primer
+            format: Pàgines %{tpl} de %{tpl2}
+            last: Últim
+            next: Següent
+            prev: Anterior
     layouts:
       application:
         budgets: Pressupostos
       menu_subsections:
         budget: Pressupost
+        data: Dades
         elaboration: Elaboració
         execution: Execució
         guide: Guia
+        indicators: Indicadors
+        providers: Proveïdors i Factures
         receipt: Rebut
         summary: Resum
+    providers:
+      index:
+        all_invoices: Totes les factures
+        amount_distribution: Distribució per imports
+        and_more_html: i <span id="providers-number"></span> proveïdors més
+        are_from: són de
+        check_detail: Consulta el detall
+        companies: empreses
+        description: A quins proveïdors contracta %{the_organization_name}? Quines
+          factures paga? Des d'aquesta secció podràs consultar i revisar el detall
+          de cadascun dels pagaments que realitza %{the_organization_name}.
+        freelances: autònoms
+        invoices: Factures
+        invoices_from_which: De les quals
+        invoices_sum: factures sumen un total de
+        largest_provider_html: El major proveïdor suposa un <span id="largestProvider"></span>
+          de tota la facturació
+        last_12_months: Últims 12 mesos
+        last_3_months: Últims 3 mesos
+        less_than_1000_html: El <span id="lessThan1000"></span> de les factures són
+          menors de 1.000 €
+        loading: Carregant...
+        main_providers: Principals proveïdors
+        mean_amount: import mig
+        mean_and_median: Mitjana i mediana
+        mean_and_median_summary: És a dir, la meitat de les factures són d'aquest
+          import o inferior
+        mean_summary: Import resultant de sumar els imports de totes les factures
+          dividit pel nombre de factures
+        median_amount: mediana dels imports
+        months_distribution: Distribució per mesos
+        percentile_10_html: El <span id="percentile10"></span> de les factures concentren
+          el 10 % de la facturació
+        percentile_50_html: El <span id="percentile50"></span> de les factures concentren
+          el 50 % de la facturació
+        previous: Anteriors
+        sum_amount: IMPORT ACUMULAT
+        this_year: Aquest any
+        view_data_from: Veure les dades de
     receipts:
       show:
-        description: Part del pressupost del teu municipi se financia directament
-          d'impostos i taxes locals. Calcula quant aportes tu al pressupost d'acord
-          a la teva casa, vehicles...
+        description: Part del pressupost del teu municipi es finança directament d'impostos
+          i taxes locals. Calcula quant aportes tu al pressupost d'acord a la teva
+          casa, vehicles...
         detail: Detall de la teva contribució
-        pick_to_calculate: Selecciona per a calcular
+        pick_to_calculate: Selecciona per calcular
         share: Comparteix-ho
-        share_text: Comprova com és la teva aportació al pressupost de
+        share_text: Comprova com és la teva aportació al pressupost de d'
         title: Quina es la teva contribució al pressupost de %{site_name}?
         your_contribution: La teva contribució als pressupostos de %{site_name}
     shared:
@@ -501,7 +602,7 @@ ca:
         last_update: Última actualització
       enough_information:
         enough_information: Suficient informació?
-        enough_information_cta: Demana al teu Ajuntament
+        enough_information_cta: Demana %{to_your_organization_name}
         enough_information_desc: Si considera que s'ha d'incloure més informació d'aquestes
           dades per tenir una visió més completa de la mateixa o sobre l'ús dels seus
           impostos, comuniqui-ho i li contestarem
@@ -515,7 +616,7 @@ ca:
       expenses_per_inhabitant: Despesa per habitant
       inhabitant_short: hab
       mean_autonomy: Mitjana autonòmica
-      mean_national: Mitjana nacional
+      mean_national: Mitjana estatal
       mean_province: Mitjana provincial
       previous_year_diff: Canvi any anterior
       total_expenses: Despesa total

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoParticipation
-    class PollForm
-      include ActiveModel::Model
+    class PollForm < BaseForm
 
       attr_accessor(
         :id,
@@ -24,9 +25,12 @@ module GobiertoAdmin
         to: :poll
       )
 
-      validates :process, :title_translations, :starts_at, :ends_at, presence: true
-      validate :title_translations_not_blank
-      validates :title, length: { maximum: 140 }
+      validates :process, :starts_at, :ends_at, presence: true
+      validates(
+        :title_translations,
+        translated_attribute_presence: true,
+        translated_attribute_length: { maximum: 140 }
+      )
 
       def initialize(options = {})
         ordered_options = HashWithIndifferentAccess.new(id: options[:id], process: options[:process])
@@ -186,19 +190,6 @@ module GobiertoAdmin
         end
       end
 
-      def title_translations_not_blank
-        if title_translations.values.select { |value| !value.blank? }.empty?
-          errors.add(:title, I18n.t('errors.messages.blank'))
-        end
-      end
-
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

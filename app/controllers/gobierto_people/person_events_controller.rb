@@ -2,6 +2,7 @@ module GobiertoPeople
   class PersonEventsController < GobiertoPeople::ApplicationController
     include PoliticalGroupsHelper
     include PeopleClassificationHelper
+    include DatesRangeHelper
 
     before_action :check_active_submodules
 

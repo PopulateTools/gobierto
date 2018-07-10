@@ -15,6 +15,7 @@ es:
         questions: Algunas de las preguntas
         starts_at: Comienza
         title: Título
+        title_translations: Título
         visibility_user_level: Usuarios
       gobierto_admin/gobierto_participation/poll_form/questions:
         answer_templates: Las respuestas
@@ -29,19 +30,35 @@ es:
         header_image: Imagen de cabecera
         header_image_url: URL de la imagen de cabecera
         issue_id: Tema
-        process_type: Tipo de grupo
+        process_type: Tipo
         scope_id: Ámbito
         slug: Slug
         stages: Las fases
         starts: Comienzo
         title: Título
-      gobierto_admin/gobierto_participation/process_form/stages:
-        title: El título de una fase
+        title_translations: Título
       gobierto_admin/gobierto_participation/process_information_form:
         information_text: Información
+      gobierto_admin/gobierto_participation/process_stage_form:
+        cta_description: Caja CTA / Descripción corta
+        cta_text: Caja CTA / Botón / Texto
+        description: Descripción de fase
+        ends: Fecha de final
+        menu: Menú / Literal
+        menu_translations: Menú / Literal
+        slug: Url
+        stage_type: Herramienta
+        starts: Fecha de comienzo
+        title: Título de fase
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grupo de
         aportaciones
       gobierto_admin/gobierto_participation/poll_form: Encuesta
       gobierto_admin/gobierto_participation/poll_form/questions: Las preguntas
       gobierto_admin/gobierto_participation/process_form: Proceso
+  activerecord:
+    attributes:
+      gobierto_participation/process_stage:
+        visibility_levels:
+          draft: Borrador
+          published: Publicada

@@ -32,7 +32,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".sub-nav" do
+        within "nav.sub-nav" do
           assert has_content? "Agendas"
           assert has_content? "Officials"
           assert has_content? "Statements"
@@ -43,11 +43,11 @@ module GobiertoPeople
 
         visit @path
 
-        within ".sub-nav" do
+        within "nav.sub-nav" do
           assert has_content? "Agendas"
           assert has_content? "Officials"
           assert has_content? "Statements"
-          refute has_content? "Blogs"
+          assert has_no_content? "Blogs"
         end
 
         disable_submodule("officials")
@@ -55,11 +55,11 @@ module GobiertoPeople
 
         visit @path
 
-        within ".sub-nav" do
+        within "nav.sub-nav" do
           assert has_content? "Agendas"
-          refute has_content? "Officials"
-          refute has_content? "Statements"
-          refute has_content? "Blogs"
+          assert has_no_content? "Officials"
+          assert has_no_content? "Statements"
+          assert has_no_content? "Blogs"
         end
       end
     end
@@ -70,7 +70,7 @@ module GobiertoPeople
 
         assert_equal current_path, gobierto_people_people_path
 
-        disable_submodules %w(blogs statements)
+        disable_submodules %w(blogs statements departments)
         visit @path
 
         assert_equal current_path, gobierto_people_people_path
@@ -98,11 +98,11 @@ module GobiertoPeople
         visit gobierto_people_person_path(richard.slug)
 
         within ".people-navigation" do
-          refute has_link? "Agenda"
-          refute has_link? "Goods and Activities"
+          assert has_no_link? "Agenda"
+          assert has_no_link? "Goods and Activities"
         end
 
-        refute has_selector? "div .upcoming-events"
+        assert has_no_selector? "div .upcoming-events"
       end
     end
   end

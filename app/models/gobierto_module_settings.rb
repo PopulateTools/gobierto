@@ -1,6 +1,6 @@
 class GobiertoModuleSettings < ApplicationRecord
   self.table_name = 'gobierto_module_settings'
-  belongs_to :site
+  belongs_to :site, touch: true
 
   def method_missing(method_name, *args)
     self.settings ||= {}

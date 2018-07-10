@@ -1,0 +1,6 @@
+<div>
+  <%= content_tag :div, invitation.organizer %>
+  <%= content_tag :div, link_to(invitation.title, gobierto_people_person_invitation_path(id: invitation.id)) %>
+  <%= content_tag :div, "#{ l(invitation.start_date) }" %>
+  <%= content_tag :div, "#{ l(invitation.end_date) }" %>
+</div>

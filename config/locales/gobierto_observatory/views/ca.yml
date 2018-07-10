@@ -1,0 +1,123 @@
+---
+ca:
+  gobierto_observatory:
+    cards:
+      active_pop:
+        figure_first: del total
+        figure_second: persones
+        title: Població activa
+      births:
+        country: Mitjana estatal
+        place: "%{place}"
+        province: Mitjana provincial
+        title: Taxa de naixements
+      budget_by_inhabitant:
+        title: Pressupost per habitant
+      cars:
+        title: Cotxes per habitant
+      cars_tax:
+        figure_first: "%{place}"
+        figure_second: mitjana provincial
+        title: Impost a turismes
+      companies:
+        title: Empreses
+      construction_tax:
+        figure_first: "%{place}"
+        figure_second: mitjana provincial
+        title: Impost a les contruccions
+      contracts_comparison:
+        figure_first: temporals
+        figure_second: indefinits
+        title: Contractes en el darrer mes
+      contracts_sector:
+        agricultura: Agricultura
+        construccion: Construcció
+        industria: Indústria
+        servicios: Serveis
+        title: Contractes per sector
+      deaths:
+        country: Mitjana estatal
+        place: "%{place}"
+        province: Mitjana provincial
+        title: Taxa de defuncions
+      debt_by_inhabitant:
+        title: Deute per habitant
+      economic_tax:
+        title: Impost a les activitats econòmiques
+      freelancers:
+        title: Autónoms
+      frequency:
+        daily: Actualització diària
+        monthly: Actualització mensual
+        weekly: Actualització setmanal
+        yearly: Actualització anual
+      houses:
+        figure_first: familiars
+        figure_second: principals
+        title: Habitatge
+      ibi:
+        first_column: ''
+        second_column: Urbàns
+        third_column: Rústics
+        title: Impost sobre els Béns Immobles
+      income:
+        first_column: ''
+        second_column: Bruta
+        third_column: Disponible
+        title: Renda municipal
+      income_overview:
+        figure_first: "%{place}"
+        figure_second: Espanya
+        title: Renda bruta
+      investment_by_inhabitant:
+        first_column: "%{place}"
+        second_column: Barcelona
+        third_column: Valencia
+        title: Inversió per habitant
+      meta:
+        time: " al "
+        where: 'A '
+      population:
+        title: Habitants
+      ss_members:
+        title: Afiliats a la Seguretat Social
+      unemployed_sector:
+        agricultura: Agricultura
+        construccion: Construcció
+        industria: Indústria
+        servicios: Serveis
+        title: Desempleats per sector
+      updated: Darrera actualització
+    graphics:
+      age_distribution:
+        axis: anys
+        label: habitants
+        title: Descobreix la distribució per edats del teu municipi
+      rent_distribution:
+        gross_income: Renda bruta
+        inhabitants: Habitants
+        million: milió
+        thousand: mil
+        title: Riquesa i població a la província
+      unemployment_age:
+        between_25_44: Entre 25 i 44
+        less_25: Menors de 25
+        more_44: Més de 44
+        title: L'atur segons l'edat
+      unemployment_rate:
+        country: Espanya
+        title: Comparació de la taxa d'atur
+      unemployment_sex:
+        men: Homes
+        title: L'atur segons el sexe
+        women: Dones
+    inhabitants: hab
+    intro: 'Coneix %{place} a partir de les principals xifres: la població, l''ocupació
+      i l''economia.'
+    layouts:
+      application:
+        observatory: Observatori
+      menu_subsections:
+        economia: Economia
+        empleo: Ocupació
+        poblacion: Població

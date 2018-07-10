@@ -1,0 +1,11 @@
+---
+es:
+  gobierto_admin:
+    gobierto_core:
+      site_templates:
+        create:
+          success: La plantilla se ha editado correctamente.
+        destroy:
+          success: La plantilla se ha borrado correctamente.
+        update:
+          success: La plantilla se ha actualizado correctamente.

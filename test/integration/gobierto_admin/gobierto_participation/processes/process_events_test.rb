@@ -105,7 +105,7 @@ module GobiertoAdmin
               end
 
               assert has_content?("My event updated")
-              refute has_content?(event.title)
+              assert has_no_content?(event.title)
             end
           end
         end

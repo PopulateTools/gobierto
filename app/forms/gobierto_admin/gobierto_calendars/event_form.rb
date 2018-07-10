@@ -1,36 +1,20 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCalendars
-    class EventForm
-      include ActiveModel::Model
-      prepend ::GobiertoCommon::Trackable
+    class EventForm < ::GobiertoCalendars::EventForm
 
       attr_accessor(
-        :id,
         :admin_id,
         :collection_id,
-        :site_id,
-        :title_translations,
-        :description_translations,
-        :starts_at,
-        :ends_at,
         :attachment_ids,
-        :state,
-        :locations,
-        :attendees,
         :slug
       )
 
-      delegate :persisted?, to: :event
-
-      validates :title_translations, presence: true
-      validates :starts_at, :ends_at, :site, :collection, presence: true
-
       trackable_on :event
 
-      notify_changed :state
-
-      def save
-        save_event if valid?
+      def ignored_constructor_attributes
+        [:department_id, :meta]
       end
 
       def admin_id
@@ -39,10 +23,6 @@ module GobiertoAdmin
 
       def site_id
         @site_id ||= collection.try(:site_id)
-      end
-
-      def site
-        @site ||= Site.find_by(id: site_id)
       end
 
       def event
@@ -63,38 +43,9 @@ module GobiertoAdmin
         @locations ||= event.locations.presence || [build_event_location]
       end
 
-      def locations_attributes=(attributes)
-        @locations ||= []
-
-        attributes.each do |_, location_attributes|
-          next if location_attributes["_destroy"] == "1"
-
-          location = event_location_class.new(
-            name: location_attributes[:name],
-            address: location_attributes[:address],
-            lat: location_attributes[:lat],
-            lng: location_attributes[:lng]
-          )
-
-          @locations.push(location) if location.valid?
-        end
-      end
-
       def attendees
         @attendees ||= event.attendees.presence || [build_event_attendee]
-
-        if person.present?
-          if event.attendees.any?
-            unless organizer = event.attendees.find_by(person_id: person.id)
-              organizer = event_attendee_class.new(person_id: person.id)
-            end
-          else
-            organizer = event_attendee_class.new(person_id: person.id)
-          end
-          @attendees.push(organizer) unless @attendees.include?(organizer)
-        end
-
-        @attendees
+        super
       end
 
       def attendees_attributes=(attributes)
@@ -153,38 +104,9 @@ module GobiertoAdmin
         event.attendees.build
       end
 
-      def event_class
-        ::GobiertoCalendars::Event
-      end
-
-      def event_location_class
-        ::GobiertoCalendars::EventLocation
-      end
-
-      def event_attendee_class
-        ::GobiertoCalendars::EventAttendee
-      end
-
-      def person_class
-        ::GobiertoPeople::Person
-      end
-
-      def collection_class
-        ::GobiertoCommon::Collection
-      end
-
-      def save_event
-        @event = event.tap do |event_attributes|
-          event_attributes.collection = collection
-          event_attributes.site_id = site_id
-          event_attributes.state = state
-          event_attributes.title_translations = title_translations
-          event_attributes.description_translations = description_translations
-          event_attributes.starts_at = starts_at
-          event_attributes.ends_at = ends_at
+      def assign_event_attributes
+        super.tap do |event_attributes|
           event_attributes.admin_id = admin_id
-          event_attributes.locations = locations
-          event_attributes.attendees = attendees
           event_attributes.slug = slug
 
           if event.new_record? && attachment_ids.present?
@@ -194,26 +116,6 @@ module GobiertoAdmin
               event_attributes.attachment_ids = attachment_ids
             end
           end
-        end
-
-        if @event.valid?
-          run_callbacks(:save) do
-            @event.save
-          end
-
-          @event
-        else
-          promote_errors(@event.errors)
-
-          false
-        end
-      end
-
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
         end
       end
     end

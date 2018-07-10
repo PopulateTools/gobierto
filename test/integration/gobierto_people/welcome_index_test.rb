@@ -7,6 +7,8 @@ module GobiertoPeople
   class WelcomeIndexTest < ActionDispatch::IntegrationTest
     include NavigationItems
 
+    FAR_FUTURE = 10.years.from_now
+
     def setup
       super
       @path = gobierto_people_root_path
@@ -88,7 +90,7 @@ module GobiertoPeople
             assert has_link?("Opposition")
             assert has_link?("Executive")
             assert has_link?("Political groups")
-            refute has_link?("All")
+            assert has_no_link?("All")
           end
 
           government_people.each do |person|
@@ -113,7 +115,7 @@ module GobiertoPeople
         visit @path
 
         within '.container' do
-          refute has_content? 'Blogs'
+          assert has_no_content? 'Blogs'
         end
       end
     end
@@ -125,35 +127,36 @@ module GobiertoPeople
 
           within ".people-summary" do
             assert has_link? government_member.name
-            refute has_link? opposition_member.name
-            refute has_link? executive_member.name
+            assert has_no_link? opposition_member.name
+            assert has_no_link? executive_member.name
             assert has_link?("View all")
           end
 
           within ".events-summary" do
             assert has_link? government_event.title
-            refute has_link? government_past_event.title
-            refute has_link? opposition_event.title
-            refute has_link? executive_past_event.title
+            assert has_no_link? government_past_event.title
+            assert has_no_link? opposition_event.title
+            assert has_no_link? executive_past_event.title
           end
 
-          click_link "Executive"
+          # simulate all events have passed
+          Timecop.freeze(FAR_FUTURE) do
+            click_link "Executive"
 
-          sleep 1
+            within ".people-summary" do
+              assert has_no_link? government_member.name
+              assert has_no_link? opposition_member.name
+              assert has_link? executive_member.name
+              assert has_link?("View all")
+            end
 
-          within ".people-summary" do
-            refute has_link? government_member.name
-            refute has_link? opposition_member.name
-            assert has_link? executive_member.name
-            assert has_link?("View all")
-          end
-
-          within ".events-summary" do
-            assert has_content? "There are no future events. Take a look at past ones"
-            refute has_link? government_event.title
-            refute has_link? government_past_event.title
-            refute has_link? opposition_event.title
-            assert has_link? executive_past_event.title
+            within ".events-summary" do
+              assert has_content? "There are no future events. Take a look at past ones"
+              assert has_no_link? government_event.title
+              assert has_no_link? government_past_event.title
+              assert has_no_link? opposition_event.title
+              assert has_link? executive_past_event.title
+            end
           end
 
           click_link "Opposition"
@@ -161,17 +164,17 @@ module GobiertoPeople
           sleep 1
 
           within ".people-summary" do
-            refute has_link? government_member.name
+            assert has_no_link? government_member.name
             assert has_link? opposition_member.name
-            refute has_link? executive_member.name
+            assert has_no_link? executive_member.name
             assert has_link?("View all")
           end
 
           within ".events-summary" do
-            refute has_link? government_event.title
-            refute has_link? government_past_event.title
+            assert has_no_link? government_event.title
+            assert has_no_link? government_past_event.title
             assert has_link? opposition_event.title
-            refute has_link? executive_past_event.title
+            assert has_no_link? executive_past_event.title
           end
         end
       end
@@ -202,30 +205,30 @@ module GobiertoPeople
 
           within ".events-summary" do
             assert has_content? government_event.title
-            refute has_content? government_past_event.title
-            refute has_content? executive_past_event.title
+            assert has_no_content? government_past_event.title
+            assert has_no_content? executive_past_event.title
           end
 
           click_link "Past events"
 
-          sleep 1
-
           within ".events-summary" do
-            refute has_content? government_event.title
+            assert has_no_content? government_event.title
             assert has_content? government_past_event.title
-            refute has_content? executive_past_event.title
+            assert has_no_content? executive_past_event.title
           end
 
-          click_link "Executive"
+          # simulate all events have passed
+          Timecop.freeze(FAR_FUTURE) do
+            click_link "Executive"
 
-          sleep 1
-
-          within ".events-summary" do
-            assert has_content? "There are no future events. Take a look at past ones"
-            refute has_content? government_event.title
-            refute has_content? government_past_event.title
-            assert has_content? executive_past_event.title
+            within ".events-summary" do
+              assert has_content? "There are no future events. Take a look at past ones"
+              assert has_no_content? government_event.title
+              assert has_no_content? government_past_event.title
+              assert has_content? executive_past_event.title
+            end
           end
+
         end
       end
     end

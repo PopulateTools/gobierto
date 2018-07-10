@@ -1,8 +1,7 @@
-# frozen_string_literal: true
-
-%w(
+%w[
   .ruby-version
   .rbenv-vars
   tmp/restart.txt
   tmp/caching-dev.txt
-).each { |path| Spring.watch(path) }
+  config/secrets.yml
+].each { |path| Spring.watch(path) }

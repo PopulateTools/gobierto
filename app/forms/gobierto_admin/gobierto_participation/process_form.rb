@@ -1,15 +1,15 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoParticipation
-    class ProcessForm
-
-      include ActiveModel::Model
-      prepend ::GobiertoCommon::Trackable
+    class ProcessForm < BaseForm
 
       attr_accessor(
         :id,
         :site_id,
         :title_translations,
         :body_translations,
+        :body_source_translations,
         :process_type,
         :starts,
         :ends,
@@ -26,14 +26,9 @@ module GobiertoAdmin
       delegate :polls_stage?, to: :process
       delegate :information_stage?, to: :process
 
-      validates :site, :title_translations, :process_type, presence: true
+      validates :site, :process_type, presence: true
+      validates :title_translations, translated_attribute_presence: true
       validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
-
-      trackable_on :process
-
-      # notify_changed :starts
-      # notify_changed :ends
-      notify_changed :visibility_level
 
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
@@ -64,11 +59,11 @@ module GobiertoAdmin
       end
 
       def visibility_level
-        @visibility_level ||= 'draft'
+        @visibility_level ||= "draft"
       end
 
       def process_type
-        @process_type ||= 'process'
+        @process_type ||= "process"
       end
 
       def issue
@@ -97,12 +92,12 @@ module GobiertoAdmin
         @header_image_url ||= begin
           return process.header_image_url unless header_image.present?
 
-          FileUploadService.new(
+          GobiertoAdmin::FileUploadService.new(
             site: site,
             collection: process.model_name.collection,
             attribute_name: :header_image,
             file: header_image
-          ).call
+          ).upload!
         end
       end
 
@@ -110,23 +105,10 @@ module GobiertoAdmin
         process.stages
       end
 
-      def stages_attributes=(attributes)
-        attributes.each do |_, stage_attributes|
-          existing_stage = process.stages.detect { |stage| stage.stage_type == stage_attributes['stage_type'] }
-          update_existing_stage_from_attributes(existing_stage, stage_attributes) if existing_stage
-        end
-
-        stages
-      end
-
       private
 
       def process_stage_class
         ::GobiertoParticipation::ProcessStage
-      end
-
-      def notify?
-        process.active?
       end
 
       private
@@ -137,31 +119,30 @@ module GobiertoAdmin
 
       def calculate_has_duration(options)
         if options[:has_duration].present?
-          options[:has_duration] == '1'
+          options[:has_duration] == "1"
         else
           (options[:starts] || options[:ends]).present?
         end
       end
 
-      def update_existing_stage_from_attributes(existing_stage, attributes)
-        existing_stage.assign_attributes(
-          title_translations: attributes['title_translations'],
-          description_translations: attributes['description_translations'],
-          cta_text_translations: attributes['cta_text_translations'],
-          active: attributes['active'],
-          starts: attributes['starts'],
-          ends: attributes['ends']
+      def build_information_stage
+        process.stages.build(
+          process: process,
+          title_translations: { "en" => "Information", "es" => "Información", "ca" => "Informació" },
+          description_translations: { "en" => "Description for the information phase of this process. Customize this description and add other phases from the administration of this process / group.",
+                                      "es" => "Descripción para la fase de información de este proceso. Personaliza esta descripción y añade otras fases desde la administración de este proceso/grupo.",
+                                      "ca" => "Descripció per a la fase d'informació d'aquest procés. Personalitza aquesta descripció i afegeix altres fases des de l'administració d'aquest procés / grup." },
+          menu_translations: { "en" => "Information", "es" => "Información", "ca" => "Informació" },
+          cta_text_translations: { "en" => "More information", "es" => "Más información", "ca" => "Més informació" },
+          cta_description_translations: { "en" => "Learn about this participation process.",
+                                          "es" => "Informate sobre este proceso de participación.",
+                                          "ca" => "Informeu-vos sobre aquest procés de participació." },
+          stage_type: 0,
+          slug: "information",
+          active: true,
+          starts: 0.days.from_now,
+          ends: 30.days.from_now
         )
-      end
-
-      def build_placeholder_stages
-        process_stage_class.stage_types.each do |stage_type_name, stage_type_number|
-          process.stages.build(
-            process: process,
-            stage_type: stage_type_number,
-            slug: stage_type_name
-          )
-        end
       end
 
       def save_process
@@ -169,6 +150,7 @@ module GobiertoAdmin
           process_attributes.site_id            = site_id
           process_attributes.title_translations = title_translations
           process_attributes.body_translations  = body_translations
+          process_attributes.body_source_translations = body_source_translations
           process_attributes.header_image_url   = header_image_url
           process_attributes.visibility_level   = visibility_level
           process_attributes.process_type       = process_type
@@ -177,28 +159,17 @@ module GobiertoAdmin
           process_attributes.slug               = slug
           process_attributes.issue_id           = issue_id
           process_attributes.scope_id           = scope_id
-          process_attributes.stages             = stages
         end
 
-        build_placeholder_stages if process.stages.empty?
+        build_information_stage if process.stages.empty?
 
         if @process.valid?
-          run_callbacks(:save) do
-            @process.save
-          end
+          @process.save
 
           @process
         else
           promote_errors(@process.errors)
           false
-        end
-      end
-
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
         end
       end
 

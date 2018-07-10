@@ -1,6 +1,13 @@
 ---
 en:
   gobierto_people:
+    departments:
+      index:
+        events: registered events
+        people_with_events: officials with registered events
+      show:
+        interest_groups_with_events: interest groups have met with this department
+        people_with_events: officials of this department with registered events
     events:
       gobierto_people_person_post_published: 'Blog updated: %{subject_name}'
       gobierto_people_person_post_updated: 'Post updated: %{subject_name}'
@@ -24,18 +31,32 @@ en:
         statements:
           description: Listing of all statements and it elements.
           title: Statements
+    interest_groups:
+      index:
+        interest_groups: registered interest groups
+      show:
+        events: registered events
+        people_with_events: the number of Officials with which this group has met
     layouts:
       application:
         title: Officials and Agendas
+      departments:
+        no_departments_within_dates: There are no departments for this date range
       menu_subsections:
         agendas: Agendas
         blogs: Blogs
+        departments: Departments
+        gifts: Gifts
+        interest_groups: Interest Groups
+        invitations: Invitations
         people: Officials
         statements: Statements
+        trips: Trips
     people:
       contact_methods:
         send_email: Send an email
       index:
+        no_people_within_range: There are no officials for this date range
         subscribable_box:
           title: Receive alerts in your inbox
         title: "%{site_name}'s organization chart"
@@ -46,8 +67,8 @@ en:
         agenda: Agenda
         bio: Biography and CV
         blog: Blog
-        exports: Download data in a reusable format
         gifts: Gifts
+        invitations: Invitations
         statements: Goods and Activities
         trips: Trips
       people_filter:
@@ -90,8 +111,6 @@ en:
           no_posts: There aren't posts published.
           title: "%{person_name}, %{person_charge}'s blog"
         show:
-          subscribable_box:
-            title: Receive updates in your inbox
           title: "%{person_name}, %{person_charge}'s blog"
       person_statements:
         index:
@@ -99,8 +118,6 @@ en:
           title: "%{person_name}'s goods and Activities"
         show:
           download: Download statement (%{file_size})
-          subscribable_box:
-            title: Receive updates in your inbox
           title: "%{person_name}'s goods and Activities"
           view_previous: View previous
       show:
@@ -110,6 +127,15 @@ en:
       subscription_button:
         cancel: Cancel
         follow: Folloe
+      trips:
+        trip:
+          accomodation_expenses: Accomodation
+          company: Committee
+          expenses: Expenses
+          food_expenses: Food
+          other_expenses: Other expenses
+          total_expenses: Total expenses
+          transport_expenses: Transport
       upcoming_events:
         no_upcoming_events: Ther eare no upcoming events
         title: Agenda
@@ -145,8 +171,6 @@ en:
       show:
         filtering_by_tag: Filtering by "%{tag}"
         go_back: Go back
-        subscribable_box:
-          title: Receive alerts in your inbox
     person_posts:
       index:
         subscribable_box:
@@ -184,4 +208,4 @@ en:
         statements: Salaries and retributions
         subscribable_box:
           title: Receive updates in your inbox
-        travels: Travels
+        trips: Trips

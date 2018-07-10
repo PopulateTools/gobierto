@@ -1,0 +1,12 @@
+---
+ca:
+  user:
+    custom_sessions:
+      null_strategy:
+        edit_form:
+          edit: Afegeix algun camp a aquest formulari
+          session_title: Completa els camps que falten (Null strategy)
+          submit: Enviar
+        new_form:
+          session_title: Iniciar sessió
+          submit: Enviar

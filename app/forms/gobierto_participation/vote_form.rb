@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoParticipation
-  class VoteForm
-    include ActiveModel::Model
+  class VoteForm < BaseForm
 
     attr_accessor(
       :id,
@@ -16,6 +15,7 @@ module GobiertoParticipation
     delegate :persisted?, to: :vote
 
     validates :site, presence: true
+    validate :contribution_container_must_be_open
 
     def save
       save_vote if valid?
@@ -43,6 +43,18 @@ module GobiertoParticipation
       ::GobiertoParticipation::Vote
     end
 
+    def votable_class
+      votable_type.constantize
+    end
+
+    def contribution_class
+      ::GobiertoParticipation::Contribution
+    end
+
+    def comment_class
+      ::GobiertoParticipation::Comment
+    end
+
     def save_vote
       @vote = vote.tap do |vote_attributes|
         vote_attributes.site_id = site_id
@@ -63,12 +75,23 @@ module GobiertoParticipation
       end
     end
 
-    protected
-
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
+    def contribution_container
+      if votable_type == contribution_class.to_s
+        votable.contribution_container
+      elsif votable_type == comment_class.to_s && votable.commentable_type == contribution_class.to_s
+        votable.commentable.contribution_container
       end
     end
+
+    def contribution_container_must_be_open
+      if contribution_container.present? && !contribution_container.contributions_allowed?
+        errors.add(:contribution_container, 'Contributions period has finished')
+      end
+    end
+
+    def votable
+      votable_class.find(votable_id)
+    end
+
   end
 end

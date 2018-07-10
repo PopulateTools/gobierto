@@ -38,4 +38,13 @@ peter_verified:
   version: 0
   verified: true
 
+janet_unverified:
+  user: janet
+  site: madrid
+  verification_type: <%= User::Verification.verification_types["census"] %>
+  verification_data: <%= {
+    "document_number" => "00000000F",
+    "date_of_birth" => "1946-01-04" }.to_yaml.inspect %>
+  version: 0
+  verified: false
 

@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 namespace :db do
+  namespace :migrate do
+    task :with_data do
+    end
+  end
+
   namespace :data do
     desc "Anonymize names and phone numbers"
     task anonymize: :environment do
@@ -48,11 +53,11 @@ namespace :db do
           person.save!
         end
 
-        puts "Changing all Sites to gobierto.dev in the #{ENV["RAILS_ENV"]} database."
+        puts "Changing all Sites to gobierto.test in the #{ENV["RAILS_ENV"]} database."
 
         Site.all.each do |site|
-          subdomain = site.domain.split('.').first
-          site.domain = subdomain + ".gobierto.dev"
+          subdomain = site.domain.split(".").first
+          site.domain = subdomain + ".gobierto.test"
           site.save
         end
 

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
-    class PersonForm
-      include ActiveModel::Model
+    class PersonForm < BaseForm
+
       include ::GobiertoCommon::DynamicContentFormHelper
       prepend ::GobiertoCommon::Trackable
 
@@ -13,6 +15,7 @@ module GobiertoAdmin
         :charge_translations,
         :email,
         :bio_translations,
+        :bio_source_translations,
         :bio_file,
         :bio_url,
         :avatar_file,
@@ -20,7 +23,11 @@ module GobiertoAdmin
         :visibility_level,
         :category,
         :political_group_id,
-        :party
+        :party,
+        :logo_crop_x,
+        :logo_crop_y,
+        :logo_crop_w,
+        :logo_crop_h
       )
 
       delegate :persisted?, to: :person
@@ -76,12 +83,12 @@ module GobiertoAdmin
         @bio_url ||= begin
           return person.bio_url unless bio_file.present?
 
-          FileUploadService.new(
+          GobiertoAdmin::FileUploadService.new(
             site: site,
             collection: person.model_name.collection,
             attribute_name: :bio,
             file: bio_file
-          ).call
+          ).upload!
         end
       end
 
@@ -89,12 +96,16 @@ module GobiertoAdmin
         @avatar_url ||= begin
           return person.avatar_url unless avatar_file.present?
 
-          FileUploadService.new(
+          GobiertoAdmin::FileUploadService.new(
             site: site,
             collection: person.model_name.collection,
             attribute_name: :avatar,
-            file: avatar_file
-          ).call
+            file: avatar_file,
+            x: logo_crop_x.to_f,
+            y: logo_crop_y.to_f,
+            w: logo_crop_w.to_f,
+            h: logo_crop_h.to_f
+          ).upload!
         end
       end
 
@@ -120,6 +131,7 @@ module GobiertoAdmin
           person_attributes.charge_translations = charge_translations
           person_attributes.email = email
           person_attributes.bio_translations = bio_translations
+          person_attributes.bio_source_translations = bio_source_translations
           person_attributes.bio_url = bio_url
           person_attributes.avatar_url = avatar_url
           person_attributes.visibility_level = visibility_level
@@ -143,13 +155,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

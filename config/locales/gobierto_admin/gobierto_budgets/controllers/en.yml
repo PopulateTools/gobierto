@@ -6,3 +6,5 @@ en:
         update:
           error: 'Settings couldn''t be saved: %{validation_errors}'
           success: Settings saved successfully
+        update_annual_data:
+          success: Process to generate files of budget lines by year launched

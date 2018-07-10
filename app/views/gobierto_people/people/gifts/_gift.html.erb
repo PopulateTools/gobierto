@@ -1,0 +1,5 @@
+<div>
+  <%= content_tag :div, link_to(gift.name, gobierto_people_person_gift_path(id: gift.id)) %>
+  <%= content_tag :div, "#{ t("views.of") }: #{ gift.delivered_by }" %>
+  <%= content_tag :div, "#{ l(gift.date) }" %>
+</div>

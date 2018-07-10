@@ -6,7 +6,7 @@
     <% if action_name == 'index' %>
       <%= t("gobierto_admin.gobierto_people.people.person_events.index.title") %>
     <% else %>
-      <%= link_to t("gobierto_admin.gobierto_people.people.person_events.index.title"), admin_people_person_events_path(@person) %> »
+      <%= link_to t("gobierto_admin.gobierto_people.people.person_events.index.title"), admin_calendars_events_path(collection_id: @person.events_collection.id) %> »
     <% end %>
   <% else %>
     <%= link_to t("gobierto_admin.layouts.application.calendars"), admin_calendars_collections_path %> »

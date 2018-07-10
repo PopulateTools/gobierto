@@ -6,14 +6,19 @@ module GobiertoParticipation
   class Poll < ApplicationRecord
     class PollHasAnswers < StandardError; end
 
+    acts_as_paranoid column: :archived_at
+
+    include ActsAsParanoidAliases
+    include GobiertoCommon::HasVisibilityUserLevels
+
     include PollResultsHelpers
 
     belongs_to :process
+    delegate :site, to: :process, allow_nil: true
     has_many :questions, -> { order(order: :asc) }, class_name: "GobiertoParticipation::PollQuestion", dependent: :destroy, autosave: true
     has_many :answers, class_name: "GobiertoParticipation::PollAnswer", autosave: true
 
     enum visibility_level: { draft: 0, published: 1 }
-    enum visibility_user_level: { registered: 0, verified: 1 }
 
     scope :open, -> { where("starts_at <= ? AND ends_at >= ?", Time.zone.now, Time.zone.now) }
     scope :answerable, -> { published.open }
@@ -28,6 +33,8 @@ module GobiertoParticipation
     accepts_nested_attributes_for :questions, allow_destroy: true
 
     validates_associated :questions, message: I18n.t("activerecord.messages.gobierto_participation/poll.are_not_valid")
+
+    validates :title, presence: true
 
     def answerable?
       published? && open?

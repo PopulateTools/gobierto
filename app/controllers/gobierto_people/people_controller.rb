@@ -4,12 +4,18 @@ module GobiertoPeople
     include PoliticalGroupsHelper
     include PreviewTokenHelper
     include PeopleClassificationHelper
+    include DatesRangeHelper
+
+    layout :resolve_layout
 
     before_action :check_active_submodules, except: :show
+
+    LAST_ITEMS_SIZE = 4
 
     def index
       @political_groups = get_political_groups
 
+      set_departments
       set_people
       set_events
       set_present_groups
@@ -38,11 +44,20 @@ module GobiertoPeople
       @person = PersonDecorator.new(people_scope.find_by!(slug: params[:slug]))
 
       if active_submodules.size == 1 && agendas_submodule_active?
-        redirect_to gobierto_people_person_events_path(@person.slug)
+        redirect_to gobierto_people_person_events_path(@person.slug) and return
       end
 
       @upcoming_events = @person.attending_events.upcoming.sorted.first(3)
       @latest_activity = ActivityCollectionDecorator.new(Activity.for_recipient(@person).limit(30).sorted.page(params[:page]))
+
+      # custom engine
+      @last_events = QueryWithEvents.new(source: @person.attending_events.with_interest_group.sorted_backwards.limit(LAST_ITEMS_SIZE),
+                                         start_date: filter_start_date,
+                                         end_date: filter_end_date)
+      @last_trips = @person.trips.between_dates(filter_start_date, filter_end_date).sorted.limit(LAST_ITEMS_SIZE)
+      @last_invitations = @person.invitations.between_dates(filter_start_date, filter_end_date).sorted.limit(LAST_ITEMS_SIZE)
+      @last_gifts = @person.received_gifts.between_dates(filter_start_date, filter_end_date).sorted.limit(LAST_ITEMS_SIZE)
+      check_people_resources_with_content
     end
 
     private
@@ -53,8 +68,35 @@ module GobiertoPeople
       end
     end
 
+    def engine_people_resources_with_content
+      return [] unless site_configuration_dates_range?
+      GobiertoPeople.custom_engine_resources.select do |resources|
+        submodule = resources == "events" ? "agendas" : resources
+        active_submodules.include?(submodule) && instance_variable_get("@last_#{resources}")&.exists?
+      end
+    end
+
+    def check_people_resources_with_content
+      return unless (resources = engine_people_resources_with_content).count == 1
+      resources = resources.first
+      path = if resources == "events"
+               if @upcoming_events.present?
+                 gobierto_people_person_events_path(@person.slug)
+               else
+                 gobierto_people_person_past_events_path(@person.slug, date_range_params.merge(page: false))
+               end
+             else
+               send("gobierto_people_person_#{resources}_path", @person.slug, date_range_params)
+             end
+      redirect_to path
+    end
+
     def set_people
-      @people = current_site.people.active.sorted
+      @people = QueryWithEvents.new(
+        source: current_site.people.active,
+        start_date: filter_start_date,
+        end_date: filter_end_date
+      ).sorted
       @people = @people.send(Person.categories.key(@person_category)) if @person_category
       @people = @people.send(Person.parties.key(@person_party)) if @person_party
     end
@@ -72,6 +114,14 @@ module GobiertoPeople
       end
     end
 
+    def set_departments
+      @sidebar_departments = QueryWithEvents.new(
+        source: current_site.departments,
+        start_date: filter_start_date,
+        end_date: filter_end_date
+      )
+    end
+
     def admin_permissions_for_person?
       person = current_site.people.find_by(slug: params[:slug])
       if person && current_admin
@@ -81,6 +131,14 @@ module GobiertoPeople
         ).view?
       else
         false
+      end
+    end
+
+    def resolve_layout
+      if action_name == "index" && current_site.departments_available?
+        "gobierto_people/layouts/departments"
+      else
+        "gobierto_people/layouts/application"
       end
     end
 

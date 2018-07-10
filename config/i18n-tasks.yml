@@ -4,14 +4,30 @@ data:
   read:
     - config/locales/**/%{locale}.yml
     - config/locales/**/*/%{locale}.yml
+    - vendor/auth_strategies/**/config/locales/**/%{locale}.yml
+    - vendor/auth_strategies/**/config/locales/**/*/%{locale}.yml
+search:
+  paths:
+    - app/
+    - vendor/auth_strategies/
+  relative_roots:
+    - app/controllers
+    - app/helpers
+    - app/mailers
+    - app/presenters
+    - app/views
+    - vendor/auth_strategies/null_strategy/app/views
 ignore_missing:
   - 'gobierto_budgets.visualizations.*'
   - 'layouts.sandbox.*'
   - 'sandbox.*'
   - 'gobierto_budget_consultations.consultation_statuses.*'
-  - 'gobierto_indicators.cards.*'
+  - 'gobierto_observatory.cards.*'
+  - 'gobierto_budgets.budgets.cards.*'
   - 'gobierto_budgets.budgets.index_old.*'
   - 'gobierto_budgets.budgets.guide.*'
+  - 'gobierto_budgets.invoices.show.table.fields.*'
+  - 'grammatical_particles.*'
 
 ignore_unused:
   - 'number.*'
@@ -27,11 +43,13 @@ ignore_unused:
   - 'layouts.*.application.*'
   - 'user.subscriptions.create.*_success'
   - 'gobierto_admin.gobierto_budget_consultations.consultations.consultation_items.*_modal.*'
+  - 'gobierto_admin.gobierto_participation.shared.navigation.*'
   - 'gobierto_budgets.budget_lines.show.twitter_text_*'
   - 'gobierto_budgets.visualizations.G_custom'
   - 'gobierto_budgets.visualizations.I_custom'
   - 'gobierto_budgets.budgets.index.*'
   - 'gobierto_budgets.budgets_execution.*'
+  - 'gobierto_budgets.invoices.show.*'
   - 'gobierto_people.activities.gobierto_people_person*'
   - 'invisible_captcha.*'
   - '*.events.*'
@@ -42,8 +60,10 @@ ignore_unused:
   - 'gobierto_budget_consultations.consultations.consultation_responses.new.user_not_signed_in_html'
   - 'views.pagination.*'
   - 'helpers.page_entries_info.*'
-  - 'gobierto_indicators.cards.*'
+  - 'gobierto_observatory.cards.*'
+  - 'gobierto_budgets.budgets.cards.*'
   - 'user.subscriptions.subscribable_button.*'
+  - 'gobierto_participation.welcome.index.*'
   - 'gobierto_participation.processes.contribution_containers.show.login_signup_idea'
   - 'gobierto_participation.processes.contribution_containers.show.login_signup_proposal'
   - 'gobierto_participation.processes.contribution_containers.show.login_signup_question'
@@ -63,6 +83,9 @@ ignore_unused:
   - 'gobierto_participation.processes.contribution_containers.show.proposal.*'
   - 'gobierto_participation.processes.contribution_containers.show.question.*'
   - 'gobierto_participation.processes.contributions.form.*'
+  - 'gobierto_admin.gobierto_participation.processes.edit.*'
+  - 'gobierto_admin.gobierto_participation.processes.*.success_*'
+  - 'grammatical_particles.*'
 
 translation:
   api_key: ''

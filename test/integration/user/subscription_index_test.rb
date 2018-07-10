@@ -21,41 +21,84 @@ class User::SubscriptionIndexTest < ActionDispatch::IntegrationTest
   end
 
   def test_subscription_management
-    with_current_site(site) do
+    element_names = ["user_subscription_preferences_modules_gobierto_people",
+                     "user_subscription_preferences_gobierto_people_people_#{person.id}"]
+    with_signed_in_user(user) do
+      visit @path
+
+      assert has_content?("Your alerts")
+      assert has_checked_field?("user_subscription_preferences_notification_frequency_hourly")
+
+      check "People"
+      check person.name
+
+      click_button "Save"
+
+      assert has_message?("Preferences updated successfully")
+
+      element_names.each do |el|
+        element = page.find("##{el}", visible: false)
+        assert element.checked?
+      end
+    end
+  end
+
+  def test_broader_subscription_disables_specific_subscriptions
+    with_javascript do
       with_signed_in_user(user) do
         visit @path
 
-        assert has_content?("Your alerts")
-        assert has_checked_field?("user_subscription_preferences_notification_frequency_hourly")
+        site_element = page.find("#user_subscription_preferences_site_to_subscribe", visible: false)
+        module_element = page.find("#user_subscription_preferences_modules_gobierto_people", visible: false)
+        person_element = page.find("#user_subscription_preferences_gobierto_people_people_#{person.id}", visible: false)
 
-        check "People"
-        check person.name
+        refute module_element.checked?
+        refute module_element.disabled?
+        refute person_element.checked?
+        refute person_element.disabled?
 
-        click_button "Save"
+        site_element.trigger("click")
 
-        assert has_message?("Preferences updated successfully")
+        assert module_element.checked?
+        assert module_element.disabled?
+        assert person_element.checked?
+        assert person_element.disabled?
 
-        assert has_checked_field?("user_subscription_preferences_modules_gobierto_people")
-        assert has_checked_field?("user_subscription_preferences_gobierto_people_people_#{person.id}")
+        site_element.trigger("click")
+        module_element.trigger("click")
+
+        refute module_element.disabled?
+        assert person_element.checked?
+        assert person_element.disabled?
+
       end
     end
   end
 
   def test_site_subscription
+    element_names = ["user_subscription_preferences_modules_gobierto_people",
+                     "user_subscription_preferences_modules_gobierto_budget_consultations",
+                     "user_subscription_preferences_gobierto_people_people_#{person.id}"]
     with_javascript do
-      with_current_site(site) do
-        with_signed_in_user(user) do
-          visit @path
+      with_signed_in_user(user) do
+        visit @path
 
-          page.find("#user_subscription_preferences_site_to_subscribe", visible: false).trigger("click")
+        page.find("#user_subscription_preferences_site_to_subscribe", visible: false).trigger("click")
 
-          click_button "Save"
+        element_names.each do |el|
+          element = page.find("##{el}", visible: false)
+          assert element.checked?
+          assert element.disabled?
+        end
 
-          assert has_content?("Preferences updated successfully")
+        click_button "Save"
 
-          assert has_checked_field?("user_subscription_preferences_modules_gobierto_people", visible: false)
-          assert has_checked_field?("user_subscription_preferences_modules_gobierto_budget_consultations", visible: false)
-          assert has_checked_field?("user_subscription_preferences_gobierto_people_people_#{person.id}", visible: false)
+        assert has_content?("Preferences updated successfully")
+
+        element_names.each do |el|
+          element = page.find("##{el}", visible: false)
+          assert element.checked?
+          assert element.disabled?
         end
       end
     end

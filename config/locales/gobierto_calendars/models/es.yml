@@ -9,6 +9,23 @@ es:
       gobierto_calendars/event_location:
         address: Dirección
         name: Nombre
+      gobierto_calendars/filtering_rule:
+        remove_filtering_text: Eliminar texto filtrado
+    enums:
+      gobierto_calendars/filtering_rule:
+        action:
+          ignore: Ignorar
+          import: Importar
+          import_as_draft: Importar como borrador
+        condition:
+          contains: Contiene
+          ends_with: Termina por
+          not_contains: No contiene
+          not_starts_with: No empieza por
+          starts_with: Empieza por
+        field:
+          description: Cuerpo
+          title: Título
     models:
       gobierto_calendars/event: Evento
       gobierto_calendars/event_attendee: Asistente

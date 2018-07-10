@@ -18,14 +18,10 @@ en:
           edit:
             agendas: Agendas
             blogs: Blogs
-            calendar_integration: Calendar integration
-            google_calendar: Google Calendar
-            ibm_notes: IBM Notes
-            ibm_notes_pwd: IBM Notes password
-            ibm_notes_usr: IBM Notes user
-            microsoft_exchange: Microsoft Exchange
-            microsoft_exchange_pwd: Microsoft Exchange password
-            microsoft_exchange_usr: Microsoft Exchange user
+            departments: Departments
+            gifts: Gifts
+            interest_groups: Interest groups
+            invitations: Invitations
             officials: Officials
             placeholders:
               home_text_ca: Home text Catalan
@@ -33,5 +29,6 @@ en:
               home_text_es: Home text Spanish
             statements: Statements
             submodules_enabled: Enabled submodules
+            trips: Trips
             update: Update
         title: Configuration

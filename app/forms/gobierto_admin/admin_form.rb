@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
-  class AdminForm
-    include ActiveModel::Model
+  class AdminForm < BaseForm
 
     attr_accessor(
       :id,
@@ -285,12 +286,6 @@ module GobiertoAdmin
     end
 
     protected
-
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
-      end
-    end
 
     def deliver_invitation_email
       AdminMailer.invitation_instructions(admin).deliver_later

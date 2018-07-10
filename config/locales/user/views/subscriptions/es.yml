@@ -9,7 +9,7 @@ es:
         modules:
           gobierto_budget_consultations: Consultas de presupuestos
           gobierto_budgets: Presupuestos
-          gobierto_indicators: Indicadores
+          gobierto_observatory: Observatorio
           gobierto_participation: Participación
           gobierto_people: Personas
         notification_frequency:
@@ -19,6 +19,7 @@ es:
           immediate: Inmediatas
           submit: Guardar
           weekly: Resumen semanal
+        participation: Participación
         people: Personas
         submit: Guardar
         title: Tus alertas
@@ -33,9 +34,14 @@ es:
       subscribable_button:
         event_followed: "¡Evento seguido!"
         follow_event: Seguir evento
+        follow_group_process: Seguir grupo
         follow_issue: Seguir tema
         follow_person: Seguir persona
         follow_process: Seguir proceso
+        follow_scope: Seguir ámbito
+        group_process_followed: "¡Grupo seguido!"
         issue_followed: "¡Tema seguido!"
+        manage_subscriptions: Gestionar tus alertas
         person_followed: "¡Persona seguida!"
         process_followed: "¡Proceso seguido!"
+        scope_followed: "¡Ámbito seguido!"

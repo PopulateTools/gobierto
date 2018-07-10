@@ -4,8 +4,11 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Process < ApplicationRecord
+    acts_as_paranoid column: :archived_at
 
+    include ActsAsParanoidAliases
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Searchable
     include GobiertoCommon::ActsAsCollectionContainer
@@ -13,38 +16,31 @@ module GobiertoParticipation
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
-      searchableAttributes ['title_en', 'title_es', 'title_ca', 'body_en', 'body_es', 'body_ca']
+      searchableAttributes %w(title_en title_es title_ca body_en body_es body_ca)
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
 
-    translates :title, :body, :information_text
+    translates :title, :body, :body_source, :information_text
 
     belongs_to :site
     belongs_to :issue
-    belongs_to :scope, class_name: 'GobiertoCommon::Scope'
-    has_many :stages, -> { sorted }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage', autosave: true
-    has_many :active_stages, -> { active.sorted }, class_name: 'GobiertoParticipation::ProcessStage'
+    belongs_to :scope, class_name: "GobiertoCommon::Scope"
+    has_many :stages, -> { sorted }, dependent: :delete_all, class_name: "GobiertoParticipation::ProcessStage", autosave: true
+    has_many :published_stages, -> { published.sorted }, class_name: "GobiertoParticipation::ProcessStage"
     has_many :polls
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
     enum visibility_level: { draft: 0, active: 1 }
     enum process_type: { process: 0, group_process: 1 }
 
-    validates :site, :title, presence: true
+    validates :site, presence: true
     validates :slug, uniqueness: { scope: :site }
-    validates_associated :stages, message: I18n.t('activerecord.messages.gobierto_participation/process.are_not_valid')
 
     scope :sorted, -> { order(id: :desc) }
 
-    accepts_nested_attributes_for :stages
-
     after_create :create_collections
-
-    def self.open
-      ids = GobiertoParticipation::Process.select(&:open?).pluck(:id)
-      where(id: ids)
-    end
+    after_restore :set_slug
 
     def to_s
       title
@@ -58,8 +54,8 @@ module GobiertoParticipation
       active_stage?(ProcessStage.stage_types[:polls])
     end
 
-    def ideas_stage?
-      active_stage?(ProcessStage.stage_types[:ideas])
+    def contributions_stage?
+      active_stage?(ProcessStage.stage_types[:contributions])
     end
 
     def results_stage?
@@ -71,33 +67,37 @@ module GobiertoParticipation
     end
 
     def news_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::News')
+      find_collection_of_items("GobiertoCms::News")
     end
 
     def events_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCalendars::Event')
+      find_collection_of_items("GobiertoCalendars::Event")
     end
 
     def attachments_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoAttachments::Attachment')
+      find_collection_of_items("GobiertoAttachments::Attachment")
     end
 
     def current_stage
-      active_stages.open.order(ends: :asc).last
+      published_stages.find_by(active: true)
     end
 
     def next_stage
-      active_stages.upcoming.order(starts: :asc).first
+      if published_stages.upcoming
+        published_stages.upcoming.order(starts: :asc).first
+      else
+        GobiertoParticipation::ProcessStage.none
+      end
     end
 
     def showcase_stage
-      current_stage || next_stage ||  active_stages.order(ends: :asc).last || active_stages.last
+      current_stage || next_stage || published_stages.order(ends: :asc).last || published_stages.last
     end
 
     def open?
       return false if starts.present? && starts > Time.zone.now
       return false if ends.present? && ends < Time.zone.now
-      return true
+      true
     end
 
     def last_activity
@@ -116,20 +116,27 @@ module GobiertoParticipation
       url_helpers.gobierto_participation_process_url({ id: slug }.merge(host: site.domain))
     end
 
+    def to_url(options = {})
+      url_helpers.gobierto_participation_process_url(parameterize.merge(id: self.slug, host: app_host).merge(options))
+    end
+
     private
 
     def create_collections
       # Events
-      site.collections.create! container: self,  item_type: 'GobiertoCalendars::Event', slug: "calendar-#{self.slug}", title: self.title
+      site.collections.create! container: self, item_type: "GobiertoCalendars::Event", slug: "calendar-#{slug}", title: title
       # Attachments
-      site.collections.create! container: self,  item_type: 'GobiertoAttachments::Attachment', slug: "attachment-#{self.slug}", title: self.title
+      site.collections.create! container: self, item_type: "GobiertoAttachments::Attachment", slug: "attachment-#{slug}", title: title
       # News
-      site.collections.create! container: self,  item_type: 'GobiertoCms::News', slug: "news-#{self.slug}", title: self.title
+      site.collections.create! container: self, item_type: "GobiertoCms::News", slug: "news-#{slug}", title: title
     end
 
     def attributes_for_slug
-      [ title ]
+      [title]
     end
 
+    def find_collection_of_items(item_type)
+      GobiertoCommon::Collection.find_by(container: self, item_type: item_type)
+    end
   end
 end

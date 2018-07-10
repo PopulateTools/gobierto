@@ -18,11 +18,17 @@ default: &default
       name: Gobierto People
       namespace: GobiertoPeople
     -
+      name: Gobierto Observatory
+      namespace: GobiertoObservatory
+    -
       name: Gobierto Indicators
       namespace: GobiertoIndicators
     -
       name: Gobierto Participation
       namespace: GobiertoParticipation
+    -
+      name: Gobierto Plans
+      namespace: GobiertoPlans
   site_modules_with_root_path:
     -
       name: Gobierto Budgets
@@ -34,10 +40,16 @@ default: &default
       name: Gobierto Participation
       namespace: GobiertoParticipation
     -
+      name: Gobierto Observatory
+      namespace: GobiertoObservatory
+    -
+      name: Gobierto Plans
+      namespace: GobiertoPlans
+    -
       name: Gobierto Indicators
       namespace: GobiertoIndicators
   dns_config:
-    cname_record_target: site.gobierto.dev
+    cname_record_target: site.gobierto.test
     a_record_target: 222.111.222.11
   admins:
     preset_admin_email: "admin@gobierto.dev"
@@ -51,14 +63,17 @@ default: &default
     municipalities_suggestions_endpoint: <%= ENV["MUNICIPALITIES_SUGGESTIONS_ENDPOINT"] %>
   gobierto_budgets:
     data_note_url: https://presupuestos.gobierto.es/about#method
-  gobierto_people:
-    gifts_service_url: http://populate.tools/
-    travels_service_url: http://populate.tools/
   populate_data:
     endpoint: <%= ENV["POPULATE_DATA_ENDPOINT"] %>
-  gobierto_indicators:
+  gobierto_observatory:
     year: 2015
-  file_uploads_adapter: s3
+  file_uploads_adapter: filesystem
+  auth_modules:
+    -
+      name: null_strategy
+      description: Null Strategy
+      session_form: NullStrategySessionForm
+      default: false
 
 development:
   <<: *default

@@ -9,19 +9,19 @@
 <div class="tabs">
   <ul>
     <li ><%= link_to 'Grupo', 'admin_part_group' %></li>
-    <li ><%= link_to 'Información', 'admin_part_group_info' %></li>
     <li><%= link_to 'Agenda', 'admin_part_group_agenda' %></li>
-    <li><%= link_to 'Encuestas', 'admin_part_group_polls' %></li>
-    <li class="active"><%= link_to 'Aportaciones', 'admin_part_group_contributions' %></li>
-    <li><%= link_to 'Votaciones', 'admin_part_group_votaciones' %></li>
     <li><%= link_to 'Noticias', 'admin_part_group_news' %></li>
     <li><%= link_to 'Documentos', 'admin_part_group_docs' %></li>
   </ul>
 </div>
 
-<div class="admin_tools right">
-  <%# link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, 'admin_people_conf' %>
-  <%= link_to 'Nueva', 'admin_part_group_contributions_contribution_edit', class: 'button' %>
+<div class="pure-g">
+  <div class="pure-u-3-4">
+    <strong>Contribuciones</strong>
+  </div>
+  <div class="pure-u-1-4 admin_tools right">
+    <%= link_to 'Nueva', 'admin_part_group_contributions_contribution_edit', class: 'button' %>
+  </div>
 </div>
 
 <table>

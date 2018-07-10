@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
-  class UserWelcomeMessageForm
-    include ActiveModel::Model
+  class UserWelcomeMessageForm < BaseForm
 
     attr_accessor(
       :id,
@@ -19,7 +20,7 @@ module GobiertoAdmin
     end
 
     def site
-      user.source_site
+      user.site
     end
 
     private

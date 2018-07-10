@@ -19,9 +19,17 @@ en:
         save: Save
         search: Search
         select_file: Chose a file
+      archive:
+        confirm: Are you sure you want to archive this element? It won't show on the
+          front end neither on lists like this. You will be able to recover it
+        element: Archive this element
+        elements: Archived elements
       form_locale_switchers:
         define_content_in_locale: Define the content in %{locale_name} version
         translate: Translate
+      recover:
+        confirm: If you recover an element, it will be listed again
+        element: Recover element
       save_widget:
         save: Save
         visibility_level:

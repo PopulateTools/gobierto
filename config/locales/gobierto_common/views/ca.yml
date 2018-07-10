@@ -6,6 +6,7 @@ ca:
         attachment: Adjunt
         download: Descarregar
         download_attachment: Descarregar adjunt
+        view_content: Veure contingut
     events:
       gobierto_common_collection_created: Col·lecció creat
       gobierto_common_collection_updated: Col·lecció actualizat

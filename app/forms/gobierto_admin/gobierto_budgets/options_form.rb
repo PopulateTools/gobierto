@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgets
-    class OptionsForm
-      include ActiveModel::Model
+    class OptionsForm < BaseForm
 
       attr_accessor(
         :site,
@@ -14,7 +15,9 @@ module GobiertoAdmin
         :comparison_context_table_enabled,
         :comparison_compare_municipalities_enabled,
         :comparison_compare_municipalities,
-        :comparison_show_widget
+        :comparison_show_widget,
+        :providers_enabled,
+        :indicators_enabled
       )
 
       validates :site, presence: true
@@ -92,6 +95,22 @@ module GobiertoAdmin
         @comparison_show_widget ||= site.gobierto_budgets_settings && site.gobierto_budgets_settings.settings["comparison_show_widget"]
       end
 
+      def providers_enabled
+        @providers_enabled ||= site.gobierto_budgets_settings && site.gobierto_budgets_settings.settings["budgets_providers_enabled"]
+      end
+
+      def providers_enabled?
+        providers_enabled == true || providers_enabled == '1'
+      end
+
+      def indicators_enabled
+        @indicators_enabled ||= site.gobierto_budgets_settings && site.gobierto_budgets_settings.settings["budgets_indicators_enabled"]
+      end
+
+      def indicators_enabled?
+        indicators_enabled == true || indicators_enabled == '1'
+      end
+
       def save
         save_options if valid?
       end
@@ -108,6 +127,8 @@ module GobiertoAdmin
         settings[:comparison_context_table_enabled] = comparison_context_table_enabled? ? comparison_context_table_enabled : nil
         settings[:comparison_compare_municipalities] = comparison_compare_municipalities_enabled ? comparison_compare_municipalities.map(&:to_i).select{ |i| i > 0 } : nil
         settings[:comparison_show_widget] = comparison_show_widget? ? comparison_show_widget : nil
+        settings[:budgets_providers_enabled] = providers_enabled if providers_enabled?
+        settings[:budgets_indicators_enabled] = indicators_enabled if indicators_enabled?
 
         if site.gobierto_budgets_settings.nil?
           GobiertoModuleSettings.create! site: site, module_name: "GobiertoBudgets", settings: settings

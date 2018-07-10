@@ -18,6 +18,10 @@ module GobiertoAdmin
         @event ||= gobierto_calendars_events(:richard_published)
       end
 
+      def external_event
+        @external_event ||= gobierto_calendars_events(:richard_published_just_attending)
+      end
+
       def person
         @person ||= gobierto_people_people(:richard)
       end
@@ -71,7 +75,7 @@ module GobiertoAdmin
 
                       select "", from: "Person"
                       fill_in "Name", with: "Attendee Name"
-                      fill_in "Charge", with: "Attendee Charge"
+                      fill_in "Position", with: "Attendee Position"
 
                       find("a[data-behavior=add_record]").click
                     end
@@ -97,7 +101,7 @@ module GobiertoAdmin
                 assert has_field?("event_starts_at", with: "2017-01-01 00:00")
                 assert has_field?("event_ends_at", with: "2017-01-01 00:01")
                 assert_equal(
-                  "<div>Event Description</div>",
+                  "Event Description",
                   find("#event_description_translations_en", visible: false).value
                 )
 
@@ -107,7 +111,7 @@ module GobiertoAdmin
                 end
 
                 assert all(".content-block-record-value").any? { |v| v.text.include?("Attendee Name") }
-                assert all(".content-block-record-value").any? { |v| v.text.include?("Attendee Charge") }
+                assert all(".content-block-record-value").any? { |v| v.text.include?("Attendee Position") }
 
                 within ".person-event-state-radio-buttons" do
                   with_hidden_elements do
@@ -119,7 +123,7 @@ module GobiertoAdmin
 
                 assert has_field?("event_title_translations_es", with: "Título Evento")
                 assert_equal(
-                  "<div>Descripción Evento</div>",
+                  "Descripción Evento",
                   find("#event_description_translations_es", visible: false).value
                 )
               end
@@ -127,6 +131,29 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_update_external_event
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit edit_admin_calendars_event_path(external_event, collection_id: collection)
+
+              within "form.edit_event" do
+                fill_in "event_title_translations_en", with: "Edited title"
+
+                click_button "Update"
+              end
+
+              assert has_message?("Event was successfully updated. See the event.")
+
+              external_event.reload
+
+              assert_equal "justattending", external_event.external_id
+            end
+          end
+        end
+      end
+
     end
   end
 end

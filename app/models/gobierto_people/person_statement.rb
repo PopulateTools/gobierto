@@ -6,11 +6,11 @@ module GobiertoPeople
   class PersonStatement < ApplicationRecord
     include ::GobiertoCommon::DynamicContent
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
 
-    validates :person, presence: true
-    validates :site, presence: true
+    validates :person, :site, presence: true
 
     translates :title
 
@@ -25,6 +25,7 @@ module GobiertoPeople
     belongs_to :site
 
     scope :sorted, -> { order(published_on: :desc, created_at: :desc) }
+    scope :sorted_by_person_position, -> { joins(:person).order("#{Person.table_name}.position ASC, published_on DESC, #{table_name}.created_at DESC") }
 
     enum visibility_level: { draft: 0, active: 1 }
 
@@ -46,7 +47,7 @@ module GobiertoPeople
     end
 
     def attributes_for_slug
-      [published_on.strftime("%F"), title]
+      [Time.now.strftime("%F"), title]
     end
 
     def resource_path

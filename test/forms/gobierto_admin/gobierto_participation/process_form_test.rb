@@ -14,8 +14,7 @@ module GobiertoAdmin
           slug: "#{process.slug}-2",
           process_type: process.process_type,
           starts: process.starts,
-          ends: process.ends,
-          stages_attributes: { '0' => process_stage }
+          ends: process.ends
         )
       end
 

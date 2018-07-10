@@ -6,24 +6,48 @@ module FileUploader
   class S3
     attr_reader :file, :file_name
 
-    def initialize(file:, file_name:, content_disposition: nil, bucket_name: nil)
+    def initialize(file_name:, file: nil, content_disposition: nil, content_type: nil, bucket_name: nil)
       @file = file
       @file_name = file_name
       @bucket_name = bucket_name
       @content_disposition = content_disposition
+      @content_type = content_type
     end
 
     def call
-      object = resource.bucket(bucket_name).object(file_name)
+      if !uploaded_file_exists? && @file
+        upload
+      else
+        object.public_url
+      end
+    end
 
-      File.open(file.tempfile, "rb") do |file_body|
+    def upload
+      upload! if !uploaded_file_exists? && @file
+    end
+
+    def upload!
+      File.open(file.tempfile, 'rb') do |file_body|
         options = { body: file_body }
         options[:content_disposition] = @content_disposition if @content_disposition.present?
+        options[:content_type] = @content_type if @content_type.present?
 
         object.put(options)
       end
-
+      if @tmp_file
+        @tmp_file.unlink
+      end
       object.public_url
+    end
+
+    def uploaded_file_exists?
+      object.exists?
+    rescue Aws::S3::Errors::Forbidden
+      false
+    end
+
+    def delete
+      !uploaded_file_exists? || object.delete
     end
 
     private
@@ -34,6 +58,10 @@ module FileUploader
 
     def bucket_name
       @bucket_name ||= ENV.fetch("S3_BUCKET_NAME")
+    end
+
+    def object
+      @object ||= resource.bucket(bucket_name).object(file_name)
     end
 
     protected

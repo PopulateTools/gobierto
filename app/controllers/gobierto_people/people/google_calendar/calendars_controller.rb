@@ -8,11 +8,11 @@ module GobiertoPeople
 
         def edit
           @calendars = calendar_service.calendars
-          @calendars_form = GobiertoPeople::PersonGoogleCalendarCalendarsForm.new(person_id: @person.id)
+          @calendars_form = GobiertoCalendars::GoogleCalendarCalendarsForm.new(person_id: @person.id)
         end
 
         def update
-          @calendars_form = GobiertoPeople::PersonGoogleCalendarCalendarsForm.new(calendars_params.merge(person_id: @person.id))
+          @calendars_form = GobiertoCalendars::GoogleCalendarCalendarsForm.new(calendars_params.merge(person_id: @person.id))
           @calendars_form.save
           redirect_to edit_gobierto_people_person_google_calendar_calendars_path(@person.slug), notice: t('.success')
         end

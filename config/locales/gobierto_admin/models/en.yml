@@ -37,12 +37,13 @@ en:
         home_page: Home module
         home_page_item_id: Home page
         links_markup: Links HTML
-        location_name: Municipality
         logo_file: Logo
-        municipality_id: Municipality
         name: Entity ame
+        organization_id: Organization identifier
+        organization_name: Organization
         populate_data_api_token: API token Populate Data
         privacy_page_id: Privacy page
+        raw_configuration_variables: Other configuration variables
         title: Site name
       gobierto_admin/user_form:
         email: Email

@@ -1,0 +1,24 @@
+culture_department:
+  site: madrid
+  name: Culture Department
+  slug: culture-department
+
+justice_department:
+  site: madrid
+  name: Justice Department
+  slug: justice-department
+
+ecology_department_old:
+  site: madrid
+  name: Old ecology department
+  slug: ecology-department-old
+
+tourism_department_very_old:
+  site: madrid
+  name: Very old toursim department
+  slug: toursim-department-very-old
+
+immigration_department_mixed:
+  site: madrid
+  name: Immigration department
+  slug: immigration-department-mixed

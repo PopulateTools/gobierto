@@ -4,9 +4,11 @@ require "test_helper"
 
 module GobiertoPeople
   class PeoplePoliticalGroupsTest < ActionDispatch::IntegrationTest
+
     def setup
       super
       @path = gobierto_people_political_group_people_path(:marvel)
+      disable_submodule(site, :departments)
     end
 
     def site
@@ -44,7 +46,7 @@ module GobiertoPeople
 
         within '.filter_boxed' do
           assert has_link?('Marvel')
-          refute has_link?('DC')
+          assert has_no_link?('DC')
         end
       end
     end

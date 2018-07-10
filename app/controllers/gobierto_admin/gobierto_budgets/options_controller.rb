@@ -20,12 +20,19 @@ module GobiertoAdmin
         redirect_to admin_gobierto_budgets_options_path
       end
 
+      def update_annual_data
+        site = Site.find(current_site.id)
+        ::GobiertoBudgets::GenerateAnnualLinesJob.perform_later(@site.object)
+        flash[:notice] = t(".success")
+        redirect_to admin_gobierto_budgets_options_path
+      end
+
       private
 
       def gobierto_budgets_params
         params.require(:gobierto_budgets_options).permit(:elaboration_enabled, :budget_lines_feedback_enabled, :feedback_emails, :receipt_enabled, :receipt_configuration,
                                                          :comparison_tool_enabled, :comparison_context_table_enabled, :comparison_show_widget, :comparison_compare_municipalities_enabled,
-                                                         comparison_compare_municipalities: [])
+                                                         :providers_enabled, :indicators_enabled, comparison_compare_municipalities: [])
       end
 
       def get_services_config

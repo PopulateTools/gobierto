@@ -8,7 +8,6 @@ module GobiertoAdmin
         def edit
           @settings_form = SettingsForm.new(site_id: current_site.id)
           @available_submodules = find_available_submodules
-          @calendar_integrations_options = find_calendar_integrations
         end
 
         def update
@@ -43,14 +42,6 @@ module GobiertoAdmin
           end
         end
 
-        def find_calendar_integrations
-          ::GobiertoPeople.remote_calendar_integrations.map do |integration_name|
-            [
-              I18n.t("gobierto_admin.gobierto_people.configuration.settings.edit.#{integration_name}"),
-              integration_name
-            ]
-          end
-        end
       end
     end
   end

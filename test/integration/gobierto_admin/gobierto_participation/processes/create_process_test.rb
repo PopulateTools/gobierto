@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoParticipation
     class CreateProcessTest < ActionDispatch::IntegrationTest
-
       def setup
         super
         @path = admin_participation_path
@@ -25,45 +24,52 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              click_link 'New'
+              click_link "New"
 
-              fill_in 'process_title_translations_en', with: 'New process title'
-              fill_in 'process_body_translations_en', with: 'New process body'
+              fill_in "process_title_translations_en", with: "New process title"
+              find("#process_body_translations_en", visible: false).set("New process body")
 
-              click_link 'ES'
+              click_link "ES"
 
-              fill_in 'process_title_translations_es', with: 'Título del nuevo proceso'
-              fill_in 'process_body_translations_es', with: 'Descripción del nuevo proceso'
+              fill_in "process_title_translations_es", with: "Título del nuevo proceso"
+              find("#process_body_translations_es", visible: false).set("Descripción del nuevo proceso")
+              fill_in "process_slug", with: ""
 
-              select 'Culture', from: 'process_issue_id'
+              select "Culture", from: "process_issue_id"
 
-              select 'Old town', from: 'process_scope_id'
+              select "Old town", from: "process_scope_id"
 
-              find('#process_has_duration', visible: false).trigger(:click)
+              find("#process_has_duration", visible: false).trigger(:click)
 
-              fill_in 'process_starts', with: '2017-01-01'
-              fill_in 'process_ends', with: '2017-01-30'
+              fill_in "process_starts", with: "2017-01-01"
+              fill_in "process_ends", with: "2017-01-30"
 
-              find('#process_process_type_process', visible: false).trigger(:click)
+              find("#process_process_type_process", visible: false).trigger(:click)
 
-              click_button 'Create'
+              click_button "Create"
 
-              assert has_message? 'Process was successfully created'
+              assert has_message? "Process was successfully created"
 
               process = site.processes.process.last
 
-              assert_equal 'New process title', process.title
-              assert_equal 'New process body', process.body
-              assert_equal 'Título del nuevo proceso', process.title_es
-              assert_equal 'Descripción del nuevo proceso', process.body_es
-              assert_equal 'Culture', process.issue.name
-              assert_equal 'Old town', process.scope.name
+              assert_equal "New process title", process.title
+              assert_equal "New process body", process.body
+              assert_equal "Título del nuevo proceso", process.title_es
+              assert_equal "Descripción del nuevo proceso", process.body_es
+              assert_equal "Culture", process.issue.name
+              assert_equal "Old town", process.scope.name
 
               # check slug gets auto-filled in server
-              assert_equal 'new-process-title', process.slug
+              assert_equal "new-process-title", process.slug
 
-              # check empty stages are created
-              assert_equal ::GobiertoParticipation::ProcessStage.stage_types.keys.size, process.stages.size
+              # check information stage are created
+              assert_equal 1, process.stages.size
+
+              activity = Activity.last
+              assert_equal process, activity.subject
+              assert_equal admin, activity.author
+              assert_equal site.id, activity.site_id
+              assert_equal "gobierto_participation.process_created", activity.action
             end
           end
         end

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
-    class PersonStatementForm
-      include ActiveModel::Model
+    class PersonStatementForm < BaseForm
+
       include ::GobiertoCommon::DynamicContentFormHelper
       prepend ::GobiertoCommon::Trackable
 
@@ -20,7 +22,8 @@ module GobiertoAdmin
 
       delegate :persisted?, to: :person_statement
 
-      validates :title_translations, :published_on, :person, :site, presence: true
+      validates :published_on, presence: true
+      validates :title_translations, translated_attribute_presence: true
 
       trackable_on :person_statement
 
@@ -67,13 +70,13 @@ module GobiertoAdmin
         @attachment_url ||= begin
           return person_statement.attachment_url unless attachment_file.present?
 
-          FileUploadService.new(
+          GobiertoAdmin::FileUploadService.new(
             site: person.site,
             collection: person_statement.model_name.collection,
             attribute_name: :attachment,
             file: attachment_file,
             content_disposition: "attachment"
-          ).call
+          ).upload!
         end
       end
 
@@ -132,13 +135,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

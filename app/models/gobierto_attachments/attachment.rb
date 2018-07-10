@@ -4,16 +4,20 @@ require_dependency 'gobierto_attachments'
 
 module GobiertoAttachments
   class Attachment < ApplicationRecord
+    acts_as_paranoid column: :archived_at
+
     paginates_per 8
 
     attr_accessor :admin_id
 
+    include ActsAsParanoidAliases
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
 
-    MAX_FILE_SIZE_IN_MBYTES = 10
+    MAX_FILE_SIZE_IN_MBYTES = 50
     MAX_FILE_SIZE_IN_BYTES  = MAX_FILE_SIZE_IN_MBYTES.megabytes
 
     default_scope { order(id: :desc) }
@@ -47,6 +51,7 @@ module GobiertoAttachments
 
     after_create :add_item_to_collection
     before_validation :update_file_attributes
+    after_restore :set_slug
 
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }
@@ -67,17 +72,17 @@ module GobiertoAttachments
     end
 
     def self.file_attachments_in_collections(site)
-      ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoAttachments::Attachment').map(&:item_id)
+      ids = GobiertoCommon::CollectionItem.attachments.map(&:item_id)
       where(id: ids, site: site)
     end
 
     def self.attachments_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoAttachments::Attachment", container_type: container_type).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.attachments.by_container_type(container_type).pluck(:item_id)
       where(id: ids, site: site)
     end
 
     def self.attachments_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoAttachments::Attachment", container: container).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.attachments.by_container(container).pluck(:item_id)
       where(id: ids, site: site)
     end
 
@@ -113,13 +118,15 @@ module GobiertoAttachments
     end
 
     def to_url(options = {})
-      if collection
-        if collection.container_type == "GobiertoParticipation::Process"
-          url_helpers.gobierto_participation_process_attachment_url({ id: slug, process_id: collection.container.slug, host: app_host }.merge(options))
-        elsif collection.container_type == "GobiertoParticipation"
-          url_helpers.gobierto_participation_attachment_url({ id: slug, host: app_host }.merge(options))
-        end
-      end
+      return url_helpers.gobierto_attachments_document_url({ id: slug, host: app_host }.merge(options))
+    end
+
+    def human_readable_path
+      url_helpers.gobierto_attachments_attachment_path(id: id)
+    end
+
+    def human_readable_url
+      url_helpers.gobierto_attachments_attachment_url(id: id, host: site.domain)
     end
 
     def add_item_to_collection

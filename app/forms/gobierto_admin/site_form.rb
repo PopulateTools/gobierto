@@ -1,23 +1,22 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
-  class SiteForm
-    include ActiveModel::Model
+  class SiteForm < BaseForm
 
     GOOGLE_ANALYTICS_ID_REGEXP = /\AUA-\d{4,10}-\d{1,4}\z/
 
     attr_accessor(
       :id,
-      :external_id,
       :title_translations,
       :name_translations,
       :domain,
       :configuration_data,
-      :location_name,
-      :location_type,
-      :institution_url,
-      :institution_type,
-      :institution_email,
-      :institution_address,
-      :institution_document_number,
+      :organization_name,
+      :organization_url,
+      :organization_type,
+      :organization_email,
+      :organization_address,
+      :organization_document_number,
       :head_markup,
       :foot_markup,
       :links_markup,
@@ -29,17 +28,21 @@ module GobiertoAdmin
       :created_at,
       :updated_at,
       :creation_ip,
-      :municipality_id,
+      :organization_id,
       :logo_file,
       :available_locales,
       :default_locale,
       :privacy_page_id,
       :populate_data_api_token,
       :home_page,
-      :home_page_item_id
+      :home_page_item_id,
+      :raw_configuration_variables,
+      :auth_modules
     )
 
     attr_reader :logo_url
+
+    attr_writer :engine_overrides
 
     delegate :persisted?, to: :site
 
@@ -54,9 +57,13 @@ module GobiertoAdmin
     validates :available_locales, length: { minimum: 1 }
     validates :default_locale, presence: true
     validates :home_page, presence: true
+    validates :organization_name, presence: true
 
     def save
-      save_site if valid?
+      if valid? && save_site
+        after_save_callback
+        return site
+      end
     end
 
     def site
@@ -65,6 +72,35 @@ module GobiertoAdmin
 
     def site_modules
       @site_modules ||= site.configuration.modules
+    end
+
+    def auth_modules
+      @auth_modules = if @auth_modules
+                        @auth_modules & AUTH_MODULES.select do |auth_module|
+                          domains = auth_module.domains
+                          !domains || domains.include?(site.domain)
+                        end.map(&:name)
+                      else
+                        site.configuration.auth_modules
+                      end
+    end
+
+    def engine_overrides_param=(engine_overrides)
+      if engine_overrides.is_a? String
+        engine_overrides = engine_overrides.split(/[;,\s]+/)
+      end
+      engine_overrides_base_path = Rails.root.join("vendor/gobierto_engines/")
+      @engine_overrides = engine_overrides.select do |engine|
+        Dir.exist?(File.join(engine_overrides_base_path, engine))
+      end
+    end
+
+    def engine_overrides
+      @engine_overrides ||= site.configuration.engine_overrides
+    end
+
+    def engine_overrides_param
+      @engine_overrides_param ||= engine_overrides.join(", ")
     end
 
     def head_markup
@@ -119,16 +155,20 @@ module GobiertoAdmin
       @populate_data_api_token ||= site.configuration.populate_data_api_token
     end
 
+    def raw_configuration_variables
+      @raw_configuration_variables ||= site.configuration.raw_configuration_variables
+    end
+
     def logo_url
       @logo_url ||= begin
         return site.configuration.logo unless logo_file.present?
 
-        FileUploadService.new(
+        GobiertoAdmin::FileUploadService.new(
           site: site,
           collection: site.model_name.collection,
           attribute_name: :logo,
           file: logo_file
-        ).call
+        ).upload!
       end
     end
 
@@ -143,14 +183,13 @@ module GobiertoAdmin
         site_attributes.title_translations = title_translations
         site_attributes.name_translations = name_translations
         site_attributes.domain = domain
-        site_attributes.location_name = location_name
-        site_attributes.municipality_id = municipality_id
-        site_attributes.location_type = location_type
-        site_attributes.institution_url = institution_url
-        site_attributes.institution_type = institution_type
-        site_attributes.institution_email = institution_email
-        site_attributes.institution_address = institution_address
-        site_attributes.institution_document_number = institution_document_number
+        site_attributes.organization_name = organization_name
+        site_attributes.organization_id = organization_id
+        site_attributes.organization_url = organization_url
+        site_attributes.organization_type = organization_type
+        site_attributes.organization_email = organization_email
+        site_attributes.organization_address = organization_address
+        site_attributes.organization_document_number = organization_document_number
         site_attributes.visibility_level = visibility_level
         site_attributes.creation_ip = creation_ip
         site_attributes.configuration.home_page = home_page
@@ -167,7 +206,12 @@ module GobiertoAdmin
         site_attributes.configuration.available_locales = (available_locales.select{ |l| l.present? } + [default_locale]).uniq
         site_attributes.configuration.privacy_page_id = privacy_page_id
         site_attributes.configuration.populate_data_api_token = populate_data_api_token
+        site_attributes.configuration.raw_configuration_variables = raw_configuration_variables
+        site_attributes.configuration.auth_modules = auth_modules
+        site_attributes.configuration.engine_overrides = engine_overrides
       end
+
+      @organization_id_changed = @site.organization_id_changed?
 
       if @site.valid?
         @site.save
@@ -182,12 +226,15 @@ module GobiertoAdmin
       visibility_level == "draft"
     end
 
+    def organization_id_changed?
+      @organization_id_changed
+    end
+
     protected
 
-    def promote_errors(errors_hash)
-      errors_hash.each do |attribute, message|
-        errors.add(attribute, message)
-      end
+    def after_save_callback
+      ::GobiertoBudgets::GenerateAnnualLinesJob.perform_later(@site) if organization_id_changed?
     end
+
   end
 end

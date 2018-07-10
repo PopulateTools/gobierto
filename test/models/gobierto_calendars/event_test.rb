@@ -114,5 +114,21 @@ module GobiertoCalendars
       assert event.upcoming?
       refute past_event.upcoming?
     end
+
+    def test_searchable_description
+      assert event.searchable_description.include?('The President will analyze the progress of the measures adopted in the first days of the Government.')
+      assert event.searchable_description.include?('El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.')
+    end
+
+    def test_searchable_description_when_empty
+      new_event = ::GobiertoCalendars::Event.new
+      assert_equal "", new_event.searchable_description
+    end
+
+    def test_destroy
+      event.destroy
+
+      assert event.slug.include?("archived-")
+    end
   end
 end

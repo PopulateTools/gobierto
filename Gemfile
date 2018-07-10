@@ -2,26 +2,28 @@
 
 source "https://rubygems.org"
 
-gem "actionpack-action_caching", git: "https://github.com/rails/actionpack-action_caching.git", ref: "9044141824650138bf27741e8f0ed95ccd9ef26d"
+gem "actionpack-action_caching"
 gem "active_model_serializers"
 gem "bcrypt", "~> 3.1.0"
 gem "cookies_eu"
 gem "dalli"
-gem "data_migrate"
 gem "ine-places", "0.2.0"
 gem "jbuilder", "~> 2.5"
 gem "mechanize"
 gem "meta-tags"
 gem "paper_trail"
+gem "paranoia"
 gem "pg", "~> 0.19"
-gem "rails", "~> 5.1.1"
+gem "rails", "~> 5.2.0"
 gem "redcarpet", require: true
 gem "responders"
 gem "rollbar"
 gem "ruby_px"
+gem "before_renders"
+gem "bootsnap"
 
 # Frontend
-gem "bourbon"
+gem "bourbon", "~> 4.3.4"
 gem "cocoon"
 gem "d3-rails", "~> 4.8"
 gem "flight-for-rails"
@@ -32,12 +34,16 @@ gem "therubyracer"
 gem "turbolinks"
 gem "uglifier", ">= 1.3.0"
 
+# Webpack
+gem "webpacker", "~> 3.0"
+
 # Elasticsearch
 gem "elasticsearch"
 gem "elasticsearch-extensions"
 
 # Background processing
-gem "sidekiq", "~> 5.0.4"
+gem "sidekiq", "~> 5.1.0"
+gem "sidekiq-monitor-stats"
 
 # AWS SDK client
 gem "aws-sdk", "~> 2.6", require: false
@@ -63,46 +69,56 @@ gem "invisible_captcha"
 gem "redis", "~> 3.3"
 
 # Translations
-gem "i18n-active_record", require: "i18n/active_record"
-gem "json_translate", "~> 3.0"
+gem "json_translate", "~> 4.0"
 
 # Liquid
 gem "liquid", "~> 4.0"
+gem "liquid-rails", "~> 0.2.0"
 
 # Google API
+gem "geocoder"
 gem "google-api-client"
 
 # Microsoft Exchange calendars
 gem "exchanger"
 
+# Web Services
+gem "savon", "~> 2.11.1"
+
+# Image management
+gem "cloudinary"
+
+# Gobierto data
+gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
   gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
+  gem "puma"
 end
 
 group :test do
   gem "capybara"
   gem "capybara-email"
   gem "codecov", "~> 0.1.9", require: false
-  gem "database_cleaner"
   gem "launchy"
-  gem "minitest-rails"
-  gem "minitest-rails-capybara"
+  gem "minitest", "5.11.3"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"
+  gem "minitest-stub-const"
   gem "mocha"
   gem "poltergeist"
   gem "spy"
   gem "timecop"
   gem "vcr"
   gem "webmock"
-  gem "minitest-test_profile"
 end
 
 group :development do
-  gem "puma"
   gem "rubocop"
+  gem "listen"
+  gem "spring-watcher-listen", "~> 2.0.0"
+  gem "foreman"
 end

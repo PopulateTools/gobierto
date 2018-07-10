@@ -24,6 +24,8 @@ en:
           comparison_show_widget_desc: 'Enable the acces to the Gobierto budgets comparison
             tool: presupuestos.gobierto.es'
           comparison_tool_enabled_desc: Enable comparison tools
+          confirm_update_annual_data: A background process will start to update files.
+            Continue?
           elaboration: Elaboration
           elaboration_desc1: Enable budgets elaboration section
           elaboration_desc2_html: "<strong>Important:</strong> it's necessary to load
@@ -33,11 +35,16 @@ en:
             on budget lines
           feedback_emails_desc: The feedback (opinions about budget lines) will be
             sent to this email
+          indicators: Indicators
+          indicators_desc1: Enable the section Indicators
           options: Options
+          providers: Providers and Invoices
+          providers_desc1: Enable the section Providers and Invoices
           receipt: Taxes receipt
           receipt_desc1: Enable budgets taxes receipt section
           receipt_desc2_html: "<strong>Important:</strong> it's necessary to fill
             the JSON with the data."
+          update_annual_data: Generate budget lines by year files
       shared:
         tabs:
           budgets: Budgets

@@ -71,12 +71,8 @@ module GobiertoBudgetConsultations
 
     def test_preview_draft_page_if_not_admin
       with_current_site(site) do
-        assert_raises ActiveRecord::RecordNotFound do
-          visit gobierto_budget_consultations_consultation_path(draft_consultation)
-        end
-
-        # assert_response :not_found
-        refute has_selector?("h2", text: draft_consultation.title)
+        visit gobierto_budget_consultations_consultation_path(draft_consultation)
+        assert_equal 404, page.status_code
       end
     end
   end

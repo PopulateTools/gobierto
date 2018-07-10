@@ -5,9 +5,16 @@ ca:
       processes:
         create:
           add_stages: Ara pots afegir fases
-          success_html: Procés creat correctament. <a href="%{link}">Veure procés</a>.
+          success_group_process_html: Grup creat correctament. <a href="%{link}">Veure
+            grup</a>.
+          success_process_html: Procés creat correctament. <a href="%{link}">Veure
+            procés</a>.
+        destroy:
+          success_group_process: El grup ha estat arxivat correctament
+          success_process: El procés ha estat arxivat correctament
         edit:
-          title: Edita el procés
+          edit_group_process: Edita el grup
+          edit_process: Edita el procés
         form:
           duration: Durada
           placeholders:
@@ -38,6 +45,7 @@ ca:
             title: Aportacions
             visibility_level:
               active: Publicada
+              archived: Arxivada
               draft: Esborrany
           show:
             comments: Comentaris
@@ -54,27 +62,21 @@ ca:
         process_file_attachments:
           index:
             configuration: Configuració
-        process_information:
-          edit:
-            information: Informació
-          form:
-            placeholders:
-              information_text: Informació
-          update:
-            success: Procés actualitzat correctament
         process_pages:
           index:
             configuration: Configuració
         process_stages:
-          active: Activa
-          cancel: Cancel·lar
-          edit: Edita
-          edit_stage: Edita fase
-          placeholders:
-            body: ex. En aquesta fase es pretén ...
-            cta_text: ex. Aportar idea
-            title: ex. Fase principal
-          save: Guardar
-          stages_and_tools: Fases i eines
+          process_stages:
+            add_new_stage: Afegir nova fase
+            draft: Esborrany
+            drag_to_sort: Arrastra per a ordenar
+            manage: Gestionar
+            published: Publicada
+        recover:
+          success_group_process: El grup ha estat recuperat correctament
+          success_process: El procés ha estat recuperat correctament
         update:
-          success_html: Procés actualitzat correctament. <a href="%{link}">Veure procés</a>.
+          success_group_process_html: Grup actualitzat correctament. <a href="%{link}">Veure
+            grup</a>.
+          success_process_html: Procés actualitzat correctament. <a href="%{link}">Veure
+            procés</a>.

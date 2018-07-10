@@ -2,9 +2,7 @@
 
 module GobiertoAdmin
   module GobiertoCms
-    class PageForm
-      include ActiveModel::Model
-      prepend ::GobiertoCommon::Trackable
+    class PageForm < BaseForm
 
       attr_accessor(
         :id,
@@ -18,6 +16,7 @@ module GobiertoAdmin
         :slug,
         :attachment_ids,
         :section,
+        :published_on,
         :parent
       )
 
@@ -25,10 +24,6 @@ module GobiertoAdmin
 
       validates :site, :visibility_level, :collection_id, presence: true
       validate :confirm_presence_of_homepage
-
-      trackable_on :page
-
-      notify_changed :visibility_level
 
       def save
         save_page if valid?
@@ -56,6 +51,16 @@ module GobiertoAdmin
 
       def visibility_level
         @visibility_level ||= "draft"
+      end
+
+      def published_on
+        @published_on ||= Time.zone.now
+
+        if @published_on.respond_to?(:strftime)
+          @published_on.strftime("%Y-%m-%d %H:%M")
+        else
+          @published_on
+        end
       end
 
       private
@@ -103,6 +108,7 @@ module GobiertoAdmin
           page_attributes.body_source_translations = body_source_translations
           page_attributes.slug = slug
           page_attributes.visibility_level = visibility_level
+          page_attributes.published_on = published_on
           if page.new_record? && attachment_ids.present?
             if attachment_ids.is_a?(String)
               page_attributes.attachment_ids = attachment_ids.split(",")
@@ -113,10 +119,8 @@ module GobiertoAdmin
         end
 
         if @page.valid?
+          @page.save
 
-          run_callbacks(:save) do
-            @page.save
-          end
           save_section_item(@page.id, section, parent)
 
           @page
@@ -135,13 +139,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

@@ -11,5 +11,6 @@ ca:
           currency: Moneda
           date: Data
           text: Tipus de camp
+          url: URL
     models:
       gobierto_common/content_block_field: Camp

@@ -19,7 +19,7 @@ en:
           title: CMS
           view_collection: See collection
         new_modal:
-          title: New theme
+          title: New collection
         show:
           configuration: Configuration
           file_attachments:
@@ -31,8 +31,10 @@ en:
           pages:
             created_at: Created at
             public: Public
+            published_on: Published on
             updated_at: Updated at
             view: View page
             visibility_level:
               active: Published
+              archived: Archived
               draft: Draft

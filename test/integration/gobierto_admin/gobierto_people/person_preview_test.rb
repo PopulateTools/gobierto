@@ -75,12 +75,8 @@ module GobiertoAdmin
 
       def test_preview_draft_page_if_not_admin
         with_current_site(site) do
-          assert_raises ActiveRecord::RecordNotFound do
-            visit gobierto_people_person_path(draft_person.slug)
-          end
-
-          # assert_response :not_found
-          refute has_selector?("h2", text: draft_person.name)
+          visit gobierto_people_person_path(draft_person.slug)
+          assert_equal 404, page.status_code
         end
       end
     end

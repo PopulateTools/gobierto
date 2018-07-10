@@ -1,6 +1,7 @@
 module GobiertoAdmin
   class SessionsController < BaseController
     skip_before_action :authenticate_admin!, only: [:new, :create, :destroy]
+    skip_before_action :set_admin_site, only: [:new, :destroy]
     before_action :require_no_authentication, only: [:new, :create]
 
     layout "gobierto_admin/layouts/sessions"

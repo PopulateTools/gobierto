@@ -1,8 +1,12 @@
+# votes on cinema contribution
+
 cinema_reed_vote:
   votable: cinema (GobiertoParticipation::Contribution)
   user: reed
   site: madrid
   vote_weight: 1
+
+# votes on park contribution
 
 park_susan_vote:
   votable: park (GobiertoParticipation::Contribution)
@@ -16,6 +20,8 @@ park_reed_vote:
   site: madrid
   vote_weight: 2
 
+# votes on activities contribution
+
 activities_susan_vote:
   votable: activities (GobiertoParticipation::Contribution)
   user: susan
@@ -28,11 +34,15 @@ activities_reed_vote:
   site: madrid
   vote_weight: 2
 
-urban_orchard_reed_vote:
-  votable: urban_orchard (GobiertoParticipation::Contribution)
-  user: reed
+# votes on bad losers contribution
+
+bad_losers_contribution_peter_vote:
+  votable: bad_losers_contribution (GobiertoParticipation::Contribution)
+  user: peter
   site: madrid
   vote_weight: 1
+
+# votes on a comment
 
 comment_susan_vote:
   votable: park_reed_comment (GobiertoParticipation::Comment)

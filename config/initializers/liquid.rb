@@ -2,6 +2,4 @@
 
 Liquid::Template.error_mode = :lax
 
-require "liquid/tags/page_url"
-require "liquid/tags/page_title"
-require "liquid/tags/list_children_pages"
+Dir[Rails.root.join("lib/liquid/**/*.rb")].each {|file| require file }

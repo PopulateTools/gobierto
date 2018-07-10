@@ -122,19 +122,8 @@ module GobiertoAdmin
 
       def test_preview_draft_statement_if_not_admin
         with_current_site(site) do
-          assert_raises ActiveRecord::RecordNotFound do
-            visit gobierto_people_person_statement_path(draft_statement.person.slug, draft_statement.slug)
-          end
-
-          refute has_selector?("h3", text: draft_statement.title)
-
-          draft_statement.person.draft!
-
-          assert_raises ActiveRecord::RecordNotFound do
-            visit gobierto_people_person_statement_path(draft_statement.person.slug, draft_statement.slug)
-          end
-
-          refute has_selector?("h3", text: draft_statement.title)
+          visit gobierto_people_person_statement_path(draft_statement.person.slug, draft_statement.slug)
+          assert_equal 404, page.status_code
         end
       end
     end

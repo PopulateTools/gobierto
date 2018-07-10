@@ -7,10 +7,11 @@ class User < ApplicationRecord
 
   EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 
-  belongs_to :source_site, class_name: "Site"
+  belongs_to :site
 
   has_many :verifications, class_name: "User::Verification", dependent: :destroy
   has_many :census_verifications, class_name: "User::Verification::CensusVerification"
+  has_many :id_number_verifications, class_name: "User::Verification::IdNumber"
   has_many :subscriptions, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :custom_records, dependent: :destroy, class_name: "GobiertoCommon::CustomUserFieldRecord"
@@ -21,11 +22,11 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :custom_records
 
-  validates :email, uniqueness: true
+  validates :email, uniqueness: { scope: :site }
 
   scope :census_verified, -> { where(census_verified: true) }
   scope :sorted, -> { order(created_at: :desc) }
-  scope :by_source_site, ->(source_site) { where(source_site: source_site) }
+  scope :by_site, ->(site) { where(site: site) }
 
   enum gender: { male: 0, female: 1 }
   enum notification_frequency: {

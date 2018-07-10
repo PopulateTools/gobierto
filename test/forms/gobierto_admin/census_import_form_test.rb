@@ -68,7 +68,7 @@ module GobiertoAdmin
     def test_user_verifications_recalculation
       assert user_verification.verified
 
-      assert_performed_jobs 2 do
+      assert_performed_jobs 3 do
         valid_user_census_import_form.save
       end
 

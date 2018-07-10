@@ -11,6 +11,7 @@ en:
           category:
             executive: Executive
             politician: Politician
+          crop: Crop
           party:
             government: Government Team
             opposition: Opposition
@@ -22,7 +23,7 @@ en:
           configuration: Configuration
           drag_to_sort: Drag to sort
           header:
-            charge: Charge
+            charge: Position
             events: Events
             person: Person
             posts: Posts

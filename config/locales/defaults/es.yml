@@ -41,6 +41,7 @@ es:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
       short: "%d %b %Y"
+      shortest: "%d %b %y"
     month_names:
     - 
     - enero
@@ -113,7 +114,9 @@ es:
         Puedes verlo <a href="%{url}">aquí</a>.
       array_too_short: es demasiado corto (al menos ${count} elemento)
       blank: no puede estar en blanco
-      blank_for_modules: tiene que ser un municipio para que los módulos activos funcionen
+      blank_for_modules: La organización no está bien configurada. El identificador
+        es obligatorio para los módulos que tienes activados.
+      collection_taken: no puede tener otra colección de este tipo.
       confirmation: no coincide
       empty: no puede estar vacío
       equal_to: debe ser igual a %{count}
@@ -149,7 +152,7 @@ es:
         other: No se pudo guardar este/a %{model} porque se encontraron %{count} errores
   helpers:
     select:
-      prompt: Por favor seleccione
+      prompt: "-- selecciona --"
     submit:
       create: Crear
       submit: Guardar
@@ -218,6 +221,7 @@ es:
     am: am
     formats:
       default: "%A, %d de %B de %Y %H:%M:%S %z"
+      from_to: Del %{starts} al %{ends}
       long: "%d de %B de %Y %H:%M"
       short: "%d de %b %H:%M"
     pm: pm

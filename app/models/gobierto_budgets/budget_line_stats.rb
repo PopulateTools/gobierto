@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class BudgetLineStats
     def initialize(options)
       @site = options.fetch :site
-      @place = @site.place
+      @organization_id = @site.organization_id
       @budget_line = options.fetch :budget_line
       @kind = @budget_line.kind
       @area_name = @budget_line.area_name
@@ -11,24 +13,24 @@ module GobiertoBudgets
     end
 
     def amount(year = nil)
-      budget_line_planned_query(year, 'amount')
+      budget_line_planned_query(year, "amount")
     end
-    alias_method :amount_planned, :amount
+    alias amount_planned amount
 
     def amount_updated(year = nil)
-      budget_line_planned_updated_query(year, 'amount')
+      budget_line_planned_updated_query(year, "amount")
     end
 
     def amount_executed(year = nil)
-      budget_line_executed_query(year, 'amount')
+      budget_line_executed_query(year, "amount")
     end
 
     def amount_per_inhabitant(year = nil)
-      budget_line_planned_query(year, 'amount_per_inhabitant')
+      budget_line_planned_query(year, "amount_per_inhabitant")
     end
 
     def amount_per_inhabitant_updated(year = nil)
-      budget_line_planned_updated_query(year, 'amount_per_inhabitant')
+      budget_line_planned_updated_query(year, "amount_per_inhabitant")
     end
 
     def percentage_of_total(year = nil)
@@ -38,7 +40,7 @@ module GobiertoBudgets
       if diff
         diff = diff.to_f * 100
 
-        "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}%"
+        "#{ ActionController::Base.helpers.number_with_precision(diff, precision: 2) } %"
       else
         ""
       end
@@ -53,69 +55,70 @@ module GobiertoBudgets
         year1 = options.fetch(:year1)
         year2 = options.fetch(:year2)
 
-        v1 = self.send(variable1, year1)
-        v2 = self.send(variable1, year2)
+        v1 = send(variable1, year1)
+        v2 = send(variable1, year2)
       else
-        v1 = self.send(variable1, year)
-        v2 = self.send(variable2, year)
+        v1 = send(variable1, year)
+        v2 = send(variable2, year)
       end
       return nil if v1.nil? || v2.nil?
-      diff = ((v1.to_f - v2.to_f)/v2.to_f) * 100
+      diff = ((v1.to_f - v2.to_f) / v2.to_f) * 100
 
       return nil if diff == Float::INFINITY
 
       diff += 100
 
-      "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}%"
+      "#{ ActionController::Base.helpers.number_with_precision(diff, precision: 2) } %"
     end
 
     def mean_province
-      mean_province_query(@year, 'amount')
+      mean_province_query(@year, "amount")
     end
 
     private
 
     def total_budget
-      total_budget_planned_query(@year, 'total_budget')
+      total_budget_planned_query(@year, "total_budget")
     end
 
     def budget_line_planned_query(year, attribute)
       year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: @area_name, id: [@place.id, year, @code, @kind].join('/')
-      result['_source'][attribute]
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: @area_name, id: [@organization_id, year, @code, @kind].join("/")
+      result["_source"][attribute]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end
 
     def budget_line_planned_updated_query(year, attribute)
       year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated, type: @area_name, id: [@place.id, year, @code, @kind].join('/')
-      result['_source'][attribute]
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated, type: @area_name, id: [@organization_id, year, @code, @kind].join("/")
+      result["_source"][attribute]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end
 
     def budget_line_executed_query(year, attribute)
       year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, type: @area_name, id: [@place.id, year, @code, @kind].join('/')
-      result['_source'][attribute]
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, type: @area_name, id: [@organization_id, year, @code, @kind].join("/")
+      result["_source"][attribute]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end
 
     def total_budget_planned_query(year, attribute)
       result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, @kind].join('/')
-      result['_source'][attribute].to_f
+                                                        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@organization_id, year, @kind].join("/")
+      result["_source"][attribute].to_f
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end
 
     def mean_province_query(year, attribute)
-      filters = [ {term: { province_id: @place.province_id }} ]
-      filters.push({term: { code: @code }})
-      filters.push({term: { kind: @kind }})
-      filters.push({term: { year: year }})
+      filters = []
+      filters.push(term: { province_id: @site.place.province_id }) if @site.place.present?
+      filters.push(term: { code: @code })
+      filters.push(term: { kind: @kind })
+      filters.push(term: { year: year })
 
       query = {
         query: {
@@ -137,7 +140,7 @@ module GobiertoBudgets
             "aggs": {
               "budget_sum": {
                 "sum": {
-                  "field": "#{attribute}"
+                  "field": attribute.to_s
                 }
               }
             }
@@ -148,8 +151,8 @@ module GobiertoBudgets
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: @area_name, body: query
 
       result = nil
-      response['aggregations']["#{attribute}_per_year"]['buckets'].each do |r|
-        result = (r['budget_sum']['value'].to_f / r['doc_count'].to_f).round(2)
+      response["aggregations"]["#{ attribute }_per_year"]["buckets"].each do |r|
+        result = (r["budget_sum"]["value"].to_f / r["doc_count"].to_f).round(2)
       end
       result
     end

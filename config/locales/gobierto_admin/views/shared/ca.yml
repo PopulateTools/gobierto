@@ -19,9 +19,17 @@ ca:
         save: Desar
         search: Cercar
         select_file: Tria un arxiu del disc dur
+      archive:
+        confirm: "¿Segur que vols arxivar aquest element? No es mostrarà al front
+          ni en llistes com aquesta. Vostè podrà recuperar-lo."
+        element: Arxivar aquest element
+        elements: Elements arxivats
       form_locale_switchers:
         define_content_in_locale: Defineix el contingut en la versió en %{locale_name}
         translate: Traduxir
+      recover:
+        confirm: Si es recupera un element, es tornarà a llistar de nou.
+        element: Recuperar element
       save_widget:
         save: Guardar
         visibility_level:

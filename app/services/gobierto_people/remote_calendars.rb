@@ -1,13 +1,24 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class RemoteCalendars
 
     def self.sync
-      Site.with_agendas_integration_enabled.each do |site|
+      ::GobiertoCalendars::CalendarConfiguration.all.each do |calendar_configuration|
+        collection = calendar_configuration.collection
+        container = collection.container
+        site = collection.site
+        calendar_integration = collection.calendar_integration
+
         I18n.locale = site.configuration.default_locale
-        calendar_integration = site.calendar_integration
-        Rails.logger.info "[SYNC AGENDAS] Site: #{site.domain} Service: #{calendar_integration}"
-        site.people.with_calendar_configuration.each do |person|
-          calendar_integration.sync_person_events(person)
+
+        begin
+          calendar_integration.new(container).sync!
+          Publishers::AdminGobiertoCalendarsActivity.broadcast_event('calendars_synchronized', { ip: '127.0.0.1',  subject: container, site_id: site.id })
+        rescue GobiertoCalendars::CalendarIntegration::Error
+          # Rescue this errors because they're just meant to display error feedback in the UI
+        rescue StandardError => e
+          Rollbar.error(e)
         end
       end
     end

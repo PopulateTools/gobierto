@@ -5,6 +5,7 @@ require "test_helper"
 module GobiertoAdmin
   module GobiertoCms
     class UpdatePageTest < ActionDispatch::IntegrationTest
+
       def setup
         super
         @path = admin_cms_pages_path
@@ -26,6 +27,10 @@ module GobiertoAdmin
         @collection ||= gobierto_common_collections(:news)
       end
 
+      def current_uri_query_params
+        URI.parse(current_url).query
+      end
+
       def test_update_page
         with_javascript do
           with_signed_in_admin(admin) do
@@ -35,26 +40,45 @@ module GobiertoAdmin
                 click_link "News"
               end
 
-              assert has_selector?("h1", text: collection.title)
+              assert has_selector?("h1", text: "CMS")
 
               click_link cms_page.title
 
               fill_in "page_title_translations_en", with: "Themes updated"
               fill_in "page_slug", with: "themes-updated"
+              fill_in "page_published_on", with: "2017-01-01 00:00"
 
               click_button "Update"
 
               assert has_message?("Page updated successfully")
+
               assert has_field?("page_slug", with: "themes-updated")
+              assert has_field?("page_published_on", with: "2017-01-01 00:00")
 
               assert_equal(
                 "These are the themes",
-                find("#body_translations_en", visible: false).value
+                find("#page_body_translations_en", visible: false).value
               )
             end
           end
         end
       end
+
+      def test_update_page_and_switch_locale
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+
+            visit edit_admin_cms_page_path(cms_page, collection_id: collection.id)
+
+            assert_equal "collection_id=#{collection.id}", current_uri_query_params
+
+            within(".language_selector") { click_link "ES" }
+
+            assert_equal "collection_id=#{collection.id}&locale=es", current_uri_query_params
+          end
+        end
+      end
+
     end
   end
 end

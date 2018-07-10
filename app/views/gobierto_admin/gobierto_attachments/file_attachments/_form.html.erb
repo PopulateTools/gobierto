@@ -7,7 +7,10 @@
         <% if f.object.url.present? %>
           <%= filetype_icon(f.object.url) %>
         <% end %>
-        <%= f.label :file, t('.file_constraints') %>
+        <%= label_tag "file_attachment[file]" do %>
+          <%= t('.file_constraints') %>
+          <%= attribute_indication_tag required: true %>
+        <% end %>
         <%= f.file_field :file %>
       </div>
 

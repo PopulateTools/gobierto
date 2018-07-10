@@ -12,11 +12,13 @@ Gobierto modules implement well defined and isolated features of the application
 
 - Gobierto Budgets: municipalities budgets visualization.
 - Gobierto Officials: senior officials official information and agenda publication.
-- Gobierto Indicators: indicators and statics of a municipality.
+- Gobierto Observatory: indicators and statics of a municipality.
 - Gobierto CMS: small CMS system.
 - Gobierto Participation: participation in phased processes.
+- Gobierto Indicators: indicators ita, informparticipa and gci
+- Gobierto Plans: plans
 
-Modules can be activated or disabled by the **metadministrator**, but their code will be included in all the installations of Gobierto.
+Modules can be activated or disabled by the **manager**, but their code will be included in all the installations of Gobierto.
 
 This page describes the steps needed to create a new module and integrate it in the application.
 
@@ -38,14 +40,15 @@ default: &default
 When you create a module, you must define the root_path in config/routes.rb
 
 ```ruby
-  # Gobierto People module
-  namespace :gobierto_people, path: "/" do
-    constraints GobiertoSiteConstraint.new do
-      get "cargos-y-agendas" => "welcome#index", as: :root
-
+# Gobierto People module
+namespace :gobierto_people, path: "/" do
+  constraints GobiertoSiteConstraint.new do
+    get "cargos-y-agendas" => "welcome#index", as: :root
+  end
+end
 ```
 
-Nowadays, we have 4 modules (Gobierto Budgets, Gobierto People, Gobierto Participation, Gobierto Indicators) that have root_path to be the home page.
+Nowadays, we have 5 modules (Gobierto Budgets, Gobierto People, Gobierto Participation, Gobierto Observatory and Gobierto Indicators) that have root_path to be the home page.
 
 ```yml
 default: &default
@@ -60,8 +63,14 @@ default: &default
       name: Gobierto Participation
       namespace: GobiertoParticipation
     -
+      name: Gobierto Observatory
+      namespace: GobiertoObservatory
+    -
       name: Gobierto Indicators
       namespace: GobiertoIndicators
+    -
+      name: Gobierto Plans
+      namespace: GobiertoPlans
 ```
 
 This namespace is applied to models, assets, helpers, controllers, views, I18n keys, tests, and the routes. This guide covers the steps you need to follow on each of those resources to enable the new module.
@@ -336,6 +345,13 @@ module Subscribers
 end
 ```
 
+If you want the activities to be viewed from the "Activity log", you should make
+sure to mark:
+
+```ruby
+admin_activity: true
+```
+
 These events have to be called from the controller with **track_create_activity**:
 
 ```ruby
@@ -447,3 +463,8 @@ module GobiertoSeeds
   end
 end
 ```
+
+
+## Notifications
+
+Does the new module expose resources to be subscribed to? Examples of subscribable resources are people agendas, or a participatory process. If so you need to add it to the constant [`MODULES_WITH_NOTIFICATIONS`](https://github.com/PopulateTools/gobierto/blob/41-ibm-notes-attachments/app/models/site_configuration.rb#L21).

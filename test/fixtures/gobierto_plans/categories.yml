@@ -1,0 +1,65 @@
+city:
+  name_translations: <%= { 'en' => 'City',
+                           'es' => 'Ciudad' }.to_json %>
+  plan: strategic_plan
+  slug: city
+  level: 0
+  uid: "2"
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+economy:
+  name_translations: <%= { 'en' => 'Economy',
+                           'es' => 'Economía' }.to_json %>
+  plan: strategic_plan
+  slug: economy
+  level: 0
+  uid: "1"
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+people_and_families:
+  name_translations: <%= { 'en' => 'People and families',
+                           'es' => 'Personas y familias' }.to_json %>
+  plan: strategic_plan
+  slug: people-and-families
+  level: 0
+  progress: 25.0
+  uid: "0"
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+welfare_payments:
+  name_translations: <%= { 'en' => 'Provide social assistance to individuals and families who need it for lack of resources',
+                           'es' => 'Proporcionar asistencia social a las personas y familias que la necesiten por falta de recursos' }.to_json %>
+  parent_id: <%= ActiveRecord::FixtureSet.identify(:people_and_families) %>
+  plan: strategic_plan
+  slug: welfare-payments
+  level: 1
+  progress: 25.0
+  uid: "0.0"
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+center_basic_needs:
+  name_translations: <%= { 'en' => 'Necesidades básicas de las familias del Distrito Centro',
+                           'es' => 'Basic needs of District Center families' }.to_json %>
+  parent_id: <%= ActiveRecord::FixtureSet.identify(:welfare_payments) %>
+  plan: strategic_plan
+  slug: center-basic-needs
+  level: 2
+  uid: "0.0.1"
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+center_scholarships:
+  name_translations: <%= { 'en' => 'Scholarships for families in the Central District',
+                           'es' => 'Becas las familias del Distrito Centro' }.to_json %>
+  parent_id: <%= ActiveRecord::FixtureSet.identify(:welfare_payments) %>
+  plan: strategic_plan
+  slug: center-basic-needs
+  level: 2
+  progress: 50.0
+  uid: "0.0.0"
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00

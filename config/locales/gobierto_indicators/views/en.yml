@@ -1,123 +1,46 @@
 ---
 en:
   gobierto_indicators:
-    cards:
-      active_pop:
-        figure_first: of total
-        figure_second: people
-        title: Active population
-      births:
-        country: Country average
-        place: "%{place}"
-        province: Province average
-        title: Birth rate
-      budget_by_inhabitant:
-        title: Budget per inhabitant
-      cars:
-        title: Cars per inhabitant
-      cars_tax:
-        figure_first: "%{place}"
-        figure_second: province average
-        title: Passenger cars tax
-      companies:
-        title: Companies
-      construction_tax:
-        figure_first: "%{place}"
-        figure_second: province average
-        title: Construction tax
-      contracts_comparison:
-        figure_first: short term
-        figure_second: long term
-        title: Contracts in the last month
-      contracts_sector:
-        agricultura: Agriculture
-        construccion: Construction
-        industria: Industry
-        servicios: Services
-        title: Contracts by sector
-      deaths:
-        country: Country average
-        place: "%{place}"
-        province: Province average
-        title: Death rate
-      debt_by_inhabitant:
-        title: Debt by inhabitant
-      economic_tax:
-        title: Economic activity tax
-      freelancers:
-        title: Freelancers
-      frequency:
-        daily: Updated daily
-        monthly: Updated monthly
-        weekly: Updated weekly
-        yearly: Updated annually
-      houses:
-        figure_first: family houses
-        figure_second: main houses
-        title: Houses
-      ibi:
-        first_column: ''
-        second_column: City
-        third_column: Rustic
-        title: Land value tax
-      income:
-        first_column: ''
-        second_column: Gross income
-        third_column: Net income
-        title: Municipality income
-      income_overview:
-        figure_first: "%{province}"
-        figure_second: Spain
-        title: Gross income
-      investment_by_inhabitant:
-        first_column: "%{place}"
-        second_column: Barcelona
-        third_column: Valencia
-        title: Investment by inhabitant
-      meta:
-        time: " in "
-        where: 'At '
-      population:
-        title: Inhabitants
-      ss_members:
-        title: Social Security affiliates
-      unemployed_sector:
-        agricultura: Agriculture
-        construccion: Construction
-        industria: Industry
-        servicios: Services
-        title: Unemployed by sector
-      updated: Last update
-    graphics:
-      age_distribution:
-        axis: years
-        label: inhabitants
-        title: Discover the age distribution of your municipality
-      rent_distribution:
-        gross_income: Gross income
-        inhabitants: Inhabitants
-        million: million
-        thousand: thousand
-        title: Wealth and population in the province
-      unemployment_age:
-        between_25_44: Between 25 and 44
-        less_25: Younger than 25
-        more_44: Older than 44
-        title: Unemployment by age
-      unemployment_rate:
-        country: Spain
-        title: Unemployment rate comparison
-      unemployment_sex:
-        men: Men
-        title: Unemployment by sex
-        women: Women
-    inhabitants: inh
-    intro: 'Understand %{place} through its main figures: the population, the employment
-      market and the economy.'
+    events:
+      gobierto_indicators_indicator_updated: Indicator updated
+    indicators:
+      gci:
+        gci_description: The GCI indicators (Global City Indicators), which reflect
+          The quality of life of the city is defined by the World Bank, association
+          with the purpose of fighting poverty and supporting development. The indicators
+          may vary according to the selected year.
+        gci_title: GCI Indicators
+        title: Indicators %{year}
+      ip:
+        ip_description: Infoparticipa és un projecte desenvolupat per el LPCCP, des
+          de l'any 2012, l'objectiu és avaluar la informació que es publica als webs
+          de les administracions públiques per promoure que millori la seva transparència
+          i qualitat.
+        ip_title: Infoparticipa Indicators
+        title: Indicators %{year}
+      ita:
+        ita_description: The indicators ITA (Index of Transparency of the City councils)
+          They are a tool that the non-governmental organization Transparency The
+          International puts at the disposal of the Spanish councils to measure your
+          level of transparency. They evaluate the management carried out by the town
+          hall of a city through an integrated set of 80 clustered indicators in various
+          areas.
+        ita_title: ITA indicators
+        title: Indicators %{year}
+      shared:
+        latest_update_html: "<strong>Latest update:</strong> %{date}"
+      template:
+        calculation: Calculation
+        'false': it's not true
+        methodology: Methodology
+        more: More information
+        source: Source
+        'true': is fulfilled
     layouts:
       application:
         indicators: Indicators
-      menu_subsections:
-        economia: Employment
-        empleo: Economy
-        poblacion: Population
+      navigation:
+        sub:
+          gci: GCI Indicators
+          ip: Infoparticipa Indicators
+          ita: ITA Indicators

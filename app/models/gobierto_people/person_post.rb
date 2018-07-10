@@ -5,6 +5,7 @@ require_dependency "gobierto_people"
 module GobiertoPeople
   class PersonPost < ApplicationRecord
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
 
@@ -34,7 +35,7 @@ module GobiertoPeople
     end
 
     def attributes_for_slug
-      [created_at.strftime("%F"), title]
+      [Time.now.strftime("%F"), title]
     end
 
     def resource_path

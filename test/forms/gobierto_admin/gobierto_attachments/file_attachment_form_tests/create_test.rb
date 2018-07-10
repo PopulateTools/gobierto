@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-require 'test_helper'
-require_relative 'base_test'
+require "test_helper"
+require_relative "base_test"
 
 module GobiertoAdmin
   module GobiertoAttachments
     module FileAttachmentFormTests
       class CreateTest < BaseTest
-
         def collection
           @collection ||= gobierto_common_collections(:files)
         end
@@ -16,11 +15,11 @@ module GobiertoAdmin
           @file_attachment_attributes ||= {
             site_id: site.id,
             admin_id: admin.id,
-            collection_id: nil,
-            name: 'New attachment name',
-            description: 'New attachment description',
+            collection_id: collection.id,
+            name: "New attachment name",
+            description: "New attachment description",
             file: uploaded_file,
-            slug: 'new-attachment-slug'
+            slug: "new-attachment-slug"
           }
         end
 
@@ -31,28 +30,28 @@ module GobiertoAdmin
 
           file_attachment = file_attachment_class.find(form.file_attachment.id)
 
-          assert_equal 'New attachment name', file_attachment.name
-          assert_equal 'New attachment description', file_attachment.description
-          assert_equal 'new-attachment-slug', file_attachment.slug
+          assert_equal "New attachment name", file_attachment.name
+          assert_equal "New attachment description", file_attachment.description
+          assert_equal "new-attachment-slug", file_attachment.slug
           assert_equal 1, file_attachment.current_version
 
-          assert_equal 'logo-madrid.png', file_attachment.file_name
-          assert_equal 'png', file_attachment.extension
+          assert_equal "logo-madrid.png", file_attachment.file_name
+          assert_equal "png", file_attachment.extension
           assert_equal file_attachment_class.file_digest(uploaded_file), file_attachment.file_digest
           assert_equal 1542, file_attachment.file_size
-          assert_equal 'http://www.domain.com/logo-madrid.png', file_attachment.url
+          assert_equal "http://www.domain.com/logo-madrid.png", file_attachment.url
         end
 
         def test_create_attachment_on_collection
           form = ::GobiertoAdmin::FileAttachmentForm.new(file_attachment_attributes.merge(
-            collection_id: collection.id
+                                                           collection_id: collection.id
           ))
 
           assert form.save
 
           file_attachment = file_attachment_class.find(form.file_attachment.id)
 
-          assert_equal 'New attachment name', file_attachment.name
+          assert_equal "New attachment name", file_attachment.name
           assert_equal collection, file_attachment.collection
         end
 
@@ -65,7 +64,7 @@ module GobiertoAdmin
 
           file_attachment = file_attachment_class.find(form.file_attachment.id)
 
-          assert_equal 'logo-madrid.png', file_attachment.name
+          assert_equal "logo-madrid.png", file_attachment.name
         end
 
         def test_create_with_duplicated_file
@@ -99,7 +98,6 @@ module GobiertoAdmin
           assert error_messages.include?(:file)
           assert error_messages.include?(:site)
         end
-
       end
     end
   end

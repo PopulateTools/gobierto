@@ -17,7 +17,7 @@ module GobiertoBudgets
           {term: { code: conditions[:code] }},
           {missing: { field: 'functional_code'}},
           {missing: { field: 'custom_code'}},
-          {term: { ine_code: conditions[:place].id }}
+          {term: { organization_id: conditions[:site].organization_id }}
         ]
 
         query = {
@@ -64,7 +64,7 @@ module GobiertoBudgets
           {term: { year: conditions[:year] }},
           {term: { code: conditions[:functional_code] }},
           {exists: { field: 'functional_code'}},
-          {term: { ine_code: conditions[:place].id }}
+          {term: { organization_id: conditions[:site].organization_id }}
         ]
 
         query = {
@@ -101,11 +101,13 @@ module GobiertoBudgets
 
       def all(params = {})
         conditions = params[:where]
+        includes = params[:include]
+        presenter = params[:presenter] || BudgetLinePresenter
         validate_conditions(conditions)
 
         terms = [
           {term: { kind: conditions[:kind] }},
-          {term: { ine_code: conditions[:place].id }}
+          {term: { organization_id: conditions[:site].organization_id }}
         ]
 
         terms.push({term: { year: conditions[:year] }}) if conditions[:year]
@@ -159,14 +161,25 @@ module GobiertoBudgets
 
         response = SearchEngine.client.search(index: index, type: area.area_name, body: query)
 
+        included_attrs = {}
+        if includes.present?
+          included_attrs[:index] = index if includes.include? :index
+          included_attrs[:updated_at] = if includes.include?(:updated_at) && conditions[:year] && conditions[:site]
+                                          GobiertoBudgets::SiteStats.new(site: conditions[:site], year: conditions[:year]).budgets_data_updated_at ||
+                                            Date.new(conditions[:year])
+                                        end
+        end
+
+        merge_includes = included_attrs.present? ? ->(row) { row.merge(included_attrs) } : ->(row) { row }
+
         response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
-          BudgetLinePresenter.new(row.merge(
+          presenter.new(merge_includes.call(row.merge(
             site: conditions[:site],
             kind: conditions[:kind],
             area: area,
             total: response['aggregations']['total_budget']['value'],
             total_budget_per_inhabitant: response['aggregations']['total_budget_per_inhabitant']['value']
-          ))
+          )))
         end
       rescue Elasticsearch::Transport::Transport::Errors::NotFound
         return []
@@ -177,7 +190,7 @@ module GobiertoBudgets
         terms = [{term: { kind: options[:kind] }},
                 {term: { year: options[:year] }}]
 
-        terms << {term: { ine_code: options[:ine_code] }} if options[:ine_code].present?
+        terms << {term: { organization_id: options[:organization_id] }} if options[:organization_id].present?
         terms << {term: { parent_code: options[:parent_code] }} if options[:parent_code].present?
         terms << {term: { level: options[:level] }} if options[:level].present?
         terms << {term: { code: options[:code] }} if options[:code].present?
@@ -224,7 +237,7 @@ module GobiertoBudgets
       end
 
       def place_position_in_ranking(options)
-        id = %w{ine_code year code kind}.map {|f| options[f.to_sym]}.join('/')
+        id = %w{organization_id year code kind}.map {|f| options[f.to_sym]}.join('/')
 
         response = budget_line_query(options.merge(to_rank: true))
         buckets = response['hits']['hits'].map{|h| h['_id']}
@@ -251,8 +264,8 @@ module GobiertoBudgets
           reduced_filter = {population: population_filter}
           reduced_filter.merge!(aarr: aarr_filter) if aarr_filter
           results,total_elements = Population.for_ranking(options[:year], 0, nil, reduced_filter)
-          ine_codes = results.map{|p| p['ine_code']}
-          terms << [{terms: { ine_code: ine_codes }}] if ine_codes.any?
+          organization_ids = results.map{|p| p['organization_id']}
+          terms << [{terms: { organization_id: organization_id }}] if organization_ids.any?
         end
 
         if (total_filter && (total_filter[:from].to_i > BudgetTotal::TOTAL_FILTER_MIN || total_filter[:to].to_i < BudgetTotal::TOTAL_FILTER_MAX))
@@ -301,7 +314,7 @@ module GobiertoBudgets
       end
 
       def compare(options)
-        terms = [{terms: { ine_code: options[:ine_codes] }},
+        terms = [{terms: { organization_id: options[:organization_ids] }},
                  {term: { level: options[:level] }},
                  {term: { kind: options[:kind] }},
                  {term: { year: options[:year] }}]
@@ -312,7 +325,7 @@ module GobiertoBudgets
         query = {
           sort: [
             { code: { order: 'asc' } },
-            { ine_code: { order: 'asc' }}
+            { organization_id: { order: 'asc' }}
           ],
           query: {
             filtered: {
@@ -333,14 +346,14 @@ module GobiertoBudgets
       def has_children?(options)
         options.symbolize_keys!
         conditions = { parent_code: options[:code], type: options[:area] }
-        conditions.merge! options.slice(:ine_code,:kind,:year)
+        conditions.merge! options.slice(:organization_id,:kind,:year)
 
         return search(conditions)['hits'].length > 0
       end
 
       def top_differences(options)
         terms = [{term: { kind: options[:kind] }}, {term: { year: options[:year] }}, {term: { level: 3 }}]
-        terms << {term: { ine_code: options[:ine_code] }} if options[:ine_code].present?
+        terms << {term: { organization_id: options[:organization_id] }} if options[:organization_id].present?
         terms << {term: { code: options[:code] }} if options[:code].present?
 
         query = {
@@ -393,7 +406,7 @@ module GobiertoBudgets
         areas   = (conditions[:area] ? [conditions[:area]] : BudgetArea.all_areas)
 
         terms = []
-        terms << { term: { ine_code: conditions[:site].place.id } } if conditions[:site]
+        terms << { term: { organization_id: conditions[:site].organization_id } } if conditions[:site]
         terms << { term: { kind: conditions[:kind] } } if conditions[:kind]
         terms << { term: { year: conditions[:year] } } if conditions[:year]
 
@@ -436,7 +449,7 @@ module GobiertoBudgets
 
       def elasticsearch_as_json
         {
-          ine_code: ine_code,
+          organization_id: organization_id,
           province_id: province_id,
           autonomy_id: autonomy_id,
           year: year,

@@ -1,42 +1,56 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class Collection < ApplicationRecord
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Sluggable
 
     belongs_to :site
     belongs_to :container, polymorphic: true
     has_many :collection_items, dependent: :destroy
+    has_one :calendar_configuration, class_name: "GobiertoCalendars::CalendarConfiguration"
 
     translates :title
 
     validates :site, :title, :item_type, presence: true
     validates :slug, uniqueness: { scope: :site }
-    validates :container_id, uniqueness: {
-        scope: [:container_id, :container_type, :item_type]
-    }
+    validate :container_id_with_container_type_and_item_type
 
     attr_reader :container
 
     scope :by_item_type, ->(item_type) { where(item_type: item_type) }
 
+    after_update :update_collection_items
+
+    def container_id_with_container_type_and_item_type
+      unless item_type == "GobiertoCms::Page"
+        if new_record? && site.collections.where(container_id: container_id,
+                                                 container_type: container_type,
+                                                 item_type: item_type).any?
+          errors.add(:container_id, I18n.t("errors.messages.collection_taken"))
+        end
+      end
+    end
+
     def news_in_collection
-      collection_items.where(item_type: 'GobiertoCms::News').pluck(:item_id)
+      collection_items.news.pluck(:item_id)
     end
 
     def pages_in_collection
-      collection_items.where(item_type: 'GobiertoCms::Page').pluck(:item_id)
+      collection_items.pages.pluck(:item_id)
     end
 
     def pages_or_news_in_collection
-      collection_items.where(item_type: %W(GobiertoCms::News GobiertoCms::Page)).pluck(:item_id)
+      collection_items.pages_and_news.pluck(:item_id)
     end
 
     def file_attachments_in_collection
-      collection_items.where(item_type: 'GobiertoAttachments::Attachment').pluck(:item_id)
+      collection_items.attachments.pluck(:item_id)
     end
 
     def events_in_collection
-      collection_items.where(item_type: 'GobiertoCalendars::Event').pluck(:item_id)
+      collection_items.events.pluck(:item_id)
     end
 
     def container
@@ -45,14 +59,6 @@ module GobiertoCommon
       else
         container_type.constantize
       end
-    end
-
-    def global_container
-      container.to_global_id if container.present?
-    end
-
-    def global_container=(container)
-      self.container = GlobalID::Locator.locate container
     end
 
     def self.collector_classes
@@ -76,37 +82,28 @@ module GobiertoCommon
     end
 
     def append(item)
-      item_type = if item.class_name == "GobiertoAttachments::Attachment"
-                    "GobiertoAttachments::Attachment"
-                  else
-                    self.item_type
-                  end
+      create_collection_items(item)
+    end
 
-      containers_hierarchy(container).each do |container_type, container_id|
-        CollectionItem.find_or_create_by! collection_id: id,
-                                          container_type: container_type,
-                                          container_id: container_id,
-                                          item_id: item.id,
-                                          item_type: item_type
-      end
-
-      if container_type == "GobiertoParticipation::Process"
-        process = GobiertoParticipation::Process.find(container_id)
-
-        if process.issue
-          CollectionItem.find_or_create_by! collection_id: id,
-                                            container: process.issue,
-                                            item_id: item.id,
-                                            item_type: item_type
-        end
-
-        if process.scope
-          CollectionItem.find_or_create_by! collection_id: id,
-                                            container: process.scope,
-                                            item_id: item.id,
-                                            item_type: item_type
+    def calendar_integration
+      if calendar_configuration
+        case calendar_configuration.integration_name
+        when "ibm_notes"
+          GobiertoPeople::IbmNotes::CalendarIntegration
+        when "google_calendar"
+          GobiertoPeople::GoogleCalendar::CalendarIntegration
+        when "microsoft_exchange"
+          GobiertoPeople::MicrosoftExchange::CalendarIntegration
         end
       end
+    end
+
+    def container_printable_name
+      container.try(:name) || container.try(:title)
+    end
+
+    def is_a_collection_of_participation_news?
+      container.is_a?(::GobiertoParticipation::Process) && item_type == 'GobiertoCms::News'
     end
 
     private
@@ -115,6 +112,7 @@ module GobiertoCommon
       [
         site_for_container(container), gobierto_module_for_container(container),
         area_for_container(container), issue_for_container(container),
+        scope_for_container(container),
         gobierto_module_instance_for_container(container)
       ].compact.uniq
     end
@@ -147,6 +145,12 @@ module GobiertoCommon
       end
     end
 
+    def scope_for_container(container)
+      if container.is_a?(GobiertoCommon::Scope)
+        [container.class.name, container.id]
+      end
+    end
+
     def gobierto_module_instance_for_container(container)
       if !container.is_a?(Module) && !container_is_a_collector?(container)
         [container.class.name, container.id]
@@ -162,7 +166,49 @@ module GobiertoCommon
     end
 
     def attributes_for_slug
-      [ title ]
+      [title]
+    end
+
+    def update_collection_items
+      if (saved_changes.keys & %W(container_id container_type)).any?
+        items = collection_items.pluck(:item_type, :item_id)
+        collection_items.clear
+        items.each do |item_type, item_id|
+          item_type = "GobiertoCms::Page" if item_type == "GobiertoCms::News"
+          create_collection_items(item_type.constantize.find(item_id))
+        end
+      end
+      if saved_changes.keys.include?("item_type")
+        collection_items.update_all(item_type: self.item_type)
+      end
+    end
+
+    def create_collection_items(item)
+      containers_hierarchy(container).each do |container_type, container_id|
+        CollectionItem.find_or_create_by! collection_id: id,
+                                          container_type: container_type,
+                                          container_id: container_id,
+                                          item_id: item.id,
+                                          item_type: item_type
+      end
+
+      if container_type == "GobiertoParticipation::Process"
+        process = GobiertoParticipation::Process.find(container_id)
+
+        if process.issue
+          CollectionItem.find_or_create_by! collection_id: id,
+                                            container: process.issue,
+                                            item_id: item.id,
+                                            item_type: item_type
+        end
+
+        if process.scope
+          CollectionItem.find_or_create_by! collection_id: id,
+                                            container: process.scope,
+                                            item_id: item.id,
+                                            item_type: item_type
+        end
+      end
     end
   end
 end

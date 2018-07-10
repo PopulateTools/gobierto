@@ -72,3 +72,18 @@ noise_problems_past:
   ends_at: <%= 1.months.ago %>
   visibility_level: <%= GobiertoParticipation::Poll.visibility_levels['published'] %>
   visibility_user_level: <%= GobiertoParticipation::Poll.visibility_user_levels['registered'] %>
+
+neighbor_opinion_poll:
+  process: commission_for_carnival_festivities
+  title_translations: <%= {
+    'en' => 'What do the residents of the neighborhood think?',
+    'es' => '¿Qué opinan los vecinos del barrio?'
+  }.to_json %>
+  description_translations: <%= {
+    'en' => 'Poll only for neighbors',
+    'es' => 'Encuesta dirigida exclusivamente a los vecinos'
+  }.to_json %>
+  starts_at: <%= 1.month.ago %>
+  ends_at: <%= 1.month.from_now %>
+  visibility_level: <%= GobiertoParticipation::Poll.visibility_levels['published'] %>
+  visibility_user_level: <%= GobiertoParticipation::Poll.visibility_user_levels['verified'] %>

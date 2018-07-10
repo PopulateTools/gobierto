@@ -19,17 +19,16 @@ module GobiertoAdmin
       end
 
       def process
-        site.processes.process.first
+        @process ||= gobierto_participation_processes(:commission_for_carnival_festivities)
       end
 
       def test_create_contribution_container_errors
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
+            click_on "Stages"
 
-            within ".tabs" do
-              click_link "Contributions"
-            end
+            all("a", text: "Manage")[1].click
 
             click_on "New"
             click_button "Create"
@@ -42,15 +41,13 @@ module GobiertoAdmin
         end
       end
 
-
       def test_create_contribution_container
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
+            click_on "Stages"
 
-            within ".tabs" do
-              click_link "Contributions"
-            end
+            all("a", text: "Manage")[1].click
 
             click_on "New"
 
@@ -75,6 +72,51 @@ module GobiertoAdmin
             assert_equal admin, activity.author
             assert_equal site.id, activity.site_id
             assert_equal "gobierto_participation.contribution_container_created", activity.action
+          end
+        end
+      end
+
+      def test_preview_draft_contribution_container_as_admin
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit @path
+
+            click_on "Stages"
+
+            all("a", text: "Manage")[1].click
+
+            click_on "New"
+
+            within "form.new_contribution_container" do
+              fill_in "contribution_container_title_translations_en", with: "My contribution_container title"
+              fill_in "contribution_container_description_translations_en", with: "My contribution_container description"
+              fill_in "contribution_container_starts", with: "2017-01-01"
+              fill_in "contribution_container_ends", with: "2017-01-30"
+
+              click_link "ES"
+              fill_in "contribution_container_title_translations_es", with: "Mi contendedor de aportaciones"
+              fill_in "contribution_container_description_translations_es", with: "Descripción de mi contenedor de aportaciones"
+
+              within ".widget_save" do
+                choose "Draft"
+              end
+
+              click_button "Create"
+            end
+
+            within "div.flash-message.notice" do
+              preview_link = find("a", text: "View the container")
+
+              assert preview_link[:href].include?(admin.preview_token)
+
+              preview_link.click
+            end
+
+            contribution_container = ::GobiertoParticipation::ContributionContainer.last
+
+            assert_equal gobierto_participation_process_contribution_container_path(contribution_container.process.slug,
+                                                                                    contribution_container.slug), current_path
+            assert has_selector?("h2", text: contribution_container.title)
           end
         end
       end

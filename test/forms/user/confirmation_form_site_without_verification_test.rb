@@ -12,7 +12,8 @@ class User::ConfirmationFormSiteWithoutVerificationTest < ActiveSupport::TestCas
       date_of_birth_year: 1992,
       date_of_birth_month: 1,
       date_of_birth_day: 1,
-      gender: unconfirmed_user.gender
+      gender: unconfirmed_user.gender,
+      site: unconfirmed_user.site
     )
   end
 
@@ -25,7 +26,8 @@ class User::ConfirmationFormSiteWithoutVerificationTest < ActiveSupport::TestCas
       date_of_birth_year: nil,
       date_of_birth_month: nil,
       date_of_birth_day: nil,
-      gender: nil
+      gender: nil,
+      site: nil
     )
   end
 
@@ -57,6 +59,19 @@ class User::ConfirmationFormSiteWithoutVerificationTest < ActiveSupport::TestCas
     valid_user_confirmation_form.save
     assert unconfirmed_user.reload.confirmed?
     refute unconfirmed_user.census_verified?
+  end
+
+  def test_false_password_enabled_attribute
+    invalid_user_confirmation_form.password_enabled = false
+
+    valid_user_confirmation_form.password_enabled = false
+    valid_user_confirmation_form.password = nil
+    valid_user_confirmation_form.password_confirmation = nil
+
+    refute invalid_user_confirmation_form.save
+    assert_empty invalid_user_confirmation_form.errors.messages[:password]
+
+    assert valid_user_confirmation_form.save
   end
 
   def test_user_notifications_set_up

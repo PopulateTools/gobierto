@@ -181,8 +181,8 @@
           <div class="budget-lead"><%= t('.balance_deficit') %></div>
           <div data-status-explanation
                class="budget-figure budget-status-figure" title=""
-               title_deficit="<%= t('.explain_deficit_html') %><button class='tip-button' data-tipsy-close>OK</button>"
-               title_balance="<%= t('.explain_balance_html') %><button class='tip-button' data-tipsy-close>OK</button>"
+               title_deficit="<%= t('.explain_deficit_html', our_organization_name: @site.determined_organization_name(:our)) %><button class='tip-button' data-tipsy-close>OK</button>"
+               title_balance="<%= t('.explain_balance_html', of_the_organization_name: @site.determined_organization_name(:of_the)) %><button class='tip-button' data-tipsy-close>OK</button>"
                title_surplus="<%= t('.explain_surplus_html') %><button class='tip-button' data-tipsy-close>OK</button>"
            >{{statusText}}</div>
         </div>

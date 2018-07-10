@@ -1,0 +1,58 @@
+// flexgap
+@mixin flexbox($gap: 0, $dir: row) {
+  display: flex;
+  flex-direction: $dir;
+
+  @if $dir == row {
+    & > * {
+      margin: 0 $gap / 2;
+    }
+
+    & > :first-child {
+      margin-left: 0;
+    }
+
+    & > :last-child {
+      margin-right: 0;
+    }
+  } @else if $dir == column {
+    & > * {
+      margin-bottom: $gap / 2;
+    }
+
+    & > :first-child {
+      margin-top: 0;
+    }
+
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// pure-g gutters (mixin & helper)
+@mixin gutters($size: 1) {
+  $unit: 1rem !default;
+  $size: if(unitless($size), $size * $unit, $size);
+
+  .pure-g.gutters {
+    margin: 0 (-$size / 2);
+  }
+
+  .pure-g.gutters > [class *=pure-u] {
+    box-sizing: border-box;
+    padding: 0 $size / 2;
+  }
+}
+@include gutters;
+
+// flex alignment
+@mixin flex-align($horizontal: center, $vertical: center) {
+  display: flex;
+  justify-content: $horizontal;
+  align-items: $vertical;
+
+  > * {
+    margin: 0;
+  }
+}

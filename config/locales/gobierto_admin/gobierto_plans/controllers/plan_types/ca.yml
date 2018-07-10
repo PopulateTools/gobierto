@@ -1,0 +1,12 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_plans:
+      plan_types:
+        create:
+          success: El pla s'ha creat correctament.
+        destroy:
+          has_items: No es pot arxivar un tipus de pla mentre tingui elements associats.
+          success: El pla s'ha esborrat correctament.
+        update:
+          success: El pla pla s'ha actualizat correctament.

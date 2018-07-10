@@ -37,7 +37,7 @@ es:
         last_year: El año pasado %{value}
         no_description: No hay una descripción asociada a esta partida.
         no_distribution: No hay distribución asociada a esta partida.
-        no_more_descendants: No hay más sub-partidas
+        no_more_descendants: No hay más subpartidas
         not_available: No disp.
         percentage: "% sobre el total del pres."
         percentage_tooltip: Porcentaje del presupuesto total que supone esta partida
@@ -60,6 +60,38 @@ es:
         vs_previous_year: vs. ejercicio anterior
         vs_previous_year_tooltip: Comparación con los datos del ejercicio anterior
     budgets:
+      cards:
+        debt_level:
+          title: Nivel de endeudamiento
+        expenditure_rigidity:
+          title: Rigidez de gasto
+        financial_charge:
+          title: Carga financiera
+        financial_risk:
+          title: Riesgo financiero
+        gross_saving:
+          title: Ahorro bruto
+        gross_savings_rate:
+          title: Índice de ahorro bruto
+        investment_financing:
+          title: Financiación inversiones
+        liability_cost:
+          title: Coste deuda
+        meta:
+          time: " en "
+          where: 'En '
+        net_saving:
+          title: Ahorro neto
+        net_savings_rate:
+          title: Índice de ahorro neto
+        per_capita_investment:
+          title: Inversión por habitante
+        per_capita_tax_burden:
+          title: Presión fiscal por habitante
+        self_financing_capacity:
+          title: Capacidad de autofinanciación
+        tax_autonomy:
+          title: Autonomía fiscal
       guide:
         budget_execution: La ejecución presupuestaria
         budget_execution_p1_html: 'Aprobar un presupuesto no significa que se quede
@@ -225,7 +257,7 @@ es:
         context: Contexto
         data_of_year: "* datos del %{year}"
         debt: Deuda
-        debt_tooltip: Deuda del sector de las administraciones públicas del Ayuntamiento
+        debt_tooltip: Deuda del sector de las administraciones públicas %{of_the_organization_name}
         description: En esta página te contamos cúal es la distribución de los presupuestos,
           cuál es el estado de ejecución de cada partida, quiénes son los proveedores
           con los que trabajamos, y cómo ha evolucionado el gasto por habitante.
@@ -262,7 +294,7 @@ es:
         main_budget_levels_tooltip_article: desde
         main_budget_levels_tooltip_down: Ha bajado un
         main_budget_levels_tooltip_up: Ha subido un
-        main_budget_lines: Los principales ingresos y gastos de tu ayuntamiento
+        main_budget_lines: Los principales ingresos y gastos %{from_your_organization_name}
         main_budget_lines_expense: Gastos
         main_budget_lines_income: Ingresos
         more: más
@@ -329,7 +361,7 @@ es:
         header: Elaboración del presupuesto
         in_total: En total
         main_budget_levels_timeline: Compara gastos e ingresos año por año
-        main_budget_lines: Los principales ingresos y gastos de tu ayuntamiento
+        main_budget_lines: Los principales ingresos y gastos %{from_your_organization_name}
         main_budget_lines_expense: Gastos
         main_budget_lines_income: Ingresos
         metric_boxes_data: Los datos
@@ -409,6 +441,7 @@ es:
           tooltip: Se ha ejecutado un
           tooltip_budgeted: Presupuestado inicial
           tooltip_budgeted_updated: Presupuestado actualizado
+          tooltip_executed_amount: Importe ejecutado
       widget_template_deviation:
         expense: Gastos
         income: Ingresos
@@ -424,6 +457,11 @@ es:
       incomes: ingresos
     events:
       gobierto_budgets_budgets_updated: Presupuestos actualizados
+    exports:
+      budget_lines_description: Compara gastos e ingresos año por año
+      budget_lines_title: Partidas presupuestarias
+      invoices_description: Datos por año
+      invoices_title: Proveedores y Facturas
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: "¿Cuánto se gasta %{place} en..."
@@ -434,7 +472,8 @@ es:
         total: Gasto total
     feedback:
       ask_more_information:
-        ask_for_feedback: Escribe tu correo para que tu ayuntamiento te pueda contestar
+        ask_for_feedback: Escribe tu correo para que %{your_organization_name} te
+          pueda contestar
         send: Enviar
         your_email: Tu correo-e
       follow:
@@ -465,16 +504,81 @@ es:
         option3: Mucho
         thanks: 'Gracias por tu opinión. Esto es lo que piensa el resto de la gente
           que ha opinado:'
+    indicators: Indicadores
+    indicators_intro: 'Conoce los presupuestos de %{place} a través de sus principales
+      cifras: ahorro bruto, inversión por habitante o financiación de inversiones.'
+    invoices:
+      show:
+        empty: Ningún filtro tiene datos
+        fromto: De A Nº Fact.
+        invoiced: Importe facturado
+        more: Más de
+        table:
+          fields:
+            date: Fecha
+            paid: Pagado
+            provider_id: NIF
+            provider_name: Proveedor
+            subject: Concepto
+            value: Cantidad
+          pager:
+            first: Primero
+            format: Páginas %{tpl} de %{tpl2}
+            last: Último
+            next: Siguiente
+            prev: Anterior
     layouts:
       application:
         budgets: Presupuestos
       menu_subsections:
         budget: Presupuesto
+        data: Datos
         elaboration: Elaboración
         execution: Ejecución
         guide: Guía
+        indicators: Indicadores
+        providers: Proveedores y Facturas
         receipt: Recibo
         summary: Resumen
+    providers:
+      index:
+        all_invoices: Todas las facturas
+        amount_distribution: Distribución por importes
+        and_more_html: y <span id="providers-number">n</span> proveedores más
+        are_from: son de
+        check_detail: Consulta el detalle
+        companies: compañías
+        description: "¿A qué proveedores contrata %{the_organization_name}? ¿Qué facturas
+          paga? Desde esta sección podrás consultar y revisar el detalle de cada uno
+          de los pagos que realiza %{the_organization_name}."
+        freelances: autónomos
+        invoices: Facturas
+        invoices_from_which: De los cuales
+        invoices_sum: facturas suman un total de
+        largest_provider_html: El mayor proveedor supone un <span id="largestProvider"></span>
+          de toda la facturación
+        last_12_months: Últimos 12 meses
+        last_3_months: Últimos 3 meses
+        less_than_1000_html: El <span id="lessThan1000"></span> de las facturas son
+          menores de 1.000 €
+        loading: Cargando...
+        main_providers: Principales proveedores
+        mean_amount: importe medio
+        mean_and_median: Media y mediana
+        mean_and_median_summary: Es decir, la mitad de las facturas son de este importe
+          o inferior
+        mean_summary: Importe resultante de sumar los importes de todas las facturas
+          y dividirlo por el número de facturas
+        median_amount: importe mediano
+        months_distribution: Distribución por meses
+        percentile_10_html: El <span id="percentile10"></span> de las facturas concentran
+          el 10 % de la facturación
+        percentile_50_html: El <span id="percentile50"></span> de las facturas concentran
+          el 50 % de la facturación
+        previous: Anteriores
+        sum_amount: IMPORTE ACUMULADO
+        this_year: Este año
+        view_data_from: Ver datos de
     receipts:
       show:
         description: Parte del presupuesto de tu municipio se financia directamente
@@ -491,7 +595,7 @@ es:
         last_update: Datos actualizados
       enough_information:
         enough_information: "¿Suficiente información?"
-        enough_information_cta: Pide a tu Ayuntamiento
+        enough_information_cta: Pide %{to_your_organization_name}
         enough_information_desc: Si considera que se tienen que incluir más información
           de estos datos para tener una visión más completa de la misma o sobre el
           uso de tus impuestos, comunicánoslo y te contestaremos
@@ -505,7 +609,7 @@ es:
       expenses_per_inhabitant: Gasto por habitante
       inhabitant_short: hab
       mean_autonomy: Media autonómica
-      mean_national: Media nacional
+      mean_national: Media estatal
       mean_province: Media provincial
       previous_year_diff: Cambio año anterior
       total_expenses: Gasto total

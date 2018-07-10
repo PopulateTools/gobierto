@@ -7,10 +7,7 @@ gobierto_people_settings_madrid:
   settings: <%= {
     "home_text_es": "",
     "home_text_en": "Home text English",
-    "submodules_enabled": ["officials", "agendas", "statements", "blogs"],
-    "calendar_integration": "ibm_notes",
-    "ibm_notes_usr": SecretAttribute.encrypt("ibm-notes-usr"),
-    "ibm_notes_pwd": SecretAttribute.encrypt("ibm-notes-pwd")
+    "submodules_enabled": ["officials", "agendas", "statements", "blogs", "departments"]
   }.to_json %>
 
 gobierto_budgets_settings_madrid:
@@ -18,5 +15,125 @@ gobierto_budgets_settings_madrid:
   module_name: "GobiertoBudgets"
   settings: <%= {
     "budgets_receipt_enabled": true,
-    "budgets_receipt_configuration": {"budgets_simulation_sections"=>[{"name"=>"IBI", "options"=>[{"name_en"=>"House 80m2 center", "name_ca"=>"Habitatge 80m2 al centre", "value"=>377.29}, {"name"=>"Vivienda 130m2 en el centro", "value"=>582.13}, {"name"=>"Adosado en centro urbano", "value"=>749.15}, {"name"=>"Vivienda unifamiliar en urbanización", "value"=>680.94}]}, {"name"=>"Vehículo", "options"=>[{"name"=>"Coche pequeño", "value"=>59.81}, {"name"=>"Coche mediano", "value"=>128.92}, {"name"=>"Coche grande", "value"=>179.22}]}, {"name"=>"Vehículo adicional", "options"=>[{"name"=>"Coche pequeño", "value"=>59.81}, {"name"=>"Coche mediano", "value"=>128.92}, {"name"=>"Coche grande", "value"=>179.22}]}, {"name"=>"Vado de vehículos", "options"=>[{"name"=>"Garaje comunitario", "value"=>5}, {"name"=>"Vivienda individual", "value"=>40}]}]}
-  }.to_json %>
+    "budgets_receipt_configuration": {"budgets_simulation_sections": [{
+      "name": "IBI",
+      "options": [{
+          "name": "Vivienda 80m2 en el centro",
+          "value": {
+            "2016": 479.22,
+            "2017": 375.67,
+            "2018": 492.51
+          }
+        },
+        {
+          "name": "Vivienda 130m2 en el centro",
+          "value": {
+            "2016": 209,
+            "2017": 581.1,
+            "2018": 422.18
+          }
+        },
+        {
+          "name": "Adosado en centro urbano",
+          "value": {
+            "2016": 578.15,
+            "2017": 446.91,
+            "2018": 294.56
+          }
+        },
+        {
+          "name": "Vivienda unifamiliar en urbanización",
+          "value": {
+            "2016": 173.15,
+            "2017": 402.47,
+            "2018": 344.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vehículo",
+      "options": [{
+          "name": "Coche pequeño",
+          "value": {
+            "2016": 257.35,
+            "2017": 617.95,
+            "2018": 393.25
+          }
+        },
+        {
+          "name": "Coche mediano",
+          "value": {
+            "2016": 313.39,
+            "2017": 458.74,
+            "2018": 545.32
+          }
+        },
+        {
+          "name": "Coche grande",
+          "value": {
+            "2016": 615.66,
+            "2017": 223.02,
+            "2018": 473.49
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vehículo adicional",
+      "options": [{
+          "name": "Coche pequeño",
+          "value": {
+            "2016": 407.02,
+            "2017": 238.85,
+            "2018": 518.25
+          }
+        },
+        {
+          "name": "Coche mediano",
+          "value": {
+            "2016": 617.8,
+            "2017": 492.96,
+            "2018": 571.69
+          }
+        },
+        {
+          "name": "Coche grande",
+          "value": {
+            "2016": 582.87,
+            "2017": 184.49,
+            "2018": 77.93
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vado de vehículos",
+      "options": [{
+          "name": "Garaje comunitario",
+          "value": {
+            "2016": 469,
+            "2017": 458.47,
+            "2018": 564.59
+          }
+        },
+        {
+          "name": "Vivienda individual",
+          "value": {
+            "2016": 479.87,
+            "2017": 613.59,
+            "2018": 179.99
+          }
+        }
+      ]
+    }
+  ]}
+}.to_json %>
+
+gobierto_budgets_settings_organization_wadus:
+  site: organization_wadus
+  module_name: "GobiertoBudgets"
+  settings: <%= {
+    "budgets_receipt_enabled": true,
+    "budgets_receipt_configuration": {}
+}.to_json %>

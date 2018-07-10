@@ -18,3 +18,10 @@ economy:
   description_translations: <%= { 'en' => 'Economy description', 'es' => 'Descrión de economía' }.to_json %>
   slug: economy
   position: 3
+
+sports:
+  site: madrid
+  name_translations: <%= { 'en' => 'Sports', 'es' => 'Deportes' }.to_json %>
+  description_translations: <%= { 'en' => 'Sport description', 'es' => 'Descriptión de deportes' }.to_json %>
+  slug: sport
+  position: 4

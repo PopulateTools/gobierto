@@ -3,6 +3,7 @@ require_dependency "gobierto_budget_consultations"
 module GobiertoBudgetConsultations
   class Consultation < ApplicationRecord
     include User::Subscribable
+    include GobiertoCommon::UrlBuildable
 
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site
@@ -10,8 +11,7 @@ module GobiertoBudgetConsultations
     has_many :consultation_items, dependent: :destroy
     has_many :consultation_responses, dependent: :destroy
 
-    validates :title, :description, presence: true
-    validates :opens_on, :closes_on, presence: true
+    validates :title, :description, :opens_on, :closes_on, presence: true
 
     enum visibility_level: { draft: 0, active: 1 }
 

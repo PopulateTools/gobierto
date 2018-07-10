@@ -4,7 +4,9 @@
     <th><%= GobiertoCms::Page.human_attribute_name(:title) %></th>
     <th><%= t('.created_at') %></th>
     <th><%= t('.updated_at') %></th>
+    <th><%= t('.published_on') %></th>
     <th><%= t('.public') %></th>
+    <th></th>
     <th></th>
   </tr>
 
@@ -15,6 +17,7 @@
         <td><%= link_to page.title, edit_admin_cms_page_path(page.id, collection_id: @collection.id) %></td>
         <td><%= time_ago_in_words(page.created_at) %></td>
         <td><%= time_ago_in_words(page.updated_at) %></td>
+        <td><%= time_ago_in_words(page.published_on) %></td>
         <td class="visibility_level">
           <% if page.draft? %>
             <i class="fa fa-lock"></i>
@@ -24,12 +27,69 @@
           <% end %>
         </td>
         <td>
-          <%= link_to page_preview_url(page, host: current_site.domain), target: "_blank", class: "view_item" do %>
+          <%= link_to gobierto_cms_page_preview_path(page), target: "_blank", class: "view_item" do %>
             <i class="fa fa-eye"></i>
             <%= t(".view") %>
           <% end %>
+        </td>
+        <td>
+          <%= link_to "<i class='fa fa-trash'></i>".html_safe,
+                      admin_cms_page_path(page, process_id: (current_process.id if !defined?(current_process).nil?)),
+                      title: t("gobierto_admin.shared.archive.element"),
+                      method: :delete,
+                      data: { confirm: t("gobierto_admin.shared.archive.confirm") } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<% unless @archived_pages.empty? %>
+  <div class="m_v_1 right">
+    <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggle: true} %>
+  </div>
+
+  <div id="archived-list" style="display:none">
+    <table class="pages-list">
+      <tr>
+        <th></th>
+        <th><%= GobiertoCms::Page.human_attribute_name(:title) %></th>
+        <th><%= t('.created_at') %></th>
+        <th><%= t('.updated_at') %></th>
+        <th><%= t('.published_on') %></th>
+        <th><%= t('.public') %></th>
+        <th></th>
+        <th></th>
+      </tr>
+
+      <tbody>
+        <% @archived_pages.each do |page| %>
+          <tr id="page-item-<%= page.id %>">
+            <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_cms_page_path(page.id, collection_id: @collection.id) %></td>
+            <td><%= page.title %></td>
+            <td><%= time_ago_in_words(page.created_at) %></td>
+            <td><%= time_ago_in_words(page.updated_at) %></td>
+            <td><%= time_ago_in_words(page.published_on) %></td>
+            <td class="visibility_level">
+              <%= t(".visibility_level.archived") %>
+            </td>
+            <td></td>
+            <td>
+              <%= link_to t("gobierto_admin.shared.recover.element"),
+                          admin_cms_page_recover_path(page, process_id: (current_process.id if !defined?(current_process).nil?)),
+                          title: t("gobierto_admin.shared.recover.element"),
+                          method: :put,
+                          data: { confirm: t("gobierto_admin.shared.recover.confirm") } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $('a[data-toggle]').on('click', function(e){
+     $("div#archived-list").toggle();
+  });
+<% end %>

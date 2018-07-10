@@ -29,8 +29,9 @@ class Activity < ApplicationRecord
     where(author_type: admin.class.name, author_id: admin.id).sorted.includes(:subject, :author, :recipient)
   end
 
-  def self.in_participation
-    Activity.no_admin.where(recipient_type: "GobiertoParticipation::Process")
+  def self.in_participation(current_site)
+    processes = current_site.processes
+    Activity.no_admin.where(recipient: processes)
   end
 
   def self.in_process(process)

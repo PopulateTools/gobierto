@@ -12,41 +12,20 @@ module GobiertoParticipation
       @process_stage ||= gobierto_participation_process_stages(:local_budgets_information_stage)
     end
 
-    def stages
-      {
-        information: process.stages.find_by!(stage_type: ProcessStage.stage_types[:information]),
-        meetings: process.stages.find_by!(stage_type: ProcessStage.stage_types[:meetings]),
-        ideas: process.stages.find_by!(stage_type: ProcessStage.stage_types[:ideas]),
-        results: process.stages.find_by!(stage_type: ProcessStage.stage_types[:results])
-      }
-    end
-
     def test_valid
       assert process_stage.valid?
     end
 
-    def test_open
-      refute stages[:information].open?
-      assert stages[:meetings].open?
-      refute stages[:results].open?
-    end
-
-    def test_past
-      assert stages[:information].past?
-      refute stages[:meetings].past?
+    def test_published
+      assert process.stages.first.published?
     end
 
     def test_upcoming
-      refute stages[:information].upcoming?
-      refute stages[:meetings].upcoming?
-      assert stages[:results].upcoming?
+      process.stages.last.upcoming?
     end
 
     def test_current
-      refute stages[:information].current?
-      refute stages[:meetings].current?
-      assert stages[:ideas].current?
-      refute stages[:results].current?
+      assert process.stages.second.current?
     end
   end
 end

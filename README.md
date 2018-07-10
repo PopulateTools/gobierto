@@ -62,15 +62,17 @@ Funcionalidades transversales:
 
 Estas son algunas de las organizaciones que usan Gobierto:
 
-* [Diputación de Valencia](https://gobierto.es/blog/20161215-diputacion-de-valencia-gobierto.html)
+* [Diputación de Valencia](https://altoscargos.go.dival.es/cargos-y-agendas)
 * [Sencelles](https://gobierto.es/blog/20170314-sencelles-consultas.html)
 * [Generalitat de Catalunya](https://gobierto.es/blog/20170126-generalitat-catalunya.html)
 * [Sant Feliu de Llobregat](https://pressupost.santfeliu.cat/)
+* [Mataró](https://pressupost.mataro.cat/)
+* [Sant Boi de Llobregat](https://agendes.santboi.cat/)
+* [Getafe](https://gobiernoabierto.getafe.es/)
 
 ## Quiénes somos
 
 Gobierto es un producto de Populate, un estudio de diseño y tecnología en torno al civic engagement. Más información en nuestra web: [populate.tools](https://populate.tools)
-
 
 ## Comienza a usarlo
 
@@ -81,7 +83,7 @@ Gobierto es un producto de Populate, un estudio de diseño y tecnología en torn
 ## Síguenos
 
 - Twitter: [@gobierto](https://twitter.com/gobierto) & [@populate_](https://twitter.com/populate_)
-- Web + Blog: [gobierto.es(https://gobierto.es)
+- Web + Blog: [gobierto.es](https://gobierto.es)
 
 ### Manuales
 

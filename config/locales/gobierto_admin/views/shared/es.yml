@@ -19,9 +19,17 @@ es:
         save: Guardar
         search: Buscar
         select_file: Selecciona un archivo del disco duro
+      archive:
+        confirm: "¿Seguro que quieres archivar este elemento? No se mostrará en el
+          front ni en listas como esta. Usted podrá recuperarlo."
+        element: Archivar este elemento
+        elements: Elementos archivados
       form_locale_switchers:
         define_content_in_locale: Define el contenido en su versión %{locale_name}
         translate: Traducir
+      recover:
+        confirm: Si recuperas un elemento, se volverá a listar de nuevo.
+        element: Recuperar elemento
       save_widget:
         save: Guardar
         visibility_level:

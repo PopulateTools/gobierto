@@ -1,5 +1,5 @@
 <% user_subscription_form = User::SubscriptionForm.new(subscribable: person) %>
-  <% if !user_signed_in? || !current_user.subscribed_to?(person, current_site) %>
+  <% if !user_signed_in? || !current_user.subscribed_to?(person, current_site, :user_subscribed_by_broader_subscription_to?) %>
     <% if user_signed_in? %>
       <div class="follow_item">
         <%= button_to(

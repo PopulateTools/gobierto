@@ -1,5 +1,5 @@
 <% content_for :disable_turbolinks_hook do %>
-    <meta name="turbolinks-cache-control" content="no-cache">
+  <meta name="turbolinks-cache-control" content="no-cache">
 <% end %>
 
 <%= render "gobierto_people/people/content_for_breadcrumb" %>
@@ -51,14 +51,13 @@
 
   </div>
 
-  <% if @events.any? %>
-    <div id="events">
-      <%= render partial: 'gobierto_people/person_events/person_event', collection: @events, locals: {person: @person} %>
-    </div>
-    <%= link_to_next_page @events, t('.view_more'), class: "see_more", role: "button", remote: true %>
-  <% else %>
-    <%= t('.no_events') %>
-  <% end %>
+  <div id="events">
+    <% if @events.any? %>
+      <%= render "events" %>
+    <% else %>
+      <%= t('.no_events') %>
+    <% end %>
+  </div>
 
 </div>
 

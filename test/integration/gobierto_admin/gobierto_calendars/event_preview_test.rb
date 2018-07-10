@@ -11,7 +11,7 @@ module GobiertoAdmin
 
       def setup
         super
-        @path = admin_people_person_events_path(person)
+        @path = admin_calendars_events_path(collection_id: person.events_collection.id)
         setup_authorizable_resource_preview_test(
           gobierto_admin_admins(:steve),
           gobierto_people_person_event_path(person.slug, published_event.slug),
@@ -60,20 +60,19 @@ module GobiertoAdmin
       end
 
       def test_preview_active_person_pending_event
-        with_signed_in_admin(admin) do
-          with_current_site(site) do
-            visit @path
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
 
-            within "tr#person-event-item-#{pending_event.id}" do
-              preview_link = find("a", text: "View event")
+              click_link "Moderation pending"
 
-              assert preview_link[:href].include?(admin.preview_token)
+              within "tr#person-event-item-#{pending_event.id}" do
+                expected_preview_url = "#{gobierto_people_person_event_url(person.slug, pending_event.slug, host: site.domain)}?preview_token=#{admin.preview_token}"
 
-              preview_link.click
+                assert_equal expected_preview_url, find_link("View event")[:href]
+              end
             end
-
-            assert_equal gobierto_people_person_event_path(person.slug, pending_event.slug), current_path
-            assert has_selector?("h2", text: pending_event.title)
           end
         end
       end
@@ -81,20 +80,17 @@ module GobiertoAdmin
       def test_preview_draft_person_published_event
         person.draft!
 
-        with_signed_in_admin(admin) do
-          with_current_site(site) do
-            visit @path
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
 
-            within "tr#person-event-item-#{published_event.id}" do
-              preview_link = find("a", text: "View event")
+              within "tr#person-event-item-#{published_event.id}" do
+                expected_preview_url = "#{gobierto_people_person_event_url(person.slug, published_event.slug, host: site.domain)}?preview_token=#{admin.preview_token}"
 
-              assert preview_link[:href].include?(admin.preview_token)
-
-              preview_link.click
+                assert_equal expected_preview_url, find_link("View event")[:href]
+              end
             end
-
-            assert_equal gobierto_people_person_event_path(person.slug, published_event.slug), current_path
-            assert has_selector?("h2", text: published_event.title)
           end
         end
       end
@@ -102,39 +98,27 @@ module GobiertoAdmin
       def test_preview_draft_person_pending_event
         person.draft!
 
-        with_signed_in_admin(admin) do
-          with_current_site(site) do
-            visit @path
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
 
-            within "tr#person-event-item-#{pending_event.id}" do
-              preview_link = find("a", text: "View event")
+              click_link "Moderation pending"
 
-              assert preview_link[:href].include?(admin.preview_token)
+              within "tr#person-event-item-#{pending_event.id}" do
+                expected_preview_url = "#{gobierto_people_person_event_url(person.slug, pending_event.slug, host: site.domain)}?preview_token=#{admin.preview_token}"
 
-              preview_link.click
+                assert_equal expected_preview_url, find_link("View event")[:href]
+              end
             end
-
-            assert_equal gobierto_people_person_event_path(person.slug, pending_event.slug), current_path
-            assert has_selector?("h2", text: pending_event.title)
           end
         end
       end
 
       def test_preview_pending_event_if_not_admin
         with_current_site(site) do
-          assert_raises ActiveRecord::RecordNotFound do
-            visit gobierto_people_person_event_path(person.slug, pending_event.slug)
-          end
-
-          refute has_selector?("h2", text: pending_event.title)
-
-          person.draft!
-
-          assert_raises ActiveRecord::RecordNotFound do
-            visit gobierto_people_person_event_path(person.slug, pending_event.slug)
-          end
-
-          refute has_selector?("h2", text: pending_event.title)
+          visit gobierto_people_person_event_path(person.slug, pending_event.slug)
+          assert_equal 404, page.status_code
         end
       end
     end

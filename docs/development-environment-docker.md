@@ -40,7 +40,7 @@ export INTEGRATION_INSPECTOR='false'
 export TEST_LOG_LEVEL='debug'
 export RACK_ENV='development'
 export RAILS_ENV='development'
-export HOST='gobierto.dev'
+export HOST='gobierto.test'
 ...
 ```
 
@@ -84,13 +84,13 @@ $ docker-compose run test
 
 ### Development top-level domain and port proxying
 
-The application server should be queried through the top-level domain `.gobierto.dev`. For this purpose you could use [Pow](http://pow.cx/)'s Port Proxying feature, as described on its [User's manual](http://pow.cx/manual.html#section_2.1.4):
+The application server should be queried through the top-level domain `.gobierto.test`. For this purpose you could use [Pow](http://pow.cx/)'s Port Proxying feature, as described on its [User's manual](http://pow.cx/manual.html#section_2.1.4):
 
 ```shell
 $ echo http://<your_docker_host>:3000 > ~/.pow/gobierto
 ```
 
-So, since port `3000` is forwarded through the corresponding Docker containers, the app instance should be just reachable at [http://madrid.gobierto.dev](http://madrid.gobierto.dev).
+So, since port `3000` is forwarded through the corresponding Docker containers, the app instance should be just reachable at [http://madrid.gobierto.test](http://madrid.gobierto.test).
 
 ### Mailcatcher
 

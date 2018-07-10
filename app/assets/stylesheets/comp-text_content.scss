@@ -6,18 +6,19 @@
 .text_page {
   header.text_page_header {
     text-align: center;
-    h1 {
-
-    }
   }
-
 }
-figure.png, figure.jpg, figure.gif {
+
+figure.png,
+figure.jpg,
+figure.gif {
   margin: 1em 0;
+
   img {
     max-width: 100%;
     height: auto;
   }
+
   figcaption {
     display: none;
   }
@@ -25,44 +26,55 @@ figure.png, figure.jpg, figure.gif {
 
 .cms_page {
   padding-top: 2em;
+
   menu.side_navigation {
     @include reset_ul_li;
+
     line-height: 1.4;
     margin: 0;
     padding: 0;
+
     ul {
       li {
         display: block;
-        margin: 0 0 .5em 0;
+        margin: 0 0 0.5em 0;
+
         a {
-          padding: .5em .75em;
-          color: #FFF;
+          padding: 0.5em 0.75em;
+          color: #fff;
           background: $color_main;
           display: block;
           text-decoration: none;
         }
+
         a:hover {
           background: lighten($color_main, 5%);
         }
+
         ul {
           background: $color_1_soft;
-          padding: .75em .75em .75em 1.25em;
-          font-size: .85rem;
+          padding: 0.75em 0.75em 0.75em 1.25em;
+          font-size: 0.85rem;
+
           li {
             margin: 0 0 1em 0;
+
             a {
               background: initial;
               padding: 0;
               font-weight: bold;
               color: $color_main;
             }
+
             a:hover {
               background: initial;
               color: darken($color_main, 10%);
             }
+
             ul {
               background: none;
               padding: 1em 0 0 1.5em;
+
               li {
                 a {
                   font-weight: normal;
@@ -75,21 +87,25 @@ figure.png, figure.jpg, figure.gif {
       }
     }
   }
+
   article {
     @include min-screen(740) {
       padding-left: 6em;
     }
+
     .breadcrumb {
       margin-top: 0;
       padding-top: 0;
-      font-size: .75em;
-      opacity: .5;
+      font-size: 0.75em;
+      opacity: 0.5;
     }
+
     h1 {
       font-size: $f3;
       border-bottom: 1px solid $color_main_soft;
-      padding: 0 0 .5em 0;
+      padding: 0 0 0.5em 0;
     }
+
     .page_attachments {
       background: $color_1_soft;
       width: 50%;
@@ -97,40 +113,52 @@ figure.png, figure.jpg, figure.gif {
       margin: 0 0 2em 2em;
       padding: 2em;
       border-radius: 6px;
+
       h3 {
         margin: 0 0 1em 0;
         font-size: 1rem;
       }
+
       .file {
         clear: both;
-        margin-top: -.5em;
-        margin-left: -.5em;
+        margin-top: -0.5em;
+        margin-left: -0.5em;
+
         .icon {
           float: left;
           margin: 0 1rem 1rem 0;
           font-size: 2.5rem;
-          opacity: .3;
+          opacity: 0.3;
         }
+
         a {
           display: block;
           text-decoration: none;
-          padding: .5em;
+          padding: 0.5em;
           border-radius: 6px;
         }
+
         a:hover {
           background: darken($color_1_soft, 5%);
         }
+
         h4 {
           text-transform: none;
           margin: 0;
           text-decoration: underline;
         }
+
         .meta {
-          opacity: .65;
+          opacity: 0.65;
           font-size: $f7;
         }
       }
     }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
   }
 }
 
@@ -138,36 +166,41 @@ figure.png, figure.jpg, figure.gif {
   display: flex;
   flex-wrap: wrap;
   line-height: 1.2;
+
   .page_child {
     background: $color_1_soft;
     border-radius: 6px;
-    margin: .5em;
+    margin: 0.5em;
     font-size: $f5;
     font-weight: 600;
     box-sizing: border-box;
     width: 40%;
     flex: 2 1 auto;
+
     a {
       display: block;
       padding: 1em;
     }
+
     a:hover {
       background: darken($color_1_soft, 5%);
     }
+
     .page_children {
       padding: 0 1em 1em 1em;
       display: block;
+
       .page_child {
         font-weight: normal;
-        font-size: .85rem;
+        font-size: 0.85rem;
         margin: 0;
         display: inline;
         background: none;
         padding: 0;
-        margin: 0;
+
         a {
           padding: 0;
-          margin: 0 0 .5em 0;
+          margin: 0 0 0.5em 0;
         }
       }
     }

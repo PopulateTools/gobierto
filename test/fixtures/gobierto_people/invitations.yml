@@ -1,0 +1,40 @@
+richard_paris_invitation_recent:
+  person: richard
+  organizer: Important Paris Association
+  title: Recent important congress in Paris
+  location: <%= {
+    "name" => "Paris",
+    "lat" => 48.8588377,
+    "lon" => 2.2770201,
+  }.to_json %>
+  department: culture_department
+  start_date: <%= 2.months.ago %>
+  end_date: <%= 2.months.ago + 2.days %>
+
+richard_paris_invitation_old:
+  person: richard
+  organizer: Important Paris Association
+  title: Old important congress in Paris
+  location: <%= {
+    "name" => "Paris",
+    "lat" => 48.8588377,
+    "lon" => 2.2770201,
+  }.to_json %>
+  department: culture_department
+  start_date: <%= 2.years.ago %>
+  end_date: <%= 2.years.ago + 2.days %>
+
+tamara_london_invitation:
+  person: tamara
+  organizer: London City Council
+  title: Important conference in London
+  location: <%= {
+    "name" => "London",
+    "lat" => 51.528308,
+    "lon" => -0.3817789,
+  }.to_json %>
+  start_date: <%= 3.months.ago %>
+  end_date: <%= 3.months.ago + 1.day %>
+  meta: <%= {
+    "expenses_financed_by_organizer" => ["Accomodation", "Food"]
+  }.to_json %>

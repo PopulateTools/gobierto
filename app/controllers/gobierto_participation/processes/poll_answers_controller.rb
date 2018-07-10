@@ -6,17 +6,18 @@ module GobiertoParticipation
       include User::VerificationHelper
 
       before_action :authenticate_user!
-      before_action { verify_user_in!(current_site) if current_poll.visibility_user_level == "verified" }
+      before_action { check_visibility_level(current_poll, current_user) }
       before_action { check_active_stage(current_process, ProcessStage.stage_types[:polls]) }
+      before_action(only: [:new]) { current_poll.answerable_by?(current_user) }
 
       def new
         if !current_poll.has_answers_from?(current_user)
           @poll_answer_form = PollAnswerForm.new(poll: current_poll)
-          render :new, layout: 'gobierto_participation/layouts/application_simple'
+          render :new
         else
           redirect_to(
             gobierto_participation_process_polls_path(current_process.slug),
-            alert: t('.already_answered')
+            alert: t(".already_answered")
           )
         end
       end
@@ -60,7 +61,6 @@ module GobiertoParticipation
       def polls_scope
         valid_preview_token? ? current_process.polls : current_process.polls.answerable
       end
-
     end
   end
 end

@@ -57,7 +57,7 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
   end
 
   def test_site_updated_event_handling_for_empty_changes
-    refute_difference "Activity.count" do
+    assert_no_difference "Activity.count" do
       subject.site_updated Event.new(name: "activities/sites.site_updated", payload: {
                                        subject: site, author: admin, ip: IP,
                                        changes: {}

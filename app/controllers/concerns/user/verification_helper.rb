@@ -3,6 +3,12 @@ module User::VerificationHelper
 
   private
 
+  def check_visibility_level(resource, user)
+    unless resource.visibility_level_allowed_for?(user)
+      raise_visibility_forbidden(resource, user)
+    end
+  end
+
   def verify_user_in!(site)
     raise_user_not_verified(site) unless user_verified_in?(site)
   end
@@ -22,6 +28,15 @@ module User::VerificationHelper
       request.referrer || user_root_path,
       alert: t('user.census_verifications.messages.already_verified')
     )
+  end
+
+  def raise_visibility_forbidden(resource, user)
+    case resource.visibility_user_level
+    when 'verified'
+      raise_user_not_verified(resource.site)
+    when 'registered'
+      raise_user_not_signed_in
+    end
   end
 
   def raise_user_not_verified(site)

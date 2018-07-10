@@ -10,7 +10,7 @@ module GobiertoCommon
 
     scope :sorted, -> { order(position: :asc) }
 
-    enum field_type: { text: 0, date: 1, currency: 2 }
+    enum field_type: { text: 0, date: 1, currency: 2, url: 3 }
 
     def label_components
       available_locales.map do |locale|

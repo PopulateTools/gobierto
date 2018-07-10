@@ -37,3 +37,23 @@ config/deploy/production.rb
 
 # Uploaded files
 /public/system/attachments
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+yarn-error.log*
+.yarn-integrity
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity
+
+# I18njs
+app/javascript/i18n/translations.js
+
+# Gobierto Engines
+vendor/gobierto_engines/*
+!vendor/gobierto_engines/.keep
+app/javascript/gencat
+app/javascript/packs/gencat.js

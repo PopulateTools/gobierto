@@ -9,5 +9,10 @@ module GobiertoCommon
       :label,
       :field_type
     )
+
+    def url?
+      field_type == 'url'
+    end
+
   end
 end

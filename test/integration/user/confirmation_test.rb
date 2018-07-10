@@ -20,6 +20,14 @@ class User::ConfirmationTest < ActionDispatch::IntegrationTest
     @site ||= sites(:santander)
   end
 
+  def auth_strategy_site
+    @auth_strategy_site ||= sites(:cortegada)
+  end
+
+  def unconfirmed_user_in_auth_strategy_site
+    @unconfirmed_user_in_auth_strategy_site ||= users(:martin)
+  end
+
   def test_confirmation
     with_current_site(site) do
       visit @confirmation_path
@@ -27,6 +35,26 @@ class User::ConfirmationTest < ActionDispatch::IntegrationTest
       fill_in :user_confirmation_name, with: "User name"
       fill_in :user_confirmation_password, with: "wadus"
       fill_in :user_confirmation_password_confirmation, with: "wadus"
+      select "1992", from: :user_confirmation_date_of_birth_1i
+      select "January", from: :user_confirmation_date_of_birth_2i
+      select "1", from: :user_confirmation_date_of_birth_3i
+
+      choose "Male"
+
+      click_on "Save"
+
+      assert has_message?("Signed in successfully")
+    end
+  end
+
+  def test_confirmation_with_password_disabled
+    with_current_site(auth_strategy_site) do
+      visit new_user_confirmations_path(confirmation_token: unconfirmed_user_in_auth_strategy_site.confirmation_token)
+
+      assert has_no_field? :user_confirmation_password
+      assert has_no_field? :user_confirmation_password_confirmation
+
+      fill_in :user_confirmation_name, with: "User name"
       select "1992", from: :user_confirmation_date_of_birth_1i
       select "January", from: :user_confirmation_date_of_birth_2i
       select "1", from: :user_confirmation_date_of_birth_3i

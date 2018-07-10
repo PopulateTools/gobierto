@@ -3,9 +3,9 @@
 
     <div class="pure-u-1 pure-u-md-3-5 sub_filter">
       <ul>
-        <li class="all-events-filter active" data-scope="all">
-          <%= link_to t(".all_events"), admin_calendars_events_path(collection_id: collection), remote: true %>
-          (<%= @events_presenter.events_count %>)
+        <li class="upcoming-events-filter active" data-scope="upcoming">
+          <%= link_to t(".upcoming_events"), admin_calendars_events_path(collection_id: collection), remote: true %>
+          (<%= @events_presenter.upcoming_events_count %>)
         </li>
         <li class="pending-events-filter <%= class_if("warn", @events_presenter.pending_events_count > 0) %>" data-scope="pending">
           <%= link_to t(".pending_events"), admin_calendars_events_path(collection_id: collection, scope: :pending), remote: true %>
@@ -24,8 +24,8 @@
 
     <div class="pure-u-1 pure-u-md-2-5">
       <div class="admin_tools right">
-        <% if current_site.calendar_integration.present? && @person %>
-          <%= link_to edit_admin_people_person_calendar_configuration_path(@person) do %>
+        <% if @person %>
+          <%= link_to edit_admin_calendars_configuration_path(@person.calendar) do %>
             <i class="fa fa-cog"></i>
             <%= t(".configuration") %>
           <% end %>
@@ -45,6 +45,7 @@
         <th><%= t(".header.location") %></th>
         <th><%= t(".header.status") %></th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
 
@@ -62,7 +63,7 @@
             <% end %>
           </td>
           <td>
-            <%= l(event.starts_at, format: :short) %>
+            <%= l(event.starts_at, format: :long) %>
           </td>
           <td>
             <% if event.first_location %>
@@ -78,13 +79,83 @@
             <%= t(".visibility_level.#{event.state}") %>
           </td>
           <td>
-            <%= link_to gobierto_people_event_preview_url(event), target: "_blank", class: "view_item" do %>
+            <%= link_to gobierto_calendars_event_preview_url(event), target: "_blank", class: "view_item" do %>
               <i class="fa fa-eye"></i>
               <%= t(".view_event") %>
             <% end %>
+          </td>
+          <td>
+            <%= link_to "<i class='fa fa-trash'></i>".html_safe,
+                        admin_calendars_event_path(event, process_id: (current_process.id if !defined?(current_process).nil?)),
+                        title: t("gobierto_admin.shared.archive.element"),
+                        method: :delete,
+                        data: { confirm: t("gobierto_admin.shared.archive.confirm") } %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
+
+  <%= paginate @events, param_name: :events_page, remote: true, params: { archived_events_page: nil } %>
+
+  <% unless @archived_events.empty? %>
+    <div class="m_v_1 right">
+      <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggle: true} %>
+    </div>
+
+    <div id="archived-list" style="<%= params[:archived_events_page] ? '' : 'display:none' %>">
+      <table class="person-events-list">
+        <thead>
+          <tr>
+            <th></th>
+            <th><%= t(".header.event") %></th>
+            <th><%= t(".header.date") %></th>
+            <th><%= t(".header.location") %></th>
+            <th><%= t(".header.status") %></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @archived_events.each do |event| %>
+            <tr id="person-event-item-<%= event.id %>" class="<%= cycle("odd", "even") %>">
+              <td>
+                <%= link_to edit_admin_calendars_event_path(event, collection_id: collection), data: { turbolinks: false } do %>
+                  <i class="fa fa-edit"></i>
+                <% end %>
+              </td>
+              <td>
+                <%= event.title %>
+              </td>
+              <td>
+                <%= l(event.starts_at, format: :long) %>
+              </td>
+              <td>
+                <% if event.first_location %>
+                  <%= event.first_location.name %>
+                <% end %>
+              </td>
+              <td>
+                <%= t(".visibility_level.archived") %>
+              </td>
+              <td>
+                <%= link_to t("gobierto_admin.shared.recover.element"),
+                  admin_calendars_event_recover_path(event, process_id: (current_process.id if !defined?(current_process).nil?)),
+                  title: t("gobierto_admin.shared.recover.element"),
+                  method: :put,
+                  data: { confirm: t("gobierto_admin.shared.recover.confirm") } %>
+
+            </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @archived_events, param_name: :archived_events_page, remote: true, params: { events_page: nil } %>
+    </div>
+  <% end %>
 </div>
+
+<%= javascript_tag do %>
+  window.GobiertoAdmin.gobierto_calendars_events_controller.index();
+<% end %>

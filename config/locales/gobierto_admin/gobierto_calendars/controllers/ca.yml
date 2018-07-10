@@ -2,10 +2,19 @@
 ca:
   gobierto_admin:
     gobierto_calendars:
+      calendar_configuration:
+        sync_calendars:
+          success: Sincronització realitzada
+        update:
+          success: Preferències actualitzades correctament
       events:
         create:
           success_html: El esdeveniment s'ha creat correctament. <a href="%{link}">Veure
             el esdeveniment</a>.
+        destroy:
+          success: El esdeveniment s'ha archivat correctament
+        recover:
+          success: El esdeveniment s'ha recuperat correctament
         update:
           success_html: El esdeveniment s'ha actualitzat correctament. <a href="%{link}">Veure
             el esdeveniment</a>.

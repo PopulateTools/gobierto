@@ -2,15 +2,27 @@ class ApplicationController < ActionController::Base
   include SubmodulesHelper
   include ::GobiertoCommon::ModuleHelper
   include ::GobiertoCommon::FileUploadHelper
+  include ::GobiertoCms::GlobalNavigation
 
   protect_from_forgery with: :exception
 
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionController::RoutingError, with: :render_404
   rescue_from ActionController::UnknownFormat, with: :render_404
 
-  helper_method :helpers, :load_current_module_sub_sections, :current_site, :current_module, :current_module_body_class, :available_locales, :gobierto_people_event_preview_url, :page_preview_url
+  helper_method(
+    :helpers,
+    :load_current_module_sub_sections,
+    :current_site,
+    :current_module,
+    :current_module_class,
+    :available_locales,
+    :gobierto_calendars_event_preview_url,
+    :algoliasearch_configured?,
+    :cache_key_preffix
+  )
 
-  before_action :set_current_site, :authenticate_user_in_site, :set_locale
+  before_action :set_current_site, :authenticate_user_in_site, :set_locale, :apply_engines_overrides
 
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -21,11 +33,15 @@ class ApplicationController < ActionController::Base
   end
 
   def current_site
-    @current_site ||= if request.env['gobierto_site'].present?
-                        request.env['gobierto_site']
-                      else
-                        Site.first if Rails.env.test?
-                      end
+    @current_site ||= begin
+      site = if request.env['gobierto_site'].present?
+        request.env['gobierto_site']
+      else
+        Site.first if Rails.env.test?
+      end
+      ::GobiertoCore::CurrentScope.current_site = site
+      site
+    end
   end
 
   private
@@ -40,12 +56,8 @@ class ApplicationController < ActionController::Base
                         end
   end
 
-  def current_module_body_class
-    if current_module == 'gobierto_participation'
-      return 'gobierto_participation theme-participation'
-    else
-      return current_module
-    end
+  def current_module_class
+    @current_module_class ||= current_module&.camelize&.constantize
   end
 
   def set_current_site
@@ -80,30 +92,51 @@ class ApplicationController < ActionController::Base
                            end
   end
 
+  def algoliasearch_configured?
+    ::GobiertoCommon::Search.algoliasearch_configured?
+  end
+
+  def engine_overrides
+    @engine_overrides ||= current_site.try(:engines_overrides)
+  end
+
+  def engine_overrides?
+    engine_overrides.present?
+  end
+
+  def apply_engines_overrides
+    return unless engine_overrides?
+    engine_overrides.each do |engine|
+      prepend_view_path Rails.root.join("vendor/gobierto_engines/#{ engine }/app/views")
+    end
+  end
+
+  def cache_key_preffix
+    "site-#{current_site.id}-#{params.to_unsafe_h.sort.flatten.join('-')}"
+  end
+
   protected
 
   def remote_ip
     request.env['action_dispatch.remote_ip'].try(:calculate_ip) || request.remote_ip
   end
 
-  def raise_module_not_enabled
-    redirect_to(root_path) and return false
+  def raise_module_not_enabled(redirect = true)
+    if redirect
+      redirect_to(root_path) and return false
+    else
+      head :forbidden
+    end
   end
 
-  def gobierto_people_event_preview_url(event, options = {})
+  def gobierto_calendars_event_preview_url(event, options = {})
     options[:host] ||= current_site.domain
-    # TODO
-    return '#' if @person.nil? || !event.collection.container.is_a?(::GobiertoPeople::Person)
 
-    if event.pending? || @person.draft?
+    if ((event.collection.container.class_name == "GobiertoParticipation::Process" && event.pending?) ||
+        (event.collection.container.class_name == "GobiertoPeople::Person" && event.pending?) ||
+        (@person && @person.draft?))
       options.merge!(preview_token: current_admin.preview_token)
     end
-    gobierto_people_person_event_url(@person.slug, event.slug, options)
+    event.to_url(options)
   end
-
-  def page_preview_url(page, options = {})
-    options.merge!(preview_token: current_admin.preview_token) unless page.active?
-    page.to_url(options)
-  end
-
 end

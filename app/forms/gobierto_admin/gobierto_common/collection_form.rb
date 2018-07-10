@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCommon
-    class CollectionForm
-      include ActiveModel::Model
+    class CollectionForm < BaseForm
 
       attr_accessor(
         :id,
@@ -55,6 +56,7 @@ module GobiertoAdmin
             collection_attributes.container = container
           else
             collection_attributes.container_type = "GobiertoParticipation"
+            collection_attributes.container_id = nil
           end
           collection_attributes.item_type = item_type
         end
@@ -70,13 +72,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
     end
   end
 end

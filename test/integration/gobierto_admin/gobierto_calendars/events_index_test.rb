@@ -5,6 +5,7 @@ require "test_helper"
 module GobiertoAdmin
   module GobiertoCalendars
     class EventsIndexTest < ActionDispatch::IntegrationTest
+
       def setup
         super
         @collection_path = admin_common_collection_path(collection)
@@ -26,6 +27,10 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def person_upcoming_events
+        @person_upcoming_events ||= person.events.upcoming
+      end
+
       def test_person_events_index
         with_javascript do
           with_signed_in_admin(admin) do
@@ -33,9 +38,9 @@ module GobiertoAdmin
               visit @collection_path
 
               within "table.person-events-list tbody" do
-                assert has_selector?("tr", count: person.events.count)
+                assert has_selector?("tr", count: person_upcoming_events.count)
 
-                person.events.each do |event|
+                person_upcoming_events.each do |event|
                   assert has_selector?("tr#person-event-item-#{event.id}")
                 end
               end
@@ -118,8 +123,8 @@ module GobiertoAdmin
 
               within ".sub_filter ul", match: :first do
                 assert has_selector?(
-                  ".all-events-filter",
-                  text: "All (#{person.events.count})"
+                  ".upcoming-events-filter",
+                  text: "Upcoming (#{person_upcoming_events.count})"
                 )
 
                 assert has_selector?(

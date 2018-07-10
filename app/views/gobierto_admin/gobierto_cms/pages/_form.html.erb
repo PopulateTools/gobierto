@@ -8,15 +8,21 @@
 
         <% current_site.configuration.available_locales.each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
-            <%= label_tag "page[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
+            <%= label_tag "page[title_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:title) %>
+              <%= attribute_indication_tag required: true %>
+            <% end %>
             <%= text_field_tag "page[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
 
-          <div class="form_item textarea" data-locale="<%= locale %>">
-            <%= label_tag "page[body_translations][#{locale}]", f.object.class.human_attribute_name(:body) %>
+          <div class="form_item textarea has-indication" data-locale="<%= locale %>">
+            <%= label_tag "page[body_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:body) %>
+              <%= attribute_indication_tag required: true %>
+            <% end %>
             <%= text_area_tag "page[body_source_translations][#{locale}]", f.object.body_source_translations && f.object.body_source_translations[locale], attachment_path: admin_attachments_file_attachments_path, lang: locale, data: { wysiwyg: true } %>
           </div>
-          <%= hidden_field_tag "page[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], id: "body_translations_#{locale}" %>
+          <%= hidden_field_tag "page[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], id: "page_body_translations_#{locale}" %>
         <% end %>
 
       </div>
@@ -25,6 +31,21 @@
         <%= f.label :slug %>
         <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
       </div>
+
+      <div class="form_item input_text">
+        <%= f.label :published_on %>
+        <%= f.text_field :published_on, data: {
+            "language": I18n.locale,
+            "timepicker": true,
+            "date-format": "yyyy-mm-dd",
+            "time-format": "hh:ii",
+            "startDate": format_time(f, :published_on, 2)
+          },
+          class: "air-datepicker",
+          readonly: !Rails.env.test?
+        %>
+      </div>
+
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>
@@ -81,24 +102,5 @@
   <%= javascript_tag do %>
     window.GobiertoAdmin.gobierto_attachments_controller.index();
     window.GobiertoAdmin.gobierto_cms_controller.edit("<%= @section_id.nil? ? 'null' : @section_id %>", "<%= @parent_id.nil? ? 'null' : @parent_id %>", "<%= @page_section_item_id %>");
-    $('[data-wysiwyg]').each(function(){
-      var $el = $(this);
-      var simplemde = new SimpleMDE({
-        element: $el[0],
-        autofocus: true,
-        forceSync: true,
-        spellChecker: false,
-        renderingConfig: {
-          singleLineBreaks: false
-        },
-        status: false
-      });
-
-      $el.data({editor: simplemde});
-      var lang = simplemde.element.attributes.lang.value;
-      simplemde.codemirror.on("change", function(){
-        $('#body_translations_' + lang).val(simplemde.markdown(simplemde.value()))
-      });
-    });
   <% end %>
 <% end %>

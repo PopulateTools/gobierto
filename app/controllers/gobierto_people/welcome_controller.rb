@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class WelcomeController < GobiertoPeople::ApplicationController
     include PoliticalGroupsHelper
     include PeopleClassificationHelper
+    include DatesRangeHelper
 
     before_action :check_active_submodules
 
@@ -12,6 +15,11 @@ module GobiertoPeople
       @home_text = load_home_text
       set_events
       set_present_groups
+
+      # TODO: this info is only needed for custom engine
+      @gifts = current_site.gifts.limit(4).between_dates(filter_start_date, filter_end_date)
+      @invitations = current_site.invitations.limit(4).between_dates(filter_start_date, filter_end_date)
+      load_home_statistics
     end
 
     private
@@ -33,8 +41,22 @@ module GobiertoPeople
     end
 
     def load_home_text
-      current_site.gobierto_people_settings &&
-        current_site.gobierto_people_settings.send("home_text_#{I18n.locale}")
+      current_site.gobierto_people_settings&.send("home_text_#{I18n.locale}")
+    end
+
+    def load_home_statistics
+      people = QueryWithEvents.new(source: current_site.event_attendances,
+                                   start_date: filter_start_date,
+                                   end_date: filter_end_date,
+                                   not_null: [:department_id])
+      interest_groups = QueryWithEvents.new(source: current_site.interest_groups,
+                                            start_date: filter_start_date,
+                                            end_date: filter_end_date)
+      @home_statistics = {
+        total_events: people.count,
+        total_interest_groups: interest_groups.count,
+        total_people_with_attendances: people.select(:person_id).distinct.count
+      }
     end
   end
 end

@@ -1,0 +1,28 @@
+---
+ca:
+  grammatical_particles:
+    from: de
+    of: de
+    of_the:
+      apostrophized: de l'
+      f: de la
+      m: del
+      n: del
+    our:
+      f: nostra
+      m: nostre
+      n: nostre
+    the:
+      apostrophized: l'
+      f: la
+      m: el
+      n: el
+    to: to
+    to_your:
+      f: a la teva
+      m: al teu
+      n: al teu
+    your:
+      f: teva
+      m: teu
+      n: teu

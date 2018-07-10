@@ -3,6 +3,7 @@
 class Issue < ApplicationRecord
   include GobiertoCommon::Sortable
   include User::Subscribable
+  include GobiertoCommon::UrlBuildable
   include GobiertoCommon::ActsAsCollectionContainer
   include GobiertoCommon::Sluggable
 
@@ -17,16 +18,8 @@ class Issue < ApplicationRecord
 
   scope :sorted, -> { order(position: :asc, created_at: :desc) }
 
-  def self.alphabetically_sorted
-    all.sort_by(&:name)
-  end
-
   def to_s
     self.name
-  end
-
-  def parameterize
-    { slug: slug }
   end
 
   def attributes_for_slug
@@ -34,7 +27,7 @@ class Issue < ApplicationRecord
   end
 
   def to_url(options = {})
-    url_helpers.gobierto_participation_issue_url(parameterize.merge(id: self.id, host: app_host).merge(options))
+    url_helpers.gobierto_participation_issue_url(parameterize.merge(id: self.slug, host: app_host).merge(options))
   end
 
   def active_pages

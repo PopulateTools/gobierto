@@ -83,6 +83,15 @@
                 <div><%= t(".percentage_progress") %></div>
               </div>
 
+              <% if level_index > 1 %>
+                <div class="node-breadcrumb mb2">
+                  <a data-turbolinks="false" @click.stop="setParent">
+                    <i class="fa fa-caret-left"></i>
+                    <%= t(".see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
+                  </a>
+                </div>
+              <% end %>
+
               <% if level_index == @levels %>
                 <div class="node-action-line">
                   <div class="action-line--header node-list cat--negative">

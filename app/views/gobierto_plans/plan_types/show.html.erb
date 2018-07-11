@@ -160,7 +160,7 @@
           <% end %>
 
           <section class="level_<%= @levels + 1 %>" v-if="isOpen(<%= @levels + 1 %>)" :class="['cat_' + color() ]">
-            <template v-for="level in activeNode.level">
+            <template v-for="level in (activeNode.level - 1)">
               <div class="node-breadcrumb" :style="{ marginLeft: (level - 1) + 'em', marginBottom: '0.5em' }">
                 <a data-turbolinks="false" @click.stop="setParent(level)">
                   <i class="fa fa-caret-left"></i>

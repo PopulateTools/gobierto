@@ -67,7 +67,7 @@ module GobiertoAdmin
         csv_file_content.each do |row|
           row_decorator = ::GobiertoPlans::RowNodeDecorator.new(row, plan: @plan)
           row_decorator.categories.each do |category|
-            raise CSVRowInvalid, row_decorator.to_csv unless category.save
+            raise CSVRowInvalid, row_decorator.to_csv unless category.name.present? && category.save
           end
           if (node = row_decorator.node).present?
             raise CSVRowInvalid, row_decorator.to_csv unless REQUIRED_COLUMNS.all? { |column| row_decorator[column].present? } && node.save

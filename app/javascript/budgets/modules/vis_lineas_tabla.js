@@ -297,7 +297,6 @@ export var VisLineasJ = Class.extend({
         .attr('stroke', this.softGrey);
 
       // --> DRAW VERTICAL LINE
-
       this.svgLines.selectAll('.v_line')
             .data([this.dataYear])
             .enter()
@@ -308,10 +307,6 @@ export var VisLineasJ = Class.extend({
             .attr('x2', function(d) { return this.xScale(d); }.bind(this))
             .attr('y2', this.height)
             .style('stroke', this.darkGrey);
-
-      // TODO: trigger the animation that updates the table in the right
-      // $("circle.x" + defaultYear.getFullYear()).trigger("mouseover");
-      // $("circle.x2015").trigger("mouseover");
 
       // --> DRAW THE LINES
       this.chart = this.svgLines.append('g')

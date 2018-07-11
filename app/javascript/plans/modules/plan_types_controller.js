@@ -75,7 +75,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
           setActive: function() {
             var l = this.model.level;
 
-            if (l === 1) {
+            if (this.model.type === "category" && !this.model.max_level) {
               // { ...this.model } conversion to ES2015
               var _extends = Object.assign || function(target) {
                 for (var i = 1; i < arguments.length; i++) {
@@ -94,7 +94,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
               this.$emit('selection', model);
             }
 
-            if (l === 2) {
+            if (this.model.type === "category" && this.model.max_level) {
               this.$emit("toggle");
               this.isOpen = !this.isOpen;
             }
@@ -158,7 +158,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
             handler: function(node) {
               this.showTable = {};
               this.isOpen(node.level);
-              animate(node.level);
+              animate(node.level, node.type);
             },
             deep: true
           }
@@ -269,7 +269,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
       });
 
       // Velocity Animates
-      function animate(l) {
+      function animate(l, type) {
         if (l === 0) {
           $('section.level_0 .js-img').hide();
           $('section.level_0 .js-info').velocity({
@@ -285,13 +285,12 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
           return
         }
-
-        if (l !== 0 && l < 3) {
+        if (l !== 0 && type === "category") {
           $('section.level_' + l).hide();
           $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
 
           return
-        } else if (l >= 3) {
+        } else if (type === "node") {
           $('section.level_' + (l - 1)).hide();
           $('section.level_' + l).velocity("transition.slideRightBigIn");
 

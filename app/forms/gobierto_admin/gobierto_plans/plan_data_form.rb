@@ -5,7 +5,7 @@ module GobiertoAdmin
     class PlanDataForm < BaseForm
       class CSVRowInvalid < ArgumentError; end
 
-      REQUIRED_COLUMNS = %w(Node.Title Node.Status).freeze
+      REQUIRED_COLUMNS = %w(Node.Title).freeze
 
       attr_accessor(
         :plan,

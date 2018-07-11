@@ -47,7 +47,7 @@ module GobiertoPlans
 
     def node
       @node ||= begin
-                  return nil if node_data["Title"].blank?
+                  return nil if node_data.compact.blank?
                   category = categories.last
                   (category.nodes.with_name_translation(node_data["Title"], locale).first || category.nodes.new).tap do |node|
                     node.assign_attributes node_attributes

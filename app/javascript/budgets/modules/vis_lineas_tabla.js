@@ -668,11 +668,14 @@ export var VisLineasJ = Class.extend({
  */
 function defaultYearForVerticalLine(data) {
   var yearsDataItems = {}
+  var measureType = Object.keys(data.budgets)[0];
 
-  data.budgets.per_person.forEach(function(x) { x.values.forEach(function(y) {
+  data.budgets[measureType].forEach(function(x) { x.values.forEach(function(y) {
     var year = y.date.getFullYear();
     yearsDataItems[year] = (yearsDataItems[year] === undefined ? 1 : yearsDataItems[year] + 1);
   }); });
+
+  if (yearsDataItems[data.year] > 1) return new Date(data.year, 0, 1);
 
   var yearsWithData = Object.keys(yearsDataItems).sort().reverse();
   var chosenYear = undefined;

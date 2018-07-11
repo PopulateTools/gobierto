@@ -3,6 +3,7 @@ en:
   gobierto_plans:
     events:
       gobierto_plans_plan_created: Plan created
+      gobierto_plans_plan_data_csv_imported: Plan data imported from CSV file
       gobierto_plans_plan_type_created: Plan type created
       gobierto_plans_plan_type_updated: Plan type updated
       gobierto_plans_plan_updated: Plan updated

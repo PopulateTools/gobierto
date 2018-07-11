@@ -45,14 +45,13 @@ module GobiertoPlans
       max_level = descendants.maximum(:level)
 
       descendants_leaves = descendants.where(level: max_level)
-      if descendants_leaves.exists?
-        descendants_leaves_id = descendants_leaves.pluck(:id)
-        node_ids = GobiertoPlans::CategoriesNode.where(category_id: descendants_leaves_id).pluck(:node_id)
-        nodes = GobiertoPlans::Node.where(id: node_ids)
-        nodes.average(:progress).to_f
-      else
-        nil
-      end
+      descendant_nodes = if descendants_leaves.exists?
+                           descendants_leaves_id = descendants_leaves.pluck(:id)
+                           GobiertoPlans::Node.joins(:categories).where("#{ self.class.table_name }.id" => descendants_leaves_id)
+                         else
+                           nodes
+                         end
+      descendant_nodes.blank? ? nil : descendant_nodes.average(:progress).to_f
     end
   end
 end

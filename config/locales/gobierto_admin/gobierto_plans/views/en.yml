@@ -23,6 +23,10 @@ en:
           no_data: No data loaded yet
           there_are: There are %{info}
           title: Data
+        data_form:
+          confirm_import: Are you sure? All current data will be deleted
+          disable_with: Loading...
+          submit: Import from CSV file
         edit:
           title: Configuration
         form:

@@ -135,6 +135,7 @@ Rails.application.routes.draw do
       resources :plans, except: [:show], path: "" do
         get :data
         put :recover
+        patch :import_data
       end
       resources :plan_types, except: [:show], path: :plan_types do
         put :recover

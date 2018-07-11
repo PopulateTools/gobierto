@@ -8,6 +8,9 @@ es:
             el plan</a>.
         destroy:
           success: El plan ha sido eliminado correctamente.
+        import_data:
+          missing_file: Es necesario seleccionar un fichero para la importación.
+          success_html: Datos importados correctamente. <a href="%{link}">Ver el plan</a>.
         recover:
           success: El plan ha sido recuperado correctamente.
         update:

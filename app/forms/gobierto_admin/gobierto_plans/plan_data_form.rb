@@ -83,9 +83,17 @@ module GobiertoAdmin
         end
       end
 
+      def col_sep
+        separators = [",", ";"]
+        first_line = csv_file.open.first
+        separators.max do |a, b|
+          first_line.split(a).count <=> first_line.split(b).count
+        end
+      end
+
       def csv_file_content
         @csv_file_content ||= begin
-                                ::CSV.read(csv_file.open, headers: true)
+                                ::CSV.read(csv_file.open, headers: true, col_sep: col_sep)
                               rescue ArgumentError, CSV::MalformedCSVError
                                 false
                               end

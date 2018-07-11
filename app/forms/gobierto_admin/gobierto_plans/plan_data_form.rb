@@ -86,7 +86,7 @@ module GobiertoAdmin
       def csv_file_content
         @csv_file_content ||= begin
                                 ::CSV.read(csv_file.open, headers: true)
-                              rescue ArgumentError
+                              rescue ArgumentError, CSV::MalformedCSVError
                                 false
                               end
       end

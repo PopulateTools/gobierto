@@ -33,6 +33,7 @@ try {
 const envConfig = module.exports = environment
 const aliasConfig = module.exports = {
   resolve: {
+    symlinks: false,
     alias: {
       vue: 'vue/dist/vue.esm.js'
     }

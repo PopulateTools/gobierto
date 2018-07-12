@@ -41,20 +41,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
         },
         methods: {
           open: function() {
-            // { ...this.model } conversion to ES2015
-            var _extends = Object.assign || function(target) {
-              for (var i = 1; i < arguments.length; i++) {
-                var source = arguments[i];
-                for (var key in source) {
-                  if (Object.prototype.hasOwnProperty.call(source, key)) {
-                    target[key] = source[key];
-                  }
-                }
-              }
-              return target;
-            };
-
-            var model = _extends({}, this.model);
+            var model = { ...this.model };
 
             // Trigger event
             this.$emit('selection', model);
@@ -76,20 +63,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
             var l = this.model.level;
 
             if (this.model.type === "category" && !this.model.max_level) {
-              // { ...this.model } conversion to ES2015
-              var _extends = Object.assign || function(target) {
-                for (var i = 1; i < arguments.length; i++) {
-                  var source = arguments[i];
-                  for (var key in source) {
-                    if (Object.prototype.hasOwnProperty.call(source, key)) {
-                      target[key] = source[key];
-                    }
-                  }
-                }
-                return target;
-              };
-
-              var model = _extends({}, this.model);
+              var model = { ...this.model };
 
               this.$emit('selection', model);
             }
@@ -116,20 +90,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
         methods: {
           getProject: function(model) {
             if (this.open) {
-              // { ...this.model } conversion to ES2015
-              var _extends = Object.assign || function(target) {
-                for (var i = 1; i < arguments.length; i++) {
-                  var source = arguments[i];
-                  for (var key in source) {
-                    if (Object.prototype.hasOwnProperty.call(source, key)) {
-                      target[key] = source[key];
-                    }
-                  }
-                }
-                return target;
-              };
-
-              var project = _extends({}, model);
+              var project = { ...this.model };
 
               this.$emit('selection', project);
             }

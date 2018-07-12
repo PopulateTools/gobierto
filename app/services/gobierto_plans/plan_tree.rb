@@ -36,6 +36,7 @@ class GobiertoPlans::PlanTree
                           else
                             ""
                           end
+               counter = !@plan.configuration_data["hide_level0_counters"]
                { id: category.id,
                  uid: category.uid,
                  type: "category",
@@ -44,7 +45,8 @@ class GobiertoPlans::PlanTree
                  attributes: { title: category.name_translations,
                                parent_id: category.parent_id,
                                progress: category.progress,
-                               img: logo_url },
+                               img: logo_url,
+                               counter: counter },
                  children: children }
              elsif category_nodes.exists?
                nodes = []

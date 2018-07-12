@@ -110,7 +110,9 @@ $white: $color_main_negative;
           color: $white;
           margin: 0 0 0.25em 0;
           font-size: $f3;
+        }
 
+        h3.counter {
           &::before {
             counter-increment: section;
             content: counter(section) ". ";

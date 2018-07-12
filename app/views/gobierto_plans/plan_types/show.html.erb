@@ -242,7 +242,7 @@
     <div class="node-info js-info">
       <div class="info-progress progress" :style="{ width: progressWidth }"></div>
       <div class="info-content">
-        <h3>{{ model.attributes.title | translate }}</h3>
+        <h3 :class="{ counter: model.attributes.counter }">{{ model.attributes.title | translate }}</h3>
         <span>{{ model.attributes.progress | percent }}</span>
       </div>
     </div>

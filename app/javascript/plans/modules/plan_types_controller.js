@@ -239,9 +239,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
           $('section.level_0 .js-info h3, section.level_0 .js-info span').css({
             "font-size": "1.25rem"
           });
-          $('section.level_0').velocity({
-            flex: "0 0 25%"
-          });
           $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
 
           return
@@ -257,7 +254,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
           return
         }
-
       }
     }
 

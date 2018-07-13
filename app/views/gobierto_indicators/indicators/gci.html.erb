@@ -51,7 +51,5 @@
 <%= render partial: 'gobierto_indicators/indicators/template' %>
 
 <% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.GobiertoIndicators.indicators_controller.show();
-  <% end %>
+  window.GobiertoIndicators.indicators_controller.show();
 <% end %>

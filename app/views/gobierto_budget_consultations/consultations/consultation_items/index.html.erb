@@ -37,7 +37,5 @@
 </div>
 
 <% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.GobiertoBudgetConsultations.consultation_items_controller.index('<%= gobierto_budget_consultations_consultation_new_response_path(@consultation) %>');
-  <% end %>
+  window.GobiertoBudgetConsultations.consultation_items_controller.index('<%= gobierto_budget_consultations_consultation_new_response_path(@consultation) %>');
 <% end %>

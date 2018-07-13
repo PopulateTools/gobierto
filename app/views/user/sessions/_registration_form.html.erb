@@ -15,7 +15,5 @@
 <% end %>
 
 <% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.User.registration_controller.new();
-  <% end %>
+  window.User.registration_controller.new();
 <% end %>

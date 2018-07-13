@@ -146,10 +146,15 @@ $white: $color_main_negative;
       :first-child {
         flex: 0;
       }
+
+      .fa.cursor-pointer {
+        cursor: pointer;
+      }
     }
 
     h3 {
       margin: 0 0 0.5em;
+      cursor: default;
 
       a {
         display: block;
@@ -159,10 +164,10 @@ $white: $color_main_negative;
         &::first-letter {
           text-transform: uppercase;
         }
-      }
 
-      &:hover {
-        opacity: 0.75;
+        &:hover {
+          opacity: 0.75;
+        }
       }
     }
 

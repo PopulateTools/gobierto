@@ -139,6 +139,13 @@ $white: $color_main_negative;
       text-align: right;
     }
 
+    .flex-20 {
+      flex-basis: 20%;
+    }
+    .flex-10 {
+      flex-basis: 10%;
+    }
+
     .node-title {
       flex-basis: 65%;
       display: flex;
@@ -392,7 +399,7 @@ $white: $color_main_negative;
 
   // Sections
   section.level_0 {
-    flex: 1 1 0%;
+    flex: 1 1 25%;
     counter-reset: section;
   }
 

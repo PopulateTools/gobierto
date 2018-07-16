@@ -66,4 +66,14 @@ class UserTest < ActiveSupport::TestCase
   def test_valid
     assert user.valid?
   end
+
+  def test_age
+    birthdate = Time.new(2004, 2, 29, 6, 0, 0)
+    user.update_attribute(:date_of_birth, birthdate)
+
+    Timecop.freeze(birthdate + 1.month) { assert_equal 0, user.age }
+    Timecop.freeze(birthdate.change(year: 2005, day: 28)) { assert_equal 0, user.age }
+    Timecop.freeze(birthdate.change(year: 2005, month: 3, day: 1)) { assert_equal 1, user.age }
+  end
+
 end

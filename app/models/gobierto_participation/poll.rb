@@ -45,7 +45,7 @@ module GobiertoParticipation
     end
 
     def has_answers_from?(user)
-      answers.where(user: user).any?
+      answers.by_user(user).any?
     end
 
     def open?

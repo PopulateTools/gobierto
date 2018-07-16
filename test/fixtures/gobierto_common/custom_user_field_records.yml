@@ -1,3 +1,5 @@
+## dennis
+
 dennis_custom_fields_district:
   user: dennis
   custom_user_field: madrid_custom_user_field_district
@@ -17,3 +19,10 @@ dennis_custom_fields_bio:
   user: dennis
   custom_user_field: madrid_custom_user_field_interests
   payload: <%= { "interests" => ["randomstring1", "randomstring2"]}.to_json %>
+
+## peter
+
+peter_custom_fields_district:
+  user: peter
+  custom_user_field: madrid_custom_user_field_district
+  payload: <%= { "district" => "Retiro" }.to_json %>

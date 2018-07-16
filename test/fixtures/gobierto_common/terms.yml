@@ -1,0 +1,46 @@
+mammal:
+  vocabulary: animals
+  name_translations: <%= { es: "Mamífero", en: "Mammal" }.to_json %>
+  description_translations: <%= { es: "Vertebrado caracterizado por presentar glándulas mamarias", en: "Vertebrates characterised by the possession of mammary glands" }.to_json %>
+  slug: <%= "animals-mammal" %>
+  position: 0
+  level: 0
+dog:
+  vocabulary: animals
+  name_translations: <%= { es: "Perro", en: "Dog" }.to_json %>
+  description_translations: <%= { es: "Mamífero que ladra", en: "Mammal who barks" }.to_json %>
+  slug: <%= "animals-dog" %>
+  position: 0
+  level: 1
+  term_id: <%= ActiveRecord::FixtureSet.identify(:mammal) %>
+cat:
+  vocabulary: animals
+  name_translations: <%= { es: "Gato", en: "Cat" }.to_json %>
+  description_translations: <%= { es: "Mamífero que maúlla", en: "Mammal who meows" }.to_json %>
+  slug: <%= "animals-cat" %>
+  position: 1
+  level: 1
+  term_id: <%= ActiveRecord::FixtureSet.identify(:mammal) %>
+bird:
+  vocabulary: animals
+  name_translations: <%= { es: "Pájaro", en: "Bird" }.to_json %>
+  description_translations: <%= { es: "Grupo de vertebrados, de sangre caliente, que caminan, caracterizados por poner huevos con cáscara dura, entre otras cosas", en: "Group of endothermic vertebrates, characterised by the laying of hard-shelled eggs among other things" }.to_json %>
+  slug: <%= "animals-bird" %>
+  position: 0
+  level: 0
+swift:
+  vocabulary: animals
+  name_translations: <%= { es: "Vencejo", en: "Swift" }.to_json %>
+  description_translations: <%= { es: "Ave que vuela casi todo el tiempo", en: "Bird that flies almost all the time" }.to_json %>
+  slug: <%= "animals-swift" %>
+  position: 0
+  level: 1
+  term_id: <%= ActiveRecord::FixtureSet.identify(:bird) %>
+pigeon:
+  vocabulary: animals
+  name_translations: <%= { es: "Paloma", en: "Pigeon" }.to_json %>
+  description_translations: <%= { es: "Ave que suele encontrarse donde hay humanos", en: "Bird that is usually where there are humans" }.to_json %>
+  slug: <%= "animals-pigeon" %>
+  position: 1
+  level: 1
+  term_id: <%= ActiveRecord::FixtureSet.identify(:bird) %>

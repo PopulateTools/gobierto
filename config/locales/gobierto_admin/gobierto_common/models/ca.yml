@@ -8,5 +8,8 @@ ca:
         item_type: Tipus
         slug: URL
         title: Títol
+      gobierto_admin/gobierto_common/vocabulary_form:
+        name: Nom
     models:
       gobierto_admin/gobierto_common/collection_form: Col·lecció
+      gobierto_admin/gobierto_common/vocabulary_form: Vocabulari

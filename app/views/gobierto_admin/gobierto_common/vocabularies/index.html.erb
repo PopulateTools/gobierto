@@ -1,0 +1,47 @@
+<div class='admin_breadcrumb'>
+  <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
+  <%= t('.title') %>
+</div>
+
+<h1><%= t(".title") %></h1>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_common_vocabulary_path, class: "button" %>
+</div>
+
+<table class="user-list">
+  <tr>
+    <th class='icon_col'></th>
+    <th class='icon_col'></th>
+    <th><%= t(".header.name") %></th>
+    <th></th>
+  </tr>
+
+  <tbody>
+    <% @vocabularies.each do |vocabulary| %>
+      <tr id="vocabulary-item-<%= vocabulary.id %>" class="<%= cycle("odd", "even") %>">
+        <td>
+          <%= link_to edit_admin_common_vocabulary_path(vocabulary) do %>
+            <i class="fa fa-edit"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to admin_common_vocabulary_path(vocabulary), method: :delete, title: t("views.delete"), data: { confirm: t(".delete_confirm") } do %>
+            <i class="fa fa-trash"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_admin_common_vocabulary_path(vocabulary) do %>
+            <%= vocabulary.name %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to admin_common_vocabulary_path(vocabulary), class: "view_item" do %>
+            <i class="fa fa-eye"></i>
+            <%= t(".view_vocabulary") %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

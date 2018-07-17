@@ -446,6 +446,10 @@ A través del administrador se pueden definir los tipos de planes que se van a v
       "en": "Goals"
     }, ...
   ```
+- Deshabilitar la numeración automática del primer nivel de categorías del plan:
+  ```
+  "hide_level0_counters": true
+  ```
 
 - Subir CSS personalizados para los colores de las categorías.
 
@@ -495,6 +499,8 @@ A través del administrador se pueden definir los tipos de planes que se van a v
     background: rgb(123,123,123);
   }
   ```
+- Importar planes completos desde ficheros CSV. Hay una [guía en inglés](docs/gobierto_plans/plan_import_and_configuration.md)
+donde se especifican las características del CSV.
 
 ## Preguntas frecuentes
 

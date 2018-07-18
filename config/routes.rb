@@ -129,7 +129,9 @@ Rails.application.routes.draw do
     namespace :gobierto_common, as: :common, path: nil do
       resources :collections, only: [:show, :new, :create, :edit, :update]
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
-      resources :vocabularies
+      resources :vocabularies do
+        resources :terms, shallow: true, except: [:show]
+      end
     end
 
     namespace :gobierto_plans, as: :plans, path: :plans do

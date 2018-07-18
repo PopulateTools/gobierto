@@ -8,8 +8,14 @@ en:
         item_type: Type
         slug: URL
         title: Title
+      gobierto_admin/gobierto_common/term_form:
+        description: Description
+        name: Name
+        parent_term: Parent Term
+        slug: Slug
       gobierto_admin/gobierto_common/vocabulary_form:
         name: Name
     models:
       gobierto_admin/gobierto_common/collection_form: Collection
+      gobierto_admin/gobierto_common/term_form: Term
       gobierto_admin/gobierto_common/vocabulary_form: Vocabulary

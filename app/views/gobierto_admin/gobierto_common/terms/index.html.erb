@@ -1,0 +1,53 @@
+<div class='admin_breadcrumb'>
+  <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_common.vocabularies.index.title"), admin_common_vocabularies_path %> »
+  <%= @vocabulary.name %>
+</div>
+
+<h1><%= t(".title", vocabulary: @vocabulary.name) %></h1>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_common_vocabulary_term_path(@vocabulary), class: "button" %>
+</div>
+
+<table class="user-list">
+  <tr>
+    <th class='icon_col'></th>
+    <th><%= t(".header.name") %></th>
+    <th><%= t(".header.description") %></th>
+    <th><%= t(".header.parent") %></th>
+    <th><%= t(".header.level") %></th>
+    <th class='icon_col'></th>
+  </tr>
+
+  <tbody>
+    <% @terms.each do |term| %>
+      <tr id="term-item-<%= term.id %>" class="<%= cycle("odd", "even") %>">
+        <td>
+          <%= link_to edit_admin_common_term_path(term) do %>
+            <i class="fa fa-edit"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_admin_common_term_path(term) do %>
+            <%= term.name %>
+          <% end %>
+        </td>
+        <td>
+            <%= term.description %>
+        </td>
+        <td>
+            <%= term.parent_term&.name %>
+        </td>
+        <td>
+            <%= term.level %>
+        </td>
+        <td>
+          <%= link_to admin_common_term_path(term), method: :delete, title: t("views.delete"), data: { confirm: t(".delete_confirm") } do %>
+            <i class="fa fa-trash"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -4,10 +4,12 @@ module GobiertoCommon
   class Term < ApplicationRecord
     before_validation :calculate_level, :set_vocabulary
     include GobiertoCommon::Sluggable
+    after_save :update_children_levels
+    before_destroy :free_children
 
     belongs_to :vocabulary
 
-    has_many :terms
+    has_many :terms, dependent: :nullify
     belongs_to :parent_term, class_name: name, foreign_key: :term_id
 
     validates :vocabulary, :name_translations, :slug, :position, :level, presence: true
@@ -26,8 +28,19 @@ module GobiertoCommon
     private
 
     def calculate_level
-      if parent_term.present?
-        self.level = parent_term.level + 1
+      self.level = parent_term.present? ? parent_term.level + 1 : 0
+    end
+
+    def update_children_levels
+      terms.each do |child|
+        child.valid? && child.save
+      end
+    end
+
+    def free_children
+      terms.each do |child|
+        child.term_id = nil
+        child.valid? && child.save
       end
     end
 

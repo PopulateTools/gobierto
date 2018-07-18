@@ -51,92 +51,92 @@ $(document).on('turbolinks:click', function (event) {
 })
 
 $(document).on('turbolinks:load', function() {
-  var getUnemplAgeData = new GetUnemploymentAgeData(window.populateData.municipalityId);
-
-  // Process unemployment age data and pass it to both charts
-  getUnemplAgeData.getData(function() {
-    // Needs the data to set the same y scale
-    var vis_unemplSex = new VisUnemploymentSex('#unemployment_sex', window.populateData.municipalityId, window.unemplAgeData);
-    vis_unemplSex.render();
-
-    var vis_unempl = new VisUnemploymentAge('#unemployment_age', window.populateData.municipalityId, window.unemplAgeData);
-    vis_unempl.render();
-  });
-
-  var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
-  vis_agedb.render();
-
+  // var getUnemplAgeData = new GetUnemploymentAgeData(window.populateData.municipalityId);
+  //
+  // // Process unemployment age data and pass it to both charts
+  // getUnemplAgeData.getData(function() {
+  //   // Needs the data to set the same y scale
+  //   var vis_unemplSex = new VisUnemploymentSex('#unemployment_sex', window.populateData.municipalityId, window.unemplAgeData);
+  //   vis_unemplSex.render();
+  //
+  //   var vis_unempl = new VisUnemploymentAge('#unemployment_age', window.populateData.municipalityId, window.unemplAgeData);
+  //   vis_unempl.render();
+  // });
+  //
+  // var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
+  // vis_agedb.render();
+  //
   var vis_population = new VisPopulationPyramid('#population_pyramid', window.populateData.municipalityId, window.populateData.year);
   vis_population.render();
-
-  var vis_unemplR = new VisUnemploymentRate('#unemployment_rate', window.populateData.municipalityId, window.populateData.ccaaId);
-  vis_unemplR.render();
-
-  var vis_rent = new VisRentDistribution('#rent_distribution', window.populateData.municipalityId, window.populateData.provinceId, window.populateData.year - 1);
-  vis_rent.render();
-
-  var popCard = new PopulationCard('.population_card', window.populateData.municipalityId);
-  popCard.render();
-
-  var births = new BirthRateCard('.births', window.populateData.municipalityId);
-  births.render();
-
-  var deaths = new DeathRateCard('.deaths', window.populateData.municipalityId);
-  deaths.render();
-
-  var activePopCard = new ActivePopulationCard('.active_pop', window.populateData.municipalityId);
-  activePopCard.render();
-
-  var hCard = new HousesCard('.houses', window.populateData.municipalityId);
-  hCard.render();
-
-  var cCard = new CarsCard('.cars', window.populateData.municipalityId);
-  cCard.render();
-
-  var ssCard = new ssMembersCard('.ss_members', window.populateData.municipalityId);
-  ssCard.render();
-
-  var fCard = new FreelancersCard('.freelancers', window.populateData.municipalityId);
-  fCard.render();
-
-  var cmCard = new CompaniesCard('.companies', window.populateData.municipalityId);
-  cmCard.render();
-
-  var contractsCard = new ContractsCard('.contracts_comparison', window.populateData.municipalityId);
-  contractsCard.render();
-
-  var unBySectorCard = new UnemplBySectorCard('.unemployed_sector', window.populateData.municipalityId);
-  unBySectorCard.render();
-
-  var contrSectorCard = new ContractsBySectorCard('.contracts_sector', window.populateData.municipalityId);
-  contrSectorCard.render();
-
-  var incomeOverviewCard = new IncomeOverviewCard('.income_overview', window.populateData.municipalityId);
-  incomeOverviewCard.render();
-
-  var incomeCard = new IncomeCard('.income', window.populateData.municipalityId);
-  incomeCard.render();
-
-  var invByInhab  = new InvestmentByInhabitantCard('.investment_by_inhabitant', window.populateData.municipalityId);
-  invByInhab.render();
-
-  var debtPerInhab = new DebtByInhabitantCard('.debt_by_inhabitant', window.populateData.municipalityId);
-  debtPerInhab.render();
-
-  var ibi =  new IbiCard('.ibi', window.populateData.municipalityId)
-  ibi.render();
-
-  var budget =  new BudgetByInhabitantCard('.budget_by_inhabitant', window.populateData.municipalityId)
-  budget.render();
-
-  var constructionTax =  new ConstructionTaxCard('.construction_tax', window.populateData.municipalityId)
-  constructionTax.render();
-
-  var carsTax =  new CarsTaxCard('.cars_tax', window.populateData.municipalityId)
-  carsTax.render();
-
-  var economicTax =  new EconomicTaxCard('.economic_tax', window.populateData.municipalityId)
-  economicTax.render();
+  //
+  // var vis_unemplR = new VisUnemploymentRate('#unemployment_rate', window.populateData.municipalityId, window.populateData.ccaaId);
+  // vis_unemplR.render();
+  //
+  // var vis_rent = new VisRentDistribution('#rent_distribution', window.populateData.municipalityId, window.populateData.provinceId, window.populateData.year - 1);
+  // vis_rent.render();
+  //
+  // var popCard = new PopulationCard('.population_card', window.populateData.municipalityId);
+  // popCard.render();
+  //
+  // var births = new BirthRateCard('.births', window.populateData.municipalityId);
+  // births.render();
+  //
+  // var deaths = new DeathRateCard('.deaths', window.populateData.municipalityId);
+  // deaths.render();
+  //
+  // var activePopCard = new ActivePopulationCard('.active_pop', window.populateData.municipalityId);
+  // activePopCard.render();
+  //
+  // var hCard = new HousesCard('.houses', window.populateData.municipalityId);
+  // hCard.render();
+  //
+  // var cCard = new CarsCard('.cars', window.populateData.municipalityId);
+  // cCard.render();
+  //
+  // var ssCard = new ssMembersCard('.ss_members', window.populateData.municipalityId);
+  // ssCard.render();
+  //
+  // var fCard = new FreelancersCard('.freelancers', window.populateData.municipalityId);
+  // fCard.render();
+  //
+  // var cmCard = new CompaniesCard('.companies', window.populateData.municipalityId);
+  // cmCard.render();
+  //
+  // var contractsCard = new ContractsCard('.contracts_comparison', window.populateData.municipalityId);
+  // contractsCard.render();
+  //
+  // var unBySectorCard = new UnemplBySectorCard('.unemployed_sector', window.populateData.municipalityId);
+  // unBySectorCard.render();
+  //
+  // var contrSectorCard = new ContractsBySectorCard('.contracts_sector', window.populateData.municipalityId);
+  // contrSectorCard.render();
+  //
+  // var incomeOverviewCard = new IncomeOverviewCard('.income_overview', window.populateData.municipalityId);
+  // incomeOverviewCard.render();
+  //
+  // var incomeCard = new IncomeCard('.income', window.populateData.municipalityId);
+  // incomeCard.render();
+  //
+  // var invByInhab  = new InvestmentByInhabitantCard('.investment_by_inhabitant', window.populateData.municipalityId);
+  // invByInhab.render();
+  //
+  // var debtPerInhab = new DebtByInhabitantCard('.debt_by_inhabitant', window.populateData.municipalityId);
+  // debtPerInhab.render();
+  //
+  // var ibi =  new IbiCard('.ibi', window.populateData.municipalityId)
+  // ibi.render();
+  //
+  // var budget =  new BudgetByInhabitantCard('.budget_by_inhabitant', window.populateData.municipalityId)
+  // budget.render();
+  //
+  // var constructionTax =  new ConstructionTaxCard('.construction_tax', window.populateData.municipalityId)
+  // constructionTax.render();
+  //
+  // var carsTax =  new CarsTaxCard('.cars_tax', window.populateData.municipalityId)
+  // carsTax.render();
+  //
+  // var economicTax =  new EconomicTaxCard('.economic_tax', window.populateData.municipalityId)
+  // economicTax.render();
 
   $(".sections-nav").stick_in_parent();
 

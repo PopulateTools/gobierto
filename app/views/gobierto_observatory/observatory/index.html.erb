@@ -29,7 +29,19 @@
   			</div>
 				<div class="pure-u-1 pure-u-md-1">
 					<h2 class="with_description"><%= t("gobierto_observatory.layouts.menu_subsections.poblacion") %>-testing</h2>
-					<div id="population_pyramid" class="main_graphic"></div>
+					<div id="population_pyramid" class="main_graphic">
+						<p class="description"><%= t("gobierto_observatory.graphics.age_distribution.title") %></p>
+						<!-- Filters -->
+						<div class="m_v_1">
+							<div class="inline_filter">
+								<div id="invoices-filters" class="button-group ib" role="group">
+									<button class="button-grouped active sort-G" data-toggle="0"><%= @site.organization_name %></button>
+									<button class="button-grouped sort-G" data-toggle="1"><%= 'Cataluña' %></button>
+									<button class="button-grouped sort-G" data-toggle="2"><%= 'Espanya' %></button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
   		</div>
 

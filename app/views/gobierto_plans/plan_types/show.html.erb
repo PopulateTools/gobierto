@@ -254,10 +254,10 @@
   <div class="node-list">
     <div class="node-title" @click.stop="setActive">
       <div><i class="fa cursor-pointer" :class="[(isOpen) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
-      <h3><a href="javascript:void(0)">{{ model.attributes.title | translate }}</a></h3>
+      <h3><a>{{ model.attributes.title | translate }}</a></h3>
     </div>
-    <div class="flex-20">{{ (model.children || []).length }} {{ getLabel(model.level, (model.children || []).length) | translate }}</div>
-    <div class="flex-10">{{ (model.attributes || {}).progress || 0 | percent }}</div>
+    <div class="flex-basis-20">{{ (model.children || []).length }} {{ getLabel(model.level, (model.children || []).length) | translate }}</div>
+    <div class="flex-basis-10">{{ (model.attributes || {}).progress || 0 | percent }}</div>
   </div>
 </script>
 

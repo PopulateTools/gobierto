@@ -139,10 +139,10 @@ $white: $color_main_negative;
       text-align: right;
     }
 
-    .flex-20 {
+    .flex-basis-20 {
       flex-basis: 20%;
     }
-    .flex-10 {
+    .flex-basis-10 {
       flex-basis: 10%;
     }
 
@@ -154,7 +154,7 @@ $white: $color_main_negative;
         flex: 0;
       }
 
-      .fa.cursor-pointer {
+      .cursor-pointer {
         cursor: pointer;
       }
     }

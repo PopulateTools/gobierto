@@ -1,32 +1,59 @@
 #population_pyramid {
-  .males {
-    rect {
-      fill: $color_1;
+  .pyramid {
+    .males {
+      rect {
+        fill: $color_1;
+      }
+    }
+
+    .females {
+      rect {
+        fill: invert($color_1);
+      }
+    }
+
+    .titles {
+      font-weight: 600;
+      font-size: $f7;
+    }
+
+    .tick {
+      text {
+        fill: $color_text;
+      }
+
+      line {
+        stroke: lighten($color_text, 50%);
+      }
+    }
+
+    .y.axis {
+      text-anchor: end;
     }
   }
 
-  .females {
-    rect {
-      fill: invert($color_1);
-    }
-  }
-
-  .titles {
-    font-weight: 600;
-    font-size: $f7;
-  }
-
-  .tick {
-    text {
+  .areas {
+    .title {
+      font-weight: 600;
+      font-size: $f6;
       fill: $color_text;
     }
 
-    line {
-      stroke: lighten($color_text, 50%);
+    .subtitle {
+      font-size: $f7;
+      fill: $color_main_soft;
+    }
+
+    .range {
+      @for $i from 0 through 2 {
+        &.age-#{$i} rect {
+          fill: lighten($color_logo_yellow, $i * 20);
+        }
+      }
     }
   }
 
-  .y.axis {
-    text-anchor: end;
+  .markers {
+
   }
 }

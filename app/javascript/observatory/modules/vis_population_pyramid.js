@@ -34,6 +34,7 @@ export var VisPopulationPyramid = Class.extend({
     // Scales & Ranges
     this.xScaleMale = d3.scaleLinear()
     this.xScaleFemale = d3.scaleLinear()
+    this.xScaleAgeRanges = d3.scaleLinear()
 		this.yScale = d3.scaleBand().padding(0.2)
 
     // Create axes
@@ -57,8 +58,12 @@ export var VisPopulationPyramid = Class.extend({
       .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
 
     this.pyramid = this.svg.append("g").attr("class", "pyramid")
-    this.areas = this.svg.append("g").attr("class", "areas")
-    this.markers = this.svg.append("g").attr("class", "markers")
+    this.areas = this.svg.append("g")
+      .attr("class", "areas")
+      .attr("transform", `translate(${this.width.pyramid + this.gutter},0)`)
+    this.markers = this.svg.append("g")
+      .attr("class", "markers")
+      .attr("transform", `translate(${this.width.pyramid + this.width.areas + this.gutter},0)`)
 
     // Append axes containers
     this.pyramid.append("g").attr("class","x axis males")
@@ -73,17 +78,23 @@ export var VisPopulationPyramid = Class.extend({
       .get(function(error, jsonData) {
         if (error) throw error
 
-        this.data = jsonData
-
-        this.data.forEach(d => {
+        jsonData.forEach(d => {
           d.age = parseInt(d.age)
           d.value = Number(d.value)
         })
 
-        this.data.sort((a,b) => a.age - b.age)
+        jsonData.sort((a,b) => a.age - b.age)
+
+        const aux = {
+          pyramid: jsonData,
+          areas: this._transformAreasData(jsonData)
+        }
+
+        this.data = aux
 
         this.updateRender()
         this._renderBars()
+        this._renderAreas()
 
       }.bind(this))
   },
@@ -97,17 +108,41 @@ export var VisPopulationPyramid = Class.extend({
   updateRender: function() {
     this.xScaleMale
       .range([0, this.width.pyramid / 2])
-      .domain([d3.max(this.data.map(d => d.value)), 0])
+      .domain([d3.max(this.data.pyramid.map(d => d.value)), 0])
 
     this.xScaleFemale
       .range([0, this.width.pyramid / 2])
-      .domain([0, d3.max(this.data.map(d => d.value))])
+      .domain([0, d3.max(this.data.pyramid.map(d => d.value))])
+
+    this.xScaleAgeRanges
+      .range([0, this.width.areas / 3])
+      .domain([d3.max(this.data.areas.map(d => d.value)), 0])
 
     this.yScale
       .rangeRound([this.height.pyramid, 0])
-      .domain(_.uniq(this.data.map(d => d.age)))
+      .domain(_.uniq(this.data.pyramid.map(d => d.age)))
 
     this._renderAxis()
+  },
+  _transformAreasData: function (data, breakpoints) {
+    let bp = breakpoints || [18, 65]
+    return [
+      {
+        name: "Young",
+        range: [d3.min(data.map(d => d.age)), bp[0] - 1],
+        value: data.filter(d => d.age < bp[0]).map(d => d.value).reduce((a,b)=>a+b)
+      },
+      {
+        name: "Adult",
+        range: [bp[0], bp[1] - 1],
+        value: data.filter(d => d.age < bp[1] && d.age >= bp[0]).map(d => d.value).reduce((a,b)=>a+b)
+      },
+      {
+        name: "Elder",
+        range: [bp[1], d3.max(data.map(d => d.age))],
+        value: data.filter(d => d.age >= bp[1]).map(d => d.value).reduce((a,b)=>a+b)
+      }
+    ]
   },
   _renderAxis: function() {
     // X axes
@@ -123,7 +158,7 @@ export var VisPopulationPyramid = Class.extend({
       g.selectAll(".tick:not(:first-child) line").remove()
       g.selectAll(".tick:first-child line")
         .attr("y1", -this.gutter)
-        .attr("y2", -this.height)
+        .attr("y2", -this.height.pyramid)
     }
 
     this.pyramid.select(".x.axis.males")
@@ -174,12 +209,12 @@ export var VisPopulationPyramid = Class.extend({
     let male = g.append("g")
       .attr("class", "males")
       .selectAll("rect")
-      .data(this.data.filter(d => d.sex === "V"))
+      .data(this.data.pyramid.filter(d => d.sex === "V"))
 
     let female = g.append("g")
       .attr("class", "females")
       .selectAll("rect")
-      .data(this.data.filter(d => d.sex === "M"))
+      .data(this.data.pyramid.filter(d => d.sex === "M"))
 
     male.exit().remove()
     female.exit().remove()
@@ -200,6 +235,34 @@ export var VisPopulationPyramid = Class.extend({
       .on("mousemove", this._mousemove.bind(this))
       .on("mouseout", this._mouseout.bind(this))
   },
+  _renderAreas: function() {
+    let g = this.areas.selectAll("g")
+      .data(this.data.areas)
+
+    g.exit().remove()
+
+    let ranges = g.enter().append("g")
+      .attr("class", (d, i) => `range age-${i}`)
+
+    ranges.append("rect")
+      .attr("x", d => this.xScaleAgeRanges(d.value))
+      .attr("y", d => this.yScale(d.range[1]))
+      .attr("width", d => (this.width.areas / 3) - this.xScaleAgeRanges(d.value))
+      .attr("height", d => this.yScale(d.range[0]) - this.yScale(d.range[1]))
+
+    ranges.append("text")
+      .attr("x", (this.width.areas / 3) + this.gutter)
+      .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
+      .attr("class", "title")
+      .text(d => d.name)
+
+    ranges.append("text")
+      .attr("x", (this.width.areas / 3) + this.gutter)
+      .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
+      .attr("dy", "1.5em")
+      .attr("class", "subtitle")
+      .text("Tarari tarará")
+  },
   _mousemove: function() {
 
   },
@@ -207,7 +270,7 @@ export var VisPopulationPyramid = Class.extend({
 
   },
   _getDimensions: function (opts = {}) {
-    let ratio = opts.ratio || 16 / 9
+    let ratio = opts.ratio || 2.5
     let width = opts.width || +d3.select(this.container).node().getBoundingClientRect().width
     let height = opts.height || width / ratio
 

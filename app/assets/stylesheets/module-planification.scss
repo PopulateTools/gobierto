@@ -110,7 +110,9 @@ $white: $color_main_negative;
           color: $white;
           margin: 0 0 0.25em 0;
           font-size: $f3;
+        }
 
+        h3.counter {
           &::before {
             counter-increment: section;
             content: counter(section) ". ";
@@ -137,6 +139,13 @@ $white: $color_main_negative;
       text-align: right;
     }
 
+    .flex-basis-20 {
+      flex-basis: 20%;
+    }
+    .flex-basis-10 {
+      flex-basis: 10%;
+    }
+
     .node-title {
       flex-basis: 65%;
       display: flex;
@@ -144,10 +153,15 @@ $white: $color_main_negative;
       :first-child {
         flex: 0;
       }
+
+      .cursor-pointer {
+        cursor: pointer;
+      }
     }
 
     h3 {
       margin: 0 0 0.5em;
+      cursor: default;
 
       a {
         display: block;
@@ -157,10 +171,10 @@ $white: $color_main_negative;
         &::first-letter {
           text-transform: uppercase;
         }
-      }
 
-      &:hover {
-        opacity: 0.75;
+        &:hover {
+          opacity: 0.75;
+        }
       }
     }
 
@@ -385,7 +399,7 @@ $white: $color_main_negative;
 
   // Sections
   section.level_0 {
-    flex: 1 1 0%;
+    flex: 1 1 25%;
     counter-reset: section;
   }
 

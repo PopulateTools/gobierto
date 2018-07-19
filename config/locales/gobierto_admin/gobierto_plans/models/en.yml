@@ -5,6 +5,7 @@ en:
       gobierto_admin/gobierto_plans/plan_form:
         configuration_data: Configuration
         css: CSS
+        csv_file: CSV file
         footer: Footer
         introduction: Introduction
         plan_type_id: Type
@@ -14,3 +15,12 @@ en:
       gobierto_admin/gobierto_plans/plan_type_form:
         name: Name
         slug: url
+    errors:
+      models:
+        gobierto_admin/gobierto_plans/plan_data_form:
+          attributes:
+            base:
+              file_not_found: File not found
+              invalid_columns: Required columns are missing
+              invalid_format: Invalid file format
+              invalid_row: 'There is an invalid row: %{row_data}'

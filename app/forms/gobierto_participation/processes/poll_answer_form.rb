@@ -58,14 +58,8 @@ module GobiertoParticipation
 
           next if question.nil? || user.nil? || answer_attrs_wrapper[:answers_attributes].nil?
 
-          answer_attributes = {
-            poll_id: question.poll.id,
-            question_id: question.id,
-            user_id: user.id
-          }
-
           answer_attrs_wrapper[:answers_attributes].each do |_, answer_attrs|
-            @answers_attributes << answer_attributes.merge(
+            @answers_attributes << answer_attributes(question, user).merge(
               answer_template_id: answer_attrs[:answer_template_id],
               text: answer_attrs[:text]
             )
@@ -74,8 +68,25 @@ module GobiertoParticipation
       end
 
       def answers_for_all_questions?
-        question_ids = answers_attributes.map{ |answer| answer[:question_id] }.uniq.sort
-        question_ids == questions.map{ |q| q.id }.sort
+        question_ids = answers_attributes.map { |answer| answer[:question_id] }.uniq.sort
+        question_ids == questions.map(&:id).sort
+      end
+
+      def answer_attributes(question, user)
+        custom_records_meta = Hash[user.custom_records.map(&:payload).map do |payload|
+          [payload.keys.first, payload.values.first]
+        end].symbolize_keys
+
+        {
+          poll_id: question.poll.id,
+          question_id: question.id,
+          user_id_hmac: user.id_hmac,
+          encrypted_meta: SecretAttribute.encrypt({
+            gender: User.genders[user.gender],
+            birthdate: user.date_of_birth.iso8601,
+            age: user.age
+          }.merge(custom_records_meta))
+        }
       end
 
     end

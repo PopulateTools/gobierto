@@ -23,6 +23,10 @@ es:
           no_data: Ningún dato cargado todavía
           there_are: Hay %{info}
           title: Datos
+        data_form:
+          confirm_import: "¿Estás seguro? Todos los datos actuales serán eliminados"
+          disable_with: Cargando...
+          submit: Importar desde fichero CSV
         edit:
           title: Configuración
         form:

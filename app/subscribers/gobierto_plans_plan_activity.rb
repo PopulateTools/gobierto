@@ -10,6 +10,10 @@ module Subscribers
       create_activity_from_event(event, "gobierto_plans.plan_updated")
     end
 
+    def plan_data_csv_imported(event)
+      create_activity_from_event(event, "gobierto_plans.plan_data_csv_imported")
+    end
+
     private
 
     def create_activity_from_event(event, action)

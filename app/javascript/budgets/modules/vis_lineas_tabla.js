@@ -168,7 +168,7 @@ export var VisLineasJ = Class.extend({
 
       this.dataChart = this.data.budgets[this.measure];
       this.kind = this.data.kind;
-      this.dataYear = this.parseDate(this.data.year);
+      this.dataYear = defaultYearForVerticalLine(this.data);
       this.lastYear = this.parseDate(this.data.year).getFullYear(); // For the mouseover interaction
       if(this.lastYear > this.maxYear) {
         this.dataYear = new Date(this.maxYear + "-01-01")
@@ -307,7 +307,6 @@ export var VisLineasJ = Class.extend({
             .attr('x2', function(d) { return this.xScale(d); }.bind(this))
             .attr('y2', this.height)
             .style('stroke', this.darkGrey);
-
 
       // --> DRAW THE LINES
       this.chart = this.svgLines.append('g')
@@ -663,3 +662,29 @@ export var VisLineasJ = Class.extend({
   })()
 
 }); // End object
+
+/**
+ * Returns the most recent year that has data for at least two different municipalities.
+ */
+function defaultYearForVerticalLine(data) {
+  var yearsDataItems = {}
+  var measureType = Object.keys(data.budgets)[0];
+
+  data.budgets[measureType].forEach(function(x) { x.values.forEach(function(y) {
+    var year = y.date.getFullYear();
+    yearsDataItems[year] = (yearsDataItems[year] === undefined ? 1 : yearsDataItems[year] + 1);
+  }); });
+
+  if (yearsDataItems[data.year] > 1) return new Date(data.year, 0, 1);
+
+  var yearsWithData = Object.keys(yearsDataItems).sort().reverse();
+  var chosenYear = undefined;
+
+  yearsWithData.forEach(function(year) {
+    if (yearsDataItems[year] > 1 && chosenYear == undefined) {
+      chosenYear = new Date(year, 0, 1);
+    }
+  });
+
+  return chosenYear;
+}

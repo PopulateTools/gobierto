@@ -13,9 +13,11 @@
   </div>
 </div>
 
+<% if false #FIXME? %>
 <%= content_for(:javascript_include) do %>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <%= javascript_include_tag 'gobierto_consultations/application_desktop', 'data-turbolinks-track' => true %>
+<% end %>
 <% end %>
 
 <template id="card">

@@ -41,20 +41,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
         },
         methods: {
           open: function() {
-            // { ...this.model } conversion to ES2015
-            var _extends = Object.assign || function(target) {
-              for (var i = 1; i < arguments.length; i++) {
-                var source = arguments[i];
-                for (var key in source) {
-                  if (Object.prototype.hasOwnProperty.call(source, key)) {
-                    target[key] = source[key];
-                  }
-                }
-              }
-              return target;
-            };
-
-            var model = _extends({}, this.model);
+            var model = { ...this.model };
 
             // Trigger event
             this.$emit('selection', model);
@@ -75,26 +62,13 @@ window.GobiertoPlans.PlanTypesController = (function() {
           setActive: function() {
             var l = this.model.level;
 
-            if (l === 1) {
-              // { ...this.model } conversion to ES2015
-              var _extends = Object.assign || function(target) {
-                for (var i = 1; i < arguments.length; i++) {
-                  var source = arguments[i];
-                  for (var key in source) {
-                    if (Object.prototype.hasOwnProperty.call(source, key)) {
-                      target[key] = source[key];
-                    }
-                  }
-                }
-                return target;
-              };
-
-              var model = _extends({}, this.model);
+            if (this.model.type === "category" && !this.model.max_level) {
+              var model = { ...this.model };
 
               this.$emit('selection', model);
             }
 
-            if (l === 2) {
+            if (this.model.type === "category" && this.model.max_level) {
               this.$emit("toggle");
               this.isOpen = !this.isOpen;
             }
@@ -116,20 +90,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
         methods: {
           getProject: function(model) {
             if (this.open) {
-              // { ...this.model } conversion to ES2015
-              var _extends = Object.assign || function(target) {
-                for (var i = 1; i < arguments.length; i++) {
-                  var source = arguments[i];
-                  for (var key in source) {
-                    if (Object.prototype.hasOwnProperty.call(source, key)) {
-                      target[key] = source[key];
-                    }
-                  }
-                }
-                return target;
-              };
-
-              var project = _extends({}, model);
+              var project = { ...this.model };
 
               this.$emit('selection', project);
             }
@@ -158,7 +119,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
             handler: function(node) {
               this.showTable = {};
               this.isOpen(node.level);
-              animate(node.level);
+              animate(node.level, node.type);
             },
             deep: true
           }
@@ -269,7 +230,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
       });
 
       // Velocity Animates
-      function animate(l) {
+      function animate(l, type) {
         if (l === 0) {
           $('section.level_0 .js-img').hide();
           $('section.level_0 .js-info').velocity({
@@ -278,26 +239,21 @@ window.GobiertoPlans.PlanTypesController = (function() {
           $('section.level_0 .js-info h3, section.level_0 .js-info span').css({
             "font-size": "1.25rem"
           });
-          $('section.level_0').velocity({
-            flex: "0 0 25%"
-          });
           $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
 
           return
         }
-
-        if (l !== 0 && l < 3) {
+        if (l !== 0 && type === "category") {
           $('section.level_' + l).hide();
           $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
 
           return
-        } else if (l >= 3) {
+        } else if (type === "node") {
           $('section.level_' + (l - 1)).hide();
           $('section.level_' + l).velocity("transition.slideRightBigIn");
 
           return
         }
-
       }
     }
 

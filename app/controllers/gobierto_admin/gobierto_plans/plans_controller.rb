@@ -81,6 +81,28 @@ module GobiertoAdmin
 
       def data
         @plan = find_plan
+        @plan_data_form = PlanDataForm.new(plan: @plan)
+      end
+
+      def import_data
+        @plan = find_plan
+        if params[:plan].blank?
+          redirect_to(
+            admin_plans_plan_data_path(@plan),
+            alert: t(".missing_file")
+          ) and return
+        end
+
+        @plan_data_form = PlanDataForm.new(plan_data_params.merge(plan: @plan))
+        if @plan_data_form.save
+          track_import_csv_data_activity
+          redirect_to(
+            admin_plans_plan_data_path(@plan),
+            notice: t(".success_html", link: gobierto_plans_plan_type_preview_url(@plan_data_form.plan, host: current_site.domain))
+          )
+        else
+          render :data
+        end
       end
 
       private
@@ -91,6 +113,10 @@ module GobiertoAdmin
 
       def track_update_activity
         Publishers::GobiertoPlansPlanActivity.broadcast_event("plan_updated", default_activity_params.merge(subject: @plan))
+      end
+
+      def track_import_csv_data_activity
+        Publishers::GobiertoPlansPlanActivity.broadcast_event("plan_data_csv_imported", default_activity_params.merge(subject: @plan))
       end
 
       def default_activity_params
@@ -109,6 +135,10 @@ module GobiertoAdmin
           footer_translations: [*I18n.available_locales],
           introduction_translations: [*I18n.available_locales]
         )
+      end
+
+      def plan_data_params
+        params.require(:plan).permit(:csv_file)
       end
 
       def ignored_plan_attributes

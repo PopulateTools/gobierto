@@ -42,4 +42,14 @@ class User < ApplicationRecord
     @user_verifications[site] ||= census_verifications.find_by(site_id: site.id, user_id: self.id, verified: true)
     @user_verifications[site]
   end
+
+  def id_hmac
+    SecretAttribute.hmac(id)
+  end
+
+  def age
+    now = Time.now.utc.to_date
+    now.year - date_of_birth.year - ((now.month > date_of_birth.month || (now.month == date_of_birth.month && now.day >= date_of_birth.day)) ? 0 : 1)
+  end
+
 end

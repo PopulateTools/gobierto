@@ -14,6 +14,10 @@ class GobiertoPlans::PlanTree
 
   private
 
+  def max_level
+    @plan.categories.maximum(:level)
+  end
+
   def plan_tree(categories, tree = [])
     categories.each do |category|
       categories = @plan.categories.sort_by_uid.where(parent_id: category.id)
@@ -32,13 +36,17 @@ class GobiertoPlans::PlanTree
                           else
                             ""
                           end
+               counter = !@plan.configuration_data["hide_level0_counters"]
                { id: category.id,
                  uid: category.uid,
+                 type: "category",
+                 max_level: category.level == max_level,
                  level: category.level,
                  attributes: { title: category.name_translations,
                                parent_id: category.parent_id,
                                progress: category.progress,
-                               img: logo_url },
+                               img: logo_url,
+                               counter: counter },
                  children: children }
              elsif category_nodes.exists?
                nodes = []
@@ -46,6 +54,7 @@ class GobiertoPlans::PlanTree
                category_nodes.each_with_index do |node, index|
                  nodes.push(id: node.id,
                             uid: category.uid + "." + index.to_s,
+                            type: "node",
                             level: category.level + 1,
                             attributes: { title: node.name_translations,
                                           parent_id: category.id,
@@ -59,6 +68,8 @@ class GobiertoPlans::PlanTree
 
                { id: category.id,
                  uid: category.uid,
+                 type: "category",
+                 max_level: category.level == max_level,
                  level: category.level,
                  attributes: { title: category.name_translations,
                                parent_id: category.parent_id,
@@ -67,6 +78,8 @@ class GobiertoPlans::PlanTree
              else
                { id: category.id,
                  uid: category.uid,
+                 type: "category",
+                 max_level: category.level == max_level,
                  level: category.level,
                  attributes: { title: category.name_translations,
                                parent_id: category.parent_id,

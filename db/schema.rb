@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_09_144803) do
+ActiveRecord::Schema.define(version: 2018_07_16_092701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -670,13 +670,14 @@ ActiveRecord::Schema.define(version: 2018_07_09_144803) do
     t.bigint "question_id", null: false
     t.integer "answer_template_id"
     t.text "text"
-    t.bigint "user_id", null: false
     t.datetime "created_at"
+    t.string "user_id_hmac", null: false
+    t.text "encrypted_meta"
     t.index ["poll_id"], name: "index_gpart_poll_answers_on_poll_id"
-    t.index ["question_id", "user_id", "answer_template_id"], name: "unique_index_gpart_poll_answers_for_fixed_answer_questions", unique: true
+    t.index ["question_id", "user_id_hmac", "answer_template_id"], name: "unique_index_gpart_poll_answers_for_fixed_answer_questions", unique: true
     t.index ["question_id"], name: "index_gpart_poll_answers_on_question_id"
-    t.index ["user_id", "answer_template_id"], name: "unique_index_gpart_poll_answers_for_open_answer_questions", unique: true
-    t.index ["user_id"], name: "index_gpart_poll_answers_on_user_id"
+    t.index ["user_id_hmac", "answer_template_id"], name: "unique_index_gpart_poll_answers_for_open_answer_questions", unique: true
+    t.index ["user_id_hmac"], name: "index_gpart_poll_answers_on_user_id_hmac"
   end
 
   create_table "gpart_poll_questions", force: :cascade do |t|

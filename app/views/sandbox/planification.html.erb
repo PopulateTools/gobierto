@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'gobierto_plans/application', 'data-turbolinks-track' => true %>
+<%= javascript_pack_tag 'plans' %>
 
 <div class="column">
   <div class="block">
@@ -164,7 +164,7 @@
     <div class="node-info js-info">
       <div class="info-progress progress" :style="{ width: model.attributes.complete }"></div>
       <div class="info-content">
-        <h3>{{ model.attributes.title | translate }}</h3>
+        <h3 class="counter">{{ model.attributes.title | translate }}</h3>
         <span>{{ model.attributes.complete }}</span>
       </div>
     </div>

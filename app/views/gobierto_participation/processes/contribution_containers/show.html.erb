@@ -79,6 +79,6 @@
   </div>
 </div>
 
-<% content_for :javascript_hook do %>
-  window.GobiertoParticipation.contribution_containers_controller.index(JSON.parse('<%= raw @contribution_container_data.to_json %>'));
+<%= javascript_tag do %>
+  contributionContainerData = JSON.parse('<%= raw @contribution_container_data.to_json %>');
 <% end %>

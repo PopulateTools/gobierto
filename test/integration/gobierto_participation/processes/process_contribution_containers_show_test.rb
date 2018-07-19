@@ -38,6 +38,12 @@ module GobiertoParticipation
       )
     end
 
+    def contribution_containers_path
+      @contribution_containers_path ||= gobierto_participation_process_contribution_containers_path(
+        process_id: process.slug,
+      )
+    end
+
     def process
       @process ||= gobierto_participation_processes(:sport_city_process)
     end
@@ -167,6 +173,8 @@ module GobiertoParticipation
           assert has_content? "It enchants to me"
 
           find(".modal_like_control a", visible: false).click
+
+          assert_equal contribution_containers_path, current_path
         end
       end
     end
@@ -186,6 +194,8 @@ module GobiertoParticipation
           end
 
           find(".modal_like_control a", visible: false).click
+
+          assert_equal contribution_containers_path, current_path
         end
       end
     end

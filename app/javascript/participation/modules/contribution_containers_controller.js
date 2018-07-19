@@ -3,7 +3,7 @@ import { d3 } from 'shared'
 window.GobiertoParticipation.ContributionContainersController = (function() {
   function ContributionContainersController() {}
 
-  ContributionContainersController.prototype.index = function(contribution_container_data){
+  ContributionContainersController.prototype.show = function(contribution_container_data){
       _initContributionContainer(contribution_container_data);
     };
 

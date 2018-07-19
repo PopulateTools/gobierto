@@ -1,4 +1,4 @@
-import { Class, d3, accounting } from "shared"
+import { Class, d3 } from "shared"
 
 export var VisPopulationPyramid = Class.extend({
   init: function(divId, city_id, current_year) {
@@ -11,14 +11,20 @@ export var VisPopulationPyramid = Class.extend({
     this.isMobile = window.innerWidth <= 768
 
     // Chart dimensions
-    this.margin = {top: 25, right: 10, bottom: 25, left: 15}
-    this.width = +d3.select(this.container).node().getBoundingClientRect().width
-    this.height = this.width / (16/9)
+    this.gutter = 10
+    this.margin = {
+      top: this.gutter * 1.5,
+      right: this.gutter,
+      bottom: this.gutter * 2.5,
+      left: this.gutter * 4
+    }
+    this.width = this._getDimensions().width
+    this.height = this._getDimensions().height
 
     // Scales & Ranges
     this.xScaleMale = d3.scaleLinear()
     this.xScaleFemale = d3.scaleLinear()
-		this.yScale = d3.scaleBand().padding(0.3)
+		this.yScale = d3.scaleBand().padding(0.2)
 
     // Create axes
     this.xAxisMale = d3.axisBottom()
@@ -43,7 +49,7 @@ export var VisPopulationPyramid = Class.extend({
     this.svg.append("g").attr("class","x axis females")
     this.svg.append("g").attr("class","y axis")
 
-    d3.select(window).on("resize." + this.container, this._resize.bind(this))
+    // d3.select(window).on(`resize.${this.container}`, this._resize.bind(this))
   },
   getData: function() {
     d3.json(this.dataUrl)
@@ -62,7 +68,7 @@ export var VisPopulationPyramid = Class.extend({
 
         this.updateRender()
         this._renderBars()
-        this._renderCityData()
+
       }.bind(this))
   },
   render: function() {
@@ -100,15 +106,15 @@ export var VisPopulationPyramid = Class.extend({
       g.selectAll(".domain").remove()
       g.selectAll(".tick:not(:first-child) line").remove()
       g.selectAll(".tick:first-child line")
-        .attr("y1", 0)
+        .attr("y1", -this.gutter)
         .attr("y2", -this.height)
     }
 
     this.svg.select(".x.axis.males")
-      .attr("transform", `translate(0,${this.height})`)
+      .attr("transform", `translate(0,${this.height - (this.margin.bottom / 2)})`)
       .call(xAxisMale.bind(this))
     this.svg.select(".x.axis.females")
-      .attr("transform", `translate(${this.width / 2},${this.height})`)
+      .attr("transform", `translate(${this.width / 2},${this.height - (this.margin.bottom / 2)})`)
       .call(xAxisFemale.bind(this))
 
     // Y axis
@@ -121,10 +127,28 @@ export var VisPopulationPyramid = Class.extend({
         .attr("x1", 0)
         .attr("x2", this.width)
       g.selectAll(".tick text")
-        .attr("x", -this.margin.left)
+        .attr("x", -this.margin.left / 4)
     }
 
     this.svg.select(".y.axis").call(yAxis.bind(this))
+
+    // Titles
+    let titles = this.svg.append("g")
+      .attr("class", "titles")
+
+    titles.append("text")
+      .attr("transform", `translate(${(this.width / 2) - this.gutter},0)`)
+      .attr("text-anchor", "end")
+      .text("Hombres")
+
+    titles.append("text")
+      .attr("transform", `translate(${(this.width / 2) + this.gutter},0)`)
+      .attr("text-anchor", "start")
+      .text("Mujeres")
+
+    titles.append("text")
+      .attr("text-anchor", "end")
+      .text("Edad")
   },
   _renderBars: function() {
     // We keep this separate to not create them after every resize
@@ -149,7 +173,6 @@ export var VisPopulationPyramid = Class.extend({
       .attr("y", d => this.yScale(d.age))
       .attr("width", d => (this.width / 2) - this.xScaleMale(d.value))
       .attr("height", this.yScale.bandwidth())
-      .attr("fill", "aquamarine")
       .on("mousemove", this._mousemove.bind(this))
       .on("mouseout", this._mouseout.bind(this))
 
@@ -158,16 +181,15 @@ export var VisPopulationPyramid = Class.extend({
       .attr("y", d => this.yScale(d.age))
       .attr("width", d => this.xScaleFemale(d.value))
       .attr("height", this.yScale.bandwidth())
-      .attr("fill", "bisque")
       .on("mousemove", this._mousemove.bind(this))
       .on("mouseout", this._mouseout.bind(this))
 
     // Append tooltip group & children
-    var focusG = this.svg.append("g")
-      .attr("class", "focus")
-
-    focusG.append("text").attr("class", "focus-halo")
-    focusG.append("text").attr("class", "focus-text")
+    // var focusG = this.svg.append("g")
+    //   .attr("class", "focus")
+    //
+    // focusG.append("text").attr("class", "focus-halo")
+    // focusG.append("text").attr("class", "focus-text")
   },
   _mousemove: function(d) {
     // Move the whole group
@@ -189,39 +211,25 @@ export var VisPopulationPyramid = Class.extend({
     // this.svg.select(".focus")
     //   .attr("transform", "translate(-100,-100)")
   },
-  _renderCityData: function() {
-    // Calculate means and stuff
-    var avgAge = d3.sum(this.data, function(d) { return d.years }) / d3.sum(this.data, function(d) { return d.value })
+  _getDimensions: function (opts = {}) {
+    let ratio = opts.ratio || 4 / 3
+    let width = opts.width || +d3.select(this.container).node().getBoundingClientRect().width / 2
+    let height = opts.height || width / ratio
 
-    d3.select(".js-avg-age")
-      .text(accounting.formatNumber(avgAge, 1))
-  },
-  _formatNumberX: function(d) {
-    // "Age 100" is aggregated
-    if (d === 0) {
-      return d + " " + I18n.t("gobierto_observatory.graphics.age_distribution.axis")
-    } else if (d === 100) {
-      return d + "+"
-    } else {
-      return d
+    return {
+      ratio,
+      width,
+      height
     }
   },
-
-  // REVIEW: Possible deprecated
-  _width: function() {
-    return parseInt(d3.select(this.container).style("width"))
-  },
-  _height: function() {
-    return this.isMobile ? 200 : this._width() * 0.25
-  },
-  // REVIEW: If uppers deprecated, must update this method
   _resize: function() {
-    this.width = this._width()
-    this.height = this._height()
+    // TODO: COmpletar
+    this.width = this._getDimensions().width
+    this.height = this._getDimensions().height
 
     this.updateRender()
 
-    d3.select(this.container + " svg")
+    d3.select(`${this.container} svg`)
       .attr("width", this.width + this.margin.left + this.margin.right)
       .attr("height", this.height + this.margin.top + this.margin.bottom)
 
@@ -229,10 +237,10 @@ export var VisPopulationPyramid = Class.extend({
       .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
 
     // Update bars
-    d3.select("#age_distribution .bars").selectAll("rect")
-      .attr("x", function(d) { return this.xScale(d.age) }.bind(this))
-      .attr("y", function(d) { return this.yScale(d.value) }.bind(this))
-      .attr("width", this.xScale.bandwidth())
-      .attr("height", function(d) { return this.height - this.yScale(d.value) }.bind(this))
+    // d3.select("#age_distribution .bars").selectAll("rect")
+    //   .attr("x", function(d) { return this.xScale(d.age) }.bind(this))
+    //   .attr("y", function(d) { return this.yScale(d.value) }.bind(this))
+    //   .attr("width", this.xScale.bandwidth())
+    //   .attr("height", function(d) { return this.height - this.yScale(d.value) }.bind(this))
   }
 })

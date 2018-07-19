@@ -1,0 +1,32 @@
+#population_pyramid {
+  .males {
+    rect {
+      fill: $color_1;
+    }
+  }
+
+  .females {
+    rect {
+      fill: invert($color_1);
+    }
+  }
+
+  .titles {
+    font-weight: 600;
+    font-size: $f7;
+  }
+
+  .tick {
+    text {
+      fill: $color_text;
+    }
+
+    line {
+      stroke: lighten($color_text, 50%);
+    }
+  }
+
+  .y.axis {
+    text-anchor: end;
+  }
+}

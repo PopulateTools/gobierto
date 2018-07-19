@@ -111,6 +111,18 @@ es:
         men: Hombres
         title: Desempleo según el sexo
         women: Mujeres
+      population_pyramid:
+        men: Hombres
+        women: Mujeres
+        age: Edad
+        mode: 'Edad más común: %{age} años'
+        median: 'Edad mediana: %{age} años'
+        mean: 'Edad media: %{age} años'
+        youth: Menores
+          info: El %{percent} de la población tiene menos de %{limit} años
+        adults: Población activa
+        elderly: Mayores
+          info: El %{percent} de la población tiene más de %{limit} años
     inhabitants: hab
     intro: 'Conoce %{place} a través de sus principales cifras: la población, el empleo,
       la economía y los presupuestos.'

@@ -46,14 +46,17 @@
 
     .range {
       @for $i from 0 through 2 {
-        &.age-#{$i} rect {
+        &.r-#{$i} rect {
           fill: lighten($color_logo_yellow, $i * 20);
         }
       }
     }
   }
 
-  .markers {
-
+  .marks {
+    .mark line {
+      stroke: $color_logo_yellow;
+      stroke-width: 2px;
+    }
   }
 }

@@ -18,8 +18,18 @@ export var VisPopulationPyramid = Class.extend({
       bottom: this.gutter * 2.5,
       left: this.gutter * 4
     }
-    this.width = this._getDimensions().width
-    this.height = this._getDimensions().height
+    this.width = {
+      chart: this._getDimensions().width,
+      pyramid: this._getDimensions().pyramid.width,
+      areas: this._getDimensions().areas.width,
+      markers: this._getDimensions().markers.width
+    }
+    this.height = {
+      chart: this._getDimensions().height,
+      pyramid: this._getDimensions().pyramid.height,
+      areas: this._getDimensions().areas.height,
+      markers: this._getDimensions().markers.height
+    }
 
     // Scales & Ranges
     this.xScaleMale = d3.scaleLinear()
@@ -33,21 +43,27 @@ export var VisPopulationPyramid = Class.extend({
 
     // Chart objects
     this.svg = null
-    this.chart = null
+    this.pyramid = null
+    this.areas = null
+    this.markers = null
 
     // Create main elements
     this.svg = d3.select(this.container)
       .append("svg")
-      .attr("width", this.width + this.margin.left + this.margin.right)
-      .attr("height", this.height + this.margin.top + this.margin.bottom)
+      .attr("width", this.width.chart + this.margin.left + this.margin.right)
+      .attr("height", this.height.chart + this.margin.top + this.margin.bottom)
       .append("g")
       .attr("class", "chart-container")
       .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
 
+    this.pyramid = this.svg.append("g").attr("class", "pyramid")
+    this.areas = this.svg.append("g").attr("class", "areas")
+    this.markers = this.svg.append("g").attr("class", "markers")
+
     // Append axes containers
-    this.svg.append("g").attr("class","x axis males")
-    this.svg.append("g").attr("class","x axis females")
-    this.svg.append("g").attr("class","y axis")
+    this.pyramid.append("g").attr("class","x axis males")
+    this.pyramid.append("g").attr("class","x axis females")
+    this.pyramid.append("g").attr("class","y axis")
 
     // d3.select(window).on(`resize.${this.container}`, this._resize.bind(this))
   },
@@ -80,15 +96,15 @@ export var VisPopulationPyramid = Class.extend({
   },
   updateRender: function() {
     this.xScaleMale
-      .range([0, this.width / 2])
+      .range([0, this.width.pyramid / 2])
       .domain([d3.max(this.data.map(d => d.value)), 0])
 
     this.xScaleFemale
-      .range([0, this.width / 2])
+      .range([0, this.width.pyramid / 2])
       .domain([0, d3.max(this.data.map(d => d.value))])
 
     this.yScale
-      .rangeRound([this.height, 0])
+      .rangeRound([this.height.pyramid, 0])
       .domain(_.uniq(this.data.map(d => d.age)))
 
     this._renderAxis()
@@ -110,11 +126,11 @@ export var VisPopulationPyramid = Class.extend({
         .attr("y2", -this.height)
     }
 
-    this.svg.select(".x.axis.males")
-      .attr("transform", `translate(0,${this.height - (this.margin.bottom / 2)})`)
+    this.pyramid.select(".x.axis.males")
+      .attr("transform", `translate(0,${this.height.pyramid - (this.margin.bottom / 2)})`)
       .call(xAxisMale.bind(this))
-    this.svg.select(".x.axis.females")
-      .attr("transform", `translate(${this.width / 2},${this.height - (this.margin.bottom / 2)})`)
+    this.pyramid.select(".x.axis.females")
+      .attr("transform", `translate(${this.width.pyramid / 2},${this.height.pyramid - (this.margin.bottom / 2)})`)
       .call(xAxisFemale.bind(this))
 
     // Y axis
@@ -125,24 +141,24 @@ export var VisPopulationPyramid = Class.extend({
       g.selectAll(".domain").remove()
       g.selectAll(".tick line")
         .attr("x1", 0)
-        .attr("x2", this.width)
+        .attr("x2", this.width.pyramid)
       g.selectAll(".tick text")
         .attr("x", -this.margin.left / 4)
     }
 
-    this.svg.select(".y.axis").call(yAxis.bind(this))
+    this.pyramid.select(".y.axis").call(yAxis.bind(this))
 
     // Titles
-    let titles = this.svg.append("g")
+    let titles = this.pyramid.append("g")
       .attr("class", "titles")
 
     titles.append("text")
-      .attr("transform", `translate(${(this.width / 2) - this.gutter},0)`)
+      .attr("transform", `translate(${(this.width.pyramid / 2) - this.gutter},0)`)
       .attr("text-anchor", "end")
       .text("Hombres")
 
     titles.append("text")
-      .attr("transform", `translate(${(this.width / 2) + this.gutter},0)`)
+      .attr("transform", `translate(${(this.width.pyramid / 2) + this.gutter},0)`)
       .attr("text-anchor", "start")
       .text("Mujeres")
 
@@ -152,7 +168,7 @@ export var VisPopulationPyramid = Class.extend({
   },
   _renderBars: function() {
     // We keep this separate to not create them after every resize
-    let g = this.svg.append("g")
+    let g = this.pyramid.append("g")
       .attr("class", "bars")
 
     let male = g.append("g")
@@ -171,55 +187,50 @@ export var VisPopulationPyramid = Class.extend({
     male.enter().append("rect")
       .attr("x", d => this.xScaleMale(d.value))
       .attr("y", d => this.yScale(d.age))
-      .attr("width", d => (this.width / 2) - this.xScaleMale(d.value))
+      .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d.value))
       .attr("height", this.yScale.bandwidth())
       .on("mousemove", this._mousemove.bind(this))
       .on("mouseout", this._mouseout.bind(this))
 
     female.enter().append("rect")
-      .attr("x", this.width / 2)
+      .attr("x", this.width.pyramid / 2)
       .attr("y", d => this.yScale(d.age))
       .attr("width", d => this.xScaleFemale(d.value))
       .attr("height", this.yScale.bandwidth())
       .on("mousemove", this._mousemove.bind(this))
       .on("mouseout", this._mouseout.bind(this))
-
-    // Append tooltip group & children
-    // var focusG = this.svg.append("g")
-    //   .attr("class", "focus")
-    //
-    // focusG.append("text").attr("class", "focus-halo")
-    // focusG.append("text").attr("class", "focus-text")
   },
-  _mousemove: function(d) {
-    // Move the whole group
-    this.svg.select(".focus")
-      .attr("text-anchor", "middle")
-      .attr("transform", "translate(300, 0)")
-      // .attr("transform", "translate(" + this.xScale(d.age) + "," + (this.yScale(d.value) -15) + ")")
+  _mousemove: function() {
 
-    // Fill the halo and the tooltip
-    // this.svg.select(".focus-halo")
-    //   .attr("stroke", "white")
-    //   .attr("stroke-width", "2px")
-    //   .text("valor: " + d.value)
-
-    this.svg.select(".focus-text")
-      .text("x: " + d.age + " valor: " + d.value)
   },
   _mouseout: function() {
-    // this.svg.select(".focus")
-    //   .attr("transform", "translate(-100,-100)")
+
   },
   _getDimensions: function (opts = {}) {
-    let ratio = opts.ratio || 4 / 3
-    let width = opts.width || +d3.select(this.container).node().getBoundingClientRect().width / 2
+    let ratio = opts.ratio || 16 / 9
+    let width = opts.width || +d3.select(this.container).node().getBoundingClientRect().width
     let height = opts.height || width / ratio
+
+    let pyramid = {
+      width: width / 2,
+      height
+    }
+    let areas = {
+      width: width / 4,
+      height
+    }
+    let markers = {
+      width: width / 4,
+      height
+    }
 
     return {
       ratio,
       width,
-      height
+      height,
+      pyramid,
+      areas,
+      markers
     }
   },
   _resize: function() {

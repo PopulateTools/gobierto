@@ -10,13 +10,13 @@ module GobiertoParticipation
     belongs_to :poll
     belongs_to :question, class_name: 'GobiertoParticipation::PollQuestion'
     belongs_to :answer_template, class_name: 'GobiertoParticipation::PollAnswerTemplate'
-    belongs_to :user
 
     scope :open_answers,  -> { where(answer_template: nil) }
     scope :fixed_answers, -> { where.not(answer_template: nil) }
+    scope :by_user, ->(user) { where(user_id_hmac: user.id_hmac) }
 
-    validates_uniqueness_of :user_id, scope: [:question_id], if: :open_answer?
-    validates_uniqueness_of :user_id, scope: [:question_id, :answer_template_id], if: :fixed_answer?
+    validates_uniqueness_of :user_id_hmac, scope: [:question_id], if: :open_answer?
+    validates_uniqueness_of :user_id_hmac, scope: [:question_id, :answer_template_id], if: :fixed_answer?
 
     validates_presence_of :text, if: :open_answer?
     validates_absence_of  :text,  if: :fixed_answer?

@@ -70,9 +70,9 @@ module GobiertoParticipation
 
             click_link 'x'
 
-            answers       = poll.answers.where(user: user)
+            answers = poll.answers.by_user(user)
             fixed_answers = answers.fixed_answers
-            open_answers  = answers.open_answers
+            open_answers = answers.open_answers
 
             assert_equal 3, fixed_answers.size
             assert_equal 1, open_answers.size

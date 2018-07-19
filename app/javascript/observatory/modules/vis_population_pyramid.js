@@ -147,6 +147,7 @@ export var VisPopulationPyramid = Class.extend({
     return [
       {
         name: I18n.t('gobierto_observatory.graphics.population_pyramid.youth'),
+        info: I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: 23 }),
         range: [d3.min(data.map(d => d.age)), bp[0] - 1],
         value: data.filter(d => d.age < bp[0]).map(d => d.value).reduce((a,b)=>a+b)
       },
@@ -157,6 +158,7 @@ export var VisPopulationPyramid = Class.extend({
       },
       {
         name: I18n.t('gobierto_observatory.graphics.population_pyramid.elderly'),
+        info: I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: 23 }),
         range: [bp[1], d3.max(data.map(d => d.age))],
         value: data.filter(d => d.age >= bp[1]).map(d => d.value).reduce((a,b)=>a+b)
       }
@@ -287,7 +289,7 @@ export var VisPopulationPyramid = Class.extend({
       .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
       .attr("dy", "1.5em")
       .attr("class", "subtitle")
-      .text("El 23% de la población tiene más de 18 años")
+      .text(d => d.info) // TODO: corregir literal
   },
   _renderMarks: function() {
     let g = this.marks.selectAll("g")

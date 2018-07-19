@@ -93,6 +93,18 @@ en:
         axis: years
         label: inhabitants
         title: Discover the age distribution of your municipality
+      population_pyramid:
+        adults: Employed population
+        age: Age
+        elderly: Elderly
+        elderly_info: The %{percent} of the population is elder than 65 years
+        mean: 'Average age: %{age} years'
+        median: 'Median age: %{age} years'
+        men: Men
+        mode: 'Most common age: %{age} years'
+        women: Women
+        youth: Minors
+        youth_info: The %{percent} of the population is younger than 18 years
       rent_distribution:
         gross_income: Gross income
         inhabitants: Inhabitants
@@ -111,18 +123,6 @@ en:
         men: Men
         title: Unemployment by sex
         women: Women
-      population_pyramid:
-        men: Men
-        women: Women
-        age: Age
-        mode: 'Most common age: %{age} years'
-        median: 'Median age: %{age} years'
-        mean: 'Average age: %{age} years'
-        youth: Minors
-          info: The %{percent} of the population is younger than %{limit} years
-        adults: Employed population
-        elderly: Elderly
-          info: The %{percent} of the population is elder than %{limit} years
     inhabitants: inh
     intro: 'Understand %{place} through its main figures: the population, the employment
       market and the economy.'

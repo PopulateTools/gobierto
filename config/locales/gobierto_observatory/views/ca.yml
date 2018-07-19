@@ -93,6 +93,18 @@ ca:
         axis: anys
         label: habitants
         title: Descobreix la distribució per edats del teu municipi
+      population_pyramid:
+        adults: Població activa
+        age: Edat
+        elderly: Majors
+        elderly_info: El %{percent} de la població té més de 65 anys
+        mean: 'Edat mitja: %{age} anys'
+        median: 'Edat mitjana: %{age} anys'
+        men: Homes
+        mode: 'Edat més comú: %{age} anys'
+        women: Dones
+        youth: Menors
+        youth_info: El %{percent} de la població té menys de 18 anys
       rent_distribution:
         gross_income: Renda bruta
         inhabitants: Habitants
@@ -111,18 +123,6 @@ ca:
         men: Homes
         title: L'atur segons el sexe
         women: Dones
-      population_pyramid:
-        men: Homes
-        women: Dones
-        age: Edat
-        mode: 'Edat més comú: %{age} anys'
-        median: 'Edat mitjana: %{age} anys'
-        mean: 'Edat mitja: %{age} anys'
-        youth: Menors
-          info: El %{percent} de la població té menys de %{limit} anys
-        adults: Població activa
-        elderly: Majors
-          info: El %{percent} de la població té més de %{limit} anys
     inhabitants: hab
     intro: 'Coneix %{place} a partir de les principals xifres: la població, l''ocupació
       i l''economia.'

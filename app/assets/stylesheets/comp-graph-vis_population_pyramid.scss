@@ -56,9 +56,17 @@
   }
 
   .marks {
-    .mark line {
-      stroke: $color_logo_yellow;
-      stroke-width: 2px;
+    .mark {
+      line {
+        stroke: $color_logo_yellow;
+        stroke-width: 2px;
+      }
+
+      text {
+        font-size: $f6;
+        fill: $color_text;
+        font-weight: 600;
+      }
     }
   }
 }

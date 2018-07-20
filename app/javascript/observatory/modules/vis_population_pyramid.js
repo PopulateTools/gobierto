@@ -114,15 +114,16 @@ export var VisPopulationPyramid = Class.extend({
   updateRender: function() {
     this.xScaleMale
       .range([0, this.width.pyramid / 2])
-      .domain([d3.max(this.data.pyramid.map(d => d.value)), 0])
+      .domain([d3.max(this.data.pyramid.map(d => d._value)), 0])
 
     this.xScaleFemale
       .range([0, this.width.pyramid / 2])
-      .domain([0, d3.max(this.data.pyramid.map(d => d.value))])
+      .domain([0, d3.max(this.data.pyramid.map(d => d._value))])
 
     this.xScaleAgeRanges
       .range([0, this.width.areas / 3])
-      .domain([d3.max(this.data.areas.map(d => d.value)), 0])
+      .domain([d3.max(this.data.areas.map(d => d.value)), 0]).nice()
+      // .domain([d3.sum(this.data.areas.map(d => d.value)), 0])
 
     this.yScale
       .rangeRound([this.height.pyramid, 0])
@@ -135,8 +136,7 @@ export var VisPopulationPyramid = Class.extend({
     const totalWomen = this._math.total(data.filter(p => p.sex === "M"))
     // updates every value with its respective percentage
     return data.map((item) => {
-      item._value = item.value
-      item.value = (item.sex === "V") ? (item.value / totalMen) : (item.sex === "M") ? (item.value / totalWomen) : 0
+      item._value = (item.sex === "V") ? (item.value / totalMen) : (item.sex === "M") ? (item.value / totalWomen) : 0
       return item
     })
   },
@@ -270,8 +270,8 @@ export var VisPopulationPyramid = Class.extend({
       .on("mouseout", this._mouseout.bind(this))
       .transition()
       .duration(500)
-      .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d.value))
-      .attr("x", d => this.xScaleMale(d.value)) // Real value
+      .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d._value))
+      .attr("x", d => this.xScaleMale(d._value)) // Real value
 
     female.enter().append("rect")
       .attr("x", this.width.pyramid / 2)
@@ -281,7 +281,7 @@ export var VisPopulationPyramid = Class.extend({
       .on("mouseout", this._mouseout.bind(this))
       .transition()
       .duration(500)
-      .attr("width", d => this.xScaleFemale(d.value))
+      .attr("width", d => this.xScaleFemale(d._value))
   },
   _renderAreas: function() {
     let g = this.areas.selectAll("g")
@@ -289,30 +289,57 @@ export var VisPopulationPyramid = Class.extend({
 
     g.exit().remove()
 
+    function wrap(text, width, start) {
+      text.each(function() {
+        var text = d3.select(this),
+          words = text.text().split(/\s+/).reverse(),
+          word,
+          line = [],
+          lineNumber = 0,
+          lineHeight = 1.1, // ems
+          y = text.attr("y"),
+          dy = parseFloat(text.attr("dy")),
+          tspan = text.text(null).append("tspan").attr("x", start).attr("y", y).attr("dy", dy + "em");
+        while (word = words.pop()) {
+          line.push(word);
+          tspan.text(line.join(" "));
+          if (tspan.node().getComputedTextLength() > width) {
+            line.pop();
+            tspan.text(line.join(" "));
+            line = [word];
+            tspan = text.append("tspan").attr("x", start).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+          }
+        }
+      });
+    }
+
     let ranges = g.enter().append("g")
       .attr("class", (d, i) => `range r-${i}`)
 
+    let chartWidth = this.width.areas / 3
+
     ranges.append("rect")
-      .attr("x", this.width.areas / 3) // To animate right to left. Fake value
+      .attr("x", chartWidth) // To animate right to left. Fake value
       .attr("y", d => this.yScale(d.range[1]))
       .attr("height", d => this.yScale(d.range[0]) - this.yScale(d.range[1]))
       .transition()
       .duration(500)
-      .attr("width", d => (this.width.areas / 3) - this.xScaleAgeRanges(d.value))
+      .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
       .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
 
     ranges.append("text")
-      .attr("x", (this.width.areas / 3) + this.gutter)
+      .attr("x", chartWidth + this.gutter)
       .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
       .attr("class", "title")
       .text(d => `${d.name}: ${this._math.percent(d.value)}`)
 
     ranges.append("text")
-      .attr("x", (this.width.areas / 3) + this.gutter)
+      .attr("x", chartWidth + this.gutter)
       .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
       .attr("dy", "1.5em")
       .attr("class", "subtitle")
       .text(d => d.info)
+      .call(wrap, (2 * chartWidth) - (4 * this.gutter), chartWidth + this.gutter)
   },
   _renderMarks: function() {
     let g = this.marks.selectAll("g")
@@ -351,11 +378,11 @@ export var VisPopulationPyramid = Class.extend({
       height
     }
     let areas = {
-      width: width / 3,
+      width: width / 4,
       height
     }
     let marks = {
-      width: width / 6,
+      width: width / 4,
       height
     }
 

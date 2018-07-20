@@ -13,6 +13,7 @@ export var VisPopulationPyramid = Class.extend({
     }
 
     this.isMobile = window.innerWidth <= 768
+    this.ageBreakpoints = [16, 65]
 
     // Chart dimensions
     this.gutter = 10
@@ -164,7 +165,7 @@ export var VisPopulationPyramid = Class.extend({
     })
   },
   _transformAreasData: function (data) {
-    let bp = [16, 65]
+    let bp = this.ageBreakpoints
     let self = this
     return [
       {
@@ -322,6 +323,7 @@ export var VisPopulationPyramid = Class.extend({
       .attr("y", d => this.yScale(d.range[1]))
       .attr("height", d => this.yScale(d.range[0]) - this.yScale(d.range[1]))
       .transition()
+      .delay(200)
       .duration(500)
       .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
       .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
@@ -340,20 +342,24 @@ export var VisPopulationPyramid = Class.extend({
       .text(d => d.info)
       .call(this._wrap, (2 * chartWidth) - (4 * this.gutter), chartWidth + this.gutter)
 
-    // fake scale
-    let yActiveScale = d3.scaleLinear()
-      .range([0, 100])
-      .domain([0, d3.sum([this.data.employed, this.data.unemployed])])
-
+    // ghost scale
     let fakeObj = this.data.areas.find((d, i) => i === 1)
-    let fakeData = [Object.assign(fakeObj, { fake: this.data.unemployed * 4 })]
+    let fakeData = [Object.assign(fakeObj, { fake: this.data.unemployed })]
+    let bp = this.ageBreakpoints
+    let yFakeScale = d3.scaleLinear()
+      .range([0, this.yScale(bp[0]) - this.yScale(bp[1])])
+      .domain([0, fakeObj.value])
 
-    ranges.selectAll("rect")
+    let fakeG = ranges.selectAll("rect")
       .filter(d => !d.hasOwnProperty('fake'))
       .data(fakeData)
-      .enter()
-      .append("rect")
-      .attr("class", "darker")
+
+    fakeG.exit().remove()
+
+    let fake = fakeG.enter().append("g")
+
+    fake.append("rect")
+      .attr("class", "inner")
       .attr("x", d => this.xScaleAgeRanges(d.value))
       .attr("y", d => this.yScale(d.range[0])) // Fake value
       .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
@@ -361,8 +367,20 @@ export var VisPopulationPyramid = Class.extend({
       .transition()
       .delay(500)
       .duration(500)
-      .attr("height", d => yActiveScale(d.fake))
-      .attr("y", d => this.yScale(d.range[0]) - yActiveScale(d.fake)) // real value
+      .attr("height", d => yFakeScale(d.fake))
+      .attr("y", d => this.yScale(d.range[0]) - yFakeScale(d.fake)) // real value
+
+    fake.append("text")
+      .attr("class", "subtitle")
+      .attr("opacity", 0)
+      .attr("x", chartWidth + this.gutter)
+      .attr("y", d => this.yScale(d.range[0]) + (1.5 * this.gutter))
+      .html(d => `<tspan class="as-title">${(d.fake / d.value).toLocaleString(I18n.locale, { style: 'percent' })}</tspan> ${I18n.t('gobierto_observatory.graphics.population_pyramid.unemployed')}`)
+      .transition()
+      .delay(500)
+      .duration(500)
+      .attr("opacity", 1)
+      .attr("y", d => this.yScale(d.range[0]) - yFakeScale(d.fake) + (1.5 * this.gutter))
   },
   _renderMarks: function() {
     let g = this.marks.selectAll("g")

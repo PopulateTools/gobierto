@@ -44,17 +44,22 @@
     .subtitle {
       font-size: $f7;
       fill: $color_main_soft;
+
+      .as-title {
+        font-weight: 600;
+        fill: $color_text;
+      }
     }
 
     .range {
       @for $i from 0 through 2 {
         &.r-#{$i} {
           rect {
-            fill: lighten($color_logo_yellow, $i * 15);
+            fill: lighten($color_logo_yellow, $i * 20);
           }
 
-          rect.darker {
-            fill: darken($color_logo_yellow, $i * 5);
+          rect.inner {
+            fill: lighten($color_logo_yellow, $i * 10);
           }
         }
       }

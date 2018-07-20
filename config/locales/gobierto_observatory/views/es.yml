@@ -102,6 +102,7 @@ es:
         median: 'Edad mediana: %{age} años'
         men: Hombres
         mode: 'Edad más común: %{age} años'
+        unemployed: Desempleada
         women: Mujeres
         youth: Menores
         youth_info: El %{percent} de la población tiene menos de %{limit} años

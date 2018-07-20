@@ -102,6 +102,7 @@ ca:
         median: 'Edat mitjana: %{age} anys'
         men: Homes
         mode: 'Edat més comú: %{age} anys'
+        unemployed: Aturada
         women: Dones
         youth: Menors
         youth_info: El %{percent} de la població té menys de %{limit} anys

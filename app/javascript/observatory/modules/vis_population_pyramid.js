@@ -342,19 +342,27 @@ export var VisPopulationPyramid = Class.extend({
 
     // fake scale
     let yActiveScale = d3.scaleLinear()
-      .range([0, ranges.select(".r-1").attr("height")])
+      .range([0, 100])
       .domain([0, d3.sum([this.data.employed, this.data.unemployed])])
 
-    ranges.select(".r-1")
-      .selectAll("rect")
-      .data([this.data.employed, this.data.unemployed])
+    let fakeObj = this.data.areas.find((d, i) => i === 1)
+    let fakeData = [Object.assign(fakeObj, { fake: this.data.unemployed * 4 })]
+
+    ranges.selectAll("rect")
+      .filter(d => !d.hasOwnProperty('fake'))
+      .data(fakeData)
       .enter()
       .append("rect")
-      .attr("y", d => this.yScale(d.range[1]))
+      .attr("class", "darker")
+      .attr("x", d => this.xScaleAgeRanges(d.value))
+      .attr("y", d => this.yScale(d.range[0])) // Fake value
       .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
-      .attr("height", d => yActiveScale(d))
-      .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
-
+      .attr("height", 0)
+      .transition()
+      .delay(500)
+      .duration(500)
+      .attr("height", d => yActiveScale(d.fake))
+      .attr("y", d => this.yScale(d.range[0]) - yActiveScale(d.fake)) // real value
   },
   _renderMarks: function() {
     let g = this.marks.selectAll("g")

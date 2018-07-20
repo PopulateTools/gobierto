@@ -6,7 +6,11 @@ export var VisPopulationPyramid = Class.extend({
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null
     this.data = null
     this.tbiToken = window.populateData.token
-    this.dataUrl = `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`
+    this.dataUrls = {
+      population: `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`,
+      employed: `${window.populateData.endpoint}/datasets/ds-poblacion-activa-municipal.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`,
+      unemployed: `${window.populateData.endpoint}/datasets/ds-personas-paradas-municipio.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`
+    }
 
     this.isMobile = window.innerWidth <= 768
 
@@ -73,22 +77,41 @@ export var VisPopulationPyramid = Class.extend({
     // d3.select(window).on(`resize.${this.container}`, this._resize.bind(this))
   },
   getData: function() {
-    d3.json(this.dataUrl)
+    // d3.json(this.dataUrls.unemployed)
+    //   .header("authorization", "Bearer " + this.tbiToken)
+    //   .get(function(error, unemployed) {
+    //     window.unemployed = unemployed
+    //   })
+
+    let employed = d3.json(this.dataUrls.employed)
       .header("authorization", "Bearer " + this.tbiToken)
-      .get(function(error, jsonData) {
+
+    let unemployed = d3.json(this.dataUrls.unemployed)
+      .header("authorization", "Bearer " + this.tbiToken)
+
+    let population = d3.json(this.dataUrls.population)
+      .header("authorization", "Bearer " + this.tbiToken)
+
+    d3.queue()
+      .defer(population.get)
+      .defer(employed.get)
+      .defer(unemployed.get)
+      .await(function(error, jsonPopulation, jsonEmployed, jsonUnemployed) {
         if (error) throw error
 
-        jsonData.forEach(d => {
+        jsonPopulation.forEach(d => {
           d.age = parseInt(d.age)
           d.value = Number(d.value)
         })
 
-        jsonData.sort((a,b) => a.age - b.age)
+        jsonPopulation.sort((a,b) => a.age - b.age)
 
         const aux = {
-          pyramid: this._transformPyramidData(jsonData),
-          areas: this._transformAreasData(jsonData),
-          marks: this._transformMarksData(jsonData),
+          pyramid: this._transformPyramidData(jsonPopulation),
+          areas: this._transformAreasData(jsonPopulation),
+          marks: this._transformMarksData(jsonPopulation),
+          employed: jsonEmployed.map(v=>v.value).reduce((a,b)=>a+b),
+          unemployed: jsonUnemployed.map(v=>v.value).reduce((a,b)=>a+b)
         }
 
         this.data = aux
@@ -141,13 +164,13 @@ export var VisPopulationPyramid = Class.extend({
     })
   },
   _transformAreasData: function (data) {
-    let bp = [18, 65]
+    let bp = [16, 65]
     let self = this
     return [
       {
         name: I18n.t('gobierto_observatory.graphics.population_pyramid.youth'),
         get info() {
-          return I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: self._math.percent(this.value) })
+          return I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: self._math.percent(this.value), limit: bp[0] })
         },
         range: [d3.min(data.map(d => d.age)), bp[0] - 1],
         value: data.filter(d => d.age < bp[0]).map(d => d.value).reduce((a,b)=>a+b)
@@ -160,7 +183,7 @@ export var VisPopulationPyramid = Class.extend({
       {
         name: I18n.t('gobierto_observatory.graphics.population_pyramid.elderly'),
         get info() {
-          return I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: self._math.percent(this.value) })
+          return I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: self._math.percent(this.value), limit: bp[1] })
         },
         range: [bp[1], d3.max(data.map(d => d.age))],
         value: data.filter(d => d.age >= bp[1]).map(d => d.value).reduce((a,b)=>a+b)
@@ -289,30 +312,6 @@ export var VisPopulationPyramid = Class.extend({
 
     g.exit().remove()
 
-    function wrap(text, width, start) {
-      text.each(function() {
-        var text = d3.select(this),
-          words = text.text().split(/\s+/).reverse(),
-          word,
-          line = [],
-          lineNumber = 0,
-          lineHeight = 1.1, // ems
-          y = text.attr("y"),
-          dy = parseFloat(text.attr("dy")),
-          tspan = text.text(null).append("tspan").attr("x", start).attr("y", y).attr("dy", dy + "em");
-        while (word = words.pop()) {
-          line.push(word);
-          tspan.text(line.join(" "));
-          if (tspan.node().getComputedTextLength() > width) {
-            line.pop();
-            tspan.text(line.join(" "));
-            line = [word];
-            tspan = text.append("tspan").attr("x", start).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-          }
-        }
-      });
-    }
-
     let ranges = g.enter().append("g")
       .attr("class", (d, i) => `range r-${i}`)
 
@@ -339,7 +338,23 @@ export var VisPopulationPyramid = Class.extend({
       .attr("dy", "1.5em")
       .attr("class", "subtitle")
       .text(d => d.info)
-      .call(wrap, (2 * chartWidth) - (4 * this.gutter), chartWidth + this.gutter)
+      .call(this._wrap, (2 * chartWidth) - (4 * this.gutter), chartWidth + this.gutter)
+
+    // fake scale
+    let yActiveScale = d3.scaleLinear()
+      .range([0, ranges.select(".r-1").attr("height")])
+      .domain([0, d3.sum([this.data.employed, this.data.unemployed])])
+
+    ranges.select(".r-1")
+      .selectAll("rect")
+      .data([this.data.employed, this.data.unemployed])
+      .enter()
+      .append("rect")
+      .attr("y", d => this.yScale(d.range[1]))
+      .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
+      .attr("height", d => yActiveScale(d))
+      .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
+
   },
   _renderMarks: function() {
     let g = this.marks.selectAll("g")
@@ -361,6 +376,7 @@ export var VisPopulationPyramid = Class.extend({
       .attr("y", d => this.yScale(d.value))
       .attr("dy", ".3em")
       .text(d => d.name)
+      .call(this._wrap, this.width.areas - (2 * this.gutter), 2 * this.gutter)
   },
   _mousemove: function() {
 
@@ -419,6 +435,31 @@ export var VisPopulationPyramid = Class.extend({
     percent(d) {
       return (d / this.total(self.data.pyramid)).toLocaleString(I18n.locale, { style: 'percent' })
     }
+  },
+  _wrap: function(text, width, start = 0) {
+    text.each(function() {
+      var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", start).attr("y", y).attr("dy", dy + "em");
+
+      /* eslint-disable no-cond-assign */
+      while (word = words.pop()) {
+        line.push(word);
+        tspan.text(line.join(" "));
+        if (tspan.node().getComputedTextLength() > width) {
+          line.pop();
+          tspan.text(line.join(" "));
+          line = [word];
+          tspan = text.append("tspan").attr("x", start).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+        }
+      }
+    });
   },
   _resize: function() {
     // TODO: COmpletar

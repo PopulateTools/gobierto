@@ -97,14 +97,14 @@ en:
         adults: Employed population
         age: Age
         elderly: Elderly
-        elderly_info: The %{percent} of the population is elder than 65 years
+        elderly_info: The %{percent} of the population is elder than %{limit} years
         mean: 'Average age: %{age} years'
         median: 'Median age: %{age} years'
         men: Men
         mode: 'Most common age: %{age} years'
         women: Women
         youth: Minors
-        youth_info: The %{percent} of the population is younger than 18 years
+        youth_info: The %{percent} of the population is younger than %{limit} years
       rent_distribution:
         gross_income: Gross income
         inhabitants: Inhabitants

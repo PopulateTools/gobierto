@@ -2,12 +2,14 @@
 
 require "test_helper"
 require "support/concerns/gobierto_admin/authorizable_resource_preview_test_module"
+require "support/concerns/gobierto_admin/previewable_item_test_module"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonStatementPreviewTest < ActionDispatch::IntegrationTest
 
       include ::GobiertoAdmin::AuthorizableResourcePreviewTestModule
+      include ::GobiertoAdmin::PreviewableItemTestModule
 
       def setup
         super
@@ -38,6 +40,13 @@ module GobiertoAdmin
 
       def draft_statement
         richard.statements.draft.first
+      end
+
+      def preview_test_conf
+        @preview_test_conf ||= {
+          item_admin_path: edit_admin_people_person_statement_path(richard, active_statement),
+          item_public_url: active_statement.to_url
+        }
       end
 
       def test_preview_active_person_active_statement

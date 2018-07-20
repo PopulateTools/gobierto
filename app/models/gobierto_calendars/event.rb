@@ -34,7 +34,6 @@ module GobiertoCalendars
     end
 
     belongs_to :site
-    belongs_to :collection, class_name: "GobiertoCommon::Collection"
     belongs_to :department, class_name: "GobiertoPeople::Department"
     belongs_to :interest_group, class_name: "GobiertoPeople::InterestGroup"
     has_many :locations, class_name: "EventLocation", dependent: :destroy
@@ -87,8 +86,7 @@ module GobiertoCalendars
     end
 
     def self.events_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.events.by_container(container).pluck(:item_id)
-      where(id: ids, site: site).published
+      events_in_collections_and_container_with_pending(site, container).published
     end
 
     def self.events_in_collections_and_container_with_pending(site, container)
@@ -97,7 +95,7 @@ module GobiertoCalendars
     end
 
     def parameterize
-      { container_slug: collection.container.slug, slug: slug }
+      { container_slug: container.slug, slug: slug }
     end
 
     def past?
@@ -121,7 +119,7 @@ module GobiertoCalendars
     end
 
     def as_csv
-      [id, collection.title, collection.container.class.name, collection.container.id, collection.container.name, title, description, starts_at, ends_at, created_at, updated_at]
+      [id, collection.title, container.class.name, container.id, container.name, title, description, starts_at, ends_at, created_at, updated_at]
     end
 
     def attributes_for_slug
@@ -134,7 +132,7 @@ module GobiertoCalendars
 
     def to_path
       if collection.container_type == "GobiertoParticipation::Process"
-        url_helpers.gobierto_participation_process_event_path({ id: slug, process_id: collection.container.slug })
+        url_helpers.gobierto_participation_process_event_path({ id: slug, process_id: container.slug })
       elsif collection.container_type == "GobiertoParticipation"
         url_helpers.gobierto_participation_event_path({ id: slug })
       else
@@ -144,8 +142,13 @@ module GobiertoCalendars
     alias_method :resource_path, :to_path
 
     def to_url(options = {})
+      if !public? && options[:preview] && options[:admin]
+        options[:preview_token] = options[:admin].preview_token
+      end
+      options = options.except(:admin, :preview)
+
       if collection.container_type == "GobiertoParticipation::Process"
-        url_helpers.gobierto_participation_process_event_url({ id: slug, process_id: collection.container.slug, host: site_domain }.merge(options))
+        url_helpers.gobierto_participation_process_event_url({ id: slug, process_id: container.slug, host: site_domain }.merge(options))
       elsif collection.container_type == "GobiertoParticipation"
         url_helpers.gobierto_participation_event_url({ id: slug, host: site_domain }.merge(options))
       else
@@ -161,10 +164,24 @@ module GobiertoCalendars
       searchable_translated_attribute(description_translations)
     end
 
+    def public?
+      public_parent? && active?
+    end
+
     private
 
     def site_domain
       site.domain
+    end
+
+    def public_parent?
+      if process
+        process.reload.public?
+      elsif person
+        person.reload.public?
+      else
+        true
+      end
     end
 
   end

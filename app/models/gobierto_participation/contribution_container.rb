@@ -34,7 +34,7 @@ module GobiertoParticipation
     validates :site, :process, :title, :description, :admin, presence: true
 
     def parameterize
-      { slug: slug }
+      { process_id: process.slug, id: slug }
     end
 
     def attributes_for_slug
@@ -73,10 +73,18 @@ module GobiertoParticipation
       ends <= Time.zone.now
     end
 
+    def public?
+      process.reload.public? && active?
+    end
+
     private
 
     def participants_ids
       contributions.flat_map(&:participants_ids).uniq
+    end
+
+    def singular_route_key
+      :gobierto_participation_process_contribution_container
     end
 
   end

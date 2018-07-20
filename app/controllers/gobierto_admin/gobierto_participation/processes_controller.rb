@@ -16,7 +16,7 @@ module GobiertoAdmin
       end
 
       def edit
-        @process = find_process
+        load_process(preview: true)
         @issues = find_issues
         @scopes = find_scopes
         @process_visibility_levels = get_process_visibility_levels
@@ -47,7 +47,7 @@ module GobiertoAdmin
       end
 
       def update
-        @process = find_process
+        load_process(preview: true)
         @process_form = ProcessForm.new(process_params.merge(id: params[:id], site_id: current_site.id))
 
         if @process_form.save
@@ -65,7 +65,7 @@ module GobiertoAdmin
       end
 
       def destroy
-        @process = find_process
+        load_process
         @process.destroy
 
         redirect_to admin_participation_path, notice: t(".success_#{@process.process_type}")
@@ -91,8 +91,9 @@ module GobiertoAdmin
 
       private
 
-      def find_process
-        current_site.processes.find(params[:id])
+      def load_process(opts = {})
+        @process = current_site.processes.find(params[:id])
+        @preview_item = current_process if opts[:preview]
       end
 
       def find_archived_process

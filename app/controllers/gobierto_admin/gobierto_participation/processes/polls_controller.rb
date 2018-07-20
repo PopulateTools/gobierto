@@ -8,6 +8,7 @@ module GobiertoAdmin
 
         def index
           @polls = current_process.polls
+          @preview_item_url = current_process.stages.polls.first.to_url(preview: true, admin: current_admin)
           @archived_polls = current_process.polls.only_archived
         end
 
@@ -19,6 +20,7 @@ module GobiertoAdmin
           @poll_form = PollForm.new(
             find_poll.attributes.except(*ignored_poll_attributes).merge(process: current_process)
           )
+          @preview_item_url = @poll_form.poll.admin_preview_url(current_admin)
         end
 
         def create

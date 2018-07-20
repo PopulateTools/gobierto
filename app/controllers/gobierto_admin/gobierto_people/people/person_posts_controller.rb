@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     module People
@@ -5,8 +7,11 @@ module GobiertoAdmin
 
         helper_method :gobierto_people_person_post_preview_url
 
+        before_action :load_person_post, only: [:edit, :update]
+
         def index
           @person_posts = @person.posts.sorted
+          @preview_item_url = @person.blog_url(preview: true, admin: current_admin)
         end
 
         def new
@@ -15,7 +20,6 @@ module GobiertoAdmin
         end
 
         def edit
-          @person_post = find_person_post
           @person_post_visibility_levels = get_person_post_visibility_levels
 
           @person_post_form = PersonPostForm.new(
@@ -40,7 +44,6 @@ module GobiertoAdmin
         end
 
         def update
-          @person_post = find_person_post
           @person_post_form = PersonPostForm.new(
             person_post_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id)
           )
@@ -58,8 +61,9 @@ module GobiertoAdmin
 
         private
 
-        def find_person_post
-          @person.posts.find(params[:id])
+        def load_person_post
+          @person_post = @person.posts.find(params[:id])
+          @preview_item = @person_post
         end
 
       def get_person_post_visibility_levels

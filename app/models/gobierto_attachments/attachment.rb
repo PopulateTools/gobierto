@@ -47,11 +47,11 @@ module GobiertoAttachments
     }
 
     belongs_to :site
-    belongs_to :collection, class_name: "GobiertoCommon::Collection"
 
     after_create :add_item_to_collection
     before_validation :update_file_attributes
     after_restore :set_slug
+    belongs_to :collection, class_name: "GobiertoCommon::Collection"
 
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }
@@ -104,21 +104,15 @@ module GobiertoAttachments
     end
 
     def created_at
-      if versions.length > 0
-        versions.last.created_at
-      end
+      versions.last.created_at if versions.length.positive?
     end
 
     def parameterize
-      { slug: slug }
+      { id: slug }
     end
 
     def attributes_for_slug
       [name]
-    end
-
-    def to_url(options = {})
-      return url_helpers.gobierto_attachments_document_url({ id: slug, host: app_host }.merge(options))
     end
 
     def human_readable_path
@@ -130,9 +124,19 @@ module GobiertoAttachments
     end
 
     def add_item_to_collection
-      if collection
-        collection.append(self)
-      end
+      collection&.append(self)
+    end
+
+    def public?
+      container.try(:reload).try(:public?) != false
+    end
+
+    def to_url(options = {})
+      merge_preview_token_if_needed!(options)
+
+      url_helpers.gobierto_attachments_attachment_url(
+        { id: id, host: site.domain }.merge(options.except(:preview, :admin))
+      )
     end
 
     private

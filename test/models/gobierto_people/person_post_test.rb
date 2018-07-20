@@ -9,6 +9,10 @@ module GobiertoPeople
     include User::SubscribableTest
     include GobiertoCommon::SluggableTestModule
 
+    def person
+      @person ||= gobierto_people_people(:richard)
+    end
+
     def person_post
       @person_post ||= gobierto_people_person_posts(:richard_about_me)
     end
@@ -46,5 +50,22 @@ module GobiertoPeople
     def test_by_tag_scope_with_all_arguments_but_one
       refute_includes PersonPost.by_tag(*subject_tags.push("wadus")).map(&:id), person_post.id
     end
+
+    def test_public?
+      assert person_post.public?
+
+      person.draft!
+
+      refute person_post.public?
+
+      person_post.draft!
+
+      refute person_post.public?
+
+      person.active!
+
+      refute person_post.public?
+    end
+
   end
 end

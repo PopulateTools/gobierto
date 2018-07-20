@@ -253,6 +253,29 @@ center_scope_process_documents:
   container: center_scope_process (GobiertoParticipation::Process)
   item_type: GobiertoAttachments::Attachment
 
+# complete_process
+
+complete_process_news:
+  site: madrid
+  title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
+  slug: complete_process-news
+  container: complete_process (GobiertoParticipation::Process)
+  item_type: GobiertoCms::News
+
+complete_process_calendar:
+  site: madrid
+  title_translations: <%= {'en' => 'Events', 'es' => 'Eventos' }.to_json %>
+  slug: complete_process-calendar
+  container: complete_process (GobiertoParticipation::Process)
+  item_type: GobiertoCalendars::Event
+
+complete_process_documents:
+  site: madrid
+  title_translations: <%= {'en' => 'Documents', 'es' => 'Documentos' }.to_json %>
+  slug: complete_process-documents
+  container: complete_process (GobiertoParticipation::Process)
+  item_type: GobiertoAttachments::Attachment
+
 ## /end
 
 ## GobiertoPeople People collections of events (calendars of events)

@@ -50,6 +50,25 @@ bowling_group_contributions_future:
   slug: lawn-bowling-future-contributions
   visibility_user_level: <%= GobiertoParticipation::ContributionContainer.visibility_user_levels['registered'] %>
 
+bowling_group_contributions_future_draft:
+  site: madrid
+  admin: tony
+  process: bowling_group_very_active
+  title_translations: <%= {
+    "es" => "Esta piscina no está publicada y no ha empezado",
+    "en" => "This container is not published and has not started"
+  }.to_json %>
+  description_translations: <%= {
+    "es" => "Esta es la descripción de la piscina. Esta piscina no está publicada y no ha empezado.",
+    "en" => "This is the container description. This container is not published and has not started."
+  }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ContributionContainer.visibility_levels[:draft] %>
+  contribution_type: <%= GobiertoParticipation::ContributionContainer.contribution_types[:idea] %>
+  starts: <%= 10.days.from_now %>
+  ends: <%= 30.days.from_now %>
+  slug: lawn-bowling-future-contributions-draft
+  visibility_user_level: <%= GobiertoParticipation::ContributionContainer.visibility_user_levels["registered"] %>
+
 bowling_group_contributions_past:
   site: madrid
   admin: tony

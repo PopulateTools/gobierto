@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     module People
@@ -9,6 +11,7 @@ module GobiertoAdmin
 
         def index
           @person_statements = @person.statements.sorted
+          @preview_item_url = @person.statements_url(preview: true, admin: current_admin)
         end
 
         def new
@@ -17,7 +20,7 @@ module GobiertoAdmin
         end
 
         def edit
-          @person_statement = find_person_statement
+          load_person_statement
           @person_statement_visibility_levels = get_person_statement_visibility_levels
 
           @person_statement_form = PersonStatementForm.new(
@@ -40,7 +43,7 @@ module GobiertoAdmin
         end
 
         def update
-          @person_statement = find_person_statement
+          load_person_statement
           @person_statement_form = PersonStatementForm.new(person_statement_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id))
 
           if @person_statement_form.save
@@ -56,8 +59,9 @@ module GobiertoAdmin
 
         private
 
-        def find_person_statement
-          @person.statements.find(params[:id])
+        def load_person_statement
+          @person_statement = @person.statements.find(params[:id])
+          @preview_item = @person_statement
         end
 
       def get_person_statement_visibility_levels

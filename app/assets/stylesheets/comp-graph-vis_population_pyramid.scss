@@ -15,11 +15,13 @@
     .titles {
       font-weight: 600;
       font-size: $f7;
+      fill: $color_text;
     }
 
     .tick {
       text {
-        fill: $color_text;
+        fill: lighten($color_text, 25%);
+        font-size: $f8;
       }
 
       line {

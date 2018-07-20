@@ -85,29 +85,17 @@ export var VisPopulationPyramid = Class.extend({
 
         jsonData.sort((a,b) => a.age - b.age)
 
-        // TODO: completar data
         const aux = {
-          pyramid: jsonData,
+          pyramid: this._transformPyramidData(jsonData),
           areas: this._transformAreasData(jsonData),
-          marks: [{
-            value: 55,
-            get name() {
-              return I18n.t('gobierto_observatory.graphics.population_pyramid.mean', { age: this.value })
-            }
-          }, {
-            value: 42,
-            get name() {
-              return I18n.t('gobierto_observatory.graphics.population_pyramid.median', { age: this.value })
-            }
-          }, {
-            value: 21,
-            get name() {
-              return I18n.t('gobierto_observatory.graphics.population_pyramid.mode', { age: this.value })
-            }
-          }]
+          marks: this._transformMarksData(jsonData),
         }
 
         this.data = aux
+
+        //// DEBUG:
+        window.data = this.data
+        window.yo = this
 
         this.updateRender()
         this._renderBars()
@@ -142,12 +130,25 @@ export var VisPopulationPyramid = Class.extend({
 
     this._renderAxis()
   },
-  _transformAreasData: function (data, breakpoints) {
-    let bp = breakpoints || [18, 65]
+  _transformPyramidData: function(data) {
+    const totalMen = this._math.total(data.filter(p => p.sex === "V"))
+    const totalWomen = this._math.total(data.filter(p => p.sex === "M"))
+    // updates every value with its respective percentage
+    return data.map((item) => {
+      item._value = item.value
+      item.value = (item.sex === "V") ? (item.value / totalMen) : (item.sex === "M") ? (item.value / totalWomen) : 0
+      return item
+    })
+  },
+  _transformAreasData: function (data) {
+    let bp = [18, 65]
+    let self = this
     return [
       {
         name: I18n.t('gobierto_observatory.graphics.population_pyramid.youth'),
-        info: I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: 23 }),
+        get info() {
+          return I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: self._math.percent(this.value) })
+        },
         range: [d3.min(data.map(d => d.age)), bp[0] - 1],
         value: data.filter(d => d.age < bp[0]).map(d => d.value).reduce((a,b)=>a+b)
       },
@@ -158,22 +159,43 @@ export var VisPopulationPyramid = Class.extend({
       },
       {
         name: I18n.t('gobierto_observatory.graphics.population_pyramid.elderly'),
-        info: I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: 23 }),
+        get info() {
+          return I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: self._math.percent(this.value) })
+        },
         range: [bp[1], d3.max(data.map(d => d.age))],
         value: data.filter(d => d.age >= bp[1]).map(d => d.value).reduce((a,b)=>a+b)
       }
     ]
   },
+  _transformMarksData: function (data) {
+    return [{
+      value: this._math.mean(data.map(f => f.age)),
+      get name() {
+        return I18n.t('gobierto_observatory.graphics.population_pyramid.mean', { age: this.value })
+      }
+    }, {
+      value: this._math.median(data.map(f => f.age)),
+      get name() {
+        return I18n.t('gobierto_observatory.graphics.population_pyramid.median', { age: this.value })
+      }
+    }, {
+      value: this._math.mode(data),
+      get name() {
+        return I18n.t('gobierto_observatory.graphics.population_pyramid.mode', { age: this.value })
+      }
+    }]
+  },
   _renderAxis: function() {
     // X axes
     function xAxisMale(g) {
-      g.call(this.xAxisMale.scale(this.xScaleMale))
+      g.call(this.xAxisMale.scale(this.xScaleMale).ticks(6).tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
       g.selectAll(".domain").remove()
       g.selectAll(".tick line").remove()
+      g.selectAll(".tick:last-child text").remove()
     }
 
     function xAxisFemale(g) {
-      g.call(this.xAxisFemale.scale(this.xScaleFemale))
+      g.call(this.xAxisFemale.scale(this.xScaleFemale).ticks(6).tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
       g.selectAll(".domain").remove()
       g.selectAll(".tick:not(:first-child) line").remove()
       g.selectAll(".tick:first-child line")
@@ -182,10 +204,10 @@ export var VisPopulationPyramid = Class.extend({
     }
 
     this.pyramid.select(".x.axis.males")
-      .attr("transform", `translate(0,${this.height.pyramid - (this.margin.bottom / 2)})`)
+      .attr("transform", `translate(0,${this.height.pyramid - this.margin.bottom})`)
       .call(xAxisMale.bind(this))
     this.pyramid.select(".x.axis.females")
-      .attr("transform", `translate(${this.width.pyramid / 2},${this.height.pyramid - (this.margin.bottom / 2)})`)
+      .attr("transform", `translate(${this.width.pyramid / 2},${this.height.pyramid - this.margin.bottom})`)
       .call(xAxisFemale.bind(this))
 
     // Y axis
@@ -208,16 +230,17 @@ export var VisPopulationPyramid = Class.extend({
       .attr("class", "titles")
 
     titles.append("text")
-      .attr("transform", `translate(${(this.width.pyramid / 2) - this.gutter},0)`)
+      .attr("transform", `translate(${(this.width.pyramid / 2) - this.gutter},${this.gutter})`)
       .attr("text-anchor", "end")
       .text(I18n.t('gobierto_observatory.graphics.population_pyramid.men'))
 
     titles.append("text")
-      .attr("transform", `translate(${(this.width.pyramid / 2) + this.gutter},0)`)
+      .attr("transform", `translate(${(this.width.pyramid / 2) + this.gutter},${this.gutter})`)
       .attr("text-anchor", "start")
       .text(I18n.t('gobierto_observatory.graphics.population_pyramid.women'))
 
     titles.append("text")
+      .attr("transform", `translate(0,${this.gutter})`)
       .attr("text-anchor", "end")
       .text(I18n.t('gobierto_observatory.graphics.population_pyramid.age'))
   },
@@ -282,14 +305,14 @@ export var VisPopulationPyramid = Class.extend({
       .attr("x", (this.width.areas / 3) + this.gutter)
       .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
       .attr("class", "title")
-      .text(d => d.name)
+      .text(d => `${d.name}: ${this._math.percent(d.value)}`)
 
     ranges.append("text")
       .attr("x", (this.width.areas / 3) + this.gutter)
       .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
       .attr("dy", "1.5em")
       .attr("class", "subtitle")
-      .text(d => d.info) // TODO: corregir literal
+      .text(d => d.info)
   },
   _renderMarks: function() {
     let g = this.marks.selectAll("g")
@@ -343,6 +366,31 @@ export var VisPopulationPyramid = Class.extend({
       pyramid,
       areas,
       marks
+    }
+  },
+  _math: {
+    self: this,
+    total(data) {
+      return _.sumBy(data, 'value')
+    },
+    mode(data) {
+      // It's not required the common mode arithmetical function
+      // since the data it's grouped by age, only get the biggest number
+      return _.maxBy(data, 'value').age
+    },
+    mean(data) {
+      return _.mean(data)
+    },
+    median(data) {
+      let array = data.sort()
+      if (array.length % 2 === 0) { // array with even number elements
+        return (array[array.length / 2] + array[(array.length / 2) - 1]) / 2;
+      } else {
+        return array[(array.length - 1) / 2]; // array with odd number elements
+      }
+    },
+    percent(d) {
+      return (d / this.total(self.data.pyramid)).toLocaleString(I18n.locale, { style: 'percent' })
     }
   },
   _resize: function() {

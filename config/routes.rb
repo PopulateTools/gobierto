@@ -124,6 +124,10 @@ Rails.application.routes.draw do
           put :recover
         end
       end
+
+      namespace :configuration do
+        resource :settings, only: [:edit, :update], path: :settings
+      end
     end
 
     namespace :gobierto_common, as: :common, path: nil do

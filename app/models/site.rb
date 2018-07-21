@@ -112,6 +112,17 @@ class Site < ApplicationRecord
                                    end
   end
 
+  def gobierto_participation_settings
+    @gobierto_participation_settings ||= if configuration.gobierto_participation_enabled?
+                                           module_settings.find_by(module_name: "GobiertoParticipation")
+                                         end
+  end
+
+  def settings_for_module(module_name)
+    return unless respond_to?(method = "#{ module_name.underscore }_settings")
+    send(method)
+  end
+
   # If the organization_id corresponds to a municipality ID,
   # this method will return an instance of INE::Places::Place
   def place

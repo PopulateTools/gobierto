@@ -12,7 +12,7 @@ module GobiertoCommon
     has_many :terms, dependent: :nullify
     belongs_to :parent_term, class_name: name, foreign_key: :term_id
 
-    validates :vocabulary, :name_translations, :slug, :position, :level, presence: true
+    validates :vocabulary, :name, :slug, :position, :level, presence: true
     validates :slug, uniqueness: { scope: :vocabulary_id }
 
     translates :name, :description

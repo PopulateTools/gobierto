@@ -5,7 +5,7 @@ module GobiertoParticipation
     before_action :load_issue, :load_scope
 
     def index
-      @issues = current_site.issues
+      @issues = find_issues
       @pages = participation_module_news.sorted.active.page(params[:page])
     end
 
@@ -13,7 +13,7 @@ module GobiertoParticipation
 
     def load_issue
       if params[:issue_id]
-        @issue = current_site.issues.find_by_slug!(params[:issue_id])
+        @issue = find_issue
       end
     end
 

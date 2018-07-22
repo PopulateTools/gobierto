@@ -4,7 +4,7 @@ module GobiertoParticipation
   class EventsController < GobiertoParticipation::ApplicationController
     def index
       @issue = find_issue if params[:issue_id]
-      @issues = current_site.issues
+      @issues = find_issues
 
       container_events
       set_events
@@ -20,10 +20,6 @@ module GobiertoParticipation
     end
 
     private
-
-    def find_issue
-      current_site.issues.find_by_slug!(params[:issue_id])
-    end
 
     def set_events
       @events = if params[:date]

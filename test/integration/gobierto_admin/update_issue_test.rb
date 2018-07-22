@@ -18,7 +18,7 @@ module GobiertoAdmin
     end
 
     def participation_issue
-      @participation_issue ||= issues(:culture)
+      @participation_issue ||= gobierto_common_terms(:culture_term)
     end
 
     def test_update_issue

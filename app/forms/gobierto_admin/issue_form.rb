@@ -23,10 +23,6 @@ module GobiertoAdmin
       @issue ||= issue_class.find_by(id: id).presence || build_issue
     end
 
-    def site_id
-      @site_id ||= issue.site_id
-    end
-
     def site
       @site ||= Site.find_by(id: site_id)
     end
@@ -38,12 +34,11 @@ module GobiertoAdmin
     end
 
     def issue_class
-      ::Issue
+      site.issues
     end
 
     def save_issue
       @issue = issue.tap do |issue_attributes|
-        issue_attributes.site_id = site_id
         issue_attributes.name_translations = name_translations
         issue_attributes.description_translations = description_translations
         issue_attributes.slug = slug

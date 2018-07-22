@@ -14,7 +14,7 @@ module GobiertoAdmin
     end
 
     def new
-      @issue_form = IssueForm.new
+      @issue_form = IssueForm.new(site_id: current_site.id)
 
       render(:new_modal, layout: false) && return if request.xhr?
     end
@@ -22,7 +22,7 @@ module GobiertoAdmin
     def edit
       @issue = find_issue
       @issue_form = IssueForm.new(
-        @issue.attributes.except(*ignored_issue_attributes)
+        @issue.attributes.except(*ignored_issue_attributes).merge(site_id: current_site.id)
       )
 
       render(:edit_modal, layout: false) && return if request.xhr?
@@ -47,7 +47,7 @@ module GobiertoAdmin
     def update
       @issue = find_issue
       @issue_form = IssueForm.new(
-        issue_params.merge(id: params[:id])
+        issue_params.merge(id: params[:id], site_id: current_site.id)
       )
 
       if @issue_form.save
@@ -66,7 +66,7 @@ module GobiertoAdmin
     def destroy
       @issue = find_issue
 
-      if @issue.destroy
+      if current_site.processes.where(issue: @issue).blank? && @issue.destroy
         redirect_to admin_issues_path(@issue), notice: t(".success")
       else
         redirect_to admin_issues_path(@issue), alert: t(".has_items")
@@ -96,7 +96,7 @@ module GobiertoAdmin
     end
 
     def ignored_issue_attributes
-      %w(position created_at updated_at)
+      %w(position created_at updated_at level term_id vocabulary_id)
     end
 
     def find_issue

@@ -23,11 +23,11 @@ module GobiertoAdmin
     end
 
     def issue
-      @issue ||= issues(:culture)
+      @issue ||= gobierto_common_terms(:culture_term)
     end
 
     def site
-      @site ||= sites(:santander)
+      @site ||= sites(:madrid)
     end
 
     def test_save_with_valid_attributes

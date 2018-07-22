@@ -19,11 +19,11 @@ module GobiertoAdmin
     end
 
     def issue
-      @issue ||= issues(:sports)
+      @issue ||= gobierto_common_terms(:sports_term)
     end
 
     def issue_with_items
-      @issue_with_items ||= issues(:culture)
+      @issue_with_items ||= gobierto_common_terms(:culture_term)
     end
 
     def test_delete_issue

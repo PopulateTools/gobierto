@@ -3,6 +3,8 @@
 module GobiertoCommon
   class Term < ApplicationRecord
     before_validation :calculate_level, :set_vocabulary
+    include GobiertoCommon::Sortable
+    include User::Subscribable
     include GobiertoCommon::Sluggable
     after_save :update_children_levels
     before_destroy :free_children
@@ -14,6 +16,8 @@ module GobiertoCommon
 
     validates :vocabulary, :name, :slug, :position, :level, presence: true
     validates :slug, uniqueness: { scope: :vocabulary_id }
+
+    scope :sorted, -> { order(position: :asc, created_at: :desc) }
 
     translates :name, :description
 

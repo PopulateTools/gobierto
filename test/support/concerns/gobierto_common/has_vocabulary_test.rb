@@ -1,0 +1,50 @@
+# frozen_string_literal: true
+
+module GobiertoCommon
+  module HasVocabularyTest
+    attr_reader :model, :vocabularies, :site_with_vocabularies, :site_without_vocabularies, :singular_vocabularies
+
+    def setup_has_vocabulary_module(opts = {})
+      @model ||= opts[:model]
+      @vocabularies ||= opts[:vocabularies]
+      @site_with_vocabularies ||= opts[:site_with_vocabularies]
+      @site_without_vocabularies ||= opts[:site_without_vocabularies]
+      @singular_vocabularies = @vocabularies.map { |v| v.to_s.singularize.to_sym }.sort
+    end
+
+    def site
+      @site ||= sites(:madrid)
+    end
+
+    def new_instance
+      @new_instance ||= model.new
+    end
+
+    def test_vocabularies_present
+      assert model.respond_to? :vocabularies
+      assert_equal singular_vocabularies, model.vocabularies.keys.sort
+    end
+
+    def test_association_attribute
+      singular_vocabularies.each do |method|
+        assert new_instance.respond_to? method
+      end
+    end
+
+    def test_associations_are_terms
+      singular_vocabularies.each do |method|
+        not_empty = model.where.not(method => nil).first
+        assert not_empty.send(method).is_a? GobiertoCommon::Term
+      end
+    end
+
+    def test_associated_vocabulary
+      singular_vocabularies.each do |method|
+        vocabulary_id = site.gobierto_participation_settings.send(GobiertoParticipation::Process.vocabularies[method])
+        pluralized_method = method.to_s.pluralize.to_sym
+        assert_equal model.send(pluralized_method, site_with_vocabularies), site_with_vocabularies.vocabularies.find_by_id(vocabulary_id).terms
+        assert_equal 0, model.send(pluralized_method, site_without_vocabularies).count
+      end
+    end
+  end
+end

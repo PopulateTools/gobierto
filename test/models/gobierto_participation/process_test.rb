@@ -1,9 +1,22 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_common/has_vocabulary_test"
 
 module GobiertoParticipation
   class ProcessTest < ActiveSupport::TestCase
+
+    include ::GobiertoCommon::HasVocabularyTest
+
+    def setup
+      super
+      setup_has_vocabulary_module(
+        model: GobiertoParticipation::Process,
+        vocabularies: [:issues],
+        site_with_vocabularies: sites(:madrid),
+        site_without_vocabularies: sites(:organization_wadus)
+      )
+    end
 
     def green_city_group
       @green_city_group ||= gobierto_participation_processes(:green_city_group_active_empty)

@@ -26,7 +26,7 @@ module GobiertoCommon
     end
 
     def vocabulary_name
-      vocabulary.name
+      vocabulary&.name
     end
 
     private

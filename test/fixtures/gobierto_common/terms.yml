@@ -44,3 +44,31 @@ pigeon:
   position: 1
   level: 1
   term_id: <%= ActiveRecord::FixtureSet.identify(:bird) %>
+culture_term:
+  vocabulary: issues_vocabulary
+  name_translations: <%= { 'en' => 'Culture', 'es' => 'Cultura' }.to_json %>
+  description_translations: <%= { 'en' => 'Culture description', 'es' => 'Descriptión de cultura' }.to_json %>
+  slug: culture
+  position: 1
+  level: 0
+women_term:
+  vocabulary: issues_vocabulary
+  name_translations: <%= { 'en' => 'Women', 'es' => 'Mujer' }.to_json %>
+  description_translations: <%= { 'en' => 'Women description', 'es' => 'Descripción de mujeres' }.to_json %>
+  slug: women
+  position: 2
+  level: 0
+economy_term:
+  vocabulary: issues_vocabulary
+  name_translations: <%= { 'en' => 'Economy', 'es' => 'Economía' }.to_json %>
+  description_translations: <%= { 'en' => 'Economy description', 'es' => 'Descrión de economía' }.to_json %>
+  slug: economy
+  position: 3
+  level: 0
+sports_term:
+  vocabulary: issues_vocabulary
+  name_translations: <%= { 'en' => 'Sports', 'es' => 'Deportes' }.to_json %>
+  description_translations: <%= { 'en' => 'Sport description', 'es' => 'Descriptión de deportes' }.to_json %>
+  slug: sport
+  position: 4
+  level: 0

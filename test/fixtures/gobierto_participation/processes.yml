@@ -18,7 +18,7 @@ cultural_city_group_draft:
   slug: ciudad-cultural
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels["draft"] %>
-  issue: culture
+  issue: culture_term
 
 public_debates_group_future:
   site: madrid
@@ -43,7 +43,7 @@ dance_studio_group_ended:
   starts:
   ends: <%= 1.week.ago %>
   scope: center
-  issue: culture
+  issue: culture_term
 
 bowling_group_very_active:
   site: madrid
@@ -62,7 +62,7 @@ bowling_group_very_active:
   slug: grupo-de-petanca
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels['active'] %>
-  issue: culture
+  issue: culture_term
   header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
 
 # Processes
@@ -77,7 +77,7 @@ sport_city_process:
   visibility_level: <%= Site.visibility_levels["active"] %>
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
-  issue: culture
+  issue: culture_term
   scope: old_town
 
 local_budgets_process:
@@ -90,7 +90,7 @@ local_budgets_process:
   visibility_level: <%= Site.visibility_levels['active'] %>
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
-  issue: economy
+  issue: economy_term
 
 gender_violence_process:
   site: madrid
@@ -111,7 +111,7 @@ gender_violence_process:
   visibility_level: <%= Site.visibility_levels['active'] %>
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
-  issue: women
+  issue: women_term
   scope: old_town
   header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
 
@@ -134,7 +134,7 @@ commission_for_carnival_festivities:
   visibility_level: <%= Site.visibility_levels['active'] %>
   starts: <%= 5.months.ago %>
   ends: <%= 6.months.from_now %>
-  issue: culture
+  issue: culture_term
   header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
 
 center_scope_process:
@@ -147,5 +147,5 @@ center_scope_process:
   visibility_level: <%= Site.visibility_levels["active"] %>
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
-  issue: culture
+  issue: culture_term
   scope: center

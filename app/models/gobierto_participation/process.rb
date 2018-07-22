@@ -13,6 +13,7 @@ module GobiertoParticipation
     include GobiertoCommon::Searchable
     include GobiertoCommon::ActsAsCollectionContainer
     include GobiertoAttachments::Attachable
+    include GobiertoCommon::HasVocabulary
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
@@ -24,7 +25,7 @@ module GobiertoParticipation
     translates :title, :body, :body_source, :information_text
 
     belongs_to :site
-    belongs_to :issue
+    has_vocabulary :issues
     belongs_to :scope, class_name: "GobiertoCommon::Scope"
     has_many :stages, -> { sorted }, dependent: :delete_all, class_name: "GobiertoParticipation::ProcessStage", autosave: true
     has_many :published_stages, -> { published.sorted }, class_name: "GobiertoParticipation::ProcessStage"

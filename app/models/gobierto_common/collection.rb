@@ -113,6 +113,7 @@ module GobiertoCommon
         site_for_container(container), gobierto_module_for_container(container),
         area_for_container(container), issue_for_container(container),
         scope_for_container(container),
+        term_for_container(container),
         gobierto_module_instance_for_container(container)
       ].compact.uniq
     end
@@ -153,6 +154,12 @@ module GobiertoCommon
 
     def gobierto_module_instance_for_container(container)
       if !container.is_a?(Module) && !container_is_a_collector?(container)
+        [container.class.name, container.id]
+      end
+    end
+
+    def term_for_container(container)
+      if container.is_a?(GobiertoCommon::Term)
         [container.class.name, container.id]
       end
     end

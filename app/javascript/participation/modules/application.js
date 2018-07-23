@@ -1,5 +1,5 @@
-function currentLocationMatches(controller_action) {
-  return $("body.gobierto_participation." + controller_action).length > 0
+function currentLocationMatches(action_path) {
+  return $("body.gobierto_participation_" + action_path).length > 0
 }
 
 $(document).on('turbolinks:load', function() {

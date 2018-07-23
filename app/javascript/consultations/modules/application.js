@@ -1,5 +1,5 @@
-function currentLocationMatches(suffix) {
-  return $("#gobierto_budget_consultations_" + suffix).length > 0
+function currentLocationMatches(controller_action) {
+  return $("body.gobierto_budget_consultations." + controller_action).length > 0
 }
 
 $(document).on('turbolinks:load', function() {

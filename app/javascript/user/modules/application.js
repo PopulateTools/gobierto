@@ -1,5 +1,5 @@
-function currentLocationMatches(suffix) {
-  return $('#user_' + suffix).length > 0
+function currentLocationMatches(controller_action) {
+  return $("body.user." + controller_action).length > 0
 }
 
 $(document).on('turbolinks:load', function() {

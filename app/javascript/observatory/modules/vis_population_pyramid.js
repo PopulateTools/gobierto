@@ -73,7 +73,7 @@ export var VisPopulationPyramid = Class.extend({
 
     // d3.select(window).on(`resize.${this.container}`, this._resize.bind(this))
   },
-  getUrls: function (city_id, filter = 0) {
+  getUrls: function(city_id, filter = 0) {
     let endpoints = {
       population: "ds-poblacion-municipal-edad-sexo.json",
       employed: "ds-poblacion-activa-municipal.json",
@@ -184,7 +184,7 @@ export var VisPopulationPyramid = Class.extend({
       return item
     })
   },
-  _transformAreasData: function (data) {
+  _transformAreasData: function(data) {
     let bp = this.ageBreakpoints
     let self = this
     return [
@@ -211,7 +211,7 @@ export var VisPopulationPyramid = Class.extend({
       }
     ]
   },
-  _transformMarksData: function (data) {
+  _transformMarksData: function(data) {
     return [{
       value: this._math.mean(data.map(f => f.age)),
       get name() {
@@ -430,7 +430,7 @@ export var VisPopulationPyramid = Class.extend({
   _mouseout: function() {
 
   },
-  _getDimensions: function (opts = {}) {
+  _getDimensions: function(opts = {}) {
     let ratio = opts.ratio || 2.5
     let width = opts.width || +d3.select(this.container).node().getBoundingClientRect().width
     let height = opts.height || width / ratio
@@ -458,7 +458,10 @@ export var VisPopulationPyramid = Class.extend({
     }
   },
   _math: {
-    self: this,
+    get data() {
+      // // TODO: argdfh
+      return this.data.pyramid
+    },
     total(data) {
       return _.sumBy(data, 'value')
     },
@@ -479,7 +482,8 @@ export var VisPopulationPyramid = Class.extend({
       }
     },
     percent(d) {
-      return (d / this.total(self.data.pyramid)).toLocaleString(I18n.locale, { style: 'percent' })
+      // TODO: No se le pasa el contexto
+      return (d / this.total(this.data)).toLocaleString(I18n.locale, { style: 'percent' })
     }
   },
   _wrap: function(text, width, start = 0) {

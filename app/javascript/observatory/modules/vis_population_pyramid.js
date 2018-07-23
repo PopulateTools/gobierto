@@ -55,9 +55,10 @@ export var VisPopulationPyramid = Class.extend({
 
     // Create main elements
     this.svg = d3.select(this.container)
+      .style("padding-bottom", `${100 / this._getDimensions().ratio}%`) // aspect ratio
       .append("svg")
-      .attr("width", this.width.chart + this.margin.left + this.margin.right)
-      .attr("height", this.height.chart + this.margin.top + this.margin.bottom)
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", `0 0 ${this.width.chart + this.margin.left + this.margin.right} ${this.height.chart + this.margin.top + this.margin.bottom}`)
       .append("g")
       .attr("class", "chart-container")
       .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
@@ -74,8 +75,6 @@ export var VisPopulationPyramid = Class.extend({
     this.pyramid.append("g").attr("class","x axis males")
     this.pyramid.append("g").attr("class","x axis females")
     this.pyramid.append("g").attr("class","y axis")
-
-    // d3.select(window).on(`resize.${this.container}`, this._resize.bind(this))
   },
   getUrls: function(city_id, filter = 0) {
     let endpoints = {
@@ -444,8 +443,8 @@ export var VisPopulationPyramid = Class.extend({
 
   },
   _getDimensions: function(opts = {}) {
-    let ratio = opts.ratio || 2.5
     let width = opts.width || +d3.select(this.container).node().getBoundingClientRect().width
+    let ratio = opts.ratio || 2.5
     let height = opts.height || width / ratio
 
     let pyramid = {
@@ -519,25 +518,4 @@ export var VisPopulationPyramid = Class.extend({
       }
     });
   },
-  _resize: function() {
-    // TODO: COmpletar
-    this.width = this._getDimensions().width
-    this.height = this._getDimensions().height
-
-    this.updateRender()
-
-    d3.select(`${this.container} svg`)
-      .attr("width", this.width + this.margin.left + this.margin.right)
-      .attr("height", this.height + this.margin.top + this.margin.bottom)
-
-    this.svg.select(".chart-container")
-      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
-
-    // Update bars
-    // d3.select("#age_distribution .bars").selectAll("rect")
-    //   .attr("x", function(d) { return this.xScale(d.age) }.bind(this))
-    //   .attr("y", function(d) { return this.yScale(d.value) }.bind(this))
-    //   .attr("width", this.xScale.bandwidth())
-    //   .attr("height", function(d) { return this.height - this.yScale(d.value) }.bind(this))
-  }
 })

@@ -12,7 +12,7 @@ module GobiertoAdmin
       attr_writer :site_id
 
       delegate :persisted?, to: :gobierto_module_settings
-      validates :issues_vocabulary, :scopes_vocabulary, presence: true
+      validates :site, presence: true
 
       def save
         valid? && save_settings

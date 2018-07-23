@@ -1,0 +1,17 @@
+<div class='admin_breadcrumb'>
+  <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_common.vocabularies.index.title"), admin_common_vocabularies_path %> »
+  <%= @vocabulary.name %>
+</div>
+
+<h1><%= @vocabulary.name %></h1>
+
+<p>
+  <strong><%= t('.created_at') %></strong>:
+  <%= l(@vocabulary.created_at, format: :short) %>
+</p>
+
+<p>
+  <strong><%= t('.terms') %></strong>:
+  <%= t(".terms_count", count: @terms_count) %>
+</p>

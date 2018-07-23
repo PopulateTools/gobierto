@@ -1,0 +1,23 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      terms:
+        edit:
+          edit: Editar %{term}
+        form:
+          placeholders:
+            description: El caballo es un mamífero herbívoro
+            name: Caballo
+            slug: reino-animal-caballo
+        index:
+          delete_confirm: Estás seguro? Esta operación no es reversible
+          header:
+            description: Descripción
+            level: Nivel
+            name: Nombre
+            parent: Padre
+          new: Nuevo
+          title: Términos de %{vocabulary}
+        new:
+          new: Nuevo Término

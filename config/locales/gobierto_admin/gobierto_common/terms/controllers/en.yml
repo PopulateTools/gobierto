@@ -1,0 +1,12 @@
+---
+en:
+  gobierto_admin:
+    gobierto_common:
+      terms:
+        create:
+          success: Term created successfully.
+        destroy:
+          destroy_failed: Term couldn't be deleted.
+          success: Term deleted successfully.
+        update:
+          success: Term updated successfully.

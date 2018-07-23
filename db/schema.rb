@@ -880,6 +880,21 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.index ["title_translations"], name: "index_sites_on_title_translations", using: :gin
   end
 
+  create_table "terms", force: :cascade do |t|
+    t.bigint "vocabulary_id"
+    t.jsonb "name_translations"
+    t.jsonb "description_translations"
+    t.string "slug"
+    t.integer "position", default: 0, null: false
+    t.integer "level", default: 0, null: false
+    t.bigint "term_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug", "vocabulary_id"], name: "index_terms_on_slug_and_vocabulary_id"
+    t.index ["term_id"], name: "index_terms_on_term_id"
+    t.index ["vocabulary_id"], name: "index_terms_on_vocabulary_id"
+  end
+
   create_table "translations", id: :serial, force: :cascade do |t|
     t.string "locale"
     t.string "key"
@@ -975,6 +990,14 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.text "object"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  end
+
+  create_table "vocabularies", force: :cascade do |t|
+    t.bigint "site_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_vocabularies_on_site_id"
   end
 
   add_foreign_key "gc_events", "collections", on_delete: :cascade

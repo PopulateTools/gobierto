@@ -84,6 +84,26 @@ module GobiertoParticipation
         refute incomplete_answers.valid?
       end
 
+      def test_save_demographic_info
+        poll_answer_form =  PollAnswerForm.new(poll_answers_params.merge(
+          user: user,
+          poll: poll
+        ))
+
+        poll_answer_form.save
+
+        answers = poll.answers.by_user(user)
+        meta_info = SecretAttribute.decrypt(answers.first.encrypted_meta)
+        expected_meta_info = {
+          gender: 0,
+          birthdate: user.date_of_birth.iso8601,
+          age: user.age,
+          district: "Retiro"
+        }
+
+        assert_equal expected_meta_info, meta_info
+      end
+
     end
   end
 end

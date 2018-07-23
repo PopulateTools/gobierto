@@ -4,6 +4,10 @@ require "digest/sha1"
 
 class SecretAttribute
 
+  def self.hmac(message, force_string = true)
+    OpenSSL::HMAC.hexdigest("SHA256", salt, force_string ? message.to_s : message)
+  end
+
   def self.digest(value)
     Digest::SHA1.hexdigest(value + salt)
   end

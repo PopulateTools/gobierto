@@ -79,8 +79,7 @@ export var VisPopulationPyramid = Class.extend({
   },
   getUrls: function(city_id, filter = 0) {
     let endpoints = {
-      population: "ds-poblacion-municipal-edad-sexo.json",
-      employed: "ds-poblacion-activa-municipal.json",
+      population: "ds-poblacion-municipal-edad-sexo.csv",
       unemployed: "ds-personas-paradas-municipio.json"
     }
 
@@ -120,7 +119,7 @@ export var VisPopulationPyramid = Class.extend({
     let unemployed = d3.json(this.dataUrls.unemployed)
       .header("authorization", "Bearer " + this.tbiToken)
 
-    let population = d3.json(this.dataUrls.population)
+    let population = d3.csv(this.dataUrls.population)
       .header("authorization", "Bearer " + this.tbiToken)
 
     d3.queue()

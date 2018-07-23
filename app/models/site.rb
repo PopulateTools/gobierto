@@ -100,7 +100,7 @@ class Site < ApplicationRecord
   end
 
   def issues
-    GobiertoParticipation::Process.issues(self)
+    GobiertoParticipation::Process.issues(self).sorted
   end
 
   def gobierto_people_settings

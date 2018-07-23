@@ -96,6 +96,7 @@ ca:
       population_pyramid:
         adults: Població activa
         age: Edat
+        country: Espanya
         elderly: Majors
         elderly_info: El %{percent} de la població té més de %{limit} anys
         mean: 'Edat mitja: %{age} anys'

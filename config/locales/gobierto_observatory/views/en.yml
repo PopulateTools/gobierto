@@ -96,6 +96,7 @@ en:
       population_pyramid:
         adults: Employed population
         age: Age
+        country: Spain
         elderly: Elderly
         elderly_info: The %{percent} of the population is elder than %{limit} years
         mean: 'Average age: %{age} years'

@@ -3,6 +3,10 @@ import { Class, d3 } from "shared"
 export var VisPopulationPyramid = Class.extend({
   init: function(divId, city_id, current_year, filter) {
     this.container = divId
+
+    // Remove previous
+    $(`${this.container} svg`).remove()
+
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null
     this.data = null
     this.tbiToken = window.populateData.token
@@ -191,7 +195,7 @@ export var VisPopulationPyramid = Class.extend({
       {
         name: I18n.t('gobierto_observatory.graphics.population_pyramid.youth'),
         get info() {
-          return I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: self._math.percent(this.value), limit: bp[0] })
+          return I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: self._math.percent(this.value, self.data.pyramid), limit: bp[0] })
         },
         range: [d3.min(data.map(d => d.age)), bp[0] - 1],
         value: data.filter(d => d.age < bp[0]).map(d => d.value).reduce((a,b)=>a+b)
@@ -204,7 +208,7 @@ export var VisPopulationPyramid = Class.extend({
       {
         name: I18n.t('gobierto_observatory.graphics.population_pyramid.elderly'),
         get info() {
-          return I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: self._math.percent(this.value), limit: bp[1] })
+          return I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: self._math.percent(this.value, self.data.pyramid), limit: bp[1] })
         },
         range: [bp[1], d3.max(data.map(d => d.age))],
         value: data.filter(d => d.age >= bp[1]).map(d => d.value).reduce((a,b)=>a+b)
@@ -352,7 +356,7 @@ export var VisPopulationPyramid = Class.extend({
       .attr("x", chartWidth + this.gutter)
       .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
       .attr("class", "title")
-      .text(d => `${d.name}: ${this._math.percent(d.value)}`)
+      .text(d => `${d.name}: ${this._math.percent(d.value, this.data.pyramid)}`)
 
     ranges.append("text")
       .attr("x", chartWidth + this.gutter)
@@ -414,15 +418,25 @@ export var VisPopulationPyramid = Class.extend({
     marks.append("line")
       .attr("x1", 0)
       .attr("x2", 1.5 * this.gutter)
+      .attr("y1", this.yScale(0))
+      .attr("y2", this.yScale(0))
+      .transition()
+      .delay(500)
+      .duration(500)
       .attr("y1", d => this.yScale(d.value))
       .attr("y2", d => this.yScale(d.value))
 
     marks.append("text")
       .attr("x", 2 * this.gutter)
-      .attr("y", d => this.yScale(d.value))
+      .attr("opacity", 0)
       .attr("dy", ".3em")
       .text(d => d.name)
       .call(this._wrap, this.width.areas - (2 * this.gutter), 2 * this.gutter)
+      .transition()
+      .delay(500)
+      .duration(500)
+      .attr("opacity", 1)
+      .attr("y", d => this.yScale(d.value))
   },
   _mousemove: function() {
 
@@ -458,10 +472,6 @@ export var VisPopulationPyramid = Class.extend({
     }
   },
   _math: {
-    get data() {
-      // // TODO: argdfh
-      return this.data.pyramid
-    },
     total(data) {
       return _.sumBy(data, 'value')
     },
@@ -481,9 +491,8 @@ export var VisPopulationPyramid = Class.extend({
         return array[(array.length - 1) / 2]; // array with odd number elements
       }
     },
-    percent(d) {
-      // TODO: No se le pasa el contexto
-      return (d / this.total(this.data)).toLocaleString(I18n.locale, { style: 'percent' })
+    percent(d, data) {
+      return (d / this.total(data)).toLocaleString(I18n.locale, { style: 'percent' })
     }
   },
   _wrap: function(text, width, start = 0) {

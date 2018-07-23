@@ -96,6 +96,7 @@ es:
       population_pyramid:
         adults: Población activa
         age: Edad
+        country: España
         elderly: Mayores
         elderly_info: El %{percent} de la población tiene más de %{limit} años
         mean: 'Edad media: %{age} años'

@@ -35,9 +35,9 @@
 						<div class="m_v_1">
 							<div class="inline_filter">
 								<div id="population_pyramid-filters" class="button-group ib" role="group">
-									<button class="button-grouped active sort-G" data-toggle="0"><%= @site.organization_name %></button>
-									<button class="button-grouped sort-G" data-toggle="1"><%= 'Cataluña' %></button>
-									<button class="button-grouped sort-G" data-toggle="2"><%= 'Espanya' %></button>
+									<button class="button-grouped active sort-G" data-toggle="0"><%= @site.place.name %></button>
+									<button class="button-grouped sort-G" data-toggle="1"><%= @site.place.province.autonomous_region.name %></button>
+									<button class="button-grouped sort-G" data-toggle="2"><%= t("gobierto_observatory.graphics.population_pyramid.country") %></button>
 								</div>
 							</div>
 						</div>

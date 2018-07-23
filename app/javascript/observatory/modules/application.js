@@ -166,6 +166,10 @@ $(document).on('turbolinks:load', function() {
 
   $("#population_pyramid-filters button[data-toggle]").click(function() {
     let filter = $(this).data("toggle")
+    let prev = $(this).parent().find(".active").data("toggle")
+
+    // Same filter as previous, do nothing
+    if (filter === prev) return
 
     $(this).siblings().removeClass("active")
     $(this).toggleClass("active")

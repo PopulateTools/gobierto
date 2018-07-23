@@ -36,21 +36,32 @@ namespace :common do
         )
       end
 
-      Activity.where(subject_type: "Issue") do |activity|
+      Activity.where(subject_type: "Issue").each do |activity|
+        issue = activity.subject || activity.site.issues.find_by_id(activity.subject_id)
         move_issue_to_term(
-          issue: activity.subject,
+          issue: issue,
           site: activity.site,
           target: activity,
           prefix: "subject"
         )
       end
 
+      User::Subscription.where(subscribable_type: "Issue").each do |subscription|
+        issue = subscription.subscribable || subscription.site.issues.find_by_id(subscription.subscribable_id)
+        move_issue_to_term(
+          issue: subscription.subscribable,
+          site: subscription.site,
+          target: subscription,
+          prefix: "subscribable"
+        )
+      end
+
       GobiertoParticipation::Process.where.not(issue_id: nil).each do |process|
-        next if (issue = Issue.find_by_id(process.issue_id)).blank?
         site = process.site
+        next if (issue = Issue.where(site: site).find_by_id(process.issue_id)).blank?
         term = site.issues.find_by(name_translations: issue.name_translations)
         if term.blank?
-          term = issues.terms.create(issue.attributes.except(*ignored_attributes))
+          term = site.issues.terms.create(issue.attributes.except(*ignored_attributes))
         end
         process.update_attribute(:issue_id, term.id)
       end
@@ -72,6 +83,7 @@ namespace :common do
     end
 
     def move_issue_to_term(issue:, site:, target:, prefix:)
+      return if issue.blank?
       term = site.issues.find_by(name_translations: issue.name_translations)
       return if term.blank?
       target.update_attributes("#{ prefix }_type" => "GobiertoCommon::Term", "#{ prefix }_id" => term.id)

@@ -7,9 +7,12 @@ export var VisPopulationPyramid = Class.extend({
     this.data = null
     this.tbiToken = window.populateData.token
     this.dataUrls = {
-      population: `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`,
-      employed: `${window.populateData.endpoint}/datasets/ds-poblacion-activa-municipal.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`,
-      unemployed: `${window.populateData.endpoint}/datasets/ds-personas-paradas-municipio.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`
+      // population: `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`,
+      // employed: `${window.populateData.endpoint}/datasets/ds-poblacion-activa-municipal.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`,
+      // unemployed: `${window.populateData.endpoint}/datasets/ds-personas-paradas-municipio.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`
+      population: `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.json?filter_by_date=${this.currentYear}&filter_by_ccaa_id=13`,
+      employed: `${window.populateData.endpoint}/datasets/ds-poblacion-activa-municipal.json?filter_by_date=${this.currentYear}&filter_by_ccaa_id=13`,
+      unemployed: `${window.populateData.endpoint}/datasets/ds-personas-paradas-municipio.json?filter_by_date=${this.currentYear}&filter_by_ccaa_id=13`
     }
 
     this.isMobile = window.innerWidth <= 768
@@ -78,12 +81,6 @@ export var VisPopulationPyramid = Class.extend({
     // d3.select(window).on(`resize.${this.container}`, this._resize.bind(this))
   },
   getData: function() {
-    // d3.json(this.dataUrls.unemployed)
-    //   .header("authorization", "Bearer " + this.tbiToken)
-    //   .get(function(error, unemployed) {
-    //     window.unemployed = unemployed
-    //   })
-
     let employed = d3.json(this.dataUrls.employed)
       .header("authorization", "Bearer " + this.tbiToken)
 
@@ -117,9 +114,8 @@ export var VisPopulationPyramid = Class.extend({
 
         this.data = aux
 
-        //// DEBUG:
-        window.data = this.data
-        window.yo = this
+        // debug
+        window.fdata = this.data
 
         this.updateRender()
         this._renderBars()

@@ -163,4 +163,11 @@ $(document).on('turbolinks:load', function() {
   if(window.location.hash !== ""){
     selectSection();
   }
+
+  $("#population_pyramid-filters button[data-toggle]").click(function() {
+    let filter = $(this).data("toggle")
+
+    $(this).siblings().removeClass("active")
+    $(this).toggleClass("active")
+  });
 });

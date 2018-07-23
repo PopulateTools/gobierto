@@ -1,19 +1,12 @@
 import { Class, d3 } from "shared"
 
 export var VisPopulationPyramid = Class.extend({
-  init: function(divId, city_id, current_year) {
+  init: function(divId, city_id, current_year, filter) {
     this.container = divId
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null
     this.data = null
     this.tbiToken = window.populateData.token
-    this.dataUrls = {
-      // population: `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`,
-      // employed: `${window.populateData.endpoint}/datasets/ds-poblacion-activa-municipal.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`,
-      // unemployed: `${window.populateData.endpoint}/datasets/ds-personas-paradas-municipio.json?filter_by_date=${this.currentYear}&filter_by_location_id=${city_id}&except_columns=_id,province_id,location_id,autonomous_region_id`
-      population: `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.json?filter_by_date=${this.currentYear}&filter_by_ccaa_id=13`,
-      employed: `${window.populateData.endpoint}/datasets/ds-poblacion-activa-municipal.json?filter_by_date=${this.currentYear}&filter_by_ccaa_id=13`,
-      unemployed: `${window.populateData.endpoint}/datasets/ds-personas-paradas-municipio.json?filter_by_date=${this.currentYear}&filter_by_ccaa_id=13`
-    }
+    this.dataUrls = this.getUrls(city_id, filter)
 
     this.isMobile = window.innerWidth <= 768
     this.ageBreakpoints = [16, 65]
@@ -80,9 +73,45 @@ export var VisPopulationPyramid = Class.extend({
 
     // d3.select(window).on(`resize.${this.container}`, this._resize.bind(this))
   },
+  getUrls: function (city_id, filter = 0) {
+    let endpoints = {
+      population: "ds-poblacion-municipal-edad-sexo.json",
+      employed: "ds-poblacion-activa-municipal.json",
+      unemployed: "ds-personas-paradas-municipio.json"
+    }
+
+    for (var endpoint in endpoints) {
+      if (endpoints.hasOwnProperty(endpoint)) {
+        let value = endpoints[endpoint]
+        value = `${window.populateData.endpoint}/datasets/${value}`
+        value += "?except_columns=_id,province_id,location_id,autonomous_region_id"
+
+        if (this.currentYear) {
+          value += `&filter_by_date=${this.currentYear}`
+        }
+
+        switch (filter) {
+          case 0:
+          default:
+              value += `&filter_by_location_id=${city_id}`
+            break;
+          case 1:
+              value += `&filter_by_autonomous_region_id=${city_id}`
+            break;
+          case 2:
+            // none
+            break;
+        }
+
+        endpoints[endpoint] = value
+      }
+    }
+
+    return endpoints
+  },
   getData: function() {
-    let employed = d3.json(this.dataUrls.employed)
-      .header("authorization", "Bearer " + this.tbiToken)
+    // let employed = d3.json(this.dataUrls.employed)
+    //   .header("authorization", "Bearer " + this.tbiToken)
 
     let unemployed = d3.json(this.dataUrls.unemployed)
       .header("authorization", "Bearer " + this.tbiToken)
@@ -92,9 +121,8 @@ export var VisPopulationPyramid = Class.extend({
 
     d3.queue()
       .defer(population.get)
-      .defer(employed.get)
       .defer(unemployed.get)
-      .await(function(error, jsonPopulation, jsonEmployed, jsonUnemployed) {
+      .await(function(error, jsonPopulation, jsonUnemployed) {
         if (error) throw error
 
         jsonPopulation.forEach(d => {
@@ -108,14 +136,10 @@ export var VisPopulationPyramid = Class.extend({
           pyramid: this._transformPyramidData(jsonPopulation),
           areas: this._transformAreasData(jsonPopulation),
           marks: this._transformMarksData(jsonPopulation),
-          employed: jsonEmployed.map(v=>v.value).reduce((a,b)=>a+b),
           unemployed: jsonUnemployed.map(v=>v.value).reduce((a,b)=>a+b)
         }
 
         this.data = aux
-
-        // debug
-        window.fdata = this.data
 
         this.updateRender()
         this._renderBars()

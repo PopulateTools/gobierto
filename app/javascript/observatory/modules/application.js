@@ -169,5 +169,20 @@ $(document).on('turbolinks:load', function() {
 
     $(this).siblings().removeClass("active")
     $(this).toggleClass("active")
+
+    /*
+    * filter values
+    * 0 - municipality
+    * 1 - province/autonomous-region
+    * 2 - country
+    */
+    let elemId = (filter === 0)
+      ? window.populateData.municipalityId
+      : (filter === 1)
+        ? window.populateData.ccaaId
+        : null
+
+    let vis_population = new VisPopulationPyramid('#population_pyramid', elemId, window.populateData.year, filter);
+    vis_population.render();
   });
 });

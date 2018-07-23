@@ -328,6 +328,12 @@ export var VisPopulationPyramid = Class.extend({
       .transition()
       .duration(500)
       .attr("width", d => this.xScaleFemale(d._value))
+
+    let focus = g.append("g")
+      .attr("class", "tooltip")
+      .attr("opacity", 0)
+
+    focus.append("text")
   },
   _renderAreas: function() {
     let g = this.areas.selectAll("g")
@@ -436,11 +442,18 @@ export var VisPopulationPyramid = Class.extend({
       .attr("opacity", 1)
       .attr("y", d => this.yScale(d.value))
   },
-  _mousemove: function() {
-
+  _mousemove: function(d) {
+    this.svg.select(".tooltip")
+      .attr("opacity", 1)
+      .select("text")
+      .attr("text-anchor", (d.sex === "V") ? undefined : "end")
+      .attr("x", (d.sex === "V") ? 0 : this.width.pyramid)
+      .attr("y", this.yScale(95))
+      .text(`${I18n.t('gobierto_observatory.graphics.population_pyramid.age')}: ${d.age} - ${d.value.toLocaleString()} ${(d.sex === "V") ? I18n.t('gobierto_observatory.graphics.population_pyramid.men') : I18n.t('gobierto_observatory.graphics.population_pyramid.women')}`);
   },
   _mouseout: function() {
-
+    this.svg.select(".tooltip")
+      .attr("opacity", 0)
   },
   _getDimensions: function(opts = {}) {
     let width = opts.width || +d3.select(this.container).node().getBoundingClientRect().width

@@ -17,12 +17,22 @@
     .males {
       rect {
         fill: $color_1;
+
+        &:hover {
+          cursor: pointer;
+          fill: darken($color_1, 10%);
+        }
       }
     }
 
     .females {
       rect {
         fill: invert($color_1);
+
+        &:hover {
+          cursor: pointer;
+          fill: darken(invert($color_1), 10%);
+        }
       }
     }
 
@@ -45,6 +55,12 @@
 
     .y.axis {
       text-anchor: end;
+    }
+
+    .tooltip {
+      font-weight: 600;
+      font-size: $f7;
+      fill: $color_text;
     }
   }
 

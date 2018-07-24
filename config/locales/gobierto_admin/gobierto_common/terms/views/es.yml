@@ -17,7 +17,6 @@ es:
             created_at: Creado
             name: Nombre
           new: Nuevo
-          title: Términos
           view: Ver término
         new_modal:
           title: Nuevo término

@@ -17,7 +17,6 @@ en:
             created_at: Created at
             name: Name
           new: New
-          title: Terms
           view: View term
         new_modal:
           title: New term

@@ -17,7 +17,6 @@ ca:
             created_at: Creació
             name: Nom
           new: Nou
-          title: Térmes
           view: Veure terme
         new_modal:
           title: Nou terme

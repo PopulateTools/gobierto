@@ -82,7 +82,7 @@ export var VisPopulationPyramid = Class.extend({
       population: {
         endpoint: `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.json`,
         params: {
-          except_columns: "_id,province_id,location_id,autonomous_region_id"
+
         }
       },
       unemployed: {
@@ -108,21 +108,32 @@ export var VisPopulationPyramid = Class.extend({
           case 0:
           default:
             param = Object.assign(param, {
+              except_columns: "_id,province_id,location_id,autonomous_region_id",
               filter_by_location_id: city_id
             })
             break;
           case 1:
             if (endpoint === "population") {
               param = Object.assign(param, {
-                filter_by_autonomous_region_id: city_id,
+                group_by: "age,sex"
+              })
+            } else if (endpoint === "unemployed") {
+              param = Object.assign(param, {
+                except_columns: "_id,province_id,location_id,autonomous_region_id"
+              })
+            }
+
+            param = Object.assign(param, {
+              filter_by_autonomous_region_id: city_id,
+            })
+
+            break;
+          case 2:
+            if (endpoint === "population") {
+              param = Object.assign(param, {
                 group_by: "age,sex"
               })
             }
-            break;
-          case 2:
-            param = Object.assign(param, {
-              group_by: "age,sex"
-            })
             break;
         }
 
@@ -142,6 +153,9 @@ export var VisPopulationPyramid = Class.extend({
     // let employed = d3.json(this.dataUrls.employed)
     //   .header("authorization", "Bearer " + this.tbiToken)
 
+    // Show spinner
+    $(".js-toggle-overlay").addClass('is-active');
+
     let unemployed = d3.json(this.dataUrls.unemployed)
       .header("authorization", "Bearer " + this.tbiToken)
 
@@ -153,6 +167,9 @@ export var VisPopulationPyramid = Class.extend({
       .defer(unemployed.get)
       .await(function(error, jsonPopulation, jsonUnemployed) {
         if (error) throw error
+
+        // Hide spinner
+        $(".js-toggle-overlay").removeClass('is-active');
 
         jsonPopulation.forEach(d => {
           d.age = parseInt(d.age)

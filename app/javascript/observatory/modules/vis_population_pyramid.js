@@ -150,9 +150,6 @@ export var VisPopulationPyramid = Class.extend({
     }
   },
   getData: function() {
-    // let employed = d3.json(this.dataUrls.employed)
-    //   .header("authorization", "Bearer " + this.tbiToken)
-
     // Show spinner
     $(".js-toggle-overlay").addClass('is-active');
 
@@ -277,14 +274,14 @@ export var VisPopulationPyramid = Class.extend({
   _renderAxis: function() {
     // X axes
     function xAxisMale(g) {
-      g.call(this.xAxisMale.scale(this.xScaleMale).ticks(6).tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
+      g.call(this.xAxisMale.scale(this.xScaleMale).ticks(4).tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
       g.selectAll(".domain").remove()
       g.selectAll(".tick line").remove()
       g.selectAll(".tick:last-child text").remove()
     }
 
     function xAxisFemale(g) {
-      g.call(this.xAxisFemale.scale(this.xScaleFemale).ticks(6).tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
+      g.call(this.xAxisFemale.scale(this.xScaleFemale).ticks(4).tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
       g.selectAll(".domain").remove()
       g.selectAll(".tick:not(:first-child) line").remove()
       g.selectAll(".tick:first-child line")
@@ -386,12 +383,13 @@ export var VisPopulationPyramid = Class.extend({
       .attr("width", d => this.xScaleFemale(d._value))
 
     ff.append("line")
-      .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
+      .attr("x1", this.width.pyramid / 2)
+      .attr("x2", this.width.pyramid / 2)
       .attr("y1", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
       .attr("y2", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
       .transition()
       .duration(500)
-      .attr("x1", this.width.pyramid / 2)
+      .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
 
     let focus = g.append("g")
       .attr("class", "tooltip")

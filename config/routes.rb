@@ -36,6 +36,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :ordered_vocabulary_terms, path: ":module/:vocabulary/ordered_terms", controller: "gobierto_common/ordered_terms", except: [:show]  do
+      collection do
+        resource :ordered_vocabulary_terms_sort, only: [:create], controller: "gobierto_common/ordered_terms_sort"
+      end
+    end
+
     namespace :sites do
       resource :sessions, only: [:create, :destroy]
     end

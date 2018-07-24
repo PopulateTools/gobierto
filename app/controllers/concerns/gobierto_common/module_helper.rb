@@ -4,7 +4,8 @@ module GobiertoCommon
 
     private
 
-    def module_enabled!(site, module_namespace, redirect = true)
+    def gobierto_module_enabled!(site, module_namespace, redirect = true)
+      puts "\n\n\n[RESULT] #{site.configuration.modules.include?(module_namespace.to_s)}\n\n\n"
       raise_module_not_enabled(redirect) unless site.configuration.modules.include?(module_namespace.to_s)
     end
 

@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoParticipation
     class WelcomeController < GobiertoAdmin::BaseController
-      before_action { module_enabled!(current_site, "GobiertoParticipation") }
+      before_action { gobierto_module_enabled!(current_site, "GobiertoParticipation") }
       before_action { module_allowed!(current_admin, "GobiertoParticipation") }
 
       def index

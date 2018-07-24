@@ -4,6 +4,8 @@ module GobiertoAdmin
       class AttachingsController < ::GobiertoAdmin::Api::BaseController
 
         before_action :find_attachment, :find_attachable
+        before_action { gobierto_module_enabled!(current_site, "GobiertoAttachments", false) }
+        before_action { module_allowed!(current_admin, "GobiertoAttachments") }
 
         def create
           if attaching = @attachable.link_attachment(@attachment)

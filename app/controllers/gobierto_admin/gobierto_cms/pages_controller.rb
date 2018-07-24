@@ -2,7 +2,7 @@
 
 module GobiertoAdmin
   module GobiertoCms
-    class PagesController < BaseController
+    class PagesController < ::GobiertoAdmin::GobiertoCms::BaseController
       before_action :load_collection, only: [:new, :edit, :create, :update]
 
       def index

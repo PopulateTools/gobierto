@@ -6,6 +6,6 @@ module GobiertoPlans
 
     layout "gobierto_plans/layouts/application"
 
-    before_action { module_enabled!(current_site, "GobiertoPlans") }
+    before_action { gobierto_module_enabled!(current_site, "GobiertoPlans") }
   end
 end

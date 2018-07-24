@@ -1,9 +1,9 @@
 module GobiertoAdmin
   module GobiertoCalendars
-    class CalendarConfigurationController < GobiertoAdmin::BaseController
+    class CalendarConfigurationController < ::GobiertoAdmin::GobiertoCalendars::BaseController
 
       # TODO: will need to adapt to process calendar synchronization
-      before_action { module_enabled!(current_site, 'GobiertoPeople') }
+      before_action { gobierto_module_enabled!(current_site, 'GobiertoPeople') }
       before_action { module_allowed!(current_admin, 'GobiertoPeople') }
 
       before_action :load_collection, :collection_container_allowed!

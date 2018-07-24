@@ -5,7 +5,7 @@ module GobiertoBudgetConsultations
 
     layout "gobierto_budget_consultations/layouts/application"
 
-    before_action { module_enabled!(current_site, "GobiertoBudgetConsultations") }
+    before_action { gobierto_module_enabled!(current_site, "GobiertoBudgetConsultations") }
 
     def set_current_site
       @site = SiteDecorator.new(current_site)

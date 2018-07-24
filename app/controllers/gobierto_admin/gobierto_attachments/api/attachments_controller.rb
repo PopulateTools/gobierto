@@ -5,6 +5,8 @@ module GobiertoAdmin
 
         before_action :find_attachable, only: [:index]
         before_action :find_attachment, only: [:show, :update, :destroy]
+        before_action { gobierto_module_enabled!(current_site, "GobiertoAttachments", false) }
+        before_action { module_allowed!(current_admin, "GobiertoAttachments") }
 
         def index
           attachments = if params[:search_string]

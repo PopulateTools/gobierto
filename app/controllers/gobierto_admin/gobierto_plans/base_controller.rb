@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class BaseController < GobiertoAdmin::BaseController
-      before_action { module_enabled!(current_site, "GobiertoPlans") }
+      before_action { gobierto_module_enabled!(current_site, "GobiertoPlans") }
       before_action { module_allowed!(current_admin, "GobiertoPlans") }
 
       helper_method :gobierto_plans_plan_type_preview_url

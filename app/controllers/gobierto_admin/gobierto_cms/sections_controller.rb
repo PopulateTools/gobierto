@@ -2,7 +2,7 @@
 
 module GobiertoAdmin
   module GobiertoCms
-    class SectionsController < BaseController
+    class SectionsController < ::GobiertoAdmin::GobiertoCms::BaseController
       def index
         @sections = current_site.sections
 

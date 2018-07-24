@@ -148,9 +148,15 @@
             <li class="sep"></li>
 
             <li>
-              <%= link_to t(".cms"), admin_cms_pages_path %>
-              <%= link_to t(".calendars"), admin_calendars_collections_path %>
-              <%= link_to t(".file_attachments"), admin_attachments_file_attachments_path %>
+              <% if show_module_link?("GobiertoCms") %>
+                <%= link_to t(".cms"), admin_cms_pages_path %>
+              <% end %>
+              <% if show_module_link?("GobiertoCalendars") %>
+                <%= link_to t(".calendars"), admin_calendars_collections_path %>
+              <% end %>
+              <% if show_module_link?("GobiertoAttachments") %>
+                <%= link_to t(".file_attachments"), admin_attachments_file_attachments_path %>
+              <% end %>
             </li>
 
             <li class="sep"></li>

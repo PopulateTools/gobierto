@@ -1,6 +1,6 @@
 module GobiertoAdmin
   module GobiertoCalendars
-    class EventsController < BaseController
+    class EventsController < ::GobiertoAdmin::GobiertoCalendars::BaseController
 
       before_action :load_collection, only: [:new, :edit, :create, :update, :index]
       before_action :load_person, only: [:new, :edit, :create, :update, :index]
@@ -201,7 +201,7 @@ module GobiertoAdmin
       end
 
       def check_gobierto_people_permissions!
-        module_enabled!(current_site, "GobiertoPeople")
+        gobierto_module_enabled!(current_site, "GobiertoPeople")
         module_allowed!(current_admin, "GobiertoPeople")
       end
 

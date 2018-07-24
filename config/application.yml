@@ -29,6 +29,15 @@ default: &default
     -
       name: Gobierto Plans
       namespace: GobiertoPlans
+    -
+      name: Gobierto CMS
+      namespace: GobiertoCms
+    -
+      name: Gobierto Attachments
+      namespace: GobiertoAttachments
+    -
+      name: Gobierto Calendars
+      namespace: GobiertoCalendars
   site_modules_with_root_path:
     -
       name: Gobierto Budgets

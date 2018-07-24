@@ -2,7 +2,7 @@ module GobiertoAdmin
   module GobiertoPeople
     module People
       class PeopleSortController < GobiertoAdmin::BaseController
-        before_action { module_enabled!(current_site, "GobiertoPeople") }
+        before_action { gobierto_module_enabled!(current_site, "GobiertoPeople") }
         before_action { module_allowed!(current_admin, "GobiertoPeople") }
 
         def create

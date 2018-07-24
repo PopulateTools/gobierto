@@ -8,7 +8,7 @@ class GobiertoBudgets::ApplicationController < ApplicationController
 
   layout "gobierto_budgets/layouts/application"
 
-  before_action { module_enabled!(current_site, "GobiertoBudgets") }
+  before_action { gobierto_module_enabled!(current_site, "GobiertoBudgets") }
 
   def set_current_site
     @site = SiteDecorator.new(current_site)

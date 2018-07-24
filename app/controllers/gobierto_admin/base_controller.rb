@@ -46,7 +46,9 @@ module GobiertoAdmin
 
     protected
 
-    def raise_module_not_enabled
+    def raise_module_not_enabled(redirect = true)
+      return head(:forbidden) unless redirect
+
       redirect_to(
         admin_root_path,
         alert: t("gobierto_admin.module_helper.not_enabled")

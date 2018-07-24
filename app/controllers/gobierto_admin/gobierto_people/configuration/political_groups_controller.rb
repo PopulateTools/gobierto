@@ -2,7 +2,7 @@ module GobiertoAdmin
   module GobiertoPeople
     module Configuration
       class PoliticalGroupsController < BaseController
-        before_action { module_enabled!(current_site, "GobiertoPeople") }
+        before_action { gobierto_module_enabled!(current_site, "GobiertoPeople") }
         before_action { module_allowed!(current_admin, "GobiertoPeople") }
 
         def index

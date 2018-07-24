@@ -1,7 +1,7 @@
 module GobiertoAdmin
   module GobiertoPeople
     class FileAttachmentsController < BaseController
-      before_action { module_enabled!(current_site, "GobiertoPeople") }
+      before_action { gobierto_module_enabled!(current_site, "GobiertoPeople") }
 
       def create
         @file_attachment_form = FileAttachmentForm.new(

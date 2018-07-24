@@ -2,7 +2,7 @@ module GobiertoAdmin
   module GobiertoBudgetConsultations
     module Consultations
       class BaseController < GobiertoAdmin::BaseController
-        before_action { module_enabled!(current_site, "GobiertoBudgetConsultations") }
+        before_action { gobierto_module_enabled!(current_site, "GobiertoBudgetConsultations") }
         before_action { module_allowed!(current_admin, "GobiertoBudgetConsultations") }
 
         before_action :set_consultation

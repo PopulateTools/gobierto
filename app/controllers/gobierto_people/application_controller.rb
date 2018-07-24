@@ -4,7 +4,7 @@ module GobiertoPeople
 
     layout "gobierto_people/layouts/application"
 
-    before_action { module_enabled!(current_site, "GobiertoPeople") }
+    before_action { gobierto_module_enabled!(current_site, "GobiertoPeople") }
 
     helper_method :gifts_service_url, :trips_service_url
 

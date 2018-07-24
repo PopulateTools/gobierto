@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessesController < GobiertoAdmin::BaseController
-      before_action { module_enabled!(current_site, "GobiertoParticipation") }
+      before_action { gobierto_module_enabled!(current_site, "GobiertoParticipation") }
       before_action { module_allowed!(current_admin, "GobiertoParticipation") }
 
       helper_method :gobierto_participation_process_preview_url

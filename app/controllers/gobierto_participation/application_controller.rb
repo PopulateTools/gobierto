@@ -6,7 +6,7 @@ module GobiertoParticipation
 
     layout 'gobierto_participation/layouts/application'
 
-    before_action { module_enabled!(current_site, 'GobiertoParticipation') }
+    before_action { gobierto_module_enabled!(current_site, 'GobiertoParticipation') }
 
     protected
 

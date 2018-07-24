@@ -3,6 +3,8 @@ module GobiertoAdmin
     class FileAttachmentsController < BaseController
 
       before_action :load_collection, only: [:new, :edit, :create, :update, :destroy]
+      before_action { gobierto_module_enabled!(current_site, "GobiertoAttachments") }
+      before_action { module_allowed!(current_admin, "GobiertoAttachments") }
 
       def index
         @collections = current_site.collections.by_item_type('GobiertoAttachments::Attachment')

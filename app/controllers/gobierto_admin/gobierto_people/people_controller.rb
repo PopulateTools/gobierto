@@ -3,7 +3,7 @@ module GobiertoAdmin
     class PeopleController < BaseController
       include ::GobiertoCommon::DynamicContentHelper
 
-      before_action { module_enabled!(current_site, "GobiertoPeople") }
+      before_action { gobierto_module_enabled!(current_site, "GobiertoPeople") }
       before_action { module_allowed!(current_admin, "GobiertoPeople") }
       before_action :create_person_allowed!, only: [:new, :create]
       before_action :manage_person_allowed!, only: [:edit, :update]

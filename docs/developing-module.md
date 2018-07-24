@@ -161,13 +161,13 @@ end
 
 The new module might have admin actions. Declare these actions in controllers under `GobiertoAdmin` module. Each admin controller needs to be protected by two filters:
 
-- `module_enabled!`: checks if the module is enabled in the site configuration
+- `gobierto_module_enabled!`: checks if the module is enabled in the site configuration
 - `module_allowed!`: checks if the current admin has permissions on the current module
 
 For example:
 
 ```ruby
-before_action { module_enabled!(current_site, "GobiertoBudgetConsultations") }
+before_action { gobierto_module_enabled!(current_site, "GobiertoBudgetConsultations") }
 before_action { module_allowed!(current_admin, "GobiertoBudgetConsultations") }
 ```
 

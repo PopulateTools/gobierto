@@ -24,6 +24,9 @@ module GobiertoAdmin
     has_many :gobierto_plans_permissions, class_name: 'Permission::GobiertoPlans'
     has_many :gobierto_observatory_permissions, class_name: 'Permission::GobiertoObservatory'
     has_many :gobierto_participation_permissions, class_name: 'Permission::GobiertoParticipation'
+    has_many :gobierto_cms_permissions, class_name: "Permission::GobiertoCms"
+    has_many :gobierto_calendars_permissions, class_name: "Permission::GobiertoCalendars"
+    has_many :gobierto_attachments_permissions, class_name: "Permission::GobiertoAttachments"
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
     has_many :census_imports

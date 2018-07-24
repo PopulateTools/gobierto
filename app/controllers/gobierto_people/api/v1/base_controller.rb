@@ -5,7 +5,7 @@ module GobiertoPeople
     module V1
       class BaseController < ApiBaseController
 
-        before_action { module_enabled!(current_site, "GobiertoPeople", false) }
+        before_action { gobierto_module_enabled!(current_site, "GobiertoPeople", false) }
 
       end
     end

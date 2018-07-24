@@ -65,7 +65,6 @@ class Site < ApplicationRecord
   has_many :module_settings, dependent: :destroy, class_name: "GobiertoModuleSettings"
 
   # Gobierto Participation integration
-  has_many :scopes, -> { sorted }, dependent: :destroy, class_name: "GobiertoCommon::Scope"
   has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
   has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
   has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
@@ -101,6 +100,10 @@ class Site < ApplicationRecord
 
   def issues
     GobiertoParticipation::Process.issues(self).sorted
+  end
+
+  def scopes
+    GobiertoParticipation::Process.scopes(self).sorted
   end
 
   def gobierto_people_settings

@@ -26,7 +26,7 @@ module GobiertoParticipation
 
     belongs_to :site
     has_vocabulary :issues
-    belongs_to :scope, class_name: "GobiertoCommon::Scope"
+    has_vocabulary :scopes
     has_many :stages, -> { sorted }, dependent: :delete_all, class_name: "GobiertoParticipation::ProcessStage", autosave: true
     has_many :published_stages, -> { published.sorted }, class_name: "GobiertoParticipation::ProcessStage"
     has_many :polls

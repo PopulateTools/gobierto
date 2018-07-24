@@ -16,6 +16,7 @@ module GobiertoAdmin
     has_many :global_permissions, class_name: 'Permission::Global'
     has_many :modules_permissions, -> { for_modules }, class_name: '::GobiertoAdmin::Permission'
     has_many :people_permissions,  -> { for_people }, class_name: '::GobiertoAdmin::Permission'
+    has_many :site_options_permissions, -> { for_site_options }, class_name: "GobiertoAdmin::Permission"
 
     has_many :gobierto_development_permissions, class_name: 'Permission::GobiertoDevelopment'
     has_many :gobierto_budgets_permissions, class_name: 'Permission::GobiertoBudgets'
@@ -72,6 +73,18 @@ module GobiertoAdmin
 
     def module_allowed?(module_namespace)
       managing_user? || send(module_namespace.underscore + '_permissions').any?
+    end
+
+    def can_customize_site?
+      managing_user? || site_options_permissions.exists?(resource_name: :customize)
+    end
+
+    def can_edit_vocabularies?
+      managing_user? || site_options_permissions.exists?(resource_name: :vocabularies)
+    end
+
+    def can_edit_templates?
+      managing_user? || site_options_permissions.exists?(resource_name: :templates)
     end
 
     private

@@ -114,6 +114,25 @@
 
           </div>
 
+          <!-- Site options permissions -->
+          <h3><%= t(".site_options_permissions") %></h3>
+
+          <div class="form_item">
+            <div class="options compact">
+              <%= f.collection_check_boxes(:permitted_site_options, Array(@site_options), :name, :name) do |b| %>
+                <div class="option">
+                  <%= b.check_box(checked: @admin && @admin.site_options_permissions.exists?(resource_name: b.object.name)) %>
+                  <%= b.label do %>
+                    <span></span>
+                    <%= b.object.label_text %>
+                  <% end %>
+                </div>
+
+              <% end %>
+            </div>
+          </div>
+          <!-- ./ Site config permissions -->
+
         </div>
         <!-- ./ Module permissions -->
 

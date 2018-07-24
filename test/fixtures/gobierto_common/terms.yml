@@ -72,3 +72,17 @@ sports_term:
   slug: sport
   position: 4
   level: 0
+center_term:
+  vocabulary: scopes_vocabulary
+  name_translations: <%= { 'en' => 'Center', 'es' => 'Centro' }.to_json %>
+  description_translations: <%= { 'en' => 'Center of the city', 'es' => 'Zona centro de la ciudad' }.to_json %>
+  slug: center
+  position: 1
+  level: 0
+old_town_term:
+  vocabulary: scopes_vocabulary
+  name_translations: <%= { 'en' => 'Old town', 'es' => 'Casco histórico' }.to_json %>
+  description_translations: <%= { 'en' => 'Historic part of town', 'es' => 'Centro histórico de la ciudad' }.to_json %>
+  slug: old-town
+  position: 2
+  level: 0

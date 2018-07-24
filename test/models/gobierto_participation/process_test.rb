@@ -12,7 +12,7 @@ module GobiertoParticipation
       super
       setup_has_vocabulary_module(
         model: GobiertoParticipation::Process,
-        vocabularies: [:issues],
+        vocabularies: [:issues, :scopes],
         site_with_vocabularies: sites(:madrid),
         site_without_vocabularies: sites(:organization_wadus)
       )

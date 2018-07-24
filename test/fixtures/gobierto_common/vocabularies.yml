@@ -9,3 +9,7 @@ plan_categories:
 issues_vocabulary:
   site: madrid
   name: Issues Vocabulary
+
+scopes_vocabulary:
+  site: madrid
+  name: Scopes Vocabulary

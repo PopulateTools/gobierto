@@ -16,7 +16,7 @@ class Subscribers::ScopeActivityTest < ActiveSupport::TestCase
   end
 
   def scope
-    @scope ||= gobierto_common_scopes(:old_town)
+    @scope ||= gobierto_common_terms(:old_town_term)
   end
 
   def admin

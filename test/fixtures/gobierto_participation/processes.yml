@@ -8,7 +8,7 @@ green_city_group_active_empty:
   slug: ciudad-verde
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels['active'] %>
-  scope: center
+  scope: center_term
 
 cultural_city_group_draft:
   site: madrid
@@ -30,7 +30,7 @@ public_debates_group_future:
   visibility_level: <%= Site.visibility_levels['active'] %>
   starts: <%= 1.week.from_now %>
   ends:
-  scope: center
+  scope: center_term
 
 dance_studio_group_ended:
   site: madrid
@@ -42,7 +42,7 @@ dance_studio_group_ended:
   visibility_level: <%= Site.visibility_levels['active'] %>
   starts:
   ends: <%= 1.week.ago %>
-  scope: center
+  scope: center_term
   issue: culture_term
 
 bowling_group_very_active:
@@ -78,7 +78,7 @@ sport_city_process:
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
   issue: culture_term
-  scope: old_town
+  scope: old_town_term
 
 local_budgets_process:
   site: madrid
@@ -112,7 +112,7 @@ gender_violence_process:
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
   issue: women_term
-  scope: old_town
+  scope: old_town_term
   header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
 
 commission_for_carnival_festivities:
@@ -148,4 +148,4 @@ center_scope_process:
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
   issue: culture_term
-  scope: center
+  scope: center_term

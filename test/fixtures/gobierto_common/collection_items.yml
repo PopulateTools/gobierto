@@ -26,7 +26,7 @@ collection_item_attachment_on_issue:
 collection_item_attachment_on_scope:
   collection: gender_violence_process_documents
   item: pdf_collection_attachment (GobiertoAttachments::Attachment)
-  container: old_town (GobiertoCommon::Scope)
+  container: old_town_term (GobiertoCommon::Term)
 
 # xlsx_attachment_event
 
@@ -54,7 +54,7 @@ xlsx_attachment_event_on_issue:
 xlsx_attachment_event_on_scope:
   collection: gender_violence_process_documents
   item: xlsx_attachment_event (GobiertoAttachments::Attachment)
-  container: old_town (GobiertoCommon::Scope)
+  container: old_town_term (GobiertoCommon::Term)
 
 # participation_documents
 
@@ -137,7 +137,7 @@ themes_on_scope:
   collection: news
   item: themes
   item_type: 'GobiertoCms::News'
-  container: old_town (GobiertoCommon::Scope)
+  container: old_town_term (GobiertoCommon::Term)
 
 # themes_draft
 
@@ -169,7 +169,7 @@ themes_draft_on_scope:
   collection: news
   item: themes_draft (GobiertoAttachments::Attachment)
   item_type: 'GobiertoCms::News'
-  container: old_town (GobiertoCommon::Scope)
+  container: old_town_term (GobiertoCommon::Term)
 
 # notice_1
 
@@ -201,7 +201,7 @@ notice_1_on_scope:
   collection: gender_violence_process_news
   item: notice_1
   item_type: 'GobiertoCms::News'
-  container: old_town (GobiertoCommon::Scope)
+  container: old_town_term (GobiertoCommon::Term)
 
 # notice_2
 
@@ -233,7 +233,7 @@ notice_2_on_scope:
   collection: gender_violence_process_news
   item: notice_2
   item_type: 'GobiertoCms::News'
-  container: old_town (GobiertoCommon::Scope)
+  container: old_town_term (GobiertoCommon::Term)
 
 # about_site
 
@@ -612,7 +612,7 @@ reading_club_on_issue:
 reading_club_on_scope:
   collection: gender_violence_process_calendar
   item: reading_club (GobiertoCalendars::Event)
-  container: old_town (GobiertoCommon::Scope)
+  container: old_town_term (GobiertoCommon::Term)
 
 # swimming_lessons
 
@@ -639,7 +639,7 @@ swimming_lessons_on_issue:
 swimming_lessons_on_scope:
   collection: gender_violence_process_calendar
   item: swimming_lessons (GobiertoCalendars::Event)
-  container: old_town (GobiertoCommon::Scope)
+  container: old_town_term (GobiertoCommon::Term)
 
 # intervention_with_children
 
@@ -666,7 +666,7 @@ intervention_with_children_on_issue:
 intervention_with_children_on_scope:
   collection: gender_violence_process_calendar
   item: intervention_with_children (GobiertoCalendars::Event)
-  container: old_town (GobiertoCommon::Scope)
+  container: old_town_term (GobiertoCommon::Term)
 
 # participation_calendar
 

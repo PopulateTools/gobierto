@@ -19,7 +19,7 @@ module GobiertoParticipation
 
     def load_scope
       if params[:scope_id]
-        @scope = current_site.scopes.find_by_slug!(params[:scope_id])
+        @scope = find_scope
       end
     end
 

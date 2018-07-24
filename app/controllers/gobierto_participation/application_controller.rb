@@ -16,6 +16,14 @@ module GobiertoParticipation
       ProcessTermDecorator.new(current_site.issues.find_by_slug!(params[:issue_id]))
     end
 
+    def find_scopes
+      CollectionDecorator.new(current_site.scopes, decorator: ProcessTermDecorator)
+    end
+
+    def find_scope
+      ProcessTermDecorator.new(current_site.scopes.find_by_slug!(params[:scope_id]))
+    end
+
     protected
 
     def current_process

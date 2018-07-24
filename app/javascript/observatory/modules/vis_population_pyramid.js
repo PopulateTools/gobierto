@@ -1,4 +1,4 @@
-import { Class, d3 } from "shared"
+import { Class, d3, URLParams } from "shared"
 
 export var VisPopulationPyramid = Class.extend({
   init: function(divId, city_id, current_year, filter) {
@@ -40,7 +40,7 @@ export var VisPopulationPyramid = Class.extend({
     this.xScaleMale = d3.scaleLinear()
     this.xScaleFemale = d3.scaleLinear()
     this.xScaleAgeRanges = d3.scaleLinear()
-		this.yScale = d3.scaleBand().padding(0.2)
+		this.yScale = d3.scaleBand()
 
     // Create axes
     this.xAxisMale = d3.axisBottom()
@@ -77,39 +77,66 @@ export var VisPopulationPyramid = Class.extend({
     this.pyramid.append("g").attr("class","y axis")
   },
   getUrls: function(city_id, filter = 0) {
-    let endpoints = {
-      population: "ds-poblacion-municipal-edad-sexo.csv",
-      unemployed: "ds-personas-paradas-municipio.json"
+    // Original endpoints
+    const endpoints = {
+      population: {
+        endpoint: `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.json`,
+        params: {
+          except_columns: "_id,province_id,location_id,autonomous_region_id"
+        }
+      },
+      unemployed: {
+        endpoint: `${window.populateData.endpoint}/datasets/ds-personas-paradas-municipio.json`,
+        params: {
+          except_columns: "_id,province_id,location_id,autonomous_region_id"
+        }
+      }
     }
 
+    // Dynamic filters
     for (var endpoint in endpoints) {
       if (endpoints.hasOwnProperty(endpoint)) {
-        let value = endpoints[endpoint]
-        value = `${window.populateData.endpoint}/datasets/${value}`
-        value += "?except_columns=_id,province_id,location_id,autonomous_region_id"
+        let param = endpoints[endpoint].params || {}
 
         if (this.currentYear) {
-          value += `&filter_by_date=${this.currentYear}`
+          param = Object.assign(param, {
+            filter_by_date: this.currentYear
+          })
         }
 
         switch (filter) {
           case 0:
           default:
-              value += `&filter_by_location_id=${city_id}`
+            param = Object.assign(param, {
+              filter_by_location_id: city_id
+            })
             break;
           case 1:
-              value += `&filter_by_autonomous_region_id=${city_id}`
+            if (endpoint === "population") {
+              param = Object.assign(param, {
+                filter_by_autonomous_region_id: city_id,
+                group_by: "age,sex"
+              })
+            }
             break;
           case 2:
-            // none
+            param = Object.assign(param, {
+              group_by: "age,sex"
+            })
             break;
         }
 
-        endpoints[endpoint] = value
+        endpoints[endpoint].params = param
       }
     }
 
-    return endpoints
+    const population = URLParams(endpoints.population)
+    const unemployed = URLParams(endpoints.unemployed)
+
+    return {
+      population,
+      unemployed
+    }
   },
   getData: function() {
     // let employed = d3.json(this.dataUrls.employed)
@@ -118,7 +145,7 @@ export var VisPopulationPyramid = Class.extend({
     let unemployed = d3.json(this.dataUrls.unemployed)
       .header("authorization", "Bearer " + this.tbiToken)
 
-    let population = d3.csv(this.dataUrls.population)
+    let population = d3.json(this.dataUrls.population)
       .header("authorization", "Bearer " + this.tbiToken)
 
     d3.queue()
@@ -169,7 +196,6 @@ export var VisPopulationPyramid = Class.extend({
     this.xScaleAgeRanges
       .range([0, this.width.areas / 3])
       .domain([d3.max(this.data.areas.map(d => d.value)), 0]).nice()
-      // .domain([d3.sum(this.data.areas.map(d => d.value)), 0])
 
     this.yScale
       .rangeRound([this.height.pyramid, 0])
@@ -308,7 +334,9 @@ export var VisPopulationPyramid = Class.extend({
     male.exit().remove()
     female.exit().remove()
 
-    male.enter().append("rect")
+    let mm = male.enter().append("g")
+
+    mm.append("rect")
       .attr("x", this.width.pyramid / 2) // To animate right to left. Fake value
       .attr("y", d => this.yScale(d.age))
       .attr("height", this.yScale.bandwidth())
@@ -319,7 +347,18 @@ export var VisPopulationPyramid = Class.extend({
       .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d._value))
       .attr("x", d => this.xScaleMale(d._value)) // Real value
 
-    female.enter().append("rect")
+    mm.append("line")
+      .attr("x1", this.width.pyramid / 2) // To animate right to left. Fake value
+      .attr("x2", this.width.pyramid / 2)
+      .attr("y1", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
+      .attr("y2", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
+      .transition()
+      .duration(500)
+      .attr("x1", d => this.xScaleMale(d._value))
+
+    let ff = female.enter().append("g")
+
+    ff.append("rect")
       .attr("x", this.width.pyramid / 2)
       .attr("y", d => this.yScale(d.age))
       .attr("height", this.yScale.bandwidth())
@@ -328,6 +367,14 @@ export var VisPopulationPyramid = Class.extend({
       .transition()
       .duration(500)
       .attr("width", d => this.xScaleFemale(d._value))
+
+    ff.append("line")
+      .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
+      .attr("y1", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
+      .attr("y2", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
+      .transition()
+      .duration(500)
+      .attr("x1", this.width.pyramid / 2)
 
     let focus = g.append("g")
       .attr("class", "tooltip")

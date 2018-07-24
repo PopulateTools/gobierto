@@ -14,25 +14,38 @@
   }
 
   .pyramid {
+    $male-color: $color_1;
+    $female-color: invert($color_1);
+
     .males {
       rect {
-        fill: $color_1;
+        fill: $male-color;
 
         &:hover {
           cursor: pointer;
-          fill: darken($color_1, 10%);
+          fill: darken($male-color, 10%);
         }
+      }
+
+      line {
+        stroke-width: 1px;
+        stroke: lighten($male-color, 5%);
       }
     }
 
     .females {
       rect {
-        fill: invert($color_1);
+        fill: $female-color;
 
         &:hover {
           cursor: pointer;
-          fill: darken(invert($color_1), 10%);
+          fill: darken($female-color, 10%);
         }
+      }
+
+      line {
+        stroke-width: 1px;
+        stroke: lighten($female-color, 5%);
       }
     }
 

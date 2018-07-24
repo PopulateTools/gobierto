@@ -7,7 +7,7 @@ module GobiertoAdmin
 
     def setup
       super
-      @path = admin_issues_path
+      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "issues")
     end
 
     def admin
@@ -31,11 +31,11 @@ module GobiertoAdmin
         with_current_site(site) do
           visit @path
 
-          within "#issue-item-#{issue.id}" do
+          within "#term-item-#{issue.id}" do
             find("a[data-method='delete']").click
           end
 
-          assert has_message?('Theme was successfully destroyed.')
+          assert has_message?("Term deleted successfully.")
 
           refute site.issues.exists?(id: issue.id)
         end
@@ -47,11 +47,11 @@ module GobiertoAdmin
         with_current_site(site) do
           visit @path
 
-          within "#issue-item-#{issue_with_items.id}" do
+          within "#term-item-#{issue_with_items.id}" do
             find("a[data-method='delete']").click
           end
 
-          assert has_message?("You can't delete a theme while it has associated elements.")
+          assert has_message?("You can't delete a term while it has associated elements.")
 
           assert site.issues.exists?(id: issue_with_items.id)
         end

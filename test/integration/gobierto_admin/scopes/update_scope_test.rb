@@ -7,7 +7,7 @@ module GobiertoAdmin
     
     def setup
       super
-      @path = admin_scopes_path
+      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "scopes")
     end
 
     def admin
@@ -19,7 +19,7 @@ module GobiertoAdmin
     end
 
     def scope
-      @scope ||= gobierto_common_scopes(:old_town)
+      @scope ||= gobierto_common_terms(:old_town_term)
     end
 
     def test_update_scope
@@ -30,12 +30,12 @@ module GobiertoAdmin
 
             click_link scope.name
 
-            fill_in 'scope_name_translations_en', with: 'Updated scope name'
-            fill_in 'scope_description_translations_en', with: 'Updated scope description'
+            fill_in 'term_name_translations_en', with: 'Updated scope name'
+            fill_in 'term_description_translations_en', with: 'Updated scope description'
 
             click_button 'Update'
 
-            assert has_message?('Scope was successfully updated')
+            assert has_message?('Term updated successfully.')
 
             # assert scope was updated
 

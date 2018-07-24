@@ -4,6 +4,8 @@ class CollectionDecorator < BaseDecorator
   include Enumerable
   attr_reader :collection, :decorator
 
+  delegate :exists?, :empty?, to: :collection
+
   def initialize(collection, decorator: nil)
     @collection = collection
     @decorator = decorator

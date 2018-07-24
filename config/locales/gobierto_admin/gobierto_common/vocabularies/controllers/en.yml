@@ -1,0 +1,12 @@
+---
+en:
+  gobierto_admin:
+    gobierto_common:
+      vocabularies:
+        create:
+          success: Vocabulary created successfully.
+        destroy:
+          destroy_failed: Vocabulary couldn't be deleted.
+          success: Vocabulary deleted successfully.
+        update:
+          success: Vocabulary updated successfully.

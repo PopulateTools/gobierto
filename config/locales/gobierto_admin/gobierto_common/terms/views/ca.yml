@@ -1,0 +1,23 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_common:
+      terms:
+        edit:
+          edit: Editar %{term}
+        form:
+          placeholders:
+            description: El cavall és un mamífer herbívor
+            name: Cavall
+            slug: regne-animal-cavall
+        index:
+          delete_confirm: Estàs segur? Aquesta operació no és reversible
+          header:
+            description: Descripció
+            level: Nivell
+            name: Nom
+            parent: Pare
+          new: Nou
+          title: Termes de %{vocabulary}
+        new:
+          new: Nou Terme

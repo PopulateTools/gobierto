@@ -40,7 +40,7 @@ class TermTest < ActiveSupport::TestCase
     new_term.save
     assert_equal 0, new_term.level
     assert_equal vocabulary, new_term.vocabulary
-    assert_equal nil, new_term.parent_term
+    assert_nil new_term.parent_term
     assert_equal 0, new_term.terms.count
   end
 end

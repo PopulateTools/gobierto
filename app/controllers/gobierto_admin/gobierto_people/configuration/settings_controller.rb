@@ -32,6 +32,7 @@ module GobiertoAdmin
             :calendar_integration,
             :ibm_notes_usr,
             :ibm_notes_pwd,
+            :political_groups_vocabulary_id,
             submodules_enabled: []
           )
         end

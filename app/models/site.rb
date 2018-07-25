@@ -106,6 +106,10 @@ class Site < ApplicationRecord
     GobiertoParticipation::Process.scopes(self).sorted
   end
 
+  def political_groups
+    GobiertoPeople::Person.political_groups(self).sorted
+  end
+
   def gobierto_people_settings
     @gobierto_people_settings ||= if configuration.available_module?("GobiertoPeople") && configuration.gobierto_people_enabled?
                                     module_settings.find_by(module_name: "GobiertoPeople")

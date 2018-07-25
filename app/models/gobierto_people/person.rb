@@ -8,6 +8,7 @@ module GobiertoPeople
     include GobiertoCommon::Sortable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::HasVocabulary
 
     translates :charge, :bio
 
@@ -20,7 +21,7 @@ module GobiertoPeople
 
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site
-    belongs_to :political_group
+    has_vocabulary :political_groups
 
     has_many :attending_person_events, class_name: "GobiertoCalendars::EventAttendee", dependent: :destroy
     has_many :attending_events, class_name: "GobiertoCalendars::Event", through: :attending_person_events, source: :event

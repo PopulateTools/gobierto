@@ -99,7 +99,8 @@ export var VisUnemploymentRate = Class.extend({
   updateRender: function() {
     this.xScale
       .rangeRound([0, this.width])
-      .domain([this.parseTime('2011-01'), d3.max(this.data, function(d) { return d.date; })]);
+      // TODO: restore 2011-01
+      .domain([this.parseTime('2015-11'), d3.max(this.data, function(d) { return d.date; })]);
 
     this.yScale
       .rangeRound([this.height, 0])
@@ -185,7 +186,7 @@ export var VisUnemploymentRate = Class.extend({
 
     this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.value) + ')');
     this.focus.select('text').attr('text-anchor', d.data.date >= this.parseTime('2014-01') ? 'end' : 'start');
-    this.focus.select('tspan').text(this._getPlaceType(d.data.location_type) + ': ' + d.data.value + '%');
+    this.focus.select('tspan').text(`${this._getPlaceType(d.data.location_type)}: ${d.data.value}% (${d.data.date.toLocaleString(I18n.locale, {month: 'short'})} ${d.data.date.getFullYear()})`);
   },
   _mouseout: function() {
     this.focus.attr('transform', 'translate(-100,-100)');

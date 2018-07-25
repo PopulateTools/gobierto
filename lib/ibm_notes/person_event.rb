@@ -30,8 +30,10 @@ module IbmNotes
           when "Romance Standard Time"
             ActiveSupport::TimeZone["Madrid"]
           when "Western/Central Europe"
-            ActiveSupport::TimeZone["CET"]
+            ActiveSupport::TimeZone["Madrid"]
           when "GMT+1 Standard Time"
+            ActiveSupport::TimeZone["Madrid"]
+          when "Europe/Madrid"
             ActiveSupport::TimeZone["Madrid"]
           else
             raise "Unknown timezone #{event["start"]["tzid"]}"

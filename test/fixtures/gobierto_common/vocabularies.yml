@@ -13,3 +13,7 @@ issues_vocabulary:
 scopes_vocabulary:
   site: madrid
   name: Scopes Vocabulary
+
+madrid_political_groups_vocabulary:
+  site: madrid
+  name: Madrid Political Groups Vocabulary

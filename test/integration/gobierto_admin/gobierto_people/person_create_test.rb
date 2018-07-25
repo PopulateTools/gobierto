@@ -26,7 +26,7 @@ module GobiertoAdmin
       end
 
       def political_group
-        @political_group ||= gobierto_people_political_groups(:marvel)
+        @political_group ||= gobierto_common_terms(:marvel_term)
       end
 
       def content_context

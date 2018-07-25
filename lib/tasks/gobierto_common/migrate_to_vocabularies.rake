@@ -134,6 +134,32 @@ namespace :common do
       end
     end
 
+    desc "Generate a vocabulary for each site from existing political groups"
+    task political_groups: :environment do
+      ignored_attributes = %w(id site_id admin_id created_at updated_at name)
+      GobiertoPeople::Person.where.not(political_group_id: nil).each do |person|
+        move_political_group_to_term(person)
+      end
+    end
+
+    def move_political_group_to_term(person)
+      return unless (political_group = GobiertoPeople::PoliticalGroup.find_by_id(person.political_group_id)).present?
+      ignored_attributes = %w(id site_id admin_id created_at updated_at name)
+      site = person.site
+      default_locale = site.configuration.default_locale
+      I18n.locale = default_locale
+      vocabulary = site.vocabularies.find_or_create_by(name: I18n.t("gobierto_people.people_filter.political_groups.title"))
+      settings = site.gobierto_people_settings
+      unless settings.political_groups_vocabulary_id == vocabulary.id
+        settings.tap do |conf|
+        conf.political_groups_vocabulary_id = vocabulary.id
+        end.save
+      end
+      terms = vocabulary.terms
+      term = terms.find_by(slug: political_group.slug) || terms.create(political_group.attributes.except(*ignored_attributes).merge("name_#{ default_locale }" => political_group.name))
+      person.update_attribute(:political_group_id, term.id)
+    end
+
     def move_issue_to_term(issue:, site:, target:, prefix:)
       return if issue.blank?
       term = site.issues.find_by(name_translations: issue.name_translations)

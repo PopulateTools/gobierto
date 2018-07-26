@@ -99,4 +99,45 @@ class SiteTest < ActiveSupport::TestCase
     site.save
     assert site.errors.messages[:base].one?
   end
+
+  def test_date_filter_configured?
+    conf = site.configuration
+
+    refute site.date_filter_configured?
+
+    # only start_date
+    conf.raw_configuration_variables = <<-YAML
+gobierto_people_default_filter_start_date: 2010-01-23
+    YAML
+    site.save
+
+    assert site.date_filter_configured?
+
+    # only end_date
+    conf.raw_configuration_variables = <<-YAML
+gobierto_people_default_filter_end_date: "2010-01-23"
+    YAML
+    site.save
+
+    assert site.date_filter_configured?
+
+    # both dates
+    conf.raw_configuration_variables = <<-YAML
+gobierto_people_default_filter_start_date: "2010-01-23"
+gobierto_people_default_filter_end_date: "2010-01-23"
+    YAML
+    site.save
+
+    assert site.date_filter_configured?
+
+    # blank options
+    conf.raw_configuration_variables = <<-YAML
+gobierto_people_default_filter_start_date: ""
+gobierto_people_default_filter_end_date:
+    YAML
+    site.save
+
+    refute site.date_filter_configured?
+  end
+
 end

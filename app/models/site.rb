@@ -161,6 +161,16 @@ class Site < ApplicationRecord
     departments.any? && gobierto_people_settings.submodules_enabled.include?("departments")
   end
 
+  def date_filter_configured?
+    [
+      Time.zone.parse(configuration.configuration_variables["gobierto_people_default_filter_start_date"].to_s),
+      Time.zone.parse(configuration.configuration_variables["gobierto_people_default_filter_end_date"].to_s)
+    ].any?
+  rescue StandardError => e
+    Rollbar.error(e)
+    false
+  end
+
   private
 
   def site_configuration_attributes

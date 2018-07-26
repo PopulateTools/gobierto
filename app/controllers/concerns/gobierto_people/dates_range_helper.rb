@@ -41,8 +41,10 @@ module GobiertoPeople
     private
 
     def site_configuration_date_range
-      @site_configuration_date_range ||= { start_date: parse_date(current_site.configuration.configuration_variables["gobierto_people_default_filter_start_date"]),
-                                           end_date: parse_date(current_site.configuration.configuration_variables["gobierto_people_default_filter_end_date"]) }
+      @site_configuration_date_range ||= {
+        start_date: parse_date(current_site.configuration.configuration_variables["gobierto_people_default_filter_start_date"].to_s),
+        end_date: parse_date(current_site.configuration.configuration_variables["gobierto_people_default_filter_end_date"].to_s)
+      }
     end
 
     def parse_date(date, fallback = nil)

@@ -18,7 +18,7 @@ module GobiertoParticipation
     end
 
     def scope_center
-      @scope_center ||= gobierto_common_scopes(:center)
+      @scope_center ||= ProcessTermDecorator.new(gobierto_common_terms(:center_term))
     end
 
     def processes

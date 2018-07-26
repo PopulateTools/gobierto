@@ -5,3 +5,11 @@ animals:
 plan_categories:
   site: madrid
   name: Government Plan
+
+issues_vocabulary:
+  site: madrid
+  name: Issues Vocabulary
+
+scopes_vocabulary:
+  site: madrid
+  name: Scopes Vocabulary

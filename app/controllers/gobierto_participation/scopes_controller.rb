@@ -3,7 +3,7 @@
 module GobiertoParticipation
   class ScopesController < GobiertoParticipation::ApplicationController
     def index
-      @scopes = current_site.scopes
+      @scopes = find_scopes
     end
 
     def show
@@ -22,7 +22,7 @@ module GobiertoParticipation
     end
 
     def find_scope
-      current_site.scopes.find_by!(slug: params[:id])
+      ProcessTermDecorator.new(current_site.scopes.find_by_slug!(params[:id]))
     end
 
     def find_scope_news

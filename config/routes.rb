@@ -36,6 +36,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :ordered_vocabulary_terms, path: ":module/:vocabulary/ordered_terms", controller: "gobierto_common/ordered_terms", except: [:show]  do
+      collection do
+        resource :ordered_vocabulary_terms_sort, only: [:create], controller: "gobierto_common/ordered_terms_sort"
+      end
+    end
+
     namespace :sites do
       resource :sessions, only: [:create, :destroy]
     end
@@ -123,6 +129,10 @@ Rails.application.routes.draw do
         resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show, :destroy], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers do
           put :recover
         end
+      end
+
+      namespace :configuration do
+        resource :settings, only: [:edit, :update], path: :settings
       end
     end
 

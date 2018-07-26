@@ -6,7 +6,7 @@ module GobiertoAdmin
   class CreateScopeTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = admin_scopes_path
+      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "scopes")
     end
 
     def admin
@@ -40,17 +40,17 @@ module GobiertoAdmin
 
             click_link "New"
 
-            fill_in "scope_name_translations_en", with: "New scope name"
-            fill_in "scope_description_translations_en", with: "New scope description"
+            fill_in "term_name_translations_en", with: "New scope name"
+            fill_in "term_description_translations_en", with: "New scope description"
 
             click_link "ES"
 
-            fill_in "scope_name_translations_es", with: "Nombre del nuevo ámbito"
-            fill_in "scope_description_translations_es", with: "Descripción del nuevo ámbito"
+            fill_in "term_name_translations_es", with: "Nombre del nuevo ámbito"
+            fill_in "term_description_translations_es", with: "Descripción del nuevo ámbito"
 
             click_button "Create"
 
-            assert has_message?("Scope was successfully created")
+            assert has_message?("Term created successfully")
 
             assert has_content?("New scope name")
 

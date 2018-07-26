@@ -6,7 +6,7 @@ module GobiertoAdmin
   class IssueIndexTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = admin_issues_path
+      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "issues")
     end
 
     def admin
@@ -30,9 +30,9 @@ module GobiertoAdmin
             assert has_selector?("tr", count: issues.size)
 
             issues.each do |issue|
-              assert has_selector?("tr#issue-item-#{issue.id}")
+              assert has_selector?("tr#term-item-#{issue.id}")
 
-              within "tr#issue-item-#{issue.id}" do
+              within "tr#term-item-#{issue.id}" do
                 assert has_link?(issue.name.to_s)
               end
             end

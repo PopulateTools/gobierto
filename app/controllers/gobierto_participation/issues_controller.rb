@@ -3,7 +3,7 @@
 module GobiertoParticipation
   class IssuesController < GobiertoParticipation::ApplicationController
     def index
-      @issues = current_site.issues
+      @issues = find_issues
     end
 
     def show
@@ -22,7 +22,7 @@ module GobiertoParticipation
     end
 
     def find_issue
-      current_site.issues.find_by!(slug: params[:id])
+      ProcessTermDecorator.new(current_site.issues.find_by!(slug: params[:id]))
     end
 
     def find_issue_news

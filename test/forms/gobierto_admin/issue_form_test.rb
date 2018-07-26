@@ -7,8 +7,8 @@ module GobiertoAdmin
     def valid_issue_form
       @valid_issue_form ||= IssueForm.new(
         site_id: site.id,
-        name_translations: { I18n.locale => issue.name },
-        description_translations: { I18n.locale => issue.description },
+        name_translations: { I18n.locale => "test" },
+        description_translations: { I18n.locale => "test description" },
         slug: nil
       )
     end
@@ -23,11 +23,11 @@ module GobiertoAdmin
     end
 
     def issue
-      @issue ||= issues(:culture)
+      @issue ||= gobierto_common_terms(:culture_term)
     end
 
     def site
-      @site ||= sites(:santander)
+      @site ||= sites(:madrid)
     end
 
     def test_save_with_valid_attributes

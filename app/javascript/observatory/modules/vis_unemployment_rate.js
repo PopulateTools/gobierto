@@ -99,8 +99,7 @@ export var VisUnemploymentRate = Class.extend({
   updateRender: function() {
     this.xScale
       .rangeRound([0, this.width])
-      // TODO: restore 2011-01
-      .domain([this.parseTime('2015-11'), d3.max(this.data, function(d) { return d.date; })]);
+      .domain([this.parseTime('2011-01'), d3.max(this.data, function(d) { return d.date; })]);
 
     this.yScale
       .rangeRound([this.height, 0])

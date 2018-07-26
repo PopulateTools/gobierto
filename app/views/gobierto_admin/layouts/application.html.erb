@@ -159,7 +159,11 @@
 
             <% if current_site %>
               <li>
-                <%= link_to_if current_admin.can_customize_site?, t(".edit_site"), edit_admin_site_path(current_site) %>
+                <% if false && current_admin.can_customize_site? %>
+                  <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
+                <% else %>
+                  <span><%= t(".edit_site") %></span>
+                <% end %>
                 <ul>
                   <li><%= link_to t(".issues"), admin_issues_path %></li>
                   <li><%= link_to t(".scopes"), admin_scopes_path %></li>

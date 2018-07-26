@@ -36,7 +36,7 @@ module IbmNotes
           when "Europe/Madrid"
             ActiveSupport::TimeZone["Madrid"]
           else
-            raise "Unknown timezone #{event["start"]["tzid"]}"
+            Rollbar.error(Exception.new("[GobiertoCalendars] Unknown IBM Notes time zone #{event["start"]["tzid"]}"))
           end
       end
 

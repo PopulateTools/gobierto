@@ -7,10 +7,10 @@ module GobiertoPeople
       def index
         if params[:date]
           @filtering_date = Date.parse(params[:date])
-          @events = @person.attending_events.by_date(@filtering_date)
+          @events = @person.attending_events.by_date(@filtering_date).published
           @events = (@filtering_date.future? ? @events.sorted : @events.sorted_backwards).page params[:page]
         else
-          @events = QueryWithEvents.new(source: @person.attending_events,
+          @events = QueryWithEvents.new(source: @person.attending_events.published,
                                         start_date: filter_start_date,
                                         end_date: filter_end_date).upcoming.sorted.page params[:page]
         end
@@ -54,7 +54,7 @@ module GobiertoPeople
       end
 
       def set_calendar_events
-        @calendar_events = @person.attending_events
+        @calendar_events = @person.attending_events.published
       end
 
       def person_events_scope

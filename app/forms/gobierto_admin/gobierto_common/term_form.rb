@@ -44,7 +44,7 @@ module GobiertoAdmin
 
       def save_term
         @term = term.tap do |attributes|
-          attributes.vocabulary_id = vocabulary_id
+          attributes.vocabulary_id = vocabulary.id
           attributes.name_translations = name_translations
           attributes.description_translations = description_translations
           attributes.slug = slug

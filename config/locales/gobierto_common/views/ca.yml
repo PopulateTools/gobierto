@@ -10,3 +10,5 @@ ca:
     events:
       gobierto_common_collection_created: Col·lecció creat
       gobierto_common_collection_updated: Col·lecció actualizat
+      gobierto_common_term_created: Terme creat
+      gobierto_common_term_updated: Terme actualitzat

@@ -3,8 +3,6 @@ en:
   gobierto_admin:
     gobierto_common:
       ordered_terms:
-        association:
-          not_defined: The vocabulary associated with this functionality is not set
         create:
           success: Term created successfully.
         destroy:

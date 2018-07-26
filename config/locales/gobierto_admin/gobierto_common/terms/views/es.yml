@@ -17,7 +17,7 @@ es:
             created_at: Creado
             name: Nombre
           new: Nuevo
-          view: Ver término
+          title: Términos de %{vocabulary}
         new_modal:
           title: Nuevo término
       terms:

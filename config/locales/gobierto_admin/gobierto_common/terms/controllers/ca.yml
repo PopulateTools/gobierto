@@ -3,8 +3,6 @@ ca:
   gobierto_admin:
     gobierto_common:
       ordered_terms:
-        association:
-          not_defined: El vocabulari associat a aquesta funcionalitat no està definit
         create:
           success: El terme s'ha creat correctament.
         destroy:

@@ -3,59 +3,63 @@
 module GobiertoAdmin
   module GobiertoCommon
     class OrderedTermsController < BaseController
-      helper_method :term_preview_url
 
       def index
-        @terms = current_site.send(association)
-        @term_form = OrderedTermForm.new(site_id: current_site.id, association: association)
         @vocabulary = find_vocabulary
+        @terms = tree(@vocabulary.terms)
       end
 
       def new
-        @term_form = OrderedTermForm.new(site_id: current_site.id, association: association)
+        @vocabulary = find_vocabulary
+        @term_form = TermForm.new(site_id: current_site.id, vocabulary_id: @vocabulary.id)
+        @parent_terms = parent_terms_for_select(@vocabulary.terms)
 
         render(:new_modal, layout: false) && return if request.xhr?
       end
 
       def edit
         @term = find_term
-        @term_form = OrderedTermForm.new(
-          @term.attributes.except(*ignored_term_attributes).merge(site_id: current_site.id, association: association)
+        @term_form = TermForm.new(
+          @term.attributes.except(*ignored_term_attributes).merge(site_id: current_site.id)
         )
+        @parent_terms = parent_terms_for_select(@term.vocabulary.terms.where.not(id: @term.id))
 
         render(:edit_modal, layout: false) && return if request.xhr?
       end
 
       def create
-        @term_form = OrderedTermForm.new(term_params.merge(site_id: current_site.id, association: association))
+        @vocabulary = find_vocabulary
+        @term_form = TermForm.new(term_params.merge(site_id: current_site.id, vocabulary_id: @vocabulary.id))
 
         if @term_form.save
           track_create_activity
 
           redirect_to(
-            admin_ordered_vocabulary_terms_path(module: params[:module], vocabulary: params[:vocabulary], id: @term),
-            notice: t(".success", link: send(:"gobierto_participation_#{ params[:vocabulary] }_url", @term_form.term.slug, host: current_site.domain))
+            admin_common_vocabulary_terms_path(@vocabulary),
+            notice: t(".success")
           )
         else
           render(:new_modal, layout: false) && return if request.xhr?
+          @parent_terms = parent_terms_for_select(@vocabulary.terms)
           render :new
         end
       end
 
       def update
         @term = find_term
-        @term_form = OrderedTermForm.new(
-          term_params.merge(id: params[:id], site_id: current_site.id, association: association)
+        @term_form = TermForm.new(
+          term_params.merge(id: params[:id], site_id: current_site.id)
         )
 
         if @term_form.save
           track_update_activity
 
           redirect_to(
-            admin_ordered_vocabulary_terms_path(module: params[:module], vocabulary: params[:vocabulary], id: @term),
-            notice: t(".success", link: send(:"gobierto_participation_#{ params[:vocabulary] }_url", @term_form.term.slug, host: current_site.domain))
+            admin_common_vocabulary_terms_path(@term.vocabulary),
+            notice: t(".success")
           )
         else
+          @parent_terms = parent_terms_for_select(@term.vocabulary.terms.where.not(id: @term.id))
           render(:edit_modal, layout: false) && return if request.xhr?
           render :edit
         end
@@ -64,48 +68,25 @@ module GobiertoAdmin
       def destroy
         @term = find_term
 
-        if current_site.processes.where(association.singularize => @term).blank? && @term.destroy
-          redirect_to admin_ordered_vocabulary_terms_path(module: params[:module], vocabulary: params[:vocabulary]), notice: t(".success")
+        if current_site.processes.where(issue: @term).blank? && @term.destroy
+          redirect_to admin_common_vocabulary_terms_path(@term.vocabulary), notice: t(".success")
         else
-          redirect_to admin_ordered_vocabulary_terms_path(module: params[:module], vocabulary: params[:vocabulary]), alert: t(".destroy_failed")
+          redirect_to admin_common_vocabulary_terms_path(@term.vocabulary), alert: t(".destroy_failed")
         end
       end
 
       private
 
-      def association
-        @association ||= begin
-                           if current_site.send(:"#{ params[:module] }_settings")&.send(:"#{ params[:vocabulary] }_vocabulary_id").present?
-                             params[:vocabulary]
-                           else
-                             redirect_to(
-                               admin_root_path,
-                               alert: t(".not_defined")
-                             )
-                           end
-                         end
-      end
-
       def find_vocabulary
-        current_site.vocabularies.find(current_site.send(:"#{ params[:module] }_settings")&.send(:"#{ params[:vocabulary] }_vocabulary_id"))
+        params[:vocabulary_id] ? current_site.vocabularies.find(params[:vocabulary_id]) : nil
       end
 
       def track_create_activity
-        case params[:vocabulary]
-        when "issues"
-          Publishers::IssueActivity.broadcast_event("issue_created", default_activity_params.merge(subject: @term_form.term))
-        when "scopes"
-          Publishers::ScopeActivity.broadcast_event("scope_created", default_activity_params.merge(subject: @term_form.term))
-        end
+        Publishers::GobiertoCommonTermActivity.broadcast_event("term_created", default_activity_params.merge(subject: @term_form.term))
       end
 
       def track_update_activity
-        case params[:vocabulary]
-        when "issues"
-          Publishers::IssueActivity.broadcast_event("issue_updated", default_activity_params.merge(subject: @term))
-        when "scopes"
-          Publishers::ScopeActivity.broadcast_event("scope_updated", default_activity_params.merge(subject: @term))
-        end
+        Publishers::GobiertoCommonTermActivity.broadcast_event("term_updated", default_activity_params.merge(subject: @term))
       end
 
       def default_activity_params
@@ -115,6 +96,7 @@ module GobiertoAdmin
       def term_params
         params.require(:term).permit(
           :slug,
+          :term_id,
           name_translations: [*I18n.available_locales],
           description_translations: [*I18n.available_locales]
         )
@@ -125,13 +107,23 @@ module GobiertoAdmin
       end
 
       def find_term
-        current_site.send(association).find(params[:id])
+        current_site.terms.find(params[:id])
       end
 
-      def term_preview_url(term, options = {})
-        options[:preview_token] = current_admin.preview_token unless term.active?
-        send(:"gobierto_participation_#{ params[:vocabulary] }_url", term.slug, options)
+      def parent_terms_for_select(relation)
+        relation.map do |term|
+          [term.name, term.id]
+        end
       end
+
+      def tree(relation, level = 0)
+        level_relation = relation.where(level: level).order(position: :asc)
+        return [] if level_relation.blank?
+        relation.where(level: level).map do |node|
+          [node, tree(node.terms, level + 1)].flatten
+        end.flatten
+      end
+
     end
   end
 end

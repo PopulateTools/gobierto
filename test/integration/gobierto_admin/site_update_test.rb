@@ -5,6 +5,7 @@ require "test_helper"
 module GobiertoAdmin
   class SiteUpdateTest < ActionDispatch::IntegrationTest
     include SiteConfigHelpers
+    include PermissionHelpers
 
     def setup
       super
@@ -15,8 +16,8 @@ module GobiertoAdmin
       @admin ||= gobierto_admin_admins(:nick)
     end
 
-    def unauthorized_admin
-      @unauthorized_admin ||= gobierto_admin_admins(:tony)
+    def regular_admin
+      @regular_admin ||= gobierto_admin_admins(:tony)
     end
 
     def site
@@ -189,15 +190,34 @@ YAML
       end
     end
 
-    def test_unauthorized_admin_access
-      with_signed_in_admin(unauthorized_admin) do
+    def test_authorized_regular_admin_access
+      with_signed_in_admin(regular_admin) do
         visit admin_root_path
-        assert has_no_link?("Customize site")
 
-        visit @path
+        click_link "Customize site"
+        click_button "Update"
 
-        assert has_no_selector?("form.edit_site")
+        assert has_content? "Site was successfully updated"
+      end
+    end
+
+    def test_unauthorized_regular_admin_access
+      with_signed_in_admin(regular_admin) do
+        visit admin_root_path
+
+        click_link "Customize site"
+
+        revoke_customize_site_permission(regular_admin)
+
+        # HACK: https://github.com/PopulateTools/gobierto/blob/master/app/controllers/concerns/user/session_helper.rb#L67
+        # causes infinite redirects, since referer in not authorized either. Since it's
+        # hard to fix and it's not likely to happen in a real scenario, stub the referer.
+        ::ActionDispatch::Request.any_instance.stubs(:referrer).returns(admin_root_path)
+
+        click_button "Update"
+
         assert has_content?("You are not authorized to perform this action")
+        assert_equal admin_root_path, current_path
       end
     end
 

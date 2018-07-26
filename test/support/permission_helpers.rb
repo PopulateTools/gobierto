@@ -48,4 +48,27 @@ module PermissionHelpers
     admin.save
   end
 
+  def grant_templates_permission(admin)
+    admin.permissions.build(
+      namespace: "site_options",
+      resource_name: "templates",
+      action_name: "manage"
+    )
+    admin.save
+  end
+
+  def revoke_templates_permission(admin)
+    admin.site_options_permissions.where(
+      resource_name: "templates",
+      action_name: "manage"
+    ).destroy_all
+  end
+
+  def revoke_customize_site_permission(admin)
+    admin.site_options_permissions.where(
+      resource_name: "customize",
+      action_name: "manage"
+    ).destroy_all
+  end
+
 end

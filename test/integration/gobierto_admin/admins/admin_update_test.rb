@@ -44,6 +44,9 @@ module GobiertoAdmin
             check "madrid.gobierto.test"
           end
 
+          uncheck "Vocabularies"
+          check "Templates"
+
           within ".admin-authorization-level-radio-buttons" do
             choose "Regular"
           end
@@ -66,6 +69,9 @@ module GobiertoAdmin
             assert has_no_checked_field?("santander.gobierto.test")
             assert has_checked_field?("madrid.gobierto.test")
           end
+
+          assert has_no_checked_field?("Vocabularies")
+          assert has_checked_field?("Templates")
 
           within ".admin-authorization-level-radio-buttons" do
             assert has_checked_field?("Regular")

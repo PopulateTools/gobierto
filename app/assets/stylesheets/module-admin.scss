@@ -109,7 +109,7 @@ menu.main {
       li {
         padding: 0;
 
-        a {
+        a,span {
           padding: 0 0 0 2em;
         }
       }
@@ -121,7 +121,7 @@ menu.main {
       padding-top: 1em;
     }
 
-    a {
+    a,span {
       padding: 0.25em 1em;
       display: block;
       // color: $color_text;

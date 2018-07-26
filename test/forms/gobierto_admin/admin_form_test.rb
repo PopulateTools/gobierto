@@ -321,5 +321,31 @@ module GobiertoAdmin
       assert madrid_and_santander_admin.people_permissions.empty?
     end
 
+    def test_grant_site_options_permissions
+      admin_form = AdminForm.new(admin_params.merge(
+        id: tony.id,
+        permitted_site_options: %w(customize vocabularies templates)
+      ))
+
+      assert_equal 2, tony.site_options_permissions.size
+
+      assert admin_form.save
+
+      assert_equal 3, tony.site_options_permissions.size
+    end
+
+    def test_revoke_site_options_permissions
+      admin_form = AdminForm.new(admin_params.merge(
+        id: tony.id,
+        permitted_site_options: %w(templates)
+      ))
+
+      assert_equal 2, tony.site_options_permissions.size
+
+      assert admin_form.save
+
+      assert_equal 1, tony.site_options_permissions.size
+    end
+
   end
 end

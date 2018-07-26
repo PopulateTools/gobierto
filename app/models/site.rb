@@ -107,19 +107,19 @@ class Site < ApplicationRecord
   end
 
   def gobierto_people_settings
-    @gobierto_people_settings ||= if configuration.gobierto_people_enabled?
+    @gobierto_people_settings ||= if configuration.available_module?("GobiertoPeople") && configuration.gobierto_people_enabled?
                                     module_settings.find_by(module_name: "GobiertoPeople")
                                   end
   end
 
   def gobierto_budgets_settings
-    @gobierto_budgets_settings ||= if configuration.gobierto_budgets_enabled?
+    @gobierto_budgets_settings ||= if configuration.available_module?("GobiertoBudgets") && configuration.gobierto_budgets_enabled?
                                     module_settings.find_by(module_name: "GobiertoBudgets")
                                    end
   end
 
   def gobierto_participation_settings
-    @gobierto_participation_settings ||= if configuration.gobierto_participation_enabled?
+    @gobierto_participation_settings ||= if configuration.available_module?("GobiertoParticipation") && configuration.gobierto_participation_enabled?
                                            module_settings.find_by(module_name: "GobiertoParticipation")
                                          end
   end

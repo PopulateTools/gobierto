@@ -16,10 +16,7 @@ module GobiertoPeople
       set_events
       set_present_groups
 
-      # TODO: this info is only needed for custom engine
-      @gifts = current_site.gifts.limit(4).between_dates(filter_start_date, filter_end_date)
-      @invitations = current_site.invitations.limit(4).between_dates(filter_start_date, filter_end_date)
-      load_home_statistics
+      load_custom_engine_data if current_site.date_filter_configured?
     end
 
     private
@@ -44,7 +41,11 @@ module GobiertoPeople
       current_site.gobierto_people_settings&.send("home_text_#{I18n.locale}")
     end
 
-    def load_home_statistics
+    def load_custom_engine_data
+      @gifts = current_site.gifts.limit(4).between_dates(filter_start_date, filter_end_date)
+      @invitations = current_site.invitations.limit(4).between_dates(filter_start_date, filter_end_date)
+
+      # home statistics
       people = QueryWithEvents.new(source: current_site.event_attendances,
                                    start_date: filter_start_date,
                                    end_date: filter_end_date,
@@ -58,5 +59,6 @@ module GobiertoPeople
         total_people_with_attendances: people.select(:person_id).distinct.count
       }
     end
+
   end
 end

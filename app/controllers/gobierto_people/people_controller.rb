@@ -94,11 +94,16 @@ module GobiertoPeople
     end
 
     def set_people
-      @people = QueryWithEvents.new(
-        source: current_site.people.active,
-        start_date: filter_start_date,
-        end_date: filter_end_date
-      ).sorted
+      @people = current_site.people.active.sorted
+
+      if current_site.date_filter_configured?
+        @people = QueryWithEvents.new(
+          source: @people,
+          start_date: filter_start_date,
+          end_date: filter_end_date
+        ).sorted
+      end
+
       @people = @people.send(Person.categories.key(@person_category)) if @person_category
       @people = @people.send(Person.parties.key(@person_party)) if @person_party
     end

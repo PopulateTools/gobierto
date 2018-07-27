@@ -6,7 +6,7 @@ module GobiertoAdmin
   class DeleteScopeTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "scopes")
+      @path = admin_common_vocabulary_terms_path(scopes_vocabulary)
       site.processes.where(scope: scope).update_all(scope_id: nil)
     end
 
@@ -16,6 +16,10 @@ module GobiertoAdmin
 
     def site
       @site ||= sites(:madrid)
+    end
+
+    def scopes_vocabulary
+      gobierto_common_vocabularies(:scopes_vocabulary)
     end
 
     def scope

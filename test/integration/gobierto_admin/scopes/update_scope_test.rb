@@ -7,7 +7,7 @@ module GobiertoAdmin
     
     def setup
       super
-      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "scopes")
+      @path = admin_common_vocabulary_terms_path(scopes_vocabulary)
     end
 
     def admin
@@ -16,6 +16,10 @@ module GobiertoAdmin
 
     def site
       @site ||= sites(:madrid)
+    end
+
+    def scopes_vocabulary
+      gobierto_common_vocabularies(:scopes_vocabulary)
     end
 
     def scope
@@ -51,7 +55,7 @@ module GobiertoAdmin
             assert_equal scope, activity.subject
             assert_equal admin, activity.author
             assert_equal site.id, activity.site_id
-            assert_equal 'scopes.scope_updated', activity.action
+            assert_equal 'gobierto_common.term_updated', activity.action
           end
         end
       end

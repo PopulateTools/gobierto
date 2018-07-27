@@ -6,7 +6,7 @@ module GobiertoAdmin
   class CreateIssueTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "issues")
+      @path = admin_common_vocabulary_terms_path(issues_vocabulary)
     end
 
     def admin
@@ -15,6 +15,10 @@ module GobiertoAdmin
 
     def site
       @site ||= sites(:madrid)
+    end
+
+    def issues_vocabulary
+      gobierto_common_vocabularies(:issues_vocabulary)
     end
 
     def test_create_issue_errors
@@ -68,7 +72,7 @@ module GobiertoAdmin
             assert_equal issue, activity.subject
             assert_equal admin, activity.author
             assert_equal site.id, activity.site_id
-            assert_equal "issues.issue_created", activity.action
+            assert_equal "gobierto_common.term_created", activity.action
           end
         end
       end

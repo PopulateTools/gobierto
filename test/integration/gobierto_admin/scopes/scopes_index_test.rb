@@ -7,7 +7,7 @@ module GobiertoAdmin
 
     def setup
       super
-      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "scopes")
+      @path = admin_common_vocabulary_terms_path(scopes_vocabulary)
     end
 
     def admin
@@ -20,6 +20,10 @@ module GobiertoAdmin
 
     def scopes
       @scopes ||= site.scopes
+    end
+
+    def scopes_vocabulary
+      gobierto_common_vocabularies(:scopes_vocabulary)
     end
 
     def test_scopes_index

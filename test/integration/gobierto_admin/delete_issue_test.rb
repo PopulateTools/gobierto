@@ -7,7 +7,7 @@ module GobiertoAdmin
 
     def setup
       super
-      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "issues")
+      @path = admin_common_vocabulary_terms_path(issues_vocabulary)
     end
 
     def admin
@@ -16,6 +16,10 @@ module GobiertoAdmin
 
     def site
       @site ||= sites(:madrid)
+    end
+
+    def issues_vocabulary
+      gobierto_common_vocabularies(:issues_vocabulary)
     end
 
     def issue

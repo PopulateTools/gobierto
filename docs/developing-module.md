@@ -208,11 +208,11 @@ Create a new link adding the necessary permissions in `app/views/gobierto_admin/
 <% if managing_site? %>
   <li>
     <%= link_to t('.edit_site'), edit_admin_site_path(current_site) %>
-    <% if show_module_link?('GobiertoParticipation') %>
       <ul>
-        <li><%= link_to t('.issues'), admin_issues_path %></li>
+        <% if current_admin.can_edit_vocabularies? %>
+          <li><%= link_to t(".vocabularies"), admin_common_vocabularies_path %></li>
+        <% end %>
       </ul>
-    <% end %>
   </li>
 <% end %>
 

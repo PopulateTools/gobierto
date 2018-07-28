@@ -34,6 +34,7 @@ module GobiertoAdmin
 
       def vocabulary
         @vocabulary ||= begin
+                          return unless site
                           if vocabulary_id
                             site.vocabularies.find_by_id(vocabulary_id)
                           else
@@ -58,11 +59,11 @@ module GobiertoAdmin
       end
 
       def term_relation
-        site.terms
+        site ? site.terms : ::GobiertoCommon::Term.none
       end
 
       def site
-        Site.find(site_id)
+        @site ||= Site.find_by(id: site_id)
       end
     end
   end

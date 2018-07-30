@@ -129,9 +129,3 @@
     </div>
   <% end %>
 </div>
-
-<% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.User.subscription_preferences_controller.index();
-  <% end %>
-<% end %>

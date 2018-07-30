@@ -13,9 +13,3 @@
   <%= f.hidden_field :referrer_entity %>
   <%= f.submit t(".submit"), class: "button" %>
 <% end %>
-
-<% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.User.registration_controller.new();
-  <% end %>
-<% end %>

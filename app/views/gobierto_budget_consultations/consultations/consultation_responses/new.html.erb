@@ -213,9 +213,3 @@
     </div>
   </transition>
 </template>
-
-<% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.GobiertoBudgetConsultations.consultation_responses_controller.new();
-  <% end %>
-<% end %>

@@ -8,6 +8,7 @@ module ApplicationHelper
     classes.push controller_name
     classes.push action_name
     classes.push "#{controller_name}_#{action_name}"
+    classes.push "#{controller_path}_#{action_name}".gsub("/", "_")
     classes.join(" ")
   end
 

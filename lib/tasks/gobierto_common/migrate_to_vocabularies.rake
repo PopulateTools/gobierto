@@ -136,7 +136,6 @@ namespace :common do
 
     desc "Generate a vocabulary for each site from existing political groups"
     task political_groups: :environment do
-      ignored_attributes = %w(id site_id admin_id created_at updated_at name)
       GobiertoPeople::Person.where.not(political_group_id: nil).each do |person|
         move_political_group_to_term(person)
       end
@@ -152,11 +151,12 @@ namespace :common do
       settings = site.gobierto_people_settings
       unless settings.political_groups_vocabulary_id == vocabulary.id
         settings.tap do |conf|
-        conf.political_groups_vocabulary_id = vocabulary.id
+          conf.political_groups_vocabulary_id = vocabulary.id
         end.save
       end
       terms = vocabulary.terms
-      term = terms.find_by(slug: political_group.slug) || terms.create(political_group.attributes.except(*ignored_attributes).merge("name_#{ default_locale }" => political_group.name))
+      term = terms.find_by(slug: political_group.slug) ||
+             terms.create(political_group.attributes.except(*ignored_attributes).merge("name_#{ default_locale }" => political_group.name))
       person.update_attribute(:political_group_id, term.id)
     end
 

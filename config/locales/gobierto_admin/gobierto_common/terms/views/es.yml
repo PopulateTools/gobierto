@@ -1,0 +1,41 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      ordered_terms:
+        edit_modal:
+          title: Editar %{term}
+        form:
+          placeholders:
+            description: Descripción del término
+            name: Nombre del término
+            slug: termino
+        index:
+          delete_confirm: Estás seguro? Esta operación no es reversible
+          drag_to_sort: Arrastra para ordenar
+          header:
+            created_at: Creado
+            name: Nombre
+          new: Nuevo
+          view: Ver término
+        new_modal:
+          title: Nuevo término
+      terms:
+        edit:
+          edit: Editar %{term}
+        form:
+          placeholders:
+            description: El caballo es un mamífero herbívoro
+            name: Caballo
+            slug: reino-animal-caballo
+        index:
+          delete_confirm: Estás seguro? Esta operación no es reversible
+          header:
+            description: Descripción
+            level: Nivel
+            name: Nombre
+            parent: Padre
+          new: Nuevo
+          title: Términos de %{vocabulary}
+        new:
+          new: Nuevo Término

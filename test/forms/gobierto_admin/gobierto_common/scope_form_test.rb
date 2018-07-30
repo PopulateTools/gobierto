@@ -24,7 +24,7 @@ module GobiertoAdmin
       end
 
       def scope
-        @scope ||= gobierto_common_scopes(:center)
+        @scope ||= gobierto_common_terms(:center_term)
       end
 
       def site

@@ -3,6 +3,9 @@
 module GobiertoAdmin
   module GobiertoCore
     class TemplatesController < BaseController
+
+      before_action :check_permissions!
+
       def index
         template = ::GobiertoCore::Template.first
         load_site_template_variables(template)
@@ -54,6 +57,11 @@ module GobiertoAdmin
 
         @default_template = File.read("app/views/" + template.template_path + ".liquid")
       end
+
+      def check_permissions!
+        raise_module_not_allowed unless current_admin.can_edit_templates?
+      end
+
     end
   end
 end

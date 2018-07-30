@@ -11,11 +11,11 @@ module GobiertoAdmin
         end
 
         def scope_1
-          @scope_1 ||= gobierto_common_scopes(:center)
+          @scope_1 ||= gobierto_common_terms(:center_term)
         end
 
         def scope_2
-          @scope_2 ||= gobierto_common_scopes(:old_town)
+          @scope_2 ||= gobierto_common_terms(:old_town_term)
         end
 
         def setup

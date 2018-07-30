@@ -36,6 +36,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :ordered_vocabulary_terms, path: ":module/:vocabulary/ordered_terms", controller: "gobierto_common/ordered_terms", except: [:show]  do
+      collection do
+        resource :ordered_vocabulary_terms_sort, only: [:create], controller: "gobierto_common/ordered_terms_sort"
+      end
+    end
+
     namespace :sites do
       resource :sessions, only: [:create, :destroy]
     end
@@ -124,11 +130,18 @@ Rails.application.routes.draw do
           put :recover
         end
       end
+
+      namespace :configuration do
+        resource :settings, only: [:edit, :update], path: :settings
+      end
     end
 
     namespace :gobierto_common, as: :common, path: nil do
       resources :collections, only: [:show, :new, :create, :edit, :update]
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
+      resources :vocabularies do
+        resources :terms, shallow: true, except: [:show]
+      end
     end
 
     namespace :gobierto_plans, as: :plans, path: :plans do

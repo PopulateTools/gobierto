@@ -15,7 +15,7 @@ module GobiertoAdmin
       :last_sign_in_ip
     )
 
-    attr_reader :permissions, :permitted_sites, :permitted_modules, :permitted_people, :all_people_permitted, :sites
+    attr_reader :permissions, :permitted_sites, :permitted_modules, :permitted_people, :all_people_permitted, :sites, :permitted_site_options
 
     delegate :persisted?, to: :admin
 
@@ -32,12 +32,14 @@ module GobiertoAdmin
 
       super(parsed_attributes.except(
         :permitted_sites,
+        :permitted_site_options,
         :permitted_modules,
         :permitted_people,
         :all_people_permitted
       ))
 
       set_permitted_sites(parsed_attributes)
+      set_permitted_site_options(parsed_attributes)
       set_permitted_modules(parsed_attributes)
       set_all_people_permitted(parsed_attributes)
       set_permitted_people(parsed_attributes)
@@ -93,6 +95,18 @@ module GobiertoAdmin
       end
     end
 
+    def set_permitted_site_options(attributes)
+      if authorization_level != "regular"
+        @permitted_site_options = []
+      elsif attributes[:permitted_site_options].present?
+        @permitted_site_options = attributes[:permitted_site_options].select(&:present?).compact
+      elsif @admin
+        @permitted_site_options = @admin.site_options_permissions.pluck(:resource_name)
+      else
+        @permitted_site_options = []
+      end
+    end
+
     def set_permitted_modules(attributes)
       if authorization_level != 'regular'
         @permitted_modules = []
@@ -134,7 +148,25 @@ module GobiertoAdmin
       build_modules_permissions
       build_all_people_permissions
       build_people_permissions
+      build_site_options_permissions
       @permissions
+    end
+
+    def build_site_options_permissions
+      existing_site_options_permissions = admin.site_options_permissions
+      revoked_site_options_permissions_ids = existing_site_options_permissions.where.not(
+                                               resource_name: permitted_site_options
+                                             ).pluck(:id)
+
+      @permissions.each do |p|
+        p.mark_for_destruction if revoked_site_options_permissions_ids.include?(p.id)
+      end
+
+      permitted_site_options.map do |option_name|
+        unless existing_site_options_permissions.exists?(resource_name: option_name)
+          @permissions << build_permission_for_site_option(option_name)
+        end
+      end
     end
 
     def build_modules_permissions
@@ -223,6 +255,15 @@ module GobiertoAdmin
         namespace: 'site_module',
         resource_name: module_name,
         action_name: 'manage'
+      )
+    end
+
+    def build_permission_for_site_option(option_name)
+      ::GobiertoAdmin::Permission.new(
+        admin: admin,
+        namespace: "site_options",
+        resource_name: option_name,
+        action_name: "manage"
       )
     end
 

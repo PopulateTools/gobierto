@@ -1,4 +1,3 @@
 #!/bin/bash -i
-bundle install
-yarn install
+bin/update
 bundle exec foreman start -f Procfile.dev

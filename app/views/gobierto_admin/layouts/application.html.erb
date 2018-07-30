@@ -157,13 +157,26 @@
 
             <li><%= link_to t(".users"), admin_users_path %></li>
 
-            <% if managing_site? %>
+            <% if current_site %>
               <li>
-                <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
+                <% if current_admin.can_customize_site? %>
+                  <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
+                <% else %>
+                  <span><%= t(".edit_site") %></span>
+                <% end %>
                 <ul>
-                  <li><%= link_to t(".issues"), admin_issues_path %></li>
-                  <li><%= link_to t(".scopes"), admin_scopes_path %></li>
-                  <li><%= link_to t(".templates"), admin_gobierto_core_templates_path %></li>
+                  <% if current_admin.can_edit_vocabularies? %>
+                    <% if current_site.gobierto_participation_settings&.issues_vocabulary_id.present? %>
+                      <li><%= link_to t(".issues"), admin_issues_path %></li>
+                    <% end %>
+                    <% if current_site.gobierto_participation_settings&.scopes_vocabulary_id.present? %>
+                      <li><%= link_to t(".scopes"), admin_scopes_path %></li>
+                    <% end %>
+                    <li><%= link_to t(".vocabularies"), admin_common_vocabularies_path %></li>
+                  <% end %>
+                  <% if current_admin.can_edit_templates? %>
+                    <li><%= link_to t(".templates"), admin_gobierto_core_templates_path %></li>
+                  <% end %>
                 </ul>
               </li>
             <% end %>

@@ -6,7 +6,7 @@ module GobiertoAdmin
   class CreateIssueTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = admin_issues_path
+      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "issues")
     end
 
     def admin
@@ -40,28 +40,28 @@ module GobiertoAdmin
 
             click_link "New"
 
-            fill_in "issue_name_translations_en", with: "My theme"
-            fill_in "issue_description_translations_en", with: "My theme description"
-            fill_in "issue_slug", with: "new-theme"
+            fill_in "term_name_translations_en", with: "My theme"
+            fill_in "term_description_translations_en", with: "My theme description"
+            fill_in "term_slug", with: "new-theme"
 
             click_link "ES"
-            fill_in "issue_name_translations_es", with: "Mi tema"
-            fill_in "issue_description_translations_es", with: "Descripción de mi tema"
+            fill_in "term_name_translations_es", with: "Mi tema"
+            fill_in "term_description_translations_es", with: "Descripción de mi tema"
 
             click_button "Create"
 
-            assert has_message?("Theme was successfully created.")
+            assert has_message?("Term created successfully.")
 
             click_link "My theme"
 
-            assert has_field?("issue_name_translations_en", with: "My theme")
-            assert has_field?("issue_description_translations_en", with: "My theme description")
-            assert has_field?("issue_slug", with: "new-theme")
+            assert has_field?("term_name_translations_en", with: "My theme")
+            assert has_field?("term_description_translations_en", with: "My theme description")
+            assert has_field?("term_slug", with: "new-theme")
 
             click_link "ES"
 
-            assert has_field?("issue_name_translations_es", with: "Mi tema")
-            assert has_field?("issue_description_translations_es", with: "Descripción de mi tema")
+            assert has_field?("term_name_translations_es", with: "Mi tema")
+            assert has_field?("term_description_translations_es", with: "Descripción de mi tema")
 
             issue = site.issues.first
             activity = Activity.last

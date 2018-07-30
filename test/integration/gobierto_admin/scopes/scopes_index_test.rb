@@ -7,7 +7,7 @@ module GobiertoAdmin
 
     def setup
       super
-      @path = admin_scopes_path
+      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "scopes")
     end
 
     def admin
@@ -31,7 +31,7 @@ module GobiertoAdmin
             assert has_selector?('tr', count: scopes.size)
 
             scopes.each do |scope|
-              within "#scope-item-#{scope.id}" do
+              within "#term-item-#{scope.id}" do
                 assert has_link?(scope.name.to_s)
               end
             end

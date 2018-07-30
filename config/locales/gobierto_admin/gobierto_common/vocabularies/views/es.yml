@@ -1,0 +1,23 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      vocabularies:
+        edit:
+          edit: Editar %{vocabulary}
+        form:
+          placeholders:
+            name: Reino animal
+        index:
+          delete_confirm: Seguro? Esta operación no tiene marcha atrás.
+          header:
+            name: Nombre
+          new: Nuevo
+          title: Vocabularios
+          view_vocabulary: Ver vocabulario
+        new:
+          new: Nuevo Vocabulario
+        show:
+          created_at: Creación
+          terms: Términos
+          terms_count: "%{count} términos"

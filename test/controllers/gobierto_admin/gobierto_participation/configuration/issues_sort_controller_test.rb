@@ -11,11 +11,11 @@ module GobiertoAdmin
         end
 
         def issue_1
-          @issue_1 ||= issues(:culture)
+          @issue_1 ||= gobierto_common_terms(:culture_term)
         end
 
         def issue_2
-          @issue_2 ||= issues(:women)
+          @issue_2 ||= gobierto_common_terms(:women_term)
         end
 
         def setup

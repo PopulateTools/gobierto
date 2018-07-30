@@ -1,0 +1,41 @@
+---
+en:
+  gobierto_admin:
+    gobierto_common:
+      ordered_terms:
+        edit_modal:
+          title: Edit %{term}
+        form:
+          placeholders:
+            description: Term description
+            name: Term name
+            slug: term
+        index:
+          delete_confirm: Are you sure? This operation can not be undone
+          drag_to_sort: Drag to sort
+          header:
+            created_at: Created at
+            name: Name
+          new: New
+          view: View term
+        new_modal:
+          title: New term
+      terms:
+        edit:
+          edit: Edit %{term}
+        form:
+          placeholders:
+            description: The horse is a herbivorous mammal
+            name: Horse
+            slug: reino-animal-caballo
+        index:
+          delete_confirm: Are you sure? This operation can not be undone
+          header:
+            description: Description
+            level: Level
+            name: Name
+            parent: Parent
+          new: New
+          title: Terms of %{vocabulary}
+        new:
+          new: New term

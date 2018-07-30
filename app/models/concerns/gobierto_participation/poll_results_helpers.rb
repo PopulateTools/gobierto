@@ -12,7 +12,7 @@ module GobiertoParticipation
       end
 
       def unique_answers_count
-        answers.select("DISTINCT user_id").count
+        answers.select("DISTINCT user_id_hmac").count
       end
 
       def men_participation_percentage
@@ -32,7 +32,9 @@ module GobiertoParticipation
       end
 
       def men_unique_answers_count
-        answers.joins(:user).select("DISTINCT user_id").where("users.gender = 0").count
+        Hash[answers.pluck(:user_id_hmac, :encrypted_meta).map do |answer|
+          [answer[0], SecretAttribute.decrypt(answer[1])[:gender]]
+        end].values.select(&:zero?).size
       end
 
       def women_unique_answers_count

@@ -98,7 +98,7 @@ module GobiertoAdmin
       assert has_message?("Data updated successfully")
     end
 
-    def test_create_admin_with_sites_modules_and_people
+    def test_create_regular_admin_with_custom_permissions
       with_javascript do
         with_signed_in_admin(admin) do
           visit @path
@@ -118,6 +118,9 @@ module GobiertoAdmin
           # grant permissions for Richard Rider
           find("label[for='admin_permitted_people_#{richard.id}']", visible: false).trigger(:click)
 
+          # grant permissions for Templates
+          find("label[for='admin_permitted_site_options_templates']").click
+
           click_button "Create"
 
           assert has_message?("Admin was successfully created")
@@ -126,8 +129,9 @@ module GobiertoAdmin
 
       new_admin = ::GobiertoAdmin::Admin.last
       permissions = new_admin.permissions
-      module_permission = permissions.find_by(resource_name: "gobierto_people")
-      person_permission = permissions.find_by(resource_name: "person")
+      module_permission = new_admin.modules_permissions.first
+      person_permission = new_admin.people_permissions.first
+      site_option_permission = new_admin.site_options_permissions.first
 
       # assert site permissions
 
@@ -135,7 +139,7 @@ module GobiertoAdmin
 
       # assert total permissions
 
-      assert_equal 2, permissions.size
+      assert_equal 3, permissions.size
 
       # assert module permissions
 
@@ -148,6 +152,12 @@ module GobiertoAdmin
       assert_equal "gobierto_people", person_permission.namespace
       assert_equal richard.id, person_permission.resource_id
       assert_equal "manage", person_permission.action_name
+
+      # assert site options permissions
+
+      assert_equal "site_options", site_option_permission.namespace
+      assert_equal "templates", site_option_permission.resource_name
+      assert_equal "manage", site_option_permission.action_name
     end
   end
 end

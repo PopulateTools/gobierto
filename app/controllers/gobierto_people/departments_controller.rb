@@ -8,12 +8,15 @@ module GobiertoPeople
     before_action :check_active_submodules
 
     def index
-      @departments = QueryWithEvents.new(
-        source: site_departments,
-        start_date: filter_start_date,
-        end_date: filter_end_date
-      )
-      @departments_count = @departments.count
+      @departments = site_departments
+
+      if current_site.date_filter_configured?
+        @departments = QueryWithEvents.new(
+          source: site_departments,
+          start_date: filter_start_date,
+          end_date: filter_end_date
+        )
+      end
 
       event_attendances_within_range = QueryWithEvents.new(
         source: current_site.event_attendances,
@@ -22,6 +25,7 @@ module GobiertoPeople
         not_null: [:department_id]
       )
 
+      @departments_count = @departments.count
       @total_events = event_attendances_within_range.count
       @total_people = event_attendances_within_range.pluck(:person_id).uniq.count
     end
@@ -46,12 +50,6 @@ module GobiertoPeople
     end
 
     protected
-
-    def site_events
-      QueryWithEvents.new(source: current_site.events,
-                          start_date: filter_start_date,
-                          end_date: filter_end_date)
-    end
 
     def site_departments
       current_site.departments

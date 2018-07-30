@@ -15,8 +15,12 @@ module GobiertoAdmin
       @admin ||= gobierto_admin_admins(:natasha)
     end
 
+    def regular_admin_with_customize_permissions
+      @regular_admin_with_customize_permissions ||= gobierto_admin_admins(:tony)
+    end
+
     def regular_admin
-      @regular_admin ||= gobierto_admin_admins(:tony)
+      @regular_admin ||= gobierto_admin_admins(:steve)
     end
 
     def site
@@ -54,6 +58,11 @@ module GobiertoAdmin
           get admin_sites_url
           assert_redirected_to admin_root_path
         end
+
+        with_signed_in_admin(regular_admin_with_customize_permissions) do
+          get admin_sites_url
+          assert_redirected_to admin_root_path
+        end
       end
     end
 
@@ -72,12 +81,22 @@ module GobiertoAdmin
           get new_admin_site_url
           assert_redirected_to admin_root_path
         end
+
+        with_signed_in_admin(regular_admin_with_customize_permissions) do
+          get new_admin_site_url
+          assert_redirected_to admin_root_path
+        end
       end
     end
 
     def test_edit
       with_current_site(site) do
         with_signed_in_admin(admin) do
+          get edit_admin_site_url(site)
+          assert_response :success
+        end
+
+        with_signed_in_admin(regular_admin_with_customize_permissions) do
           get edit_admin_site_url(site)
           assert_response :success
         end
@@ -108,12 +127,22 @@ module GobiertoAdmin
           post admin_sites_url, params: { site: valid_site_params }
           assert_redirected_to admin_root_path
         end
+
+        with_signed_in_admin(regular_admin_with_customize_permissions) do
+          post admin_sites_url, params: { site: valid_site_params }
+          assert_redirected_to admin_root_path
+        end
       end
     end
 
     def test_update
       with_current_site(site) do
         with_signed_in_admin(admin) do
+          patch admin_site_url(site), params: { site: valid_site_params }
+          assert_redirected_to edit_admin_site_path(site)
+        end
+
+        with_signed_in_admin(regular_admin_with_customize_permissions) do
           patch admin_site_url(site), params: { site: valid_site_params }
           assert_redirected_to edit_admin_site_path(site)
         end
@@ -141,6 +170,11 @@ module GobiertoAdmin
     def test_destroy_not_authorized
       with_current_site(site) do
         with_signed_in_admin(regular_admin) do
+          delete admin_site_url(site)
+          assert_redirected_to admin_root_path
+        end
+
+        with_signed_in_admin(regular_admin_with_customize_permissions) do
           delete admin_site_url(site)
           assert_redirected_to admin_root_path
         end

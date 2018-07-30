@@ -6,7 +6,7 @@ module GobiertoAdmin
   class DeleteScopeTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = admin_scopes_path
+      @path = admin_ordered_vocabulary_terms_path(module: "gobierto_participation", vocabulary: "scopes")
       site.processes.where(scope: scope).update_all(scope_id: nil)
     end
 
@@ -19,11 +19,11 @@ module GobiertoAdmin
     end
 
     def scope
-      @scope ||= gobierto_common_scopes(:old_town)
+      @scope ||= gobierto_common_terms(:old_town_term)
     end
 
     def scope_with_items
-      @scope_with_items ||= gobierto_common_scopes(:center)
+      @scope_with_items ||= gobierto_common_terms(:center_term)
     end
 
     def test_delete_scope
@@ -31,11 +31,11 @@ module GobiertoAdmin
         with_current_site(site) do
           visit @path
 
-          within "#scope-item-#{scope.id}" do
+          within "#term-item-#{scope.id}" do
             find("a[data-method='delete']").click
           end
 
-          assert has_message?("Scope was successfully destroyed.")
+          assert has_message?("Term deleted successfully.")
 
           refute site.scopes.exists?(id: scope.id)
         end
@@ -47,11 +47,11 @@ module GobiertoAdmin
         with_current_site(site) do
           visit @path
 
-          within "#scope-item-#{scope_with_items.id}" do
+          within "#term-item-#{scope_with_items.id}" do
             find("a[data-method='delete']").click
           end
 
-          assert has_message?("You can't delete a scope while it has associated elements.")
+          assert has_message?("You can't delete a term while it has associated elements.")
 
           assert site.scopes.exists?(id: scope_with_items.id)
         end

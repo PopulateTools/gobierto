@@ -10,6 +10,14 @@ gobierto_people_settings_madrid:
     "submodules_enabled": ["officials", "agendas", "statements", "blogs", "departments"]
   }.to_json %>
 
+gobierto_participation_settings_madrid:
+  site: madrid
+  module_name: "GobiertoParticipation"
+  settings: <%= {
+    "issues_vocabulary_id": ActiveRecord::FixtureSet.identify(:issues_vocabulary),
+    "scopes_vocabulary_id": ActiveRecord::FixtureSet.identify(:scopes_vocabulary)
+    }.to_json %>
+
 gobierto_budgets_settings_madrid:
   site: madrid
   module_name: "GobiertoBudgets"

@@ -1,0 +1,88 @@
+mammal:
+  vocabulary: animals
+  name_translations: <%= { es: "Mamífero", en: "Mammal" }.to_json %>
+  description_translations: <%= { es: "Vertebrado caracterizado por presentar glándulas mamarias", en: "Vertebrates characterised by the possession of mammary glands" }.to_json %>
+  slug: <%= "animals-mammal" %>
+  position: 0
+  level: 0
+dog:
+  vocabulary: animals
+  name_translations: <%= { es: "Perro", en: "Dog" }.to_json %>
+  description_translations: <%= { es: "Mamífero que ladra", en: "Mammal who barks" }.to_json %>
+  slug: <%= "animals-dog" %>
+  position: 0
+  level: 1
+  term_id: <%= ActiveRecord::FixtureSet.identify(:mammal) %>
+cat:
+  vocabulary: animals
+  name_translations: <%= { es: "Gato", en: "Cat" }.to_json %>
+  description_translations: <%= { es: "Mamífero que maúlla", en: "Mammal who meows" }.to_json %>
+  slug: <%= "animals-cat" %>
+  position: 1
+  level: 1
+  term_id: <%= ActiveRecord::FixtureSet.identify(:mammal) %>
+bird:
+  vocabulary: animals
+  name_translations: <%= { es: "Pájaro", en: "Bird" }.to_json %>
+  description_translations: <%= { es: "Grupo de vertebrados, de sangre caliente, que caminan, caracterizados por poner huevos con cáscara dura, entre otras cosas", en: "Group of endothermic vertebrates, characterised by the laying of hard-shelled eggs among other things" }.to_json %>
+  slug: <%= "animals-bird" %>
+  position: 0
+  level: 0
+swift:
+  vocabulary: animals
+  name_translations: <%= { es: "Vencejo", en: "Swift" }.to_json %>
+  description_translations: <%= { es: "Ave que vuela casi todo el tiempo", en: "Bird that flies almost all the time" }.to_json %>
+  slug: <%= "animals-swift" %>
+  position: 0
+  level: 1
+  term_id: <%= ActiveRecord::FixtureSet.identify(:bird) %>
+pigeon:
+  vocabulary: animals
+  name_translations: <%= { es: "Paloma", en: "Pigeon" }.to_json %>
+  description_translations: <%= { es: "Ave que suele encontrarse donde hay humanos", en: "Bird that is usually where there are humans" }.to_json %>
+  slug: <%= "animals-pigeon" %>
+  position: 1
+  level: 1
+  term_id: <%= ActiveRecord::FixtureSet.identify(:bird) %>
+culture_term:
+  vocabulary: issues_vocabulary
+  name_translations: <%= { 'en' => 'Culture', 'es' => 'Cultura' }.to_json %>
+  description_translations: <%= { 'en' => 'Culture description', 'es' => 'Descriptión de cultura' }.to_json %>
+  slug: culture
+  position: 1
+  level: 0
+women_term:
+  vocabulary: issues_vocabulary
+  name_translations: <%= { 'en' => 'Women', 'es' => 'Mujer' }.to_json %>
+  description_translations: <%= { 'en' => 'Women description', 'es' => 'Descripción de mujeres' }.to_json %>
+  slug: women
+  position: 2
+  level: 0
+economy_term:
+  vocabulary: issues_vocabulary
+  name_translations: <%= { 'en' => 'Economy', 'es' => 'Economía' }.to_json %>
+  description_translations: <%= { 'en' => 'Economy description', 'es' => 'Descrión de economía' }.to_json %>
+  slug: economy
+  position: 3
+  level: 0
+sports_term:
+  vocabulary: issues_vocabulary
+  name_translations: <%= { 'en' => 'Sports', 'es' => 'Deportes' }.to_json %>
+  description_translations: <%= { 'en' => 'Sport description', 'es' => 'Descriptión de deportes' }.to_json %>
+  slug: sport
+  position: 4
+  level: 0
+center_term:
+  vocabulary: scopes_vocabulary
+  name_translations: <%= { 'en' => 'Center', 'es' => 'Centro' }.to_json %>
+  description_translations: <%= { 'en' => 'Center of the city', 'es' => 'Zona centro de la ciudad' }.to_json %>
+  slug: center
+  position: 1
+  level: 0
+old_town_term:
+  vocabulary: scopes_vocabulary
+  name_translations: <%= { 'en' => 'Old town', 'es' => 'Casco histórico' }.to_json %>
+  description_translations: <%= { 'en' => 'Historic part of town', 'es' => 'Centro histórico de la ciudad' }.to_json %>
+  slug: old-town
+  position: 2
+  level: 0

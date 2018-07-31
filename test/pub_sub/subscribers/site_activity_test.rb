@@ -136,8 +136,9 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
 
   def test_site_deleted_event_handling
 
-    # manually deassociate scopes and ids from items, so they can be destroyed
+    # manually deassociate terms from items, so they can be destroyed
     site.processes.update_all(scope_id: nil, issue_id: nil)
+    site.people.update_all(political_group_id: nil)
 
     assert_difference "Activity.count" do
       site.destroy

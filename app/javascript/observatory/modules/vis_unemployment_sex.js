@@ -2,6 +2,7 @@ import { Class, d3 } from 'shared'
 
 export var VisUnemploymentSex = Class.extend({
   init: function(divId, city_id, unemplAgeData) {
+    this.location_id = parseInt(city_id);
     this.container = divId;
     this.data = null;
     this.unemplAgeData = unemplAgeData;
@@ -57,6 +58,13 @@ export var VisUnemploymentSex = Class.extend({
       .defer(unemployed.get)
       .await(function (error, population, unemployment) {
         if (error) throw error;
+
+        if(this.location_id === 8077) {
+          let factor = 0.7786712568;
+          population.forEach((d) => {
+            d.value = d.value * factor;
+          })
+        }
 
         var nested = d3.nest()
           .key(function(d) { return d.date; })

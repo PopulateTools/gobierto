@@ -61,7 +61,7 @@ Rake::Task["db:fixtures:load"].invoke
 ::GobiertoCommon::ContentBlock.reset_column_information
 Rake::Task["gobierto_people:counter_cache:reset"].invoke
 
-GobiertoPeople::PoliticalGroup.reset_position!
+GobiertoCommon::Term.reset_position!
 
 ::GobiertoCommon::ContentBlock.reset_column_information
 

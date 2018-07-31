@@ -1,7 +1,7 @@
-window.GobiertoAdmin.ScopesController = (function() {
-  function ScopesController() {}
+window.GobiertoAdmin.TermsController = (function() {
+  function TermsController() {}
 
-  ScopesController.prototype.index = function() {
+  TermsController.prototype.index = function() {
     _handleSortableList();
   };
 
@@ -55,7 +55,7 @@ window.GobiertoAdmin.ScopesController = (function() {
     });
   }
 
-  return ScopesController;
+  return TermsController;
 })();
 
-window.GobiertoAdmin.scopes_controller = new GobiertoAdmin.ScopesController;
+window.GobiertoAdmin.terms_controller = new GobiertoAdmin.TermsController;

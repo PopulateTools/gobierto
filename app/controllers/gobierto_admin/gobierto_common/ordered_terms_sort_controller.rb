@@ -12,7 +12,7 @@ module GobiertoAdmin
 
       def vocabulary
         @vocabulary ||= begin
-                          vocabulary_id = current_site.send(:"#{ params[:module] }_settings")&.send(:"#{ params[:vocabulary] }_vocabulary_id")
+                          vocabulary_id = params[:vocabulary_id]
                           current_site.vocabularies.find(vocabulary_id)
                         end
       end

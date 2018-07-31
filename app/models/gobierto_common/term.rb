@@ -29,6 +29,19 @@ module GobiertoCommon
       vocabulary&.name
     end
 
+    def destroy
+      return false if has_dependent_resources?
+      super
+    end
+
+    def has_dependent_resources?
+      enabled_classes_with_vocabularies.any? do |klass|
+        klass.vocabularies.keys.any? do |association|
+          klass.where(klass.reflections[association.to_s].foreign_key => id).exists?
+        end
+      end
+    end
+
     private
 
     def calculate_level
@@ -52,6 +65,12 @@ module GobiertoCommon
       if parent_term.present?
         self.vocabulary_id = parent_term.vocabulary_id
       end
+    end
+
+    def enabled_classes_with_vocabularies
+      vocabulary.site.configuration.modules.map do |module_name|
+        module_name.constantize.try(:classes_with_vocabularies)
+      end.flatten.compact
     end
   end
 end

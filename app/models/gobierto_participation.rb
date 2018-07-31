@@ -5,6 +5,10 @@ module GobiertoParticipation
     "gpart_"
   end
 
+  def self.classes_with_vocabularies
+    [GobiertoParticipation::Process]
+  end
+
   def self.searchable_models
     [GobiertoParticipation::Process, GobiertoParticipation::Contribution]
   end

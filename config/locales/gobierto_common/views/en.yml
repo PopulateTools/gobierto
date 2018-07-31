@@ -10,3 +10,5 @@ en:
     events:
       gobierto_common_collection_created: Collection created
       gobierto_common_collection_updated: Collection updated
+      gobierto_common_term_created: Term created
+      gobierto_common_term_updated: Term updated

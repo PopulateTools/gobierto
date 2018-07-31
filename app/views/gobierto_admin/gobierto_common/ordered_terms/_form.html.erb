@@ -2,7 +2,7 @@
 
 <%= form_for(
   @term_form, as: :term,
-  url: @term_form.persisted? ? admin_ordered_vocabulary_term_path(id: @term_form) : admin_ordered_vocabulary_terms_path, data: { "globalized-form-container" => true}) do |f| %>
+  url: @term_form.persisted? ? admin_common_term_path(@term_form) : admin_common_vocabulary_terms_path, data: { "globalized-form-container" => true}) do |f| %>
 
   <div class="globalized_fields">
     <%= render "gobierto_admin/shared/form_locale_switchers" %>
@@ -25,6 +25,13 @@
     <div class="form_item input_text">
       <%= f.label :slug %>
       <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+    </div>
+
+    <div class="form_item select_control">
+      <%= f.label :term_id %>
+      <%= f.select :term_id,
+        options_for_select(@parent_terms, selected: @term_form.term.term_id),
+        { include_blank: true } %>
     </div>
   </div>
 

@@ -17,7 +17,7 @@ en:
             created_at: Created at
             name: Name
           new: New
-          view: View term
+          title: Terms of %{vocabulary}
         new_modal:
           title: New term
       terms:

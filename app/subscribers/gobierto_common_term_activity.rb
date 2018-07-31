@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 module Subscribers
-  class IssueActivity < ::Subscribers::Base
-    def issue_created(event)
-      create_activity_from_event(event, "issues.issue_created")
+  class GobiertoCommonTermActivity < ::Subscribers::Base
+
+    def term_created(event)
+      create_activity_from_event(event, "gobierto_common.term_created")
     end
 
-    def issue_updated(event)
-      create_activity_from_event(event, "issues.issue_updated")
+    def term_updated(event)
+      create_activity_from_event(event, "gobierto_common.term_updated")
     end
 
     private

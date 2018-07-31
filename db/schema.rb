@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_16_092701) do
+ActiveRecord::Schema.define(version: 2018_07_28_095650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -833,30 +833,6 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.index ["plan_type_id"], name: "index_gplan_plans_on_plan_type_id"
     t.index ["site_id"], name: "index_gplan_plans_on_site_id"
     t.index ["title_translations"], name: "index_gplan_plans_on_title_translations", using: :gin
-  end
-
-  create_table "issues", force: :cascade do |t|
-    t.bigint "site_id"
-    t.jsonb "name_translations"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "position", default: 0, null: false
-    t.jsonb "description_translations"
-    t.string "slug", default: "", null: false
-    t.index ["name_translations"], name: "index_issues_on_name_translations", using: :gin
-    t.index ["position"], name: "index_issues_on_position"
-    t.index ["site_id", "slug"], name: "index_issues_on_site_id_and_slug", unique: true
-    t.index ["site_id"], name: "index_issues_on_site_id"
-  end
-
-  create_table "scopes", force: :cascade do |t|
-    t.bigint "site_id", null: false
-    t.jsonb "name_translations", null: false
-    t.jsonb "description_translations", null: false
-    t.integer "position", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "slug", default: "", null: false
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|

@@ -1,10 +1,8 @@
 <div class="admin_breadcrumb">
   <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
   <%= link_to t("gobierto_admin.gobierto_people.people.index.title"), admin_people_people_path %> »
-  <%= link_to t("gobierto_admin.gobierto_people.configuration.title"), admin_people_configuration_political_groups_path %> »
-  <% if controller_name == 'political_groups' %>
-    <%= t("gobierto_admin.gobierto_people.political_groups.title") %>
-  <% elsif controller_name == 'settings' %>
+  <%= link_to t("gobierto_admin.gobierto_people.configuration.title"), edit_admin_people_configuration_settings_path %> »
+  <% if controller_name == 'settings' %>
     <%= t("gobierto_admin.gobierto_people.settings.title") %>
   <% end %>
 </div>
@@ -15,9 +13,6 @@
   <ul>
     <li <%= %Q{class="active"}.html_safe if controller_name == 'settings'%>>
       <%= link_to t("gobierto_admin.gobierto_people.settings.title"), edit_admin_people_configuration_settings_path %>
-    </li>
-    <li <%= %Q{class="active"}.html_safe if controller_name == 'political_groups'%>>
-      <%= link_to t("gobierto_admin.gobierto_people.political_groups.title"), admin_people_configuration_political_groups_path %>
     </li>
   </ul>
 </div>

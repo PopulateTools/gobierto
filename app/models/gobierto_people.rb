@@ -3,6 +3,10 @@ module GobiertoPeople
     "gp_"
   end
 
+  def self.classes_with_vocabularies
+    [GobiertoPeople::Person]
+  end
+
   def self.searchable_models
     [ GobiertoPeople::Person, GobiertoPeople::PersonPost, GobiertoPeople::PersonStatement ]
   end

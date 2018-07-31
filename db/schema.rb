@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_28_095650) do
+ActiveRecord::Schema.define(version: 2018_07_31_165523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -574,17 +574,6 @@ ActiveRecord::Schema.define(version: 2018_07_28_095650) do
     t.index ["destinations_meta"], name: "index_gp_trips_on_destinations_meta", using: :gin
     t.index ["meta"], name: "index_gp_trips_on_meta", using: :gin
     t.index ["person_id"], name: "index_gp_trips_on_person_id"
-  end
-
-  create_table "gpart_areas", force: :cascade do |t|
-    t.bigint "site_id"
-    t.jsonb "name_translations"
-    t.jsonb "slug_translations"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name_translations"], name: "index_gpart_areas_on_name_translations", using: :gin
-    t.index ["site_id"], name: "index_gpart_areas_on_site_id"
-    t.index ["slug_translations"], name: "index_gpart_areas_on_slug_translations", using: :gin
   end
 
   create_table "gpart_comments", force: :cascade do |t|

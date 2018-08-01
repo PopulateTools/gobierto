@@ -12,9 +12,9 @@
 <table class="user-list">
   <tr>
     <th class='icon_col'></th>
+    <th class='icon_col'></th>
     <th><%= t(".header.name") %></th>
     <th></th>
-    <th class='icon_col'></th>
   </tr>
 
   <tbody>
@@ -26,7 +26,12 @@
           <% end %>
         </td>
         <td>
-          <%= link_to admin_common_vocabulary_terms_path(vocabulary) do %>
+          <%= link_to admin_common_vocabulary_path(vocabulary), method: :delete, title: t("views.delete"), data: { confirm: t(".delete_confirm") } do %>
+            <i class="fa fa-trash"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_admin_common_vocabulary_path(vocabulary), class: "open_remote_modal" do %>
             <%= vocabulary.name %>
           <% end %>
         </td>
@@ -34,11 +39,6 @@
           <%= link_to admin_common_vocabulary_terms_path(vocabulary), class: "view_item" do %>
             <i class="fa fa-eye"></i>
             <%= t(".view_vocabulary") %>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to admin_common_vocabulary_path(vocabulary), method: :delete, title: t("views.delete"), data: { confirm: t(".delete_confirm") } do %>
-            <i class="fa fa-trash"></i>
           <% end %>
         </td>
       </tr>

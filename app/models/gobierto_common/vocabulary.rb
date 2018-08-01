@@ -6,6 +6,5 @@ module GobiertoCommon
     has_many :terms, dependent: :destroy
 
     validates :site, :name, presence: true
-    validates :name, uniqueness: { scope: :site }
   end
 end

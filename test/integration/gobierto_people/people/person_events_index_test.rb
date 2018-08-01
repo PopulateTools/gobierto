@@ -67,7 +67,9 @@ module GobiertoPeople
         richard.events.destroy_all
         far_past_event = create_event(title: "Richard far past event", starts_at: :far_past)
         past_event = create_event(title: "Richard past event", starts_at: :past)
+        pending_past_event = create_event(title: "Richard past pending event", starts_at: :past, state: :pending)
         future_event = create_event(title: "Richard future event", starts_at: :future)
+        pending_future_event = create_event(title: "Richard future pending event", starts_at: :future, state: :pending)
         far_future_event = create_event(title: "Richard far future event", starts_at: :far_future)
 
         with_javascript do
@@ -79,6 +81,7 @@ module GobiertoPeople
             within ".events-summary" do
               assert has_no_content?(far_past_event.title)
               assert has_no_content?(past_event.title)
+              assert has_no_content?(pending_future_event.title)
               assert ordered_elements(page, [future_event.title, far_future_event.title])
             end
 
@@ -87,6 +90,7 @@ module GobiertoPeople
             within ".events-summary" do
               assert has_no_content?(future_event.title)
               assert has_no_content?(far_future_event.title)
+              assert has_no_content?(pending_past_event.title)
               assert ordered_elements(page, [past_event.title, far_past_event.title])
             end
           end

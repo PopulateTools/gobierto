@@ -51,9 +51,15 @@ module GobiertoPeople
       @latest_activity = ActivityCollectionDecorator.new(Activity.for_recipient(@person).limit(30).sorted.page(params[:page]))
 
       # custom engine
-      @last_events = QueryWithEvents.new(source: @person.attending_events.with_interest_group.sorted_backwards.limit(LAST_ITEMS_SIZE),
-                                         start_date: filter_start_date,
-                                         end_date: filter_end_date)
+      @last_events = QueryWithEvents.new(
+        source: @person.attending_events
+                       .published
+                       .with_interest_group
+                       .sorted_backwards
+                       .limit(LAST_ITEMS_SIZE),
+        start_date: filter_start_date,
+        end_date: filter_end_date
+      )
 
       last_trips_relation = @person.trips.between_dates(filter_start_date, filter_end_date).sorted.limit(LAST_ITEMS_SIZE)
       @last_trips = CollectionDecorator.new(last_trips_relation, decorator: TripDecorator)

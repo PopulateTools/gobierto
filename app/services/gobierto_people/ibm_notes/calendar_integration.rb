@@ -100,11 +100,15 @@ module GobiertoPeople
         event_form = GobiertoPeople::CalendarSyncEventForm.new(person_event_params)
 
         if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
-          log_destroy_rule
+          log_destroy_rule(event_form.title)
           event_form.destroy
           nil
         else
-          if !event_form.save then log_invalid_event(event_form.errors.messages) end
+          if event_form.save
+            log_saved_event(event_form)
+          else
+            log_invalid_event(event_form)
+          end
           event_form.external_id
         end
       end

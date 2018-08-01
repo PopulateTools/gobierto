@@ -11,11 +11,10 @@
 Gobierto modules implement well defined and isolated features of the application. Examples of modules are:
 
 - Gobierto Budgets: municipalities budgets visualization.
-- Gobierto Officials: senior officials official information and agenda publication.
+- Gobierto People: senior officials official information and agenda publication.
 - Gobierto Observatory: indicators and statics of a municipality.
-- Gobierto CMS: small CMS system.
 - Gobierto Participation: participation in phased processes.
-- Gobierto Indicators: indicators ita, informparticipa and gci
+- Gobierto Observatory: indicators ita, informparticipa and gci
 - Gobierto Plans: plans
 
 Modules can be activated or disabled by the **manager**, but their code will be included in all the installations of Gobierto.
@@ -468,3 +467,17 @@ end
 ## Notifications
 
 Does the new module expose resources to be subscribed to? Examples of subscribable resources are people agendas, or a participatory process. If so you need to add it to the constant [`MODULES_WITH_NOTIFICATIONS`](https://github.com/PopulateTools/gobierto/blob/41-ibm-notes-attachments/app/models/site_configuration.rb#L21).
+
+
+## Search concern
+
+If your model implements any resource that should be _searchable_, you just need expose the entities in the main module model under `searchable_models` class method.
+
+For example, `GobiertoPeople` module exposes these models:
+
+```ruby
+  def self.searchable_models
+    [ GobiertoPeople::Person, GobiertoPeople::PersonPost, GobiertoPeople::PersonStatement ]
+  end
+```
+

@@ -17,7 +17,7 @@ ca:
             name: Nom
           new: Nou
           title: Vocabularis
-          view_vocabulary: Veure vocabulari
+          view_vocabulary: Veure termes
         new:
           new: Nou Vocabulari
         new_modal:

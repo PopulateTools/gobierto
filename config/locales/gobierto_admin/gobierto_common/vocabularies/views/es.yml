@@ -17,7 +17,7 @@ es:
             name: Nombre
           new: Nuevo
           title: Vocabularios
-          view_vocabulary: Ver vocabulario
+          view_vocabulary: Ver términos
         new:
           new: Nuevo Vocabulario
         new_modal:

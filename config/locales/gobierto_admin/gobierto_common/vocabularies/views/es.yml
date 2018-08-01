@@ -8,6 +8,7 @@ es:
         form:
           placeholders:
             name: Reino animal
+            slug: reino_animal
         index:
           delete_confirm: Seguro? Esta operación no tiene marcha atrás.
           header:

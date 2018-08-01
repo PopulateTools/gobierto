@@ -63,7 +63,7 @@ module GobiertoAdmin
       private
 
       def vocabulary_params
-        params.require(:vocabulary).permit(:name)
+        params.require(:vocabulary).permit(:slug, name_translations: [*I18n.available_locales])
       end
 
       def ignored_vocabulary_attributes

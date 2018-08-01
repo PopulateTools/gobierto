@@ -8,6 +8,7 @@ ca:
         form:
           placeholders:
             name: Regne animal
+            slug: regne_animal
         index:
           delete_confirm: Estàs segur? Aquesta operació no és reversible
           header:

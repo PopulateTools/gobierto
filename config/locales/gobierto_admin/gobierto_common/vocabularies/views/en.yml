@@ -8,6 +8,7 @@ en:
         form:
           placeholders:
             name: Animal kingdom
+            slug: animal_kingdom
         index:
           delete_confirm: Are you sure? This operation can not be undone
           header:

@@ -21,7 +21,6 @@ fixtures_to_load = [
   "gobierto_people/people",
   "gobierto_people/person_statements",
   "gobierto_people/person_posts",
-  "gobierto_people/political_groups",
   "gobierto_people/trips",
   "gobierto_common/collections",
   "gobierto_common/terms",
@@ -62,7 +61,7 @@ Rake::Task["db:fixtures:load"].invoke
 ::GobiertoCommon::ContentBlock.reset_column_information
 Rake::Task["gobierto_people:counter_cache:reset"].invoke
 
-GobiertoPeople::PoliticalGroup.reset_position!
+GobiertoCommon::Term.reset_position!
 
 ::GobiertoCommon::ContentBlock.reset_column_information
 

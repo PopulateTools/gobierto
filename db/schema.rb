@@ -537,20 +537,6 @@ ActiveRecord::Schema.define(version: 2018_07_31_165523) do
     t.index ["title_translations"], name: "index_gp_person_statements_on_title_translations", using: :gin
   end
 
-  create_table "gp_political_groups", id: :serial, force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.integer "site_id"
-    t.integer "admin_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "position", default: 0, null: false
-    t.string "slug", null: false
-    t.index ["admin_id"], name: "index_gp_political_groups_on_admin_id"
-    t.index ["position"], name: "index_gp_political_groups_on_position"
-    t.index ["site_id"], name: "index_gp_political_groups_on_site_id"
-    t.index ["slug"], name: "index_gp_political_groups_on_slug", unique: true
-  end
-
   create_table "gp_settings", id: :serial, force: :cascade do |t|
     t.integer "site_id"
     t.string "key", default: "", null: false

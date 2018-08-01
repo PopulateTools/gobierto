@@ -93,6 +93,23 @@ module GobiertoPeople
       end
     end
 
+    def test_person_events_by_date
+      government_member.events.destroy_all
+
+      10.times do |i|
+        create_event(person: government_member, starts_at: (Time.now.tomorrow - i.days).to_s, title: "Event #{i}")
+      end
+      ::GobiertoCalendars::Event.update_all(state: :pending)
+
+      with_current_site(site) do
+        visit gobierto_people_events_path(date: Date.yesterday.to_s)
+
+        assert has_no_link?("Event 1")
+        assert has_no_link?("Event 2")
+        assert has_no_link?("Event 3")
+      end
+    end
+
     def test_person_events_filter
       with_current_site(site) do
         visit @path

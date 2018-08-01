@@ -1,9 +1,0 @@
-north:
-  site: madrid
-  name_translations: <%= { 'en' => 'North', 'es' => 'Norte' }.to_json %>
-  slug_translations: <%= { 'en' => 'north', 'es' => 'norte' }.to_json %>
-
-south:
-  site: madrid
-  name_translations: <%= { 'en' => 'South', 'es' => 'Sur' }.to_json %>
-  slug_translations: <%= { 'en' => 'south', 'es' => 'sur' }.to_json %>

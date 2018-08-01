@@ -5,6 +5,8 @@ ca:
       vocabularies:
         edit:
           edit: Editar %{vocabulary}
+        edit_modal:
+          title: Editar %{vocabulary}
         form:
           placeholders:
             name: Regne animal
@@ -18,6 +20,8 @@ ca:
           view_vocabulary: Veure vocabulari
         new:
           new: Nou Vocabulari
+        new_modal:
+          title: Nou Vocabulari
         show:
           created_at: Creació
           terms: Termes

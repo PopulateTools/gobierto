@@ -5,6 +5,8 @@ en:
       vocabularies:
         edit:
           edit: Edit %{vocabulary}
+        edit_modal:
+          title: Edit %{vocabulary}
         form:
           placeholders:
             name: Animal kingdom
@@ -18,6 +20,8 @@ en:
           view_vocabulary: See vocabulary
         new:
           new: New Vocabulary
+        new_modal:
+          title: New Vocabulary
         show:
           created_at: Created at
           terms: Terms

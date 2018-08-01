@@ -6,7 +6,7 @@
 <h1><%= t(".title") %></h1>
 
 <div class="admin_tools right">
-  <%= link_to t(".new"), new_admin_common_vocabulary_path, class: "button" %>
+  <%= link_to t(".new"), new_admin_common_vocabulary_path, class: "button open_remote_modal" %>
 </div>
 
 <table class="user-list">
@@ -21,7 +21,7 @@
     <% @vocabularies.each do |vocabulary| %>
       <tr id="vocabulary-item-<%= vocabulary.id %>" class="<%= cycle("odd", "even") %>">
         <td>
-          <%= link_to edit_admin_common_vocabulary_path(vocabulary) do %>
+          <%= link_to edit_admin_common_vocabulary_path(vocabulary), class: "open_remote_modal" do %>
             <i class="fa fa-edit"></i>
           <% end %>
         </td>

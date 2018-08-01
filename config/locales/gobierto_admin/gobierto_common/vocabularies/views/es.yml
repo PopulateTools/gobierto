@@ -5,6 +5,8 @@ es:
       vocabularies:
         edit:
           edit: Editar %{vocabulary}
+        edit_modal:
+          title: Editar %{vocabulary}
         form:
           placeholders:
             name: Reino animal
@@ -18,6 +20,8 @@ es:
           view_vocabulary: Ver vocabulario
         new:
           new: Nuevo Vocabulario
+        new_modal:
+          title: Nuevo Vocabulario
         show:
           created_at: Creación
           terms: Términos

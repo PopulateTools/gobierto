@@ -17,6 +17,7 @@ module GobiertoAdmin
 
       def new
         @vocabulary_form = VocabularyForm.new(site_id: current_site.id)
+        render(:new_modal, layout: false) && return if request.xhr?
       end
 
       def create
@@ -25,10 +26,11 @@ module GobiertoAdmin
         if @vocabulary_form.save
           track_create_activity
           redirect_to(
-            edit_admin_common_vocabulary_path(@vocabulary_form.vocabulary),
+            admin_common_vocabularies_path,
             notice: t(".success")
           )
         else
+          render(:new_modal, layout: false) && return if request.xhr?
           render :new
         end
       end
@@ -36,6 +38,7 @@ module GobiertoAdmin
       def edit
         vocabulary = find_vocabulary
         @vocabulary_form = VocabularyForm.new(vocabulary.attributes.except(*ignored_vocabulary_attributes).merge(site_id: current_site.id))
+        render(:edit_modal, layout: false) && return if request.xhr?
       end
 
       def update
@@ -43,10 +46,11 @@ module GobiertoAdmin
         if @vocabulary_form.save
           track_update_activity
           redirect_to(
-            edit_admin_common_vocabulary_path(@vocabulary_form.vocabulary),
+            admin_common_vocabularies_path,
             notice: t(".success")
           )
         else
+          render(:edit_modal, layout: false) && return if request.xhr?
           render :edit
         end
       end

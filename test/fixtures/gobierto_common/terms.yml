@@ -86,3 +86,15 @@ old_town_term:
   slug: old-town
   position: 2
   level: 0
+marvel_term:
+  vocabulary: madrid_political_groups_vocabulary
+  name_translations: <%= { "en" => "Marvel", "es" => "Marvel" }.to_json %>
+  slug: marvel
+  position: 1
+  level: 0
+dc_term:
+  vocabulary: madrid_political_groups_vocabulary
+  name_translations: <%= { "en" => "DC", "es" => "DC" }.to_json %>
+  slug: dc
+  position: 2
+  level: 0

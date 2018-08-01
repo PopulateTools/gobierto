@@ -38,8 +38,8 @@ module GobiertoPeople
 
     def political_groups
       @political_groups ||= [
-        gobierto_people_political_groups(:marvel),
-        gobierto_people_political_groups(:dc)
+        gobierto_common_terms(:marvel_term),
+        gobierto_common_terms(:dc_term)
       ]
     end
 

@@ -37,6 +37,12 @@
         </div>
       </div>
 
+      <div class="form_item select_control">
+        <%= f.label :political_groups_vocabulary_id %>
+        <%= f.select :political_groups_vocabulary_id,
+          options_for_select(@settings_form.vocabularies_options, selected: @settings_form.gobierto_module_settings.political_groups_vocabulary_id),
+          { include_blank: true } %>
+      </div>
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

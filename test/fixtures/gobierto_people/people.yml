@@ -17,7 +17,7 @@ richard:
   visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
   category: <%= GobiertoPeople::Person.categories["politician"] %>
   party: <%= GobiertoPeople::Person.parties["government"] %>
-  political_group: marvel
+  political_group: marvel_term
   position: 1
   email: richard@example.com
   google_calendar_token: gct1
@@ -41,7 +41,7 @@ nelson:
   visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
   category: <%= GobiertoPeople::Person.categories["politician"] %>
   party: <%= GobiertoPeople::Person.parties["government"] %>
-  political_group: marvel
+  political_group: marvel_term
   position: 2
   email: nelson@example.com
   google_calendar_token: gct2
@@ -137,7 +137,7 @@ neil:
   visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
   category: <%= GobiertoPeople::Person.categories["politician"] %>
   party: <%= GobiertoPeople::Person.parties["opposition"] %>
-  political_group: dc
+  political_group: dc_term
   position: 5
   email: neil@example.com
   google_calendar_token: gct5

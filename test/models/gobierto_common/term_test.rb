@@ -15,6 +15,18 @@ class TermTest < ActiveSupport::TestCase
     @dependent_level_term ||= gobierto_common_terms(:dog)
   end
 
+  def terms_with_dependencies
+    @terms_with_dependencies ||= {
+      issue:  gobierto_common_terms(:culture_term),
+      scope:  gobierto_common_terms(:center_term),
+      political_group: gobierto_common_terms(:marvel_term)
+    }
+  end
+
+  def term_without_dependencies
+    @term_without_dependencies ||= gobierto_common_terms(:cat)
+  end
+
   def site
     @site ||= sites(:madrid)
   end
@@ -42,5 +54,15 @@ class TermTest < ActiveSupport::TestCase
     assert_equal vocabulary, new_term.vocabulary
     assert_nil new_term.parent_term
     assert_equal 0, new_term.terms.count
+  end
+
+  def test_destroy_of_term_with_dependencies
+    terms_with_dependencies.each do |_, term|
+      refute term.destroy
+    end
+  end
+
+  def test_destroy_of_term_without_dependencies
+    assert term_without_dependencies.destroy
   end
 end

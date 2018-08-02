@@ -29,8 +29,8 @@ module GobiertoPeople
       @nelson ||= gobierto_people_people(:nelson)
     end
 
-    def event_attributes
-      @event_attributes ||= {
+    def event_attributes(attrs = {})
+      {
         external_id: "123",
         site_id: site.id,
         person_id: person.id,
@@ -40,8 +40,9 @@ module GobiertoPeople
         ends_at: event.ends_at,
         state: event.state,
         locations: [],
-        attendees: []
-      }
+        attendees: [],
+        integration_name: 'google'
+      }.merge(attrs)
     end
 
     def valid_event_form
@@ -59,7 +60,8 @@ module GobiertoPeople
         ends_at: nil,
         state: nil,
         locations: [],
-        attendees: []
+        attendees: [],
+        integration_name: 'google'
       )
     end
 
@@ -110,5 +112,9 @@ module GobiertoPeople
       assert_equal "Nelson event", event_3_form.event.title
     end
 
+    def test_event_in_sync_range_validation
+      refute CalendarSyncEventForm.new(event_attributes(starts_at: Time.now - 1.day, integration_name: 'google')).valid?
+      assert CalendarSyncEventForm.new(event_attributes(starts_at: Time.now - 1.day, integration_name: 'ibm_notes')).valid?
+    end
   end
 end

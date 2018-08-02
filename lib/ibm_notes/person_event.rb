@@ -4,6 +4,15 @@ module IbmNotes
   class PersonEvent
     attr_accessor :id, :title, :description, :starts_at, :ends_at, :person, :location, :attendees
 
+    MADRID_TIMEZONES = [
+      "Romance Standard Time",
+      "Western/Central Europe",
+      "GMT+1 Standard Time",
+      "Europe/Madrid",
+      "Central Europe Standard Time",
+      "Fus horari desconegut (1) Standard Time"
+    ].freeze
+
     def initialize(person, response_event)
       @id = set_id(response_event)
       @title = response_event["summary"]
@@ -26,21 +35,13 @@ module IbmNotes
 
     def set_start_and_end_date(event)
       time_zone = if event["start"]["tzid"].present?
-        case event["start"]["tzid"]
-          when "Romance Standard Time"
-            ActiveSupport::TimeZone["Madrid"]
-          when "Western/Central Europe"
-            ActiveSupport::TimeZone["Madrid"]
-          when "GMT+1 Standard Time"
-            ActiveSupport::TimeZone["Madrid"]
-          when "Europe/Madrid"
-            ActiveSupport::TimeZone["Madrid"]
-          when "Central Europe Standard Time"
-            ActiveSupport::TimeZone["Madrid"]
-          else
-            Rollbar.error(Exception.new("[GobiertoCalendars] Unknown IBM Notes time zone #{event["start"]["tzid"]}"))
-          end
-      end
+                    if MADRID_TIMEZONES.include?(event["start"]["tzid"])
+                      ActiveSupport::TimeZone["Madrid"]
+                    else
+                      Rollbar.error(Exception.new("[GobiertoCalendars] Unknown IBM Notes time zone #{event["start"]["tzid"]}"))
+                      nil
+                    end
+                  end
 
       if time_zone
         @starts_at = time_zone.parse("#{event["start"]["date"]} #{event["start"]["time"]}").utc

@@ -120,7 +120,8 @@ module GobiertoPeople
           ends_at: parse_date(event.end),
           state: state,
           attendees: event_attendees(event),
-          notify: occurrence.nil? || occurrence == 0
+          notify: occurrence.nil? || occurrence == 0,
+          integration_name: @configuration.integration_name
         }
 
         if event.location.present?

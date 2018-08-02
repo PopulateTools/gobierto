@@ -94,7 +94,8 @@ module GobiertoPeople
           state: state,
           attendees: ibm_notes_event.attendees,
           locations_attributes: {"0" => locations_attributes },
-          notify: true
+          notify: true,
+          integration_name: calendar_configuration.integration_name
         }
 
         event_form = GobiertoPeople::CalendarSyncEventForm.new(person_event_params)
@@ -177,7 +178,7 @@ module GobiertoPeople
       end
 
       def sync_range_start
-        GobiertoCalendars.sync_range_start.iso8601.split('+')[0].concat('Z')
+        (GobiertoCalendars.sync_range_start - 2.days).iso8601.split('+')[0].concat('Z')
       end
 
       def plain_text_password

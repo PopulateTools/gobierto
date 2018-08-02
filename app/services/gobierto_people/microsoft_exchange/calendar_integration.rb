@@ -106,7 +106,8 @@ module GobiertoPeople
           title: filter_result.event_attributes[:title],
           description: filter_result.event_attributes[:description],
           site_id: site.id,
-          person_id: person.id
+          person_id: person.id,
+          integration_name: configuration.integration_name
         }
 
         event_params[:locations_attributes] = if event.location.present?

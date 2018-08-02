@@ -1,19 +1,24 @@
 animals:
   site: madrid
-  name: Animals
+  name_translations: <%= { es: "Animales", en: "Animals" }.to_json %>
+  slug: animals
 
 plan_categories:
   site: madrid
-  name: Government Plan
+  name_translations: <%= { es: "Plan de gobierno", en: "Government Plan" }.to_json %>
+  slug: government_plan
 
 issues_vocabulary:
   site: madrid
-  name: Issues Vocabulary
+  name_translations: <%= { es: "Vocabulario de Temas", en: "Issues Vocabulary" }.to_json %>
+  slug: issues_vocabulary
 
 scopes_vocabulary:
   site: madrid
-  name: Scopes Vocabulary
+  name_translations: <%= { es: "Vocabulario de Ámbitos", en: "Scopes Vocabulary" }.to_json %>
+  slug: scopes_vocabulary
 
 madrid_political_groups_vocabulary:
   site: madrid
-  name: Madrid Political Groups Vocabulary
+  name_translations: <%= { es: "Vocabulario de Grupos Políticos de Madrid", en: "Madrid Political Groups Vocabulary" }.to_json %>
+  slug: madrid_political_groups_vocabulary

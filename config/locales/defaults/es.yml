@@ -6,60 +6,19 @@ es:
         record_invalid: 'La validación falló: %{errors}'
   country: España
   date:
-    abbr_day_names:
-    - dom
-    - lun
-    - mar
-    - mié
-    - jue
-    - vie
-    - sáb
-    abbr_month_names:
-    - 
-    - ene
-    - feb
-    - mar
-    - abr
-    - may
-    - jun
-    - jul
-    - ago
-    - sep
-    - oct
-    - nov
-    - dic
-    day_names:
-    - domingo
-    - lunes
-    - martes
-    - miércoles
-    - jueves
-    - viernes
-    - sábado
+    abbr_day_names: '["dom", "lun", "mar", "mié", "jue", "vie", "sáb"]'
+    abbr_month_names: '[nil, "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago",
+      "sep", "oct", "nov", "dic"]'
+    day_names: '["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"]'
     formats:
       day_month: "%d/%m"
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
       short: "%d %b %Y"
       shortest: "%d %b %y"
-    month_names:
-    - 
-    - enero
-    - febrero
-    - marzo
-    - abril
-    - mayo
-    - junio
-    - julio
-    - agosto
-    - septiembre
-    - octubre
-    - noviembre
-    - diciembre
-    order:
-    - :day
-    - :month
-    - :year
+    month_names: '[nil, "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
+      "agosto", "septiembre", "octubre", "noviembre", "diciembre"]'
+    order: "[:day, :month, :year]"
   datetime:
     distance_in_words:
       about_x_hours:

@@ -25,27 +25,27 @@ ca:
           other: Mostrant <b>%{count}</b> %{entry_name}
           zero: No hi ha %{entry_name}
   invisible_captcha:
-    sentence_for_humans: Si ets humà, per favor, ignora aquest camp.
-    timestamp_error_message: Disculpa, això ha sigut molt rapid. Torna a enviar el
-      formulari.
+    sentence_for_humans: Si sou humà, si us plau, ignoreu aquest camp.
+    timestamp_error_message: Disculpeu, això ha anat molt ràpid. Si us plau, torneu
+      a enviar el formulari.
   issues:
     events:
       issues_issue_created: Tema creat
       issues_issue_updated: Tema actualitzat
   layouts:
-    accept_privacy_policy_signup: En registrar-se, accepta la Política de Privacitat
+    accept_privacy_policy_signup: En registrar-vos, accepteu la política de privacitat.
     application:
-      disclaimer: Aquesta web es una demostració de Gobierto, un programari de transparència
-        i participació
-      more_information: Més informació en gobierto.es
+      disclaimer: Aquest web es una demostració de Gobierto, un programari de transparència
+        i participació.
+      more_information: Més informació a gobierto.es
       search: Cerca...
       session:
-        alerts: Les teves alertes
-        login: Fes login o registra't
+        alerts: Les vostres alertes
+        login: Feu login o registreu-vos
         notifications: Notificacions
         sign_in: Iniciar sessió
-        sign_out: Surt
-        title: El teu compte
+        sign_out: Tancar sessió
+        title: El vostre compte
       start: Inici
     gobierto_budget_consultations:
       application:
@@ -95,11 +95,11 @@ ca:
       budget_line_item_expense: Partida pressupostària - Despesa
       budget_line_item_income: Partida pressupostària - Ingrés
       contribution_item: Aportacions
-      drag_drop_instructions: Arrossegueu i deixeu anar al costat esquerre per col·locar
+      drag_drop_instructions: Arrossegueu i deixeu anar al costat esquerre per a col·locar
         aquesta pàgina al menú
-      event_item: Event
-      no_results: La cerca no ha coincidit amb cap pàgina. Proveu alguna cosa com
-        usant termes més generals o verificant l'ortografia.
+      event_item: 'Esdeveniment '
+      no_results: La cerca no ha coincidit amb cap pàgina. Intenteu fer servir termes
+        més generals o comproveu l'ortografia.
       page_item: Pàgina
       person_item: Biografia
       person_post_item: Post
@@ -107,23 +107,23 @@ ca:
       powered_by: Gobierto utilitza <a href="https://www.algolia.com" target="_blank">Algolia</a>
         per a cercar
       process_item: Procés
-      updated: Actualitat
+      updated: Actualitzat
   scopes:
     events:
       scopes_scope_created: Àmbit creat
       scopes_scope_updated: Àmbit actualitzat
   shared:
     download_open_data:
-      exports: Descarrega les dades en format reutilitzable
+      exports: Descarregueu les dades en format reutilitzable
     poll_question:
-      multiple_choice_msg: Pots triar diverses opcions
+      multiple_choice_msg: Podeu triar diverses opcions
     poll_teaser:
       answer: Respondre
       next_question: Següent pregunta
       submit: Enviar
     polls:
       no_unanswered_polls: No hi ha enquestes pendents de contestar.
-      opinion: Opina
+      opinion: Opineu
   sites:
     events:
       sites_site_created: Site creat
@@ -135,12 +135,12 @@ ca:
       users_user_updated: Usuari actualitzat
   views:
     delete: Eliminar
-    drag_to_sort: Arrastra per a ordenar
+    drag_to_sort: Arrossegueu per a ordenar
     edit: Edita
     forms:
       max_characters: Màx. %{length} caràcters
       required: Obligatori
-      required_and_max_characters: Obligatori i Màx. %{length} caràcters
+      required_and_max_characters: Obligatori i màx. %{length} caràcters
     of: de
     pagination:
       next: Següent

@@ -40,7 +40,7 @@
                 "autoClose": false,
                 "date-format": "yyyy-mm-dd",
                 "time-format": "hh:ii",
-                "startDate": format_time(f, :starts_at)
+                "startDate": DateTime.parse(format_time(f, :starts_at)).iso8601
               },
               class: "air-datepicker"
             %>
@@ -56,7 +56,7 @@
                 "autoClose": false,
                 "date-format": "yyyy-mm-dd",
                 "time-format": "hh:ii",
-                "startDate": format_time(f, :ends_at, 2)
+                "startDate": DateTime.parse(format_time(f, :ends_at, 2)).iso8601
               },
               class: "air-datepicker"
             %>

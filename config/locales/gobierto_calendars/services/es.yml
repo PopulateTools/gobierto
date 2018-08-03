@@ -3,8 +3,8 @@ es:
   gobierto_calendars:
     calendar_integration:
       auth_error:
-        message: Las credenciales del calendario no son válidas
+        message: Las credenciales del calendario no son válidas.
       error:
-        message: Ha habido un problema sincronizando el calendario
+        message: Ha habido un problema sincronizando el calendario.
       timeout_error:
-        message: El tiempo de conexión al servidor de calendarios ha expirado
+        message: El tiempo de conexión al servidor de calendarios ha expirado.

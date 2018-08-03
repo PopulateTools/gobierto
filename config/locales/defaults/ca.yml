@@ -6,60 +6,20 @@ ca:
         record_invalid: 'La validació ha fallat: %{errors}'
   country: Espanya
   date:
-    abbr_day_names:
-    - Dg
-    - Dl
-    - Dm
-    - Dc
-    - Dj
-    - Dv
-    - Ds
-    abbr_month_names:
-    - 
-    - Gen
-    - Feb
-    - Mar
-    - Abr
-    - Mai
-    - Jun
-    - Jul
-    - Ago
-    - Set
-    - Oct
-    - Nov
-    - Des
-    day_names:
-    - Diumenge
-    - Dilluns
-    - Dimarts
-    - Dimecres
-    - Dijous
-    - Divendres
-    - Dissabte
+    abbr_day_names: '["dg", "dl", "dm", "dc", "dj", "dv", "ds"]'
+    abbr_month_names: '[nil, "gen", "feb", "mar", "abr", "mai", "jun", "jul", "ago",
+      "set", "oct", "nov", "des"]'
+    day_names: '["diumenge", "dilluns", "dimarts", "dimecres", "dijous", "divendres",
+      "dissabte"]'
     formats:
       day_month: "%d/%m"
       default: "%d-%m-%Y"
       long: "%d de %B de %Y"
       short: "%d de %b"
       shortest: "%d %b %y"
-    month_names:
-    - 
-    - Gener
-    - Febrer
-    - Març
-    - Abril
-    - Maig
-    - Juny
-    - Juliol
-    - Agost
-    - Setembre
-    - Octubre
-    - Novembre
-    - Desembre
-    order:
-    - :day
-    - :month
-    - :year
+    month_names: '[nil, "gener", "febrer", "març", "abril", "maig", "juny", "juliol",
+      "agost", "setembre", "octubre", "novembre", "desembre"]'
+    order: "[:day, :month, :year]"
   datetime:
     distance_in_words:
       about_x_hours:
@@ -100,12 +60,12 @@ ca:
         one: fa 1 any
         other: fa %{count} anys
     prompts:
-      day: dia
-      hour: hora
-      minute: minut
-      month: mes
-      second: segon
-      year: any
+      day: Dia
+      hour: Hora
+      minute: Minuts
+      month: Mes
+      second: Segons
+      year: Any
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -221,7 +181,7 @@ ca:
     am: am
     formats:
       default: "%A, %d de %B de %Y %H:%M:%S %z"
-      from_to: De l'%{starts} a %{ends}
+      from_to: De %{starts} a %{ends}
       long: "%d de %B de %Y %H:%M"
       short: "%d de %b %H:%M"
     pm: pm

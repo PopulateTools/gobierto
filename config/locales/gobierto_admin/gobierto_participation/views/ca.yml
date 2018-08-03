@@ -5,7 +5,9 @@ ca:
       configuration:
         settings:
           edit:
+            title: Configuració
             update: Actualitzar
+          title: Preferencies
       shared:
         navigation:
           agenda: Agenda

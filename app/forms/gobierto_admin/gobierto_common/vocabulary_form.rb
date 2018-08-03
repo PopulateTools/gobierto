@@ -7,12 +7,13 @@ module GobiertoAdmin
       attr_accessor(
         :id,
         :site_id,
-        :name
+        :name_translations,
+        :slug
       )
 
       delegate :persisted?, to: :vocabulary
 
-      validates :name, presence: true
+      validates :name_translations, presence: true
       validates :site, presence: true
 
       def vocabulary
@@ -32,7 +33,8 @@ module GobiertoAdmin
       def save_vocabulary
         @vocabulary = vocabulary.tap do |attributes|
           attributes.site_id = site_id
-          attributes.name = name
+          attributes.name_translations = name_translations
+          attributes.slug = slug
         end
 
         return @vocabulary if @vocabulary.save

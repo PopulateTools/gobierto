@@ -5,7 +5,9 @@ en:
       configuration:
         settings:
           edit:
+            title: Configuration
             update: Update
+          title: Preferences
       shared:
         navigation:
           agenda: Agenda

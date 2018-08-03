@@ -11,8 +11,8 @@ es:
       gobierto_admin/gobierto_common/term_form:
         description: Descripción
         name: Nombre
-        parent_term: Término Padre
         slug: Slug
+        term_id: Término Padre
       gobierto_admin/gobierto_common/vocabulary_form:
         name: Nombre
     models:

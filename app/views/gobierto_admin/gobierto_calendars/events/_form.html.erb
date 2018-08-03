@@ -37,12 +37,12 @@
             <%= f.text_field :starts_at, data: {
                 "language": I18n.locale,
                 "timepicker": true,
+                "autoClose": false,
                 "date-format": "yyyy-mm-dd",
                 "time-format": "hh:ii",
                 "startDate": format_time(f, :starts_at)
               },
-              class: "air-datepicker",
-              readonly: !Rails.env.test?
+              class: "air-datepicker"
             %>
           </div>
         </div>
@@ -53,12 +53,12 @@
             <%= f.text_field :ends_at, data: {
                 "language": I18n.locale,
                 "timepicker": true,
+                "autoClose": false,
                 "date-format": "yyyy-mm-dd",
                 "time-format": "hh:ii",
                 "startDate": format_time(f, :ends_at, 2)
               },
-              class: "air-datepicker",
-              readonly: !Rails.env.test?
+              class: "air-datepicker"
             %>
           </div>
         </div>

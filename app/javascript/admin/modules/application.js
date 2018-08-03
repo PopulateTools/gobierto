@@ -67,10 +67,16 @@ function addDatepickerBehaviors() {
 
     $toDatePickers.each(function(index, toDatePicker) {
 
+      // Check if properties was informed before default
+      const toDatePickerDEFAULTS = {
+        autoClose: ($(toDatePicker).data('autoclose') === undefined) ? true : ($(toDatePicker).data('autoclose')),
+        startDate: ($(toDatePicker).data('startdate') === undefined) ? new Date() : new Date($(toDatePicker).data('startdate')),
+      }
+
       // Datepicker end time
       $(toDatePicker).datepicker({
-        autoClose: true,
-        startDate: new Date($(toDatePicker).data('startdate')),
+        autoClose: toDatePickerDEFAULTS.autoClose,
+        startDate: toDatePickerDEFAULTS.startDate,
         onSelect: function onSelect(a, b, instance) {
           $(instance.el).trigger("datepicker-change");
         }
@@ -79,11 +85,18 @@ function addDatepickerBehaviors() {
       // Datepicker start time
       var fromDatePicker = $fromDatePickers[index];
 
+      // Check if properties was informed before default
+      const fromDatePickerDEFAULTS = {
+        autoClose: ($(fromDatePicker).data('autoclose') === undefined) ? true : ($(fromDatePicker).data('autoclose')),
+        minutesStep: ($(fromDatePicker).data('minutesstep') === undefined) ? 5 : ($(fromDatePicker).data('minutesstep')),
+        startDate: ($(fromDatePicker).data('startdate') === undefined) ? new Date() : new Date($(fromDatePicker).data('startdate')),
+      }
+
       if($(fromDatePicker).data('range') === undefined) {
         $(fromDatePicker).datepicker({
-          autoClose: true,
-          minutesStep: 5,
-          startDate: new Date($(fromDatePicker).data('startdate')),
+          autoClose: fromDatePickerDEFAULTS.autoClose,
+          minutesStep: fromDatePickerDEFAULTS.minutesStep,
+          startDate: fromDatePickerDEFAULTS.startDate,
           onSelect: function onSelect(_, selectedDate, instance) {
             $(instance.el).trigger("datepicker-change");
             selectedDate.setHours(selectedDate.getHours() + 1);
@@ -102,7 +115,7 @@ function addDatepickerBehaviors() {
         }
       } else {
         $(fromDatePicker).datepicker({
-          autoClose: true,
+          autoClose: fromDatePickerDEFAULTS.autoClose,
           onSelect: function onSelect(_, selectedDate, instance) {
             $(instance.el).trigger("datepicker-change");
           }
@@ -115,9 +128,17 @@ function addDatepickerBehaviors() {
 }
 
 function initializePageWithOnlyOneDatepicker() {
+  const $datepicker = $('.air-datepicker')
+
+  // Check if properties was informed before default
+  const datePickerDEFAULTS = {
+    autoClose: ($datepicker.data('autoclose') === undefined) ? true : ($datepicker.data('autoclose')),
+    startDate: ($datepicker.data('startdate') === undefined) ? new Date() : new Date($datepicker.data('startdate'))
+  }
+
   $('.air-datepicker').datepicker({
-    autoClose: true,
-    startDate: new Date($('.air-datepicker').data('startdate')),
+    autoClose: datePickerDEFAULTS.autoClose,
+    startDate: datePickerDEFAULTS.startDate,
     onSelect: function onSelect(_, selectedDate, instance) {
       $(instance.el).trigger("datepicker-change");
     }

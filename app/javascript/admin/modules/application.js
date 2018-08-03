@@ -67,7 +67,7 @@ function addDatepickerBehaviors() {
 
     $toDatePickers.each(function(index, toDatePicker) {
 
-      // Check if properties was informed before default
+      // Check if properties was informed before set defaults
       const toDatePickerDEFAULTS = {
         autoClose: ($(toDatePicker).data('autoclose') === undefined) ? true : ($(toDatePicker).data('autoclose')),
         startDate: ($(toDatePicker).data('startdate') === undefined) ? new Date() : new Date($(toDatePicker).data('startdate')),
@@ -85,7 +85,7 @@ function addDatepickerBehaviors() {
       // Datepicker start time
       var fromDatePicker = $fromDatePickers[index];
 
-      // Check if properties was informed before default
+      // Check if properties was informed before set defaults
       const fromDatePickerDEFAULTS = {
         autoClose: ($(fromDatePicker).data('autoclose') === undefined) ? true : ($(fromDatePicker).data('autoclose')),
         minutesStep: ($(fromDatePicker).data('minutesstep') === undefined) ? 5 : ($(fromDatePicker).data('minutesstep')),
@@ -130,7 +130,7 @@ function addDatepickerBehaviors() {
 function initializePageWithOnlyOneDatepicker() {
   const $datepicker = $('.air-datepicker')
 
-  // Check if properties was informed before default
+  // Check if properties was informed before set defaults
   const datePickerDEFAULTS = {
     autoClose: ($datepicker.data('autoclose') === undefined) ? true : ($datepicker.data('autoclose')),
     startDate: ($datepicker.data('startdate') === undefined) ? new Date() : new Date($datepicker.data('startdate'))

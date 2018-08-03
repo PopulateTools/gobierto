@@ -4,6 +4,8 @@ module GobiertoAdmin
   module GobiertoCommon
     class OrderedTermsController < BaseController
 
+      before_action :check_permissions!
+
       def index
         @vocabulary = find_vocabulary
         @terms = tree(@vocabulary.terms)
@@ -124,6 +126,9 @@ module GobiertoAdmin
         end.flatten
       end
 
+      def check_permissions!
+        raise_module_not_allowed unless current_admin.can_edit_vocabularies?
+      end
     end
   end
 end

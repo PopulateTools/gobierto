@@ -25,27 +25,27 @@ es:
           other: Mostrando <b>%{count}</b> %{entry_name}
           zero: No hay %{entry_name}
   invisible_captcha:
-    sentence_for_humans: Si eres humano, por favor ignora este campo.
-    timestamp_error_message: Lo siento, eso ha sido muy rápido. Por favor, vuelve
-      a enviar el formulario.
+    sentence_for_humans: Si es humano, por favor, ignore este campo.
+    timestamp_error_message: Perdón, eso ha sido muy rápido. Por favor, vuelva a enviar
+      el formulario.
   issues:
     events:
       issues_issue_created: Tema creado
       issues_issue_updated: Tema actualizado
   layouts:
-    accept_privacy_policy_signup: Al registrarte estás aceptando la Política de Privacidad
+    accept_privacy_policy_signup: Al registrarse está aceptando la política de privacidad.
     application:
       disclaimer: Esta web es una demostración de Gobierto, software de transparencia
-        y participación
+        y participación.
       more_information: Más información en gobierto.es
       search: Busca...
       session:
-        alerts: Tus alertas
-        login: Haz login o regístrate
+        alerts: Sus alertas
+        login: Haga login o regístrese
         notifications: Notificaciones
         sign_in: Iniciar sesión
         sign_out: Cerrar sesión
-        title: Tu cuenta
+        title: Su cuenta
       start: Inicio
     gobierto_budget_consultations:
       application:
@@ -94,8 +94,8 @@ es:
     search:
       budget_line_item_expense: Partida presupuestaria - Gasto
       budget_line_item_income: Partida presupuestaria - Ingreso
-      contribution_item: Aportación
-      drag_drop_instructions: Arrastra y suelta en la parte izquierda para colocar
+      contribution_item: Aportaciones
+      drag_drop_instructions: Arrastre y suelte en la parte izquierda para colocar
         esta página en el menú
       event_item: Evento
       no_results: La búsqueda no ha coincidido con ninguna página. Pruebe algo como
@@ -114,16 +114,16 @@ es:
       scopes_scope_updated: Ámbito actualizado
   shared:
     download_open_data:
-      exports: Descarga los datos en formato reutilizable
+      exports: Descargue los datos en formato reutilizable
     poll_question:
-      multiple_choice_msg: Puedes elegir varias opciones
+      multiple_choice_msg: Puede elegir varias opciones
     poll_teaser:
       answer: Responder
       next_question: Siguiente pregunta
       submit: Enviar
     polls:
       no_unanswered_polls: No hay encuestas pendientes de contestar.
-      opinion: Opina
+      opinion: Opine
   sites:
     events:
       sites_site_created: Sitio creado
@@ -135,13 +135,13 @@ es:
       users_user_updated: Usuario actualizado
   views:
     delete: Eliminar
-    drag_to_sort: Arrastra para ordenar
+    drag_to_sort: Arrastre para ordenar
     edit: Edita
     forms:
       max_characters: Máx. %{length} caracteres
       required: Obligatorio
-      required_and_max_characters: Obligatorio y Máx. %{length} caracteres
-    of: of
+      required_and_max_characters: Obligatorio y máx. %{length} caracteres
+    of: de
     pagination:
       next: Siguiente
       previous: Anterior

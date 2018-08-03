@@ -4,6 +4,8 @@ module GobiertoAdmin
   module GobiertoCommon
     class VocabulariesController < BaseController
 
+      before_action :check_permissions!
+
       def index
         @vocabularies = vocabularies_relation.order(updated_at: :desc)
       end
@@ -82,6 +84,10 @@ module GobiertoAdmin
 
       def track_update_activity
         # pending
+      end
+
+      def check_permissions!
+        raise_module_not_allowed unless current_admin.can_edit_vocabularies?
       end
     end
   end

@@ -16,7 +16,11 @@ module GobiertoCommon
       end
 
       def admin
-        @admin ||= gobierto_admin_admins(:nick)
+        @admin ||= gobierto_admin_admins(:tony)
+      end
+
+      def unauthorized_admin
+        @unauthorized_admin ||= gobierto_admin_admins(:steve)
       end
 
       def site
@@ -29,6 +33,16 @@ module GobiertoCommon
 
       def term_with_associated_items
         @term_with_associated_items ||= gobierto_common_terms(:culture_term)
+      end
+
+      def test_permissions
+        with_signed_in_admin(unauthorized_admin) do
+          with_current_site(site) do
+            visit @path
+            assert has_content?("You are not authorized to perform this action")
+            assert_equal admin_root_path, current_path
+          end
+        end
       end
 
       def test_delete_term

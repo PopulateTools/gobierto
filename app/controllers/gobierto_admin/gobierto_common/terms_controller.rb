@@ -4,6 +4,8 @@ module GobiertoAdmin
   module GobiertoCommon
     class TermsController < BaseController
 
+      before_action :check_permissions!
+
       def index
         @terms = tree(terms_relation)
       end
@@ -106,6 +108,10 @@ module GobiertoAdmin
         relation.where(level: level).map do |node|
           [node, tree(node.terms, level + 1)].flatten
         end.flatten
+      end
+
+      def check_permissions!
+        raise_module_not_allowed unless current_admin.can_edit_vocabularies?
       end
     end
   end

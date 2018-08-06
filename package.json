@@ -12,7 +12,7 @@
     "d3-jetpack": "^2.0.16",
     "d3-svg-legend": "^2.25.5",
     "d3v4": "npm:d3@^4.x",
-    "dc": "^2.1.10",
+    "dc": "^3.0.6",
     "devbridge-autocomplete": "^1.4.7",
     "flightjs": "^1.5.2",
     "fullcalendar": "^3.9.0",

@@ -2,10 +2,12 @@
   <%= link_to title(@plan.title), gobierto_plans_plan_path(slug: @plan.plan_type.slug) %>
 <% end %>
 
+<% content_for(:stylesheet_link) do %>
 <% if @plan.css.present? %>
   <style type="text/css">
     <%== @plan.css %>
   </style>
+<% end %>
 <% end %>
 
 <div class="column">

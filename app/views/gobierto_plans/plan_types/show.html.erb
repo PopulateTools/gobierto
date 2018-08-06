@@ -273,7 +273,7 @@
       <th><%= t(".progress") %></th>
     </thead>
     <tbody>
-      <tr v-for="row in model.children" @click.stop="getProject(row)" :style="{ cursor: (!open) ? 'auto' : '' }">
+      <tr v-for="row in model.children" @click.stop="getProject(row)" :style="{ cursor: (!open) ? 'pointer' : '' }">
         <td>{{ row.attributes.title | translate }}</td>
         <td>{{ row.attributes.starts_at | date }}</td>
         <td>{{ row.attributes.status | translate }}</td>

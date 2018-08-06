@@ -404,7 +404,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
         minimumFractionDigits: 0
       });
     });
-    hbars1.xAxis().ticks(3)
+    hbars1.xAxis(d3.axisTop().ticks(3))
     hbars1.margins().top = 20;
     hbars1.margins().left = _labelOffset + 5;
     hbars1.margins().right = 10;
@@ -515,7 +515,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
       });
 
     // Customize
-    hbars2.xAxis().ticks(5)
+    hbars2.xAxis(d3.axisTop().ticks(5))
     hbars2.xAxis().tickFormat(
       function(tick, pos) {
         if (pos === 0) return null

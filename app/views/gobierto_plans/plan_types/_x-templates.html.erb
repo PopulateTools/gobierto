@@ -1,0 +1,47 @@
+<!-- node root template -->
+<script type="text/x-template" id="node-root-template">
+  <a @click="open" data-turbolinks="false">
+    <div class="node-img js-img">
+      <img :src="model.attributes.img" alt="">
+    </div>
+    <div class="node-info js-info">
+      <div class="info-progress progress" :style="{ width: progressWidth }"></div>
+      <div class="info-content">
+        <h3 :class="{ counter: model.attributes.counter }">{{ model.attributes.title | translate }}</h3>
+        <span>{{ model.attributes.progress | percent }}</span>
+      </div>
+    </div>
+  </a>
+</script>
+
+<!-- node list template -->
+<script type="text/x-template" id="node-list-template">
+  <div class="node-list">
+    <div class="node-title" @click.stop="setActive">
+      <div><i class="fa cursor-pointer" :class="[(isOpen) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
+      <h3><a>{{ model.attributes.title | translate }}</a></h3>
+    </div>
+    <div class="flex-basis-20">{{ (model.children || []).length }} {{ getLabel(model.level, (model.children || []).length) | translate }}</div>
+    <div class="flex-basis-10">{{ (model.attributes || {}).progress || 0 | percent }}</div>
+  </div>
+</script>
+
+<!-- table view template -->
+<script type="text/x-template" id="table-view-template">
+  <table>
+    <thead v-if="header">
+      <th><%= t("gobierto_plans.plan_types.show.projects") %></th>
+      <th><%= t("gobierto_plans.plan_types.show.starts") %></th>
+      <th><%= t("gobierto_plans.plan_types.show.status") %></th>
+      <th><%= t("gobierto_plans.plan_types.show.progress") %></th>
+    </thead>
+    <tbody>
+      <tr v-for="row in model.children" @click.stop="getProject(row)" :style="{ cursor: (!open) ? 'pointer' : '' }">
+        <td>{{ row.attributes.title | translate }}</td>
+        <td>{{ row.attributes.starts_at | date }}</td>
+        <td>{{ row.attributes.status | translate }}</td>
+        <td>{{ row.attributes.progress | percent }}</td>
+      </tr>
+    </tbody>
+  </table>
+</script>

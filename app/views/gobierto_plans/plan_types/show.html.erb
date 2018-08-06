@@ -3,11 +3,11 @@
 <% end %>
 
 <% content_for(:stylesheet_link) do %>
-<% if @plan.css.present? %>
-  <style type="text/css">
-    <%== @plan.css %>
-  </style>
-<% end %>
+  <% if @plan.css.present? %>
+    <style type="text/css">
+      <%== @plan.css %>
+    </style>
+  <% end %>
 <% end %>
 
 <div class="column">
@@ -47,25 +47,7 @@
 
       <div id="gobierto-planification" class="gobierto_planification">
 
-        <div class="planification-header m_v_3" v-show="json.length">
-
-          <div class="header-resume">
-            <h3><%= t(".global_execution") %></h3>
-            <span>{{ globalProgress | percent }}</span>
-          </div>
-
-          <div class="header-detail">
-            <% for i in 0..(@levels) %>
-              <div>
-                <%= level_name_pluralize(@plan.categories.where(level: i).size, @plan.configuration_data["level" + i.to_s]) %>
-              </div>
-            <% end %>
-            <div>
-              <%= level_name_pluralize(@node_number, @plan.configuration_data["level" + (@levels + 1).to_s]) %>
-            </div>
-          </div>
-
-        </div>
+        <%= render partial: "planification-header" %>
 
         <div class="planification-content">
 
@@ -76,7 +58,6 @@
           </section>
 
           <% generic_levels = @levels == 2 ? 1 : @levels %>
-
           <% (1..generic_levels).each do |level_index| %>
             <section class="level_<%= level_index -%>" v-if="isOpen(<%= level_index -%>)" :class="['cat_' + color() ]">
               <% unless level_index == @levels %>
@@ -225,63 +206,17 @@
           </section>
 
         </div>
-      <% end %>
       </div>
     </div>
+  <% end %>
 
-    <% if @plan.footer.present? %>
-      <%= render_liquid @plan.footer %>
-    <% end %>
-
+  <% if @plan.footer.present? %>
+    <%= render_liquid @plan.footer %>
+  <% end %>
 </div>
 
-<!-- node root template -->
-<script type="text/x-template" id="node-root-template">
-  <a @click="open" data-turbolinks="false">
-    <div class="node-img js-img">
-      <img :src="model.attributes.img" alt="">
-    </div>
-    <div class="node-info js-info">
-      <div class="info-progress progress" :style="{ width: progressWidth }"></div>
-      <div class="info-content">
-        <h3 :class="{ counter: model.attributes.counter }">{{ model.attributes.title | translate }}</h3>
-        <span>{{ model.attributes.progress | percent }}</span>
-      </div>
-    </div>
-  </a>
-</script>
-
-<!-- node list template -->
-<script type="text/x-template" id="node-list-template">
-  <div class="node-list">
-    <div class="node-title" @click.stop="setActive">
-      <div><i class="fa cursor-pointer" :class="[(isOpen) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
-      <h3><a>{{ model.attributes.title | translate }}</a></h3>
-    </div>
-    <div class="flex-basis-20">{{ (model.children || []).length }} {{ getLabel(model.level, (model.children || []).length) | translate }}</div>
-    <div class="flex-basis-10">{{ (model.attributes || {}).progress || 0 | percent }}</div>
-  </div>
-</script>
-
-<!-- table view template -->
-<script type="text/x-template" id="table-view-template">
-  <table>
-    <thead v-if="header">
-      <th><%= t(".projects") %></th>
-      <th><%= t(".starts") %></th>
-      <th><%= t(".status") %></th>
-      <th><%= t(".progress") %></th>
-    </thead>
-    <tbody>
-      <tr v-for="row in model.children" @click.stop="getProject(row)" :style="{ cursor: (!open) ? 'pointer' : '' }">
-        <td>{{ row.attributes.title | translate }}</td>
-        <td>{{ row.attributes.starts_at | date }}</td>
-        <td>{{ row.attributes.status | translate }}</td>
-        <td>{{ row.attributes.progress | percent }}</td>
-      </tr>
-    </tbody>
-  </table>
-</script>
+<!-- Vue templates -->
+<%= render partial: "x-templates" %>
 
 <% content_for :javascript_hook do %>
     window.GobiertoPlans.plan_types_controller.show();

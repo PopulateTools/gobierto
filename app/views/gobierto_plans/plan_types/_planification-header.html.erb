@@ -1,0 +1,19 @@
+<div class="planification-header m_v_3" v-show="json.length">
+
+  <div class="header-resume">
+    <h3><%= t("gobierto_plans.plan_types.show.global_execution") %></h3>
+    <span>{{ globalProgress | percent }}</span>
+  </div>
+
+  <div class="header-detail">
+    <% for i in 0..(@levels) %>
+      <div>
+        <%= level_name_pluralize(@plan.categories.where(level: i).size, @plan.configuration_data["level" + i.to_s]) %>
+      </div>
+    <% end %>
+    <div>
+      <%= level_name_pluralize(@node_number, @plan.configuration_data["level" + (@levels + 1).to_s]) %>
+    </div>
+  </div>
+
+</div>

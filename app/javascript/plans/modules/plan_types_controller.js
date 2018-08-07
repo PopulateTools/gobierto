@@ -163,10 +163,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
               // Parse permalink
               if (window.location.hash) {
-                let found = this.searchByUid(window.location.hash.substring(1), data)
-                if (found) {
-                  this.setSelection(found)
-                }
+                this.getPermalink(window.location.hash.substring(1))
               }
 
             }.bind(this));
@@ -237,8 +234,23 @@ window.GobiertoPlans.PlanTypesController = (function() {
             this.activeNode = this.getParent(breakpoint);
           },
           setPermalink: function () {
-            window.location.hash = this.activeNode.uid
-            // window.location.hash = btoa(this.activeNode.uid)
+            window.location.hash = btoa(this.activeNode.uid)
+          },
+          getPermalink: function (hash) {
+            let uid
+
+            try {
+              uid = atob(hash)
+            } catch (e) {
+              // If permalink is wrong
+              history.replaceState(null, null, ' ');
+              return false
+            }
+
+            let found = this.searchByUid(uid, this.json)
+            if (found) {
+              this.setSelection(found)
+            }
           },
           searchByUid: function(id, data) {
             let result = false

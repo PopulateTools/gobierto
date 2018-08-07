@@ -41,10 +41,8 @@ window.GobiertoPlans.PlanTypesController = (function() {
         },
         methods: {
           open: function() {
-            var model = { ...this.model };
-
             // Trigger event
-            this.$emit('selection', model);
+            this.$emit('selection', { ...this.model });
           }
         }
       });
@@ -60,8 +58,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
         },
         methods: {
           setActive: function() {
-            var l = this.model.level;
-
             if (this.model.type === "category" && !this.model.max_level) {
               var model = { ...this.model };
 
@@ -88,7 +84,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
           return {}
         },
         methods: {
-          getProject: function(model) {
+          getProject: function() {
             if (this.open) {
               var project = { ...this.model };
 
@@ -98,7 +94,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
         }
       });
 
-      var app = new Vue({
+      new Vue({
         el: '#gobierto-planification',
         name: 'gobierto-planification',
         data: {

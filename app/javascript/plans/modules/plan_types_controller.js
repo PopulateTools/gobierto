@@ -177,10 +177,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
             this.activeNode = model;
 
             // To know the root node
-            if (this.activeNode.level === 0) {
-              // parse first position
-              this.rootid = this.activeNode.uid.toString().charAt(0);
-            }
+            this.rootid = this.activeNode.uid.toString().charAt(0);
           },
           isOpen: function(level) {
             if (this.activeNode.level === undefined) return false

@@ -120,6 +120,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
               this.showTable = {};
               this.isOpen(node.level);
               animate(node.level, node.type);
+              this.setPermalink()
             },
             deep: true
           }
@@ -159,10 +160,19 @@ window.GobiertoPlans.PlanTypesController = (function() {
               this.optionKeys = Object.keys(optionKeys).reduce(function(c, k) {
                 return (c[k.toLowerCase()] = optionKeys[k]), c;
               }, {});
+
+              // Parse permalink
+              if (window.location.hash) {
+                let found = this.searchByUid(window.location.hash.substring(1), data)
+                if (found) {
+                  this.setSelection(found)
+                }
+              }
+
             }.bind(this));
           },
           color: function() {
-            return this.rootid % this.json.length + 1; // TODO: el mod no debe ser la longitud del array, sino, la de la variable de colores
+            return this.rootid % this.json.length + 1;
           },
           setRootColor: function(index) {
             return index % this.json.length + 1;
@@ -225,6 +235,28 @@ window.GobiertoPlans.PlanTypesController = (function() {
             if (breakpoint === 3) breakpoint = breakpoint - 1;
 
             this.activeNode = this.getParent(breakpoint);
+          },
+          setPermalink: function () {
+            window.location.hash = this.activeNode.uid
+            // window.location.hash = btoa(this.activeNode.uid)
+          },
+          searchByUid: function(id, data) {
+            let result = false
+
+            if (_.isArray(data)) {
+              _.each(data, d => {
+                result = findNodeByProp(id, d, 'uid')
+
+                // Return false to break loop
+                if (result !== false) {
+                  return false;
+                }
+              })
+            } else {
+              result = findNodeByProp(id, data, 'uid')
+            }
+
+            return result
           }
         }
       });
@@ -255,8 +287,35 @@ window.GobiertoPlans.PlanTypesController = (function() {
           return
         }
       }
-    }
 
+      function findNodeByProp(id, currentNode, prop = 'id') {
+        var i,
+          currentChild,
+          result;
+
+        if (id == currentNode[prop]) {
+          return currentNode;
+        } else {
+
+          // Use a for loop instead of forEach to avoid nested functions
+          // Otherwise "return" will not work properly
+          for (i = 0; i < currentNode.children.length; i += 1) {
+            currentChild = currentNode.children[i];
+
+            // Search in the current child
+            result = findNodeByProp(id, currentChild, prop);
+
+            // Return the result if the node has been found
+            if (result !== false) {
+              return result;
+            }
+          }
+
+          // The node has not been found and we have no more options
+          return false;
+        }
+      }
+    }
 
     return PlanTypesController;
   })();

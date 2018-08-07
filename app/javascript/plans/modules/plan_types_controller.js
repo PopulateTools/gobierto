@@ -11,20 +11,20 @@ window.GobiertoPlans.PlanTypesController = (function() {
     function _loadPlan() {
 
       // filters
-      const filters = {
-        translate: function (key) {
-          if (!key) return
-          return key[I18n.locale] || key["es"] || key["en"] || Object.values(key)[0] // fallback translations
-        },
-        percent: function (value) {
-          if (!value) return
-          return (value / 100).toLocaleString(I18n.locale, { style: 'percent', maximumSignificantDigits: 4 })
-        },
-        date: function (date) {
-          if (!date) return
-          return new Date(date).toLocaleString(I18n.locale, { year: 'numeric', month: 'short', day: 'numeric' })
-        }
-      }
+      Vue.filter('translate', function (key) {
+        if (!key) return
+        return key[I18n.locale] || key["es"] || key["en"] || Object.values(key)[0] // fallback translations
+      });
+
+      Vue.filter('percent', function (value) {
+        if (!value) return
+        return (value / 100).toLocaleString(I18n.locale, { style: 'percent', maximumSignificantDigits: 4 })
+      });
+
+      Vue.filter('date', function (date) {
+        if (!date) return
+        return new Date(date).toLocaleString(I18n.locale, { year: 'numeric', month: 'short', day: 'numeric' })
+      });
 
       // define the node root component
       Vue.component('node-root', {
@@ -98,7 +98,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
       new Vue({
         el: '#gobierto-planification',
         name: 'gobierto-planification',
-        filters: filters,
         data: {
           json: {},
           levelKeys: {},
@@ -108,6 +107,9 @@ window.GobiertoPlans.PlanTypesController = (function() {
           showTableHeader: true,
           openNode: false,
           rootid: 0
+        },
+        created: function() {
+          this.getJson();
         },
         watch: {
           activeNode: {
@@ -130,9 +132,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
               return _.includes(_.keys(this.optionKeys), o.toString().toLowerCase())
             }.bind(this)));
           }
-        },
-        created: function() {
-          this.getJson();
         },
         methods: {
           getJson: function() {

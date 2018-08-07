@@ -114,10 +114,12 @@ window.GobiertoPlans.PlanTypesController = (function() {
         watch: {
           activeNode: {
             handler: function(node) {
-              this.showTable = {};
-              this.isOpen(node.level);
-              animate(node.level, node.type);
+              this.showTable = {}
+              // update hash when a new node is active
               this.setPermalink()
+
+              this.isOpen(node.level)
+              // animate(node.level, node.type)
             },
             deep: true
           }
@@ -182,7 +184,27 @@ window.GobiertoPlans.PlanTypesController = (function() {
           },
           isOpen: function(level) {
             if (this.activeNode.level === undefined) return false
-            return (level - 1) <= this.activeNode.level;
+
+            let isOpen = false
+            switch (this.activeNode.level) {
+              case 0:
+                // activeNode = 0, it means is a "line"
+                // then, it shows level_0 and level_1
+                isOpen = (level < 2)
+                break
+              case 1:
+                // activeNode = 1, it means is an "act"
+                // then, it shows level_0 and level_2, but no level_1
+                isOpen = (level === 0) || (level === 2)
+                break
+              case 2:
+                // activeNode = 2, it means is a "project"
+                // then, it shows level_0 and level_3, but nor level_1 nor level_2
+                isOpen = (level === 0) || (level === 3)
+                break
+            }
+
+            return isOpen
           },
           typeOf: function(val) {
             if (_.isString(val)) {
@@ -271,26 +293,20 @@ window.GobiertoPlans.PlanTypesController = (function() {
       });
 
       // Velocity Animates
+      // // TODO: eliminar por css
       function animate(l, type) {
         if (l === 0) {
-          $('section.level_0 .js-img').hide();
-          $('section.level_0 .js-info').velocity({
-            padding: "1.5em"
-          });
-          $('section.level_0 .js-info h3, section.level_0 .js-info span').css({
-            "font-size": "1.25rem"
-          });
           $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
 
           return
         }
         if (l !== 0 && type === "category") {
-          $('section.level_' + l).hide();
+          // $('section.level_' + l).hide();
           $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
 
           return
         } else if (type === "node") {
-          $('section.level_' + (l - 1)).hide();
+          // $('section.level_' + (l - 1)).hide();
           $('section.level_' + l).velocity("transition.slideRightBigIn");
 
           return

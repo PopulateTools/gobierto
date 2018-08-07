@@ -1,7 +1,7 @@
 <div class="planification-content">
 
   <!-- Axes level -->
-  <section class="level_0">
+  <section class="level_0" :class="{ 'is-active': isOpen(0) }">
     <div class="node-root" v-for="(model, index) in json" :class="['cat_' + setRootColor(index) ]">
       <node-root :model="model" :key="model.id" @selection="setSelection"></node-root>
     </div>

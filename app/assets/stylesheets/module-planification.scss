@@ -402,6 +402,21 @@ $white: $color_main_negative;
   section.level_0 {
     flex: 1 1 25%;
     counter-reset: section;
+
+    &.is-active {
+      .node-img {
+        display: none;
+      }
+
+      .node-info {
+        padding: 1.5em;
+
+        h3,
+        span {
+          font-size: $f4;
+        }
+      }
+    }
   }
 
   section:not(.level_0) {

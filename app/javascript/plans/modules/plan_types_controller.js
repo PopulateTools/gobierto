@@ -186,22 +186,14 @@ window.GobiertoPlans.PlanTypesController = (function() {
             if (this.activeNode.level === undefined) return false
 
             let isOpen = false
-            switch (this.activeNode.level) {
-              case 0:
-                // activeNode = 0, it means is a "line"
-                // then, it shows level_0 and level_1
-                isOpen = (level < 2)
-                break
-              case 1:
-                // activeNode = 1, it means is an "act"
-                // then, it shows level_0 and level_2, but no level_1
-                isOpen = (level === 0) || (level === 2)
-                break
-              case 2:
-                // activeNode = 2, it means is a "project"
-                // then, it shows level_0 and level_3, but nor level_1 nor level_2
-                isOpen = (level === 0) || (level === 3)
-                break
+            if (this.activeNode.level === 0) {
+              // activeNode = 0, it means is a "line"
+              // then, it shows level_0 and level_1
+              isOpen = (level < 2)
+            } else {
+              // activeNode = X
+              // then, it shows level_0 and level_(X+1), but not those between
+              isOpen = (level === 0) || (level === (this.activeNode.level + 1))
             }
 
             return isOpen

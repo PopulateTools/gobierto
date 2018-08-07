@@ -119,7 +119,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
               this.setPermalink()
 
               this.isOpen(node.level)
-              // animate(node.level, node.type)
             },
             deep: true
           }
@@ -280,27 +279,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
           }
         }
       });
-
-      // Velocity Animates
-      // // TODO: eliminar por css
-      function animate(l, type) {
-        if (l === 0) {
-          $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
-
-          return
-        }
-        if (l !== 0 && type === "category") {
-          // $('section.level_' + l).hide();
-          $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
-
-          return
-        } else if (type === "node") {
-          // $('section.level_' + (l - 1)).hide();
-          $('section.level_' + l).velocity("transition.slideRightBigIn");
-
-          return
-        }
-      }
 
       function findNodeByProp(id, currentNode, prop = 'id') {
         var i,

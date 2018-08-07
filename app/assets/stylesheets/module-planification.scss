@@ -86,6 +86,7 @@ $white: $color_main_negative;
     .node-info {
       position: relative;
       flex: 1;
+      transition: all .3s;
 
       .info-progress {
         top: 0;

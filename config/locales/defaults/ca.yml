@@ -6,20 +6,60 @@ ca:
         record_invalid: 'La validació ha fallat: %{errors}'
   country: Espanya
   date:
-    abbr_day_names: '["dg", "dl", "dm", "dc", "dj", "dv", "ds"]'
-    abbr_month_names: '[nil, "gen", "feb", "mar", "abr", "mai", "jun", "jul", "ago",
-      "set", "oct", "nov", "des"]'
-    day_names: '["diumenge", "dilluns", "dimarts", "dimecres", "dijous", "divendres",
-      "dissabte"]'
+    abbr_day_names:
+    - dg
+    - dl
+    - dm
+    - dc
+    - dj
+    - dv
+    - ds
+    abbr_month_names:
+    - 
+    - gen
+    - feb
+    - mar
+    - abr
+    - mai
+    - jun
+    - jul
+    - ago
+    - set
+    - oct
+    - nov
+    - des
+    day_names:
+    - diumenge
+    - dilluns
+    - dimarts
+    - dimecres
+    - dijous
+    - divendres
+    - dissabte
     formats:
       day_month: "%d/%m"
       default: "%d-%m-%Y"
       long: "%d de %B de %Y"
       short: "%d de %b"
       shortest: "%d %b %y"
-    month_names: '[nil, "gener", "febrer", "març", "abril", "maig", "juny", "juliol",
-      "agost", "setembre", "octubre", "novembre", "desembre"]'
-    order: "[:day, :month, :year]"
+    month_names:
+    - 
+    - gener
+    - febrer
+    - març
+    - abril
+    - maig
+    - juny
+    - juliol
+    - agost
+    - setembre
+    - octubre
+    - novembre
+    - desembre
+    order:
+    - :day
+    - :month
+    - :year
   datetime:
     distance_in_words:
       about_x_hours:

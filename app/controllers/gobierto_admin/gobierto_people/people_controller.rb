@@ -94,7 +94,7 @@ module GobiertoAdmin
       end
 
       def get_political_groups
-        ::GobiertoPeople::PoliticalGroup.all
+        current_site.political_groups
       end
 
       def person_params

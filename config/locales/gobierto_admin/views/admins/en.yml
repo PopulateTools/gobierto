@@ -16,6 +16,7 @@ en:
         placeholders:
           email: fgonzalez@gmail.com
           name: Fernando González
+        site_options_permissions: Site
         sites_block: Allowed sites
       index:
         header:

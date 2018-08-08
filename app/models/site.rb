@@ -65,8 +65,6 @@ class Site < ApplicationRecord
   has_many :module_settings, dependent: :destroy, class_name: "GobiertoModuleSettings"
 
   # Gobierto Participation integration
-  has_many :issues, -> { sorted }, dependent: :destroy, class_name: "Issue"
-  has_many :scopes, -> { sorted }, dependent: :destroy, class_name: "GobiertoCommon::Scope"
   has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
   has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
   has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
@@ -100,16 +98,39 @@ class Site < ApplicationRecord
     end
   end
 
+  def issues
+    GobiertoParticipation::Process.issues(self).sorted
+  end
+
+  def scopes
+    GobiertoParticipation::Process.scopes(self).sorted
+  end
+
+  def political_groups
+    GobiertoPeople::Person.political_groups(self).sorted
+  end
+
   def gobierto_people_settings
-    @gobierto_people_settings ||= if configuration.gobierto_people_enabled?
+    @gobierto_people_settings ||= if configuration.available_module?("GobiertoPeople") && configuration.gobierto_people_enabled?
                                     module_settings.find_by(module_name: "GobiertoPeople")
                                   end
   end
 
   def gobierto_budgets_settings
-    @gobierto_budgets_settings ||= if configuration.gobierto_budgets_enabled?
+    @gobierto_budgets_settings ||= if configuration.available_module?("GobiertoBudgets") && configuration.gobierto_budgets_enabled?
                                     module_settings.find_by(module_name: "GobiertoBudgets")
                                    end
+  end
+
+  def gobierto_participation_settings
+    @gobierto_participation_settings ||= if configuration.available_module?("GobiertoParticipation") && configuration.gobierto_participation_enabled?
+                                           module_settings.find_by(module_name: "GobiertoParticipation")
+                                         end
+  end
+
+  def settings_for_module(module_name)
+    return unless respond_to?(method = "#{ module_name.underscore }_settings")
+    send(method)
   end
 
   # If the organization_id corresponds to a municipality ID,
@@ -142,6 +163,16 @@ class Site < ApplicationRecord
 
   def departments_available?
     departments.any? && gobierto_people_settings.submodules_enabled.include?("departments")
+  end
+
+  def date_filter_configured?
+    [
+      Time.zone.parse(configuration.configuration_variables["gobierto_people_default_filter_start_date"].to_s),
+      Time.zone.parse(configuration.configuration_variables["gobierto_people_default_filter_end_date"].to_s)
+    ].any?
+  rescue StandardError => e
+    Rollbar.error(e)
+    false
   end
 
   private

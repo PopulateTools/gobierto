@@ -94,17 +94,22 @@ module GobiertoPeople
           state: state,
           attendees: ibm_notes_event.attendees,
           locations_attributes: {"0" => locations_attributes },
-          notify: true
+          notify: true,
+          integration_name: calendar_configuration.integration_name
         }
 
         event_form = GobiertoPeople::CalendarSyncEventForm.new(person_event_params)
 
         if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
-          log_destroy_rule
+          log_destroy_rule(event_form.title)
           event_form.destroy
           nil
         else
-          if !event_form.save then log_invalid_event(event_form.errors.messages) end
+          if event_form.save
+            log_saved_event(event_form)
+          else
+            log_invalid_event(event_form)
+          end
           event_form.external_id
         end
       end
@@ -173,7 +178,7 @@ module GobiertoPeople
       end
 
       def sync_range_start
-        GobiertoCalendars.sync_range_start.iso8601.split('+')[0].concat('Z')
+        (GobiertoCalendars.sync_range_start - 2.days).iso8601.split('+')[0].concat('Z')
       end
 
       def plain_text_password

@@ -11,7 +11,8 @@ module GobiertoAdmin
         :home_text_es,
         :home_text_ca,
         :home_text_en,
-        :submodules_enabled
+        :submodules_enabled,
+        :political_groups_vocabulary_id
       )
 
       delegate :persisted?, to: :gobierto_module_settings
@@ -67,6 +68,16 @@ module GobiertoAdmin
         html_dummy_for_encrypted_setting(ibm_notes_pwd)
       end
 
+      def site
+        @site ||= Site.find site_id
+      end
+
+      def vocabularies_options
+        site.vocabularies.map do |vocabulary|
+          [vocabulary.name, vocabulary.id]
+        end
+      end
+
       private
 
       def gobierto_module_settings_class
@@ -86,6 +97,7 @@ module GobiertoAdmin
           settings_attributes.home_text_en = home_text_en
           settings_attributes.submodules_enabled = submodules_enabled.select{|m| m.present?}
           settings_attributes.calendar_integration = calendar_integration
+          settings_attributes.political_groups_vocabulary_id = political_groups_vocabulary_id&.to_i
 
           set_ibm_notes_integration_settings(settings_attributes)
         end

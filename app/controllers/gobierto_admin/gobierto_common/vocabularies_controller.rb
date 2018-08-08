@@ -4,6 +4,8 @@ module GobiertoAdmin
   module GobiertoCommon
     class VocabulariesController < BaseController
 
+      before_action :check_permissions!
+
       def index
         @vocabularies = vocabularies_relation.order(updated_at: :desc)
       end
@@ -15,6 +17,7 @@ module GobiertoAdmin
 
       def new
         @vocabulary_form = VocabularyForm.new(site_id: current_site.id)
+        render(:new_modal, layout: false) && return if request.xhr?
       end
 
       def create
@@ -23,10 +26,11 @@ module GobiertoAdmin
         if @vocabulary_form.save
           track_create_activity
           redirect_to(
-            edit_admin_common_vocabulary_path(@vocabulary_form.vocabulary),
+            admin_common_vocabularies_path,
             notice: t(".success")
           )
         else
+          render(:new_modal, layout: false) && return if request.xhr?
           render :new
         end
       end
@@ -34,6 +38,7 @@ module GobiertoAdmin
       def edit
         vocabulary = find_vocabulary
         @vocabulary_form = VocabularyForm.new(vocabulary.attributes.except(*ignored_vocabulary_attributes).merge(site_id: current_site.id))
+        render(:edit_modal, layout: false) && return if request.xhr?
       end
 
       def update
@@ -41,10 +46,11 @@ module GobiertoAdmin
         if @vocabulary_form.save
           track_update_activity
           redirect_to(
-            edit_admin_common_vocabulary_path(@vocabulary_form.vocabulary),
+            admin_common_vocabularies_path,
             notice: t(".success")
           )
         else
+          render(:edit_modal, layout: false) && return if request.xhr?
           render :edit
         end
       end
@@ -61,7 +67,7 @@ module GobiertoAdmin
       private
 
       def vocabulary_params
-        params.require(:vocabulary).permit(:name)
+        params.require(:vocabulary).permit(:slug, name_translations: [*I18n.available_locales])
       end
 
       def ignored_vocabulary_attributes
@@ -82,6 +88,10 @@ module GobiertoAdmin
 
       def track_update_activity
         # pending
+      end
+
+      def check_permissions!
+        raise_module_not_allowed unless current_admin.can_edit_vocabularies?
       end
     end
   end

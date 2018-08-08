@@ -73,7 +73,7 @@ module GobiertoPeople
     end
 
     def meetings_with_interest_groups(start_date: nil, end_date: nil)
-      QueryWithEvents.new(source: events.with_interest_group,
+      QueryWithEvents.new(source: events.with_interest_group.published,
                           start_date: start_date,
                           end_date: end_date)
     end

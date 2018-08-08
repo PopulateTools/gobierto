@@ -64,3 +64,10 @@ ca:
       gobierto_admin/user_form: Usuari
       gobierto_admin/user_password_form: Canvi de contrasenya
       gobierto_admin/user_welcome_message_form: Email de benvinguda
+  activerecord:
+    attributes:
+      gobierto_admin/permission/site_option:
+        resource_names:
+          customize: Personalitzar site
+          templates: Plantilles
+          vocabularies: Vocabularis

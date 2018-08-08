@@ -5,18 +5,23 @@ ca:
       vocabularies:
         edit:
           edit: Editar %{vocabulary}
+        edit_modal:
+          title: Editar %{vocabulary}
         form:
           placeholders:
             name: Regne animal
+            slug: regne_animal
         index:
           delete_confirm: Estàs segur? Aquesta operació no és reversible
           header:
             name: Nom
           new: Nou
           title: Vocabularis
-          view_vocabulary: Veure vocabulari
+          view_vocabulary: Veure termes
         new:
           new: Nou Vocabulari
+        new_modal:
+          title: Nou Vocabulari
         show:
           created_at: Creació
           terms: Termes

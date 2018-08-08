@@ -2,6 +2,7 @@ import { Class, d3 } from 'shared'
 
 export var VisUnemploymentSex = Class.extend({
   init: function(divId, city_id, unemplAgeData) {
+    this.location_id = parseInt(city_id);
     this.container = divId;
     this.data = null;
     this.unemplAgeData = unemplAgeData;
@@ -57,6 +58,13 @@ export var VisUnemploymentSex = Class.extend({
       .defer(unemployed.get)
       .await(function (error, population, unemployment) {
         if (error) throw error;
+
+        if(this.location_id === 8077) {
+          let factor = 0.7786712568;
+          population.forEach((d) => {
+            d.value = d.value * factor;
+          })
+        }
 
         var nested = d3.nest()
           .key(function(d) { return d.date; })
@@ -194,7 +202,7 @@ export var VisUnemploymentSex = Class.extend({
     this.focus.select('circle').attr('stroke', this.color(d.data.sex));
     this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.pct) + ')');
     this.focus.select('text').attr('text-anchor', d.data.date >= this.parseTime('2014-01') ? 'end' : 'start');
-    this.focus.select('tspan').text(this._getLabel(d.data.sex) + ': ' + this.pctFormat(d.data.pct));
+    this.focus.select('tspan').text(`${this._getLabel(d.data.sex)}: ${this.pctFormat(d.data.pct)} (${d.data.date.toLocaleString(I18n.locale, {month: 'short'})} ${d.data.date.getFullYear()})`);
   },
   _mouseout: function() {
     this.focus.attr('transform', 'translate(-100,-100)');

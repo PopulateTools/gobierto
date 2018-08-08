@@ -29,3 +29,15 @@ tony_tamara:
   resource_name: person
   resource_id: <%= ActiveRecord::FixtureSet.identify(:tamara) %>
   action_name: manage
+
+tony_site_options_customize:
+  admin: tony
+  namespace: site_options
+  resource_name: customize
+  action_name: manage
+
+tony_site_options_vocabularies:
+  admin: tony
+  namespace: site_options
+  resource_name: vocabularies
+  action_name: manage

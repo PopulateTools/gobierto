@@ -62,7 +62,7 @@ module GobiertoCommon
     end
 
     def self.collector_classes
-      [Site, Issue, GobiertoParticipation::Area]
+      [Site, GobiertoCommon::Term]
     end
 
     def self.type_classes(item_type)
@@ -110,9 +110,9 @@ module GobiertoCommon
 
     def containers_hierarchy(container)
       [
-        site_for_container(container), gobierto_module_for_container(container),
-        area_for_container(container), issue_for_container(container),
-        scope_for_container(container),
+        site_for_container(container),
+        gobierto_module_for_container(container),
+        term_for_container(container),
         gobierto_module_instance_for_container(container)
       ].compact.uniq
     end
@@ -133,26 +133,14 @@ module GobiertoCommon
       end
     end
 
-    def area_for_container(container)
-      if container.is_a?(GobiertoParticipation::Area)
-        [container.class.name, container.id]
-      end
-    end
-
-    def issue_for_container(container)
-      if container.is_a?(Issue)
-        [container.class.name, container.id]
-      end
-    end
-
-    def scope_for_container(container)
-      if container.is_a?(GobiertoCommon::Scope)
-        [container.class.name, container.id]
-      end
-    end
-
     def gobierto_module_instance_for_container(container)
       if !container.is_a?(Module) && !container_is_a_collector?(container)
+        [container.class.name, container.id]
+      end
+    end
+
+    def term_for_container(container)
+      if container.is_a?(GobiertoCommon::Term)
         [container.class.name, container.id]
       end
     end

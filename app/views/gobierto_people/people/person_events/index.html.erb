@@ -69,7 +69,5 @@
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>
 
 <% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.GobiertoPeople.person_events_controller.index();
-  <% end %>
+  window.GobiertoPeople.person_events_controller.index();
 <% end %>

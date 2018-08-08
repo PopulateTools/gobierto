@@ -7,10 +7,11 @@ module GobiertoPeople
 
     attr_accessor(
       :title,
-      :description
+      :description,
+      :integration_name
     )
 
-    validates :external_id, :title, presence: true
+    validates :external_id, :title, :integration_name, presence: true
     validate :event_in_sync_range_window
 
     trackable_on :event
@@ -75,7 +76,12 @@ module GobiertoPeople
     private
 
     def event_in_sync_range_window
-      errors.add(:starts_at, "is out of sync range") unless GobiertoCalendars.sync_range.cover?(starts_at)
+      range = if GobiertoCalendars.respond_to?("sync_range_#{integration_name}".to_sym)
+                GobiertoCalendars.send("sync_range_#{integration_name}")
+              else
+                GobiertoCalendars.sync_range
+              end
+      errors.add(:starts_at, "is out of sync range") unless range.cover?(starts_at)
     end
 
     def title_translations

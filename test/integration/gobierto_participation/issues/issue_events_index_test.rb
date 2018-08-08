@@ -9,7 +9,7 @@ module GobiertoParticipation
     end
 
     def issue
-      @issue ||= issues(:women)
+      @issue ||= ProcessTermDecorator.new(gobierto_common_terms(:women_term))
     end
 
     def issue_events_path

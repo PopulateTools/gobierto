@@ -2,6 +2,24 @@
 es:
   gobierto_admin:
     gobierto_common:
+      ordered_terms:
+        edit_modal:
+          title: Editar %{term}
+        form:
+          placeholders:
+            description: Descripción del término
+            name: Nombre del término
+            slug: termino
+        index:
+          delete_confirm: Estás seguro? Esta operación no es reversible
+          drag_to_sort: Arrastra para ordenar
+          header:
+            created_at: Creado
+            name: Nombre
+          new: Nuevo
+          title: Términos de %{vocabulary}
+        new_modal:
+          title: Nuevo término
       terms:
         edit:
           edit: Editar %{term}

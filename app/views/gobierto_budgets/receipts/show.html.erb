@@ -116,9 +116,7 @@
 </div>
 
 <% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.GobiertoBudgets.receipt_controller.show({
-      receiptConfiguration: JSON.parse(<%== budgets_receipt_configuration.to_json %>),
-    });
-  <% end %>
+  window.GobiertoBudgets.receipt_controller.show({
+    receiptConfiguration: JSON.parse(<%== budgets_receipt_configuration.to_json %>),
+  });
 <% end %>

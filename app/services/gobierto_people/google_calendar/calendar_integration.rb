@@ -120,7 +120,8 @@ module GobiertoPeople
           ends_at: parse_date(event.end),
           state: state,
           attendees: event_attendees(event),
-          notify: occurrence.nil? || occurrence == 0
+          notify: occurrence.nil? || occurrence == 0,
+          integration_name: @configuration.integration_name
         }
 
         if event.location.present?
@@ -132,13 +133,14 @@ module GobiertoPeople
         event_form = GobiertoPeople::CalendarSyncEventForm.new(event_params)
 
         if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
-          log_destroy_rule
+          log_destroy_rule(event_form.title)
           event_form.destroy
         else
           if event_form.save
+            log_saved_event(event_form)
             received_event_ids.push(event.id)
           else
-            log_invalid_event(event_form.errors.messages)
+            log_invalid_event(event_form)
           end
         end
       end

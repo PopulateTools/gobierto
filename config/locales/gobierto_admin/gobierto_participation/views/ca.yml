@@ -2,6 +2,12 @@
 ca:
   gobierto_admin:
     gobierto_participation:
+      configuration:
+        settings:
+          edit:
+            title: Configuració
+            update: Actualitzar
+          title: Preferencies
       shared:
         navigation:
           agenda: Agenda
@@ -16,6 +22,7 @@ ca:
           votings: Votacions
       welcome:
         index:
+          configuration: Configuració
           element: Element
           finishes_in: Acaba ...
           group_process: Grup/Procés

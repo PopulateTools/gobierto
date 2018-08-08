@@ -56,7 +56,7 @@ export var GetUnemploymentAgeData = Class.extend({
         }.bind(this));
 
         // Filtering values to start from the first data points
-        this.data = unemployed.filter(function(d) { return d.date >=this.parseTime('2011-01') }.bind(this));
+        this.data = unemployed.filter(function(d) { return d.age_range != '<25' && d.date >=this.parseTime('2011-01') }.bind(this));
 
         window.unemplAgeData = this.data;
 

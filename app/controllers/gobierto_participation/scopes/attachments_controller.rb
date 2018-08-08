@@ -12,10 +12,6 @@ module GobiertoParticipation
 
       private
 
-      def find_scope
-        current_site.scopes.find_by_slug!(params[:scope_id])
-      end
-
       def find_scope_attachments
         ::GobiertoAttachments::Attachment.attachments_in_collections_and_container(current_site, @scope)
       end

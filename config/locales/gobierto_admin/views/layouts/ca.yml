@@ -16,13 +16,11 @@ ca:
         edit_site: Personalitzar site
         file_attachments: Documents
         hey_admin: Hola, %{admin_name}
-        issues: Temes
         manage_sites: Gestionar sites
         notifications: Notificacions
         participation: Participació
         people: Alts càrrecs i Agendes
         plans: Plans
-        scopes: Àmbits
         site_network: Xarxa
         templates: Plantilles
         users: Usuaris

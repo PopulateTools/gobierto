@@ -39,8 +39,8 @@ module GobiertoPeople
 
     def political_groups
       @political_groups ||= [
-        gobierto_people_political_groups(:marvel),
-        gobierto_people_political_groups(:dc)
+        gobierto_common_terms(:marvel_term),
+        gobierto_common_terms(:dc_term)
       ]
     end
 
@@ -90,6 +90,23 @@ module GobiertoPeople
 
         assert has_link?("Event 7")
         assert has_no_link?("View more")
+      end
+    end
+
+    def test_person_events_by_date
+      government_member.events.destroy_all
+
+      10.times do |i|
+        create_event(person: government_member, starts_at: (Time.now.tomorrow - i.days).to_s, title: "Event #{i}")
+      end
+      ::GobiertoCalendars::Event.update_all(state: :pending)
+
+      with_current_site(site) do
+        visit gobierto_people_events_path(date: Date.yesterday.to_s)
+
+        assert has_no_link?("Event 1")
+        assert has_no_link?("Event 2")
+        assert has_no_link?("Event 3")
       end
     end
 

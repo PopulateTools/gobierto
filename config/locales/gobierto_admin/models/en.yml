@@ -64,3 +64,10 @@ en:
       gobierto_admin/user_form: User
       gobierto_admin/user_password_form: Password change
       gobierto_admin/user_welcome_message_form: Welcome message
+  activerecord:
+    attributes:
+      gobierto_admin/permission/site_option:
+        resource_names:
+          customize: Customize site
+          templates: Templates
+          vocabularies: Vocabularies

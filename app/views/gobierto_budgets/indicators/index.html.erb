@@ -54,10 +54,8 @@
 </div>
 
 <% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.GobiertoBudgets.indicators_controller.index();
-    window.populateDataYear = {
-      currentYear: <%= @selected_year %>
-    }
-  <% end %>
+  window.GobiertoBudgets.indicators_controller.index();
+  window.populateDataYear = {
+    currentYear: <%= @selected_year %>
+  }
 <% end %>

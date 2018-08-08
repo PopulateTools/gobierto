@@ -24,10 +24,6 @@ module GobiertoParticipation
 
       private
 
-      def find_issue
-        current_site.issues.find_by_slug!(params[:issue_id])
-      end
-
       def find_participation_events
         ::GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted
       end

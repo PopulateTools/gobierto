@@ -157,12 +157,6 @@ module GobiertoCalendars
       locations.first
     end
 
-    def first_issue
-      collection_item = GobiertoCommon::CollectionItem.issues.where(item: self).first
-
-      collection_item.container if collection_item
-    end
-
     def searchable_description
       searchable_translated_attribute(description_translations)
     end

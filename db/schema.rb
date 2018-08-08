@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_16_092701) do
+ActiveRecord::Schema.define(version: 2018_08_01_142224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -537,20 +537,6 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.index ["title_translations"], name: "index_gp_person_statements_on_title_translations", using: :gin
   end
 
-  create_table "gp_political_groups", id: :serial, force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.integer "site_id"
-    t.integer "admin_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "position", default: 0, null: false
-    t.string "slug", null: false
-    t.index ["admin_id"], name: "index_gp_political_groups_on_admin_id"
-    t.index ["position"], name: "index_gp_political_groups_on_position"
-    t.index ["site_id"], name: "index_gp_political_groups_on_site_id"
-    t.index ["slug"], name: "index_gp_political_groups_on_slug", unique: true
-  end
-
   create_table "gp_settings", id: :serial, force: :cascade do |t|
     t.integer "site_id"
     t.string "key", default: "", null: false
@@ -574,17 +560,6 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.index ["destinations_meta"], name: "index_gp_trips_on_destinations_meta", using: :gin
     t.index ["meta"], name: "index_gp_trips_on_meta", using: :gin
     t.index ["person_id"], name: "index_gp_trips_on_person_id"
-  end
-
-  create_table "gpart_areas", force: :cascade do |t|
-    t.bigint "site_id"
-    t.jsonb "name_translations"
-    t.jsonb "slug_translations"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name_translations"], name: "index_gpart_areas_on_name_translations", using: :gin
-    t.index ["site_id"], name: "index_gpart_areas_on_site_id"
-    t.index ["slug_translations"], name: "index_gpart_areas_on_slug_translations", using: :gin
   end
 
   create_table "gpart_comments", force: :cascade do |t|
@@ -835,30 +810,6 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.index ["title_translations"], name: "index_gplan_plans_on_title_translations", using: :gin
   end
 
-  create_table "issues", force: :cascade do |t|
-    t.bigint "site_id"
-    t.jsonb "name_translations"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "position", default: 0, null: false
-    t.jsonb "description_translations"
-    t.string "slug", default: "", null: false
-    t.index ["name_translations"], name: "index_issues_on_name_translations", using: :gin
-    t.index ["position"], name: "index_issues_on_position"
-    t.index ["site_id", "slug"], name: "index_issues_on_site_id_and_slug", unique: true
-    t.index ["site_id"], name: "index_issues_on_site_id"
-  end
-
-  create_table "scopes", force: :cascade do |t|
-    t.bigint "site_id", null: false
-    t.jsonb "name_translations", null: false
-    t.jsonb "description_translations", null: false
-    t.integer "position", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "slug", default: "", null: false
-  end
-
   create_table "sites", id: :serial, force: :cascade do |t|
     t.string "domain"
     t.text "configuration_data"
@@ -994,9 +945,10 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
 
   create_table "vocabularies", force: :cascade do |t|
     t.bigint "site_id"
-    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "name_translations"
+    t.string "slug"
     t.index ["site_id"], name: "index_vocabularies_on_site_id"
   end
 

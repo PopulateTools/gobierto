@@ -22,7 +22,7 @@ module GobiertoParticipation
     end
 
     def issues
-      @issues ||= site.issues.sorted
+      @issues ||= Process.issues(site).sorted
     end
 
     def processes

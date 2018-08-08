@@ -15,11 +15,15 @@ module GobiertoPeople
     end
 
     def all_start_date
-      current_site.events.published.order(starts_at: :asc).first.starts_at if site_configuration_date_range[:start_date].present?
+      if site_configuration_date_range[:start_date].present? && current_site.events.any?
+        current_site.events.published.order(starts_at: :asc).first.starts_at
+      end
     end
 
     def all_end_date
-      current_site.events.published.order(ends_at: :desc).first.ends_at if site_configuration_date_range[:end_date].present?
+      if site_configuration_date_range[:end_date].present? && current_site.events.any?
+        current_site.events.published.order(ends_at: :desc).first.ends_at
+      end
     end
 
     def filter_start_date
@@ -41,8 +45,10 @@ module GobiertoPeople
     private
 
     def site_configuration_date_range
-      @site_configuration_date_range ||= { start_date: parse_date(current_site.configuration.configuration_variables["gobierto_people_default_filter_start_date"]),
-                                           end_date: parse_date(current_site.configuration.configuration_variables["gobierto_people_default_filter_end_date"]) }
+      @site_configuration_date_range ||= {
+        start_date: parse_date(current_site.configuration.configuration_variables["gobierto_people_default_filter_start_date"].to_s),
+        end_date: parse_date(current_site.configuration.configuration_variables["gobierto_people_default_filter_end_date"].to_s)
+      }
     end
 
     def parse_date(date, fallback = nil)

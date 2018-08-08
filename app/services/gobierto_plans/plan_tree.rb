@@ -5,7 +5,7 @@ class GobiertoPlans::PlanTree
 
   def initialize(plan)
     @plan = plan
-    @categories = @plan.categories.where(parent_id: nil).sort_by_uid
+    @categories = @plan.categories.where(term_id: nil).sorted
   end
 
   def call

@@ -75,8 +75,15 @@ export var VisPopulationPyramid = Class.extend({
     this.pyramid.append("g").attr("class","x axis males")
     this.pyramid.append("g").attr("class","x axis females")
     this.pyramid.append("g").attr("class","y axis")
+
+    // Static elements
+    this._renderTitles()
+    this._renderBars()
   },
   getUrls: function(city_id, filter = 0) {
+    // Ensure data to null to force http request
+    this.data = null
+
     // Original endpoints
     const endpoints = {
       population: {
@@ -150,23 +157,17 @@ export var VisPopulationPyramid = Class.extend({
     }
   },
   getData: function() {
-    // Show spinner
-    $(".js-toggle-overlay").addClass('is-active');
-
     let unemployed = d3.json(this.dataUrls.unemployed)
       .header("authorization", "Bearer " + this.tbiToken)
 
     let population = d3.json(this.dataUrls.population)
       .header("authorization", "Bearer " + this.tbiToken)
 
-    d3.queue()
+    return d3.queue()
       .defer(population.get)
       .defer(unemployed.get)
       .await(function(error, jsonPopulation, jsonUnemployed) {
         if (error) throw error
-
-        // Hide spinner
-        $(".js-toggle-overlay").removeClass('is-active');
 
         jsonPopulation.forEach(d => {
           d.age = parseInt(d.age)
@@ -185,9 +186,11 @@ export var VisPopulationPyramid = Class.extend({
         this.data = aux
 
         this.updateRender()
-        this._renderBars()
+
+        //
         this._renderAreas()
         this._renderMarks()
+
 
       }.bind(this))
   },
@@ -216,6 +219,83 @@ export var VisPopulationPyramid = Class.extend({
       .domain(_.uniq(this.data.pyramid.map(d => d.age)))
 
     this._renderAxis()
+    this.updateBars(this.data.pyramid)
+  },
+  updateBars: function (data) {
+    // USING UPDATE PATTERN
+    let male = this.pyramid.select("g.bars g.males")
+      .selectAll("g")
+      .data(data.filter(d => d.sex === "V"))
+
+    let female = this.pyramid.select("g.bars g.females")
+      .selectAll("g")
+      .data(data.filter(d => d.sex === "M"))
+
+    // updates
+    male.selectAll("rect")
+      .transition()
+      .duration(500)
+      .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d._value))
+      .attr("x", d => this.xScaleMale(d._value)) // Real value
+
+    male.selectAll("line")
+      .transition()
+      .duration(500)
+      .attr("x1", d => this.xScaleMale(d._value))
+
+    female.selectAll("rect")
+      .transition()
+      .duration(500)
+      .attr("width", d => this.xScaleFemale(d._value))
+
+    female.selectAll("line")
+      .transition()
+      .duration(500)
+      .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
+
+    // enters
+    let mm = male.enter().append("g")
+
+    mm.append("rect")
+      .attr("x", this.width.pyramid / 2) // To animate right to left. Fake value
+      .attr("y", d => this.yScale(d.age))
+      .attr("height", this.yScale.bandwidth())
+      .on("mousemove", this._mousemove.bind(this))
+      .on("mouseout", this._mouseout.bind(this))
+      .transition()
+      .duration(500)
+      .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d._value))
+      .attr("x", d => this.xScaleMale(d._value)) // Real value
+
+    mm.append("line")
+      .attr("x1", this.width.pyramid / 2) // To animate right to left. Fake value
+      .attr("x2", this.width.pyramid / 2)
+      .attr("y1", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
+      .attr("y2", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
+      .transition()
+      .duration(500)
+      .attr("x1", d => this.xScaleMale(d._value))
+
+    let ff = female.enter().append("g")
+
+    ff.append("rect")
+      .attr("x", this.width.pyramid / 2)
+      .attr("y", d => this.yScale(d.age))
+      .attr("height", this.yScale.bandwidth())
+      .on("mousemove", this._mousemove.bind(this))
+      .on("mouseout", this._mouseout.bind(this))
+      .transition()
+      .duration(500)
+      .attr("width", d => this.xScaleFemale(d._value))
+
+    ff.append("line")
+      .attr("x1", this.width.pyramid / 2)
+      .attr("x2", this.width.pyramid / 2)
+      .attr("y1", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
+      .attr("y2", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
+      .transition()
+      .duration(500)
+      .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
   },
   _transformPyramidData: function(data) {
     const totalMen = this._math.total(data.filter(p => p.sex === "V"))
@@ -310,7 +390,8 @@ export var VisPopulationPyramid = Class.extend({
     }
 
     this.pyramid.select(".y.axis").call(yAxis.bind(this))
-
+  },
+  _renderTitles: function () {
     // Titles
     let titles = this.pyramid.append("g")
       .attr("class", "titles")
@@ -335,61 +416,11 @@ export var VisPopulationPyramid = Class.extend({
     let g = this.pyramid.append("g")
       .attr("class", "bars")
 
-    let male = g.append("g")
+    g.append("g")
       .attr("class", "males")
-      .selectAll("rect")
-      .data(this.data.pyramid.filter(d => d.sex === "V"))
 
-    let female = g.append("g")
+    g.append("g")
       .attr("class", "females")
-      .selectAll("rect")
-      .data(this.data.pyramid.filter(d => d.sex === "M"))
-
-    male.exit().remove()
-    female.exit().remove()
-
-    let mm = male.enter().append("g")
-
-    mm.append("rect")
-      .attr("x", this.width.pyramid / 2) // To animate right to left. Fake value
-      .attr("y", d => this.yScale(d.age))
-      .attr("height", this.yScale.bandwidth())
-      .on("mousemove", this._mousemove.bind(this))
-      .on("mouseout", this._mouseout.bind(this))
-      .transition()
-      .duration(500)
-      .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d._value))
-      .attr("x", d => this.xScaleMale(d._value)) // Real value
-
-    mm.append("line")
-      .attr("x1", this.width.pyramid / 2) // To animate right to left. Fake value
-      .attr("x2", this.width.pyramid / 2)
-      .attr("y1", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
-      .attr("y2", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
-      .transition()
-      .duration(500)
-      .attr("x1", d => this.xScaleMale(d._value))
-
-    let ff = female.enter().append("g")
-
-    ff.append("rect")
-      .attr("x", this.width.pyramid / 2)
-      .attr("y", d => this.yScale(d.age))
-      .attr("height", this.yScale.bandwidth())
-      .on("mousemove", this._mousemove.bind(this))
-      .on("mouseout", this._mouseout.bind(this))
-      .transition()
-      .duration(500)
-      .attr("width", d => this.xScaleFemale(d._value))
-
-    ff.append("line")
-      .attr("x1", this.width.pyramid / 2)
-      .attr("x2", this.width.pyramid / 2)
-      .attr("y1", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
-      .attr("y2", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
-      .transition()
-      .duration(500)
-      .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
 
     let focus = g.append("g")
       .attr("class", "tooltip")

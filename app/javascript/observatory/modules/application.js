@@ -50,6 +50,8 @@ $(document).on('turbolinks:click', function (event) {
   }
 })
 
+var vis_population;
+
 $(document).on('turbolinks:load', function() {
   var getUnemplAgeData = new GetUnemploymentAgeData(window.populateData.municipalityId);
 
@@ -66,7 +68,7 @@ $(document).on('turbolinks:load', function() {
   var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
   vis_agedb.render();
 
-  var vis_population = new VisPopulationPyramid('#population_pyramid', window.populateData.municipalityId, window.populateData.year);
+  vis_population = new VisPopulationPyramid('#population_pyramid', window.populateData.municipalityId, window.populateData.year);
   vis_population.render();
 
   var vis_unemplR = new VisUnemploymentRate('#unemployment_rate', window.populateData.municipalityId, window.populateData.ccaaId);
@@ -186,7 +188,9 @@ $(document).on('turbolinks:load', function() {
         ? window.populateData.ccaaId
         : null
 
-    let vis_population = new VisPopulationPyramid('#population_pyramid', elemId, window.populateData.year, filter);
-    vis_population.render();
+    // Update the urls
+    vis_population.dataUrls = vis_population.getUrls(elemId, filter)
+    // render again
+    vis_population.render()
   });
 });

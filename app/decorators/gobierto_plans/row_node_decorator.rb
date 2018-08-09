@@ -33,7 +33,7 @@ module GobiertoPlans
                         categories = []
                         level_names.each_with_index do |name, index|
                           current_level =
-                            current_level.categories.with_name_translation(object[name], locale).where(level: index).first ||
+                            current_level.categories.where("#{ terms_table_name }.name_translations @> ?::jsonb", { locale => object[name] }.to_json).first ||
                             current_level.categories.new(
                               "name_#{ locale }": object[name],
                               level: index,
@@ -50,7 +50,7 @@ module GobiertoPlans
       @node ||= begin
                   return nil if node_data.compact.blank?
                   category = CategoryTermDecorator.new(categories.last)
-                  (category.nodes.with_name_translation(node_data["Title"], locale).first || category.nodes.new).tap do |node|
+                  (category.nodes.where("#{ nodes_table_name }.name_translations @> ?::jsonb", { locale => node_data["Title"] }.to_json).first || category.nodes.new).tap do |node|
                     node.assign_attributes node_attributes
                     node.progress = progress_from_status(node.status) unless has_progress_column?
                     node.categories << category unless node.categories.include?(category)
@@ -147,6 +147,14 @@ module GobiertoPlans
       plan_options_keys.map do |key|
         node.options && node.options[key]
       end
+    end
+
+    def nodes_table_name
+      Node.table_name
+    end
+
+    def terms_table_name
+      GobiertoCommon::Term.table_name
     end
 
     def node_csv_values

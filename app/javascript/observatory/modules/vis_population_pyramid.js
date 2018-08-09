@@ -77,7 +77,7 @@ export var VisPopulationPyramid = Class.extend({
     this.pyramid.append("g").attr("class","y axis")
 
     // Static elements
-    this._renderStatics()
+    this._renderStatic()
   },
   getUrls: function(city_id, filter = 0) {
     // Ensure data to null to force http request
@@ -198,16 +198,16 @@ export var VisPopulationPyramid = Class.extend({
   },
   update: function(data) {
     this._updateScales(data)
-    this._updateAxis()
+    this._updateAxes()
     this._updateBars(data.pyramid)
     this._updateMarks(data.marks)
   },
   _updateScales: function (data) {
     this.xScaleMale
-      .domain([d3.max(data.pyramid.map(d => d._value)), 0])
+      .domain([d3.max(data.pyramid.map(d => d._value)), 0]).nice()
 
     this.xScaleFemale
-      .domain([0, d3.max(data.pyramid.map(d => d._value))])
+      .domain([0, d3.max(data.pyramid.map(d => d._value))]).nice()
 
     this.xScaleAgeRanges
       .domain([d3.max(data.areas.map(d => d.value)), 0]).nice()
@@ -215,7 +215,7 @@ export var VisPopulationPyramid = Class.extend({
     this.yScale
       .domain(_.uniq(data.pyramid.map(d => d.age)))
   },
-  _updateAxis: function () {
+  _updateAxes: function () {
     this.pyramid.selectAll(".x.axis.males")
       .transition().duration(500)
       .call(this._xAxisMale.bind(this))
@@ -237,32 +237,6 @@ export var VisPopulationPyramid = Class.extend({
     let female = this.pyramid.select("g.bars g.females")
       .selectAll("g")
       .data(data.filter(d => d.sex === "M"))
-
-    // exits
-    male.exit().remove()
-    female.exit().remove()
-
-    // updates
-    male.selectAll("rect")
-      .transition()
-      .duration(500)
-      .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d._value))
-      .attr("x", d => this.xScaleMale(d._value)) // Real value
-
-    male.selectAll("line")
-      .transition()
-      .duration(500)
-      .attr("x1", d => this.xScaleMale(d._value))
-
-    female.selectAll("rect")
-      .transition()
-      .duration(500)
-      .attr("width", d => this.xScaleFemale(d._value))
-
-    female.selectAll("line")
-      .transition()
-      .duration(500)
-      .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
 
     // enters
     let mm = male.enter().append("g")
@@ -307,6 +281,32 @@ export var VisPopulationPyramid = Class.extend({
       .transition()
       .duration(500)
       .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
+
+    // updates
+    male.select("rect")
+      .transition()
+      .duration(500)
+      .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d._value))
+      .attr("x", d => this.xScaleMale(d._value)) // Real value
+
+    male.select("line")
+      .transition()
+      .duration(500)
+      .attr("x1", d => this.xScaleMale(d._value))
+
+    female.select("rect")
+      .transition()
+      .duration(500)
+      .attr("width", d => this.xScaleFemale(d._value))
+
+    female.select("line")
+      .transition()
+      .duration(500)
+      .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
+
+    // exits
+    male.exit().remove()
+    female.exit().remove()
   },
   _updateAreas: function () {
     // USING UPDATE PATTERN
@@ -347,24 +347,21 @@ export var VisPopulationPyramid = Class.extend({
     // exits
     g.exit().remove()
   },
-  _renderStatics: function () {
-    this._renderAxis()
-    this._renderTitles()
-    this._renderBars()
-    this._renderMarks()
-    // this._renderAreas()
-  },
-  _renderAxis: function() {
+  _renderStatic: function () {
+    // NOTE: We keep this separate to not create them after every update/resize
+
+    // Pyramid axes
     this.pyramid.select(".x.axis.males")
       .attr("transform", `translate(0,${this.height.pyramid - this.margin.bottom})`)
       .call(this._xAxisMale.bind(this))
+
     this.pyramid.select(".x.axis.females")
       .attr("transform", `translate(${this.width.pyramid / 2},${this.height.pyramid - this.margin.bottom})`)
       .call(this._xAxisFemale.bind(this))
+
     this.pyramid.select(".y.axis").call(this._yAxis.bind(this))
-  },
-  _renderTitles: function () {
-    // Titles
+
+    // Pyramid titles
     let titles = this.pyramid.append("g")
       .attr("class", "titles")
 
@@ -382,9 +379,8 @@ export var VisPopulationPyramid = Class.extend({
       .attr("transform", `translate(0,${this.gutter})`)
       .attr("text-anchor", "end")
       .text(I18n.t('gobierto_observatory.graphics.population_pyramid.age'))
-  },
-  _renderBars: function() {
-    // We keep this separate to not create them after every resize
+
+    // Pyramid bar-groups
     let g = this.pyramid.append("g")
       .attr("class", "bars")
 
@@ -394,6 +390,7 @@ export var VisPopulationPyramid = Class.extend({
     g.append("g")
       .attr("class", "females")
 
+    // Pyramid tooltip
     let focus = g.append("g")
       .attr("class", "tooltip")
       .attr("opacity", 0)
@@ -474,36 +471,6 @@ export var VisPopulationPyramid = Class.extend({
       .duration(500)
       .attr("opacity", 1)
       .attr("y", d => this.yScale(d.range[0]) - yFakeScale(d.fake) + (1.5 * this.gutter))
-  },
-  _renderMarks: function() {
-    // let g = this.marks.selectAll("g")
-    //   .data(this.data.marks)
-    //
-    // g.exit().remove()
-    //
-    //
-    // marks.append("line")
-    //   .attr("x1", 0)
-    //   .attr("x2", 1.5 * this.gutter)
-    //   .attr("y1", this.yScale(0))
-    //   .attr("y2", this.yScale(0))
-    //   .transition()
-    //   .delay(500)
-    //   .duration(500)
-    //   .attr("y1", d => this.yScale(d.value))
-    //   .attr("y2", d => this.yScale(d.value))
-    //
-    // marks.append("text")
-    //   .attr("x", 2 * this.gutter)
-    //   .attr("opacity", 0)
-    //   .attr("dy", ".3em")
-    //   .text(d => d.name)
-    //   .call(this._wrap, this.width.areas - (2 * this.gutter), 2 * this.gutter)
-    //   .transition()
-    //   .delay(500)
-    //   .duration(500)
-    //   .attr("opacity", 1)
-    //   .attr("y", d => this.yScale(d.value))
   },
   _mousemove: function(d) {
     this.svg.select(".tooltip")
@@ -587,19 +554,16 @@ export var VisPopulationPyramid = Class.extend({
   },
   _transformMarksData: function(data) {
     return [{
-      id: 0,
       value: this._math.mean(data.map(f => f.age)),
       get name() {
         return I18n.t('gobierto_observatory.graphics.population_pyramid.mean', { age: this.value })
       }
     }, {
-      id: 1,
       value: this._math.median(data.map(f => f.age)),
       get name() {
         return I18n.t('gobierto_observatory.graphics.population_pyramid.median', { age: this.value })
       }
     }, {
-      id: 2,
       value: this._math.mode(data),
       get name() {
         return I18n.t('gobierto_observatory.graphics.population_pyramid.mode', { age: this.value })

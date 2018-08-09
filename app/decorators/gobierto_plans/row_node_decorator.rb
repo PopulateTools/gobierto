@@ -15,11 +15,11 @@ module GobiertoPlans
         @plan = options[:plan]
       elsif object.is_a? Node
         @node = object
-        @plan = @node.categories.first&.plan
+        @plan = CategoryTermDecorator.new(@node.categories.first).plan
         @category = node_category
         @object = CSV::Row.new(plan_csv_columns, node_csv_values)
-      elsif object.is_a? Category
-        @category = object
+      elsif object.is_a? GobiertoCommon::Term
+        @category = CategoryTermDecorator.new(object)
         @plan = @category.plan
         @node = Node.new
         @object = CSV::Row.new(plan_csv_columns, node_csv_values)
@@ -37,8 +37,9 @@ module GobiertoPlans
                             current_level.categories.new(
                               "name_#{ locale }": object[name],
                               level: index,
-                              plan: @plan
+                              vocabulary_id: @plan.categories_vocabulary.id
                             )
+                          current_level = CategoryTermDecorator.new(current_level)
                           categories << current_level
                         end
                         categories
@@ -48,7 +49,7 @@ module GobiertoPlans
     def node
       @node ||= begin
                   return nil if node_data.compact.blank?
-                  category = categories.last
+                  category = CategoryTermDecorator.new(categories.last)
                   (category.nodes.with_name_translation(node_data["Title"], locale).first || category.nodes.new).tap do |node|
                     node.assign_attributes node_attributes
                     node.progress = progress_from_status(node.status) unless has_progress_column?
@@ -120,14 +121,14 @@ module GobiertoPlans
     def categories_hierarchy(category)
       categories = []
       while category.present?
-        categories.unshift(category)
+        categories.unshift(CategoryTermDecorator.new(category))
         category = category.parent_category
       end
       categories
     end
 
     def node_category
-      @node.categories.where(level: @plan.categories.maximum(:level)).first
+      CategoryTermDecorator.new(@node.categories.where(level: @plan.categories.maximum(:level)).first)
     end
 
     def node_mandatory_values

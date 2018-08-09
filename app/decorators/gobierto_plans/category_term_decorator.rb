@@ -35,13 +35,11 @@ module GobiertoPlans
       @progress ||= begin
                       depending_categories = [object]
                       max_level = plan.categories.maximum(:level)
-                      if object.level < max_level
-                        (object.level..max_level).each do |lvl|
-                          depending_categories += ::GobiertoCommon::Term.where(term_id: depending_categories.pluck(:id))
-                        end
+                      (max_level - object.level).times do
+                        depending_categories += ::GobiertoCommon::Term.where(term_id: depending_categories.pluck(:id))
                       end
 
-                      depending_nodes = plan.nodes.where(gplan_categories_nodes: {category_id: depending_categories.pluck(:id)})
+                      depending_nodes = plan.nodes.where(gplan_categories_nodes: { category_id: depending_categories.pluck(:id) })
                       depending_nodes.blank? ? nil : depending_nodes.average(:progress).to_f
                     end
     end
@@ -51,7 +49,7 @@ module GobiertoPlans
     end
 
     def nodes
-      plan.nodes.where(gplan_categories_nodes: {category_id: object.id})
+      plan.nodes.where(gplan_categories_nodes: { category_id: object.id })
     end
 
     protected

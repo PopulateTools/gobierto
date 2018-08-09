@@ -234,7 +234,6 @@ export var VisPopulationPyramid = Class.extend({
       .call(this._yAxis.bind(this))
   },
   _updateBars: function (data) {
-    // USING UPDATE PATTERN
     let male = this.pyramid.select("g.bars g.males")
       .selectAll("g")
       .data(data.filter(d => d.sex === "V"))
@@ -314,7 +313,6 @@ export var VisPopulationPyramid = Class.extend({
     female.exit().remove()
   },
   _updateAreas: function (data) {
-    // USING UPDATE PATTERN
     let g = this.areas.selectAll(".range")
       .data(data)
 
@@ -349,8 +347,7 @@ export var VisPopulationPyramid = Class.extend({
       .call(this._wrap, (2 * chartWidth) - (4 * this.gutter), chartWidth + this.gutter)
 
     // updates
-    g
-      .select("rect")
+    g.select("rect")
       .transition()
       .duration(1000)
       .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
@@ -365,9 +362,68 @@ export var VisPopulationPyramid = Class.extend({
 
     // exits
     g.exit().remove()
+
+    /*
+     * Ghost Area - area inside the second one (depends on its dimensions)
+     *
+     */
+
+     // TODO: estos datos hay que pasarlos ANTES de llamar a la funcion, para que `data` cambie
+    let fakeObj = data.find((d, i) => i === 1)
+    let fakeData = [Object.assign(fakeObj, { fake: data.unemployed })]
+    let bp = this.ageBreakpoints
+    let yFakeScale = d3.scaleLinear()
+      .range([0, this.yScale(bp[0]) - this.yScale(bp[1])])
+      .domain([0, fakeObj.value])
+
+    let fakeG = ranges.selectAll("rect")
+      .filter(d => !d.hasOwnProperty("fake"))
+      .data(fakeData)
+
+    // enters
+    let fake = fakeG.enter().append("g")
+
+    fake
+      .attr("transform", d => `translate(0, ${this.yScale(d.range[0]) - this.yScale(d.range[1]) - yFakeScale(d.fake)})`)
+
+    fake.append("rect")
+      .attr("class", "inner")
+      .attr("x", d => this.xScaleAgeRanges(d.value))
+      .attr("y", d => yFakeScale(d.fake))
+      .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
+      .attr("height", 0)
+      .transition()
+      .delay(1000)
+      .duration(1000)
+      .attr("height", d => yFakeScale(d.fake))
+      .attr("y", 0)
+
+    fake.append("text")
+      .attr("class", "subtitle")
+      .attr("opacity", 0)
+      .attr("x", chartWidth + this.gutter)
+      .attr("dy", `${this._pxToEm(1.5 * this.gutter)}em`)
+      .html(d => `<tspan class="as-title">${(d.fake / d.value).toLocaleString(I18n.locale, { style: 'percent' })}</tspan> ${I18n.t('gobierto_observatory.graphics.population_pyramid.unemployed')}`)
+      .transition()
+      .delay(1000)
+      .duration(1000)
+      .attr("opacity", 1)
+
+    // updates
+    fakeG.select("rect")
+      .transition()
+      .duration(1000)
+      .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
+      .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
+      .attr("height", d => yFakeScale(d.fake))
+
+    fakeG.select("text.subtitle")
+      .html(d => `<tspan class="as-title">${(d.fake / d.value).toLocaleString(I18n.locale, { style: 'percent' })}</tspan> ${I18n.t('gobierto_observatory.graphics.population_pyramid.unemployed')}`)
+
+    // exits
+    fakeG.exit().remove()
   },
   _updateMarks: function (data) {
-    // USING UPDATE PATTERN
     let g = this.marks.selectAll(".mark")
       .data(data)
 
@@ -453,47 +509,6 @@ export var VisPopulationPyramid = Class.extend({
 
     focus.append("text")
   },
-  _renderAreas: function() {
-    // ghost scale
-    let fakeObj = this.data.areas.find((d, i) => i === 1)
-    let fakeData = [Object.assign(fakeObj, { fake: this.data.unemployed })]
-    let bp = this.ageBreakpoints
-    let yFakeScale = d3.scaleLinear()
-      .range([0, this.yScale(bp[0]) - this.yScale(bp[1])])
-      .domain([0, fakeObj.value])
-
-    let fakeG = ranges.selectAll("rect")
-      .filter(d => !d.hasOwnProperty('fake'))
-      .data(fakeData)
-
-    fakeG.exit().remove()
-
-    let fake = fakeG.enter().append("g")
-
-    fake.append("rect")
-      .attr("class", "inner")
-      .attr("x", d => this.xScaleAgeRanges(d.value))
-      .attr("y", d => this.yScale(d.range[0])) // Fake value
-      .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
-      .attr("height", 0)
-      .transition()
-      .delay(500)
-      .duration(500)
-      .attr("height", d => yFakeScale(d.fake))
-      .attr("y", d => this.yScale(d.range[0]) - yFakeScale(d.fake)) // real value
-
-    fake.append("text")
-      .attr("class", "subtitle")
-      .attr("opacity", 0)
-      .attr("x", chartWidth + this.gutter)
-      .attr("y", d => this.yScale(d.range[0]) + (1.5 * this.gutter))
-      .html(d => `<tspan class="as-title">${(d.fake / d.value).toLocaleString(I18n.locale, { style: 'percent' })}</tspan> ${I18n.t('gobierto_observatory.graphics.population_pyramid.unemployed')}`)
-      .transition()
-      .delay(500)
-      .duration(500)
-      .attr("opacity", 1)
-      .attr("y", d => this.yScale(d.range[0]) - yFakeScale(d.fake) + (1.5 * this.gutter))
-  },
   _mousemove: function(d) {
     this.svg.select(".tooltip")
       .attr("opacity", 1)
@@ -528,7 +543,8 @@ export var VisPopulationPyramid = Class.extend({
   _yAxis: function (g) {
     g.call(this.yAxis.tickValues(this.yScale.domain().filter((d,i) => !(i%10))))
 
-    let s = g.selection ? g.selection() : g // https://bl.ocks.org/mbostock/4323929
+    // https://bl.ocks.org/mbostock/4323929
+    let s = g.selection ? g.selection() : g
     s.selectAll(".domain").remove()
     s.selectAll(".tick line")
       .attr("x1", 0)

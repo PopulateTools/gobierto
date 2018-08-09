@@ -37,10 +37,10 @@ export var VisPopulationPyramid = Class.extend({
     }
 
     // Scales & Ranges
-    this.xScaleMale = d3.scaleLinear()
-    this.xScaleFemale = d3.scaleLinear()
-    this.xScaleAgeRanges = d3.scaleLinear()
-		this.yScale = d3.scaleBand()
+    this.xScaleMale = d3.scaleLinear().range([0, this.width.pyramid / 2])
+    this.xScaleFemale = d3.scaleLinear().range([0, this.width.pyramid / 2])
+    this.xScaleAgeRanges = d3.scaleLinear().range([0, this.width.areas / 3])
+		this.yScale = d3.scaleBand().rangeRound([this.height.pyramid, 0])
 
     // Create axes
     this.xAxisMale = d3.axisBottom()
@@ -77,8 +77,7 @@ export var VisPopulationPyramid = Class.extend({
     this.pyramid.append("g").attr("class","y axis")
 
     // Static elements
-    this._renderTitles()
-    this._renderBars()
+    this._renderStatics()
   },
   getUrls: function(city_id, filter = 0) {
     // Ensure data to null to force http request
@@ -184,44 +183,52 @@ export var VisPopulationPyramid = Class.extend({
         }
 
         this.data = aux
+        this.update(this.data)
 
-        this.updateRender()
-
-        //
-        this._renderAreas()
-        this._renderMarks()
-
-
+        // DEBUG
+        window.datos = this.data
       }.bind(this))
   },
   render: function() {
     if (this.data === null) {
       this.getData()
     } else {
-      this.updateRender()
+      this.update(this.data)
     }
   },
-  updateRender: function() {
+  update: function(data) {
+    this._updateScales(data)
+    this._updateAxis()
+    this._updateBars(data.pyramid)
+    this._updateMarks(data.marks)
+  },
+  _updateScales: function (data) {
     this.xScaleMale
-      .range([0, this.width.pyramid / 2])
-      .domain([d3.max(this.data.pyramid.map(d => d._value)), 0])
+      .domain([d3.max(data.pyramid.map(d => d._value)), 0])
 
     this.xScaleFemale
-      .range([0, this.width.pyramid / 2])
-      .domain([0, d3.max(this.data.pyramid.map(d => d._value))])
+      .domain([0, d3.max(data.pyramid.map(d => d._value))])
 
     this.xScaleAgeRanges
-      .range([0, this.width.areas / 3])
-      .domain([d3.max(this.data.areas.map(d => d.value)), 0]).nice()
+      .domain([d3.max(data.areas.map(d => d.value)), 0]).nice()
 
     this.yScale
-      .rangeRound([this.height.pyramid, 0])
-      .domain(_.uniq(this.data.pyramid.map(d => d.age)))
-
-    this._renderAxis()
-    this.updateBars(this.data.pyramid)
+      .domain(_.uniq(data.pyramid.map(d => d.age)))
   },
-  updateBars: function (data) {
+  _updateAxis: function () {
+    this.pyramid.selectAll(".x.axis.males")
+      .transition().duration(500)
+      .call(this._xAxisMale.bind(this))
+
+    this.pyramid.selectAll(".x.axis.females")
+      .transition().duration(500)
+      .call(this._xAxisFemale.bind(this))
+
+    this.pyramid.selectAll(".y.axis")
+      .transition().duration(500)
+      .call(this._yAxis.bind(this))
+  },
+  _updateBars: function (data) {
     // USING UPDATE PATTERN
     let male = this.pyramid.select("g.bars g.males")
       .selectAll("g")
@@ -230,6 +237,10 @@ export var VisPopulationPyramid = Class.extend({
     let female = this.pyramid.select("g.bars g.females")
       .selectAll("g")
       .data(data.filter(d => d.sex === "M"))
+
+    // exits
+    male.exit().remove()
+    female.exit().remove()
 
     // updates
     male.selectAll("rect")
@@ -297,99 +308,80 @@ export var VisPopulationPyramid = Class.extend({
       .duration(500)
       .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
   },
-  _transformPyramidData: function(data) {
-    const totalMen = this._math.total(data.filter(p => p.sex === "V"))
-    const totalWomen = this._math.total(data.filter(p => p.sex === "M"))
-    // updates every value with its respective percentage
-    return data.map((item) => {
-      item._value = (item.sex === "V") ? (item.value / totalMen) : (item.sex === "M") ? (item.value / totalWomen) : 0
-      return item
-    })
+  _updateAreas: function () {
+    // USING UPDATE PATTERN
   },
-  _transformAreasData: function(data) {
-    let bp = this.ageBreakpoints
-    let self = this
-    return [
-      {
-        name: I18n.t('gobierto_observatory.graphics.population_pyramid.youth'),
-        get info() {
-          return I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: self._math.percent(this.value, self.data.pyramid), limit: bp[0] })
-        },
-        range: [d3.min(data.map(d => d.age)), bp[0] - 1],
-        value: data.filter(d => d.age < bp[0]).map(d => d.value).reduce((a,b)=>a+b)
-      },
-      {
-        name: I18n.t('gobierto_observatory.graphics.population_pyramid.adults'),
-        range: [bp[0], bp[1] - 1],
-        value: data.filter(d => d.age < bp[1] && d.age >= bp[0]).map(d => d.value).reduce((a,b)=>a+b)
-      },
-      {
-        name: I18n.t('gobierto_observatory.graphics.population_pyramid.elderly'),
-        get info() {
-          return I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: self._math.percent(this.value, self.data.pyramid), limit: bp[1] })
-        },
-        range: [bp[1], d3.max(data.map(d => d.age))],
-        value: data.filter(d => d.age >= bp[1]).map(d => d.value).reduce((a,b)=>a+b)
-      }
-    ]
+  _updateMarks: function (data) {
+    // TODO: IMCOMPLETO, NO ACTUALIZA datos
+
+    // USING UPDATE PATTERN
+    let g = this.marks.selectAll(".mark")
+      .data(data)
+
+    // exits
+    g.exit().remove()
+
+// console.log(g.enter().data(), g.exit().data());
+
+    // g.selectAll("text")
+    //   .transition()
+    //   .duration(500)
+    //   .attr("opacity", 1)
+    //   .attr("y", d => this.yScale(d.value))
+    //   .text(d => d.name)
+    //   .call(this._wrap, this.width.areas - (2 * this.gutter), 2 * this.gutter)
+
+    // enters
+    let marks = g.enter().append("g")
+      .attr("class", (d, i) => `mark m-${i}`)
+
+    marks
+      .attr("transform", `translate(0, ${this.yScale(0)})`)
+      .transition()
+      .duration(1000)
+      .attr("transform", d => `translate(0, ${this.yScale(d.value)})`)
+
+    marks.append("line")
+      .attr("x1", 0)
+      .attr("x2", 1.5 * this.gutter)
+
+    marks.append("text")
+      .attr("opacity", 0)
+      .attr("dy", ".3em")
+      .text(d => d.name)
+      .call(this._wrap, this.width.areas - (2 * this.gutter), 2 * this.gutter)
+      .transition()
+      .delay(500)
+      .duration(500)
+      .attr("opacity", 1)
+
+      // updates
+      g.selectAll("line")
+        .transition()
+        .duration(500)
+        .attr("transform", d => `translate(0, ${this.yScale(d.value)})`)
+        .attr("y1", d => this.yScale(d.value))
+        // .attr("y2", d => this.yScale(d.value))
+        .attr("y2", function (d) {
+          console.log(d.value);
+          return this.yScale(d.value)
+        }.bind(this))
   },
-  _transformMarksData: function(data) {
-    return [{
-      value: this._math.mean(data.map(f => f.age)),
-      get name() {
-        return I18n.t('gobierto_observatory.graphics.population_pyramid.mean', { age: this.value })
-      }
-    }, {
-      value: this._math.median(data.map(f => f.age)),
-      get name() {
-        return I18n.t('gobierto_observatory.graphics.population_pyramid.median', { age: this.value })
-      }
-    }, {
-      value: this._math.mode(data),
-      get name() {
-        return I18n.t('gobierto_observatory.graphics.population_pyramid.mode', { age: this.value })
-      }
-    }]
+  _renderStatics: function () {
+    this._renderAxis()
+    this._renderTitles()
+    this._renderBars()
+    this._renderMarks()
+    // this._renderAreas()
   },
   _renderAxis: function() {
-    // X axes
-    function xAxisMale(g) {
-      g.call(this.xAxisMale.scale(this.xScaleMale).ticks(4).tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
-      g.selectAll(".domain").remove()
-      g.selectAll(".tick line").remove()
-      g.selectAll(".tick:last-child text").remove()
-    }
-
-    function xAxisFemale(g) {
-      g.call(this.xAxisFemale.scale(this.xScaleFemale).ticks(4).tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
-      g.selectAll(".domain").remove()
-      g.selectAll(".tick:not(:first-child) line").remove()
-      g.selectAll(".tick:first-child line")
-        .attr("y1", -this.gutter)
-        .attr("y2", -this.height.pyramid)
-    }
-
     this.pyramid.select(".x.axis.males")
       .attr("transform", `translate(0,${this.height.pyramid - this.margin.bottom})`)
-      .call(xAxisMale.bind(this))
+      .call(this._xAxisMale.bind(this))
     this.pyramid.select(".x.axis.females")
       .attr("transform", `translate(${this.width.pyramid / 2},${this.height.pyramid - this.margin.bottom})`)
-      .call(xAxisFemale.bind(this))
-
-    // Y axis
-    function yAxis(g) {
-      g.call(this.yAxis
-        .scale(this.yScale)
-        .tickValues(this.yScale.domain().filter((d,i) => !(i%10))))
-      g.selectAll(".domain").remove()
-      g.selectAll(".tick line")
-        .attr("x1", 0)
-        .attr("x2", this.width.pyramid)
-      g.selectAll(".tick text")
-        .attr("x", -this.margin.left / 4)
-    }
-
-    this.pyramid.select(".y.axis").call(yAxis.bind(this))
+      .call(this._xAxisFemale.bind(this))
+    this.pyramid.select(".y.axis").call(this._yAxis.bind(this))
   },
   _renderTitles: function () {
     // Titles
@@ -504,36 +496,34 @@ export var VisPopulationPyramid = Class.extend({
       .attr("y", d => this.yScale(d.range[0]) - yFakeScale(d.fake) + (1.5 * this.gutter))
   },
   _renderMarks: function() {
-    let g = this.marks.selectAll("g")
-      .data(this.data.marks)
-
-    g.exit().remove()
-
-    let marks = g.enter().append("g")
-      .attr("class", (d, i) => `mark m-${i}`)
-
-    marks.append("line")
-      .attr("x1", 0)
-      .attr("x2", 1.5 * this.gutter)
-      .attr("y1", this.yScale(0))
-      .attr("y2", this.yScale(0))
-      .transition()
-      .delay(500)
-      .duration(500)
-      .attr("y1", d => this.yScale(d.value))
-      .attr("y2", d => this.yScale(d.value))
-
-    marks.append("text")
-      .attr("x", 2 * this.gutter)
-      .attr("opacity", 0)
-      .attr("dy", ".3em")
-      .text(d => d.name)
-      .call(this._wrap, this.width.areas - (2 * this.gutter), 2 * this.gutter)
-      .transition()
-      .delay(500)
-      .duration(500)
-      .attr("opacity", 1)
-      .attr("y", d => this.yScale(d.value))
+    // let g = this.marks.selectAll("g")
+    //   .data(this.data.marks)
+    //
+    // g.exit().remove()
+    //
+    //
+    // marks.append("line")
+    //   .attr("x1", 0)
+    //   .attr("x2", 1.5 * this.gutter)
+    //   .attr("y1", this.yScale(0))
+    //   .attr("y2", this.yScale(0))
+    //   .transition()
+    //   .delay(500)
+    //   .duration(500)
+    //   .attr("y1", d => this.yScale(d.value))
+    //   .attr("y2", d => this.yScale(d.value))
+    //
+    // marks.append("text")
+    //   .attr("x", 2 * this.gutter)
+    //   .attr("opacity", 0)
+    //   .attr("dy", ".3em")
+    //   .text(d => d.name)
+    //   .call(this._wrap, this.width.areas - (2 * this.gutter), 2 * this.gutter)
+    //   .transition()
+    //   .delay(500)
+    //   .duration(500)
+    //   .attr("opacity", 1)
+    //   .attr("y", d => this.yScale(d.value))
   },
   _mousemove: function(d) {
     this.svg.select(".tooltip")
@@ -547,6 +537,91 @@ export var VisPopulationPyramid = Class.extend({
   _mouseout: function() {
     this.svg.select(".tooltip")
       .attr("opacity", 0)
+  },
+  _xAxisMale: function (g) {
+    g.call(this.xAxisMale
+      .scale(this.xScaleMale)
+      .ticks(5)
+      .tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
+    g.selectAll(".domain").remove()
+    g.selectAll(".tick line").remove()
+    g.selectAll(".tick:last-child text").remove()
+  },
+  _xAxisFemale: function (g) {
+    g.call(this.xAxisFemale
+      .scale(this.xScaleFemale)
+      .ticks(5)
+      .tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
+    g.selectAll(".domain").remove()
+    g.selectAll(".tick:not(:first-child) line").remove()
+    g.selectAll(".tick:first-child line")
+      .attr("y1", -this.gutter)
+      .attr("y2", -this.height.pyramid)
+  },
+  _yAxis: function (g) {
+    g.call(this.yAxis
+      .scale(this.yScale)
+      .tickValues(this.yScale.domain().filter((d,i) => !(i%10))))
+    g.selectAll(".domain").remove()
+    g.selectAll(".tick line")
+      .attr("x1", 0)
+      .attr("x2", this.width.pyramid)
+    g.selectAll(".tick text")
+      .attr("x", -this.margin.left / 4)
+  },
+  _transformPyramidData: function(data) {
+    const totalMen = this._math.total(data.filter(p => p.sex === "V"))
+    const totalWomen = this._math.total(data.filter(p => p.sex === "M"))
+    // updates every value with its respective percentage
+    return data.map((item) => {
+      item._value = (item.sex === "V") ? (item.value / totalMen) : (item.sex === "M") ? (item.value / totalWomen) : 0
+      return item
+    })
+  },
+  _transformAreasData: function(data) {
+    let bp = this.ageBreakpoints
+    let self = this
+    return [
+      {
+        name: I18n.t('gobierto_observatory.graphics.population_pyramid.youth'),
+        get info() {
+          return I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: self._math.percent(this.value, self.data.pyramid), limit: bp[0] })
+        },
+        range: [d3.min(data.map(d => d.age)), bp[0] - 1],
+        value: data.filter(d => d.age < bp[0]).map(d => d.value).reduce((a,b)=>a+b)
+      },
+      {
+        name: I18n.t('gobierto_observatory.graphics.population_pyramid.adults'),
+        range: [bp[0], bp[1] - 1],
+        value: data.filter(d => d.age < bp[1] && d.age >= bp[0]).map(d => d.value).reduce((a,b)=>a+b)
+      },
+      {
+        name: I18n.t('gobierto_observatory.graphics.population_pyramid.elderly'),
+        get info() {
+          return I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: self._math.percent(this.value, self.data.pyramid), limit: bp[1] })
+        },
+        range: [bp[1], d3.max(data.map(d => d.age))],
+        value: data.filter(d => d.age >= bp[1]).map(d => d.value).reduce((a,b)=>a+b)
+      }
+    ]
+  },
+  _transformMarksData: function(data) {
+    return [{
+      value: this._math.mean(data.map(f => f.age)),
+      get name() {
+        return I18n.t('gobierto_observatory.graphics.population_pyramid.mean', { age: this.value })
+      }
+    }, {
+      value: this._math.median(data.map(f => f.age)),
+      get name() {
+        return I18n.t('gobierto_observatory.graphics.population_pyramid.median', { age: this.value })
+      }
+    }, {
+      value: this._math.mode(data),
+      get name() {
+        return I18n.t('gobierto_observatory.graphics.population_pyramid.mode', { age: this.value })
+      }
+    }]
   },
   _getDimensions: function(opts = {}) {
     let width = opts.width || +d3.select(this.container).node().getBoundingClientRect().width

@@ -44,8 +44,15 @@ export var VisPopulationPyramid = Class.extend({
 
     // Create axes
     this.xAxisMale = d3.axisBottom()
+      .scale(this.xScaleMale)
+      .ticks(5)
+      .tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 }))
     this.xAxisFemale = d3.axisBottom()
+      .scale(this.xScaleFemale)
+      .ticks(5)
+      .tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 }))
     this.yAxis = d3.axisRight()
+      .scale(this.yScale)
 
     // Chart objects
     this.svg = null
@@ -214,15 +221,15 @@ export var VisPopulationPyramid = Class.extend({
       .domain(_.uniq(data.pyramid.map(d => d.age)))
   },
   _updateAxes: function () {
-    this.pyramid.selectAll(".x.axis.males")
+    this.pyramid.select(".x.axis.males")
       .transition().duration(500)
       .call(this._xAxisMale.bind(this))
 
-    this.pyramid.selectAll(".x.axis.females")
+    this.pyramid.select(".x.axis.females")
       .transition().duration(500)
       .call(this._xAxisFemale.bind(this))
 
-    this.pyramid.selectAll(".y.axis")
+    this.pyramid.select(".y.axis")
       .transition().duration(500)
       .call(this._yAxis.bind(this))
   },
@@ -447,40 +454,6 @@ export var VisPopulationPyramid = Class.extend({
     focus.append("text")
   },
   _renderAreas: function() {
-    // let g = this.areas.selectAll("g")
-    //   .data(this.data.areas)
-    //
-    // g.exit().remove()
-
-    // let ranges = g.enter().append("g")
-    //   .attr("class", (d, i) => `range r-${i}`)
-
-    // let chartWidth = this.width.areas / 3
-    //
-    // ranges.append("rect")
-    //   .attr("x", chartWidth) // To animate right to left. Fake value
-    //   .attr("y", d => this.yScale(d.range[1]))
-    //   .attr("height", d => this.yScale(d.range[0]) - this.yScale(d.range[1]))
-    //   .transition()
-    //   .delay(200)
-    //   .duration(500)
-    //   .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
-    //   .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
-    //
-    // ranges.append("text")
-    //   .attr("x", chartWidth + this.gutter)
-    //   .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
-    //   .attr("class", "title")
-    //   .text(d => `${d.name}: ${this._math.percent(d.value, this.data.pyramid)}`)
-    //
-    // ranges.append("text")
-    //   .attr("x", chartWidth + this.gutter)
-    //   .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
-    //   .attr("dy", "1.5em")
-    //   .attr("class", "subtitle")
-    //   .text(d => d.info)
-    //   .call(this._wrap, (2 * chartWidth) - (4 * this.gutter), chartWidth + this.gutter)
-
     // ghost scale
     let fakeObj = this.data.areas.find((d, i) => i === 1)
     let fakeData = [Object.assign(fakeObj, { fake: this.data.unemployed })]
@@ -535,35 +508,38 @@ export var VisPopulationPyramid = Class.extend({
       .attr("opacity", 0)
   },
   _xAxisMale: function (g) {
-    g.call(this.xAxisMale
-      .scale(this.xScaleMale)
-      .ticks(5)
-      .tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
-    g.selectAll(".domain").remove()
-    g.selectAll(".tick line").remove()
-    g.selectAll(".tick:last-child text").remove()
+    g.call(this.xAxisMale)
+
+    let s = g.selection ? g.selection() : g // https://bl.ocks.org/mbostock/4323929
+    s.selectAll(".domain").remove()
+    s.selectAll(".tick line").remove()
+    s.selectAll(".tick:last-child text").remove()
   },
   _xAxisFemale: function (g) {
-    g.call(this.xAxisFemale
-      .scale(this.xScaleFemale)
-      .ticks(5)
-      .tickFormat(t => t.toLocaleString(I18n.locale, { style: 'percent', minimumFractionDigits: 1 })))
-    g.selectAll(".domain").remove()
-    g.selectAll(".tick:not(:first-child) line").remove()
-    g.selectAll(".tick:first-child line")
+    g.call(this.xAxisFemale)
+
+    let s = g.selection ? g.selection() : g // https://bl.ocks.org/mbostock/4323929
+    s.selectAll(".domain").remove()
+    s.selectAll(".tick:not(:first-child) line").remove()
+    s.selectAll(".tick:first-child line")
       .attr("y1", -this.gutter)
       .attr("y2", -this.height.pyramid)
   },
   _yAxis: function (g) {
-    g.call(this.yAxis
-      .scale(this.yScale)
-      .tickValues(this.yScale.domain().filter((d,i) => !(i%10))))
-    g.selectAll(".domain").remove()
-    g.selectAll(".tick line")
+    g.call(this.yAxis.tickValues(this.yScale.domain().filter((d,i) => !(i%10))))
+
+    let s = g.selection ? g.selection() : g // https://bl.ocks.org/mbostock/4323929
+    s.selectAll(".domain").remove()
+    s.selectAll(".tick line")
       .attr("x1", 0)
       .attr("x2", this.width.pyramid)
-    g.selectAll(".tick text")
+    s.selectAll(".tick text")
       .attr("x", -this.margin.left / 4)
+
+    if (s !== g) {
+      g.selectAll(".tick line").attrTween("x1", null).attrTween("x2", null)
+      g.selectAll(".tick text").attrTween("x", null)
+    }
   },
   _transformPyramidData: function(data) {
     const totalMen = this._math.total(data.filter(p => p.sex === "V"))

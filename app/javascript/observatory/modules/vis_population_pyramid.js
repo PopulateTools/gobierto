@@ -184,9 +184,6 @@ export var VisPopulationPyramid = Class.extend({
 
         this.data = aux
         this.update(this.data)
-
-        // DEBUG
-        window.datos = this.data
       }.bind(this))
   },
   render: function() {
@@ -200,6 +197,7 @@ export var VisPopulationPyramid = Class.extend({
     this._updateScales(data)
     this._updateAxes()
     this._updateBars(data.pyramid)
+    this._updateAreas(data.areas)
     this._updateMarks(data.marks)
   },
   _updateScales: function (data) {
@@ -308,8 +306,58 @@ export var VisPopulationPyramid = Class.extend({
     male.exit().remove()
     female.exit().remove()
   },
-  _updateAreas: function () {
+  _updateAreas: function (data) {
     // USING UPDATE PATTERN
+    let g = this.areas.selectAll(".range")
+      .data(data)
+
+    // enters
+    const chartWidth = this.width.areas / 3
+
+    let ranges = g.enter().append("g")
+      .attr("class", (d, i) => `range r-${i}`)
+
+    ranges
+      .attr("transform", d => `translate(0, ${this.yScale(d.range[1])})`)
+
+    ranges.append("rect")
+      .attr("x", chartWidth) // To animate right to left. Fake value
+      .attr("height", d => this.yScale(d.range[0]) - this.yScale(d.range[1]))
+      .transition()
+      .duration(1000)
+      .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
+      .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
+
+    ranges.append("text")
+      .attr("x", chartWidth + this.gutter)
+      .attr("dy", `${this._pxToEm(1.5 * this.gutter)}em`)
+      .attr("class", "title")
+      .text(d => `${d.name}: ${this._math.percent(d.value, this.data.pyramid)}`)
+
+    ranges.append("text")
+      .attr("x", chartWidth + this.gutter)
+      .attr("dy", `${this._pxToEm(4 * this.gutter)}em`)
+      .attr("class", "subtitle")
+      .text(d => d.info)
+      .call(this._wrap, (2 * chartWidth) - (4 * this.gutter), chartWidth + this.gutter)
+
+    // updates
+    g
+      .select("rect")
+      .transition()
+      .duration(1000)
+      .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
+      .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
+
+    g.select("text.title")
+      .text(d => `${d.name}: ${this._math.percent(d.value, this.data.pyramid)}`)
+
+    g.select("text.subtitle")
+      .text(d => d.info)
+      .call(this._wrap, (2 * chartWidth) - (4 * this.gutter), chartWidth + this.gutter)
+
+    // exits
+    g.exit().remove()
   },
   _updateMarks: function (data) {
     // USING UPDATE PATTERN
@@ -336,7 +384,8 @@ export var VisPopulationPyramid = Class.extend({
       .call(this._wrap, this.width.areas - (2 * this.gutter), 2 * this.gutter)
 
     // updates
-    g.transition()
+    g
+      .transition()
       .duration(500)
       .attr("transform", d =>`translate(0, ${this.yScale(d.value)})`)
 
@@ -398,39 +447,39 @@ export var VisPopulationPyramid = Class.extend({
     focus.append("text")
   },
   _renderAreas: function() {
-    let g = this.areas.selectAll("g")
-      .data(this.data.areas)
+    // let g = this.areas.selectAll("g")
+    //   .data(this.data.areas)
+    //
+    // g.exit().remove()
 
-    g.exit().remove()
+    // let ranges = g.enter().append("g")
+    //   .attr("class", (d, i) => `range r-${i}`)
 
-    let ranges = g.enter().append("g")
-      .attr("class", (d, i) => `range r-${i}`)
-
-    let chartWidth = this.width.areas / 3
-
-    ranges.append("rect")
-      .attr("x", chartWidth) // To animate right to left. Fake value
-      .attr("y", d => this.yScale(d.range[1]))
-      .attr("height", d => this.yScale(d.range[0]) - this.yScale(d.range[1]))
-      .transition()
-      .delay(200)
-      .duration(500)
-      .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
-      .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
-
-    ranges.append("text")
-      .attr("x", chartWidth + this.gutter)
-      .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
-      .attr("class", "title")
-      .text(d => `${d.name}: ${this._math.percent(d.value, this.data.pyramid)}`)
-
-    ranges.append("text")
-      .attr("x", chartWidth + this.gutter)
-      .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
-      .attr("dy", "1.5em")
-      .attr("class", "subtitle")
-      .text(d => d.info)
-      .call(this._wrap, (2 * chartWidth) - (4 * this.gutter), chartWidth + this.gutter)
+    // let chartWidth = this.width.areas / 3
+    //
+    // ranges.append("rect")
+    //   .attr("x", chartWidth) // To animate right to left. Fake value
+    //   .attr("y", d => this.yScale(d.range[1]))
+    //   .attr("height", d => this.yScale(d.range[0]) - this.yScale(d.range[1]))
+    //   .transition()
+    //   .delay(200)
+    //   .duration(500)
+    //   .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
+    //   .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
+    //
+    // ranges.append("text")
+    //   .attr("x", chartWidth + this.gutter)
+    //   .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
+    //   .attr("class", "title")
+    //   .text(d => `${d.name}: ${this._math.percent(d.value, this.data.pyramid)}`)
+    //
+    // ranges.append("text")
+    //   .attr("x", chartWidth + this.gutter)
+    //   .attr("y", d => this.yScale(d.range[1]) + (1.5 * this.gutter))
+    //   .attr("dy", "1.5em")
+    //   .attr("class", "subtitle")
+    //   .text(d => d.info)
+    //   .call(this._wrap, (2 * chartWidth) - (4 * this.gutter), chartWidth + this.gutter)
 
     // ghost scale
     let fakeObj = this.data.areas.find((d, i) => i === 1)
@@ -629,7 +678,7 @@ export var VisPopulationPyramid = Class.extend({
         line = [],
         lineNumber = 0,
         lineHeight = 1.1, // ems
-        y = text.attr("y"),
+        y = text.attr("y") || 0,
         dy = parseFloat(text.attr("dy")),
         tspan = text.text(null).append("tspan").attr("x", start).attr("y", y).attr("dy", dy + "em");
 
@@ -646,4 +695,15 @@ export var VisPopulationPyramid = Class.extend({
       }
     });
   },
+  _pxToEm: function(px, element) {
+    element = element === null || element === undefined ? document.documentElement : element;
+    var temporaryElement = document.createElement('div');
+    temporaryElement.style.setProperty('position', 'absolute', 'important');
+    temporaryElement.style.setProperty('visibility', 'hidden', 'important');
+    temporaryElement.style.setProperty('font-size', '1em', 'important');
+    element.appendChild(temporaryElement);
+    var baseFontSize = parseFloat(getComputedStyle(temporaryElement).fontSize);
+    temporaryElement.parentNode.removeChild(temporaryElement);
+    return px / baseFontSize;
+  }
 })

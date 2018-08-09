@@ -312,31 +312,15 @@ export var VisPopulationPyramid = Class.extend({
     // USING UPDATE PATTERN
   },
   _updateMarks: function (data) {
-    // TODO: IMCOMPLETO, NO ACTUALIZA datos
-
     // USING UPDATE PATTERN
     let g = this.marks.selectAll(".mark")
       .data(data)
-
-    // exits
-    g.exit().remove()
-
-// console.log(g.enter().data(), g.exit().data());
-
-    // g.selectAll("text")
-    //   .transition()
-    //   .duration(500)
-    //   .attr("opacity", 1)
-    //   .attr("y", d => this.yScale(d.value))
-    //   .text(d => d.name)
-    //   .call(this._wrap, this.width.areas - (2 * this.gutter), 2 * this.gutter)
 
     // enters
     let marks = g.enter().append("g")
       .attr("class", (d, i) => `mark m-${i}`)
 
     marks
-      .attr("transform", `translate(0, ${this.yScale(0)})`)
       .transition()
       .duration(1000)
       .attr("transform", d => `translate(0, ${this.yScale(d.value)})`)
@@ -346,26 +330,22 @@ export var VisPopulationPyramid = Class.extend({
       .attr("x2", 1.5 * this.gutter)
 
     marks.append("text")
-      .attr("opacity", 0)
+      .attr("x", 2 * this.gutter)
       .attr("dy", ".3em")
       .text(d => d.name)
       .call(this._wrap, this.width.areas - (2 * this.gutter), 2 * this.gutter)
-      .transition()
-      .delay(500)
-      .duration(500)
-      .attr("opacity", 1)
 
-      // updates
-      g.selectAll("line")
-        .transition()
-        .duration(500)
-        .attr("transform", d => `translate(0, ${this.yScale(d.value)})`)
-        .attr("y1", d => this.yScale(d.value))
-        // .attr("y2", d => this.yScale(d.value))
-        .attr("y2", function (d) {
-          console.log(d.value);
-          return this.yScale(d.value)
-        }.bind(this))
+    // updates
+    g.transition()
+      .duration(500)
+      .attr("transform", d =>`translate(0, ${this.yScale(d.value)})`)
+
+    g.select("text")
+      .text(d => d.name)
+      .call(this._wrap, this.width.areas - (2 * this.gutter), 2 * this.gutter)
+
+    // exits
+    g.exit().remove()
   },
   _renderStatics: function () {
     this._renderAxis()
@@ -607,16 +587,19 @@ export var VisPopulationPyramid = Class.extend({
   },
   _transformMarksData: function(data) {
     return [{
+      id: 0,
       value: this._math.mean(data.map(f => f.age)),
       get name() {
         return I18n.t('gobierto_observatory.graphics.population_pyramid.mean', { age: this.value })
       }
     }, {
+      id: 1,
       value: this._math.median(data.map(f => f.age)),
       get name() {
         return I18n.t('gobierto_observatory.graphics.population_pyramid.median', { age: this.value })
       }
     }, {
+      id: 2,
       value: this._math.mode(data),
       get name() {
         return I18n.t('gobierto_observatory.graphics.population_pyramid.mode', { age: this.value })

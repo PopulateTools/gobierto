@@ -30,6 +30,15 @@ module GobiertoPeople
       gobierto_people_people(:kali)
     end
 
+    def test_current_political_group_higlight
+      with_current_site(site) do
+        visit @path
+        within 'menu div div li.active' do
+          assert has_link?('Marvel')
+        end
+      end
+    end
+
     def test_absence_of_empty_political_group
       with_current_site(site) do
         visit @path

@@ -380,6 +380,7 @@ export var VisPopulationPyramid = Class.extend({
 
     // enters
     let fake = fakeG.enter().append("g")
+      .attr("class", "r-fake")
 
     fake
       .attr("transform", d => `translate(0, ${this.yScale(d.range[0]) - this.yScale(d.range[1]) - yFakeScale(d.fake)})`)
@@ -408,14 +409,20 @@ export var VisPopulationPyramid = Class.extend({
       .attr("opacity", 1)
 
     // updates
-    fakeG.select("rect")
+    // NOTE: fakeG doesn't work here, we need the g.range updates
+    g.select("g.r-fake")
+      .transition()
+      .duration(1000)
+      .attr("transform", d => `translate(0, ${this.yScale(d.range[0]) - this.yScale(d.range[1]) - yFakeScale(d.fake)})`)
+
+    g.select("g.r-fake rect")
       .transition()
       .duration(1000)
       .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
       .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
       .attr("height", d => yFakeScale(d.fake))
 
-    fakeG.select("text.subtitle")
+    g.select("g.r-fake text.subtitle")
       .html(d => `<tspan class="as-title">${(d.fake / d.value).toLocaleString(I18n.locale, { style: 'percent' })}</tspan> ${I18n.t('gobierto_observatory.graphics.population_pyramid.unemployed')}`)
 
     // exits

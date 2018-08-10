@@ -52,6 +52,10 @@ module GobiertoPlans
       plan.nodes.where(gplan_categories_nodes: { category_id: object.id })
     end
 
+    def has_dependent_resources?
+      plan.present? && progress.present?
+    end
+
     protected
 
     def vocabulary

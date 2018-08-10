@@ -15,7 +15,7 @@
         <div class="lines-header">
           <div>{{ (activeNode.children || []).length }} {{ getLabel(activeNode.level, (activeNode.children || []).length) | translate }}</div>
 
-          <div><%= t(".percentage_progress") %></div>
+          <div><%= t("gobierto_plans.plan_types.show.percentage_progress") %></div>
         </div>
       <% end %>
 
@@ -23,7 +23,7 @@
         <div class="node-breadcrumb mb2">
           <a data-turbolinks="false" @click.stop="setParent">
             <i class="fa fa-caret-left"></i>
-            <%= t(".see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
+            <%= t("gobierto_plans.plan_types.show.see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
           </a>
         </div>
       <% end %>
@@ -67,7 +67,7 @@
       <div class="node-breadcrumb mb2">
         <a data-turbolinks="false" @click.stop="setParent">
           <i class="fa fa-caret-left"></i>
-          <%= t(".see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
+          <%= t("gobierto_plans.plan_types.show.see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
         </a>
       </div>
 
@@ -138,19 +138,19 @@
         </div>
         <div class="project-mandatory">
           <div class="row">
-            <div class="mandatory-title"><%= t(".progress") %></div>
+            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.progress") %></div>
             <div class="mandatory-desc mandatory-desc--large">{{ activeNode.attributes.progress | percent }}</div>
           </div>
           <div class="row">
-            <div class="mandatory-title"><%= t(".starts") %></div>
+            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.starts") %></div>
             <div class="mandatory-desc">{{ activeNode.attributes.starts_at | date }}</div>
           </div>
           <div class="row">
-            <div class="mandatory-title"><%= t(".ends") %></div>
+            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.ends") %></div>
             <div class="mandatory-desc">{{ activeNode.attributes.ends_at | date }}</div>
           </div>
           <div class="row">
-            <div class="mandatory-title"><%= t(".status") %></div>
+            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.status") %></div>
             <div class="mandatory-desc">{{ activeNode.attributes.status | translate }}</div>
           </div>
         </div>

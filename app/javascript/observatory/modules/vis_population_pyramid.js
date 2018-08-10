@@ -204,7 +204,7 @@ export var VisPopulationPyramid = Class.extend({
     this._updateScales(data)
     this._updateAxes()
     this._updateBars(data.pyramid)
-    this._updateAreas(data.areas)
+    this._updateAreas(data.areas, data.unemployed)
     this._updateMarks(data.marks)
   },
   _updateScales: function (data) {
@@ -312,7 +312,7 @@ export var VisPopulationPyramid = Class.extend({
     male.exit().remove()
     female.exit().remove()
   },
-  _updateAreas: function (data) {
+  _updateAreas: function (data, unemployed) {
     let g = this.areas.selectAll(".range")
       .data(data)
 
@@ -367,10 +367,8 @@ export var VisPopulationPyramid = Class.extend({
      * Ghost Area - area inside the second one (depends on its dimensions)
      *
      */
-
-     // TODO: estos datos hay que pasarlos ANTES de llamar a la funcion, para que `data` cambie
     let fakeObj = data.find((d, i) => i === 1)
-    let fakeData = [Object.assign(fakeObj, { fake: data.unemployed })]
+    let fakeData = [Object.assign(fakeObj, { fake: unemployed })]
     let bp = this.ageBreakpoints
     let yFakeScale = d3.scaleLinear()
       .range([0, this.yScale(bp[0]) - this.yScale(bp[1])])

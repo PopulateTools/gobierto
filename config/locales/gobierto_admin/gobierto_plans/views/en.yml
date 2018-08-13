@@ -29,6 +29,14 @@ en:
           submit: Import from CSV file
         edit:
           title: Configuration
+        edit_nodes:
+          category: Level %{level} category
+          ends_at: End
+          name: Project
+          options: Options
+          progress: "% progress"
+          starts_at: Start
+          status: Status
         form:
           placeholders:
             configuration_data: '{ "open_node": true }'

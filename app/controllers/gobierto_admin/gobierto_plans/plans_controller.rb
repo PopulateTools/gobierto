@@ -24,6 +24,12 @@ module GobiertoAdmin
         )
       end
 
+      def edit_nodes
+        @plan = find_plan
+        @nodes = @plan.nodes
+        @categories = @plan.categories
+      end
+
       def create
         @plan_form = PlanForm.new(plan_params.merge(site_id: current_site.id))
 

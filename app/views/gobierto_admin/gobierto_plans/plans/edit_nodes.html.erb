@@ -1,0 +1,10 @@
+<div id="jsGrid"></div>
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_plans_plan_nodes_controller = new GobiertoAdmin.GobiertoPlansPlanNodesController;
+    window.GobiertoAdmin.gobierto_plans_plan_nodes_controller.index({
+      collection_path: "<%= admin_plans_api_plan_nodes_path(@plan) %>",
+      item_path: "<%= admin_plans_api_node_path("") %>"
+    });
+  <% end %>
+<% end %>

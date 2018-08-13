@@ -29,6 +29,14 @@ ca:
           submit: Importa des de fitxer CSV
         edit:
           title: Configuració
+        edit_nodes:
+          category: Categoria nivell %{level}
+          ends_at: Fi
+          name: Projecte
+          options: Opcions
+          progress: "% progrés"
+          starts_at: Inici
+          status: Estat
         form:
           placeholders:
             configuration_data: '{ "open_node": true }'

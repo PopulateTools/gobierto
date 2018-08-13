@@ -136,6 +136,14 @@ Rails.application.routes.draw do
       resources :plan_types, except: [:show], path: :plan_types do
         put :recover
       end
+
+      # API
+      namespace :api do
+        resources :plans, only: [] do
+          resources :nodes, shallow: true, except: [:show, :new, :edit]
+          resources :categories, only: [:index]
+        end
+      end
     end
 
     namespace :gobierto_cms, as: :cms, path: :cms do

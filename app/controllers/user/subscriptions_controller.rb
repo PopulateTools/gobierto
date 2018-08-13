@@ -41,8 +41,7 @@ class User::SubscriptionsController < User::BaseController
             sign_in_path: new_user_sessions_path(host: current_site.domain)
           )
         end
-
-        redirect_to request.referrer
+        redirect_to(request.referrer || root_path)
       end
       format.js
     end

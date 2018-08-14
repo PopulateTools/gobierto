@@ -108,7 +108,7 @@ module GobiertoAttachments
     end
 
     def parameterize
-      { id: slug }
+      { id: id }
     end
 
     def attributes_for_slug
@@ -129,14 +129,6 @@ module GobiertoAttachments
 
     def public?
       container.try(:reload).try(:public?) != false
-    end
-
-    def to_url(options = {})
-      merge_preview_token_if_needed!(options)
-
-      url_helpers.gobierto_attachments_attachment_url(
-        { id: id, host: site.domain }.merge(options.except(:preview, :admin))
-      )
     end
 
     private
@@ -166,6 +158,10 @@ module GobiertoAttachments
     def unique_file_digest?
       attachment_with_same_digest_id = site.attachments.where(file_digest: file_digest).pluck(:id).first
       attachment_with_same_digest_id.nil? || (attachment_with_same_digest_id == id)
+    end
+
+    def singular_route_key
+      :gobierto_attachments_document
     end
 
   end

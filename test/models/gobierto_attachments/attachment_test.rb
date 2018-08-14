@@ -201,7 +201,7 @@ module GobiertoAttachments
     end
 
     def test_to_url
-      expected_url = "http://madrid.gobierto.test/docs/#{attachment.id}"
+      expected_url = "http://madrid.gobierto.test/documento/#{attachment.id}"
       assert_equal expected_url, attachment.to_url
     end
 

@@ -144,7 +144,7 @@ module GobiertoAdmin
             assert preview_link_excludes_token?
             click_preview_link
 
-            assert_equal "/docs/#{attachment.id}", current_path
+            assert_equal "/documento/#{attachment.id}", current_path
 
             process.draft!
 
@@ -153,7 +153,7 @@ module GobiertoAdmin
             assert preview_link_includes_token?
             click_preview_link
 
-            assert_equal "/docs/#{attachment.id}", current_path
+            assert_equal "/documento/#{attachment.id}", current_path
           end
         end
       end

@@ -88,7 +88,7 @@ module GobiertoAdmin
         redirect_to admin_plans_plans_path, notice: t(".success")
       end
 
-      def data
+      def import_csv
         @plan = find_plan
         @plan_data_form = PlanDataForm.new(plan: @plan)
       end
@@ -102,11 +102,11 @@ module GobiertoAdmin
           ) and return
         end
 
-        @plan_data_form = PlanDataForm.new(plan_data_params.merge(plan: @plan))
+        @plan_data_form = PlanDataForm.new(import_csv_params.merge(plan: @plan))
         if @plan_data_form.save
           track_import_csv_data_activity
           redirect_to(
-            admin_plans_plan_data_path(@plan),
+            admin_plans_plan_import_csv_path(@plan),
             notice: t(".success_html", link: gobierto_plans_plan_type_preview_url(@plan_data_form.plan, host: current_site.domain))
           )
         else
@@ -147,7 +147,7 @@ module GobiertoAdmin
         )
       end
 
-      def plan_data_params
+      def import_csv_params
         params.require(:plan).permit(:csv_file)
       end
 

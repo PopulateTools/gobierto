@@ -18,15 +18,6 @@ en:
         new:
           title: New plan type
       plans:
-        data:
-          latest_update: 'Last updated via API: %{datetime}'
-          no_data: No data loaded yet
-          there_are: There are %{info}
-          title: Data
-        data_form:
-          confirm_import: Are you sure? All current data will be deleted
-          disable_with: Loading...
-          submit: Import from CSV file
         edit:
           title: Configuration
         edit_nodes:
@@ -49,6 +40,15 @@ en:
             slug: about-this-plan
             title: Plan title
             year: 2018
+        import_csv:
+          latest_update: 'Last updated: %{datetime}'
+          no_data: No data loaded yet
+          there_are: There are %{info}
+          title: Import CSV
+        import_csv_form:
+          confirm_import: Are you sure? All current data will be deleted
+          disable_with: Loading...
+          submit: Import from CSV file
         index:
           header:
             elements: Elements
@@ -64,4 +64,4 @@ en:
       shared:
         navigation:
           configuration_tab: Configuration
-          data_tab: Data
+          data_tab: Import CSV

@@ -18,15 +18,6 @@ es:
         new:
           title: Nuevo tipo de plan
       plans:
-        data:
-          latest_update: 'Última actualización a través de API: %{datetime}'
-          no_data: Ningún dato cargado todavía
-          there_are: Hay %{info}
-          title: Datos
-        data_form:
-          confirm_import: "¿Estás seguro? Todos los datos actuales serán eliminados"
-          disable_with: Cargando...
-          submit: Importar desde fichero CSV
         edit:
           title: Configuración
         edit_nodes:
@@ -49,6 +40,15 @@ es:
             slug: acerca-de-este-plan
             title: Título del plan
             year: 2018
+        import_csv:
+          latest_update: 'Última actualización: %{datetime}'
+          no_data: Ningún dato cargado todavía
+          there_are: Hay %{info}
+          title: Importar CSV
+        import_csv_form:
+          confirm_import: "¿Estás seguro? Todos los datos actuales serán eliminados"
+          disable_with: Cargando...
+          submit: Importar desde fichero CSV
         index:
           header:
             elements: Elementos
@@ -64,4 +64,4 @@ es:
       shared:
         navigation:
           configuration_tab: Configuración
-          data_tab: Datos
+          data_tab: Importar CSV

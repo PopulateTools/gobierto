@@ -18,15 +18,6 @@ ca:
         new:
           title: Nou tipus de pla
       plans:
-        data:
-          latest_update: 'Última actualització mitjançant l''API: %{datetime}'
-          no_data: Encara no hi ha dades carregades
-          there_are: Hi ha %{info}
-          title: Dades
-        data_form:
-          confirm_import: Estàs segur? totes les dades actuals seran eliminats
-          disable_with: Carregant...
-          submit: Importa des de fitxer CSV
         edit:
           title: Configuració
         edit_nodes:
@@ -49,6 +40,15 @@ ca:
             slug: sobre-de-aquest-pla
             title: Titol del pla
             year: 2018
+        import_csv:
+          latest_update: 'Última actualització: %{datetime}'
+          no_data: Encara no hi ha dades carregades
+          there_are: Hi ha %{info}
+          title: Importa CSV
+        import_csv_form:
+          confirm_import: Estàs segur? totes les dades actuals seran eliminats
+          disable_with: Carregant...
+          submit: Importa des de fitxer CSV
         index:
           header:
             elements: Elements
@@ -64,4 +64,4 @@ ca:
       shared:
         navigation:
           configuration_tab: Configuració
-          data_tab: Dades
+          data_tab: Importa CSV

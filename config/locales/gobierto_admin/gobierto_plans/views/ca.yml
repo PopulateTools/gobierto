@@ -32,6 +32,8 @@ ca:
         edit_nodes:
           category: Categoria nivell %{level}
           ends_at: Fi
+          errors:
+            missing_name: El nom del project non pot estar buit
           name: Projecte
           options: Opcions
           progress: "% progrés"

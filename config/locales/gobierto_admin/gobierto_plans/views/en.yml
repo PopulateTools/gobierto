@@ -32,6 +32,8 @@ en:
         edit_nodes:
           category: Level %{level} category
           ends_at: End
+          errors:
+            missing_name: The project name can't be empty
           name: Project
           options: Options
           progress: "% progress"

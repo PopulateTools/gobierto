@@ -10,8 +10,36 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
   };
 
   LocalizedField.prototype = new jsGrid.Field({
+
+    locales: ["es"],
+
     itemTemplate: function(value) {
-      return "Pending";
+      var text = value[I18n.locale];
+      if (!text) {
+        return Object.values(value).find(translation => !!translation);
+      } else {
+        return value[I18n.locale];
+      }
+    },
+    insertTemplate: function(value) {
+      var element = '';
+      for (var i in this.locales) {
+        element += '<span class="indication">' + this.locales[i] + '</span> <input type="text" data-locale="' + this.locales[i] +'">';
+      }
+      return this._insertPicker = $(element);
+    },
+    editTemplate: function(value) {
+      var element = '';
+      for (var i in this.locales) {
+        element += '<span class="indication">' + this.locales[i] + '</span> <input type="text" data-locale="' + this.locales[i] +'" value="' + (value[this.locales[i]] || '') + '">';
+      }
+      return this._editPicker = $(element);
+    },
+    insertValue: function() {
+      return generateTranslations(this._insertPicker);
+    },
+    editValue: function() {
+      return generateTranslations(this._editPicker);
     }
   });
 
@@ -40,6 +68,24 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       return dateValue ? dateValue.toISOString() : null;
     }
   });
+
+  function generateTranslations(picker) {
+      translations = {}
+      picker.filter("input").each(function(e) {
+        translations[this.dataset.locale] = this.value;
+      });
+      return translations;
+  };
+
+  function nameValidator(locales) {
+    return {
+      validator: function(value, item, param) {
+        return !Object.values(value).every(x => (x === null || x === ''));
+      },
+      message: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.errors.missing_name"),
+      param: locales
+    };
+  };
 
   jsGrid.fields.customDateField = CustomDateField;
   jsGrid.fields.localizedField = LocalizedField;
@@ -87,8 +133,8 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
         }
       },
       fields: [
-        { name: "name_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.name"),  type: "localizedField", width: 20 },
-        { name: "status_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.status"), type: "localizedField", width: 20 },
+        { name: "name_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.name"), type: "localizedField", locales: options.locales, validate: nameValidator(options.locales) },
+        { name: "status_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.status"), type: "localizedField", locales: options.locales },
         { name: "progress", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.progress"), type: "number", width: 2 },
         { name: "starts_at", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.starts_at"), type: "customDateField", width: 10 },
         { name: "ends_at", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.ends_at"), type: "customDateField", width: 10 },

@@ -12,12 +12,17 @@ module GobiertoAdmin
         :starts_at,
         :ends_at,
         :options,
+        :options_json,
         :created_at,
         :updated_at
       )
 
       def category
         @category ||= base_categories_relation.where(cnt: { node_id: object.id }).first
+      end
+
+      def options_json
+        JSON.pretty_generate(object.options) unless object.options.blank?
       end
 
       def categories_hierarchy

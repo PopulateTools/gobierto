@@ -75,14 +75,14 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
         updateItem: function(item) {
           return $.ajax({
             type: "PUT",
-            url: options.item_path + "/" + item.id,
+            url: options.item_path + item.id,
             data: item
           });
         },
         deleteItem: function(item) {
           return $.ajax({
             type: "DELETE",
-            url: options.item_path + "/" + item.id
+            url: options.item_path + item.id
           });
         }
       },
@@ -92,12 +92,11 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
         { name: "progress", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.progress"), type: "number", width: 2 },
         { name: "starts_at", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.starts_at"), type: "customDateField", width: 10 },
         { name: "ends_at", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.ends_at"), type: "customDateField", width: 10 },
-        { name: "options", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.options"), type: "textarea", width: 20 },
+        { name: "options_json", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.options"), type: "textarea" },
         { type: "control" }
       ]
     });
   };
-
 
   return GobiertoPlansPlanNodesController;
 })();

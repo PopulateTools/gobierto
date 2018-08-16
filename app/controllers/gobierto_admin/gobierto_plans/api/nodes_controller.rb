@@ -54,7 +54,7 @@ module GobiertoAdmin
             :progress,
             :starts_at,
             :ends_at,
-            :options,
+            :options_json,
             name_translations: [*I18n.available_locales],
             status_translations: [*I18n.available_locales]
           )

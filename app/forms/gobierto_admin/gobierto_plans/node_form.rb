@@ -13,10 +13,11 @@ module GobiertoAdmin
         :progress,
         :starts_at,
         :ends_at,
-        :options
+        :options_json
       )
 
       validates :plan, :category, :name_translations, presence: true
+      validate :options_json_format
 
       delegate :persisted?, to: :node
 
@@ -37,10 +38,24 @@ module GobiertoAdmin
         @category ||= plan.categories.find_by(id: category_id) || node.categories.where(vocabulary: plan.categories_vocabulary).first
       end
 
+      def options
+        @options ||= begin
+                       return nil if options_json.blank?
+                       JSON.parse(options_json)
+                     end
+      end
+
       private
 
       def build_node
         ::GobiertoPlans::Node.new
+      end
+
+      def options_json_format
+        return if options_json.blank? || options_json.is_a?(Hash)
+        JSON.parse(options_json)
+      rescue JSON::ParserError
+        errors.add :options_json, I18n.t("errors.messages.invalid")
       end
 
       def save_node

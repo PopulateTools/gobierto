@@ -133,6 +133,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
         }
       },
       fields: [
+        { name: "category_id", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.category"), type: "select", items: options.categories_list, valueField: "id", textField: "name", validate: "required" },
         { name: "name_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.name"), type: "localizedField", locales: options.locales, validate: nameValidator(options.locales) },
         { name: "status_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.status"), type: "localizedField", locales: options.locales },
         { name: "progress", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.progress"), type: "number" },

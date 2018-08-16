@@ -30,7 +30,7 @@ ca:
         edit:
           title: Configuració
         edit_nodes:
-          category: Categoria nivell %{level}
+          category: Categoria
           ends_at: Fi
           errors:
             missing_name: El nom del project non pot estar buit

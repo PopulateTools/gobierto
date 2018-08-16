@@ -30,7 +30,7 @@ en:
         edit:
           title: Configuration
         edit_nodes:
-          category: Level %{level} category
+          category: Category
           ends_at: End
           errors:
             missing_name: The project name can't be empty

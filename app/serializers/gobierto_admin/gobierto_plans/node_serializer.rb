@@ -5,6 +5,7 @@ module GobiertoAdmin
     class NodeSerializer < ActiveModel::Serializer
       attributes(
         :id,
+        :category_id,
         :categories_hierarchy,
         :name_translations,
         :progress,
@@ -23,6 +24,10 @@ module GobiertoAdmin
 
       def options_json
         JSON.pretty_generate(object.options) unless object.options.blank?
+      end
+
+      def category_id
+        category.id
       end
 
       def categories_hierarchy

@@ -141,7 +141,7 @@ Rails.application.routes.draw do
       # API
       namespace :api do
         resources :plans, only: [] do
-          resources :nodes, shallow: true, except: [:show, :new, :edit]
+          resources :nodes, except: [:show, :new, :edit]
           resources :categories, only: [:index]
         end
       end

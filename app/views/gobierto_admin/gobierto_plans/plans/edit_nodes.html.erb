@@ -4,7 +4,7 @@
     window.GobiertoAdmin.gobierto_plans_plan_nodes_controller = new GobiertoAdmin.GobiertoPlansPlanNodesController;
     window.GobiertoAdmin.gobierto_plans_plan_nodes_controller.index({
       collection_path: "<%= admin_plans_api_plan_nodes_path(@plan) %>",
-      item_path: "<%= admin_plans_api_node_path("") %>",
+      item_path: "<%= admin_plans_api_plan_node_path(@plan, "") %>",
       locales: <%== current_site.configuration.available_locales.to_json %>
     });
   <% end %>

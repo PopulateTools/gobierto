@@ -20,23 +20,40 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
     @other_site ||= sites(:santander)
   end
 
+  def registration_ack_message
+    "Please check your inbox to confirm your email address"
+  end
+
   def test_registration
     with_current_site(site) do
       visit @registration_path
 
       within "form#user-registration-form.new_user_registration" do
-        within "label" do
-          within "span.indication" do
-            assert has_content?("Required")
-          end
+        within "span.indication" do
+          assert has_content?("Required")
         end
       end
 
       fill_in :user_registration_email, with: "user@email.dev"
 
-      click_on "Let's go"
+      assert_difference "User.count", 1 do
+        click_on "Let's go"
+      end
 
-      assert has_message?("Please check your inbox to confirm your email address")
+      assert has_message? registration_ack_message
+    end
+  end
+
+  def test_registration_as_spam
+    with_current_site(site) do
+      visit @registration_path
+
+      fill_in :user_registration_email, with: "spam@email.dev"
+      fill_in :user_registration_ic_email, with: "spam@email.dev"
+
+      assert_no_difference "User.count" do
+        click_on "Let's go"
+      end
     end
   end
 
@@ -82,7 +99,7 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
 
       click_on "Let's go"
 
-      assert has_message?("Please check your inbox to confirm your email address")
+      assert has_message? registration_ack_message
     end
   end
 end

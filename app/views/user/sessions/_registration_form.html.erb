@@ -9,6 +9,7 @@
 
   <div class="disclaimer"><%= privacy_policy_page_link %></div>
 
+  <%= f.invisible_captcha :ic_email %>
   <%= f.hidden_field :referrer_url %>
   <%= f.hidden_field :referrer_entity %>
   <%= f.submit t(".submit"), class: "button" %>

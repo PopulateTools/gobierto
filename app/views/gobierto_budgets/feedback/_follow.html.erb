@@ -1,12 +1,12 @@
 <div class="slim_box">
   <%= form_tag gobierto_budgets_feedback_follow_path, remote: true, class: "new_user" do %>
-    <p><%= t('.follow') %>:</p>
-    <input placeholder="<%= t('.your_email') %>" type="email" name="email">
-    <input type="submit" name="commit" value="<%= t('.follow') %>">
+    <p><%= t(".follow") %>:</p>
+    <%= email_field_tag :email, nil, placeholder: t(".your_email") %>
+    <%= submit_tag t(".follow") %>
+    <%= invisible_captcha :ic_email %>
     <p class="small"><%= privacy_policy_page_link %></p>
   <% end %>
 </div>
 
 <div class="share_post_submit" id="follow_success">
 </div>
-

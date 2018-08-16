@@ -17,7 +17,7 @@ module GobiertoAdmin
           if @node_form.save
             render json: @node_form.node, plan: @plan
           else
-            return_400(@node_form)
+            raise_invalid_response
           end
         end
 
@@ -28,7 +28,7 @@ module GobiertoAdmin
           if @node_form.save
             render json: @node_form.node, plan: @plan
           else
-            return_400(@node_form)
+            raise_invalid_response
           end
         end
 
@@ -66,6 +66,10 @@ module GobiertoAdmin
 
         def check_permissions!
           raise_module_not_allowed unless current_admin.can_edit_plans?
+        end
+
+        def raise_invalid_response
+          render json: { error: "Invalid record" }, status: 400
         end
       end
     end

@@ -12,12 +12,14 @@ module GobiertoAdmin
         @plan_form = PlanForm.new(site_id: current_site.id)
         @plan_visibility_levels = plan_visibility_levels
         @plan_types = find_plan_types
+        @vocabularies = current_site.vocabularies
       end
 
       def edit
         @plan = find_plan
         @plan_types = find_plan_types
         @plan_visibility_levels = plan_visibility_levels
+        @vocabularies = current_site.vocabularies
 
         @plan_form = PlanForm.new(
           @plan.attributes.except(*ignored_plan_attributes).merge(site_id: current_site.id)
@@ -42,6 +44,7 @@ module GobiertoAdmin
         else
           @plan_types = find_plan_types
           @plan_visibility_levels = plan_visibility_levels
+          @vocabularies = current_site.vocabularies
 
           render :new
         end
@@ -64,6 +67,7 @@ module GobiertoAdmin
         else
           @plan_types = find_plan_types
           @plan_visibility_levels = plan_visibility_levels
+          @vocabularies = current_site.vocabularies
 
           render :edit
         end
@@ -136,6 +140,7 @@ module GobiertoAdmin
           :configuration_data,
           :visibility_level,
           :css,
+          :vocabulary_id,
           title_translations: [*I18n.available_locales],
           footer_translations: [*I18n.available_locales],
           introduction_translations: [*I18n.available_locales]

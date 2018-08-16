@@ -18,9 +18,7 @@ es:
         new:
           title: Nuevo tipo de plan
       plans:
-        edit:
-          title: Configuración
-        edit_nodes:
+        data:
           category: Categoría
           ends_at: Fin
           errors:
@@ -30,6 +28,9 @@ es:
           progress: "% progreso"
           starts_at: Inicio
           status: Estado
+          title: Datos
+        edit:
+          title: Configuración
         form:
           placeholders:
             configuration_data: '{ "open_node": true }'
@@ -64,4 +65,5 @@ es:
       shared:
         navigation:
           configuration_tab: Configuración
-          data_tab: Importar CSV
+          data_tab: Datos
+          import_csv_tab: Importar CSV

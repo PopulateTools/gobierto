@@ -18,9 +18,7 @@ ca:
         new:
           title: Nou tipus de pla
       plans:
-        edit:
-          title: Configuració
-        edit_nodes:
+        data:
           category: Categoria
           ends_at: Fi
           errors:
@@ -30,6 +28,9 @@ ca:
           progress: "% progrés"
           starts_at: Inici
           status: Estat
+          title: Dades
+        edit:
+          title: Configuració
         form:
           placeholders:
             configuration_data: '{ "open_node": true }'
@@ -64,4 +65,5 @@ ca:
       shared:
         navigation:
           configuration_tab: Configuració
-          data_tab: Importa CSV
+          data_tab: Dades
+          import_csv_tab: Importa CSV

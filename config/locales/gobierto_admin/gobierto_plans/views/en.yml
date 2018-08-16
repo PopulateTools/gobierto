@@ -18,9 +18,7 @@ en:
         new:
           title: New plan type
       plans:
-        edit:
-          title: Configuration
-        edit_nodes:
+        data:
           category: Category
           ends_at: End
           errors:
@@ -30,6 +28,9 @@ en:
           progress: "% progress"
           starts_at: Start
           status: Status
+          title: Data
+        edit:
+          title: Configuration
         form:
           placeholders:
             configuration_data: '{ "open_node": true }'
@@ -64,4 +65,5 @@ en:
       shared:
         navigation:
           configuration_tab: Configuration
-          data_tab: Import CSV
+          data_tab: Data
+          import_csv_tab: Import CSV

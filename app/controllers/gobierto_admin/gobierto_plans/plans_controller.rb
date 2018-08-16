@@ -26,7 +26,7 @@ module GobiertoAdmin
         )
       end
 
-      def edit_nodes
+      def data
         @plan = find_plan
         @categories_list = @plan.categories.where(level: @plan.categories.maximum(:level)).map { |cat| { id: cat.id, name: cat.name } }.unshift(id: nil, name: nil)
       end

@@ -135,9 +135,9 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       fields: [
         { name: "name_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.name"), type: "localizedField", locales: options.locales, validate: nameValidator(options.locales) },
         { name: "status_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.status"), type: "localizedField", locales: options.locales },
-        { name: "progress", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.progress"), type: "number", width: 2 },
-        { name: "starts_at", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.starts_at"), type: "customDateField", width: 10 },
-        { name: "ends_at", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.ends_at"), type: "customDateField", width: 10 },
+        { name: "progress", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.progress"), type: "number" },
+        { name: "starts_at", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.starts_at"), type: "customDateField" },
+        { name: "ends_at", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.ends_at"), type: "customDateField" },
         { name: "options_json", title: I18n.t("gobierto_admin.gobierto_plans.plans.edit_nodes.options"), type: "textarea" },
         { type: "control" }
       ]

@@ -23,6 +23,8 @@ es:
           ends_at: Fin
           errors:
             missing_name: El nombre del proyecto no puede estar vacío
+          export_csv: Exportar a CSV
+          import_csv: Importar desde CSV
           name: Proyecto
           options: Opciones
           progress: "% progreso"

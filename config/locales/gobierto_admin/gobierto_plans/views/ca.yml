@@ -23,6 +23,8 @@ ca:
           ends_at: Fi
           errors:
             missing_name: El nom del project non pot estar buit
+          export_csv: Exportar a CSV
+          import_csv: Importar des CSV
           name: Projecte
           options: Opcions
           progress: "% progrés"

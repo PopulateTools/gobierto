@@ -122,7 +122,7 @@ module GobiertoPlans
       categories = []
       while category.present?
         categories.unshift(CategoryTermDecorator.new(category))
-        category = category.parent_category
+        category = category.parent_term
       end
       categories
     end

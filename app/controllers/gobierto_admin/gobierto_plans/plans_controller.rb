@@ -96,7 +96,7 @@ module GobiertoAdmin
       def export_csv
         @plan = find_plan
         respond_to do |format|
-          format.csv  { render csv: ::GobiertoPlans::PlanDataDecorator.new(@plan).csv, filename: @plan.title }
+          format.csv { render csv: ::GobiertoPlans::PlanDataDecorator.new(@plan).csv, filename: @plan.title }
         end
       end
 

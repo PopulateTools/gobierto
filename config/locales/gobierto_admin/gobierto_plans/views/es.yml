@@ -52,6 +52,9 @@ es:
           confirm_import: "¿Estás seguro? Todos los datos actuales serán eliminados"
           disable_with: Cargando...
           submit: Importar desde fichero CSV
+          warning: "<strong>Aviso</strong> Si importas un archivo CSV se eliminará
+            todo el contenido actual, por lo que se perderán todos los cambios que
+            hayas realizado a través de la interfaz de usuario web de Gobierto."
         index:
           header:
             elements: Elementos

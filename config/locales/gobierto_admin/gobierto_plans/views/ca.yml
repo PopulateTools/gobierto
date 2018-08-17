@@ -52,6 +52,9 @@ ca:
           confirm_import: Estàs segur? totes les dades actuals seran eliminats
           disable_with: Carregant...
           submit: Importa des de fitxer CSV
+          warning: "<strong>Avís</strong> Si importes un fitxer CSV s'eliminarà tot
+            el contingut actual, de manera que es perdran tots els canvis que hagis
+            realitzat a través de la interfície d'usuari web de Gobierto."
         index:
           header:
             elements: Elements

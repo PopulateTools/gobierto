@@ -52,6 +52,9 @@ en:
           confirm_import: Are you sure? All current data will be deleted
           disable_with: Loading...
           submit: Import from CSV file
+          warning: "<strong>Warning</strong> If you upload a CSV, all current content
+            will be deleted, so any change you might have done through the Gobierto
+            Web UI will be lost."
         index:
           header:
             elements: Elements

@@ -131,6 +131,7 @@ Rails.application.routes.draw do
       resources :plans, except: [:show], path: "" do
         get :data
         get :import_csv
+        get :export_csv, defaults: { format: "csv" }
         put :recover
         patch :import_data
       end

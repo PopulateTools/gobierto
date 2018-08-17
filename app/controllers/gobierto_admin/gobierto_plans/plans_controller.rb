@@ -93,6 +93,13 @@ module GobiertoAdmin
         @plan_data_form = PlanDataForm.new(plan: @plan)
       end
 
+      def export_csv
+        @plan = find_plan
+        respond_to do |format|
+          format.csv  { render csv: ::GobiertoPlans::PlanDataDecorator.new(@plan).csv, filename: @plan.title }
+        end
+      end
+
       def import_data
         @plan = find_plan
         if params[:plan].blank?

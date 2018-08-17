@@ -1,5 +1,14 @@
+# frozen_string_literal: true
+
 class User::SubscriptionsController < User::BaseController
+
   before_action :authenticate_user!, only: [:index, :destroy]
+
+  invisible_captcha(
+    only: [:create],
+    honeypot: :ic_email,
+    scope: :user_subscription
+  )
 
   def index
     @user_notification_frequencies = get_user_notification_frequencies

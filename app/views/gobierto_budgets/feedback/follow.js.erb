@@ -3,5 +3,7 @@
 <% else %>
   $('#follow_success').html('<%=j render('gobierto_budgets/feedback/follow_success') %>');
 <% end %>
-window.shareContent.attachTo('[data-share]');
 
+if (window.shareContent) {
+  window.shareContent.attachTo('[data-share]');
+}

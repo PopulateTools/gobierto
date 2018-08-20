@@ -53,14 +53,16 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       return this._editPicker = datepicker;
     },
     insertValue: function() {
-      var dateValue = this._insertPicker.data("datepicker").selectedDates[0]
-      return dateValue ? dateValue.toISOString() : null;
+      return dateString(this._insertPicker.data("datepicker").selectedDates[0]);
     },
     editValue: function() {
-      var dateValue = this._insertPicker.data("datepicker").selectedDates[0]
-      return dateValue ? dateValue.toISOString() : null;
+      return dateString(this._editPicker.data("datepicker").selectedDates[0]);
     }
   });
+
+  function dateString(date) {
+    return date ? new Date(date.getTime() - date.getTimezoneOffset()*60000).toISOString() : null;
+  }
 
   function translated(value) {
     if (!value) return '';

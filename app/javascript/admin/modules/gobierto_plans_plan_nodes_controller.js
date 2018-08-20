@@ -9,6 +9,10 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
     jsGrid.Field.call(this, config);
   };
 
+  var CategoryLevelField = function(config) {
+    jsGrid.Field.call(this, config);
+  };
+
   LocalizedField.prototype = new jsGrid.Field({
 
     locales: ["es"],
@@ -57,6 +61,28 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
     },
     editValue: function() {
       return dateString(this._editPicker.data("datepicker").selectedDates[0]);
+    }
+  });
+
+  CategoryLevelField.prototype = new jsGrid.Field({
+    itemTemplate: function(value, item) {
+      return translated(this.categoriesVocabulary.find(val => (val.id == item.categories_hierarchy[this.level])).name_translations);
+    },
+
+    insertTemplate: function(value, item) {
+      return this._insertPicker = categorySelect(value, item, this);
+    },
+
+    editTemplate: function(value, item) {
+      return this._editPicker = categorySelect(value, item, this);
+    },
+
+    insertValue: function() {
+      return this._insertPicker.val();
+    },
+
+    editValue: function() {
+      return this._editPicker.val();
     }
   });
 
@@ -143,10 +169,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       fields.push({
         name: "level_" + i,
         title: I18n.t("gobierto_admin.gobierto_plans.plans.data.category") + ' ' + i,
-        type: "select",
-        items: options.categories_list[i],
-        valueField: "id",
-        textField: "name",
+        type: "categoryLevelField",
         validate: {
           validator: function(value, item, param) {
             return (!param < i) || item['level_' + param]
@@ -154,14 +177,6 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
           message: I18n.t("gobierto_admin.gobierto_plans.plans.data.errors.missing_category"),
           param: maxLevel
         },
-        cellRenderer: function(value, item) {
-            let content = translated(options.categories_vocabulary.find(val => (val.id == item.categories_hierarchy[i])).name_translations);
-          return $("<td>").text(content);
-        },
-        insertTemplate: function(value, item) { return this._insertPicker = categorySelect(value, item, this); },
-        editTemplate: function(value, item) { return this._editPicker = categorySelect(value, item, this); },
-        insertValue: function() { return this._insertPicker.val(); },
-        editValue: function() { return this._editPicker.val(); },
         categoriesVocabulary: options.categories_vocabulary,
         level: i,
         maxLevel: maxLevel
@@ -172,6 +187,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
 
   jsGrid.fields.customDateField = CustomDateField;
   jsGrid.fields.localizedField = LocalizedField;
+  jsGrid.fields.categoryLevelField = CategoryLevelField;
 
   GobiertoPlansPlanNodesController.prototype.index = function(options) {
     $("#jsGrid").jsGrid({

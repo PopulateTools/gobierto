@@ -90,16 +90,6 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
     };
   };
 
-  function categoriesHierarchy(value, item) {
-    let content
-    if (this.level !== undefined) {
-      content = translated(this.categoriesVocabulary.find(val => (val.id == item.categories_hierarchy[this.level])).name_translations);
-    } else {
-      content = translated(this.categoriesVocabulary.find(val => (val.id == value)).name_translations);
-    }
-    return $("<td>").text(content);
-  };
-
   function categorySelect(value, item, el) {
     let select = $('<select>');
     let selectId = function(level) { return 'category-' + level + '-' + (item ? item.id : 'new') };
@@ -162,7 +152,15 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
           message: I18n.t("gobierto_admin.gobierto_plans.plans.data.errors.missing_category"),
           param: maxLevel
         },
-        cellRenderer: categoriesHierarchy,
+        cellRenderer: function(value, item) {
+          let content
+          if (this.level !== undefined) {
+            content = translated(this.categoriesVocabulary.find(val => (val.id == item.categories_hierarchy[this.level])).name_translations);
+          } else {
+            content = translated(this.categoriesVocabulary.find(val => (val.id == value)).name_translations);
+          }
+          return $("<td>").text(content);
+        },
         insertTemplate: function(value, item) { return this._insertPicker = categorySelect(value, item, this); },
         editTemplate: function(value, item) { return this._editPicker = categorySelect(value, item, this); },
         insertValue: function() { return this._insertPicker.val(); },

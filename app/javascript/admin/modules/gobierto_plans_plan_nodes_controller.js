@@ -155,12 +155,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
           param: maxLevel
         },
         cellRenderer: function(value, item) {
-          let content
-          if (this.level !== undefined) {
-            content = translated(this.categoriesVocabulary.find(val => (val.id == item.categories_hierarchy[this.level])).name_translations);
-          } else {
-            content = translated(this.categoriesVocabulary.find(val => (val.id == value)).name_translations);
-          }
+            let content = translated(options.categories_vocabulary.find(val => (val.id == item.categories_hierarchy[i])).name_translations);
           return $("<td>").text(content);
         },
         insertTemplate: function(value, item) { return this._insertPicker = categorySelect(value, item, this); },

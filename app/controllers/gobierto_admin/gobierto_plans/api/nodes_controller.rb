@@ -12,7 +12,7 @@ module GobiertoAdmin
 
         def create
           @plan = current_site.plans.find(params[:plan_id])
-          @node_form = NodeForm.new(node_params.merge(plan_id: params[:plan_id]))
+          @node_form = NodeForm.new(node_params.merge(plan_id: params[:plan_id], category_id: params[category_param]))
 
           if @node_form.save
             render json: @node_form.node, plan: @plan
@@ -22,8 +22,9 @@ module GobiertoAdmin
         end
 
         def update
+          @plan = current_site.plans.find(params[:plan_id])
           @node = find_node
-          @node_form = NodeForm.new(node_params.merge(id: params[:id], plan_id: params[:plan_id]))
+          @node_form = NodeForm.new(node_params.merge(id: params[:id], plan_id: params[:plan_id], category_id: params[category_param]))
 
           if @node_form.save
             render json: @node_form.node, plan: @plan
@@ -58,6 +59,10 @@ module GobiertoAdmin
             name_translations: [*I18n.available_locales],
             status_translations: [*I18n.available_locales]
           )
+        end
+
+        def category_param
+          @category_param ||= :"level_#{@plan.categories.maximum(:level)}"
         end
 
         def ignored_node_attributes

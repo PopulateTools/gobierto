@@ -28,7 +28,10 @@ module GobiertoAdmin
 
       def data
         @plan = find_plan
-        @categories_list = @plan.categories.where(level: @plan.categories.maximum(:level)).map { |cat| { id: cat.id, name: cat.name } }.unshift(id: nil, name: nil)
+        @categories_list = (0..@plan.categories.maximum(:level)).map do |level|
+          @plan.categories.where(level: level).map { |cat| { id: cat.id.to_s, name: cat.name } }.unshift(id: nil, name: nil)
+        end
+        @categories_vocabulary = ActiveModel::SerializableResource.new(@plan.categories, each_serializer: GobiertoAdmin::GobiertoPlans::CategorySerializer).serializable_hash
       end
 
       def create

@@ -29,7 +29,8 @@
       collection_path: "<%= admin_plans_api_plan_nodes_path(@plan) %>",
       item_path: "<%= admin_plans_api_plan_node_path(@plan, "") %>",
       locales: <%== current_site.configuration.available_locales.to_json %>,
-      categories_list: <%== @categories_list.to_json %>
+      categories_list: <%== @categories_list.to_json %>,
+      categories_vocabulary: <%== @categories_vocabulary.to_json %>
     });
   <% end %>
 <% end %>

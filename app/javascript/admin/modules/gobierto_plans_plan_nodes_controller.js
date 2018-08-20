@@ -13,14 +13,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
 
     locales: ["es"],
 
-    itemTemplate: function(value) {
-      var text = value[I18n.locale];
-      if (!text) {
-        return Object.values(value).find(translation => !!translation);
-      } else {
-        return value[I18n.locale];
-      }
-    },
+    itemTemplate: translated,
     insertTemplate: function(value) {
       var element = '';
       for (var i in this.locales) {
@@ -69,6 +62,16 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
     }
   });
 
+  function translated(value) {
+    if (!value) return '';
+    let text = value[I18n.locale];
+    if (!text) {
+      return Object.values(value).find(translation => !!translation);
+    } else {
+      return value[I18n.locale];
+    }
+  };
+
   function generateTranslations(picker) {
       translations = {}
       picker.filter("input").each(function(e) {
@@ -85,6 +88,91 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       message: I18n.t("gobierto_admin.gobierto_plans.plans.data.errors.missing_name"),
       param: locales
     };
+  };
+
+  function categoriesHierarchy(value, item) {
+    let content
+    if (this.level !== undefined) {
+      content = translated(this.categoriesVocabulary.find(val => (val.id == item.categories_hierarchy[this.level])).name_translations);
+    } else {
+      content = translated(this.categoriesVocabulary.find(val => (val.id == value)).name_translations);
+    }
+    return $("<td>").text(content);
+  };
+
+  function categorySelect(value, item, el) {
+    let select = $('<select>');
+    let selectId = function(level) { return 'category-' + level + '-' + (item ? item.id : 'new') };
+    select.attr('id', selectId(el.level));
+
+    if (item) {
+      let options = el.categoriesVocabulary.filter(val => ( val.level === el.level && (!item.categories_hierarchy[el.level-1] || val.term_id === item.categories_hierarchy[el.level-1]) ));
+      populateOpts(select, options, item.categories_hierarchy[el.level]);
+    } else {
+      if (el.level > 0) {
+        select.prop('disabled', true)
+      } else {
+        let options = el.categoriesVocabulary.filter(val => ( val.level === el.level ));
+        populateOpts(select, options, null);
+      }
+    }
+    select.on("change", function() {
+      if (el.level <= el.maxLevel) {
+        for (let i = el.level + 1; i <= el.maxLevel; i++) {
+          $('#' + selectId(i)).empty().prop('disabled', true);
+        }
+        let selection = $(this).val();
+        if (selection) {
+          let nextLevelOptions = el.categoriesVocabulary.filter(val => ( val.level === el.level + 1 && val.term_id === parseInt(selection, 10) ));
+          let nextLevel = $('#' + selectId(el.level + 1));
+          nextLevel.prop('disabled', false);
+          populateOpts(nextLevel, nextLevelOptions, null);
+        }
+      }
+    });
+    return select;
+  };
+
+  function populateOpts(element, options, selection_id) {
+    element.empty();
+    element.prepend($('<option>').attr('value', '').text('--'));
+    for(let i = 0; i < options.length; i++) {
+      element.append($('<option>')
+                     .attr('value', options[i].id)
+                     .attr('selected', options[i].id === selection_id )
+                     .text(translated(options[i].name_translations)));
+    }
+  };
+
+  function categoryFields(options) {
+    let fields = [];
+    let maxLevel = options.categories_list.length-1;
+    for (let i=0; i <= maxLevel; i++) {
+      fields.push({
+        name: "level_" + i,
+        title: I18n.t("gobierto_admin.gobierto_plans.plans.data.category") + ' ' + i,
+        type: "select",
+        items: options.categories_list[i],
+        valueField: "id",
+        textField: "name",
+        validate: {
+          validator: function(value, item, param) {
+            return (!param < i) || item['level_' + param]
+          },
+          message: I18n.t("gobierto_admin.gobierto_plans.plans.data.errors.missing_category"),
+          param: maxLevel
+        },
+        cellRenderer: categoriesHierarchy,
+        insertTemplate: function(value, item) { return this._insertPicker = categorySelect(value, item, this); },
+        editTemplate: function(value, item) { return this._editPicker = categorySelect(value, item, this); },
+        insertValue: function() { return this._insertPicker.val(); },
+        editValue: function() { return this._editPicker.val(); },
+        categoriesVocabulary: options.categories_vocabulary,
+        level: i,
+        maxLevel: maxLevel
+      });
+    }
+    return fields;
   };
 
   jsGrid.fields.customDateField = CustomDateField;
@@ -132,8 +220,8 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
           });
         }
       },
-      fields: [
-        { name: "category_id", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.category"), type: "select", items: options.categories_list, valueField: "id", textField: "name", validate: "required" },
+
+      fields: categoryFields(options).concat([
         { name: "name_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.name"), type: "localizedField", locales: options.locales, validate: nameValidator(options.locales) },
         { name: "status_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.status"), type: "localizedField", locales: options.locales },
         { name: "progress", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.progress"), type: "number" },
@@ -141,7 +229,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
         { name: "ends_at", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.ends_at"), type: "customDateField" },
         { name: "options_json", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.options"), type: "textarea" },
         { type: "control" }
-      ]
+      ])
     });
   };
 

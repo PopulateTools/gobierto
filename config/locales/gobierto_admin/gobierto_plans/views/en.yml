@@ -19,9 +19,10 @@ en:
           title: New plan type
       plans:
         data:
-          category: Category
+          category: Level
           ends_at: End
           errors:
+            missing_category: All category levels must be selected
             missing_name: The project name can't be empty
           export_csv: Export to CSV
           import_csv: Import from CSV

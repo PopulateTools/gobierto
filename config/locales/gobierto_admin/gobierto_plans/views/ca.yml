@@ -19,9 +19,10 @@ ca:
           title: Nou tipus de pla
       plans:
         data:
-          category: Categoria
+          category: Nivell
           ends_at: Fi
           errors:
+            missing_category: Tots els nivells de categoria han d'estar seleccionats
             missing_name: El nom del project non pot estar buit
           export_csv: Exportar a CSV
           import_csv: Importar des CSV

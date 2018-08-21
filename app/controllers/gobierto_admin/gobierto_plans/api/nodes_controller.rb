@@ -7,7 +7,7 @@ module GobiertoAdmin
         def index
           @plan = current_site.plans.find params[:plan_id]
           @nodes = @plan.nodes
-          render json: @nodes, plan: @plan
+          render json: @nodes, each_serializer: ::GobiertoAdmin::GobiertoPlans::NodeSerializer, plan: @plan
         end
 
         def create
@@ -15,7 +15,7 @@ module GobiertoAdmin
           @node_form = NodeForm.new(node_params.merge(plan_id: params[:plan_id], category_id: params[category_param]))
 
           if @node_form.save
-            render json: @node_form.node, plan: @plan
+            render json: @node_form.node, serializer: ::GobiertoAdmin::GobiertoPlans::NodeSerializer, plan: @plan
           else
             raise_invalid_response
           end
@@ -27,7 +27,7 @@ module GobiertoAdmin
           @node_form = NodeForm.new(node_params.merge(id: params[:id], plan_id: params[:plan_id], category_id: params[category_param]))
 
           if @node_form.save
-            render json: @node_form.node, plan: @plan
+            render json: @node_form.node, serializer: ::GobiertoAdmin::GobiertoPlans::NodeSerializer, plan: @plan
           else
             raise_invalid_response
           end

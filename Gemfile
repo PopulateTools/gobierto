@@ -66,7 +66,7 @@ gem "kaminari", "~> 1.0"
 gem "invisible_captcha"
 
 # Redis
-gem "redis", "~> 3.3"
+gem "redis", "~> 4.0"
 
 # Translations
 gem "json_translate", "~> 4.0"

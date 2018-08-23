@@ -357,7 +357,7 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     redcarpet (3.4.0)
-    redis (3.3.5)
+    redis (4.0.2)
     ref (2.0.0)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -541,7 +541,7 @@ DEPENDENCIES
   rails (~> 5.2.0)
   rails-html-sanitizer
   redcarpet
-  redis (~> 3.3)
+  redis (~> 4.0)
   responders
   rollbar
   rubocop

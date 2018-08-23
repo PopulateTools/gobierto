@@ -41,7 +41,7 @@ es:
         people_with_events: Reuniones registradas
     layouts:
       application:
-        title: El número de altos cargos con los que se ha reunido este grupo
+        title: Cargos y agendas
       departments:
         no_departments_within_dates: Altos cargos y agendas
       menu_subsections:

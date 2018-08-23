@@ -106,6 +106,10 @@ module GobiertoCommon
       container.is_a?(::GobiertoParticipation::Process) && item_type == 'GobiertoCms::News'
     end
 
+    def public?
+      container.try(:reload).try(:public?) != false
+    end
+
     private
 
     def containers_hierarchy(container)
@@ -150,7 +154,15 @@ module GobiertoCommon
     end
 
     def parameterize
-      { slug: slug }
+      if container.is_a? ::GobiertoParticipation::Process
+        { process_id: container.slug }
+      elsif container_type == "GobiertoParticipation"
+        {}
+      elsif container.is_a? ::GobiertoPeople::Person
+        { container_slug: container.slug }
+      else
+        { id: slug }
+      end
     end
 
     def attributes_for_slug
@@ -198,5 +210,34 @@ module GobiertoCommon
         end
       end
     end
+
+    def singular_route_key
+      if container.is_a? ::GobiertoParticipation::Process
+        if item_type == "GobiertoCalendars::Event"
+          :gobierto_participation_process_events
+        elsif item_type == "GobiertoCms::News"
+          :gobierto_participation_process_news_index
+        elsif item_type == "GobiertoAttachments::Attachment"
+          :gobierto_participation_process_attachments
+        end
+      elsif container_type == "GobiertoParticipation"
+        if item_type == "GobiertoCalendars::Event"
+          :gobierto_participation_events
+        elsif item_type == "GobiertoCms::News"
+          :gobierto_participation_news_index
+        elsif item_type == "GobiertoAttachments::Attachment"
+          :gobierto_participation_attachments
+        end
+      elsif container.is_a?(::GobiertoPeople::Person) && item_type == "GobiertoCalendars::Event"
+        :gobierto_people_person_events
+      elsif container.is_a? Site
+        if item_type == "GobiertoCms::News"
+          :gobierto_cms_news_index
+        elsif item_type == "GobiertoCms::Page"
+          :gobierto_cms_pages
+        end
+      end
+    end
+
   end
 end

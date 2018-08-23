@@ -34,6 +34,10 @@ module GobiertoParticipation
       @past_container ||= gobierto_participation_contribution_containers(:bowling_group_contributions_past)
     end
 
+    def draft_container
+      @draft_container ||= gobierto_participation_contribution_containers(:bowling_group_contributions_future_draft)
+    end
+
     def contribution_container_wrapper(container)
       container_path = gobierto_participation_process_contribution_container_path(
         container.slug,
@@ -94,7 +98,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_contribution_containers_path
 
-        assert_equal process_contribution_containers.size, all(".themed").size
+        assert_equal process_contribution_containers.active.size, all(".themed").size
+
+        refute has_content? draft_container.title
 
         within contribution_container_wrapper(current_container) do
           assert has_content? 'What can we do to improve the bowling group?'

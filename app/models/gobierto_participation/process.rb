@@ -43,6 +43,8 @@ module GobiertoParticipation
     after_create :create_collections
     after_restore :set_slug
 
+    alias public? active?
+
     def to_s
       title
     end
@@ -114,11 +116,16 @@ module GobiertoParticipation
     end
 
     def resource_path
-      url_helpers.gobierto_participation_process_url({ id: slug }.merge(host: site.domain))
+      url_helpers.gobierto_participation_process_url(id: slug, host: site.domain)
     end
 
     def to_url(options = {})
-      url_helpers.gobierto_participation_process_url(parameterize.merge(id: self.slug, host: app_host).merge(options))
+      if draft? && options[:preview] && options[:admin]
+        options[:preview_token] = options[:admin].preview_token
+      end
+      url_helpers.gobierto_participation_process_url(
+        options.except(:preview, :admin).merge(id: slug, host: site.domain)
+      )
     end
 
     private

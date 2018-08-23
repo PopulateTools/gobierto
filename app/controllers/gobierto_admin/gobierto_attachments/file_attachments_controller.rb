@@ -15,7 +15,7 @@ module GobiertoAdmin
       end
 
       def edit
-        @file_attachment = find_file_attachment
+        load_file_attachment(preview: true)
         @file_attachment_form = FileAttachmentForm.new(
           @file_attachment.attributes.except(*ignored_file_attachment_attributes).merge(site_id: current_site.id, collection_id: collection_id)
         )
@@ -42,7 +42,7 @@ module GobiertoAdmin
       end
 
       def update
-        @file_attachment = find_file_attachment
+        load_file_attachment(preview: true)
 
         @file_attachment_form = FileAttachmentForm.new(file_attachment_params.merge(
           id: params[:id],
@@ -64,7 +64,7 @@ module GobiertoAdmin
       end
 
       def destroy
-        @file_attachment = find_file_attachment
+        load_file_attachment
         @file_attachment.destroy
         process = find_process if params[:process_id]
 
@@ -110,12 +110,9 @@ module GobiertoAdmin
         { ip: remote_ip, author: current_admin, site_id: current_site.id }
       end
 
-      def find_file_attachment
-        current_site.attachments.find(params[:id])
-      end
-
-      def find_file_attachment
-        current_site.attachments.find(params[:id])
+      def load_file_attachment(opts = {})
+        @file_attachment = current_site.attachments.find(params[:id])
+        @preview_item = @file_attachment if opts[:preview]
       end
 
       def find_archived_file_attachment

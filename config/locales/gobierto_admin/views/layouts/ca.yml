@@ -24,5 +24,6 @@ ca:
         site_network: Xarxa
         templates: Plantilles
         users: Usuaris
+        view_item: Veure ítem
         view_site: Veure site
         vocabularies: Vocabularis

@@ -7,6 +7,10 @@ module GobiertoParticipation
   class ContributionContainerTest < ActiveSupport::TestCase
     include ::GobiertoCommon::HasVisibilityUserLevelsTest
 
+    def process
+      @process ||= gobierto_participation_processes(:bowling_group_very_active)
+    end
+
     def bowling_contributions
       @bowling_contributions ||= gobierto_participation_contribution_containers(:bowling_group_contributions_current)
     end
@@ -49,6 +53,22 @@ module GobiertoParticipation
 
       # susan & peter created contributions, susan & reed commented, peter voted
       assert_equal 3, contribution_container.participants_count
+    end
+
+    def test_public?
+      assert contribution_container.public?
+
+      process.draft!
+
+      refute contribution_container.public?
+
+      contribution_container.draft!
+
+      refute contribution_container.public?
+
+      process.active!
+
+      refute contribution_container.public?
     end
 
   end

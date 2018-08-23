@@ -41,7 +41,7 @@ es:
         people_with_events: Reuniones registradas
     layouts:
       application:
-        title: Cargos y agendas
+        title: Altos cargos y Agendas
       departments:
         no_departments_within_dates: Altos cargos y agendas
       menu_subsections:

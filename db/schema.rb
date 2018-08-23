@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_01_142224) do
+ActiveRecord::Schema.define(version: 2018_08_08_210320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -763,7 +763,7 @@ ActiveRecord::Schema.define(version: 2018_08_01_142224) do
     t.index ["plan_id"], name: "index_gplan_categories_on_plan_id"
   end
 
-  create_table "gplan_categories_nodes", id: false, force: :cascade do |t|
+  create_table "gplan_categories_nodes", force: :cascade do |t|
     t.integer "category_id"
     t.integer "node_id"
     t.index ["category_id"], name: "index_gplan_categories_nodes_on_category_id"
@@ -804,10 +804,12 @@ ActiveRecord::Schema.define(version: 2018_08_01_142224) do
     t.text "css"
     t.datetime "archived_at"
     t.jsonb "footer_translations"
+    t.bigint "vocabulary_id"
     t.index ["archived_at"], name: "index_gplan_plans_on_archived_at"
     t.index ["plan_type_id"], name: "index_gplan_plans_on_plan_type_id"
     t.index ["site_id"], name: "index_gplan_plans_on_site_id"
     t.index ["title_translations"], name: "index_gplan_plans_on_title_translations", using: :gin
+    t.index ["vocabulary_id"], name: "index_gplan_plans_on_vocabulary_id"
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|

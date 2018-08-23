@@ -42,12 +42,11 @@ module GobiertoAdmin
           ActiveRecord::Base.transaction do
             clear_previous_data
             import_nodes
-            calculate_cached_data
           end
         end
       rescue CSVRowInvalid => e
         errors.add(:base, :invalid_row, row_data: e.message)
-        return false
+        false
       end
 
       def csv_file_format
@@ -59,15 +58,19 @@ module GobiertoAdmin
       end
 
       def clear_previous_data
-        node_class.joins(:categories).where("#{ categories_table }.plan_id = ?", @plan.id).destroy_all
-        @plan.categories.destroy_all
+        @plan.nodes.each(&:destroy)
+        @plan.create_categories_vocabulary(name_translations: @plan.title_translations, site: @plan.site) if @plan.categories_vocabulary.blank?
+        @plan.categories_vocabulary.terms.destroy_all
       end
 
       def import_nodes
+        position_counter = 0
         csv_file_content.each do |row|
           row_decorator = ::GobiertoPlans::RowNodeDecorator.new(row, plan: @plan)
           row_decorator.categories.each do |category|
+            category.position = position_counter
             raise CSVRowInvalid, row_decorator.to_csv unless category.name.present? && category.save
+            position_counter += 1
           end
           if (node = row_decorator.node).present?
             raise CSVRowInvalid, row_decorator.to_csv unless REQUIRED_COLUMNS.all? { |column| row_decorator[column].present? } && node.save

@@ -59,7 +59,8 @@ class User::SubscriptionCreateTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_without_referer
-    ::ActionDispatch::Request.any_instance.stubs(:referrer).returns(nil)
+    ActionDispatch::Http::Headers.any_instance.expects(:[]).with("Referer").returns(nil)
+    ActionDispatch::Http::Headers.any_instance.expects(:[]).with("Turbolinks-Referrer").at_least_once.returns(nil)
 
     with_current_site(site) do
       visit gobierto_people_root_path

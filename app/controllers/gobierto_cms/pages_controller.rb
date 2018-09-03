@@ -21,6 +21,9 @@ module GobiertoCms
     protected
 
     def find_collection
+      # URL: http://newalcobendas.gobierto.test/paginas/acerca-de
+      # {"controller"=>"gobierto_cms/pages", "action"=>"index", "id"=>"acerca-de"}
+      # Viene el ID de la página, no de la colección.
       current_site.collections.find_by!(slug: params[:id])
     end
 

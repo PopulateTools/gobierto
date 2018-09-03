@@ -5,7 +5,7 @@ module User::VerificationHelper
 
   def check_visibility_level(resource, user)
     unless resource.visibility_level_allowed_for?(user)
-      raise_visibility_forbidden(resource, user)
+      #raise_visibility_forbidden(resource, user)
     end
   end
 

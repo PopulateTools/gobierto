@@ -175,6 +175,10 @@ class Site < ApplicationRecord
     false
   end
 
+  def root_path
+    url_helpers.send("#{configuration.home_page.underscore}_root_path")
+  end
+
   private
 
   def site_configuration_attributes

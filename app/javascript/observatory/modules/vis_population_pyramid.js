@@ -18,9 +18,9 @@ export var VisPopulationPyramid = Class.extend({
     // Chart dimensions
     this.gutter = 10
     this.margin = {
-      top: this.gutter * 1.5,
+      top: this.gutter * 3.5,
       right: this.gutter,
-      bottom: this.gutter * 2.5,
+      bottom: this.gutter * 4,
       left: this.gutter * 4
     }
     this.width = {
@@ -40,7 +40,7 @@ export var VisPopulationPyramid = Class.extend({
     this.xScaleMale = d3.scaleLinear().range([0, this.width.pyramid / 2])
     this.xScaleFemale = d3.scaleLinear().range([0, this.width.pyramid / 2])
     this.xScaleAgeRanges = d3.scaleLinear().range([0, this.width.areas / 3])
-		this.yScale = d3.scaleBand().rangeRound([this.height.pyramid, 0])
+		this.yScale = d3.scaleBand().range([this.height.pyramid, 0])
 
     // Create axes
     this.xAxisMale = d3.axisBottom()
@@ -94,9 +94,7 @@ export var VisPopulationPyramid = Class.extend({
     const endpoints = {
       population: {
         endpoint: `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.json`,
-        params: {
-
-        }
+        params: {}
       },
       unemployed: {
         endpoint: `${window.populateData.endpoint}/datasets/ds-personas-paradas-municipio.json`,
@@ -483,17 +481,17 @@ export var VisPopulationPyramid = Class.extend({
       .attr("class", "titles")
 
     titles.append("text")
-      .attr("transform", `translate(${(this.width.pyramid / 2) - this.gutter},${this.gutter})`)
+      .attr("transform", `translate(${(this.width.pyramid / 2) - this.gutter},${-this.margin.top / 2})`)
       .attr("text-anchor", "end")
       .text(I18n.t('gobierto_observatory.graphics.population_pyramid.men'))
 
     titles.append("text")
-      .attr("transform", `translate(${(this.width.pyramid / 2) + this.gutter},${this.gutter})`)
+      .attr("transform", `translate(${(this.width.pyramid / 2) + this.gutter},${-this.margin.top / 2})`)
       .attr("text-anchor", "start")
       .text(I18n.t('gobierto_observatory.graphics.population_pyramid.women'))
 
     titles.append("text")
-      .attr("transform", `translate(0,${this.gutter})`)
+      .attr("transform", `translate(${-this.gutter},${-this.margin.top / 2})`)
       .attr("text-anchor", "end")
       .text(I18n.t('gobierto_observatory.graphics.population_pyramid.age'))
 
@@ -542,8 +540,8 @@ export var VisPopulationPyramid = Class.extend({
     s.selectAll(".domain").remove()
     s.selectAll(".tick:not(:first-child) line").remove()
     s.selectAll(".tick:first-child line")
-      .attr("y1", -this.gutter)
-      .attr("y2", -this.height.pyramid)
+      .attr("y1", -this.height.pyramid)
+      // .attr("y2", -this.gutter / 2)
   },
   _yAxis: function (g) {
     g.call(this.yAxis.tickValues(this.yScale.domain().filter((d,i) => !(i%10))))
@@ -618,7 +616,7 @@ export var VisPopulationPyramid = Class.extend({
   },
   _getDimensions: function(opts = {}) {
     let width = opts.width || +d3.select(this.container).node().getBoundingClientRect().width
-    let ratio = opts.ratio || 2.5
+    let ratio = opts.ratio || 2
     let height = opts.height || width / ratio
 
     let pyramid = {

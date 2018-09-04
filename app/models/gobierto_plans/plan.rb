@@ -11,8 +11,8 @@ module GobiertoPlans
 
     belongs_to :site
     belongs_to :plan_type
-    has_many :categories
-    has_many :nodes, through: :categories
+    belongs_to :categories_vocabulary, class_name: "GobiertoCommon::Vocabulary", foreign_key: :vocabulary_id
+    has_many :categories, through: :categories_vocabulary, source: :terms, class_name: "GobiertoCommon::Term"
 
     translates :title, :introduction, :footer
 
@@ -30,12 +30,16 @@ module GobiertoPlans
       JSON.parse(data) unless data.empty?
     end
 
+    def nodes
+      Node.joins(categories: [:vocabulary]).where(terms: { vocabulary_id: categories_vocabulary&.id })
+    end
+
     def levels
       categories.maximum("level")
     end
 
     def node_size
-      nodes.size
+      nodes.count
     end
 
     def to_s

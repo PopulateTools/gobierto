@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_admin/previewable_item_test_module"
 
 module GobiertoAdmin
   module GobiertoCalendars
     class PersonEventUpdateTest < ActionDispatch::IntegrationTest
+
+      include ::GobiertoAdmin::PreviewableItemTestModule
+
       def setup
         super
         @path = edit_admin_calendars_event_path(event, collection_id: collection)
@@ -32,6 +36,13 @@ module GobiertoAdmin
 
       def site
         @site ||= sites(:madrid)
+      end
+
+      def preview_test_conf
+        {
+          item_admin_path: edit_admin_calendars_event_path(event, collection_id: collection),
+          item_public_url: event.to_url
+        }
       end
 
       def test_event_update

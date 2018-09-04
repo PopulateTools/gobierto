@@ -41,5 +41,9 @@ module GobiertoPeople
     def resource_path
       url_helpers.gobierto_people_person_post_url({ person_slug: person.slug, slug: slug }.merge(host: site.domain))
     end
+
+    def public?
+      active? && person.reload.active?
+    end
   end
 end

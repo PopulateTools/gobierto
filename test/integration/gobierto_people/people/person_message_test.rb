@@ -47,6 +47,23 @@ module GobiertoPeople
         end
       end
 
+      def test_send_message_as_anonymous_spam_user
+        with_current_site(site) do
+          visit @path
+
+          click_link "Send an email"
+
+          fill_in :gobierto_people_person_message_name, with: "Sender"
+          fill_in :gobierto_people_person_message_email, with: "spam@example.com"
+          fill_in :gobierto_people_person_message_ic_email, with: "spam@example.com"
+          fill_in :gobierto_people_person_message_body, with: "This is my message"
+
+          click_button "Send"
+
+          assert ActionMailer::Base.deliveries.empty?
+        end
+      end
+
       def test_send_message_as_logged_user
         with_signed_in_user(user) do
           visit @path

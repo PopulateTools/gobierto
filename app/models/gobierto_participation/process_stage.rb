@@ -6,6 +6,7 @@ module GobiertoParticipation
   class ProcessStage < ApplicationRecord
     include GobiertoCommon::Sortable
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::UrlBuildable
 
     before_destroy :check_stage_active
 
@@ -87,25 +88,27 @@ module GobiertoParticipation
     end
 
     def to_s
-      self.title
-    end
-
-    def process_stage_path
-      if information?
-        url_helpers.gobierto_participation_process_information_path(process.slug)
-      elsif agenda?
-        url_helpers.gobierto_participation_process_events_path(process.slug)
-      elsif polls?
-        url_helpers.gobierto_participation_process_polls_path(process.slug)
-      elsif ideas?
-        '#' # TODO
-      elsif results?
-        '#' # TODO
-      end
+      title
     end
 
     def attributes_for_slug
       [title]
+    end
+
+    def parameterize
+      if information?
+        { process_id: process.slug, id: process_stage_page.page.slug }
+      else
+        { process_id: process.slug }
+      end
+    end
+
+    def site
+      process.site
+    end
+
+    def public?
+      published? && process.reload.public?
     end
 
     private
@@ -116,8 +119,20 @@ module GobiertoParticipation
       throw(:abort)
     end
 
-    def url_helpers
-      Rails.application.routes.url_helpers
+    def singular_route_key
+      if information?
+        :gobierto_cms_page
+      elsif agenda?
+        :gobierto_participation_process_events
+      elsif polls?
+        :gobierto_participation_process_polls
+      elsif contributions?
+        :gobierto_participation_process_contribution_containers
+      elsif documents?
+        :gobierto_participation_process_attachments
+      elsif pages?
+        :gobierto_participation_process_news_index
+      end
     end
   end
 end

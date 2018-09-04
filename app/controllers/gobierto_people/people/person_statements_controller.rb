@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     class PersonStatementsController < BaseController
@@ -6,7 +8,9 @@ module GobiertoPeople
         @statements = find_statements
 
         if @statements.any?
-          redirect_to gobierto_people_person_statement_path(@person.slug, @statements.first.slug)
+          args = { person_slug: @person.slug, slug: @statements.first.slug }
+          args[:preview_token] = params[:preview_token] if valid_preview_token?
+          redirect_to gobierto_people_person_statement_path(args)
         end
       end
 

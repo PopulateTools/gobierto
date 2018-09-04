@@ -7,7 +7,7 @@ class MetaWelcomeController < ApplicationController
     render_404 and return if current_site.nil?
 
     if current_site.configuration.home_page != "GobiertoCms"
-      redirect_to eval("#{current_site.configuration.home_page.underscore}_root_path")
+      redirect_to(current_site.root_path)
     else
       # This code allows the homepage to render a page without redirecting to the page url
       item = GlobalID::Locator.locate(current_site.configuration.home_page_item_id)

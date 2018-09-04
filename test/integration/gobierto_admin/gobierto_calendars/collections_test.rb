@@ -41,6 +41,11 @@ module GobiertoAdmin
       end
 
       def test_create_collection
+        ::GobiertoCommon::Collection.find_by(
+          container: process,
+          item_type: "GobiertoCalendars::Event"
+        ).destroy
+
         with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do

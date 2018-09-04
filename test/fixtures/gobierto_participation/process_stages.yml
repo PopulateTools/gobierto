@@ -300,3 +300,101 @@ sport_results_stage:
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:pages] %>
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
   menu_translations: <%= { 'en' => 'Results', 'es' => 'Resultados' }.to_json %>
+
+# complete_process stages
+
+complete_process_information_stage:
+  process: complete_process
+  menu_translations: <%= { 'en' => 'Information', 'es' => 'Información' }.to_json %>
+  title_translations: <%= { 'en' => 'Information', 'es' => 'Información' }.to_json %>
+  description_translations: <%= { 'en' => 'Information description', 'es' => 'Información descripción' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Texto CTA', 'es' => 'CTA text' }.to_json %>
+  cta_description_translations: <%= { 'en' => 'Descripción CTA', 'es' => 'CTA description' }.to_json %>
+  slug: informacion
+  starts: <%= 1.month.ago %>
+  ends: <%= 1.month.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
+  active: false
+  cta_text_translations: <%= { 'en' => 'Information', 'es' => 'Información' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
+  position: 1
+
+complete_process_agenda_stage:
+  process: complete_process
+  menu_translations: <%= { 'en' => 'Agenda', 'es' => 'Agenda' }.to_json %>
+  title_translations: <%= { 'en' => 'Agenda', 'es' => 'Agenda' }.to_json %>
+  description_translations: <%= { 'en' => 'Agenda description', 'es' => 'Agenda descripción' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Texto CTA', 'es' => 'CTA text' }.to_json %>
+  cta_description_translations: <%= { 'en' => 'Descripción CTA', 'es' => 'CTA description' }.to_json %>
+  slug: agenda
+  starts: <%= 1.month.ago %>
+  ends: <%= 1.month.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:agenda] %>
+  active: false
+  cta_text_translations: <%= { 'en' => 'Agenda', 'es' => 'Agenda' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
+  position: 2
+
+complete_process_polls_stage:
+  process: complete_process
+  menu_translations: <%= { 'en' => 'Polls', 'es' => 'Encuestas' }.to_json %>
+  title_translations: <%= { 'en' => 'Polls', 'es' => 'Encuestas' }.to_json %>
+  description_translations: <%= { 'en' => 'Polls description', 'es' => 'Encuestas descripción' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Texto CTA', 'es' => 'CTA text' }.to_json %>
+  cta_description_translations: <%= { 'en' => 'Descripción CTA', 'es' => 'CTA description' }.to_json %>
+  slug: polls
+  starts: <%= 1.month.ago %>
+  ends: <%= 1.month.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
+  active: false
+  cta_text_translations: <%= { 'en' => 'Polls', 'es' => 'Encuestas' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
+  position: 3
+
+complete_process_contributions_stage:
+  process: complete_process
+  menu_translations: <%= { 'en' => 'Contributions', 'es' => 'Contribuciones' }.to_json %>
+  title_translations: <%= { 'en' => 'Contributions', 'es' => 'Contribuciones' }.to_json %>
+  description_translations: <%= { 'en' => 'Contributions description', 'es' => 'Contribuciones descripción' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Texto CTA', 'es' => 'CTA text' }.to_json %>
+  cta_description_translations: <%= { 'en' => 'Descripción CTA', 'es' => 'CTA description' }.to_json %>
+  slug: contributions
+  starts: <%= 1.month.ago %>
+  ends: <%= 1.month.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:contributions] %>
+  active: true
+  cta_text_translations: <%= { 'en' => 'Contributions', 'es' => 'Contribuciones' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
+  position: 4
+
+complete_process_documents_stage:
+  process: complete_process
+  menu_translations: <%= { 'en' => 'Documents', 'es' => 'Documentos' }.to_json %>
+  title_translations: <%= { 'en' => 'Documents', 'es' => 'Documentos' }.to_json %>
+  description_translations: <%= { 'en' => 'Documents description', 'es' => 'Documentos descripción' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Texto CTA', 'es' => 'CTA text' }.to_json %>
+  cta_description_translations: <%= { 'en' => 'Descripción CTA', 'es' => 'CTA description' }.to_json %>
+  slug: documents
+  starts: <%= 1.month.ago %>
+  ends: <%= 1.month.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:documents] %>
+  active: false
+  cta_text_translations: <%= { 'en' => 'Documents', 'es' => 'Documentos' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
+  position: 5
+
+complete_process_pages_stage:
+  process: complete_process
+  menu_translations: <%= { 'en' => 'Pages', 'es' => 'Páginas' }.to_json %>
+  title_translations: <%= { 'en' => 'Pages', 'es' => 'Páginas' }.to_json %>
+  description_translations: <%= { 'en' => 'Pages description', 'es' => 'Páginas descripción' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Texto CTA', 'es' => 'CTA text' }.to_json %>
+  cta_description_translations: <%= { 'en' => 'Descripción CTA', 'es' => 'CTA description' }.to_json %>
+  slug: pages
+  starts: <%= 1.month.ago %>
+  ends: <%= 1.month.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:pages] %>
+  active: false
+  cta_text_translations: <%= { 'en' => 'Pages', 'es' => 'Páginas' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
+  position: 6

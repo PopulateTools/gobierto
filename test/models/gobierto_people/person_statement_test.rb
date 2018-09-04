@@ -13,6 +13,10 @@ module GobiertoPeople
       @madrid ||= sites(:madrid)
     end
 
+    def person
+      @person ||= gobierto_people_people(:richard)
+    end
+
     def person_statement
       @person_statement ||= gobierto_people_person_statements(:richard_current)
     end
@@ -50,6 +54,22 @@ module GobiertoPeople
 
       # should be ordered by person position, and within the same person recent statements appear first
       assert_equal [richard_statement.id, richard_past_statement.id, nelson_statement.id, tamara_statement.id], sorted_statements_ids
+    end
+
+    def test_public?
+      assert person_statement.public?
+
+      person.draft!
+
+      refute person_statement.public?
+
+      person_statement.draft!
+
+      refute person_statement.public?
+
+      person.active!
+
+      refute person_statement.public?
     end
 
   end

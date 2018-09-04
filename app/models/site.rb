@@ -75,7 +75,7 @@ class Site < ApplicationRecord
   serialize :configuration_data
 
   before_save :store_configuration
-  before_create :initialize_admins
+  after_create :initialize_admins
   after_save :run_seeder
 
   validates :title, presence: true
@@ -175,6 +175,10 @@ class Site < ApplicationRecord
     false
   end
 
+  def root_path
+    url_helpers.send("#{configuration.home_page.underscore}_root_path")
+  end
+
   private
 
   def site_configuration_attributes
@@ -197,7 +201,12 @@ class Site < ApplicationRecord
   end
 
   def initialize_admins
-    self.admins = Array(GobiertoAdmin::Admin.preset)
+    preset_admin = GobiertoAdmin::Admin.preset
+    if preset_admin.new_record?
+      self.admins.create(preset_admin.attributes)
+    else
+      self.admins << preset_admin
+    end
   end
 
   def run_seeder

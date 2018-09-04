@@ -3,10 +3,10 @@ animals:
   name_translations: <%= { es: "Animales", en: "Animals" }.to_json %>
   slug: animals
 
-plan_categories:
+plan_categories_vocabulary:
   site: madrid
-  name_translations: <%= { es: "Plan de gobierno", en: "Government Plan" }.to_json %>
-  slug: government_plan
+  name_translations: <%= { es: "Plan Estratégico 2014-2018", en: "Strategic Plan 2014-2018" }.to_json %>
+  slug: strategic-plan
 
 issues_vocabulary:
   site: madrid

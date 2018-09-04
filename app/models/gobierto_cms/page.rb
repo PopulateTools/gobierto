@@ -30,7 +30,6 @@ module GobiertoCms
     translates :title, :body, :body_source
 
     belongs_to :site
-    belongs_to :collection, class_name: "GobiertoCommon::Collection"
     has_many :collection_items, as: :item
     has_many :process_stage_pages, class_name: "GobiertoParticipation::ProcessStagePage"
 
@@ -88,10 +87,19 @@ module GobiertoCms
     end
 
     def add_item_to_collection
-      if collection
-        collection.append(self)
-      end
+      collection&.append(self)
     end
+
+    def public?
+      active? && public_parent?
+    end
+
+    def parameterize
+      params = { id: slug }
+      page? && section ? params.merge(slug_section: section.slug) : params
+    end
+
+    alias resource_path to_url
 
     private
 
@@ -99,16 +107,27 @@ module GobiertoCms
       searchable_translated_attribute(body_translations)
     end
 
-    def resource_path
-      if collection.item_type == "GobiertoCms::Page"
-        if section
-          url_helpers.gobierto_cms_section_item_url({slug_section: section.slug, id: slug}.merge(host: site.domain))
-        else
-          url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: site.domain))
-        end
-      elsif collection.item_type == "GobiertoCms::News"
-        url_helpers.gobierto_cms_news_url({ id: slug }.merge(host: site.domain))
+    def singular_route_key
+      if page? && section
+        :gobierto_cms_section_item
+      elsif news?
+        :gobierto_cms_news
+      else
+        super
       end
     end
+
+    def public_parent?
+      container.try(:reload).try(:public?) != false
+    end
+
+    def page?
+      collection&.item_type == "GobiertoCms::Page"
+    end
+
+    def news?
+      collection&.item_type == "GobiertoCms::News"
+    end
+
   end
 end

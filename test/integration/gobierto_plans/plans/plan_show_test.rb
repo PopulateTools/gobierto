@@ -22,15 +22,15 @@ module GobiertoPlans
     end
 
     def axes
-      @axes ||= plan.categories.where(level: 0)
+      @axes ||= CollectionDecorator.new(plan.categories.where(level: 0).sorted, decorator: GobiertoPlans::CategoryTermDecorator)
     end
 
     def action_lines
-      @action_lines ||= plan.categories.where(level: 1)
+      @action_lines ||= CollectionDecorator.new(plan.categories.where(level: 1).sorted, decorator: GobiertoPlans::CategoryTermDecorator)
     end
 
     def actions
-      @actions ||= plan.categories.where(level: 2)
+      @actions ||= CollectionDecorator.new(plan.categories.where(level: 2).sorted, decorator: GobiertoPlans::CategoryTermDecorator)
     end
 
     def projects
@@ -45,15 +45,15 @@ module GobiertoPlans
 
           assert has_content? "Strategic Plan introduction"
 
-          assert has_content? "#{axes.size} axes"
+          assert has_content? "#{axes.count} axes"
           assert has_content? "1 line of action"
-          assert has_content? "#{actions.size} actions"
-          assert has_content? "#{projects.size} projects"
+          assert has_content? "#{actions.count} actions"
+          assert has_content? "#{projects.count} projects"
 
           within "section.level_0" do
-            assert has_selector?("div.node-root", count: axes.size)
+            assert has_selector?("div.node-root", count: axes.count)
 
-            axes.sort_by_uid.each_with_index do |axe, index|
+            axes.each_with_index do |axe, index|
               assert has_selector?("div.node-root.cat_#{index + 1}")
 
               within "div.node-root.cat_#{index + 1}" do
@@ -98,23 +98,23 @@ module GobiertoPlans
               end
 
               within ".lines-list" do
-                assert has_content?(action_lines.sort_by_uid.first.name)
+                assert has_content?(action_lines.first.name)
                 assert has_content?("2 actions")
 
-                assert has_content?((projects.sum(:progress) / projects.size) / 100)
+                assert has_content?((projects.sum(:progress) / projects.count) / 100)
               end
 
-              assert has_selector?("h3", text: action_lines.sort_by_uid.first.name)
-              find("h3", text: action_lines.sort_by_uid.first.name).click
+              assert has_selector?("h3", text: action_lines.first.name)
+              find("h3", text: action_lines.first.name).click
             end
 
             within "section.level_2.cat_1" do
-              assert has_content?(action_lines.sort_by_uid.first.name)
+              assert has_content?(action_lines.first.name)
 
               within "ul.action-line--list" do
-                assert has_selector?("li", count: actions.size)
+                assert has_selector?("li", count: actions.count)
 
-                find("h3", text: actions.sort_by_uid.first.name).click
+                find("h3", text: actions.first.name).click
                 assert has_selector?("div", text: (projects.last.progress / 100).to_s)
 
                 find("td", text: projects.first.name).click
@@ -140,12 +140,12 @@ module GobiertoPlans
 
           within ".planification-content" do
             within "section.level_1.cat_1" do
-              find("h3", text: action_lines.sort_by_uid.first.name).click
+              find("h3", text: action_lines.first.name).click
             end
 
             within "section.level_2.cat_1" do
               within "ul.action-line--list" do
-                find("h3", text: actions.sort_by_uid.first.name).click
+                find("h3", text: actions.first.name).click
                 refute has_selector?("thead", count: 1)
               end
             end
@@ -165,12 +165,12 @@ module GobiertoPlans
 
           within ".planification-content" do
             within "section.level_1.cat_1" do
-              find("h3", text: action_lines.sort_by_uid.first.name).click
+              find("h3", text: action_lines.first.name).click
             end
 
             within "section.level_2.cat_1" do
               within "ul.action-line--list" do
-                find("h3", text: actions.sort_by_uid.first.name).click
+                find("h3", text: actions.first.name).click
                 assert has_selector?("thead", count: 1)
               end
             end
@@ -196,12 +196,12 @@ module GobiertoPlans
 
           within ".planification-content" do
             within "section.level_1.cat_1" do
-              find("h3", text: action_lines.sort_by_uid.first.name).click
+              find("h3", text: action_lines.first.name).click
             end
 
             within "section.level_2.cat_1" do
               within "ul.action-line--list" do
-                find("h3", text: actions.sort_by_uid.first.name).click
+                find("h3", text: actions.first.name).click
               end
               assert has_selector?("div.node-breadcrumb")
 
@@ -232,12 +232,12 @@ module GobiertoPlans
 
             within ".planification-content" do
               within "section.level_1.cat_3" do
-                find("h3", text: action_lines.sort_by_uid.first.name).click
+                find("h3", text: action_lines.first.name).click
               end
 
               within "section.level_2.cat_3" do
                 within "ul.action-line--list" do
-                  find("h3", text: actions.sort_by_uid.first.name).click
+                  find("h3", text: actions.first.name).click
                 end
               end
 
@@ -260,12 +260,12 @@ module GobiertoPlans
 
             within ".planification-content" do
               within "section.level_1.cat_3" do
-                find("h3", text: action_lines.sort_by_uid.first.name).click
+                find("h3", text: action_lines.first.name).click
               end
 
               within "section.level_2.cat_3" do
                 within "ul.action-line--list" do
-                  find("h3", text: actions.sort_by_uid.first.name).click
+                  find("h3", text: actions.first.name).click
                 end
               end
 

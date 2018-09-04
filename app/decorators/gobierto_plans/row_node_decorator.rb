@@ -15,11 +15,11 @@ module GobiertoPlans
         @plan = options[:plan]
       elsif object.is_a? Node
         @node = object
-        @plan = @node.categories.first&.plan
+        @plan = CategoryTermDecorator.new(@node.categories.first).plan
         @category = node_category
         @object = CSV::Row.new(plan_csv_columns, node_csv_values)
-      elsif object.is_a? Category
-        @category = object
+      elsif object.is_a? GobiertoCommon::Term
+        @category = CategoryTermDecorator.new(object)
         @plan = @category.plan
         @node = Node.new
         @object = CSV::Row.new(plan_csv_columns, node_csv_values)
@@ -33,12 +33,13 @@ module GobiertoPlans
                         categories = []
                         level_names.each_with_index do |name, index|
                           current_level =
-                            current_level.categories.with_name_translation(object[name], locale).where(level: index).first ||
+                            current_level.categories.where("#{ terms_table_name }.name_translations @> ?::jsonb", { locale => object[name] }.to_json).first ||
                             current_level.categories.new(
                               "name_#{ locale }": object[name],
                               level: index,
-                              plan: @plan
+                              vocabulary_id: @plan.categories_vocabulary.id
                             )
+                          current_level = CategoryTermDecorator.new(current_level)
                           categories << current_level
                         end
                         categories
@@ -48,8 +49,8 @@ module GobiertoPlans
     def node
       @node ||= begin
                   return nil if node_data.compact.blank?
-                  category = categories.last
-                  (category.nodes.with_name_translation(node_data["Title"], locale).first || category.nodes.new).tap do |node|
+                  category = CategoryTermDecorator.new(categories.last)
+                  (category.nodes.where("#{ nodes_table_name }.name_translations @> ?::jsonb", { locale => node_data["Title"] }.to_json).first || category.nodes.new).tap do |node|
                     node.assign_attributes node_attributes
                     node.progress = progress_from_status(node.status) unless has_progress_column?
                     node.categories << category unless node.categories.include?(category)
@@ -120,14 +121,14 @@ module GobiertoPlans
     def categories_hierarchy(category)
       categories = []
       while category.present?
-        categories.unshift(category)
+        categories.unshift(CategoryTermDecorator.new(category))
         category = category.parent_category
       end
       categories
     end
 
     def node_category
-      @node.categories.where(level: @plan.categories.maximum(:level)).first
+      CategoryTermDecorator.new(@node.categories.where(level: @plan.categories.maximum(:level)).first)
     end
 
     def node_mandatory_values
@@ -146,6 +147,14 @@ module GobiertoPlans
       plan_options_keys.map do |key|
         node.options && node.options[key]
       end
+    end
+
+    def nodes_table_name
+      Node.table_name
+    end
+
+    def terms_table_name
+      GobiertoCommon::Term.table_name
     end
 
     def node_csv_values

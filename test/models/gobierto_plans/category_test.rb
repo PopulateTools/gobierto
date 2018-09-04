@@ -49,12 +49,5 @@ module GobiertoPlans
       assert_equal action.calculate_uid, action.uid
       assert_equal action.level, action.uid.split(".").size - 1
     end
-
-    def test_children_progress
-      assert_equal action_line.progress, action_line.children_progress
-      assert_equal action_line.children_progress, projects.sum(:progress) / projects.size
-
-      assert_equal action.progress, action.children_progress
-    end
   end
 end

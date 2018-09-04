@@ -31,6 +31,10 @@ class SiteTest < ActiveSupport::TestCase
     assert site.valid?
   end
 
+  def test_root_path
+    assert_equal "/participacion", site.root_path
+  end
+
   # -- Initialization
   def test_admins_initialization
     site.admin_sites.delete_all

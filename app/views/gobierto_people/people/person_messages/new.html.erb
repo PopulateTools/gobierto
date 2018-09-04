@@ -19,12 +19,13 @@
       </div>
     <% end %>
 
+    <%= f.invisible_captcha :ic_email %>
+
     <div class="form_item textarea">
       <%= f.label :body %>
       <%= f.text_area :body, placeholder: t('.placeholders.body') %>
     </div>
 
-    <%= invisible_captcha %>
     <%= f.submit t('.submit') %>
   <% end %>
 </div>

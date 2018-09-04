@@ -144,7 +144,7 @@ namespace :common do
     desc "Generate a vocabulary for each existing plan and create terms from categories"
     task plans: :environment do
       id_transformations = {}
-      GobiertoPlans::Plan.all.each do |plan|
+      GobiertoPlans::Plan.where(vocabulary_id: nil).each do |plan|
         site = plan.site
         I18n.locale = site.configuration.default_locale
         categories = GobiertoPlans::Category.where(plan: plan)
@@ -185,7 +185,7 @@ namespace :common do
 
     def replace_category_id_with_term_id_in_categories_nodes_table(id_transformations)
       GobiertoPlans::CategoriesNode.all.each do |record|
-        record.update(category_id: id_transformations[record.category_id])
+        record.update(category_id: id_transformations[record.category_id]) if id_transformations.has_key?(record.category_id)
       end
     end
 

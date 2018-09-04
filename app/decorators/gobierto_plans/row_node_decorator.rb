@@ -99,7 +99,7 @@ module GobiertoPlans
     end
 
     def plan_options_keys
-      @plan_options_keys ||= @plan.nodes.map { |node| node.options.keys }.uniq.flatten.uniq
+      @plan_options_keys ||= @plan.nodes.map { |node| node.options&.keys }.uniq.flatten.compact.uniq
     end
 
     def plan_nodes_extra_columns

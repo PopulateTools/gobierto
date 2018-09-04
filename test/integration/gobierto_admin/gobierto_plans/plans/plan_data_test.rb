@@ -21,6 +21,10 @@ module GobiertoAdmin
         @plan ||= gobierto_plans_plans(:strategic_plan)
       end
 
+      def node
+        @node ||= gobierto_plans_nodes(:political_agendas)
+      end
+
       def test_create_node
         with_javascript do
           with_signed_in_admin(admin) do
@@ -29,7 +33,9 @@ module GobiertoAdmin
               visit admin_plans_plan_data_path(plan)
 
               within "#jsGrid" do
-                click_button "Switch to inserting"
+                within ".jsgrid-header-row" do
+                  click_button
+                end
                 within ".jsgrid-insert-row" do
                   cells = all(:xpath, "td")
 
@@ -42,11 +48,10 @@ module GobiertoAdmin
                   select "People and families", from: "category-0-new"
                   select "Provide social assistance to individuals and families who need it for lack of resources", from: "category-1-new"
                   select "Scholarships for families in the Central District", from: "category-2-new"
-                  click_button "Insert"
+                  click_button "Create"
                 end
               end
 
-              sleep 1
               assert has_content? "Test Plan Node"
               node = plan.nodes.last
               assert_equal "Test Plan Node", node.name
@@ -63,18 +68,59 @@ module GobiertoAdmin
               visit admin_plans_plan_data_path(plan)
 
               within "#jsGrid" do
-                click_button "Switch to inserting"
+                within ".jsgrid-header-row" do
+                  click_button
+                end
                 within ".jsgrid-insert-row" do
                   cells = all(:xpath, "td")
                   cells[4].all("input").each do |input_element|
                     input_element.set("Test Plan Node")
                   end
-                  click_button "Insert"
+                  click_button "Create"
                 end
               end
 
-              assert_match "Invalid data entered!", page.driver.browser.modal_message
+              assert_match "Invalid data entered", page.driver.browser.modal_message
               refute has_content? "Test Plan Node"
+            end
+          end
+        end
+      end
+
+      def test_index
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+
+              visit admin_plans_plan_data_path(plan)
+
+              assert has_content? "Publish political agendas"
+            end
+          end
+        end
+      end
+
+      def test_edit_node
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+
+              visit admin_plans_plan_data_path(plan)
+
+              within "#jsGrid" do
+                find(".jsgrid-cell", text: node.name).click
+                within ".jsgrid-edit-row" do
+                  cells = all(:xpath, "td")
+                  cells[3].all("input").each do |input_element|
+                    input_element.set("Updated Plan Node")
+                  end
+                  click_on "Update"
+                end
+              end
+              assert has_content? "Updated Plan Node"
+
+              node.reload
+              assert_equal "Updated Plan Node", node.name
             end
           end
         end

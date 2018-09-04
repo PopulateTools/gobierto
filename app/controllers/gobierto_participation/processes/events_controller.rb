@@ -26,44 +26,46 @@ module GobiertoParticipation
 
       private
 
-      def find_process_events
-        ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process).sorted
+      def process_events_scope
+        if valid_preview_token?
+          ::GobiertoCalendars::Event.events_in_collections_and_container_with_pending(
+            current_site,
+            current_process
+          ).sorted
+        else
+          ::GobiertoCalendars::Event.events_in_collections_and_container(
+            current_site,
+            current_process
+          ).sorted
+        end
       end
 
       def find_event
-        find_process_events.find_by_slug!(params[:id])
-      end
-
-      def find_process_events
-        @container_events = ::GobiertoCalendars::Event.events_in_collections_and_container_with_pending(current_site, current_process)
+        process_events_scope.find_by_slug!(params[:id])
       end
 
       def set_events
-        @events = find_process_events.sorted
+        @events = process_events_scope
         @events = @events.events_in_collections_and_container(current_site, @issue) if @issue
 
         @events = if params[:date]
-                    filter_events_by_date(params[:date])
+                    filter_events_by_date(params[:date]).published
+                  elsif @past_events
+                    @events.past.sorted_backwards
+                  elsif @events.upcoming.empty?
+                    @no_upcoming_events = true
+                    @events.past.sorted_backwards
                   else
-                    if @past_events
-                      @events.past.sorted_backwards
-                    else
-                      if @events.upcoming.empty?
-                        @no_upcoming_events = true
-                        @events.past.sorted_backwards
-                      else
-                        @events.upcoming.sorted
-                      end
-                    end
+                    @events.upcoming.sorted
                   end
 
         @events = @events.page params[:page]
-        @calendar_events = @container_events
+        @calendar_events = process_events_scope
       end
 
       def filter_events_by_date(date)
         @filtering_date = Date.parse(date)
-        events = @container_events.by_date(@filtering_date)
+        events = process_events_scope.by_date(@filtering_date)
         events = (@filtering_date >= Time.now ? events.sorted : events.sorted_backwards)
       rescue ArgumentError
         events

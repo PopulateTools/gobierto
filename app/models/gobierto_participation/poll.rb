@@ -10,7 +10,7 @@ module GobiertoParticipation
 
     include ActsAsParanoidAliases
     include GobiertoCommon::HasVisibilityUserLevels
-
+    include GobiertoCommon::UrlBuildable
     include PollResultsHelpers
 
     belongs_to :process
@@ -69,10 +69,27 @@ module GobiertoParticipation
       ends_at < Time.zone.now
     end
 
+    def parameterize
+      { process_id: process.slug, poll_id: id }
+    end
+
+    # always include preview token since the admin may not have session in the front
+    def admin_preview_url(admin)
+      options = parameterize.merge(host: site.domain)
+      options[:preview_token] = admin.preview_token
+
+      url_helpers.send("#{singular_route_key}_url", options)
+    end
+
     private
 
     def ensure_editable!
       raise PollHasAnswers unless editable?
     end
+
+    def singular_route_key
+      :new_gobierto_participation_process_poll_answer
+    end
+
   end
 end

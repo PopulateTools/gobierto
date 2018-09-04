@@ -17,4 +17,16 @@ module CommonHelpers
     all("a[href='#{location}']").any?
   end
 
+  def preview_link_includes_token?
+    find_link("View item")[:href].include?("preview_token=")
+  end
+
+  def preview_link_excludes_token?
+    find_link("View item")[:href].exclude?("preview_token=")
+  end
+
+  def click_preview_link
+    click_link "View item"
+  end
+
 end

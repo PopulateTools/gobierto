@@ -19,6 +19,18 @@ module GobiertoPeople
     end
     alias create_sluggable new_person
 
+    def draft_person
+      @draft_person ||= gobierto_people_people(:juana)
+    end
+
+    def site
+      @site ||= sites(:madrid)
+    end
+
+    def admin
+      @admin ||= gobierto_admin_admins(:nick)
+    end
+
     def test_valid
       assert person.valid?
     end
@@ -31,5 +43,23 @@ module GobiertoPeople
     def test_to_url
       assert_equal "http://#{person.site.domain}/personas/#{person.slug}", person.to_url
     end
+
+    def test_public?
+      assert person.public?
+      refute draft_person.public?
+    end
+
+    def test_statements_url
+      expected_url = "http://#{site.domain}/declaraciones/#{draft_person.slug}?preview_token=#{admin.preview_token}"
+
+      assert_equal expected_url, draft_person.statements_url(preview: true, admin: admin)
+    end
+
+    def test_blog_url
+      expected_url = "http://#{site.domain}/blogs/#{draft_person.slug}?preview_token=#{admin.preview_token}"
+
+      assert_equal expected_url, draft_person.blog_url(preview: true, admin: admin)
+    end
+
   end
 end

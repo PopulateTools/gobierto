@@ -24,5 +24,6 @@ en:
         site_network: Network
         templates: Templates
         users: Users
+        view_item: View item
         view_site: View site
         vocabularies: Vocabularies

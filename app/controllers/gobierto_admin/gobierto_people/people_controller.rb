@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     class PeopleController < BaseController
@@ -12,6 +14,7 @@ module GobiertoAdmin
 
       def index
         @people = current_site.people.sorted
+        @preview_item_url = gobierto_people_people_url(host: current_site.domain)
         @can_create_person = site_people_policy.create?
         @manage_all_people = site_people_policy.manage_all_people_in_site?
       end
@@ -77,8 +80,9 @@ module GobiertoAdmin
 
       private
 
-      def find_person
-        current_site.people.find(params[:id])
+      def load_person
+        @person = current_site.people.find(params[:id])
+        @preview_item = @person
       end
 
       def get_person_visibility_levels
@@ -126,7 +130,7 @@ module GobiertoAdmin
       end
 
       def manage_person_allowed!
-        @person = find_person
+        load_person
 
         if !PersonPolicy.new(current_admin: current_admin, person: @person).manage?
           redirect_to(admin_people_people_path, alert: t("gobierto_admin.admin_unauthorized")) and return false

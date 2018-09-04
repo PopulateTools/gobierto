@@ -1,6 +1,8 @@
 module GobiertoAttachments
   class AttachmentsController < GobiertoAttachments::ApplicationController
 
+    include ::PreviewTokenHelper
+
     before_action :load_attachment
     layout false
 
@@ -20,11 +22,16 @@ module GobiertoAttachments
       # For example, when the doc URL is used in an <img> tag, in Firefox the
       # Accept header is */*, and in Safari is the MIME-Type of the image.
       accept_header = request.headers["Accept"]
-      accept_header && accept_header.include?("text/html")
+      accept_header&.include?("text/html")
     end
 
     def load_attachment
-      @attachment = current_site.attachments.find_by(id: params[:id]) || current_site.attachments.find_by!(slug: params[:id])
+      @attachment = site_attachments.find_by(id: params[:id]) || site_attachments.find_by!(slug: params[:id])
+      raise ActiveRecord::RecordNotFound unless @attachment.public? || valid_preview_token?
+    end
+
+    def site_attachments
+      current_site.attachments
     end
 
   end

@@ -8,12 +8,13 @@ module GobiertoAdmin
         helper_method :gobierto_participation_contribution_container_preview_url
 
         def index
-          @contribution_containers = find_process.contribution_containers
-          @archived_contribution_containers = find_process.contribution_containers.only_archived
+          @contribution_containers = current_process.contribution_containers
+          @preview_item_url = current_process.stages.contributions.first.to_url(preview: true, admin: current_admin)
+          @archived_contribution_containers = current_process.contribution_containers.only_archived
         end
 
         def show
-          @contribution_container = find_contribution_container
+          load_contribution_container(preview: true)
           @process = @contribution_container.process
           @votes_headers = ::GobiertoParticipation::ContributionDecorator.headings
         end
@@ -27,7 +28,8 @@ module GobiertoAdmin
         end
 
         def edit
-          @contribution_container = find_contribution_container
+          load_contribution_container(preview: true)
+          @preview_item = @contribution_container
           @contribution_container_visibility_levels = contribution_container_visibility_levels
           @contribution_container_form = ContributionContainerForm.new(
             @contribution_container.attributes.except(*ignored_contribution_container_attributes)
@@ -56,7 +58,7 @@ module GobiertoAdmin
         end
 
         def update
-          @contribution_container = find_contribution_container
+          load_contribution_container
           @contribution_container_visibility_levels = contribution_container_visibility_levels
           @process = @contribution_container.process
           @contribution_container_form = ContributionContainerForm.new(contribution_container_params.merge(id: @contribution_container.id,
@@ -78,7 +80,7 @@ module GobiertoAdmin
         end
 
         def destroy
-          @contribution_container = find_contribution_container
+          load_contribution_container
           @contribution_container.destroy
           process = find_process if params[:process_id]
 
@@ -128,8 +130,9 @@ module GobiertoAdmin
           %w(slug created_at updated_at archived_at)
         end
 
-        def find_contribution_container
-          current_site.contribution_containers.find(params[:id])
+        def load_contribution_container(opts = {})
+          @contribution_container = current_site.contribution_containers.find(params[:id])
+          @preview_item = @contribution_container if opts[:preview]
         end
 
         def find_archived_contribution_container
@@ -141,14 +144,15 @@ module GobiertoAdmin
         end
 
         def gobierto_participation_contribution_container_preview_url(contribution_container, options = {})
-          if contribution_container.draft?
-            options.merge!(preview_token: current_admin.preview_token)
-          end
-          gobierto_participation_process_contribution_container_url(contribution_container.process.slug,
-                                                                    contribution_container.slug,
-                                                                    options)
+          options[:preview_token] = current_admin.preview_token if contribution_container.draft?
 
+          gobierto_participation_process_contribution_container_url(
+            contribution_container.process.slug,
+            contribution_container.slug,
+            options
+          )
         end
+
       end
     end
   end

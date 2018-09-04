@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoParticipation
@@ -20,6 +20,10 @@ module GobiertoAdmin
 
       def poll
         @poll ||= gobierto_participation_polls(:public_spaces_future)
+      end
+
+      def open_poll
+        @open_poll ||= gobierto_participation_polls(:pedestrianization_published)
       end
 
       def edit_poll_path(poll)
@@ -149,6 +153,27 @@ module GobiertoAdmin
               assert_equal ::GobiertoParticipation::PollQuestion.answer_types[:open], new_question.answer_type
               assert_equal 2, new_question.order
             end
+          end
+        end
+      end
+
+      def test_preview_poll_in_front
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit edit_admin_participation_process_poll_path(process, open_poll)
+
+            within ".widget_save" do
+              find("label", text: "Published").click
+              click_button "Update"
+            end
+
+            within("header") { click_link "View item" }
+
+            sleep 2
+
+            assert current_url.include? open_poll.to_url
+            # always include preview token since the admin may not have session in the front
+            assert current_url.include? "preview_token=#{admin.preview_token}"
           end
         end
       end

@@ -21,3 +21,7 @@ commission_for_carnival_festivities_information_stage_page:
 sport_process_information_stage_page:
   process_stage: sport_process_information_stage
   page: consultation_faq
+
+complete_process_information_stage_page:
+  process_stage: complete_process_information_stage
+  page: privacy

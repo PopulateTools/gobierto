@@ -50,7 +50,12 @@
       <div class='poll_actions'>
 
         <% submit_button_text =  @poll_answer_form.questions_count == 1 ? t('.submit') : t('.next_question') %>
-        <%= fb.submit submit_button_text, class: 'button submit next_question', data: { behavior: 'next_question' } %>
+        <%= fb.submit(
+              submit_button_text,
+              class: "button submit next_question",
+              data: { behavior: "next_question" },
+              disabled: valid_preview_token?
+            ) %>
 
       </div>
 

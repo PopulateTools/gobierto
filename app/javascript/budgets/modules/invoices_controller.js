@@ -1,4 +1,4 @@
-import { d3v3 as d3, dc, d3locale, crossfilter, moment } from 'shared'
+import { d3, dc, d3locale, crossfilter, moment } from 'shared'
 
 // THIS CONTROLLER LOADS D3.V3 TO ALLOW DC RUN
 window.GobiertoBudgets.InvoicesController = (function() {
@@ -131,7 +131,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
           domain: [501, 1001, 5001, 10001, 15001],
           range: [0, 1, 2, 3, 4, 5]
         };
-        var rangeFormat = d3.scale.threshold().domain(_r.domain).range(_r.range);
+        var rangeFormat = d3.scaleThreshold().domain(_r.domain).range(_r.range);
         var intl = new Intl.DateTimeFormat(I18n.locale); // Improve performance
 
         // pre-calculate for better performance
@@ -304,9 +304,9 @@ window.GobiertoBudgets.InvoicesController = (function() {
       .width(bars.root().node().parentNode.getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
       .dimension(months)
       .group(budgetMonthly)
-      .x(d3.scale.ordinal())
+      .x(d3.scaleBand())
       .xUnits(dc.units.ordinal)
-      .round(d3.time.month.round)
+      .round(d3.timeMonth.round)
       .elasticX(true)
       .elasticY(true)
       .alwaysUseRounding(true)
@@ -324,7 +324,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
     // Customize
     bars.xAxis().tickFormat(function(d) {
-      var _mf = d3.locale(d3locale[I18n.locale]).timeFormat('%b');
+      let _mf = d3.timeFormatLocale(d3locale[I18n.locale]).format('%b')
       return _mf(d).toUpperCase();
     });
     bars.yAxis().ticks(5);
@@ -364,7 +364,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
       .height(hbars1.margins().top + hbars1.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // Margins top/bottom + bars + gaps (space between)
       .fixedBarHeight(_barHeight)
       .cap(_count).othersGrouper(null) // Show only a couple of results, and hide Others groups
-      .x(d3.scale.ordinal())
+      .x(d3.scaleOrdinal())
       .dimension(providers)
       .group(providerByAmount)
       .gap(_gap)
@@ -404,7 +404,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
         minimumFractionDigits: 0
       });
     });
-    hbars1.xAxis().ticks(3).orient('top');
+    hbars1.xAxis(d3.axisTop().ticks(3))
     hbars1.margins().top = 20;
     hbars1.margins().left = _labelOffset + 5;
     hbars1.margins().right = 10;
@@ -433,7 +433,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
       .width(hbars2.root().node().parentNode.getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
       .height(hbars2.margins().top + hbars2.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // Margins top/bottom + bars + gaps (space between)
       .fixedBarHeight(_barHeight)
-      .x(d3.scale.threshold())
+      .x(d3.scaleThreshold())
       .dimension(amounts)
       .group(amountByInvoices)
       .ordering(function(d) {
@@ -515,7 +515,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
       });
 
     // Customize
-    hbars2.xAxis().ticks(5).orient('top');
+    hbars2.xAxis(d3.axisTop().ticks(5))
     hbars2.xAxis().tickFormat(
       function(tick, pos) {
         if (pos === 0) return null

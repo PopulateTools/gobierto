@@ -11,8 +11,8 @@ en:
       gobierto_admin/gobierto_common/term_form:
         description: Description
         name: Name
-        parent_term: Parent Term
         slug: Slug
+        term_id: Parent Term
       gobierto_admin/gobierto_common/vocabulary_form:
         name: Name
     models:

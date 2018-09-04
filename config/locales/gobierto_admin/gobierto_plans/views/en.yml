@@ -19,19 +19,29 @@ en:
           title: New plan type
       plans:
         data:
+          cancel_edit: Cancel edition
           category: Level
+          delete: Delete
+          delete_confirm: Are you sure?
+          edit: Edit
           ends_at: End
           errors:
             missing_category: All category levels must be selected
             missing_name: The project name can't be empty
           export_csv: Export to CSV
           import_csv: Import from CSV
+          insert: Create
+          insert_switch: Add...
+          invalid_message: Invalid data entered
+          load_message: Please, wait...
           name: Project
+          not_found: No nodes were found
           options: Options
           progress: "% progress"
           starts_at: Start
           status: Status
           title: Data
+          update: Update
         edit:
           title: Configuration
         form:

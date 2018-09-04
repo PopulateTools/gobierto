@@ -201,7 +201,11 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       autoload: true,
       pageSize: 10,
       pageButtonCount: 5,
-      deleteConfirm: "Do you really want to delete node?",
+      noDataContent: I18n.t("gobierto_admin.gobierto_plans.plans.data.not_found"),
+      confirmDeleting: true,
+      deleteConfirm: I18n.t("gobierto_admin.gobierto_plans.plans.data.delete_confirm"),
+      invalidMessage: I18n.t("gobierto_admin.gobierto_plans.plans.data.invalid_message"),
+      loadMessage: I18n.t("gobierto_admin.gobierto_plans.plans.data.load_message"),
       controller: {
         loadData: function(filter) {
           return $.ajax({
@@ -233,13 +237,57 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       },
 
       fields: categoryFields(options).concat([
-        { name: "name_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.name"), type: "localizedField", locales: options.locales, validate: nameValidator(options.locales) },
-        { name: "status_translations", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.status"), type: "localizedField", locales: options.locales },
-        { name: "progress", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.progress"), type: "number" },
-        { name: "starts_at", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.starts_at"), type: "customDateField" },
-        { name: "ends_at", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.ends_at"), type: "customDateField" },
-        { name: "options_json", title: I18n.t("gobierto_admin.gobierto_plans.plans.data.options"), type: "textarea" },
-        { type: "control" }
+        {
+          name: "name_translations",
+          title: I18n.t("gobierto_admin.gobierto_plans.plans.data.name"),
+          type: "localizedField",
+          locales: options.locales,
+          validate: nameValidator(options.locales)
+        },
+        {
+          name: "status_translations",
+          title: I18n.t("gobierto_admin.gobierto_plans.plans.data.status"),
+          type: "localizedField",
+          locales: options.locales
+        },
+        {
+          name: "progress",
+          title: I18n.t("gobierto_admin.gobierto_plans.plans.data.progress"),
+          type: "number"
+        },
+        {
+          name: "starts_at",
+          title: I18n.t("gobierto_admin.gobierto_plans.plans.data.starts_at"),
+          type: "customDateField"
+        },
+        {
+          name: "ends_at",
+          title: I18n.t("gobierto_admin.gobierto_plans.plans.data.ends_at"),
+          type: "customDateField"
+        },
+        {
+          name: "options_json",
+          title: I18n.t("gobierto_admin.gobierto_plans.plans.data.options"),
+          type: "textarea"
+        },
+        {
+          type: "control",
+          editButton: true,
+          deleteButton: true,
+          modeSwitchButton: true,
+          align: "center",
+          width: 10,
+          filtering: false,
+          inserting: true,
+          editing: true,
+          sorting: false,
+          insertModeButtonTooltip: I18n.t("gobierto_admin.gobierto_plans.plans.data.insert_switch"),
+          editButtonTooltip: I18n.t("gobierto_admin.gobierto_plans.plans.data.edit"),
+          deleteButtonTooltip: I18n.t("gobierto_admin.gobierto_plans.plans.data.delete"),
+          insertButtonTooltip: I18n.t("gobierto_admin.gobierto_plans.plans.data.insert"),
+          updateButtonTooltip: I18n.t("gobierto_admin.gobierto_plans.plans.data.update"),
+          cancelEditButtonTooltip: I18n.t("gobierto_admin.gobierto_plans.plans.data.cancel_edit")
+        }
       ])
     });
   };

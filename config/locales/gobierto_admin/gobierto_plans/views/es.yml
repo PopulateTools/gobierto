@@ -19,19 +19,29 @@ es:
           title: Nuevo tipo de plan
       plans:
         data:
+          cancel_edit: Cancelar actualización
           category: Nivel
+          delete: Eliminar
+          delete_confirm: "¿Estás seguro?"
+          edit: Editar
           ends_at: Fin
           errors:
             missing_category: Todos los niveles de categoría han de estar seleccionados
             missing_name: El nombre del proyecto no puede estar vacío
           export_csv: Exportar a CSV
           import_csv: Importar desde CSV
+          insert: Crear
+          insert_switch: Añadir...
+          invalid_message: Los datos introducidos son inválidos
+          load_message: Espera, por favor...
           name: Proyecto
+          not_found: No hay nodos
           options: Opciones
           progress: "% progreso"
           starts_at: Inicio
           status: Estado
           title: Datos
+          update: Actualizar
         edit:
           title: Configuración
         form:

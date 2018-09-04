@@ -19,19 +19,29 @@ ca:
           title: Nou tipus de pla
       plans:
         data:
+          cancel_edit: Cancel actualització
           category: Nivell
+          delete: Eliminar
+          delete_confirm: Estàs segur?
+          edit: Editar
           ends_at: Fi
           errors:
             missing_category: Tots els nivells de categoria han d'estar seleccionats
             missing_name: El nom del project non pot estar buit
           export_csv: Exportar a CSV
           import_csv: Importar des CSV
+          insert: Crear
+          insert_switch: Afegeix...
+          invalid_message: Les dades introduïdes són invàlids
+          load_message: Espera, si us plau...
           name: Projecte
+          not_found: No hi ha nodes
           options: Opcions
           progress: "% progrés"
           starts_at: Inici
           status: Estat
           title: Dades
+          update: Actualitzar
         edit:
           title: Configuració
         form:

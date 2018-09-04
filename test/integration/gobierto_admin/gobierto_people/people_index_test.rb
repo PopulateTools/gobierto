@@ -126,6 +126,18 @@ module GobiertoAdmin
         end
       end
 
+      def test_people_index_preview
+        with_signed_in_admin(manager_admin) do
+          with_current_site(site) do
+            visit @path
+
+            click_preview_link
+
+            assert_equal gobierto_people_people_path, current_path
+          end
+        end
+      end
+
     end
   end
 end

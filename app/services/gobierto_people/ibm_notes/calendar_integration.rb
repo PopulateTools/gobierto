@@ -58,7 +58,7 @@ module GobiertoPeople
         log_message("Invalid credentials for site")
         raise ::GobiertoCalendars::CalendarIntegration::AuthError
       rescue ::IbmNotes::ServiceUnavailable
-        log_message("IBM Notes calendar API is down")
+        log_message("Timeout error for #{person.name} (id: #{person.id})")
         raise ::GobiertoCalendars::CalendarIntegration::TimeoutError
       rescue ::JSON::ParserError
         log_message("JSON parser error")

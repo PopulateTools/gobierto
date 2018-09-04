@@ -28,7 +28,7 @@ module GobiertoAdmin
 
         def edit
           @process_stage = find_process_stage
-          @process_stage_page = find_process_stage_page
+          load_process_stage_page
           @process_stage_page_form = ProcessStagePageForm.new(
             @process_stage_page.attributes.except(*ignored_process_stage_page_attributes)
           )
@@ -59,8 +59,9 @@ module GobiertoAdmin
           current_process.stages.find(params[:process_stage_id])
         end
 
-        def find_process_stage_page
-          @process_stage.process_stage_page
+        def load_process_stage_page
+          @process_stage_page = @process_stage.process_stage_page
+          @preview_item = @process_stage
         end
 
         def process_stage_page_params

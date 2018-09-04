@@ -60,6 +60,8 @@ module IbmNotes
           form.Password = params[:password]
         end.submit
       end
+    rescue *timeout_error_classes
+      raise IbmNotes::ServiceUnavailable
     end
     private_class_method :get_response_page
 
@@ -67,5 +69,11 @@ module IbmNotes
       Rails.logger.info "[SYNC-AGENDAS][IBM Notes]#{message}"
     end
     private_class_method :log_message
+
+    def self.timeout_error_classes
+      [::Net::HTTP::Persistent::Error, ::Net::ReadTimeout]
+    end
+    private_class_method :timeout_error_classes
+
   end
 end

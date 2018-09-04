@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_admin/previewable_item_test_module"
 
 module GobiertoAdmin
   module GobiertoParticipation
     class CreateProcessTest < ActionDispatch::IntegrationTest
+
+      include ::GobiertoAdmin::PreviewableItemTestModule
+
       def admin
         @admin ||= gobierto_admin_admins(:nick)
       end
@@ -31,6 +35,13 @@ module GobiertoAdmin
 
       def cms_page
         @cms_page ||= gobierto_cms_pages(:consultation_faq)
+      end
+
+      def preview_test_conf
+        {
+          item_admin_path: edit_admin_participation_process_path(process),
+          item_public_url: process.to_url
+        }
       end
 
       def test_update_process

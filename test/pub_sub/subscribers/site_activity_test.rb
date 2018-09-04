@@ -139,6 +139,7 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
     # manually deassociate terms from items, so they can be destroyed
     site.processes.update_all(scope_id: nil, issue_id: nil)
     site.people.update_all(political_group_id: nil)
+    site.plans.update_all(vocabulary_id: nil)
 
     assert_difference "Activity.count" do
       site.destroy

@@ -13,8 +13,8 @@ gem "mechanize"
 gem "meta-tags"
 gem "paper_trail"
 gem "paranoia"
-gem "pg", "~> 0.19"
-gem "rails", "~> 5.2.0"
+gem "pg", "~> 1.1"
+gem "rails", "~> 5.2.1"
 gem "redcarpet", require: true
 gem "responders"
 gem "rollbar"
@@ -42,7 +42,7 @@ gem "elasticsearch"
 gem "elasticsearch-extensions"
 
 # Background processing
-gem "sidekiq", "~> 5.1.0"
+gem "sidekiq", "~> 5.2.1"
 gem "sidekiq-monitor-stats"
 
 # AWS SDK client
@@ -66,7 +66,7 @@ gem "kaminari", "~> 1.0"
 gem "invisible_captcha"
 
 # Redis
-gem "redis", "~> 3.3"
+gem "redis", "~> 4.0"
 
 # Translations
 gem "json_translate", "~> 4.0"

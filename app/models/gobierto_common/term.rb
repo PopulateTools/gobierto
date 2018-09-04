@@ -39,7 +39,8 @@ module GobiertoCommon
         klass.vocabularies.keys.any? do |association|
           klass.where(klass.reflections[association.to_s].foreign_key => id).exists?
         end
-      end
+      end ||
+        GobiertoPlans::CategoryTermDecorator.new(self).has_dependent_resources?
     end
 
     private

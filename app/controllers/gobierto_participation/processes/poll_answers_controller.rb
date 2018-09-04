@@ -5,13 +5,15 @@ module GobiertoParticipation
     class PollAnswersController < BaseController
       include User::VerificationHelper
 
-      before_action :authenticate_user!
-      before_action { check_visibility_level(current_poll, current_user) }
-      before_action { check_active_stage(current_process, ProcessStage.stage_types[:polls]) }
-      before_action(only: [:new]) { current_poll.answerable_by?(current_user) }
+      helper_method :valid_preview_token?
+
+      before_action :authenticate_user!, unless: :valid_preview_token?
+      before_action(unless: :valid_preview_token?) { check_visibility_level(current_poll, current_user) }
+      before_action(unless: :valid_preview_token?) { check_active_stage(current_process, ProcessStage.stage_types[:polls]) }
+      before_action(only: [:new], unless: :valid_preview_token?) { current_poll.answerable_by?(current_user) }
 
       def new
-        if !current_poll.has_answers_from?(current_user)
+        if valid_preview_token? || (current_user && current_poll.answerable_by?(current_user))
           @poll_answer_form = PollAnswerForm.new(poll: current_poll)
           render :new
         else
@@ -27,11 +29,7 @@ module GobiertoParticipation
       def create
         @poll_answer_form = PollAnswerForm.new(poll_answers_params.merge(user: current_user, poll: current_poll))
 
-        if @poll_answer_form.save
-          http_status = :ok
-        else
-          http_status = :bad_request
-        end
+        http_status = @poll_answer_form.save ? :ok : :bad_request
 
         respond_to do |format|
           format.js do

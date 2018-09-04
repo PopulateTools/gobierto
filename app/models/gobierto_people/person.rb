@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "gobierto_people"
 
 module GobiertoPeople
@@ -37,6 +39,7 @@ module GobiertoPeople
     scope :by_site, ->(site) { where(site_id: site.id) }
     scope :with_event_attendances, -> { where(id: ::GobiertoCalendars::EventAttendee.pluck(:person_id)) }
     enum visibility_level: { draft: 0, active: 1 }
+    alias public? active?
     enum category: { politician: 0, executive: 1 }
     enum party: { government: 0, opposition: 1 }
 
@@ -52,7 +55,7 @@ module GobiertoPeople
     def self.presence_by_group_type
       [:visibility_levels, :categories, :parties].reduce({}) do |groups, key|
         enum_groups = send(key)
-        groups.merge enum_groups.merge(enum_groups) { |group| self.send(group).any? }
+        groups.merge enum_groups.merge(enum_groups) { |group| send(group).any? }
       end
     end
 
@@ -88,15 +91,40 @@ module GobiertoPeople
     end
 
     def to_s
-      self.name
+      name
+    end
+
+    def statements_url(options = {})
+      build_collection_url(options.merge(collection_key: :statements))
+    end
+
+    def blog_url(options = {})
+      build_collection_url(options.merge(collection_key: :posts))
     end
 
     private
 
     def create_events_collection
-      site.collections.create! container_type: self.class.name, container_id: self.id,
-        item_type: 'GobiertoCalendars::Event', slug: "calendar-#{self.slug}",
-        title: self.name
+      site.collections.create!(
+        container_type: self.class.name,
+        container_id: id,
+        item_type: "GobiertoCalendars::Event",
+        slug: "calendar-#{slug}",
+        title: name
+      )
     end
+
+    def build_collection_url(options = {})
+      if !public? && options[:preview] && options[:admin]
+        options[:preview_token] = options[:admin].preview_token
+      end
+
+      url_helpers.send(
+        "gobierto_people_person_#{options[:collection_key]}_url",
+        options.merge(host: site.domain, person_slug: slug)
+               .except(:preview, :admin, :collection_key)
+      )
+    end
+
   end
 end

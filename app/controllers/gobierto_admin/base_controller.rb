@@ -9,7 +9,8 @@ module GobiertoAdmin
     before_action :authenticate_admin!, :set_admin_site
 
     helper_method :current_admin, :admin_signed_in?, :current_site, :managing_site?,
-                  :managed_sites, :can_manage_sites?, :gobierto_cms_page_preview_path
+                  :managed_sites, :can_manage_sites?, :gobierto_cms_page_preview_path,
+                  :preview_item_url
 
     rescue_from Errors::NotAuthorized, with: :raise_admin_not_authorized
 
@@ -42,6 +43,10 @@ module GobiertoAdmin
           enter_site(site.id)
         end
       end
+    end
+
+    def preview_item_url
+      @preview_item_url || @preview_item&.to_url(preview: true, admin: current_admin)
     end
 
     protected

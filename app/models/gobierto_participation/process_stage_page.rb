@@ -11,6 +11,10 @@ module GobiertoParticipation
       Process.find(process_stage.process_id)
     end
 
+    def public?
+      process_stage.reload.public? && page.reload.public?
+    end
+
     def parameterize
       { process_id: process.id, process_stage_id: process_stage.id, id: id }
     end

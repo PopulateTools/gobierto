@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_admin/previewable_item_test_module"
 
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessEventsTest < ActionDispatch::IntegrationTest
+
+      include ::GobiertoAdmin::PreviewableItemTestModule
+
       def setup
         super
         collection.append(event)
@@ -28,6 +32,13 @@ module GobiertoAdmin
 
       def event
         @event ||= gobierto_calendars_events(:reading_club)
+      end
+
+      def preview_test_conf
+        {
+          item_admin_path: edit_admin_calendars_event_path(event, collection_id: collection.id),
+          item_public_url: event.to_url
+        }
       end
 
       def test_events
@@ -110,6 +121,29 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_preview_calendar
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit admin_participation_process_events_path(process)
+
+            assert preview_link_excludes_token?
+            click_preview_link
+
+            assert has_content? "Diary for #{process.title}"
+
+            process.draft!
+
+            visit admin_participation_process_events_path(process)
+
+            assert preview_link_includes_token?
+            click_preview_link
+
+            assert has_content? "Diary for #{process.title}"
+          end
+        end
+      end
+
     end
   end
 end

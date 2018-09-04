@@ -19,7 +19,7 @@ module GobiertoAdmin
       end
 
       def edit
-        @page = find_page
+        load_page(preview: true)
         @section_id = @page.section_id
         @parent_id = @page.parent_id
         @page_section_item_id = ::GobiertoCms::SectionItem.find_by(item_id: @page.id).try(:id)
@@ -47,7 +47,7 @@ module GobiertoAdmin
       end
 
       def update
-        @page = find_page
+        load_page(preview: true)
         @page_form = PageForm.new(page_params.merge(id: @page.id, admin_id: current_admin.id, site_id: current_site.id, collection_id: @collection.id))
 
         if @page_form.save
@@ -64,7 +64,7 @@ module GobiertoAdmin
       end
 
       def destroy
-        @page = find_page
+        load_page
         @page.destroy
         process = find_process if params[:process_id]
 
@@ -127,6 +127,11 @@ module GobiertoAdmin
 
       def ignored_page_attributes
         %w(created_at updated_at title body collection_id archived_at)
+      end
+
+      def load_page(opts = {})
+        @page = current_site.pages.find(params[:id])
+        @preview_item = @page if opts[:preview]
       end
 
       def find_page

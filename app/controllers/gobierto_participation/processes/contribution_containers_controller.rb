@@ -3,12 +3,13 @@
 module GobiertoParticipation
   module Processes
     class ContributionContainersController < BaseController
+
       def index
-        @contribution_containers = find_contribution_containers
+        @contribution_containers = current_process.contribution_containers.active
       end
 
       def show
-        @contribution_container = find_contribution_container
+        @contribution_container = contribution_containers_scope.find_by!(slug: params[:id])
 
         data_origin = @contribution_container.contributions
         data_best_ratings = @contribution_container.contributions.loved
@@ -54,13 +55,14 @@ module GobiertoParticipation
 
       private
 
-      def find_contribution_container
-        find_contribution_containers.find_by!(slug: params[:id])
+      def contribution_containers_scope
+        if valid_preview_token?
+          current_process.contribution_containers
+        else
+          current_process.contribution_containers.active
+        end
       end
 
-      def find_contribution_containers
-        current_process.contribution_containers
-      end
     end
   end
 end

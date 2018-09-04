@@ -141,6 +141,54 @@ namespace :common do
       end
     end
 
+    desc "Generate a vocabulary for each existing plan and create terms from categories"
+    task plans: :environment do
+      id_transformations = {}
+      GobiertoPlans::Plan.where(vocabulary_id: nil).each do |plan|
+        site = plan.site
+        I18n.locale = site.configuration.default_locale
+        categories = GobiertoPlans::Category.where(plan: plan)
+        vocabulary = site.vocabularies.find_or_create_by(name_translations: plan.title_translations)
+        plan.update(vocabulary_id: vocabulary.id)
+
+        sorted_uids = categories.map(&:uid).sort
+
+        categories.each do |category|
+          if category.name_translations.blank?
+            category.name = "Missing"
+            category.save!
+          end
+          position = sorted_uids.index(category.uid)
+          term = create_term_from_category(category, sorted_uids, vocabulary)
+          id_transformations[category.id] = term.id
+        end
+      end
+
+      ActiveRecord::Base.transaction do
+        replace_category_id_with_term_id_in_categories_nodes_table(id_transformations)
+      end
+    end
+
+    def create_term_from_category(category, sorted_uids, vocabulary)
+      ignored_attributes = %w(id parent_id plan_id created_at updated_at progress uid)
+      parent_term = if (parent_category = category.parent_category).present?
+                      create_term_from_category(parent_category, sorted_uids, vocabulary)
+                    end
+      term = vocabulary.terms.find_or_initialize_by(category.attributes.except(*ignored_attributes).merge(term_id: parent_term&.id))
+      if term.new_record?
+        term.slug = "#{ term.slug }-#{ vocabulary.terms.where(name_translations: term.name_translations).count + 1 }" if vocabulary.terms.where(slug: term.slug).exists?
+        term.position = sorted_uids.index(category.uid)
+      end
+      term.save!
+      term
+    end
+
+    def replace_category_id_with_term_id_in_categories_nodes_table(id_transformations)
+      GobiertoPlans::CategoriesNode.all.each do |record|
+        record.update(category_id: id_transformations[record.category_id]) if id_transformations.has_key?(record.category_id)
+      end
+    end
+
     def move_political_group_to_term(person)
       return unless (political_group = GobiertoPeople::PoliticalGroup.find_by_id(person.political_group_id)).present?
       ignored_attributes = %w(id site_id admin_id created_at updated_at name)

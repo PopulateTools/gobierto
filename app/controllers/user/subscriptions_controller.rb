@@ -1,5 +1,14 @@
+# frozen_string_literal: true
+
 class User::SubscriptionsController < User::BaseController
+
   before_action :authenticate_user!, only: [:index, :destroy]
+
+  invisible_captcha(
+    only: [:create],
+    honeypot: :ic_email,
+    scope: :user_subscription
+  )
 
   def index
     @user_notification_frequencies = get_user_notification_frequencies
@@ -41,8 +50,7 @@ class User::SubscriptionsController < User::BaseController
             sign_in_path: new_user_sessions_path(host: current_site.domain)
           )
         end
-
-        redirect_to request.referrer
+        redirect_back(fallback_location: root_path)
       end
       format.js
     end

@@ -81,8 +81,14 @@ function addDatepickerBehaviors() {
       $(toDatePicker).datepicker({
         autoClose: toDatePickerDEFAULTS.autoClose,
         startDate: toDatePickerDEFAULTS.startDate,
-        onSelect: function onSelect(a, b, instance) {
+        onSelect: function onSelect(a, selectedDate, instance) {
           $(instance.el).trigger("datepicker-change");
+
+          // Updates first datepicker if end_date is earlier
+          if (selectedDate < $(fromDatePicker).data('datepicker').lastSelectedDate) {
+            selectedDate.setHours(selectedDate.getHours() - 1)
+            setDateOnBindedDatepicker(selectedDate, fromDatePicker)
+          }
         }
       });
 
@@ -116,7 +122,9 @@ function addDatepickerBehaviors() {
               selectedDate.setHours(selectedDate.getHours() + 1)
             }
 
-            setDateOnBindedDatepicker(selectedDate, toDatePicker)
+            if (selectedDate > $(toDatePicker).data('datepicker').lastSelectedDate) {
+              setDateOnBindedDatepicker(selectedDate, toDatePicker)
+            }
           }
         });
 
@@ -160,7 +168,7 @@ function initializePageWithOnlyOneDatepicker() {
 }
 
 function setDateOnBindedDatepicker(date, datepicker) {
-  if($(datepicker).length && date > $(datepicker).data('datepicker').lastSelectedDate) {
+  if($(datepicker).length) {
     $(datepicker).data('datepicker').selectDate(date);
   }
 }

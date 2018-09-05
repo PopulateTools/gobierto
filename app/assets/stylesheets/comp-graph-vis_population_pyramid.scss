@@ -95,16 +95,21 @@
     }
 
     .range {
-      @for $i from 0 through 2 {
-        &.r-#{$i} {
-          rect {
-            fill: lighten($color_logo_yellow, $i * 20);
-          }
-
-          rect.inner {
-            fill: lighten($color_logo_yellow, $i * 10);
-          }
+      &.r-0,
+      &.r-1,
+      &.r-2 {
+        rect,
+        rect.inner {
+          fill: $color_logo_yellow;
         }
+      }
+
+      &.r-1 rect {
+        opacity: .4;
+      }
+
+      &.r-2 rect {
+        opacity: .2;
       }
     }
   }

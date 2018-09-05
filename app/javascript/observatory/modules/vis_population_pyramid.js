@@ -24,13 +24,13 @@ export var VisPopulationPyramid = Class.extend({
       left: this.gutter * 4
     }
     this.width = {
-      chart: this._getDimensions().width,
+      chart: this._getDimensions().width + this.margin.left + this.margin.right,
       pyramid: this._getDimensions().pyramid.width,
       areas: this._getDimensions().areas.width,
       marks: this._getDimensions().marks.width
     }
     this.height = {
-      chart: this._getDimensions().height,
+      chart: this._getDimensions().height + this.margin.bottom + this.margin.top,
       pyramid: this._getDimensions().pyramid.height,
       areas: this._getDimensions().areas.height,
       marks: this._getDimensions().marks.height
@@ -62,10 +62,10 @@ export var VisPopulationPyramid = Class.extend({
 
     // Create main elements
     this.svg = d3.select(this.container)
-      .style("padding-bottom", `${100 / this._getDimensions().ratio}%`) // aspect ratio
+      .style("padding-bottom", `${100 * (this.height.chart / this.width.chart)}%`) // aspect ratio
       .append("svg")
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", `0 0 ${this.width.chart + this.margin.left + this.margin.right} ${this.height.chart + this.margin.top + this.margin.bottom}`)
+      .attr("viewBox", `0 0 ${this.width.chart} ${this.height.chart}`)
       .append("g")
       .attr("class", "chart-container")
       .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
@@ -467,11 +467,11 @@ export var VisPopulationPyramid = Class.extend({
 
     // Pyramid axes
     this.pyramid.select(".x.axis.males")
-      .attr("transform", `translate(0,${this.height.pyramid - this.margin.bottom})`)
+      .attr("transform", `translate(0,${this.height.pyramid})`)
       .call(this._xAxisMale.bind(this))
 
     this.pyramid.select(".x.axis.females")
-      .attr("transform", `translate(${this.width.pyramid / 2},${this.height.pyramid - this.margin.bottom})`)
+      .attr("transform", `translate(${this.width.pyramid / 2},${this.height.pyramid})`)
       .call(this._xAxisFemale.bind(this))
 
     this.pyramid.select(".y.axis").call(this._yAxis.bind(this))
@@ -540,8 +540,7 @@ export var VisPopulationPyramid = Class.extend({
     s.selectAll(".domain").remove()
     s.selectAll(".tick:not(:first-child) line").remove()
     s.selectAll(".tick:first-child line")
-      .attr("y1", -this.height.pyramid)
-      // .attr("y2", -this.gutter / 2)
+      .attr("y1", -this.height.chart)
   },
   _yAxis: function (g) {
     g.call(this.yAxis.tickValues(this.yScale.domain().filter((d,i) => !(i%10))))

@@ -202,9 +202,9 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       const lang = $(this).data("toggle")
       const parent = $(this).closest(".lang-tabs").attr("id")
       // hide others input fields
-      $(`#${parent} input[data-locale!=${lang}]`).addClass("selected")
+      $(`#${parent} input[data-locale=${lang}]`).addClass("selected")
       // display language selected
-      $(`#${parent} input[data-locale=${lang}]`).removeClass("selected")
+      $(`#${parent} input[data-locale!=${lang}]`).removeClass("selected")
       // mark/unmark language selected
       $(`#${parent} span[data-toggle=${lang}]`).addClass("selected")
       $(`#${parent} span[data-toggle!=${lang}]`).removeClass("selected")

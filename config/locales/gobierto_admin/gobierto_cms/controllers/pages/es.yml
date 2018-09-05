@@ -8,6 +8,7 @@ es:
             la página</a>.
         destroy:
           success: La página ha sido eliminada correctamente
+          error_associated_items: "No se puede eliminar la página porque todavía tiene elementos asociados: %{links}"
         recover:
           success: La página ha sido recuperada correctamente
         update:

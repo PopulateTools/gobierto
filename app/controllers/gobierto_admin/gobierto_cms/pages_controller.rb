@@ -65,13 +65,19 @@ module GobiertoAdmin
 
       def destroy
         load_page
-        @page.destroy
         process = find_process if params[:process_id]
 
-        if process
-          redirect_to admin_participation_process_pages_path(process_id: process), notice: t(".success")
+        redirect_path = if process
+                          admin_participation_process_pages_path(process_id: process)
+                        else
+                          admin_common_collection_path(@page.collection)
+                        end
+
+        if @page.destroyable?
+          @page.destroy
+          redirect_to redirect_path, notice: t(".success")
         else
-          redirect_to admin_common_collection_path(@page.collection), notice: t(".success")
+          redirect_to redirect_path, alert: destroy_error_message
         end
       end
 
@@ -149,6 +155,20 @@ module GobiertoAdmin
       def find_collection(collection_id)
         ::GobiertoCommon::Collection.find_by(id: collection_id)
       end
+
+      def destroy_error_message
+        associated_items_html = @page.process_stage_pages.map do |stage_page|
+          edit_page_path = edit_admin_participation_process_process_stage_process_stage_page_path(
+            stage_page,
+            process_id: stage_page.process.id,
+            process_stage_id: stage_page.process_stage
+          )
+          "<a href='#{edit_page_path}'>#{stage_page.process.title}</a>"
+        end.join(", ").html_safe
+
+        t(".error_associated_items", links: associated_items_html).html_safe
+      end
+
     end
   end
 end

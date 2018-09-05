@@ -36,6 +36,7 @@ module GobiertoCms
     def attachable_without_attachment
       @attachable_without_attachment ||= gobierto_cms_pages(:privacy)
     end
+    alias process_information_page attachable_without_attachment
 
     def test_valid
       assert page.valid?
@@ -56,6 +57,16 @@ module GobiertoCms
       page.destroy
 
       assert page.slug.include?("archived-")
+    end
+
+    def test_destroyable?
+      refute process_information_page.destroyable?
+
+      ::GobiertoParticipation::ProcessStagePage.where(
+        page_id: process_information_page.id
+      ).destroy_all
+
+      assert process_information_page.reload.destroyable?
     end
 
     def test_public?

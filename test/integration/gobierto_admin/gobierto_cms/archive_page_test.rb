@@ -26,6 +26,14 @@ module GobiertoAdmin
         @themes_page ||= gobierto_cms_pages(:themes)
       end
 
+      def consultation_faq_page
+        @consultation_faq_page ||= gobierto_cms_pages(:consultation_faq)
+      end
+
+      def site_pages_collection
+        ::GobiertoCommon::Collection.find_by(container: site, item_type: "GobiertoCms::Page")
+      end
+
       def test_archive_restore_page
         with_javascript do
           with_signed_in_admin(admin) do
@@ -49,6 +57,23 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_archive_error
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit admin_common_collection_path(site_pages_collection)
+
+              within "#page-item-#{consultation_faq_page.id}" do
+                find("a[data-method='delete']").click
+              end
+
+              assert has_message?("The page can not be deleted because it still has associated elements")
+            end
+          end
+        end
+      end
+
     end
   end
 end

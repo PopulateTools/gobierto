@@ -211,7 +211,6 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
     })
 
     $("#jsGrid").jsGrid({
-      height: "80%",
       width: "100%",
       filtering: false,
       inserting: true,

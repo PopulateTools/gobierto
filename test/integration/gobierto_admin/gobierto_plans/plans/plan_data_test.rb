@@ -126,6 +126,25 @@ module GobiertoAdmin
         end
       end
 
+      def test_delete_node
+        initial_nodes_count = plan.nodes.count
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+
+              visit admin_plans_plan_data_path(plan)
+
+              accept_alert do
+                first(:button, title: "Delete").click
+              end
+
+              sleep 1
+              assert_equal initial_nodes_count - 1, plan.nodes.count
+            end
+          end
+        end
+      end
+
     end
   end
 end

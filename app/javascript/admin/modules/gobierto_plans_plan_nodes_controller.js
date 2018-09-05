@@ -1,3 +1,5 @@
+import 'jsgrid'
+
 window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
   function GobiertoPlansPlanNodesController() {}
 
@@ -18,7 +20,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
     locales: ["es"],
 
     itemTemplate: translated,
-    insertTemplate: function(value) {
+    insertTemplate: function() {
       var element = '';
       for (var i in this.locales) {
         element += '<span class="indication">' + this.locales[i] + '</span> <input type="text" data-locale="' + this.locales[i] +'">';
@@ -41,13 +43,14 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
   });
 
   CustomDateField.prototype = new jsGrid.Field({
+    width: "10%",
     sorter: function(date1, date2) {
       return new Date(date1) - new Date(date2);
     },
     itemTemplate: function(value) {
       return value ? new Date(value).toLocaleDateString() : null;
     },
-    insertTemplate: function(value) {
+    insertTemplate: function() {
       return this._insertPicker = $('<input type="text">').datepicker().datepicker({ language: I18n.locale });
     },
     editTemplate: function(value) {
@@ -98,25 +101,25 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
     } else {
       return value[I18n.locale];
     }
-  };
+  }
 
   function generateTranslations(picker) {
-      translations = {}
-      picker.filter("input").each(function(e) {
+      let translations = {}
+      picker.filter("input").each(function() {
         translations[this.dataset.locale] = this.value;
       });
       return translations;
-  };
+  }
 
   function nameValidator(locales) {
     return {
-      validator: function(value, item, param) {
+      validator: function(value) {
         return !Object.values(value).every(x => (x === null || x === ''));
       },
       message: I18n.t("gobierto_admin.gobierto_plans.plans.data.errors.missing_name"),
       param: locales
     };
-  };
+  }
 
   function categorySelect(value, item, el) {
     let select = $('<select>');
@@ -149,7 +152,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       }
     });
     return select;
-  };
+  }
 
   function populateOpts(element, options, selection_id) {
     element.empty();
@@ -160,7 +163,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
                      .attr('selected', options[i].id === selection_id )
                      .text(translated(options[i].name_translations)));
     }
-  };
+  }
 
   function categoryFields(options) {
     let fields = [];
@@ -183,7 +186,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       });
     }
     return fields;
-  };
+  }
 
   jsGrid.fields.customDateField = CustomDateField;
   jsGrid.fields.localizedField = LocalizedField;
@@ -253,17 +256,20 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
         {
           name: "progress",
           title: I18n.t("gobierto_admin.gobierto_plans.plans.data.progress"),
-          type: "number"
+          type: "number",
+          width: "6%"
         },
         {
           name: "starts_at",
           title: I18n.t("gobierto_admin.gobierto_plans.plans.data.starts_at"),
-          type: "customDateField"
+          type: "customDateField",
+          width: "10%"
         },
         {
           name: "ends_at",
           title: I18n.t("gobierto_admin.gobierto_plans.plans.data.ends_at"),
-          type: "customDateField"
+          type: "customDateField",
+          width: "10%"
         },
         {
           name: "options_json",
@@ -276,7 +282,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
           deleteButton: true,
           modeSwitchButton: true,
           align: "center",
-          width: 10,
+          width: "5%",
           filtering: false,
           inserting: true,
           editing: true,

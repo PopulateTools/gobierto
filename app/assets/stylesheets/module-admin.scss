@@ -822,3 +822,22 @@ a .global_menu {
     }
   }
 }
+
+// reset gobierto styles (comp-forms.scss)
+.jsgrid {
+  input[type=text],
+  input[type=email],
+  input[type=number],
+  input[type=submit],
+  input[type=password],
+  input[type=file],
+  .button,
+  button,
+  select,
+  option,
+  textarea {
+    height: initial;
+    padding: initial;
+    margin: initial;
+  }
+}

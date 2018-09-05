@@ -158,7 +158,7 @@ GEM
     execjs (2.7.0)
     faraday (0.15.2)
       multipart-post (>= 1.2, < 3)
-    ffi (1.9.23)
+    ffi (1.9.25)
     flight-for-rails (1.5.1)
       jquery-rails (>= 2.1.4)
       rails (>= 3.1.0)
@@ -562,4 +562,4 @@ DEPENDENCIES
   webpacker (~> 3.0)
 
 BUNDLED WITH
-   1.16.2
+   1.16.4

@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     module Api
-      class NodesController < BaseController
+      class NodesController < GobiertoPlans::Api::BaseController
         def index
           @plan = current_site.plans.find params[:plan_id]
           @nodes = @plan.nodes

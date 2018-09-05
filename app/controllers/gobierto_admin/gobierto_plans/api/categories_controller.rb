@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     module Api
-      class CategoriesController < BaseController
+      class CategoriesController < GobiertoPlans::Api::BaseController
         def index
           @plan = current_site.plans.find params[:plan_id]
           @categories = @plan.categories.sorted

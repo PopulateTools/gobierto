@@ -18,17 +18,22 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
   LocalizedField.prototype = new jsGrid.Field({
 
     locales: [I18n.locale],
+    element_id: null,
 
     itemTemplate: translated,
     insertTemplate: function() {
-      var element = '';
-      for (var i in this.locales) {
-        element += '<span class="indication">' + this.locales[i] + '</span> <input type="text" data-locale="' + this.locales[i] +'">';
+      let element = `<div id="lang-tabs-new-${this.element_id || Math.random().toString(36).substring(5)}" class="lang-tabs">`;
+      for (var j in this.locales) {
+        element +=`<input type="text" data-locale="${this.locales[j]}" class="${(I18n.locale == this.locales[j]) ? 'selected' : ''}">`
       }
+      for (var i in this.locales) {
+        element += `<span data-toggle="${this.locales[i]}" class="${(I18n.locale == this.locales[i]) ? 'selected' : ''}">${this.locales[i]}</span>`
+      }
+      element += '</div>'
       return this._insertPicker = $(element);
     },
     editTemplate: function(value) {
-      let element = `<div id="lang-tabs-${Math.random().toString(36).substring(5)}" class="lang-tabs">`;
+      let element = `<div id="lang-tabs-${this.element_id || Math.random().toString(36).substring(5)}" class="lang-tabs">`;
       for (var j in this.locales) {
         element +=`<input type="text" data-locale="${this.locales[j]}" value="${(value[this.locales[j]] || '')}" class="${(I18n.locale == this.locales[j]) ? 'selected' : ''}">`
       }
@@ -261,12 +266,14 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
           title: I18n.t("gobierto_admin.gobierto_plans.plans.data.name"),
           type: "localizedField",
           locales: options.locales,
+          element_id: "name",
           validate: nameValidator(options.locales)
         },
         {
           name: "status_translations",
           title: I18n.t("gobierto_admin.gobierto_plans.plans.data.status"),
           type: "localizedField",
+          element_id: "status",
           locales: options.locales
         },
         {

@@ -93,7 +93,7 @@ export var VisPopulationPyramid = Class.extend({
     // Original endpoints
     const endpoints = {
       population: {
-        endpoint: `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.json`,
+        endpoint: `${window.populateData.endpoint}/datasets/ds-poblacion-municipal-edad-sexo.csv`,
         params: {}
       },
       unemployed: {
@@ -164,7 +164,7 @@ export var VisPopulationPyramid = Class.extend({
     let unemployed = d3.json(this.dataUrls.unemployed)
       .header("authorization", "Bearer " + this.tbiToken)
 
-    let population = d3.json(this.dataUrls.population)
+    let population = d3.csv(this.dataUrls.population)
       .header("authorization", "Bearer " + this.tbiToken)
 
     return d3.queue()

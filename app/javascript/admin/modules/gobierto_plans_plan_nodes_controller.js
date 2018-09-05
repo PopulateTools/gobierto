@@ -114,7 +114,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
 
   function generateTranslations(picker) {
       let translations = {}
-      picker.filter("input").each(function() {
+      picker.find("input").each(function() {
         translations[this.dataset.locale] = this.value;
       });
       return translations;

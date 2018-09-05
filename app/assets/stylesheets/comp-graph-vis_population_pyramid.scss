@@ -86,12 +86,8 @@
 
     .subtitle {
       font-size: $f7;
-      fill: $color_main_soft;
-
-      .as-title {
-        font-weight: 600;
-        fill: $color_text;
-      }
+      fill: $color_text;
+      opacity: .7;
     }
 
     .range {

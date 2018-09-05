@@ -841,3 +841,28 @@ a .global_menu {
     margin: initial;
   }
 }
+
+// input field language Tabs
+.lang-tabs {
+  span:not(:last-of-type)::after {
+    content: " | ";
+    font-weight: normal;
+  }
+
+  span {
+    cursor: pointer;
+  }
+
+  span.selected,
+  span:hover {
+    font-weight: bold;
+  }
+
+  input.selected {
+    display: block;
+  }
+
+  input {
+    display: none;
+  }
+}

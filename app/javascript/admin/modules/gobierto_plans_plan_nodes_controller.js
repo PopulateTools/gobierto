@@ -17,7 +17,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
 
   LocalizedField.prototype = new jsGrid.Field({
 
-    locales: ["es"],
+    locales: [I18n.locale],
 
     itemTemplate: translated,
     insertTemplate: function() {
@@ -28,10 +28,14 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       return this._insertPicker = $(element);
     },
     editTemplate: function(value) {
-      var element = '';
-      for (var i in this.locales) {
-        element += '<span class="indication">' + this.locales[i] + '</span> <input type="text" data-locale="' + this.locales[i] +'" value="' + (value[this.locales[i]] || '') + '">';
+      let element = `<div id="lang-tabs-${Math.random().toString(36).substring(5)}" class="lang-tabs">`;
+      for (var j in this.locales) {
+        element +=`<input type="text" data-locale="${this.locales[j]}" value="${(value[this.locales[j]] || '')}" class="${(I18n.locale == this.locales[j]) ? 'selected' : ''}">`
       }
+      for (var i in this.locales) {
+        element += `<span data-toggle="${this.locales[i]}" class="${(I18n.locale == this.locales[i]) ? 'selected' : ''}">${this.locales[i]}</span>`
+      }
+      element += '</div>'
       return this._editPicker = $(element);
     },
     insertValue: function() {
@@ -193,6 +197,19 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
   jsGrid.fields.categoryLevelField = CategoryLevelField;
 
   GobiertoPlansPlanNodesController.prototype.index = function(options) {
+
+    $(document).on("click", "span[data-toggle]", function () {
+      const lang = $(this).data("toggle")
+      const parent = $(this).closest(".lang-tabs").attr("id")
+      // hide others input fields
+      $(`#${parent} input[data-locale!=${lang}]`).addClass("selected")
+      // display language selected
+      $(`#${parent} input[data-locale=${lang}]`).removeClass("selected")
+      // mark/unmark language selected
+      $(`#${parent} span[data-toggle=${lang}]`).addClass("selected")
+      $(`#${parent} span[data-toggle!=${lang}]`).removeClass("selected")
+    })
+
     $("#jsGrid").jsGrid({
       height: "80%",
       width: "100%",

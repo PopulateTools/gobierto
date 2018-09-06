@@ -35,6 +35,8 @@ es:
           invalid_message: Los datos introducidos son inválidos
           load_message: Espera, por favor...
           name: Proyecto
+          no_available_categories: No se han encontrado categorías. Define un vocabulario
+            con términos o importa datos desde un CSV.
           not_found: No hay nodos
           options: Opciones
           progress: "% progreso"

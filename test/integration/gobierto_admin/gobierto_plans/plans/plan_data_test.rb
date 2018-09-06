@@ -7,6 +7,7 @@ module GobiertoAdmin
     class PlanDataTest < ActionDispatch::IntegrationTest
       def setup
         super
+        @path = admin_plans_plan_data_path(plan)
       end
 
       def admin
@@ -30,7 +31,7 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
 
-              visit admin_plans_plan_data_path(plan)
+              visit @path
 
               within "#jsGrid" do
                 within ".jsgrid-header-row" do
@@ -65,7 +66,7 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
 
-              visit admin_plans_plan_data_path(plan)
+              visit @path
 
               within "#jsGrid" do
                 within ".jsgrid-header-row" do
@@ -92,7 +93,7 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
 
-              visit admin_plans_plan_data_path(plan)
+              visit @path
 
               assert has_content? "Publish political agendas"
             end
@@ -105,7 +106,7 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
 
-              visit admin_plans_plan_data_path(plan)
+              visit @path
 
               within "#jsGrid" do
                 find(".jsgrid-cell", text: node.name).click
@@ -132,7 +133,7 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
 
-              visit admin_plans_plan_data_path(plan)
+              visit @path
 
               accept_alert do
                 first(:button, title: "Delete").click
@@ -140,6 +141,19 @@ module GobiertoAdmin
 
               sleep 1
               assert_equal initial_nodes_count - 1, plan.nodes.count
+            end
+          end
+        end
+      end
+
+      def test_plan_without_vocabulary
+        plan.update_attribute(:vocabulary_id, nil)
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
+
+              assert has_content? "No categories was found."
             end
           end
         end

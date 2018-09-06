@@ -35,7 +35,8 @@ window.GobiertoPlans.PlanTypesController = (function() {
         },
         computed: {
           progressWidth: function () {
-            return `${this.model.attributes.progress}%`
+            // Apply programatically a vue global filter
+            return Vue.filter('percent')(this.model.attributes.progress)
           }
         },
         methods: {

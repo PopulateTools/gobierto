@@ -8,7 +8,7 @@ $color_pam_5: #00529e;
 .gobierto_planification {
   section.level_0 {
     .cat_1 {
-      background-color: rgba($color_pam_1, 0.9);
+      background-color: rgba($color_pam_1, 0.95);
 
       .progress {
         background-color: $color_pam_1;
@@ -16,7 +16,7 @@ $color_pam_5: #00529e;
     }
 
     .cat_2 {
-      background-color: rgba($color_pam_2, 0.9);
+      background-color: rgba($color_pam_2, 0.95);
 
       .progress {
         background-color: $color_pam_2;
@@ -24,7 +24,7 @@ $color_pam_5: #00529e;
     }
 
     .cat_3 {
-      background-color: rgba($color_pam_3, 0.9);
+      background-color: rgba($color_pam_3, 0.95);
 
       .progress {
         background-color: $color_pam_3;
@@ -32,7 +32,7 @@ $color_pam_5: #00529e;
     }
 
     .cat_4 {
-      background-color: rgba($color_pam_4, 0.9);
+      background-color: rgba($color_pam_4, 0.95);
 
       .progress {
         background-color: $color_pam_4;
@@ -40,7 +40,7 @@ $color_pam_5: #00529e;
     }
 
     .cat_5 {
-      background-color: rgba($color_pam_5, 0.9);
+      background-color: rgba($color_pam_5, 0.95);
 
       .progress {
         background-color: $color_pam_5;
@@ -415,7 +415,7 @@ If you need extra colors, add this block again renaming cat_1 (cat_2, cat_3, cat
   border-top: 1px solid rgba($color_pam_1, 0.2);
 }
 .gobierto_planification section.level_0 .cat_1 {
-  background-color: rgba($color_pam_1, 0.9);
+  background-color: rgba($color_pam_1, 0.95);
 }
 .gobierto_planification section.level_0 .cat_1 .progress {
   background-color: rgb($color_pam_1);

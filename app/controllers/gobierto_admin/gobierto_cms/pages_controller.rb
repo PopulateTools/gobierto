@@ -166,7 +166,7 @@ module GobiertoAdmin
           "<a href='#{edit_page_path}'>#{stage_page.process.title}</a>"
         end.join(", ").html_safe
 
-        t(".error_associated_items", links: associated_items_html).html_safe
+        t("gobierto_admin.gobierto_cms.pages.destroy.error_associated_items", links: associated_items_html).html_safe
       end
 
     end

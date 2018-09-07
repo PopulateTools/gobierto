@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_08_210320) do
+ActiveRecord::Schema.define(version: 2018_09_07_140444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -747,20 +747,6 @@ ActiveRecord::Schema.define(version: 2018_08_08_210320) do
     t.index ["user_id"], name: "index_gpart_votes_on_user_id"
     t.index ["votable_id", "votable_type", "vote_scope"], name: "index_gpart_votes_on_votable_id_and_votable_type_and_vote_scope"
     t.index ["votable_type", "votable_id"], name: "index_gpart_votes_on_votable_type_and_votable_id"
-  end
-
-  create_table "gplan_categories", force: :cascade do |t|
-    t.jsonb "name_translations"
-    t.integer "level", default: 0, null: false
-    t.integer "parent_id"
-    t.bigint "plan_id"
-    t.string "slug", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.float "progress"
-    t.string "uid"
-    t.index ["name_translations"], name: "index_gplan_categories_on_name_translations", using: :gin
-    t.index ["plan_id"], name: "index_gplan_categories_on_plan_id"
   end
 
   create_table "gplan_categories_nodes", force: :cascade do |t|

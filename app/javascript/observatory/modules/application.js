@@ -2,7 +2,7 @@ import { GetUnemploymentAgeData } from './get_unemployment_age_data.js'
 import { VisUnemploymentSex } from './vis_unemployment_sex.js'
 import { VisUnemploymentAge } from './vis_unemployment_age.js'
 import { VisUnemploymentRate } from './vis_unemployment_rate.js'
-import { VisAgeDistribution } from './vis_age_distribution.js'
+// import { VisAgeDistribution } from './vis_age_distribution.js'
 import { VisRentDistribution } from './vis_rent_distribution.js'
 import { VisPopulationPyramid } from './vis_population_pyramid.js'
 import { PopulationCard } from './population.js'
@@ -65,8 +65,8 @@ $(document).on('turbolinks:load', function() {
     vis_unempl.render();
   });
 
-  var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
-  vis_agedb.render();
+  // var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
+  // vis_agedb.render();
 
   vis_population = new VisPopulationPyramid('#population_pyramid', window.populateData.municipalityId, window.populateData.year);
   vis_population.render();

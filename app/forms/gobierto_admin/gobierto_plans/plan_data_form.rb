@@ -78,14 +78,6 @@ module GobiertoAdmin
         end
       end
 
-      def calculate_cached_data
-        category_class.where(plan_id: @plan.id).each do |category|
-          category.progress = category.children_progress
-          category.uid = category.calculate_uid
-          category.save
-        end
-      end
-
       def col_sep
         separators = [",", ";"]
         first_line = csv_file.open.first

@@ -50,7 +50,6 @@ fixtures_to_load = [
   "gobierto_admin/permissions",
   "gobierto_plans/plan_types",
   "gobierto_plans/plans",
-  "gobierto_plans/categories",
   "gobierto_plans/nodes",
   "gobierto_indicators/indicators",
   "gobierto_core/templates"

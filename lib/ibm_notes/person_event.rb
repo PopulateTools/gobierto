@@ -12,6 +12,7 @@ module IbmNotes
       "Central Europe Standard Time",
       "Fus horari desconegut (1) Standard Time",
       "W. Europe Standard Time",
+      "Unknown1 Standard Time",
     ].freeze
 
     def initialize(person, response_event)

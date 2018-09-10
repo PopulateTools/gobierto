@@ -1,0 +1,15 @@
+---
+en:
+  gobierto_admin:
+    gobierto_citizens_charters:
+      configuration:
+        settings:
+          edit:
+            enable_charters: Enable Citizens Charters
+            title: Configuration
+            update: Update
+          title: Preferences
+      welcome:
+        index:
+          configuration: Configuration
+          title: Services

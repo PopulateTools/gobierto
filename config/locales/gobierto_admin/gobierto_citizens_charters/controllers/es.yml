@@ -1,0 +1,9 @@
+---
+es:
+  gobierto_admin:
+    gobierto_citizens_charters:
+      configuration:
+        settings:
+          update:
+            error: 'Se ha producido un error al actualizar la configuración: %{validation_errors}'
+            success: Configuración guardada correctamente

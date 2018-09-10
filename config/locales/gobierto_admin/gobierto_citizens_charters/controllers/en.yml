@@ -1,0 +1,9 @@
+---
+en:
+  gobierto_admin:
+    gobierto_citizens_charters:
+      configuration:
+        settings:
+          update:
+            error: 'There was a problem when saving configuration: %{validation_errors}'
+            success: Configuration stored successfully

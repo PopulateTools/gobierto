@@ -1,0 +1,13 @@
+<div class='admin_breadcrumb'>
+  <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
+  <%= t('.title') %>
+</div>
+
+<h1><%= t('.title') %></h1>
+
+<div class="admin_tools right">
+  <%= link_to edit_admin_citizens_charters_configuration_settings_path do %>
+    <i class="fa fa-cog"></i>
+    <%= t(".configuration") %>
+  <% end %>
+</div>

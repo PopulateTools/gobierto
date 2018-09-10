@@ -128,6 +128,12 @@ class Site < ApplicationRecord
                                          end
   end
 
+  def gobierto_citizens_charters_settings
+    @gobierto_citizens_charters_settings ||= if configuration.available_module?("GobiertoCitizensCharters") && configuration.gobierto_citizens_charters_enabled?
+                                               module_settings.find_by(module_name: "GobiertoCitizensCharters")
+                                             end
+  end
+
   def settings_for_module(module_name)
     return unless respond_to?(method = "#{ module_name.underscore }_settings")
     send(method)

@@ -1,0 +1,15 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_citizens_charters:
+      configuration:
+        settings:
+          edit:
+            enable_charters: Habilitar Cartes de Serveis
+            title: Configuració
+            update: Actualitzar
+          title: Preferencies
+      welcome:
+        index:
+          configuration: Configuració
+          title: Serveis

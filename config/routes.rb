@@ -115,6 +115,14 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :gobierto_citizens_charters, as: :citizens_charters, path: :citizens_charters do
+      get "/" => "welcome#index"
+
+      namespace :configuration do
+        resource :settings, only: [:edit, :update]
+      end
+    end
+
     namespace :gobierto_common, as: :common, path: nil do
       resources :collections, only: [:show, :new, :create, :edit, :update]
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]

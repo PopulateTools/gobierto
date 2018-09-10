@@ -51,6 +51,10 @@ module GobiertoAdmin
       @preview_item_url || @preview_item&.to_url(preview: true, admin: current_admin)
     end
 
+    def current_admin_module
+      current_module == "gobierto_admin" && params[:controller].split("/")[1].camelize
+    end
+
     protected
 
     def raise_module_not_enabled(_redirect = true)

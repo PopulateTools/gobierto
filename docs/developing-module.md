@@ -16,6 +16,7 @@ Gobierto modules implement well defined and isolated features of the application
 - Gobierto Participation: participation in phased processes.
 - Gobierto Observatory: indicators ita, informparticipa and gci
 - Gobierto Plans: plans
+- Gobierto Citizens Charters: citizen services and charters
 
 Modules can be activated or disabled by the **manager**, but their code will be included in all the installations of Gobierto.
 

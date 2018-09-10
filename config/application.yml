@@ -29,6 +29,9 @@ default: &default
     -
       name: Gobierto Plans
       namespace: GobiertoPlans
+    -
+      name: Gobierto Citizens Charters
+      namespace: GobiertoCitizensCharters
   site_modules_with_root_path:
     -
       name: Gobierto Budgets

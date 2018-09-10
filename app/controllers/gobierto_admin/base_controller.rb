@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class BaseController < ApplicationController
     include SessionHelper
@@ -19,7 +21,7 @@ module GobiertoAdmin
     private
 
     def default_url_options
-      { host: ENV['HOST'] }
+      { host: ENV["HOST"] }
     end
 
     def available_locales
@@ -51,7 +53,7 @@ module GobiertoAdmin
 
     protected
 
-    def raise_module_not_enabled
+    def raise_module_not_enabled(_redirect = true)
       redirect_to(
         admin_root_path,
         alert: t("gobierto_admin.module_helper.not_enabled")
@@ -66,7 +68,7 @@ module GobiertoAdmin
     end
 
     def gobierto_cms_page_preview_path(page, options = {})
-      options.merge!(preview_token: current_admin.preview_token) unless page.active?
+      options[:preview_token] = current_admin.preview_token unless page.active?
       gobierto_cms_page_or_news_path(page, options)
     end
 

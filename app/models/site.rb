@@ -72,6 +72,9 @@ class Site < ApplicationRecord
   has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
   has_many :votes, dependent: :destroy, class_name: "GobiertoParticipation::Vote"
 
+  # GobiertoCitizensCharters integration
+  has_many :services, dependent: :destroy, class_name: "GobiertoCitizensCharters::Service"
+
   serialize :configuration_data
 
   before_save :store_configuration

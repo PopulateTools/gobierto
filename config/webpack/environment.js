@@ -23,13 +23,12 @@ environment.plugins.append(
   })
 )
 
+// DEBUG: Probando modos
 environment.plugins.append(
   'CommonChunks',
   new webpack.optimize.CommonsChunkPlugin({
-    name: 'plans'
-  }),
-  new webpack.optimize.CommonsChunkPlugin({
-    children: true,
+    name: 'commons',
+    filename: '[name]-[hash].js',
     minChunks: 2
   })
 )
@@ -53,5 +52,7 @@ const aliasConfig = module.exports = {
     }
   }
 }
+
+console.log(merge(envConfig.toWebpackConfig(), aliasConfig));
 
 module.exports = merge(envConfig.toWebpackConfig(), aliasConfig)

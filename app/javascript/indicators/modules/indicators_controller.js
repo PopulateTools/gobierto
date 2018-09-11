@@ -1,4 +1,4 @@
-import { Vue } from 'shared'
+import Vue from 'vue'
 
 window.GobiertoIndicators.IndicatorsController = (function() {
 

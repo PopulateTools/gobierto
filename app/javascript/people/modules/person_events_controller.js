@@ -1,3 +1,5 @@
+import 'fullcalendar'
+
 window.GobiertoPeople.PersonEventsController = (function() {
 
   function PersonEventsController() {}

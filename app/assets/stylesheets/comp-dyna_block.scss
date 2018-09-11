@@ -4,7 +4,7 @@
  */
 body.gobierto_admin {
   table {
-    @extend table.block_content;
+    @extend .block_content;
   }
 
   .dyna_block {

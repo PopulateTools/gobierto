@@ -13,12 +13,12 @@ environment.plugins.append(
   })
 )
 
-environment.plugins.append('CommonChunkVendor',
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor', // Vendor code
-    minChunks: (module) => module.context && module.context.indexOf('node_modules') !== -1
-  })
-)
+// environment.plugins.append('CommonChunkVendor',
+//   new webpack.optimize.CommonsChunkPlugin({
+//     name: 'vendor', // Vendor code
+//     minChunks: (module) => module.context && module.context.indexOf('node_modules') !== -1
+//   })
+// )
 
 // Set the ecma version only works on assets:precompile, not with the dev-server
 try {
@@ -27,8 +27,8 @@ try {
   console.log("Ignoring Uglify configuration");
 }
 
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
 
 const envConfig = module.exports = environment
 const aliasConfig = module.exports = {

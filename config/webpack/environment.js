@@ -13,12 +13,26 @@ environment.plugins.append(
   })
 )
 
-// environment.plugins.append('CommonChunkVendor',
-//   new webpack.optimize.CommonsChunkPlugin({
-//     name: 'vendor', // Vendor code
-//     minChunks: (module) => module.context && module.context.indexOf('node_modules') !== -1
-//   })
-// )
+// NOTE: Must be updated if add a new locale files
+// https://yarnpkg.com/es-ES/package/moment-locales-webpack-plugin
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+environment.plugins.append(
+  'MomentLocales',
+  new MomentLocalesPlugin({
+    localesToKeep: ['es', 'ca'],
+  })
+)
+
+environment.plugins.append(
+  'CommonChunks',
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'plans'
+  }),
+  new webpack.optimize.CommonsChunkPlugin({
+    children: true,
+    minChunks: 2
+  })
+)
 
 // Set the ecma version only works on assets:precompile, not with the dev-server
 try {

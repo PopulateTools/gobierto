@@ -1,4 +1,3 @@
-import 'velocity-animate'
 // local
 import './modules/init.js'
 import './modules/application.js'

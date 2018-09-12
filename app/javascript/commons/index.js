@@ -1,6 +1,3 @@
-/*************************
- * external dependencies *
- *************************/
 import $ from 'jquery'
 import * as I18n from 'i18n-js'
 import algoliasearch from 'algoliasearch'

@@ -29,6 +29,10 @@ $('.contribution_card_expanded .modal_like_control .mfp-close').on('click', func
   e.preventDefault();
   $('.contribution_card_expanded').velocity('fadeOut', { duration: 150 });
   $('.contribution_tools_overlay').velocity('fadeOut', { duration: 150 });
+  // PhantomJS detects this as an attempt to break security
+  <% unless Rails.env.test? %>
+    window.history.pushState({}, '<%= @contribution_container.title %>', '<%= @contribution_container.to_url %>');
+  <% end %>
 });
 
 $('a.action_button').each(function(){
@@ -49,3 +53,5 @@ $('.card').on('click', function(e){
 // Height definition, ToDo make it dynamic
 // var contribution_card_expanded_container = $('.contributions_container .contributions_content').height();
 $('.contribution_card_expanded_main_col').height('650');
+
+window.history.pushState({}, '<%= @contribution.title %>', '<%= @contribution.to_path %>');

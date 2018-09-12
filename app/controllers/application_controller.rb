@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
-  rescue_from ActionController::RoutingError, with: :render_404
   rescue_from ActionController::UnknownFormat, with: :render_404
 
   helper_method(
@@ -25,7 +24,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_site, :authenticate_user_in_site, :set_locale, :apply_engines_overrides
 
   def render_404
-    render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
+    render(file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]) and return
   end
 
   def helpers

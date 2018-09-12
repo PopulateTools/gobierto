@@ -1,3 +1,5 @@
+import 'magnific-popup'
+
 window.GobiertoAdmin.ProcessPollsController = (function() {
 
   var $modalStateBackup;

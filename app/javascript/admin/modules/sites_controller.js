@@ -1,3 +1,5 @@
+import 'select2'
+
 window.GobiertoAdmin.SitesController = (function() {
   function SitesController() {}
 

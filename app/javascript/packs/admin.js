@@ -7,5 +7,6 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-// import 'shared'
-// import 'admin'
+import 'commons'
+import 'admin'
+import 'i18n'

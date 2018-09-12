@@ -1,3 +1,5 @@
+import 'velocity-animate'
+
 $(document).on('turbolinks:load', function() {
 
 	$('.show_login_box').click(function(e) {

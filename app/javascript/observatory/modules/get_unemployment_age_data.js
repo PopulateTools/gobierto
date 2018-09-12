@@ -1,4 +1,5 @@
-import { Class, d3 } from 'shared'
+import * as d3 from 'd3'
+import { Class } from 'shared'
 
 export var GetUnemploymentAgeData = Class.extend({
   init: function(city_id) {
@@ -64,4 +65,3 @@ export var GetUnemploymentAgeData = Class.extend({
       }.bind(this));
   }
 });
-

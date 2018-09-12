@@ -1,4 +1,5 @@
-import { d3, moment } from 'shared'
+import d3 from 'd3'
+import moment from 'moment'
 
 export const punchcard = (context, data, options = {}) => {
 	// Markup has already a svg inside

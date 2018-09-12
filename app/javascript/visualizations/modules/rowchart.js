@@ -1,4 +1,4 @@
-import { d3 } from 'shared'
+import d3 from 'd3'
 
 export const rowchart = (context, data, options = {}) => {
   // Markup has already a svg inside

@@ -1,5 +1,7 @@
-// Global util functions
+import 'magnific-popup'
+import 'tipsy-1a'
 
+// Global util functions
 export function isDesktop(){
   return $(window).width() > 740;
 }

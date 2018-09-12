@@ -8,6 +8,5 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'commons'
-import 'user'
 import 'participation'
 import 'i18n'

@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_site, :authenticate_user_in_site, :set_locale, :apply_engines_overrides
 
   def render_404
-    render(file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]) and return
+    render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
   end
 
   def helpers

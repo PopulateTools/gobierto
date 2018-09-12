@@ -1,4 +1,3 @@
-import { settings } from './modules/accounting_settings.js'
 import { AUTOCOMPLETE_DEFAULTS } from './modules/autocomplete_settings.js'
 import { Class } from './modules/klass.js'
 import './modules/module-search.js'
@@ -17,7 +16,11 @@ import './modules/shareContent.js'
 // import SimpleMDE from 'simplemde'
 // import Turbolinks from 'turbolinks'
 // import Cropper from 'cropperjs'
+
+// TODO: módulo nuevo?
 import accounting from 'accounting'
+import { settings } from './modules/accounting_settings.js'
+accounting.settings = settings
 // import CodeMirror from 'codemirror' // NOTE: Addons not included
 // import Cleave from 'cleave.js'
 // import Vue from 'vue'
@@ -31,7 +34,6 @@ import accounting from 'accounting'
 // import * as dc from 'dc'
 //
 // // Initializations
-accounting.settings = settings
 // Turbolinks.start()
 // Vue.config.productionTip = false
 

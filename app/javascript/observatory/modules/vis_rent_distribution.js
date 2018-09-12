@@ -1,9 +1,8 @@
-import * as d3 from 'd3'
-import './d3-distance-limited-voronoi.js'
+import * as __d3 from 'd3'
+import { distanceLimitedVoronoi as Voronoi } from './d3-distance-limited-voronoi.js'
 import { Class, d3locale, accounting } from 'shared'
 
-// Merge objects
-// const d3 = { ..._d3, voronoi }
+const d3 = { ...__d3, Voronoi }
 
 export var VisRentDistribution = Class.extend({
   init: function(divId, city_id, province_id, current_year) {

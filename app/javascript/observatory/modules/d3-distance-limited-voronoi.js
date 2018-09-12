@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 
-d3.distanceLimitedVoronoi = function() {
+export function distanceLimitedVoronoi() {
   /////// Internals ///////
   var voronoi = d3.voronoi().extent([
     [-1e6, -1e6],
@@ -289,4 +289,4 @@ d3.distanceLimitedVoronoi = function() {
   }
 
   return _distanceLimitedVoronoi;
-};
+}

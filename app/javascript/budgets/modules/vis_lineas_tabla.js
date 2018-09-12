@@ -1,8 +1,8 @@
 import * as __d3 from 'd3'
-import d3Legend from 'd3-svg-legend'
+import { legendColor } from 'd3-svg-legend'
 import { Class, accounting } from 'shared'
 
-const d3 = { ...__d3, d3Legend }
+const d3 = { ...__d3, legendColor }
 
 Array.prototype.unique = function() {
     var a = this.concat();

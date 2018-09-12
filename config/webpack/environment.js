@@ -26,7 +26,7 @@ environment.plugins.append(
   'CommonsChunk',
   new webpack.optimize.CommonsChunkPlugin({
     name: "commons",
-    minChunks: 2
+    minChunks: 3
   })
 )
 

@@ -9,11 +9,10 @@ global.I18n = I18n
 global.algoliasearch = algoliasearch
 Turbolinks.start()
 
-
 // OLD VERSIONS
 //
 //
-// 
+//
 // // Common
 // import $ from 'jquery'
 // import 'jquery-ujs'
@@ -24,15 +23,12 @@ Turbolinks.start()
 // import 'webpack-jquery-ui'
 // import 'tipsy-1a'
 // import 'velocity-animate'
-// import 'velocity-ui-pack'
 // // Falta d3-voronoi (editado??)
 // import 'devbridge-autocomplete'
 // import algoliasearch from 'algoliasearch'
 // import 'geocomplete'
 // import 'jqtree'
 // import 'select2'
-// import 'air-datepicker' // NOTE: translations are imported in shared module
-// import 'sticky-kit/dist/sticky-kit.js'
 // import 'fullcalendar'
 // import 'mailcheck'
 // import 'jsgrid'

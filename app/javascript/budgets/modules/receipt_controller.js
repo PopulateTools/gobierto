@@ -1,4 +1,5 @@
-import { Vue, accounting } from 'shared'
+import { accounting } from 'shared'
+import Vue from 'vue'
 
 window.GobiertoBudgets.ReceiptController = (function() {
 

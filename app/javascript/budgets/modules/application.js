@@ -1,4 +1,7 @@
-import { isDesktop, Turbolinks, AUTOCOMPLETE_DEFAULTS } from 'shared'
+import { isDesktop, AUTOCOMPLETE_DEFAULTS } from 'shared'
+import Turbolinks from 'turbolinks'
+import 'tipsy-1a'
+
 import { TreemapVis } from './vis_treemap.js'
 import { VisSlider } from './visSlider.js'
 import { getBudgetLevelData } from './getBudgetLevelData.js'

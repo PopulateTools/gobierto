@@ -1,4 +1,4 @@
-import d3 from 'd3'
+import * as d3 from 'd3'
 import moment from 'moment'
 
 export const punchcard = (context, data, options = {}) => {

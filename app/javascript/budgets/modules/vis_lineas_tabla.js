@@ -1,4 +1,8 @@
-import { Class, d3, accounting } from 'shared'
+import * as __d3 from 'd3'
+import d3Legend from 'd3-svg-legend'
+import { Class, accounting } from 'shared'
+
+const d3 = { ...__d3, d3Legend }
 
 Array.prototype.unique = function() {
     var a = this.concat();

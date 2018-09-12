@@ -13,4 +13,3 @@ module GobiertoCitizensCharters
     end
   end
 end
-

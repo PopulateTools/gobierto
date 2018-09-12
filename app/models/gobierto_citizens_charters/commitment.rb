@@ -3,25 +3,19 @@
 require_dependency "gobierto_citizens_charters"
 
 module GobiertoCitizensCharters
-  class Service < ApplicationRecord
+  class Commitment < ApplicationRecord
     acts_as_paranoid column: :archived_at
 
     include ActsAsParanoidAliases
     include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Sluggable
-    include GobiertoCommon::HasVocabulary
 
-    belongs_to :site
-    has_many :charters, dependent: :destroy
-    has_many :commitments, through: :charters, class_name: "GobiertoCitizensCharters::Commitment"
-    has_many :editions, through: :commitments, class_name: "GobiertoCitizensCharters::Edition"
-
-    has_vocabulary :categories
+    belongs_to :charter
+    has_many :editions, dependent: :destroy
 
     enum visibility_level: { draft: 0, active: 1 }
 
-    validates :site, :title, presence: true
-    validates :slug, uniqueness: { scope: :site }
+    validates :slug, uniqueness: { scope: :charter }
     translates :title
 
     after_restore :set_slug

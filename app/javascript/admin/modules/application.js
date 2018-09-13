@@ -3,6 +3,7 @@ import SimpleMDE from 'simplemde'
 import Turbolinks from 'turbolinks'
 import 'devbridge-autocomplete'
 import 'sticky-kit/dist/sticky-kit.js'
+import 'air-datepicker'
 
 $(document).on('turbolinks:load', function() {
   $('.open_remote_modal').magnificPopup({

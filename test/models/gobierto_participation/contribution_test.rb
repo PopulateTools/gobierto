@@ -17,6 +17,14 @@ module GobiertoParticipation
       @peter ||= users(:peter)
     end
 
+    def process
+      @process ||= gobierto_participation_processes(:bowling_group_very_active)
+    end
+
+    def contribution_container
+      @contribution_container ||= gobierto_participation_contribution_containers(:bowling_group_contributions_current)
+    end
+
     def contribution
       @contribution ||= gobierto_participation_contributions(:bad_losers_contribution)
     end
@@ -45,6 +53,16 @@ module GobiertoParticipation
 
       # reed & susan are comment authors, peter voted
       assert_equal 3, contribution.participants_count
+    end
+
+    def test_to_path
+      expected_path = "/participacion/p/#{process.slug}/aportaciones/#{contribution_container.slug}##{contribution.slug}"
+      assert_equal expected_path, contribution.to_path
+    end
+
+    def test_to_url
+      expected_url = "http://madrid.gobierto.test/participacion/p/#{process.slug}/aportaciones/#{contribution_container.slug}##{contribution.slug}"
+      assert_equal expected_url, contribution.to_url
     end
 
   end

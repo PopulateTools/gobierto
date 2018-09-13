@@ -1,3 +1,5 @@
+import 'webpack-jquery-ui'
+
 window.GobiertoAdmin.TermsController = (function() {
   function TermsController() {}
 

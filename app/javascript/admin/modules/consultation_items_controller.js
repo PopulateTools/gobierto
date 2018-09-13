@@ -1,3 +1,5 @@
+import 'webpack-jquery-ui'
+
 window.GobiertoAdmin.ConsultationItemsController = (function() {
   function ConsultationItemsController() {}
 

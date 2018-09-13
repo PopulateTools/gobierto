@@ -1,3 +1,5 @@
+import 'webpack-jquery-ui'
+
 window.GobiertoAdmin.PeopleController = (function() {
   function PeopleController() {}
 

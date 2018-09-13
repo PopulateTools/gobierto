@@ -1,4 +1,5 @@
 import 'magnific-popup'
+import 'webpack-jquery-ui'
 
 window.GobiertoAdmin.ProcessPollsController = (function() {
 

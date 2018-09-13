@@ -1,4 +1,4 @@
-import 'webpack-jquery-ui'
+import 'webpack-jquery-ui/sortable'
 
 window.GobiertoAdmin.ConsultationItemsController = (function() {
   function ConsultationItemsController() {}

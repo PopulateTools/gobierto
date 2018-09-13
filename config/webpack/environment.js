@@ -37,8 +37,8 @@ try {
   console.warn("Ignoring Uglify configuration")
 }
 
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-// environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
 
 const envConfig = module.exports = environment
 const aliasConfig = module.exports = {

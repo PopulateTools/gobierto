@@ -1,5 +1,5 @@
 import { addDatepickerBehaviors } from './application'
-import 'webpack-jquery-ui'
+import 'webpack-jquery-ui/sortable'
 
 window.GobiertoAdmin.ProcessStagesController = (function() {
 

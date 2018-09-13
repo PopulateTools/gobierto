@@ -1,4 +1,5 @@
 import Cleave from 'cleave.js'
+import 'geocomplete'
 
 window.GobiertoAdmin.DynamicContentComponent = (function() {
   function DynamicContentComponent() {}

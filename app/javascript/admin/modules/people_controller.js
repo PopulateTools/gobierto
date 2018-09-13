@@ -1,4 +1,4 @@
-import 'webpack-jquery-ui'
+import 'webpack-jquery-ui/sortable'
 
 window.GobiertoAdmin.PeopleController = (function() {
   function PeopleController() {}

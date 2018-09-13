@@ -94,6 +94,10 @@ module GobiertoCms
       active? && public_parent?
     end
 
+    def destroyable?
+      process_stage_pages.empty?
+    end
+
     def parameterize
       params = { id: slug }
       page? && section ? params.merge(slug_section: section.slug) : params

@@ -35,8 +35,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
         },
         computed: {
           progressWidth: function () {
-            // Apply programatically a vue global filter
-            return Vue.filter('percent')(this.model.attributes.progress)
+            return `${this.model.attributes.progress}%`
           }
         },
         methods: {
@@ -84,9 +83,10 @@ window.GobiertoPlans.PlanTypesController = (function() {
           return {}
         },
         methods: {
-          getProject: function() {
+          getProject: function(row) {
             if (this.open) {
-              var project = { ...this.model };
+              // var project = { ...this.model };
+              var project = { ...row };
 
               this.$emit('selection', project);
             }
@@ -195,8 +195,13 @@ window.GobiertoPlans.PlanTypesController = (function() {
               isOpen = (level < 2)
             } else {
               // activeNode = X
-              // then, it shows level_0 and level_(X+1), but not those between
-              isOpen = (level === 0) || (level === (this.activeNode.level + 1))
+              if (this.activeNode.type === "node") {
+                // type = node, it means there's no further levels, then it shows as previous one
+                isOpen = (level === 0) || (level === this.activeNode.level)
+              } else {
+                // then, it shows level_0 and level_(X+1), but not those between
+                isOpen = (level === 0) || (level === (this.activeNode.level + 1))
+              }
             }
 
             return isOpen

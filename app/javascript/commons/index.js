@@ -9,6 +9,9 @@ global.I18n = I18n
 global.algoliasearch = algoliasearch
 Turbolinks.start()
 
+// TODO: Esto podría ser dividido en pequeños módulos para inyectar solo las cosas necesarias 
+import 'shared'
+
 // OLD VERSIONS
 //
 //

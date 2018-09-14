@@ -308,6 +308,14 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
         },
         {
           name: "options_json",
+          itemTemplate: function(value) {
+            let maxLength = 100;
+            if (value && value.length > maxLength) {
+              return `${ value.substring(0, maxLength) }...`;
+            } else {
+              return value;
+            }
+          },
           title: I18n.t("gobierto_admin.gobierto_plans.plans.data.options"),
           type: "textarea"
         },

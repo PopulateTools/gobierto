@@ -64,7 +64,7 @@ module GobiertoParticipation
       )
     end
 
-    def to_path
+    def js_endpoint_path
       Rails.application.routes.url_helpers.gobierto_participation_process_contribution_container_contribution_path(
         process_id: contribution_container.process.slug,
         contribution_container_id: contribution_container.slug,
@@ -72,13 +72,12 @@ module GobiertoParticipation
       )
     end
 
+    def to_path
+      "#{contribution_container.to_path}##{slug}"
+    end
+
     def to_url(options = {})
-      host = site.domain
-      Rails.application.routes.url_helpers.gobierto_participation_process_contribution_container_path(
-        process_id: contribution_container.process.slug,
-        id: contribution_container.slug,
-        host: host
-      )
+      "#{contribution_container.to_url(options)}##{slug}"
     end
 
     def votes_fdiv(numerator, denominator, args = {})
@@ -151,7 +150,7 @@ module GobiertoParticipation
 
     def self.json_attributes
       all.map{ |c| { title: c.title, votes_count: c.votes_count, user_id: c.user_id, slug: c.slug,
-                     to_path: c.to_path, love_pct: c.love_pct, like_pct: c.like_pct, neutral_pct: c.neutral_pct,
+                     to_path: c.js_endpoint_path, love_pct: c.love_pct, like_pct: c.like_pct, neutral_pct: c.neutral_pct,
                      hate_pct: c.hate_pct, created_at_ymd: c.created_at_ymd } }
     end
   end

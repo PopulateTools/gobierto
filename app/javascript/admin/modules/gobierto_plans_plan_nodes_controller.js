@@ -20,6 +20,8 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
     locales: [I18n.locale],
     element_id: null,
 
+    sorter: translated_sorter,
+
     itemTemplate: translated,
     insertTemplate: function() {
       let element = `<div id="lang-tabs-new-${this.element_id || Math.random().toString(36).substring(5)}" class="lang-tabs">`;
@@ -77,9 +79,9 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
   });
 
   CategoryLevelField.prototype = new jsGrid.Field({
-    itemTemplate: function(value, item) {
-      return translated(this.categoriesVocabulary.find(val => (val.id == item.categories_hierarchy[this.level])).name_translations);
-    },
+    itemTemplate: translated,
+
+    sorter: translated_sorter,
 
     insertTemplate: function(value, item) {
       return this._insertPicker = categorySelect(value, item, this);
@@ -109,6 +111,16 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       return Object.values(value).find(translation => !!translation);
     } else {
       return value[I18n.locale];
+    }
+  }
+
+  function translated_sorter(value1, value2) {
+    let translated1 = translated(value1)
+    let translated2 = translated(value2)
+    if (translated1) {
+      return translated1.localeCompare(translated2)
+    } else {
+      return translated2 ? 1 : 0;
     }
   }
 

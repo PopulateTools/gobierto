@@ -1,6 +1,7 @@
 import { settings } from './modules/accounting_settings.js'
 import { AUTOCOMPLETE_DEFAULTS } from './modules/autocomplete_settings.js'
 import { Class } from './modules/klass.js'
+import { URLParams } from './modules/URLParams.js'
 import './modules/module-search.js'
 import './modules/module-sessions.js'
 import './modules/module-site_header.js'
@@ -54,5 +55,6 @@ export {
   Mustache,
   flight,
   crossfilter,
-  dc
+  dc,
+  URLParams
 }

@@ -2,8 +2,9 @@ import { GetUnemploymentAgeData } from './get_unemployment_age_data.js'
 import { VisUnemploymentSex } from './vis_unemployment_sex.js'
 import { VisUnemploymentAge } from './vis_unemployment_age.js'
 import { VisUnemploymentRate } from './vis_unemployment_rate.js'
-import { VisAgeDistribution } from './vis_age_distribution.js'
+// import { VisAgeDistribution } from './vis_age_distribution.js'
 import { VisRentDistribution } from './vis_rent_distribution.js'
+import { VisPopulationPyramid } from './vis_population_pyramid.js'
 import { PopulationCard } from './population.js'
 import { BirthRateCard } from './birth_rate.js'
 import { DeathRateCard } from './death_rate.js'
@@ -49,6 +50,8 @@ $(document).on('turbolinks:click', function (event) {
   }
 })
 
+var vis_population;
+
 $(document).on('turbolinks:load', function() {
   var getUnemplAgeData = new GetUnemploymentAgeData(window.populateData.municipalityId);
 
@@ -62,8 +65,11 @@ $(document).on('turbolinks:load', function() {
     vis_unempl.render();
   });
 
-  var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
-  vis_agedb.render();
+  // var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
+  // vis_agedb.render();
+
+  vis_population = new VisPopulationPyramid('#population_pyramid', window.populateData.municipalityId, window.populateData.year);
+  vis_population.render();
 
   var vis_unemplR = new VisUnemploymentRate('#unemployment_rate', window.populateData.municipalityId, window.populateData.ccaaId);
   vis_unemplR.render();
@@ -159,4 +165,32 @@ $(document).on('turbolinks:load', function() {
   if(window.location.hash !== ""){
     selectSection();
   }
+
+  $("#population_pyramid-filters button[data-toggle]").click(function() {
+    let filter = $(this).data("toggle")
+    let prev = $(this).parent().find(".active").data("toggle")
+
+    // Same filter as previous, do nothing
+    if (filter === prev) return
+
+    $(this).siblings().removeClass("active")
+    $(this).toggleClass("active")
+
+    /*
+    * filter values
+    * 0 - municipality
+    * 1 - province/autonomous-region
+    * 2 - country
+    */
+    let elemId = (filter === 0)
+      ? window.populateData.municipalityId
+      : (filter === 1)
+        ? window.populateData.ccaaId
+        : null
+
+    // Update the urls
+    vis_population.dataUrls = vis_population.getUrls(elemId, filter)
+    // render again
+    vis_population.render()
+  });
 });

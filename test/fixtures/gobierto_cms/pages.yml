@@ -94,7 +94,7 @@ about_site:
   }.to_json %>
   body_source_translations: <%= {
     "en" => "This is the **body** of a page that contains an image:\r\n\r\n![The image](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:png_attachment_uploaded), host: 'madrid.gobierto.test')})\r\n\r\n and a [link to a doc](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:pdf_attachment_uploaded), host: 'madrid.gobierto.test')}).",
-    "en" => "Esto es el **cuerpo** de la página que contiene una imagen:\r\n\r\n![La imagen](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:png_attachment_uploaded), host: 'madrid.gobierto.test')})\r\n\r\n y un [enlace a un doc](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:pdf_attachment_uploaded), host: 'madrid.gobierto.test')})."
+    "es" => "Esto es el **cuerpo** de la página que contiene una imagen:\r\n\r\n![La imagen](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:png_attachment_uploaded), host: 'madrid.gobierto.test')})\r\n\r\n y un [enlace a un doc](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:pdf_attachment_uploaded), host: 'madrid.gobierto.test')})."
   }.to_json %>
   slug: 'about-site'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>

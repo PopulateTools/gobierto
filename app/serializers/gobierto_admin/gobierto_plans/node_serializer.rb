@@ -18,6 +18,10 @@ module GobiertoAdmin
         :updated_at
       )
 
+      (0..5).each do |i|
+        attribute "level_#{i}", if: -> { i <= instance_options[:plan].levels }
+      end
+
       def category
         @category ||= base_categories_relation.where(cnt: { node_id: object.id }).first
       end
@@ -38,6 +42,13 @@ module GobiertoAdmin
                                     end
                                   end.pluck(:id)
                                 end
+      end
+
+      (0..5).each do |i|
+        define_method "level_#{i}" do
+          return unless i <= instance_options[:plan].levels
+          instance_options[:plan].categories.find(categories_hierarchy[i]).name_translations
+        end
       end
 
       private

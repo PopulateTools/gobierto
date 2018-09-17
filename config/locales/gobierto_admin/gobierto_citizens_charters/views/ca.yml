@@ -2,6 +2,24 @@
 ca:
   gobierto_admin:
     gobierto_citizens_charters:
+      charters:
+        charter:
+          view_charter: Veure carta
+        form:
+          placeholders:
+            slug: carta-teleassistencia
+            title: Carta de serveis de teleassistència domiciliària
+        index:
+          header:
+            created: Creat
+            service: Servei
+            status: Estat
+            title: Títol
+            updated: Actualitzat
+          new: Nova carta
+          title: Cartes de Serveis
+        new:
+          title: Nova carta
       configuration:
         settings:
           edit:
@@ -10,7 +28,30 @@ ca:
             title: Configuració
             update: Actualitzar
           title: Preferencies
-      welcome:
+      services:
+        form:
+          placeholders:
+            slug: atencio-centres-diurns
+            title: Servei de atenció a centres diürns
         index:
-          configuration: Configuració
+          header:
+            category: Categoria
+            charters: Cartes de servei
+            created: Creat
+            status: Estat
+            title: Títol
+            updated: Actualitzat
+          new: Nou servei
           title: Serveis
+        new:
+          title: Nou servei
+        service:
+          view_service: Veure servei
+      shared:
+        configuration:
+          configuration: Configuració
+        edit:
+          title: Edita %{item}
+        navigation:
+          charters: Cartes de serveis
+          services: Serveis

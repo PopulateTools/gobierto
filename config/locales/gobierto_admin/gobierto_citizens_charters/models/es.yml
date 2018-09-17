@@ -1,0 +1,16 @@
+---
+es:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_citizens_charters/charter_form:
+        service_id: Servicio
+        slug: Slug
+        title: Título
+        title_translations: Título
+      gobierto_admin/gobierto_citizens_charters/service_form:
+        category_id: Categoría
+        slug: Slug
+        title: Título
+        title_translations: Título
+      gobierto_admin/gobierto_citizens_charters/settings_form:
+        categories_vocabulary_id: Vocabulario de categorías

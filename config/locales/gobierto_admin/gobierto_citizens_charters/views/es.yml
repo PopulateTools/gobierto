@@ -2,6 +2,24 @@
 es:
   gobierto_admin:
     gobierto_citizens_charters:
+      charters:
+        charter:
+          view_charter: Ver carta
+        form:
+          placeholders:
+            slug: carta-teleasistencia
+            title: Carta de servicios de teleasistencia a domicilio
+        index:
+          header:
+            created: Creación
+            service: Servicio
+            status: Estado
+            title: Título
+            updated: Actualización
+          new: Nueva carta
+          title: Cartas de Servicios
+        new:
+          title: Nueva carta
       configuration:
         settings:
           edit:
@@ -10,7 +28,30 @@ es:
             title: Configuración
             update: Actualizar
           title: Preferencias
-      welcome:
+      services:
+        form:
+          placeholders:
+            slug: atencion-diurna
+            title: Servicio de atención diurna
         index:
-          configuration: Configuración
+          header:
+            category: Categoría
+            charters: Cartas de servicio
+            created: Creación
+            status: Estado
+            title: Título
+            updated: Actualización
+          new: Nuevo servicio
           title: Servicios
+        new:
+          title: Nuevo servicio
+        service:
+          view_service: Ver servicio
+      shared:
+        configuration:
+          configuration: Configuración
+        edit:
+          title: Editar %{item}
+        navigation:
+          charters: Cartas de servicio
+          services: Servicios

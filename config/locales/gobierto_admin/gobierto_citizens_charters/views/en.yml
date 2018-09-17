@@ -2,6 +2,24 @@
 en:
   gobierto_admin:
     gobierto_citizens_charters:
+      charters:
+        charter:
+          view_charter: View charter
+        form:
+          placeholders:
+            slug: teleassistance-charter
+            title: Teleassistance charter
+        index:
+          header:
+            created: Created at
+            service: Service
+            status: Status
+            title: Title
+            updated: Updated
+          new: New charter
+          title: Services Charters
+        new:
+          title: New charter
       configuration:
         settings:
           edit:
@@ -10,7 +28,30 @@ en:
             title: Configuration
             update: Update
           title: Preferences
-      welcome:
+      services:
+        form:
+          placeholders:
+            slug: day-care
+            title: Day care service
         index:
-          configuration: Configuration
+          header:
+            category: Category
+            charters: Services charters
+            created: Created at
+            status: Status
+            title: Title
+            updated: Updated at
+          new: New sercice
           title: Services
+        new:
+          title: New service
+        service:
+          view_service: View service
+      shared:
+        configuration:
+          configuration: Configuration
+        edit:
+          title: Edit %{item}
+        navigation:
+          charters: Services charters
+          services: Services

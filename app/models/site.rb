@@ -74,6 +74,9 @@ class Site < ApplicationRecord
 
   # GobiertoCitizensCharters integration
   has_many :services, dependent: :destroy, class_name: "GobiertoCitizensCharters::Service"
+  has_many :charters, through: :services, class_name: "GobiertoCitizensCharters::Charter"
+  has_many :commitments, through: :charters, class_name: "GobiertoCitizensCharters::Commitment"
+  has_many :editions, through: :commitments, class_name: "GobiertoCitizensCharters::Edition"
 
   serialize :configuration_data
 

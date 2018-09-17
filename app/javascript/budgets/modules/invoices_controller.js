@@ -3,6 +3,7 @@ import * as dc from 'dc'
 import crossfilter from 'crossfilter2'
 import moment from 'moment'
 import { d3locale } from 'shared'
+import 'jsgrid'
 
 window.GobiertoBudgets.InvoicesController = (function() {
 

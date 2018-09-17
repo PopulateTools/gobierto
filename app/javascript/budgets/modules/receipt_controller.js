@@ -29,6 +29,7 @@ window.GobiertoBudgets.ReceiptController = (function() {
         return {
           locale: I18n.locale,
           data: options.receiptConfiguration.budgets_simulation_sections || [],
+          manual: options.receiptConfiguration.manual_input || false,
           selected: [],
           categories: []
         }
@@ -37,7 +38,10 @@ window.GobiertoBudgets.ReceiptController = (function() {
         this.selected = Array(this.data.length).fill(0); // Assign BEFORE compile the template to avoid render twice
 
         var years = _.keys(this.data[0].options[0].value).sort(); // Shortcut for columns
-        this.categories = (years.length > 3) ? _.takeRight(years, 3) : years; // Max. 3 years
+
+        this.categories = (this.manual)
+          ? _.takeRight(years) : (years.length > 3)
+          ? _.takeRight(years, 3) : years; // Max. 3 years
       },
       filters: {
         format: function (m) {

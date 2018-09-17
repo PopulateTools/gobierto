@@ -212,6 +212,29 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
   jsGrid.fields.customDateField = CustomDateField;
   jsGrid.fields.localizedField = LocalizedField;
   jsGrid.fields.categoryLevelField = CategoryLevelField;
+  jsGrid.ControlField.prototype._createGridButton = function(cls, tooltip, clickHandler) {
+    let grid = this._grid;
+
+    // Correspondance FontAwesome icons by action
+    let map = {
+      'edit': 'edit',
+      'delete': 'trash',
+      'mode insert-mode': 'plus-circle',
+      'insert': 'plus-circle',
+      'update': 'check',
+      'cancel-edit': 'times',
+    }
+
+    let fa = map[cls.replace(new RegExp('jsgrid-', 'g'), '').replace(new RegExp('-button', 'g'), '')]
+    let classname = `fa fa-${fa}`
+
+    return $("<i>")
+      .removeClass()
+      .addClass(classname)
+      .on("click", function(e) {
+        clickHandler(grid, e);
+      });
+  };
 
   GobiertoPlansPlanNodesController.prototype.index = function(options) {
 

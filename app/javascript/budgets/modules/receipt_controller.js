@@ -55,6 +55,14 @@ window.GobiertoBudgets.ReceiptController = (function() {
           })
         }
       },
+      directives: {
+        focus: {
+          // directive definition
+          inserted: function(el) {
+            el.focus()
+          }
+        }
+      },
       computed: {
         totalManual: function () {
           return _.sum(this.selected)
@@ -90,8 +98,12 @@ window.GobiertoBudgets.ReceiptController = (function() {
 
           return diff / self
         },
-        setContent: function (elem, event) {
-          this.selected[elem] = parseFloat(event.currentTarget.innerText)
+        toggleEdit: function(data) {
+          if (data.hasOwnProperty('toggleEdit')) {
+            data.toggleEdit = !data.toggleEdit;
+          } else {
+            this.$set(data, 'toggleEdit', true) // Add reactivity properties dinamically
+          }
         }
       }
     });

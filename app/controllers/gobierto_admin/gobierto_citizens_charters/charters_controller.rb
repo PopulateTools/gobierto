@@ -67,7 +67,7 @@ module GobiertoAdmin
         if @charter.belongs_to_archived?
           redirect_to admin_citizens_charters_charters_path, alert: t(".recover_failed")
         else
-          @charter.restore
+          @charter.restore(recursive: true)
           redirect_to admin_citizens_charters_charters_path, notice: t(".success_html", link: preview_url(@charter, host: current_site.domain))
         end
       end

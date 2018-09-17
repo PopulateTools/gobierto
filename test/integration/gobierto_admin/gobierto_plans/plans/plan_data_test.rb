@@ -35,7 +35,7 @@ module GobiertoAdmin
 
               within "#jsGrid" do
                 within ".jsgrid-header-row" do
-                  click_button
+                  find(".fa-plus-circle").click
                 end
                 within ".jsgrid-insert-row" do
                   cells = all(:xpath, "td")
@@ -49,7 +49,7 @@ module GobiertoAdmin
                   select "People and families", from: "category-0-new"
                   select "Provide social assistance to individuals and families who need it for lack of resources", from: "category-1-new"
                   select "Scholarships for families in the Central District", from: "category-2-new"
-                  click_button "Create"
+                  find(".fa-plus-circle").click
                 end
               end
 
@@ -70,14 +70,14 @@ module GobiertoAdmin
 
               within "#jsGrid" do
                 within ".jsgrid-header-row" do
-                  click_button
+                  find(".fa-plus-circle").click
                 end
                 within ".jsgrid-insert-row" do
                   cells = all(:xpath, "td")
                   cells[4].all("input").each do |input_element|
                     input_element.set("Test Plan Node")
                   end
-                  click_button "Create"
+                  find(".fa-plus-circle").click
                 end
               end
 
@@ -115,7 +115,7 @@ module GobiertoAdmin
                   cells[3].all("input").each do |input_element|
                     input_element.set("Updated Plan Node")
                   end
-                  click_on "Update"
+                  find(".fa-check").click
                 end
               end
               assert has_content? "Updated Plan Node"
@@ -136,7 +136,7 @@ module GobiertoAdmin
               visit @path
 
               accept_alert do
-                first(:button, title: "Delete").click
+                first(".fa-trash").click
               end
 
               sleep 1

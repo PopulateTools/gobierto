@@ -6,6 +6,7 @@ en:
         settings:
           edit:
             enable_charters: Enable Citizens Charters
+            enable_services: Enable Services
             title: Configuration
             update: Update
           title: Preferences

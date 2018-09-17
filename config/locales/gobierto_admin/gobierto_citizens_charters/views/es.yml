@@ -6,6 +6,7 @@ es:
         settings:
           edit:
             enable_charters: Habilitar Cartas de Servicios
+            enable_services: Habilitar Servicios
             title: Configuración
             update: Actualizar
           title: Preferencias

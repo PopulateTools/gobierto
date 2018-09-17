@@ -21,7 +21,7 @@ module GobiertoAdmin
         private
 
         def settings_params
-          params.require(:gobierto_citizens_charters_settings).permit(:categories_vocabulary_id, :enable_charters)
+          params.require(:gobierto_citizens_charters_settings).permit(:categories_vocabulary_id, :enable_charters, :enable_services)
         end
       end
     end

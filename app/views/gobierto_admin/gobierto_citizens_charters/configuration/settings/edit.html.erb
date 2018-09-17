@@ -25,14 +25,24 @@
           { include_blank: true } %>
       </div>
 
-      <div class="form_item site-check-boxes">
-        <div class="options compact">
-          <div class="option">
-            <%= f.check_box :enable_charters %>
-            <%= f.label :enable_charters do %>
-              <span></span>
-              <%= t('.enable_charters') %>
-            <% end %>
+
+      <div class="form_block">
+        <div class="form_item site-module-check-boxes">
+          <div class="options compact">
+            <div class="option">
+              <%= f.check_box :enable_services %>
+              <%= f.label :enable_services do %>
+                <span></span>
+                <%= t(".enable_services")  %>
+              <% end %>
+            </div>
+            <div class="option">
+              <%= f.check_box :enable_charters %>
+              <%= f.label :enable_charters do %>
+                <span></span>
+                <%= t(".enable_charters")  %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ ca:
         settings:
           edit:
             enable_charters: Habilitar Cartes de Serveis
+            enable_services: Habilitar Serveis
             title: Configuració
             update: Actualitzar
           title: Preferencies

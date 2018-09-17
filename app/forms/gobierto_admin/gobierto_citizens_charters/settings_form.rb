@@ -8,7 +8,7 @@ module GobiertoAdmin
         :categories_vocabulary_id
       )
 
-      attr_writer :site_id, :enable_charters
+      attr_writer :site_id, :enable_charters, :enable_services
 
       delegate :persisted?, to: :gobierto_module_settings
       validates :site, :categories_vocabulary, presence: true
@@ -23,6 +23,10 @@ module GobiertoAdmin
 
       def enable_charters
         @enable_charters ||= !gobierto_module_settings.disable_charters
+      end
+
+      def enable_services
+        @enable_services ||= !gobierto_module_settings.disable_services
       end
 
       def site_id
@@ -55,6 +59,7 @@ module GobiertoAdmin
           settings_attributes.site_id = site_id
           settings_attributes.categories_vocabulary_id = categories_vocabulary_id
           settings_attributes.disable_charters = enable_charters != "1"
+          settings_attributes.disable_services = enable_services != "1"
         end
 
         if @gobierto_module_settings.save

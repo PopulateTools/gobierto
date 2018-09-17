@@ -116,8 +116,14 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_citizens_charters, as: :citizens_charters, path: :citizens_charters do
-      get "/" => "welcome#index"
+      get "/" => "services#index"
 
+      resources :services do
+        put :recover
+      end
+      resources :charters do
+        put :recover
+      end
       namespace :configuration do
         resource :settings, only: [:edit, :update]
       end

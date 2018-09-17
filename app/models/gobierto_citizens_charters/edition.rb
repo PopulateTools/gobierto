@@ -4,6 +4,9 @@ require_dependency "gobierto_citizens_charters"
 
 module GobiertoCitizensCharters
   class Edition < ApplicationRecord
+    acts_as_paranoid column: :archived_at
+
+    include ActsAsParanoidAliases
 
     PERIOD_INTERVAL_DATA = {
       year: ->(date) { { year: date.year } },
@@ -12,7 +15,7 @@ module GobiertoCitizensCharters
       week: ->(date) { { week: date.strftime("%W").to_i, year: date.year } }
     }.freeze
 
-    belongs_to :commitment
+    belongs_to :commitment, -> { with_archived }
 
     enum period_interval: PERIOD_INTERVAL_DATA.keys
 

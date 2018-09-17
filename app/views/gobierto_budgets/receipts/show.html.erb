@@ -40,10 +40,16 @@
 
               <div class="pure-u-1 pure-u-md-10-24 pure-u-xl-9-24 receipt_calc">
                 <div class="bg" v-for="(year, i) in categories">
-                  <small>{{ getYear(i) }}</small>
-                  <small v-if="i !== 0">{{ getDiff(selected[index], i) | percent }}</small>
-                  <small v-else></small>
-                  <span>{{ getValue(selected[index], i) | format }}</span>
+                  <template v-if="!manual">
+                    <small>{{ getYear(i) }}</small>
+                    <small v-if="i !== 0">{{ getDiff(selected[index], i) | percent }}</small>
+                    <small v-else></small>
+                    <span>{{ getValue(selected[index], i) | format }}</span>
+                  </template>
+                  <template v-else>
+                    <input type="text" v-model.lazy.number="selected[index]">
+                    <span>{{ selected[index] | format }}</span>
+                  </template>
                 </div>
               </div>
             </div>
@@ -65,10 +71,15 @@
               <div class="pure-u-1 pure-u-md-14-24 pure-u-xl-15-24"><h3><%= t('.your_contribution', site_name: whom(current_site.name)) %></h3></div>
               <div class="pure-u-1 pure-u-md-10-24 pure-u-xl-9-24 receipt_calc">
                 <div class="bg" v-for="(year, i) in categories">
-                  <small>{{ getYear(i) }}</small>
-                  <small v-if="i !== 0">{{ (total(i) - total(i - 1)) / total(i) | percent }}</small>
-                  <small v-else></small>
-                  <span>{{ total(i) | format }}</span>
+                  <template v-if="!manual">
+                    <small>{{ getYear(i) }}</small>
+                    <small v-if="i !== 0">{{ (total(i) - total(i - 1)) / total(i) | percent }}</small>
+                    <small v-else></small>
+                    <span>{{ total(i) | format }}</span>
+                  </template>
+                  <template v-else>
+                    <span>{{ totalManual | format }}</span>
+                  </template>
                 </div>
               </div>
             </div>

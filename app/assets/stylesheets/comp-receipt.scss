@@ -128,6 +128,16 @@
         font-size: 90%;
       }
 
+      input {
+        height: auto;
+        // width: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        text-align: right;
+      }
+
       &.bg--transparent {
         background: transparent;
         justify-content: center;

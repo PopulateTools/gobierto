@@ -55,6 +55,11 @@ window.GobiertoBudgets.ReceiptController = (function() {
           })
         }
       },
+      computed: {
+        totalManual: function () {
+          return _.sum(this.selected)
+        }
+      },
       methods: {
         total: function(o) {
           return _.sumBy(this.selected, this.categories[o]);
@@ -84,6 +89,9 @@ window.GobiertoBudgets.ReceiptController = (function() {
           var diff = self - prev;
 
           return diff / self
+        },
+        setContent: function (elem, event) {
+          this.selected[elem] = parseFloat(event.currentTarget.innerText)
         }
       }
     });

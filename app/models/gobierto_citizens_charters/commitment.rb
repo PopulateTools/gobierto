@@ -10,7 +10,7 @@ module GobiertoCitizensCharters
     include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Sluggable
 
-    belongs_to :charter
+    belongs_to :charter, -> { with_archived }
     has_many :editions, dependent: :destroy
 
     enum visibility_level: { draft: 0, active: 1 }
@@ -30,6 +30,10 @@ module GobiertoCitizensCharters
 
     def to_s
       title
+    end
+
+    def belongs_to_archived?
+      charter.archived?
     end
   end
 end

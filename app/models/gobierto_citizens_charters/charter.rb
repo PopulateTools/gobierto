@@ -10,7 +10,7 @@ module GobiertoCitizensCharters
     include GobiertoCommon::UrlBuildable
     include GobiertoCommon::Sluggable
 
-    belongs_to :service
+    belongs_to :service, -> { with_archived }
     has_many :commitments, dependent: :destroy
     has_many :editions, through: :commitments, class_name: "GobiertoCitizensCharters::Edition"
 
@@ -32,6 +32,10 @@ module GobiertoCitizensCharters
 
     def to_s
       title
+    end
+
+    def belongs_to_archived?
+      service.archived?
     end
   end
 end

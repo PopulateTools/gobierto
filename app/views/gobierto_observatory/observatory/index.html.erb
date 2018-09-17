@@ -17,18 +17,31 @@
       <% end %>
     </ul>
   </nav>
-   
+
   <div class="sections">
   	<section id="poblacion" class="block">
   		<div class="pure-g">
-  			<div class="pure-u-1 pure-u-md-1">
-  				<h2 class="with_description"><%= t("gobierto_observatory.layouts.menu_subsections.poblacion") %></h2>
-  				<div id="age_distribution" class="main_graphic">
-  					<p class="description"><%= t("gobierto_observatory.graphics.age_distribution.title") %></p>
-  				</div>
-  			</div>
+				<div class="pure-u-1 pure-u-md-1">
+					<h2 class="with_description"><%= t("gobierto_observatory.layouts.menu_subsections.poblacion") %></h2>
+					<div class="main_graphic">
+						<p class="description"><%= t("gobierto_observatory.graphics.age_distribution.title") %></p>
+						<!-- Filters -->
+						<div class="m_t_1">
+							<div class="inline_filter">
+								<div id="population_pyramid-filters" class="button-group ib" role="group">
+									<button class="button-grouped active sort-G" data-toggle="0"><%= @site.place.name %></button>
+									<button class="button-grouped sort-G" data-toggle="1"><%= @site.place.province.autonomous_region.name %></button>
+									<button class="button-grouped sort-G" data-toggle="2"><%= t("gobierto_observatory.graphics.population_pyramid.country") %></button>
+								</div>
+							</div>
+						</div>
+
+						<!-- Chart -->
+						<div id="population_pyramid"></div>
+					</div>
+				</div>
   		</div>
-  		
+
   		<div class="pure-g padded_cols">
         <%= render 'card_simple', {card_class: 'population_card', data_type: 'figure'} %>
         <%= render 'card_sparkline_table', {card_class: 'births', data_trend: 'up', data_type: 'percentage_by_thousand', data_freq: 'annual'} %>
@@ -59,7 +72,7 @@
   				<div id="unemployment_age" class="small_graphic"></div>
   			</div>
   		</div>
-  		
+
   		<div class="pure-g padded_cols">
         <%= render 'card_simple', {card_class: 'ss_members', data_type: 'figure'} %>
         <%= render 'card_sparkline_table', {card_class: 'unemployed_sector', data_trend: 'down', data_type: 'figure', data_freq: 'daily'} %>
@@ -75,7 +88,7 @@
   		<div class="pure-g">
   			<div class="pure-u-1">
           <h2 class="with_description"><%= t("gobierto_observatory.layouts.menu_subsections.economia") %></h2>
-          
+
   				<div id="rent_distribution" class="main_graphic">
   					<div class="annotations">
   						<p class="description"><%= t("gobierto_observatory.graphics.rent_distribution.title") %></p>
@@ -85,7 +98,7 @@
   				</div>
   			</div>
   		</div>
-  		
+
   		<div class="pure-g padded_cols">
         <%= render 'card_comparison', {card_class: 'income_overview', data_type_one: 'currency', data_type_two: 'currency', data_freq: 'daily'} %>
         <%= render 'card_table', {card_class: 'income', data_type_one: 'currency', data_type_two: 'currency', data_freq: 'daily'} %>

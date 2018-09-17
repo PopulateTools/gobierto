@@ -93,6 +93,20 @@ en:
         axis: years
         label: inhabitants
         title: Discover the age distribution of your municipality
+      population_pyramid:
+        adults: Employed population
+        age: Age
+        country: Spain
+        elderly: Elderly
+        elderly_info: The %{percent} of the population is elder than %{limit} years
+        mean: 'Average age: %{age} years'
+        median: 'Median age: %{age} years'
+        men: Men
+        mode: 'Most common age: %{age} years'
+        unemployed: Unemployed
+        women: Women
+        youth: Minors
+        youth_info: The %{percent} of the population is younger than %{limit} years
       rent_distribution:
         gross_income: Gross income
         inhabitants: Inhabitants

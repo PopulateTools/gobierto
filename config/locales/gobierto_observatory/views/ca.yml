@@ -93,6 +93,20 @@ ca:
         axis: anys
         label: habitants
         title: Descobreix la distribució per edats del teu municipi
+      population_pyramid:
+        adults: Població activa
+        age: Edat
+        country: Espanya
+        elderly: Majors
+        elderly_info: El %{percent} de la població té més de %{limit} anys
+        mean: 'Edat mitja: %{age} anys'
+        median: 'Edat mitjana: %{age} anys'
+        men: Homes
+        mode: 'Edat més comú: %{age} anys'
+        unemployed: Aturada
+        women: Dones
+        youth: Menors
+        youth_info: El %{percent} de la població té menys de %{limit} anys
       rent_distribution:
         gross_income: Renda bruta
         inhabitants: Habitants

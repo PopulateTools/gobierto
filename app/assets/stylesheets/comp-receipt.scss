@@ -23,6 +23,9 @@
     font-size: 1.25em;
     background: #f2f9fa;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .receipt_dropdown {
@@ -122,6 +125,12 @@
       span,
       input {
         font-size: 1.15em;
+      }
+
+      .toggle-clickable {
+        width: 100%;
+        cursor: pointer;
+        text-align: right;
       }
 
       small {

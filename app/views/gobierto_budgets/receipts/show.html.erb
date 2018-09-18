@@ -47,10 +47,10 @@
                     <span>{{ getValue(selected[index], i) | format }}</span>
                   </template>
                   <template v-else>
-                    <input type="text" v-model.lazy.number="selected[index]"
+                    <input type="text" v-model.lazy.number="selected[index]" placeholder="Introduzca el importe gastado"
                       @keyup.enter="toggleEdit(row)" @blur="toggleEdit(row)"
                       v-if="row.toggleEdit" v-focus>
-                    <span v-if="!row.toggleEdit" @click="toggleEdit(row)">{{ selected[index] | format }}</span>
+                    <span class="toggle-clickable" v-if="!row.toggleEdit" @click="toggleEdit(row)">{{ selected[index] | format }}</span>
                   </template>
                 </div>
               </div>
@@ -80,7 +80,8 @@
                     <span>{{ total(i) | format }}</span>
                   </template>
                   <template v-else>
-                    <span>{{ totalManual | format }}</span>
+                    <span></span>
+                    <span>{{ total() | format }}</span>
                   </template>
                 </div>
               </div>

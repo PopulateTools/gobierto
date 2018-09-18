@@ -35,9 +35,9 @@ window.GobiertoBudgets.ReceiptController = (function() {
         }
       },
       created: function () {
-        this.selected = Array(this.data.length).fill(0); // Assign BEFORE compile the template to avoid render twice
-
-        var years = _.keys(this.data[0].options[0].value).sort(); // Shortcut for columns
+        // If JSON have options array, and there are several values (years)
+        var years = (this.data[0].hasOwnProperty('options') && this.data[0].options.length && typeof this.data[0].options[0].value === 'object')
+          ?  _.keys(this.data[0].options[0].value).sort() : [ new Date().getFullYear() ]
 
         this.categories = (this.manual)
           ? _.takeRight(years) : (years.length > 3)
@@ -63,14 +63,10 @@ window.GobiertoBudgets.ReceiptController = (function() {
           }
         }
       },
-      computed: {
-        totalManual: function () {
-          return _.sum(this.selected)
-        }
-      },
       methods: {
         total: function(o) {
-          return _.sumBy(this.selected, this.categories[o]);
+          return (this.selected.length && typeof this.selected[0] === 'object')
+            ? _.sumBy(this.selected, this.categories[o]) : _.sum(this.selected)
         },
         localizedName: function(attr) {
           return attr['name_' + this.locale] || attr['name'];
@@ -82,9 +78,8 @@ window.GobiertoBudgets.ReceiptController = (function() {
         getValue: function (obj, o) {
           if (!obj) return
 
-          var _key = this.categories[o];
-
-          return obj[_key]
+          return (typeof obj !== 'object')
+            ? obj : obj[this.categories[o]]
         },
         getYear: function (o) {
           return this.categories[o] || o

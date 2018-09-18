@@ -66,7 +66,7 @@ window.GobiertoBudgets.ReceiptController = (function() {
       methods: {
         total: function(o) {
           return (this.selected.length && typeof this.selected[0] === 'object')
-            ? _.sumBy(this.selected, this.categories[o]) : _.sum(this.selected)
+            ? _.sumBy(this.selected, this.categories[o]) : _.sum(this.selected.filter(Number))
         },
         localizedName: function(attr) {
           return attr['name_' + this.locale] || attr['name'];

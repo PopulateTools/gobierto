@@ -139,10 +139,9 @@
       }
 
       input {
-        height: auto;
-        width: 100%;
-        margin: 0;
-        padding: 0;
+        height: 100%;
+        width: calc(100% + 1em);
+        margin: 0 -.5em;
         border: 0;
         background: transparent;
       }

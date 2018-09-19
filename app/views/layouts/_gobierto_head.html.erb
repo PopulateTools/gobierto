@@ -49,7 +49,7 @@
       provinceId: "<%= current_site.place.province.id %>",
       provinceName: "<%= current_site.place.province.name %>",
       ccaaId: "<%= current_site.place.province.autonomous_region.id %>",
-      ccaaName: "<%= current_site.place.province.autonomous_region.name %>",
+      ccaaName: "<%= current_site.place.province.autonomous_region.name(I18n.locale) %>",
     <% else %>
       municipalityId: "<%= current_site.organization_id %>",
     <% end %>

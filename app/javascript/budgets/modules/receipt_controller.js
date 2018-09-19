@@ -101,11 +101,11 @@ window.GobiertoBudgets.ReceiptController = (function() {
 
           return diff / self
         },
-        toggleEdit: function(data) {
+        toggleEdit: function(data, force) {
           if (!data) return
-            
+
           if (data.hasOwnProperty('toggleEdit')) {
-            data.toggleEdit = !data.toggleEdit;
+            data.toggleEdit = (typeof force === 'undefined') ? !data.toggleEdit : force
           } else {
             this.$set(data, 'toggleEdit', true) // Add reactivity properties dinamically
           }

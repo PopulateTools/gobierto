@@ -63,6 +63,14 @@ window.GobiertoBudgets.ReceiptController = (function() {
           }
         }
       },
+      watch: {
+        selected: function () {
+          // Test if there are negative values
+          if (this.selected.some(o => o < 0)) {
+            this.selected = this.selected.map(Math.abs)
+          }
+        }
+      },
       methods: {
         total: function(o) {
           return (this.selected.length && typeof this.selected[0] === 'object')

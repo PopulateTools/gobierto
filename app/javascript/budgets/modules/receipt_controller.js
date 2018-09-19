@@ -102,6 +102,8 @@ window.GobiertoBudgets.ReceiptController = (function() {
           return diff / self
         },
         toggleEdit: function(data) {
+          if (!data) return
+            
           if (data.hasOwnProperty('toggleEdit')) {
             data.toggleEdit = !data.toggleEdit;
           } else {

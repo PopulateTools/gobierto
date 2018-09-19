@@ -48,7 +48,7 @@
                   </template>
                   <template v-else>
                     <input type="text" v-model.lazy.number="selected[index]"
-                      @keyup.enter="toggleEdit(row)" @blur="toggleEdit(row)"
+                      @keyup.enter="toggleEdit(row)" @blur="toggleEdit(row)" @keydown.tab.exact="toggleEdit(data[index + 1])" @keydown.shift.tab.exact="toggleEdit(data[index - 1])"
                       v-if="row.toggleEdit" v-focus>
                     <span class="toggle-clickable" v-if="!row.toggleEdit" @click="toggleEdit(row)">{{ selected[index] | format }}</span>
                   </template>

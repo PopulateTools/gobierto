@@ -17,7 +17,9 @@
           <div class="padding">
             <div class="desktop_only">
               <div class="pure-g m_b_1">
-                <div class="pure-u-1 pure-u-md-14-24 pure-u-xl-15-24">Introduce las cantidades que has pagado para cada uno de los conceptos</div>
+                <div class="pure-u-1 pure-u-md-14-24 pure-u-xl-15-24">
+                  <span v-if="manual"><%= t('.explanation') %></span>
+                </div>
                 <div class="pure-u-1 pure-u-md-10-24 pure-u-xl-9-24 receipt_calc">
                   <div class="bg bg--transparent" v-for="(year, i) in categories">
                     <span><strong>{{ getYear(i) }}</strong></span>

@@ -1,18 +1,6 @@
 import { AUTOCOMPLETE_DEFAULTS, SimpleMDE, Turbolinks } from 'shared'
 
 $(document).on('turbolinks:load', function() {
-  $('.open_remote_modal').magnificPopup({
-    type: 'ajax',
-    removalDelay: 300,
-    mainClass: 'mfp-fade',
-    callbacks: {
-      ajaxContentAdded: function() {
-        window.GobiertoAdmin.process_stages_controller.form();
-        window.GobiertoAdmin.globalized_forms_component.handleGlobalizedForm();
-      }
-    }
-  });
-
   $(".stick_in_parent").stick_in_parent();
 
   addDatepickerBehaviors();

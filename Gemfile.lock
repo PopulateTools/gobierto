@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_data.git
-  revision: 574330312be0643644a0d7ff221dc84ec47ac12a
+  revision: 8b5f4f2ac096032d9e847734227c258e2a57f62d
   specs:
     gobierto_data (0.0.1)
       actionpack (>= 5.0.0.1)
@@ -8,7 +8,7 @@ GIT
       aws-sdk (~> 2.11, >= 2.11.45)
       elasticsearch (~> 6.0, >= 6.0.2)
       elasticsearch-extensions (~> 0.0.27)
-      ine-places (~> 0.2.0)
+      ine-places (~> 0.3.0)
       oj (~> 3.5, >= 3.5.0)
       sequel (~> 5.8, >= 5.8.0)
 
@@ -77,13 +77,13 @@ GEM
     ansi (1.5.0)
     arel (9.0.0)
     ast (2.4.0)
-    aws-sdk (2.11.122)
-      aws-sdk-resources (= 2.11.122)
-    aws-sdk-core (2.11.122)
+    aws-sdk (2.11.132)
+      aws-sdk-resources (= 2.11.132)
+    aws-sdk-core (2.11.132)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.11.122)
-      aws-sdk-core (= 2.11.122)
+    aws-sdk-resources (2.11.132)
+      aws-sdk-core (= 2.11.132)
     aws-ses (0.6.0)
       builder
       mail (> 2.2.5)
@@ -206,7 +206,7 @@ GEM
       parser (>= 2.2.3.0)
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
-    ine-places (0.2.0)
+    ine-places (0.3.0)
       activesupport (>= 4.2)
     invisible_captcha (0.10.0)
       rails (>= 3.2.0)
@@ -301,7 +301,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     nori (2.6.0)
     ntlm-http (0.1.1)
-    oj (3.6.3)
+    oj (3.6.10)
     os (1.0.0)
     paper_trail (10.0.1)
       activerecord (>= 4.2, < 5.3)
@@ -407,7 +407,7 @@ GEM
       nokogiri (>= 1.4.0)
       nori (~> 2.4)
       wasabi (~> 3.4)
-    sequel (5.8.0)
+    sequel (5.12.0)
     sidekiq (5.2.2)
       connection_pool (~> 2.2, >= 2.2.2)
       rack-protection (>= 1.5.0)
@@ -514,7 +514,7 @@ DEPENDENCIES
   google-api-client
   i18n-js (>= 3.0.0.rc11)
   i18n-tasks
-  ine-places (= 0.2.0)
+  ine-places (= 0.3.0)
   invisible_captcha
   jbuilder (~> 2.5)
   jquery-rails

@@ -42,7 +42,6 @@ es:
         not_available: No disp.
         percentage: "% sobre el total del pres."
         percentage_tooltip: Porcentaje del presupuesto total que supone esta partida
-        planned: presupuestado
         planned_per_inhabitant: pres. / hab.
         planned_per_inhabitant_tooltip: Cantidad presupuestada dividida por el número
           de habitantes

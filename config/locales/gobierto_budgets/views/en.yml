@@ -42,7 +42,6 @@ en:
         not_available: Not avail.
         percentage: "% over the total"
         percentage_tooltip: Percentage of the total budget this budget line implies
-        planned: planned
         planned_per_inhabitant: plan. / inh.
         planned_per_inhabitant_tooltip: Budgeted amount divided by the inhabitants
         planned_per_inhabitant_updated: plan. upd. / inh.

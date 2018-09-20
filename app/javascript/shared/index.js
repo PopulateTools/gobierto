@@ -12,17 +12,11 @@ import './modules/velocity_settings.js'
 import './modules/air-datepicker.js'
 import './modules/shareContent.js'
 
-// TODO: módulo nuevo?
-import accounting from 'accounting'
-import { settings } from './modules/accounting_settings.js'
-accounting.settings = settings
-
 export {
   AUTOCOMPLETE_DEFAULTS,
   Class,
   d3locale,
   isDesktop,
   isMobile,
-  accounting,
   URLParams
 }

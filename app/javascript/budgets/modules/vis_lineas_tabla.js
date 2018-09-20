@@ -1,6 +1,7 @@
 import * as __d3 from 'd3'
 import { legendColor } from 'd3-svg-legend'
-import { Class, accounting } from 'shared'
+import { Class } from 'shared'
+import { accounting } from 'accounting'
 
 const d3 = { ...__d3, legendColor }
 

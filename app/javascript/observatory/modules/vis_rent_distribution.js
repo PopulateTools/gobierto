@@ -1,6 +1,7 @@
 import * as __d3 from 'd3'
 import { distanceLimitedVoronoi } from './d3-distance-limited-voronoi.js'
-import { Class, d3locale, accounting } from 'shared'
+import { Class, d3locale } from 'shared'
+import { accounting } from 'accounting'
 
 const d3 = { ...__d3, distanceLimitedVoronoi }
 

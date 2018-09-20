@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
-import { Class, d3locale, accounting } from 'shared'
+import { Class, d3locale } from 'shared'
+import { accounting } from 'accounting'
 
 export var VisLinesExecution = Class.extend({
   init: function(divId, type, category) {

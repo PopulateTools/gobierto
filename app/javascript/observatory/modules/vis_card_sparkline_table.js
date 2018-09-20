@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
-import { Class, d3locale, accounting } from 'shared'
+import { Class, d3locale } from 'shared'
+import { accounting } from 'accounting'
 
 export var SparklineTableCard = Class.extend({
   init: function(divClass, json, value, cardName) {

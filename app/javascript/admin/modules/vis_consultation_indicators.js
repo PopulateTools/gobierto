@@ -1,5 +1,5 @@
 import { Class } from 'shared'
-import { accounting } from 'accounting'
+import { accounting } from 'account'
 import * as d3 from 'd3'
 
 export var VisIndicators = Class.extend({

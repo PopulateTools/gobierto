@@ -1,7 +1,7 @@
 import * as __d3 from 'd3'
 import { wordwrap } from 'd3-jetpack'
 import { Class, d3locale } from 'shared'
-import { accounting } from 'accounting'
+import { accounting } from 'account'
 
 const d3 = { ...__d3, wordwrap }
 

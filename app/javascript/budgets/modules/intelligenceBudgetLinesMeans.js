@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import * as flight from 'flightjs'
-import { accounting } from 'accounting'
+import { accounting } from 'account'
 
 var intelligenceBudgetLinesMeans = flight.component(function(){
   this.attributes({

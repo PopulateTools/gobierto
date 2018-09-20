@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_07_140444) do
+ActiveRecord::Schema.define(version: 2018_09_17_133154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -349,6 +349,62 @@ ActiveRecord::Schema.define(version: 2018_09_07_140444) do
     t.datetime "updated_at", null: false
     t.boolean "remove_filtering_text", default: false
     t.index ["calendar_configuration_id"], name: "index_gc_filtering_rules_on_calendar_configuration_id"
+  end
+
+  create_table "gcc_charters", force: :cascade do |t|
+    t.bigint "service_id"
+    t.jsonb "title_translations"
+    t.string "slug", default: "", null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.integer "position", default: 999999, null: false
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["archived_at"], name: "index_gcc_charters_on_archived_at"
+    t.index ["service_id"], name: "index_gcc_charters_on_service_id"
+  end
+
+  create_table "gcc_commitments", force: :cascade do |t|
+    t.bigint "charter_id"
+    t.jsonb "title_translations"
+    t.jsonb "description_translations"
+    t.string "slug", default: "", null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.integer "position", default: 999999, null: false
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["archived_at"], name: "index_gcc_commitments_on_archived_at"
+    t.index ["charter_id"], name: "index_gcc_commitments_on_charter_id"
+  end
+
+  create_table "gcc_editions", force: :cascade do |t|
+    t.bigint "commitment_id"
+    t.integer "period_interval", default: 0, null: false
+    t.datetime "period"
+    t.decimal "percentage"
+    t.decimal "value"
+    t.decimal "max_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_gcc_editions_on_archived_at"
+    t.index ["commitment_id"], name: "index_gcc_editions_on_commitment_id"
+  end
+
+  create_table "gcc_services", force: :cascade do |t|
+    t.bigint "site_id"
+    t.jsonb "title_translations"
+    t.bigint "category_id"
+    t.string "slug", default: "", null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.integer "position", default: 999999, null: false
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["archived_at"], name: "index_gcc_services_on_archived_at"
+    t.index ["category_id"], name: "index_gcc_services_on_category_id"
+    t.index ["site_id"], name: "index_gcc_services_on_site_id"
   end
 
   create_table "gcms_pages", id: :serial, force: :cascade do |t|

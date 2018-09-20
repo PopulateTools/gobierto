@@ -1,6 +1,14 @@
 import { Class } from 'shared'
-import { accounting } from 'accounting'
+// import { accounting } from 'account'
+// import * as accounting2 from 'account'
+import accounting from 'account'
+import { accounting as acc1 } from 'account'
 import * as d3 from 'd3'
+
+console.log('wrklava', acc1);
+console.log('wrklava', accounting);
+// console.log('wrklava--', accounting2);
+// console.log('fdsd--wrklava--', accounting1);
 
 export var VisAgeReport = Class.extend({
   init: function(divId, url) {

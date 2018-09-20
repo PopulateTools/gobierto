@@ -1,4 +1,4 @@
-import { accounting } from 'accounting'
+import { accounting } from 'account'
 import Vue from 'vue'
 
 window.GobiertoBudgets.ReceiptController = (function() {

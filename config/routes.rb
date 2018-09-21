@@ -127,6 +127,13 @@ Rails.application.routes.draw do
       namespace :configuration do
         resource :settings, only: [:edit, :update]
       end
+
+      # API
+      namespace :api do
+        resources :charters, only: [] do
+          resources :editions, except: [:show, :new, :edit]
+        end
+      end
     end
 
     namespace :gobierto_common, as: :common, path: nil do

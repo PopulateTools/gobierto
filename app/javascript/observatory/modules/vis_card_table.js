@@ -1,6 +1,5 @@
 import * as d3 from 'd3'
-import { Class, d3locale } from 'shared'
-import { accounting } from 'account'
+import { Class, d3locale, accounting } from 'shared'
 
 export var TableCard = Class.extend({
   init: function(divClass, json, nest, cardName) {

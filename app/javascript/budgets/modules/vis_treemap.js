@@ -1,6 +1,5 @@
 import * as d3 from 'd3'
-import { Class } from 'shared'
-import { accounting } from 'account'
+import { Class, accounting } from 'shared'
 
 export var TreemapVis = Class.extend({
   init: function(divId, size, clickable){

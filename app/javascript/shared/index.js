@@ -12,8 +12,13 @@ import './modules/velocity_settings.js'
 import './modules/air-datepicker.js'
 import './modules/shareContent.js'
 
+import accounting from 'accounting'
+import { SETTINGS } from './modules/accounting_settings.js'
+accounting.settings = SETTINGS
+
 export {
   AUTOCOMPLETE_DEFAULTS,
+  accounting,
   Class,
   d3locale,
   isDesktop,

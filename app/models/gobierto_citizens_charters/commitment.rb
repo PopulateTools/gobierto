@@ -17,6 +17,7 @@ module GobiertoCitizensCharters
 
     validates :slug, uniqueness: { scope: :charter }
     translates :title
+    translates :description
 
     after_restore :set_slug
 

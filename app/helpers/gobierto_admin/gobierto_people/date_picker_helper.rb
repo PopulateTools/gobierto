@@ -6,10 +6,10 @@ module GobiertoAdmin
 
       SECONDS_TO_MILISECONDS_FACTOR = 1000
 
-      def microseconds_since_epoch(form_builder, attribute, options = {})
+      def microseconds_since_epoch(form_builder, attribute)
         attr_value = form_builder.object.send(attribute.to_sym)
 
-        if attr_value.blank? && !options[:prevent_default]
+        if attr_value.blank?
           attr_value = Time.zone.now
         elsif attr_value.is_a?(String)
           attr_value = Time.zone.parse(attr_value)

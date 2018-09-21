@@ -17,13 +17,25 @@ $.fn.extend({
   }
 });
 
-$(document).on("ajax:complete ajaxSuccess", function() {
+$(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {
   $('.open_remote_modal').magnificPopup({
     type: 'ajax',
     removalDelay: 300,
-    mainClass: 'mfp-fade'
+    mainClass: 'mfp-fade',
+    callbacks: {
+      ajaxContentAdded: function() {
+        if (window.GobiertoAdmin.process_stages_controller) {
+          window.GobiertoAdmin.process_stages_controller.form();
+        }
+        if (window.GobiertoAdmin.globalized_forms_component) {
+          window.GobiertoAdmin.globalized_forms_component.handleGlobalizedForm();
+        }
+      }
+    }
   });
+});
 
+$(document).on('ajax:complete ajaxSuccess', function() {
   $('.tipsit').tipsy({fade: false, gravity: 's', html: true});
   $('.tipsit-n').tipsy({fade: false, gravity: 'n', html: true});
   $('.tipsit-w').tipsy({fade: false, gravity: 'w', html: true});
@@ -50,12 +62,6 @@ $(document).on('turbolinks:load', function() {
   // Modal windows
   $('.open_modal').magnificPopup({
     type: 'inline',
-    removalDelay: 300,
-    mainClass: 'mfp-fade'
-  });
-
-  $('.open_remote_modal').magnificPopup({
-    type: 'ajax',
     removalDelay: 300,
     mainClass: 'mfp-fade'
   });

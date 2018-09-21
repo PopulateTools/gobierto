@@ -86,6 +86,9 @@ ignore_unused:
   - 'gobierto_admin.gobierto_participation.processes.edit.*'
   - 'gobierto_admin.gobierto_participation.processes.*.success_*'
   - 'grammatical_particles.*'
+  - 'gobierto_admin.gobierto_citizens_charters.charters.editions.index.*_interval'
+  - 'gobierto_admin.gobierto_citizens_charters.charters.editions.index.*_period'
+  - 'gobierto_admin.gobierto_citizens_charters.charters.editions_intervals.edition_interval.*_interval'
 
 translation:
   api_key: ''

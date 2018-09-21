@@ -5,6 +5,51 @@ ca:
       charters:
         charter:
           view_charter: Veure carta
+        commitments:
+          commitment:
+            view_commitment: Veure compromís
+          form:
+            placeholders:
+              description: El 95% de les trucades han de ser ateses en menys d'1 minut
+              slug: teleassistencia-nds
+              title: Acord de nivell de servei del centre d'atenció telefònica
+          index:
+            header:
+              description: Descripció
+              editions: Nombre de mesuraments
+              status: Estat
+              title: Títol
+            new: Nou compromís
+          new:
+            title: Nous compromís
+        editions:
+          index:
+            commitments_link: Ir a compromisos
+            empty_commitments: No hi ha compromisos creats encara.
+            month_interval: Mensuals
+            month_period: "%{month} / %{year}"
+            quarter_interval: Trimestrals
+            quarter_period: "%{quarter} / %{year}"
+            week_interval: Setmanals
+            week_period: "%{week} / %{year}"
+            year_interval: Anuals
+            year_period: "%{year}"
+        editions_intervals:
+          edition_interval:
+            month_interval: Mensual
+            quarter_interval: Trimestral
+            view_charter: Veure carta
+            week_interval: Setmanal
+            year_interval: Anual
+          index:
+            all: Totes
+            header:
+              editions: Mesuraments
+              interval: Periodicitat
+              period: Edició
+            new: Nova edició
+          new:
+            title: Nova Edició
         form:
           placeholders:
             slug: carta-teleassistencia
@@ -28,6 +73,13 @@ ca:
             title: Configuració
             update: Actualitzar
           title: Preferencies
+      editions:
+        index:
+          header:
+            max_value: Valor màxim
+            percentage: Percentatge
+            title: Títol
+            value: Valor
       services:
         form:
           placeholders:
@@ -54,4 +106,6 @@ ca:
           title: Edita %{item}
         navigation:
           charters: Cartes de serveis
+          commitments: Compromisos
+          editions_intervals: Edicions
           services: Serveis

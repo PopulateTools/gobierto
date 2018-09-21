@@ -122,6 +122,9 @@ Rails.application.routes.draw do
         put :recover
       end
       resources :charters do
+        resources :commitments, except: [:show], controller: "charters/commitments", as: :commitments, path: :commitments
+        resources :editions, only: [:index], controller: "charters/editions", as: :editions, path: :editions
+        resources :editions_intervals, controller: "charters/editions_intervals", as: :editions_intervals, path: :editions_intervals
         put :recover
       end
       namespace :configuration do

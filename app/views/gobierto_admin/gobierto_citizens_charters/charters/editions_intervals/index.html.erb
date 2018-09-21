@@ -1,0 +1,95 @@
+<%= render("gobierto_admin/gobierto_citizens_charters/shared/charter_breadcrumb") %>
+
+<%= render("gobierto_admin/gobierto_citizens_charters/shared/navigation") %>
+
+<div class="pure-g m_v_2">
+  <div class="pure-u-3-4">
+    <strong><%= link_to @charter.title, admin_citizens_charters_charter_editions_intervals_path(@charter) %></strong> »
+    <%= link_to t("gobierto_admin.gobierto_citizens_charters.shared.navigation.editions_intervals"), admin_citizens_charters_charter_editions_intervals_path(@charter) %>
+    <% if @filter %>
+      » <%= t(".#{ @filter }_interval") %>
+    <% end %>
+  </div>
+  <div class="pure-u-1-4 admin_tools right">
+    <%= link_to admin_citizens_charters_charter_commitments_path(@charter) do %>
+      <i class="fa fa-cog"></i><%= t("gobierto_admin.gobierto_citizens_charters.shared.navigation.commitments") %>
+    <% end %>
+  </div>
+
+</div>
+
+<div class="pure-g">
+<div class="pure-u-1 pure-u-md-3-5 sub_filter">
+  <ul>
+    <li class="<%= class_if("active", @filter.blank?) %>">
+      <%= link_to t(".all"), admin_citizens_charters_charter_editions_intervals_path(@charter) %> (<%= @filter_counts.values.sum %>)
+    </li>
+    <% @filter_counts.each do |period_interval, count| %>
+      <% if count > 0 %>
+        <li class="<%= class_if("active", period_interval == @filter) %>">
+          <%= link_to t(".#{ period_interval }"), admin_citizens_charters_charter_editions_intervals_path(@charter, period_interval: period_interval) %> (<%= count %>)
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+  <%# <%= render "sub_filter", locals: { selected: @period_interval_filter } %1> %>
+
+  <div class="pure-u-1 pure-u-md-2-5">
+    <div class="admin_tools right">
+      <%= link_to t(".new"), new_admin_citizens_charters_charter_editions_interval_path(@charter), class: "button" %>
+    </div>
+  </div>
+</div>
+
+
+<table class="editions-intervals-list">
+  <thead>
+    <tr>
+      <th></th>
+      <th><%= t(".header.interval") %></th>
+      <th><%= t(".header.period") %></th>
+      <th><%= t(".header.editions") %></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: "edition_interval", collection: @editions_intervals %>
+  </tbody>
+</table>
+
+<%# <% unless @archived_charters.empty? %1> %>
+<%#   <div class="m_v_1 right"> %>
+<%#     <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { togglearchived: true} %1> %>
+<%#   </div> %>
+
+<%#   <div id="archived-list" style="display:none"> %>
+<%#     <table> %>
+<%#       <thead> %>
+<%#         <tr> %>
+<%#           <th></th> %>
+<%#           <th><%= t(".header.title") %1></th> %>
+<%#           <th><%= t(".header.service") %1></th> %>
+<%#           <th><%= t(".header.created") %1></th> %>
+<%#           <th><%= t(".header.updated") %1></th> %>
+<%#           <th><%= t(".header.status") %1></th> %>
+<%#           <th></th> %>
+<%#           <th></th> %>
+<%#         </tr> %>
+<%#       </thead> %>
+
+<%#       <tbody> %>
+<%#         <%= render partial: "charter", collection: @archived_charters %1> %>
+<%#       </tbody> %>
+<%#     </table> %>
+<%#   </div> %>
+<%# <% end %1> %>
+
+<%= javascript_tag do %>
+  $('a[data-togglearchived]').on('click', function(e){
+     $("div#archived-list").toggle();
+  });
+<% end %>
+

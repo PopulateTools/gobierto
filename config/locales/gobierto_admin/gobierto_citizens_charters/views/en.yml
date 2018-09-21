@@ -5,6 +5,51 @@ en:
       charters:
         charter:
           view_charter: View charter
+        commitments:
+          commitment:
+            view_commitment: View commitment
+          form:
+            placeholders:
+              description: 95% of incoming calls will be answered in less than 1 minute
+              slug: teleasistance-sla
+              title: Call center service level agreement
+          index:
+            header:
+              description: Description
+              editions: Númber of measurements
+              status: Estaus
+              title: Title
+            new: New commitment
+          new:
+            title: New commitment
+        editions:
+          index:
+            commitments_link: Go to commitments
+            empty_commitments: No commitments created yet.
+            month_interval: Monthly
+            month_period: "%{month} / %{year}"
+            quarter_interval: Quarterly
+            quarter_period: "%{quarter} / %{year}"
+            week_interval: Weekly
+            week_period: "%{week} / %{year}"
+            year_interval: Yearly
+            year_period: "%{year}"
+        editions_intervals:
+          edition_interval:
+            month_interval: Monthly
+            quarter_interval: Quarterly
+            view_charter: View charter
+            week_interval: Weekly
+            year_interval: Yearly
+          index:
+            all: All
+            header:
+              editions: Measurement
+              interval: Periodicity
+              period: Edition
+            new: New edition
+          new:
+            title: New Edition
         form:
           placeholders:
             slug: teleassistance-charter
@@ -28,6 +73,13 @@ en:
             title: Configuration
             update: Update
           title: Preferences
+      editions:
+        index:
+          header:
+            max_value: Max Value
+            percentage: Percentage
+            title: Title
+            value: Value
       services:
         form:
           placeholders:
@@ -54,4 +106,6 @@ en:
           title: Edit %{item}
         navigation:
           charters: Services charters
+          commitments: Commitments
+          editions_intervals: Editions
           services: Services

@@ -4,7 +4,7 @@
       <%= link_to t(".services"), admin_citizens_charters_services_path %>
     </li>
     <% if charters_enabled? %>
-      <li class="<%= class_if("active", controller_name == "charters") %>">
+      <li class="<%= class_if("active", ["charters", "editions_intervals", "commitments", "editions"].include?(controller_name)) %>">
         <%= link_to t(".charters"), admin_citizens_charters_charters_path %>
       </li>
     <% end %>

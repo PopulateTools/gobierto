@@ -49,7 +49,7 @@
             <%= f.text_field :starts_at, data: {
                 'language': I18n.locale,
                 'date-format': 'yyyy-mm-dd',
-                'startDate': format_time(f, :starts_at)
+                'startDate': microseconds_since_epoch(f, :starts_at)
               },
               class: 'air-datepicker',
               readonly: !Rails.env.test?
@@ -63,7 +63,7 @@
             <%= f.text_field :ends_at, data: {
                 'language': I18n.locale,
                 'date-format': 'yyyy-mm-dd',
-                'startDate': format_time(f, :ends_at, 2)
+                'startDate': microseconds_since_epoch(f, :ends_at)
               },
               class: 'air-datepicker',
               readonly: !Rails.env.test?

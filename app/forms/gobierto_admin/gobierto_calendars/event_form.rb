@@ -4,8 +4,6 @@ module GobiertoAdmin
   module GobiertoCalendars
     class EventForm < ::GobiertoCalendars::EventForm
 
-      SECONDS_TO_MILISECONDS_FACTOR = 1000
-
       attr_accessor(
         :admin_id,
         :collection_id,
@@ -66,32 +64,12 @@ module GobiertoAdmin
         end
       end
 
-      def starts_at_in_ms_since_epoch
-        @starts_at ||= 1.hour.from_now.beginning_of_hour + 1.day
-        @starts_at.to_i * SECONDS_TO_MILISECONDS_FACTOR
-      end
-
-      def ends_at_in_ms_since_epoch
-        @ends_at ||= 1.hour.from_now.beginning_of_hour + 1.day + 1.hour
-        @ends_at.to_i * SECONDS_TO_MILISECONDS_FACTOR
-      end
-
       def starts_at
-        @starts_at ||= (1.hour.from_now.beginning_of_hour + 1.day).localtime
-
-        if @starts_at.respond_to?(:strftime)
-          return @starts_at.strftime("%Y-%m-%d %H:%M")
-        end
-
-        @starts_at
+        @starts_at ||= 1.hour.from_now.beginning_of_hour + 1.day
       end
 
       def ends_at
-        if @ends_at.respond_to?(:strftime)
-          return @ends_at.strftime("%Y-%m-%d %H:%M")
-        end
-
-        @ends_at
+        @ends_at ||= starts_at + 1.hour
       end
 
       def state

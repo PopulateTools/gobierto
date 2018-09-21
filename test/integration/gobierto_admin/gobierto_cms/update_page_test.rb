@@ -53,7 +53,7 @@ module GobiertoAdmin
               assert has_message?("Page updated successfully")
 
               assert has_field?("page_slug", with: "themes-updated")
-              assert has_field?("page_published_on", with: "2017-01-01 00:00")
+              assert has_field?("page_published_on", with: "2017-01-01 00:00:00 +0100")
 
               assert_equal(
                 "These are the themes",

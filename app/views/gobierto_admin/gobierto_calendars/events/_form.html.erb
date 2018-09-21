@@ -40,7 +40,7 @@
                 "autoClose": false,
                 "date-format": "yyyy-mm-dd",
                 "time-format": "hh:ii",
-                "startDate": format_time(f, :starts_at),
+                "startDate": f.object.starts_at_in_ms_since_epoch,
                 "bind": true
               },
               class: "air-datepicker"
@@ -57,7 +57,7 @@
                 "autoClose": false,
                 "date-format": "yyyy-mm-dd",
                 "time-format": "hh:ii",
-                "startDate": format_time(f, :ends_at, 2)
+                "startDate": f.object.ends_at_in_ms_since_epoch
               },
               class: "air-datepicker"
             %>

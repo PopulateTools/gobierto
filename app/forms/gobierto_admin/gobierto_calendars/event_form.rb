@@ -4,6 +4,8 @@ module GobiertoAdmin
   module GobiertoCalendars
     class EventForm < ::GobiertoCalendars::EventForm
 
+      SECONDS_TO_MILISECONDS_FACTOR = 1000
+
       attr_accessor(
         :admin_id,
         :collection_id,
@@ -62,6 +64,16 @@ module GobiertoAdmin
 
           @attendees.push(attendee) if attendee.valid?
         end
+      end
+
+      def starts_at_in_ms_since_epoch
+        @starts_at ||= 1.hour.from_now.beginning_of_hour + 1.day
+        @starts_at.to_i * SECONDS_TO_MILISECONDS_FACTOR
+      end
+
+      def ends_at_in_ms_since_epoch
+        @ends_at ||= 1.hour.from_now.beginning_of_hour + 1.day + 1.hour
+        @ends_at.to_i * SECONDS_TO_MILISECONDS_FACTOR
       end
 
       def starts_at

@@ -42,6 +42,7 @@ en:
         percentage: "% over the total"
         percentage_tooltip: Percentage of the total budget this budget line implies
         planned: planned
+        planned_female: planned
         planned_per_inhabitant: plan. / inh.
         planned_per_inhabitant_tooltip: Budgeted amount divided by the inhabitants
         planned_per_inhabitant_updated: plan. upd. / inh.
@@ -56,6 +57,7 @@ en:
         twitter_text_income: 'In @gobierto: Municipal income on %{name} in %{budget_line_name}
           for year %{year}'
         updated: updated
+        updated_female: updated
         vs_previous_year: vs. previous year
         vs_previous_year_tooltip: Comparision with the data of the previous year
     budgets:

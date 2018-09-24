@@ -30,7 +30,9 @@
         <% @filter_counts.each do |period_interval, count| %>
           <% if count > 0 %>
             <li class="<%= class_if("active", period_interval == @filter) %>">
-              <%= link_to t(".#{ period_interval }"), admin_citizens_charters_charter_editions_intervals_path(@charter, period_interval: period_interval) %> (<%= count %>)
+              <%= link_to t("gobierto_admin.gobierto_citizens_charters.charters.editions.index.#{ period_interval }_interval"),
+                admin_citizens_charters_charter_editions_intervals_path(@charter, period_interval: period_interval) %>
+              (<%= count %>)
             </li>
           <% end %>
         <% end %>

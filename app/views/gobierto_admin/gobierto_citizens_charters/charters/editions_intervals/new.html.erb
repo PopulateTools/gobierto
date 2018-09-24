@@ -13,10 +13,16 @@
           <%= f.label :period_interval do %>
             <%= f.object.class.human_attribute_name(:period_interval) %>
             <%= attribute_indication_tag required: true %>
-          <%end %>
-          <%= f.select :period_interval,
-            options_for_select(@editions_interval_form.available_intervals),
-            include_blank: true %>
+          <% end %>
+          <%= f.select(
+              :period_interval,
+              options_for_select(
+                @editions_interval_form.available_intervals.map do |interval|
+                  t("gobierto_admin.gobierto_citizens_charters.charters.editions_intervals.edition_interval.#{ interval }_interval")
+                end.zip(@editions_interval_form.available_intervals)
+              ),
+              include_blank: true
+            ) %>
       </div>
 
       <% ["day", "month", "nothing"].each do |interval| %>

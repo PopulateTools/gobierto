@@ -49,7 +49,7 @@ module GobiertoAdmin
                   select "People and families", from: "category-0-new"
                   select "Provide social assistance to individuals and families who need it for lack of resources", from: "category-1-new"
                   select "Scholarships for families in the Central District", from: "category-2-new"
-                  find(".fa-plus-circle").click
+                  find(".fa-check").click
                 end
               end
 
@@ -77,7 +77,7 @@ module GobiertoAdmin
                   cells[4].all("input").each do |input_element|
                     input_element.set("Test Plan Node")
                   end
-                  find(".fa-plus-circle").click
+                  find(".fa-check").click
                 end
               end
 

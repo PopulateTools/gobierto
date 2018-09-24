@@ -220,7 +220,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
       'edit': 'edit',
       'delete': 'trash',
       'mode insert-mode': 'plus-circle',
-      'insert': 'plus-circle',
+      'insert': 'check',
       'update': 'check',
       'cancel-edit': 'times',
     }

@@ -48,7 +48,6 @@ en:
               to insert measurements.
             header:
               editions: Measurement
-              interval: Periodicity
               period: Edition
             new: New measurement
           new:

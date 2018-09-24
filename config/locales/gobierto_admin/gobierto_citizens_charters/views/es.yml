@@ -48,7 +48,6 @@ es:
               mediciones.
             header:
               editions: Mediciones
-              interval: Periodicidad
               period: Edición
             new: Nueva medición
           new:

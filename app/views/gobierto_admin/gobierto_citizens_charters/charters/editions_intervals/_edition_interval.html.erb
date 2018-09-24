@@ -5,13 +5,15 @@
     <% end %>
   </td>
   <td>
-    <%= t(".#{edition_interval.period_interval}_interval") %>
+    <%= link_to admin_citizens_charters_charter_editions_path(@charter, period_interval: edition_interval.period_interval, period: edition_interval.period) do %>
+      <%= t("gobierto_admin.gobierto_citizens_charters.charters.editions.index..#{edition_interval.period_interval}_period", edition_interval.period_values) %>
+    <% end %>
+    (<%= t(".#{edition_interval.period_interval}_interval") %>)
   </td>
   <td>
-    <%= t("gobierto_admin.gobierto_citizens_charters.charters.editions.index..#{edition_interval.period_interval}_period", edition_interval.period_values) %>
-  </td>
-  <td>
-    <%= edition_interval.count %>
+    <%= link_to admin_citizens_charters_charter_editions_path(@charter, period_interval: edition_interval.period_interval, period: edition_interval.period) do %>
+      <%= edition_interval.count %>
+    <% end %>
   </td>
   <td>
     <%= link_to preview_url(@charter, host: current_site.domain), target: "_blank", class: "view_item" do %>

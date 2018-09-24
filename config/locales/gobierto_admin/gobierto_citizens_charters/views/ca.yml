@@ -48,7 +48,6 @@ ca:
               mesuraments.
             header:
               editions: Mesuraments
-              interval: Periodicitat
               period: Edició
             new: Nova mesurament
           new:

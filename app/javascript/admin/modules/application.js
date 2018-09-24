@@ -1,4 +1,10 @@
-import { AUTOCOMPLETE_DEFAULTS, SimpleMDE, Turbolinks } from 'shared'
+import { AUTOCOMPLETE_DEFAULTS } from 'shared'
+import SimpleMDE from 'simplemde'
+import Turbolinks from 'turbolinks'
+import 'devbridge-autocomplete'
+import 'sticky-kit/dist/sticky-kit.js'
+import 'air-datepicker'
+import 'magnific-popup'
 
 $(document).on('turbolinks:load', function() {
   $(".stick_in_parent").stick_in_parent();

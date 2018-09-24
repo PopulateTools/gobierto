@@ -1,4 +1,8 @@
-import { Class, d3, d3locale, accounting } from 'shared'
+import * as __d3 from 'd3'
+import { wordwrap } from 'd3-jetpack'
+import { Class, d3locale, accounting } from 'shared'
+
+const d3 = { ...__d3, wordwrap }
 
 export var VisBubbles = Class.extend({
   init: function(divId, budgetCategory, data) {

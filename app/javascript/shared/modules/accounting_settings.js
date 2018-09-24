@@ -1,4 +1,4 @@
-export const settings = {
+export const SETTINGS = {
   currency: {
     symbol: "€",    // default currency symbol is '$'
     format: "%v %s", // controls output: %s = symbol, %v = value/number (can be object: see below)

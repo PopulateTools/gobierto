@@ -1,4 +1,5 @@
-import { Class, d3, d3locale, accounting } from 'shared'
+import * as d3 from 'd3'
+import { Class, d3locale, accounting } from 'shared'
 
 export var BarsCard = Class.extend({
   init: function(divClass, json, data, cardName) {

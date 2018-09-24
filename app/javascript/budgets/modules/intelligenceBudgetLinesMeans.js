@@ -1,4 +1,6 @@
-import { flight, accounting, d3 } from 'shared'
+import * as d3 from 'd3'
+import * as flight from 'flightjs'
+import { accounting } from 'shared'
 
 var intelligenceBudgetLinesMeans = flight.component(function(){
   this.attributes({
@@ -111,7 +113,7 @@ var intelligenceBudgetLinesMeans = flight.component(function(){
   }
 
   this.formatMoney = function(n){
-    var d3Locale = d3.locale({
+    var d3Locale = d3.timeFormatDefaultLocale({
       "decimal": ",",
       "thousands": ".",
       "grouping": [3],

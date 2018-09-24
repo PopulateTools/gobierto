@@ -1,3 +1,5 @@
+import 'webpack-jquery-ui/sortable'
+
 window.GobiertoAdmin.TermsController = (function() {
   function TermsController() {}
 

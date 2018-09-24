@@ -1,5 +1,6 @@
-import { Class, d3 } from 'shared'
+import * as d3 from 'd3'
 import { TableCard } from './vis_card_table.js'
+import { Class } from 'shared'
 
 export var IbiCard = Class.extend({
   init: function(divClass, city_id) {

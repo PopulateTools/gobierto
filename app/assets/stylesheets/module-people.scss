@@ -329,7 +329,7 @@ body.gobierto_people {
   position: relative;
   color: $color_main;
 
-  @include transition;
+  transition: all 0.15s ease-out 0s;
 
   .hidden_options {
     display: none;

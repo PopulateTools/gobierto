@@ -1,4 +1,4 @@
-import { flight } from 'shared'
+import * as flight from 'flightjs'
 import { VisLineasJ } from './vis_lineas_tabla.js'
 
 var visLine = flight.component(function(){

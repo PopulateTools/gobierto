@@ -72,14 +72,18 @@ module GobiertoAdmin
         end
 
         def period_date
-          case interval_params[:period_interval]
-          when "year"
-            period_params[:period_discarded_month]
-          when "month", "quarter"
-            period_params[:period_discarded_day]
-          else
-            period_params[:period_discarded_nothing]
-          end.values_at(*date_attributes).join("-")
+          values = case interval_params[:period_interval]
+                   when "year"
+                     period_params[:period_discarded_month]
+                   when "month", "quarter"
+                     period_params[:period_discarded_day]
+                   else
+                     period_params[:period_discarded_nothing]
+                   end.values_at(*date_attributes).reject(&:blank?)
+
+          return nil if values.count != date_attributes.count
+
+          values.join("-")
         end
 
         def interval_params

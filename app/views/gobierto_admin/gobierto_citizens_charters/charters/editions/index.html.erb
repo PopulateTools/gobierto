@@ -27,7 +27,8 @@
         item_path: "<%= admin_citizens_charters_api_charter_edition_path(@charter, "") %>",
         locales: <%== current_site.configuration.available_locales.to_json %>,
         period_intervals: <%== ::GobiertoCitizensCharters::Edition.period_intervals.keys.to_json %>,
-        commitments_list: <%== @commitments_list.to_json %>
+        commitments_list: <%== @commitments_list.to_json %>,
+        insert: <%= params[:new] == "true" %>
       });
     <% end %>
   <% end %>

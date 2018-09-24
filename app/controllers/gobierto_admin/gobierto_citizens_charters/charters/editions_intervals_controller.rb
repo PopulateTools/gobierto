@@ -35,7 +35,8 @@ module GobiertoAdmin
               admin_citizens_charters_charter_editions_path(
                 @charter,
                 period_interval: @editions_interval_form.period_interval,
-                period: @editions_interval_form.period
+                period: @editions_interval_form.period,
+                new: true
               )
             )
           else

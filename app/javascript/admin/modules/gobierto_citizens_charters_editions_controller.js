@@ -240,6 +240,10 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
         }
       ]
     });
+
+    if (options.insert) {
+      $("#jsGrid").find(".fa-plus-circle").click();
+    }
   };
 
   return GobiertoCitizensChartersEditionsController;

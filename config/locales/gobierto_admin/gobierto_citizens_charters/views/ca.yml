@@ -47,9 +47,10 @@ ca:
               editions: Mesuraments
               interval: Periodicitat
               period: Edició
-            new: Nova edició
+            new: Nova mesurament
           new:
-            title: Nova Edició
+            next: Següent
+            title: Nova Mesurament
         form:
           placeholders:
             slug: carta-teleassistencia

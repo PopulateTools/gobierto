@@ -25,10 +25,11 @@ module GobiertoAdmin
             period_interval: params[:period_interval],
             period: params[:period]
           )
+          render(:new, layout: false) && return if request.xhr?
         end
 
         def create
-          @editions_interval_form = EditionsIntervalForm.new(editions_interval_params)
+          @editions_interval_form = EditionsIntervalForm.new(interval_params.merge(period: period_date))
           if @editions_interval_form.save
             redirect_to(
               admin_citizens_charters_charter_editions_path(
@@ -38,6 +39,7 @@ module GobiertoAdmin
               )
             )
           else
+            render(:new, layout: false) && return if request.xhr?
             render :new
           end
         end
@@ -64,8 +66,29 @@ module GobiertoAdmin
           end
         end
 
-        def editions_interval_params
-          params.require(:editions_interval).permit(:period_interval, :period)
+        def date_attributes
+          @date_attributes ||= [:year, :month, :day]
+        end
+
+        def period_date
+          case interval_params[:period_interval]
+          when "year"
+            period_params[:period_discarded_month]
+          when "month", "quarter"
+            period_params[:period_discarded_day]
+          else
+            period_params[:period_discarded_nothing]
+          end.values_at(*date_attributes).join("-")
+        end
+
+        def interval_params
+          params.require(:editions_interval).permit(:period_interval)
+        end
+
+        def period_params
+          params.require(:editions_interval).permit(period_discarded_nothing: date_attributes,
+                                                    period_discarded_day: date_attributes,
+                                                    period_discarded_month: date_attributes)
         end
       end
     end

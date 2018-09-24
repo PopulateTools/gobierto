@@ -47,9 +47,10 @@ en:
               editions: Measurement
               interval: Periodicity
               period: Edition
-            new: New edition
+            new: New measurement
           new:
-            title: New Edition
+            next: Next
+            title: New Measurement
         form:
           placeholders:
             slug: teleassistance-charter

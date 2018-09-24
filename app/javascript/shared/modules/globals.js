@@ -30,6 +30,9 @@ $(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {
         if (window.GobiertoAdmin.globalized_forms_component) {
           window.GobiertoAdmin.globalized_forms_component.handleGlobalizedForm();
         }
+        if (window.GobiertoAdmin.gobierto_citizens_charters_editions_intervals_controller) {
+          window.GobiertoAdmin.gobierto_citizens_charters_editions_intervals_controller.handleForm();
+        }
       }
     }
   });

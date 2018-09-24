@@ -47,9 +47,10 @@ es:
               editions: Mediciones
               interval: Periodicidad
               period: Edición
-            new: Nueva edición
+            new: Nueva medición
           new:
-            title: Nueva Edición
+            next: Siguiente
+            title: Nueva Medición
         form:
           placeholders:
             slug: carta-teleasistencia

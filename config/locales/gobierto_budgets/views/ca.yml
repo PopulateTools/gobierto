@@ -41,6 +41,7 @@ ca:
         not_available: No disp.
         percentage: "% sobre el total del press."
         percentage_tooltip: Percentage del pressupost total que suposa aquesta partida
+        planned: pressupostat
         planned_per_inhabitant: pres. / hab.
         planned_per_inhabitant_tooltip: Quantitat pressupostada dividida pel nombre
           d'habitants

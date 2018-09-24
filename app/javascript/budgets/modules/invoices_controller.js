@@ -1,6 +1,10 @@
-import { d3, dc, d3locale, crossfilter, moment } from 'shared'
+import * as d3 from 'd3'
+import * as dc from 'dc'
+import crossfilter from 'crossfilter2'
+import moment from 'moment'
+import { d3locale } from 'shared'
+import 'jsgrid'
 
-// THIS CONTROLLER LOADS D3.V3 TO ALLOW DC RUN
 window.GobiertoBudgets.InvoicesController = (function() {
 
   function InvoicesController() {}

@@ -1,4 +1,4 @@
-import { flight } from 'shared'
+import * as flight from 'flightjs'
 
 export var featuredBudgetLineLoadMore = flight.component(function(){
   this.after('initialize', function() {

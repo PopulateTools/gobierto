@@ -112,7 +112,7 @@ table.explore_slow {
   }
 
   tr:hover {
-    @include transition;
+    transition: all 0.15s ease-out 0s;
 
     td:not(.level_1) {
       background: rgba($color_main, 0.1) !important;
@@ -166,7 +166,7 @@ table.med_bg {
   }
 
   tr:hover {
-    @include transition;
+    transition: all 0.15s ease-out 0s;
 
     td,
     th {

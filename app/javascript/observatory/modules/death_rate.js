@@ -1,6 +1,7 @@
-import { Class, d3 } from 'shared'
+import * as d3 from 'd3'
 import { Sparkline } from './vis_sparkline.js'
 import { SparklineTableCard } from './vis_card_sparkline_table.js'
+import { Class } from 'shared'
 
 export var DeathRateCard = Class.extend({
   init: function(divClass, city_id) {

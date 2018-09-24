@@ -1,3 +1,5 @@
+import 'sticky-kit/dist/sticky-kit.js'
+
 import { GetUnemploymentAgeData } from './get_unemployment_age_data.js'
 import { VisUnemploymentSex } from './vis_unemployment_sex.js'
 import { VisUnemploymentAge } from './vis_unemployment_age.js'

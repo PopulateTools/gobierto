@@ -1,3 +1,5 @@
+import 'mailcheck'
+
 window.User.RegistrationController = (function() {
   function RegistrationController() {}
 

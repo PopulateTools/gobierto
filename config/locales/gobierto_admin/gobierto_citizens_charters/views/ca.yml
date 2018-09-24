@@ -43,6 +43,9 @@ ca:
             year_interval: Anual
           index:
             all: Totes
+            cta_commitments_link: Crea el teu primer compromís
+            cta_commitments_message: Encara no hi ha compromisos creats per inserir
+              mesuraments.
             header:
               editions: Mesuraments
               interval: Periodicitat

@@ -43,6 +43,9 @@ en:
             year_interval: Yearly
           index:
             all: All
+            cta_commitments_link: Create your first commitment
+            cta_commitments_message: No commitments created yet. Commitments are required
+              to insert measurements.
             header:
               editions: Measurement
               interval: Periodicity

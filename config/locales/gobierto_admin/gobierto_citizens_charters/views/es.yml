@@ -43,6 +43,9 @@ es:
             year_interval: Anual
           index:
             all: Todas
+            cta_commitments_link: Crea tu primer compromiso
+            cta_commitments_message: Todavía no hay compromisos creados para insertar
+              mediciones.
             header:
               editions: Mediciones
               interval: Periodicidad

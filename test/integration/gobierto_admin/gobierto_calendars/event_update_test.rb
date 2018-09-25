@@ -109,11 +109,8 @@ module GobiertoAdmin
               within "form.edit_event" do
                 assert has_field?("event_title_translations_en", with: "Event Title")
 
-                starts_at_field = page.find("#event_starts_at")["outerHTML"].gsub(/^.*value=\"/, "").gsub(/\" name.*/, "")
-                ends_at_field = page.find("#event_ends_at")["outerHTML"].gsub(/^.*value=\"/, "").gsub(/\" name.*/, "")
-
-                assert_equal "2017-01-01 00:00:00 +0100", starts_at_field
-                assert_equal "2017-01-01 00:01:00 +0100", ends_at_field
+                assert_equal "2017-01-01 00:00:00 +0100", air_datepicker_field_value(:event_starts_at)
+                assert_equal "2017-01-01 00:01:00 +0100", air_datepicker_field_value(:event_ends_at)
 
                 assert_equal(
                   "Event Description",

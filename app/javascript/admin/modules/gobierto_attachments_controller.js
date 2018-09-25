@@ -1,4 +1,5 @@
 import Vue from 'vue'
+Vue.config.productionTip = false
 
 window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
   function GobiertoAttachmentsController() {}

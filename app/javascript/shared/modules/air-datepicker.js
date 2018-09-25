@@ -1,3 +1,5 @@
+import 'air-datepicker'
+
 $.fn.datepicker.language['en'] = {
     days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],

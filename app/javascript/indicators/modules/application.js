@@ -1,3 +1,5 @@
+import 'velocity-animate'
+
 $(document).on('turbolinks:load', function() {
   $('.bread_hover').hover(function() {
     $('.bread_links a').attr('aria-expanded', true);

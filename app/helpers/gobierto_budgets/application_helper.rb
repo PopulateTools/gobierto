@@ -95,6 +95,22 @@ module GobiertoBudgets
       end
     end
 
+    def planned(kind)
+      if kind == GobiertoBudgets::BudgetLine::INCOME
+        I18n.t('gobierto_budgets.budget_lines.show.planned')
+      else
+        I18n.locale == :ca ? I18n.t('gobierto_budgets.budget_lines.show.planned_female') : I18n.t('gobierto_budgets.budget_lines.show.planned')
+      end
+    end
+
+    def planned_updated(kind)
+      if kind == GobiertoBudgets::BudgetLine::INCOME
+        I18n.t('gobierto_budgets.budget_lines.show.updated')
+      else
+        I18n.locale == :ca ? I18n.t('gobierto_budgets.budget_lines.show.updated_female') : I18n.t('gobierto_budgets.budget_lines.show.updated')
+      end
+    end
+
     def data_attributes
       attrs = []
       if @place

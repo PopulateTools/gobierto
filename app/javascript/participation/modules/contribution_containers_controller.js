@@ -1,4 +1,4 @@
-import { d3 } from 'shared'
+import * as d3 from 'd3'
 
 window.GobiertoParticipation.ContributionContainersController = (function() {
   function ContributionContainersController() {}

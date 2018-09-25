@@ -60,6 +60,7 @@ module GobiertoIndicators
       with_javascript do
         with_current_site(site) do
           visit gci_path
+
           assert has_content? "The GCI indicators (Global City Indicators), which
                                reflect The quality of life of the city is defined
                                by the World Bank, association with the purpose of

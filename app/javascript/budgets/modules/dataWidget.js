@@ -1,4 +1,5 @@
-import { Mustache, flight } from 'shared'
+import * as flight from 'flightjs'
+import Mustache from 'mustache'
 
 export var dataWidget = flight.component(function(){
   this.after('initialize', function() {

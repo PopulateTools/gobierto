@@ -163,7 +163,7 @@ textarea:focus {
 input[type=submit],
 .button,
 button {
-  @include transition;
+  transition: all 0.15s ease-out 0s;
 
   border: 0;
   height: initial;
@@ -252,7 +252,7 @@ button.light:hover,
 .button_light {
   background: rgba($color_1, 0.2);
 
-  @include transition;
+  transition: all 0.15s ease-out 0s;
 
   font-size: 0.75em;
   text-decoration: none;
@@ -294,7 +294,7 @@ input[type="radio"] + label {
   display: block;
   padding: 14px;
 
-  @include transition;
+  transition: all 0.15s ease-out 0s;
 }
 
 .inline_filter {

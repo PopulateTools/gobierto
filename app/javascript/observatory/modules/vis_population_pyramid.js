@@ -1,4 +1,5 @@
-import { Class, d3, URLParams } from "shared"
+import * as d3 from 'd3'
+import { Class, URLParams } from 'shared'
 
 export var VisPopulationPyramid = Class.extend({
   init: function(divId, city_id, current_year, filter) {

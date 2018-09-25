@@ -1,4 +1,5 @@
-import { Vue } from 'shared'
+import Vue from 'vue'
+import 'babel-polyfill'
 
 window.GobiertoIndicators.IndicatorsController = (function() {
 

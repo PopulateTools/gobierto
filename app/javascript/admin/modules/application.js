@@ -159,6 +159,14 @@ function initializePageWithOnlyOneDatepicker() {
       $(instance.el).trigger("datepicker-change");
     }
   });
+
+  // If a default value was set, force datepicker parse it so the TZ offset is
+  // not shown to the user
+  $('.air-datepicker').each(function() {
+    if (this.value) {
+      setDateOnBindedDatepicker(new Date(this.value), $(this));
+    }
+  });
 }
 
 function setDateOnBindedDatepicker(date, datepicker) {

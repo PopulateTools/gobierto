@@ -53,6 +53,10 @@ module GobiertoAdmin
         @visibility_level ||= "draft"
       end
 
+      def published_on
+        @published_on ||= Time.zone.now
+      end
+
       private
 
       def build_page

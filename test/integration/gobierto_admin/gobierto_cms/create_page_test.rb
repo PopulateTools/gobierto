@@ -22,6 +22,10 @@ module GobiertoAdmin
         @collection ||= gobierto_common_collections(:news)
       end
 
+      def stubbed_current_time
+        Time.zone.parse("2018-01-01 12:30:59 +0100")
+      end
+
       def test_create_page_errors
         with_javascript do
           with_signed_in_admin(admin) do
@@ -45,6 +49,9 @@ module GobiertoAdmin
       end
 
       def test_create_page
+        chosen_publication_date = "2017-01-01 00:00"
+        Timecop.freeze(stubbed_current_time)
+
         with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
@@ -59,10 +66,13 @@ module GobiertoAdmin
               click_link "New"
               assert has_selector?("h1", text: "Sport city")
 
+              # ensure default date is set
+              assert_equal stubbed_current_time.to_s, air_datepicker_field_value(:page_published_on)
+
               fill_in "page_title_translations_en", with: "My page"
               find("#page_body_translations_en", visible: false).set("The content of the page")
               fill_in "page_slug", with: "new-page"
-              fill_in "page_published_on", with: "2017-01-01 00:00"
+              fill_in "page_published_on", with: chosen_publication_date
 
               click_link "ES"
               fill_in "page_title_translations_es", with: "Mi página"
@@ -72,7 +82,7 @@ module GobiertoAdmin
 
               assert has_message?("Page created successfully")
               assert has_field?("page_slug", with: "new-page")
-              assert has_field?("page_published_on", with: "2017-01-01 00:00:00 +0100")
+              assert_equal "#{chosen_publication_date}:00 +0100", air_datepicker_field_value(:page_published_on)
 
               assert_equal(
                 "The content of the page",
@@ -88,7 +98,9 @@ module GobiertoAdmin
             end
           end
         end
+        Timecop.return
       end
+
     end
   end
 end

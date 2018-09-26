@@ -15,6 +15,8 @@ module GobiertoAdmin
           attr_value = Time.zone.parse(attr_value)
         end
 
+        return nil unless attr_value.respond_to?(:strftime)
+
         attr_value.strftime("%s").to_i * SECONDS_TO_MILISECONDS_FACTOR
       end
 

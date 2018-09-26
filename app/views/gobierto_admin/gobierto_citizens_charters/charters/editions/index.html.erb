@@ -4,7 +4,7 @@
 
 <div class="pure-g m_v_2">
   <div class="pure-u-3-4">
-    <strong><%= link_to @charter.title, admin_citizens_charters_charter_editions_intervals_path(@charter) %></strong> »
+    <strong><%= @charter.title %></strong> »
     <%= link_to t("gobierto_admin.gobierto_citizens_charters.shared.navigation.editions_intervals"), admin_citizens_charters_charter_editions_intervals_path(@charter) %> »
     <%= link_to t(".#{@period_interval}_interval"), admin_citizens_charters_charter_editions_intervals_path(@charter, period_interval: @period_interval) %> »
     <%= t(".#{@period_interval}_period", @reference_edition.period_values ) %>

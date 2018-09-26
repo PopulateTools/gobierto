@@ -95,6 +95,11 @@ module GobiertoAdmin
                                                     period_discarded_day: date_attributes,
                                                     period_discarded_month: date_attributes)
         end
+
+        def preview_url(charter, options = {})
+          options[:preview_token] = current_admin.preview_token unless charter.active?
+          gobierto_citizens_charters_service_charter_url(charter.service.slug, charter.slug, options)
+        end
       end
     end
   end

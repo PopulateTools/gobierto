@@ -16,7 +16,7 @@
     <% end %>
   </td>
   <td>
-    <%= link_to preview_url(@charter, host: current_site.domain), target: "_blank", class: "view_item" do %>
+    <%= link_to preview_url(@charter, host: current_site.domain, period_interval: edition_interval.period_interval, period: edition_interval.period_compact), target: "_blank", class: "view_item" do %>
       <i class="fa fa-eye"></i>
       <%= t(".view_charter") %>
     <% end %>

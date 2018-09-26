@@ -21,5 +21,9 @@ module GobiertoCitizensCharters
     def period_values
       GobiertoCitizensCharters::Edition.new(period_interval: period_interval, period: period).period_values
     end
+
+    def period_compact
+      GobiertoCitizensCharters::Edition.new(period_interval: period_interval, period: period).to_s
+    end
   end
 end

@@ -22,6 +22,10 @@ module GobiertoCitizensCharters
                     end
     end
 
+    def available_periods(period_interval)
+      object.editions.where(period_interval: period_interval).group(:period, :period_interval).select(:period, :period_interval).map(&:to_s).uniq
+    end
+
     def previous_period_progress
       @previous_period_progress ||= begin
                                       previous_reference = GobiertoCitizensCharters::Edition.new(

@@ -47,7 +47,7 @@ module GobiertoAdmin
 
       def period_uniqueness
         reference_edition = ::GobiertoCitizensCharters::Edition.new(period_interval: period_interval, period: period)
-        if commitment.editions.of_same_period(reference_edition).any?
+        if commitment.editions.of_same_period(reference_edition).where.not(id: id).any?
           errors.add(:period, I18n.t("errors.messages.taken"))
         end
       end

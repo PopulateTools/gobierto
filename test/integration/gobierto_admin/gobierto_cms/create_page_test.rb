@@ -22,6 +22,10 @@ module GobiertoAdmin
         @collection ||= gobierto_common_collections(:news)
       end
 
+      def chosen_publication_date
+        Time.zone.parse("2017-01-01 00:00")
+      end
+
       def stubbed_current_time
         Time.zone.parse("2018-01-01 12:30:59 +0100")
       end
@@ -49,7 +53,6 @@ module GobiertoAdmin
       end
 
       def test_create_page
-        chosen_publication_date = "2017-01-01 00:00"
         Timecop.freeze(stubbed_current_time)
 
         with_javascript do
@@ -82,7 +85,7 @@ module GobiertoAdmin
 
               assert has_message?("Page created successfully")
               assert has_field?("page_slug", with: "new-page")
-              assert_equal "#{chosen_publication_date}:00 +0100", air_datepicker_field_value(:page_published_on)
+              assert_equal chosen_publication_date.to_s, air_datepicker_field_value(:page_published_on)
 
               assert_equal(
                 "The content of the page",

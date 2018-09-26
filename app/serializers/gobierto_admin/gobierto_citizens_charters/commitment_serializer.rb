@@ -6,6 +6,7 @@ module GobiertoAdmin
       attributes(
         :id,
         :title_translations,
+        :title,
         :slug
       )
     end

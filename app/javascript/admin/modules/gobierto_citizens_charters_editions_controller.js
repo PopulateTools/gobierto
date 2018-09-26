@@ -192,12 +192,12 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
       fields: [
         {
           name: "commitment_id",
-          title: I18n.t("gobierto_admin.gobierto_citizens_charters.editions.index.header.title") + " - ID",
+          title: I18n.t("gobierto_admin.gobierto_citizens_charters.editions.index.header.title"),
           type: "select",
           autosearch: true,
           items: options.commitments_list,
           valueField: "id",
-          textField: "slug",
+          textField: "title",
           editing: false,
           inserting: true,
           width: "10%"

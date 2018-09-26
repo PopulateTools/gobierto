@@ -7,7 +7,7 @@
   <div>
     <ul>
       <li>
-        <%= link_to charter.title, gobierto_citizens_charters_service_charter_path(@service.slug, charter.slug, period: charter.reference_edition.period, period_interval: charter.reference_edition.to_s) %>
+        <%= link_to charter.title, gobierto_citizens_charters_service_charter_path(@service.slug, charter.slug, period: charter.reference_edition.to_s, period_interval: charter.reference_edition.period_interval) %>
       </li>
       <li>
         <%= t(".progress", progress: number_to_percentage(charter.progress, precision: 1)) %>

@@ -89,6 +89,8 @@ ignore_unused:
   - 'gobierto_admin.gobierto_citizens_charters.charters.editions.index.*_interval'
   - 'gobierto_admin.gobierto_citizens_charters.charters.editions.index.*_period'
   - 'gobierto_admin.gobierto_citizens_charters.charters.editions_intervals.edition_interval.*_interval'
+  - 'gobierto_citizens_charters.shared.*_interval'
+  - 'gobierto_citizens_charters.shared.evolution.*'
 
 translation:
   api_key: ''

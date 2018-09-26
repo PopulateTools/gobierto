@@ -1,0 +1,32 @@
+<h1><%= @charter.title %></h1>
+<% if @charter.progress.present? %>
+  <p><%= t(".global_progress", progress: number_to_percentage(@charter.progress, precision: 1)) %></p>
+<% end %>
+
+<% if @progress_evolution.present? %>
+  <p>
+    <%= t(
+      "gobierto_citizens_charters.shared.evolution.#{ @progress_evolution < 0 ? "negative" : "positive" }",
+      progress: number_to_percentage(@progress_evolution, precision: 1)
+    ) %>
+  </p>
+
+<% end %>
+<p><%= t(".period") %> <%= @charter.reference_edition %> (<%= t("gobierto_citizens_charters.shared.#{ @charter.reference_edition.period_interval }_interval") %>)</p>
+
+<p><%= t(".editions_details") %>:</p>
+<% @charter.editions.each do |edition| %>
+  <div>
+    <ul>
+      <li>
+        <strong><%= content_tag :div, edition.commitment.title %></strong>
+      </li>
+      <li>
+        <%= content_tag :div, edition.commitment.description %>
+      </li>
+      <li>
+        <%= content_tag :div, number_to_percentage(edition.proportion, precision: 1) %>
+      </li>
+    </ul>
+  </div>
+<% end %>

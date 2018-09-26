@@ -1,0 +1,4 @@
+<%= t(".services") %>
+<% @services.each do |service| %>
+  <%= link_to service.title, gobierto_citizens_charters_service_charters_path(service.slug) %>
+<% end %>

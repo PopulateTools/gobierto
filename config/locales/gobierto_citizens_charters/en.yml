@@ -1,0 +1,28 @@
+---
+en:
+  gobierto_citizens_charters:
+    charters:
+      index:
+        charters: Services Charters
+        commitments: "%{count} ommitments"
+        global_progress: Global compliance %{progress}
+        period: 'Data corresponding to:'
+        progress: Compliance %{progress}
+      show:
+        editions_details: Detail of the commitments
+        global_progress: We fulfill the commitments of this charter to %{progress}
+        period: 'Data corresponding to:'
+    layouts:
+      application:
+        citizens_charters: Services Charters
+    services:
+      index:
+        services: Services
+    shared:
+      evolution:
+        negative: We get worse %{progress} compared to the previous period
+        positive: We improved %{progress} compared to the previous period
+      month_interval: Monthly
+      quarter_interval: Quarterly
+      week_interval: Weekly
+      year_interval: Yearly

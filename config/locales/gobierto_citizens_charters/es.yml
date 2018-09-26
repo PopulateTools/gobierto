@@ -1,0 +1,28 @@
+---
+es:
+  gobierto_citizens_charters:
+    charters:
+      index:
+        charters: Cartas de Servicios
+        commitments: "%{count} compromisos"
+        global_progress: Cumplimiento global %{progress}
+        period: 'Datos correspondientes a:'
+        progress: Cumplimiento %{progress}
+      show:
+        editions_details: Detalle de los compromisos
+        global_progress: Cumplimos los compromisos de esta carta al %{progress}
+        period: 'Datos correspondientes a:'
+    layouts:
+      application:
+        citizens_charters: Cartas de Servicios
+    services:
+      index:
+        services: Servicios
+    shared:
+      evolution:
+        negative: Empeoramos un %{progress} respecto al anterior periodo
+        positive: Mejoramos un %{progress} respecto al anterior periodo
+      month_interval: Mensual
+      quarter_interval: Trimestral
+      week_interval: Semanal
+      year_interval: Anual

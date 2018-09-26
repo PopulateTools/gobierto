@@ -25,7 +25,13 @@ module GobiertoCitizensCharters
     def proportion
       return nil if percentage.blank? && [value, max_value].any?(&:blank?)
 
-      percentage || value / max_value
+      percentage || 100 * (value / max_value)
+    end
+
+    def self.progress
+      p_rel = where.not(percentage: nil)
+      p_val = where(percentage: nil).where.not(value: nil, max_value: nil)
+      (p_rel.sum(:percentage) + p_val.select("value/max_value as prop").map(&:prop).sum * 100) / (p_rel.count + p_val.count)
     end
 
     def period_values
@@ -42,6 +48,10 @@ module GobiertoCitizensCharters
 
     def period_end
       period.utc.send("at_end_of_#{period_interval}")
+    end
+
+    def previous_period_start
+      period_start.send("prev_#{period_interval}")
     end
 
     def to_s

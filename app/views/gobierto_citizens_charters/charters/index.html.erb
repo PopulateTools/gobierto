@@ -1,0 +1,20 @@
+<h1><%= t(".charters") %>: <% @service.title %></h1>
+
+<p><%= t(".global_progress", progress: number_to_percentage(@service.progress, precision: 1)) %></p>
+<p><%= t(".period") %> <%= @service.reference_edition %> (<%= t("gobierto_citizens_charters.shared.#{ @service.reference_edition.period_interval }_interval") %>)</p>
+
+<% @charters.each do |charter| %>
+  <div>
+    <ul>
+      <li>
+        <%= link_to charter.title, gobierto_citizens_charters_service_charter_path(@service.slug, charter.slug, period: charter.reference_edition.period, period_interval: charter.reference_edition.to_s) %>
+      </li>
+      <li>
+        <%= t(".progress", progress: number_to_percentage(charter.progress, precision: 1)) %>
+      </li>
+      <li>
+        <%= t(".commitments", count: charter.commitments.count) %>
+      </li>
+    </ul>
+  </div>
+<% end %>

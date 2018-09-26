@@ -459,6 +459,16 @@ Rails.application.routes.draw do
     end
   end
 
+  # Gobierto Citizens Charters module
+  namespace :gobierto_citizens_charters, path: "cartas-de-servicios" do
+    constraints GobiertoSiteConstraint.new do
+      root "services#index", as: :root
+      resources :services, only: [:index], param: :slug, path: "" do
+        resources :charters, only: [:index, :show], param: :slug, path: ""
+      end
+    end
+  end
+
   # Sidekiq Web UI
   mount Sidekiq::Web => "/sidekiq", as: :sidekiq_console
 end

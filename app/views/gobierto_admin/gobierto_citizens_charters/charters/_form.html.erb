@@ -25,7 +25,7 @@
           <%end %>
         <%= f.select :service_id,
           options_from_collection_for_select(@charter_form.available_services, :id, :title, f.object.service_id),
-          include_blank: true %>
+          include_blank: !@charter_form.persisted? %>
       </div>
 
       <% if @charter_form.persisted? %>

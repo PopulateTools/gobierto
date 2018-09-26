@@ -13,7 +13,7 @@ module GobiertoAdmin
       validates :title_translations, translated_attribute_presence: true
 
       def available_services
-        services_relation
+        services_relation.order(Arel.sql("title_translations->'#{I18n.locale}' ASC"))
       end
 
       def attributes_assignments

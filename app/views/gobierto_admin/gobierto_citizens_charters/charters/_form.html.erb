@@ -22,7 +22,7 @@
         <%= f.label :service_id do %>
             <%= f.object.class.human_attribute_name(:service_id) %>
             <%= attribute_indication_tag required: true %>
-          <%end %>
+          <% end %>
         <%= f.select :service_id,
           options_from_collection_for_select(@charter_form.available_services, :id, :title, f.object.service_id),
           include_blank: !@charter_form.persisted? %>

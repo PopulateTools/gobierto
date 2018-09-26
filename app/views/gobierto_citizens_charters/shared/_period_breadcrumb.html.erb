@@ -3,7 +3,14 @@
     <div class="bread_hover">
 
       <div class="bread_links">
-        <%= link_to selected_period, selected_period_path, id: selected_period, 'aria-haspopup' => 'true', 'aria-label' => t("select_period"), 'aria-owns' => 'popup-year', 'aria-controls' => 'popup-year', 'aria-expanded' => 'false' %>
+        <%= link_to selected_period,
+          selected_period_path,
+          id: selected_period,
+          "aria-haspopup" => "true",
+          "aria-label" => t(".select_period"),
+          "aria-owns" => "popup-year",
+          "aria-controls" => "popup-year",
+          "aria-expanded" => "false" %>
         <i class="fa fa-sort-down"></i>
       </div>
 

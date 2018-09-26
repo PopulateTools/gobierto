@@ -23,6 +23,8 @@ en:
         negative: We get worse %{progress} compared to the previous period
         positive: We improved %{progress} compared to the previous period
       month_interval: Monthly
+      period_breadcrumb:
+        select_period: Select a period
       quarter_interval: Quarterly
       week_interval: Weekly
       year_interval: Yearly

@@ -23,6 +23,8 @@ ca:
         negative: Empitjorem un %{progress} respectei a l'anterior període
         positive: Millorem un %{progress} respectei a l'anterior període
       month_interval: Mensual
+      period_breadcrumb:
+        select_period: Selecciona un període
       quarter_interval: Trimestral
       week_interval: Setmanal
       year_interval: Anual

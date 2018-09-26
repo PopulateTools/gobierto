@@ -23,6 +23,8 @@ es:
         negative: Empeoramos un %{progress} respecto al anterior periodo
         positive: Mejoramos un %{progress} respecto al anterior periodo
       month_interval: Mensual
+      period_breadcrumb:
+        select_period: Selecciona un periodo
       quarter_interval: Trimestral
       week_interval: Semanal
       year_interval: Anual

@@ -84,6 +84,11 @@ module GobiertoAdmin
       def ignored_service_attributes
         %w(archived_at created_at position updated_at site_id)
       end
+
+      def preview_url(service, options = {})
+        options[:preview_token] = current_admin.preview_token unless service.active?
+        gobierto_citizens_charters_service_charters_url(service.slug, options)
+      end
     end
   end
 end

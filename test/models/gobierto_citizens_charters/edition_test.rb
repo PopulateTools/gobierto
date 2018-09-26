@@ -43,7 +43,7 @@ module GobiertoCitizensCharters
 
     def test_proportion
       assert_equal 0.999, edition_with_percentage.proportion
-      assert_equal 1.11, edition_with_values.proportion
+      assert_equal 111, edition_with_values.proportion
       assert_nil edition.proportion
     end
   end

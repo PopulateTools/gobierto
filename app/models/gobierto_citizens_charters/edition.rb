@@ -57,5 +57,17 @@ module GobiertoCitizensCharters
     def to_s
       period_values.values.join("-")
     end
+
+    def period_front_params
+      return {} if [period_interval, period].any?(&:blank?)
+
+      { period_interval: period_interval, period: period_values.values.join("-") }
+    end
+
+    def period_admin_params
+      return {} if [period_interval, period].any?(&:blank?)
+
+      attributes.slice(:period_interval, :period)
+    end
   end
 end

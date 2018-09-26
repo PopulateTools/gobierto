@@ -18,7 +18,7 @@
 
             <% available_periods.each do |period| %>
               <tr role="presentation" >
-                <td data-code="<%= period %>"><%= link_to period, gobierto_citizens_charters_service_charter_path(@service.slug, @charter.slug, period: period, period_interval: @charter.reference_edition.period_interval) %></td>
+                <td data-code="<%= period %>"><%= link_to period, gobierto_citizens_charters_service_charter_period_path(@service.slug, @charter.slug, period: period, period_interval: @charter.reference_edition.period_interval) %></td>
               </tr>
             <% end %>
 

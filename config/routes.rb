@@ -465,6 +465,7 @@ Rails.application.routes.draw do
       root "services#index", as: :root
       resources :services, only: [:index], param: :slug, path: "" do
         resources :charters, only: [:index, :show], param: :slug, path: ""
+        get ":slug/:period_interval/:period" => "charters#show", as: :charter_period
       end
     end
   end

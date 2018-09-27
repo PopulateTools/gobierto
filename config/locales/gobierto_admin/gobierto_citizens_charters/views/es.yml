@@ -28,6 +28,7 @@ es:
             empty_commitments: No hay compromisos creados aún.
             month_interval: Mensuales
             month_period: "%{month} / %{year}"
+            new: Nueva medición
             quarter_interval: Trimestrales
             quarter_period: "%{quarter} / %{year}"
             week_interval: Semanales

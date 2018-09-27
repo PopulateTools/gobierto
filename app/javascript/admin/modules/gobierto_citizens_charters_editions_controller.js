@@ -130,6 +130,11 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
       });
   };
 
+  function _focusInsertMode() {
+    $("#jsGrid").find(".fa-plus-circle").click();
+    $('.jsgrid-insert-row input').first().focus();
+  }
+
   GobiertoCitizensChartersEditionsController.prototype.index = function(options) {
 
     $(document).on("click", "span[data-toggle]", function () {
@@ -242,8 +247,13 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
     });
 
     if (options.insert) {
-      $("#jsGrid").find(".fa-plus-circle").click();
+      _focusInsertMode()
     }
+
+    $(document).on("click", "a[data-insert]", function(e) {
+      e.preventDefault()
+      _focusInsertMode()
+    })
   };
 
   return GobiertoCitizensChartersEditionsController;

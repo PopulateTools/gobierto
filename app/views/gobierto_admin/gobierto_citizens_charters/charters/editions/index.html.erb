@@ -16,6 +16,9 @@
   </div>
 </div>
 
+  <div class="admin_tools right">
+    <%= link_to t(".new"), "#", class: "button", data: { insert: true } %>
+  </div>
 
 <% if @commitments_list.present? %>
   <div id="jsGrid"></div>

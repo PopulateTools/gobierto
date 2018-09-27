@@ -28,6 +28,7 @@ ca:
             empty_commitments: No hi ha compromisos creats encara.
             month_interval: Mensuals
             month_period: "%{month} / %{year}"
+            new: Nova mesurament
             quarter_interval: Trimestrals
             quarter_period: "%{quarter} / %{year}"
             week_interval: Setmanals

@@ -28,6 +28,7 @@ en:
             empty_commitments: No commitments created yet.
             month_interval: Monthly
             month_period: "%{month} / %{year}"
+            new: New measurement
             quarter_interval: Quarterly
             quarter_period: "%{quarter} / %{year}"
             week_interval: Weekly

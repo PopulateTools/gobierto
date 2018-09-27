@@ -18,8 +18,6 @@ module GobiertoAdmin
       validates :value, :max_value, presence: true, if: ->(object) { object.percentage.blank? }
       validate :period_uniqueness
 
-      # validate :period_compatibility
-
       def attributes_assignments
         {
           commitment_id: commitment_id,

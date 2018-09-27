@@ -56,3 +56,33 @@
     margin: 0;
   }
 }
+
+// Enable absolute positioning on children
+@mixin absolute-layout() {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .bottom,
+  .left,
+  .right,
+  .top {
+    position: absolute;
+  }
+
+  .left {
+    left: 0;
+  }
+
+  .right {
+    right: 0;
+  }
+
+  .top {
+    top: 0;
+  }
+
+  .bottom {
+    bottom: 0;
+  }
+}

@@ -1,0 +1,48 @@
+.gobierto_citizens-charters {
+  .charters-box-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    // @Component BOX
+    .charters-box {
+      $gap: 1.5rem;
+
+      flex: 1 0 calc(33.3% - (2 * #{$gap}));
+      padding: $gap;
+      color: $color_main_negative;
+
+      &::after {
+        content: "";
+        display: block;
+        padding-bottom: calc(100% / (16 / 9)); // aspect ratio
+      }
+
+      .box-inner {
+        @include absolute-layout();
+      }
+
+      .box-title {
+        font-size: $f3;
+      }
+
+      .box-results {
+        .results-title {
+          font-size: $f7;
+          opacity: .6;
+          text-transform: uppercase;
+          margin-bottom: 1rem;
+        }
+
+        .results-value {
+          font-size: $f1;
+          display: inline;
+        }
+      }
+
+      .box-contents {
+        font-size: $f6;
+      }
+    }
+  }
+}

@@ -4,7 +4,8 @@
     flex-wrap: wrap;
     width: 100%;
 
-border: 1px solid red;
+
+    border: 1px solid red;
 
     // @Component BOX
     .charters-box {
@@ -13,7 +14,7 @@ border: 1px solid red;
       color: $color_main_negative;
       padding: $gap;
 
-      @include gridgap($gap: $gap, $columns: 3, $horizontal-padding: 2 * $gap);
+      @include gridgap($gap: $gap, $columns: 4);
 
       &::after {
         content: "";

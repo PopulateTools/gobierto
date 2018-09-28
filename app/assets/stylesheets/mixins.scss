@@ -102,7 +102,8 @@
     margin-left: 0;
   }
 
-  &:nth-of-type(#{$columns}n) {
+  &:nth-of-type(#{$columns}n),
+  &:nth-last-of-type(1) {
     margin-right: 0;
   }
 
@@ -110,16 +111,9 @@
     margin-top: 0;
   }
 
-  &:nth-last-of-type(-n + #{$columns}) {
+  // targets to the last row items
+  &:nth-of-type(#{$columns}n + 1):nth-last-of-type(-n + #{$columns}),
+  &:nth-of-type(#{$columns}n + 1):nth-last-of-type(-n + #{$columns}) ~ * {
     margin-bottom: 0;
   }
-
-  // &:nth-of-type(#{$columns}n + 1):nth-last-of-type(-n + #{$columns}),
-  // &:nth-of-type(#{$columns}n + 1):nth-last-of-type(-n + #{$columns}) ~ &:nth-last-of-type(-n + #{$columns}) {
-  //   margin-bottom: 0;
-  // }
-
-  // &:nth-of-type(#{$columns}n + 1):nth-last-of-type(-n + #{$columns}) {
-  //   margin-bottom: 0;
-  // }
 }

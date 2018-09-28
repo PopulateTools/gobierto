@@ -79,6 +79,7 @@ en:
           title: Preferences
       editions:
         index:
+          all_commitments_used: All the commitments already have value
           header:
             max_value: Max Value
             percentage: Percentage

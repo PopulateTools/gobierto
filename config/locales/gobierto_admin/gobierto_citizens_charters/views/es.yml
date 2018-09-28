@@ -79,6 +79,7 @@ es:
           title: Preferencias
       editions:
         index:
+          all_commitments_used: Todos los compromisos ya tienen valor
           header:
             max_value: Objetivo
             percentage: Porcentaje

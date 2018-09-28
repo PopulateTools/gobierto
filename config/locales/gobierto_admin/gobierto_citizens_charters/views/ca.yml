@@ -79,6 +79,7 @@ ca:
           title: Preferencies
       editions:
         index:
+          all_commitments_used: Tots els compromisos ja tenen valor
           header:
             max_value: Valor màxim
             percentage: Percentatge

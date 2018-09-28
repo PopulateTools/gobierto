@@ -41,7 +41,7 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
     let map = {
       'edit': 'edit',
       'delete': 'trash',
-      'mode insert-mode': 'plus-circle',
+      'mode insert-mode': '',
       'insert': 'check',
       'update': 'check',
       'cancel-edit': 'times',
@@ -59,8 +59,47 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
   };
 
   function _focusInsertMode() {
-    $("#jsGrid").find(".fa-plus-circle").click();
-    $('.jsgrid-insert-row input').first().focus();
+    if ($("#jsGrid").jsGrid("fieldOption", "commitment_id", "hasData")) {
+      $("#jsGrid").jsGrid("option", "inserting", true)
+      $('.jsgrid-insert-row input').first().focus();
+    } else {
+      window.alert(I18n.t("gobierto_admin.gobierto_citizens_charters.editions.index.all_commitments_used"))
+    }
+  }
+
+  function _populateCommitments(endpoint, sel, selection) {
+    $.ajax({
+      type: "GET",
+      url: endpoint
+    }).done( function(response) {
+      let opts = $.grep(response, function(element) { return (!element.edition || element.id === selection) })
+      if (opts.length > 0) {
+        if (sel) {
+          for(let i = 0; i < opts.length; i++) {
+            sel.append($("<option>")
+                       .attr('value', opts[i].id)
+                       .attr('selected', opts[i].id === selection)
+                       .text(opts[i].title))
+          }
+          if (!($("#jsGrid").jsGrid("fieldOption", "commitment_id", "hasData") || selection)) {
+            $("#jsGrid").jsGrid("fieldOption", "commitment_id", "hasData", true)
+          }
+        }
+      } else {
+        if ($("#jsGrid").jsGrid("fieldOption", "commitment_id", "hasData")) {
+          $("#jsGrid").jsGrid("fieldOption", "commitment_id", "hasData", false)
+        }
+        $("#jsGrid").jsGrid("option", "inserting", false)
+      }
+    })
+  }
+
+  function _commitmentSelect(value, item, el) {
+    let select = $('<select>')
+    select.attr('id', `commitments_select-${ item ? item.id : 'new' }`)
+    _populateCommitments(el.commitments_path, select, value)
+
+    return select
   }
 
   GobiertoCitizensChartersEditionsController.prototype.index = function(options) {
@@ -122,6 +161,10 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
         }
       },
 
+      onItemDeleted: function(args) {
+        args.grid.clearInsert()
+      },
+
       fields: [
         {
           name: "commitment_id",
@@ -131,9 +174,23 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
           items: options.commitments_list,
           valueField: "id",
           textField: "title",
-          editing: false,
+          editing: true,
           inserting: true,
-          width: "10%"
+          width: "10%",
+          commitments_path: options.commitments_path,
+          insertTemplate: function(value, item) {
+            return this._insertPicker = _commitmentSelect(value, item, this);
+          },
+          editTemplate: function(value, item) {
+            return this._editPicker = _commitmentSelect(value, item, this);
+          },
+          insertValue: function() {
+            return this._insertPicker.val();
+          },
+          editValue: function() {
+            return this._editPicker.val();
+          },
+          hasData: true
         },
         {
           name: "percentage",

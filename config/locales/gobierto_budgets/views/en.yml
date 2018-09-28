@@ -572,7 +572,7 @@ en:
         description: Part of your municipality budget is obtained via taxes. Calculate
           the amount depending on your house, car...
         detail: Your contribution detail
-        explanation: Enter the amounts you have paid for each of the concepts
+        explanation: Enter the amounts you have paid for each of the concepts in
         pick_to_calculate: Pick to calculate
         share: Share it
         share_text: Check how much do you contribute to the budget of

@@ -594,7 +594,8 @@ ca:
           i taxes locals. Calcula quant aportes tu al pressupost d'acord a la teva
           casa, vehicles...
         detail: Detall de la teva contribució
-        explanation: Introdueix les quantitats que has pagat per a cadascun dels conceptes en
+        explanation: Introdueix les quantitats que has pagat per a cadascun dels conceptes
+          en
         pick_to_calculate: Selecciona per calcular
         share: Comparteix-ho
         share_text: Comprova com és la teva aportació al pressupost de d'

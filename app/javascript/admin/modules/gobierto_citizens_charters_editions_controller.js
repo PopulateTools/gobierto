@@ -28,7 +28,7 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
     editValue: function() {
       return this.editControl.val()
         ? parseFloat(this.editControl.val() || 0, 10)
-        : undefined;
+        : "";
     }
   });
 

@@ -144,6 +144,10 @@
         margin: 0 -.5em;
         border: 0;
         background: transparent;
+
+        &:focus {
+          background: $color_main_negative;
+        }
       }
 
       &.bg--transparent {

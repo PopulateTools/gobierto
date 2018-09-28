@@ -4,7 +4,7 @@
 
 ## Budgets receipt format
 
-Gobierto Budgets has a featured called Budgets receipt, that requires a configuration in JSON format. 
+Gobierto Budgets has a featured called Budgets receipt, that requires a configuration in JSON format.
 
 The JSON supports localized names and generic names:
 
@@ -81,6 +81,25 @@ Here's an example of that JSON:
         }
       ]
     }
+  ]
+}
+```
+
+### Edition mode
+
+May you want to allow the user customize the fields as wishes. Then, JSON must include the flag `manual_input: true`, and `options` array is no longer required.
+
+Example:
+```json
+{
+  "manual_input": true,
+  "budgets_simulation_sections": [{
+      "name": "IBI habitatge residencial"
+    },
+    {
+      "name": "IMPOST VEHICLES (vehicle principal)"
+    },
+    ....
   ]
 }
 ```

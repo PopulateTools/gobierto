@@ -80,6 +80,9 @@ en:
       editions:
         index:
           all_commitments_used: All the commitments already have value
+          errors:
+            missing_values: Please, fill in the percentage or the value and max_value
+              pair
           header:
             max_value: Max Value
             percentage: Percentage

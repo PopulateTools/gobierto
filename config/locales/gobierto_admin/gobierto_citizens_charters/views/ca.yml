@@ -80,6 +80,8 @@ ca:
       editions:
         index:
           all_commitments_used: Tots els compromisos ja tenen valor
+          errors:
+            missing_values: Cal omplir el percentatge o el parell valor i valor màxim
           header:
             max_value: Valor màxim
             percentage: Percentatge

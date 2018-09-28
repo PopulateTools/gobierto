@@ -3,81 +3,9 @@ import 'jsgrid'
 window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
   function GobiertoCitizensChartersEditionsController() {}
 
-  var LocalizedField = function(config) {
-    jsGrid.Field.call(this, config);
-  };
-
-  LocalizedField.prototype = new jsGrid.Field({
-
-    locales: [I18n.locale],
-    element_id: null,
-
-    sorter: translated_sorter,
-
-    itemTemplate: translated,
-    insertTemplate: function() {
-      let element = `<div id="lang-tabs-new-${this.element_id || Math.random().toString(36).substring(5)}" class="lang-tabs">`;
-      for (var j in this.locales) {
-        element +=`<input type="text" data-locale="${this.locales[j]}" class="${(I18n.locale == this.locales[j]) ? 'selected' : ''}">`
-      }
-      for (var i in this.locales) {
-        element += `<span data-toggle="${this.locales[i]}" class="${(I18n.locale == this.locales[i]) ? 'selected' : ''}">${this.locales[i]}</span>`
-      }
-      element += '</div>'
-      return this._insertPicker = $(element);
-    },
-    editTemplate: function(value) {
-      let element = `<div id="lang-tabs-${this.element_id || Math.random().toString(36).substring(5)}" class="lang-tabs">`;
-      for (var j in this.locales) {
-        element +=`<input type="text" data-locale="${this.locales[j]}" value="${(value[this.locales[j]] || '')}" class="${(I18n.locale == this.locales[j]) ? 'selected' : ''}">`
-      }
-      for (var i in this.locales) {
-        element += `<span data-toggle="${this.locales[i]}" class="${(I18n.locale == this.locales[i]) ? 'selected' : ''}">${this.locales[i]}</span>`
-      }
-      element += '</div>'
-      return this._editPicker = $(element);
-    },
-    insertValue: function() {
-      return generateTranslations(this._insertPicker);
-    },
-    editValue: function() {
-      return generateTranslations(this._editPicker);
-    }
-  });
-
   function dateString(date) {
     return date ? new Date(date.getTime() - date.getTimezoneOffset()*60000).toISOString() : null;
   }
-
-  function translated(value) {
-    if (!value) return '';
-    let text = value[I18n.locale];
-    if (!text) {
-      return Object.values(value).find(translation => !!translation);
-    } else {
-      return value[I18n.locale];
-    }
-  }
-
-  function translated_sorter(value1, value2) {
-    let translated1 = translated(value1)
-    let translated2 = translated(value2)
-    if (translated1) {
-      return translated1.localeCompare(translated2)
-    } else {
-      return translated2 ? 1 : 0;
-    }
-  }
-
-  function generateTranslations(picker) {
-      let translations = {}
-      picker.find("input").each(function() {
-        translations[this.dataset.locale] = this.value;
-      });
-      return translations;
-  }
-
-  jsGrid.fields.localizedField = LocalizedField;
 
   function DecimalField(config) {
     jsGrid.fields.number.call(this, config);

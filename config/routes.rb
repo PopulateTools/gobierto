@@ -135,6 +135,7 @@ Rails.application.routes.draw do
       namespace :api do
         resources :charters, only: [] do
           resources :editions, except: [:show, :new, :edit]
+          resources :commitments, only: [:index]
         end
       end
     end

@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/PopulateTools/gobierto/branch/master/graph/badge.svg)](https://codecov.io/gh/PopulateTools/gobierto)
 
 
-<img src="https://gobierto.es/assets/logo_gobierto.png" width="250" height="auto">
+<img src="http://gobierto-populate-production.s3.amazonaws.com/sites/LogoGobierto.png" width="250" height="auto">
 
 _This README is available [in English](README_EN.md)_
 
@@ -37,7 +37,7 @@ Gobierto es una plataforma de gobierno abierto de código libre. Ofrece herramie
 - **Consultas sobre presupuestos**: consulta a tus vecinos y consigue opiniones sobre los temas que más les preocupan para _informar_ tus decisiones presupuestarias y aumentar tu legitimidad.
 - **Participación**: Diseña procesos de participación para que el _online_ sea una extensión y complemento de tus iniciativas actuales. Herramientas de debate, consultas, votación, anotación de textos...
 - **Legislación colaborativa**: involucra a los ciudadanos en la redacción o modificación de normativa.
-- **Plan de gobierno y objetivos**: Permite explorar tu programa de gobierno en proyecto clasificados por áreas, ámbitos... Haz rendición de cuentas informando periódicamente sobre el progreso  en su implementación.  
+- **Plan de gobierno y objetivos**: Permite explorar tu programa de gobierno en proyecto clasificados por áreas, ámbitos... Haz rendición de cuentas informando periódicamente sobre el progreso  en su implementación.
 - **Mapas**: a veces no es fácil disponer de un visor GIS simple de usar. Gobierto se conecta a tu open data para ofrecerte un visor web GIS que se puede usar.
 - **Comparador de presupuestos**: compara, contextualiza y analiza el presupuesto de entidades equivalentes (de un conjunto de municipios, por ejemplo)
 - ... y más que irán llegando. ¿Tienes algo en la cabeza? ¡Hablemos!
@@ -85,29 +85,13 @@ Gobierto es un producto de Populate, un estudio de diseño y tecnología en torn
 - Twitter: [@gobierto](https://twitter.com/gobierto) & [@populate_](https://twitter.com/populate_)
 - Web + Blog: [gobierto.es](https://gobierto.es)
 
-### Manuales
+## Manuales y documentación
 
-- [Manual del Administrador](docs/manual_admin.md)
+Toda la documentación está disponible en https://gobierto.readme.io
 
-## Instalación, Desarrollo y contribuciones
-
-Toda la documentación y comunicación relativa al desarrollo la realizamos en inglés.
-
-### Instalación
-
-- Configurar el entorno de desarrollo [con Docker](docs/development-environment-docker.md) o [sin Docker](docs/development-environment.md)
-- [Variables de entorno](docs/environment-variables.md)
-- [Acceder como Administrador](docs/admin-namespace.md)
-- [Acceder como Usuario](docs/user-namespace.md)
-
-
-### Desarrollo
+## Desarrollo
 
 - Contribuciones: Si quieres realizar aportaciones a Gobierto, lee [cómo colaborar](CONTRIBUTING_EN.md)
-- [Desarrollar un módulo](docs/developing-module.md)
-- [Integrar la extensión Trackable](docs/trackable-extension.md)
-- [Integrar el componente DynamicContent](docs/dynamic-content-component.md)
-- [Integrar plantillas con Liquid](docs/liquid-templates.md)
 
 
 ## Licencia

@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/PopulateTools/gobierto/branch/master/graph/badge.svg)](https://codecov.io/gh/PopulateTools/gobierto)
 [![Stories in Ready](https://badge.waffle.io/PopulateTools/gobierto-dev.svg?label=ready&title=Ready)](http://waffle.io/PopulateTools/gobierto-dev)
 
-![Gobierto](https://gobierto.es/assets/logo_gobierto.png)
+![Gobierto](http://gobierto-populate-production.s3.amazonaws.com/sites/LogoGobierto.png)
 
 Este README está disponible [en Español](README.md)
 
@@ -46,15 +46,9 @@ Modules group functionality. Currently, the modules the modules developed are:
 - Participation tools
 - Plan visualization
 
-## Development
+## Docs
 
-If you want to install Gobierto in your local environment, or develop a new module, here you have some pages with all the information you need:
-
-- Configure the development environment [with Docker](docs/development-environment-docker.md) or [without Docker](docs/development-environment.md)
-- [Access Admin namespace](docs/admin-namespace.md)
-- [Access User namespace](docs/user-namespace.md)
-- [Integrate Trackable extension](docs/trackable-extension.md)
-- [Integrate DynamicContent component](docs/dynamic-content-component.md)
+All documentation is available at https://gobierto.readme.io
 
 ## Contributing
 

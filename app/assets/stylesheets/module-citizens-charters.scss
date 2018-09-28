@@ -12,12 +12,12 @@
     }
   }
 
+  // @Component BOX
   .charters-box-container {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
 
-    // @Component BOX
     .charters-box {
       $gap: 1.5rem;
 
@@ -71,6 +71,77 @@
 
       .results-value {
         font-size: $submega;
+      }
+    }
+  }
+
+  .charter-header {
+    background-color: $color_main;
+
+    > * {
+      display: flex;
+      justify-content: space-between;
+      max-height: 150px;
+    }
+
+    h1 {
+      color: $color_main_negative;
+    }
+
+    img {
+      object-fit: cover;
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .charter-subheader {
+    margin: 3rem 0;
+
+    > * {
+      display: flex;
+      justify-content: space-between;
+
+      > * {
+        flex-basis: 50%;
+      }
+    }
+
+    .subheader-title {
+      color: $color_main;
+      text-transform: uppercase;
+      font-size: $f6;
+    }
+
+    .subheader-title--muted {
+      opacity: .5;
+    }
+
+    .subheader-number {
+      display: flex;
+      justify-content: space-between;
+      font-size: $submega;
+    }
+  }
+
+  // @Component CHARTER
+  .charter-container {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid $color_separator;
+
+    .charter {
+      @include gridgap($gap: 1px, $columns: 3);
+
+      background-color: rgba($color_main, .1);
+      padding: 2rem;
+
+      .charter-number {
+        font-size: $f1;
+      }
+
+      .charter-text--muted {
+        opacity: .5;
       }
     }
   }

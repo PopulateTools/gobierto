@@ -6,7 +6,7 @@
 
 <% content_for :javascript_module_link do %>
   <!-- load module javascript specifics -->
-  <%= javascript_pack_tag 'participation', 'data-turbolinks-track': true, defer: true %>
+  <%= javascript_pack_tag 'participation', 'data-turbolinks-track': true %>
 <% end %>
 
 <% unless try(:current_process).nil? %>

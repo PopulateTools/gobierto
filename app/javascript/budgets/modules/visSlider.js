@@ -1,4 +1,5 @@
-import { Class, d3 } from 'shared'
+import * as d3 from 'd3'
+import { Class } from 'shared'
 
 export var VisSlider = Class.extend({
   init: function(divId, data) {

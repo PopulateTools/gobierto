@@ -1,4 +1,4 @@
-import { flight } from 'shared'
+import * as flight from 'flightjs'
 import { dataWidget } from './dataWidget.js'
 import { featuredBudgetLineLoadMore } from './featuredBudgetLineLoadMore.js'
 

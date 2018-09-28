@@ -1,5 +1,6 @@
-import { Class, d3 } from 'shared'
+import * as d3 from 'd3'
 import { ComparisonCard } from './vis_card_comparison.js'
+import { Class } from 'shared'
 
 export var HousesCard = Class.extend({
   init: function(divClass, city_id) {

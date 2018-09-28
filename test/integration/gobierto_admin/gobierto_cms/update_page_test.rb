@@ -75,6 +75,8 @@ module GobiertoAdmin
             within(".language_selector") { click_link "ES" }
 
             assert_equal "collection_id=#{collection.id}&locale=es", current_uri_query_params
+
+            within(".language_selector") { click_link "EN" }
           end
         end
       end

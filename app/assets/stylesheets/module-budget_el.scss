@@ -27,7 +27,7 @@
     background: #e9ad00;
     min-height: 100px;
 
-    @include transition;
+    transition: all 0.15s ease-out 0s;
   }
 
   .inner:hover {

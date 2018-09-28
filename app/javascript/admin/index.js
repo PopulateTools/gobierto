@@ -1,5 +1,4 @@
 import './modules/init.js'
-// First module
 import './modules/admins_controller.js'
 import './modules/application.js'
 import './modules/consultation_items_controller.js'

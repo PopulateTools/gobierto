@@ -1,4 +1,5 @@
-import { Class, d3, accounting } from 'shared'
+import * as d3 from 'd3'
+import { Class, accounting } from 'shared'
 
 export var VisAgeDistribution = Class.extend({
   init: function(divId, city_id, current_year) {

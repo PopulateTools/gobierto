@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import { accounting } from 'shared'
+
 Vue.config.productionTip = false
 
 window.GobiertoBudgets.ReceiptController = (function() {

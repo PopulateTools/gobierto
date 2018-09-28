@@ -117,9 +117,14 @@
       opacity: .5;
     }
 
+    .subheader-title--compact {
+      margin-bottom: 0;
+    }
+
     .subheader-number {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
+      align-items: center;
       font-size: $submega;
     }
   }
@@ -138,6 +143,9 @@
 
       .charter-number {
         font-size: $f1;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
       }
 
       .charter-text--muted {

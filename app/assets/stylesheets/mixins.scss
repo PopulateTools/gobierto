@@ -86,3 +86,27 @@
     bottom: 0;
   }
 }
+
+// Tips:
+// - Avoid very large gaps
+// - Horizontal padding is the sum of padding-left and padding-right in the element itself
+@mixin gridgap($gap: 0, $columns: 3, $horizontal-padding: 0) {
+  margin: $gap / 2;
+  flex: 1 0 calc((100% / #{$columns}) - #{$gap} - #{$horizontal-padding});
+
+  &:nth-of-type(#{$columns}n + 1) {
+    margin-left: 0;
+  }
+
+  &:nth-of-type(#{$columns}n) {
+    margin-right: 0;
+  }
+
+  &:nth-of-type(-n + #{$columns}) {
+    margin-top: 0;
+  }
+
+  &:nth-last-of-type(-n + #{$columns}) {
+    margin-bottom: 0;
+  }
+}

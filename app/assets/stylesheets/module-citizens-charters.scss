@@ -10,31 +10,10 @@ border: 1px solid red;
     .charters-box {
       $gap: 1.5rem;
 
-      padding: $gap;
       color: $color_main_negative;
+      padding: $gap;
 
-      /* flexgrid */
-      & {
-        flex: 1 0 calc(33.3% - (4 * #{$gap}));
-        margin: $gap;
-      }
-
-      &:nth-of-type(3n + 1) {
-        margin-left: 0;
-      }
-
-      &:nth-of-type(3n) {
-        margin-right: 0;
-      }
-
-      &:nth-of-type(-n + 3) {
-        margin-top: 0;
-      }
-
-      &:nth-last-of-type(-n + 3) {
-        margin-bottom: 0;
-      }
-      /* end flexgrid */
+      @include gridgap($gap: $gap, $columns: 3, $horizontal-padding: 2 * $gap);
 
       &::after {
         content: "";

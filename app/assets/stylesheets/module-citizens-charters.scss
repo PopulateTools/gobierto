@@ -1,11 +1,21 @@
 .gobierto_citizens-charters {
+
+  .absolute-layout {
+    @include absolute-layout();
+  }
+
+  .fake-layout {
+    pointer-events: none;
+
+    :not(.invisible) {
+      pointer-events: auto;
+    }
+  }
+
   .charters-box-container {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-
-
-    border: 1px solid red;
 
     // @Component BOX
     .charters-box {
@@ -14,7 +24,7 @@
       color: $color_main_negative;
       padding: $gap;
 
-      @include gridgap($gap: $gap, $columns: 4);
+      @include gridgap($gap: 2 * $gap, $columns: 3);
 
       &::after {
         content: "";
@@ -30,22 +40,37 @@
         font-size: $f3;
       }
 
-      .box-results {
-        .results-title {
-          font-size: $f7;
-          opacity: .6;
-          text-transform: uppercase;
-          margin-bottom: 1rem;
-        }
+      .results-title {
+        font-size: $f7;
+        opacity: .6;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
 
-        .results-value {
-          font-size: $f1;
-          display: inline;
-        }
+      .results-value {
+        font-size: $f1;
+        display: inline;
       }
 
       .box-contents {
         font-size: $f6;
+      }
+    }
+
+    .charters-box--lead {
+      @extend .charters-box;
+
+      background-color: $color_main_negative !important;
+      border: 1px solid $color_separator;
+      color: $color_text;
+
+      .results-title {
+        font-size: $f6;
+        margin-bottom: 2rem;
+      }
+
+      .results-value {
+        font-size: $submega;
       }
     }
   }

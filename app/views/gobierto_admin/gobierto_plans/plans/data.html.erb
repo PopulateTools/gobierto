@@ -9,8 +9,14 @@
 <%= render 'gobierto_admin/gobierto_plans/shared/navigation' %>
 
 <div class="admin_tools right">
-  <%= link_to t(".import_csv"), admin_plans_plan_import_csv_path(@plan) %>
-  <%= link_to t(".export_csv"), admin_plans_plan_export_csv_path(@plan), target: "_blank" %>
+  <%= link_to admin_plans_plan_import_csv_path(@plan) do %>
+    <i class="fa fa-table"></i>
+    <%= t(".import_csv") %>
+  <% end %>
+  <%= link_to admin_plans_plan_export_csv_path(@plan), target: "_blank" do %>
+    <i class="fa fa-table"></i>
+    <%= t(".export_csv") %>
+  <% end %>
 </div>
 
 <% if @categories_list.present? %>

@@ -295,6 +295,10 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
         }
       },
 
+      onError: function(args) {
+        window.alert(I18n.t("gobierto_admin.gobierto_plans.plans.data.invalid_message"))
+      },
+
       fields: categoryFields(options).concat([
         {
           name: "name_translations",

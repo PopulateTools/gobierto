@@ -35,6 +35,7 @@ en:
           invalid_message: Invalid data entered
           load_message: Please, wait...
           name: Project
+          new: New node
           no_available_categories: No categories was found. Please, define a vocabulary
             with terms or import data from CSV.
           not_found: No nodes were found

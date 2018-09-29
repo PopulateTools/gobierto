@@ -35,6 +35,7 @@ ca:
           invalid_message: Les dades introduïdes són invàlids
           load_message: Espera, si us plau...
           name: Projecte
+          new: Nou node
           no_available_categories: No s'han trobat categories. Defineix un vocabulari
             amb termes o importa dades des d'un CSV.
           not_found: No hi ha nodes

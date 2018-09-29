@@ -209,6 +209,16 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
     return fields;
   }
 
+  function _focusInsertMode() {
+    let grid = $("#jsGrid")
+    if (grid.jsGrid("option", "inserting")) {
+      grid.jsGrid("option", "inserting", false)
+    } else {
+      grid.jsGrid("option", "inserting", true)
+      $('.jsgrid-insert-row select').first().focus();
+    }
+  }
+
   jsGrid.fields.customDateField = CustomDateField;
   jsGrid.fields.localizedField = LocalizedField;
   jsGrid.fields.categoryLevelField = CategoryLevelField;
@@ -219,7 +229,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
     let map = {
       'edit': 'edit',
       'delete': 'trash',
-      'mode insert-mode': 'plus-circle',
+      'mode insert-mode': '',
       'insert': 'check',
       'update': 'check',
       'cancel-edit': 'times',
@@ -366,6 +376,11 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
         }
       ])
     });
+
+    $(document).on("click", "a[data-insert]", function(e) {
+      e.preventDefault()
+      _focusInsertMode()
+    })
   };
 
   return GobiertoPlansPlanNodesController;

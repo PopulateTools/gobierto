@@ -33,10 +33,8 @@ module GobiertoAdmin
 
               visit @path
 
+              click_link "New node"
               within "#jsGrid" do
-                within ".jsgrid-header-row" do
-                  find(".fa-plus-circle").click
-                end
                 within ".jsgrid-insert-row" do
                   cells = all(:xpath, "td")
 
@@ -68,10 +66,8 @@ module GobiertoAdmin
 
               visit @path
 
+              click_link "New node"
               within "#jsGrid" do
-                within ".jsgrid-header-row" do
-                  find(".fa-plus-circle").click
-                end
                 within ".jsgrid-insert-row" do
                   cells = all(:xpath, "td")
                   cells[4].all("input").each do |input_element|

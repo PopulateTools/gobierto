@@ -17,6 +17,7 @@
     <i class="fa fa-table"></i>
     <%= t(".export_csv") %>
   <% end %>
+  <%= link_to t(".new"), "#", class: "button", data: { insert: true } %>
 </div>
 
 <% if @categories_list.present? %>

@@ -164,7 +164,8 @@ function initializePageWithOnlyOneDatepicker() {
   // not shown to the user
   $('.air-datepicker').each(function() {
     if (this.value) {
-      setDateOnBindedDatepicker(new Date(this.value), $(this));
+      var dateAttr = $(this).data('startdate');
+      setDateOnBindedDatepicker(new Date(dateAttr), $(this));
     }
   });
 }

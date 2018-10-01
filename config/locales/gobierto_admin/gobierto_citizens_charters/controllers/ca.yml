@@ -12,7 +12,7 @@ ca:
           update:
             success_html: El compromís s'ha actualizat correctament. <a href="%{link}">Veure</a>.
         create:
-          success_html: La carta de servei ha estat creat correctament. <a href="%{link}">Veure</a>.
+          success_html: La carta de servei ha estat creada correctament. <a href="%{link}">Veure</a>.
         destroy:
           destroy_failed: No s'ha pogut arxivar la carta de servei
           success: La carta de servei ha estat arxivada correctament

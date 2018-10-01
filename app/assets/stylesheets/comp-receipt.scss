@@ -23,6 +23,9 @@
     font-size: 1.25em;
     background: #f2f9fa;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .receipt_dropdown {
@@ -119,13 +122,32 @@
         opacity: 0.5;
       }
 
-      span {
+      span,
+      input {
         font-size: 1.15em;
+      }
+
+      .toggle-clickable {
+        width: 100%;
+        cursor: pointer;
+        text-align: right;
       }
 
       small {
         color: $color_meta_text;
         font-size: 90%;
+      }
+
+      input {
+        height: 100%;
+        width: calc(100% + 1em);
+        margin: 0 -.5em;
+        border: 0;
+        background: transparent;
+
+        &:focus {
+          background: $color_main_negative;
+        }
       }
 
       &.bg--transparent {

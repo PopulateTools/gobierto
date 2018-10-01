@@ -1,5 +1,7 @@
-
 import Vue from 'vue'
+import { accounting } from 'shared'
+
+Vue.config.productionTip = false
 
 window.GobiertoBudgets.ReceiptController = (function() {
 
@@ -30,15 +32,19 @@ window.GobiertoBudgets.ReceiptController = (function() {
         return {
           locale: I18n.locale,
           data: options.receiptConfiguration.budgets_simulation_sections || [],
+          manual: options.receiptConfiguration.manual_input || false,
           selected: [],
           categories: []
         }
       },
       created: function () {
-        this.selected = Array(this.data.length).fill(0); // Assign BEFORE compile the template to avoid render twice
+        // If JSON have options array, and there are several values (years)
+        var years = (this.data[0].hasOwnProperty('options') && this.data[0].options.length && typeof this.data[0].options[0].value === 'object')
+          ?  _.keys(this.data[0].options[0].value).sort() : [ new Date().getFullYear() ]
 
-        var years = _.keys(this.data[0].options[0].value).sort(); // Shortcut for columns
-        this.categories = (years.length > 3) ? _.takeRight(years, 3) : years; // Max. 3 years
+        this.categories = (this.manual)
+          ? _.takeRight(years) : (years.length > 3)
+          ? _.takeRight(years, 3) : years; // Max. 3 years
       },
       filters: {
         format: function (m) {
@@ -52,9 +58,26 @@ window.GobiertoBudgets.ReceiptController = (function() {
           })
         }
       },
+      directives: {
+        focus: {
+          // directive definition
+          inserted: function(el) {
+            el.focus()
+          }
+        }
+      },
+      watch: {
+        selected: function () {
+          // Test if there are negative values
+          if (this.selected.some(o => o < 0)) {
+            this.selected = this.selected.map(Math.abs)
+          }
+        }
+      },
       methods: {
         total: function(o) {
-          return _.sumBy(this.selected, this.categories[o]);
+          return (this.selected.length && typeof this.selected[0] === 'object')
+            ? _.sumBy(this.selected, this.categories[o]) : _.sum(this.selected.filter(Number))
         },
         localizedName: function(attr) {
           return attr['name_' + this.locale] || attr['name'];
@@ -66,9 +89,8 @@ window.GobiertoBudgets.ReceiptController = (function() {
         getValue: function (obj, o) {
           if (!obj) return
 
-          var _key = this.categories[o];
-
-          return obj[_key]
+          return (typeof obj !== 'object')
+            ? obj : obj[this.categories[o]]
         },
         getYear: function (o) {
           return this.categories[o] || o
@@ -81,6 +103,15 @@ window.GobiertoBudgets.ReceiptController = (function() {
           var diff = self - prev;
 
           return diff / self
+        },
+        toggleEdit: function(data, force) {
+          if (!data) return
+
+          if (data.hasOwnProperty('toggleEdit')) {
+            data.toggleEdit = (typeof force === 'undefined') ? !data.toggleEdit : force
+          } else {
+            this.$set(data, 'toggleEdit', true) // Add reactivity properties dinamically
+          }
         }
       }
     });

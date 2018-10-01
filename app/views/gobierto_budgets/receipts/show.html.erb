@@ -19,28 +19,39 @@
               <div class="pure-g m_b_1">
                 <div class="pure-u-1 pure-u-md-14-24 pure-u-xl-15-24"></div>
                 <div class="pure-u-1 pure-u-md-10-24 pure-u-xl-9-24 receipt_calc">
-                  <div class="bg bg--transparent" v-for="(year, i) in categories">
-                    <span><strong>{{ getYear(i) }}</strong></span>
+                  <div class="bg bg--transparent center" v-for="(year, i) in categories">
+                    <span><small v-if="manual"><%= t('.explanation') %>&nbsp;</small><strong>{{ getYear(i) }}</strong></span>
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="pure-g m_b_1" v-for="(row, index) in data">
-              <div class="pure-u-1 pure-u-md-6-24 receipt_item">{{ localizedName(row) }}</div>
-              <div class="pure-u-1 pure-u-md-7-24 receipt_dropdown">
+              <div class="pure-u-1 receipt_item" :class="[ manual ? 'pure-u-md-13-24' : 'pure-u-md-6-24' ]">{{ localizedName(row) }}</div>
+
+              <div class="pure-u-1 pure-u-md-7-24 receipt_dropdown" v-if="!manual">
                 <select name="select" v-model="selected[index]">
                   <option :value="0.0"><%= t('.pick_to_calculate') %></option>
                   <option :value="option.value" v-for="option in row.options">{{ localizedName(option) }}</option>
                 </select>
               </div>
-              <div class="pure-u-1 pure-u-md-1-24 pure-u-xl-2-24 receipt_separator"></div>
+
+              <div class="pure-u-1 pure-u-md-1-24 pure-u-xl-2-24" :class="{ 'receipt_separator': !manual }"></div>
+
               <div class="pure-u-1 pure-u-md-10-24 pure-u-xl-9-24 receipt_calc">
                 <div class="bg" v-for="(year, i) in categories">
-                  <small>{{ getYear(i) }}</small>
-                  <small v-if="i !== 0">{{ getDiff(selected[index], i) | percent }}</small>
-                  <small v-else></small>
-                  <span>{{ getValue(selected[index], i) | format }}</span>
+                  <template v-if="!manual">
+                    <small>{{ getYear(i) }}</small>
+                    <small v-if="i !== 0">{{ getDiff(selected[index], i) | percent }}</small>
+                    <small v-else></small>
+                    <span>{{ getValue(selected[index], i) | format }}</span>
+                  </template>
+                  <template v-else>
+                    <input type="text" v-model.lazy.number="selected[index]"
+                      @keyup.enter.exact="toggleEdit(row, false)" @blur.exact="toggleEdit(row, false)" @keydown.tab.exact="toggleEdit(data[index + 1])" @keydown.shift.tab.exact="toggleEdit(data[index - 1])"
+                      v-if="row.toggleEdit" v-focus>
+                    <span class="toggle-clickable" v-if="!row.toggleEdit" @click="toggleEdit(row, true)">{{ selected[index] | format }}</span>
+                  </template>
                 </div>
               </div>
             </div>
@@ -62,10 +73,16 @@
               <div class="pure-u-1 pure-u-md-14-24 pure-u-xl-15-24"><h3><%= t('.your_contribution', site_name: whom(current_site.name)) %></h3></div>
               <div class="pure-u-1 pure-u-md-10-24 pure-u-xl-9-24 receipt_calc">
                 <div class="bg" v-for="(year, i) in categories">
-                  <small>{{ getYear(i) }}</small>
-                  <small v-if="i !== 0">{{ (total(i) - total(i - 1)) / total(i) | percent }}</small>
-                  <small v-else></small>
-                  <span>{{ total(i) | format }}</span>
+                  <template v-if="!manual">
+                    <small>{{ getYear(i) }}</small>
+                    <small v-if="i !== 0">{{ (total(i) - total(i - 1)) / total(i) | percent }}</small>
+                    <small v-else></small>
+                    <span>{{ total(i) | format }}</span>
+                  </template>
+                  <template v-else>
+                    <span></span>
+                    <span>{{ total() | format }}</span>
+                  </template>
                 </div>
               </div>
             </div>

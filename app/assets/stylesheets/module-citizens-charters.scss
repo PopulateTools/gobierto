@@ -24,7 +24,7 @@
       color: $color_main_negative;
       padding: $gap;
 
-      @include gridgap($gap: 2 * $gap, $columns: 3);
+      @include flexgrid($gap: 2 * $gap, $columns: 3);
 
       &::after {
         content: "";
@@ -96,14 +96,14 @@
   }
 
   .charter-subheader {
-    margin: 3rem 0;
+    margin: 3rem 0 1rem;
 
     > * {
       display: flex;
       justify-content: space-between;
 
       > * {
-        flex-basis: 50%;
+        flex-basis: 40%;
       }
     }
 
@@ -122,10 +122,31 @@
     }
 
     .subheader-number {
-      display: flex;
-      justify-content: flex-start;
       align-items: center;
-      font-size: $submega;
+
+      @include flexbox(5rem);
+
+      > p {
+        font-size: $submega;
+        line-height: $submega;
+      }
+    }
+
+    .subheader-selector {
+      /* reset */
+      border-radius: 0;
+      border: 1px solid $color_separator;
+      height: 2rem;
+      background: $color_main_negative;
+      padding: 0;
+
+      /* stylish */
+      width: 50%;
+      color: rgba($color_text, .5);
+      background-image: linear-gradient(45deg, transparent 50%, $color_separator 50%), linear-gradient(135deg, $color_separator 50%, transparent 50%);
+      background-position: calc(100% - 20px) 50%, calc(100% - 12px) 50%;
+      background-size: 8px 8px, 8px 8px;
+      background-repeat: no-repeat;
     }
   }
 
@@ -134,18 +155,29 @@
     display: flex;
     flex-wrap: wrap;
     border: 1px solid $color_separator;
+    background-color: $color_separator;
 
     .charter {
-      @include gridgap($gap: 1px, $columns: 3);
+      @include flexgrid($gap: 1px, $columns: 3);
 
-      background-color: rgba($color_main, .1);
+      // to avoid using opacity rgba(color, .1)
+      background-color: lighten(desaturate(adjust-hue($color_main, 7), 55.56), 59.8);
       padding: 2rem;
 
+      &:hover {
+        // to avoid using opacity rgba(color, .2)
+        background-color: lighten(desaturate(adjust-hue($color_main, 8), 54.29), 53.14);
+      }
+
       .charter-number {
-        font-size: $f1;
-        display: flex;
-        justify-content: flex-start;
         align-items: center;
+
+        @include flexbox(3rem);
+
+        > p {
+          font-size: $f1;
+          line-height: $f1;
+        }
       }
 
       .charter-text--muted {

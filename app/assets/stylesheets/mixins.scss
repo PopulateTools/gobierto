@@ -90,7 +90,7 @@
 // Simulates CSS Grid
 // Tips:
 // - Avoid very large gaps
-@mixin gridgap($gap: 0, $columns: 3) {
+@mixin flexgrid($gap: 0, $columns: 3) {
   $unit: 1rem !default;
   $gutter: if(unitless($gap), $gap * $unit, $gap);
 

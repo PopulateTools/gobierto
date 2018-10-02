@@ -1,0 +1,24 @@
+neil_custom_field_record_position:
+  item: neil
+  custom_field: madrid_custom_field_position
+  payload: <%= { "position" => { en: "Major", es: "Alcalde" } }.to_json %>
+
+neil_custom_field_record_bio:
+  item: neil
+  custom_field: madrid_custom_field_bio
+  payload: <%= { "bio" => "Neil has a long bio" }.to_json %>
+
+neil_custom_field_record_country:
+  item: neil
+  custom_field: madrid_custom_field_country
+  payload: <%= { "country" => "pt" }.to_json %>
+
+neil_custom_field_record_languages:
+  item: neil
+  custom_field: madrid_custom_field_languages
+  payload: <%= { "languages" => ["en", "es"] }.to_json %>
+
+madrid_custom_field_record_population:
+  item: madrid
+  custom_field: madrid_site_custom_field
+  payload: <%= { "population" => "3166000" }.to_json %>

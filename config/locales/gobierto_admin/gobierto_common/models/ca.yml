@@ -19,3 +19,10 @@ ca:
       gobierto_admin/gobierto_common/collection_form: Col·lecció
       gobierto_admin/gobierto_common/term_form: Terme
       gobierto_admin/gobierto_common/vocabulary_form: Vocabulari
+  activerecord:
+    errors:
+      models:
+        gobierto_common/custom_field_record:
+          attributes:
+            item:
+              wrong_item_class: no està associat a un item de la classe adequada

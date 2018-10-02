@@ -1,0 +1,52 @@
+madrid_custom_field_position:
+  site: madrid
+  class_name: "GobiertoPeople::Person"
+  mandatory: true
+  position: 0
+  name_translations: <%= { en: "Position", es: "Cargo" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:localized_string] %>
+  uid: position
+
+madrid_custom_field_bio:
+  site: madrid
+  class_name: "GobiertoPeople::Person"
+  mandatory: false
+  position: 1
+  name_translations: <%= { en: "Bio", es: "Bio" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:paragraph] %>
+  uid: bio
+
+madrid_custom_field_country:
+  site: madrid
+  class_name: "GobiertoPeople::Person"
+  mandatory: false
+  position: 2
+  name_translations: <%= { en: "Country", es: "País" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:single_option] %>
+  uid: country
+  options: <%= {
+    es: { en: "Spain", es: "España" },
+    pt: { en: "Portugal", es: "Portugal" }
+  }.to_json %>
+
+madrid_custom_field_languages:
+  site: madrid
+  class_name: "GobiertoPeople::Person"
+  mandatory: false
+  position: 3
+  name_translations: <%= { en: "Language", es: "Idioma" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:multiple_options] %>
+  uid: languages
+  options: <%= {
+    es: { en: "Spanish", es: "Español" },
+    pt: { en: "Portuguese", es: "Portugués" }
+  }.to_json %>
+
+madrid_site_custom_field:
+  site: madrid
+  class_name: "Site"
+  mandatory: false
+  position: 0
+  name_translations: <%= { en: "Population", es: "Población" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:string] %>
+  uid: population

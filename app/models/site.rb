@@ -19,6 +19,9 @@ class Site < ApplicationRecord
   has_many :vocabularies, dependent: :destroy, class_name: "GobiertoCommon::Vocabulary"
   has_many :terms, through: :vocabularies, class_name: "GobiertoCommon::Term"
 
+  has_many :custom_fields, class_name: "GobiertoCommon::CustomField"
+  has_many :custom_field_records, through: :custom_fields, class_name: "GobiertoCommon::CustomFieldRecord"
+
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
   has_many :notifications, dependent: :destroy, class_name: "User::Notification"

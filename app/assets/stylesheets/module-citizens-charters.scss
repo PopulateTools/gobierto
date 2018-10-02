@@ -1,5 +1,11 @@
 .gobierto_citizens-charters {
 
+  // media breakpoints, from purecss.io
+  $wSmall: 568px;
+  $wMedium: 768px;
+  $wLarge: 1024px;
+  $wExtraLarge: 1280px;
+
   .absolute-layout {
     @include absolute-layout();
   }
@@ -24,15 +30,15 @@
       color: $color_main_negative;
       padding: $gap / 2;
 
-      @include screen(0, 767) {
+      @include screen(0, $wMedium) {
         @include flexgrid($gap: $gap / 2, $columns: 1);
       }
 
-      @include screen(768, 1280) {
+      @include screen($wMedium, $wExtraLarge) {
         @include flexgrid($gap: $gap, $columns: 3);
       }
 
-      @include min-screen(1280) {
+      @include min-screen($wExtraLarge) {
         padding: $gap;
 
         @include flexgrid($gap: 2 * $gap, $columns: 3);
@@ -43,7 +49,7 @@
         display: block;
         padding-bottom: calc(100% / (24 / 9)); // aspect ratio
 
-        @include min-screen(768) {
+        @include min-screen($wMedium) {
           padding-bottom: calc(100% / (16 / 9)); // aspect ratio
         }
       }
@@ -55,11 +61,11 @@
       .box-title {
         font-size: $f5;
 
-        @include screen(1024, 1280) {
+        @include screen($wLarge, $wExtraLarge) {
           font-size: $f4;
         }
 
-        @include min-screen(1280) {
+        @include min-screen($wExtraLarge) {
           font-size: $f3;
         }
       }
@@ -70,11 +76,11 @@
         text-transform: uppercase;
         margin-bottom: 0;
 
-        @include screen(1024, 1280) {
+        @include screen($wLarge, $wExtraLarge) {
           margin-bottom: .5rem;
         }
 
-        @include min-screen(1280) {
+        @include min-screen($wExtraLarge) {
           margin-bottom: 1rem;
         }
       }
@@ -83,11 +89,11 @@
         font-size: $f3;
         display: inline;
 
-        @include screen(1024, 1280) {
+        @include screen($wLarge, $wExtraLarge) {
           font-size: $f2;
         }
 
-        @include min-screen(1280) {
+        @include min-screen($wExtraLarge) {
           font-size: $f1;
         }
       }
@@ -112,7 +118,7 @@
       .results-value {
         font-size: $f1;
 
-        @include min-screen(1024) {
+        @include min-screen($wLarge) {
           font-size: $submega;
         }
       }
@@ -202,7 +208,14 @@
     background-color: $color_separator;
 
     .charter {
-      @include flexgrid($gap: 1px, $columns: 3);
+
+      @include screen(0, $wExtraLarge - 1) {
+        @include flexgrid($gap: 1px, $columns: 3);
+      }
+
+      @include min-screen($wExtraLarge) {
+        @include flexgrid($gap: 1px, $columns: 4);
+      }
 
       // to avoid using opacity rgba(color, .1)
       background-color: lighten(desaturate(adjust-hue($color_main, 7), 55.56), 59.8);

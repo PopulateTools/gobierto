@@ -47,10 +47,23 @@
           <div class="subheader-title--muted">Misión, Visión, Servicios, Unidad responsable...</div>
         </div>
         <div>
-          <select class="subheader-selector">
+          <% content_for :selected, flush: true do %>
+            <a href="#">Ikasten</a>
+          <% end %>
+          <% content_for :items, flush: true do %>
+            <a href="#">Ikasten</a>
+            <a href="#">Egunsentian</a>
+            <a href="#">Zingirak</a>
+            <a href="#">Egarriz</a>
+            <a href="#">Erein</a>
+            <a href="#">Landatu</a>
+            <a href="#">Zabaldu</a>
+          <% end %>
+          <%= render layout: 'shared/widget_dropdown' do %><% end %>
+          <!-- <select class="subheader-selector">
             <option value="" selected>Datos correspondientes a 2017</option>
             <option value="">Datos correspondientes a 2016</option>
-          </select>
+          </select> -->
         </div>
       </div>
     </div>

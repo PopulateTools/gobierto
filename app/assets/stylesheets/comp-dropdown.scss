@@ -1,4 +1,55 @@
-// @component Dropdown
+// @component General dropdown
+.dropdown {
+  background: #fff;
+  // padding: 1em 0;
+  display: inline-block;
+  position: relative;
+
+  .dropdown-inner {
+    background: transparentize($color_main, 0.9);
+    padding: 0.3em 0.75em;
+    font-weight: 200;
+
+    @include border-radius(4px);
+
+    * {
+      text-decoration: none;
+      color: $color_text;
+    }
+  }
+
+  .dropdown-content {
+    z-index: 100;
+    overflow: hidden;
+    white-space: nowrap;
+    display: none;
+    position: absolute;
+    background: #fff;
+    padding: calc(1.5em - 1px) 2em 2em 2em;
+    margin-left: calc(-2em - 1px);
+    margin-top: calc(-3.5em - 1px);
+    border: 1px solid #dfdfdf;
+    box-sizing: border-box;
+
+    @include border-radius(4px);
+    @include box-shadow(0, 3px, 6px, rgba(0, 0, 0, 0.2));
+
+    * {
+      display: block;
+      font-weight: 200;
+      border-top: 1px solid transparentize($color_main, 0.85);
+      background: transparentize($color_main, 0.94);
+      padding: 0.7em 1em 0.4em;
+      font-size: 0.85em;
+    }
+  }
+
+  &:hover .dropdown-content {
+    display: block;
+  }
+}
+
+// @component Inline-button Dropdown
 [data-dropdown]:not(.js-dropdown) {
   position: absolute;
   background-color: $color_main_negative;

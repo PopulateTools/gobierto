@@ -22,14 +22,30 @@
       $gap: 1.5rem;
 
       color: $color_main_negative;
-      padding: $gap;
+      padding: $gap / 2;
 
-      @include flexgrid($gap: 2 * $gap, $columns: 3);
+      @include screen(0, 767) {
+        @include flexgrid($gap: $gap / 2, $columns: 1);
+      }
+
+      @include screen(768, 1280) {
+        @include flexgrid($gap: $gap, $columns: 3);
+      }
+
+      @include min-screen(1280) {
+        padding: $gap;
+
+        @include flexgrid($gap: 2 * $gap, $columns: 3);
+      }
 
       &::after {
         content: "";
         display: block;
-        padding-bottom: calc(100% / (16 / 9)); // aspect ratio
+        padding-bottom: calc(100% / (24 / 9)); // aspect ratio
+
+        @include min-screen(768) {
+          padding-bottom: calc(100% / (16 / 9)); // aspect ratio
+        }
       }
 
       .box-inner {
@@ -37,19 +53,43 @@
       }
 
       .box-title {
-        font-size: $f3;
+        font-size: $f5;
+
+        @include screen(1024, 1280) {
+          font-size: $f4;
+        }
+
+        @include min-screen(1280) {
+          font-size: $f3;
+        }
       }
 
       .results-title {
         font-size: $f7;
         opacity: .6;
         text-transform: uppercase;
-        margin-bottom: 1rem;
+        margin-bottom: 0;
+
+        @include screen(1024, 1280) {
+          margin-bottom: .5rem;
+        }
+
+        @include min-screen(1280) {
+          margin-bottom: 1rem;
+        }
       }
 
       .results-value {
-        font-size: $f1;
+        font-size: $f3;
         display: inline;
+
+        @include screen(1024, 1280) {
+          font-size: $f2;
+        }
+
+        @include min-screen(1280) {
+          font-size: $f1;
+        }
       }
 
       .box-contents {
@@ -70,7 +110,11 @@
       }
 
       .results-value {
-        font-size: $submega;
+        font-size: $f1;
+
+        @include min-screen(1024) {
+          font-size: $submega;
+        }
       }
     }
   }

@@ -19,14 +19,32 @@ en:
           title: New plan type
       plans:
         data:
-          latest_update: 'Last updated via API: %{datetime}'
-          no_data: No data loaded yet
-          there_are: There are %{info}
+          cancel_edit: Cancel edition
+          category: Level
+          delete: Delete
+          delete_confirm: Are you sure?
+          edit: Edit
+          ends_at: End
+          errors:
+            missing_category: All category levels must be selected
+            missing_name: The project name can't be empty
+          export_csv: Export to CSV
+          import_csv: Import from CSV
+          insert: Create
+          insert_switch: Add...
+          invalid_message: Invalid data entered
+          load_message: Please, wait...
+          name: Project
+          new: New node
+          no_available_categories: No categories was found. Please, define a vocabulary
+            with terms or import data from CSV.
+          not_found: No nodes were found
+          options: Options
+          progress: "% progress"
+          starts_at: Start
+          status: Status
           title: Data
-        data_form:
-          confirm_import: Are you sure? All current data will be deleted
-          disable_with: Loading...
-          submit: Import from CSV file
+          update: Update
         edit:
           title: Configuration
         form:
@@ -39,6 +57,18 @@ en:
             slug: about-this-plan
             title: Plan title
             year: 2018
+        import_csv:
+          latest_update: 'Last updated: %{datetime}'
+          no_data: No data loaded yet
+          there_are: There are %{info}
+          title: Import CSV
+        import_csv_form:
+          confirm_import: Are you sure? All current data will be deleted
+          disable_with: Loading...
+          submit: Import from CSV file
+          warning: "<strong>Warning</strong> If you upload a CSV, all current content
+            will be deleted, so any change you might have done through the Gobierto
+            Web UI will be lost."
         index:
           header:
             elements: Elements
@@ -55,3 +85,4 @@ en:
         navigation:
           configuration_tab: Configuration
           data_tab: Data
+          import_csv_tab: Import CSV

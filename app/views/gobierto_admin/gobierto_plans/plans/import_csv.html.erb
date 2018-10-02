@@ -1,0 +1,21 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_plans.plans.index.title"), admin_plans_plans_path %> »
+  <%= t(".title") %>
+</div>
+
+<h1><%= @plan.title %></h1>
+
+<%= render 'gobierto_admin/gobierto_plans/shared/navigation' %>
+
+<p>
+  <% if @plan.categories.any? || @plan.nodes.any? %>
+    <%= t(".there_are", info: @plan.to_s) %>
+    <br>
+    <%= t(".latest_update", datetime: l(@plan.updated_at, format: :long)) %>
+  <% else %>
+    <%= t(".no_data") %>
+  <% end %>
+</p>
+
+<%= render "import_csv_form" %>

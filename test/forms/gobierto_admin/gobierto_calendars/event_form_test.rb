@@ -53,7 +53,6 @@ module GobiertoAdmin
         assert_equal 1, invalid_event_form.errors.messages[:collection].size
         assert_equal 1, invalid_event_form.errors.messages[:site].size
         assert_equal 1, invalid_event_form.errors.messages[:title_translations].size
-        assert_equal 1, invalid_event_form.errors.messages[:ends_at].size
       end
     end
   end

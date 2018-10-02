@@ -59,7 +59,10 @@ module GobiertoAdmin
 
       def clear_previous_data
         @plan.nodes.each(&:destroy)
-        @plan.create_categories_vocabulary(name_translations: @plan.title_translations, site: @plan.site) if @plan.categories_vocabulary.blank?
+        if @plan.categories_vocabulary.blank?
+          @plan.create_categories_vocabulary(name_translations: @plan.title_translations, site: @plan.site)
+          @plan.save
+        end
         @plan.categories_vocabulary.terms.destroy_all
       end
 

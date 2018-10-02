@@ -11,6 +11,7 @@ es:
         plan_type_id: Tipo
         slug: url
         title: Título
+        vocabulary_id: Vocabulario de categorías
         year: Año
       gobierto_admin/gobierto_plans/plan_type_form:
         name: Nombre

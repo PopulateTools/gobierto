@@ -18,6 +18,20 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def test_create_invalid_plan
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
+
+              click_button "Create"
+
+              assert has_content? "Title can't be blank"
+            end
+          end
+        end
+      end
+
       def test_create_plan
         with_javascript do
           with_signed_in_admin(admin) do

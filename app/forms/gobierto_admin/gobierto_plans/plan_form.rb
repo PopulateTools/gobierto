@@ -15,10 +15,12 @@ module GobiertoAdmin
         :plan_type_id,
         :configuration_data,
         :visibility_level,
-        :slug
+        :slug,
+        :vocabulary_id
       )
 
       validates :site_id, presence: true
+      validates :vocabulary_id, presence: true, if: :persisted?
       validate :configuration_data_format
 
       delegate :persisted?, to: :plan
@@ -43,6 +45,10 @@ module GobiertoAdmin
         @plan_type ||= ::GobiertoPlans::PlanType.find_by(id: plan_type_id)
       end
 
+      def vocabulary_id
+        @vocabulary_id ||= plan.vocabulary_id
+      end
+
       private
 
       def build_plan
@@ -65,6 +71,7 @@ module GobiertoAdmin
           plan_attributes.slug = slug
           plan_attributes.year = year
           plan_attributes.footer_translations = footer_translations
+          plan_attributes.vocabulary_id = vocabulary_id
         end
 
         if @plan.valid?

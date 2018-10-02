@@ -75,61 +75,6 @@ export const punchcard = (context, data, options = {}) => {
 	let g = svg.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-	// Custom X-axis
-	function xAxis(g) {
-		g.call(d3.axisTop(x).ticks(d3.timeMonth.every(1)).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
-		g.selectAll(".domain").remove()
-		g.selectAll(".tick line")
-			.attr("y1", 0)
-			.attr("y2", height)
-		g.selectAll(".tick text")
-			.attr("y", (-margin.top / 1.5) + (itemHeight / 2))
-	}
-
-	// Custom Y-axis
-	function yAxis(g) {
-		g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0).tickFormat(yTickFormat))
-		g.selectAll("text")
-      .each(function() {
-				// max size axis
-				let maxWidth = margin.left - (2 * gutter)
-
-				let self = d3.select(this)
-				let textLength = self.node().getComputedTextLength()
-				let text = self.text();
-
-				while (textLength > maxWidth && text.length > 0) {
-					text = text.slice(0, -1);
-					self.html(`${text}&hellip;`);
-					textLength = self.node().getComputedTextLength();
-				}
-
-				return self.text()
-			});
-
-		g.selectAll(".domain").remove()
-		g.selectAll(".tick")
-			.on("click", function (d,i) {
-				document.location.href = (data[i].properties || {}).url
-			})
-	}
-
-	// axis
-	g.append("g")
-		.attr("class", "x axis")
-		.call(xAxis)
-
-	g.append("g")
-		.attr("class", "y axis")
-		.attr("transform", "translate(" + (-margin.left + gutter) + ",0)")
-		.call(yAxis)
-
-	// tooltip
-	let tooltip = d3.select(tooltipContainer).append("div")
-		.attr("id", `${container.node().id}-tooltip`)
-		.attr("class", "graph-tooltip")
-		.style("transform", "translate(-50%, -10%)")
-
   // circles
 	let _g = g.selectAll("g.row")
 		.data(data)
@@ -185,4 +130,59 @@ export const punchcard = (context, data, options = {}) => {
     .transition()
     .duration(800)
     .attr("r", d => r(d.value));
+
+		// Custom X-axis
+		function xAxis(g) {
+			g.call(d3.axisTop(x).ticks(d3.timeMonth.every(1)).tickSizeOuter(0).tickSizeInner(0).tickFormat(xTickFormat))
+			g.selectAll(".domain").remove()
+			g.selectAll(".tick line")
+				.attr("y1", 0)
+				.attr("y2", height)
+			g.selectAll(".tick text")
+				.attr("y", (-margin.top / 1.5) + (itemHeight / 2))
+		}
+
+		// Custom Y-axis
+		function yAxis(g) {
+			g.call(d3.axisLeft(y).tickSizeOuter(0).tickSizeInner(0).tickFormat(yTickFormat))
+			g.selectAll("text")
+				.each(function() {
+					// max size axis
+					let maxWidth = margin.left - (2 * gutter)
+
+					let self = d3.select(this)
+					let textLength = self.node().getComputedTextLength()
+					let text = self.text();
+
+					while (textLength > maxWidth && text.length > 0) {
+						text = text.slice(0, -1);
+						self.html(`${text}&hellip;`);
+						textLength = self.node().getComputedTextLength();
+					}
+
+					return self.text()
+				});
+
+			g.selectAll(".domain").remove()
+			g.selectAll(".tick")
+				.on("click", function (d,i) {
+					document.location.href = (data[i].properties || {}).url
+				})
+		}
+
+		// axis
+		g.append("g")
+			.attr("class", "x axis")
+			.call(xAxis)
+
+		g.append("g")
+			.attr("class", "y axis")
+			.attr("transform", "translate(" + (-margin.left + gutter) + ",0)")
+			.call(yAxis)
+
+		// tooltip
+		let tooltip = d3.select(tooltipContainer).append("div")
+			.attr("id", `${container.node().id}-tooltip`)
+			.attr("class", "graph-tooltip")
+			.style("transform", "translate(-50%, -10%)")
 };

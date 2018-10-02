@@ -1,14 +1,12 @@
 import Lightbox from 'lightbox2'
 
-$(document).on('turbolinks:load', function(e) { Lightbox.init() })
-
 window.GobiertoParticipation.ProcessPollsController = (function() {
 
   function ProcessPollsController() {}
 
   ProcessPollsController.prototype.show = function(){
     Lightbox.init()
-    
+
     _addNextQuestionButtonBehaviors();
     _preventAnchorsDefaultBehavior();
     _addQuestionOptionsBehaviors();

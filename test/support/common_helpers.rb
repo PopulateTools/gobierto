@@ -29,4 +29,8 @@ module CommonHelpers
     click_link "View item"
   end
 
+  def air_datepicker_field_value(field_id)
+    page.find("##{field_id}")["outerHTML"].gsub(/^.*value=\"/, "").gsub(/\" name.*/, "")
+  end
+
 end

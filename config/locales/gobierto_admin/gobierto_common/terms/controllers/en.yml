@@ -1,0 +1,20 @@
+---
+en:
+  gobierto_admin:
+    gobierto_common:
+      ordered_terms:
+        create:
+          success: Term created successfully.
+        destroy:
+          destroy_failed: You can't delete a term while it has associated elements.
+          success: Term deleted successfully.
+        update:
+          success: Term updated successfully.
+      terms:
+        create:
+          success: Term created successfully.
+        destroy:
+          destroy_failed: Term couldn't be deleted.
+          success: Term deleted successfully.
+        update:
+          success: Term updated successfully.

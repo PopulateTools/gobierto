@@ -4,12 +4,6 @@
   <% end %>
 <% end %>
 
-<% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.GobiertoParticipation.poll_teaser_controller.show();
-  <% end %>
-<% end %>
-
 <% content_for :javascript_module_link do %>
   <!-- load module javascript specifics -->
   <%= javascript_pack_tag 'participation', 'data-turbolinks-track': true %>

@@ -106,7 +106,8 @@ module GobiertoPeople
           title: filter_result.event_attributes[:title],
           description: filter_result.event_attributes[:description],
           site_id: site.id,
-          person_id: person.id
+          person_id: person.id,
+          integration_name: configuration.integration_name
         }
 
         event_params[:locations_attributes] = if event.location.present?
@@ -118,10 +119,12 @@ module GobiertoPeople
         event_form = GobiertoPeople::CalendarSyncEventForm.new(event_params)
 
         if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
-          log_destroy_rule
+          log_destroy_rule(event_form.title)
           event_form.destroy
-        elsif !event_form.save
-          log_invalid_event(event_form.errors.messages)
+        elsif event_form.save
+          log_saved_event(event_form)
+        else
+          log_invalid_event(event_form)
         end
       end
 

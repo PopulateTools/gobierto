@@ -14,7 +14,8 @@ module GobiertoAdmin
           introduction_translations: { I18n.locale => plan.introduction },
           css: plan.css,
           configuration_data: plan.configuration_data,
-          year: plan.year
+          year: plan.year,
+          vocabulary_id: vocabulary.id
         )
       end
 
@@ -39,8 +40,21 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def vocabulary
+        @vocabulary ||= gobierto_common_vocabularies(:plan_categories_vocabulary)
+      end
+
       def test_save_plan_with_valid_attributes
         assert valid_plan_form.save
+      end
+
+      def test_save_existing_plan_with_blank_vocabulary
+        valid_plan_form.vocabulary_id = nil
+
+        assert valid_plan_form.save
+
+        valid_plan_form.save
+        assert_equal 1, valid_plan_form.errors.messages[:vocabulary_id].size
       end
 
       def test_plan_error_messages_with_invalid_attributes_wadus

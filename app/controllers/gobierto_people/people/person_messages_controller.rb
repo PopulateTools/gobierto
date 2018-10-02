@@ -1,16 +1,24 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     class PersonMessagesController < BaseController
+
       before_action :check_person_has_email
+      invisible_captcha(
+        only: [:create],
+        honeypot: :ic_email,
+        scope: :gobierto_people_person_message
+      )
 
       def new
         @person_message = GobiertoPeople::PersonMessage.new(default_params)
       end
 
       def create
-        @person_message = GobiertoPeople::PersonMessage.new(person_message_params.merge(default_params.merge({
-          person: @person
-        })))
+        @person_message = GobiertoPeople::PersonMessage.new(
+          person_message_params.merge(default_params.merge(person: @person))
+        )
 
         if @person_message.valid?
           @person_message.deliver!

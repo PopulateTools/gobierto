@@ -11,7 +11,7 @@
     <%= render 'layouts/analytics_header_site' %>
   <% end %>
 
-  <%= javascript_pack_tag 'vendor', 'data-turbolinks-track': true %>
+  <%= javascript_pack_tag 'commons', 'data-turbolinks-track': true %>
   <%= javascript_pack_tag 'admin', 'data-turbolinks-track': true %>
 
 </head>
@@ -98,11 +98,17 @@
       <%= t(".notifications") %>
     </div>
 
-    <div class="right pure-menu-link">
-      <% if current_site.present? %>
-        <%= link_to t(".view_site"), current_site.domain_url, target: "_blank" %>
-      <% end %>
-    </div>
+    <% if preview_item_url %>
+      <div class="right pure-menu-link">
+        <%= link_to t(".view_item"), preview_item_url, target: "_blank" %>
+      </div>
+    <% end %>
+
+    <% if current_site.present? %>
+      <div class="right pure-menu-link">
+          <%= link_to t(".view_site"), current_site.domain_url, target: "_blank" %>
+      </div>
+    <% end %>
 
   </header>
 
@@ -157,13 +163,20 @@
 
             <li><%= link_to t(".users"), admin_users_path %></li>
 
-            <% if managing_site? %>
+            <% if current_site %>
               <li>
-                <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
+                <% if current_admin.can_customize_site? %>
+                  <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
+                <% else %>
+                  <span><%= t(".edit_site") %></span>
+                <% end %>
                 <ul>
-                  <li><%= link_to t(".issues"), admin_issues_path %></li>
-                  <li><%= link_to t(".scopes"), admin_scopes_path %></li>
-                  <li><%= link_to t(".templates"), admin_gobierto_core_templates_path %></li>
+                  <% if current_admin.can_edit_vocabularies? %>
+                    <li><%= link_to t(".vocabularies"), admin_common_vocabularies_path %></li>
+                  <% end %>
+                  <% if current_admin.can_edit_templates? %>
+                    <li><%= link_to t(".templates"), admin_gobierto_core_templates_path %></li>
+                  <% end %>
                 </ul>
               </li>
             <% end %>

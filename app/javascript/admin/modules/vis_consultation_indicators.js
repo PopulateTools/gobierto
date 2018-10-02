@@ -1,4 +1,5 @@
-import { Class, accounting, d3 } from 'shared'
+import { Class, accounting } from 'shared'
+import * as d3 from 'd3'
 
 export var VisIndicators = Class.extend({
   init: function(divId, url) {

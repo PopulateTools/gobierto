@@ -1,0 +1,28 @@
+---
+en:
+  gobierto_admin:
+    gobierto_common:
+      vocabularies:
+        edit:
+          edit: Edit %{vocabulary}
+        edit_modal:
+          title: Edit %{vocabulary}
+        form:
+          placeholders:
+            name: Animal kingdom
+            slug: animal_kingdom
+        index:
+          delete_confirm: Are you sure? This operation can not be undone
+          header:
+            name: Name
+          new: New
+          title: Vocabularies
+          view_vocabulary: See terms
+        new:
+          new: New Vocabulary
+        new_modal:
+          title: New Vocabulary
+        show:
+          created_at: Created at
+          terms: Terms
+          terms_count: "%{count} terms"

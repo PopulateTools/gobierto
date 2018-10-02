@@ -16,14 +16,14 @@ es:
         edit_site: Personalizar sitio
         file_attachments: Documentos
         hey_admin: Hola, %{admin_name}
-        issues: Temas
         manage_sites: Gestionar sites
         notifications: Notificaciones
         participation: Participación
         people: Altos cargos y Agendas
         plans: Planes
-        scopes: Ámbitos
         site_network: Red
         templates: Plantillas
         users: Usuarios
+        view_item: Ver ítem
         view_site: Ver site
+        vocabularies: Vocabularios

@@ -130,5 +130,22 @@ module GobiertoCalendars
 
       assert event.slug.include?("archived-")
     end
+
+    def test_public?
+      assert event.public?
+
+      person.draft!
+
+      refute event.public?
+
+      event.pending!
+
+      refute event.public?
+
+      person.active!
+
+      refute event.public?
+    end
+
   end
 end

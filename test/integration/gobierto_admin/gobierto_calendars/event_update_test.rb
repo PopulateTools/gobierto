@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_admin/previewable_item_test_module"
 
 module GobiertoAdmin
   module GobiertoCalendars
     class PersonEventUpdateTest < ActionDispatch::IntegrationTest
+
+      include ::GobiertoAdmin::PreviewableItemTestModule
+
       def setup
         super
         @path = edit_admin_calendars_event_path(event, collection_id: collection)
@@ -34,6 +38,21 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def preview_test_conf
+        {
+          item_admin_path: edit_admin_calendars_event_path(event, collection_id: collection),
+          item_public_url: event.to_url
+        }
+      end
+
+      def chosen_start_date
+        Time.zone.parse("2017-01-01 00:00")
+      end
+
+      def chosen_end_date
+        Time.zone.parse("2017-01-01 00:01")
+      end
+
       def test_event_update
         with_javascript do
           with_signed_in_admin(admin) do
@@ -42,8 +61,8 @@ module GobiertoAdmin
 
               within "form.edit_event" do
                 fill_in "event_title_translations_en", with: "Event Title"
-                fill_in "event_starts_at", with: "2017-01-01 00:00"
-                fill_in "event_ends_at", with: "2017-01-01 00:01"
+                fill_in "event_starts_at", with: chosen_start_date
+                fill_in "event_ends_at", with: chosen_end_date
                 find("#event_description_translations_en", visible: false).set("Event Description")
 
                 click_link "ES"
@@ -98,8 +117,9 @@ module GobiertoAdmin
               within "form.edit_event" do
                 assert has_field?("event_title_translations_en", with: "Event Title")
 
-                assert has_field?("event_starts_at", with: "2017-01-01 00:00")
-                assert has_field?("event_ends_at", with: "2017-01-01 00:01")
+                assert_equal chosen_start_date.to_s, air_datepicker_field_value(:event_starts_at)
+                assert_equal chosen_end_date.to_s, air_datepicker_field_value(:event_ends_at)
+
                 assert_equal(
                   "Event Description",
                   find("#event_description_translations_en", visible: false).value

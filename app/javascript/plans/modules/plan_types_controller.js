@@ -1,4 +1,5 @@
-import { Vue } from 'shared'
+import Vue from 'vue'
+Vue.config.productionTip = false
 
 window.GobiertoPlans.PlanTypesController = (function() {
 
@@ -35,16 +36,13 @@ window.GobiertoPlans.PlanTypesController = (function() {
         },
         computed: {
           progressWidth: function () {
-            // Apply programatically a vue global filter
-            return Vue.filter('percent')(this.model.attributes.progress)
+            return `${this.model.attributes.progress}%`
           }
         },
         methods: {
           open: function() {
-            var model = { ...this.model };
-
             // Trigger event
-            this.$emit('selection', model);
+            this.$emit('selection', { ...this.model });
           }
         }
       });
@@ -60,8 +58,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
         },
         methods: {
           setActive: function() {
-            var l = this.model.level;
-
             if (this.model.type === "category" && !this.model.max_level) {
               var model = { ...this.model };
 
@@ -88,9 +84,10 @@ window.GobiertoPlans.PlanTypesController = (function() {
           return {}
         },
         methods: {
-          getProject: function(model) {
+          getProject: function(row) {
             if (this.open) {
-              var project = { ...this.model };
+              // var project = { ...this.model };
+              var project = { ...row };
 
               this.$emit('selection', project);
             }
@@ -98,7 +95,8 @@ window.GobiertoPlans.PlanTypesController = (function() {
         }
       });
 
-      var app = new Vue({
+      // main object
+      new Vue({
         el: '#gobierto-planification',
         name: 'gobierto-planification',
         data: {
@@ -113,13 +111,22 @@ window.GobiertoPlans.PlanTypesController = (function() {
         },
         created: function() {
           this.getJson();
+
+          let vm = this
+          function locationHashChanged() {
+              vm.getPermalink(window.location.hash.substring(1))
+          }
+
+          window.onhashchange = locationHashChanged
         },
         watch: {
           activeNode: {
             handler: function(node) {
-              this.showTable = {};
-              this.isOpen(node.level);
-              animate(node.level, node.type);
+              this.showTable = {}
+              // update hash when a new node is active
+              this.setPermalink()
+
+              this.isOpen(node.level)
             },
             deep: true
           }
@@ -159,10 +166,16 @@ window.GobiertoPlans.PlanTypesController = (function() {
               this.optionKeys = Object.keys(optionKeys).reduce(function(c, k) {
                 return (c[k.toLowerCase()] = optionKeys[k]), c;
               }, {});
+
+              // Parse permalink
+              if (window.location.hash) {
+                this.getPermalink(window.location.hash.substring(1))
+              }
+
             }.bind(this));
           },
           color: function() {
-            return this.rootid % this.json.length + 1; // TODO: el mod no debe ser la longitud del array, sino, la de la variable de colores
+            return this.rootid % this.json.length + 1;
           },
           setRootColor: function(index) {
             return index % this.json.length + 1;
@@ -171,14 +184,28 @@ window.GobiertoPlans.PlanTypesController = (function() {
             this.activeNode = model;
 
             // To know the root node
-            if (this.activeNode.level === 0) {
-              // parse first position
-              this.rootid = this.activeNode.uid.toString().charAt(0);
-            }
+            this.rootid = this.activeNode.uid.toString().charAt(0);
           },
           isOpen: function(level) {
             if (this.activeNode.level === undefined) return false
-            return (level - 1) <= this.activeNode.level;
+
+            let isOpen = false
+            if (this.activeNode.level === 0) {
+              // activeNode = 0, it means is a "line"
+              // then, it shows level_0 and level_1
+              isOpen = (level < 2)
+            } else {
+              // activeNode = X
+              if (this.activeNode.type === "node") {
+                // type = node, it means there's no further levels, then it shows as previous one
+                isOpen = (level === 0) || (level === this.activeNode.level)
+              } else {
+                // then, it shows level_0 and level_(X+1), but not those between
+                isOpen = (level === 0) || (level === (this.activeNode.level + 1))
+              }
+            }
+
+            return isOpen
           },
           typeOf: function(val) {
             if (_.isString(val)) {
@@ -225,38 +252,65 @@ window.GobiertoPlans.PlanTypesController = (function() {
             if (breakpoint === 3) breakpoint = breakpoint - 1;
 
             this.activeNode = this.getParent(breakpoint);
+          },
+          setPermalink: function () {
+            window.location.hash = this.activeNode.uid
+          },
+          getPermalink: function (hash) {
+            let found = this.searchByUid(hash, this.json)
+            if (found) {
+              this.setSelection(found)
+            }
+          },
+          searchByUid: function(id, data) {
+            let result = false
+
+            if (_.isArray(data)) {
+              _.each(data, d => {
+                result = findNodeByProp(id, d, 'uid')
+
+                // Return false to break loop
+                if (result !== false) {
+                  return false;
+                }
+              })
+            } else {
+              result = findNodeByProp(id, data, 'uid')
+            }
+
+            return result
           }
         }
-      });
+      })
 
-      // Velocity Animates
-      function animate(l, type) {
-        if (l === 0) {
-          $('section.level_0 .js-img').hide();
-          $('section.level_0 .js-info').velocity({
-            padding: "1.5em"
-          });
-          $('section.level_0 .js-info h3, section.level_0 .js-info span').css({
-            "font-size": "1.25rem"
-          });
-          $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
+      function findNodeByProp(id, currentNode, prop = 'id') {
+        var i,
+          currentChild,
+          result;
 
-          return
-        }
-        if (l !== 0 && type === "category") {
-          $('section.level_' + l).hide();
-          $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
+        if (id == currentNode[prop]) {
+          return currentNode;
+        } else {
 
-          return
-        } else if (type === "node") {
-          $('section.level_' + (l - 1)).hide();
-          $('section.level_' + l).velocity("transition.slideRightBigIn");
+          // Use a for loop instead of forEach to avoid nested functions
+          // Otherwise "return" will not work properly
+          for (i = 0; i < currentNode.children.length; i += 1) {
+            currentChild = currentNode.children[i];
 
-          return
+            // Search in the current child
+            result = findNodeByProp(id, currentChild, prop);
+
+            // Return the result if the node has been found
+            if (result !== false) {
+              return result;
+            }
+          }
+
+          // The node has not been found and we have no more options
+          return false;
         }
       }
     }
-
 
     return PlanTypesController;
   })();

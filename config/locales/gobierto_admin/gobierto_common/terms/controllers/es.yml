@@ -1,0 +1,20 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      ordered_terms:
+        create:
+          success: El término se ha creado correctamente.
+        destroy:
+          destroy_failed: El término no ha podido ser eliminado.
+          success: El término ha sido eliminado correctamente.
+        update:
+          success: El término se ha actualizado correctamente.
+      terms:
+        create:
+          success: El término se ha creado correctamente.
+        destroy:
+          destroy_failed: No puedes borrar un término mientras tenga elementos asociados.
+          success: El término ha sido eliminado correctamente.
+        update:
+          success: El término se ha actualizado correctamente.

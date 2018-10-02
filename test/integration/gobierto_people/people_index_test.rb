@@ -19,19 +19,27 @@ module GobiertoPeople
       @site ||= sites(:madrid)
     end
 
+    def richard
+      @richard ||= gobierto_people_people(:richard)
+    end
+
+    def tamara
+      @tamara ||= gobierto_people_people(:tamara)
+    end
+
     def people
       @people ||= [
-        gobierto_people_people(:richard),
+        richard,
         gobierto_people_people(:nelson),
-        gobierto_people_people(:tamara),
+        tamara,
         gobierto_people_people(:neil)
       ]
     end
 
     def political_groups
       @political_groups ||= [
-        gobierto_people_political_groups(:marvel),
-        gobierto_people_political_groups(:dc)
+        gobierto_common_terms(:marvel_term),
+        gobierto_common_terms(:dc_term)
       ]
     end
 
@@ -49,11 +57,20 @@ module GobiertoPeople
       ".pure-u-1.pure-u-md-7-24"
     end
 
+    def available_filters
+      ["Government Team", "Opposition", "Executive", "All", "Political groups"]
+    end
+
     def set_default_dates
       conf = site.configuration
       conf.raw_configuration_variables = <<-YAML
 gobierto_people_default_filter_start_date: "2010-01-01"
 YAML
+      site.save
+    end
+
+    def clear_default_dates
+      site.configuration.raw_configuration_variables = nil
       site.save
     end
 
@@ -66,11 +83,45 @@ YAML
         assert has_selector?("h2", text: "#{site.name}'s organization chart")
 
         within ".filter_boxed" do
-          assert has_link?("Government Team")
-          assert has_link?("Opposition")
-          assert has_link?("Executive")
-          assert has_link?("All")
-          assert has_link?("Political groups")
+          available_filters.each { |filter| assert has_link?(filter) }
+        end
+      end
+    end
+
+    def test_when_date_filering_enabled
+      disable_submodule(site, :departments)
+      tamara.attending_events.destroy_all
+      set_default_dates
+
+      with_current_site(site) do
+        visit @path
+
+        within ".filter_boxed" do
+          available_filters.each { |filter| assert has_link?(filter) }
+        end
+
+        within ".people-summary" do
+          assert has_content? richard.name
+          refute has_content? tamara.name # hide people without events
+        end
+      end
+    end
+
+    def test_when_date_filtering_disabled
+      disable_submodule(site, :departments)
+      tamara.attending_events.destroy_all
+      clear_default_dates
+
+      with_current_site(site) do
+        visit @path
+
+        within ".filter_boxed" do
+          available_filters.each { |filter| assert has_link?(filter) }
+        end
+
+        within ".people-summary" do
+          assert has_content? richard.name
+          assert has_content? tamara.name # show people without events
         end
       end
     end

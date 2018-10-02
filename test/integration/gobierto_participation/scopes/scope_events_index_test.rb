@@ -9,7 +9,7 @@ module GobiertoParticipation
     end
 
     def scope
-      @scope ||= gobierto_common_scopes(:old_town)
+      @scope ||= ProcessTermDecorator.new(gobierto_common_terms(:old_town_term))
     end
 
     def scope_events_path

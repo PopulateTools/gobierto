@@ -1,4 +1,8 @@
-import { isMobile, Vue } from 'shared'
+import { isMobile } from 'shared'
+import Vue from 'vue'
+Vue.config.productionTip = false
+
+import 'sticky-kit/dist/sticky-kit.js'
 
 window.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
   function ConsultationResponsesController() {}

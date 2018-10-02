@@ -1,0 +1,41 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_common:
+      ordered_terms:
+        edit_modal:
+          title: Edita %{term}
+        form:
+          placeholders:
+            description: Descripció del terme
+            name: Nom del terme
+            slug: terme
+        index:
+          delete_confirm: Estàs segur? Aquesta operació no és reversible
+          drag_to_sort: Arrastra per a ordenar
+          header:
+            created_at: Creació
+            name: Nom
+          new: Nou
+          title: Termes de %{vocabulary}
+        new_modal:
+          title: Nou terme
+      terms:
+        edit:
+          edit: Editar %{term}
+        form:
+          placeholders:
+            description: El cavall és un mamífer herbívor
+            name: Cavall
+            slug: regne-animal-cavall
+        index:
+          delete_confirm: Estàs segur? Aquesta operació no és reversible
+          header:
+            description: Descripció
+            level: Nivell
+            name: Nom
+            parent: Pare
+          new: Nou
+          title: Termes de %{vocabulary}
+        new:
+          new: Nou Terme

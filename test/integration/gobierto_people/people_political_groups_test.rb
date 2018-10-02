@@ -17,8 +17,8 @@ module GobiertoPeople
 
     def political_groups
       @political_groups ||= [
-        gobierto_people_political_groups(:marvel),
-        gobierto_people_political_groups(:dc)
+        gobierto_common_terms(:marvel_term),
+        gobierto_common_terms(:dc_term)
       ]
     end
 
@@ -30,23 +30,32 @@ module GobiertoPeople
       gobierto_people_people(:kali)
     end
 
+    def test_current_political_group_higlight
+      with_current_site(site) do
+        visit @path
+        within "menu div div li.active" do
+          assert has_link?("Marvel")
+        end
+      end
+    end
+
     def test_absence_of_empty_political_group
       with_current_site(site) do
         visit @path
 
-        within '.filter_boxed' do
-          assert has_link?('Marvel')
-          assert has_link?('DC')
+        within ".filter_boxed" do
+          assert has_link?("Marvel")
+          assert has_link?("DC")
         end
         dc_member.delete
         other_site_member.update(political_group: political_groups.last)
 
-        click_link 'Political groups'
+        click_link "Political groups"
         sleep 1
 
-        within '.filter_boxed' do
-          assert has_link?('Marvel')
-          assert has_no_link?('DC')
+        within ".filter_boxed" do
+          assert has_link?("Marvel")
+          assert has_no_link?("DC")
         end
       end
     end

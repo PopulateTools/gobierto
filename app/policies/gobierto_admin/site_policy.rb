@@ -7,7 +7,7 @@ module GobiertoAdmin
       @site = site
     end
 
-    def view?
+    def list?
       manage?
     end
 
@@ -16,7 +16,7 @@ module GobiertoAdmin
     end
 
     def update?
-      manage?
+      admin.can_customize_site?
     end
 
     def delete?

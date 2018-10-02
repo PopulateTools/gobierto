@@ -20,4 +20,16 @@ module GobiertoCalendars
     sync_range_start..sync_range_end
   end
 
+  def self.sync_range_start_ibm_notes
+    DateTime.now - 2.days
+  end
+
+  def self.sync_range_end_ibm_notes
+    DateTime.now + 10.months
+  end
+
+  def self.sync_range_ibm_notes
+    sync_range_start_ibm_notes..sync_range_end_ibm_notes
+  end
+
 end

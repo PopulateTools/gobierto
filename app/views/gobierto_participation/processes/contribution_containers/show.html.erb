@@ -20,7 +20,15 @@
         <div class="pure-u-1 pure-u-md-5-24 contribution_action">
           <% if @contribution_container.contributions_allowed? %>
             <% if current_user %>
-              <%= link_to t(".put_#{@contribution_container.contribution_type}"), new_gobierto_participation_process_contribution_container_contribution_path(process_id: current_process.slug, contribution_container_id: @contribution_container.slug), class: "button", remote: true %></a>
+              <%= link_to(
+                    t(".put_#{@contribution_container.contribution_type}"),
+                    new_gobierto_participation_process_contribution_container_contribution_path(
+                      process_id: current_process.slug,
+                      contribution_container_id: @contribution_container.slug
+                    ),
+                    class: "button",
+                    remote: true
+                  ) %>
             <% else %>
               <%= link_to t(".login_signup_#{@contribution_container.contribution_type}"), new_user_sessions_path(open_modal: true), class: 'button open_remote_modal' %>
             <% end %>
@@ -79,8 +87,25 @@
   </div>
 </div>
 
-<% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.GobiertoParticipation.contribution_containers_controller.index(JSON.parse('<%= raw @contribution_container_data.to_json %>'));
-  <% end %>
+<%= javascript_tag do %>
+  contributionContainerData = JSON.parse('<%= raw @contribution_container_data.to_json %>');
+
+  function getPageAnchor() {
+    var splittedUrl = window.location.href.split("#");
+
+    if (splittedUrl.length > 1) {
+      return splittedUrl[splittedUrl.length - 1];
+    } else {
+      return undefined;
+    }
+  }
+
+  if (getPageAnchor()) {
+    $.ajax({
+      url: '<%= @contribution_container.to_path %>/contributions/' + getPageAnchor(),
+      dataType: 'script',
+      method: 'GET'
+    });
+  }
+
 <% end %>

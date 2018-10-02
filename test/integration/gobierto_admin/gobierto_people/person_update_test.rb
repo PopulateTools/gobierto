@@ -3,12 +3,14 @@
 require "test_helper"
 require "support/integration/dynamic_content_helpers"
 require "support/concerns/gobierto_admin/authorizable_resource_test_module"
+require "support/concerns/gobierto_admin/previewable_item_test_module"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonUpdateTest < ActionDispatch::IntegrationTest
       include Integration::DynamicContentHelpers
       include ::GobiertoAdmin::AuthorizableResourceTestModule
+      include ::GobiertoAdmin::PreviewableItemTestModule
 
       def setup
         super
@@ -30,7 +32,14 @@ module GobiertoAdmin
       end
 
       def political_group
-        @political_group ||= gobierto_people_political_groups(:marvel)
+        @political_group ||= gobierto_common_terms(:marvel_term)
+      end
+
+      def preview_test_conf
+        {
+          item_admin_path: edit_admin_people_person_path(person),
+          item_public_url: person.to_url
+        }
       end
 
       def test_person_update

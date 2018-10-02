@@ -50,7 +50,7 @@ yarn-debug.log*
 .yarn-integrity
 
 # I18njs
-app/javascript/i18n/translations.js
+app/javascript/i18n/modules/translations.js
 
 # Gobierto Engines
 vendor/gobierto_engines/*

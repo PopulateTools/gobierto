@@ -3,11 +3,12 @@ es:
   gobierto_people:
     departments:
       index:
-        events: reuniones registradas
-        people_with_events: altos cargos con reuniones registradas
+        events: Reuniones registradas
+        people_with_events: Altos cargos con reuniones registradas
       show:
-        interest_groups_with_events: grupos de interes se han reunido con este departamento
-        people_with_events: altos cargos de este departamento con reuniones registradas
+        interest_groups_with_events: Grupos de interés que se han reunido con este
+          departamento
+        people_with_events: Altos cargos de este departamento con reuniones registradas
     events:
       gobierto_people_person_post_published: 'Actualización del blog: %{subject_name}'
       gobierto_people_person_post_updated: 'Actualización del post: %{subject_name}'
@@ -26,31 +27,29 @@ es:
             titulaciones, etc.
           title: Cargos
         posts:
-          description: Últimas entradas del conjunto de los blogs.
+          description: Últimas entradas del conjunto de los blogs
           title: Blogs
         statements:
           description: Listado de las declaraciones de bienes y actividades y todos
-            sus elementos.
+            sus elementos
           title: Declaraciones de bienes y actividades
     interest_groups:
       index:
-        interest_groups: grupos de interés inscritos
+        interest_groups: Grupos de interés inscritos
       show:
-        events: reuniones registradas
-        people_with_events: el número de Altos Cargos con los que se ha reunido este
-          grupo
+        events: Grupos de interés inscritos
+        people_with_events: Reuniones registradas
     layouts:
       application:
         title: Altos cargos y Agendas
       departments:
-        no_departments_within_dates: No hay ningún departamento para este rango de
-          fechas
+        no_departments_within_dates: Altos cargos y agendas
       menu_subsections:
         agendas: Agendas
         blogs: Blogs
         departments: Departamentos
         gifts: Obsequios
-        interest_groups: Grupos de Interés
+        interest_groups: Grupos de interés
         invitations: Invitaciones
         people: Cargos
         statements: Declaraciones
@@ -61,7 +60,7 @@ es:
       index:
         no_people_within_range: No hay ningún alto cargo para este rango de fechas
         subscribable_box:
-          title: Recibe alertas en tu correo-e
+          title: Reciba alertas en su correo-e
         title: Organigrama de %{site_name}
       latest_activity:
         no_activity: Este perfil aún no ha registrado ninguna actividad.
@@ -72,7 +71,7 @@ es:
         blog: Blog
         gifts: Obsequios y regalos
         invitations: Invitaciones
-        statements: Bienes y Actividades
+        statements: Bienes y actividades
         trips: Viajes
       people_filter:
         organigram: Organigrama de %{name}
@@ -119,10 +118,10 @@ es:
         index:
           no_statements: Todavía no se ha publicado ninguna declaración para esta
             persona.
-          title: Bienes y Actividades de %{person_name}
+          title: Bienes y actividades de %{person_name}
         show:
           download: Descargar declaración (%{file_size})
-          title: Bienes y Actividades de %{person_name}
+          title: Bienes y actividades de %{person_name}
           view_previous: Ver anteriores
       show:
         party:
@@ -141,7 +140,7 @@ es:
           total_expenses: Gastos totales
           transport_expenses: Transporte
       upcoming_events:
-        no_upcoming_events: No hay eventos próximos en esta agenda
+        no_upcoming_events: No hay eventos próximos en esta agenda.
         title: Agenda
         view_all: Ver todos
     people_filter:
@@ -156,16 +155,16 @@ es:
     person_events:
       index:
         agenda_switcher:
-          subtitle: Filtra por miembros de la comunidad
-          title: Consulta la agenda de...
+          subtitle: Filtrar por miembros de la comunidad
+          title: Consulte la agenda de...
         displaying_events_of: Mostrando eventos del %{date}
         go_back: Volver
         no_events: No hay eventos futuros ni pasados.
         no_past_events: No hay eventos pasados.
-        no_upcoming_events: No hay eventos futuros. Échale un vistazo a los pasados
+        no_upcoming_events: No hay eventos futuros. Échele un vistazo a los pasados.
         past_events: Eventos pasados
         subscribable_box:
-          title: Recibe un resumen de las agendas de tus representantes
+          title: Reciba un resumen de las agendas de sus representantes
         title: Agendas de los miembros de %{site_name}
         upcoming_events: Agenda
         view_more: Ver más
@@ -178,26 +177,26 @@ es:
     person_posts:
       index:
         subscribable_box:
-          title: Recibe alertas en tu correo-e
+          title: Reciba alertas en su correo-e
         switcher:
-          subtitle: Filtra por miembros de la comunidad
-          title: Filtra los blogs de...
+          subtitle: Filtrar por miembros de la comunidad
+          title: Consulte los blogs de...
         title: Blogs
       person_post_excerpt:
         continue: Seguir leyendo
     person_statements:
       index:
         subscribable_box:
-          title: Recibe alertas en tu correo-e
+          title: Reciba alertas en su correo-e
         switcher:
-          subtitle: Filtra por miembros de la comunidad
-          title: Filtra las declaraciones de...
+          subtitle: Filtrar por miembros de la comunidad
+          title: Consulte las declaraciones de...
         title: Declaraciones
     welcome:
       index:
         events_summary:
           no_events: No hay eventos
-          no_upcoming_events: No hay eventos futuros. Échale un vistazo a los pasados
+          no_upcoming_events: No hay eventos futuros. Échele un vistazo a los pasados.
           past_events: Eventos pasados
           upcoming_events: Próximos eventos
           view_all: Ver todos
@@ -211,5 +210,5 @@ es:
           view_all: Ver todos
         statements: Declaraciones de bienes y actividades
         subscribable_box:
-          title: Recibe un resumen semanal de las agendas de tus representantes
+          title: Reciba un resumen semanal de las agendas de sus representantes
         trips: Viajes y desplazamientos

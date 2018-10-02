@@ -102,6 +102,6 @@ export var shareContent = flight.component(function(){
   };
 });
 
-$(document).on('turbolinks:load', function() {
+$(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {
   shareContent.attachTo('[data-share]');
 });

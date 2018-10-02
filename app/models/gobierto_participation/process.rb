@@ -13,6 +13,7 @@ module GobiertoParticipation
     include GobiertoCommon::Searchable
     include GobiertoCommon::ActsAsCollectionContainer
     include GobiertoAttachments::Attachable
+    include GobiertoCommon::HasVocabulary
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
@@ -24,8 +25,8 @@ module GobiertoParticipation
     translates :title, :body, :body_source, :information_text
 
     belongs_to :site
-    belongs_to :issue
-    belongs_to :scope, class_name: "GobiertoCommon::Scope"
+    has_vocabulary :issues
+    has_vocabulary :scopes
     has_many :stages, -> { sorted }, dependent: :delete_all, class_name: "GobiertoParticipation::ProcessStage", autosave: true
     has_many :published_stages, -> { published.sorted }, class_name: "GobiertoParticipation::ProcessStage"
     has_many :polls
@@ -42,24 +43,10 @@ module GobiertoParticipation
     after_create :create_collections
     after_restore :set_slug
 
+    alias public? active?
+
     def to_s
       title
-    end
-
-    def information_stage?
-      active_stage?(ProcessStage.stage_types[:information])
-    end
-
-    def polls_stage?
-      active_stage?(ProcessStage.stage_types[:polls])
-    end
-
-    def contributions_stage?
-      active_stage?(ProcessStage.stage_types[:contributions])
-    end
-
-    def results_stage?
-      active_stage?(ProcessStage.stage_types[:results])
     end
 
     def active_stage?(stage_type)
@@ -113,11 +100,16 @@ module GobiertoParticipation
     end
 
     def resource_path
-      url_helpers.gobierto_participation_process_url({ id: slug }.merge(host: site.domain))
+      url_helpers.gobierto_participation_process_url(id: slug, host: site.domain)
     end
 
     def to_url(options = {})
-      url_helpers.gobierto_participation_process_url(parameterize.merge(id: self.slug, host: app_host).merge(options))
+      if draft? && options[:preview] && options[:admin]
+        options[:preview_token] = options[:admin].preview_token
+      end
+      url_helpers.gobierto_participation_process_url(
+        options.except(:preview, :admin).merge(id: slug, host: site.domain)
+      )
     end
 
     private

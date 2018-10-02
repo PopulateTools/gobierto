@@ -1,7 +1,7 @@
 window.GobiertoAdmin.GobiertoCalendarsEventsController = (function() {
   function GobiertoCalendarsEventsController() {}
 
-  GobiertoCalendarsEventsController.prototype.index = function(wrapper, namespace) {
+  GobiertoCalendarsEventsController.prototype.index = function() {
     $('a[data-toggle]').on('click', function(){
       $('div#archived-list').toggle();
     });

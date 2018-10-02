@@ -38,6 +38,12 @@ module GobiertoParticipation
       )
     end
 
+    def contribution_containers_path
+      @contribution_containers_path ||= gobierto_participation_process_contribution_containers_path(
+        process_id: process.slug,
+      )
+    end
+
     def process
       @process ||= gobierto_participation_processes(:sport_city_process)
     end
@@ -99,7 +105,7 @@ module GobiertoParticipation
       end
     end
 
-    def test_best_ratings_contributions_show
+    def test_best_ratings_filter
       with_javascript do
         with_current_site(site) do
           visit container_path
@@ -115,7 +121,7 @@ module GobiertoParticipation
       end
     end
 
-    def test_worst_ratings_contributions_show
+    def test_worst_ratings_filter
       with_javascript do
         with_current_site(site) do
           visit container_path
@@ -127,7 +133,7 @@ module GobiertoParticipation
       end
     end
 
-    def test_recent_contributions_show
+    def test_recent_contributions_filter
       with_javascript do
         with_current_site(site) do
           visit container_path
@@ -149,7 +155,23 @@ module GobiertoParticipation
           visit container_path
 
           page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
-          assert has_content? "Carril bici hasta el Juan Carlos I"
+          assert has_selector?("h1", text: "Carril bici hasta el Juan Carlos I")
+        end
+      end
+    end
+
+    def test_contribution_show_via_permalink
+      with_javascript do
+        with_current_site(site) do
+          visit contribution.to_path
+
+          assert has_selector?("h1", text: "Carril bici hasta el Juan Carlos I")
+          assert current_url.include?("/p/ciudad-deportiva/aportaciones/children-contributions#carril-bici")
+
+          within(".contribution_card_expanded_wrapper") { click_button "×" }
+
+          assert has_selector?("h2", text: "What activities for children we can start up?")
+          assert has_no_selector?("h1", text: "Carril bici hasta el Juan Carlos I")
         end
       end
     end
@@ -167,6 +189,8 @@ module GobiertoParticipation
           assert has_content? "It enchants to me"
 
           find(".modal_like_control a", visible: false).click
+
+          assert_equal contribution_containers_path, current_path
         end
       end
     end
@@ -186,6 +210,8 @@ module GobiertoParticipation
           end
 
           find(".modal_like_control a", visible: false).click
+
+          assert_equal contribution_containers_path, current_path
         end
       end
     end

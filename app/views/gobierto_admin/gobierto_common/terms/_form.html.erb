@@ -1,0 +1,48 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @term_form %>
+
+<%= form_for(
+  @term_form, as: :term,
+  url: @term_form.persisted? ? admin_common_term_path(@term_form) : admin_common_vocabulary_terms_path(@vocabulary),
+  data: { "globalized-form-container" => true }) do |f| %>
+  <div class="pure-g">
+    <div class="pure-u-1 pure-u-md-16-24">
+
+      <div class="globalized_fields">
+        <%= render "gobierto_admin/shared/form_locale_switchers" %>
+        <% current_site.configuration.available_locales.each do |locale| %>
+
+          <div class="form_item input_text" data-locale="<%= locale %>">
+            <%= label_tag "term[name_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:name) %>
+              <%= attribute_indication_tag required: true %>
+            <% end %>
+            <%= text_field_tag "term[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t(".placeholders.name", locale: locale.to_sym) %>
+          </div>
+
+          <div class="form_item input_text" data-locale="<%= locale %>">
+            <%= label_tag "term[description_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:description) %>
+            <% end %>
+            <%= text_field_tag "term[description_translations][#{locale}]", f.object.description_translations && f.object.description_translations[locale], placeholder: t(".placeholders.description", locale: locale.to_sym) %>
+          </div>
+        <% end %>
+
+        <div class="form_item input_text">
+          <%= f.label :slug %>
+          <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+        </div>
+
+        <div class="form_item select_control">
+          <%= f.label :term_id %>
+          <%= f.select :term_id,
+            options_for_select(@parent_terms, selected: @parent_term),
+            { include_blank: true } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions right">
+    <%= f.submit %>
+  </div>
+<% end %>

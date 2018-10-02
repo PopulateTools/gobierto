@@ -2,6 +2,12 @@
 en:
   gobierto_admin:
     gobierto_participation:
+      configuration:
+        settings:
+          edit:
+            title: Configuration
+            update: Update
+          title: Preferences
       shared:
         navigation:
           agenda: Agenda
@@ -16,6 +22,7 @@ en:
           votings: Votings
       welcome:
         index:
+          configuration: Configuration
           element: Element
           finishes_in: It finishes in...
           group_process: Group/Process

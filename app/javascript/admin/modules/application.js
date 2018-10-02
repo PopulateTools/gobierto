@@ -1,18 +1,12 @@
-import { AUTOCOMPLETE_DEFAULTS, SimpleMDE, Turbolinks } from 'shared'
+import { AUTOCOMPLETE_DEFAULTS } from 'shared'
+import SimpleMDE from 'simplemde'
+import Turbolinks from 'turbolinks'
+import 'devbridge-autocomplete'
+import 'sticky-kit/dist/sticky-kit.js'
+import 'air-datepicker'
+import 'magnific-popup'
 
 $(document).on('turbolinks:load', function() {
-  $('.open_remote_modal').magnificPopup({
-    type: 'ajax',
-    removalDelay: 300,
-    mainClass: 'mfp-fade',
-    callbacks: {
-      ajaxContentAdded: function() {
-        window.GobiertoAdmin.process_stages_controller.form();
-        window.GobiertoAdmin.globalized_forms_component.handleGlobalizedForm();
-      }
-    }
-  });
-
   $(".stick_in_parent").stick_in_parent();
 
   addDatepickerBehaviors();
@@ -67,28 +61,63 @@ function addDatepickerBehaviors() {
 
     $toDatePickers.each(function(index, toDatePicker) {
 
+      // Check if properties were informed before set defaults
+      const toDatePickerDEFAULTS = {
+        autoClose: ($(toDatePicker).data('autoclose') === undefined)
+          ? true
+          : ($(toDatePicker).data('autoclose')),
+        startDate: ($(toDatePicker).data('startdate') === undefined)
+          ? new Date()
+          : new Date($(toDatePicker).data('startdate'))
+      }
+
       // Datepicker end time
       $(toDatePicker).datepicker({
-        autoClose: true,
-        startDate: new Date($(toDatePicker).data('startdate')),
-        onSelect: function onSelect(a, b, instance) {
+        autoClose: toDatePickerDEFAULTS.autoClose,
+        startDate: toDatePickerDEFAULTS.startDate,
+        onSelect: function onSelect(a, selectedDate, instance) {
           $(instance.el).trigger("datepicker-change");
+
+          // Updates first datepicker if end_date is earlier
+          if (selectedDate < $(fromDatePicker).data('datepicker').lastSelectedDate) {
+            selectedDate.setHours(selectedDate.getHours() - 1)
+            setDateOnBindedDatepicker(selectedDate, fromDatePicker)
+          }
         }
       });
 
       // Datepicker start time
       var fromDatePicker = $fromDatePickers[index];
 
+      // Check if properties were informed before set defaults
+      const fromDatePickerDEFAULTS = {
+        autoClose: ($(fromDatePicker).data('autoclose') === undefined)
+          ? true
+          : ($(fromDatePicker).data('autoclose')),
+        minutesStep: ($(fromDatePicker).data('minutesstep') === undefined)
+          ? 5
+          : ($(fromDatePicker).data('minutesstep')),
+        startDate: ($(fromDatePicker).data('startdate') === undefined)
+          ? new Date()
+          : new Date($(fromDatePicker).data('startdate')),
+      }
+
       if($(fromDatePicker).data('range') === undefined) {
         $(fromDatePicker).datepicker({
-          autoClose: true,
-          minutesStep: 5,
-          startDate: new Date($(fromDatePicker).data('startdate')),
+          autoClose: fromDatePickerDEFAULTS.autoClose,
+          minutesStep: fromDatePickerDEFAULTS.minutesStep,
+          startDate: fromDatePickerDEFAULTS.startDate,
           onSelect: function onSelect(_, selectedDate, instance) {
             $(instance.el).trigger("datepicker-change");
-            selectedDate.setHours(selectedDate.getHours() + 1);
-            if($(toDatePicker).length && selectedDate > $(toDatePicker).data('datepicker').lastSelectedDate) {
-              $(toDatePicker).data('datepicker').selectDate(selectedDate);
+
+            // data-bind=true links fromDatePicker to toDatePicker
+            // on fromDatePicker selection, updates toDatePicker +1h
+            if ($(instance.el).data('bind')) {
+              selectedDate.setHours(selectedDate.getHours() + 1)
+            }
+
+            if (selectedDate > $(toDatePicker).data('datepicker').lastSelectedDate) {
+              setDateOnBindedDatepicker(selectedDate, toDatePicker)
             }
           }
         });
@@ -102,7 +131,7 @@ function addDatepickerBehaviors() {
         }
       } else {
         $(fromDatePicker).datepicker({
-          autoClose: true,
+          autoClose: fromDatePickerDEFAULTS.autoClose,
           onSelect: function onSelect(_, selectedDate, instance) {
             $(instance.el).trigger("datepicker-change");
           }
@@ -115,13 +144,36 @@ function addDatepickerBehaviors() {
 }
 
 function initializePageWithOnlyOneDatepicker() {
+  const $datepicker = $('.air-datepicker')
+
+  // Check if properties were informed before set defaults
+  const datePickerDEFAULTS = {
+    autoClose: ($datepicker.data('autoclose') === undefined) ? true : ($datepicker.data('autoclose')),
+    startDate: ($datepicker.data('startdate') === undefined) ? new Date() : new Date($datepicker.data('startdate'))
+  }
+
   $('.air-datepicker').datepicker({
-    autoClose: true,
-    startDate: new Date($('.air-datepicker').data('startdate')),
+    autoClose: datePickerDEFAULTS.autoClose,
+    startDate: datePickerDEFAULTS.startDate,
     onSelect: function onSelect(_, selectedDate, instance) {
       $(instance.el).trigger("datepicker-change");
     }
   });
+
+  // If a default value was set, force datepicker parse it so the TZ offset is
+  // not shown to the user
+  $('.air-datepicker').each(function() {
+    if (this.value) {
+      var dateAttr = $(this).data('startdate');
+      setDateOnBindedDatepicker(new Date(dateAttr), $(this));
+    }
+  });
+}
+
+function setDateOnBindedDatepicker(date, datepicker) {
+  if($(datepicker).length) {
+    $(datepicker).data('datepicker').selectDate(date);
+  }
 }
 
 export { addDatepickerBehaviors }

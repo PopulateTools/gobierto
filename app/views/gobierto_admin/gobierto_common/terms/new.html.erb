@@ -1,0 +1,9 @@
+<div class='admin_breadcrumb'>
+  <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_common.vocabularies.index.title"), admin_common_vocabularies_path %> »
+  <%= link_to @vocabulary.name, admin_common_vocabulary_terms_path(@vocabulary) %> »
+  <%= t(".new") %>
+</div>
+
+<h1><%= t(".new") %></h1>
+<%= render "form" %>

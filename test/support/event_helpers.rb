@@ -19,7 +19,7 @@ module EventHelpers
       description: "Event description",
       starts_at: parse_start_date(options),
       ends_at: parse_end_date(options),
-      state: GobiertoCalendars::Event.states["published"],
+      state: parse_state(options),
       collection: collection,
       external_id: options[:external_id],
       interest_group_id: interest_group_id(options),
@@ -56,6 +56,12 @@ module EventHelpers
     else
       parse_start_date(options) + 1.hour
     end
+  end
+
+  def parse_state(options)
+    GobiertoCalendars::Event.states[
+      (options[:state].to_s == "pending") ? "pending" : "published"
+    ]
   end
 
   def interest_group_id(options)

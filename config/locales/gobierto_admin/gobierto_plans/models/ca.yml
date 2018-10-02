@@ -11,6 +11,7 @@ ca:
         plan_type_id: Tipus
         slug: url
         title: Títol
+        vocabulary_id: Vocabulari de categories
         year: Any
       gobierto_admin/gobierto_plans/plan_type_form:
         name: Nom

@@ -13,9 +13,30 @@ module GobiertoCms
     alias attachable_with_attachment page
     alias collectionable_object page
 
+    def process
+      @process ||= gobierto_participation_processes(:gender_violence_process)
+    end
+
+    def site_news
+      @site_news ||= gobierto_cms_pages(:site_news_1)
+    end
+
+    def site_page
+      @site_page ||= gobierto_cms_pages(:consultation_faq)
+    end
+
+    def process_news
+      @process_news ||= gobierto_cms_pages(:notice_1)
+    end
+
+    def module_page
+      @module_page ||= gobierto_cms_pages(:how_to_participate)
+    end
+
     def attachable_without_attachment
       @attachable_without_attachment ||= gobierto_cms_pages(:privacy)
     end
+    alias process_information_page attachable_without_attachment
 
     def test_valid
       assert page.valid?
@@ -37,5 +58,28 @@ module GobiertoCms
 
       assert page.slug.include?("archived-")
     end
+
+    def test_destroyable?
+      refute process_information_page.destroyable?
+
+      ::GobiertoParticipation::ProcessStagePage.where(
+        page_id: process_information_page.id
+      ).destroy_all
+
+      assert process_information_page.reload.destroyable?
+    end
+
+    def test_public?
+      assert [site_news, site_page, process_news, module_page].all?(&:public?)
+
+      process.draft!
+
+      refute process_news.public?
+
+      [site_news, site_page, module_page].map(&:draft!)
+
+      assert [site_news, site_page, process_news, module_page].none?(&:public?)
+    end
+
   end
 end

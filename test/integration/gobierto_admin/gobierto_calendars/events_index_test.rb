@@ -146,6 +146,29 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_preview_calendar
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit admin_common_collection_path(collection)
+
+            assert preview_link_excludes_token?
+            click_preview_link
+
+            assert has_content? "#{person.name}'s agenda"
+
+            person.draft!
+
+            visit admin_common_collection_path(collection)
+
+            assert preview_link_includes_token?
+            click_preview_link
+
+            assert has_content? "#{person.name}'s agenda"
+          end
+        end
+      end
+
     end
   end
 end

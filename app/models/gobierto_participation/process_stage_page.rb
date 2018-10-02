@@ -8,7 +8,11 @@ module GobiertoParticipation
     belongs_to :page, class_name: "GobiertoCms::Page"
 
     def process
-      Process.find(process_stage.process_id)
+      ::GobiertoParticipation::Process.find(process_stage.process_id)
+    end
+
+    def public?
+      process_stage.reload.public? && page.reload.public?
     end
 
     def parameterize

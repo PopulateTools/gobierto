@@ -1,3 +1,6 @@
+import 'magnific-popup'
+import 'webpack-jquery-ui/sortable'
+
 window.GobiertoAdmin.ProcessPollsController = (function() {
 
   var $modalStateBackup;

@@ -1,4 +1,4 @@
-import { flight } from 'shared'
+import * as flight from 'flightjs'
 
 function limit_length(input, length) {
   if(input === null)

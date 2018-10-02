@@ -1,0 +1,20 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_common:
+      ordered_terms:
+        create:
+          success: El terme s'ha creat correctament.
+        destroy:
+          destroy_failed: No pots esborrar un terme mentre tingui elements associats.
+          success: El terme ha estat eliminat correctament.
+        update:
+          success: El terme s'ha actualitzat correctament.
+      terms:
+        create:
+          success: El terme s'ha creat correctament.
+        destroy:
+          destroy_failed: El terme no ha pogut ser eliminat.
+          success: El terme ha estat eliminat correctament.
+        update:
+          success: El terme s'ha actualitzat correctament.

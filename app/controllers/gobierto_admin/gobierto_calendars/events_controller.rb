@@ -10,6 +10,7 @@ module GobiertoAdmin
       attr_reader :collection
 
       def index
+        @preview_item = collection
         @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(collection)
         @events = ::GobiertoCalendars::Event.by_collection(collection).sorted
         @archived_events = current_site.events
@@ -40,7 +41,7 @@ module GobiertoAdmin
       end
 
       def edit
-        @event = find_event
+        load_event(preview: true)
         @event_states = get_calendar_event_states
         @attendees = get_attendees
 
@@ -69,7 +70,7 @@ module GobiertoAdmin
       end
 
       def update
-        @event = find_event
+        load_event(preview: true)
 
         @event_form = EventForm.new(event_params.merge(
           id: params[:id],
@@ -94,7 +95,7 @@ module GobiertoAdmin
       end
 
       def destroy
-        @event = find_event
+        load_event
         @event.destroy
         process = find_process if params[:process_id]
 
@@ -134,8 +135,9 @@ module GobiertoAdmin
         current_site.processes.find(params[:process_id])
       end
 
-      def find_event
-        current_site.events.find params[:id]
+      def load_event(opts = {})
+        @event = current_site.events.find params[:id]
+        @preview_item = @event if opts[:preview]
       end
 
       def find_archived_event

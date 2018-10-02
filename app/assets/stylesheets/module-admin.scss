@@ -109,7 +109,7 @@ menu.main {
       li {
         padding: 0;
 
-        a {
+        a,span {
           padding: 0 0 0 2em;
         }
       }
@@ -121,7 +121,7 @@ menu.main {
       padding-top: 1em;
     }
 
-    a {
+    a,span {
       padding: 0.25em 1em;
       display: block;
       // color: $color_text;
@@ -829,5 +829,48 @@ a .global_menu {
     .select2-container--default .select2-results > .select2-results__options {
       border-bottom: 1px solid #cdcdcd;
     }
+  }
+}
+
+// reset gobierto styles (comp-forms.scss)
+.jsgrid {
+  input[type=text],
+  input[type=email],
+  input[type=number],
+  input[type=submit],
+  input[type=password],
+  input[type=file],
+  .button,
+  button,
+  select,
+  option,
+  textarea {
+    height: initial;
+    padding: initial;
+    margin: initial;
+  }
+}
+
+// input field language Tabs
+.lang-tabs {
+  span:not(:last-of-type)::after {
+    content: " | ";
+    font-weight: normal;
+  }
+
+  span {
+    cursor: pointer;
+  }
+
+  span.selected {
+    font-weight: bold;
+  }
+
+  input.selected {
+    display: block;
+  }
+
+  input {
+    display: none;
   }
 }

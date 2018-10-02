@@ -2,7 +2,7 @@ module GobiertoAdmin
   class SitesController < BaseController
     def index
       site_policy = SitePolicy.new(current_admin)
-      raise Errors::NotAuthorized unless site_policy.view?
+      raise Errors::NotAuthorized unless site_policy.list?
 
       @sites = SiteCollectionDecorator.new(current_admin.sites.sorted)
     end

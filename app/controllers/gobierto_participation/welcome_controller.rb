@@ -6,7 +6,7 @@ module GobiertoParticipation
 
     def index
       @processes = current_site.processes.process.active
-      @issues = current_site.issues
+      @issues = find_issues
       @events = find_participation_events
       @news = find_participation_news
       @activities = find_participation_activities

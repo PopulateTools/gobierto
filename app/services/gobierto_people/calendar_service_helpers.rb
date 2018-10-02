@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require "#{Rails.root}/lib/utils/string_obfuscator"
+
 module GobiertoPeople
   module CalendarServiceHelpers
 
@@ -23,12 +27,18 @@ module GobiertoPeople
       log_message("Found #{events_count} available events for this person.")
     end
 
-    def log_invalid_event(error_messages)
-      log_message("Invalid event: #{error_messages}")
+    def log_saved_event(event_form)
+      log_message("Saved: #{event_form.title} on #{event_form.starts_at}")
     end
 
-    def log_destroy_rule
-      log_message("Event destroyed by filter rule")
+    def log_invalid_event(event_form)
+      log_message("Invalid: #{event_form.errors.messages}")
+    end
+
+    def log_destroy_rule(title = nil)
+      msg = "Destroyed by filter rule"
+      msg += ": #{::StringObfuscator.obfuscate(title, percent: 50)}" if title
+      log_message msg
     end
 
   end

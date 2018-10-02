@@ -5,7 +5,7 @@ class GobiertoPlans::PlanTree
 
   def initialize(plan)
     @plan = plan
-    @categories = @plan.categories.where(parent_id: nil).sort_by_uid
+    @categories = CollectionDecorator.new(@plan.categories.where(term_id: nil).sorted, decorator: GobiertoPlans::CategoryTermDecorator)
   end
 
   def call
@@ -20,10 +20,10 @@ class GobiertoPlans::PlanTree
 
   def plan_tree(categories, tree = [])
     categories.each do |category|
-      categories = @plan.categories.sort_by_uid.where(parent_id: category.id)
+      children_categories = CollectionDecorator.new(@plan.categories.where(term_id: category.id).sorted, decorator: GobiertoPlans::CategoryTermDecorator)
 
-      children = if categories.exists?
-                   plan_tree(categories)
+      children = if children_categories.exists?
+                   plan_tree(children_categories)
                  else
                    []
                  end

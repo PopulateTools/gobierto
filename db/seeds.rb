@@ -21,9 +21,10 @@ fixtures_to_load = [
   "gobierto_people/people",
   "gobierto_people/person_statements",
   "gobierto_people/person_posts",
-  "gobierto_people/political_groups",
   "gobierto_people/trips",
   "gobierto_common/collections",
+  "gobierto_common/terms",
+  "gobierto_common/vocabularies",
   "gobierto_calendars/events",
   "gobierto_calendars/event_locations",
   "gobierto_calendars/event_attendees",
@@ -45,14 +46,10 @@ fixtures_to_load = [
   "gobierto_participation/poll_questions",
   "gobierto_participation/poll_answer_templates",
   "gobierto_participation/poll_answers",
-  "issues",
-  "gobierto_participation/areas",
   "gobierto_common/collection_items",
-  "gobierto_common/scopes",
   "gobierto_admin/permissions",
   "gobierto_plans/plan_types",
   "gobierto_plans/plans",
-  "gobierto_plans/categories",
   "gobierto_plans/nodes",
   "gobierto_indicators/indicators",
   "gobierto_core/templates"
@@ -63,7 +60,7 @@ Rake::Task["db:fixtures:load"].invoke
 ::GobiertoCommon::ContentBlock.reset_column_information
 Rake::Task["gobierto_people:counter_cache:reset"].invoke
 
-GobiertoPeople::PoliticalGroup.reset_position!
+GobiertoCommon::Term.reset_position!
 
 ::GobiertoCommon::ContentBlock.reset_column_information
 

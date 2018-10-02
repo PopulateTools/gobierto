@@ -4,7 +4,7 @@
  */
 body.gobierto_admin {
   table {
-    @extend table.block_content;
+    @extend .block_content;
   }
 
   .dyna_block {
@@ -13,7 +13,6 @@ body.gobierto_admin {
 
     @include border-radius(6px);
 
-    overflow-x: auto;
     line-height: 1.2em;
 
     label {
@@ -117,13 +116,12 @@ body.gobierto_admin {
 
     tr {
       position: relative;
-
-      @include transition();
+      transition: all 0.15s ease-out 0s;
     }
 
     tr:hover {
       td.edit_cell {
-        display: block;
+        display: flex;
       }
     }
 

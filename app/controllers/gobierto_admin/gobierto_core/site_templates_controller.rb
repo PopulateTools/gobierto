@@ -3,6 +3,9 @@
 module GobiertoAdmin
   module GobiertoCore
     class SiteTemplatesController < BaseController
+
+      before_action :check_permissions!
+
       def create
         @template = find_template
         @site_template_form = SiteTemplateForm.new(site_template_params.merge(site_id: current_site.id,
@@ -68,6 +71,11 @@ module GobiertoAdmin
       def find_template
         ::GobiertoCore::Template.find(params[:template_id])
       end
+
+      def check_permissions!
+        raise_module_not_allowed unless current_admin.can_edit_templates?
+      end
+
     end
   end
 end

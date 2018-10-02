@@ -19,14 +19,32 @@ ca:
           title: Nou tipus de pla
       plans:
         data:
-          latest_update: 'Última actualització mitjançant l''API: %{datetime}'
-          no_data: Encara no hi ha dades carregades
-          there_are: Hi ha %{info}
+          cancel_edit: Cancel actualització
+          category: Nivell
+          delete: Eliminar
+          delete_confirm: Estàs segur?
+          edit: Editar
+          ends_at: Fi
+          errors:
+            missing_category: Tots els nivells de categoria han d'estar seleccionats
+            missing_name: El nom del project non pot estar buit
+          export_csv: Exportar a CSV
+          import_csv: Importar des CSV
+          insert: Crear
+          insert_switch: Afegeix...
+          invalid_message: Les dades introduïdes són invàlids
+          load_message: Espera, si us plau...
+          name: Projecte
+          new: Nou node
+          no_available_categories: No s'han trobat categories. Defineix un vocabulari
+            amb termes o importa dades des d'un CSV.
+          not_found: No hi ha nodes
+          options: Opcions
+          progress: "% progrés"
+          starts_at: Inici
+          status: Estat
           title: Dades
-        data_form:
-          confirm_import: Estàs segur? totes les dades actuals seran eliminats
-          disable_with: Carregant...
-          submit: Importa des de fitxer CSV
+          update: Actualitzar
         edit:
           title: Configuració
         form:
@@ -39,6 +57,18 @@ ca:
             slug: sobre-de-aquest-pla
             title: Titol del pla
             year: 2018
+        import_csv:
+          latest_update: 'Última actualització: %{datetime}'
+          no_data: Encara no hi ha dades carregades
+          there_are: Hi ha %{info}
+          title: Importa CSV
+        import_csv_form:
+          confirm_import: Estàs segur? totes les dades actuals seran eliminats
+          disable_with: Carregant...
+          submit: Importa des de fitxer CSV
+          warning: "<strong>Avís</strong> Si importes un fitxer CSV s'eliminarà tot
+            el contingut actual, de manera que es perdran tots els canvis que hagis
+            realitzat a través de la interfície d'usuari web de Gobierto."
         index:
           header:
             elements: Elements
@@ -55,3 +85,4 @@ ca:
         navigation:
           configuration_tab: Configuració
           data_tab: Dades
+          import_csv_tab: Importa CSV

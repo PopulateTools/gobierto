@@ -12,11 +12,12 @@ module GobiertoCommon
     scope :pages, -> { where(item_type: %w(GobiertoCms::Page GobiertoCms::News)) }
     scope :attachments, -> { where(item_type: 'GobiertoAttachments::Attachment') }
     scope :events, -> { where(item_type: 'GobiertoCalendars::Event') }
-    scope :issues, -> { where(item_type: 'Issue') }
     scope :pages_and_news, -> { where(item_type: %W(GobiertoCms::News GobiertoCms::Page)) }
 
     scope :by_container_type, ->(container_type) { where(container_type: container_type) }
     scope :by_container, ->(container) { where(container: container) }
+    scope :on_processes, -> { by_container_type("GobiertoParticipation::Process") }
+    scope :on_people, -> { by_container_type("GobiertoPeople::Person") }
 
     def container
       if container_id.present?

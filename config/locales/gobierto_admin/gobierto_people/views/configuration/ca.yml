@@ -3,17 +3,6 @@ ca:
   gobierto_admin:
     gobierto_people:
       configuration:
-        political_groups:
-          edit:
-            title: Editar agrupació
-          index:
-            drag_to_sort: Arrastra per a ordenar
-            header:
-              created: Creada
-              political_group: Agrupació
-            new: Nova agrupació
-          new:
-            title: Nova agrupación
         settings:
           edit:
             agendas: Agendes

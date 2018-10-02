@@ -1,5 +1,6 @@
-import { Class, d3, d3locale, accounting } from 'shared'
+import * as d3 from 'd3'
 import { Sparkline } from './vis_sparkline.js'
+import { Class, d3locale, accounting } from 'shared'
 
 export var SimpleCard = Class.extend({
   init: function(divClass, json, value, cardName, valueType) {

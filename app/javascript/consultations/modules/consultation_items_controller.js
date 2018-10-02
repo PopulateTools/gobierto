@@ -1,4 +1,5 @@
-import { isMobile, Turbolinks } from 'shared'
+import { isMobile } from 'shared'
+import Turbolinks from 'turbolinks'
 
 window.GobiertoBudgetConsultations.ConsultationItemsController = (function() {
   function ConsultationItemsController() {}

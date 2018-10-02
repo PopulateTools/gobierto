@@ -25,16 +25,6 @@ Rails.application.routes.draw do
       end
       resources :site_templates, only: [:create, :update, :destroy]
     end
-    resources :issues do
-      collection do
-        resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
-      end
-    end
-    resources :scopes do
-      collection do
-        resource :scope_sort, only: [:create], controller: "scopes_sort", path: :scopes_sort
-      end
-    end
 
     namespace :sites do
       resource :sessions, only: [:create, :destroy]
@@ -91,11 +81,6 @@ Rails.application.routes.draw do
 
       namespace :configuration do
         resource :settings, only: [:edit, :update], path: :settings
-        resources :political_groups, only: [:index, :new, :create, :edit, :update], path: :groups do
-          collection do
-            resource :political_groups_sort, only: [:create], controller: "political_groups_sort", path: :political_groups_sort
-          end
-        end
       end
 
       resource :file_attachments, only: [:create]
@@ -124,21 +109,42 @@ Rails.application.routes.draw do
           put :recover
         end
       end
+
+      namespace :configuration do
+        resource :settings, only: [:edit, :update], path: :settings
+      end
     end
 
     namespace :gobierto_common, as: :common, path: nil do
       resources :collections, only: [:show, :new, :create, :edit, :update]
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
+      resources :vocabularies do
+        resources :terms, shallow: true, controller: "ordered_terms", except: [:show] do
+          collection do
+            resource :terms_sort, only: [:create], controller: "ordered_terms_sort"
+          end
+        end
+      end
     end
 
     namespace :gobierto_plans, as: :plans, path: :plans do
       resources :plans, except: [:show], path: "" do
         get :data
+        get :import_csv
+        get :export_csv, defaults: { format: "csv" }
         put :recover
         patch :import_data
       end
       resources :plan_types, except: [:show], path: :plan_types do
         put :recover
+      end
+
+      # API
+      namespace :api do
+        resources :plans, only: [] do
+          resources :nodes, except: [:show, :new, :edit]
+          resources :categories, only: [:index]
+        end
       end
     end
 

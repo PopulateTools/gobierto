@@ -1,0 +1,28 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @vocabulary_form %>
+
+<%= form_for(
+  @vocabulary_form, as: :vocabulary,
+  url: @vocabulary_form.persisted? ? admin_common_vocabulary_path(@vocabulary_form) : admin_common_vocabularies_path, data: { "globalized-form-container" => true}) do |f| %>
+  <div class="globalized_fields">
+    <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+    <% current_site.configuration.available_locales.each do |locale| %>
+      <div class="form_item input_text" data-locale="<%= locale %>">
+        <%= label_tag "vocabulary[name_translations][#{locale}]" do %>
+          <%= f.object.class.human_attribute_name(:name) %>
+          <%= attribute_indication_tag required: true %>
+        <% end %>
+        <%= text_field_tag "vocabulary[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t(".placeholders.name", locale: locale.to_sym) %>
+      </div>
+    <% end %>
+
+    <div class="form_item input_text">
+      <%= f.label :slug %>
+      <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+    </div>
+  </div>
+
+  <div class="actions right">
+    <%= f.submit %>
+  </div>
+<% end %>

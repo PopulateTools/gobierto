@@ -42,6 +42,7 @@ es:
         percentage: "% sobre el total del pres."
         percentage_tooltip: Porcentaje del presupuesto total que supone esta partida
         planned: presupuestado
+        planned_female: presupuestada
         planned_per_inhabitant: pres. / hab.
         planned_per_inhabitant_tooltip: Cantidad presupuestada dividida por el número
           de habitantes
@@ -57,6 +58,7 @@ es:
         twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name}
           para el %{year}'
         updated: actualizado
+        updated_female: actualizada
         vs_previous_year: vs. ejercicio anterior
         vs_previous_year_tooltip: Comparación con los datos del ejercicio anterior
     budgets:
@@ -585,6 +587,8 @@ es:
           de impuestos y tasas locales. Calcula cuánto aportas tú al presupuesto de
           acuerdo a tu vivienda, vehículos...
         detail: Detalle de tu contribución
+        explanation: Introduce las cantidades que has pagado para cada uno de los
+          conceptos en
         pick_to_calculate: Selecciona para calcular
         share: Compártelo
         share_text: Comprueba cual es tu aportación al presupuesto de

@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
 class GobiertoBudgets::FeedbackController < GobiertoBudgets::ApplicationController
   respond_to :js
 
   before_action :set_params
+
+  invisible_captcha only: [:follow], honeypot: :ic_email
 
   def step1
   end
@@ -35,7 +39,15 @@ class GobiertoBudgets::FeedbackController < GobiertoBudgets::ApplicationControll
         site: current_site
       }).deliver_later
     end
-    user_subscription_form = User::SubscriptionForm.new site: current_site, creation_ip: remote_ip, subscribable_type: "Site", subscribable_id: current_site.id, user_email: params[:email]
+
+    user_subscription_form = User::SubscriptionForm.new(
+      site: current_site,
+      creation_ip: remote_ip,
+      subscribable_type: "Site",
+      subscribable_id: current_site.id,
+      user_email: params[:email]
+    )
+
     user_subscription_form.save
     @success = true
   end

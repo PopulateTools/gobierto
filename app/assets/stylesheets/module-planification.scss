@@ -80,12 +80,15 @@ $white: $color_main_negative;
       img {
         object-fit: cover;
         min-width: 100%;
+        width: 100%;
+        height: 100%;
       }
     }
 
     .node-info {
       position: relative;
       flex: 1;
+      transition: all .3s;
 
       .info-progress {
         top: 0;
@@ -142,6 +145,7 @@ $white: $color_main_negative;
     .flex-basis-20 {
       flex-basis: 20%;
     }
+
     .flex-basis-10 {
       flex-basis: 10%;
     }
@@ -401,6 +405,21 @@ $white: $color_main_negative;
   section.level_0 {
     flex: 1 1 25%;
     counter-reset: section;
+
+    &.is-active {
+      .node-img {
+        display: none;
+      }
+
+      .node-info {
+        padding: 1.5em;
+
+        h3,
+        span {
+          font-size: $f4;
+        }
+      }
+    }
   }
 
   section:not(.level_0) {

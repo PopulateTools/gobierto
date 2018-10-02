@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_16_092701) do
+ActiveRecord::Schema.define(version: 2018_09_17_133154) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "fuzzystrmatch"
   enable_extension "hstore"
   enable_extension "plpgsql"
 
@@ -183,6 +184,11 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.index ["site_id"], name: "index_custom_user_fields_on_site_id"
   end
 
+  create_table "data_migrations", id: false, force: :cascade do |t|
+    t.string "version", null: false
+    t.index ["version"], name: "unique_data_migrations", unique: true
+  end
+
   create_table "ga_attachings", force: :cascade do |t|
     t.integer "site_id", null: false
     t.integer "attachment_id", null: false
@@ -254,8 +260,8 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.string "sharing_token"
     t.string "document_number_digest"
     t.jsonb "user_information"
-    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id"
+    t.index ["document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true
     t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
@@ -312,9 +318,9 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
+    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
@@ -343,6 +349,62 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.datetime "updated_at", null: false
     t.boolean "remove_filtering_text", default: false
     t.index ["calendar_configuration_id"], name: "index_gc_filtering_rules_on_calendar_configuration_id"
+  end
+
+  create_table "gcc_charters", force: :cascade do |t|
+    t.bigint "service_id"
+    t.jsonb "title_translations"
+    t.string "slug", default: "", null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.integer "position", default: 999999, null: false
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["archived_at"], name: "index_gcc_charters_on_archived_at"
+    t.index ["service_id"], name: "index_gcc_charters_on_service_id"
+  end
+
+  create_table "gcc_commitments", force: :cascade do |t|
+    t.bigint "charter_id"
+    t.jsonb "title_translations"
+    t.jsonb "description_translations"
+    t.string "slug", default: "", null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.integer "position", default: 999999, null: false
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["archived_at"], name: "index_gcc_commitments_on_archived_at"
+    t.index ["charter_id"], name: "index_gcc_commitments_on_charter_id"
+  end
+
+  create_table "gcc_editions", force: :cascade do |t|
+    t.bigint "commitment_id"
+    t.integer "period_interval", default: 0, null: false
+    t.datetime "period"
+    t.decimal "percentage"
+    t.decimal "value"
+    t.decimal "max_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_gcc_editions_on_archived_at"
+    t.index ["commitment_id"], name: "index_gcc_editions_on_commitment_id"
+  end
+
+  create_table "gcc_services", force: :cascade do |t|
+    t.bigint "site_id"
+    t.jsonb "title_translations"
+    t.bigint "category_id"
+    t.string "slug", default: "", null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.integer "position", default: 999999, null: false
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["archived_at"], name: "index_gcc_services_on_archived_at"
+    t.index ["category_id"], name: "index_gcc_services_on_category_id"
+    t.index ["site_id"], name: "index_gcc_services_on_site_id"
   end
 
   create_table "gcms_pages", id: :serial, force: :cascade do |t|
@@ -537,20 +599,6 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.index ["title_translations"], name: "index_gp_person_statements_on_title_translations", using: :gin
   end
 
-  create_table "gp_political_groups", id: :serial, force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.integer "site_id"
-    t.integer "admin_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "position", default: 0, null: false
-    t.string "slug", null: false
-    t.index ["admin_id"], name: "index_gp_political_groups_on_admin_id"
-    t.index ["position"], name: "index_gp_political_groups_on_position"
-    t.index ["site_id"], name: "index_gp_political_groups_on_site_id"
-    t.index ["slug"], name: "index_gp_political_groups_on_slug", unique: true
-  end
-
   create_table "gp_settings", id: :serial, force: :cascade do |t|
     t.integer "site_id"
     t.string "key", default: "", null: false
@@ -574,17 +622,6 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.index ["destinations_meta"], name: "index_gp_trips_on_destinations_meta", using: :gin
     t.index ["meta"], name: "index_gp_trips_on_meta", using: :gin
     t.index ["person_id"], name: "index_gp_trips_on_person_id"
-  end
-
-  create_table "gpart_areas", force: :cascade do |t|
-    t.bigint "site_id"
-    t.jsonb "name_translations"
-    t.jsonb "slug_translations"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name_translations"], name: "index_gpart_areas_on_name_translations", using: :gin
-    t.index ["site_id"], name: "index_gpart_areas_on_site_id"
-    t.index ["slug_translations"], name: "index_gpart_areas_on_slug_translations", using: :gin
   end
 
   create_table "gpart_comments", force: :cascade do |t|
@@ -775,21 +812,7 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.index ["votable_type", "votable_id"], name: "index_gpart_votes_on_votable_type_and_votable_id"
   end
 
-  create_table "gplan_categories", force: :cascade do |t|
-    t.jsonb "name_translations"
-    t.integer "level", default: 0, null: false
-    t.integer "parent_id"
-    t.bigint "plan_id"
-    t.string "slug", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.float "progress"
-    t.string "uid"
-    t.index ["name_translations"], name: "index_gplan_categories_on_name_translations", using: :gin
-    t.index ["plan_id"], name: "index_gplan_categories_on_plan_id"
-  end
-
-  create_table "gplan_categories_nodes", id: false, force: :cascade do |t|
+  create_table "gplan_categories_nodes", force: :cascade do |t|
     t.integer "category_id"
     t.integer "node_id"
     t.index ["category_id"], name: "index_gplan_categories_nodes_on_category_id"
@@ -830,34 +853,12 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.text "css"
     t.datetime "archived_at"
     t.jsonb "footer_translations"
+    t.bigint "vocabulary_id"
     t.index ["archived_at"], name: "index_gplan_plans_on_archived_at"
     t.index ["plan_type_id"], name: "index_gplan_plans_on_plan_type_id"
     t.index ["site_id"], name: "index_gplan_plans_on_site_id"
     t.index ["title_translations"], name: "index_gplan_plans_on_title_translations", using: :gin
-  end
-
-  create_table "issues", force: :cascade do |t|
-    t.bigint "site_id"
-    t.jsonb "name_translations"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "position", default: 0, null: false
-    t.jsonb "description_translations"
-    t.string "slug", default: "", null: false
-    t.index ["name_translations"], name: "index_issues_on_name_translations", using: :gin
-    t.index ["position"], name: "index_issues_on_position"
-    t.index ["site_id", "slug"], name: "index_issues_on_site_id_and_slug", unique: true
-    t.index ["site_id"], name: "index_issues_on_site_id"
-  end
-
-  create_table "scopes", force: :cascade do |t|
-    t.bigint "site_id", null: false
-    t.jsonb "name_translations", null: false
-    t.jsonb "description_translations", null: false
-    t.integer "position", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "slug", default: "", null: false
+    t.index ["vocabulary_id"], name: "index_gplan_plans_on_vocabulary_id"
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|
@@ -879,6 +880,21 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.index ["domain"], name: "index_sites_on_domain", unique: true
     t.index ["name_translations"], name: "index_sites_on_name_translations", using: :gin
     t.index ["title_translations"], name: "index_sites_on_title_translations", using: :gin
+  end
+
+  create_table "terms", force: :cascade do |t|
+    t.bigint "vocabulary_id"
+    t.jsonb "name_translations"
+    t.jsonb "description_translations"
+    t.string "slug"
+    t.integer "position", default: 0, null: false
+    t.integer "level", default: 0, null: false
+    t.bigint "term_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug", "vocabulary_id"], name: "index_terms_on_slug_and_vocabulary_id"
+    t.index ["term_id"], name: "index_terms_on_term_id"
+    t.index ["vocabulary_id"], name: "index_terms_on_vocabulary_id"
   end
 
   create_table "translations", id: :serial, force: :cascade do |t|
@@ -976,6 +992,15 @@ ActiveRecord::Schema.define(version: 2018_07_16_092701) do
     t.text "object"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  end
+
+  create_table "vocabularies", force: :cascade do |t|
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "name_translations"
+    t.string "slug"
+    t.index ["site_id"], name: "index_vocabularies_on_site_id"
   end
 
   add_foreign_key "gc_events", "collections", on_delete: :cascade

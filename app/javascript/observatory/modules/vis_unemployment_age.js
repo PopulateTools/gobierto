@@ -1,4 +1,5 @@
-import { Class, d3 } from 'shared'
+import * as d3 from 'd3'
+import { Class } from 'shared'
 
 export var VisUnemploymentAge = Class.extend({
   init: function(divId, city_id, unemplAgeData) {
@@ -143,7 +144,7 @@ export var VisUnemploymentAge = Class.extend({
 
     this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.pct) + ')');
     this.focus.select('text').attr('text-anchor', d.data.date >= this.parseTime('2014-01') ? 'end' : 'start');
-    this.focus.select('tspan').text(this._getAgeRange(d.data.age_range) + ': ' + this.pctFormat(d.data.pct));
+    this.focus.select('tspan').text(`${this._getAgeRange(d.data.age_range)}: ${this.pctFormat(d.data.pct)} (${d.data.date.toLocaleString(I18n.locale, {month: 'short'})} ${d.data.date.getFullYear()})`);
   },
   _mouseout: function() {
     this.focus.attr('transform', 'translate(-100,-100)');

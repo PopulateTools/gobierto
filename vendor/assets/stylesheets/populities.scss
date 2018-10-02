@@ -460,7 +460,7 @@ $units: 1px !default;
       padding: 6px 10px 4px;
       text-transform: uppercase;
       text-decoration: none;
-      @include transition;
+      transition: all 0.15s ease-out 0s;
     }
     a:hover {
       background: $background;

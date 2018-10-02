@@ -67,6 +67,29 @@ YAML
         ".pure-u-1.pure-u-md-7-24"
       end
 
+      def test_sidebar_contents
+        culture_department.events.destroy_all
+
+        with_current_site(site) do
+          # without date filtering configured
+          visit gobierto_people_department_people_path(justice_department)
+
+          within departments_sidebar do
+            assert has_link? justice_department.name
+            assert has_link? culture_department.name
+          end
+
+          # with date filtering configured
+          set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
+          visit gobierto_people_department_people_path(justice_department)
+
+          within departments_sidebar do
+            assert has_link? justice_department.name
+            refute has_link? culture_department.name
+          end
+        end
+      end
+
       def test_index
         with_current_site(site) do
           visit gobierto_people_department_people_path(justice_department)

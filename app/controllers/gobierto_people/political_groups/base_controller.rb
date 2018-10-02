@@ -8,13 +8,13 @@ module GobiertoPeople
       private
 
       def set_political_group
-        @political_group = find_political_group
+        @political_group = PersonTermDecorator.new(find_political_group)
       end
 
       protected
 
       def find_political_group
-        PoliticalGroup.find_by!(slug: params[:political_group_slug])
+        current_site.political_groups.find_by!(slug: params[:political_group_slug])
       end
     end
   end

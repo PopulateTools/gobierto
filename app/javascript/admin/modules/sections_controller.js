@@ -1,3 +1,5 @@
+import 'jqtree'
+
 window.GobiertoAdmin.SectionsController = (function() {
   function SectionsController() {}
 

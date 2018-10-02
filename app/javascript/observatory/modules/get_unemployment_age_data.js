@@ -1,4 +1,5 @@
-import { Class, d3 } from 'shared'
+import * as d3 from 'd3'
+import { Class } from 'shared'
 
 export var GetUnemploymentAgeData = Class.extend({
   init: function(city_id) {
@@ -56,7 +57,7 @@ export var GetUnemploymentAgeData = Class.extend({
         }.bind(this));
 
         // Filtering values to start from the first data points
-        this.data = unemployed.filter(function(d) { return d.date >=this.parseTime('2011-01') }.bind(this));
+        this.data = unemployed.filter(function(d) { return d.age_range != '<25' && d.date >=this.parseTime('2011-01') }.bind(this));
 
         window.unemplAgeData = this.data;
 
@@ -64,4 +65,3 @@ export var GetUnemploymentAgeData = Class.extend({
       }.bind(this));
   }
 });
-

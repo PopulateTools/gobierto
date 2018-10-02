@@ -25,6 +25,8 @@
 @import "select2.min";
 @import "cropper";
 @import "cropper.min";
+@import "jsgrid.min";
+@import "jsgrid-theme.min";
 
 /*
  * Gobierto libraries
@@ -91,7 +93,7 @@ body {
 a {
   color: $color_main;
 
-  @include transition;
+  transition: all 0.15s ease-out 0s;
 }
 
 a:hover {

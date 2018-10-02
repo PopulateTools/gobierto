@@ -1,5 +1,6 @@
-import { Class, d3 } from 'shared'
+import * as d3 from 'd3'
 import { SimpleCard } from './vis_card_simple.js'
+import { Class } from 'shared'
 
 export var BudgetByInhabitantCard = Class.extend({
   init: function(divClass, city_id) {

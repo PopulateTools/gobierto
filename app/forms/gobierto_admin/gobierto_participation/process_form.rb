@@ -23,8 +23,6 @@ module GobiertoAdmin
       )
 
       delegate :persisted?, to: :process
-      delegate :polls_stage?, to: :process
-      delegate :information_stage?, to: :process
 
       validates :site, :process_type, presence: true
       validates :title_translations, translated_attribute_presence: true

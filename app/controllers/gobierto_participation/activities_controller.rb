@@ -3,7 +3,7 @@
 module GobiertoParticipation
   class ActivitiesController < GobiertoParticipation::ApplicationController
     def index
-      @issues = current_site.issues
+      @issues = find_issues
 
       @issue = find_issue if params[:issue_id]
 
@@ -15,10 +15,6 @@ module GobiertoParticipation
     end
 
     private
-
-    def find_issue
-      current_site.issues.find_by_slug!(params[:issue_id])
-    end
 
     def find_participation_activities_issue(issue)
       ActivityCollectionDecorator.new(Activity.no_admin

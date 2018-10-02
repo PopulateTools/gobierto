@@ -159,6 +159,33 @@ ActiveRecord::Schema.define(version: 2018_10_10_102053) do
     t.index ["site_id"], name: "index_content_blocks_on_site_id"
   end
 
+  create_table "custom_field_records", force: :cascade do |t|
+    t.string "item_type"
+    t.bigint "item_id"
+    t.bigint "custom_field_id"
+    t.jsonb "payload"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["custom_field_id"], name: "index_custom_field_records_on_custom_field_id"
+    t.index ["item_type", "item_id"], name: "index_custom_field_records_on_item_type_and_item_id"
+    t.index ["payload"], name: "index_custom_field_records_on_payload", using: :gin
+  end
+
+  create_table "custom_fields", force: :cascade do |t|
+    t.bigint "site_id"
+    t.string "class_name"
+    t.integer "position", default: 0, null: false
+    t.jsonb "name_translations"
+    t.boolean "mandatory", default: false
+    t.integer "field_type", default: 0, null: false
+    t.jsonb "options"
+    t.string "uid", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id", "uid", "class_name"], name: "index_custom_fields_on_site_id_and_uid_and_class_name", unique: true
+    t.index ["site_id"], name: "index_custom_fields_on_site_id"
+  end
+
   create_table "custom_user_field_records", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "custom_user_field_id"

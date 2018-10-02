@@ -21,7 +21,7 @@
         <%= t(".configuration") %>
       <% end %>
 
-      <%= link_to t(".new_page"), @new_item_path, class: 'button' if @new_item_path %>
+      <%= link_to t(".new_page"), @new_item_path, class: 'button', data: { turbolinks: false } if @new_item_path %>
     </div>
     <%= render 'gobierto_admin/gobierto_common/collections/show/pages' %>
   <% when 'GobiertoAttachments::Attachment' %>

@@ -39,7 +39,7 @@
             "timepicker": true,
             "date-format": "yyyy-mm-dd",
             "time-format": "hh:ii",
-            "startDate": format_time(f, :published_on, 2)
+            "startDate": microseconds_since_epoch(f, :published_on)
           },
           class: "air-datepicker",
           readonly: !Rails.env.test?

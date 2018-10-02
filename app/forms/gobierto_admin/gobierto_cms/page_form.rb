@@ -55,12 +55,6 @@ module GobiertoAdmin
 
       def published_on
         @published_on ||= Time.zone.now
-
-        if @published_on.respond_to?(:strftime)
-          @published_on.strftime("%Y-%m-%d %H:%M")
-        else
-          @published_on
-        end
       end
 
       private

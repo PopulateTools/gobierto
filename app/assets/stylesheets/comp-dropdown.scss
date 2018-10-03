@@ -1,14 +1,15 @@
+// Dropdown variables
+$space: .25rem; // Set spaces based on minimal value
+$arrow-size: 5px;
+
 // @component General dropdown
 .dropdown {
   background-color: $color_main_negative;
   display: inline-block;
   position: relative;
 
-  // Set spaces based on minimal value
-  $space: .25rem;
 
   .dropdown-inner {
-    $arrow-size: 5px;
 
     padding: $space 3 * $space;
     font-weight: 200;

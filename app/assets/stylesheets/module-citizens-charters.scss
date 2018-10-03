@@ -136,12 +136,20 @@
 
     h1 {
       color: $color_main_negative;
+
+      @include screen(0, $wMedium) {
+        font-size: 1.5em;
+      }
     }
 
     img {
       object-fit: cover;
       max-height: 100%;
       max-width: 100%;
+
+      @include screen(0, $wMedium) {
+        flex-basis: 75%;
+      }
     }
   }
 
@@ -149,8 +157,13 @@
     margin: 3rem 0 1rem;
 
     > * {
-      display: flex;
       justify-content: space-between;
+
+      @include flexbox($dir: column);
+
+      @include min-screen($wMedium) {
+        @include flexbox();
+      }
 
       > * {
         flex-basis: 40%;
@@ -174,11 +187,20 @@
     .subheader-number {
       align-items: center;
 
-      @include flexbox(5rem);
+      @include flex-align($horizontal: space-between);
+
+      @include min-screen($wMedium) {
+        @include flexbox(5rem);
+      }
 
       > p {
-        font-size: $submega;
-        line-height: $submega;
+        font-size: $f1;
+        line-height: $f1;
+
+        @include min-screen($wMedium) {
+          font-size: $submega;
+          line-height: $submega;
+        }
       }
     }
 
@@ -229,7 +251,11 @@
       .charter-number {
         align-items: center;
 
-        @include flexbox(3rem);
+        @include flex-align($horizontal: space-between);
+
+        @include min-screen($wMedium) {
+          @include flexbox(3rem);
+        }
 
         > p {
           font-size: $f1;

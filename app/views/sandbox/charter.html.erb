@@ -2,7 +2,7 @@
   <%= javascript_pack_tag 'charters', 'data-turbolinks-track': true %>
 <% end %>
 
-<script type="text/javascript">
+<script type="module">
   window.GobiertoCharters.charters_controller.show();
 </script>
 
@@ -21,25 +21,7 @@
         <div class="subheader-title">Cumplimos con los compromisos de esta carta al</div>
         <div class="subheader-number m_v_2">
           <p>86,8%</p>
-          <div class="sparkline">
-            <svg width="87px" height="38px" viewBox="0 0 87 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Carta-Resumen" transform="translate(-300.000000, -409.000000)">
-                        <g id="Group-2" transform="translate(300.000000, 409.000000)">
-                            <g id="Group" fill="#00A9A1" opacity="0.100000001">
-                                <rect id="Rectangle" x="0" y="0" width="15.0708661" height="38"></rect>
-                                <rect id="Rectangle-Copy" x="14.3858268" y="0" width="15.0708661" height="38"></rect>
-                                <rect id="Rectangle-Copy-2" x="28.7716535" y="0" width="15.0708661" height="38"></rect>
-                                <rect id="Rectangle-Copy-5" x="43.1574803" y="0" width="15.0708661" height="38"></rect>
-                                <rect id="Rectangle-Copy-4" x="57.5433071" y="0" width="15.0708661" height="38"></rect>
-                                <rect id="Rectangle-Copy-3" x="71.9291339" y="0" width="15.0708661" height="38"></rect>
-                            </g>
-                            <polyline id="Path-2" stroke="#00A9A1" points="0 35 14.3682374 29.5925764 28.6827848 32.2962882 42.9586487 24.080313 57.2195061 20.067066 71.8141751 20.067066 86 13"></polyline>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-          </div>
+          <div id="sparkline-GLOBAL" class="sparkline"></div>
         </div>
         <div class="subheader-title subheader-title--muted">Mejoramos un 5,4% respecto al año pasado</div>
         <div class="subheader-title desktop_only bottom">Detalle de los compromisos:</div>
@@ -70,31 +52,13 @@
   </div>
 
   <div class="charter-container">
-    <% 9.times do %>
+    <% 9.times do |i| %>
     <div class="charter">
       <div class="charter-inner">
         <div class="m_b_2">Realitzar les comprovacions, mesuraments i/o informes pertinents de les denúncies de sorolls entre particulars en un termini màxim de dues setmanes des de la visita als mateixos.</div>
         <div class="charter-number m_b_1">
           <p>92.4%</p>
-          <div class="sparkline">
-            <svg width="87px" height="38px" viewBox="0 0 87 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Carta-Resumen" transform="translate(-300.000000, -409.000000)">
-                        <g id="Group-2" transform="translate(300.000000, 409.000000)">
-                            <g id="Group" fill="#00A9A1" opacity="0.100000001">
-                                <rect id="Rectangle" x="0" y="0" width="15.0708661" height="38"></rect>
-                                <rect id="Rectangle-Copy" x="14.3858268" y="0" width="15.0708661" height="38"></rect>
-                                <rect id="Rectangle-Copy-2" x="28.7716535" y="0" width="15.0708661" height="38"></rect>
-                                <rect id="Rectangle-Copy-5" x="43.1574803" y="0" width="15.0708661" height="38"></rect>
-                                <rect id="Rectangle-Copy-4" x="57.5433071" y="0" width="15.0708661" height="38"></rect>
-                                <rect id="Rectangle-Copy-3" x="71.9291339" y="0" width="15.0708661" height="38"></rect>
-                            </g>
-                            <polyline id="Path-2" stroke="#00A9A1" points="0 35 14.3682374 29.5925764 28.6827848 32.2962882 42.9586487 24.080313 57.2195061 20.067066 71.8141751 20.067066 86 13"></polyline>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-          </div>
+          <div id="sparkline-<%= i %>" class="sparkline"></div>
         </div>
         <small class="charter-text--muted">El nombre de denúncies resoltes en termini.</small>
       </div>

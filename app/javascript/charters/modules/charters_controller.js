@@ -2,8 +2,8 @@ window.GobiertoCharters.ChartersController = (function() {
 
   function ChartersController() {}
 
-  ChartersController.prototype.index = function(){
-
+  ChartersController.prototype.show = function(){
+    
   };
 
   return ChartersController;

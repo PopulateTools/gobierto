@@ -1,3 +1,11 @@
+<% content_for :javascript_module_link do %>
+  <%= javascript_pack_tag 'charters', 'data-turbolinks-track': true %>
+<% end %>
+
+<script type="text/javascript">
+  window.GobiertoCharters.charters_controller.show();
+</script>
+
 <main class="content gobierto_citizens-charters">
 
   <div class="charter-header">

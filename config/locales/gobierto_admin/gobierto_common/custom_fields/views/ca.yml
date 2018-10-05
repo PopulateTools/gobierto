@@ -1,0 +1,23 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          edit:
+            title: Edita %{name}
+          form:
+            add_option: Afegir opció
+            confirm: Estàs segur?
+          index:
+            new: Afegir nou camp
+            title: Camps personalitzats
+          new:
+            title: Nou camp
+          new_option:
+            cancel_new_option: Cancel·lar
+            create: Crear opció
+            new: Nova opció
+        module_resources:
+          index:
+            empty: De moment no hi ha cap model amb camps personalitzats habilitats

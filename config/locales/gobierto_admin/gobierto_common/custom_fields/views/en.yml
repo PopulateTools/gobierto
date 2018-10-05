@@ -1,0 +1,23 @@
+---
+en:
+  gobierto_admin:
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          edit:
+            title: Edit %{name}
+          form:
+            add_option: Add option
+            confirm: Are you sure?
+          index:
+            new: Add new field
+            title: Custom fields
+          new:
+            title: New field
+          new_option:
+            cancel_new_option: Cancel
+            create: Create option
+            new: New option
+        module_resources:
+          index:
+            empty: Currently there is no model with custom fields enabled

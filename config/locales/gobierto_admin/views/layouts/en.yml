@@ -12,6 +12,7 @@ en:
         citizens_charters: Services
         cms: CMS
         collapse_menu: Collapse menu
+        custom_fields: Custom fields
         dirty_forms:
           message: You have unsaved changes. Are you sure you want to leave this page?
         edit_site: Customize site

@@ -8,6 +8,16 @@ ca:
         item_type: Tipus
         slug: URL
         title: Títol
+      gobierto_admin/gobierto_common/custom_field_form:
+        field_type: Tipus de camp
+        localized_paragraph: Paràgraf amb traduccions
+        localized_string: Text amb traduccions
+        multiple_options: Selecció múltiple
+        name: Nom
+        options: Opcions
+        paragraph: Paràgraf
+        single_option: Selecció única
+        string: Text
       gobierto_admin/gobierto_common/term_form:
         description: Descripció
         name: Nom

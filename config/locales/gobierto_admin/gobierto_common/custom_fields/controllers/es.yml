@@ -1,0 +1,13 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          create:
+            success: Campo personalizado creado correctamente
+          destroy:
+            failed: Ha habido un error que ha impedido eliminar el campo personalizado
+            success: Campo personalizado eliminado correctamente
+          update:
+            success: Campo personalizado actualizado correctamente

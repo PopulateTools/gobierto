@@ -1,0 +1,23 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          edit:
+            title: Editar %{name}
+          form:
+            add_option: Añadir opción
+            confirm: "¿Estás seguro?"
+          index:
+            new: Añadir nuevo campo
+            title: Campos personalizados
+          new:
+            title: Nuevo campo
+          new_option:
+            cancel_new_option: Cancelar
+            create: Crear opción
+            new: Nueva opción
+        module_resources:
+          index:
+            empty: De momento no hay ningún modelo con campos personalizados habilitados

@@ -8,6 +8,16 @@ en:
         item_type: Type
         slug: URL
         title: Title
+      gobierto_admin/gobierto_common/custom_field_form:
+        field_type: Type of field
+        localized_paragraph: Paragraph with translations
+        localized_string: Text with translations
+        multiple_options: Multiple selections
+        name: Name
+        options: Options
+        paragraph: Paragraph
+        single_option: One selection
+        string: Text
       gobierto_admin/gobierto_common/term_form:
         description: Description
         name: Name

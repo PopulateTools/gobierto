@@ -19,6 +19,10 @@ module GobiertoCommon
 
     before_create :set_uid, :set_position
 
+    def self.field_types_with_options
+      field_types.select { |key, _| /option/.match(key) }
+    end
+
     private
 
     def set_uid

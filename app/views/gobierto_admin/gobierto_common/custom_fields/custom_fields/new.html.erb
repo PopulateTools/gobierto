@@ -1,0 +1,9 @@
+<div class='admin_breadcrumb'>
+  <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
+  <%= link_to t("gobierto_admin.layouts.application.custom_fields"), admin_common_custom_fields_module_resources_path %> »
+  <%= link_to @custom_field_form.human_class_name, admin_common_custom_fields_module_resource_custom_fields_path(module_resource_name: @custom_field_form.resource_name) %> »
+  <%= t(".title") %>
+</div>
+
+<h1><%= t(".title") %></h1>
+<%= render "form" %>

@@ -1,8 +1,7 @@
 import * as d3 from 'd3'
-import { Class } from 'shared'
 
-export var Sparkline = Class.extend({
-  init: function(divId, json, trend, freq) {
+export class Sparkline {
+  constructor(divId, json, trend, freq) {
     this.container = divId;
     this.timeParse = freq === 'daily' ? d3.timeParse('%Y-%m-%d') : freq === 'monthly' ? d3.timeParse('%Y-%m') : d3.timeParse('%Y');
     this.isMobile = window.innerWidth <= 768;
@@ -29,13 +28,15 @@ export var Sparkline = Class.extend({
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this._type();
     this.updateRender();
     this._renderLines();
-  },
-  updateRender: function() {
+  }
+
+  updateRender() {
     this.xScale
       .rangeRound([0, this.width])
       .domain(d3.extent(this.data, function(d) { return d.date; }.bind(this)));
@@ -43,8 +44,9 @@ export var Sparkline = Class.extend({
     this.yScale
       .rangeRound([this.height, 0])
       .domain(d3.extent(this.data, function(d) { return d.value; }.bind(this)));
-  },
-  _renderLines: function() {
+  }
+
+  _renderLines() {
     this.line = d3.line()
       .x(function(d) { return this.xScale(d.date); }.bind(this))
       .y(function(d) { return this.yScale(d.value); }.bind(this));
@@ -62,26 +64,31 @@ export var Sparkline = Class.extend({
       .attr('cy', function() { return this.yScale(this.data[0].value); }.bind(this))
       .attr('r', 2.5)
       .attr('fill', this._getColor());
-  },
-  _getColor: function() {
+  }
+
+  _getColor() {
     if (this.isPositive && this.trend === 'up' || !this.isPositive && this.trend === 'down') {
       return '#AAC44B';
     } else {
       return '#981F2E';
     }
-  },
-  _type: function() {
+  }
+
+  _type() {
     this.data.forEach(function(d) {
       d.date = this.timeParse(d.date)
     }.bind(this));
-  },
-  _width: function() {
+  }
+
+  _width() {
     return parseInt(d3.select(this.container).style('width')) || +d3.select(this.container).node().getBoundingClientRect().width
-  },
-  _height: function() {
+  }
+
+  _height() {
     return this._width() * 0.2;
-  },
-  _resize: function() {
+  }
+
+  _resize() {
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -101,4 +108,4 @@ export var Sparkline = Class.extend({
       .attr('cx', function() { return this.xScale(this.data[0].date); }.bind(this))
       .attr('cy', function() { return this.yScale(this.data[0].value); }.bind(this))
   }
-});
+}

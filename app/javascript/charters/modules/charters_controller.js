@@ -6,7 +6,7 @@ window.GobiertoCharters.ChartersController = (function() {
 
   ChartersController.prototype.show = function(){
 
-    // DEBUG: MOCK DATA
+    // DEBUG: Esta funcion DEBE ser eliminada cuando se obtengan datos verdaderos
     function mock(length = 2) {
       let json = [];
       for (var i = 0; i < length; i++) {
@@ -21,7 +21,7 @@ window.GobiertoCharters.ChartersController = (function() {
     const $sparklines = $('.sparkline')
 
     $sparklines.each((i, container) => {
-      var chart = new Sparkline(`#${container.id}`, mock(5))
+      var chart = new Sparkline(`#${container.id}`, mock(20))
       chart.render()
     })
   };

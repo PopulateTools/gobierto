@@ -4,8 +4,7 @@ module GobiertoAdmin
   module GobiertoCommon
     module CustomFields
       class CustomFieldsController < BaseController
-        before_action :check_permissions!
-        before_action :check_class, only: [:index, :new, :create]
+        before_action :check_permissions!, :check_class
 
         def index
           set_class_name
@@ -116,7 +115,8 @@ module GobiertoAdmin
         end
 
         def check_class
-          raise_module_not_allowed unless form_class.new(resource_name: params[:module_resource_name], site_id: current_site.id).valid_resource_name?
+          form = form_class.new(resource_name: params[:module_resource_name], id: params[:id], site_id: current_site.id)
+          raise_module_not_allowed unless form.valid_resource_name? && current_admin.module_allowed?(form.class_name.deconstantize)
         end
       end
     end

@@ -7,7 +7,7 @@ module GobiertoAdmin
         before_action :check_permissions!
 
         def index
-          @available_resources = modules_with_custom_fields.reject { |_, resources| resources.blank? }
+          @available_resources = modules_with_custom_fields.reject { |module_name, resources| resources.blank? || !current_admin.module_allowed?(module_name) }
         end
 
         def check_permissions!

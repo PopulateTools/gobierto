@@ -67,7 +67,7 @@ module GobiertoCitizensCharters
     def period_admin_params
       return {} if [period_interval, period].any?(&:blank?)
 
-      attributes.slice(:period_interval, :period)
+      attributes.slice("period_interval", "period")
     end
   end
 end

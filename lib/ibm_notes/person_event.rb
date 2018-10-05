@@ -11,6 +11,7 @@ module IbmNotes
       "Europe/Madrid",
       "Central Europe Standard Time",
       "Fus horari desconegut (1) Standard Time",
+      "Huso horario desconocido (1) Standard Time",
       "W. Europe Standard Time",
       "Unknown1 Standard Time",
     ].freeze

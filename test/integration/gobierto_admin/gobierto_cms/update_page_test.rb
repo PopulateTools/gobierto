@@ -31,6 +31,10 @@ module GobiertoAdmin
         URI.parse(current_url).query
       end
 
+      def chosen_publication_date
+        Time.zone.parse("2017-01-01 00:00")
+      end
+
       def test_update_page
         with_javascript do
           with_signed_in_admin(admin) do
@@ -46,14 +50,14 @@ module GobiertoAdmin
 
               fill_in "page_title_translations_en", with: "Themes updated"
               fill_in "page_slug", with: "themes-updated"
-              fill_in "page_published_on", with: "2017-01-01 00:00"
+              fill_in "page_published_on", with: chosen_publication_date
 
               click_button "Update"
 
               assert has_message?("Page updated successfully")
 
               assert has_field?("page_slug", with: "themes-updated")
-              assert has_field?("page_published_on", with: "2017-01-01 00:00")
+              assert_equal chosen_publication_date.to_s, air_datepicker_field_value(:page_published_on)
 
               assert_equal(
                 "These are the themes",
@@ -75,6 +79,8 @@ module GobiertoAdmin
             within(".language_selector") { click_link "ES" }
 
             assert_equal "collection_id=#{collection.id}&locale=es", current_uri_query_params
+
+            within(".language_selector") { click_link "EN" }
           end
         end
       end

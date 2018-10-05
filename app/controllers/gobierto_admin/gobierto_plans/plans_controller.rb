@@ -12,16 +12,28 @@ module GobiertoAdmin
         @plan_form = PlanForm.new(site_id: current_site.id)
         @plan_visibility_levels = plan_visibility_levels
         @plan_types = find_plan_types
+        @vocabularies = current_site.vocabularies
       end
 
       def edit
         @plan = find_plan
         @plan_types = find_plan_types
         @plan_visibility_levels = plan_visibility_levels
+        @vocabularies = current_site.vocabularies
 
         @plan_form = PlanForm.new(
           @plan.attributes.except(*ignored_plan_attributes).merge(site_id: current_site.id)
         )
+      end
+
+      def data
+        @plan = find_plan
+        if @plan.categories.exists?
+          @categories_list = (0..@plan.categories.maximum(:level)).map do |level|
+            @plan.categories.where(level: level).map { |cat| { id: cat.id.to_s, name: cat.name } }.unshift(id: nil, name: nil)
+          end
+          @categories_vocabulary = ActiveModelSerializers::SerializableResource.new(@plan.categories, each_serializer: GobiertoAdmin::GobiertoPlans::CategorySerializer).serializable_hash
+        end
       end
 
       def create
@@ -37,6 +49,7 @@ module GobiertoAdmin
         else
           @plan_types = find_plan_types
           @plan_visibility_levels = plan_visibility_levels
+          @vocabularies = current_site.vocabularies
 
           render :new
         end
@@ -59,6 +72,7 @@ module GobiertoAdmin
         else
           @plan_types = find_plan_types
           @plan_visibility_levels = plan_visibility_levels
+          @vocabularies = current_site.vocabularies
 
           render :edit
         end
@@ -79,9 +93,16 @@ module GobiertoAdmin
         redirect_to admin_plans_plans_path, notice: t(".success")
       end
 
-      def data
+      def import_csv
         @plan = find_plan
         @plan_data_form = PlanDataForm.new(plan: @plan)
+      end
+
+      def export_csv
+        @plan = find_plan
+        respond_to do |format|
+          format.csv { render csv: ::GobiertoPlans::PlanDataDecorator.new(@plan).csv, filename: @plan.title.parameterize.dasherize }
+        end
       end
 
       def import_data
@@ -93,11 +114,11 @@ module GobiertoAdmin
           ) and return
         end
 
-        @plan_data_form = PlanDataForm.new(plan_data_params.merge(plan: @plan))
+        @plan_data_form = PlanDataForm.new(import_csv_params.merge(plan: @plan))
         if @plan_data_form.save
           track_import_csv_data_activity
           redirect_to(
-            admin_plans_plan_data_path(@plan),
+            admin_plans_plan_import_csv_path(@plan),
             notice: t(".success_html", link: gobierto_plans_plan_type_preview_url(@plan_data_form.plan, host: current_site.domain))
           )
         else
@@ -131,13 +152,14 @@ module GobiertoAdmin
           :configuration_data,
           :visibility_level,
           :css,
+          :vocabulary_id,
           title_translations: [*I18n.available_locales],
           footer_translations: [*I18n.available_locales],
           introduction_translations: [*I18n.available_locales]
         )
       end
 
-      def plan_data_params
+      def import_csv_params
         params.require(:plan).permit(:csv_file)
       end
 

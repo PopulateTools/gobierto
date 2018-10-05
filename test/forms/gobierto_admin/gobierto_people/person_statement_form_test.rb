@@ -59,13 +59,12 @@ module GobiertoAdmin
         invalid_person_statement_form.save
 
         assert_equal 1, invalid_person_statement_form.errors.messages[:title_translations].size
-        assert_equal 1, invalid_person_statement_form.errors.messages[:published_on].size
       end
 
       def test_published_on
         assert_equal(
           person_statement.published_on.strftime("%Y-%m-%d"),
-          valid_person_statement_form.published_on
+          valid_person_statement_form.published_on.strftime("%Y-%m-%d")
         )
       end
 

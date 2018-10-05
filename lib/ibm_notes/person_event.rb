@@ -15,6 +15,8 @@ module IbmNotes
       "Unknown1 Standard Time",
     ].freeze
 
+    UTC_TIMEZONES = [ "UTC", "GMT Standard Time" ].freeze
+
     def initialize(person, response_event)
       @id = set_id(response_event)
       @title = response_event["summary"]
@@ -36,14 +38,16 @@ module IbmNotes
     end
 
     def set_start_and_end_date(event)
-      time_zone = if event["start"]["tzid"].present?
-                    if MADRID_TIMEZONES.include?(event["start"]["tzid"])
-                      ActiveSupport::TimeZone["Madrid"]
-                    else
-                      Rollbar.error(Exception.new("[GobiertoCalendars] Unknown IBM Notes time zone #{event["start"]["tzid"]}"))
-                      nil
-                    end
-                  end
+      if time_zone = event["start"]["tzid"]
+        time_zone = if MADRID_TIMEZONES.include?(time_zone)
+          ActiveSupport::TimeZone["Madrid"]
+        elsif UTC_TIMEZONES.include?(time_zone)
+          ActiveSupport::TimeZone["UTC"]
+        else
+          Rollbar.error(Exception.new("[GobiertoCalendars] Unknown IBM Notes time zone #{time_zone}"))
+          nil
+        end
+      end
 
       if time_zone
         @starts_at = time_zone.parse("#{event["start"]["date"]} #{event["start"]["time"]}").utc

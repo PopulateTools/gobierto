@@ -8,14 +8,32 @@
 
 <%= render 'gobierto_admin/gobierto_plans/shared/navigation' %>
 
-<p>
-  <% if @plan.categories.any? || @plan.nodes.any? %>
-    <%= t(".there_are", info: @plan.to_s) %>
-    <br>
-    <%= t(".latest_update", datetime: l(@plan.updated_at, format: :long)) %>
-  <% else %>
-    <%= t(".no_data") %>
+<div class="admin_tools right">
+  <%= link_to admin_plans_plan_import_csv_path(@plan) do %>
+    <i class="fa fa-table"></i>
+    <%= t(".import_csv") %>
   <% end %>
-</p>
+  <%= link_to admin_plans_plan_export_csv_path(@plan), target: "_blank" do %>
+    <i class="fa fa-table"></i>
+    <%= t(".export_csv") %>
+  <% end %>
+  <%= link_to t(".new"), "#", class: "button", data: { insert: true } %>
+</div>
 
-<%= render "data_form" %>
+<% if @categories_list.present? %>
+  <div id="jsGrid"></div>
+  <% content_for :javascript_hook do %>
+    <%= javascript_tag do %>
+      window.GobiertoAdmin.gobierto_plans_plan_nodes_controller = new GobiertoAdmin.GobiertoPlansPlanNodesController;
+      window.GobiertoAdmin.gobierto_plans_plan_nodes_controller.index({
+      collection_path: "<%= admin_plans_api_plan_nodes_path(@plan) %>",
+      item_path: "<%= admin_plans_api_plan_node_path(@plan, "") %>",
+      locales: <%== current_site.configuration.available_locales.to_json %>,
+      categories_list: <%== @categories_list.to_json %>,
+      categories_vocabulary: <%== @categories_vocabulary.to_json %>
+    });
+  <% end %>
+<% end %>
+<% else %>
+  <%= t(".no_available_categories") %>
+<% end %>

@@ -4,6 +4,7 @@ module GobiertoCommon
   class CustomField < ApplicationRecord
     belongs_to :site
     has_many :records, dependent: :destroy, class_name: "CustomFieldRecord"
+    validates :name, presence: true
 
     enum field_type: { string: 0,
                        localized_string: 1,

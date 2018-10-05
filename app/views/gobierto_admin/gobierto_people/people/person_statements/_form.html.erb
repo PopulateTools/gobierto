@@ -29,7 +29,7 @@
         <%= f.text_field :published_on, data: {
             "language": I18n.locale,
             "date-format": "yyyy-mm-dd",
-            "startDate": format_time(f, :published_on)
+            "startDate": microseconds_since_epoch(f, :published_on)
           },
           class: "air-datepicker",
           readonly: !Rails.env.test?

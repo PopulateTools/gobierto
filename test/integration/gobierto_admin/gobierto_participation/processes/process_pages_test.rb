@@ -46,6 +46,10 @@ module GobiertoAdmin
         }
       end
 
+      def chosen_publication_date
+        Time.zone.parse("2017-01-01 23:59")
+      end
+
       def test_create_page
         with_javascript do
           with_signed_in_admin(admin) do
@@ -64,7 +68,7 @@ module GobiertoAdmin
 
               fill_in "page_title_translations_en", with: "News Title"
               find("#page_body_translations_en", visible: false).set("The content of the page")
-              fill_in "page_published_on", with: "2017-01-01"
+              fill_in "page_published_on", with: chosen_publication_date
 
               click_button "Create"
 
@@ -91,11 +95,14 @@ module GobiertoAdmin
               assert has_selector?("h1", text: process.title)
 
               fill_in "page_title_translations_en", with: "My page updated"
+              fill_in "page_published_on", with: chosen_publication_date
+
               click_button "Update"
 
               assert has_message?("Page updated successfully")
 
               assert has_selector?("h1", text: process.title)
+              assert_equal chosen_publication_date.to_s, air_datepicker_field_value(:page_published_on)
 
               within ".tabs" do
                 click_link "News"

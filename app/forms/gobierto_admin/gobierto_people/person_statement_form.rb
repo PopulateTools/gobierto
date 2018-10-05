@@ -58,14 +58,6 @@ module GobiertoAdmin
         @site ||= Site.find_by(id: site_id)
       end
 
-      def published_on
-        if @published_on.respond_to?(:strftime)
-          return @published_on.strftime("%Y-%m-%d")
-        end
-
-        @published_on
-      end
-
       def attachment_url
         @attachment_url ||= begin
           return person_statement.attachment_url unless attachment_file.present?
@@ -94,6 +86,10 @@ module GobiertoAdmin
 
       def notify?
         person_statement.active?
+      end
+
+      def published_on
+        @published_on ||= Time.current.to_date
       end
 
       private

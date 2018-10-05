@@ -54,6 +54,7 @@ export var Sparkline = Class.extend({
     this.svg.append('path')
       .datum(this.data)
       .attr('stroke', this._getColor())
+      .attr('fill', 'none')
       .attr('d', this.line);
 
     this.svg.append('circle')
@@ -75,7 +76,7 @@ export var Sparkline = Class.extend({
     }.bind(this));
   },
   _width: function() {
-    return parseInt(d3.select(this.container).style('width'));
+    return parseInt(d3.select(this.container).style('width')) || +d3.select(this.container).node().getBoundingClientRect().width
   },
   _height: function() {
     return this._width() * 0.2;

@@ -17,11 +17,11 @@ window.GobiertoCharters.ChartersController = (function() {
       }
       return json
     }
-console.log(mock());
+
     const $sparklines = $('.sparkline')
 
     $sparklines.each((i, container) => {
-      var chart = new Sparkline(`#${container.id}`, mock())
+      var chart = new Sparkline(`#${container.id}`, mock(5))
       chart.render()
     })
   };

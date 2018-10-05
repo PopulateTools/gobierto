@@ -205,6 +205,10 @@
           line-height: $submega;
         }
       }
+
+      > :last-child {
+        flex-basis: 40%;
+      }
     }
 
     .subheader-selector {
@@ -264,11 +268,29 @@
           font-size: $f1;
           line-height: $f1;
         }
+
+        > :last-child {
+          flex-basis: 40%;
+        }
       }
 
       .charter-text--muted {
         opacity: .5;
       }
+    }
+  }
+
+  .sparkline {
+    path {
+      stroke: $color_main;
+    }
+
+    svg {
+      background-color: rgba($color_main, .1);
+    }
+
+    circle {
+      display: none;
     }
   }
 }

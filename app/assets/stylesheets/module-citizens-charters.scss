@@ -207,7 +207,7 @@
       }
 
       > :last-child {
-        flex-basis: 40%;
+        flex-basis: 25%;
       }
     }
 
@@ -270,7 +270,7 @@
         }
 
         > :last-child {
-          flex-basis: 40%;
+          flex-basis: 25%;
         }
       }
 
@@ -291,6 +291,10 @@
 
     circle {
       display: none;
+    }
+
+    .axis line {
+      stroke: rgba($color_main, .1);
     }
   }
 }

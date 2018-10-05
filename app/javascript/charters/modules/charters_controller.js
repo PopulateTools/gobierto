@@ -21,7 +21,18 @@ window.GobiertoCharters.ChartersController = (function() {
     const $sparklines = $('.sparkline')
 
     $sparklines.each((i, container) => {
-      var chart = new Sparkline(`#${container.id}`, mock(20))
+      let options = {
+        axes: true,
+        aspectRatio: 3,
+        margins: {
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0
+        }
+      }
+
+      let chart = new Sparkline(`#${container.id}`, mock(7), options)
       chart.render()
     })
   };

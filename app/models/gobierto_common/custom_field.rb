@@ -22,7 +22,9 @@ module GobiertoCommon
     private
 
     def set_uid
-      self.uid ||= SecureRandom.uuid
+      return if uid.present?
+
+      self.uid = SecureRandom.uuid
     end
 
     def set_position

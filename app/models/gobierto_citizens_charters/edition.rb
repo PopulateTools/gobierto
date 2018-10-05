@@ -19,6 +19,7 @@ module GobiertoCitizensCharters
 
     enum period_interval: PERIOD_INTERVAL_DATA.keys
 
+    scope :recent, -> { order(period: :desc) }
     scope :of_same_period, ->(edition) { where(period: (edition.period_start..edition.period_end), period_interval: edition.period_interval) }
     scope :group_by_period_interval, ->(period_interval) { where(period_interval: period_interval).group(Arel.sql("date_trunc('#{ period_interval }', period)"), :period_interval) }
 

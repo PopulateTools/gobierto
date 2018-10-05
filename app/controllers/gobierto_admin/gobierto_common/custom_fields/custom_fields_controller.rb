@@ -4,6 +4,9 @@ module GobiertoAdmin
   module GobiertoCommon
     module CustomFields
       class CustomFieldsController < BaseController
+        before_action :check_permissions!
+        before_action :check_class, only: [:index, :new, :create]
+
         def index
           set_class_name
 
@@ -110,6 +113,10 @@ module GobiertoAdmin
 
         def form_class
           ::GobiertoAdmin::GobiertoCommon::CustomFieldForm
+        end
+
+        def check_class
+          raise_module_not_allowed unless form_class.new(resource_name: params[:module_resource_name], site_id: current_site.id).valid_resource_name?
         end
       end
     end

@@ -56,6 +56,12 @@ module GobiertoAdmin
         @types_with_options ||= ::GobiertoCommon::CustomField.field_types_with_options.keys
       end
 
+      def valid_resource_name?
+        klass.present?
+      rescue NameError
+        false
+      end
+
       private
 
       def save_custom_field

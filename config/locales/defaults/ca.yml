@@ -39,8 +39,8 @@ ca:
     formats:
       day_month: "%d/%m"
       default: "%d-%m-%Y"
-      long: "%d de %B de %Y"
-      short: "%d de %b"
+      long: "%d %B de %Y"
+      short: "%d %b"
       shortest: "%d %b %y"
     month_names:
     - 
@@ -220,8 +220,8 @@ ca:
   time:
     am: am
     formats:
-      default: "%A, %d de %B de %Y %H:%M:%S %z"
+      default: "%A, %d %B de %Y %H:%M:%S %z"
       from_to: De %{starts} a %{ends}
-      long: "%d de %B de %Y %H:%M"
-      short: "%d de %b %H:%M"
+      long: "%d %B de %Y %H:%M"
+      short: "%d %b %H:%M"
     pm: pm

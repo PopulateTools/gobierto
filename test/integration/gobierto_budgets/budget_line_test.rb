@@ -139,7 +139,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
         assert has_content? feedback_ack_message
 
         fill_in :email, with: "spam@email.com"
-        fill_in :ic_email, with: "spam@email.com"
+        find("#ic_email", visible: false).set("spam@email.com")
 
         click_button "Follow"
 

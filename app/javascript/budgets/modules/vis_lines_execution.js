@@ -51,6 +51,8 @@ export var VisLinesExecution = Class.extend({
       // Setting scales in a separate step, as we need the lines to set the height
       this.setScales();
       this.updateRender();
+
+      window.dispatchEvent(new Event('chartloaded'));
     }.bind(this));
   },
   render: function() {

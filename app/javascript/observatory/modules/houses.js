@@ -1,15 +1,15 @@
 import * as d3 from 'd3'
 import { ComparisonCard } from './vis_card_comparison.js'
-import { Class } from 'shared'
 
-export var HousesCard = Class.extend({
-  init: function(divClass, city_id) {
+export class HousesCard {
+  constructor(divClass, city_id) {
     this.container = divClass;
     this.tbiToken = window.populateData.token;
     this.famUrl = window.populateData.endpoint + '/datasets/ds-viviendas-municipales-familiares.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + city_id;
     this.mainUrl = window.populateData.endpoint + '/datasets/ds-viviendas-municipales-principales.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + city_id;
-  },
-  getData: function() {
+  }
+
+  getData() {
     var fam = d3.json(this.famUrl)
       .header('authorization', 'Bearer ' + this.tbiToken);
 
@@ -27,8 +27,9 @@ export var HousesCard = Class.extend({
 
         new ComparisonCard(this.container, jsonFamily, familyHouses, mainHouses, 'houses');
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this.getData();
   }
-});
+}

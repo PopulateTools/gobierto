@@ -1,14 +1,14 @@
 import * as d3 from 'd3'
 import { ComparisonCard } from './vis_card_comparison.js'
-import { Class } from 'shared'
 
-export var ContractsCard = Class.extend({
-  init: function(divClass, city_id) {
+export class ContractsCard {
+  constructor(divClass, city_id) {
     this.container = divClass;
     this.tbiToken = window.populateData.token;
     this.url = window.populateData.endpoint + '/datasets/ds-contratos-municipio-tipo.json?sort_desc_by=date&with_metadata=true&limit=3&filter_by_location_id=' + city_id;
-  },
-  getData: function() {
+  }
+
+  getData() {
     var data = d3.json(this.url)
       .header('authorization', 'Bearer ' + this.tbiToken);
 
@@ -26,8 +26,9 @@ export var ContractsCard = Class.extend({
 
         new ComparisonCard(this.container, json, t, i, 'contracts_comparison');
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this.getData();
   }
-});
+}

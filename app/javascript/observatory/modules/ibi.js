@@ -1,9 +1,8 @@
 import * as d3 from 'd3'
 import { TableCard } from './vis_card_table.js'
-import { Class } from 'shared'
 
-export var IbiCard = Class.extend({
-  init: function(divClass, city_id) {
+export class IbiCard {
+  constructor(divClass, city_id) {
     this.container = divClass;
     this.div = d3.select(this.container);
     this.tbiToken = window.populateData.token;
@@ -15,8 +14,9 @@ export var IbiCard = Class.extend({
     this.vlcIbiRUrl = window.populateData.endpoint + '/datasets/ds-ibi-vivienda-rustica-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=46250'; // TODO: Use Populate Data's related cities API
     this.trend = this.div.attr('data-trend');
     this.freq = this.div.attr('data-freq');
-  },
-  getData: function() {
+  }
+
+  getData() {
     var placeIbiC = d3.json(this.placeIbiCUrl)
     .header('authorization', 'Bearer ' + this.tbiToken);
 
@@ -99,8 +99,9 @@ export var IbiCard = Class.extend({
 
         new TableCard(this.container, placeIbiC, this.nest, 'ibi');
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this.getData();
   }
-});
+}

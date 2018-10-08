@@ -1,11 +1,11 @@
 import * as __d3 from 'd3'
 import { distanceLimitedVoronoi } from './d3-distance-limited-voronoi.js'
-import { Class, d3locale, accounting } from 'shared'
+import { d3locale, accounting } from 'shared'
 
 const d3 = { ...__d3, distanceLimitedVoronoi }
 
-export var VisRentDistribution = Class.extend({
-  init: function(divId, city_id, province_id, current_year) {
+export class VisRentDistribution {
+  constructor(divId, city_id, province_id, current_year) {
     this.container = divId;
     this.cityId = city_id;
     this.provinceId = province_id;
@@ -57,8 +57,9 @@ export var VisRentDistribution = Class.extend({
       .attr('class', 'tooltip');
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
-  },
-  getData: function() {
+  }
+
+  getData() {
     var rent = d3.json(this.rentUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
@@ -88,15 +89,17 @@ export var VisRentDistribution = Class.extend({
         this._renderCircles();
         this.isMobile ? null : this._renderVoronoi();
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     if (this.data === null) {
       this.getData();
     } else {
       this.updateRender();
     }
-  },
-  updateRender: function() {
+  }
+
+  updateRender() {
     this.xScale
       .rangeRound([0, this.width])
       .domain(d3.extent(this.data, function(d) { return d.value; }));
@@ -108,8 +111,9 @@ export var VisRentDistribution = Class.extend({
     this.color.domain(d3.extent(this.data, function(d) { return d.rent; }).reverse());
 
     this._renderAxis();
-  },
-  _renderCircles: function() {
+  }
+
+  _renderCircles() {
     // We keep this separate to not create them after every resize
     var circles = this.svg.append('g')
       .attr('class', 'circles')
@@ -143,8 +147,9 @@ export var VisRentDistribution = Class.extend({
       .attr('text-anchor', 'end')
       .text(function(d) { return d.municipality_name });
 
-  },
-  _renderVoronoi: function() {
+  }
+
+  _renderVoronoi() {
     // Create voronoi
     this.voronoi = d3.distanceLimitedVoronoi()
       .x(function(d) { return this.xScale(d.value); }.bind(this))
@@ -173,8 +178,9 @@ export var VisRentDistribution = Class.extend({
       .attr('fill', 'none')
       .attr('transform', 'translate(-100,-100)')
       .attr('r', this.isMobile ? 6 : 12);
-  },
-  _mousemove: function(d, i) {
+  }
+
+  _mousemove(d, i) {
     d3.select('.circle' + i).attr('stroke', 'none')
 
     d3.selectAll('.hover')
@@ -214,16 +220,18 @@ export var VisRentDistribution = Class.extend({
         return this.tooltip.style('left', (x - 20) + 'px');
       }
     }
-  },
-  _mouseout: function(d, i) {
+  }
+
+  _mouseout(d, i) {
     d3.selectAll('.circle' + i).attr('stroke', 'white');
 
     d3.select('.hover')
         .attr('stroke', 'none');
 
     this.tooltip.style('opacity', 0);
-  },
-  _renderAxis: function() {
+  }
+
+  _renderAxis() {
     // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
@@ -258,33 +266,41 @@ export var VisRentDistribution = Class.extend({
     this.svg.selectAll('.y.axis .tick')
       .filter(function (d) { return d === 0;  })
       .remove();
-  },
-  _formatMillionAbbr: function(x) {
+  }
+
+  _formatMillionAbbr(x) {
     return d3.format('.0f')(x / 1e6) + ' ' + I18n.t('gobierto_observatory.graphics.rent_distribution.million');
-  },
-  _formatThousandAbbr: function(x) {
+  }
+
+  _formatThousandAbbr(x) {
     return d3.format('.0f')(x / 1e3) + ' ' + I18n.t('gobierto_observatory.graphics.rent_distribution.thousand');
-  },
-  _formatAbbreviation: function(x) {
+  }
+
+  _formatAbbreviation(x) {
     var v = Math.abs(x);
 
     return (v >= .9995e6 ? this._formatMillionAbbr : v >= .9995e4 ? this._formatThousandAbbr : this.formatThousand)(x);
-  },
-  _formatNumberX: function(d) {
+  }
+
+  _formatNumberX(d) {
     // Spanish custom thousand separator
     return this._formatAbbreviation(d);
-  },
-  _formatNumberY: function(d) {
+  }
+
+  _formatNumberY(d) {
     // Show percentages
     return accounting.formatNumber(d, 0) + '€';
-  },
-  _width: function() {
+  }
+
+  _width() {
     return parseInt(d3.select(this.container).style('width'));
-  },
-  _height: function() {
+  }
+
+  _height() {
     return this.isMobile ? 320 : this._width() * 0.5;
-  },
-  _resize: function() {
+  }
+
+  _resize() {
     this.width = this._width();
     this.height = this._height();
 
@@ -317,4 +333,5 @@ export var VisRentDistribution = Class.extend({
         .attr("d", function(d) { return d.path; });
     }
   }
-});
+
+}

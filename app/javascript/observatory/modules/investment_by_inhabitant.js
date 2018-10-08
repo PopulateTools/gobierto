@@ -1,10 +1,9 @@
 import * as d3 from 'd3'
 import { Sparkline } from './vis_sparkline.js'
 import { SparklineTableCard } from './vis_card_sparkline_table.js'
-import { Class } from 'shared'
 
-export var InvestmentByInhabitantCard = Class.extend({
-  init: function(divClass, city_id) {
+export class InvestmentByInhabitantCard {
+  constructor(divClass, city_id) {
     this.container = divClass;
     this.div = d3.select(this.container);
     this.tbiToken = window.populateData.token;
@@ -13,8 +12,9 @@ export var InvestmentByInhabitantCard = Class.extend({
     this.vlcUrl = window.populateData.endpoint + '/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=46250';  // TODO: Use Populate Data's related cities API
     this.trend = this.div.attr('data-trend');
     this.freq = this.div.attr('data-freq');
-  },
-  getData: function() {
+  }
+
+  getData() {
     var data = d3.json(this.url)
       .header('authorization', 'Bearer ' + this.tbiToken);
 
@@ -78,11 +78,13 @@ export var InvestmentByInhabitantCard = Class.extend({
         bcnSpark.render();
         vlcSpark.render();
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this.getData();
-  },
-  _normalize: function(str) {
+  }
+
+  _normalize(str) {
     var from = "1234567890ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ‘/&().!",
         to = "izeasgtogoAAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_____",
         mapping = {};
@@ -104,4 +106,4 @@ export var InvestmentByInhabitantCard = Class.extend({
 
     return ret.join('').toLowerCase();
   }
-});
+}

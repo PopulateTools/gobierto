@@ -1,14 +1,14 @@
 import * as d3 from 'd3'
 import { SimpleCard } from './vis_card_simple.js'
-import { Class } from 'shared'
 
-export var PopulationCard = Class.extend({
-  init: function(divClass, city_id) {
+export class PopulationCard {
+  constructor(divClass, city_id) {
     this.container = divClass;
     this.tbiToken = window.populateData.token;
     this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=' + city_id;
-  },
-  getData: function() {
+  }
+
+  getData() {
     var pop = d3.json(this.popUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
@@ -21,8 +21,9 @@ export var PopulationCard = Class.extend({
 
         new SimpleCard(this.container, jsonData, value, 'population');
       }.bind(this));
-  },
-  render: function() {
+  }
+  
+  render() {
     this.getData();
   }
-});
+}

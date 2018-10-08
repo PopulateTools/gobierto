@@ -1,8 +1,7 @@
 import * as d3 from 'd3'
-import { Class } from 'shared'
 
-export var VisUnemploymentSex = Class.extend({
-  init: function(divId, city_id, unemplAgeData) {
+export class VisUnemploymentSex {
+  constructor(divId, city_id, unemplAgeData) {
     this.location_id = parseInt(city_id);
     this.container = divId;
     this.data = null;
@@ -46,8 +45,9 @@ export var VisUnemploymentSex = Class.extend({
     this.svg.append('g').attr('class','y axis');
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
-  },
-  getData: function() {
+  }
+
+  getData() {
     var pop = d3.json(this.popUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
@@ -107,15 +107,17 @@ export var VisUnemploymentSex = Class.extend({
         this._renderVoronoi();
 
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     if (this.data === null) {
       this.getData();
     } else {
       this.updateRender();
     }
-  },
-  updateRender: function() {
+  }
+
+  updateRender() {
     this.xScale
       .rangeRound([0, this.width])
       .domain([d3.timeParse('%Y-%m')('2010-11'), d3.max(this.data, function(d) { return d.date; })]);
@@ -129,8 +131,9 @@ export var VisUnemploymentSex = Class.extend({
       .range(['#F6B128','#007382']);
 
     this._renderAxis();
-  },
-  _renderLines: function() {
+  }
+
+  _renderLines() {
     this.line = d3.line()
       .x(function(d) { return this.xScale(d.date); }.bind(this))
       .y(function(d) { return this.yScale(d.pct); }.bind(this));
@@ -166,8 +169,9 @@ export var VisUnemploymentSex = Class.extend({
         .text(function(d) {
           return this._getLabel(d.key);
         }.bind(this));
-  },
-  _renderVoronoi: function() {
+  }
+
+  _renderVoronoi() {
     // Voronoi
     this.focus = this.svg.append('g')
         .attr('transform', 'translate(-100,-100)')
@@ -198,25 +202,29 @@ export var VisUnemploymentSex = Class.extend({
         .attr('d', function(d) { return d ? 'M' + d.join('L') + 'Z' : null; })
         .on('mouseover', this._mouseover.bind(this))
         .on('mouseout', this._mouseout.bind(this));
-  },
-  _mouseover: function(d) {
+  }
+
+  _mouseover(d) {
     this.focus.select('circle').attr('stroke', this.color(d.data.sex));
     this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.pct) + ')');
     this.focus.select('text').attr('text-anchor', d.data.date >= this.parseTime('2014-01') ? 'end' : 'start');
     this.focus.select('tspan').text(`${this._getLabel(d.data.sex)}: ${this.pctFormat(d.data.pct)} (${d.data.date.toLocaleString(I18n.locale, {month: 'short'})} ${d.data.date.getFullYear()})`);
-  },
-  _mouseout: function() {
+  }
+
+  _mouseout() {
     this.focus.attr('transform', 'translate(-100,-100)');
-  },
-  _getLabel: function(sex) {
+  }
+
+  _getLabel(sex) {
     switch (sex) {
       case 'H':
         return I18n.t('gobierto_observatory.graphics.unemployment_sex.men');
       case 'M':
         return I18n.t('gobierto_observatory.graphics.unemployment_sex.women');
     }
-  },
-  _renderAxis: function() {
+  }
+
+  _renderAxis() {
     // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
@@ -247,14 +255,17 @@ export var VisUnemploymentSex = Class.extend({
       .attr('text-anchor', 'start')
       .attr('dx', '0.25em')
       .attr('dy', '-0.55em');
-  },
-  _width: function() {
+  }
+
+  _width() {
     return parseInt(d3.select(this.container).style('width'));
-  },
-  _height: function() {
+  }
+
+  _height() {
     return this.isMobile ? 200 : 250;
-  },
-  _resize: function() {
+  }
+
+  _resize() {
     this.isMobile = window.innerWidth <= 768;
 
     this.width = this._width() - this.margin.left - this.margin.right;
@@ -286,4 +297,5 @@ export var VisUnemploymentSex = Class.extend({
       .data(this.voronoi.polygons(d3.merge(this.nest.map(function(d) { return d.values; }))))
       .attr('d', function(d) { return d ? 'M' + d.join('L') + 'Z' : null; });
   }
-});
+
+}

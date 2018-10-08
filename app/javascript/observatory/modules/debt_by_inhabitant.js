@@ -1,9 +1,8 @@
 import * as d3 from 'd3'
 import { BarsCard } from './vis_card_bars.js'
-import { Class } from 'shared'
 
-export var DebtByInhabitantCard = Class.extend({
-  init: function(divClass, city_id) {
+export class DebtByInhabitantCard {
+  constructor(divClass, city_id) {
     this.container = divClass;
     this.div = d3.select(this.container);
     this.tbiToken = window.populateData.token;
@@ -12,8 +11,9 @@ export var DebtByInhabitantCard = Class.extend({
     this.vlcUrl = window.populateData.endpoint + '/datasets/ds-deuda-municipal.json?divided_by=ds-poblacion-municipal&sort_desc_by=date&with_metadata=true&filter_by_location_id=46250';  // TODO: Use Populate Data's related cities API
     this.trend = this.div.attr('data-trend');
     this.freq = this.div.attr('data-freq');
-  },
-  getData: function() {
+  }
+
+  getData() {
     var data = d3.json(this.url)
       .header('authorization', 'Bearer ' + this.tbiToken);
 
@@ -49,8 +49,10 @@ export var DebtByInhabitantCard = Class.extend({
 
         new BarsCard(this.container, json, this.data, 'debt_by_inhabitant');
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this.getData();
   }
-});
+
+}

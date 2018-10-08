@@ -1,9 +1,9 @@
 import * as d3 from 'd3'
 import { Sparkline } from './vis_sparkline.js'
-import { Class, d3locale, accounting } from 'shared'
+import { d3locale, accounting } from 'shared'
 
-export var SimpleCard = Class.extend({
-  init: function(divClass, json, value, cardName, valueType) {
+export class SimpleCard {
+  constructor(divClass, json, value, cardName, valueType) {
     d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
 
     this.div = d3.select(divClass);
@@ -71,8 +71,9 @@ export var SimpleCard = Class.extend({
           return isPositive ? 'fa fa-caret-up' : 'fa fa-caret-down';
         });
     }
-  },
-  _printFreq: function(json) {
+  }
+
+  _printFreq(json) {
     // Switch between different figure types
     switch (json) {
       case 'yearly':
@@ -86,8 +87,9 @@ export var SimpleCard = Class.extend({
       default:
         return ''
     }
-  },
-  _printData: function(data) {
+  }
+
+  _printData(data) {
     // Switch between different figure types
     switch (this.dataType) {
       case 'percentage':
@@ -100,4 +102,5 @@ export var SimpleCard = Class.extend({
         return accounting.formatNumber(data, 0);
     }
   }
-});
+
+}

@@ -1,15 +1,15 @@
 import * as d3 from 'd3'
-import { Class } from 'shared'
 
-export var GetUnemploymentAgeData = Class.extend({
-  init: function(city_id) {
+export class GetUnemploymentAgeData {
+  constructor(city_id) {
     this.tbiToken = window.populateData.token;
     this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
     this.unemplUrl = window.populateData.endpoint + '/datasets/ds-personas-paradas-municipio-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
     this.parseTime = d3.timeParse('%Y-%m');
     this.data = null;
-  },
-  getData: function(callback) {
+  }
+
+  getData(callback) {
     var pop = d3.json(this.popUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
@@ -64,4 +64,4 @@ export var GetUnemploymentAgeData = Class.extend({
         if (callback) callback();
       }.bind(this));
   }
-});
+}

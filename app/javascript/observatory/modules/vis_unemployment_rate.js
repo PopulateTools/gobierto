@@ -1,8 +1,7 @@
 import * as d3 from 'd3'
-import { Class } from 'shared'
 
-export var VisUnemploymentRate = Class.extend({
-  init: function(divId, city_id, ccaa_id) {
+export class VisUnemploymentRate {
+  constructor(divId, city_id, ccaa_id) {
     this.container = divId;
     this.data = null;
     this.tbiToken = window.populateData.token;
@@ -45,8 +44,9 @@ export var VisUnemploymentRate = Class.extend({
     this.svg.append('g').attr('class','y axis');
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
-  },
-  getData: function() {
+  }
+
+  getData() {
     var place = d3.json(this.placeUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
@@ -89,15 +89,17 @@ export var VisUnemploymentRate = Class.extend({
         this._renderVoronoi();
 
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     if (this.data === null) {
       this.getData();
     } else {
       this.updateRender();
     }
-  },
-  updateRender: function() {
+  }
+
+  updateRender() {
     this.xScale
       .rangeRound([0, this.width])
       .domain([this.parseTime('2011-01'), d3.max(this.data, function(d) { return d.date; })]);
@@ -111,8 +113,9 @@ export var VisUnemploymentRate = Class.extend({
       .range(['#F6B128', '#F39D96', '#007382']);
 
     this._renderAxis();
-  },
-  _renderLines: function() {
+  }
+
+  _renderLines() {
     this.line = d3.line()
       .x(function(d) { return this.xScale(d.date); }.bind(this))
       .y(function(d) { return this.yScale(d.value); }.bind(this))
@@ -149,8 +152,9 @@ export var VisUnemploymentRate = Class.extend({
       .text(function(d) {
         return this._getPlaceType(d.key);
       }.bind(this));
-  },
-  _renderVoronoi: function() {
+  }
+
+  _renderVoronoi() {
     this.focus = this.svg.append('g')
       .attr('transform', 'translate(-100,-100)')
       .attr('class', 'focus');
@@ -180,18 +184,21 @@ export var VisUnemploymentRate = Class.extend({
       .attr('d', function(d) { return d ? 'M' + d.join('L') + 'Z' : null; })
       .on('mouseover', this._mouseover.bind(this))
       .on('mouseout', this._mouseout.bind(this));
-  },
-  _mouseover: function(d) {
+  }
+
+  _mouseover(d) {
     this.focus.select('circle').attr('stroke', this.color(d.data.location_type));
 
     this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.value) + ')');
     this.focus.select('text').attr('text-anchor', d.data.date >= this.parseTime('2014-01') ? 'end' : 'start');
     this.focus.select('tspan').text(`${this._getPlaceType(d.data.location_type)}: ${d.data.value}% (${d.data.date.toLocaleString(I18n.locale, {month: 'short'})} ${d.data.date.getFullYear()})`);
-  },
-  _mouseout: function() {
+  }
+
+  _mouseout() {
     this.focus.attr('transform', 'translate(-100,-100)');
-  },
-  _renderAxis: function() {
+  }
+
+  _renderAxis() {
     // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
@@ -221,8 +228,9 @@ export var VisUnemploymentRate = Class.extend({
       .attr('text-anchor', 'start')
       .attr('dx', '0.25em')
       .attr('dy', '-0.55em');
-  },
-  _getPlaceType: function(place) {
+  }
+
+  _getPlaceType(place) {
     switch (place) {
       case 'country':
         return I18n.t('gobierto_observatory.graphics.unemployment_rate.country');
@@ -231,14 +239,17 @@ export var VisUnemploymentRate = Class.extend({
       case 'place':
         return window.populateData.municipalityName;
     }
-  },
-  _width: function() {
+  }
+
+  _width() {
     return parseInt(d3.select(this.container).style('width'));
-  },
-  _height: function() {
+  }
+
+  _height() {
     return this.isMobile ? 200 : 250;
-  },
-  _resize: function() {
+  }
+
+  _resize() {
     this.isMobile = window.innerWidth <= 768;
 
     this.width = this._width() - this.margin.left - this.margin.right;
@@ -270,4 +281,5 @@ export var VisUnemploymentRate = Class.extend({
       .data(this.voronoi.polygons(d3.merge(this.nest.map(function(d) { return d.values; }))))
       .attr('d', function(d) { return d ? 'M' + d.join('L') + 'Z' : null; });
   }
-});
+
+}

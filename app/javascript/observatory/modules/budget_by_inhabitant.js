@@ -1,14 +1,14 @@
 import * as d3 from 'd3'
 import { SimpleCard } from './vis_card_simple.js'
-import { Class } from 'shared'
 
-export var BudgetByInhabitantCard = Class.extend({
-  init: function(divClass, city_id) {
+export class BudgetByInhabitantCard {
+  constructor(divClass, city_id) {
     this.container = divClass;
     this.tbiToken = window.populateData.token;
     this.url = window.populateData.endpoint + '/datasets/ds-presupuestos-municipales-total.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_municipality_id=' + city_id;
-  },
-  getData: function() {
+  }
+
+  getData() {
     var data = d3.json(this.url)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
@@ -21,8 +21,9 @@ export var BudgetByInhabitantCard = Class.extend({
 
         new SimpleCard(this.container, jsonData, value, 'budget_by_inhabitant', 'value_per_inhabitant');
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this.getData();
   }
-});
+}

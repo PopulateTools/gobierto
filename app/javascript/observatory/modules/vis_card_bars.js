@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
-import { Class, d3locale, accounting } from 'shared'
+import { d3locale, accounting } from 'shared'
 
-export var BarsCard = Class.extend({
-  init: function(divClass, json, data, cardName) {
+export class BarsCard {
+  constructor(divClass, json, data, cardName) {
     d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
 
     this.div = d3.select(divClass);
@@ -69,8 +69,9 @@ export var BarsCard = Class.extend({
     row.append('div')
       .attr('class', 'qty')
       .text(function(d) { return this._printData(d.figure); }.bind(this));
-  },
-  _printFreq: function(json) {
+  }
+
+  _printFreq(json) {
     // Switch between different figure types
     switch (json) {
       case 'yearly':
@@ -84,8 +85,9 @@ export var BarsCard = Class.extend({
       default:
         return ''
     }
-  },
-  _printData: function(data) {
+  }
+
+  _printData(data) {
     // Switch between different figure types
     switch (this.dataType) {
       case 'percentage':
@@ -99,8 +101,9 @@ export var BarsCard = Class.extend({
       default:
         return accounting.formatNumber(data, 0);
     }
-  },
-  _normalize: function(str) {
+  }
+
+  _normalize(str) {
     var from = "1234567890ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ‘/&().!",
         to = "izeasgtogoAAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_____",
         mapping = {};
@@ -122,4 +125,5 @@ export var BarsCard = Class.extend({
 
     return ret.join('').toLowerCase();
   }
-});
+
+}

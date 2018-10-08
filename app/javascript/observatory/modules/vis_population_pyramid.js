@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
-import { Class, URLParams } from 'shared'
+import { URLParams } from 'shared'
 
-export var VisPopulationPyramid = Class.extend({
-  init: function(divId, city_id, current_year, filter) {
+export class VisPopulationPyramid {
+  constructor(divId, city_id, current_year, filter) {
     this.container = divId
 
     // Remove previous
@@ -86,8 +86,9 @@ export var VisPopulationPyramid = Class.extend({
 
     // Static elements
     this._renderStatic()
-  },
-  getUrls: function(city_id, filter = 0) {
+  }
+
+  getUrls(city_id, filter = 0) {
     // Ensure data to null to force http request
     this.data = null
 
@@ -160,8 +161,9 @@ export var VisPopulationPyramid = Class.extend({
       population,
       unemployed
     }
-  },
-  getData: function() {
+  }
+
+  getData() {
     let unemployed = d3.json(this.dataUrls.unemployed)
       .header("authorization", "Bearer " + this.tbiToken)
 
@@ -191,22 +193,25 @@ export var VisPopulationPyramid = Class.extend({
         this.data = aux
         this.update(this.data)
       }.bind(this))
-  },
-  render: function() {
+  }
+
+  render() {
     if (this.data === null) {
       this.getData()
     } else {
       this.update(this.data)
     }
-  },
-  update: function(data) {
+  }
+
+  update(data) {
     this._updateScales(data)
     this._updateAxes()
     this._updateBars(data.pyramid)
     this._updateAreas(data.areas, data.unemployed)
     this._updateMarks(data.marks)
-  },
-  _updateScales: function (data) {
+  }
+
+  _updateScales (data) {
     this.xScaleMale
       .domain([d3.max(data.pyramid.map(d => d._value)), 0]).nice()
 
@@ -218,8 +223,9 @@ export var VisPopulationPyramid = Class.extend({
 
     this.yScale
       .domain(_.uniq(data.pyramid.map(d => d.age)))
-  },
-  _updateAxes: function () {
+  }
+
+  _updateAxes () {
     this.pyramid.select(".x.axis.males")
       .transition().duration(500)
       .call(this._xAxisMale.bind(this))
@@ -231,8 +237,9 @@ export var VisPopulationPyramid = Class.extend({
     this.pyramid.select(".y.axis")
       .transition().duration(500)
       .call(this._yAxis.bind(this))
-  },
-  _updateBars: function (data) {
+  }
+
+  _updateBars (data) {
     let male = this.pyramid.select("g.bars g.males")
       .selectAll("g")
       .data(data.filter(d => d.sex === "V"))
@@ -310,8 +317,9 @@ export var VisPopulationPyramid = Class.extend({
     // exits
     male.exit().remove()
     female.exit().remove()
-  },
-  _updateAreas: function (data, unemployed) {
+  }
+
+  _updateAreas (data, unemployed) {
     let g = this.areas.selectAll(".range")
       .data(data)
 
@@ -336,7 +344,7 @@ export var VisPopulationPyramid = Class.extend({
       .attr("x", chartWidth + this.gutter)
       .attr("dy", `${this._pxToEm(1.5 * this.gutter)}em`)
       .attr("class", "title")
-      .text(d => `${d.name}: ${this._math.percent(d.value, this.data.pyramid)}`)
+      .text(d => `${d.name}: ${this._percent(d.value, this.data.pyramid)}`)
 
     ranges.append("text")
       .attr("x", chartWidth + this.gutter)
@@ -353,7 +361,7 @@ export var VisPopulationPyramid = Class.extend({
       .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
 
     g.select("text.title")
-      .text(d => `${d.name}: ${this._math.percent(d.value, this.data.pyramid)}`)
+      .text(d => `${d.name}: ${this._percent(d.value, this.data.pyramid)}`)
 
     g.select("text.subtitle")
       .text(d => d.info)
@@ -426,8 +434,9 @@ export var VisPopulationPyramid = Class.extend({
 
     // exits
     fakeG.exit().remove()
-  },
-  _updateMarks: function (data) {
+  }
+
+  _updateMarks (data) {
     let g = this.marks.selectAll(".mark")
       .data(data)
 
@@ -462,8 +471,9 @@ export var VisPopulationPyramid = Class.extend({
 
     // exits
     g.exit().remove()
-  },
-  _renderStatic: function () {
+  }
+
+  _renderStatic () {
     // NOTE: We keep this separate to not create them after every update/resize
 
     // Pyramid axes
@@ -512,8 +522,9 @@ export var VisPopulationPyramid = Class.extend({
       .attr("opacity", 0)
 
     focus.append("text")
-  },
-  _mousemove: function(d) {
+  }
+
+  _mousemove(d) {
     this.svg.select(".tooltip")
       .attr("opacity", 1)
       .select("text")
@@ -521,20 +532,23 @@ export var VisPopulationPyramid = Class.extend({
       .attr("x", (d.sex === "V") ? 0 : this.width.pyramid)
       .attr("y", this.yScale(95))
       .text(`${I18n.t('gobierto_observatory.graphics.population_pyramid.age')}: ${d.age} - ${d.value.toLocaleString()} ${(d.sex === "V") ? I18n.t('gobierto_observatory.graphics.population_pyramid.men') : I18n.t('gobierto_observatory.graphics.population_pyramid.women')}`);
-  },
-  _mouseout: function() {
+  }
+
+  _mouseout() {
     this.svg.select(".tooltip")
       .attr("opacity", 0)
-  },
-  _xAxisMale: function (g) {
+  }
+
+  _xAxisMale (g) {
     g.call(this.xAxisMale)
 
     let s = g.selection ? g.selection() : g // https://bl.ocks.org/mbostock/4323929
     s.selectAll(".domain").remove()
     s.selectAll(".tick line").remove()
     s.selectAll(".tick:last-child text").remove()
-  },
-  _xAxisFemale: function (g) {
+  }
+
+  _xAxisFemale (g) {
     g.call(this.xAxisFemale)
 
     let s = g.selection ? g.selection() : g // https://bl.ocks.org/mbostock/4323929
@@ -542,8 +556,9 @@ export var VisPopulationPyramid = Class.extend({
     s.selectAll(".tick:not(:first-child) line").remove()
     s.selectAll(".tick:first-child line")
       .attr("y1", -this.height.chart)
-  },
-  _yAxis: function (g) {
+  }
+
+  _yAxis (g) {
     g.call(this.yAxis.tickValues(this.yScale.domain().filter((d,i) => !(i%10))))
 
     // https://bl.ocks.org/mbostock/4323929
@@ -559,24 +574,26 @@ export var VisPopulationPyramid = Class.extend({
       g.selectAll(".tick line").attrTween("x1", null).attrTween("x2", null)
       g.selectAll(".tick text").attrTween("x", null)
     }
-  },
-  _transformPyramidData: function(data) {
-    const totalMen = this._math.total(data.filter(p => p.sex === "V"))
-    const totalWomen = this._math.total(data.filter(p => p.sex === "M"))
+  }
+
+  _transformPyramidData(data) {
+    const totalMen = this._total(data.filter(p => p.sex === "V"))
+    const totalWomen = this._total(data.filter(p => p.sex === "M"))
     // updates every value with its respective percentage
     return data.map((item) => {
       item._value = (item.sex === "V") ? (item.value / totalMen) : (item.sex === "M") ? (item.value / totalWomen) : 0
       return item
     })
-  },
-  _transformAreasData: function(data) {
+  }
+
+  _transformAreasData(data) {
     let bp = this.ageBreakpoints
     let self = this
     return [
       {
         name: I18n.t('gobierto_observatory.graphics.population_pyramid.youth'),
         get info() {
-          return I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: self._math.percent(this.value, self.data.pyramid), limit: bp[0] })
+          return I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: self._percent(this.value, self.data.pyramid), limit: bp[0] })
         },
         range: [d3.min(data.map(d => d.age)), bp[0] - 1],
         value: data.filter(d => d.age < bp[0]).map(d => d.value).reduce((a,b)=>a+b)
@@ -589,32 +606,34 @@ export var VisPopulationPyramid = Class.extend({
       {
         name: I18n.t('gobierto_observatory.graphics.population_pyramid.elderly'),
         get info() {
-          return I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: self._math.percent(this.value, self.data.pyramid), limit: bp[1] })
+          return I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: self._percent(this.value, self.data.pyramid), limit: bp[1] })
         },
         range: [bp[1], d3.max(data.map(d => d.age))],
         value: data.filter(d => d.age >= bp[1]).map(d => d.value).reduce((a,b)=>a+b)
       }
     ]
-  },
-  _transformMarksData: function(data) {
+  }
+
+  _transformMarksData(data) {
     return [{
-      value: this._math.mean(data.map(f => f.age)),
+      value: this._mean(data.map(f => f.age)),
       get name() {
         return I18n.t('gobierto_observatory.graphics.population_pyramid.mean', { age: this.value })
       }
     }, {
-      value: this._math.median(data.map(f => f.age)),
+      value: this._median(data.map(f => f.age)),
       get name() {
         return I18n.t('gobierto_observatory.graphics.population_pyramid.median', { age: this.value })
       }
     }, {
-      value: this._math.mode(data),
+      value: this._mode(data),
       get name() {
         return I18n.t('gobierto_observatory.graphics.population_pyramid.mode', { age: this.value })
       }
     }]
-  },
-  _getDimensions: function(opts = {}) {
+  }
+
+  _getDimensions(opts = {}) {
     let width = opts.width || +d3.select(this.container).node().getBoundingClientRect().width
     let ratio = opts.ratio || 2
     let height = opts.height || width / ratio
@@ -640,32 +659,36 @@ export var VisPopulationPyramid = Class.extend({
       areas,
       marks
     }
-  },
-  _math: {
-    total(data) {
-      return _.sumBy(data, 'value')
-    },
-    mode(data) {
-      // It's not required the common mode arithmetical function
-      // since the data it's grouped by age, only get the biggest number
-      return _.maxBy(data, 'value').age
-    },
-    mean(data) {
-      return _.mean(data)
-    },
-    median(data) {
-      let array = data.sort()
-      if (array.length % 2 === 0) { // array with even number elements
-        return (array[array.length / 2] + array[(array.length / 2) - 1]) / 2;
-      } else {
-        return array[(array.length - 1) / 2]; // array with odd number elements
-      }
-    },
-    percent(d, data) {
-      return (d / this.total(data)).toLocaleString(I18n.locale, { style: 'percent' })
+  }
+
+  _total(data) {
+    return _.sumBy(data, 'value')
+  }
+
+  _mode(data) {
+    // It's not required the common mode arithmetical function
+    // since the data it's grouped by age, only get the biggest number
+    return _.maxBy(data, 'value').age
+  }
+
+  _mean(data) {
+    return _.mean(data)
+  }
+
+  _median(data) {
+    let array = data.sort()
+    if (array.length % 2 === 0) { // array with even number elements
+      return (array[array.length / 2] + array[(array.length / 2) - 1]) / 2;
+    } else {
+      return array[(array.length - 1) / 2]; // array with odd number elements
     }
-  },
-  _wrap: function(text, width, start = 0) {
+  }
+
+  _percent(d, data) {
+    return (d / this._total(data)).toLocaleString(I18n.locale, { style: 'percent' })
+  }
+
+  _wrap(text, width, start = 0) {
     text.each(function() {
       var text = d3.select(this),
         words = text.text().split(/\s+/).reverse(),
@@ -689,8 +712,9 @@ export var VisPopulationPyramid = Class.extend({
         }
       }
     });
-  },
-  _pxToEm: function(px, element) {
+  }
+
+  _pxToEm(px, element) {
     element = element === null || element === undefined ? document.documentElement : element;
     var temporaryElement = document.createElement('div');
     temporaryElement.style.setProperty('position', 'absolute', 'important');
@@ -701,4 +725,5 @@ export var VisPopulationPyramid = Class.extend({
     temporaryElement.parentNode.removeChild(temporaryElement);
     return px / baseFontSize;
   }
-})
+
+}

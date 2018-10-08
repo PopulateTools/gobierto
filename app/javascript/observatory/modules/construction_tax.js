@@ -1,9 +1,8 @@
 import * as d3 from 'd3'
 import { ComparisonCard } from './vis_card_comparison.js'
-import { Class } from 'shared'
 
-export var ConstructionTaxCard = Class.extend({
-  init: function(divClass, city_id) {
+export class ConstructionTaxCard {
+  constructor(divClass, city_id) {
     this.container = divClass;
     this.div = d3.select(this.container);
     this.tbiToken = window.populateData.token;
@@ -11,8 +10,9 @@ export var ConstructionTaxCard = Class.extend({
     this.provinceTaxUrl = window.populateData.endpoint + '/datasets/ds-impuestos-instalaciones-obras-municipal/average.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_province_id=' + window.populateData.provinceId;
     this.trend = this.div.attr('data-trend');
     this.freq = this.div.attr('data-freq');
-  },
-  getData: function() {
+  }
+
+  getData() {
     var placeTax = d3.json(this.placeTaxUrl)
     .header('authorization', 'Bearer ' + this.tbiToken);
 
@@ -30,8 +30,9 @@ export var ConstructionTaxCard = Class.extend({
 
         new ComparisonCard(this.container, placeTax, valueOne, valueTwo, 'construction_tax');
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this.getData();
   }
-});
+}

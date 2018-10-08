@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
-import { Class, accounting } from 'shared'
+import { accounting } from 'shared'
 
-export var VisAgeDistribution = Class.extend({
-  init: function(divId, city_id, current_year) {
+export class VisAgeDistribution {
+  constructor(divId, city_id, current_year) {
     this.container = divId;
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
@@ -50,8 +50,9 @@ export var VisAgeDistribution = Class.extend({
     this.svg.append('g').attr('class','y axis');
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
-  },
-  getData: function() {
+  }
+
+  getData() {
     d3.json(this.dataUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
       .get(function(error, jsonData) {
@@ -77,15 +78,17 @@ export var VisAgeDistribution = Class.extend({
         this._renderBars();
         this._renderCityData();
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     if (this.data === null) {
       this.getData();
     } else {
       this.updateRender();
     }
-  },
-  updateRender: function() {
+  }
+
+  updateRender() {
     this.xScale
       .rangeRound([0, this.width])
       .domain(this.data.map(function(d) {return d.age}));
@@ -98,8 +101,9 @@ export var VisAgeDistribution = Class.extend({
       .domain([0, d3.max(this.data, function(d) {return d.value})]);
 
     this._renderAxis();
-  },
-  _renderBars: function() {
+  }
+
+  _renderBars() {
     // We keep this separate to not create them after every resize
     var bars = this.svg.append('g')
       .attr('class', 'bars')
@@ -122,8 +126,9 @@ export var VisAgeDistribution = Class.extend({
 
     focusG.append('text').attr('class', 'focus-halo');
     focusG.append('text').attr('class', 'focus-text');
-  },
-  _mousemove: function(d) {
+  }
+
+  _mousemove(d) {
     // Move the whole group
     this.svg.select('.focus')
       .attr('text-anchor', 'middle')
@@ -137,19 +142,22 @@ export var VisAgeDistribution = Class.extend({
 
     this.svg.select('.focus-text')
       .text(accounting.formatNumber(d.value, 0) + ' ' + I18n.t('gobierto_observatory.graphics.age_distribution.label'));
-  },
-  _mouseout: function() {
+  }
+
+  _mouseout() {
     this.svg.select('.focus')
       .attr('transform', 'translate(-100,-100)')
-  },
-  _renderCityData: function() {
+  }
+
+  _renderCityData() {
     // Calculate means and stuff
     var avgAge = d3.sum(this.data, function(d) { return d.years }) / d3.sum(this.data, function(d) { return d.value });
 
     d3.select('.js-avg-age')
       .text(accounting.formatNumber(avgAge, 1));
-  },
-  _renderAxis: function() {
+  }
+
+  _renderAxis() {
     // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
@@ -185,8 +193,9 @@ export var VisAgeDistribution = Class.extend({
     this.svg.selectAll(".y.axis .tick")
       .filter(function (d) { return d === 0;  })
       .remove();
-  },
-  _formatNumberX: function(d) {
+  }
+
+  _formatNumberX(d) {
     // 'Age 100' is aggregated
     if (d === 0) {
       return d + ' ' + I18n.t('gobierto_observatory.graphics.age_distribution.axis');
@@ -195,18 +204,22 @@ export var VisAgeDistribution = Class.extend({
     } else {
       return d;
     }
-  },
-  _formatNumberY: function(d) {
+  }
+
+  _formatNumberY(d) {
     // Show percentages
     return accounting.formatNumber(d, 0);
-  },
-  _width: function() {
+  }
+
+  _width() {
     return parseInt(d3.select(this.container).style('width'));
-  },
-  _height: function() {
+  }
+
+  _height() {
     return this.isMobile ? 200 : this._width() * 0.25;
-  },
-  _resize: function() {
+  }
+
+  _resize() {
     this.width = this._width();
     this.height = this._height();
 
@@ -226,4 +239,5 @@ export var VisAgeDistribution = Class.extend({
       .attr('width', this.xScale.bandwidth())
       .attr('height', function(d) { return this.height - this.yScale(d.value) }.bind(this));
   }
-});
+
+}

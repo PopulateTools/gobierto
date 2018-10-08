@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
-import { Class, d3locale, accounting } from 'shared'
+import { d3locale, accounting } from 'shared'
 
-export var TableCard = Class.extend({
-  init: function(divClass, json, nest, cardName) {
+export class TableCard {
+  constructor(divClass, json, nest, cardName) {
     d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
 
     this.div = d3.select(divClass);
@@ -75,8 +75,9 @@ export var TableCard = Class.extend({
       .enter()
       .append('tr')
       .html(function(d) { return d; });
-  },
-  _printFreq: function(json) {
+  }
+
+  _printFreq(json) {
     // Switch between different figure types
     switch (json) {
       case 'yearly':
@@ -90,8 +91,9 @@ export var TableCard = Class.extend({
       default:
         return ''
     }
-  },
-  _printData: function(data, dataType) {
+  }
+
+  _printData(data, dataType) {
     // Switch between different figure types
     switch (data, dataType) {
       case 'percentage':
@@ -103,8 +105,9 @@ export var TableCard = Class.extend({
       default:
         return accounting.formatNumber(data, 0);
     }
-  },
-  _normalize: function(str) {
+  }
+
+  _normalize(str) {
     var from = "1234567890ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ‘/&().!",
         to = "izeasgtogoAAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_____",
         mapping = {};
@@ -126,4 +129,5 @@ export var TableCard = Class.extend({
 
     return ret.join('').toLowerCase();
   }
-});
+
+}

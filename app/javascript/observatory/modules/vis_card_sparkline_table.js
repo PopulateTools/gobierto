@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
-import { Class, d3locale, accounting } from 'shared'
+import { d3locale, accounting } from 'shared'
 
-export var SparklineTableCard = Class.extend({
-  init: function(divClass, json, value, cardName) {
+export class SparklineTableCard {
+  constructor(divClass, json, value, cardName) {
     d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
 
     this.div = d3.select(divClass);
@@ -60,8 +60,9 @@ export var SparklineTableCard = Class.extend({
       .enter()
       .append('tr')
       .html(function(d) { return d; });
-  },
-  _printFreq: function(json) {
+  }
+
+  _printFreq(json) {
     // Switch between different figure types
     switch (json) {
       case 'yearly':
@@ -75,8 +76,9 @@ export var SparklineTableCard = Class.extend({
       default:
         return ''
     }
-  },
-  _printData: function(data) {
+  }
+
+  _printData(data) {
     // Switch between different figure types
     switch (this.dataType) {
       case 'percentage':
@@ -90,8 +92,9 @@ export var SparklineTableCard = Class.extend({
       default:
         return accounting.formatNumber(data, 0);
     }
-  },
-  _normalize: function(str) {
+  }
+
+  _normalize(str) {
     var from = "1234567890ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ‘/&().!",
         to = "izeasgtogoAAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_____",
         mapping = {};
@@ -113,4 +116,5 @@ export var SparklineTableCard = Class.extend({
 
     return ret.join('').toLowerCase();
   }
-});
+
+}

@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
-import { Class, d3locale, accounting } from 'shared'
+import { d3locale, accounting } from 'shared'
 
-export var ComparisonCard = Class.extend({
-  init: function(divClass, json, value_1, value_2, cardName) {
+export class ComparisonCard {
+  constructor(divClass, json, value_1, value_2, cardName) {
     d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
 
     this.div = d3.select(divClass);
@@ -52,8 +52,9 @@ export var ComparisonCard = Class.extend({
       .text(json.metadata.indicator.description);
     this.div.selectAll('.js-data-freq')
       .text(formatDate(parsedDate));
-  },
-  _printFreq: function(json) {
+  }
+
+  _printFreq(json) {
     // Switch between different figure types
     switch (json) {
       case 'yearly':
@@ -67,8 +68,9 @@ export var ComparisonCard = Class.extend({
       default:
         return ''
     }
-  },
-  _printData: function(type, data) {
+  }
+
+  _printData(type, data) {
     // Switch between different figure types
     switch (type) {
       case 'percentage':
@@ -81,4 +83,5 @@ export var ComparisonCard = Class.extend({
         return accounting.formatNumber(data, 0);
     }
   }
-});
+
+}

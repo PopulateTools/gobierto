@@ -3,8 +3,8 @@ import { Sparkline } from './vis_sparkline.js'
 import { SparklineTableCard } from './vis_card_sparkline_table.js'
 import { Class } from 'shared'
 
-export var BirthRateCard = Class.extend({
-  init: function(divClass, city_id) {
+export class BirthRateCard {
+  constructor(divClass, city_id) {
     this.container = divClass;
     this.tbiToken = window.populateData.token;
 
@@ -16,8 +16,9 @@ export var BirthRateCard = Class.extend({
     this.popProvinceTwoUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&limit=1&&filter_by_year=2014&filter_by_province_id=' + window.populateData.provinceId;
     this.popCountryOneUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&limit=1&filter_by_year=2015';
     this.popCountryTwoUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&limit=1&filter_by_year=2014';
-  },
-  getData: function() {
+  }
+
+  getData() {
     var birthsPlace = d3.json(this.birthsPlaceUrl)
       .header('authorization', 'Bearer ' + this.tbiToken);
 
@@ -135,8 +136,10 @@ export var BirthRateCard = Class.extend({
         provinceSpark.render();
         countrySpark.render();
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this.getData();
   }
-});
+
+}

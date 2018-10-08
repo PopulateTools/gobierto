@@ -1,9 +1,8 @@
 import * as d3 from 'd3'
 import { BarsCard } from './vis_card_bars.js'
-import { Class } from 'shared'
 
-export var CarsCard = Class.extend({
-  init: function(divClass, city_id) {
+export class CarsCard {
+  constructor(divClass, city_id) {
     this.container = divClass;
     this.div = d3.select(this.container);
     this.tbiToken = window.populateData.token;
@@ -15,8 +14,9 @@ export var CarsCard = Class.extend({
     this.popCountryUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&filter_by_year=2015';
     this.trend = this.div.attr('data-trend');
     this.freq = this.div.attr('data-freq');
-  },
-  getData: function() {
+  }
+
+  getData() {
     var carsPlace = d3.json(this.carsPlaceUrl)
       .header('authorization', 'Bearer ' + this.tbiToken);
 
@@ -64,8 +64,10 @@ export var CarsCard = Class.extend({
 
         new BarsCard(this.container, carsPlace, this.data, 'cars');
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this.getData();
   }
-});
+  
+}

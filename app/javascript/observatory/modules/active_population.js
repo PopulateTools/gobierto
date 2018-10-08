@@ -1,15 +1,15 @@
 import * as d3 from 'd3'
 import { ComparisonCard } from './vis_card_comparison.js'
-import { Class } from 'shared'
 
-export var ActivePopulationCard = Class.extend({
-  init: function(divClass, city_id) {
+export class ActivePopulationCard {
+  constructor(divClass, city_id) {
     this.container = divClass;
     this.tbiToken = window.populateData.token;
     this.activePopUrl = window.populateData.endpoint + '/datasets/ds-poblacion-activa-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=' + city_id;
     this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=' + city_id;
-  },
-  getData: function() {
+  }
+
+  getData() {
     var active = d3.json(this.activePopUrl)
       .header('authorization', 'Bearer ' + this.tbiToken);
 
@@ -27,8 +27,10 @@ export var ActivePopulationCard = Class.extend({
 
         new ComparisonCard(this.container, jsonActive, rate, value, 'active_pop');
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this.getData();
   }
-});
+
+}

@@ -4,7 +4,8 @@ module GobiertoAdmin
   module GobiertoCommon
     module CustomFields
       class CustomFieldsController < BaseController
-        before_action :check_permissions!, :check_class
+        before_action :check_permissions!
+        before_action :check_class, except: :create_option
 
         def index
           set_class_name

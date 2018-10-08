@@ -45,8 +45,11 @@ module IbmNotes
         elsif UTC_TIMEZONES.include?(time_zone)
           ActiveSupport::TimeZone["UTC"]
         else
-          Rollbar.error(Exception.new("[GobiertoCalendars] Unknown IBM Notes time zone #{time_zone}"))
-          nil
+          tz = ActiveSupport::TimeZone[time_zone]
+          if tz.nil?
+            Rollbar.error(Exception.new("[GobiertoCalendars] Unknown IBM Notes time zone #{time_zone}"))
+            nil
+          end
         end
       end
 

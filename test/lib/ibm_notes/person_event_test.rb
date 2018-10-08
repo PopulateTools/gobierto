@@ -74,6 +74,12 @@ class IbmNotes::PersonEventTest < ActiveSupport::TestCase
     assert_equal utc_time("2017-04-11 08:00:00"), ibm_notes_event.starts_at
   end
 
+  def test_parse_known_time_zones
+    ibm_notes_event = IbmNotes::PersonEvent.new(person, response_data(start: { "date" => "2017-04-11", "time" => "10:00:00", "tzid" => "Europe/Lisbon" }))
+
+    assert_equal utc_time("2017-04-11 10:00:00"), ibm_notes_event.starts_at
+  end
+
   def test_parse_unknown_time_zone
     assert_raise do
       IbmNotes::PersonEvent.new(person, response_data(start: { "date" => "2017-04-11", "time" => "10:00:00", "tzid" => "Unkown" }))

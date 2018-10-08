@@ -1,15 +1,13 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 import { Sparkline } from './vis_sparkline.js'
 import { SparklineTableCard } from './vis_card_sparkline_table.js'
 
-export class UnemplBySectorCard {
+export class UnemplBySectorCard extends Card {
   constructor(divClass, city_id) {
-    this.container = divClass;
-    this.div = d3.select(this.container);
-    this.tbiToken = window.populateData.token;
+    super(divClass)
+
     this.url = window.populateData.endpoint + '/datasets/ds-personas-paradas-municipio-sector.json?sort_desc_by=date&with_metadata=true&limit=50&filter_by_location_id=' + city_id;
-    this.trend = this.div.attr('data-trend');
-    this.freq = this.div.attr('data-freq');
   }
 
   getData() {
@@ -59,9 +57,4 @@ export class UnemplBySectorCard {
         consSpark.render();
       }.bind(this));
   }
-
-  render() {
-    this.getData();
-  }
-
 }

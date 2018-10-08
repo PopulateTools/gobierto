@@ -1,12 +1,11 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 import { Sparkline } from './vis_sparkline.js'
 import { SparklineTableCard } from './vis_card_sparkline_table.js'
-import { Class } from 'shared'
 
-export class BirthRateCard {
+export class BirthRateCard extends Card {
   constructor(divClass, city_id) {
-    this.container = divClass;
-    this.tbiToken = window.populateData.token;
+    super(divClass)
 
     this.birthsPlaceUrl = window.populateData.endpoint + '/datasets/ds-nacimientos-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=' + city_id;
     this.birthsProvinceUrl = window.populateData.endpoint + '/datasets/ds-nacimientos-provincial.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=' + window.populateData.provinceId;
@@ -137,9 +136,4 @@ export class BirthRateCard {
         countrySpark.render();
       }.bind(this));
   }
-
-  render() {
-    this.getData();
-  }
-
 }

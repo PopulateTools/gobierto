@@ -1,19 +1,17 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 import { BarsCard } from './vis_card_bars.js'
 
-export class CarsCard {
+export class CarsCard extends Card {
   constructor(divClass, city_id) {
-    this.container = divClass;
-    this.div = d3.select(this.container);
-    this.tbiToken = window.populateData.token;
+    super(divClass)
+
     this.carsPlaceUrl = window.populateData.endpoint + '/datasets/ds-vehiculos-municipales-total.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + city_id;
     this.carsProvinceUrl = window.populateData.endpoint + '/datasets/ds-vehiculos-provinciales-total.json?sort_desc_by=date&limit=1&filter_by_location_id=' + window.populateData.provinceId;
     this.carsCountryUrl = window.populateData.endpoint + '/datasets/ds-vehiculos-nacionales-total.json?sort_desc_by=date';
     this.popPlaceUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal.json?sort_desc_by=date&limit=1&filter_by_location_id=' + city_id;
     this.popProvinceUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&limit=1&&filter_by_year=2015&filter_by_province_id=' + window.populateData.provinceId;
     this.popCountryUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&filter_by_year=2015';
-    this.trend = this.div.attr('data-trend');
-    this.freq = this.div.attr('data-freq');
   }
 
   getData() {
@@ -65,9 +63,4 @@ export class CarsCard {
         new BarsCard(this.container, carsPlace, this.data, 'cars');
       }.bind(this));
   }
-
-  render() {
-    this.getData();
-  }
-  
 }

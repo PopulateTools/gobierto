@@ -1,10 +1,11 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 import { SimpleCard } from './vis_card_simple.js'
 
-export class PopulationCard {
+export class PopulationCard extends Card {
   constructor(divClass, city_id) {
-    this.container = divClass;
-    this.tbiToken = window.populateData.token;
+    super(divClass)
+
     this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=' + city_id;
   }
 
@@ -21,9 +22,5 @@ export class PopulationCard {
 
         new SimpleCard(this.container, jsonData, value, 'population');
       }.bind(this));
-  }
-  
-  render() {
-    this.getData();
   }
 }

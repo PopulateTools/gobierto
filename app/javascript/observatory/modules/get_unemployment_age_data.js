@@ -1,8 +1,10 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 
-export class GetUnemploymentAgeData {
+export class GetUnemploymentAgeData extends Card {
   constructor(city_id) {
-    this.tbiToken = window.populateData.token;
+    super()
+    
     this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
     this.unemplUrl = window.populateData.endpoint + '/datasets/ds-personas-paradas-municipio-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
     this.parseTime = d3.timeParse('%Y-%m');

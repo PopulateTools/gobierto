@@ -1,19 +1,17 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 import { TableCard } from './vis_card_table.js'
 
-export class IncomeCard {
+export class IncomeCard extends Card {
   constructor(divClass, city_id) {
-    this.container = divClass;
-    this.div = d3.select(this.container);
-    this.tbiToken = window.populateData.token;
+    super(divClass)
+
     this.placeGrossUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + city_id;
     this.bcnGrossUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=08019'; // TODO: Use Populate Data's related cities API
     this.vlcGrossUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=46250';  // TODO: Use Populate Data's related cities API
     this.placeNetUrl = window.populateData.endpoint + '/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + city_id;
     this.bcnNetUrl = window.populateData.endpoint + '/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=08019'; // TODO: Use Populate Data's related cities API
     this.vlcNetUrl = window.populateData.endpoint + '/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=46250'; // TODO: Use Populate Data's related cities API
-    this.trend = this.div.attr('data-trend');
-    this.freq = this.div.attr('data-freq');
   }
 
   getData() {
@@ -99,9 +97,5 @@ export class IncomeCard {
 
         new TableCard(this.container, placeGross, this.nest, 'income');
       }.bind(this));
-  }
-
-  render() {
-    this.getData();
   }
 }

@@ -1,17 +1,15 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 import { Sparkline } from './vis_sparkline.js'
 import { SparklineTableCard } from './vis_card_sparkline_table.js'
 
-export class InvestmentByInhabitantCard {
+export class InvestmentByInhabitantCard extends Card {
   constructor(divClass, city_id) {
-    this.container = divClass;
-    this.div = d3.select(this.container);
-    this.tbiToken = window.populateData.token;
+    super(divClass)
+
     this.url = window.populateData.endpoint + '/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=' + city_id;
     this.bcnUrl = window.populateData.endpoint + '/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=08019';  // TODO: Use Populate Data's related cities API
     this.vlcUrl = window.populateData.endpoint + '/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=46250';  // TODO: Use Populate Data's related cities API
-    this.trend = this.div.attr('data-trend');
-    this.freq = this.div.attr('data-freq');
   }
 
   getData() {
@@ -78,32 +76,5 @@ export class InvestmentByInhabitantCard {
         bcnSpark.render();
         vlcSpark.render();
       }.bind(this));
-  }
-
-  render() {
-    this.getData();
-  }
-
-  _normalize(str) {
-    var from = "1234567890ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ‘/&().!",
-        to = "izeasgtogoAAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_____",
-        mapping = {};
-
-    for (let i = 0, j = from.length; i < j; i++) {
-      mapping[from.charAt(i)] = to.charAt(i);
-    }
-
-    var ret = [];
-    for (let i = 0, j = str.length; i < j; i++) {
-      var c = str.charAt(i);
-      if (mapping.hasOwnProperty(str.charAt(i))) {
-        ret.push(mapping[c]);
-      }
-      else {
-        ret.push(c);
-      }
-    }
-
-    return ret.join('').toLowerCase();
   }
 }

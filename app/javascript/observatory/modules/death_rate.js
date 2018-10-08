@@ -1,11 +1,11 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 import { Sparkline } from './vis_sparkline.js'
 import { SparklineTableCard } from './vis_card_sparkline_table.js'
 
-export class DeathRateCard {
+export class DeathRateCard extends Card {
   constructor(divClass, city_id) {
-    this.container = divClass;
-    this.tbiToken = window.populateData.token;
+    super(divClass)
 
     this.deathsPlaceUrl = window.populateData.endpoint + '/datasets/ds-defunciones-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=' + city_id;
     this.deathsProvinceUrl = window.populateData.endpoint + '/datasets/ds-defunciones-provincial.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=' + window.populateData.provinceId;
@@ -136,9 +136,4 @@ export class DeathRateCard {
         countrySpark.render();
       }.bind(this));
   }
-  
-  render() {
-    this.getData();
-  }
-
 }

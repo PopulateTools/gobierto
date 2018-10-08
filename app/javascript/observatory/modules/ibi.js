@@ -1,19 +1,17 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 import { TableCard } from './vis_card_table.js'
 
-export class IbiCard {
+export class IbiCard extends Card {
   constructor(divClass, city_id) {
-    this.container = divClass;
-    this.div = d3.select(this.container);
-    this.tbiToken = window.populateData.token;
+    super(divClass)
+
     this.placeIbiCUrl = window.populateData.endpoint + '/datasets/ds-ibi-vivienda-urbana-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + city_id;
     this.bcnIbiCUrl = window.populateData.endpoint + '/datasets/ds-ibi-vivienda-urbana-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=08019'; // TODO: Use Populate Data's related cities API
     this.vlcIbiCUrl = window.populateData.endpoint + '/datasets/ds-ibi-vivienda-urbana-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=46250';  // TODO: Use Populate Data's related cities API
     this.placeIbiRUrl = window.populateData.endpoint + '/datasets/ds-ibi-vivienda-rustica-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + city_id;
     this.bcnIbiRUrl = window.populateData.endpoint + '/datasets/ds-ibi-vivienda-rustica-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=08019'; // TODO: Use Populate Data's related cities API
     this.vlcIbiRUrl = window.populateData.endpoint + '/datasets/ds-ibi-vivienda-rustica-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=46250'; // TODO: Use Populate Data's related cities API
-    this.trend = this.div.attr('data-trend');
-    this.freq = this.div.attr('data-freq');
   }
 
   getData() {
@@ -99,9 +97,5 @@ export class IbiCard {
 
         new TableCard(this.container, placeIbiC, this.nest, 'ibi');
       }.bind(this));
-  }
-
-  render() {
-    this.getData();
   }
 }

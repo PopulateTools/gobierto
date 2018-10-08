@@ -1,15 +1,13 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 import { ComparisonCard } from './vis_card_comparison.js'
 
-export class IncomeOverviewCard {
+export class IncomeOverviewCard extends Card {
   constructor(divClass) {
-    this.container = divClass;
-    this.div = d3.select(this.container);
-    this.tbiToken = window.populateData.token;
+    super(divClass)
+
     this.incomeProvinceUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-provincial.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + window.populateData.provinceId;
     this.incomeCountryUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-nacional.json?sort_desc_by=date&with_metadata=true&limit=1';
-    this.trend = this.div.attr('data-trend');
-    this.freq = this.div.attr('data-freq');
   }
 
   getData() {
@@ -31,9 +29,4 @@ export class IncomeOverviewCard {
         new ComparisonCard(this.container, incomeProvince, valueOne, valueTwo, 'income_overview');
       }.bind(this));
   }
-  
-  render() {
-    this.getData();
-  }
-
 }

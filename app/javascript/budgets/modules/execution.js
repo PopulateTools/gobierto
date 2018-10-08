@@ -19,6 +19,12 @@ $(document).on('turbolinks:load', function() {
     var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', expensesKind)
     vis_expenses_execution.render();
 
+    // Avoid changing the chart meanwhile previous is loading
+    $('.expenses_switcher').not('.active').prop('disabled', true);
+    window.addEventListener('chartloaded', function () {
+      $('.expenses_switcher').not('.active').prop('disabled', false);
+    })
+
     window.addEventListener("resize", _.debounce(function () {
       vis_expenses_execution.setScales();
       vis_expenses_execution.updateRender();
@@ -47,6 +53,12 @@ $(document).on('turbolinks:load', function() {
     // Render the new category
     var vis_expenses_execution = new VisLinesExecution('.income_execution', 'I', incomeKind)
     vis_expenses_execution.render();
+
+    // Avoid changing the chart meanwhile previous is loading
+    $('.income_switcher').not('.active').prop('disabled', true);
+    window.addEventListener('chartloaded', function () {
+      $('.income_switcher').not('.active').prop('disabled', false);
+    })
 
     window.addEventListener("resize", _.debounce(function () {
       vis_expenses_execution.setScales();

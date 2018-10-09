@@ -1,8 +1,7 @@
 import * as d3 from 'd3'
-import { Class } from 'shared'
 
-export var VisBubbleLegend = Class.extend({
-  init: function(divId) {
+export class VisBubbleLegend {
+  constructor(divId) {
     this.container = divId;
     $(this.container).html('');
     this.isMobile = window.innerWidth <= 740;
@@ -99,4 +98,4 @@ export var VisBubbleLegend = Class.extend({
       .attr('text-anchor', 'end')
       .text(I18n.t('gobierto_budgets.budgets.index.main_budget_levels_legend_down'));
   }
-});
+}

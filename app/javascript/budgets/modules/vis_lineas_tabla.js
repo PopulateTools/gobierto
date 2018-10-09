@@ -1,6 +1,6 @@
 import * as __d3 from 'd3'
 import { legendColor } from 'd3-svg-legend'
-import { Class, accounting } from 'shared'
+import { accounting } from 'shared'
 
 const d3 = { ...__d3, legendColor }
 
@@ -16,8 +16,8 @@ Array.prototype.unique = function() {
     return a;
 };
 
-export var VisLineasJ = Class.extend({
-  init: function(divId, tableID, measure, series) {
+export class VisLineasJ {
+  constructor(divId, tableID, measure, series) {
     this.container = divId;
     this.tableContainer = tableID;
 
@@ -89,9 +89,9 @@ export var VisLineasJ = Class.extend({
                                     // gris
 
     this.niceCategory = null;
-  },
+  }
 
-  render: function(urlData) {
+  render(urlData) {
     $(this.container).html('');
     $(this.tableContainer).html('');
 
@@ -172,7 +172,7 @@ export var VisLineasJ = Class.extend({
 
       this.dataChart = this.data.budgets[this.measure];
       this.kind = this.data.kind;
-      this.dataYear = defaultYearForVerticalLine(this.data);
+      this.dataYear = this._defaultYearForVerticalLine(this.data);
       this.lastYear = this.parseDate(this.data.year).getFullYear(); // For the mouseover interaction
       if(this.lastYear > this.maxYear) {
         this.dataYear = new Date(this.maxYear + "-01-01")
@@ -481,24 +481,51 @@ export var VisLineasJ = Class.extend({
 
             var $parent = $(v).parent();
             var cssClass = $parent.attr('class');
+
             $(this.container + '_wrapper path.' + cssClass).css('stroke', color);
             $(this.container + '_wrapper circle.' + cssClass).css('fill', color);
           }.bind(this));
     }.bind(this)); // end load data
-  }, // end render
+  }
 
   //PRIVATE
-  _tickValues:  function (scale) {
+  _tickValues(scale) {
     var range = scale.domain()[1] - scale.domain()[0];
     var a = range/4;
     return [scale.domain()[0], scale.domain()[0] + a, scale.domain()[0] + (a * 2), scale.domain()[1] - a, scale.domain()[1]];
-  },
+  }
 
-  _xTickValues: function(years){
+  _xTickValues(years) {
     return [new Date(2010,0,1), new Date(2011,0,1), new Date(2012, 0, 1), new Date(2013,0,1), new Date(2014,0,1), new Date(2015,0,1)].concat(years).unique();
-  },
+  }
 
-  _mouseover: function () {
+  _defaultYearForVerticalLine(data) {
+    /**
+    * Returns the most recent year that has data for at least two different municipalities.
+    */
+    var yearsDataItems = {}
+    var measureType = Object.keys(data.budgets)[0];
+
+    data.budgets[measureType].forEach(function(x) { x.values.forEach(function(y) {
+      var year = y.date.getFullYear();
+      yearsDataItems[year] = (yearsDataItems[year] === undefined ? 1 : yearsDataItems[year] + 1);
+    }); });
+
+    if (yearsDataItems[data.year] > 1) return new Date(data.year, 0, 1);
+
+    var yearsWithData = Object.keys(yearsDataItems).sort().reverse();
+    var chosenYear = undefined;
+
+    yearsWithData.forEach(function(year) {
+      if (yearsDataItems[year] > 1 && chosenYear == undefined) {
+        chosenYear = new Date(year, 0, 1);
+      }
+    });
+
+    return chosenYear;
+  }
+
+  _mouseover() {
     var selected = d3.event.target,
         selectedClass = selected.classList,
         selectedData = d3.select(selected).data()[0];
@@ -583,9 +610,9 @@ export var VisLineasJ = Class.extend({
       .style('opacity', this.opacityLow);
 
 
-  },
+  }
 
-  _mouseout: function () {
+  _mouseout() {
     // var selected = d3.event.target;
         // selectedClass = selected.classList,
         // selectedData = d3.select(selected).data()[0],
@@ -602,9 +629,9 @@ export var VisLineasJ = Class.extend({
       .transition()
       .duration(this.duration)
       .style('opacity', 1);
-  },
+  }
 
-  _mouseoverTable: function () {
+  _mouseoverTable() {
     var classed = d3.event.target.classList[d3.event.target.classList.length - 1]
 
     this.svgLines.selectAll('.dot_line')
@@ -618,9 +645,9 @@ export var VisLineasJ = Class.extend({
       .transition()
       .duration(this.duration)
       .style('opacity', this.opacityLow);
-  },
+  }
 
-  _mouseoutTable: function () {
+  _mouseoutTable() {
     // var classed = d3.event.target.classList[d3.event.target.classList.length - 1]
 
     this.svgLines.selectAll('.dot_line')
@@ -633,62 +660,36 @@ export var VisLineasJ = Class.extend({
       .transition()
       .duration(this.duration)
       .style('opacity', 1);
-  },
+  }
 
-  _units: function(){
+  _units() {
     if(this.measure == 'total_budget'){
       return ' €';
     } else {
       return ' €/hab';
     }
-  },
+  }
 
-  _normalize: (function() {
-    var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ',.",
-        to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_---",
+  _normalize(str) {
+    var from = "1234567890ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ‘/&().!",
+        to = "izeasgtogoAAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_____",
         mapping = {};
 
-    for(var i = 0, j = from.length; i < j; i++ )
-        mapping[ from.charAt( i ) ] = to.charAt( i );
-
-    return function( str ) {
-        var ret = [];
-        for( var i = 0, j = str.length; i < j; i++ ) {
-            var c = str.charAt( i );
-            if( mapping.hasOwnProperty( str.charAt( i ) ) )
-                ret.push( mapping[ c ] );
-            else
-                ret.push( c );
-        }
-        return ret.join( '' ).toLowerCase();
+    for (let i = 0, j = from.length; i < j; i++) {
+      mapping[from.charAt(i)] = to.charAt(i);
     }
 
-  })()
-
-}); // End object
-
-/**
- * Returns the most recent year that has data for at least two different municipalities.
- */
-function defaultYearForVerticalLine(data) {
-  var yearsDataItems = {}
-  var measureType = Object.keys(data.budgets)[0];
-
-  data.budgets[measureType].forEach(function(x) { x.values.forEach(function(y) {
-    var year = y.date.getFullYear();
-    yearsDataItems[year] = (yearsDataItems[year] === undefined ? 1 : yearsDataItems[year] + 1);
-  }); });
-
-  if (yearsDataItems[data.year] > 1) return new Date(data.year, 0, 1);
-
-  var yearsWithData = Object.keys(yearsDataItems).sort().reverse();
-  var chosenYear = undefined;
-
-  yearsWithData.forEach(function(year) {
-    if (yearsDataItems[year] > 1 && chosenYear == undefined) {
-      chosenYear = new Date(year, 0, 1);
+    var ret = [];
+    for (let i = 0, j = str.length; i < j; i++) {
+      var c = str.charAt(i);
+      if (mapping.hasOwnProperty(str.charAt(i))) {
+        ret.push(mapping[c]);
+      }
+      else {
+        ret.push(c);
+      }
     }
-  });
 
-  return chosenYear;
+    return ret.join('').toLowerCase();
+  }
 }

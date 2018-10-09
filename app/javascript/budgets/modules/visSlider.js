@@ -1,8 +1,7 @@
 import * as d3 from 'd3'
-import { Class } from 'shared'
 
-export var VisSlider = Class.extend({
-  init: function(divId, data) {
+export class VisSlider {
+  constructor(divId, data) {
     this.container = divId;
     $(this.container).html('');
     this.data = data;
@@ -185,5 +184,5 @@ export var VisSlider = Class.extend({
       var year = x.invert(d3.mouse(this)[0]);
       $(document).trigger('visSlider:yearChanged', year);
     }
-  },
-});
+  }
+}

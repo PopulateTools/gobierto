@@ -1,11 +1,11 @@
 import * as __d3 from 'd3'
 import { wordwrap } from 'd3-jetpack'
-import { Class, d3locale, accounting } from 'shared'
+import { d3locale, accounting } from 'shared'
 
 const d3 = { ...__d3, wordwrap }
 
-export var VisBubbles = Class.extend({
-  init: function(divId, budgetCategory, data) {
+export class VisBubbles {
+  constructor(divId, budgetCategory, data) {
     this.container = divId;
     d3.select(this.container).html('');
     this.currentYear = parseInt(d3.select('body').attr('data-year'));
@@ -17,7 +17,7 @@ export var VisBubbles = Class.extend({
 
     d3.formatDefaultLocale(d3locale[this.locale]);
 
-    this.margin = {top: 20, right: 10, bottom: 20, left: 10},
+    this.margin = {top: 20, right: 10, bottom: 20, left: 10}
     this.width = parseInt(d3.select(this.container).parent().node().getBoundingClientRect().width) - this.margin.left - this.margin.right;
     this.height = this.isMobile ? 320 : 520 - this.margin.top - this.margin.bottom;
     this.center = { x: this.width / 2, y: this.height / 2 };
@@ -53,16 +53,19 @@ export var VisBubbles = Class.extend({
       .attr('height', this.height + this.margin.top + this.margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-  },
-  render: function() {
+  }
+
+  render() {
     this.updateRender();
-  },
-  resize: function() {
+  }
+
+  resize() {
     this.svg.parent().remove();
     this.init(this.container, this.budget_category, this.data);
     this.render();
-  },
-  createNodes: function(rawData, year) {
+  }
+
+  createNodes(rawData, year) {
     var data = rawData;
     if(this.locale === 'en') this.locale = 'es';
 
@@ -112,8 +115,9 @@ export var VisBubbles = Class.extend({
     this.nodes.sort(function (a, b) { return b.value - a.value; });
 
     return this.nodes;
-  },
-  update: function(year) {
+  }
+
+  update(year) {
     var t = d3.transition()
       .duration(500);
 
@@ -135,8 +139,9 @@ export var VisBubbles = Class.extend({
 
     this.simulation.nodes(this.nodes)
     this.simulation.alpha(1).restart();
-  },
-  updateRender: function() {
+  }
+
+  updateRender() {
 
     // var budgetCategory = this.budget_category;
     this.nodes = this.createNodes(this.data, this.currentYear);
@@ -171,11 +176,13 @@ export var VisBubbles = Class.extend({
 
     this.simulation.nodes(this.nodes);
     this.simulation.alpha(1).restart();
-  },
-  _ticked: function() {
+  }
+
+  _ticked() {
     this.bubbles.attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')' })
-  },
-  _mousemoved: function(d) {
+  }
+
+  _mousemoved(d) {
     var coordinates = d3.mouse(this.selectionNode);
     var x = coordinates[0], y = coordinates[1];
 
@@ -195,11 +202,13 @@ export var VisBubbles = Class.extend({
                        <div>' + accounting.formatMoney(d.value, "€", 0, ".", ",") + '</div> \
                        ' + perInhabitantTooltipStr(d.per_inhabitant) + ' \
                        <div class="line-pct">' + getString(d.pct_diff) + ' ' + accounting.formatNumber(d.pct_diff, 1) + ' %</span> ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_article') + ' ' + (d.year - 1) + '</div>');
-  },
-  _mouseleft: function() {
+  }
+
+  _mouseleft() {
     this.tooltip.style('display', 'none');
-  },
-  _charge: function(d) {
+  }
+
+  _charge(d) {
     return -Math.pow(d.radius, 2) * 0.06;
-  }.bind(this)
-});
+  }
+}

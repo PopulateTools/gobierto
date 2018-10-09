@@ -1,8 +1,7 @@
 import * as d3 from 'd3'
-import { Class } from 'shared'
 
-export var VisEvoLine = Class.extend({
-  init: function(divId, series, current_year) {
+export class VisEvoLine {
+  constructor(divId, series, current_year) {
     this.container = divId;
     this.data = series;
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
@@ -57,23 +56,26 @@ export var VisEvoLine = Class.extend({
     }
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
-  },
-  getData: function() {
+  }
+
+  getData() {
     d3.json(this.dataUrl, function(error, jsonData) {
       if (error) throw error;
 
       this.data = jsonData;
       this.updateRender();
     }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     if (this.data === null) {
       this.getData();
     } else {
       this.updateRender();
     }
-  },
-  updateRender: function() {
+  }
+
+  updateRender() {
     this.xScale.domain(d3.extent(this.data.map(function(e) {
       return e.year;
     }))).range([this.margin.left, this.width - this.margin.left - this.margin.right]);
@@ -100,8 +102,9 @@ export var VisEvoLine = Class.extend({
         .attr('x2', function(d) { return this.xScale(d); }.bind(this))
         .attr('y2', this.height - this.margin.bottom + 10)
     }
-  },
-  _renderAxis: function() {
+  }
+
+  _renderAxis() {
 
     //position axis
     this.svg.select('.x.axis')
@@ -126,11 +129,13 @@ export var VisEvoLine = Class.extend({
     this.yAxis.tickFormat(this._formatNumberY.bind(this));
     this.yAxis.scale(this.yScale);
     this.svg.select(".y.axis").call(this.yAxis);
-  },
-  _axisRendered: function() {
+  }
+
+  _axisRendered() {
     return this.svg.selectAll('.axis').size() > 0;
-  },
-  _yTickValues: function() {
+  }
+
+  _yTickValues() {
     var max_abs = Math.round(d3.max(this.data.map(function(e) {
         return Math.abs(e.deviation);
       })));
@@ -147,21 +152,25 @@ export var VisEvoLine = Class.extend({
     }
     if (lower_edge === undefined) lower_edge = -edge;
     return [edge, 0, lower_edge];
-  },
-  _formatNumberX: function(d) {
+  }
+
+  _formatNumberX(d) {
     //replace with whatever format you want
     //examples here: http://koaning.s3-website-us-west-2.amazonaws.com/html/d3format.html
     return d3.format('')(d)
-  },
-  _formatNumberY: function(d) {
+  }
+
+  _formatNumberY(d) {
     //replace with whatever format you want
     //examples here: http://koaning.s3-website-us-west-2.amazonaws.com/html/d3format.html
     return d3.format('%')(d/100)
-  },
-  _width: function() {
+  }
+
+  _width() {
     return parseInt(d3.select(this.container).style('width'));
-  },
-  _resize: function() {
+  }
+
+  _resize() {
     this.width = this._width();
     // this.height = this._width();
     this.svg.attr('width',this.width)
@@ -169,4 +178,4 @@ export var VisEvoLine = Class.extend({
 
     this.updateRender();
   }
-});
+}

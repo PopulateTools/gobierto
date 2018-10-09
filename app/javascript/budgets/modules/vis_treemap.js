@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
-import { Class, accounting } from 'shared'
+import { accounting } from 'shared'
 
-export var TreemapVis = Class.extend({
-  init: function(divId, size, clickable){
+export class TreemapVis {
+  constructor(divId, size, clickable) {
     this.containerId = divId;
 
     // Chart dimensions
@@ -22,9 +22,9 @@ export var TreemapVis = Class.extend({
 
     this.opacity = 1;
     this.duration = 1;
-  },
+  }
 
-  render: function(urlData) {
+  render(urlData) {
     $(this.containerId).html('');
 
     // Chart dimensions
@@ -102,4 +102,5 @@ export var TreemapVis = Class.extend({
         })
     }.bind(this));
   }
-});
+
+}

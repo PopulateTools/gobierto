@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
-import { Class, d3locale, accounting } from 'shared'
+import { d3locale, accounting } from 'shared'
 
-export var VisLinesExecution = Class.extend({
-  init: function(divId, type, category) {
+export class VisLinesExecution {
+  constructor(divId, type, category) {
     // Set default locale based on the app setting
     this.locale = I18n.locale;
     this.localeFallback = this.locale === 'en' ? 'es' : this.locale;
@@ -39,8 +39,9 @@ export var VisLinesExecution = Class.extend({
     this.tooltip = d3.select(this.container)
       .append('div')
       .attr('class', 'tooltip');
-  },
-  getData: function() {
+  }
+
+  getData() {
     this.dataUrl = '/presupuestos/api/data/widget/budget_execution_comparison/' + this.placeId + '/' + this.budgetYear + '/' + this.executionKind + '/' + this.budgetCategory + '.json';
 
     d3.json(this.dataUrl, function(error, jsonData) {
@@ -52,15 +53,17 @@ export var VisLinesExecution = Class.extend({
       this.setScales();
       this.updateRender();
     }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     if (this.data === null) {
       this.getData();
     } else {
       this.updateRender();
     }
-  },
-  setScales: function() {
+  }
+
+  setScales() {
 
     if (this.svg) {
       // Destroy the container and render again
@@ -107,8 +110,9 @@ export var VisLinesExecution = Class.extend({
         .attr('class', 'flash-message alert')
         .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.empty_lines'));
     }
-  },
-  updateRender: function() {
+  }
+
+  updateRender() {
 
     this.nested = d3.nest()
       .key(function(d) { return d.parent_id;})
@@ -302,8 +306,9 @@ export var VisLinesExecution = Class.extend({
 
     // NOTE: resize container once all data has been displayed
     d3.select(this.container + ' svg').attr('height', this.svg.node().getBoundingClientRect().height + this.margin.top);
-  },
-  _update: function(valueKind, symbol) {
+  }
+
+  _update(valueKind, symbol) {
     this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + symbol}.bind(this));
     this.x.domain([0.1, d3.max(this.data.lines, function(d) { return d[valueKind];})]);
 
@@ -329,8 +334,9 @@ export var VisLinesExecution = Class.extend({
       .transition()
       .duration(300)
       .attr('width', function(d) { return this.x(d[valueKind]); }.bind(this));
-  },
-  _sortValues: function (target, sortKind) {
+  }
+
+  _sortValues (target, sortKind) {
     sortKind === 'highest' ? this.nested.sort(function(a, b) { return a.group_pct - b.group_pct; }) : this.nested.sort(function(a, b) { return b.group_pct - a.group_pct; })
 
     this.y0.domain(sortKind === 'highest' ?  this.nested.map(function(d) { return d.key; }) : this.nested.map(function(d) { return d.key; }).reverse());
@@ -367,8 +373,9 @@ export var VisLinesExecution = Class.extend({
       .duration(300)
       .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
       .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) );
-  },
-  _mousemoved: function(d) {
+  }
+
+  _mousemoved(d) {
     var coordinates = d3.mouse(this.selectionNode);
     var x = coordinates[0], y = coordinates[1];
 
@@ -388,17 +395,20 @@ export var VisLinesExecution = Class.extend({
     tooltipHtml += '<div>' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip') + ' ' + this.pctFormat(d.pct_executed) + ' %</div>';
 
     this.tooltip.html(tooltipHtml);
-  },
-  _mouseleft: function() {
+  }
+
+  _mouseleft() {
     d3.selectAll('.tooltip').style('display', 'none');
-  },
-  _width: function() {
+  }
+
+  _width() {
     return parseInt(d3.select(this.container).style('width'));
-  },
-  _height: function() {
+  }
+
+  _height() {
     // Height depends on number of lines
     var groupPadding = this.data.lines.filter(function (d) { return d.level === 1}).length * 10;
 
     return (this.data.lines.length * 30) + groupPadding;
-  },
-});
+  }
+}

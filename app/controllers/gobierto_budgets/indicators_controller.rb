@@ -21,7 +21,7 @@ class GobiertoBudgets::IndicatorsController < GobiertoBudgets::ApplicationContro
   end
 
   def available_years
-    @available_years ||= GobiertoBudgets::SearchEngineConfiguration::Year.all.delete_if { |x| x >= current_year - 1 }
+    @available_years ||= GobiertoBudgets::SearchEngineConfiguration::Year.all
   end
 
   def current_year

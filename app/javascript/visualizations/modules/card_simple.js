@@ -16,6 +16,16 @@ export class SimpleCard extends Card {
     var parsedDate = parseDate(json.data[0].date);
     var formatDate = d3.timeFormat("%b %Y");
 
+    var divCard = $('div[class*="' + divClass.replace('.','') + '"]');
+
+    divCard.find("div.indicator_widget.padded").find("div.widget_body").find("div.sparkline").empty();
+
+    // If no data exists for the selected year.
+    if(parsedDate.getFullYear() != window.populateDataYear.currentYear) {
+      divCard.remove();
+      return;
+    }
+
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
       .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_observatory.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_observatory.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_observatory.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(value))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
@@ -26,6 +36,10 @@ export class SimpleCard extends Card {
 
     this.div.select('.widget_figure')
       .text(this._printData(value));
+
+    // If the data is 0
+    if (divCard.find("div.indicator_widget.padded").find("div.widget_body").find("span.widget_figure").text() == 0)
+      divCard.remove()
 
     // Append source
     this.div.selectAll('.widget_src')

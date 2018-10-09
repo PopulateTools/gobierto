@@ -157,10 +157,10 @@ export class VisIndicators {
     }
 
     var columns = [
-      { head: I18n.t('gobierto_admin.gobierto_budget_consultations.consultations.consultation_responses.index.questions'), headCl: 'title', cl: 'title', html(d) { return d.key; } },
-      { head: I18n.t('gobierto_admin.gobierto_budget_consultations.consultations.consultation_responses.index.reduce'), headCl: 'center', cl(d) { return customClass(extractValue(d.values, '-5')) }, html(d) { return returnValue(extractValue(d.values, '-5'))  } },
-      { head: I18n.t('gobierto_admin.gobierto_budget_consultations.consultations.consultation_responses.index.keep'), headCl: 'center', cl(d) { return customClass(extractValue(d.values, '0')) }, html(d) { return returnValue(extractValue(d.values, '0')) } },
-      { head: I18n.t('gobierto_admin.gobierto_budget_consultations.consultations.consultation_responses.index.increase'), headCl: 'center', cl(d) { return customClass(extractValue(d.values, '5')) }, html(d) { return returnValue(extractValue(d.values, '5')) } },
+      { head: I18n.t('gobierto_common.visualizations.questions'), headCl: 'title', cl: 'title', html(d) { return d.key; } },
+      { head: I18n.t('gobierto_common.visualizations.reduce'), headCl: 'center', cl(d) { return customClass(extractValue(d.values, '-5')) }, html(d) { return returnValue(extractValue(d.values, '-5'))  } },
+      { head: I18n.t('gobierto_common.visualizations.keep'), headCl: 'center', cl(d) { return customClass(extractValue(d.values, '0')) }, html(d) { return returnValue(extractValue(d.values, '0')) } },
+      { head: I18n.t('gobierto_common.visualizations.increase'), headCl: 'center', cl(d) { return customClass(extractValue(d.values, '5')) }, html(d) { return returnValue(extractValue(d.values, '5')) } },
     ];
 
     var table = d3.select('#table_report')

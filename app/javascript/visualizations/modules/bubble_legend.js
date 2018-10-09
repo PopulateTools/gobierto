@@ -78,24 +78,24 @@ export class VisBubbleLegend {
       .attr('text-anchor', 'middle');
 
     label.append('tspan')
-      .text(I18n.t('gobierto_budgets.budgets.index.main_budget_levels_legend_one'));
+      .text(I18n.t('gobierto_common.visualizations.main_budget_levels_legend_one'));
 
     label.append('tspan')
       .attr('x', 0)
       .attr('y', 18)
-      .text(I18n.t('gobierto_budgets.budgets.index.main_budget_levels_legend_two'));
+      .text(I18n.t('gobierto_common.visualizations.main_budget_levels_legend_two'));
 
     svg.append('text')
       .attr('class', 'legend-label')
       .attr('x', bigScreen ? 36 : 34)
       .attr('dy', 2)
-      .text(I18n.t('gobierto_budgets.budgets.index.main_budget_levels_legend_up'));
+      .text(I18n.t('gobierto_common.visualizations.main_budget_levels_legend_up'));
 
     svg.append('text')
       .attr('class', 'legend-label')
       .attr('x', bigScreen ? 12 : 4)
       .attr('y', height + 8)
       .attr('text-anchor', 'end')
-      .text(I18n.t('gobierto_budgets.budgets.index.main_budget_levels_legend_down'));
+      .text(I18n.t('gobierto_common.visualizations.main_budget_levels_legend_down'));
   }
 }

@@ -15,7 +15,7 @@ export class BarsCard extends Card {
 
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
-      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_observatory.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_observatory.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_observatory.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(data[0].figure))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
+      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_common.visualizations.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_common.visualizations.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_common.visualizations.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(data[0].figure))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
 
     this.div.selectAll('.fb-sharer')
       .attr('target', '_blank')
@@ -36,8 +36,8 @@ export class BarsCard extends Card {
 
     // Append metadata
     this.div.selectAll('.widget_title')
-      .attr('title', I18n.t('gobierto_observatory.cards.' + cardName + '.title'))
-      .text(I18n.t('gobierto_observatory.cards.' + cardName + '.title'));
+      .attr('title', I18n.t('gobierto_common.visualizations.cards.' + cardName + '.title'))
+      .text(I18n.t('gobierto_common.visualizations.cards.' + cardName + '.title'));
 
     // Append backface info
     this.div.selectAll('.js-data-desc')

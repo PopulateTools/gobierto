@@ -192,16 +192,16 @@ export class VisBubbles {
       .style('top', (y + 40) + 'px');
 
     function getString(d) {
-      return d > 0 ? I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_up') : I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_down');
+      return d > 0 ? I18n.t('gobierto_common.visualizations.main_budget_levels_tooltip_up') : I18n.t('gobierto_common.visualizations.main_budget_levels_tooltip_down');
     }
     function perInhabitantTooltipStr(d) {
-      return d ? '<div class="clear_b">' + accounting.formatMoney(d, "€", 0, ".", ",") + ' ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_per_inhabitant') + '</div>' : '';
+      return d ? '<div class="clear_b">' + accounting.formatMoney(d, "€", 0, ".", ",") + ' ' + I18n.t('gobierto_common.visualizations.main_budget_levels_per_inhabitant') + '</div>' : '';
     }
 
     this.tooltip.html('<div class="line-name"><strong>' + d.name + '</strong></div> \
                        <div>' + accounting.formatMoney(d.value, "€", 0, ".", ",") + '</div> \
                        ' + perInhabitantTooltipStr(d.per_inhabitant) + ' \
-                       <div class="line-pct">' + getString(d.pct_diff) + ' ' + accounting.formatNumber(d.pct_diff, 1) + ' %</span> ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_article') + ' ' + (d.year - 1) + '</div>');
+                       <div class="line-pct">' + getString(d.pct_diff) + ' ' + accounting.formatNumber(d.pct_diff, 1) + ' %</span> ' + I18n.t('gobierto_common.visualizations.main_budget_levels_tooltip_article') + ' ' + (d.year - 1) + '</div>');
   }
 
   _mouseleft() {

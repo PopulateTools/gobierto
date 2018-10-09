@@ -126,9 +126,9 @@ export class VisLineasJ {
 
     // Set nice category
     this.niceCategory = {
-      "mean_national": I18n.t("gobierto_budgets.visualizations.mean_national"),
-      "mean_autonomy": I18n.t("gobierto_budgets.visualizations.mean_autonomy"),
-      "mean_province": I18n.t("gobierto_budgets.visualizations.mean_province"),
+      "mean_national": I18n.t("gobierto_common.visualizations.mean_national"),
+      "mean_autonomy": I18n.t("gobierto_common.visualizations.mean_autonomy"),
+      "mean_province": I18n.t("gobierto_common.visualizations.mean_province"),
       "G": "Gasto/habitante",
       "I": "Ingreso/habitante",
       "percentage": "% sobre el total"
@@ -409,7 +409,7 @@ export class VisLineasJ {
             if ((column == 'color') || (column == 'name')) {
               return '<span style="display:none" aria-hidden="true">WCAG 2.0 AA</span>';
             } else if (column == 'dif') {
-              return I18n.t("gobierto_budgets.visualizations.previous_year_diff");
+              return I18n.t("gobierto_common.visualizations.previous_year_diff");
             } else if (column == 'value') {
               return this.dataYear.getFullYear();
             }

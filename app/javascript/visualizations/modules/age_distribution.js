@@ -138,10 +138,10 @@ export class VisAgeDistribution {
     this.svg.select('.focus-halo')
       .attr('stroke', 'white')
       .attr('stroke-width', '2px')
-      .text(accounting.formatNumber(d.value, 0) + ' ' + I18n.t('gobierto_observatory.graphics.age_distribution.label'));
+      .text(accounting.formatNumber(d.value, 0) + ' ' + I18n.t('gobierto_common.visualizations.label'));
 
     this.svg.select('.focus-text')
-      .text(accounting.formatNumber(d.value, 0) + ' ' + I18n.t('gobierto_observatory.graphics.age_distribution.label'));
+      .text(accounting.formatNumber(d.value, 0) + ' ' + I18n.t('gobierto_common.visualizations.label'));
   }
 
   _mouseout() {
@@ -198,7 +198,7 @@ export class VisAgeDistribution {
   _formatNumberX(d) {
     // 'Age 100' is aggregated
     if (d === 0) {
-      return d + ' ' + I18n.t('gobierto_observatory.graphics.age_distribution.axis');
+      return d + ' ' + I18n.t('gobierto_common.visualizations.axis');
     } else if (d === 100) {
       return d + '+';
     } else {
@@ -239,5 +239,4 @@ export class VisAgeDistribution {
       .attr('width', this.xScale.bandwidth())
       .attr('height', function(d) { return this.height - this.yScale(d.value) }.bind(this));
   }
-
 }

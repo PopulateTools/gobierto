@@ -18,9 +18,9 @@ export class Card {
       case 'currency':
         return accounting.formatNumber(data, 0) + '€';
       case 'currency_per_person':
-        return accounting.formatNumber(data, 0) + '€/' + I18n.t('gobierto_observatory.inhabitants');
+        return accounting.formatNumber(data, 0) + '€/' + I18n.t('gobierto_common.visualizations.inhabitants');
       case 'per_inhabitant':
-        return accounting.formatNumber(data, 2) + '/' + I18n.t('gobierto_observatory.inhabitants');
+        return accounting.formatNumber(data, 2) + '/' + I18n.t('gobierto_common.visualizations.inhabitants');
       default:
         return accounting.formatNumber(data, 0);
     }
@@ -30,13 +30,13 @@ export class Card {
     // Switch between different figure types
     switch (json) {
       case 'yearly':
-        return I18n.t('gobierto_observatory.cards.frequency.yearly')
+        return I18n.t('gobierto_common.visualizations.frequency.yearly')
       case 'monthly':
-        return I18n.t('gobierto_observatory.cards.frequency.monthly')
+        return I18n.t('gobierto_common.visualizations.frequency.monthly')
       case 'weekly':
-        return I18n.t('gobierto_observatory.cards.frequency.weekly')
+        return I18n.t('gobierto_common.visualizations.frequency.weekly')
       case 'daily':
-        return I18n.t('gobierto_observatory.cards.frequency.dailt')
+        return I18n.t('gobierto_common.visualizations.frequency.dailt')
       default:
         return ''
     }

@@ -17,7 +17,7 @@ export class ComparisonCard extends Card {
 
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
-      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_observatory.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_observatory.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_observatory.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(this.firstDataType, value_1))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
+      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_common.visualizations.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_common.visualizations.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_common.visualizations.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(this.firstDataType, value_1))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
 
     this.div.selectAll('.fb-sharer')
       .attr('target', '_blank')
@@ -44,8 +44,8 @@ export class ComparisonCard extends Card {
 
     // Append metadata
     this.div.selectAll('.widget_title')
-      .attr('title', I18n.t('gobierto_observatory.cards.' + cardName + '.title'))
-      .text(I18n.t('gobierto_observatory.cards.' + cardName + '.title'));
+      .attr('title', I18n.t('gobierto_common.visualizations.cards.' + cardName + '.title'))
+      .text(I18n.t('gobierto_common.visualizations.cards.' + cardName + '.title'));
 
     // Append backface info
     this.div.selectAll('.js-data-desc')
@@ -62,7 +62,7 @@ export class ComparisonCard extends Card {
       case 'currency':
         return accounting.formatNumber(data, 0) + '€';
       case 'currency_per_person':
-        return accounting.formatNumber(data, 1) + '€/' + I18n.t('gobierto_observatory.inhabitants');
+        return accounting.formatNumber(data, 1) + '€/' + I18n.t('gobierto_common.visualizations.inhabitants');
       default:
         return accounting.formatNumber(data, 0);
     }

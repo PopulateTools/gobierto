@@ -12,3 +12,115 @@ es:
       gobierto_common_collection_updated: Colección actualizada
       gobierto_common_term_created: Término creado
       gobierto_common_term_updated: Término actualizado
+    visualizations:
+      axis: años
+      label: habitantes
+      main_budget_levels_legend_down: Han bajado
+      main_budget_levels_legend_one: Cambio entre este año
+      main_budget_levels_legend_two: y el pasado
+      main_budget_levels_legend_up: Han subido
+      main_budget_levels_per_inhabitant: por habitante
+      main_budget_levels_tooltip_article: desde
+      time: " en "
+      where: 'En '
+      inhabitants: hab
+      frequency:
+        daily: Actualización diaria
+        monthly: Actualización mensual
+        weekly: Actualización semanal
+        yearly: Actualización anual
+      increase: Aumentar
+      keep: Mantener
+      questions: Preguntas
+      reduce: Reducir
+      cards:
+        active_pop:
+          figure_first: del total
+          figure_second: personas
+          title: Población activa
+        births:
+          country: Media estatal
+          place: "%{place}"
+          province: Media provincial
+          title: Tasa de nacimientos
+        budget_by_inhabitant:
+          title: Presupuesto por habitante
+        cars:
+          title: Coches por habitante
+        cars_tax:
+          figure_first: "%{place}"
+          figure_second: media provincial
+          title: Impuesto a los turismos
+        companies:
+          title: Empresas
+        construction_tax:
+          figure_first: "%{place}"
+          figure_second: media provincial
+          title: Impuesto a las construcciones
+        contracts_comparison:
+          figure_first: temporales
+          figure_second: indefinidos
+          title: Contratos en el mes pasado
+        contracts_sector:
+          agricultura: Agricultura
+          construccion: Construcción
+          industria: Industria
+          servicios: Servicios
+          title: Contratos por sector
+        deaths:
+          country: Media estatal
+          place: "%{place}"
+          province: Media provincial
+          title: Tasa de defunciones
+        debt_by_inhabitant:
+          title: Deuda por habitante
+        economic_tax:
+          title: Impuesto a las actividades económicas
+        freelancers:
+          title: Autónomos
+        frequency:
+          daily: Actualización diaria
+          monthly: Actualización mensual
+          weekly: Actualización semanal
+          yearly: Actualización anual
+        houses:
+          figure_first: familiares
+          figure_second: principales
+          title: Viviendas
+        ibi:
+          first_column: ''
+          second_column: Urbano
+          third_column: Rústico
+          title: Impuesto sobre bienes inmuebles
+        income:
+          first_column: ''
+          second_column: Bruta
+          third_column: Disponible
+          title: Renta municipal
+        income_overview:
+          figure_first: "%{place}"
+          figure_second: España
+          title: Renta bruta
+        investment_by_inhabitant:
+          first_column: "%{place}"
+          second_column: Barcelona
+          third_column: Valencia
+          title: Inversión por habitante
+        meta:
+          time: " en "
+          where: 'En '
+        population:
+          title: Habitantes
+        ss_members:
+          title: Afiliados a la Seguridad Social
+        unemployed_sector:
+          agricultura: Agricultura
+          construccion: Construcción
+          industria: Industria
+          servicios: Servicios
+          title: Desempleados por sector
+        updated: Última actualización
+      mean_autonomy: Media autonómica
+      mean_national: Media estatal
+      mean_province: Media provincial
+      previous_year_diff: Cambio año anterior

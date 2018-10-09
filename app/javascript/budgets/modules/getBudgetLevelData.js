@@ -1,12 +1,12 @@
 import * as d3 from 'd3'
-import { Class } from 'shared'
 
-export var getBudgetLevelData = Class.extend({
-  init: function() {
+export class getBudgetLevelData {
+  constructor() {
     this.data = null;
     this.dataUrl = $('body').data('bubbles-data');
-  },
-  getData: function(callback) {
+  }
+
+  getData(callback) {
     d3.json(this.dataUrl, function(error, data) {
       if (error) throw error;
 
@@ -17,4 +17,4 @@ export var getBudgetLevelData = Class.extend({
       if (callback) callback();
     }.bind(this));
   }
-});
+}

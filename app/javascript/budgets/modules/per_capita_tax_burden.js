@@ -1,15 +1,16 @@
 import * as d3 from 'd3'
-import { Class } from 'shared'
 import { SimpleCard } from './vis_card_simple.js'
 
-export var PerCapitaTaxBurdenCard = Class.extend({
-  init: function(divClass, city_id, current_year) {
+export class PerCapitaTaxBurdenCard {
+  constructor(divClass, city_id, current_year) {
     this.container = divClass;
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.tbiToken = window.populateData.token;
     this.popUrl = window.populateData.endpoint + '/datasets/ds-presion-fiscal-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_municipality_id=' + city_id + '&date_date_range=20100101-' + this.currentYear + '1231';
-  },
-  getData: function() {
+
+  }
+
+  getData() {
     var pop = d3.json(this.popUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
@@ -21,8 +22,9 @@ export var PerCapitaTaxBurdenCard = Class.extend({
         var value = jsonData.data[0].value;
         new SimpleCard(this.container, jsonData, value, 'per_capita_tax_burden');
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     this.getData();
   }
-});
+}

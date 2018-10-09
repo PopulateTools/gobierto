@@ -151,6 +151,12 @@
             </li>
             <% end %>
 
+            <% if show_module_link?("GobiertoCitizensCharters") %>
+            <li>
+              <%= link_to t(".citizens_charters"), admin_citizens_charters_path %>
+            </li>
+            <% end %>
+
             <li class="sep"></li>
 
             <li>

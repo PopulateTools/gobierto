@@ -115,6 +115,31 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :gobierto_citizens_charters, as: :citizens_charters, path: :citizens_charters do
+      get "/" => "services#index"
+
+      resources :services do
+        put :recover
+      end
+      resources :charters do
+        resources :commitments, except: [:show], controller: "charters/commitments", as: :commitments, path: :commitments
+        resources :editions, only: [:index], controller: "charters/editions", as: :editions, path: :editions
+        resources :editions_intervals, controller: "charters/editions_intervals", as: :editions_intervals, path: :editions_intervals
+        put :recover
+      end
+      namespace :configuration do
+        resource :settings, only: [:edit, :update]
+      end
+
+      # API
+      namespace :api do
+        resources :charters, only: [] do
+          resources :editions, except: [:show, :new, :edit]
+          resources :commitments, only: [:index]
+        end
+      end
+    end
+
     namespace :gobierto_common, as: :common, path: nil do
       resources :collections, only: [:show, :new, :create, :edit, :update]
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
@@ -442,6 +467,17 @@ Rails.application.routes.draw do
   namespace :gobierto_attachments, path: "" do
     constraints GobiertoSiteConstraint.new do
       get "/documento/:id" => 'attachment_documents#show', as: :document
+    end
+  end
+
+  # Gobierto Citizens Charters module
+  namespace :gobierto_citizens_charters, path: "cartas-de-servicios" do
+    constraints GobiertoSiteConstraint.new do
+      root "services#index", as: :root
+      resources :services, only: [:index], param: :slug, path: "" do
+        resources :charters, only: [:index, :show], param: :slug, path: ""
+        get ":slug/:period_interval/:period" => "charters#show", as: :charter_period
+      end
     end
   end
 

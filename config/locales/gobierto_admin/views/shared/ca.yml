@@ -30,6 +30,8 @@ ca:
       recover:
         confirm: Si es recupera un element, es tornarà a llistar de nou.
         element: Recuperar element
+        not_recoverable: Aquest element no es pot recuperar perque depèn d'elements
+          arxivats
       save_widget:
         save: Guardar
         visibility_level:

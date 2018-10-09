@@ -155,3 +155,27 @@ city_plan_term:
   position: 5
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+social_services_term:
+  vocabulary: citizens_services_categories
+  name_translations: <%= { 'en' => 'Social Services', 'es' => 'Cohesión Social y Servicios Sociales' }.to_json %>
+  slug: social-services
+  level: 0
+  position: 0
+  created_at: 2018-09-10 00:00:00
+  updated_at: 2018-09-10 00:00:00
+culture_service_term:
+  vocabulary: citizens_services_categories
+  name_translations: <%= { 'en' => 'Culture', 'es' => 'Cultura' }.to_json %>
+  slug: culture
+  level: 0
+  position: 1
+  created_at: 2018-09-10 00:00:00
+  updated_at: 2018-09-1 0 00:00:00
+sports_service_term:
+  vocabulary: citizens_services_categories
+  name_translations: <%= { 'en' => 'Sports', 'es' => 'Deportes' }.to_json %>
+  slug: sports
+  level: 0
+  position: 2
+  created_at: 2018-09-10 00:00:00
+  updated_at: 2018-09-10 00:00:00

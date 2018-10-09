@@ -72,6 +72,12 @@ class Site < ApplicationRecord
   has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
   has_many :votes, dependent: :destroy, class_name: "GobiertoParticipation::Vote"
 
+  # GobiertoCitizensCharters integration
+  has_many :services, dependent: :destroy, class_name: "GobiertoCitizensCharters::Service"
+  has_many :charters, through: :services, class_name: "GobiertoCitizensCharters::Charter"
+  has_many :commitments, through: :charters, class_name: "GobiertoCitizensCharters::Commitment"
+  has_many :editions, through: :commitments, class_name: "GobiertoCitizensCharters::Edition"
+
   serialize :configuration_data
 
   before_save :store_configuration
@@ -126,6 +132,12 @@ class Site < ApplicationRecord
     @gobierto_participation_settings ||= if configuration.available_module?("GobiertoParticipation") && configuration.gobierto_participation_enabled?
                                            module_settings.find_by(module_name: "GobiertoParticipation")
                                          end
+  end
+
+  def gobierto_citizens_charters_settings
+    @gobierto_citizens_charters_settings ||= if configuration.available_module?("GobiertoCitizensCharters") && configuration.gobierto_citizens_charters_enabled?
+                                               module_settings.find_by(module_name: "GobiertoCitizensCharters")
+                                             end
   end
 
   def settings_for_module(module_name)

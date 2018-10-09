@@ -6,14 +6,19 @@ class CollectionDecorator < BaseDecorator
 
   delegate :exists?, :empty?, to: :collection
 
-  def initialize(collection, decorator: nil)
+  def initialize(collection, decorator: nil, opts: {})
     @collection = collection
     @decorator = decorator
+    @opts = opts
   end
 
-  def each(&block)
+  def each
     @collection.each do |item|
-      block.call(@decorator.try(:new, item) || item)
+      if @opts.blank?
+        yield(@decorator.try(:new, item) || item)
+      else
+        yield(@decorator.try(:new, item, opts: @opts) || item)
+      end
     end
   end
 end

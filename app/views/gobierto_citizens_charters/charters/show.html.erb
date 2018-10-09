@@ -1,0 +1,55 @@
+<div class="column">
+  <div class="block">
+    <div class="pure-g header_block_inline">
+      <div class="pure-u-1 pure-u-md-12-24">
+        <h1><%= @charter.title %></h1>
+        <div class="inline_header">
+          <h2 class="with_description p_h_r_1"><%=  t(".period") %></h2>
+          <%= render(
+            partial: "gobierto_citizens_charters/shared/period_breadcrumb",
+            locals: {
+              selected_period: @charter.reference_edition,
+              selected_period_path: gobierto_citizens_charters_service_charter_path(@service.slug, @charter.slug, period: @charter.reference_edition.to_s, period_interval: @charter.reference_edition.period_interval),
+              available_periods: @charter.available_periods(@charter.reference_edition.period_interval)
+            }
+          ) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="pure-g header_block_inline">
+      <div class="pure-u-1 pure-u-md-12-24">
+        <% if @charter.progress.present? %>
+          <p><%= t(".global_progress", progress: number_to_percentage(@charter.progress, precision: 1)) %></p>
+        <% end %>
+
+        <% if @progress_evolution.present? %>
+          <p>
+            <%= t(
+              "gobierto_citizens_charters.shared.evolution.#{ @progress_evolution < 0 ? "negative" : "positive" }",
+              progress: number_to_percentage(@progress_evolution, precision: 1)
+              ) %>
+          </p>
+
+        <% end %>
+
+        <p><%= t(".editions_details") %>:</p>
+        <% @charter.editions.each do |edition| %>
+          <div>
+            <ul>
+              <li>
+                <strong><%= content_tag :div, edition.commitment.title %></strong>
+              </li>
+              <li>
+                <%= content_tag :div, edition.commitment.description %>
+              </li>
+              <li>
+                <%= content_tag :div, number_to_percentage(edition.proportion, precision: 1) %>
+              </li>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

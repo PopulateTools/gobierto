@@ -159,11 +159,11 @@ export class VisUnemploymentAge {
   _getAgeRange(age) {
     switch (age) {
       case '<25':
-        return I18n.t('gobierto_observatory.graphics.unemployment_age.less_25');
+        return I18n.t('gobierto_common.visualizations.less_25');
       case '25-44':
-        return I18n.t('gobierto_observatory.graphics.unemployment_age.between_25_44');
+        return I18n.t('gobierto_common.visualizations.between_25_44');
       case '>=45':
-        return I18n.t('gobierto_observatory.graphics.unemployment_age.more_44');
+        return I18n.t('gobierto_common.visualizations.more_44');
     }
   }
 

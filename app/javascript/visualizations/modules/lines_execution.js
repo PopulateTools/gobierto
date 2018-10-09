@@ -108,7 +108,7 @@ export class VisLinesExecution {
     if (this.data.lines.length === 0) {
       d3.select(this.container).append('div')
         .attr('class', 'flash-message alert')
-        .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.empty_lines'));
+        .text(I18n.t('gobierto_common.visualizations.empty_lines'));
     }
   }
 
@@ -258,18 +258,18 @@ export class VisLinesExecution {
       legend.append('text')
         .attr('text-anchor', 'end')
         .attr('dx', '-12')
-        .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.lines_title'));
+        .text(I18n.t('gobierto_common.visualizations.lines_title'));
     }
 
     legend.append('text')
       .attr('class', 'legend-value halo')
-      .text(this.bigDeviation ? I18n.t('gobierto_budgets.budgets_execution.index.vis.percent_log') : I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'))
+      .text(this.bigDeviation ? I18n.t('gobierto_common.visualizations.percent_log') : I18n.t('gobierto_common.visualizations.percent'))
       .attr('stroke', 'white')
       .attr('stroke-width', 5);
 
     legend.append('text')
       .attr('class', 'legend-value')
-      .text(this.bigDeviation ? I18n.t('gobierto_budgets.budgets_execution.index.vis.percent_log') : I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
+      .text(this.bigDeviation ? I18n.t('gobierto_common.visualizations.percent_log') : I18n.t('gobierto_common.visualizations.percent'));
 
     /* Remove first tick */
     d3.selectAll('.x.axis .tick')
@@ -324,7 +324,7 @@ export class VisLinesExecution {
       .classed('hundred_percent', valueKind === 'pct_executed' ? true : false);
 
     this.svg.select('.legend-value')
-      .text(valueKind === 'executed' ? I18n.t('gobierto_budgets.budgets_execution.index.vis.absolute') : I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
+      .text(valueKind === 'executed' ? I18n.t('gobierto_common.visualizations.absolute') : I18n.t('gobierto_common.visualizations.percent'));
 
     this.svg.selectAll('.hundred_percent')
       .transition()
@@ -385,14 +385,14 @@ export class VisLinesExecution {
       .style('top', (y + 40) + 'px');
 
     var tooltipHtml = '<div class="line-name"><strong>' + d['name_' + this.localeFallback] + '</strong></div>' +
-                      '<div class="line-name">' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip_budgeted')  + ': ' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</div>';
+                      '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_budgeted')  + ': ' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</div>';
 
     if(d.budget_updated !== null)
-      tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip_budgeted_updated')  + ': ' + accounting.formatMoney(d.budget_updated, "€", 0, ".", ",") + '</div>';
+      tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_budgeted_updated')  + ': ' + accounting.formatMoney(d.budget_updated, "€", 0, ".", ",") + '</div>';
 
-    tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip_executed_amount')  + ': ' + accounting.formatMoney(d.executed, "€", 0, ".", ",") + '</div>';
+    tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_executed_amount')  + ': ' + accounting.formatMoney(d.executed, "€", 0, ".", ",") + '</div>';
 
-    tooltipHtml += '<div>' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip') + ' ' + this.pctFormat(d.pct_executed) + ' %</div>';
+    tooltipHtml += '<div>' + I18n.t('gobierto_common.visualizations.tooltip') + ' ' + this.pctFormat(d.pct_executed) + ' %</div>';
 
     this.tooltip.html(tooltipHtml);
   }

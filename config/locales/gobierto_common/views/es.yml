@@ -124,3 +124,39 @@ es:
       mean_national: Media estatal
       mean_province: Media provincial
       previous_year_diff: Cambio año anterior
+      absolute: Ejecución en €
+      empty_lines: No hay datos disponibles para esta clasificación en este año.
+        Por favor, selecciona otro filtro.
+      lines_title: Partidas presupuestarias
+      percent: "% de progreso"
+      percent_log: "% de progreso (log)"
+      tooltip: Se ha ejecutado un
+      tooltip_budgeted: Presupuestado inicial
+      tooltip_budgeted_updated: Presupuestado actualizado
+      tooltip_executed_amount: Importe ejecutado
+      adults: Población activa
+      age: Edad
+      country: España
+      elderly: Mayores
+      elderly_info: El %{percent} de la población tiene más de %{limit} años
+      mean: 'Edad media: %{age} años'
+      median: 'Edad mediana: %{age} años'
+      men: Hombres
+      mode: 'Edad más común: %{age} años'
+      unemployed: Desempleada
+      women: Mujeres
+      youth: Menores
+      youth_info: El %{percent} de la población tiene menos de %{limit} años
+      gross_income: Renta bruta
+      inhabitants: Habitantes
+      million: millón
+      thousand: mil
+      title: Riqueza y población en la provincia
+      proposal: Propuesta
+      inhabitant_short: hab
+      between_25_44: Entre 25 y 44
+      less_25: Menores de 25
+      more_44: Mayores de 44
+      country: España
+      men: Hombres
+      women: Mujeres

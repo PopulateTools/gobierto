@@ -73,7 +73,7 @@ export class VisSlider {
         .attr('y', '60%')
         .attr('text-anchor', 'end')
         .attr('x', (2 / 3 * (x(maxYear) - x(years[years.length - 2]))))
-        .text(I18n.t('gobierto_budgets.budgets_elaboration.index.proposal'));
+        .text(I18n.t('gobierto_common.visualizations.proposal'));
     }
 
 

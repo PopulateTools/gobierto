@@ -409,7 +409,7 @@ export class VisPopulationPyramid {
       .attr("opacity", 0)
       .attr("x", chartWidth + this.gutter)
       .attr("dy", `${this._pxToEm(1.5 * this.gutter)}em`)
-      .html(d => `<tspan class="as-title">${(d.fake / d.value).toLocaleString(I18n.locale, { style: 'percent' })}</tspan> ${I18n.t('gobierto_observatory.graphics.population_pyramid.unemployed')}`)
+      .html(d => `<tspan class="as-title">${(d.fake / d.value).toLocaleString(I18n.locale, { style: 'percent' })}</tspan> ${I18n.t('gobierto_common.visualizations.unemployed')}`)
       .transition()
       .delay(1000)
       .duration(1000)
@@ -430,7 +430,7 @@ export class VisPopulationPyramid {
       .attr("height", d => yFakeScale(d.fake))
 
     g.select("g.r-fake text.subtitle")
-      .html(d => `<tspan class="as-title">${(d.fake / d.value).toLocaleString(I18n.locale, { style: 'percent' })}</tspan> ${I18n.t('gobierto_observatory.graphics.population_pyramid.unemployed')}`)
+      .html(d => `<tspan class="as-title">${(d.fake / d.value).toLocaleString(I18n.locale, { style: 'percent' })}</tspan> ${I18n.t('gobierto_common.visualizations.unemployed')}`)
 
     // exits
     fakeG.exit().remove()
@@ -494,17 +494,17 @@ export class VisPopulationPyramid {
     titles.append("text")
       .attr("transform", `translate(${(this.width.pyramid / 2) - this.gutter},${-this.margin.top / 2})`)
       .attr("text-anchor", "end")
-      .text(I18n.t('gobierto_observatory.graphics.population_pyramid.men'))
+      .text(I18n.t('gobierto_common.visualizations.men'))
 
     titles.append("text")
       .attr("transform", `translate(${(this.width.pyramid / 2) + this.gutter},${-this.margin.top / 2})`)
       .attr("text-anchor", "start")
-      .text(I18n.t('gobierto_observatory.graphics.population_pyramid.women'))
+      .text(I18n.t('gobierto_common.visualizations.women'))
 
     titles.append("text")
       .attr("transform", `translate(${-this.gutter},${-this.margin.top / 2})`)
       .attr("text-anchor", "end")
-      .text(I18n.t('gobierto_observatory.graphics.population_pyramid.age'))
+      .text(I18n.t('gobierto_common.visualizations.age'))
 
     // Pyramid bar-groups
     let g = this.pyramid.append("g")
@@ -531,7 +531,7 @@ export class VisPopulationPyramid {
       .attr("text-anchor", (d.sex === "V") ? undefined : "end")
       .attr("x", (d.sex === "V") ? 0 : this.width.pyramid)
       .attr("y", this.yScale(95))
-      .text(`${I18n.t('gobierto_observatory.graphics.population_pyramid.age')}: ${d.age} - ${d.value.toLocaleString()} ${(d.sex === "V") ? I18n.t('gobierto_observatory.graphics.population_pyramid.men') : I18n.t('gobierto_observatory.graphics.population_pyramid.women')}`);
+      .text(`${I18n.t('gobierto_common.visualizations.age')}: ${d.age} - ${d.value.toLocaleString()} ${(d.sex === "V") ? I18n.t('gobierto_common.visualizations.men') : I18n.t('gobierto_common.visualizations.women')}`);
   }
 
   _mouseout() {
@@ -591,22 +591,22 @@ export class VisPopulationPyramid {
     let self = this
     return [
       {
-        name: I18n.t('gobierto_observatory.graphics.population_pyramid.youth'),
+        name: I18n.t('gobierto_common.visualizations.youth'),
         get info() {
-          return I18n.t('gobierto_observatory.graphics.population_pyramid.youth_info', { percent: self._percent(this.value, self.data.pyramid), limit: bp[0] })
+          return I18n.t('gobierto_common.visualizations.youth_info', { percent: self._percent(this.value, self.data.pyramid), limit: bp[0] })
         },
         range: [d3.min(data.map(d => d.age)), bp[0] - 1],
         value: data.filter(d => d.age < bp[0]).map(d => d.value).reduce((a,b)=>a+b)
       },
       {
-        name: I18n.t('gobierto_observatory.graphics.population_pyramid.adults'),
+        name: I18n.t('gobierto_common.visualizations.adults'),
         range: [bp[0], bp[1] - 1],
         value: data.filter(d => d.age < bp[1] && d.age >= bp[0]).map(d => d.value).reduce((a,b)=>a+b)
       },
       {
-        name: I18n.t('gobierto_observatory.graphics.population_pyramid.elderly'),
+        name: I18n.t('gobierto_common.visualizations.elderly'),
         get info() {
-          return I18n.t('gobierto_observatory.graphics.population_pyramid.elderly_info', { percent: self._percent(this.value, self.data.pyramid), limit: bp[1] })
+          return I18n.t('gobierto_common.visualizations.elderly_info', { percent: self._percent(this.value, self.data.pyramid), limit: bp[1] })
         },
         range: [bp[1], d3.max(data.map(d => d.age))],
         value: data.filter(d => d.age >= bp[1]).map(d => d.value).reduce((a,b)=>a+b)
@@ -618,17 +618,17 @@ export class VisPopulationPyramid {
     return [{
       value: this._mean(data.map(f => f.age)),
       get name() {
-        return I18n.t('gobierto_observatory.graphics.population_pyramid.mean', { age: this.value })
+        return I18n.t('gobierto_common.visualizations.mean', { age: this.value })
       }
     }, {
       value: this._median(data.map(f => f.age)),
       get name() {
-        return I18n.t('gobierto_observatory.graphics.population_pyramid.median', { age: this.value })
+        return I18n.t('gobierto_common.visualizations.median', { age: this.value })
       }
     }, {
       value: this._mode(data),
       get name() {
-        return I18n.t('gobierto_observatory.graphics.population_pyramid.mode', { age: this.value })
+        return I18n.t('gobierto_common.visualizations.mode', { age: this.value })
       }
     }]
   }

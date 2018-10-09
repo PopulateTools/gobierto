@@ -194,11 +194,11 @@ export class VisRentDistribution {
     this.tooltip.html('<div class="tooltip-city">' + d.datum.municipality_name + '</div>' +
       '<table class="tooltip-table">' +
           '<tr class="first-row">' +
-              '<td class="table-t">' + I18n.t('gobierto_observatory.graphics.rent_distribution.inhabitants') + '</td>' +
+              '<td class="table-t">' + I18n.t('gobierto_common.visualizations.inhabitants') + '</td>' +
               '<td><span class="table-n">'+ accounting.formatNumber(d.datum.value, 0) +'</span></td>' +
           '</tr>' +
           '<tr class="second-row">' +
-              '<td class="table-t">' + I18n.t('gobierto_observatory.graphics.rent_distribution.gross_income') + '</td>' +
+              '<td class="table-t">' + I18n.t('gobierto_common.visualizations.gross_income') + '</td>' +
               '<td>' + accounting.formatNumber(d.datum.rent, 0) + '€</td>' +
           '</tr>' +
       '</table>')
@@ -269,11 +269,11 @@ export class VisRentDistribution {
   }
 
   _formatMillionAbbr(x) {
-    return d3.format('.0f')(x / 1e6) + ' ' + I18n.t('gobierto_observatory.graphics.rent_distribution.million');
+    return d3.format('.0f')(x / 1e6) + ' ' + I18n.t('gobierto_common.visualizations.million');
   }
 
   _formatThousandAbbr(x) {
-    return d3.format('.0f')(x / 1e3) + ' ' + I18n.t('gobierto_observatory.graphics.rent_distribution.thousand');
+    return d3.format('.0f')(x / 1e3) + ' ' + I18n.t('gobierto_common.visualizations.thousand');
   }
 
   _formatAbbreviation(x) {

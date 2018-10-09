@@ -233,7 +233,7 @@ export class VisUnemploymentRate {
   _getPlaceType(place) {
     switch (place) {
       case 'country':
-        return I18n.t('gobierto_observatory.graphics.unemployment_rate.country');
+        return I18n.t('gobierto_common.visualizations.country');
       case 'autonomous_region':
         return window.populateData.ccaaName;
       case 'place':

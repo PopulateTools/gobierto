@@ -218,9 +218,9 @@ export class VisUnemploymentSex {
   _getLabel(sex) {
     switch (sex) {
       case 'H':
-        return I18n.t('gobierto_observatory.graphics.unemployment_sex.men');
+        return I18n.t('gobierto_common.visualizations.men');
       case 'M':
-        return I18n.t('gobierto_observatory.graphics.unemployment_sex.women');
+        return I18n.t('gobierto_common.visualizations.women');
     }
   }
 

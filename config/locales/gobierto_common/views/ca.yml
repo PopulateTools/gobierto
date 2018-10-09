@@ -124,3 +124,39 @@ ca:
       mean_national: Mitjana estatal
       mean_province: Mitjana provincial
       previous_year_diff: Canvi any anterior
+      absolute: Execució en €
+      empty_lines: No hi ha dades disponibles per aquesta classificació en aquest
+        any. Per favor, selecciona un altre filtrat.
+      lines_title: Partides pressupostàries
+      percent: "% de progrés"
+      percent_log: "% de progrés (log)"
+      tooltip: S'ha executat un
+      tooltip_budgeted: Pressupostat inicial
+      tooltip_budgeted_updated: Pressupostat actualitzat
+      tooltip_executed_amount: Import executat
+      adults: Població activa
+      age: Edat
+      country: Espanya
+      elderly: Majors
+      elderly_info: El %{percent} de la població té més de %{limit} anys
+      mean: 'Edat mitja: %{age} anys'
+      median: 'Edat mitjana: %{age} anys'
+      men: Homes
+      mode: 'Edat més comú: %{age} anys'
+      unemployed: Aturada
+      women: Dones
+      youth: Menors
+      youth_info: El %{percent} de la població té menys de %{limit} anys
+      gross_income: Renda bruta
+      inhabitants: Habitants
+      million: milió
+      thousand: mil
+      title: Riquesa i població a la província
+      proposal: Proposta
+      inhabitant_short: hab
+      between_25_44: Entre 25 i 44
+      less_25: Menors de 25
+      more_44: Més de 44
+      country: Espanya
+      men: Homes
+      women: Dones

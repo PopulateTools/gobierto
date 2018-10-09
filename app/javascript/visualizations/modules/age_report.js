@@ -1,8 +1,8 @@
-import { Class, accounting } from 'shared'
 import * as d3 from 'd3'
+import { accounting } from 'shared'
 
-export var VisAgeReport = Class.extend({
-  init: function(divId, url) {
+export class VisAgeReport {
+  constructor(divId, url) {
     this.container = divId;
     this.data = null;
     this.ageGroups = null;
@@ -44,8 +44,9 @@ export var VisAgeReport = Class.extend({
     this.svg.append('g').attr('class','y axis');
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
-  },
-  getData: function() {
+  }
+
+  getData() {
     d3.csv(this.dataUrl)
       .get(function(error, csvData) {
         if (error) throw error;
@@ -100,15 +101,17 @@ export var VisAgeReport = Class.extend({
         this.updateRender();
         this._renderBars();
       }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     if (this.data === null) {
       this.getData();
     } else {
       this.updateRender();
     }
-  },
-  updateRender: function() {
+  }
+
+  updateRender() {
     this.xScale
       .rangeRound([0, this.width])
       .domain(this.ageGroups.map(function(d) { return d.age_group }));
@@ -118,8 +121,9 @@ export var VisAgeReport = Class.extend({
       .domain([0, d3.max(this.ageGroups, function(d) { return d.response_rate })]);
 
     this._renderAxis();
-  },
-  _renderBars: function() {
+  }
+
+  _renderBars() {
     // We keep this separate to not create them after every resize
     var barGroup = this.svg.append('g')
       .attr('class', 'bars')
@@ -141,8 +145,9 @@ export var VisAgeReport = Class.extend({
       .text(function(d) {
         return d3.format('.0%')(d.response_rate);
       });
-  },
-  _renderAxis: function() {
+  }
+
+  _renderAxis() {
     // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
@@ -166,14 +171,17 @@ export var VisAgeReport = Class.extend({
     this.svg.selectAll(".y.axis .tick")
       .filter(function (d) { return d === 0;  })
       .remove();
-  },
-  _width: function() {
+  }
+
+  _width() {
     return parseInt(d3.select(this.container).style('width'));
-  },
-  _height: function() {
+  }
+
+  _height() {
     return this.isMobile ? 200 : this._width() * 0.25;
-  },
-  _resize: function() {
+  }
+
+  _resize() {
     this.width = this._width();
     this.height = this._height();
 
@@ -197,4 +205,5 @@ export var VisAgeReport = Class.extend({
     d3.select(this.container + ' .bars').selectAll('g text')
       .attr('x', this.xScale.bandwidth() / 2)
   }
-});
+
+}

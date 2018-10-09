@@ -1,4 +1,5 @@
 import { VisAgeDistribution } from './modules/age_distribution.js'
+import { VisAgeReport } from './modules/age_report.js'
 import { VisBubbleLegend } from './modules/bubble_legend.js'
 import { VisBubbles } from './modules/bubbles.js'
 import { BarsCard } from './modules/card_bars.js'
@@ -6,6 +7,7 @@ import { ComparisonCard } from './modules/card_comparison.js'
 import { SimpleCard } from './modules/card_simple.js'
 import { SparklineTableCard } from './modules/card_sparkline_table.js'
 import { TableCard } from './modules/card_table.js'
+import { VisIndicators } from './modules/consultation_indicators.js'
 import { VisEvoLine } from './modules/evo_line.js'
 import { VisLineasJ } from './modules/lineas_tabla.js'
 import { VisLinesExecution } from './modules/lines_execution.js'
@@ -22,6 +24,7 @@ import { VisUnemploymentSex } from './modules/unemployment_sex.js'
 
 export {
   VisAgeDistribution,
+  VisAgeReport,
   VisBubbleLegend,
   VisBubbles,
   BarsCard,
@@ -29,6 +32,7 @@ export {
   SimpleCard,
   SparklineTableCard,
   TableCard,
+  VisIndicators,
   VisEvoLine,
   VisLineasJ,
   VisLinesExecution,

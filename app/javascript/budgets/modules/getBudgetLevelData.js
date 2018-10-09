@@ -1,7 +1,10 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 
-export class getBudgetLevelData {
+export class getBudgetLevelData extends Card {
   constructor() {
+    super()
+    
     this.data = null;
     this.dataUrl = $('body').data('bubbles-data');
   }

@@ -1,11 +1,11 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 import { SimpleCard } from './vis_card_simple.js'
 
-export class FinancialChargeCard {
+export class FinancialChargeCard extends Card {
   constructor(divClass, city_id, current_year) {
-    this.container = divClass;
-    this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
-    this.tbiToken = window.populateData.token;
+    super(divClass, current_year)
+
     this.popUrl = window.populateData.endpoint + '/datasets/ds-carga-financiera.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_municipality_id=' + city_id + '&date_date_range=20100101-' + this.currentYear + '1231';
   }
 
@@ -22,9 +22,5 @@ export class FinancialChargeCard {
 
         new SimpleCard(this.container, jsonData, value, 'financial_charge');
       }.bind(this));
-  }
-
-  render() {
-    this.getData();
   }
 }

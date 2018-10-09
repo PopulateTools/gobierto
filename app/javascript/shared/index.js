@@ -1,5 +1,4 @@
 import { AUTOCOMPLETE_DEFAULTS } from './modules/autocomplete_settings.js'
-import { Class } from './modules/klass.js'
 import { URLParams } from './modules/URLParams.js'
 import './modules/module-search.js'
 import './modules/module-sessions.js'
@@ -19,7 +18,6 @@ accounting.settings = SETTINGS
 export {
   AUTOCOMPLETE_DEFAULTS,
   accounting,
-  Class,
   d3locale,
   isDesktop,
   isMobile,

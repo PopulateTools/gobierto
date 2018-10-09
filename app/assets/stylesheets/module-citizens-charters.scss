@@ -1,0 +1,300 @@
+.gobierto_citizens-charters {
+
+  // media breakpoints, from purecss.io
+  $wSmall: 568px;
+  $wMedium: 768px;
+  $wLarge: 1024px;
+  $wExtraLarge: 1280px;
+
+  .absolute-layout {
+    @include absolute-layout();
+  }
+
+  .fake-layout {
+    pointer-events: none;
+
+    :not(.invisible) {
+      pointer-events: auto;
+    }
+  }
+
+  // @Component BOX
+  .charters-box-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .charters-box {
+      $gap: 1.5rem;
+
+      color: $color_main_negative;
+      padding: $gap / 2;
+
+      @include screen(0, $wMedium) {
+        @include flexgrid($gap: $gap / 2, $columns: 1);
+      }
+
+      @include screen($wMedium, $wExtraLarge) {
+        @include flexgrid($gap: $gap, $columns: 3);
+      }
+
+      @include min-screen($wExtraLarge) {
+        padding: $gap;
+
+        @include flexgrid($gap: 2 * $gap, $columns: 3);
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        padding-bottom: calc(100% / (24 / 9)); // aspect ratio
+
+        @include min-screen($wMedium) {
+          padding-bottom: calc(100% / (16 / 9)); // aspect ratio
+        }
+      }
+
+      .box-inner {
+        @include absolute-layout();
+
+        width: 100%;
+        height: 100%;
+      }
+
+      .box-title {
+        font-size: $f5;
+
+        @include screen($wLarge, $wExtraLarge) {
+          font-size: $f4;
+        }
+
+        @include min-screen($wExtraLarge) {
+          font-size: $f3;
+        }
+      }
+
+      .results-title {
+        font-size: $f7;
+        opacity: .6;
+        text-transform: uppercase;
+        margin-bottom: 0;
+
+        @include screen($wLarge, $wExtraLarge) {
+          margin-bottom: .5rem;
+        }
+
+        @include min-screen($wExtraLarge) {
+          margin-bottom: 1rem;
+        }
+      }
+
+      .results-value {
+        font-size: $f3;
+        display: inline;
+
+        @include screen($wLarge, $wExtraLarge) {
+          font-size: $f2;
+        }
+
+        @include min-screen($wExtraLarge) {
+          font-size: $f1;
+        }
+      }
+
+      .box-contents {
+        font-size: $f6;
+      }
+    }
+
+    .charters-box--lead {
+      @extend .charters-box;
+
+      background-color: $color_main_negative !important;
+      border: 1px solid $color_separator;
+      color: $color_text;
+
+      .results-title {
+        font-size: $f6;
+        margin-bottom: 2rem;
+      }
+
+      .results-value {
+        font-size: $f1;
+
+        @include min-screen($wLarge) {
+          font-size: $submega;
+        }
+      }
+    }
+  }
+
+  .charter-header {
+    background-color: $color_main;
+
+    > * {
+      display: flex;
+      justify-content: space-between;
+      max-height: 150px;
+    }
+
+    h1 {
+      color: $color_main_negative;
+
+      @include screen(0, $wMedium) {
+        font-size: 1.5em;
+      }
+    }
+
+    img {
+      object-fit: cover;
+      max-height: 100%;
+      max-width: 100%;
+
+      @include screen(0, $wMedium) {
+        flex-basis: 75%;
+      }
+    }
+  }
+
+  .charter-subheader {
+    margin: 3rem 0 1rem;
+
+    > * {
+      justify-content: space-between;
+
+      @include flexbox($dir: column);
+
+      @include min-screen($wMedium) {
+        @include flexbox();
+      }
+
+      > * {
+        flex-basis: 40%;
+      }
+    }
+
+    .subheader-title {
+      color: $color_main;
+      text-transform: uppercase;
+      font-size: $f6;
+    }
+
+    .subheader-title--muted {
+      opacity: .5;
+    }
+
+    .subheader-title--compact {
+      margin-bottom: 0;
+    }
+
+    .subheader-number {
+      align-items: center;
+
+      @include flex-align($horizontal: space-between);
+
+      @include min-screen($wMedium) {
+        @include flexbox(5rem);
+      }
+
+      > p {
+        font-size: $f1;
+        line-height: $f1;
+
+        @include min-screen($wMedium) {
+          font-size: $submega;
+          line-height: $submega;
+        }
+      }
+
+      > :last-child {
+        flex-basis: 25%;
+      }
+    }
+
+    .subheader-selector {
+      /* reset */
+      border-radius: 0;
+      border: 1px solid $color_separator;
+      height: 2rem;
+      background: $color_main_negative;
+      padding: 0;
+
+      /* stylish */
+      width: 50%;
+      color: rgba($color_text, .5);
+      background-image: linear-gradient(45deg, transparent 50%, $color_separator 50%), linear-gradient(135deg, $color_separator 50%, transparent 50%);
+      background-position: calc(100% - 20px) 50%, calc(100% - 12px) 50%;
+      background-size: 8px 8px, 8px 8px;
+      background-repeat: no-repeat;
+    }
+  }
+
+  // @Component CHARTER
+  .charter-container {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid $color_separator;
+    background-color: $color_separator;
+
+    .charter {
+
+      @include screen(0, $wExtraLarge - 1) {
+        @include flexgrid($gap: 1px, $columns: 3);
+      }
+
+      @include min-screen($wExtraLarge) {
+        @include flexgrid($gap: 1px, $columns: 4);
+      }
+
+      // to avoid using opacity rgba(color, .1)
+      background-color: lighten(desaturate(adjust-hue($color_main, 7), 55.56), 59.8);
+      padding: 2rem;
+
+      &:hover {
+        // to avoid using opacity rgba(color, .2)
+        background-color: lighten(desaturate(adjust-hue($color_main, 8), 54.29), 53.14);
+      }
+
+      .charter-number {
+        align-items: center;
+
+        @include flex-align($horizontal: space-between);
+
+        @include min-screen($wMedium) {
+          @include flexbox(3rem);
+        }
+
+        > p {
+          font-size: $f1;
+          line-height: $f1;
+        }
+
+        > :last-child {
+          flex-basis: 25%;
+        }
+      }
+
+      .charter-text--muted {
+        opacity: .5;
+      }
+    }
+  }
+
+  .sparkline {
+    path {
+      stroke: $color_main;
+    }
+
+    svg {
+      background-color: rgba($color_main, .1);
+    }
+
+    circle {
+      display: none;
+    }
+
+    .axis line {
+      stroke: rgba($color_main, .1);
+    }
+  }
+}

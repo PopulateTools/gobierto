@@ -1,7 +1,6 @@
 import * as d3 from 'd3'
 import { Card } from './card.js'
-import { Sparkline } from './vis_sparkline.js'
-import { SparklineTableCard } from './vis_card_sparkline_table.js'
+import { Sparkline, SparklineTableCard } from 'visualizations'
 
 export class ContractsBySectorCard extends Card {
   constructor(divClass, city_id) {

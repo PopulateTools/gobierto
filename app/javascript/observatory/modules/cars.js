@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import { Card } from './card.js'
-import { BarsCard } from './vis_card_bars.js'
+import { BarsCard } from 'visualizations'
 
 export class CarsCard extends Card {
   constructor(divClass, city_id) {

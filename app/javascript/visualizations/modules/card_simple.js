@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { Sparkline } from './vis_sparkline.js'
+import { Sparkline } from './sparkline.js'
 import { d3locale, accounting } from 'shared'
 
 export class SimpleCard {

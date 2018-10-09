@@ -1,12 +1,6 @@
 import 'sticky-kit/dist/sticky-kit.js'
 
 import { GetUnemploymentAgeData } from './get_unemployment_age_data.js'
-import { VisUnemploymentSex } from './vis_unemployment_sex.js'
-import { VisUnemploymentAge } from './vis_unemployment_age.js'
-import { VisUnemploymentRate } from './vis_unemployment_rate.js'
-// import { VisAgeDistribution } from './vis_age_distribution.js'
-import { VisRentDistribution } from './vis_rent_distribution.js'
-import { VisPopulationPyramid } from './vis_population_pyramid.js'
 import { PopulationCard } from './population.js'
 import { BirthRateCard } from './birth_rate.js'
 import { DeathRateCard } from './death_rate.js'
@@ -28,6 +22,13 @@ import { BudgetByInhabitantCard } from './budget_by_inhabitant.js'
 import { ConstructionTaxCard } from './construction_tax.js'
 import { CarsTaxCard } from './cars_tax.js'
 import { EconomicTaxCard } from './economic_tax.js'
+import {
+  VisUnemploymentSex,
+  VisUnemploymentAge,
+  VisUnemploymentRate,
+  VisRentDistribution,
+  VisPopulationPyramid,
+ } from 'visualizations'
 
 function selectSection(html){
   var $el = $('[data-breadcrumb-sub-item]');

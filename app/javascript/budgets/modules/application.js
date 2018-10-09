@@ -16,12 +16,7 @@ import './intelligenceBudgetLines.js'
 import './intelligenceBudgetLinesMeans.js'
 import './visLine.js'
 
-$(document).on('turbolinks:load', function() {
-
-  if(!isDesktop()) {
-    $('.open_line_browser').hide();
-  }
-
+$(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {
   if($('#expense-treemap').length && !$('#expense-treemap svg').length){
     let expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);
     expenseTreemap.render($('#expense-treemap').data('functional-url'));
@@ -38,6 +33,13 @@ $(document).on('turbolinks:load', function() {
     window.addEventListener("resize", _.debounce(function () {
       expenseTreemap.render($('#treemap').data('url'));
     }, 250));
+  }
+})
+
+$(document).on('turbolinks:load', function() {
+
+  if(!isDesktop()) {
+    $('.open_line_browser').hide();
   }
 
   if($('.vis-bubbles-expense').length && $('.vis-bubbles-income').length && !$('.vis-bubbles-expense svg').length && !$('.vis-bubbles-income svg').length) {

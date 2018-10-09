@@ -1,4 +1,4 @@
-import { VisLinesExecution } from './vis_lines_execution.js'
+import { VisLinesExecution } from 'visualizations'
 
 $(document).on('turbolinks:load', function() {
 

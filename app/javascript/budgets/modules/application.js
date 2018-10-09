@@ -3,12 +3,8 @@ import Turbolinks from 'turbolinks'
 import 'tipsy-1a'
 import 'devbridge-autocomplete'
 import 'sticky-kit/dist/sticky-kit.js'
-
-import { TreemapVis } from './vis_treemap.js'
-import { VisSlider } from './visSlider.js'
+import { VisTreemap, VisSlider, VisBubbles, VisBubbleLegend } from 'visualizations'
 import { getBudgetLevelData } from './getBudgetLevelData.js'
-import { VisBubbles } from './vis_bubbles.js'
-import { VisBubbleLegend } from './visBubbleLegend.js'
 // flight components
 import './budgetLineBreadcrumb.js'
 import './featuredBudgetLine.js'
@@ -23,7 +19,7 @@ $(document).on('turbolinks:load', function() {
   }
 
   if($('#expense-treemap').length && !$('#expense-treemap svg').length){
-    let expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);
+    let expenseTreemap = new VisTreemap('#expense-treemap', 'big', true);
     expenseTreemap.render($('#expense-treemap').data('functional-url'));
 
     window.addEventListener("resize", _.debounce(function () {
@@ -32,7 +28,7 @@ $(document).on('turbolinks:load', function() {
   }
 
   if($('#treemap').length && !$('#treemap svg').length){
-    let expenseTreemap = new TreemapVis('#treemap', 'big', true);
+    let expenseTreemap = new VisTreemap('#treemap', 'big', true);
     expenseTreemap.render($('#treemap').data('url'));
 
     window.addEventListener("resize", _.debounce(function () {

@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import { accounting } from 'shared'
 
-export class TreemapVis {
+export class VisTreemap {
   constructor(divId, size, clickable) {
     this.containerId = divId;
 
@@ -102,5 +102,4 @@ export class TreemapVis {
         })
     }.bind(this));
   }
-
 }

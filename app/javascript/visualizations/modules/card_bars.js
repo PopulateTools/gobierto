@@ -1,11 +1,10 @@
 import * as d3 from 'd3'
-import { d3locale, accounting } from 'shared'
+import { Card } from './card.js'
 
-export class BarsCard {
+export class BarsCard extends Card {
   constructor(divClass, json, data, cardName) {
-    d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
+    super(divClass)
 
-    this.div = d3.select(divClass);
     this.dataType = this.div.attr('data-type');
 
     var freq = this.div.attr('data-freq');
@@ -69,61 +68,6 @@ export class BarsCard {
     row.append('div')
       .attr('class', 'qty')
       .text(function(d) { return this._printData(d.figure); }.bind(this));
-  }
-
-  _printFreq(json) {
-    // Switch between different figure types
-    switch (json) {
-      case 'yearly':
-        return I18n.t('gobierto_observatory.cards.frequency.yearly')
-      case 'monthly':
-        return I18n.t('gobierto_observatory.cards.frequency.monthly')
-      case 'weekly':
-        return I18n.t('gobierto_observatory.cards.frequency.weekly')
-      case 'daily':
-        return I18n.t('gobierto_observatory.cards.frequency.dailt')
-      default:
-        return ''
-    }
-  }
-
-  _printData(data) {
-    // Switch between different figure types
-    switch (this.dataType) {
-      case 'percentage':
-        return accounting.formatNumber(data, 1) + '%';
-      case 'currency':
-        return accounting.formatNumber(data, 0) + '€';
-      case 'currency_per_person':
-        return accounting.formatNumber(data, 0) + '€/' + I18n.t('gobierto_observatory.inhabitants');
-      case 'per_inhabitant':
-        return accounting.formatNumber(data, 2) + '/' + I18n.t('gobierto_observatory.inhabitants');
-      default:
-        return accounting.formatNumber(data, 0);
-    }
-  }
-
-  _normalize(str) {
-    var from = "1234567890ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ‘/&().!",
-        to = "izeasgtogoAAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_____",
-        mapping = {};
-
-    for (let i = 0, j = from.length; i < j; i++) {
-      mapping[from.charAt(i)] = to.charAt(i);
-    }
-
-    var ret = [];
-    for (let i = 0, j = str.length; i < j; i++) {
-      var c = str.charAt(i);
-      if (mapping.hasOwnProperty(str.charAt(i))) {
-        ret.push(mapping[c]);
-      }
-      else {
-        ret.push(c);
-      }
-    }
-
-    return ret.join('').toLowerCase();
   }
 
 }

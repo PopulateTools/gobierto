@@ -1,11 +1,11 @@
 import * as d3 from 'd3'
-import { d3locale, accounting } from 'shared'
+import { Card } from './card.js'
+import { accounting } from 'shared'
 
-export class ComparisonCard {
+export class ComparisonCard extends Card {
   constructor(divClass, json, value_1, value_2, cardName) {
-    d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
+    super(divClass, json)
 
-    this.div = d3.select(divClass);
     this.firstDataType = this.div.attr('data-type-first');
     this.secondDataType = this.div.attr('data-type-second');
 
@@ -52,22 +52,6 @@ export class ComparisonCard {
       .text(json.metadata.indicator.description);
     this.div.selectAll('.js-data-freq')
       .text(formatDate(parsedDate));
-  }
-
-  _printFreq(json) {
-    // Switch between different figure types
-    switch (json) {
-      case 'yearly':
-        return I18n.t('gobierto_observatory.cards.frequency.yearly')
-      case 'monthly':
-        return I18n.t('gobierto_observatory.cards.frequency.monthly')
-      case 'weekly':
-        return I18n.t('gobierto_observatory.cards.frequency.weekly')
-      case 'daily':
-        return I18n.t('gobierto_observatory.cards.frequency.dailt')
-      default:
-        return ''
-    }
   }
 
   _printData(type, data) {

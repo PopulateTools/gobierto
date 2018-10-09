@@ -1,12 +1,12 @@
 import * as d3 from 'd3'
+import { Card } from './card.js'
 import { Sparkline } from './sparkline.js'
-import { d3locale, accounting } from 'shared'
+import { accounting } from 'shared'
 
-export class SimpleCard {
+export class SimpleCard extends Card {
   constructor(divClass, json, value, cardName, valueType) {
-    d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
+    super(divClass)
 
-    this.div = d3.select(divClass);
     this.dataType = this.div.attr('data-type');
 
     var trend = this.div.attr('data-trend');
@@ -72,35 +72,4 @@ export class SimpleCard {
         });
     }
   }
-
-  _printFreq(json) {
-    // Switch between different figure types
-    switch (json) {
-      case 'yearly':
-        return I18n.t('gobierto_observatory.cards.frequency.yearly')
-      case 'monthly':
-        return I18n.t('gobierto_observatory.cards.frequency.monthly')
-      case 'weekly':
-        return I18n.t('gobierto_observatory.cards.frequency.weekly')
-      case 'daily':
-        return I18n.t('gobierto_observatory.cards.frequency.dailt')
-      default:
-        return ''
-    }
-  }
-
-  _printData(data) {
-    // Switch between different figure types
-    switch (this.dataType) {
-      case 'percentage':
-        return accounting.formatNumber(data, 1) + '%';
-      case 'currency':
-        return accounting.formatNumber(data, 0) + '€';
-      case 'currency_per_person':
-        return accounting.formatNumber(data, 1) + '€/' + I18n.t('gobierto_observatory.inhabitants');
-      default:
-        return accounting.formatNumber(data, 0);
-    }
-  }
-
 }

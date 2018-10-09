@@ -1,11 +1,11 @@
 import * as d3 from 'd3'
-import { d3locale, accounting } from 'shared'
+import { Card } from './card.js'
+import { accounting } from 'shared'
 
-export class TableCard {
+export class TableCard extends Card {
   constructor(divClass, json, nest, cardName) {
-    d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
+    super(divClass)
 
-    this.div = d3.select(divClass);
     this.dataTypeOne = this.div.attr('data-type-one');
     this.dataTypeTwo = this.div.attr('data-type-two');
 
@@ -77,22 +77,6 @@ export class TableCard {
       .html(function(d) { return d; });
   }
 
-  _printFreq(json) {
-    // Switch between different figure types
-    switch (json) {
-      case 'yearly':
-        return I18n.t('gobierto_observatory.cards.frequency.yearly')
-      case 'monthly':
-        return I18n.t('gobierto_observatory.cards.frequency.monthly')
-      case 'weekly':
-        return I18n.t('gobierto_observatory.cards.frequency.weekly')
-      case 'daily':
-        return I18n.t('gobierto_observatory.cards.frequency.dailt')
-      default:
-        return ''
-    }
-  }
-
   _printData(data, dataType) {
     // Switch between different figure types
     switch (data, dataType) {
@@ -105,29 +89,6 @@ export class TableCard {
       default:
         return accounting.formatNumber(data, 0);
     }
-  }
-
-  _normalize(str) {
-    var from = "1234567890ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ‘/&().!",
-        to = "izeasgtogoAAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_____",
-        mapping = {};
-
-    for (let i = 0, j = from.length; i < j; i++) {
-      mapping[from.charAt(i)] = to.charAt(i);
-    }
-
-    var ret = [];
-    for (let i = 0, j = str.length; i < j; i++) {
-      var c = str.charAt(i);
-      if (mapping.hasOwnProperty(str.charAt(i))) {
-        ret.push(mapping[c]);
-      }
-      else {
-        ret.push(c);
-      }
-    }
-
-    return ret.join('').toLowerCase();
   }
 
 }

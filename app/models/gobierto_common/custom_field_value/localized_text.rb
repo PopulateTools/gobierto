@@ -7,5 +7,9 @@ module GobiertoCommon::CustomFieldValue
 
       raw_value[I18n.locale.to_s]
     end
+
+    def raw_value
+      super || {}
+    end
   end
 end

@@ -1,7 +1,10 @@
 #!/bin/sh
 
 # Setup custom engine 1
+branch=`git rev-parse --abbrev-ref HEAD`
+echo "Working in branch $branch"
 git clone git@github.com:PopulateTools/$CUSTOM_ENGINE_NAME_1.git ~/$CUSTOM_ENGINE_NAME_1
 cd ~/$CUSTOM_ENGINE_NAME_1
+git checkout $branch
 ./script/setup.sh
 ./script/create_webpacker_symlinks.sh

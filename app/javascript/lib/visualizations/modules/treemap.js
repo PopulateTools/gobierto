@@ -100,6 +100,9 @@ export class VisTreemap {
             }
           }
         })
+
+        $('.tipsit-treemap').tipsy({fade: false, gravity: $.fn.tipsy.autoNS, html: true});
+
     }.bind(this));
   }
 }

@@ -72,10 +72,3 @@ Rails.application.configure do
   config.action_mailer.asset_host = "http://#{app_host}"
   config.action_mailer.perform_deliveries = true
 end
-
-# Listen changes in I18n files and export JS file automatically
-listener = Listen.to('config/locales') do |modified, added, removed|
-  I18n::JS.export
-end
-listener.start
-

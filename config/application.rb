@@ -32,6 +32,8 @@ module Gobierto
       g.test_framework :minitest, spec: false, fixture: true
     end
 
+    config.middleware.use I18n::JS::Middleware
+
     config.action_dispatch.default_headers.merge!("Access-Control-Allow-Origin" => "*",
                                                   "Access-Control-Request-Method" => "*")
 

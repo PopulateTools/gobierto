@@ -56,3 +56,62 @@
     margin: 0;
   }
 }
+
+// Enable absolute positioning on children
+@mixin absolute-layout() {
+  position: relative;
+
+  .bottom,
+  .left,
+  .right,
+  .top {
+    position: absolute;
+  }
+
+  .left {
+    left: 0;
+  }
+
+  .right {
+    right: 0;
+  }
+
+  .top {
+    top: 0;
+  }
+
+  .bottom {
+    bottom: 0;
+  }
+}
+
+// Simulates CSS Grid
+// Tips:
+// - Avoid very large gaps
+@mixin flexgrid($gap: 0, $columns: 3) {
+  $unit: 1rem !default;
+  $gutter: if(unitless($gap), $gap * $unit, $gap);
+
+  flex: 1 0 calc((100% / #{$columns}) - #{$gutter});
+  margin: $gap / 2;
+  box-sizing: border-box;
+
+  &:nth-of-type(#{$columns}n + 1) {
+    margin-left: 0;
+  }
+
+  &:nth-of-type(#{$columns}n),
+  &:nth-last-of-type(1) {
+    margin-right: 0;
+  }
+
+  &:nth-of-type(-n + #{$columns}) {
+    margin-top: 0;
+  }
+
+  // targets to the last row items
+  &:nth-of-type(#{$columns}n + 1):nth-last-of-type(-n + #{$columns}),
+  &:nth-of-type(#{$columns}n + 1):nth-last-of-type(-n + #{$columns}) ~ * {
+    margin-bottom: 0;
+  }
+}

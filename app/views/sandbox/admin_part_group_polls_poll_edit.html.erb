@@ -63,7 +63,11 @@
         </div>
 
         <div class="form_item input_text">
-          <label for="name">Título Máx <%= attribute_length_indication 140 %></label>
+          <label for="name">
+            Título Máx
+            <%= attribute_indication_tag max_length: 140 %>
+          </label>
+
           <input type="text" id="name" value="¿Crees que habría que modificar la ordenanza sobre terrazas?">
         </div>
 
@@ -118,7 +122,7 @@
               <div class="form_item input_text">
                 <label for="name">
                   Pregunta
-                  <%= attribute_length_indication 140 %>
+                  <%= attribute_indication_tag max_length: 140 %>
                 </label>
                 <input type="text" id="name" value="<%= i %>">
               </div>
@@ -162,9 +166,15 @@
                 <div class="list_item">
 
                   <i class="fa fa-bars"></i>
-                  <label class="main"><%= i %></label>
+                  <label class="main">
+                    <%= i %>
+                    <div class="media">
+                      <img src="https://images.unsplash.com/photo-1451943744133-d6335204a0a3?auto=format&fit=crop&w=1489&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">
+                    </div>
+                  </label>
                   <div class="tools">
                     <%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'javascript:void(0)', title: 'Editar', class: 'tipsit', onclick: "$(this).parent().parent().hide(); $('#edit_response').show();" %>
+                    <%= link_to '<i class="fa fa-paperclip"></i>'.html_safe, 'javascript:void(0)', title: 'Añadir media', class: 'tipsit' %>
                     <%= link_to '<i class="fa fa-trash"></i>'.html_safe, 'javascript:void(0)', title: 'Eliminar', class: 'tipsit' %>
                   </div>
 

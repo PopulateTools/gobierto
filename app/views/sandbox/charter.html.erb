@@ -1,0 +1,69 @@
+<% content_for :javascript_module_link do %>
+  <%= javascript_pack_tag 'charters', 'data-turbolinks-track': true %>
+<% end %>
+
+<script type="module">
+  window.GobiertoCharters.charters_controller.show();
+</script>
+
+<main class="content gobierto_citizens-charters">
+
+  <div class="charter-header">
+    <div class="column">
+      <h1>Anàlisi Mediambiental i Contaminació Acústica</h1>
+      <%= image_tag('illustrations/personaliza.jpg') %>
+    </div>
+  </div>
+
+  <div class="charter-subheader">
+    <div class="column">
+      <div class="left absolute-layout">
+        <div class="subheader-title">Cumplimos con los compromisos de esta carta al</div>
+        <div class="subheader-number m_v_2">
+          <p>86,8%</p>
+          <div id="sparkline-GLOBAL" class="sparkline"></div>
+        </div>
+        <div class="subheader-title subheader-title--muted">Mejoramos un 5,4% respecto al año pasado</div>
+        <div class="subheader-title desktop_only bottom">Detalle de los compromisos:</div>
+      </div>
+      <div class="right">
+        <div class="m_b_1">
+          <div class="subheader-title">Acerca de esta carta</div>
+          <small>L’Ajuntament de València està desplegant en els últims mesos una intensa labor de modernització de la gestió pública local. Hem normalitzat procediments, simplificant tràmits, acurtat terminis... incorporant en la nostra labor diària la
+          qualitat en el servici, inclosa la implementació de les modernes tecnologies i la millora contínua.</small>
+        </div>
+        <div class="m_b_3">
+          <a href="#">Ver la carta completa</a>
+          <div class="subheader-title--muted">Misión, Visión, Servicios, Unidad responsable...</div>
+        </div>
+        <div>
+          <% content_for :selected, flush: true do %>
+            <a href="#">Datos correspondientes de 2017</a>
+          <% end %>
+          <% content_for :items, flush: true do %>
+            <a href="#">Datos correspondientes de 2018</a>
+            <a href="#">Datos correspondientes de 2017</a>
+            <a href="#">Datos correspondientes de 2016</a>
+          <% end %>
+          <%= render layout: 'shared/widget_dropdown' do %><% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="charter-container">
+    <% 9.times do |i| %>
+    <div class="charter">
+      <div class="charter-inner">
+        <div class="m_b_2">Realitzar les comprovacions, mesuraments i/o informes pertinents de les denúncies de sorolls entre particulars en un termini màxim de dues setmanes des de la visita als mateixos.</div>
+        <div class="charter-number m_b_1">
+          <p>92.4%</p>
+          <div id="sparkline-<%= i %>" class="sparkline"></div>
+        </div>
+        <small class="charter-text--muted">El nombre de denúncies resoltes en termini.</small>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+</main>

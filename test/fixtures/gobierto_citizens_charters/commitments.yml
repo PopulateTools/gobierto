@@ -1,0 +1,17 @@
+call_center_service_level:
+  charter: teleassistance_charter
+  title_translations: <%= { "en" => "Call center service level agreement", "es" => "Acuerdo de nivel de servicio del call center" }.to_json %>
+  description_translations:  <%= { "en" => "95% of incoming calls will be answered in less than 1 minute", "es" => "El 95% de las llamadas serán atendidas en menos de 1 minuto" }.to_json %>
+  slug: teleassistance-sla
+  visibility_level: <%= GobiertoCitizensCharters::Commitment.visibility_levels["active"] %>
+  created_at: 2018-09-11 00:02:00
+  updated_at: 2018-09-11 00:02:00
+
+devices_operation:
+  charter: teleassistance_charter
+  title_translations: <%= { "en" => "Teleassistance devices operation", "es" => "Funcionamiento de dispositivos de teleasistencia" }.to_json %>
+  description_translations:  <%= { "en" => "The correct operation of all telecare devices will be checked every 15 days", "es" => "El correcto funcionamiento de todos los dispositivos de teleasistencia se comprobará cada 15 días" }.to_json %>
+  slug: devices-operation
+  visibility_level: <%= GobiertoCitizensCharters::Commitment.visibility_levels["active"] %>
+  created_at: 2018-09-11 00:02:00
+  updated_at: 2018-09-11 00:02:00

@@ -1,0 +1,120 @@
+---
+en:
+  gobierto_admin:
+    gobierto_citizens_charters:
+      charters:
+        charter:
+          view_charter: View charter
+        commitments:
+          commitment:
+            see_recent: See latest measurement
+            view_commitment: View commitment
+          form:
+            placeholders:
+              description: 95% of incoming calls will be answered in less than 1 minute
+              slug: teleasistance-sla
+              title: Call center service level agreement
+          index:
+            header:
+              description: Description
+              editions: Númber of measurements
+              status: Estaus
+              title: Title
+            new: New commitment
+          new:
+            title: New commitment
+        editions:
+          index:
+            commitments_link: Go to commitments
+            empty_commitments: No commitments created yet.
+            month_interval: Monthly
+            month_period: "%{month} / %{year}"
+            new: New measurement
+            quarter_interval: Quarterly
+            quarter_period: "%{quarter} / %{year}"
+            week_interval: Weekly
+            week_period: "%{week} / %{year}"
+            year_interval: Yearly
+            year_period: "%{year}"
+        editions_intervals:
+          edition_interval:
+            month_interval: Monthly
+            quarter_interval: Quarterly
+            view_charter: View charter
+            week_interval: Weekly
+            year_interval: Yearly
+          index:
+            all: All
+            cta_commitments_link: Create your first commitment
+            cta_commitments_message: No commitments created yet. Commitments are required
+              to insert measurements.
+            header:
+              editions: Measurement
+              period: Edition
+            new: New measurement
+          new:
+            next: Next
+            title: New Measurement
+        form:
+          placeholders:
+            slug: teleassistance-charter
+            title: Teleassistance charter
+        index:
+          header:
+            created: Created at
+            service: Service
+            status: Status
+            title: Title
+            updated: Updated
+          new: New charter
+          title: Services Charters
+        new:
+          title: New charter
+      configuration:
+        settings:
+          edit:
+            enable_charters: Enable Citizens Charters
+            enable_services: Enable Services
+            title: Configuration
+            update: Update
+          title: Preferences
+      editions:
+        index:
+          all_commitments_used: All the commitments already have value
+          errors:
+            missing_values: Please, fill in the percentage or the value and max_value
+              pair
+          header:
+            max_value: Max Value
+            percentage: Percentage
+            title: Title
+            value: Value
+      services:
+        form:
+          placeholders:
+            slug: day-care
+            title: Day care service
+        index:
+          header:
+            category: Category
+            charters: Services charters
+            created: Created at
+            status: Status
+            title: Title
+            updated: Updated at
+          new: New sercice
+          title: Services
+        new:
+          title: New service
+        service:
+          view_service: View service
+      shared:
+        configuration:
+          configuration: Configuration
+        edit:
+          title: Edit %{item}
+        navigation:
+          charters: Services charters
+          commitments: Commitments
+          editions_intervals: Editions
+          services: Services

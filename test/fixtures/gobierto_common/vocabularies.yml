@@ -22,3 +22,8 @@ madrid_political_groups_vocabulary:
   site: madrid
   name_translations: <%= { es: "Vocabulario de Grupos Políticos de Madrid", en: "Madrid Political Groups Vocabulary" }.to_json %>
   slug: madrid_political_groups_vocabulary
+
+citizens_services_categories:
+  site: madrid
+  name_translations: <%= { es: "Vocabulario de Servicios de Madrid", en: "Madrid Services Vocabulary" }.to_json %>
+  slug: madrid_services_vocabulary

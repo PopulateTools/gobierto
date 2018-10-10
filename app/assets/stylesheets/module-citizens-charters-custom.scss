@@ -1,0 +1,13 @@
+$colors: $color_main #ff8400 #717e86 #2989dc #a600a9 #e1d73b;
+
+.gobierto_citizens-charters {
+  .charters-box-container {
+    @for $i from 1 through length($colors) {
+      $c: nth($colors, $i);
+
+      .charters-box:nth-of-type(#{length($colors)}n + #{$i}) {
+        background-color: $c;
+      }
+    }
+  }
+}

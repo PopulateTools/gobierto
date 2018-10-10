@@ -1,7 +1,7 @@
 <% question_index = params["answers"].present? ? 1 : 0 %>
 
 <div style='<%= question_fb.index == question_index ? '' : "display: none;" %>' class="poll_content <%= class_if('question_active', question_fb.index == question_index) %>" id='<%= "poll_question_#{question_fb.index}" %>'>
-  <div class='poll_question'>
+  <div class="poll_question <%= class_if('with_media', question.answer_templates.pluck(:image_url).any?) %>">
 
     <h2><%= question.title %></h2>
 
@@ -16,6 +16,15 @@
           <%= check_box_tag "poll[questions_attributes][#{question_fb.index}][answers_attributes][#{idx}][answer_template_id]", answer_template.id, checked = question_answered %>
           <div class='poll_option'>
             <%= label_tag "poll[questions_attributes][#{question_fb.index}][answers_attributes][#{idx}][answer_template_id]", answer_template.text, class: "button outline rounded #{ class_if('checked', question_answered) }" %>
+
+            <% if answer_template.image_url %>
+              <div class="media">
+                <%= link_to answer_template.image_url, data: { lightbox: "slideshow-#{question.id}", title: answer_template.text } do %>
+                  <%= image_tag answer_template.image_url %>
+                <% end %>
+              </div>
+            <% end %>
+
           </div>
         <% end %>
       </div>
@@ -31,6 +40,15 @@
             <%= label_tag "poll[questions_attributes][#{question_fb.index}][answers_attributes][#{idx}][answer_template_id][#{answer_template.id}]", class: "button outline rounded #{ class_if('checked', question_answered) }" do %>
               <%= answer_template.text %>
             <% end %>
+
+            <% if answer_template.image_url %>
+              <div class="media">
+                <%= link_to answer_template.image_url, data: { lightbox: "slideshow-#{question.id}", title: answer_template.text } do %>
+                  <%= image_tag answer_template.image_url %>
+                <% end %>
+              </div>
+            <% end %>
+
           </div>
         <% end %>
       </div>

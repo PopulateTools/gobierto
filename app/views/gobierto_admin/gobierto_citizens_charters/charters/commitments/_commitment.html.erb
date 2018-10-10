@@ -1,0 +1,43 @@
+<tr id="commitment-item-<%= commitment.id %>" data-id="<%= commitment.id %>">
+  <td>
+    <%= link_to edit_admin_citizens_charters_charter_commitment_path(@charter, commitment) do %>
+      <i class="fa fa-edit"></i>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to edit_admin_citizens_charters_charter_commitment_path(@charter, commitment) do %>
+      <%= commitment.title %>
+    <% end %>
+  </td>
+  <td>
+    <%= commitment.description %>
+  </td>
+  <td>
+    <%= commitment.editions.count %>
+    <% if commitment.editions.exists? %>
+      (<%= link_to t(".see_recent"), admin_citizens_charters_charter_editions_path(@charter, commitment.editions.recent.first.period_admin_params) %>)
+    <% end %>
+  </td>
+  <td class="visibility_level">
+    <% if commitment.draft? %>
+      <i class="fa fa-lock"></i>
+    <% else %>
+      <i class="fa fa-check"></i>
+    <% end %>
+    <%= t("gobierto_admin.shared.save_widget.visibility_level.#{commitment.visibility_level}") %>
+  </td>
+  <td>
+    <%= link_to preview_url(commitment, host: current_site.domain), target: "_blank", class: "view_item" do %>
+      <i class="fa fa-eye"></i>
+      <%= t(".view_commitment") %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to admin_citizens_charters_charter_commitment_path(@charter, commitment),
+                title: t("gobierto_admin.shared.archive.element"),
+                method: :delete,
+                data: { confirm: t("gobierto_admin.shared.archive.confirm") } do %>
+                  <i class="fa fa-trash"></i>
+                <% end %>
+  </td>
+</tr>

@@ -1,0 +1,14 @@
+<% default = true unless local_assigns.has_key?(:default) %>
+<div class="dropdown">
+  <div class="dropdown-inner">
+    <%= yield :selected %>
+  </div>
+  <div class="dropdown-content">
+    <div class="dropdown-inner">
+      <%= yield :selected %>
+    </div>
+    <div class="dropdown-items<%= ' default' if default %>">
+      <%= yield :items %>
+    </div>
+  </div>
+</div>

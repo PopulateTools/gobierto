@@ -1,4 +1,80 @@
-// @component Dropdown
+// Dropdown variables
+$space: .25rem; // Set spaces based on minimal value
+$arrow-size: 5px;
+
+// @component General dropdown
+.dropdown {
+  background-color: $color_main_negative;
+  display: inline-block;
+  position: relative;
+
+
+  .dropdown-inner {
+
+    padding: $space 3 * $space;
+    font-weight: 200;
+    background-color: transparentize($color_main, 0.9);
+    background-image: linear-gradient(45deg, transparent 50%, $color_main 50%), linear-gradient(135deg, $color_main 50%, transparent 50%);
+    background-position: calc(100% - #{2 * $space} - #{$arrow-size}) 50%, calc(100% - #{2 * $space}) 50%;
+    background-size: $arrow-size $arrow-size, $arrow-size $arrow-size;
+    background-repeat: no-repeat;
+
+    @include border-radius(4px);
+
+    * {
+      text-decoration: none;
+      color: $color_text;
+      margin-right: 4 * $space;
+    }
+  }
+
+  .dropdown-content {
+    z-index: 100;
+    overflow: hidden;
+    white-space: nowrap;
+    display: none;
+    position: absolute;
+    background-color: $color_main_negative;
+    border: 1px solid #dfdfdf;
+    text-align: left;
+    box-sizing: border-box;
+
+    // positioning
+    $normal-gap: 8 * $space;
+    $small-gap: 6 * $space;
+
+    padding: calc(#{$small-gap} - 1px) $normal-gap $normal-gap;
+    margin-left: calc(-#{$normal-gap} - 1px);
+    margin-top: -#{$small-gap + $normal-gap};
+
+    @include border-radius(4px);
+    @include box-shadow(0, 3px, 6px, rgba(0, 0, 0, 0.2));
+
+    .dropdown-inner {
+      margin-bottom: 4 * $space;
+      display: inline-block;
+    }
+
+    .dropdown-items.default * {
+      display: block;
+      font-weight: 200;
+      border-top: 1px solid transparentize($color_main, 0.85);
+      background-color: $color_1_soft;
+      padding: 2 * $space 3 * $space $space;
+
+      &:hover {
+        transition: all 0.15s ease-out 0s;
+        background-color: rgba($color_main, 0.1);
+      }
+    }
+  }
+
+  &:hover .dropdown-content {
+    display: block;
+  }
+}
+
+// @component Inline-button Dropdown
 [data-dropdown]:not(.js-dropdown) {
   position: absolute;
   background-color: $color_main_negative;

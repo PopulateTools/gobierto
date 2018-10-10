@@ -7,6 +7,7 @@ module GobiertoAdmin
     scope :for_modules, -> { where(namespace: 'site_module') }
     scope :for_people, -> { where(namespace: 'gobierto_people', resource_name: 'person') }
     scope :for_site_options, -> { where(namespace: "site_options") }
+    scope :for_class_module, -> { for_modules.where(resource_name: model.name.demodulize.underscore) }
 
     validates :admin_id, presence: true
     validates :namespace, presence: true

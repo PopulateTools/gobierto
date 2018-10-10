@@ -1,0 +1,55 @@
+<div class="column">
+
+  <main class="content gobierto_citizens-charters">
+    <!-- Welcome block -->
+    <div class="block m_v_3 absolute-layout">
+
+      <div class="pure-g header_block_inline">
+        <div class="pure-u-1 pure-u-md-12-24">
+          <div class="inline_header">
+            <h2 class="with_description p_h_r_1">Información sobre el cumplimiento de los compromisos del Ayuntamiento de Valencia</h2>
+          </div>
+
+          <p>
+            El Ayuntamiento publica sus cartas de servicios con sus respectivos compromisos y grados de cumplimiento. Explora las cartas y los niveles de cumplimiento de los compromisos que publicamos de forma regular
+          </p>
+
+          <p class="common-links">
+            <span><a href="">Qué son las cartas de servicios</a></span><span><a href="">Contacto</a></span>
+          </p>
+
+        </div>
+      </div>
+
+      <div class="charters-box-container bottom fake-layout">
+        <div class="charters-box invisible"><!-- fake block --></div>
+        <div class="charters-box invisible"><!-- fake block --></div>
+        <div class="charters-box--lead">
+          <div class="box-inner">
+            <div class="box-results top left">
+              <div class="results-title">Cumplimiento global</div>
+              <div class="results-value">95,6%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boxes block -->
+    <div class="charters-box-container">
+      <% 6.times do %>
+        <%= link_to 'charter', class: 'charters-box' do %>
+        <div class="box-inner">
+          <div class="box-title top left">Anàlisi Mediambiental i Contaminació Acústica</div>
+          <div class="box-results bottom left">
+            <div class="results-title">Cumplimiento</div>
+            <div class="results-value">95,6%</div>
+          </div>
+          <div class="box-contents bottom right">12 compromisos</div>
+        </div>
+        <% end %>
+      <% end %>
+    </div>
+  </main>
+
+</div>

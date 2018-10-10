@@ -38,6 +38,17 @@ pedestrianization_open:
   answer_type: <%= GobiertoParticipation::PollQuestion.answer_types[:open] %>
   order: 0
 
+## cycling_tracks_draft poll
+
+cycling_tracks_draft_single_choice:
+  poll: cycling_tracks_draft
+  title_translations: <%= {
+    "en" => "First question?",
+    "es" => "¿Primera pregunta?"
+  }.to_json %>
+  answer_type: <%= GobiertoParticipation::PollQuestion.answer_types[:single_choice] %>
+  order: 0
+
 ## public_spaces poll
 
 public_spaces_single_choice:
@@ -98,7 +109,7 @@ noise_problems_open:
 
 ## neighbor_opinion_poll
 
-neighbor_opinion_poll_single_choice:
+neighbor_opinion_poll_single_choice_0:
   poll: neighbor_opinion_poll
   title_translations: <%= {
     'en' => 'Do you mind if the carnival parade takes place next to your house?',
@@ -106,3 +117,12 @@ neighbor_opinion_poll_single_choice:
   }.to_json %>
   answer_type: <%= GobiertoParticipation::PollQuestion.answer_types[:single_choice] %>
   order: 0
+
+neighbor_opinion_poll_single_choice_1:
+  poll: neighbor_opinion_poll
+  title_translations: <%= {
+    'en' => 'Choose one image',
+    'es' => 'Elige una imagen'
+  }.to_json %>
+  answer_type: <%= GobiertoParticipation::PollQuestion.answer_types[:single_choice] %>
+  order: 1

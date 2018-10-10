@@ -135,7 +135,7 @@ module GobiertoAdmin
           elsif answer_template_attributes[:_destroy] != '1'
 
             if existing_answer_template
-               update_answer_template_from_attributes(existing_answer_template, answer_template_attributes)
+              update_answer_template_from_attributes(existing_answer_template, answer_template_attributes)
             else
               build_answer_template_from_attributes(question, answer_template_attributes)
             end
@@ -150,15 +150,17 @@ module GobiertoAdmin
         question.answer_templates.build(
           question: question, # force question to be assigned
           text: attributes[:text],
+          image_url: answer_template_image_url(attributes),
           order: attributes[:order]
         )
       end
 
       def update_answer_template_from_attributes(answer_template, attributes)
         answer_template.assign_attributes(
-         text: attributes[:text],
-         order: attributes[:order]
-       )
+          text: attributes[:text],
+          image_url: answer_template_image_url(attributes, answer_template),
+          order: attributes[:order]
+        )
       end
 
       def save_poll
@@ -184,10 +186,21 @@ module GobiertoAdmin
 
       def minify_collection_order(collection)
         order = 0
-        collection.sort_by{ |item| item.order }.each do |collection_item|
+        collection.sort_by(&:order).each do |collection_item|
           collection_item.order = order
           order += 1
         end
+      end
+
+      def answer_template_image_url(attributes, existing_answer_template = nil)
+        return existing_answer_template&.image_url unless attributes[:image_file]
+
+        FileUploadService.new(
+          site: site,
+          collection: ::GobiertoParticipation::PollAnswerTemplate.model_name.collection,
+          attribute_name: :image,
+          file: attributes[:image_file]
+        ).call
       end
 
     end

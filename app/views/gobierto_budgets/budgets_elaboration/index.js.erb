@@ -1,7 +1,2 @@
 $('#data-block').html('<%=j render 'data_block' %>');
-
 $('#treemap svg').html('');
-if($('#treemap').length && !$('#treemap svg').length){
-  window.expenseTreemap = new TreemapVis('#treemap', 'big', true);
-  window.expenseTreemap.render($('#treemap').data('url'));
-}

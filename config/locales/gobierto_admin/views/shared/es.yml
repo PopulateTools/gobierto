@@ -30,6 +30,8 @@ es:
       recover:
         confirm: Si recuperas un elemento, se volverá a listar de nuevo.
         element: Recuperar elemento
+        not_recoverable: Este elemento no se puede recuperar porque depende de elementos
+          archivados
       save_widget:
         save: Guardar
         visibility_level:

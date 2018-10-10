@@ -1,0 +1,29 @@
+<%= render("gobierto_admin/gobierto_citizens_charters/shared/charter_breadcrumb") %>
+
+<%= render("gobierto_admin/gobierto_citizens_charters/shared/navigation") %>
+
+<div class="pure-g m_v_2">
+  <%= render("sub_breadcrumb") %>
+</div>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_citizens_charters_charter_commitment_path(@charter), class: "button" %>
+</div>
+
+<table class="commitments-list">
+  <thead>
+    <tr>
+      <th></th>
+      <th><%= t(".header.title") %></th>
+      <th><%= t(".header.description") %></th>
+      <th><%= t(".header.editions") %></th>
+      <th><%= t(".header.status") %></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: "commitment", collection: @commitments %>
+  </tbody>
+</table>

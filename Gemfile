@@ -35,7 +35,7 @@ gem "turbolinks"
 gem "uglifier", ">= 1.3.0"
 
 # Webpack
-gem "webpacker", "~> 3.0"
+gem "webpacker", "~> 3.0", git: "https://github.com/ferblape/webpacker.git", branch: "3-x-stable"
 
 # Elasticsearch
 gem "elasticsearch"

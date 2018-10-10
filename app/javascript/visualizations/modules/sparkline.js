@@ -1,15 +1,18 @@
 import * as d3 from 'd3'
 
 export class Sparkline {
-  constructor(divId, json, trend, freq) {
-    this.container = divId;
-    this.timeParse = freq === 'daily' ? d3.timeParse('%Y-%m-%d') : freq === 'monthly' ? d3.timeParse('%Y-%m') : d3.timeParse('%Y');
-    this.isMobile = window.innerWidth <= 768;
-    this.trend = trend;
-    this.data = json;
+  constructor(context, data, options = {}) {
+    this.container = context;
+    this.data = data;
+
+    // options
+    this.timeParse = options.freq === 'daily' ? d3.timeParse('%Y-%m-%d') : options.freq === 'monthly' ? d3.timeParse('%Y-%m') : d3.timeParse('%Y');
+    this.trend = options.trend;
+    this.axes = options.axes || false;
+    this.aspectRatio = options.aspectRatio || 5
+    this.margin = options.margins || {top: 5, right: 5, bottom: 5, left: 5};
 
     // Chart dimensions
-    this.margin = {top: 5, right: 5, bottom: 5, left: 5};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -39,11 +42,11 @@ export class Sparkline {
   updateRender() {
     this.xScale
       .rangeRound([0, this.width])
-      .domain(d3.extent(this.data, function(d) { return d.date; }.bind(this)));
+      .domain(d3.extent(this.data, function(d) { return d.date; }.bind(this)))
 
     this.yScale
       .rangeRound([this.height, 0])
-      .domain(d3.extent(this.data, function(d) { return d.value; }.bind(this)));
+      .domain(d3.extent(this.data, function(d) { return d.value; }.bind(this))).nice()
   }
 
   _renderLines() {
@@ -53,9 +56,17 @@ export class Sparkline {
 
     this.isPositive = this.data[0].value - this.data.slice(-1)[0].value > 0 ? true : false;
 
+    if (this.axes) {
+      this.svg.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', `translate(0,${this.height})`)
+        .call(this._xAxis.bind(this))
+    }
+
     this.svg.append('path')
       .datum(this.data)
       .attr('stroke', this._getColor())
+      .attr('fill', 'none')
       .attr('d', this.line);
 
     this.svg.append('circle')
@@ -63,6 +74,17 @@ export class Sparkline {
       .attr('cy', function() { return this.yScale(this.data[0].value); }.bind(this))
       .attr('r', 2.5)
       .attr('fill', this._getColor());
+  }
+
+  _xAxis(g) {
+    g.call(d3.axisTop(this.xScale).ticks(this.data.length))
+    g.selectAll(".domain").remove()
+    g.selectAll(".tick text").remove()
+    g.selectAll(".tick:first-of-type line").remove()
+    g.selectAll(".tick:last-of-type line").remove()
+    g.selectAll(".tick line")
+      .attr("y1", 0)
+      .attr("y2", -this.height)
   }
 
   _getColor() {
@@ -80,17 +102,11 @@ export class Sparkline {
   }
 
   _width() {
-    var cont = d3.select(this.container);
-
-    try {
-      return parseInt(cont.style('width'));
-    } catch(e) {
-      return 0;
-    }
+    return parseInt(d3.select(this.container).style('width')) || +d3.select(this.container).node().getBoundingClientRect().width
   }
 
   _height() {
-    return this._width() * 0.2;
+    return this._width() / this.aspectRatio
   }
 
   _resize() {
@@ -113,5 +129,4 @@ export class Sparkline {
       .attr('cx', function() { return this.xScale(this.data[0].date); }.bind(this))
       .attr('cy', function() { return this.yScale(this.data[0].value); }.bind(this))
   }
-
 }

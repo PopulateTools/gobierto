@@ -13,7 +13,8 @@ import './components/intelligenceBudgetLinesMeans.js'
 import './components/visLine.js'
 
 $(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {
-  if($('#expense-treemap').length && !$('#expense-treemap svg').length){
+
+  if($('#expense-treemap').length && !$('#expense-treemap .treemap_node').length){
     let expenseTreemap = new VisTreemap('#expense-treemap', 'big', true);
     expenseTreemap.render($('#expense-treemap').data('functional-url'));
 
@@ -22,9 +23,11 @@ $(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {
     }, 250));
   }
 
-  if($('#treemap').length && !$('#treemap svg').length){
+  if($('#treemap').length && !$('#treemap .treemap_node').length){
     let expenseTreemap = new VisTreemap('#treemap', 'big', true);
     expenseTreemap.render($('#treemap').data('url'));
+
+    $('.tipsit-treemap').tipsy({fade: false, gravity: $.fn.tipsy.autoNS, html: true});
 
     window.addEventListener("resize", _.debounce(function () {
       expenseTreemap.render($('#treemap').data('url'));

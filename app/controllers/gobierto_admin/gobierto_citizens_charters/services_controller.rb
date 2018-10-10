@@ -10,6 +10,7 @@ module GobiertoAdmin
 
       def new
         @service_form = ServiceForm.new(site_id: current_site.id)
+        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @service_form.resource)
         render(:new_modal, layout: false) && return if request.xhr?
       end
 
@@ -19,13 +20,17 @@ module GobiertoAdmin
         @service_form = ServiceForm.new(
           @service.attributes.except(*ignored_service_attributes).merge(site_id: current_site.id)
         )
+        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @service)
         render(:edit_modal, layout: false) && return if request.xhr?
       end
 
       def create
         @service_form = ServiceForm.new(service_params.merge(site_id: current_site.id))
+        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @service_form.resource)
+        @custom_fields_form.custom_field_records = custom_params
 
         if @service_form.save
+          @custom_fields_form.save
           redirect_to(
             admin_citizens_charters_services_path,
             notice: t(".success_html", link: preview_url(@service_form.resource, host: current_site.domain))
@@ -40,8 +45,10 @@ module GobiertoAdmin
         load_service
 
         @service_form = ServiceForm.new(service_params.merge(id: params[:id], site_id: current_site.id))
+        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @service)
+        @custom_fields_form.custom_field_records = custom_params
 
-        if @service_form.save
+        if @service_form.save && @custom_fields_form.save
           redirect_to(
             admin_citizens_charters_services_path,
             notice: t(".success_html", link: preview_url(@service_form.resource, host: current_site.domain))
@@ -81,6 +88,10 @@ module GobiertoAdmin
           :visibility_level,
           title_translations: [*I18n.available_locales]
         )
+      end
+
+      def custom_params
+        params.require(self.class.name.demodulize.gsub("Controller", "").underscore.singularize).permit(custom_records: {})
       end
 
       def ignored_service_attributes

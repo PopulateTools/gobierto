@@ -1,0 +1,8 @@
+<div class="<%= record.class_names %>">
+  <%= label_tag "#{ input_base_name }[#{ record.uid }][value]" do %>
+    <%= record.name %>
+    <%= attribute_indication_tag required: record.required? %>
+  <% end %>
+  <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
+  <%= send(record.field_tag, "#{ input_base_name }[#{ record.uid }][value]", record.input_content, record.tag_attributes) %>
+</div>

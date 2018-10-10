@@ -1,0 +1,30 @@
+<% input_base_name = "#{ form_name }[custom_records]" %>
+
+<% if item.has_localized_records? %>
+  <div class="globalized_fields">
+    <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+    <% item.localized_custom_field_records.select().each do |record| %>
+      <% current_site.configuration.available_locales.each do |locale| %>
+        <%= render(
+          partial: "gobierto_admin/gobierto_common/custom_fields/forms/#{ record.partial }",
+          locals: {
+            locale: locale,
+            record: record,
+            input_base_name: input_base_name,
+          }
+        ) %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<% item.not_localized_custom_field_records.each do |record| %>
+  <%= render(
+    partial: "gobierto_admin/gobierto_common/custom_fields/forms/#{ record.partial }",
+    locals: {
+      record: record,
+      input_base_name: input_base_name,
+    }
+  ) %>
+<% end %>

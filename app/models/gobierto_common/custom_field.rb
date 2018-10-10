@@ -23,6 +23,20 @@ module GobiertoCommon
       field_types.select { |key, _| /option/.match(key) }
     end
 
+    def has_options?
+      /option/.match field_type
+    end
+
+    def has_localized_value?
+      /localized/.match field_type
+    end
+
+    def localized_options(locale)
+      options.map do |id, translations|
+        [translations[locale.to_s], id]
+      end
+    end
+
     private
 
     def set_uid

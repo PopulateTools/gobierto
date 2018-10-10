@@ -20,7 +20,7 @@ class Site < ApplicationRecord
   has_many :terms, through: :vocabularies, class_name: "GobiertoCommon::Term"
 
   has_many :custom_fields, class_name: "GobiertoCommon::CustomField"
-  has_many :custom_field_records, through: :custom_fields, class_name: "GobiertoCommon::CustomFieldRecord"
+  has_many :custom_field_records, through: :custom_fields, class_name: "GobiertoCommon::CustomFieldRecord", source: :records
 
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"

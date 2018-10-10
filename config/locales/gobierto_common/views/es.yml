@@ -13,26 +13,11 @@ es:
       gobierto_common_term_created: Término creado
       gobierto_common_term_updated: Término actualizado
     visualizations:
+      absolute: Ejecución en €
+      adults: Población activa
+      age: Edad
       axis: años
-      label: habitantes
-      main_budget_levels_legend_down: Han bajado
-      main_budget_levels_legend_one: Cambio entre este año
-      main_budget_levels_legend_two: y el pasado
-      main_budget_levels_legend_up: Han subido
-      main_budget_levels_per_inhabitant: por habitante
-      main_budget_levels_tooltip_article: desde
-      time: " en "
-      where: 'En '
-      inhabitants: hab
-      frequency:
-        daily: Actualización diaria
-        monthly: Actualización mensual
-        weekly: Actualización semanal
-        yearly: Actualización anual
-      increase: Aumentar
-      keep: Mantener
-      questions: Preguntas
-      reduce: Reducir
+      between_25_44: Entre 25 y 44
       cards:
         active_pop:
           figure_first: del total
@@ -120,43 +105,54 @@ es:
           servicios: Servicios
           title: Desempleados por sector
         updated: Última actualización
+      country: España
+      elderly: Mayores
+      elderly_info: El %{percent} de la población tiene más de %{limit} años
+      empty_lines: No hay datos disponibles para esta clasificación en este año. Por
+        favor, selecciona otro filtro.
+      frequency:
+        daily: Actualización diaria
+        monthly: Actualización mensual
+        weekly: Actualización semanal
+        yearly: Actualización anual
+      gross_income: Renta bruta
+      increase: Aumentar
+      inhabitant_short: hab
+      inhabitants: Habitantes
+      keep: Mantener
+      label: habitantes
+      less_25: Menores de 25
+      lines_title: Partidas presupuestarias
+      main_budget_levels_legend_down: Han bajado
+      main_budget_levels_legend_one: Cambio entre este año
+      main_budget_levels_legend_two: y el pasado
+      main_budget_levels_legend_up: Han subido
+      main_budget_levels_per_inhabitant: por habitante
+      main_budget_levels_tooltip_article: desde
+      mean: 'Edad media: %{age} años'
       mean_autonomy: Media autonómica
       mean_national: Media estatal
       mean_province: Media provincial
-      previous_year_diff: Cambio año anterior
-      absolute: Ejecución en €
-      empty_lines: No hay datos disponibles para esta clasificación en este año.
-        Por favor, selecciona otro filtro.
-      lines_title: Partidas presupuestarias
+      median: 'Edad mediana: %{age} años'
+      men: Hombres
+      million: millón
+      mode: 'Edad más común: %{age} años'
+      more_44: Mayores de 44
       percent: "% de progreso"
       percent_log: "% de progreso (log)"
+      previous_year_diff: Cambio año anterior
+      proposal: Propuesta
+      questions: Preguntas
+      reduce: Reducir
+      thousand: mil
+      time: " en "
+      title: Riqueza y población en la provincia
       tooltip: Se ha ejecutado un
       tooltip_budgeted: Presupuestado inicial
       tooltip_budgeted_updated: Presupuestado actualizado
       tooltip_executed_amount: Importe ejecutado
-      adults: Población activa
-      age: Edad
-      country: España
-      elderly: Mayores
-      elderly_info: El %{percent} de la población tiene más de %{limit} años
-      mean: 'Edad media: %{age} años'
-      median: 'Edad mediana: %{age} años'
-      men: Hombres
-      mode: 'Edad más común: %{age} años'
       unemployed: Desempleada
+      where: 'En '
       women: Mujeres
       youth: Menores
       youth_info: El %{percent} de la población tiene menos de %{limit} años
-      gross_income: Renta bruta
-      inhabitants: Habitantes
-      million: millón
-      thousand: mil
-      title: Riqueza y población en la provincia
-      proposal: Propuesta
-      inhabitant_short: hab
-      between_25_44: Entre 25 y 44
-      less_25: Menores de 25
-      more_44: Mayores de 44
-      country: España
-      men: Hombres
-      women: Mujeres

@@ -13,26 +13,11 @@ en:
       gobierto_common_term_created: Term created
       gobierto_common_term_updated: Term updated
     visualizations:
+      absolute: Execution in €
+      adults: Employed population
+      age: Age
       axis: years
-      label: inhabitants
-      main_budget_levels_legend_down: Has decreased
-      main_budget_levels_legend_one: Change since last year
-      main_budget_levels_legend_two: ''
-      main_budget_levels_legend_up: Has increased
-      main_budget_levels_per_inhabitant: per inhabitant
-      main_budget_levels_tooltip_article: since
-      time: " in "
-      where: 'At '
-      inhabitants: inh
-      frequency:
-        daily: Updated daily
-        monthly: Updated monthly
-        weekly: Updated weekly
-        yearly: Updated annually
-      increase: Increase
-      keep: Keep
-      questions: Questions
-      reduce: Reduce
+      between_25_44: Between 25 and 44
       cards:
         active_pop:
           figure_first: of total
@@ -120,43 +105,54 @@ en:
           servicios: Services
           title: Unemployed by sector
         updated: Last update
+      country: Spain
+      elderly: Elderly
+      elderly_info: The %{percent} of the population is elder than %{limit} years
+      empty_lines: There aren't data for this classification and this year. Please,
+        choose another filter.
+      frequency:
+        daily: Updated daily
+        monthly: Updated monthly
+        weekly: Updated weekly
+        yearly: Updated annually
+      gross_income: Gross income
+      increase: Increase
+      inhabitant_short: inh
+      inhabitants: Inhabitants
+      keep: Keep
+      label: inhabitants
+      less_25: Younger than 25
+      lines_title: Budget lines
+      main_budget_levels_legend_down: Has decreased
+      main_budget_levels_legend_one: Change since last year
+      main_budget_levels_legend_two: ''
+      main_budget_levels_legend_up: Has increased
+      main_budget_levels_per_inhabitant: per inhabitant
+      main_budget_levels_tooltip_article: since
+      mean: 'Average age: %{age} years'
       mean_autonomy: Autonomy mean
       mean_national: National mean
       mean_province: Province mean
-      previous_year_diff: Previous year diff
-      absolute: Execution in €
-      empty_lines: There aren't data for this classification and this year. Please,
-        choose another filter.
-      lines_title: Budget lines
+      median: 'Median age: %{age} years'
+      men: Men
+      million: million
+      mode: 'Most common age: %{age} years'
+      more_44: Older than 44
       percent: "% of progress"
       percent_log: "% of progress (log)"
+      previous_year_diff: Previous year diff
+      proposal: Proposal
+      questions: Questions
+      reduce: Reduce
+      thousand: thousand
+      time: " in "
+      title: Wealth and population in the province
       tooltip: It has been executed by a
       tooltip_budgeted: Initial budget
       tooltip_budgeted_updated: Updated budget
       tooltip_executed_amount: Executed amount
-      adults: Employed population
-      age: Age
-      country: Spain
-      elderly: Elderly
-      elderly_info: The %{percent} of the population is elder than %{limit} years
-      mean: 'Average age: %{age} years'
-      median: 'Median age: %{age} years'
-      men: Men
-      mode: 'Most common age: %{age} years'
       unemployed: Unemployed
+      where: 'At '
       women: Women
       youth: Minors
       youth_info: The %{percent} of the population is younger than %{limit} years
-      gross_income: Gross income
-      inhabitants: Inhabitants
-      million: million
-      thousand: thousand
-      title: Wealth and population in the province
-      proposal: Proposal
-      inhabitant_short: inh
-      between_25_44: Between 25 and 44
-      less_25: Younger than 25
-      more_44: Older than 44
-      country: Spain
-      men: Men
-      women: Women

@@ -13,26 +13,11 @@ ca:
       gobierto_common_term_created: Terme creat
       gobierto_common_term_updated: Terme actualitzat
     visualizations:
+      absolute: Execució en €
+      adults: Població activa
+      age: Edat
       axis: anys
-      label: habitants
-      main_budget_levels_legend_down: Han baixat
-      main_budget_levels_legend_one: Canvi entre aquest any
-      main_budget_levels_legend_two: i el passat
-      main_budget_levels_legend_up: Han pujat
-      main_budget_levels_per_inhabitant: per habitant
-      main_budget_levels_tooltip_article: des de
-      time: " al "
-      where: 'A '
-      inhabitants: hab
-      frequency:
-        daily: Actualització diària
-        monthly: Actualització mensual
-        weekly: Actualització setmanal
-        yearly: Actualització anual
-      increase: Augmentar
-      keep: Mantindre
-      questions: Preguntes
-      reduce: Reduir
+      between_25_44: Entre 25 i 44
       cards:
         active_pop:
           figure_first: del total
@@ -120,43 +105,54 @@ ca:
           servicios: Serveis
           title: Desempleats per sector
         updated: Darrera actualització
+      country: Espanya
+      elderly: Majors
+      elderly_info: El %{percent} de la població té més de %{limit} anys
+      empty_lines: No hi ha dades disponibles per aquesta classificació en aquest
+        any. Per favor, selecciona un altre filtrat.
+      frequency:
+        daily: Actualització diària
+        monthly: Actualització mensual
+        weekly: Actualització setmanal
+        yearly: Actualització anual
+      gross_income: Renda bruta
+      increase: Augmentar
+      inhabitant_short: hab
+      inhabitants: Habitants
+      keep: Mantindre
+      label: habitants
+      less_25: Menors de 25
+      lines_title: Partides pressupostàries
+      main_budget_levels_legend_down: Han baixat
+      main_budget_levels_legend_one: Canvi entre aquest any
+      main_budget_levels_legend_two: i el passat
+      main_budget_levels_legend_up: Han pujat
+      main_budget_levels_per_inhabitant: per habitant
+      main_budget_levels_tooltip_article: des de
+      mean: 'Edat mitja: %{age} anys'
       mean_autonomy: Mitjana autonòmica
       mean_national: Mitjana estatal
       mean_province: Mitjana provincial
-      previous_year_diff: Canvi any anterior
-      absolute: Execució en €
-      empty_lines: No hi ha dades disponibles per aquesta classificació en aquest
-        any. Per favor, selecciona un altre filtrat.
-      lines_title: Partides pressupostàries
+      median: 'Edat mitjana: %{age} anys'
+      men: Homes
+      million: milió
+      mode: 'Edat més comú: %{age} anys'
+      more_44: Més de 44
       percent: "% de progrés"
       percent_log: "% de progrés (log)"
+      previous_year_diff: Canvi any anterior
+      proposal: Proposta
+      questions: Preguntes
+      reduce: Reduir
+      thousand: mil
+      time: " al "
+      title: Riquesa i població a la província
       tooltip: S'ha executat un
       tooltip_budgeted: Pressupostat inicial
       tooltip_budgeted_updated: Pressupostat actualitzat
       tooltip_executed_amount: Import executat
-      adults: Població activa
-      age: Edat
-      country: Espanya
-      elderly: Majors
-      elderly_info: El %{percent} de la població té més de %{limit} anys
-      mean: 'Edat mitja: %{age} anys'
-      median: 'Edat mitjana: %{age} anys'
-      men: Homes
-      mode: 'Edat més comú: %{age} anys'
       unemployed: Aturada
+      where: 'A '
       women: Dones
       youth: Menors
       youth_info: El %{percent} de la població té menys de %{limit} anys
-      gross_income: Renda bruta
-      inhabitants: Habitants
-      million: milió
-      thousand: mil
-      title: Riquesa i població a la província
-      proposal: Proposta
-      inhabitant_short: hab
-      between_25_44: Entre 25 i 44
-      less_25: Menors de 25
-      more_44: Més de 44
-      country: Espanya
-      men: Homes
-      women: Dones

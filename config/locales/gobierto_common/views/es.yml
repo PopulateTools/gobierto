@@ -129,6 +129,8 @@ es:
       main_budget_levels_legend_up: Han subido
       main_budget_levels_per_inhabitant: por habitante
       main_budget_levels_tooltip_article: desde
+      main_budget_levels_tooltip_down: Ha bajado un
+      main_budget_levels_tooltip_up: Ha subido un
       mean: 'Edad media: %{age} años'
       mean_autonomy: Media autonómica
       mean_national: Media estatal

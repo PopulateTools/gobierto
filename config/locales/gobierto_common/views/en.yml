@@ -129,6 +129,8 @@ en:
       main_budget_levels_legend_up: Has increased
       main_budget_levels_per_inhabitant: per inhabitant
       main_budget_levels_tooltip_article: since
+      main_budget_levels_tooltip_down: Has gone down
+      main_budget_levels_tooltip_up: Has risen
       mean: 'Average age: %{age} years'
       mean_autonomy: Autonomy mean
       mean_national: National mean

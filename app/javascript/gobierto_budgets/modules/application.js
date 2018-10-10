@@ -4,13 +4,13 @@ import 'tipsy-1a'
 import 'devbridge-autocomplete'
 import 'sticky-kit/dist/sticky-kit.js'
 import { VisTreemap, VisSlider, VisBubbles, VisBubbleLegend } from 'lib/visualizations'
-import { getBudgetLevelData } from './getBudgetLevelData.js'
+import { getBudgetLevelData } from './classes/getBudgetLevelData.js'
 // flight components
-import './budgetLineBreadcrumb.js'
-import './featuredBudgetLine.js'
-import './intelligenceBudgetLines.js'
-import './intelligenceBudgetLinesMeans.js'
-import './visLine.js'
+import './components/budgetLineBreadcrumb.js'
+import './components/featuredBudgetLine.js'
+import './components/intelligenceBudgetLines.js'
+import './components/intelligenceBudgetLinesMeans.js'
+import './components/visLine.js'
 
 $(document).on('turbolinks:load', function() {
 

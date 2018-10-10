@@ -391,9 +391,13 @@ pre {
 .list_item_with_editable_content {
   margin: 0 0 0.5em 0;
   display: flex;
+}
 
+.list_item, .list_item_with_editable_content {
+  margin: 0 0 .5em 0;
+  display: flex;
   .fa-bars {
-    padding: 0.75em;
+    padding: .5em;
     cursor: pointer;
   }
 
@@ -409,8 +413,8 @@ pre {
     flex-grow: 10;
     background: $color_secondary;
     padding: 6px 12px;
-
     @include border-radius(4px);
+    font-weight: 600;
     // width: calc(100% - 200px);
 
     label {
@@ -436,7 +440,6 @@ pre {
     }
   }
 
-  .mandatory,
   .inline_notice {
     display: flex;
     margin: 0 1em 0 0;
@@ -461,6 +464,12 @@ pre {
   input[type="radio"] {
     display: initial;
     margin-right: 0.5em;
+  }
+  .media {
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 }
 
@@ -487,7 +496,7 @@ pre {
     padding: 4px 10px;
     margin: 0 1em 0 0;
     box-sizing: initial;
-    width: 75%;
+    flex-grow: 1;
   }
 }
 

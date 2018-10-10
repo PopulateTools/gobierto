@@ -5,10 +5,12 @@ es:
       processes:
         polls:
           answer_template:
+            add_image: Añadir imagen
             cancel: Cancelar
             confirm: Confirmar
             delete: Eliminar
             edit: Editar
+            image_file_alt: Imagen asociada
           answer_templates:
             add_new_answer: Añadir nueva respuesta
             available_answers: Posibles respuestas

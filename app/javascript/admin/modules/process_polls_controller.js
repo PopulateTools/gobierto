@@ -31,6 +31,7 @@ window.GobiertoAdmin.ProcessPollsController = (function() {
     _addCancelEditAnswerTemplateBehaviors();
     _addDeleteAnswerTemplateBehaviors();
     _handleSortableAnswerTemplates();
+    _addAttachImageToAnswerTemplateBehaviors();
 
     // ** others **
 
@@ -403,8 +404,8 @@ window.GobiertoAdmin.ProcessPollsController = (function() {
     var $previewAnswerWrapper = $('#question_' + questionIdx + '_preview_answer_' + answerIdx);
 
     // update label text with input text
-    var $answerInput = $editAnswerWrapper.find('input');
-    var $answerLabel = $previewAnswerWrapper.find('label');
+    var $answerInput = $editAnswerWrapper.find("input[name='" + generateNameForAnswerTemplateAttribute(questionIdx, answerIdx, "text") + "']");
+    var $answerLabel = $previewAnswerWrapper.find('.main label');
     $answerLabel.text($answerInput.val());
 
     $previewAnswerWrapper.show();
@@ -429,8 +430,8 @@ window.GobiertoAdmin.ProcessPollsController = (function() {
     var $previewAnswerWrapper = $('#question_' + questionIdx + '_preview_answer_' + answerIdx);
 
     // restore input text with label text
-    var $answerInput = $editAnswerWrapper.find('input');
-    var $answerLabel = $previewAnswerWrapper.find('label');
+    var $answerInput = $editAnswerWrapper.find("input[name='" + generateNameForAnswerTemplateAttribute(questionIdx, answerIdx, "text") + "']");
+    var $answerLabel = $previewAnswerWrapper.find('.main label');
     $answerInput.val($answerLabel.text());
 
     $previewAnswerWrapper.show();
@@ -441,6 +442,12 @@ window.GobiertoAdmin.ProcessPollsController = (function() {
     var $deleteAnswerLinks = $('[data-behavior=delete_answer]');
 
     $deleteAnswerLinks.off('click').click(handleDeleteAnswerTemplate);
+  }
+
+  function _addAttachImageToAnswerTemplateBehaviors() {
+    $('.js-file-input').off('change').change(function() {
+      _loadImageInputPreview(this);
+    });
   }
 
   function handleDeleteAnswerTemplate(e) {
@@ -495,6 +502,15 @@ window.GobiertoAdmin.ProcessPollsController = (function() {
     // set focus on text input (a little timeout is needed)
     setTimeout(function(){ $('#' + generateIdForAnswerTemplateAttribute(questionIdx, newAnswerIdx, 'text')).focus() }, 50);
 
+    // set answer image_file input name and id according to Rails standard
+    var $newAnswerImageInput = $newAnswerEditPanel.find('#new_answer_image_file_scaffold_input');
+    $newAnswerImageInput.attr('name', generateNameForAnswerTemplateAttribute(questionIdx, newAnswerIdx, 'image_file'))
+                        .attr('id', generateIdForAnswerTemplateAttribute(questionIdx, newAnswerIdx, 'image_file'));
+
+    // set answer image_file label `for` attribute according to Rails standard
+    var $newAnswerImageLabel = $newAnswerEditPanel.closest('.answer_template').find("label[for='new_answer_image_file_scaffold_input']");
+    $newAnswerImageLabel.attr('for', generateIdForAnswerTemplateAttribute(questionIdx, newAnswerIdx, 'image_file'));
+
     // set answer order input id, name and value according to Rails standard
     var $newAnswerOrderInput = $newAnswerEditPanel.find('#new_answer_order_scaffold_input');
     $newAnswerOrderInput.attr('name', generateNameForAnswerTemplateAttribute(questionIdx, newAnswerIdx, 'order'))
@@ -516,6 +532,7 @@ window.GobiertoAdmin.ProcessPollsController = (function() {
     _addCancelEditAnswerTemplateBehaviors();
     _addDeleteAnswerTemplateBehaviors();
     _handleSortableAnswerTemplates();
+    _addAttachImageToAnswerTemplateBehaviors();
   }
 
   function _handleSortableAnswerTemplates() {
@@ -570,6 +587,24 @@ window.GobiertoAdmin.ProcessPollsController = (function() {
 
   function generateIdForAnswerTemplateAttribute(questionIdx, answerIdx, attributeName) {
     return 'poll_questions_attributes_' + questionIdx + '_answer_templates_attributes_' + answerIdx + '_' + attributeName;
+  }
+
+  function _loadImageInputPreview(input) {
+    var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+
+    if (input.files && input.files[0] && ($.inArray(input.files[0]["type"], validImageTypes) >= 0)) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        var $answerTemplate = $(input).closest(".answer_template");
+        var $newImageWrapper = $answerTemplate.find(".js-new-image-wrapper");
+        $answerTemplate.find(".js-old-image-wrapper").hide();
+        $newImageWrapper.find("img")[0].src = e.target.result;
+        $newImageWrapper.show();
+      }
+
+      reader.readAsDataURL(input.files[0]);
+    }
   }
 
   return ProcessPollsController;

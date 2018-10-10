@@ -1,8 +1,11 @@
+import Lightbox from 'lightbox2'
+
 window.GobiertoParticipation.ProcessPollsController = (function() {
 
   function ProcessPollsController() {}
 
   ProcessPollsController.prototype.show = function(){
+    Lightbox.init()
 
     _addNextQuestionButtonBehaviors();
     _preventAnchorsDefaultBehavior();

@@ -43,6 +43,10 @@ $lighter_black: rgba($color_headers, 0.7);
       background: transparentize($green, 0.9);
     }
   }
+  .button.outline.rounded.checked {
+    background: #FFF;
+    color: $green;
+  }
 
   .button.submit:hover,
   .button:hover,
@@ -119,6 +123,7 @@ $lighter_black: rgba($color_headers, 0.7);
     &:focus,
     &:hover {
       background: white;
+      color: $green;
     }
   }
 
@@ -134,7 +139,7 @@ $lighter_black: rgba($color_headers, 0.7);
   .content_block {
     h2 {
       color: $green;
-      margin: 0;
+      margin: 0 0 1em 0;
     }
 
     .bt {
@@ -973,6 +978,44 @@ $lighter_black: rgba($color_headers, 0.7);
       .poll_content {
         padding: 2em 4em 8em;
         text-align: center;
+
+        .poll_question.with_media {
+          @include min-screen(768) {
+            .poll_option {
+              display: flex;
+              border-top: 1px solid $color_separator;
+              padding: 1em 0 0 0;
+
+              .button {
+                align-self: flex-start;
+                min-width: 35%;
+              }
+              .media {
+                margin: 0 0 0 1em;
+                img {
+                  height: auto;
+                  max-width: 100%;
+                }
+              }
+            }
+          }
+          .poll_option {
+            .media {
+              img {
+                height: auto;
+                max-width: 100%;
+              }
+            }
+          }
+          @include screen(768) {
+            .poll_option {
+              border-radius: 6px;
+              padding: 1em;
+              margin: 0 0 1em 0;
+              border: 1px solid $color_separator;
+            }
+          }
+        }
 
         .poll_option {
           margin: 0 0 1em;

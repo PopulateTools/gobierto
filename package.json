@@ -23,6 +23,7 @@
     "jquery-ujs": "^1.2.2",
     "jquery-visible": "^1.2.0",
     "jsgrid": "^1.5.3",
+    "lightbox2": "^2.10.0",
     "lodash": "^4.17.5",
     "magnific-popup": "^1.1.0",
     "mailcheck": "^1.1.1",

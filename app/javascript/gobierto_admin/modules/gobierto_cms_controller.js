@@ -178,7 +178,7 @@ window.GobiertoAdmin.GobiertoCmsController = (function() {
       anOption.value = nodes[i]['id'];
       anOption.innerHTML = "-".repeat(level) + " " + nodes[i]['name'];
       parent.append(anOption);
-      if(nodes[i].children.length >= 1) {
+      if(nodes[i] && nodes[i].children && nodes[i].children.length >= 1) {
         appendParents(parent, nodes[i].children, level + 1)
       }
     }

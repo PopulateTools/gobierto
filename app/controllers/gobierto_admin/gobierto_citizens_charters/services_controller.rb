@@ -37,6 +37,8 @@ module GobiertoAdmin
       end
 
       def update
+        load_service
+
         @service_form = ServiceForm.new(service_params.merge(id: params[:id], site_id: current_site.id))
 
         if @service_form.save

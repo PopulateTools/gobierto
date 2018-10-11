@@ -140,6 +140,7 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
     site.processes.update_all(scope_id: nil, issue_id: nil)
     site.people.update_all(political_group_id: nil)
     site.plans.update_all(vocabulary_id: nil)
+    site.services.update_all(category_id: nil)
 
     assert_difference "Activity.count" do
       site.destroy

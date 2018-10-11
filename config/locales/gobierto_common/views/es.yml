@@ -12,3 +12,177 @@ es:
       gobierto_common_collection_updated: Colección actualizada
       gobierto_common_term_created: Término creado
       gobierto_common_term_updated: Término actualizado
+    visualizations:
+      absolute: Ejecución en €
+      adults: Población activa
+      age: Edad
+      axis: años
+      between_25_44: Entre 25 y 44
+      cards:
+        active_pop:
+          figure_first: del total
+          figure_second: personas
+          title: Población activa
+        births:
+          country: Media estatal
+          place: "%{place}"
+          province: Media provincial
+          title: Tasa de nacimientos
+        budget_by_inhabitant:
+          title: Presupuesto por habitante
+        cars:
+          title: Coches por habitante
+        cars_tax:
+          figure_first: "%{place}"
+          figure_second: media provincial
+          title: Impuesto a los turismos
+        companies:
+          title: Empresas
+        construction_tax:
+          figure_first: "%{place}"
+          figure_second: media provincial
+          title: Impuesto a las construcciones
+        contracts_comparison:
+          figure_first: temporales
+          figure_second: indefinidos
+          title: Contratos en el mes pasado
+        contracts_sector:
+          agricultura: Agricultura
+          construccion: Construcción
+          industria: Industria
+          servicios: Servicios
+          title: Contratos por sector
+        deaths:
+          country: Media estatal
+          place: "%{place}"
+          province: Media provincial
+          title: Tasa de defunciones
+        debt_by_inhabitant:
+          title: Deuda por habitante
+        debt_level:
+          title: Nivel de endeudamiento
+        economic_tax:
+          title: Impuesto a las actividades económicas
+        expenditure_rigidity:
+          title: Rigidez de gasto
+        financial_charge:
+          title: Carga financiera
+        financial_risk:
+          title: Riesgo financiero
+        freelancers:
+          title: Autónomos
+        frequency:
+          daily: Actualización diaria
+          monthly: Actualización mensual
+          weekly: Actualización semanal
+          yearly: Actualización anual
+        gross_saving:
+          title: Ahorro bruto
+        gross_savings_rate:
+          title: Índice de ahorro bruto
+        houses:
+          figure_first: familiares
+          figure_second: principales
+          title: Viviendas
+        ibi:
+          first_column: ''
+          second_column: Urbano
+          third_column: Rústico
+          title: Impuesto sobre bienes inmuebles
+        income:
+          first_column: ''
+          second_column: Bruta
+          third_column: Disponible
+          title: Renta municipal
+        income_overview:
+          figure_first: "%{place}"
+          figure_second: España
+          title: Renta bruta
+        investment_by_inhabitant:
+          first_column: "%{place}"
+          second_column: Barcelona
+          third_column: Valencia
+          title: Inversión por habitante
+        investment_financing:
+          title: Financiación inversiones
+        liability_cost:
+          title: Coste deuda
+        meta:
+          time: " en "
+          where: 'En '
+        net_saving:
+          title: Ahorro neto
+        net_savings_rate:
+          title: Índice de ahorro neto
+        per_capita_investment:
+          title: Inversión por habitante
+        per_capita_tax_burden:
+          title: Presión fiscal por habitante
+        population:
+          title: Habitantes
+        self_financing_capacity:
+          title: Capacidad de autofinanciación
+        ss_members:
+          title: Afiliados a la Seguridad Social
+        tax_autonomy:
+          title: Autonomía fiscal
+        unemployed_sector:
+          agricultura: Agricultura
+          construccion: Construcción
+          industria: Industria
+          servicios: Servicios
+          title: Desempleados por sector
+        updated: Última actualización
+      country: España
+      elderly: Mayores
+      elderly_info: El %{percent} de la población tiene más de %{limit} años
+      empty_lines: No hay datos disponibles para esta clasificación en este año. Por
+        favor, selecciona otro filtro.
+      frequency:
+        daily: Actualización diaria
+        monthly: Actualización mensual
+        weekly: Actualización semanal
+        yearly: Actualización anual
+      gross_income: Renta bruta
+      increase: Aumentar
+      inhabitant_short: hab
+      inhabitants: Habitantes
+      keep: Mantener
+      label: habitantes
+      less_25: Menores de 25
+      lines_title: Partidas presupuestarias
+      main_budget_levels_legend_down: Han bajado
+      main_budget_levels_legend_one: Cambio entre este año
+      main_budget_levels_legend_two: y el pasado
+      main_budget_levels_legend_up: Han subido
+      main_budget_levels_per_inhabitant: por habitante
+      main_budget_levels_tooltip_article: desde
+      main_budget_levels_tooltip_down: Ha bajado un
+      main_budget_levels_tooltip_up: Ha subido un
+      mean: 'Edad media: %{age} años'
+      mean_autonomy: Media autonómica
+      mean_national: Media estatal
+      mean_province: Media provincial
+      median: 'Edad mediana: %{age} años'
+      men: Hombres
+      million: millón
+      mode: 'Edad más común: %{age} años'
+      more_44: Mayores de 44
+      percent: "% de progreso"
+      percent_log: "% de progreso (log)"
+      previous_year_diff: Cambio año anterior
+      proposal: Propuesta
+      questions: Preguntas
+      reduce: Reducir
+      thousand: mil
+      time: " en "
+      title: Riqueza y población en la provincia
+      tooltip: Se ha ejecutado un
+      tooltip_budgeted: Presupuestado inicial
+      tooltip_budgeted_updated: Presupuestado actualizado
+      tooltip_executed_amount: Importe ejecutado
+      unemployed: Desempleada
+      where: 'En '
+      women: Mujeres
+      youth: Menores
+      youth_info: El %{percent} de la población tiene menos de %{limit} años

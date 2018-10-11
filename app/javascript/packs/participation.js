@@ -7,6 +7,6 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import 'commons'
-import 'participation'
-import 'i18n'
+import 'lib/commons'
+import 'gobierto_participation'
+import 'lib/i18n'

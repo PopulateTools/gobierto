@@ -62,38 +62,6 @@ es:
         vs_previous_year: vs. ejercicio anterior
         vs_previous_year_tooltip: Comparación con los datos del ejercicio anterior
     budgets:
-      cards:
-        debt_level:
-          title: Nivel de endeudamiento
-        expenditure_rigidity:
-          title: Rigidez de gasto
-        financial_charge:
-          title: Carga financiera
-        financial_risk:
-          title: Riesgo financiero
-        gross_saving:
-          title: Ahorro bruto
-        gross_savings_rate:
-          title: Índice de ahorro bruto
-        investment_financing:
-          title: Financiación inversiones
-        liability_cost:
-          title: Coste deuda
-        meta:
-          time: " en "
-          where: 'En '
-        net_saving:
-          title: Ahorro neto
-        net_savings_rate:
-          title: Índice de ahorro neto
-        per_capita_investment:
-          title: Inversión por habitante
-        per_capita_tax_burden:
-          title: Presión fiscal por habitante
-        self_financing_capacity:
-          title: Capacidad de autofinanciación
-        tax_autonomy:
-          title: Autonomía fiscal
       guide:
         budget_execution: La ejecución presupuestaria
         budget_execution_p1_html: 'Aprobar un presupuesto no significa que se quede

@@ -62,38 +62,6 @@ ca:
         vs_previous_year: vs. exercici anterior
         vs_previous_year_tooltip: Comparació amb les dades de l'exercici anterior
     budgets:
-      cards:
-        debt_level:
-          title: Nivell d'endeutament
-        expenditure_rigidity:
-          title: Rigidesa de despesa
-        financial_charge:
-          title: Càrrega financera
-        financial_risk:
-          title: Risc financer
-        gross_saving:
-          title: Estalvi brut
-        gross_savings_rate:
-          title: Índex d'estalvi brut
-        investment_financing:
-          title: Finançament inversions
-        liability_cost:
-          title: Cost deute
-        meta:
-          time: " al "
-          where: 'A '
-        net_saving:
-          title: Ahorro net
-        net_savings_rate:
-          title: Índex d'estalvi net
-        per_capita_investment:
-          title: Inversió per habitant
-        per_capita_tax_burden:
-          title: Pressió fiscal per habitant
-        self_financing_capacity:
-          title: Capacitat d'autofinançament
-        tax_autonomy:
-          title: Autonomia fiscal
       guide:
         budget_execution: L'execució pressupostària
         budget_execution_p1_html: Aprovar un pressupost no vol dir que es quedi escrit

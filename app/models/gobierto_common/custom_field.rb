@@ -6,10 +6,10 @@ module GobiertoCommon
     has_many :records, dependent: :destroy, class_name: "CustomFieldRecord"
     validates :name, presence: true
 
-    enum field_type: { string: 0,
-                       localized_string: 1,
-                       paragraph: 2,
-                       localized_paragraph: 3,
+    enum field_type: { localized_string: 0,
+                       string: 1,
+                       localized_paragraph: 2,
+                       paragraph: 3,
                        single_option: 4,
                        multiple_options: 5 }
 

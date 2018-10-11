@@ -10,14 +10,14 @@ es:
         title: Título
       gobierto_admin/gobierto_common/custom_field_form:
         field_type: Tipo de campo
-        localized_paragraph: Párrafo con traducciones
-        localized_string: Texto con traducciones
+        localized_paragraph: Texto largo
+        localized_string: Texto (línea)
         multiple_options: Selección múltiple
         name: Nombre
         options: Opciones
-        paragraph: Párrafo
+        paragraph: Texto largo sin traducciones
         single_option: Selección única
-        string: Texto
+        string: Texto sin traducciones (línea)
       gobierto_admin/gobierto_common/term_form:
         description: Descripción
         name: Nombre

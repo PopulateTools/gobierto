@@ -10,14 +10,14 @@ en:
         title: Title
       gobierto_admin/gobierto_common/custom_field_form:
         field_type: Type of field
-        localized_paragraph: Paragraph with translations
-        localized_string: Text with translations
+        localized_paragraph: Long text
+        localized_string: Text (line)
         multiple_options: Multiple selections
         name: Name
         options: Options
-        paragraph: Paragraph
+        paragraph: Long text without translations
         single_option: One selection
-        string: Text
+        string: Text without translations (line)
       gobierto_admin/gobierto_common/term_form:
         description: Description
         name: Name

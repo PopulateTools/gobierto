@@ -61,38 +61,6 @@ en:
         vs_previous_year: vs. previous year
         vs_previous_year_tooltip: Comparision with the data of the previous year
     budgets:
-      cards:
-        debt_level:
-          title: Debt level
-        expenditure_rigidity:
-          title: Expenditure rigidity
-        financial_charge:
-          title: Financial charge
-        financial_risk:
-          title: Financial risk
-        gross_saving:
-          title: Gross saving
-        gross_savings_rate:
-          title: Gross savings rate
-        investment_financing:
-          title: Investment financing
-        liability_cost:
-          title: Liability cost
-        meta:
-          time: " in "
-          where: 'At '
-        net_saving:
-          title: Net saving
-        net_savings_rate:
-          title: Net savings rate
-        per_capita_investment:
-          title: Per capita investment
-        per_capita_tax_burden:
-          title: Per capita tax burden
-        self_financing_capacity:
-          title: Self financing capacity
-        tax_autonomy:
-          title: Tax autonomy
       guide:
         budget_execution: Budget execution
         budget_execution_p1_html: 'Approving a budget does not mean that it is written

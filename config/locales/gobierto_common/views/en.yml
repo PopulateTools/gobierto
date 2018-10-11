@@ -59,8 +59,16 @@ en:
           title: Death rate
         debt_by_inhabitant:
           title: Debt by inhabitant
+        debt_level:
+          title: Debt level
         economic_tax:
           title: Economic activity tax
+        expenditure_rigidity:
+          title: Expenditure rigidity
+        financial_charge:
+          title: Financial charge
+        financial_risk:
+          title: Financial risk
         freelancers:
           title: Freelancers
         frequency:
@@ -68,6 +76,10 @@ en:
           monthly: Updated monthly
           weekly: Updated weekly
           yearly: Updated annually
+        gross_saving:
+          title: Gross saving
+        gross_savings_rate:
+          title: Gross savings rate
         houses:
           figure_first: family houses
           figure_second: main houses
@@ -91,13 +103,29 @@ en:
           second_column: Barcelona
           third_column: Valencia
           title: Investment by inhabitant
+        investment_financing:
+          title: Investment financing
+        liability_cost:
+          title: Liability cost
         meta:
           time: " in "
           where: 'At '
+        net_saving:
+          title: Net saving
+        net_savings_rate:
+          title: Net savings rate
+        per_capita_investment:
+          title: Per capita investment
+        per_capita_tax_burden:
+          title: Per capita tax burden
         population:
           title: Inhabitants
+        self_financing_capacity:
+          title: Self financing capacity
         ss_members:
           title: Social Security affiliates
+        tax_autonomy:
+          title: Tax autonomy
         unemployed_sector:
           agricultura: Agriculture
           construccion: Construction

@@ -59,8 +59,16 @@ ca:
           title: Taxa de defuncions
         debt_by_inhabitant:
           title: Deute per habitant
+        debt_level:
+          title: Nivell d'endeutament
         economic_tax:
           title: Impost a les activitats econòmiques
+        expenditure_rigidity:
+          title: Rigidesa de despesa
+        financial_charge:
+          title: Càrrega financera
+        financial_risk:
+          title: Risc financer
         freelancers:
           title: Autónoms
         frequency:
@@ -68,6 +76,10 @@ ca:
           monthly: Actualització mensual
           weekly: Actualització setmanal
           yearly: Actualització anual
+        gross_saving:
+          title: Estalvi brut
+        gross_savings_rate:
+          title: Índex d'estalvi brut
         houses:
           figure_first: familiars
           figure_second: principals
@@ -91,13 +103,29 @@ ca:
           second_column: Barcelona
           third_column: Valencia
           title: Inversió per habitant
+        investment_financing:
+          title: Finançament inversions
+        liability_cost:
+          title: Cost deute
         meta:
           time: " al "
           where: 'A '
+        net_saving:
+          title: Ahorro net
+        net_savings_rate:
+          title: Índex d'estalvi net
+        per_capita_investment:
+          title: Inversió per habitant
+        per_capita_tax_burden:
+          title: Pressió fiscal per habitant
         population:
           title: Habitants
+        self_financing_capacity:
+          title: Capacitat d'autofinançament
         ss_members:
           title: Afiliats a la Seguretat Social
+        tax_autonomy:
+          title: Autonomia fiscal
         unemployed_sector:
           agricultura: Agricultura
           construccion: Construcció

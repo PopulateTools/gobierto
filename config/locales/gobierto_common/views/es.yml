@@ -59,8 +59,16 @@ es:
           title: Tasa de defunciones
         debt_by_inhabitant:
           title: Deuda por habitante
+        debt_level:
+          title: Nivel de endeudamiento
         economic_tax:
           title: Impuesto a las actividades económicas
+        expenditure_rigidity:
+          title: Rigidez de gasto
+        financial_charge:
+          title: Carga financiera
+        financial_risk:
+          title: Riesgo financiero
         freelancers:
           title: Autónomos
         frequency:
@@ -68,6 +76,10 @@ es:
           monthly: Actualización mensual
           weekly: Actualización semanal
           yearly: Actualización anual
+        gross_saving:
+          title: Ahorro bruto
+        gross_savings_rate:
+          title: Índice de ahorro bruto
         houses:
           figure_first: familiares
           figure_second: principales
@@ -91,13 +103,29 @@ es:
           second_column: Barcelona
           third_column: Valencia
           title: Inversión por habitante
+        investment_financing:
+          title: Financiación inversiones
+        liability_cost:
+          title: Coste deuda
         meta:
           time: " en "
           where: 'En '
+        net_saving:
+          title: Ahorro neto
+        net_savings_rate:
+          title: Índice de ahorro neto
+        per_capita_investment:
+          title: Inversión por habitante
+        per_capita_tax_burden:
+          title: Presión fiscal por habitante
         population:
           title: Habitantes
+        self_financing_capacity:
+          title: Capacidad de autofinanciación
         ss_members:
           title: Afiliados a la Seguridad Social
+        tax_autonomy:
+          title: Autonomía fiscal
         unemployed_sector:
           agricultura: Agricultura
           construccion: Construcción

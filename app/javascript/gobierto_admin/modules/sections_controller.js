@@ -1,4 +1,6 @@
 import 'jqtree'
+import 'webpack-jquery-ui/draggable'
+import 'webpack-jquery-ui/droppable'
 
 window.GobiertoAdmin.SectionsController = (function() {
   function SectionsController() {}
@@ -75,34 +77,32 @@ window.GobiertoAdmin.SectionsController = (function() {
       );
     });
 
-    $(document).ready(function() {
-      // Define the elements that can be dragged
-      $(".draggable").draggable({
-        revert: true
-      });
+    // Define the elements that can be dragged
+    $(".draggable").draggable({
+      revert: true
+    });
 
-      $("#tree1").droppable({
-        drop: function(event, ui) {
-          $.ajax({
-            url: window.location.href + '/section_items',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-              page_id: ui.draggable.attr("data-id")
-            },
-            success: function(data) {
-              $('#tree1').tree(
-                'appendNode', {
-                  name: ui.draggable.attr("data-title"),
-                  id: data.id
-                }
-              );
-            },
-            error: function() {}
-          });
-        }
-      });
-    })
+    $("#tree1").droppable({
+      drop: function(event, ui) {
+        $.ajax({
+          url: window.location.href + '/section_items',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            page_id: ui.draggable.attr("data-id")
+          },
+          success: function(data) {
+            $('#tree1').tree(
+              'appendNode', {
+                name: ui.draggable.attr("data-title"),
+                id: data.id
+              }
+            );
+          },
+          error: function() {}
+        });
+      }
+    });
 
     $('#collapse').click(function() {
       var $tree = $('#tree1');

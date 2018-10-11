@@ -1,3 +1,5 @@
+import 'webpack-jquery-ui/draggable'
+
 $(document).on('turbolinks:load', function() {
   var $input_admin = $('input#pages_search');
   var $resultsContainerAdmin = $('#search_pages');
@@ -42,8 +44,6 @@ $(document).on('turbolinks:load', function() {
     if(sum > 0) {
       content.results.forEach(function(indexResults){
         indexResults.hits.forEach(function(d){
-
-
           var result = '<div class="activity_item">' +
             '<h2>' + '<a class="tipsit" href=' + ["/admin/cms/pages/", d['objectID'], "/edit?collection_id=", d['collection_id']].join('') +
             ' original-title="' + I18n.t("layouts.search.drag_drop_instructions") + '"' +
@@ -67,22 +67,24 @@ $(document).on('turbolinks:load', function() {
     }
   }
 
-  $input_admin.on('keyup', function(){
-    var q = $(this).val();
-    var queries = [];
-    window.searchClient.indexes.forEach(function(index){
-      queries.push({
-        indexName: index,
-        query: q,
-        params: {
-          hitsPerPage: 10,
-          filters: window.searchClient.filters
-        }
+  if(window.searchClient){
+    $input_admin.on('keyup', function(){
+      var q = $(this).val();
+      var queries = [];
+      window.searchClient.indexes.forEach(function(index){
+        queries.push({
+          indexName: index,
+          query: q,
+          params: {
+            hitsPerPage: 10,
+            filters: window.searchClient.filters
+          }
+        });
       });
-    });
 
-    window.searchClient.client.search(queries, searchBackCallback);
-  });
+      window.searchClient.client.search(queries, searchBackCallback);
+    });
+  }
 
   $input_admin.focusin(function() {
     $resultsContainerAdmin.show();

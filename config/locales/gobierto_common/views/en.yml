@@ -12,3 +12,177 @@ en:
       gobierto_common_collection_updated: Collection updated
       gobierto_common_term_created: Term created
       gobierto_common_term_updated: Term updated
+    visualizations:
+      absolute: Execution in €
+      adults: Employed population
+      age: Age
+      axis: years
+      between_25_44: Between 25 and 44
+      cards:
+        active_pop:
+          figure_first: of total
+          figure_second: people
+          title: Active population
+        births:
+          country: Country average
+          place: "%{place}"
+          province: Province average
+          title: Birth rate
+        budget_by_inhabitant:
+          title: Budget per inhabitant
+        cars:
+          title: Cars per inhabitant
+        cars_tax:
+          figure_first: "%{place}"
+          figure_second: province average
+          title: Passenger cars tax
+        companies:
+          title: Companies
+        construction_tax:
+          figure_first: "%{place}"
+          figure_second: province average
+          title: Construction tax
+        contracts_comparison:
+          figure_first: short term
+          figure_second: long term
+          title: Contracts in the last month
+        contracts_sector:
+          agricultura: Agriculture
+          construccion: Construction
+          industria: Industry
+          servicios: Services
+          title: Contracts by sector
+        deaths:
+          country: Country average
+          place: "%{place}"
+          province: Province average
+          title: Death rate
+        debt_by_inhabitant:
+          title: Debt by inhabitant
+        debt_level:
+          title: Debt level
+        economic_tax:
+          title: Economic activity tax
+        expenditure_rigidity:
+          title: Expenditure rigidity
+        financial_charge:
+          title: Financial charge
+        financial_risk:
+          title: Financial risk
+        freelancers:
+          title: Freelancers
+        frequency:
+          daily: Updated daily
+          monthly: Updated monthly
+          weekly: Updated weekly
+          yearly: Updated annually
+        gross_saving:
+          title: Gross saving
+        gross_savings_rate:
+          title: Gross savings rate
+        houses:
+          figure_first: family houses
+          figure_second: main houses
+          title: Houses
+        ibi:
+          first_column: ''
+          second_column: City
+          third_column: Rustic
+          title: Land value tax
+        income:
+          first_column: ''
+          second_column: Gross
+          third_column: Net
+          title: Municipality income
+        income_overview:
+          figure_first: "%{place}"
+          figure_second: Spain
+          title: Gross income
+        investment_by_inhabitant:
+          first_column: "%{place}"
+          second_column: Barcelona
+          third_column: Valencia
+          title: Investment by inhabitant
+        investment_financing:
+          title: Investment financing
+        liability_cost:
+          title: Liability cost
+        meta:
+          time: " in "
+          where: 'At '
+        net_saving:
+          title: Net saving
+        net_savings_rate:
+          title: Net savings rate
+        per_capita_investment:
+          title: Per capita investment
+        per_capita_tax_burden:
+          title: Per capita tax burden
+        population:
+          title: Inhabitants
+        self_financing_capacity:
+          title: Self financing capacity
+        ss_members:
+          title: Social Security affiliates
+        tax_autonomy:
+          title: Tax autonomy
+        unemployed_sector:
+          agricultura: Agriculture
+          construccion: Construction
+          industria: Industry
+          servicios: Services
+          title: Unemployed by sector
+        updated: Last update
+      country: Spain
+      elderly: Elderly
+      elderly_info: The %{percent} of the population is elder than %{limit} years
+      empty_lines: There aren't data for this classification and this year. Please,
+        choose another filter.
+      frequency:
+        daily: Updated daily
+        monthly: Updated monthly
+        weekly: Updated weekly
+        yearly: Updated annually
+      gross_income: Gross income
+      increase: Increase
+      inhabitant_short: inh
+      inhabitants: Inhabitants
+      keep: Keep
+      label: inhabitants
+      less_25: Younger than 25
+      lines_title: Budget lines
+      main_budget_levels_legend_down: Has decreased
+      main_budget_levels_legend_one: Change since last year
+      main_budget_levels_legend_two: ''
+      main_budget_levels_legend_up: Has increased
+      main_budget_levels_per_inhabitant: per inhabitant
+      main_budget_levels_tooltip_article: since
+      main_budget_levels_tooltip_down: Has gone down
+      main_budget_levels_tooltip_up: Has risen
+      mean: 'Average age: %{age} years'
+      mean_autonomy: Autonomy mean
+      mean_national: National mean
+      mean_province: Province mean
+      median: 'Median age: %{age} years'
+      men: Men
+      million: million
+      mode: 'Most common age: %{age} years'
+      more_44: Older than 44
+      percent: "% of progress"
+      percent_log: "% of progress (log)"
+      previous_year_diff: Previous year diff
+      proposal: Proposal
+      questions: Questions
+      reduce: Reduce
+      thousand: thousand
+      time: " in "
+      title: Wealth and population in the province
+      tooltip: It has been executed by a
+      tooltip_budgeted: Initial budget
+      tooltip_budgeted_updated: Updated budget
+      tooltip_executed_amount: Executed amount
+      unemployed: Unemployed
+      where: 'At '
+      women: Women
+      youth: Minors
+      youth_info: The %{percent} of the population is younger than %{limit} years

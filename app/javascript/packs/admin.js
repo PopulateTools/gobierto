@@ -7,6 +7,6 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import 'commons'
-import 'admin'
-import 'i18n'
+import 'lib/commons'
+import 'gobierto_admin'
+import 'lib/i18n'

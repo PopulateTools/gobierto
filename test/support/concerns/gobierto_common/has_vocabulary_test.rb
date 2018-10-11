@@ -38,6 +38,20 @@ module GobiertoCommon
       end
     end
 
+    def test_associated_term_is_scoped_with_vocabulary
+      singular_vocabularies.each do |method|
+        not_empty = model.where.not(method => nil).first
+        assert not_empty.send(method).present?
+
+        setting_name = model.vocabularies[method]
+        module_name = model.name.deconstantize
+        not_empty.site.settings_for_module(module_name).send("#{ setting_name }=", nil)
+        not_empty.site.settings_for_module(module_name).save
+        not_empty.reload
+        assert not_empty.send(method).blank?
+      end
+    end
+
     def test_associated_vocabulary
       singular_vocabularies.each do |method|
         vocabulary_id = site.gobierto_participation_settings.send(GobiertoParticipation::Process.vocabularies[method])

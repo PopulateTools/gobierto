@@ -18,7 +18,11 @@ module GobiertoCommon
         module_name = self.name.deconstantize
         vocabularies[singularized_name] = vocabulary_module_setting
 
-        belongs_to singularized_name, extra_opts.merge(class_name: "GobiertoCommon::Term")
+        belongs_to(
+          singularized_name,
+          ->(item) { where(vocabulary_id: item.class.send("#{ name }_vocabulary_id", item&.site)) },
+          extra_opts.merge(class_name: "GobiertoCommon::Term")
+        )
 
         define_singleton_method :vocabularies do
           vocabularies
@@ -28,6 +32,11 @@ module GobiertoCommon
           site ||= GobiertoCore::CurrentScope.current_site
           return GobiertoCommon::Term.none unless site.settings_for_module(module_name)&.send(vocabulary_module_setting)&.present?
           site.vocabularies.find(site.settings_for_module(module_name).send(vocabulary_module_setting)).terms
+        end
+
+        define_singleton_method "#{ name }_vocabulary_id" do |site = nil|
+          site ||= GobiertoCore::CurrentScope.current_site
+          site.settings_for_module(module_name)&.send(vocabulary_module_setting)
         end
 
         scope :"of_#{singularized_name}", ->(term) { where(singularized_name => term) }

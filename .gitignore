@@ -49,6 +49,9 @@ yarn-error.log*
 yarn-debug.log*
 .yarn-integrity
 
+# I18njs
+app/javascript/i18n/modules/translations.js
+
 # Gobierto Engines
 vendor/gobierto_engines/*
 !vendor/gobierto_engines/.keep

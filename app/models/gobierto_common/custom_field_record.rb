@@ -10,6 +10,7 @@ module GobiertoCommon
       localized_paragraph: CustomFieldValue::LocalizedText,
       single_option: CustomFieldValue::SingleOption,
       multiple_options: CustomFieldValue::MultipleOptions,
+      color: CustomFieldValue::Color,
       default: CustomFieldValue::Base
     }.freeze
 

@@ -11,7 +11,8 @@ module GobiertoCommon
                        localized_paragraph: 2,
                        paragraph: 3,
                        single_option: 4,
-                       multiple_options: 5 }
+                       multiple_options: 5,
+                       color: 6 }
 
     scope :sorted, -> { order(position: :asc) }
 

@@ -39,6 +39,12 @@ module GobiertoCommon
         field_tag: :select_tag,
         partial: "item",
         tag_attributes: { multiple: true }
+      },
+      color: {
+        class_names: "form_item input_text",
+        field_tag: :color_field_tag,
+        partial: "item",
+        tag_attributes: {}
       }
     }.freeze
 

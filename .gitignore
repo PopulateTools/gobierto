@@ -51,6 +51,7 @@ yarn-debug.log*
 
 # I18njs
 app/javascript/i18n/modules/translations.js
+app/javascript/lib/i18n/modules/translations.js
 
 # Gobierto Engines
 vendor/gobierto_engines/*

@@ -9,6 +9,7 @@ ca:
           form:
             add_option: Afegir opció
             confirm: Estàs segur?
+            crop: Retallar
           index:
             new: Afegir nou camp
             title: Camps personalitzats

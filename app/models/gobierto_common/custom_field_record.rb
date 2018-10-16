@@ -11,6 +11,7 @@ module GobiertoCommon
       single_option: CustomFieldValue::SingleOption,
       multiple_options: CustomFieldValue::MultipleOptions,
       color: CustomFieldValue::Color,
+      image: CustomFieldValue::Image,
       default: CustomFieldValue::Base
     }.freeze
 

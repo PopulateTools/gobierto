@@ -23,8 +23,18 @@
   <%= render(
     partial: "gobierto_admin/gobierto_common/custom_fields/forms/#{ record.partial }",
     locals: {
+      f: f,
       record: record,
       input_base_name: input_base_name,
     }
   ) %>
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_common_custom_field_records_controller = new GobiertoAdmin.GobiertoCommonCustomFieldRecordsController;
+    window.GobiertoAdmin.gobierto_common_custom_field_records_controller.handleForm({
+    image_fields: <%== item.image_fields_options.to_json %>
+    });
+  <% end %>
 <% end %>

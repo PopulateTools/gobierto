@@ -45,6 +45,12 @@ module GobiertoCommon
         field_tag: :color_field_tag,
         partial: "item",
         tag_attributes: {}
+      },
+      image: {
+        class_names: "form_item file_field avatar_file_field",
+        field_tag: :file_field_tag,
+        partial: "image",
+        tag_attributes: {}
       }
     }.freeze
 

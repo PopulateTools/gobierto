@@ -9,6 +9,7 @@ en:
           form:
             add_option: Add option
             confirm: Are you sure?
+            crop: Crop
           index:
             new: Add new field
             title: Custom fields

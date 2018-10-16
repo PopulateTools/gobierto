@@ -12,7 +12,8 @@ module GobiertoCommon
                        paragraph: 3,
                        single_option: 4,
                        multiple_options: 5,
-                       color: 6 }
+                       color: 6,
+                       image: 7 }
 
     scope :sorted, -> { order(position: :asc) }
 

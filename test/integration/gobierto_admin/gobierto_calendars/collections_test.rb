@@ -111,6 +111,17 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_gobierto_module_events
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit @path
+            click_link "Participation events"
+
+            assert has_content?("Innovation course")
+          end
+        end
+      end
     end
   end
 end

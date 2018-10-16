@@ -12,7 +12,7 @@ module GobiertoAdmin
 
     helper_method :current_admin, :admin_signed_in?, :current_site, :managing_site?,
                   :managed_sites, :can_manage_sites?, :gobierto_cms_page_preview_path,
-                  :preview_item_url
+                  :preview_item_url, :gobierto_calendars_event_preview_url
 
     rescue_from Errors::NotAuthorized, with: :raise_admin_not_authorized
 
@@ -76,5 +76,17 @@ module GobiertoAdmin
       gobierto_cms_page_or_news_path(page, options)
     end
 
+    def gobierto_calendars_event_preview_url(event, options = {})
+      options[:host] ||= current_site.domain
+
+      if ((event.collection.container.respond_to?(:class_name) && event.collection.container.class_name == "GobiertoParticipation::Process" && event.pending?) ||
+          (event.collection.container.respond_to?(:class_name) && event.collection.container.class_name == "GobiertoPeople::Person" && event.pending?) ||
+          (event.collection.container_type == "GobiertoPeople" && event.pending?) ||
+          (event.collection.container_type == "GobiertoParticipation" && event.pending?) ||
+          (@person && @person.draft?))
+        options.merge!(preview_token: current_admin.preview_token)
+      end
+      event.to_url(options)
+    end
   end
 end

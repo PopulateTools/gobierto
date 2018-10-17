@@ -1,28 +1,58 @@
 <div class="column">
-  <div class="block">
-    <div class="pure-g header_block_inline">
-      <div class="pure-u-1 pure-u-md-12-24">
-         <h1><%= t(".charters") %>: <%= @service.title %></h1>
 
-        <p><%= t(".global_progress", progress: number_to_percentage(@service.progress, precision: 1)) %></p>
-        <p><%= t(".period") %> <%= @service.reference_edition %> (<%= t("gobierto_citizens_charters.shared.#{ @service.reference_edition.period_interval }_interval") %>)</p>
+  <main class="content gobierto_citizens-charters">
+    <!-- Welcome block -->
+    <div class="block m_v_3 absolute-layout">
 
-        <% @charters.each do |charter| %>
-          <div>
-            <ul>
-              <li>
-                <%= link_to charter.title, gobierto_citizens_charters_service_charter_path(@service.slug, charter.slug, period: charter.reference_edition.to_s, period_interval: charter.reference_edition.period_interval) %>
-              </li>
-              <li>
-                <%= t(".progress", progress: number_to_percentage(charter.progress, precision: 1)) %>
-              </li>
-              <li>
-                <%= t(".commitments", count: charter.commitments.count) %>
-              </li>
-            </ul>
+      <div class="pure-g header_block_inline">
+        <div class="pure-u-1 pure-u-md-12-24">
+          <div class="inline_header">
+            <h2 class="with_description p_h_r_1"><%= @service.title %></h2>
           </div>
-        <% end %>
+
+          <p>
+            <%= custom_field_by_uid(@service, "27eec303-1414-4a1c-9f35-1dd4ce993789") %>
+          </p>
+
+          <p class="common-links">
+            <span><a href=""><%= t(".about") %></a></span><span><a href=""><%= t(".contact") %></a></span>
+          </p>
+
+        </div>
+      </div>
+
+      <div class="charters-box-container bottom fake-layout">
+        <div class="charters-box invisible"><!-- fake block --></div>
+        <div class="charters-box invisible"><!-- fake block --></div>
+        <div class="charters-box--lead">
+          <div class="box-inner">
+            <div class="box-results top left">
+              <div class="results-title"><%= t(".global_progress") %></div>
+              <div class="results-value"><%= number_to_percentage(@service.progress, precision: 1) %></div>
+            </div>
+            <div class="box-contents bottom right">
+              <%= t(".period") %>
+              <%= @service.reference_edition %> (<%= t("gobierto_citizens_charters.shared.#{ @service.reference_edition.period_interval }_interval") %>)
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+
+    <div class="charters-box-container">
+        <% @charters.each do |charter| %>
+        <%= link_to gobierto_citizens_charters_service_charter_path(@service.slug, charter.slug, period: charter.reference_edition.to_s, period_interval: charter.reference_edition.period_interval), class: 'charters-box' do %>
+        <div class="box-inner">
+          <div class="box-title top left"><%= charter.title %></div>
+          <div class="box-results bottom left">
+            <div class="results-title"><%= t(".progress") %></div>
+            <div class="results-value"><%= number_to_percentage(charter.progress, precision: 1) %></div>
+          </div>
+          <div class="box-contents bottom right"><%= t(".commitments", count: charter.commitments.count) %></div>
+        </div>
+        <% end %>
+      <% end %>
+    </div>
+  </main>
+
 </div>

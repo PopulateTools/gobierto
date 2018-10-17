@@ -3,11 +3,15 @@ ca:
   gobierto_citizens_charters:
     charters:
       index:
-        charters: Cartes de Serveis
-        commitments: "%{count} compromisos"
-        global_progress: Compliment global %{progress}
+        about: Què són les cartes de serveis
+        commitments:
+          one: 1 compromiso
+          other: "%{count} compromisos"
+          zero: No hi ha compromisos
+        contact: Contacte
+        global_progress: Compliment global
         period: 'Dades corresponents a:'
-        progress: Compliment %{progress}
+        progress: Compliment
       show:
         editions_details: Detall dels compromisos
         global_progress: Complim els compromisos d'aquesta carta al %{progress}

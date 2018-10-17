@@ -3,11 +3,15 @@ en:
   gobierto_citizens_charters:
     charters:
       index:
-        charters: Services Charters
-        commitments: "%{count} ommitments"
-        global_progress: Global compliance %{progress}
+        about: What are service charters
+        commitments:
+          one: 1 commitment
+          other: "%{count} commitments"
+          zero: No commitments found
+        contact: Contact
+        global_progress: Global compliance
         period: 'Data corresponding to:'
-        progress: Compliance %{progress}
+        progress: Compliance
       show:
         editions_details: Detail of the commitments
         global_progress: We fulfill the commitments of this charter to %{progress}

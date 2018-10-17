@@ -3,11 +3,15 @@ es:
   gobierto_citizens_charters:
     charters:
       index:
-        charters: Cartas de Servicios
-        commitments: "%{count} compromisos"
-        global_progress: Cumplimiento global %{progress}
+        about: Qué son las cartas de servicios
+        commitments:
+          one: 1 compromiso
+          other: "%{count} compromisos"
+          zero: No hay compromisos
+        contact: Contacto
+        global_progress: Cumplimiento global
         period: 'Datos correspondientes a:'
-        progress: Cumplimiento %{progress}
+        progress: Cumplimiento
       show:
         editions_details: Detalle de los compromisos
         global_progress: Cumplimos los compromisos de esta carta al %{progress}

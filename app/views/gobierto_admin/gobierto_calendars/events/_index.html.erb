@@ -79,7 +79,7 @@
             <%= t(".visibility_level.#{event.state}") %>
           </td>
           <td>
-            <%= link_to gobierto_calendars_event_preview_url(event), target: "_blank", class: "view_item" do %>
+            <%= link_to event.to_url(preview: true, admin: current_admin), target: "_blank", class: "view_item" do %>
               <i class="fa fa-eye"></i>
               <%= t(".view_event") %>
             <% end %>

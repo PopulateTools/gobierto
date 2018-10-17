@@ -16,7 +16,6 @@ class ApplicationController < ActionController::Base
     :current_module,
     :current_module_class,
     :available_locales,
-    :gobierto_calendars_event_preview_url,
     :algoliasearch_configured?,
     :cache_key_preffix
   )
@@ -126,16 +125,5 @@ class ApplicationController < ActionController::Base
     else
       head :forbidden
     end
-  end
-
-  def gobierto_calendars_event_preview_url(event, options = {})
-    options[:host] ||= current_site.domain
-
-    if ((event.collection.container.class_name == "GobiertoParticipation::Process" && event.pending?) ||
-        (event.collection.container.class_name == "GobiertoPeople::Person" && event.pending?) ||
-        (@person && @person.draft?))
-      options.merge!(preview_token: current_admin.preview_token)
-    end
-    event.to_url(options)
   end
 end

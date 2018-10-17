@@ -58,9 +58,7 @@ module GobiertoAdmin
         if @event_form.save
           redirect_to(
             edit_admin_calendars_event_path(@event_form.event, collection_id: collection),
-            notice: t(".success_html",
-            link: gobierto_calendars_event_preview_url(@event_form.event,
-                                                       host: current_site.domain))
+            notice: t(".success_html", link: @event_form.to_url(preview: true, admin: current_admin))
           )
         else
           @attendees = get_attendees
@@ -83,9 +81,7 @@ module GobiertoAdmin
         if @event_form.save
           redirect_to(
             edit_admin_calendars_event_path(@event, collection_id: collection),
-            notice: t(".success_html",
-            link: gobierto_calendars_event_preview_url(@event_form.event,
-                                                       host: current_site.domain))
+            notice: t(".success_html", link: @event_form.to_url(preview: true, admin: current_admin))
           )
         else
           @attendees = get_attendees

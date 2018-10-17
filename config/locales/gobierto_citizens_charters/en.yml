@@ -13,9 +13,12 @@ en:
         period: 'Data corresponding to:'
         progress: Compliance
       show:
+        about: About this charter
+        commitment: Fulfillment of commitment
         editions_details: Detail of the commitments
-        global_progress: We fulfill the commitments of this charter to %{progress}
-        period: 'Data corresponding to:'
+        global_progress: We fulfill the commitments of this charter to
+        see_all: See the full charter
+        see_all_subtitle: Mission, Vision, Services, Responsible Unit...
     layouts:
       application:
         citizens_charters: Services Charters
@@ -28,7 +31,7 @@ en:
         positive: We improved %{progress} compared to the previous period
       month_interval: Monthly
       period_breadcrumb:
-        select_period: Select a period
+        period: Data corresponding to
       quarter_interval: Quarterly
       week_interval: Weekly
       year_interval: Yearly

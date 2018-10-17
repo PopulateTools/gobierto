@@ -13,9 +13,12 @@ es:
         period: 'Datos correspondientes a:'
         progress: Cumplimiento
       show:
+        about: Acerca de esta carta
+        commitment: Cumplimiento del compromiso
         editions_details: Detalle de los compromisos
-        global_progress: Cumplimos los compromisos de esta carta al %{progress}
-        period: 'Datos correspondientes a:'
+        global_progress: Cumplimos los compromisos de esta carta al
+        see_all: Ver la carta completa
+        see_all_subtitle: Misión, Visión, Servicios, Unidad responsable...
     layouts:
       application:
         citizens_charters: Cartas de Servicios
@@ -28,7 +31,7 @@ es:
         positive: Mejoramos un %{progress} respecto al anterior periodo
       month_interval: Mensual
       period_breadcrumb:
-        select_period: Selecciona un periodo
+        period: Datos correspondientes a
       quarter_interval: Trimestral
       week_interval: Semanal
       year_interval: Anual

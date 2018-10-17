@@ -13,9 +13,12 @@ ca:
         period: 'Dades corresponents a:'
         progress: Compliment
       show:
+        about: About this charter
+        commitment: Compliment de compromiso
         editions_details: Detall dels compromisos
-        global_progress: Complim els compromisos d'aquesta carta al %{progress}
-        period: 'Datos correspondientes a:'
+        global_progress: Complim els compromisos d'aquesta carta al
+        see_all: Veure la carta completa
+        see_all_subtitle: Missió, Visió, Serveis, Unitat responsable...
     layouts:
       application:
         citizens_charters: Cartas de Serveis
@@ -28,7 +31,7 @@ ca:
         positive: Millorem un %{progress} respectei a l'anterior període
       month_interval: Mensual
       period_breadcrumb:
-        select_period: Selecciona un període
+        period: Dades corresponents a
       quarter_interval: Trimestral
       week_interval: Setmanal
       year_interval: Anual

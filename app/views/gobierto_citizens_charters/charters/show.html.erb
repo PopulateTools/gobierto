@@ -1,55 +1,78 @@
-<div class="column">
-  <div class="block">
-    <div class="pure-g header_block_inline">
-      <div class="pure-u-1 pure-u-md-12-24">
-        <h1><%= @charter.title %></h1>
-        <div class="inline_header">
-          <h2 class="with_description p_h_r_1"><%=  t(".period") %></h2>
-          <%= render(
-            partial: "gobierto_citizens_charters/shared/period_breadcrumb",
-            locals: {
-              selected_period: @charter.reference_edition,
-              selected_period_path: gobierto_citizens_charters_service_charter_path(@service.slug, @charter.slug, period: @charter.reference_edition.to_s, period_interval: @charter.reference_edition.period_interval),
-              available_periods: @charter.available_periods(@charter.reference_edition.period_interval)
-            }
-          ) %>
-        </div>
-      </div>
-    </div>
+<% content_for :javascript_module_link do %>
+  <%= javascript_pack_tag 'charters', 'data-turbolinks-track': true %>
+<% end %>
 
-    <div class="pure-g header_block_inline">
-      <div class="pure-u-1 pure-u-md-12-24">
+<script type="module">
+  window.GobiertoCharters.charters_controller.show();
+</script>
+
+<main class="content gobierto_citizens-charters">
+
+  <div class="charter-header">
+    <div class="column">
+      <h1><%= @charter.title %></h1>
+      <%= image_tag('illustrations/personaliza.jpg') %>
+    </div>
+  </div>
+
+  <div class="charter-subheader">
+    <div class="column">
+      <div class="left absolute-layout">
+
         <% if @charter.progress.present? %>
-          <p><%= t(".global_progress", progress: number_to_percentage(@charter.progress, precision: 1)) %></p>
+          <div class="subheader-title"><%= t(".global_progress") %></div>
+          <div class="subheader-number m_v_2">
+            <p><%= number_to_percentage(@charter.progress, precision: 1) %></p>
+            <div id="sparkline-GLOBAL" class="sparkline"></div>
+          </div>
         <% end %>
 
         <% if @progress_evolution.present? %>
-          <p>
+          <div class="subheader-title subheader-title--muted">
             <%= t(
               "gobierto_citizens_charters.shared.evolution.#{ @progress_evolution < 0 ? "negative" : "positive" }",
               progress: number_to_percentage(@progress_evolution, precision: 1)
               ) %>
-          </p>
-
-        <% end %>
-
-        <p><%= t(".editions_details") %>:</p>
-        <% @charter.editions.each do |edition| %>
-          <div>
-            <ul>
-              <li>
-                <strong><%= content_tag :div, edition.commitment.title %></strong>
-              </li>
-              <li>
-                <%= content_tag :div, edition.commitment.description %>
-              </li>
-              <li>
-                <%= content_tag :div, number_to_percentage(edition.proportion, precision: 1) %>
-              </li>
-            </ul>
           </div>
         <% end %>
+
+        <div class="subheader-title desktop_only bottom"><%= t(".editions_details") %>:</div>
+      </div>
+      <div class="right">
+        <div class="m_b_1">
+          <div class="subheader-title"><%= t(".about") %></div>
+          <small><%= custom_field_by_uid(@service, "27eec303-1414-4a1c-9f35-1dd4ce993789") %></small>
+        </div>
+        <div class="m_b_3">
+          <a href="#"><%= t(".see_all") %></a>
+          <div class="subheader-title--muted"><%= t(".see_all_subtitle") %></div>
+        </div>
+
+        <%= render(
+          partial: "gobierto_citizens_charters/shared/period_breadcrumb",
+          locals: {
+            selected_period: @charter.reference_edition.to_s,
+            available_periods: @charter.available_periods(@charter.reference_edition.period_interval)
+          }
+        ) %>
+
       </div>
     </div>
   </div>
-</div>
+
+  <div class="charter-container">
+        <% @charter.editions.each do |edition| %>
+    <div class="charter">
+      <div class="charter-inner">
+        <div class="m_b_2"><%= edition.commitment.description %></div>
+        <div class="charter-number m_b_1">
+          <p> <%= number_to_percentage(edition.proportion, precision: 1) %> </p>
+          <div id="sparkline-<%= edition.id %>" class="sparkline"></div>
+        </div>
+        <small class="charter-text--muted"><%= t(".commitment") %></small>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+</main>

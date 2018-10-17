@@ -27,6 +27,10 @@ module GobiertoAdmin
         @person ||= gobierto_people_people(:richard)
       end
 
+      def event
+        @event ||= gobierto_calendars_events(:innovation_event)
+      end
+
       def test_list_of_collections
         with_signed_in_admin(admin) do
           with_current_site(site) do
@@ -115,10 +119,25 @@ module GobiertoAdmin
       def test_gobierto_module_events
         with_signed_in_admin(admin) do
           with_current_site(site) do
+            # for published events
             visit @path
             click_link "Participation events"
 
-            assert has_content?("Innovation course")
+            assert has_content? event.title
+
+            within("#person-event-item-#{event.id}") { click_link "View event" }
+
+            assert has_selector?("h3", text: event.title)
+
+            # for pending events
+            event.pending!
+
+            visit @path
+            click_link "Participation events"
+
+            within("#person-event-item-#{event.id}") { click_link "View event" }
+            assert has_selector?("h3", text: event.title)
+            assert current_url.include?(admin.preview_token)
           end
         end
       end

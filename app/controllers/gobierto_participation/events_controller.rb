@@ -2,6 +2,9 @@
 
 module GobiertoParticipation
   class EventsController < GobiertoParticipation::ApplicationController
+
+    include ::PreviewTokenHelper
+
     def index
       @issue = find_issue if params[:issue_id]
       @issues = find_issues
@@ -15,7 +18,7 @@ module GobiertoParticipation
     def show
       container_events
 
-      @event = find_event
+      @event = participation_events_scope.find_by!(slug: params[:id])
       @calendar_events = @container_events
     end
 
@@ -39,12 +42,12 @@ module GobiertoParticipation
       @calendar_events = @container_events
     end
 
-    def find_event
-      current_site.events.published.find_by!(slug: params[:id])
-    end
-
     def container_events
       @container_events = GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation")
+    end
+
+    def participation_events_scope
+      valid_preview_token? ? current_site.events : current_site.events.published
     end
 
     def find_events_by_date(date)

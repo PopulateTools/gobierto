@@ -14,9 +14,10 @@
   </td>
   <% if charters_enabled? %>
     <td>
-      <%== service.charters.active.map do |charter| %>
-        <% link_to(charter.title, edit_admin_citizens_charters_charter_path(charter)) %>
-      <% end.join(" - ") %>
+      <% service.charters.active.each do |charter| %>
+        <%= link_to(charter.title, edit_admin_citizens_charters_charter_path(charter)) %>
+        <br>
+      <% end %>
     </td>
   <% end %>
   <td>

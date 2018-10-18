@@ -18,6 +18,7 @@ ca:
         paragraph: Text llarg sense traduccions
         single_option: Selecció única
         string: Text sense traduccions (línia)
+        uid: Identificador
       gobierto_admin/gobierto_common/term_form:
         description: Descripció
         name: Nom

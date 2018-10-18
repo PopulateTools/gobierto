@@ -18,6 +18,7 @@ en:
         paragraph: Long text without translations
         single_option: One selection
         string: Text without translations (line)
+        uid: Identifier
       gobierto_admin/gobierto_common/term_form:
         description: Description
         name: Name

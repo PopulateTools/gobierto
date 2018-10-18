@@ -13,7 +13,8 @@ module GobiertoAdmin
       )
 
       attr_writer(
-        :options
+        :options,
+        :uid
       )
 
       delegate :persisted?, to: :custom_field
@@ -52,6 +53,10 @@ module GobiertoAdmin
         @options ||= options_translations ? options_translations.except("new_option") : {}
       end
 
+      def uid
+        @uid.presence && @uid.tr("_", " ").parameterize
+      end
+
       def types_with_options
         @types_with_options ||= ::GobiertoCommon::CustomField.field_types_with_options.keys
       end
@@ -71,6 +76,7 @@ module GobiertoAdmin
           attributes.name_translations = name_translations
           attributes.field_type = field_type
           attributes.options = options
+          attributes.uid = uid
         end
 
         return @custom_field if @custom_field.save

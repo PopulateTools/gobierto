@@ -21,6 +21,14 @@
         <% end %>
       </div>
 
+      <div class="form_item input_text">
+        <%= f.label :uid do %>
+          <%= f.object.class.human_attribute_name(:uid) %>
+          <%= attribute_indication_tag required: true %>
+        <% end %>
+        <%= f.text_field :uid %>
+      </div>
+
       <div class="form_block">
         <div class="form_item site-module-check-boxes">
           <div class="options compact">

@@ -86,6 +86,7 @@ module GobiertoAdmin
         def custom_field_params
           params.require(:custom_field).permit(
             :field_type,
+            :uid,
             name_translations: [*I18n.available_locales],
             options_translations: {}
           )
@@ -100,7 +101,7 @@ module GobiertoAdmin
         end
 
         def ignored_custom_field_attributes
-          %w(created_at updated_at class_name site_id uid mandatory position)
+          %w(created_at updated_at class_name site_id mandatory position)
         end
 
         def find_custom_field

@@ -18,6 +18,7 @@ es:
         paragraph: Texto largo sin traducciones
         single_option: Selección única
         string: Texto sin traducciones (línea)
+        uid: Identificador
       gobierto_admin/gobierto_common/term_form:
         description: Descripción
         name: Nombre

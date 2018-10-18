@@ -12,6 +12,7 @@ module GobiertoAdmin
       )
 
       trackable_on :event
+      delegate :to_url, to: :event
 
       def ignored_constructor_attributes
         [:department_id, :meta]

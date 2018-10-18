@@ -75,6 +75,5 @@ module GobiertoAdmin
       options[:preview_token] = current_admin.preview_token unless page.active?
       gobierto_cms_page_or_news_path(page, options)
     end
-
   end
 end

@@ -55,11 +55,9 @@
     year: <%= APP_CONFIG["gobierto_observatory"]["year"] %>,
     endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"
   }
-  <% if @selected_year %>
   window.populateDataYear = {
-    currentYear: <%= @selected_year %>
+    currentYear: <%= @selected_year || Date.current.year %>
   }
-  <% end %>
 </script>
 
 <%= csrf_meta_tags %>

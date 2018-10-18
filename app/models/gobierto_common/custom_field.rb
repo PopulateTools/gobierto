@@ -49,8 +49,8 @@ module GobiertoCommon
 
     def set_position
       self.position = begin
-        self.class.where(site_id: site_id).maximum(:position).to_i + 1
-      end
+                        self.class.where(site_id: site_id, class_name: class_name).maximum(:position).to_i + 1
+                      end
     end
   end
 end

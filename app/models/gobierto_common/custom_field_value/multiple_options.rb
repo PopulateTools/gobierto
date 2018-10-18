@@ -3,8 +3,6 @@
 module GobiertoCommon::CustomFieldValue
   class MultipleOptions < Base
     def value
-      super
-
       return nil unless custom_field.options.present?
 
       Array(raw_value).map do |v|

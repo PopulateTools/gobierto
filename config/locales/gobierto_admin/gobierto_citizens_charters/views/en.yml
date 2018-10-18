@@ -91,9 +91,11 @@ en:
             value: Value
       services:
         form:
+          category: 'Category (vocabulary: %{vocabulary})'
           placeholders:
             slug: day-care
             title: Day care service
+          set_vocabulary: Set a vocabulary for categories
         index:
           header:
             category: Category

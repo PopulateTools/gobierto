@@ -90,9 +90,11 @@ ca:
             value: Valor
       services:
         form:
+          category: 'Categoria (vocabulari: %{vocabulary})'
           placeholders:
             slug: atencio-centres-diurns
             title: Servei de atenció a centres diürns
+          set_vocabulary: Definir vocabulari per categories
         index:
           header:
             category: Categoria

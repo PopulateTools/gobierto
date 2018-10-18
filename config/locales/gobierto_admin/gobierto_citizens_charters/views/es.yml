@@ -90,9 +90,11 @@ es:
             value: Valor
       services:
         form:
+          category: 'Categoría (vocabulario: %{vocabulary})'
           placeholders:
             slug: atencion-diurna
             title: Servicio de atención diurna
+          set_vocabulary: Definir vocabulario para categorías
         index:
           header:
             category: Categoría

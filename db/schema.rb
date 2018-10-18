@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_10_102053) do
+ActiveRecord::Schema.define(version: 2018_10_18_085402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -179,7 +179,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_102053) do
     t.boolean "mandatory", default: false
     t.integer "field_type", default: 0, null: false
     t.jsonb "options"
-    t.string "uid", default: "", null: false
+    t.string "uid", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["site_id", "uid", "class_name"], name: "index_custom_fields_on_site_id_and_uid_and_class_name", unique: true

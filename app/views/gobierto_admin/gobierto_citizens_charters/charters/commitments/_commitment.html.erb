@@ -15,7 +15,7 @@
   <td>
     <%= commitment.editions.count %>
     <% if commitment.editions.exists? %>
-      (<%= link_to t(".see_recent"), admin_citizens_charters_charter_editions_path(@charter, commitment.editions.recent.first.period_admin_params) %>)
+      <%= link_to t(".see_recent"), admin_citizens_charters_charter_editions_path(@charter, commitment.editions.recent.first.period_admin_params) %>
     <% end %>
   </td>
   <td class="visibility_level">

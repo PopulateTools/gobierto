@@ -1,3 +1,11 @@
+<h1><%= title t("gobierto_admin.layouts.application.citizens_charters") %></h1>
+<div class="admin_tools right">
+  <%= link_to edit_admin_citizens_charters_configuration_settings_path do %>
+    <i class="fa fa-cog"></i>
+    <%= t("gobierto_admin.gobierto_citizens_charters.shared.configuration.configuration") %>
+  <% end %>
+</div>
+
 <div class="tabs">
   <ul>
     <li class="<%= class_if("active", controller_name == "services") %>">

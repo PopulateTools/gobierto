@@ -2,23 +2,25 @@
 
 <%= render("gobierto_admin/gobierto_citizens_charters/shared/navigation") %>
 
-<div class="pure-g m_v_2">
+<div>
   <div class="pure-u-3-4">
     <strong><%= @charter.title %></strong> »
     <%= link_to t("gobierto_admin.gobierto_citizens_charters.shared.navigation.editions_intervals"), admin_citizens_charters_charter_editions_intervals_path(@charter) %> »
     <%= link_to t(".#{@period_interval}_interval"), admin_citizens_charters_charter_editions_intervals_path(@charter, period_interval: @period_interval) %> »
     <%= t(".#{@period_interval}_period", @reference_edition.period_values ) %>
   </div>
-  <div class="pure-u-1-4 admin_tools right">
+  <div class="admin_tools right">
     <%= link_to admin_citizens_charters_charter_commitments_path(@charter) do %>
       <%= t("gobierto_admin.gobierto_citizens_charters.shared.navigation.commitments") %>
     <% end %>
+    <%= link_to  edit_admin_citizens_charters_charter_path(@charter) do %>
+      <i class="fa fa-edit"></i>
+      <%= t("gobierto_admin.gobierto_citizens_charters.shared.edit.title", item: @charter.title) %>
+    <% end %>
+      <%= link_to t(".new"), "#", class: "button", data: { insert: true } %>
   </div>
 </div>
 
-  <div class="admin_tools right">
-    <%= link_to t(".new"), "#", class: "button", data: { insert: true } %>
-  </div>
 
 <% if @commitments_list.present? %>
   <div id="jsGrid"></div>

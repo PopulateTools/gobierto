@@ -67,9 +67,14 @@ export class InvestmentByInhabitantCard extends Card {
         bcn = this.data.filter(function(d) { return d.location_name === 'Barcelona'; });
         vlc = this.data.filter(function(d) { return d.location_name === 'Valencia'; });
 
-        var placeSpark = new Sparkline(this.container + ' .sparkline-first_column', place, this.trend, this.freq);
-        var bcnSpark = new Sparkline(this.container + ' .sparkline-second_column', bcn, this.trend, this.freq);
-        var vlcSpark = new Sparkline(this.container + ' .sparkline-third_column', vlc, this.trend, this.freq);
+        var opts = {
+          trend: this.trend,
+          freq: this.freq
+        }
+
+        var placeSpark = new Sparkline(this.container + ' .sparkline-first_column', place, opts);
+        var bcnSpark = new Sparkline(this.container + ' .sparkline-second_column', bcn, opts);
+        var vlcSpark = new Sparkline(this.container + ' .sparkline-third_column', vlc, opts);
 
         placeSpark.render();
         bcnSpark.render();

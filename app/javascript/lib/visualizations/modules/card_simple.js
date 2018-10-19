@@ -66,7 +66,7 @@ export class SimpleCard extends Card {
       .text(formatDate(parsedDate));
 
     if (typeof json.data[1] !== 'undefined') {
-      var spark = new Sparkline(divClass + ' .sparkline', json.data, trend, freq);
+      var spark = new Sparkline(divClass + ' .sparkline', json.data, { trend, freq });
       spark.render();
 
       var pctChange = valueType ? (value / json.data[1][valueType] * 100) - 100 : (value / json.data[1].value * 100) - 100

@@ -10,7 +10,7 @@ module GobiertoCitizensCharters
   end
 
   def self.classes_with_custom_fields
-    [GobiertoCitizensCharters::Service]
+    [GobiertoCitizensCharters::Service, GobiertoCitizensCharters::Charter]
   end
 
   def self.module_submodules

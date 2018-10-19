@@ -126,9 +126,14 @@ export class BirthRateCard extends Card {
         var province = this.data.filter(function(d) { return d.location_type === 'province'; });
         var country = this.data.filter(function(d) { return d.location_type === 'country'; });
 
-        var placeSpark = new Sparkline(this.container + ' .sparkline-place', place, this.trend, this.freq);
-        var provinceSpark = new Sparkline(this.container + ' .sparkline-province', province, this.trend, this.freq);
-        var countrySpark = new Sparkline(this.container + ' .sparkline-country', country, this.trend, this.freq);
+        var opts = {
+          trend: this.trend,
+          freq: this.freq
+        }
+
+        var placeSpark = new Sparkline(this.container + ' .sparkline-place', place, opts);
+        var provinceSpark = new Sparkline(this.container + ' .sparkline-province', province, opts);
+        var countrySpark = new Sparkline(this.container + ' .sparkline-country', country, opts);
 
         placeSpark.render();
         provinceSpark.render();

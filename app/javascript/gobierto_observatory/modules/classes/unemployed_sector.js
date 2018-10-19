@@ -45,10 +45,15 @@ export class UnemplBySectorCard extends Card {
         var agr = jsonData.data.filter(function(d) { return d.sector === 'Agricultura'; });
         var cons = jsonData.data.filter(function(d) { return d.sector === 'Construcción'; });
 
-        var indSpark = new Sparkline(this.container + ' .sparkline-industria', ind, this.trend, this.freq);
-        var servSpark = new Sparkline(this.container + ' .sparkline-servicios', serv, this.trend, this.freq);
-        var agrSpark = new Sparkline(this.container + ' .sparkline-agricultura', agr, this.trend, this.freq);
-        var consSpark = new Sparkline(this.container + ' .sparkline-construccion', cons, this.trend, this.freq);
+        var opts = {
+          trend: this.trend,
+          freq: this.freq
+        }
+
+        var indSpark = new Sparkline(this.container + ' .sparkline-industria', ind, opts);
+        var servSpark = new Sparkline(this.container + ' .sparkline-servicios', serv, opts);
+        var agrSpark = new Sparkline(this.container + ' .sparkline-agricultura', agr, opts);
+        var consSpark = new Sparkline(this.container + ' .sparkline-construccion', cons, opts);
 
         indSpark.render();
         servSpark.render();

@@ -17,3 +17,7 @@ en:
         title_translations: Title
       gobierto_admin/gobierto_citizens_charters/settings_form:
         categories_vocabulary_id: Categories vocabulary
+  activerecord:
+    models:
+      gobierto_citizens_charters/charter: Service charter
+      gobierto_citizens_charters/service: Service

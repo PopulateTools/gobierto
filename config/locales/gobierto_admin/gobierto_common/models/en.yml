@@ -8,6 +8,17 @@ en:
         item_type: Type
         slug: URL
         title: Title
+      gobierto_admin/gobierto_common/custom_field_form:
+        field_type: Type of field
+        localized_paragraph: Long text
+        localized_string: Text (line)
+        multiple_options: Multiple selections
+        name: Name
+        options: Options
+        paragraph: Long text without translations
+        single_option: One selection
+        string: Text without translations (line)
+        uid: Identifier
       gobierto_admin/gobierto_common/term_form:
         description: Description
         name: Name
@@ -19,3 +30,10 @@ en:
       gobierto_admin/gobierto_common/collection_form: Collection
       gobierto_admin/gobierto_common/term_form: Term
       gobierto_admin/gobierto_common/vocabulary_form: Vocabulary
+  activerecord:
+    errors:
+      models:
+        gobierto_common/custom_field_record:
+          attributes:
+            item:
+              wrong_item_class: not associated with an item of the appropriate class

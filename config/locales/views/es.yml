@@ -146,6 +146,7 @@ es:
       users_user_updated: Usuario actualizado
   views:
     delete: Eliminar
+    delete_confirm: "¿Seguro? Esta operación no tiene marcha atrás."
     drag_to_sort: Arrastre para ordenar
     edit: Edita
     forms:

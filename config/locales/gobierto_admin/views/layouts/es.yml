@@ -12,6 +12,7 @@ es:
         citizens_charters: Servicios
         cms: CMS
         collapse_menu: Colapsar menú
+        custom_fields: Campos personalizados
         dirty_forms:
           message: Hay cambios sin guardar. ¿Estás seguro de querer continuar?
         edit_site: Personalizar sitio

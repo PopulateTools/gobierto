@@ -1,0 +1,37 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.layouts.application.custom_fields"), admin_common_custom_fields_module_resources_path %> »
+  <%= @class_human_name %>
+</div>
+
+<h1><%= t(".title") %></h1>
+
+<% @custom_fields.each do |custom_field| %>
+  <div class="list_item with_mandatory_option">
+    <label class="main"><%= custom_field.name %></label>
+
+    <div class="tools">
+      <%= link_to edit_admin_common_custom_fields_custom_field_path(custom_field),
+        title: t("views.edit"),
+        class: "tipsit" do %>
+        <i class="fa fa-edit"></i>
+      <% end %>
+
+      <%= link_to admin_common_custom_fields_custom_field_path(custom_field),
+        title: t("views.delete"),
+        method: :delete,
+        class: "tipsit",
+        data: { confirm: t("views.delete_confirm") } do %>
+        <i class="fa fa-trash"></i>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="m_2">
+  <%= link_to new_admin_common_custom_fields_module_resource_custom_field_path(params[:module_resource_name]) do %>
+    <i class="fa fa-plus-circle"></i>
+    <%= t(".new") %>
+  <% end %>
+</div>
+

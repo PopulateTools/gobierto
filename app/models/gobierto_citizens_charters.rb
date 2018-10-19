@@ -9,6 +9,10 @@ module GobiertoCitizensCharters
     [GobiertoCitizensCharters::Service]
   end
 
+  def self.classes_with_custom_fields
+    [GobiertoCitizensCharters::Service]
+  end
+
   def self.module_submodules
     %w(services charters)
   end

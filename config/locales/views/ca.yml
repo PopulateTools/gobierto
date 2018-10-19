@@ -146,6 +146,7 @@ ca:
       users_user_updated: Usuari actualitzat
   views:
     delete: Eliminar
+    delete_confirm: Estàs segur? Aquesta operació no és reversible
     drag_to_sort: Arrossegueu per a ordenar
     edit: Edita
     forms:

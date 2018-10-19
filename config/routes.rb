@@ -150,6 +150,13 @@ Rails.application.routes.draw do
           end
         end
       end
+
+      namespace :custom_fields do
+        post "create_option", controller: "custom_fields"
+        resources :module_resources, only: [:index, :show], param: :name do
+          resources :custom_fields, shallow: true, except: [:show], path: ""
+        end
+      end
     end
 
     namespace :gobierto_plans, as: :plans, path: :plans do

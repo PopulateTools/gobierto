@@ -8,6 +8,17 @@ es:
         item_type: Tipo
         slug: URL
         title: Título
+      gobierto_admin/gobierto_common/custom_field_form:
+        field_type: Tipo de campo
+        localized_paragraph: Texto largo
+        localized_string: Texto (línea)
+        multiple_options: Selección múltiple
+        name: Nombre
+        options: Opciones
+        paragraph: Texto largo sin traducciones
+        single_option: Selección única
+        string: Texto sin traducciones (línea)
+        uid: Identificador
       gobierto_admin/gobierto_common/term_form:
         description: Descripción
         name: Nombre
@@ -19,3 +30,10 @@ es:
       gobierto_admin/gobierto_common/collection_form: Colección
       gobierto_admin/gobierto_common/term_form: Término
       gobierto_admin/gobierto_common/vocabulary_form: Vocabulario
+  activerecord:
+    errors:
+      models:
+        gobierto_common/custom_field_record:
+          attributes:
+            item:
+              wrong_item_class: no está asociado a un item de la clase adecuada

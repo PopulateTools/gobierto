@@ -183,6 +183,9 @@
                   <% if current_admin.can_edit_templates? %>
                     <li><%= link_to t(".templates"), admin_gobierto_core_templates_path %></li>
                   <% end %>
+                  <% if current_admin.can_edit_custom_fields? %>
+                    <li><%= link_to t(".custom_fields"), admin_common_custom_fields_module_resources_path %></li>
+                  <% end %>
                 </ul>
               </li>
             <% end %>

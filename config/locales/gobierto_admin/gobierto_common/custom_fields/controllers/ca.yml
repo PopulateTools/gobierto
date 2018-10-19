@@ -1,0 +1,13 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          create:
+            success: Camp personalitzat creat correctament
+          destroy:
+            failed: Hi ha hagut un error que ha impedit eliminar el camp personalitzat
+            success: Camp personalitzat eliminat correctament
+          update:
+            success: Camp personalitzat actualitzat correctament

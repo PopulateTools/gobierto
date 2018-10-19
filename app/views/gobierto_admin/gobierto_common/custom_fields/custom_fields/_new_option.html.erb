@@ -1,0 +1,37 @@
+<div class="user_field_container pure-g" data-option="new_option">
+
+  <div class="pure-u-1 pure-u-md-1-4">
+    <span class="field_item">
+      <%= t(".new") %>
+    </span>
+  </div>
+
+  <div class="pure-u-1 pure-u-md-3-4">
+
+    <div class="f_right">
+      <%= link_to "#",
+        class: "tipsit",
+        title: t(".create"),
+        data: { behavior: "create", index: "new_option" } do %>
+        <i class="fa fa-check"></i>
+      <% end %>
+      <%= link_to "#",
+        class: "tipsit",
+        title: t(".cancel_new_option"),
+        data: { behavior: "cancel_new", index: "new_option" } do %>
+        <i class="fa fa-times"></i>
+      <% end %>
+    </div>
+
+    <div class="field_item_def_cont">
+      <% current_site.configuration.available_locales.each do |locale| %>
+        <div class="field_item_def field_locale">
+          <%= label_tag "custom_field[options_translations][new_option][#{locale}]" do %>
+            <%= t("locales.#{ locale }") %>
+          <% end %>
+          <%= text_field_tag "custom_field[options_translations][new_option][#{ locale }]", nil, data: { locale: locale } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

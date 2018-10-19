@@ -1,0 +1,27 @@
+<div class="<%= record.class_names %>">
+  <%= label_tag "#{ input_base_name }[#{ record.uid }][value]" do %>
+    <%= record.name %>
+    <%= attribute_indication_tag required: record.required? %>
+  <% end %>
+
+  <div id="<%= "crop-popup_#{ record.uid }" %>" class="modal mfp-hide">
+    <div style="margin-right: 1em">
+      <img id="<%= "image_#{ record.uid }" %>" width="100%" src="">
+    </div>
+
+    <div class="actions m_v_1 right">
+      <button type="button" id="<%= "btnCrop_#{ record.uid }" %>"><%= t("gobierto_admin.gobierto_common.custom_fields.custom_fields.form.crop") %></button>
+    </div>
+  </div>
+
+  <% if record.input_content.present? %>
+    <%= image_tag record.input_content, height: 150, id: "saved_image_#{ record.uid }" %>
+  <% end %>
+
+  <%= f.file_field "[custom_records][#{record.uid}][value]", id: record.uid %>
+  <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
+
+  <% %w[x y w h].each do |attribute| %>
+    <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][crop][#{ attribute }]", nil, id: "#{ record.uid }_crop_#{ attribute }" %>
+  <% end %>
+</div>

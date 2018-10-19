@@ -140,6 +140,7 @@ en:
       users_user_updated: User updated
   views:
     delete: Delete
+    delete_confirm: Are you sure? This operation can not be undone
     drag_to_sort: Drag to sort
     edit: Edit
     forms:

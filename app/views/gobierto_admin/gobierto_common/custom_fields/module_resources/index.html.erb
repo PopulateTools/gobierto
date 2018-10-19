@@ -1,0 +1,20 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= t("gobierto_admin.layouts.application.custom_fields") %>
+</div>
+
+<h1><%= t("gobierto_admin.layouts.application.custom_fields") %></h1>
+
+<% if @available_resources.blank? %>
+  <%= t(".empty") %>
+<% else %>
+  <% @available_resources.each do |module_name, resources| %>
+    <div>
+      <h3><%= t("gobierto_admin.layouts.application.#{ module_name.underscore.gsub("gobierto_", "") }") %></h3>
+      <% resources.each do |resource| %>
+        <%= link_to resource.model_name.human, admin_common_custom_fields_module_resource_custom_fields_path(module_resource_name: resource.name.underscore.gsub("/", "-")) %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+

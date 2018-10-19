@@ -1,0 +1,13 @@
+---
+en:
+  gobierto_admin:
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          create:
+            success: Custom field created correctly
+          destroy:
+            failed: There was an error that prevented the deletion of the custom field
+            success: Custom field successfully deleted
+          update:
+            success: Custom field updated correctly

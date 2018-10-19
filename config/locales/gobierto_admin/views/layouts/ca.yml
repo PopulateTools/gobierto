@@ -12,6 +12,7 @@ ca:
         citizens_charters: Serveis
         cms: CMS
         collapse_menu: Colapsar menú
+        custom_fields: Camps personalitzats
         dirty_forms:
           message: Hi ha canvis sense desar. Estàs segur de voler continuar?
         edit_site: Personalitzar site

@@ -12,6 +12,7 @@ module GobiertoAdmin
         @charter_form = CharterForm.new(
           charters_relation.new.attributes.except(*ignored_charter_attributes).merge(site_id: current_site.id)
         )
+        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @charter_form.resource)
         render(:new_modal, layout: false) && return if request.xhr?
       end
 
@@ -21,13 +22,18 @@ module GobiertoAdmin
         @charter_form = CharterForm.new(
           @charter.attributes.except(*ignored_charter_attributes).merge(site_id: current_site.id)
         )
+        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @charter)
         render(:edit_modal, layout: false) && return if request.xhr?
       end
 
       def create
         @charter_form = CharterForm.new(charter_params.merge(site_id: current_site.id))
 
+        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @charter_form.resource)
+        @custom_fields_form.custom_field_records = custom_params
+
         if @charter_form.save
+          @custom_fields_form.save
           redirect_to(
             admin_citizens_charters_charters_path,
             notice: t(".success_html", link: preview_url(@charter_form.resource, host: current_site.domain))
@@ -39,9 +45,13 @@ module GobiertoAdmin
       end
 
       def update
-        @charter_form = CharterForm.new(charter_params.merge(id: params[:id], site_id: current_site.id))
+        load_charter
 
-        if @charter_form.save
+        @charter_form = CharterForm.new(charter_params.merge(id: params[:id], site_id: current_site.id))
+        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @charter)
+        @custom_fields_form.custom_field_records = custom_params
+
+        if @charter_form.save && @custom_fields_form.save
           redirect_to(
             admin_citizens_charters_charters_path,
             notice: t(".success_html", link: preview_url(@charter_form.resource, host: current_site.domain))
@@ -89,6 +99,10 @@ module GobiertoAdmin
           :visibility_level,
           title_translations: [*I18n.available_locales]
         )
+      end
+
+      def custom_params
+        params.require(self.class.name.demodulize.gsub("Controller", "").underscore.singularize).permit(custom_records: {})
       end
 
       def ignored_charter_attributes

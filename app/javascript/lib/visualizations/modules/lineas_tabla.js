@@ -419,15 +419,40 @@ export class VisLineasJ {
           .style('font-size', '14px')
 
 
+      var self = this
       // create a row for each object in the data
       rows = tbody.selectAll("tr")
           .data(this.dataChart.reverse())
-          // .data(this.dataChart)
           .enter()
-        .append("tr")
+          .append("tr")
           .attr('class', function(d) { return this._normalize(d.name); }.bind(this))
-        .on('mouseover', this._mouseoverTable.bind(this))
-        .on('mouseout', this._mouseoutTable.bind(this));
+          .on('mouseover', function () {
+            var classed = this.classList[this.classList.length - 1]
+
+            self.svgLines.selectAll('.dot_line')
+              .filter(function(d) { return self._normalize(d.name) !== classed; }.bind(self))
+              .transition()
+              .duration(self.duration)
+              .style('opacity', self.opacityLow);
+
+            self.svgLines.selectAll('.evolution_line')
+              .filter(function(d) { return self._normalize(d.name) !== classed; }.bind(self))
+              .transition()
+              .duration(self.duration)
+              .style('opacity', self.opacityLow);
+          })
+          .on('mouseout', function () {
+            this.svgLines.selectAll('.dot_line')
+              .transition()
+              .duration(this.duration)
+              .attr('r', this.radius)
+              .style('opacity', 1);
+
+            this.svgLines.selectAll('.evolution_line')
+              .transition()
+              .duration(this.duration)
+              .style('opacity', 1);
+          }.bind(this));
 
       // create a cell in each row for each column
       rows.selectAll("td")
@@ -618,37 +643,6 @@ export class VisLineasJ {
         // selectedData = d3.select(selected).data()[0],
         // selectedCx = d3.select(selected).attr('cx'),
         // selectedCy = d3.select(selected).attr('cy');
-
-    this.svgLines.selectAll('.dot_line')
-      .transition()
-      .duration(this.duration)
-      .attr('r', this.radius)
-      .style('opacity', 1);
-
-    this.svgLines.selectAll('.evolution_line')
-      .transition()
-      .duration(this.duration)
-      .style('opacity', 1);
-  }
-
-  _mouseoverTable() {
-    var classed = d3.event.target.classList[d3.event.target.classList.length - 1]
-
-    this.svgLines.selectAll('.dot_line')
-      .filter(function(d) { return this._normalize(d.name) != classed; }.bind(this))
-      .transition()
-      .duration(this.duration)
-      .style('opacity', this.opacityLow);
-
-    this.svgLines.selectAll('.evolution_line')
-      .filter(function(d) { return this._normalize(d.name) != classed; }.bind(this))
-      .transition()
-      .duration(this.duration)
-      .style('opacity', this.opacityLow);
-  }
-
-  _mouseoutTable() {
-    // var classed = d3.event.target.classList[d3.event.target.classList.length - 1]
 
     this.svgLines.selectAll('.dot_line')
       .transition()

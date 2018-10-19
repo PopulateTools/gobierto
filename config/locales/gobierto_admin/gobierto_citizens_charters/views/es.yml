@@ -64,7 +64,7 @@ es:
             created: Creación
             service: Servicio
             status: Estado
-            title: Título
+            title: Carta de servicios
             updated: Actualización
           new: Nueva carta
           title: Cartas de Servicios
@@ -86,7 +86,7 @@ es:
           header:
             max_value: Objetivo
             percentage: Porcentaje
-            title: Título
+            title: Compromiso
             value: Valor
       services:
         form:
@@ -101,7 +101,7 @@ es:
             charters: Cartas de servicio
             created: Creación
             status: Estado
-            title: Título
+            title: Servicio
             updated: Actualización
           new: Nuevo servicio
           title: Servicios

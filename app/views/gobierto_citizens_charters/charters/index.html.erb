@@ -42,16 +42,16 @@
     </div>
 
     <div class="charters-box-container">
-        <% @charters.each do |charter| %>
-        <%= link_to gobierto_citizens_charters_service_charter_path(@service.slug, charter.slug, period: charter.reference_edition.to_s, period_interval: charter.reference_edition.period_interval), class: 'charters-box' do %>
-        <div class="box-inner">
-          <div class="box-title top left"><%= charter.title %></div>
-          <div class="box-results bottom left">
-            <div class="results-title"><%= t(".progress") %></div>
-            <div class="results-value"><%= number_to_percentage(charter.progress, precision: 1) %></div>
+      <% @charters.each do |charter| %>
+        <%= link_to gobierto_citizens_charters_service_charter_path(@service.slug, charter.slug, period: charter.reference_edition.to_s, period_interval: charter.reference_edition.period_interval), class: "charters-box", id: "charter-#{ charter.id }" do %>
+          <div class="box-inner">
+            <div class="box-title top left"><%= charter.title %></div>
+            <div class="box-results bottom left">
+              <div class="results-title"><%= t(".progress") %></div>
+              <div class="results-value"><%= number_to_percentage(charter.progress, precision: 1) %></div>
+            </div>
+            <div class="box-contents bottom right"><%= t(".commitments", count: charter.commitments.count) %></div>
           </div>
-          <div class="box-contents bottom right"><%= t(".commitments", count: charter.commitments.count) %></div>
-        </div>
         <% end %>
       <% end %>
     </div>

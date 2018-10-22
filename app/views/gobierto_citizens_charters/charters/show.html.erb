@@ -41,7 +41,7 @@
       <div class="right">
         <div class="m_b_1">
           <div class="subheader-title"><%= t(".about") %></div>
-          <small><%= custom_field_by_uid(@service, "27eec303-1414-4a1c-9f35-1dd4ce993789") %></small>
+          <small><%= custom_field_by_uid(@charter, "introduction") %></small>
         </div>
         <div class="m_b_3">
           <a href="#"><%= t(".see_all") %></a>
@@ -69,7 +69,7 @@
           <p> <%= number_to_percentage(edition.proportion, precision: 1) %> </p>
           <div id="sparkline-<%= edition.id %>" class="sparkline"></div>
         </div>
-        <small class="charter-text--muted"><%= t(".commitment") %></small>
+        <small class="charter-text--muted"><%= edition.commitment.title %></small>
       </div>
     </div>
     <% end %>

@@ -75,6 +75,7 @@ es:
           edit:
             enable_charters: Habilitar Cartas de Servicios
             enable_services: Habilitar Servicios
+            enable_services_home: Mostrar home de Servicios
             title: Configuración
             update: Actualizar
           title: Preferencias

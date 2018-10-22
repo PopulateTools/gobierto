@@ -75,6 +75,7 @@ ca:
           edit:
             enable_charters: Habilitar Cartes de Serveis
             enable_services: Habilitar Serveis
+            enable_services_home: Mostra home de Serveis
             title: Configuració
             update: Actualitzar
           title: Preferencies

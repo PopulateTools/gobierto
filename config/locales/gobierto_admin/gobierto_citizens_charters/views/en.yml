@@ -75,6 +75,7 @@ en:
           edit:
             enable_charters: Enable Citizens Charters
             enable_services: Enable Services
+            enable_services_home: Display Services home
             title: Configuration
             update: Update
           title: Preferences

@@ -95,6 +95,8 @@ export class VisLineasJ {
     $(this.container).html('');
     $(this.tableContainer).html('');
 
+    var self = this
+
     // Chart dimensions
     this.containerWidth = parseInt(d3.select(this.container).style('width'), 10);
     if (isNaN(this.containerWidth)) {
@@ -335,22 +337,137 @@ export class VisLineasJ {
 
       // Add dot to lines
       this.chart.selectAll('g.dots')
-          .data(this.dataChart)
-          .enter()
+        .data(this.dataChart)
+        .enter()
         .append('g')
-          .attr('class', 'dots')
+        .attr('class', 'dots')
         .selectAll('circle')
-          .data(function(d) { return d.values.filter(function(v) { return v.value != null; }); })
-          .enter()
+        .data(function(d) {
+          return d.values.filter(function(v) {
+            return v.value != null;
+          });
+        })
+        .enter()
         .append('circle')
-          .attr('class', function(d) { return 'dot_line ' + this._normalize(d.name) + ' x' + d.date.getFullYear(); }.bind(this))
-          .attr('cx', function(d) { return this.xScale(d.date); }.bind(this))
-          .attr('cy', function(d) { return this.yScale(d.value); }.bind(this))
-          .attr('r', this.radius)
-          .style('fill', function(d) { return this.colorScale(d.name); }.bind(this))
-        .on('mouseover', this._mouseover.bind(this))
-        .on('mouseout', this._mouseout.bind(this));
+        .attr('class', function(d) {
+          return 'dot_line ' + this._normalize(d.name) + ' x' + d.date.getFullYear();
+        }.bind(this))
+        .attr('cx', function(d) {
+          return this.xScale(d.date);
+        }.bind(this))
+        .attr('cy', function(d) {
+          return this.yScale(d.value);
+        }.bind(this))
+        .attr('r', this.radius)
+        .style('fill', function(d) {
+          return this.colorScale(d.name);
+        }.bind(this))
+        .on('mouseover', function() {
+          var selected = this,
+            selectedClass = selected.classList,
+            selectedData = d3.select(selected).data()[0];
 
+          var dataChartFiltered = self.dataChart.map(function(d) {
+            return d.values.filter(function(v) {
+              return v.date.getFullYear() == selectedData.date.getFullYear();
+            })[0];
+          });
+
+
+          if (self.lastYear != selectedData.date.getFullYear()) {
+            // Hide table figures and update text
+            // Year header
+            d3.selectAll(self.tableContainer + ' .year_header')
+              .transition()
+              .duration(self.duration / 2)
+              .style('opacity', 0)
+              .text(selectedData.date.getFullYear())
+              .transition()
+              .duration(self.duration)
+              .style('opacity', 1);
+
+            // Values
+            d3.selectAll(self.tableContainer + ' .value')
+              .transition()
+              .duration(self.duration / 2)
+              .style('opacity', 0)
+              .text(function(d) {
+                var newValue = dataChartFiltered.filter(function(value) {
+                  return value.name == d.name;
+                })
+                d.value = newValue[0].value
+                return d.value != null ? accounting.formatMoney(d.value) : '-- €';
+              })
+              .transition()
+              .duration(self.duration)
+              .style('opacity', 1);
+
+            // Difs
+            d3.selectAll(self.tableContainer + ' .dif')
+              .transition()
+              .duration(self.duration / 2)
+              .style('opacity', 0)
+              .text(function(d) {
+                var newValue = dataChartFiltered.filter(function(dif) {
+                  return dif.name == d.name;
+                })
+                d.dif = newValue[0].dif
+                if (d.dif != null) {
+                  return d.dif <= 0 ? d.dif + ' %' : '+' + d.dif + ' %';
+                } else {
+                  return '-- %'
+                }
+
+              })
+              .transition()
+              .duration(self.duration)
+              .style('opacity', 1);
+          }
+
+          self.lastYear = selectedData.date.getFullYear();
+
+          self.svgLines.selectAll('.v_line')
+            .transition()
+            .duration(self.duration / 2)
+            .attr('x1', function() {
+              return self.xScale(selectedData.date);
+            }.bind(this))
+            .attr('x2', function() {
+              return self.xScale(selectedData.date);
+            }.bind(self));
+
+          d3.select(selected).transition()
+            .duration(self.duration)
+            .attr('r', self.radius * 1.5);
+
+          self.svgLines.selectAll('.dot_line')
+            .filter(function(d) {
+              return d.name != selectedClass[1] && 'x' + d.date.getFullYear() != selectedClass[2];
+            })
+            .transition()
+            .duration(self.duration)
+            .style('opacity', self.opacityLow);
+
+          self.svgLines.selectAll('.evolution_line')
+            .filter(function(d) {
+              return d.name != selectedClass[1];
+            })
+            .transition()
+            .duration(self.duration)
+            .style('opacity', self.opacityLow);
+        })
+        .on('mouseout', function() {
+          this.svgLines.selectAll('.dot_line')
+            .transition()
+            .duration(this.duration)
+            .attr('r', this.radius)
+            .style('opacity', 1);
+
+          this.svgLines.selectAll('.evolution_line')
+            .transition()
+            .duration(this.duration)
+            .style('opacity', 1);
+        }.bind(this));
 
       // --> ADD THE CHART TITLE
       this.svgLines.append('text')
@@ -364,8 +481,6 @@ export class VisLineasJ {
           .text(this.dataTitle)
           .style('fill', this.darkGrey)
           .style('font-size', '1.2em');
-
-
 
       // --> DRAW THE 'TABLE'
 
@@ -418,8 +533,6 @@ export class VisLineasJ {
       thead.select('.year_header')
           .style('font-size', '14px')
 
-
-      var self = this
       // create a row for each object in the data
       rows = tbody.selectAll("tr")
           .data(this.dataChart.reverse())
@@ -551,109 +664,9 @@ export class VisLineasJ {
   }
 
   _mouseover() {
-    var selected = d3.event.target,
-        selectedClass = selected.classList,
-        selectedData = d3.select(selected).data()[0];
-        // selectedCx = d3.select(selected).attr('cx'),
-        // selectedCy = d3.select(selected).attr('cy');
-
-    var dataChartFiltered = this.dataChart.map(function(d) {
-      return d.values.filter(function(v) {
-        return v.date.getFullYear() == selectedData.date.getFullYear();
-      })[0];
-    });
 
 
-    if (this.lastYear != selectedData.date.getFullYear()) {
-        // Hide table figures and update text
-        // Year header
-        d3.selectAll(this.tableContainer + ' .year_header')
-          .transition()
-            .duration(this.duration / 2)
-            .style('opacity', 0)
-          .text(selectedData.date.getFullYear())
-          .transition()
-            .duration(this.duration)
-            .style('opacity', 1);
 
-        // Values
-        d3.selectAll(this.tableContainer + ' .value')
-          .transition()
-            .duration(this.duration / 2)
-            .style('opacity', 0)
-          .text(function(d) {
-              var newValue = dataChartFiltered.filter(function(value) { return value.name == d.name; })
-              d.value = newValue[0].value
-              return d.value != null ? accounting.formatMoney(d.value) : '-- €';
-            })
-          .transition()
-            .duration(this.duration)
-            .style('opacity', 1);
-
-        // Difs
-        d3.selectAll(this.tableContainer + ' .dif')
-          .transition()
-            .duration(this.duration / 2)
-            .style('opacity', 0)
-          .text(function(d) {
-            var newValue = dataChartFiltered.filter(function(dif) { return dif.name == d.name; })
-            d.dif = newValue[0].dif
-            if (d.dif != null) {
-              return d.dif <= 0 ? d.dif + ' %' : '+' + d.dif + ' %';
-            } else {
-              return '-- %'
-            }
-
-            })
-          .transition()
-            .duration(this.duration)
-            .style('opacity', 1);
-      }
-
-    this.lastYear = selectedData.date.getFullYear();
-
-    this.svgLines.selectAll('.v_line')
-        .transition()
-        .duration(this.duration / 2)
-        .attr('x1', function() { return this.xScale(selectedData.date); }.bind(this))
-        .attr('x2', function() { return this.xScale(selectedData.date); }.bind(this));
-
-    d3.select(selected).transition()
-      .duration(this.duration)
-      .attr('r', this.radius * 1.5);
-
-    this.svgLines.selectAll('.dot_line')
-      .filter(function(d) { return d.name != selectedClass[1] && 'x' + d.date.getFullYear() != selectedClass[2]; })
-      .transition()
-      .duration(this.duration)
-      .style('opacity', this.opacityLow);
-
-    this.svgLines.selectAll('.evolution_line')
-      .filter(function(d) { return d.name != selectedClass[1]; })
-      .transition()
-      .duration(this.duration)
-      .style('opacity', this.opacityLow);
-
-
-  }
-
-  _mouseout() {
-    // var selected = d3.event.target;
-        // selectedClass = selected.classList,
-        // selectedData = d3.select(selected).data()[0],
-        // selectedCx = d3.select(selected).attr('cx'),
-        // selectedCy = d3.select(selected).attr('cy');
-
-    this.svgLines.selectAll('.dot_line')
-      .transition()
-      .duration(this.duration)
-      .attr('r', this.radius)
-      .style('opacity', 1);
-
-    this.svgLines.selectAll('.evolution_line')
-      .transition()
-      .duration(this.duration)
-      .style('opacity', 1);
   }
 
   _units() {

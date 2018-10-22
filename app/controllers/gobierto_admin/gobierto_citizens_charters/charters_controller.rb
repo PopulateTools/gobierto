@@ -111,7 +111,7 @@ module GobiertoAdmin
 
       def preview_url(charter, options = {})
         options[:preview_token] = current_admin.preview_token unless charter.active?
-        gobierto_citizens_charters_service_charter_url(charter.service.slug, charter.slug, options)
+        gobierto_citizens_charters_charter_url(charter.slug, options)
       end
     end
   end

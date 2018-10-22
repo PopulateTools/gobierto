@@ -1,2 +1,2 @@
 <% template_content = ::GobiertoCore::SiteTemplate.liquid_str(current_site, "layouts/application") %>
-<%= render inline: template_content, type: :liquid %>
+<%= render inline: template_content, type: :liquid, locals: { current_locale: I18n.locale } %>

@@ -44,7 +44,7 @@
           <small><%= custom_field_by_uid(@charter, "introduction") %></small>
         </div>
         <div class="m_b_3">
-          <a href="#"><%= t(".see_all") %></a>
+          <%= link_to t(".see_all"), details_gobierto_citizens_charters_charter_path(@charter.slug) %>
           <div class="subheader-title--muted"><%= t(".see_all_subtitle") %></div>
         </div>
 

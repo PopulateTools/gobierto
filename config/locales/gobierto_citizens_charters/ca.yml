@@ -2,6 +2,8 @@
 ca:
   gobierto_citizens_charters:
     charters:
+      details:
+        back: Tornar
       index:
         about: Què són les cartes de serveis
         commitments:

@@ -1,0 +1,26 @@
+<div class="column">
+<main class="content gobierto_citizens-charters">
+
+  <div class="charter-header">
+    <div class="column">
+      <h1><%= @charter.title %></h1>
+      <%= image_tag('illustrations/personaliza.jpg') %>
+    </div>
+  </div>
+  <div class="charter-subheader">
+    <div class="column">
+      <div class="left absolute-layout">
+      <%= link_to t(".back"), gobierto_citizens_charters_charter_path(@charter.slug) %>
+      </div>
+    </div>
+  </div>
+
+  <article class="inner">
+    <% %w(presentation responsible mission vision services-offered rights-and-duties participation-ways suggestions-complaints-and-claims internal-and-external-communication compensation-measures regulations).each do |uid| %>
+      <% if (content = custom_field_by_uid(@charter, uid)).present? %>
+        <h2><%= custom_field_name_by_uid(@charter, uid) %></h2>
+        <p><%= content %></p>
+      <% end %>
+    <% end %>
+  </article>
+</main>

@@ -2,6 +2,8 @@
 es:
   gobierto_citizens_charters:
     charters:
+      details:
+        back: Volver
       index:
         about: Qué son las cartas de servicios
         commitments:

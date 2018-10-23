@@ -2,6 +2,8 @@
 en:
   gobierto_citizens_charters:
     charters:
+      details:
+        back: Return
       index:
         about: What are service charters
         commitments:

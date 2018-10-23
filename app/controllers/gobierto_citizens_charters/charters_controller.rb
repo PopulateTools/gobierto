@@ -38,6 +38,10 @@ class GobiertoCitizensCharters::ChartersController < GobiertoCitizensCharters::A
     end
   end
 
+  def details
+    @charter = current_site.charters.active.find_by!(slug: params[:slug])
+  end
+
   private
 
   def params_reference_edition

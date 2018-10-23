@@ -9,11 +9,11 @@
       <div class="pure-g header_block_inline">
         <div class="pure-u-1 pure-u-md-12-24">
           <div class="inline_header">
-            <h2 class="with_description p_h_r_1"><%= @resources_root.try(:title) %></h2>
+            <h2 class="with_description p_h_r_1"><%= t(".title", of_the_organization_name: @site.determined_organization_name(:of_the)) %></h2>
           </div>
 
           <p>
-            <%= custom_field_by_uid(@resources_root, "introduction") %>
+            <%= t(".introduction") %>
           </p>
 
           <p class="common-links">

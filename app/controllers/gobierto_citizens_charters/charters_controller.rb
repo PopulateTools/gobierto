@@ -3,6 +3,7 @@
 class GobiertoCitizensCharters::ChartersController < GobiertoCitizensCharters::ApplicationController
 
   def index
+    @site = SiteDecorator.new(current_site)
     @resources_root = ::GobiertoCitizensCharters::CharterDecorator.new(
       params[:service_slug].present? ? current_site.services.active.find_by!(slug: params[:service_slug]) : current_site,
       opts: { reference_edition: params_reference_edition }

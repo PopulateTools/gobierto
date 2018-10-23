@@ -10,8 +10,12 @@ es:
           zero: No hay compromisos
         contact: Contacto
         global_progress: Cumplimiento global
+        introduction: El Ayuntamiento publica sus cartas de servicios con sus respectivos
+          compromisos y grados de cumplimiento. Explora las cartas y los niveles de
+          cumplimiento de los compromisos que publicamos de forma regular
         period: 'Datos correspondientes a:'
         progress: Cumplimiento
+        title: Información sobre el cumplimiento de los compromisos %{of_the_organization_name}
       show:
         about: Acerca de esta carta
         editions_details: Detalle de los compromisos

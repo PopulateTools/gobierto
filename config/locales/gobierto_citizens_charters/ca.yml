@@ -10,8 +10,12 @@ ca:
           zero: No hi ha compromisos
         contact: Contacte
         global_progress: Compliment global
+        introduction: L'Ajuntament publica les seves cartes de serveis amb els seus
+          respectius compromisos i graus de compliment. Explora les cartes i els nivells
+          de compliment dels compromisos que vam publicar de forma regular
         period: 'Dades corresponents a:'
         progress: Compliment
+        title: Informació sobre el compliment dels compromisos %{of_the_organization_name}
       show:
         about: About this charter
         editions_details: Detall dels compromisos

@@ -10,8 +10,12 @@ en:
           zero: No commitments found
         contact: Contact
         global_progress: Global compliance
+        introduction: The City Council publishes its service charters with their respective
+          commitments and degrees of compliance. Explore the charters and fulfillment
+          levels of the commitments we publish on a regular basis
         period: 'Data corresponding to:'
         progress: Compliance
+        title: Information on the fulfillment of the commitments %{of_the_organization_name}
       show:
         about: About this charter
         editions_details: Detail of the commitments

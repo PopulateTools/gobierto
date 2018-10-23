@@ -20,6 +20,7 @@ module GobiertoCommon
     translates :name
 
     before_create :set_uid, :set_position
+    after_validation :check_depending_uids
 
     def self.field_types_with_options
       field_types.select { |key, _| /option/.match(key) }
@@ -49,6 +50,19 @@ module GobiertoCommon
       self.position = begin
                         self.class.where(site_id: site_id, class_name: class_name).maximum(:position).to_i + 1
                       end
+    end
+
+    def check_depending_uids
+      return unless changes[:uid].present?
+
+      records.where("payload->>? IS NOT NULL", uid_was).each do |record|
+        record.update_attribute(
+          :payload,
+          record.payload.tap do |hash|
+            hash[uid] = hash.delete uid_was
+          end
+        )
+      end
     end
   end
 end

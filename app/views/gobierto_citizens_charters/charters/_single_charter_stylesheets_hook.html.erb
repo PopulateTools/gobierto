@@ -1,0 +1,18 @@
+<%= content_for :gobierto_head_content do %>
+  <style type="text/css">
+    .gobierto_citizens-charters .charter-header {
+      background-color: <%= custom_field_by_uid(@charter, "background-color") %>;
+    }
+    .gobierto_citizens-charters .charter-inner,
+    .gobierto_citizens-charters .charter-inner:hover,
+    .gobierto_citizens-charters .sparkline svg {
+      background-color: <%= custom_field_by_uid(@charter, "background-color").paint.opacity(0.1).to_rgb %>;
+    }
+    .gobierto_citizens-charters .sparkline path {
+      stroke: <%= custom_field_by_uid(@charter, "background-color") %>;
+    }
+    .gobierto_citizens-charters .sparkline .axis line {
+      stroke: <%= custom_field_by_uid(@charter, "background-color").paint.opacity(0.1).to_rgb %>;
+    }
+  </style>
+<% end %>

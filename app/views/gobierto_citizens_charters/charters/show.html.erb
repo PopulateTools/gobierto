@@ -65,18 +65,21 @@
   </div>
 
   <div class="charter-container">
-        <% @charter.editions.each do |edition| %>
-    <div class="charter">
-      <div class="charter-inner">
-        <div class="m_b_2"><%= edition.commitment.description %></div>
-        <div class="charter-number m_b_1">
-          <p> <%= number_to_percentage(edition.proportion, precision: 1) %> </p>
-          <div id="sparkline-<%= edition.id %>" class="sparkline"></div>
+    <% @charter.editions.each do |edition| %>
+      <div class="charter">
+        <div class="charter-inner">
+          <div class="absolute-layout">
+            <div class="m_b_2"><%= edition.commitment.description %></div>
+            <div class="bottom">
+              <div class="charter-number m_b_1">
+                <p> <%= number_to_percentage(edition.proportion, precision: 1) %> </p>
+                <div id="sparkline-<%= edition.id %>" class="sparkline"></div>
+              </div>
+              <small class="charter-text--muted"><%= edition.commitment.title %></small>
+            </div>
+          </div>
         </div>
-        <small class="charter-text--muted"><%= edition.commitment.title %></small>
       </div>
-    </div>
     <% end %>
   </div>
-
 </main>

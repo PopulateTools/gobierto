@@ -233,6 +233,7 @@
     flex-wrap: wrap;
     border: 1px solid $color_separator;
     background-color: $color_separator;
+    overflow: hidden;
 
     .charter {
       position: relative;
@@ -259,6 +260,7 @@
       .charter-inner {
         position: relative;
         padding: 2rem;
+        height: 100%;
       }
 
       .charter-number {

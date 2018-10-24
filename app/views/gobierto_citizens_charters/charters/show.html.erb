@@ -28,7 +28,7 @@
         <% end %>
 
         <% if @progress_evolution.present? %>
-          <div class="subheader-title subheader-title--muted">
+          <div class="subheader-title subheader-title--muted m_b_3">
             <%= t(
               "gobierto_citizens_charters.shared.evolution.#{ @progress_evolution < 0 ? "negative" : "positive" }",
               progress: number_to_percentage(@progress_evolution, precision: 1)
@@ -38,7 +38,7 @@
 
         <div class="subheader-title desktop_only bottom"><%= t(".editions_details") %>:</div>
       </div>
-      <div class="right">
+      <div class="right absolute-layout">
         <div class="m_b_1">
           <div class="subheader-title"><%= t(".about") %></div>
           <small><%= custom_field_by_uid(@charter, "introduction") %></small>
@@ -48,13 +48,15 @@
           <div class="subheader-title--muted"><%= t(".see_all_subtitle") %></div>
         </div>
 
-        <%= render(
-          partial: "gobierto_citizens_charters/shared/period_breadcrumb",
-          locals: {
-            selected_period: @charter.reference_edition.to_s,
-            available_periods: @charter.available_periods(@charter.reference_edition.period_interval)
-          }
-        ) %>
+        <div class="bottom right">
+          <%= render(
+            partial: "gobierto_citizens_charters/shared/period_breadcrumb",
+            locals: {
+              selected_period: @charter.reference_edition.to_s,
+              available_periods: @charter.available_periods(@charter.reference_edition.period_interval)
+            }
+            ) %>
+        </div>
 
       </div>
     </div>

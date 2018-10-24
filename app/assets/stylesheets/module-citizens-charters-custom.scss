@@ -15,21 +15,15 @@ $colors: $color_main #ff8400 #717e86 #2989dc #a600a9 #e1d73b;
     background-color: $color_main;
   }
 
-  .charter-inner {
+  .charter-inner,
+  .charter-inner:hover,
+  .sparkline svg {
     background-color: rgba($color_main, .1);
-
-    &:hover {
-      background-color: rgba($color_main, .2);
-    }
   }
 
   .sparkline {
     path {
       stroke: $color_main;
-    }
-
-    svg {
-      background-color: rgba($color_main, .1);
     }
 
     .axis line {

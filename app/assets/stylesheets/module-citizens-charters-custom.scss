@@ -10,4 +10,29 @@ $colors: $color_main #ff8400 #717e86 #2989dc #a600a9 #e1d73b;
       }
     }
   }
+  .charter-header {
+    background-color: $color_main;
+  }
+  .charter {
+    // to avoid using opacity rgba(color, .1)
+    background-color: rgba($color_main, .1);
+    // background-color: lighten(desaturate(adjust-hue($color_main, 7), 55.56), 59.8);
+    &:hover {
+      // to avoid using opacity rgba(color, .2)
+      background-color: lighten(desaturate(adjust-hue($color_main, 8), 54.29), 53.14);
+    }
+  }
+  .sparkline {
+    path {
+      stroke: $color_main;
+    }
+
+    svg {
+      background-color: rgba($color_main, .1);
+    }
+
+    .axis line {
+      stroke: rgba($color_main, .1);
+    }
+  }
 }

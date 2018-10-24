@@ -122,6 +122,7 @@ GEM
       mail
     case_transform (0.2)
       activesupport
+    chroma (0.2.0)
     cliver (0.3.2)
     cloudinary (1.9.1)
       aws_cf_signer
@@ -504,6 +505,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-email
+  chroma
   cloudinary
   cocoon
   codecov (~> 0.1.9)
@@ -568,4 +570,4 @@ DEPENDENCIES
   webpacker (~> 3.0)!
 
 BUNDLED WITH
-   1.16.4
+   1.16.5

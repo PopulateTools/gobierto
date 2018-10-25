@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/gobierto
     docker:
-      - image: circleci/ruby:2.5.1-node
+      - image: circleci/ruby:2.5.3-node
         environment:
           RAILS_ENV: test
           PGHOST: localhost

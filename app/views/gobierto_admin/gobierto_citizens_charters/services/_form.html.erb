@@ -20,7 +20,12 @@
 
       <div class="form_item select_control">
         <%= f.label :category_id do %>
-          <%= f.object.class.human_attribute_name(:category_id) %>
+          <% if @vocabulary %>
+            <%= t(".category", vocabulary: @vocabulary.name) %>
+          <% else %>
+            <%= link_to t(".set_vocabulary"), edit_admin_citizens_charters_configuration_settings_path %>
+          <% end %>
+
           <%= attribute_indication_tag required: true %>
         <% end %>
 

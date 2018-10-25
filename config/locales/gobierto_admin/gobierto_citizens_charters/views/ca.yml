@@ -64,7 +64,7 @@ ca:
             created: Creat
             service: Servei
             status: Estat
-            title: Títol
+            title: Carta de serveis
             updated: Actualitzat
           new: Nova carta
           title: Cartes de Serveis
@@ -86,20 +86,22 @@ ca:
           header:
             max_value: Valor màxim
             percentage: Percentatge
-            title: Títol
+            title: Compromís
             value: Valor
       services:
         form:
+          category: 'Categoria (vocabulari: %{vocabulary})'
           placeholders:
             slug: atencio-centres-diurns
             title: Servei de atenció a centres diürns
+          set_vocabulary: Definir vocabulari per categories
         index:
           header:
             category: Categoria
             charters: Cartes de servei
             created: Creat
             status: Estat
-            title: Títol
+            title: Servei
             updated: Actualitzat
           new: Nou servei
           title: Serveis

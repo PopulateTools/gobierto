@@ -12,12 +12,6 @@
       <%= t("gobierto_admin.gobierto_citizens_charters.shared.navigation.editions_intervals") %>
     <% end %>
   </div>
-  <div class="pure-u-1-4 admin_tools right">
-    <%= link_to admin_citizens_charters_charter_commitments_path(@charter) do %>
-      <%= t("gobierto_admin.gobierto_citizens_charters.shared.navigation.commitments") %>
-    <% end %>
-  </div>
-
 </div>
 
 <% if @charter.commitments.exists? %>
@@ -41,6 +35,15 @@
 
     <div class="pure-u-1 pure-u-md-2-5">
       <div class="admin_tools right">
+        <%= link_to admin_citizens_charters_charter_commitments_path(@charter) do %>
+          <%= t("gobierto_admin.gobierto_citizens_charters.shared.navigation.commitments") %>
+        <% end %>
+
+        <%= link_to  edit_admin_citizens_charters_charter_path(@charter) do %>
+          <i class="fa fa-edit"></i>
+          <%= t("gobierto_admin.gobierto_citizens_charters.shared.edit.title", item: @charter.title) %>
+        <% end %>
+
         <%= link_to t(".new"), new_admin_citizens_charters_charter_editions_interval_path(@charter), class: "button open_remote_modal" %>
       </div>
     </div>

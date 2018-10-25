@@ -64,7 +64,7 @@ en:
             created: Created at
             service: Service
             status: Status
-            title: Title
+            title: Service charter
             updated: Updated
           new: New charter
           title: Services Charters
@@ -87,20 +87,22 @@ en:
           header:
             max_value: Max Value
             percentage: Percentage
-            title: Title
+            title: Commitment
             value: Value
       services:
         form:
+          category: 'Category (vocabulary: %{vocabulary})'
           placeholders:
             slug: day-care
             title: Day care service
+          set_vocabulary: Set a vocabulary for categories
         index:
           header:
             category: Category
             charters: Services charters
             created: Created at
             status: Status
-            title: Title
+            title: Service
             updated: Updated at
           new: New service
           title: Services

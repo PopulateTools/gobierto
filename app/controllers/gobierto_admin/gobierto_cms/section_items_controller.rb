@@ -30,9 +30,11 @@ module GobiertoAdmin
       def index
         @section = find_section
 
-        render(
-          json: { section_items: @section.section_items.without_parent.sorted.map{ |si| default_serializer.new(si) }}
-        )
+        render(json: {
+          section_items: @section.section_items.without_parent.not_archived.sorted.map do |si|
+            default_serializer.new(si)
+          end
+        })
       end
 
       def destroy

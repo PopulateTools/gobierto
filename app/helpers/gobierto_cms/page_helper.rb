@@ -7,7 +7,7 @@ module GobiertoCms
       nodes.each do |node|
         html << "<li>" + link_to(node.item.title, gobierto_cms_section_item_path(@section.slug, node.item.slug))
         if node.children.any? && !(viewables & node.children).empty?
-          html << section_tree(node.children, viewables)
+          html << section_tree(node.children.not_archived.not_drafted, viewables)
         end
         html << "</li>"
       end

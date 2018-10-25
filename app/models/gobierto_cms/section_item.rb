@@ -17,6 +17,15 @@ module GobiertoCms
     scope :sorted, -> { order(position: :asc) }
     scope :first_level, -> { without_parent.sorted }
 
+    scope :for_pages, -> { where(item_type: "GobiertoCms::Page") }
+    scope :for_archived_pages, -> { for_pages.where(item_id: Page.only_archived.pluck(:id)) }
+    scope :for_draft_pages, -> { for_pages.where(item_id: Page.draft.pluck(:id)) }
+
+    # item_type can be GobiertoCms::Section, GobiertoModule or GobiertoCms::Page,
+    # but only pages can be drafted or archived
+    scope :not_archived, -> { where.not(id: for_archived_pages.pluck(:id)) }
+    scope :not_drafted, -> { where.not(id: for_draft_pages.pluck(:id)) }
+
     def item
       case item_type
         when "GobiertoModule"
@@ -34,8 +43,16 @@ module GobiertoCms
       parent_array
     end
 
-    def hierarchy_and_children
-      all_parents + [self] + children
+    def hierarchy_and_children(options = {})
+      items = all_parents + [self]
+
+      if options[:only_public] == true
+        items += children.not_archived.not_drafted
+      else
+        items += children
+      end
+
+      items
     end
 
     private

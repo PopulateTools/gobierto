@@ -1,6 +1,6 @@
 <menu class="side_navigation">
   <% if @section %>
-    <%= section_tree(@section.section_items.first_level, @section_item.hierarchy_and_children) %>
+    <%= section_tree(@section.section_items.first_level.not_archived.not_drafted, @section_item.hierarchy_and_children(only_public: true)) %>
   <% elsif @collection %>
     <ul>
       <li><%= link_to @collection.title, gobierto_cms_pages_path(@collection.slug) %></a>

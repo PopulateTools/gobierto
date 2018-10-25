@@ -4,29 +4,37 @@ require "test_helper"
 
 module GobiertoCms
   class VisitSectionTest < ActionDispatch::IntegrationTest
+
     def setup
       super
       @path = gobierto_cms_section_path(section.slug)
     end
 
     def site
-      @site ||= sites(:madrid)
+      @site ||= sites(:santander)
     end
 
     def section
-      @section ||= gobierto_cms_sections(:participation)
+      @section ||= gobierto_cms_sections(:cms_pages_santander)
     end
 
-    def section_pages
-      @section_pages ||= [gobierto_cms_pages(:about_participation), gobierto_cms_pages(:about_participation_details)]
+    def section_public_pages
+      @section_public_pages ||= [
+        gobierto_cms_pages(:cms_section_l0_p0_page),
+        gobierto_cms_pages(:cms_section_l0_p1_page)
+      ]
+    end
+
+    def section_draft_page
+      @section_draft_page ||= gobierto_cms_pages(:cms_section_l0_p2d_page)
+    end
+
+    def section_archived_page
+      @section_archived_page ||= gobierto_cms_pages(:cms_section_l0_p3a_page)
     end
 
     def section_page
-      section_pages.first
-    end
-
-    def section_page_child
-      section_pages.last
+      section_public_pages.first
     end
 
     def test_visit_section
@@ -35,9 +43,12 @@ module GobiertoCms
 
         assert has_content?(section.title)
 
-        section_pages.each do |page|
+        section_public_pages.each do |page|
           assert has_link?(page.title)
         end
+
+        refute has_link?(section_archived_page.title)
+        refute has_link?(section_draft_page.title)
 
         click_link section_page.title
 
@@ -48,20 +59,23 @@ module GobiertoCms
 
     def test_list_children_pages
       with_current_site(site) do
-        section_child = GobiertoCms::SectionItem.find_by_item_id(section_page_child.id)
-        section_parent = GobiertoCms::SectionItem.find_by_item_id(section_page.id)
-        section_child.parent_id = section_parent.id
-        section_child.level += 1
-        section_child.save
+        public_children_pages = [
+          gobierto_cms_pages(:cms_section_l1_p0p0_page),
+          gobierto_cms_pages(:cms_section_l1_p0p1_page)
+        ]
+        hidden_children_pages = [
+          gobierto_cms_pages(:cms_section_l1_p0p2d_page),
+          gobierto_cms_pages(:cms_section_l1_p0p3a_page)
+        ]
 
         visit @path
 
-        within "article" do
-          within "div.page_children" do
-            within "div.page_child" do
-              assert has_link?(section_page_child.title)
-            end
-          end
+        public_children_pages.each do |page|
+          assert has_link?(page.title)
+        end
+
+        hidden_children_pages.each do |page|
+          refute has_link?(page.title)
         end
       end
     end

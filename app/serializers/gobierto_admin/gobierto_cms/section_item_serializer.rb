@@ -6,7 +6,7 @@ module GobiertoAdmin
       attributes :id, :name, :children, :item_type
 
       def children
-        object.children.sorted.map do |children|
+        object.children.not_archived.sorted.map do |children|
           GobiertoAdmin::GobiertoCms::SectionItemSerializer.new(children)
         end
       end

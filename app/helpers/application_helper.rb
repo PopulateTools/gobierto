@@ -135,6 +135,21 @@ module ApplicationHelper
     end
   end
 
+  def truncated_html(html_text, options)
+    return "" unless html_text.present?
+
+    stripped_text = html_text.dup
+
+    if (options[:headers] == false)
+      stripped_text.gsub!(/<h\d(.*?)>/, "<p>")  # header opening
+      stripped_text.gsub!(/<\\h\d>/, "</p>")    # header closing
+    end
+
+    stripped_text.gsub!(/<img(.*?)>/, "") if (options[:images] == false)
+
+    truncate_html(stripped_text, options)
+  end
+
   private
 
   def parse_max_length(params)

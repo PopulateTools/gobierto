@@ -21,6 +21,7 @@ gem "rollbar"
 gem "ruby_px"
 gem "before_renders"
 gem "bootsnap"
+gem "truncate_html"
 
 # Frontend
 gem "bourbon", "~> 4.3.4"

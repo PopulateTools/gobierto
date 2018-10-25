@@ -3,8 +3,8 @@
 green_city_group_active_empty:
   site: madrid
   title_translations: <%= { 'en' => 'Green city', 'es' => 'Ciudad verde' }.to_json %>
-  body_translations: <%= { 'en' => 'Make Madrid a green city', 'es' => 'Hacer de Madrid una ciudad verde. Este grupo no tiene fases activas.' }.to_json %>
-  body_source_translations: <%= { 'en' => 'Make Madrid a green city', 'es' => 'Hacer de Madrid una ciudad verde. Este grupo no tiene fases activas.' }.to_json %>
+  body_translations: <%= { 'en' => '<p>Make Madrid a <i>green city</i></p>', 'es' => '<p>Hacer de Madrid una <i>ciudad verde</i>. Este grupo no tiene fases activas.</p>' }.to_json %>
+  body_source_translations: <%= { 'en' => 'Make Madrid a _green city_', 'es' => 'Hacer de Madrid una _ciudad verde_. Este grupo no tiene fases activas.' }.to_json %>
   slug: ciudad-verde
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels['active'] %>

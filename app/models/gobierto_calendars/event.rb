@@ -145,12 +145,15 @@ module GobiertoCalendars
       options = options.except(:admin, :preview)
 
       if collection.container_type == "GobiertoParticipation::Process"
+        # container.slug peta? - el proceso está archivado
         url_helpers.gobierto_participation_process_event_url({ id: slug, process_id: container.slug, host: site_domain }.merge(options))
       elsif collection.container_type == "GobiertoParticipation"
         url_helpers.gobierto_participation_event_url({ id: slug, host: site_domain }.merge(options))
       else
         url_helpers.gobierto_people_person_event_url(parameterize.merge(host: site_domain).merge(options))
       end
+    rescue StandardError => e
+      debugger
     end
 
     def first_location

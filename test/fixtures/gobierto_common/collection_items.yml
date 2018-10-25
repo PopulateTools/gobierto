@@ -692,3 +692,95 @@ innovation_event_on_participation:
   container_type: GobiertoParticipation
 
 ## /end Events collection items
+
+### Santander pages
+
+cms_section_l0_p0_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l0_p0_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l0_p1_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l0_p1_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l0_p2d_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l0_p2d_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l0_p3a_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l0_p3a_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l1_p0p0_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l1_p0p0_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l1_p0p1_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l1_p0p1_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l1_p0p2d_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l1_p0p2d_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l1_p0p3a_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l1_p0p3a_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l1_p1p0_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l1_p1p0_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l1_p2dp0_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l1_p2dp0_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l1_p2dp1d_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l1_p2dp1d_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l1_p2dp2a_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l1_p2dp2a_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l1_p3ap0_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l1_p3ap0_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l1_p3ap1d_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l1_p3ap1d_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)
+
+cms_section_l1_p3ap2a_page_on_site:
+  collection: santander_cms_pages
+  item: cms_section_l1_p3ap2a_page
+  item_type: 'GobiertoCms::Page'
+  container: santander (Site)

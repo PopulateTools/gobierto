@@ -55,6 +55,10 @@ module GobiertoCms
       items
     end
 
+    def visibility_level
+      item&.visibility_level
+    end
+
     private
 
     def reindex_item

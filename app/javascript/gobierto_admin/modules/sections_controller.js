@@ -23,6 +23,13 @@ window.GobiertoAdmin.SectionsController = (function() {
             onCreateLi: function(node, $li) {
               // Append a link to the jqtree-element div.
               // The link has an url '#node-[id]' and a data property 'node-id'.
+
+              if (node.visibility_level !== "active") {
+                var newName = $li.find("span").text() + " ("+ I18n.t("gobierto_admin.shared.draft") +")"
+                $li.find("span").text(newName);
+                $li.find(".jqtree-title").addClass("draft");
+              }
+
               $li.find('.jqtree-element').append(
                 '<a remote=true href="#node-' + node.id + '" class="delete"><i class="fa fa-trash-o tipsit" data-node-id="' +
                 node.id + '" title="' + I18n.t('gobierto_admin.gobierto_cms.sections.show.delete_element') + '"></i></a>'

@@ -21,7 +21,7 @@ module GobiertoAdmin
 
       def show
         @section = find_section
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.sort_by_published_on.uniq
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.sort_by_updated_at.limit(15)
       end
 
       def pages

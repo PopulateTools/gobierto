@@ -13,24 +13,20 @@ module GobiertoCommon
 
     def set_slug
       if slug.present? && !slug.include?("archived-")
-        self.slug = self.slug.tr("_", " ").parameterize
+        self.slug = slug.tr("_", " ").parameterize
         return
       end
 
       base_slug = attributes_for_slug.join("-").tr("_", " ").parameterize
       new_slug = base_slug
 
-      count = 2
-
-      if try(:site_id).present?
-        while self.class.exists?(site: site, slug: new_slug)
-          new_slug = "#{base_slug}-#{count}"
-          count += 1
-        end
-      elsif try(:process_id).present?
-        while self.class.exists?(process: process, slug: new_slug)
-          new_slug = "#{base_slug}-#{count}"
-          count += 1
+      if uniqueness_validators.present?
+        count = 2
+        uniqueness_validators.each do |validator|
+          while self.class.exists?(scope_attributes(validator.options[:scope]).merge(slug: new_slug))
+            new_slug = "#{ base_slug }-#{ count }"
+            count += 1
+          end
         end
       end
 
@@ -41,6 +37,15 @@ module GobiertoCommon
       unless destroyed?
         update_attribute(:slug, "archived-" + id.to_s)
       end
+    end
+
+    def uniqueness_validators
+      @uniqueness_validators ||= self.class.validators_on(:slug).select { |validator| validator.kind == :uniqueness }
+    end
+
+    def scope_attributes(options)
+      options = [options].compact unless options.is_a? Enumerable
+      attributes.slice(*options.map(&:to_s))
     end
   end
 end

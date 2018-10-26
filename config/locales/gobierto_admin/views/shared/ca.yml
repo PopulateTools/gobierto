@@ -24,6 +24,7 @@ ca:
           ni en llistes com aquesta. Vostè podrà recuperar-lo."
         element: Arxivar aquest element
         elements: Elements arxivats
+      draft: Borrador
       form_locale_switchers:
         define_content_in_locale: Defineix el contingut en la versió en %{locale_name}
         translate: Traduxir
@@ -38,4 +39,3 @@ ca:
           active: Públic
           draft: Borrador
           published: Públic
-      draft: Borrador

@@ -24,6 +24,7 @@ en:
           front end neither on lists like this. You will be able to recover it
         element: Archive this element
         elements: Archived elements
+      draft: Draft
       form_locale_switchers:
         define_content_in_locale: Define the content in %{locale_name} version
         translate: Translate
@@ -38,4 +39,3 @@ en:
           active: Published
           draft: Draft
           published: Published
-      draft: Draft

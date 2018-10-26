@@ -20,3 +20,10 @@ Closes #N
 - [ ] new entry in `config/secrets.yml`?
 
 (Changes in these files might need to update the role in Ansible)
+
+## :book: Does this PR require updating the documentation?
+
+- [ ] new site configuration variable?
+- [ ] new site template?
+- [ ] new module/submodule settings?
+- [ ] significant changes in some feature?

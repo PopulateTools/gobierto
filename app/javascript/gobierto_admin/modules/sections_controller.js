@@ -30,7 +30,7 @@ window.GobiertoAdmin.SectionsController = (function() {
               // Append a link to the jqtree-element div.
               // The link has an url '#node-[id]' and a data property 'node-id'.
 
-              if (node.visibility_level !== "active") {
+              if (node.visibility_level === "draft") {
                 var newName = $li.find("span").text() + " ("+ I18n.t("gobierto_admin.shared.draft") +")"
                 $li.find("span").text(newName);
                 $li.find(".jqtree-title").addClass("draft");

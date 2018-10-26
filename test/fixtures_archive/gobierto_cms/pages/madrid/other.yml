@@ -1,0 +1,169 @@
+site_news_1:
+  title_translations: <%= { 'en' => 'Site news 1', 'es' => 'Noticias sitio 1' }.to_json %>
+  body_translations: <%= { 'en' => 'Site news 1', 'es' => 'Noticias sitio 1' }.to_json %>
+  body_source_translations: <%= { 'en' => 'Site news 1', 'es' => 'Noticias sitio 1' }.to_json %>
+  slug: 'site-news-1'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: site_news
+  published_on: <%= Date.current %>
+
+consultation_faq:
+  title_translations: <%= { 'en' => 'Consultation page FAQ', 'es' => 'FAQ consultas' }.to_json %>
+  body_translations: <%= { 'en' => 'This is the <strong>body</strong> of the page', 'es' => 'Cuerpo <strong>página</strong> consultas' }.to_json %>
+  body_source_translations: <%= { 'en' => 'This is the <strong>body</strong> of the page', 'es' => 'Cuerpo <strong>página</strong> consultas' }.to_json %>
+  slug: 'consultation-faq'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: site_pages
+  published_on: <%= Date.current %>
+
+privacy:
+  title_translations: <%= {'en' => 'Privacy', 'es' => 'Privacidad' }.to_json %>
+  body_translations: <%= {'en' => 'These are the privacy terms', 'es' => 'Privacidad' }.to_json %>
+  body_source_translations: <%= {'en' => 'These are the privacy terms', 'es' => 'Privacidad' }.to_json %>
+  slug: 'privacy'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: site_pages
+  published_on: <%= Date.current %>
+
+cookies:
+  title_translations: <%= {'en' => 'Cookies', 'es' => 'Cookies' }.to_json %>
+  body_translations: <%= {'en' => 'These are the cookies terms', 'es' => 'Estas son las condiciones de las cookies' }.to_json %>
+  body_source_translations: <%= {'en' => 'These are the cookies terms', 'es' => 'Estas son las condiciones de las cookies' }.to_json %>
+  slug: 'cookies'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
+  site: madrid
+  published_on: <%= Date.current %>
+
+themes:
+  title_translations: <%= {'en' => 'Themes in the site', 'es' => 'Temas en el sitio' }.to_json %>
+  body_translations: <%= {'en' => 'These are the themes', 'es' => 'Estos son los temas' }.to_json %>
+  body_source_translations: <%= {'en' => 'These are the themes', 'es' => 'Estos son los temas' }.to_json %>
+  slug: 'themes'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: news
+  published_on: <%= Date.current %>
+
+themes_draft:
+  title_translations: <%= {'en' => 'Themes draft', 'es' => 'Borrador de temas' }.to_json %>
+  body_translations: <%= {'en' => 'These are the themes (draft)', 'es' => 'Estos son los temas(borrador)' }.to_json %>
+  body_source_translations: <%= {'en' => 'These are the themes (draft)', 'es' => 'Estos son los temas(borrador)' }.to_json %>
+  slug: 'themes-draft'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
+  site: madrid
+  collection: news
+  published_on: <%= Date.current %>
+
+notice_1:
+  title_translations: <%= {'en' => 'Notice 1 title', 'es' => 'Título de la noticia 1' }.to_json %>
+  body_translations: <%= {'en' => 'Notice 1 <strong>body</strong>', 'es' => '<strong>Cuerpo</strong> de la noticia 1' }.to_json %>
+  body_source_translations: <%= {'en' => 'Notice 1 <strong>body</strong>', 'es' => '<strong>Cuerpo</strong> de la noticia 1' }.to_json %>
+  slug: 'notice-1'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: gender_violence_process_news
+  published_on: <%= Date.current %>
+
+notice_2:
+  title_translations: <%= {'en' => 'Notice 2 title', 'es' => 'Título de la noticia 2' }.to_json %>
+  body_translations: <%= {'en' => 'Notice 2 body', 'es' => 'Cuerpo de la noticia 2' }.to_json %>
+  body_source_translations: <%= {'en' => 'Notice 2 body', 'es' => 'Cuerpo de la noticia 2' }.to_json %>
+  slug: 'notice-2'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: gender_violence_process_news
+  published_on: <%= Date.current %>
+
+about_site:
+  title_translations: <%= { 'es' => 'Sobre el sitio', 'en' => 'About site' }.to_json %>
+  body_translations: <%= {
+    "en" => "This is the <strong>body</strong> of the page that contains an image:<br><img src='#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:png_attachment_uploaded), host: 'madrid.gobierto.test')}' alt='The image'> and a <a href='#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:pdf_attachment_uploaded), host: 'madrid.gobierto.test')}'>link to a doc</a>.",
+    "es" => "Esto es el <strong>cuerpo</strong> de la página que contiene una imagen:<br><img src='#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:png_attachment_uploaded), host: 'madrid.gobierto.test')}' alt='La imagen'> y un <a href='#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:pdf_attachment_uploaded), host: 'madrid.gobierto.test')}'>enlace a un doc</a>."
+  }.to_json %>
+  body_source_translations: <%= {
+    "en" => "This is the **body** of a page that contains an image:\r\n\r\n![The image](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:png_attachment_uploaded), host: 'madrid.gobierto.test')})\r\n\r\n and a [link to a doc](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:pdf_attachment_uploaded), host: 'madrid.gobierto.test')}).",
+    "es" => "Esto es el **cuerpo** de la página que contiene una imagen:\r\n\r\n![La imagen](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:png_attachment_uploaded), host: 'madrid.gobierto.test')})\r\n\r\n y un [enlace a un doc](#{Rails.application.routes.url_helpers.gobierto_attachments_attachment_url(ActiveRecord::FixtureSet.identify(:pdf_attachment_uploaded), host: 'madrid.gobierto.test')})."
+  }.to_json %>
+  slug: 'about-site'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: site_pages
+  published_on: <%= Date.current %>
+
+about_participation:
+  title_translations: <%= {
+    'en' => 'About participation',
+    'es' => 'Acerca de participación'
+  }.to_json %>
+  body_translations: <%= {
+    "en" => "<p>About participation description\r\n {% list_children_pages about-participation %}</p>\r\n",
+    "es" => "<p>Acerca de participación (descripción):\r\n {% list_children_pages about-participation %}</p>\r\n"
+  }.to_json %>
+  body_source_translations: <%= {
+    "en" => "About participation description\r\n {% list_children_pages about-participation %}",
+    "es" => "cerca de participación (descripción):\r\n {% list_children_pages about-participation %}"
+  }.to_json %>
+  slug: 'about-participation'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: site_pages
+  published_on: <%= Date.current %>
+
+about_participation_details:
+  title_translations: <%= {
+    'en' => 'About participation details',
+    'es' => 'Detalles sobre participación'
+  }.to_json %>
+  body_translations: <%= {
+    'en' => 'About participation details',
+    'es' => 'Detalles sobre participación'
+  }.to_json %>
+  body_source_translations: <%= {
+    'en' => 'About participation details',
+    'es' => 'Detalles sobre participación'
+  }.to_json %>
+  slug: 'about-participation-details'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: site_pages
+  published_on: <%= Date.current %>
+
+generic_site_page:
+  title_translations: <%= {
+    'en' => 'Generic page',
+    'es' => 'Página genérica'
+  }.to_json %>
+  body_translations: <%= {
+    'en' => 'Generic page',
+    'es' => 'Página genérica'
+  }.to_json %>
+  body_source_translations: <%= {
+    'en' => 'Generic page',
+    'es' => 'Página genérica'
+  }.to_json %>
+  slug: 'generic-page'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  published_on: <%= Date.current %>
+
+how_to_participate:
+  title_translations: <%= {
+    'en' => 'How to participate',
+    'es' => 'Cómo participar'
+  }.to_json %>
+  body_translations: <%= {
+    'en' => 'How to participate',
+    'es' => 'Cómo participar'
+  }.to_json %>
+  body_source_translations: <%= {
+    'en' => 'How to participate',
+    'es' => 'Cómo participar'
+  }.to_json %>
+  slug: 'how-to-participate'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: participation_pages
+  published_on: <%= Date.current %>

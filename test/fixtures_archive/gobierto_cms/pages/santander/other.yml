@@ -1,0 +1,8 @@
+about:
+  title_translations: <%= {'en' => 'About', 'es' => 'Acerca de' }.to_json %>
+  body_translations: <%= {'en' => 'About santander', 'es' => 'Acerca de Santander' }.to_json %>
+  body_source_translations: <%= {'en' => 'About santander', 'es' => 'Acerca de Santander' }.to_json %>
+  slug: 'about'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: santander
+  published_on: <%= Date.current %>

@@ -75,6 +75,7 @@ ca:
             status: Estat
             title: Títol
             type: Tipus
+            year: Any
           new: Nou
           title: Plans
           types: Tipus

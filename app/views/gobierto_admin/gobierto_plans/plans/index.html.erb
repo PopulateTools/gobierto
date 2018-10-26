@@ -19,6 +19,7 @@
       <th class="icon_col"></th>
       <th><%= t(".header.type") %></th>
       <th><%= t(".header.title") %></th>
+      <th><%= t(".header.year") %></th>
       <th><%= t(".header.elements") %></th>
       <th><%= t(".header.status") %></th>
       <th></th>
@@ -38,6 +39,9 @@
       </td>
       <td>
         <%= link_to plan.title, edit_admin_plans_plan_path(plan) %>
+      </td>
+      <td>
+        <%=  plan.year %>
       </td>
       <td>
         <%= plan.node_size %>

@@ -30,4 +30,9 @@ module SiteHelper
     end
   end
 
+  def custom_favicon_url
+    return unless current_site
+    current_site.configuration.configuration_variables["favicon_url"].presence
+  end
+
 end

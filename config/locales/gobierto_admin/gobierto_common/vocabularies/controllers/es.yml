@@ -6,7 +6,8 @@ es:
         create:
           success: El vocabulario se ha creado correctamente.
         destroy:
-          destroy_failed: El vocabulario no ha podido ser eliminado.
+          destroy_failed: El vocabulario no ha podido ser eliminado porque está siendo
+            utilizado por alguna entidad
           success: El vocabulario ha sido eliminado correctamente.
         update:
           success: El vocabulario se ha actualizado correctamente.

@@ -6,7 +6,7 @@ en:
         create:
           success: Vocabulary created successfully.
         destroy:
-          destroy_failed: Vocabulary couldn't be deleted.
+          destroy_failed: Vocabulary couldn't be deleted because it's being used
           success: Vocabulary deleted successfully.
         update:
           success: Vocabulary updated successfully.

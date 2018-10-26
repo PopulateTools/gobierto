@@ -6,7 +6,7 @@ ca:
         create:
           success: El vocabulari s'ha creat correctament.
         destroy:
-          destroy_failed: El vocabulari no ha pogut ser eliminat.
+          destroy_failed: El vocabulari no ha pogut ser eliminat perquè està en ús.
           success: El vocabulari ha estat eliminat correctament.
         update:
           success: El vocabulari s'ha actualitzat correctament.

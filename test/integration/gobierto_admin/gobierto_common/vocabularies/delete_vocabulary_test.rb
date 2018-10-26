@@ -67,7 +67,7 @@ module GobiertoCommon
                 find("a[data-method='delete']").click
               end
 
-              assert has_message?("Vocabulary couldn't be deleted.")
+              assert has_message?("Vocabulary couldn't be deleted because it's being used")
 
               assert site.vocabularies.exists?(id: vocabulary_with_associated_items.id)
             end

@@ -17,6 +17,15 @@ module GobiertoCms
     scope :sorted, -> { order(position: :asc) }
     scope :first_level, -> { without_parent.sorted }
 
+    scope :for_pages, -> { where(item_type: "GobiertoCms::Page") }
+    scope :for_archived_pages, -> { for_pages.where(item_id: Page.only_archived.pluck(:id)) }
+    scope :for_draft_pages, -> { for_pages.where(item_id: Page.draft.pluck(:id)) }
+
+    # item_type can be GobiertoCms::Section, GobiertoModule or GobiertoCms::Page,
+    # but only pages can be drafted or archived
+    scope :not_archived, -> { where.not(id: for_archived_pages.pluck(:id)) }
+    scope :not_drafted, -> { where.not(id: for_draft_pages.pluck(:id)) }
+
     def item
       case item_type
         when "GobiertoModule"
@@ -26,6 +35,15 @@ module GobiertoCms
       end
     end
 
+    def not_archived?
+      self.class.not_archived.include?(self)
+    end
+
+    def not_drafted?
+      self.class.not_drafted.include?(self)
+    end
+
+    # TODO - try to do this with a scope. Purpose is not clear.
     def all_parents(parent_array = [])
       if parent_id != 0
         parent_array.unshift(parent)
@@ -34,8 +52,26 @@ module GobiertoCms
       parent_array
     end
 
-    def hierarchy_and_children
-      all_parents + [self] + children
+    # TODO: refactor. This method is not fully tested and breaks on edge cases.
+    def hierarchy_and_children(options = {})
+      items = all_parents + [self]
+
+      if options[:only_public] == true
+        items += children.not_archived.not_drafted
+      else
+        items += children
+      end
+
+      # TODO - this should be filtered with a scope
+      items.each do |item|
+        items.delete(item) unless item.not_drafted? && item.not_archived?
+      end
+
+      items
+    end
+
+    def visibility_level
+      item&.visibility_level
     end
 
     private

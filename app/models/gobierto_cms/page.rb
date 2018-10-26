@@ -44,6 +44,7 @@ module GobiertoCms
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }
     scope :sort_by_published_on, -> { order(published_on: :desc) }
+    scope :sort_by_updated_at, -> { order(updated_at: :desc) }
 
     def section
       GobiertoCms::SectionItem.find_by(item: self).try(:section)

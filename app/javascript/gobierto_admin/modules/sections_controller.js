@@ -9,11 +9,17 @@ window.GobiertoAdmin.SectionsController = (function() {
     _tree();
   };
 
+  function _endpoint(nodeId = undefined) {
+    var endpoint = window.location.pathname + '/section_items';
+    if (nodeId) { endpoint += ('/' + nodeId); }
+    return endpoint;
+  }
+
   function _tree() {
     $(function() {
       var $tree = $('#tree1');
       $.getJSON(
-        window.location.href + '/section_items',
+        _endpoint(),
         function(data) {
           $('#tree1').tree({
             data: data['section_items'],
@@ -23,6 +29,13 @@ window.GobiertoAdmin.SectionsController = (function() {
             onCreateLi: function(node, $li) {
               // Append a link to the jqtree-element div.
               // The link has an url '#node-[id]' and a data property 'node-id'.
+
+              if (node.visibility_level === "draft") {
+                var newName = $li.find("span").text() + " ("+ I18n.t("gobierto_admin.shared.draft") +")"
+                $li.find("span").text(newName);
+                $li.find(".jqtree-title").addClass("draft");
+              }
+
               $li.find('.jqtree-element').append(
                 '<a remote=true href="#node-' + node.id + '" class="delete"><i class="fa fa-trash-o tipsit" data-node-id="' +
                 node.id + '" title="' + I18n.t('gobierto_admin.gobierto_cms.sections.show.delete_element') + '"></i></a>'
@@ -34,7 +47,7 @@ window.GobiertoAdmin.SectionsController = (function() {
 
       function handle_drag_stop(node) {
         $.ajax({
-          url: window.location.href + '/section_items/' + node.id,
+          url: _endpoint(node.id),
           type: 'PUT',
           dataType: 'json',
           data: {
@@ -62,7 +75,7 @@ window.GobiertoAdmin.SectionsController = (function() {
 
           $.ajax({
             type: "POST",
-            url: window.location.href + '/section_items/' + node_id,
+            url: _endpoint(node_id),
             dataType: "json",
             data: {
               "_method": "delete"
@@ -85,7 +98,7 @@ window.GobiertoAdmin.SectionsController = (function() {
     $("#tree1").droppable({
       drop: function(event, ui) {
         $.ajax({
-          url: window.location.href + '/section_items',
+          url: _endpoint(),
           type: 'POST',
           dataType: 'json',
           data: {

@@ -1,0 +1,141 @@
+## global_navigation_santander section
+
+santander_navigation_budgets_item:
+  item_id: "GobiertoBudgets"
+  item_type: "GobiertoModule"
+  position: 0
+  parent_id: nil
+  section: global_navigation_santander
+  level: 0
+
+santander_navigation_people_item:
+  item_id: "GobiertoPeople"
+  item_type: "GobiertoModule"
+  position: 1
+  parent_id: nil
+  section: global_navigation_santander
+  level: 0
+
+santander_navigation_section_item:
+  item: cms_pages_santander (GobiertoCms::Section)
+  position: 2
+  parent_id: nil
+  section: global_navigation_santander
+  level: 0
+
+## cms_pages_santander section
+
+# first_level
+
+santander_cms_p0_section_item:
+  item: cms_section_l0_p0_page (GobiertoCms::Page)
+  position: 0
+  parent_id: nil
+  section: cms_pages_santander
+  level: 0
+
+santander_cms_p1_section_item:
+  item: cms_section_l0_p1_page (GobiertoCms::Page)
+  position: 1
+  parent_id: nil
+  section: cms_pages_santander
+  level: 0
+
+santander_cms_p2d_section_item:
+  item: cms_section_l0_p2d_page (GobiertoCms::Page)
+  position: 2
+  parent_id: nil
+  section: cms_pages_santander
+  level: 0
+
+santander_cms_p3a_section_item:
+  item: cms_section_l0_p3a_page (GobiertoCms::Page)
+  position: 3
+  parent_id: nil
+  section: cms_pages_santander
+  level: 0
+
+# second level - page0
+
+santander_cms_p0p0_section_item:
+  item: cms_section_l1_p0p0_page (GobiertoCms::Page)
+  position: 0
+  parent: santander_cms_p0_section_item
+  section: cms_pages_santander
+  level: 0
+
+santander_cms_p0p1_section_item:
+  item: cms_section_l1_p0p1_page (GobiertoCms::Page)
+  position: 1
+  parent: santander_cms_p0_section_item
+  section: cms_pages_santander
+  level: 0
+
+santander_cms_p0p2d_section_item:
+  item: cms_section_l1_p0p2d_page (GobiertoCms::Page)
+  position: 2
+  parent: santander_cms_p0_section_item
+  section: cms_pages_santander
+  level: 0
+
+santander_cms_p0p3a_section_item:
+  item: cms_section_l1_p0p3a_page (GobiertoCms::Page)
+  position: 3
+  parent: santander_cms_p0_section_item
+  section: cms_pages_santander
+  level: 0
+
+# second level - page1
+
+santander_cms_p1p0_section_item:
+  item: cms_section_l1_p1p0_page (GobiertoCms::Page)
+  position: 0
+  parent: santander_cms_p1_section_item
+  section: cms_pages_santander
+  level: 0
+
+# second level - page2
+
+santander_cms_p2dp0_section_item:
+  item: cms_section_l1_p2dp0_page (GobiertoCms::Page)
+  position: 0
+  parent: santander_cms_p2d_section_item
+  section: cms_pages_santander
+  level: 0
+
+santander_cms_p2dp1d_section_item:
+  item: cms_section_l1_p2dp1d_page (GobiertoCms::Page)
+  position: 1
+  parent: santander_cms_p2d_section_item
+  section: cms_pages_santander
+  level: 0
+
+santander_cms_p2dp2a_section_item:
+  item: cms_section_l1_p2dp2a_page (GobiertoCms::Page)
+  position: 2
+  parent: santander_cms_p2d_section_item
+  section: cms_pages_santander
+  level: 0
+
+# second level - page3
+
+santander_cms_p3ap0_section_item:
+  item: cms_section_l1_p3ap0_page (GobiertoCms::Page)
+  position: 0
+  parent: santander_cms_p3a_section_item
+  section: cms_pages_santander
+  level: 0
+
+santander_cms_p3ap1d_section_item:
+  item: cms_section_l1_p3ap1d_page (GobiertoCms::Page)
+  position: 1
+  parent: santander_cms_p3a_section_item
+  section: cms_pages_santander
+  level: 0
+
+santander_cms_p3ap2a_section_item:
+  item: cms_section_l1_p3ap2a_page (GobiertoCms::Page)
+  position: 2
+  parent: santander_cms_p3a_section_item
+  section: cms_pages_santander
+  level: 0

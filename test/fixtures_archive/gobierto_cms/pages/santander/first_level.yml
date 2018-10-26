@@ -1,0 +1,76 @@
+cms_section_l0_p0_page:
+  title_translations: <%= {
+    "en" => "Page P0. First level. CMS section.",
+    "es" => "Página P0. Primer nivel de la sección CMS."
+  }.to_json %>
+  body_translations: <%= {
+    "en" => "Page P0. First level in <strong>CMS section</strong>.",
+    "es" => "Página P0. Primer nivel de la <strong>sección CMS</strong>."
+  }.to_json %>
+  body_source_translations: <%= {
+    "en" => "Page P0. First level in **CMS section**.",
+    "es" => "Página P0. Primer nivel de la **sección CMS**."
+  }.to_json %>
+  slug: cms-section-l0-p0
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: santander
+  collection: santander_cms_pages
+  published_on: <%= 10.days.ago %>
+
+cms_section_l0_p1_page:
+  title_translations: <%= {
+    "en" => "Page P1. First level. CMS section.",
+    "es" => "Página P1. Primer nivel de la sección CMS."
+  }.to_json %>
+  body_translations: <%= {
+    "en" => "Page P1. First level in <strong>CMS section</strong>.",
+    "es" => "Página P1. Primer nivel de la <strong>sección CMS</strong>."
+  }.to_json %>
+  body_source_translations: <%= {
+    "en" => "Page P1. First level in **CMS section**.",
+    "es" => "Página P1. Primer nivel de la **sección CMS**."
+  }.to_json %>
+  slug: cms-section-l0-page-p1
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: santander
+  collection: santander_cms_pages
+  published_on: <%= 10.days.ago %>
+
+cms_section_l0_p2d_page:
+  title_translations: <%= {
+    "en" => "Page P2D. First level. CMS section. Drafted.",
+    "es" => "Página P2D. Primer nivel de la sección CMS. Borrador."
+  }.to_json %>
+  body_translations: <%= {
+    "en" => "Page P2D. First level in <strong>CMS section</strong>. Drafted.",
+    "es" => "Página P2D. Primer nivel de la <strong>sección CMS</strong>. Borrador."
+  }.to_json %>
+  body_source_translations: <%= {
+    "en" => "Page P2D. First level in **CMS section**. Drafted.",
+    "es" => "Página P2D. Primer nivel de la **sección CMS**. Borrador."
+  }.to_json %>
+  slug: cms-section-l0-p2d
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
+  site: santander
+  collection: santander_cms_pages
+  published_on: <%= 10.days.ago %>
+
+cms_section_l0_p3a_page:
+  title_translations: <%= {
+    "en" => "Page P3A. First level. CMS section. Archived.",
+    "es" => "Página P3A. Primer nivel de la sección CMS. Archivada."
+  }.to_json %>
+  body_translations: <%= {
+    "en" => "Page P3A. First level in <strong>CMS section</strong>. Archived.",
+    "es" => "Página P3A. Primer nivel de la <strong>sección CMS</strong>. Archivada."
+  }.to_json %>
+  body_source_translations: <%= {
+    "en" => "Page P3A. First level in **CMS section**. Archived.",
+    "es" => "Página P3A. Primer nivel de la **sección CMS**. Archivada."
+  }.to_json %>
+  slug: cms-section-l0-p3a
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: santander
+  collection: santander_cms_pages
+  published_on: <%= 10.days.ago %>
+  archived_at: <%= 5.days.ago %>

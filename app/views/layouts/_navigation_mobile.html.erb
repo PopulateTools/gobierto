@@ -4,7 +4,9 @@
     <div class="column">
       <% if global_navigation_section? && current_module == 'gobierto_cms' %>
         <% section_item = global_navigation_section.section_items.first_level.first %>
-        <%= render partial: "gobierto_cms/layouts/navigation", locals: { section: section_item.item } %>
+        <% if section_item.item_type != "GobiertoModule" %>
+          <%= render partial: "gobierto_cms/layouts/navigation", locals: { section: section_item.item } %>
+        <% end %>
       <% else %>
         <%= render_if_exists "#{current_module}/layouts/navigation.main", { show_active: false } %>
       <% end %>

@@ -1,5 +1,6 @@
 <menu class="side_navigation">
   <% if @section %>
+    <!-- This is not clear. Can't we generate the tree just passing the section instead of two arguments? -->
     <%= section_tree(@section.section_items.first_level.not_archived.not_drafted, @section_item.hierarchy_and_children(only_public: true)) %>
   <% elsif @collection %>
     <ul>

@@ -43,6 +43,7 @@ module GobiertoCms
       self.class.not_drafted.include?(self)
     end
 
+    # TODO - try to do this with a scope. Purpose is not clear.
     def all_parents(parent_array = [])
       if parent_id != 0
         parent_array.unshift(parent)
@@ -51,6 +52,7 @@ module GobiertoCms
       parent_array
     end
 
+    # TODO: refactor. This method is not fully tested and breaks on edge cases.
     def hierarchy_and_children(options = {})
       items = all_parents + [self]
 
@@ -58,6 +60,11 @@ module GobiertoCms
         items += children.not_archived.not_drafted
       else
         items += children
+      end
+
+      # TODO - this should be filtered with a scope
+      items.each do |item|
+        items.delete(item) unless item.not_drafted? && item.not_archived?
       end
 
       items

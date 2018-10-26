@@ -2,10 +2,13 @@
 
 module GobiertoCms
   module PageHelper
+
+    # TODO - Refactor
     def section_tree(nodes, viewables)
       html = ["<ul>"]
       nodes.each do |node|
         html << "<li>" + link_to(node.item.title, gobierto_cms_section_item_path(@section.slug, node.item.slug))
+        # TODO - This conditions are not fully tested and are too complex for a view helper
         if node.children.any? && !(viewables & node.children).empty?
           html << section_tree(node.children.not_archived.not_drafted, viewables)
         end

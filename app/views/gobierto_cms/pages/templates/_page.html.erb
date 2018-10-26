@@ -13,8 +13,9 @@
               <% if @section %>
                 <%= link_to @section.title, gobierto_cms_section_path(@section.slug) %>
 
+                <!-- TODO: Breadcrumb is incorrect for pages that appear several times in different levels -->
                 <% @section_item.all_parents.each do |parent| %>
-                  <% next unless parent.not_drafted? && parent.not_archived? %>
+                  <% next unless parent.not_drafted? && parent.not_archived? %><!-- HACK -->
                   / <%= link_to(parent.item.title, gobierto_cms_section_item_path(@section.slug, parent.item.slug)) %>
                 <% end %>
               <% elsif @collection %>

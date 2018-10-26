@@ -35,6 +35,14 @@ module GobiertoCms
       end
     end
 
+    def not_archived?
+      self.class.not_archived.include?(self)
+    end
+
+    def not_drafted?
+      self.class.not_drafted.include?(self)
+    end
+
     def all_parents(parent_array = [])
       if parent_id != 0
         parent_array.unshift(parent)

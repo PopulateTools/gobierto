@@ -14,6 +14,7 @@
                 <%= link_to @section.title, gobierto_cms_section_path(@section.slug) %>
 
                 <% @section_item.all_parents.each do |parent| %>
+                  <% next unless parent.not_drafted? && parent.not_archived? %>
                   / <%= link_to(parent.item.title, gobierto_cms_section_item_path(@section.slug, parent.item.slug)) %>
                 <% end %>
               <% elsif @collection %>

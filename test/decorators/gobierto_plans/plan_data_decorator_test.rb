@@ -29,7 +29,7 @@ module GobiertoPlans
     end
 
     def sample_import_csv_file
-      @sample_import_file ||= Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
+      @sample_import_csv_file ||= Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
     end
 
     def test_csv_export

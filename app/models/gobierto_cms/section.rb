@@ -17,10 +17,14 @@ module GobiertoCms
 
     scope :has_section_item, -> { joins(:section_items).where("gcms_section_items.id IS NOT NULL") }
 
-    def first_item
-      if section_item = section_items.first_level.first
-        section_item.item
-      end
+    def first_item(options = {})
+      section_item = if options[:only_public] == true
+                       section_items.first_level.not_archived.not_drafted.first
+                     else
+                       section_items.first_level.first
+                     end
+
+      section_item.item if section_item
     end
 
     def attributes_for_slug

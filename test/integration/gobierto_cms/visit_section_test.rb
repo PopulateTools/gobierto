@@ -57,6 +57,42 @@ module GobiertoCms
       end
     end
 
+    def test_visit_section_when_first_page_is_draft
+      first_page = section_public_pages.first
+      second_page = section_public_pages.second
+
+      first_page.draft!
+
+      with_current_site(site) do
+        visit @path
+
+        assert has_selector?("h1", text: second_page.title)
+      end
+    end
+
+    def test_visit_section_when_first_page_is_archived
+      first_page = section_public_pages.first
+      second_page = section_public_pages.second
+
+      first_page.archive
+
+      with_current_site(site) do
+        visit @path
+
+        assert has_selector?("h1", text: second_page.title)
+      end
+    end
+
+    def test_visit_section_when_no_public_pages
+      section_public_pages.each(&:archive)
+
+      with_current_site(site) do
+        visit @path
+
+        assert_equal site.root_path, current_path
+      end
+    end
+
     def test_list_children_pages
       with_current_site(site) do
         public_children_pages = [

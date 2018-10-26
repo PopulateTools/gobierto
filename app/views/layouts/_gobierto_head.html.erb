@@ -65,7 +65,7 @@
 <%= render 'layouts/analytics_header_site' %>
 
 <% if custom_favicon_url %>
-  <%= favicon_link_tag custom_favicon_url %>
+  <%= render 'layouts/custom_favicon', favicon_url: custom_favicon_url %>
 <% else %>
   <%= render 'layouts/favicon' %>
 <% end %>

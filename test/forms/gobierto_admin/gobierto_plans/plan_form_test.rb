@@ -14,7 +14,7 @@ module GobiertoAdmin
           introduction_translations: { I18n.locale => plan.introduction },
           css: plan.css,
           configuration_data: plan.configuration_data,
-          year: plan.year,
+          year: plan.year + 1,
           vocabulary_id: vocabulary.id
         )
       end

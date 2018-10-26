@@ -4,20 +4,17 @@ require "test_helper"
 
 module GobiertoCms
   class VisitPagesCollectionTest < ActionDispatch::IntegrationTest
-    def site
-      @site ||= sites(:madrid)
+
+    def madrid
+      @madrid ||= sites(:madrid)
     end
 
-    def site_collection
-      @site_collection ||= gobierto_common_collections(:site_pages)
+    def santander
+      @santander ||= sites(:santander)
     end
 
-    def site_collection_pages
-      @site_collection_pages ||= site.pages.where(id: site_collection.pages_in_collection).active
-    end
-
-    def site_collection_page
-      site_collection_pages.first
+    def santander_cms_collection
+      @santander_cms_collection ||= gobierto_common_collections(:santander_cms_pages)
     end
 
     def participation_collection
@@ -25,34 +22,47 @@ module GobiertoCms
     end
 
     def participation_collection_pages
-      @participation_collection_pages ||= site.pages.where(id: participation_collection.pages_in_collection).active
+      @participation_collection_pages ||= madrid.pages.where(id: participation_collection.pages_in_collection).active
     end
 
     def participation_collection_page
       participation_collection_pages.first
     end
 
-    def test_visit_site_collection
-      with_current_site(site) do
-        visit gobierto_cms_pages_path(site_collection.slug)
+    def test_visit_collection
+      collection_public_pages = [
+        gobierto_cms_pages(:cms_section_l0_p0_page),
+        gobierto_cms_pages(:cms_section_l0_p1_page)
+      ]
 
-        assert has_content?(site_collection.title)
+      collection_hidden_pages = [
+        gobierto_cms_pages(:cms_section_l0_p2d_page),
+        gobierto_cms_pages(:cms_section_l0_p3a_page)
+      ]
 
-        site_collection_pages.each do |page|
+      with_current_site(santander) do
+        visit gobierto_cms_pages_path(santander_cms_collection.slug)
+
+        assert has_content?(santander_cms_collection.title)
+
+        collection_public_pages.each do |page|
           assert has_link?(page.title)
         end
 
-        click_link site_collection_page.title
+        collection_hidden_pages.each do |page|
+          refute has_link?(page.title)
+        end
 
-        assert has_content?(site_collection_page.title)
-        assert has_content?(site_collection.title)
+        collection_page = collection_public_pages.first
 
-        assert has_content?("#{site_collection.title} / #{site_collection_page.title}")
+        click_link collection_page.title
+
+        assert has_content?(collection_page.title)
       end
     end
 
     def test_visit_participation_collection
-      with_current_site(site) do
+      with_current_site(madrid) do
         visit gobierto_cms_pages_path(participation_collection.slug)
 
         assert has_content?(participation_collection.title)
@@ -75,5 +85,6 @@ module GobiertoCms
         end
       end
     end
+
   end
 end

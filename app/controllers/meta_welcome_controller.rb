@@ -15,7 +15,7 @@ class MetaWelcomeController < ApplicationController
 
       if item.is_a?(GobiertoCms::Section)
         @section = item
-        page = @section.first_item
+        page = @section.first_item(only_public: true)
       else
         page = item
       end

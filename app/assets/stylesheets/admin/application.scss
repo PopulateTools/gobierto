@@ -249,6 +249,10 @@ ul.jqtree-tree {
     margin-left: 1em;
   }
 
+  .jqtree-title.draft {
+    opacity: 0.5;
+  }
+
   .jqtree-element {
     padding: 0.25em 0.5em;
     border-top: 1px solid darken($color_1_soft, 10%);

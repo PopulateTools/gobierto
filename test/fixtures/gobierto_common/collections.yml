@@ -348,3 +348,13 @@ santander_participation_docs:
   slug: santander-attachments
   container_type: GobiertoParticipation
   item_type: GobiertoAttachments::Attachment
+
+santander_cms_pages:
+  site: santander
+  title_translations: <%= {
+    "en" => "Pages collection for Santander CMS",
+    "es" => "Colección de páginas del CMS de Santander"
+  }.to_json %>
+  slug: santander-cms-pages
+  container: santander (Site)
+  item_type: GobiertoCms::Page

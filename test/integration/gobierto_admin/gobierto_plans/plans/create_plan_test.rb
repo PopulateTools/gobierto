@@ -46,7 +46,7 @@ module GobiertoAdmin
               fill_in "plan_title_translations_es", with: "Título del nuevo plan"
               fill_in "plan_introduction_translations_es", with: "Introducción del nuevo plan"
 
-              fill_in "plan_year", with: "2012"
+              fill_in "plan_year", with: "2017"
 
               select "pam", from: "plan_plan_type_id"
 

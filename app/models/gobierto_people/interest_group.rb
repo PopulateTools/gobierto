@@ -15,6 +15,7 @@ module GobiertoPeople
     scope :sorted, -> { order(name: :asc) }
 
     validates :name, presence: true
+    validates :slug, uniqueness: { scope: :site }
 
     metadata_attributes :status, :registry
 

@@ -45,6 +45,7 @@ module GobiertoPeople
 
     validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }, allow_blank: true
     validates :site, :name, presence: true
+    validates :slug, uniqueness: { scope: :site }
 
     after_create :create_events_collection
 

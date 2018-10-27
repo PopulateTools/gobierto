@@ -21,6 +21,8 @@ module GobiertoPlans
     after_restore :set_slug
 
     validates :site, :title, :introduction, :plan_type_id, :year, presence: true
+    validates :year, uniqueness: { scope: :plan_type }
+    validates :slug, uniqueness: { scope: :site }
 
     scope :sort_by_updated_at, -> { order(updated_at: :desc) }
     scope :sort_by_year, -> { order(year: :desc) }

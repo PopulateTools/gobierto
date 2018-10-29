@@ -227,6 +227,7 @@
   <%= javascript_tag data: { "turbolinks-eval" => false } do %>
     window.GobiertoAdmin.dirty_forms_component.handle("<%= t(".dirty_forms.message") %>");
     window.GobiertoAdmin.globalized_forms_component.handle();
+    window.GobiertoAdmin.color_picker_component.handle();
   <% end %>
 
   <%= yield :javascript_hook %>

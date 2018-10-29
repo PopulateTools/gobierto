@@ -53,7 +53,7 @@ require "minitest/retry"
 require "vcr"
 require "mocha/minitest"
 
-I18n.locale = I18n.default_locale = :en
+I18n.default_locale = :en
 Time.zone = "Madrid"
 
 Minitest::Retry.use! if ENV["RETRY_FAILING_TEST"]
@@ -88,6 +88,14 @@ class ActiveSupport::TestCase
   AVAILABLE_LOCALES = I18n.available_locales - [:en]
 
   self.use_transactional_tests = true
+
+  def setup
+    I18n.locale = I18n.default_locale
+  end
+
+  def teardown
+    mocha_teardown
+  end
 end
 
 class ActionDispatch::IntegrationTest

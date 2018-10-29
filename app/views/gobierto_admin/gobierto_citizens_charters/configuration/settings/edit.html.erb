@@ -26,6 +26,7 @@
 
 
       <div class="form_block">
+        <h2><%= t(".services") %></h2>
         <div class="form_item site-module-check-boxes">
           <div class="options compact">
             <div class="option">
@@ -42,6 +43,13 @@
                 <%= t(".enable_services_home")  %>
               <% end %>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="form_block">
+        <h2><%= t(".charters") %></h2>
+        <div class="form_item site-module-check-boxes">
+          <div class="options compact">
             <div class="option">
               <%= f.check_box :enable_charters %>
               <%= f.label :enable_charters do %>

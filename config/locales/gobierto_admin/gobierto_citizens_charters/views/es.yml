@@ -73,9 +73,11 @@ es:
       configuration:
         settings:
           edit:
+            charters: Cartas de servicios
             enable_charters: Habilitar Cartas de Servicios
             enable_services: Habilitar Servicios
-            enable_services_home: Mostrar home de Servicios
+            enable_services_home: Mostrar categorías en la página de inicio
+            services: Servicios
             title: Configuración
             update: Actualizar
           title: Preferencias

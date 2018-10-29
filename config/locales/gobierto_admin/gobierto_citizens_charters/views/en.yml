@@ -73,9 +73,11 @@ en:
       configuration:
         settings:
           edit:
+            charters: Charters
             enable_charters: Enable Citizens Charters
             enable_services: Enable Services
-            enable_services_home: Display Services home
+            enable_services_home: Display categories in module home page
+            services: Services
             title: Configuration
             update: Update
           title: Preferences

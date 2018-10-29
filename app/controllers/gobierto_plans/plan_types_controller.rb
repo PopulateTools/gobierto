@@ -5,16 +5,16 @@ module GobiertoPlans
     include ::PreviewTokenHelper
     include User::SessionHelper
 
-    before_action :load_plan_types, only: [:index]
-
     def index
-      # HACK: select last plan which at least has one published plan to avoid https://github.com/PopulateTools/issues/issues/304
-      @plan_type = @plan_types.select { |plan_type| plan_type.plans.published.any? }.last
+      # Select last plan published
+      plan_types = current_site.plan_types
+      @plan_type = plan_types.detect { |pt| pt.plans.published.any? }
+      render_404 and return if @plan_type.nil?
+
       load_plans
       load_years
-      @year = @years.first
 
-      redirect_to gobierto_plans_plan_path(slug: @plan_type.slug, year: @year)
+      redirect_to gobierto_plans_plan_path(slug: @plan_type.slug, year: @years.first)
     end
 
     def show
@@ -23,6 +23,7 @@ module GobiertoPlans
       load_years
       load_year
       redirect_to gobierto_plans_plan_path(slug: params[:slug], year: @years.first) and return if @year.nil?
+
       @plan = find_plan
 
       @site_stats = GobiertoPlans::SiteStats.new site: current_site, plan: @plan
@@ -60,10 +61,6 @@ module GobiertoPlans
 
     def level_keys
       @plan.configuration_data.select { |k| k =~ /level\d\z/ }
-    end
-
-    def load_plan_types
-      @plan_types = current_site.plan_types.sort_by_updated_at
     end
 
     def load_plans

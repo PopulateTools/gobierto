@@ -97,6 +97,10 @@ module GobiertoParticipation
         assert has_link?(future_closed_group.title)
         assert has_link?(past_closed_group.title)
 
+        # ensure body is properly formatted
+        assert has_content? "Make Madrid a green city"
+        assert has_no_content? "Make Madrid a <i>green city</i>"
+
         # check groups details
 
         assert_equal 8, find_interactions_count_by_group_title(group_with_many_contributions.title)

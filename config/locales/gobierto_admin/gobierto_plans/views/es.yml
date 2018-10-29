@@ -75,6 +75,7 @@ es:
             status: Estado
             title: Título
             type: Tipo
+            year: Año
           new: Nuevo
           title: Planes
           types: Tipos

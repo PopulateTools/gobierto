@@ -21,6 +21,8 @@ module GobiertoCalendars
     include GobiertoAttachments::Attachable
 
     validates :site, :collection, presence: true
+    validates :slug, uniqueness: { scope: :site }
+
 
     translates :title, :description
 

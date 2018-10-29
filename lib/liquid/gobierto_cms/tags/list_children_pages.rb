@@ -20,7 +20,7 @@ class ListChildrenPages < Liquid::Tag
     section_item = ::GobiertoCms::SectionItem.where(item_id: page.id)
 
     if section_item.any?
-      return children_pages(section_item.first.children, @level)
+      return children_pages(section_item.first.children.not_archived.not_drafted, @level)
     else
       return ""
     end
@@ -38,7 +38,7 @@ class ListChildrenPages < Liquid::Tag
           html << ActionController::Base.helpers.link_to(node.item.title,
                                                           gobierto_cms_page_or_news_path(node.item))
           if node.children.any?
-            html << children_pages(node.children, level - 1)
+            html << children_pages(node.children.not_archived.not_drafted, level - 1)
           end
           html << "</div>"
         end

@@ -3,10 +3,10 @@
 module GobiertoAdmin
   module GobiertoCms
     class SectionItemSerializer < ActiveModel::Serializer
-      attributes :id, :name, :children, :item_type
+      attributes :id, :name, :children, :item_type, :visibility_level
 
       def children
-        object.children.sorted.map do |children|
+        object.children.not_archived.sorted.map do |children|
           GobiertoAdmin::GobiertoCms::SectionItemSerializer.new(children)
         end
       end

@@ -18,6 +18,7 @@ module GobiertoPeople
     scope :sorted, -> { order(name: :asc) }
 
     validates :name, presence: true
+    validates :slug, uniqueness: { scope: :site }
 
     SHORT_NAME_TRUNCATE_REGEX = Regexp.new([
       "Departamento de ",
@@ -48,7 +49,8 @@ module GobiertoPeople
     end
 
     def short_name
-      name.gsub(SHORT_NAME_TRUNCATE_REGEX, "")
+      result = name.gsub(SHORT_NAME_TRUNCATE_REGEX, "")
+      I18n.locale == :ca ? result.gsub("i d'", "i ") : result
     end
 
   end

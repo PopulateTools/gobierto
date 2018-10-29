@@ -122,7 +122,7 @@ module GobiertoAdmin
             notice: t(".success_html", link: gobierto_plans_plan_type_preview_url(@plan_data_form.plan, host: current_site.domain))
           )
         else
-          render :data
+          render :import_csv
         end
       end
 

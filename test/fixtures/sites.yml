@@ -31,6 +31,7 @@ santander:
     "default_locale" => "en",
     "available_locales" => ["en", "es", "ca"],
     "home_page" => "GobiertoPeople",
+    "raw_configuration_variables" => "favicon_url\: \"https://populate.tools/favicon.ico\"",
     "google_analytics_id" => "UA-000000-02" }.to_yaml.inspect %>
   organization_name: Santander
   organization_id: <%= INE::Places::Place.find_by_slug("santander").id %>

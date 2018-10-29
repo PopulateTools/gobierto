@@ -11,6 +11,7 @@ module GobiertoPeople
 
     validates :person, presence: true
     validates :site, presence: true
+    validates :slug, uniqueness: { scope: :site }
 
     algoliasearch_gobierto do
       attribute :site_id, :title, :body, :updated_at

@@ -32,6 +32,7 @@ module GobiertoParticipation
                                                              site.id, Time.zone.now) }
 
     validates :site, :process, :title, :description, :admin, presence: true
+    validates :slug, uniqueness: { scope: :site }
 
     def parameterize
       { process_id: process.slug, id: slug }

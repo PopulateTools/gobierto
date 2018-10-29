@@ -75,6 +75,7 @@ en:
             status: Status
             title: Title
             type: Type
+            year: Year
           new: New
           title: Plans
           types: Types

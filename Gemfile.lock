@@ -110,13 +110,14 @@ GEM
       thor (~> 0.19)
     builder (3.2.3)
     byebug (10.0.2)
-    capybara (3.9.0)
+    capybara (3.10.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
-      xpath (~> 3.1)
+      regexp_parser (~> 1.2)
+      xpath (~> 3.2)
     capybara-email (3.0.1)
       capybara (>= 2.4, < 4.0)
       mail
@@ -127,7 +128,7 @@ GEM
     cloudinary (1.9.1)
       aws_cf_signer
       rest-client
-    cocoon (1.2.11)
+    cocoon (1.2.12)
     codecov (0.1.13)
       json
       simplecov
@@ -141,7 +142,7 @@ GEM
     crass (1.0.4)
     d3-rails (4.13.0)
       railties (>= 3.1)
-    dalli (2.7.7)
+    dalli (2.7.9)
     declarative (0.0.10)
     declarative-option (0.1.0)
     docile (1.3.1)
@@ -204,11 +205,11 @@ GEM
     httpi (2.4.3)
       rack
       socksify
-    i18n (1.1.0)
+    i18n (1.1.1)
       concurrent-ruby (~> 1.0)
     i18n-js (3.0.11)
       i18n (>= 0.6.6, < 2)
-    i18n-tasks (0.9.25)
+    i18n-tasks (0.9.27)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
       erubi
@@ -369,6 +370,7 @@ GEM
     redcarpet (3.4.0)
     redis (4.0.2)
     ref (2.0.0)
+    regexp_parser (1.2.0)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
@@ -385,14 +387,14 @@ GEM
     retriable (3.1.2)
     rollbar (2.18.0)
       multi_json
-    rubocop (0.59.2)
+    rubocop (0.60.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5, != 2.5.1.1)
       powerpack (~> 0.1)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (~> 1.0, >= 1.0.1)
+      unicode-display_width (~> 1.4.0)
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
     ruby_px (0.4.0)
@@ -460,6 +462,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
+    truncate_html (0.9.3)
     turbolinks (5.2.0)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -486,7 +489,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
     xml-simple (1.1.5)
-    xpath (3.1.0)
+    xpath (3.2.0)
       nokogiri (~> 1.8)
 
 PLATFORMS
@@ -563,6 +566,7 @@ DEPENDENCIES
   spy
   therubyracer
   timecop
+  truncate_html
   turbolinks
   uglifier (>= 1.3.0)
   vcr

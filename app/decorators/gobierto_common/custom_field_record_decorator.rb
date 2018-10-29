@@ -43,7 +43,7 @@ module GobiertoCommon
       color: {
         class_names: "form_item input_text",
         field_tag: :text_field_tag,
-        partial: "item",
+        partial: "color",
         tag_attributes: { data: { behavior: "colorpicker" } }
       },
       image: {

@@ -81,6 +81,7 @@ textarea:focus {
   margin: 0 0 1em 0;
 
   label {
+    z-index: 1;
     position: absolute;
     width: calc(100% - 1.75rem);
     top: 0.5rem;
@@ -93,6 +94,19 @@ textarea:focus {
       float: right;
       font-weight: normal;
       opacity: 0.5;
+    }
+  }
+
+  .form_item_colorpicker {
+    position: relative;
+    .minicolors-swatch {
+      margin-top: auto;
+      bottom: 0;
+      margin-bottom: 0.8rem;
+      margin-left: 12px;
+    }
+    .minicolors-input {
+      padding-left: 52px;
     }
   }
 

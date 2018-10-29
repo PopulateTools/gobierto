@@ -18,6 +18,7 @@ window.GobiertoAdmin.ColorPickerComponent = (function() {
     $('[data-behavior="colorpicker"]').each(function() {
       $(this).minicolors({
         theme: "bootstrap",
+        position: "bottom left",
         format: "hex"
       });
     })

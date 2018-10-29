@@ -1,6 +1,7 @@
 {
   "license": "SEE LICENSE IN LICENSE-AGPLv3.txt",
   "dependencies": {
+    "@claviska/jquery-minicolors": "^2.3.2",
     "@rails/webpacker": "^3.3.0",
     "accounting": "^0.4.1",
     "air-datepicker": "^2.2.3",

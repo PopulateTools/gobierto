@@ -85,6 +85,7 @@ es:
         index:
           all_commitments_used: Todos los compromisos ya tienen valor
           errors:
+            max_value_null: El objetivo no puede ser cero para tener niveles de cumplimiento
             missing_values: Hay que rellenar el porcentaje o el par valor y objetivo
           header:
             max_value: Objetivo

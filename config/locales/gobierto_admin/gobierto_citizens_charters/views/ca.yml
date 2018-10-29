@@ -85,6 +85,7 @@ ca:
         index:
           all_commitments_used: Tots els compromisos ja tenen valor
           errors:
+            max_value_null: Valor màxim no pot ser zero per tenir nivells de compliment
             missing_values: Cal omplir el percentatge o el parell valor i valor màxim
           header:
             max_value: Valor màxim

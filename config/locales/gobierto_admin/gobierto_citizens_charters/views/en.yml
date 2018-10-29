@@ -85,6 +85,7 @@ en:
         index:
           all_commitments_used: All the commitments already have value
           errors:
+            max_value_null: max_value can't be zero in order to have levels of compliance
             missing_values: Please, fill in the percentage or the value and max_value
               pair
           header:

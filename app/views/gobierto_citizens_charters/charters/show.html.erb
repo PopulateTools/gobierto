@@ -24,7 +24,7 @@
         <% if @charter.progress.present? %>
           <div class="subheader-title"><%= t(".global_progress") %></div>
           <div class="subheader-number m_v_2">
-            <p><%= number_to_percentage(@charter.progress, precision: 1) %></p>
+            <p><%= number_to_percentage(@charter.progress, precision: 1, strip_insignificant_zeros: true) %></p>
             <div id="sparkline-GLOBAL" class="sparkline"></div>
           </div>
         <% end %>
@@ -33,7 +33,7 @@
           <div class="subheader-title subheader-title--muted m_b_3">
             <%= t(
               "gobierto_citizens_charters.shared.evolution.#{ @progress_evolution < 0 ? "negative" : "positive" }",
-              progress: number_to_percentage(@progress_evolution, precision: 1)
+              progress: number_to_percentage(@progress_evolution, precision: 1, strip_insignificant_zeros: true)
               ) %>
           </div>
         <% end %>
@@ -71,7 +71,7 @@
           <div class="m_b_2"><%= edition.commitment.description %></div>
           <div>            
             <div class="charter-number m_b_1">
-              <p> <%= number_to_percentage(edition.proportion, precision: 1) %> </p>
+              <p> <%= number_to_percentage(edition.proportion, precision: 1, strip_insignificant_zeros: true) %> </p>
               <div id="sparkline-<%= edition.id %>" class="sparkline"></div>
             </div>
             <small class="charter-text--muted"><%= edition.commitment.title %></small>

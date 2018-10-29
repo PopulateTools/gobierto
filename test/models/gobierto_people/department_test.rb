@@ -10,17 +10,20 @@ module GobiertoPeople
     end
 
     def test_short_name
-      complete_names = [
-        "Departamento de Wadus",
-        "Department of Wadus",
-        "Departament de la Wadus",
-        "Departament de Wadus",
-        "Departament d'Wadus"
-      ]
+      I18n.locale = :ca
 
-      complete_names.each do |name|
-        department.update_attributes!(name: name)
-        assert_equal "Wadus", department.short_name
+      expected_result = {
+        "Departamento de Wadus" => "Wadus",
+        "Department of Wadus" => "Wadus",
+        "Departament de la Wadus" => "Wadus",
+        "Departament de la Foo i d'Bar i Baz" => "Foo i Bar i Baz",
+        "Departament de Wadus" => "Wadus",
+        "Departament d'Wadus" => "Wadus"
+      }
+
+      expected_result.keys.each.each do |full_name|
+        department.update_attributes!(name: full_name)
+        assert_equal expected_result[full_name], department.short_name
       end
     end
 

@@ -49,7 +49,8 @@ module GobiertoPeople
     end
 
     def short_name
-      name.gsub(SHORT_NAME_TRUNCATE_REGEX, "")
+      result = name.gsub(SHORT_NAME_TRUNCATE_REGEX, "")
+      I18n.locale == :ca ? result.gsub("i d'", "i ") : result
     end
 
   end

@@ -178,6 +178,7 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
           inserting: true,
           width: "10%",
           validate: "required",
+          align: "left",
           commitments_path: options.commitments_path,
           insertTemplate: function(value, item) {
             return this._insertPicker = _commitmentSelect(value, item, this);

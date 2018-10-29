@@ -42,9 +42,9 @@ module GobiertoCommon
       },
       color: {
         class_names: "form_item input_text",
-        field_tag: :color_field_tag,
+        field_tag: :text_field_tag,
         partial: "item",
-        tag_attributes: {}
+        tag_attributes: { data: { behavior: "colorpicker" } }
       },
       image: {
         class_names: "form_item file_field avatar_file_field",

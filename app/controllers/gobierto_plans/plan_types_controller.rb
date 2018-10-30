@@ -56,7 +56,7 @@ module GobiertoPlans
     end
 
     def find_plan
-      @plan_type.plans.find_by!(year: params[:year])
+      valid_preview_token? ? @plan_type.plans.find_by!(year: params[:year]) : @plan_type.plans.published.find_by!(year: params[:year])
     end
 
     def level_keys

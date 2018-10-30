@@ -218,63 +218,15 @@ module GobiertoPlans
           end
         end
       end
+    end
 
-      def test_open_nodes
-        with_javascript do
-          with_current_site(site) do
-            visit @path
+    def test_draft_plan
+      with_current_site(site) do
+        plan.draft!
 
-            within "section.level_0" do
-              within "div.node-root.cat_3" do
-                find("a").trigger("click")
-              end
-            end
+        visit @path
 
-            within ".planification-content" do
-              within "section.level_1.cat_3" do
-                find("h3", text: action_lines.first.name).click
-              end
-
-              within "section.level_2.cat_3" do
-                within "ul.action-line--list" do
-                  find("h3", text: actions.first.name).click
-                end
-              end
-
-              within "section.level_3 cat_3" do
-                refute has_selector?("h3", text: projects.first.name)
-              end
-            end
-
-            hash = plan.configuration_data
-            hash["open_node"] = true
-            plan.update_attribute(:configuration_data, JSON.pretty_generate(hash))
-
-            visit @path
-
-            within "section.level_0" do
-              within "div.node-root.cat_3" do
-                find("a").trigger("click")
-              end
-            end
-
-            within ".planification-content" do
-              within "section.level_1.cat_3" do
-                find("h3", text: action_lines.first.name).click
-              end
-
-              within "section.level_2.cat_3" do
-                within "ul.action-line--list" do
-                  find("h3", text: actions.first.name).click
-                end
-              end
-
-              within "section.level_3 cat_3" do
-                assert has_selector?("h3", text: projects.first.name)
-              end
-            end
-          end
-        end
+        assert_equal 404, page.status_code
       end
     end
   end

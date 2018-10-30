@@ -13,7 +13,7 @@
   <div class="charter-header">
     <div class="column">
       <h1><%= @charter.title %></h1>
-      <%= image_tag('illustrations/personaliza.jpg') %>
+      <%= image_tag(custom_field_by_uid(@charter, "cover-image") || "illustrations/personaliza.jpg") %>
     </div>
   </div>
 

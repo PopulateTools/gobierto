@@ -27,7 +27,7 @@ santander:
   configuration_data: <%= {
     "links_markup" => %Q{<a href="http://santander.es">Ayuntamiento de Santander</a>},
     "logo" => "http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png",
-    "modules" => ["GobiertoBudgets", "GobiertoCms", "GobiertoPeople"],
+    "modules" => ["GobiertoBudgets", "GobiertoCms", "GobiertoPeople", "GobiertoPlans"],
     "default_locale" => "en",
     "available_locales" => ["en", "es", "ca"],
     "home_page" => "GobiertoPeople",

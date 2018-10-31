@@ -41,6 +41,31 @@ $(document).on('turbolinks:load', function() {
       renderingConfig: {
         singleLineBreaks: false
       },
+      toolbar: [
+        "bold",
+        "italic",
+        "heading",
+        "|",
+        "quote",
+        "unordered-list",
+        "ordered-list",
+        "|",
+        "link",
+        "image",
+        "|",
+        "preview",
+        "side-by-side",
+        "fullscreen",
+        "|",
+        {name: "guide",
+          action: function openlink() {
+            var win = window.open("https://gobierto.readme.io/v0.1/docs/guia-de-markdown", "_blank");
+            win.focus();
+          },
+          className: "fa fa-question-circle",
+          title: "Markdown Guide",
+        default: true},
+        "|"],
       status: false
     });
 

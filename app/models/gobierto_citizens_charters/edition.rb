@@ -10,9 +10,9 @@ module GobiertoCitizensCharters
 
     PERIOD_INTERVAL_DATA = {
       year: ->(date) { { year: date.year } },
-      quarter: ->(date) { { quarter: (date.month / 4) + 1, year: date.year } },
-      month: ->(date) { { month: date.month, year: date.year } },
-      week: ->(date) { { week: date.strftime("%W").to_i, year: date.year } }
+      quarter: ->(date) { { year: date.year, quarter: (date.month / 4) + 1 } },
+      month: ->(date) { { year: date.year, month: date.month } },
+      week: ->(date) { { year: date.year, week: date.strftime("%W").to_i } }
     }.freeze
 
     belongs_to :commitment, -> { with_archived }

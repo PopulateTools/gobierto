@@ -4,7 +4,7 @@ window.GobiertoCharters.ChartersController = (function() {
 
   function ChartersController() {}
 
-  ChartersController.prototype.show = function(){
+  ChartersController.prototype.show = function(opts){
 
     // DEBUG: Esta funcion DEBE ser eliminada cuando se obtengan datos verdaderos
     function mock(length = 2) {
@@ -29,11 +29,14 @@ window.GobiertoCharters.ChartersController = (function() {
           bottom: 0,
           left: 0,
           right: 0
-        }
+        },
+        freq: opts.freq
       }
 
-      let chart = new Sparkline(`#${container.id}`, mock(7), options)
-      chart.render()
+      if (opts.sparklinesData[container.id] && opts.sparklinesData[container.id].length > 1) {
+        let chart = new Sparkline(`#${container.id}`, opts.sparklinesData[container.id], options)
+        chart.render()
+      }
     })
   };
 

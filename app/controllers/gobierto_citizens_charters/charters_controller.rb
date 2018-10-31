@@ -33,6 +33,11 @@ class GobiertoCitizensCharters::ChartersController < GobiertoCitizensCharters::A
     )
     if params_reference_edition.present?
       @progress_evolution = 100 * (@charter.progress / @charter.previous_period_progress - 1) if @charter.progress&.nonzero? && @charter.previous_period_progress&.nonzero?
+      @historic_data = @charter.editions.map do |edition|
+        ["sparkline-#{ edition.id }", ::GobiertoCitizensCharters::CommitmentDecorator.new(edition.commitment).progress_history(params_reference_edition)]
+      end.to_h
+      @historic_data["sparkline-GLOBAL"] = @charter.progress_history
+      @period_interval = %w(year month).include?(params_reference_edition.period_interval) ? "#{ params_reference_edition.period_interval }ly" : "daily"
     else
       redirect_to charter_period_gobierto_citizens_charters_charter_path(@charter.slug, @charter.reference_edition.period_front_params)
     end

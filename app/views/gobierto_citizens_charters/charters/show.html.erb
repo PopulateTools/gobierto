@@ -4,9 +4,12 @@
   <%= javascript_pack_tag 'charters', 'data-turbolinks-track': true %>
 <% end %>
 
-<script type="module">
-  window.GobiertoCharters.charters_controller.show();
-</script>
+<% content_for :javascript_hook do %>
+  window.GobiertoCharters.charters_controller.show({
+    sparklinesData: <%== @historic_data.to_json %>,
+    freq: "<%= @period_interval %>"
+  });
+<% end %>
 
 <main class="content gobierto_citizens-charters">
 

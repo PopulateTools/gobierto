@@ -33,7 +33,7 @@ window.GobiertoCharters.ChartersController = (function() {
         freq: opts.freq
       }
 
-      if (opts.sparklinesData[container.id] && opts.sparklinesData[container.id].length > 1) {
+      if (opts.sparklinesData[container.id] && opts.sparklinesData[container.id].length > 1 && $(`#${container.id} svg`).length === 0) {
         let chart = new Sparkline(`#${container.id}`, opts.sparklinesData[container.id], options)
         chart.render()
       }

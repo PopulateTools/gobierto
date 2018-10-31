@@ -25,8 +25,8 @@ en:
             responses and the stuff will use it to check which are your preferences
             and take them into account."
           p3: We'll notify you when the results are published, and you'll be able
-            to receive another alert when the city council published the projects
-            of the budgets.
+            to receive another alert when the %{the_organization_name} published the
+            projects of the budgets.
           share_text: I have participated in the budgets consultation in %{current_site_name}
           thanks: Thanks for your response
       consultation_items:

@@ -119,7 +119,7 @@ es:
       blank_for_modules: La organización no está bien configurada. El identificador
         es obligatorio para los módulos que tienes activados.
       collection_taken: no puede tener otra colección de este tipo.
-      confirmation: no coincide
+      confirmation: no coincide con %{attribute}
       empty: no puede estar vacío
       equal_to: debe ser igual a %{count}
       even: debe ser par

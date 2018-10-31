@@ -119,7 +119,7 @@ en:
       blank_for_modules: Organization is miss-configured. The identifier is mandatory
         for the modules you have configured.
       collection_taken: can't have another collection of this type.
-      confirmation: doesn't match
+      confirmation: doesn't match %{attribute}
       empty: can't be empty
       equal_to: must be equal to %{count}
       even: must be even

@@ -119,7 +119,7 @@ ca:
       blank_for_modules: L'organització no està correctament configurada. L'identificador
         és obligatori per als mòduls que has activat.
       collection_taken: no pot tenir una altra col·lecció d'aquest tipus.
-      confirmation: no coincideix
+      confirmation: no coincideix amb %{attribute}
       empty: no pot estar buit
       equal_to: ha de ser igual a %{count}
       even: ha de ser parell

@@ -112,12 +112,14 @@ es:
       accepted: debe ser aceptado
       already_uploaded_html: no se ha guardado porque ya lo has subido en el pasado.
         Puedes verlo <a href="%{url}">aquí</a>.
-      array_too_short: es demasiado corto (al menos ${count} elemento)
+      array_too_short:
+        one: es demasiado corto (al menos ${count} elemento)
+        other: es demasiado corto (al menos ${count} elementos)
       blank: no puede estar en blanco
       blank_for_modules: La organización no está bien configurada. El identificador
         es obligatorio para los módulos que tienes activados.
       collection_taken: no puede tener otra colección de este tipo.
-      confirmation: no coincide
+      confirmation: no coincide con %{attribute}
       empty: no puede estar vacío
       equal_to: debe ser igual a %{count}
       even: debe ser par
@@ -139,8 +141,8 @@ es:
       present: debe estar en blanco
       record_invalid: 'La validación falló: %{errors}'
       restrict_dependent_destroy:
-        many: No se puede eliminar el registro porque existen %{record} dependientes
         one: No se puede eliminar el registro porque existe un %{record} dependiente
+        other: No se puede eliminar el registro porque existen %{record} dependientes
       taken: ya está en uso
       too_long: es demasiado largo (%{count} caracteres máximo)
       too_short: es demasiado corto (%{count} caracteres mínimo)

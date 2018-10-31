@@ -112,12 +112,14 @@ ca:
       accepted: ha de ser acceptat
       already_uploaded_html: has not been saved because it has already been uploaded
         in the past. You can see it <a href="%{url}">here</a>.
-      array_too_short: és massa curt (al menys %{count} element)
+      array_too_short:
+        one: és massa curt (al menys %{count} element)
+        other: és massa curt (al menys %{count} elements)
       blank: no pot estar en blanc
       blank_for_modules: L'organització no està correctament configurada. L'identificador
         és obligatori per als mòduls que has activat.
       collection_taken: no pot tenir una altra col·lecció d'aquest tipus.
-      confirmation: no coincideix
+      confirmation: no coincideix amb %{attribute}
       empty: no pot estar buit
       equal_to: ha de ser igual a %{count}
       even: ha de ser parell
@@ -139,8 +141,8 @@ ca:
       present: ha de ser blanc
       record_invalid: 'La validació va fallar: %{errors}'
       restrict_dependent_destroy:
-        many: No es pot eliminar el registre perque hi ha %{record} dependents
         one: No es pot eliminar el registre perque existeix %{record} dependent
+        other: No es pot eliminar el registre perque hi ha %{record} dependents
       taken: no està disponible
       too_long: és massa llarg (%{count} caràcters màxim)
       too_short: és massa curt (%{count} caràcters mínim)

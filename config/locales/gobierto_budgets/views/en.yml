@@ -315,7 +315,7 @@ en:
         description: Government team publishes a draft of next year budget to discuss
           with the opposition and the citiziens. All together we can create the best
           budget for %{place_name}.
-        diff_previous_year: Diff vs current year
+        diff_previous_year: vs. %{year}
         expenses_per_inhabitant: Expense per person
         expenses_per_inhabitant_tooltip: Starting budget divided by the amount of
           inhabitants
@@ -430,7 +430,7 @@ en:
         total: Total expenses
     feedback:
       ask_more_information:
-        ask_for_feedback: Write your email
+        ask_for_feedback: Write your email to %{your_organization_name}
         send: Send
         your_email: Your email
       follow:

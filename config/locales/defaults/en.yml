@@ -114,6 +114,7 @@ en:
         in the past. You can see it <a href="%{url}">here</a>.
       array_too_short:
         one: is too short (minimum at least %{count} element)
+        other: is too short (minimum at least %{count} elements)
       blank: can't be blank
       blank_for_modules: Organization is miss-configured. The identifier is mandatory
         for the modules you have configured.
@@ -140,8 +141,8 @@ en:
       present: must be blank
       record_invalid: 'Validation failed: %{errors}'
       restrict_dependent_destroy:
-        many: Cannot delete record because dependent %{record} exist
         one: Cannot delete record because a dependent %{record} exists
+        other: Cannot delete record because dependent %{record} exist
       taken: has already been taken
       too_long:
         one: is too long (maximum is 1 character)

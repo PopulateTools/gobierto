@@ -2,6 +2,8 @@
 
 module GobiertoCommon
   class CustomField < ApplicationRecord
+    include GobiertoCommon::Sortable
+
     belongs_to :site
     has_many :records, dependent: :destroy, class_name: "CustomFieldRecord"
     validates :name, presence: true

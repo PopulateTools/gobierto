@@ -11,7 +11,7 @@ module GobiertoAdmin
           set_class_name
 
           @class_human_name = @class_name.constantize.model_name.human(count: 2)
-          @custom_fields = current_site.custom_fields.where(class_name: @class_name)
+          @custom_fields = current_site.custom_fields.where(class_name: @class_name).sorted
         end
 
         def new

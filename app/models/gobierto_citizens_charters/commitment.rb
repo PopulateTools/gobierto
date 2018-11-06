@@ -15,7 +15,7 @@ module GobiertoCitizensCharters
 
     enum visibility_level: { draft: 0, active: 1 }
 
-    validates :slug, uniqueness: { scope: :charter }
+    validates :slug, uniqueness: { scope: :charter_id }
     translates :title
     translates :description
 

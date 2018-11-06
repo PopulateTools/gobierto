@@ -13,7 +13,7 @@ module GobiertoCms
     translates :title
 
     validates :site, :title, presence: true
-    validates :slug, uniqueness: { scope: :site }
+    validates :slug, uniqueness: { scope: :site_id }
 
     scope :has_section_item, -> { joins(:section_items).where("gcms_section_items.id IS NOT NULL") }
 

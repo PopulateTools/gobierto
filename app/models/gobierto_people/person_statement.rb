@@ -11,7 +11,7 @@ module GobiertoPeople
     include GobiertoCommon::Sluggable
 
     validates :person, :site, presence: true
-    validates :slug, uniqueness: { scope: :site }
+    validates :slug, uniqueness: { scope: :site_id }
 
     translates :title
 

@@ -36,7 +36,7 @@ module GobiertoAttachments
     attr_accessor :file
 
     validates :site, :url, presence: true
-    validates :slug, uniqueness: { scope: :site }
+    validates :slug, uniqueness: { scope: :site_id }
     # This validation is duplicated in FileAttachmentForm, but since it's still being used
     # from the API, we can't remove it.
     validates :file_digest, uniqueness: {

@@ -39,7 +39,7 @@ module GobiertoCms
     enum visibility_level: { draft: 0, active: 1 }
 
     validates :site, :title, :body, :published_on, presence: true
-    validates :slug, uniqueness: { scope: :site }
+    validates :slug, uniqueness: { scope: :site_id }
 
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }

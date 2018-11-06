@@ -16,7 +16,7 @@ module GobiertoCitizensCharters
 
     enum visibility_level: { draft: 0, active: 1 }
 
-    validates :slug, uniqueness: { scope: :service }
+    validates :slug, uniqueness: { scope: :service_id }
     translates :title
     delegate :category, to: :service
 

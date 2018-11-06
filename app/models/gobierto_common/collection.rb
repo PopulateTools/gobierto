@@ -14,7 +14,7 @@ module GobiertoCommon
     translates :title
 
     validates :site, :title, :item_type, presence: true
-    validates :slug, uniqueness: { scope: :site }
+    validates :slug, uniqueness: { scope: :site_id }
     validate :container_id_with_container_type_and_item_type
 
     attr_reader :container

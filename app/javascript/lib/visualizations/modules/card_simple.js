@@ -20,12 +20,6 @@ export class SimpleCard extends Card {
 
     divCard.find("div.indicator_widget.padded").find("div.widget_body").find("div.sparkline").empty();
 
-    // If no data exists for the selected year.
-    if(parsedDate.getFullYear() != window.populateDataYear.currentYear) {
-      divCard.remove();
-      return;
-    }
-
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
       .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_common.visualizations.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_common.visualizations.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_common.visualizations.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(value))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');

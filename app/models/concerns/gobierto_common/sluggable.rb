@@ -21,11 +21,12 @@ module GobiertoCommon
       new_slug = base_slug
 
       if uniqueness_validators.present?
-        count = 2
         uniqueness_validators.each do |validator|
-          while self.class.exists?(scope_attributes(validator.options[:scope]).merge(slug: new_slug))
-            new_slug = "#{ base_slug }-#{ count }"
-            count += 1
+          if (related_slugs = self.class.where("slug ~* ?", "#{ new_slug }-\\d+$").where(scope_attributes(validator.options[:scope]))).exists?
+            max_count = related_slugs.pluck(:slug).map { |slug| slug.scan(/\d+$/).first.to_i }.max
+            new_slug = "#{ base_slug }-#{ max_count + 1 }"
+          elsif self.class.exists?(scope_attributes(validator.options[:scope]).merge(slug: new_slug))
+            new_slug = "#{ base_slug }-2"
           end
         end
       end

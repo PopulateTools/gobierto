@@ -18,6 +18,13 @@ window.GobiertoCharters.ChartersController = (function() {
       return json
     }
 
+    function _parseNumericStrings(data) {
+      for (let i in data) {
+        data[i].value = parseFloat(data[i].value)
+      }
+      return data
+    }
+
     const $sparklines = $('.sparkline')
 
     $sparklines.each((i, container) => {
@@ -34,7 +41,7 @@ window.GobiertoCharters.ChartersController = (function() {
       }
 
       if (opts.sparklinesData[container.id] && opts.sparklinesData[container.id].length > 1 && $(`#${container.id} svg`).length === 0) {
-        let chart = new Sparkline(`#${container.id}`, opts.sparklinesData[container.id], options)
+        let chart = new Sparkline(`#${container.id}`, _parseNumericStrings(opts.sparklinesData[container.id]), options)
         chart.render()
       }
     })

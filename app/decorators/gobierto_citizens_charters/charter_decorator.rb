@@ -39,6 +39,14 @@ module GobiertoCitizensCharters
                                     end
     end
 
+    def latest_edition_of_same_period_interval(period_interval)
+      object.editions.where(period_interval: period_interval).order(period: :desc).first
+    end
+
+    def latest_edition
+      object.editions.order(period: :desc).first
+    end
+
     def progress_history
       grouped_periods = object.editions.group_by_period_interval(reference_edition.period_interval).count
       last_periods = CollectionDecorator.new(grouped_periods.sort_by { |k, _| k[0] }.last(10), decorator: ::GobiertoCitizensCharters::EditionIntervalDecorator)

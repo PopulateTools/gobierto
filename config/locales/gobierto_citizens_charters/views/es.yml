@@ -11,6 +11,7 @@ es:
           other: "%{count} compromisos"
           zero: No hay compromisos
         contact: Contacto
+        description_title: Información sobre el cumplimiento de los compromisos %{of_the_organization_name}
         global_progress: Cumplimiento global
         introduction: El Ayuntamiento publica sus cartas de servicios con sus respectivos
           compromisos y grados de cumplimiento. Explora las cartas y los niveles de

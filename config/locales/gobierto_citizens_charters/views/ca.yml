@@ -4,6 +4,7 @@ ca:
     charters:
       details:
         back: Tornar
+        title: Details of %{title}
       index:
         about: Què són les cartes de serveis
         commitments:
@@ -18,7 +19,6 @@ ca:
           de compliment dels compromisos que vam publicar de forma regular
         period: 'Dades corresponents a:'
         progress: Compliment
-        title: Informació sobre el compliment dels compromisos %{of_the_organization_name}
       show:
         about: Sobre aquesta carta
         editions_details: Detall dels compromisos

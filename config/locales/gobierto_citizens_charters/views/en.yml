@@ -4,6 +4,7 @@ en:
     charters:
       details:
         back: Return
+        title: Detalls de %{title}
       index:
         about: What are service charters
         commitments:
@@ -18,7 +19,6 @@ en:
           levels of the commitments we publish on a regular basis
         period: 'Data corresponding to:'
         progress: Compliance
-        title: Information on the fulfillment of the commitments %{of_the_organization_name}
       show:
         about: About this charter
         editions_details: Detail of the commitments

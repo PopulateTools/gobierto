@@ -18,7 +18,8 @@ module GobiertoCalendars
       :notify,
       :meta,
       :department_id,
-      :interest_group_id
+      :interest_group_id,
+      :slug
     )
     attr_writer(
       :state,
@@ -144,6 +145,7 @@ module GobiertoCalendars
         event_attributes.interest_group_id = interest_group_id
         event_attributes.locations = locations
         event_attributes.attendees = attendees
+        event_attributes.slug = slug
       end
     end
 

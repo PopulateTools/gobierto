@@ -147,5 +147,27 @@ module GobiertoCalendars
       refute event.public?
     end
 
+    def test_slug_scope_check
+      madrid_event = subject_class.create!(
+        title: "Person Event Title",
+        starts_at: Time.zone.now,
+        ends_at: Time.zone.now + 1.hour,
+        site: sites(:madrid),
+        collection: person.events_collection
+      )
+
+      person = gobierto_people_people(:kali)
+      site = sites(:santander)
+
+      segovia_event = subject_class.create!(
+        title: "Person Event Title",
+        starts_at: Time.zone.now,
+        ends_at: Time.zone.now + 1.hour,
+        site: site,
+        collection: person.events_collection
+      )
+
+      assert_equal madrid_event.slug, segovia_event.slug
+    end
   end
 end

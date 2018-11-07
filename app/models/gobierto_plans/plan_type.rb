@@ -12,7 +12,7 @@ module GobiertoPlans
     translates :name
 
     validates :name, presence: true
-    validates :slug, uniqueness: { scope: :site }
+    validates :slug, uniqueness: { scope: :site_id }
 
     scope :sort_by_updated_at, -> { order(updated_at: :desc) }
 

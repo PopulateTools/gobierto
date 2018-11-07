@@ -21,7 +21,7 @@ module GobiertoCitizensCharters
     enum visibility_level: { draft: 0, active: 1 }
 
     validates :site, :title, presence: true
-    validates :slug, uniqueness: { scope: :site }
+    validates :slug, uniqueness: { scope: :site_id }
     translates :title
 
     after_restore :set_slug

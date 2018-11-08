@@ -26,7 +26,7 @@ module GobiertoParticipation
     end
 
     def find_issue_news
-      @issue.active_pages.limit(5)
+      @issue.active_news.limit(5)
     end
 
     def find_issue_notifications

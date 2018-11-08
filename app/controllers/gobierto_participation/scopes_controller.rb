@@ -26,7 +26,7 @@ module GobiertoParticipation
     end
 
     def find_scope_news
-      @scope.active_pages.limit(5)
+      @scope.active_news.limit(5)
     end
 
     def find_scope_notifications

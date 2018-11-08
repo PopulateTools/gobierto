@@ -22,8 +22,8 @@ module GobiertoParticipation
       @user ||= users(:peter)
     end
 
-    def issue_pages
-      @issue_pages ||= GobiertoCms::Page.pages_in_collections_and_container(site, issue).sorted
+    def issue_news
+      @issue_news ||= GobiertoCms::Page.news_in_collections_and_container(site, issue).sorted
     end
 
     def test_menu_subsections
@@ -54,7 +54,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit issue_pages_path
 
-        assert_equal issue_pages.size, all(".news_teaser").size
+        assert_equal issue_news.size, all(".news_teaser").size
 
         assert has_link? "Notice 1 title"
         assert has_link? "Notice 2 title"

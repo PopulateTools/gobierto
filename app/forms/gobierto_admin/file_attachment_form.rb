@@ -29,7 +29,7 @@ module GobiertoAdmin
     validates :site, presence: true
     validate :file_is_not_duplicated, if: -> { file.present? }
     validate :file_size_within_range, if: -> { file.present? }
-    validates :collection_id, presence: true
+    validates :collection, presence: true
 
     def initialize(attributes)
       attributes = attributes.to_h.with_indifferent_access
@@ -170,7 +170,7 @@ module GobiertoAdmin
     end
 
     def admin_edit_attachment_path(attachment)
-      url_helpers.edit_admin_attachments_file_attachment_path(attachment, collection_id: c.id)
+      url_helpers.edit_admin_attachments_file_attachment_path(attachment, collection_id: attachment.collection.id)
     end
 
     def url_helpers

@@ -340,6 +340,97 @@ site_news:
   container: madrid (Site)
   item_type: GobiertoCms::News
 
+site_attachments:
+  site: madrid
+  title_translations: <%= {'en' => 'Site attachments', 'es' => 'Adjuntos del sitio' }.to_json %>
+  slug: site-attachments
+  container: madrid (Site)
+  item_type: GobiertoAttachments::Attachment
+
+site_pages_santander:
+  site: santander
+  title_translations: <%= {'en' => 'Site pages', 'es' => 'Páginas del sitio' }.to_json %>
+  slug: site-pages
+  container: santander (Site)
+  item_type: GobiertoCms::Page
+
+site_news_santander:
+  site: santander
+  title_translations: <%= {'en' => 'Site news', 'es' => 'Noticias del sitio' }.to_json %>
+  slug: site-news
+  container: santander (Site)
+  item_type: GobiertoCms::News
+
+site_attachments_santander:
+  site: santander
+  title_translations: <%= {'en' => 'Site attachments', 'es' => 'Adjuntos del sitio' }.to_json %>
+  slug: site-attachments
+  container: santander (Site)
+  item_type: GobiertoAttachments::Attachment
+
+site_pages_huesca:
+  site: huesca
+  title_translations: <%= {'en' => 'Site pages', 'es' => 'Páginas del sitio' }.to_json %>
+  slug: site-pages
+  container: huesca (Site)
+  item_type: GobiertoCms::Page
+
+site_news_huesca:
+  site: huesca
+  title_translations: <%= {'en' => 'Site news', 'es' => 'Noticias del sitio' }.to_json %>
+  slug: site-news
+  container: huesca (Site)
+  item_type: GobiertoCms::News
+
+site_attachments_huesca:
+  site: huesca
+  title_translations: <%= {'en' => 'Site attachments', 'es' => 'Adjuntos del sitio' }.to_json %>
+  slug: site-attachments
+  container: huesca (Site)
+  item_type: GobiertoAttachments::Attachment
+
+site_pages_cortegada:
+  site: cortegada
+  title_translations: <%= {'en' => 'Site pages', 'es' => 'Páginas del sitio' }.to_json %>
+  slug: site-pages
+  container: cortegada (Site)
+  item_type: GobiertoCms::Page
+
+site_news_cortegada:
+  site: cortegada
+  title_translations: <%= {'en' => 'Site news', 'es' => 'Noticias del sitio' }.to_json %>
+  slug: site-news
+  container: cortegada (Site)
+  item_type: GobiertoCms::News
+
+site_attachments_cortegada:
+  site: cortegada
+  title_translations: <%= {'en' => 'Site attachments', 'es' => 'Adjuntos del sitio' }.to_json %>
+  slug: site-attachments
+  container: cortegada (Site)
+  item_type: GobiertoAttachments::Attachment
+
+site_pages_wadus:
+  site: wadus
+  title_translations: <%= {'en' => 'Site pages', 'es' => 'Páginas del sitio' }.to_json %>
+  slug: site-pages
+  container: wadus (Site)
+  item_type: GobiertoCms::Page
+
+site_news_wadus:
+  site: wadus
+  title_translations: <%= {'en' => 'Site news', 'es' => 'Noticias del sitio' }.to_json %>
+  slug: site-news
+  container: wadus (Site)
+  item_type: GobiertoCms::News
+
+site_attachments_wadus:
+  site: wadus
+  title_translations: <%= {'en' => 'Site attachments', 'es' => 'Adjuntos del sitio' }.to_json %>
+  slug: site-attachments
+  container: wadus (Site)
+  item_type: GobiertoAttachments::Attachment
+
 ## /end
 
 santander_participation_docs:

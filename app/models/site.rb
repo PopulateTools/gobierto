@@ -84,7 +84,7 @@ class Site < ApplicationRecord
   serialize :configuration_data
 
   before_save :store_configuration
-  after_create :initialize_admins
+  after_create :initialize_admins, :create_collections
   after_save :run_seeder
 
   validates :title, presence: true
@@ -254,5 +254,10 @@ class Site < ApplicationRecord
         errors[:base] << I18n.t('errors.messages.blank_for_modules')
       end
     end
+  end
+
+  def create_collections
+    # Attachments
+    collections.create! container: self, item_type: "GobiertoAttachments::Attachment", slug: "site-attachments", title: title
   end
 end

@@ -52,21 +52,21 @@ cultural_city_group_news:
   site: madrid
   title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
   slug: cultural_city_group-news
-  container: cultural_city_group (GobiertoParticipation::Process)
+  container: cultural_city_group_draft (GobiertoParticipation::Process)
   item_type: GobiertoCms::News
 
 cultural_city_group_calendar:
   site: madrid
   title_translations: <%= {'en' => 'Events', 'es' => 'Eventos' }.to_json %>
   slug: cultural_city_group-calendar
-  container: cultural_city_group (GobiertoParticipation::Process)
+  container: cultural_city_group_draft (GobiertoParticipation::Process)
   item_type: GobiertoCalendars::Event
 
 cultural_city_group_documents:
   site: madrid
   title_translations: <%= {'en' => 'Documents', 'es' => 'Documentos' }.to_json %>
   slug: cultural_city_group-documents
-  container: cultural_city_group (GobiertoParticipation::Process)
+  container: cultural_city_group_draft (GobiertoParticipation::Process)
   item_type: GobiertoAttachments::Attachment
 
 # public_debates_group_future

@@ -10,6 +10,10 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def collection
+        @collection ||= gobierto_common_collections(:files)
+      end
+
       def admin
         @admin ||= gobierto_admin_admins(:nick)
       end
@@ -138,14 +142,13 @@ module GobiertoAdmin
 
         payload = {
           attachment: {
+            collection_id: collection.id,
             name: "New attachment name",
             description: "New attachment description",
             file_name: "new-pdf-attachment.pdf",
             file: ::Base64.strict_encode64(new_pdf_file.read)
           }
         }
-
-        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
 
         post admin_attachments_api_attachments_path(payload)
 
@@ -158,7 +161,7 @@ module GobiertoAdmin
 
         assert_equal "New attachment name", attachment["name"]
         assert_equal "new-pdf-attachment.pdf", attachment["file_name"]
-        assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf", attachment["url"]
+        assert_not_nil attachment["url"]
         assert_equal 1, attachment["current_version"]
       end
 
@@ -183,14 +186,13 @@ module GobiertoAdmin
         payload = {
           attachment: {
             id: pdf_attachment.id,
+            collection_id: collection.id,
             name: "Replace with new PDF file",
             description: nil,
             file_name: "new-pdf-attachment.pdf",
             file: ::Base64.strict_encode64(new_pdf_file.read)
           }
         }
-
-        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
 
         patch admin_attachments_api_attachment_path(pdf_attachment.id), params: payload
 
@@ -201,7 +203,6 @@ module GobiertoAdmin
         assert_equal "Replace with new PDF file", db_pdf_attachment.name
         assert_nil db_pdf_attachment.description
         assert_equal "new-pdf-attachment.pdf", db_pdf_attachment.file_name
-        assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf", db_pdf_attachment.url
         assert_equal 2, db_pdf_attachment.current_version
 
         # Check HTTP response returns updated info
@@ -217,7 +218,6 @@ module GobiertoAdmin
         assert_equal "Replace with new PDF file", attachment["name"]
         assert_nil attachment["description"]
         assert_equal "new-pdf-attachment.pdf", attachment["file_name"]
-        assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf", attachment["url"]
         assert_equal 2, attachment["current_version"]
       end
 
@@ -229,8 +229,6 @@ module GobiertoAdmin
         }
 
         delete admin_attachments_api_attachment_path(pdf_attachment.id), params: payload
-
-        response_body = JSON.parse(response.body)
 
         assert_response :success
 

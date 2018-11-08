@@ -4,7 +4,8 @@ module GobiertoAdmin
       class AttachmentsController < ::GobiertoAdmin::Api::BaseController
 
         before_action :find_attachable, only: [:index]
-        before_action :find_attachment, only: [:show, :update, :destroy]
+        before_action :find_attachment, only: [:show, :destroy]
+        before_action :load_collection, only: [:create, :update]
 
         def index
           attachments = if params[:search_string]
@@ -25,25 +26,37 @@ module GobiertoAdmin
         end
 
         def create
-          attachment = ::GobiertoAttachments::Attachment.create!(
-            attachment_params.merge(site: current_site, file: uploaded_file)
+          @file_attachment_form = FileAttachmentForm.new(
+            attachment_params.merge(
+              site_id: current_site.id,
+              collection_id: collection_id,
+              admin_id: current_admin.id
+            )
           )
 
-          render(
-            json: { attachment: default_serializer.new(attachment) }
-          )
+          if @file_attachment_form.save
+            track_create_activity
+
+            render(json: { attachment: default_serializer.new(@file_attachment_form.file_attachment) })
+          else
+            render(json: { error: "Invalid payload" }, status: :bad_request)
+          end
         end
 
         def update
-          if attachment_params[:file]
-            @attachment.update_attributes!(attachment_params.merge(file: uploaded_file))
-          else
-            @attachment.update_attributes!(attachment_params)
-          end
+          @file_attachment_form = FileAttachmentForm.new(attachment_params.merge(
+            id: params[:id],
+            admin_id: current_admin.id,
+            site_id: current_site.id,
+            collection_id: collection_id
+          ))
 
-          render(
-            json: { attachment: default_serializer.new(@attachment) }
-          )
+          if @file_attachment_form.save
+            track_update_activity
+            render(json: { attachment: default_serializer.new(@file_attachment_form.file_attachment) })
+          else
+            render(json: { errors: @file_attachment_form.errors.full_messages.to_sentence }, status: :bad_request)
+          end
         end
 
         def destroy
@@ -68,30 +81,40 @@ module GobiertoAdmin
           end
         end
 
-        def uploaded_file
-          tmp_file = Tempfile.new('attachment_file')
-          tmp_file.binmode
-          tmp_file.write(Base64.strict_decode64(attachment_params[:file]))
-          tmp_file.rewind
-          # Mass assignment of file_name attribute is not permitted, it must always come from
-          # an UploadedFile instance. Thus, we read it from params instead of attachment_params.
-          ActionDispatch::Http::UploadedFile.new(filename: params[:attachment][:file_name], tempfile: tmp_file)
-        rescue
-          raise(PayloadError, 'Invalid payload')
-        end
-
         def default_serializer
           ::GobiertoAdmin::GobiertoAttachments::AttachmentSerializer
         end
 
         def attachment_params
           params.require(:attachment).permit(
+            :id,
+            :file,
             :name,
             :description,
-            :file
+            :collection_id,
+            :file_name
           )
         end
 
+        def load_collection
+          @collection = attachment_params[:collection_id] ? current_site.collections.find(attachment_params[:collection_id]) : nil
+        end
+
+        def collection_id
+          @collection ? @collection.id : nil
+        end
+
+        def track_create_activity
+          Publishers::GobiertoAttachmentsAttachmentActivity.broadcast_event("attachment_created", default_activity_params.merge(subject: @file_attachment_form.file_attachment))
+        end
+
+        def track_update_activity
+          Publishers::GobiertoAttachmentsAttachmentActivity.broadcast_event("attachment_updated", default_activity_params.merge(subject: @file_attachment_form.file_attachment))
+        end
+
+        def default_activity_params
+          { ip: remote_ip, author: current_admin, site_id: current_site.id }
+        end
       end
     end
   end

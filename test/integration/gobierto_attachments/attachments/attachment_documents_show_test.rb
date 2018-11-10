@@ -42,7 +42,7 @@ module GobiertoAttachments
         with_current_site(site) do
           visit gobierto_attachments_document_url(draft_participation_process_attachment, host: site.domain)
 
-          assert has_content? "The page you were looking for doesn't exist."
+          assert_equal 404, page.status_code
         end
       end
 
@@ -58,7 +58,7 @@ module GobiertoAttachments
       def test_wrong_url
         with_current_site(site) do
           visit gobierto_attachments_document_url(id: "wadus", host: site.domain)
-          assert has_content? "The page you were looking for doesn't exist."
+          assert_equal 404, page.status_code
         end
       end
 

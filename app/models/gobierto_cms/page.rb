@@ -63,23 +63,20 @@ module GobiertoCms
     end
 
     # returns pages belonging to module pages collection
-    # sample call: *.pages_in_collections_and_container_type(current_site, 'GobiertoParticipation')
     def self.pages_in_collections_and_container_type(site, container_type)
       ids = GobiertoCommon::CollectionItem.pages.by_container_type(container_type).pluck(:item_id)
       where(id: ids, site: site)
     end
 
     # returns news belonging to module news collection
-    # sample call: *.news_in_collections_and_container_type(current_site, 'GobiertoParticipation')
     def self.news_in_collections_and_container_type(site, container_type)
       ids = GobiertoCommon::CollectionItem.news.by_container_type(container_type).pluck(:item_id)
       where(id: ids, site: site)
     end
 
-    ## Methods to find items belonging to process, issue, etc.
-    # sample call: *.pages_in_collections_and_container(current_site, @issue)
-    def self.pages_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.pages_and_news.by_container(container).pluck(:item_id)
+    # returns news belonging to process, issue, scope, etc.
+    def self.news_in_collections_and_container(site, container)
+      ids = GobiertoCommon::CollectionItem.news.by_container(container).pluck(:item_id)
       where(id: ids, site: site)
     end
 

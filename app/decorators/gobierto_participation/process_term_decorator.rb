@@ -6,8 +6,8 @@ module GobiertoParticipation
       @object = term
     end
 
-    def active_pages
-      GobiertoCms::Page.pages_in_collections_and_container(site, object).sorted.active
+    def active_news
+      GobiertoCms::Page.news_in_collections_and_container(site, object).sorted.active
     end
 
     def site

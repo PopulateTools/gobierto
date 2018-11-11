@@ -115,6 +115,29 @@ dance_studio_group_ended_documents:
   container: dance_studio_group_ended (GobiertoParticipation::Process)
   item_type: GobiertoAttachments::Attachment
 
+# group_archived
+
+group_archived_news:
+  site: madrid
+  title_translations: <%= {'en' => 'News of archived group', 'es' => 'Noticias de grupo archivado' }.to_json %>
+  slug: group_archived-news
+  container: group_archived (GobiertoParticipation::Process)
+  item_type: GobiertoCms::News
+
+group_archived_calendar:
+  site: madrid
+  title_translations: <%= {'en' => 'Events of archived group', 'es' => 'Eventos de grupo archivado' }.to_json %>
+  slug: group_archived-calendar
+  container: group_archived (GobiertoParticipation::Process)
+  item_type: GobiertoCalendars::Event
+
+group_archived_documents:
+  site: madrid
+  title_translations: <%= {'en' => 'Documents of archived group', 'es' => 'Documentos de grupo archivado' }.to_json %>
+  slug: group_archived-documents
+  container: group_archived (GobiertoParticipation::Process)
+  item_type: GobiertoAttachments::Attachment
+
 # bowling_group_very_active
 
 bowling_group_very_active_news:

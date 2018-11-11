@@ -3,6 +3,8 @@ es:
   gobierto_admin:
     gobierto_common:
       collections:
+        check_container_presence:
+          container_not_found: El recurso al que pertenece la colección no se encuentra
         create:
           success: La colección se ha creado correctamente.
         update:

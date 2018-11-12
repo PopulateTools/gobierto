@@ -13,7 +13,7 @@ module GobiertoParticipation
       private
 
       def find_issue_attachments
-        ::GobiertoAttachments::Attachment.attachments_in_collections_and_container(current_site, @issue)
+        ::GobiertoAttachments::Attachment.in_collections_and_container(current_site, @issue)
       end
     end
   end

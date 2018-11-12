@@ -45,39 +45,24 @@ module GobiertoCms
     scope :sorted, -> { order(id: :desc) }
     scope :sort_by_published_on, -> { order(published_on: :desc) }
     scope :sort_by_updated_at, -> { order(updated_at: :desc) }
+    scope :news_in_collections, ->(site) {
+      joins(Arel.sql("join collection_items on collection_items.item_id = #{ self.table_name }.id"))
+        .where("collection_items.item_type = ?", "GobiertoCms::News")
+        .where(site: site)
+        .distinct
+    }
+    scope :news_in_collections_and_container_type, ->(site, container_type) {
+      news_in_collections(site)
+        .where("collection_items.container_type = ?", container_type)
+    }
+    scope :news_in_collections_and_container, ->(site, container) {
+      news_in_collections(site)
+        .where("collection_items.container_type = ?", container.class.name)
+        .where("collection_items.container_id = ?", container.id)
+    }
 
     def section
       GobiertoCms::SectionItem.find_by(item: self).try(:section)
-    end
-
-    # returns pages belonging to site pages collection
-    def self.pages_in_collections(site)
-      pages_ids = GobiertoCommon::CollectionItem.pages.pluck(:item_id)
-      where(id: pages_ids, site: site)
-    end
-
-    # returns news belonging to site news collection
-    def self.news_in_collections(site)
-      news_ids = GobiertoCommon::CollectionItem.news.pluck(:item_id)
-      where(id: news_ids, site: site)
-    end
-
-    # returns pages belonging to module pages collection
-    def self.pages_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.pages.by_container_type(container_type).pluck(:item_id)
-      where(id: ids, site: site)
-    end
-
-    # returns news belonging to module news collection
-    def self.news_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.news.by_container_type(container_type).pluck(:item_id)
-      where(id: ids, site: site)
-    end
-
-    # returns news belonging to process, issue, scope, etc.
-    def self.news_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.news.by_container(container).pluck(:item_id)
-      where(id: ids, site: site)
     end
 
     def attributes_for_slug

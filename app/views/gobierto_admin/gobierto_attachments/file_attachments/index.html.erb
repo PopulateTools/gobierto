@@ -51,6 +51,7 @@
 
       <tbody id="file_attachments_in_collection">
         <% @collections.each do |collection| %>
+          <% next unless collection.container.present? %>
           <tr id="collection-item-<%= collection.id %>">
             <td>
               <%= link_to edit_admin_common_collection_path(collection, item_type: 'Attachment'), class: 'open_remote_modal' do %>

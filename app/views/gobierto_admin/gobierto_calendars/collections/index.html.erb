@@ -49,6 +49,7 @@
 
       <tbody>
         <% @collections.each do |collection| %>
+          <% next unless collection.container.present? %>
           <tr>
             <td>
               <%= link_to edit_admin_common_collection_path(collection, item_type: 'Event'), class: 'open_remote_modal' do %>

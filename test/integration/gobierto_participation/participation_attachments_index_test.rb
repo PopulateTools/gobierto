@@ -17,7 +17,7 @@ module GobiertoParticipation
     end
 
     def participation_attachments
-      @participation_attachments ||= ::GobiertoAttachments::Attachment.attachments_in_collections_and_container_type(site, "GobiertoParticipation")
+      @participation_attachments ||= ::GobiertoAttachments::Attachment.in_collections_and_container_type(site, "GobiertoParticipation")
     end
 
     def test_secondary_nav

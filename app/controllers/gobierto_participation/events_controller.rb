@@ -32,7 +32,7 @@ module GobiertoParticipation
                     @container_events.past.sorted_backwards.page params[:page]
                   else
                     if @issue
-                      GobiertoCalendars::Event.events_in_collections_and_container(current_site, @issue).page(params[:page]).upcoming.sorted.page params[:page]
+                      GobiertoCalendars::Event.in_collections_and_container(current_site, @issue).published.page(params[:page]).upcoming.sorted.page params[:page]
                     else
                       @container_events.upcoming.sorted.page params[:page]
                     end
@@ -43,7 +43,7 @@ module GobiertoParticipation
     end
 
     def container_events
-      @container_events = GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation")
+      @container_events = GobiertoCalendars::Event.in_collections_and_container_type(current_site, "GobiertoParticipation").published
     end
 
     def participation_events_scope

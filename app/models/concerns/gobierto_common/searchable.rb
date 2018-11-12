@@ -17,7 +17,7 @@ module GobiertoCommon
       end
 
       def self.trigger_reindex_job(record, remove)
-        return if record.nil?
+        return if record.nil? || (record.respond_to?(:site) && record.site.algolia_search_disabled?)
 
         GobiertoCommon::AlgoliaReindexJob.perform_later(record.class.name, record.id, remove)
       end
@@ -29,6 +29,7 @@ module GobiertoCommon
 
     def searchable_translated_attribute(translations_hash)
       return "" if translations_hash.nil?
+
       attribute_summary = translations_hash.values.join(" ").tr("\n\r", " ").gsub(/\s+/, " ")
       attribute_summary = strip_tags(attribute_summary)
       attribute_summary[0..9300]

@@ -194,6 +194,10 @@ class Site < ApplicationRecord
     url_helpers.send("#{configuration.home_page.underscore}_root_path")
   end
 
+  def algolia_search_disabled?
+    configuration.configuration_variables.fetch("algolia_search_disabled", false)
+  end
+
   private
 
   def site_configuration_attributes

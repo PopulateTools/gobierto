@@ -244,6 +244,23 @@ module GobiertoPeople
         assert_equal "@ Event 2", event.title
       end
 
+      def test_sync_events_update_dont_affect_slug
+        calendar_service.sync!
+
+        event = richard.events.find_by external_id: "event2"
+        initial_slug = event.slug
+
+        (1..3).each do |i|
+          event.title = "Event 2 updated #{ i }"
+          event.save
+
+          calendar_service.sync!
+          event.reload
+
+          assert_equal initial_slug, event.slug
+        end
+      end
+
       def test_sync_events_removes_deleted_event_attributes
         calendar_service.sync!
 

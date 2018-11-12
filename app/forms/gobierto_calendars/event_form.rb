@@ -19,7 +19,6 @@ module GobiertoCalendars
       :meta,
       :department_id,
       :interest_group_id,
-      :slug
     )
     attr_writer(
       :state,
@@ -97,6 +96,14 @@ module GobiertoCalendars
 
     def state
       @state ||= event.state
+    end
+
+    def slug=(value)
+      @slug = value.presence
+    end
+
+    def slug
+      @slug ||= event.slug
     end
 
     def notify?

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency 'gobierto_attachments'
+require_dependency "gobierto_attachments"
 
 module GobiertoAttachments
   class Attachment < ApplicationRecord
@@ -18,7 +18,7 @@ module GobiertoAttachments
     include GobiertoCommon::Collectionable
 
     MAX_FILE_SIZE_IN_MBYTES = 50
-    MAX_FILE_SIZE_IN_BYTES  = MAX_FILE_SIZE_IN_MBYTES.megabytes
+    MAX_FILE_SIZE_IN_BYTES = MAX_FILE_SIZE_IN_MBYTES.megabytes
 
     default_scope { order(id: :desc) }
 
@@ -41,16 +41,15 @@ module GobiertoAttachments
     # from the API, we can't remove it.
     validates :file_digest, uniqueness: {
       scope: :site_id,
-      message: ->(object, data) do
+      message: -> (object, data) do
         url = object.site.attachments.find_by!(file_digest: object.file_digest).url
-        "#{I18n.t('activerecord.messages.gobierto_attachments/attachment.already_uploaded')} #{url})."
+        "#{I18n.t("activerecord.messages.gobierto_attachments/attachment.already_uploaded")} #{url})."
       end
     }
 
     belongs_to :site
 
     after_create :add_item_to_collection
-    before_validation :update_file_attributes
     after_restore :set_slug
     belongs_to :collection, class_name: "GobiertoCommon::Collection"
 
@@ -84,7 +83,7 @@ module GobiertoAttachments
     end
 
     def extension
-      File.extname(file_name).tr('.', '')
+      File.extname(file_name).tr(".", "")
     end
 
     def active?
@@ -120,28 +119,6 @@ module GobiertoAttachments
     end
 
     private
-
-    # This method is error-prone and should be REMOVED.
-    # This logic is duplicated in FileAttachmentForm. The reason why version is not incremented
-    # twice is because the Form Object decomposes file attribute in file_name, file_size, etc.,
-    # so this code is not executed.
-    def update_file_attributes
-      if file
-        if file.size > MAX_FILE_SIZE_IN_BYTES
-          errors.add(:base, "#{I18n.t('activerecord.messages.gobierto_attachments/attachment.file_too_big')} (#{MAX_FILE_SIZE_IN_MBYTES} Mb)")
-          throw :abort
-        end
-
-        self.file_digest = self.class.file_digest(file)
-
-        if file_digest_changed? && unique_file_digest?
-          self.file_name = file.original_filename
-          self.file_size = file.size
-          self.current_version += 1
-          self.url = ::GobiertoAdmin::FileUploadService.new(site: site, collection: 'attachments', attribute_name: :attachment, file: file).call
-        end
-      end
-    end
 
     def unique_file_digest?
       attachment_with_same_digest_id = site.attachments.where(file_digest: file_digest).pluck(:id).first

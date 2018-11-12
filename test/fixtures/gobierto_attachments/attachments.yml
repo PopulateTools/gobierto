@@ -10,6 +10,7 @@ pdf_attachment:
   slug: pdf-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 pdf_collection_attachment:
   name: PDF Collection Attachment Name
@@ -79,6 +80,7 @@ xlsx_attachment:
   slug: xlsx-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 xlsx_attachment_event:
   name: XLSX Attachment Event
@@ -92,6 +94,7 @@ xlsx_attachment_event:
   slug: xlsx-attachment-event-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 attachment:
   name: Attachment Name
@@ -105,6 +108,7 @@ attachment:
   slug: attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 txt_pdf_attachment:
   name: TXT PDF Attachment Name
@@ -118,6 +122,7 @@ txt_pdf_attachment:
   slug: txt-pdf-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 santander_attachment:
   name: Santander Attachment
@@ -131,6 +136,7 @@ santander_attachment:
   slug: santander-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments_santander
 
 # Use real AWS url for testing purposes
 
@@ -146,6 +152,7 @@ pdf_attachment_uploaded:
   slug: pdf-attachment-aws-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 # Use real AWS url for testing purposes
 
@@ -161,3 +168,4 @@ png_attachment_uploaded:
   slug: png-attachment-aws-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoAttachments
     class FileAttachmentsController < BaseController
@@ -5,7 +7,7 @@ module GobiertoAdmin
       before_action :load_collection, only: [:new, :edit, :create, :update, :destroy]
 
       def index
-        @collections = current_site.collections.by_item_type('GobiertoAttachments::Attachment')
+        @collections = current_site.collections.by_item_type("GobiertoAttachments::Attachment")
         @file_attachments = ::GobiertoAttachments::Attachment.in_collections(current_site).sort_by_updated_at.limit(10)
         @site_file_attachments = current_site.attachments.sort_by_updated_at
       end
@@ -34,7 +36,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: collection_id),
-            notice: t(".success_html", link: gobierto_attachments_document_url(id: @file_attachment_form.slug, host: @file_attachment_form.site.domain))
+            notice: t(".success_html", link: gobierto_attachments_document_url(id: @file_attachment_form.file_attachment.id, host: @file_attachment_form.site.domain))
           )
         else
           render :edit

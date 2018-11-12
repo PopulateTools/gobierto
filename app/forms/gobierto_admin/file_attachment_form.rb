@@ -88,7 +88,7 @@ module GobiertoAdmin
 
     def file
       if @file.is_a?(String)
-        tmp_file = Tempfile.new('attachment_file')
+        tmp_file = Tempfile.new("attachment_file")
         tmp_file.binmode
         tmp_file.write(Base64.strict_decode64(@file))
         tmp_file.rewind

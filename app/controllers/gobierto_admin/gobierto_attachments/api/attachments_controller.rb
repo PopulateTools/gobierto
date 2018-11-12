@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoAttachments
     module Api
@@ -17,7 +19,7 @@ module GobiertoAdmin
                         end
 
           render(
-            json: { attachments: attachments.map{ |a| default_serializer.new(a) }}
+            json: { attachments: attachments.map { |a| default_serializer.new(a) } }
           )
         end
 
@@ -62,7 +64,7 @@ module GobiertoAdmin
         def destroy
           @attachment.destroy!
 
-          render json: { message: 'destroyed' }
+          render json: { message: "destroyed" }
         end
 
         private
@@ -72,7 +74,7 @@ module GobiertoAdmin
         end
 
         def find_attachable
-          attachable_id   = params[:attachable_id]
+          attachable_id = params[:attachable_id]
           attachable_type = params[:attachable_type]
 
           if attachable_id && attachable_type && ::GobiertoAttachments.permitted_attachable_types.include?(attachable_type)

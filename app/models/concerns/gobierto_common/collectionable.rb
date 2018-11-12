@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   module Collectionable
     extend ActiveSupport::Concern

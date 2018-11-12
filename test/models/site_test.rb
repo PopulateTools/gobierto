@@ -69,6 +69,25 @@ class SiteTest < ActiveSupport::TestCase
     refute Site.find_by_allowed_domain("foo")
   end
 
+  def test_site_attachments_collection_after_create
+    site = Site.new title: "Transparencia", name: "Albacete", domain: "albacete.gobierto.test",
+                    organization_name: "Albacete", organization_id: INE::Places::Place.find_by_slug("albacete").id
+
+    site.configuration_data = {
+      "links_markup" => %(<a href="http://madrid.es">Ayuntamiento de Madrid</a>),
+      "logo" => "http://www.madrid.es/assets/images/logo-madrid.png",
+      "modules" => %w(GobiertoBudgets GobiertoBudgetConsultations GobiertoPeople),
+      "locale" => "en",
+      "google_analytics_id" => "UA-000000-01"
+    }
+    site.save!
+
+    assert_equal 1, site.collections.count
+    collection = site.collections.first
+    assert_equal "GobiertoAttachments::Attachment", collection.item_type
+    assert_equal site, collection.container
+  end
+
   def test_seeder_called_after_create
     site = Site.new title: "Transparencia", name: "Albacete", domain: "albacete.gobierto.test",
                     organization_name: "Albacete", organization_id: INE::Places::Place.find_by_slug("albacete").id
@@ -81,6 +100,7 @@ class SiteTest < ActiveSupport::TestCase
       "google_analytics_id" => "UA-000000-01"
     }
     site.save!
+
     assert module_seeder_spy.has_been_called?
     assert module_site_seeder_spy.has_been_called?
     assert_equal ["GobiertoBudgets", site], module_seeder_spy.calls.first.args

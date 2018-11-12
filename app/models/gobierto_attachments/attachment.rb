@@ -23,13 +23,13 @@ module GobiertoAttachments
     default_scope { order(id: :desc) }
 
     has_paper_trail(
-      on:     [:create, :update, :destroy],
+      on: [:create, :update, :destroy],
       ignore: [:name, :file_size, :file_name, :description, :current_version]
     )
 
     algoliasearch_gobierto do
       attribute :site_id, :name, :description, :file_name, :url, :file_size
-      searchableAttributes ['name', 'description', 'file_name']
+      searchableAttributes %w(name description file_name)
       attributesForFaceting [:site_id]
     end
 
@@ -48,7 +48,7 @@ module GobiertoAttachments
 
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }
-    scope :sort_by_updated_at, ->{ order(updated_at: :desc) }
+    scope :sort_by_updated_at, -> { order(updated_at: :desc) }
 
     def content_type
       MIME::Types.type_for(url).first.content_type

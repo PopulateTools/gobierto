@@ -3,17 +3,17 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
-  # The root page is kind of dynamic
-  constraints GobiertoSiteConstraint.new do
-    root "meta_welcome#index"
-  end
-
   unless Rails.env.production?
     get "/sandbox" => "sandbox#index"
     get "/sandbox/*template" => "sandbox#show"
   end
 
   scope ENV.fetch("GOBIERTO_ROOT_URL_PATH", "") do
+    # The root page is kind of dynamic
+    constraints GobiertoSiteConstraint.new do
+      root "meta_welcome#index"
+    end
+
     # Admin module
     namespace :gobierto_admin, as: :admin, path: :admin do
       get "/" => "welcome#index", as: :root

@@ -110,8 +110,6 @@ ca:
     format: "%{attribute} %{message}"
     messages:
       accepted: ha de ser acceptat
-      already_uploaded_html: has not been saved because it has already been uploaded
-        in the past. You can see it <a href="%{url}">here</a>.
       array_too_short:
         one: és massa curt (al menys %{count} element)
         other: és massa curt (al menys %{count} elements)

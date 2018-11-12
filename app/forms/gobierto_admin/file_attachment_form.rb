@@ -27,7 +27,6 @@ module GobiertoAdmin
 
     validates :file, presence: true, unless: :persisted?
     validates :site, presence: true
-    validate :file_is_not_duplicated, if: -> { file.present? }
     validate :file_size_within_range, if: -> { file.present? }
     validates :collection, presence: true
 
@@ -150,15 +149,6 @@ module GobiertoAdmin
         attribute_name: :file,
         file: file
       ).upload!
-    end
-
-    def file_is_not_duplicated
-      attachment_hit = site.attachments.find_by(file_digest: file_attachment_class.file_digest(file))
-
-      if attachment_hit.present? && (!persisted? || (persisted? && id != attachment_hit.id))
-        errors.add(:file_digest,
-                   I18n.t("errors.messages.already_uploaded_html", url: admin_edit_attachment_path(attachment_hit)))
-      end
     end
 
     def file_size_within_range

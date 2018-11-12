@@ -110,8 +110,6 @@ es:
     format: "%{attribute} %{message}"
     messages:
       accepted: debe ser aceptado
-      already_uploaded_html: no se ha guardado porque ya lo has subido en el pasado.
-        Puedes verlo <a href="%{url}">aquí</a>.
       array_too_short:
         one: es demasiado corto (al menos ${count} elemento)
         other: es demasiado corto (al menos ${count} elementos)

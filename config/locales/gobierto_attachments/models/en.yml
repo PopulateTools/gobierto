@@ -12,7 +12,6 @@ en:
         url: URL
     messages:
       gobierto_attachments/attachment:
-        already_uploaded: not unique (already uploaded at
         file_too_big: File exceeds max size
     models:
       gobierto_attachments/attachment: Document

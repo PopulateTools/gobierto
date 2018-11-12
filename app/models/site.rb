@@ -258,6 +258,6 @@ class Site < ApplicationRecord
 
   def create_collections
     # Attachments
-    collections.create! container: self, item_type: "GobiertoAttachments::Attachment", slug: "site-attachments", title: title
+    collections.create! container: self, item_type: "GobiertoAttachments::Attachment", slug: "site-attachments", title: "Documentos del site"
   end
 end

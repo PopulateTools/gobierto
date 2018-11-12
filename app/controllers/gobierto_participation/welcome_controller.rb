@@ -19,7 +19,7 @@ module GobiertoParticipation
     private
 
     def find_participation_events
-      ::GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted.upcoming.limit(4)
+      ::GobiertoCalendars::Event.in_collections_and_container_type(current_site, "GobiertoParticipation").published.sorted.upcoming.limit(4)
     end
 
     def find_participation_news

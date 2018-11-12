@@ -23,7 +23,7 @@ module GobiertoParticipation
     end
 
     def issue_attachments
-      @issue_attachments ||= ::GobiertoAttachments::Attachment.attachments_in_collections_and_container(site, issue)
+      @issue_attachments ||= ::GobiertoAttachments::Attachment.in_collections_and_container(site, issue)
     end
 
     def test_menu_subsections

@@ -54,6 +54,8 @@ module GobiertoAttachments
     after_restore :set_slug
     belongs_to :collection, class_name: "GobiertoCommon::Collection"
 
+    has_many :collection_items, class_name: "GobiertoCommon::CollectionItem", as: :item
+
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }
     scope :sort_by_updated_at, ->{ order(updated_at: :desc) }
@@ -70,21 +72,6 @@ module GobiertoAttachments
         "pdf": "pdf",
         "jpg": "image", "gif": "image", "bmp": "image", "jpeg": "image", "png": "image",
         "avi": "video", "mp4": "video", "wmv": "video", "mpg": "video", "mov": "video" }
-    end
-
-    def self.file_attachments_in_collections(site)
-      ids = GobiertoCommon::CollectionItem.attachments.map(&:item_id)
-      where(id: ids, site: site)
-    end
-
-    def self.attachments_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.attachments.by_container_type(container_type).pluck(:item_id)
-      where(id: ids, site: site)
-    end
-
-    def self.attachments_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.attachments.by_container(container).pluck(:item_id)
-      where(id: ids, site: site)
     end
 
     # Assumes file is opened and closed outside this function, since calling 'close'

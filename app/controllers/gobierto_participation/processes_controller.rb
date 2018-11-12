@@ -26,7 +26,7 @@ module GobiertoParticipation
     end
 
     def find_process_events
-      ::GobiertoCalendars::Event.events_in_collections_and_container_with_pending(current_site, current_process).first(5)
+      ::GobiertoCalendars::Event.in_collections_and_container(current_site, current_process).first(5)
     end
 
     def current_process

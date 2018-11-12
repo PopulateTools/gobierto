@@ -25,7 +25,7 @@ module GobiertoParticipation
       private
 
       def find_participation_events
-        ::GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted
+        ::GobiertoCalendars::Event.in_collections_and_container_type(current_site, "GobiertoParticipation").published.sorted
       end
 
       def find_event
@@ -33,8 +33,11 @@ module GobiertoParticipation
       end
 
       def set_events
-        @events = ::GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted.page params[:page]
-        @events = @events.events_in_collections_and_container(current_site, @scope) if @scope
+        @events = if @scope
+                    ::GobiertoCalendars::Event.in_collections_and_container(current_site, @scope).published.sorted.page params[:page]
+                  else
+                    ::GobiertoCalendars::Event.in_collections_and_container_type(current_site, "GobiertoParticipation").published.sorted.page params[:page]
+                  end
 
         if params[:date]
           filter_events_by_date(params[:date])

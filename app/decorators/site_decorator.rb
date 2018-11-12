@@ -26,10 +26,19 @@ class SiteDecorator < BaseDecorator
   end
 
   def domain_url
-    if object.domain.starts_with?(DOMAIN_URL_SCHEME)
-      object.domain
-    else
-      "#{DOMAIN_URL_SCHEME}#{object.domain}"
-    end
+    root_url = if object.domain.starts_with?(DOMAIN_URL_SCHEME)
+                 object.domain
+               else
+                 "#{DOMAIN_URL_SCHEME}#{object.domain}"
+               end
+
+    root_url_path.present? ? "#{root_url}/#{root_url_path}" : root_url
   end
+
+  private
+
+  def root_url_path
+    ENV["GOBIERTO_ROOT_URL_PATH"]
+  end
+
 end

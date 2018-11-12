@@ -37,15 +37,6 @@ module GobiertoAttachments
 
     validates :site, :url, presence: true
     validates :slug, uniqueness: { scope: :site_id }
-    # This validation is duplicated in FileAttachmentForm, but since it's still being used
-    # from the API, we can't remove it.
-    validates :file_digest, uniqueness: {
-      scope: :site_id,
-      message: -> (object, data) do
-        url = object.site.attachments.find_by!(file_digest: object.file_digest).url
-        "#{I18n.t("activerecord.messages.gobierto_attachments/attachment.already_uploaded")} #{url})."
-      end
-    }
 
     belongs_to :site
 
@@ -120,14 +111,8 @@ module GobiertoAttachments
 
     private
 
-    def unique_file_digest?
-      attachment_with_same_digest_id = site.attachments.where(file_digest: file_digest).pluck(:id).first
-      attachment_with_same_digest_id.nil? || (attachment_with_same_digest_id == id)
-    end
-
     def singular_route_key
       :gobierto_attachments_document
     end
-
   end
 end

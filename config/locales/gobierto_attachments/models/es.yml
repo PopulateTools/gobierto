@@ -12,7 +12,6 @@ es:
         url: URL
     messages:
       gobierto_attachments/attachment:
-        already_uploaded: no es único (ya está subido en
         file_too_big: El fichero excede el tamaño máximo
     models:
       gobierto_attachments/attachment: Documento

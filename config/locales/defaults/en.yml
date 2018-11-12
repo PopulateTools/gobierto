@@ -110,8 +110,6 @@ en:
     format: "%{attribute} %{message}"
     messages:
       accepted: must be accepted
-      already_uploaded_html: has not been saved because it has already been uploaded
-        in the past. You can see it <a href="%{url}">here</a>.
       array_too_short:
         one: is too short (minimum at least %{count} element)
         other: is too short (minimum at least %{count} elements)

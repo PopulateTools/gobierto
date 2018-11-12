@@ -67,15 +67,6 @@ module GobiertoAdmin
           assert_equal "logo-madrid.png", file_attachment.name
         end
 
-        def test_create_with_duplicated_file
-          form = ::GobiertoAdmin::FileAttachmentForm.new(
-            file_attachment_attributes.merge(file: existing_attachment_file)
-          )
-
-          refute form.save
-          assert form.errors.messages.include?(:file_digest)
-        end
-
         def test_create_when_file_too_big
           form = ::GobiertoAdmin::FileAttachmentForm.new(file_attachment_attributes)
 

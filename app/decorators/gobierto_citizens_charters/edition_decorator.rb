@@ -6,7 +6,7 @@ module GobiertoCitizensCharters
       @object = edition
     end
 
-    delegate :period_values, :period_front_params, :period_admin_params, to: :edition
+    delegate :period_values, :front_period_params, :admin_period_params, to: :edition
 
     def edition
       object

@@ -6,7 +6,7 @@ class GobiertoCitizensCharters::WelcomeController < GobiertoCitizensCharters::Ap
              gobierto_citizens_charters_services_path
            else
              reference_edition = ::GobiertoCitizensCharters::CharterDecorator.new(current_site).reference_edition
-             gobierto_citizens_charters_charters_period_path(reference_edition.period_front_params)
+             gobierto_citizens_charters_charters_period_path(reference_edition.front_period_params)
            end
     redirect_to path
   end

@@ -15,6 +15,13 @@ module GobiertoCitizensCharters
       week: ->(date) { { year: date.year, week: date.strftime("%W").to_i } }
     }.freeze
 
+    FRONT_PERIOD_INTERVALS = {
+      year: "a",
+      quarter: "c",
+      month: "m",
+      week: "s"
+    }.freeze
+
     belongs_to :commitment, -> { with_archived }
 
     enum period_interval: PERIOD_INTERVAL_DATA.keys
@@ -27,6 +34,10 @@ module GobiertoCitizensCharters
       return nil if percentage.blank? && [value, max_value].any?(&:blank?)
 
       percentage || 100 * (value / max_value)
+    end
+
+    def front_period_interval
+      FRONT_PERIOD_INTERVALS[period_interval.to_sym]
     end
 
     def self.progress
@@ -59,13 +70,13 @@ module GobiertoCitizensCharters
       period_values.values.join("-")
     end
 
-    def period_front_params
-      return {} if [period_interval, period].any?(&:blank?)
+    def front_period_params
+      return {} if [front_period_interval, period].any?(&:blank?)
 
-      { period_interval: period_interval, period: period_values.values.join("-") }
+      { front_period_interval: front_period_interval, period: period_values.values.join("-") }
     end
 
-    def period_admin_params
+    def admin_period_params
       return {} if [period_interval, period].any?(&:blank?)
 
       attributes.slice("period_interval", "period")

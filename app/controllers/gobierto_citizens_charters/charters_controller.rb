@@ -16,7 +16,7 @@ class GobiertoCitizensCharters::ChartersController < GobiertoCitizensCharters::A
         opts: { reference_edition: params_reference_edition }
       )
     else
-      period_params = @resources_root.reference_edition.period_front_params
+      period_params = @resources_root.reference_edition.front_period_params
       path = if params[:service_slug].present?
                gobierto_citizens_charters_service_charters_period_path(params[:service_slug], period_params)
              else
@@ -39,7 +39,7 @@ class GobiertoCitizensCharters::ChartersController < GobiertoCitizensCharters::A
       @historic_data["sparkline-GLOBAL"] = @charter.progress_history
       @period_interval = %w(year month).include?(params_reference_edition.period_interval) ? "#{ params_reference_edition.period_interval }ly" : "daily"
     elsif (latest_edition = @charter.latest_edition_of_same_period_interval(@charter.reference_edition.period_interval) || @charter.latest_edition).present?
-      redirect_to charter_period_gobierto_citizens_charters_charter_path(@charter.slug, latest_edition.period_front_params)
+      redirect_to charter_period_gobierto_citizens_charters_charter_path(@charter.slug, latest_edition.front_period_params)
     end
   end
 

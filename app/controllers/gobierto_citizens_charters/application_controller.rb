@@ -20,17 +20,17 @@ class GobiertoCitizensCharters::ApplicationController < ApplicationController
 
   def period_params
     @period_params ||= begin
-                         case params[:period_interval]
-                         when "year"
+                         case params[:front_period_interval]
+                         when "a"
                            return { period_interval: "year", period: DateTime.new(params[:period].to_i) }
-                         when "quarter"
+                         when "c"
                            year, month = params[:period].split("-")
                            month = 1 + ((month.to_i - 1) % 3) * 3
                            return { period_interval: "quarter", period: DateTime.new(year.to_i, month) }
-                         when "month"
+                         when "m"
                            year, month = params[:period].split("-")
                            return { period_interval: "month", period: DateTime.new(year.to_i, month.to_i) }
-                         when "week"
+                         when "s"
                            year, week = params[:period].split("-")
                            return { period_interval: "week", period: DateTime.commercial(year.to_i, week.to_i, 1) }
                          end

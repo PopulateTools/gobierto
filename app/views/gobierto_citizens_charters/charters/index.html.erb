@@ -43,7 +43,7 @@
 
     <div class="charters-box-container">
       <% @charters.each do |charter| %>
-        <%= link_to charter_period_gobierto_citizens_charters_charter_path(charter.slug, period: charter.reference_edition.to_s, period_interval: charter.reference_edition.period_interval), class: "charters-box", id: "charter-#{ charter.id }" do %>
+        <%= link_to charter_period_gobierto_citizens_charters_charter_path(charter.slug, period: charter.reference_edition.to_s, front_period_interval: charter.reference_edition.front_period_interval), class: "charters-box", id: "charter-#{ charter.id }" do %>
           <div class="box-inner">
             <div class="box-title top left"><%= charter.title %></div>
             <% if charter.progress.present? %>

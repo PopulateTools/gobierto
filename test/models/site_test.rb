@@ -164,4 +164,21 @@ gobierto_people_default_filter_end_date:
     refute site.date_filter_configured?
   end
 
+  def test_algolia_search_disabled
+    refute site.algolia_search_disabled?
+
+    conf = site.configuration
+
+    conf.raw_configuration_variables = <<-YAML
+algolia_search_disabled: false
+    YAML
+    refute site.algolia_search_disabled?
+
+    conf.raw_configuration_variables = <<-YAML
+algolia_search_disabled: true
+    YAML
+
+    assert site.algolia_search_disabled?
+  end
+
 end

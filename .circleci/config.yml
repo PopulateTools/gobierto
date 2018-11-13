@@ -1,68 +1,79 @@
 ---
+defaults: &defaults
+  working_directory: ~/gobierto
+  docker:
+    - image: circleci/ruby:2.5.3-node
+      environment:
+        RAILS_ENV: test
+        PGHOST: localhost
+        PGUSER: gobierto
+        # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
+        DISABLE_SPRING: true
+    - image: postgres:9.6
+      environment:
+        POSTGRES_USER: gobierto
+        POSTGRES_DB: gobierto_test
+        POSTGRES_PASSWORD: ""
+    - image: elasticsearch:2.4.1
+    - image: redis:4.0.9
+
 version: 2
 jobs:
-  build:
-    working_directory: ~/gobierto
-    docker:
-      - image: circleci/ruby:2.5.3-node
-        environment:
-          RAILS_ENV: test
-          PGHOST: localhost
-          PGUSER: gobierto
-          # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
-          DISABLE_SPRING: true
-      - image: postgres:9.6
-        environment:
-          POSTGRES_USER: gobierto
-          POSTGRES_DB: gobierto_test
-          POSTGRES_PASSWORD: ""
-      - image: elasticsearch:2.4.1
-      - image: redis:4.0.9
+  bundle_dependencies:
+    <<: *defaults
     steps:
       - checkout
-
+      - attach_workspace:
+          at: ~/gobierto
       - restore_cache:
           name: "[Bundler] Restore cache"
           keys:
             - gobierto-{{ checksum "Gemfile.lock" }}
-
       - run:
           name: "[Bundler] Install dependencies"
           command: bundle install --path vendor/bundle --jobs=4 --retry=3  --without development
-
       - save_cache:
           name: "[Bundler] Cache dependencies"
           key: gobierto-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+      - restore_cache:
+          name: "[Yarn] Restore cache"
+          keys:
+            - gobierto-yarn-{{ checksum "yarn.lock" }}
+      - run:
+          name: "[Yarn] Install dependencies"
+          command: yarn install --cache-folder ~/gobierto/vendor/yarn
+      - save_cache:
+          name: "[Yarn] Cache dependencies"
+          key: gobierto-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - vendor/yarn
+      - persist_to_workspace:
+          root: ~/gobierto
+          paths:
+            - vendor/bundle
+            - vendor/yarn
 
+  tests:
+    <<: *defaults
+    parallelism: 3
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install --cache-folder ~/gobierto/vendor/yarn
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
       - run:
           name: Install phantomjs
           command: |
             sudo curl --output /tmp/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
             sudo chmod ugo+x /tmp/phantomjs
             sudo ln -sf /tmp/phantomjs /usr/local/bin/phantomjs
-
-      - restore_cache:
-          name: "[Yarn] Restore cache"
-          keys:
-            - gobierto-yarn-{{ checksum "yarn.lock" }}
-            - gobierto-yarn-
-
-      - run:
-          name: "[Yarn] Install dependencies"
-          command: yarn install --cache-folder ~/.cache/yarn
-
-      - save_cache:
-          name: "[Yarn] Cache dependencies"
-          key: gobierto-yarn-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
@@ -76,29 +87,40 @@ jobs:
       # Install custom engines
       - run: script/custom_engines_ci_setup
 
+      # Compile I18n JS file
+      - run: bin/rails i18n:js:export
+
+      # Precompile assets
+      - run: bin/rails assets:precompile
+
       # Run tests
-      - run: script/test
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            bin/rails test $TEST_FILES
 
   staging-deploy:
-    machine:
-        enabled: true
     working_directory: ~/gobierto
+    machine:
+      enabled: true
     steps:
       # deploy script is in the repository
       - checkout
-
       - run:
           name: Deploy staging branch
           command: script/staging_deploy.sh
 
   production-deploy:
-    machine:
-        enabled: true
     working_directory: ~/gobierto
+    machine:
+      enabled: true
     steps:
       # deploy script is in the repository
       - checkout
-
       - run:
           name: Deploy master branch
           command: script/production_deploy.sh
@@ -107,16 +129,19 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
+      - bundle_dependencies
+      - tests:
+          requires:
+            - bundle_dependencies
       - staging-deploy:
           requires:
-            - build
+            - bundle_dependencies
           filters:
             branches:
               only: staging
       - production-deploy:
           requires:
-            - build
+            - bundle_dependencies
           filters:
             branches:
               only: master

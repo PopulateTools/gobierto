@@ -136,12 +136,14 @@ workflows:
       - staging-deploy:
           requires:
             - bundle_dependencies
+            - tests
           filters:
             branches:
               only: staging
       - production-deploy:
           requires:
             - bundle_dependencies
+            - tests
           filters:
             branches:
               only: master

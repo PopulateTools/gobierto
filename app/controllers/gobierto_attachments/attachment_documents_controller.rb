@@ -30,6 +30,8 @@ module GobiertoAttachments
     end
 
     def set_context
+      return unless @attachment
+
       @current_module = @attachment.module
       @current_process ||= begin
         if @collection && @collection.container_type == "GobiertoParticipation::Process"

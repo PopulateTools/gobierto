@@ -151,7 +151,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal scope_center.active_pages.size, all(".place_news-item").size
+        assert_equal scope_center.active_news.size, all(".place_news-item").size
       end
     end
 

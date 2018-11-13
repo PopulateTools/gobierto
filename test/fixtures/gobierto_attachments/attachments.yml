@@ -10,6 +10,7 @@ pdf_attachment:
   slug: pdf-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 pdf_collection_attachment:
   name: PDF Collection Attachment Name
@@ -39,6 +40,34 @@ pdf_on_participation:
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
+pdf_on_bowling_group_very_active_process:
+  name: PDF Collection On Process
+  file_size: 10025
+  file_name: pdf-on-process.pdf
+  file_digest: 44036997d456028a88d634afa64037ae2e
+  url: http://host.com/attachments/super-long-and-ugly-aws-id/pdf-on-process.pdf
+  description: Description of a Process PDF attachment
+  current_version: 2
+  site: madrid
+  slug: pdf-on-process-slug
+  collection: bowling_group_very_active_documents
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+pdf_on_cultural_city_group:
+  name: PDF Collection On Draft Process
+  file_size: 10025
+  file_name: pdf-on-draft-process.pdf
+  file_digest: 44036997d456028a88d634afa64037ae2e
+  url: http://host.com/attachments/super-long-and-ugly-aws-id/pdf-on-draft-process.pdf
+  description: Description of a Draft Process PDF attachment
+  current_version: 2
+  site: madrid
+  slug: pdf-on-draft-process-slug
+  collection: cultural_city_group_documents
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
 xlsx_attachment:
   name: XLSX Attachment Name
   file_size: 3604
@@ -51,6 +80,7 @@ xlsx_attachment:
   slug: xlsx-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 xlsx_attachment_event:
   name: XLSX Attachment Event
@@ -64,6 +94,7 @@ xlsx_attachment_event:
   slug: xlsx-attachment-event-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 attachment:
   name: Attachment Name
@@ -77,6 +108,7 @@ attachment:
   slug: attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 txt_pdf_attachment:
   name: TXT PDF Attachment Name
@@ -90,6 +122,7 @@ txt_pdf_attachment:
   slug: txt-pdf-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 santander_attachment:
   name: Santander Attachment
@@ -103,6 +136,7 @@ santander_attachment:
   slug: santander-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments_santander
 
 # Use real AWS url for testing purposes
 
@@ -118,6 +152,7 @@ pdf_attachment_uploaded:
   slug: pdf-attachment-aws-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments
 
 # Use real AWS url for testing purposes
 
@@ -133,3 +168,4 @@ png_attachment_uploaded:
   slug: png-attachment-aws-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  collection: site_attachments

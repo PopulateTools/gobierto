@@ -3,6 +3,9 @@ en:
   gobierto_admin:
     gobierto_common:
       collections:
+        check_container_presence:
+          container_not_found: The resource the collection belongs to couldn't be
+            found
         create:
           success: Collection was successfully created.
         update:

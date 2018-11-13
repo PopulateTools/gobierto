@@ -4,11 +4,12 @@ module GobiertoAdmin
   module GobiertoCms
     class PagesController < BaseController
       before_action :load_collection, only: [:new, :edit, :create, :update]
+      before_action :load_site_attachments_collection, only: [:new, :edit, :create, :update]
 
       def index
         @sections = current_site.sections
         @collections = current_site.collections.by_item_type(["GobiertoCms::Page", "GobiertoCms::News"])
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).sort_by_published_on.limit(10)
+        @pages = ::GobiertoCms::Page.in_collections(current_site).sort_by_published_on.limit(10)
       end
 
       def new
@@ -98,6 +99,10 @@ module GobiertoAdmin
 
       def load_collection
         @collection = current_site.collections.find(params[:collection_id])
+      end
+
+      def load_site_attachments_collection
+        @site_attachments_collection = current_site.collections.find_by!(container: current_site, item_type: "GobiertoAttachments::Attachment")
       end
 
       def default_activity_params

@@ -62,6 +62,22 @@ pdf_attachment_uploaded_create:
   object:
   created_at: <%= Time.now %>
 
+pdf_process_attachment_uploaded_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:pdf_on_bowling_group_very_active_process) %>
+  event: create
+  whodunnit:
+  object:
+  created_at: <%= Time.now %>
+
+pdf_draft_process_attachment_uploaded_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:pdf_on_cultural_city_group) %>
+  event: create
+  whodunnit:
+  object:
+  created_at: <%= Time.now %>
+
 png_attachment_uploaded_create:
   item_type: GobiertoAttachments::Attachment
   item_id: <%= ActiveRecord::FixtureSet.identify(:png_attachment_uploaded) %>

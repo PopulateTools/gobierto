@@ -79,20 +79,6 @@ module GobiertoCalendars
 
     enum state: { pending: 0, published: 1 }
 
-    def self.events_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.events.by_container_type(container_type).pluck(:item_id)
-      where(id: ids, site: site).published
-    end
-
-    def self.events_in_collections_and_container(site, container)
-      events_in_collections_and_container_with_pending(site, container).published
-    end
-
-    def self.events_in_collections_and_container_with_pending(site, container)
-      ids = GobiertoCommon::CollectionItem.events.by_container(container).pluck(:item_id)
-      where(id: ids, site: site)
-    end
-
     def parameterize
       { container_slug: container.slug, slug: slug }
     end

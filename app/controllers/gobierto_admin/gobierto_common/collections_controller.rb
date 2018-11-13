@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCommon
     class CollectionsController < BaseController
       before_action :load_collection, only: [:show, :edit, :update]
+      before_action :check_container_presence, only: [:show, :edit, :update]
       before_action :redirect_to_custom_show, only: [:show]
 
       def show
@@ -150,6 +153,25 @@ module GobiertoAdmin
             redirect_to admin_participation_process_events_path(@collection.container) and return false
           end
         end
+      end
+
+      def check_container_presence
+        return if @collection.container.present?
+
+        redirect_path = case @collection.item_type
+                        when "GobiertoCms::News"
+                          admin_cms_pages_path
+                        when "GobiertoAttachments::Attachment"
+                          admin_attachments_file_attachments_path
+                        when "GobiertoCalendars::Event"
+                          admin_calendars_collections_path
+                        else
+                          admin_root_path
+                        end
+        redirect_to(
+          redirect_path,
+          alert: t("gobierto_admin.gobierto_common.collections.check_container_presence.container_not_found")
+        )
       end
     end
   end

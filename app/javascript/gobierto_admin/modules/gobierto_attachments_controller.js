@@ -4,15 +4,15 @@ Vue.config.productionTip = false
 window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
   function GobiertoAttachmentsController() {}
 
-  GobiertoAttachmentsController.prototype.index = function() {
-    app();
+  GobiertoAttachmentsController.prototype.index = function(attachmentsCollectionId) {
+    app(attachmentsCollectionId);
   };
 
   function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
   }
 
-  function app() {
+  function app(attachmentsCollectionId) {
     var bus = new Vue({});
 
     var STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
@@ -67,7 +67,8 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           uploadFieldName: 'attachment',
           attachment: {},
           errorMessage: null,
-          isDragged: false
+          isDragged: false,
+          collectionId: attachmentsCollectionId
         }
       },
       computed: {
@@ -139,6 +140,7 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
 
           this.fileDragged = true;
           this.attachment.file_name = fileList[0].name;
+          this.attachment.collection_id = this.collectionId;
           bus.$emit('file-upload:fileDraggedUpdated', this.fileDragged);
           bus.$emit('site-attachments:load');
 

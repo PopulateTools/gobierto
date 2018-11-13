@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Site < ApplicationRecord
 
-  RESERVED_SUBDOMAINS = %W(presupuestos hosted)
+  RESERVED_SUBDOMAINS = %w(presupuestos hosted).freeze
 
   has_many :activities
 
@@ -84,7 +86,7 @@ class Site < ApplicationRecord
   serialize :configuration_data
 
   before_save :store_configuration
-  after_create :initialize_admins
+  after_create :initialize_admins, :create_collections
   after_save :run_seeder
 
   validates :title, presence: true
@@ -127,7 +129,7 @@ class Site < ApplicationRecord
 
   def gobierto_budgets_settings
     @gobierto_budgets_settings ||= if configuration.available_module?("GobiertoBudgets") && configuration.gobierto_budgets_enabled?
-                                    module_settings.find_by(module_name: "GobiertoBudgets")
+                                     module_settings.find_by(module_name: "GobiertoBudgets")
                                    end
   end
 
@@ -145,6 +147,7 @@ class Site < ApplicationRecord
 
   def settings_for_module(module_name)
     return unless respond_to?(method = "#{ module_name.underscore }_settings")
+
     send(method)
   end
 
@@ -192,6 +195,10 @@ class Site < ApplicationRecord
 
   def root_path
     url_helpers.send("#{configuration.home_page.underscore}_root_path")
+  end
+
+  def algolia_search_disabled?
+    configuration.configuration_variables.fetch("algolia_search_disabled", false)
   end
 
   private
@@ -254,5 +261,10 @@ class Site < ApplicationRecord
         errors[:base] << I18n.t('errors.messages.blank_for_modules')
       end
     end
+  end
+
+  def create_collections
+    # Attachments
+    collections.create! container: self, item_type: "GobiertoAttachments::Attachment", slug: "site-attachments", title: "Documentos del site"
   end
 end

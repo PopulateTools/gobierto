@@ -23,7 +23,7 @@ module GobiertoParticipation
     end
 
     def scope_attachments
-      @scope_attachments ||= ::GobiertoAttachments::Attachment.attachments_in_collections_and_container(site, scope)
+      @scope_attachments ||= ::GobiertoAttachments::Attachment.in_collections_and_container(site, scope)
     end
 
     def test_menu_subsections

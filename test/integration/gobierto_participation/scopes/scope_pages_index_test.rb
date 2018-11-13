@@ -22,8 +22,8 @@ module GobiertoParticipation
       @user ||= users(:peter)
     end
 
-    def scope_pages
-      @scope_pages ||= GobiertoCms::Page.pages_in_collections_and_container(site, scope).sorted
+    def scope_news
+      @scope_news ||= GobiertoCms::Page.news_in_collections_and_container(site, scope).sorted
     end
 
     def test_menu_subsections
@@ -54,7 +54,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit scope_pages_path
 
-        assert_equal scope_pages.size, all(".news_teaser").size
+        assert_equal scope_news.size, all(".news_teaser").size
 
         assert has_content? "News for Old town"
       end

@@ -22,15 +22,24 @@ module GobiertoAdmin
         @collections ||= site.collections.where(item_type: "GobiertoAttachments::Attachment")
       end
 
+      def collections_with_container
+        @collections_with_container ||= collections.select { |collection| collection.container.present? }
+      end
+
+      def collection_with_archived_container
+        @collection_with_archived_container ||= gobierto_common_collections(:group_archived_documents)
+      end
+
       def test_attachments_index
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
 
             within "#file_attachments_in_collection" do
-              assert has_selector?("tr", count: collections.size)
+              assert has_selector?("tr", count: collections_with_container.size)
+              refute has_link?(collection_with_archived_container.title.to_s)
 
-              collections.each do |collection|
+              collections_with_container.each do |collection|
                 assert has_selector?("tr#collection-item-#{collection.id}")
 
                 within "tr#collection-item-#{collection.id}" do

@@ -65,6 +65,28 @@ bowling_group_very_active:
   issue: culture_term
   header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
 
+group_archived:
+  site: madrid
+  title_translations: <%= {
+    'en' => 'Archived group',
+    'es' => 'Grupo archivado'
+  }.to_json %>
+  body_translations: <%= {
+    'en' => 'This group has been archived',
+    'es' => 'Este grupo ha sido archivado'
+  }.to_json %>
+  body_source_translations: <%= {
+    'en' => 'This group has been archived',
+    'es' => 'Este grupo ha sido archivado'
+  }.to_json %>
+  slug: grupo-archivado
+  process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
+  visibility_level: <%= Site.visibility_levels['active'] %>
+  issue: culture_term
+  header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
+  created_at: <%= 1.hour.ago %>
+  archived_at: <%= 1.second.ago %>
+
 # Processes
 
 sport_city_process:

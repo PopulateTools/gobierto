@@ -27,8 +27,8 @@ module GobiertoAdmin
 
     validates :file, presence: true, unless: :persisted?
     validates :site, presence: true
-    validate :file_is_not_duplicated, if: -> { file.present? }
     validate :file_size_within_range, if: -> { file.present? }
+    validates :collection, presence: true
 
     def initialize(attributes)
       attributes = attributes.to_h.with_indifferent_access
@@ -85,6 +85,19 @@ module GobiertoAdmin
       end
     end
 
+    def file
+      if @file.is_a?(String)
+        tmp_file = Tempfile.new("attachment_file")
+        tmp_file.binmode
+        tmp_file.write(Base64.strict_decode64(@file))
+        tmp_file.rewind
+        # Mass assignment of file_name attribute is not permitted, it must always come from
+        # an UploadedFile instance. Thus, we read it from params instead of attachment_params.
+        @file = ActionDispatch::Http::UploadedFile.new(filename: file_name, tempfile: tmp_file)
+      end
+      @file
+    end
+
     private
 
     def build_file_attachment
@@ -101,7 +114,7 @@ module GobiertoAdmin
 
     def save_file_attachment
       @file_attachment = file_attachment.tap do |file_attachment_attributes|
-        file_attachment_attributes.collection = collection if collection_id
+        file_attachment_attributes.collection = collection
         file_attachment_attributes.site = site
         file_attachment_attributes.admin_id = admin_id
         file_attachment_attributes.name = name
@@ -126,7 +139,7 @@ module GobiertoAdmin
     end
 
     def collection
-      @collection ||= collection_class.find_by(id: collection_id) if collection_id
+      @collection ||= collection_class.find_by(id: collection_id)
     end
 
     def upload_file
@@ -138,15 +151,6 @@ module GobiertoAdmin
       ).upload!
     end
 
-    def file_is_not_duplicated
-      attachment_hit = site.attachments.find_by(file_digest: file_attachment_class.file_digest(file))
-
-      if attachment_hit.present? && (!persisted? || (persisted? && id != attachment_hit.id))
-        errors.add(:file_digest,
-                   I18n.t("errors.messages.already_uploaded_html", url: admin_edit_attachment_path(attachment_hit)))
-      end
-    end
-
     def file_size_within_range
       max_size = file_attachment_class::MAX_FILE_SIZE_IN_BYTES
 
@@ -156,11 +160,7 @@ module GobiertoAdmin
     end
 
     def admin_edit_attachment_path(attachment)
-      if c = attachment.collection
-        url_helpers.edit_admin_attachments_file_attachment_path(attachment, collection_id: c.id)
-      else
-        url_helpers.edit_admin_attachments_file_attachment_path(attachment)
-      end
+      url_helpers.edit_admin_attachments_file_attachment_path(attachment, collection_id: attachment.collection.id)
     end
 
     def url_helpers

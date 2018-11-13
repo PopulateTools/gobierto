@@ -27,6 +27,12 @@ module GobiertoCommon
       self.class.name
     end
 
+    def searchable_attribute(value)
+      return "" unless value.present?
+
+      strip_tags(value.tr("\n\r", " ").gsub(/\s+/, " "))[0..9300]
+    end
+
     def searchable_translated_attribute(translations_hash)
       return "" if translations_hash.nil?
 

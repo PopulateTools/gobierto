@@ -178,6 +178,7 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
           inserting: true,
           width: "10%",
           validate: "required",
+          align: "left",
           commitments_path: options.commitments_path,
           insertTemplate: function(value, item) {
             return this._insertPicker = _commitmentSelect(value, item, this);
@@ -198,12 +199,18 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
           title: I18n.t("gobierto_admin.gobierto_citizens_charters.editions.index.header.percentage"),
           type: "decimal",
           width: "6%",
-          validate: {
+          validate: [{
             validator: function(value, item) {
-              return (value || (item.value && item.max_value))
+              return (value !== "" || (item.value !== "" && item.max_value !== ""))
             },
             message: I18n.t("gobierto_admin.gobierto_citizens_charters.editions.index.errors.missing_values")
-          }
+          },
+          {
+            validator: function(value, item) {
+              return (value !== "" || item.max_value !== 0)
+            },
+            message: I18n.t("gobierto_admin.gobierto_citizens_charters.editions.index.errors.max_value_null")
+          }]
         },
         {
           name: "value",

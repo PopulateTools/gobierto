@@ -1,0 +1,21 @@
+<% charter_color = custom_field_by_uid(@charter, "background-color") || "#00909e" %>
+<%= content_for :gobierto_head_content do %>
+  <style type="text/css">
+    .gobierto_citizens-charters .charter-header {
+      background-color: <%= charter_color %>;
+    }
+    .gobierto_citizens-charters .charter-inner,
+    .gobierto_citizens-charters .sparkline svg {
+      background-color: <%= charter_color.paint.opacity(0.1).to_rgb %>;
+    }
+    .gobierto_citizens-charters .charter-inner:hover {
+      background-color: <%= charter_color.paint.opacity(0.2).to_rgb %>;
+    }
+    .gobierto_citizens-charters .sparkline path {
+      stroke: <%= charter_color %>;
+    }
+    .gobierto_citizens-charters .sparkline .axis line {
+      stroke: <%= charter_color.paint.opacity(0.1).to_rgb %>;
+    }
+  </style>
+<% end %>

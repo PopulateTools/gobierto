@@ -1,0 +1,43 @@
+---
+en:
+  gobierto_citizens_charters:
+    charters:
+      details:
+        back: Return
+        title: Detalls de %{title}
+      index:
+        about: What are service charters
+        commitments:
+          one: 1 commitment
+          other: "%{count} commitments"
+          zero: No commitments found
+        contact: Contact
+        description_title: Information on the fulfillment of the commitments %{of_the_organization_name}
+        global_progress: Global compliance
+        introduction: The City Council publishes its service charters with their respective
+          commitments and degrees of compliance. Explore the charters and fulfillment
+          levels of the commitments we publish on a regular basis
+        period: 'Data corresponding to:'
+        progress: Compliance
+      show:
+        about: About this charter
+        editions_details: Detail of the commitments
+        global_progress: We fulfill the commitments of this charter to
+        see_all: See the full charter
+        see_all_subtitle: Mission, Vision, Services, Responsible Unit...
+    layouts:
+      application:
+        citizens_charters: Services Charters
+    services:
+      index:
+        services: Services
+    shared:
+      evolution:
+        negative: We get worse %{progress} compared to the previous period
+        positive: We improved %{progress} compared to the previous period
+      month_interval: Monthly
+      period_breadcrumb:
+        period: Data corresponding to
+      quarter_interval: Quarterly
+      week_interval: Weekly
+      year_interval: Yearly

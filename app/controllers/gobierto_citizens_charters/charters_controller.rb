@@ -3,29 +3,53 @@
 class GobiertoCitizensCharters::ChartersController < GobiertoCitizensCharters::ApplicationController
 
   def index
-    @service = ::GobiertoCitizensCharters::CharterDecorator.new(service, opts: { reference_edition: reference_edition })
-    @charters = CollectionDecorator.new(base_relation.active, decorator: ::GobiertoCitizensCharters::CharterDecorator, opts: { reference_edition: @service.reference_edition })
+    @site = SiteDecorator.new(current_site)
+    @resources_root = ::GobiertoCitizensCharters::CharterDecorator.new(
+      params[:service_slug].present? ? current_site.services.active.find_by!(slug: params[:service_slug]) : current_site,
+      opts: { reference_edition: params_reference_edition }
+    )
+
+    if params_reference_edition.present?
+      @charters = CollectionDecorator.new(
+        @resources_root.charters.active,
+        decorator: ::GobiertoCitizensCharters::CharterDecorator,
+        opts: { reference_edition: params_reference_edition }
+      )
+    else
+      period_params = @resources_root.reference_edition.front_period_params
+      path = if params[:service_slug].present?
+               gobierto_citizens_charters_service_charters_period_path(params[:service_slug], period_params)
+             else
+               gobierto_citizens_charters_charters_period_path(period_params)
+             end
+      redirect_to path
+    end
   end
 
   def show
     @charter = ::GobiertoCitizensCharters::CharterDecorator.new(
-      base_relation.find_by!(slug: params[:slug]),
-      opts: { reference_edition: reference_edition }
+      current_site.charters.active.find_by!(slug: params[:slug]),
+      opts: { reference_edition: params_reference_edition }
     )
-    @progress_evolution = 100 * (@charter.progress / @charter.previous_period_progress - 1) if @charter.progress&.nonzero? && @charter.previous_period_progress&.nonzero?
+    if params_reference_edition.present? && @charter.progress.present?
+      @progress_evolution = 100 * (@charter.progress / @charter.previous_period_progress - 1) if @charter.progress&.nonzero? && @charter.previous_period_progress&.nonzero?
+      @historic_data = @charter.editions.map do |edition|
+        ["sparkline-#{ edition.id }", ::GobiertoCitizensCharters::CommitmentDecorator.new(edition.commitment).progress_history(params_reference_edition)]
+      end.to_h
+      @historic_data["sparkline-GLOBAL"] = @charter.progress_history
+      @period_interval = %w(year month).include?(params_reference_edition.period_interval) ? "#{ params_reference_edition.period_interval }ly" : "daily"
+    elsif (latest_edition = @charter.latest_edition_of_same_period_interval(@charter.reference_edition.period_interval) || @charter.latest_edition).present?
+      redirect_to charter_period_gobierto_citizens_charters_charter_path(@charter.slug, latest_edition.front_period_params)
+    end
+  end
+
+  def details
+    @charter = current_site.charters.active.find_by!(slug: params[:slug])
   end
 
   private
 
-  def base_relation
-    service.charters
-  end
-
-  def service
-    @service ||= current_site.services.active.find_by!(slug: params[:service_slug])
-  end
-
-  def reference_edition
-    @reference_edition ||= GobiertoCitizensCharters::Edition.new(period_params) if period_params.present?
+  def params_reference_edition
+    @params_reference_edition ||= GobiertoCitizensCharters::Edition.new(period_params) if period_params.present?
   end
 end

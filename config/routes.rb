@@ -485,11 +485,18 @@ Rails.application.routes.draw do
     # Gobierto Citizens Charters module
     namespace :gobierto_citizens_charters, path: "cartas-de-servicios" do
       constraints GobiertoSiteConstraint.new do
-        root "services#index", as: :root
-        resources :services, only: [:index], param: :slug, path: "" do
-          resources :charters, only: [:index, :show], param: :slug, path: ""
-          get ":slug/:period_interval/:period" => "charters#show", as: :charter_period
+        get "/" => "welcome#index", as: :root
+        resources :services, only: [:index], param: :slug, path: "servicios" do
+          get "cartas/:front_period_interval/:period" => "charters#index", as: :charters_period
+          resources :charters, only: [:index], param: :slug, path: "cartas"
         end
+        resources :charters, only: [:index, :show], param: :slug, path: "cartas" do
+          member do
+            get "detalles" => "charters#details", as: :details
+            get ":front_period_interval/:period" => "charters#show", as: :charter_period
+          end
+        end
+        get ":front_period_interval/:period" => "charters#index", as: :charters_period
       end
     end
 

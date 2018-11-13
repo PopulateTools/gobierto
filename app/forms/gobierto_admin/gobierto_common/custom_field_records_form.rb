@@ -46,7 +46,10 @@ module GobiertoAdmin
       def custom_field_records=(values)
         @custom_field_records ||= begin
                                      values["custom_records"].to_h.map do |uid, value|
-                                       record = site.custom_field_records.find_or_initialize_by(custom_field: ::GobiertoCommon::CustomField.find_by(uid: uid), item: item)
+                                       record = site.custom_field_records.find_or_initialize_by(
+                                         custom_field: ::GobiertoCommon::CustomField.find_by(uid: uid, class_name: item.class.name),
+                                         item: item
+                                       )
                                        if record.custom_field_id == value["custom_field_id"].to_i
                                          if record.custom_field.image?
                                            record.value = upload_file(uid, value) if value["value"].present?

@@ -10,4 +10,24 @@ $colors: $color_main #ff8400 #717e86 #2989dc #a600a9 #e1d73b;
       }
     }
   }
+
+  .charter-header {
+    background-color: $color_main;
+  }
+
+  .charter-inner,
+  .charter-inner:hover,
+  .sparkline svg {
+    background-color: rgba($color_main, .1);
+  }
+
+  .sparkline {
+    path {
+      stroke: $color_main;
+    }
+
+    .axis line {
+      stroke: rgba($color_main, .1);
+    }
+  }
 }

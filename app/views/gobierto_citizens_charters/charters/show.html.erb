@@ -1,55 +1,87 @@
-<div class="column">
-  <div class="block">
-    <div class="pure-g header_block_inline">
-      <div class="pure-u-1 pure-u-md-12-24">
-        <h1><%= @charter.title %></h1>
-        <div class="inline_header">
-          <h2 class="with_description p_h_r_1"><%=  t(".period") %></h2>
-          <%= render(
-            partial: "gobierto_citizens_charters/shared/period_breadcrumb",
-            locals: {
-              selected_period: @charter.reference_edition,
-              selected_period_path: gobierto_citizens_charters_service_charter_path(@service.slug, @charter.slug, period: @charter.reference_edition.to_s, period_interval: @charter.reference_edition.period_interval),
-              available_periods: @charter.available_periods(@charter.reference_edition.period_interval)
-            }
-          ) %>
-        </div>
-      </div>
-    </div>
+<%= render "single_charter_stylesheets_hook" %>
 
-    <div class="pure-g header_block_inline">
-      <div class="pure-u-1 pure-u-md-12-24">
+<% content_for :javascript_module_link do %>
+  <%= javascript_pack_tag 'charters', 'data-turbolinks-track': true %>
+<% end %>
+
+<% content_for :javascript_hook do %>
+  window.GobiertoCharters.charters_controller.show({
+    sparklinesData: <%== @historic_data.to_json %>,
+    freq: "<%= @period_interval %>"
+  });
+<% end %>
+
+<% title "#{ @charter.title } · #{ @charter.reference_edition }" %>
+<main class="content gobierto_citizens-charters">
+
+  <div class="charter-header">
+    <div class="column">
+      <h1><%= @charter.title %></h1>
+      <%= image_tag(custom_field_by_uid(@charter, "cover-image") || "illustrations/personaliza.jpg") %>
+    </div>
+  </div>
+
+  <div class="charter-subheader">
+    <div class="column">
+      <div class="left absolute-layout">
+
         <% if @charter.progress.present? %>
-          <p><%= t(".global_progress", progress: number_to_percentage(@charter.progress, precision: 1)) %></p>
+          <div class="subheader-title"><%= t(".global_progress") %></div>
+          <div class="subheader-number m_v_2">
+            <p><%= number_to_percentage(@charter.progress, precision: 1, strip_insignificant_zeros: true) %></p>
+            <div id="sparkline-GLOBAL" class="sparkline"></div>
+          </div>
         <% end %>
 
         <% if @progress_evolution.present? %>
-          <p>
+          <div class="subheader-title subheader-title--muted m_b_3">
             <%= t(
               "gobierto_citizens_charters.shared.evolution.#{ @progress_evolution < 0 ? "negative" : "positive" }",
-              progress: number_to_percentage(@progress_evolution, precision: 1)
+              progress: number_to_percentage(@progress_evolution, precision: 1, strip_insignificant_zeros: true)
               ) %>
-          </p>
-
-        <% end %>
-
-        <p><%= t(".editions_details") %>:</p>
-        <% @charter.editions.each do |edition| %>
-          <div>
-            <ul>
-              <li>
-                <strong><%= content_tag :div, edition.commitment.title %></strong>
-              </li>
-              <li>
-                <%= content_tag :div, edition.commitment.description %>
-              </li>
-              <li>
-                <%= content_tag :div, number_to_percentage(edition.proportion, precision: 1) %>
-              </li>
-            </ul>
           </div>
         <% end %>
+
+        <div class="subheader-title desktop_only bottom"><%= t(".editions_details") %>:</div>
+      </div>
+      <div class="right absolute-layout">
+        <div class="m_b_1">
+          <div class="subheader-title"><%= t(".about") %></div>
+          <small><%= custom_field_by_uid(@charter, "introduction") %></small>
+        </div>
+        <div class="m_b_3">
+          <%= link_to t(".see_all"), details_gobierto_citizens_charters_charter_path(@charter.slug) %>
+          <div class="subheader-title--muted"><%= t(".see_all_subtitle") %></div>
+        </div>
+
+        <div class="bottom right">
+          <%= render(
+            partial: "gobierto_citizens_charters/shared/period_breadcrumb",
+            locals: {
+              selected_period: @charter.reference_edition.to_s,
+              available_periods: @charter.available_periods(@charter.reference_edition.period_interval)
+            }
+            ) %>
+        </div>
+
       </div>
     </div>
   </div>
-</div>
+
+  <div class="charter-container">
+    <% @charter.editions.each do |edition| %>
+      <div class="charter">
+        <div class="charter-inner">
+          <div class="m_b_2"><%= edition.commitment.description %></div>
+          <div>
+            <div class="charter-number m_b_1">
+              <p> <%= number_to_percentage(edition.proportion, precision: 1, strip_insignificant_zeros: true) %> </p>
+              <div id="sparkline-<%= edition.id %>" class="sparkline"></div>
+            </div>
+            <small class="charter-text--muted"><%= edition.commitment.title %></small>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</main>

@@ -4,7 +4,7 @@ window.GobiertoCharters.ChartersController = (function() {
 
   function ChartersController() {}
 
-  ChartersController.prototype.show = function(){
+  ChartersController.prototype.show = function(opts){
 
     // DEBUG: Esta funcion DEBE ser eliminada cuando se obtengan datos verdaderos
     function mock(length = 2) {
@@ -18,6 +18,13 @@ window.GobiertoCharters.ChartersController = (function() {
       return json
     }
 
+    function _parseNumericStrings(data) {
+      for (let i in data) {
+        data[i].value = parseFloat(data[i].value)
+      }
+      return data
+    }
+
     const $sparklines = $('.sparkline')
 
     $sparklines.each((i, container) => {
@@ -29,11 +36,14 @@ window.GobiertoCharters.ChartersController = (function() {
           bottom: 0,
           left: 0,
           right: 0
-        }
+        },
+        freq: opts.freq
       }
 
-      let chart = new Sparkline(`#${container.id}`, mock(7), options)
-      chart.render()
+      if (opts.sparklinesData[container.id] && opts.sparklinesData[container.id].length > 1 && $(`#${container.id} svg`).length === 0) {
+        let chart = new Sparkline(`#${container.id}`, _parseNumericStrings(opts.sparklinesData[container.id]), options)
+        chart.render()
+      }
     })
   };
 

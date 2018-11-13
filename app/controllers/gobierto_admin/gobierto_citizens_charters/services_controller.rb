@@ -32,7 +32,7 @@ module GobiertoAdmin
         @custom_fields_form.custom_field_records = custom_params
 
         if @service_form.save
-          @custom_fields_form.save
+          custom_fields_save
           redirect_to(
             admin_citizens_charters_services_path,
             notice: t(".success_html", link: preview_url(@service_form.resource, host: current_site.domain))
@@ -50,7 +50,7 @@ module GobiertoAdmin
         @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @service)
         @custom_fields_form.custom_field_records = custom_params
 
-        if @service_form.save && @custom_fields_form.save
+        if @service_form.save && custom_fields_save
           redirect_to(
             admin_citizens_charters_services_path,
             notice: t(".success_html", link: preview_url(@service_form.resource, host: current_site.domain))
@@ -98,6 +98,10 @@ module GobiertoAdmin
 
       def custom_params
         params.require(self.class.name.demodulize.gsub("Controller", "").underscore.singularize).permit(custom_records: {})
+      end
+
+      def custom_fields_save
+        !services_enabled? || @custom_fields_form.save
       end
 
       def ignored_service_attributes

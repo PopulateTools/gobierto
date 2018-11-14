@@ -29,6 +29,16 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
       return this.editControl.val()
         ? parseFloat(this.editControl.val() || 0, 10)
         : "";
+    },
+
+    editTemplate: function(value, item) {
+      let $result = jsGrid.fields.number.prototype.editTemplate.call(this, value)
+
+      $result.on("click", function () {
+        $(this).select()
+      })
+
+      return $result
     }
   });
 

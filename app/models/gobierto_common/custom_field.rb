@@ -32,6 +32,10 @@ module GobiertoCommon
       /paragraph/.match field_type
     end
 
+    def self.searchable_fields
+      [:localized_string, :string, :localized_paragraph, :paragraph]
+    end
+
     def has_options?
       /option/.match field_type
     end

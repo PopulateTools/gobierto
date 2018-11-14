@@ -13,6 +13,10 @@ module GobiertoCitizensCharters
     [GobiertoCitizensCharters::Service, GobiertoCitizensCharters::Charter]
   end
 
+  def self.searchable_models
+    [GobiertoCitizensCharters::Charter, GobiertoCitizensCharters::Commitment]
+  end
+
   def self.module_submodules
     %w(services charters)
   end

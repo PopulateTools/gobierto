@@ -89,6 +89,8 @@ en:
     search:
       budget_line_item_expense: Budget line - Expense
       budget_line_item_income: Budget line - Income
+      charter: Services charter
+      charter_commitment: Services charter - Commitment
       contribution_item: Contribution
       drag_drop_instructions: Drag and drop on the left side to place this page in
         the menu

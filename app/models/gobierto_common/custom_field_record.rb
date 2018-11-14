@@ -29,7 +29,10 @@ module GobiertoCommon
     validates :custom_field, presence: true
     validates :item, presence: true, type: true
 
-    delegate :value, :raw_value, :value=, to: :value_processor
+    scope :searchable, -> { joins(:custom_field).where(custom_fields: { field_type: CustomField.searchable_fields }) }
+    scope :for_item, ->(item) { where(item: item) }
+
+    delegate :value, :raw_value, :value=, :searchable_value, to: :value_processor
 
     def value_processor
       key = VALUE_PROCESSORS.has_key?(custom_field&.field_type&.to_sym) ? custom_field.field_type.to_sym : :default

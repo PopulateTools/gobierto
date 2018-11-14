@@ -53,6 +53,10 @@ $(document).on('turbolinks:load', function() {
         } else {
           return I18n.t("layouts.search.budget_line_item_expense");
         }
+      case 'GobiertoCitizensCharters::Charter':
+        return I18n.t("layouts.search.charter");
+      case 'GobiertoCitizensCharters::Commitment':
+        return I18n.t("layouts.search.charter_commitment");
     }
   }
 

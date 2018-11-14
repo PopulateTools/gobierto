@@ -17,6 +17,10 @@ module GobiertoCommon
         raw_value
       end
 
+      def searchable_value
+        value
+      end
+
       def raw_value
         @raw_value ||= if custom_field && payload.present?
                          payload[custom_field.uid]

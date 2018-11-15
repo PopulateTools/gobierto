@@ -56,8 +56,8 @@ module GobiertoCalendars
     end
 
     def test_within_range_scope
-      past_events = subject_class.within_range (1.year.ago)..(Time.zone.now)
-      upcoming_events = subject_class.within_range (Time.zone.now)..(1.year.from_now)
+      past_events = subject_class.within_range((1.year.ago)..(Time.zone.now))
+      upcoming_events = subject_class.within_range((Time.zone.now)..(1.year.from_now))
 
       assert_includes past_events, past_event
       refute_includes past_events, event
@@ -116,8 +116,8 @@ module GobiertoCalendars
     end
 
     def test_searchable_description
-      assert event.searchable_description.include?('The President will analyze the progress of the measures adopted in the first days of the Government.')
-      assert event.searchable_description.include?('El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.')
+      assert event.searchable_description.include?("The President will analyze the progress of the measures adopted in the first days of the Government.")
+      assert event.searchable_description.include?("El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.")
     end
 
     def test_searchable_description_when_empty

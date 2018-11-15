@@ -129,7 +129,7 @@ GEM
       aws_cf_signer
       rest-client
     cocoon (1.2.12)
-    codecov (0.1.13)
+    codecov (0.1.14)
       json
       simplecov
       url

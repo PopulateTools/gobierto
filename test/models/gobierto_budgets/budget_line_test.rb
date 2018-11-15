@@ -7,6 +7,13 @@ module GobiertoBudgets
     def setup
       super
       GobiertoBudgets::BudgetLine.stubs(:get_population).returns(666)
+
+      @client = mock
+      @client.stubs(:search).returns({"hits" => {
+        "hits" => [
+          {"_source" => { "kind" => "expense", "code" => "1", "name" => "Despeses de personal" }}
+        ]
+      }})
     end
 
     def site
@@ -48,19 +55,11 @@ module GobiertoBudgets
     end
 
     def test_save
-      client = mock
+      @client.expects(:index)
+             .with(has_entries(budget_line_arguments_for_indexing))
+             .returns("_shards" => { "failed" => 0 })
 
-      client.expects(:index)
-            .with(has_entries(budget_line_arguments_for_indexing))
-            .returns("_shards" => { "failed" => 0 })
-
-      client.stubs(:search).returns({"hits" => {
-        "hits" => [
-          {"_source" => { "kind" => "expense", "code" => "1", "name" => "Despeses de personal" }}
-        ]
-      }})
-
-      SearchEngine.stubs(client: client)
+      SearchEngine.stubs(client: @client)
 
       algolia_index = mock
       algolia_index.expects(:add_object).with(budget_line.algolia_as_json)
@@ -70,24 +69,14 @@ module GobiertoBudgets
     end
 
     def test_save_fail
-      client = mock
+      @client.expects(:index)
+             .with(has_entries(budget_line_arguments_for_indexing))
+             .returns("_shards" => { "failed" => 1 })
 
-      client.stubs(:search).returns({"hits" => {
-        "hits" => [
-          {"_source" => { "kind" => "expense", "code" => "1", "name" => "Despeses de personal" }}
-        ]
-      }})
-
-      client.expects(:index)
-            .with(has_entries(budget_line_arguments_for_indexing))
-            .returns("_shards" => { "failed" => 1 })
-
-      SearchEngine.stubs(client: client)
+      SearchEngine.stubs(client: @client)
 
       algolia_index = mock
-
       algolia_index.expects(:add_object).with(budget_line.algolia_as_json).never
-
       BudgetLine.stubs(algolia_index: algolia_index)
 
       budget_line.save
@@ -95,23 +84,21 @@ module GobiertoBudgets
 
     def test_destroy
       algolia_index = mock
-
       algolia_index.expects(:delete_object).with(budget_line.algolia_id)
-
       BudgetLine.stubs(algolia_index: algolia_index)
 
-      client = mock
+      @client.expects(:delete)
+             .with(has_entries(budget_line_arguments_for_indexing))
+             .returns("_shards" => { "failed" => 0 })
 
-      client.expects(:delete)
-            .with(has_entries(budget_line_arguments_for_indexing))
-            .returns("_shards" => { "failed" => 0 })
-
-      SearchEngine.stubs(client: client)
+      SearchEngine.stubs(client: @client)
 
       budget_line.destroy
     end
 
     def test_algolia_as_json
+      SearchEngine.stubs(client: @client)
+
       expected_hash = {
         objectID: "index_forecast/economic/28079/2015/1/G",
         index: "index_forecast",

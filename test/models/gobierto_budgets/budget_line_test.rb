@@ -54,12 +54,16 @@ module GobiertoBudgets
             .with(has_entries(budget_line_arguments_for_indexing))
             .returns("_shards" => { "failed" => 0 })
 
+      client.stubs(:search).returns({"hits" => {
+        "hits" => [
+          {"_source" => { "kind" => "expense", "code" => "1", "name" => "Despeses de personal" }}
+        ]
+      }})
+
       SearchEngine.stubs(client: client)
 
       algolia_index = mock
-
       algolia_index.expects(:add_object).with(budget_line.algolia_as_json)
-
       BudgetLine.stubs(algolia_index: algolia_index)
 
       budget_line.save
@@ -67,6 +71,12 @@ module GobiertoBudgets
 
     def test_save_fail
       client = mock
+
+      client.stubs(:search).returns({"hits" => {
+        "hits" => [
+          {"_source" => { "kind" => "expense", "code" => "1", "name" => "Despeses de personal" }}
+        ]
+      }})
 
       client.expects(:index)
             .with(has_entries(budget_line_arguments_for_indexing))
@@ -117,8 +127,8 @@ module GobiertoBudgets
         "description_es" => "Los gastos de personal son... (custom, translated)",
         "name_en"        => "Personal expenses (custom, translated)",
         "description_en" => "Personal expenses are... (custom, translated)",
-        "name_ca"        => "Gastos de personal (custom, translated)",
-        "description_ca" => "Los gastos de personal son... (custom, translated)"
+        "name_ca"        => "Despeses de personal",
+        "description_ca" => "Tot tipus de retribucions fixes i variables i indemnitzacions, en diners i en espècie, a satisfer per les entitats locals i els seus organismes autònoms al personal que hi presti els seus serveis. Cotitzacions obligatòries de les entitats locals i dels seus organismes autònoms als diferents règims de Seguretat Social del personal al seu servei. Prestacions socials, que comprenen tota classe de pensions i les remuneracions a concedir per raó de les càrregues familiars. Despeses de naturalesa social realitzades, en compliment d'acords i disposicions vigents, per les entitats locals i els seus organismes autònoms per al seu personal."
       }
 
       assert_equal expected_hash, budget_line.algolia_as_json

@@ -17,11 +17,11 @@ module GobiertoBudgets
     end
 
     def name
-      custom_name_translations[I18n.locale.to_s] || default_name
+      custom_name_translations.try(:dig, I18n.locale.to_s) || default_name
     end
 
     def description
-      custom_description_translations[I18n.locale.to_s] || default_description
+      custom_description_translations.try(:dig, I18n.locale.to_s) || default_description
     end
 
     def self.default_name(area, kind, code)

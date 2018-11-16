@@ -2,7 +2,7 @@ call_center_service_level_2014:
   commitment: call_center_service_level
   period_interval: <%= GobiertoCitizensCharters::Edition.period_intervals["year"] %>
   period: 2014-01-01
-  percentage: 0.999
+  percentage: 111.1
   max_value: 90
   value: 100
   created_at: 2018-09-12 00:02:00
@@ -21,8 +21,9 @@ call_center_service_level_2016:
   commitment: call_center_service_level
   period_interval: <%= GobiertoCitizensCharters::Edition.period_intervals["year"] %>
   period: 2016-01-01
-  max_value: 95
-  value: 95.1
+  percentage: 66.667
+  max_value: 400
+  value: 200
   created_at: 2018-09-12 00:02:00
   updated_at: 2018-09-12 00:02:00
 

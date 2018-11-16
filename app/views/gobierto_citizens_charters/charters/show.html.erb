@@ -75,10 +75,17 @@
           <div class="m_b_2"><%= edition.commitment.description %></div>
           <div>
             <div class="charter-number m_b_1">
-              <p> <%= number_to_percentage(edition.proportion, precision: 1, strip_insignificant_zeros: true) %> </p>
+              <p> <%= number_to_percentage(edition.proportion, precision: GobiertoCitizensCharters::Edition::SIGNIFICATIVE_DECIMALS, strip_insignificant_zeros: true) %> </p>
               <div id="sparkline-<%= edition.id %>" class="sparkline"></div>
             </div>
             <small class="charter-text--muted"><%= edition.commitment.title %></small>
+            <% if edition.has_values? %>
+              <div>
+                <%= "#{ t(".value") }: #{ number_to_human(edition.value, precision: GobiertoCitizensCharters::Edition::SIGNIFICATIVE_DECIMALS, strip_insignificant_zeros: true) }" %>
+                /
+                <%= "#{ t(".max_value") }: #{ number_to_human(edition.max_value, precision: GobiertoCitizensCharters::Edition::SIGNIFICATIVE_DECIMALS, strip_insignificant_zeros: true) }" %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>

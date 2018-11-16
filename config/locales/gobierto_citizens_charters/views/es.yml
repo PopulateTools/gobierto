@@ -23,8 +23,10 @@ es:
         about: Acerca de esta carta
         editions_details: Detalle de los compromisos
         global_progress: Cumplimos los compromisos de esta carta al
+        max_value: Objectivo
         see_all: Ver la carta completa
         see_all_subtitle: Misión, Visión, Servicios, Unidad responsable...
+        value: Alcanzado
     layouts:
       application:
         citizens_charters: Cartas de Servicios

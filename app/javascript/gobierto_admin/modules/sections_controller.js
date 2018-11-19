@@ -38,15 +38,19 @@ window.GobiertoAdmin.SectionsController = (function() {
             }
 
             $li.find('.jqtree-element').append(
-              '<a remote=true href="#node-' + node.id + '" class="delete"><i class="fa fa-trash-o tipsit" data-node-id="' +
-              node.id + '" title="' + I18n.t('gobierto_admin.gobierto_cms.sections.show.delete_element') + '"></i></a>'
+              '<a remote=true href="#node-' + node.id + '" class="delete tipsit" title="' + I18n.t('gobierto_admin.gobierto_cms.sections.show.delete_element') + '"><i class="fa fa-trash-o" data-node-id="' +
+              node.id + '"></i></a>'
             );
+
+            $li.find('.jqtree-element').on('mouseenter', function(e) {
+              nodeMouseOver = $tree.tree('getNodeByHtmlElement', e.target)
+            });
           }
         });
       }
     );
 
-    function handle_drag_stop(node) {        
+    function handle_drag_stop(node) {
       $.ajax({
         url: _endpoint(node.id),
         type: 'PUT',
@@ -72,6 +76,7 @@ window.GobiertoAdmin.SectionsController = (function() {
         if (node) {
           // Display the node name
           $tree.tree('removeNode', node);
+          $(".tipsy").remove()
         }
 
         $.ajax({
@@ -81,27 +86,15 @@ window.GobiertoAdmin.SectionsController = (function() {
           data: {
             "_method": "delete"
           },
-          complete: function() {
-
-          }
+          complete: function() {}
         });
 
         return false;
       }
     );
 
-    $tree.on('mouseover', function(e) {
-      nodeMouseOver = $tree.tree('getNodeByHtmlElement', e.target);        
-    });
-    
-    // Define the elements that can be dragged
-    $(".draggable").draggable({
-      revert: true
-    });
-
-    $("#tree1").droppable({
-      drop: function(event, ui) {       
-        
+    $tree.droppable({
+      drop: function(event, ui) {
         $.ajax({
           url: _endpoint(),
           type: 'POST',
@@ -109,7 +102,7 @@ window.GobiertoAdmin.SectionsController = (function() {
           data: {
             page_id: ui.draggable.attr("data-id")
           },
-          success: function(data) {            
+          success: function(data) {
             var node = $tree.tree('getNodeById', nodeMouseOver.id);
 
             $('#tree1').tree(
@@ -122,6 +115,17 @@ window.GobiertoAdmin.SectionsController = (function() {
           },
           error: function() {}
         });
+      }
+    });
+
+    // Define the elements that can be dragged
+    $(".draggable").draggable({
+      revert: true,
+      start: function (event) {
+        $(event.target).css("pointer-events", "none")
+      },
+      stop: function (event) {
+        $(event.target).css("pointer-events", "auto")
       }
     });
 

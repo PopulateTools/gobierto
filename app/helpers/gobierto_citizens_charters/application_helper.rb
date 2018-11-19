@@ -12,5 +12,9 @@ module GobiertoCitizensCharters
         helpers.number_with_precision(number, precision: 1, strip_insignificant_zeros: true, delimiter: t("number.format.delimiter"))
       end
     end
+
+    def format_percentage(number)
+      helpers.number_to_percentage(number, precision: GobiertoCitizensCharters::Edition::SIGNIFICATIVE_DECIMALS, strip_insignificant_zeros: true)
+    end
   end
 end

@@ -248,6 +248,7 @@ ul.jqtree-tree {
   .jqtree-title {
     color: $color_text;
     margin-left: 1em;
+    flex: 1;
   }
 
   .jqtree-title.draft {
@@ -257,14 +258,19 @@ ul.jqtree-tree {
   .jqtree-element {
     padding: 0.25em 0.5em;
     border-top: 1px solid darken($color_1_soft, 10%);
+    display: flex;
 
     &:hover {
       background: darken($color_1_soft, 20%);
     }
 
-    .fa {
-      float: right;
-      margin-top: 4px;
+    .delete {
+      padding: 0 0.5em;
+      border-radius: 3px;
+
+      &:hover {
+        background: darken($color_1_soft, 20%);
+      }
     }
   }
 

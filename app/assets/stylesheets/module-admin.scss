@@ -623,6 +623,18 @@ pre {
     .completed .status {
       opacity: 1;
     }
+
+    &.is-floating {
+      position: fixed;
+      top: 10vh;
+      right: 25vw;
+
+      @include flexbox(1rem, column);
+
+      label {
+        display: none;
+      }
+    }
   }
 }
 

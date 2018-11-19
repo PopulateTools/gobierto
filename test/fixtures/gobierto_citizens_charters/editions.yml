@@ -43,3 +43,11 @@ call_center_service_level_2018:
   value:
   created_at: 2018-09-12 00:02:00
   updated_at: 2018-09-12 00:02:00
+
+devices_operation_2018:
+  commitment: devices_operation
+  period_interval: <%= GobiertoCitizensCharters::Edition.period_intervals["year"] %>
+  period: 2018-09-12
+  percentage: 99.666
+  created_at: 2018-09-12 00:02:00
+  updated_at: 2018-09-12 00:02:00

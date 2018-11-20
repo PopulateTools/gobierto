@@ -216,9 +216,6 @@ es:
       latest_info:
         agenda: Agenda Participación
         news: Noticias
-        no_activities: No hay actividades relacionadas
-        no_events: No hay eventos relacionados
-        no_news: No hay noticias relacionadas
         show_more_events: Ver más eventos
         show_more_news: Ver más noticias
         show_more_updates: Ver más actualizaciones

@@ -9,7 +9,7 @@
           <% if events.any? %>
             <%= render partial: "gobierto_participation/shared/events/place_event", collection: events %>
           <% else %>
-            <%= t(".no_events") %>
+            <%= t("gobierto_participation.shared.no_events") %>
           <% end %>
         </div>
         <% if events.any? %>
@@ -23,7 +23,7 @@
           <% if activities.any? %>
             <%= render partial: "gobierto_participation/processes/place_activities", collection: activities %>
           <% else %>
-            <%= t('.no_activities') %>
+            <%= t("gobierto_participation.shared.no_activities") %>
           <% end %>
         </div>
         <% if activities.any? %>
@@ -37,7 +37,7 @@
           <% if news.any? %>
             <%= render partial: "gobierto_participation/processes/place_news", collection: news, as: :page %>
           <% else %>
-            <%= t(".no_news") %>
+            <%= t('gobierto_participation.shared.no_news') %>
           <% end %>
         </div>
         <% if news.any? %>

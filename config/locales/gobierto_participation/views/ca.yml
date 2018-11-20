@@ -214,9 +214,6 @@ ca:
       latest_info:
         agenda: Agenda Participació
         news: Notícies
-        no_activities: No hi ha actualitzacions relacionades
-        no_events: No hi ha esdeveniments relacionats
-        no_news: No hi ha notícies relacionades
         show_more_events: Veure més esdeveniments
         show_more_news: Veure més notícies
         show_more_updates: Veure més actualitzacions

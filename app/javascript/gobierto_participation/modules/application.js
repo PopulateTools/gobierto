@@ -18,15 +18,6 @@ $(document).on('turbolinks:load', function() {
     }
   });
 
-  // Animation for attending event button
-  $('.attend_event').click(function() {
-    $(this).find('.fa').toggleClass('hidden');
-    $(this).toggleClass('checked');
-
-    // Swap text
-    $(this).find('span').toggleText('Quiero asistir', 'Asistirás');
-  });
-
   $('.button_toggle').on('click', function() {
     $('.button.hidden').toggleClass('hidden');
   })

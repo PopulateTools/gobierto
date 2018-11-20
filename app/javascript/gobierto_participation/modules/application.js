@@ -22,9 +22,7 @@ $(document).on('turbolinks:load', function() {
     $('.button.hidden').toggleClass('hidden');
   })
 
-  if (currentLocationMatches("processes_contribution_containers_show")) {
-    window.GobiertoParticipation.contribution_containers_controller.show(contributionContainerData);
-  } else if (currentLocationMatches("processes_poll_answers_new")) {
+  if (currentLocationMatches("processes_poll_answers_new")) {
     window.GobiertoParticipation.process_polls_controller.show();
   } else if (currentLocationMatches("processes_show")) {
     window.GobiertoParticipation.processes_controller.show();

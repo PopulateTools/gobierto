@@ -137,6 +137,8 @@ $white: $color_main_negative;
     display: flex;
     justify-content: flex-start;
 
+    @include flexbox(1rem);
+
     > :not(:first-child) {
       flex: 1;
       text-align: right;

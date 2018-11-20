@@ -23,6 +23,10 @@ window.GobiertoAdmin.GlobalizedFormsComponent = (function() {
     containers.each(function(index, container) {
       _activateLocale(currentLocale, container);
       _checkCompleted(container);
+
+      // Turn locate toggle component into a floating element
+      // It must do after other locale fields have been hidden
+      _toggleFloatingLocaleComponent(container)
     });
   }
 
@@ -71,6 +75,33 @@ window.GobiertoAdmin.GlobalizedFormsComponent = (function() {
 
   function _findGlobalizedFormContainers(){
     return $("form[data-globalized-form-container] .globalized_fields");
+  }
+
+  function _toggleFloatingLocaleComponent(container) {
+    const $container = $(container)
+    const $localizedFields = $container.find("[data-locale]")
+    const amountOfLocales = Object.keys(I18n.translations).length
+
+    // Ignore if the number of fields to be translated is lower than the total of available locales
+    // We want to make a floating locale if there are a few, at least
+    if ($localizedFields.length > amountOfLocales) {
+      const containerHeight = $container.height()
+      const headerHeight = $("header").height()
+      const containerOffsetTop = $container.offset().top - headerHeight
+      // In order to hide before scroll reaches container bottom
+      const decoratorLastItem = $container.find("> *:last-of-type").height() * .4
+      const containerOffsetBottom = containerOffsetTop + containerHeight - decoratorLastItem
+
+      $(window).on("scroll", function () {
+        const scroll = $(this).scrollTop()
+
+        if ((scroll > containerOffsetTop) && (scroll < containerOffsetBottom)) {
+          $container.addClass("is-floating")
+        } else {
+          $container.removeClass("is-floating")
+        }
+      })
+    }
   }
 
   return GlobalizedFormsComponent;

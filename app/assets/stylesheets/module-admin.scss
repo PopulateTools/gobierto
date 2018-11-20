@@ -623,17 +623,18 @@ pre {
     .completed .status {
       opacity: 1;
     }
+  }
 
-    &.is-floating {
-      position: fixed;
-      top: 10vh;
-      right: 25vw;
+  &.is-floating .globalize_tool{
+    position: fixed;
+    top: 50px;
+    left: 200px;
+    z-index: 100;
 
-      @include flexbox(1rem, column);
+    @include flexbox(1rem, column);
 
-      label {
-        display: none;
-      }
+    label {
+      display: none;
     }
   }
 }

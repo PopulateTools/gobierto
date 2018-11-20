@@ -4,7 +4,6 @@ en:
     all_attachments: See all documents
     comments:
       comment:
-        comments_html: "<strong>%{comments}</strong> comments"
         respond: Respond
     events:
       event:

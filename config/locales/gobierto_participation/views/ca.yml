@@ -4,7 +4,6 @@ ca:
     all_attachments: Mostra tots les documents
     comments:
       comment:
-        comments_html: "<strong>%{comments}</strong> comentaris"
         respond: Respondre
     events:
       event:

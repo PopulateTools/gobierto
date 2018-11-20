@@ -37,8 +37,9 @@ window.GobiertoParticipation.ContributionContainersController = (function() {
 
     var px, py, vx, vy, offsetX, offsetY, maxVelocity = 8;
 
-    var width = d3.select('.contributions_content').node().clientWidth,
-        height = d3.select('.contributions_content').node().clientHeight,
+    var container = d3.select('.contributions_content').node();
+    var width = container !== null ? container.clientWidth : 0,
+        height = container !== null ? container.clientHeight : 0,
         cardWidth = 330,
         cardHeight = 130;
 

@@ -82,9 +82,7 @@
     </div>
   </div>
 
-  <div class="contributions_content">
-
-  </div>
+  <div class="contributions_content"></div>
 </div>
 
 <%= content_for(:javascript_hook) do %>
@@ -100,9 +98,11 @@
     }
   }
 
-  if (getPageAnchor()) {
+  var anchor = getPageAnchor();
+
+  if (anchor) {
     $.ajax({
-      url: '<%= @contribution_container.to_path %>/contributions/' + getPageAnchor(),
+      url: '<%= @contribution_container.to_path %>/contributions/' + anchor,
       dataType: 'script',
       method: 'GET'
     });

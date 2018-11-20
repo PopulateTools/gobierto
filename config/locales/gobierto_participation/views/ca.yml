@@ -54,6 +54,9 @@ ca:
         news: Notícies
     processes:
       contribution_containers:
+        index:
+          no_contributions_container: Encara no hi ha publicada ninguna ferramenta
+            de aportacions
         show:
           all: Tots
           best_ratings: Millors puntuacions

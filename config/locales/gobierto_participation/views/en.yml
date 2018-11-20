@@ -56,6 +56,8 @@ en:
         news: News
     processes:
       contribution_containers:
+        index:
+          no_contributions_container: No contribution tool published
         show:
           all: All
           best_ratings: Best ratings

@@ -56,6 +56,9 @@ es:
         news: Noticias
     processes:
       contribution_containers:
+        index:
+          no_contributions_container: Todavía no hay ninguna herramienta de aportaciones
+            publicada
         show:
           all: Todas
           best_ratings: Mejor valoradas

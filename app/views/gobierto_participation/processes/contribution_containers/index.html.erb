@@ -16,25 +16,29 @@
   <div class="column">
 
     <div class="flex_container">
-      <% @contribution_containers.each do |contribution_container| %>
-        <%= link_to gobierto_participation_process_contribution_container_path(contribution_container.slug, process_id: current_process.slug), class: "content_block themed light" do %>
+      <% if @contribution_containers.any? %>
+        <% @contribution_containers.each do |contribution_container| %>
+          <%= link_to gobierto_participation_process_contribution_container_path(contribution_container.slug, process_id: current_process.slug), class: "content_block themed light" do %>
 
-          <h3><%= contribution_container.title %></h3>
-          <p><%= contribution_container.description %></p>
+            <h3><%= contribution_container.title %></h3>
+            <p><%= contribution_container.description %></p>
 
-          <% if contribution_container.past? %>
-            <p><%= t('gobierto_participation.processes.contribution_containers.show.contributions_ended') %></p>
+            <% if contribution_container.past? %>
+              <p><%= t('gobierto_participation.processes.contribution_containers.show.contributions_ended') %></p>
+            <% end %>
+
+            <% if contribution_container.future? %>
+              <p><%= t('gobierto_participation.processes.contribution_containers.show.contributions_start_html', date: l(contribution_container.starts, format: :short)) %></p>
+            <% end %>
+
+            <div class="meta right">
+              <div class="ib"><i class="fa fa-comment"></i><%= contribution_container.contributions.size %></div>
+              <div class="ib"><i class="fa fa-users"></i><%= contribution_container.contributions.distinct.pluck(:user_id).size %></div>
+            </div>
           <% end %>
-
-          <% if contribution_container.future? %>
-            <p><%= t('gobierto_participation.processes.contribution_containers.show.contributions_start_html', date: l(contribution_container.starts, format: :short)) %></p>
-          <% end %>
-
-          <div class="meta right">
-            <div class="ib"><i class="fa fa-comment"></i><%= contribution_container.contributions.size %></div>
-            <div class="ib"><i class="fa fa-users"></i><%= contribution_container.contributions.distinct.pluck(:user_id).size %></div>
-          </div>
         <% end %>
+      <% else %>
+        <p><%= t(".no_contributions_container") %></p>
       <% end %>
     </div>
   </div>

@@ -40,12 +40,6 @@ es:
         intro_html: Tus ideas ayudan a mejorar %{location_name} y la vida de todos
           los que residimos aquí. Aporta tus mejores ideas en nuestros <strong>espacios
           permanentes de participación</strong>.
-      participation_groups:
-        work_groups_description: Consulta la actividad de cada grupo y participa.
-        work_groups_title: Grupos de trabajo
-      participation_proccesses:
-        processes_description: Consulta y participa en procesos específicos.
-        processes_title: Procesos en marcha
     layouts:
       application:
         title: Participación
@@ -183,12 +177,6 @@ es:
         intro_html: Tus ideas ayudan a mejorar %{location_name} y la vida de todos
           los que residimos aquí. Aporta tus mejores ideas en nuestros <strong>espacios
           permanentes de participación</strong>.
-      participation_groups:
-        work_groups_description: Consulta la actividad de cada grupo y participa.
-        work_groups_title: Grupos de trabajo
-      participation_proccesses:
-        processes_description: Consulta y participa en procesos específicos.
-        processes_title: Procesos en marcha
     shared:
       activities_for: Actividad de %{container}
       agenda: Agenda
@@ -200,7 +188,6 @@ es:
       all_attachments: Ver todos los documentos
       all_events: Ver todos los eventos
       all_news: Ver todas las noticias
-      consultation_processes: Consulta y participa en procesos específicos.
       current_events: Ver eventos actuales
       diary_for: Agenda de %{container}
       documents: Documentos
@@ -213,6 +200,10 @@ es:
           agenda_for_container: Agenda de
       filter_by_theme: Filtrar por tema
       from_to: "%{starts} al %{ends}"
+      groups:
+        no_groups: Todavía no hay grupos publicados
+        work_groups_description: Consulta la actividad de cada grupo y participa.
+        work_groups_title: Grupos de trabajo
       latest_info:
         agenda: Agenda Participación
         news: Noticias
@@ -227,9 +218,12 @@ es:
       no_documents: No hay documentos relacionados
       no_events: No hay eventos relacionados
       no_news: No hay noticias relacionadas
-      ongoing_processes: Procesos en marcha
       participation: Participación
       past_events: Ver eventos pasados
+      proccesses:
+        no_processes: Todavía no hay procesos publicados
+        processes_description: Consulta y participa en procesos específicos.
+        processes_title: Procesos en marcha
       published_at: Publicado el %{date} por el %{site}
     welcome:
       index:

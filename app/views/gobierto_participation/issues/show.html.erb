@@ -37,6 +37,6 @@
 
 <%= render partial: "gobierto_participation/shared/latest_info", locals: { events: @issue_events, activities: @issue_notifications, news: @issue_news } %>
 
-<%= render "participation_proccesses" %>
+<%= render partial: "gobierto_participation/shared/proccesses", locals: { processes: @processes } %>
 
-<%= render "participation_groups" %>
+<%= render partial: "gobierto_participation/shared/groups", locals: { groups: @groups } %>

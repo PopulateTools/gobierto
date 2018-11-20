@@ -40,12 +40,6 @@ en:
         intro_html: Your ideas help improve %{location_name} and the lives of all
           that we reside here. Bring your best ideas to our <strong> permanent spaces
           participation </ strong>
-      participation_groups:
-        work_groups_description: Check the activity of each group and participate.
-        work_groups_title: Work groups
-      participation_proccesses:
-        processes_description: Consultation and participation in specific processes.
-        processes_title: Processes in progress
     layouts:
       application:
         title: Participation
@@ -182,12 +176,6 @@ en:
         intro_html: Your ideas help improve %{location_name} and the lives of all
           that we reside here. Bring your best ideas to our <strong> permanent spaces
           participation </ strong>
-      participation_groups:
-        work_groups_description: Check the activity of each group and participate.
-        work_groups_title: Work groups
-      participation_proccesses:
-        processes_description: Consultation and participation in specific processes.
-        processes_title: Processes in progress
     shared:
       activities_for: Updates for %{container}
       agenda: Agenda
@@ -199,7 +187,6 @@ en:
       all_attachments: See all documents
       all_events: View all events
       all_news: Show all news
-      consultation_processes: Consult and participate in specific processes.
       current_events: View current events
       diary_for: Diary for %{container}
       documents: Documents
@@ -212,6 +199,10 @@ en:
           agenda_for_container: Diary for
       filter_by_theme: Filter by theme
       from_to: "%{starts} to %{ends}"
+      groups:
+        no_groups: There are no published groups
+        work_groups_description: Check the activity of each group and participate.
+        work_groups_title: Work groups
       latest_info:
         agenda: Paritipation Agenda
         news: News
@@ -226,9 +217,12 @@ en:
       no_documents: No related documents
       no_events: No related events
       no_news: No related news
-      ongoing_processes: Ongoing processes
       participation: Participation
       past_events: View past events
+      proccesses:
+        no_processes: There are no published processes
+        processes_description: Consultation and participation in specific processes.
+        processes_title: Processes in progress
       published_at: Posted on %{date} by %{site}
     welcome:
       index:

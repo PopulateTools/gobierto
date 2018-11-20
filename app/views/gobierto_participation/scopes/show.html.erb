@@ -20,6 +20,6 @@
 
 <%= render partial: "gobierto_participation/shared/latest_info", locals: { events: @scope_events, activities: @scope_notifications, news: @scope_news } %>
 
-<%= render "participation_proccesses" %>
+<%= render partial: "gobierto_participation/shared/proccesses", locals: { processes: @processes } %>
 
-<%= render "participation_groups" %>
+<%= render partial: "gobierto_participation/shared/groups", locals: { groups: @groups } %>

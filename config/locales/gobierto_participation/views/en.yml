@@ -139,6 +139,7 @@ en:
           multiple_choice_msg: You can choose several options
       polls:
         index:
+          no_polls: There are no published polls
           polls: Polls
         theme_teaser_question:
           already_participated: You have already participated in this poll

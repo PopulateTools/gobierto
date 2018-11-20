@@ -140,6 +140,7 @@ es:
           multiple_choice_msg: Puedes elegir varias opciones
       polls:
         index:
+          no_polls: No hay encuestas publicadas
           polls: Encuestas
         theme_teaser_question:
           already_participated: Ya has participado en esta encuesta

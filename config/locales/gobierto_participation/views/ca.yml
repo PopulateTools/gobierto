@@ -138,6 +138,7 @@ ca:
           multiple_choice_msg: Pots triar diverses opcions
       polls:
         index:
+          no_polls: No hi ha enquestes publicades
           polls: Enquestes
         theme_teaser_question:
           already_participated: Ja has participat en aquesta enquesta

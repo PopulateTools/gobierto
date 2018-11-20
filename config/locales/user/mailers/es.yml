@@ -35,7 +35,7 @@ es:
         hi: Hola
         subject: Restaura tu contraseña
       welcome:
-        alerts: 'Puedes gestionar tus alertas desde tu cuenta: %{notifications_url}'
+        alerts: 'Puedes gestionar tus alertas desde tu cuenta: %{subscriptions_url}'
         bye: Saludos
         hi: Hola
         subject: Bienvenido

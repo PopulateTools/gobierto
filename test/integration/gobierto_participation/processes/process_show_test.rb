@@ -155,7 +155,7 @@ module GobiertoParticipation
           assert has_link? "Follow process"
         end
 
-        within 'footer' do
+        within "footer" do
           click_on "Subscribe"
         end
 
@@ -220,7 +220,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit gobierto_participation_process_path(green_city_group.slug)
 
-        assert has_content? "There are no related events"
+        assert has_content? "No related events"
       end
     end
 
@@ -228,7 +228,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        assert has_content? "There are no related updates"
+        assert has_content? "No related updates"
       end
     end
 
@@ -294,7 +294,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        page.all('a', text: 'Information').first.click
+        page.all("a", text: "Information").first.click
 
         assert has_selector?("h1", text: "Privacy")
       end

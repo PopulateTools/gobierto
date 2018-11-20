@@ -7,7 +7,7 @@
         <h3 class="agenda_title"><%= t(".agenda") %></h3>
         <div class="p_1 content_block">
           <% if events.any? %>
-            <%= render partial: "gobierto_participation/shared/events/place_event", collection: events %>
+            <%= render partial: "gobierto_participation/shared/events/place_event", collection: events, as: :place_event %>
           <% else %>
             <%= t("gobierto_participation.shared.no_events") %>
           <% end %>
@@ -21,7 +21,7 @@
         <h3 class="agenda_title"><%= t(".the_last") %></h3>
         <div class="p_1 content_block">
           <% if activities.any? %>
-            <%= render partial: "gobierto_participation/processes/place_activities", collection: activities %>
+            <%= render partial: "gobierto_participation/processes/place_activities", collection: activities, as: :activity %>
           <% else %>
             <%= t("gobierto_participation.shared.no_activities") %>
           <% end %>

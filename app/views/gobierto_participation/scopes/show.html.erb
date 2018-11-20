@@ -18,8 +18,8 @@
   <%= render 'user/subscriptions/subscribable_button', subscribable: @scope %>
 <% end %>
 
-<%= render 'participation_latest_info' %>
+<%= render partial: "gobierto_participation/shared/latest_info", locals: { events: @scope_events, activities: @scope_notifications, news: @scope_news } %>
 
-<%= render 'participation_proccesses' %>
+<%= render "participation_proccesses" %>
 
-<%= render 'participation_groups' %>
+<%= render "participation_groups" %>

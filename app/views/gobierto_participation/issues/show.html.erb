@@ -35,8 +35,8 @@
   </div>
 </div>
 
-<%= render 'participation_latest_info' %>
+<%= render partial: "gobierto_participation/shared/latest_info", locals: { events: @issue_events, activities: @issue_notifications, news: @issue_news } %>
 
-<%= render 'participation_proccesses' %>
+<%= render "participation_proccesses" %>
 
-<%= render 'participation_groups' %>
+<%= render "participation_groups" %>

@@ -41,16 +41,6 @@ ca:
       participation_groups:
         work_groups_description: Consulta l'activitat de cada grup i participa.
         work_groups_title: Grups de treball
-      participation_latest_info:
-        agenda: Agenda Participació
-        news: Notícies
-        no_events: No hi ha esdeveniments relacionats
-        no_news: No hi ha notícies relacionades
-        show_more_events: Veure més esdeveniments
-        show_more_news: Veure més notícies
-        show_more_updates: Veure més actualitzacions
-        the_last: L'últim
-        up_to_date: "%{site_title} al dia"
       participation_proccesses:
         processes_description: Consulta i participa en processos específics.
         processes_title: Processos en marxa
@@ -194,16 +184,6 @@ ca:
       participation_groups:
         work_groups_description: Consulta l'activitat de cada grup i participa.
         work_groups_title: Grups de treball
-      participation_latest_info:
-        agenda: Agenda Participació
-        news: Notícies
-        no_events: No hi ha esdeveniments relacionats
-        no_news: No hi ha notícies relacionades
-        show_more_events: Veure més esdeveniments
-        show_more_news: Veure més notícies
-        show_more_updates: Veure més actualitzacions
-        the_last: L'últim
-        up_to_date: "%{site_title} al dia"
       participation_proccesses:
         processes_description: Consulta i participa en processos específics.
         processes_title: Processos en marxa
@@ -231,6 +211,17 @@ ca:
           agenda_for_container: Agenda d'
       filter_by_theme: Filtrar per tema
       from_to: "%{starts} al %{ends}"
+      latest_info:
+        agenda: Agenda Participació
+        news: Notícies
+        no_activities: No hi ha actualitzacions relacionades
+        no_events: No hi ha esdeveniments relacionats
+        no_news: No hi ha notícies relacionades
+        show_more_events: Veure més esdeveniments
+        show_more_news: Veure més notícies
+        show_more_updates: Veure més actualitzacions
+        the_last: L'últim
+        up_to_date: "%{site_title} al dia"
       news: Notícies
       news_for: Notícies de %{container}
       no_activities: No hi ha actualitzacions relacionades
@@ -250,17 +241,6 @@ ca:
           la vostra opinió sobre els altres.
         intro: Coneix els mecanismes de participació que t'ofereix %{location_name}
         intro_p1: Votar cada quatre anys? Implica't en el dia a dia.
-      participation_latest_info:
-        agenda: Agenda
-        more_news: Veure més notícies
-        news: Notícies
-        no_activities: No hi ha actualitzacions relacionades
-        no_events: No hi ha esdeveniments relacionats
-        no_news: No hi ha notícies relacionades
-        show_more_events: Veure més esdeveniments
-        show_more_updates: Veure més actualitzacions
-        the_last: L'últim
-        up_to_date: "%{site_title} al dia"
       participation_themes_list_a:
         intro: Aporta els teus millors idees per millorar% {location_name} i la vida
           de tots els que residim aquí.

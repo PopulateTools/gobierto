@@ -43,16 +43,6 @@ en:
       participation_groups:
         work_groups_description: Check the activity of each group and participate.
         work_groups_title: Work groups
-      participation_latest_info:
-        agenda: Paritipation Agenda
-        news: News
-        no_events: There are no related events
-        no_news: There are no related news
-        show_more_events: See more events
-        show_more_news: See more news
-        show_more_updates: See more updates
-        the_last: The last
-        up_to_date: "%{site_title} up to date"
       participation_proccesses:
         processes_description: Consultation and participation in specific processes.
         processes_title: Processes in progress
@@ -195,16 +185,6 @@ en:
       participation_groups:
         work_groups_description: Check the activity of each group and participate.
         work_groups_title: Work groups
-      participation_latest_info:
-        agenda: Paritipation Agenda
-        news: News
-        no_events: There are no related events
-        no_news: There are no related news
-        show_more_events: See more events
-        show_more_news: See more news
-        show_more_updates: See more updates
-        the_last: The last
-        up_to_date: "%{site_title} up to date"
       participation_proccesses:
         processes_description: Consultation and participation in specific processes.
         processes_title: Processes in progress
@@ -232,6 +212,17 @@ en:
           agenda_for_container: Diary for
       filter_by_theme: Filter by theme
       from_to: "%{starts} to %{ends}"
+      latest_info:
+        agenda: Paritipation Agenda
+        news: News
+        no_activities: No related updates
+        no_events: There are no related events
+        no_news: There are no related news
+        show_more_events: See more events
+        show_more_news: See more news
+        show_more_updates: See more updates
+        the_last: The last
+        up_to_date: "%{site_title} up to date"
       news: News
       news_for: News for %{container}
       no_activities: No related updates
@@ -252,17 +243,6 @@ en:
           about the others.
         intro: Know the mechanisms of participation that offers you %{location_name}
         intro_p1: Vote every four years? Get involved in the day-to-day life.
-      participation_latest_info:
-        agenda: Diary
-        more_news: More news
-        news: News
-        no_activities: No related updates
-        no_events: No related events
-        no_news: No related news
-        show_more_events: More events
-        show_more_updates: More updates
-        the_last: The last
-        up_to_date: "%{site_title} up to date"
       participation_themes_list_a:
         intro: Bring your best ideas to improve %{location_name} and the life of all
           of us who live here.

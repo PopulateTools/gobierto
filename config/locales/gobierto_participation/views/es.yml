@@ -43,16 +43,6 @@ es:
       participation_groups:
         work_groups_description: Consulta la actividad de cada grupo y participa.
         work_groups_title: Grupos de trabajo
-      participation_latest_info:
-        agenda: Agenda Participación
-        news: Noticias
-        no_events: No hay eventos relacionados
-        no_news: No hay noticias relacionadas
-        show_more_events: Ver más eventos
-        show_more_news: Ver más noticias
-        show_more_updates: Ver más actualizaciones
-        the_last: Lo último
-        up_to_date: "%{site_title} al día"
       participation_proccesses:
         processes_description: Consulta y participa en procesos específicos.
         processes_title: Procesos en marcha
@@ -196,16 +186,6 @@ es:
       participation_groups:
         work_groups_description: Consulta la actividad de cada grupo y participa.
         work_groups_title: Grupos de trabajo
-      participation_latest_info:
-        agenda: Agenda Participación
-        news: Noticias
-        no_events: No hay eventos relacionados
-        no_news: No hay noticias relacionadas
-        show_more_events: Ver más eventos
-        show_more_news: Ver más noticias
-        show_more_updates: Ver más actualizaciones
-        the_last: Lo último
-        up_to_date: "%{site_title} al día"
       participation_proccesses:
         processes_description: Consulta y participa en procesos específicos.
         processes_title: Procesos en marcha
@@ -233,6 +213,17 @@ es:
           agenda_for_container: Agenda de
       filter_by_theme: Filtrar por tema
       from_to: "%{starts} al %{ends}"
+      latest_info:
+        agenda: Agenda Participación
+        news: Noticias
+        no_activities: No hay actividades relacionadas
+        no_events: No hay eventos relacionados
+        no_news: No hay noticias relacionadas
+        show_more_events: Ver más eventos
+        show_more_news: Ver más noticias
+        show_more_updates: Ver más actualizaciones
+        the_last: Lo último
+        up_to_date: "%{site_title} al día"
       news: Noticia
       news_for: Noticias de %{container}
       no_activities: No hay actualizaciones relacionadas
@@ -252,17 +243,6 @@ es:
           de los demás.
         intro: Conoce los mecanismos de participación que te ofrece %{location_name}
         intro_p1: "¿Votar cada cuatro años? Implícate en el día a día."
-      participation_latest_info:
-        agenda: Agenda
-        more_news: Ver más noticias
-        news: Noticias
-        no_activities: No hay actualizaciones relacionadas
-        no_events: No hay eventos relacionados
-        no_news: No hay noticias relacionadas
-        show_more_events: Ver más eventos
-        show_more_updates: Ver más actualizaciones
-        the_last: Lo último
-        up_to_date: "%{site_title} al día"
       participation_themes_list_a:
         intro: Aporta tus mejores ideas para mejorar %{location_name} y la vida de
           todos los que residimos aquí.

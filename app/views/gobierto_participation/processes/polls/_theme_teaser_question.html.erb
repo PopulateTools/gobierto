@@ -1,7 +1,7 @@
 <div class="content_block simple_big_header themed filled_block emoji_block" id="poll_<%= poll.id %>">
   <h2><%= poll.title %></h2>
 
-  <p class="participate_until date"><%= t(".participate_until", date: poll.ends_at.strftime("%d %b")) %></p>
+  <p class="participate_until date"><%= t(".participate_until", date: I18n.l(poll.ends_at, format: "%d %b")) %></p>
 
   <div class="button outline rounded fat">
     <% if user_signed_in? %>

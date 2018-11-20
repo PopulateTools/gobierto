@@ -630,11 +630,15 @@ pre {
     top: 50px;
     left: 200px;
     z-index: 100;
-
-    @include flexbox(1rem, column);
+    display: flex;
+    flex-direction: column;
 
     label {
       display: none;
+    }
+
+    a.locale_option {
+      margin: 0 0 0.55em;
     }
   }
 }

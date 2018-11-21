@@ -12,8 +12,12 @@ module GobiertoCitizensCharters
       @edition_with_values ||= gobierto_citizens_charters_editions(:call_center_service_level_2015)
     end
 
-    def edition_with_percentage
-      @edition_with_percentage ||= gobierto_citizens_charters_editions(:call_center_service_level_2014)
+    def edition_with_percentage_and_values_matching
+      @edition_with_percentage_and_values_matching ||= gobierto_citizens_charters_editions(:call_center_service_level_2014)
+    end
+
+    def edition_with_percentage_and_values_not_matching
+      @edition_with_percentage_and_values_not_matching ||= gobierto_citizens_charters_editions(:call_center_service_level_2016)
     end
 
     def test_valid
@@ -42,9 +46,17 @@ module GobiertoCitizensCharters
     end
 
     def test_proportion
-      assert_equal 0.999, edition_with_percentage.proportion
+      assert_equal 111.1, edition_with_percentage_and_values_matching.proportion
+      assert_equal 66.667, edition_with_percentage_and_values_not_matching.proportion
       assert_equal 111, edition_with_values.proportion
       assert_nil edition.proportion
+    end
+
+    def test_has_value?
+      refute edition.has_values?
+      assert edition_with_values.has_values?
+      assert edition_with_percentage_and_values_matching.has_values?
+      refute edition_with_percentage_and_values_not_matching.has_values?
     end
   end
 end

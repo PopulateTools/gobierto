@@ -92,11 +92,17 @@ window.GobiertoAdmin.GlobalizedFormsComponent = (function() {
       const decoratorLastItem = $container.find("> *:last-of-type").height() * .4
       const containerOffsetBottom = containerOffsetTop + containerHeight - decoratorLastItem
 
-      $(window).on("scroll", function () {
+      $(window).on("scroll resize", function () {
         const scroll = $(this).scrollTop()
 
         if ((scroll > containerOffsetTop) && (scroll < containerOffsetBottom)) {
           $container.addClass("is-floating")
+
+          const $tool = $container.find("> *:first-child")
+          // JQuery does not accept shorthand properties
+          const horizontalPx = parseInt($tool.css("padding-left")) + parseInt($tool.css("padding-right")) + parseInt($tool.css("border-left-width")) + parseInt($tool.css("border-right-width"))         
+
+          $tool.width($container.width() - horizontalPx)          
         } else {
           $container.removeClass("is-floating")
         }

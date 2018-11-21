@@ -627,19 +627,13 @@ pre {
 
   &.is-floating .globalize_tool {
     position: fixed;
-    top: 50px;
-    left: 200px;
+    top: 40px;
     z-index: 100;
-    display: flex;
-    flex-direction: column;
-
-    label {
-      display: none;
-    }
-
-    a.locale_option {
-      margin: 0 0 0.55em;
-    }
+    border: 1px solid $color_separator;
+    border-top: 0;
+    background: #fafafa;
+    box-shadow: 0 4px 2px -2px $color_separator;
+    padding: 3px;
   }
 }
 

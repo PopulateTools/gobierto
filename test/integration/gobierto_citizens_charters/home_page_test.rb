@@ -21,9 +21,20 @@ module GobiertoCitizensCharters
       @charters ||= site.charters
     end
 
+    def last_edition
+      @last_edition ||= gobierto_citizens_charters_editions(:devices_operation_2018)
+    end
+
+    def editions_of_last_period
+      @editions_of_last_period ||= site.editions.of_same_period(last_edition).select { |edition| edition.commitment.active? }
+    end
+
     def test_home_page_with_display_categories_setting_disabled
       site.settings_for_module("GobiertoCitizensCharters").enable_services_home = false
       site.settings_for_module("GobiertoCitizensCharters").save
+
+      proportions = editions_of_last_period.map(&:proportion).compact
+      percentage = proportions.sum / proportions.count
 
       with_current_site(site) do
         visit @path
@@ -32,7 +43,7 @@ module GobiertoCitizensCharters
         assert has_css?(".charters-box-container")
 
         within "div.charters-box--lead div.results-value" do
-          assert has_content? "99.7%"
+          assert has_content? "#{ percentage.round(1) }%"
         end
 
         charters.each do |charter|

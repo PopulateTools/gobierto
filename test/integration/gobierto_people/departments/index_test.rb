@@ -47,7 +47,7 @@ YAML
           visit gobierto_people_departments_path
 
           assert has_link? justice_department.name
-          refute has_link? culture_department.name
+          assert has_no_link? culture_department.name
         end
       end
 

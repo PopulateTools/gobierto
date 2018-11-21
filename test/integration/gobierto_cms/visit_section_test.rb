@@ -47,8 +47,8 @@ module GobiertoCms
           assert has_link?(page.title)
         end
 
-        refute has_link?(section_archived_page.title)
-        refute has_link?(section_draft_page.title)
+        assert has_no_link?(section_archived_page.title)
+        assert has_no_link?(section_draft_page.title)
 
         click_link section_page.title
 
@@ -111,7 +111,7 @@ module GobiertoCms
         end
 
         hidden_children_pages.each do |page|
-          refute has_link?(page.title)
+          assert has_no_link?(page.title)
         end
       end
     end

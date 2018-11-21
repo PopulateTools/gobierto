@@ -66,7 +66,7 @@ module GobiertoCitizensCharters
         end
 
         charters.each do |charter|
-          refute has_content? charter.title
+          assert has_no_content? charter.title
         end
       end
     end
@@ -84,7 +84,7 @@ module GobiertoCitizensCharters
         end
 
         charters.each do |charter|
-          refute has_content? charter.title
+          assert has_no_content? charter.title
         end
       end
     end

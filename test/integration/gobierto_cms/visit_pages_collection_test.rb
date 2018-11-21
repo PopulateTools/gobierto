@@ -50,7 +50,7 @@ module GobiertoCms
         end
 
         collection_hidden_pages.each do |page|
-          refute has_link?(page.title)
+          assert has_no_link?(page.title)
         end
 
         collection_page = collection_public_pages.first

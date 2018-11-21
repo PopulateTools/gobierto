@@ -69,7 +69,7 @@ module GobiertoParticipation
             visit container_path verified_level_contribution_container
             assert has_link? 'Have an idea!', href: new_participation_path(verified_level_contribution_container)
             page.find("a", text: "Have an idea!").trigger("click")
-            refute page.has_content? "WRITE YOUR IDEA CONCISE"
+            assert has_no_content? "WRITE YOUR IDEA CONCISE"
           end
         end
 

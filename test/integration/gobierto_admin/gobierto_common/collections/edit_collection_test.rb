@@ -43,7 +43,7 @@ module GobiertoAdmin
               visit edit_admin_common_collection_path(collection_of_archived_container)
 
               assert has_content?("The resource the collection belongs to couldn't be found")
-              refute has_content?(archived_container.title)
+              assert has_no_content?(archived_container.title)
             end
           end
         end

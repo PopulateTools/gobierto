@@ -35,7 +35,7 @@ $(document).on('turbolinks:load', function() {
     var $el = $(this);
     var simplemde = new SimpleMDE({
       element: $el[0],
-      autofocus: true,
+      autofocus: false,
       forceSync: true,
       spellChecker: false,
       renderingConfig: {

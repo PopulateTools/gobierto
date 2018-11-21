@@ -13,7 +13,7 @@ class GobiertoCitizensCharters::ApplicationController < ApplicationController
   end
 
   def services_home_enabled?
-    services_enabled? && current_site.gobierto_citizens_charters_settings&.enable_services_home
+    current_site.gobierto_citizens_charters_settings&.enable_services_home
   end
 
   private

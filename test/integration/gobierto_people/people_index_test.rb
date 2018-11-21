@@ -102,7 +102,7 @@ YAML
 
         within ".people-summary" do
           assert has_content? richard.name
-          refute has_content? tamara.name # hide people without events
+          assert has_no_content? tamara.name # hide people without events
         end
       end
     end

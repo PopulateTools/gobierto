@@ -72,8 +72,8 @@ module GobiertoCitizensCharters
           end
         end
 
-        refute has_content? edition_of_old_period.commitment.description
-        refute has_content? edition_with_draft_commitment.commitment.description
+        assert has_no_content? edition_of_old_period.commitment.description
+        assert has_no_content? edition_with_draft_commitment.commitment.description
       end
     end
 
@@ -87,7 +87,7 @@ module GobiertoCitizensCharters
         end
         assert has_content? edition_of_old_period.commitment.description
         visible_latest_period_editions.each do |edition|
-          refute has_content? edition.commitment.description
+          assert has_no_content? edition.commitment.description
         end
       end
     end
@@ -97,7 +97,7 @@ module GobiertoCitizensCharters
         with_javascript do
           visit @path
           within "#sparkline-#{ edition_without_other_editions.id }" do
-            refute has_css? "svg"
+            assert has_no_css? "svg"
           end
 
           within "#sparkline-#{ edition_with_other_editions.id }" do
@@ -165,8 +165,8 @@ module GobiertoCitizensCharters
           within "div.charter-number" do
             assert has_content? "66.7%"
           end
-          refute has_content? "Reached"
-          refute has_content? "Goal"
+          assert has_no_content? "Reached"
+          assert has_no_content? "Goal"
         end
       end
     end
@@ -178,8 +178,8 @@ module GobiertoCitizensCharters
           within "div.charter-number" do
             assert has_content? "66.7%"
           end
-          refute has_content? "Reached"
-          refute has_content? "Goal"
+          assert has_no_content? "Reached"
+          assert has_no_content? "Goal"
         end
       end
     end
@@ -191,7 +191,7 @@ module GobiertoCitizensCharters
           within "div.charter-number" do
             assert has_content? "100%"
           end
-          refute has_content? "Reached"
+          assert has_no_content? "Reached"
           refute has_content? "Goal"
         end
       end

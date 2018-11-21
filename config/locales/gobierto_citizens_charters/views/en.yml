@@ -23,8 +23,10 @@ en:
         about: About this charter
         editions_details: Detail of the commitments
         global_progress: We fulfill the commitments of this charter to
+        max_value: Goal
         see_all: See the full charter
         see_all_subtitle: Mission, Vision, Services, Responsible Unit...
+        value: Reached
     layouts:
       application:
         citizens_charters: Services Charters

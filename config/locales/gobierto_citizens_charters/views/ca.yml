@@ -23,8 +23,10 @@ ca:
         about: Sobre aquesta carta
         editions_details: Detall dels compromisos
         global_progress: Complim els compromisos d'aquesta carta al
+        max_value: Objectiu
         see_all: Veure la carta completa
         see_all_subtitle: Missió, Visió, Serveis, Unitat responsable...
+        value: Arribat
     layouts:
       application:
         citizens_charters: Cartes de Servei

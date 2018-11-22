@@ -36,12 +36,14 @@
   $size: if(unitless($size), $size * $unit, $size);
 
   .pure-g.gutters {
-    margin: 0 (-$size / 2);
+    margin-left: -$size / 2;
+    margin-right: -$size / 2;
   }
 
   .pure-g.gutters > [class *=pure-u] {
     box-sizing: border-box;
-    padding: 0 $size / 2;
+    padding-left: $size / 2;
+    padding-right: $size / 2;
   }
 }
 @include gutters;

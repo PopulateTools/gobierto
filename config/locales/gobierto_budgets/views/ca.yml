@@ -508,7 +508,6 @@ ca:
       application:
         budgets: Pressupostos
       menu_subsections:
-        budget: Pressupost
         data: Dades
         elaboration: Elaboració
         execution: Execució
@@ -516,7 +515,6 @@ ca:
         indicators: Indicadors
         providers: Proveïdors i Factures
         receipt: Rebut
-        summary: Resum
     providers:
       index:
         all_invoices: Totes les factures

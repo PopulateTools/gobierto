@@ -1,14 +1,4 @@
 <% title(@page.title) %>
 <% description(truncate(strip_tags(@page.body), length: 100)) %>
 
-<% content_for :breadcrumb_current_item do %>
-  <strong>
-    <% if @section %>
-      <%= link_to @section.title, gobierto_cms_section_path(@section.slug) %>
-    <% else %>
-      <%= @collection.title %>
-    <% end %>
-  </strong>
-<% end %>
-
 <%= render @page.template %>

@@ -501,7 +501,6 @@ es:
       application:
         budgets: Presupuestos
       menu_subsections:
-        budget: Presupuesto
         data: Datos
         elaboration: Elaboración
         execution: Ejecución
@@ -509,7 +508,6 @@ es:
         indicators: Indicadores
         providers: Proveedores y Facturas
         receipt: Recibo
-        summary: Resumen
     providers:
       index:
         all_invoices: Todas las facturas

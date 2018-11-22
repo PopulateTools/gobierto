@@ -1,17 +1,3 @@
-<% if @scope %>
-  <% content_for :breadcrumb_current_item do %>
-    <strong>
-      <%= link_to t('gobierto_participation.layouts.menu_subsections.scopes'), gobierto_participation_scopes_path %>
-    </strong>
-
-    <span role="separator">/</span>
-
-    <h1>
-      <%= link_to @scope.name, gobierto_participation_scope_path(@scope.slug) %>
-    </h1>
-  <% end %>
-<% end %>
-
 <div class='gradient-bg'>
   <div class='column'>
     <div class='pure-g'>

@@ -486,7 +486,6 @@ en:
       application:
         budgets: Budgets
       menu_subsections:
-        budget: Budget
         data: Data
         elaboration: Elaboration
         execution: Execution
@@ -494,7 +493,6 @@ en:
         indicators: Indicators
         providers: Providers and Invoices
         receipt: Receipt
-        summary: Summary
     providers:
       index:
         all_invoices: All the invoices

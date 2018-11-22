@@ -1,17 +1,3 @@
-<% if current_process %>
-  <% content_for :breadcrumb_current_item do %>
-    <strong>
-      <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
-    </strong>
-
-    <span role="separator">/</span>
-
-    <h1>
-      <%= link_to current_process.title, gobierto_participation_process_path(current_process.slug) %>
-    </h1>
-  <% end %>
-<% end %>
-
 <div class="gradient-bg">
   <div class="column">
 

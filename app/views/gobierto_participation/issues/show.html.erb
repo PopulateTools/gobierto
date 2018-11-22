@@ -6,12 +6,12 @@
   <span role="separator">/</span>
 
   <h1>
-    <%= link_to @issue.name, gobierto_participation_issue_path(@issue) %>
+    <%= link_to @issue.name, gobierto_participation_issue_path(@issue.slug) %>
   </h1>
 <% end %>
 
 <% content_for(:current_submodule_link) do %>
-  <%= link_to @issue.name, gobierto_participation_issue_path(@issue) %>
+  <%= link_to @issue.name, gobierto_participation_issue_path(@issue.slug) %>
 <% end %>
 
 <% content_for :subscribable_button do %>
@@ -22,7 +22,7 @@
   <div class="column">
     <div class="pure-g">
       <div class="pure-u-1">
-        <%= link_to gobierto_participation_issue_path(@issue),
+        <%= link_to gobierto_participation_issue_path(@issue.slug),
                     style: "background-image: url(#{image_url('illustrations/mobile.svg')})",
                     class: "p_1 content_block cover_bottom_left align_bottom_right" do %>
           <div>
@@ -35,8 +35,8 @@
   </div>
 </div>
 
-<%= render 'participation_latest_info' %>
+<%= render partial: "gobierto_participation/shared/latest_info", locals: { events: @issue_events, activities: @issue_notifications, news: @issue_news } %>
 
-<%= render 'participation_proccesses' %>
+<%= render partial: "gobierto_participation/shared/proccesses", locals: { processes: @processes } %>
 
-<%= render 'participation_groups' %>
+<%= render partial: "gobierto_participation/shared/groups", locals: { groups: @groups } %>

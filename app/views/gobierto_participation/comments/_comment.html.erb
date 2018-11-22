@@ -30,7 +30,6 @@
   <% end %>
 
   <% comment.replies.each do |comment| %>
-    <h3><%= t('.comments_html', comments: comment.comments_count) %></h3>
     <%= render partial: 'gobierto_participation/comments/comment', locals: { comment: comment, disabled: disabled } %>
   <% end %>
 

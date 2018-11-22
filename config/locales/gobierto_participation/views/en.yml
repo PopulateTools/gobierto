@@ -4,7 +4,6 @@ en:
     all_attachments: See all documents
     comments:
       comment:
-        comments_html: "<strong>%{comments}</strong> comments"
         respond: Respond
     events:
       event:
@@ -40,22 +39,6 @@ en:
         intro_html: Your ideas help improve %{location_name} and the lives of all
           that we reside here. Bring your best ideas to our <strong> permanent spaces
           participation </ strong>
-      participation_groups:
-        work_groups_description: Check the activity of each group and participate.
-        work_groups_title: Work groups
-      participation_latest_info:
-        agenda: Paritipation Agenda
-        news: News
-        no_events: There are no related events
-        no_news: There are no related news
-        show_more_events: See more events
-        show_more_news: See more news
-        show_more_updates: See more updates
-        the_last: The last
-        up_to_date: "%{site_title} up to date"
-      participation_proccesses:
-        processes_description: Consultation and participation in specific processes.
-        processes_title: Processes in progress
     layouts:
       application:
         title: Participation
@@ -72,6 +55,8 @@ en:
         news: News
     processes:
       contribution_containers:
+        index:
+          no_contributions_container: No contribution tool published
         show:
           all: All
           best_ratings: Best ratings
@@ -155,6 +140,7 @@ en:
           multiple_choice_msg: You can choose several options
       polls:
         index:
+          no_polls: There are no published polls
           polls: Polls
         theme_teaser_question:
           already_participated: You have already participated in this poll
@@ -174,14 +160,10 @@ en:
         interesting_information: Interesting information
         issue: Issue
         length: Duration
-        more_activities: More updates
-        more_events: More events
         more_information: More information
         more_news: More news
         newest: Newest
         news: News
-        no_activities: There are no related updates
-        no_events: There are no related events
         no_news: There are no related news
         process_stages: Process stages
         scope: Scope
@@ -192,22 +174,6 @@ en:
         intro_html: Your ideas help improve %{location_name} and the lives of all
           that we reside here. Bring your best ideas to our <strong> permanent spaces
           participation </ strong>
-      participation_groups:
-        work_groups_description: Check the activity of each group and participate.
-        work_groups_title: Work groups
-      participation_latest_info:
-        agenda: Paritipation Agenda
-        news: News
-        no_events: There are no related events
-        no_news: There are no related news
-        show_more_events: See more events
-        show_more_news: See more news
-        show_more_updates: See more updates
-        the_last: The last
-        up_to_date: "%{site_title} up to date"
-      participation_proccesses:
-        processes_description: Consultation and participation in specific processes.
-        processes_title: Processes in progress
     shared:
       activities_for: Updates for %{container}
       agenda: Agenda
@@ -219,7 +185,6 @@ en:
       all_attachments: See all documents
       all_events: View all events
       all_news: Show all news
-      consultation_processes: Consult and participate in specific processes.
       current_events: View current events
       diary_for: Diary for %{container}
       documents: Documents
@@ -232,15 +197,30 @@ en:
           agenda_for_container: Diary for
       filter_by_theme: Filter by theme
       from_to: "%{starts} to %{ends}"
+      groups:
+        no_groups: There are no published groups
+        work_groups_description: Check the activity of each group and participate.
+        work_groups_title: Work groups
+      latest_info:
+        agenda: Paritipation Agenda
+        news: News
+        show_more_events: See more events
+        show_more_news: See more news
+        show_more_updates: See more updates
+        the_last: The last
+        up_to_date: "%{site_title} up to date"
       news: News
       news_for: News for %{container}
       no_activities: No related updates
       no_documents: No related documents
       no_events: No related events
       no_news: No related news
-      ongoing_processes: Ongoing processes
       participation: Participation
       past_events: View past events
+      proccesses:
+        no_processes: There are no published processes
+        processes_description: Consultation and participation in specific processes.
+        processes_title: Processes in progress
       published_at: Posted on %{date} by %{site}
     welcome:
       index:
@@ -252,17 +232,6 @@ en:
           about the others.
         intro: Know the mechanisms of participation that offers you %{location_name}
         intro_p1: Vote every four years? Get involved in the day-to-day life.
-      participation_latest_info:
-        agenda: Diary
-        more_news: More news
-        news: News
-        no_activities: No related updates
-        no_events: No related events
-        no_news: No related news
-        show_more_events: More events
-        show_more_updates: More updates
-        the_last: The last
-        up_to_date: "%{site_title} up to date"
       participation_themes_list_a:
         intro: Bring your best ideas to improve %{location_name} and the life of all
           of us who live here.

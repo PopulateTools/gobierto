@@ -32,7 +32,7 @@ en:
         hi: Hi
         subject: Reset your password
       welcome:
-        alerts: 'You can manage your notification preferences in this url: %{notifications_url}'
+        alerts: 'You can manage your notification preferences in this url: %{subscriptions_url}'
         bye: Cheers
         hi: Hi
         subject: Welcome

@@ -82,13 +82,11 @@
     </div>
   </div>
 
-  <div class="contributions_content">
-
-  </div>
+  <div class="contributions_content"></div>
 </div>
 
-<%= javascript_tag do %>
-  contributionContainerData = JSON.parse('<%= raw @contribution_container_data.to_json %>');
+<%= content_for(:javascript_hook) do %>
+  window.GobiertoParticipation.contribution_containers_controller.show(<%== @contribution_container_data.to_json %>);
 
   function getPageAnchor() {
     var splittedUrl = window.location.href.split("#");
@@ -100,12 +98,13 @@
     }
   }
 
-  if (getPageAnchor()) {
+  var anchor = getPageAnchor();
+
+  if (anchor) {
     $.ajax({
-      url: '<%= @contribution_container.to_path %>/contributions/' + getPageAnchor(),
+      url: '<%= @contribution_container.to_path %>/contributions/' + anchor,
       dataType: 'script',
       method: 'GET'
     });
   }
-
 <% end %>

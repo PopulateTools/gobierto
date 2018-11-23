@@ -150,8 +150,6 @@ export class VisRentDistribution {
   }
 
   _renderVoronoi() {
-
-    console.log(d3.distanceLimitedVoronoi);
     
     // Create voronoi
     this.voronoi = d3.distanceLimitedVoronoi()
@@ -169,7 +167,15 @@ export class VisRentDistribution {
       .append('path')
       .style('fill', 'none')
       .attr('class', 'voronoiPath')
-      .attr('d', function(d) { return d.path; })
+      .attr('d', function(d) { 
+        try {
+          console.log('gut', d);
+          
+        } catch (e) {
+          console.log('ERROR', e, 'was', d);
+        }
+        
+        return d.path; })
       .style('pointer-events', 'all')
       .on('mousemove', this._mousemove.bind(this))
       .on('mouseout', this._mouseout.bind(this));

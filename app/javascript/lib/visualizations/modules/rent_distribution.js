@@ -169,8 +169,7 @@ export class VisRentDistribution {
       .attr('class', 'voronoiPath')
       .attr('d', function(d) { 
         try {
-          console.log('gut', d);
-          
+          const camin = d.path
         } catch (e) {
           console.log('ERROR', e, 'was', d);
         }

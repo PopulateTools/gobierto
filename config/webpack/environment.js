@@ -33,9 +33,6 @@ environment.plugins.append(
 // Set the ecma version only works on assets:precompile, not with the dev-server
 try {
   environment.plugins.get("UglifyJs").options.uglifyOptions.ecma = 5
-
-  environment.devtool = "source-map"
-  environment.plugins.get("UglifyJs").options.sourceMap = true
 } catch(e) {
   console.warn("Ignoring Uglify configuration")
 }

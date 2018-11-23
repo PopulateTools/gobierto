@@ -33,14 +33,13 @@ environment.plugins.append(
 // Set the ecma version only works on assets:precompile, not with the dev-server
 try {
   environment.plugins.get("UglifyJs").options.uglifyOptions.ecma = 5
+  environment.plugins.get("UglifyJs").options.sourceMap = true
 } catch(e) {
   console.warn("Ignoring Uglify configuration")
 }
 
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
-
-environment.devtool = 'cheap-module-eval-source-map'
 
 const envConfig = module.exports = environment
 const aliasConfig = module.exports = {

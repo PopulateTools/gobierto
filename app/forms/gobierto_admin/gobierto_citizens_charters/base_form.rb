@@ -33,6 +33,14 @@ module GobiertoAdmin
         @site ||= Site.find_by(id: site_id)
       end
 
+      def destroy
+        destroy_resource
+      end
+
+      def really_destroy!
+        really_destroy_resource
+      end
+
       def available_visibility_levels
         resources_relation.try(:visibility_levels)
       end
@@ -50,6 +58,20 @@ module GobiertoAdmin
 
         promote_errors(@resource.errors)
         false
+      end
+
+      def destroy_resource
+        resource.admin_id = admin_id
+        run_callbacks(:destroy) do
+          resource.destroy
+        end
+      end
+
+      def really_destroy_resource
+        resource.admin_id = admin_id
+        run_callbacks(:destroy) do
+          resource.really_destroy!
+        end
       end
 
       def resources_relation

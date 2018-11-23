@@ -23,6 +23,8 @@ module GobiertoCitizensCharters
       week: "s"
     }.freeze
 
+    attr_accessor :admin_id
+
     belongs_to :commitment, -> { with_archived }
 
     enum period_interval: PERIOD_INTERVAL_DATA.keys

@@ -37,6 +37,7 @@ module GobiertoAdmin
           find_charter
           extra_params[:site_id] = current_site.id
           extra_params[:charter_id] = @charter.id
+          extra_params[:admin_id] = current_admin.id
 
           @edition_form = EditionForm.new(edition_params.merge(extra_params))
           if @edition_form.save

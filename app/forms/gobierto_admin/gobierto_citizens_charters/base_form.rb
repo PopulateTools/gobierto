@@ -5,7 +5,7 @@ module GobiertoAdmin
     class BaseForm < ::BaseForm
       class NotImplementedError < StandardError; end
 
-      attr_accessor :id, :site_id
+      attr_accessor :id, :site_id, :admin_id
       attr_writer(
         :visibility_level
       )
@@ -43,6 +43,7 @@ module GobiertoAdmin
         @resource = resource.tap do |attributes|
           attributes.assign_attributes(visibility_level: visibility_level) if attributes.has_attribute? :visibility_level
           attributes.assign_attributes(attributes_assignments) if respond_to? :attributes_assignments
+          attributes.admin_id = admin_id
         end
 
         return @resource if @resource.save

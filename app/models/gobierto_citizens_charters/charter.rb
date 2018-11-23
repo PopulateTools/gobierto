@@ -17,6 +17,8 @@ module GobiertoCitizensCharters
       add_attribute :resource_path, :class_name
     end
 
+    attr_accessor :admin_id
+
     belongs_to :service, -> { with_archived }
     has_many :commitments, dependent: :destroy
     has_many :editions, through: :commitments, class_name: "GobiertoCitizensCharters::Edition"

@@ -28,7 +28,7 @@ module GobiertoAdmin
         end
 
         def create
-          @commitment_form = CommitmentForm.new(commitment_params.merge(site_id: current_site.id, charter_id: @charter.id))
+          @commitment_form = CommitmentForm.new(commitment_params.merge(site_id: current_site.id, charter_id: @charter.id, admin_id: current_admin.id))
 
           if @commitment_form.save
             redirect_to(
@@ -44,7 +44,7 @@ module GobiertoAdmin
         def update
           load_commitment
 
-          @commitment_form = CommitmentForm.new(commitment_params.merge(id: params[:id], site_id: current_site.id, charter_id: @commitment.charter.id))
+          @commitment_form = CommitmentForm.new(commitment_params.merge(id: params[:id], site_id: current_site.id, charter_id: @commitment.charter.id, admin_id: current_admin.id))
 
           if @commitment_form.save
             redirect_to(

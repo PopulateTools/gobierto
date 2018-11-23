@@ -11,6 +11,8 @@ module GobiertoCitizensCharters
     include GobiertoCommon::Sluggable
     include GobiertoCommon::HasVocabulary
 
+    attr_accessor :admin_id
+
     belongs_to :site
     has_many :charters, dependent: :destroy
     has_many :commitments, through: :charters, class_name: "GobiertoCitizensCharters::Commitment"

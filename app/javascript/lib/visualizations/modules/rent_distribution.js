@@ -150,6 +150,9 @@ export class VisRentDistribution {
   }
 
   _renderVoronoi() {
+
+    console.log(d3.distanceLimitedVoronoi);
+    
     // Create voronoi
     this.voronoi = d3.distanceLimitedVoronoi()
       .x(function(d) { return this.xScale(d.value); }.bind(this))

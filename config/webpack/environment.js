@@ -40,6 +40,8 @@ try {
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
 
+environment.devtool = 'cheap-module-eval-source-map'
+
 const envConfig = module.exports = environment
 const aliasConfig = module.exports = {
   resolve: {

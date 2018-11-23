@@ -4,6 +4,7 @@ module GobiertoAdmin
   module GobiertoCitizensCharters
     class BaseForm < ::BaseForm
       class NotImplementedError < StandardError; end
+      prepend ::GobiertoCommon::TrackableGroupedAttributes
 
       attr_accessor :id, :site_id, :admin_id
       attr_writer(
@@ -45,6 +46,10 @@ module GobiertoAdmin
         resources_relation.try(:visibility_levels)
       end
 
+      def notify?
+        !resource.respond_to?(:active?) || resource.active?
+      end
+
       private
 
       def save_resource
@@ -54,10 +59,18 @@ module GobiertoAdmin
           attributes.admin_id = admin_id
         end
 
-        return @resource if @resource.save
+        if @resource.valid?
+          if @resource.changes.any?
 
-        promote_errors(@resource.errors)
-        false
+            run_callbacks(:save) do
+              @resource.save
+            end
+          end
+          @resource
+        else
+          promote_errors(@resource.errors)
+          false
+        end
       end
 
       def destroy_resource

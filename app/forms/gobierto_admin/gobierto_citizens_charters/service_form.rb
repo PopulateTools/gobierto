@@ -12,6 +12,11 @@ module GobiertoAdmin
       validates :category, presence: true
       validates :title_translations, translated_attribute_presence: true
 
+      trackable_on :resource
+      notify_changed :visibility_level, :title_translations
+      notify_changed :title_translations, as: :service_attribute
+      use_publisher Publishers::AdminGobiertoCitizensChartersActivity
+
       def available_categories
         categories_relation
       end

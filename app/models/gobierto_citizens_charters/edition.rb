@@ -26,6 +26,7 @@ module GobiertoCitizensCharters
     attr_accessor :admin_id
 
     belongs_to :commitment, -> { with_archived }
+    delegate :site_id, :charter, to: :commitment
 
     enum period_interval: PERIOD_INTERVAL_DATA.keys
 

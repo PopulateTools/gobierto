@@ -27,6 +27,20 @@ en:
         see_all: See the full charter
         see_all_subtitle: Mission, Vision, Services, Responsible Unit...
         value: Reached
+    events:
+      gobierto_citizens_charters_charter_commitment_archived: Commitments archived
+      gobierto_citizens_charters_charter_commitment_created: Commitments created
+      gobierto_citizens_charters_charter_commitment_published: Commitments published
+      gobierto_citizens_charters_charter_commitment_updated: Commitments updated
+      gobierto_citizens_charters_charter_created: Charter created
+      gobierto_citizens_charters_charter_edition_created: Measurements created
+      gobierto_citizens_charters_charter_edition_deleted: Measurements deleted
+      gobierto_citizens_charters_charter_edition_updated: Measurements updated
+      gobierto_citizens_charters_charter_published: Charter published
+      gobierto_citizens_charters_charter_updated: Charter updated
+      gobierto_citizens_charters_service_created: Service created
+      gobierto_citizens_charters_service_published: Service published
+      gobierto_citizens_charters_service_updated: Service updated
     layouts:
       application:
         citizens_charters: Services Charters

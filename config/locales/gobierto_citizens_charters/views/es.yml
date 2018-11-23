@@ -27,6 +27,20 @@ es:
         see_all: Ver la carta completa
         see_all_subtitle: Misión, Visión, Servicios, Unidad responsable...
         value: Alcanzado
+    events:
+      gobierto_citizens_charters_charter_commitment_archived: Compromisos archivados
+      gobierto_citizens_charters_charter_commitment_created: Compromisos creados
+      gobierto_citizens_charters_charter_commitment_published: Compromisos publicados
+      gobierto_citizens_charters_charter_commitment_updated: Compromisos actualizados
+      gobierto_citizens_charters_charter_created: Carta creada
+      gobierto_citizens_charters_charter_edition_created: Mediciones creadas
+      gobierto_citizens_charters_charter_edition_deleted: Mediciones borradas
+      gobierto_citizens_charters_charter_edition_updated: Mediciones actualizadas
+      gobierto_citizens_charters_charter_published: Carta publicada
+      gobierto_citizens_charters_charter_updated: Carta actualizada
+      gobierto_citizens_charters_service_created: Servicio creado
+      gobierto_citizens_charters_service_published: Servicio publicado
+      gobierto_citizens_charters_service_updated: Servicio actualizado
     layouts:
       application:
         citizens_charters: Cartas de Servicios

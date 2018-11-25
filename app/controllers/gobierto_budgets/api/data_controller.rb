@@ -4,10 +4,13 @@ module GobiertoBudgets
       include GobiertoBudgets::ApplicationHelper
 
       caches_action :total_budget, :total_budget_execution, :population, :total_budget_per_inhabitant,
-                    :budget, :budget_execution, :budget_per_inhabitant, :budget_percentage_over_total, :debt
+                    :budget_execution, :budget_percentage_over_total, :debt
 
       caches_action(
         :lines,
+        :budget_per_inhabitant,
+        :budget,
+
         cache_path: proc { |c| "#{c.request.url}?locale=#{I18n.locale}" }
       )
 

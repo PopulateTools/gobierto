@@ -413,7 +413,7 @@ export class VisLineasJ {
                 })
                 d.dif = newValue[0].dif
                 if (d.dif != null) {
-                  return d.dif <= 0 ? d.dif + ' %' : '+' + d.dif + ' %';
+                  return d.dif <= 0 ? d.dif.toLocaleString(I18n.locale) + ' %' : '+' + d.dif.toLocaleString(I18n.locale) + ' %';
                 } else {
                   return '-- %'
                 }
@@ -588,7 +588,7 @@ export class VisLineasJ {
                   classed = 'value right ' + this._normalize(dataChartFiltered[0].name)
                 } else if (column == 'dif') {
                   if (dataChartFiltered[0][column] != null) {
-                    value = dataChartFiltered[0][column] > 0 ? '+' +dataChartFiltered[0][column] + ' %' : dataChartFiltered[0][column] + ' %'
+                    value = dataChartFiltered[0][column] > 0 ? '+' +dataChartFiltered[0][column].toLocaleString(I18n.locale) + ' %' : dataChartFiltered[0][column].toLocaleString(I18n.locale) + ' %'
                   } else {
                     value = '--%'
                   }

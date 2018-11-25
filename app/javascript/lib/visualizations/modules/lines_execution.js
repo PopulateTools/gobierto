@@ -387,12 +387,12 @@ export class VisLinesExecution {
       .style('top', (y + 40) + 'px');
 
     var tooltipHtml = '<div class="line-name"><strong>' + d['name_' + this.localeFallback] + '</strong></div>' +
-                      '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_budgeted')  + ': ' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</div>';
+                      '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_budgeted')  + ': ' + accounting.formatMoney(d.budget, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) + '</div>';
 
     if(d.budget_updated !== null)
-      tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_budgeted_updated')  + ': ' + accounting.formatMoney(d.budget_updated, "€", 0, ".", ",") + '</div>';
+      tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_budgeted_updated')  + ': ' + accounting.formatMoney(d.budget_updated, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) + '</div>';
 
-    tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_executed_amount')  + ': ' + accounting.formatMoney(d.executed, "€", 0, ".", ",") + '</div>';
+    tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_executed_amount')  + ': ' + accounting.formatMoney(d.executed, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) + '</div>';
 
     tooltipHtml += '<div>' + I18n.t('gobierto_common.visualizations.tooltip') + ' ' + this.pctFormat(d.pct_executed) + ' %</div>';
 

@@ -62,7 +62,7 @@ module GobiertoAdmin
           @process_stage = find_process_stage
 
           respond_to do |format|
-            if @process_stage.destroy
+            if !@process_stage.active && @process_stage.destroy
               format.js { flash.now[:notice] = t(".success") }
             else
               format.js { flash.now[:alert] = t(".default") }

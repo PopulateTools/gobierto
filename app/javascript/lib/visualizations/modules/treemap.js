@@ -66,10 +66,10 @@ export class VisTreemap {
         }.bind(this))
         .attr("title", function(d){
           function totalBudgetTooltipStr(str) {
-            return "<br>" + accounting.formatMoney(str, "€", 0, '.');
+            return "<br>" + accounting.formatMoney(str, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"));
           }
           function perInhabitantTooltipStr(str) {
-            return str ? "<br>" + accounting.formatMoney(str, "€", 0, ',') + " /" + I18n.t("gobierto_common.visualizations.inhabitant_short") : "";
+            return str ? "<br>" + accounting.formatMoney(str, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) + " /" + I18n.t("gobierto_common.visualizations.inhabitant_short") : "";
           }
           return "<strong>" + d.data.name + "</strong>" + totalBudgetTooltipStr(d.data.budget) + perInhabitantTooltipStr(d.data.budget_per_inhabitant);
         }.bind(this))
@@ -86,9 +86,9 @@ export class VisTreemap {
         .html(function(d) {
           function getBudgetAmount(d) {
             if (d.data.budget_per_inhabitant) {
-              return accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0) + "/" + I18n.t("gobierto_common.visualizations.inhabitant_short");
+              return accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) + "/" + I18n.t("gobierto_common.visualizations.inhabitant_short");
             } else {
-              return accounting.formatMoney(d.data.budget, "€", 0);
+              return accounting.formatMoney(d.data.budget, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"));
             }
           }
           if(d.children) {

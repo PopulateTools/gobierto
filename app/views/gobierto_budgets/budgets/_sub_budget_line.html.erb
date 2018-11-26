@@ -1,6 +1,6 @@
 <td><%= link_to sub_budget_line.name, gobierto_budgets_budget_line_path(sub_budget_line.to_param) %></td>
 <td style="<%= class_if("border-radius: 0 0 0 4px", last_item) %>" class="qty big_qty <%= class_if("highlight-proposal", @interesting_expenses_previous_year.present?) %>"><%= number_to_currency sub_budget_line.amount, precision:0 %></td>
-<td class="qty <%= class_if("highlight-proposal", @interesting_expenses_previous_year.present?) %>"><%= sub_budget_line.percentage_of_total %> %</td>
+<td class="qty <%= class_if("highlight-proposal", @interesting_expenses_previous_year.present?) %>"><%= percentage_format(sub_budget_line.percentage_of_total) %></td>
 <% unless controller_name == 'budgets_elaboration' %>
   <td class="bar <%= class_if("highlight-proposal", @interesting_expenses_previous_year.present?) %>"><div class="bar" style="width:<%= sub_budget_line.percentage_of_total %>%"></div></td>
 <% end %>

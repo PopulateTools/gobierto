@@ -30,4 +30,7 @@ $(document).on('turbolinks:load', function() {
 
   // fix this to be only in the home
   window.GobiertoParticipation.poll_teaser_controller.show();
+
+  // Add active class to menu
+  $('nav a[href="' + window.location.pathname + '"]').parent().addClass('active');
 });

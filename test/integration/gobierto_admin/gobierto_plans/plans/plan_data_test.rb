@@ -78,7 +78,7 @@ module GobiertoAdmin
               end
 
               assert_match "Invalid data entered", page.driver.browser.modal_message
-              refute has_content? "Test Plan Node"
+              assert has_no_content? "Test Plan Node"
             end
           end
         end

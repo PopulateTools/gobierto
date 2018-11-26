@@ -27,7 +27,7 @@ class SearchBoxTest < ActionDispatch::IntegrationTest
 
     with_current_site(site) do
       visit gobierto_people_root_path
-      refute has_selector?("#gobierto_search")
+      assert has_no_selector?("#gobierto_search")
 
       visit gobierto_budgets_root_path
       assert has_selector?(".search-box_input") # GobiertoBudgets search is shown instead

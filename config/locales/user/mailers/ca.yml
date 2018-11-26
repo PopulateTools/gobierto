@@ -35,7 +35,7 @@ ca:
         hi: Hola
         subject: Restaura la teva contrasenya
       welcome:
-        alerts: 'Pots gestionar les teves alertes des del teu compte: %{notifications_url}'
+        alerts: 'Pots gestionar les teves alertes des del teu compte: %{subscriptions_url}'
         bye: Salutacions
         hi: Hola
         subject: Benvingut

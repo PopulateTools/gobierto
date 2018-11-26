@@ -51,7 +51,15 @@ module GobiertoBudgets
     end
 
     def percentage_of_total(value, total)
-      number_with_precision((value.to_f / total.to_f) * 100, precision: 2) + '%'
+      percentage_fraction_format(value.to_f / total.to_f)
+    end
+
+    def percentage_fraction_format(fraction)
+      number_with_precision(fraction * 100, precision: 2) + '%'
+    end
+
+    def percentage_format(percentage)
+      number_with_precision(percentage, precision: 2) + '%'
     end
 
     def budget_line_denomination(area_name, code, kind, capped = -1)

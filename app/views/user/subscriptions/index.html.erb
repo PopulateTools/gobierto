@@ -1,9 +1,3 @@
-<% content_for :breadcrumb_current_item do %>
-  <h1>
-    <%= link_to t("user.layouts.menu_subsections.alerts"), user_subscriptions_path %>
-  </h1>
-<% end %>
-
 <div class="column">
   <%= form_for(@user_subscription_preferences_form, as: :user_subscription_preferences, url: :user_subscription_preferences, method: :patch) do |f| %>
     <div class="block">

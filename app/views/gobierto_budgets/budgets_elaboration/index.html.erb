@@ -1,11 +1,5 @@
 <% title t('.header') %>
 
-<% content_for :breadcrumb_current_item do %>
-  <h1>
-    <%= link_to t('gobierto_budgets.layouts.menu_subsections.elaboration'), gobierto_budgets_budgets_elaboration_path %>
-  </h1>
-<% end %>
-
 <% content_for :body_attributes do %>
   <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{Date.today.year + 1}"} %>
 <% end %>

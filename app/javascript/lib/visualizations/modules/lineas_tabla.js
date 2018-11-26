@@ -263,7 +263,7 @@ export class VisLineasJ {
       this.yAxis
           .scale(this.yScale)
           .tickValues(this._tickValues(this.yScale))
-          .tickFormat(function(d) { return accounting.formatMoney(d, "€", 0, ".", ","); })
+          .tickFormat(function(d) { return accounting.formatMoney(d, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")); })
           .tickSize(-(this.width - (this.margin.right + this.margin.left - 20)));
 
 
@@ -396,7 +396,7 @@ export class VisLineasJ {
                   return value.name == d.name;
                 })
                 d.value = newValue[0].value
-                return d.value != null ? accounting.formatMoney(d.value) : '-- €';
+                return d.value != null ? accounting.formatMoney(d.value, "€", 2, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) : '-- €';
               })
               .transition()
               .duration(self.duration)
@@ -413,7 +413,7 @@ export class VisLineasJ {
                 })
                 d.dif = newValue[0].dif
                 if (d.dif != null) {
-                  return d.dif <= 0 ? d.dif + ' %' : '+' + d.dif + ' %';
+                  return d.dif <= 0 ? d.dif.toLocaleString(I18n.locale) + ' %' : '+' + d.dif.toLocaleString(I18n.locale) + ' %';
                 } else {
                   return '-- %'
                 }
@@ -584,11 +584,11 @@ export class VisLineasJ {
                   classed = this._normalize(dataChartFiltered[0].name)
 
                 } else if (column == 'value') {
-                  value = dataChartFiltered[0][column] != null ? accounting.formatMoney(dataChartFiltered[0][column]) : '-- €'
+                  value = dataChartFiltered[0][column] != null ? accounting.formatMoney(dataChartFiltered[0][column], "€", 2, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) : '-- €'
                   classed = 'value right ' + this._normalize(dataChartFiltered[0].name)
                 } else if (column == 'dif') {
                   if (dataChartFiltered[0][column] != null) {
-                    value = dataChartFiltered[0][column] > 0 ? '+' +dataChartFiltered[0][column] + ' %' : dataChartFiltered[0][column] + ' %'
+                    value = dataChartFiltered[0][column] > 0 ? '+' +dataChartFiltered[0][column].toLocaleString(I18n.locale) + ' %' : dataChartFiltered[0][column].toLocaleString(I18n.locale) + ' %'
                   } else {
                     value = '--%'
                   }

@@ -1,11 +1,5 @@
 <% title t('.title', year: @year) %>
 
-<% content_for :breadcrumb_current_item do %>
-  <h1>
-    <%= link_to t('gobierto_budgets.layouts.menu_subsections.summary'), gobierto_budgets_budgets_path %>
-  </h1>
-<% end %>
-
 <% content_for :body_attributes do %>
   <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"} %>
 <% end %>
@@ -84,7 +78,7 @@
           <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.inhabitants_tooltip') %>" data-box="population">
             <div class="inner">
               <h3><%= t('.inhabitants') %></h3>
-              <div class="metric"><%= number_with_precision @site_stats.latest_available(:population, @year)[:value], precision: 0, delimiter: '.' %></div>
+              <div class="metric"><%= number_with_delimiter @site_stats.latest_available(:population, @year)[:value] %></div>
               <% if @site_stats.latest_available(:population, @year)[:year] != @year %>
                 <div class="explanation">
                   <%= t('.data_of_year', year: @site_stats.latest_available(:population, @year)[:year]) %>

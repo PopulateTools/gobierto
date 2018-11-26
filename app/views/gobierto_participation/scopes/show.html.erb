@@ -1,25 +1,13 @@
-<% content_for :breadcrumb_current_item do %>
-  <strong>
-    <%= link_to t('gobierto_participation.layouts.menu_subsections.scopes'), gobierto_participation_scopes_path %>
-  </strong>
-
-  <span role="separator">/</span>
-
-  <h1>
-    <%= link_to @scope.name, gobierto_participation_scope_path(@scope) %>
-  </h1>
-<% end %>
-
 <% content_for(:current_submodule_link) do %>
-  <%= link_to @scope.name, gobierto_participation_scope_path(@scope) %>
+  <%= link_to @scope.name, gobierto_participation_scope_path(@scope.slug) %>
 <% end %>
 
 <% content_for :subscribable_button do %>
   <%= render 'user/subscriptions/subscribable_button', subscribable: @scope %>
 <% end %>
 
-<%= render 'participation_latest_info' %>
+<%= render partial: "gobierto_participation/shared/latest_info", locals: { events: @scope_events, activities: @scope_notifications, news: @scope_news } %>
 
-<%= render 'participation_proccesses' %>
+<%= render partial: "gobierto_participation/shared/proccesses", locals: { processes: @processes } %>
 
-<%= render 'participation_groups' %>
+<%= render partial: "gobierto_participation/shared/groups", locals: { groups: @groups } %>

@@ -1,7 +1,5 @@
 <% description(@person.bio) %>
 
-<%= render "gobierto_people/people/content_for_breadcrumb" %>
-
 <% content_for :subscribable_button do %>
   <%= render 'user/subscriptions/subscribable_button', subscribable: @person %>
 <% end %>

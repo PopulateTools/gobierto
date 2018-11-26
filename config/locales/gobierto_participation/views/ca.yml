@@ -4,7 +4,6 @@ ca:
     all_attachments: Mostra tots les documents
     comments:
       comment:
-        comments_html: "<strong>%{comments}</strong> comentaris"
         respond: Respondre
     events:
       event:
@@ -38,22 +37,6 @@ ca:
         intro_html: Las teves idees ajuden a millorar %{location_name} i la vida de
           tots els que residim aquí. Aporta els teus millors idees en els nostres
           <strong> espais permanents de participació</strong>.
-      participation_groups:
-        work_groups_description: Consulta l'activitat de cada grup i participa.
-        work_groups_title: Grups de treball
-      participation_latest_info:
-        agenda: Agenda Participació
-        news: Notícies
-        no_events: No hi ha esdeveniments relacionats
-        no_news: No hi ha notícies relacionades
-        show_more_events: Veure més esdeveniments
-        show_more_news: Veure més notícies
-        show_more_updates: Veure més actualitzacions
-        the_last: L'últim
-        up_to_date: "%{site_title} al dia"
-      participation_proccesses:
-        processes_description: Consulta i participa en processos específics.
-        processes_title: Processos en marxa
     layouts:
       application:
         title: Participació
@@ -70,6 +53,9 @@ ca:
         news: Notícies
     processes:
       contribution_containers:
+        index:
+          no_contributions_container: Encara no hi ha publicada ninguna ferramenta
+            de aportacions
         show:
           all: Tots
           best_ratings: Millors puntuacions
@@ -154,6 +140,7 @@ ca:
           multiple_choice_msg: Pots triar diverses opcions
       polls:
         index:
+          no_polls: No hi ha enquestes publicades
           polls: Enquestes
         theme_teaser_question:
           already_participated: Ja has participat en aquesta enquesta
@@ -173,14 +160,10 @@ ca:
         interesting_information: Informació d'interès
         issue: Tema
         length: Durada
-        more_activities: Veure més actualitzacions
-        more_events: Veure més esdeveniments
         more_information: Més informació
         more_news: Veure més notícies
         newest: L'últim
         news: Notícies
-        no_activities: No hi ha esdeveniments actualitzacions
-        no_events: No hi ha esdeveniments relacionats
         no_news: No hi ha notícies relacionades
         process_stages: Fases del procés
         scope: Àmbit
@@ -191,22 +174,6 @@ ca:
         intro_html: Las teves idees ajuden a millorar %{location_name} i la vida de
           tots els que residim aquí. Aporta els teus millors idees en els nostres
           <strong> espais permanents de participació</strong>.
-      participation_groups:
-        work_groups_description: Consulta l'activitat de cada grup i participa.
-        work_groups_title: Grups de treball
-      participation_latest_info:
-        agenda: Agenda Participació
-        news: Notícies
-        no_events: No hi ha esdeveniments relacionats
-        no_news: No hi ha notícies relacionades
-        show_more_events: Veure més esdeveniments
-        show_more_news: Veure més notícies
-        show_more_updates: Veure més actualitzacions
-        the_last: L'últim
-        up_to_date: "%{site_title} al dia"
-      participation_proccesses:
-        processes_description: Consulta i participa en processos específics.
-        processes_title: Processos en marxa
     shared:
       activities_for: Activitat de %{container}
       agenda: Agenda
@@ -218,7 +185,6 @@ ca:
       all_attachments: Veure totes les documents
       all_events: Veure tots els esdeveniments
       all_news: Veure totes les notícies
-      consultation_processes: Consulta i participa en processos específics.
       current_events: Veure esdeveniments actuals
       diary_for: Agenda de %{container}
       documents: Documents
@@ -231,15 +197,30 @@ ca:
           agenda_for_container: Agenda d'
       filter_by_theme: Filtrar per tema
       from_to: "%{starts} al %{ends}"
+      groups:
+        no_groups: Encara no hi ha grups publicats
+        work_groups_description: Consulta l'activitat de cada grup i participa.
+        work_groups_title: Grups de treball
+      latest_info:
+        agenda: Agenda Participació
+        news: Notícies
+        show_more_events: Veure més esdeveniments
+        show_more_news: Veure més notícies
+        show_more_updates: Veure més actualitzacions
+        the_last: L'últim
+        up_to_date: "%{site_title} al dia"
       news: Notícies
       news_for: Notícies de %{container}
       no_activities: No hi ha actualitzacions relacionades
       no_documents: No hi ha documents relacionats
       no_events: No hi ha esdeveniments relacionats
       no_news: No hi ha notícies relacionades
-      ongoing_processes: Processos en marxa
       participation: Participació
       past_events: Veure esdeveniments passats
+      proccesses:
+        no_processes: Encara no hi ha processos publicats
+        processes_description: Consulta i participa en processos específics.
+        processes_title: Processos en marxa
       published_at: Publicat el %{date} per %{site}
     welcome:
       index:
@@ -250,17 +231,6 @@ ca:
           la vostra opinió sobre els altres.
         intro: Coneix els mecanismes de participació que t'ofereix %{location_name}
         intro_p1: Votar cada quatre anys? Implica't en el dia a dia.
-      participation_latest_info:
-        agenda: Agenda
-        more_news: Veure més notícies
-        news: Notícies
-        no_activities: No hi ha actualitzacions relacionades
-        no_events: No hi ha esdeveniments relacionats
-        no_news: No hi ha notícies relacionades
-        show_more_events: Veure més esdeveniments
-        show_more_updates: Veure més actualitzacions
-        the_last: L'últim
-        up_to_date: "%{site_title} al dia"
       participation_themes_list_a:
         intro: Aporta els teus millors idees per millorar% {location_name} i la vida
           de tots els que residim aquí.

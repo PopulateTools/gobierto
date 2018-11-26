@@ -8,6 +8,7 @@ module GobiertoCitizensCharters
 
     include ActsAsParanoidAliases
 
+    SIGNIFICATIVE_DECIMALS = 1
     PERIOD_INTERVAL_DATA = {
       year: ->(date) { { year: date.year } },
       quarter: ->(date) { { year: date.year, quarter: (date.month / 4) + 1 } },
@@ -34,6 +35,10 @@ module GobiertoCitizensCharters
       return nil if percentage.blank? && [value, max_value].any?(&:blank?)
 
       percentage || 100 * (value / max_value)
+    end
+
+    def has_values?
+      [value, max_value].all?(&:present?) && (percentage.blank? || percentage.round(SIGNIFICATIVE_DECIMALS) == (100 * (value / max_value)).round(SIGNIFICATIVE_DECIMALS))
     end
 
     def front_period_interval

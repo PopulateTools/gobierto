@@ -924,6 +924,17 @@ $lighter_black: rgba($color_headers, 0.7);
     }
   }
 
+  /* Activities */
+  .activities_teaser {
+    h3 {
+      font-weight: 600;
+
+      a {
+        color: $green;
+      }
+    }
+  }
+
   /* Theme list */
   .slim_headline {
     color: $black;

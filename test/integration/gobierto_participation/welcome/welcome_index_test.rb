@@ -150,7 +150,7 @@ module GobiertoParticipation
 
         assert has_content?("My Template")
 
-        assert has_content?("Diary")
+        assert has_content?("Paritipation Agenda")
         assert has_content?("The last")
         assert has_content?("News")
 
@@ -159,7 +159,7 @@ module GobiertoParticipation
           assert has_link?(issue.name)
         end
 
-        assert has_content?("Ongoing processes")
+        assert has_content?("Processes in progress")
         processes.each do |process|
           assert has_link?(process.title)
         end

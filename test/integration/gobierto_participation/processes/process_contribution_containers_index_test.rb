@@ -100,7 +100,7 @@ module GobiertoParticipation
 
         assert_equal process_contribution_containers.active.size, all(".themed").size
 
-        refute has_content? draft_container.title
+        assert has_no_content? draft_container.title
 
         within contribution_container_wrapper(current_container) do
           assert has_content? 'What can we do to improve the bowling group?'

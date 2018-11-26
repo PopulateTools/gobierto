@@ -8,8 +8,6 @@ module GobiertoParticipation
     include GobiertoCommon::Sluggable
     include GobiertoCommon::UrlBuildable
 
-    before_destroy :check_stage_active
-
     belongs_to :process
     has_one :process_stage_page, class_name: "GobiertoParticipation::ProcessStagePage", dependent: :destroy
 
@@ -112,12 +110,6 @@ module GobiertoParticipation
     end
 
     private
-
-    def check_stage_active
-      return true unless active?
-      false
-      throw(:abort)
-    end
 
     def singular_route_key
       if information?

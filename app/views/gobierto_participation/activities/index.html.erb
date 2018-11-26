@@ -23,15 +23,13 @@
       </div>
 
       <div class='pure-u-1 pure-u-lg-2-3'>
-        <div class="activity_feed">
-          <% if @activities.any? %>
-            <% @activities.each do |activity| %>
-              <%= render 'gobierto_participation/shared/activities/activity_teaser', { activity: activity } %>
-            <% end %>
-          <% else %>
-            <%= t("gobierto_participation.shared.no_activities") %>
+        <% if @activities.any? %>
+          <% @activities.each do |activity| %>
+            <%= render 'gobierto_participation/shared/activities/activity_teaser', { activity: activity } %>
           <% end %>
-        </div>
+        <% else %>
+          <%= t("gobierto_participation.shared.no_activities") %>
+        <% end %>
       </div>
     </div>
   </div>

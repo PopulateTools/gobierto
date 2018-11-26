@@ -37,7 +37,7 @@ module GobiertoAdmin
 
             within "#file_attachments_in_collection" do
               assert has_selector?("tr", count: collections_with_container.size)
-              refute has_link?(collection_with_archived_container.title.to_s)
+              assert has_no_link?(collection_with_archived_container.title.to_s)
 
               collections_with_container.each do |collection|
                 assert has_selector?("tr#collection-item-#{collection.id}")

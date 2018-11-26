@@ -100,12 +100,12 @@
           <% if @process_events.any? %>
             <%= render partial: "gobierto_participation/shared/events/place_event", collection: @process_events %>
           <% else %>
-            <%= t('.no_events') %>
+            <%= t("gobierto_participation.shared.no_events") %>
           <% end %>
         </div>
 
         <% if @process_events.any? %>
-          <%= link_to t('.more_events'), gobierto_participation_process_events_path(process_id: @process.slug) %>
+          <%= link_to t('gobierto_participation.shared.latest_info.show_more_events'), gobierto_participation_process_events_path(process_id: @process.slug) %>
         <% end %>
       </div>
 
@@ -117,12 +117,12 @@
               <%= render 'place_activities', { activity: activity } %>
             <% end %>
           <% else %>
-            <%= t('.no_activities') %>
+            <%= t("gobierto_participation.shared.no_activities") %>
           <% end %>
         </div>
 
         <% if @process_activities.any? %>
-          <%= link_to t('.more_activities'), gobierto_participation_process_activities_path(process_id: @process.slug) %>
+          <%= link_to t('gobierto_participation.shared.latest_info.show_more_updates'), gobierto_participation_process_activities_path(process_id: @process.slug) %>
         <% end %>
       </div>
 

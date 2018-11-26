@@ -30,7 +30,7 @@
           <div class="box-inner">
             <div class="box-results top left">
               <div class="results-title"><%= t(".global_progress") %></div>
-              <div class="results-value"><%= number_to_percentage(@resources_root.progress, precision: 1, strip_insignificant_zeros: true) %></div>
+              <div class="results-value"><%= format_percentage(@resources_root.progress) %></div>
             </div>
             <div class="box-contents bottom right">
               <%= t(".period") %>
@@ -49,7 +49,7 @@
             <% if charter.progress.present? %>
               <div class="box-results bottom left">
                 <div class="results-title"><%= t(".progress") %></div>
-                <div class="results-value"><%= number_to_percentage(charter.progress, precision: 1, strip_insignificant_zeros: true) %></div>
+                <div class="results-value"><%= format_percentage(charter.progress) %></div>
               </div>
             <% end %>
             <div class="box-contents bottom right"><%= t(".commitments", count: charter.commitments.count) %></div>

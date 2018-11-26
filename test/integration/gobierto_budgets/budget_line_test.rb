@@ -98,7 +98,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
 
         click_button "Send"
 
-        refute has_content? subscription_ack_message
+        assert has_no_content?(subscription_ack_message)
       end
     end
   end
@@ -143,7 +143,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
 
         click_button "Follow"
 
-        refute has_content? subscription_ack_message
+        assert has_no_content?(subscription_ack_message)
       end
     end
   end

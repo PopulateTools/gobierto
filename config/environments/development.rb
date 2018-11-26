@@ -55,7 +55,7 @@ Rails.application.configure do
   config.assets.quiet = true
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [:domain, :request_id]
+  config.log_tags = [:host, :request_id]
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

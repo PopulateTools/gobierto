@@ -624,6 +624,17 @@ pre {
       opacity: 1;
     }
   }
+
+  &.is-floating .globalize_tool {
+    position: fixed;
+    top: 40px;
+    z-index: 100;
+    border: 1px solid $color_separator;
+    border-top: 0;
+    background: #fafafa;
+    box-shadow: 0 4px 2px -2px $color_separator;
+    padding: 3px;
+  }
 }
 
 .nav_back {

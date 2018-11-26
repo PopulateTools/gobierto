@@ -4,18 +4,19 @@ window.GobiertoAdmin.SortableComponent = (function() {
   function SortableComponent() {}
 
   SortableComponent.prototype.list = function(options) {
-    _handleSortableList(options.wrapper, options.placeholder);
+    let positionOffset = options.hasOwnProperty("positionOffset") ? options.positionOffset : 0
+    _handleSortableList(options.wrapper, options.placeholder, positionOffset);
   };
 
-  function _handleSortableList(wrapper, placeholder) {
+  function _handleSortableList(wrapper, placeholder, positionOffset) {
     $(wrapper).sortable({
       items: '.list_item',
       handle: '.custom_handle',
       forcePlaceholderSize: true,
       placeholder: placeholder,
       update: function() {
-        _refreshPositions(wrapper);
-        _requestUpdate(wrapper, _buildPositions(wrapper));
+        _refreshPositions(wrapper, positionOffset);
+        _requestUpdate(wrapper, _buildPositions(wrapper, positionOffset));
       },
       helper: _fixWidthHelper
     });
@@ -28,19 +29,19 @@ window.GobiertoAdmin.SortableComponent = (function() {
     return ui;
   }
 
-  function _refreshPositions(wrapper) {
+  function _refreshPositions(wrapper, positionOffset) {
     $(wrapper).find(".list_item").each(function(index) {
-      $(this).attr("data-pos", index + 1);
+      $(this).attr("data-pos", positionOffset + index + 1);
     });
   }
 
-  function _buildPositions(wrapper) {
+  function _buildPositions(wrapper, positionOffset) {
     var positions = [];
 
     $(wrapper).find(".list_item").each(function(index) {
       positions.push({
         id: $(this).data("id"),
-        position: index + 1
+        position: positionOffset + index + 1
       });
     });
 

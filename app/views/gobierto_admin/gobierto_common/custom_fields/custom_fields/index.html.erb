@@ -66,8 +66,13 @@
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
     window.GobiertoAdmin.sortable_component.list({
-      wrapper: "div[data-behavior=sortable]",
+      wrapper: "div[data-behavior=sortable-localized]",
       placeholder: '<div class="list_item">&nbsp;&nbsp;</div>'
+    });
+    window.GobiertoAdmin.sortable_component.list({
+      wrapper: "div[data-behavior=sortable-not-localized]",
+      placeholder: '<div class="list_item">&nbsp;&nbsp;</div>',
+      positionOffset: <%= @localized_custom_fields.maximum(:position) || 0 %>
     });
   <% end %>
 <% end %>

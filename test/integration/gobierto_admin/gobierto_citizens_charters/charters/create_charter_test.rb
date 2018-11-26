@@ -4,11 +4,11 @@ require "test_helper"
 
 module GobiertoAdmin
   module GobiertoCitizensCharters
-    module Services
-      class CreateServiceTest < ActionDispatch::IntegrationTest
+    module Charters
+      class CreateCharterTest < ActionDispatch::IntegrationTest
         def setup
           super
-          @path = new_admin_citizens_charters_service_path
+          @path = new_admin_citizens_charters_charter_path
         end
 
         def admin
@@ -33,7 +33,7 @@ module GobiertoAdmin
           end
         end
 
-        def test_create_service_errors
+        def test_create_charter_errors
           with_javascript do
             with_signed_in_admin(admin) do
               with_current_site(site) do
@@ -41,24 +41,24 @@ module GobiertoAdmin
 
                 click_button "Create"
 
-                assert has_alert?("can't be blank")
+                assert has_alert?("Title can't be blank")
               end
             end
           end
         end
 
-        def test_create_service
+        def test_create_charter
           with_javascript do
             with_signed_in_admin(admin) do
               with_current_site(site) do
                 visit @path
 
-                fill_in "service_title_translations_en", with: "Big service"
+                fill_in "charter_title_translations_en", with: "Dependent people"
 
                 click_link "ES"
-                fill_in "service_title_translations_es", with: "Gran servicio"
+                fill_in "charter_title_translations_es", with: "Personas dependientes"
 
-                select "Culture", from: "service_category_id"
+                select "Teleassistance", from: "charter_service_id"
 
                 within ".widget_save" do
                   find("label", text: "Published").click
@@ -66,27 +66,30 @@ module GobiertoAdmin
 
                 click_button "Create"
 
-                assert has_message?("The service has been correctly created.")
+                assert has_message?("The charter has been correctly created.")
 
-                click_link "Big service"
+                new_charter = ::GobiertoCitizensCharters::Charter.last
+                within "#charter-item-#{ new_charter.id }" do
+                  find("i.fa-edit").click
+                end
 
-                assert has_select?("service_category_id", with_selected: "Culture")
+                assert has_select?("charter_service_id", with_selected: "Teleassistance")
 
-                assert has_field?("service_title_translations_en", with: "Big service")
+                assert has_field?("charter_title_translations_en", with: "Dependent people")
 
                 click_link "ES"
 
-                assert has_field?("service_title_translations_es", with: "Gran servicio")
+                assert has_field?("charter_title_translations_es", with: "Personas dependientes")
               end
             end
           end
 
           activity = Activity.last
-          new_service = ::GobiertoCitizensCharters::Service.last
-          assert_equal new_service, activity.subject
+          new_charter = ::GobiertoCitizensCharters::Charter.last
+          assert_equal new_charter, activity.subject
           assert_equal admin, activity.author
           assert_equal site.id, activity.site_id
-          assert_equal "gobierto_citizens_charters.service.created", activity.action
+          assert_equal "gobierto_citizens_charters.charter.created", activity.action
         end
       end
     end

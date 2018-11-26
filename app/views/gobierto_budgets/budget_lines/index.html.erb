@@ -1,11 +1,5 @@
 <% title t('.title', year: @year) %>
 
-<% content_for :breadcrumb_current_item do %>
-  <h1>
-    <%= link_to t('gobierto_budgets.layouts.menu_subsections.budget'), gobierto_budgets_budget_lines_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, level: 1) %>
-  </h1>
-<% end %>
-
 <div class="column">
 	<%= render partial: 'gobierto_budgets/budgets/year_breadcrumb' %>
   <%= render partial: 'gobierto_budgets/budget_lines/explorer' %>

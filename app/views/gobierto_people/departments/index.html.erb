@@ -1,9 +1,3 @@
-<% content_for :breadcrumb_current_item do %>
-  <h1>
-    <%= link_to t("gobierto_people.layouts.menu_subsections.departments"), gobierto_people_departments_path %>
-  </h1>
-<% end %>
-
 <h2><%= t("gobierto_people.layouts.menu_subsections.departments") %> </h2>
 
 <%= render partial: "department", collection: @departments %>

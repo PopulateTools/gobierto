@@ -3,12 +3,6 @@
   set_meta_tags description: t('.description', place: current_site.organization_name, year: @year)
 %>
 
-<% content_for :breadcrumb_current_item do %>
-  <h1>
-    <%= link_to t('gobierto_budgets.layouts.menu_subsections.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %>
-  </h1>
-<% end %>
-
 <div class="column">
   <div class="block">
     <div class="pure-g header_block_inline">

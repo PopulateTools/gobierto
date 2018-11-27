@@ -4,11 +4,11 @@ module ApplicationHelper
 
   def body_css_classes
     classes = []
-    classes.push current_module == 'gobierto_participation' ?  'gobierto_participation theme-participation' : current_module
+    classes.push current_module == "gobierto_participation" ? "gobierto_participation theme-participation" : current_module
     classes.push controller_name
     classes.push action_name
     classes.push "#{controller_name}_#{action_name}"
-    classes.push "#{controller_path}_#{action_name}".gsub("/", "_")
+    classes.push "#{controller_path}_#{action_name}".tr("/", "_")
     classes.join(" ")
   end
 
@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def privacy_policy_page_link
-    if current_site && current_site.configuration.privacy_page?
+    if current_site&.configuration&.privacy_page?
       link_to t("layouts.accept_privacy_policy_signup"), gobierto_cms_page_or_news_path(current_site.configuration.privacy_page)
     end
   end
@@ -54,19 +54,26 @@ module ApplicationHelper
   end
 
   def filetype_icon(attachment)
-    extension = if attachment.class == String
-                  attachment.split(".").last
-                else
-                  attachment.extension
-                end
-
-    fontawesome_filetype = if ::GobiertoAttachments::Attachment.extension_fontawesome_matching.has_key?(extension.to_sym)
-                             "-" + ::GobiertoAttachments::Attachment.extension_fontawesome_matching[extension.to_sym]
+    extension = attachment_extension(attachment)
+    fontawesome_filetype = if ::GobiertoAttachments::Attachment.extension_fontawesome_matching.has_key?(extension)
+                             "-" + ::GobiertoAttachments::Attachment.extension_fontawesome_matching[extension]
                            else
                              ""
                            end
     html = "<i class='fa fa-file" + fontawesome_filetype + "-o'></i>"
     html.html_safe
+  end
+
+  def image_extension?(attachment)
+    ::GobiertoAttachments::Attachment.extension_fontawesome_matching[attachment_extension(attachment)] == "image"
+  end
+
+  def attachment_extension(attachment)
+    if attachment.class == String
+      attachment.split(".").last
+    else
+      attachment.extension
+    end.to_sym
   end
 
   def current_parameters_with_year(year)
@@ -79,7 +86,7 @@ module ApplicationHelper
     answerable_polls_by_user = answerable_polls.detect { |p| p.answerable_by?(current_user) } if current_user
 
     if current_user
-      if poll && poll.answerable_by?(current_user)
+      if poll&.answerable_by?(current_user)
         poll
       elsif answerable_polls_by_user
         answerable_polls_by_user
@@ -109,7 +116,7 @@ module ApplicationHelper
 
   def whom(entity_name)
     if I18n.locale == :ca
-      if /\A[aeiou]/i =~ entity_name
+      if /\A[aeiou]/i.match? entity_name
         " l'#{entity_name}"
       else
         # TODO: define a setting with the genre of the entity
@@ -140,12 +147,12 @@ module ApplicationHelper
 
     stripped_text = html_text.dup
 
-    if (options[:headers] == false)
-      stripped_text.gsub!(/<h\d(.*?)>/, "<p>")  # header opening
-      stripped_text.gsub!(/<\\h\d>/, "</p>")    # header closing
+    if options[:headers] == false
+      stripped_text.gsub!(/<h\d(.*?)>/, "<p>") # header opening
+      stripped_text.gsub!(/<\\h\d>/, "</p>") # header closing
     end
 
-    stripped_text.gsub!(/<img(.*?)>/, "") if (options[:images] == false)
+    stripped_text.gsub!(/<img(.*?)>/, "") if options[:images] == false
 
     truncate_html(stripped_text, options)
   end

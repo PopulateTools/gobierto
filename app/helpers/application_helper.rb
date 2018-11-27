@@ -54,19 +54,26 @@ module ApplicationHelper
   end
 
   def filetype_icon(attachment)
-    extension = if attachment.class == String
-                  attachment.split(".").last
-                else
-                  attachment.extension
-                end
-
-    fontawesome_filetype = if ::GobiertoAttachments::Attachment.extension_fontawesome_matching.has_key?(extension.to_sym)
-                             "-" + ::GobiertoAttachments::Attachment.extension_fontawesome_matching[extension.to_sym]
+    extension = attachment_extension(attachment)
+    fontawesome_filetype = if ::GobiertoAttachments::Attachment.extension_fontawesome_matching.has_key?(extension)
+                             "-" + ::GobiertoAttachments::Attachment.extension_fontawesome_matching[extension]
                            else
                              ""
                            end
     html = "<i class='fa fa-file" + fontawesome_filetype + "-o'></i>"
     html.html_safe
+  end
+
+  def image_extension?(attachment)
+    ::GobiertoAttachments::Attachment.extension_fontawesome_matching[attachment_extension(attachment)] == "image"
+  end
+
+  def attachment_extension(attachment)
+    if attachment.class == String
+      attachment.split(".").last
+    else
+      attachment.extension
+    end.to_sym
   end
 
   def current_parameters_with_year(year)

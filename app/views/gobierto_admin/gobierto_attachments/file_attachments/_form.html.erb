@@ -5,7 +5,11 @@
     <div class='pure-u-1 pure-u-md-16-24'>
       <div class='form_item file_field avatar_file_field'>
         <% if f.object.url.present? %>
-          <%= filetype_icon(f.object.url) %>
+          <% if image_extension?(f.object.url) %>
+            <%= image_tag f.object.url %>
+          <% else %>
+            <%= filetype_icon(f.object.url) %>
+          <% end %>
         <% end %>
         <%= label_tag "file_attachment[file]" do %>
           <%= t('.file_constraints') %>

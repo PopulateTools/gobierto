@@ -21,6 +21,8 @@ module GobiertoCommon
 
     translates :name, :description
 
+    delegate :site, to: :vocabulary
+
     def attributes_for_slug
       [vocabulary_name, name]
     end

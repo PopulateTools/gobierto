@@ -28,7 +28,7 @@ module GobiertoAdmin
         end
 
         def create
-          @commitment_form = CommitmentForm.new(commitment_params.merge(site_id: current_site.id, charter_id: @charter.id))
+          @commitment_form = CommitmentForm.new(commitment_params.merge(site_id: current_site.id, charter_id: @charter.id, admin_id: current_admin.id))
 
           if @commitment_form.save
             redirect_to(
@@ -44,7 +44,7 @@ module GobiertoAdmin
         def update
           load_commitment
 
-          @commitment_form = CommitmentForm.new(commitment_params.merge(id: params[:id], site_id: current_site.id, charter_id: @commitment.charter.id))
+          @commitment_form = CommitmentForm.new(commitment_params.merge(id: params[:id], site_id: current_site.id, charter_id: @commitment.charter.id, admin_id: current_admin.id))
 
           if @commitment_form.save
             redirect_to(
@@ -59,9 +59,10 @@ module GobiertoAdmin
 
         def destroy
           load_commitment
-          charter = commitment.charter
+          charter = @commitment.charter
+          @commitment_form = CommitmentForm.new(id: @commitment.id, site_id: current_site.id, charter_id: charter.id, admin_id: current_admin.id)
 
-          if @charter.destroy
+          if @commitment_form.destroy
             redirect_to admin_citizens_charters_charter_commitments_path(charter), notice: t(".success")
           else
             redirect_to admin_citizens_charters_charter_commitments_path(charter), alert: t(".destroy_failed")

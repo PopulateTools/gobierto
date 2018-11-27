@@ -22,9 +22,9 @@ module GobiertoAdmin
 
         def destroy
           find_charter
-          @edition = @charter.editions.find(params[:id])
+          @edition_form = EditionForm.new(id: params[:id], site_id: current_site.id, charter_id: @charter.id, admin_id: current_admin.id)
 
-          if @edition.really_destroy!
+          if @edition_form.really_destroy!
             render json: { message: "destroyed" }
           else
             render json: { error: "Record couldn't be destroyed" }, status: 400
@@ -37,6 +37,7 @@ module GobiertoAdmin
           find_charter
           extra_params[:site_id] = current_site.id
           extra_params[:charter_id] = @charter.id
+          extra_params[:admin_id] = current_admin.id
 
           @edition_form = EditionForm.new(edition_params.merge(extra_params))
           if @edition_form.save

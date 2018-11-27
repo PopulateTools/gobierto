@@ -17,6 +17,8 @@ module GobiertoCitizensCharters
       add_attribute :resource_path, :class_name
     end
 
+    attr_accessor :admin_id
+
     belongs_to :charter, -> { with_archived }
     has_many :editions, dependent: :destroy
 

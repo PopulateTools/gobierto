@@ -13,6 +13,12 @@ module GobiertoAdmin
       validates :charter, presence: true
       validates :title_translations, translated_attribute_presence: true
 
+      trackable_on :resource
+      notify_changed :visibility_level
+      notify_changed :title_translations, :description_translations, as: :commitment_attribute
+      use_publisher Publishers::AdminGobiertoCitizensChartersActivity
+      use_trackable_subject :charter
+
       def attributes_assignments
         {
           title_translations: title_translations,

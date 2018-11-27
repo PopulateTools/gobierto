@@ -27,7 +27,7 @@ module GobiertoAdmin
       end
 
       def create
-        @service_form = ServiceForm.new(service_params.merge(site_id: current_site.id))
+        @service_form = ServiceForm.new(service_params.merge(site_id: current_site.id, admin_id: current_admin.id))
         @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @service_form.resource)
         @custom_fields_form.custom_field_records = custom_params
 
@@ -46,7 +46,7 @@ module GobiertoAdmin
       def update
         load_service
 
-        @service_form = ServiceForm.new(service_params.merge(id: params[:id], site_id: current_site.id))
+        @service_form = ServiceForm.new(service_params.merge(id: params[:id], site_id: current_site.id, admin_id: current_admin.id))
         @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @service)
         @custom_fields_form.custom_field_records = custom_params
 

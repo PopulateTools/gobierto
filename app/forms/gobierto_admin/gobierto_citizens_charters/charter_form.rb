@@ -12,6 +12,11 @@ module GobiertoAdmin
       validates :service, presence: true
       validates :title_translations, translated_attribute_presence: true
 
+      trackable_on :resource
+      notify_changed :visibility_level, :title_translations
+      notify_changed :title_translations, as: :charter_attribute
+      use_publisher Publishers::AdminGobiertoCitizensChartersActivity
+
       def available_services
         services_relation.order(Arel.sql("title_translations->'#{I18n.locale}' ASC"))
       end

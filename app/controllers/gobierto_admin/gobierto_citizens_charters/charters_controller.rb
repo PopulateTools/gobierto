@@ -10,7 +10,7 @@ module GobiertoAdmin
 
       def new
         @charter_form = CharterForm.new(
-          charters_relation.new.attributes.except(*ignored_charter_attributes).merge(site_id: current_site.id)
+          ::GobiertoCitizensCharters::Charter.new.attributes.except(*ignored_charter_attributes).merge(site_id: current_site.id)
         )
         @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @charter_form.resource)
         render(:new_modal, layout: false) && return if request.xhr?
@@ -27,7 +27,7 @@ module GobiertoAdmin
       end
 
       def create
-        @charter_form = CharterForm.new(charter_params.merge(site_id: current_site.id))
+        @charter_form = CharterForm.new(charter_params.merge(site_id: current_site.id, admin_id: current_admin.id))
 
         @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @charter_form.resource)
         @custom_fields_form.custom_field_records = custom_params
@@ -47,7 +47,7 @@ module GobiertoAdmin
       def update
         load_charter
 
-        @charter_form = CharterForm.new(charter_params.merge(id: params[:id], site_id: current_site.id))
+        @charter_form = CharterForm.new(charter_params.merge(id: params[:id], site_id: current_site.id, admin_id: current_admin.id))
         @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(site_id: current_site.id, item: @charter)
         @custom_fields_form.custom_field_records = custom_params
 

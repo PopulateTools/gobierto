@@ -18,6 +18,11 @@ module GobiertoAdmin
       validates :value, :max_value, presence: true, if: ->(object) { object.percentage.blank? }
       validate :period_uniqueness
 
+      trackable_on :resource
+      notify_changed :commitment_id, :percentage, :value, :max_value, as: :edition_attribute
+      use_publisher Publishers::AdminGobiertoCitizensChartersActivity
+      use_trackable_subject :charter
+
       def attributes_assignments
         {
           commitment_id: commitment_id,

@@ -28,6 +28,7 @@ Subscribers::GobiertoPlansPlanTypeActivity.attach_to("activities/gobierto_plans_
 Subscribers::UserActivity.attach_to("activities/users")
 Subscribers::SiteActivity.attach_to("activities/sites")
 Subscribers::AdminGobiertoCalendarsActivity.attach_to("activities/admin_gobierto_calendars")
+Subscribers::AdminGobiertoCitizensChartersActivity.attach_to("activities/admin_gobierto_citizens_charters")
 
 # Custom subscribers
 ActiveSupport::Notifications.subscribe(/trackable/) do |*args|

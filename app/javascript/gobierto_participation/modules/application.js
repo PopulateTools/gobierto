@@ -32,5 +32,7 @@ $(document).on('turbolinks:load', function() {
   window.GobiertoParticipation.poll_teaser_controller.show();
 
   // Add active class to menu
-  $('nav a[href="' + window.location.pathname + '"]').parent().addClass('active');
+  let pathname = window.location.pathname.split('/');
+  pathname = pathname.slice(0, 3).join('/');
+  $('nav a[href~="' + pathname + '"]').parent().addClass('active');
 });

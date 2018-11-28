@@ -137,11 +137,11 @@ notice_2_on_site:
   item_type: 'GobiertoCms::News'
   container: gender_violence_process (GobiertoParticipation::Process)
 
-notice_2_on_site:
+notice_2_on_process:
   collection: gender_violence_process_news
   item: notice_2
   item_type: 'GobiertoCms::News'
-  container: madrid (Site)
+  container: gender_violence_process (GobiertoParticipation::Process)
 
 notice_2_on_participation:
   collection: gender_violence_process_news

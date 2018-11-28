@@ -21,6 +21,14 @@ module GobiertoParticipation
       @scope_center ||= ProcessTermDecorator.new(gobierto_common_terms(:center_term))
     end
 
+    def other_scope
+      @other_scope ||= gobierto_common_terms(:old_town_term)
+    end
+
+    def participation_process
+      @participation_process ||= gobierto_participation_processes(:gender_violence_process)
+    end
+
     def processes
       @processes ||= site.processes.process.where(scope: scope_center).active
     end
@@ -34,7 +42,7 @@ module GobiertoParticipation
     end
 
     def scope_notifications_titles_match
-      @scope_notifications_titles ||= Regexp.new("Contribution created")
+      @scope_notifications_titles_match ||= Regexp.new("Contribution created")
     end
 
     def test_menu_subsections
@@ -178,8 +186,32 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
+        within "div#processes" do
+          refute has_content? participation_process.title
+        end
+
         assert_equal processes.size, all("div#processes/div").size
       end
     end
+
+    def test_update_process_scope_show
+      participation_process.update_attribute(:scope_id, scope_center.id)
+
+      with_current_site(site) do
+        visit @path
+
+        within "div#processes" do
+          assert has_content? participation_process.title
+        end
+        participation_process.news.each do |page|
+          assert has_link? page.title
+        end
+        participation_process.events.published.upcoming.each do |event|
+          assert has_link? event.title
+        end
+        refute has_content? "No related updates"
+      end
+    end
+
   end
 end

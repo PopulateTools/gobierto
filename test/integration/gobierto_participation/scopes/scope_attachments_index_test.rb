@@ -12,6 +12,14 @@ module GobiertoParticipation
       @scope ||= ProcessTermDecorator.new(gobierto_common_terms(:old_town_term))
     end
 
+    def other_scope
+      @other_scope ||= gobierto_common_terms(:center_term)
+    end
+
+    def participation_process
+      @participation_process ||= gobierto_participation_processes(:gender_violence_process)
+    end
+
     def scope_attachments_path
       @scope_attachments_path ||= gobierto_participation_scope_attachments_path(
         scope_id: scope.slug
@@ -23,7 +31,7 @@ module GobiertoParticipation
     end
 
     def scope_attachments
-      @scope_attachments ||= ::GobiertoAttachments::Attachment.in_collections_and_container(site, scope)
+      @scope_attachments ||= scope.attachments
     end
 
     def test_menu_subsections
@@ -58,6 +66,19 @@ module GobiertoParticipation
 
         assert has_link? "XLSX Attachment Event"
         assert has_link? "PDF Collection Attachment Name"
+      end
+    end
+
+    def test_update_process_scope_attachments_index
+      participation_process.update_attribute(:scope_id, other_scope.id)
+
+      with_current_site(site) do
+        visit scope_attachments_path
+
+        assert_equal scope_attachments.size, all(".news_teaser").size
+
+        refute has_link? "XLSX Attachment Event"
+        refute has_link? "PDF Collection Attachment Name"
       end
     end
   end

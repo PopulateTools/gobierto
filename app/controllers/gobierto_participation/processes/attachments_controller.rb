@@ -19,7 +19,7 @@ module GobiertoParticipation
       private
 
       def find_process_attachments
-        ::GobiertoAttachments::Attachment.in_collections_and_container(current_site, current_process)
+        ::GobiertoAttachments::Attachment.in_collections_and_container(current_site, current_process).page(params[:page])
       end
     end
   end

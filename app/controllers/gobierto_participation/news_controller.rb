@@ -24,8 +24,10 @@ module GobiertoParticipation
     end
 
     def participation_module_news
-      if (container = @issue || @scope)
-        ::GobiertoCms::Page.news_in_collections_and_container(current_site, container)
+      if @issue
+        @issue.news
+      elsif @scope
+        @scope.news
       else
         ::GobiertoCms::Page.news_in_collections_and_container_type(current_site, "GobiertoParticipation")
       end

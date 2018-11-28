@@ -13,7 +13,7 @@ module GobiertoParticipation
       private
 
       def find_scope_attachments
-        ::GobiertoAttachments::Attachment.in_collections_and_container(current_site, @scope)
+        @scope.attachments
       end
     end
   end

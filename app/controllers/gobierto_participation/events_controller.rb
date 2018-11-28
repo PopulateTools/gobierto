@@ -32,7 +32,7 @@ module GobiertoParticipation
                     @container_events.past.sorted_backwards.page params[:page]
                   else
                     if @issue
-                      GobiertoCalendars::Event.in_collections_and_container(current_site, @issue).published.page(params[:page]).upcoming.sorted.page params[:page]
+                      @issue.events.published.page(params[:page]).upcoming.sorted.page params[:page]
                     else
                       @container_events.upcoming.sorted.page params[:page]
                     end

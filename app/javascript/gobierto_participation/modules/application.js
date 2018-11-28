@@ -30,4 +30,9 @@ $(document).on('turbolinks:load', function() {
 
   // fix this to be only in the home
   window.GobiertoParticipation.poll_teaser_controller.show();
+
+  // Add active class to menu
+  let pathname = window.location.pathname.split('/');
+  pathname = pathname.slice(0, 3).join('/');
+  $('nav a[href~="' + pathname + '"]').parent().addClass('active');
 });

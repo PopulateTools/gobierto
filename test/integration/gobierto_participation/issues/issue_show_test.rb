@@ -21,6 +21,14 @@ module GobiertoParticipation
       @issue ||= ProcessTermDecorator.new(gobierto_common_terms(:women_term))
     end
 
+    def other_issue
+      @other_issue ||= gobierto_common_terms(:economy_term)
+    end
+
+    def participation_process
+      @participation_process ||= gobierto_participation_processes(:gender_violence_process)
+    end
+
     def processes
       @processes ||= site.processes.process.where(issue: issue).active
     end
@@ -170,7 +178,27 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
+        within "div#processes" do
+          assert has_content? participation_process.title
+        end
+
         assert_equal processes.size, all("div#processes/div").size
+      end
+    end
+
+    def test_update_process_issue_show
+      participation_process.update_attribute(:issue_id, other_issue.id)
+
+      with_current_site(site) do
+        visit @path
+
+        within "div#processes" do
+          refute has_content? participation_process.title
+        end
+
+        assert has_content? "No related news"
+        assert has_content? "No related events"
+        assert has_content? "No related updates"
       end
     end
   end

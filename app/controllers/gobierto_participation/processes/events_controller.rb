@@ -46,7 +46,7 @@ module GobiertoParticipation
 
       def set_events
         @events = process_events_scope
-        @events = @events.in_collections_and_container(current_site, @issue).published if @issue
+        @events = ProcessCollectionDecorator.new(@events).with_issue(@issue).published if @issue
 
         @events = if params[:date]
                     filter_events_by_date(params[:date]).published

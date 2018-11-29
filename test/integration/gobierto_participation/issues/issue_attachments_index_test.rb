@@ -12,6 +12,14 @@ module GobiertoParticipation
       @issue ||= ProcessTermDecorator.new(gobierto_common_terms(:women_term))
     end
 
+    def other_issue
+      @other_issue ||= gobierto_common_terms(:economy_term)
+    end
+
+    def participation_process
+      @participation_process ||= gobierto_participation_processes(:gender_violence_process)
+    end
+
     def issue_attachments_path
       @issue_attachments_path ||= gobierto_participation_issue_attachments_path(
         issue_id: issue.slug
@@ -23,7 +31,7 @@ module GobiertoParticipation
     end
 
     def issue_attachments
-      @issue_attachments ||= ::GobiertoAttachments::Attachment.in_collections_and_container(site, issue)
+      @issue_attachments ||= issue.attachments
     end
 
     def test_menu_subsections
@@ -58,6 +66,19 @@ module GobiertoParticipation
 
         assert has_link? "XLSX Attachment Event"
         assert has_link? "PDF Collection Attachment Name"
+      end
+    end
+
+    def test_update_process_issue_attachments_index
+      participation_process.update_attribute(:issue_id, other_issue.id)
+
+      with_current_site(site) do
+        visit issue_attachments_path
+
+        assert_equal issue_attachments.size, all(".news_teaser").size
+
+        refute has_link? "XLSX Attachment Event"
+        refute has_link? "PDF Collection Attachment Name"
       end
     end
   end

@@ -10,8 +10,7 @@ module GobiertoParticipation
         @filtered_issue = find_issue if params[:issue_id]
         @issue = find_issue if params[:issue_id]
         @attachments = if @issue
-                         GobiertoAttachments::Attachment.in_collections_and_container(current_site, @issue)
-                                                        .in_collections_and_container(current_site, current_process).page(params[:page])
+                         @issue.attachments.in_collections_and_container(current_site, current_process).page(params[:page])
                        else
                          find_process_attachments
                        end
@@ -20,7 +19,7 @@ module GobiertoParticipation
       private
 
       def find_process_attachments
-        ::GobiertoAttachments::Attachment.in_collections_and_container(current_site, current_process)
+        ::GobiertoAttachments::Attachment.in_collections_and_container(current_site, current_process).page(params[:page])
       end
     end
   end

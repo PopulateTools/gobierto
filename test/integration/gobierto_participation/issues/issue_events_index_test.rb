@@ -12,6 +12,14 @@ module GobiertoParticipation
       @issue ||= ProcessTermDecorator.new(gobierto_common_terms(:women_term))
     end
 
+    def other_issue
+      @other_issue ||= gobierto_common_terms(:economy_term)
+    end
+
+    def participation_process
+      @participation_process ||= gobierto_participation_processes(:gender_violence_process)
+    end
+
     def issue_events_path
       @issue_events_path ||= gobierto_participation_issue_events_path(
         issue_id: issue.slug
@@ -65,6 +73,16 @@ module GobiertoParticipation
           assert has_content? "Intensive reading club in english"
           assert has_content? "Intensive reading club in english description"
         end
+      end
+    end
+
+    def test_update_process_issue_events_index
+      participation_process.update_attribute(:issue_id, other_issue.id)
+
+      with_current_site(site) do
+        visit issue_events_path
+
+        assert has_content? "No related events"
       end
     end
   end

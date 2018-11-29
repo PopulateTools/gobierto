@@ -12,6 +12,14 @@ module GobiertoParticipation
       @scope ||= ProcessTermDecorator.new(gobierto_common_terms(:old_town_term))
     end
 
+    def other_scope
+      @other_scope ||= gobierto_common_terms(:center_term)
+    end
+
+    def participation_process
+      @participation_process ||= gobierto_participation_processes(:gender_violence_process)
+    end
+
     def scope_events_path
       @scope_events_path ||= gobierto_participation_scope_events_path(
         scope_id: scope.slug
@@ -65,6 +73,16 @@ module GobiertoParticipation
           assert has_content? "Intensive reading club in english"
           assert has_content? "Intensive reading club in english description"
         end
+      end
+    end
+
+    def test_update_process_scope_events_index
+      participation_process.update_attribute(:scope_id, other_scope.id)
+
+      with_current_site(site) do
+        visit scope_events_path
+
+        assert has_content? "No related events"
       end
     end
   end

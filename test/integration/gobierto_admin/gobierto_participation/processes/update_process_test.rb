@@ -209,6 +209,25 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_update_process_issue
+        old_issue = gobierto_common_terms(:women_term)
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit gobierto_participation_issue_attachments_path(old_issue) do
+              assert has_content? gobierto_attachments_attachments(:pdf_collection_attachment).description
+            end
+            visit edit_admin_participation_process_path(process)
+
+            select "Economy", from: "process_issue_id"
+            click_button "Update"
+
+            visit gobierto_participation_issue_attachments_path(old_issue) do
+              refute has_content? gobierto_attachments_attachments(:pdf_collection_attachment).description
+            end
+          end
+        end
+      end
     end
   end
 end

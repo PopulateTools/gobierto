@@ -14,7 +14,7 @@ module GobiertoAdmin
       validates :site, presence: true
 
       def available_custom_fields
-        site.custom_fields.where(class_name: item.class.name)
+        site.custom_fields.sorted.where(class_name: item.class.name)
       end
 
       def custom_field_records

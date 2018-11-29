@@ -11,7 +11,9 @@ es:
             confirm: "¿Estás seguro?"
             crop: Recortar
           index:
+            localized_custom_fields: Campos traducibles
             new: Añadir nuevo campo
+            not_localized_custom_fields: Campos no traducibles
             title: Campos personalizados
           new:
             title: Nuevo campo

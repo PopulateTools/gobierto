@@ -6,8 +6,9 @@
 
 <h1><%= t(".title") %></h1>
 
-<div data-behavior="sortable" data-sortable-target="<%= admin_common_custom_fields_module_resource_sort_path(module_resource_name: params[:module_resource_name]) %>">
-  <% @custom_fields.each do |custom_field| %>
+<h3><%= t(".localized_custom_fields") %></h3>
+<div data-behavior="sortable-localized" data-sortable-target="<%= admin_common_custom_fields_module_resource_sort_path(module_resource_name: params[:module_resource_name], localized: "localized") %>">
+  <% @localized_custom_fields.each do |custom_field| %>
     <div class="list_item with_mandatory_option" id="item-<%= custom_field.id %>" data-id="<%= custom_field.id %>" c>
       <i class="sort-handler fa fa-bars tipsit custom_handle"></i>
       <label class="main"><%= custom_field.name %></label>
@@ -30,7 +31,31 @@
     </div>
   <% end %>
 </div>
+<h3><%= t(".not_localized_custom_fields") %></h3>
+<div data-behavior="sortable-not-localized" data-sortable-target="<%= admin_common_custom_fields_module_resource_sort_path(module_resource_name: params[:module_resource_name], localized: "not_localized") %>">
+  <% @not_localized_custom_fields.each do |custom_field| %>
+    <div class="list_item with_mandatory_option" id="item-<%= custom_field.id %>" data-id="<%= custom_field.id %>" c>
+      <i class="sort-handler fa fa-bars tipsit custom_handle"></i>
+      <label class="main"><%= custom_field.name %></label>
 
+      <div class="tools">
+        <%= link_to edit_admin_common_custom_fields_custom_field_path(custom_field),
+          title: t("views.edit"),
+          class: "tipsit" do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+
+        <%= link_to admin_common_custom_fields_custom_field_path(custom_field),
+          title: t("views.delete"),
+          method: :delete,
+          class: "tipsit",
+          data: { confirm: t("views.delete_confirm") } do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
 <div class="m_2">
   <%= link_to new_admin_common_custom_fields_module_resource_custom_field_path(params[:module_resource_name]) do %>
     <i class="fa fa-plus-circle"></i>
@@ -41,8 +66,13 @@
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
     window.GobiertoAdmin.sortable_component.list({
-      wrapper: "div[data-behavior=sortable]",
+      wrapper: "div[data-behavior=sortable-localized]",
       placeholder: '<div class="list_item">&nbsp;&nbsp;</div>'
+    });
+    window.GobiertoAdmin.sortable_component.list({
+      wrapper: "div[data-behavior=sortable-not-localized]",
+      placeholder: '<div class="list_item">&nbsp;&nbsp;</div>',
+      positionOffset: <%= @localized_custom_fields.maximum(:position) || 0 %>
     });
   <% end %>
 <% end %>

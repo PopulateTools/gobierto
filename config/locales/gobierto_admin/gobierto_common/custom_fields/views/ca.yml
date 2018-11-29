@@ -11,7 +11,9 @@ ca:
             confirm: Estàs segur?
             crop: Retallar
           index:
+            localized_custom_fields: Camps traduïbles
             new: Afegir nou camp
+            not_localized_custom_fields: Camps no traduïbles
             title: Camps personalitzats
           new:
             title: Nou camp

@@ -8,7 +8,11 @@ module GobiertoAdmin
         private
 
         def collection
-          @collection ||= current_site.custom_fields.where(class_name: params[:module_resource_name].tr("-", "/").camelize)
+          @collection ||= begin
+                            return current_site.custom_fields.none unless ["localized", "not_localized"].any?(params[:localized])
+
+                            current_site.custom_fields.where(class_name: params[:module_resource_name].tr("-", "/").camelize).send(params[:localized])
+                          end
         end
       end
     end

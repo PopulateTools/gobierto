@@ -11,7 +11,9 @@ en:
             confirm: Are you sure?
             crop: Crop
           index:
+            localized_custom_fields: Translatable fields
             new: Add new field
+            not_localized_custom_fields: Non-translatable fields
             title: Custom fields
           new:
             title: New field

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::CensusVerificationsController < User::BaseController
   before_action :authenticate_user!
   before_action(only: [:new, :create]) { require_not_verified_user_in(current_site) }
@@ -29,11 +31,11 @@ class User::CensusVerificationsController < User::BaseController
 
     if @user_verification_form.save && @user_verification_form.user.census_verified?
       redirect_to(
-        @user_verification_form.referrer_url.present? ?  @user_verification_form.referrer_url : user_settings_path,
-        notice: t('.notice')
+        @user_verification_form.referrer_url.present? ? @user_verification_form.referrer_url : user_settings_path,
+        notice: t(".notice")
       )
     else
-      flash.now[:alert] = t('.error')
+      flash.now[:alert] = t(".error")
       render :new
     end
   end

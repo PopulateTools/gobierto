@@ -20,10 +20,10 @@ class User::CustomSessionsController < User::BaseController
   end
 
   def auth_callback
-    create
+    create(false)
   end
 
-  def create
+  def create(invalid_messages = true)
     set_user_session_forms
 
     if @user_session_forms.values.any?(&:save)
@@ -37,8 +37,8 @@ class User::CustomSessionsController < User::BaseController
       ) and return
 
     else
-      if @user_session_forms.values.any? { |session_form| session_form.respond_to?(:email) && session_form.errors.added?(:email, :taken) }
-        flash[:alert] = t('user.custom_sessions.create.email_taken')
+      if invalid_messages && (errors_form = @user_session_forms.values.find { |session_form| session_form.errors.any? }).present?
+        flash[:alert] = errors_form.errors.full_messages.to_sentence
       end
 
       @strategy_name, @user_session_form = @user_session_forms.find do |key, form|

@@ -1,8 +1,14 @@
 class User::Verification::CensusVerification < User::Verification
   default_scope -> { where(verification_type: "census") }
 
+  attr_writer :census_repository_class, :custom_params
+
   def verification_type
     "census"
+  end
+
+  def census_repository_class
+    @census_repository_class ||= CensusRepository
   end
 
   def document_number
@@ -37,13 +43,19 @@ class User::Verification::CensusVerification < User::Verification
     end
   end
 
+  def custom_params
+    @custom_params ||= {}
+  end
+
   private
 
   def census_repository
-    @census_repository ||= CensusRepository.new(
-      site_id: site_id,
-      document_number: document_number,
-      date_of_birth: date_of_birth
+    @census_repository ||= census_repository_class.new(
+      custom_params.merge(
+        site_id: site_id,
+        document_number: document_number,
+        date_of_birth: date_of_birth
+      )
     )
   end
 end

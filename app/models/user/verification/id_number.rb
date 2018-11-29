@@ -16,6 +16,14 @@ class User::Verification::IdNumber < User::Verification
     valid? if encryption_key.present?
   end
 
+  def document_type=(document_type)
+    verification_data["document_type"] = document_type
+  end
+
+  def document_type
+    verification_data["document_type"]
+  end
+
   def encryption_key
     verification_data['encryption_key']
   end

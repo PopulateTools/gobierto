@@ -24,13 +24,13 @@ $(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {
     mainClass: 'mfp-fade',
     callbacks: {
       ajaxContentAdded: function() {
-        if (window.GobiertoAdmin.process_stages_controller) {
+        if (window.GobiertoAdmin && window.GobiertoAdmin.process_stages_controller) {
           window.GobiertoAdmin.process_stages_controller.form();
         }
-        if (window.GobiertoAdmin.globalized_forms_component) {
+        if (window.GobiertoAdmin && window.GobiertoAdmin.globalized_forms_component) {
           window.GobiertoAdmin.globalized_forms_component.handleGlobalizedForm();
         }
-        if (window.GobiertoAdmin.gobierto_citizens_charters_editions_intervals_controller) {
+        if (window.GobiertoAdmin && window.GobiertoAdmin.gobierto_citizens_charters_editions_intervals_controller) {
           window.GobiertoAdmin.gobierto_citizens_charters_editions_intervals_controller.handleForm();
         }
       }

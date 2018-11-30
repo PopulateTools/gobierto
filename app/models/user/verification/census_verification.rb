@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::Verification::CensusVerification < User::Verification
   default_scope -> { where(verification_type: "census") }
 

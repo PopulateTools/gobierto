@@ -35,15 +35,15 @@ module GobiertoParticipation
     end
 
     def events
-      ProcessCollectionDecorator.new(::GobiertoCalendars::Event).send("with_#{ association_with_processes }", object)
+      ProcessCollectionDecorator.new(::GobiertoCalendars::Event).with_term(object)
     end
 
     def attachments
-      ProcessCollectionDecorator.new(::GobiertoAttachments::Attachment).send("with_#{ association_with_processes }", object)
+      ProcessCollectionDecorator.new(::GobiertoAttachments::Attachment).with_term(object)
     end
 
     def news
-      ProcessCollectionDecorator.new(::GobiertoCms::Page, item_type: "GobiertoCms::News").send("with_#{ association_with_processes }", object)
+      ProcessCollectionDecorator.new(::GobiertoCms::Page, item_type: "GobiertoCms::News").with_term(object)
     end
 
     def processes

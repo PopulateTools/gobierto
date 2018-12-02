@@ -22,11 +22,11 @@ module GobiertoParticipation
     private
 
     def find_process_news
-      current_process.news.sort_by(&:created_at).reverse.first(5)
+      current_process.news.sort_by_published_on.first(5)
     end
 
     def find_process_events
-      ::GobiertoCalendars::Event.in_collections_and_container(current_site, current_process).first(5)
+      current_process.events.published.first(5)
     end
 
     def current_process

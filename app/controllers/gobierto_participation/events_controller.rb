@@ -43,7 +43,7 @@ module GobiertoParticipation
     end
 
     def container_events
-      @container_events = GobiertoCalendars::Event.in_collections_and_container_type(current_site, "GobiertoParticipation").published
+      @container_events = ProcessCollectionDecorator.new(current_site.events).in_participation_module.published
     end
 
     def participation_events_scope

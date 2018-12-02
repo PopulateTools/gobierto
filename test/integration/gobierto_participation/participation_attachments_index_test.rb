@@ -17,7 +17,7 @@ module GobiertoParticipation
     end
 
     def participation_attachments
-      @participation_attachments ||= ::GobiertoAttachments::Attachment.in_collections_and_container_type(site, "GobiertoParticipation")
+      @participation_attachments ||= GobiertoParticipation::ProcessCollectionDecorator.new(site.attachments).in_participation_module
     end
 
     def test_secondary_nav
@@ -44,6 +44,7 @@ module GobiertoParticipation
         assert has_link? "PDF Collection On Participation"
         assert has_link? "XLSX Attachment Event"
         assert has_link? "PDF Collection Attachment Name"
+        assert has_link? "PDF Collection On Process"
       end
     end
   end

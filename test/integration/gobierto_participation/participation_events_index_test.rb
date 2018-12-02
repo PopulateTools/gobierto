@@ -17,11 +17,11 @@ module GobiertoParticipation
     end
 
     def participation_current_events
-      @participation_current_events ||= ::GobiertoCalendars::Event.in_collections_and_container_type(site, "GobiertoParticipation").published.upcoming
+      @participation_current_events ||= ProcessCollectionDecorator.new(site.events).in_participation_module.published.upcoming
     end
 
     def participation_past_events
-      @participation_past_events ||= ::GobiertoCalendars::Event.in_collections_and_container_type(site, "GobiertoParticipation").published.past
+      @participation_past_events ||= ProcessCollectionDecorator.new(site.events).in_participation_module.published.past
     end
 
     def test_secondary_nav

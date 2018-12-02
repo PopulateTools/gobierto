@@ -31,9 +31,9 @@ module GobiertoParticipation
 
     def base_relation
       @base_relation ||= if valid_preview_token?
-                           GobiertoCalendars::Event.in_collections_and_container_type(current_site, "GobiertoParticipation")
+                           ProcessCollectionDecorator.new(current_site.events).in_participation_module
                          else
-                           GobiertoCalendars::Event.in_collections_and_container_type(current_site, "GobiertoParticipation").published
+                           ProcessCollectionDecorator.new(current_site.events).in_participation_module.published
                          end
     end
 

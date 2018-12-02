@@ -15,7 +15,7 @@ module GobiertoParticipation
       if @filtered_issue
         @issue.attachments
       else
-        ::GobiertoAttachments::Attachment.in_collections_and_container_type(current_site, "GobiertoParticipation")
+        ProcessCollectionDecorator.new(current_site.attachments).in_participation_module
       end
     end
   end

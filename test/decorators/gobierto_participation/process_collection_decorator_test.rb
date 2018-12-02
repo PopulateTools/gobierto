@@ -78,6 +78,26 @@ module GobiertoParticipation
       end
     end
 
+    def test_resource_of_deleted_process_without_callbacks
+      participation_process.update_column(:archived_at, 1.hour.ago)
+
+      participation_events.where(collections: { container: participation_process }).each do |resource|
+        refute_includes events_decorator.in_participation_module, resource
+        assert_includes events_decorator.in_participation_module(with_archived: true), resource
+      end
+
+      participation_attachments.where(collections: { container: participation_process }).each do |resource|
+        refute_includes attachments_decorator.in_participation_module, resource
+        assert_includes attachments_decorator.in_participation_module(with_archived: true), resource
+      end
+
+      participation_news.where(collections: { container: participation_process }).each do |resource|
+        refute_includes news_decorator.in_participation_module, resource
+        assert_includes news_decorator.in_participation_module(with_archived: true), resource
+      end
+
+    end
+
     def test_resources_of_draft_process
       participation_process.draft!
 

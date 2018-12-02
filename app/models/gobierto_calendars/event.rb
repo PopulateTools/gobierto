@@ -60,15 +60,29 @@ module GobiertoCalendars
     scope :by_site, ->(site) { where(site_id: site.id) }
 
     scope :by_person_category, ->(category) do
+      category_value = if category.is_a?(String)
+                         GobiertoPeople::Person.categories[category]
+                       else
+                         category
+                       end
+      raise "Invalid category #{category}" if category_value.blank?
+
       joins("INNER JOIN #{GobiertoPeople::Person.table_name} ON
         collection_items.container_id = #{GobiertoPeople::Person.table_name}.id AND
-        #{GobiertoPeople::Person.table_name}.category = #{category}")
+        #{GobiertoPeople::Person.table_name}.category = #{category_value}")
     end
 
     scope :by_person_party, ->(party) do
+      party_value = if party.is_a?(String)
+                      GobiertoPeople::Person.parties[party]
+                    else
+                      party
+                    end
+      raise "Invalid party #{party}" if party_value.blank?
+
       joins("INNER JOIN #{GobiertoPeople::Person.table_name} ON
         collection_items.container_id = #{GobiertoPeople::Person.table_name}.id AND
-        #{GobiertoPeople::Person.table_name}.party = #{party}")
+        #{GobiertoPeople::Person.table_name}.party = #{party_value}")
     end
 
     scope :person_events, -> do

@@ -20,6 +20,10 @@ module GobiertoParticipation
       @participation_current_events ||= ProcessCollectionDecorator.new(site.events).in_participation_module.published.upcoming
     end
 
+    def participation_process
+      @participation_process ||= gobierto_participation_processes :gender_violence_process
+    end
+
     def participation_past_events
       @participation_past_events ||= ProcessCollectionDecorator.new(site.events).in_participation_module.published.past
     end
@@ -76,6 +80,26 @@ module GobiertoParticipation
         assert has_link? "Intensive reading club in english"
         assert has_link? "View all events"
         assert has_link? "View past events"
+      end
+    end
+
+    def test_participation_process_draft
+      participation_process.draft!
+
+      with_current_site(site) do
+        visit participation_events_path
+
+        assert has_no_content? "Swimming lessons for elders"
+      end
+    end
+
+    def test_participation_process_archived
+      participation_process.destroy
+
+      with_current_site(site) do
+        visit participation_events_path
+
+        assert has_no_content? "Swimming lessons for elders"
       end
     end
   end

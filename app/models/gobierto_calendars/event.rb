@@ -61,13 +61,15 @@ module GobiertoCalendars
     scope :by_site, ->(site) { where(site_id: site.id) }
 
     scope :by_person_category, ->(category) do
-      collection_ids = ::GobiertoPeople::Person.where(category: category).map { |p| p.events_collection.id }
-      where(collection_id: collection_ids)
+      joins("INNER JOIN #{GobiertoPeople::Person.table_name} ON
+        collection_items.container_id = #{GobiertoPeople::Person.table_name}.id AND
+        #{GobiertoPeople::Person.table_name}.category = #{category}")
     end
 
     scope :by_person_party, ->(party) do
-      collection_ids = ::GobiertoPeople::Person.where(party: party).map { |p| p.events_collection.id }
-      where(collection_id: collection_ids)
+      joins("INNER JOIN #{GobiertoPeople::Person.table_name} ON
+        collection_items.container_id = #{GobiertoPeople::Person.table_name}.id AND
+        #{GobiertoPeople::Person.table_name}.party = #{party}")
     end
 
     scope :person_events, -> do

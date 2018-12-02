@@ -23,7 +23,6 @@ module GobiertoCalendars
     validates :site, :collection, presence: true
     validates :slug, uniqueness: { scope: :site_id }
 
-
     translates :title, :description
 
     metadata_attributes :type

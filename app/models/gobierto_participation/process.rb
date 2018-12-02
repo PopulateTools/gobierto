@@ -152,7 +152,7 @@ module GobiertoParticipation
       end
 
       # News
-      news_collection =  site.collections.find_by(container: self, item_type: "GobiertoCms::News")
+      news_collection = site.collections.find_by(container: self, item_type: "GobiertoCms::News")
       if news_collection
         site.pages.where(collection: news_collection).destroy_all
         news_collection.destroy

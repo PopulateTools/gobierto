@@ -95,7 +95,6 @@ module GobiertoParticipation
         refute_includes news_decorator.in_participation_module, resource
         assert_includes news_decorator.in_participation_module(with_archived: true), resource
       end
-
     end
 
     def test_resources_of_draft_process

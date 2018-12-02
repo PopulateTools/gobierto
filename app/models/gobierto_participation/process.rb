@@ -65,6 +65,18 @@ module GobiertoParticipation
       find_collection_of_items("GobiertoAttachments::Attachment")
     end
 
+    def events
+      ProcessCollectionDecorator.new(site.events).in_process(self)
+    end
+
+    def attachments
+      ProcessCollectionDecorator.new(site.attachments).in_process(self)
+    end
+
+    def news
+      ProcessCollectionDecorator.new(site.pages, item_type: "GobiertoCms::News").in_process(self)
+    end
+
     def current_stage
       published_stages.find_by(active: true)
     end

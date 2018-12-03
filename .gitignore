@@ -58,3 +58,5 @@ vendor/gobierto_engines/*
 !vendor/gobierto_engines/.keep
 app/javascript/gencat
 app/javascript/packs/gencat.js
+app/javascript/valencia
+app/javascript/packs/valencia.js

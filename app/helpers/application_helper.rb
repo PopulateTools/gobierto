@@ -4,6 +4,9 @@ module ApplicationHelper
 
   def body_css_classes
     classes = []
+    if current_site&.configuration&.engine_overrides&.any?
+      classes.push(Rails.configuration.gobierto_engines_themes[current_site.configuration.engine_overrides.first])
+    end
     classes.push current_module == "gobierto_participation" ? "gobierto_participation theme-participation" : current_module
     classes.push controller_name
     classes.push action_name

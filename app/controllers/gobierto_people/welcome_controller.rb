@@ -31,7 +31,7 @@ module GobiertoPeople
       events = GobiertoCalendars::Event.by_site(current_site).
         person_events.
         by_person_party(Person.parties[:government]).
-        includes(:locations).
+        includes(:collection, :locations).
         limit(10)
       @events = events.upcoming.sorted
       if @events.empty?

@@ -35,7 +35,7 @@ module GobiertoPeople
       @events = GobiertoCalendars::Event.by_site(current_site).
         person_events.
         published.
-        includes(:locations).
+        includes(:collection, :locations).
         page params[:page]
       @events = @events.by_person_category(@person_category) if @person_category
       @events = @events.by_person_party(@person_party) if @person_party

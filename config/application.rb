@@ -54,20 +54,21 @@ module Gobierto
     # Auth Strategies
     base_strategies_path = %w(vendor auth_strategies)
     available_strategies = Dir.chdir(config.root.join(*base_strategies_path)) do
-      Dir.glob('*').select{ |file| File.directory?(file) }
+      Dir.glob("*").select { |file| File.directory?(file) }
     end
 
     available_strategies.each do |strategy|
-      require_dependency config.root.join(*base_strategies_path).join(strategy, 'lib', 'initializer')
+      require_dependency config.root.join(*base_strategies_path).join(strategy, "lib", "initializer")
     end
 
     # Engine Overrides
     config.engine_sass_config_overrides = []
     config.engine_sass_theme_dependencies = []
+    config.gobierto_engines_themes = {}
 
     base_engines_path = %w(vendor gobierto_engines)
     available_engines = Dir.chdir(config.root.join(*base_engines_path)) do
-      Dir.glob('*').select { |item| File.directory?(item) }
+      Dir.glob("*").select { |item| File.directory?(item) }
     end
 
     available_engines.each do |engine_dir|

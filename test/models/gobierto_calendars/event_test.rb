@@ -72,29 +72,23 @@ module GobiertoCalendars
 
       assert_includes subject, event
 
-      assert event_site == past_event.site
+      assert_equal event_site, past_event.site
       assert_includes subject, past_event
     end
 
-    # TODO
     def test_by_person_category_scope
       person_category = ::GobiertoPeople::Person.categories[person.category]
-      subject = subject_class.by_person_category(person_category)
+      subject = subject_class.person_events.by_person_category(person_category)
 
       assert_includes subject, event
-
-      assert person_category == ::GobiertoPeople::Person.categories[person.category]
       assert_includes subject, past_event
     end
 
-    # TODO
     def test_by_person_party_scope
       person_party = ::GobiertoPeople::Person.parties[person.party]
-      subject = subject_class.by_person_party(person_party)
+      subject = subject_class.person_events.by_person_party(person_party)
 
       assert_includes subject, event
-
-      assert person_party == ::GobiertoPeople::Person.parties[person.party]
       assert_includes subject, past_event
     end
 

@@ -7,12 +7,13 @@ module GobiertoPeople
     before_action :check_active_submodules
 
     def index
-      @political_groups = get_political_groups
-
       set_events
+      render_404 and return if params[:page].present? && @events.empty?
+
       set_calendar_events
       set_people
       set_present_groups_with_published_activities
+      @political_groups = get_political_groups
 
       respond_to do |format|
         format.html
@@ -31,7 +32,11 @@ module GobiertoPeople
     end
 
     def set_events
-      @events = GobiertoCalendars::Event.by_site(current_site).person_events.published.page params[:page]
+      @events = GobiertoCalendars::Event.by_site(current_site).
+        person_events.
+        published.
+        includes(:collection, :locations).
+        page params[:page]
       @events = @events.by_person_category(@person_category) if @person_category
       @events = @events.by_person_party(@person_party) if @person_party
 

@@ -74,6 +74,13 @@ module GobiertoPeople
       end
     end
 
+    def test_person_events_index_invalid_pagination
+      with_current_site(site) do
+        visit gobierto_people_events_path(page: 10)
+        assert_equal 404, page.status_code
+      end
+    end
+
     def test_person_events_index_pagination
       government_member.events.destroy_all
 

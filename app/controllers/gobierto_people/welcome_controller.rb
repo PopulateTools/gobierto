@@ -28,12 +28,15 @@ module GobiertoPeople
     end
 
     def set_events
-      @events = GobiertoCalendars::Event.by_site(current_site).person_events.by_person_party(Person.parties[:government]).limit(10)
-
-      @events = @events.upcoming.sorted
+      events = GobiertoCalendars::Event.by_site(current_site).
+        person_events.
+        by_person_party(Person.parties[:government]).
+        includes(:collection, :locations).
+        limit(10)
+      @events = events.upcoming.sorted
       if @events.empty?
         @no_upcoming_events = true
-        @events = @events.past.sorted_backwards
+        @events = events.past.sorted_backwards
       end
     end
 

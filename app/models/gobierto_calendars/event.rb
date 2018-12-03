@@ -23,7 +23,6 @@ module GobiertoCalendars
     validates :site, :collection, presence: true
     validates :slug, uniqueness: { scope: :site_id }
 
-
     translates :title, :description
 
     metadata_attributes :type
@@ -61,13 +60,29 @@ module GobiertoCalendars
     scope :by_site, ->(site) { where(site_id: site.id) }
 
     scope :by_person_category, ->(category) do
-      collection_ids = ::GobiertoPeople::Person.where(category: category).map { |p| p.events_collection.id }
-      where(collection_id: collection_ids)
+      category_value = if category.is_a?(String)
+                         GobiertoPeople::Person.categories[category]
+                       else
+                         category
+                       end
+      raise "Invalid category #{category}" if category_value.blank?
+
+      joins("INNER JOIN #{GobiertoPeople::Person.table_name} ON
+        collection_items.container_id = #{GobiertoPeople::Person.table_name}.id AND
+        #{GobiertoPeople::Person.table_name}.category = #{category_value}")
     end
 
     scope :by_person_party, ->(party) do
-      collection_ids = ::GobiertoPeople::Person.where(party: party).map { |p| p.events_collection.id }
-      where(collection_id: collection_ids)
+      party_value = if party.is_a?(String)
+                      GobiertoPeople::Person.parties[party]
+                    else
+                      party
+                    end
+      raise "Invalid party #{party}" if party_value.blank?
+
+      joins("INNER JOIN #{GobiertoPeople::Person.table_name} ON
+        collection_items.container_id = #{GobiertoPeople::Person.table_name}.id AND
+        #{GobiertoPeople::Person.table_name}.party = #{party_value}")
     end
 
     scope :person_events, -> do

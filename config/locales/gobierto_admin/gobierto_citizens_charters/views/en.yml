@@ -118,7 +118,7 @@ en:
         configuration:
           configuration: Configuration
         edit:
-          title: Edit %{item}
+          title: Edit
         navigation:
           charters: Services charters
           commitments: Commitments

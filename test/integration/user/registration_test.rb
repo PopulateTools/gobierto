@@ -91,6 +91,18 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_registration_with_email_capitalized
+    with_current_site(site) do
+      visit @registration_path
+
+      fill_in :user_registration_email, with: user.email.upcase
+
+      click_on "Let's go"
+
+      assert has_message?("That email is already registered. Try login in or recovering your password")
+    end
+  end
+
   def test_registration_with_registered_user_in_other_site
     with_current_site(other_site) do
       visit @registration_path

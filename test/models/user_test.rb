@@ -63,6 +63,12 @@ class UserTest < ActiveSupport::TestCase
     assert other_madrid_user.errors.include? :email
   end
 
+  def test_email_unique_capitalized
+    new_user = User.new email: user.email.upcase, site: user.site
+    refute new_user.valid?
+    assert new_user.errors[:email].present?
+  end
+
   def test_valid
     assert user.valid?
   end

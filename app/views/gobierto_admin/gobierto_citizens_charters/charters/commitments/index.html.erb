@@ -2,14 +2,18 @@
 
 <%= render("gobierto_admin/gobierto_citizens_charters/shared/navigation") %>
 
-<%= render("sub_breadcrumb") %>
+<div class="pure-g">
 
-<div class="admin_tools right">
-    <%= link_to  edit_admin_citizens_charters_charter_path(@charter) do %>
-      <i class="fa fa-edit"></i>
-      <%= t("gobierto_admin.gobierto_citizens_charters.shared.edit.title", item: @charter.title) %>
-    <% end %>
-  <%= link_to t(".new"), new_admin_citizens_charters_charter_commitment_path(@charter), class: "button" %>
+  <%= render("sub_breadcrumb") %>
+
+  <div class="pure-u-1-2 admin_tools right">
+      <%= link_to  edit_admin_citizens_charters_charter_path(@charter) do %>
+        <i class="fa fa-edit"></i>
+        <%= t("gobierto_admin.gobierto_citizens_charters.shared.edit.title", item: @charter.title) %>
+      <% end %>
+    <%= link_to t(".new"), new_admin_citizens_charters_charter_commitment_path(@charter), class: "button" %>
+  </div>
+
 </div>
 
 <table class="commitments-list">

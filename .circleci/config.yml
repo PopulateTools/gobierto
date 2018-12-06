@@ -91,7 +91,27 @@ jobs:
       - run: bin/rails i18n:js:export
 
       # Precompile assets
-      - run: bin/rails assets:precompile
+      - restore_cache:
+          name: "[Assets] Restore asset pipeline cache"
+          keys:
+            - gobierto-asset-pipeline
+      - restore_cache:
+          name: "[Assets] Restore webpacker cache"
+          keys:
+            - gobierto-webpacker
+      - run:
+          name: "[Assets] Assets precompile"
+          command: bin/rails assets:precompile
+      - save_cache:
+          name: "[Assets] Asset pipeline cache"
+          key: gobierto-asset-pipeline
+          paths:
+            - public/assets
+      - save_cache:
+          name: "[Assets] Asset pipeline cache"
+          key: gobierto-webpacker
+          paths:
+            - public/packs-test
 
       # Run tests
       - run:

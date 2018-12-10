@@ -117,7 +117,7 @@ es:
         configuration:
           configuration: Configuración
         edit:
-          title: Editar %{item}
+          title: Editar
         navigation:
           charters: Cartas de servicio
           commitments: Compromisos

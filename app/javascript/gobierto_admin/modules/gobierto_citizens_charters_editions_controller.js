@@ -186,7 +186,7 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
           textField: "title",
           editing: true,
           inserting: true,
-          width: "10%",
+          width: "20%",
           validate: "required",
           align: "left",
           commitments_path: options.commitments_path,
@@ -208,7 +208,7 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
           name: "percentage",
           title: I18n.t("gobierto_admin.gobierto_citizens_charters.editions.index.header.percentage"),
           type: "decimal",
-          width: "6%",
+          width: "4%",
           validate: [{
             validator: function(value, item) {
               return (value !== "" || (item.value !== "" && item.max_value !== ""))
@@ -226,13 +226,13 @@ window.GobiertoAdmin.GobiertoCitizensChartersEditionsController = (function() {
           name: "value",
           title: I18n.t("gobierto_admin.gobierto_citizens_charters.editions.index.header.value"),
           type: "decimal",
-          width: "6%"
+          width: "4%"
         },
         {
           name: "max_value",
           title: I18n.t("gobierto_admin.gobierto_citizens_charters.editions.index.header.max_value"),
           type: "decimal",
-          width: "6%"
+          width: "4%"
         },
         {
           type: "control",

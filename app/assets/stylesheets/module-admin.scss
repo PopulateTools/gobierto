@@ -856,9 +856,31 @@ a .global_menu {
   select,
   option,
   textarea {
-    height: initial;
-    padding: initial;
+    height: 2em;
+    padding: .2em;
     margin: initial;
+    font-size: 1.15em;
+  }
+
+  .jsgrid-control-field {
+    .fa {
+      padding: .65em;
+      border-radius: 3px;
+      font-size: 1em;
+      color: #fff;
+      background: $color_main;
+      cursor: pointer;
+    }
+
+    .fa:not(:last-child) {
+      margin-right: .75em;
+    }
+  }
+
+  .jsgrid-header-row {
+    .fa {
+      background: initial;
+    }
   }
 }
 

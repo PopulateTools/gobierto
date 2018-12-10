@@ -117,7 +117,7 @@ ca:
         configuration:
           configuration: Configuració
         edit:
-          title: Edita %{item}
+          title: Editar
         navigation:
           charters: Cartes de serveis
           commitments: Compromisos

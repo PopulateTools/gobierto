@@ -1,19 +1,22 @@
 <%= render "single_charter_stylesheets_hook" %>
 
 <% title t(".title", title: @charter.title) %>
+
 <div class="column">
 <main class="content gobierto_citizens-charters">
 
   <div class="charter-header">
     <div class="column">
-      <h1><%= @charter.title %></h1>
-      <%= image_tag('illustrations/personaliza.jpg') %>
+      <h1><%= link_to @charter.title, gobierto_citizens_charters_charter_path(@charter.slug) %></h1>
+      <%= image_tag(custom_field_by_uid(@charter, "cover-image") || "") %>
     </div>
   </div>
-  <div class="charter-subheader">
+  <div class="charter-subheader" style="display: none">
     <div class="column">
       <div class="left absolute-layout">
-      <%= link_to t(".back"), gobierto_citizens_charters_charter_path(@charter.slug) %>
+      <%= link_to gobierto_citizens_charters_charter_path(@charter.slug) do %>
+        <i class="fa fa-long-arrow-left"></i> <%= t(".back") %>
+      <% end %>
       </div>
     </div>
   </div>
@@ -25,5 +28,12 @@
         <p><%= content %></p>
       <% end %>
     <% end %>
+
+    <div class="m_v_3">
+      <%= link_to gobierto_citizens_charters_charter_path(@charter.slug) do %>
+        <i class="fa fa-long-arrow-left"></i> <%= t(".back") %>
+      <% end %>
+    </div>
+
   </article>
 </main>

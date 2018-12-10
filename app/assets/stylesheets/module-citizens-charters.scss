@@ -141,6 +141,11 @@
       @include screen(0, $wMedium) {
         font-size: 1.5em;
       }
+
+      a {
+        color: $color_main_negative;
+        text-decoration: none;
+      }
     }
 
     img {
@@ -224,6 +229,10 @@
       background-position: calc(100% - 20px) 50%, calc(100% - 12px) 50%;
       background-size: 8px 8px, 8px 8px;
       background-repeat: no-repeat;
+    }
+
+    small {
+      line-height: 1.4;
     }
   }
 

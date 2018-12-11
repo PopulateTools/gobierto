@@ -49,7 +49,7 @@ module GobiertoPeople
     end
 
     def people_with_events_in_department_source
-      justice_department.people.with_event_attendances
+      justice_department.people.with_event_attendances(site)
     end
 
     def test_query

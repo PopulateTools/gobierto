@@ -32,11 +32,11 @@ module GobiertoPeople
 
     def show
       @department = site_departments.find_by_slug!(params[:id])
-      people = QueryWithEvents.new(source: @department.people.active.with_event_attendances,
+      people = QueryWithEvents.new(source: @department.people.active.with_event_attendances(current_site),
                                    start_date: filter_start_date,
                                    end_date: filter_end_date)
 
-      interest_groups = QueryWithEvents.new(source: @department.events,
+      interest_groups = QueryWithEvents.new(source: @department.events.published,
                                             start_date: filter_start_date,
                                             end_date: filter_end_date)
       @department_stats = {

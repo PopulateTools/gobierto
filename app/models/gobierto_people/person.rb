@@ -37,7 +37,7 @@ module GobiertoPeople
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
     scope :by_site, ->(site) { where(site_id: site.id) }
-    scope :with_event_attendances, -> { where(id: ::GobiertoCalendars::EventAttendee.pluck(:person_id)) }
+    scope :with_event_attendances, ->(site) { where(id: site.event_attendances.pluck(:person_id).uniq) }
     enum visibility_level: { draft: 0, active: 1 }
     alias public? active?
     enum category: { politician: 0, executive: 1 }

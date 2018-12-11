@@ -94,7 +94,7 @@ xlsx_attachment_event:
   slug: xlsx-attachment-event-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
-  collection: site_attachments
+  collection: gender_violence_process_documents
 
 attachment:
   name: Attachment Name

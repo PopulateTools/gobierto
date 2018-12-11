@@ -19,11 +19,11 @@ module GobiertoParticipation
     private
 
     def find_participation_events
-      ::GobiertoCalendars::Event.in_collections_and_container_type(current_site, "GobiertoParticipation").published.sorted.upcoming.limit(4)
+      ProcessCollectionDecorator.new(current_site.events).in_participation_module.published.sorted.upcoming.limit(4)
     end
 
     def find_participation_news
-      ::GobiertoCms::Page.news_in_collections_and_container_type(current_site, "GobiertoParticipation").active.sorted.limit(5)
+      ProcessCollectionDecorator.new(current_site.pages, item_type: "GobiertoCms::News").in_participation_module.active.sorted.limit(5)
     end
 
     def find_participation_activities

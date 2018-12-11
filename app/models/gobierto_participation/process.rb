@@ -41,6 +41,7 @@ module GobiertoParticipation
     scope :sorted, -> { order(id: :desc) }
 
     after_create :create_collections
+    after_destroy :delete_collections
     after_restore :set_slug
 
     alias public? active?
@@ -63,6 +64,18 @@ module GobiertoParticipation
 
     def attachments_collection
       find_collection_of_items("GobiertoAttachments::Attachment")
+    end
+
+    def events
+      ProcessCollectionDecorator.new(site.events).in_process(self)
+    end
+
+    def attachments
+      ProcessCollectionDecorator.new(site.attachments).in_process(self)
+    end
+
+    def news
+      ProcessCollectionDecorator.new(site.pages, item_type: "GobiertoCms::News").in_process(self)
     end
 
     def current_stage
@@ -121,6 +134,29 @@ module GobiertoParticipation
       site.collections.create! container: self, item_type: "GobiertoAttachments::Attachment", slug: "attachment-#{slug}", title: title
       # News
       site.collections.create! container: self, item_type: "GobiertoCms::News", slug: "news-#{slug}", title: title
+    end
+
+    def delete_collections
+      # Events
+      events_collection = site.collections.find_by(container: self, item_type: "GobiertoCalendars::Event")
+      if events_collection
+        site.events.where(collection: events_collection).destroy_all
+        events_collection.destroy
+      end
+
+      # Attachments
+      attachments_collection = site.collections.find_by(container: self, item_type: "GobiertoAttachments::Attachment")
+      if attachments_collection
+        site.attachments.where(collection: attachments_collection).destroy_all
+        attachments_collection.destroy
+      end
+
+      # News
+      news_collection = site.collections.find_by(container: self, item_type: "GobiertoCms::News")
+      if news_collection
+        site.pages.where(collection: news_collection).destroy_all
+        news_collection.destroy
+      end
     end
 
     def attributes_for_slug

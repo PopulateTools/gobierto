@@ -23,7 +23,7 @@ module GobiertoParticipation
     end
 
     def process_attachments
-      @process_attachments ||= ::GobiertoAttachments::Attachment.in_collections_and_container(site, process)
+      @process_attachments ||= process.attachments
     end
 
     def test_breadcrumb_items

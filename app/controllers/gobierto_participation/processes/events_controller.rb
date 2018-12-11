@@ -28,15 +28,9 @@ module GobiertoParticipation
 
       def process_events_scope
         if valid_preview_token?
-          ::GobiertoCalendars::Event.in_collections_and_container(
-            current_site,
-            current_process
-          ).sorted
+          current_process.events.sorted
         else
-          ::GobiertoCalendars::Event.in_collections_and_container(
-            current_site,
-            current_process
-          ).published.sorted
+          current_process.events.sorted.published
         end
       end
 
@@ -46,7 +40,7 @@ module GobiertoParticipation
 
       def set_events
         @events = process_events_scope
-        @events = ProcessCollectionDecorator.new(@events).with_issue(@issue).published if @issue
+        @events = @events.with_term(@issue) if @issue
 
         @events = if params[:date]
                     filter_events_by_date(params[:date]).published

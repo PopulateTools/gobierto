@@ -17,7 +17,11 @@ module GobiertoParticipation
     end
 
     def participation_attachments
-      @participation_attachments ||= ::GobiertoAttachments::Attachment.in_collections_and_container_type(site, "GobiertoParticipation")
+      @participation_attachments ||= GobiertoParticipation::ProcessCollectionDecorator.new(site.attachments).in_participation_module
+    end
+
+    def participation_process
+      @participation_process ||= gobierto_participation_processes :bowling_group_very_active
     end
 
     def test_secondary_nav
@@ -44,6 +48,41 @@ module GobiertoParticipation
         assert has_link? "PDF Collection On Participation"
         assert has_link? "XLSX Attachment Event"
         assert has_link? "PDF Collection Attachment Name"
+        assert has_link? "PDF Collection On Process"
+      end
+    end
+
+    def test_participation_process_draft
+      participation_process.draft!
+
+      with_current_site(site) do
+        visit participation_attachments_path
+
+        assert_equal participation_attachments.size, all(".news_teaser").size
+
+        assert has_no_content? "See all documents"
+
+        assert has_link? "PDF Collection On Participation"
+        assert has_link? "XLSX Attachment Event"
+        assert has_link? "PDF Collection Attachment Name"
+        assert has_no_content? "PDF Collection On Process"
+      end
+    end
+
+    def test_participation_process_archived
+      participation_process.destroy
+
+      with_current_site(site) do
+        visit participation_attachments_path
+
+        assert_equal participation_attachments.size, all(".news_teaser").size
+
+        assert has_no_content? "See all documents"
+
+        assert has_link? "PDF Collection On Participation"
+        assert has_link? "XLSX Attachment Event"
+        assert has_link? "PDF Collection Attachment Name"
+        assert has_no_content? "PDF Collection On Process"
       end
     end
   end

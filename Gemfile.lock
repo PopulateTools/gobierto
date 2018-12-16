@@ -125,7 +125,7 @@ GEM
       activesupport
     chroma (0.2.0)
     cliver (0.3.2)
-    cloudinary (1.9.1)
+    cloudinary (1.11.0)
       aws_cf_signer
       rest-client
     cocoon (1.2.12)

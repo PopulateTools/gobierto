@@ -64,16 +64,6 @@ export const punchcard = (context, data, options = {}) => {
     d3.max(data.map(d => d3.max(d.value.map(v => v.value))))
 	]);
 
-  // chart title
-  if (title) {
-    svg.append("text")
-      .attr("x", 0)
-      .attr("y", (margin.top / 3) + (itemHeight / 2))
-      .attr("class", "title")
-      .attr("text-anchor", "start")
-      .text(title);
-  }
-
 	let g = svg.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
@@ -181,6 +171,28 @@ export const punchcard = (context, data, options = {}) => {
 			.attr("class", "y axis")
 			.attr("transform", "translate(" + (-margin.left + gutter) + ",0)")
 			.call(yAxis)
+
+		// chart title
+		if (title) {
+			const topSpace = (margin.top / 3) + (itemHeight / 2)
+			
+			// To overlap axis text, we create a fake background
+			let bgText = svg.append("rect")
+				.attr("x", 0)
+				.attr("fill", "white")
+			
+			let titleText = svg.append("text")
+				.attr("x", 0)
+				.attr("y", topSpace)
+				.attr("class", "title")
+				.attr("text-anchor", "start")
+				.text(title);
+				
+			bgText
+				.attr("width", titleText.node().getBBox().width)
+				.attr("height", titleText.node().getBBox().height)
+				.attr("y", topSpace - (titleText.node().getBBox().height / 2))
+		}
 
 		// tooltip
 		let tooltip = d3.select(tooltipContainer).append("div")

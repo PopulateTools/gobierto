@@ -19,6 +19,8 @@ export const punchcard = (context, data, options = {}) => {
   let title = options.title || ''
 	let tooltipContainer = options.tooltipContainer || "body"
 	let tooltipContent = options.tooltipContent
+	let fixedWidth = options.width
+	let fixedHeight = options.height
 
   // parse dates
   data.forEach((element, elementIndex) => {
@@ -40,8 +42,8 @@ export const punchcard = (context, data, options = {}) => {
 
   // dimensions
   let container = d3.select(context)
-  let width = +container.node().getBoundingClientRect().width - margin.left - margin.right
-  let height = (data.length * itemHeight) + margin.top + margin.bottom
+  let width = fixedWidth || +container.node().getBoundingClientRect().width - margin.left - margin.right
+  let height = fixedHeight || (data.length * itemHeight) + margin.top + margin.bottom
   let svg = container.append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -87,7 +89,7 @@ export const punchcard = (context, data, options = {}) => {
     .attr("x", -margin.left)
     .attr("rx", 6)
     .attr("ry", 6)
-    .attr("width", +container.node().getBoundingClientRect().width)
+    .attr("width", svg.attr("width"))
     .attr("height", y.bandwidth());
 
   _g.selectAll("circle")

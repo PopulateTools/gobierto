@@ -13,7 +13,7 @@ class StringObfuscator
     return value unless value.is_a?(String)
 
     if !percent.nil?
-      percent = BigDecimal.new(percent.to_s)
+      percent = BigDecimal(percent.to_s)
       obfuscated_length = (value.length * (percent / 100)).ceil
     else
       obfuscated_length = length

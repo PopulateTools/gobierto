@@ -24,7 +24,7 @@ module GobiertoPlans
         collection.each do |item|
           csv << RowNodeDecorator.new(item).object
         end
-      end
+      end.force_encoding('utf-8')
     end
   end
 end

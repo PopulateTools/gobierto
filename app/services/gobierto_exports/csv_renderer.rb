@@ -6,7 +6,7 @@ module GobiertoExports
     end
 
     def to_csv
-      csv = CSV.generate do |csv|
+      CSV.generate do |csv|
         columns =  if @relation.respond_to? :klass
                      @relation.klass.csv_columns
                    else
@@ -16,7 +16,7 @@ module GobiertoExports
         @relation.each do |record|
           csv << record.as_csv
         end
-      end
+      end.force_encoding('utf-8')
     end
   end
 end

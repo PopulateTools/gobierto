@@ -15,7 +15,7 @@ module GobiertoBudgetConsultations
             csv << [ consultation_response.id, age, gender, location, item.item_title.strip, item.selected_option ]
           end
         end
-      end
+      end.force_encoding('utf-8')
     end
   end
 end

@@ -68,6 +68,8 @@ $(document).on('turbolinks:load', function() {
         "|"],
       status: false
     });
+    
+    toggleStickyToolbar($el)
 
     $el.data({editor: simplemde});
     simplemde.codemirror.on("change", function(){
@@ -199,6 +201,33 @@ function setDateOnBindedDatepicker(date, datepicker) {
   if($(datepicker).length) {
     $(datepicker).data('datepicker').selectDate(date);
   }
+}
+
+function toggleStickyToolbar(wysiwyg) {
+  const id = wysiwyg.attr("id").substring(0, wysiwyg.attr("id").length - 3)
+  const localeGroup = wysiwyg.parent().parent().find(`[id^=${id}]`)
+  const toolbar = wysiwyg.siblings(".editor-toolbar")
+  const headerHeight = $("header").height()
+  const toolbarOffsetTop = toolbar.offset().top - headerHeight  
+
+  $(window).on("scroll resize", function () {
+    const scroll = $(this).scrollTop();
+    const localeBarHeight = $('.is-floating .globalize_tool').outerHeight() || 0;
+
+    if (toolbar.is(":visible")) {
+      if (scroll > (toolbarOffsetTop - localeBarHeight)) {
+        localeGroup.each((i, item) => {
+          $(item).siblings(".editor-toolbar").addClass("is-sticky");
+          $(item).siblings(".editor-toolbar").css({ top: `${headerHeight + localeBarHeight}px` });
+        })
+      } else if (toolbar.hasClass("is-sticky")) {  
+        localeGroup.each((i, item) => {
+          $(item).siblings(".editor-toolbar").removeClass("is-sticky");
+          $(item).siblings(".editor-toolbar").removeAttr("style");
+        })
+      }
+    }
+  })  
 }
 
 export { addDatepickerBehaviors }

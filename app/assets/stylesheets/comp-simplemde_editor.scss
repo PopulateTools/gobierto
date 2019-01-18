@@ -5,6 +5,23 @@
 .form_item {
   .editor-toolbar {
     padding: 25px 10px 0 6px;
+    position: relative;
+
+    &.is-sticky {
+      position: -webkit-sticky;
+      position: sticky;
+      z-index: 100;
+      opacity: initial;
+      border-bottom: 1px solid;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-color: rgba(#bbb, .6);
+      background-color: $color_main_negative;
+  
+      &:hover {
+        opacity: initial;
+      }
+    }
 
     .fa {
       margin: 0;

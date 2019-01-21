@@ -68,14 +68,15 @@ $(document).on('turbolinks:load', function() {
         "|"],
       status: false
     });
-    
-    toggleStickyToolbar($el)
 
     $el.data({editor: simplemde});
     simplemde.codemirror.on("change", function(){
       var id = "#" + $el.attr('id').replace('_source', '');
       $(id).val(simplemde.markdown(simplemde.value()))
     });
+
+    // Add event once it's rendered
+    $(document).ready(() => toggleStickyToolbar($el))
   });
 });
 
@@ -204,26 +205,35 @@ function setDateOnBindedDatepicker(date, datepicker) {
 }
 
 function toggleStickyToolbar(wysiwyg) {
+  // Unique locale id
   const id = wysiwyg.attr("id").substring(0, wysiwyg.attr("id").length - 3)
-  const localeGroup = wysiwyg.parent().parent().find(`[id^=${id}]`)
-  const toolbar = wysiwyg.siblings(".editor-toolbar")
+  // Header height
   const headerHeight = $("header").height()
-  const toolbarOffsetTop = toolbar.offset().top - headerHeight  
+  // Toolbar from the element itself
+  const toolbar = wysiwyg.siblings(".editor-toolbar")
 
+  // Group who gathers the same form element toolbars, but different locales
+  const localeToolbarGroup = wysiwyg.parent().parent().find(`[id^=${id}]`).siblings(".editor-toolbar")
+  // If element is visible, get its offset, otherwise, get the visible offset height from its locale group
+  const toolbarOffsetTop = toolbar.is(":visible") 
+    ? toolbar.offset().top - headerHeight
+    : localeToolbarGroup.filter(":visible").offset().top - headerHeight
+  
   $(window).on("scroll resize", function () {
     const scroll = $(this).scrollTop();
-    const localeBarHeight = $('.is-floating .globalize_tool').outerHeight() || 0;
+    // Add the height of the floating globalize tool, if exists
+    const localeBarHeight = $('.is-floating .globalize_tool').outerHeight() || 0;    
 
     if (toolbar.is(":visible")) {
       if (scroll > (toolbarOffsetTop - localeBarHeight)) {
-        localeGroup.each((i, item) => {
-          $(item).siblings(".editor-toolbar").addClass("is-sticky");
-          $(item).siblings(".editor-toolbar").css({ top: `${headerHeight + localeBarHeight}px` });
+        localeToolbarGroup.each((i, item) => {
+          $(item).addClass("is-sticky");
+          $(item).css({ top: `${headerHeight + localeBarHeight}px` });
         })
       } else if (toolbar.hasClass("is-sticky")) {  
-        localeGroup.each((i, item) => {
-          $(item).siblings(".editor-toolbar").removeClass("is-sticky");
-          $(item).siblings(".editor-toolbar").removeAttr("style");
+        localeToolbarGroup.each((i, item) => {
+          $(item).removeClass("is-sticky");
+          $(item).removeAttr("style");
         })
       }
     }

@@ -632,24 +632,8 @@ pre {
     border: 1px solid $color_separator;
     border-top-color: #fafafa;
     background: #fafafa;
-    padding: 0 3px;
+    padding: 3px;
     margin: 0;
-    line-height: 30px;
-
-    &::before,
-    &::after {
-      display: block;
-      content: ' ';
-      height: 1px;
-    }
-
-    &::after {
-      margin-top: 8px;
-    }
-
-    &::before {
-      margin-bottom: 8px;
-    }
   }
 }
 

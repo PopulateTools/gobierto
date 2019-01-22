@@ -22,6 +22,16 @@
       &:hover {
         opacity: initial;
       }
+
+      &::before,
+      &::after {
+        content: none;
+      }
+
+      .fa-question-circle {
+        top: 0;
+        bottom: 0;
+      }
     }
 
     .fa {

@@ -628,12 +628,28 @@ pre {
   &.is-floating .globalize_tool {
     position: fixed;
     top: 40px;
-    z-index: 100;
+    z-index: 101;
     border: 1px solid $color_separator;
-    border-top: 0;
+    border-top-color: #fafafa;
     background: #fafafa;
-    box-shadow: 0 4px 2px -2px $color_separator;
-    padding: 3px;
+    padding: 0 3px;
+    margin: 0;
+    line-height: 30px;
+
+    &::before,
+    &::after {
+      display: block;
+      content: ' ';
+      height: 1px;
+    }
+
+    &::after {
+      margin-top: 8px;
+    }
+
+    &::before {
+      margin-bottom: 8px;
+    }
   }
 }
 

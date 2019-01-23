@@ -74,6 +74,9 @@ $(document).on('turbolinks:load', function() {
       var id = "#" + $el.attr('id').replace('_source', '');
       $(id).val(simplemde.markdown(simplemde.value()))
     });
+
+    // Add event once it's rendered
+    $(document).ready(() => toggleStickyToolbar($el))
   });
 });
 
@@ -199,6 +202,42 @@ function setDateOnBindedDatepicker(date, datepicker) {
   if($(datepicker).length) {
     $(datepicker).data('datepicker').selectDate(date);
   }
+}
+
+function toggleStickyToolbar(wysiwyg) {
+  // Unique locale id
+  const id = wysiwyg.attr("id").substring(0, wysiwyg.attr("id").length - 3)
+  // Header height
+  const headerHeight = $("header").height()
+  // Toolbar from the element itself
+  const toolbar = wysiwyg.siblings(".editor-toolbar")
+
+  // Group who gathers the same form element toolbars, but different locales
+  const localeToolbarGroup = wysiwyg.parent().parent().find(`[id^=${id}]`).siblings(".editor-toolbar")
+  // If element is visible, get its offset, otherwise, get the visible offset height from its locale group
+  const toolbarOffsetTop = toolbar.is(":visible") 
+    ? toolbar.offset().top - headerHeight
+    : localeToolbarGroup.filter(":visible").offset().top - headerHeight
+  
+  $(window).on("scroll resize", function () {
+    const scroll = $(this).scrollTop();
+    // Add the height of the floating globalize tool, if exists
+    const localeBarHeight = $('.is-floating .globalize_tool').outerHeight() || 0;    
+
+    if (toolbar.is(":visible")) {
+      if (scroll > (toolbarOffsetTop - localeBarHeight)) {
+        localeToolbarGroup.each((i, item) => {
+          $(item).addClass("is-sticky");
+          $(item).css({ top: `${headerHeight + localeBarHeight}px` });
+        })
+      } else if (toolbar.hasClass("is-sticky")) {  
+        localeToolbarGroup.each((i, item) => {
+          $(item).removeClass("is-sticky");
+          $(item).removeAttr("style");
+        })
+      }
+    }
+  })  
 }
 
 export { addDatepickerBehaviors }

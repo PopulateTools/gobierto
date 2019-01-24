@@ -1,7 +1,7 @@
 <% title t('.header') %>
 
 <% content_for :body_attributes do %>
-  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{Date.today.year + 1}"} %>
+  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{GobiertoBudgets::SearchEngineConfiguration::Year.last + 1}"} %>
 <% end %>
 
 <div class="column">

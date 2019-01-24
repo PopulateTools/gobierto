@@ -19,14 +19,16 @@
 
   <div class="pure-g metric_boxes">
 
-    <div id="metric_box_1" class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant_tooltip') %>">
-      <!--  metric_box should be flexbox -->
-      <div class="inner">
-        <h3><%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant') %></h3>
-        <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
-        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_budget_per_inhabitant) %> vs <%= @year - 1 %></div>
+    <% if @site_stats.has_available_population_data? %>
+      <div id="metric_box_1" class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant_tooltip') %>">
+        <!--  metric_box should be flexbox -->
+        <div class="inner">
+          <h3><%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant') %></h3>
+          <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
+          <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_budget_per_inhabitant) %> vs <%= @year - 1 %></div>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div id="metric_box_2" class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.total_expenses_tooltip') %>">
       <div class="inner">
@@ -44,13 +46,15 @@
       </div>
     </div>
 
-    <div id="metric_box_4" class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.debt_level_tooltip') %>">
-      <div class="inner">
-        <h3><%= t('gobierto_budgets.budgets_elaboration.index.debt_level') %></h3>
-        <div class="metric"><%= format_currency @site_stats.debt_level %></div>
-        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :debt_level) %> vs <%= @year - 1 %></div>
+    <% if @site_stats.has_available_debt_data? %>
+      <div id="metric_box_4" class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.debt_level_tooltip') %>">
+        <div class="inner">
+          <h3><%= t('gobierto_budgets.budgets_elaboration.index.debt_level') %></h3>
+          <div class="metric"><%= format_currency @site_stats.debt_level %></div>
+          <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :debt_level) %> vs <%= @year - 1 %></div>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div id="metric_box_5" class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.auto_funding_tooltip') %>">
       <div class="inner">

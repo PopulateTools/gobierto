@@ -8,6 +8,7 @@ module GobiertoBudgets
       @year = options.fetch(:year).to_i
       @data = { debt: {}, population: {} }
       @empty_population = !has_available?(:population)
+      @empty_debt = !has_available?(:debt)
     end
 
     def budgets_data_updated_at
@@ -31,6 +32,10 @@ module GobiertoBudgets
 
     def has_available_population_data?
       !@empty_population
+    end
+
+    def has_available_debt_data?
+      !@empty_debt
     end
 
     def total_budget_per_inhabitant(year = nil)

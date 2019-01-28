@@ -83,4 +83,13 @@ class GobiertoCommon::CustomFieldRecordTest < ActiveSupport::TestCase
     refute subject.valid?
     assert_not_nil subject.errors[:item]
   end
+
+  def test_localized_string_fallback_value
+    subject = GobiertoCommon::CustomFieldRecord.new
+    subject.custom_field = custom_field_localized_string
+    subject.value = { es: "test_es", en: "test_en" }
+
+    I18n.locale = :ca
+    assert_equal "test_en", subject.value
+  end
 end

@@ -79,6 +79,11 @@ module Gobierto
     config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
 
     config.time_zone = "Madrid"
+
+    # if Gobierto runs in a root path, assets should use that path too
+    if ENV["GOBIERTO_ROOT_URL_PATH"].present?
+      Rails.application.config.relative_url_root = ENV["GOBIERTO_ROOT_URL_PATH"]
+    end
   end
 end
 

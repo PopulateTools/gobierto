@@ -10,14 +10,20 @@ window.GobiertoBudgets.InvoicesController = (function() {
   function InvoicesController() {}
 
   // Global variables
-  var data, ndx, _r, _tabledata, _empty, _chartdata = {}, $tableHTML = {};
+  var data, ndx, _r, _tabledata, _empty, dataEndpoint, _chartdata = {}, $tableHTML = {};
 
   InvoicesController.prototype.show = function() {
     $tableHTML = $("#providers-table");
 
+    if(window.populateData.endpoint === ""){
+      dataEndpoint = "/presupuestos/proveedores-facturas.csv"
+    } else {
+      dataEndpoint = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv'
+    }
+
     let municipalityId = window.populateData.municipalityId;
-    let maxYearUrl = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&sort_desc_by=date&limit=1';
-    let minYearUrl = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&sort_asc_by=date&limit=1';
+    let maxYearUrl = dataEndpoint + '?filter_by_location_id='+municipalityId+'&sort_desc_by=date&limit=1';
+    let minYearUrl = dataEndpoint + '?filter_by_location_id='+municipalityId+'&sort_asc_by=date&limit=1';
 
     // Get the dates
     let getYear = function (url) {
@@ -100,7 +106,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
     }
 
     var municipalityId = window.populateData.municipalityId;
-    var url = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&date_date_range='+dateRange+'&sort_asc_by=date&except_columns=_id,invoice_id,payment_date,location_id,province_id,autonomous_region_id';
+    var url = dataEndpoint + '?filter_by_location_id='+municipalityId+'&date_date_range='+dateRange+'&sort_asc_by=date&except_columns=_id,invoice_id,payment_date,location_id,province_id,autonomous_region_id';
 
     // Show spinner
     $(".js-toggle-overlay").addClass('is-active');

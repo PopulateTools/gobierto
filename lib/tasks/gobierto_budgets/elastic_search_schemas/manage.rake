@@ -4,12 +4,40 @@ namespace :gobierto_budgets do
   namespace :elastic_search_schemas do
     namespace :manage do
       def indexes
-        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.all_indices
+        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.all_indices +
+          GobiertoBudgets::SearchEngineConfiguration::Invoice.all_indices
       end
 
       def types
         GobiertoBudgets::BudgetArea.all_areas_names +
           [GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type]
+      end
+
+      def create_invoices_mapping(index, type)
+        m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
+        return unless m.empty?
+
+        puts "  - Creating #{index} #{type}"
+        GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
+          type.to_sym => {
+            properties: {
+              value:                       { "type": "float", "index": "not_analyzed" },
+              location_id:                 { "type": "string", "index": "not_analyzed" },
+              date:                        { "type": "date", "index": "not_analyzed" },
+              province_id:                 { "type": "integer", "index": "not_analyzed" },
+              autonomous_region_id:        { "type": "integer", "index": "not_analyzed" },
+              invoice_id:                  { "type": "string", "index": "not_analyzed" },
+              provider_id:                 { "type": "string", "index": "not_analyzed" },
+              provider_name:               { "type": "string", "index": "analyzed" },
+              payment_date:                { "type": "date", "index": "not_analyzed" },
+              paid:                        { "type": "boolean", "index": "not_analyzed" },
+              subject:                     { "type": "string", "index": "analyzed" },
+              freelance:                   { "type": "boolean", "index": "not_analyzed" },
+              economic_budget_line_code:   { "type": "string", "index": "not_analyzed" },
+              functional_budget_line_code: { "type": "string", "index": "not_analyzed" }
+            }
+          }
+        }
       end
 
       def create_budgets_mapping(index, type)
@@ -99,6 +127,8 @@ namespace :gobierto_budgets do
           types.each do |type|
             if index == GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series
               create_budgets_execution_series_mapping(index, type)
+            elsif index == GobiertoBudgets::SearchEngineConfiguration::Invoice.index
+              create_invoices_mapping(index, GobiertoBudgets::SearchEngineConfiguration::Invoice.type)
             else
               create_budgets_mapping(index, type)
             end

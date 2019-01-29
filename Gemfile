@@ -85,7 +85,7 @@ gem "google-api-client"
 gem "exchanger"
 
 # Web Services
-gem "savon", "~> 2.11.1"
+gem "savon", "~> 2.12.0"
 
 # Image management
 gem "cloudinary"

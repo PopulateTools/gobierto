@@ -38,9 +38,9 @@ module GobiertoBudgets
       !@empty_debt
     end
 
-    def total_budget_per_inhabitant(year = nil)
+    def total_budget_per_inhabitant(year = nil, kind = GobiertoBudgets::BudgetLine::EXPENSE)
       year ||= @year
-      BudgetTotal.budgeted_for(@site.organization_id, year, BudgetLine::EXPENSE).to_f / (population(year) || population(year - 1) || population(year - 2)).to_f
+      BudgetTotal.budgeted_for(@site.organization_id, year, kind).to_f / (population(year) || population(year - 1) || population(year - 2)).to_f
     end
 
     def total_income_budget(year = nil)
@@ -58,9 +58,9 @@ module GobiertoBudgets
       BudgetTotal.budgeted_for(@site.organization_id, year, BudgetLine::INCOME).to_f / (population(year) || population(year - 1) || population(year - 2)).to_f
     end
 
-    def total_budget(year = nil)
+    def total_budget(year = nil, kind = GobiertoBudgets::BudgetLine::EXPENSE)
       year ||= @year
-      BudgetTotal.budgeted_for(@site.organization_id, year)
+      BudgetTotal.budgeted_for(@site.organization_id, year, kind)
     end
     alias total_budget_planned total_budget
 

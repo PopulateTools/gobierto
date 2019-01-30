@@ -243,13 +243,16 @@ es:
           intro: Así va la ejecución del presupuesto municipal.
           last_update: 'Última actualización: %{date}.'
           title: Ejecución
-        expenses: Gastos
+        expenses: Ingresos
         expenses_per_inhabitant: Gasto por habitante
         expenses_per_inhabitant_tooltip: Presupuesto inicial dividido por el número
           de habitantes
         header: Presupuestos
         in_total: En total
         income: Ingresos
+        income_per_inhabitant: Ingreso por habitante
+        income_per_inhabitant_tooltip: Presupuesto inicial dividido por el número
+          de habitantes
         inhabitants: Habitantes
         inhabitants_tooltip: Número de habitantes
         less: menos
@@ -330,6 +333,9 @@ es:
         explore_the_detail: Explora el detalle
         header: Elaboración del presupuesto
         in_total: En total
+        income_per_inhabitant: Ingreso por habitante
+        income_per_inhabitant_tooltip: Presupuesto inicial dividido por el número
+          de habitantes
         main_budget_levels_timeline: Compara gastos e ingresos año por año
         main_budget_lines: Los principales ingresos y gastos %{from_your_organization_name}
         main_budget_lines_expense: Gastos
@@ -338,8 +344,7 @@ es:
         metric_boxes_data_description: Así cambiará el presupuesto de cara al próximo
           ejercicio
         net_savings: Ahorro neto
-        net_savings_tooltip: Ingresos corrientes menos gastos corrientes y gastos
-          financieros
+        net_savings_tooltip: Capacidad que tiene la entidad de hacer frente
         next_year_proposal: Propuesta para el %{year}
         no_data: No hay datos para esta clasificación
         note_about_the_data: Nota sobre los datos
@@ -351,6 +356,8 @@ es:
         proposal: Propuesta
         total_expenses: Gasto total
         total_expenses_tooltip: Presupuesto inicial
+        total_income: Ingreso total
+        total_income_tooltip: Presupuesto inicial
         visualize: Visualiza los gastos por habitante o el total
     budgets_execution:
       execution_table:

@@ -16,6 +16,10 @@ class GobiertoBudgets::GuideTest < ActionDispatch::IntegrationTest
     @organization_site ||= sites(:organization_wadus)
   end
 
+  def cms_page
+    @cms_page ||= gobierto_cms_pages(:about_site)
+  end
+
   def last_year
     GobiertoBudgets::SearchEngineConfiguration::Year.last
   end
@@ -26,6 +30,17 @@ class GobiertoBudgets::GuideTest < ActionDispatch::IntegrationTest
 
       assert has_content?("How a municipal budget works")
       assert has_content?("In #{last_year} were entered...")
+    end
+  end
+
+  def test_overwrite_page
+    placed_site.gobierto_budgets_settings.settings["budgets_guide_page"] = cms_page.id
+    placed_site.gobierto_budgets_settings.save!
+
+    with_current_site(placed_site) do
+      visit @path
+
+      assert has_content?("About site")
     end
   end
 end

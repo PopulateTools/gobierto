@@ -17,7 +17,8 @@ module GobiertoAdmin
         :comparison_compare_municipalities,
         :comparison_show_widget,
         :providers_enabled,
-        :indicators_enabled
+        :indicators_enabled,
+        :budgets_guide_page
       )
 
       validates :site, presence: true
@@ -111,6 +112,10 @@ module GobiertoAdmin
         indicators_enabled == true || indicators_enabled == '1'
       end
 
+      def budgets_guide_page
+        @budgets_guide_page ||= site.gobierto_budgets_settings && site.gobierto_budgets_settings.settings["budgets_guide_page"]
+      end
+
       def save
         save_options if valid?
       end
@@ -129,6 +134,7 @@ module GobiertoAdmin
         settings[:comparison_show_widget] = comparison_show_widget? ? comparison_show_widget : nil
         settings[:budgets_providers_enabled] = providers_enabled if providers_enabled?
         settings[:budgets_indicators_enabled] = indicators_enabled if indicators_enabled?
+        settings[:budgets_guide_page] = budgets_guide_page
 
         if site.gobierto_budgets_settings.nil?
           GobiertoModuleSettings.create! site: site, module_name: "GobiertoBudgets", settings: settings

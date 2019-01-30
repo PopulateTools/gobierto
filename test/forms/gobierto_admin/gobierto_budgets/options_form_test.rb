@@ -10,6 +10,10 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def page
+        @page ||= gobierto_cms_pages(:site_news_1)
+      end
+
       def receipt_configuration
         @receipt_configuration ||= <<-JSON
 {
@@ -50,7 +54,8 @@ JSON
           comparison_context_table_enabled: '1',
           comparison_compare_municipalities: [28065, 28001],
           comparison_show_widget: '1',
-          providers_enabled: '1'
+          providers_enabled: '1',
+          budgets_guide_page: page.id
         )
       end
 
@@ -64,7 +69,7 @@ JSON
           comparison_context_table_enabled: '1',
           comparison_compare_municipalities: [28065, 28001],
           comparison_show_widget: '1',
-          providers_enabled: '1'
+          providers_enabled: '1',
         )
       end
 
@@ -103,6 +108,7 @@ JSON
         assert site.gobierto_budgets_settings.settings["budgets_receipt_enabled"]
         assert_equal receipt_configuration, site.gobierto_budgets_settings.settings["budgets_receipt_configuration"]
         assert site.gobierto_budgets_settings.settings["budgets_providers_enabled"]
+        assert site.gobierto_budgets_settings.settings["budgets_guide_page"]
       end
 
       def test_save_valid_form_feedback_disabled
@@ -114,6 +120,7 @@ JSON
         refute site.gobierto_budgets_settings.settings["budget_lines_feedback_enabled"]
         assert site.gobierto_budgets_settings.settings["budgets_receipt_enabled"]
         assert site.gobierto_budgets_settings.settings["budgets_providers_enabled"]
+        refute site.gobierto_budgets_settings.settings["budgets_guide_page"]
       end
 
       def test_error_messages_with_invalid_attributes

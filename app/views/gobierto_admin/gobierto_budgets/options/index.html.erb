@@ -141,6 +141,11 @@
           <% end %>
         </div>
 
+        <div class="option">
+          <%= f.label :budgets_guide_page %>
+          <%= f.select :budgets_guide_page, @available_pages.map{ |p| [p.title, p.id] }, { include_blank: true } %>
+        </div>
+
       </div>
     </div>
   </div>
@@ -155,7 +160,7 @@
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
     window.GobiertoAdmin.gobierto_budgets_controller.options({
-    municipalities_suggestion_url: '<%= @services_config.municipalities_suggestions_endpoint %>'
+      municipalities_suggestion_url: '<%= @services_config.municipalities_suggestions_endpoint %>'
     });
   <% end %>
 <% end %>

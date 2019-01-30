@@ -3,6 +3,8 @@ ca:
   activemodel:
     attributes:
       gobierto_admin/gobierto_budgets/options_form:
+        budgets_guide_page: Pàgina de la guia de pressupostos (si no selecciones niguna
+          se mostrarà el text per defecte)
         comparison_compare_municipalities: Mostrar municipis específics
         comparison_context_table_enabled: Mostrar taula de contexte
         comparison_show_widget: Mostrar widget comparació

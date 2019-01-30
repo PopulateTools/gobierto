@@ -3,6 +3,7 @@ en:
   activemodel:
     attributes:
       gobierto_admin/gobierto_budgets/options_form:
+        budgets_guide_page: Budgets guide page
         comparison_compare_municipalities: Show specific municipalities
         comparison_context_table_enabled: Show context table
         comparison_show_widget: Show comparison widget

@@ -25,6 +25,9 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
   def guide
     @year = GobiertoBudgets::SearchEngineConfiguration::Year.last
     @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
+    if current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_guide_page"]
+      @page = GobiertoCms::Page.find_by id: current_site.gobierto_budgets_settings.settings["budgets_guide_page"]
+    end
   end
 
   private

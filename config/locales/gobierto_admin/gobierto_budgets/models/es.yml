@@ -3,6 +3,8 @@ es:
   activemodel:
     attributes:
       gobierto_admin/gobierto_budgets/options_form:
+        budgets_guide_page: Página guía de presupuestos (si no se selecciona ninguna
+          se mostrará el texto por defecto)
         comparison_compare_municipalities: Mostrar municipios específicos
         comparison_context_table_enabled: Mostrar tabla de contexto
         comparison_show_widget: Mostrar widget comparación

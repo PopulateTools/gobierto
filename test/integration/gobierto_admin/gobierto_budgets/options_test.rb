@@ -18,6 +18,10 @@ module GobiertoAdmin
         @admin ||= gobierto_admin_admins(:nick)
       end
 
+      def cms_page
+        @cms_page ||= gobierto_cms_pages(:about_site)
+      end
+
       def test_enable_options
         with_javascript do
           with_signed_in_admin(admin) do
@@ -42,6 +46,7 @@ module GobiertoAdmin
               find("#gobierto_budgets_options_comparison_context_table_enabled", visible: false).trigger(:click)
               find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).trigger(:click)
               find("#gobierto_budgets_options_indicators_enabled", visible: false).trigger(:click)
+              select cms_page.title, from: "gobierto_budgets_options_budgets_guide_page"
 
               click_button "Save"
 
@@ -54,6 +59,7 @@ module GobiertoAdmin
               refute find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).checked?
               refute find("#gobierto_budgets_options_comparison_context_table_enabled", visible: false).checked?
               assert find("#gobierto_budgets_options_indicators_enabled", visible: false).checked?
+              assert has_field?("gobierto_budgets_options_budgets_guide_page", with: cms_page.id)
             end
           end
         end

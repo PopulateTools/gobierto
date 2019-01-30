@@ -1,274 +1,294 @@
-<% description t('.description') %>
-<% title t('.title') %>
+<% if @page %>
+  <% description @page.title %>
+  <% title @page.title %>
 
-<div class="column">
+  <div class="column">
 
-  <main class="content">
-    <header class="gradient-bg">
+    <main class="content">
       <div class="inner">
-        <h1><%= t('.title') %></h1>
-        <p><%= t('.description') %></p>
-
-        <ul>
-          <li><a href="#como-se-lee"><%= t('.how_to_read') %></a></li>
-          <li><a href="#tipos-de-ingreso"><%= t('.income') %></a></li>
-          <li><a href="#tipos-de-gasto"><%= t('.expenses') %></a></li>
-          <li><a href="#deuda-viva"><%= t('.debt') %></a></li>
-          <li><a href="#ejecucion-presupuestaria"><%= t('.execution') %></a></li>
-        </ul>
-      </div>
-    </header>
-
-
-    <article class="inner">
-      <%= image_tag 'illustrations/presupuestos.jpg', class: 'pure-img', id: 'image1' %>
-
-      <ol>
-        <li><%= t('.intro_p1') %></li>
-        <li><%= t('.intro_p2') %></li>
-      </ol>
-
-      <div class="note">
-        <p><%= t('.intro_p3') %></p>
+        <h1><%= @page.title %></h1>
       </div>
 
-      <h2 id="como-se-lee"><%= t('.how_to_read') %></h2>
-      <p><%= t('.how_to_read_p1_html') %></p>
 
-      <h3><%= t('.income') %></h3>
-      <p><%= t('.income_p1') %></p>
+      <article class="inner">
+        <%== @page.body %>
+      </article>
+    </main>
+  </div>
 
-      <div class="number">
-        <p><%= t('.income_p2', year: @year) %></p>
-        <div><%= format_currency @site_stats.total_budget %></div>
-      </div>
+<% else %>
+  <% description t('.description') %>
+  <% title t('.title') %>
 
-      <h3><%= t('.expenses') %></h3>
-      <p><%= t('.expenses_how') %></p>
+  <div class="column">
 
-      <div class="number">
-        <p><%= t('.expenses_per_inhabitant') %></p>
-        <div><%= format_currency @site_stats.total_budget_per_inhabitant %>/hab</div>
-      </div>
+    <main class="content">
+      <header class="gradient-bg">
+        <div class="inner">
+          <h1><%= t('.title') %></h1>
+          <p><%= t('.description') %></p>
 
-      <hr class="separator_responsive" />
-
-      <blockquote>
-        <h4><%= t('.classification') %></h4>
-        <p><%= t('.classification_p1') %></p>
-
-        <div class="share" data-share>
-          <a data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
-          <a data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+          <ul>
+            <li><a href="#como-se-lee"><%= t('.how_to_read') %></a></li>
+            <li><a href="#tipos-de-ingreso"><%= t('.income') %></a></li>
+            <li><a href="#tipos-de-gasto"><%= t('.expenses') %></a></li>
+            <li><a href="#deuda-viva"><%= t('.debt') %></a></li>
+            <li><a href="#ejecucion-presupuestaria"><%= t('.execution') %></a></li>
+          </ul>
         </div>
-      </blockquote>
+      </header>
 
-      <hr class="separator_responsive" />
 
-      <h2 id="tipos-de-ingreso"><%= t('.types_income') %></h2>
+      <article class="inner">
+        <%= image_tag 'illustrations/presupuestos.jpg', class: 'pure-img', id: 'image1' %>
 
-      <figure>
-        <%= image_tag 'samples/park.jpg', class: 'pure-img', id: 'image2' %>
-        <figcaption>Parque Cedeira (Oporto) <br /> João M. Gil.</figcaption>
-      </figure>
+        <ol>
+          <li><%= t('.intro_p1') %></li>
+          <li><%= t('.intro_p2') %></li>
+        </ol>
 
-      <p><%= t('.types_income_p1') %></p>
-
-      <p><%= t('.types_income_p2') %></p>
-
-      <p><%= t('.types_income_p3') %></p>
-
-      <h4><%= t('.types_income') %></h4>
-      <ol>
-        <li><a href="#ingresos-corrientes"><%= t('.regular_income') %></a></li>
-        <li><a href="#ingresos-de-capital"><%= t('.capital_income') %></a></li>
-        <li><a href="#ingresos-financieros"><%= t('.financial_income') %></a></li>
-      </ol>
-
-      <hr class="separator_responsive quarter" />
-
-      <h3 id="ingresos-corrientes"><small>1</small> <%= t('.regular_income') %></h3>
-      <p><%= t('.regular_income_p1') %></p>
-
-      <dl>
-        <div>
-          <dt><a href="/presupuestos/partidas/1/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 1, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
-          <dd><%= t('.income_1_desc') %></dd>
+        <div class="note">
+          <p><%= t('.intro_p3') %></p>
         </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/2/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 2, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
-          <dd><%= t('.income_2_desc') %></dd>
+
+        <h2 id="como-se-lee"><%= t('.how_to_read') %></h2>
+        <p><%= t('.how_to_read_p1_html') %></p>
+
+        <h3><%= t('.income') %></h3>
+        <p><%= t('.income_p1') %></p>
+
+        <div class="number">
+          <p><%= t('.income_p2', year: @year) %></p>
+          <div><%= format_currency @site_stats.total_budget %></div>
         </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/4/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 4, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
-          <dd><%= t('.income_4_desc') %></dd>
+
+        <h3><%= t('.expenses') %></h3>
+        <p><%= t('.expenses_how') %></p>
+
+        <div class="number">
+          <p><%= t('.expenses_per_inhabitant') %></p>
+          <div><%= format_currency @site_stats.total_budget_per_inhabitant %>/hab</div>
         </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/3/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 3, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
-          <dd><%= t('.income_3_desc') %></dd>
+
+        <hr class="separator_responsive" />
+
+        <blockquote>
+          <h4><%= t('.classification') %></h4>
+          <p><%= t('.classification_p1') %></p>
+
+          <div class="share" data-share>
+            <a data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
+            <a data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+          </div>
+        </blockquote>
+
+        <hr class="separator_responsive" />
+
+        <h2 id="tipos-de-ingreso"><%= t('.types_income') %></h2>
+
+        <figure>
+          <%= image_tag 'samples/park.jpg', class: 'pure-img', id: 'image2' %>
+          <figcaption>Parque Cedeira (Oporto) <br /> João M. Gil.</figcaption>
+        </figure>
+
+        <p><%= t('.types_income_p1') %></p>
+
+        <p><%= t('.types_income_p2') %></p>
+
+        <p><%= t('.types_income_p3') %></p>
+
+        <h4><%= t('.types_income') %></h4>
+        <ol>
+          <li><a href="#ingresos-corrientes"><%= t('.regular_income') %></a></li>
+          <li><a href="#ingresos-de-capital"><%= t('.capital_income') %></a></li>
+          <li><a href="#ingresos-financieros"><%= t('.financial_income') %></a></li>
+        </ol>
+
+        <hr class="separator_responsive quarter" />
+
+        <h3 id="ingresos-corrientes"><small>1</small> <%= t('.regular_income') %></h3>
+        <p><%= t('.regular_income_p1') %></p>
+
+        <dl>
+          <div>
+            <dt><a href="/presupuestos/partidas/1/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 1, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+            <dd><%= t('.income_1_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/2/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 2, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+            <dd><%= t('.income_2_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/4/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 4, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+            <dd><%= t('.income_4_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/3/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 3, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+            <dd><%= t('.income_3_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/5/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 5, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+            <dd><%= t('.income_5_desc') %></dd>
+          </div>
+        </dl>
+
+        <h3 id="ingresos-de-capital"><small>2</small> <%= t('.capital_income') %></h3>
+        <p><%= t('.capital_income_p1') %></p>
+
+        <dl>
+          <div>
+            <dt><a href="/presupuestos/partidas/6/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 6, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+            <dd><%= t('.income_6_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/7/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 7, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+            <dd><%= t('.income_7_desc') %></dd>
+          </div>
+        </dl>
+
+        <h3 id="ingresos-financieros"><small>3</small> <%= t('.financial_income') %></h3>
+        <p><%= t('.financial_income_p1') %></p>
+
+        <dl>
+          <div>
+            <dt><a href="/presupuestos/partidas/8/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 8, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+            <dd><%= t('.income_8_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/9/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 9, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+            <dd><%= t('.income_9_desc') %></dd>
+          </div>
+        </dl>
+
+        <hr class="separator_responsive" />
+
+        <h2 id="tipos-de-gasto"><%= t('.expenses_types') %></h2>
+
+        <figure>
+          <%= image_tag 'samples/metro.jpg', class: 'pure-img', id: 'image3' %>
+          <figcaption>Mar de Cristal (Madrid) <br /> Daniel Erler.</figcaption>
+        </figure>
+
+        <p><%= t('.expenses_types_p1') %></p>
+
+        <h4><%= t('.expenses_types') %></h4>
+        <ol>
+          <li><a href="#gasto-funcional"><%= t('.functional') %></a></li>
+          <li><a href="#gasto-economico"><%= t('.economic') %></a></li>
+        </ol>
+
+        <hr class="separator_responsive quarter" />
+
+        <h3 id="gasto-funcional"><small>1</small> <%= t('.functional') %></h3>
+        <p><%= t('.functional_p1') %></p>
+        <p><%= t('.functional_p2') %></p>
+
+        <dl>
+          <div>
+            <dt><a href="/presupuestos/partidas/0/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 0, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_functional_0_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/1/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 1, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_functional_1_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/2/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 2, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_functional_2_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/3/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 3, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_functional_3_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/4/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 4, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_functional_4_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/9/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 9, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_functional_9_desc') %></dd>
+          </div>
+        </dl>
+
+        <h3 id="gasto-economico"><small>2</small> <%= t('.economic') %></h3>
+
+        <p><%= t('.economic_p1') %></p>
+
+        <p><%= t('.economic_p2') %></p>
+
+        <dl>
+          <div>
+            <dt><a href="/presupuestos/partidas/1/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 1, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_economic_1_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/2/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 2, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_economic_2_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/3/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 3, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_economic_3_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/4/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 4, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_economic_4_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/5/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 5, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_economic_5_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/6/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 6, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_economic_6_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/7/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 7, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_economic_7_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/8/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 8, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_economic_8_desc') %></dd>
+          </div>
+          <div>
+            <dt><a href="/presupuestos/partidas/9/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 9, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+            <dd><%= t('.expense_economic_9_desc') %></dd>
+          </div>
+        </dl>
+
+        <hr class="separator_responsive" />
+
+        <h2 id="deuda-viva"><%= t('.how_much_debt') %></h2>
+
+        <figure>
+          <%= image_tag 'samples/retiro.jpg', class: 'pure-img', id: 'image4' %>
+          <figcaption>El Retiro (Madrid) <br /> Rimbaud Grégoire.</figcaption>
+        </figure>
+
+        <p><%= t('.how_much_debt_p1') %></p>
+
+        <p><%= t('.how_much_debt_p2') %></p>
+
+        <div class="note">
+          <p><%= t('.how_much_debt_p3') %></p>
         </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/5/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 5, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
-          <dd><%= t('.income_5_desc') %></dd>
+
+        <hr class="separator_responsive" />
+
+        <h2 id="ejecucion-presupuestaria"><%= t('.budget_execution') %></h2>
+
+        <p><%= t('.budget_execution_p1_html', year: @year) %></p>
+
+        <div class="note">
+          <p><%= t('.budget_execution_p2') %></p>
         </div>
-      </dl>
 
-      <h3 id="ingresos-de-capital"><small>2</small> <%= t('.capital_income') %></h3>
-      <p><%= t('.capital_income_p1') %></p>
-
-      <dl>
-        <div>
-          <dt><a href="/presupuestos/partidas/6/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 6, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
-          <dd><%= t('.income_6_desc') %></dd>
+        <div class="sources note">
+          <h4><%= t('.sources') %></h4>
+          <p><%= t('.sources_p1_html') %></p>
         </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/7/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 7, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
-          <dd><%= t('.income_7_desc') %></dd>
-        </div>
-      </dl>
 
-      <h3 id="ingresos-financieros"><small>3</small> <%= t('.financial_income') %></h3>
-      <p><%= t('.financial_income_p1') %></p>
+      </article>
+    </main>
 
-      <dl>
-        <div>
-          <dt><a href="/presupuestos/partidas/8/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 8, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
-          <dd><%= t('.income_8_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/9/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 9, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
-          <dd><%= t('.income_9_desc') %></dd>
-        </div>
-      </dl>
-
-      <hr class="separator_responsive" />
-
-      <h2 id="tipos-de-gasto"><%= t('.expenses_types') %></h2>
-
-      <figure>
-        <%= image_tag 'samples/metro.jpg', class: 'pure-img', id: 'image3' %>
-        <figcaption>Mar de Cristal (Madrid) <br /> Daniel Erler.</figcaption>
-      </figure>
-
-      <p><%= t('.expenses_types_p1') %></p>
-
-      <h4><%= t('.expenses_types') %></h4>
-      <ol>
-        <li><a href="#gasto-funcional"><%= t('.functional') %></a></li>
-        <li><a href="#gasto-economico"><%= t('.economic') %></a></li>
-      </ol>
-
-      <hr class="separator_responsive quarter" />
-
-      <h3 id="gasto-funcional"><small>1</small> <%= t('.functional') %></h3>
-      <p><%= t('.functional_p1') %></p>
-      <p><%= t('.functional_p2') %></p>
-
-      <dl>
-        <div>
-          <dt><a href="/presupuestos/partidas/0/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 0, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_functional_0_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/1/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 1, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_functional_1_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/2/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 2, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_functional_2_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/3/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 3, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_functional_3_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/4/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 4, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_functional_4_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/9/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 9, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_functional_9_desc') %></dd>
-        </div>
-      </dl>
-
-      <h3 id="gasto-economico"><small>2</small> <%= t('.economic') %></h3>
-
-      <p><%= t('.economic_p1') %></p>
-
-      <p><%= t('.economic_p2') %></p>
-
-      <dl>
-        <div>
-          <dt><a href="/presupuestos/partidas/1/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 1, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_economic_1_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/2/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 2, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_economic_2_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/3/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 3, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_economic_3_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/4/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 4, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_economic_4_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/5/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 5, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_economic_5_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/6/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 6, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_economic_6_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/7/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 7, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_economic_7_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/8/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 8, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_economic_8_desc') %></dd>
-        </div>
-        <div>
-          <dt><a href="/presupuestos/partidas/9/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 9, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
-          <dd><%= t('.expense_economic_9_desc') %></dd>
-        </div>
-      </dl>
-
-      <hr class="separator_responsive" />
-
-      <h2 id="deuda-viva"><%= t('.how_much_debt') %></h2>
-
-      <figure>
-        <%= image_tag 'samples/retiro.jpg', class: 'pure-img', id: 'image4' %>
-        <figcaption>El Retiro (Madrid) <br /> Rimbaud Grégoire.</figcaption>
-      </figure>
-
-      <p><%= t('.how_much_debt_p1') %></p>
-
-      <p><%= t('.how_much_debt_p2') %></p>
-
-      <div class="note">
-        <p><%= t('.how_much_debt_p3') %></p>
-      </div>
-
-      <hr class="separator_responsive" />
-
-      <h2 id="ejecucion-presupuestaria"><%= t('.budget_execution') %></h2>
-
-      <p><%= t('.budget_execution_p1_html', year: @year) %></p>
-
-      <div class="note">
-        <p><%= t('.budget_execution_p2') %></p>
-      </div>
-
-      <div class="sources note">
-        <h4><%= t('.sources') %></h4>
-        <p><%= t('.sources_p1_html') %></p>
-      </div>
-
-    </article>
-  </main>
-
-</div>
+  </div>
+<% end %>

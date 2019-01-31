@@ -101,7 +101,7 @@ module GobiertoBudgets
       @autonomy_id = place ? place.province.autonomous_region_id.to_i : nil
       @level = self.class.get_level(code)
       @parent_code = self.class.get_parent_code(code)
-      @amount_per_inhabitant = (amount / population).round(2)
+      @amount_per_inhabitant = population ? (amount / population).round(2) : nil
     end
 
     def population

@@ -6,7 +6,6 @@ namespace :gobierto_budgets do
     task :reindex, [:site_domain, :year] => [:environment] do |_t, args|
       site = Site.find_by!(domain: args[:site_domain])
       year = args[:year].to_i
-      ine_code = site.place.id
       organization_id = site.organization_id
 
       puts "== Reindexing records for site #{site.domain}=="

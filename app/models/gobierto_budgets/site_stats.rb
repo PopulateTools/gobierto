@@ -38,9 +38,9 @@ module GobiertoBudgets
       !@empty_debt
     end
 
-    def total_budget_per_inhabitant(year = nil)
+    def total_budget_per_inhabitant(year = nil, kind = GobiertoBudgets::BudgetLine::EXPENSE)
       year ||= @year
-      BudgetTotal.budgeted_for(@site.organization_id, year, BudgetLine::EXPENSE).to_f / (population(year) || population(year - 1) || population(year - 2)).to_f
+      BudgetTotal.budgeted_for(@site.organization_id, year, kind).to_f / (population(year) || population(year - 1) || population(year - 2)).to_f
     end
 
     def total_income_budget(year = nil)
@@ -58,9 +58,9 @@ module GobiertoBudgets
       BudgetTotal.budgeted_for(@site.organization_id, year, BudgetLine::INCOME).to_f / (population(year) || population(year - 1) || population(year - 2)).to_f
     end
 
-    def total_budget(year = nil)
+    def total_budget(year = nil, kind = GobiertoBudgets::BudgetLine::EXPENSE)
       year ||= @year
-      BudgetTotal.budgeted_for(@site.organization_id, year)
+      BudgetTotal.budgeted_for(@site.organization_id, year, kind)
     end
     alias total_budget_planned total_budget
 
@@ -113,14 +113,11 @@ module GobiertoBudgets
       return 0 if total_income == 0
 
       total_expense = 0
-      (1..4).each do |code|
+      (1..5).each do |code|
         total_expense += get_expense_budget_line(year, code)
       end
 
-      value = (total_income - total_expense + get_expense_budget_line(year, 9))
-
-      return nil if value == 0
-      ((value / total_income) * 100).round(2)
+      return (total_income - total_expense - get_expense_budget_line(year, 9)).round(2)
     end
 
     def debt_level(year = nil)
@@ -192,6 +189,12 @@ module GobiertoBudgets
                return nil if v1.nil? || v2.nil?
                ((v1.to_f - v2.to_f) / v2.to_f) * 100
       end
+      total_income = 0
+      (1..5).each do |code|
+        total_income += get_income_budget_line(year, code)
+      end
+      return 0 if total_income == 0
+
 
       if diff < 0
         direction = I18n.t("gobierto_budgets.budgets.index.less")
@@ -273,7 +276,7 @@ module GobiertoBudgets
     end
 
     def get_income_budget_line(year, code)
-      kind = BudgetLine::INCOME
+      kind = GobiertoBudgets::BudgetLine::INCOME
       id = [@site.organization_id, year, code, kind].join("/")
       index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
       type = GobiertoBudgets::EconomicArea.area_name
@@ -285,9 +288,9 @@ module GobiertoBudgets
     end
 
     def get_expense_budget_line(year, code)
-      kind = BudgetLine::EXPENSE
+      kind = GobiertoBudgets::BudgetLine::EXPENSE
       id = [@site.organization_id, year, code, kind].join("/")
-      index = SearchEngineConfiguration::BudgetLine.index_forecast
+      index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
       type = GobiertoBudgets::EconomicArea.area_name
 
       result = GobiertoBudgets::SearchEngine.client.get index: index, type: type, id: id

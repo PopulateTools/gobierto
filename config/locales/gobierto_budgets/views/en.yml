@@ -245,6 +245,8 @@ en:
         header: Budgets
         in_total: Total
         income: Income
+        income_per_inhabitant: Income per inhabitant
+        income_per_inhabitant_tooltip: Starting budget divided by the inhabitants
         inhabitants: Inhabitants
         inhabitants_tooltip: Number of inhabitants
         less: less
@@ -322,6 +324,8 @@ en:
         explore_the_detail: Explore the details
         header: Budgets elaboration
         in_total: Total
+        income_per_inhabitant: Income per inhabitant
+        income_per_inhabitant_tooltip: Starting budget divided by the inhabitants
         main_budget_levels_timeline: Compare income and expenses year by year
         main_budget_lines: Main income and expenses %{from_your_organization_name}
         main_budget_lines_expense: Expense
@@ -340,6 +344,8 @@ en:
         proposal: Proposal
         total_expenses: Total expenses
         total_expenses_tooltip: Starting budget
+        total_income: Total income
+        total_income_tooltip: Starting budget
         visualize: Visualize expenses per inhabitant
     budgets_execution:
       execution_table:

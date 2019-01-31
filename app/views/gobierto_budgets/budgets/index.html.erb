@@ -87,7 +87,7 @@
             </div>
           </div>
         <% else %>
-          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.debt_tooltip', of_the_organization_name: @site.determined_organization_name(:of_the)) %>" data-box="debt">
+          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.net_savings_tooltip') %>" data-box="debt">
             <div class="inner">
               <h3><%= t('gobierto_budgets.budgets_elaboration.index.net_savings') %></h3>
               <div class="metric"><%= format_currency @site_stats.net_savings %></div>
@@ -113,10 +113,10 @@
             </div>
           </div>
         <% else %>
-          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.debt_tooltip', of_the_organization_name: @site.determined_organization_name(:of_the)) %>" data-box="debt">
+          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.auto_funding_tooltip') %>" data-box="debt">
             <div class="inner">
               <h3><%= t('gobierto_budgets.budgets_elaboration.index.auto_funding') %></h3>
-              <div class="metric"><%= format_currency @site_stats.auto_funding %></div>
+              <div class="metric"><%= @site_stats.auto_funding %> %</div>
               <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :auto_funding) %> vs <%= @year - 1 %></div>
             </div>
           </div>

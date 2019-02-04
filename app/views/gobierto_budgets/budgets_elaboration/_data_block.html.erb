@@ -25,7 +25,7 @@
           <div class="inner">
             <h3><%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant') %></h3>
             <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant(@year, @kind) %></div>
-            <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_income_budget_per_inhabitant) %> vs <%= @year - 1 %></div>
+            <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_budget_per_inhabitant) %> vs <%= @year - 1 %></div>
           </div>
         </div>
       <% else %>
@@ -33,7 +33,7 @@
           <div class="inner">
             <h3><%= t('gobierto_budgets.budgets_elaboration.index.income_per_inhabitant') %></h3>
             <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant(@year, @kind) %></div>
-            <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_expenses) %> vs <%= @year - 1 %></div>
+            <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_income_budget_per_inhabitant) %> vs <%= @year - 1 %></div>
           </div>
         </div>
       <% end %>

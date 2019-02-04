@@ -60,7 +60,6 @@ default: &default
   admins:
     preset_admin_email: "admin@gobierto.dev"
     preset_admin_name: "Gobierto Admin"
-    preset_admin_password: "gobierto"
   email_config:
     default_email: "admin@gobierto.dev"
     default_from: "Gobierto <admin@gobierto.dev>"

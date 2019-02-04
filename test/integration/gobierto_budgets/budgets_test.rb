@@ -2,10 +2,10 @@
 
 require "test_helper"
 
-class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
+class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @path = gobierto_budgets_root_path(last_year)
+    @path = gobierto_budgets_budgets_path(last_year)
     Rails.cache.clear
   end
 
@@ -35,6 +35,7 @@ class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
       visit @path
 
       within "nav.sub-nav" do
+        assert has_link? "Elaboration"
         assert has_link? "Budgets"
         assert has_link? "Execution"
         assert has_link? "Guide"
@@ -66,16 +67,12 @@ class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
   end
 
   def test_year_breadcrumb
-    available_years = [2010, 2011]
-    GobiertoBudgets::SearchEngineConfiguration::Year.expects(:with_data).returns(available_years)
-
     with_current_site(placed_site) do
-      visit gobierto_budgets_root_path(available_years.first)
+      visit @path
 
       within "#popup-year" do
-        assert has_content? available_years.first
-        assert has_content? available_years.second
-        assert has_selector?("tr", count: available_years.size)
+        assert has_content? last_year
+        assert has_content? (last_year - 1)
       end
     end
   end

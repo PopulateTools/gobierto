@@ -23,6 +23,7 @@ gobierto_budgets_settings_madrid:
   site: madrid
   module_name: "GobiertoBudgets"
   settings: <%= {
+    "budgets_elaboration": true,
     "budgets_receipt_enabled": true,
     "budgets_receipt_configuration": {"budgets_simulation_sections": [{
       "name": "IBI",
@@ -148,6 +149,7 @@ gobierto_budgets_settings_organization_wadus:
   site: organization_wadus
   module_name: "GobiertoBudgets"
   settings: <%= {
+    "budgets_elaboration": true,
     "budgets_receipt_enabled": true,
     "budgets_receipt_configuration": {}
 }.to_json %>

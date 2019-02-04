@@ -30,7 +30,7 @@ module GobiertoAdmin
 
               assert has_content?("Options")
 
-              refute find("#gobierto_budgets_options_elaboration_enabled", visible: false).checked?
+              assert find("#gobierto_budgets_options_elaboration_enabled", visible: false).checked?
               refute find("#gobierto_budgets_options_budget_lines_feedback_enabled", visible: false).checked?
               assert find("#gobierto_budgets_options_receipt_enabled", visible: false).checked?
               refute find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).checked?
@@ -51,7 +51,7 @@ module GobiertoAdmin
               click_button "Save"
 
               assert has_message?("Settings saved successfully")
-              assert find("#gobierto_budgets_options_elaboration_enabled", visible: false).checked?
+              refute find("#gobierto_budgets_options_elaboration_enabled", visible: false).checked?
               assert find("#gobierto_budgets_options_budget_lines_feedback_enabled", visible: false).checked?
               assert has_field?("gobierto_budgets_options_feedback_emails", with: "email@example.com")
               assert find("#gobierto_budgets_options_receipt_enabled", visible: false).checked?

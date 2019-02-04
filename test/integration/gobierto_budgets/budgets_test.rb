@@ -71,8 +71,8 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
       visit @path
 
       within "#popup-year" do
-        assert has_content? last_year
-        assert has_content? (last_year - 1)
+        assert has_content?(last_year)
+        assert has_content?(last_year - 1)
       end
     end
   end

@@ -5,6 +5,7 @@ module GobiertoPeople
     include PreviewTokenHelper
     include PeopleClassificationHelper
     include DatesRangeHelper
+    include FilterByActivitiesHelper
 
     layout :resolve_layout
 
@@ -129,7 +130,7 @@ module GobiertoPeople
     end
 
     def set_departments
-      @sidebar_departments = QueryWithEvents.new(
+      @sidebar_departments = filter_by_activities(
         source: current_site.departments,
         start_date: filter_start_date,
         end_date: filter_end_date

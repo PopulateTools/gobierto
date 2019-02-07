@@ -43,8 +43,11 @@ module GobiertoPeople
 
     def people
       site.people
-          .joins(attending_person_events: :event)
-          .where("gc_events.department_id = ?", id)
+          .left_outer_joins(attending_person_events: :event)
+          .left_outer_joins(:trips)
+          .left_outer_joins(:invitations)
+          .left_outer_joins(:received_gifts)
+          .where("gc_events.department_id = :id or gp_trips.department_id = :id or gp_invitations.department_id = :id or gp_gifts.department_id = :id", id: id)
           .distinct
     end
 

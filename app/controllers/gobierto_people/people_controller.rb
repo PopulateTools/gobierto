@@ -5,6 +5,7 @@ module GobiertoPeople
     include PreviewTokenHelper
     include PeopleClassificationHelper
     include DatesRangeHelper
+    include FilterByActivitiesHelper
 
     layout :resolve_layout
 
@@ -103,10 +104,11 @@ module GobiertoPeople
       @people = current_site.people.active.sorted
 
       if current_site.date_filter_configured?
-        @people = QueryWithEvents.new(
+        @people = QueryWithActivities.new(
           source: @people,
           start_date: filter_start_date,
-          end_date: filter_end_date
+          end_date: filter_end_date,
+          include_joins: { events: :attending_events, gifts: :received_gifts, invitations: :invitations, trips: :trips }
         ).sorted
       end
 
@@ -128,7 +130,7 @@ module GobiertoPeople
     end
 
     def set_departments
-      @sidebar_departments = QueryWithEvents.new(
+      @sidebar_departments = filter_by_activities(
         source: current_site.departments,
         start_date: filter_start_date,
         end_date: filter_end_date

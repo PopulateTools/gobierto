@@ -19,13 +19,40 @@ module GobiertoPeople
       @site ||= sites(:madrid)
     end
 
+    def justice_department
+      @justice_department ||= gobierto_people_departments(:justice_department)
+    end
+    alias department_with_trips justice_department
+
+    def culture_department
+      @culture_department ||= gobierto_people_departments(:culture_department)
+    end
+    alias department_with_gifts culture_department
+    alias department_with_invitations culture_department
+
+    def departments_with_trips
+      @departments_with_trips ||= [department_with_trips]
+    end
+
+    def departments_with_gifts
+      @departments_with_gifts ||= [department_with_gifts]
+    end
+
+    def departments_with_invitations
+      @departments_with_invitations ||= [department_with_invitations]
+    end
+
     def richard
       @richard ||= gobierto_people_people(:richard)
     end
+    alias person_with_gifts_and_department richard
+    alias person_with_invitations_and_department richard
+    alias person_with_trips_and_department richard
 
     def tamara
       @tamara ||= gobierto_people_people(:tamara)
     end
+    alias justice_department_person tamara
 
     def people
       @people ||= [
@@ -74,6 +101,12 @@ YAML
       site.save
     end
 
+    def clear_activities
+      GobiertoPeople::Trip.destroy_all
+      GobiertoPeople::Gift.destroy_all
+      GobiertoPeople::Invitation.destroy_all
+    end
+
     def test_people_index_with_departments_disabled
       disable_submodule(site, :departments)
 
@@ -89,6 +122,8 @@ YAML
     end
 
     def test_when_date_filering_enabled
+      clear_activities
+
       disable_submodule(site, :departments)
       tamara.attending_events.destroy_all
       set_default_dates
@@ -141,6 +176,7 @@ YAML
     end
 
     def test_people_index_with_departments_enabled_and_date_filter
+      clear_activities
       set_default_dates
 
       with_current_site(site) do
@@ -200,5 +236,93 @@ YAML
         assert_equal csv_response.by_row[last_index]["email"], people.last.email
       end
     end
+
+    def test_index_with_trips
+      GobiertoCalendars::Event.destroy_all
+      GobiertoPeople::Gift.destroy_all
+      GobiertoPeople::Invitation.destroy_all
+
+      set_default_dates
+      start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+
+      with_current_site(site) do
+        visit gobierto_people_people_path(
+          start_date: start_date,
+          end_date: end_date
+        )
+        within departments_sidebar do
+          departments.each do |department|
+            if departments_with_trips.include?(department)
+              assert has_link? department.name
+            else
+              assert has_no_link? department.name
+            end
+          end
+        end
+
+        within ".people-summary" do
+          assert has_content? person_with_trips_and_department.name
+        end
+      end
+    end
+
+    def test_index_with_gifts
+      GobiertoCalendars::Event.destroy_all
+      GobiertoPeople::Invitation.destroy_all
+      GobiertoPeople::Trip.destroy_all
+
+      set_default_dates
+      start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+
+      with_current_site(site) do
+        visit gobierto_people_people_path(
+          start_date: start_date,
+          end_date: end_date
+        )
+        within departments_sidebar do
+          departments.each do |department|
+            if departments_with_gifts.include?(department)
+              assert has_link? department.name
+            else
+              assert has_no_link? department.name
+            end
+          end
+        end
+
+        within ".people-summary" do
+          assert has_content? person_with_gifts_and_department.name
+        end
+      end
+    end
+
+    def test_index_with_invitations
+      GobiertoCalendars::Event.destroy_all
+      GobiertoPeople::Gift.destroy_all
+      GobiertoPeople::Trip.destroy_all
+
+      set_default_dates
+      start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+
+      with_current_site(site) do
+        visit gobierto_people_people_path(
+          start_date: start_date,
+          end_date: end_date
+        )
+        within departments_sidebar do
+          departments.each do |department|
+            if departments_with_invitations.include?(department)
+              assert has_link? department.name
+            else
+              assert has_no_link? department.name
+            end
+          end
+        end
+
+        within ".people-summary" do
+          assert has_content? person_with_invitations_and_department.name
+        end
+      end
+    end
+
   end
 end

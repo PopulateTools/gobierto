@@ -9,10 +9,11 @@ module GobiertoPeople
       include DatesRangeHelper
 
       def index
-        @people = QueryWithEvents.new(
+        @people = QueryWithActivities.new(
           source: current_department.people.active,
           start_date: filter_start_date,
-          end_date: filter_end_date
+          end_date: filter_end_date,
+          include_joins: { events: :attending_events, gifts: :received_gifts, invitations: :invitations, trips: :trips }
         ).sorted
 
         @sidebar_departments = current_site.departments

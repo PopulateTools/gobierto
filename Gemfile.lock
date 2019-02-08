@@ -152,7 +152,7 @@ GEM
       elasticsearch-transport (= 6.1.0)
     elasticsearch-api (6.1.0)
       multi_json
-    elasticsearch-extensions (0.0.30)
+    elasticsearch-extensions (0.0.31)
       ansi
       elasticsearch
     elasticsearch-transport (6.1.0)

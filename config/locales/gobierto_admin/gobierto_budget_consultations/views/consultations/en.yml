@@ -40,6 +40,9 @@ en:
             opening_date_range: Select opening and close date
             title: Consultation about 2016 budgets
           upcoming: The consultation is not open yet.
+          visibility_level:
+            active: Published
+            draft: Draft
         index:
           closes_on: Close date
           header:

@@ -68,6 +68,7 @@ es:
     attributes:
       gobierto_admin/permission/site_option:
         resource_names:
+          custom_fields: Campos personalizados
           customize: Personalizar sitio
           templates: Plantillas
           vocabularies: Vocabularios

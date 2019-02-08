@@ -40,6 +40,9 @@ ca:
             opening_date_range: Selecciona data d'inici i fi
             title: Consulta sobre els pressupostos de Burjassot 2016
           upcoming: La consulta encara no està oberta.
+          visibility_level:
+            active: Publicada
+            draft: Borrador
         index:
           closes_on: Data de tancament
           header:

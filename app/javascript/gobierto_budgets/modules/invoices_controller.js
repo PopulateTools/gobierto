@@ -228,17 +228,34 @@ window.GobiertoBudgets.InvoicesController = (function() {
     document.getElementById("numberOfInvoices").innerText = _data.length.toLocaleString();
     document.getElementById("totalAmount").innerText = _abbrevLargeCurrency(totalAmount);
 
-    var _cc = _.countBy(_.uniqBy(_data, 'provider_name'), 'freelance');
-    $('#providerType .number:first').text((_cc.false || 0).toLocaleString());
-    $('#providerType .number:last').text((_cc.true || 0).toLocaleString());
+    var providers = _.uniqBy(_data, "provider_name");
+    var numberFreelancers = providers.filter(p => p.freelance).length || 0;
+    var numberCorporationsSA = providers.filter(p => !p.freelance && p.provider_id.substring(0, 1) === "A").length || 0;
+    var numberCorporationsSL = providers.length - numberFreelancers - numberCorporationsSA;
 
-    var _n = _.countBy(_data, 'freelance');
-    $('#providerType .percent:first').text((_n.false/_data.length || 0).toLocaleString(I18n.locale, {
-      style: 'percent'
-    }));
-    $('#providerType .percent:last').text((_n.true/_data.length || 0).toLocaleString(I18n.locale, {
-      style: 'percent'
-    }));
+    $("#providerType .number:eq(0)").text(numberCorporationsSA.toLocaleString());
+    $("#providerType .number:eq(1)").text(numberCorporationsSL.toLocaleString());
+    $("#providerType .number:last").text(numberFreelancers.toLocaleString());
+
+    var invoicesFreelancers = _data.filter(d => d.freelance).length || 0;
+    var invoicesCorporationsSA = _data.filter(d => !d.freelance && d.provider_id.substring(0, 1) === "A").length || 0;
+    var invoicesCorporationsSL = _data.length - invoicesFreelancers - invoicesCorporationsSA;
+
+    $("#providerType .percent:eq(0)").text(
+      (invoicesCorporationsSA / _data.length || 0).toLocaleString(I18n.locale, {
+        style: "percent"
+      })
+    );
+    $("#providerType .percent:eq(1)").text(
+      (invoicesCorporationsSL / _data.length || 0).toLocaleString(I18n.locale, {
+        style: "percent"
+      })
+    );
+    $("#providerType .percent:last").text(
+      (invoicesFreelancers / _data.length || 0).toLocaleString(I18n.locale, {
+        style: "percent"
+      })
+    );
 
     // Math results box
     function median(values) {

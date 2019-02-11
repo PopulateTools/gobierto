@@ -507,7 +507,7 @@ en:
         are_from: are from
         check_detail: Check the detail
         corporation_sa: public limited companies
-        corporation_sl: private limited companies
+        corporation_sl: private limited companies & others
         description: Which providers hires %{the_organization_name}? Which invoices
           are paid? From this section you'll be able to check a summary and have a
           context of all the information aggregated, and also check the detail of

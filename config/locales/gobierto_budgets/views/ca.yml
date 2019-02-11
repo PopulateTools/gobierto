@@ -529,7 +529,7 @@ ca:
         are_from: són de
         check_detail: Consulta el detall
         corporation_sa: societats anònimes
-        corporation_sl: societats limitades
+        corporation_sl: societats limitades i altres
         description: A quins proveïdors contracta %{the_organization_name}? Quines
           factures paga? Des d'aquesta secció podràs consultar i revisar el detall
           de cadascun dels pagaments que realitza %{the_organization_name}.

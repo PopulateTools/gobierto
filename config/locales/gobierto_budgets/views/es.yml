@@ -523,7 +523,7 @@ es:
         are_from: son de
         check_detail: Consulta el detalle
         corporation_sa: sociedades anónimas
-        corporation_sl: sociedades limitadas
+        corporation_sl: sociedades limitadas y otras
         description: "¿A qué proveedores contrata %{the_organization_name}? ¿Qué facturas
           paga? Desde esta sección podrás consultar y revisar el detalle de cada uno
           de los pagos que realiza %{the_organization_name}."

@@ -53,10 +53,10 @@ ca:
         real_vs_planned: "% execució"
         real_vs_planned_tooltip: Percentage de la partida que ha sigut executat
         sub_budget_lines: Dins d'aquesta partida
-        twitter_text_expense: 'En @gobierto: Despesa municipal de %{name} en %{budget_line_name}
-          al %{year}'
-        twitter_text_income: 'En @gobierto: Ingrés municipal de %{name} en %{budget_line_name}
-          al %{year}'
+        twitter_text_expense: "En @gobierto: Despesa municipal de %{name} en %{budget_line_name}
+          al %{year}"
+        twitter_text_income: "En @gobierto: Ingrés municipal de %{name} en %{budget_line_name}
+          al %{year}"
         updated: actualitzat
         updated_female: actualitzada
         vs_previous_year: vs. exercici anterior
@@ -68,19 +68,19 @@ ca:
           en una pedra. Al llarg de l'any sorgeixen imprevistos que canvien la quantitat
           o la finalitat de les despeses. Aquests canvis són els que s’anomenen l’<a
           href=/presupuestos/ejecucion/%{year}">execució pressupostària</a>.
-        budget_execution_p2: 'Per saber si l’Ajuntament ha planificat bé els comptes
-          només hem de comparar el pressupost i l''execució: ha gastat més del pressupostat?
-          Li han sobrat diners? O s''ha ajustat al que preveia?'
+        budget_execution_p2: "Per saber si l’Ajuntament ha planificat bé els comptes
+          només hem de comparar el pressupost i l'execució: ha gastat més del pressupostat?
+          Li han sobrat diners? O s'ha ajustat al que preveia?"
         capital_income: Ingressos de capital
         capital_income_p1: Procedeixen de la venda de propietats municipals com solars
           o finques. També poden procedir de transferències d’altres administracions
           (inclosos fons europeus) per a la realització d’inversions.
         classification: Classificació pressupostària
-        classification_p1: 'En aquesta eina, els ingressos estan classificats tenint
+        classification_p1: "En aquesta eina, els ingressos estan classificats tenint
           en compte la seva naturalesa econòmica, que estableix el seu origen. I les
-          despeses, d''altra banda, estan classificades de dues formes: a partir de
+          despeses, d'altra banda, estan classificades de dues formes: a partir de
           criteris de programa (en què es gasten els diners) i econòmics (com es gasten
-          aquests diners).'
+          aquests diners)."
         debt: Quant deu el municipi
         description: El pressupost municipal és el pla econòmic i financer que explica
           com l’Ajuntament gestiona els diners públics per donar resposta a les necessitats
@@ -116,50 +116,50 @@ ca:
         expense_economic_9_desc: Amortització de préstecs i crèdits.
         expense_functional_0_desc: Aquesta partida es destina a pagar el deute acumulat
           per l'ajuntament.
-        expense_functional_1_desc: 'Cobreix les necessitats obligatòries del municipi:
-          clavegueram, neteja, enllumenat, seguretat, etc.'
+        expense_functional_1_desc: "Cobreix les necessitats obligatòries del municipi:
+          clavegueram, neteja, enllumenat, seguretat, etc."
         expense_functional_2_desc: Són els diners que es destinen a actuacions assistencials
           i preventives. Per exemple, serveis socials, el foment de l'ocupació, Rescat
           Social, etc.
-        expense_functional_3_desc: 'Fa referència als serveis que milloren la qualitat
-          de vida de la ciutadania: educació, cultura, esports, salut, etc.'
+        expense_functional_3_desc: "Fa referència als serveis que milloren la qualitat
+          de vida de la ciutadania: educació, cultura, esports, salut, etc."
         expense_functional_4_desc: Inclou accions que ajuden a desenvolupar el potencial
           dels diferents sectors econòmics, com infraestructures i transports.
         expense_functional_9_desc: S'hi agrupen les despeses del mateix Ajuntament,
           com serveis de caràcter general o transferències a d’altres organismes públics.
         expenses: Despeses
-        expenses_how: 'A què dedica l''Ajuntament els diners de la ciutadania? Les
+        expenses_how: "A què dedica l'Ajuntament els diners de la ciutadania? Les
           despeses es poden classificar de dues maneres: des del punt de vista de
           programa (en què es gasta) i econòmic (com es gasta). Des del punt de vista
           de programa, els diners es poden destinar a pagar deute públic, serveis
-          públics o actuacions de promoció social, entre d''altres. I des del punt
-          de vista econòmic, s''utilitzen per pagar despeses de personal, manteniment
-          d''equipaments i serveis, despeses financeres o transferències a les entitats
-          de la ciutat (subvencions) i a d''altres administracions.'
+          públics o actuacions de promoció social, entre d'altres. I des del punt
+          de vista econòmic, s'utilitzen per pagar despeses de personal, manteniment
+          d'equipaments i serveis, despeses financeres o transferències a les entitats
+          de la ciutat (subvencions) i a d'altres administracions."
         expenses_per_inhabitant: La despesa per habitant va ser de ...
         expenses_types: Tipus de despesa
-        expenses_types_p1: 'Com fa servir l''Ajuntament els diners del pressupost?
+        expenses_types_p1: "Com fa servir l'Ajuntament els diners del pressupost?
           Les despeses es poden classificar de dues maneres: des del punt de vista
           de programa (en què es gasta) i econòmic (com es gasta). La quantitat de
-          diners és la mateixa, però la veiem des de dos punts de vista diferents.'
+          diners és la mateixa, però la veiem des de dos punts de vista diferents."
         financial_income: Ingressos financers
         financial_income_p1: Poden ser interessos de dipòsits bancaris, dividents
           d’accions o productes financers i noves operacions d’endeutament.
         functional: Despesa per programa
-        functional_p1: 'És la classificació més explicativa: indica, per exemple,
+        functional_p1: "És la classificació més explicativa: indica, per exemple,
           quants diners es gasta l’Ajuntament en la gestió de residus o en instal·lacions
           esportives, per exemple. En un pressupost oficial les despeses s’estructuren
           en àrees i aquestes es divideixen en diferents tipologies de polítiques
           (promoció de l’activitat econòmica, culturals, esportives, ocupacionals,
           etc.), i també en grups i programes. Aquest nivell de profunditat permet
-          conèixer amb detall on van els diners.'
-        functional_p2: ''
+          conèixer amb detall on van els diners."
+        functional_p2: ""
         how_much_debt: Quant deu el municipi?
         how_much_debt_p1: El deute viu d'un municipi indica el que deu l'Ajuntament
           a bancs i altres entitats financeres. Cal no confondre’l amb el total del
           dèficit del municipi (la diferència entre els ingressos i les despeses).
-        how_much_debt_p2: ''
-        how_much_debt_p3: ''
+        how_much_debt_p2: ""
+        how_much_debt_p3: ""
         how_to_read: Com es llegeix?
         how_to_read_p1_html: 'Tots els pressupostos municipals tenen la mateixa estructura,
           definida legalment en l''<a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2008-19916">Ordre
@@ -186,11 +186,11 @@ ca:
           destinats a finançar despeses de capital (solars o finques).
         income_8_desc: Són fiances o dipòsits.
         income_9_desc: Crèdits sol·licitats a bancs o a d’altres entitats privades.
-        income_p1: 'Els ingressos es divideixen segons la seva naturalesa econòmica,
-          és a dir, d''on venen els diners: a través d''impostos, transferències d''altres
+        income_p1: "Els ingressos es divideixen segons la seva naturalesa econòmica,
+          és a dir, d'on venen els diners: a través d'impostos, transferències d'altres
           administracions, taxes i preus públics o bé de la gestió per tercers del
           patrimoni municipal. I també es divideixen segons la forma, és a dir, si
-          és un crèdit bancari, una propietat municipal que s''ha venut o un impost.'
+          és un crèdit bancari, una propietat municipal que s'ha venut o un impost."
         income_p2: En %{year} es van ingressar...
         intro_p1: L’equip de govern dissenya el pressupost i el redacta amb els serveis
           econòmics. Posteriorment s’informa i es treballa amb tots els grups municipals.
@@ -214,10 +214,10 @@ ca:
           d'introducció als pressupostos municipals</a> .
         title: Com funciona un pressupost municipal
         types_income: Tipus d'ingrés
-        types_income_p1: 'Els ingressos tal com estableix la llei es divideixen en
-          tres apartats:'
-        types_income_p2: ''
-        types_income_p3: ''
+        types_income_p1: "Els ingressos tal com estableix la llei es divideixen en
+          tres apartats:"
+        types_income_p2: ""
+        types_income_p3: ""
       index:
         at_a_glance: Evolució de la despesa i comparació
         at_years_end: "* a final del %{year}"
@@ -253,7 +253,7 @@ ca:
           expense: Despesa
           income: Ingressos
           intro: Així s'està executant el pressupost municipal.
-          last_update: 'Darrera actualització: %{date}.'
+          last_update: "Darrera actualització: %{date}."
           title: Execució
         expenses: Despeses
         expenses_per_inhabitant: Despesa per habitant
@@ -432,8 +432,8 @@ ca:
         planned: pressupostat
         real: reals
     common:
-      budget_line_description_html: 'Aquesta partida comprèn les %{kind_what} en %{description}.
-        Si vols saber més sobre aquesta partida pots consultar la partida pare: %{link}'
+      budget_line_description_html: "Aquesta partida comprèn les %{kind_what} en %{description}.
+        Si vols saber més sobre aquesta partida pots consultar la partida pare: %{link}"
       expense: despesa
       expenses: despeses
       income: ingrés
@@ -470,7 +470,7 @@ ca:
           enviat
       step1:
         answer1_0: Si
-        answer1_1: 'No'
+        answer1_1: "No"
         understand: Entens de què va aquesta partida?
       step2_no:
         answer_html: El <strong>%{datum}</strong> de persones han dit que <strong>No
@@ -486,10 +486,10 @@ ca:
         option1: Poc
         option2: Apropiat
         option3: Molt
-        thanks: 'Gràcies por la teva opinió. Això es el que pensa la resta de la gent:'
+        thanks: "Gràcies por la teva opinió. Això es el que pensa la resta de la gent:"
     indicators: Indicadors
-    indicators_intro: 'Coneix els pressupostos de %{place} a partir de les principals
-      xifres: estalvi brut, inversió per habitant o finançament d''inversions.'
+    indicators_intro: "Coneix els pressupostos de %{place} a partir de les principals
+      xifres: estalvi brut, inversió per habitant o finançament d'inversions."
     invoices:
       show:
         empty: Cap filtre té dades.
@@ -529,6 +529,8 @@ ca:
         are_from: són de
         check_detail: Consulta el detall
         companies: empreses
+        corporation_sa: societats anònimes
+        corporation_sl: societats limitades
         description: A quins proveïdors contracta %{the_organization_name}? Quines
           factures paga? Des d'aquesta secció podràs consultar i revisar el detall
           de cadascun dels pagaments que realitza %{the_organization_name}.

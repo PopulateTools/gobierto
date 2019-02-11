@@ -52,10 +52,10 @@ en:
         real_vs_planned: "% execution"
         real_vs_planned_tooltip: Percentage executed
         sub_budget_lines: In this budget line
-        twitter_text_expense: 'In @gobierto: Municipal expense on %{name} in %{budget_line_name}
-          for year %{year}'
-        twitter_text_income: 'In @gobierto: Municipal income on %{name} in %{budget_line_name}
-          for year %{year}'
+        twitter_text_expense: "In @gobierto: Municipal expense on %{name} in %{budget_line_name}
+          for year %{year}"
+        twitter_text_income: "In @gobierto: Municipal income on %{name} in %{budget_line_name}
+          for year %{year}"
         updated: updated
         updated_female: updated
         vs_previous_year: vs. previous year
@@ -67,10 +67,10 @@ en:
           in stone. Throughout the year there are unforeseen events that change the
           amount or purpose of the expenses. These changes are noted in another document:
           <a href=/presupuestos/ejecucion/%{year}">budget execution</a> .'
-        budget_execution_p2: 'In order to know if our city council has planned the
+        budget_execution_p2: "In order to know if our city council has planned the
           accounts well, we only have to compare the budget and the execution: Have
           you spent more than budgeted, have you left money or adjusted to what is
-          expected ?.'
+          expected ?."
         capital_income: Income from capital
         capital_income_p1: They come from the sale of municipal properties such as
           plots or estates. They can also come from European funds.
@@ -78,7 +78,7 @@ en:
         classification_p1: Every budget has income and expenses. Income is classified
           in an economic way, which establishes its origin. Expenses, on the other
           hand, are functional and economical.
-        debt: 'Living Debt: How Much Should Your Township'
+        debt: "Living Debt: How Much Should Your Township"
         description: The municipal budget is the document that explains how the public
           money is managed during a year. Here we explain the most important concepts
           so that you do not lose in your reading.
@@ -112,29 +112,29 @@ en:
           of a municipality.
         expense_functional_2_desc: It is the money that goes to prevention and assistance.
           For example, the promotion of employment.
-        expense_functional_3_desc: 'It affects services that improve the quality of
-          life: health, education, culture and leisure.'
+        expense_functional_3_desc: "It affects services that improve the quality of
+          life: health, education, culture and leisure."
         expense_functional_4_desc: Herein lies what helps to develop the potential
           of different economic sectors.
         expense_functional_9_desc: Here the expenses of the city council and other
           public bodies are grouped together.
         expenses: Expenses
-        expenses_how: 'How does the municipality use the money of all the neighbors?
+        expenses_how: "How does the municipality use the money of all the neighbors?
           Expenses can be classified in two ways: from the functional point of view
-          (what is spent) and economic (how it is spent).'
+          (what is spent) and economic (how it is spent)."
         expenses_per_inhabitant: The spending per capita was ...
         expenses_types: Types of expense
-        expenses_types_p1: 'How does the municipality use the money of all the neighbors?
+        expenses_types_p1: "How does the municipality use the money of all the neighbors?
           Everything is detailed here. Expenses can be classified in two ways: from
           the functional point of view (what is spent) and economic (how it is spent).
-          The amount of money is the same, but we see it from two angles.'
+          The amount of money is the same, but we see it from two angles."
         financial_income: Financial income
         financial_income_p1: They can be frozen bank deposits or loans granted by
           private entities, such as banks or insurers.
         functional: Functional expenditure
-        functional_p1: 'It is the most explanatory: it tells us, for example, how
+        functional_p1: "It is the most explanatory: it tells us, for example, how
           much is spent on garbage collection or sports facilities. It is also known
-          as expenditure item classification.'
+          as expenditure item classification."
         functional_p2: In an official budget is divided into areas, and these in turn
           in policies, groups and programs. This level of depth allows you to know
           in detail where the money goes.
@@ -196,10 +196,10 @@ en:
         types_income_p1: The income is divided into nine sections and each of them
           in several subsections. These divisions allow to deepen to know the exact
           origin of each income.
-        types_income_p2: 'For example: within Indirect Taxes are the specific Consumptions.
+        types_income_p2: "For example: within Indirect Taxes are the specific Consumptions.
           And within the latter, are the taxes of alcohol or tobacco. In an official
           budget, the main sections are called chapters. And in turn, each chapter
-          is divided into articles, concepts and subconceptions.'
+          is divided into articles, concepts and subconceptions."
         types_income_p3: In Gobierto we have simplified it so that you only have to
           look for the name of each section.
       index:
@@ -237,7 +237,7 @@ en:
           expense: Expense
           income: Income
           intro: This is how the budget is being spent.
-          last_update: 'Last update: %{date}.'
+          last_update: "Last update: %{date}."
           title: Budget execution
         expenses: Expenses
         expenses_per_inhabitant: Expenses per inhabitant
@@ -254,7 +254,7 @@ en:
         level_2_category: Level 2 category
         main_budget_levels_legend_down: Has decreased
         main_budget_levels_legend_one: Change since last year
-        main_budget_levels_legend_two: ''
+        main_budget_levels_legend_two: ""
         main_budget_levels_legend_up: Has increased
         main_budget_levels_per_inhabitant: per inhabitant
         main_budget_levels_timeline: Compare income and expenses year by year
@@ -412,9 +412,9 @@ en:
         planned: planned
         real: real
     common:
-      budget_line_description_html: 'This budget line is composed of %{kind_what}
+      budget_line_description_html: "This budget line is composed of %{kind_what}
         in %{description}. If you want to understand more about it, check its parent
-        budget line: %{link}'
+        budget line: %{link}"
       expense: expense
       expenses: expenses
       income: income
@@ -448,8 +448,8 @@ en:
         share_text: Check and opinate about the budget in %{place_name}
         success: Good! Check your email and click the link
       step1:
-        answer1_0: 'Yes'
-        answer1_1: 'No'
+        answer1_0: "Yes"
+        answer1_1: "No"
         understand: Do you understand this budget line?
       step2_no:
         answer_html: "<strong>%{datum}</strong> of the people who voted said that
@@ -464,10 +464,10 @@ en:
         option1: Few
         option2: Good
         option3: Too much
-        thanks: 'Thanks for your opinion. This is what the rest of the people think:'
+        thanks: "Thanks for your opinion. This is what the rest of the people think:"
     indicators: Indicators
-    indicators_intro: 'Understand the budgets of %{place} through its main figures:
-      gross savings, per capita investment or investment financing.'
+    indicators_intro: "Understand the budgets of %{place} through its main figures:
+      gross savings, per capita investment or investment financing."
     invoices:
       show:
         empty: Any filter has data
@@ -507,6 +507,8 @@ en:
         are_from: are from
         check_detail: Check the detail
         companies: companies
+        corporation_sa: public limited companies
+        corporation_sl: private limited companies
         description: Which providers hires %{the_organization_name}? Which invoices
           are paid? From this section you'll be able to check a summary and have a
           context of all the information aggregated, and also check the detail of

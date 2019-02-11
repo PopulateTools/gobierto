@@ -27,7 +27,7 @@ richard_published:
     'en' => 'Future government event',
     'es' => 'Future government event',
   }.to_json %>
-  slug: <%= "#{1.month.from_now.strftime('%F')}-future-government-event" %>
+  slug: <%= "#{1.year.from_now.strftime('%F')}-future-government-event" %>
   description_translations: <%= {
     'en' => 'The <strong>President</strong> will analyze the progress of the measures adopted in the first days of the Government.',
     'es' => 'El <strong>Presidente</strong> analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',

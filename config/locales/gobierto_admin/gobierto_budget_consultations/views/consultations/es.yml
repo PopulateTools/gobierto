@@ -41,6 +41,9 @@ es:
             opening_date_range: Selecciona fecha de inicio y fin
             title: Consulta sobre los presupuestos de Burjassot 2016
           upcoming: La consulta todavía no está activa.
+          visibility_level:
+            active: Publicada
+            draft: Borrador
         index:
           closes_on: Fecha de cierre
           header:

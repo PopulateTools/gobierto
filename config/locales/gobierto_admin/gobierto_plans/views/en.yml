@@ -80,6 +80,9 @@ en:
           title: Plans
           types: Types
           view_plan: View plan
+          visibility_level:
+            draft: Draft
+            published: Published
         new:
           title: New plan
       shared:

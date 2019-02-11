@@ -80,6 +80,9 @@ es:
           title: Planes
           types: Tipos
           view_plan: Ver plan
+          visibility_level:
+            draft: Borrador
+            published: Publicado
         new:
           title: Nuevo plan
       shared:

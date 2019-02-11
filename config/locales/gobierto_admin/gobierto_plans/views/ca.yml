@@ -80,6 +80,9 @@ ca:
           title: Plans
           types: Tipus
           view_plan: Veure pla
+          visibility_level:
+            draft: Borrador
+            published: Publicat
         new:
           title: Nou pla
       shared:

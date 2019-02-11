@@ -68,6 +68,7 @@ ca:
     attributes:
       gobierto_admin/permission/site_option:
         resource_names:
+          custom_fields: Camps personalitzats
           customize: Personalitzar site
           templates: Plantilles
           vocabularies: Vocabularis

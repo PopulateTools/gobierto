@@ -341,3 +341,17 @@
     }
   }
 }
+
+.card-container {
+  background: $color_1_soft;
+  display: flex;
+
+  .card-inner-side {
+    img {
+      display: block;
+    }
+  }
+  .card-inner-content {
+
+  }
+}

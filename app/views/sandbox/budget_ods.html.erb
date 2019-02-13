@@ -40,7 +40,8 @@
 
   <h2 class="with_description">Resumen</h2>
 
-  <p>TABLA</p>
+  <div id="table">
+  </div>
 
 
 </div>
@@ -119,13 +120,71 @@ function barChart(id, data) {
       .call(yAxis);
 }
 
+function table(id, data){
+
+
+  let table = d3.select(`#${id}`),
+      thead = table.append( "thead" ),
+      tbody = table.append( "tbody" );
+
+  let columnNames = [""].concat(Object.values(data[0])).slice(0, 18);
+  let columnNumbers = [""].concat(Object.keys(data[0]).map(i => parseInt(i)).filter( i => i > 0 ));
+
+  console.log(columnNumbers);
+
+// append the header row with the numbers
+  thead.append( "tr" )
+      .selectAll( "th" )
+      .data( columnNumbers )
+      .enter()
+      .append( "th" )
+      .text( function ( columnNames ) { return columnNames; } );
+
+  // append the header row
+  thead.append( "tr" )
+      .selectAll( "th" )
+      .data( columnNames )
+      .enter()
+      .append( "th" )
+      .text( function ( columnNames ) { return columnNames; } );
+
+  // create a row for each object in the data
+  let rows = tbody.selectAll( "tr" )
+      .data( data.slice(1,18) )
+      .enter()
+      .append( "tr" )
+
+  // create a cell in each row for each column
+  let cells = rows.selectAll( "td" )
+      .data(function( row ) {
+        console.log(row);
+        return columnNumbers.map( function ( column ) {
+          var value;
+          if(column === ""){
+            value = row[column];
+          } else {
+            value = row[column] !== "" ? parseFloat(row[column]).toLocaleString() : null;
+          }
+          return { column: column, value: value};
+        });
+      })
+      .enter()
+      .append( "td" )
+      .attr("style", "padding: 2px;")
+      .attr("style", function(d){
+        return "color: #000";
+      })
+      .html(function(d){
+        return d.value;
+      });
+
+}
 
 d3.csv("/ods-huelva.csv").then(function(rawData){
   var exclude = [6, 12, 14];
   var total = 17;
 
   for(var i=1; i <= total; i++){
-    console.log(i);
     if(exclude.indexOf(i) !== -1){ continue; }
     var data = [];
     for(var j = 1; j <= total; j++){
@@ -135,6 +194,8 @@ d3.csv("/ods-huelva.csv").then(function(rawData){
     }
     barChart("chart-" + i, data);
   }
+
+  table("table", rawData);
 });
 
 </script>

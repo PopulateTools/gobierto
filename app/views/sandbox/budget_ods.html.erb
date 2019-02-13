@@ -21,59 +21,84 @@
   <div class="tabs m_v_2">
     <ul role="tablist" aria-label="Consulta los ODS">
       <li role="presentation" class="active">
-        <a data-remote="true" href="">Por ODS</a>
+        <a data-remote="true" href="" data-show="ods">Por ODS</a>
       </li>
       <li role="presentation" class="">
-        <a data-remote="true" href="">Por Programa</a>
+        <a data-remote="true" href="" data-show="program">Por Programa</a>
       </li>
     </ul>
   </div>
 
   <% for i in ["01","02","03","04","05","07","08","09","10","11","13","15","16","17"] %>
-    <div class="m_v_2 card-container">
+    <div class="m_v_2 card-container" data-target="ods">
       <div class="card-inner-side"><%= image_tag('ods/goals_icons-individual-rgb-' + i + '.png') %></div>
-      <div class="card-inner-content p_2" id="chart-<%= i.to_i %>">
+      <div class="card-inner-content p_2" id="chart-ods-<%= i.to_i %>">
         <%= i %>
       </div>
     </div>
   <% end %>
 
+  <% for i in ["01","02","03","04","05","06", "07","08","09","10","11","12","13","14","15","16","17"] %>
+    <div class="m_v_2 card-container" data-target="program">
+      <div class="card-inner-side" id="card-<%= i.to_i %>"><h2></h2> <span></span></div>
+      <div class="card-inner-content p_2" id="chart-program-<%= i.to_i %>">
+      </div>
+    </div>
+  <% end %>
+
+
   <h2 class="with_description">Resumen</h2>
 
-  <div id="table">
-  </div>
-
-
+  <div id="table"></div>
 </div>
+
+<style>
+.ods-1  { fill: #e72433; background-color: #e72433; color: #fff; }
+.ods-2  { fill: #d19f35; background-color: #d19f35; color: #fff; }
+.ods-3  { fill: #349a4b; background-color: #349a4b; color: #fff; }
+.ods-4  { fill: #bf2436; background-color: #bf2436; color: #fff; }
+.ods-5  { fill: #eb4332; background-color: #eb4332; color: #fff; }
+.ods-7  { fill: #fbb62e; background-color: #fbb62e; color: #fff; }
+.ods-8  { fill: #8c1c39; background-color: #8c1c39; color: #fff; }
+.ods-9  { fill: #ef6e30; background-color: #ef6e30; color: #fff; }
+.ods-10 { fill: #dd2284; background-color: #dd2284; color: #fff; }
+.ods-11 { fill: #f69d35; background-color: #f69d35; color: #fff; }
+.ods-13 { fill: #4b7640; background-color: #4b7640; color: #fff; }
+.ods-15 { fill: #48ae4e; background-color: #48ae4e; color: #fff; }
+.ods-16 { fill: #0d5689; background-color: #0d5689; color: #fff; }
+.ods-17 { fill: #1a3767; background-color: #1a3767; color: #fff; }
+.ods-18 { fill: #72a9da; background-color: #72a9da; color: #fff; } // TOTAL column
+</style>
+
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script type="text/javascript">
+function round(value, decimals) {
+  return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}
+
+function format(value){
+  value = parseFloat(value);
+  if(value > 1000000) {
+    return round(value / 1000000, 2).toLocaleString() + " M€";
+  } else {
+    return round(value, 2).toLocaleString() + " €";
+  }
+}
 
 function barChart(id, data) {
-  function round(value, decimals) {
-    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
-  }
-
-  function format(value){
-    value = parseFloat(value);
-    if(value > 1000000) {
-      return round(value / 1000000, 2).toLocaleString() + " M€";
-    } else {
-      return round(value, 2).toLocaleString() + " €";
-    }
-  }
-  let margin = {top: 20, right: 20, bottom: 30, left: 290};
+  let margin = {top: 20, right: 80, bottom: 30, left: 290};
   let height = data.length * 25 + margin.top + margin.bottom;
 
   let bodySelection = d3.select(`#${id}`)
   bodySelection.html('')
-  let svg = bodySelection.append("svg").attr("width", 850).attr("height", height),
+  let parentWidth = d3.select('[data-target="ods"]').node().offsetWidth;
+  let svg = bodySelection.append("svg").attr("width", parentWidth - 260).attr("height", height),
     width = +svg.attr("width") - margin.left - margin.right
-
 
   let x = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.value)])
-      .range([margin.left, width - margin.right]);
+      .range([margin.left, margin.left + width - margin.right]);
 
   let y = d3.scaleBand()
       .domain(data.map(d => d.key))
@@ -82,7 +107,7 @@ function barChart(id, data) {
 
   let xAxis = g => g
       .attr("transform", `translate(0,${margin.top})`)
-      .call(d3.axisTop(x).ticks(4).tickFormat(d => d > 0 ? format(d) : d))
+      .call(d3.axisTop(x).ticks(3).tickFormat(d => d > 0 ? format(d) : d))
       .call(g => g.select(".domain").remove());
 
   let yAxis = g => g
@@ -92,10 +117,11 @@ function barChart(id, data) {
   let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
   svg.append("g")
-      .attr("fill", "steelblue")
     .selectAll("rect")
     .data(data)
     .join("rect")
+      .attr("fill", d => d.ods !== undefined ? "" : "#5392cb")
+      .attr("class", d => d.ods !== undefined ? "ods-" + d.ods : null)
       .attr("x", x(0))
       .attr("y", d => y(d.key))
       .attr("width", d => x(d.value) - x(0))
@@ -107,7 +133,8 @@ function barChart(id, data) {
     .selectAll("text")
     .data(data)
     .join("text")
-      .attr("fill", d => (x(d.value) - x(0)) > 70 ? "white" : "steelblue" )
+      .attr("fill",  d => (x(d.value) - x(0)) > 70 ? "white" : (d.ods !== undefined ? "" : "#5392cb") )
+      .attr("class", d => (x(d.value) - x(0)) < 70 ? (d.ods !== undefined ? "ods-" + d.ods : "") : "")
       .attr("x", d => (x(d.value) - x(0)) > 70 ? x(0) + 80 : x(d.value) + 60)
       .attr("y", d => y(d.key) + y.bandwidth() / 2)
       .attr("dy", "0.35em")
@@ -121,16 +148,12 @@ function barChart(id, data) {
 }
 
 function table(id, data){
-
-
   let table = d3.select(`#${id}`),
       thead = table.append( "thead" ),
       tbody = table.append( "tbody" );
 
-  let columnNames = [""].concat(Object.values(data[0])).slice(0, 18);
-  let columnNumbers = [""].concat(Object.keys(data[0]).map(i => parseInt(i)).filter( i => i > 0 ));
-
-  console.log(columnNumbers);
+  let columnNames = [""].concat(Object.values(data[0])).slice(0, 18).concat([""]);
+  let columnNumbers = [""].concat(Object.keys(data[0]).map(i => parseInt(i)).filter( i => i > 0 )).concat(["TOTAL"]);
 
 // append the header row with the numbers
   thead.append( "tr" )
@@ -138,6 +161,7 @@ function table(id, data){
       .data( columnNumbers )
       .enter()
       .append( "th" )
+      .attr("class", (d, i) => "ods-" + i)
       .text( function ( columnNames ) { return columnNames; } );
 
   // append the header row
@@ -146,6 +170,7 @@ function table(id, data){
       .data( columnNames )
       .enter()
       .append( "th" )
+      .attr("class", (d, i) => "ods-" + i)
       .text( function ( columnNames ) { return columnNames; } );
 
   // create a row for each object in the data
@@ -156,46 +181,61 @@ function table(id, data){
 
   // create a cell in each row for each column
   let cells = rows.selectAll( "td" )
-      .data(function( row ) {
-        console.log(row);
-        return columnNumbers.map( function ( column ) {
-          var value;
-          if(column === ""){
-            value = row[column];
-          } else {
-            value = row[column] !== "" ? parseFloat(row[column]).toLocaleString() : null;
-          }
-          return { column: column, value: value};
-        });
-      })
-      .enter()
-      .append( "td" )
-      .attr("style", "padding: 2px;")
-      .attr("style", function(d){
-        return "color: #000";
-      })
-      .html(function(d){
-        return d.value;
+    .data(function( row ) {
+      return columnNumbers.map( function ( column ) {
+        return { column: column, value: (row[column] !== "0,0%" ? row[column] : null)};
       });
-
+    })
+    .enter()
+    .append( "td" )
+    .attr("style", "padding: 2px;")
+    .attr("style", "color: #000")
+    .attr("style", d => parseFloat(d.value) < 50 ? 'background-color: #fff2ce' : (parseFloat(d.value) < 100 ? 'background-color: #fed971' : 'background-color: #fff'))
+    .html( d => d.value );
 }
 
-d3.csv("/ods-huelva.csv").then(function(rawData){
-  var exclude = [6, 12, 14];
-  var total = 17;
+document.addEventListener('DOMContentLoaded', () => {
+  $('[data-target="program"]').hide();
+  $('[data-show]').click(function(e){
+    e.preventDefault();
+    var target = $(this).data('show');
+    $('[data-target]').hide();
+    $('[data-target='+target+']').show();
+    $('li[role="presentation"]').removeClass('active');
+    $(this).parent('li').addClass('active');
+  });
 
-  for(var i=1; i <= total; i++){
-    if(exclude.indexOf(i) !== -1){ continue; }
-    var data = [];
-    for(var j = 1; j <= total; j++){
-      if(rawData[j][i] !== ""){
-        data.push({key: rawData[j][""], value: parseFloat(rawData[j][i])});
+  // d3.csv("/ods-huelva.csv").then(function(rawData){
+  d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTuTwApaoJLce6Lu6PRC3XtgLBZzDi2aSlTvBcfhqIcjugfX39ouO7SE3VVYUsONmAyvyVlZDq4mykw/pub?gid=1066813957&single=true&output=csv").then(function(rawData){
+    var exclude = [6, 12, 14];
+    var total = 17;
+
+    for(var i=1; i <= total; i++){
+      if(exclude.indexOf(i) !== -1){ continue; }
+      var data = [];
+      for(var j = 1; j <= total; j++){
+        if(rawData[j][i] !== ""){
+          data.push({key: rawData[j][""], value: parseFloat(rawData[j][i])});
+        }
       }
+      barChart("chart-ods-" + i, data);
     }
-    barChart("chart-" + i, data);
-  }
 
-  table("table", rawData);
+    for(var i=1; i <= total; i++){
+      $('#card-' + i + " h2").html(rawData[i][""]);
+      $('#card-' + i + " span").html(format(rawData[i]["TOTAL"].replace(/\./g, '')));
+
+      var data = [];
+      for(var j = 1; j <= total; j++){
+        if(rawData[i][j] !== ""){
+          data.push({key: rawData[0][j], value: parseFloat(rawData[i][j]), ods: j});
+        }
+      }
+      barChart("chart-program-" + i, data);
+    }
+
+    table("table", rawData.slice(24, 44));
+  });
 });
 
 </script>

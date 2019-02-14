@@ -16,6 +16,7 @@ cms_section_l0_p0_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
 
 cms_section_l0_p1_page:
   title_translations: <%= {
@@ -35,6 +36,7 @@ cms_section_l0_p1_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
 
 cms_section_l0_p2d_page:
   title_translations: <%= {
@@ -54,6 +56,7 @@ cms_section_l0_p2d_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
 
 cms_section_l0_p3a_page:
   title_translations: <%= {
@@ -73,4 +76,5 @@ cms_section_l0_p3a_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
   archived_at: <%= 5.days.ago %>

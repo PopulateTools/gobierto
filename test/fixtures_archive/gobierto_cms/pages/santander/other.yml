@@ -6,3 +6,4 @@ about:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: santander
   published_on: <%= Date.current %>
+  template:

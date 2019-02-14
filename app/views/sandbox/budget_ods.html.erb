@@ -230,7 +230,6 @@ function table(id, data){
 
   let columnNames = [""].concat(Object.values(data[0])).slice(0, 18).concat([""]);
   let columnNumbers = [""].concat(Object.keys(data[0]).map(i => parseInt(i)).filter( i => i > 0 )).concat(["TOTAL"]);
-  // let columns = [columnNames, columnNumbers];
 
   // append the header row with the numbers
   thead.append( "tr" )
@@ -240,18 +239,13 @@ function table(id, data){
     .enter()
     .append( "th" )
     .attr("class", (d, i) => "ods-" + i + " tipsit")
-    .attr("title", function ( d ) { return d; })
     .text( function ( d ) { return d; } );
 
-  // append the header row
-  // thead.append( "tr" )
-  //   .attr("class", "ods-header-row-labels")
-  //   .selectAll( "th" )
-  //   .data( columnNames )
-  //   .enter()
-  //   .append( "th" )
-  //   .attr("class", (d, i) => "ods-" + i)
-  //   .text( function ( columnNames ) { return columnNames; } );
+  // append the header row with the col names
+  table.selectAll("thead")
+    .selectAll( "th" )
+    .data( columnNames )
+    .attr("title", function ( d ) { return d; })
 
   // create a row for each object in the data
   let rows = tbody.selectAll( "tr" )
@@ -324,6 +318,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     table("ods-table", rawData.slice(24, 44));
+
+    $('.tipsit').tipsy({fade: false, gravity: 's', html: true});
+    $('.tipsit-n').tipsy({fade: false, gravity: 'n', html: true});
+    $('.tipsit-w').tipsy({fade: false, gravity: 'w', html: true});
+    $('.tipsit-e').tipsy({fade: false, gravity: 'e', html: true});
+    $('.tipsit-treemap').tipsy({fade: false, gravity: $.fn.tipsy.autoNS, html: true});
   });
 });
 

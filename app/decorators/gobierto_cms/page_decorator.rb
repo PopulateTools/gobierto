@@ -41,7 +41,7 @@ module GobiertoCms
     end
 
     def default_template
-      "gobierto_cms/pages/templates/#{sub_template}"
+      "gobierto_cms/pages/templates/#{@object.template || sub_template}"
     end
 
   end

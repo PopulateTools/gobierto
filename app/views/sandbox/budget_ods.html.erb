@@ -13,27 +13,61 @@
 .ods-15 { fill: #48ae4e; background-color: #48ae4e; color: #fff; }
 .ods-16 { fill: #0d5689; background-color: #0d5689; color: #fff; }
 .ods-17 { fill: #1a3767; background-color: #1a3767; color: #fff; }
-.ods-18 { fill: #72a9da; background-color: #72a9da; color: #fff; } // TOTAL column
+.ods-18 { fill: #72a9da; background-color: #72a9da; color: #fff; } /* TOTAL column */
+
+.ods-table {
+  margin: auto;
+  max-width: 1400px;
+  display: block;
+  width: calc(100% - 2em);
+}
 
 .ods-table tr.ods-header-row-ids th {
-  font-size: 32px;
+  font-size: 18px;
+  font-weight: 600;
   padding: 12px;
+}
+
+.ods-table tr.ods-header-row-ids th:not(:first-child):not(:last-child) {
+  min-width: 35px;
 }
 
 .ods-table tr.ods-header-row-labels th {
   font-weight: 300;
-  font-size: 12px;
+  font-size: 11px;
+  line-height: 15px;
   padding: 2px;
+  display: none;
 }
 
+/* program labels column */
 .ods-table tbody tr td:first-child {
-  border: 1px solid red;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 15px;
+  padding: 5px 0;
 }
+
+/* totals last column */
+.ods-table tbody tr td:last-child {
+  text-align: right;
+  padding: 5px;
+}
+
+.ods-table tbody tr td {
+  text-align: center;
+  vertical-align: middle;
+  border-top: 1px solid #DFDFDF;
+  font-size: 14px;
+  font-weight: 300;
+}
+
 </style>
 
 <div class="column">
 
-  <div id="taxes_receipt" class="block">
+  <div class="block">
     <div class="pure-g header_block_inline m_b_1">
       <div class="pure-u-1 pure-u-md-12-24">
         <h2 class="with_description">Objetivos de Desarrollo Sostenible</h2>
@@ -78,12 +112,11 @@
     </div>
   <% end %>
 
-
   <h2 class="with_description">Resumen</h2>
 
-  <div class="ods-table" id="ods-table"></div>
 </div>
 
+<table class="ods-table" id="ods-table"></table>
 
 
 
@@ -171,26 +204,28 @@ function table(id, data){
 
   let columnNames = [""].concat(Object.values(data[0])).slice(0, 18).concat([""]);
   let columnNumbers = [""].concat(Object.keys(data[0]).map(i => parseInt(i)).filter( i => i > 0 )).concat(["TOTAL"]);
+  // let columns = [columnNames, columnNumbers];
 
-// append the header row with the numbers
+  // append the header row with the numbers
   thead.append( "tr" )
     .attr("class", "ods-header-row-ids")
     .selectAll( "th" )
     .data( columnNumbers )
     .enter()
     .append( "th" )
-    .attr("class", (d, i) => "ods-" + i)
-    .text( function ( columnNames ) { return columnNames; } );
+    .attr("class", (d, i) => "ods-" + i + " tipsit")
+    .attr("title", function ( d ) { return d; })
+    .text( function ( d ) { return d; } );
 
   // append the header row
-  thead.append( "tr" )
-    .attr("class", "ods-header-row-labels")
-    .selectAll( "th" )
-    .data( columnNames )
-    .enter()
-    .append( "th" )
-    .attr("class", (d, i) => "ods-" + i)
-    .text( function ( columnNames ) { return columnNames; } );
+  // thead.append( "tr" )
+  //   .attr("class", "ods-header-row-labels")
+  //   .selectAll( "th" )
+  //   .data( columnNames )
+  //   .enter()
+  //   .append( "th" )
+  //   .attr("class", (d, i) => "ods-" + i)
+  //   .text( function ( columnNames ) { return columnNames; } );
 
   // create a row for each object in the data
   let rows = tbody.selectAll( "tr" )

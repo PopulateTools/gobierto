@@ -341,3 +341,27 @@
     }
   }
 }
+
+.card-container {
+  background: $color_1_soft;
+  display: flex;
+
+  .card-inner-side {
+    @include screen(740) {
+      width: 25%;
+    }
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+
+  .card-inner-content {
+
+  }
+}
+
+.ods-table {
+
+}

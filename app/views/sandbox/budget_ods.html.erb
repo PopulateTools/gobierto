@@ -1,0 +1,351 @@
+<style>
+.ods-1  { fill: #e72433; background-color: #e72433; color: #fff; }
+.ods-2  { fill: #d19f35; background-color: #d19f35; color: #fff; }
+.ods-3  { fill: #349a4b; background-color: #349a4b; color: #fff; }
+.ods-4  { fill: #bf2436; background-color: #bf2436; color: #fff; }
+.ods-5  { fill: #eb4332; background-color: #eb4332; color: #fff; }
+.ods-7  { fill: #fbb62e; background-color: #fbb62e; color: #fff; }
+.ods-8  { fill: #8c1c39; background-color: #8c1c39; color: #fff; }
+.ods-9  { fill: #ef6e30; background-color: #ef6e30; color: #fff; }
+.ods-10 { fill: #dd2284; background-color: #dd2284; color: #fff; }
+.ods-11 { fill: #f69d35; background-color: #f69d35; color: #fff; }
+.ods-13 { fill: #4b7640; background-color: #4b7640; color: #fff; }
+.ods-15 { fill: #48ae4e; background-color: #48ae4e; color: #fff; }
+.ods-16 { fill: #0d5689; background-color: #0d5689; color: #fff; }
+.ods-17 { fill: #1a3767; background-color: #1a3767; color: #fff; }
+.ods-18 { fill: #72a9da; background-color: #72a9da; color: #fff; } /* TOTAL column */
+
+.ods-table {
+  margin: auto;
+  max-width: 1400px;
+  display: block;
+  width: calc(100% - 2em);
+}
+
+.ods-table tr.ods-header-row-ids th {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 12px;
+}
+
+.ods-table tr.ods-header-row-ids th:not(:first-child):not(:last-child) {
+  min-width: 35px;
+}
+
+.ods-table tr.ods-header-row-labels th {
+  font-weight: 300;
+  font-size: 11px;
+  line-height: 15px;
+  padding: 2px;
+  display: none;
+}
+
+/* program labels column */
+.ods-table tbody tr td:first-child {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 15px;
+  padding: 5px 0;
+}
+
+/* totals last column */
+.ods-table tbody tr td:last-child {
+  text-align: right;
+  padding: 5px;
+}
+
+.ods-table tbody tr td {
+  text-align: center;
+  vertical-align: middle;
+  border-top: 1px solid #DFDFDF;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.card-inner-side {
+  min-width: 20%;
+  max-width: 238px;
+  box-sizing: border-box;
+}
+
+[data-target="program"] .card-inner-side {
+  background: #4F91CD;
+  color: #FFF;
+  min-width: 25%;
+  width: 25%;
+}
+
+[data-target="program"] .card-inner-side h2 {
+  margin-top: 0;
+  color: #FFF;
+}
+
+[data-target="program"] .card-inner-side span {
+  font-size: 24px;
+}
+
+</style>
+
+<div class="column">
+
+  <div class="block">
+    <div class="pure-g header_block_inline m_b_1">
+      <div class="pure-u-1 pure-u-md-12-24">
+        <h2 class="with_description">Objetivos de Desarrollo Sostenible</h2>
+        <p>En septiembre de 2015 la Asamblea General de las Naciones Unidas, aprobó la resolución "Transformar nuestro mundo: la Agenda 2030 para el Desarrollo Sostenible" que establece un plan de acción con objetivos y metas claras "a favor de las personas, el planeta y la prosperidad. Esta agenda se resume en 17 Objetivos y 169 metas que conjugan todas las dimensiones del desarrollo sostenible (la ambiental, la económica y la social) necesitando la colaboración de "todos los paises, todas las partes interesadas y todas las personas.</p>
+
+        <p>El ámbito Local se define como un espacio clave por lo tanto para contribuir a la consecución de los Objetivos de Desarrollo Sostenible. Ese es el compromiso de la Diputación Provincial de Huelva que en un ejercicio de acercar lo Global a lo Local,  ha alineado sus presupuestos 2019 con el cumplimiento de los 17 ODS. Es un primer paso que desvela el compromiso de esta Institución y su alienación con el futuro: la Agenda 2030.</p>
+
+      </div>
+
+      <div class="pure-u-1 pure-u-md-12-24 right">
+        <%= image_tag('ods/S_SDG_logo_No_Emblem_square_rgb.png', class: 'medium_img') %>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="tabs m_v_2">
+    <ul role="tablist" aria-label="Consulta los ODS">
+      <li role="presentation" class="active">
+        <a data-remote="true" href="" data-show="ods">Por ODS</a>
+      </li>
+      <li role="presentation" class="">
+        <a data-remote="true" href="" data-show="program">Por Programa</a>
+      </li>
+    </ul>
+  </div>
+
+  <div data-target="ods">
+  <% for i in ["01","02","03","04","05","07","08","09","10","11","13","15","16","17"] %>
+    <div class="m_v_2 card-container" >
+      <div class="card-inner-side"><%= image_tag('ods/goals_icons-individual-rgb-' + i + '.png') %></div>
+      <div class="card-inner-content p_2" id="chart-ods-<%= i.to_i %>">
+        <%= i %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+
+  <div data-target="program">
+  <% for i in ["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17"] %>
+    <div class="m_v_2 card-container" >
+      <div class="card-inner-side p_2" id="card-<%= i.to_i %>"><h2></h2> <span></span></div>
+      <div class="card-inner-content p_2" id="chart-program-<%= i.to_i %>">
+      </div>
+    </div>
+  <% end %>
+  </div>
+
+  <h2 class="with_description">Resumen</h2>
+
+</div>
+
+<table class="ods-table" id="ods-table"></table>
+
+
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script type="text/javascript">
+function round(value, decimals) {
+  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+}
+
+function format(value) {
+  value = parseFloat(value);
+
+  if (value > 1000000) {
+    return round(value / 1000000, 2).toLocaleString() + "M €";
+  } else {
+    return round(value, 2).toLocaleString() + " €";
+  }
+}
+
+function barChart(id, data) {
+  var margin = {
+    top: 20,
+    right: 80,
+    bottom: 30,
+    left: 290
+  };
+  var height = data.length * 25 + margin.top + margin.bottom;
+  var bodySelection = d3.select("#".concat(id));
+  bodySelection.html('');
+  var parentWidth = d3.select('[data-target="ods"]').node().offsetWidth;
+  var svg = bodySelection.append("svg").attr("width", parentWidth - 260).attr("height", height),
+      width = +svg.attr("width") - margin.left - margin.right;
+  var x = d3.scaleLinear().domain([0, d3.max(data, function (d) {
+    return d.value;
+  })]).range([margin.left, margin.left + width - margin.right]);
+  var y = d3.scaleBand().domain(data.map(function (d) {
+    return d.key;
+  })).range([margin.top, height - margin.bottom]).padding(0.1);
+
+  var xAxis = function xAxis(g) {
+    return g.attr("transform", "translate(0,".concat(margin.top, ")")).call(d3.axisTop(x).ticks(3).tickFormat(function (d) {
+      return d > 0 ? format(d) : d;
+    })).call(function (g) {
+      return g.select(".domain").remove();
+    });
+  };
+
+  var yAxis = function yAxis(g) {
+    return g.attr("transform", "translate(".concat(margin.left, ",0)")).call(d3.axisLeft(y).tickSizeOuter(0));
+  };
+
+  var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  svg.append("g").selectAll("rect").data(data).join("rect").attr("fill", function (d) {
+    return d.ods !== undefined ? "" : "#5392cb";
+  }).attr("class", function (d) {
+    return d.ods !== undefined ? "ods-" + d.ods : null;
+  }).attr("x", x(0)).attr("y", function (d) {
+    return y(d.key);
+  }).attr("width", function (d) {
+    return x(d.value) - x(0);
+  }).attr("height", y.bandwidth());
+  svg.append("g").attr("text-anchor", "end").style("font", "12px sans-serif").selectAll("text").data(data).join("text").attr("fill", function (d) {
+    return x(d.value) - x(0) > 70 ? "white" : d.ods !== undefined ? "" : "#5392cb";
+  }).attr("style", function (d) {
+    return x(d.value) - x(0) > 70 ? "font-weight: normal" : "font-weight: bold";
+  }).attr("class", function (d) {
+    return x(d.value) - x(0) < 70 ? d.ods !== undefined ? "ods-" + d.ods : "" : "";
+  }).attr("x", function (d) {
+    return x(d.value) - x(0) > 70 ? x(0) + 80 : x(d.value) + 60;
+  }).attr("y", function (d) {
+    return y(d.key) + y.bandwidth() / 2;
+  }).attr("dy", "0.45em").text(function (d) {
+    return format(d.value);
+  });
+  svg.append("g").call(xAxis);
+  svg.append("g").call(yAxis);
+}
+
+function table(id, data) {
+  var table = d3.select("#".concat(id)),
+      thead = table.append("thead"),
+      tbody = table.append("tbody");
+  var columnNames = [""].concat(Object.values(data[0])).slice(0, 18).concat([""]);
+  var columnNumbers = [""].concat(Object.keys(data[0]).map(function (i) {
+    return parseInt(i);
+  }).filter(function (i) {
+    return i > 0;
+  })).concat(["TOTAL"]); // append the header row with the numbers
+
+  thead.append("tr").attr("class", "ods-header-row-ids").selectAll("th").data(columnNumbers).enter().append("th").attr("class", function (d, i) {
+    return "ods-" + i + " tipsit";
+  }).text(function (d) {
+    return d;
+  }); // append the header row with the col names
+
+  table.selectAll("thead").selectAll("th").data(columnNames).attr("title", function (d) {
+    return d;
+  }); // create a row for each object in the data
+
+  var rows = tbody.selectAll("tr").data(data.slice(1, 18)).enter().append("tr"); // create a cell in each row for each column
+
+  var cells = rows.selectAll("td").data(function (row) {
+    return columnNumbers.map(function (column) {
+      return {
+        column: column,
+        value: row[column] !== "0,0%" ? row[column] : null
+      };
+    });
+  }).enter().append("td").attr("style", "padding: 2px;").attr("style", "color: #000").attr("style", function (d) {
+    if (d.column === "TOTAL") return "background-color: #d0e2f2";
+
+    if (parseFloat(d.value) < 50) {
+      return 'background-color: #fff2ce';
+    }
+
+    if (parseFloat(d.value) <= 100) {
+      return "background-color: #fed971";
+    }
+
+    return 'background-color: #fff';
+  }).html(function (d) {
+    return d.value;
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  $('[data-target="program"]').hide();
+  $('[data-show]').click(function (e) {
+    e.preventDefault();
+    var target = $(this).data('show');
+    $('[data-target]').hide();
+    $('[data-target=' + target + ']').show();
+    $('li[role="presentation"]').removeClass('active');
+    $(this).parent('li').addClass('active');
+  }); // d3.csv("/ods-huelva.csv").then(function(rawData){
+
+  d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTuTwApaoJLce6Lu6PRC3XtgLBZzDi2aSlTvBcfhqIcjugfX39ouO7SE3VVYUsONmAyvyVlZDq4mykw/pub?gid=1066813957&single=true&output=csv").then(function (rawData) {
+    var exclude = [6, 12, 14];
+    var total = 17;
+
+    for (var i = 1; i <= total; i++) {
+      if (exclude.indexOf(i) !== -1) {
+        continue;
+      }
+
+      var data = [];
+
+      for (var j = 1; j <= total; j++) {
+        if (rawData[j][i] !== "") {
+          data.push({
+            key: rawData[j][""],
+            value: parseFloat(rawData[j][i])
+          });
+        }
+      }
+
+      barChart("chart-ods-" + i, data);
+    }
+
+    for (var i = 1; i <= total; i++) {
+      $('#card-' + i + " h2").html(rawData[i][""]);
+      $('#card-' + i + " span").html(format(rawData[i]["TOTAL"].replace(/\./g, '')));
+      var data = [];
+
+      for (var j = 1; j <= total; j++) {
+        if (rawData[i][j] !== "") {
+          data.push({
+            key: rawData[0][j],
+            value: parseFloat(rawData[i][j]),
+            ods: j
+          });
+        }
+      }
+
+      barChart("chart-program-" + i, data);
+    }
+
+    table("ods-table", rawData.slice(24, 44));
+    $('.tipsit').tipsy({
+      fade: false,
+      gravity: 's',
+      html: true
+    });
+    $('.tipsit-n').tipsy({
+      fade: false,
+      gravity: 'n',
+      html: true
+    });
+    $('.tipsit-w').tipsy({
+      fade: false,
+      gravity: 'w',
+      html: true
+    });
+    $('.tipsit-e').tipsy({
+      fade: false,
+      gravity: 'e',
+      html: true
+    });
+    $('.tipsit-treemap').tipsy({
+      fade: false,
+      gravity: $.fn.tipsy.autoNS,
+      html: true
+    });
+  });
+});
+</script>

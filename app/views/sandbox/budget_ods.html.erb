@@ -1,3 +1,35 @@
+<style>
+.ods-1  { fill: #e72433; background-color: #e72433; color: #fff; }
+.ods-2  { fill: #d19f35; background-color: #d19f35; color: #fff; }
+.ods-3  { fill: #349a4b; background-color: #349a4b; color: #fff; }
+.ods-4  { fill: #bf2436; background-color: #bf2436; color: #fff; }
+.ods-5  { fill: #eb4332; background-color: #eb4332; color: #fff; }
+.ods-7  { fill: #fbb62e; background-color: #fbb62e; color: #fff; }
+.ods-8  { fill: #8c1c39; background-color: #8c1c39; color: #fff; }
+.ods-9  { fill: #ef6e30; background-color: #ef6e30; color: #fff; }
+.ods-10 { fill: #dd2284; background-color: #dd2284; color: #fff; }
+.ods-11 { fill: #f69d35; background-color: #f69d35; color: #fff; }
+.ods-13 { fill: #4b7640; background-color: #4b7640; color: #fff; }
+.ods-15 { fill: #48ae4e; background-color: #48ae4e; color: #fff; }
+.ods-16 { fill: #0d5689; background-color: #0d5689; color: #fff; }
+.ods-17 { fill: #1a3767; background-color: #1a3767; color: #fff; }
+.ods-18 { fill: #72a9da; background-color: #72a9da; color: #fff; } // TOTAL column
+
+.ods-table tr.ods-header-row-ids th {
+  font-size: 32px;
+  padding: 12px;
+}
+
+.ods-table tr.ods-header-row-labels th {
+  font-weight: 300;
+  font-size: 12px;
+  padding: 2px;
+}
+
+.ods-table tbody tr td:first-child {
+  border: 1px solid red;
+}
+</style>
 
 <div class="column">
 
@@ -49,26 +81,10 @@
 
   <h2 class="with_description">Resumen</h2>
 
-  <div id="table"></div>
+  <div class="ods-table" id="ods-table"></div>
 </div>
 
-<style>
-.ods-1  { fill: #e72433; background-color: #e72433; color: #fff; }
-.ods-2  { fill: #d19f35; background-color: #d19f35; color: #fff; }
-.ods-3  { fill: #349a4b; background-color: #349a4b; color: #fff; }
-.ods-4  { fill: #bf2436; background-color: #bf2436; color: #fff; }
-.ods-5  { fill: #eb4332; background-color: #eb4332; color: #fff; }
-.ods-7  { fill: #fbb62e; background-color: #fbb62e; color: #fff; }
-.ods-8  { fill: #8c1c39; background-color: #8c1c39; color: #fff; }
-.ods-9  { fill: #ef6e30; background-color: #ef6e30; color: #fff; }
-.ods-10 { fill: #dd2284; background-color: #dd2284; color: #fff; }
-.ods-11 { fill: #f69d35; background-color: #f69d35; color: #fff; }
-.ods-13 { fill: #4b7640; background-color: #4b7640; color: #fff; }
-.ods-15 { fill: #48ae4e; background-color: #48ae4e; color: #fff; }
-.ods-16 { fill: #0d5689; background-color: #0d5689; color: #fff; }
-.ods-17 { fill: #1a3767; background-color: #1a3767; color: #fff; }
-.ods-18 { fill: #72a9da; background-color: #72a9da; color: #fff; } // TOTAL column
-</style>
+
 
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -158,21 +174,23 @@ function table(id, data){
 
 // append the header row with the numbers
   thead.append( "tr" )
-      .selectAll( "th" )
-      .data( columnNumbers )
-      .enter()
-      .append( "th" )
-      .attr("class", (d, i) => "ods-" + i)
-      .text( function ( columnNames ) { return columnNames; } );
+    .attr("class", "ods-header-row-ids")
+    .selectAll( "th" )
+    .data( columnNumbers )
+    .enter()
+    .append( "th" )
+    .attr("class", (d, i) => "ods-" + i)
+    .text( function ( columnNames ) { return columnNames; } );
 
   // append the header row
   thead.append( "tr" )
-      .selectAll( "th" )
-      .data( columnNames )
-      .enter()
-      .append( "th" )
-      .attr("class", (d, i) => "ods-" + i)
-      .text( function ( columnNames ) { return columnNames; } );
+    .attr("class", "ods-header-row-labels")
+    .selectAll( "th" )
+    .data( columnNames )
+    .enter()
+    .append( "th" )
+    .attr("class", (d, i) => "ods-" + i)
+    .text( function ( columnNames ) { return columnNames; } );
 
   // create a row for each object in the data
   let rows = tbody.selectAll( "tr" )
@@ -244,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
       barChart("chart-program-" + i, data);
     }
 
-    table("table", rawData.slice(24, 44));
+    table("ods-table", rawData.slice(24, 44));
   });
 });
 

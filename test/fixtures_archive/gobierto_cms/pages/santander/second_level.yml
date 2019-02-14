@@ -18,6 +18,7 @@ cms_section_l1_p0p0_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
 
 cms_section_l1_p0p1_page:
   title_translations: <%= {
@@ -37,6 +38,7 @@ cms_section_l1_p0p1_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
 
 cms_section_l1_p0p2d_page:
   title_translations: <%= {
@@ -56,6 +58,7 @@ cms_section_l1_p0p2d_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
 
 cms_section_l1_p0p3a_page:
   title_translations: <%= {
@@ -75,6 +78,7 @@ cms_section_l1_p0p3a_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
   archived_at: <%= 5.days.ago %>
 
 ## p1 children
@@ -97,6 +101,7 @@ cms_section_l1_p1p0_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
 
 ## p2d children
 
@@ -118,6 +123,7 @@ cms_section_l1_p2dp0_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
 
 cms_section_l1_p2dp1d_page:
   title_translations: <%= {
@@ -137,6 +143,7 @@ cms_section_l1_p2dp1d_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
 
 cms_section_l1_p2dp2a_page:
   title_translations: <%= {
@@ -156,6 +163,7 @@ cms_section_l1_p2dp2a_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
   archived_at: <%= 5.days.ago %>
 
 ## p3a children
@@ -178,6 +186,7 @@ cms_section_l1_p3ap0_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
 
 cms_section_l1_p3ap1d_page:
   title_translations: <%= {
@@ -197,6 +206,7 @@ cms_section_l1_p3ap1d_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
 
 cms_section_l1_p3ap2a_page:
   title_translations: <%= {
@@ -216,4 +226,5 @@ cms_section_l1_p3ap2a_page:
   site: santander
   collection: santander_cms_pages
   published_on: <%= 10.days.ago %>
+  template:
   archived_at: <%= 5.days.ago %>

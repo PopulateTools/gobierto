@@ -17,6 +17,7 @@ module GobiertoAdmin
         :attachment_ids,
         :section,
         :published_on,
+        :template,
         :parent
       )
 

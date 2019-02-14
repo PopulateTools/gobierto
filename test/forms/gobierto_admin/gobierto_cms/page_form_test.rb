@@ -14,7 +14,8 @@ module GobiertoAdmin
           slug: "page-form-slug",
           collection_id: collection.id,
           published_on: Time.zone.parse('30-12-1994 2:00'),
-          visibility_level: page.visibility_level
+          visibility_level: page.visibility_level,
+          template: nil
         }
       end
 
@@ -29,7 +30,8 @@ module GobiertoAdmin
           body_translations: nil,
           slug: nil,
           visibility_level: nil,
-          published_on: nil
+          published_on: nil,
+          template: nil
         )
       end
 

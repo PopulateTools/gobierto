@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_085402) do
+ActiveRecord::Schema.define(version: 2019_02_14_131608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -441,6 +441,7 @@ ActiveRecord::Schema.define(version: 2018_10_18_085402) do
     t.jsonb "body_source_translations"
     t.datetime "archived_at"
     t.datetime "published_on", null: false
+    t.string "template"
     t.index ["archived_at"], name: "index_gcms_pages_on_archived_at"
     t.index ["body_source_translations"], name: "index_gcms_pages_on_body_source_translations", using: :gin
     t.index ["body_translations"], name: "index_gcms_pages_on_body_translations", using: :gin

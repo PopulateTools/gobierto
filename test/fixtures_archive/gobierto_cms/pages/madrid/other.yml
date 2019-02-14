@@ -7,6 +7,7 @@ site_news_1:
   site: madrid
   collection: site_news
   published_on: <%= Date.current %>
+  template:
 
 consultation_faq:
   title_translations: <%= { 'en' => 'Consultation page FAQ', 'es' => 'FAQ consultas' }.to_json %>
@@ -17,6 +18,7 @@ consultation_faq:
   site: madrid
   collection: site_pages
   published_on: <%= Date.current %>
+  template:
 
 privacy:
   title_translations: <%= {'en' => 'Privacy', 'es' => 'Privacidad' }.to_json %>
@@ -27,6 +29,7 @@ privacy:
   site: madrid
   collection: site_pages
   published_on: <%= Date.current %>
+  template:
 
 cookies:
   title_translations: <%= {'en' => 'Cookies', 'es' => 'Cookies' }.to_json %>
@@ -36,6 +39,7 @@ cookies:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
   site: madrid
   published_on: <%= Date.current %>
+  template:
 
 themes:
   title_translations: <%= {'en' => 'Themes in the site', 'es' => 'Temas en el sitio' }.to_json %>
@@ -46,6 +50,7 @@ themes:
   site: madrid
   collection: news
   published_on: <%= Date.current %>
+  template:
 
 themes_draft:
   title_translations: <%= {'en' => 'Themes draft', 'es' => 'Borrador de temas' }.to_json %>
@@ -56,6 +61,7 @@ themes_draft:
   site: madrid
   collection: news
   published_on: <%= Date.current %>
+  template:
 
 notice_1:
   title_translations: <%= {'en' => 'Notice 1 title', 'es' => 'Título de la noticia 1' }.to_json %>
@@ -66,6 +72,7 @@ notice_1:
   site: madrid
   collection: gender_violence_process_news
   published_on: <%= Date.current %>
+  template:
 
 notice_2:
   title_translations: <%= {'en' => 'Notice 2 title', 'es' => 'Título de la noticia 2' }.to_json %>
@@ -76,6 +83,7 @@ notice_2:
   site: madrid
   collection: gender_violence_process_news
   published_on: <%= Date.current %>
+  template:
 
 about_site:
   title_translations: <%= { 'es' => 'Sobre el sitio', 'en' => 'About site' }.to_json %>
@@ -92,6 +100,7 @@ about_site:
   site: madrid
   collection: site_pages
   published_on: <%= Date.current %>
+  template:
 
 about_participation:
   title_translations: <%= {
@@ -111,6 +120,7 @@ about_participation:
   site: madrid
   collection: site_pages
   published_on: <%= Date.current %>
+  template:
 
 about_participation_details:
   title_translations: <%= {
@@ -130,6 +140,7 @@ about_participation_details:
   site: madrid
   collection: site_pages
   published_on: <%= Date.current %>
+  template:
 
 generic_site_page:
   title_translations: <%= {
@@ -148,6 +159,7 @@ generic_site_page:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   published_on: <%= Date.current %>
+  template:
 
 how_to_participate:
   title_translations: <%= {
@@ -167,3 +179,4 @@ how_to_participate:
   site: madrid
   collection: participation_pages
   published_on: <%= Date.current %>
+  template:

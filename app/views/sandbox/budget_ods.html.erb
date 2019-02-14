@@ -134,6 +134,7 @@ function barChart(id, data) {
     .data(data)
     .join("text")
       .attr("fill",  d => (x(d.value) - x(0)) > 70 ? "white" : (d.ods !== undefined ? "" : "#5392cb") )
+      .attr("style",  d => (x(d.value) - x(0)) > 70 ? "font-weight: normal" : "font-weight: bold")
       .attr("class", d => (x(d.value) - x(0)) < 70 ? (d.ods !== undefined ? "ods-" + d.ods : "") : "")
       .attr("x", d => (x(d.value) - x(0)) > 70 ? x(0) + 80 : x(d.value) + 60)
       .attr("y", d => y(d.key) + y.bandwidth() / 2)
@@ -190,7 +191,16 @@ function table(id, data){
     .append( "td" )
     .attr("style", "padding: 2px;")
     .attr("style", "color: #000")
-    .attr("style", d => parseFloat(d.value) < 50 ? 'background-color: #fff2ce' : (parseFloat(d.value) < 100 ? 'background-color: #fed971' : 'background-color: #fff'))
+    .attr("style", d => {
+      if(d.column === "TOTAL") return "background-color: #d0e2f2";
+      if(parseFloat(d.value) < 50){
+        return 'background-color: #fff2ce';
+      }
+      if (parseFloat(d.value) < 100){
+        return "'background-color: #fed971";
+      }
+      return 'background-color: #fff'
+    })
     .html( d => d.value );
 }
 

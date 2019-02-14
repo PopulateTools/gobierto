@@ -275,8 +275,8 @@ function table(id, data){
       if(parseFloat(d.value) < 50){
         return 'background-color: #fff2ce';
       }
-      if (parseFloat(d.value) < 100){
-        return "'background-color: #fed971";
+      if (parseFloat(d.value) <= 100){
+        return "background-color: #fed971";
       }
       return 'background-color: #fff'
     })

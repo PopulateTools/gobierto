@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_data.git
-  revision: adb688770f62967bceac51c92e503e141cb14ca3
+  revision: de1ed0fb9a7ccca8988bc5154b2f5c1994f0b62e
   specs:
-    gobierto_data (0.0.1)
+    gobierto_data (0.1.0)
       actionpack (>= 5.0.0.1)
       activesupport (>= 5.0.0)
       aws-sdk (~> 2.11, >= 2.11.45)
@@ -10,6 +10,7 @@ GIT
       elasticsearch-extensions (~> 0.0.27)
       ine-places (~> 0.3.0)
       oj (~> 3.5, >= 3.5.0)
+      rake (~> 12.3.2)
 
 GIT
   remote: https://github.com/ferblape/webpacker.git
@@ -86,13 +87,13 @@ GEM
     ansi (1.5.0)
     arel (9.0.0)
     ast (2.4.0)
-    aws-sdk (2.11.218)
-      aws-sdk-resources (= 2.11.218)
-    aws-sdk-core (2.11.218)
+    aws-sdk (2.11.223)
+      aws-sdk-resources (= 2.11.223)
+    aws-sdk-core (2.11.223)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.11.218)
-      aws-sdk-core (= 2.11.218)
+    aws-sdk-resources (2.11.223)
+      aws-sdk-core (= 2.11.223)
     aws-ses (0.6.0)
       builder
       mail (> 2.2.5)
@@ -311,7 +312,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     nori (2.6.0)
     ntlm-http (0.1.1)
-    oj (3.7.8)
+    oj (3.7.9)
     os (1.0.0)
     paper_trail (10.2.0)
       activerecord (>= 4.2, < 6.1)

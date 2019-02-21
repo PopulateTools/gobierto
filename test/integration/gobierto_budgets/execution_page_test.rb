@@ -17,7 +17,7 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
   end
 
   def last_year
-    2017
+    Date.today.year - 1
   end
 
   def test_execution_information

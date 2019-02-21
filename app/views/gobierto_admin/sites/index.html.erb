@@ -2,7 +2,7 @@
 
 <div class="admin_tools right">
   <%= link_to "#" do %>
-    <i class="fa fa-cog"></i>
+    <i class="fas fa-cog"></i>
     <%= t(".configuration") %>
   <% end %>
   <%= link_to t(".new"), new_admin_site_path, class: "button" %>
@@ -23,7 +23,7 @@
     <tr id="site-item-<%= site.id %>" class="<%= cycle("odd", "even") %>">
       <td>
         <%= link_to edit_admin_site_path(site) do %>
-          <i class="fa fa-edit"></i>
+          <i class="fas fa-edit"></i>
         <% end %>
       </td>
       <td>
@@ -44,7 +44,7 @@
       </td>
       <td>
         <%= link_to site.domain_url, class: "view_item", target: "_blank" do %>
-          <i class="fa fa-eye"></i>
+          <i class="fas fa-eye"></i>
           <%= t(".view_site") %>
         <% end %>
       </td>

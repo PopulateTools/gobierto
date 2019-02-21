@@ -27,7 +27,7 @@
     <tr id="person-statement-item-<%= person_statement.id %>" class="<%= cycle("odd", "even") %>">
       <td>
         <%= link_to edit_admin_people_person_statement_path(@person, person_statement), data: { turbolinks: false } do %>
-          <i class="fa fa-edit"></i>
+          <i class="fas fa-edit"></i>
         <% end %>
       </td>
       <td>
@@ -40,15 +40,15 @@
       </td>
       <td>
         <% if person_statement.draft? %>
-          <i class="fa fa-lock"></i>
+          <i class="fas fa-lock"></i>
         <% else %>
-          <i class="fa fa-check"></i>
+          <i class="fas fa-check"></i>
         <% end %>
         <%= t(".visibility_level.#{person_statement.visibility_level}") %>
       </td>
       <td>
         <%= link_to gobierto_people_person_statement_preview_url(@person, person_statement, host: current_site.domain), target: "_blank", class: "view_item" do %>
-          <i class="fa fa-eye"></i>
+          <i class="fas fa-eye"></i>
           <%= t(".view_statement") %>
         <% end %>
       </td>

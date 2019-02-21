@@ -23,7 +23,7 @@
     <tr id="plan-type-item-<%= plan_type.id %>">
       <td>
         <%= link_to edit_admin_plans_plan_type_path(plan_type) do %>
-          <i class="fa fa-edit"></i>
+          <i class="fas fa-edit"></i>
         <% end %>
       </td>
       <td>
@@ -34,7 +34,7 @@
                     title: t(".delete"),
                     method: :delete,
                     data: { confirm: t("gobierto_admin.shared.archive.confirm") } do %>
-          <i class="fa fa-trash"></i>
+          <i class="fas fa-trash"></i>
         <% end %>
       </td>
     </tr>

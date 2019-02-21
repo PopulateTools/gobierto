@@ -38,7 +38,7 @@ window.GobiertoAdmin.SectionsController = (function() {
             }
 
             $li.find('.jqtree-element').append(
-              '<a remote=true href="#node-' + node.id + '" class="delete tipsit" title="' + I18n.t('gobierto_admin.gobierto_cms.sections.show.delete_element') + '"><i class="fa fa-trash-o" data-node-id="' +
+              '<a remote=true href="#node-' + node.id + '" class="delete tipsit" title="' + I18n.t('gobierto_admin.gobierto_cms.sections.show.delete_element') + '"><i class="fas fa-trash-o" data-node-id="' +
               node.id + '"></i></a>'
             );
 

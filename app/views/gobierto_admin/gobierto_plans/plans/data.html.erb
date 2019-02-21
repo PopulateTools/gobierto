@@ -10,11 +10,11 @@
 
 <div class="admin_tools right">
   <%= link_to admin_plans_plan_import_csv_path(@plan) do %>
-    <i class="fa fa-table"></i>
+    <i class="fas fa-table"></i>
     <%= t(".import_csv") %>
   <% end %>
   <%= link_to admin_plans_plan_export_csv_path(@plan), target: "_blank" do %>
-    <i class="fa fa-table"></i>
+    <i class="fas fa-table"></i>
     <%= t(".export_csv") %>
   <% end %>
   <%= link_to t(".new"), "#", class: "button", data: { insert: true } %>

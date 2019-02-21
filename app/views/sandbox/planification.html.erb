@@ -58,7 +58,7 @@
           <%# FIXME: breadcrumb hidden TEMPORARILY %>
           <div class="node-breadcrumb mb2" v-if="false">
             <a data-turbolinks="false" @click="getParent">
-              <i class="fa fa-caret-left"></i>
+              <i class="fas fa-caret-left"></i>
               Ver todo en {{ ((json[rootid] || {}).attributes || {}).title | translate }}
             </a>
           </div>
@@ -67,7 +67,7 @@
 
               <div class="action-line--header node-list cat--negative">
                 <div class="node-title">
-                  <div><i class="fa fa-caret-down"></i></div>
+                  <div><i class="fas fa-caret-down"></i></div>
                   <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
                 </div>
                 <div>{{ (activeNode.children || []).length }} actuaciones</div>
@@ -90,7 +90,7 @@
           <%# FIXME: breadcrumb hidden TEMPORARILY %>
           <div class="node-breadcrumb mb2" v-if="false">
             <a data-turbolinks="false" @click="getParent">
-              <i class="fa fa-caret-left"></i>
+              <i class="fas fa-caret-left"></i>
               Ver todo en {{ ((json[rootid] || {}).attributes || {}).title | translate }}
             </a>
           </div>

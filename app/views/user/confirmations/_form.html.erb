@@ -7,7 +7,7 @@
   <div class="form_item input_text">
     <%= f.label :email do %>
       <%= t("activemodel.attributes.user/confirmation_form.email") %>
-      <i class="fa fa-lock tipsit" title="<%= t(".hints.email") %>"></i>
+      <i class="fas fa-lock tipsit" title="<%= t(".hints.email") %>"></i>
     <% end %>
     <%= f.text_field :email, disabled: true %>
   </div>
@@ -38,7 +38,7 @@
 
   <div class="form_item select_control selects_inline">
     <%= f.label :date_of_birth %>
-    <i class="fa fa-question-circle tipsit" title="<%= t(".hints.date_of_birth") %>"></i>
+    <i class="fas fa-question-circle tipsit" title="<%= t(".hints.date_of_birth") %>"></i>
     <%= f.date_select(
       :date_of_birth,
       prompt: true,
@@ -49,7 +49,7 @@
   <div class="form_item">
     <div class="options options_cont">
       <%= f.label :gender, t(".your_gender_is") %>
-      <i class="fa fa-question-circle tipsit" title="<%= t(".hints.gender") %>"></i>
+      <i class="fas fa-question-circle tipsit" title="<%= t(".hints.gender") %>"></i>
 
       <div class="pure-g">
         <%= f.collection_radio_buttons(:gender, @user_genders, :first, :first) do |b| %>

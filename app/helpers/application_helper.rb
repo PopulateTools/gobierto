@@ -63,7 +63,7 @@ module ApplicationHelper
                            else
                              ""
                            end
-    html = "<i class='fa fa-file" + fontawesome_filetype + "-o'></i>"
+    html = "<i class='fas fa-file" + fontawesome_filetype + "-o'></i>"
     html.html_safe
   end
 

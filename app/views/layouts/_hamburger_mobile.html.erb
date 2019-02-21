@@ -19,7 +19,7 @@
           <% end %>
           <div class="dropdown-button js-item-toggle">
             <div class="button-container">
-              <i class="fa fa-caret-down"></i>
+              <i class="fas fa-caret-down"></i>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@
           <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main", { show_active: false } %>
           <div class="dropdown-button js-item-toggle">
             <div class="button-container">
-              <i class="fa fa-caret-down"></i>
+              <i class="fas fa-caret-down"></i>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
         </div>
         <div class="dropdown-button js-item-toggle">
           <div class="button-container">
-            <i class="fa fa-caret-down"></i>
+            <i class="fas fa-caret-down"></i>
           </div>
         </div>
       </div>
@@ -76,7 +76,7 @@
           <div class="subitem-account">
             <div class="account-out">
               <%= link_to user_sessions_path, method: :delete do %>
-                <i class="fa fa-sign-out"></i>
+                <i class="fas fa-sign-out"></i>
                 <%= t("layouts.application.session.sign_out") %>
               <% end %>
             </div>

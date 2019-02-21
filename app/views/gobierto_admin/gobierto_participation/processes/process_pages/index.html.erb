@@ -6,7 +6,7 @@
 
 <div class="admin_tools right">
   <%= link_to edit_admin_common_collection_path(@collection, item_type: 'Page'), class: 'open_remote_modal' do %>
-    <i class="fa fa-cog"></i>
+    <i class="fas fa-cog"></i>
     <%= t(".configuration") %>
   <% end %>
   <%= link_to t("gobierto_admin.gobierto_cms.pages.index.new"), new_admin_cms_page_path(collection_id: @collection), class: 'button' %>

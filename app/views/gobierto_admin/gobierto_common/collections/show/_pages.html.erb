@@ -13,14 +13,14 @@
   <tbody>
     <% @pages.each do |page| %>
       <tr id="page-item-<%= page.id %>">
-        <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_cms_page_path(page.id, collection_id: @collection.id), data: { turbolinks: false } %></td>
+        <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_admin_cms_page_path(page.id, collection_id: @collection.id), data: { turbolinks: false } %></td>
         <td><%= link_to page.title, edit_admin_cms_page_path(page.id, collection_id: @collection.id), data: { turbolinks: false } %></td>
         <td><%= time_ago_in_words(page.created_at) %></td>
         <td><%= time_ago_in_words(page.updated_at) %></td>
         <td><%= time_ago_in_words(page.published_on) %></td>
         <td class="visibility_level">
           <% if page.draft? %>
-            <i class="fa fa-lock"></i>
+            <i class="fas fa-lock"></i>
             <%= t(".visibility_level.draft") %>
           <% else %>
             <%= t(".visibility_level.active") %>
@@ -28,12 +28,12 @@
         </td>
         <td>
           <%= link_to gobierto_cms_page_preview_path(page), target: "_blank", class: "view_item" do %>
-            <i class="fa fa-eye"></i>
+            <i class="fas fa-eye"></i>
             <%= t(".view") %>
           <% end %>
         </td>
         <td>
-          <%= link_to "<i class='fa fa-trash'></i>".html_safe,
+          <%= link_to "<i class='fas fa-trash'></i>".html_safe,
                       admin_cms_page_path(page, process_id: (current_process.id if !defined?(current_process).nil?)),
                       title: t("gobierto_admin.shared.archive.element"),
                       method: :delete,
@@ -65,7 +65,7 @@
       <tbody>
         <% @archived_pages.each do |page| %>
           <tr id="page-item-<%= page.id %>">
-            <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_cms_page_path(page.id, collection_id: @collection.id), data: { turbolinks: false } %></td>
+            <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_admin_cms_page_path(page.id, collection_id: @collection.id), data: { turbolinks: false } %></td>
             <td><%= page.title %></td>
             <td><%= time_ago_in_words(page.created_at) %></td>
             <td><%= time_ago_in_words(page.updated_at) %></td>

@@ -6,7 +6,7 @@
       <th><%= t(".header.place") %></th>
       <th><%= t(".header.address") %></th>
       <th class="edit_cell">
-        <i class="fa fa-trash"></i>
+        <i class="fas fa-trash"></i>
       </th>
     </tr>
 
@@ -20,11 +20,11 @@
             <%= location_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
 
             <%= link_to "#", data: { behavior: "edit_record" } do %>
-              <i class="fa fa-edit"></i>
+              <i class="fas fa-edit"></i>
             <% end %>
 
             <%= link_to "#", data: { behavior: "delete_record" } do %>
-              <i class="fa fa-trash"></i>
+              <i class="fas fa-trash"></i>
             <% end %>
           </td>
         </tr>
@@ -45,7 +45,7 @@
             <% end %>
 
             <%= link_to "#", data: { behavior: "cancel_record" } do %>
-              <i class="fa fa-trash"></i>
+              <i class="fas fa-trash"></i>
               <%= t("gobierto_admin.gobierto_common.dynamic_content.form.cancel_record") %>
             <% end %>
           </td>
@@ -56,7 +56,7 @@
     <tr class="new_row_add">
       <td colspan="3">
         <%= link_to "#", data: { behavior: "add_child" } do %>
-          <i class="fa fa-plus-circle"></i>
+          <i class="fas fa-plus-circle"></i>
           <%= t("gobierto_admin.gobierto_common.dynamic_content.form.add_child") %>
         <% end %>
       </td>

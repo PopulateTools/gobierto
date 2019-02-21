@@ -76,7 +76,7 @@ export class SimpleCard extends Card {
         .append('i')
         .attr('aria-hidden', 'true')
         .attr('class', function() {
-          return isPositive ? 'fa fa-caret-up' : 'fa fa-caret-down';
+          return isPositive ? 'fas fa-caret-up' : 'fas fa-caret-down';
         });
     }
   }

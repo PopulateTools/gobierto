@@ -28,7 +28,7 @@
     <tr id="person-post-item-<%= person_post.id %>" class="<%= cycle("odd", "even") %>">
       <td>
         <%= link_to edit_admin_people_person_post_path(@person, person_post) do %>
-          <i class="fa fa-edit"></i>
+          <i class="fas fa-edit"></i>
         <% end %>
       </td>
       <td>
@@ -46,15 +46,15 @@
       </td>
       <td>
         <% if person_post.draft? %>
-          <i class="fa fa-lock"></i>
+          <i class="fas fa-lock"></i>
         <% else %>
-          <i class="fa fa-check"></i>
+          <i class="fas fa-check"></i>
         <% end %>
         <%= t(".visibility_level.#{person_post.visibility_level}") %>
       </td>
       <td>
         <%= link_to gobierto_people_person_post_preview_url(@person, person_post, host: current_site.domain), target: "_blank", class: "view_item" do %>
-          <i class="fa fa-eye"></i>
+          <i class="fas fa-eye"></i>
           <%= t(".view_post") %>
         <% end %>
       </td>

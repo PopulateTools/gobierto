@@ -19,10 +19,10 @@
         <% @consultation_items.each do |consultation_item| %>
           <li data-id="<%= consultation_item.id %>">
             <%= link_to edit_admin_budget_consultation_consultation_item_path(@consultation, consultation_item), class: "open_remote_modal" do %>
-              <i class="fa fa-edit"></i>
+              <i class="fas fa-edit"></i>
               <span><%= consultation_item.title %></span>
               <span class="f_right">
-                <i class="sort-handler fa fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i>
+                <i class="sort-handler fas fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i>
               </span>
             <% end %>
           </li>
@@ -32,7 +32,7 @@
       <ul class="block_list">
         <li class="sep">
           <%= link_to new_admin_budget_consultation_consultation_item_path(@consultation), class: "open_remote_modal" do %>
-            <i class="fa fa-add"></i>
+            <i class="fas fa-add"></i>
             <span><%= t(".new") %></span>
           <% end %>
         </li>

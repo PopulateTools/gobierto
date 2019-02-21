@@ -7,7 +7,7 @@
 
 <div class="admin_tools right">
   <%= link_to edit_admin_people_configuration_settings_path do %>
-    <i class="fa fa-cog"></i>
+    <i class="fas fa-cog"></i>
     <%= t(".configuration") %>
   <% end %>
   <% if @can_create_person %>
@@ -36,10 +36,10 @@
       <td>
         <% if person_policy.manage? %>
           <%= link_to edit_admin_people_person_path(person) do %>
-            <i class="fa fa-edit"></i>
+            <i class="fas fa-edit"></i>
           <% end %>
         <% else %>
-          <i class="fa fa-ban tipsit" title="<%= t('.no_permissions') %>"></i>
+          <i class="fas fa-ban tipsit" title="<%= t('.no_permissions') %>"></i>
         <% end %>
       </td>
       <td>
@@ -65,26 +65,26 @@
       </td>
       <td class="visibility_level">
         <% if person.draft? %>
-          <i class="fa fa-lock"></i>
+          <i class="fas fa-lock"></i>
         <% else %>
-          <i class="fa fa-check"></i>
+          <i class="fas fa-check"></i>
         <% end %>
         <%= t(".visibility_level.#{person.visibility_level}") %>
       </td>
       <td>
         <% if person_policy.view? %>
           <%= link_to gobierto_people_person_preview_url(person, host: current_site.domain), target: "_blank", class: "view_item" do %>
-            <i class="fa fa-eye"></i>
+            <i class="fas fa-eye"></i>
             <%= t(".view_person") %>
           <% end %>
         <% else %>
-          <i class="fa fa-eye"></i>
+          <i class="fas fa-eye"></i>
           <%= t(".view_person") %>
         <% end %>
       </td>
       <td>
         <% if @manage_all_people %>
-          <i class="sort-handler fa fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i>
+          <i class="sort-handler fas fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i>
         <% end %>
       </td>
     </tr>

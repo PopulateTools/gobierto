@@ -2,13 +2,13 @@
                                  data-budget-line-area="<%= @area_name %>" data-budget-line-categories="<%= gobierto_budgets_api_categories_path(format: :json) %>">
   <div class="column">
     <div class="clearfix">
-      <span class="open_line_browser"><i class="fa fa-chevron-circle-down"></i></span>
+      <span class="open_line_browser"><i class="fas fa-chevron-circle-down"></i></span>
       <div class="bread_links" data-line-breadcrumb></div>
     </div>
 
     <div class="line_browser clearfix">
       <div class="clearfix">
-        <span class="close_line_browser"><i class="fa fa-chevron-circle-up"></i></span>
+        <span class="close_line_browser"><i class="fas fa-chevron-circle-up"></i></span>
         <div class="bread_links clearfix" data-line-breadcrumb></div>
       </div>
 
@@ -147,7 +147,7 @@
         <div class="pure-u-1-2 pure-u-md-1-5 metric_box cta open_budget_line_feedback tipsit" title="<%= t('.give_your_opinion_cta') %>" data-box="feedback">
           <div class="inner">
             <%= link_to gobierto_budgets_feedback_step1_path(year: @year, id: @budget_line.id), remote: true do %>
-              <div class="main"><%= t('.raise_hand') %> <i class="fa fa-hand-paper-o"></i></div>
+              <div class="main"><%= t('.raise_hand') %> <i class="fas fa-hand-paper-o"></i></div>
               <div class="lite"><%= t('.give_your_opinion') %></div>
             <% end %>
           </div>

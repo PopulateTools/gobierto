@@ -10,7 +10,7 @@
 
       <% if (location = place_event.first_location) %>
         <div class="ib">
-          <i class="fa fa-map-marker"></i>
+          <i class="fas fa-map-marker"></i>
           <%= link_to_if location.geolocated?, location.name, external_location_service_url(location) %>
         </div>
       <% end %>

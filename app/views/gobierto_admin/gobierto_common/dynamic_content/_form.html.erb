@@ -7,14 +7,14 @@
 
       <% if GobiertoAdmin::GobiertoCommon::ContentBlockPolicy.new(current_admin, content_block).update? %>
         <%= link_to edit_admin_common_content_block_path(content_block.id) do %>
-          <i class="fa fa-edit"></i>
+          <i class="fas fa-edit"></i>
           <%= t(".edit_content_block") %>
         <% end %>
       <% end %>
 
       <% if GobiertoAdmin::GobiertoCommon::ContentBlockPolicy.new(current_admin, content_block).delete? %>
         <%= link_to admin_common_content_block_path(content_block.id), method: :delete, data: { confirm: t(".delete_content_block_confirm") } do %>
-          <i class="fa fa-trash"></i>
+          <i class="fas fa-trash"></i>
           <%= t(".delete_content_block") %>
         <% end %>
       <% end %>
@@ -27,7 +27,7 @@
         <% end %>
         <th><%= t(".attachment") %></th>
         <th class="edit_cell">
-          <i class="fa fa-trash"></i>
+          <i class="fas fa-trash"></i>
         </th>
       </tr>
 
@@ -44,7 +44,7 @@
             <td>
               <% if content_block_record_form.object.attachment_url.present? %>
                 <%= link_to content_block_record_form.object.attachment_url, title: t(".download_attachment"), target: 'blank', data: { class: 'attachment_link', remove_component: true } do %>
-                  <i class="fa fa-paperclip"></i><%= pretty_filename_url(content_block_record_form.object.attachment_url) %>
+                  <i class="fas fa-paperclip"></i><%= pretty_filename_url(content_block_record_form.object.attachment_url) %>
                 <% end %>
               <% end %>
               <span class="<%= class_if('hidden', content_block_record_form.object.attachment_url.present?) %>" data-class="attachment_link_placeholder">-</span>
@@ -56,11 +56,11 @@
               <%= content_block_record_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
 
               <%= link_to "#", data: { behavior: "edit_record" } do %>
-                <i class="fa fa-edit"></i>
+                <i class="fas fa-edit"></i>
               <% end %>
 
               <%= link_to "#", data: { behavior: "delete_record" } do %>
-                <i class="fa fa-trash"></i>
+                <i class="fas fa-trash"></i>
               <% end %>
             </td>
           </tr>
@@ -104,7 +104,7 @@
               <% end %>
 
               <%= link_to "#", data: { behavior: "cancel_record" } do %>
-                <i class="fa fa-trash"></i>
+                <i class="fas fa-trash"></i>
                 <%= t(".cancel_record") %>
               <% end %>
             </td>
@@ -115,7 +115,7 @@
       <tr class="new_row_add">
         <td colspan="<%= content_block.header.size + 1 %>">
           <%= link_to "#", data: { behavior: "add_child" } do %>
-            <i class="fa fa-plus-circle"></i>
+            <i class="fas fa-plus-circle"></i>
             <%= t(".add_child") %>
           <% end %>
         </td>
@@ -129,7 +129,7 @@
   <div class="dyna_block new_block">
     <label>
       <%= link_to new_admin_common_content_block_path(content_context: form_builder.object.content_context.model_name.name) do %>
-        <i class="fa fa-plus-circle"></i>
+        <i class="fas fa-plus-circle"></i>
         <%= t(".add_content_block") %>
       <% end %>
     </label>

@@ -4,13 +4,13 @@
 
       <div class="bread_links">
         <%= link_to selected_year, selected_year_path, id: selected_year, 'aria-haspopup' => 'true', 'aria-label' => 'Escoge el año de los datos', 'aria-owns' => 'popup-year', 'aria-controls' => 'popup-year', 'aria-expanded' => 'false' %>
-        <i class="fa fa-sort-down"></i>
+        <i class="fas fa-sort-down"></i>
       </div>
 
       <div id="popup-year" class="line_browser clearfix" role="group">
         <div class="bread_links clearfix">
           <%= link_to selected_year, selected_year_path %>
-          <i class="fa fa-sort-down"></i>
+          <i class="fas fa-sort-down"></i>
         </div>
 
         <div class="col" data-level="0">

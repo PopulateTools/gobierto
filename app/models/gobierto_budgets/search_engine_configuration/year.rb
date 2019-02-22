@@ -4,11 +4,18 @@ module GobiertoBudgets
   module SearchEngineConfiguration
     class Year
 
-      DEFAULT_LAST_YEAR_WITH_DATA = 2018
+      DEFAULT_LAST_YEAR_WITH_DATA = Date.today.year
 
       def self.last(force = false)
         return DEFAULT_LAST_YEAR_WITH_DATA if force || current_site.nil?
-        cached(:last) { last_year_with_data }
+
+        cached(:last) do
+          if current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_elaboration"]
+            last_year_with_data - 1
+          else
+            last_year_with_data
+          end
+        end
       end
 
       def self.first
@@ -27,10 +34,8 @@ module GobiertoBudgets
         end
       end
 
-      # private class methods
-
       def self.last_year_with_data
-        DEFAULT_LAST_YEAR_WITH_DATA.downto(first) do |year|
+        (DEFAULT_LAST_YEAR_WITH_DATA + 1).downto(first) do |year|
           if GobiertoBudgets::BudgetLine.any_data?(site: current_site, index: ::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, year: year)
             return year
           end
@@ -38,8 +43,9 @@ module GobiertoBudgets
 
         DEFAULT_LAST_YEAR_WITH_DATA
       end
-      private_class_method :last_year_with_data
 
+      # private class methods
+      #
       def self.budgets_elaboration_disabled?
         current_site.gobierto_budgets_settings && !current_site.gobierto_budgets_settings.settings["budgets_elaboration"]
       end

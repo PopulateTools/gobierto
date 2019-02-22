@@ -17,7 +17,7 @@ namespace :gobierto_budgets do
 
       organizations = [INE::Places::Place.find_by_slug("madrid"), INE::Places::Place.find_by_slug("santander"), "wadus"]
       organizations.each do |organization|
-        (GobiertoBudgets::SearchEngineConfiguration::Year.last - 1..GobiertoBudgets::SearchEngineConfiguration::Year.last + 1).each do |year|
+        (GobiertoBudgets::SearchEngineConfiguration::Year.last - 2..GobiertoBudgets::SearchEngineConfiguration::Year.last).each do |year|
           import_gobierto_budgets_for_organization(organization, year)
           import_gobierto_budgets_data_for_organization(organization, year)
         end

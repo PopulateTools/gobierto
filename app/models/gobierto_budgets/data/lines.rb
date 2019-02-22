@@ -85,7 +85,7 @@ module GobiertoBudgets
 
         result = []
         data.sort_by { |k, _| k }.each do |year, v|
-          next if year > GobiertoBudgets::SearchEngineConfiguration::Year.last(force_default_last_year)
+          next if year > GobiertoBudgets::SearchEngineConfiguration::Year.last
           result.push(
             date: year.to_s,
             value: v,

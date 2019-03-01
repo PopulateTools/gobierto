@@ -86,8 +86,7 @@ module GobiertoBudgets
 
     def debt(year = nil)
       year ||= @year
-      @data[:debt][year] ||= SearchEngine.client.get(index: SearchEngineConfiguration::Data.index,
-                                                     type: SearchEngineConfiguration::Data.type_debt, id: [@site.organization_id, year].join("/"))["_source"]["value"] * 1000
+      @data[:debt][year] ||= SearchEngine.client.get(index: SearchEngineConfiguration::Data.index, type: SearchEngineConfiguration::Data.type_debt, id: [@site.organization_id, year].join("/"))["_source"]["value"]
       @data[:debt][year]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil

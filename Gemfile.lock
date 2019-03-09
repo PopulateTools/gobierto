@@ -252,7 +252,7 @@ GEM
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.19)
-    liquid (4.0.1)
+    liquid (4.0.2)
     liquid-rails (0.2.0)
       kaminari (~> 1.1.1)
       liquid (~> 4.0.0)

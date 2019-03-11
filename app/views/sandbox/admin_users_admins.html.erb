@@ -1,0 +1,46 @@
+
+<h1>Usuarios</h1>
+
+<div class="tabs">
+  <ul>
+    <li><a href="admin_users">Ciudadanos</a></li>
+    <li class="active"><a href="admin_users_admins">Administradores</a></li>
+  </ul>
+</div>
+
+<div class="admin_tools right">
+  <%= link_to 'Invitaciones'.html_safe, 'admin_users_groups' %>
+  <%= link_to 'Grupos y permisos'.html_safe, 'admin_users_groups' %>
+  <button class="btn">Nuevo</button>
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Administrador</th>
+  <th>Correo-e</th>
+  <th>Último login</th>
+  <th>Creado</th>
+  <th></th>
+</tr>
+
+<% for i in 0..5 %>
+<tr class="odd">
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_users_user' %></td>
+  <td><%= link_to 'Fernando Blat', 'admin_users_user' %></td>
+  <td><%= link_to 'fernando@dival.es', '' %></td>
+  <td>hace 2 horas <span class="soft ip">222.111.222.11</td>
+  <td>12 sep 2016 <span class="soft ip">222.111.222.11</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver admin'.html_safe, '', class: 'view_item' %></td>
+</tr>
+<tr class="even">
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_users_user' %></td>
+  <td><%= link_to 'Fernando Blat', 'admin_users_user' %></td>
+  <td><%= link_to 'fernando@dival.es', '' %></td>
+  <td>hace 2 horas <span class="soft ip">222.111.222.11</td>
+  <td>12 sep 2016 <span class="soft ip">222.111.222.11</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver admin'.html_safe, '', class: 'view_item'  %></td>
+</tr>
+<% end %>
+
+</table>

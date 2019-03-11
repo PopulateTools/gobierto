@@ -14,8 +14,12 @@
 
     <p>Hay 32 usuarios con este grupo.</p>
 
-    <h3>Sitio</h3>
+    <div class="form_item input_text">
+      <label for="name">Nombre del grupo</label>
+      <input type="text" id="name" value="PAM - Admins">
+    </div>
 
+    <h3>Sitio</h3>
 
     <div class="form_item">
 
@@ -80,7 +84,7 @@
 
   <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
 
-    <%= render partial: "admin_widget_save"  %>
+    <%= render partial: "admin_widget_save", locals: { only_save_button: true }  %>
 
   </div>
 

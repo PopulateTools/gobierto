@@ -19,12 +19,18 @@
 
       <div class="form_block">
 
-        <h2>Permisos</h2>
+        <h2>Grupo</h2>
 
         <div class="form_item">
 
-          <p>Este usuario puede acceder a administrar:</p>
+          <% options = [
+            'PAM - Admin',
+            'PAM - Eje 1 - Linea 2',
+            'PAM - Editor (envío proyectos)',
+            'PAM - Moderador (flujo editorial)'
+          ] %>
 
+          <% for i in options %>
           <div class="options compact">
 
             <div class="option">
@@ -32,104 +38,12 @@
               <input type="checkbox" id="permission_1" name="permission_1" value="1"/>
               <label for="permission_1">
                 <span></span>
-                Visualización presupuestos
-              </label>
-            </div>
-
-            <div class="option">
-              <input type="hidden" name="permission_1" value="0"/>
-              <input type="checkbox" id="permission_2" name="permission_1" value="1"/>
-              <label for="permission_2">
-                <span></span>
-                Consultas presupuestos
-              </label>
-            </div>
-
-            <div class="option">
-              <input type="hidden" name="permissions" value="0"/>
-              <input type="checkbox" id="permission_3" name="permission_1" value="1"/>
-              <label for="permission_3">
-                <span></span>
-                Inteligencia
-              </label>
-            </div>
-
-            <div class="option">
-              <input type="hidden" name="permissions" value="0"/>
-              <input type="checkbox" id="permission_4" name="permission_1" value="1"/>
-              <label for="permission_4">
-                <span></span>
-                Personas
-              </label>
-            </div>
-
-            <div class="option_suboptions">
-
-              <% for i in [
-                "Todos",
-                "John Wayne",
-                "Marlon Brando",
-                "Javier Larrañaga",
-                "Perico el de los Palotes"
-              ] %>
-              <div class="option">
-                <input type="hidden" name="permissions" value="0"/>
-                <input type="checkbox" id="permission_<%= i %>" name="permission_1" value="1"/>
-                <label for="permission_<%= i %>">
-                  <span></span>
-                  <%= i %>
-                </label>
-              </div>
-              <% end %>
-
-            </div>
-
-            <div class="option">
-              <input type="hidden" name="permissions" value="0"/>
-              <input type="checkbox" id="permission_5" name="permission_1" value="1"/>
-              <label for="permission_5">
-                <span></span>
-                Tu entidad en cifras
-              </label>
-            </div>
-
-            <div class="option">
-              <input type="hidden" name="permissions" value="0"/>
-              <input type="checkbox" id="permission_6" name="permission_1" value="1"/>
-              <label for="permission_6">
-                <span></span>
-                Consultas presupuestos
-              </label>
-            </div>
-
-            <div class="option">
-              <input type="hidden" name="permissions" value="0"/>
-              <input type="checkbox" id="permission_7" name="permission_1" value="1"/>
-              <label for="permission_7">
-                <span></span>
-                Cuadro de mando
-              </label>
-            </div>
-
-            <div class="option separate">
-              <input type="hidden" name="permissions" value="0"/>
-              <input type="checkbox" id="permission_8" name="permission_1" value="1"/>
-              <label for="permission_8">
-                <span></span>
-                Usuarios
-              </label>
-            </div>
-
-            <div class="option">
-              <input type="hidden" name="permissions" value="0"/>
-              <input type="checkbox" id="permission_9" name="permission_1" value="1"/>
-              <label for="permission_9">
-                <span></span>
-                Personalizar sitio
+                <%= i %>
               </label>
             </div>
 
           </div>
+          <% end %>
 
         </div>
 
@@ -216,8 +130,8 @@
 
   <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
 
-    <%= render "admin_widget_save.html.erb" %>
-    <%= render "admin_widget_attachment.html.erb" %>
+    <%= render "admin_widget_save.html.erb", locals: { only_save_button: true } %>
+    <%# render "admin_widget_attachment.html.erb" %>
 
   </div>
 

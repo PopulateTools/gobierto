@@ -1,0 +1,34 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Usuarios', 'admin_users' %> »
+  <%= link_to 'Administradores', 'admin_users_admins' %> »
+  Grupos
+</div>
+
+<h1>Grupos</h1>
+
+
+<table>
+<tr>
+  <th class="icon"></th>
+  <th>Grupo</th>
+</tr>
+
+<tr class="odd">
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_users_groups_group' %></td>
+  <td><%= link_to 'PAM - Admin', 'admin_users_groups_group' %></td>
+</tr>
+<tr class="even">
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_users_groups_group' %></td>
+  <td><%= link_to 'PAM - Eje 1 - Linea 2', 'admin_users_groups_group' %></td>
+</tr>
+<tr class="odd">
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_users_groups_group' %></td>
+  <td><%= link_to 'PAM - Editor (envío proyectos)', 'admin_users_groups_group' %></td>
+</tr>
+<tr class="even">
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_users_groups_group' %></td>
+  <td><%= link_to 'PAM - Moderador (flujo editorial)', 'admin_users_groups_group' %></td>
+</tr>
+
+</table>

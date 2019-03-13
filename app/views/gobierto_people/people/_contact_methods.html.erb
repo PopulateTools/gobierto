@@ -11,7 +11,7 @@
     <% if @person.twitter_url %>
       <li>
         <%= link_to @person.twitter_url, target: 'blank' do %>
-          <i class="fas fa-twitter"></i> <span><%= @person.twitter_handle %></span>
+          <i class="fab fa-twitter"></i> <span><%= @person.twitter_handle %></span>
         <% end %>
       </li>
     <% end %>
@@ -19,7 +19,7 @@
     <% if @person.facebook_url %>
       <li>
         <%= link_to @person.facebook_url, target: 'blank' do %>
-          <i class="fas fa-facebook"></i> <span><%= @person.facebook_handle %></span>
+          <i class="fab fa-facebook"></i> <span><%= @person.facebook_handle %></span>
         <% end %>
       </li>
     <% end %>
@@ -27,7 +27,7 @@
     <% if @person.linkedin_url %>
       <li>
         <%= link_to @person.linkedin_url, target: 'blank' do %>
-          <i class="fas fa-linkedin"></i> <span><%= @person.linkedin_handle %></span>
+          <i class="fab fa-linkedin"></i> <span><%= @person.linkedin_handle %></span>
         <% end %>
       </li>
     <% end %>
@@ -35,7 +35,7 @@
     <% if @person.instagram_url %>
       <li>
         <%= link_to @person.instagram_url, target: 'blank' do %>
-          <i class="fas fa-instagram"></i> <span><%= @person.instagram_handle %></span>
+          <i class="fab fa-instagram"></i> <span><%= @person.instagram_handle %></span>
         <% end %>
       </li>
     <% end %>
@@ -43,7 +43,7 @@
     <% if @person.email? %>
       <li>
         <%= link_to new_gobierto_people_person_messages_path(@person.slug), title: t('.send_email') do %>
-          <i class="fas fa-envelope-o"></i> <span><%= t('.send_email') %></span>
+          <i class="fas fa-envelope"></i> <span><%= t('.send_email') %></span>
         <% end %>
       </li>
     <% end %>

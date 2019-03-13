@@ -42,12 +42,12 @@ module GobiertoParticipation
 
     def find_participants_count_by_group_title(group_title)
       group_node = page.find('div.pure-u-1.pure-u-md-1-3', text: group_title)
-      group_node.find('div.ib i.fa.fa-users').find(:xpath, '..').text().to_i
+      group_node.find('div.ib i.fas.fa-users').find(:xpath, '..').text().to_i
     end
 
     def find_interactions_count_by_group_title(group_title)
       group_node = page.find('div.pure-u-1.pure-u-md-1-3', text: group_title)
-      group_node.find('div.ib i.fa.fa-comment').find(:xpath, '..').text().to_i
+      group_node.find('div.ib i.fas.fa-comment').find(:xpath, '..').text().to_i
     end
 
     def test_breadcrumb_items

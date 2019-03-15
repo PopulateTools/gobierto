@@ -444,7 +444,7 @@ input[type="radio"] + label {
   border-radius: 20px;
   font-weight: 600;
 
-  .fa {
+  .fas {
     font-size: 85%;
   }
 }
@@ -456,7 +456,7 @@ input[type="radio"] + label {
 .button.outline.rounded.checked {
   background: $color_main;
 
-  .fa {
+  .fas {
     color: white;
   }
 }
@@ -735,7 +735,7 @@ select {
     }
   }
 
-  .fa {
+  .fas {
     margin: 0 0.5em;
     opacity: 0.5;
   }

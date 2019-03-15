@@ -45,7 +45,7 @@ header.main {
     padding: 0.5em 1.5em;
     border-right: 1px solid #fff;
 
-    .fa {
+    .fas {
       display: inline-block;
       width: 25px;
     }
@@ -152,7 +152,7 @@ menu.main {
     background: transparentize($color_logo_yellow, 0.7);
   }
 
-  .fa {
+  .fas {
     margin: 0 0.25em 0 0;
   }
 }
@@ -307,7 +307,7 @@ body.gobierto_admin {
     margin-right: 1em;
     text-decoration: none;
 
-    .fa {
+    .fas {
       margin: 0 0.25em 0 0;
     }
   }
@@ -358,7 +358,7 @@ body.gobierto_admin {
   font-size: 0.8em;
   text-transform: uppercase;
 
-  .fa {
+  .fas {
     margin: 0 0.25em 0 0;
   }
 }
@@ -391,7 +391,7 @@ body.gobierto_admin {
   }
 }
 
-.fa {
+.fas {
   margin: 0 0.25em 0 0;
 }
 
@@ -449,7 +449,7 @@ pre {
     .secondary {
       font-size: 0.85em;
 
-      .fa {
+      .fas {
         opacity: 0.5;
       }
     }
@@ -470,7 +470,7 @@ pre {
     padding: 4px 0;
     // width: 70px;
 
-    .fa {
+    .fas {
       margin: 0 0 0 1em;
     }
   }
@@ -878,7 +878,7 @@ a .global_menu {
   }
 
   .jsgrid-control-field {
-    .fa {
+    .fas {
       padding: .65em;
       border-radius: 3px;
       font-size: 1em;
@@ -887,13 +887,13 @@ a .global_menu {
       cursor: pointer;
     }
 
-    .fa:not(:last-child) {
+    .fas:not(:last-child) {
       margin-right: .75em;
     }
   }
 
   .jsgrid-header-row {
-    .fa {
+    .fas {
       background: initial;
     }
   }
@@ -940,21 +940,6 @@ table {
 
 
 /* Gobierto Vocabulary */
-body.gobierto_admin {
-  table.g_vocabulary {
-
-    tr:nth-child(2n-1) td {
-      background: initial;
-    }
-
-    tr.vocab_level_0 {}
-    tr.vocab_level_1 {
-
-    }
-  }
-}
-
-
 .v_container {
   .v_el {
     .v_el {
@@ -968,22 +953,46 @@ body.gobierto_admin {
       display: block;
       // font-weight: bold;
 
-      > .v_el {
-
-      }
     }
 
   }
 
-  .v_el_cont {
+  .v_el_cont,
+  .v_heading {
     display: flex;
 
-    .v_el_title {
+    .v_el_title,
+    .v_el_decorated {
       flex-grow: 5;
+    }
+
+  }
+
+  .v_heading {
+    margin: 0 0 1em 0;
+
+    .v_el_decorated {
+      flex-grow: 5;
+      font-size: .85em;
+      font-weight: bold;
+    }
+  }
+
+  .v_el_decorated {
+    display: flex;
+    justify-content: flex-end;
+
+    > div {
+      margin-left: 1em;
+      width: 60px;
+      font-size: .85em;
+      color: $color_meta_text;
+      text-align: center;
     }
   }
 
   .v_el_actions {
+    min-width: 50px;
     margin: 0 .75em;
   }
 
@@ -1000,5 +1009,7 @@ body.gobierto_admin {
     }
 
   }
+
+
 
 }

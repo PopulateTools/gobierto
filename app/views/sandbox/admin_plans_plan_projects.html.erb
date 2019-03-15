@@ -1,0 +1,20 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Planificación', 'admin_plans' %> »
+  <%= link_to 'Plan Actuación Municipal', 'admin_plans_plan' %> »
+
+</div>
+
+<h1>Proyectos de Plan Actuación Municipal</h1>
+
+<div class="tabs">
+  <ul>
+    <li><%= link_to 'Plan', 'admin_plans_plan' %></li>
+    <li class="active"><%= link_to 'Proyectos', 'admin_plans_plan_projects' %></li>
+    <li><%= link_to 'Configuración', '' %></li>
+  </ul>
+</div>
+
+PROJECTS
+
+<%= link_to 'Proyecto', 'admin_plans_plan_projects_project' %>

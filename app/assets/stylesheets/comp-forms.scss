@@ -970,3 +970,13 @@ select {
     display: block;
   }
 }
+
+.f_flex_col {
+  display: flex;
+  justify-content: space-between;
+
+  div.form_item.input_text,
+  div.form_item.select_control {
+    width: 22%;
+  }
+}

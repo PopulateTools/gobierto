@@ -57,7 +57,7 @@
           <div class="field_item_def ">
             <label><input type="radio" name="field_type"> Párrafo</label>
           </div>
-          
+
           <div class="field_item_def ">
             <label><input type="radio" name="field_type"> Opciones</label>
 
@@ -80,16 +80,16 @@
 
         <div class="pure-u-1 pure-u-md-1-4">
           <span class="field_item">
-            <i class="fa fa-bars"></i> <%= i %>
+            <i class="fas fa-bars"></i> <%= i %>
           </span>
         </div>
 
         <div class="pure-u-1 pure-u-md-3-4">
 
           <div class="f_right">
-            <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %>
+            <%= link_to '<i class="fas fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %>
           </div>
-          
+
           <div class="field_item_def_cont">
 
             <div class="field_item_def field_locale">
@@ -115,7 +115,7 @@
     <% end %>
 
     <div class="m_2">
-      <%= link_to '<i class="fa fa-plus-circle"></i> Añadir otra opción'.html_safe, '' %>
+      <%= link_to '<i class="fas fa-plus-circle"></i> Añadir otra opción'.html_safe, '' %>
     </div>
 
   </div>
@@ -123,7 +123,7 @@
   <div class="pure-u-1 pure-u-md-2-24"></div>
 
   <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
-    
+
     <%= render partial: "admin_widget_save", locals: { only_save_button: true }  %>
 
   </div>

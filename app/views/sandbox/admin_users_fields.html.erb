@@ -12,7 +12,7 @@
 
   <div class="list_item with_mandatory_option disabled">
 
-    <i class="fa fa-bars"></i>
+    <i class="fas fa-bars"></i>
     <label class="main"><%= i %></label>
     <div class="mandatory">
       <label><input type="checkbox" disabled> Obligatorio</label>
@@ -29,14 +29,14 @@
 
   <div class="list_item with_mandatory_option">
 
-    <i class="fa fa-bars"></i>
+    <i class="fas fa-bars"></i>
     <label class="main"><%= i %></label>
     <div class="mandatory">
       <label><input type="checkbox"> Obligatorio</label>
     </div>
     <div class="tools">
-      <%= link_to '<i class="fa fa-edit"></i>'.html_safe, '', title: 'Editar', class: 'tipsit' %>
-      <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %>
+      <%= link_to '<i class="fas fa-edit"></i>'.html_safe, '', title: 'Editar', class: 'tipsit' %>
+      <%= link_to '<i class="fas fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %>
     </div>
 
   </div>
@@ -44,5 +44,5 @@
 <% end %>
 
 <div class="m_2">
-  <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nuevo campo'.html_safe, 'admin_users_fields_new' %>
+  <%= link_to '<i class="fas fa-plus-circle"></i> Añadir nuevo campo'.html_safe, 'admin_users_fields_new' %>
 </div>

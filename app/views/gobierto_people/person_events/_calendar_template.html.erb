@@ -1,11 +1,11 @@
 <div class="simple-calendar">
   <div class="calendar-heading">
     <%= link_to calendar.url_for_previous_view, id: "previous-month-link" do %>
-      <i class="fa fa-chevron-left f_left"></i>
+      <i class="fas fa-chevron-left f_left"></i>
     <% end %>
     <span class="calendar-title"><%= t('date.month_names')[start_date.month].capitalize %>, <%= start_date.year %></span>
     <%= link_to calendar.url_for_next_view, id: "next-month-link" do %>
-      <i class="fa fa-chevron-right f_right"></i>
+      <i class="fas fa-chevron-right f_right"></i>
     <% end %>
   </div>
 

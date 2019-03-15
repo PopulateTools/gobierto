@@ -9,7 +9,7 @@
         <ul class="pure-menu-list left">
           <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
             <%= link_to "#", class: "button button-feed" do %>
-              <i class="fa fa-star"></i>
+              <i class="fas fa-star"></i>
               <%= subscription_message(subscribable, "followed") %>
             <% end %>
             <ul class="pure-menu-children">
@@ -30,7 +30,7 @@
         remote: true,
         method: :delete,
         class: "button button-feed") do %>
-          <i class="fa fa-star"></i>
+          <i class="fas fa-star"></i>
           <%= subscription_message(subscribable, "followed") %>
       <% end %>
     <% end %>
@@ -45,7 +45,7 @@
       remote: true,
       method: :post,
       class: "button button-feed") do %>
-        <i class="fa fa-rss"></i>
+        <i class="fas fa-rss"></i>
         <%= subscription_message(subscribable, "follow") %>
     <% end %>
   <% end %>
@@ -53,7 +53,7 @@
   <%= link_to(
     new_user_sessions_path(open_modal: true),
     class: "button button-feed") do %>
-      <i class="fa fa-rss"></i>
+      <i class="fas fa-rss"></i>
       <%= subscription_message(subscribable, "follow") %>
   <% end %>
 <% end %>

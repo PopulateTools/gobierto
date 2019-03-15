@@ -15,7 +15,7 @@ module GobiertoAdmin
     def test_site_visibility_level_badge_for_draft_site
       visibility_level_badge_markup =
         "<span>" \
-          '<i class="fa fa-lock"></i>' \
+          '<i class="fas fa-lock"></i>' \
           "Draft" \
         "</span>"
 
@@ -26,7 +26,7 @@ module GobiertoAdmin
     def test_site_visibility_level_badge_for_active_site
       visibility_level_badge_markup =
         "<span>" \
-          '<i class="fa fa-unlock"></i>' \
+          '<i class="fas fa-unlock"></i>' \
           "Published" \
         "</span>"
 

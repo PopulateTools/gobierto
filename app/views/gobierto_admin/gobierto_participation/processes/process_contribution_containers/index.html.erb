@@ -26,12 +26,12 @@
   </tr>
   <% @contribution_containers.each do |contribution_container| %>
     <tr id="contribution_container-item-<%= contribution_container.id %>" data-id="<%= contribution_container.id %>">
-      <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_participation_process_contribution_container_path(contribution_container.id,process_id: contribution_container.process.id) %></td>
+      <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_admin_participation_process_contribution_container_path(contribution_container.id,process_id: contribution_container.process.id) %></td>
       <td><%= link_to contribution_container.title, admin_participation_process_contribution_container_path(contribution_container.id, process_id: contribution_container.process.id) %></td>
       <td><%= contribution_container.contributions.size %>/ <%= contribution_container.contributions.sum(:votes_count) %></td>
       <td class="visibility_level">
         <% if contribution_container.draft? %>
-          <i class="fa fa-lock"></i>
+          <i class="fas fa-lock"></i>
           <%= t(".visibility_level.draft") %>
         <% else %>
           <%= t(".visibility_level.active") %>
@@ -41,12 +41,12 @@
       <td><%= l(contribution_container.ends, format: :short) %></td>
       <td>
         <%= link_to admin_participation_process_contribution_container_path(contribution_container.id, process_id: contribution_container.process.id), target: "_blank", class: "view_item" do %>
-          <i class="fa fa-eye"></i>
+          <i class="fas fa-eye"></i>
           <%= t(".see_ideas") %>
         <% end %>
       </td>
       <td>
-        <%= link_to "<i class='fa fa-trash'></i>".html_safe,
+        <%= link_to "<i class='fas fa-trash'></i>".html_safe,
                     admin_participation_process_contribution_container_path(contribution_container, process_id: contribution_container.process.id),
                     title: t("gobierto_admin.shared.archive.element"),
                     method: :delete,
@@ -74,7 +74,7 @@
       </tr>
       <% @archived_contribution_containers.each do |contribution_container| %>
         <tr id="contribution_container-item-<%= contribution_container.id %>" data-id="<%= contribution_container.id %>">
-          <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_participation_process_contribution_container_path(contribution_container.id,process_id: contribution_container.process.id) %></td>
+          <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_admin_participation_process_contribution_container_path(contribution_container.id,process_id: contribution_container.process.id) %></td>
           <td><%= contribution_container.title %></td>
           <td><%= contribution_container.contributions.size %>/ <%= contribution_container.contributions.sum(:votes_count) %></td>
           <td class="visibility_level">

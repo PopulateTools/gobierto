@@ -20,7 +20,7 @@
     <strong><a href="admin_part_group_polls">Encuestas</a></strong> » ¿Crees que habría que modificar la ordenanza sobre terrazas?
   </div>
   <div class="pure-u-1-4 admin_tools right">
-    <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, 'admin_people_conf' %>
+    <%= link_to '<i class="fas fa-cog"></i> Configuración'.html_safe, 'admin_people_conf' %>
     <button class="btn">Nueva</button>
   </div>
 </div>
@@ -88,11 +88,11 @@
 
           <div class="list_item">
 
-            <i class="fa fa-bars"></i>
+            <i class="fas fa-bars"></i>
             <label class="main"><%= i %></label>
             <div class="tools">
-              <%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#edit_poll_response', title: 'Editar', class: 'tipsit open_modal' %>
-              <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %>
+              <%= link_to '<i class="fas fa-edit"></i>'.html_safe, '#edit_poll_response', title: 'Editar', class: 'tipsit open_modal' %>
+              <%= link_to '<i class="fas fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %>
             </div>
 
           </div>
@@ -165,7 +165,7 @@
 
                 <div class="list_item">
 
-                  <i class="fa fa-bars"></i>
+                  <i class="fas fa-bars"></i>
                   <label class="main">
                     <%= i %>
                     <div class="media">
@@ -173,16 +173,16 @@
                     </div>
                   </label>
                   <div class="tools">
-                    <%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'javascript:void(0)', title: 'Editar', class: 'tipsit', onclick: "$(this).parent().parent().hide(); $('#edit_response').show();" %>
-                    <%= link_to '<i class="fa fa-paperclip"></i>'.html_safe, 'javascript:void(0)', title: 'Añadir media', class: 'tipsit' %>
-                    <%= link_to '<i class="fa fa-trash"></i>'.html_safe, 'javascript:void(0)', title: 'Eliminar', class: 'tipsit' %>
+                    <%= link_to '<i class="fas fa-edit"></i>'.html_safe, 'javascript:void(0)', title: 'Editar', class: 'tipsit', onclick: "$(this).parent().parent().hide(); $('#edit_response').show();" %>
+                    <%= link_to '<i class="fas fa-paperclip"></i>'.html_safe, 'javascript:void(0)', title: 'Añadir media', class: 'tipsit' %>
+                    <%= link_to '<i class="fas fa-trash"></i>'.html_safe, 'javascript:void(0)', title: 'Eliminar', class: 'tipsit' %>
                   </div>
 
                 </div>
 
                 <div class="list_item_with_editable_content" style="display: none;" id="edit_response">
 
-                  <i class="fa fa-bars"></i>
+                  <i class="fas fa-bars"></i>
                   <input type="text" value="<%= i %>">
                   <div class="tools">
                     <%= link_to 'cancelar', '#' %>
@@ -194,12 +194,12 @@
 
               <div class="m_1 p_h_2" >
                 <!-- it generates another .list_item_with_editable_content element -->
-                <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva pregunta'.html_safe, 'javascript:void(0)', onclick: "$(this).parent().hide(); $('#add_new_question').show();" %>
+                <%= link_to '<i class="fas fa-plus-circle"></i> Añadir nueva pregunta'.html_safe, 'javascript:void(0)', onclick: "$(this).parent().hide(); $('#add_new_question').show();" %>
               </div>
 
               <div class="list_item_with_editable_content" style="display: none;" id="add_new_question">
 
-                <i class="fa fa-bars"></i>
+                <i class="fas fa-bars"></i>
                 <input type="text" value="" placeholder="¿Deseas que pongamos un Rey Mago gigante para Navidad?">
                 <div class="tools">
                   <%= link_to 'cancelar', '#' %>
@@ -220,7 +220,7 @@
 
         <div class="m_1 p_h_2" >
           <!-- it generates another .list_item_with_editable_content element -->
-          <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva respuesta'.html_safe, '#edit_poll_response', class: 'open_modal'  %>
+          <%= link_to '<i class="fas fa-plus-circle"></i> Añadir nueva respuesta'.html_safe, '#edit_poll_response', class: 'open_modal'  %>
         </div>
 
       </div>

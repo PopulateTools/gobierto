@@ -30,11 +30,12 @@ gem "d3-rails", "~> 4.8"
 gem "flight-for-rails"
 gem "i18n-js", ">= 3.0.0.rc11"
 gem "jquery-rails"
-gem "sass-rails", "~> 5.0.0"
+gem "sassc"
 gem "therubyracer"
 gem "turbolinks"
 gem "uglifier", ">= 1.3.0"
 gem "chroma"
+gem "font-awesome-sass", "~> 5.6"
 
 # Webpack
 gem "webpacker", "~> 3.0", git: "https://github.com/ferblape/webpacker.git", branch: "3-x-stable"

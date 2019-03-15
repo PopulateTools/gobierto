@@ -9,7 +9,7 @@
     <% end %>
 
     <%= link_to sync_calendars_admin_calendars_configuration_path(@calendar_configuration_form.collection.id), method: :put, data: { confirm: t(".confirm_sync") } do %>
-      <i class="fa fa-refresh"></i>
+      <i class="fas fa-refresh"></i>
       <%= t('.sync') %>
     <% end %>
   </div>
@@ -82,7 +82,7 @@
                 <td>
                   <%= filtering_rule_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
                   <%= link_to "#", data: { behavior: "delete_record" } do %>
-                    <i class="fa fa-trash"></i>
+                    <i class="fas fa-trash"></i>
                   <% end %>
                 </td>
               </tr>
@@ -92,7 +92,7 @@
           <tr>
             <td colspan="7" class="p_1">
               <%= link_to "#", data: { behavior: "add_child" } do %>
-                <%== %Q{<i class="fa fa-plus-circle"></i> #{t('.add_rule')}} %>
+                <%== %Q{<i class="fas fa-plus-circle"></i> #{t('.add_rule')}} %>
               <% end %>
             </td>
           </tr>

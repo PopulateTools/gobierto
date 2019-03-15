@@ -15,7 +15,7 @@
       <% if user_signed_in? %>
         <div class="action">
           <%= link_to "", remote: true, data: { id: "comment-#{comment.id}" } do %>
-            <i class="fa fa-reply"></i><%= t('.respond') %>
+            <i class="fas fa-reply"></i><%= t('.respond') %>
           <% end %>
         </div>
       <% end %>

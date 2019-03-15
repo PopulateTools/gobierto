@@ -9,25 +9,25 @@
           <ul class="pure-menu-children">
             <li class="pure-menu-item">
               <%= link_to user_settings_path, class: "pure-menu-link" do %>
-                <i class="fa fa-ship"></i>
+                <i class="fas fa-ship"></i>
                 <%= t("layouts.application.session.title") %>
               <% end %>
             </li>
             <li class="pure-menu-item">
               <%= link_to user_notifications_path, class: "pure-menu-link" do %>
-                <i class="fa fa-th"></i>
+                <i class="fas fa-th"></i>
                 <%= t("layouts.application.session.notifications") %>
               <% end %>
             </li>
             <li class="pure-menu-item">
               <%= link_to user_subscriptions_path, class: "pure-menu-link" do %>
-                <i class="fa fa-envelope-o"></i>
+                <i class="fas fa-envelope-o"></i>
                 <%= t("layouts.application.session.alerts") %>
               <% end %>
             </li>
             <li class="pure-menu-item">
               <%= link_to user_sessions_path, method: :delete, class: "pure-menu-link" do %>
-                <i class="fa fa-sign-out"></i>
+                <i class="fas fa-sign-out"></i>
                 <%= t("layouts.application.session.sign_out") %>
               <% end %>
             </li>
@@ -38,7 +38,7 @@
       <ul class="pure-menu-list left">
         <li class="pure-menu-item">
           <%= link_to new_user_sessions_path, class: "pure-menu-link" do %>
-            <i class="fa fa-sign-in"></i>
+            <i class="fas fa-sign-in"></i>
             <%= t("layouts.application.session.sign_in") %>
           <% end %>
         </li>

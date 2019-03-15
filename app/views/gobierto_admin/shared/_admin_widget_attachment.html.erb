@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="file-sidebar pure-u-1-3" :class="{dragged: fileDragged}">
-        <!--i class="fa fa-times f_right fa-lg p_0_5" @click="this.closeModal"></i -->
+        <!--i class="fas fa-times f_right fa-lg p_0_5" @click="this.closeModal"></i -->
 
         <div class="p_2 drag-section">
           <h3><%= t('.add_new_document') %></h3>
@@ -105,8 +105,8 @@
     <a href="#" @click.prevent="addToEditor(attachment)">{{attachment.name || attachment.file_name}}</a>
 
     <div class="pure-button-group m_v_1" role="group">
-      <button class="pure-button" @click.prevent="editAttachment(attachment.id)"><i class="fa fa-edit"></i></button>
-      <button class="pure-button" @click.prevent="removeAttaching"><i class="fa fa-trash"></i></button>
+      <button class="pure-button" @click.prevent="editAttachment(attachment.id)"><i class="fas fa-edit"></i></button>
+      <button class="pure-button" @click.prevent="removeAttaching"><i class="fas fa-trash"></i></button>
     </div>
 
     <button class="small" @click.prevent="addToEditor(attachment)"><%= t('.include_in_text') %></button>

@@ -22,7 +22,7 @@
     <% @sections.each do |section| %>
       <tr>
         <td>
-          <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_cms_section_path(section), title: t('views.edit'), class: 'open_remote_modal' %>
+          <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_admin_cms_section_path(section), title: t('views.edit'), class: 'open_remote_modal' %>
         </td>
         <td>
           <%= link_to section.title, admin_cms_section_path(section) %>
@@ -32,7 +32,7 @@
         </td>
         <td>
           <%= link_to "gobierto_participation_section_path(section.slug ,host: current_site.domain)", target: "_blank", class: "view_item" do %>
-            <i class="fa fa-eye"></i>
+            <i class="fas fa-eye"></i>
             <%= t(".view") %>
           <% end %>
         </td>

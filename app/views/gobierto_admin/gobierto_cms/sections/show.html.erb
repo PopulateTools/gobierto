@@ -9,12 +9,12 @@
 <div class="m_v_2">
   <div class="admin_tools f_right right">
     <%= link_to edit_admin_cms_section_path(@section), class: 'open_remote_modal' do %>
-      <i class="fa fa-cog"></i>
+      <i class="fas fa-cog"></i>
       <%= t(".configuration") %>
     <% end %>
     <% unless @section.section_items.empty? %>
       <%= link_to gobierto_cms_section_path(slug_section: @section.slug), target: "_blank" do %>
-        <i class="fa fa-link"></i>
+        <i class="fas fa-link"></i>
         <%= t(".view") %>
       <% end %>
     <% end %>
@@ -29,9 +29,9 @@
     <div class="section_editor_section_canvas">
       <div class="section_canvas_tools">
         <%= link_to "", id: "collapse", class: "tipsit", title: t('.collapse'), remote: "true" do %>
-          <i class="fa fa-compress"></i><% end %>
+          <i class="fas fa-compress"></i><% end %>
         <%= link_to "", id: "expand", class: "tipsit", title: t('.expand'), remote: "true" do %>
-          <i class="fa fa-expand"></i>
+          <i class="fas fa-expand"></i>
         <% end %>
       </div>
 

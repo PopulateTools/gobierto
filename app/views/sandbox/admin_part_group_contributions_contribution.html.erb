@@ -39,14 +39,14 @@
 
 <% for i in ['Guiñol', 'Circuito de bicicletas', 'Gymkana', 'Olimpiada matemática', 'Pintacaras', 'Rol', 'Juegos de mesa'] %>
 <tr>
-  <!-- <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '' %></td> -->
+  <!-- <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, '' %></td> -->
   <td><%= i %></td>
   <td>123</td>
   <td>12</td>
   <td>456</td>
   <td>-</td>
   <td><%= cycle 'Publicada', 'Moderada' %></td>
-  <td><%= link_to '<i class="fa fa-eye"></i> Ver aportación'.html_safe, '#public_view', class: 'view_item' %></td>
+  <td><%= link_to '<i class="fas fa-eye"></i> Ver aportación'.html_safe, '#public_view', class: 'view_item' %></td>
 </tr>
 <% end %>
 

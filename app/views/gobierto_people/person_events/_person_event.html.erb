@@ -18,7 +18,7 @@
 
     <div class="soft meta">
       <div>
-        <i class="fa fa-user"></i>
+        <i class="fas fa-user"></i>
         <% if person %>
           <%= link_to person.name, gobierto_people_person_path(person.slug)%>
           <%= person.charge %>
@@ -27,7 +27,7 @@
 
       <% person_event.locations.each do |event_location| %>
         <div>
-          <i class="fa fa-map-marker"></i>
+          <i class="fas fa-map-marker"></i>
           <%= link_to_if event_location.geolocated?, event_location.name, external_location_service_url(event_location) %>
           <%= event_location.address %>
         </div>

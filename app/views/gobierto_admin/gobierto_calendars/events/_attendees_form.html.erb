@@ -7,7 +7,7 @@
       <th><%= t(".header.name") %></th>
       <th><%= t(".header.charge") %></th>
       <th class="edit_cell">
-        <i class="fa fa-trash"></i>
+        <i class="fas fa-trash"></i>
       </th>
     </tr>
 
@@ -19,7 +19,7 @@
               <%= attendee_form.object.person.name %>
 
               <%= link_to "#", class: "view_item" do %>
-                <i class="fa fa-eye"></i>
+                <i class="fas fa-eye"></i>
                 <%= t(".view_person") %>
               <% end %>
             <% end %>
@@ -32,11 +32,11 @@
               <%= attendee_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
 
               <%= link_to "#", data: { behavior: "edit_record" } do %>
-                <i class="fa fa-edit"></i>
+                <i class="fas fa-edit"></i>
               <% end %>
 
               <%= link_to "#", data: { behavior: "delete_record" } do %>
-                <i class="fa fa-trash"></i>
+                <i class="fas fa-trash"></i>
               <% end %>
             <% end %>
           </td>
@@ -63,7 +63,7 @@
             <% end %>
 
             <%= link_to "#", data: { behavior: "cancel_record" } do %>
-              <i class="fa fa-trash"></i>
+              <i class="fas fa-trash"></i>
               <%= t("gobierto_admin.gobierto_common.dynamic_content.form.cancel_record") %>
             <% end %>
           </td>
@@ -74,7 +74,7 @@
     <tr class="new_row_add">
       <td colspan="4">
         <%= link_to "#", data: { behavior: "add_child" } do %>
-          <i class="fa fa-plus-circle"></i>
+          <i class="fas fa-plus-circle"></i>
           <%= t("gobierto_admin.gobierto_common.dynamic_content.form.add_child") %>
         <% end %>
       </td>

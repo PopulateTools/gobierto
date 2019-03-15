@@ -13,7 +13,7 @@
 
     <% if disabled %>
 
-       <i class="fa fa-flag"></i>
+       <i class="fas fa-flag"></i>
       <%= already_flagged ? t('.reported') :  t('.report') %>
 
     <% else %>
@@ -24,7 +24,7 @@
         method: (already_flagged ? :delete : :post),
         remote: true
       ) do %>
-        <i class="fa fa-flag"></i>
+        <i class="fas fa-flag"></i>
         <%= already_flagged ? t('.reported') :  t('.report') %>
       <% end %>
 

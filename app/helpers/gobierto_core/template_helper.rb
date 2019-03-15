@@ -7,10 +7,10 @@ module GobiertoCore
       html << "<ul>"
       hash.each_pair do |k, v|
         if v.is_a?(Hash) && k != v
-          html << "<li><i class='fa fa-folder-open-o'></i>" + k
+          html << "<li><i class='fas fa-folder-open-o'></i>" + k
           html << template_tree_tag(v)
         else
-          html << "<li><i class='fa fa-file-o'></i>" +
+          html << "<li><i class='fas fa-file-o'></i>" +
                   link_to(k, admin_gobierto_core_template_edit_path(::GobiertoCore::Template.where("template_path LIKE ?", "%" + k).first), remote: true) + "</li>"
         end
       end

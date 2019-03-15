@@ -12,18 +12,18 @@
 
 <div style='<%= (question && index) ? '' : "display: none;" %>' class="list_item <%= class_if('poll_question_summary', question && index) %>" id='<%= question_summary_id %>'>
 
-  <i class='fa fa-bars custom_handle tipsit' title="<%= t('views.drag_to_sort') %>"></i>
+  <i class='fas fa-bars custom_handle tipsit' title="<%= t('views.drag_to_sort') %>"></i>
 
   <label class="main"><%= question_title %></label>
 
   <div class="tools">
 
     <%= link_to mfp_link, title: t('.edit'), class: 'tipsit open_poll_modal', data: { behavior: 'edit_record' } do %>
-      <i class="fa fa-edit"></i>
+      <i class="fas fa-edit"></i>
     <% end %>
 
     <%= link_to '#', title: t('.delete'), class: 'tipsit', data: { behavior: 'delete_record' } do %>
-      <i class="fa fa-trash"></i>
+      <i class="fas fa-trash"></i>
     <% end %>
 
   </div>

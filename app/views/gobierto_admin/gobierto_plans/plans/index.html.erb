@@ -7,7 +7,7 @@
 
 <div class="admin_tools right">
   <%= link_to admin_plans_plan_types_path do %>
-    <i class="fa fa-cog"></i>
+    <i class="fas fa-cog"></i>
     <%= t(".types") %>
   <% end %>
   <%= link_to t(".new"), new_admin_plans_plan_path, class: "button" %>
@@ -31,7 +31,7 @@
     <tr id="plan-item-<%= plan.id %>">
       <td>
         <%= link_to edit_admin_plans_plan_path(plan) do %>
-          <i class="fa fa-edit"></i>
+          <i class="fas fa-edit"></i>
         <% end %>
       </td>
       <td>
@@ -48,15 +48,15 @@
       </td>
       <td>
         <% if plan.draft? %>
-          <i class="fa fa-lock"></i>
+          <i class="fas fa-lock"></i>
         <% else %>
-          <i class="fa fa-check"></i>
+          <i class="fas fa-check"></i>
         <% end %>
         <%= t(".visibility_level.#{plan.visibility_level}") %>
       </td>
       <td>
         <%= link_to gobierto_plans_plan_type_preview_url(plan, host: current_site.domain), target: "_blank", class: "view_item" do %>
-          <i class="fa fa-eye"></i>
+          <i class="fas fa-eye"></i>
           <%= t(".view_plan") %>
         <% end %>
       </td>
@@ -65,7 +65,7 @@
                     title: t("gobierto_admin.shared.archive.element"),
                     method: :delete,
                     data: { confirm: t("gobierto_admin.shared.archive.confirm") } do %>
-          <i class="fa fa-trash"></i>
+          <i class="fas fa-trash"></i>
         <% end %>
       </td>
     </tr>
@@ -95,7 +95,7 @@
         <tr id="plan-item-<%= plan.id %>">
           <td>
             <%= link_to edit_admin_plans_plan_path(plan) do %>
-              <i class="fa fa-edit"></i>
+              <i class="fas fa-edit"></i>
             <% end %>
           </td>
           <td>
@@ -109,9 +109,9 @@
           </td>
           <td>
             <% if plan.draft? %>
-              <i class="fa fa-lock"></i>
+              <i class="fas fa-lock"></i>
             <% else %>
-              <i class="fa fa-check"></i>
+              <i class="fas fa-check"></i>
             <% end %>
             <%= t(".visibility_level.#{plan.visibility_level}") %>
           </td>

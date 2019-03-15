@@ -935,3 +935,70 @@ table {
   border: 1px solid $color_separator;
   @include border-radius(6px);
 }
+
+
+
+
+/* Gobierto Vocabulary */
+body.gobierto_admin {
+  table.g_vocabulary {
+
+    tr:nth-child(2n-1) td {
+      background: initial;
+    }
+
+    tr.vocab_level_0 {}
+    tr.vocab_level_1 {
+
+    }
+  }
+}
+
+
+.v_container {
+  .v_el {
+    .v_el {
+      border-top: 1px solid rgba($color_main, 0.2);
+      margin: .25em 0 .15em 1.75em;
+      padding: .2em 0 0 0;
+      display: none;
+    }
+
+    .el-opened {
+      display: block;
+      // font-weight: bold;
+
+      > .v_el {
+
+      }
+    }
+
+  }
+
+  .v_el_cont {
+    display: flex;
+
+    .v_el_title {
+      flex-grow: 5;
+    }
+  }
+
+  .v_el_actions {
+    margin: 0 .75em;
+  }
+
+  .v_el_level_0 {
+    @include border-radius(6px);
+    background: rgba($color_main, 0.1);
+    padding: .75em 0 .75em .8em;
+    margin: 0 0 1em 0;
+
+    .icon-caret {
+      padding: 0 .5em;
+      font-size: 1.25em;
+      vertical-align: middle;
+    }
+
+  }
+
+}

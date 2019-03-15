@@ -1,0 +1,173 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Vocabularios', 'admin_sites_vocab' %> »
+  Términos de: Plan de Actuación Municipal 2016-2019
+</div>
+
+
+<h1>Términos de: Plan de Actuación Municipal 2016-2019</h1>
+
+<div class="admin_tools right">
+  <%= link_to 'Nuevo', '#modal_edit_theme', class: 'button open_modal' %>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('.v_container .v_el .icon-caret').click(function(e) {
+    e.preventDefault();
+    $(this).parent().parent().parent().find('> .v_el').toggleClass('el-opened');
+  });
+});
+
+</script>
+
+<div class="v_container">
+
+  <div>
+    <div>
+      Explora
+      <i class="fa fa-compress-alt"></i>
+      <i class="fa fa-expand-alt"></i>
+    </div>
+
+    <div class="v_el_actions">
+
+    </div>
+
+  </div>
+
+  <% for i in [
+    'Eje 1 - Ciudadanos',
+    'Eje 2 - Buen Gobierno',
+    'Eje 3 - Sostenibilidad',
+    'Eje 4 - Felicidad',
+    'Eje 5 - Eficiencia'
+  ] %>
+  <div class="v_el v_el_level_0">
+    <div class="v_el_cont">
+      <%= link_to '<i class="fa icon-caret fa-caret-right"></i>'.html_safe, '' %>
+      <div class="v_el_title"><%= i %></div>
+      <div class="v_el_decorated">
+        wadus
+      </div>
+      <div class="v_el_actions">
+        <%= link_to '<i class="fa icon fa-edit"></i>'.html_safe, '' %>
+        <%= link_to '<i class="fa icon fa-trash"></i>'.html_safe, '' %>
+      </div>
+    </div>
+
+    <% for i in [
+      'Linea 1',
+      'Linea 2',
+      'Linea 3',
+      'Linea 4',
+      'Linea 5'
+    ] %>
+    <div class="v_el v_el_level_1">
+      <div class="v_el_cont">
+        <%= link_to '<i class="fa icon-caret fa-caret-right"></i>'.html_safe, '' %>
+        <div class="v_el_title"><%= i %></div>
+        <div class="v_el_decorated">
+          wadus
+        </div>
+        <div class="v_el_actions">
+          <%= link_to '<i class="fa icon fa-edit"></i>'.html_safe, '' %>
+          <%= link_to '<i class="fa icon fa-trash"></i>'.html_safe, '' %>
+        </div>
+      </div>
+
+      <% for i in [
+        'Actuación 1',
+        'Actuación 2',
+        'Actuación 3',
+        'Actuación 4',
+        'Actuación 5'
+      ] %>
+      <div class="v_el v_el_level_2">
+        <div class="v_el_cont">
+          <%= link_to '<i class="fa icon-caret fa-caret-right"></i>'.html_safe, '' %>
+          <div class="v_el_title"><%= i %></div>
+          <div class="v_el_decorated">
+            wadus
+          </div>
+          <div class="v_el_actions">
+            <%= link_to '<i class="fa icon fa-edit"></i>'.html_safe, '' %>
+            <%= link_to '<i class="fa icon fa-trash"></i>'.html_safe, '' %>
+          </div>
+        </div>
+
+        <% for i in [
+          'Proyecto 1',
+          'Proyecto 2',
+          'Proyecto 3',
+          'Proyecto 4',
+          'Proyecto 5'
+        ] %>
+        <div class="v_el v_el_level_2">
+          <i class="fa file-alt"></i>
+          <%= i %>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
+
+    </div>
+    <% end %>
+
+  </div>
+
+<% end %>
+</div>
+
+
+
+
+<table class="g_vocabulary" style="display: none;">
+<tr>
+  <th class="icon_col"></th>
+  <th>Nombre</th>
+  <th>Creado</th>
+  <th class="icon_col"></th>
+</tr>
+
+<% for i in [
+  'Eje 1 - Ciudadanos',
+  'Eje 2 - Buen Gobierno',
+  'Eje 3 - Sostenibilidad',
+  'Eje 4 - Felicidad',
+  'Eje 5 - Eficiencia'
+] %>
+<tr class="vocab_level_1">
+  <td>
+    <%= link_to '<i class="fa fa-caret-right"></i>'.html_safe, '' %>
+    <!--<%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#modal_edit_theme', class: 'open_modal' %>-->
+  </td>
+  <td><%= link_to i, '#modal_edit_theme', class: 'open_modal' %></td>
+  <td><%= link_to '<i class="fa fa-cog"></i> Ver términos'.html_safe, 'admin_sites_vocab_edit', class: 'view_item' %></td>
+  <td><%= link_to '<i class="fa fa-trash"></i>'.html_safe, '' %></td>
+</tr>
+
+
+    <% for i in [
+      'Linea 1.1',
+      'Linea 1.2',
+      'Linea 1.3',
+      'Linea 1.4',
+      'Linea 1.5'
+    ] %>
+    <tr class="vocab_level_1">
+      <td>
+        <%= link_to '<i class="fa fa-caret-right"></i>'.html_safe, '' %>
+        <!--<%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#modal_edit_theme', class: 'open_modal' %>-->
+      </td>
+      <td><%= link_to i, '#modal_edit_theme', class: 'open_modal' %></td>
+      <td><%= link_to '<i class="fa fa-cog"></i> Ver términos'.html_safe, 'admin_sites_vocab_edit', class: 'view_item' %></td>
+      <td><%= link_to '<i class="fa fa-trash"></i>'.html_safe, '' %></td>
+    </tr>
+    <% end %>
+
+
+<% end %>
+
+</table>

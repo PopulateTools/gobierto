@@ -460,12 +460,12 @@ A través del administrador se pueden definir los tipos de planes que se van a v
   .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb,
   .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb a,
   .gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
-  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fas {
     color: rgb(123,123,123);
   }
   .gobierto_planification section:not(.level_0).cat_1,
   .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb .fa,
-  .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title .fa {
+  .gobierto_planification section:not(.level_0).cat_1 .node-list .node-title .fas {
     background: rgba(123,123,123, 0.1);
   }
   .gobierto_planification section:not(.level_0).cat_1 .cat--negative,
@@ -476,7 +476,7 @@ A través del administrador se pueden definir los tipos de planes que se van a v
     color: white;
   }
   .gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
-  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+  .gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fas {
     background: white;
   }
   .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb {

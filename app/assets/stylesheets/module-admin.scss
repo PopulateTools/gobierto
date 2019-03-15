@@ -394,6 +394,9 @@ body.gobierto_admin {
 .fas {
   margin: 0 0.25em 0 0;
 }
+.fas:hover {
+  opacity: .75;
+}
 
 pre {
   font-size: 0.85em;
@@ -942,11 +945,17 @@ table {
 /* Gobierto Vocabulary */
 .v_container {
   .v_el {
+    margin: 0 0 0 1.75em;
+    padding: .35em 0 .15em 0;
+
     .v_el {
       border-top: 1px solid rgba($color_main, 0.2);
-      margin: .25em 0 .15em 1.75em;
-      padding: .2em 0 0 0;
       display: none;
+    }
+
+    > .v_el_cont {
+      margin: 0 0 .25em 0;
+      border: 1px solid red;
     }
 
     .el-opened {
@@ -955,6 +964,17 @@ table {
 
     }
 
+    .v_el:hover {
+      background: transparentize($color_main, .95);
+
+      .v_el:hover {
+        background: transparentize(#FFF, .5);;
+      }
+    }
+  }
+
+  .v_el:hover {
+    cursor: move;
   }
 
   .v_el_cont,
@@ -983,29 +1003,48 @@ table {
     justify-content: flex-end;
 
     > div {
-      margin-left: 1em;
+      margin: .45em 0 .45em 1em;
       width: 60px;
       font-size: .85em;
+      line-height: 1.2;
       color: $color_meta_text;
       text-align: center;
     }
   }
 
   .v_el_actions {
-    min-width: 50px;
+    min-width: 75px;
+    text-align: right;
     margin: 0 .75em;
+
+    .fas {
+      margin: 0 .5em;
+      font-size: .85em;
+    }
   }
 
   .v_el_level_0 {
     @include border-radius(6px);
     background: rgba($color_main, 0.1);
-    padding: .75em 0 .75em .8em;
+    padding: .75em 0 .5em .8em;
     margin: 0 0 1em 0;
 
     .icon-caret {
       padding: 0 .5em;
       font-size: 1.25em;
       vertical-align: middle;
+    }
+
+  }
+
+  .v_el_level_1 {
+    .v_el_title {
+      font-size: .85rem;
+      line-height: 1.2;
+      margin: .45em 0;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
   }

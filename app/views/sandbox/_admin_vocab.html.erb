@@ -1,0 +1,208 @@
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  // Toggle selected element child
+  $('.v_container .v_el .icon-caret').click(function(e) {
+    e.preventDefault();
+
+    // ToDo: Don't relay on icon specific names
+    if($(this).is('.fa-caret-right')) {
+      $(this).removeClass('fa-caret-right');
+      $(this).addClass('fa-caret-down');
+    }
+    else {
+      $(this).removeClass('fa-caret-down');
+      $(this).addClass('fa-caret-right');
+    }
+
+    $(this).parent().parent().parent().find('> .v_el').toggleClass('el-opened');
+  });
+
+  // Close all elements except first level
+  $('.v_container .v_heading .fa-caret-square-right').click(function(e) {
+    $('.v_container .v_el_level_0 .v_el').removeClass('el-opened');
+  });
+
+  // Open all elements except first level
+  $('.v_container .v_heading .fa-caret-square-down').click(function(e) {
+    $('.v_container .v_el_level_0 .v_el').addClass('el-opened');
+  });
+
+  // only for sandbox
+  $('.sandbox_remove_decorated_content').click(function(e) {
+    $('.v_el_decorated').toggle();
+  });
+
+});
+</script>
+
+<div class="v_container">
+
+  <div class="v_heading">
+    <div>
+      Explora
+      <i class="fas fa-caret-square-right" title="Collapse all"></i>
+      <i class="fas fa-caret-square-down" title="Open all"></i>
+    </div>
+
+    <div class="v_el_decorated">
+      <div>
+        Items
+      </div>
+      <div>
+        Progreso
+      </div>
+    </div>
+
+    <div class="v_el_actions"></div>
+
+  </div>
+
+  <% for i in [
+    'Eje 1 - Economia, emprenedoria i ocupació',
+    'Eje 2 - Buen Gobierno',
+    'Eje 3 - Sostenibilidad',
+    'Eje 4 - Felicidad',
+    'Eje 5 - Eficiencia'
+  ] %>
+  <div class="v_el v_el_level_0">
+    <div class="v_el_cont">
+      <%= link_to '<i class="fas icon-caret fa-caret-right"></i>'.html_safe, '' %>
+      <div class="v_el_title"><%= i %></div>
+      <div class="v_el_decorated">
+        <div>
+          123
+        </div>
+        <div>
+          45%
+        </div>
+      </div>
+      <div class="v_el_actions">
+        <%= link_to '<i class="fas icon fa-edit"></i>'.html_safe, '#modal_edit_term', class: 'open_modal' %>
+        <%= link_to '<i class="fas icon fa-trash"></i>'.html_safe, '' %>
+      </div>
+    </div>
+
+    <% for i in [
+      'Linea 1',
+      'Linea 2',
+      'Linea 3',
+      "Promoure que, sempre que sigui possible per la normativa de contractació pública, la contractació municipal es faci a travió d'empreses locals.",
+      'Linea 5'
+    ] %>
+    <div class="v_el v_el_level_1 tipsit" title="Arrastra">
+      <div class="v_el_cont">
+        <%= link_to '<i class="fas icon-caret fa-caret-right"></i>'.html_safe, '' %>
+        <div class="v_el_title"><%= i %></div>
+        <div class="v_el_decorated">
+          <div>
+            123
+          </div>
+          <div>
+            45%
+          </div>
+        </div>
+        <div class="v_el_actions">
+          <%= link_to '<i class="fas icon fa-edit"></i>'.html_safe, '#modal_edit_term', class: 'open_modal' %>
+          <%= link_to '<i class="fas icon fa-trash"></i>'.html_safe, '' %>
+        </div>
+      </div>
+
+      <% for i in [
+        'Actuación 1',
+        'Actuación 2',
+        "Promoure que, sempre que sigui possible per la normativa de contractació pública, la contractació municipal es faci a travió d'empreses locals.",
+        'Actuación 4',
+        'Actuación 5'
+      ] %>
+      <div class="v_el v_el_level_2">
+        <div class="v_el_cont">
+          <%= link_to '<i class="fas icon-caret fa-caret-right"></i>'.html_safe, '' %>
+          <div class="v_el_title"><%= i %></div>
+          <div class="v_el_decorated">
+            <div>
+              123
+            </div>
+            <div>
+              45%
+            </div>
+          </div>
+          <div class="v_el_actions">
+            <%= link_to '<i class="fas icon fa-edit"></i>'.html_safe, '#modal_edit_term', class: 'open_modal' %>
+            <%= link_to '<i class="fas icon fa-trash"></i>'.html_safe, '' %>
+          </div>
+        </div>
+
+        <% for i in [
+          'Proyecto 1',
+          'Proyecto 2',
+          "Hem consolidat els projectes i estem ampliant el projecte L'Escola Sona a altres centres educatius públics",
+          'Proyecto 4',
+          'Proyecto 5'
+        ] %>
+        <div class="v_el v_el_level_2">
+          <div class="v_el_title">
+            <i class="fas fa-file-alt"></i>
+            <%= link_to i, 'admin_plans_plan_project' %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
+
+    </div>
+    <% end %>
+
+  </div>
+
+<% end %>
+</div>
+
+<%= render partial: "admin_add_new"  %>
+
+
+<div class="m_v_4">
+  <a class="sandbox_remove_decorated_content">Toggle decorated content</a>
+</div>
+
+
+<div class="modal mfp-hide" id="modal_edit_term">
+
+  <h2>Editar término</h2>
+
+  <form>
+
+    <div class="globalized_fields">
+
+      <div class="globalize_tool">
+        <label>Traducir</label>
+        <a href="#" class="locale_option selected completed tipsit" title="Define el contenido en su versión en Español">
+          <span class="locale">ES</span>
+          <span class="status"></span>
+        </a>
+        <a href="#" class="locale_option completed tipsit" title="Define el contenido en su versión en Catalán">
+          <span class="locale">CA</span>
+          <span class="status"></span>
+        </a>
+        <a href="#" class="locale_option tipsit" title="Define el contenido en su versión en Inglés">
+          <span class="locale">EN</span>
+          <span class="status"></span>
+        </a>
+      </div>
+
+      <div class="form_item input_text">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" value="Deporte">
+      </div>
+
+    </div>
+
+    <div class="actions right">
+      <button class="light">Cancelar</button>
+      <input type="submit" value="Guardar">
+    </div>
+
+  </form>
+
+</div>

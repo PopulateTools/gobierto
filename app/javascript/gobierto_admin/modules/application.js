@@ -62,7 +62,7 @@ $(document).on('turbolinks:load', function() {
             var win = window.open("https://gobierto.readme.io/v0.1/docs/guia-de-markdown", "_blank");
             win.focus();
           },
-          className: "fa fa-question-circle",
+          className: "fas fa-question-circle",
           title: "Markdown Guide",
         default: true},
         "|"],
@@ -215,14 +215,14 @@ function toggleStickyToolbar(wysiwyg) {
   // Group who gathers the same form element toolbars, but different locales
   const localeToolbarGroup = wysiwyg.parent().parent().find(`[id^=${id}]`).siblings(".editor-toolbar")
   // If element is visible, get its offset, otherwise, get the visible offset height from its locale group
-  const toolbarOffsetTop = toolbar.is(":visible") 
+  const toolbarOffsetTop = toolbar.is(":visible")
     ? toolbar.offset().top - headerHeight
     : localeToolbarGroup.filter(":visible").offset().top - headerHeight
-  
+
   $(window).on("scroll resize", function () {
     const scroll = $(this).scrollTop();
     // Add the height of the floating globalize tool, if exists
-    const localeBarHeight = $('.is-floating .globalize_tool').outerHeight() || 0;    
+    const localeBarHeight = $('.is-floating .globalize_tool').outerHeight() || 0;
 
     if (toolbar.is(":visible")) {
       if (scroll > (toolbarOffsetTop - localeBarHeight)) {
@@ -230,14 +230,14 @@ function toggleStickyToolbar(wysiwyg) {
           $(item).addClass("is-sticky");
           $(item).css({ top: `${headerHeight + localeBarHeight}px` });
         })
-      } else if (toolbar.hasClass("is-sticky")) {  
+      } else if (toolbar.hasClass("is-sticky")) {
         localeToolbarGroup.each((i, item) => {
           $(item).removeClass("is-sticky");
           $(item).removeAttr("style");
         })
       }
     }
-  })  
+  })
 }
 
 export { addDatepickerBehaviors }

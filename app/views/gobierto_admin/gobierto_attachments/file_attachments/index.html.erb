@@ -55,19 +55,19 @@
           <tr id="collection-item-<%= collection.id %>">
             <td>
               <%= link_to edit_admin_common_collection_path(collection, item_type: 'Attachment'), class: 'open_remote_modal' do %>
-                <i class="fa fa-edit"></i>
+                <i class="fas fa-edit"></i>
               <% end %>
             </td>
             <td><%= link_to collection.title, admin_common_collection_path(collection) %> (<%= collection_context(collection) %>)</td>
             <td><%= ::GobiertoAttachments::Attachment.where(id: collection.file_attachments_in_collection).size %></td>
             <td>
               <%= link_to new_admin_attachments_file_attachment_path(collection_id: collection.id), target: "_blank", class: "view_item" do %>
-                <i class='fa fa-plus-circle'></i><%= t('.add_new_attachment') %>
+                <i class='fas fa-plus-circle'></i><%= t('.add_new_attachment') %>
               <% end %>
             </td>
             <td>
               <%= link_to admin_common_collection_path(collection), target: "_blank", class: "view_item" do %>
-                <i class="fa fa-eye"></i>
+                <i class="fas fa-eye"></i>
                 <%= t(".view_collection") %>
               <% end %>
             </td>
@@ -93,7 +93,7 @@
         <td>
           <%= link_to file_attachment.collection ? edit_admin_attachments_file_attachment_path(file_attachment.id, collection_id: file_attachment.collection_id) :
                                                    edit_admin_attachments_file_attachment_path(file_attachment.id) do %>
-            <i class="fa fa-edit"></i>
+            <i class="fas fa-edit"></i>
           <% end %>
         </td>
         <td>

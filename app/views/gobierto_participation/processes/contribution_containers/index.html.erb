@@ -18,8 +18,8 @@
             <% end %>
 
             <div class="meta right">
-              <div class="ib"><i class="fa fa-comment"></i><%= contribution_container.contributions.size %></div>
-              <div class="ib"><i class="fa fa-users"></i><%= contribution_container.contributions.distinct.pluck(:user_id).size %></div>
+              <div class="ib"><i class="fas fa-comment"></i><%= contribution_container.contributions.size %></div>
+              <div class="ib"><i class="fas fa-users"></i><%= contribution_container.contributions.distinct.pluck(:user_id).size %></div>
             </div>
           <% end %>
         <% end %>

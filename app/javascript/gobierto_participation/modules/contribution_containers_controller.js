@@ -89,14 +89,14 @@ window.GobiertoParticipation.ContributionContainersController = (function() {
       .append('i')
       .attr('id', 'next')
       .attr('data-toggle', 'next')
-      .attr('class', 'fa fa-angle-right fa-3x arrow next_contribution')
+      .attr('class', 'fas fa-angle-right fa-3x arrow next_contribution')
       .on('click', updateContributions);
 
     contributions.select('.contributions_content')
       .append('i')
       .attr('id', 'previous')
       .attr('data-toggle', 'previous')
-      .attr('class', 'fa fa-angle-left fa-3x arrow previous_contribution disabled')
+      .attr('class', 'fas fa-angle-left fa-3x arrow previous_contribution disabled')
       .on('click', updateContributions);
 
     createCards(nodes);

@@ -23,7 +23,7 @@
   <%= t('.users_verified', count: @users_stats.total_verified_percentage) %> (<%= @users_stats.total_verified %>) ·
 
   <%= link_to new_admin_census_imports_path do %>
-    <i class="fa fa-table"></i>
+    <i class="fas fa-table"></i>
     <%= t(".census_configuration") %>
   <% end %>
 </div>
@@ -44,12 +44,12 @@
     <tr id="user-item-<%= user.id %>" class="<%= cycle("odd", "even") %>">
       <td>
         <%= link_to edit_admin_user_path(user) do %>
-          <i class="fa fa-edit"></i>
+          <i class="fas fa-edit"></i>
         <% end %>
       </td>
       <td>
         <% if !user.confirmed? %>
-          <i class="fa fa-eye-slash"></i>
+          <i class="fas fa-eye-slash"></i>
         <% end %>
         <%= link_to edit_admin_user_path(user) do %>
           <%= user.name %>
@@ -68,14 +68,14 @@
       </td>
       <td>
         <% if user.census_verified? %>
-          <i class="fa fa-check"></i>
+          <i class="fas fa-check"></i>
         <% else %>
-          <i class="fa fa-close"></i>
+          <i class="fas fa-close"></i>
         <% end %>
       </td>
       <td>
         <%= link_to [:admin, user], class: "view_item" do %>
-          <i class="fa fa-eye"></i>
+          <i class="fas fa-eye"></i>
           <%= t(".view_user") %>
         <% end %>
       </td>

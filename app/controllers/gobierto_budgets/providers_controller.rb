@@ -3,6 +3,7 @@
 class GobiertoBudgets::ProvidersController < GobiertoBudgets::ApplicationController
 
   before_action :check_setting_enabled
+  skip_before_action :authenticate_user_in_site, only: [:index]
 
   def index
     respond_to do |format|

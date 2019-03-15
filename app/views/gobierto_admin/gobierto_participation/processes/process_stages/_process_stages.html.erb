@@ -3,14 +3,14 @@
 
   <% current_process.stages.each_with_index do |stage, index| %>
     <div id="process-stage-item-<%= stage.id %>" data-id="<%= stage.id %>" class="list_item">
-      <i class="sort-handler fa fa-bars tipsit custom_handle" title="<%= t('.drag_to_sort') %>"></i>
+      <i class="sort-handler fas fa-bars tipsit custom_handle" title="<%= t('.drag_to_sort') %>"></i>
 
       <div class="main">
         <div class="group">
           <label>
             <%= stage.title %>
             <span class="interaction_tool">
-              <i class="fa fa-stethoscope"></i>
+              <i class="fas fa-stethoscope"></i>
               <%= translate_enum_value(GobiertoParticipation::ProcessStage, :stage_type, stage.stage_type) %>
             </span>
           </label>
@@ -19,13 +19,13 @@
         <div class="group secondary">
           <div class="date">
             <% if stage.starts && stage.ends %>
-              <i class="fa fa-clock-o"></i>
+              <i class="fas fa-clock-o"></i>
               <%= t("time.formats.from_to", starts: l(stage.starts, format: :shortest),
                                             ends: l(stage.ends, format: :shortest)) %>
             <% end %>
           </div>
           <div class="">
-            <i class="fa fa-cog"></i>
+            <i class="fas fa-cog"></i>
             <%= link_to t('.manage'), admin_stage_path(stage), data: { turbolinks: false } %>
           </div>
         </div>
@@ -41,10 +41,10 @@
           </label>
           <span>
             <% if stage.published? %>
-              <i class="fa fa-check"></i>
+              <i class="fas fa-check"></i>
               <%= t('.published') %>
             <% else %>
-              <i class="fa fa-lock"></i>
+              <i class="fas fa-lock"></i>
               <%= t('.draft') %>
             <% end %>
           </span>
@@ -53,13 +53,13 @@
       </div>
 
       <div class="tools">
-        <%= link_to '<i class="fa fa-edit"></i>'.html_safe,
+        <%= link_to '<i class="fas fa-edit"></i>'.html_safe,
                     edit_admin_participation_process_process_stage_path(stage.id, process_id: current_process.id),
                     class: 'tipsit',
                     data: { turbolinks: false },
                     title: t('.edit') %>
 
-        <%= link_to "<i class='fa fa-trash'></i>".html_safe,
+        <%= link_to "<i class='fas fa-trash'></i>".html_safe,
                     admin_participation_process_process_stage_path(stage.id, process_id: current_process.id),
                     method: :delete,
                     remote: true,
@@ -72,7 +72,7 @@
   <% end %>
 
   <div class="m_1 p_h_2" >
-    <%= link_to '<i class="fa fa-plus-circle"></i>'.html_safe + t('.add_new_stage'),
+    <%= link_to '<i class="fas fa-plus-circle"></i>'.html_safe + t('.add_new_stage'),
                 new_admin_participation_process_process_stage_path(current_process.id),
                 data: { turbolinks: false } %>
   </div>

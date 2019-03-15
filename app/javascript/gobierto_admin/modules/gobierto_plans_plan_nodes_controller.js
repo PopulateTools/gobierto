@@ -236,7 +236,7 @@ window.GobiertoAdmin.GobiertoPlansPlanNodesController = (function() {
     }
 
     let fa = map[cls.replace(new RegExp('jsgrid-', 'g'), '').replace(new RegExp('-button', 'g'), '')]
-    let classname = `fa fa-${fa}`
+    let classname = `fas fa-${fa}`
 
     return $("<i>")
       .removeClass()

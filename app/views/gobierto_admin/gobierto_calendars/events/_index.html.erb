@@ -26,7 +26,7 @@
       <div class="admin_tools right">
         <% if @person %>
           <%= link_to edit_admin_calendars_configuration_path(@person.calendar) do %>
-            <i class="fa fa-cog"></i>
+            <i class="fas fa-cog"></i>
             <%= t(".configuration") %>
           <% end %>
         <% end %>
@@ -54,7 +54,7 @@
         <tr id="person-event-item-<%= event.id %>" class="<%= cycle("odd", "even") %>">
           <td>
             <%= link_to edit_admin_calendars_event_path(event, collection_id: collection), data: { turbolinks: false } do %>
-              <i class="fa fa-edit"></i>
+              <i class="fas fa-edit"></i>
             <% end %>
           </td>
           <td>
@@ -72,20 +72,20 @@
           </td>
           <td>
             <% if event.pending? %>
-              <i class="fa fa-lock"></i>
+              <i class="fas fa-lock"></i>
             <% else %>
-              <i class="fa fa-check"></i>
+              <i class="fas fa-check"></i>
             <% end %>
             <%= t(".visibility_level.#{event.state}") %>
           </td>
           <td>
             <%= link_to event.to_url(preview: true, admin: current_admin), target: "_blank", class: "view_item" do %>
-              <i class="fa fa-eye"></i>
+              <i class="fas fa-eye"></i>
               <%= t(".view_event") %>
             <% end %>
           </td>
           <td>
-            <%= link_to "<i class='fa fa-trash'></i>".html_safe,
+            <%= link_to "<i class='fas fa-trash'></i>".html_safe,
                         admin_calendars_event_path(event, process_id: (current_process.id if !defined?(current_process).nil?)),
                         title: t("gobierto_admin.shared.archive.element"),
                         method: :delete,
@@ -121,7 +121,7 @@
             <tr id="person-event-item-<%= event.id %>" class="<%= cycle("odd", "even") %>">
               <td>
                 <%= link_to edit_admin_calendars_event_path(event, collection_id: collection), data: { turbolinks: false } do %>
-                  <i class="fa fa-edit"></i>
+                  <i class="fas fa-edit"></i>
                 <% end %>
               </td>
               <td>

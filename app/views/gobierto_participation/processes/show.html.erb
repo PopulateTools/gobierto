@@ -63,7 +63,7 @@
         <% if current_process.starts && current_process.ends %>
           <div class="pure-g meta_info">
             <div class="pure-u-1 pure-u-md-1-4">
-              <span class="accent"><i class="fa fa-calendar"></i> <%= t('.length') %></span>
+              <span class="accent"><i class="fas fa-calendar"></i> <%= t('.length') %></span>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
               <time><%= t('gobierto_participation.shared.from_to', starts: current_process.starts.strftime('%e/%m/%y'), ends: current_process.ends.strftime('%e/%m/%y')) %></time>
@@ -74,7 +74,7 @@
         <% if current_process.issue %>
           <div class="pure-g meta_info">
             <div class="pure-u-1 pure-u-md-1-4">
-              <span class="accent"><i class="fa fa-question-circle"></i><%= t('.issue') %></span>
+              <span class="accent"><i class="fas fa-question-circle"></i><%= t('.issue') %></span>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
               <%= link_to current_process.issue.name, gobierto_participation_issue_path(current_process.issue.slug) %>
@@ -85,7 +85,7 @@
         <% if current_process.scope %>
           <div class="pure-g meta_info">
             <div class="pure-u-1 pure-u-md-1-4">
-              <span class="accent"><i class="fa fa-folder"></i><%= t('.scope') %></span>
+              <span class="accent"><i class="fas fa-folder"></i><%= t('.scope') %></span>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
                 <%= link_to current_process.scope.name, gobierto_participation_scope_path(current_process.scope.slug) %>

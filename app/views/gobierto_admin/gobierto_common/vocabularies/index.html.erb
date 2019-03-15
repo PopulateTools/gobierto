@@ -22,7 +22,7 @@
       <tr id="vocabulary-item-<%= vocabulary.id %>" class="<%= cycle("odd", "even") %>">
         <td>
           <%= link_to edit_admin_common_vocabulary_path(vocabulary), class: "open_remote_modal" do %>
-            <i class="fa fa-edit"></i>
+            <i class="fas fa-edit"></i>
           <% end %>
         </td>
         <td>
@@ -32,13 +32,13 @@
         </td>
         <td>
           <%= link_to admin_common_vocabulary_terms_path(vocabulary), class: "view_item" do %>
-            <i class="fa fa-cog"></i>
+            <i class="fas fa-cog"></i>
             <%= t(".view_vocabulary") %>
           <% end %>
         </td>
         <td>
           <%= link_to admin_common_vocabulary_path(vocabulary), method: :delete, title: t("views.delete"), data: { confirm: t(".delete_confirm") } do %>
-            <i class="fa fa-trash"></i>
+            <i class="fas fa-trash"></i>
           <% end %>
         </td>
       </tr>

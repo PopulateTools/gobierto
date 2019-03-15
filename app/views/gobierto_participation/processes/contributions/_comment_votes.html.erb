@@ -14,7 +14,7 @@
       <% comment_upvoted_by_user = comment.voted_with_weight_by_user?(current_user, 1) %>
 
       <% if disabled %>
-        <i class="fa fa-thumbs-up"></i>
+        <i class="fas fa-thumbs-up"></i>
       <% else %>
         <%= link_to(
               upvote_comment_path,
@@ -22,7 +22,7 @@
               method: (comment_upvoted_by_user ? :delete : :post),
               remote: true
             ) do %>
-              <i class="fa fa-thumbs-up"></i>
+              <i class="fas fa-thumbs-up"></i>
         <% end %>
       <% end %>
 
@@ -44,7 +44,7 @@
       <% comment_downvoted_by_user = comment.voted_with_weight_by_user?(current_user, -1) %>
 
       <% if disabled %>
-        <i class="fa fa-thumbs-down"></i>
+        <i class="fas fa-thumbs-down"></i>
       <% else %>
         <%= link_to(
               downvote_comment_path,
@@ -52,7 +52,7 @@
               method: (comment_downvoted_by_user ? :delete : :post),
               remote: true
             ) do %>
-              <i class="fa fa-thumbs-down"></i>
+              <i class="fas fa-thumbs-down"></i>
         <% end %>
       <% end %>
 

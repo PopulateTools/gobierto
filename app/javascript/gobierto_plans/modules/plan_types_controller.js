@@ -6,7 +6,9 @@ window.GobiertoPlans.PlanTypesController = (function() {
     function PlanTypesController() {}
 
     PlanTypesController.prototype.show = function() {
-      _loadPlan();
+      if ($('body').attr('class').indexOf('gobierto_plans_plan_types_show') > -1) {
+        _loadPlan();
+      }
     };
 
     function _loadPlan() {

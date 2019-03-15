@@ -15,12 +15,12 @@
       </div>
 
       <div class="ib p_h_r_0_5">
-        <i class="fa fa-clock-o"></i> <%= l(event.starts_at, format: '%H:%M') %> - <%= l(event.ends_at, format: '%H:%M') %>
+        <i class="fas fa-clock-o"></i> <%= l(event.starts_at, format: '%H:%M') %> - <%= l(event.ends_at, format: '%H:%M') %>
       </div>
 
       <% if (location = event.first_location) %>
         <div class="ib">
-          <i class="fa fa-map-marker"></i>
+          <i class="fas fa-map-marker"></i>
           <%= location.name %>, <%= link_to_if location.geolocated?, location.address, external_location_service_url(location), target: '_blank' %>
         </div>
       <% end %>

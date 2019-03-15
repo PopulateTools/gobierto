@@ -36,7 +36,7 @@
       <% edit_poll_link_path = poll.results_available? ? admin_participation_process_poll_answers_path(current_process, poll) : edit_admin_participation_process_poll_path(current_process, poll) %>
       <td>
         <%= link_to edit_poll_link_path, data: { turbolinks: false } do %>
-          <i class='fa fa-edit'></i>
+          <i class='fas fa-edit'></i>
         <% end %>
       </td>
       <td>
@@ -47,9 +47,9 @@
       </td>
       <td>
         <% if poll.draft? %>
-          <i class='fa fa-lock'></i>
+          <i class='fas fa-lock'></i>
         <% else %>
-          <i class='fa fa-check'></i>
+          <i class='fas fa-check'></i>
         <% end %>
         <%= t(".visibility_level.#{poll.visibility_level}") %>
       </td>
@@ -61,12 +61,12 @@
       </td>
       <td>
         <%= link_to gobierto_participation_process_poll_preview_url(current_process, poll, host: current_site.domain), target: '_blank', class: 'view_item' do %>
-          <i class='fa fa-eye'></i>
+          <i class='fas fa-eye'></i>
           <%= t('.view_poll') %>
         <% end %>
       </td>
       <td>
-        <%= link_to "<i class='fa fa-trash'></i>".html_safe,
+        <%= link_to "<i class='fas fa-trash'></i>".html_safe,
                     admin_participation_process_poll_path(poll, process_id: current_process.id),
                     title: t("gobierto_admin.shared.archive.element"),
                     method: :delete,
@@ -100,7 +100,7 @@
           <% edit_poll_link_path = poll.results_available? ? admin_participation_process_poll_answers_path(current_process, poll) : edit_admin_participation_process_poll_path(current_process, poll) %>
           <td>
             <%= link_to edit_poll_link_path, data: { turbolinks: false } do %>
-              <i class='fa fa-edit'></i>
+              <i class='fas fa-edit'></i>
             <% end %>
           </td>
           <td>
@@ -120,7 +120,7 @@
           </td>
           <td>
             <%= link_to gobierto_participation_process_poll_preview_url(current_process, poll, host: current_site.domain), target: '_blank', class: 'view_item' do %>
-              <i class='fa fa-eye'></i>
+              <i class='fas fa-eye'></i>
               <%= t('.view_poll') %>
             <% end %>
           </td>

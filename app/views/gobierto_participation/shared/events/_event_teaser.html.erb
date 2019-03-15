@@ -19,7 +19,7 @@
       <div>
         <% if (location = event.first_location) %>
           <div class="ib p_h_r_0_5">
-            <i class="fa fa-map-marker"></i>
+            <i class="fas fa-map-marker"></i>
             <%= location.name %>, <%= link_to_if location.geolocated?, location.address, external_location_service_url(location), target: '_blank' %>
           </div>
         <% end %>
@@ -27,7 +27,7 @@
         <% if @container %>
           <div class="ib">
             <!-- TODO: we'll only show this from participation moudle events index -->
-            <i class="fa fa-folder"></i> <%= t('.agenda_for_container') %>: <%= link_to @container.title, @container.container_path %>
+            <i class="fas fa-folder"></i> <%= t('.agenda_for_container') %>: <%= link_to @container.title, @container.container_path %>
           </div>
         <% end %>
       </div>
@@ -38,15 +38,15 @@
     <% pending do %>
       <div class="extra_info listed">
         <div class="ib p_h_r_0_5">
-          <a href="#" class="button outline rounded wide attend_event"><i class="fa fa-check hidden"></i> <span>Quiero asistir</span></a>
+          <a href="#" class="button outline rounded wide attend_event"><i class="fas fa-check hidden"></i> <span>Quiero asistir</span></a>
         </div>
 
         <div class="ib p_h_r_0_5">
-          <i class="fa fa-users"></i> <strong>55 vecinos</strong> asistirán
+          <i class="fas fa-users"></i> <strong>55 vecinos</strong> asistirán
         </div>
 
         <div class="ib">
-          <i class="fa fa-calendar"></i> <a href="#">Añadir a mi calendario</a>
+          <i class="fas fa-calendar"></i> <a href="#">Añadir a mi calendario</a>
         </div>
       </div>
     <% end %>

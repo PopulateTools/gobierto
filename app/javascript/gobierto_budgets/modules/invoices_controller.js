@@ -15,11 +15,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
   InvoicesController.prototype.show = function() {
     $tableHTML = $("#providers-table");
 
-    if(window.populateData.endpoint === ""){
-      dataEndpoint = "/presupuestos/proveedores-facturas.csv"
-    } else {
-      dataEndpoint = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv'
-    }
+    dataEndpoint = "/presupuestos/proveedores-facturas.csv"
 
     let municipalityId = window.populateData.municipalityId;
     let maxYearUrl = dataEndpoint + '?filter_by_location_id='+municipalityId+'&sort_desc_by=date&limit=1';

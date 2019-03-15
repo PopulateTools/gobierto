@@ -10,7 +10,7 @@
               <th><%= content_block_field.localized_label %></th>
             <% end %>
             <th>
-              <!-- <i class="fa fa-paperclip" title="Adjunto"></i><%= t(".attachment")%> -->
+              <!-- <i class="fas fa-paperclip" title="Adjunto"></i><%= t(".attachment")%> -->
             </th>
           </tr>
           <tbody>
@@ -21,7 +21,7 @@
                   <td>
                     <% if content_block_record_field.url? && field_value %>
                       <%= link_to field_value, target: '_blank' do %>
-                        <button class="small"><i class="fa fa-external-link"></i> <%= t('.view_content') %></button>
+                        <button class="small"><i class="fas fa-external-link"></i> <%= t('.view_content') %></button>
                       <% end %>
                     <% else %>
                       <%= field_value %>
@@ -31,7 +31,7 @@
                 <td>
                   <% if content_block_record.attachment_url.present? %>
                     <%= link_to content_block_record.attachment_url, target: '_blank', title: t(".download_attachment") + '(' + pretty_filename_url(content_block_record.attachment_url) + ')' do %>
-                      <button class="small"><i class="fa fa-paperclip"></i><%= t(".download") %></button>
+                      <button class="small"><i class="fas fa-paperclip"></i><%= t(".download") %></button>
                     <% end %>
                   <% end %>
                 </td>

@@ -4,7 +4,7 @@
     <div @click="toggle" class="item-title">
       <div class="item-toggle p_h_r_1" v-if="hasChildren">
         <div class="toggle-container">
-          <i class="fa fa-caret-down"></i>
+          <i class="fas fa-caret-down"></i>
         </div>
       </div>
       <div class="item-id p_h_r_1" v-else>{{model.id}}</div>
@@ -18,8 +18,8 @@
 
       <div class="item-check" v-if="!hasChildren && type == 'boolean'">
         <div class="check-container" :class="(model.attributes.checked) ? 'check-container--true' : 'check-container--false'">
-          <i class="fa fa-check" v-if="model.attributes.checked"></i>
-          <i class="fa fa-times" v-else></i>
+          <i class="fas fa-check" v-if="model.attributes.checked"></i>
+          <i class="fas fa-times" v-else></i>
         </div>
       </div>
       <div class="item-check" v-if="!hasChildren && type == 'numeric'">
@@ -44,10 +44,10 @@
       <div class="item-check" v-if="type == 'boolean'">
         <div class="row">
           <div class="check-container check-container--true" :class="{ 'check-container--unchecked' : !model.attributes.checked }">
-            <i class="fa fa-check"></i>
+            <i class="fas fa-check"></i>
           </div>
           <div class="check-container check-container--false" :class="{ 'check-container--unchecked' : model.attributes.checked }">
-            <i class="fa fa-times"></i>
+            <i class="fas fa-times"></i>
           </div>
         </div>
         <div class="row">
@@ -68,7 +68,7 @@
     <div class="item-extrainfo p_h_2 mt3" v-if="type == 'boolean' && model.attributes.links.length > 0">
       <%= t(".more") %>
       <a v-for="item in model.attributes.links" :href="item.link.url" target="_blank">
-        {{ item.link.title }} <i class="fa fa-share-square-o"></i>
+        {{ item.link.title }} <i class="fas fa-share-square-o"></i>
       </a>
     </div>
     <div class="item-extrainfo p_h_2 mt3" v-if="type == 'numeric'">
@@ -98,7 +98,7 @@
     <div class="item-title" @click="unselect">
       <div class="item-toggle p_h_r_1">
         <div class="toggle-container">
-          <i class="fa fa-caret-left"></i>
+          <i class="fas fa-caret-left"></i>
         </div>
       </div>
       <div class="item-text">

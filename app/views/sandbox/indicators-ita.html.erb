@@ -48,7 +48,7 @@
     <div @click="toggle" class="item-title">
       <div class="item-toggle p_h_r_1" v-if="hasChildren">
         <div class="toggle-container">
-          <i class="fa fa-caret-down"></i>
+          <i class="fas fa-caret-down"></i>
         </div>
       </div>
       <div class="item-id p_h_r_1" v-else>{{model.id + 1}}</div>
@@ -64,8 +64,8 @@
 
       <div class="item-check" v-if="!hasChildren">
         <div class="check-container" :class="(model.attributes.checked) ? 'check-container--true' : 'check-container--false'">
-          <i class="fa fa-check" v-if="model.attributes.checked"></i>
-          <i class="fa fa-times" v-else></i>
+          <i class="fas fa-check" v-if="model.attributes.checked"></i>
+          <i class="fas fa-times" v-else></i>
         </div>
       </div>
     </div>
@@ -86,10 +86,10 @@
       <div class="item-check">
         <div class="row">
           <div class="check-container check-container--true" :class="{ 'check-container--unchecked' : !model.attributes.checked }">
-            <i class="fa fa-check"></i>
+            <i class="fas fa-check"></i>
           </div>
           <div class="check-container check-container--false" :class="{ 'check-container--unchecked' : model.attributes.checked }">
-            <i class="fa fa-times"></i>
+            <i class="fas fa-times"></i>
           </div>
         </div>
         <div class="row">
@@ -104,9 +104,9 @@
     </div>
     <div class="item-extrainfo p_h_2 mt3">
       Más información
-      <a href="#">Plantilla del consejo <i class="fa fa-share-square-o"></i></a>
-      <a href="#">Catàleg de llocs de treball de personal funcionari i laboral, amb indicació de les retribucions <i class="fa fa-share-square-o"></i></a>
-      <a href="#">Retribucions dels càrrecs polítics de l'alcalde, regidors i regidores<i class="fa fa-share-square-o"></i></a>
+      <a href="#">Plantilla del consejo <i class="fas fa-share-square-o"></i></a>
+      <a href="#">Catàleg de llocs de treball de personal funcionari i laboral, amb indicació de les retribucions <i class="fas fa-share-square-o"></i></a>
+      <a href="#">Retribucions dels càrrecs polítics de l'alcalde, regidors i regidores<i class="fas fa-share-square-o"></i></a>
     </div>
   </li>
 </script>
@@ -117,7 +117,7 @@
     <div class="item-title">
       <div class="item-toggle p_h_r_1">
         <div class="toggle-container">
-          <i class="fa fa-caret-left"></i>
+          <i class="fas fa-caret-left"></i>
         </div>
       </div>
       <div class="item-text">

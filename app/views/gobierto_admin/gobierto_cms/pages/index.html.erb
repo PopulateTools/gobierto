@@ -62,7 +62,7 @@
           <td>
             <% unless section.section_items.empty? %>
               <%= link_to gobierto_cms_section_path(section.slug), target: "_blank", class: "view_item" do %>
-                <i class="fa fa-eye"></i>
+                <i class="fas fa-eye"></i>
                 <%= t(".view_section") %>
               <% end %>
             <% end %>
@@ -95,19 +95,19 @@
           <tr id="collection-item-<%= collection.id %>">
             <td>
               <%= link_to edit_admin_common_collection_path(collection, item_type: 'Page'), class: 'open_remote_modal' do %>
-                <i class="fa fa-edit"></i>
+                <i class="fas fa-edit"></i>
               <% end %>
             </td>
             <td><%= link_to collection.title, admin_common_collection_path(collection) %> (<%= collection_context(collection) %>)</td>
             <td><%= ::GobiertoCms::Page.where(id: collection.pages_or_news_in_collection).size %></td>
             <td>
               <%= link_to new_admin_cms_page_path(collection_id: collection.id), target: "_blank", class: "view_item" do %>
-                <i class='fa fa-plus-circle'></i><%= t('.add_new') %> <%= collection.item_type.include?("News") ? t('activerecord.models.gobierto_cms/news') : t('activerecord.models.gobierto_cms/page') %>
+                <i class='fas fa-plus-circle'></i><%= t('.add_new') %> <%= collection.item_type.include?("News") ? t('activerecord.models.gobierto_cms/news') : t('activerecord.models.gobierto_cms/page') %>
               <% end %>
             </td>
             <td>
               <%= link_to gobierto_cms_pages_path(collection.slug), target: "_blank", class: "view_item" do %>
-                <i class="fa fa-eye"></i>
+                <i class="fas fa-eye"></i>
                 <%= t(".view_collection") %>
               <% end %>
             </td>

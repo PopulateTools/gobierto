@@ -25,7 +25,7 @@
       <tr id="term-item-<%= term.id %>" class="<%= cycle("odd", "even") %>">
         <td>
           <%= link_to edit_admin_common_term_path(term) do %>
-            <i class="fa fa-edit"></i>
+            <i class="fas fa-edit"></i>
           <% end %>
         </td>
         <td>
@@ -44,7 +44,7 @@
         </td>
         <td>
           <%= link_to admin_common_term_path(term), method: :delete, title: t("views.delete"), data: { confirm: t(".delete_confirm") } do %>
-            <i class="fa fa-trash"></i>
+            <i class="fas fa-trash"></i>
           <% end %>
         </td>
       </tr>

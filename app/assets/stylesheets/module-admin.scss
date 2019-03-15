@@ -318,6 +318,10 @@ body.gobierto_admin {
   button {
     margin-left: 0.25em;
   }
+  .button:last-child,
+  button:last-child {
+    margin: 0;
+  }
 }
 
 .widget_save {

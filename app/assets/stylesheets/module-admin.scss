@@ -924,3 +924,10 @@ table {
     width: 3%;
   }
 }
+
+
+
+.border-el {
+  border: 1px solid $color_separator;
+  @include border-radius(6px);
+}

@@ -494,7 +494,8 @@ input[type="radio"] + label span {
 }
 
 input[type="checkbox"] + label:hover,
-input[type="radio"] + label:hover {
+input[type="radio"] + label:hover,
+.admin_new_el a:hover {
   background: rgba($color_main, 0.1);
 }
 
@@ -785,6 +786,15 @@ select {
 .attach_file input[type=file] {
   padding: 1em;
   height: auto;
+}
+
+.admin_new_el {
+  a {
+    display: block;
+  }
+}
+.admin_new_el.inline {
+  display: inline-block;
 }
 
 /*

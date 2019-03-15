@@ -9,7 +9,7 @@
     <% end %>
 
     <%= link_to sync_calendars_admin_calendars_configuration_path(@calendar_configuration_form.collection.id), method: :put, data: { confirm: t(".confirm_sync") } do %>
-      <i class="fas fa-refresh"></i>
+      <i class="fas fa-sync-alt"></i>
       <%= t('.sync') %>
     <% end %>
   </div>

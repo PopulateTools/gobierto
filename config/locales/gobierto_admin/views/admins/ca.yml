@@ -6,17 +6,14 @@ ca:
         title: Editar Administrador
       form:
         activity_block: Log d'actividad
-        all: Totes
         authorization_level:
           disabled: Deshabilitat
           manager: Manager
           regular: Regular
         password_block: Contrasenya
-        permissions_block: Permisos
         placeholders:
           email: fgonzalez@gmail.com
           name: Fernando González
-        site_options_permissions: Lloc web
         sites_block: Sites amb accés
       index:
         header:

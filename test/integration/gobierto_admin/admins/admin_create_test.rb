@@ -46,9 +46,6 @@ module GobiertoAdmin
             fill_in "admin_name", with: "Admin Name"
             fill_in "admin_email", with: "admin@email.dev"
 
-            # grant permissions for Gobierto Development
-            find("label[for='admin_permitted_modules_gobiertodevelopment']").click
-
             # set authorization level to 'Regular'
             find("label[for='admin_authorization_level_regular']", visible: false).click
 
@@ -64,11 +61,6 @@ module GobiertoAdmin
           assert has_content?("admin@email.dev")
 
           click_link "Admin Name"
-
-          # assert GobiertoDevelopment is checked
-          assert find("#admin_permitted_modules_gobiertodevelopment", visible: false).checked?
-          # refute GobiertoDevelopment is checked
-          refute find("#admin_permitted_modules_gobiertobudgets", visible: false).checked?
 
           # assert Madrid is checked
           assert find("#admin_permitted_sites_#{madrid.id}", visible: false).checked?
@@ -112,15 +104,6 @@ module GobiertoAdmin
           # grant permissions for madrid.gobierto.test
           find("label[for='admin_permitted_sites_#{madrid.id}']").click
 
-          # grant permissions for Gobierto People
-          find("label[for='admin_permitted_modules_gobiertopeople']").click
-
-          # grant permissions for Richard Rider
-          find("label[for='admin_permitted_people_#{richard.id}']", visible: false).trigger(:click)
-
-          # grant permissions for Templates
-          find("label[for='admin_permitted_site_options_templates']").click
-
           click_button "Create"
 
           assert has_message?("Admin was successfully created")
@@ -128,36 +111,10 @@ module GobiertoAdmin
       end
 
       new_admin = ::GobiertoAdmin::Admin.last
-      permissions = new_admin.permissions
-      module_permission = new_admin.modules_permissions.first
-      person_permission = new_admin.people_permissions.first
-      site_option_permission = new_admin.site_options_permissions.first
 
       # assert site permissions
 
       assert_equal [madrid], new_admin.sites
-
-      # assert total permissions
-
-      assert_equal 3, permissions.size
-
-      # assert module permissions
-
-      assert_equal "site_module", module_permission.namespace
-      assert_nil module_permission.resource_id
-      assert_equal "manage", module_permission.action_name
-
-      # assert person permissions
-
-      assert_equal "gobierto_people", person_permission.namespace
-      assert_equal richard.id, person_permission.resource_id
-      assert_equal "manage", person_permission.action_name
-
-      # assert site options permissions
-
-      assert_equal "site_options", site_option_permission.namespace
-      assert_equal "templates", site_option_permission.resource_name
-      assert_equal "manage", site_option_permission.action_name
     end
   end
 end

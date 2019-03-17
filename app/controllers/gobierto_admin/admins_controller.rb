@@ -14,10 +14,7 @@ module GobiertoAdmin
       @admin_form = AdminForm.new
 
       set_admin_policy
-      set_site_modules
-      set_site_options
       set_sites
-      set_people
       set_authorization_levels
     end
 
@@ -25,19 +22,11 @@ module GobiertoAdmin
       @admin = find_admin
 
       @admin_form = AdminForm.new(
-        @admin.attributes.except(*ignored_admin_attributes).merge(
-          permitted_sites: @admin.sites.pluck(:id),
-          permitted_modules:  @admin.modules_permissions.pluck(:resource_name),
-          permitted_people: @admin.people_permissions.pluck(:resource_id),
-          permitted_site_options: @admin.site_options_permissions.pluck(:resource_name)
-        )
+        @admin.attributes.except(*ignored_admin_attributes).merge(permitted_sites: @admin.sites.pluck(:id))
       )
 
       set_admin_policy
-      set_site_modules
-      set_site_options
       set_sites
-      set_people
       set_authorization_levels
       set_activities
     end
@@ -48,10 +37,7 @@ module GobiertoAdmin
       @admin_form = AdminForm.new(admin_params.merge(creation_ip: remote_ip, password: random_password, password_confirmation: random_password))
 
       set_admin_policy
-      set_site_modules
-      set_site_options
       set_sites
-      set_people
       set_authorization_levels
 
       if @admin_form.save
@@ -70,10 +56,7 @@ module GobiertoAdmin
 
       @admin_form = AdminForm.new(admin_params.merge(id: params[:id]))
 
-      set_site_modules
-      set_site_options
       set_sites
-      set_people
       set_authorization_levels
       set_activities
 
@@ -98,11 +81,7 @@ module GobiertoAdmin
         :password,
         :password_confirmation,
         :authorization_level,
-        :all_people_permitted,
-        permitted_sites: [],
-        permitted_modules: [],
-        permitted_people: [],
-        permitted_site_options: []
+        permitted_sites: []
       )
     end
 
@@ -118,27 +97,8 @@ module GobiertoAdmin
       @admin_policy = AdminPolicy.new(current_admin, @admin)
     end
 
-    def set_site_modules
-      @site_modules = APP_CONFIG["site_modules"].map do |site_module|
-        OpenStruct.new(site_module)
-      end
-    end
-
-    def set_site_options
-      @site_options = Permission::SiteOption::RESOURCE_NAMES.map do |option_name|
-        OpenStruct.new(
-          name: option_name,
-          label_text: Permission::SiteOption.label_text(option_name)
-        )
-      end
-    end
-
     def set_sites
       @sites = Site.select(:id, :domain).all
-    end
-
-    def set_people
-      @people = ::GobiertoPeople::Person.order(:site_id)
     end
 
     def set_authorization_levels
@@ -170,6 +130,5 @@ module GobiertoAdmin
     def generate_random_password
       SecureRandom.hex(8)
     end
-
   end
 end

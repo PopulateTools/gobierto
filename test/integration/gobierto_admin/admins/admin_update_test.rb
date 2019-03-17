@@ -35,17 +35,10 @@ module GobiertoAdmin
           fill_in "admin_name", with: "Admin Name"
           fill_in "admin_email", with: "wadus@gobierto.dev"
 
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
-          end
-
           within ".site-check-boxes" do
             uncheck "santander.gobierto.test"
             check "madrid.gobierto.test"
           end
-
-          uncheck "Vocabularies"
-          check "Templates"
 
           within ".admin-authorization-level-radio-buttons" do
             choose "Regular"
@@ -60,18 +53,10 @@ module GobiertoAdmin
           assert has_field?("admin_email", with: "wadus@gobierto.dev")
           assert has_field?("admin_name", with: "Admin Name")
 
-          within ".site-module-check-boxes" do
-            assert has_checked_field?("Gobierto Development")
-            assert has_no_checked_field?("Gobierto Budgets")
-          end
-
           within ".site-check-boxes" do
             assert has_no_checked_field?("santander.gobierto.test")
             assert has_checked_field?("madrid.gobierto.test")
           end
-
-          assert has_no_checked_field?("Vocabularies")
-          assert has_checked_field?("Templates")
 
           within ".admin-authorization-level-radio-buttons" do
             assert has_checked_field?("Regular")
@@ -121,7 +106,6 @@ module GobiertoAdmin
           assert has_field?("admin_name", disabled: true)
           assert has_field?("admin_email", disabled: true)
 
-          assert has_no_selector?(".site-module-check-boxes")
           assert has_no_selector?(".site-check-boxes")
           assert has_no_selector?(".admin-authorization-level-radio-buttons")
 
@@ -139,10 +123,6 @@ module GobiertoAdmin
           fill_in "admin_email", with: "wadus@gobierto.dev"
           fill_in "admin_password", with: "wadus"
           fill_in "admin_password_confirmation", with: "foo"
-
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
-          end
 
           within ".site-check-boxes" do
             check "madrid.gobierto.test"
@@ -167,10 +147,6 @@ module GobiertoAdmin
           fill_in "admin_name", with: "Admin Name"
           fill_in "admin_email", with: "wadus@gobierto.dev"
           fill_in "admin_password", with: "wadus"
-
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
-          end
 
           within ".site-check-boxes" do
             check "madrid.gobierto.test"

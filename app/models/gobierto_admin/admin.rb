@@ -1,4 +1,6 @@
-require_dependency 'gobierto_admin'
+# frozen_string_literal: true
+
+require_dependency "gobierto_admin"
 
 module GobiertoAdmin
   class Admin < ApplicationRecord
@@ -7,7 +9,7 @@ module GobiertoAdmin
     include Authentication::Recoverable
     include Session::Trackable
 
-    EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
+    EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/.freeze
 
     has_many :admin_sites, dependent: :destroy
     has_many :sites, through: :admin_sites
@@ -36,15 +38,15 @@ module GobiertoAdmin
     validates_associated :permissions
 
     scope :sorted, -> { order(created_at: :desc) }
-    scope :god,    -> { where(god: true) }
+    scope :god, -> { where(god: true) }
     scope :active, -> { where.not(authorization_level: authorization_levels[:disabled]) }
 
     enum authorization_level: { regular: 0, manager: 1, disabled: 2 }
 
     def self.preset
       god.first || god.new(
-        email: APP_CONFIG['admins']['preset_admin_email'],
-        name: APP_CONFIG['admins']['preset_admin_name'],
+        email: APP_CONFIG["admins"]["preset_admin_email"],
+        name: APP_CONFIG["admins"]["preset_admin_name"],
         password: Rails.application.secrets.preset_admin_password
       )
     end
@@ -71,7 +73,7 @@ module GobiertoAdmin
       return super unless god?
 
       print "Do you REALLY want to destroy the God Admin ##{id}? [Yes/No]: "
-      return 'Skipping deletion' unless gets.chomp == 'Yes'
+      return "Skipping deletion" unless gets.chomp == "Yes"
 
       super
     end

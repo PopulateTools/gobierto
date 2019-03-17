@@ -1,0 +1,6 @@
+madrid_group:
+  name: global
+  site: madrid
+santander_group:
+  name: global
+  site: santander

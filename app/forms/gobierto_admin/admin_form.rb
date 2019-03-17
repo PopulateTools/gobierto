@@ -66,11 +66,11 @@ module GobiertoAdmin
     end
 
     def set_permitted_sites(attributes)
-      if authorization_level != 'regular'
+      if authorization_level != "regular"
         @permitted_sites = []
         @sites = []
       elsif attributes[:permitted_sites].present?
-        @permitted_sites = attributes[:permitted_sites].select{ |id| id.present? }.map{|id| id.to_i }.compact
+        @permitted_sites = attributes[:permitted_sites].select(&:present?).map(&:to_i).compact
         @sites = Site.where(id: permitted_sites)
       elsif @admin
         @permitted_sites = @admin.sites.pluck(:id)

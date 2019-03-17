@@ -47,7 +47,7 @@ fixtures_to_load = [
   "gobierto_participation/poll_answer_templates",
   "gobierto_participation/poll_answers",
   "gobierto_common/collection_items",
-  "gobierto_admin/permissions",
+  "gobierto_admin/group_permissions",
   "gobierto_plans/plan_types",
   "gobierto_plans/plans",
   "gobierto_plans/nodes",

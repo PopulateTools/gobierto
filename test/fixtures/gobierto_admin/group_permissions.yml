@@ -1,43 +1,43 @@
-tony_create:
-  admin: tony
+madrid_create:
+  admin_group: madrid_group
   namespace: global
   resource_name: global
   action_name: create
 
-tony_gobierto_budget_consultations:
-  admin: tony
+admin_gobierto_budget_consultations:
+  admin_group: madrid_group
   resource_name: gobierto_budget_consultations
   namespace: site_module
   action_name: manage
 
-tony_gobierto_people:
-  admin: tony
+admin_gobierto_people:
+  admin_group: madrid_group
   resource_name: gobierto_people
   namespace: site_module
   action_name: manage
 
-tony_richard:
-  admin: tony
+admin_richard:
+  admin_group: madrid_group
   namespace: gobierto_people
   resource_name: person
   resource_id: <%= ActiveRecord::FixtureSet.identify(:richard) %>
   action_name: manage
 
-tony_tamara:
-  admin: tony
+admin_tamara:
+  admin_group: madrid_group
   namespace: gobierto_people
   resource_name: person
   resource_id: <%= ActiveRecord::FixtureSet.identify(:tamara) %>
   action_name: manage
 
-tony_site_options_customize:
-  admin: tony
+admin_site_options_customize:
+  admin_group: madrid_group
   namespace: site_options
   resource_name: customize
   action_name: manage
 
-tony_site_options_vocabularies:
-  admin: tony
+admin_site_options_vocabularies:
+  admin_group: madrid_group
   namespace: site_options
   resource_name: vocabularies
   action_name: manage

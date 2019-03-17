@@ -6,8 +6,10 @@ module GobiertoAdmin
   class GroupPermission < ApplicationRecord
     belongs_to :admin_group
 
+    scope :global, -> { where(namespace: "global", resource_name: "global") }
     scope :for_modules, -> { where(namespace: "site_module") }
     scope :for_people, -> { where(namespace: "gobierto_people", resource_name: "person") }
+    scope :for_site_people, ->(site_ids) { for_people.joins("JOIN gp_people ON gp_people.id = admin_group_permissions.resource_id").where(gp_people:{ site_id: site_ids }) }
     scope :for_site_options, -> { where(namespace: "site_options") }
     scope :for_class_module, -> { for_modules.where(resource_name: model.name.demodulize.underscore) }
 

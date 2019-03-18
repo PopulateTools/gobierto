@@ -9,7 +9,7 @@ module GobiertoAdmin
     include Authentication::Recoverable
     include Session::Trackable
 
-    EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/.freeze
+    EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 
     has_many :admin_sites, dependent: :destroy
     has_many :sites, through: :admin_sites

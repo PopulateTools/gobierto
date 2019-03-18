@@ -120,9 +120,7 @@ module GobiertoAdmin
     end
 
     def test_revoke_gobierto_people_permissions_revokes_people_permissions
-      form = subject.new(madrid_group_params.merge(
-        modules: %w(GobiertoBudgetConsultations)
-      ))
+      form = subject.new(madrid_group_params.merge(modules: %w(GobiertoBudgetConsultations)))
 
       assert form.save
 
@@ -130,10 +128,12 @@ module GobiertoAdmin
     end
 
     def test_grant_person_permissions
-      form = subject.new(madrid_group_params.merge(
-        modules: %w(GobiertoPeople GobiertoBudgetConsultations),
-        people: [richard.id, tamara.id, kali.id]
-      ))
+      form = subject.new(
+        madrid_group_params.merge(
+          modules: %w(GobiertoPeople GobiertoBudgetConsultations),
+          people: [richard.id, tamara.id, kali.id]
+        )
+      )
 
       assert form.save
 
@@ -141,11 +141,13 @@ module GobiertoAdmin
     end
 
     def test_grant_all_people_permissions
-      form = subject.new(madrid_group_params.merge(
-        modules: %w(GobiertoPeople),
-        people: [],
-        all_people: "1"
-      ))
+      form = subject.new(
+        madrid_group_params.merge(
+          modules: %w(GobiertoPeople),
+          people: [],
+          all_people: "1"
+        )
+      )
 
       assert form.save
 
@@ -156,10 +158,12 @@ module GobiertoAdmin
     end
 
     def test_grant_person_permissions_without_site_permissions
-      form = subject.new(madrid_group_params.merge(
-        modules: %w(GobiertoPeople GobiertoBudgetConsultations),
-        people: [richard.id, tamara.id, kali.id]
-      ))
+      form = subject.new(
+        madrid_group_params.merge(
+          modules: %w(GobiertoPeople GobiertoBudgetConsultations),
+          people: [richard.id, tamara.id, kali.id]
+        )
+      )
 
       assert form.save
 

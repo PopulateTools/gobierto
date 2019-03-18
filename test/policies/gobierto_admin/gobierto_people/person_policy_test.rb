@@ -44,7 +44,13 @@ module GobiertoAdmin
         sites(:santander)
       end
 
+      def madrid_group
+        @madrid_group ||= gobierto_admin_groups(:madrid_group)
+      end
+
       def test_manager_admin_manage?
+        remove_admin_groups
+
         assert PersonPolicy.new(current_admin: manager_admin, person: published_person).manage?
         assert PersonPolicy.new(current_admin: manager_admin, person: draft_person).manage?
       end
@@ -74,6 +80,8 @@ module GobiertoAdmin
       end
 
       def test_view?
+        remove_admin_groups
+
         assert PersonPolicy.new(current_admin: manager_admin, person: published_person).view?
         assert PersonPolicy.new(current_admin: manager_admin, person: draft_person).view?
 
@@ -85,35 +93,55 @@ module GobiertoAdmin
       end
 
       def test_create?
+        remove_admin_groups
+
         assert PersonPolicy.new(current_admin: manager_admin, current_site: site).create?
         refute PersonPolicy.new(current_admin: disabled_admin, current_site: site).create?
 
         # with all permissions
-        setup_specific_permissions(regular_admin, site: site, module: 'gobierto_people', all_people: true)
+        setup_specific_permissions(regular_admin, site: site, module: "gobierto_people", all_people: true)
         assert PersonPolicy.new(current_admin: regular_admin, current_site: site).create?
 
         # with manage_all permissions, but on other site
-        setup_specific_permissions(regular_admin, site: santander, module: 'gobierto_people', all_people: true)
+        setup_specific_permissions(regular_admin, site: santander, module: "gobierto_people", all_people: true)
         refute PersonPolicy.new(current_admin: regular_admin, current_site: site).create?
 
         # without module permissions
         setup_specific_permissions(regular_admin, site: site, all_people: true)
+
         refute PersonPolicy.new(current_admin: regular_admin, current_site: site).create?
 
         # without manage_all permissions
-        setup_specific_permissions(regular_admin, site: site, module: 'gobierto_people')
+        setup_specific_permissions(regular_admin, site: site, module: "gobierto_people")
         refute PersonPolicy.new(current_admin: regular_admin, current_site: site).create?
       end
 
       def test_manage_all_people_in_site?
-        refute PersonPolicy.new(current_admin: disabled_admin, current_site: site).manage_all_people_in_site?
-        assert PersonPolicy.new(current_admin: manager_admin,  current_site: site).manage_all_people_in_site?
-        refute PersonPolicy.new(current_admin: regular_admin,  current_site: site).manage_all_people_in_site?
+        remove_admin_groups
 
-        setup_specific_permissions(regular_admin, site: site, module: 'gobierto_people', all_people: true)
+        refute PersonPolicy.new(current_admin: disabled_admin, current_site: site).manage_all_people_in_site?
+        assert PersonPolicy.new(current_admin: manager_admin, current_site: site).manage_all_people_in_site?
+        refute PersonPolicy.new(current_admin: regular_admin, current_site: site).manage_all_people_in_site?
+
+        setup_specific_permissions(regular_admin, site: site, module: "gobierto_people", all_people: true)
         assert PersonPolicy.new(current_admin: regular_admin, current_site: site).manage_all_people_in_site?
       end
 
+      def test_multiple_groups_permissions
+        refute PersonPolicy.new(current_admin: regular_admin, current_site: site).manage_all_people_in_site?
+        assert PersonPolicy.new(current_admin: regular_admin, person: person).manage?
+
+        setup_specific_permissions(regular_admin, site: site, module: "gobierto_people", all_people: true, reset: false)
+
+        assert PersonPolicy.new(current_admin: regular_admin, current_site: site).manage_all_people_in_site?
+        assert PersonPolicy.new(current_admin: regular_admin, person: person).manage?
+      end
+
+      private
+
+      def remove_admin_groups
+        GobiertoAdmin::AdminGroup.destroy_all
+      end
     end
   end
 end

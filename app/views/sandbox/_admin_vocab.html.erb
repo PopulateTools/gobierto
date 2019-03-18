@@ -29,6 +29,14 @@ $(document).ready(function(){
     $('.v_container .v_el_level_0 .v_el').addClass('el-opened');
   });
 
+  $('.v_el').hover(
+    function(e) {
+      $(this).first('.v_el_actions').addClass('v_el_active');
+    },
+    function(e) {
+      $(this).first('.v_el_actions').removeClass('v_el_active');
+    }
+  );
 
   // only for sandbox
   $('.sandbox_remove_decorated_content').click(function(e) {
@@ -142,10 +150,23 @@ $(document).ready(function(){
           'Proyecto 4',
           'Proyecto 5'
         ] %>
-        <div class="v_el v_el_level_2">
-          <div class="v_el_title">
-            <i class="fas fa-file-alt"></i>
-            <%= link_to i, 'admin_plans_plan_project' %>
+        <div class="v_el v_el_level_3">
+          <div class="v_el_cont">
+            <div class="v_el_title">
+              <i class="fas fa-file-alt"></i>
+              <%= link_to i, 'admin_plans_plan_projects_project' %>
+            </div>
+            <div class="v_el_decorated">
+              <div>
+                123
+              </div>
+              <div>
+                45%
+              </div>
+            </div>
+            <div class="v_el_actions">
+              <%= link_to '<i class="fas icon fa-edit"></i>'.html_safe, 'admin_plans_plan_projects_project' %>
+            </div>
           </div>
         </div>
         <% end %>

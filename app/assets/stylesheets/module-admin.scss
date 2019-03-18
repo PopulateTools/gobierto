@@ -966,6 +966,16 @@ table {
         background: transparentize(#FFF, .5);;
       }
     }
+
+    .v_el_actions {
+      opacity: 0;
+    }
+
+  }
+  .v_el_active {
+    > .v_el_cont .v_el_actions {
+      opacity: 1;
+    }
   }
 
   .v_el:hover {

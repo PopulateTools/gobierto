@@ -16,6 +16,7 @@ module GobiertoAdmin
         super
         @path = edit_admin_people_person_path(person)
         setup_authorizable_resource_test(gobierto_admin_admins(:steve), @path)
+        setup_specific_permissions(admin, module: "gobierto_people", person: person, site: site, reset: false)
       end
 
       def person

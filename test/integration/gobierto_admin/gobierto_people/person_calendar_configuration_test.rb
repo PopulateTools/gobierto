@@ -459,6 +459,7 @@ module GobiertoAdmin
       end
 
       def test_regular_admin_manage_without_permissions
+        setup_specific_permissions(regular_admin_without_permissions, module: "gobierto_people", site: site)
         with_signed_in_admin(regular_admin_without_permissions) do
           with_current_site(site) do
             visit edit_admin_calendars_configuration_path(person.calendar)

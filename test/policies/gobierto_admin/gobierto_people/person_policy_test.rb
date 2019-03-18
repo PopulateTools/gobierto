@@ -51,11 +51,11 @@ module GobiertoAdmin
 
       def test_regular_admin_manage?
         # with all permissions
-        setup_specific_permissions(regular_admin, site: site, module: 'gobierto_people', person: person)
+        setup_specific_permissions(regular_admin, site: site, module: "gobierto_people", person: person)
         assert PersonPolicy.new(current_admin: regular_admin, person: person).manage?
 
         # without site permissions
-        setup_specific_permissions(regular_admin, module: 'gobierto_people', person: person)
+        setup_specific_permissions(regular_admin, module: "gobierto_people", person: person)
         refute PersonPolicy.new(current_admin: regular_admin, person: person).manage?
 
         # without module permissions

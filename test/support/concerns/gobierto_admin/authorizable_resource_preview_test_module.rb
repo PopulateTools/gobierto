@@ -12,7 +12,7 @@ module GobiertoAdmin
       # Most tests use 'Steve'. Grant module permissions to make
       # sure action is rejected because resource permissions don't
       # exist, not because of module ones.
-      grant_module_permissions_to_admin(@authorizable_admin, 'gobierto_people')
+      setup_specific_permissions(@authorizable_admin, module: "gobierto_people", site: site)
     end
 
     def test_preview_resource

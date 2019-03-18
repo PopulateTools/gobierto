@@ -1,6 +1,11 @@
 ---
 es:
   gobierto_admin:
+    admin_groups:
+      create:
+        success: El Grupo de Admins se ha creado correctamente
+      update:
+        success: El Grupo de Admins se ha actualizado correctamente
     admins:
       create:
         success: El Admin se ha creado correctamente

@@ -14,6 +14,8 @@ es:
         password_confirmation: Confirmación de contraseña
         site_ids: Sitios
         site_modules: Módulos
+      gobierto_admin/admin_group_form:
+        name: Nombre del grupo
       gobierto_admin/admin_invitation_form:
         emails: Emails
         site_ids: Sitios
@@ -55,6 +57,7 @@ es:
       gobierto_admin/admin_confirmation_form: Confirmación
       gobierto_admin/admin_edit_password_form: Cambio de contraseña
       gobierto_admin/admin_form: Administrador
+      gobierto_admin/admin_group_form: Grupo
       gobierto_admin/admin_invitation_form: Invitación
       gobierto_admin/admin_new_password_form: Recuperación de contraseña
       gobierto_admin/file_attachment_form: Cambio en el documento

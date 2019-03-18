@@ -1,0 +1,25 @@
+---
+es:
+  gobierto_admin:
+    admin_groups:
+      breadcrumb:
+        admin_groups: Grupos
+      edit:
+        title: 'Permisos del grupo: %{name}'
+      form:
+        all: Todos
+        members:
+          one: Hay un administrador con este grupo.
+          other: Hay %{count} administradores con este grupo.
+          zero: Este grupo no tiene administradores.
+        modules_permissions: Módulos
+        placeholders:
+          name: Grupo global de administradores
+        site_options_permissions: Sitio
+      index:
+        header:
+          admin_group: Grupo
+        new: Nuevo
+        title: Grupos
+      new:
+        title: Nuevo grupo

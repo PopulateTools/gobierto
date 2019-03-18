@@ -16,6 +16,7 @@ en:
           name: Fernando González
         sites_block: Allowed sites
       index:
+        groups_and_permissions: Groups and permissions
         header:
           admin: Admin
           created_at: Created

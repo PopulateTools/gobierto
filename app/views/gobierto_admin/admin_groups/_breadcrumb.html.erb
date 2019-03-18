@@ -1,0 +1,11 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.layouts.application.users"), admin_users_path %> »
+  <%= link_to t("gobierto_admin.users.index.admins_section"), admin_admins_path %> »
+  <% if @admin_group.present? %>
+    <%= link_to t(".admin_groups"), admin_admin_groups_path %> »
+    <%= @admin_group.name %>
+  <% else %>
+    <%= t(".admin_groups") %>
+  <% end %>
+</div>

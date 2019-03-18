@@ -1,0 +1,31 @@
+<%= render "breadcrumb" %>
+
+<h1><%= t(".title") %></h1>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_admin_group_path, class: "button" %>
+</div>
+
+<table class="admin-list">
+  <tbody>
+    <tr>
+      <th class="icon"></th>
+      <th><%= t(".header.admin_group") %></th>
+    </tr>
+
+    <% @admin_groups.each do |admin_group| %>
+      <tr id="admin-item-<%= admin_group.id %>" class="<%= cycle("odd", "even") %>">
+        <td>
+          <%= link_to edit_admin_admin_group_path(admin_group) do %>
+            <i class="fa fa-edit"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_admin_admin_group_path(admin_group) do %>
+            <%= admin_group.name %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

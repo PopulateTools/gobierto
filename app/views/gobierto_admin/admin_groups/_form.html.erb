@@ -1,0 +1,102 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @admin_group_form %>
+
+<%= form_for(@admin_group_form, as: :admin_group, url: @admin_group_form.persisted? ? admin_admin_group_path(@admin_group_form) : :admin_admin_groups) do |f| %>
+
+  <div class="pure-g">
+
+    <div class="pure-u-1 pure-u-md-16-24">
+      <% if @admin_group_form.persisted? %>
+        <p><%= t(".members", count: @admin_group.admins.count) %></p>
+      <% end %>
+      <% unless @admin && @admin.god? %>
+
+        <div class="form_item input_text">
+          <%= f.label :name %>
+          <%= f.text_field :name, placeholder: t(".placeholders.name"), disabled: !@admin_policy.update? %>
+        </div>
+
+          <h3><%= t(".site_options_permissions") %></h3>
+
+          <div class="form_item">
+            <div class="options compact">
+              <%= f.collection_check_boxes(:site_options, Array(@site_options), :name, :name) do |b| %>
+                <div class="option">
+                  <%= b.check_box(checked: @admin_group && @admin_group.site_options_permissions.exists?(resource_name: b.object.name)) %>
+                  <%= b.label do %>
+                    <span></span>
+                    <%= b.object.label_text %>
+                  <% end %>
+                </div>
+
+              <% end %>
+            </div>
+          </div>
+
+          <h3><%= t(".modules_permissions") %></h3>
+
+          <div class="form_item">
+            <div class="options compact">
+              <%= f.collection_check_boxes(:modules, Array(@site_modules), :namespace, :name) do |module_b| %>
+                <div class="option">
+                  <% check_module_permission = @admin_group && @admin_group.permissions.by_namespace("site_module").resource_names.map(&:camelize).include?(module_b.value) %>
+                  <%= module_b.check_box(data: { behavior: "toggle-module-#{module_b.value}" }, checked: check_module_permission) %>
+                  <%= module_b.label do %>
+                    <span></span>
+                    <%= module_b.text %>
+                  <% end %>
+                </div>
+
+                <% if module_b.text == 'Gobierto People' %>
+                  <% module_active = f.object.modules.include?(module_b.object.namespace.underscore) %>
+
+                  <div class="option_suboptions" id="people_permissions" style="<%= module_active ? '' : 'display: none;' %>">
+
+                    <div class="option">
+                      <%= f.check_box :all_people %>
+                      <%= f.label :all_people do %>
+                        <span></span><b><%= t('.all') %></b>
+                      <% end %>
+                    </div>
+
+                    <%= f.collection_check_boxes(:people, Array(@people), :id, :name) do |person_b| %>
+                      <% person_site_id = person_b.object.site_id %>
+                      <% person_policy = ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: @admin, person: person_b.object) %>
+
+                      <div class="option" data-class="site_person" data-site-id="<%= person_site_id %>">
+                        <%= person_b.check_box(checked: @admin_group && @admin_group.people_permissions.exists?(resource_id: person_b.object.id)) %>
+                        <%= person_b.label do %>
+                          <span></span><%= person_b.object.name %>
+                        <% end %>
+                      </div>
+                    <% end %>
+
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+
+          </div>
+
+      <% end %>
+
+    </div>
+
+    <div class="pure-u-1 pure-u-md-2-24"></div>
+
+    <div class="pure-u-1 pure-u-md-1-4 ">
+
+      <div class="widget_save stick_in_parent">
+        <%= f.submit class: "button", disabled: !@admin_policy.update? %>
+      </div>
+
+    </div>
+
+  </div>
+
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.admin_groups_controller.form();
+  <% end %>
+<% end %>

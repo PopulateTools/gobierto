@@ -6,6 +6,7 @@ Dir.glob("app/subscribers/*.rb").each do |subscriber_path|
 end
 
 Subscribers::AdminActivity.attach_to("activities/admins")
+Subscribers::AdminGroupActivity.attach_to("activities/admins")
 Subscribers::CensusActivity.attach_to("activities/census")
 Subscribers::GobiertoPeopleActivity.attach_to("trackable")
 Subscribers::GobiertoBudgetConsultationsActivity.attach_to("trackable")

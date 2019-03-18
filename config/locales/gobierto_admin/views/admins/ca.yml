@@ -16,6 +16,7 @@ ca:
           name: Fernando González
         sites_block: Sites amb accés
       index:
+        groups_and_permissions: Grups i permisos
         header:
           admin: Administrador
           created_at: Creat

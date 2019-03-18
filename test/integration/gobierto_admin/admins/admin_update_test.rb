@@ -3,7 +3,7 @@
 require "test_helper"
 
 module GobiertoAdmin
-  class AdminUpdateTest < ActionDispatch::IntegrationTest
+  class AdminGroupUpdateTest < ActionDispatch::IntegrationTest
 
     def tony
       @tony ||= gobierto_admin_admins(:tony)

@@ -39,7 +39,7 @@ module GobiertoAdmin
       end
 
       def test_index_when_unauthorized
-        unauthorized_admin.site_options_permissions.destroy_all
+        unauthorized_admin.site_options_permissions.each { |permission| permission.destroy }
 
         with_signed_in_admin(unauthorized_admin) do
           with_current_site(site) do

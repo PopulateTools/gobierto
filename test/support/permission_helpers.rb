@@ -6,9 +6,9 @@ module PermissionHelpers
     group = ::GobiertoAdmin::AdminGroup.find_or_create_by!(name: "#{admin.name} group")
     group.admins << admin unless group.admins.include? admin
     group.permissions.create!(
-      namespace: 'site_module',
+      namespace: "site_module",
       resource_name: module_name,
-      action_name: 'manage'
+      action_name: "manage"
     )
   end
 
@@ -25,26 +25,26 @@ module PermissionHelpers
 
     if options[:module]
       admin_permissions.build(
-        namespace: 'site_module',
+        namespace: "site_module",
         resource_name: options[:module],
-        action_name: 'manage'
+        action_name: "manage"
       )
     end
 
     if options[:person]
       admin_permissions.build(
-        namespace: 'gobierto_people',
-        resource_name: 'person',
+        namespace: "gobierto_people",
+        resource_name: "person",
         resource_id: options[:person].id,
-        action_name: 'manage'
+        action_name: "manage"
       )
     end
 
     if options[:all_people]
       admin_permissions.build(
-        namespace: 'gobierto_people',
-        resource_name: 'person',
-        action_name: 'manage_all'
+        namespace: "gobierto_people",
+        resource_name: "person",
+        action_name: "manage_all"
       )
     end
 

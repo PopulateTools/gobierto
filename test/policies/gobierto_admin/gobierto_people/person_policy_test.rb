@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -69,13 +69,13 @@ module GobiertoAdmin
         refute PersonPolicy.new(current_admin: regular_admin, person: person).manage?
 
         # without person permissions
-        setup_specific_permissions(regular_admin, site: site, module: 'gobierto_people')
+        setup_specific_permissions(regular_admin, site: site, module: "gobierto_people")
         refute PersonPolicy.new(current_admin: regular_admin, person: person).manage?
       end
 
       def test_disabled_admin_manage?
         # with all permissions
-        setup_specific_permissions(disabled_admin, site: site, module: 'gobierto_people', person: person)
+        setup_specific_permissions(disabled_admin, site: site, module: "gobierto_people", person: person)
         refute PersonPolicy.new(current_admin: disabled_admin, person: person).manage?
       end
 

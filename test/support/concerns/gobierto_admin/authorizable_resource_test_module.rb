@@ -18,7 +18,7 @@ module GobiertoAdmin
       with_signed_in_admin(@unauthorized_admin) do
         with_current_site(site) do
           visit @unauthorized_resource_path
-          assert has_message?('You do not have enough permissions to perform this action')
+          assert has_message?("You do not have enough permissions to perform this action")
         end
       end
     end

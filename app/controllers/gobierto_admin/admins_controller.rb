@@ -13,7 +13,7 @@ module GobiertoAdmin
     end
 
     def new
-      @admin_form = AdminForm.new
+      @admin_form = AdminForm.new(site: current_site)
 
       set_admin_policy
       set_sites
@@ -27,7 +27,8 @@ module GobiertoAdmin
       @admin_form = AdminForm.new(
         @admin.attributes.except(*ignored_admin_attributes).merge(
           permitted_sites: @admin.sites.pluck(:id),
-          admin_group_ids: @admin.admin_groups.pluck(:id)
+          admin_group_ids: @admin.admin_groups.pluck(:id),
+          site: current_site
         )
       )
 
@@ -41,7 +42,14 @@ module GobiertoAdmin
     def create
       random_password = generate_random_password
 
-      @admin_form = AdminForm.new(admin_params.merge(creation_ip: remote_ip, password: random_password, password_confirmation: random_password))
+      @admin_form = AdminForm.new(
+        admin_params.merge(
+          creation_ip: remote_ip,
+          password: random_password,
+          password_confirmation: random_password,
+          site: current_site
+        )
+      )
 
       set_admin_policy
       set_sites
@@ -62,7 +70,7 @@ module GobiertoAdmin
       set_admin_policy
       raise Errors::NotAuthorized unless @admin_policy.update?
 
-      @admin_form = AdminForm.new(admin_params.merge(id: params[:id]))
+      @admin_form = AdminForm.new(admin_params.merge(id: params[:id], site: current_site))
 
       set_sites
       set_admin_groups
@@ -112,7 +120,7 @@ module GobiertoAdmin
     end
 
     def set_admin_groups
-      @admin_groups = AdminGroup.all
+      @admin_groups = AdminGroup.where(site_id: current_site.id).all
     end
 
     def set_authorization_levels

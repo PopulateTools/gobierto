@@ -5,6 +5,7 @@ module GobiertoAdmin
 
     attr_accessor(
       :id,
+      :site,
       :name,
       :email,
       :password,
@@ -19,7 +20,7 @@ module GobiertoAdmin
 
     delegate :persisted?, to: :admin
 
-    validates :name, :email, presence: true
+    validates :name, :email, :site, presence: true
     validates :email, format: { with: Admin::EMAIL_ADDRESS_REGEXP }
     validates :password, presence: { if: :new_record? }, confirmation: true
 
@@ -83,19 +84,23 @@ module GobiertoAdmin
     end
 
     def set_admin_groups(attributes)
-      if authorization_level != "regular"
-        @admin_group_ids = []
-        @admin_groups = []
-      elsif attributes[:admin_group_ids].present?
-        @admin_group_ids = attributes[:admin_group_ids].select(&:present?).map(&:to_i).compact
-        @admin_groups = AdminGroup.where(id: admin_group_ids)
-      elsif @admin
-        @admin_group_ids = @admin.admin_groups.pluck(:id)
-        @admin_groups = @admin.admin_groups
-      else
-        @admin_group_ids = []
-        @admin_groups = []
-      end
+      @admin_group_ids = if authorization_level != "regular"
+                           []
+                         elsif attributes[:admin_group_ids].present?
+                           attributes[:admin_group_ids].select(&:present?).map(&:to_i).compact
+                         elsif @admin
+                           @admin.admin_groups.pluck(:id)
+                         else
+                           []
+                         end
+      @admin_groups = AdminGroup.where(id: admin_group_ids)
+    end
+
+    def allowed_admin_groups
+      permitted_sites_existing_groups = @admin.admin_groups.where(site: (sites - [site]))
+      site_groups = admin_groups.where(site: site)
+
+      permitted_sites_existing_groups + site_groups
     end
 
     def save_admin
@@ -117,7 +122,7 @@ module GobiertoAdmin
           # AR has no way to tell 2 records represent the same
           @admin.sites = []
           @admin.sites = sites # This is a has_many through association
-          @admin.admin_groups = admin_groups
+          @admin.admin_groups = allowed_admin_groups
           @admin.save
         end
 

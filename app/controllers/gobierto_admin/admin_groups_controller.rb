@@ -19,7 +19,6 @@ module GobiertoAdmin
 
     def edit
       @admin_group = find_admin_group
-      @admin = current_admin
 
       @admin_group_form = AdminGroupForm.new(
         @admin_group.attributes.except(*ignored_admin_group_attributes).merge(

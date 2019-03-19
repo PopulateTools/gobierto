@@ -59,7 +59,6 @@
 
                   <%= f.collection_check_boxes(:people, Array(@people), :id, :name) do |person_b| %>
                     <% person_site_id = person_b.object.site_id %>
-                    <% person_policy = ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: @admin, person: person_b.object) %>
 
                     <div class="option" data-class="site_person" data-site-id="<%= person_site_id %>">
                       <%= person_b.check_box(checked: @admin_group && @admin_group.people_permissions.exists?(resource_id: person_b.object.id)) %>

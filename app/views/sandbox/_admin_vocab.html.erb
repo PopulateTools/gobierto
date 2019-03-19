@@ -29,6 +29,8 @@ $(document).ready(function(){
     $('.v_container .v_el_level_0 .v_el').addClass('el-opened');
   });
 
+  // show only action buttons (edit, delete) when hovering an item
+  // ToDo: Control that only elements for the item are shown, not for it's parents
   $('.v_el').hover(
     function(e) {
       $(this).first('.v_el_actions').addClass('v_el_active');

@@ -15,6 +15,141 @@
   </ul>
 </div>
 
-PROJECTS
+<div class="i_filters">
 
-<%= link_to 'Proyecto', 'admin_plans_plan_projects_project' %>
+  <div class="i_filter">
+    <label>Permisos</label>
+    <div class="i_f_options_text">
+      <div class="i_f_option i_f_option_active"><span>Tus proyectos</span> (3)</div>
+      <div class="i_f_option"><a href=""><span>Puedes editar</span> (13)</a></div>
+      <div class="i_f_option"><a href=""><span>Todos</span> (123)</a></div>
+    </div>
+  </div>
+
+  <div class="i_filter">
+    <label>Estado</label>
+    <div class="i_f_options_text">
+      <div class="i_f_option"><a href=""><span>Todos</span> (3)</a></div>
+      <div class="i_f_option i_f_option_active"><span>En borrador</span> (13)</div>
+      <div class="i_f_option"><a href=""><span>Enviados</span> (123)</a></div>
+      <div class="i_f_option"><a href=""><span>Aprobados</span> (123)</a></div>
+    </div>
+  </div>
+
+  <div class="i_filter">
+    <label>Filtrar</label>
+    <div class="i_f_options_forms f_flex_col">
+
+      <div class="form_item input_text compact">
+        <input type="text" placeholder="Busca...">
+      </div>
+
+      <%= render partial: "admin_form_select", locals: {
+        select_compact: true,
+        label: 'Categoría',
+        options: [
+          # All vocab tree - We should offer a select2 like dropdown
+          'Eje 1 - Economia, emprenedoria i ocupació',
+          'Eje 2 - Buen Gobierno',
+          'Eje 3 - Sostenibilidad',
+          'Eje 4 - Felicidad',
+          'Eje 5 - Eficiencia'
+        ] }
+      %>
+
+      <%= render partial: "admin_form_select", locals: {
+        select_compact: true,
+        label: 'Progreso',
+        options: [
+          '0-25%',
+          '26-50%',
+          '51-75%',
+          '76-100%'
+        ] }
+      %>
+
+      <%= render partial: "admin_form_select", locals: {
+        select_compact: true,
+        label: 'Estado',
+        options: [
+          'Pendiente de iniciar',
+          'Iniciado',
+          'En progreso',
+          'Completado'
+        ] }
+      %>
+
+      <%= render partial: "admin_form_select", locals: {
+        select_compact: true,
+        label: 'Autor',
+        options: [
+          'Belén Temprano',
+          'Fernando Blat',
+          'Eduardo Martinez',
+          'Hugo Hugo',
+          'Alberto Amiedes'
+        ] }
+      %>
+
+      <div class="form_item input_text compact">
+        <!-- <input data-language="es" data-timepicker="true" data-autoclose="false" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startdate="1552669200000" data-bind="true" class="air-datepicker" type="text" value="2019-03-15 18:00:00 +0100" name="event[starts_at]" id="event_starts_at"> -->
+        <input type="text"
+          data-range="true"
+          data-multiple-dates-separator="-"
+          data-language="en"
+          class="datepicker-here" />
+      </div>
+
+      <button class="button small rounded">Filtrar</button>
+
+    </div>
+  </div>
+
+</div>
+
+<table>
+<tr>
+  <th class="icon"></th>
+  <th>Proyecto</th>
+  <th>Progreso</th>
+  <th>Estado</th>
+  <th>Actualizado</th>
+  <th></th>
+  <th class="icon"></th>
+</tr>
+<% for i in [
+  'Implantación Administración Electrónica en Municipios',
+  'Implantación de Herramientas Transparencia',
+  'Formación en Planificación a Municipios',
+  'Plan Urbanístico de la Costa'
+]
+%>
+<tr>
+  <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, 'admin_plans_plan_projects_project' %></td>
+  <td><%= link_to i, 'admin_plans_plan_projects_project' %></td>
+  <td>45%</td>
+  <td>Moderado</td>
+  <td>hace 2 minutos</td>
+  <td><%= link_to '<i class="fas fa-eye"></i> Ver item'.html_safe, '#FRONT_PLAN_PROJECT', class: 'view_item' %></td>
+  <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, '#FRONT_PLAN_PROJECT', title: 'Eliminar proyecto', class: 'tipsit p_h_1' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, 'admin_plans_plan_projects_project' %></td>
+  <td><%= link_to i, 'admin_plans_plan_projects_project' %></td>
+  <td>0</td>
+  <td>En revisión</td>
+  <td>12 abr 19</td>
+  <td><%= link_to '<i class="fas fa-eye"></i> Ver item'.html_safe, '#FRONT_PLAN_PROJECT', class: 'view_item' %></td>
+  <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, '#FRONT_PLAN_PROJECT', title: 'Eliminar proyecto', class: 'tipsit p_h_1' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, 'admin_plans_plan_projects_project' %></td>
+  <td><%= link_to i, 'admin_plans_plan_projects_project' %></td>
+  <td>100%</td>
+  <td>Publicado</td>
+  <td>1 ene 18</td>
+  <td><%= link_to '<i class="fas fa-eye"></i> Ver item'.html_safe, '#FRONT_PLAN_PROJECT', class: 'view_item' %></td>
+  <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, '#FRONT_PLAN_PROJECT', title: 'Eliminar proyecto', class: 'tipsit p_h_1' %></td>
+</tr>
+<% end %>
+</table>

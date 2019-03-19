@@ -132,9 +132,11 @@ textarea:focus {
   }
 }
 
-.select_control.select_compact {
+.select_control.select_compact,
+.form_item.input_text.compact {
   font-size: 0.85em;
-  margin: 0 0 0.5em 0;
+  // margin: 0 0 0.5em 0;
+  margin: 0;
 
   select,
   input {
@@ -144,7 +146,8 @@ textarea:focus {
   }
 
   input {
-    height: 40px;
+    // height: 40px;
+    height: 28px;
   }
 }
 
@@ -438,6 +441,10 @@ input[type="radio"] + label {
   }
 }
 
+.button.rounded {
+  border-radius: 20px;
+  font-weight: 600;
+}
 .button.outline.rounded {
   text-transform: none;
   padding: 0.2em 1em;
@@ -974,9 +981,73 @@ select {
 .f_flex_col {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
-  div.form_item.input_text,
-  div.form_item.select_control {
+  > div.form_item.input_text,
+  > div.form_item.select_control {
     width: 22%;
+  }
+
+}
+
+.i_filters {
+  .i_filter {
+    display: flex;
+    border-bottom: 1px solid $color_separator;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+
+    label {
+      font-size: .85em;
+      width: 80px;
+      color: $color_meta_text;
+    }
+
+    .i_f_options_text {
+      display: flex;
+    }
+
+    .i_f_option {
+      margin: 0 1em 0 0;
+      padding: 0 1em 0 0;
+      position: relative;
+      line-height: 1.2;
+
+      a {
+        padding: .2em .25em;
+        display: inline-block;
+        border-radius: 4px;
+        text-decoration: none;
+        color: $color_meta_text;
+
+        span {
+          text-decoration: underline;
+          color: $color_main;
+        }
+      }
+
+      a:hover {
+        background: $color_main_soft;
+      }
+
+    }
+
+    .i_f_option_active {
+      padding: .2em 1em .2em .25em;
+    }
+
+    .i_f_option:not(:last-child):after {
+      content: "";
+      border-left: 1px solid $color_separator;
+      position: absolute;
+      width: 1px;
+      height: 20px;
+
+      right: 0;
+    }
+  }
+
+  .i_filter:last-child {
+    border-bottom: initial;
   }
 }

@@ -13,18 +13,16 @@ window.GobiertoAdmin.AdminsController = (function() {
       $siteCheckboxes.click(function() {
         var siteId = $(this).attr('data-site-id');
         var $siteAdminGroups = $("[data-class='site_admin_group'][data-site-id='" + siteId + "']");
+        var $adminGroups =  $("[data-class='site_admin_group']");
 
         if (this.checked) {
+          if ($siteAdminGroups.length > 0)  { $('#admin_groups').show('slow'); }
+
           $siteAdminGroups.show('slow');
         } else {
           $siteAdminGroups.hide('slow');
 
-          var siteCheckboxes = $("[data-behavior='toggle_site']");
-          var sitePermissions = $.map(siteCheckboxes, function (val) {
-            if (val.checked) {
-              return val.checked;
-            }
-          });
+          if ($siteAdminGroups.length == $adminGroups.length)  { $('#admin_groups').hide('slow'); }
         }
       });
     }

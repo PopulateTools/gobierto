@@ -36,7 +36,7 @@
 
       <% unless @admin && @admin.god? %>
         <!-- Admin groups -->
-        <div class="form_block" id="admin_groups" style="<%= @admin.nil? || @admin.regular? ? '' : 'display: none;' %>">
+        <div class="form_block" id="admin_groups" style="<%= @admin&.regular? && @admin.sites.include?(current_site) ? '' : 'display: none;' %>">
 
           <h2><%= t(".admin_groups_block") %></h2>
 
@@ -48,7 +48,7 @@
                   <%= b.check_box %>
                   <%= b.label do %>
                     <span></span>
-                    <%= b.text %> (<%= @sites.find(b.object.site_id).domain %>)
+                    <%= b.text %>
                   <% end %>
                 </div>
               <% end %>

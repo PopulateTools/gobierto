@@ -14,7 +14,7 @@ module GobiertoAdmin
       :last_sign_in_ip
     )
 
-    attr_reader :permitted_sites, :sites
+    attr_reader :permitted_sites, :sites, :admin_group_ids, :admin_groups
     attr_writer :authorization_level
 
     delegate :persisted?, to: :admin
@@ -26,9 +26,10 @@ module GobiertoAdmin
     def initialize(attributes = {})
       parsed_attributes = attributes.to_h.with_indifferent_access
 
-      super(parsed_attributes.except(:permitted_sites))
+      super(parsed_attributes.except(:permitted_sites, :admin_group_ids))
 
       set_permitted_sites(parsed_attributes)
+      set_admin_groups(parsed_attributes)
     end
 
     def save
@@ -81,6 +82,22 @@ module GobiertoAdmin
       end
     end
 
+    def set_admin_groups(attributes)
+      if authorization_level != "regular"
+        @admin_group_ids = []
+        @admin_groups = []
+      elsif attributes[:admin_group_ids].present?
+        @admin_group_ids = attributes[:admin_group_ids].select(&:present?).map(&:to_i).compact
+        @admin_groups = AdminGroup.where(id: admin_group_ids)
+      elsif @admin
+        @admin_group_ids = @admin.admin_groups.pluck(:id)
+        @admin_groups = @admin.admin_groups
+      else
+        @admin_group_ids = []
+        @admin_groups = []
+      end
+    end
+
     def save_admin
       @admin = admin.tap do |admin_attributes|
         admin_attributes.name = name
@@ -100,6 +117,7 @@ module GobiertoAdmin
           # AR has no way to tell 2 records represent the same
           @admin.sites = []
           @admin.sites = sites # This is a has_many through association
+          @admin.admin_groups = admin_groups
           @admin.save
         end
 

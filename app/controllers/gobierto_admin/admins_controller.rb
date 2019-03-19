@@ -17,6 +17,7 @@ module GobiertoAdmin
 
       set_admin_policy
       set_sites
+      set_admin_groups
       set_authorization_levels
     end
 
@@ -24,11 +25,15 @@ module GobiertoAdmin
       @admin = find_admin
 
       @admin_form = AdminForm.new(
-        @admin.attributes.except(*ignored_admin_attributes).merge(permitted_sites: @admin.sites.pluck(:id))
+        @admin.attributes.except(*ignored_admin_attributes).merge(
+          permitted_sites: @admin.sites.pluck(:id),
+          admin_group_ids: @admin.admin_groups.pluck(:id)
+        )
       )
 
       set_admin_policy
       set_sites
+      set_admin_groups
       set_authorization_levels
       set_activities
     end
@@ -40,6 +45,7 @@ module GobiertoAdmin
 
       set_admin_policy
       set_sites
+      set_admin_groups
       set_authorization_levels
 
       if @admin_form.save
@@ -59,6 +65,7 @@ module GobiertoAdmin
       @admin_form = AdminForm.new(admin_params.merge(id: params[:id]))
 
       set_sites
+      set_admin_groups
       set_authorization_levels
       set_activities
 
@@ -83,7 +90,8 @@ module GobiertoAdmin
         :password,
         :password_confirmation,
         :authorization_level,
-        permitted_sites: []
+        permitted_sites: [],
+        admin_group_ids: []
       )
     end
 
@@ -101,6 +109,10 @@ module GobiertoAdmin
 
     def set_sites
       @sites = Site.select(:id, :domain).all
+    end
+
+    def set_admin_groups
+      @admin_groups = AdminGroup.all
     end
 
     def set_authorization_levels

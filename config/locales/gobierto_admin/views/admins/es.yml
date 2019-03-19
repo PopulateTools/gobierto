@@ -6,6 +6,7 @@ es:
         title: Editar Administrador
       form:
         activity_block: Log de actividad
+        admin_groups_block: Grupo
         authorization_level:
           disabled: Deshabilitado
           manager: Manager
@@ -15,6 +16,7 @@ es:
           email: fgonzalez@gmail.com
           name: Fernando González
         sites_block: Sites con acceso
+        sites_block_description: 'Este usuario puede acceder a administrar:'
       index:
         groups_and_permissions: Grupos y permisos
         header:

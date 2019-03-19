@@ -35,13 +35,38 @@
       <% end %>
 
       <% unless @admin && @admin.god? %>
+        <!-- Admin groups -->
+        <div class="form_block" id="admin_groups" style="<%= @admin.nil? || @admin.regular? ? '' : 'display: none;' %>">
+
+          <h2><%= t(".admin_groups_block") %></h2>
+
+          <div class="form_item">
+
+            <div class="options compact">
+              <%= f.collection_check_boxes(:admin_group_ids, Array(@admin_groups), :id, :name) do |b| %>
+                <div class="option" data-class="site_admin_group" data-site-id="<%= b.object.site_id %>" style="<%= @admin&.site_ids&.include?(b.object.site_id) ? '' : 'display: none;' %>">
+                  <%= b.check_box %>
+                  <%= b.label do %>
+                    <span></span>
+                    <%= b.text %> (<%= @sites.find(b.object.site_id).domain %>)
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- ./ Admin groups -->
+
 
         <!-- Site permissions -->
         <div class="form_block" id="sites_permissions" style="<%= @admin.nil? || @admin.regular? ? '' : 'display: none;' %>">
 
           <h2><%= t(".sites_block") %></h2>
 
-          <div class="form_item site-check-boxes">
+          <div class="form_item">
+          <p><%= t(".sites_block_description") %></p>
 
             <div class="options compact">
               <%= f.collection_check_boxes(:permitted_sites, Array(@sites), :id, :domain) do |b| %>

@@ -35,7 +35,7 @@ module GobiertoAdmin
           fill_in "admin_name", with: "Admin Name"
           fill_in "admin_email", with: "wadus@gobierto.dev"
 
-          within ".site-check-boxes" do
+          within "#sites_permissions" do
             uncheck "santander.gobierto.test"
             check "madrid.gobierto.test"
           end
@@ -53,7 +53,7 @@ module GobiertoAdmin
           assert has_field?("admin_email", with: "wadus@gobierto.dev")
           assert has_field?("admin_name", with: "Admin Name")
 
-          within ".site-check-boxes" do
+          within "#sites_permissions" do
             assert has_no_checked_field?("santander.gobierto.test")
             assert has_checked_field?("madrid.gobierto.test")
           end
@@ -74,7 +74,7 @@ module GobiertoAdmin
           fill_in "admin_password", with: "wadus"
           fill_in "admin_password_confirmation", with: "wadus"
 
-          assert has_no_selector?(".site-check-boxes")
+          assert has_no_selector?("#sites_permissions")
 
           within ".admin-authorization-level-radio-buttons" do
             choose "Regular"
@@ -106,7 +106,7 @@ module GobiertoAdmin
           assert has_field?("admin_name", disabled: true)
           assert has_field?("admin_email", disabled: true)
 
-          assert has_no_selector?(".site-check-boxes")
+          assert has_no_selector?("#sites_permissions")
           assert has_no_selector?(".admin-authorization-level-radio-buttons")
 
           assert has_button?("Update", disabled: true)
@@ -124,7 +124,7 @@ module GobiertoAdmin
           fill_in "admin_password", with: "wadus"
           fill_in "admin_password_confirmation", with: "foo"
 
-          within ".site-check-boxes" do
+          within "#sites_permissions" do
             check "madrid.gobierto.test"
           end
 
@@ -148,7 +148,7 @@ module GobiertoAdmin
           fill_in "admin_email", with: "wadus@gobierto.dev"
           fill_in "admin_password", with: "wadus"
 
-          within ".site-check-boxes" do
+          within "#sites_permissions" do
             check "madrid.gobierto.test"
           end
 

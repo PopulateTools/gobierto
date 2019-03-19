@@ -17,6 +17,10 @@ module GobiertoAdmin
       @madrid ||= sites(:madrid)
     end
 
+    def madrid_group
+      @madrid_group ||= gobierto_admin_admin_groups(:madrid_group)
+    end
+
     def santander
       @santander ||= sites(:santander)
     end
@@ -39,39 +43,47 @@ module GobiertoAdmin
 
     def test_admin_create_and_admin_accept_email
       with_javascript do
-        with_signed_in_admin(admin) do
-          visit @path
+        with_current_site(madrid) do
+          with_signed_in_admin(admin) do
+            visit @path
 
-          within "form.new_admin" do
-            fill_in "admin_name", with: "Admin Name"
-            fill_in "admin_email", with: "admin@email.dev"
+            within "form.new_admin" do
+              fill_in "admin_name", with: "Admin Name"
+              fill_in "admin_email", with: "admin@email.dev"
 
-            # set authorization level to 'Regular'
-            find("label[for='admin_authorization_level_regular']", visible: false).click
+              # set authorization level to 'Regular'
+              find("label[for='admin_authorization_level_regular']", visible: false).click
 
-            # grant permissions for madrid.gobierto.test
-            find("label[for='admin_permitted_sites_#{madrid.id}']").click
+              # grant permissions for madrid.gobierto.test
+              find("label[for='admin_permitted_sites_#{madrid.id}']").click
 
-            click_button "Create"
+              # grant permissions for madrid group
+              find("label[for='admin_admin_group_ids_#{madrid_group.id}']").click
+
+              click_button "Create"
+            end
+
+            assert has_message?("Admin was successfully created")
+
+            assert has_content?("Admin Name")
+            assert has_content?("admin@email.dev")
+
+            click_link "Admin Name"
+
+            # assert Madrid is checked
+            assert find("#admin_permitted_sites_#{madrid.id}", visible: false).checked?
+            # refute Santander is checked
+            refute find("#admin_permitted_sites_#{santander.id}", visible: false).checked?
+
+            # assert Madrid group is checked
+            assert find("#admin_admin_group_ids_#{madrid_group.id}", visible: false).checked?
+
+            # assert admin is Regular
+            assert find("#admin_authorization_level_regular", visible: false).checked?
+
+            invite_email = ActionMailer::Base.deliveries.last
+            assert_equal "admin@email.dev", invite_email.to[0]
           end
-
-          assert has_message?("Admin was successfully created")
-
-          assert has_content?("Admin Name")
-          assert has_content?("admin@email.dev")
-
-          click_link "Admin Name"
-
-          # assert Madrid is checked
-          assert find("#admin_permitted_sites_#{madrid.id}", visible: false).checked?
-          # refute Santander is checked
-          refute find("#admin_permitted_sites_#{santander.id}", visible: false).checked?
-
-          # assert admin is Regular
-          assert find("#admin_authorization_level_regular", visible: false).checked?
-
-          invite_email = ActionMailer::Base.deliveries.last
-          assert_equal "admin@email.dev", invite_email.to[0]
         end
       end
 
@@ -92,29 +104,33 @@ module GobiertoAdmin
 
     def test_create_regular_admin_with_custom_permissions
       with_javascript do
-        with_signed_in_admin(admin) do
-          visit @path
+        with_current_site(madrid) do
+          with_signed_in_admin(admin) do
+            visit @path
 
-          fill_in "admin_name", with: "Admin Name"
-          fill_in "admin_email", with: "admin@email.dev"
+            fill_in "admin_name", with: "Admin Name"
+            fill_in "admin_email", with: "admin@email.dev"
 
-          # set authorization level to 'Regular'
-          find("label[for='admin_authorization_level_regular']", visible: false).click
+            # set authorization level to 'Regular'
+            find("label[for='admin_authorization_level_regular']", visible: false).click
 
-          # grant permissions for madrid.gobierto.test
-          find("label[for='admin_permitted_sites_#{madrid.id}']").click
+            # grant permissions for madrid.gobierto.test
+            find("label[for='admin_permitted_sites_#{madrid.id}']").click
 
-          click_button "Create"
+            # grant permissions for madrid group
+            find("label[for='admin_admin_group_ids_#{madrid_group.id}']").click
 
-          assert has_message?("Admin was successfully created")
+            click_button "Create"
+
+            assert has_message?("Admin was successfully created")
+          end
         end
       end
 
       new_admin = ::GobiertoAdmin::Admin.last
 
-      # assert site permissions
-
       assert_equal [madrid], new_admin.sites
+      assert_equal [madrid_group], new_admin.admin_groups
     end
   end
 end

@@ -27,6 +27,10 @@ module GobiertoAdmin
       @site ||= sites(:madrid)
     end
 
+    def site_group
+      @site_group ||= gobierto_admin_admin_groups(:madrid_group)
+    end
+
     def test_regular_admin_update
       with_signed_in_admin(manager_admin) do
         visit edit_admin_admin_path(regular_admin_on_santander)
@@ -60,6 +64,35 @@ module GobiertoAdmin
 
           within ".admin-authorization-level-radio-buttons" do
             assert has_checked_field?("Regular")
+          end
+        end
+      end
+    end
+
+    def test_regular_admin_update_admin_groups
+      manager_admin.admin_groups.destroy_all
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_admin(manager_admin) do
+            visit edit_admin_admin_path(regular_admin)
+
+            within "form.edit_admin" do
+              fill_in "admin_name", with: "Admin Name"
+              fill_in "admin_email", with: "wadus@gobierto.dev"
+
+              find("label[for='admin_admin_group_ids_#{site_group.id}']").click
+              find("label[for='admin_authorization_level_regular']", visible: false).click
+
+              click_button "Update"
+            end
+
+            assert has_message?("Admin was successfully updated")
+
+            assert find("#admin_admin_group_ids_#{site_group.id}", visible: false).checked?
+            within "form.edit_admin" do
+              assert has_field?("admin_email", with: "wadus@gobierto.dev")
+              assert has_field?("admin_name", with: "Admin Name")
+            end
           end
         end
       end

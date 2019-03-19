@@ -8,12 +8,12 @@ module GobiertoAdmin
     def tony
       @tony ||= gobierto_admin_admins(:tony)
     end
-    alias_method :regular_admin, :tony
+    alias regular_admin tony
 
     def steve
       @steve ||= gobierto_admin_admins(:steve)
     end
-    alias_method :regular_admin_on_santander, :steve
+    alias regular_admin_on_santander steve
 
     def manager_admin
       @manager_admin ||= gobierto_admin_admins(:nick)

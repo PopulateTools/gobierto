@@ -14,7 +14,8 @@ ca:
         index:
           delete_confirm: Estàs segur? Aquesta operació no és reversible
           header:
-            name: Nom
+            name: Tema
+            terms: Termes
           new: Nou
           title: Vocabularis
           view_vocabulary: Veure termes

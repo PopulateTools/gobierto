@@ -14,7 +14,8 @@ en:
         index:
           delete_confirm: Are you sure? This operation can not be undone
           header:
-            name: Name
+            name: Subject
+            terms: Terms
           new: New
           title: Vocabularies
           view_vocabulary: See terms

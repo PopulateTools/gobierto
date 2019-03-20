@@ -14,7 +14,8 @@ es:
         index:
           delete_confirm: Seguro? Esta operación no tiene marcha atrás.
           header:
-            name: Nombre
+            name: Tema
+            terms: Términos
           new: Nuevo
           title: Vocabularios
           view_vocabulary: Ver términos

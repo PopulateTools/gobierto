@@ -31,6 +31,11 @@ module GobiertoAdmin
       end
       alias draft_person juana
 
+      def kali
+        @kali ||= gobierto_people_people(:kali)
+      end
+      alias santander_person kali
+
       def nelson
         @nelson ||= gobierto_people_people(:nelson)
       end
@@ -71,6 +76,13 @@ module GobiertoAdmin
         # without person permissions
         setup_specific_permissions(regular_admin, site: site, module: "gobierto_people")
         refute PersonPolicy.new(current_admin: regular_admin, person: person).manage?
+      end
+
+      def test_regular_admin_manage_other_site
+        assert PersonPolicy.new(current_admin: regular_admin, person: person, current_site: madrid).manage?
+
+        # group in santander doesn't have enabled GobiertoPeople module
+        refute PersonPolicy.new(current_admin: regular_admin, person: santander_person, current_site: santander).manage?
       end
 
       def test_disabled_admin_manage?

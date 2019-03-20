@@ -70,7 +70,7 @@ module GobiertoAdmin
     def set_permitted_sites(attributes)
       if authorization_level != "regular"
         @permitted_sites = []
-        @sites = []
+        @sites = Site.none
       elsif attributes[:permitted_sites].present?
         @permitted_sites = attributes[:permitted_sites].select(&:present?).map(&:to_i).compact
         @sites = Site.where(id: permitted_sites)
@@ -79,7 +79,7 @@ module GobiertoAdmin
         @sites = @admin.sites
       else
         @permitted_sites = []
-        @sites = []
+        @sites = Site.none
       end
     end
 
@@ -97,7 +97,7 @@ module GobiertoAdmin
     end
 
     def allowed_admin_groups
-      permitted_sites_existing_groups = @admin.admin_groups.where(site: (sites - [site]))
+      permitted_sites_existing_groups = @admin.admin_groups.where(site: sites.where.not(id: site.id))
       site_groups = admin_groups.where(site: site)
 
       permitted_sites_existing_groups + site_groups

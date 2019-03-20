@@ -982,6 +982,7 @@ select {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 
   > div.form_item.input_text,
   > div.form_item.select_control {
@@ -989,18 +990,26 @@ select {
   }
 
 }
+.f_flex_col_7 {
+  > div.form_item.input_text,
+  > div.form_item.select_control {
+    width: 14%;
+  }
+}
 
 .i_filters {
   .i_filter {
     display: flex;
     border-bottom: 1px solid $color_separator;
-    padding-bottom: 1em;
-    margin-bottom: 1em;
+    padding-bottom: .8em;
+    margin-bottom: .8em;
+    font-size: .85rem;
 
     label {
+      width: 70px;
       font-size: .85em;
-      width: 80px;
       color: $color_meta_text;
+      align-self: center;
     }
 
     .i_f_options_text {

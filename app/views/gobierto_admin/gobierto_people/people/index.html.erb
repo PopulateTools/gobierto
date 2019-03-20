@@ -31,7 +31,7 @@
   </thead>
   <tbody data-behavior="sortable" data-sortable-target="<%= admin_people_people_sort_path %>">
   <% @people.each do |person| %>
-    <% person_policy = ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person) %>
+    <% person_policy = ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, current_site: current_site, person: person) %>
     <tr id="person-item-<%= person.id %>" data-id="<%= person.id %>">
       <td>
         <% if person_policy.manage? %>

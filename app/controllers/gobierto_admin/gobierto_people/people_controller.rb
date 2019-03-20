@@ -132,7 +132,7 @@ module GobiertoAdmin
       def manage_person_allowed!
         load_person
 
-        if !PersonPolicy.new(current_admin: current_admin, person: @person).manage?
+        if !PersonPolicy.new(current_admin: current_admin, current_site: current_site, person: @person).manage?
           redirect_to(admin_people_people_path, alert: t("gobierto_admin.admin_unauthorized")) and return false
         end
       end

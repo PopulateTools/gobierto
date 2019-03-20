@@ -33,6 +33,7 @@ module GobiertoAdmin
         if container.is_a?(::GobiertoPeople::Person)
           GobiertoPeople::PersonPolicy.new(
             current_admin: current_admin,
+            current_site: current_site,
             person: container
           ).manage?
         else  # => process?

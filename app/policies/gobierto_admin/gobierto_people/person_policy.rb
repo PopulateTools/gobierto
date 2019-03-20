@@ -7,6 +7,7 @@ module GobiertoAdmin
       def initialize(attributes)
         super(attributes)
         @person = attributes[:person]
+        @current_site ||= person.site
       end
 
       def manage?
@@ -36,7 +37,7 @@ module GobiertoAdmin
       private
 
       def can_manage_person?(person)
-        current_admin.people_permissions.exists?(
+        current_admin.sites_people_permissions.on_site(current_site).exists?(
           resource_id: person.id,
           action_name: 'manage'
         )
@@ -49,7 +50,7 @@ module GobiertoAdmin
 
       def manage_all_people?
         return true if current_admin.manager?
-        current_admin.people_permissions.exists?(
+        current_admin.people_permissions.on_site(current_site).exists?(
           action_name: 'manage_all'
         )
       end

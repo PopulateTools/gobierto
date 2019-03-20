@@ -16,7 +16,7 @@ window.GobiertoBudgets.ReceiptController = (function() {
     $('.bill_row').on('click', function() {
       $(this)
       .toggleClass('toggled')
-      .find('.fa').toggleClass('fa-plus fa-minus')
+      .find('.fas').toggleClass('fa-plus fa-minus')
       .parent().siblings('.children').toggleClass('hidden');
     }).find('.children').click(function() {
       return false;

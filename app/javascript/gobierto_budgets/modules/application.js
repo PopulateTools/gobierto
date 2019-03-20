@@ -8,8 +8,6 @@ import { getBudgetLevelData } from './classes/getBudgetLevelData.js'
 // flight components
 import './components/budgetLineBreadcrumb.js'
 import './components/featuredBudgetLine.js'
-import './components/intelligenceBudgetLines.js'
-import './components/intelligenceBudgetLinesMeans.js'
 import './components/visLine.js'
 
 $(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {

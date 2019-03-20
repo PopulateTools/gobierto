@@ -2,7 +2,7 @@
   <% budget_lines.group_by{ |b| b.parent_code }.each do |parent_code, budget_lines_children| %>
     var $el = $('[data-budget-line="<%= parent_code %>"]');
     $el.after('<%=j render partial: 'gobierto_budgets/budget_line_descendants/nested_budget_line', locals: { budget_lines: budget_lines_children, kind: @kind, area_name: @area_name, year: @year } %>');
-    $('[data-budget-line="<%= parent_code %>"] td').find('.fa').toggleClass('fa-plus-square-o fa-minus-square-o');
+    $('[data-budget-line="<%= parent_code %>"] td').find('.fas').removeClass('fa-plus-square').addClass('fa-minus-square');
   <% end %>
 <% end %>
 
@@ -12,7 +12,7 @@
   $el.on('ajax:beforeSend', 'a', function(event, xhr, settings) {
     xhr.abort();
     $(this).removeClass('extended');
-    $(this).find('.fa').toggleClass('fa-plus-square-o fa-minus-square-o');
+    $(this).find('.fas').removeClass('fa-minus-square').addClass('fa-plus-square');
     $(this).parents('tr').next('.child_group').remove();
 
     // Remove event to allow Ajax again

@@ -12,6 +12,7 @@ module GobiertoAdmin
     scope :for_site_people, ->(site_ids) { for_people.joins("JOIN gp_people ON gp_people.id = admin_group_permissions.resource_id").where(gp_people: { site_id: site_ids }) }
     scope :for_site_options, -> { where(namespace: "site_options") }
     scope :for_class_module, -> { for_modules.where(resource_name: model.name.demodulize.underscore) }
+    scope :on_site, ->(site) { joins(:admin_group).where(admin_admin_groups: { site_id: site.id }) }
 
     validates :admin_group_id, presence: true
     validates :namespace, presence: true

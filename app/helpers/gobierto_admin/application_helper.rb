@@ -14,7 +14,7 @@ module GobiertoAdmin
 
     def show_module_link?(module_namespace)
       SITE_MODULES.include?(module_namespace) && current_site && current_site.configuration.send(module_namespace.underscore + "_enabled?") &&
-        current_admin.module_allowed?(module_namespace)
+        current_admin.module_allowed?(module_namespace, current_site)
     end
   end
 end

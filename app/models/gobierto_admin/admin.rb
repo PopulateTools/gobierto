@@ -82,8 +82,8 @@ module GobiertoAdmin
       god? || manager?
     end
 
-    def module_allowed?(module_namespace)
-      managing_user? || send(module_namespace.underscore + '_permissions').any?
+    def module_allowed?(module_namespace, site)
+      managing_user? || send(module_namespace.underscore + '_permissions').on_site(site).any?
     end
 
     def can_customize_site?

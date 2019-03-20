@@ -119,7 +119,7 @@ module GobiertoAdmin
 
         def check_class
           form = form_class.new(resource_name: params[:module_resource_name], id: params[:id], site_id: current_site.id)
-          raise_module_not_allowed unless form.valid_resource_name? && current_admin.module_allowed?(form.class_name.deconstantize)
+          raise_module_not_allowed unless form.valid_resource_name? && current_admin.module_allowed?(form.class_name.deconstantize, current_site)
         end
       end
     end

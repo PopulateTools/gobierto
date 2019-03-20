@@ -1,0 +1,38 @@
+<% level_classes = "v_el v_el_level_#{local_assigns[:level]}" %>
+<% terms.each do |term, subterms| %>
+  <% has_subterms = subterms.present? %>
+  <div class="<%= level_classes %>">
+    <div class="v_el_cont">
+      <% if has_subterms %>
+        <%= link_to "" do %>
+          <i class="fas icon-caret fa-caret-right"></i>
+        <% end %>
+      <% end %>
+
+      <div class="v_el_title">
+        <%= term.name %>
+      </div>
+
+      <% if term.try(:has_decorated_values?) %>
+        <div class="v_el_decorated">
+          <% term.decorated_values.each do |value| %>
+            <div>
+              <%= value %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="v_el_actions" id="<%= "v_el_actions_#{term.id}" %>">
+        <%= link_to edit_admin_common_term_path(term), class: "open_remote_modal", title: t("views.edit")  do %>
+          <i class="fas fa-edit"></i>
+        <% end %>
+        <%= link_to admin_common_term_path(term), method: :delete, title: t("views.delete"), data: { confirm: t(".delete_confirm") } do %>
+          <i class="fas fa-trash"></i>
+        <% end %>
+      </div>
+    </div>
+    <% if has_subterms %>
+      <%= render partial: "terms_tree", locals: { terms: subterms, level: level+1 } %>
+    <% end %>
+  </div>
+<% end %>

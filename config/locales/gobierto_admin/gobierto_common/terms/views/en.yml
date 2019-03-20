@@ -11,15 +11,15 @@ en:
             name: Term name
             slug: term
         index:
-          delete_confirm: Are you sure? This operation can not be undone
-          drag_to_sort: Drag to sort
-          header:
-            created_at: Created at
-            name: Name
+          collapse_all: Collapse all
+          explore: Explora
           new: New
+          open_all: Open all
           title: Terms of %{vocabulary}
         new_modal:
           title: New term
+        terms_tree:
+          delete_confirm: Are you sure? This operation can not be undone
       terms:
         edit:
           edit: Edit %{term}

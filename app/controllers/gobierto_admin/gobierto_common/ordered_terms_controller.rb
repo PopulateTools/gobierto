@@ -122,8 +122,8 @@ module GobiertoAdmin
         level_relation = relation.where(level: level).order(position: :asc)
         return [] if level_relation.blank?
         level_relation.where(level: level).map do |node|
-          [node, tree(node.terms, level + 1)].flatten
-        end.flatten
+          [node, tree(node.terms, level + 1)]
+        end.to_h
       end
 
       def check_permissions!

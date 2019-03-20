@@ -11,15 +11,15 @@ ca:
             name: Nom del terme
             slug: terme
         index:
-          delete_confirm: Estàs segur? Aquesta operació no és reversible
-          drag_to_sort: Arrastra per a ordenar
-          header:
-            created_at: Creació
-            name: Nom
+          collapse_all: Plegar tot
+          explore: Explore
           new: Nou
+          open_all: Desplegar tot
           title: Termes de %{vocabulary}
         new_modal:
           title: Nou terme
+        terms_tree:
+          delete_confirm: Estàs segur? Aquesta operació no és reversible
       terms:
         edit:
           edit: Editar %{term}

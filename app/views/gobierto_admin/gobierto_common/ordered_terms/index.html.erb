@@ -6,40 +6,34 @@
 
 <h1><%= t(".title", vocabulary: @vocabulary.name) %></h1>
 
-<div class="admin_tools right">
-  <%= link_to t(".new"), new_admin_common_vocabulary_term_path, class: 'button open_remote_modal' %>
+<div class="v_container">
+
+  <div class="v_heading">
+    <div>
+      <%= t(".explore") %>
+      <i class="fas fa-caret-square-right" title="<%= t(".collapse_all") %>"></i>
+      <i class="fas fa-caret-square-down" title="<%= t(".open_all") %>"></i>
+    </div>
+
+    <% if @terms.try(:decorator).present? %>
+      <div class="v_el_decorated">
+        <%= @terms.decorator.header %>
+      </div>
+    <% end %>
+
+    <div class="v_el_actions"></div>
+  </div>
+
+  <%= render partial: "terms_tree", locals: { terms: @terms, level: 0 } %>
+
 </div>
 
-<table>
-  <tr>
-    <th class="icon_col"></th>
-    <th><%= t('.header.name') %></th>
-    <th><%= t('.header.created_at') %></th>
-    <th></th>
-    <th class="icon_col"></th>
-  </tr>
-  <tbody data-behavior="sortable" data-sortable-target="<%= admin_common_vocabulary_terms_sort_path %>">
-    <% @terms.each do |term| %>
-      <tr id="term-item-<%= term.id %>" data-id="<%= term.id %>" class="<%= cycle("odd", "even") %>">
-        <td>
-          <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_admin_common_term_path(term), class: 'open_remote_modal', title: t('views.edit') %>
-        </td>
-        <td>
-          <%= link_to term.name, edit_admin_common_term_path(term), class: 'open_remote_modal', style: "padding-left: #{term.level * 2}em;" %>
-        </td>
-        <td>
-          <%= time_ago_in_words(term.created_at) %>
-        </td>
-        <td>
-          <i class="sort-handler fas fa-bars tipsit custom_handle" title="<%= t('.drag_to_sort') %>"></i>
-        </td>
-        <td>
-          <%= link_to "<i class='fas fa-trash'></i>".html_safe, admin_common_term_path(term), method: :delete, title: t('views.delete'), data: { confirm: t(".delete_confirm") } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="admin_new_el">
+  <%= link_to new_admin_common_vocabulary_term_path, class: "open_remote_modal p_1 border-el" do %>
+    <i class="fa fa-plus-circle"></i>
+    <%= t(".new") %>
+  <% end %>
+</div>
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>

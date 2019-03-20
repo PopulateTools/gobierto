@@ -53,6 +53,11 @@ $test_color: transparentize($color_logo_yellow, 0.8);
 $color_warn: #981f2e;
 $color_success: #2ca25f;
 
+/* admin semaphore colors */
+$color_sem_red: #981F2E;
+$color_sem_yellow: #ECAD4C;
+$color_sem_green: #85A81C;
+
 .color_bg_main {
   background: $color_main;
 }

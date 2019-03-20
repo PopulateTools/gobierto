@@ -234,6 +234,11 @@ body.gobierto_admin {
     text-transform: uppercase;
   }
 
+  h5 {
+    margin: 0;
+    color: $color_separator;
+  }
+
   .form_block {
     margin: 3em 0;
   }
@@ -1054,4 +1059,28 @@ table {
 
   }
 
+}
+
+.color_sem_red, .color_sem_red a {
+  color: $color_sem_red;
+}
+
+.color_sem_yellow, .color_sem_yellow a {
+  color: $color_sem_yellow;
+}
+
+.color_sem_green, .color_sem_green a {
+  color: $color_sem_green;
+}
+
+.metric {
+  &.metric_medium {
+    .metric_value {
+      font-size: $f3;
+      font-weight: bold;
+    }
+  }
+  .metric_label {
+    font-size: $f8;
+  }
 }

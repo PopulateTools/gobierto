@@ -32,8 +32,12 @@ module GobiertoAdmin
         @process_event = gobierto_calendars_events(:reading_club)
       end
 
+      def subject
+        @subject ||= GobiertoAdmin::GobiertoCalendars::EventPolicy
+      end
+
       def test_manager_admin_manage?
-        assert EventPolicy.new(current_admin: manager_admin, event: event, current_site: madrid).manage?
+        assert subject.new(current_admin: manager_admin, event: event, current_site: madrid).manage?
       end
 
       def test_regular_admin_manage?
@@ -41,22 +45,22 @@ module GobiertoAdmin
         assert EventPolicy.new(current_admin: regular_admin, event: process_event, current_site: madrid).manage?
 
         # person event, with permissions on person
-        GobiertoPeople::PersonPolicy.any_instance.stubs(:manage?).returns(true)
-        assert EventPolicy.new(current_admin: regular_admin, event: person_event, current_site: madrid).manage?
+        GobiertoAdmin::GobiertoPeople::PersonPolicy.any_instance.stubs(:manage?).returns(true)
+        assert subject.new(current_admin: regular_admin, event: person_event, current_site: madrid).manage?
 
         # person event, without permissions on person
-        GobiertoPeople::PersonPolicy.any_instance.stubs(:manage?).returns(false)
-        refute EventPolicy.new(current_admin: regular_admin, event: person_event, current_site: madrid).manage?
+        GobiertoAdmin::GobiertoPeople::PersonPolicy.any_instance.stubs(:manage?).returns(false)
+        refute subject.new(current_admin: regular_admin, event: person_event, current_site: madrid).manage?
       end
 
       def test_disabled_admin_manage?
-        refute EventPolicy.new(current_admin: disabled_admin, event: event, current_site: madrid).manage?
+        refute subject.new(current_admin: disabled_admin, event: event, current_site: madrid).manage?
       end
 
       def test_regular_admin_view?
         # assert can view active events on active containers even without permissions
-        GobiertoPeople::PersonPolicy.any_instance.stubs(:manage?).returns(false)
-        assert EventPolicy.new(current_admin: manager_admin, event: active_person_active_event, current_site: madrid).manage?
+        GobiertoAdmin::GobiertoPeople::PersonPolicy.any_instance.stubs(:manage?).returns(false)
+        assert subject.new(current_admin: manager_admin, event: active_person_active_event, current_site: madrid).manage?
       end
 
     end

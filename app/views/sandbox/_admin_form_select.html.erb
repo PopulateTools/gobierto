@@ -1,0 +1,42 @@
+<%
+# Use:
+#   render partial: "admin_form_select", locals: {
+#     inline_label: true,
+#     label: 'Categoría',
+#     options: [
+#       '1',
+#       '2',
+#       '3'
+#     ] }
+#
+# Options:
+#   select_compact
+#   label: "Label" (default: Tipo)
+#   options: ["1", "2", "3"...]
+%>
+<div class="form_item select_control <%= local_assigns[:select_compact]? 'select_compact' : '' %>">
+
+  <% unless local_assigns[:select_compact] %>
+    <label for="">
+      <%= local_assigns[:label]? label : 'Label' %>
+    </label>
+  <% end %>
+
+  <select title="<%= local_assigns[:label]? label : 'Label' %>">
+
+    <% if local_assigns[:select_compact] %>
+      <option selected disabled><%= local_assigns[:label]? label : '' %></option>
+    <% end %>
+
+    <% if local_assigns[:options] %>
+      <% for i in options %>
+        <option><%= i %></option>
+      <% end %>
+    <% else %>
+      <option>Plan Actuación Municipal</option>
+      <option>Plan Urbanístico</option>
+      <option>Plan Interno</option>
+    <% end %>
+
+  </select>
+</div>

@@ -58,7 +58,7 @@ $color_pam_5: #00529e;
         color: $color_pam_1;
       }
 
-      .node-list .node-title .fa {
+      .node-list .node-title .fas {
         background: rgba($color_pam_1, 0.1);
       }
 
@@ -67,7 +67,7 @@ $color_pam_5: #00529e;
         color: $color_main_negative;
       }
 
-      .node-list.cat--negative .node-title .fa {
+      .node-list.cat--negative .node-title .fas {
         background: $color_main_negative;
         color: $color_pam_1;
       }
@@ -81,7 +81,7 @@ $color_pam_5: #00529e;
         color: $color_pam_1;
       }
 
-      .node-breadcrumb .fa {
+      .node-breadcrumb .fas {
         background: rgba($color_pam_1, 0.1);
       }
 
@@ -107,7 +107,7 @@ $color_pam_5: #00529e;
         color: $color_main_negative;
       }
 
-      .cat--negative .fa {
+      .cat--negative .fas {
         background: $color_main_negative;
         color: $color_pam_1;
       }
@@ -122,7 +122,7 @@ $color_pam_5: #00529e;
         color: $color_pam_2;
       }
 
-      .node-list .node-title .fa {
+      .node-list .node-title .fas {
         background: rgba($color_pam_2, 0.1);
       }
 
@@ -131,7 +131,7 @@ $color_pam_5: #00529e;
         color: $color_main_negative;
       }
 
-      .node-list.cat--negative .node-title .fa {
+      .node-list.cat--negative .node-title .fas {
         background: $color_main_negative;
         color: $color_pam_2;
       }
@@ -145,7 +145,7 @@ $color_pam_5: #00529e;
         color: $color_pam_2;
       }
 
-      .node-breadcrumb .fa {
+      .node-breadcrumb .fas {
         background: rgba($color_pam_2, 0.1);
       }
 
@@ -171,7 +171,7 @@ $color_pam_5: #00529e;
         color: $color_main_negative;
       }
 
-      .cat--negative .fa {
+      .cat--negative .fas {
         background: $color_main_negative;
         color: $color_pam_2;
       }
@@ -186,7 +186,7 @@ $color_pam_5: #00529e;
         color: $color_pam_3;
       }
 
-      .node-list .node-title .fa {
+      .node-list .node-title .fas {
         background: rgba($color_pam_3, 0.1);
       }
 
@@ -195,7 +195,7 @@ $color_pam_5: #00529e;
         color: $color_main_negative;
       }
 
-      .node-list.cat--negative .node-title .fa {
+      .node-list.cat--negative .node-title .fas {
         background: $color_main_negative;
         color: $color_pam_3;
       }
@@ -209,7 +209,7 @@ $color_pam_5: #00529e;
         color: $color_pam_3;
       }
 
-      .node-breadcrumb .fa {
+      .node-breadcrumb .fas {
         background: rgba($color_pam_3, 0.1);
       }
 
@@ -235,7 +235,7 @@ $color_pam_5: #00529e;
         color: $color_main_negative;
       }
 
-      .cat--negative .fa {
+      .cat--negative .fas {
         background: $color_main_negative;
         color: $color_pam_3;
       }
@@ -250,7 +250,7 @@ $color_pam_5: #00529e;
         color: $color_pam_4;
       }
 
-      .node-list .node-title .fa {
+      .node-list .node-title .fas {
         background: rgba($color_pam_4, 0.1);
       }
 
@@ -259,7 +259,7 @@ $color_pam_5: #00529e;
         color: $color_main_negative;
       }
 
-      .node-list.cat--negative .node-title .fa {
+      .node-list.cat--negative .node-title .fas {
         background: $color_main_negative;
         color: $color_pam_4;
       }
@@ -273,7 +273,7 @@ $color_pam_5: #00529e;
         color: $color_pam_4;
       }
 
-      .node-breadcrumb .fa {
+      .node-breadcrumb .fas {
         background: rgba($color_pam_4, 0.1);
       }
 
@@ -299,7 +299,7 @@ $color_pam_5: #00529e;
         color: $color_main_negative;
       }
 
-      .cat--negative .fa {
+      .cat--negative .fas {
         background: $color_main_negative;
         color: $color_pam_4;
       }
@@ -314,7 +314,7 @@ $color_pam_5: #00529e;
         color: $color_pam_5;
       }
 
-      .node-list .node-title .fa {
+      .node-list .node-title .fas {
         background: rgba($color_pam_5, 0.1);
       }
 
@@ -323,7 +323,7 @@ $color_pam_5: #00529e;
         color: $color_main_negative;
       }
 
-      .node-list.cat--negative .node-title .fa {
+      .node-list.cat--negative .node-title .fas {
         background: $color_main_negative;
         color: $color_pam_5;
       }
@@ -337,7 +337,7 @@ $color_pam_5: #00529e;
         color: $color_pam_5;
       }
 
-      .node-breadcrumb .fa {
+      .node-breadcrumb .fas {
         background: rgba($color_pam_5, 0.1);
       }
 
@@ -363,7 +363,7 @@ $color_pam_5: #00529e;
         color: $color_main_negative;
       }
 
-      .cat--negative .fa {
+      .cat--negative .fas {
         background: $color_main_negative;
         color: $color_pam_5;
       }
@@ -385,12 +385,12 @@ If you need extra colors, add this block again renaming cat_1 (cat_2, cat_3, cat
 .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb,
 .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb a,
 .gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
-.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fas {
   color: rgb($color_pam_1);
 }
 .gobierto_planification section:not(.level_0).cat_1,
 .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb .fa,
-.gobierto_planification section:not(.level_0).cat_1 .node-list .node-title .fa {
+.gobierto_planification section:not(.level_0).cat_1 .node-list .node-title .fas {
   background: rgba($color_pam_1, 0.1);
 }
 .gobierto_planification section:not(.level_0).cat_1 .cat--negative,
@@ -401,7 +401,7 @@ If you need extra colors, add this block again renaming cat_1 (cat_2, cat_3, cat
   color: white;
 }
 .gobierto_planification section:not(.level_0).cat_1 .cat--negative .fa,
-.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fa {
+.gobierto_planification section:not(.level_0).cat_1 .node-list.cat--negative .node-title .fas {
   background: white;
 }
 .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb {

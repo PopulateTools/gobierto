@@ -1,29 +1,33 @@
 <div class="admin_breadcrumb">
   <%= link_to 'Inicio', 'admin' %> »
-  <%= link_to 'Personalizar sitio', 'admin_sites_site' %> »
-  Temas
+  Vocabularios
 </div>
 
-<h1>Temas</h1>
+<h1>Vocabularios</h1>
 
 <div class="admin_tools right">
-  <%= link_to 'Nuevo tema', '#modal_edit_theme', class: 'button open_modal' %>
+  <%= link_to 'Nuevo', '#modal_edit_theme', class: 'button open_modal' %>
 </div>
 
 <table>
 <tr>
   <th class="icon_col"></th>
   <th>Tema</th>
-  <th>Creado</th>
-  <th></th>
+  <th>Términos</th>
+  <th class="icon_col"></th>
 </tr>
 
-<% for i in ['Deporte', 'Cultura', 'Economía', 'Medio Ambiente', 'Urbanismo', 'Mujer', 'Mayores'] %>
+<% for i in [
+  'Plan de Actuación Municipal 2016-2019',
+  'Plan Urbanístico 2020',
+  'Plan Smart City',
+  'Interno: Planificación'
+] %>
 <tr>
   <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, '#modal_edit_theme', class: 'open_modal' %></td>
   <td><%= link_to i, '#modal_edit_theme', class: 'open_modal' %></td>
-  <td>12 oct 2016</td>
-  <td><i class="sort-handler fas fa-bars tipsit" original-title="Arrastra para ordenar"></i></td>
+  <td><%= link_to '<i class="fas fa-cog"></i> Ver términos'.html_safe, 'admin_sites_vocab_edit', class: 'view_item' %></td>
+  <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, '' %></td>
 </tr>
 <% end %>
 

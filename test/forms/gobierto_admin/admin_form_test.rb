@@ -180,9 +180,6 @@ module GobiertoAdmin
     end
 
     def test_admin_groups_from_not_allowed_sites_are_deleted
-      madrid_and_santander_admin.admin_groups = [madrid_group, santander_group]
-      madrid_and_santander_admin.save
-
       admin_form = AdminForm.new(
         admin_params.merge(
           id: madrid_and_santander_admin.id,
@@ -198,10 +195,23 @@ module GobiertoAdmin
       assert_equal [madrid_group], madrid_and_santander_admin.reload.admin_groups
     end
 
-    def test_admin_groups_from_other_allowed_sites_are_preserved
-      madrid_and_santander_admin.admin_groups = [madrid_group, santander_group]
-      madrid_and_santander_admin.save
+    def test_admin_groups_deasign_group
+      admin_form = AdminForm.new(
+        admin_params.merge(
+          id: madrid_and_santander_admin.id,
+          permitted_sites: [madrid.id, santander.id],
+          admin_group_ids: []
+        )
+      )
 
+      assert_equal 2, madrid_and_santander_admin.reload.admin_groups.count
+
+      assert admin_form.save
+
+      assert_equal [santander_group], madrid_and_santander_admin.reload.admin_groups
+    end
+
+    def test_admin_groups_from_other_allowed_sites_are_preserved
       admin_form = AdminForm.new(
         admin_params.merge(
           id: madrid_and_santander_admin.id,

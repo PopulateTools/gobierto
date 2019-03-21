@@ -1022,6 +1022,10 @@ table {
     text-align: right;
     margin: 0 .75em;
 
+    a {
+      text-decoration: none;
+    }
+    
     .fas {
       margin: 0 .5em;
       font-size: .85em;

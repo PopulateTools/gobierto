@@ -15,9 +15,9 @@
       <i class="fas fa-caret-square-down" title="<%= t(".open_all") %>"></i>
     </div>
 
-    <% if @terms.try(:decorator).present? %>
+    <% if @terms.try(:decorated_values?) %>
       <div class="v_el_decorated">
-        <%= @terms.decorator.header %>
+        <%= render_decorator_template(@terms, :decorated_header_template) %>
       </div>
     <% end %>
 

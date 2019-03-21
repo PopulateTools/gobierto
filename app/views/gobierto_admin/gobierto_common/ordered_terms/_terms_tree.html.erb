@@ -1,4 +1,5 @@
 <% level_classes = "v_el v_el_level_#{local_assigns[:level]}" %>
+<% decorator = terms.try(:decorated_values?) ? terms.decorator : nil %>
 <% terms.each do |term, subterms| %>
   <% has_subterms = subterms.present? %>
   <div class="<%= level_classes %>">
@@ -13,13 +14,9 @@
         <%= term.name %>
       </div>
 
-      <% if term.try(:has_decorated_values?) %>
+      <% if decorator.present? %>
         <div class="v_el_decorated">
-          <% term.decorated_values.each do |value| %>
-            <div>
-              <%= value %>
-            </div>
-          <% end %>
+          <%= render_decorator_template(decorator, :decorated_values_template, term.decorated_values) %>
         </div>
       <% end %>
       <div class="v_el_actions" id="<%= "v_el_actions_#{term.id}" %>">

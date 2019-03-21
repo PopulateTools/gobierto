@@ -113,17 +113,27 @@ module GobiertoAdmin
       end
 
       def parent_terms_for_select(relation)
-        relation.map do |term|
-          [term.name, term.id]
+        flatten_tree(relation).map do |term|
+          ["#{"--" * term.level} #{term.name}".strip, term.id]
         end
       end
 
       def tree(relation, level = 0)
         level_relation = relation.where(level: level).order(position: :asc)
         return [] if level_relation.blank?
+
         level_relation.where(level: level).map do |node|
           [node, tree(node.terms, level + 1)]
         end.to_h
+      end
+
+      def flatten_tree(relation, level = 0)
+        level_relation = relation.where(level: level).order(position: :asc)
+        return [] if level_relation.blank?
+
+        level_relation.where(level: level).map do |node|
+          [node, flatten_tree(node.terms, level + 1)].flatten
+        end.flatten
       end
 
       def check_permissions!

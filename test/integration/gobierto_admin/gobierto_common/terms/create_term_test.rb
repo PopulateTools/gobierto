@@ -72,7 +72,10 @@ module GobiertoAdmin
 
                 assert has_message?("Term created successfully.")
 
-                click_link "Goat"
+                new_term = vocabulary.terms.last
+                within("#v_el_actions_#{new_term.id}", visible: false) do
+                  click_link "Edit", visible: false
+                end
 
                 assert has_field?("term_name_translations_en", with: "Goat")
                 assert has_field?("term_description_translations_en", with: "The goat is an animal")

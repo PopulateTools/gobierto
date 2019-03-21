@@ -66,8 +66,8 @@ module GobiertoCommon
           with_current_site(site) do
             visit @path
 
-            within "#term-item-#{term.id}" do
-              find("a[data-method='delete']").click
+            within("#v_el_actions_#{term.id}", visible: false) do
+              click_link "Delete", visible: false
             end
 
             assert has_message?("Term deleted successfully.")
@@ -82,8 +82,8 @@ module GobiertoCommon
           with_current_site(site) do
             visit @path
 
-            within "#term-item-#{term_with_associated_items.id}" do
-              find("a[data-method='delete']").click
+            within("#v_el_actions_#{term_with_associated_items.id}", visible: false) do
+              click_link "Delete", visible: false
             end
 
             assert has_message?("You can't delete a term while it has associated elements.")
@@ -98,8 +98,8 @@ module GobiertoCommon
           with_current_site(site) do
             visit plan_vocabulary_path
 
-            within "#term-item-#{term_in_plan_with_nodes.id}" do
-              find("a[data-method='delete']").click
+            within("#v_el_actions_#{term_in_plan_with_nodes.id}", visible: false) do
+              click_link "Delete", visible: false
             end
 
             assert has_message?("You can't delete a term while it has associated elements.")
@@ -114,8 +114,8 @@ module GobiertoCommon
           with_current_site(site) do
             visit plan_vocabulary_path
 
-            within "#term-item-#{term_in_plan_without_nodes.id}" do
-              find("a[data-method='delete']").click
+            within("#v_el_actions_#{term_in_plan_without_nodes.id}", visible: false) do
+              click_link "Delete", visible: false
             end
 
             assert has_message?("Term deleted successfully.")

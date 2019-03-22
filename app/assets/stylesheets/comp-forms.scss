@@ -32,6 +32,11 @@ textarea {
   }
 }
 
+button:last-child,
+.button:last-child {
+  margin-right: 0;
+}
+
 input,
 textarea {
   // Pseudoclasses does not work if they're grouped
@@ -209,11 +214,25 @@ button:hover {
   background: darken($color_main, 10%);
 }
 
+input[type=submit]:disabled,
+.button:disabled,
+button:disabled {
+  // background: darken($color_main, 20%);
+  // color: darken(#fff, 20%);
+  background: $color_main;
+  opacity: .5;
+}
+
 button a,
 a.button,
 .button {
   color: #fff;
   text-decoration: none;
+}
+button.bl,
+.button.bl {
+  width: 100%;
+  display: block;
 }
 
 a.button:hover {
@@ -559,13 +578,6 @@ select {
 
 select::-ms-expand { /* for IE 11 */
   display: none;
-}
-
-input[type=submit]:disabled,
-.button:disabled,
-button:disabled {
-  background: darken($color_main, 20%);
-  color: darken(#fff, 20%);
 }
 
 option,
@@ -1066,5 +1078,21 @@ select {
 
   .i_filter:last-child {
     border-bottom: initial;
+  }
+}
+
+.i_p_status {
+  &.not_published {
+    position: relative;
+    padding-left: 18px;
+  }
+  &.not_published::before {
+    content: "";
+    position: absolute;
+    border-radius: 36px;
+    width: 12px;
+    height: 12px;
+    left: 0;
+    background: $color_sem_red;
   }
 }

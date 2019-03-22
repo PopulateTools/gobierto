@@ -109,71 +109,10 @@
   <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
 
     <%# render "admin_widget_save.html.erb", locals: { only_save_button: true } %>
+
+    <%= render "admin_widget_save_v2.html.erb", locals: { only_save_button: true } %>
+
     <%# render "admin_widget_attachment.html.erb" %>
-
-    <!--
-
-    Use:
-      render partial: "admin_widget_save", locals: { only_save_button: true }
-
-
-    Options:
-      only_save_button: true | false
-      password_protected: true | false
-
-    -->
-
-    <div class="widget_save_v2 stick_in_parent">
-
-      <div class="button medium">Guardar</div>
-      <div class="button medium light">Previsualizar</div>
-
-      
-
-      <% unless local_assigns[:only_save_button] %>
-      <div class="form_item">
-
-    		<div class="options compact">
-
-    			<div class="option">
-            <input type="radio" id="opt_1" name="opt" value="1" checked />
-            <label for="opt_1">
-              <span></span>
-              Borrador
-
-              <!-- this only applies to the draft status for Site -->
-              <% if local_assigns[:password_protected] %>
-                <div class="password_protected">
-                	<p>Usuario: <strong>gobierto</strong></p>
-                	<p>Contraseña:
-                		<input type="text" name="password">
-                	</p>
-                </div>
-              <% end %>
-
-            </label>
-          </div>
-
-          <div class="option">
-            <input type="radio" id="opt_2" name="opt" value="2"/>
-            <label for="opt_2">
-              <span></span>
-              Activo
-            </label>
-          </div>
-
-    	  </div>
-
-    	</div>
-
-      <div class="action_view sep_top_bot">
-      	<%= link_to '<i class="fas fa-eye"></i> Ver usuario'.html_safe, '' %>
-      </div>
-      <% end %>
-
-      <input type="submit" value="Guardar" class="button">
-
-    </div>
 
 
   </div>

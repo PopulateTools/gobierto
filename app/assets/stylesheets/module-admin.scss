@@ -225,6 +225,12 @@ menu.main {
 
 /* Headings */
 body.gobierto_admin {
+  h1, h2, h3, h4, h5 {
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
   h1 {
     font-size: 1.8em;
     margin: 0 0 1em 0;
@@ -351,12 +357,29 @@ body.gobierto_admin {
 /* Widget Save v2 */
 .widget_save_v2 {
   background: $color_neutral_soft;
-
   @include border-radius(6px);
 
-  .button {
-    
+  .w_s_content {
+    padding: .75em;
   }
+
+  .publication_section {
+    background: transparentize($color_main, .85);
+  }
+
+  .w_actions {
+    display: flex;
+    flex-wrap: nowrap;
+
+    > button {
+      width: 49%;
+      overflow: hidden;
+    }
+  }
+}
+
+.widget_save_v2.is_stuck {
+  margin-top: 60px;
 }
 
 
@@ -1096,4 +1119,56 @@ table {
   .metric_label {
     font-size: $f8;
   }
+}
+
+.f_small {
+  font-size: .85em;
+  line-height: 1.2;
+}
+.f_soft,
+a.f_soft,
+.f_soft a, {
+  color: $color_meta_text;
+}
+
+.g_popup_context {
+  position: relative;
+
+  .g_popup {
+    position: absolute;
+    background: #F0F0F0;
+    box-shadow: 0 0 26px 0 rgba(0,0,0,0.24);
+    border-radius: 6px;
+    padding: 1.5em;
+    width: 25vw;
+    min-width: 300px;
+    max-width: 600px;
+    right: -40px;
+    z-index: 1;
+    transition: visibility 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000), opacity 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000); /* ease-in-out */
+    // opacity: 0;
+    // visibility: hidden;
+
+    ul, li {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    a {
+      border-radius: 3px;
+      padding: .5em;
+      display: block;
+    }
+    a:hover {
+      background: rgba($color_main, 0.1);
+    }
+
+  }
+
+  &:hover > .g_popup {
+    visibility: visible;
+    opacity: 1;
+  }
+
 }

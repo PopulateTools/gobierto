@@ -982,6 +982,37 @@ table {
     cursor: move;
   }
 
+  .v_el_level {
+    @include border-radius(6px);
+    background: rgba($color_main, 0.1);
+    padding: .75em 0 .5em .8em;
+    margin: 0 0 1em 0;
+
+    .icon-caret {
+      padding: 0 .5em;
+      font-size: 1.25em;
+      vertical-align: middle;
+    }
+
+    > .v_el_level {
+      background: initial;
+      padding: .35em 0 .15em 0;
+      margin: 0 0 0 1.75em;
+      border-radius: 0;
+
+      .v_el_title {
+        font-size: .85rem;
+        line-height: 1.2;
+        margin: .45em 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+    }
+
+  }
+
   .v_el_cont,
   .v_heading {
     display: flex;
@@ -1017,6 +1048,10 @@ table {
     }
   }
 
+  .v_el_icon_tree {
+    min-width: 30px;
+  }
+
   .v_el_actions {
     min-width: 75px;
     text-align: right;
@@ -1025,37 +1060,11 @@ table {
     a {
       text-decoration: none;
     }
-    
+
     .fas {
       margin: 0 .5em;
       font-size: .85em;
     }
-  }
-
-  .v_el_level_0 {
-    @include border-radius(6px);
-    background: rgba($color_main, 0.1);
-    padding: .75em 0 .5em .8em;
-    margin: 0 0 1em 0;
-
-    .icon-caret {
-      padding: 0 .5em;
-      font-size: 1.25em;
-      vertical-align: middle;
-    }
-
-  }
-
-  .v_el_level_1 {
-    .v_el_title {
-      font-size: .85rem;
-      line-height: 1.2;
-      margin: .45em 0;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
   }
 
 }

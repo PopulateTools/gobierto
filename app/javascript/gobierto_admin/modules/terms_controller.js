@@ -23,17 +23,20 @@ window.GobiertoAdmin.TermsController = (function() {
         $(this).addClass('fa-caret-right');
       }
 
-      $(this).parent().parent().parent().find('> .v_el').toggleClass('el-opened');
+      $(this).parent().parent().parent().parent().find('> .v_el').toggleClass('el-opened');
+
     });
 
     // Close all elements except first level
     $('.v_container .v_heading .fa-caret-square-right').click(function(e) {
-      $('.v_container .v_el_level_0 .v_el').removeClass('el-opened');
+      // closes all elements
+      $('.v_container .v_el_level .v_el').removeClass('el-opened');
     });
 
     // Open all elements except first level
     $('.v_container .v_heading .fa-caret-square-down').click(function(e) {
-      $('.v_container .v_el_level_0 .v_el').addClass('el-opened');
+      // Opens all elements
+      $('.v_container .v_el_level .v_el').addClass('el-opened');
     });
 
     // show only action buttons (edit, delete) when hovering an item

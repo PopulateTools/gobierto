@@ -249,6 +249,14 @@ button.gigantic,
   text-decoration: none;
 }
 
+button.medium,
+.button.medium {
+  font-size: 0.85em;
+  padding: .65em 1em 0.5em;
+  @include border-radius(4px);
+  display: inline-block;
+}
+
 button.small,
 .button.small {
   font-size: 0.85em;

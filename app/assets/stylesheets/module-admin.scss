@@ -347,6 +347,19 @@ body.gobierto_admin {
   margin-top: 60px;
 }
 
+
+/* Widget Save v2 */
+.widget_save_v2 {
+  background: $color_neutral_soft;
+
+  @include border-radius(6px);
+
+  .button {
+    
+  }
+}
+
+
 .sep_top_bot {
   border-top: 1px solid $color_separator;
   border-bottom: 1px solid $color_separator;

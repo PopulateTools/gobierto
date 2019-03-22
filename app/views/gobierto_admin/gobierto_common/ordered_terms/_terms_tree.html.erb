@@ -3,7 +3,7 @@
 <% terms.each do |term, subterms| %>
   <% has_subterms = subterms.present? %>
   <div class="<%= level_classes %>" data-id="<%= term.id %>">
-    <div class="v_el_cont">
+    <div class="v_el_cont custom_handle">
       <% if has_subterms %>
         <%= link_to "" do %>
           <i class="fas icon-caret fa-caret-right"></i>
@@ -19,7 +19,6 @@
           <%= render_decorator_template(decorator, :decorated_values_template, term.decorated_values) %>
         </div>
       <% end %>
-      <i class="sort-handler fas fa-bars tipsit <%= "custom_handle" %>" title="<%= t(".drag_to_sort") %>"></i>
       <div class="v_el_actions" id="<%= "v_el_actions_#{term.id}" %>">
         <%= link_to edit_admin_common_term_path(term), class: "open_remote_modal", title: t("views.edit")  do %>
           <i class="fas fa-edit"></i>

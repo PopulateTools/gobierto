@@ -220,7 +220,7 @@ button:disabled {
   // background: darken($color_main, 20%);
   // color: darken(#fff, 20%);
   background: $color_main;
-  opacity: .5;
+  opacity: .2;
 }
 
 button a,
@@ -1082,17 +1082,35 @@ select {
 }
 
 .i_p_status {
-  &.not_published {
+  &.not_published,
+  &.in_revision,
+  &.approved {
     position: relative;
     padding-left: 18px;
   }
-  &.not_published::before {
+
+  &.not_published::before,
+  &.in_revision::before,
+  &.approved::before {
     content: "";
     position: absolute;
     border-radius: 36px;
     width: 12px;
     height: 12px;
     left: 0;
+  }
+
+  &.not_published::before {
     background: $color_sem_red;
   }
+
+  &.in_revision::before {
+    background: $color_sem_yellow;
+  }
+
+  &.approved::before {
+    background: $color_sem_green;
+  }
+
+
 }

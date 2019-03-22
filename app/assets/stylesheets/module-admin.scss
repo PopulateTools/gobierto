@@ -373,7 +373,7 @@ body.gobierto_admin {
 
     > button {
       width: 49%;
-      overflow: hidden;
+      @include ellipsis;
     }
   }
 }
@@ -1146,8 +1146,8 @@ a.f_soft,
     right: -40px;
     z-index: 1;
     transition: visibility 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000), opacity 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000); /* ease-in-out */
-    // opacity: 0;
-    // visibility: hidden;
+    opacity: 0;
+    visibility: hidden;
 
     ul, li {
       margin: 0;

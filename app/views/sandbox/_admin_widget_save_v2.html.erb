@@ -9,7 +9,19 @@ Options:
   password_protected: true | false
 
 -->
-<div class="widget_save_v2 m_b_2 stick_in_parent">
+
+<%
+
+txt_msg_1 = "Una vez guardes tu contenido, podrás enviarlo a moderación"
+txt_msg_2 = "Cuando tu contenido esté listo para ser revisado por un moderador, haz click en Enviar"
+txt_msg_3 = "Tu contenido ha sido enviado para revisión. Recibirás una notificación cuando se apruebe o te soliciten cambios"
+txt_msg_4 = "Haz click en Publicar para que esta versión sea visible publicamente."
+txt_msg_5 = "La versión actual es la que está publicada.  Despublicar."
+
+%>
+
+<!-- <div class="widget_save_v2 m_b_2 stick_in_parent"> -->
+<div class="widget_save_v2 m_b_2">
 
   <div class="w_s_content">
 
@@ -31,7 +43,7 @@ Options:
       </div>
     </div>
 
-    <div class="pure-g f_small m_b_1">
+    <div class="pure-g f_small m_t_2">
       <div class="pure-u-1-2">
         Editando versión
       </div>
@@ -40,7 +52,7 @@ Options:
       </div>
     </div>
 
-    <div class="pure-g f_small">
+    <div class="pure-g f_small m_t_1">
       <div class="pure-u-1-2">
         Estado
       </div>
@@ -60,16 +72,12 @@ Options:
           Versión publicada
         </div>
         <div class="pure-u-1-2">
-          <strong class="p_h_1">1</strong>
-          <a href="" class="f_soft">ver</a>
+          sin publicar todavía
         </div>
       </div>
 
-      <div class="pure-g f_small m_b_2">
-        <div class="pure-u-1-2"></div>
-        <div class="pure-u-1-2">
-          <a href="" class="f_soft">Cambiar versión publicada</a>
-        </div>
+      <div class="w_s_txt_msg f_small m_t_4">
+        <%= txt_msg_1 %>
       </div>
 
       <div class="m_t_1">
@@ -101,7 +109,9 @@ Options:
 
 
 
-<div class="widget_save_v2 m_b_2 stick_in_parent">
+
+<!-- <div class="widget_save_v2 m_b_2 stick_in_parent"> -->
+<div class="widget_save_v2 m_b_2 ">
 
   <div class="w_s_content">
 
@@ -123,7 +133,7 @@ Options:
       </div>
     </div>
 
-    <div class="pure-g f_small m_b_1">
+    <div class="pure-g f_small m_t_2">
       <div class="pure-u-1-2">
         Editando versión
       </div>
@@ -163,7 +173,7 @@ Options:
       </div>
     </div>
 
-    <div class="pure-g f_small">
+    <div class="pure-g f_small m_t_1">
       <div class="pure-u-1-2">
         Estado
       </div>
@@ -195,8 +205,12 @@ Options:
         </div>
       </div>
 
+      <div class="w_s_txt_msg f_small m_t_4">
+        <%= txt_msg_2 %>
+      </div>
+
       <div class="m_t_1">
-        <button disabled class="bl">Enviar</button>
+        <button class="bl">Enviar</button>
       </div>
 
     </div>
@@ -211,6 +225,388 @@ Options:
       </div>
       <div class="pure-u-1-2">
         <span class="i_p_status not_published">No enviado</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+<div class="widget_save_v2 m_b_2 ">
+
+  <div class="w_s_content">
+
+    <div class="w_actions m_b_1">
+      <button class="button medium">Guardar</button>
+      <button class="button medium light">Previsualizar</button>
+    </div>
+
+    <div class="form_item m_b_1">
+      <div class="options compact">
+        <div class="option">
+          <input type="hidden" name="permissions" value="0"/>
+          <input type="checkbox" id="permission_7" name="permission_1" value="1"/>
+          <label for="permission_7">
+            <span></span>
+            Cambio menor (no guarda versión)
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="pure-g f_small m_t_2">
+      <div class="pure-u-1-2">
+        Editando versión
+      </div>
+      <div class="pure-u-1-2">
+        <strong class="p_h_1">1</strong>
+        <span class="g_popup_context">
+          <a href="" class="f_soft">ver anteriores</a>
+
+          <div class="g_popup">
+
+            <h3>Últimas versiones</h3>
+
+            <ul>
+            <% for i in [
+              '9 - hace 5 minutos',
+              '8 - hace 10 minutos',
+              '7 - hace 12 minutos',
+              '6 - 12 mar 2019 · 12:34pm',
+              '5 - 12 mar 2019 · 12:34pm',
+              '4 - 12 mar 2019 · 12:34pm',
+              '3 - 12 mar 2019 · 12:34pm',
+              '2 - 12 mar 2019 · 12:34pm',
+              '1 - 12 mar 2019 · 12:34pm'
+            ]
+            %>
+              <li><a href=""><%= i %></a></li>
+            <% end %>
+            </ul>
+
+            <a href="">ver todas</a>
+
+          </div>
+
+        </span>
+
+
+      </div>
+    </div>
+
+    <div class="pure-g f_small m_t_1">
+      <div class="pure-u-1-2">
+        Estado
+      </div>
+      <div class="pure-u-1-2">
+        <span class="i_p_status not_published">No publicada</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="publication_section m_v_2">
+
+    <div class="w_s_content">
+
+      <div class="pure-g f_small m_b_1">
+        <div class="pure-u-1-2">
+          Versión publicada
+        </div>
+        <div class="pure-u-1-2">
+          <strong class="p_h_1">1</strong>
+          <a href="" class="f_soft">ver</a>
+        </div>
+      </div>
+
+      <div class="pure-g f_small m_b_2">
+        <div class="pure-u-1-2"></div>
+        <div class="pure-u-1-2">
+          <a href="" class="f_soft">Cambiar versión publicada</a>
+        </div>
+      </div>
+
+      <div class="w_s_txt_msg f_small m_t_4">
+        <%= txt_msg_3 %>
+      </div>
+
+      <div class="m_t_1">
+        <button disabled class="bl">Publicar</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="w_s_content">
+
+    <div class="pure-g f_small">
+      <div class="pure-u-1-2">
+        Moderación
+      </div>
+      <div class="pure-u-1-2">
+        <span class="i_p_status in_revision">En revisión</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="widget_save_v2 m_b_2 ">
+
+  <div class="w_s_content">
+
+    <div class="w_actions m_b_1">
+      <button class="button medium">Guardar</button>
+      <button class="button medium light">Previsualizar</button>
+    </div>
+
+    <div class="form_item m_b_1">
+      <div class="options compact">
+        <div class="option">
+          <input type="hidden" name="permissions" value="0"/>
+          <input type="checkbox" id="permission_7" name="permission_1" value="1"/>
+          <label for="permission_7">
+            <span></span>
+            Cambio menor (no guarda versión)
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="pure-g f_small m_t_2">
+      <div class="pure-u-1-2">
+        Editando versión
+      </div>
+      <div class="pure-u-1-2">
+        <strong class="p_h_1">1</strong>
+        <span class="g_popup_context">
+          <a href="" class="f_soft">ver anteriores</a>
+
+          <div class="g_popup">
+
+            <h3>Últimas versiones</h3>
+
+            <ul>
+            <% for i in [
+              '9 - hace 5 minutos',
+              '8 - hace 10 minutos',
+              '7 - hace 12 minutos',
+              '6 - 12 mar 2019 · 12:34pm',
+              '5 - 12 mar 2019 · 12:34pm',
+              '4 - 12 mar 2019 · 12:34pm',
+              '3 - 12 mar 2019 · 12:34pm',
+              '2 - 12 mar 2019 · 12:34pm',
+              '1 - 12 mar 2019 · 12:34pm'
+            ]
+            %>
+              <li><a href=""><%= i %></a></li>
+            <% end %>
+            </ul>
+
+            <a href="">ver todas</a>
+
+          </div>
+
+        </span>
+
+
+      </div>
+    </div>
+
+    <div class="pure-g f_small m_t_1">
+      <div class="pure-u-1-2">
+        Estado
+      </div>
+      <div class="pure-u-1-2">
+        <span class="i_p_status not_published">No publicada</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="publication_section m_v_2">
+
+    <div class="w_s_content">
+
+      <div class="pure-g f_small m_b_1">
+        <div class="pure-u-1-2">
+          Versión publicada
+        </div>
+        <div class="pure-u-1-2">
+          <strong class="p_h_1">1</strong>
+          <a href="" class="f_soft">ver</a>
+        </div>
+      </div>
+
+      <div class="pure-g f_small m_b_2">
+        <div class="pure-u-1-2"></div>
+        <div class="pure-u-1-2">
+          <a href="" class="f_soft">Cambiar versión publicada</a>
+        </div>
+      </div>
+
+      <div class="w_s_txt_msg f_small m_t_4">
+        <%= txt_msg_4 %>
+      </div>
+
+      <div class="m_t_1">
+        <button class="bl">Publicar</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="w_s_content">
+
+    <div class="pure-g f_small">
+      <div class="pure-u-1-2">
+        Moderación
+      </div>
+      <div class="pure-u-1-2">
+        <span class="i_p_status approved">Aprobado</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="widget_save_v2 m_b_2 ">
+
+  <div class="w_s_content">
+
+    <div class="w_actions m_b_1">
+      <button class="button medium">Guardar</button>
+      <button class="button medium light">Previsualizar</button>
+    </div>
+
+    <div class="form_item m_b_1">
+      <div class="options compact">
+        <div class="option">
+          <input type="hidden" name="permissions" value="0"/>
+          <input type="checkbox" id="permission_7" name="permission_1" value="1"/>
+          <label for="permission_7">
+            <span></span>
+            Cambio menor (no guarda versión)
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="pure-g f_small m_t_2">
+      <div class="pure-u-1-2">
+        Editando versión
+      </div>
+      <div class="pure-u-1-2">
+        <strong class="p_h_1">1</strong>
+        <span class="g_popup_context">
+          <a href="" class="f_soft">ver anteriores</a>
+
+          <div class="g_popup">
+
+            <h3>Últimas versiones</h3>
+
+            <ul>
+            <% for i in [
+              '9 - hace 5 minutos',
+              '8 - hace 10 minutos',
+              '7 - hace 12 minutos',
+              '6 - 12 mar 2019 · 12:34pm',
+              '5 - 12 mar 2019 · 12:34pm',
+              '4 - 12 mar 2019 · 12:34pm',
+              '3 - 12 mar 2019 · 12:34pm',
+              '2 - 12 mar 2019 · 12:34pm',
+              '1 - 12 mar 2019 · 12:34pm'
+            ]
+            %>
+              <li><a href=""><%= i %></a></li>
+            <% end %>
+            </ul>
+
+            <a href="">ver todas</a>
+
+          </div>
+
+        </span>
+
+
+      </div>
+    </div>
+
+    <div class="pure-g f_small m_t_1">
+      <div class="pure-u-1-2">
+        Estado
+      </div>
+      <div class="pure-u-1-2">
+        <span class="i_p_status approved">Publicada</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="publication_section m_v_2">
+
+    <div class="w_s_content">
+
+      <div class="pure-g f_small m_b_1">
+        <div class="pure-u-1-2">
+          Versión publicada
+        </div>
+        <div class="pure-u-1-2">
+          <strong class="p_h_1">1</strong>
+          <a href="" class="f_soft">ver</a>
+        </div>
+      </div>
+
+      <div class="pure-g f_small m_b_2">
+        <div class="pure-u-1-2"></div>
+        <div class="pure-u-1-2">
+          <a href="" class="f_soft">Cambiar versión publicada</a>
+        </div>
+      </div>
+
+      <div class="w_s_txt_msg f_small m_t_4">
+        <%= txt_msg_5 %>
+      </div>
+
+      <div class="m_t_1">
+        <button disabled class="bl">Publicar</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="w_s_content">
+
+    <div class="pure-g f_small">
+      <div class="pure-u-1-2">
+        Moderación
+      </div>
+      <div class="pure-u-1-2">
+        <span class="i_p_status approved">Aprobado</span>
       </div>
     </div>
 

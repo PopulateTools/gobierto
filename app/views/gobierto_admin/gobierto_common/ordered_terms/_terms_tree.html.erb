@@ -1,13 +1,15 @@
-<% level_classes = "v_el v_el_level_#{local_assigns[:level]}" %>
+<% level_classes = "v_el v_el_level" %>
 <% decorator = terms.try(:decorated_values?) ? terms.decorator : nil %>
 <% terms.each do |term, subterms| %>
   <% has_subterms = subterms.present? %>
-  <div class="<%= level_classes %>" data-id="<%= term.id %>">
+  <div class="v_el v_el_level" data-id="<%= term.id %>">
     <div class="v_el_cont custom_handle">
       <% if has_subterms %>
-        <%= link_to "" do %>
-          <i class="fas icon-caret fa-caret-right"></i>
-        <% end %>
+        <div class="v_el_icon_tree">
+          <%= link_to "" do %>
+            <i class="fas icon-caret fa-caret-right"></i>
+          <% end %>
+        </div>
       <% end %>
 
       <div class="v_el_title">
@@ -29,7 +31,7 @@
       </div>
     </div>
     <% if has_subterms %>
-      <%= render partial: "terms_tree", locals: { terms: subterms, level: level + 1 } %>
+      <%= render partial: "terms_tree", locals: { terms: subterms } %>
     <% end %>
   </div>
 <% end %>

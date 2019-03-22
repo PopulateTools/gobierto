@@ -58,7 +58,7 @@ window.GobiertoAdmin.TermsController = (function() {
       items: 'div.v_el',
       handle: '.custom_handle',
       forcePlaceholderSize: true,
-      placeholder: '<div class="v_el v_el_level_1"></div>',
+      placeholder: '<div class="v_el v_el_level"></div>',
       update: function() {
         _refreshPositions(wrapper);
         _requestUpdate(wrapper, _buildPositions(wrapper));

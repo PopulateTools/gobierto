@@ -2,7 +2,7 @@
 <% decorator = terms.try(:decorated_values?) ? terms.decorator : nil %>
 <% terms.each do |term, subterms| %>
   <% has_subterms = subterms.present? %>
-  <div class="<%= level_classes %>">
+  <div class="<%= level_classes %>" data-id="<%= term.id %>">
     <div class="v_el_cont">
       <% if has_subterms %>
         <%= link_to "" do %>
@@ -19,6 +19,7 @@
           <%= render_decorator_template(decorator, :decorated_values_template, term.decorated_values) %>
         </div>
       <% end %>
+      <i class="sort-handler fas fa-bars tipsit <%= "custom_handle" %>" title="<%= t(".drag_to_sort") %>"></i>
       <div class="v_el_actions" id="<%= "v_el_actions_#{term.id}" %>">
         <%= link_to edit_admin_common_term_path(term), class: "open_remote_modal", title: t("views.edit")  do %>
           <i class="fas fa-edit"></i>
@@ -29,7 +30,7 @@
       </div>
     </div>
     <% if has_subterms %>
-      <%= render partial: "terms_tree", locals: { terms: subterms, level: level+1 } %>
+      <%= render partial: "terms_tree", locals: { terms: subterms, level: level + 1 } %>
     <% end %>
   </div>
 <% end %>

@@ -20,6 +20,7 @@ en:
           title: New term
         terms_tree:
           delete_confirm: Are you sure? This operation can not be undone
+          drag_to_sort: Drag to sort
       terms:
         edit:
           edit: Edit %{term}

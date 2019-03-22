@@ -5,7 +5,7 @@ window.GobiertoAdmin.TermsController = (function() {
 
   TermsController.prototype.index = function() {
     _handleTermsList();
-    // _handleSortableList();
+    _handleSortableList();
   };
 
   function _handleTermsList() {
@@ -49,18 +49,17 @@ window.GobiertoAdmin.TermsController = (function() {
   }
 
   function _handleSortableList() {
-    var wrapper = "tbody[data-behavior=sortable]";
+    var wrapper = "div[data-behavior=sortable]";
 
     $(wrapper).sortable({
-      items: 'tr',
+      items: 'div.v_el',
       handle: '.custom_handle',
       forcePlaceholderSize: true,
-      placeholder: '<tr><td colspan="8">&nbsp;&nbsp;</td></tr>',
+      placeholder: '<div class="v_el v_el_level_1"></div>',
       update: function() {
         _refreshPositions(wrapper);
         _requestUpdate(wrapper, _buildPositions(wrapper));
-      },
-      helper: _fixWidthHelper
+      }
     });
   }
 
@@ -72,7 +71,7 @@ window.GobiertoAdmin.TermsController = (function() {
   }
 
   function _refreshPositions(wrapper) {
-    $(wrapper).find("tr").each(function(index) {
+    $(wrapper).find("div.v_el").each(function(index) {
       $(this).attr("data-pos", index + 1);
     });
   }
@@ -80,7 +79,7 @@ window.GobiertoAdmin.TermsController = (function() {
   function _buildPositions(wrapper) {
     var positions = [];
 
-    $(wrapper).find("tr").each(function(index) {
+    $(wrapper).find("div.v_el").each(function(index) {
       positions.push({
         id: $(this).data("id"),
         position: index + 1

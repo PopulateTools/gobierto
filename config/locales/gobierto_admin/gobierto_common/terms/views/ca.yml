@@ -20,6 +20,7 @@ ca:
           title: Nou terme
         terms_tree:
           delete_confirm: Estàs segur? Aquesta operació no és reversible
+          drag_to_sort: Arrastra per a ordenar
       terms:
         edit:
           edit: Editar %{term}

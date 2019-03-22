@@ -1,6 +1,11 @@
 ---
 ca:
   gobierto_admin:
+    admin_groups:
+      create:
+        success: El Grup d'admins s'ha creat correctament
+      update:
+        success: El Grup d'admins s'ha actualizat correctament
     admins:
       create:
         success: El Admin s'ha creat correctament

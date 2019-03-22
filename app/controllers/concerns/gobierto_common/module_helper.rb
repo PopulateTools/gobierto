@@ -9,7 +9,7 @@ module GobiertoCommon
     end
 
     def module_allowed!(current_admin, module_namespace)
-      raise_module_not_allowed unless current_admin.module_allowed?(module_namespace)
+      raise_module_not_allowed unless current_admin.module_allowed?(module_namespace, current_site)
     end
 
   end

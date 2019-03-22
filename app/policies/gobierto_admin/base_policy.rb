@@ -20,7 +20,7 @@ module GobiertoAdmin
     end
 
     def can_manage_module?(module_namespace)
-      current_admin.module_allowed?(module_namespace)
+      current_admin.module_allowed?(module_namespace, current_site)
     end
 
   end

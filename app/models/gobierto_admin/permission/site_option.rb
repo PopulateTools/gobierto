@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoAdmin
-  class Permission::SiteOption < Permission
+  class Permission::SiteOption < GroupPermission
 
     RESOURCE_NAMES = [:customize, :vocabularies, :templates, :custom_fields].freeze
 

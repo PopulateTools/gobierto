@@ -10,14 +10,15 @@ module GobiertoAdmin
       # Most tests use 'Steve'. Grant module permissions to make
       # sure action is rejected because resource permissions don't
       # exist, not because of module ones.
-      grant_module_permissions_to_admin(@unauthorized_admin, 'gobierto_people')
+
+      setup_specific_permissions(@unauthorized_admin, module: "gobierto_people", site: site)
     end
 
     def test_access_resource_without_permissions
       with_signed_in_admin(@unauthorized_admin) do
         with_current_site(site) do
           visit @unauthorized_resource_path
-          assert has_message?('You do not have enough permissions to perform this action')
+          assert has_message?("You do not have enough permissions to perform this action")
         end
       end
     end

@@ -146,7 +146,7 @@ module GobiertoAdmin
       end
 
       def can_manage_person?(person)
-        ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).manage?
+        ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, current_site: current_site, person: person).manage?
       end
 
     end

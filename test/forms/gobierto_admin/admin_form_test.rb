@@ -25,18 +25,27 @@ module GobiertoAdmin
       @santander ||= sites(:santander)
     end
 
+    def madrid_group
+      @madrid_group ||= gobierto_admin_admin_groups(:madrid_group)
+    end
+
+    def santander_group
+      @santander_group ||= gobierto_admin_admin_groups(:santander_group)
+    end
+
     def admin_params
       @admin_params ||= {
+        site: madrid,
         name: admin.name,
         email: new_admin_email, # to ensure uniqueness
-        password: 'gobierto',
-        password_confirmation: 'gobierto',
-        authorization_level: 'regular'
+        password: "gobierto",
+        password_confirmation: "gobierto",
+        authorization_level: "regular"
       }.with_indifferent_access
     end
 
     def manager_admin_params
-      @manager_admin_params ||= admin_params.merge(authorization_level: 'manager')
+      @manager_admin_params ||= admin_params.merge(authorization_level: "manager")
     end
 
     def valid_admin_form
@@ -55,14 +64,14 @@ module GobiertoAdmin
     def tony
       @tony ||= gobierto_admin_admins(:tony)
     end
-    alias_method :admin, :tony
-    alias_method :regular_admin, :tony
-    alias_method :madrid_and_santander_admin, :tony
+    alias admin tony
+    alias regular_admin tony
+    alias madrid_and_santander_admin tony
 
     def steve
       @steve ||= gobierto_admin_admins(:steve)
     end
-    alias_method :only_madrid_admin, :steve
+    alias only_madrid_admin steve
 
     def new_admin_email
       "wadus@gobierto.dev"
@@ -90,10 +99,6 @@ module GobiertoAdmin
       assert_equal 2, invalid_admin_form.errors.messages[:email].size
     end
 
-    def test_permitted_modules_initialization
-      assert_equal [], AdminForm.new.permitted_modules
-    end
-
     def test_confirmation_email_delivery_for_new_record
       assert_difference "ActionMailer::Base.deliveries.size", 1 do
         valid_admin_form.save
@@ -101,51 +106,22 @@ module GobiertoAdmin
     end
 
     def test_confirmation_email_delivery_for_existing_record
-      admin_edit_form = AdminForm.new(id: admin.id)
+      admin_edit_form = AdminForm.new(id: admin.id, site: madrid)
 
       assert_no_difference "ActionMailer::Base.deliveries.size" do
         admin_edit_form.save
       end
     end
 
-    ## Tests related to permissions
-
-    def test_change_authorization_level_updates_permissions
-
-      admin_form = AdminForm.new(admin_params.merge(
-        id: only_madrid_admin.id,
-        authorization_level: 'disabled',
-        permitted_modules: [ 'GobiertoPeople' ],
-        permitted_sites: [ madrid.id],
-        permitted_people: [ richard.id ]
-      ))
-
-      # disabled admins don't have permissions at all
-
-      assert admin_form.save
-      assert only_madrid_admin.permissions.empty?
-      assert only_madrid_admin.sites.empty?
-
-      admin_form = AdminForm.new(admin_params.merge(
-        id: only_madrid_admin.id,
-        authorization_level: 'manager',
-        permitted_modules: [ 'GobiertoPeople' ],
-        permitted_sites: [ madrid.id],
-        permitted_people: [ richard.id ]
-      ))
-
-      # manager admins don't need sites or permission objects
-
-      assert admin_form.save
-      assert only_madrid_admin.permissions.empty?
-      assert only_madrid_admin.sites.empty?
-    end
+    ## Tests related to sites permissions
 
     def test_grant_site_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: only_madrid_admin.id,
-        permitted_sites: [ santander.id, madrid.id ]
-      ))
+      admin_form = AdminForm.new(
+        admin_params.merge(
+          id: only_madrid_admin.id,
+          permitted_sites: [santander.id, madrid.id]
+        )
+      )
 
       assert admin_form.save
 
@@ -158,10 +134,12 @@ module GobiertoAdmin
     end
 
     def test_revoke_site_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: only_madrid_admin.id,
-        permitted_sites: []
-      ))
+      admin_form = AdminForm.new(
+        admin_params.merge(
+          id: only_madrid_admin.id,
+          permitted_sites: []
+        )
+      )
 
       assert admin_form.save
 
@@ -169,11 +147,12 @@ module GobiertoAdmin
     end
 
     def test_revoke_site_permissions_revokes_people_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: madrid_and_santander_admin.id,
-        permitted_modules: ['GobiertoPeople'],
-        permitted_sites: [santander.id]
-      ))
+      admin_form = AdminForm.new(
+        admin_params.merge(
+          id: madrid_and_santander_admin.id,
+          permitted_sites: [santander.id]
+        )
+      )
 
       assert_equal 2, madrid_and_santander_admin.people_permissions.size
 
@@ -183,169 +162,69 @@ module GobiertoAdmin
       assert_equal [santander], admin.sites
 
       # assert person permissions were revoked
-      assert madrid_and_santander_admin.people_permissions.empty?
+      assert madrid_and_santander_admin.reload.people_permissions.empty?
     end
 
-    def test_grant_module_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: tony.id,
-        permitted_modules: ['GobiertoPeople', 'GobiertoBudgetConsultations' , 'GobiertoParticipation']
-      ))
-
-      assert_equal 2, tony.modules_permissions.size
+    def test_admin_groups_with_only_a_site
+      admin_form = AdminForm.new(
+        admin_params.merge(
+          id: madrid_and_santander_admin.id,
+          permitted_sites: [madrid.id],
+          admin_group_ids: [madrid_group.id]
+        )
+      )
 
       assert admin_form.save
 
-      assert_equal 3, tony.modules_permissions.size
+      assert_equal [madrid_group], madrid_and_santander_admin.admin_groups
     end
 
-    def test_revoke_module_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: tony.id,
-        permitted_modules: ['GobiertoPeople']
-      ))
+    def test_admin_groups_from_not_allowed_sites_are_deleted
+      admin_form = AdminForm.new(
+        admin_params.merge(
+          id: madrid_and_santander_admin.id,
+          permitted_sites: [madrid.id],
+          admin_group_ids: [madrid_group.id]
+        )
+      )
 
-      assert_equal 2, tony.modules_permissions.size
+      assert_equal 2, madrid_and_santander_admin.reload.admin_groups.count
 
       assert admin_form.save
 
-      assert_equal 1, tony.modules_permissions.size
+      assert_equal [madrid_group], madrid_and_santander_admin.reload.admin_groups
     end
 
-    # Using the syntax .where("x NOT IN (?)", collection) may have unintended behavior
-    # for empty collections.
-    # Use this test to make sure .where.not(attribute: collection) syntax is used
-    def test_revoke_all_module_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: tony.id,
-        permitted_modules: []
-      ))
+    def test_admin_groups_deasign_group
+      admin_form = AdminForm.new(
+        admin_params.merge(
+          id: madrid_and_santander_admin.id,
+          permitted_sites: [madrid.id, santander.id],
+          admin_group_ids: []
+        )
+      )
+
+      assert_equal 2, madrid_and_santander_admin.reload.admin_groups.count
 
       assert admin_form.save
 
-      assert tony.modules_permissions.empty?
+      assert_equal [santander_group], madrid_and_santander_admin.reload.admin_groups
     end
 
-    def test_revoke_gobierto_people_permissions_revokes_people_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: madrid_and_santander_admin.id,
-        permitted_modules: ['GobiertoBudgetConsultations'],
-        permitted_sites: [ madrid.id, santander.id ]
-      ))
+    def test_admin_groups_from_other_allowed_sites_are_preserved
+      admin_form = AdminForm.new(
+        admin_params.merge(
+          id: madrid_and_santander_admin.id,
+          permitted_sites: [madrid.id, santander.id],
+          admin_group_ids: []
+        )
+      )
+
+      assert_equal 2, madrid_and_santander_admin.reload.admin_groups.count
 
       assert admin_form.save
 
-      assert madrid_and_santander_admin.people_permissions.empty?
+      assert_equal [santander_group], madrid_and_santander_admin.reload.admin_groups
     end
-
-    def test_grant_person_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: madrid_and_santander_admin.id,
-        permitted_modules: ['GobiertoPeople', 'GobiertoBudgetConsultations'],
-        permitted_sites: [ madrid.id, santander.id ],
-        permitted_people: [richard.id, tamara.id, kali.id]
-      ))
-
-      assert admin_form.save
-
-      assert_equal 3, madrid_and_santander_admin.people_permissions.size
-    end
-
-    def test_grant_all_people_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: madrid_and_santander_admin.id,
-        permitted_modules: ['GobiertoPeople'],
-        permitted_sites: [ madrid.id ],
-        permitted_people: [],
-        all_people_permitted: '1'
-      ))
-
-      assert admin_form.save
-
-      people_permissions = madrid_and_santander_admin.people_permissions
-
-      assert_equal 1, people_permissions.size
-      assert_equal 'manage_all', people_permissions.first.action_name
-    end
-
-    def test_grant_person_permissions_without_site_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: madrid_and_santander_admin.id,
-        permitted_modules: ['GobiertoPeople', 'GobiertoBudgetConsultations'],
-        permitted_sites: [ madrid.id ],
-        permitted_people: [richard.id, tamara.id, kali.id]
-      ))
-
-      assert admin_form.save
-
-      assert_equal 2, madrid_and_santander_admin.people_permissions.size
-    end
-
-    def test_grant_person_permissions_without_gobierto_people_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: madrid_and_santander_admin.id,
-        permitted_modules: ['GobiertoBudgetConsultations'],
-        permitted_sites: [ madrid.id, santander.id ],
-        permitted_people: [richard.id, kali.id, tamara.id]
-      ))
-
-      assert admin_form.save
-
-      assert madrid_and_santander_admin.people_permissions.empty?
-    end
-
-    def test_revoke_person_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: madrid_and_santander_admin.id,
-        permitted_modules: ['GobiertoPeople'],
-        permitted_sites: [ madrid.id, santander.id ],
-        permitted_people: [richard.id]
-      ))
-
-      assert admin_form.save
-
-      assert_equal 1, madrid_and_santander_admin.people_permissions.size
-    end
-
-    def test_revoke_all_people_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: madrid_and_santander_admin.id,
-        permitted_modules: ['GobiertoPeople'],
-        permitted_sites: [ madrid.id, santander.id ],
-        permitted_people: [],
-        all_people_permitted: '0'
-      ))
-
-      assert admin_form.save
-
-      assert madrid_and_santander_admin.people_permissions.empty?
-    end
-
-    def test_grant_site_options_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: tony.id,
-        permitted_site_options: %w(customize vocabularies templates)
-      ))
-
-      assert_equal 2, tony.site_options_permissions.size
-
-      assert admin_form.save
-
-      assert_equal 3, tony.site_options_permissions.size
-    end
-
-    def test_revoke_site_options_permissions
-      admin_form = AdminForm.new(admin_params.merge(
-        id: tony.id,
-        permitted_site_options: %w(templates)
-      ))
-
-      assert_equal 2, tony.site_options_permissions.size
-
-      assert admin_form.save
-
-      assert_equal 1, tony.site_options_permissions.size
-    end
-
   end
 end

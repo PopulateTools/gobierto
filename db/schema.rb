@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_131608) do
+ActiveRecord::Schema.define(version: 2019_03_11_184537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -35,6 +35,12 @@ ActiveRecord::Schema.define(version: 2019_02_14_131608) do
     t.index ["site_id"], name: "index_activities_on_site_id"
     t.index ["subject_id", "subject_type"], name: "index_activities_on_subject_id_and_subject_type"
     t.index ["subject_type", "subject_id"], name: "index_activities_on_subject_type_and_subject_id"
+  end
+
+  create_table "admin_admin_groups", force: :cascade do |t|
+    t.bigint "site_id"
+    t.string "name"
+    t.index ["site_id"], name: "index_admin_admin_groups_on_site_id"
   end
 
   create_table "admin_admin_sites", id: :serial, force: :cascade do |t|
@@ -80,14 +86,19 @@ ActiveRecord::Schema.define(version: 2019_02_14_131608) do
     t.index ["site_id"], name: "index_admin_census_imports_on_site_id"
   end
 
-  create_table "admin_permissions", id: :serial, force: :cascade do |t|
-    t.integer "admin_id"
+  create_table "admin_group_permissions", force: :cascade do |t|
+    t.bigint "admin_group_id"
     t.string "namespace", default: "", null: false
     t.string "resource_name", default: "", null: false
-    t.string "action_name", default: "", null: false
     t.bigint "resource_id"
-    t.index ["admin_id", "namespace", "resource_name", "action_name"], name: "index_admin_permissions_on_admin_id_and_fields"
-    t.index ["admin_id"], name: "index_admin_permissions_on_admin_id"
+    t.string "action_name", default: "", null: false
+    t.index ["admin_group_id", "namespace", "resource_name", "resource_id", "action_name"], name: "index_admin_permissions_on_admin_group_id_and_fields"
+    t.index ["admin_group_id"], name: "index_admin_group_permissions_on_admin_group_id"
+  end
+
+  create_table "admin_groups_admins", id: false, force: :cascade do |t|
+    t.bigint "admin_id", null: false
+    t.bigint "admin_group_id", null: false
   end
 
   create_table "census_items", id: :serial, force: :cascade do |t|

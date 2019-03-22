@@ -6,19 +6,19 @@ en:
         title: Edit Admin
       form:
         activity_block: Activity log
-        all: All
+        admin_groups_block: Group
         authorization_level:
           disabled: Disabled
           manager: Manager
           regular: Regular
         password_block: Password
-        permissions_block: Permissions
         placeholders:
           email: fgonzalez@gmail.com
           name: Fernando González
-        site_options_permissions: Site
         sites_block: Allowed sites
+        sites_block_description: 'This Admin has administration access to:'
       index:
+        groups_and_permissions: Groups and permissions
         header:
           admin: Admin
           created_at: Created

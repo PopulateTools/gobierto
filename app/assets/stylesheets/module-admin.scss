@@ -233,11 +233,22 @@ body.gobierto_admin {
   h2 {
     text-transform: uppercase;
   }
+
+  .form_block {
+    margin: 3em 0;
+  }
+
+  .form_block:first-child {
+    margin-top: .6em;
+  }
+
+  .pure-u-1 p:first-child {
+    margin-top: 0;
+  }
+
 }
 
-.form_block {
-  margin: 3em 0;
-}
+
 
 /* Tabs modification */
 body.gobierto_admin {
@@ -293,7 +304,7 @@ body.gobierto_admin {
   }
 
   a {
-    margin-right: 0.25em;
+    margin-right: 1em;
     text-decoration: none;
 
     .fa {
@@ -905,5 +916,11 @@ a .global_menu {
 
   input {
     display: none;
+  }
+}
+
+table {
+  th.icon {
+    width: 3%;
   }
 }

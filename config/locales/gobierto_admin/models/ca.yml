@@ -14,6 +14,8 @@ ca:
         password_confirmation: Confirmació de la contrasenya
         site_ids: Sites
         site_modules: Mòduls
+      gobierto_admin/admin_group_form:
+        name: Nom del grup
       gobierto_admin/admin_invitation_form:
         emails: Emails
         site_ids: Sites
@@ -55,6 +57,7 @@ ca:
       gobierto_admin/admin_confirmation_form: Confirmació
       gobierto_admin/admin_edit_password_form: Canvi de contrasenya
       gobierto_admin/admin_form: Administrador
+      gobierto_admin/admin_group_form: Grup
       gobierto_admin/admin_invitation_form: Invitació
       gobierto_admin/admin_new_password_form: Recuperació de contrasenya
       gobierto_admin/file_attachment_form: Canvi en el fitxer

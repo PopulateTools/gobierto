@@ -3,6 +3,10 @@ ca:
   admin_gobierto_calendars:
     events:
       admin_gobierto_calendars_calendars_synchronized: Calendaris sincronitzats
+  admin_groups:
+    events:
+      admin_groups_admin_group_created: Grup d'admin creat creat
+      admin_groups_admin_group_updated: Grup d'admin actualitzat
   admins:
     events:
       admins_admin_authorization_level_updated: Nivel autorització admin actualitzat

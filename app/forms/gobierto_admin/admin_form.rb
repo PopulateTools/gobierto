@@ -5,44 +5,32 @@ module GobiertoAdmin
 
     attr_accessor(
       :id,
+      :site,
       :name,
       :email,
       :password,
       :password_confirmation,
-      :authorization_level,
       :creation_ip,
       :last_sign_in_at,
       :last_sign_in_ip
     )
 
-    attr_reader :permissions, :permitted_sites, :permitted_modules, :permitted_people, :all_people_permitted, :sites, :permitted_site_options
+    attr_reader :permitted_sites, :sites, :admin_group_ids, :admin_groups
+    attr_writer :authorization_level
 
     delegate :persisted?, to: :admin
 
-    validates :name, :email, presence: true
+    validates :name, :email, :site, presence: true
     validates :email, format: { with: Admin::EMAIL_ADDRESS_REGEXP }
     validates :password, presence: { if: :new_record? }, confirmation: true
-
-    def permitted_modules_names
-      permitted_modules.map{ |m| m.underscore }
-    end
 
     def initialize(attributes = {})
       parsed_attributes = attributes.to_h.with_indifferent_access
 
-      super(parsed_attributes.except(
-        :permitted_sites,
-        :permitted_site_options,
-        :permitted_modules,
-        :permitted_people,
-        :all_people_permitted
-      ))
+      super(parsed_attributes.except(:permitted_sites, :admin_group_ids))
 
       set_permitted_sites(parsed_attributes)
-      set_permitted_site_options(parsed_attributes)
-      set_permitted_modules(parsed_attributes)
-      set_all_people_permitted(parsed_attributes)
-      set_permitted_people(parsed_attributes)
+      set_admin_groups(parsed_attributes)
     end
 
     def save
@@ -80,210 +68,39 @@ module GobiertoAdmin
     end
 
     def set_permitted_sites(attributes)
-      if authorization_level != 'regular'
+      if authorization_level != "regular"
         @permitted_sites = []
-        @sites = []
+        @sites = Site.none
       elsif attributes[:permitted_sites].present?
-        @permitted_sites = attributes[:permitted_sites].select{ |id| id.present? }.map{|id| id.to_i }.compact
+        @permitted_sites = attributes[:permitted_sites].select(&:present?).map(&:to_i).compact
         @sites = Site.where(id: permitted_sites)
       elsif @admin
         @permitted_sites = @admin.sites.pluck(:id)
         @sites = @admin.sites
       else
         @permitted_sites = []
-        @sites = []
+        @sites = Site.none
       end
     end
 
-    def set_permitted_site_options(attributes)
-      if authorization_level != "regular"
-        @permitted_site_options = []
-      elsif attributes[:permitted_site_options].present?
-        @permitted_site_options = attributes[:permitted_site_options].select(&:present?).compact
-      elsif @admin
-        @permitted_site_options = @admin.site_options_permissions.pluck(:resource_name)
-      else
-        @permitted_site_options = []
-      end
+    def set_admin_groups(attributes)
+      @admin_group_ids = if authorization_level != "regular"
+                           []
+                         elsif attributes[:admin_group_ids].present?
+                           attributes[:admin_group_ids].select(&:present?).map(&:to_i).compact
+                         elsif @admin
+                           @admin.admin_groups.pluck(:id)
+                         else
+                           []
+                         end
+      @admin_groups = AdminGroup.where(id: admin_group_ids)
     end
 
-    def set_permitted_modules(attributes)
-      if authorization_level != 'regular'
-        @permitted_modules = []
-      elsif attributes[:permitted_modules].present?
-        @permitted_modules = attributes[:permitted_modules].select{ |m| m.present? }.compact
-      elsif @admin
-        @permitted_modules = @admin.modules_permissions.pluck(:resource_name)
-      else
-        @permitted_modules = []
-      end
-    end
+    def allowed_admin_groups
+      permitted_sites_existing_groups = @admin.admin_groups.where(site: sites.where.not(id: site.id))
+      site_groups = admin_groups.where(site: site)
 
-    def set_all_people_permitted(attributes)
-      if authorization_level != 'regular'
-        @all_people_permitted = false
-      elsif attributes[:all_people_permitted].present?
-        @all_people_permitted = (attributes[:all_people_permitted] == '1' || attributes[:all_people_permitted] == true)
-      elsif admin.persisted?
-        @all_people_permitted = admin.people_permissions.exists?(action_name: 'manage_all')
-      else
-        @all_people_permitted = false
-      end
-    end
-
-    def set_permitted_people(attributes)
-      if authorization_level != 'regular' || @all_people_permitted
-        @permitted_people = []
-      elsif attributes[:permitted_people].present?
-        @permitted_people = attributes[:permitted_people].select{ |m| m.present? }.map{|id| id.to_i }.compact
-      elsif @admin
-        @permitted_people = @admin.people_permissions.pluck(:resource_id)
-      else
-        @permitted_people = []
-      end
-    end
-
-    def build_permissions
-      @permissions = admin.permissions
-      build_modules_permissions
-      build_all_people_permissions
-      build_people_permissions
-      build_site_options_permissions
-      @permissions
-    end
-
-    def build_site_options_permissions
-      existing_site_options_permissions = admin.site_options_permissions
-      revoked_site_options_permissions_ids = existing_site_options_permissions.where.not(
-                                               resource_name: permitted_site_options
-                                             ).pluck(:id)
-
-      @permissions.each do |p|
-        p.mark_for_destruction if revoked_site_options_permissions_ids.include?(p.id)
-      end
-
-      permitted_site_options.map do |option_name|
-        unless existing_site_options_permissions.exists?(resource_name: option_name)
-          @permissions << build_permission_for_site_option(option_name)
-        end
-      end
-    end
-
-    def build_modules_permissions
-      existing_module_permissions = admin.permissions.where(namespace: 'site_module', action_name: 'manage')
-      revoked_module_permissions_ids = existing_module_permissions.where.not(resource_name: permitted_modules_names).pluck(:id)
-
-      @permissions.each do |p|
-        p.mark_for_destruction if revoked_module_permissions_ids.include?(p.id)
-      end
-
-      if permitted_modules_names.exclude?('gobierto_people')
-        mark_people_permissions_for_destruction
-      end
-
-      permitted_modules_names.map do |module_name|
-        unless existing_module_permissions.exists?(resource_name: module_name)
-          @permissions << build_permission_for_module(module_name)
-        end
-      end
-    end
-
-    def build_all_people_permissions
-      revoked_permissions_ids = []
-      existing_manage_all_people_permissions_ids = admin.people_permissions.where(action_name: 'manage_all').pluck(:id)
-
-      if permitted_people.any? || !@all_people_permitted ||  !permitted_modules_names.include?('gobierto_people')
-        revoked_permissions_ids.concat(existing_manage_all_people_permissions_ids)
-      elsif @all_people_permitted && existing_manage_all_people_permissions_ids.empty?
-        @permissions << build_all_people_permission
-      end
-
-      @permissions.each do |p|
-        p.mark_for_destruction if revoked_permissions_ids.include?(p.id)
-      end
-    end
-
-    def build_people_permissions
-      existing_people_permissions    = admin.permissions.where(namespace: 'gobierto_people', resource_name: 'person', action_name: 'manage')
-      revoked_people_permissions_ids = existing_people_permissions.where.not(resource_id: permitted_people).pluck(:id)
-
-      @permissions.each do |p|
-        p.mark_for_destruction if revoked_people_permissions_ids.include?(p.id)
-      end
-
-      permitted_people.map do |person_id|
-        person = ::GobiertoPeople::Person.find_by(id: person_id)
-        if meets_requirements_for_managing_person?(person) && !existing_people_permissions.exists?(resource_id: person.id)
-          @permissions << build_permission_for_person(person)
-        end
-      end
-
-      # if site permissions where revoked, revoke site people permissions
-      revoked_people_permissions_ids = []
-      @permissions.each do |permission|
-        if permission.person_record_permission?
-          person_site = ::GobiertoPeople::Person.find_by(id: permission.resource_id).site
-          if !permitted_sites.include?(person_site.id)
-            revoked_people_permissions_ids << permission.id
-          end
-        end
-      end
-
-      @permissions.each do |p|
-        p.mark_for_destruction if revoked_people_permissions_ids.include?(p.id)
-      end
-    end
-
-    def meets_requirements_for_managing_person?(person)
-      person && person.site && permitted_sites.include?(person.site.id) && permitted_modules_names.include?('gobierto_people')
-    end
-
-    def mark_people_permissions_for_destruction
-      people_permissions_ids = admin.permissions.where(
-        namespace: 'gobierto_people',
-        resource_name: 'person',
-        action_name: 'manage'
-      ).pluck(:id)
-      @permissions.each do |p|
-        p.mark_for_destruction if people_permissions_ids.include?(p.id)
-      end
-    end
-
-    def build_permission_for_module(module_name)
-      ::GobiertoAdmin::Permission.new(
-        admin: admin,
-        namespace: 'site_module',
-        resource_name: module_name,
-        action_name: 'manage'
-      )
-    end
-
-    def build_permission_for_site_option(option_name)
-      ::GobiertoAdmin::Permission.new(
-        admin: admin,
-        namespace: "site_options",
-        resource_name: option_name,
-        action_name: "manage"
-      )
-    end
-
-    def build_permission_for_person(person)
-      ::GobiertoAdmin::Permission.new(
-        admin: admin,
-        namespace: 'gobierto_people',
-        resource_name: 'person',
-        resource_id: person.id,
-        action_name: 'manage'
-      )
-    end
-
-    def build_all_people_permission
-      ::GobiertoAdmin::Permission.new(
-        admin: admin,
-        namespace: 'gobierto_people',
-        resource_name: 'person',
-        action_name: 'manage_all'
-      )
+      permitted_sites_existing_groups + site_groups
     end
 
     def save_admin
@@ -305,7 +122,7 @@ module GobiertoAdmin
           # AR has no way to tell 2 records represent the same
           @admin.sites = []
           @admin.sites = sites # This is a has_many through association
-          @admin.permissions = build_permissions
+          @admin.admin_groups = allowed_admin_groups
           @admin.save
         end
 

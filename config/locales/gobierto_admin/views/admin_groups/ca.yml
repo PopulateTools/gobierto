@@ -1,0 +1,25 @@
+---
+ca:
+  gobierto_admin:
+    admin_groups:
+      breadcrumb:
+        admin_groups: Grups
+      edit:
+        title: 'Permisos del grup: %{name}'
+      form:
+        all: Tots
+        members:
+          one: Hi ha un administrador amb aquest grup.
+          other: Hi ha %{count} administradors amb aquest grup.
+          zero: Aquest grup no té administradors.
+        modules_permissions: Mòduls
+        placeholders:
+          name: Grup global d'administradors
+        site_options_permissions: Lloc web
+      index:
+        header:
+          admin_group: Grup
+        new: Nou
+        title: Grups
+      new:
+        title: Nou grup

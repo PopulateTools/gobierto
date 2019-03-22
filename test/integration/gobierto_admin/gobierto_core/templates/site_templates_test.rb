@@ -21,7 +21,7 @@ module GobiertoAdmin
       end
 
       def setup
-        grant_templates_permission(regular_admin)
+        grant_templates_permission(regular_admin, site: site)
         super
       end
 

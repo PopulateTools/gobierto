@@ -12,22 +12,22 @@ module GobiertoAdmin
       # Most tests use 'Steve'. Grant module permissions to make
       # sure action is rejected because resource permissions don't
       # exist, not because of module ones.
-      grant_module_permissions_to_admin(@authorizable_admin, 'gobierto_people')
+      setup_specific_permissions(@authorizable_admin, module: "gobierto_people", site: site)
     end
 
     def test_preview_resource
       with_current_site(site) do
         visit "#{@authorized_resource_path}?preview_token=#{@authorizable_admin.preview_token}"
-        assert has_no_content?('You do not have enough permissions to perform this action')
+        assert has_no_content?("You do not have enough permissions to perform this action")
       end
     end
 
     def test_preview_resource_without_permissions
-      @resource_person.draft! if @resource_person
+      @resource_person&.draft!
 
       with_current_site(site) do
         visit "#{@unauthorized_resource_path}?preview_token=#{@authorizable_admin.preview_token}"
-        assert has_content?('You do not have enough permissions to perform this action')
+        assert has_content?("You do not have enough permissions to perform this action")
       end
     end
 

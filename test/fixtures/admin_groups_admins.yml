@@ -1,0 +1,6 @@
+madrid_group_tony:
+  admin_group_id: <%= ActiveRecord::FixtureSet.identify(:madrid_group) %>
+  admin_id: <%= ActiveRecord::FixtureSet.identify(:tony) %>
+santander_group_tony:
+  admin_group_id: <%= ActiveRecord::FixtureSet.identify(:santander_group) %>
+  admin_id: <%= ActiveRecord::FixtureSet.identify(:tony) %>

@@ -142,6 +142,7 @@ module GobiertoPeople
       if person && current_admin
         ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(
           current_admin: current_admin,
+          current_site: current_site,
           person: person
         ).view?
       else

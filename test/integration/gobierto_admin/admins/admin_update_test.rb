@@ -3,17 +3,17 @@
 require "test_helper"
 
 module GobiertoAdmin
-  class AdminUpdateTest < ActionDispatch::IntegrationTest
+  class AdminGroupUpdateTest < ActionDispatch::IntegrationTest
 
     def tony
       @tony ||= gobierto_admin_admins(:tony)
     end
-    alias_method :regular_admin, :tony
+    alias regular_admin tony
 
     def steve
       @steve ||= gobierto_admin_admins(:steve)
     end
-    alias_method :regular_admin_on_santander, :steve
+    alias regular_admin_on_santander steve
 
     def manager_admin
       @manager_admin ||= gobierto_admin_admins(:nick)
@@ -27,6 +27,10 @@ module GobiertoAdmin
       @site ||= sites(:madrid)
     end
 
+    def site_group
+      @site_group ||= gobierto_admin_admin_groups(:madrid_group)
+    end
+
     def test_regular_admin_update
       with_signed_in_admin(manager_admin) do
         visit edit_admin_admin_path(regular_admin_on_santander)
@@ -35,17 +39,10 @@ module GobiertoAdmin
           fill_in "admin_name", with: "Admin Name"
           fill_in "admin_email", with: "wadus@gobierto.dev"
 
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
-          end
-
-          within ".site-check-boxes" do
+          within "#sites_permissions" do
             uncheck "santander.gobierto.test"
             check "madrid.gobierto.test"
           end
-
-          uncheck "Vocabularies"
-          check "Templates"
 
           within ".admin-authorization-level-radio-buttons" do
             choose "Regular"
@@ -60,21 +57,69 @@ module GobiertoAdmin
           assert has_field?("admin_email", with: "wadus@gobierto.dev")
           assert has_field?("admin_name", with: "Admin Name")
 
-          within ".site-module-check-boxes" do
-            assert has_checked_field?("Gobierto Development")
-            assert has_no_checked_field?("Gobierto Budgets")
-          end
-
-          within ".site-check-boxes" do
+          within "#sites_permissions" do
             assert has_no_checked_field?("santander.gobierto.test")
             assert has_checked_field?("madrid.gobierto.test")
           end
 
-          assert has_no_checked_field?("Vocabularies")
-          assert has_checked_field?("Templates")
-
           within ".admin-authorization-level-radio-buttons" do
             assert has_checked_field?("Regular")
+          end
+        end
+      end
+    end
+
+    def test_regular_admin_update_admin_groups
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_admin(manager_admin) do
+            visit edit_admin_admin_path(regular_admin_on_santander)
+
+            within "form.edit_admin" do
+              fill_in "admin_name", with: "Admin Name"
+              fill_in "admin_email", with: "wadus@gobierto.dev"
+
+              find("label[for='admin_admin_group_ids_#{site_group.id}']").click
+              find("label[for='admin_authorization_level_regular']", visible: false).click
+
+              click_button "Update"
+            end
+
+            assert has_message?("Admin was successfully updated")
+
+            assert find("#admin_admin_group_ids_#{site_group.id}", visible: false).checked?
+            within "form.edit_admin" do
+              assert has_field?("admin_email", with: "wadus@gobierto.dev")
+              assert has_field?("admin_name", with: "Admin Name")
+            end
+          end
+        end
+      end
+    end
+
+    def test_regular_admin_deassign_admin_groups
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_admin(manager_admin) do
+            visit edit_admin_admin_path(regular_admin)
+
+            within "form.edit_admin" do
+              fill_in "admin_name", with: "Admin Name"
+              fill_in "admin_email", with: "wadus@gobierto.dev"
+
+              find("label[for='admin_admin_group_ids_#{site_group.id}']").click
+              find("label[for='admin_authorization_level_regular']", visible: false).click
+
+              click_button "Update"
+            end
+
+            assert has_message?("Admin was successfully updated")
+
+            refute find("#admin_admin_group_ids_#{site_group.id}", visible: false).checked?
+            within "form.edit_admin" do
+              assert has_field?("admin_email", with: "wadus@gobierto.dev")
+              assert has_field?("admin_name", with: "Admin Name")
+            end
           end
         end
       end
@@ -89,7 +134,7 @@ module GobiertoAdmin
           fill_in "admin_password", with: "wadus"
           fill_in "admin_password_confirmation", with: "wadus"
 
-          assert has_no_selector?(".site-check-boxes")
+          assert has_no_selector?("#sites_permissions")
 
           within ".admin-authorization-level-radio-buttons" do
             choose "Regular"
@@ -121,8 +166,7 @@ module GobiertoAdmin
           assert has_field?("admin_name", disabled: true)
           assert has_field?("admin_email", disabled: true)
 
-          assert has_no_selector?(".site-module-check-boxes")
-          assert has_no_selector?(".site-check-boxes")
+          assert has_no_selector?("#sites_permissions")
           assert has_no_selector?(".admin-authorization-level-radio-buttons")
 
           assert has_button?("Update", disabled: true)
@@ -140,11 +184,7 @@ module GobiertoAdmin
           fill_in "admin_password", with: "wadus"
           fill_in "admin_password_confirmation", with: "foo"
 
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
-          end
-
-          within ".site-check-boxes" do
+          within "#sites_permissions" do
             check "madrid.gobierto.test"
           end
 
@@ -168,11 +208,7 @@ module GobiertoAdmin
           fill_in "admin_email", with: "wadus@gobierto.dev"
           fill_in "admin_password", with: "wadus"
 
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
-          end
-
-          within ".site-check-boxes" do
+          within "#sites_permissions" do
             check "madrid.gobierto.test"
           end
 

@@ -3,6 +3,10 @@ en:
   admin_gobierto_calendars:
     events:
       admin_gobierto_calendars_calendars_synchronized: Synchronized calendars
+  admin_groups:
+    events:
+      admin_groups_admin_group_created: Admin group created
+      admin_groups_admin_group_updated: Admin group updated
   admins:
     events:
       admins_admin_authorization_level_updated: Admin authorization level updated

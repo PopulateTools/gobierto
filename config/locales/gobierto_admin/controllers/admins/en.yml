@@ -1,6 +1,11 @@
 ---
 en:
   gobierto_admin:
+    admin_groups:
+      create:
+        success: Admins Group was successfully created
+      update:
+        success: Admins Group was successfully updated
     admins:
       create:
         success: Admin was successfully created

@@ -1,4 +1,6 @@
-require_dependency 'gobierto_admin'
+# frozen_string_literal: true
+
+require_dependency "gobierto_admin"
 
 module GobiertoAdmin
   class Admin < ApplicationRecord
@@ -12,20 +14,20 @@ module GobiertoAdmin
     has_many :admin_sites, dependent: :destroy
     has_many :sites, through: :admin_sites
 
-    has_many :permissions, dependent: :destroy, autosave: true
-    has_many :global_permissions, class_name: 'Permission::Global'
-    has_many :modules_permissions, -> { for_modules }, class_name: '::GobiertoAdmin::Permission'
-    has_many :people_permissions,  -> { for_people }, class_name: '::GobiertoAdmin::Permission'
-    has_many :site_options_permissions, -> { for_site_options }, class_name: "GobiertoAdmin::Permission"
+    has_and_belongs_to_many :admin_groups, ->(admin) { where(site_id: admin.sites.pluck(:id)) }, join_table: "admin_groups_admins"
+    has_many :permissions, ->(admin) { joins(:admin_group).where(admin_admin_groups: { site_id: admin.sites.pluck(:id) }) }, through: :admin_groups
+    has_many :global_permissions, through: :admin_groups, class_name: "Permission::Global", source: :permissions
+    has_many :modules_permissions, -> { for_modules }, through: :admin_groups, class_name: "::GobiertoAdmin::GroupPermission"
+    has_many :site_options_permissions, -> { for_site_options }, through: :admin_groups, class_name: "GobiertoAdmin::GroupPermission"
 
-    has_many :gobierto_development_permissions, class_name: 'Permission::GobiertoDevelopment'
-    has_many :gobierto_budgets_permissions, class_name: 'Permission::GobiertoBudgets'
-    has_many :gobierto_budget_consultations_permissions, class_name: 'Permission::GobiertoBudgetConsultations'
-    has_many :gobierto_people_permissions, class_name: 'Permission::GobiertoPeople'
-    has_many :gobierto_plans_permissions, class_name: 'Permission::GobiertoPlans'
-    has_many :gobierto_observatory_permissions, class_name: 'Permission::GobiertoObservatory'
-    has_many :gobierto_participation_permissions, class_name: 'Permission::GobiertoParticipation'
-    has_many :gobierto_citizens_charters_permissions, class_name: "Permission::GobiertoCitizensCharters"
+    has_many :gobierto_development_permissions, through: :admin_groups, class_name: "Permission::GobiertoDevelopment", source: :permissions
+    has_many :gobierto_budgets_permissions, through: :admin_groups, class_name: "Permission::GobiertoBudgets", source: :permissions
+    has_many :gobierto_budget_consultations_permissions, through: :admin_groups, class_name: "Permission::GobiertoBudgetConsultations", source: :permissions
+    has_many :gobierto_people_permissions, through: :admin_groups, class_name: "Permission::GobiertoPeople", source: :permissions
+    has_many :gobierto_plans_permissions, through: :admin_groups, class_name: "Permission::GobiertoPlans", source: :permissions
+    has_many :gobierto_observatory_permissions, through: :admin_groups, class_name: "Permission::GobiertoObservatory", source: :permissions
+    has_many :gobierto_participation_permissions, through: :admin_groups, class_name: "Permission::GobiertoParticipation", source: :permissions
+    has_many :gobierto_citizens_charters_permissions, through: :admin_groups, class_name: "Permission::GobiertoCitizensCharters", source: :permissions
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
     has_many :census_imports
@@ -36,17 +38,25 @@ module GobiertoAdmin
     validates_associated :permissions
 
     scope :sorted, -> { order(created_at: :desc) }
-    scope :god,    -> { where(god: true) }
+    scope :god, -> { where(god: true) }
     scope :active, -> { where.not(authorization_level: authorization_levels[:disabled]) }
 
     enum authorization_level: { regular: 0, manager: 1, disabled: 2 }
 
     def self.preset
       god.first || god.new(
-        email: APP_CONFIG['admins']['preset_admin_email'],
-        name: APP_CONFIG['admins']['preset_admin_name'],
+        email: APP_CONFIG["admins"]["preset_admin_email"],
+        name: APP_CONFIG["admins"]["preset_admin_name"],
         password: Rails.application.secrets.preset_admin_password
       )
+    end
+
+    def people_permissions
+      permissions.for_people
+    end
+
+    def sites_people_permissions
+      permissions.for_site_people(site_ids)
     end
 
     def sites
@@ -63,7 +73,7 @@ module GobiertoAdmin
       return super unless god?
 
       print "Do you REALLY want to destroy the God Admin ##{id}? [Yes/No]: "
-      return 'Skipping deletion' unless gets.chomp == 'Yes'
+      return "Skipping deletion" unless gets.chomp == "Yes"
 
       super
     end
@@ -72,8 +82,8 @@ module GobiertoAdmin
       god? || manager?
     end
 
-    def module_allowed?(module_namespace)
-      managing_user? || send(module_namespace.underscore + '_permissions').any?
+    def module_allowed?(module_namespace, site)
+      managing_user? || send(module_namespace.underscore + '_permissions').on_site(site).any?
     end
 
     def can_customize_site?

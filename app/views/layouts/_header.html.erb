@@ -7,13 +7,13 @@
       <div class="column pure-g">
         <div class="desktop_only">
 
-          <div class="pure-u-md-1-2">
+          <div class="pure-u-1-2 pure-u-md-1-2">
             <% if @site.configuration.links_markup.present? %>
               <%== @site.configuration.links_markup %>
             <% end %>
           </div>
 
-          <div class="pure-u-md-1-2 right">
+          <div class="pure-u-1-2 pure-u-md-1-2 right">
             <%= render "layouts/user_links" %>
 
             <span id="subscribable_button">

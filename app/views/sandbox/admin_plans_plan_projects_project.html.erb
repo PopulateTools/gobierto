@@ -69,7 +69,6 @@
 
         <div class="form_item select_control">
           <label for="">Estado</label>
-          <!-- should show the list from sandbox/admin_people_conf -->
           <select>
             <% for i in [
               'Pendiente iniciar',
@@ -84,11 +83,16 @@
         </div>
 
         <div class="form_item select_control">
-          <label for="">Estado</label>
-          <!-- should show the list from sandbox/admin_people_conf -->
+          <label for="">Progreso</label>
           <select>
-            <% for i in 10..100 %>
-            <option><%= i %>%</option>
+            <option>0%</option>
+            <option>25%</option>
+            <option>50%</option>
+            <option>75%</option>
+            <option>100%</option>
+            <option disabled>- - - -</option>
+            <% for i in 1..100 %>
+              <option><%= i %>%</option>
             <% end %>
           </select>
         </div>

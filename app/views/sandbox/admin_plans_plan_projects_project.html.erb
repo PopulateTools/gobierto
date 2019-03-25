@@ -110,11 +110,57 @@
 
   <div class="pure-u-1 pure-u-md-1-24"></div>
 
-  <div class="pure-u-1 pure-u-md-1-4 >
+  <div class="pure-u-1 pure-u-md-1-4">
 
     <%# render "admin_widget_save.html.erb", locals: { only_save_button: true } %>
 
     <%= render "admin_widget_save_v2.html.erb", locals: { only_save_button: true } %>
+
+    <div class="widget_save_v2 m_b_2">
+
+      <div class="w_s_content">
+
+        <h4>Moderación</h4>
+
+        <div class="form_item">
+
+          <div class="options compact">
+
+        		<div class="option">
+              <input type="radio" id="opt_1" name="opt" value="1" checked="">
+              <label for="opt_1">
+                <span></span>
+                En revisión
+             </label>
+            </div>
+
+            <div class="option">
+              <input type="radio" id="opt_2" name="opt" value="2">
+              <label for="opt_2">
+                <span></span>
+                Aprobado
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="radio" id="opt_2" name="opt" value="2">
+              <label for="opt_2">
+                <span></span>
+                Rechazado
+              </label>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="w_actions m_b_1">
+          <button class="button medium">Guardar</button>
+        </div>
+
+      </div>
+
+    </div>
 
     <%# render "admin_widget_attachment.html.erb" %>
 

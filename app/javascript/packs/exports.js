@@ -8,5 +8,5 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'lib/commons'
-import 'gobierto_budgets'
+import 'gobierto_exports'
 import 'lib/i18n'

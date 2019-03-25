@@ -30,6 +30,21 @@ module GobiertoExports
       end
     end
 
+    def test_index_with_javascript
+      with_javascript do
+        with_current_site(site) do
+          with_stubbed_s3_file_upload do
+            visit @path
+
+            assert has_selector?("h1", text: "Download data")
+            assert has_selector?("h2", text: "Officials and Agendas")
+            assert has_selector?("h2", text: "Budget lines")
+            assert has_selector?("h3", text: GobiertoBudgets::SearchEngineConfiguration::Year.last)
+          end
+        end
+      end
+    end
+
     def test_index_hides_disabled_submodules
       gp_enabled_submodules.delete("statements")
 

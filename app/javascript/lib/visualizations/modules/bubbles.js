@@ -61,7 +61,7 @@ export class VisBubbles {
 
   resize() {
     this.svg.parent().remove();
-    this.init(this.container, this.budget_category, this.data);
+    this.constructor(this.container, this.budget_category, this.data);
     this.render();
   }
 

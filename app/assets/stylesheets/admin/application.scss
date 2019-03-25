@@ -77,6 +77,10 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+/* Override front fonts (defined in css-conf) */
+$font_headings: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
+$font_text: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
+$font_serif: 'Georgia, serif';
 
 /*
  * Some defaults

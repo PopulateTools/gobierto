@@ -1,0 +1,55 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_plans.plans.index.title"), admin_plans_plans_path %> »
+  <%= link_to @plan.title, edit_admin_plans_plan_path(@plan) %> »
+  <%= t(".title", name: @plan.title) %>
+</div>
+
+<h1><%= t(".title", name: @plan.title) %></h1>
+
+<%= render 'gobierto_admin/gobierto_plans/shared/navigation' %>
+
+<div class="i_filters">
+  <%= render partial: "filters_row", locals: { filter: :category } %>
+  <%= render partial: "filter_form" %>
+</div>
+
+<table>
+  <tr>
+    <th class="icon"></th>
+    <th><%= t(".headers.project") %></th>
+    <th><%= t(".headers.progress") %></th>
+    <th><%= t(".headers.status") %></th>
+    <th><%= t(".headers.updated") %></th>
+    <th></th>
+    <th class="icon"></th>
+  </tr>
+  <% @projects.each do |project| %>
+    <tr>
+      <td>
+        <%= link_to edit_admin_plans_plan_project_path(@plan, project) do %>
+          <i class="fas fa-edit"></i>
+        <% end %>
+      </td>
+      <td><%= link_to project.name, edit_admin_plans_plan_project_path(@plan, project) %></td>
+      <td><%= format_percentage(project.progress) %></td>
+      <td><%= project.status %></td>
+      <td><%= time_ago_in_words(project.updated_at) %></td>
+      <td>
+        <%= link_to gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain), class: 'view_item' do %>
+          <i class="fas fa-eye"></i>
+          <%= t(".view") %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to admin_plans_plan_project_path(@plan, project, projects_filter: @filter_params),
+                    title: t("views.delete"),
+                    method: :delete,
+                    class: "tipsit p_h_1",
+                    data: { confirm: t("views.delete_confirm") } do %>
+          <i class="fas fa-trash"></i>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

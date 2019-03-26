@@ -1,0 +1,7 @@
+---
+es:
+  gobierto_admin:
+    gobierto_plans:
+      projects:
+        destroy:
+          success: El proyecto ha sido eliminado correctamente.

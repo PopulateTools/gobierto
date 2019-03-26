@@ -85,8 +85,29 @@ ca:
             published: Publicat
         new:
           title: Nou pla
+      projects:
+        filter_form:
+          category: Categoria
+          filter: Filtrar
+          interval: Rang de dates
+          progress: Progrés
+          search: Cerca...
+          submit: Filtrar
+        filters_row:
+          all: Tots
+          category: Categoria
+        index:
+          headers:
+            progress: Progrés
+            project: Projecte
+            status: Estat
+            updated: Actualitzat
+          title: Projectes de %{name}
+          view: Veure item
       shared:
         navigation:
           configuration_tab: Configuració
           data_tab: Dades
           import_csv_tab: Importa CSV
+          plan_terms_tab: Plan
+          projects_tab: Projectes

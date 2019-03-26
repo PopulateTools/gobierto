@@ -85,8 +85,29 @@ en:
             published: Published
         new:
           title: New plan
+      projects:
+        filter_form:
+          category: Category
+          filter: Filter
+          interval: Date interval
+          progress: Progress
+          search: Search...
+          submit: Filter
+        filters_row:
+          all: All
+          category: Category
+        index:
+          headers:
+            progress: Progress
+            project: Project
+            status: Status
+            updated: Updated
+          title: Projecs of %{name}
+          view: View item
       shared:
         navigation:
           configuration_tab: Configuration
           data_tab: Data
           import_csv_tab: Import CSV
+          plan_terms_tab: Plan
+          projects_tab: Projects

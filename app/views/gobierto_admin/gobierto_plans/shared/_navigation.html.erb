@@ -1,5 +1,9 @@
 <div class="tabs">
   <ul>
+    <li class="<%= class_if('active', controller_name = "projects" && action_name == "index") %>">
+      <%= link_to t(".projects_tab"), admin_plans_plan_projects_path(@plan), data: { turbolinks: false } %>
+    </li>
+
     <li class="<%= class_if('active', controller.action_name == 'edit') %>">
       <%= link_to t(".configuration_tab"), edit_admin_plans_plan_path(@plan), data: { turbolinks: false } %>
     </li>

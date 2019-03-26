@@ -1,0 +1,7 @@
+---
+en:
+  gobierto_admin:
+    gobierto_plans:
+      projects:
+        destroy:
+          success: Project deleted correctly.

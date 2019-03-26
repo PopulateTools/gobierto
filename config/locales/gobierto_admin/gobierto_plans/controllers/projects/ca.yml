@@ -1,0 +1,7 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_plans:
+      projects:
+        destroy:
+          success: El projecte s'ha esborrat correctament.

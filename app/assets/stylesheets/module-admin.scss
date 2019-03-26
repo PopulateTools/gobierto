@@ -1030,7 +1030,6 @@ table {
     margin: 0 0 1em 0;
 
     .icon-caret {
-      padding: 0 .5em;
       font-size: 1.25em;
       vertical-align: middle;
     }
@@ -1091,6 +1090,7 @@ table {
 
   .v_el_icon_tree {
     min-width: 30px;
+    text-align: center;
   }
 
   .v_el_actions {

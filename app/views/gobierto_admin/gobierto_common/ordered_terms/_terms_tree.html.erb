@@ -5,13 +5,13 @@
     <% has_subterms = subterms.present? %>
     <div class="v_el v_el_level list-group-item custom_handle " data-id="<%= term.id %>">
       <div class="v_el_cont ">
-        <% if has_subterms %>
-          <div class="v_el_icon_tree">
+        <div class="v_el_icon_tree">
+          <% if has_subterms %>
             <%= link_to "" do %>
               <i class="fas icon-caret fa-caret-right"></i>
             <% end %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
 
         <div class="v_el_title">
           <%= term.name %>

@@ -23,7 +23,7 @@ window.GobiertoAdmin.TermsController = (function() {
         $(this).addClass('fa-caret-right');
       }
 
-      $(this).parent().parent().parent().parent().find('.list-group > .v_el').toggleClass('el-opened');
+      $(this).parent().parent().parent().parent().find('> .list-group > .v_el').toggleClass('el-opened');
 
     });
 

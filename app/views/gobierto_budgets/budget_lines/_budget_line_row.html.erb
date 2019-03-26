@@ -1,9 +1,9 @@
 <tr data-budget-line="<%= budget_line.code %>">
   <td>
     <% if GobiertoBudgets::BudgetLine.has_children?({code: budget_line.code, level: budget_line.level, area: area_name, year: year, organization_id: current_site.organization_id, kind: kind}) %>
-      <%= link_to '<i class="fas fa-plus-square-o"></i>'.html_safe, gobierto_budgets_budget_line_descendants_path(year, area_name, kind, parent_code: budget_line.code), remote: true, 'aria-label' => 'Plus' %>
+      <%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, gobierto_budgets_budget_line_descendants_path(year, area_name, kind, parent_code: budget_line.code), remote: true, 'aria-label' => 'Plus' %>
     <% else %>
-      <i class="fas fa-plus-square-o invisible"></i>
+      <i class="fas fa-plus-square invisible"></i>
     <% end %>
 
     <%= link_to budget_line.name, gobierto_budgets_budget_line_path(budget_line.to_param) %>

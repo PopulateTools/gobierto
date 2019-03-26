@@ -1,16 +1,17 @@
 import 'select2'
+import 'webpack-jquery-ui/autocomplete'
 
 window.GobiertoAdmin.SitesController = (function() {
   function SitesController() {}
 
-  function _handleSiteLocationAutocomplete() {
-    var locationFieldHandler = "#site_location_name";
-    var municipalityFieldHandler = "#site_municipality_id";
+  function _handleSiteLocationAutocomplete(municipalities_suggestion_url) {
+    var locationFieldHandler = "#site_organization_name";
+    var municipalityFieldHandler = "#site_organization_id";
     var autocompleteOptions = {
       source: function(request, response) {
         var element = $(this)[0].element;
         $.ajax({
-          url: element.data("autocompleteUrl"),
+          url: municipalities_suggestion_url,
           crossDomain: true,
           dataType: "json",
           method: "GET",
@@ -78,9 +79,9 @@ window.GobiertoAdmin.SitesController = (function() {
     }
   }
 
-  SitesController.prototype.edit = function(site_modules_with_root_path) {
-    _handleSiteLocationAutocomplete();
-    _homePage(site_modules_with_root_path);
+  SitesController.prototype.edit = function(options) {
+    _handleSiteLocationAutocomplete(options.municipalities_suggestion_url);
+    _homePage(options.site_modules_with_root_path);
   };
 
   return SitesController;

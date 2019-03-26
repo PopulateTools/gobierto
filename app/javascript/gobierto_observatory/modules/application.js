@@ -32,8 +32,12 @@ import {
 
 function selectSection(html){
   var $el = $('[data-breadcrumb-sub-item]');
-  if($el.prev()[0].tagName !== "SPAN")
-    $('<span>/</span>').insertBefore($el);
+  var $prev = $el.prev();
+  if($prev !== undefined && $prev[0] !== undefined){
+    if($prev[0].tagName !== "SPAN") {
+      $('<span>/</span>').insertBefore($el);
+    }
+  }
 
   if(html === undefined) {
     $('.sub_sections li a').each(function(){
@@ -51,7 +55,7 @@ $(document).on('turbolinks:click', function (event) {
     selectSection($(event.target).html());
     return;
   }
-})
+});
 
 var vis_population;
 

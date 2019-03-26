@@ -1,0 +1,42 @@
+<div class="i_filter">
+  <label><%= t(".filter") %></label>
+
+  <%= form_for(
+        @form,
+        method: :get,
+        as: :projects_filter,
+        url: admin_plans_plan_projects_path(@plan),
+        enforce_utf8: false,
+        html: { class: "i_f_options_forms f_flex_col f_flex_col_7" }
+      ) do |f| %>
+
+    <div class="form_item input_text compact">
+      <%= f.text_field :name, placeholder: t(".search") %>
+    </div>
+
+    <% [:category, :progress].each do |filter| %>
+      <% filter_value = @form.send(filter) %>
+      <div class="form_item select_control select_compact">
+        <%= f.select(
+              filter,
+              @form.send("#{filter}_options"),
+              title: t(".#{filter}"),
+              disabled: filter_value.present? ? [] : [nil],
+              selected: filter_value.present? ? filter_value : [nil]
+            ) %>
+      </div>
+    <% end %>
+
+    <div class="form_item input_text compact">
+      <%= f.text_field :interval, data: {
+              "range": "true",
+              "language": I18n.locale
+            },
+            class: "air-datepicker",
+            placeholder: t(".interval")
+      %>
+    </div>
+
+    <button class="button small rounded submit"><%= t(".submit") %></button>
+  <% end %>
+</div>

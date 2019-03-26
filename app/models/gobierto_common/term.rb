@@ -21,7 +21,7 @@ module GobiertoCommon
 
     translates :name, :description
 
-    delegate :site, to: :vocabulary
+    delegate :site, :maximum_level, to: :vocabulary
 
     def attributes_for_slug
       [vocabulary_name, name]
@@ -43,6 +43,12 @@ module GobiertoCommon
         end
       end ||
         GobiertoPlans::CategoryTermDecorator.new(self).has_dependent_resources?
+    end
+
+    def last_descendants
+      return [self] if level == maximum_level
+
+      terms.map(&:last_descendants).flatten
     end
 
     private

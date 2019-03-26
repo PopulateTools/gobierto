@@ -15,5 +15,9 @@ module GobiertoCommon
     def attributes_for_slug
       [name]
     end
+
+    def maximum_level
+      terms.maximum(:level)
+    end
   end
 end

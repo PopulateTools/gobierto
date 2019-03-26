@@ -1,9 +1,10 @@
-<% decorator = terms.try(:decorated_values?) ? terms.decorator : nil %>
-<% terms.each do |term, subterms| %>
-  <% has_subterms = subterms.present? %>
-  <div class="v_el v_el_level" data-id="<%= term.id %>">
-    <div class="list-group">
-      <div class="v_el_cont custom_handle list-group-item">
+<div class="list-group">
+
+  <% decorator = terms.try(:decorated_values?) ? terms.decorator : nil %>
+  <% terms.each do |term, subterms| %>
+    <% has_subterms = subterms.present? %>
+    <div class="v_el v_el_level list-group-item custom_handle " data-id="<%= term.id %>">
+      <div class="v_el_cont ">
         <% if has_subterms %>
           <div class="v_el_icon_tree">
             <%= link_to "" do %>
@@ -36,5 +37,6 @@
         <%= render partial: "terms_tree", locals: { terms: subterms } %>
       <% end %>
     </div>
-  </div>
-<% end %>
+  <% end %>
+
+</div>

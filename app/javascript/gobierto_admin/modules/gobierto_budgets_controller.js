@@ -15,9 +15,7 @@ window.GobiertoAdmin.GobiertoBudgetsController = (function() {
         crossDomain: true,
         dataType: "json",
         method: "GET",
-        data: function(params) {
-          return { query: params.term };
-        },
+        data: params => ({ query: params.term }),
         processResults: function(data) {
           if(data === undefined) return [];
           var results = $.map(data.suggestions, function (obj) {

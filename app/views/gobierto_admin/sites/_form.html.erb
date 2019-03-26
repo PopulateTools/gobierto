@@ -240,6 +240,9 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
-    window.GobiertoAdmin.sites_controller.edit("<%= APP_CONFIG["site_modules_with_root_path"] %>");
+    window.GobiertoAdmin.sites_controller.edit({
+      municipalities_suggestion_url: '<%= @services_config.municipalities_suggestions_endpoint %>',
+      site_modules_with_root_path: '<%= APP_CONFIG["site_modules_with_root_path"] %>'
+    });
   <% end %>
 <% end %>

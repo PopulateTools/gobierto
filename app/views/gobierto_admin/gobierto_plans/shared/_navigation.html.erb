@@ -1,5 +1,11 @@
 <div class="tabs">
   <ul>
+    <% if @plan.categories_vocabulary.present? %>
+      <li class="<%= class_if('active', controller.action_name == 'terms') %>">
+        <%= link_to t(".plan_terms_tab"), admin_common_vocabulary_terms_path(@plan.categories_vocabulary), data: { turbolinks: false } %>
+      </li>
+    <% end %>
+
     <li class="<%= class_if('active', controller_name = "projects" && action_name == "index") %>">
       <%= link_to t(".projects_tab"), admin_plans_plan_projects_path(@plan), data: { turbolinks: false } %>
     </li>

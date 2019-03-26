@@ -1,4 +1,4 @@
-import 'webpack-jquery-ui/sortable'
+import Sortable from 'sortablejs';
 
 window.GobiertoAdmin.TermsController = (function() {
   function TermsController() {}
@@ -52,25 +52,28 @@ window.GobiertoAdmin.TermsController = (function() {
   }
 
   function _handleSortableList() {
-    var wrapper = "div[data-behavior=sortable]";
+    var nestedSortables = [].slice.call(document.querySelectorAll('.list-group'));
 
-    $(wrapper).sortable({
-      items: 'div.v_el',
-      handle: '.custom_handle',
-      forcePlaceholderSize: true,
-      placeholder: '<div class="v_el v_el_level"></div>',
-      update: function() {
-        _refreshPositions(wrapper);
-        _requestUpdate(wrapper, _buildPositions(wrapper));
-      }
-    });
-  }
+    // Loop through each nested sortable element
+    for (let i = 0; i < nestedSortables.length; i++) {
+      Sortable.create(nestedSortables[i], {
+        group: "nested",
+        animation: 150,
+        fallbackOnBody: true,
+        swapThreshold: 0.65,
+      });
+    }
 
-  function _fixWidthHelper(e, ui) {
-    ui.children().each(function() {
-      $(this).width($(this).width());
-    });
-    return ui;
+    // $(wrapper).sortable({
+    //   items: 'div.v_el',
+    //   handle: '.custom_handle',
+    //   forcePlaceholderSize: true,
+    //   placeholder: '<div class="v_el v_el_level"></div>',
+    //   update: function() {
+    //     _refreshPositions(wrapper);
+    //     _requestUpdate(wrapper, _buildPositions(wrapper));
+    //   }
+    // });
   }
 
   function _refreshPositions(wrapper) {

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGobiertoCalendarsFilteringRules < ActiveRecord::Migration[5.1]
   def change
     create_table :gc_filtering_rules do |t|

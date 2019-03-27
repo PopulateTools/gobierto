@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PersonEventsController < GobiertoPeople::ApplicationController
     include PoliticalGroupsHelper
@@ -19,7 +21,7 @@ module GobiertoPeople
         format.html
         format.js
         format.json { render json: @events }
-        format.csv  { render csv: GobiertoExports::CSVRenderer.new(@events).to_csv, filename: 'events' }
+        format.csv  { render csv: GobiertoExports::CSVRenderer.new(@events).to_csv, filename: "events" }
       end
     end
 

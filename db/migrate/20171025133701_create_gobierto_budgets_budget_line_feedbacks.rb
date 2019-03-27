@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGobiertoBudgetsBudgetLineFeedbacks < ActiveRecord::Migration[5.1]
   def change
     create_table :gb_budget_line_feedbacks do |t|

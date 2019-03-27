@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   module Searchable
     extend ActiveSupport::Concern
@@ -7,7 +9,7 @@ module GobiertoBudgets
       def all_items
         @all_items ||= {}
         @all_items[I18n.locale] ||= begin
-          all_items = Hash[ available_kinds.map { |kind| [kind, {}] } ]
+          all_items = Hash[available_kinds.map { |kind| [kind, {}] }]
 
           query = {
             query: {
@@ -26,10 +28,10 @@ module GobiertoBudgets
 
           response = execute_query(query)
 
-          response['hits']['hits'].each do |h|
-            source = h['_source']
-            source['kind'] = source['kind'] == 'income' ? BudgetLine::INCOME : BudgetLine::EXPENSE
-            all_items[source['kind']][source['code']] = source['name']
+          response["hits"]["hits"].each do |h|
+            source = h["_source"]
+            source["kind"] = source["kind"] == "income" ? BudgetLine::INCOME : BudgetLine::EXPENSE
+            all_items[source["kind"]][source["code"]] = source["name"]
           end
 
           all_items

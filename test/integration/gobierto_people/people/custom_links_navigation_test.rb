@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoPeople
   module People
@@ -22,16 +22,16 @@ module GobiertoPeople
         with_current_site(site) do
           visit gobierto_people_person_path(richard.slug)
 
-          within '.people-navigation' do
-            assert has_link?('Trips')
-            assert has_link?('Gifts')
+          within ".people-navigation" do
+            assert has_link?("Trips")
+            assert has_link?("Gifts")
           end
 
           visit gobierto_people_person_path(tamara.slug)
 
-          within '.people-navigation' do
-            assert has_no_link?('Trips')
-            assert has_no_link?('Gifts')
+          within ".people-navigation" do
+            assert has_no_link?("Trips")
+            assert has_no_link?("Gifts")
           end
         end
       end

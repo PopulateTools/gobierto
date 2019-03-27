@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module Api
     class BaseController < ::GobiertoAdmin::BaseController
@@ -21,7 +23,7 @@ module GobiertoAdmin
       private
 
       def return_404
-        render json: { error: 'not-found' }, status: 404
+        render json: { error: "not-found" }, status: 404
       end
 
       def return_400(exception)

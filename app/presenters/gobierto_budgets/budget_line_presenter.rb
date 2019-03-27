@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class BudgetLinePresenter
 
     def self.load(id, site)
       return nil if id.nil?
+
       organization_id, year, code, kind, area_name = id.split("/")
       area = case area_name
              when EconomicArea.area_name
@@ -12,7 +15,7 @@ module GobiertoBudgets
              when CustomArea.area_name
                CustomArea
              end
-      self.new(organization_id: organization_id, year: year, code: code, kind: kind, area: area, site: site)
+      new(organization_id: organization_id, year: year, code: code, kind: kind, area: area, site: site)
     end
 
     def initialize(attributes)
@@ -55,7 +58,7 @@ module GobiertoBudgets
 
     def percentage_of_total
       total_amount = total || GobiertoBudgets::BudgetTotal.for(@attributes[:organization_id], @attributes[:year])
-      ((amount.to_f / total_amount.to_f)*100).round(2)
+      ((amount.to_f / total_amount.to_f) * 100).round(2)
     end
 
     def percentage_compared_with(other_value)
@@ -113,14 +116,14 @@ module GobiertoBudgets
 
     def as_json(attrs = {})
       {
-        name: self.name,
-        amount: self.amount,
-        amount_per_inhabitant: self.amount_per_inhabitant,
-        percentage_of_total: self.percentage_of_total,
-        total: self.total,
-        total_per_inhabitant: self.total_per_inhabitant,
-        code: self.code,
-        level: self.level
+        name: name,
+        amount: amount,
+        amount_per_inhabitant: amount_per_inhabitant,
+        percentage_of_total: percentage_of_total,
+        total: total,
+        total_per_inhabitant: total_per_inhabitant,
+        code: code,
+        level: level
       }
     end
   end

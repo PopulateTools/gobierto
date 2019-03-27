@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class Admin::SettingsController < BaseController
     before_action :authenticate_admin!
@@ -18,7 +20,7 @@ module GobiertoAdmin
         redirect_to edit_admin_admin_settings_path
       else
         flash[:alert] = t(".error")
-        render 'edit'
+        render "edit"
       end
     end
 

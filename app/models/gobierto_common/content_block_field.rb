@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class ContentBlockField < ApplicationRecord
     belongs_to :content_block
@@ -35,7 +37,7 @@ module GobiertoCommon
     private
 
     def set_name
-      self.name = SecureRandom.uuid if self.name.blank?
+      self.name = SecureRandom.uuid if name.blank?
     end
 
     def set_position

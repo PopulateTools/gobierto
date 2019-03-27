@@ -31,6 +31,7 @@ module GobiertoBudgets
       def generate_files
         file_urls = []
         return file_urls unless any_data?
+
         calculate_organization_budget_lines
 
         FORMATS.each do |format_key, configuration|
@@ -47,7 +48,8 @@ module GobiertoBudgets
 
       def filename(format)
         raise UnsupportedFormat unless FORMATS.keys.include?(format.to_sym)
-        ["gobierto_budgets", site.organization_id, "data", "annual", "#{ year }.#{ format }"].join("/")
+
+        ["gobierto_budgets", site.organization_id, "data", "annual", "#{year}.#{format}"].join("/")
       end
 
       def calculate_organization_budget_lines
@@ -59,6 +61,7 @@ module GobiertoBudgets
           GobiertoBudgets::BudgetArea.all_areas.each do |area|
             indexes.each_key do |index|
               next unless area.available_kinds.include?(kind)
+
               index_budget_lines = GobiertoBudgets::BudgetLine.all(where: { year: year,
                                                                             site: site,
                                                                             area_name: area.area_name,

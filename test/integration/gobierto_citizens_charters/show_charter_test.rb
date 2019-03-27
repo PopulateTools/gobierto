@@ -64,7 +64,7 @@ module GobiertoCitizensCharters
       with_current_site(site) do
         visit @path
         within "div.dropdown div.dropdown-inner", match: :first do
-          assert has_content? "Data corresponding to #{ visible_latest_period_editions.first.front_period_params[:period] }"
+          assert has_content? "Data corresponding to #{visible_latest_period_editions.first.front_period_params[:period]}"
         end
         visible_latest_period_editions.each do |edition|
           within "div.charter", text: edition.commitment.description do
@@ -81,9 +81,9 @@ module GobiertoCitizensCharters
       old_period_year = edition_of_old_period.front_period_params[:period]
       with_current_site(site) do
         visit @path
-        click_link "Data corresponding to #{ old_period_year }"
+        click_link "Data corresponding to #{old_period_year}"
         within "div.dropdown div.dropdown-inner", match: :first do
-          assert has_content? "Data corresponding to #{ old_period_year }"
+          assert has_content? "Data corresponding to #{old_period_year}"
         end
         assert has_content? edition_of_old_period.commitment.description
         visible_latest_period_editions.each do |edition|
@@ -96,11 +96,11 @@ module GobiertoCitizensCharters
       with_current_site(site) do
         with_javascript do
           visit @path
-          within "#sparkline-#{ edition_without_other_editions.id }" do
+          within "#sparkline-#{edition_without_other_editions.id}" do
             assert has_no_css? "svg"
           end
 
-          within "#sparkline-#{ edition_with_other_editions.id }" do
+          within "#sparkline-#{edition_with_other_editions.id}" do
             assert has_css? "svg"
           end
         end
@@ -113,7 +113,7 @@ module GobiertoCitizensCharters
       with_current_site(site) do
         visit @path
         within "div.charter-subheader", text: "We fulfill the commitments of this charter to" do
-          assert has_content? "#{ global_progress.round(1) }%"
+          assert has_content? "#{global_progress.round(1)}%"
         end
       end
     end

@@ -3,11 +3,11 @@
 module Subscribers
   class GobiertoBudgetConsultationsConsultationResponseActivity < ::Subscribers::Base
     def consultation_response_created(event)
-      create_activity_from_event(event, 'gobierto_budget_consultations.consultation_response_created')
+      create_activity_from_event(event, "gobierto_budget_consultations.consultation_response_created")
     end
 
     def consultation_response_deleted(event)
-      create_activity_from_event(event, 'gobierto_budget_consultations.consultation_response_deleted')
+      create_activity_from_event(event, "gobierto_budget_consultations.consultation_response_deleted")
     end
 
     private

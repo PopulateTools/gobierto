@@ -20,7 +20,7 @@ module GobiertoCalendars
         result
       end
 
-      rules_results.delete_if{ |r| r == false }
+      rules_results.delete_if { |r| r == false }
       if rules_results.include?("ignore")
         filtering_result.action = REMOVE
       elsif rules_results.include?("import_as_draft")

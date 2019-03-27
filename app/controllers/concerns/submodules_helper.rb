@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SubmodulesHelper
   extend ActiveSupport::Concern
 
@@ -121,7 +123,7 @@ module SubmodulesHelper
   end
 
   GobiertoPeople.module_submodules.each do |submodule|
-    define_method("#{ submodule }_submodule_active?") { active_submodules.include?(submodule) }
+    define_method("#{submodule}_submodule_active?") { active_submodules.include?(submodule) }
   end
 
   def submodule_path_for(submodule)
@@ -140,6 +142,7 @@ module SubmodulesHelper
     if submodule == "blogs"
       return current_site.person_posts.active.any?
     end
-    return true
+
+    true
   end
 end

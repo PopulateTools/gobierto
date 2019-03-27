@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGobiertoParticipationPollQuestions < ActiveRecord::Migration[5.1]
 
   def change

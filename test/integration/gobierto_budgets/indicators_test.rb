@@ -15,7 +15,7 @@ class GobiertoBudgets::IndicatorsTest < ActionDispatch::IntegrationTest
     with_each_current_site(placed_site, organization_site) do |site|
       visit gobierto_budgets_indicators_path
 
-      assert has_content?("Understand the budgets of #{ site.organization_name }
+      assert has_content?("Understand the budgets of #{site.organization_name}
                            through its main figures: gross savings, per capita
                            investment or investment financing.".squish)
     end

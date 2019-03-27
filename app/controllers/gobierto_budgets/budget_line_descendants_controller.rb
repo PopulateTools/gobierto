@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::ApplicationController
   before_action :load_params
 
@@ -5,9 +7,9 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
     conditions = { site: current_site, year: @year, kind: @kind, area_name: @area_name }
 
     if @parent_code
-      conditions.merge!({parent_code: @parent_code})
+      conditions.merge!({ parent_code: @parent_code })
     else
-      conditions.merge!({level: 1})
+      conditions.merge!({ level: 1 })
     end
 
     @budget_lines = budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions)

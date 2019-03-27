@@ -4,9 +4,9 @@ module GobiertoPeople
   class DepartmentsQuery < RowchartItemsQuery
 
     def results_with_history
-      relation.select("#{ model.table_name }.*, to_char(#{ events_table }.starts_at, 'YYYY/MM') AS year_month, COUNT(*) AS custom_events_count")
-              .group("#{ model.table_name }.id, year_month")
-              .order("#{ model.table_name }.id ASC, year_month ASC")
+      relation.select("#{model.table_name}.*, to_char(#{events_table}.starts_at, 'YYYY/MM') AS year_month, COUNT(*) AS custom_events_count")
+              .group("#{model.table_name}.id, year_month")
+              .order("#{model.table_name}.id ASC, year_month ASC")
     end
 
     private

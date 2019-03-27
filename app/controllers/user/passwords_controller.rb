@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::PasswordsController < User::BaseController
   before_action :require_no_authentication
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class SitesController < GobiertoBudgets::ApplicationController
     def show

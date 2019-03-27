@@ -77,7 +77,7 @@ module GobiertoPeople
 
             assert_equal 2, interest_groups.size
             assert_equal interest_groups.first["key"], pepsi.name
-            assert_match "?end_date=#{ short_date(FAR_FUTURE) }&start_date=#{ short_date(FAR_PAST) }", interest_groups.first["properties"]["url"]
+            assert_match "?end_date=#{short_date(FAR_FUTURE)}&start_date=#{short_date(FAR_PAST)}", interest_groups.first["properties"]["url"]
           end
         end
 

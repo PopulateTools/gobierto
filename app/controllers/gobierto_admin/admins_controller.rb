@@ -134,11 +134,11 @@ module GobiertoAdmin
     end
 
     def track_create_activity
-      Publishers::AdminActivity.broadcast_event("admin_created", default_activity_params.merge({subject: @admin_form.admin}))
+      Publishers::AdminActivity.broadcast_event("admin_created", default_activity_params.merge({ subject: @admin_form.admin }))
     end
 
     def track_update_activity
-      Publishers::AdminActivity.broadcast_event("admin_updated", default_activity_params.merge({subject: @admin_form.admin, changes: @admin_form.admin.previous_changes.except(:updated_at)}))
+      Publishers::AdminActivity.broadcast_event("admin_updated", default_activity_params.merge({ subject: @admin_form.admin, changes: @admin_form.admin.previous_changes.except(:updated_at) }))
     end
 
     def default_activity_params

@@ -45,7 +45,7 @@ module GobiertoCommon
 
         setting_name = model.vocabularies[method]
         module_name = model.name.deconstantize
-        not_empty.site.settings_for_module(module_name).send("#{ setting_name }=", nil)
+        not_empty.site.settings_for_module(module_name).send("#{setting_name}=", nil)
         not_empty.site.settings_for_module(module_name).save
         not_empty.reload
         assert not_empty.send(method).blank?

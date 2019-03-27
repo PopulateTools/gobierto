@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "gobierto_budget_consultations"
 require_dependency "secret_attribute"
 
@@ -39,13 +41,13 @@ module GobiertoBudgetConsultations
       if consultation.force_responses_balance? && deficit_response?
         Rails.logger.debug "[exception] Trying to save deficit response"
 
-        errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
+        errors[:base] << I18n.t("errors.messages.invalid_consultation_response")
       end
     end
 
     def deficit_response?
-      possitive_items = self.consultation_items.select{ |i| i.selected_option > 0 }
-      negative_items  = self.consultation_items.select{ |i| i.selected_option < 0 }
+      possitive_items = consultation_items.select { |i| i.selected_option > 0 }
+      negative_items  = consultation_items.select { |i| i.selected_option < 0 }
       possitive_items.length > negative_items.length
     end
   end

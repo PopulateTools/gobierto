@@ -8,6 +8,7 @@ module GobiertoPeople
 
     def people
       return GobiertoPeople::Person.none unless association_with_people
+
       GobiertoPeople::Person.where(association_with_people => object)
     end
 
@@ -25,6 +26,7 @@ module GobiertoPeople
     def association_with_people
       @association_with_people ||= begin
                                      return unless people_settings.present?
+
                                      GobiertoPeople::Person.vocabularies.find do |_, setting|
                                        people_settings.send(setting).to_i == object.vocabulary_id.to_i
                                      end&.first

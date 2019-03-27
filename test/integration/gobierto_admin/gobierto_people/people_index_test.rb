@@ -46,7 +46,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            assert has_link? 'New person'
+            assert has_link? "New person"
 
             within "table.people-list tbody" do
               assert has_selector?("tr", count: people.size)
@@ -73,54 +73,54 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            assert has_no_link? 'New person'
+            assert has_no_link? "New person"
 
             within "#person-item-#{manageable_person.id}" do
               assert has_link? manageable_person.name
-              assert has_link? 'View person'
-              assert_equal 1, first('td').all('a').size
+              assert has_link? "View person"
+              assert_equal 1, first("td").all("a").size
             end
 
             within "#person-item-#{unmanageable_published_person.id}" do
               assert has_no_link? unmanageable_published_person.name
-              assert has_link? 'View person'
-              assert first('td').all('a').empty?
+              assert has_link? "View person"
+              assert first("td").all("a").empty?
             end
 
             within "#person-item-#{unmanageable_draft_person.id}" do
               assert has_no_link? unmanageable_draft_person.name
-              assert has_no_link? 'View person'
-              assert first('td').all('a').empty?
+              assert has_no_link? "View person"
+              assert first("td").all("a").empty?
             end
           end
         end
       end
 
       def test_people_index_regular_admin_with_manage_all_permissions
-        setup_specific_permissions(regular_admin, site: site, module: 'gobierto_people', all_people: true)
+        setup_specific_permissions(regular_admin, site: site, module: "gobierto_people", all_people: true)
 
         with_signed_in_admin(regular_admin) do
           with_current_site(site) do
             visit @path
 
-            assert has_link? 'New person'
+            assert has_link? "New person"
 
             within "#person-item-#{manageable_person.id}" do
               assert has_link? manageable_person.name
-              assert has_link? 'View person'
-              assert_equal 1, first('td').all('a').size
+              assert has_link? "View person"
+              assert_equal 1, first("td").all("a").size
             end
 
             within "#person-item-#{unmanageable_published_person.id}" do
               assert has_link? unmanageable_published_person.name
-              assert has_link? 'View person'
-              assert_equal 1, first('td').all('a').size
+              assert has_link? "View person"
+              assert_equal 1, first("td").all("a").size
             end
 
             within "#person-item-#{unmanageable_draft_person.id}" do
               assert has_link? unmanageable_draft_person.name
-              assert has_link? 'View person'
-              assert_equal 1, first('td').all('a').size
+              assert has_link? "View person"
+              assert_equal 1, first("td").all("a").size
             end
           end
         end

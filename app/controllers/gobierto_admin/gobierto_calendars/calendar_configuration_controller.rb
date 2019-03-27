@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCalendars
     class CalendarConfigurationController < GobiertoAdmin::BaseController
 
       # TODO: will need to adapt to process calendar synchronization
-      before_action { module_enabled!(current_site, 'GobiertoPeople') }
-      before_action { module_allowed!(current_admin, 'GobiertoPeople') }
+      before_action { module_enabled!(current_site, "GobiertoPeople") }
+      before_action { module_allowed!(current_admin, "GobiertoPeople") }
 
       before_action :load_collection, :collection_container_allowed!
 
@@ -15,7 +17,7 @@ module GobiertoAdmin
         load_calendars
         set_last_sync
 
-        render 'gobierto_admin/gobierto_calendars/calendar_configuration/edit'
+        render "gobierto_admin/gobierto_calendars/calendar_configuration/edit"
       end
 
       def update
@@ -26,11 +28,11 @@ module GobiertoAdmin
         if @calendar_configuration_form.save
           redirect_to(
             edit_admin_calendars_configuration_path(@collection),
-            notice: t('.success')
+            notice: t(".success")
           )
         else
           load_calendar_integrations
-          render 'gobierto_admin/gobierto_calendars/calendar_configuration/edit'
+          render "gobierto_admin/gobierto_calendars/calendar_configuration/edit"
         end
       end
 
@@ -65,12 +67,12 @@ module GobiertoAdmin
       private
 
       def publish_calendar_sync_activity(calendar_configuration_form)
-        Publishers::AdminGobiertoCalendarsActivity.broadcast_event('calendars_synchronized', { ip: remote_ip, author: current_admin, subject: calendar_configuration_form.collection_container, site_id: current_site.id })
+        Publishers::AdminGobiertoCalendarsActivity.broadcast_event("calendars_synchronized", { ip: remote_ip, author: current_admin, subject: calendar_configuration_form.collection_container, site_id: current_site.id })
       end
 
       def set_last_sync
         @last_sync = if collection_container = @calendar_configuration_form.try(:collection_container)
-                       current_site.activities.where(action: 'admin_gobierto_calendars.calendars_synchronized', subject: collection_container)
+                       current_site.activities.where(action: "admin_gobierto_calendars.calendars_synchronized", subject: collection_container)
                          .order(created_at: :asc)
                          .last.try(:created_at)
                      end
@@ -140,7 +142,7 @@ module GobiertoAdmin
       def collection_container_allowed!
         if collection_container.class == ::GobiertoPeople::Person
           if !can_manage_person?(collection_container)
-            redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
+            redirect_to admin_people_people_path, alert: t("gobierto_admin.admin_unauthorized")
           end
         end
       end

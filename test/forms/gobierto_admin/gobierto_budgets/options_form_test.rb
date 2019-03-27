@@ -46,15 +46,15 @@ JSON
       def valid_form
         @valid_form ||= OptionsForm.new(
           site: site,
-          elaboration_enabled: '1',
-          budget_lines_feedback_enabled: '1',
-          feedback_emails: 'email1@example.com',
-          receipt_enabled: '1',
+          elaboration_enabled: "1",
+          budget_lines_feedback_enabled: "1",
+          feedback_emails: "email1@example.com",
+          receipt_enabled: "1",
           receipt_configuration: receipt_configuration,
-          comparison_context_table_enabled: '1',
+          comparison_context_table_enabled: "1",
           comparison_compare_municipalities: [28065, 28001],
-          comparison_show_widget: '1',
-          providers_enabled: '1',
+          comparison_show_widget: "1",
+          providers_enabled: "1",
           budgets_guide_page: page.id
         )
       end
@@ -62,39 +62,39 @@ JSON
       def valid_form_feedback_disabled
         @valid_form ||= OptionsForm.new(
           site: site,
-          elaboration_enabled: '1',
-          budget_lines_feedback_enabled: '0',
-          receipt_enabled: '1',
+          elaboration_enabled: "1",
+          budget_lines_feedback_enabled: "0",
+          receipt_enabled: "1",
           receipt_configuration: receipt_configuration,
-          comparison_context_table_enabled: '1',
+          comparison_context_table_enabled: "1",
           comparison_compare_municipalities: [28065, 28001],
-          comparison_show_widget: '1',
-          providers_enabled: '1',
+          comparison_show_widget: "1",
+          providers_enabled: "1",
         )
       end
 
       def invalid_form_receipt_configuration_wrong
         @invalid_form_receipt_configuration_wrong ||= OptionsForm.new(
           site: site,
-          elaboration_enabled: '1',
-          budget_lines_feedback_enabled: '0',
-          receipt_enabled: '1',
-          receipt_configuration: 'invalid_json',
-          providers_enabled: '1'
+          elaboration_enabled: "1",
+          budget_lines_feedback_enabled: "0",
+          receipt_enabled: "1",
+          receipt_configuration: "invalid_json",
+          providers_enabled: "1"
         )
       end
 
       def invalid_form
         @invalid_form ||= OptionsForm.new(
           site: site,
-          elaboration_enabled: '1',
-          budget_lines_feedback_enabled: '1',
-          receipt_enabled: '1',
-          receipt_configuration: '',
-          comparison_context_table_enabled: '0',
+          elaboration_enabled: "1",
+          budget_lines_feedback_enabled: "1",
+          receipt_enabled: "1",
+          receipt_configuration: "",
+          comparison_context_table_enabled: "0",
           comparison_compare_municipalities: [],
-          comparison_show_widget: '0',
-          providers_enabled: '1'
+          comparison_show_widget: "0",
+          providers_enabled: "1"
         )
       end
 

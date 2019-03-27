@@ -6,7 +6,7 @@ module GobiertoAdmin
 
       prepend ::GobiertoCommon::Trackable
 
-      OPENING_DATE_RANGE_SEPARATOR = " - ".freeze
+      OPENING_DATE_RANGE_SEPARATOR = " - "
 
       attr_accessor(
         :id,

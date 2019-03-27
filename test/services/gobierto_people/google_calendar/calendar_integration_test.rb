@@ -87,13 +87,13 @@ module GobiertoPeople
 
 
         calendar1 = mock
-        calendar1.stubs(id: google_calendar_id, primary?: true, summary: 'Calendar 1')
+        calendar1.stubs(id: google_calendar_id, primary?: true, summary: "Calendar 1")
 
         calendar2 = mock
-        calendar2.stubs(id: 2, primary?: false, summary: 'Calendar 2')
+        calendar2.stubs(id: 2, primary?: false, summary: "Calendar 2")
 
         calendar3 = mock
-        calendar3.stubs(id: 3, primary?: false, summary: 'Calendar 3')
+        calendar3.stubs(id: 3, primary?: false, summary: "Calendar 3")
 
         calendar_1_items_response = mock
         calendar_1_items_response.stubs(:items).returns([event1, event2])
@@ -251,7 +251,7 @@ module GobiertoPeople
         initial_slug = event.slug
 
         (1..3).each do |i|
-          event.title = "Event 2 updated #{ i }"
+          event.title = "Event 2 updated #{i}"
           event.save
 
           calendar_service.sync!
@@ -319,7 +319,7 @@ module GobiertoPeople
         event1.stubs(visibility: "private", id: "event1")
 
         calendar1 = mock
-        calendar1.stubs(id: google_calendar_id, primary?: true, summary: 'Calendar 1')
+        calendar1.stubs(id: google_calendar_id, primary?: true, summary: "Calendar 1")
 
         calendar_1_items_response = mock
         calendar_1_items_response.stubs(:items).returns([event1])

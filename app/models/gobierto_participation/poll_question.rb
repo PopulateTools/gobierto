@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_dependency 'gobierto_participation'
+require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class PollQuestion < ApplicationRecord
 
     belongs_to :poll
-    has_many :answer_templates, -> { order(order: :asc) }, class_name: 'GobiertoParticipation::PollAnswerTemplate', foreign_key: :question_id, dependent: :destroy, autosave: true
-    has_many :answers, class_name: 'GobiertoParticipation::PollAnswer', foreign_key: :question_id
+    has_many :answer_templates, -> { order(order: :asc) }, class_name: "GobiertoParticipation::PollAnswerTemplate", foreign_key: :question_id, dependent: :destroy, autosave: true
+    has_many :answers, class_name: "GobiertoParticipation::PollAnswer", foreign_key: :question_id
 
     translates :title
 
@@ -23,7 +23,7 @@ module GobiertoParticipation
     )
     validate :answer_templates_size
 
-    validates_associated :answer_templates, message: I18n.t('activerecord.messages.gobierto_participation/poll.are_not_valid')
+    validates_associated :answer_templates, message: I18n.t("activerecord.messages.gobierto_participation/poll.are_not_valid")
 
     def open_answer?
       answer_type == PollQuestion.answer_types[:open]
@@ -45,7 +45,7 @@ module GobiertoParticipation
 
     def answer_templates_size
       if answer_type && fixed_answer? && answer_templates.size < 2
-        errors.add(:answer_templates, I18n.t('activerecord.messages.gobierto_participation/poll_question.not_enough_alternatives'))
+        errors.add(:answer_templates, I18n.t("activerecord.messages.gobierto_participation/poll_question.not_enough_alternatives"))
       end
     end
 

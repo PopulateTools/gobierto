@@ -30,8 +30,8 @@ module GobiertoParticipation
       containers_table = GobiertoParticipation::ContributionContainer.table_name
 
       GobiertoParticipation::Contribution.joins(contribution_container: :process)
-                                         .where("#{ containers_table }.visibility_level = ?", 1)
-                                         .where("#{ processes_table }.#{terms_key} = ?", id)
+                                         .where("#{containers_table}.visibility_level = ?", 1)
+                                         .where("#{processes_table}.#{terms_key} = ?", id)
     end
 
     def events

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module I18n
   module Backend
     # ActiveRecord model used to store actual translations to the database.
@@ -48,7 +50,7 @@ module I18n
         FALSY_CHAR = "\002"
         GLOBAL_SCOPE = 0
 
-        self.table_name = 'translations'
+        self.table_name = "translations"
 
         serialize :value
         serialize :interpolations, Array
@@ -67,7 +69,7 @@ module I18n
           end
 
           def lookup(keys, *separator)
-            column_name = connection.quote_column_name('key')
+            column_name = connection.quote_column_name("key")
             keys = Array(keys).map! { |key| key.to_s }
 
             unless separator.empty?
@@ -99,7 +101,7 @@ module I18n
           end
 
           def available_locales
-            Translation.select('DISTINCT locale').to_a.map { |t| t.locale.to_sym }
+            Translation.select("DISTINCT locale").to_a.map { |t| t.locale.to_sym }
           end
 
           def reset_cached_entries!
@@ -123,7 +125,7 @@ module I18n
         end
 
         def interpolates?(key)
-          self.interpolations.include?(key) if self.interpolations
+          interpolations.include?(key) if interpolations
         end
 
         def value

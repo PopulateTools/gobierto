@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include SubmodulesHelper
   include ::GobiertoCommon::ModuleHelper
@@ -32,8 +34,8 @@ class ApplicationController < ActionController::Base
 
   def current_site
     @current_site ||= begin
-      site = if request.env['gobierto_site'].present?
-        request.env['gobierto_site']
+      site = if request.env["gobierto_site"].present?
+        request.env["gobierto_site"]
       else
         Site.first if Rails.env.test?
       end
@@ -49,8 +51,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_module
-    @current_module ||= if params[:controller].include?('/')
-                          params[:controller].split('/').first
+    @current_module ||= if params[:controller].include?("/")
+                          params[:controller].split("/").first
                         end
   end
 
@@ -64,7 +66,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user_in_site
     if (Rails.env.production? || Rails.env.staging?) && @site && @site.password_protected?
-      authenticate_or_request_with_http_basic('Gobierto') do |username, password|
+      authenticate_or_request_with_http_basic("Gobierto") do |username, password|
         username == @site.configuration.password_protection_username && password == @site.configuration.password_protection_password
       end
     end
@@ -104,19 +106,20 @@ class ApplicationController < ActionController::Base
 
   def apply_engines_overrides
     return unless engine_overrides?
+
     engine_overrides.each do |engine|
-      prepend_view_path Rails.root.join("vendor/gobierto_engines/#{ engine }/app/views")
+      prepend_view_path Rails.root.join("vendor/gobierto_engines/#{engine}/app/views")
     end
   end
 
   def cache_key_preffix
-    "site-#{current_site.id}-#{params.to_unsafe_h.sort.flatten.join('-')}"
+    "site-#{current_site.id}-#{params.to_unsafe_h.sort.flatten.join("-")}"
   end
 
   protected
 
   def remote_ip
-    request.env['action_dispatch.remote_ip'].try(:calculate_ip) || request.remote_ip
+    request.env["action_dispatch.remote_ip"].try(:calculate_ip) || request.remote_ip
   end
 
   def raise_module_not_enabled(redirect = true)

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module SiteHelper
 
   def site_name
     if current_site
       "#{current_site.title} de #{current_site.name}"
     else
-      'Gobierto Presupuestos Municipales'
+      "Gobierto Presupuestos Municipales"
     end
   end
 
@@ -12,7 +14,7 @@ module SiteHelper
     if current_site
       current_site.domain
     else
-      'presupuestos.gobierto.es'
+      "presupuestos.gobierto.es"
     end
   end
 
@@ -26,12 +28,13 @@ module SiteHelper
     if condition
       class_name
     else
-      ''
+      ""
     end
   end
 
   def custom_favicon_url
     return unless current_site
+
     current_site.configuration.configuration_variables["favicon_url"].presence
   end
 

@@ -23,10 +23,10 @@ module GobiertoPeople
 
       def ibm_notes_configuration_with_description
         @ibm_notes_configuration ||= {
-          ibm_notes_usr: 'ibm-notes-usr',
-          ibm_notes_pwd: 'ibm-notes-pwd',
-          ibm_notes_url: 'https://host.wadus.com/mail/foo.nsf/api/calendar/events',
-          without_description: '0'
+          ibm_notes_usr: "ibm-notes-usr",
+          ibm_notes_pwd: "ibm-notes-pwd",
+          ibm_notes_url: "https://host.wadus.com/mail/foo.nsf/api/calendar/events",
+          without_description: "0"
         }
       end
 
@@ -37,10 +37,10 @@ module GobiertoPeople
 
       def ibm_notes_configuration_without_description
         @ibm_notes_configuration ||= {
-          ibm_notes_usr: 'ibm-notes-usr',
-          ibm_notes_pwd: 'ibm-notes-pwd',
-          ibm_notes_url: 'https://host.wadus.com/mail/foo.nsf/api/calendar/events',
-          without_description: '1'
+          ibm_notes_usr: "ibm-notes-usr",
+          ibm_notes_pwd: "ibm-notes-pwd",
+          ibm_notes_url: "https://host.wadus.com/mail/foo.nsf/api/calendar/events",
+          without_description: "1"
         }
       end
 

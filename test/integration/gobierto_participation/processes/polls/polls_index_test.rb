@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoParticipation
   module Processes
@@ -37,13 +37,13 @@ module GobiertoParticipation
           visit process_polls_path
 
           # published open polls apear
-          assert has_content? 'What do the residents of the neighborhood think?'
-          assert has_content? 'General aspects of the ordinance'
+          assert has_content? "What do the residents of the neighborhood think?"
+          assert has_content? "General aspects of the ordinance"
 
           # draft, future and past polls are hidden
-          assert has_no_content? 'Schedules'
-          assert has_no_content? 'Public spaces'
-          assert has_no_content? 'Noise'
+          assert has_no_content? "Schedules"
+          assert has_no_content? "Public spaces"
+          assert has_no_content? "Noise"
         end
       end
 
@@ -53,8 +53,8 @@ module GobiertoParticipation
           visit process_polls_path
 
           within "#poll_#{poll.id}" do
-            assert has_content? 'You have already participated in this poll'
-            assert has_no_content? 'Participate in this poll'
+            assert has_content? "You have already participated in this poll"
+            assert has_no_content? "Participate in this poll"
           end
 
         end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SiteConfiguration
   PROPERTIES = [
     :site_id,
@@ -21,7 +23,7 @@ class SiteConfiguration
     :engine_overrides
   ].freeze
 
-  DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze
+  DEFAULT_LOGO_PATH = "sites/logo-default.png"
 
   MODULES_WITH_NOTIFICATONS = ["GobiertoPeople", "GobiertoBudgetConsultations", "GobiertoParticipation"]
 
@@ -68,7 +70,7 @@ class SiteConfiguration
   def available_locales
     return I18n.available_locales if @available_locales.nil? || @available_locales.empty?
 
-    Array(default_locale).concat(@available_locales.select{ |l| l.present? }.map(&:to_s)).uniq
+    Array(default_locale).concat(@available_locales.select { |l| l.present? }.map(&:to_s)).uniq
   end
 
   def default_locale
@@ -88,7 +90,7 @@ class SiteConfiguration
   end
 
   def default_modules
-    [ 'GobiertoCms', 'GobiertoCalendars', 'GobiertoAttachments' ]
+    ["GobiertoCms", "GobiertoCalendars", "GobiertoAttachments"]
   end
 
   def configuration_variables

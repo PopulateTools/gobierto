@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserNotificationDecorator < BaseDecorator
   def initialize(user_notification)
     @object = user_notification
@@ -36,8 +38,8 @@ class UserNotificationDecorator < BaseDecorator
   end
 
   def i18n_key
-    object_module = @object.action.split('.').first
+    object_module = @object.action.split(".").first
 
-    ["#{object_module}.events.#{@object.action.tr('.', '_')}", { subject_name: subject_name }]
+    ["#{object_module}.events.#{@object.action.tr(".", "_")}", { subject_name: subject_name }]
   end
 end

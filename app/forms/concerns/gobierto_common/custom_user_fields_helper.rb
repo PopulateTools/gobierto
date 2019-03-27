@@ -10,9 +10,9 @@ module GobiertoCommon
 
     def custom_records
       @custom_records ||= if user.nil?
-                            site.presence ? site.custom_user_fields.map{|custom_user_field| custom_user_field.records.new } : []
+                            site.presence ? site.custom_user_fields.map { |custom_user_field| custom_user_field.records.new } : []
                           elsif user.custom_records.empty?
-                            site.presence ? site.custom_user_fields.map{|custom_user_field| user.custom_records.build(custom_user_field: custom_user_field) } : []
+                            site.presence ? site.custom_user_fields.map { |custom_user_field| user.custom_records.build(custom_user_field: custom_user_field) } : []
                           else
                             user.custom_records
                           end
@@ -30,9 +30,10 @@ module GobiertoCommon
 
     def valid_custom_records
       return if custom_records.empty?
+
       custom_records.each do |custom_record|
         if custom_record.custom_user_field.mandatory? && custom_record.value.blank?
-          errors[:base] << "#{custom_record.custom_user_field.localized_title} #{I18n.t('errors.messages.blank')}"
+          errors[:base] << "#{custom_record.custom_user_field.localized_title} #{I18n.t("errors.messages.blank")}"
         end
       end
     end

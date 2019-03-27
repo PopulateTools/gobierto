@@ -46,7 +46,7 @@ module GobiertoCms
     scope :sort_by_published_on, -> { order(published_on: :desc) }
     scope :sort_by_updated_at, -> { order(updated_at: :desc) }
     scope :news_in_collections, ->(site) {
-      joins(Arel.sql("join collection_items on collection_items.item_id = #{ self.table_name }.id"))
+      joins(Arel.sql("join collection_items on collection_items.item_id = #{table_name}.id"))
         .where("collection_items.item_type = ?", "GobiertoCms::News")
         .where(site: site)
         .distinct

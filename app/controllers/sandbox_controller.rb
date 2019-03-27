@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SandboxController < ApplicationController
   before_action :set_working_variables
   layout :set_layout
@@ -14,15 +16,15 @@ class SandboxController < ApplicationController
   )
 
   def index
-    @templates = Dir.glob(Rails.root.join('app/views/sandbox/*.html.erb').to_s).sort.map do |filename|
+    @templates = Dir.glob(Rails.root.join("app/views/sandbox/*.html.erb").to_s).sort.map do |filename|
       filename = File.basename(filename, File.extname(filename))
-      filename unless filename.starts_with?('_') || filename == 'index.html'
+      filename unless filename.starts_with?("_") || filename == "index.html"
     end.compact
   end
 
   def show
     @sub_section = sub_section
-    if params[:template].index('.') # CVE-2014-0130
+    if params[:template].index(".") # CVE-2014-0130
       redirect_to action: :index
     elsif lookup_context.exists?("sandbox/#{params[:template]}")
       if params[:template] == "index"
@@ -41,9 +43,9 @@ class SandboxController < ApplicationController
 
   def sub_section
     if params[:template].split("_").second
-      return params[:template].split("_").first + '_' + params[:template].split("_").second
+      params[:template].split("_").first + "_" + params[:template].split("_").second
     elsif params[:template].split("_").first
-      return params[:template].split("_").first
+      params[:template].split("_").first
     end
   end
 

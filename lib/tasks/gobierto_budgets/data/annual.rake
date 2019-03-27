@@ -17,15 +17,16 @@ namespace :gobierto_budgets do
         organization_id = site.organization_id
         organization_name = site.organization_name || site.place.try(name)
         next if organization_id.nil?
+
         file_urls = []
         GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
           file_urls += data_model.new(site: site, year: year).generate_files
         end
 
-        puts "\n- Data calculated for site #{ site.domain } and organization #{ organization_name } - #{ organization_id }: " +
-          (file_urls.any? ? "#{ file_urls.count } files uploaded:" : "No files generated.")
+        puts "\n- Data calculated for site #{site.domain} and organization #{organization_name} - #{organization_id}: " +
+          (file_urls.any? ? "#{file_urls.count} files uploaded:" : "No files generated.")
         file_urls.each do |file_url|
-          puts "\t+ #{ file_url }"
+          puts "\t+ #{file_url}"
         end
       end
     end

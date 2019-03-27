@@ -24,7 +24,7 @@ module GobiertoAdmin
         end
 
         def show
-          render(json: { attachment: default_serializer.new(@attachment) } )
+          render(json: { attachment: default_serializer.new(@attachment) })
         end
 
         def create

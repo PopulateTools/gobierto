@@ -107,15 +107,15 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within '.container' do
-          assert has_content? 'Blogs'
+        within ".container" do
+          assert has_content? "Blogs"
         end
 
         PersonPost.all.destroy_all
         visit @path
 
-        within '.container' do
-          assert has_no_content? 'Blogs'
+        within ".container" do
+          assert has_no_content? "Blogs"
         end
       end
     end

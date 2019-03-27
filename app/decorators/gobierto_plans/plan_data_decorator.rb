@@ -19,12 +19,13 @@ module GobiertoPlans
       end
 
       return "" unless collection.present?
+
       CSV.generate do |csv|
         csv << RowNodeDecorator.new(collection.first).headers
         collection.each do |item|
           csv << RowNodeDecorator.new(item).object
         end
-      end.force_encoding('utf-8')
+      end.force_encoding("utf-8")
     end
   end
 end

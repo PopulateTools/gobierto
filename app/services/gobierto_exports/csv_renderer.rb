@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoExports
   class CSVRenderer
-    def initialize(relation, options={})
+    def initialize(relation, options = {})
       @relation = relation
       @options = options
     end
@@ -16,7 +18,7 @@ module GobiertoExports
         @relation.each do |record|
           csv << record.as_csv
         end
-      end.force_encoding('utf-8')
+      end.force_encoding("utf-8")
     end
   end
 end

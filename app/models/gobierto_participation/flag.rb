@@ -18,18 +18,21 @@ module GobiertoParticipation
 
     def self.flag(user, flaggable)
       return false if flagged?(user, flaggable)
+
       create(user: user, flaggable: flaggable)
     end
 
     def self.unflag(user, flaggable)
       flags = by_user_and_flaggable(user, flaggable)
       return false if flags.empty?
+
       flags.destroy_all
     end
 
     def self.flagged?(user, flaggable)
       return false unless user
-      !! by_user_and_flaggable(user, flaggable).try(:first)
+
+      !!by_user_and_flaggable(user, flaggable).try(:first)
     end
   end
 end

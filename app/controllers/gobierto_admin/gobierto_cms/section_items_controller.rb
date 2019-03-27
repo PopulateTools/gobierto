@@ -56,7 +56,7 @@ module GobiertoAdmin
       def update
         @section_item = find_section_item
 
-        tree = JSON.parse(params['tree'])
+        tree = JSON.parse(params["tree"])
 
         position = 0
         level = 0
@@ -70,12 +70,12 @@ module GobiertoAdmin
 
       def children(nodes, position, level, parent_id)
         nodes.each do |node|
-          section_item = ::GobiertoCms::SectionItem.find(node['id'])
+          section_item = ::GobiertoCms::SectionItem.find(node["id"])
           section_item.update_attributes(position: position,
                                          level: level,
                                          parent_id: parent_id)
-          unless node['children'].nil?
-            children(node['children'], 0, level + 1, node['id'])
+          unless node["children"].nil?
+            children(node["children"], 0, level + 1, node["id"])
           end
           position += 1
         end

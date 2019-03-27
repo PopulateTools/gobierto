@@ -11,31 +11,31 @@ module GobiertoAdmin
       include ::GobiertoAdmin::AuthorizableResourceTestModule
 
       def google_calendar_id
-        'richard@google-calendar.com'
+        "richard@google-calendar.com"
       end
 
       def ibm_notes_configuration
         @ibm_notes_configuration ||= {
-          ibm_notes_usr: 'ibm-notes-usr',
-          ibm_notes_pwd: 'ibm-notes-pwd',
-          ibm_notes_url: 'http://ibm-calendar/richard',
-          without_description: '0'
+          ibm_notes_usr: "ibm-notes-usr",
+          ibm_notes_pwd: "ibm-notes-pwd",
+          ibm_notes_url: "http://ibm-calendar/richard",
+          without_description: "0"
         }
       end
 
       def microsoft_exchange_configuration
         @microsoft_exchange_configuration ||= {
-          microsoft_exchange_usr: 'microsoft-exchange-usr',
-          microsoft_exchange_pwd: 'microsoft-exchange-pwd',
-          microsoft_exchange_url: 'http://me-calendar/richard',
-          without_description: '0'
+          microsoft_exchange_usr: "microsoft-exchange-usr",
+          microsoft_exchange_pwd: "microsoft-exchange-pwd",
+          microsoft_exchange_url: "http://me-calendar/richard",
+          without_description: "0"
         }
       end
 
       def google_calendar_configuration
         @google_calendar_configuration ||= {
-          google_calendar_credentials: 'person_credentials',
-          without_description: '0'
+          google_calendar_credentials: "person_credentials",
+          without_description: "0"
         }
       end
 
@@ -46,7 +46,7 @@ module GobiertoAdmin
 
         ## Mocks
         calendar1 = mock
-        calendar1.stubs(id: google_calendar_id, primary?: true, summary: 'Calendar 1')
+        calendar1.stubs(id: google_calendar_id, primary?: true, summary: "Calendar 1")
 
         creator_event2 = mock
         creator_event2.stubs(email: google_calendar_id)
@@ -65,10 +65,10 @@ module GobiertoAdmin
         calendar_1_items_response.stubs(:items).returns([event2])
 
         calendar2 = mock
-        calendar2.stubs(id: 2, primary?: false, summary: 'Calendar 2')
+        calendar2.stubs(id: 2, primary?: false, summary: "Calendar 2")
 
         calendar3 = mock
-        calendar3.stubs(id: 3, primary?: false, summary: 'Calendar 3')
+        calendar3.stubs(id: 3, primary?: false, summary: "Calendar 3")
 
         calendar_items_response = mock
         calendar_items_response.stubs(:items).returns([calendar1, calendar2, calendar3])
@@ -121,46 +121,46 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @person_events_path
 
-            click_link 'Agenda'
-            click_link 'Configuration'
+            click_link "Agenda"
+            click_link "Configuration"
 
-            assert has_field?('calendar_configuration[ibm_notes_usr]', with: 'ibm-notes-usr')
-            assert has_field?('calendar_configuration[ibm_notes_pwd]', with: encrypted_setting_placeholder)
-            assert has_field?('calendar_configuration[ibm_notes_url]', with: 'http://ibm-calendar/richard')
+            assert has_field?("calendar_configuration[ibm_notes_usr]", with: "ibm-notes-usr")
+            assert has_field?("calendar_configuration[ibm_notes_pwd]", with: encrypted_setting_placeholder)
+            assert has_field?("calendar_configuration[ibm_notes_url]", with: "http://ibm-calendar/richard")
 
             # set calendar configuration
-            select 'IBM Notes', from: 'calendar_configuration_calendar_integration'
+            select "IBM Notes", from: "calendar_configuration_calendar_integration"
 
-            fill_in 'calendar_configuration_ibm_notes_usr', with: 'new-ibm-notes-usr'
-            fill_in 'calendar_configuration_ibm_notes_pwd', with: 'new-ibm-notes-pwd'
-            fill_in 'calendar_configuration_ibm_notes_url', with: 'http://ibm-calendar/richard/new'
+            fill_in "calendar_configuration_ibm_notes_usr", with: "new-ibm-notes-usr"
+            fill_in "calendar_configuration_ibm_notes_pwd", with: "new-ibm-notes-pwd"
+            fill_in "calendar_configuration_ibm_notes_url", with: "http://ibm-calendar/richard/new"
 
-            click_button 'Update'
+            click_button "Update"
 
             assert has_message?("Settings updated successfully")
 
             # assert data displays correctly in the UI
-            assert has_field?('calendar_configuration[ibm_notes_usr]', with: 'new-ibm-notes-usr')
-            assert has_field?('calendar_configuration[ibm_notes_pwd]', with: encrypted_setting_placeholder)
-            assert has_field?('calendar_configuration[ibm_notes_url]', with: 'http://ibm-calendar/richard/new')
+            assert has_field?("calendar_configuration[ibm_notes_usr]", with: "new-ibm-notes-usr")
+            assert has_field?("calendar_configuration[ibm_notes_pwd]", with: encrypted_setting_placeholder)
+            assert has_field?("calendar_configuration[ibm_notes_url]", with: "http://ibm-calendar/richard/new")
 
             calendar_configuration = person.calendar_configuration.reload
 
             # assert data was stored in the DB
-            assert_equal 'new-ibm-notes-usr', calendar_configuration.data['ibm_notes_usr']
-            assert_equal 'new-ibm-notes-pwd', SecretAttribute.decrypt(calendar_configuration.data['ibm_notes_pwd'])
-            assert_equal 'http://ibm-calendar/richard/new', calendar_configuration.data['ibm_notes_url']
+            assert_equal "new-ibm-notes-usr", calendar_configuration.data["ibm_notes_usr"]
+            assert_equal "new-ibm-notes-pwd", SecretAttribute.decrypt(calendar_configuration.data["ibm_notes_pwd"])
+            assert_equal "http://ibm-calendar/richard/new", calendar_configuration.data["ibm_notes_url"]
 
             # clear calendar configuration
-            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: 'default') do
-              check 'calendar_configuration[clear_calendar_configuration]'
-              click_button 'Update'
+            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: "default") do
+              check "calendar_configuration[clear_calendar_configuration]"
+              click_button "Update"
             end
 
             # assert data is not displayed in the UI
-            assert_nil find_field('calendar_configuration_ibm_notes_usr', visible: false).value
-            assert_nil find_field('calendar_configuration_ibm_notes_pwd', visible: false).value
-            assert_nil find_field('calendar_configuration_ibm_notes_url', visible: false).value
+            assert_nil find_field("calendar_configuration_ibm_notes_usr", visible: false).value
+            assert_nil find_field("calendar_configuration_ibm_notes_pwd", visible: false).value
+            assert_nil find_field("calendar_configuration_ibm_notes_url", visible: false).value
 
             # assert data was removed from the DB
             calendar = person.calendar.reload
@@ -181,20 +181,20 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @person_events_path
 
-            click_link 'Agenda'
-            click_link 'Configuration'
+            click_link "Agenda"
+            click_link "Configuration"
 
-            check 'Calendar 1'
+            check "Calendar 1"
 
-            click_button 'Update'
+            click_button "Update"
 
-            assert has_link?('Sync now')
-            assert has_no_text? 'Last sync:'
+            assert has_link?("Sync now")
+            assert has_no_text? "Last sync:"
             assert_difference 'Activity.where(subject: person, action: "admin_gobierto_calendars.calendars_synchronized").count' do
-              click_link 'Sync now'
+              click_link "Sync now"
             end
 
-            assert has_text? 'Last sync: less than a minute ago'
+            assert has_text? "Last sync: less than a minute ago"
 
             refute_nil person.events.find_by external_id: "event2"
           end
@@ -211,28 +211,28 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @person_events_path
 
-            click_link 'Agenda'
-            click_link 'Configuration'
+            click_link "Agenda"
+            click_link "Configuration"
 
-            check 'Calendar 1'
+            check "Calendar 1"
             check "Don't import event description"
 
-            click_button 'Update'
+            click_button "Update"
 
-            click_link 'Sync now'
+            click_link "Sync now"
 
-            assert has_text? 'Last sync: less than a minute ago'
+            assert has_text? "Last sync: less than a minute ago"
 
             event = person.events.find_by external_id: "event2"
             refute_nil event
             assert_nil event.description
 
-            check 'Calendar 1'
+            check "Calendar 1"
             uncheck "Don't import event description"
 
-            click_button 'Update'
-            click_link 'Sync now'
-            assert has_text? 'Last sync: less than a minute ago'
+            click_button "Update"
+            click_link "Sync now"
+            assert has_text? "Last sync: less than a minute ago"
 
             event = person.events.find_by external_id: "event2"
             refute_nil event
@@ -251,23 +251,23 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @person_events_path
 
-            click_link 'Agenda'
-            click_link 'Configuration'
+            click_link "Agenda"
+            click_link "Configuration"
 
-            check 'Calendar 1'
+            check "Calendar 1"
 
-            click_button 'Update'
+            click_button "Update"
 
-            site.configuration.default_locale = 'es'
+            site.configuration.default_locale = "es"
             site.save
 
-            click_link 'Sync now'
+            click_link "Sync now"
 
-            assert has_text? 'Last sync: less than a minute ago'
+            assert has_text? "Last sync: less than a minute ago"
 
             event = person.events.find_by external_id: "event2"
-            assert_equal event.title_translations['es'], event.title
-            assert_equal event.description_translations['es'], event.description
+            assert_equal event.title_translations["es"], event.title
+            assert_equal event.description_translations["es"], event.description
 
             rest_of_locales = I18n.available_locales - ["es".to_sym]
 
@@ -276,16 +276,16 @@ module GobiertoAdmin
               assert_nil event.description_translations[locale.to_s]
             end
 
-            site.configuration.default_locale = 'ca'
+            site.configuration.default_locale = "ca"
             site.save
 
-            click_link 'Sync now'
+            click_link "Sync now"
 
-            assert has_text? 'Last sync: less than a minute ago'
+            assert has_text? "Last sync: less than a minute ago"
 
             event = person.events.find_by external_id: "event2"
-            assert_equal event.title_translations['ca'], event.title
-            assert_equal event.description_translations['ca'], event.description
+            assert_equal event.title_translations["ca"], event.title
+            assert_equal event.description_translations["ca"], event.description
 
             rest_of_locales = I18n.available_locales - ["ca".to_sym]
 
@@ -324,12 +324,12 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @person_events_path
 
-              click_link 'Agenda'
-              click_link 'Configuration'
+              click_link "Agenda"
+              click_link "Configuration"
 
-              select 'Google Calendar', from: 'calendar_configuration_calendar_integration'
+              select "Google Calendar", from: "calendar_configuration_calendar_integration"
 
-              assert has_field?('google_calendar_invitation_url')
+              assert has_field?("google_calendar_invitation_url")
             end
           end
         end
@@ -345,31 +345,31 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @person_events_path
 
-            click_link 'Agenda'
-            click_link 'Configuration'
+            click_link "Agenda"
+            click_link "Configuration"
 
-            assert has_no_field?('google_calendar_invitation_url')
+            assert has_no_field?("google_calendar_invitation_url")
 
-            assert has_no_checked_field?('Calendar 1')
-            assert has_no_checked_field?('Calendar 2')
-            assert has_no_checked_field?('Calendar 3')
+            assert has_no_checked_field?("Calendar 1")
+            assert has_no_checked_field?("Calendar 2")
+            assert has_no_checked_field?("Calendar 3")
 
-            check 'Calendar 1'
+            check "Calendar 1"
 
-            click_button 'Update'
+            click_button "Update"
 
-            assert has_checked_field?('Calendar 1')
-            assert has_no_checked_field?('Calendar 2')
-            assert has_no_checked_field?('Calendar 3')
+            assert has_checked_field?("Calendar 1")
+            assert has_no_checked_field?("Calendar 2")
+            assert has_no_checked_field?("Calendar 3")
 
             # clear calendar configuration
-            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: 'default') do
-              check 'calendar_configuration[clear_calendar_configuration]'
-              click_button 'Update'
+            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: "default") do
+              check "calendar_configuration[clear_calendar_configuration]"
+              click_button "Update"
             end
 
             # assert invitation URL is displayed again
-            assert has_field?('google_calendar_invitation_url', visible: false)
+            assert has_field?("google_calendar_invitation_url", visible: false)
 
             # assert data was removed from the DB
             calendar = person.calendar.reload
@@ -388,40 +388,40 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @person_events_path
 
-            click_link 'Agenda'
-            click_link 'Configuration'
+            click_link "Agenda"
+            click_link "Configuration"
 
-            assert has_field?('calendar_configuration[microsoft_exchange_usr]', with: 'microsoft-exchange-usr')
-            assert has_field?('calendar_configuration[microsoft_exchange_pwd]', with: encrypted_setting_placeholder)
-            assert has_field?('calendar_configuration[microsoft_exchange_url]', with: 'http://me-calendar/richard')
+            assert has_field?("calendar_configuration[microsoft_exchange_usr]", with: "microsoft-exchange-usr")
+            assert has_field?("calendar_configuration[microsoft_exchange_pwd]", with: encrypted_setting_placeholder)
+            assert has_field?("calendar_configuration[microsoft_exchange_url]", with: "http://me-calendar/richard")
 
             # set calendar configuration
-            fill_in 'calendar_configuration_microsoft_exchange_usr', with: 'new-microsoft-exchange-usr'
-            fill_in 'calendar_configuration_microsoft_exchange_pwd', with: 'new-microsoft-exchange-pwd'
-            fill_in 'calendar_configuration_microsoft_exchange_url', with: 'http://me-calendar/richard/new'
+            fill_in "calendar_configuration_microsoft_exchange_usr", with: "new-microsoft-exchange-usr"
+            fill_in "calendar_configuration_microsoft_exchange_pwd", with: "new-microsoft-exchange-pwd"
+            fill_in "calendar_configuration_microsoft_exchange_url", with: "http://me-calendar/richard/new"
 
-            click_button 'Update'
+            click_button "Update"
 
-            assert has_field?('calendar_configuration[microsoft_exchange_usr]', with: 'new-microsoft-exchange-usr')
-            assert has_field?('calendar_configuration[microsoft_exchange_pwd]', with: encrypted_setting_placeholder)
-            assert has_field?('calendar_configuration[microsoft_exchange_url]', with: 'http://me-calendar/richard/new')
+            assert has_field?("calendar_configuration[microsoft_exchange_usr]", with: "new-microsoft-exchange-usr")
+            assert has_field?("calendar_configuration[microsoft_exchange_pwd]", with: encrypted_setting_placeholder)
+            assert has_field?("calendar_configuration[microsoft_exchange_url]", with: "http://me-calendar/richard/new")
 
             calendar_configuration = person.calendar_configuration.reload
 
-            assert_equal 'new-microsoft-exchange-usr', calendar_configuration.data['microsoft_exchange_usr']
-            assert_equal 'new-microsoft-exchange-pwd', SecretAttribute.decrypt(calendar_configuration.data['microsoft_exchange_pwd'])
-            assert_equal 'http://me-calendar/richard/new', calendar_configuration.data['microsoft_exchange_url']
+            assert_equal "new-microsoft-exchange-usr", calendar_configuration.data["microsoft_exchange_usr"]
+            assert_equal "new-microsoft-exchange-pwd", SecretAttribute.decrypt(calendar_configuration.data["microsoft_exchange_pwd"])
+            assert_equal "http://me-calendar/richard/new", calendar_configuration.data["microsoft_exchange_url"]
 
             # clear calendar configuration
-            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: 'default') do
-              check 'calendar_configuration[clear_calendar_configuration]'
-              click_button 'Update'
+            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: "default") do
+              check "calendar_configuration[clear_calendar_configuration]"
+              click_button "Update"
             end
 
             # assert data is not displayed in the UI
-            assert_nil find_field('calendar_configuration_microsoft_exchange_url', visible: false).value
-            assert_nil find_field('calendar_configuration_microsoft_exchange_usr', visible: false).value
-            assert_nil find_field('calendar_configuration_microsoft_exchange_pwd', visible: false).value
+            assert_nil find_field("calendar_configuration_microsoft_exchange_url", visible: false).value
+            assert_nil find_field("calendar_configuration_microsoft_exchange_usr", visible: false).value
+            assert_nil find_field("calendar_configuration_microsoft_exchange_pwd", visible: false).value
 
             # assert data was removed from the DB
             calendar = person.calendar.reload
@@ -436,8 +436,8 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @person_events_path
 
-            click_link 'Agenda'
-            click_link 'Configuration'
+            click_link "Agenda"
+            click_link "Configuration"
 
             select "IBM Notes", from: "calendar_configuration_calendar_integration"
 
@@ -447,7 +447,7 @@ module GobiertoAdmin
             assert has_text?("Password can't be blank")
             assert has_text?("URL can't be blank")
 
-            select "Microsoft Exchange", from: 'calendar_configuration_calendar_integration'
+            select "Microsoft Exchange", from: "calendar_configuration_calendar_integration"
 
             click_button "Update"
 
@@ -464,7 +464,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit edit_admin_calendars_configuration_path(person.calendar)
 
-            assert has_content?('You do not have enough permissions to perform this action')
+            assert has_content?("You do not have enough permissions to perform this action")
           end
         end
       end
@@ -474,7 +474,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit edit_admin_calendars_configuration_path(person.calendar)
 
-            assert has_no_content?('You do not have enough permissions to perform this action')
+            assert has_no_content?("You do not have enough permissions to perform this action")
           end
         end
       end

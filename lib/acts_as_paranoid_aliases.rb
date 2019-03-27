@@ -6,6 +6,7 @@ module ActsAsParanoidAliases
     class_eval do
       def archive
         return false if archived?
+
         update_attribute(:archived_at, Time.current)
       end
 
@@ -15,6 +16,7 @@ module ActsAsParanoidAliases
 
       def restore(opts = {})
         return false unless archived?
+
         super(opts)
         update_attribute(:archived_at, nil)
         after_restore

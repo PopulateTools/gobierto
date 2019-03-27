@@ -29,7 +29,7 @@ module GobiertoCalendars
 
     algoliasearch_gobierto do
       attribute :site_id, :title_en, :title_es, :title_ca, :searchable_description, :updated_at
-      searchableAttributes ['title_en', 'title_es', 'title_ca', 'searchable_description']
+      searchableAttributes ["title_en", "title_es", "title_ca", "searchable_description"]
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end

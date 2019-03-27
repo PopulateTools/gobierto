@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PersonDecorator < BaseDecorator
     def initialize(person)
@@ -41,11 +43,11 @@ module GobiertoPeople
     end
 
     def trips_url
-      person_custom_link_for('Viajes')
+      person_custom_link_for("Viajes")
     end
 
     def gifts_url
-      person_custom_link_for('Obsequios')
+      person_custom_link_for("Obsequios")
     end
 
     def content_blocks_for_bio(site_id)
@@ -95,8 +97,8 @@ module GobiertoPeople
 
       if content_block
         payloads = content_block.records.pluck(:payload)
-        service_payload = payloads.detect { |payload| payload['service_name'] == service_name }
-        return service_payload['service_url'] if service_payload && valid_url?(service_payload['service_url'])
+        service_payload = payloads.detect { |payload| payload["service_name"] == service_name }
+        return service_payload["service_url"] if service_payload && valid_url?(service_payload["service_url"])
       end
 
       nil

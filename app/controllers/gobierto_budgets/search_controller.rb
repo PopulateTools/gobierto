@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class SearchController < GobiertoBudgets::ApplicationController
 
@@ -30,7 +32,7 @@ module GobiertoBudgets
 
         names = category.custom_name_translations.values.compact
 
-        suggestions[:suggestions] += names.select{|name| name.downcase[/.*#{query}.*/] }.map do |name|
+        suggestions[:suggestions] += names.select { |name| name.downcase[/.*#{query}.*/] }.map do |name|
           suggestions[:selected_budget_lines] << { code: category.code, kind: category.kind, area_name: category.area_name }
           build_new_suggestion(name, year, category.code, category.kind, category.area_name, @site.domain)
         end
@@ -67,9 +69,9 @@ module GobiertoBudgets
             filter: {
               bool: {
                 must: [
-                  {term: { organization_id: organization_id }},
-                  {term: { kind: kind}},
-                  {term: { year: year }},
+                  { term: { organization_id: organization_id } },
+                  { term: { kind: kind } },
+                  { term: { year: year } },
                 ]
               }
             }
@@ -79,7 +81,7 @@ module GobiertoBudgets
       }
 
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: area, body: query
-      response['hits']['hits'].map{|h| h['_source']['code'] }
+      response["hits"]["hits"].map { |h| h["_source"]["code"] }
     end
 
     def build_new_suggestion(name, year, code, kind, area_name, host)

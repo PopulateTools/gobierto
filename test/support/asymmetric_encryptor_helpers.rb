@@ -2,12 +2,12 @@
 
 module AsymmetricEncryptorHelpers
   def stub_application_secrets_with_test_certificate
-    Rails.application.secrets.stubs('test_certificate').returns(raw_certificate)
+    Rails.application.secrets.stubs("test_certificate").returns(raw_certificate)
   end
 
   def testing_asymmetric_encryptor
     stub_application_secrets_with_test_certificate
-    AsymmetricEncryptor.new('test_certificate')
+    AsymmetricEncryptor.new("test_certificate")
   end
 
   def raw_certificate

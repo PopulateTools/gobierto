@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class ContentBlockRecord < ApplicationRecord
     belongs_to :content_block

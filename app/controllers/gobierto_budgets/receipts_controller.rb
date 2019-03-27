@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoBudgets::ReceiptsController < GobiertoBudgets::ApplicationController
 
   before_action :check_setting_enabled

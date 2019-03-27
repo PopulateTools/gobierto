@@ -83,7 +83,7 @@ module GobiertoAdmin
     end
 
     def module_allowed?(module_namespace, site)
-      managing_user? || send(module_namespace.underscore + '_permissions').on_site(site).any?
+      managing_user? || send(module_namespace.underscore + "_permissions").on_site(site).any?
     end
 
     def can_customize_site?

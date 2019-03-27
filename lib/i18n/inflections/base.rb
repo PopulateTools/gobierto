@@ -55,9 +55,9 @@ module I18n
 
       def pr_t(particle, apostrophized = false)
         if apostrophized
-          I18n.t("grammatical_particles.#{ particle }.apostrophized")
+          I18n.t("grammatical_particles.#{particle}.apostrophized")
         else
-          I18n.t("grammatical_particles.#{ particle }.#{ @gender }") + " "
+          I18n.t("grammatical_particles.#{particle}.#{@gender}") + " "
         end
       end
 

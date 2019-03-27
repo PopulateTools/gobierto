@@ -68,7 +68,7 @@ class GobiertoBudgets::JsonParserTest < ActiveSupport::TestCase
     end
 
     def code(_area, level)
-      ["1", "2", "3", "-0#{ object.index_code }"][0, level].join
+      ["1", "2", "3", "-0#{object.index_code}"][0, level].join
     end
 
     def amount(_index)

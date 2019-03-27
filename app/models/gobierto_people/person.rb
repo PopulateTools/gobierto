@@ -16,7 +16,7 @@ module GobiertoPeople
 
     algoliasearch_gobierto do
       attribute :site_id, :name, :charge_en, :charge_es, :charge_ca, :bio_en, :bio_es, :bio_ca, :updated_at
-      searchableAttributes ['name', 'charge_en', 'charge_es', 'charge_ca', 'bio_en', 'bio_es', 'bio_ca']
+      searchableAttributes ["name", "charge_en", "charge_es", "charge_ca", "bio_en", "bio_es", "bio_ca"]
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
@@ -75,7 +75,7 @@ module GobiertoPeople
     end
 
     def events_collection
-      @events_collection ||= GobiertoCommon::Collection.find_by container: self, item_type: 'GobiertoCalendars::Event'
+      @events_collection ||= GobiertoCommon::Collection.find_by container: self, item_type: "GobiertoCalendars::Event"
     end
     alias calendar events_collection
 

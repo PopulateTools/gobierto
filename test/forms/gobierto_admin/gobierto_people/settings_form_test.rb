@@ -13,8 +13,8 @@ module GobiertoAdmin
       def settings_attributes
         @settings_attributes ||= {
           site_id: site.id,
-          home_text_en: 'English text',
-          submodules_enabled: ['blogs']
+          home_text_en: "English text",
+          submodules_enabled: ["blogs"]
         }
       end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     class PersonEventsController < BaseController
@@ -19,7 +21,7 @@ module GobiertoPeople
           format.js
           format.html
           format.json do
-            render(json: { events: fullcalendar_events } )
+            render(json: { events: fullcalendar_events })
           end
         end
       end
@@ -29,7 +31,7 @@ module GobiertoPeople
         if valid_preview_token? && !manage_event?
           redirect_to(
             gobierto_people_person_path(@event.collection.container.slug),
-            alert: t('gobierto_admin.admin_unauthorized')
+            alert: t("gobierto_admin.admin_unauthorized")
           ) and return
         end
       end
@@ -39,7 +41,7 @@ module GobiertoPeople
       def fullcalendar_events
         starts = Time.zone.parse(params[:start])
         ends   = Time.zone.parse(params[:end])
-        events = @person.attending_events.published.where('starts_at >= ? AND ends_at <= ?', starts, ends)
+        events = @person.attending_events.published.where("starts_at >= ? AND ends_at <= ?", starts, ends)
         events.map do |event|
           ::GobiertoCalendars::FullcalendarEventSerializer.new(
             event,

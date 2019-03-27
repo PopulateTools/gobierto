@@ -6,11 +6,11 @@ class User::CustomSessionTest < ActionDispatch::IntegrationTest
   include SiteConfigHelpers
 
   def site_without_auth_strategy
-    @site ||= sites('madrid')
+    @site ||= sites("madrid")
   end
 
   def site_with_auth_strategy
-    @site_with_auth_strategy ||= sites('cortegada')
+    @site_with_auth_strategy ||= sites("cortegada")
   end
 
   def admin
@@ -18,7 +18,7 @@ class User::CustomSessionTest < ActionDispatch::IntegrationTest
   end
 
   def user
-    @user ||= users('dennis')
+    @user ||= users("dennis")
   end
 
   def activate_null_strategy_for_site(site)

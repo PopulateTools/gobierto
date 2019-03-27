@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "populate_data"
 
 module GobiertoAdmin

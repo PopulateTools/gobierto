@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::NotificationMailer < ApplicationMailer
   def single_notification(user_notification)
     @user_notification = user_notification

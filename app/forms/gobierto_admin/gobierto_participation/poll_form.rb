@@ -52,7 +52,7 @@ module GobiertoAdmin
       end
 
       def visibility_level
-        @visibility_level ||= 'draft'
+        @visibility_level ||= "draft"
       end
 
       def visibility_user_level
@@ -70,15 +70,15 @@ module GobiertoAdmin
       def questions_attributes=(attributes)
         attributes.each do |_, question_attributes|
 
-          if question_attributes['id']
-            existing_question = poll.questions.detect { |item| item.id == question_attributes['id'].to_i }
+          if question_attributes["id"]
+            existing_question = poll.questions.detect { |item| item.id == question_attributes["id"].to_i }
           else
             existing_question = nil
           end
 
-          if existing_question && question_attributes[:_destroy] == '1'
+          if existing_question && question_attributes[:_destroy] == "1"
             poll.questions.delete(existing_question)
-          elsif question_attributes[:_destroy] != '1'
+          elsif question_attributes[:_destroy] != "1"
 
             if existing_question
               question = update_question_from_attributes(existing_question, question_attributes)
@@ -105,18 +105,18 @@ module GobiertoAdmin
       def build_question_from_attributes(attributes)
         poll.questions.build(
           poll: poll, # force poll to be assigned
-          answer_type: ::GobiertoParticipation::PollQuestion.answer_types[attributes['answer_type']],
-          title_translations: attributes['title_translations'],
-          order: attributes['order']
+          answer_type: ::GobiertoParticipation::PollQuestion.answer_types[attributes["answer_type"]],
+          title_translations: attributes["title_translations"],
+          order: attributes["order"]
         )
       end
 
       def update_question_from_attributes(question, attributes)
         question.assign_attributes(
           poll: poll, # force poll to be assigned
-          answer_type: ::GobiertoParticipation::PollQuestion.answer_types[attributes['answer_type']],
-          title_translations: attributes['title_translations'],
-          order: attributes['order']
+          answer_type: ::GobiertoParticipation::PollQuestion.answer_types[attributes["answer_type"]],
+          title_translations: attributes["title_translations"],
+          order: attributes["order"]
         )
         question
       end
@@ -124,15 +124,15 @@ module GobiertoAdmin
       def assign_answer_templates(question, answer_templates_attributes)
         answer_templates_attributes.each do |_, answer_template_attributes|
 
-          if answer_template_attributes['id']
-            existing_answer_template = question.answer_templates.detect { |item| item.id == answer_template_attributes['id'].to_i }
+          if answer_template_attributes["id"]
+            existing_answer_template = question.answer_templates.detect { |item| item.id == answer_template_attributes["id"].to_i }
           else
             existing_answer_template = nil
           end
 
-          if existing_answer_template && answer_template_attributes[:_destroy] == '1'
+          if existing_answer_template && answer_template_attributes[:_destroy] == "1"
             question.answer_templates.delete(existing_answer_template)
-          elsif answer_template_attributes[:_destroy] != '1'
+          elsif answer_template_attributes[:_destroy] != "1"
 
             if existing_answer_template
               update_answer_template_from_attributes(existing_answer_template, answer_template_attributes)

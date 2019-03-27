@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require 'support/concerns/gobierto_common/has_visibility_user_levels_test'
+require "support/concerns/gobierto_common/has_visibility_user_levels_test"
 
 module GobiertoParticipation
   class ContributionContainerTest < ActiveSupport::TestCase

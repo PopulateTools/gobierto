@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgetConsultations
   class ConsultationDecorator < BaseDecorator
     CONSULTATION_ITEM_COMPLETION_TIME_IN_SECONDS = 90

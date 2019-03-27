@@ -41,4 +41,3 @@ end
 I18n.fallbacks.map(ca: :es)
 I18n.fallbacks.map(es: :ca)
 I18n.fallbacks.map(en: :es)
-

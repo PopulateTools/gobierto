@@ -19,7 +19,7 @@ module Subscribers
       Activity.create!(
         action: action,
         subject: site,
-        subject_ip: '127.0.0.1',
+        subject_ip: "127.0.0.1",
         admin_activity: false,
         site_id: site.id
       )

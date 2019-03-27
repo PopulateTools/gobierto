@@ -33,6 +33,7 @@ module GobiertoCommon
 
     def destroy
       return false if has_dependent_resources?
+
       super
     end
 

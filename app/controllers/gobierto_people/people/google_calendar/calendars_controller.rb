@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     module GoogleCalendar
@@ -14,7 +16,7 @@ module GobiertoPeople
         def update
           @calendars_form = GobiertoCalendars::GoogleCalendarCalendarsForm.new(calendars_params.merge(person_id: @person.id))
           @calendars_form.save
-          redirect_to edit_gobierto_people_person_google_calendar_calendars_path(@person.slug), notice: t('.success')
+          redirect_to edit_gobierto_people_person_google_calendar_calendars_path(@person.slug), notice: t(".success")
         end
 
         private

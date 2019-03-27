@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgets
     class FeedbackController < BaseController
-      before_action { module_enabled!(current_site,  'GobiertoBudgets') }
-      before_action { module_allowed!(current_admin, 'GobiertoBudgets') }
+      before_action { module_enabled!(current_site,  "GobiertoBudgets") }
+      before_action { module_allowed!(current_admin, "GobiertoBudgets") }
 
       def index
         scope = ::GobiertoBudgets::BudgetLineFeedback.by_site(current_site)

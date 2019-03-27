@@ -46,11 +46,12 @@ module GobiertoBudgetConsultations
     def consultation_response_items
       @consultation_response_items ||= begin
         selected_options.map do |_, selected_option_item|
-          consultation_item = consultation.consultation_items.find_by(id: selected_option_item['item_id'])
+          consultation_item = consultation.consultation_items.find_by(id: selected_option_item["item_id"])
           raise GobiertoBudgetConsultations::ConsultationResponseItem::MissingItem unless consultation_item.present?
 
-          selected_option = selected_option_item['selected_option']
+          selected_option = selected_option_item["selected_option"]
           raise GobiertoBudgetConsultations::ConsultationResponseItem::EmptySelectedOption if selected_option.blank?
+
           selected_option = selected_option.to_i
 
           raise GobiertoBudgetConsultations::ConsultationResponseItem::NotAllowedToReduce if selected_option < 0 && consultation_item.block_reduction?
@@ -99,21 +100,21 @@ module GobiertoBudgetConsultations
       end
     rescue GobiertoBudgetConsultations::ConsultationResponseItem::MissingItem
       Rails.logger.debug "[exception] #{$!}"
-      errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
-      return false
+      errors[:base] << I18n.t("errors.messages.invalid_consultation_response")
+      false
     rescue GobiertoBudgetConsultations::ConsultationResponseItem::EmptySelectedOption
       Rails.logger.debug "[exception] #{$!}"
-      errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
-      return false
+      errors[:base] << I18n.t("errors.messages.invalid_consultation_response")
+      false
     rescue GobiertoBudgetConsultations::ConsultationResponseItem::NotAllowedToReduce
       Rails.logger.debug "[exception] #{$!}"
-      errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
-      return false
+      errors[:base] << I18n.t("errors.messages.invalid_consultation_response")
+      false
     end
 
     def custom_records_for_user
       @custom_records_for_user ||= Hash[Array(user.custom_records).map do |custom_record|
-        [custom_record.custom_user_field.name, {"raw_value" => custom_record.raw_value, "localized_value" => custom_record.value}]
+        [custom_record.custom_user_field.name, { "raw_value" => custom_record.raw_value, "localized_value" => custom_record.value }]
       end]
     end
 

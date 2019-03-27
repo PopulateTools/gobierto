@@ -89,7 +89,7 @@ module GobiertoPeople
 
             assert_equal people_with_events_on_justice_department.size, people.size
             assert_equal people.first["key"], tamara.name
-            assert_match "?end_date=#{ short_date(FAR_FUTURE) }&start_date=#{ short_date(FAR_PAST) }", people.first["properties"]["url"]
+            assert_match "?end_date=#{short_date(FAR_FUTURE)}&start_date=#{short_date(FAR_PAST)}", people.first["properties"]["url"]
           end
         end
 

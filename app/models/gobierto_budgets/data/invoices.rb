@@ -5,24 +5,24 @@ module GobiertoBudgets
     class Invoices
       def self.dump_csv(options)
         sort = if options[:sort_desc_by]
-                 [{ options[:sort_desc_by].to_sym => { order: "desc"} }]
+                 [{ options[:sort_desc_by].to_sym => { order: "desc" } }]
                elsif options[:sort_asc_by]
                  [{ options[:sort_asc_by].to_sym => { order: "asc" } }]
                end
         remove_columns = options[:except_columns].present? ? options[:except_columns].split(",") : []
         limit = options[:limit] || 10_000
 
-        query_filters = [{ term: { location_id: options[:location_id] }}]
+        query_filters = [{ term: { location_id: options[:location_id] } }]
         if options[:date_date_range]
           # 20181028-20190128
-          gte,lte = options[:date_date_range].split('-')
+          gte, lte = options[:date_date_range].split("-")
           query_filters.push({ range: {
             date: {
               gte: gte,
               lte: lte,
-              format: 'yyyyMMdd'
+              format: "yyyyMMdd"
             }
-          }})
+          } })
         end
 
         query = {
@@ -40,7 +40,7 @@ module GobiertoBudgets
         }
 
         response = SearchEngine.client.search index: SearchEngineConfiguration::Invoice.index, type: GobiertoBudgets::SearchEngineConfiguration::Invoice.type, body: query
-        response = response['hits']['hits'].map{ |h| h['_source'] }
+        response = response["hits"]["hits"].map { |h| h["_source"] }
         parsed_response = if remove_columns.any?
           response.map do |result|
             result.except(*remove_columns)
@@ -56,7 +56,7 @@ module GobiertoBudgets
           end
         end
 
-        return data
+        data
       end
     end
   end

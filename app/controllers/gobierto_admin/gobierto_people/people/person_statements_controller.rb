@@ -86,7 +86,7 @@ module GobiertoAdmin
         end
 
         def ignored_person_statement_attributes
-          %w( created_at updated_at title slug site_id )
+          %w(created_at updated_at title slug site_id)
         end
 
         def gobierto_people_person_statement_preview_url(person, statement, options = {})

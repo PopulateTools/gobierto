@@ -4,11 +4,11 @@ module Subscribers
   class GobiertoCmsSectionActivity < ::Subscribers::Base
 
     def section_created(event)
-      create_activity_from_event(event, 'gobierto_cms.section_created')
+      create_activity_from_event(event, "gobierto_cms.section_created")
     end
 
     def section_updated(event)
-      create_activity_from_event(event, 'gobierto_cms.section_updated')
+      create_activity_from_event(event, "gobierto_cms.section_updated")
     end
 
     private

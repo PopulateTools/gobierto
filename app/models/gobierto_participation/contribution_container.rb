@@ -26,7 +26,7 @@ module GobiertoParticipation
 
     scope :open, -> { where("gpart_contribution_containers.starts <= ?
                              AND gpart_contribution_containers.ends >= ?", Time.zone.now, Time.zone.now) }
-    scope :by_site, -> (site) { joins(process: :site).where("sites.id = ? AND gpart_processes.visibility_level = 1
+    scope :by_site, ->(site) { joins(process: :site).where("sites.id = ? AND gpart_processes.visibility_level = 1
                                                              AND gpart_contribution_containers.visibility_level = 1
                                                              AND gpart_contribution_containers.ends >= ?",
                                                              site.id, Time.zone.now) }

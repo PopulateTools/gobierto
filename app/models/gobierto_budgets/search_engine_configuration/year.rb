@@ -26,7 +26,7 @@ module GobiertoBudgets
         cached(:all) { last.downto(first).to_a }
       end
 
-      def self.with_data(params={})
+      def self.with_data(params = {})
         cached :with_data, params do
           all.select do |year|
             ::GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: year, index: params[:index])
@@ -56,8 +56,8 @@ module GobiertoBudgets
       end
       private_class_method :current_site
 
-      def self.cached(method_name, args={})
-        cache_key = "#{name.underscore}/#{method_name}/#{current_site&.id || 'global'}"
+      def self.cached(method_name, args = {})
+        cache_key = "#{name.underscore}/#{method_name}/#{current_site&.id || "global"}"
         cache_key += args.to_s if args.any?
         Rails.cache.fetch(cache_key) { yield }
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     module People
@@ -23,7 +25,7 @@ module GobiertoAdmin
         def person_allowed!
           person_policy = PersonPolicy.new(current_admin: current_admin, current_site: current_site, person: @person)
           if !person_policy.manage?
-            redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
+            redirect_to admin_people_people_path, alert: t("gobierto_admin.admin_unauthorized")
           end
         end
       end

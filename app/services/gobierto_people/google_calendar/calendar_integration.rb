@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'tempfile'
-require 'fileutils'
+require "tempfile"
+require "fileutils"
 
 module GobiertoPeople
   module GoogleCalendar
@@ -44,7 +44,7 @@ module GobiertoPeople
 
       def set_google_calendar_id!
         if @configuration.google_calendar_id.nil?
-          @configuration.google_calendar_id = calendars.detect{ |c| c.primary? }.id
+          @configuration.google_calendar_id = calendars.detect { |c| c.primary? }.id
           @configuration.save
         end
       end
@@ -58,7 +58,7 @@ module GobiertoPeople
           time_min: GobiertoCalendars.sync_range_start.iso8601,
           time_max: GobiertoCalendars.sync_range_end.iso8601,
           max_results: 2500,
-          order_by: 'startTime',
+          order_by: "startTime",
           single_events: true
         ).items
 
@@ -79,7 +79,7 @@ module GobiertoPeople
       end
 
       def is_private?(event)
-        %w( private confidential ).include?(event.visibility)
+        %w(private confidential).include?(event.visibility)
       end
 
       def is_recurring?(event)
@@ -125,9 +125,9 @@ module GobiertoPeople
         }
 
         if event.location.present?
-          event_params.merge!(locations_attributes: {"0" => {name: event.location} })
+          event_params.merge!(locations_attributes: { "0" => { name: event.location } })
         else
-          event_params.merge!(locations_attributes: {"0" => {"_destroy" => "1" }})
+          event_params.merge!(locations_attributes: { "0" => { "_destroy" => "1" } })
         end
 
         event_form = GobiertoPeople::CalendarSyncEventForm.new(event_params)
@@ -146,7 +146,7 @@ module GobiertoPeople
       end
 
       def authorize(person)
-        file = Tempfile.new [person.site_id, person.id].join('_')
+        file = Tempfile.new [person.site_id, person.id].join("_")
         file.write @configuration.google_calendar_credentials
         file.rewind
 

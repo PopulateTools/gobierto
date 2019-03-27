@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_dependency 'gobierto_participation'
+require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class PollAnswerTemplate < ApplicationRecord
 
-    belongs_to :question, class_name: 'GobiertoParticipation::PollQuestion'
+    belongs_to :question, class_name: "GobiertoParticipation::PollQuestion"
 
     validates :question, :text, :order, presence: true
 

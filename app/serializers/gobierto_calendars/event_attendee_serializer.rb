@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoCalendars::EventAttendeeSerializer < ActiveModel::Serializer
   attributes :id, :attendee_name, :attendee_position, :person_id
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.array! @consultation_items do |consultation_item|
   json.id consultation_item.id
   json.hidden false

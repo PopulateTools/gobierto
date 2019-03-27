@@ -9,11 +9,11 @@ module GobiertoBudgets
       GobiertoBudgets::BudgetLine.stubs(:get_population).returns(666)
 
       @client = mock
-      @client.stubs(:search).returns({"hits" => {
+      @client.stubs(:search).returns({ "hits" => {
         "hits" => [
-          {"_source" => { "kind" => "expense", "code" => "1", "name" => "Despeses de personal" }}
+          { "_source" => { "kind" => "expense", "code" => "1", "name" => "Despeses de personal" } }
         ]
-      }})
+      } })
     end
 
     def site

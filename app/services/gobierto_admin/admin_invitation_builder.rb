@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class AdminInvitationBuilder
     attr_reader :email_address, :sites, :admin

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoParticipation
@@ -36,15 +36,15 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within 'table' do
-              assert_equal polls.size, (all('tr').size - 1)
+            within "table" do
+              assert_equal polls.size, (all("tr").size - 1)
 
               polls.each do |poll|
                 within "#poll-item-#{poll.id}" do
                   assert has_content? poll.title
                   assert has_content? poll.unique_answers_count
                   assert has_content? poll.visibility_level.capitalize
-                  assert has_link? 'View poll'
+                  assert has_link? "View poll"
                 end
               end
             end

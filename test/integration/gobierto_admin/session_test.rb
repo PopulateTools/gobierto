@@ -75,39 +75,39 @@ module GobiertoAdmin
     def test_sign_in_mantains_session_across_sites
       with_current_site_with_host(site) do
         sign_in_admin(admin)
-        assert_equal site.name, find('div#current-site-name').text
+        assert_equal site.name, find("div#current-site-name").text
       end
 
       with_current_site_with_host(other_site) do
         visit @sign_in_path
 
         assert has_message?("You are already signed in")
-        assert_equal other_site.name, find('div#current-site-name').text
+        assert_equal other_site.name, find("div#current-site-name").text
       end
     end
 
     def test_sign_in_with_domain
       with_site_host(site) do
         sign_in_admin(admin)
-        assert_equal site.name, find('div#current-site-name').text
+        assert_equal site.name, find("div#current-site-name").text
         click_link "admin-sign-out"
       end
 
       with_site_host(other_site) do
         sign_in_admin(admin)
-        assert_equal other_site.name, find('div#current-site-name').text
+        assert_equal other_site.name, find("div#current-site-name").text
         click_link "admin-sign-out"
       end
 
       with_site_host(unmanaged_site) do
         sign_in_admin(admin)
-        assert_includes admin.sites.map(&:name), find('div#current-site-name').text
-        refute_equal unmanaged_site.name, find('div#current-site-name').text
+        assert_includes admin.sites.map(&:name), find("div#current-site-name").text
+        refute_equal unmanaged_site.name, find("div#current-site-name").text
         click_link "admin-sign-out"
       end
 
       sign_in_admin(admin)
-      assert_includes admin.sites.map(&:name), find('div#current-site-name').text
+      assert_includes admin.sites.map(&:name), find("div#current-site-name").text
       click_link "admin-sign-out"
     end
 

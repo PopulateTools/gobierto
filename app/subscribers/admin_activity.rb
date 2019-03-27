@@ -3,26 +3,26 @@
 module Subscribers
   class AdminActivity < ::Subscribers::Base
     def invitation_created(event)
-      create_activity_from_event(event, 'admins.invitation_created')
+      create_activity_from_event(event, "admins.invitation_created")
     end
 
     def invitation_accepted(event)
-      create_activity_from_event(event, 'admins.invitation_accepted')
+      create_activity_from_event(event, "admins.invitation_accepted")
     end
 
     def admin_created(event)
-      create_activity_from_event(event, 'admins.admin_created')
+      create_activity_from_event(event, "admins.admin_created")
     end
 
     def admin_updated(event)
       return if event.payload[:changes].empty?
 
-      if event.payload[:changes].include?('authorization_level')
-        create_activity_from_event(event, 'admins.admin_authorization_level_updated')
+      if event.payload[:changes].include?("authorization_level")
+        create_activity_from_event(event, "admins.admin_authorization_level_updated")
         return if event.payload[:changes].keys.length == 1
       end
 
-      create_activity_from_event(event, 'admins.admin_updated')
+      create_activity_from_event(event, "admins.admin_updated")
     end
 
     private
@@ -36,4 +36,3 @@ module Subscribers
     end
   end
 end
-

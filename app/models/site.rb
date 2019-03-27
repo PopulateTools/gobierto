@@ -146,7 +146,7 @@ class Site < ApplicationRecord
   end
 
   def settings_for_module(module_name)
-    return unless respond_to?(method = "#{ module_name.underscore }_settings")
+    return unless respond_to?(method = "#{module_name.underscore}_settings")
 
     send(method)
   end
@@ -154,8 +154,8 @@ class Site < ApplicationRecord
   # If the organization_id corresponds to a municipality ID,
   # this method will return an instance of INE::Places::Place
   def place
-    @place ||= if self.organization_id
-                 INE::Places::Place.find(self.organization_id)
+    @place ||= if organization_id
+                 INE::Places::Place.find(organization_id)
                end
   end
 
@@ -206,7 +206,7 @@ class Site < ApplicationRecord
   def site_configuration_attributes
     {}.tap do |attributes|
       attributes.merge!(read_attribute(:configuration_data) || {})
-      attributes.merge!('site_id' => self.id) unless new_record?
+      attributes.merge!("site_id" => id) unless new_record?
       attributes
     end
   end
@@ -219,35 +219,35 @@ class Site < ApplicationRecord
   private_class_method :reserved_domains
 
   def store_configuration
-    self.configuration_data = self.configuration.instance_values
+    self.configuration_data = configuration.instance_values
   end
 
   def initialize_admins
     preset_admin = GobiertoAdmin::Admin.preset
     if preset_admin.new_record?
-      self.admins.create(preset_admin.attributes)
+      admins.create(preset_admin.attributes)
     else
-      self.admins << preset_admin
+      admins << preset_admin
     end
   end
 
   def run_seeder
-    if self.saved_change_to_attribute?('configuration_data') && added_modules_after_update.any?
+    if saved_change_to_attribute?("configuration_data") && added_modules_after_update.any?
       added_modules_after_update.each do |module_name|
         GobiertoCommon::GobiertoSeeder::ModuleSeeder.seed(module_name, self)
-        GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG['site']['name'], module_name, self)
+        GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG["site"]["name"], module_name, self)
       end
     end
   end
 
   def added_modules_after_update
     @added_modules_after_update ||= begin
-      if self.configuration_data.has_key?('modules')
-        configuration_data_before = self.attribute_before_last_save('configuration_data')
-        if configuration_data_before && configuration_data_before.has_key?('modules')
-          Array.wrap(self.configuration_data['modules']) - Array.wrap(configuration_data_before['modules'])
+      if configuration_data.has_key?("modules")
+        configuration_data_before = attribute_before_last_save("configuration_data")
+        if configuration_data_before && configuration_data_before.has_key?("modules")
+          Array.wrap(configuration_data["modules"]) - Array.wrap(configuration_data_before["modules"])
         else
-          Array.wrap(self.configuration_data['modules'])
+          Array.wrap(configuration_data["modules"])
         end
       else
         []
@@ -256,9 +256,9 @@ class Site < ApplicationRecord
   end
 
   def organization_required
-    if (self.configuration.modules & %W{ GobiertoBudgetConsultations GobiertoBudgets GobiertoObservatory }).any?
+    if (configuration.modules & %W{GobiertoBudgetConsultations GobiertoBudgets GobiertoObservatory}).any?
       if organization_id.blank?
-        errors[:base] << I18n.t('errors.messages.blank_for_modules')
+        errors[:base] << I18n.t("errors.messages.blank_for_modules")
       end
     end
   end

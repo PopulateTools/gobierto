@@ -8,10 +8,10 @@ module GobiertoCommon
 
     after_commit :reindex_page, on: [:create, :update]
 
-    scope :news, -> { where(item_type: 'GobiertoCms::News') }
+    scope :news, -> { where(item_type: "GobiertoCms::News") }
     scope :pages, -> { where(item_type: %w(GobiertoCms::Page GobiertoCms::News)) }
-    scope :attachments, -> { where(item_type: 'GobiertoAttachments::Attachment') }
-    scope :events, -> { where(item_type: 'GobiertoCalendars::Event') }
+    scope :attachments, -> { where(item_type: "GobiertoAttachments::Attachment") }
+    scope :events, -> { where(item_type: "GobiertoCalendars::Event") }
     scope :pages_and_news, -> { where(item_type: %W(GobiertoCms::News GobiertoCms::Page)) }
 
     scope :by_container_type, ->(container_type) { where(container_type: container_type) }

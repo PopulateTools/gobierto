@@ -41,6 +41,7 @@ module GobiertoAdmin
       def options
         @options ||= begin
                        return nil if options_json.blank?
+
                        JSON.parse(options_json)
                      end
       end
@@ -53,6 +54,7 @@ module GobiertoAdmin
 
       def options_json_format
         return if options_json.blank? || options_json.is_a?(Hash)
+
         JSON.parse(options_json)
       rescue JSON::ParserError
         errors.add :options_json, I18n.t("errors.messages.invalid")

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddMissingSourceTranslations < ActiveRecord::Migration[5.1]
   def change
     add_column :gp_people, :bio_source_translations, :jsonb

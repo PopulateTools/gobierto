@@ -89,7 +89,7 @@ module GobiertoPeople
 
             assert_equal 1, departments.size
             assert_equal departments.first["key"], justice_department.name
-            assert_match "?end_date=#{ short_date(FAR_FUTURE) }&start_date=#{ short_date(FAR_PAST) }", departments.first["properties"]["url"]
+            assert_match "?end_date=#{short_date(FAR_FUTURE)}&start_date=#{short_date(FAR_PAST)}", departments.first["properties"]["url"]
           end
         end
 

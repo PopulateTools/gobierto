@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationController
   before_action :load_params
   before_action :check_elaboration, only: [:show]

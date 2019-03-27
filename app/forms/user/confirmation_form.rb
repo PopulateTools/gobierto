@@ -116,7 +116,7 @@ class User::ConfirmationForm < BaseForm
       end
 
       if !@census_verification.will_verify?
-        errors[:base] << "#{I18n.t('activemodel.models.user/census_verification_form')} #{I18n.t('errors.messages.invalid')}"
+        errors[:base] << "#{I18n.t("activemodel.models.user/census_verification_form")} #{I18n.t("errors.messages.invalid")}"
         return false
       end
 
@@ -141,7 +141,7 @@ class User::ConfirmationForm < BaseForm
 
   def user_verification
     if require_user_verification? && document_number.blank?
-      errors.add(:document_number, I18n.t('errors.messages.blank'))
+      errors.add(:document_number, I18n.t("errors.messages.blank"))
     end
   end
 

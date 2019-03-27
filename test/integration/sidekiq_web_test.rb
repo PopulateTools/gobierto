@@ -14,7 +14,7 @@ class SidekiqWebTest < ActionDispatch::IntegrationTest
 
   def auth_headers
     @auth_headers ||= {
-      "Authorization" => "Basic #{Base64.encode64('sidekiq_web_usr:sidekiq_web_pwd')}"
+      "Authorization" => "Basic #{Base64.encode64("sidekiq_web_usr:sidekiq_web_pwd")}"
     }
   end
 

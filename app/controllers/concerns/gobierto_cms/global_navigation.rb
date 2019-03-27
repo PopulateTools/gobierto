@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCms
   module GlobalNavigation
     extend ActiveSupport::Concern
@@ -13,7 +15,7 @@ module GobiertoCms
     end
 
     def global_navigation_section
-      @global_navigation_section ||= current_site.sections.find_by(slug: 'global-navigation')
+      @global_navigation_section ||= current_site.sections.find_by(slug: "global-navigation")
     end
 
   end

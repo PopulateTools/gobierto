@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoBudgets::BudgetsElaborationController < GobiertoBudgets::ApplicationController
   before_action :check_setting_enabled, :load_year
 

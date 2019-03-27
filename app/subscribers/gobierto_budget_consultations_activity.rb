@@ -3,11 +3,11 @@
 module Subscribers
   class GobiertoBudgetConsultationsActivity < ::Subscribers::Base
     def updated(event)
-      create_activity_from_event(event, 'updated')
+      create_activity_from_event(event, "updated")
     end
 
     def visibility_level_changed(event)
-      create_activity_from_event(event, 'published')
+      create_activity_from_event(event, "published")
     end
 
     private
@@ -17,7 +17,7 @@ module Subscribers
       return unless subject.class.parent == GobiertoBudgetConsultations
 
       author = GobiertoAdmin::Admin.find event.payload[:admin_id]
-      action = subject.class.name.underscore.tr('/', '.') + '.' + action
+      action = subject.class.name.underscore.tr("/", ".") + "." + action
 
       Activity.create! subject: subject,
                        author: author,

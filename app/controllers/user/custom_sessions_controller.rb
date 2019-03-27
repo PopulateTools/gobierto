@@ -33,7 +33,7 @@ class User::CustomSessionsController < User::BaseController
     elsif @user_session_forms.values.any?(&:authentication_data_invalid?)
       redirect_to(
         after_sign_out_path,
-        alert: t('user.custom_sessions.create.invalid_data')
+        alert: t("user.custom_sessions.create.invalid_data")
       ) and return
 
     else
@@ -55,7 +55,7 @@ class User::CustomSessionsController < User::BaseController
 
   def destroy
     sign_out_user
-    redirect_to after_sign_out_path, notice: t('user.custom_sessions.destroy.success')
+    redirect_to after_sign_out_path, notice: t("user.custom_sessions.destroy.success")
   end
 
   private
@@ -68,12 +68,12 @@ class User::CustomSessionsController < User::BaseController
 
       redirect_to(
         after_sign_in_path(@valid_session_form.referrer_url),
-        notice: t('user.custom_sessions.create.success')
+        notice: t("user.custom_sessions.create.success")
       ) and return
     else
       redirect_to(
         after_sign_out_path,
-        notice: t('user.custom_sessions.create.not_confirmed')
+        notice: t("user.custom_sessions.create.not_confirmed")
       ) and return
     end
   end

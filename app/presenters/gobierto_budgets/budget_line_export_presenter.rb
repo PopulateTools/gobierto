@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class BudgetLineExportPresenter < BudgetLinePresenter
 
@@ -13,20 +15,20 @@ module GobiertoBudgets
     end
 
     def self.csv_columns
-      ['ID',
-       'code',
-       'year',
-       'area',
-       'income/expense',
-       'name',
-       'description',
-       'value_budget_initial',
-       'value_budget_modified',
-       'value_execution',
-       'level',
-       'parent_code',
-       'updated_at',
-       'organization_id']
+      ["ID",
+       "code",
+       "year",
+       "area",
+       "income/expense",
+       "name",
+       "description",
+       "value_budget_initial",
+       "value_budget_modified",
+       "value_execution",
+       "level",
+       "parent_code",
+       "updated_at",
+       "organization_id"]
     end
 
     def index_values

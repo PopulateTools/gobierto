@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class Users::WelcomeMessagesController < BaseController
     def create

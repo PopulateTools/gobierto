@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCalendars
     class EventPolicy < ::GobiertoAdmin::BasePolicy
@@ -15,7 +17,7 @@ module GobiertoAdmin
         if current_admin.regular?
           can_manage_container?
         else
-          return super
+          super
         end
       end
 

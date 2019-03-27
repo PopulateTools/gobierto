@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCalendars
     class EventsController < BaseController
@@ -189,7 +191,7 @@ module GobiertoAdmin
                        )
 
         if !event_policy.manage? || (try(:@collection).container.nil? if try(:@collection))
-          redirect_to(admin_root_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
+          redirect_to(admin_root_path, alert: t("gobierto_admin.admin_unauthorized")) and return false
         end
       end
 
@@ -206,7 +208,7 @@ module GobiertoAdmin
       def check_person_permissions!
         person_policy = GobiertoPeople::PersonPolicy.new(current_admin: current_admin, current_site: current_site, person: @person)
         if !person_policy.manage?
-          redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
+          redirect_to admin_people_people_path, alert: t("gobierto_admin.admin_unauthorized")
         end
       end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module SiteHelper
     def site_visibility_level_badge_for(site)

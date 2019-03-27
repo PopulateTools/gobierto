@@ -9,9 +9,9 @@ class PageUrl < Liquid::Tag
   def render(context)
     current_site = context.environments.first["current_site"]
     page = current_site.pages.find_by_slug!(@page_slug)
-    return url_helpers.gobierto_cms_page_path(page.slug)
+    url_helpers.gobierto_cms_page_path(page.slug)
   rescue ActiveRecord::RecordNotFound
-    return ""
+    ""
   end
 
   private

@@ -18,7 +18,7 @@ module Subscribers
 
     # trigger methods when an event is captured
     def call(message, *args)
-      method  = message.gsub("#{namespace}.", '')
+      method  = message.gsub("#{namespace}.", "")
       handler = self.class.new(namespace)
       handler.send(method, ActiveSupport::Notifications::Event.new(message, *args))
     end

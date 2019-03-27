@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoPeople::PersonSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :position, :bio, :bio_url, :avatar_url, :category, :political_group, :party, :created_at, :updated_at
 

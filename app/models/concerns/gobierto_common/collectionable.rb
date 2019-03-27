@@ -8,7 +8,7 @@ module GobiertoCommon
       belongs_to :collection, class_name: "GobiertoCommon::Collection"
 
       scope :in_collections, lambda { |site|
-        joins(Arel.sql("join collection_items on collection_items.item_id = #{ table_name }.id"))
+        joins(Arel.sql("join collection_items on collection_items.item_id = #{table_name}.id"))
           .where("collection_items.item_type = ?", name)
           .where(site: site)
           .distinct

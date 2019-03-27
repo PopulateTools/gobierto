@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   module Sortable
     extend ActiveSupport::Concern

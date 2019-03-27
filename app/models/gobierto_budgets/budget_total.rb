@@ -24,6 +24,7 @@ module GobiertoBudgets
 
     def self.for(organization_id, year, index = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
       return for_organizations(organization_id, year) if organization_id.is_a?(Array)
+
       index = case index
               when BudgetTotal::EXECUTED
                 SearchEngineConfiguration::TotalBudget.index_executed

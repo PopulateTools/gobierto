@@ -22,16 +22,16 @@ module GobiertoAdmin
       )
 
       validates :site, presence: true
-      validates :feedback_emails, presence: true, if: Proc.new{ |of| of.budget_lines_feedback_enabled? }
-      validates :receipt_configuration, presence: true, if: Proc.new{ |of| of.receipt_enabled? }
-      validate :receipt_configuration_format, if: Proc.new{ |of| of.receipt_enabled? }
+      validates :feedback_emails, presence: true, if: Proc.new { |of| of.budget_lines_feedback_enabled? }
+      validates :receipt_configuration, presence: true, if: Proc.new { |of| of.receipt_enabled? }
+      validate :receipt_configuration_format, if: Proc.new { |of| of.receipt_enabled? }
 
       def elaboration_enabled
         @elaboration_enabled ||= site.gobierto_budgets_settings && site.gobierto_budgets_settings.settings["budgets_elaboration"]
       end
 
       def elaboration_enabled?
-        elaboration_enabled == true || elaboration_enabled == '1'
+        elaboration_enabled == true || elaboration_enabled == "1"
       end
 
       def budget_lines_feedback_enabled
@@ -39,7 +39,7 @@ module GobiertoAdmin
       end
 
       def budget_lines_feedback_enabled?
-        budget_lines_feedback_enabled == true || budget_lines_feedback_enabled == '1'
+        budget_lines_feedback_enabled == true || budget_lines_feedback_enabled == "1"
       end
 
       def feedback_emails
@@ -51,7 +51,7 @@ module GobiertoAdmin
       end
 
       def receipt_enabled?
-        receipt_enabled == true || receipt_enabled == '1'
+        receipt_enabled == true || receipt_enabled == "1"
       end
 
       def receipt_configuration
@@ -63,7 +63,7 @@ module GobiertoAdmin
       end
 
       def comparison_context_table_enabled?
-        comparison_context_table_enabled == true || comparison_context_table_enabled == '1'
+        comparison_context_table_enabled == true || comparison_context_table_enabled == "1"
       end
 
       def comparison_context_table_enabled
@@ -71,7 +71,7 @@ module GobiertoAdmin
       end
 
       def comparison_compare_municipalities_enabled
-        @comparison_compare_municipalities_enabled.present? ? @comparison_compare_municipalities_enabled != '0' : comparison_compare_municipalities.present?
+        @comparison_compare_municipalities_enabled.present? ? @comparison_compare_municipalities_enabled != "0" : comparison_compare_municipalities.present?
       end
 
       def comparison_compare_municipalities
@@ -89,7 +89,7 @@ module GobiertoAdmin
       end
 
       def comparison_show_widget?
-        comparison_show_widget == '1' || comparison_show_widget == true
+        comparison_show_widget == "1" || comparison_show_widget == true
       end
 
       def comparison_show_widget
@@ -101,7 +101,7 @@ module GobiertoAdmin
       end
 
       def providers_enabled?
-        providers_enabled == true || providers_enabled == '1'
+        providers_enabled == true || providers_enabled == "1"
       end
 
       def indicators_enabled
@@ -109,7 +109,7 @@ module GobiertoAdmin
       end
 
       def indicators_enabled?
-        indicators_enabled == true || indicators_enabled == '1'
+        indicators_enabled == true || indicators_enabled == "1"
       end
 
       def budgets_guide_page
@@ -130,7 +130,7 @@ module GobiertoAdmin
         settings[:budgets_receipt_enabled] = receipt_enabled if receipt_enabled?
         settings[:budgets_receipt_configuration] = receipt_enabled? ? receipt_configuration : nil
         settings[:comparison_context_table_enabled] = comparison_context_table_enabled? ? comparison_context_table_enabled : nil
-        settings[:comparison_compare_municipalities] = comparison_compare_municipalities_enabled ? comparison_compare_municipalities.map(&:to_i).select{ |i| i > 0 } : nil
+        settings[:comparison_compare_municipalities] = comparison_compare_municipalities_enabled ? comparison_compare_municipalities.map(&:to_i).select { |i| i > 0 } : nil
         settings[:comparison_show_widget] = comparison_show_widget? ? comparison_show_widget : nil
         settings[:budgets_providers_enabled] = providers_enabled if providers_enabled?
         settings[:budgets_indicators_enabled] = indicators_enabled if indicators_enabled?
@@ -148,7 +148,7 @@ module GobiertoAdmin
 
         JSON.parse(receipt_configuration)
       rescue JSON::ParserError
-        errors.add :receipt_configuration, I18n.t('errors.messages.invalid')
+        errors.add :receipt_configuration, I18n.t("errors.messages.invalid")
       end
     end
   end

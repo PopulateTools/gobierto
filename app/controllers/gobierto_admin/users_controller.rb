@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class UsersController < BaseController
     def index
@@ -64,7 +66,7 @@ module GobiertoAdmin
     end
 
     def track_update_activity
-      Publishers::UserActivity.broadcast_event("user_updated", default_activity_params.merge({subject: @user_form.user, changes: @user_form.user.previous_changes.except(:updated_at)}))
+      Publishers::UserActivity.broadcast_event("user_updated", default_activity_params.merge({ subject: @user_form.user, changes: @user_form.user.previous_changes.except(:updated_at) }))
     end
 
     def default_activity_params

@@ -41,7 +41,7 @@ module GobiertoPeople
         state: event.state,
         locations: [],
         attendees: [],
-        integration_name: 'google'
+        integration_name: "google"
       }.merge(attrs)
     end
 
@@ -61,7 +61,7 @@ module GobiertoPeople
         state: nil,
         locations: [],
         attendees: [],
-        integration_name: 'google'
+        integration_name: "google"
       )
     end
 
@@ -113,8 +113,8 @@ module GobiertoPeople
     end
 
     def test_event_in_sync_range_validation
-      refute CalendarSyncEventForm.new(event_attributes(starts_at: Time.now - 1.day, integration_name: 'google')).valid?
-      assert CalendarSyncEventForm.new(event_attributes(starts_at: Time.now - 1.day, integration_name: 'ibm_notes')).valid?
+      refute CalendarSyncEventForm.new(event_attributes(starts_at: Time.now - 1.day, integration_name: "google")).valid?
+      assert CalendarSyncEventForm.new(event_attributes(starts_at: Time.now - 1.day, integration_name: "ibm_notes")).valid?
     end
   end
 end

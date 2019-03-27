@@ -3,7 +3,7 @@
 module Subscribers
   class UserActivity < ::Subscribers::Base
     def user_updated(event)
-      create_activity_from_event(event, 'users.user_updated')
+      create_activity_from_event(event, "users.user_updated")
     end
 
     private
@@ -19,4 +19,3 @@ module Subscribers
     end
   end
 end
-

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCms
   class ApplicationController < ::ApplicationController
     include User::SessionHelper

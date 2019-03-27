@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     class BaseController < GobiertoPeople::ApplicationController
@@ -16,7 +18,7 @@ module GobiertoPeople
         if valid_preview_token?
           redirect_to(
             gobierto_people_root_path,
-            alert: t('gobierto_admin.admin_unauthorized')
+            alert: t("gobierto_admin.admin_unauthorized")
           ) and return if !admin_permissions_for_person?
 
           @people_scope = current_site.people

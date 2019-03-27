@@ -28,7 +28,7 @@ module GobiertoAttachments
           assert_equal png_attachment.human_readable_path, current_path
 
           # an iframe will be shown, with the image inside
-          assert_equal png_attachment.url, find('iframe')['src']
+          assert_equal png_attachment.url, find("iframe")["src"]
         end
       end
 
@@ -38,7 +38,7 @@ module GobiertoAttachments
 
           # image will be rendered inside page, the URL will be the friendly one,
           # since it's been added by the user in the page markdown editor
-          assert all('img').map{|node| node['src']}.any?{|img_src| img_src.include? png_attachment.human_readable_path}
+          assert all("img").map { |node| node["src"] }.any? { |img_src| img_src.include? png_attachment.human_readable_path }
         end
       end
 

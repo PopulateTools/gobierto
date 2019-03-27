@@ -53,6 +53,7 @@ module GobiertoPeople
 
     def parse_date(date, fallback = nil)
       return unless date
+
       Time.zone.parse(date)
     rescue ArgumentError
       fallback
@@ -63,7 +64,7 @@ module GobiertoPeople
       return if (reset_params = request.query_parameters.slice(*RANGE_PARAM_NAMES).select { |_, value| value == "false" }).blank?
 
       redirect_params = request.query_parameters.reject { |param, value| value == "false" && RANGE_PARAM_NAMES.include?(param) }
-      redirect_query = redirect_params.present? ? "?#{ redirect_params.to_query }" : ""
+      redirect_query = redirect_params.present? ? "?#{redirect_params.to_query}" : ""
       reset_params.each do |param, _|
         session[param] = nil
       end

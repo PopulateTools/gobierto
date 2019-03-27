@@ -2,6 +2,6 @@
 
 module GobiertoPlans
   def self.table_name_prefix
-    'gplan_'
+    "gplan_"
   end
 end

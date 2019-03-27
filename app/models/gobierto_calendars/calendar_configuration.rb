@@ -12,11 +12,11 @@ module GobiertoCalendars
     validates :collection_id, :integration_name, :data, presence: true
 
     def without_description
-      data['without_description']
+      data["without_description"]
     end
 
     def without_description=(without_description)
-      data['without_description'] = without_description
+      data["without_description"] = without_description
     end
   end
 end

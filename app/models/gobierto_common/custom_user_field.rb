@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class CustomUserField < ApplicationRecord
     belongs_to :site

@@ -12,7 +12,7 @@ class SecretAttributeTest < Minitest::Test
   end
 
   def test_encrypt_and_decrypt
-    plain_text = 'My secret text'
+    plain_text = "My secret text"
 
     cypher_text = SecretAttribute.encrypt(plain_text)
 

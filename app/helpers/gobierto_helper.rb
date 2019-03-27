@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module GobiertoHelper
 
   def pending(&block)
-    yield if controller_name == 'sandbox'
+    yield if controller_name == "sandbox"
   end
 
   def todo_link_to(&block)
@@ -15,7 +17,7 @@ module GobiertoHelper
     options = {
       filter_html:     false,
       hard_wrap:       true,
-      link_attributes: { rel: 'nofollow', target: "_blank" },
+      link_attributes: { rel: "nofollow", target: "_blank" },
       space_after_headers: true,
       fenced_code_blocks: true
     }
@@ -39,7 +41,7 @@ module GobiertoHelper
   private
 
     def error_messages_for(entity)
-      return '' if entity.nil? || entity.errors.empty?
+      return "" if entity.nil? || entity.errors.empty?
 
       if entity.errors.any?
         content_tag :ul do

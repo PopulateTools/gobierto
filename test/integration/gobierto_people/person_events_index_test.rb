@@ -227,20 +227,20 @@ module GobiertoPeople
     def test_person_events_filter_for_groups_with_no_events
       with_current_site(site) do
         visit @path
-        within '.filter_boxed' do
-          assert has_link? 'Government Team'
-          assert has_link? 'Opposition'
-          assert has_link? 'Executive'
-          assert has_link? 'All'
+        within ".filter_boxed" do
+          assert has_link? "Government Team"
+          assert has_link? "Opposition"
+          assert has_link? "Executive"
+          assert has_link? "All"
         end
 
         GobiertoCalendars::Event.person_events.destroy_all
         visit @path
-        within '.filter_boxed' do
-          assert has_no_link? 'Government Team'
-          assert has_no_link? 'Opposition'
-          assert has_no_link? 'Executive'
-          assert has_link? 'All'
+        within ".filter_boxed" do
+          assert has_no_link? "Government Team"
+          assert has_no_link? "Opposition"
+          assert has_no_link? "Executive"
+          assert has_link? "All"
         end
       end
     end
@@ -270,8 +270,8 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within '.events-summary' do
-            assert_text('There are no future events. Take a look at past ones')
+          within ".events-summary" do
+            assert_text("There are no future events. Take a look at past ones")
             assert has_link?(past_event.title)
           end
         end
@@ -303,11 +303,11 @@ module GobiertoPeople
         visit @path
 
         assert_text("There are no future or past events.")
-        within '.filter_boxed' do
-          assert has_no_link? 'Government Team'
-          assert has_no_link? 'Opposition'
-          assert has_no_link? 'Executive'
-          assert has_link? 'All'
+        within ".filter_boxed" do
+          assert has_no_link? "Government Team"
+          assert has_no_link? "Opposition"
+          assert has_no_link? "Executive"
+          assert has_link? "All"
         end
       end
     end

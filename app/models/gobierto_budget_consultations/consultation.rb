@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "gobierto_budget_consultations"
 
 module GobiertoBudgetConsultations
@@ -64,7 +66,7 @@ module GobiertoBudgetConsultations
     end
 
     def days_left
-      (closes_on - Date.current ).to_i
+      (closes_on - Date.current).to_i
     end
 
     private

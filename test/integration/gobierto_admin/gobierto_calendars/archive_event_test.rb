@@ -68,7 +68,7 @@ module GobiertoAdmin
 
               sleep 1
 
-              assert_equal 1, page.all("a").select{ |a| a.text == "Archived elements" }.length
+              assert_equal 1, page.all("a").select { |a| a.text == "Archived elements" }.length
             end
           end
         end

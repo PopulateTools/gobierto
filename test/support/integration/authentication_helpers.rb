@@ -8,7 +8,7 @@ module Integration
       sign_out_admin
     end
 
-    def with_signed_in_user(user, logout=true)
+    def with_signed_in_user(user, logout = true)
       with_current_site(user.site) do
         sign_in_user(user)
         yield

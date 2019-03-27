@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::VerificationService
   attr_reader :user, :site, :verification_type
 

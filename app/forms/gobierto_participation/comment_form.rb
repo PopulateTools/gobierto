@@ -77,7 +77,7 @@ module GobiertoParticipation
 
     def contribution_container_must_be_open
       if contribution_container.present? && !contribution_container.contributions_allowed?
-        errors.add(:contribution_container, 'Contributions period has finished')
+        errors.add(:contribution_container, "Contributions period has finished")
       end
     end
 

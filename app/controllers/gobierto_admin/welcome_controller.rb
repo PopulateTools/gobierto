@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class WelcomeController < BaseController
     def index
@@ -6,7 +8,7 @@ module GobiertoAdmin
                     else
                       ActivityCollectionDecorator.new(Activity.in_site(current_site).sorted.includes(:subject, :author, :recipient).page(params[:page]))
                     end
-      render 'gobierto_admin/activities/index'
+      render "gobierto_admin/activities/index"
     end
   end
 end

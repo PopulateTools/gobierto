@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Memoize module simply memoizes the values returned by lookup using
 # a flat hash and can tremendously speed up the lookup process in a backend.
 #
@@ -43,7 +45,7 @@ module I18n
           memoized_lookups[site_id]
         end
 
-        def reset_memoizations!(locale=nil)
+        def reset_memoizations!(locale = nil)
           @memoized_locales = nil
           (locale ? memoized_lookup[locale.to_sym] : memoized_lookup).clear
         end

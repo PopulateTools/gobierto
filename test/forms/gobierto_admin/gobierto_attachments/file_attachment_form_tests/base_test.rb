@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoAttachments
@@ -12,10 +12,10 @@ module GobiertoAdmin
           [::FileUploader::S3, ::FileUploader::Local].each do |file_uploader|
             file_uploader.any_instance
               .stubs(:upload!)
-              .returns('http://www.domain.com/logo-madrid.png')
+              .returns("http://www.domain.com/logo-madrid.png")
             file_uploader.any_instance
               .stubs(:call)
-              .returns('http://www.domain.com/logo-madrid.png')
+              .returns("http://www.domain.com/logo-madrid.png")
 
           end
         end
@@ -30,13 +30,13 @@ module GobiertoAdmin
 
         def uploaded_file
           @uploaded_file ||= Rack::Test::UploadedFile.new(
-            Rails.root.join('test/fixtures/files/sites/logo-madrid.png')
+            Rails.root.join("test/fixtures/files/sites/logo-madrid.png")
           )
         end
 
         def existing_attachment_file
           @existing_attachment_file ||= Rack::Test::UploadedFile.new(
-            Rails.root.join('test/fixtures/files/gobierto_attachments/attachment/pdf-attachment.pdf')
+            Rails.root.join("test/fixtures/files/gobierto_attachments/attachment/pdf-attachment.pdf")
           )
         end
 

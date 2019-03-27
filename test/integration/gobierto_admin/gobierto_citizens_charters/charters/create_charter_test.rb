@@ -69,7 +69,7 @@ module GobiertoAdmin
                 assert has_message?("The charter has been correctly created.")
 
                 new_charter = ::GobiertoCitizensCharters::Charter.last
-                within "#charter-item-#{ new_charter.id }" do
+                within "#charter-item-#{new_charter.id}" do
                   find("i.fa-edit").click
                 end
 

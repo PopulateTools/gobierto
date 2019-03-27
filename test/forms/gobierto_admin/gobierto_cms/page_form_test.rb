@@ -13,7 +13,7 @@ module GobiertoAdmin
           body_translations: { I18n.locale => page.body },
           slug: "page-form-slug",
           collection_id: collection.id,
-          published_on: Time.zone.parse('30-12-1994 2:00'),
+          published_on: Time.zone.parse("30-12-1994 2:00"),
           visibility_level: page.visibility_level,
           template: nil
         }
@@ -52,7 +52,7 @@ module GobiertoAdmin
 
         page = valid_page_form.page.reload
 
-        assert_equal Time.zone.parse('30-12-1994 2:00'), page.published_on
+        assert_equal Time.zone.parse("30-12-1994 2:00"), page.published_on
       end
 
       def test_assigns_default_published_date

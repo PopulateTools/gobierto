@@ -36,6 +36,7 @@ module GobiertoCms
       if @collection.nil? || (!page.public? && !valid_preview_token?)
         raise ActiveRecord::RecordNotFound
       end
+
       GobiertoCms::PageDecorator.new(page, @current_process.class.name || @collection.container_type, @collection.item_type)
     end
 

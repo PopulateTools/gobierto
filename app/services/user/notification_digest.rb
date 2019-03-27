@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::NotificationDigest
   attr_reader :user_id, :frequency
 

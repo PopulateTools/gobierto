@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class FeaturedBudgetLinesController < GobiertoBudgets::ApplicationController
     def show
@@ -11,13 +13,13 @@ module GobiertoBudgets
             level: { ge: 3 },
             amount: { gt: 0 }
           }
-      })['hits']
+      })["hits"]
 
       if results.any?
         random_item = results.map do |r|
-          id = (r.slice("organization_id", "year", "code", "kind").values + [@area_name]).join('/')
+          id = (r.slice("organization_id", "year", "code", "kind").values + [@area_name]).join("/")
           GobiertoBudgets::BudgetLinePresenter.load(id, current_site)
-        end.select{ |b| b.name.present? }.sample
+        end.select { |b| b.name.present? }.sample
 
         if random_item
           @code = random_item.code
@@ -35,7 +37,7 @@ module GobiertoBudgets
     private
 
     def pick_template
-      params[:template] || 'show'
+      params[:template] || "show"
     end
   end
 end

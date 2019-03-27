@@ -21,7 +21,7 @@ module GobiertoParticipation
 
     def invalid_vote_form
       @invalid_vote_form ||= begin
-        VoteForm.new(form_attributes.each_key { |k| form_attributes[k] = nil } )
+        VoteForm.new(form_attributes.each_key { |k| form_attributes[k] = nil })
       end
     end
 

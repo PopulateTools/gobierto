@@ -9,9 +9,9 @@ class PageTitle < Liquid::Tag
   def render(context)
     current_site = context.environments.first["current_site"]
     page = current_site.pages.find_by_slug!(@page_slug)
-    return page.title
+    page.title
   rescue ActiveRecord::RecordNotFound
-    return ""
+    ""
   end
 end
 

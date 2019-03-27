@@ -4,6 +4,7 @@ module GobiertoCitizensCharters
   module ApplicationHelper
     def format_value(number, other_num = nil, absolute_value = false)
       return nil if number.blank?
+
       number = number.abs if absolute_value
 
       if [number, other_num].compact.any? { |n| n.abs > 1_000_000 }

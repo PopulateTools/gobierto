@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class Admin::PasswordsController < BaseController
     skip_before_action :authenticate_admin!

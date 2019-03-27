@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   module FileUploadHelper
     extend ActiveSupport::Concern
@@ -9,7 +11,7 @@ module GobiertoCommon
     private
 
     def pretty_filename_url(filename_url)
-      filename_url.split('/').last.last(40)
+      filename_url.split("/").last.last(40)
     end
 
   end

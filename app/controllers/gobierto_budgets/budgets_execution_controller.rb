@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::ApplicationController
 
   before_action :load_year
@@ -5,7 +7,7 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
 
   def index
     unless @any_budgets_execution_data_for_year = any_execution_data?
-      flash[:alert] = t('controllers.gobierto_budgets.budgets_execution.index.alert', year: @year)
+      flash[:alert] = t("controllers.gobierto_budgets.budgets_execution.index.alert", year: @year)
       redirect_to gobierto_budgets_budgets_execution_path(@year - 1) and return
     end
 
@@ -33,7 +35,7 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
     end
   end
 
-  def any_execution_data?(params={})
+  def any_execution_data?(params = {})
     conditions = default_search_conditions.clone
     conditions.merge!(area: params[:area]) if params[:area]
     conditions.merge!(kind: params[:kind]) if params[:kind]

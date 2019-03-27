@@ -17,7 +17,7 @@ module GobiertoPeople
 
     algoliasearch_gobierto do
       attribute :site_id, :title_en, :title_es, :title_ca, :updated_at
-      searchableAttributes ['title_en', 'title_es', 'title_ca']
+      searchableAttributes ["title_en", "title_es", "title_ca"]
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end

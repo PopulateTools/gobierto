@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     class PersonPolicy < ::GobiertoAdmin::BasePolicy
@@ -14,11 +16,11 @@ module GobiertoAdmin
         if current_admin.regular?
           manage_all_people_in_site? || (
             can_manage_site?(person.site) &&
-            can_manage_module?('GobiertoPeople') &&
+            can_manage_module?("GobiertoPeople") &&
             can_manage_person?(person)
           )
         else
-          return super
+          super
         end
       end
 
@@ -31,7 +33,7 @@ module GobiertoAdmin
       end
 
       def manage_all_people_in_site?
-        current_admin.manager? || (has_site_permissions? && can_manage_module?('GobiertoPeople') && manage_all_people?)
+        current_admin.manager? || (has_site_permissions? && can_manage_module?("GobiertoPeople") && manage_all_people?)
       end
 
       private
@@ -39,7 +41,7 @@ module GobiertoAdmin
       def can_manage_person?(person)
         current_admin.sites_people_permissions.on_site(current_site).exists?(
           resource_id: person.id,
-          action_name: 'manage'
+          action_name: "manage"
         )
       end
 
@@ -50,8 +52,9 @@ module GobiertoAdmin
 
       def manage_all_people?
         return true if current_admin.manager?
+
         current_admin.people_permissions.on_site(current_site).exists?(
-          action_name: 'manage_all'
+          action_name: "manage_all"
         )
       end
 

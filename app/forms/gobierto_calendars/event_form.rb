@@ -79,6 +79,7 @@ module GobiertoCalendars
 
       attributes.each do |_, location_attributes|
         next if location_attributes["_destroy"] == "1"
+
         location = event_location_class.new(location_attributes.slice(:name, :address, :lat, :lng))
         @locations.push(location) if location.valid?
       end
@@ -87,6 +88,7 @@ module GobiertoCalendars
     def attendees
       @attendees ||= event.attendees.presence || []
       return @attendees if person.nil? || @attendees.map(&:person_id).include?(person.id)
+
       @attendees.push(organizer)
     end
 

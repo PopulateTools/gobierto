@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoPeople
     class SettingsForm < BaseForm
 
-      ENCRYPTED_SETTING_PLACEHOLDER = 'encrypted_setting_placeholder'
+      ENCRYPTED_SETTING_PLACEHOLDER = "encrypted_setting_placeholder"
 
       attr_accessor(
         :site_id,
@@ -95,7 +95,7 @@ module GobiertoAdmin
           settings_attributes.home_text_es = home_text_es
           settings_attributes.home_text_ca = home_text_ca
           settings_attributes.home_text_en = home_text_en
-          settings_attributes.submodules_enabled = submodules_enabled.select{|m| m.present?}
+          settings_attributes.submodules_enabled = submodules_enabled.select { |m| m.present? }
           settings_attributes.calendar_integration = calendar_integration
           settings_attributes.political_groups_vocabulary_id = political_groups_vocabulary_id
 
@@ -113,7 +113,7 @@ module GobiertoAdmin
       private
 
       def ibm_notes_integration_selected?
-        calendar_integration == 'ibm_notes'
+        calendar_integration == "ibm_notes"
       end
 
       def set_ibm_notes_integration_settings(settings_attributes)

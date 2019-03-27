@@ -3,7 +3,7 @@
 module Subscribers
   class CensusActivity < ::Subscribers::Base
     def census_imported(event)
-      create_activity_from_event(event, 'census.census_imported')
+      create_activity_from_event(event, "census.census_imported")
     end
 
     private
@@ -18,4 +18,3 @@ module Subscribers
     end
   end
 end
-

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module User::VerificationHelper
   extend ActiveSupport::Concern
 
@@ -26,15 +28,15 @@ module User::VerificationHelper
   def raise_user_already_verified
     redirect_to(
       request.referrer || user_root_path,
-      alert: t('user.census_verifications.messages.already_verified')
+      alert: t("user.census_verifications.messages.already_verified")
     )
   end
 
   def raise_visibility_forbidden(resource, user)
     case resource.visibility_user_level
-    when 'verified'
+    when "verified"
       raise_user_not_verified(resource.site)
-    when 'registered'
+    when "registered"
       raise_user_not_signed_in
     end
   end

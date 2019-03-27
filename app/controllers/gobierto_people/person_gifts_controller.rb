@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PersonGiftsController < GobiertoPeople::ApplicationController
     include DatesRangeHelper

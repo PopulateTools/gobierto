@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGobiertoParticipationPollAnswers < ActiveRecord::Migration[5.1]
 
   def change
@@ -10,8 +12,8 @@ class CreateGobiertoParticipationPollAnswers < ActiveRecord::Migration[5.1]
       t.datetime :created_at
     end
 
-    add_index :gpart_poll_answers, [:question_id, :user_id, :answer_template_id], name: 'unique_index_gpart_poll_answers_for_fixed_answer_questions', unique: true
-    add_index :gpart_poll_answers, [:user_id, :answer_template_id], name: 'unique_index_gpart_poll_answers_for_open_answer_questions', unique: true
+    add_index :gpart_poll_answers, [:question_id, :user_id, :answer_template_id], name: "unique_index_gpart_poll_answers_for_fixed_answer_questions", unique: true
+    add_index :gpart_poll_answers, [:user_id, :answer_template_id], name: "unique_index_gpart_poll_answers_for_open_answer_questions", unique: true
   end
 
 end

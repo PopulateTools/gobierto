@@ -88,6 +88,7 @@ module GobiertoAdmin
                   event.attendees.each do |attendee|
                     within ".dynamic-content-record-wrapper.content-block-record-#{attendee.id}" do
                       next if attendee.person && attendee.person == person
+
                       with_hidden_elements do
                         find("a[data-behavior=edit_record]").trigger("click")
                       end

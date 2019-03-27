@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class ContentBlock < ApplicationRecord
     belongs_to :site
@@ -10,7 +12,7 @@ module GobiertoCommon
     scope :sorted, -> { order(id: :asc) }
 
     def self.set_content_context(content_context)
-      self.tap do |content_block_class|
+      tap do |content_block_class|
         content_block_class.content_context = content_context
       end
     end

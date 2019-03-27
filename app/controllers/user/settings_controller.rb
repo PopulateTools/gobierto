@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::SettingsController < User::BaseController
   before_action :authenticate_user!
 
@@ -27,7 +29,7 @@ class User::SettingsController < User::BaseController
     else
       @user_genders = get_user_genders
       flash[:alert] = t(".error")
-      render 'show'
+      render "show"
     end
   end
 
@@ -36,7 +38,7 @@ class User::SettingsController < User::BaseController
   def user_settings_params
     permitted_params = [:name, :password, :password_confirmation, :date_of_birth, :gender]
     if params[:user_settings] && params[:user_settings][:custom_records]
-      permitted_params << {custom_records: Hash[params[:user_settings][:custom_records].keys.map{ |k| [k, [:custom_user_field_id, :value]] }]}
+      permitted_params << { custom_records: Hash[params[:user_settings][:custom_records].keys.map { |k| [k, [:custom_user_field_id, :value]] }] }
     end
 
     params.require(:user_settings).permit(permitted_params)

@@ -116,19 +116,19 @@ module GobiertoCommon
     end
 
     def publish_changed(attribute_name)
-      broadcast_event("#{ event_prefix }#{ attribute_name }_changed") if changed?(attribute_name)
+      broadcast_event("#{event_prefix}#{attribute_name}_changed") if changed?(attribute_name)
     end
 
     def publish_created
-      broadcast_event("#{ event_prefix }created")
+      broadcast_event("#{event_prefix}created")
     end
 
     def publish_archived
-      broadcast_event("#{ event_prefix }archived")
+      broadcast_event("#{event_prefix}archived")
     end
 
     def publish_destroyed
-      broadcast_event("#{ event_prefix }deleted")
+      broadcast_event("#{event_prefix}deleted")
     end
 
     def broadcast_event(event_name)

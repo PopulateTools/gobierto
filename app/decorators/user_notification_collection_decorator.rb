@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserNotificationCollectionDecorator < BaseDecorator
   attr_reader :collection, :total_pages
 

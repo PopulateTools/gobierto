@@ -48,17 +48,17 @@ module GobiertoParticipation
           sign_out_user
           with_current_site(site) do
             visit container_path registered_level_contribution_container
-            assert has_no_link? 'Have an idea!', href: new_participation_path(registered_level_contribution_container)
+            assert has_no_link? "Have an idea!", href: new_participation_path(registered_level_contribution_container)
 
             visit container_path verified_level_contribution_container
-            assert has_no_link? 'Have an idea!', href: new_participation_path(verified_level_contribution_container)
+            assert has_no_link? "Have an idea!", href: new_participation_path(verified_level_contribution_container)
           end
         end
 
         def test_registered_level_user_contributions_registered_level
           with_js_session_of_user(registered_level_user) do
             visit container_path registered_level_contribution_container
-            assert has_link? 'Have an idea!', href: new_participation_path(registered_level_contribution_container)
+            assert has_link? "Have an idea!", href: new_participation_path(registered_level_contribution_container)
             page.find("a", text: "Have an idea!").trigger("click")
             assert page.has_content? "WRITE YOUR IDEA CONCISE"
           end
@@ -67,7 +67,7 @@ module GobiertoParticipation
         def test_registered_level_user_contributions_verified_level
           with_js_session_of_user(registered_level_user) do
             visit container_path verified_level_contribution_container
-            assert has_link? 'Have an idea!', href: new_participation_path(verified_level_contribution_container)
+            assert has_link? "Have an idea!", href: new_participation_path(verified_level_contribution_container)
             page.find("a", text: "Have an idea!").trigger("click")
             assert has_no_content? "WRITE YOUR IDEA CONCISE"
           end
@@ -76,7 +76,7 @@ module GobiertoParticipation
         def test_verified_level_user_contributions_registered_level
           with_js_session_of_user(verified_level_user) do
             visit container_path registered_level_contribution_container
-            assert has_link? 'Have an idea!', href: new_participation_path(registered_level_contribution_container)
+            assert has_link? "Have an idea!", href: new_participation_path(registered_level_contribution_container)
             page.find("a", text: "Have an idea!").trigger("click")
             assert page.has_content? "WRITE YOUR IDEA CONCISE"
           end
@@ -85,7 +85,7 @@ module GobiertoParticipation
         def test_verified_level_user_contributions_verified_level
           with_js_session_of_user(verified_level_user) do
             visit container_path verified_level_contribution_container
-            assert has_link? 'Have an idea!', href: new_participation_path(verified_level_contribution_container)
+            assert has_link? "Have an idea!", href: new_participation_path(verified_level_contribution_container)
             page.find("a", text: "Have an idea!").trigger("click")
             assert page.has_content? "WRITE YOUR IDEA CONCISE"
           end

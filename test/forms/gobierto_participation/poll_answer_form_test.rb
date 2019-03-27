@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoParticipation
   module Processes
@@ -9,27 +9,27 @@ module GobiertoParticipation
       def poll_answers_params
         @poll_answers_params ||= {
           questions_attributes: {
-            '0' => {
-              id: '929669461',
+            "0" => {
+              id: "929669461",
               answers_attributes: {
-                '0' => {
-                  answer_template_id: '373102810'
+                "0" => {
+                  answer_template_id: "373102810"
                 }
               }
             },
-            '1' => {
-              id: '803812805',
+            "1" => {
+              id: "803812805",
               answers_attributes: {
-                '0' => {
-                  answer_template_id: '611765973'
+                "0" => {
+                  answer_template_id: "611765973"
                 }
               }
             },
-            '2' => {
-              id: '84785086',
+            "2" => {
+              id: "84785086",
               answers_attributes: {
-                '0' => {
-                  text: ''
+                "0" => {
+                  text: ""
                 }
               }
             }
@@ -39,7 +39,7 @@ module GobiertoParticipation
 
       def poll_incomplete_answers_params
         @poll_incomplete_answers_params = poll_answers_params
-        @poll_incomplete_answers_params[:questions_attributes].delete('1')
+        @poll_incomplete_answers_params[:questions_attributes].delete("1")
         @poll_incomplete_answers_params
       end
 
@@ -66,7 +66,7 @@ module GobiertoParticipation
       def test_initialize_with_valid_parameters
         poll_answer = PollAnswerForm.new(poll: poll)
 
-        assert_equal 'General aspects of the ordinance', poll_answer.poll_title
+        assert_equal "General aspects of the ordinance", poll_answer.poll_title
         assert_equal 3, poll_answer.questions_count
       end
 
@@ -85,7 +85,7 @@ module GobiertoParticipation
       end
 
       def test_save_demographic_info
-        poll_answer_form =  PollAnswerForm.new(poll_answers_params.merge(
+        poll_answer_form = PollAnswerForm.new(poll_answers_params.merge(
           user: user,
           poll: poll
         ))

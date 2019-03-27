@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::Subscription::Finder
   def self.user_subscribed_to?(user, subscribable_type, subscribable_id, site_id)
     find_user_subscriptions_for(subscribable_type, subscribable_id, site_id).include?(user.id)
@@ -14,24 +16,24 @@ class User::Subscription::Finder
   private
 
   def self.subscriptions_scope_for(subject_type, subject_id, site_id, exclude_specific_subscription: false)
-    conditions = exclude_specific_subscription ? [] : [{subscribable_type: subject_type, subscribable_id: subject_id, site_id: site_id}]
+    conditions = exclude_specific_subscription ? [] : [{ subscribable_type: subject_type, subscribable_id: subject_id, site_id: site_id }]
 
     if subject_id.present?
-      conditions.push({subscribable_type: subject_type, subscribable_id: nil, site_id: site_id})
+      conditions.push({ subscribable_type: subject_type, subscribable_id: nil, site_id: site_id })
     end
 
     if subject_type.include?("::")
       module_name = subject_type.split("::").first
-      conditions.push({subscribable_type: module_name, subscribable_id: nil, site_id: site_id})
+      conditions.push({ subscribable_type: module_name, subscribable_id: nil, site_id: site_id })
 
       main_class = subject_type.split("::").last
-      classes = main_class.underscore.split('_')
+      classes = main_class.underscore.split("_")
       if classes.length > 1
-        conditions.push({subscribable_type: "#{module_name}::#{classes.first.classify}", site_id: site_id})
+        conditions.push({ subscribable_type: "#{module_name}::#{classes.first.classify}", site_id: site_id })
       end
     end
 
-    conditions.push({subscribable_type: "Site", subscribable_id: site_id, site_id: site_id})
+    conditions.push({ subscribable_type: "Site", subscribable_id: site_id, site_id: site_id })
 
     scoped = User::Subscription.where(conditions.pop)
     while conditions.any?

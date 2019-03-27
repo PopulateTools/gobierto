@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgetConsultations
   module Consultations
     class ConsultationResponsesController < BaseController
@@ -47,7 +49,7 @@ module GobiertoBudgetConsultations
       def document_number_digest
         @document_number_digest ||= begin
           if user_verification = current_user.site_verification(current_site)
-            SecretAttribute.digest(user_verification.verification_data['document_number'])
+            SecretAttribute.digest(user_verification.verification_data["document_number"])
           end
         end
       end

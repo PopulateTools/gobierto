@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   module Api
     class DataController < ApplicationController
@@ -20,10 +22,10 @@ module GobiertoBudgets
         @kind = params[:kind]
         @code = params[:code]
 
-        @category_name = @kind == 'G' ? I18n.t("controllers.gobierto_budgets.api.data.expense") : I18n.t("controllers.gobierto_budgets.api.data.income")
+        @category_name = @kind == "G" ? I18n.t("controllers.gobierto_budgets.api.data.expense") : I18n.t("controllers.gobierto_budgets.api.data.income")
 
-        budget_data = budget_data(@year, 'amount')
-        budget_data_previous_year = budget_data(@year - 1, 'amount', false)
+        budget_data = budget_data(@year, "amount")
+        budget_data_previous_year = budget_data(@year - 1, "amount", false)
         position = budget_data[:position].to_i
         sign = sign(budget_data[:value], budget_data_previous_year[:value])
 
@@ -36,7 +38,7 @@ module GobiertoBudgets
               delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
               ranking_position: position,
               ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
-              ranking_url: ''
+              ranking_url: ""
             }.to_json
           end
         end
@@ -48,9 +50,9 @@ module GobiertoBudgets
         @kind = params[:kind]
         @code = params[:code]
 
-        @category_name = @kind == 'G' ? I18n.t("controllers.gobierto_budgets.api.data.expense") : I18n.t("controllers.gobierto_budgets.api.data.income")
-        budget_data = budget_data(@year, 'amount_per_inhabitant')
-        budget_data_previous_year = budget_data(@year - 1, 'amount_per_inhabitant', false)
+        @category_name = @kind == "G" ? I18n.t("controllers.gobierto_budgets.api.data.expense") : I18n.t("controllers.gobierto_budgets.api.data.income")
+        budget_data = budget_data(@year, "amount_per_inhabitant")
+        budget_data_previous_year = budget_data(@year - 1, "amount_per_inhabitant", false)
         position = budget_data[:position].to_i
         sign = sign(budget_data[:value], budget_data_previous_year[:value])
 
@@ -63,7 +65,7 @@ module GobiertoBudgets
               delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
               ranking_position: position,
               ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
-              ranking_url: ''
+              ranking_url: ""
             }.to_json
           end
         end
@@ -82,8 +84,8 @@ module GobiertoBudgets
         year = params[:year].to_i
         kind = params[:kind]
         organization_id = params[:organization_id]
-        total_budgeted = GobiertoBudgets::BudgetTotal.budgeted_for(organization_id,year,kind)
-        total_executed = GobiertoBudgets::BudgetTotal.execution_for(organization_id,year,kind)
+        total_budgeted = GobiertoBudgets::BudgetTotal.budgeted_for(organization_id, year, kind)
+        total_executed = GobiertoBudgets::BudgetTotal.execution_for(organization_id, year, kind)
         deviation = total_executed - total_budgeted
         deviation_percentage = helpers.number_with_precision(delta_percentage(total_executed, total_budgeted), precision: 2)
         up_or_down = sign(total_executed, total_budgeted)
@@ -120,7 +122,7 @@ module GobiertoBudgets
         respond_to do |format|
           format.json do
             render json: {
-              last_update: last_update ? last_update.strftime('%F') : nil,
+              last_update: last_update ? last_update.strftime("%F") : nil,
               lines: lines
             }
           end
@@ -135,7 +137,7 @@ module GobiertoBudgets
         begin
           value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
             type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt, id: id
-          value['_source']['value'] * 1000
+          value["_source"]["value"] * 1000
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
         end
       end
@@ -143,7 +145,7 @@ module GobiertoBudgets
       def budget_data(year, field, ranking = true)
         organization_id = params[:organization_id]
 
-        opts = {year: year, code: @code, kind: @kind, area_name: @area, variable: field}
+        opts = { year: year, code: @code, kind: @kind, area_name: @area, variable: field }
         results, total_elements = GobiertoBudgets::BudgetLine.for_ranking(opts)
 
         if ranking
@@ -153,9 +155,9 @@ module GobiertoBudgets
           position = 0
         end
 
-        value = results.select {|r| r['organization_id'] == organization_id }.first.try(:[],field)
+        value = results.select { |r| r["organization_id"] == organization_id }.first.try(:[], field)
 
-        return {
+        {
           value: value,
           position: position,
           total_elements: total_elements
@@ -167,12 +169,12 @@ module GobiertoBudgets
 
         begin
           value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, type: @area, id: id
-          value = value['_source'][field]
+          value = value["_source"][field]
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
           value = nil
         end
 
-        return {
+        {
           value: value
         }
       end
@@ -180,15 +182,15 @@ module GobiertoBudgets
       def total_budget_data(year, field, ranking = true)
         query = {
           sort: [
-            { field.to_sym => { order: 'desc' } }
+            { field.to_sym => { order: "desc" } }
           ],
           query: {
             filtered: {
               filter: {
                 bool: {
                   must: [
-                    {term: { year: year }},
-                    {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }}
+                    { term: { year: year } },
+                    { term: { kind: GobiertoBudgets::BudgetLine::EXPENSE } }
                   ]
                 }
               }
@@ -202,7 +204,7 @@ module GobiertoBudgets
 
         if ranking
           response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, body: query
-          buckets = response['hits']['hits'].map{|h| h['_id']}
+          buckets = response["hits"]["hits"].map { |h| h["_id"] }
           position = buckets.index(id) + 1 rescue 0
         else
           buckets = []
@@ -211,12 +213,12 @@ module GobiertoBudgets
 
         begin
           value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id
-          value = value['_source'][field]
+          value = value["_source"][field]
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
           value = 0
         end
 
-        return {
+        {
           value: value,
           position: position,
           total_elements: buckets.length
@@ -228,23 +230,24 @@ module GobiertoBudgets
 
         begin
           value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id
-          value = value['_source'][field]
+          value = value["_source"][field]
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
           value = nil
         end
 
-        return {
+        {
           value: value
         }
       end
 
       def delta_percentage(value, old_value)
         return "" if value.nil? || old_value.nil?
-        ((value.to_f - old_value.to_f)/old_value.to_f) * 100
+
+        ((value.to_f - old_value.to_f) / old_value.to_f) * 100
       end
 
       def deviation_message(kind, up_or_down, percentage, diff)
-        percentage = percentage.to_s.gsub('-', '')
+        percentage = percentage.to_s.gsub("-", "")
         diff = format_currency(diff, true)
         final_message = if (kind == GobiertoBudgets::BudgetLine::INCOME)
           up_or_down == "sign-up" ? I18n.t("controllers.gobierto_budgets.api.data.income_up", percentage: percentage, diff: diff) : I18n.t("controllers.gobierto_budgets.api.data.income_down", percentage: percentage, diff: diff)
@@ -259,15 +262,15 @@ module GobiertoBudgets
         response_executed = GobiertoBudgets::BudgetTotal.budget_evolution_for(organization_id, GobiertoBudgets::BudgetTotal::EXECUTED, kind)
 
         response_budgeted.map do |budgeted_result|
-          year = budgeted_result['year']
-          total_budgeted = budgeted_result['total_budget']
-          total_executed = response_executed.select {|te| te['year'] == year }.first.try(:[],'total_budget')
+          year = budgeted_result["year"]
+          total_budgeted = budgeted_result["total_budget"]
+          total_executed = response_executed.select { |te| te["year"] == year }.first.try(:[], "total_budget")
           next unless total_executed.present?
 
-          deviation = delta_percentage(total_executed,total_budgeted)
+          deviation = delta_percentage(total_executed, total_budgeted)
           {
             year: year,
-            deviation: helpers.number_with_precision(deviation, precision: 2,separator:'.').to_f
+            deviation: helpers.number_with_precision(deviation, precision: 2, separator: ".").to_f
           }
         end.reject(&:nil?)
       end

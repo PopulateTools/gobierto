@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class Admin::InvitationAcceptancesController < BaseController
     skip_before_action :authenticate_admin!
@@ -25,7 +27,7 @@ module GobiertoAdmin
     private
 
     def track_accepted_activity
-      Publishers::AdminActivity.broadcast_event("invitation_accepted", default_activity_params.merge({subject: current_admin}))
+      Publishers::AdminActivity.broadcast_event("invitation_accepted", default_activity_params.merge({ subject: current_admin }))
     end
 
     def default_activity_params

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgetConsultations
   class ConsultationParticipationsController < GobiertoBudgetConsultations::ApplicationController
     def show

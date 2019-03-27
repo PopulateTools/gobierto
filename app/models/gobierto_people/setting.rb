@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "gobierto_people"
 
 module GobiertoPeople

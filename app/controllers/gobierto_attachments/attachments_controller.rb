@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAttachments
   class AttachmentsController < GobiertoAttachments::ApplicationController
 
@@ -8,7 +10,7 @@ module GobiertoAttachments
 
     def show
       if direct_visit?
-        render 'show'
+        render "show"
       else
         redirect_to @attachment.url
       end

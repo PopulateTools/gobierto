@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class ContentBlockRecordField
     include ActiveModel::Model
@@ -11,7 +13,7 @@ module GobiertoCommon
     )
 
     def url?
-      field_type == 'url'
+      field_type == "url"
     end
 
   end

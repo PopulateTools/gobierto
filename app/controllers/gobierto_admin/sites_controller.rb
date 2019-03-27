@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class SitesController < BaseController
     def index
@@ -184,15 +186,15 @@ module GobiertoAdmin
     end
 
     def track_create_activity
-      Publishers::SiteActivity.broadcast_event("site_created", default_activity_params.merge({subject: @site_form.site}))
+      Publishers::SiteActivity.broadcast_event("site_created", default_activity_params.merge({ subject: @site_form.site }))
     end
 
     def track_update_activity
-      Publishers::SiteActivity.broadcast_event("site_updated", default_activity_params.merge({subject: @site_form.site, changes: @site_form.site.previous_changes.except(:updated_at)}))
+      Publishers::SiteActivity.broadcast_event("site_updated", default_activity_params.merge({ subject: @site_form.site, changes: @site_form.site.previous_changes.except(:updated_at) }))
     end
 
     def track_destroy_activity
-      Publishers::SiteActivity.broadcast_event("site_deleted", default_activity_params.merge({subject: @site}))
+      Publishers::SiteActivity.broadcast_event("site_deleted", default_activity_params.merge({ subject: @site }))
     end
 
     def default_activity_params
@@ -200,7 +202,7 @@ module GobiertoAdmin
     end
 
     def get_available_locales
-      available_locales.map{ |l| [l.to_s, I18n.t("locales.#{l}")] }
+      available_locales.map { |l| [l.to_s, I18n.t("locales.#{l}")] }
     end
 
     def get_available_pages
@@ -208,7 +210,7 @@ module GobiertoAdmin
     end
 
     def ignored_site_attributes
-      %w( name title )
+      %w(name title)
     end
   end
 end

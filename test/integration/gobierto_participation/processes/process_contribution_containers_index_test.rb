@@ -103,21 +103,21 @@ module GobiertoParticipation
         assert has_no_content? draft_container.title
 
         within contribution_container_wrapper(current_container) do
-          assert has_content? 'What can we do to improve the bowling group?'
-          assert has_content? 'This is the container description'
+          assert has_content? "What can we do to improve the bowling group?"
+          assert has_content? "This is the container description"
 
           assert has_content? current_container.comments_count
           assert has_content? current_container.participants_count
         end
 
         within contribution_container_wrapper(future_container) do
-          assert has_content? 'This container has not started'
-          assert has_content? 'The contributions period starts on'
+          assert has_content? "This container has not started"
+          assert has_content? "The contributions period starts on"
         end
 
         within contribution_container_wrapper(past_container) do
-          assert has_content? 'This container has already finished'
-          assert has_content? 'The contributions period has ended'
+          assert has_content? "This container has already finished"
+          assert has_content? "The contributions period has ended"
         end
       end
     end

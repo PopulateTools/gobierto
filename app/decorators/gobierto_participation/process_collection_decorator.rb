@@ -12,7 +12,7 @@ module GobiertoParticipation
             .joins(
               Arel.sql(
                 <<-SQL
-                  LEFT OUTER JOIN #{ process_class.table_name } ON #{ collection_class.table_name }.container_id = #{ process_class.table_name }.id
+                  LEFT OUTER JOIN #{process_class.table_name} ON #{collection_class.table_name}.container_id = #{process_class.table_name}.id
                 SQL
               )
             )
@@ -32,12 +32,12 @@ module GobiertoParticipation
         .joins(
           Arel.sql(
             <<-SQL
-              JOIN #{ term_class.table_name } ON #{ term_class.table_name }.id = #{ process_class.table_name }.#{ vocabulary_association_name.to_s.foreign_key }
-              JOIN #{ vocabulary_class.table_name } ON #{ vocabulary_class.table_name }.id = #{ term_class.table_name }.vocabulary_id
+              JOIN #{term_class.table_name} ON #{term_class.table_name}.id = #{process_class.table_name}.#{vocabulary_association_name.to_s.foreign_key}
+              JOIN #{vocabulary_class.table_name} ON #{vocabulary_class.table_name}.id = #{term_class.table_name}.vocabulary_id
             SQL
           )
         )
-        .where(vocabularies: { id: process_class.send("#{ vocabulary_association_name.to_s.pluralize }_vocabulary_id", term.site) })
+        .where(vocabularies: { id: process_class.send("#{vocabulary_association_name.to_s.pluralize}_vocabulary_id", term.site) })
         .where(terms: { id: term.id })
     end
 

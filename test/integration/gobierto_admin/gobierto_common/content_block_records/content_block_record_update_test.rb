@@ -81,9 +81,9 @@ module GobiertoAdmin
 
 
                   row = all("td.content-block-record-value", text: "Ate 33 meatballs in 45 minutes").first
-                  parent = row.find(:xpath, '..')
+                  parent = row.find(:xpath, "..")
                   parent.find("a[data-behavior=edit_record]", visible: false).trigger(:click)
-                  table = parent.find(:xpath, '..')
+                  table = parent.find(:xpath, "..")
                   sibling = table.all("tr").last
                   remove_atachment = sibling.first("input[data-behavior=remove_attachment]", visible: false).trigger(:click)
                 end

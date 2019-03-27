@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     module Consultations
@@ -86,11 +88,11 @@ module GobiertoAdmin
         end
 
         def track_create_activity
-          Publishers::GobiertoBudgetConsultationsConsultationResponseActivity.broadcast_event("consultation_response_created", default_activity_params.merge({subject: @consultation_response_form.consultation_response, recipient: @consultation}))
+          Publishers::GobiertoBudgetConsultationsConsultationResponseActivity.broadcast_event("consultation_response_created", default_activity_params.merge({ subject: @consultation_response_form.consultation_response, recipient: @consultation }))
         end
 
         def track_destroy_activity
-          Publishers::GobiertoBudgetConsultationsConsultationResponseActivity.broadcast_event("consultation_response_deleted", default_activity_params.merge({subject: @consultation_response, recipient: @consultation}))
+          Publishers::GobiertoBudgetConsultationsConsultationResponseActivity.broadcast_event("consultation_response_deleted", default_activity_params.merge({ subject: @consultation_response, recipient: @consultation }))
         end
 
         def default_activity_params

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCms
   class PageDecorator < BaseDecorator
     include ActionView::Helpers::TextHelper
@@ -37,7 +39,7 @@ module GobiertoCms
     attr_reader :object, :item_type
 
     def sub_template
-      item_type.split('::').last.downcase
+      item_type.split("::").last.downcase
     end
 
     def default_template

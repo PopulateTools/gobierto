@@ -102,6 +102,7 @@ module GobiertoSeeds
           content_block["fields"].each do |field|
             block_field = GobiertoCommon::ContentBlockField.find_by content_block: block, name: field["name"]
             next unless block_field.nil?
+
             GobiertoCommon::ContentBlockField.create!(content_block: block, name: field["name"],
                                                       field_type: ::GobiertoCommon::ContentBlockField.field_types[field["field_type"]],
                                                       label: field["label"])

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PersonMailer < ApplicationMailer
     def new_message(args)
@@ -12,7 +14,7 @@ module GobiertoPeople
         from: from,
         to: @person.email,
         reply_to: @reply_to,
-        subject: t('.subject', name: @site.title)
+        subject: t(".subject", name: @site.title)
       )
     end
   end

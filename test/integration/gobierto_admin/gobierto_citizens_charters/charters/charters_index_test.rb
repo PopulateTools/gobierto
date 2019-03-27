@@ -46,9 +46,9 @@ module GobiertoAdmin
                 assert has_selector?("tr", count: charters.size)
 
                 charters.each do |charter|
-                  assert has_selector?("tr#charter-item-#{ charter.id }")
+                  assert has_selector?("tr#charter-item-#{charter.id}")
 
-                  within "tr#charter-item-#{ charter.id }" do
+                  within "tr#charter-item-#{charter.id}" do
                     assert has_link?(charter.title)
                   end
                 end

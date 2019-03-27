@@ -76,7 +76,7 @@ module GobiertoAdmin
 
                 assert_equal charter.id, new_commitment.charter_id
 
-                within "#commitment-item-#{ new_commitment.id }" do
+                within "#commitment-item-#{new_commitment.id}" do
                   find("i.fa-edit").click
                 end
 

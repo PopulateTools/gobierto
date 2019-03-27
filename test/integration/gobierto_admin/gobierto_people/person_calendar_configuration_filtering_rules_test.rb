@@ -42,8 +42,8 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @person_events_path
 
-              click_link 'Agenda'
-              click_link 'Configuration'
+              click_link "Agenda"
+              click_link "Configuration"
 
               select "Title", from: "calendar_configuration_filtering_rules_attributes_0_field"
               select "Contains", from: "calendar_configuration_filtering_rules_attributes_0_condition"
@@ -52,7 +52,7 @@ module GobiertoAdmin
 
               click_link "Create rule"
 
-              new_node_id = page.all('.dynamic-content-record-form').last.all('select').first[:id].match(/\d+/)[0]
+              new_node_id = page.all(".dynamic-content-record-form").last.all("select").first[:id].match(/\d+/)[0]
 
               select "Title", from: "calendar_configuration_filtering_rules_attributes_#{new_node_id}_field"
               select "Contains", from: "calendar_configuration_filtering_rules_attributes_#{new_node_id}_condition"
@@ -63,7 +63,7 @@ module GobiertoAdmin
 
               assert has_message?("Settings updated successfully")
 
-              assert_equal 2, page.all('#filtering-rules tbody.dynamic-content-record-wrapper').size
+              assert_equal 2, page.all("#filtering-rules tbody.dynamic-content-record-wrapper").size
             end
           end
         end
@@ -75,16 +75,16 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @person_events_path
 
-              click_link 'Agenda'
-              click_link 'Configuration'
+              click_link "Agenda"
+              click_link "Configuration"
 
-              page.find('[data-behavior="delete_record"]').trigger('click')
+              page.find('[data-behavior="delete_record"]').trigger("click")
 
               click_button "Update"
 
               assert has_message?("Settings updated successfully")
 
-              assert_equal 1, page.all('#filtering-rules tbody.dynamic-content-record-wrapper').size
+              assert_equal 1, page.all("#filtering-rules tbody.dynamic-content-record-wrapper").size
             end
           end
         end

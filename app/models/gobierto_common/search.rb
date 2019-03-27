@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class Search
 
@@ -11,17 +13,17 @@ module GobiertoCommon
       s.algolia_search_api_key.present?
     end
 
-    def initialize(site, current_module_class=nil)
+    def initialize(site, current_module_class = nil)
       @site = site
       @current_module_class = current_module_class || GobiertoCms
     end
 
     def search_in_indexes
-      add_quotes = -> x{"'#{x}'"}
+      add_quotes = ->x { "'#{x}'" }
 
       models_to_search.map do |model|
         model.search_index_name
-      end.map(&add_quotes).join(',')
+      end.map(&add_quotes).join(",")
     end
 
     private

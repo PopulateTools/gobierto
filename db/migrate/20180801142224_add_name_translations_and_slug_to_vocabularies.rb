@@ -26,7 +26,8 @@ class AddNameTranslationsAndSlugToVocabularies < ActiveRecord::Migration[5.2]
   def slug(vocabulary)
     slug_core = vocabulary.attributes["name"].tr(" ", "_").parameterize
     return slug_core unless vocabulary.site.vocabularies.where(slug: slug_core).exists?
-    "#{ slug_core }-#{ vocabulary.site.vocabularies.where(slug: slug_core).count + 1 }"
+
+    "#{slug_core}-#{vocabulary.site.vocabularies.where(slug: slug_core).count + 1}"
   end
 
   def delocalized_name_attr(vocabulary)

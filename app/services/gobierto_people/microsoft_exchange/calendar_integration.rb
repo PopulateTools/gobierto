@@ -129,7 +129,7 @@ module GobiertoPeople
       end
 
       def is_private?(calendar_item)
-        %w( Private ).include?(calendar_item.sensitivity)
+        %w(Private).include?(calendar_item.sensitivity)
       end
 
       def mark_unreceived_events_as_drafts(calendar_items)

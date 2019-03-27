@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module LocationsHelper
     def external_location_service_url(location)
@@ -6,11 +8,11 @@ module GobiertoPeople
 
     def gobierto_people_past_events_for_people_group_url(people_group)
       case people_group
-      when 'government'
+      when "government"
         gobierto_people_government_party_past_events_path
-      when 'opposition'
+      when "opposition"
         gobierto_people_opposition_party_past_events_path
-      when 'executive'
+      when "executive"
         gobierto_people_executive_category_past_events_path
       end
     end

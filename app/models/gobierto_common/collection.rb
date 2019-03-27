@@ -103,7 +103,7 @@ module GobiertoCommon
     end
 
     def is_a_collection_of_participation_news?
-      container.is_a?(::GobiertoParticipation::Process) && item_type == 'GobiertoCms::News'
+      container.is_a?(::GobiertoParticipation::Process) && item_type == "GobiertoCms::News"
     end
 
     def public?

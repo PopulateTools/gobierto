@@ -60,10 +60,8 @@ module GobiertoParticipation
       # ends && (ends < Time.zone.now)
       if position < current_stage.position
         true
-      elsif id < current_stage.id
-        true
       else
-        false
+        id < current_stage.id
       end
     end
 
@@ -71,10 +69,8 @@ module GobiertoParticipation
       if current_stage
         if position > current_stage.position
           true
-        elsif id > current_stage.id
-          true
         else
-          false
+          id > current_stage.id
         end
       else
         false

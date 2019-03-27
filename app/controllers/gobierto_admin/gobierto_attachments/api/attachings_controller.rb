@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoAttachments
     module Api
@@ -16,7 +18,7 @@ module GobiertoAdmin
         def destroy
           @attachable.unlink_attachment(@attachment)
 
-          render json: { message: 'destroyed' }
+          render json: { message: "destroyed" }
         end
 
         private

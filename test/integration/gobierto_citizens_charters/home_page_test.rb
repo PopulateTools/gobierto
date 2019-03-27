@@ -43,11 +43,11 @@ module GobiertoCitizensCharters
         assert has_css?(".charters-box-container")
 
         within "div.charters-box--lead div.results-value" do
-          assert has_content? "#{ percentage.round(1) }%"
+          assert has_content? "#{percentage.round(1)}%"
         end
 
         charters.each do |charter|
-          within "#charter-#{ charter.id }" do
+          within "#charter-#{charter.id}" do
             assert has_content? charter.title
           end
         end

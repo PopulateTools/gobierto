@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include Authentication::Authenticable
   include Authentication::Confirmable
@@ -39,7 +41,7 @@ class User < ApplicationRecord
 
   def site_verification(site)
     @user_verifications ||= {}
-    @user_verifications[site] ||= census_verifications.find_by(site_id: site.id, user_id: self.id, verified: true)
+    @user_verifications[site] ||= census_verifications.find_by(site_id: site.id, user_id: id, verified: true)
     @user_verifications[site]
   end
 

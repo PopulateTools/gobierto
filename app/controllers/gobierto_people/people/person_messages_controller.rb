@@ -25,8 +25,8 @@ module GobiertoPeople
 
           redirect_to new_gobierto_people_person_messages_path(@person.slug), notice: t(".success")
         else
-          flash.now[:alert] = t('.error')
-          render 'new'
+          flash.now[:alert] = t(".error")
+          render "new"
         end
       end
 
@@ -38,7 +38,7 @@ module GobiertoPeople
 
       def default_params
         if user_signed_in?
-          {name: current_user.name, email: current_user.email}
+          { name: current_user.name, email: current_user.email }
         else
           {}
         end

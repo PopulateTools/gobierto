@@ -20,20 +20,20 @@ module GobiertoAdmin
         @calendar_configuration_attributes ||= {
           current_site: site,
           collection: collection,
-          calendar_integration: 'ibm_notes',
-          ibm_notes_usr: 'ibm-username',
-          ibm_notes_pwd: 'ibm-password',
-          ibm_notes_url: 'http://calendar-endpoint.com',
-          without_description: '0'
+          calendar_integration: "ibm_notes",
+          ibm_notes_usr: "ibm-username",
+          ibm_notes_pwd: "ibm-password",
+          ibm_notes_url: "http://calendar-endpoint.com",
+          without_description: "0"
         }
       end
 
       def microsfot_exchange_configuration
         @microsoft_exchange_configuration ||= {
-          microsoft_exchange_usr: 'me-username',
-          microsoft_exchange_pwd: 'me-password',
-          microsoft_exchange_url: 'http://example.com/ews/exchange.asmx',
-          without_description: '0'
+          microsoft_exchange_usr: "me-username",
+          microsoft_exchange_pwd: "me-password",
+          microsoft_exchange_url: "http://example.com/ews/exchange.asmx",
+          without_description: "0"
         }
       end
 
@@ -41,7 +41,7 @@ module GobiertoAdmin
         @microsoft_exchange_credentials ||= {
           current_site: site,
           collection: collection,
-          calendar_integration: 'microsoft_exchange'
+          calendar_integration: "microsoft_exchange"
         }.merge(microsfot_exchange_configuration)
       end
 
@@ -56,10 +56,10 @@ module GobiertoAdmin
 
         assert calendar_configuration_form.save
 
-        assert_equal 'ibm_notes', collection.calendar_configuration.integration_name
-        assert_equal 'ibm-username', calendar_conf['ibm_notes_usr']
-        assert_equal 'ibm-password', ::SecretAttribute.decrypt(calendar_conf['ibm_notes_pwd'])
-        assert_equal 'http://calendar-endpoint.com', calendar_conf['ibm_notes_url']
+        assert_equal "ibm_notes", collection.calendar_configuration.integration_name
+        assert_equal "ibm-username", calendar_conf["ibm_notes_usr"]
+        assert_equal "ibm-password", ::SecretAttribute.decrypt(calendar_conf["ibm_notes_pwd"])
+        assert_equal "http://calendar-endpoint.com", calendar_conf["ibm_notes_url"]
       end
 
       def test_save_microsoft_exchange_calendar_configuration
@@ -69,10 +69,10 @@ module GobiertoAdmin
 
         assert calendar_configuration_form.save
 
-        assert_equal 'microsoft_exchange', collection.calendar_configuration.integration_name
-        assert_equal 'http://example.com/ews/exchange.asmx', calendar_conf['microsoft_exchange_url']
-        assert_equal 'me-username', calendar_conf['microsoft_exchange_usr']
-        assert_equal 'me-password', ::SecretAttribute.decrypt(calendar_conf['microsoft_exchange_pwd'])
+        assert_equal "microsoft_exchange", collection.calendar_configuration.integration_name
+        assert_equal "http://example.com/ews/exchange.asmx", calendar_conf["microsoft_exchange_url"]
+        assert_equal "me-username", calendar_conf["microsoft_exchange_usr"]
+        assert_equal "me-password", ::SecretAttribute.decrypt(calendar_conf["microsoft_exchange_pwd"])
       end
 
       def test_save_incomplete_calendar_configuration
@@ -92,8 +92,8 @@ module GobiertoAdmin
 
         calendar_configuration = collection.calendar_configuration
 
-        microsoft_exchange_keys = ['microsoft_exchange_usr', 'microsoft_exchange_pwd', 'microsoft_exchange_url', 'without_description']
-        ibm_notes_keys = ['ibm_notes_usr', 'ibm_notes_pwd', 'ibm_notes_url', 'without_description']
+        microsoft_exchange_keys = ["microsoft_exchange_usr", "microsoft_exchange_pwd", "microsoft_exchange_url", "without_description"]
+        ibm_notes_keys = ["ibm_notes_usr", "ibm_notes_pwd", "ibm_notes_url", "without_description"]
 
         assert array_match(microsoft_exchange_keys, calendar_configuration.data.keys)
 
@@ -129,7 +129,7 @@ module GobiertoAdmin
 
         configure_microsoft_exchange_calendar_integration(
           collection: collection,
-          data: { microsoft_exchange_pwd: '' }
+          data: { microsoft_exchange_pwd: "" }
         )
 
         form = CalendarConfigurationForm.new(collection: collection)

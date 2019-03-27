@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoParticipation
   module Processes
@@ -46,33 +46,33 @@ module GobiertoParticipation
             visit process_polls_path
 
             within "#poll_#{poll.id}" do
-              click_link 'Participate in this poll'
+              click_link "Participate in this poll"
             end
 
             # answer first question
 
-            find('label', text: 'Si').trigger(:click)
+            find("label", text: "Si").trigger(:click)
 
-            find('input.next_question').click
+            find("input.next_question").click
 
             # answer second question
 
-            find('label', text: 'Horarios').trigger(:click)
-            find('label', text: 'Características de los cenadores').trigger(:click)
+            find("label", text: "Horarios").trigger(:click)
+            find("label", text: "Características de los cenadores").trigger(:click)
 
-            find('input.next_question').click
+            find("input.next_question").click
 
             # answer third question
 
-            fill_in 'poll[questions_attributes][2][answers_attributes][0][text]', with: 'Some text…'
+            fill_in "poll[questions_attributes][2][answers_attributes][0][text]", with: "Some text…"
 
             # submit poll answers
 
-            find('input.next_question').click
+            find("input.next_question").click
 
             sleep 1
 
-            click_link 'x'
+            click_link "x"
 
             answers = poll.answers.by_user(user)
             fixed_answers = answers.fixed_answers
@@ -81,10 +81,10 @@ module GobiertoParticipation
             assert_equal 3, fixed_answers.size
             assert_equal 1, open_answers.size
 
-            fixed_answers_text = fixed_answers.map{ |a| a.answer_template.text }
+            fixed_answers_text = fixed_answers.map { |a| a.answer_template.text }
 
-            assert array_match(['Si', 'Horarios', 'Características de los cenadores'], fixed_answers_text)
-            assert_equal 'Some text…', open_answers.first.text
+            assert array_match(["Si", "Horarios", "Características de los cenadores"], fixed_answers_text)
+            assert_equal "Some text…", open_answers.first.text
           end
         end
       end
@@ -94,7 +94,7 @@ module GobiertoParticipation
 
           visit answer_poll_path
 
-          assert has_message? 'You have already participated in this poll'
+          assert has_message? "You have already participated in this poll"
         end
       end
 

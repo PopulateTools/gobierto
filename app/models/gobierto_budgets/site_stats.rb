@@ -95,6 +95,7 @@ module GobiertoBudgets
     def population(year = nil)
       year ||= @year
       return nil if @empty_population
+
       @data[:population][year] ||= SearchEngine.client.get(index: SearchEngineConfiguration::Data.index,
                                                            type: SearchEngineConfiguration::Data.type_population, id: [@site.organization_id, year].join("/"))["_source"]["value"]
       @data[:population][year]
@@ -116,7 +117,7 @@ module GobiertoBudgets
         total_expense += get_expense_budget_line(year, code)
       end
 
-      return (total_income - total_expense - get_expense_budget_line(year, 9)).round(2)
+      (total_income - total_expense - get_expense_budget_line(year, 9)).round(2)
     end
 
     def debt_level(year = nil)
@@ -131,6 +132,7 @@ module GobiertoBudgets
       end
 
       return 0 if total_income == 0
+
       ((debt / total_income) * 100).round(2)
     end
 
@@ -186,6 +188,7 @@ module GobiertoBudgets
                v1 = send(variable1, year)
                v2 = send(variable2, year)
                return nil if v1.nil? || v2.nil?
+
                ((v1.to_f - v2.to_f) / v2.to_f) * 100
       end
       total_income = 0
@@ -202,7 +205,7 @@ module GobiertoBudgets
         direction = I18n.t("gobierto_budgets.budgets.index.more")
       end
 
-      "#{ ActionController::Base.helpers.number_with_precision(diff, precision: 2) } % #{ direction }"
+      "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)} % #{direction}"
     end
 
     def main_budget_lines_summary
@@ -221,6 +224,7 @@ module GobiertoBudgets
       main_budget_lines_execution.each do |budget_line|
         executed_amount = budget_line.amount
         next unless main_budget_lines_summary[budget_line.code]
+
         budgeted_amount = main_budget_lines_summary[budget_line.code][:budgeted_amount]
         main_budget_lines_summary[budget_line.code].merge!(
           executed_amount: executed_amount,

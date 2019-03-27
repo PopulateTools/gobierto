@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 require_dependency Rails.root.join("lib/publisher")
 require_dependency Rails.root.join("app/publishers/base")

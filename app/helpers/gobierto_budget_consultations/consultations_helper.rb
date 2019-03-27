@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgetConsultations
   module ConsultationsHelper
     def budget_amount_to_human(budget_amount)

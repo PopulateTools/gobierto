@@ -3,7 +3,7 @@
 module Subscribers
   class AdminGobiertoCalendarsActivity < ::Subscribers::Base
     def calendars_synchronized(event)
-      create_activity_from_event(event, 'admin_gobierto_calendars.calendars_synchronized')
+      create_activity_from_event(event, "admin_gobierto_calendars.calendars_synchronized")
     end
 
     private
@@ -18,5 +18,3 @@ module Subscribers
     end
   end
 end
-
-

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class SessionsController < BaseController
     skip_before_action :authenticate_admin!, only: [:new, :create, :destroy]

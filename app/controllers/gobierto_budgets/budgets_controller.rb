@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationController
   before_action :load_year, except: [:guide]
 

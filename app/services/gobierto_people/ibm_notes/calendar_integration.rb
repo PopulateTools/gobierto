@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/ibm_notes/api"
 
 module GobiertoPeople
@@ -10,12 +11,12 @@ module GobiertoPeople
       attr_reader :person, :calendar_configuration
 
       def self.recurring_event?(event_data)
-        event_data['links'].present? && has_instances_link?(event_data['links'])
+        event_data["links"].present? && has_instances_link?(event_data["links"])
       end
 
       def self.has_instances_link?(links_data)
         links_data.each do |element|
-          return true if (element['rel'].present? && element['rel'] == 'instances')
+          return true if (element["rel"].present? && element["rel"] == "instances")
         end
         false
       end
@@ -40,9 +41,9 @@ module GobiertoPeople
 
           response_data = ::IbmNotes::Api.get_event(request_params_for_event_request(event_url))
 
-          next if response_data.nil? || response_data['events'].blank?
+          next if response_data.nil? || response_data["events"].blank?
 
-          event_data = response_data['events'][0]
+          event_data = response_data["events"][0]
 
           process_event(event_data, event_url)
         end.compact.flatten
@@ -93,7 +94,7 @@ module GobiertoPeople
           ends_at: ibm_notes_event.ends_at,
           state: state,
           attendees: ibm_notes_event.attendees,
-          locations_attributes: {"0" => locations_attributes },
+          locations_attributes: { "0" => locations_attributes },
           notify: true,
           integration_name: calendar_configuration.integration_name
         }
@@ -120,8 +121,8 @@ module GobiertoPeople
         response_events = ::IbmNotes::Api.get_person_events(request_params_for_events)
 
         # some APIs return an empty array when no events instead of a hash
-        if response_events && response_events.is_a?(Hash) && response_events['events'].present?
-          response_events['events'].map { |event_data| event_data['href'] }
+        if response_events && response_events.is_a?(Hash) && response_events["events"].present?
+          response_events["events"].map { |event_data| event_data["href"] }
         else
           []
         end
@@ -164,8 +165,8 @@ module GobiertoPeople
           instances_urls.each do |event_url|
             response_event = ::IbmNotes::Api.get_event(request_params_for_event_request(event_url))
 
-            if response_event && response_event['events'].present?
-              ibm_event = ::IbmNotes::PersonEvent.new(person, response_event['events'][0])
+            if response_event && response_event["events"].present?
+              ibm_event = ::IbmNotes::PersonEvent.new(person, response_event["events"][0])
               processed_events_ids << sync_event(ibm_event)
             end
           end
@@ -178,7 +179,7 @@ module GobiertoPeople
       end
 
       def sync_range_start
-        (GobiertoCalendars.sync_range_start - 2.days).iso8601.split('+')[0].concat('Z')
+        (GobiertoCalendars.sync_range_start - 2.days).iso8601.split("+")[0].concat("Z")
       end
 
       def plain_text_password

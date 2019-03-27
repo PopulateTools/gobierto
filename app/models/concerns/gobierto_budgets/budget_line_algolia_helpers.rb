@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   module BudgetLineAlgoliaHelpers
     extend ActiveSupport::Concern
@@ -5,13 +7,13 @@ module GobiertoBudgets
     class_methods do
 
       def search_index_name
-        "#{APP_CONFIG["site"]["name"]}_#{Rails.env}_#{self.name}"
+        "#{APP_CONFIG["site"]["name"]}_#{Rails.env}_#{name}"
       end
 
       def algolia_index
         @algolia_index ||= begin
           index = Algolia::Index.new(search_index_name)
-          index.set_settings({ attributesForFaceting: [ 'site_id' ] })
+          index.set_settings({ attributesForFaceting: ["site_id"] })
           index
         end
       end
@@ -22,7 +24,7 @@ module GobiertoBudgets
       end
 
       def algolia_destroy_records(site)
-        algolia_index.delete_by_query('', filters: "site_id:#{site.id}")
+        algolia_index.delete_by_query("", filters: "site_id:#{site.id}")
       end
 
     end

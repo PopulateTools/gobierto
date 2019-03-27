@@ -50,6 +50,7 @@ module GobiertoBudgets
       (1..4).map do |level|
         collect_amounts(area, level, index).map do |codes, amount|
           next if amount.round(2) == 0.0
+
           {
             index: {
               _index: index,
@@ -75,10 +76,11 @@ module GobiertoBudgets
           partition_filter = ->(item) { item.code(area, level) == area_codes[:code] }
           collect_amounts(EconomicArea, 1, index, partition_filter).map do |economic_codes, amount|
             next if amount.round(2) == 0.0
+
             {
               index: {
                 _index: index,
-                _id: [organization_id, year, "#{ area_codes[:code] }-#{ economic_codes[:code] }#{ AREA_KEYS[area][:suffix] }", kind].join("/"),
+                _id: [organization_id, year, "#{area_codes[:code]}-#{economic_codes[:code]}#{AREA_KEYS[area][:suffix]}", kind].join("/"),
                 _type: EconomicArea.area_name,
                 data: base_data.merge(amount: amount.round(2),
                                       code: economic_codes[:code],

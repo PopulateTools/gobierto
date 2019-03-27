@@ -47,6 +47,7 @@ module GobiertoAdmin
       (0..5).each do |i|
         define_method "level_#{i}" do
           return unless i <= instance_options[:plan].levels
+
           instance_options[:plan].categories.find(categories_hierarchy[i]).name_translations
         end
       end
@@ -54,7 +55,7 @@ module GobiertoAdmin
       private
 
       def base_categories_relation
-        (instance_options[:plan] || object).categories.joins(Arel.sql("JOIN #{ categories_nodes_table } AS cnt ON cnt.category_id = #{ categories_table }.id"))
+        (instance_options[:plan] || object).categories.joins(Arel.sql("JOIN #{categories_nodes_table} AS cnt ON cnt.category_id = #{categories_table}.id"))
       end
 
       def categories_nodes_table

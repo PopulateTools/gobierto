@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddBodySourceToCmsPages < ActiveRecord::Migration[5.1]
   def change
     add_column :gcms_pages, :body_source_translations, :jsonb

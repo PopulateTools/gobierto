@@ -95,7 +95,7 @@ class User::SubscriptionsController < User::BaseController
   end
 
   def get_user_notification_modules
-    current_site.configuration.modules_with_notifications.map{ |m| [m.underscore, m.underscore] }
+    current_site.configuration.modules_with_notifications.map { |m| [m.underscore, m.underscore] }
   end
 
   def get_user_notification_gobierto_people_people

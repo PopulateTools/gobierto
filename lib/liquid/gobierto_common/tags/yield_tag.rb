@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class YieldTag < ::Liquid::Tag
   Syntax = /(#{::Liquid::QuotedFragment}+)/
 
@@ -5,7 +7,7 @@ class YieldTag < ::Liquid::Tag
     super
 
     if markup =~ Syntax
-      @identifier = $1.gsub('\'', '').to_sym
+      @identifier = $1.gsub("'", "").to_sym
     else
       raise SyntaxError.new("Syntax Error - Valid syntax: {% yield [name] %}")
     end
@@ -18,4 +20,4 @@ class YieldTag < ::Liquid::Tag
   end
 end
 
-Liquid::Template.register_tag('yield', YieldTag)
+Liquid::Template.register_tag("yield", YieldTag)

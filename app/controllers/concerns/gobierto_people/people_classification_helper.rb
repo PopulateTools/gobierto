@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module PeopleClassificationHelper
     extend ActiveSupport::Concern
 
     private
 
-    def set_present_groups(relation=nil)
+    def set_present_groups(relation = nil)
       relation ||= current_site.people.active
       @present_groups = relation.presence_by_group_type
     end
 
-    def set_present_groups_with_published_activities(relation=nil)
+    def set_present_groups_with_published_activities(relation = nil)
       set_present_groups(relation)
       events = GobiertoCalendars::Event.published.by_site(current_site).person_events
 

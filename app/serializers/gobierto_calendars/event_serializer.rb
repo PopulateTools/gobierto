@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoCalendars::EventSerializer < ActiveModel::Serializer
   attributes :id, :creator_id, :creator_name, :title, :description, :starts_at, :ends_at, :created_at, :updated_at
 

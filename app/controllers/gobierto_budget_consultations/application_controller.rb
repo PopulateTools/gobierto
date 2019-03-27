@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgetConsultations
   class ApplicationController < ::ApplicationController
     include User::SessionHelper
@@ -14,7 +16,7 @@ module GobiertoBudgetConsultations
 
     def check_not_responded
       if @consultation && user_signed_in? && @consultation.already_responded?(current_user)
-        flash[:alert] = t('gobierto_budget_consultations.layouts.errors.already_responded')
+        flash[:alert] = t("gobierto_budget_consultations.layouts.errors.already_responded")
         redirect_to gobierto_budget_consultations_consultation_show_confirmation_path(@consultation) and return false
       end
     end

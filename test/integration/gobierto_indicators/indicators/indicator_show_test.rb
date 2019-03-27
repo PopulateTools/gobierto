@@ -74,8 +74,8 @@ module GobiertoIndicators
           assert has_content? "Nombre total de llars"
           assert has_content? "16366"
 
-          within 'li.item.item-lvl-2' do
-            find('div[class=item-text]').trigger('click')
+          within "li.item.item-lvl-2" do
+            find("div[class=item-text]").trigger("click")
           end
 
           assert has_content? "Nombre total de llars"

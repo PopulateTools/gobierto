@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class Census::ImportsController < BaseController
     def new
@@ -34,7 +36,7 @@ module GobiertoAdmin
     end
 
     def track_create_activity
-      Publishers::CensusActivity.broadcast_event("census_imported", default_activity_params.merge({subject: @census_import_form.census_import}))
+      Publishers::CensusActivity.broadcast_event("census_imported", default_activity_params.merge({ subject: @census_import_form.census_import }))
     end
 
     def default_activity_params

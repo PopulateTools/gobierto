@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SiteCollectionDecorator < BaseDecorator
   attr_reader :collection
 

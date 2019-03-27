@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   module Api
     class CategoriesController < ApplicationController
@@ -17,7 +19,7 @@ module GobiertoBudgets
 
             area.available_kinds.each do |kind|
               categories[area.area_name] ||= {}
-              categories[area.area_name][kind] = Hash[area.all_items[kind].sort_by{ |k,v| k.to_f }]
+              categories[area.area_name][kind] = Hash[area.all_items[kind].sort_by { |k, v| k.to_f }]
             end
           end
 
@@ -28,7 +30,7 @@ module GobiertoBudgets
           end
         else
           area = BudgetArea.klass_for(area_name)
-          categories = Hash[area.all_items[kind].sort_by{ |k,v| k.to_f }]
+          categories = Hash[area.all_items[kind].sort_by { |k, v| k.to_f }]
         end
 
 

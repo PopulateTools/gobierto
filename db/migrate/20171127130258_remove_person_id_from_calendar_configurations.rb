@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemovePersonIdFromCalendarConfigurations < ActiveRecord::Migration[5.1]
 
   def up
@@ -11,7 +13,7 @@ class RemovePersonIdFromCalendarConfigurations < ActiveRecord::Migration[5.1]
     add_column :gc_calendar_configurations, :person_id, :bigint
     change_column :gc_calendar_configurations, :collection_id, :bigint, null: true
     change_column :gc_calendar_configurations, :integration_name, :string, null: true
-    remove_index :gc_calendar_configurations, name: 'index_gc_calendar_configurations_on_collection_id'
+    remove_index :gc_calendar_configurations, name: "index_gc_calendar_configurations_on_collection_id"
   end
 
 end

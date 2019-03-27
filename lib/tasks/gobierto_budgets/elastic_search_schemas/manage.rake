@@ -55,19 +55,19 @@ namespace :gobierto_budgets do
         GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
           type.to_sym => {
             properties: {
-              ine_code:              { type: 'integer', index: 'not_analyzed' },
-              organization_id:       { type: 'string',  index: 'not_analyzed' },
-              year:                  { type: 'integer', index: 'not_analyzed' },
-              amount:                { type: 'double', index: 'not_analyzed'  },
-              code:                  { type: 'string', index: 'not_analyzed'  },
-              parent_code:           { type: 'string', index: 'not_analyzed'  },
-              functional_code:       { type: 'string', index: 'not_analyzed'  },
-              custom_code:           { type: 'string', index: 'not_analyzed'  },
-              level:                 { type: 'integer', index: 'not_analyzed' },
-              kind:                  { type: 'string', index: 'not_analyzed'  }, # income I / expense G
-              province_id:           { type: 'integer', index: 'not_analyzed' },
-              autonomy_id:           { type: 'integer', index: 'not_analyzed' },
-              amount_per_inhabitant: { type: 'double', index: 'not_analyzed'  }
+              ine_code:              { type: "integer", index: "not_analyzed" },
+              organization_id:       { type: "string",  index: "not_analyzed" },
+              year:                  { type: "integer", index: "not_analyzed" },
+              amount:                { type: "double", index: "not_analyzed"  },
+              code:                  { type: "string", index: "not_analyzed"  },
+              parent_code:           { type: "string", index: "not_analyzed"  },
+              functional_code:       { type: "string", index: "not_analyzed"  },
+              custom_code:           { type: "string", index: "not_analyzed"  },
+              level:                 { type: "integer", index: "not_analyzed" },
+              kind:                  { type: "string", index: "not_analyzed"  }, # income I / expense G
+              province_id:           { type: "integer", index: "not_analyzed" },
+              autonomy_id:           { type: "integer", index: "not_analyzed" },
+              amount_per_inhabitant: { type: "double", index: "not_analyzed"  }
             }
           }
         }
@@ -86,14 +86,14 @@ namespace :gobierto_budgets do
         GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
           type.to_sym => {
             properties: {
-              ine_code:        { type: 'integer', index: 'not_analyzed' },
-              organization_id: { type: 'string',  index: 'not_analyzed' },
-              kind:            { type: 'string',  index: 'not_analyzed' },  # income I / expense G
-              code:            { type: 'string',  index: 'not_analyzed' },
+              ine_code:        { type: "integer", index: "not_analyzed" },
+              organization_id: { type: "string",  index: "not_analyzed" },
+              kind:            { type: "string",  index: "not_analyzed" },  # income I / expense G
+              code:            { type: "string",  index: "not_analyzed" },
               values: {
                 properties: {
-                  date:        { type: 'string',  index: 'not_analyzed' },
-                  amount:      { type: 'double',  index: 'not_analyzed' }
+                  date:        { type: "string",  index: "not_analyzed" },
+                  amount:      { type: "double",  index: "not_analyzed" }
                 }
               }
             }
@@ -101,7 +101,7 @@ namespace :gobierto_budgets do
         }
       end
 
-      desc 'Reset ElasticSearch'
+      desc "Reset ElasticSearch"
       task :reset => :environment do
         indexes.each do |index|
           if GobiertoBudgets::SearchEngine.client.indices.exists? index: index
@@ -111,7 +111,7 @@ namespace :gobierto_budgets do
         end
       end
 
-      desc 'Create mappings'
+      desc "Create mappings"
       task :create => :environment do
         indexes.each do |index|
           unless GobiertoBudgets::SearchEngine.client.indices.exists? index: index

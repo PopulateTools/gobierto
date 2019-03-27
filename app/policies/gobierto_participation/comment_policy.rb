@@ -10,6 +10,7 @@ module GobiertoParticipation
 
     def create?
       return false unless @current_user.present?
+
       true
     end
   end

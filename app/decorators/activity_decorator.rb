@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActivityDecorator < BaseDecorator
   def initialize(activity)
     @object = activity
@@ -38,8 +40,8 @@ class ActivityDecorator < BaseDecorator
   end
 
   def i18n_key
-    object_module = @object.action.split('.').first
+    object_module = @object.action.split(".").first
 
-    ["#{object_module}.events.#{@object.action.tr('.', '_')}", { subject_name: subject_name }]
+    ["#{object_module}.events.#{@object.action.tr(".", "_")}", { subject_name: subject_name }]
   end
 end

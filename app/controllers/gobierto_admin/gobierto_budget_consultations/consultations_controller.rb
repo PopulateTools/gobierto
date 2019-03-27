@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     class ConsultationsController < BaseController
@@ -94,7 +96,7 @@ module GobiertoAdmin
       end
 
       def ignored_consultation_attributes
-        %w( created_at updated_at budget_amount )
+        %w(created_at updated_at budget_amount)
       end
 
       def gobierto_budget_consultations_consultation_preview_url(consultation, options = {})

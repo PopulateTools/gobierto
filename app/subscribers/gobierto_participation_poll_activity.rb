@@ -4,11 +4,11 @@ module Subscribers
   class GobiertoParticipationPollActivity < ::Subscribers::Base
 
     def poll_created(event)
-      create_activity_from_event(event, 'gobierto_participation.poll_created')
+      create_activity_from_event(event, "gobierto_participation.poll_created")
     end
 
     def poll_updated(event)
-      create_activity_from_event(event, 'gobierto_participation.poll_updated')
+      create_activity_from_event(event, "gobierto_participation.poll_updated")
     end
 
     private

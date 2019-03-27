@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     module GoogleCalendar
@@ -27,7 +29,7 @@ module GobiertoPeople
             @configuration.google_calendar_credentials = { GobiertoPeople::GoogleCalendar::CalendarIntegration::USERNAME => auth_client.to_json }.to_yaml
             @configuration.save!
 
-            redirect_to edit_gobierto_people_person_google_calendar_calendars_url(@person.slug, host: @person.site.domain), notice: t('.success')
+            redirect_to edit_gobierto_people_person_google_calendar_calendars_url(@person.slug, host: @person.site.domain), notice: t(".success")
           end
         end
 
@@ -43,13 +45,13 @@ module GobiertoPeople
 
         def load_google_calendar_configuration
           @configuration = ::GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: @person.calendar.id) || build_google_calendar_configuration
-          @configuration.integration_name = 'google_calendar'
+          @configuration.integration_name = "google_calendar"
         end
 
         def build_google_calendar_configuration
           ::GobiertoCalendars::GoogleCalendarConfiguration.new(
             collection: @person.calendar,
-            integration_name: 'google_calendar',
+            integration_name: "google_calendar",
             data: {}
           )
         end

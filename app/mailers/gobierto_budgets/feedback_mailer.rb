@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class FeedbackMailer < ApplicationMailer
     def new_feedback_request(args)
-      @body = args[:budget_line_name].nil? ? t('.body_budgets', person_email: args[:person_email]) : t('.body', budget_line_name: args[:budget_line_name], person_email: args[:person_email], year: args[:year])
+      @body = args[:budget_line_name].nil? ? t(".body_budgets", person_email: args[:person_email]) : t(".body", budget_line_name: args[:budget_line_name], person_email: args[:person_email], year: args[:year])
       @site = args[:site]
       @site_host = site_host
 
       mail(
         from: from,
         to: args[:to],
-        bcc: 'gobierto_notifications@gobierto.es',
-        subject: t('.subject')
+        bcc: "gobierto_notifications@gobierto.es",
+        subject: t(".subject")
       )
     end
   end

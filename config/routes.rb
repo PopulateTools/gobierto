@@ -214,7 +214,7 @@ Rails.application.routes.draw do
         resources :collections, only: [:index]
         resources :calendar_configurations, only: [:edit, :update], controller: "calendar_configuration", as: :configurations, path: :configurations do
           member do
-            put 'sync_calendars'
+            put "sync_calendars"
           end
         end
       end
@@ -471,15 +471,15 @@ Rails.application.routes.draw do
     end
 
     # Gobierto Attachments module
-    namespace :gobierto_attachments, path: 'docs' do
+    namespace :gobierto_attachments, path: "docs" do
       constraints GobiertoSiteConstraint.new do
-        resources :attachments, only: [:show], path: ''
+        resources :attachments, only: [:show], path: ""
       end
     end
 
     namespace :gobierto_attachments, path: "" do
       constraints GobiertoSiteConstraint.new do
-        get "/documento/:id" => 'attachment_documents#show', as: :document
+        get "/documento/:id" => "attachment_documents#show", as: :document
       end
     end
 

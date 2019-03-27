@@ -31,7 +31,7 @@ module GobiertoBudgets
       end
 
       if total > 0
-        "#{ ((this_answer.to_f / total.to_f) * 100).to_i } %"
+        "#{((this_answer.to_f / total.to_f) * 100).to_i} %"
       else
         "0%"
       end

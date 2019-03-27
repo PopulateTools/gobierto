@@ -25,7 +25,7 @@ class ListChildrenPages < Liquid::Tag
       return ""
     end
   rescue ActiveRecord::RecordNotFound
-    return ""
+    ""
   end
 
   def children_pages(nodes, level)

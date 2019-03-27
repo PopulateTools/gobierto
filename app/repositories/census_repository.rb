@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency 'secret_attribute'
+require_dependency "secret_attribute"
 
 class CensusRepository
   attr_reader(
@@ -86,8 +86,8 @@ class CensusRepository
 
   def parse_document_number(document_number)
     document_number.
-      gsub(/\s+/, '').
-      gsub(/\W/, '').
+      gsub(/\s+/, "").
+      gsub(/\W/, "").
       upcase
   end
 
@@ -99,26 +99,26 @@ class CensusRepository
     case document_number
       when /\A\d+([a-z])\z/i
         letter = Regexp.last_match(1)
-        alternatives.push(document_number.gsub(letter, ''))
-        alternatives.push('X' + document_number)
-        alternatives.push('X' + document_number.gsub(letter, ''))
+        alternatives.push(document_number.gsub(letter, ""))
+        alternatives.push("X" + document_number)
+        alternatives.push("X" + document_number.gsub(letter, ""))
       when /\AX0\d+([a-z])\z/i
         letter = Regexp.last_match(1)
-        changes = [['XO','X'], ['XO', '0'], ['XO' '']]
+        changes = [["XO", "X"], ["XO", "0"], ["XO" ""]]
         changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
-        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last).gsub(letter, '')) }
-        alternatives.push(document_number.gsub(letter, ''))
+        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last).gsub(letter, "")) }
+        alternatives.push(document_number.gsub(letter, ""))
       when /\AX0\d+\z/i
-        changes = [['XO','X'], ['XO', '0'], ['XO' '']]
+        changes = [["XO", "X"], ["XO", "0"], ["XO" ""]]
         changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
       when /\AX\d+([a-z])\z/i
         letter = Regexp.last_match(1)
-        changes = [['X','X0'], ['X', '0'], ['X' '']]
+        changes = [["X", "X0"], ["X", "0"], ["X" ""]]
         changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
-        changes.map { |change| alternatives.push(document_number.gsub(letter, '').gsub(change.first, change.last)) }
-        alternatives.push(document_number.gsub(letter, ''))
+        changes.map { |change| alternatives.push(document_number.gsub(letter, "").gsub(change.first, change.last)) }
+        alternatives.push(document_number.gsub(letter, ""))
       when /\AX\d+\z/i
-        changes = [['X','X0'], ['X', '0'], ['X' '']]
+        changes = [["X", "X0"], ["X", "0"], ["X" ""]]
         changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
     end
 

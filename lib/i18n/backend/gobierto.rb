@@ -1,10 +1,12 @@
-require 'i18n/backend/base'
+# frozen_string_literal: true
+
+require "i18n/backend/base"
 
 module I18n
   module Backend
     class Gobierto
-      autoload :Translation,   'i18n/backend/gobierto/translation'
-      autoload :Configuration, 'i18n/backend/gobierto/configuration'
+      autoload :Translation,   "i18n/backend/gobierto/translation"
+      autoload :Configuration, "i18n/backend/gobierto/configuration"
 
       class << self
         def configure
@@ -20,11 +22,11 @@ module I18n
         include Base, Flatten
 
         def available_locales
-          begin
+
             Translation.available_locales
           rescue ::ActiveRecord::StatementInvalid
             []
-          end
+
         end
 
         def store_translations(locale, data, options = {})
@@ -46,16 +48,16 @@ module I18n
 
         def lookup(locale, key, scope = [], options = {})
           key = normalize_flat_keys(locale, key, scope, options[:separator])
-          if key.first == '.'
+          if key.first == "."
             key = key[1..-1]
           end
-          if key.last == '.'
+          if key.last == "."
             key = key[0..-2]
           end
 
           result = []
           if ::GobiertoCore::CurrentScope.current_site.present?
-            result = if key == ''
+            result = if key == ""
               Translation.find_entry(locale: locale, site: ::GobiertoCore::CurrentScope.current_site)
             else
               Translation.find_entry(locale: locale, site: ::GobiertoCore::CurrentScope.current_site, key: key)
@@ -63,7 +65,7 @@ module I18n
           end
 
           if result.empty?
-            result = if key == ''
+            result = if key == ""
               Translation.find_entry(locale: locale)
             else
               Translation.find_entry(locale: locale, key: key)
@@ -84,7 +86,7 @@ module I18n
 
         def build_translation_hash_by_key(lookup_key, translation)
           hash = {}
-          if lookup_key == ''
+          if lookup_key == ""
             chop_range = 0..-1
           else
             chop_range = (lookup_key.size + FLATTEN_SEPARATOR.size)..-1

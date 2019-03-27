@@ -57,7 +57,8 @@ module GobiertoBudgets
 
       def filename(format)
         raise UnsupportedFormat unless FORMATS.keys.include?(format.to_sym)
-        ["gobierto_budgets", site.organization_id, "data", "providers", "#{ year }.#{ format }"].join("/")
+
+        ["gobierto_budgets", site.organization_id, "data", "providers", "#{year}.#{format}"].join("/")
       end
 
       def format_data(format)
@@ -75,11 +76,11 @@ module GobiertoBudgets
       end
 
       def date_range
-        @date_range ||= "#{ year }0101-#{ year }1231"
+        @date_range ||= "#{year}0101-#{year}1231"
       end
 
       def format_uri(format)
-        URI("#{ endpoint }/datasets/ds-facturas-municipio.#{ format }?filter_by_location_id=#{ site.organization_id }&date_date_range=#{ date_range }&sort_asc_by=date")
+        URI("#{endpoint}/datasets/ds-facturas-municipio.#{format}?filter_by_location_id=#{site.organization_id}&date_date_range=#{date_range}&sort_asc_by=date")
       end
 
       def request_response(format)
@@ -87,12 +88,13 @@ module GobiertoBudgets
 
         res = Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
           req = Net::HTTP::Get.new uri
-          req["authorization"] = "Bearer #{ token }"
+          req["authorization"] = "Bearer #{token}"
           req["Origin"] = site.domain
           http.request req
         end
 
         return nil unless res.is_a? Net::HTTPSuccess
+
         res.body
       end
     end

@@ -97,6 +97,7 @@ module GobiertoParticipation
     def open?
       return false if starts.present? && starts > Time.zone.now
       return false if ends.present? && ends < Time.zone.now
+
       true
     end
 

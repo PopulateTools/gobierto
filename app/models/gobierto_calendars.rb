@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module GobiertoCalendars
 
   def self.table_name_prefix
-    'gc_'
+    "gc_"
   end
 
   def self.searchable_models
-    [ GobiertoCalendars::Event ]
+    [GobiertoCalendars::Event]
   end
 
   def self.sync_range_start

@@ -3,11 +3,11 @@
 module Subscribers
   class GobiertoCommonCollectionActivity < ::Subscribers::Base
     def collection_created(event)
-      create_activity_from_event(event, 'gobierto_common.collection_created')
+      create_activity_from_event(event, "gobierto_common.collection_created")
     end
 
     def collection_updated(event)
-      create_activity_from_event(event, 'gobierto_common.collection_updated')
+      create_activity_from_event(event, "gobierto_common.collection_updated")
     end
 
     private

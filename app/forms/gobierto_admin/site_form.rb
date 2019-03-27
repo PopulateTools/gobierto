@@ -62,7 +62,7 @@ module GobiertoAdmin
     def save
       if valid? && save_site
         after_save_callback
-        return site
+        site
       end
     end
 
@@ -203,7 +203,7 @@ module GobiertoAdmin
         site_attributes.configuration.password_protection_username = username
         site_attributes.configuration.password_protection_password = password
         site_attributes.configuration.default_locale = default_locale
-        site_attributes.configuration.available_locales = (available_locales.select{ |l| l.present? } + [default_locale]).uniq
+        site_attributes.configuration.available_locales = (available_locales.select { |l| l.present? } + [default_locale]).uniq
         site_attributes.configuration.privacy_page_id = privacy_page_id
         site_attributes.configuration.populate_data_api_token = populate_data_api_token
         site_attributes.configuration.raw_configuration_variables = raw_configuration_variables

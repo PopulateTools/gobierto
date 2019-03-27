@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoBudgets::ApplicationController < ApplicationController
   include User::SessionHelper
 

@@ -105,6 +105,7 @@ module GobiertoAdmin
       def tree(relation, level = 0)
         level_relation = relation.where(level: level).order(position: :asc)
         return [] if level_relation.blank?
+
         relation.where(level: level).map do |node|
           [node, tree(node.terms, level + 1)].flatten
         end.flatten

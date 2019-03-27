@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PeopleController < GobiertoPeople::ApplicationController
 
@@ -25,7 +27,7 @@ module GobiertoPeople
         format.html
         format.js
         format.json { render json: @people }
-        format.csv  { render csv: GobiertoExports::CSVRenderer.new(@people).to_csv, filename: 'people' }
+        format.csv  { render csv: GobiertoExports::CSVRenderer.new(@people).to_csv, filename: "people" }
       end
     end
 
@@ -34,7 +36,7 @@ module GobiertoPeople
       if valid_preview_token?
         redirect_to(
           gobierto_people_root_path,
-          alert: t('gobierto_admin.admin_unauthorized')
+          alert: t("gobierto_admin.admin_unauthorized")
         ) and return if !admin_permissions_for_person?
 
         people_scope = current_site.people
@@ -79,6 +81,7 @@ module GobiertoPeople
 
     def engine_people_resources_with_content
       return [] unless site_configuration_dates_range?
+
       GobiertoPeople.custom_engine_resources.select do |resources|
         submodule = resources == "events" ? "agendas" : resources
         active_submodules.include?(submodule) && instance_variable_get("@last_#{resources}")&.exists?
@@ -87,6 +90,7 @@ module GobiertoPeople
 
     def check_people_resources_with_content
       return unless (resources = engine_people_resources_with_content).count == 1
+
       resources = resources.first
       path = if resources == "events"
                if @upcoming_events.present?

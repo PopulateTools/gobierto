@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   module ActsAsCollectionContainer
     extend ActiveSupport::Concern
@@ -38,23 +40,23 @@ module GobiertoCommon
           #{collection_items_table}.item_id = #{item_type.table_name}.id AND \
           #{collection_items_table}.item_type = '#{item_type}' AND           \
           container_type = '#{self.class}' AND                               \
-          container_id = #{self.id}                                          \
+          container_id = #{id}                                          \
         ")
       end
 
       def container_path
         case
         when self.class == GobiertoParticipation::Process
-          self.class.url_helpers.gobierto_participation_process_path(self.slug)
+          self.class.url_helpers.gobierto_participation_process_path(slug)
         end
       end
 
       def news_collection
-        @news_collection ||= GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::News')
+        @news_collection ||= GobiertoCommon::Collection.find_by(container: self, item_type: "GobiertoCms::News")
       end
 
       def events_collection
-        @events_collection ||= GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCalendars::Event')
+        @events_collection ||= GobiertoCommon::Collection.find_by(container: self, item_type: "GobiertoCalendars::Event")
       end
 
     end
@@ -68,7 +70,7 @@ module GobiertoCommon
     private
 
     def clean_collection_items
-      GobiertoCommon::CleanCollectionItemsJob.perform_later(self.class.name, self.id)
+      GobiertoCommon::CleanCollectionItemsJob.perform_later(self.class.name, id)
     end
   end
 end

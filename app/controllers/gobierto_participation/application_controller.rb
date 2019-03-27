@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module GobiertoParticipation
   class ApplicationController < ::ApplicationController
     include User::SessionHelper
 
     helper_method :current_process
 
-    layout 'gobierto_participation/layouts/application'
+    layout "gobierto_participation/layouts/application"
 
-    before_action { module_enabled!(current_site, 'GobiertoParticipation') }
+    before_action { module_enabled!(current_site, "GobiertoParticipation") }
 
     def find_issues
       CollectionDecorator.new(current_site.issues, decorator: ProcessTermDecorator)

@@ -20,7 +20,7 @@ class GobiertoBudgets::ProvidersController < GobiertoBudgets::ApplicationControl
           sort_asc_by: params[:sort_asc_by],
           date_date_range: params[:date_date_range],
           except_columns: params[:except_columns]
-        }), filename: 'invoices.csv'
+        }), filename: "invoices.csv"
       end
     end
   end

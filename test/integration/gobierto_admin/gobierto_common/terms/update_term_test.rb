@@ -51,7 +51,7 @@ module GobiertoCommon
               visit @path
 
               within("#v_el_actions_#{term.id}", visible: false) do
-                find_link("Edit", visible:false).trigger("click")
+                find_link("Edit", visible: false).trigger("click")
               end
 
               within "form.edit_term" do

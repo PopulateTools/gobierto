@@ -33,7 +33,7 @@ class ShowPoll < Liquid::Tag
       poll || answerable_polls.first
     end
   rescue ActiveRecord::RecordNotFound
-    return ""
+    ""
   end
 end
 

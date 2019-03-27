@@ -27,7 +27,7 @@ module FileUploader
     end
 
     def upload!
-      File.open(file.tempfile, 'rb') do |file_body|
+      File.open(file.tempfile, "rb") do |file_body|
         options = { body: file_body }
         options[:content_disposition] = @content_disposition if @content_disposition.present?
         options[:content_type] = @content_type if @content_type.present?

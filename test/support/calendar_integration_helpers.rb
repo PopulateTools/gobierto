@@ -18,7 +18,7 @@ module CalendarIntegrationHelpers
     calendar_conf.data = params[:data].merge({
       ibm_notes_pwd: SecretAttribute.encrypt(data[:ibm_notes_pwd]),
     })
-    calendar_conf.integration_name = 'ibm_notes'
+    calendar_conf.integration_name = "ibm_notes"
     calendar_conf.save!
   end
 
@@ -30,7 +30,7 @@ module CalendarIntegrationHelpers
     calendar_conf = collection.calendar_configuration || collection.build_calendar_configuration
 
     calendar_conf.data = params[:data]
-    calendar_conf.integration_name = 'google_calendar'
+    calendar_conf.integration_name = "google_calendar"
     calendar_conf.save!
   end
 
@@ -44,7 +44,7 @@ module CalendarIntegrationHelpers
     calendar_conf.data = params[:data].merge({
       microsoft_exchange_pwd: SecretAttribute.encrypt(data[:microsoft_exchange_pwd]),
     })
-    calendar_conf.integration_name = 'microsoft_exchange'
+    calendar_conf.integration_name = "microsoft_exchange"
     calendar_conf.save!
   end
 

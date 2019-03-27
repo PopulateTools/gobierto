@@ -16,7 +16,7 @@ module IbmNotes
       "Unknown1 Standard Time",
     ].freeze
 
-    UTC_TIMEZONES = [ "UTC", "GMT Standard Time" ].freeze
+    UTC_TIMEZONES = ["UTC", "GMT Standard Time"].freeze
 
     def initialize(person, response_event)
       @id = set_id(response_event)
@@ -73,6 +73,7 @@ module IbmNotes
       if event["attendees"].present?
         event["attendees"].map do |attendee|
           next unless (attendee["status"] == "accepted" || attendee["role"] == "req-participant") && attendee["displayName"].present?
+
           {
             name: attendee["displayName"].split("/").first,
             email: attendee["email"]

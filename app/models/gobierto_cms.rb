@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module GobiertoCms
   def self.table_name_prefix
-    'gcms_'
+    "gcms_"
   end
 
   def self.searchable_models
-    [ GobiertoCms::Page ]
+    [GobiertoCms::Page]
   end
 end

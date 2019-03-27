@@ -221,17 +221,17 @@ module GobiertoParticipation
         with_signed_in_user(user) do
           visit past_contribution_container_path
 
-          assert has_content? 'This container has already finished'
+          assert has_content? "This container has already finished"
 
           # ensure button to create contribution is disabled
-          assert find('a.js-disabled.disabled-grayed.disabled-cursor').present?
+          assert find("a.js-disabled.disabled-grayed.disabled-cursor").present?
 
           page.find('[data-url="/participacion/p/grupo-de-petanca/aportaciones/lawn-bowling-past-contributions/contributions/contribution-on-closed-container"]', visible: false).trigger("click")
 
           sleep 1
 
           # ensure buttons to rate contributions are disabled
-          assert_equal 4, all('a.action_button.js-disabled.disabled-cursor').size
+          assert_equal 4, all("a.action_button.js-disabled.disabled-cursor").size
         end
       end
     end

@@ -73,7 +73,7 @@ module GobiertoBudgets
       result = GobiertoBudgets::SearchEngine.client.get(
         index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
         type: GobiertoBudgets::SearchEngineConfiguration::Data.type_population,
-        id: "#{ organization_id }/#{ census_year }"
+        id: "#{organization_id}/#{census_year}"
       )
       result["_source"]["value"]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
@@ -93,7 +93,7 @@ module GobiertoBudgets
       place = site.place
       @organization_id = site.organization_id
       @ine_code = place ? place.id.to_i : nil
-      @id = "#{ organization_id }/#{ year }/#{ code }/#{ kind }"
+      @id = "#{organization_id}/#{year}/#{code}/#{kind}"
       @category = Category.find_by(site: site, area_name: area.area_name, kind: kind, code: code)
       @name = get_name
       @description = get_description

@@ -61,6 +61,7 @@ class User::SubscriptionPreferencesForm < BaseForm
   def update_subscriptions_to_modules
     site.configuration.modules.reject(&:blank?).map(&:constantize).each do |mod|
       next if broader_level_subscription_to?(mod)
+
       modules_classes.include?(mod) ? @user.subscribe_to!(mod, site) : @user.unsubscribe_from!(mod, site)
     end
   end

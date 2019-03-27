@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class SitePolicy
     attr_reader :admin, :site

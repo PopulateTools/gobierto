@@ -40,7 +40,7 @@ module GobiertoBudgets
       if diff
         diff = diff.to_f * 100
 
-        "#{ ActionController::Base.helpers.number_with_precision(diff, precision: 2) } %"
+        "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)} %"
       else
         ""
       end
@@ -62,13 +62,14 @@ module GobiertoBudgets
         v2 = send(variable2, year)
       end
       return nil if v1.nil? || v2.nil?
+
       diff = ((v1.to_f - v2.to_f) / v2.to_f) * 100
 
       return nil if diff == Float::INFINITY
 
       diff += 100
 
-      "#{ ActionController::Base.helpers.number_with_precision(diff, precision: 2) } %"
+      "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)} %"
     end
 
     def mean_province
@@ -151,7 +152,7 @@ module GobiertoBudgets
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: @area_name, body: query
 
       result = nil
-      response["aggregations"]["#{ attribute }_per_year"]["buckets"].each do |r|
+      response["aggregations"]["#{attribute}_per_year"]["buckets"].each do |r|
         result = (r["budget_sum"]["value"].to_f / r["doc_count"].to_f).round(2)
       end
       result

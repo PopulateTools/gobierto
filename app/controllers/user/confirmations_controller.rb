@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::ConfirmationsController < User::BaseController
   before_action :require_no_authentication
 
@@ -49,7 +51,7 @@ class User::ConfirmationsController < User::BaseController
   def user_confirmation_params
     permitted_params = [:confirmation_token, :name, :password, :password_confirmation, :date_of_birth, :gender, :document_number]
     if params[:user_confirmation] && params[:user_confirmation][:custom_records]
-      permitted_params << {custom_records: Hash[params[:user_confirmation][:custom_records].keys.map{ |k| [k, [:custom_user_field_id, :value]] }]}
+      permitted_params << { custom_records: Hash[params[:user_confirmation][:custom_records].keys.map { |k| [k, [:custom_user_field_id, :value]] }] }
     end
 
     params.require(:user_confirmation).permit(permitted_params)

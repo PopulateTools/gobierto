@@ -60,6 +60,7 @@ module LiquidI18n
       if depth >= MAX_INTERPOLATIONS
         raise I18n::TooMuchInterpolation.new("More than #{MAX_INTERPOLATIONS} interpolation values are not allowed.")
       end
+
       _, key, val, string_params = /, *([a-zA-z_]+): *([^,]+)(.*)/.match(string_params).to_a
       params[key.to_sym] = val if key.present? && key.length > 0
       depth += 1

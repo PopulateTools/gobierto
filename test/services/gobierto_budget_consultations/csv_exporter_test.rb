@@ -18,7 +18,7 @@ class GobiertoBudgetConsultations::CsvExporterTest < ActiveSupport::TestCase
 
   def test_export
     csv = @subject.export(consultation)
-    age = ((Date.today - Date.parse(response.user_information['date_of_birth'])).to_i / 365.0).floor
+    age = ((Date.today - Date.parse(response.user_information["date_of_birth"])).to_i / 365.0).floor
     assert_equal csv, <<~CSV
       id,age,gender,location,question,answer
       692345489,#{age},male,,Pavimentación de vías públicas,-5

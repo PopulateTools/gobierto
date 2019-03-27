@@ -63,9 +63,9 @@ module GobiertoAdmin
         def valid_sort_params
           {
             positions: {
-              "0" => [ mammal.id, bird.id ],
-              mammal.id.to_s => [ cat.id, dog.id, swift.id],
-              bird.id.to_s => [ pigeon.id ]
+              "0" => [mammal.id, bird.id],
+              mammal.id.to_s => [cat.id, dog.id, swift.id],
+              bird.id.to_s => [pigeon.id]
             }
           }
         end
@@ -73,9 +73,9 @@ module GobiertoAdmin
         def valid_sort_params_update_parent
           {
             positions: {
-              "0" => [ mammal.id, swift.id, bird.id ],
-              mammal.id.to_s => [ cat.id, dog.id ],
-              bird.id.to_s => [ pigeon.id ]
+              "0" => [mammal.id, swift.id, bird.id],
+              mammal.id.to_s => [cat.id, dog.id],
+              bird.id.to_s => [pigeon.id]
             }
           }
         end

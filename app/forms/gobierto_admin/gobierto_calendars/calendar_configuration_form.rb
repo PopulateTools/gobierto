@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoCalendars
     class CalendarConfigurationForm < BaseForm
 
-      ENCRYPTED_SETTING_PLACEHOLDER = 'encrypted_setting_placeholder'
+      ENCRYPTED_SETTING_PLACEHOLDER = "encrypted_setting_placeholder"
 
       attr_accessor(
         :current_site,
@@ -27,19 +27,19 @@ module GobiertoAdmin
         :ibm_notes_usr,
         :ibm_notes_pwd,
         :ibm_notes_url,
-        presence: true, if: -> { calendar_integration == 'ibm_notes' && !clear_calendar_configuration? }
+        presence: true, if: -> { calendar_integration == "ibm_notes" && !clear_calendar_configuration? }
       )
 
       validates(
         :microsoft_exchange_usr,
         :microsoft_exchange_pwd,
         :microsoft_exchange_url,
-        presence: true, if: -> { calendar_integration == 'microsoft_exchange' && !clear_calendar_configuration? }
+        presence: true, if: -> { calendar_integration == "microsoft_exchange" && !clear_calendar_configuration? }
       )
 
       validates(
         :calendars,
-        presence: true, if: -> { calendar_integration == 'google_calendar' && !clear_calendar_configuration? }
+        presence: true, if: -> { calendar_integration == "google_calendar" && !clear_calendar_configuration? }
       )
 
       validates :collection, presence: true
@@ -166,7 +166,7 @@ module GobiertoAdmin
       end
 
       def collection_container_identifier
-        collection_container ? collection_container.class.to_s.underscore.gsub('/', '_') : nil
+        collection_container ? collection_container.class.to_s.underscore.gsub("/", "_") : nil
       end
 
       private
@@ -192,11 +192,11 @@ module GobiertoAdmin
       end
 
       def calendar_configuration_class
-        if calendar_integration == 'ibm_notes'
+        if calendar_integration == "ibm_notes"
           ::GobiertoCalendars::IbmNotesCalendarConfiguration
-        elsif calendar_integration == 'microsoft_exchange'
+        elsif calendar_integration == "microsoft_exchange"
           ::GobiertoCalendars::MicrosoftExchangeCalendarConfiguration
-        elsif calendar_integration == 'google_calendar'
+        elsif calendar_integration == "google_calendar"
           ::GobiertoCalendars::GoogleCalendarConfiguration
         else
           base_calendar_configuration_class
@@ -204,7 +204,7 @@ module GobiertoAdmin
       end
 
       def clear_calendar_configuration?
-        clear_calendar_configuration == '1' || calendar_integration.blank?
+        clear_calendar_configuration == "1" || calendar_integration.blank?
       end
 
       def save_calendar_configuration
@@ -247,11 +247,11 @@ module GobiertoAdmin
       end
 
       def calendar_configuration_data
-        if calendar_integration == 'ibm_notes'
+        if calendar_integration == "ibm_notes"
           ibm_notes_configuration_data
-        elsif calendar_integration == 'microsoft_exchange'
+        elsif calendar_integration == "microsoft_exchange"
           microsoft_exchange_configuration_data
-        elsif calendar_integration == 'google_calendar'
+        elsif calendar_integration == "google_calendar"
           google_calendar_configuration_data
         else
          {}

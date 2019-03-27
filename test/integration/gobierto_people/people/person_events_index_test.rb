@@ -47,7 +47,7 @@ module GobiertoPeople
           with_current_site(site) do
             visit @path
 
-            click_button 'List'
+            click_button "List"
 
             within ".events-summary" do
               assert has_content?("Agenda")
@@ -102,7 +102,7 @@ module GobiertoPeople
         # events are not visible form the test. A solution is to use fixtures as in other test in this file,
         # but since i'm not going to create 10 fixtures to test pagination, let's skip this for now.
 
-        skip 'see comment inside code'
+        skip "see comment inside code"
 
         20.times do |i|
           create_event(person: richard, title: "Event #{i}", starts_at: (Time.now.tomorrow + i.days).to_s)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     module Consultations
@@ -90,7 +92,7 @@ module GobiertoAdmin
         end
 
         def ignored_consultation_item_attributes
-          %w( created_at updated_at)
+          %w(created_at updated_at)
         end
       end
     end

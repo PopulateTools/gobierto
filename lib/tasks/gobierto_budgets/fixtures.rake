@@ -51,7 +51,7 @@ namespace :gobierto_budgets do
     def import_gobierto_budgets_for_organization(organization, year)
       place, organization_id = resolve_place_and_organization_id(organization)
 
-      puts "== Importing budgets for organization #{ place.blank? ? organization_id : "Place: #{ place.name }" } in #{ year } =="
+      puts "== Importing budgets for organization #{place.blank? ? organization_id : "Place: #{place.name}"} in #{year} =="
       base_data = {
         organization_id: organization_id,
         ine_code: place.id.to_i,
@@ -108,7 +108,7 @@ namespace :gobierto_budgets do
         category["kind"] = category["kind"] == "income" ? "I" : "G"
         economic_budget_lines_for_functional.push(index: {
                                                     _index: index,
-                                                    _id: [organization_id, year, "#{ category["code"] }-1-f}", category["kind"]].join("/"),
+                                                    _id: [organization_id, year, "#{category["code"]}-1-f}", category["kind"]].join("/"),
                                                     _type: category["area"],
                                                     data: base_data.merge(amount: rand(1_000_000),
                                                                           code: category["code"],

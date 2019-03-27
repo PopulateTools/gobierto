@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'test_helper'
-require 'support/calendar_integration_helpers'
-require 'support/event_helpers'
+require "test_helper"
+require "support/calendar_integration_helpers"
+require "support/event_helpers"
 
 module GobiertoPeople
   module MicrosoftExchange
@@ -33,10 +33,10 @@ module GobiertoPeople
 
       def microsoft_exchange_configuration_with_description
         @microsoft_exchange_configuration_with_description ||= {
-          microsoft_exchange_url: 'http://example.com/ews/exchange.asmx',
-          microsoft_exchange_usr: 'richard-me-username',
-          microsoft_exchange_pwd: 'richard-me-password',
-          without_description: '0'
+          microsoft_exchange_url: "http://example.com/ews/exchange.asmx",
+          microsoft_exchange_usr: "richard-me-username",
+          microsoft_exchange_pwd: "richard-me-password",
+          without_description: "0"
         }
       end
 
@@ -47,10 +47,10 @@ module GobiertoPeople
 
       def microsoft_exchange_configuration_without_description
         @microsoft_exchange_configuration_without_description ||= {
-          microsoft_exchange_url: 'http://example.com/ews/exchange.asmx',
-          microsoft_exchange_usr: 'richard-me-username',
-          microsoft_exchange_pwd: 'richard-me-password',
-          without_description: '1'
+          microsoft_exchange_url: "http://example.com/ews/exchange.asmx",
+          microsoft_exchange_usr: "richard-me-username",
+          microsoft_exchange_pwd: "richard-me-password",
+          without_description: "1"
         }
       end
 
@@ -93,11 +93,11 @@ module GobiertoPeople
         {
           start: 1.hour.from_now,
           end: 2.hours.from_now,
-          id: 'external-id-1',
-          subject: 'Event 1',
-          body: 'Event 1 long description',
-          sensitivity: 'Normal',
-          location: 'Location 1'
+          id: "external-id-1",
+          subject: "Event 1",
+          body: "Event 1 long description",
+          sensitivity: "Normal",
+          location: "Location 1"
         }
       end
 
@@ -116,7 +116,7 @@ module GobiertoPeople
         root_folder.stubs(:folders).returns([target_folder])
         Exchanger::Folder.stubs(:find).returns(root_folder)
 
-        assert_difference 'GobiertoCalendars::Event.count', 0 do
+        assert_difference "GobiertoCalendars::Event.count", 0 do
           calendar_service.sync!
         end
       end
@@ -126,10 +126,10 @@ module GobiertoPeople
 
         event_1 = event_attributes
         event_2 = {
-          id: 'external-id-2',
-          subject: 'Event 2',
+          id: "external-id-2",
+          subject: "Event 2",
           body: nil,
-          sensitivity: 'Private',
+          sensitivity: "Private",
           start: 1.hour.from_now,
           end: 2.hours.from_now,
           location: nil
@@ -137,17 +137,17 @@ module GobiertoPeople
 
         setup_mocks_for_synchronization([event_1, event_2])
 
-        assert_difference 'GobiertoCalendars::Event.count', 1 do
+        assert_difference "GobiertoCalendars::Event.count", 1 do
           calendar_service.sync!
         end
 
         # event 1 checks
 
-        event = richard.events.find_by(external_id: 'external-id-1')
-        assert_equal 'Event 1', event.title
-        assert_equal 'Event 1 long description', event.description
+        event = richard.events.find_by(external_id: "external-id-1")
+        assert_equal "Event 1", event.title
+        assert_equal "Event 1 long description", event.description
         assert_equal 1, event.locations.size
-        assert_equal 'Location 1', event.first_location.name
+        assert_equal "Location 1", event.first_location.name
       end
 
       def test_sync_events_without_description
@@ -155,10 +155,10 @@ module GobiertoPeople
 
         event_1 = event_attributes
         event_2 = {
-          id: 'external-id-2',
-          subject: 'Event 2',
+          id: "external-id-2",
+          subject: "Event 2",
           body: nil,
-          sensitivity: 'Private',
+          sensitivity: "Private",
           start: 1.hour.from_now,
           end: 2.hours.from_now,
           location: nil
@@ -166,17 +166,17 @@ module GobiertoPeople
 
         setup_mocks_for_synchronization([event_1, event_2])
 
-        assert_difference 'GobiertoCalendars::Event.count', 1 do
+        assert_difference "GobiertoCalendars::Event.count", 1 do
           calendar_service.sync!
         end
 
         # event 1 checks
 
-        event = richard.events.find_by(external_id: 'external-id-1')
-        assert_equal 'Event 1', event.title
+        event = richard.events.find_by(external_id: "external-id-1")
+        assert_equal "Event 1", event.title
         assert_nil event.description
         assert_equal 1, event.locations.size
-        assert_equal 'Location 1', event.first_location.name
+        assert_equal "Location 1", event.first_location.name
       end
 
       def test_sync_events_updates_event_attributes
@@ -188,9 +188,9 @@ module GobiertoPeople
         # simulate attributes are updated from OWA
 
         event_1 = event_attributes.merge(
-          subject: 'Updated event',
-          body: 'Updated description',
-          location: 'Updated location'
+          subject: "Updated event",
+          body: "Updated description",
+          location: "Updated location"
         )
 
         setup_mocks_for_synchronization([event_1])
@@ -198,11 +198,11 @@ module GobiertoPeople
 
         # assert attributes get updated in Gobierto
 
-        event = richard.events.find_by(external_id: 'external-id-1')
+        event = richard.events.find_by(external_id: "external-id-1")
 
-        assert_equal 'Updated event', event.title
-        assert_equal 'Updated description', event.description
-        assert_equal 'Updated location', event.first_location.name
+        assert_equal "Updated event", event.title
+        assert_equal "Updated description", event.description
+        assert_equal "Updated location", event.first_location.name
         assert_equal 1, event.locations.size
       end
 
@@ -213,35 +213,35 @@ module GobiertoPeople
         calendar_service.sync!
 
         event_1 = event_attributes.merge(
-          subject: 'Updated event',
-          location: 'Updated location',
-          sensitivity: 'Private'
+          subject: "Updated event",
+          location: "Updated location",
+          sensitivity: "Private"
         )
 
         setup_mocks_for_synchronization([event_1])
-        assert_difference 'GobiertoCalendars::Event.count', -1 do
+        assert_difference "GobiertoCalendars::Event.count", -1 do
           calendar_service.sync!
         end
 
         # assert attributes get updated in Gobierto
 
-        assert_nil richard.events.find_by(external_id: 'external-id-1')
+        assert_nil richard.events.find_by(external_id: "external-id-1")
       end
 
       def test_unreceived_events_are_drafted
         configure_microsoft_exchange_calendar_with_description
 
-        other_person_event = create_event(person: tamara, external_id: 'Tamara synced event')
+        other_person_event = create_event(person: tamara, external_id: "Tamara synced event")
 
         # sync two events
 
         event_1 = event_attributes
-        event_2 = event_attributes.merge(id: 'external-id-2')
+        event_2 = event_attributes.merge(id: "external-id-2")
 
         setup_mocks_for_synchronization([event_1, event_2])
         calendar_service.sync!
 
-        event = richard.events.find_by(external_id: 'external-id-1')
+        event = richard.events.find_by(external_id: "external-id-1")
 
         assert event.published?
 
@@ -267,12 +267,12 @@ module GobiertoPeople
         setup_mocks_for_synchronization([event_attributes])
         calendar_service.sync!
 
-        event = richard.events.find_by(external_id: 'external-id-1')
+        event = richard.events.find_by(external_id: "external-id-1")
         assert_equal 1, event.locations.size
 
         # simulate location was removed from OWA
 
-        event_1 = event_attributes.merge(location: '')
+        event_1 = event_attributes.merge(location: "")
 
         setup_mocks_for_synchronization([event_1])
         calendar_service.sync!
@@ -333,31 +333,31 @@ module GobiertoPeople
         filtering_rule.save!
 
         event_1 = event_attributes.merge(
-          subject: '@ Event 1'
+          subject: "@ Event 1"
         )
 
         event_2 = {
           start: 1.hour.from_now,
           end: 2.hours.from_now,
-          id: 'external-id-2',
-          subject: 'Event 2',
+          id: "external-id-2",
+          subject: "Event 2",
           body: nil,
-          sensitivity: 'Normal',
-          location: 'Location 2'
+          sensitivity: "Normal",
+          location: "Location 2"
         }
 
         setup_mocks_for_synchronization([event_1, event_2])
 
-        assert_difference 'GobiertoCalendars::Event.count', 1 do
+        assert_difference "GobiertoCalendars::Event.count", 1 do
           calendar_service.sync!
         end
 
         # event 1 checks
-        event = richard.events.find_by(external_id: 'external-id-1')
-        assert_equal 'Event 1', event.title
-        assert_equal 'Event 1 long description', event.description
+        event = richard.events.find_by(external_id: "external-id-1")
+        assert_equal "Event 1", event.title
+        assert_equal "Event 1 long description", event.description
         assert_equal 1, event.locations.size
-        assert_equal 'Location 1', event.first_location.name
+        assert_equal "Location 1", event.first_location.name
       end
     end
   end

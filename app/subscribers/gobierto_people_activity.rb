@@ -3,15 +3,15 @@
 module Subscribers
   class GobiertoPeopleActivity < ::Subscribers::Base
     def updated(event)
-      create_activity_from_event(event, 'updated')
+      create_activity_from_event(event, "updated")
     end
 
     def visibility_level_changed(event)
-      create_activity_from_event(event, 'published')
+      create_activity_from_event(event, "published")
     end
 
     def state_changed(event)
-      create_activity_from_event(event, 'published')
+      create_activity_from_event(event, "published")
     end
 
     private
@@ -19,8 +19,9 @@ module Subscribers
     def create_activity_from_event(event, action)
       subject = GlobalID::Locator.locate event.payload[:gid]
       return unless subject.class.parent == GobiertoPeople
+
       author = GobiertoAdmin::Admin.find event.payload[:admin_id]
-      action = subject.class.name.underscore.tr('/', '.') + '.' + action
+      action = subject.class.name.underscore.tr("/", ".") + "." + action
 
       if !subject.is_a?(GobiertoPeople::Person)
         recipient = subject.person
@@ -38,4 +39,3 @@ module Subscribers
     end
   end
 end
-

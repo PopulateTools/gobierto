@@ -69,7 +69,7 @@ module GobiertoAdmin
           custom_user_field = site.custom_user_fields.find(field_attributes["custom_user_field_id"])
           custom_record = custom_user_field.records.new
           custom_record.value = field_attributes["value"]
-          [name, {"raw_value" => custom_record.raw_value, "localized_value" => custom_record.value}]
+          [name, { "raw_value" => custom_record.raw_value, "localized_value" => custom_record.value }]
         end]
       end
 
@@ -77,7 +77,7 @@ module GobiertoAdmin
 
       # User custom records are not mandatory if the consultation is being created by an admin
       def valid_custom_records
-        return true
+        true
       end
 
       def consultation_class

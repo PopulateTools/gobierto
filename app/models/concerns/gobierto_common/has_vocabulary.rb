@@ -20,7 +20,7 @@ module GobiertoCommon
 
         belongs_to(
           singularized_name,
-          ->(item) { where(vocabulary_id: item.class.send("#{ name }_vocabulary_id", item&.site)) },
+          ->(item) { where(vocabulary_id: item.class.send("#{name}_vocabulary_id", item&.site)) },
           extra_opts.merge(class_name: "GobiertoCommon::Term")
         )
 
@@ -31,10 +31,11 @@ module GobiertoCommon
         define_singleton_method name do |site = nil|
           site ||= GobiertoCore::CurrentScope.current_site
           return GobiertoCommon::Term.none unless site.settings_for_module(module_name)&.send(vocabulary_module_setting)&.present?
+
           site.vocabularies.find(site.settings_for_module(module_name).send(vocabulary_module_setting)).terms
         end
 
-        define_singleton_method "#{ name }_vocabulary_id" do |site = nil|
+        define_singleton_method "#{name}_vocabulary_id" do |site = nil|
           site ||= GobiertoCore::CurrentScope.current_site
           site.settings_for_module(module_name)&.send(vocabulary_module_setting)
         end

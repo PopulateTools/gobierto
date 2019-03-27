@@ -150,7 +150,7 @@ module GobiertoParticipation
     end
 
     def self.json_attributes
-      all.map{ |c| { title: c.title, votes_count: c.votes_count, user_id: c.user_id, slug: c.slug,
+      all.map { |c| { title: c.title, votes_count: c.votes_count, user_id: c.user_id, slug: c.slug,
                      to_path: c.js_endpoint_path, love_pct: c.love_pct, like_pct: c.like_pct, neutral_pct: c.neutral_pct,
                      hate_pct: c.hate_pct, created_at_ymd: c.created_at_ymd } }
     end

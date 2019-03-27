@@ -37,7 +37,7 @@ module GobiertoBudgets
 
       private
 
-      def mean_filtered_by(conditions={})
+      def mean_filtered_by(conditions = {})
         options = conditions.extract!(:options)
         force_default_last_year = options.has_key?(:force_default_last_year) ? options[:force_default_last_year] : true
 
@@ -79,13 +79,14 @@ module GobiertoBudgets
 
         response = SearchEngine.client.search index: index, type: type, body: query
         data = {}
-        response["aggregations"]["#{ @variable }_per_year"]["buckets"].each do |r|
+        response["aggregations"]["#{@variable}_per_year"]["buckets"].each do |r|
           data[r["key"]] = (r["budget_sum"]["value"].to_f / r["doc_count"].to_f).round(2)
         end
 
         result = []
         data.sort_by { |k, _| k }.each do |year, v|
           next if year > GobiertoBudgets::SearchEngineConfiguration::Year.last
+
           result.push(
             date: year.to_s,
             value: v,

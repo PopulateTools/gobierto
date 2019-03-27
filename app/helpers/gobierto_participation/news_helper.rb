@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoParticipation
   module NewsHelper
     def participation_news_page_container
@@ -8,7 +10,7 @@ module GobiertoParticipation
       elsif current_process
         current_process.title
       else
-        t('gobierto_participation.shared.participation')
+        t("gobierto_participation.shared.participation")
       end
     end
   end

@@ -11,7 +11,7 @@ class ListItemsFrom < Liquid::Tag
     @collection_slug = split_params.first.strip
 
     if split_params.length > 1
-      parsed_options = Hash[split_params.last.split(",").map{|e| e.split(":").map(&:strip) }].symbolize_keys
+      parsed_options = Hash[split_params.last.split(",").map { |e| e.split(":").map(&:strip) }].symbolize_keys
       parsed_options[:date] = parsed_options[:date] == "true" if parsed_options.has_key?(:date)
       parsed_options[:intro_text] = parsed_options[:intro_text] == "true" if parsed_options.has_key?(:intro_text)
       parsed_options[:limit] = parsed_options[:limit].to_i if parsed_options.has_key?(:limit)
@@ -24,16 +24,17 @@ class ListItemsFrom < Liquid::Tag
     pages = fetch_pages(current_site)
 
     return "" if pages.empty?
+
     render_pages(pages)
   rescue ActiveRecord::RecordNotFound
-    return ""
+    ""
   end
 
   def render_pages(pages)
-    html = [ %Q{<div class="list_items_from_collection">} ]
+    html = [%Q{<div class="list_items_from_collection">}]
     pages.each do |page|
       page = GobiertoCms::PageDecorator.new(page)
-      collection_item_text = [ %Q{<div class="collection_item">} ]
+      collection_item_text = [%Q{<div class="collection_item">}]
       if page.main_image
         collection_item_text << %Q{ <img src="#{page.main_image}"> }
       end

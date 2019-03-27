@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoBudgets::GenerateAnnualLinesJob < ActiveJob::Base
   queue_as :default
 

@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class User::Subscription::NotificationBuilder
   attr_reader :event_name, :site_id, :subject
 
   def initialize(event)
     @subject = GlobalID::Locator.locate(event.payload[:gid])
     event_name = event.name.split(".").last
-    if %W( visibility_level_changed state_changed ).include?(event_name)
-      event_name = 'published'
+    if %W(visibility_level_changed state_changed).include?(event_name)
+      event_name = "published"
     end
-    @event_name = subject.class.name.underscore.tr('/', '.') + '.' + event_name
+    @event_name = subject.class.name.underscore.tr("/", ".") + "." + event_name
     @site_id = event.payload[:site_id]
   end
 

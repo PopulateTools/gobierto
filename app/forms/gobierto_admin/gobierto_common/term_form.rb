@@ -35,6 +35,7 @@ module GobiertoAdmin
       def vocabulary
         @vocabulary ||= begin
                           return unless site
+
                           if vocabulary_id
                             site.vocabularies.find_by_id(vocabulary_id)
                           else

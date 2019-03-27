@@ -66,11 +66,13 @@ module EventHelpers
 
   def interest_group_id(options)
     return nil unless options[:interest_group]
+
     options[:interest_group].try(:id) || defaults[:interest_group].id
   end
 
   def department_id(options)
     return nil unless options[:department]
+
     options[:department].try(:id) || defaults[:department].id
   end
 

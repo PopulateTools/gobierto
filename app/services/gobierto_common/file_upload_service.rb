@@ -6,8 +6,8 @@ module GobiertoCommon
   class FileUploadService
     attr_reader :file, :site, :collection
 
-    def initialize(args={})
-      @adapter = APP_CONFIG['file_uploads_adapter'].presence.try(:to_sym) || :s3
+    def initialize(args = {})
+      @adapter = APP_CONFIG["file_uploads_adapter"].presence.try(:to_sym) || :s3
       @site = args[:site]
       @collection = args[:collection]
       @attribute_name = args[:attribute_name]
@@ -17,7 +17,7 @@ module GobiertoCommon
                 @tmp_file.binmode
                 @tmp_file.write(args[:content])
                 @tmp_file.close
-                ActionDispatch::Http::UploadedFile.new(filename: @file_name.split('/').last, tempfile: @tmp_file, original_filename: @file_name.split(''))
+                ActionDispatch::Http::UploadedFile.new(filename: @file_name.split("/").last, tempfile: @tmp_file, original_filename: @file_name.split(""))
               else
                 args[:file]
               end

@@ -15,8 +15,13 @@ class SiteTest < ActiveSupport::TestCase
     recipe_spy.calls.first.args
   end
 
-  def site
-    @site ||= sites(:madrid)
+  def madrid
+    @madrid ||= sites(:madrid)
+  end
+  alias site madrid
+
+  def santander
+    @santander ||= sites(:santander)
   end
 
   def organization_site
@@ -108,14 +113,14 @@ class SiteTest < ActiveSupport::TestCase
   end
 
   def test_seeder_called_after_modules_updated
-    configuration_data = site.configuration_data
+    configuration_data = santander.configuration_data
     configuration_data["modules"].push "GobiertoObservatory"
-    site.configuration_data = configuration_data
-    site.save!
+    santander.configuration_data = configuration_data
+    santander.save!
     assert module_seeder_spy.has_been_called?
     assert module_site_seeder_spy.has_been_called?
-    assert_equal ["GobiertoObservatory", site], module_seeder_spy.calls.first.args
-    assert_equal ["gobierto_populate", "GobiertoObservatory", site], module_site_seeder_spy.calls.first.args
+    assert_equal ["GobiertoObservatory", santander], module_seeder_spy.calls.first.args
+    assert_equal ["gobierto_populate", "GobiertoObservatory", santander], module_site_seeder_spy.calls.first.args
   end
 
   def test_invalid_if_municipality_blank

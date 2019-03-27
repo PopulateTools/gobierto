@@ -51,6 +51,19 @@ window.GobiertoAdmin.TermsController = (function() {
     );
   }
 
+  function _getChildrenIds(idsTree, parent, parentId){
+    let children = $(parent).find('.list-group:eq(0)').children();
+    children.each((index, child) => {
+      let childId = child.dataset.id;
+      if(idsTree[parentId] === undefined) {
+        idsTree[parentId] = [];
+      }
+      idsTree[parentId].push(childId);
+      idsTree = _getChildrenIds(idsTree, child, childId);
+    });
+    return idsTree;
+  }
+
   function _handleSortableList() {
     var nestedSortables = [].slice.call(document.querySelectorAll('.list-group'));
 
@@ -61,38 +74,23 @@ window.GobiertoAdmin.TermsController = (function() {
         animation: 150,
         fallbackOnBody: true,
         swapThreshold: 0.65,
+        onEnd: function (e) {
+          let nullParentId = 0;
+          let idsTree = {};
+          $('.list-group:eq(0)').children().each((index, node) => {
+            // For the parents, we add a special entry with id = 0
+            // to define the position of the parent nodes
+            if(idsTree[nullParentId] === undefined) {
+              idsTree[nullParentId] = [];
+            }
+            let nodeId = node.dataset.id;
+            idsTree[nullParentId].push(nodeId);
+            idsTree = _getChildrenIds(idsTree, node, nodeId);
+          });
+          _requestUpdate('[data-behavior="sortable"]', idsTree);
+        }
       });
     }
-
-    // $(wrapper).sortable({
-    //   items: 'div.v_el',
-    //   handle: '.custom_handle',
-    //   forcePlaceholderSize: true,
-    //   placeholder: '<div class="v_el v_el_level"></div>',
-    //   update: function() {
-    //     _refreshPositions(wrapper);
-    //     _requestUpdate(wrapper, _buildPositions(wrapper));
-    //   }
-    // });
-  }
-
-  function _refreshPositions(wrapper) {
-    $(wrapper).find("div.v_el").each(function(index) {
-      $(this).attr("data-pos", index + 1);
-    });
-  }
-
-  function _buildPositions(wrapper) {
-    var positions = [];
-
-    $(wrapper).find("div.v_el").each(function(index) {
-      positions.push({
-        id: $(this).data("id"),
-        position: index + 1
-      });
-    });
-
-    return positions;
   }
 
   function _requestUpdate(wrapper, positions) {

@@ -4,20 +4,17 @@ module GobiertoAdmin
   module GobiertoCommon
     class OrderedTermsSortController < BaseController
       def create
-        vocabulary.terms.update_positions(issue_sort_params)
+        vocabulary.terms.update_parents_and_positions(sort_params)
         head :no_content
       end
 
       private
 
       def vocabulary
-        @vocabulary ||= begin
-                          vocabulary_id = params[:vocabulary_id]
-                          current_site.vocabularies.find(vocabulary_id)
-                        end
+        @vocabulary ||= current_site.vocabularies.find(params[:vocabulary_id])
       end
 
-      def issue_sort_params
+      def sort_params
         params.require(:positions).permit!
       end
     end

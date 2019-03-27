@@ -79,6 +79,7 @@ window.GobiertoAdmin.TermsController = (function() {
         fallbackOnBody: true,
         swapThreshold: 0.65,
         onEnd: function (e) {
+          $(e.item).addClass('el-opened');
           let nullParentId = 0;
           let idsTree = {};
           $('.list-group:eq(0)').children().each((index, node) => {

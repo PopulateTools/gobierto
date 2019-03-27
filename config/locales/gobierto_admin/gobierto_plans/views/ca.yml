@@ -96,6 +96,10 @@ ca:
         filters_row:
           all: Tots
           category: Categoria
+        form:
+          placeholders:
+            name: Títol del projecte
+            status: Pendent d'iniciar
         index:
           headers:
             progress: Progrés
@@ -104,6 +108,8 @@ ca:
             updated: Actualitzat
           title: Projectes de %{name}
           view: Veure item
+        new:
+          title: Nou projecte
       shared:
         navigation:
           configuration_tab: Configuració

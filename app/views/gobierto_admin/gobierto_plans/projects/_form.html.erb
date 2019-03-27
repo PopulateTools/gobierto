@@ -1,0 +1,95 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @project_form %>
+
+<%= form_for(@project_form, as: :project, url: @project_form.persisted? ? admin_plans_plan_project_path(@plan, @project_form) : admin_plans_plan_projects_path(@plan), data: { "globalized-form-container" => true }) do |f| %>
+
+<div class="pure-g">
+  <div class="pure-u-1 pure-u-md-17-24">
+    <div class="form_item select_control">
+      <%= label_tag "project[category_id]" do %>
+        <%= @project_form.class.human_attribute_name(:category_id) %>
+        <%= attribute_indication_tag required: true %>
+      <% end %>
+      <%= f.select(:category_id, @project_form.category_options, { include_blank: '-' }) %>
+    </div>
+
+    <div class="globalized_fields">
+      <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+      <% current_site.configuration.available_locales.each do |locale| %>
+        <div class="form_item input_text" data-locale="<%= locale %>">
+          <%= label_tag "project[name_translations][#{locale}]" do %>
+            <%= @project_form.class.human_attribute_name(:name) %>
+            <%= attribute_indication_tag required: true %>
+          <% end %>
+          <%= text_field_tag "project[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t('.placeholders.name', locale: locale) %>
+        </div>
+
+        <div class="form_item input_text" data-locale="<%= locale %>">
+          <%= label_tag "project[status_translations][#{locale}]" do %>
+            <%= @project_form.class.human_attribute_name(:status) %>
+          <% end %>
+          <%= text_field_tag "project[status_translations][#{locale}]", f.object.status_translations && f.object.status_translations[locale], placeholder: t('.placeholders.status', locale: locale) %>
+        </div>
+      <% end %>
+
+    </div>
+
+    <div class="f_flex_col">
+      <div class="form_item input_text">
+        <%= label_tag "project[starts_at]]" do %>
+          <%= f.object.class.human_attribute_name(:starts_at) %>
+        <% end %>
+        <%= f.text_field :starts_at,
+              data: {
+                "language": I18n.locale,
+                "date-format": "yyyy-mm-dd",
+                "startDate": microseconds_since_epoch(f, :starts_at)
+              },
+              class: "air-datepicker"
+        %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= label_tag "project[ends_at]]" do %>
+          <%= f.object.class.human_attribute_name(:ends_at) %>
+        <% end %>
+        <%= f.text_field :ends_at,
+              data: {
+                "language": I18n.locale,
+                "date-format": "yyyy-mm-dd",
+                "startDate": microseconds_since_epoch(f, :ends_at)
+              },
+              class: "air-datepicker"
+        %>
+      </div>
+
+      <div class="form_item select_control">
+        <label for="">Estado</label>
+        <select>
+          <% for i in [
+            'Pendiente iniciar',
+            'Iniciado',
+            'En progreso',
+            'Finalizado'
+          ]
+          %>
+          <option disabled><%= i %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="form_item select_control">
+        <%= label_tag "project[progress]" do %>
+          <%= @project_form.class.human_attribute_name(:progress) %>
+        <% end %>
+        <%= f.select(:progress, @project_form.progress_options, { include_blank: "-", disabled: "disabled", selected: @project_form.progress_value }) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="pure-u-1 pure-u-md-1-24"></div>
+
+  <%= render partial: 'gobierto_admin/shared/save_widget', locals: { f: f, levels: @project_visibility_levels } %>
+
+</div>
+<% end %>

@@ -12,6 +12,61 @@ module GobiertoAdmin
         @projects = @relation
       end
 
+      def edit
+        find_plan
+        @project = @plan.nodes.find params[:id]
+        @project_visibility_levels = project_visibility_levels
+
+        @project_form = NodeForm.new(
+          @project.attributes.except(*ignored_project_attributes).merge(
+            plan_id: @plan.id,
+            options_json: @project.options
+          )
+        )
+      end
+
+      def update
+        find_plan
+        @project = @plan.nodes.find params[:id]
+        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id]))
+
+        if @project_form.save
+          redirect_to(
+            edit_admin_plans_plan_project_path(@plan, @project),
+            notice: t(".success")
+          )
+        else
+          render :edit
+        end
+      end
+
+      def new
+        find_plan
+        @project_visibility_levels = project_visibility_levels
+
+        @project_form = NodeForm.new(
+          plan_id: @plan.id,
+          options_json: {}
+        )
+      end
+
+      def create
+        find_plan
+
+        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id]))
+
+        if @project_form.save
+          redirect_to(
+            edit_admin_plans_plan_project_path(@plan, @project_form.node),
+            notice: t(".success")
+          )
+        else
+          @project_visibility_levels = project_visibility_levels
+
+          render :new
+        end
+      end
+
       def destroy
         find_plan
         set_filters
@@ -50,6 +105,26 @@ module GobiertoAdmin
         return {} unless params.has_key? :projects_filter
 
         @filter_params ||= params.require(:projects_filter).permit(ProjectsFilterForm::FILTER_PARAMS)
+      end
+
+      def project_params
+        params.require(:project).permit(
+          :category_id,
+          :progress,
+          :starts_at,
+          :ends_at,
+          :options_json,
+          name_translations: [*I18n.available_locales],
+          status_translations: [*I18n.available_locales]
+        )
+      end
+
+      def ignored_project_attributes
+        %w(created_at updated_at options)
+      end
+
+      def project_visibility_levels
+        ::GobiertoPlans::Node.visibility_levels
       end
     end
   end

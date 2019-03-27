@@ -3,5 +3,9 @@ ca:
   gobierto_admin:
     gobierto_plans:
       projects:
+        create:
+          success: El projecte s'ha creat correctament.
         destroy:
           success: El projecte s'ha esborrat correctament.
+        update:
+          success: El projecte s'ha actualitzat correctament.

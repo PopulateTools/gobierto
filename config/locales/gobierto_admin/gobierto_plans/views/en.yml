@@ -103,6 +103,10 @@ en:
         filters_row:
           all: All
           category: Category
+        form:
+          placeholders:
+            name: Project title
+            status: Pending to start
         index:
           headers:
             progress: Progress
@@ -111,6 +115,8 @@ en:
             updated: Updated
           title: Projecs of %{name}
           view: View item
+        new:
+          title: New project
       shared:
         navigation:
           configuration_tab: Configuration

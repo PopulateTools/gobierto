@@ -29,14 +29,18 @@ window.GobiertoAdmin.TermsController = (function() {
 
     // Close all elements except first level
     $('.v_container .v_heading .fa-caret-square-right').click(function(e) {
+      e.preventDefault();
       // closes all elements
       $('.v_container .v_el_level .v_el').removeClass('el-opened');
+      $('.fa-caret-down').removeClass('fa-caret-down').addClass('fa-caret-right');
     });
 
     // Open all elements except first level
     $('.v_container .v_heading .fa-caret-square-down').click(function(e) {
+      e.preventDefault();
       // Opens all elements
       $('.v_container .v_el_level .v_el').addClass('el-opened');
+      $('.fa-caret-right').removeClass('fa-caret-right').addClass('fa-caret-down');
     });
 
     // show only action buttons (edit, delete) when hovering an item

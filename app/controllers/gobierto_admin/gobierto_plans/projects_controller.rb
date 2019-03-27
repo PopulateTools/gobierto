@@ -6,14 +6,14 @@ module GobiertoAdmin
       before_action :find_plan
 
       def index
-        @plan = current_site.plans.find params[:plan_id]
+        find_plan
         set_filters
 
         @projects = @relation
       end
 
       def destroy
-        @plan = current_site.plans.find params[:plan_id]
+        find_plan
         set_filters
 
         @project = @plan.nodes.find params[:id]

@@ -3,6 +3,9 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
+
+  get("/populate_data_mock/datasets/*dataset_file", to: "stubbed_external_request#show") if Rails.env.test?
+
   unless Rails.env.production?
     get "/sandbox" => "sandbox#index"
     get "/sandbox/*template" => "sandbox#show"

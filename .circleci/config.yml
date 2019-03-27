@@ -74,6 +74,19 @@ jobs:
             sudo curl --output /tmp/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
             sudo chmod ugo+x /tmp/phantomjs
             sudo ln -sf /tmp/phantomjs /usr/local/bin/phantomjs
+      - run:
+          name: Install Google Chrome
+          command: |
+            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+            sudo apt-get update && sudo apt-get install -y google-chrome-stable
+      - run:
+          name: Install chromedriver
+          command: |
+            curl --silent --show-error --location --fail --retry 3 --output /tmp/chromedriver_linux64.zip "http://chromedriver.storage.googleapis.com/73.0.3683.20/chromedriver_linux64.zip"
+            sudo unzip /tmp/chromedriver_linux64.zip chromedriver -d /usr/local/bin
+            sudo chmod +x /usr/local/bin/chromedriver
+
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml

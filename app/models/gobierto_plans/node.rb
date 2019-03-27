@@ -14,5 +14,7 @@ module GobiertoPlans
     scope :with_interval, ->(interval) { where("starts_at >= ? AND ends_at <= ?", *interval.split(",").map { |date| Date.parse(date) }) }
 
     translates :name, :status
+
+    enum visibility_level: { draft: 0, published: 1 }
   end
 end

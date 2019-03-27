@@ -875,6 +875,7 @@ ActiveRecord::Schema.define(version: 2019_04_15_093350) do
     t.jsonb "options"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "visibility_level", default: 0, null: false
     t.index ["name_translations"], name: "index_gplan_nodes_on_name_translations", using: :gin
   end
 

@@ -32,6 +32,11 @@ textarea {
   }
 }
 
+button:last-child,
+.button:last-child {
+  margin-right: 0;
+}
+
 input,
 textarea {
   // Pseudoclasses does not work if they're grouped
@@ -132,9 +137,11 @@ textarea:focus {
   }
 }
 
-.select_control.select_compact {
+.select_control.select_compact,
+.form_item.input_text.compact {
   font-size: 0.85em;
-  margin: 0 0 0.5em 0;
+  // margin: 0 0 0.5em 0;
+  margin: 0;
 
   select,
   input {
@@ -144,7 +151,8 @@ textarea:focus {
   }
 
   input {
-    height: 40px;
+    // height: 40px;
+    height: 28px;
   }
 }
 
@@ -179,7 +187,6 @@ input[type=submit],
 .button,
 button {
   transition: all 0.15s ease-out 0s;
-
   border: 0;
   height: initial;
   background: $color_main;
@@ -207,11 +214,25 @@ button:hover {
   background: darken($color_main, 10%);
 }
 
+input[type=submit]:disabled,
+.button:disabled,
+button:disabled {
+  // background: darken($color_main, 20%);
+  // color: darken(#fff, 20%);
+  background: $color_main;
+  opacity: .2;
+}
+
 button a,
 a.button,
 .button {
   color: #fff;
   text-decoration: none;
+}
+button.bl,
+.button.bl {
+  width: 100%;
+  display: block;
 }
 
 a.button:hover {
@@ -245,6 +266,14 @@ button.gigantic,
   @include border-radius(2em);
 
   text-decoration: none;
+}
+
+button.medium,
+.button.medium {
+  font-size: 0.85em;
+  padding: .65em 1em 0.5em;
+  @include border-radius(4px);
+  display: inline-block;
 }
 
 button.small,
@@ -439,13 +468,17 @@ input[type="radio"] + label {
   }
 }
 
+.button.rounded {
+  border-radius: 20px;
+  font-weight: 600;
+}
 .button.outline.rounded {
   text-transform: none;
   padding: 0.2em 1em;
   border-radius: 20px;
   font-weight: 600;
 
-  .fa {
+  .fas {
     font-size: 85%;
   }
 }
@@ -457,7 +490,7 @@ input[type="radio"] + label {
 .button.outline.rounded.checked {
   background: $color_main;
 
-  .fa {
+  .fas {
     color: white;
   }
 }
@@ -494,7 +527,8 @@ input[type="radio"] + label span {
 }
 
 input[type="checkbox"] + label:hover,
-input[type="radio"] + label:hover {
+input[type="radio"] + label:hover,
+.admin_new_el a:hover {
   background: rgba($color_main, 0.1);
 }
 
@@ -544,13 +578,6 @@ select {
 
 select::-ms-expand { /* for IE 11 */
   display: none;
-}
-
-input[type=submit]:disabled,
-.button:disabled,
-button:disabled {
-  background: darken($color_main, 20%);
-  color: darken(#fff, 20%);
 }
 
 option,
@@ -735,7 +762,7 @@ select {
     }
   }
 
-  .fa {
+  .fas {
     margin: 0 0.5em;
     opacity: 0.5;
   }
@@ -785,6 +812,15 @@ select {
 .attach_file input[type=file] {
   padding: 1em;
   height: auto;
+}
+
+.admin_new_el {
+  a {
+    display: block;
+  }
+}
+.admin_new_el.inline {
+  display: inline-block;
 }
 
 /*
@@ -960,4 +996,121 @@ select {
     padding: 2em;
     display: block;
   }
+}
+
+.f_flex_col {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  > div.form_item.input_text,
+  > div.form_item.select_control {
+    width: 22%;
+  }
+
+}
+.f_flex_col_7 {
+  > div.form_item.input_text,
+  > div.form_item.select_control {
+    width: 14%;
+  }
+}
+
+.i_filters {
+  .i_filter {
+    display: flex;
+    border-bottom: 1px solid $color_separator;
+    padding-bottom: .8em;
+    margin-bottom: .8em;
+    font-size: .85rem;
+
+    label {
+      width: 70px;
+      font-size: .85em;
+      color: $color_meta_text;
+      align-self: center;
+    }
+
+    .i_f_options_text {
+      display: flex;
+    }
+
+    .i_f_option {
+      margin: 0 1em 0 0;
+      padding: 0 1em 0 0;
+      position: relative;
+      line-height: 1.2;
+
+      a {
+        padding: .2em .25em;
+        display: inline-block;
+        border-radius: 4px;
+        text-decoration: none;
+        color: $color_meta_text;
+
+        span {
+          text-decoration: underline;
+          color: $color_main;
+        }
+      }
+
+      a:hover {
+        background: $color_main_soft;
+      }
+
+    }
+
+    .i_f_option_active {
+      padding: .2em 1em .2em .25em;
+    }
+
+    .i_f_option:not(:last-child):after {
+      content: "";
+      border-left: 1px solid $color_separator;
+      position: absolute;
+      width: 1px;
+      height: 20px;
+
+      right: 0;
+    }
+  }
+
+  .i_filter:last-child {
+    border-bottom: initial;
+  }
+}
+
+.i_p_status {
+  &.not_published,
+  &.in_revision,
+  &.approved {
+    position: relative;
+    padding-left: 18px;
+  }
+
+  &.not_published::before,
+  &.in_revision::before,
+  &.approved::before {
+    content: "";
+    position: absolute;
+    border-radius: 36px;
+    width: 12px;
+    height: 12px;
+    left: 0;
+  }
+
+  &.not_published::before {
+    background: $color_sem_red;
+  }
+
+  &.in_revision::before {
+    background: $color_sem_yellow;
+  }
+
+  &.approved::before {
+    background: $color_sem_green;
+  }
+
+
 }

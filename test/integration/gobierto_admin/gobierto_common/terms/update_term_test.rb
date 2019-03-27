@@ -50,7 +50,9 @@ module GobiertoCommon
             with_current_site(site) do
               visit @path
 
-              click_link term.name
+              within("#v_el_actions_#{term.id}", visible: false) do
+                find_link("Edit", visible:false).trigger("click")
+              end
 
               within "form.edit_term" do
                 fill_in "term_name_translations_en", with: "Dog updated"
@@ -63,12 +65,14 @@ module GobiertoCommon
 
               assert has_message?("Term updated successfully.")
 
-              click_link term.name
+              within("#v_el_actions_#{term.id}", visible: false) do
+                find_link("Edit", visible: false).trigger(:click)
+              end
 
               assert has_field? "term_name_translations_en", with: "Dog updated"
               assert has_field? "term_description_translations_en", with: "Dog description updated"
               assert has_field? "term_slug", with: "dog-updated"
-              assert has_select? "term_term_id", selected: "Cat"
+              assert has_select? "term_term_id", selected: "-- Cat"
 
               activity = Activity.last
               assert_equal term, activity.subject

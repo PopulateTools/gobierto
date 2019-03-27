@@ -1,3 +1,14 @@
+<!--
+
+Use:
+  render partial: "admin_widget_save", locals: { only_save_button: true }
+
+
+Options:
+  only_save_button: true | false
+  password_protected: true | false
+
+-->
 <div class="widget_save stick_in_parent">
 
   <% unless local_assigns[:only_save_button] %>

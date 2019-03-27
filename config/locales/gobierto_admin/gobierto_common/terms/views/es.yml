@@ -11,15 +11,15 @@ es:
             name: Nombre del término
             slug: termino
         index:
-          delete_confirm: Estás seguro? Esta operación no es reversible
-          drag_to_sort: Arrastra para ordenar
-          header:
-            created_at: Creado
-            name: Nombre
+          collapse_all: Plegar todo
+          explore: Explora
           new: Nuevo
+          open_all: Desplegar todo
           title: Términos de %{vocabulary}
         new_modal:
           title: Nuevo término
+        terms_tree:
+          delete_confirm: Estás seguro? Esta operación no es reversible
       terms:
         edit:
           edit: Editar %{term}

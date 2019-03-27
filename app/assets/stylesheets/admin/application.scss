@@ -72,10 +72,15 @@
  * Fonts
  *
  */
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
+// @import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
+@import url("https://fonts.googleapis.com/css?family=Libre+Franklin:200,400,700,600");
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+/* Override front fonts (defined in css-conf) */
+$font_headings: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
+$font_text: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
+$font_serif: 'Georgia, serif';
 
 /*
  * Some defaults
@@ -90,9 +95,15 @@ body {
   margin: 0;
   padding: 0;
   font-family: $font_text;
-  font-size: 16px;
-  line-height: 24px;
   color: $color_text;
+
+  // if Source Sans Pro
+  // font-size: 16px;
+  // line-height: 24px;
+
+  // if Libre Franklin
+  font-size: 14px;
+  line-height: 22px;
 }
 
 .pure-g [class*="pure-u"] {
@@ -175,7 +186,7 @@ a.soft_cta:hover {
     text-decoration: none;
   }
 
-  .fa {
+  .fas {
     display: block;
     line-height: 2em;
     font-size: 1.6em;

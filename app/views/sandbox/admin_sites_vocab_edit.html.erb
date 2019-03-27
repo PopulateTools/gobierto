@@ -1,0 +1,58 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Vocabularios', 'admin_sites_vocab' %> »
+  Términos de: Plan de Actuación Municipal 2016-2019
+</div>
+
+<h1>Términos de: Plan de Actuación Municipal 2016-2019</h1>
+
+<%= render partial: "admin_vocab"  %>
+
+<table class="g_vocabulary" style="display: none;">
+<tr>
+  <th class="icon_col"></th>
+  <th>Nombre</th>
+  <th>Creado</th>
+  <th class="icon_col"></th>
+</tr>
+
+<% for i in [
+  'Eje 1 - Ciudadanos',
+  'Eje 2 - Buen Gobierno',
+  'Eje 3 - Sostenibilidad',
+  'Eje 4 - Felicidad',
+  'Eje 5 - Eficiencia'
+] %>
+<tr class="vocab_level_1">
+  <td>
+    <%= link_to '<i class="fa fa-caret-right"></i>'.html_safe, '' %>
+    <!--<%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#modal_edit_theme', class: 'open_modal' %>-->
+  </td>
+  <td><%= link_to i, '#modal_edit_theme', class: 'open_modal' %></td>
+  <td><%= link_to '<i class="fa fa-cog"></i> Ver términos'.html_safe, 'admin_sites_vocab_edit', class: 'view_item' %></td>
+  <td><%= link_to '<i class="fa fa-trash"></i>'.html_safe, '' %></td>
+</tr>
+
+
+    <% for i in [
+      'Linea 1.1',
+      'Linea 1.2',
+      'Linea 1.3',
+      'Linea 1.4',
+      'Linea 1.5'
+    ] %>
+    <tr class="vocab_level_1">
+      <td>
+        <%= link_to '<i class="fa fa-caret-right"></i>'.html_safe, '' %>
+        <!--<%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#modal_edit_theme', class: 'open_modal' %>-->
+      </td>
+      <td><%= link_to i, '#modal_edit_theme', class: 'open_modal' %></td>
+      <td><%= link_to '<i class="fa fa-cog"></i> Ver términos'.html_safe, 'admin_sites_vocab_edit', class: 'view_item' %></td>
+      <td><%= link_to '<i class="fa fa-trash"></i>'.html_safe, '' %></td>
+    </tr>
+    <% end %>
+
+
+<% end %>
+
+</table>

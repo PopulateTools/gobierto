@@ -50,15 +50,11 @@ module GobiertoCommon
           with_current_site(site) do
             visit @path
 
-            within "table tbody" do
-              assert has_selector?("tr", count: terms.size)
+            within ".v_container" do
+              assert has_selector?("div.v_el_title", count: terms.size)
 
               terms.each do |term|
-                assert has_selector?("tr#term-item-#{term.id}")
-
-                within "tr#term-item-#{term.id}" do
-                  assert has_link?(term.name.to_s)
-                end
+                assert has_content?(term.name)
               end
             end
           end
@@ -71,13 +67,13 @@ module GobiertoCommon
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
-            ordered_names = page.all(:xpath, "(.//tr//td[2])").map(&:text)
+            ordered_names = page.all(:css, "div.v_el_title").map(&:text)
             assert_equal terms.sorted.map(&:name), ordered_names
 
             first_term.update_attribute(:position, 1000)
 
             visit @path
-            ordered_names = page.all(:xpath, "(.//tr//td[2])").map(&:text)
+            ordered_names = page.all(:css, "div.v_el_title").map(&:text)
             assert_equal first_term.name, ordered_names.last
           end
         end

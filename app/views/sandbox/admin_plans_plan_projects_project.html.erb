@@ -1,0 +1,170 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Planificación', 'admin_plans' %> »
+  <%= link_to 'Plan Actuación Municipal', 'admin_plans_plan' %> »
+
+</div>
+
+<h1>Proyectos de Plan Actuación Municipal</h1>
+
+<div class="tabs">
+  <ul>
+    <li><%= link_to 'Plan', 'admin_plans_plan' %></li>
+    <li class="active"><%= link_to 'Proyectos', 'admin_plans_plan_projects' %></li>
+    <li><%= link_to 'Configuración', 'admin_plans_plan_conf' %></li>
+  </ul>
+</div>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-17-24">
+
+    <form>
+
+      <div class="form_item select_control">
+        <label for="entity">Categoría</label>
+        <!-- should show the list from sandbox/admin_people_conf -->
+        <select>
+          <% for i in [
+            'Eje 1 - Economia, emprenedoria i ocupació',
+            'Eje 2 - Buen Gobierno',
+            'Eje 3 - Sostenibilidad',
+            'Eje 4 - Felicidad',
+            'Eje 5 - Eficiencia'
+          ]
+          %>
+          <option><%= i %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="globalized_fields">
+
+        <%= render partial: "admin_globalized_fields"  %>
+
+        <div class="form_item input_text">
+          <label for="a1">Proyecto</label>
+          <input type="text" id="a1" value="Título del proyecto">
+        </div>
+
+        <div class="form_item textarea">
+          <label for="entity">Descripción</label>
+          <textarea>Más info... </textarea>
+          <div class="inline_help"></div>
+        </div>
+
+      </div>
+
+      <div class="f_flex_col">
+
+        <div class="form_item input_text">
+          <label for="event_starts_at">Fecha de inicio</label>
+          <input data-language="es" data-timepicker="true" data-autoclose="false" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startdate="1552669200000" data-bind="true" class="air-datepicker" type="text" value="2019-03-15 18:00:00 +0100" name="event[starts_at]" id="event_starts_at">
+        </div>
+
+        <div class="form_item input_text">
+          <label for="event_starts_at">Fecha de fin</label>
+          <input data-language="es" data-timepicker="true" data-autoclose="false" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startdate="1552669200000" data-bind="true" class="air-datepicker" type="text" value="2019-03-15 18:00:00 +0100" name="event[starts_at]" id="event_starts_at">
+        </div>
+
+        <div class="form_item select_control">
+          <label for="">Estado</label>
+          <select>
+            <% for i in [
+              'Pendiente iniciar',
+              'Iniciado',
+              'En progreso',
+              'Finalizado'
+            ]
+            %>
+            <option><%= i %></option>
+            <% end %>
+          </select>
+        </div>
+
+        <div class="form_item select_control">
+          <label for="">Progreso</label>
+          <select>
+            <option>0%</option>
+            <option>25%</option>
+            <option>50%</option>
+            <option>75%</option>
+            <option>100%</option>
+            <option disabled>- - - -</option>
+            <% for i in 1..100 %>
+              <option><%= i %>%</option>
+            <% end %>
+          </select>
+        </div>
+
+      </div>
+
+
+      <p>Indicadores</p>
+
+
+
+    </form>
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-1-24"></div>
+
+  <div class="pure-u-1 pure-u-md-1-4">
+
+    <%# render "admin_widget_save.html.erb", locals: { only_save_button: true } %>
+
+    <%= render "admin_widget_save_v2.html.erb", locals: { only_save_button: true } %>
+
+    <div class="widget_save_v2 m_b_2">
+
+      <div class="w_s_content">
+
+        <h4>Moderación</h4>
+
+        <div class="form_item">
+
+          <div class="options compact">
+
+        		<div class="option">
+              <input type="radio" id="opt_1" name="opt" value="1" checked="">
+              <label for="opt_1">
+                <span></span>
+                En revisión
+             </label>
+            </div>
+
+            <div class="option">
+              <input type="radio" id="opt_2" name="opt" value="2">
+              <label for="opt_2">
+                <span></span>
+                Aprobado
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="radio" id="opt_2" name="opt" value="2">
+              <label for="opt_2">
+                <span></span>
+                Rechazado
+              </label>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="w_actions m_b_1">
+          <button class="button medium">Guardar</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <%# render "admin_widget_attachment.html.erb" %>
+
+
+  </div>
+
+</div>

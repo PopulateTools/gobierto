@@ -45,7 +45,7 @@ header.main {
     padding: 0.5em 1.5em;
     border-right: 1px solid #fff;
 
-    .fa {
+    .fas {
       display: inline-block;
       width: 25px;
     }
@@ -152,7 +152,7 @@ menu.main {
     background: transparentize($color_logo_yellow, 0.7);
   }
 
-  .fa {
+  .fas {
     margin: 0 0.25em 0 0;
   }
 }
@@ -225,6 +225,12 @@ menu.main {
 
 /* Headings */
 body.gobierto_admin {
+  h1, h2, h3, h4, h5 {
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
   h1 {
     font-size: 1.8em;
     margin: 0 0 1em 0;
@@ -232,6 +238,11 @@ body.gobierto_admin {
 
   h2 {
     text-transform: uppercase;
+  }
+
+  h5 {
+    margin: 0;
+    color: $color_separator;
   }
 
   .form_block {
@@ -307,7 +318,7 @@ body.gobierto_admin {
     margin-right: 1em;
     text-decoration: none;
 
-    .fa {
+    .fas {
       margin: 0 0.25em 0 0;
     }
   }
@@ -317,6 +328,10 @@ body.gobierto_admin {
   .button,
   button {
     margin-left: 0.25em;
+  }
+  .button:last-child,
+  button:last-child {
+    margin: 0;
   }
 }
 
@@ -338,6 +353,36 @@ body.gobierto_admin {
   margin-top: 60px;
 }
 
+
+/* Widget Save v2 */
+.widget_save_v2 {
+  background: $color_neutral_soft;
+  @include border-radius(6px);
+
+  .w_s_content {
+    padding: .75em;
+  }
+
+  .publication_section {
+    background: transparentize($color_main, .85);
+  }
+
+  .w_actions {
+    display: flex;
+    flex-wrap: nowrap;
+
+    > button {
+      width: 49%;
+      @include ellipsis;
+    }
+  }
+}
+
+.widget_save_v2.is_stuck {
+  margin-top: 60px;
+}
+
+
 .sep_top_bot {
   border-top: 1px solid $color_separator;
   border-bottom: 1px solid $color_separator;
@@ -354,7 +399,7 @@ body.gobierto_admin {
   font-size: 0.8em;
   text-transform: uppercase;
 
-  .fa {
+  .fas {
     margin: 0 0.25em 0 0;
   }
 }
@@ -387,8 +432,11 @@ body.gobierto_admin {
   }
 }
 
-.fa {
+.fas {
   margin: 0 0.25em 0 0;
+}
+.fas:hover {
+  opacity: .75;
 }
 
 pre {
@@ -445,7 +493,7 @@ pre {
     .secondary {
       font-size: 0.85em;
 
-      .fa {
+      .fas {
         opacity: 0.5;
       }
     }
@@ -466,7 +514,7 @@ pre {
     padding: 4px 0;
     // width: 70px;
 
-    .fa {
+    .fas {
       margin: 0 0 0 1em;
     }
   }
@@ -874,7 +922,7 @@ a .global_menu {
   }
 
   .jsgrid-control-field {
-    .fa {
+    .fas {
       padding: .65em;
       border-radius: 3px;
       font-size: 1em;
@@ -883,13 +931,13 @@ a .global_menu {
       cursor: pointer;
     }
 
-    .fa:not(:last-child) {
+    .fas:not(:last-child) {
       margin-right: .75em;
     }
   }
 
   .jsgrid-header-row {
-    .fa {
+    .fas {
       background: initial;
     }
   }
@@ -923,4 +971,217 @@ table {
   th.icon {
     width: 3%;
   }
+}
+
+
+
+.border-el {
+  border: 1px solid $color_separator;
+  @include border-radius(6px);
+}
+
+
+
+
+/* Gobierto Vocabulary */
+.v_container {
+  .v_el {
+    margin: 0 0 0 1.75em;
+    padding: .35em 0 .15em 0;
+
+    .v_el {
+      border-top: 1px solid rgba($color_main, 0.2);
+      display: none;
+    }
+
+    .el-opened {
+      display: block;
+      // font-weight: bold;
+
+    }
+
+    .v_el:hover {
+      background: transparentize($color_main, .95);
+
+      .v_el:hover {
+        background: transparentize(#FFF, .5);;
+      }
+    }
+
+    .v_el_actions {
+      opacity: 0;
+    }
+
+  }
+  .v_el_active {
+    > .v_el_cont .v_el_actions {
+      opacity: 1;
+    }
+  }
+
+  .v_el:hover {
+    cursor: move;
+  }
+
+  .v_el_level {
+    @include border-radius(6px);
+    background: rgba($color_main, 0.1);
+    padding: .75em 0 .5em .8em;
+    margin: 0 0 1em 0;
+
+    .icon-caret {
+      font-size: 1.25em;
+      vertical-align: middle;
+    }
+
+    .list-group > .v_el_level {
+      background: initial;
+      padding: .35em 0 .15em 0;
+      margin: 0 0 0 1.75em;
+      border-radius: 0;
+
+      .v_el_title {
+        font-size: .85rem;
+        line-height: 1.2;
+        margin: .45em 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+    }
+
+  }
+
+  .v_el_cont,
+  .v_heading {
+    display: flex;
+
+    .v_el_title,
+    .v_el_decorated {
+      flex-grow: 5;
+    }
+
+  }
+
+  .v_heading {
+    margin: 0 0 1em 0;
+
+    .v_el_decorated {
+      flex-grow: 5;
+      font-size: .85em;
+      font-weight: bold;
+    }
+  }
+
+  .v_el_decorated {
+    display: flex;
+    justify-content: flex-end;
+
+    > div {
+      margin: .45em 0 .45em 1em;
+      width: 60px;
+      font-size: .85em;
+      line-height: 1;
+      color: $color_meta_text;
+      text-align: center;
+    }
+  }
+
+  .v_el_icon_tree {
+    min-width: 30px;
+    text-align: center;
+  }
+
+  .v_el_actions {
+    min-width: 75px;
+    text-align: right;
+    margin: 0 .75em;
+
+    a {
+      text-decoration: none;
+    }
+
+    .fas {
+      margin: 0 .5em;
+      font-size: .85em;
+    }
+  }
+
+}
+
+.color_sem_red, .color_sem_red a {
+  color: $color_sem_red;
+}
+
+.color_sem_yellow, .color_sem_yellow a {
+  color: $color_sem_yellow;
+}
+
+.color_sem_green, .color_sem_green a {
+  color: $color_sem_green;
+}
+
+.metric {
+  &.metric_medium {
+    .metric_value {
+      font-size: $f3;
+      font-weight: bold;
+    }
+  }
+  .metric_label {
+    font-size: $f8;
+  }
+}
+
+.f_small {
+  font-size: .85em;
+  line-height: 1.2;
+}
+.f_soft,
+a.f_soft,
+.f_soft a, {
+  color: $color_meta_text;
+}
+
+.g_popup_context {
+  position: relative;
+
+  .g_popup {
+    position: absolute;
+    background: #F0F0F0;
+    box-shadow: 0 0 26px 0 rgba(0,0,0,0.24);
+    border-radius: 6px;
+    padding: 1.5em;
+    width: 25vw;
+    min-width: 300px;
+    max-width: 600px;
+    right: -40px;
+    z-index: 1;
+    transition: visibility 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000), opacity 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000); /* ease-in-out */
+    opacity: 0;
+    visibility: hidden;
+
+    ul, li {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    a {
+      border-radius: 3px;
+      padding: .5em;
+      display: block;
+    }
+    a:hover {
+      background: rgba($color_main, 0.1);
+    }
+
+  }
+
+  &:hover > .g_popup {
+    visibility: visible;
+    opacity: 1;
+  }
+
 }

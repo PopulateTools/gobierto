@@ -13,7 +13,8 @@ module GobiertoAdmin
         :progress,
         :starts_at,
         :ends_at,
-        :options_json
+        :options_json,
+        :visibility_level
       )
 
       validates :plan, :category, :name_translations, presence: true

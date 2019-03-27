@@ -56,10 +56,6 @@ module GobiertoAdmin
         []
       end
 
-      def filter_params_values
-        45
-      end
-
       private
 
       def format_percentage(number)

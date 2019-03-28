@@ -165,7 +165,7 @@ $(document).on('turbolinks:load', function() {
   });
 
   // Show dataset info on click
-  $('.card_container .widget_headline > i.fa').click(function() {
+  $('.card_container .widget_headline > i.fas').click(function() {
     $(this).closest('.card_container').toggleClass('hover');
   });
 

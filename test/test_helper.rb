@@ -52,6 +52,7 @@ require "capybara/minitest"
 require "minitest/retry"
 require "vcr"
 require "mocha/minitest"
+require "selenium/webdriver"
 
 I18n.default_locale = :en
 Time.zone = "Madrid"
@@ -126,6 +127,23 @@ class ActionDispatch::IntegrationTest
     )
   end
 
+  # For debugging in development
+  Capybara.register_driver :chrome do |app|
+    Capybara::Selenium::Driver.new(app, browser: :chrome)
+  end
+
+  Capybara.register_driver :headless_chrome do |app|
+    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      chromeOptions: { args: %w(headless disable-gpu) }
+    )
+
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :chrome,
+      desired_capabilities: capabilities
+    )
+  end
+
   Capybara.javascript_driver = :poltergeist_custom
   Capybara.default_host = "http://gobierto.test"
 
@@ -138,6 +156,14 @@ class ActionDispatch::IntegrationTest
 
   def teardown
     Capybara.reset_session!
+  end
+
+  def with_chrome_driver
+    Capybara.current_driver = :headless_chrome
+    yield
+    Capybara.reset_session!
+  ensure
+    Capybara.current_driver = Capybara.default_driver
   end
 
   def with_javascript

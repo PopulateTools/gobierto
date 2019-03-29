@@ -14,7 +14,7 @@ module GobiertoAdmin
 
       def edit
         find_plan
-        @project = @plan.nodes.find params[:id]
+        find_versioned_project
         @project_visibility_levels = project_visibility_levels
 
         @project_form = NodeForm.new(
@@ -95,6 +95,18 @@ module GobiertoAdmin
 
       def find_plan
         @plan = current_site.plans.find params[:plan_id]
+      end
+
+      def find_versioned_project
+        @project = @plan.nodes.find params[:id]
+
+        return if params[:version].blank?
+
+        version_number = params[:version].to_i
+        index = version_number - @project.versions.length
+        redirect_to(edit_admin_plans_plan_project_path(@plan, @project), alert: t(".unavailable_version")) and return if version_number < 1 || index >= 0
+
+        @project = @project.versions[index].reify
       end
 
       def base_relation

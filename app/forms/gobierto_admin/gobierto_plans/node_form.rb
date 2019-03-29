@@ -75,7 +75,7 @@ module GobiertoAdmin
       end
 
       def visibility_level
-        @visibility_level ||= "draft"
+        @visibility_level ||= node.visibility_level || "draft"
       end
 
       private
@@ -100,6 +100,7 @@ module GobiertoAdmin
           attributes.starts_at = starts_at
           attributes.ends_at = ends_at
           attributes.options = options
+          attributes.visibility_level = visibility_level
         end
 
         if @node.valid?

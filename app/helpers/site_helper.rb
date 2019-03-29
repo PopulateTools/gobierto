@@ -22,11 +22,11 @@ module SiteHelper
     url
   end
 
-  def class_if(class_name, condition)
+  def class_if(class_name, condition, fallback = "")
     if condition
       class_name
     else
-      ''
+      fallback
     end
   end
 

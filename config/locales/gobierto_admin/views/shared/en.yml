@@ -28,6 +28,35 @@ en:
       form_locale_switchers:
         define_content_in_locale: Define the content in %{locale_name} version
         translate: Translate
+      moderation_save_widget:
+        approved: Approved
+        edit_version: Editing version
+        last_versions: Last versions
+        moderation: Moderation
+        moderation_info:
+          new: After saving your content, it can be sent to moderation.
+          pending: When your content is ready to be reviewed by a moderator, click
+            on Send.
+          publicable: Click on Publish to make this version publicly visible.
+          published: Version published.
+          sent: Your content has been sent for review. You will receive a notification
+            if it is approved or you are asked for changes.
+        new_version: New (not saved)
+        not_sent: Not sent
+        preview: Preview
+        publication_status:
+          approved: Published
+          not_published: Not published
+        publish: Publish
+        publish_status: Status
+        published_version: Published version
+        published_version_blank: not published yet
+        save: Save
+        see_all: see all
+        see_versions: see versions
+        send: Send
+        under_review: Under review
+        unpublish: Unpublish
       recover:
         confirm: If you recover an element, it will be listed again
         element: Recover element

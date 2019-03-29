@@ -28,6 +28,35 @@ ca:
       form_locale_switchers:
         define_content_in_locale: Defineix el contingut en la versió en %{locale_name}
         translate: Traduxir
+      moderation_save_widget:
+        approved: Aprovat
+        edit_version: Editant versió
+        last_versions: Últimes versions
+        moderation: Moderació
+        moderation_info:
+          new: Un cop guardis el teu contingut, podràs enviar-lo a moderació.
+          pending: Quan el teu contingut estigui llest per a ser revisat per un moderador,
+            fes click a Enviar.
+          publicable: Fes click a Publicar perquè aquesta versió sigui visible públicament.
+          published: La versió està publicada.
+          sent: El teu contingut ha estat enviat per a revisió. Rebràs una notificació
+            quan s'aprovi o et demanin canvis.
+        new_version: Nova (no guardada)
+        not_sent: No enviat
+        preview: Previsualitzar
+        publication_status:
+          approved: Publicada
+          not_published: No publicada
+        publish: Publicar
+        publish_status: Estat
+        published_version: Versió publicada
+        published_version_blank: sense publicar encara
+        save: Guardar
+        see_all: veure totes
+        see_versions: veure versions
+        send: Enviar
+        under_review: En revisió
+        unpublish: Despublicar
       recover:
         confirm: Si es recupera un element, es tornarà a llistar de nou.
         element: Recuperar element

@@ -7,5 +7,7 @@ en:
           success: Project created correctly.
         destroy:
           success: Project deleted correctly.
+        find_versioned_project:
+          unavailable_version: Unavailable version.
         update:
           success: Project updated correctly.

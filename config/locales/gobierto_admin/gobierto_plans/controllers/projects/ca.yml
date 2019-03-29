@@ -7,5 +7,7 @@ ca:
           success: El projecte s'ha creat correctament.
         destroy:
           success: El projecte s'ha esborrat correctament.
+        find_versioned_project:
+          unavailable_version: Versió no disponible
         update:
           success: El projecte s'ha actualitzat correctament.

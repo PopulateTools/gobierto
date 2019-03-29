@@ -5,7 +5,7 @@ require_dependency "gobierto_plans"
 module GobiertoPlans
   class Node < ApplicationRecord
     has_and_belongs_to_many :categories, class_name: "GobiertoCommon::Term", association_foreign_key: :category_id, join_table: :gplan_categories_nodes
-    has_paper_trail
+    has_paper_trail ignore: [:visibility_level]
 
     scope :with_name, ->(name) { where("gplan_nodes.name_translations ->> 'en' LIKE :name OR gplan_nodes.name_translations ->> 'es' LIKE :name OR gplan_nodes.name_translations ->> 'ca' LIKE :name", name: "%#{name}%") }
     scope :with_status, ->(status) { with_status_translation(status) }

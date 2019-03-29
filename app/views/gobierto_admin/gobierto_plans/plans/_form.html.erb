@@ -76,5 +76,18 @@
 
     <%= render partial: 'gobierto_admin/shared/save_widget', locals: { f: f, levels: @plan_visibility_levels } %>
 
+    <% if @plan_form.persisted? %>
+      <div class="pure-u-1 pure-u-md-1-4 ">
+        <%= link_to admin_plans_plan_import_csv_path(@plan) do %>
+          <i class="fas fa-table"></i>
+          <%= t(".import_csv") %>
+        <% end %>
+        <%= link_to admin_plans_plan_export_csv_path(@plan), target: "_blank" do %>
+          <i class="fas fa-table"></i>
+          <%= t(".export_csv") %>
+        <% end %>
+      </div>
+    <% end %>
+
   </div>
 <% end %>

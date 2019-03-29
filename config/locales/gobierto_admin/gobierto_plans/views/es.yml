@@ -48,6 +48,8 @@ es:
         edit:
           title: Configuración
         form:
+          export_csv: Exportar a CSV
+          import_csv: Importar desde CSV
           placeholders:
             configuration_data: '{ "open_node": true }'
             css: ".gobierto_planification section.level_0 .cat_1 { background-color:

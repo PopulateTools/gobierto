@@ -89,7 +89,10 @@
 
   <div class="pure-u-1 pure-u-md-1-24"></div>
 
-  <%= render partial: 'gobierto_admin/shared/save_widget', locals: { f: f, levels: @project_visibility_levels } %>
-
+  <% if lookup_context.exists?("gobierto_admin/shared/_admin_widget_save_v2.html.erb") %>
+    <%= render partial: "gobierto_admin/shared/admin_widget_save_v2", locals: { f: f, resource: @project_form.persisted? ? @project : @project_form.project } %>
+  <% else %>
+    <%= render partial: 'gobierto_admin/shared/save_widget', locals: { f: f, levels: @project_visibility_levels } %>
+  <% end %>
 </div>
 <% end %>

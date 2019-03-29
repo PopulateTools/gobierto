@@ -36,6 +36,7 @@ module GobiertoAdmin
         @node ||= ::GobiertoPlans::Node.find_by(id: id).presence || build_node
       end
       alias record node
+      alias project node
 
       def category
         @category ||= plan.categories.find_by(id: category_id)

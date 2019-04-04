@@ -17,7 +17,8 @@ module GobiertoAdmin
       )
       attr_writer(
         :category_id,
-        :visibility_level
+        :visibility_level,
+        :moderation_stage
       )
 
       validates :plan, :category, :name_translations, :admin, presence: true
@@ -27,6 +28,8 @@ module GobiertoAdmin
       delegate :site_id, to: :plan
 
       def save
+        check_visibility_level
+
         save_node if valid?
       end
 
@@ -85,10 +88,25 @@ module GobiertoAdmin
         @visibility_level ||= node.visibility_level || "draft"
       end
 
+      def moderation_stage
+        @moderation_stage ||= node.moderation_stage
+      end
+
       private
+
+      def moderation_policy
+        @moderation_policy ||= GobiertoAdmin::ModerationPolicy.new(current_admin: admin, current_site: site, moderable: node)
+      end
 
       def build_node
         ::GobiertoPlans::Node.new
+      end
+
+      def check_visibility_level
+        return if moderation_policy.blank? || node.visibility_level == visibility_level || moderation_policy.publish_as_editor?
+
+        @visibility_level = node.visibility_level
+        @moderation_stage = node.moderation.available_stages_for_action(:edit).keys.first
       end
 
       def options_json_format
@@ -119,12 +137,24 @@ module GobiertoAdmin
             node.categories << category
           end
 
+          save_moderation
+
           @node
         else
           promote_errors(@node.errors)
 
           false
         end
+      end
+
+      def save_moderation
+        return true unless moderation_policy.present? && moderation_policy.moderable_has_moderation?
+
+        node.moderation.tap do |attributes|
+          attributes.site_id = site_id
+          attributes.admin = admin
+          attributes.stage = moderation_stage if moderation_stage.present?
+        end.save
       end
 
       def progress_option(number)

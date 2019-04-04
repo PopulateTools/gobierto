@@ -129,6 +129,7 @@ module GobiertoAdmin
           :ends_at,
           :options_json,
           :visibility_level,
+          :moderation_stage,
           name_translations: [*I18n.available_locales],
           status_translations: [*I18n.available_locales]
         )

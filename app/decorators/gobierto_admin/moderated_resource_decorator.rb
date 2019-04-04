@@ -2,8 +2,15 @@
 
 module GobiertoAdmin
   class ModeratedResourceDecorator < BaseDecorator
-    def initialize(resource)
+    attr_accessor :current_admin, :moderation_policy
+
+    delegate :moderable_has_moderation?, to: :moderation_policy
+
+    def initialize(resource, opts = {})
       @object = resource
+      @current_admin = opts.delete(:current_admin)
+      @current_site = opts.delete(:current_site)
+      @moderation_policy = GobiertoAdmin::ModerationPolicy.new(current_admin: @current_admin, current_site: @current_site, moderable: @object)
     end
 
     def has_publication_status?

@@ -31,7 +31,7 @@ module GobiertoAdmin
     end
 
     def moderable_has_moderation?
-      moderable.class.include? GobiertoCommon::Moderable
+      moderable.class.include? ::GobiertoCommon::Moderable
     end
 
     private

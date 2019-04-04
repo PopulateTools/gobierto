@@ -30,6 +30,7 @@ en:
         translate: Translate
       moderation_save_widget:
         approved: Approved
+        confirm: Are you sure?
         edit_version: Editing version
         last_versions: Last versions
         moderation: Moderation

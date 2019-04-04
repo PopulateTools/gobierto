@@ -30,6 +30,7 @@ ca:
         translate: Traduxir
       moderation_save_widget:
         approved: Aprovat
+        confirm: Estàs segur?
         edit_version: Editant versió
         last_versions: Últimes versions
         moderation: Moderació

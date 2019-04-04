@@ -77,7 +77,8 @@
                   disabled: moderated_resource.step_disabled?,
                   class: "bl",
                   name: "#{f.object_name}[visibility_level]",
-                  value: moderated_resource.step_visibility_value
+                  value: moderated_resource.step_visibility_value,
+                  data: { confirm: t("gobierto_admin.shared.moderation_save_widget.confirm") }
                 ) %>
           </div>
 

@@ -30,6 +30,7 @@ es:
         translate: Traducir
       moderation_save_widget:
         approved: Aprobado
+        confirm: Estás seguro?
         edit_version: Editando versión
         last_versions: Últimas versiones
         moderation: Moderación

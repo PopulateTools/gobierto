@@ -47,7 +47,7 @@ ca:
           in_review: En revisió
           not_sent: No enviat
           rejected: No aprovat
-          sent: En revisió
+          sent: Sent
         new_version: Nova (no guardada)
         preview: Previsualitzar
         publication_status:

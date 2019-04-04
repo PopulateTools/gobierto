@@ -47,7 +47,7 @@ es:
           in_review: En revisión
           not_sent: No enviado
           rejected: Rechazado
-          sent: En revisión
+          sent: Enviado
         new_version: Nueva (no guardada)
         preview: Previsualizar
         publication_status:

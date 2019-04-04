@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_11_184537) do
+ActiveRecord::Schema.define(version: 2019_04_01_094419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -99,6 +99,19 @@ ActiveRecord::Schema.define(version: 2019_03_11_184537) do
   create_table "admin_groups_admins", id: false, force: :cascade do |t|
     t.bigint "admin_id", null: false
     t.bigint "admin_group_id", null: false
+  end
+
+  create_table "admin_moderations", force: :cascade do |t|
+    t.bigint "site_id"
+    t.string "moderable_type"
+    t.bigint "moderable_id"
+    t.bigint "admin_id"
+    t.integer "stage", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_admin_moderations_on_admin_id"
+    t.index ["moderable_type", "moderable_id"], name: "index_admin_moderations_on_moderable_type_and_moderable_id"
+    t.index ["site_id"], name: "index_admin_moderations_on_site_id"
   end
 
   create_table "census_items", id: :serial, force: :cascade do |t|

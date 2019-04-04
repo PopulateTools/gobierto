@@ -1,0 +1,31 @@
+<% if resource.moderable_has_moderation? && resource.moderation_policy.moderate? && resource.moderation_reachable_stages.any? %>
+  <div class="widget_save_v2 m_b_2">
+
+    <div class="w_s_content">
+
+      <h4><%= t("gobierto_admin.shared.moderation_save_widget.moderation") %></h4>
+
+      <div class="form_item">
+
+        <div class="options compact">
+          <%= f.collection_radio_buttons(:moderation_stage, resource.moderation_reachable_stages, :first, :first) do |b| %>
+            <div class="option">
+              <%= b.radio_button %>
+              <%= b.label do %>
+                <span></span>
+                <%= t("gobierto_admin.shared.moderation_save_widget.moderation_status.#{b.text}") %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+
+      <div class="w_actions m_b_1">
+        <button class="button medium"><%= t("gobierto_admin.shared.moderation_save_widget.save") %></button>
+      </div>
+
+    </div>
+
+  </div>
+<% end %>

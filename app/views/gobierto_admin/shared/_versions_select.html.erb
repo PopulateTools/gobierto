@@ -1,0 +1,29 @@
+<% if resource.recent_versions.count > 1 %>
+  <span class="g_popup_context">
+    <a href="" class="f_soft"><%= t("gobierto_admin.shared.moderation_save_widget.see_versions") %></a>
+
+    <div class="g_popup">
+
+      <h3><%= t("gobierto_admin.shared.moderation_save_widget.last_versions") %></h3>
+
+      <ul>
+      <% resource.recent_versions.each_with_index do |version| %>
+        <% active = version.index + 1 == resource.current_version %>
+        <li>
+          <%= link_to(
+            "#{active ? "-> " : ""} #{version.index + 1} - #{time_ago_in_words(version.created_at)}",
+            { version: class_if(version.index + 1, version.index + 1 != resource.versions_count, nil) }.compact,
+            { class: class_if("active", active, nil) }.compact
+            ) %>
+        </li>
+      <% end %>
+      </ul>
+
+      <% if resource.recent_versions.last.index > 0 %>
+        <a href=""><%= t("gobierto_admin.shared.moderation_save_widget.see_all") %></a>
+      <% end %>
+
+    </div>
+
+  </span>
+<% end %>

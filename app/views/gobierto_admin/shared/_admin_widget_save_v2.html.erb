@@ -7,10 +7,12 @@
 
     <div class="w_s_content">
 
-      <div class="w_actions m_b_1">
-        <button class="button medium"><%= t("gobierto_admin.shared.moderation_save_widget.save") %></button>
-        <button class="button medium light"><%= t("gobierto_admin.shared.moderation_save_widget.preview") %></button>
-      </div>
+      <% if moderated_resource.moderation_policy.edit? %>
+        <div class="w_actions m_b_1">
+          <button class="button medium"><%= t("gobierto_admin.shared.moderation_save_widget.save") %></button>
+          <button class="button medium light"><%= t("gobierto_admin.shared.moderation_save_widget.preview") %></button>
+        </div>
+      <% end %>
 
       <% if versioned_resource.has_versions? %>
         <div class="pure-g f_small m_t_2">
@@ -67,20 +69,22 @@
             </div>
           <% end %>
 
-          <div class="w_s_txt_msg f_small m_t_4">
-            <%= t("gobierto_admin.shared.moderation_save_widget.moderation_info.#{moderated_resource.publish_moderation_step}") %>
-          </div>
+          <% if moderated_resource.moderation_policy.edit? %>
+            <div class="w_s_txt_msg f_small m_t_4">
+              <%= t("gobierto_admin.shared.moderation_save_widget.moderation_info.#{moderated_resource.publish_moderation_step}") %>
+            </div>
 
-          <div class="m_t_1">
-            <%= f.button(
-                  t("gobierto_admin.shared.moderation_save_widget.#{moderated_resource.publish_step_action}"),
-                  disabled: moderated_resource.step_disabled?,
-                  class: "bl",
-                  name: "#{f.object_name}[visibility_level]",
-                  value: moderated_resource.step_visibility_value,
-                  data: { confirm: t("gobierto_admin.shared.moderation_save_widget.confirm") }
-                ) %>
-          </div>
+            <div class="m_t_1">
+              <%= f.button(
+                    t("gobierto_admin.shared.moderation_save_widget.#{moderated_resource.publish_step_action}"),
+                    disabled: moderated_resource.step_disabled?,
+                    class: "bl",
+                    name: "#{f.object_name}[visibility_level]",
+                    value: moderated_resource.step_visibility_value,
+                    data: { confirm: t("gobierto_admin.shared.moderation_save_widget.confirm") }
+                  ) %>
+            </div>
+          <% end %>
 
         </div>
 

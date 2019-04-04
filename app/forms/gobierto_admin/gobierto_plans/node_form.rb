@@ -12,17 +12,19 @@ module GobiertoAdmin
         :progress,
         :starts_at,
         :ends_at,
-        :options_json
+        :options_json,
+        :admin
       )
       attr_writer(
         :category_id,
         :visibility_level
       )
 
-      validates :plan, :category, :name_translations, presence: true
+      validates :plan, :category, :name_translations, :admin, presence: true
       validate :options_json_format
 
       delegate :persisted?, to: :node
+      delegate :site_id, to: :plan
 
       def save
         save_node if valid?
@@ -30,6 +32,10 @@ module GobiertoAdmin
 
       def plan
         @plan ||= ::GobiertoPlans::Plan.find_by(id: plan_id)
+      end
+
+      def site
+        Site.find_by(id: site_id)
       end
 
       def node

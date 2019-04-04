@@ -20,7 +20,8 @@ module GobiertoAdmin
         @project_form = NodeForm.new(
           @project.attributes.except(*ignored_project_attributes).merge(
             plan_id: @plan.id,
-            options_json: @project.options
+            options_json: @project.options,
+            admin: current_admin
           )
         )
       end
@@ -28,7 +29,7 @@ module GobiertoAdmin
       def update
         find_plan
         @project = @plan.nodes.find params[:id]
-        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id]))
+        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
 
         if @project_form.save
           redirect_to(
@@ -46,14 +47,15 @@ module GobiertoAdmin
 
         @project_form = NodeForm.new(
           plan_id: @plan.id,
-          options_json: {}
+          options_json: {},
+          admin: current_admin
         )
       end
 
       def create
         find_plan
 
-        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id]))
+        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
 
         if @project_form.save
           redirect_to(

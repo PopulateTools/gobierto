@@ -18,66 +18,80 @@ module GobiertoAdmin
     end
 
     def publication_status
-      @publication_status ||= publicable? && visibility_level == unpublished_value ? :not_published : :approved
+      @publication_status ||= has_publication_status? && visibility_level == unpublished_value ? :not_published : :approved
     end
 
     def published?
       @published ||= publication_status == :approved
     end
 
-    # This method will change with moderation concern
     def publicable?
-      @publicable ||= true
+      @publicable ||= !moderable_has_moderation? || moderation.approved?
     end
 
-    # This method will change with moderation concern
     def sent?
-      @sent ||= false
+      @sent ||= moderable_has_moderation? && !moderation.not_sent?
     end
 
-    def step
-      @step ||= if publicable?
-                  published? ? :published : :publicable
-                elsif new_record?
-                  :new
-                elsif sent?
-                  :sent
-                else
-                  :pending
-                end
+    def rejected?
+      @rejected ||= moderable_has_moderation? && moderation.rejected?
+    end
+
+    def publish_moderation_step
+      @publish_moderation_step ||= if new_record?
+                                     :new
+                                   elsif publicable?
+                                     published? ? :published : :publicable
+                                   elsif sent?
+                                     rejected? ? :rejected : :sent
+                                   else
+                                     :not_sent
+                                   end
     end
 
     def locked?
-      @locked ||= [:new, :pending].include?(step)
+      @locked ||= [:new, :not_sent].include?(publish_moderation_step)
     end
 
-    def step_action
-      MODERATION_STEPS[step][:action]
+    def publish_step_action
+      publish_moderation_status.action
     end
 
     def moderation_status
-      MODERATION_STEPS[step][:moderation_status]
+      moderable_has_moderation? ? moderation_stage.to_sym : publish_moderation_status.moderation_status
     end
 
     def moderation_style
-      MODERATION_STEPS[step][:moderation_style]
+      publish_moderation_status.moderation_style
     end
 
     def step_disabled?
-      MODERATION_STEPS[step][:disabled]
+      publish_moderation_status.disabled
     end
 
     def step_visibility_value
       @step_visibility_value ||= published? ? unpublished_value : (self.class.visibility_levels.keys - [unpublished_value]).first
     end
 
+    def moderation_reachable_stages
+      @moderation_reachable_stages ||= begin
+                                         reachable_stages = moderation.reachable_stages_for_action(:moderate)
+                                         moderation.class.stages.select { |stage, _| reachable_stages.include?(stage) }
+                                       end
+    end
+
     private
 
-    MODERATION_STEPS = { new: { action: :send, moderation_status: :not_sent, disabled: true, moderation_style: :not_published },
-                         pending: { action: :send, moderation_status: :not_sent, disabled: false, moderation_style: :not_published },
-                         sent: { action: :publish, moderation_status: :under_review, disabled: true, moderation_style: :in_revision },
-                         publicable: { action: :publish, moderation_status: :approved, disabled: false, moderation_style: :approved },
-                         published: { action: :unpublish, moderation_status: :approved, disabled: false, moderation_style: :approved } }.freeze
+    def publish_moderation_status
+      @publish_moderation_status ||= OpenStruct.new PUBLISH_MODERATION_STEPS[publish_moderation_step]
+    end
+
+    PUBLISH_MODERATION_STEPS = { new: { action: :send, moderation_status: :not_sent, disabled: true, moderation_style: :not_published },
+                                 not_sent: { action: :send, moderation_status: :not_sent, disabled: false, moderation_style: :not_published },
+                                 sent: { action: :publish, moderation_status: :in_review, disabled: true, moderation_style: :in_revision },
+                                 publicable: { action: :publish, moderation_status: :approved, disabled: false, moderation_style: :approved },
+                                 published: { action: :unpublish, moderation_status: :approved, disabled: false, moderation_style: :approved },
+                                 rejected: { action: :publish, moderation_status: :rejected, disabled: true, moderation_style: :not_published } }.freeze
 
     def unpublished_value
       "draft"

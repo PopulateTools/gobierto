@@ -68,12 +68,12 @@
           <% end %>
 
           <div class="w_s_txt_msg f_small m_t_4">
-            <%= t("gobierto_admin.shared.moderation_save_widget.moderation_info.#{moderated_resource.step}") %>
+            <%= t("gobierto_admin.shared.moderation_save_widget.moderation_info.#{moderated_resource.publish_moderation_step}") %>
           </div>
 
           <div class="m_t_1">
             <%= f.button(
-                  t("gobierto_admin.shared.moderation_save_widget.#{moderated_resource.step_action}"),
+                  t("gobierto_admin.shared.moderation_save_widget.#{moderated_resource.publish_step_action}"),
                   disabled: moderated_resource.step_disabled?,
                   class: "bl",
                   name: "#{f.object_name}[visibility_level]",
@@ -94,7 +94,7 @@
           <%= t("gobierto_admin.shared.moderation_save_widget.moderation") %>
         </div>
         <div class="pure-u-1-2">
-          <span class="i_p_status <%= moderated_resource.moderation_style %>"><%= t("gobierto_admin.shared.moderation_save_widget.#{moderated_resource.moderation_status}") %></span>
+          <span class="i_p_status <%= moderated_resource.moderation_style %>"><%= t("gobierto_admin.shared.moderation_save_widget.moderation_status.#{moderated_resource.moderation_status}") %></span>
         </div>
       </div>
 
@@ -102,4 +102,5 @@
 
   </div>
 
+  <%= render partial: "gobierto_admin/shared/admin_widget_moderate", locals: { f: f, resource: moderated_resource } %>
 </div>

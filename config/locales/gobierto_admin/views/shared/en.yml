@@ -29,21 +29,26 @@ en:
         define_content_in_locale: Define the content in %{locale_name} version
         translate: Translate
       moderation_save_widget:
-        approved: Approved
         confirm: Are you sure?
         edit_version: Editing version
         last_versions: Last versions
         moderation: Moderation
         moderation_info:
           new: After saving your content, it can be sent to moderation.
-          pending: When your content is ready to be reviewed by a moderator, click
+          not_sent: When your content is ready to be reviewed by a moderator, click
             on Send.
           publicable: Click on Publish to make this version publicly visible.
           published: Version published.
+          rejected: Version rejected.
           sent: Your content has been sent for review. You will receive a notification
             if it is approved or you are asked for changes.
+        moderation_status:
+          approved: Approved
+          in_review: Under review
+          not_sent: Not sent
+          rejected: Rejected
+          sent: Under review
         new_version: New (not saved)
-        not_sent: Not sent
         preview: Preview
         publication_status:
           approved: Published
@@ -56,7 +61,6 @@ en:
         see_all: see all
         see_versions: see versions
         send: Send
-        under_review: Under review
         unpublish: Unpublish
       recover:
         confirm: If you recover an element, it will be listed again

@@ -99,7 +99,7 @@ module GobiertoAdmin
       end
 
       def build_node
-        ::GobiertoPlans::Node.new
+        ::GobiertoPlans::Node.new(admin_id: admin.id)
       end
 
       def check_visibility_level

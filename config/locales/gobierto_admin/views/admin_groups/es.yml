@@ -7,12 +7,18 @@ es:
       edit:
         title: 'Permisos del grupo: %{name}'
       form:
+        action_names:
+          edit: Editar
+          manage: Administrar
+          moderate: Moderar
+        actions: Acciones
         all: Todos
         members:
           one: Hay un administrador con este grupo.
           other: Hay %{count} administradores con este grupo.
           zero: Este grupo no tiene administradores.
         modules_permissions: Módulos
+        people: Personas
         placeholders:
           name: Grupo global de administradores
         site_options_permissions: Sitio

@@ -6,6 +6,7 @@ module GobiertoPlans
   class Node < ApplicationRecord
     include GobiertoCommon::Moderable
 
+    belongs_to :author, class_name: "GobiertoAdmin::Admin", foreign_key: :admin_id
     has_and_belongs_to_many :categories, class_name: "GobiertoCommon::Term", association_foreign_key: :category_id, join_table: :gplan_categories_nodes
     has_paper_trail ignore: [:visibility_level]
 

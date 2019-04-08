@@ -104,8 +104,8 @@ module GobiertoPeople
       @people = current_site.people.active.sorted
 
       if current_site.date_filter_configured?
-        @people = QueryWithActivities.new(
-          source: @people,
+        @people = PeopleWithActivities.new(
+          people_scope: @people,
           start_date: filter_start_date,
           end_date: filter_end_date,
           include_joins: { events: :attending_events, gifts: :received_gifts, invitations: :invitations, trips: :trips }

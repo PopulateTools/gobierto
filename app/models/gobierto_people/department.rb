@@ -44,10 +44,10 @@ module GobiertoPeople
     def people
       site.people
           .left_outer_joins(attending_person_events: :event)
-          .left_outer_joins(:trips)
-          .left_outer_joins(:invitations)
-          .left_outer_joins(:received_gifts)
-          .where("gc_events.department_id = :id or gp_trips.department_id = :id or gp_invitations.department_id = :id or gp_gifts.department_id = :id", id: id)
+          .where("gc_events.department_id = :id OR
+gp_people.id IN (select distinct(person_id) from gp_trips where gp_trips.department_id = :id) OR
+gp_people.id IN (select distinct(person_id) from gp_invitations where gp_invitations.department_id = :id) OR
+gp_people.id IN (select distinct(person_id) from gp_gifts where gp_gifts.department_id = :id)", id: id)
           .distinct
     end
 

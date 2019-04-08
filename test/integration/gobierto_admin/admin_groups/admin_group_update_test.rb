@@ -30,29 +30,34 @@ module GobiertoAdmin
     end
 
     def test_admin_group_update
-      with_current_site(site) do
-        with_signed_in_admin(manager_admin) do
-          visit edit_admin_admin_group_path(madrid_group)
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_admin(manager_admin) do
+            visit edit_admin_admin_group_path(madrid_group)
 
-          within "form.edit_admin_group" do
-            fill_in "admin_group_name", with: "Admin Group changed name"
+            within "form.edit_admin_group" do
+              fill_in "admin_group_name", with: "Admin Group changed name"
 
-            check "Gobierto Participation"
+              find("label[for='admin_group_modules_gobiertoparticipation']").click
+              find("label[for='admin_group_site_options_vocabularies']").click
+              find("label[for='admin_group_site_options_templates']").click
 
-            uncheck "Vocabularies"
-            check "Templates"
+              click_button "Update"
+            end
 
-            click_button "Update"
-          end
+            assert has_message?("Admins Group was successfully updated")
 
-          assert has_message?("Admins Group was successfully updated")
 
-          within "form.edit_admin_group" do
-            assert has_field?("admin_group_name", with: "Admin Group changed name")
-            assert has_checked_field?("Gobierto Participation")
-            assert has_no_checked_field?("Gobierto Budgets")
-            assert has_no_checked_field?("Vocabularies")
-            assert has_checked_field?("Templates")
+            within "form.edit_admin_group" do
+              assert has_field?("admin_group_name", with: "Admin Group changed name")
+              assert find("#admin_group_modules_gobiertoparticipation", visible: false).checked?
+              assert find("#modules_action_gobierto_participation_manage", visible: false).checked?
+              refute find("#modules_action_gobierto_participation_edit", visible: false).checked?
+              refute find("#modules_action_gobierto_participation_moderate", visible: false).checked?
+              refute find("#admin_group_modules_gobiertobudgets", visible: false).checked?
+              refute find("#admin_group_site_options_vocabularies", visible: false).checked?
+              assert find("#admin_group_site_options_templates", visible: false).checked?
+            end
           end
         end
       end

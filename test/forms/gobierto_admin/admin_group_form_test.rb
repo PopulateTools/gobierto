@@ -61,7 +61,7 @@ module GobiertoAdmin
     end
 
     def test_modules_initialization
-      assert_equal [], subject.new.modules
+      assert_equal({}, subject.new.modules_actions)
     end
 
     ## Tests related to permissions
@@ -69,7 +69,7 @@ module GobiertoAdmin
     def test_change_authorization_level_updates_permissions
       form = subject.new(
         madrid_group_params.merge(
-          modules: %w(GobiertoPeople),
+          modules_actions: { gobierto_people: [:manage] },
           people: [richard.id]
         )
       )
@@ -79,7 +79,7 @@ module GobiertoAdmin
 
       form = subject.new(
         madrid_group_params.merge(
-          modules: %w(GobiertoPeople),
+          modules_actions: { gobierto_people: [:manage] },
           people: [richard.id]
         )
       )
@@ -89,7 +89,9 @@ module GobiertoAdmin
     end
 
     def test_grant_module_permissions
-      form = subject.new(madrid_group_params.merge(modules: %w(GobiertoPeople GobiertoBudgetConsultations GobiertoParticipation)))
+      form = subject.new(madrid_group_params.merge(modules_actions: { gobierto_people: [:manage],
+                                                                      gobierto_budget_consultations: [:manage],
+                                                                      gobierto_participation: [:manage] }))
 
       assert_equal 2, tony.modules_permissions.size
 
@@ -99,7 +101,7 @@ module GobiertoAdmin
     end
 
     def test_revoke_module_permissions
-      form = subject.new(madrid_group_params.merge(modules: %w(GobiertoPeople)))
+      form = subject.new(madrid_group_params.merge(modules_actions: { gobierto_people: [:manage] }))
 
       assert_equal 2, tony.modules_permissions.size
 
@@ -112,7 +114,7 @@ module GobiertoAdmin
     # for empty collections.
     # Use this test to make sure .where.not(attribute: collection) syntax is used
     def test_revoke_all_module_permissions
-      form = subject.new(madrid_group_params.merge(modules: []))
+      form = subject.new(madrid_group_params.merge(modules_actions: {}))
 
       assert form.save
 
@@ -120,7 +122,7 @@ module GobiertoAdmin
     end
 
     def test_revoke_gobierto_people_permissions_revokes_people_permissions
-      form = subject.new(madrid_group_params.merge(modules: %w(GobiertoBudgetConsultations)))
+      form = subject.new(madrid_group_params.merge(modules_actions: { gobierto_budget_consultations: [:manage] }))
 
       assert form.save
 
@@ -130,7 +132,7 @@ module GobiertoAdmin
     def test_grant_person_permissions
       form = subject.new(
         madrid_group_params.merge(
-          modules: %w(GobiertoPeople GobiertoBudgetConsultations),
+          modules_actions: { gobierto_people: [:manage], gobierto_budget_consultations: [:manage] },
           people: [richard.id, tamara.id, kali.id]
         )
       )
@@ -143,7 +145,7 @@ module GobiertoAdmin
     def test_grant_all_people_permissions
       form = subject.new(
         madrid_group_params.merge(
-          modules: %w(GobiertoPeople),
+          modules_actions: { gobierto_people: [:manage] },
           people: [],
           all_people: "1"
         )
@@ -160,7 +162,7 @@ module GobiertoAdmin
     def test_grant_person_permissions_without_site_permissions
       form = subject.new(
         madrid_group_params.merge(
-          modules: %w(GobiertoPeople GobiertoBudgetConsultations),
+          modules_actions: { gobierto_people: [:manage], gobierto_budget_consultations: [:manage] },
           people: [richard.id, tamara.id, kali.id]
         )
       )
@@ -178,7 +180,7 @@ module GobiertoAdmin
     def test_grant_person_permissions_without_gobierto_people_permissions
       form = subject.new(
         madrid_group_params.merge(
-          modules: %w(GobiertoBudgetConsultations),
+          modules_actions: { gobierto_budget_consultations: [:manage] },
           people: [richard.id, kali.id, tamara.id]
         )
       )
@@ -191,7 +193,7 @@ module GobiertoAdmin
     def test_revoke_person_permissions
       form = subject.new(
         madrid_group_params.merge(
-          modules: %w(GobiertoPeople),
+          modules_actions: { gobierto_people: [:manage] },
           people: [richard.id]
         )
       )
@@ -204,7 +206,7 @@ module GobiertoAdmin
     def test_revoke_all_people_permissions
       form = subject.new(
         madrid_group_params.merge(
-          modules: %w(GobiertoPeople),
+          modules_actions: { gobierto_people: [:manage] },
           people: [],
           all_people: "0"
         )

@@ -12,5 +12,9 @@ module GobiertoCommon
       raise_module_not_allowed unless current_admin.module_allowed?(module_namespace, current_site)
     end
 
+    def module_allowed_action!(current_admin, module_namespace, action)
+      raise_module_not_allowed unless current_admin.module_allowed_action?(module_namespace, current_site, action)
+    end
+
   end
 end

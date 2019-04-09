@@ -55,8 +55,41 @@ module GobiertoAdmin
           end
         end
 
-        def test_regular_editor_admin_delete_project
+        def test_regular_editor_admin_delete_project_with_empty_author
           allow_regular_admin_edit_plans
+
+          with_signed_in_admin(regular_admin) do
+            with_current_site(site) do
+              visit @path
+
+              within "#project-item-#{project.id}" do
+                find("a[data-method='delete']").click
+              end
+
+              assert has_content? "Project deleted correctly."
+
+            end
+          end
+        end
+
+        def test_regular_editor_admin_delete_other_author_project
+          allow_regular_admin_edit_plans
+          project.update(admin_id: admin.id)
+
+          with_signed_in_admin(regular_admin) do
+            with_current_site(site) do
+              visit @path
+
+              within "#project-item-#{project.id}" do
+                assert has_no_css? "a[data-method='delete']"
+              end
+            end
+          end
+        end
+
+        def test_regular_editor_admin_delete_own_project
+          allow_regular_admin_edit_plans
+          project.update(admin_id: regular_admin.id)
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do

@@ -2,7 +2,7 @@
 
 module GobiertoAdmin
   module GobiertoPlans
-    class ProjectsController < BaseController
+    class ProjectsController < GobiertoAdmin::GobiertoPlans::BaseController
       before_action :find_plan
       before_action -> { module_allowed_action!(current_admin, current_admin_module, :edit) }, only: [:new, :create, :destroy]
       before_action -> { module_allowed_action!(current_admin, current_admin_module, [:edit, :moderate]) }, only: [:edit, :update]

@@ -4,8 +4,8 @@ module GobiertoAdmin
   module GobiertoPlans
     class ProjectsController < BaseController
       before_action :find_plan
-      before_action -> { module_allowed_action!(current_admin, "GobiertoPlans", :edit) }, only: [:new, :create, :destroy]
-      before_action -> { module_allowed_action!(current_admin, "GobiertoPlans", [:edit, :moderate]) }, only: [:edit, :update]
+      before_action -> { module_allowed_action!(current_admin, current_admin_module, :edit) }, only: [:new, :create, :destroy]
+      before_action -> { module_allowed_action!(current_admin, current_admin_module, [:edit, :moderate]) }, only: [:edit, :update]
 
       def index
         find_plan
@@ -143,6 +143,13 @@ module GobiertoAdmin
 
       def project_visibility_levels
         ::GobiertoPlans::Node.visibility_levels
+      end
+
+      def raise_action_not_allowed
+        redirect_to(
+          admin_plans_plan_projects_path(@plan),
+          alert: t("gobierto_admin.module_helper.not_enabled")
+        )
       end
     end
   end

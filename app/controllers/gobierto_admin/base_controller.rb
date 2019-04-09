@@ -80,6 +80,13 @@ module GobiertoAdmin
       )
     end
 
+    def raise_action_not_allowed
+      redirect_to(
+        admin_root_path,
+        alert: t("gobierto_admin.module_helper.not_enabled")
+      )
+    end
+
     def gobierto_cms_page_preview_path(page, options = {})
       options[:preview_token] = current_admin.preview_token unless page.active?
       gobierto_cms_page_or_news_path(page, options)

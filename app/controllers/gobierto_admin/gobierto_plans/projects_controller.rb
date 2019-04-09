@@ -10,7 +10,7 @@ module GobiertoAdmin
 
       before_action :find_plan
       before_action -> { module_allowed_action!(current_admin, current_admin_module, :edit) }, only: [:new, :create, :destroy]
-      before_action -> { module_allowed_action!(current_admin, current_admin_module, [:edit, :moderate]) }, only: [:edit, :update]
+      before_action -> { module_allowed_action!(current_admin, current_admin_module, [:edit, :moderate]) }, only: [:index, :edit, :update]
 
       helper_method :current_admin_actions
 
@@ -159,8 +159,9 @@ module GobiertoAdmin
       end
 
       def raise_action_not_allowed
+        redirection_path = current_admin_actions.include?(:index) ? admin_plans_plan_projects_path(@plan) : edit_admin_plans_plan_path(@plan)
         redirect_to(
-          admin_plans_plan_projects_path(@plan),
+          redirection_path,
           alert: t("gobierto_admin.module_helper.not_enabled")
         )
       end

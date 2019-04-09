@@ -25,7 +25,7 @@
     <th class="icon"></th>
   </tr>
   <% @projects.each do |project| %>
-    <tr>
+    <tr id="<%= "project-item-#{project.id}" %>">
       <td>
         <% if current_admin_actions.include?(:edit) %>
           <%= link_to edit_admin_plans_plan_project_path(@plan, project) do %>

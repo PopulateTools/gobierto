@@ -25,9 +25,10 @@
     <th class="icon"></th>
   </tr>
   <% @projects.each do |project| %>
+    <% project_policy = GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(current_admin: current_admin, current_site: current_site, project: project) %>
     <tr id="<%= "project-item-#{project.id}" %>">
       <td>
-        <% if current_admin_actions.include?(:edit) %>
+        <% if project_policy.allowed_actions.include?(:edit) %>
           <%= link_to edit_admin_plans_plan_project_path(@plan, project) do %>
             <i class="fas fa-edit"></i>
           <% end %>
@@ -44,7 +45,7 @@
         <% end %>
       </td>
       <td>
-        <% if current_admin_actions.include?(:destroy) %>
+        <% if project_policy.allowed_actions.include?(:destroy) %>
           <%= link_to admin_plans_plan_project_path(@plan, project, projects_filter: @filter_params),
             title: t("views.delete"),
             method: :delete,

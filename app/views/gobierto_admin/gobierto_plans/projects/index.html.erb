@@ -27,11 +27,13 @@
   <% @projects.each do |project| %>
     <tr>
       <td>
-        <%= link_to edit_admin_plans_plan_project_path(@plan, project) do %>
-          <i class="fas fa-edit"></i>
+        <% if current_admin_actions.include?(:edit) %>
+          <%= link_to edit_admin_plans_plan_project_path(@plan, project) do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
         <% end %>
       </td>
-      <td><%= link_to project.name, edit_admin_plans_plan_project_path(@plan, project) %></td>
+      <td><%= link_to_if current_admin_actions.include?(:edit), project.name, edit_admin_plans_plan_project_path(@plan, project) %></td>
       <td><%= format_percentage(project.progress) %></td>
       <td><%= project.status %></td>
       <td><%= time_ago_in_words(project.updated_at) %></td>
@@ -42,12 +44,14 @@
         <% end %>
       </td>
       <td>
-        <%= link_to admin_plans_plan_project_path(@plan, project, projects_filter: @filter_params),
-                    title: t("views.delete"),
-                    method: :delete,
-                    class: "tipsit p_h_1",
-                    data: { confirm: t("views.delete_confirm") } do %>
-          <i class="fas fa-trash"></i>
+        <% if current_admin_actions.include?(:destroy) %>
+          <%= link_to admin_plans_plan_project_path(@plan, project, projects_filter: @filter_params),
+            title: t("views.delete"),
+            method: :delete,
+            class: "tipsit p_h_1",
+            data: { confirm: t("views.delete_confirm") } do %>
+            <i class="fas fa-trash"></i>
+          <% end %>
         <% end %>
       </td>
     </tr>

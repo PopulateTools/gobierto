@@ -3,9 +3,16 @@
 module GobiertoAdmin
   module GobiertoPlans
     class ProjectsController < GobiertoAdmin::GobiertoPlans::BaseController
+
+      ALLOWED_ACTIONS = { edit: [:index, :edit, :update, :new, :create, :destroy],
+                          moderate: [:index, :edit, :update],
+                          manage: [] }.freeze
+
       before_action :find_plan
       before_action -> { module_allowed_action!(current_admin, current_admin_module, :edit) }, only: [:new, :create, :destroy]
       before_action -> { module_allowed_action!(current_admin, current_admin_module, [:edit, :moderate]) }, only: [:edit, :update]
+
+      helper_method :current_admin_actions
 
       def index
         find_plan
@@ -85,6 +92,12 @@ module GobiertoAdmin
                           end
 
         redirect_to admin_plans_plan_projects_path(@plan, projects_filter), notice: t(".success")
+      end
+
+      def current_admin_actions
+        @current_admin_actions ||= ALLOWED_ACTIONS.select do |role_action, _|
+          current_admin.module_allowed_action?(current_admin_module, current_site, role_action)
+        end.values.flatten.uniq
       end
 
       private

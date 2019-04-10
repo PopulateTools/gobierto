@@ -3,19 +3,40 @@ window.GobiertoAdmin.AdminGroupsController = (function() {
     function AdminGroupsController() {}
 
     AdminGroupsController.prototype.form = function() {
-      _addToggleGobiertoPeopleBehaviors();
+      _addToggleModulesBehaviors();
+      _addToggleActionsBehaviors();
       _addToggleAllPeopleBehaviors();
       _addTogglePersonBehaviors();
     };
 
 
-    function _addToggleGobiertoPeopleBehaviors() {
-      var $checkbox = $("[data-behavior='toggle-module-GobiertoPeople']");
-      $checkbox.click(function() {
+    function _addToggleModulesBehaviors() {
+      $("[data-behavior='toggle-module']").click(function() {
+        let $modules_actions_block = $(`#modules_actions_${this.value}`);
+        let $subresources_block = $(`#subresources_${this.value}`);
         if (this.checked) {
-          $('#people_permissions').show('slow');
+          $modules_actions_block.find("[data-class='modules_action'] input[type='checkbox']").prop('disabled', false);
+          $modules_actions_block.show('slow');
+          if ($modules_actions_block.find("[data-class='modules_action'] input[type='checkbox']:checked").length == 0) {
+            $modules_actions_block.find("[data-class='modules_action'] input[type='checkbox'][value='manage']").prop('checked', true);
+          }
+          $subresources_block.show('slow');
         } else {
-          $('#people_permissions').hide('slow');
+          $modules_actions_block.hide('slow');
+          $modules_actions_block.find("[data-class='modules_action'] input[type='checkbox']").prop('disabled', true);
+          $subresources_block.hide('slow');
+        }
+      });
+    }
+
+    function _addToggleActionsBehaviors() {
+      $("[data-behavior='toggle-action']").click(function() {
+        if (!this.checked) {
+          let module_name = this.parentElement.getAttribute("data-module")
+          let $modules_actions_block = $(`#modules_actions_${this.parentElement.getAttribute("data-module")}`);
+          if ($modules_actions_block.find("[data-class='modules_action'] input[type='checkbox']:checked").length == 0) {
+            $(`input[type='checkbox'][data-behavior='toggle-module'][value='${module_name}']`).trigger("click");
+          }
         }
       });
     }

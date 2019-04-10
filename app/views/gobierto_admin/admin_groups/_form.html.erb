@@ -38,38 +38,54 @@
             <%= f.collection_check_boxes(:modules, Array(@site_modules), :namespace, :name) do |module_b| %>
               <div class="option">
                 <% check_module_permission = @admin_group && @admin_group.permissions.by_namespace("site_module").resource_names.map(&:camelize).include?(module_b.value) %>
-                <%= module_b.check_box(data: { behavior: "toggle-module-#{module_b.value}" }, checked: check_module_permission) %>
+                <%= module_b.check_box(data: { behavior: "toggle-module" }, checked: check_module_permission) %>
                 <%= module_b.label do %>
                   <span></span>
                   <%= module_b.text %>
                 <% end %>
-              </div>
+                <% module_active = f.object.modules_actions.keys.include?(module_b.object.namespace.underscore) %>
 
-              <% if module_b.text == 'Gobierto People' %>
-                <% module_active = f.object.modules.include?(module_b.object.namespace.underscore) %>
+                <div class="option_suboptions" id="<%= "modules_actions_#{module_b.value}" %>" style="<%= module_active ? '' : 'display: none;' %>">
+                  <h3><%= t(".actions") %></h3>
 
-                <div class="option_suboptions" id="people_permissions" style="<%= module_active ? '' : 'display: none;' %>">
-
-                  <div class="option">
-                    <%= f.check_box :all_people %>
-                    <%= f.label :all_people do %>
-                      <span></span><b><%= t('.all') %></b>
-                    <% end %>
-                  </div>
-
-                  <%= f.collection_check_boxes(:people, Array(@people), :id, :name) do |person_b| %>
-                    <% person_site_id = person_b.object.site_id %>
-
-                    <div class="option" data-class="site_person" data-site-id="<%= person_site_id %>">
-                      <%= person_b.check_box(checked: @admin_group && @admin_group.people_permissions.exists?(resource_id: person_b.object.id)) %>
-                      <%= person_b.label do %>
-                        <span></span><%= person_b.object.name %>
+                  <%= f.collection_check_boxes("modules_actions[#{module_b.value.underscore}]", @admin_group_form.action_names(:modules_actions).map { |action| [action, t(".action_names.#{action}")] }, :first, :last) do |action_b| %>
+                    <div class="option" data-class="<%= "modules_action" %>" data-module="<%= module_b.value %>">
+                      <%= action_b.check_box(data: { behavior: "toggle-action" },
+                                             id: "modules_action_#{module_b.value.underscore}_#{action_b.value}",
+                                             checked: @admin_group && @admin_group.modules_permissions.exists?(resource_name: module_b.value.underscore, action_name: action_b.value)) %>
+                      <%= action_b.label(for: "modules_action_#{module_b.value.underscore}_#{action_b.value}") do %>
+                        <span></span><%= action_b.text %>
                       <% end %>
                     </div>
+
                   <% end %>
 
                 </div>
-              <% end %>
+
+                <% if module_b.text == 'Gobierto People' %>
+                  <div class="option_suboptions" id="<%= "subresources_#{module_b.value}" %>" style="<%= module_active ? '' : 'display: none;' %>">
+                    <h3><%= t(".people") %></h3>
+
+                    <div class="option">
+                      <%= f.check_box :all_people %>
+                      <%= f.label :all_people do %>
+                        <span></span><b><%= t('.all') %></b>
+                      <% end %>
+                    </div>
+
+                    <%= f.collection_check_boxes(:people, Array(@people), :id, :name) do |person_b| %>
+                      <% person_site_id = person_b.object.site_id %>
+
+                      <div class="option" data-class="site_person" data-site-id="<%= person_site_id %>">
+                        <%= person_b.check_box(checked: @admin_group && @admin_group.people_permissions.exists?(resource_id: person_b.object.id)) %>
+                        <%= person_b.label do %>
+                          <span></span><%= person_b.object.name %>
+                      <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
             <% end %>
           </div>
 

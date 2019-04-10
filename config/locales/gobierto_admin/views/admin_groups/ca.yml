@@ -7,14 +7,20 @@ ca:
       edit:
         title: 'Permisos del grup: %{name}'
       form:
+        action_names:
+          edit: Editar
+          manage: Administrar
+          moderate: Moderar
+        actions: Accions
         all: Tots
         members:
           one: Hi ha un administrador amb aquest grup.
           other: Hi ha %{count} administradors amb aquest grup.
           zero: Aquest grup no té administradors.
         modules_permissions: Mòduls
+        people: Persones
         placeholders:
-          name: Grup global d'administradors
+          name: Grup glo bal d'administradors
         site_options_permissions: Lloc web
       index:
         header:

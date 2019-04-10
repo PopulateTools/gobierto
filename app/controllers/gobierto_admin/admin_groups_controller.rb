@@ -22,7 +22,10 @@ module GobiertoAdmin
 
       @admin_group_form = AdminGroupForm.new(
         @admin_group.attributes.except(*ignored_admin_group_attributes).merge(
-          modules: @admin_group.modules_permissions.where(action_name: "manage").pluck(:resource_name),
+          modules_actions: @admin_group.modules_permissions.distinct.pluck(:resource_name).map do |resource_name|
+            [resource_name,
+             @admin_group.modules_permissions.where(resource_name: resource_name).distinct.pluck(:action_name)]
+          end.to_h,
           people: @admin_group.people_permissions.where(action_name: "manage").pluck(:resource_id),
           site_options: @admin_group.site_options_permissions.where(action_name: "manage").pluck(:resource_name),
           all_people: @admin_group.people_permissions.where(action_name: "manage_all").exists?
@@ -81,9 +84,9 @@ module GobiertoAdmin
       params.require(:admin_group).permit(
         :name,
         :all_people,
-        modules: [],
         people: [],
-        site_options: []
+        site_options: [],
+        modules_actions: {}
       )
     end
 

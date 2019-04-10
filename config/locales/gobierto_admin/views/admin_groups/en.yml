@@ -7,12 +7,18 @@ en:
       edit:
         title: 'Permissions of group: %{name}'
       form:
+        action_names:
+          edit: Edit
+          manage: Manage
+          moderate: Moderate
+        actions: Actions
         all: All
         members:
           one: There is an admin with this group.
           other: There are %{count} admins with this group.
           zero: This group doesn't have admins.
         modules_permissions: Modules
+        people: People
         placeholders:
           name: Global admins group
         site_options_permissions: Site

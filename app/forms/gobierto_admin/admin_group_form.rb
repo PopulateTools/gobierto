@@ -4,8 +4,8 @@ module GobiertoAdmin
   class AdminGroupForm < BaseForm
     PERMISSION_TYPES = {
       site_options: { scope: :site_options_permissions, attribute: :resource_name },
-      modules: { scope: :modules_permissions, attribute: :resource_name, attribute_parse_method: :underscore },
-      people: { scope: :people_permissions, attribute: :resource_id, parent_type: :modules, parent: :gobierto_people, allow_all: true }
+      modules_actions: { scope: :modules_permissions, attribute: :resource_name, action_names: [:manage, :edit, :moderate] },
+      people: { scope: :people_permissions, attribute: :resource_id, parent_type: :modules_actions, parent: :gobierto_people, allow_all: true }
     }.freeze
 
     attr_accessor(
@@ -32,6 +32,7 @@ module GobiertoAdmin
 
       super(parsed_attributes.except(*permissions_keys))
       set_permissions
+      set_all_permissions
     end
 
     def save
@@ -44,6 +45,12 @@ module GobiertoAdmin
 
     def admin_group
       @admin_group ||= AdminGroup.find_by(id: id).presence || build_admin_group
+    end
+
+    def action_names(permission_type)
+      return unless PERMISSION_TYPES.has_key? permission_type
+
+      PERMISSION_TYPES[permission_type][:action_names] || [:manage]
     end
 
     private
@@ -64,29 +71,59 @@ module GobiertoAdmin
       @new_record
     end
 
+    def action_names_from_attributes(options)
+      if options[:parent] && parsed_attributes[options[:parent_type]].is_a?(Hash) && parsed_attributes[options[:parent_type]][options[:parent]].present?
+        parsed_attributes[options[:parent_type]][options[:parent]].select(&:present?)
+      else
+        [:manage]
+      end
+    end
+
+    def action_names_from_configuration(options)
+      return [:manage] unless options[:parent]
+
+      permissions_configuration[options[:parent_type]][options[:parent]] || []
+    end
+
     def set_permissions
       @permissions_configuration ||= {}
 
       PERMISSION_TYPES.each do |permission_type, options|
+        action_names = action_names_from_attributes(options)
         @permissions_configuration[permission_type] = if parsed_attributes[permission_type].present?
-                                                        parsed_attributes[permission_type].select(&:present?).compact
-                                                      elsif @admin_group
-                                                        @admin_group.send(options[:scope]).pluck(options[:attribute])
+                                                        if options[:action_names]
+                                                          parsed_attributes[permission_type].transform_values { |actions| actions.select(&:present?) }
+                                                        else
+                                                          parsed_attributes[permission_type].select(&:present?).inject({}) do |configuration, option|
+                                                            configuration.update(
+                                                              option => action_names
+                                                            )
+                                                          end
+                                                        end
                                                       else
-                                                        []
-                                                      end
-
+                                                        {}
+                                                      end.deep_stringify_keys
         define_singleton_method(permission_type) do
           @permissions_configuration[permission_type]
         end
+      end
+    end
+
+    def set_all_permissions
+      @permissions_configuration ||= {}
+
+      PERMISSION_TYPES.each do |permission_type, options|
+        action_names = action_names_from_attributes(options)
 
         next unless options[:allow_all]
+
+        all_action_names = action_names.map { |name| "#{name}_all" }
 
         option_symbol = :"all_#{permission_type}"
         @permissions_configuration[option_symbol] = if parsed_attributes[option_symbol].present?
                                                       ["1", true].include?(parsed_attributes[option_symbol])
                                                     elsif admin_group.persisted?
-                                                      admin_group.send(options[:scope]).exists?(action_name: "manage_all")
+                                                      admin_group.send(options[:scope]).exists?(action_name: all_action_names)
                                                     else
                                                       false
                                                     end
@@ -100,24 +137,28 @@ module GobiertoAdmin
       @permissions = admin_group.permissions
       revoked_permissions_ids = []
       PERMISSION_TYPES.each do |permission_type, options|
-        existing_manage_permissions = admin_group.send(options[:scope]).where(action_name: "manage")
+        existing_permissions = admin_group.send(options[:scope])
+        action_names = action_names_from_configuration(options)
 
-        revoked_permissions_ids.concat(revoked_permissions(existing_manage_permissions, permission_type, options).pluck(:id))
-
-        permissions_configuration[permission_type].map do |option_name|
-          unless parent_disabled?(options) || existing_manage_permissions.exists?(options[:attribute] => option_name)
-            @permissions << admin_group.send(options[:scope]).new(action_name: "manage", options[:attribute] => option_name)
-          end
+        if options[:allow_all]
+          all_action_names = action_names.map { |name| "#{name}_all" }
+          existing_permissions = existing_permissions.where.not(action_name: all_action_names)
         end
 
-        next unless options[:allow_all] && !parent_disabled?(options)
+        revoked_permissions_ids.concat(revoked_permissions(existing_permissions, permission_type, options).pluck(:id))
 
-        existing_permission_ids = admin_group.send(options[:scope]).where(action_name: "manage_all").pluck(:id)
+        add_permissions(existing_permissions, permission_type, options)
 
-        if revoke_manage_all_permission?(permission_type, options)
-          revoked_permissions_ids.concat(existing_permission_ids)
-        elsif permissions_configuration[:"all_#{permission_type}"] && existing_permission_ids.blank?
-          @permissions << admin_group.send(options[:scope]).new(action_name: "manage_all")
+        next unless options[:allow_all]
+
+        action_names.each do |action_name|
+          existing_permission_ids = admin_group.send(options[:scope]).where(action_name: "#{action_name}_all").pluck(:id)
+
+          if revoke_all_permission?(permission_type, options)
+            revoked_permissions_ids.concat(existing_permission_ids)
+          elsif permissions_configuration[:"all_#{permission_type}"] && existing_permission_ids.blank?
+            @permissions << admin_group.send(options[:scope]).new(action_name: "#{action_name}_all")
+          end
         end
       end
 
@@ -128,31 +169,48 @@ module GobiertoAdmin
       @permissions
     end
 
+    def add_permissions(existing_permissions, permission_type, options)
+      return if parent_disabled?(options)
+
+      permissions_configuration[permission_type].each do |option_name, action_names|
+        action_names.each do |action_name|
+          next if existing_permissions.exists?(options[:attribute] => option_name, action_name: action_name)
+
+          @permissions << admin_group.send(options[:scope]).new(options[:attribute] => option_name, action_name: action_name)
+        end
+      end
+    end
+
     def revoked_permissions(existing_permissions, permission_type, options)
       return existing_permissions if parent_disabled?(options)
 
-      existing_permissions.where.not(options[:attribute] => permissions_configuration[permission_type])
+      revoked_ids = []
+
+      existing_permissions.group(options[:attribute]).distinct.pluck(options[:attribute]).each do |option_name|
+        action_names = permissions_configuration[permission_type][option_name.to_s] || []
+        revoked_ids.concat existing_permissions.where.not(action_name: action_names).where(options[:attribute] => option_name).pluck(:id)
+      end
+
+      existing_permissions.where(id: revoked_ids)
     end
 
     def parent_disabled?(options)
-      options[:parent].present? && !permissions_configuration[options[:parent_type]].include?(options[:parent].to_s)
+      options[:parent].present? && !permissions_configuration_values(options[:parent_type]).include?(options[:parent].to_s)
     end
 
-    def revoke_manage_all_permission?(permission_type, options)
+    def permissions_configuration_values(permission_type)
+      configuration = permissions_configuration[permission_type]
+      if configuration.is_a? Hash
+        configuration.select { |_, action_names| action_names.present? }
+      else
+        permissions_configuration[permission_type].select(&:present?)
+      end
+    end
+
+    def revoke_all_permission?(permission_type, options)
       permissions_configuration[permission_type].any? ||
         !permissions_configuration[:"all_#{permission_type}"] ||
-        !permissions_configuration[:modules].include?(options[:parent].to_s)
-    end
-
-    def mark_people_permissions_for_destruction
-      people_permissions_ids = admin_group.permissions.where(
-        namespace: "gobierto_people",
-        resource_name: "person",
-        action_name: "manage"
-      ).pluck(:id)
-      @permissions.each do |p|
-        p.mark_for_destruction if people_permissions_ids.include?(p.id)
-      end
+        !permissions_configuration[options[:parent_type]].reject { |_, actions| actions.blank? }.include?(options[:parent].to_s)
     end
 
     def save_admin_group

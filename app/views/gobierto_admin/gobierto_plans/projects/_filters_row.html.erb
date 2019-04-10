@@ -1,4 +1,5 @@
 <% filters = @form.send("#{filter}_values") %>
+<% all_value = @form.respond_to?("#{filter}_all_value") ? @form.send("#{filter}_all_value") : filters.values.map(&:count).sum %>
 <% row_active = @form.filter_params == [filter.to_s] %>
 <div class="i_filter">
   <label><%= t(".#{filter}") %></label>
@@ -6,7 +7,7 @@
     <div class="i_f_option <%= "i_f_option_active" if @form.filter_params.blank? %>">
       <%= link_to_if(
             @form.filter_params.present?,
-            "#{content_tag(:span, t(".all"))} (#{filters.values.map(&:count).sum})".html_safe,
+            "#{content_tag(:span, t(".all"))} (#{all_value})".html_safe,
             admin_plans_plan_projects_path(@plan)
           ) %>
     </div>

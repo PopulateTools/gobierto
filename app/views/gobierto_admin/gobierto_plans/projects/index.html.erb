@@ -10,7 +10,8 @@
 <%= render 'gobierto_admin/gobierto_plans/shared/navigation' %>
 
 <div class="i_filters">
-  <%= render partial: "filters_row", locals: { filter: :category } %>
+  <%= render partial: "filters_row", locals: { filter: :admin_actions } %>
+  <%= render partial: "filters_row", locals: { filter: :moderation_stage } %>
   <%= render partial: "filter_form" %>
 </div>
 

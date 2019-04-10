@@ -96,6 +96,7 @@ ca:
           title: Nou pla
       projects:
         filter_form:
+          author: Author
           category: Categoria
           filter: Filtrar
           interval: Rang de dates
@@ -103,8 +104,9 @@ ca:
           search: Cerca...
           submit: Filtrar
         filters_row:
+          admin_actions: Permisos
           all: Tots
-          category: Categoria
+          moderation_stage: Moderació
         form:
           placeholders:
             name: Títol del projecte

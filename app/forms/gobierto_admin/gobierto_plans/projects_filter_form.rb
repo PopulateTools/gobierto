@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class ProjectsFilterForm < BaseForm
-      FILTER_PARAMS = %w(name permission status category progress author interval).freeze
+      FILTER_PARAMS = %w(name admin_actions category progress author moderation_stage interval).freeze
 
       attr_accessor(*FILTER_PARAMS)
       attr_accessor :plan, :admin
@@ -40,20 +40,29 @@ module GobiertoAdmin
         end.unshift([I18n.t("gobierto_admin.gobierto_plans.projects.filter_form.progress"), nil])
       end
 
-      def category_values
-        plan.categories.where(level: 0).inject({}) do |data, category|
+      def admin_actions_values
+        { owned: OpenStruct.new(id: admin.id, count: @plan.nodes.with_admin_actions(admin.id).count),
+          can_edit: OpenStruct.new(id: "#{admin.id}-edit", count: @plan.nodes.with_admin_actions("#{admin.id}-edit").count) }
+      end
+
+      def admin_actions_all_value
+        @plan.nodes.count
+      end
+
+      def moderation_stage_values
+        stages = ::GobiertoPlans::Node.moderation_stages.keys
+        stages.unshift(:blank) if @plan.nodes.with_moderation_stage(:blank).exists?
+        stages.inject({}) do |data, stage_name|
           data.update(
-            category.name => OpenStruct.new(id: category.id, count: @plan.nodes.with_category(category.id).count)
+            stage_name => OpenStruct.new(id: stage_name, count: @plan.nodes.with_moderation_stage(stage_name).count)
           )
         end
       end
 
-      def status_options
-        []
-      end
-
       def author_options
-        []
+        @plan.nodes.select(:admin_id).distinct.pluck(:admin_id).compact.map do |admin_id|
+          [GobiertoAdmin::Admin.find(admin_id).name, admin_id]
+        end.unshift([I18n.t("gobierto_admin.gobierto_plans.projects.filter_form.author"), nil])
       end
 
       private

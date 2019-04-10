@@ -14,7 +14,7 @@
       <%= f.text_field :name, placeholder: t(".search") %>
     </div>
 
-    <% [:category, :progress].each do |filter| %>
+    <% [:category, :progress, :author].each do |filter| %>
       <% filter_value = @form.send(filter) %>
       <div class="form_item select_control select_compact">
         <%= f.select(

@@ -96,6 +96,7 @@ en:
           title: New plan
       projects:
         filter_form:
+          author: Autor
           category: Category
           filter: Filter
           interval: Date interval
@@ -103,8 +104,9 @@ en:
           search: Search...
           submit: Filter
         filters_row:
+          admin_actions: Permissions
           all: All
-          category: Category
+          moderation_stage: Moderation
         form:
           placeholders:
             name: Project title

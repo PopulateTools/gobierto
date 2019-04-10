@@ -93,7 +93,11 @@ module GobiertoAdmin
       end
 
       def current_admin_actions
-        @current_admin_actions ||=  GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(current_admin: current_admin, current_site: current_site, project: @project_form&.project || @project).allowed_actions
+        @current_admin_actions ||= GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(
+          current_admin: current_admin,
+          current_site: current_site,
+          project: @project_form&.project || @project
+        ).allowed_actions
       end
 
       private

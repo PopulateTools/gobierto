@@ -58,7 +58,7 @@ module GobiertoAdmin
     def module_doc_url
       current_admin_module.constantize.try(:doc_url)
     rescue NameError
-      false
+      "https://gobierto.readme.io/docs/administraci%C3%B3n-de-un-sitio"
     end
 
     protected

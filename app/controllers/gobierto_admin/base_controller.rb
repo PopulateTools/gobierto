@@ -12,7 +12,7 @@ module GobiertoAdmin
 
     helper_method :current_admin, :admin_signed_in?, :current_site, :managing_site?,
                   :managed_sites, :can_manage_sites?, :gobierto_cms_page_preview_path,
-                  :preview_item_url
+                  :preview_item_url, :module_doc_url
 
     rescue_from Errors::NotAuthorized, with: :raise_admin_not_authorized
 
@@ -53,6 +53,12 @@ module GobiertoAdmin
 
     def current_admin_module
       current_module == "gobierto_admin" && params[:controller].split("/")[1].camelize
+    end
+
+    def module_doc_url
+      current_admin_module.constantize.try(:doc_url)
+    rescue NameError
+      false
     end
 
     protected

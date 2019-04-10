@@ -104,6 +104,12 @@
       </div>
     <% end %>
 
+    <% if module_doc_url %>
+      <div class="right pure-menu-link">
+        <%= link_to t(".view_documentation"), module_doc_url, target: "_blank" %>
+      </div>
+    <% end %>
+
     <% if current_site.present? %>
       <div class="right pure-menu-link">
           <%= link_to t(".view_site"), current_site.domain_url, target: "_blank" %>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   def self.table_name_prefix
     "gp_"
@@ -25,5 +27,9 @@ module GobiertoPeople
 
   def self.remote_calendar_integrations
     %w( ibm_notes google_calendar microsoft_exchange )
+  end
+
+  def self.doc_url
+    "https://gobierto.readme.io/docs/altos-cargos-y-agendas"
   end
 end

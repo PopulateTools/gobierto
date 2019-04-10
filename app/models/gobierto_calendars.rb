@@ -1,5 +1,6 @@
-module GobiertoCalendars
+# frozen_string_literal: true
 
+module GobiertoCalendars
   def self.table_name_prefix
     'gc_'
   end

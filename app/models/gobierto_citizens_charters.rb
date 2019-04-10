@@ -20,4 +20,8 @@ module GobiertoCitizensCharters
   def self.module_submodules
     %w(services charters)
   end
+
+  def self.doc_url
+    "https://gobierto.readme.io/docs/servicios-y-cartas-de-servicio"
+  end
 end

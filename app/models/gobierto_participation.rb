@@ -12,4 +12,8 @@ module GobiertoParticipation
   def self.searchable_models
     [GobiertoParticipation::Process, GobiertoParticipation::Contribution]
   end
+
+  def self.doc_url
+    "https://gobierto.readme.io/docs/participaci%C3%B3n"
+  end
 end

@@ -1,3 +1,5 @@
+<% project_policy = GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(current_admin: current_admin, current_site: current_site, project: @plan.nodes.new) %>
+
 <div class="tabs">
   <ul>
     <% if @plan.categories_vocabulary.present? %>
@@ -6,9 +8,11 @@
       </li>
     <% end %>
 
-    <li class="<%= class_if('active', controller_name == "projects") %>">
-      <%= link_to t(".projects_tab"), admin_plans_plan_projects_path(@plan), data: { turbolinks: false } %>
-    </li>
+    <% if project_policy.allowed_actions.include? :index %>
+      <li class="<%= class_if('active', controller_name == "projects") %>">
+        <%= link_to t(".projects_tab"), admin_plans_plan_projects_path(@plan), data: { turbolinks: false } %>
+      </li>
+    <% end %>
 
     <li class="<%= class_if('active', controller_name == "plans" && action_name == "edit") %>">
       <%= link_to t(".configuration_tab"), edit_admin_plans_plan_path(@plan), data: { turbolinks: false } %>

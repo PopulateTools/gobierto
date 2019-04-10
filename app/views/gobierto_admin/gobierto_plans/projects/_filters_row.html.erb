@@ -16,7 +16,7 @@
       <div class="i_f_option <%= "i_f_option_active" if option_active %>">
         <%= link_to_unless(
               option_active,
-              "#{content_tag(:span, filter_option)} (#{value.count})".html_safe,
+              "#{content_tag(:span, t(".#{filter}_value.#{filter_option}"))} (#{value.count})".html_safe,
               admin_plans_plan_projects_path(@plan, projects_filter: { filter => value.id })
             ) %>
       </div>

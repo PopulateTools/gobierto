@@ -105,8 +105,18 @@ en:
           submit: Filter
         filters_row:
           admin_actions: Permissions
+          admin_actions_value:
+            can_edit: You can edit
+            owned: Your projects
           all: All
           moderation_stage: Moderation
+          moderation_stage_value:
+            approved: Approved
+            blank: Without moderation
+            in_review: Under review
+            not_sent: Not sent
+            rejected: Rejected
+            sent: Sent
         form:
           placeholders:
             name: Project title

@@ -133,17 +133,24 @@ module GobiertoAdmin
       end
 
       def project_params
-        params.require(:project).permit(
-          :category_id,
-          :progress,
-          :starts_at,
-          :ends_at,
-          :options_json,
-          :visibility_level,
-          :moderation_stage,
-          name_translations: [*I18n.available_locales],
-          status_translations: [*I18n.available_locales]
-        )
+        if current_admin_actions.include? :update_attributes
+          params.require(:project).permit(
+            :category_id,
+            :progress,
+            :starts_at,
+            :ends_at,
+            :options_json,
+            :visibility_level,
+            :moderation_stage,
+            name_translations: [*I18n.available_locales],
+            status_translations: [*I18n.available_locales]
+          )
+        else
+          params.require(:project).permit(
+            :visibility_level,
+            :moderation_stage
+          )
+        end
       end
 
       def ignored_project_attributes

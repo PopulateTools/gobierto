@@ -9,7 +9,7 @@
         <%= @project_form.class.human_attribute_name(:category_id) %>
         <%= attribute_indication_tag required: true %>
       <% end %>
-      <%= f.select(:category_id, @project_form.category_options, { include_blank: '-' }) %>
+      <%= f.select(:category_id, @project_form.category_options, { include_blank: '-' }, disabled: !@project_form.allow_edit_attributes? ) %>
     </div>
 
     <div class="globalized_fields">
@@ -21,14 +21,14 @@
             <%= @project_form.class.human_attribute_name(:name) %>
             <%= attribute_indication_tag required: true %>
           <% end %>
-          <%= text_field_tag "project[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t('.placeholders.name', locale: locale) %>
+          <%= text_field_tag "project[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t('.placeholders.name', locale: locale), disabled: !@project_form.allow_edit_attributes? %>
         </div>
 
         <div class="form_item input_text" data-locale="<%= locale %>">
           <%= label_tag "project[status_translations][#{locale}]" do %>
             <%= @project_form.class.human_attribute_name(:status) %>
           <% end %>
-          <%= text_field_tag "project[status_translations][#{locale}]", f.object.status_translations && f.object.status_translations[locale], placeholder: t('.placeholders.status', locale: locale) %>
+          <%= text_field_tag "project[status_translations][#{locale}]", f.object.status_translations && f.object.status_translations[locale], placeholder: t('.placeholders.status', locale: locale), disabled: !@project_form.allow_edit_attributes? %>
         </div>
       <% end %>
 
@@ -45,7 +45,8 @@
                 "date-format": "yyyy-mm-dd",
                 "startDate": microseconds_since_epoch(f, :starts_at)
               },
-              class: "air-datepicker"
+              class: "air-datepicker",
+              disabled: !@project_form.allow_edit_attributes?
         %>
       </div>
 
@@ -59,7 +60,8 @@
                 "date-format": "yyyy-mm-dd",
                 "startDate": microseconds_since_epoch(f, :ends_at)
               },
-              class: "air-datepicker"
+              class: "air-datepicker",
+              disabled: !@project_form.allow_edit_attributes?
         %>
       </div>
 
@@ -82,7 +84,7 @@
         <%= label_tag "project[progress]" do %>
           <%= @project_form.class.human_attribute_name(:progress) %>
         <% end %>
-        <%= f.select(:progress, @project_form.progress_options, { include_blank: "-", disabled: "disabled", selected: @project_form.progress_value }) %>
+        <%= f.select(:progress, @project_form.progress_options, { include_blank: "-", disabled: "disabled", selected: @project_form.progress_value }, disabled: !@project_form.allow_edit_attributes?) %>
       </div>
     </div>
   </div>

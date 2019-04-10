@@ -21,7 +21,8 @@ module GobiertoAdmin
         :moderation_stage
       )
 
-      validates :plan, :category, :name_translations, :admin, presence: true
+      validates :plan, :admin, presence: true
+      validates :category, :name_translations, presence: true, if: -> { allow_edit_attributes? }
       validate :options_json_format
 
       delegate :persisted?, to: :node
@@ -92,6 +93,10 @@ module GobiertoAdmin
         @moderation_stage ||= node.moderation_stage
       end
 
+      def allow_edit_attributes?
+        moderation_policy.edit?
+      end
+
       private
 
       def moderation_policy
@@ -119,18 +124,20 @@ module GobiertoAdmin
 
       def save_node
         @node = node.tap do |attributes|
-          attributes.name_translations = name_translations
-          attributes.status_translations = status_translations
-          attributes.progress = progress
-          attributes.starts_at = starts_at
-          attributes.ends_at = ends_at
-          attributes.options = options
+          if allow_edit_attributes?
+            attributes.name_translations = name_translations
+            attributes.status_translations = status_translations
+            attributes.progress = progress
+            attributes.starts_at = starts_at
+            attributes.ends_at = ends_at
+            attributes.options = options
+          end
           attributes.visibility_level = visibility_level
         end
 
         if @node.valid?
           @node.save
-          unless @node.categories.include? category
+          if allow_edit_attributes? && !@node.categories.include?(category)
             @node.categories.where(vocabulary: plan.categories_vocabulary).each do |plan_category|
               @node.categories.delete plan_category
             end

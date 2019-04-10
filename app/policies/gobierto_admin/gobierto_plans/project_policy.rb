@@ -5,7 +5,7 @@ module GobiertoAdmin
     class ProjectPolicy < ::GobiertoAdmin::BasePolicy
       attr_reader :project
 
-      ALLOWED_ACTIONS = { edit: [:index, :edit, :update, :new, :create, :destroy],
+      ALLOWED_ACTIONS = { edit: [:index, :edit, :update, :new, :create, :destroy, :update_attributes],
                           moderate: [:index, :edit, :update],
                           manage: [] }.freeze
 

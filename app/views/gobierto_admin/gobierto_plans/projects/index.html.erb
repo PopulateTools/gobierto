@@ -15,6 +15,12 @@
   <%= render partial: "filter_form" %>
 </div>
 
+<% if current_admin_actions.include? :new %>
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_plans_plan_project_path(@plan), class: "button" %>
+</div>
+<% end %>
+
 <table id="projects">
   <tr>
     <th class="icon"></th>

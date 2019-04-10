@@ -127,6 +127,7 @@ en:
             project: Project
             status: Status
             updated: Updated
+          new: New
           title: Projecs of %{name}
           view: View item
         new:

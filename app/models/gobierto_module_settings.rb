@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoModuleSettings < ApplicationRecord
   self.table_name = 'gobierto_module_settings'
   belongs_to :site, touch: true

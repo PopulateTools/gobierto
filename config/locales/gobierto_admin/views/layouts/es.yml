@@ -26,6 +26,7 @@ es:
         site_network: Red
         templates: Plantillas
         users: Usuarios
+        view_documentation: Ver documentación
         view_item: Ver ítem
         view_site: Ver site
         vocabularies: Vocabularios

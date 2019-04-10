@@ -104,7 +104,7 @@ module GobiertoAdmin
 
       def set_filters
         @relation = base_relation
-        @form = ProjectsFilterForm.new(filter_params.merge(plan: @plan))
+        @form = ProjectsFilterForm.new(filter_params.merge(plan: @plan, admin: current_admin))
         @form.filter_params.each do |param|
           @relation = @relation.send(:"with_#{param}", filter_params[param])
         end

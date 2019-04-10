@@ -6,9 +6,9 @@ module GobiertoAdmin
       FILTER_PARAMS = %w(name permission status category progress author interval).freeze
 
       attr_accessor(*FILTER_PARAMS)
-      attr_accessor :plan
+      attr_accessor :plan, :admin
 
-      validates :plan, presence: true
+      validates :plan, :admin, presence: true
 
       delegate :persisted?, to: :plan
 

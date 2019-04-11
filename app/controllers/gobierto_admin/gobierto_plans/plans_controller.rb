@@ -8,7 +8,7 @@ module GobiertoAdmin
         @archived_plans = current_site.plans.only_archived.sort_by_updated_at
       end
 
-      def show
+      def plan
         @plan = find_plan
         @vocabulary = @plan.categories_vocabulary
         @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: BaseTermDecorator)

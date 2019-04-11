@@ -169,7 +169,8 @@ Rails.application.routes.draw do
       end
 
       namespace :gobierto_plans, as: :plans, path: :plans do
-        resources :plans, path: "" do
+        resources :plans, except: [:show], path: "" do
+          get :plan
           get :data
           resources :projects
           get :import_csv

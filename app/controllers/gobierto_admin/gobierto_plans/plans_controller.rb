@@ -8,6 +8,12 @@ module GobiertoAdmin
         @archived_plans = current_site.plans.only_archived.sort_by_updated_at
       end
 
+      def show
+        @plan = find_plan
+        @vocabulary = @plan.categories_vocabulary
+        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: BaseTermDecorator)
+      end
+
       def new
         @plan_form = PlanForm.new(site_id: current_site.id)
         @plan_visibility_levels = plan_visibility_levels
@@ -185,6 +191,15 @@ module GobiertoAdmin
 
       def find_plan_types
         current_site.plan_types.all.collect { |plan_type| [plan_type.name, plan_type.id] }
+      end
+
+      def tree(relation, level = 0)
+        level_relation = relation.where(level: level).order(position: :asc)
+        return [] if level_relation.blank?
+
+        level_relation.where(level: level).map do |node|
+          [node, tree(node.terms, level + 1)]
+        end.to_h
       end
     end
   end

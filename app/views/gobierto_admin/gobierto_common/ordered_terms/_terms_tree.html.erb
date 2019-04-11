@@ -27,14 +27,14 @@
           <%= link_to edit_admin_common_term_path(term), class: "open_remote_modal", title: t("views.edit")  do %>
             <i class="fas fa-edit"></i>
           <% end %>
-          <%= link_to admin_common_term_path(term), method: :delete, title: t("views.delete"), data: { confirm: t(".delete_confirm") } do %>
+          <%= link_to admin_common_term_path(term), method: :delete, title: t("views.delete"), data: { confirm: t("gobierto_admin.gobierto_common.ordered_terms.terms_tree.delete_confirm") } do %>
             <i class="fas fa-trash"></i>
           <% end %>
         </div>
       </div>
 
       <% if has_subterms %>
-        <%= render partial: "terms_tree", locals: { terms: subterms } %>
+        <%= render partial: "gobierto_admin/gobierto_common/ordered_terms/terms_tree", locals: { terms: subterms } %>
       <% end %>
     </div>
   <% end %>

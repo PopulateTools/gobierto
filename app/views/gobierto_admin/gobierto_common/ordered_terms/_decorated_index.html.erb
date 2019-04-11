@@ -1,0 +1,36 @@
+<div class="v_container">
+
+  <div class="v_heading">
+    <div>
+      <%= t("gobierto_admin.gobierto_common.ordered_terms.index.explore") %>
+      <i class="fas fa-caret-square-right" title="<%= t("gobierto_admin.gobierto_common.ordered_terms.index.collapse_all") %>"></i>
+      <i class="fas fa-caret-square-down" title="<%= t("gobierto_admin.gobierto_common.ordered_terms.index.open_all") %>"></i>
+    </div>
+
+    <% if @terms.try(:decorated_values?) %>
+      <div class="v_el_decorated">
+        <%= render_decorator_template(@terms, :decorated_header_template) %>
+      </div>
+    <% end %>
+
+    <div class="v_el_actions"></div>
+  </div>
+
+  <div data-behavior="sortable" data-sortable-target="<%= admin_common_vocabulary_terms_sort_path(vocabulary_id: @vocabulary.id) %>">
+    <%= render partial: "gobierto_admin/gobierto_common/ordered_terms/terms_tree", locals: { terms: @terms } %>
+  </div>
+
+</div>
+
+<div class="admin_new_el">
+  <%= link_to new_admin_common_vocabulary_term_path(vocabulary_id: @vocabulary.id), class: "open_remote_modal p_1 border-el" do %>
+    <i class="fa fa-plus-circle"></i>
+    <%= t("gobierto_admin.gobierto_common.ordered_terms.index.new") %>
+  <% end %>
+</div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.terms_controller.index();
+  <% end %>
+<% end %>

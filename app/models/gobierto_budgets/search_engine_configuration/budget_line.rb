@@ -9,21 +9,20 @@ module GobiertoBudgets
       end
 
       def self.index_forecast
-        "budgets-forecast-v3"
+        GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST
       end
 
       def self.index_executed
-        "budgets-execution-v3"
+        GobiertoData::GobiertoBudgets::ES_INDEX_EXECUTED
       end
 
       def self.index_executed_series
-        "gobierto-budgets-execution-series-v1"
+        GobiertoData::GobiertoBudgets::ES_INDEX_EXECUTED_SERIES
       end
 
       def self.index_forecast_updated
-        "budgets-forecast-updated-v1"
+        GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST_UPDATED
       end
-
     end
   end
 end

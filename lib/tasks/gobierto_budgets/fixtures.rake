@@ -61,7 +61,7 @@ namespace :gobierto_budgets do
         population: rand(1_000_000)
       }
 
-      budgets = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed].map do |index|
+      budgets = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated].map do |index|
         categories_fixtures do |category|
           next if category["organization_id"] && (category["organization_id"] != organization_id)
 

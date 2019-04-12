@@ -1,0 +1,13 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_plans:
+      categories:
+        create:
+          success: La categoria s'ha creat correctament.
+        destroy:
+          destroy_failed: No pots esborrar una categoria mentre tingui projectes o
+            altres elements associats.
+          success: La categoria ha estat eliminat correctament.
+        update:
+          success: La categoria s'ha actualitzat correctament.

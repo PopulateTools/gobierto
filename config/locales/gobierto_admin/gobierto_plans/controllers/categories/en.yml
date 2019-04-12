@@ -1,0 +1,13 @@
+---
+en:
+  gobierto_admin:
+    gobierto_plans:
+      categories:
+        create:
+          success: Category created successfully.
+        destroy:
+          destroy_failed: You can't delete a category while it has associated projects
+            or other elements.
+          success: Category deleted successfully.
+        update:
+          success: Category updated successfully.

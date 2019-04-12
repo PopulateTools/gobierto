@@ -1,0 +1,13 @@
+---
+es:
+  gobierto_admin:
+    gobierto_plans:
+      categories:
+        create:
+          success: La categoría se ha creado correctamente.
+        destroy:
+          destroy_failed: La categoría no ha podido ser eliminada porque tiene proyectos
+            u otros recursos asociados.
+          success: La categoría ha sido eliminada correctamente.
+        update:
+          success: La categoría se ha actualizado correctamente.

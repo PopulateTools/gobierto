@@ -102,6 +102,7 @@ ignore_unused:
   - 'gobierto_citizens_charters.shared.evolution.*'
   - 'gobierto_admin.gobierto_plans.plans.import_csv.defaults.*'
   - 'gobierto_admin.gobierto_plans.projects.filters_row.*_value.*'
+  - 'gobierto_admin.gobierto_plans.categories.*'
 
 translation:
   api_key: ''

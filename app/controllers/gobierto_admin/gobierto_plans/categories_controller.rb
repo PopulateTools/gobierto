@@ -11,7 +11,7 @@ module GobiertoAdmin
 
       def index
         find_vocabulary
-        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: BaseTermDecorator)
+        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: ::GobiertoPlans::CategoryTermDecorator)
       end
 
       private

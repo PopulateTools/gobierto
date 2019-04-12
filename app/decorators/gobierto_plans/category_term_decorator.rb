@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoPlans
-  class CategoryTermDecorator < BaseDecorator
+  class CategoryTermDecorator < BaseTermDecorator
     def initialize(term)
       @object = term
     end
@@ -32,16 +32,11 @@ module GobiertoPlans
     end
 
     def progress
-      @progress ||= begin
-                      depending_categories = [object]
-                      max_level = plan.categories.maximum(:level)
-                      (max_level - object.level).times do
-                        depending_categories += ::GobiertoCommon::Term.where(term_id: depending_categories.pluck(:id))
-                      end
+      @progress ||= descending_nodes.exists? ? descending_nodes.average(:progress).to_f : nil
+    end
 
-                      depending_nodes = plan.nodes.where(gplan_categories_nodes: { category_id: depending_categories.pluck(:id) })
-                      depending_nodes.blank? ? nil : depending_nodes.average(:progress).to_f
-                    end
+    def nodes_count
+      descending_nodes.count
     end
 
     def parent_id
@@ -56,7 +51,37 @@ module GobiertoPlans
       plan.present? && progress.present?
     end
 
+    def self.decorated_values?
+      true
+    end
+
+    def self.decorated_header_template
+      "header"
+    end
+
+    def self.decorated_values_template
+      "values"
+    end
+
+    def self.decorated_resources_template
+      "resources"
+    end
+
+    def decorated_values
+      { items: nodes_count, progress: progress }
+    end
+
+    def decorated_resources
+      return unless nodes.exists?
+
+      { projects: nodes, plan: plan }
+    end
+
     protected
+
+    def descending_nodes
+      @descending_nodes ||= plan.nodes.where(gplan_categories_nodes: { category_id: last_descendants.pluck(:id) })
+    end
 
     def vocabulary
       @vocabulary ||= object.vocabulary

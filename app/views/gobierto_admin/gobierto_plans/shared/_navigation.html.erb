@@ -2,9 +2,9 @@
 
 <div class="tabs">
   <ul>
-    <% if @plan.categories_vocabulary.present? %>
-      <li class="<%= class_if('active', controller.action_name == "plan") %>">
-        <%= link_to t(".plan_terms_tab"), admin_plans_plan_plan_path(@plan), data: { turbolinks: false } %>
+    <% if @plan.categories_vocabulary.present? && current_admin.module_allowed_action?("GobiertoPlans", current_site, :manage) %>
+      <li class="<%= class_if('active', controller_name == "categories") %>">
+        <%= link_to t(".plan_terms_tab"), admin_plans_plan_categories_path(@plan), data: { turbolinks: false } %>
       </li>
     <% end %>
 

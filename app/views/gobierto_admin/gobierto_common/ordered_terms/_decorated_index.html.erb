@@ -23,7 +23,7 @@
 </div>
 
 <div class="admin_new_el">
-  <%= link_to new_admin_common_vocabulary_term_path(vocabulary_id: @vocabulary.id), class: "open_remote_modal p_1 border-el" do %>
+  <%= link_to({ action: :new }, { class: "open_remote_modal p_1 border-el" }) do %>
     <i class="fa fa-plus-circle"></i>
     <%= t("gobierto_admin.gobierto_common.ordered_terms.index.new") %>
   <% end %>

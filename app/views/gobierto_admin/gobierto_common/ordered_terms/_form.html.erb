@@ -2,7 +2,7 @@
 
 <%= form_for(
   @term_form, as: :term,
-  url: @term_form.persisted? ? admin_common_term_path(@term_form) : admin_common_vocabulary_terms_path, data: { "globalized-form-container" => true}) do |f| %>
+  url: @term_form.persisted? ? url_for(action: :update, id: @term_form) : url_for(action: :create), data: { "globalized-form-container" => true }) do |f| %>
 
   <div class="globalized_fields">
     <%= render "gobierto_admin/shared/form_locale_switchers" %>

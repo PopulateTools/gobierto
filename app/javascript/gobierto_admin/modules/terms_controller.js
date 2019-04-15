@@ -98,11 +98,28 @@ window.GobiertoAdmin.TermsController = (function() {
     }
   }
 
+  function _refreshCalculations(wrapper) {
+    $.ajax({
+      url: $(wrapper).data("calculated-values-target"),
+      dataType: 'json',
+      success: function(values) {
+        for (let id in values) {
+          for (let key in values[id]) {
+            $(`.v_el_decorated.values#${id}`).find(`div.${key}`).html(values[id][key]);
+          }
+        }
+      }
+    });
+  }
+
   function _requestUpdate(wrapper, positions) {
     $.ajax({
       url: $(wrapper).data("sortable-target"),
       method: "POST",
-      data: { positions: positions }
+      data: { positions: positions },
+      success: function() {
+        _refreshCalculations('[data-behavior="calculated-values"]');
+      }
     });
   }
 

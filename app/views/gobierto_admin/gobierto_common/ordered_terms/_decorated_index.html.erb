@@ -18,7 +18,9 @@
   </div>
 
   <div data-behavior="sortable" data-sortable-target="<%= admin_common_vocabulary_terms_sort_path(vocabulary_id: @vocabulary.id) %>">
-    <%= render partial: "gobierto_admin/gobierto_common/ordered_terms/terms_tree", locals: { terms: @terms } %>
+    <%= content_tag(:div, data: @calculated_values_path.present? ? { behavior: "calculated-values", calculated_values_target: @calculated_values_path } : {}) do %>
+      <%= render partial: "gobierto_admin/gobierto_common/ordered_terms/terms_tree", locals: { terms: @terms, calculated_values: calculated_values } %>
+    <% end %>
   </div>
 
 </div>

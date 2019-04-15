@@ -3,4 +3,4 @@
 bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
 bin/rails gobierto_budgets:elastic_search_schemas:manage:create
 bin/rails gobierto_budgets:fixtures:load
-bin/rails test
+bin/rails test "$@"

@@ -371,11 +371,15 @@ en:
         execution_disclaimer: It's very common to have deviatiatons, due to the difficulty
           of foreseeing the expenses.
         execution_help: The execution is the amount spent based on the planned budget.
+        expenses_executed: Executed expenses
         expenses_planned: Planned expenses
+        expenses_planned_updated: Planned updated
         functional: functional
         functional_button: In what is spent
         higher_execution: Higher execution
+        income_executed: Executed income
         income_planned: Planned income
+        income_planned_updated: Planned updated
         lower_execution: Lower execution
         metric:
           execution:
@@ -383,8 +387,6 @@ en:
             income_title: Execution of income
             previous_execution_message: In %{year} execution reached %{percentage}
         percentage: Percentage
-        real_expenses: Real expenses
-        real_income: Real income
         sort: Sort
         title: Budget execution
         tooltip_disclaimer: "<strong>This is approximate</strong>. <br /> Throughout

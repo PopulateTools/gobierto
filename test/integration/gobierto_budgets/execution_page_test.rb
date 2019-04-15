@@ -20,11 +20,57 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
     Date.today.year - 1
   end
 
-  def test_execution_information
-    with_each_current_site(placed_site, organization_site) do
-      visit @path
+  def budget_execution_graph_lines
+    all("a.line")
+  end
 
-      assert has_content?("Budget execution")
+  def budget_graph_filters
+    all(".inline_filter button").map(&:text)
+  end
+
+  def income_summary_box
+    find(".metric_box:first-of-type").text
+  end
+
+  def expenses_summary_box
+    find(".metric_box:nth-of-type(2)").text
+  end
+
+  def test_execution_summary_boxes
+    with_chrome_driver do
+      with_current_site(placed_site) do
+        visit @path
+
+        assert has_content?("BUDGET EXECUTION")
+
+        assert income_summary_box.include? "Planned income"
+        assert income_summary_box.include? "Planned updated"
+        assert income_summary_box.include? "Executed income"
+
+        assert expenses_summary_box.include? "Planned expenses"
+        assert expenses_summary_box.include? "Planned updated"
+        assert expenses_summary_box.include? "Executed expenses"
+      end
+    end
+  end
+
+  def test_execution_graphs
+    with_chrome_driver do
+      with_current_site(placed_site) do
+        visit @path
+
+        within("#expenses-execution") do
+          assert has_content?("EXPLORE THE EXECUTION OF THE EXPENSES")
+          assert budget_execution_graph_lines.count > 0
+          assert budget_graph_filters.include? "CUSTOM"
+        end
+
+        within("#income-execution") do
+          assert has_content?("EXPLORE THE EXECUTION OF THE INCOME")
+          assert budget_execution_graph_lines.count > 0
+          assert budget_graph_filters.include? "CUSTOM"
+        end
+      end
     end
   end
 

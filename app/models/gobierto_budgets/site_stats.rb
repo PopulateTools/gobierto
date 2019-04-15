@@ -235,27 +235,31 @@ module GobiertoBudgets
       year = @year
       previous_year = year - 1
 
-      last_expenses_budgeted     = GobiertoBudgets::BudgetTotal.budgeted_updated_for(organization_id, year)                              || GobiertoBudgets::BudgetTotal.budgeted_for(organization_id, year)
-      last_income_budgeted       = GobiertoBudgets::BudgetTotal.budgeted_updated_for(organization_id, year, BudgetLine::INCOME)          || GobiertoBudgets::BudgetTotal.budgeted_for(organization_id, year, BudgetLine::INCOME)
       previous_expenses_budgeted = GobiertoBudgets::BudgetTotal.budgeted_updated_for(organization_id, previous_year)                     || GobiertoBudgets::BudgetTotal.budgeted_for(organization_id, previous_year)
       previous_income_budgeted   = GobiertoBudgets::BudgetTotal.budgeted_updated_for(organization_id, previous_year, BudgetLine::INCOME) || GobiertoBudgets::BudgetTotal.budgeted_for(organization_id, previous_year, BudgetLine::INCOME)
-
-      last_expenses_execution     = GobiertoBudgets::BudgetTotal.execution_for(organization_id, year)
-      last_income_execution       = GobiertoBudgets::BudgetTotal.execution_for(organization_id, year, BudgetLine::INCOME)
       previous_expenses_execution = GobiertoBudgets::BudgetTotal.execution_for(organization_id, previous_year)
       previous_income_execution   = GobiertoBudgets::BudgetTotal.execution_for(organization_id, previous_year, BudgetLine::INCOME)
 
-      {
-        last_income_budgeted:                   last_income_budgeted,
-        last_income_execution:                  last_income_execution,
-        last_expenses_budgeted:                 last_expenses_budgeted,
-        last_expenses_execution:                last_expenses_execution,
-        expenses_execution_percentage:          execution_percentage(last_expenses_budgeted, last_expenses_execution),
+      result = Hashie::Mash.new(
+        last_income: {
+          budgeted: GobiertoBudgets::BudgetTotal.budgeted_for(organization_id, year, BudgetLine::INCOME),
+          budgeted_updated: GobiertoBudgets::BudgetTotal.budgeted_updated_for(organization_id, year, BudgetLine::INCOME),
+          execution: GobiertoBudgets::BudgetTotal.execution_for(organization_id, year, BudgetLine::INCOME)
+        },
+        last_expenses: {
+          budgeted: GobiertoBudgets::BudgetTotal.budgeted_for(organization_id, year),
+          budgeted_updated: GobiertoBudgets::BudgetTotal.budgeted_updated_for(organization_id, year),
+          execution: GobiertoBudgets::BudgetTotal.execution_for(organization_id, year)
+        },
         expenses_previous_execution_percentage: execution_percentage(previous_expenses_budgeted, previous_expenses_execution),
-        income_execution_percentage:            execution_percentage(last_income_budgeted, last_income_execution),
         income_previous_execution_percentage:   execution_percentage(previous_income_budgeted, previous_income_execution),
         previous_year: previous_year
-      }
+      )
+
+      result.merge(
+        expenses_execution_percentage: execution_percentage(result.last_expenses.budgeted, result.last_expenses.execution),
+        income_execution_percentage: execution_percentage(result.last_income.budgeted, result.last_income.execution)
+      )
     end
 
     private

@@ -22,6 +22,7 @@ gem "ruby_px"
 gem "before_renders"
 gem "bootsnap"
 gem "truncate_html"
+gem "hashie"
 
 # Frontend
 gem "bourbon", "~> 4.3.4"

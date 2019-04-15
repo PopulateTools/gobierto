@@ -159,7 +159,7 @@ class ActionDispatch::IntegrationTest
   end
 
   def with_chrome_driver
-    Capybara.current_driver = :headless_chrome
+    Capybara.current_driver = ENV["INTEGRATION_TEST_DRIVER"].to_sym || :headless_chrome
     yield
     Capybara.reset_session!
   ensure

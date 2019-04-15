@@ -384,11 +384,15 @@ es:
           preveer todos los gastos con precisión absoluta.
         execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre
           el presupuesto inicial actualizado.
+        expenses_executed: Gastos ejecutados
         expenses_planned: Gastos presupuestados
+        expenses_planned_updated: Presupuestado actualizado
         functional: Functional
         functional_button: En qué se gasta
         higher_execution: Mayor ejecución
+        income_executed: Ingresos ejecutados
         income_planned: Ingresos presupuestados
+        income_planned_updated: Presupuestado actualizado
         lower_execution: Menor ejecución
         metric:
           execution:
@@ -396,8 +400,6 @@ es:
             income_title: Ejecución de ingresos
             previous_execution_message: En el %{year} la ejecución fue del %{percentage}
         percentage: Porcentaje
-        real_expenses: Gastos reales
-        real_income: Ingresos reales
         sort: Ordenar
         title: Ejecución presupuestaria
         tooltip_disclaimer: "<strong>Esta es una aproximación</strong>. <br /> A lo

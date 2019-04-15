@@ -11,7 +11,16 @@ module GobiertoAdmin
 
       def index
         find_vocabulary
-        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: ::GobiertoPlans::CategoryTermDecorator)
+        calculate_accumulated_values
+
+        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: ::GobiertoPlans::CategoryTermDecorator, options: { plan: @plan })
+      end
+
+      def accumulated_values
+        find_vocabulary
+        calculate_accumulated_values
+
+        render json: @accumulated_values
       end
 
       private
@@ -23,6 +32,18 @@ module GobiertoAdmin
       def find_term
         find_vocabulary
         @term = @vocabulary.terms.find(params[:id])
+      end
+
+      def calculate_accumulated_values
+        @accumulated_values ||= @vocabulary.terms.inject({}) do |calculations, term|
+          decorated_term = ::GobiertoPlans::CategoryTermDecorator.new(term, plan: @plan)
+
+          calculations.update(
+            term.id => decorated_term.decorated_values
+          )
+        end
+
+        @calculated_values_path = accumulated_values_admin_plans_plan_categories_path(@plan)
       end
 
       def find_vocabulary

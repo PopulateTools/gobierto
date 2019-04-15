@@ -18,8 +18,14 @@
         </div>
 
         <% if decorator.present? %>
-          <div class="v_el_decorated">
-            <%= render_decorator_template(decorator, :decorated_values_template, term.decorated_values) %>
+          <div class="v_el_decorated values" id="<%= term.id %>">
+            <% if calculated_values[term.id].present? %>
+              <% calculated_values[term.id].each do |key, value| %>
+                <%= content_tag :div, value,  class: key %>
+              <% end %>
+            <% else %>
+              <%= render_decorator_template(decorator, :decorated_values_template, term.decorated_values) %>
+            <% end %>
           </div>
         <% end %>
 
@@ -35,7 +41,7 @@
       </div>
 
       <% if has_subterms %>
-        <%= render partial: "gobierto_admin/gobierto_common/ordered_terms/terms_tree", locals: { terms: subterms } %>
+        <%= render partial: "gobierto_admin/gobierto_common/ordered_terms/terms_tree", locals: { terms: subterms, calculated_values: calculated_values } %>
       <% end %>
 
       <% if decorator && term.decorated_resources.present? %>

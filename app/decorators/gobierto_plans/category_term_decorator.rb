@@ -80,7 +80,7 @@ module GobiertoPlans
     protected
 
     def descending_nodes
-      @descending_nodes ||= plan.nodes.where(gplan_categories_nodes: { category_id: last_descendants.pluck(:id) })
+      @descending_nodes ||= plan.nodes.where("gplan_categories_nodes.category_id IN (#{self.class.tree_sql_for(self)})")
     end
 
     def vocabulary

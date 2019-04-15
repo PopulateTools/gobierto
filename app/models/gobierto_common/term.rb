@@ -4,6 +4,7 @@ module GobiertoCommon
   class Term < ApplicationRecord
     before_validation :calculate_level, :set_vocabulary
     include GobiertoCommon::Sortable
+    include GobiertoCommon::ActsAsTree
     include User::Subscribable
     include GobiertoCommon::Sluggable
     after_save :update_children_levels
@@ -23,6 +24,8 @@ module GobiertoCommon
 
     delegate :site, :maximum_level, to: :vocabulary
 
+    parent_item_foreign_key :term_id
+
     def attributes_for_slug
       [vocabulary_name, name]
     end
@@ -33,6 +36,7 @@ module GobiertoCommon
 
     def destroy
       return false if has_dependent_resources?
+
       super
     end
 

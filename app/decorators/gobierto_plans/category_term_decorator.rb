@@ -2,8 +2,9 @@
 
 module GobiertoPlans
   class CategoryTermDecorator < BaseTermDecorator
-    def initialize(term)
+    def initialize(term, options = {})
       @object = term
+      @plan = options.delete(:plan)
     end
 
     def categories

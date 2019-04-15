@@ -7,10 +7,10 @@ class TreeDecorator
   delegate :exists?, :empty?, to: :tree
   delegate :decorated_values?, to: :decorator
 
-  def initialize(tree, decorator: nil, opts: {})
+  def initialize(tree, decorator: nil, options: {})
     @tree = tree
     @decorator = decorator
-    @opts = opts
+    @opts = options
   end
 
   def each
@@ -18,7 +18,7 @@ class TreeDecorator
       if @opts.blank?
         yield(@decorator.try(:new, key) || key, TreeDecorator.new(value, decorator: decorator))
       else
-        yield(@decorator.try(:new, item, opts: @opts) || item, TreeDecorator.new(value, decorator: decorator, opts: @opts))
+        yield(@decorator.try(:new, key, @opts) || key, TreeDecorator.new(value, decorator: decorator, options: @opts))
       end
     end
   end

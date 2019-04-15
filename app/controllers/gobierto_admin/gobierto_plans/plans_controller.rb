@@ -11,7 +11,7 @@ module GobiertoAdmin
       def plan
         @plan = find_plan
         @vocabulary = @plan.categories_vocabulary
-        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: BaseTermDecorator)
+        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: BaseTermDecorator, options: { plan: @plan })
       end
 
       def new

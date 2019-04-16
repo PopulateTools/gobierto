@@ -74,20 +74,47 @@
 
     <div class="pure-u-1 pure-u-md-2-24"></div>
 
-    <%= render partial: 'gobierto_admin/shared/save_widget', locals: { f: f, levels: @plan_visibility_levels } %>
+    <div class="pure-u-1 pure-u-md-1-4 ">
 
-    <% if @plan_form.persisted? %>
-      <div class="pure-u-1 pure-u-md-1-4 ">
-        <%= link_to admin_plans_plan_import_csv_path(@plan) do %>
-          <i class="fas fa-table"></i>
-          <%= t(".import_csv") %>
-        <% end %>
-        <%= link_to admin_plans_plan_export_csv_path(@plan), target: "_blank" do %>
-          <i class="fas fa-table"></i>
-          <%= t(".export_csv") %>
-        <% end %>
+      <div class="widget_save stick_in_parent">
+
+        <div class="form_item person-visibility-level-radio-buttons">
+
+          <div class="options compact">
+            <%= f.collection_radio_buttons(:visibility_level, @plan_visibility_levels, :first, :first) do |b| %>
+              <div class="option">
+                <%= b.radio_button %>
+                <%= b.label do %>
+                  <span></span>
+                  <%= t("gobierto_admin.shared.save_widget.visibility_level.#{b.text}") %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+        </div>
+
+        <%= f.submit class: "button" %>
       </div>
-    <% end %>
+
+      <% if @plan_form.persisted? %>
+        <div class="admin_side_actions stick_in_parent">
+          <div class="m_v_1">
+            <%= link_to admin_plans_plan_import_csv_path(@plan) do %>
+              <i class="fas fa-table"></i>
+              <%= t(".import_csv") %>
+            <% end %>
+          </div>
+          <div class="m_v_1">
+            <%= link_to admin_plans_plan_export_csv_path(@plan), target: "_blank" do %>
+              <i class="fas fa-table"></i>
+              <%= t(".export_csv") %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
 
   </div>
 <% end %>

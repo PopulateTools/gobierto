@@ -383,6 +383,15 @@ body.gobierto_admin {
 }
 
 
+.admin_side_actions {
+  margin-top: 20px;
+}
+
+.admin_side_actions.is_stuck {
+  margin-top: 220px;
+}
+
+
 .sep_top_bot {
   border-top: 1px solid $color_separator;
   border-bottom: 1px solid $color_separator;

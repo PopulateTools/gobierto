@@ -34,6 +34,7 @@ en:
         give_your_opinion: Give your opinion about this budget line
         give_your_opinion_cta: Do you understand this budget line? Do you think it's
           enough, too much? Give your opinion
+        initial_estimate: Initial estimate
         last_year: Last year %{value}
         no_description: There's no description for this budget line.
         no_distribution: There aren't any related budget lines.
@@ -45,7 +46,6 @@ en:
         planned_female: planned
         planned_per_inhabitant: plan. / inh.
         planned_per_inhabitant_tooltip: Budgeted amount divided by the inhabitants
-        planned_per_inhabitant_updated: plan. upd. / inh.
         planned_tooltip: Budgeted amount
         raise_hand: Raise your hand
         real_value: Real %{kind} is %{value}

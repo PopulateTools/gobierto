@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "factories/budget_line_factory"
 
 class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTest
   def setup
@@ -32,6 +33,10 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
     ApplicationController.any_instance.stubs(:budget_lines_feedback_active?).returns(true)
   end
 
+  def metric_box(type)
+    ".metric_box[data-box='#{type}']"
+  end
+
   def test_budget_line_information
     with_each_current_site(placed_site, organization_site) do
       visit @path
@@ -42,15 +47,37 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
   end
 
   def test_metric_boxes
-    with_each_current_site(placed_site, organization_site) do
-      visit @path
+    with_chrome_driver do
+      with_current_site(placed_site) do
+        budget_line_attrs = { organization_id: placed_site.organization_id, population: 10 }
+        amount = 150
+        amount_updated = 200
 
-      assert has_css?(".metric_box h3", text: "Expense plan. / inh.")
-      assert has_css?(".metric_box h3", text: "Expense planned")
-      assert has_css?(".metric_box h3", text: "% execution")
-      assert has_css?(".metric_box h3", text: "% over the total")
-      assert has_css?(".metric_box h3", text: "Avg. expense in the province")
-      assert page.all(".metric_box .metric").all? { |e| e.text =~ /(\d+)|Not avail./ }
+        budgets_factories = [
+          BudgetLineFactory.new(budget_line_attrs.merge(amount: amount, indexes: [:forecast])),
+          BudgetLineFactory.new(budget_line_attrs.merge(amount: amount_updated, indexes: [:forecast_updated]))
+        ]
+
+        visit @path
+
+        within(metric_box(:planned)) do
+          assert has_content?("Expense planned\n#{amount_updated}")
+          assert has_content?("Initial estimate: #{amount}")
+        end
+
+        byebug
+        within(metric_box(:planned_per_inhabitant)) do
+          assert has_content?("Expense plan. / inh.\n20.00")
+          assert has_content?("Initial estimate: 15.00")
+        end
+
+        assert has_css?(".metric_box h3", text: "% execution")
+        assert has_css?(".metric_box h3", text: "% over the total")
+        assert has_css?(".metric_box h3", text: "Avg. expense in the province")
+        assert page.all(".metric_box .metric").all? { |e| e.text =~ /(\d+)|Not avail./ }
+
+        budgets_factories.map(&:teardown)
+      end
     end
   end
 

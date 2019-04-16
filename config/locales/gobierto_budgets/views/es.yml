@@ -34,6 +34,7 @@ es:
         give_your_opinion: Opina sobre esta partida
         give_your_opinion_cta: "¿Entiendes de qué va esta partida? ¿Te parece mucho,
           poco? Opina"
+        initial_estimate: Estimación inicial
         last_year: El año pasado %{value}
         no_description: No hay una descripción asociada a esta partida.
         no_distribution: No hay distribución asociada a esta partida.
@@ -46,7 +47,6 @@ es:
         planned_per_inhabitant: pres. / hab.
         planned_per_inhabitant_tooltip: Cantidad presupuestada dividida por el número
           de habitantes
-        planned_per_inhabitant_updated: pres. act. / hab.
         planned_tooltip: Cantidad presupuestada
         raise_hand: Levanta la mano
         real_value: El %{kind} real son %{value}

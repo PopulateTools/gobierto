@@ -34,6 +34,7 @@ ca:
         give_your_opinion: Opina sobre aquesta partida
         give_your_opinion_cta: Entens de què va aquesta partida? Et sembla molt, poc?
           Opina
+        initial_estimate: Estimació inicial
         last_year: L'any passat %{value}
         no_description: No hi ha una descripció associada a aquesta partida.
         no_distribution: No hi ha distribució associada a aquesta partida.
@@ -46,7 +47,6 @@ ca:
         planned_per_inhabitant: pres. / hab.
         planned_per_inhabitant_tooltip: Quantitat pressupostada dividida pel nombre
           d'habitants
-        planned_per_inhabitant_updated: pres act. / hab.
         planned_tooltip: Quantitat pressupostada
         raise_hand: Alça la mà
         real_value: "%{kind} real són %{value}"

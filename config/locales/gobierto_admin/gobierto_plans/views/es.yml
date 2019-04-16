@@ -2,6 +2,10 @@
 es:
   gobierto_admin:
     gobierto_plans:
+      categories:
+        plan_summary:
+          global_progress: Progreso global
+          projects: Proyectos
       plan_types:
         edit:
           title: Editar tipo de plan
@@ -111,12 +115,13 @@ es:
           all: Todos
           moderation_stage: Moderación
           moderation_stage_value:
-            approved: Aprobado
+            approved: Aprobados
             blank: Sin moderación
             in_review: En revisión
-            not_sent: No enviado
-            rejected: Rechazado
-            sent: Enviado
+            not_sent: No enviados
+            rejected: Rechazados
+            sent: Enviados
+          total: Total
         form:
           placeholders:
             name: Título del proyecto

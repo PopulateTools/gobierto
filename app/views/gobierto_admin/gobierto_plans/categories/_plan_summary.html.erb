@@ -1,0 +1,47 @@
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-1-2 p_h_r_2 ">
+    <div class="p_1 border-el">
+      <h5><%= t(".global_progress") %></h5>
+
+      <div class="m_t_1 metric metric_medium with_progress_bar">
+        <div class="metric_value"><%= number_to_percentage(@global_progress, precision: 1, strip_insignificant_zeros: true) %></div>
+      </div>
+
+    </div>
+  </div>
+
+  <% moderation_stage_values = @projects_filter_form.moderation_stage_values %>
+  <% all_value = moderation_stage_values.values.map(&:count).sum %>
+  <div class="pure-u-1 pure-u-md-1-2">
+    <div class="p_1 border-el">
+      <h5><%= t(".projects") %></h5>
+
+      <div class="m_t_1 f_flex_col">
+
+        <% moderation_stage_values.each do |stage, value| %>
+          <div class="metric metric_medium ">
+            <div class="metric_value <%= moderation_stage_sem_color_class(stage) %>">
+              <%= link_to_if(
+                    value.count.positive?,
+                    value.count,
+                    admin_plans_plan_projects_path(@plan, projects_filter: { moderation_stage: value.id })
+                  ) %>
+            </div>
+            <div class="metric_label"><%= t("gobierto_admin.gobierto_plans.projects.filters_row.moderation_stage_value.#{stage}") %></div>
+          </div>
+        <% end %>
+
+        <div class="metric metric_medium ">
+          <div class="metric_value">
+            <%= link_to all_value, admin_plans_plan_projects_path(@plan) %>
+          </div>
+          <div class="metric_label"><strong><%= t("gobierto_admin.gobierto_plans.projects.filters_row.total") %></strong></div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

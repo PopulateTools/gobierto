@@ -2,6 +2,10 @@
 ca:
   gobierto_admin:
     gobierto_plans:
+      categories:
+        plan_summary:
+          global_progress: Progreso global
+          projects: Projectes
       plan_types:
         edit:
           title: Edita el tipus de pla
@@ -111,12 +115,13 @@ ca:
           all: Tots
           moderation_stage: Moderació
           moderation_stage_value:
-            approved: Aprovat
-            blank: Sense moderació_values
+            approved: Aprovats
+            blank: Sense moderació
             in_review: En revisió
-            not_sent: No enviat
-            rejected: No aprovat
+            not_sent: No enviats
+            rejected: No aprovats
             sent: Sent
+          total: Total
         form:
           placeholders:
             name: Títol del projecte

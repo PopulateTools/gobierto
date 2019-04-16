@@ -2,6 +2,10 @@
 en:
   gobierto_admin:
     gobierto_plans:
+      categories:
+        plan_summary:
+          global_progress: Global progress
+          projects: Projects
       plan_types:
         edit:
           title: Edit plan type
@@ -117,6 +121,7 @@ en:
             not_sent: Not sent
             rejected: Rejected
             sent: Sent
+          total: Total
         form:
           placeholders:
             name: Project title

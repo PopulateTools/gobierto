@@ -50,7 +50,7 @@ module GobiertoAdmin
                 find("a[data-method='delete']").click
               end
 
-              assert has_message?("The commitment has been correctly deleted")
+              assert has_message?("The indicator has been correctly deleted")
 
               refute site.commitments.exists?(id: commitment.id)
             end

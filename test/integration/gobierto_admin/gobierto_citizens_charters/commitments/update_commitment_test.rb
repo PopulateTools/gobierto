@@ -52,22 +52,22 @@ module GobiertoAdmin
               with_current_site(site) do
                 visit @path
 
-                fill_in "commitment_title_translations_en", with: "Commitment updated"
+                fill_in "commitment_title_translations_en", with: "Indicator updated"
                 fill_in "commitment_description_translations_en", with: "Commitment updated description"
                 click_link "ES"
-                fill_in "commitment_title_translations_es", with: "Compromiso actualizado"
+                fill_in "commitment_title_translations_es", with: "Indicador actualizado"
                 fill_in "commitment_description_translations_es", with: "Descripción del compromiso actualizado"
 
                 click_button "Update"
 
-                assert has_message?("The commitment has been correctly updated.")
+                assert has_message?("The indicator has been correctly updated.")
 
                 visit @path
 
-                assert has_field? "commitment_title_translations_en", with: "Commitment updated"
+                assert has_field? "commitment_title_translations_en", with: "Indicator updated"
                 assert has_field? "commitment_description_translations_en", with: "Commitment updated description"
                 click_link "ES"
-                assert has_field? "commitment_title_translations_es", with: "Compromiso actualizado"
+                assert has_field? "commitment_title_translations_es", with: "Indicador actualizado"
                 assert has_field? "commitment_description_translations_es", with: "Descripción del compromiso actualizado"
               end
             end
@@ -87,22 +87,22 @@ module GobiertoAdmin
                 assert_no_difference "Activity.count" do
                   visit @draft_commitment_path
 
-                  fill_in "commitment_title_translations_en", with: "Commitment updated"
+                  fill_in "commitment_title_translations_en", with: "Indicator updated"
                   fill_in "commitment_description_translations_en", with: "Commitment updated description"
                   click_link "ES"
-                  fill_in "commitment_title_translations_es", with: "Compromiso actualizado"
+                  fill_in "commitment_title_translations_es", with: "Indicador actualizado"
                   fill_in "commitment_description_translations_es", with: "Descripción del compromiso actualizado"
 
                   click_button "Update"
 
-                  assert has_message?("The commitment has been correctly updated.")
+                  assert has_message?("The indicator has been correctly updated.")
 
                   visit @draft_commitment_path
 
-                  assert has_field? "commitment_title_translations_en", with: "Commitment updated"
+                  assert has_field? "commitment_title_translations_en", with: "Indicator updated"
                   assert has_field? "commitment_description_translations_en", with: "Commitment updated description"
                   click_link "ES"
-                  assert has_field? "commitment_title_translations_es", with: "Compromiso actualizado"
+                  assert has_field? "commitment_title_translations_es", with: "Indicador actualizado"
                   assert has_field? "commitment_description_translations_es", with: "Descripción del compromiso actualizado"
                 end
               end
@@ -122,7 +122,7 @@ module GobiertoAdmin
 
                 click_button "Update"
 
-                assert has_message?("The commitment has been correctly updated.")
+                assert has_message?("The indicator has been correctly updated.")
 
                 visit @draft_commitment_path
 

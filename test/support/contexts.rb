@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
-def with_chrome_driver
-  Capybara.current_driver = (ENV["INTEGRATION_TEST_DRIVER"] || :headless_chrome).to_sym
-  yield
-  Capybara.reset_session!
-ensure
-  Capybara.current_driver = Capybara.default_driver
-end
+require "support/site_session_helpers"
 
 def with_javascript
   Capybara.current_driver = Capybara.javascript_driver
@@ -26,10 +20,19 @@ end
 def with(params = {})
   factory = params[:factory]
   factories = params[:factories] || []
-  js_driver = (ENV["INTEGRATION_TEST_DRIVER"] || :headless_chrome).to_sym
+  js_driver = if params[:js] == :deprecated
+                :poltergeist_custom
+              else
+                (ENV["INTEGRATION_TEST_DRIVER"] || :headless_chrome).to_sym
+              end
+
   Capybara.current_driver = js_driver if params[:js]
 
-  yield(params)
+  if (site = params[:site])
+    stub_current_site(site) { yield }
+  else
+    yield(params)
+  end
 
   Capybara.reset_session! if params[:js]
 ensure

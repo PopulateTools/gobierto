@@ -59,21 +59,19 @@ class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
   end
 
   def test_execution_graphs
-    with_chrome_driver do
-      with_current_site(placed_site) do
-        visit @path
+    with(site: placed_site, js: true) do
+      visit @path
 
-        within("#expenses-execution") do
-          assert has_content?("EXPLORE THE EXECUTION OF THE EXPENSES")
-          assert budget_execution_graph_lines.count > 0
-          assert budget_graph_filters.include? "CUSTOM"
-        end
+      within("#expenses-execution") do
+        assert has_content?("EXPLORE THE EXECUTION OF THE EXPENSES")
+        assert budget_execution_graph_lines.count > 0
+        assert budget_graph_filters.include? "CUSTOM"
+      end
 
-        within("#income-execution") do
-          assert has_content?("EXPLORE THE EXECUTION OF THE INCOME")
-          assert budget_execution_graph_lines.count > 0
-          assert budget_graph_filters.include? "CUSTOM"
-        end
+      within("#income-execution") do
+        assert has_content?("EXPLORE THE EXECUTION OF THE INCOME")
+        assert budget_execution_graph_lines.count > 0
+        assert budget_graph_filters.include? "CUSTOM"
       end
     end
   end

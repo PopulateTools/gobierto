@@ -1,0 +1,25 @@
+<div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit"
+     title="<%= tooltip %>"
+     data-box="<%= data_box %>">
+
+  <div class="inner">
+    <h3><%= title %></h3>
+
+    <div class="metric">
+      <% if value %>
+        <%= value %>
+      <% else %>
+        <span class="not_av"><%= t(".not_available_short") %></span>
+      <% end %>
+    </div>
+
+    <% if local_assigns[:explanation] && (!explanation.has_key?(:if) || explanation[:if] == true) %>
+      <div class="explanation"><%= explanation[:text] %></div>
+    <% end %>
+
+    <% if local_assigns[:diff] %>
+      <div class="diff"><%= diff %></div>
+    <% end %>
+  </div>
+
+</div>

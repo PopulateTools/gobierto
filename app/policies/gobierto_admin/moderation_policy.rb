@@ -30,6 +30,10 @@ module GobiertoAdmin
       edit? && !moderable.moderation_locked_edition?(:visibility_level)
     end
 
+    def publish?
+      publish_as_editor? || moderate?
+    end
+
     def moderable_has_moderation?
       moderable.class.include? ::GobiertoCommon::Moderable
     end

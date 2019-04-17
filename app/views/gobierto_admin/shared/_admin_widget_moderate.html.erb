@@ -1,4 +1,4 @@
-<% if resource.moderable_has_moderation? && resource.moderation_policy.moderate? && resource.moderation_reachable_stages.any? %>
+<% if resource.moderable_has_moderation? && resource.moderation_policy.moderate? %>
   <div class="widget_save_v2 m_b_2">
 
     <div class="w_s_content">
@@ -22,7 +22,17 @@
       </div>
 
       <div class="w_actions m_b_1">
-        <button class="button medium"><%= t("gobierto_admin.shared.moderation_save_widget.save") %></button>
+        <% if resource.moderation_reachable_stages.any? %>
+          <button class="button medium"><%= t("gobierto_admin.shared.moderation_save_widget.save") %></button>
+        <% end %>
+        <%= f.button(
+                      t("gobierto_admin.shared.moderation_save_widget.#{resource.visibility_level_change_action}"),
+                      disabled: !resource.moderation_policy.moderate?,
+                      class: "button medium",
+                      name: "#{f.object_name}[visibility_level]",
+                      value: resource.step_visibility_value,
+                      data: { confirm: t("gobierto_admin.shared.moderation_save_widget.confirm") }
+                    ) %>
       </div>
 
     </div>

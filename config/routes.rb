@@ -175,7 +175,6 @@ Rails.application.routes.draw do
               get :accumulated_values
             end
           end
-          get :data
           resources :projects do
             member do
               post :publish
@@ -189,14 +188,6 @@ Rails.application.routes.draw do
         end
         resources :plan_types, except: [:show], path: :plan_types do
           put :recover
-        end
-
-        # API
-        namespace :api do
-          resources :plans, only: [] do
-            resources :nodes, except: [:show, :new, :edit]
-            resources :categories, only: [:index]
-          end
         end
       end
 

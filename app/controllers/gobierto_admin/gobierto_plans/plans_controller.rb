@@ -32,16 +32,6 @@ module GobiertoAdmin
         )
       end
 
-      def data
-        @plan = find_plan
-        if @plan.categories.exists?
-          @categories_list = (0..@plan.categories.maximum(:level)).map do |level|
-            @plan.categories.where(level: level).map { |cat| { id: cat.id.to_s, name: cat.name } }.unshift(id: nil, name: nil)
-          end
-          @categories_vocabulary = ActiveModelSerializers::SerializableResource.new(@plan.categories, each_serializer: GobiertoAdmin::GobiertoPlans::CategorySerializer).serializable_hash
-        end
-      end
-
       def create
         @plan_form = PlanForm.new(plan_params.merge(site_id: current_site.id))
 

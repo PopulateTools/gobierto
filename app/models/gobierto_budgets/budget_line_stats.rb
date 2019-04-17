@@ -2,6 +2,9 @@
 
 module GobiertoBudgets
   class BudgetLineStats
+
+    attr_accessor :year
+
     def initialize(options)
       @site = options.fetch :site
       @organization_id = @site.organization_id
@@ -73,6 +76,13 @@ module GobiertoBudgets
 
     def mean_province
       mean_province_query(@year, "amount")
+    end
+
+    def execution_percentage(requested_year = year)
+      @foo_item_1 ||= begin
+        variable_2 = amount_updated.present? ? :amount_updated : :amount_planned
+        percentage_difference(variable1: :amount_executed, variable2: variable_2, year: requested_year)
+      end
     end
 
     private

@@ -28,85 +28,37 @@
 
       <div class="pure-u-1 pure-u-md-1-2 metric_boxes metric_boxes_detailed">
         <div class="pure-g">
+          <% metric_boxes = [
+            {
+              title: t(".metric.execution.income_title"),
+              main_value: @budgets_execution_summary.income_execution_percentage,
+              explanation: {
+                if: @budgets_execution_summary.income_previous_execution_percentage,
+                text: t(".metric.execution.previous_execution_message", year: @budgets_execution_summary.previous_year, percentage: @budgets_execution_summary.income_previous_execution_percentage)
+              },
+              rows: [
+                { text: t(".income_planned"), value: @budgets_execution_summary.last_income.budgeted },
+                { text: t(".income_planned_updated"), value: @budgets_execution_summary.last_income.budgeted_updated },
+                { text: t(".income_executed"), value: @budgets_execution_summary.last_income.execution }
+              ]
+            },
+            {
+              title: t(".metric.execution.expenses_title"),
+                main_value: @budgets_execution_summary.expenses_execution_percentage,
+                explanation: {
+                  if: @budgets_execution_summary.expenses_previous_execution_percentage,
+                  text: t(".metric.execution.previous_execution_message", year: @budgets_execution_summary.previous_year, percentage: @budgets_execution_summary.expenses_previous_execution_percentage)
+                },
+                rows: [
+                  { text: t(".expenses_planned"), value: @budgets_execution_summary.last_expenses.budgeted },
+                  { text: t(".expenses_planned_updated"), value: @budgets_execution_summary.last_expenses.budgeted_updated },
+                  { text: t(".expenses_executed"), value: @budgets_execution_summary.last_expenses.execution }
+                ]
+            }
+          ] %>
 
-          <% if  @budgets_execution_summary.income_execution_percentage %>
-            <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
-              <div class="inner">
-                <h3><%= t('.metric.execution.income_title') %></h3>
-                <div class="metric"><%= @budgets_execution_summary.income_execution_percentage %> %</div>
-
-                <div class="metric_details">
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th><%= t('.income_planned') %></th>
-                        <td><%= format_currency @budgets_execution_summary.last_income.budgeted %></td>
-                      </tr>
-                      <% if @budgets_execution_summary.last_income.budgeted_updated %>
-                        <tr>
-                          <th><%= t('.income_planned_updated') %></th>
-                          <td><%= format_currency @budgets_execution_summary.last_income.budgeted_updated %></td>
-                        </tr>
-                      <% end %>
-                      <tr>
-                        <th><%= t('.income_executed') %></th>
-                        <td><%= format_currency @budgets_execution_summary.last_income.execution %></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <% if @budgets_execution_summary.income_previous_execution_percentage %>
-                  <div class="explanation desktop_only">
-                    <%= t('.metric.execution.previous_execution_message',
-                          year: @budgets_execution_summary.previous_year,
-                          percentage: @budgets_execution_summary.income_previous_execution_percentage
-                    ) %> %
-                  </div>
-                <% end %>
-
-              </div>
-            </div>
-          <% end %>
-
-          <% if @budgets_execution_summary.expenses_execution_percentage %>
-            <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
-              <div class="inner">
-                <h3><%= t('.metric.execution.expenses_title') %></h3>
-                <div class="metric"><%= @budgets_execution_summary.expenses_execution_percentage %> %</div>
-
-                <div class="metric_details">
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th><%= t('.expenses_planned') %></th>
-                        <td><%= format_currency @budgets_execution_summary.last_expenses.budgeted %></td>
-                      </tr>
-                      <% if @budgets_execution_summary.last_expenses.budgeted_updated %>
-                        <tr>
-                          <th><%= t('.expenses_planned_updated') %></th>
-                          <td><%= format_currency @budgets_execution_summary.last_expenses.budgeted_updated %></td>
-                        </tr>
-                      <% end %>
-                      <tr>
-                        <th><%= t('.expenses_executed') %></th>
-                        <td><%= format_currency @budgets_execution_summary.last_expenses.execution %></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <% if @budgets_execution_summary.expenses_previous_execution_percentage %>
-                  <div class="explanation desktop_only">
-                    <%= t('.metric.execution.previous_execution_message',
-                          year: @budgets_execution_summary.previous_year,
-                          percentage: @budgets_execution_summary.expenses_previous_execution_percentage
-                    ) %> %
-                  </div>
-                <% end %>
-
-              </div>
-            </div>
+          <% metric_boxes.each do |metric_box| %>
+            <%= render("metric_box", metric_box) %>
           <% end %>
         </div>
       </div>

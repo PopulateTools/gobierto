@@ -1,0 +1,31 @@
+<% if main_value %>
+  <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
+    <div class="inner">
+
+      <h3><%= title %></h3>
+      <div class="metric"><%= main_value %> %</div>
+
+      <div class="metric_details">
+        <table>
+          <tbody>
+            <% rows.each do |row| %>
+              <% next unless row[:value].present? %>
+
+              <tr>
+                <th><%= row[:text] %></th>
+                <td><%= format_currency row[:value] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <% if explanation[:if] %>
+        <div class="explanation desktop_only">
+          <%= explanation[:text] %> %
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+<% end %>

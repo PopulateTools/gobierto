@@ -13,13 +13,13 @@ module GobiertoAdmin
         :starts_at,
         :ends_at,
         :options_json,
-        :admin,
-        :disable_attributes_edition
+        :admin
       )
       attr_writer(
         :category_id,
         :visibility_level,
-        :moderation_stage
+        :moderation_stage,
+        :disable_attributes_edition
       )
 
       validates :plan, :admin, presence: true
@@ -103,6 +103,10 @@ module GobiertoAdmin
       end
 
       private
+
+      def disable_attributes_edition
+        @disable_attributes_edition && moderation_policy.moderate?
+      end
 
       def moderation_policy
         @moderation_policy ||= GobiertoAdmin::ModerationPolicy.new(current_admin: admin, current_site: site, moderable: node)

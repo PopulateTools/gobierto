@@ -12,7 +12,8 @@ es:
           other: "%{count} indicadores"
           zero: No hay indicadores
         contact: Contacto
-        description_title: Información sobre el cumplimiento de los indicadores %{of_the_organization_name}
+        description_title: Información sobre el cumplimiento de los compromisos de
+          los indicadores %{of_the_organization_name}
         global_progress: Cumplimiento global
         introduction: El Ayuntamiento publica sus cartas de servicios con sus respectivos
           indicadores y grados de cumplimiento. Explora las cartas y los niveles de

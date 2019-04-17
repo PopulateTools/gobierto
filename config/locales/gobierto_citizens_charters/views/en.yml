@@ -12,7 +12,8 @@ en:
           other: "%{count} indicators"
           zero: No indicators found
         contact: Contact
-        description_title: Information on the fulfillment of the indicators %{of_the_organization_name}
+        description_title: Information about the fulfillment of the commitments of
+          the indicators %{of_the_organization_name}
         global_progress: Global compliance
         introduction: The City Council publishes its service charters with their respective
           indicators and degrees of compliance. Explore the charters and fulfillment

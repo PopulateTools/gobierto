@@ -11,6 +11,10 @@ module BudgetsFactory
   }
 
   class_methods do
+    def default_amount
+      123_456.789
+    end
+
     def default_population
       100
     end
@@ -36,16 +40,23 @@ module BudgetsFactory
     end
 
     def default_year
-      2019
+      Time.now.year
     end
 
-    def base_data
+    def base_data(params = {})
+      place_attributes(params).merge(
+        organization_id: params[:organization_id] || default_organization_id,
+        year: params[:year] || default_year
+      )
+    end
+
+    def place_attributes(params = {})
+      place = params[:place] || default_place
+
       {
-        organization_id: default_organization_id,
-        ine_code: default_place.id,
-        province_id: default_place.province_id,
-        autonomy_id: default_place.province.autonomous_region_id,
-        year: default_year
+        ine_code: place.id,
+        province_id: place.province_id,
+        autonomy_id: place.province.autonomous_region_id
       }
     end
   end
@@ -63,20 +74,24 @@ module BudgetsFactory
     params.delete(:indexes)
 
     documents = indexes.map { |index| build_document(index, params) }
-    result = client.bulk(body: documents)
+    result = bulk(body: documents)
 
     self.created_documents = result["items"].map do |doc|
       doc["index"].slice("_index", "_type", "_id")
     end
-
-    sleep 1 # wait for search index to be ready
   end
 
   def teardown
-    client.bulk(body: teardown_body)
+    bulk(body: teardown_body)
   end
 
   private
+
+  def bulk(params = {})
+    result = client.bulk(params)
+    sleep 1 # wait for search index to be ready
+    result
+  end
 
   def teardown_body
     created_documents.map { |doc_summary| { delete: doc_summary } }

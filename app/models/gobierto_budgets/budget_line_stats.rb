@@ -20,8 +20,11 @@ module GobiertoBudgets
     end
     alias amount_planned amount
 
-    def amount_updated(year = nil)
-      budget_line_planned_updated_query(year, "amount")
+    def amount_updated(year = nil, fallback_to_initial_estimate = false)
+      result = budget_line_planned_updated_query(year, "amount")
+      result = amount(year) if fallback_to_initial_estimate && result.nil?
+
+      result
     end
 
     def amount_executed(year = nil)
@@ -39,7 +42,7 @@ module GobiertoBudgets
     def percentage_of_total(year = nil)
       return "" if total_budget.nil?
 
-      diff = amount(year) / total_budget
+      diff = amount_updated(year, true) / total_budget
       if diff
         diff = diff.to_f * 100
 
@@ -79,8 +82,8 @@ module GobiertoBudgets
     end
 
     def execution_percentage(requested_year = year)
-      @foo_item_1 ||= begin
-        variable_2 = amount_updated.present? ? :amount_updated : :amount_planned
+      @execution_percentage ||= begin
+        variable_2 = amount_updated ? :amount_updated : :amount_planned
         percentage_difference(variable1: :amount_executed, variable2: variable_2, year: requested_year)
       end
     end

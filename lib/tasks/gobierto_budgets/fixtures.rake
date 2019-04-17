@@ -63,8 +63,7 @@ namespace :gobierto_budgets do
 
       budgets = [
         GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed,
-        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated
+        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
       ].map do |index|
         categories_fixtures do |category|
           next if category["organization_id"] && (category["organization_id"] != organization_id)
@@ -88,7 +87,6 @@ namespace :gobierto_budgets do
 
       total_budgets = [
         GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated,
         GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
       ].map do |index|
         type = GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type

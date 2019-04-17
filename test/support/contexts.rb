@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 def with_chrome_driver
-  Capybara.current_driver = ENV["INTEGRATION_TEST_DRIVER"].to_sym || :headless_chrome
+  Capybara.current_driver = (ENV["INTEGRATION_TEST_DRIVER"] || :headless_chrome).to_sym
   yield
   Capybara.reset_session!
 ensure
@@ -21,4 +21,19 @@ def with_hidden_elements
   yield
 ensure
   Capybara.ignore_hidden_elements = true
+end
+
+def with(params = {})
+  factory = params[:factory]
+  factories = params[:factories] || []
+  js_driver = (ENV["INTEGRATION_TEST_DRIVER"] || :headless_chrome).to_sym
+  Capybara.current_driver = js_driver if params[:js]
+
+  yield(params)
+
+  Capybara.reset_session! if params[:js]
+ensure
+  factory&.teardown
+  factories.each { |f| f.teardown }
+  Capybara.current_driver = Capybara.default_driver if params[:js]
 end

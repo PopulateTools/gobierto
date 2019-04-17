@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "factories/total_budget_factory"
 
-class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
+class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
   def setup
     super
     @path = gobierto_budgets_budgets_execution_path(last_year)
@@ -37,7 +38,10 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
   end
 
   def test_execution_summary_boxes
-    with_chrome_driver do
+    f1 = TotalBudgetFactory.new(year: last_year)
+    f2 = TotalBudgetFactory.new(year: last_year, kind: GobiertoData::GobiertoBudgets::INCOME)
+
+    with(factories: [f1, f2], js: true) do
       with_current_site(placed_site) do
         visit @path
 

@@ -65,7 +65,6 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
           assert has_content?("Initial estimate: #{amount}")
         end
 
-        byebug
         within(metric_box(:planned_per_inhabitant)) do
           assert has_content?("Expense plan. / inh.\n20.00")
           assert has_content?("Initial estimate: 15.00")

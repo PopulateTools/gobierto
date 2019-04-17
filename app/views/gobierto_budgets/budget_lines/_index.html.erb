@@ -72,7 +72,7 @@
       <tr>
         <th class="budget_line"><span><%= t('.budget_line') %></span></th>
         <th class="qty big_qty"><%= t('.amount') %></th>
-        <%= content_tag :th, t('.per_inhabitant'), class: "qty" if @site_stats.has_available_population_data? %>
+        <%= content_tag :th, t('.per_inhabitant'), class: "qty" if @site_stats.population_data? %>
         <th class="qty">%</th>
         <th class="qty bar"><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
       </tr>
@@ -81,7 +81,7 @@
       <tr>
         <td class="budget_line"><strong>Total</strong></td>
         <td class="qty big_qty"><%= number_to_currency(kind == GobiertoBudgets::BudgetLine::INCOME ? @site_stats.total_income_budget : @site_stats.total_budget, precision: 0) %></td>
-        <%= content_tag :td, number_to_currency(kind == GobiertoBudgets::BudgetLine::INCOME ? @site_stats.total_income_budget_per_inhabitant : @site_stats.total_budget_per_inhabitant, precision: 2), class: "qty big_qty" if @site_stats.has_available_population_data? %>
+        <%= content_tag :td, number_to_currency(kind == GobiertoBudgets::BudgetLine::INCOME ? @site_stats.total_income_budget_per_inhabitant : @site_stats.total_budget_per_inhabitant, precision: 2), class: "qty big_qty" if @site_stats.population_data? %>
         <td class="qty"></td>
         <td class="bar"></td>
       </tr>

@@ -32,10 +32,10 @@
     <% cache(["gobierto_budgets/metric_boxes", current_site, I18n.locale, @year]) do %>
       <div class="pure-g metric_boxes">
 
-        <% if @site_stats.has_available_population_data? %>
+        <% if @site_stats.population_data? %>
           <%= render("metric_box",
                 title: t(".expenses_per_inhabitant"),
-                value: format_currency(@site_stats.total_budget_per_inhabitant),
+                value: @site_stats.total_budget_per_inhabitant,
                 tooltip: t(".expenses_per_inhabitant_tooltip"),
                 data_box: "expenses_per_inhabitant"
               ) %>
@@ -43,7 +43,7 @@
 
         <%= render("metric_box",
               title: t(".total_expenses"),
-              value: format_currency(@site_stats.total_budget),
+              value: @site_stats.total_budget,
               tooltip: t(".total_expenses_tooltip"),
               data_box: "total_expenses"
             ) %>
@@ -74,11 +74,12 @@
           </div>
         </div>
 
-        <% if @site_stats.has_available_population_data? %>
+        <% if @site_stats.population_data? %>
 
           <%= render("metric_box",
               title: t(".inhabitants"),
-              value: number_with_delimiter(@site_stats.latest_available(:population, @year)[:value]),
+              value: @site_stats.latest_available(:population, @year)[:value],
+              value_type: :number,
               tooltip: t(".inhabitants_tooltip"),
               data_box: "population",
               explanation: {
@@ -91,21 +92,21 @@
 
           <%= render("metric_box",
               title: t("gobierto_budgets.budgets_elaboration.index.net_savings"),
-              value: format_currency(@site_stats.net_savings),
+              value: @site_stats.net_savings,
               tooltip: t("gobierto_budgets.budgets_elaboration.index.net_savings_tooltip"),
               data_box: "debt",
               diff: "#{@site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :net_savings)} vs #{@year - 1}"
             ) %>
         <% end %>
 
-        <% if @site_stats.has_available_debt_data? %>
+        <% if @site_stats.debt_data? %>
 
           <% debt = @site_stats.latest_available(:debt, @year) %>
           <% debt_value = debt[:value] %>
 
           <%= render("metric_box",
               title: t('.debt'),
-              value: debt_value ? format_currency(debt_value) : nil,
+              value: debt_value,
               tooltip: t(".debt_tooltip", of_the_organization_name: @site.determined_organization_name(:of_the)),
               data_box: "debt",
               explanation: {
@@ -117,7 +118,8 @@
         <% else %>
           <%= render("metric_box",
               title: t("gobierto_budgets.budgets_elaboration.index.auto_funding"),
-              value: "#{@site_stats.auto_funding} %",
+              value: @site_stats.auto_funding,
+              value_type: :percentage,
               tooltip: t("gobierto_budgets.budgets_elaboration.index.auto_funding_tooltip"),
               data_box: "debt",
               diff: "#{@site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :auto_funding)} vs #{@year - 1}"

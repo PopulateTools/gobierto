@@ -19,7 +19,7 @@
 
   <div class="pure-g metric_boxes">
 
-    <% if @site_stats.has_available_population_data? %>
+    <% if @site_stats.population_data? %>
       <% if @kind == GobiertoBudgets::BudgetLine::EXPENSE %>
         <div id="metric_box_1" class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant_tooltip') %>">
           <div class="inner">
@@ -65,7 +65,7 @@
       </div>
     </div>
 
-    <% if @site_stats.has_available_debt_data? %>
+    <% if @site_stats.debt_data? %>
       <div id="metric_box_4" class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.debt_level_tooltip') %>">
         <div class="inner">
           <h3><%= t('gobierto_budgets.budgets_elaboration.index.debt_level') %></h3>

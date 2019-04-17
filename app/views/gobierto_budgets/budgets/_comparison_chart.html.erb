@@ -1,6 +1,6 @@
 <% show_widget ||= false %>
 <% data_args.merge!(format: "json") %>
-<% tabs = ["total_budget"].tap { |this| this.unshift("per_person") if @site_stats.has_available_population_data? } %>
+<% tabs = ["total_budget"].tap { |this| this.unshift("per_person") if @site_stats.population_data? } %>
 <% i18n_scope ||= "gobierto_budgets.budgets.index" %>
 
 <%= content_tag :div, id: wrapper_id, class: "pure-g", role: "tabpanel", "aria-controlledby": tabs.join(", "), data: {"vis-lines": ""} do -%>
@@ -25,7 +25,7 @@
 
   <div class="pure-u-1 pure-u-md-1-2">
     <div class="filter m_v_2" role="tablist" aria-label="<%= t(:visualize, scope: i18n_scope) %>">
-      <% if @site_stats.has_available_population_data? %>
+      <% if @site_stats.population_data? %>
         <%= link_to t(:per_person, scope: i18n_scope), "#",
           class: "active",
           data: { "line-widget-series": line_widget_series,
@@ -38,13 +38,13 @@
           "aria-controls": "lines_chart_wrapper" %>
       <% end %>
       <%= link_to t(:in_total, scope: i18n_scope), "#",
-        class: @site_stats.has_available_population_data? ? "" : "active",
+        class: @site_stats.population_data? ? "" : "active",
         data: { "line-widget-series": line_widget_series,
                 "line-widget-url": gobierto_budgets_api_data_lines_path(data_args.merge(what: "total_budget")),
                 "line-widget-type" => "total_budget" },
         role: "tab",
         tabindex:-1,
-        "aria-selected": !@site_stats.has_available_population_data?,
+        "aria-selected": !@site_stats.population_data?,
         id: "total_budget",
         "aria-controls": "lines_chart_comparison_wrapper" %>
     </div>

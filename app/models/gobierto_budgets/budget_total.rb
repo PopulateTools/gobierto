@@ -9,9 +9,20 @@ module GobiertoBudgets
     BUDGETED = "B"
     EXECUTED = "E"
     BUDGETED_UPDATED = "BU"
+    CONFIG = SearchEngineConfiguration::TotalBudget
 
-    def self.budgeted_updated_for(organization_id, year, kind = BudgetLine::EXPENSE)
-      BudgetTotal.for(organization_id, year, BudgetTotal::BUDGETED_UPDATED, kind)
+    def self.budgeted_updated_for(params = {})
+      organization_id = params[:organization_id]
+      year = params[:year]
+      kind = params[:kind] || BudgetLine::EXPENSE
+
+      result = BudgetTotal.for(organization_id, year, BudgetTotal::BUDGETED_UPDATED, kind)
+
+      if result.nil? && params[:fallback_to_initial_estimate]
+        BudgetTotal.budgeted_for(organization_id, year)
+      else
+        result
+      end
     end
 
     def self.budgeted_for(organization_id, year, kind = BudgetLine::EXPENSE)
@@ -24,17 +35,19 @@ module GobiertoBudgets
 
     def self.for(organization_id, year, index = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
       return for_organizations(organization_id, year) if organization_id.is_a?(Array)
+
       index = case index
               when BudgetTotal::EXECUTED
-                SearchEngineConfiguration::TotalBudget.index_executed
+                CONFIG.index_executed
               when BudgetTotal::BUDGETED
-                SearchEngineConfiguration::TotalBudget.index_forecast
+                CONFIG.index_forecast
               when BudgetTotal::BUDGETED_UPDATED
-                SearchEngineConfiguration::TotalBudget.index_forecast_updated
+                CONFIG.index_forecast_updated
               end
 
-      result = SearchEngine.client.get(index: index, type: SearchEngineConfiguration::TotalBudget.type, id: [organization_id, year, kind].join("/"))
+      doc_id = [organization_id, year, kind].join("/")
 
+      result = SearchEngine.client.get(index: index, type: CONFIG.type, id: doc_id)
       result = result["_source"]["total_budget"].to_f
       result == 0.0 ? nil : result
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
@@ -42,49 +55,35 @@ module GobiertoBudgets
     end
 
     def self.budget_evolution_for(organization_id, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
-      query = {
-        sort: [
-          { year: { order: "asc" } }
-        ],
-        query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: [
-                  { term: { organization_id: organization_id } },
-                  { term: { kind: kind } }
-                ]
-              }
-            }
-          }
-        },
-        size: 10_000
-      }
+      query = ESQueryBuilder.must(
+        organization_id: organization_id,
+        kind: kind
+      ).merge(
+        sort: [ { year: { order: "asc" } } ],
+        size: ESQueryBuilder::MAX_SIZE
+      )
 
-      index = index = b_or_e == BudgetTotal::EXECUTED ? SearchEngineConfiguration::TotalBudget.index_executed : SearchEngineConfiguration::TotalBudget.index_forecast
+      index = (b_or_e == BudgetTotal::EXECUTED) ? CONFIG.index_executed : CONFIG.index_forecast
 
-      response = SearchEngine.client.search index: index, type: SearchEngineConfiguration::TotalBudget.type, body: query
+      response = SearchEngine.client.search(index: index, type: CONFIG.type, body: query)
+
       response["hits"]["hits"].map { |h| h["_source"] }
     end
 
     def self.for_organizations(organization_ids, year)
-      terms = [{ terms: { organization_id: organization_ids } },
-               { term: { year: year } }]
+      query = ESQueryBuilder.must(
+        organization_id: organization_ids,
+        year: year
+      ).merge(
+        size: ESQueryBuilder::MAX_SIZE
+      )
 
-      query = {
-        query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: terms
-              }
-            }
-          }
-        },
-        size: 10_000
-      }
+      response = SearchEngine.client.search(
+        index: CONFIG.index_forecast,
+        type: CONFIG.type,
+        body: query
+      )
 
-      response = SearchEngine.client.search index: SearchEngineConfiguration::TotalBudget.index_forecast, type: SearchEngineConfiguration::TotalBudget.type, body: query
       response["hits"]["hits"].map { |h| h["_source"] }
     end
   end

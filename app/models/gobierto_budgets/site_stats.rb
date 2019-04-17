@@ -2,13 +2,22 @@
 
 module GobiertoBudgets
   class SiteStats
+
+    attr_accessor :organization_id
+
     def initialize(options)
       @site = options.fetch :site
-      @organization_id = @site.organization_id
+      self.organization_id = @site.organization_id
       @year = options.fetch(:year).to_i
       @data = { debt: {}, population: {} }
-      @empty_population = !has_available?(:population)
-      @empty_debt = !has_available?(:debt)
+    end
+
+    def population_data?
+      @population_data ||= has_available?(:population)
+    end
+
+    def debt_data?
+      @debt_data ||= has_available?(:debt)
     end
 
     def budgets_data_updated_at
@@ -30,58 +39,56 @@ module GobiertoBudgets
       r.present? && r != 0
     end
 
-    def has_available_population_data?
-      !@empty_population
-    end
-
-    def has_available_debt_data?
-      !@empty_debt
-    end
-
     def total_budget_per_inhabitant(year = nil, kind = GobiertoBudgets::BudgetLine::EXPENSE)
       year ||= @year
-      BudgetTotal.budgeted_for(@site.organization_id, year, kind).to_f / (population(year) || population(year - 1) || population(year - 2)).to_f
+      amount = updated_total_budget.to_f
+      population = population(year) || population(year - 1) || population(year - 2)
+
+      (amount / population).to_f
     end
 
     def total_income_budget(year = nil)
       year ||= @year
-      BudgetTotal.budgeted_for(@site.organization_id, year, BudgetLine::INCOME)
+      total_budgeted(kind: BudgetLine::INCOME)
     end
 
     def total_income_budget_updated(year = nil)
       year ||= @year
-      BudgetTotal.budgeted_updated_for(@site.organization_id, year, BudgetLine::INCOME)
+      updated_total_budget(kind: BudgetLine::INCOME)
     end
 
     def total_income_budget_per_inhabitant(year = nil)
       year ||= @year
-      BudgetTotal.budgeted_for(@site.organization_id, year, BudgetLine::INCOME).to_f / (population(year) || population(year - 1) || population(year - 2)).to_f
+      total_budgeted(kind: BudgetLine::INCOME).to_f / (population(year) || population(year - 1) || population(year - 2)).to_f
     end
 
     def total_budget(year = nil, kind = GobiertoBudgets::BudgetLine::EXPENSE)
       year ||= @year
-      BudgetTotal.budgeted_for(@site.organization_id, year, kind)
+      updated_total_budget
     end
     alias total_budget_planned total_budget
 
     def total_budget_updated(year = nil)
       year ||= @year
-      BudgetTotal.budgeted_updated_for(@site.organization_id, year)
+
+      updated_total_budget(year)
     end
-    alias total_budget_planned total_budget
 
     def total_budget_executed(year = nil)
       year ||= @year
-      BudgetTotal.execution_for(@site.organization_id, year)
+      total_execution
     end
 
     def total_income_budget_executed(year = nil)
       year ||= @year
-      BudgetTotal.execution_for(@site.organization_id, year, BudgetLine::INCOME)
+      total_execution(kind: BudgetLine::INCOME)
     end
 
     def total_budget_executed_percentage(year = nil)
-      execution_percentage(total_budget(year), total_budget_executed(year))
+      execution_percentage(
+        updated_total_budget(year: year),
+        total_budget_executed(year: year)
+      )
     end
 
     def debt(year = nil)
@@ -94,7 +101,8 @@ module GobiertoBudgets
 
     def population(year = nil)
       year ||= @year
-      return nil if @empty_population
+      return nil unless population_data?
+
       @data[:population][year] ||= SearchEngine.client.get(index: SearchEngineConfiguration::Data.index,
                                                            type: SearchEngineConfiguration::Data.type_population, id: [@site.organization_id, year].join("/"))["_source"]["value"]
       @data[:population][year]
@@ -235,21 +243,21 @@ module GobiertoBudgets
       year = @year
       previous_year = year - 1
 
-      previous_expenses_budgeted = GobiertoBudgets::BudgetTotal.budgeted_updated_for(organization_id, previous_year)                     || GobiertoBudgets::BudgetTotal.budgeted_for(organization_id, previous_year)
-      previous_income_budgeted   = GobiertoBudgets::BudgetTotal.budgeted_updated_for(organization_id, previous_year, BudgetLine::INCOME) || GobiertoBudgets::BudgetTotal.budgeted_for(organization_id, previous_year, BudgetLine::INCOME)
-      previous_expenses_execution = GobiertoBudgets::BudgetTotal.execution_for(organization_id, previous_year)
-      previous_income_execution   = GobiertoBudgets::BudgetTotal.execution_for(organization_id, previous_year, BudgetLine::INCOME)
+      previous_expenses_budgeted = updated_total_budget(year: previous_year) || total_budgeted
+      previous_income_budgeted   = updated_total_budget(year: previous_year, kind: BudgetLine::INCOME) || total_budgeted(kind: BudgetLine::INCOME)
+      previous_expenses_execution = total_execution(year: previous_year)
+      previous_income_execution   = total_execution(year: previous_year, kind: BudgetLine::INCOME)
 
       result = Hashie::Mash.new(
         last_income: {
-          budgeted: GobiertoBudgets::BudgetTotal.budgeted_for(organization_id, year, BudgetLine::INCOME),
-          budgeted_updated: GobiertoBudgets::BudgetTotal.budgeted_updated_for(organization_id, year, BudgetLine::INCOME),
-          execution: GobiertoBudgets::BudgetTotal.execution_for(organization_id, year, BudgetLine::INCOME)
+          budgeted: total_budgeted(kind: BudgetLine::INCOME),
+          budgeted_updated: updated_total_budget(kind: BudgetLine::INCOME),
+          execution: total_execution(kind: BudgetLine::INCOME)
         },
         last_expenses: {
-          budgeted: GobiertoBudgets::BudgetTotal.budgeted_for(organization_id, year),
-          budgeted_updated: GobiertoBudgets::BudgetTotal.budgeted_updated_for(organization_id, year),
-          execution: GobiertoBudgets::BudgetTotal.execution_for(organization_id, year)
+          budgeted: total_budgeted,
+          budgeted_updated: updated_total_budget,
+          execution: total_execution
         },
         expenses_previous_execution_percentage: execution_percentage(previous_expenses_budgeted, previous_expenses_execution),
         income_previous_execution_percentage:   execution_percentage(previous_income_budgeted, previous_income_execution),
@@ -301,5 +309,28 @@ module GobiertoBudgets
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       0
     end
+
+    def updated_total_budget(params = {})
+      GobiertoBudgets::BudgetTotal.budgeted_updated_for(
+        budget_total_params(params).merge(fallback_to_initial_estimate: true)
+      )
+    end
+
+    def total_budgeted(params = {})
+      GobiertoBudgets::BudgetTotal.budgeted_for(*budget_total_params(params).values)
+    end
+
+    def total_execution(params = {})
+      GobiertoBudgets::BudgetTotal.execution_for(*budget_total_params(params).values)
+    end
+
+    def budget_total_params(params)
+      {
+        organization_id: organization_id,
+        year: params[:year] || @year,
+        kind: params[:kind] || BudgetLine::EXPENSE
+      }
+    end
+
   end
 end

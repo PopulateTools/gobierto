@@ -54,7 +54,11 @@ module GobiertoAdmin
     end
 
     def publish_step_action
-      publish_moderation_status.action
+      publish_moderation_status.action || visibility_level_change_action
+    end
+
+    def visibility_level_change_action
+      published? ? :unpublish : :publish
     end
 
     def moderation_status
@@ -88,10 +92,10 @@ module GobiertoAdmin
 
     PUBLISH_MODERATION_STEPS = { new: { action: :send, moderation_status: :not_sent, disabled: true, moderation_style: :not_published },
                                  not_sent: { action: :send, moderation_status: :not_sent, disabled: false, moderation_style: :not_published },
-                                 sent: { action: :publish, moderation_status: :in_review, disabled: true, moderation_style: :in_revision },
-                                 publicable: { action: :publish, moderation_status: :approved, disabled: false, moderation_style: :approved },
-                                 published: { action: :unpublish, moderation_status: :approved, disabled: false, moderation_style: :approved },
-                                 rejected: { action: :publish, moderation_status: :rejected, disabled: true, moderation_style: :not_published } }.freeze
+                                 sent: { moderation_status: :in_review, disabled: true, moderation_style: :in_revision },
+                                 publicable: { moderation_status: :approved, disabled: false, moderation_style: :approved },
+                                 published: { moderation_status: :approved, disabled: false, moderation_style: :approved },
+                                 rejected: { moderation_status: :rejected, disabled: true, moderation_style: :not_published } }.freeze
 
     def unpublished_value
       "draft"

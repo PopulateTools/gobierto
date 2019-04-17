@@ -1,14 +1,14 @@
-<% if main_value %>
+<% if cell.value %>
   <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
     <div class="inner">
 
-      <h3><%= title %></h3>
-      <div class="metric"><%= main_value %> %</div>
+      <h3><%= cell.title %></h3>
+      <div class="metric"><%= cell.value %> %</div>
 
       <div class="metric_details">
         <table>
           <tbody>
-            <% rows.each do |row| %>
+            <% cell.rows.each do |row| %>
               <% next unless row[:value].present? %>
 
               <tr>
@@ -20,9 +20,9 @@
         </table>
       </div>
 
-      <% if explanation[:if] %>
+      <% if cell.explanation_text %>
         <div class="explanation desktop_only">
-          <%= explanation[:text] %> %
+          <%= cell.explanation_text %> %
         </div>
       <% end %>
 

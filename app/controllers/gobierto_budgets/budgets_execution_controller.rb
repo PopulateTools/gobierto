@@ -19,8 +19,8 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
     @several_income_filters   = @any_economic_income_budget_lines || @any_custom_income_budget_lines
 
     site_stats = GobiertoBudgets::SiteStats.new(site: @site, year: @year)
-    @budgets_execution_summary = site_stats.budgets_execution_summary
-    @budgets_data_updated_at   = site_stats.budgets_data_updated_at
+    load_metric_boxes_info(site_stats)
+    @budgets_data_updated_at = site_stats.budgets_data_updated_at
   end
 
   private
@@ -54,6 +54,20 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
 
   def search_index
     GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
+  end
+
+  def load_metric_boxes_info(site_stats)
+    exec_summary = site_stats.budgets_execution_summary
+
+    @income_metric_box = ::GobiertoBudgets::BudgetsExecution::MetricBoxCell.new(
+      expense_type: :income,
+      execution_summary: exec_summary
+    )
+
+    @execution_metric_box = ::GobiertoBudgets::BudgetsExecution::MetricBoxCell.new(
+      expense_type: :expenses,
+      execution_summary: exec_summary
+    )
   end
 
 end

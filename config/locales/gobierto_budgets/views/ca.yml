@@ -393,13 +393,12 @@ ca:
           el pressupost inicial actualitzat.
         expenses_executed: Despeses executades
         expenses_planned: Despeses pressupostades
-        expenses_planned_updated: Pressupostat actualitzat
         functional: Funcional
         functional_button: En què es gasta
         higher_execution: Més execució
         income_executed: Ingressos executats
         income_planned: Ingressos pressupostats
-        income_planned_updated: Pressupostat actualitzat
+        initial_estimate: Estimació inicial
         lower_execution: Menys execució
         metric:
           execution:

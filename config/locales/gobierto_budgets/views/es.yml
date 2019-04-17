@@ -386,13 +386,12 @@ es:
           el presupuesto inicial actualizado.
         expenses_executed: Gastos ejecutados
         expenses_planned: Gastos presupuestados
-        expenses_planned_updated: Presupuestado actualizado
         functional: Functional
         functional_button: En qué se gasta
         higher_execution: Mayor ejecución
         income_executed: Ingresos ejecutados
         income_planned: Ingresos presupuestados
-        income_planned_updated: Presupuestado actualizado
+        initial_estimate: Estimación inicial
         lower_execution: Menor ejecución
         metric:
           execution:

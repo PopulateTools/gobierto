@@ -373,13 +373,12 @@ en:
         execution_help: The execution is the amount spent based on the planned budget.
         expenses_executed: Executed expenses
         expenses_planned: Planned expenses
-        expenses_planned_updated: Planned updated
         functional: functional
         functional_button: In what is spent
         higher_execution: Higher execution
         income_executed: Executed income
         income_planned: Planned income
-        income_planned_updated: Planned updated
+        initial_estimate: Initial estimate
         lower_execution: Lower execution
         metric:
           execution:

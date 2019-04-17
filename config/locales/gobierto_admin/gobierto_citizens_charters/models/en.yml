@@ -7,6 +7,10 @@ en:
         slug: Slug
         title: Title
         title_translations: Title
+      gobierto_admin/gobierto_citizens_charters/commitment_form:
+        description: Commitment
+        slug: Slug
+        title: Title
       gobierto_admin/gobierto_citizens_charters/editions_interval_form:
         period: Edition date
         period_interval: Periodicity

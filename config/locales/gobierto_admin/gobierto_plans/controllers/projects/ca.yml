@@ -9,5 +9,10 @@ ca:
           success: El projecte s'ha esborrat correctament.
         find_versioned_project:
           unavailable_version: Versió no disponible
+        unpublish:
+          error: El projecte no s'ha pogut despublicar.
+          success: El projecte ha estat despublicat correctament.
         update:
           success: El projecte s'ha actualitzat correctament.
+          suggest_unpublish_html: El projecte està sense aprovar però publicat. <a
+            rel="nofollow" data-method="post" href="%{url}">Despublicar</a>.

@@ -9,5 +9,10 @@ es:
           success: El proyecto ha sido eliminado correctamente.
         find_versioned_project:
           unavailable_version: Versión no disponible.
+        unpublish:
+          error: El proyecto no se ha podido despublicar.
+          success: El proyecto ha sido despublicado correctamente.
         update:
           success: El proyecto ha sido actualizado correctamente.
+          suggest_unpublish_html: El proyecto está sin aprobar pero publicado. <a
+            rel="nofollow" data-method="post" href="%{url}">Despublicar</a>.

@@ -9,5 +9,10 @@ en:
           success: Project deleted correctly.
         find_versioned_project:
           unavailable_version: Unavailable version.
+        unpublish:
+          error: Project couldn't be unpublished.
+          success: Project unpublished correctly.
         update:
           success: Project updated correctly.
+          suggest_unpublish_html: The project is not approved but still published.
+            <a rel="nofollow" data-method="post" href="%{url}">Unpublish</a>.

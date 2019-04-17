@@ -13,7 +13,8 @@ module GobiertoAdmin
         :starts_at,
         :ends_at,
         :options_json,
-        :admin
+        :admin,
+        :disable_attributes_edition
       )
       attr_writer(
         :category_id,
@@ -94,7 +95,11 @@ module GobiertoAdmin
       end
 
       def allow_edit_attributes?
-        moderation_policy.edit?
+        moderation_policy.edit? && !disable_attributes_edition
+      end
+
+      def allow_moderate?
+        moderation_policy.moderate?
       end
 
       private

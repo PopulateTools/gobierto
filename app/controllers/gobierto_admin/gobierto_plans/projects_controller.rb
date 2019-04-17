@@ -36,12 +36,41 @@ module GobiertoAdmin
         @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
 
         if @project_form.save
+          success_message = if suggest_unpublish?
+                              t(".suggest_unpublish_html", url: admin_plans_plan_project_unpublish_path(@plan, @project))
+                            else
+                              t(".success")
+                            end
+          redirect_to(
+            edit_admin_plans_plan_project_path(@plan, @project),
+            notice: success_message
+          )
+        else
+          render :edit
+        end
+      end
+
+      def unpublish
+        find_plan
+        @project = @plan.nodes.find params[:project_id]
+        @project_form = NodeForm.new(
+          id: params[:project_id],
+          plan_id: params[:plan_id],
+          admin: current_admin,
+          visibility_level: :draft,
+          disable_attributes_edition: true
+        )
+
+        if @project_form.save
           redirect_to(
             edit_admin_plans_plan_project_path(@plan, @project),
             notice: t(".success")
           )
         else
-          render :edit
+          redirect_to(
+            edit_admin_plans_plan_project_path(@plan, @project),
+            alert: t(".error")
+          )
         end
       end
 
@@ -124,6 +153,10 @@ module GobiertoAdmin
         redirect_to(edit_admin_plans_plan_project_path(@plan, @project), alert: t(".unavailable_version")) and return if version_number < 1 || index >= 0
 
         @project = @project.versions[index].reify
+      end
+
+      def suggest_unpublish?
+        @project_form.allow_moderate? && @project_form.project.moderation_locked_edition?(:visibility_level) && @project_form.project.published?
       end
 
       def base_relation

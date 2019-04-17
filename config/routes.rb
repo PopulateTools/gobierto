@@ -176,7 +176,9 @@ Rails.application.routes.draw do
             end
           end
           get :data
-          resources :projects
+          resources :projects do
+            post :unpublish
+          end
           get :import_csv
           get :export_csv, defaults: { format: "csv" }
           put :recover

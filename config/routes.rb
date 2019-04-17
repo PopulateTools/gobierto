@@ -177,7 +177,10 @@ Rails.application.routes.draw do
           end
           get :data
           resources :projects do
-            post :unpublish
+            member do
+              post :publish
+              post :unpublish
+            end
           end
           get :import_csv
           get :export_csv, defaults: { format: "csv" }

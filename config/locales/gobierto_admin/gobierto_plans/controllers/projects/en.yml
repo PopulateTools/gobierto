@@ -9,6 +9,9 @@ en:
           success: Project deleted correctly.
         find_versioned_project:
           unavailable_version: Unavailable version.
+        publish:
+          error: Project couldn't be published.
+          success: Project published correctly.
         unpublish:
           error: Project couldn't be unpublished.
           success: Project unpublished correctly.

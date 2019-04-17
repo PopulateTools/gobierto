@@ -37,7 +37,7 @@ module GobiertoAdmin
 
         if @project_form.save
           success_message = if suggest_unpublish?
-                              t(".suggest_unpublish_html", url: admin_plans_plan_project_unpublish_path(@plan, @project))
+                              t(".suggest_unpublish_html", url: unpublish_admin_plans_plan_project_path(@plan, @project))
                             else
                               t(".success")
                             end
@@ -51,27 +51,11 @@ module GobiertoAdmin
       end
 
       def unpublish
-        find_plan
-        @project = @plan.nodes.find params[:project_id]
-        @project_form = NodeForm.new(
-          id: params[:project_id],
-          plan_id: params[:plan_id],
-          admin: current_admin,
-          visibility_level: :draft,
-          disable_attributes_edition: true
-        )
+        moderation_visibility_action(:draft)
+      end
 
-        if @project_form.save
-          redirect_to(
-            edit_admin_plans_plan_project_path(@plan, @project),
-            notice: t(".success")
-          )
-        else
-          redirect_to(
-            edit_admin_plans_plan_project_path(@plan, @project),
-            alert: t(".error")
-          )
-        end
+      def publish
+        moderation_visibility_action(:published)
       end
 
       def new
@@ -130,6 +114,30 @@ module GobiertoAdmin
       end
 
       private
+
+      def moderation_visibility_action(visibility_level)
+        find_plan
+        @project = @plan.nodes.find params[:id]
+        @project_form = NodeForm.new(
+          id: @project.id,
+          plan_id: @plan.id,
+          admin: current_admin,
+          visibility_level: visibility_level,
+          disable_attributes_edition: true
+        )
+
+        if @project_form.save
+          redirect_to(
+            edit_admin_plans_plan_project_path(@plan, @project),
+            notice: t(".success")
+          )
+        else
+          redirect_to(
+            edit_admin_plans_plan_project_path(@plan, @project),
+            alert: t(".error")
+          )
+        end
+      end
 
       def set_filters
         @relation = base_relation

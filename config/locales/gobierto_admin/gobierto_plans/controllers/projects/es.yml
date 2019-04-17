@@ -9,6 +9,9 @@ es:
           success: El proyecto ha sido eliminado correctamente.
         find_versioned_project:
           unavailable_version: Versión no disponible.
+        publish:
+          error: El proyecto no se ha podido publicar.
+          success: El proyecto ha sido publicado correctamente.
         unpublish:
           error: El proyecto no se ha podido despublicar.
           success: El proyecto ha sido despublicado correctamente.

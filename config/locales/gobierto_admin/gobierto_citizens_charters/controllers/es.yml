@@ -5,12 +5,12 @@ es:
       charters:
         commitments:
           create:
-            success_html: El compromiso ha sido creada correctamente. <a href="%{link}">Ver</a>.
+            success_html: El indicador ha sido creado correctamente. <a href="%{link}">Ver</a>.
           destroy:
-            destroy_failed: No se ha podido eliminar el compromiso
-            success: El compromiso ha sido eliminado correctamente
+            destroy_failed: No se ha podido eliminar el indicador
+            success: El indicador ha sido eliminado correctamente
           update:
-            success_html: El compromiso ha sido actualizado correctamente. <a href="%{link}">Ver</a>.
+            success_html: El indicador ha sido actualizado correctamente. <a href="%{link}">Ver</a>.
         create:
           success_html: La carta de servicio ha sido creada correctamente. <a href="%{link}">Ver</a>.
         destroy:

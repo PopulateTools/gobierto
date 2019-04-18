@@ -13,6 +13,7 @@ class BudgetLineFactory
   end
 
   def build_document(index, params = {})
+    area = params[:area] || self.class.default_area
     amount = params[:amount] || self.class.default_amount
     population = params[:population] || self.class.default_population
 
@@ -20,7 +21,7 @@ class BudgetLineFactory
       index: {
         _index: index,
         _id: self.class.doc_id(params),
-        _type: self.class.default_area,
+        _type: area,
         data: self.class.base_attrs(params).merge(
           amount: amount,
           population: population,
@@ -33,15 +34,18 @@ class BudgetLineFactory
   def self.doc_id(params = {})
     place = params[:place] || default_place
     year = params[:year] || default_year
+    kind = params[:kind] || default_kind
 
-    [place.id, year, default_code, default_kind].join("/")
+    [place.id, year, default_code, kind].join("/")
   end
 
   def self.base_attrs(params = {})
+    kind = params[:kind] || default_kind
+
     base_data(params).merge(
       code: default_code,
       level: default_code.length,
-      kind: default_kind,
+      kind: kind,
       population: default_population
     )
   end

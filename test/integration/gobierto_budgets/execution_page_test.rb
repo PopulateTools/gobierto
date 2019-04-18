@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "factories/budget_line_factory"
 require "factories/total_budget_factory"
 
 class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
@@ -48,18 +49,21 @@ class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
         assert has_content?("BUDGET EXECUTION")
 
         assert income_summary_box.include? "Planned income"
-        assert income_summary_box.include? "Planned updated"
+        assert income_summary_box.include? "Initial estimate"
         assert income_summary_box.include? "Executed income"
 
         assert expenses_summary_box.include? "Planned expenses"
-        assert expenses_summary_box.include? "Planned updated"
+        assert expenses_summary_box.include? "Initial estimate"
         assert expenses_summary_box.include? "Executed expenses"
       end
     end
   end
 
   def test_execution_graphs
-    with(site: placed_site, js: true) do
+    f1 = BudgetLineFactory.new(year: last_year, area: GobiertoData::GobiertoBudgets::CUSTOM_AREA_NAME)
+    f2 = BudgetLineFactory.new(year: last_year, area: GobiertoData::GobiertoBudgets::CUSTOM_AREA_NAME, kind: GobiertoData::GobiertoBudgets::INCOME)
+
+    with(site: placed_site, js: true, factories: [f1, f2]) do
       visit @path
 
       within("#expenses-execution") do

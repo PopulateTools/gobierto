@@ -7,9 +7,9 @@
 
     <div class="metric">
       <% if value %>
-        <% if value_type == :number %>
+        <% if local_assigns[:value_type] == :number %>
           <%= number_with_delimiter(value) %>
-        <% elsif value_type == :percentage %>
+        <% elsif local_assigns[:value_type] == :percentage %>
           <%= value %> %
         <% else %>
           <%= format_currency(value) %>

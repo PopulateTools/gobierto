@@ -55,6 +55,10 @@ module GobiertoCommon
       terms.map(&:last_descendants).flatten
     end
 
+    def ordered_self_and_descendants
+      [self, self_and_descendents.reorder(:level).sorted.where(term_id: id).map(&:ordered_self_and_descendants)].flatten
+    end
+
     # positions_from_params arg: hash of arrays
     # The element with id 0 defines the order of the parent nodes
     # Example:

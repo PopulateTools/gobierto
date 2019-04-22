@@ -58,9 +58,12 @@ module GobiertoAdmin
       end
 
       def category_options
-        @category_options ||= plan.categories.where(level: plan.categories_vocabulary.maximum_level).sorted.map do |category|
-          [category.name, category.id]
-        end
+        @category_options ||= begin
+                                enabled_level = plan.categories_vocabulary.maximum_level
+                                plan.categories_vocabulary.ordered_flatten_terms_tree.map do |term|
+                                  ["#{"--" * term.level} #{term.name}".strip, term.level == enabled_level ? term.id : "disabled"]
+                                end
+                              end
       end
 
       def progress_options

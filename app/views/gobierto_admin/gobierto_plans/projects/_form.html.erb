@@ -9,7 +9,12 @@
         <%= @project_form.class.human_attribute_name(:category_id) %>
         <%= attribute_indication_tag required: true %>
       <% end %>
-      <%= f.select(:category_id, @project_form.category_options, { include_blank: '-' }, disabled: !@project_form.allow_edit_attributes? ) %>
+      <%= f.select(
+            :category_id,
+            @project_form.category_options,
+            { disabled: "disabled", include_blank: @project_form.category_id.present? ? nil : "-" },
+            disabled: !@project_form.allow_edit_attributes?
+          ) %>
     </div>
 
     <div class="globalized_fields">

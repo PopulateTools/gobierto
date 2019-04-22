@@ -103,7 +103,6 @@ module GobiertoBudgets
 
     def population(year = nil)
       year ||= @year
-      return nil unless @population_data
 
       @data[:population][year] ||= SearchEngine.client.get(index: SearchEngineConfiguration::Data.index,
                                                            type: SearchEngineConfiguration::Data.type_population, id: [@site.organization_id, year].join("/"))["_source"]["value"]

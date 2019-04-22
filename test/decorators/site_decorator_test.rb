@@ -21,4 +21,12 @@ class SiteDecoratorTest < ActiveSupport::TestCase
       assert_equal "http://wadus.gobierto.test", @subject.domain_url
     end
   end
+
+  def test_domain_url_with_root_url_path
+    @subject.stubs(:root_url_path).returns("/test")
+    assert_equal "http://madrid.gobierto.test/test", @subject.domain_url
+
+    @subject.stubs(:root_url_path).returns("test_without_slash")
+    assert_equal "http://madrid.gobierto.test/test_without_slash", @subject.domain_url
+  end
 end

@@ -25,7 +25,8 @@ module GobiertoBudgets
 
       def explanation_text
         if explanation_percentage
-          t(".metric.execution.previous_execution_message",
+          t(
+            ".metric.execution.previous_execution_message",
             year: execution_summary.previous_year,
             percentage: explanation_percentage
           )

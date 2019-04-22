@@ -83,8 +83,8 @@ module GobiertoBudgets
 
     def execution_percentage(requested_year = year)
       @execution_percentage ||= begin
-        variable_2 = amount_updated ? :amount_updated : :amount_planned
-        percentage_difference(variable1: :amount_executed, variable2: variable_2, year: requested_year)
+        variable2 = amount_updated ? :amount_updated : :amount_planned
+        percentage_difference(variable1: :amount_executed, variable2: variable2, year: requested_year)
       end
     end
 

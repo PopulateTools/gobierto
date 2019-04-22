@@ -54,9 +54,9 @@ module GobiertoBudgets
           )
 
           if @parent_code.nil?
-            q[:query][:filtered][:filter][:bool][:must].push({ term: { level: @level } })
+            q[:query][:filtered][:filter][:bool][:must].push(term: { level: @level })
           else
-            q[:query][:filtered][:filter][:bool][:must].push({ term: { parent_code: @parent_code } })
+            q[:query][:filtered][:filter][:bool][:must].push(term: { parent_code: @parent_code })
           end
 
           q

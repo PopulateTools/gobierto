@@ -68,13 +68,13 @@ class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
 
       within("#expenses-execution") do
         assert has_content?("EXPLORE THE EXECUTION OF THE EXPENSES")
-        assert budget_execution_graph_lines.count > 0
+        assert budget_execution_graph_lines.count.positive?
         assert budget_graph_filters.include? "CUSTOM"
       end
 
       within("#income-execution") do
         assert has_content?("EXPLORE THE EXECUTION OF THE INCOME")
-        assert budget_execution_graph_lines.count > 0
+        assert budget_execution_graph_lines.count.positive?
         assert budget_graph_filters.include? "CUSTOM"
       end
     end

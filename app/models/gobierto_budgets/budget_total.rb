@@ -59,7 +59,7 @@ module GobiertoBudgets
         organization_id: organization_id,
         kind: kind
       ).merge(
-        sort: [ { year: { order: "asc" } } ],
+        sort: [{ year: { order: "asc" } }],
         size: ESQueryBuilder::MAX_SIZE
       )
 

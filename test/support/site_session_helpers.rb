@@ -23,7 +23,10 @@ module SiteSessionHelpers
 end
 
 def stub_current_site(site)
-  raise(Exception, 'GobiertoSiteConstraint.matches? already stubbed. Maybe with_current_site is in use outside this block?') if GobiertoSiteConstraint.new.public_methods.include?(:__minitest_any_instance_stub__matches?)
+  if GobiertoSiteConstraint.new.public_methods.include?(:__minitest_any_instance_stub__matches?)
+    raise(Exception, "GobiertoSiteConstraint.matches? already stubbed. Maybe with_current_site is in use outside this block?")
+  end
+
   GobiertoSiteConstraint.stub_any_instance(:matches?, true) do
     ApplicationController.stub_any_instance(:current_site, site) do
       GobiertoAdmin::BaseController.stub_any_instance(:current_site, SiteDecorator.new(site)) do

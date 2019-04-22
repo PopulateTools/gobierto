@@ -6,15 +6,14 @@ require "factories/total_budget_factory"
 module GobiertoBudgets
   class SiteStatsTest < ActiveSupport::TestCase
 
+    SUBJECT_CLASS = GobiertoBudgets::SiteStats
+    POPULATION = 10
+    TOTAL_BUDGET = 20_000
     UPDATED_BUDGET_RATIO = 1.25
-
-    def subject_class; GobiertoBudgets::SiteStats end
-    def population; 10 end
-    def total_budget; 20_000 end
-    def updated_total_budget; total_budget * UPDATED_BUDGET_RATIO end
+    UPDATED_TOTAL_BUDGET = TOTAL_BUDGET * UPDATED_BUDGET_RATIO
 
     def setup
-      subject_class.any_instance.stubs(:population).returns(population)
+      SUBJECT_CLASS.any_instance.stubs(:population).returns(POPULATION)
     end
 
     def site
@@ -22,12 +21,12 @@ module GobiertoBudgets
     end
 
     def stats
-      subject_class.new(site: site, year: 2019)
+      SUBJECT_CLASS.new(site: site, year: 2019)
     end
 
     def total(params)
       TotalBudgetFactory.new(
-        population: population,
+        population: POPULATION,
         total_budget: params.values.first,
         indexes: [params.keys.first]
       )
@@ -38,16 +37,16 @@ module GobiertoBudgets
       assert_equal 0.0, stats.total_budget_per_inhabitant
 
       # when initial estimate
-      with factory: total(forecast: total_budget) do
-        assert_equal(total_budget/population, stats.total_budget_per_inhabitant)
+      with factory: total(forecast: TOTAL_BUDGET) do
+        assert_equal(TOTAL_BUDGET / POPULATION, stats.total_budget_per_inhabitant)
       end
 
       # when updated data
-      f1 = total(forecast: total_budget)
-      f2 = total(forecast_updated: updated_total_budget)
+      f1 = total(forecast: TOTAL_BUDGET)
+      f2 = total(forecast_updated: UPDATED_TOTAL_BUDGET)
 
       with factories: [f1, f2] do
-        assert_equal(updated_total_budget/population, stats.total_budget_per_inhabitant)
+        assert_equal(UPDATED_TOTAL_BUDGET / POPULATION, stats.total_budget_per_inhabitant)
       end
     end
 
@@ -56,16 +55,16 @@ module GobiertoBudgets
       assert_nil stats.total_budget
 
       # when initial estimate
-      with factory: total(forecast: total_budget) do
-        assert_equal total_budget, stats.total_budget
+      with factory: total(forecast: TOTAL_BUDGET) do
+        assert_equal TOTAL_BUDGET, stats.total_budget
       end
 
       # when updated data
-      f1 = total(forecast: total_budget)
-      f2 = total(forecast_updated: updated_total_budget)
+      f1 = total(forecast: TOTAL_BUDGET)
+      f2 = total(forecast_updated: UPDATED_TOTAL_BUDGET)
 
       with factories: [f1, f2] do
-        assert_equal updated_total_budget, stats.total_budget
+        assert_equal UPDATED_TOTAL_BUDGET, stats.total_budget
       end
     end
 
@@ -74,8 +73,8 @@ module GobiertoBudgets
       assert_nil stats.total_budget_executed
 
       # when data
-      with factory: total(executed: total_budget) do
-        assert_equal total_budget, stats.total_budget_executed
+      with factory: total(executed: TOTAL_BUDGET) do
+        assert_equal TOTAL_BUDGET, stats.total_budget_executed
       end
     end
 

@@ -6,6 +6,25 @@ class BudgetLineFactory
 
   include BudgetsFactory
 
+  def self.doc_id(params = {})
+    place = params[:place] || default_place
+    year = params[:year] || default_year
+    kind = params[:kind] || default_kind
+
+    [place.id, year, default_code, kind].join("/")
+  end
+
+  def self.base_attrs(params = {})
+    kind = params[:kind] || default_kind
+
+    base_data(params).merge(
+      code: default_code,
+      level: default_code.length,
+      kind: kind,
+      population: default_population
+    )
+  end
+
   private
 
   def amount_per_inhabitant(amount, population)
@@ -29,25 +48,6 @@ class BudgetLineFactory
         )
       }
     }
-  end
-
-  def self.doc_id(params = {})
-    place = params[:place] || default_place
-    year = params[:year] || default_year
-    kind = params[:kind] || default_kind
-
-    [place.id, year, default_code, kind].join("/")
-  end
-
-  def self.base_attrs(params = {})
-    kind = params[:kind] || default_kind
-
-    base_data(params).merge(
-      code: default_code,
-      level: default_code.length,
-      kind: kind,
-      population: default_population
-    )
   end
 
 end

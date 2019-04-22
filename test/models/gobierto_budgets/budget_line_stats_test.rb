@@ -27,10 +27,10 @@ module GobiertoBudgets
     EXECUTED_BUDGET_RATIO = 0.5
     TOTAL_BUDGET_RATIO = 10
 
-    def amount; 150.0 end
-    def amount_updated; amount * UPDATED_BUDGET_RATIO end
-    def amount_executed; amount * EXECUTED_BUDGET_RATIO end
-    def population; 10 end
+    AMOUNT = 150.0
+    AMOUNT_UPDATED = AMOUNT * UPDATED_BUDGET_RATIO
+    AMOUNT_EXECUTED = AMOUNT * EXECUTED_BUDGET_RATIO
+    POPULATION = 10
 
     def budget_line_attrs
       {
@@ -52,10 +52,10 @@ module GobiertoBudgets
 
     def setup
       @factories = [
-        BudgetLineFactory.new(population: population, amount: amount, indexes: [:forecast]),
-        BudgetLineFactory.new(population: population, amount: amount_executed, indexes: [:executed]),
-        TotalBudgetFactory.new(population: population, total_budget: amount * TOTAL_BUDGET_RATIO, indexes: [:forecast]),
-        TotalBudgetFactory.new(population: population, total_budget: amount_executed * TOTAL_BUDGET_RATIO, indexes: [:executed]),
+        BudgetLineFactory.new(population: POPULATION, amount: AMOUNT, indexes: [:forecast]),
+        BudgetLineFactory.new(population: POPULATION, amount: AMOUNT_EXECUTED, indexes: [:executed]),
+        TotalBudgetFactory.new(population: POPULATION, total_budget: AMOUNT * TOTAL_BUDGET_RATIO, indexes: [:forecast]),
+        TotalBudgetFactory.new(population: POPULATION, total_budget: AMOUNT_EXECUTED * TOTAL_BUDGET_RATIO, indexes: [:executed])
       ]
     end
 
@@ -64,12 +64,12 @@ module GobiertoBudgets
     end
 
     def setup_updated_budget
-      BudgetLineFactory.new(population: population, amount: amount_updated, indexes: [:forecast_updated])
+      BudgetLineFactory.new(population: POPULATION, amount: AMOUNT_UPDATED, indexes: [:forecast_updated])
     end
 
     # use different province to avoid conflicts with fixtures
     def setup_province_budgets(params = {})
-      default_attrs = { organization_id: huesca.organization_id, population: population }
+      default_attrs = { organization_id: huesca.organization_id, population: POPULATION }
 
       factories = [
         BudgetLineFactory.new(default_attrs.merge(place: fraga, amount: 20, indexes: [:forecast])),
@@ -89,11 +89,11 @@ module GobiertoBudgets
     def test_amounts
       factory = setup_updated_budget
 
-      assert_equal amount, budget_line_stats.amount
-      assert_equal amount_updated, budget_line_stats.amount_updated
-      assert_equal amount/population, budget_line_stats.amount_per_inhabitant
-      assert_equal amount_updated/population, budget_line_stats.amount_per_inhabitant_updated
-      assert_equal amount_executed, budget_line_stats.amount_executed
+      assert_equal AMOUNT, budget_line_stats.amount
+      assert_equal AMOUNT_UPDATED, budget_line_stats.amount_updated
+      assert_equal AMOUNT / POPULATION, budget_line_stats.amount_per_inhabitant
+      assert_equal AMOUNT_UPDATED / POPULATION, budget_line_stats.amount_per_inhabitant_updated
+      assert_equal AMOUNT_EXECUTED, budget_line_stats.amount_executed
 
       factory.teardown
     end

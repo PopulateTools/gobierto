@@ -67,10 +67,10 @@ module BudgetsFactory
     self.client = GobiertoBudgets::SearchEngine.client
 
     indexes = if params[:indexes]
-      params[:indexes].map { |index_alias| INDEXES[index_alias] }
-    else
-      INDEXES.values
-    end
+                params[:indexes].map { |index_alias| INDEXES[index_alias] }
+              else
+                INDEXES.values
+              end
     params.delete(:indexes)
 
     documents = indexes.map { |index| build_document(index, params) }

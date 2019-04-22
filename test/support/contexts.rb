@@ -37,6 +37,6 @@ def with(params = {})
   Capybara.reset_session! if params[:js]
 ensure
   factory&.teardown
-  factories.each { |f| f.teardown }
+  factories.each(&:teardown)
   Capybara.current_driver = Capybara.default_driver if params[:js]
 end

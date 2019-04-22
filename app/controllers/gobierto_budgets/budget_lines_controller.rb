@@ -3,7 +3,7 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
   before_action :check_elaboration, only: [:show]
 
   def index
-    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: { site: current_site, level: @level, year: @year, kind: @kind, area_name: @area_name })
+    load_place_budget_lines
     @sample_budget_lines = GobiertoBudgets::TopBudgetLine.limit(20).where(site: current_site, year: @year, kind: @kind).all.sample(3)
 
     @any_custom_income_budget_lines  = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area: GobiertoBudgets::CustomArea)
@@ -60,6 +60,16 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
   def check_elaboration
     if @year > Date.today.year && !budgets_elaboration_active?
       raise GobiertoBudgets::BudgetLine::RecordNotFound
+    end
+  end
+
+  def load_place_budget_lines
+    base_params = { site: current_site, level: @level, year: @year, kind: @kind, area_name: @area_name }
+
+    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: base_params.merge(index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated))
+
+    if @place_budget_lines.empty?
+      @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: base_params)
     end
   end
 

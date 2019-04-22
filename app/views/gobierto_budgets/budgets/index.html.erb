@@ -261,7 +261,7 @@
     </div>
   <% end %>
 
-  <% if @budgets_execution_summary[:income_execution_percentage] && @budgets_execution_summary[:expenses_execution_percentage] %>
+  <% if @budgets_execution_summary.income_execution_percentage && @budgets_execution_summary.expenses_execution_percentage %>
     <div class="block">
       <h2 class="with_description"><%= t('.execution_block.title') %></h2>
       <div class="pure-g half_description">
@@ -277,8 +277,8 @@
       </div>
 
       <div class="pure-g mega_bars m_v_1">
-        <%= render 'mega_bar', {className: 'income', percentage: @budgets_execution_summary[:income_execution_percentage] } %>
-        <%= render 'mega_bar', {className: 'expense', percentage: @budgets_execution_summary[:expenses_execution_percentage] } %>
+        <%= render 'mega_bar', {className: 'income', percentage: @budgets_execution_summary.income_execution_percentage } %>
+        <%= render 'mega_bar', {className: 'expense', percentage: @budgets_execution_summary.expenses_execution_percentage } %>
 
         <div class="pure-u-1 center m_v_1">
           <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>

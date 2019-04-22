@@ -10,8 +10,8 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
     @top_income_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME).all
     @top_expense_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE).all
-    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: { site: current_site, level: 1, year: @year, kind: @kind, area_name: @area_name })
-    @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: { site: current_site, level: 2, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @interesting_area })
+    load_place_budget_lines
+    load_interesting_expenses
 
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)
 
@@ -43,6 +43,32 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
       redirect_to gobierto_budgets_budgets_path(default_year)
     else
       @year = params[:year].to_i
+    end
+  end
+
+  def load_place_budget_lines
+    base_params = { site: current_site, level: 1, year: @year, kind: @kind, area_name: @area_name }
+
+    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: base_params.merge(updated_forecast: true))
+
+    if @place_budget_lines.empty?
+      @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: base_params)
+    end
+  end
+
+  def load_interesting_expenses
+    base_params = {
+      site: current_site,
+      level: 2,
+      year: @year,
+      kind: GobiertoBudgets::BudgetLine::EXPENSE,
+      area_name: @interesting_area
+    }
+
+    @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: base_params.merge(updated_forecast: true))
+
+    if @interesting_expenses.empty?
+      @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: base_params)
     end
   end
 

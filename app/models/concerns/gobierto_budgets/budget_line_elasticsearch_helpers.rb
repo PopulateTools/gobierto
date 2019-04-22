@@ -103,6 +103,7 @@ module GobiertoBudgets
         conditions = params[:where]
         includes = params[:include]
         presenter = params[:presenter] || BudgetLinePresenter
+        updated_forecast = params[:updated_forecast] || false
         validate_conditions(conditions)
 
         terms = [
@@ -157,9 +158,19 @@ module GobiertoBudgets
 
         area = BudgetArea.klass_for(conditions[:area_name])
 
-        index = conditions[:index] || GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+        default_index = SearchEngineConfiguration::BudgetLine.index_forecast
+
+        index = if updated_forecast
+                  SearchEngineConfiguration::BudgetLine.index_forecast
+                else
+                  conditions[:index] || default_index
+                end
 
         response = SearchEngine.client.search(index: index, type: area.area_name, body: query)
+
+        if updated_forecast && response["hits"]["hits"].empty?
+          response = SearchEngine.client.search(index: default_index, type: area.area_name, body: query)
+        end
 
         included_attrs = {}
         if includes.present?
@@ -186,7 +197,7 @@ module GobiertoBudgets
       end
 
       def search(options)
-
+        updated_forecast = options.delete(:updated_forecast)
         terms = [{term: { kind: options[:kind] }},
                 {term: { year: options[:year] }}]
 
@@ -220,7 +231,14 @@ module GobiertoBudgets
           size: 10_000
         }
 
-        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast, type: (options[:type] || EconomicArea.area_name), body: query
+        default_index = SearchEngineConfiguration::BudgetLine.index_forecast
+        index = updated_forecast ? SearchEngineConfiguration::BudgetLine.index_forecast_updated : default_index
+
+        response = SearchEngine.client.search(index: index, type: (options[:type] || EconomicArea.area_name), body: query)
+
+        if response["hits"]["hits"].empty?
+          response = SearchEngine.client.search(index: default_index, type: (options[:type] || EconomicArea.area_name), body: query)
+        end
 
         return {
           'hits' => response['hits']['hits'].map{ |h| h['_source'] },

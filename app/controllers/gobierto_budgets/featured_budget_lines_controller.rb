@@ -5,13 +5,14 @@ module GobiertoBudgets
       @area_name = GobiertoBudgets::FunctionalArea.area_name
 
       @kind = GobiertoBudgets::BudgetLine::EXPENSE
-      results = GobiertoBudgets::BudgetLine.search({
-          kind: @kind, year: @year, organization_id: current_site.organization_id,
-          type: @area_name, range_hash: {
-            level: { ge: 3 },
-            amount: { gt: 0 }
-          }
-      })['hits']
+      results = GobiertoBudgets::BudgetLine.search(
+        kind: @kind, year: @year, organization_id: current_site.organization_id,
+        type: @area_name, range_hash: {
+          level: { ge: 3 },
+          amount: { gt: 0 }
+        },
+        updated_forecast: true
+      )['hits']
 
       if results.any?
         random_item = results.map do |r|

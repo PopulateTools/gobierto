@@ -77,7 +77,7 @@ module GobiertoBudgets
           }
         }
 
-        response = SearchEngine.client.search index: index, type: type, body: query
+        response = SearchEngine.client.search index: default_index, type: type, body: query
         data = {}
         response["aggregations"]["#{ @variable }_per_year"]["buckets"].each do |r|
           data[r["key"]] = (r["budget_sum"]["value"].to_f / r["doc_count"].to_f).round(2)
@@ -109,6 +109,8 @@ module GobiertoBudgets
       end
 
       def values_filtered_by(conditions)
+        use_updated_budgets = conditions[:organization_id].present?
+
         filters = conditions.map do |condition, _|
           { term: conditions.slice(condition) }
         end
@@ -135,8 +137,20 @@ module GobiertoBudgets
         }
 
         result = []
-        response = SearchEngine.client.search index: index, type: type, body: query
-        values = Hash[response["hits"]["hits"].map { |h| h["_source"] }.map { |h| [h["year"], h[@variable]] }]
+        index = use_updated_budgets ? SearchEngineConfiguration::TotalBudget.index_forecast_updated : default_index
+        hits = SearchEngine.client.search(index: index, type: type, body: query)["hits"]["hits"]
+
+        if use_updated_budgets
+          hits = SearchEngine.client.search(index: default_index, type: type, body: query)["hits"]["hits"] if hits.empty?
+
+          # FIXME: production and staging indexes did not set the not_analyzed property, so we're
+          # getting undesired results from associated entities like 8121-gencat-812133051
+          # Proper fix requires re-creating index, so filter it here as a tmp solution
+          hits.reject! { |hit| hit["_source"]["organization_id"] != conditions[:organization_id] }
+        end
+
+        values = Hash[hits.map { |h| h["_source"] }.map { |h| [h["year"], h[@variable]] }]
+
         values.each do |k, v|
           v = v.to_f
           dif = 0
@@ -214,7 +228,7 @@ module GobiertoBudgets
         (((current_year_value.to_f - old_value.to_f) / old_value.to_f) * 100).round(2)
       end
 
-      def index
+      def default_index
         SearchEngineConfiguration::TotalBudget.index_forecast
       end
 

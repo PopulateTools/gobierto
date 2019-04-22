@@ -8,7 +8,7 @@ en:
         commitments:
           commitment:
             see_recent: See latest measurement
-            view_commitment: View commitment
+            view_commitment: View indicator
           form:
             placeholders:
               description: 95% of incoming calls will be answered in less than 1 minute
@@ -16,17 +16,17 @@ en:
               title: Call center service level agreement
           index:
             header:
-              description: Description
+              description: Commitment
               editions: Númber of measurements
               status: Estaus
               title: Title
-            new: New commitment
+            new: New indicator
           new:
-            title: New commitment
+            title: New indicator
         editions:
           index:
-            commitments_link: Go to commitments
-            empty_commitments: No commitments created yet.
+            commitments_link: Go to indicators
+            empty_commitments: No indicators created yet.
             month_interval: Monthly
             month_period: "%{month} / %{year}"
             new: New measurement
@@ -45,8 +45,8 @@ en:
             year_interval: Yearly
           index:
             all: All
-            cta_commitments_link: Create your first commitment
-            cta_commitments_message: No commitments created yet. Commitments are required
+            cta_commitments_link: Create your first indicator
+            cta_commitments_message: No indicators created yet. Indicators are required
               to insert measurements.
             header:
               editions: Measurement
@@ -83,7 +83,7 @@ en:
           title: Preferences
       editions:
         index:
-          all_commitments_used: All the commitments already have value
+          all_commitments_used: All the indicators already have value
           errors:
             max_value_null: max_value can't be zero in order to have levels of compliance
             missing_values: Please, fill in the percentage or the value and max_value
@@ -91,7 +91,7 @@ en:
           header:
             max_value: Max Value
             percentage: Percentage
-            title: Commitment
+            title: Indicator
             value: Value
       services:
         form:
@@ -121,6 +121,6 @@ en:
           title: Edit
         navigation:
           charters: Services charters
-          commitments: Commitments
+          commitments: Indicators
           editions_intervals: Editions
           services: Services

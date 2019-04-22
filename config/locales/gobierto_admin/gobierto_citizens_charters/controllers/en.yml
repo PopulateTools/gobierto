@@ -5,12 +5,12 @@ en:
       charters:
         commitments:
           create:
-            success_html: The commitment has been correctly created. <a href="%{link}">View</a>.
+            success_html: The indicator has been correctly created. <a href="%{link}">View</a>.
           destroy:
-            destroy_failed: The commitment couldn't be deleted
-            success: The commitment has been correctly deleted
+            destroy_failed: The indicator couldn't be deleted
+            success: The indicator has been correctly deleted
           update:
-            success_html: The commitment has been correctly updated. <a href="%{link}">View</a>.
+            success_html: The indicator has been correctly updated. <a href="%{link}">View</a>.
         create:
           success_html: The charter has been correctly created. <a href="%{link}">View</a>.
         destroy:

@@ -8,7 +8,7 @@ es:
         commitments:
           commitment:
             see_recent: Ver medición más reciente
-            view_commitment: Ver compromiso
+            view_commitment: Ver indicador
           form:
             placeholders:
               description: El 95% de las llamadas serán atendidas en menos de 1 minuto
@@ -16,17 +16,17 @@ es:
               title: Acuerdo de nivel de servicio del call center
           index:
             header:
-              description: Descripción
+              description: Compromiso
               editions: Número de mediciones
               status: Estado
               title: Título
-            new: Nuevo compromiso
+            new: Nuevo indicador
           new:
-            title: Nuevo compromiso
+            title: Nuevo indicador
         editions:
           index:
-            commitments_link: Ir a compromisos
-            empty_commitments: No hay compromisos creados aún.
+            commitments_link: Ir a indicadores
+            empty_commitments: No hay indicadores creados aún.
             month_interval: Mensuales
             month_period: "%{month} / %{year}"
             new: Nueva medición
@@ -45,8 +45,8 @@ es:
             year_interval: Anual
           index:
             all: Todas
-            cta_commitments_link: Crea tu primer compromiso
-            cta_commitments_message: Todavía no hay compromisos creados para insertar
+            cta_commitments_link: Crea tu primer indicador
+            cta_commitments_message: Todavía no hay indicadores creados para insertar
               mediciones.
             header:
               editions: Mediciones
@@ -83,14 +83,14 @@ es:
           title: Preferencias
       editions:
         index:
-          all_commitments_used: Todos los compromisos ya tienen valor
+          all_commitments_used: Todos los indicadores ya tienen valor
           errors:
             max_value_null: El objetivo no puede ser cero para tener niveles de cumplimiento
             missing_values: Hay que rellenar el porcentaje o el par valor y objetivo
           header:
             max_value: Objetivo
             percentage: Porcentaje
-            title: Compromiso
+            title: Indicador
             value: Valor
       services:
         form:
@@ -120,6 +120,6 @@ es:
           title: Editar
         navigation:
           charters: Cartas de servicio
-          commitments: Compromisos
+          commitments: Indicadores
           editions_intervals: Ediciones
           services: Servicios

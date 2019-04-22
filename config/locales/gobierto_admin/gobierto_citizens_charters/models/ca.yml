@@ -7,6 +7,10 @@ ca:
         slug: Slug
         title: Títol
         title_translations: Títol
+      gobierto_admin/gobierto_citizens_charters/commitment_form:
+        description: Compromís
+        slug: Slug
+        title: Títol
       gobierto_admin/gobierto_citizens_charters/editions_interval_form:
         period: Data de l'edició
         period_interval: Periodicitat

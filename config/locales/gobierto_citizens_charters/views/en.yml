@@ -8,30 +8,31 @@ en:
       index:
         about: What are service charters
         commitments:
-          one: 1 commitment
-          other: "%{count} commitments"
-          zero: No commitments found
+          one: 1 indicator
+          other: "%{count} indicators"
+          zero: No indicators found
         contact: Contact
-        description_title: Information on the fulfillment of the commitments %{of_the_organization_name}
+        description_title: Information about the fulfillment of the commitments of
+          the indicators %{of_the_organization_name}
         global_progress: Global compliance
         introduction: The City Council publishes its service charters with their respective
-          commitments and degrees of compliance. Explore the charters and fulfillment
-          levels of the commitments we publish on a regular basis
+          indicators and degrees of compliance. Explore the charters and fulfillment
+          levels of the indicators we publish on a regular basis
         period: 'Data corresponding to:'
         progress: Compliance
       show:
         about: About this charter
-        editions_details: Detail of the commitments
-        global_progress: We fulfill the commitments of this charter to
+        editions_details: Detail of the indicators
+        global_progress: We met the goals of the indicators of this charter to
         max_value: Goal
         see_all: See the full charter
         see_all_subtitle: Mission, Vision, Services, Responsible Unit...
         value: Reached
     events:
-      gobierto_citizens_charters_charter_commitment_archived: Commitments archived
-      gobierto_citizens_charters_charter_commitment_created: Commitments created
-      gobierto_citizens_charters_charter_commitment_published: Commitments published
-      gobierto_citizens_charters_charter_commitment_updated: Commitments updated
+      gobierto_citizens_charters_charter_commitment_archived: Indicators archived
+      gobierto_citizens_charters_charter_commitment_created: Indicators created
+      gobierto_citizens_charters_charter_commitment_published: Indicators published
+      gobierto_citizens_charters_charter_commitment_updated: Indicators updated
       gobierto_citizens_charters_charter_created: Charter created
       gobierto_citizens_charters_charter_edition_created: Measurements created
       gobierto_citizens_charters_charter_edition_deleted: Measurements deleted

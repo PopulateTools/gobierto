@@ -74,6 +74,67 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_create_plan_with_vocabulary
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit @path
+
+            fill_in "plan_title_translations_en", with: "New plan title"
+            fill_in "plan_introduction_translations_en", with: "New plan introduction"
+
+            fill_in "plan_year", with: "2017"
+
+            select "pam", from: "plan_plan_type_id"
+            select "New Strategic Plan", from: "plan_vocabulary_id"
+
+            click_button "Create"
+
+            assert has_message? "Plan created successfully"
+
+            plan = site.plans.last
+
+            assert_equal "New Strategic Plan", plan.categories_vocabulary.name
+
+            activity = Activity.last
+            assert_equal plan, activity.subject
+            assert_equal admin, activity.author
+            assert_equal site.id, activity.site_id
+            assert_equal "gobierto_plans.plan_created", activity.action
+
+            visit admin_plans_plan_import_csv_path(plan)
+
+            assert has_no_content? "No data loaded yet"
+            assert has_content? "2 items of level 1"
+            assert has_content? "3 items of level 2"
+          end
+        end
+      end
+
+      def test_create_plan_without_vocabulary
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit @path
+
+            fill_in "plan_title_translations_en", with: "New plan title"
+            fill_in "plan_introduction_translations_en", with: "New plan introduction"
+
+            fill_in "plan_year", with: "2017"
+
+            select "pam", from: "plan_plan_type_id"
+
+            click_button "Create"
+
+            assert has_message? "Plan created successfully"
+
+            plan = site.plans.last
+
+            visit admin_plans_plan_import_csv_path(plan)
+
+            assert has_content? "No data loaded yet"
+          end
+        end
+      end
     end
   end
 end

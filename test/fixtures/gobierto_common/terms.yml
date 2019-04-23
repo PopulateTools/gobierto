@@ -211,3 +211,58 @@ sports_service_term:
   position: 2
   created_at: 2018-09-10 00:00:00
   updated_at: 2018-09-10 00:00:00
+
+## new_plan_categories_vocabulary
+
+economy_new_plan_term:
+  vocabulary: new_plan_categories_vocabulary
+  name_translations: <%= { 'en' => 'Economy',
+                           'es' => 'Economía' }.to_json %>
+  slug: economy-new-plan-term
+  level: 0
+  position: 0
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+taxes_new_plan_term:
+  vocabulary: new_plan_categories_vocabulary
+  name_translations: <%= { 'en' => 'Taxes',
+                           'es' => 'Impuestos' }.to_json %>
+  term_id: <%= ActiveRecord::FixtureSet.identify(:economy_new_plan_term) %>
+  slug: taxes-new-plan-term
+  level: 1
+  position: 0
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+public_facilities_new_plan_term:
+  vocabulary: new_plan_categories_vocabulary
+  name_translations: <%= { 'en' => 'Public facilities',
+                           'es' => 'Instalaciones públicas' }.to_json %>
+  slug: public-facilities-new-plan-term
+  level: 0
+  position: 1
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+sports_facilities_new_plan_term:
+  vocabulary: new_plan_categories_vocabulary
+  name_translations: <%= { 'en' => 'Sports facilities',
+                           'es' => 'Instalaciones deportivas' }.to_json %>
+  term_id: <%= ActiveRecord::FixtureSet.identify(:public_facilities_new_plan_term) %>
+  slug: sports-facilities-new-plan-term
+  level: 1
+  position: 0
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+libraries_new_plan_term:
+  vocabulary: new_plan_categories_vocabulary
+  name_translations: <%= { 'en' => 'Libraries',
+                           'es' => 'Bibliotecas' }.to_json %>
+  term_id: <%= ActiveRecord::FixtureSet.identify(:public_facilities_new_plan_term) %>
+  slug: libraries-new-plan-term
+  level: 1
+  position: 1
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00

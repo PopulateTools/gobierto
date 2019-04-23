@@ -29,7 +29,7 @@ module GobiertoPlans
 
     def configuration_data
       data = read_attribute(:configuration_data)
-      JSON.parse(data) unless data.empty?
+      JSON.parse(data) unless data.blank?
     end
 
     def nodes

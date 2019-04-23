@@ -58,6 +58,13 @@ en:
             title: Plan title
             year: 2018
         import_csv:
+          defaults:
+            category:
+              one: item of level %{level}
+              other: items of level %{level}
+            project:
+              one: project
+              other: projects
           latest_update: 'Last updated: %{datetime}'
           no_data: No data loaded yet
           there_are: There are %{info}

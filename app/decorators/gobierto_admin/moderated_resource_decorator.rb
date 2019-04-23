@@ -53,6 +53,10 @@ module GobiertoAdmin
       @locked ||= [:new, :not_sent].include?(publish_moderation_step)
     end
 
+    def has_preview?
+      false
+    end
+
     def publish_step_action
       publish_moderation_status.action || visibility_level_change_action
     end

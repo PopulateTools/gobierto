@@ -10,7 +10,11 @@
       <% if moderated_resource.moderation_policy.edit? %>
         <div class="w_actions m_b_1">
           <button class="button medium"><%= t("gobierto_admin.shared.moderation_save_widget.save") %></button>
-          <button class="button medium light"><%= t("gobierto_admin.shared.moderation_save_widget.preview") %></button>
+          <%= f.button(
+                t("gobierto_admin.shared.moderation_save_widget.preview"),
+                disabled: !moderated_resource.has_preview?,
+                class: "button medium light",
+              ) %>
         </div>
       <% end %>
 

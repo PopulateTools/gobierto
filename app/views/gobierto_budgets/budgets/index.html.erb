@@ -54,12 +54,12 @@
             <% if @site_stats.total_budget_executed %>
               <div class="metric">
                 <%= link_to gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) do %>
-                  <%= format_currency @budgets_execution_summary[:last_expenses_execution] %>
+                  <%= format_currency @budgets_execution_summary.last_expenses.execution %>
                 <% end %>
               </div>
 
               <div class="explanation explanation_bar">
-                <% percentage = @budgets_execution_summary[:expenses_execution_percentage] %>
+                <% percentage = @budgets_execution_summary.expenses_execution_percentage %>
                 <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
                 <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
                 <span><%= t('.executed_percent', percentage: percentage) %></span>

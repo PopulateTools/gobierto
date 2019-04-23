@@ -46,14 +46,14 @@ class GobiertoBudgets::ElaborationTest < ActionDispatch::IntegrationTest
   end
 
   def test_metric_boxes
-    with_current_site(placed_site) do
+    with(site: placed_site, js: true) do
       visit @path
 
       assert has_css?(".metric_box h3", text: "Total expenses")
       assert has_css?(".metric_box h3", text: "Net savings")
     end
 
-    with_current_site(organization_site) do
+    with(site: organization_site, js: true) do
       visit @path
 
       assert has_css?(".metric_box h3", text: "Total expenses")
@@ -62,15 +62,14 @@ class GobiertoBudgets::ElaborationTest < ActionDispatch::IntegrationTest
   end
 
   def test_income_tab
-    with_javascript do
-      with_current_site(placed_site) do
-        visit @path
+    with(site: placed_site, js: true) do
+      visit @path
 
-        within(:css, "#data-block") do
-          click_link "Income"
-        end
-        assert has_css?(".metric_box h3", text: "Total income")
+      within(:css, "#data-block") do
+        click_link "Income"
       end
+
+      assert has_css?(".metric_box h3", text: "Total income")
     end
   end
 end

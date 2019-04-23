@@ -17,7 +17,7 @@ class TotalBudgetFactory
         _index: index,
         _id: self.class.doc_id(params),
         _type: TYPE,
-        data: self.class.base_data.merge(
+        data: self.class.base_data(params).merge(
           kind: self.class.default_kind,
           total_budget: total_budget,
           total_budget_per_inhabitant: (total_budget / population).round(2)

@@ -57,7 +57,7 @@ jobs:
 
   tests:
     <<: *defaults
-    parallelism: 3
+    parallelism: 5
     steps:
       - checkout
       - attach_workspace:
@@ -90,9 +90,6 @@ jobs:
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
-
-      # Setup the environment
-      - run: cp .env.example .env
 
       # Setup the database
       - run: bin/rails db:setup

@@ -17,7 +17,7 @@ module GobiertoBudgets
     end
 
     def site
-      @site ||= sites(:madrid)
+      @site ||= sites(:huesca)
     end
 
     def stats
@@ -26,6 +26,7 @@ module GobiertoBudgets
 
     def total(params)
       TotalBudgetFactory.new(
+        organization_id: site.organization_id,
         population: POPULATION,
         total_budget: params.values.first,
         indexes: [params.keys.first]

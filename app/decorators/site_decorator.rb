@@ -32,7 +32,7 @@ class SiteDecorator < BaseDecorator
                  "#{DOMAIN_URL_SCHEME}#{object.domain}"
                end
 
-    root_url_path.present? ? "#{root_url}/#{root_url_path}" : root_url
+    root_url_path.present? ? URI.join(root_url, root_url_path).to_s : root_url
   end
 
   private

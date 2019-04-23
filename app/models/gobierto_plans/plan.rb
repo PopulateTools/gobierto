@@ -70,7 +70,7 @@ module GobiertoPlans
     def level_key(level_size, level)
       return configuration_data["level#{level}"][level_size == 1 ? "one" : "other"][I18n.locale.to_s] if configuration_data.present? && configuration_data.has_key?("level#{level}")
 
-      element_type = level < level_size ? "category" : "project"
+      element_type = level <= levels ? "category" : "project"
       I18n.t("gobierto_admin.gobierto_plans.plans.import_csv.defaults.#{element_type}", count: level_size, level: level + 1)
     end
 

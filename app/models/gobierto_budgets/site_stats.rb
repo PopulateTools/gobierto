@@ -180,14 +180,30 @@ module GobiertoBudgets
                year1 = options.fetch(:year1)
                year2 = options.fetch(:year2)
 
-               v1 = send(variable1, year1)
-               v2 = send(variable1, year2)
+               if [:total_budget, :total_income_budget, :total_income_budget_per_inhabitant].include?(variable1)
+                 year1_arg = { year: year1 }
+                 year2_arg = { year: year2 }
+               else
+                 year1_arg = year1
+                 year2_arg = year2
+               end
+
+               v1 = send(variable1, year1_arg)
+               v2 = send(variable1, year2_arg)
+
                return nil if v1.nil? || v2.nil?
 
                ((v1.to_f - v2.to_f) / v2.to_f) * 100
              else
-               v1 = send(variable1, year)
-               v2 = send(variable2, year)
+               year_arg = if [:total_budget, :total_income_budget, :total_income_budget_per_inhabitant].include?(variable1)
+                            { year: year }
+                          else
+                            year
+                          end
+
+               v1 = send(variable1, year_arg)
+               v2 = send(variable2, year_arg)
+
                return nil if v1.nil? || v2.nil?
                ((v1.to_f - v2.to_f) / v2.to_f) * 100
       end

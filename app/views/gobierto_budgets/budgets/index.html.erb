@@ -43,7 +43,7 @@
 
         <%= render("metric_box",
               title: t(".total_expenses"),
-              value: @site_stats.total_budget,
+              value: @site_stats.total_budget_updated(fallback_to_initial_estimate: true),
               tooltip: t(".total_expenses_tooltip"),
               data_box: "total_expenses"
             ) %>
@@ -277,8 +277,8 @@
       </div>
 
       <div class="pure-g mega_bars m_v_1">
-        <%= render 'mega_bar', {className: 'income', percentage: @budgets_execution_summary.income_execution_percentage } %>
-        <%= render 'mega_bar', {className: 'expense', percentage: @budgets_execution_summary.expenses_execution_percentage } %>
+        <%= render 'mega_bar', { className: 'income', percentage: @budgets_execution_summary.income_execution_percentage } %>
+        <%= render 'mega_bar', { className: 'expense', percentage: @budgets_execution_summary.expenses_execution_percentage } %>
 
         <div class="pure-u-1 center m_v_1">
           <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>

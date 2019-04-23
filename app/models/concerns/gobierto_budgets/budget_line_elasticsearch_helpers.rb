@@ -161,7 +161,7 @@ module GobiertoBudgets
         default_index = SearchEngineConfiguration::BudgetLine.index_forecast
 
         index = if updated_forecast
-                  SearchEngineConfiguration::BudgetLine.index_forecast
+                  SearchEngineConfiguration::BudgetLine.index_forecast_updated
                 else
                   conditions[:index] || default_index
                 end

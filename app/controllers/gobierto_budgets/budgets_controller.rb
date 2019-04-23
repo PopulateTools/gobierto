@@ -47,17 +47,19 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
   end
 
   def load_place_budget_lines
-    base_params = { site: current_site, level: 1, year: @year, kind: @kind, area_name: @area_name }
+    conditions = {
+      site: current_site,
+      level: 1,
+      year: @year,
+      kind: @kind,
+      area_name: @area_name
+    }
 
-    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: base_params.merge(updated_forecast: true))
-
-    if @place_budget_lines.empty?
-      @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: base_params)
-    end
+    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions, updated_forecast: true)
   end
 
   def load_interesting_expenses
-    base_params = {
+    conditions = {
       site: current_site,
       level: 2,
       year: @year,
@@ -65,11 +67,7 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
       area_name: @interesting_area
     }
 
-    @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: base_params.merge(updated_forecast: true))
-
-    if @interesting_expenses.empty?
-      @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: base_params)
-    end
+    @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: conditions, updated_forecast: true)
   end
 
 end

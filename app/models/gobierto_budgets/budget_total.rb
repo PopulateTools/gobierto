@@ -18,8 +18,8 @@ module GobiertoBudgets
 
       result = BudgetTotal.for(organization_id, year, BudgetTotal::BUDGETED_UPDATED, kind)
 
-      if result.nil? && params[:fallback_to_initial_estimate]
-        BudgetTotal.budgeted_for(organization_id, year)
+      if result.nil? && params[:fallback_to_initial_estimate] == true
+        BudgetTotal.budgeted_for(organization_id, year, kind)
       else
         result
       end

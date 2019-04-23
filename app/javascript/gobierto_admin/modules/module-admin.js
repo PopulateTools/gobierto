@@ -16,7 +16,6 @@ $(document).on('turbolinks:load', function() {
       $('.container').addClass('admin_content_column_with_menu_opened');
       $('.container').removeClass('admin_content_column_with_menu_closed');
     }
-
   });
 
   $('.open-new_row_content').click(function(e) {

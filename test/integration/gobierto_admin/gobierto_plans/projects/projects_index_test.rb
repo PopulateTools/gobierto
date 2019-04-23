@@ -27,6 +27,14 @@ module GobiertoAdmin
           @plan ||= gobierto_plans_plans(:strategic_plan)
         end
 
+        def project_with_search_matching_name
+          @project_with_search_matching_name ||= gobierto_plans_nodes(:political_agendas)
+        end
+
+        def project_with_no_search_matching_name
+          @project_with_no_search_matching_name ||= gobierto_plans_nodes(:scholarships_kindergartens)
+        end
+
         def test_admin_projects_index
           with_signed_in_admin(admin) do
             with_current_site(site) do
@@ -75,6 +83,28 @@ module GobiertoAdmin
                 plan.nodes.each do |project|
                   assert has_selector?("tr#project-item-#{project.id}")
                 end
+              end
+            end
+          end
+        end
+
+        def test_case_insensitive_title_filter_search
+          allow_regular_admin_edit_plans
+
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
+
+              within ".i_filters" do
+                fill_in "projects_filter_name", with: "AGENDAS"
+                click_button "Filter"
+              end
+
+              within "table#projects" do
+                assert has_selector?("tr#project-item-#{project_with_search_matching_name.id}")
+                assert has_content?("agendas")
+                assert has_no_content?("AGENDAS")
+                assert has_no_selector?("tr#project-item-#{project_with_no_search_matching_name.id}")
               end
             end
           end

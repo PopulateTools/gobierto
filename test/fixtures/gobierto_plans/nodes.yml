@@ -13,8 +13,8 @@ political_agendas:
   updated_at: 2016-11-01 00:02:00
 
 scholarships_kindergartens:
-  name_translations: <%= { 'en' => 'Becas en guarderías',
-                           'es' => 'Scholarships in kindergartens' }.to_json %>
+  name_translations: <%= { 'en' => 'Scholarships in kindergartens',
+                           'es' => 'Becas en guarderías'}.to_json %>
   status_translations: <%= { 'en' => 'Active',
                              'es' => 'Activo' }.to_json %>
   progress: 0

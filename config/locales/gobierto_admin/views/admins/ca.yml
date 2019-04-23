@@ -23,7 +23,9 @@ ca:
           admin: Administrador
           created_at: Creat
           email: Email
+          groups: Grups
           last_sign_in_at: Últim login
+          role: Rol
         new: Nou Administrador
         send_invitations: Enviar invitacions
         title: Administradors

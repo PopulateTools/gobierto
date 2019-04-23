@@ -23,7 +23,9 @@ en:
           admin: Admin
           created_at: Created
           email: Email
+          groups: Groups
           last_sign_in_at: Last sign in
+          role: Role
         new: New Admin
         send_invitations: Send invitations
         title: Administrators

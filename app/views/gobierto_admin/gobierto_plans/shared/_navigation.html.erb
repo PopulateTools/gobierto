@@ -14,12 +14,8 @@
       </li>
     <% end %>
 
-    <li class="<%= class_if('active', controller_name == "plans" && action_name == "edit") %>">
+    <li class="<%= class_if('active', controller_name == "plans") %>">
       <%= link_to t(".configuration_tab"), edit_admin_plans_plan_path(@plan), data: { turbolinks: false } %>
-    </li>
-
-    <li class="<%= class_if('active', controller.action_name == 'import_csv') %>">
-      <%= link_to t('.import_csv_tab'), admin_plans_plan_import_csv_path(@plan), data: { turbolinks: false } %>
     </li>
   </ul>
 </div>

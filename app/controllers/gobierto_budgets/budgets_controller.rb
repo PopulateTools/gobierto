@@ -6,25 +6,25 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
     @area_name = GobiertoBudgets::EconomicArea.area_name
     @interesting_area = GobiertoBudgets::FunctionalArea.area_name
 
-    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
-
-    @top_income_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME).all
-    @top_expense_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE).all
+    @top_income_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(budget_query_params.merge(kind: GobiertoBudgets::BudgetLine::INCOME)).all
+    @top_expense_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(budget_query_params.merge(kind: GobiertoBudgets::BudgetLine::EXPENSE)).all
     load_place_budget_lines
     load_interesting_expenses
 
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)
 
+    load_site_stats
     @budgets_data_updated_at = @site_stats.budgets_data_updated_at
     @budgets_execution_summary = @site_stats.budgets_execution_summary
 
-    @any_custom_income_budget_lines  = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area: GobiertoBudgets::CustomArea)
-    @any_custom_expense_budget_lines = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea)
+    @any_custom_income_budget_lines  = GobiertoBudgets::BudgetLine.any_data?(budget_query_params.merge(kind: GobiertoBudgets::BudgetLine::INCOME, area: GobiertoBudgets::CustomArea))
+    @any_custom_expense_budget_lines = GobiertoBudgets::BudgetLine.any_data?(budget_query_params.merge(kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea))
   end
 
   def guide
     @year = GobiertoBudgets::SearchEngineConfiguration::Year.last
-    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
+    load_site_stats
+
     if current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_guide_page"]
       @page = GobiertoCms::Page.find_by id: current_site.gobierto_budgets_settings.settings["budgets_guide_page"]
     end
@@ -44,6 +44,14 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
     else
       @year = params[:year].to_i
     end
+  end
+
+  def load_site_stats
+    @site_stats = GobiertoBudgets::SiteStats.new(budget_query_params)
+  end
+
+  def budget_query_params
+    { site: current_site, year: @year }
   end
 
   def load_place_budget_lines

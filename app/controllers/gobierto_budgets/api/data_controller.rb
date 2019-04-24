@@ -148,7 +148,7 @@ module GobiertoBudgets
 
         value = results.select {|r| r['organization_id'] == organization_id }.first.try(:[],field)
 
-        { value: value2 }
+        { value: value }
       end
 
       def budget_data_executed(year, field)

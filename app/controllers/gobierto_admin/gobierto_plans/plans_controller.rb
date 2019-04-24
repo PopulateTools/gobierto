@@ -3,6 +3,8 @@
 module GobiertoAdmin
   module GobiertoPlans
     class PlansController < GobiertoAdmin::GobiertoPlans::BaseController
+      before_action -> { module_allowed_action!(current_admin, current_admin_module, :manage) }, except: [:index, :plan]
+
       def index
         @plans = current_site.plans.sort_by_updated_at
         @archived_plans = current_site.plans.only_archived.sort_by_updated_at

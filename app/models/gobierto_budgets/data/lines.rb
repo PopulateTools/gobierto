@@ -109,8 +109,6 @@ module GobiertoBudgets
       end
 
       def values_filtered_by(conditions)
-        use_updated_budgets = conditions[:organization_id].present?
-
         filters = conditions.map do |condition, _|
           { term: conditions.slice(condition) }
         end
@@ -137,19 +135,9 @@ module GobiertoBudgets
         }
 
         result = []
-        index = use_updated_budgets ? SearchEngineConfiguration::TotalBudget.index_forecast_updated : default_index
-        hits = SearchEngine.client.search(index: index, type: type, body: query)["hits"]["hits"]
-
-        if use_updated_budgets
-          hits = SearchEngine.client.search(index: default_index, type: type, body: query)["hits"]["hits"] if hits.empty?
-
-          # FIXME: production and staging indexes did not set the not_analyzed property, so we're
-          # getting undesired results from associated entities like 8121-gencat-812133051
-          # Proper fix requires re-creating index, so filter it here as a tmp solution
-          hits.reject! { |hit| hit["_source"]["organization_id"] != conditions[:organization_id] }
-        end
-
-        values = Hash[hits.map { |h| h["_source"] }.map { |h| [h["year"], h[@variable]] }]
+        values = Hash[
+          place_hits(query, conditions[:organization_id]).map { |h| h["_source"] }.map { |h| [h["year"], h[@variable]] }
+        ]
 
         values.each do |k, v|
           v = v.to_f
@@ -164,6 +152,27 @@ module GobiertoBudgets
           end
         end
         result
+      end
+
+      def place_hits(query, organization_id)
+        combined_hits = [default_index, SearchEngineConfiguration::TotalBudget.index_forecast_updated].map do |index|
+          SearchEngine.client.search(index: index, type: type, body: query)["hits"]["hits"].select do |hit|
+            # FIXME: production and staging indexes did not set the not_analyzed property, so we're
+            # getting undesired results from associated entities like 8121-gencat-812133051
+            # Proper fix requires re-creating index, so filter it here as a tmp solution
+            hit["_source"]["organization_id"] == organization_id &&
+              !hit["_source"]["total_budget"].zero?
+          end
+        end.flatten
+
+        # give preference to updated data
+        combined_hits.reject! do |hit|
+          hit["_index"] == default_index && combined_hits.any? do |h|
+            h["_index"] == SearchEngineConfiguration::TotalBudget.index_forecast_updated && hit["_source"]["year"] == h["_source"]["year"]
+          end
+        end
+
+        combined_hits.sort_by { |hit| hit["_source"]["year"] }
       end
 
       def place_values(place = nil)

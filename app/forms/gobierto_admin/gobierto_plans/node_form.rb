@@ -18,6 +18,7 @@ module GobiertoAdmin
       attr_writer(
         :category_id,
         :visibility_level,
+        :moderation_visibility_level,
         :moderation_stage,
         :disable_attributes_edition
       )
@@ -90,7 +91,7 @@ module GobiertoAdmin
       end
 
       def visibility_level
-        @visibility_level ||= node.visibility_level || "draft"
+        @visibility_level ||= moderation_visibility_level || node.visibility_level || "draft"
       end
 
       def moderation_stage
@@ -103,6 +104,10 @@ module GobiertoAdmin
 
       def allow_moderate?
         moderation_policy.moderate?
+      end
+
+      def moderation_visibility_level
+        moderation_policy.moderate? ? @moderation_visibility_level : nil
       end
 
       private
@@ -120,7 +125,7 @@ module GobiertoAdmin
       end
 
       def check_visibility_level
-        return if moderation_policy.blank? || node.visibility_level == visibility_level || moderation_policy.publish_as_editor?
+        return if moderation_policy.blank? || node.visibility_level == visibility_level || moderation_policy.publish_as_editor? || moderation_visibility_level.present?
 
         @visibility_level = node.visibility_level
         @moderation_stage = node.moderation.available_stages_for_action(:edit).keys.first

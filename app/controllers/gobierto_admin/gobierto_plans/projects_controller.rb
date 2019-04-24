@@ -186,6 +186,7 @@ module GobiertoAdmin
             :ends_at,
             :options_json,
             :visibility_level,
+            :moderation_visibility_level,
             :moderation_stage,
             name_translations: [*I18n.available_locales],
             status_translations: [*I18n.available_locales]
@@ -193,6 +194,7 @@ module GobiertoAdmin
         else
           params.require(:project).permit(
             :visibility_level,
+            :moderation_visibility_level,
             :moderation_stage
           )
         end

@@ -113,6 +113,5 @@ en:
       shared:
         navigation:
           configuration_tab: Configuration
-          import_csv_tab: Import CSV
           plan_terms_tab: Plan
           projects_tab: Projects

@@ -43,7 +43,7 @@
 
         <%= render("metric_box",
               title: t(".total_expenses"),
-              value: @site_stats.total_budget_updated(fallback_to_initial_estimate: true),
+              value: @site_stats.total_budget_updated(fallback: true),
               tooltip: t(".total_expenses_tooltip"),
               data_box: "total_expenses"
             ) %>

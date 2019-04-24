@@ -20,9 +20,9 @@ module GobiertoBudgets
     end
     alias amount_planned amount
 
-    def amount_updated(year = nil, fallback_to_initial_estimate = false)
+    def amount_updated(year = nil, fallback = false)
       result = budget_line_planned_updated_query(year, "amount")
-      result = amount(year) if fallback_to_initial_estimate && result.nil?
+      result = amount(year) if fallback && result.nil?
 
       result
     end

@@ -64,7 +64,7 @@ module GobiertoBudgets
 
       # when initial estimate and fallback allowed
       with factory: total(forecast: TOTAL_BUDGET) do
-        assert_equal TOTAL_BUDGET, stats.total_budget_updated(fallback_to_initial_estimate: true)
+        assert_equal TOTAL_BUDGET, stats.total_budget_updated(fallback: true)
       end
 
       # when initial estimate and updated data
@@ -115,7 +115,7 @@ module GobiertoBudgets
 
       # when initial estimate and fallback allowed
       with factory: total_income(forecast: TOTAL_BUDGET) do
-        assert_equal TOTAL_BUDGET, stats.total_income_budget_updated(fallback_to_initial_estimate: true)
+        assert_equal TOTAL_BUDGET, stats.total_income_budget_updated(fallback: true)
       end
 
       # when initial estimate and updated data

@@ -42,7 +42,7 @@ module GobiertoBudgets
       f = TotalBudgetFactory.new(factory_params.merge(indexes: [:forecast]))
 
       with(factory: f) do
-        result = BudgetTotal.budgeted_updated_for(query_params.merge(fallback_to_initial_estimate: true))
+        result = BudgetTotal.budgeted_updated_for(query_params.merge(fallback: true))
         assert_equal AMOUNT, result
       end
     end

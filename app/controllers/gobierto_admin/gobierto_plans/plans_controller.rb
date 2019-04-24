@@ -105,7 +105,7 @@ module GobiertoAdmin
         @plan = find_plan
         if params[:plan].blank?
           redirect_to(
-            admin_plans_plan_data_path(@plan),
+            admin_plans_plan_import_csv_path(@plan),
             alert: t(".missing_file")
           ) and return
         end

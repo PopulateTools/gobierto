@@ -6,6 +6,8 @@ module GobiertoAdmin
   module GobiertoPlans
     module Projects
       class DeleteProjectTest < ActionDispatch::IntegrationTest
+        include Integration::AdminGroupsConcern
+
         def setup
           super
           @path = admin_plans_plan_projects_path(plan)
@@ -13,10 +15,6 @@ module GobiertoAdmin
 
         def admin
           @admin ||= gobierto_admin_admins(:nick)
-        end
-
-        def regular_admin
-          @regular_admin ||= gobierto_admin_admins(:steve)
         end
 
         def site
@@ -117,20 +115,6 @@ module GobiertoAdmin
               assert has_content? "Project deleted correctly."
             end
           end
-        end
-
-        private
-
-        def allow_regular_admin_manage_plans
-          regular_admin.admin_groups << gobierto_admin_admin_groups(:madrid_manage_plans_group)
-        end
-
-        def allow_regular_admin_edit_plans
-          regular_admin.admin_groups << gobierto_admin_admin_groups(:madrid_edit_plans_group)
-        end
-
-        def allow_regular_admin_moderate_plans
-          regular_admin.admin_groups << gobierto_admin_admin_groups(:madrid_moderate_plans_group)
         end
       end
     end

@@ -6,6 +6,8 @@ module GobiertoAdmin
   module GobiertoPlans
     module Projects
       class UpdateProjectTest < ActionDispatch::IntegrationTest
+        include Integration::AdminGroupsConcern
+
         attr_reader :plan, :published_project, :unpublished_project, :path, :unpublished_path
 
         def setup
@@ -19,10 +21,6 @@ module GobiertoAdmin
 
         def admin
           @admin ||= gobierto_admin_admins(:nick)
-        end
-
-        def regular_admin
-          @regular_admin ||= gobierto_admin_admins(:steve)
         end
 
         def site
@@ -357,20 +355,6 @@ module GobiertoAdmin
               assert unpublished_project.moderation.rejected?
             end
           end
-        end
-
-        private
-
-        def allow_regular_admin_manage_plans
-          regular_admin.admin_groups << gobierto_admin_admin_groups(:madrid_manage_plans_group)
-        end
-
-        def allow_regular_admin_edit_plans
-          regular_admin.admin_groups << gobierto_admin_admin_groups(:madrid_edit_plans_group)
-        end
-
-        def allow_regular_admin_moderate_plans
-          regular_admin.admin_groups << gobierto_admin_admin_groups(:madrid_moderate_plans_group)
         end
       end
     end

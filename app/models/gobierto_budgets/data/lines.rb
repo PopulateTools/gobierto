@@ -161,7 +161,7 @@ module GobiertoBudgets
             # getting undesired results from associated entities like 8121-gencat-812133051
             # Proper fix requires re-creating index, so filter it here as a tmp solution
             hit["_source"]["organization_id"] == organization_id &&
-              !hit["_source"]["total_budget"].zero?
+              !hit["_source"]["total_budget"].to_f.zero?
           end
         end.flatten
 

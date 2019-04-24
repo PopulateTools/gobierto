@@ -10,16 +10,18 @@ class BudgetLineFactory
     place = params[:place] || default_place
     year = params[:year] || default_year
     kind = params[:kind] || default_kind
+    code = params[:level] ? ("1" * params[:level]) : default_code
 
-    [place.id, year, default_code, kind].join("/")
+    [place.id, year, code, kind].join("/")
   end
 
   def self.base_attrs(params = {})
     kind = params[:kind] || default_kind
+    code = params[:level] ? ("1" * params[:level]) : default_code
 
     base_data(params).merge(
       code: default_code,
-      level: default_code.length,
+      level: code.length,
       kind: kind,
       population: default_population
     )

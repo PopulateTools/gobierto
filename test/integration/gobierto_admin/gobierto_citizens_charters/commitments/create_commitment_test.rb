@@ -70,7 +70,7 @@ module GobiertoAdmin
 
                 click_button "Create"
 
-                assert has_message?("The commitment has been correctly created.")
+                assert has_message?("The indicator has been correctly created.")
 
                 new_commitment = ::GobiertoCitizensCharters::Commitment.last
 

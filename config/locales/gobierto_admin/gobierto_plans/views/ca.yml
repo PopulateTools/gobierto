@@ -58,6 +58,13 @@ ca:
             title: Titol del pla
             year: 2018
         import_csv:
+          defaults:
+            category:
+              one: element de nivell %{level}
+              other: elements de nivell %{level}
+            project:
+              one: projecte
+              other: projectes
           latest_update: 'Última actualització: %{datetime}'
           no_data: Encara no hi ha dades carregades
           there_are: Hi ha %{info}

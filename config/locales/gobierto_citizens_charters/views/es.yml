@@ -8,30 +8,32 @@ es:
       index:
         about: Qué son las cartas de servicios
         commitments:
-          one: 1 compromiso
-          other: "%{count} compromisos"
-          zero: No hay compromisos
+          one: 1 indicador
+          other: "%{count} indicadores"
+          zero: No hay indicadores
         contact: Contacto
-        description_title: Información sobre el cumplimiento de los compromisos %{of_the_organization_name}
+        description_title: Información sobre el cumplimiento de los compromisos de
+          los indicadores %{of_the_organization_name}
         global_progress: Cumplimiento global
         introduction: El Ayuntamiento publica sus cartas de servicios con sus respectivos
-          compromisos y grados de cumplimiento. Explora las cartas y los niveles de
-          cumplimiento de los compromisos que publicamos de forma regular
+          indicadores y grados de cumplimiento. Explora las cartas y los niveles de
+          cumplimiento de los indicadores que publicamos de forma regular
         period: 'Datos correspondientes a:'
         progress: Cumplimiento
       show:
         about: Acerca de esta carta
-        editions_details: Detalle de los compromisos
-        global_progress: Cumplimos los compromisos de esta carta al
+        editions_details: Detalle de los indicadores
+        global_progress: Cumplimos los objetivos de los indicadores de esta carta
+          al
         max_value: Objetivo
         see_all: Ver la carta completa
         see_all_subtitle: Misión, Visión, Servicios, Unidad responsable...
         value: Alcanzado
     events:
-      gobierto_citizens_charters_charter_commitment_archived: Compromisos archivados
-      gobierto_citizens_charters_charter_commitment_created: Compromisos creados
-      gobierto_citizens_charters_charter_commitment_published: Compromisos publicados
-      gobierto_citizens_charters_charter_commitment_updated: Compromisos actualizados
+      gobierto_citizens_charters_charter_commitment_archived: Indicadores archivados
+      gobierto_citizens_charters_charter_commitment_created: Indicadores creados
+      gobierto_citizens_charters_charter_commitment_published: Indicadores publicados
+      gobierto_citizens_charters_charter_commitment_updated: Indicadores actualizados
       gobierto_citizens_charters_charter_created: Carta creada
       gobierto_citizens_charters_charter_edition_created: Mediciones creadas
       gobierto_citizens_charters_charter_edition_deleted: Mediciones borradas

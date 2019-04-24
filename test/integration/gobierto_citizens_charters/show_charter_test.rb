@@ -112,7 +112,7 @@ module GobiertoCitizensCharters
       global_progress = proportion.sum / proportion.count
       with_current_site(site) do
         visit @path
-        within "div.charter-subheader", text: "We fulfill the commitments of this charter to" do
+        within "div.charter-subheader", text: "We met the goals of the indicators of this charter to" do
           assert has_content? "#{ global_progress.round(1) }%"
         end
       end

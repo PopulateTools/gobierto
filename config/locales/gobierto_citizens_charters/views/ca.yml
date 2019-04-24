@@ -8,30 +8,31 @@ ca:
       index:
         about: Què són les cartes de serveis
         commitments:
-          one: 1 compromís
-          other: "%{count} compromisos"
-          zero: No hi ha compromisos
+          one: 1 indicador
+          other: "%{count} indicadors"
+          zero: No hi ha indicadors
         contact: Contacte
-        description_title: Informació sobre el compliment dels compromisos %{of_the_organization_name}
+        description_title: Informació sobre el compliment dels compromisos dels indicadors
+          %{of_the_organization_name}
         global_progress: Compliment global
         introduction: L'Ajuntament publica les seves cartes de serveis amb els seus
-          respectius compromisos i graus de compliment. Explora les cartes i els nivells
-          de compliment dels compromisos que vam publicar de forma regular
+          respectius indicadors i graus de compliment. Explora les cartes i els nivells
+          de compliment dels indicadors que vam publicar de forma regular
         period: 'Dades corresponents a:'
         progress: Compliment
       show:
         about: Sobre aquesta carta
-        editions_details: Detall dels compromisos
-        global_progress: Complim els compromisos d'aquesta carta al
+        editions_details: Detall dels indicadors
+        global_progress: Complim els objectius dels indicadors d'aquesta carta al
         max_value: Objectiu
         see_all: Veure la carta completa
         see_all_subtitle: Missió, Visió, Serveis, Unitat responsable...
         value: Arribat
     events:
-      gobierto_citizens_charters_charter_commitment_archived: Compromisos arxivats
-      gobierto_citizens_charters_charter_commitment_created: Compromisos creats
-      gobierto_citizens_charters_charter_commitment_published: Compromisos publicats
-      gobierto_citizens_charters_charter_commitment_updated: Compromisos actualitzats
+      gobierto_citizens_charters_charter_commitment_archived: Indicadors arxivats
+      gobierto_citizens_charters_charter_commitment_created: Indicadors creats
+      gobierto_citizens_charters_charter_commitment_published: Indicadors publicats
+      gobierto_citizens_charters_charter_commitment_updated: Indicadors actualitzats
       gobierto_citizens_charters_charter_created: Carta creada
       gobierto_citizens_charters_charter_edition_created: Mesuraments creades
       gobierto_citizens_charters_charter_edition_deleted: Mesuraments eliminades

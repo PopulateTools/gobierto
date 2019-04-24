@@ -29,7 +29,7 @@ module GobiertoPlans
 
     def configuration_data
       data = read_attribute(:configuration_data)
-      JSON.parse(data) unless data.empty?
+      JSON.parse(data) unless data.blank?
     end
 
     def nodes
@@ -68,7 +68,11 @@ module GobiertoPlans
     private
 
     def level_key(level_size, level)
-      configuration_data["level" + level.to_s][level_size == 1 ? "one" : "other"][I18n.locale.to_s]
+      return configuration_data["level#{level}"][level_size == 1 ? "one" : "other"][I18n.locale.to_s] if configuration_data.present? && configuration_data.has_key?("level#{level}")
+
+      element_type = level <= levels ? "category" : "project"
+      I18n.t("gobierto_admin.gobierto_plans.plans.import_csv.defaults.#{element_type}", count: level_size, level: level + 1)
     end
+
   end
 end

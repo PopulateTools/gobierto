@@ -49,6 +49,25 @@ jobs:
           key: gobierto-yarn-{{ checksum "yarn.lock" }}
           paths:
             - vendor/yarn
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the environment
+      - run: cp .env.example .env
+
+      # Setup the database
+      - run: bin/rails db:setup
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Compile I18n JS file
+      - run: bin/rails i18n:js:export
+
+      # Precompile assets
+      - run: bin/rails assets:precompile
+
       - persist_to_workspace:
           root: ~/gobierto
           paths:
@@ -86,25 +105,6 @@ jobs:
             curl --silent --show-error --location --fail --retry 3 --output /tmp/chromedriver_linux64.zip "https://chromedriver.storage.googleapis.com/2.46/chromedriver_linux64.zip"
             sudo unzip /tmp/chromedriver_linux64.zip chromedriver -d /usr/local/bin
             sudo chmod +x /usr/local/bin/chromedriver
-
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the environment
-      - run: cp .env.example .env
-
-      # Setup the database
-      - run: bin/rails db:setup
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Compile I18n JS file
-      - run: bin/rails i18n:js:export
-
-      # Precompile assets
-      - run: bin/rails assets:precompile
 
       # Run tests
       - run:
@@ -148,14 +148,12 @@ workflows:
             - bundle_dependencies
       - staging-deploy:
           requires:
-            - bundle_dependencies
             - tests
           filters:
             branches:
               only: staging
       - production-deploy:
           requires:
-            - bundle_dependencies
             - tests
           filters:
             branches:

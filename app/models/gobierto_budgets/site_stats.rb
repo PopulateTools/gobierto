@@ -94,7 +94,12 @@ module GobiertoBudgets
     end
 
     def debt(requested_year = year)
-      @data[:debt][requested_year] ||= SearchEngine.client.get(index: SearchEngineConfiguration::Data.index, type: SearchEngineConfiguration::Data.type_debt, id: [@site.organization_id, year].join("/"))["_source"]["value"]
+      @data[:debt][requested_year] ||= SearchEngine.client.get(
+        index: SearchEngineConfiguration::Data.index,
+        type: SearchEngineConfiguration::Data.type_debt,
+        id: [@site.organization_id, requested_year].join("/")
+      )["_source"]["value"]
+
       @data[:debt][requested_year]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil

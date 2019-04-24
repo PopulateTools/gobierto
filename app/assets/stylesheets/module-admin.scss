@@ -1008,6 +1008,15 @@ table {
       }
     }
 
+    &.v_el_full_content {
+      .v_el {
+        background: #FFF;
+      }
+      .v_el:hover {
+        background: #FFF;
+      }
+    }
+
     .v_el_actions {
       opacity: 0;
     }
@@ -1021,7 +1030,16 @@ table {
 
   .v_el:hover {
     cursor: move;
+
+    &.v_el_full_content {
+      cursor: initial;
+      .v_el:hover {
+        cursor: initial;
+      }
+    }
   }
+
+
 
   .v_el_level {
     @include border-radius(6px);
@@ -1108,6 +1126,17 @@ table {
     }
   }
 
+  .v_el_full_content {
+
+    .v_el_content {
+      border: 1px solid red;
+      margin: 4px 10px 4px 0;
+      background: #FFF;
+      padding: 0;
+
+    }
+
+  }
 }
 
 .color_sem_red, .color_sem_red a {

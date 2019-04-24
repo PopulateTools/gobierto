@@ -1,0 +1,13 @@
+# moderations on plans
+
+political_agendas_moderation:
+  site: madrid
+  moderable: political_agendas (GobiertoPlans::Node)
+  admin: tony
+  stage: <%= GobiertoAdmin::Moderation.stages["approved"] %>
+
+scholarships_kindergartens_moderation:
+  site: madrid
+  moderable: scholarships_kindergartens (GobiertoPlans::Node)
+  admin: tony
+  stage: <%= GobiertoAdmin::Moderation.stages["sent"] %>

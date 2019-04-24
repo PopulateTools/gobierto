@@ -11,6 +11,7 @@ political_agendas:
   categories: center_basic_needs_plan_term
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  visibility_level: <%= GobiertoPlans::Node.visibility_levels['published'] %>
 
 scholarships_kindergartens:
   name_translations: <%= { 'en' => 'Scholarships in kindergartens',
@@ -23,3 +24,4 @@ scholarships_kindergartens:
   categories: center_scholarships_plan_term
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  visibility_level: <%= GobiertoPlans::Node.visibility_levels['draft'] %>

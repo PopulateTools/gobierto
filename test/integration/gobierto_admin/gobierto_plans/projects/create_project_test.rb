@@ -98,6 +98,8 @@ module GobiertoAdmin
                 assert_equal 1.0, project.progress
                 assert_equal Date.parse("2020-01-01"), project.starts_at
                 assert_equal Date.parse("2021-01-01"), project.ends_at
+                assert project.draft?
+                assert project.moderation.not_sent?
               end
             end
           end

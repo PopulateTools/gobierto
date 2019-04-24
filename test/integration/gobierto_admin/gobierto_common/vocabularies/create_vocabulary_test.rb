@@ -66,7 +66,8 @@ module GobiertoAdmin
 
                 assert has_message?("Vocabulary created successfully.")
 
-                click_link "Monetary Systems"
+                vocabulary = site.vocabularies.last
+                find(:xpath, %Q{//a[@href="#{edit_admin_common_vocabulary_path(vocabulary)}"]}).click
 
                 assert has_field?("vocabulary_name_translations_en", with: "Monetary Systems")
                 assert has_field?("vocabulary_slug", with: "monetary-systems-new")

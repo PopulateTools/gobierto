@@ -23,7 +23,7 @@ module GobiertoBudgets
         @category_name = @kind == 'G' ? I18n.t("controllers.gobierto_budgets.api.data.expense") : I18n.t("controllers.gobierto_budgets.api.data.income")
 
         budget_data = budget_data(@year, 'amount')
-        budget_data_previous_year = budget_data(@year - 1, 'amount', false)
+        budget_data_previous_year = budget_data(@year - 1, 'amount')
         position = budget_data[:position].to_i
         sign = sign(budget_data[:value], budget_data_previous_year[:value])
 
@@ -50,7 +50,7 @@ module GobiertoBudgets
 
         @category_name = @kind == 'G' ? I18n.t("controllers.gobierto_budgets.api.data.expense") : I18n.t("controllers.gobierto_budgets.api.data.income")
         budget_data = budget_data(@year, 'amount_per_inhabitant')
-        budget_data_previous_year = budget_data(@year - 1, 'amount_per_inhabitant', false)
+        budget_data_previous_year = budget_data(@year - 1, 'amount_per_inhabitant')
         position = budget_data[:position].to_i
         sign = sign(budget_data[:value], budget_data_previous_year[:value])
 
@@ -140,26 +140,15 @@ module GobiertoBudgets
         end
       end
 
-      def budget_data(year, field, ranking = true)
+      def budget_data(year, field)
         organization_id = params[:organization_id]
 
         opts = {year: year, code: @code, kind: @kind, area_name: @area, variable: field}
         results, total_elements = GobiertoBudgets::BudgetLine.for_ranking(opts)
 
-        if ranking
-          position = GobiertoBudgets::BudgetLine.place_position_in_ranking(opts.merge(organization_id: organization_id))
-        else
-          total_elements = 0
-          position = 0
-        end
-
         value = results.select {|r| r['organization_id'] == organization_id }.first.try(:[],field)
 
-        return {
-          value: value,
-          position: position,
-          total_elements: total_elements
-        }
+        { value: value2 }
       end
 
       def budget_data_executed(year, field)

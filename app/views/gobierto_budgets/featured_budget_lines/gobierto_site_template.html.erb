@@ -2,6 +2,15 @@
 
 <h2><%= t('.title') %></h2>
 
+<% url_params = {
+     organization_id: current_site.organization_id,
+     kind: @kind,
+     code: @code.parameterize,
+     area: @area_name,
+     locale: I18n.locale,
+     format: :json
+   } %>
+
 <div class="cont pure-g">
   <div class="pure-u-1 pure-u-md-1-2 title">
     <%= t('.how_much_place_in', place: current_site.organization_name) %>
@@ -11,20 +20,20 @@
   <% if @population %>
     <div class="pure-u-1 pure-u-md-1-6" data-widget-template="#widget-template"
                                         data-widget-type="per_person"
-                                        data-widget-data-url="<%= gobierto_budgets_api_data_budget_per_inhabitant_path(organization_id: current_site.organization_id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, locale: I18n.locale, format: :json) %>"
+                                        data-widget-data-url="<%= gobierto_budgets_api_data_budget_per_inhabitant_path(url_params.merge(year: @year)) %>"
                                         title="<%= t('.per_person') %>">
     </div>
   <% end %>
 
   <div class="pure-u-1 pure-u-md-1-6" data-widget-template="#widget-template"
                              data-widget-type="budget"
-                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(organization_id: current_site.organization_id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, locale: I18n.locale, format: :json) %>"
+                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(url_params.merge(year: @year)) %>"
                              title="<%= t('.total') %>">
   </div>
 
   <div class="pure-u-1 pure-u-md-1-6" data-widget-template="#widget-template-small"
                              data-widget-type="budget"
-                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(organization_id: current_site.organization_id, year: (@year - 1), kind: @kind, code: @code.parameterize, area: @area_name, locale: I18n.locale, format: :json) %>"
+                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(url_params.merge(year: @year - 1)) %>"
                              title="<%= t('.last_year') %>">
   </div>
 </div>

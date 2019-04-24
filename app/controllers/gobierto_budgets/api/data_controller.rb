@@ -141,14 +141,17 @@ module GobiertoBudgets
       end
 
       def budget_data(year, field)
-        organization_id = params[:organization_id]
+        results = GobiertoBudgets::BudgetLine.search(
+          year: year,
+          code: @code,
+          kind: @kind,
+          type: @area,
+          variable: field,
+          organization_id: params[:organization_id],
+          updated_forecast: true
+        )
 
-        opts = {year: year, code: @code, kind: @kind, area_name: @area, variable: field}
-        results, total_elements = GobiertoBudgets::BudgetLine.for_ranking(opts)
-
-        value = results.select {|r| r['organization_id'] == organization_id }.first.try(:[],field)
-
-        { value: value }
+        { value: results["hits"].first[field] }
       end
 
       def budget_data_executed(year, field)

@@ -236,7 +236,7 @@ module GobiertoBudgets
 
         response = SearchEngine.client.search(index: index, type: (options[:type] || EconomicArea.area_name), body: query)
 
-        if response["hits"]["hits"].empty?
+        if updated_forecast && response["hits"]["hits"].empty?
           response = SearchEngine.client.search(index: default_index, type: (options[:type] || EconomicArea.area_name), body: query)
         end
 

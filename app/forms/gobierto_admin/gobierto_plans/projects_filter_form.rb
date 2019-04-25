@@ -35,7 +35,7 @@ module GobiertoAdmin
           end_interval = (1 + div.to_f) / divisions * 100.0
           [
             [format_percentage(start_interval + (div.positive? ? 1 : 0)), format_percentage(end_interval)].join(" - "),
-            [start_interval, end_interval].join("-")
+            [div.positive? ? start_interval : -1.0, end_interval].join(" - ")
           ]
         end.unshift([I18n.t("gobierto_admin.gobierto_plans.projects.filter_form.progress"), nil])
       end

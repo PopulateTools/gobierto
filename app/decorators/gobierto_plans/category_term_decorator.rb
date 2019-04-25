@@ -6,7 +6,9 @@ module GobiertoPlans
 
     def initialize(term, options = {})
       @object = term
-      @plan = options.delete(:plan)
+      @vocabulary = options[:vocabulary]
+      @plan = options[:plan]
+      @site = options[:site]
     end
 
     def categories

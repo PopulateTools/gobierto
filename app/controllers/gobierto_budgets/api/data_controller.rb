@@ -118,7 +118,7 @@ module GobiertoBudgets
       def respond_lines_to_json(data_line)
         respond_to do |format|
           format.json do
-            render json: data_line.generate_json
+            render json: data_line.to_h
           end
         end
       end

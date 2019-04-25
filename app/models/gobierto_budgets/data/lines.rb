@@ -22,8 +22,8 @@ module GobiertoBudgets
         @comparison = options[:comparison]
       end
 
-      def generate_json
-        json = {
+      def to_h
+        {
           kind: @kind,
           year: @year,
           title: lines_title,
@@ -31,8 +31,6 @@ module GobiertoBudgets
             @what => budget_values
           }
         }
-
-        json.to_json
       end
 
       private
@@ -157,11 +155,11 @@ module GobiertoBudgets
       def place_hits(query, organization_id)
         combined_hits = [default_index, SearchEngineConfiguration::TotalBudget.index_forecast_updated].map do |index|
           SearchEngine.client.search(index: index, type: type, body: query)["hits"]["hits"].select do |hit|
+            hit_value = (hit["_source"]["amount"] || hit["_source"]["total_budget"]).to_f
             # FIXME: production and staging indexes did not set the not_analyzed property, so we're
             # getting undesired results from associated entities like 8121-gencat-812133051
             # Proper fix requires re-creating index, so filter it here as a tmp solution
-            hit["_source"]["organization_id"] == organization_id &&
-              !hit["_source"]["total_budget"].to_f.zero?
+            hit["_source"]["organization_id"] == organization_id && hit_value.positive?
           end
         end.flatten
 

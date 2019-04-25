@@ -10,7 +10,7 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
       conditions.merge!({level: 1})
     end
 
-    @budget_lines = budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions)
+    @budget_lines = budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions, updated_forecast: true)
 
     if !request.format.json? && @parent_code && @parent_code.length >= 1
       @budget_lines = expand_children(@budget_lines, conditions)
@@ -27,7 +27,7 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
   def expand_children(budget_lines, conditions)
     budget_lines.concat(budget_lines.map do |budget_line|
       if budget_line.level < 4
-        expand_children(GobiertoBudgets::BudgetLine.all(where: conditions.merge(parent_code: budget_line.code)), conditions)
+        expand_children(GobiertoBudgets::BudgetLine.all(where: conditions.merge(parent_code: budget_line.code), updated_forecast: true), conditions)
       end
     end.flatten.compact)
   end

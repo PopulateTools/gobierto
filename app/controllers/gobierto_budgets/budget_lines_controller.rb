@@ -3,7 +3,7 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
   before_action :check_elaboration, only: [:show]
 
   def index
-    load_place_budget_lines
+    @place_budget_lines = updated_forecast(level: @level)
     @sample_budget_lines = GobiertoBudgets::TopBudgetLine.limit(20).where(site: current_site, year: @year, kind: @kind).all.sample(3)
 
     @any_custom_income_budget_lines  = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area: GobiertoBudgets::CustomArea)
@@ -17,19 +17,15 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
   end
 
   def show
-    @budget_line = GobiertoBudgets::BudgetLine.first(where: { site: current_site, code: @code, year: @year, kind: @kind, area_name: @area_name })
+    @budget_line = GobiertoBudgets::BudgetLine.first(where: common_params.merge(code: @code))
+
     if @budget_line.level > 1
-      @parent_budget_line = GobiertoBudgets::BudgetLine.first(where: { site: current_site, code: @budget_line.parent_code, year: @year, kind: @kind, area_name: @area_name })
+      @parent_budget_line = GobiertoBudgets::BudgetLine.first(where: common_params.merge(code: @budget_line.parent_code))
     end
+
     @budget_line_stats = GobiertoBudgets::BudgetLineStats.new(site: @site, budget_line: @budget_line)
-    @budget_line_descendants = GobiertoBudgets::BudgetLine.all(where: { site: current_site, parent_code: @code, year: @year, kind: @kind, area_name: @area_name })
-    if GobiertoBudgets::FunctionalArea.area_name == @area_name
-      @budget_line_composition = GobiertoBudgets::BudgetLine.all(where: { site: current_site, functional_code: @code, year: @year, kind: @kind, area_name: @area_name })
-    elsif GobiertoBudgets::CustomArea.area_name == @area_name
-      @budget_line_composition = GobiertoBudgets::BudgetLine.all(where: { site: current_site, custom_code: @code, year: @year, kind: @kind, area_name: @area_name })
-    else
-      @budget_line_composition = []
-    end
+    @budget_line_descendants = updated_forecast(parent_code: @code)
+    @budget_line_composition = budget_line_composition
 
     respond_to do |format|
       format.html
@@ -63,13 +59,22 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
     end
   end
 
-  def load_place_budget_lines
-    base_params = { site: current_site, level: @level, year: @year, kind: @kind, area_name: @area_name }
+  def common_params
+    { site: current_site, year: @year, kind: @kind, area_name: @area_name }
+  end
 
-    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: base_params.merge(index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated))
+  def updated_forecast(params = {})
+    GobiertoBudgets::BudgetLine.all(where: common_params.merge(params), updated_forecast: true)
+  end
 
-    if @place_budget_lines.empty?
-      @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: base_params)
+  def budget_line_composition
+    case @area_name
+    when GobiertoBudgets::FunctionalArea.area_name
+      updated_forecast(functional_code: @code)
+    when GobiertoBudgets::CustomArea.area_name
+      updated_forecast(custom_code: @code)
+    else
+      []
     end
   end
 

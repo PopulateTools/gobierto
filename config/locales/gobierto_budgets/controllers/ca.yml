@@ -4,13 +4,8 @@ ca:
     gobierto_budgets:
       api:
         data:
-          budgets_execution_header: Desviació de les %{kind} el %{year}
           expense: Despesa
-          expense_down: S'ha gastat un %{percentage}% (%{diff}) menys del planejat
-          expense_up: S'ha gastat un %{percentage}% (%{diff}) més del planejat
           income: Ingrés
-          income_down: S'ha ingressat un %{percentage}% (%{diff}) menys del planejat
-          income_up: S'ha ingressat un %{percentage}% (%{diff}) més del planejat
       budgets_execution:
         index:
           alert: No hi ha dades disponibles el %{year} així que et mostrem el primer

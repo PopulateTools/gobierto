@@ -4,13 +4,8 @@ en:
     gobierto_budgets:
       api:
         data:
-          budgets_execution_header: Deviation of %{kind} in %{year}
           expense: Expense
-          expense_down: It was spent %{percentage}% (%{diff}) less than planned
-          expense_up: It was spent %{percentage}% (%{diff}) more than planned
           income: Income
-          income_down: It was earnt %{percentage}% (%{diff}) less than planned
-          income_up: It was earnt %{percentage}% (%{diff}) more than planned
       budgets_execution:
         index:
           alert: There's no data for %{year} so we are showing you the first year

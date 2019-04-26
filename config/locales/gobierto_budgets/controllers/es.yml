@@ -4,13 +4,8 @@ es:
     gobierto_budgets:
       api:
         data:
-          budgets_execution_header: Desviación de los %{kind} en %{year}
           expense: Gasto
-          expense_down: Se ha gastado un %{percentage}% (%{diff}) menos de lo planeado
-          expense_up: Se ha gastado un %{percentage}% (%{diff}) más de lo planeado
           income: Ingreso
-          income_down: Se ha ingresado un %{percentage}% (%{diff}) menos de lo planeado
-          income_up: Se ha ingresado un %{percentage}% (%{diff}) más de lo planeado
       budgets_execution:
         index:
           alert: No hay datos disponibles en %{year} así que te mostramos el primer

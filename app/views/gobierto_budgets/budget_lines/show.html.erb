@@ -71,10 +71,14 @@
         <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.planned_per_inhabitant_tooltip') %>" data-box="planned_per_inhabitant">
           <div class="inner">
             <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.planned_per_inhabitant') %></h3>
-            <div class="metric"><%= number_to_currency @budget_line_stats.amount_per_inhabitant, precision: 2 %></div>
+
+            <div class="metric">
+              <%= number_to_currency(@budget_line_stats.amount_per_inhabitant_updated || @budget_line_stats.amount_per_inhabitant, precision: 2) %>
+            </div>
+
             <% if @budget_line_stats.amount_per_inhabitant_updated.present? %>
               <div class="explanation">
-                <%= kind_literal(@kind, false).capitalize %> <%= t('.planned_per_inhabitant_updated') %>: <%= number_to_currency(@budget_line_stats.amount_per_inhabitant_updated, precision: 2) %>
+                <%= t(".initial_estimate") %>: <%= number_to_currency(@budget_line_stats.amount_per_inhabitant, precision: 2) %>
               </div>
             <% end %>
           </div>
@@ -84,10 +88,14 @@
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.planned_tooltip') %>" data-box="planned">
         <div class="inner">
           <h3><%= kind_literal(@kind, false).capitalize %> <%= planned(@kind) %> </h3>
-          <div class="metric"><%= format_currency @budget_line_stats.amount %></div>
+
+          <div class="metric">
+            <%= format_currency @budget_line_stats.amount_updated || @budget_line_stats.amount %>
+          </div>
+
           <% if @budget_line_stats.amount_updated.present? %>
             <div class="explanation">
-              <%= kind_literal(@kind, false).capitalize %> <%= planned_updated(@kind) %>: <%= format_currency(@budget_line_stats.amount_updated) %>
+               <%= t(".initial_estimate") %>: <%= format_currency(@budget_line_stats.amount) %>
             </div>
           <% end %>
         </div>
@@ -95,20 +103,19 @@
 
       <% unless budget_lines_feedback_active? %>
         <% if !in_elaboration? %>
-          <% planned_executed = @budget_line_stats.amount_updated.present? ? @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_updated, year: @year) : @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year) %>
           <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.real_vs_planned_tooltip') %>" data-box="real_vs_planned">
             <div class="inner">
               <h3><%= t('.real_vs_planned') %></h3>
-              <% if planned_executed %>
-                <div class="metric"><%= planned_executed %></div>
+
+              <% if @budget_line_stats.execution_percentage %>
+                <div class="metric"><%= @budget_line_stats.execution_percentage %></div>
                 <div class="explanation">
                   <%= t('.real_value', kind: kind_literal(@kind, false).capitalize, value: format_currency(@budget_line_stats.amount_executed)) %>
                 </div>
               <% else %>
-                <% planned_executed = @budget_line_stats.amount_updated.present? ? @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_updated, year: @year - 1) : @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year - 1) %>
                 <div class="metric"><span class="not_av"><%= t('.not_available') %></span></div>
                 <div class="explanation">
-                  <%= t('.last_year', year: @year - 1, value: planned_executed) %>
+                  <%= t('.last_year', year: @year - 1, value: @budget_line_stats.execution_percentage(@year - 1)) %>
                 </div>
               <% end %>
             </div>

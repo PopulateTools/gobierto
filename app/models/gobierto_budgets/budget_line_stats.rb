@@ -2,6 +2,9 @@
 
 module GobiertoBudgets
   class BudgetLineStats
+
+    attr_accessor :year
+
     def initialize(options)
       @site = options.fetch :site
       @organization_id = @site.organization_id
@@ -17,8 +20,11 @@ module GobiertoBudgets
     end
     alias amount_planned amount
 
-    def amount_updated(year = nil)
-      budget_line_planned_updated_query(year, "amount")
+    def amount_updated(year = nil, fallback = false)
+      result = budget_line_planned_updated_query(year, "amount")
+      result = amount(year) if fallback && result.nil?
+
+      result
     end
 
     def amount_executed(year = nil)
@@ -36,7 +42,7 @@ module GobiertoBudgets
     def percentage_of_total(year = nil)
       return "" if total_budget.nil?
 
-      diff = amount(year) / total_budget
+      diff = amount_updated(year, true) / total_budget
       if diff
         diff = diff.to_f * 100
 
@@ -73,6 +79,13 @@ module GobiertoBudgets
 
     def mean_province
       mean_province_query(@year, "amount")
+    end
+
+    def execution_percentage(requested_year = year)
+      @execution_percentage ||= begin
+        variable2 = amount_updated ? :amount_updated : :amount_planned
+        percentage_difference(variable1: :amount_executed, variable2: variable2, year: requested_year)
+      end
     end
 
     private

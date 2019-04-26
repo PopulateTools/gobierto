@@ -34,6 +34,7 @@ ca:
         give_your_opinion: Opina sobre aquesta partida
         give_your_opinion_cta: Entens de què va aquesta partida? Et sembla molt, poc?
           Opina
+        initial_estimate: Estimació inicial
         last_year: L'any passat %{value}
         no_description: No hi ha una descripció associada a aquesta partida.
         no_distribution: No hi ha distribució associada a aquesta partida.
@@ -46,7 +47,6 @@ ca:
         planned_per_inhabitant: pres. / hab.
         planned_per_inhabitant_tooltip: Quantitat pressupostada dividida pel nombre
           d'habitants
-        planned_per_inhabitant_updated: pres act. / hab.
         planned_tooltip: Quantitat pressupostada
         raise_hand: Alça la mà
         real_value: "%{kind} real són %{value}"
@@ -391,11 +391,14 @@ ca:
           preveure totes les despeses amb precisió absoluta.
         execution_help: L'execució es la quantitat que finalment s'ha gastat sobre
           el pressupost inicial actualitzat.
+        expenses_executed: Despeses executades
         expenses_planned: Despeses pressupostades
         functional: Funcional
         functional_button: En què es gasta
         higher_execution: Més execució
+        income_executed: Ingressos executats
         income_planned: Ingressos pressupostats
+        initial_estimate: Estimació inicial
         lower_execution: Menys execució
         metric:
           execution:
@@ -403,8 +406,6 @@ ca:
             income_title: Execució d'ingressos
             previous_execution_message: El %{year} l'execució va ser del %{percentage}
         percentage: Percentatge
-        real_expenses: Despeses reals
-        real_income: Ingressos reals
         sort: Ordre
         title: Execució pressupostària
         tooltip_disclaimer: "<strong>Aquesta és una aproximació</strong>. <br /> Al

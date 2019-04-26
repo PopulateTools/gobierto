@@ -34,6 +34,7 @@ es:
         give_your_opinion: Opina sobre esta partida
         give_your_opinion_cta: "¿Entiendes de qué va esta partida? ¿Te parece mucho,
           poco? Opina"
+        initial_estimate: Estimación inicial
         last_year: El año pasado %{value}
         no_description: No hay una descripción asociada a esta partida.
         no_distribution: No hay distribución asociada a esta partida.
@@ -46,7 +47,6 @@ es:
         planned_per_inhabitant: pres. / hab.
         planned_per_inhabitant_tooltip: Cantidad presupuestada dividida por el número
           de habitantes
-        planned_per_inhabitant_updated: pres. act. / hab.
         planned_tooltip: Cantidad presupuestada
         raise_hand: Levanta la mano
         real_value: El %{kind} real son %{value}
@@ -384,11 +384,14 @@ es:
           preveer todos los gastos con precisión absoluta.
         execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre
           el presupuesto inicial actualizado.
+        expenses_executed: Gastos ejecutados
         expenses_planned: Gastos presupuestados
         functional: Functional
         functional_button: En qué se gasta
         higher_execution: Mayor ejecución
+        income_executed: Ingresos ejecutados
         income_planned: Ingresos presupuestados
+        initial_estimate: Estimación inicial
         lower_execution: Menor ejecución
         metric:
           execution:
@@ -396,8 +399,6 @@ es:
             income_title: Ejecución de ingresos
             previous_execution_message: En el %{year} la ejecución fue del %{percentage}
         percentage: Porcentaje
-        real_expenses: Gastos reales
-        real_income: Ingresos reales
         sort: Ordenar
         title: Ejecución presupuestaria
         tooltip_disclaimer: "<strong>Esta es una aproximación</strong>. <br /> A lo

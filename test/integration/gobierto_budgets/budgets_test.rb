@@ -70,7 +70,7 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
     with_current_site(placed_site) do
       visit @path
 
-      within "#popup-year" do
+      within("#popup-year", visible: false) do
         assert has_content?(last_year)
         assert has_content?(last_year - 1)
       end

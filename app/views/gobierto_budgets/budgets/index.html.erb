@@ -32,21 +32,21 @@
     <% cache(["gobierto_budgets/metric_boxes", current_site, I18n.locale, @year]) do %>
       <div class="pure-g metric_boxes">
 
-        <% if @site_stats.has_available_population_data? %>
-          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.expenses_per_inhabitant_tooltip') %>" data-box="expenses_per_inhabitant">
-            <div class="inner">
-              <h3><%= t('.expenses_per_inhabitant') %></h3>
-              <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
-            </div>
-          </div>
+        <% if @site_stats.population_data? %>
+          <%= render("metric_box",
+                title: t(".expenses_per_inhabitant"),
+                value: @site_stats.total_budget_per_inhabitant,
+                tooltip: t(".expenses_per_inhabitant_tooltip"),
+                data_box: "expenses_per_inhabitant"
+              ) %>
         <% end %>
 
-        <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.total_expenses_tooltip') %>" data-box="total_expenses">
-          <div class="inner">
-            <h3><%= t('.total_expenses') %></h3>
-            <div class="metric"><%= format_currency @site_stats.total_budget %></div>
-          </div>
-        </div>
+        <%= render("metric_box",
+              title: t(".total_expenses"),
+              value: @site_stats.total_budget_updated(fallback: true),
+              tooltip: t(".total_expenses_tooltip"),
+              data_box: "total_expenses"
+            ) %>
 
         <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.executed_tooltip') %>" data-box="executed">
           <div class="inner">
@@ -54,12 +54,12 @@
             <% if @site_stats.total_budget_executed %>
               <div class="metric">
                 <%= link_to gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) do %>
-                  <%= format_currency @budgets_execution_summary[:last_expenses_execution] %>
+                  <%= format_currency @budgets_execution_summary.last_expenses.execution %>
                 <% end %>
               </div>
 
               <div class="explanation explanation_bar">
-                <% percentage = @budgets_execution_summary[:expenses_execution_percentage] %>
+                <% percentage = @budgets_execution_summary.expenses_execution_percentage %>
                 <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
                 <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
                 <span><%= t('.executed_percent', percentage: percentage) %></span>
@@ -74,52 +74,56 @@
           </div>
         </div>
 
-        <% if @site_stats.has_available_population_data? %>
-          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.inhabitants_tooltip') %>" data-box="population">
-            <div class="inner">
-              <h3><%= t('.inhabitants') %></h3>
-              <div class="metric"><%= number_with_delimiter @site_stats.latest_available(:population, @year)[:value] %></div>
-              <% if @site_stats.latest_available(:population, @year)[:year] != @year %>
-                <div class="explanation">
-                  <%= t('.data_of_year', year: @site_stats.latest_available(:population, @year)[:year]) %>
-                </div>
-              <% end %>
-            </div>
-          </div>
+        <% if @site_stats.population_data? %>
+
+          <%= render("metric_box",
+              title: t(".inhabitants"),
+              value: @site_stats.latest_available(:population, @year)[:value],
+              value_type: :number,
+              tooltip: t(".inhabitants_tooltip"),
+              data_box: "population",
+              explanation: {
+                if: @site_stats.latest_available(:population, @year)[:year] != @year,
+                text: t('.data_of_year', year: @site_stats.latest_available(:population, @year)[:year])
+              }
+            ) %>
+
         <% else %>
-          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.net_savings_tooltip') %>" data-box="debt">
-            <div class="inner">
-              <h3><%= t('gobierto_budgets.budgets_elaboration.index.net_savings') %></h3>
-              <div class="metric"><%= format_currency @site_stats.net_savings %></div>
-              <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :net_savings) %> vs <%= @year - 1 %></div>
-            </div>
-          </div>
+
+          <%= render("metric_box",
+              title: t("gobierto_budgets.budgets_elaboration.index.net_savings"),
+              value: @site_stats.net_savings,
+              tooltip: t("gobierto_budgets.budgets_elaboration.index.net_savings_tooltip"),
+              data_box: "debt",
+              diff: "#{@site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :net_savings)} vs #{@year - 1}"
+            ) %>
         <% end %>
 
-        <% if @site_stats.has_available_debt_data? %>
-          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.debt_tooltip', of_the_organization_name: @site.determined_organization_name(:of_the)) %>" data-box="debt">
-            <div class="inner">
-              <h3><%= t('.debt') %></h3>
-              <% if (debt = @site_stats.latest_available(:debt, @year)[:value]) %>
-                <div class="metric"><%= format_currency @site_stats.latest_available(:debt, @year)[:value] %></div>
-                <% if @site_stats.latest_available(:debt, @year)[:year] != @year %>
-                  <div class="explanation">
-                    <%= t('.at_years_end', year: @site_stats.latest_available(:debt, @year)[:year])%>
-                  </div>
-                <% end %>
-              <% else %>
-                <div class="metric"><span class="not_av"><%= t('.not_available_short') %></span></div>
-              <% end %>
-            </div>
-          </div>
+        <% if @site_stats.debt_data? %>
+
+          <% debt = @site_stats.latest_available(:debt, @year) %>
+          <% debt_value = debt[:value] %>
+
+          <%= render("metric_box",
+              title: t('.debt'),
+              value: debt_value,
+              tooltip: t(".debt_tooltip", of_the_organization_name: @site.determined_organization_name(:of_the)),
+              data_box: "debt",
+              explanation: {
+                if: debt_value && (debt[:year] != @year),
+                text: t(".at_years_end", year: debt[:year])
+              }
+            ) %>
+
         <% else %>
-          <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.auto_funding_tooltip') %>" data-box="debt">
-            <div class="inner">
-              <h3><%= t('gobierto_budgets.budgets_elaboration.index.auto_funding') %></h3>
-              <div class="metric"><%= @site_stats.auto_funding %> %</div>
-              <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :auto_funding) %> vs <%= @year - 1 %></div>
-            </div>
-          </div>
+          <%= render("metric_box",
+              title: t("gobierto_budgets.budgets_elaboration.index.auto_funding"),
+              value: @site_stats.auto_funding,
+              value_type: :percentage,
+              tooltip: t("gobierto_budgets.budgets_elaboration.index.auto_funding_tooltip"),
+              data_box: "debt",
+              diff: "#{@site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :auto_funding)} vs #{@year - 1}"
+            ) %>
         <% end %>
       </div>
     <% end %>
@@ -257,7 +261,7 @@
     </div>
   <% end %>
 
-  <% if @budgets_execution_summary[:income_execution_percentage] && @budgets_execution_summary[:expenses_execution_percentage] %>
+  <% if @budgets_execution_summary.income_execution_percentage && @budgets_execution_summary.expenses_execution_percentage %>
     <div class="block">
       <h2 class="with_description"><%= t('.execution_block.title') %></h2>
       <div class="pure-g half_description">
@@ -273,8 +277,8 @@
       </div>
 
       <div class="pure-g mega_bars m_v_1">
-        <%= render 'mega_bar', {className: 'income', percentage: @budgets_execution_summary[:income_execution_percentage] } %>
-        <%= render 'mega_bar', {className: 'expense', percentage: @budgets_execution_summary[:expenses_execution_percentage] } %>
+        <%= render 'mega_bar', { className: 'income', percentage: @budgets_execution_summary.income_execution_percentage } %>
+        <%= render 'mega_bar', { className: 'expense', percentage: @budgets_execution_summary.expenses_execution_percentage } %>
 
         <div class="pure-u-1 center m_v_1">
           <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>

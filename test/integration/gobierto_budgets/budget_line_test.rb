@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "factories/budget_line_factory"
 
 class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTest
   def setup
     super
     @path = gobierto_budgets_budget_line_path("1", last_year, GobiertoBudgets::EconomicArea.area_name, GobiertoBudgets::BudgetLine::EXPENSE)
+    @budget_line_factory = BudgetLineFactory.new(year: last_year)
+  end
+
+  def teardown
+    @budget_line_factory.teardown
   end
 
   def placed_site
@@ -32,8 +38,16 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
     ApplicationController.any_instance.stubs(:budget_lines_feedback_active?).returns(true)
   end
 
+  def metric_box(type)
+    ".metric_box[data-box='#{type}']"
+  end
+
+  def default_test_context
+    { site: placed_site, js: true }
+  end
+
   def test_budget_line_information
-    with_each_current_site(placed_site, organization_site) do
+    with(default_test_context) do
       visit @path
 
       assert has_content?("Personal expenses (custom, translated)")
@@ -42,11 +56,25 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
   end
 
   def test_metric_boxes
-    with_each_current_site(placed_site, organization_site) do
+    budget_line_attrs = { organization_id: placed_site.organization_id, population: 10 }
+    amount = 150
+    amount_updated = 200
+    f1 = BudgetLineFactory.new(budget_line_attrs.merge(amount: amount, indexes: [:forecast]))
+    f2 = BudgetLineFactory.new(budget_line_attrs.merge(amount: amount_updated, indexes: [:forecast_updated]))
+
+    with(default_test_context.merge(factories: [f1, f2])) do
       visit @path
 
-      assert has_css?(".metric_box h3", text: "Expense plan. / inh.")
-      assert has_css?(".metric_box h3", text: "Expense planned")
+      within(metric_box(:planned)) do
+        assert has_content?("Expense planned\n#{amount_updated}")
+        assert has_content?("Initial estimate: #{amount}")
+      end
+
+      within(metric_box(:planned_per_inhabitant)) do
+        assert has_content?("Expense plan. / inh.\n20.00")
+        assert has_content?("Initial estimate: 15.00")
+      end
+
       assert has_css?(".metric_box h3", text: "% execution")
       assert has_css?(".metric_box h3", text: "% over the total")
       assert has_css?(".metric_box h3", text: "Avg. expense in the province")
@@ -65,86 +93,79 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
   def test_request_more_information_and_subscribe
     enable_budget_line_feedback
 
-    with_javascript do
-      with_current_site(placed_site) do
-        visit @path
+    with(default_test_context) do
+      visit @path
 
-        click_link "Ask your #{placed_site.organization_name}"
+      click_link "Ask your #{placed_site.organization_name}"
 
-        within("#load_ask_more_information") do
-          fill_in :email, with: "user@email.com"
-        end
-
-        click_button "Send"
-
-        assert has_content? subscription_ack_message
+      within("#load_ask_more_information") do
+        fill_in :email, with: "user@email.com"
       end
+
+      click_button "Send"
+
+      assert has_content? subscription_ack_message
     end
   end
 
   def test_request_more_information_and_subscribe_as_spam
     enable_budget_line_feedback
 
-    with_javascript do
-      with_current_site(placed_site) do
-        visit @path
+    with(default_test_context.merge(js: :deprecated)) do
+      visit @path
 
-        click_link "Ask your #{placed_site.organization_name}"
+      click_link "Ask your #{placed_site.organization_name}"
 
-        within("#load_ask_more_information") do
-          fill_in :email, with: "spam@email.com"
-          find("#ic_email", visible: false).set("spam@email.com")
-        end
+      within("#load_ask_more_information") do
+        fill_in :email, with: "spam@email.com"
 
-        click_button "Send"
-
-        assert has_no_content?(subscription_ack_message)
+        find("#ic_email", visible: false).set("spam@email.com")
       end
+
+      click_button "Send"
+
+      assert has_no_content?(subscription_ack_message)
     end
   end
 
   def test_send_feedback_and_subscribe
     enable_budget_line_feedback
 
-    with_javascript do
-      with_current_site(placed_site) do
-        visit @path
+    with(default_test_context) do
+      visit @path
 
-        click_link "Raise your hand"
+      click_link "Raise your hand"
 
-        within(".yes_no") { click_link "No" }
+      within(".yes_no") { click_link "No" }
 
-        assert has_content? feedback_ack_message
+      assert has_content? feedback_ack_message
 
-        fill_in :email, with: "user@email.com"
+      fill_in :email, with: "user@email.com"
 
-        click_button "Follow"
+      click_button "Follow"
 
-        assert has_content? subscription_ack_message
-      end
+      assert has_content? subscription_ack_message
     end
   end
 
   def test_send_feedback_and_subscribe_as_spam
     enable_budget_line_feedback
 
-    with_javascript do
-      with_current_site(placed_site) do
-        visit @path
+    with(default_test_context.merge(js: :deprecated)) do
+      visit @path
 
-        click_link "Raise your hand"
+      click_link "Raise your hand"
 
-        within(".yes_no") { click_link "No" }
+      within(".yes_no") { click_link "No" }
 
-        assert has_content? feedback_ack_message
+      assert has_content? feedback_ack_message
 
-        fill_in :email, with: "spam@email.com"
-        find("#ic_email", visible: false).set("spam@email.com")
+      fill_in :email, with: "spam@email.com"
+      find("#ic_email", visible: false).set("spam@email.com")
 
-        click_button "Follow"
+      click_button "Follow"
 
-        assert has_no_content?(subscription_ack_message)
-      end
+      assert has_no_content?(subscription_ack_message)
     end
   end
 

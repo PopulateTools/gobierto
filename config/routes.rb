@@ -379,7 +379,6 @@ Rails.application.routes.draw do
           get "/data/widget/budget_per_inhabitant/:organization_id/:year/:code/:area/:kind" => "data#budget_per_inhabitant", as: :data_budget_per_inhabitant
           get "/data/lines/:organization_id/:year/:what" => "data#lines", as: :data_lines
           get "/data/lines/budget_line/:organization_id/:year/:what/:kind/:code/:area" => "data#lines", as: :data_lines_budget_line
-          get "/data/widget/budget_execution_deviation/:organization_id/:year/:kind" => "data#budget_execution_deviation", as: :data_budget_execution_deviation
           get "/data/widget/budget_execution_comparison/:organization_id/:year/:kind/:area" => "data#budget_execution_comparison", as: :data_budget_execution_comparison
         end
       end

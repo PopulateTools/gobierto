@@ -38,6 +38,8 @@ require "minitest/reporters"
 require "spy/integration"
 require "webmock/minitest"
 require "support/common_helpers"
+require "support/contexts"
+require "support/drivers"
 require "support/session_helpers"
 require "support/site_session_helpers"
 require "support/app_host_helpers"
@@ -117,33 +119,6 @@ class ActionDispatch::IntegrationTest
   include FileUploaderHelpers
   include GobiertoPeople::SubmodulesHelper
 
-  Capybara.register_driver :poltergeist_custom do |app|
-    Capybara::Poltergeist::Driver.new(
-      app,
-      timeout: 300,
-      inspector: ENV["INTEGRATION_INSPECTOR"] == "true",
-      debug: ENV["INTEGRATION_DEBUG"] == "true",
-      window_size: [1920, 6000]
-    )
-  end
-
-  # For debugging in development
-  Capybara.register_driver :chrome do |app|
-    Capybara::Selenium::Driver.new(app, browser: :chrome)
-  end
-
-  Capybara.register_driver :headless_chrome do |app|
-    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: { args: %w(headless disable-gpu) }
-    )
-
-    Capybara::Selenium::Driver.new(
-      app,
-      browser: :chrome,
-      desired_capabilities: capabilities
-    )
-  end
-
   Capybara.javascript_driver = :poltergeist_custom
   Capybara.default_host = "http://gobierto.test"
 
@@ -156,29 +131,6 @@ class ActionDispatch::IntegrationTest
 
   def teardown
     Capybara.reset_session!
-  end
-
-  def with_chrome_driver
-    Capybara.current_driver = :headless_chrome
-    yield
-    Capybara.reset_session!
-  ensure
-    Capybara.current_driver = Capybara.default_driver
-  end
-
-  def with_javascript
-    Capybara.current_driver = Capybara.javascript_driver
-    yield
-    Capybara.reset_session!
-  ensure
-    Capybara.current_driver = Capybara.default_driver
-  end
-
-  def with_hidden_elements
-    Capybara.ignore_hidden_elements = false
-    yield
-  ensure
-    Capybara.ignore_hidden_elements = true
   end
 
   def javascript_driver?

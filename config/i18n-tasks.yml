@@ -11,6 +11,7 @@ search:
     - app/
     - vendor/auth_strategies/
   relative_roots:
+    - app/cells
     - app/controllers
     - app/helpers
     - app/mailers
@@ -26,6 +27,7 @@ ignore_missing:
   - 'gobierto_budgets.budgets.cards.*'
   - 'gobierto_budgets.budgets.index_old.*'
   - 'gobierto_budgets.budgets.guide.*'
+  - 'gobierto_budgets.budgets_execution.metric_box_cell.*'
   - 'gobierto_budgets.invoices.show.table.fields.*'
   - 'grammatical_particles.*'
   - 'gobierto_common.visualizations.cards.*'
@@ -52,6 +54,7 @@ ignore_unused:
   - 'gobierto_budgets.budgets.index.*'
   - 'gobierto_budgets.budgets_execution.*'
   - 'gobierto_budgets.invoices.show.*'
+  - 'gobierto_budgets.budgets_execution.metric_box_cell.*'
   - 'gobierto_people.activities.gobierto_people_person*'
   - 'invisible_captcha.*'
   - '*.events.*'

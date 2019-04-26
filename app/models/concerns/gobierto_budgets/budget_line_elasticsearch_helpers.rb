@@ -103,6 +103,7 @@ module GobiertoBudgets
         conditions = params[:where]
         includes = params[:include]
         presenter = params[:presenter] || BudgetLinePresenter
+        updated_forecast = params[:updated_forecast] || false
         validate_conditions(conditions)
 
         terms = [
@@ -157,9 +158,19 @@ module GobiertoBudgets
 
         area = BudgetArea.klass_for(conditions[:area_name])
 
-        index = conditions[:index] || GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+        default_index = SearchEngineConfiguration::BudgetLine.index_forecast
+
+        index = if updated_forecast
+                  SearchEngineConfiguration::BudgetLine.index_forecast_updated
+                else
+                  conditions[:index] || default_index
+                end
 
         response = SearchEngine.client.search(index: index, type: area.area_name, body: query)
+
+        if updated_forecast && response["hits"]["hits"].empty?
+          response = SearchEngine.client.search(index: default_index, type: area.area_name, body: query)
+        end
 
         included_attrs = {}
         if includes.present?
@@ -186,7 +197,7 @@ module GobiertoBudgets
       end
 
       def search(options)
-
+        updated_forecast = options.delete(:updated_forecast)
         terms = [{term: { kind: options[:kind] }},
                 {term: { year: options[:year] }}]
 
@@ -220,7 +231,14 @@ module GobiertoBudgets
           size: 10_000
         }
 
-        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast, type: (options[:type] || EconomicArea.area_name), body: query
+        default_index = SearchEngineConfiguration::BudgetLine.index_forecast
+        index = updated_forecast ? SearchEngineConfiguration::BudgetLine.index_forecast_updated : default_index
+
+        response = SearchEngine.client.search(index: index, type: (options[:type] || EconomicArea.area_name), body: query)
+
+        if updated_forecast && response["hits"]["hits"].empty?
+          response = SearchEngine.client.search(index: default_index, type: (options[:type] || EconomicArea.area_name), body: query)
+        end
 
         return {
           'hits' => response['hits']['hits'].map{ |h| h['_source'] },
@@ -228,119 +246,8 @@ module GobiertoBudgets
         }
       end
 
-      def for_ranking(options)
-        response = budget_line_query(options)
-        results = response['hits']['hits'].map{|h| h['_source']}
-        total_elements = response['hits']['total']
-
-        return results, total_elements
-      end
-
-      def place_position_in_ranking(options)
-        id = %w{organization_id year code kind}.map {|f| options[f.to_sym]}.join('/')
-
-        response = budget_line_query(options.merge(to_rank: true))
-        buckets = response['hits']['hits'].map{|h| h['_id']}
-        position = buckets.index(id) ? buckets.index(id) + 1 : 0;
-        return position
-      end
-
-      def budget_line_query(options)
-
-        terms = [
-          {term: { year: options[:year] }},
-          {term: { kind: options[:kind] }},
-          {term: { code: options[:code] }}
-        ]
-
-        if options[:filters].present?
-          population_filter =  options[:filters][:population]
-          total_filter = options[:filters][:total]
-          per_inhabitant_filter = options[:filters][:per_inhabitant]
-          aarr_filter = options[:filters][:aarr]
-        end
-
-        if (population_filter && (population_filter[:from].to_i > Population::FILTER_MIN || population_filter[:to].to_i < Population::FILTER_MAX))
-          reduced_filter = {population: population_filter}
-          reduced_filter.merge!(aarr: aarr_filter) if aarr_filter
-          results,total_elements = Population.for_ranking(options[:year], 0, nil, reduced_filter)
-          organization_ids = results.map{|p| p['organization_id']}
-          terms << [{terms: { organization_id: organization_id }}] if organization_ids.any?
-        end
-
-        if (total_filter && (total_filter[:from].to_i > BudgetTotal::TOTAL_FILTER_MIN || total_filter[:to].to_i < BudgetTotal::TOTAL_FILTER_MAX))
-          terms << {range: { amount: { gte: total_filter[:from].to_i, lte: total_filter[:to].to_i} }}
-        end
-
-        if (per_inhabitant_filter && (per_inhabitant_filter[:from].to_i > BudgetTotal::PER_INHABITANT_FILTER_MIN || per_inhabitant_filter[:to].to_i < BudgetTotal::PER_INHABITANT_FILTER_MAX))
-          terms << {range: { amount_per_inhabitant: { gte: per_inhabitant_filter[:from].to_i, lte: per_inhabitant_filter[:to].to_i} }}
-        end
-
-        terms << {term: { autonomy_id: aarr_filter }}  unless aarr_filter.blank?
-
-        query = {
-          sort: [ { options[:variable].to_sym => { order: 'desc' } } ],
-          query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms,
-                  must_not: {
-                    exists: {
-                      field: "functional_code",
-                    },
-                  },
-                  must_not: {
-                    exists: {
-                      field: "custom_code",
-                    }
-                  }
-                }
-              }
-            }
-          },
-          size: 10_000
-        }
-
-        query.merge!(size: options[:per_page]) if options[:per_page].present?
-        query.merge!(from: options[:offset]) if options[:offset].present?
-        query.merge!(_source: false) if options[:to_rank]
-
-        SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast, type: options[:area_name], body: query
-      end
-
       def find(options)
         return self.search(options)['hits'].detect{|h| h['code'] == options[:code] }
-      end
-
-      def compare(options)
-        terms = [{terms: { organization_id: options[:organization_ids] }},
-                 {term: { level: options[:level] }},
-                 {term: { kind: options[:kind] }},
-                 {term: { year: options[:year] }}]
-
-        terms << {term: { parent_code: options[:parent_code] }} if options[:parent_code].present?
-        terms << {term: { code: options[:code] }} if options[:code].present?
-
-        query = {
-          sort: [
-            { code: { order: 'asc' } },
-            { organization_id: { order: 'asc' }}
-          ],
-          query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
-            }
-          },
-          size: 10_000
-        }
-
-        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast, type: options[:type] , body: query
-        response['hits']['hits'].map{ |h| h['_source'] }
       end
 
       def has_children?(options)
@@ -349,45 +256,6 @@ module GobiertoBudgets
         conditions.merge! options.slice(:organization_id,:kind,:year)
 
         return search(conditions)['hits'].length > 0
-      end
-
-      def top_differences(options)
-        terms = [{term: { kind: options[:kind] }}, {term: { year: options[:year] }}, {term: { level: 3 }}]
-        terms << {term: { organization_id: options[:organization_id] }} if options[:organization_id].present?
-        terms << {term: { code: options[:code] }} if options[:code].present?
-
-        query = {
-          sort: [
-            { code: { order: 'asc' } }
-          ],
-          query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
-            }
-          },
-          size: 10_000
-        }
-
-        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast, type: (options[:type] || EconomicArea.area_name), body: query
-
-        planned_results = response['hits']['hits'].map{ |h| h['_source'] }
-
-        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_executed, type: (options[:type] || EconomicArea.area_name), body: query
-
-        executed_results = response['hits']['hits'].map{ |h| h['_source'] }
-
-        results = {}
-        planned_results.each do |p|
-          if e = executed_results.detect{|e| e['code'] == p['code']}
-            results[p['code']] = [p['amount'], e['amount'], ((e['amount'].to_f - p['amount'].to_f)/p['amount'].to_f) * 100]
-          end
-        end
-
-        return results.sort{ |b, a| a[1][2] <=> b[1][2] }[0..15], results.sort{ |a, b| a[1][2] <=> b[1][2] }[0..15]
       end
 
       def validate_conditions(conditions)

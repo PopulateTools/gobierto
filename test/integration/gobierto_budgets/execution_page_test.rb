@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "factories/budget_line_factory"
+require "factories/total_budget_factory"
 
-class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
+class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
   def setup
     super
     @path = gobierto_budgets_budgets_execution_path(last_year)
@@ -20,11 +22,61 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
     Date.today.year - 1
   end
 
-  def test_execution_information
-    with_each_current_site(placed_site, organization_site) do
+  def budget_execution_graph_lines
+    all("a.line")
+  end
+
+  def budget_graph_filters
+    all(".inline_filter button").map(&:text)
+  end
+
+  def income_summary_box
+    find(".metric_box:first-of-type").text
+  end
+
+  def expenses_summary_box
+    find(".metric_box:nth-of-type(2)").text
+  end
+
+  def test_execution_summary_boxes
+    f1 = TotalBudgetFactory.new(year: last_year)
+    f2 = TotalBudgetFactory.new(year: last_year, kind: GobiertoData::GobiertoBudgets::INCOME)
+
+    with(factories: [f1, f2], js: true) do
+      with_current_site(placed_site) do
+        visit @path
+
+        assert has_content?("BUDGET EXECUTION")
+
+        assert income_summary_box.include? "Planned income"
+        assert income_summary_box.include? "Initial estimate"
+        assert income_summary_box.include? "Executed income"
+
+        assert expenses_summary_box.include? "Planned expenses"
+        assert expenses_summary_box.include? "Initial estimate"
+        assert expenses_summary_box.include? "Executed expenses"
+      end
+    end
+  end
+
+  def test_execution_graphs
+    f1 = BudgetLineFactory.new(year: last_year, area: GobiertoData::GobiertoBudgets::CUSTOM_AREA_NAME)
+    f2 = BudgetLineFactory.new(year: last_year, area: GobiertoData::GobiertoBudgets::CUSTOM_AREA_NAME, kind: GobiertoData::GobiertoBudgets::INCOME)
+
+    with(site: placed_site, js: true, factories: [f1, f2]) do
       visit @path
 
-      assert has_content?("Budget execution")
+      within("#expenses-execution") do
+        assert has_content?("EXPLORE THE EXECUTION OF THE EXPENSES")
+        assert budget_execution_graph_lines.count.positive?
+        assert budget_graph_filters.include? "CUSTOM"
+      end
+
+      within("#income-execution") do
+        assert has_content?("EXPLORE THE EXECUTION OF THE INCOME")
+        assert budget_execution_graph_lines.count.positive?
+        assert budget_graph_filters.include? "CUSTOM"
+      end
     end
   end
 

@@ -34,6 +34,7 @@ en:
         give_your_opinion: Give your opinion about this budget line
         give_your_opinion_cta: Do you understand this budget line? Do you think it's
           enough, too much? Give your opinion
+        initial_estimate: Initial estimate
         last_year: Last year %{value}
         no_description: There's no description for this budget line.
         no_distribution: There aren't any related budget lines.
@@ -45,7 +46,6 @@ en:
         planned_female: planned
         planned_per_inhabitant: plan. / inh.
         planned_per_inhabitant_tooltip: Budgeted amount divided by the inhabitants
-        planned_per_inhabitant_updated: plan. upd. / inh.
         planned_tooltip: Budgeted amount
         raise_hand: Raise your hand
         real_value: Real %{kind} is %{value}
@@ -371,11 +371,14 @@ en:
         execution_disclaimer: It's very common to have deviatiatons, due to the difficulty
           of foreseeing the expenses.
         execution_help: The execution is the amount spent based on the planned budget.
+        expenses_executed: Executed expenses
         expenses_planned: Planned expenses
         functional: functional
         functional_button: In what is spent
         higher_execution: Higher execution
+        income_executed: Executed income
         income_planned: Planned income
+        initial_estimate: Initial estimate
         lower_execution: Lower execution
         metric:
           execution:
@@ -383,8 +386,6 @@ en:
             income_title: Execution of income
             previous_execution_message: In %{year} execution reached %{percentage}
         percentage: Percentage
-        real_expenses: Real expenses
-        real_income: Real income
         sort: Sort
         title: Budget execution
         tooltip_disclaimer: "<strong>This is approximate</strong>. <br /> Throughout

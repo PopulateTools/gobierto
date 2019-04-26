@@ -3,9 +3,17 @@
 module GobiertoAdmin
   module GobiertoPlans
     class PlansController < GobiertoAdmin::GobiertoPlans::BaseController
+      before_action -> { module_allowed_action!(current_admin, current_admin_module, :manage) }, except: [:index, :plan]
+
       def index
         @plans = current_site.plans.sort_by_updated_at
         @archived_plans = current_site.plans.only_archived.sort_by_updated_at
+      end
+
+      def plan
+        @plan = find_plan
+        @vocabulary = @plan.categories_vocabulary
+        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: BaseTermDecorator, options: { plan: @plan })
       end
 
       def new
@@ -24,16 +32,6 @@ module GobiertoAdmin
         @plan_form = PlanForm.new(
           @plan.attributes.except(*ignored_plan_attributes).merge(site_id: current_site.id)
         )
-      end
-
-      def data
-        @plan = find_plan
-        if @plan.categories.exists?
-          @categories_list = (0..@plan.categories.maximum(:level)).map do |level|
-            @plan.categories.where(level: level).map { |cat| { id: cat.id.to_s, name: cat.name } }.unshift(id: nil, name: nil)
-          end
-          @categories_vocabulary = ActiveModelSerializers::SerializableResource.new(@plan.categories, each_serializer: GobiertoAdmin::GobiertoPlans::CategorySerializer).serializable_hash
-        end
       end
 
       def create
@@ -109,7 +107,7 @@ module GobiertoAdmin
         @plan = find_plan
         if params[:plan].blank?
           redirect_to(
-            admin_plans_plan_data_path(@plan),
+            admin_plans_plan_import_csv_path(@plan),
             alert: t(".missing_file")
           ) and return
         end
@@ -185,6 +183,15 @@ module GobiertoAdmin
 
       def find_plan_types
         current_site.plan_types.all.collect { |plan_type| [plan_type.name, plan_type.id] }
+      end
+
+      def tree(relation, level = 0)
+        level_relation = relation.where(level: level).order(position: :asc)
+        return [] if level_relation.blank?
+
+        level_relation.where(level: level).map do |node|
+          [node, tree(node.terms, level + 1)]
+        end.to_h
       end
     end
   end

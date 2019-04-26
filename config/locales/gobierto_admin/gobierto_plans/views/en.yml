@@ -2,6 +2,13 @@
 en:
   gobierto_admin:
     gobierto_plans:
+      categories:
+        calculated_headers:
+          items: Items
+          progress: Progress
+        plan_summary:
+          global_progress: Global progress
+          projects: Projects
       plan_types:
         edit:
           title: Edit plan type
@@ -18,36 +25,11 @@ en:
         new:
           title: New plan type
       plans:
-        data:
-          cancel_edit: Cancel edition
-          category: Level
-          delete: Delete
-          delete_confirm: Are you sure?
-          edit: Edit
-          ends_at: End
-          errors:
-            missing_category: All category levels must be selected
-            missing_name: The project name can't be empty
-          export_csv: Export to CSV
-          import_csv: Import from CSV
-          insert: Create
-          insert_switch: Add...
-          invalid_message: Invalid data entered
-          load_message: Please, wait...
-          name: Project
-          new: New node
-          no_available_categories: No categories was found. Please, define a vocabulary
-            with terms or import data from CSV.
-          not_found: No nodes were found
-          options: Options
-          progress: "% progress"
-          starts_at: Start
-          status: Status
-          title: Data
-          update: Update
         edit:
           title: Configuration
         form:
+          export_csv: Export to CSV
+          import_csv: Import from CSV
           placeholders:
             configuration_data: '{ "open_node": true }'
             css: ".gobierto_planification section.level_0 .cat_1 { background-color:
@@ -92,8 +74,47 @@ en:
             published: Published
         new:
           title: New plan
+      projects:
+        filter_form:
+          author: Autor
+          category: Category
+          filter: Filter
+          interval: Date interval
+          progress: Progress
+          search: Search...
+          submit: Filter
+        filters_row:
+          admin_actions: Permissions
+          admin_actions_value:
+            can_edit: You can edit
+            owned: Your projects
+          all: All
+          moderation_stage: Moderation
+          moderation_stage_value:
+            approved: Approved
+            blank: Without moderation
+            in_review: Under review
+            not_sent: Not sent
+            rejected: Rejected
+            sent: Sent
+          total: Total
+        form:
+          placeholders:
+            name: Project title
+            status: Pending to start
+        index:
+          headers:
+            progress: Progress
+            project: Project
+            status: Status
+            updated: Updated
+          new: New
+          title: Projecs of %{name}
+          view: View item
+        new:
+          title: New project
       shared:
         navigation:
           configuration_tab: Configuration
-          data_tab: Data
-          import_csv_tab: Import CSV
+          plan_terms_tab: Plan
+          projects_tab: Projects

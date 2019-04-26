@@ -37,7 +37,7 @@ module GobiertoAdmin
           track_create_activity
 
           redirect_to(
-            admin_common_vocabulary_terms_path(@vocabulary),
+            index_path,
             notice: t(".success")
           )
         else
@@ -57,7 +57,7 @@ module GobiertoAdmin
           track_update_activity
 
           redirect_to(
-            admin_common_vocabulary_terms_path(@term.vocabulary),
+            index_path,
             notice: t(".success")
           )
         else
@@ -71,9 +71,15 @@ module GobiertoAdmin
         @term = find_term
 
         if current_site.processes.where(issue: @term).blank? && @term.destroy
-          redirect_to admin_common_vocabulary_terms_path(@term.vocabulary), notice: t(".success")
+          redirect_to(
+            index_path,
+            notice: t(".success")
+          )
         else
-          redirect_to admin_common_vocabulary_terms_path(@term.vocabulary), alert: t(".destroy_failed")
+          redirect_to(
+            index_path,
+            alert: t(".destroy_failed")
+          )
         end
       end
 
@@ -81,6 +87,10 @@ module GobiertoAdmin
 
       def find_vocabulary
         params[:vocabulary_id] ? current_site.vocabularies.find(params[:vocabulary_id]) : nil
+      end
+
+      def index_path
+        admin_common_vocabulary_terms_path(@vocabulary || @term.vocabulary)
       end
 
       def track_create_activity

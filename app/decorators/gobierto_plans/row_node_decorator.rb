@@ -49,10 +49,13 @@ module GobiertoPlans
     def node
       @node ||= begin
                   return nil if node_data.compact.blank?
+
                   category = CategoryTermDecorator.new(categories.last)
                   (category.nodes.where("#{ nodes_table_name }.name_translations @> ?::jsonb", { locale => node_data["Title"] }.to_json).first || category.nodes.new).tap do |node|
                     node.assign_attributes node_attributes
                     node.progress = progress_from_status(node.status) unless has_progress_column?
+                    node.visibility_level = :published
+                    node.build_moderation(stage: :approved)
                     node.categories << category unless node.categories.include?(category)
                   end
                 end
@@ -85,6 +88,7 @@ module GobiertoPlans
 
     def progress_from_status(status)
       return if status.blank?
+
       status = status.strip.downcase
       key = STATUS_TRANSLATIONS.keys.find { |k| k.include?(status) }
       STATUS_TRANSLATIONS[key]

@@ -31,6 +31,18 @@ class TermTest < ActiveSupport::TestCase
     @site ||= sites(:madrid)
   end
 
+  def mammal
+    @mammal ||= gobierto_common_terms(:mammal)
+  end
+
+  def cat
+    @cat ||= gobierto_common_terms(:cat)
+  end
+
+  def dog
+    @dog ||= gobierto_common_terms(:dog)
+  end
+
   def test_valid
     assert root_level_term.valid?
     assert dependent_level_term.valid?
@@ -64,5 +76,42 @@ class TermTest < ActiveSupport::TestCase
 
   def test_destroy_of_term_without_dependencies
     assert term_without_dependencies.destroy
+  end
+
+  def test_update_parents_and_positions_to_root_level
+    positions_from_params = { "0" => [ term_without_dependencies.id, mammal ] }
+
+    assert GobiertoCommon::Term.update_parents_and_positions(positions_from_params)
+    term_without_dependencies.reload
+    assert_equal 0, term_without_dependencies.level
+    assert_equal 0, term_without_dependencies.position
+    assert_nil term_without_dependencies.term_id
+
+    mammal.reload
+    assert_equal 1, mammal.position
+  end
+
+  def test_update_parents_and_positions_reorder
+    positions_from_params = { "0" => [ term_without_dependencies.id, mammal ], mammal.id.to_s => [cat.id, dog.id] }
+
+    assert GobiertoCommon::Term.update_parents_and_positions(positions_from_params)
+
+    cat.reload
+    assert_equal 0, cat.position
+    dog.reload
+    assert_equal 1, dog.position
+  end
+
+  def test_update_parents_and_positions_update_parent
+    positions_from_params = { "0" => [ term_without_dependencies.id, mammal ], term_without_dependencies.id.to_s => [cat.id, dog.id] }
+
+    assert GobiertoCommon::Term.update_parents_and_positions(positions_from_params)
+
+    cat.reload
+    assert_equal 0, cat.position
+    assert_equal term_without_dependencies, cat.parent_term
+    dog.reload
+    assert_equal 1, dog.position
+    assert_equal term_without_dependencies, dog.parent_term
   end
 end

@@ -1,6 +1,19 @@
 madrid_group:
   name: global
   site: madrid
+
 santander_group:
   name: global
   site: santander
+
+madrid_manage_plans_group:
+  name: madrid manage plans group
+  site: madrid
+
+madrid_edit_plans_group:
+  name: madrid edit plans group
+  site: madrid
+
+madrid_moderate_plans_group:
+  name: madrid moderate plans group
+  site: madrid

@@ -64,12 +64,16 @@ module GobiertoPlans
       assert_equal csv_input.by_row[0]["Node.TimePeriod"], first_node.options["TimePeriod"]
       assert_equal csv_input.by_row[0]["Node.Priority"], first_node.options["Priority"]
       assert_equal csv_input.by_row[0]["Node.Custom Field 1"], first_node.options["Custom Field 1"]
+      assert first_node.published?
+      assert first_node.moderation.approved?
      end
 
     def test_sample_csv_import
       GobiertoAdmin::GobiertoPlans::PlanDataForm.new(csv_file: sample_import_csv_file, plan: plan).save
 
       assert_equal 2, plan.categories_vocabulary.terms.where(level: 2).with_name_translation("76. Avaluar les poítiques d'Igualtat mitjançant un sistema d'indicadors de gènere").count
+      refute plan.nodes.draft.exists?
+      assert_equal plan.nodes.count, plan.nodes.with_moderation_stage(:approved).count
     end
   end
 end

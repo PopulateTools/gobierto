@@ -1,15 +1,21 @@
+<% project_policy = GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(current_admin: current_admin, current_site: current_site, project: @plan.nodes.new) %>
+
 <div class="tabs">
   <ul>
-    <li class="<%= class_if('active', controller.action_name == 'edit') %>">
+    <% if @plan.categories_vocabulary.present? && current_admin.module_allowed_action?("GobiertoPlans", current_site, :manage) %>
+      <li class="<%= class_if('active', controller_name == "categories") %>">
+        <%= link_to t(".plan_terms_tab"), admin_plans_plan_categories_path(@plan), data: { turbolinks: false } %>
+      </li>
+    <% end %>
+
+    <% if project_policy.allowed_actions.include? :index %>
+      <li class="<%= class_if('active', controller_name == "projects") %>">
+        <%= link_to t(".projects_tab"), admin_plans_plan_projects_path(@plan), data: { turbolinks: false } %>
+      </li>
+    <% end %>
+
+    <li class="<%= class_if('active', controller_name == "plans") %>">
       <%= link_to t(".configuration_tab"), edit_admin_plans_plan_path(@plan), data: { turbolinks: false } %>
-    </li>
-
-    <li class="<%= class_if('active', controller.action_name == 'data') %>">
-      <%= link_to t(".data_tab"), admin_plans_plan_data_path(@plan), data: { turbolinks: false } %>
-    </li>
-
-    <li class="<%= class_if('active', controller.action_name == 'import_csv') %>">
-      <%= link_to t('.import_csv_tab'), admin_plans_plan_import_csv_path(@plan), data: { turbolinks: false } %>
     </li>
   </ul>
 </div>

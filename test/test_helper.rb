@@ -107,6 +107,7 @@ class ActionDispatch::IntegrationTest
   require "support/integration/site_session_helpers"
   require "support/integration/matcher_helpers"
   require "support/integration/page_helpers"
+  require "support/integration/admin_groups_concern"
   require "support/file_uploader_helpers"
   require "support/permission_helpers"
 

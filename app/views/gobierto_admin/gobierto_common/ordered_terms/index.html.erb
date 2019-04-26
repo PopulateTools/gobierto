@@ -6,39 +6,4 @@
 
 <h1><%= t(".title", vocabulary: @vocabulary.name) %></h1>
 
-<div class="v_container">
-
-  <div class="v_heading">
-    <div>
-      <%= t(".explore") %>
-      <i class="fas fa-caret-square-right" title="<%= t(".collapse_all") %>"></i>
-      <i class="fas fa-caret-square-down" title="<%= t(".open_all") %>"></i>
-    </div>
-
-    <% if @terms.try(:decorated_values?) %>
-      <div class="v_el_decorated">
-        <%= render_decorator_template(@terms, :decorated_header_template) %>
-      </div>
-    <% end %>
-
-    <div class="v_el_actions"></div>
-  </div>
-
-  <div data-behavior="sortable" data-sortable-target="<%= admin_common_vocabulary_terms_sort_path %>">
-    <%= render partial: "terms_tree", locals: { terms: @terms } %>
-  </div>
-
-</div>
-
-<div class="admin_new_el">
-  <%= link_to new_admin_common_vocabulary_term_path, class: "open_remote_modal p_1 border-el" do %>
-    <i class="fa fa-plus-circle"></i>
-    <%= t(".new") %>
-  <% end %>
-</div>
-
-<% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.GobiertoAdmin.terms_controller.index();
-  <% end %>
-<% end %>
+<%= render "decorated_index" %>

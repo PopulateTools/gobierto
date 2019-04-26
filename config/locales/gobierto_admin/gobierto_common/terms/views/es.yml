@@ -19,7 +19,7 @@ es:
         new_modal:
           title: Nuevo término
         terms_tree:
-          delete_confirm: Estás seguro? Esta operación no es reversible
+          delete_confirm: "¿Estás seguro? Esta operación no es reversible"
       terms:
         edit:
           edit: Editar %{term}
@@ -29,7 +29,7 @@ es:
             name: Caballo
             slug: reino-animal-caballo
         index:
-          delete_confirm: Estás seguro? Esta operación no es reversible
+          delete_confirm: "¿Estás seguro? Esta operación no es reversible"
           header:
             description: Descripción
             level: Nivel

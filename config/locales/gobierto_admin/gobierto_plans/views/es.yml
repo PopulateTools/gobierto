@@ -2,6 +2,13 @@
 es:
   gobierto_admin:
     gobierto_plans:
+      categories:
+        calculated_headers:
+          items: Ítems
+          progress: Progreso
+        plan_summary:
+          global_progress: Progreso global
+          projects: Proyectos
       plan_types:
         edit:
           title: Editar tipo de plan
@@ -18,36 +25,11 @@ es:
         new:
           title: Nuevo tipo de plan
       plans:
-        data:
-          cancel_edit: Cancelar actualización
-          category: Nivel
-          delete: Eliminar
-          delete_confirm: "¿Estás seguro?"
-          edit: Editar
-          ends_at: Fin
-          errors:
-            missing_category: Todos los niveles de categoría han de estar seleccionados
-            missing_name: El nombre del proyecto no puede estar vacío
-          export_csv: Exportar a CSV
-          import_csv: Importar desde CSV
-          insert: Crear
-          insert_switch: Añadir...
-          invalid_message: Los datos introducidos son inválidos
-          load_message: Espera, por favor...
-          name: Proyecto
-          new: Nuevo nodo
-          no_available_categories: No se han encontrado categorías. Define un vocabulario
-            con términos o importa datos desde un CSV.
-          not_found: No hay nodos
-          options: Opciones
-          progress: "% progreso"
-          starts_at: Inicio
-          status: Estado
-          title: Datos
-          update: Actualizar
         edit:
           title: Configuración
         form:
+          export_csv: Exportar a CSV
+          import_csv: Importar desde CSV
           placeholders:
             configuration_data: '{ "open_node": true }'
             css: ".gobierto_planification section.level_0 .cat_1 { background-color:
@@ -92,8 +74,47 @@ es:
             published: Publicado
         new:
           title: Nuevo plan
+      projects:
+        filter_form:
+          author: Autor
+          category: Categoría
+          filter: Filtrar
+          interval: Rango de fechas
+          progress: Progreso
+          search: Busca...
+          submit: Filtrar
+        filters_row:
+          admin_actions: Permisos
+          admin_actions_value:
+            can_edit: Puedes editar
+            owned: Tus proyectos
+          all: Todos
+          moderation_stage: Moderación
+          moderation_stage_value:
+            approved: Aprobados
+            blank: Sin moderación
+            in_review: En revisión
+            not_sent: No enviados
+            rejected: Rechazados
+            sent: Enviados
+          total: Total
+        form:
+          placeholders:
+            name: Título del proyecto
+            status: Pendiente de iniciar
+        index:
+          headers:
+            progress: Progreso
+            project: Proyecto
+            status: Estado
+            updated: Actualizado
+          new: Nuevo
+          title: Proyectos de %{name}
+          view: Ver item
+        new:
+          title: Nuevo proyecto
       shared:
         navigation:
           configuration_tab: Configuración
-          data_tab: Datos
-          import_csv_tab: Importar CSV
+          plan_terms_tab: Plan
+          projects_tab: Proyectos

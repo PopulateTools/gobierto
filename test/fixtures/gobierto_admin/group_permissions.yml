@@ -41,3 +41,21 @@ admin_site_options_vocabularies:
   namespace: site_options
   resource_name: vocabularies
   action_name: manage
+
+manage_plans_madrid:
+  admin_group: madrid_manage_plans_group
+  namespace: site_module
+  resource_name: gobierto_plans
+  action_name: manage
+
+edit_plans_madrid:
+  admin_group: madrid_edit_plans_group
+  namespace: site_module
+  resource_name: gobierto_plans
+  action_name: edit
+
+moderate_plans_madrid:
+  admin_group: madrid_moderate_plans_group
+  namespace: site_module
+  resource_name: gobierto_plans
+  action_name: moderate

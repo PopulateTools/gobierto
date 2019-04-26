@@ -2,6 +2,13 @@
 es:
   activemodel:
     attributes:
+      gobierto_admin/gobierto_plans/node_form:
+        category_id: Categoría
+        ends_at: Fecha de fin
+        name: Proyecto
+        progress: Progreso
+        starts_at: Fecha de inicio
+        status: Estado
       gobierto_admin/gobierto_plans/plan_form:
         configuration_data: Configuración
         css: CSS

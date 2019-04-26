@@ -170,7 +170,17 @@ Rails.application.routes.draw do
 
       namespace :gobierto_plans, as: :plans, path: :plans do
         resources :plans, except: [:show], path: "" do
-          get :data
+          resources :categories do
+            collection do
+              get :accumulated_values
+            end
+          end
+          resources :projects do
+            member do
+              post :publish
+              post :unpublish
+            end
+          end
           get :import_csv
           get :export_csv, defaults: { format: "csv" }
           put :recover
@@ -178,14 +188,6 @@ Rails.application.routes.draw do
         end
         resources :plan_types, except: [:show], path: :plan_types do
           put :recover
-        end
-
-        # API
-        namespace :api do
-          resources :plans, only: [] do
-            resources :nodes, except: [:show, :new, :edit]
-            resources :categories, only: [:index]
-          end
         end
       end
 

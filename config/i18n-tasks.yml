@@ -32,6 +32,7 @@ ignore_missing:
   - 'grammatical_particles.*'
   - 'gobierto_common.visualizations.cards.*'
   - 'gobierto_common.visualizations.frequency.dailt'
+  - 'gobierto_admin.gobierto_plans.projects.moderation_visibility_action.*'
 
 ignore_unused:
   - 'number.*'
@@ -104,6 +105,10 @@ ignore_unused:
   - 'gobierto_citizens_charters.shared.*_interval'
   - 'gobierto_citizens_charters.shared.evolution.*'
   - 'gobierto_admin.gobierto_plans.plans.import_csv.defaults.*'
+  - 'gobierto_admin.gobierto_plans.projects.filters_row.*_value.*'
+  - 'gobierto_admin.gobierto_plans.categories.*'
+  - 'gobierto_admin.gobierto_plans.projects.publish.*'
+  - 'gobierto_admin.gobierto_plans.projects.unpublish.*'
 
 translation:
   api_key: ''

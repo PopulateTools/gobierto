@@ -4,6 +4,7 @@ module GobiertoCommon
   class Term < ApplicationRecord
     before_validation :calculate_level, :set_vocabulary
     include GobiertoCommon::Sortable
+    include GobiertoCommon::ActsAsTree
     include User::Subscribable
     include GobiertoCommon::Sluggable
     after_save :update_children_levels
@@ -21,7 +22,9 @@ module GobiertoCommon
 
     translates :name, :description
 
-    delegate :site, to: :vocabulary
+    delegate :site, :maximum_level, to: :vocabulary
+
+    parent_item_foreign_key :term_id
 
     def attributes_for_slug
       [vocabulary_name, name]
@@ -33,6 +36,7 @@ module GobiertoCommon
 
     def destroy
       return false if has_dependent_resources?
+
       super
     end
 
@@ -43,6 +47,39 @@ module GobiertoCommon
         end
       end ||
         GobiertoPlans::CategoryTermDecorator.new(self).has_dependent_resources?
+    end
+
+    def last_descendants
+      return [self] if level == maximum_level
+
+      terms.map(&:last_descendants).flatten
+    end
+
+    def ordered_self_and_descendants
+      [self, self_and_descendents.reorder(:level).sorted.where(term_id: id).map(&:ordered_self_and_descendants)].flatten
+    end
+
+    # positions_from_params arg: hash of arrays
+    # The element with id 0 defines the order of the parent nodes
+    # Example:
+    #   {
+    #     0: [parent_id_1, parent_id_2],
+    #     parent_id_1: [children_id_1, children_id_2],
+    #     parent_id_2: [children_id_3, children_id_4]
+    #   }
+    def self.update_parents_and_positions(positions_from_params)
+      positions_from_params.each do |parent_id, children_ids|
+        if parent_id == "0"
+          children_ids.each_with_index do |child_id, position|
+            where(id: child_id).update_all({ position: position, term_id: nil, level: 0 })
+          end
+        else
+          children_ids.each_with_index do |child_id, position|
+            parent_level = find(parent_id).level
+            where(id: child_id).update_all({ position: position, term_id: parent_id, level: parent_level + 1 })
+          end
+        end
+      end
     end
 
     private

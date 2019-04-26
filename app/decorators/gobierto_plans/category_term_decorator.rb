@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 module GobiertoPlans
-  class CategoryTermDecorator < BaseDecorator
-    def initialize(term)
+  class CategoryTermDecorator < BaseTermDecorator
+    include ActionView::Helpers::NumberHelper
+
+    def initialize(term, options = {})
       @object = term
+      @plan = options.delete(:plan)
     end
 
     def categories
@@ -32,16 +35,19 @@ module GobiertoPlans
     end
 
     def progress
-      @progress ||= begin
-                      depending_categories = [object]
-                      max_level = plan.categories.maximum(:level)
-                      (max_level - object.level).times do
-                        depending_categories += ::GobiertoCommon::Term.where(term_id: depending_categories.pluck(:id))
-                      end
+      return if nodes_count.zero?
 
-                      depending_nodes = plan.nodes.where(gplan_categories_nodes: { category_id: depending_categories.pluck(:id) })
-                      depending_nodes.blank? ? nil : depending_nodes.average(:progress).to_f
-                    end
+      @progress ||= descending_nodes.average(:progress).to_f
+    end
+
+    def progress_percentage
+      return if nodes_count.zero?
+
+      @progress_percentage ||= number_to_percentage(progress, precision: 1, strip_insignificant_zeros: true)
+    end
+
+    def nodes_count
+      @nodes_count ||= descending_nodes.count
     end
 
     def parent_id
@@ -56,7 +62,37 @@ module GobiertoPlans
       plan.present? && progress.present?
     end
 
+    def self.decorated_values?
+      true
+    end
+
+    def self.decorated_header_template
+      "header"
+    end
+
+    def self.decorated_values_template
+      "values"
+    end
+
+    def self.decorated_resources_template
+      "resources"
+    end
+
+    def decorated_values
+      { items: nodes_count, progress: progress_percentage }
+    end
+
+    def decorated_resources
+      return if nodes_count.zero?
+
+      { projects: nodes, plan: plan }
+    end
+
     protected
+
+    def descending_nodes
+      @descending_nodes ||= plan.nodes.where("gplan_categories_nodes.category_id IN (#{self.class.tree_sql_for(self)})")
+    end
 
     def vocabulary
       @vocabulary ||= object.vocabulary

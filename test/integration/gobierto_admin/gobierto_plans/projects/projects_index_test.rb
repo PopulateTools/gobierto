@@ -28,10 +28,12 @@ module GobiertoAdmin
         def project_with_search_matching_name
           @project_with_search_matching_name ||= gobierto_plans_nodes(:political_agendas)
         end
+        alias project_with_half_progress project_with_search_matching_name
 
         def project_with_no_search_matching_name
           @project_with_no_search_matching_name ||= gobierto_plans_nodes(:scholarships_kindergartens)
         end
+        alias project_with_null_progress project_with_no_search_matching_name
 
         def test_admin_projects_index
           with_signed_in_admin(admin) do
@@ -81,6 +83,36 @@ module GobiertoAdmin
                 plan.nodes.each do |project|
                   assert has_selector?("tr#project-item-#{project.id}")
                 end
+              end
+            end
+          end
+        end
+
+        def test_filter_progress
+          allow_regular_admin_edit_plans
+
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
+
+              within ".i_filters" do
+                select "0% - 25%", from: "projects_filter_progress"
+                click_button "Filter"
+              end
+
+              within "table#projects" do
+                assert has_selector?("tr#project-item-#{project_with_null_progress.id}")
+                assert has_no_selector?("tr#project-item-#{project_with_half_progress.id}")
+              end
+
+              within ".i_filters" do
+                select "26% - 50%", from: "projects_filter_progress"
+                click_button "Filter"
+              end
+
+              within "table#projects" do
+                assert has_no_selector?("tr#project-item-#{project_with_null_progress.id}")
+                assert has_selector?("tr#project-item-#{project_with_half_progress.id}")
               end
             end
           end

@@ -3,6 +3,9 @@ en:
   gobierto_admin:
     gobierto_plans:
       categories:
+        calculated_headers:
+          items: Items
+          progress: Progress
         plan_summary:
           global_progress: Global progress
           projects: Projects

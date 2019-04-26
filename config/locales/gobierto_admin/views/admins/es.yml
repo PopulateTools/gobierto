@@ -23,7 +23,9 @@ es:
           admin: Administrador
           created_at: Creado
           email: Email
+          groups: Grupos
           last_sign_in_at: Último login
+          role: Rol
         new: Nuevo Administrador
         send_invitations: Enviar invitaciones
         title: Administradores

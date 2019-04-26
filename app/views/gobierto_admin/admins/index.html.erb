@@ -20,7 +20,10 @@
     <i class="fas fa-envelope"></i>
     <%= t(".send_invitations") %>
   <% end %>
-  <%= link_to t(".groups_and_permissions"), admin_admin_groups_path %>
+  <%= link_to  admin_admin_groups_path do %>
+    <i class="fas fa-users"></i>
+    <%= t(".groups_and_permissions") %>
+  <% end %>
   <%= link_to t(".new"), new_admin_admin_path, class: "button" %>
 </div>
 
@@ -29,6 +32,8 @@
   <th></th>
   <th><%= t(".header.admin") %></th>
   <th><%= t(".header.email") %></th>
+  <th><%= t(".header.role") %></th>
+  <th><%= t(".header.groups") %></th>
   <th><%= t(".header.last_sign_in_at") %></th>
   <th><%= t(".header.created_at") %></th>
   <th></th>
@@ -52,6 +57,12 @@
       </td>
       <td>
         <%= mail_to admin.email %>
+      </td>
+      <td>
+        <%= admin.authorization_level %>
+      </td>
+      <td>
+        <%= admin.admin_groups.pluck(:name).to_sentence.presence || " -- " %>
       </td>
       <td>
         <%= time_ago_in_words(admin.last_sign_in_at) if admin.last_sign_in_at %>

@@ -43,7 +43,7 @@ module GobiertoCommon
               with_current_site(site) do
                 visit @path
 
-                click_link vocabulary.name
+                find(:xpath, %Q{//a[@href="#{edit_admin_common_vocabulary_path(vocabulary)}"]}).click
 
                 within "form.edit_vocabulary" do
                   fill_in "vocabulary_name_translations_en", with: "Animals updated"
@@ -54,7 +54,7 @@ module GobiertoCommon
 
                 assert has_message?("Vocabulary updated successfully.")
 
-                click_link vocabulary.name
+                find(:xpath, %Q{//a[@href="#{edit_admin_common_vocabulary_path(vocabulary)}"]}).click
 
                 assert has_field? "vocabulary_name_translations_en", with: "Animals updated"
                 assert has_field? "vocabulary_slug", with: "animals-updated"

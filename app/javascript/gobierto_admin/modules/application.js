@@ -20,6 +20,8 @@ $(document).on('turbolinks:load', function() {
     e.preventDefault();
   });
 
+  $('input[autofocus]').focus();
+
   var $autocomplete = $('[data-autocomplete]');
 
   var searchOptions = {

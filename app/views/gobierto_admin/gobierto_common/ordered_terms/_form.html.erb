@@ -13,7 +13,7 @@
           <%= f.object.class.human_attribute_name(:name) %>
           <%= attribute_indication_tag required: true %>
         <% end %>
-        <%= text_field_tag "term[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t(".placeholders.name", locale: locale.to_sym) %>
+        <%= text_field_tag "term[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t(".placeholders.name", locale: locale.to_sym), autofocus: true %>
       </div>
 
       <div class="form_item input_text" data-locale="<%= locale %>">

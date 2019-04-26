@@ -175,26 +175,24 @@
 
             <li><%= link_to t(".users"), admin_users_path %></li>
 
-            <% if current_site %>
-              <li>
-                <% if current_admin.can_customize_site? %>
-                  <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
-                <% else %>
-                  <span><%= t(".edit_site") %></span>
+            <li>
+              <% if current_admin.can_customize_site? %>
+                <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
+              <% elsif current_admin.can_edit_vocabularies? || current_admin.can_edit_templates? || current_admin.can_edit_custom_fields? %>
+                <span><%= t(".edit_site") %></span>
+              <% end %>
+              <ul>
+                <% if current_admin.can_edit_vocabularies? %>
+                  <li><%= link_to t(".vocabularies"), admin_common_vocabularies_path %></li>
                 <% end %>
-                <ul>
-                  <% if current_admin.can_edit_vocabularies? %>
-                    <li><%= link_to t(".vocabularies"), admin_common_vocabularies_path %></li>
-                  <% end %>
-                  <% if current_admin.can_edit_templates? %>
-                    <li><%= link_to t(".templates"), admin_gobierto_core_templates_path %></li>
-                  <% end %>
-                  <% if current_admin.can_edit_custom_fields? %>
-                    <li><%= link_to t(".custom_fields"), admin_common_custom_fields_module_resources_path %></li>
-                  <% end %>
-                </ul>
-              </li>
-            <% end %>
+                <% if current_admin.can_edit_templates? %>
+                  <li><%= link_to t(".templates"), admin_gobierto_core_templates_path %></li>
+                <% end %>
+                <% if current_admin.can_edit_custom_fields? %>
+                  <li><%= link_to t(".custom_fields"), admin_common_custom_fields_module_resources_path %></li>
+                <% end %>
+              </ul>
+            </li>
           </ul>
 
         </div>
@@ -203,7 +201,7 @@
 
       <div class="collapse_menu">
         <a href="#" class="js-collapse-menu">
-          <i class="fas fa-caret-square-o-left"></i>
+          <i class="fas fa-caret-square-left"></i>
           <span><%= t(".collapse_menu") %></span>
         </a>
       </div>
@@ -225,12 +223,9 @@
     <%= render "gobierto_admin/layouts/analytics_footer_site" %>
   <% end %>
 
-  <script type="text/javascript">
+  <%= javascript_tag data: { "turbolinks-eval" => false } do %>
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
-  </script>
-
-  <%= javascript_tag data: { "turbolinks-eval" => false } do %>
     window.GobiertoAdmin.dirty_forms_component.handle("<%= t(".dirty_forms.message") %>");
     window.GobiertoAdmin.globalized_forms_component.handle();
     window.GobiertoAdmin.color_picker_component.handle();

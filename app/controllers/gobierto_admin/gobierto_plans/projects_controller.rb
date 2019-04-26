@@ -10,14 +10,12 @@ module GobiertoAdmin
       helper_method :current_admin_actions
 
       def index
-        find_plan
         set_filters
 
         @projects = @relation
       end
 
       def edit
-        find_plan
         find_versioned_project
         @project_visibility_levels = project_visibility_levels
 
@@ -31,7 +29,6 @@ module GobiertoAdmin
       end
 
       def update
-        find_plan
         @project = @plan.nodes.find params[:id]
         @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
 
@@ -59,7 +56,6 @@ module GobiertoAdmin
       end
 
       def new
-        find_plan
         @project_visibility_levels = project_visibility_levels
 
         @project_form = NodeForm.new(
@@ -70,8 +66,6 @@ module GobiertoAdmin
       end
 
       def create
-        find_plan
-
         @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
 
         if @project_form.save
@@ -87,12 +81,9 @@ module GobiertoAdmin
       end
 
       def destroy
-        find_plan
-        set_filters
+        raise_action_not_allowed unless current_admin_actions.include? :destroy
 
         @project = @plan.nodes.find params[:id]
-
-        raise_action_not_allowed unless current_admin_actions.include? :destroy
 
         @project.destroy
 
@@ -116,7 +107,6 @@ module GobiertoAdmin
       private
 
       def moderation_visibility_action(visibility_level)
-        find_plan
         @project = @plan.nodes.find params[:id]
         @project_form = NodeForm.new(
           id: @project.id,

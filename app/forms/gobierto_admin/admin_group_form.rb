@@ -4,7 +4,7 @@ module GobiertoAdmin
   class AdminGroupForm < BaseForm
     PERMISSION_TYPES = {
       site_options: { scope: :site_options_permissions, attribute: :resource_name },
-      modules_actions: { scope: :modules_permissions, attribute: :resource_name, action_names: [:manage, :edit, :moderate] },
+      modules_actions: { scope: :modules_permissions, attribute: :resource_name, action_names: { gobierto_plans: [:manage, :edit, :moderate] } },
       people: { scope: :people_permissions, attribute: :resource_id, parent_type: :modules_actions, parent: :gobierto_people, allow_all: true }
     }.freeze
 
@@ -47,10 +47,10 @@ module GobiertoAdmin
       @admin_group ||= AdminGroup.find_by(id: id).presence || build_admin_group
     end
 
-    def action_names(permission_type)
+    def action_names(permission_type, resource_name = nil)
       return unless PERMISSION_TYPES.has_key? permission_type
 
-      PERMISSION_TYPES[permission_type][:action_names] || [:manage]
+      PERMISSION_TYPES.dig(permission_type, :action_names, resource_name.to_sym) || [:manage]
     end
 
     private

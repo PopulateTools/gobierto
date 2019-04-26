@@ -128,13 +128,10 @@ module GobiertoAdmin
         end
       end
 
-      def tree(relation, level = 0)
-        level_relation = relation.where(level: level).order(position: :asc)
-        return [] if level_relation.blank?
-
-        level_relation.where(level: level).map do |node|
-          [node, tree(node.terms, level + 1)]
-        end.to_h
+      def tree(relation)
+        relation.order(position: :asc).where(level: relation.minimum(:level)).inject({}) do |tree, term|
+          tree.merge(term.ordered_tree)
+        end
       end
 
       def flatten_tree(relation, level = 0)

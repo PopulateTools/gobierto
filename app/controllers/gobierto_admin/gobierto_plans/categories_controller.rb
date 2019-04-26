@@ -15,7 +15,7 @@ module GobiertoAdmin
 
         @global_progress = @plan.nodes.average(:progress).to_f
         @projects_filter_form = ::GobiertoAdmin::GobiertoPlans::ProjectsFilterForm.new(plan: @plan, admin: current_admin)
-        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: ::GobiertoPlans::CategoryTermDecorator, options: { plan: @plan })
+        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: ::GobiertoPlans::CategoryTermDecorator, options: { plan: @plan, vocabulary: @vocabulary, site: current_site })
       end
 
       def accumulated_values
@@ -38,7 +38,7 @@ module GobiertoAdmin
 
       def calculate_accumulated_values
         @accumulated_values ||= @vocabulary.terms.inject({}) do |calculations, term|
-          decorated_term = ::GobiertoPlans::CategoryTermDecorator.new(term, plan: @plan)
+          decorated_term = ::GobiertoPlans::CategoryTermDecorator.new(term, plan: @plan, vocabulary: @vocabulary, site: current_site)
 
           calculations.update(
             term.id => decorated_term.decorated_values

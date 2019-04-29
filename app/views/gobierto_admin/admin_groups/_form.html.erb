@@ -45,22 +45,26 @@
                 <% end %>
                 <% module_active = f.object.modules_actions.keys.include?(module_b.object.namespace.underscore) %>
 
-                <div class="option_suboptions" id="<%= "modules_actions_#{module_b.value}" %>" style="<%= module_active ? '' : 'display: none;' %>">
-                  <h3><%= t(".actions") %></h3>
+                <% available_actions = @admin_group_form.action_names(:modules_actions, module_b.object.namespace.underscore) %>
+                <% if available_actions.count > 1 %>
+                  <div class="option_suboptions" id="<%= "modules_actions_#{module_b.value}" %>" style="<%= module_active ? '' : 'display: none;' %>">
+                    <h3><%= t(".actions") %></h3>
 
-                  <%= f.collection_check_boxes("modules_actions[#{module_b.value.underscore}]", @admin_group_form.action_names(:modules_actions).map { |action| [action, t(".action_names.#{action}")] }, :first, :last) do |action_b| %>
-                    <div class="option" data-class="<%= "modules_action" %>" data-module="<%= module_b.value %>">
-                      <%= action_b.check_box(data: { behavior: "toggle-action" },
-                                             id: "modules_action_#{module_b.value.underscore}_#{action_b.value}",
-                                             checked: @admin_group && @admin_group.modules_permissions.exists?(resource_name: module_b.value.underscore, action_name: action_b.value)) %>
-                      <%= action_b.label(for: "modules_action_#{module_b.value.underscore}_#{action_b.value}") do %>
-                        <span></span><%= action_b.text %>
-                      <% end %>
-                    </div>
+                    <%= f.collection_check_boxes("modules_actions[#{module_b.value.underscore}]", available_actions.map { |action| [action, t(".action_names.#{action}")] }, :first, :last) do |action_b| %>
+                      <div class="option" data-class="<%= "modules_action" %>" data-module="<%= module_b.value %>">
+                        <%= action_b.check_box(data: { behavior: "toggle-action" },
+                                               id: "modules_action_#{module_b.value.underscore}_#{action_b.value}",
+                                               checked: @admin_group && @admin_group.modules_permissions.exists?(resource_name: module_b.value.underscore, action_name: action_b.value)) %>
+                        <%= action_b.label(for: "modules_action_#{module_b.value.underscore}_#{action_b.value}") do %>
+                          <span></span><%= action_b.text %>
+                        <% end %>
+                      </div>
 
-                  <% end %>
-
-                </div>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <%= hidden_field_tag "admin_group[modules_actions[#{module_b.object.namespace.underscore}]][]", available_actions, id: "modules_actions_#{module_b.value}", disabled: !module_active %>
+                <% end %>
 
                 <% if module_b.text == 'Gobierto People' %>
                   <div class="option_suboptions" id="<%= "subresources_#{module_b.value}" %>" style="<%= module_active ? '' : 'display: none;' %>">

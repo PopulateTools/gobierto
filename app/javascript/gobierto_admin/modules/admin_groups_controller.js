@@ -17,12 +17,14 @@ window.GobiertoAdmin.AdminGroupsController = (function() {
         if (this.checked) {
           $modules_actions_block.find("[data-class='modules_action'] input[type='checkbox']").prop('disabled', false);
           $modules_actions_block.show('slow');
+          $modules_actions_block.prop("disabled", false);
           if ($modules_actions_block.find("[data-class='modules_action'] input[type='checkbox']:checked").length == 0) {
             $modules_actions_block.find("[data-class='modules_action'] input[type='checkbox'][value='manage']").prop('checked', true);
           }
           $subresources_block.show('slow');
         } else {
           $modules_actions_block.hide('slow');
+          $modules_actions_block.prop("disabled", true);
           $modules_actions_block.find("[data-class='modules_action'] input[type='checkbox']").prop('disabled', true);
           $subresources_block.hide('slow');
         }

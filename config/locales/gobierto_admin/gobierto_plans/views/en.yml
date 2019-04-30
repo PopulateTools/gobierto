@@ -78,6 +78,7 @@ en:
         filter_form:
           author: Autor
           category: Category
+          clear_filters: Clear filters
           filter: Filter
           interval: Date interval
           progress: Progress

@@ -20,23 +20,36 @@
         <%= f.select(
               filter,
               @form.send("#{filter}_options"),
-              title: t(".#{filter}"),
-              disabled: filter_value.present? ? [] : [nil],
-              selected: filter_value.present? ? filter_value : [nil]
+              { title: t(".#{filter}"),
+                disabled: filter_value.present? ? [] : [nil],
+                selected: filter_value.present? ? filter_value : [nil] },
+              { data: { "behavior": "submit_change" } }
             ) %>
       </div>
     <% end %>
 
     <div class="form_item input_text compact">
       <%= f.text_field :interval, data: {
+              "multiple_dates_separator": ",",
               "range": "true",
-              "language": I18n.locale
+              "language": I18n.locale,
+              "date_format": "dd/mm/yyyy",
+              "behavior": "submit_change"
             },
             class: "air-datepicker",
             placeholder: t(".interval")
       %>
     </div>
 
-    <button class="button small rounded submit"><%= t(".submit") %></button>
+    <button class="button small rounded submit" style="display: none;"><%= t(".submit") %></button>
+    <% if @form.filter_params.present? %>
+      <%= link_to t(".clear_filters"), admin_plans_plan_projects_path(@plan), class: "button small rounded submit", data: { turbolinks: false } %>
+    <% end %>
   <% end %>
 </div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_plans_plan_projects_controller.form()
+  <% end %>
+<% end %>

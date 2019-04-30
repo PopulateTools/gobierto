@@ -20,13 +20,11 @@ end
 def with(params = {})
   factory = params[:factory]
   factories = params[:factories] || []
-  js_driver = if params[:js] == :deprecated
-                :poltergeist_custom
-              else
-                (ENV["INTEGRATION_TEST_DRIVER"] || :headless_chrome).to_sym
-              end
+  js_driver = js_driver(params[:js])
+  admin = params[:admin]
 
   Capybara.current_driver = js_driver if params[:js]
+  sign_in_admin(admin) if admin
 
   if (site = params[:site])
     stub_current_site(site) { yield }
@@ -34,9 +32,20 @@ def with(params = {})
     yield(params)
   end
 
+  sign_out_admin if admin
   Capybara.reset_session! if params[:js]
 ensure
   factory&.teardown
   factories.each(&:teardown)
   Capybara.current_driver = Capybara.default_driver if params[:js]
+end
+
+def js_driver(param)
+  return unless param
+
+  if param == :deprecated
+    :poltergeist_custom
+  else
+    (ENV["INTEGRATION_TEST_DRIVER"] || :headless_chrome).to_sym
+  end
 end

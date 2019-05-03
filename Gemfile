@@ -39,7 +39,7 @@ gem "chroma"
 gem "font-awesome-sass", "~> 5.6"
 
 # Webpack
-gem "webpacker", "~> 3.0", git: "https://github.com/ferblape/webpacker.git", branch: "3-x-stable"
+gem "webpacker", "~> 4.0"
 
 # Elasticsearch
 gem "elasticsearch"

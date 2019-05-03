@@ -23,8 +23,8 @@ export class BarsCard extends Card {
 
     // Append source
     this.div.selectAll('.widget_src')
-      .attr('title', json.metadata.indicator['source name'])
-      .text(json.metadata.indicator['source name']);
+      .attr('title', json.metadata.indicator['source_name'])
+      .text(json.metadata.indicator['source_name']);
 
     // Append date of last data point
     this.div.selectAll('.widget_updated')

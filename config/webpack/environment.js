@@ -1,7 +1,6 @@
 const { environment } = require('@rails/webpacker')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 environment.plugins.append(
   'Provide',

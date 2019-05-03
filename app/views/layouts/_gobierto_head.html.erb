@@ -20,7 +20,6 @@
 <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
 <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
 <!-- commons libraries -->
-<%= javascript_pack_tag 'commons', 'data-turbolinks-track': true %>
 <%= yield(:javascript_module_link) %>
 <!-- stylesheets hooks -->
 <%= yield(:stylesheet_link) %>

@@ -44,7 +44,7 @@ class User::SubscriptionIndexTest < ActionDispatch::IntegrationTest
   end
 
   def test_broader_subscription_disables_specific_subscriptions
-    with(js: true) do
+    with_javascript do
       with_signed_in_user(user) do
         visit @path
 
@@ -79,7 +79,7 @@ class User::SubscriptionIndexTest < ActionDispatch::IntegrationTest
     element_names = ["user_subscription_preferences_modules_gobierto_people",
                      "user_subscription_preferences_modules_gobierto_budget_consultations",
                      "user_subscription_preferences_gobierto_people_people_#{person.id}"]
-    with(js: true) do
+    with_javascript do
       with_signed_in_user(user) do
         visit @path
 

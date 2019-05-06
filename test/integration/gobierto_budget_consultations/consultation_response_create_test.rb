@@ -77,7 +77,7 @@ module GobiertoBudgetConsultations
     end
 
     def test_consultation_response_creation_workflow
-      with(js: true) do
+      with_javascript do
         with_signed_in_user(user) do
           visit @path
 
@@ -97,7 +97,7 @@ module GobiertoBudgetConsultations
     end
 
     def test_consultation_response_creation_workflow_deficit_and_balance_required
-      with(js: true) do
+      with_javascript do
         with_signed_in_user(user) do
           visit @path
 
@@ -117,7 +117,7 @@ module GobiertoBudgetConsultations
     end
 
     def test_consultation_response_creation_workflow_deficit_and_balance_not_required
-      with(js: true) do
+      with_javascript do
         with_signed_in_user(user) do
           visit gobierto_budget_consultations_consultation_new_response_path(consultation_not_requiring_balance)
 

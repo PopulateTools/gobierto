@@ -319,7 +319,7 @@ module GobiertoAdmin
       end
 
       def test_configure_new_google_calendar_integration
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @person_events_path

@@ -39,7 +39,7 @@ module GobiertoPlans
     end
 
     def test_plan
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit @path
 
@@ -68,7 +68,7 @@ module GobiertoPlans
     end
 
     def test_global_execution
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit @path
           within "div.header-resume" do
@@ -81,7 +81,7 @@ module GobiertoPlans
     end
 
     def test_navigating_tree
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit @path
 
@@ -128,7 +128,7 @@ module GobiertoPlans
     end
 
     def test_show_table_header
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit @path
 
@@ -180,7 +180,7 @@ module GobiertoPlans
     end
 
     def test_plan_breadcrumbs
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit @path
 

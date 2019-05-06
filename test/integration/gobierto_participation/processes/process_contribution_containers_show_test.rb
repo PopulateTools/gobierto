@@ -81,7 +81,7 @@ module GobiertoParticipation
     end
 
     def test_contribution_path
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit contribution_path
           assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
@@ -90,7 +90,7 @@ module GobiertoParticipation
     end
 
     def test_all_contributions_show
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit container_path
 
@@ -106,7 +106,7 @@ module GobiertoParticipation
     end
 
     def test_best_ratings_filter
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit container_path
 
@@ -122,7 +122,7 @@ module GobiertoParticipation
     end
 
     def test_worst_ratings_filter
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit container_path
 
@@ -134,7 +134,7 @@ module GobiertoParticipation
     end
 
     def test_recent_contributions_filter
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit container_path
 
@@ -150,7 +150,7 @@ module GobiertoParticipation
     end
 
     def test_contribution_show
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit container_path
 
@@ -161,7 +161,7 @@ module GobiertoParticipation
     end
 
     def test_contribution_show_via_permalink
-      with(js: true) do
+      with_javascript do
         with_current_site(site) do
           visit contribution.to_path
 
@@ -177,7 +177,7 @@ module GobiertoParticipation
     end
 
     def test_vote_contribution
-      with(js: true) do
+      with_javascript do
         with_signed_in_user(user) do
           visit container_path
           assert has_content? "What activities for children we can start up?"
@@ -196,7 +196,7 @@ module GobiertoParticipation
     end
 
     def test_contribution_commments
-      with(js: true) do
+      with_javascript do
         with_signed_in_user(user) do
           visit container_path
 
@@ -217,7 +217,7 @@ module GobiertoParticipation
     end
 
     def test_cant_vote_contributions_on_closed_contribution_container
-      with(js: true) do
+      with_javascript do
         with_signed_in_user(user) do
           visit past_contribution_container_path
 

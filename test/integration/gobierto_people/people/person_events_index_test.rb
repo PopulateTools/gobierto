@@ -43,7 +43,7 @@ module GobiertoPeople
       end
 
       def test_events_summary
-        with(js: true) do
+        with_javascript do
           with_current_site(site) do
             visit @path
 
@@ -72,7 +72,7 @@ module GobiertoPeople
         pending_future_event = create_event(title: "Richard future pending event", starts_at: :future, state: :pending)
         far_future_event = create_event(title: "Richard far future event", starts_at: :far_future)
 
-        with(js: true) do
+        with_javascript do
           with_current_site(site) do
             visit gobierto_people_person_events_path(richard.slug)
 
@@ -169,7 +169,7 @@ module GobiertoPeople
         end
 
         Timecop.freeze(freeze_date) do
-          with(js: true) do
+          with_javascript do
             with_current_site(site) do
               visit gobierto_people_person_events_path(richard.slug)
 

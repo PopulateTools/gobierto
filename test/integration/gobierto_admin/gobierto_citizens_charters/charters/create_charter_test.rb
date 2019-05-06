@@ -34,7 +34,7 @@ module GobiertoAdmin
         end
 
         def test_create_charter_errors
-          with(js: true) do
+          with_javascript do
             with_signed_in_admin(admin) do
               with_current_site(site) do
                 visit @path
@@ -48,7 +48,7 @@ module GobiertoAdmin
         end
 
         def test_create_charter
-          with(js: true) do
+          with_javascript do
             with_signed_in_admin(admin) do
               with_current_site(site) do
                 visit @path

@@ -23,7 +23,7 @@ module GobiertoAdmin
       end
 
       def test_update_attachment_with_name
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
@@ -47,7 +47,7 @@ module GobiertoAdmin
       end
 
       def test_update_attachment_without_name
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path

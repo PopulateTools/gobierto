@@ -28,7 +28,7 @@ module GobiertoAdmin
         end
 
         def test_content_block_update
-          with(js: true) do
+          with_javascript do
             with_signed_in_admin(admin) do
               with_current_site(site) do
                 visit @path

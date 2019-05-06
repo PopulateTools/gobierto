@@ -41,7 +41,7 @@ module GobiertoParticipation
       end
 
       def test_answer_poll
-        with(js: true) do
+        with_javascript do
           with_signed_in_user(user) do
             visit process_polls_path
 
@@ -99,7 +99,7 @@ module GobiertoParticipation
       end
 
       def test_answer_poll_with_images
-        with(js: true) do
+        with_javascript do
           with_signed_in_user(user) do
             visit answer_poll_path(poll_with_images)
 

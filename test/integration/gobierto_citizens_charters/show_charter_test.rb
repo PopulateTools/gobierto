@@ -94,7 +94,7 @@ module GobiertoCitizensCharters
 
     def test_sparkline_presence
       with_current_site(site) do
-        with(js: true) do
+        with_javascript do
           visit @path
           within "#sparkline-#{ edition_without_other_editions.id }" do
             assert has_no_css? "svg"

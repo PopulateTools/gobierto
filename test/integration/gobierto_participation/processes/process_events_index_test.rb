@@ -70,7 +70,7 @@ module GobiertoParticipation
     end
 
     def test_subscription_block
-      with(js: true) do
+      with_javascript do
         with_signed_in_user(user) do
           visit process_events_path
 

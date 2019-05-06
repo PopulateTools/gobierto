@@ -47,7 +47,7 @@ module GobiertoAdmin
         end
 
         def test_update_commitment
-          with(js: true) do
+          with_javascript do
             with_signed_in_admin(admin) do
               with_current_site(site) do
                 visit @path
@@ -81,7 +81,7 @@ module GobiertoAdmin
         end
 
         def test_update_draft_commitment
-          with(js: true) do
+          with_javascript do
             with_signed_in_admin(admin) do
               with_current_site(site) do
                 assert_no_difference "Activity.count" do
@@ -111,7 +111,7 @@ module GobiertoAdmin
         end
 
         def test_publish_draft_commitment
-          with(js: true) do
+          with_javascript do
             with_signed_in_admin(admin) do
               with_current_site(site) do
                 visit @draft_commitment_path
@@ -143,7 +143,7 @@ module GobiertoAdmin
         end
 
         def test_update_commitment_error
-          with(js: true) do
+          with_javascript do
             with_signed_in_admin(admin) do
               with_current_site(site) do
                 visit @path

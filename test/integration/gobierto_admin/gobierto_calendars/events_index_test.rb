@@ -32,7 +32,7 @@ module GobiertoAdmin
       end
 
       def test_person_events_index
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @collection_path
@@ -50,7 +50,7 @@ module GobiertoAdmin
       end
 
       def test_person_pending_events_index
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @collection_path
@@ -69,7 +69,7 @@ module GobiertoAdmin
       end
 
       def test_person_published_events_index
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @collection_path
@@ -97,7 +97,7 @@ module GobiertoAdmin
       end
 
       def test_person_past_events_index
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @collection_path
@@ -116,7 +116,7 @@ module GobiertoAdmin
       end
 
       def test_person_event_filtering
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @collection_path

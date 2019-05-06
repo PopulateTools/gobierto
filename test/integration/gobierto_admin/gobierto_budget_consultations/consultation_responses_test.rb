@@ -23,7 +23,7 @@ module GobiertoAdmin
       end
 
       def test_consultation_search_id
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
@@ -53,7 +53,7 @@ module GobiertoAdmin
       end
 
       def test_delete_response
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
@@ -82,7 +82,7 @@ module GobiertoAdmin
       end
 
       def test_add_new_response
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
@@ -139,7 +139,7 @@ module GobiertoAdmin
       end
 
       def test_add_new_response_without_user_information
-        with(js: true) do
+        with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path

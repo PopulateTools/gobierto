@@ -29,7 +29,7 @@ module GobiertoExports
     end
 
     def test_index_with_javascript
-      with_javascript do
+      with(js: true) do
         with_current_site(site) do
           visit @path
 

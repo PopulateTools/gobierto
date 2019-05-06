@@ -138,7 +138,7 @@ module GobiertoParticipation
     end
 
     def test_subscription_block
-      with_javascript do
+      with(js: true) do
         with_signed_in_user(user) do
           visit @path
 

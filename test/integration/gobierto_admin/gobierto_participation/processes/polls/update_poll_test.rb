@@ -43,7 +43,7 @@ module GobiertoAdmin
       #     6a. Assertions about edited question answer templates
       #   7. Assertions about new question
       def test_update_poll
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit edit_poll_path(poll)

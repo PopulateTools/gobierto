@@ -35,7 +35,7 @@ module GobiertoAdmin
       end
 
       def test_archive_restore_page
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
@@ -59,7 +59,7 @@ module GobiertoAdmin
       end
 
       def test_archive_error
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit admin_common_collection_path(site_pages_collection)

@@ -51,7 +51,7 @@ module GobiertoAdmin
       end
 
       def test_create_page
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit edit_admin_participation_process_path(process)
@@ -87,7 +87,7 @@ module GobiertoAdmin
       end
 
       def test_edit_page
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit edit_admin_cms_page_path(cms_page, collection_id: process.news_collection)

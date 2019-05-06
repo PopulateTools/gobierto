@@ -127,7 +127,7 @@ module GobiertoBudgetConsultations
     end
 
     def test_show_summary_and_items_with_session_already_verified
-      with_javascript do
+      with(js: true) do
         with_signed_in_user(user_verified) do
           visit @path
 

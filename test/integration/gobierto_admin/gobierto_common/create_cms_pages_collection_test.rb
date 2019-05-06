@@ -23,7 +23,7 @@ module GobiertoAdmin
       end
 
       def test_create_collection_errors
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site_santander) do
               visit @path
@@ -41,7 +41,7 @@ module GobiertoAdmin
       end
 
       def test_create_collection
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site_santander) do
               visit @path
@@ -76,7 +76,7 @@ module GobiertoAdmin
       end
 
       def test_create_edit_participation_collection
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site_santander) do
               visit @path
@@ -111,7 +111,7 @@ module GobiertoAdmin
       end
 
       def test_create_collection_with_same_container
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site_madrid) do
               visit @path

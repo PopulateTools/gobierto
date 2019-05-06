@@ -33,7 +33,7 @@ module GobiertoAdmin
       #   5. Assertions about questions
       #   6. Assertions about answer templates
       def test_create_poll
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path

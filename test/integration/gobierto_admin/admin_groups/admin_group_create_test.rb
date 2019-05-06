@@ -30,7 +30,7 @@ module GobiertoAdmin
     end
 
     def test_admin_group_create
-      with_javascript do
+      with(js: true) do
         with_signed_in_admin(admin) do
           visit @path
 
@@ -56,7 +56,7 @@ module GobiertoAdmin
     end
 
     def test_create_admin_group_with_custom_permissions
-      with_javascript do
+      with(js: true) do
         with_signed_in_admin(admin) do
           visit @path
 

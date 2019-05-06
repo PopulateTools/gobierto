@@ -54,7 +54,7 @@ module GobiertoAdmin
       end
 
       def test_event_update
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
@@ -153,7 +153,7 @@ module GobiertoAdmin
       end
 
       def test_update_external_event
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit edit_admin_calendars_event_path(external_event, collection_id: collection)

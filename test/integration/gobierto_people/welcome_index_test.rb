@@ -121,7 +121,7 @@ module GobiertoPeople
     end
 
     def test_people_summary_filters
-      with_javascript do
+      with(js: true) do
         with_current_site(site) do
           visit @path
 
@@ -199,7 +199,7 @@ module GobiertoPeople
     end
 
     def test_events_summary_filters
-      with_javascript do
+      with(js: true) do
         with_current_site(site) do
           visit @path
 

@@ -37,7 +37,7 @@ module GobiertoAdmin
       end
 
       def test_create_and_update_filtering_rules
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @person_events_path
@@ -70,7 +70,7 @@ module GobiertoAdmin
       end
 
       def test_delete_filtering_rules
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @person_events_path

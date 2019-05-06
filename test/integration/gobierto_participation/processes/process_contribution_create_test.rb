@@ -42,7 +42,7 @@ module GobiertoParticipation
     end
 
     def test_contribution_create
-      with_javascript do
+      with(js: true) do
         with_signed_in_user(user, logout=false) do
           visit container_path
 
@@ -69,7 +69,7 @@ module GobiertoParticipation
     end
 
     def test_contribution_errors
-      with_javascript do
+      with(js: true) do
         with_signed_in_user(user, logout=false) do
           visit container_path
 

@@ -31,7 +31,7 @@ module GobiertoAdmin
       end
 
       def test_create_page_errors
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
@@ -55,7 +55,7 @@ module GobiertoAdmin
       def test_create_page
         Timecop.freeze(stubbed_current_time)
 
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path

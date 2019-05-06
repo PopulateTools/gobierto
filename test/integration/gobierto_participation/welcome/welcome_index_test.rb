@@ -134,7 +134,7 @@ module GobiertoParticipation
     end
 
     def test_show_poll
-      with_javascript do
+      with(js: true) do
         with_signed_in_user(user) do
           visit @path
 

@@ -31,7 +31,7 @@ module GobiertoAdmin
       end
 
       def test_list_page_attachments
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
@@ -45,7 +45,7 @@ module GobiertoAdmin
       end
 
       def test_list_site_attachments
-        with_javascript do
+        with(js: true) do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path

@@ -34,7 +34,7 @@ module GobiertoAdmin
         end
 
         def test_create_vocabulary_errors
-          with_javascript do
+          with(js: true) do
             with_signed_in_admin(admin) do
               with_current_site(site) do
                 visit @path
@@ -49,7 +49,7 @@ module GobiertoAdmin
         end
 
         def test_create_vocabulary
-          with_javascript do
+          with(js: true) do
             with_signed_in_admin(admin) do
               with_current_site(site) do
                 visit @path

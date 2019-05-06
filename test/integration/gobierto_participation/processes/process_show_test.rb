@@ -131,7 +131,7 @@ module GobiertoParticipation
     end
 
     def test_subscription_block
-      with_javascript do
+      with(js: true) do
         with_signed_in_user(user) do
           visit process_path(gender_violence_process)
           within ".slim_nav_bar" do

@@ -30,7 +30,7 @@ module GobiertoAdmin
     end
 
     def test_admin_group_update
-      with_javascript do
+      with(js: true) do
         with_current_site(site) do
           with_signed_in_admin(manager_admin) do
             visit edit_admin_admin_group_path(madrid_group)
@@ -88,7 +88,7 @@ module GobiertoAdmin
     end
 
     def test_admin_group_update_with_custom_permissions_all
-      with_javascript do
+      with(js: true) do
         with_current_site(site) do
           with_signed_in_admin(manager_admin) do
             visit edit_admin_admin_group_path(madrid_group)
@@ -116,7 +116,7 @@ module GobiertoAdmin
     end
 
     def test_admin_group_update_with_custom_actions_moderate
-      with_javascript do
+      with(js: true) do
         with_current_site(site) do
           with_signed_in_admin(manager_admin) do
             visit edit_admin_admin_group_path(madrid_group)

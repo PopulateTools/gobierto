@@ -42,7 +42,7 @@ module GobiertoAdmin
     end
 
     def test_admin_create_and_admin_accept_email
-      with_javascript do
+      with(js: true) do
         with_current_site(madrid) do
           with_signed_in_admin(admin) do
             visit @path
@@ -103,7 +103,7 @@ module GobiertoAdmin
     end
 
     def test_create_regular_admin_with_custom_permissions
-      with_javascript do
+      with(js: true) do
         with_current_site(madrid) do
           with_signed_in_admin(admin) do
             visit @path

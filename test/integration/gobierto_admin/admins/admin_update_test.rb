@@ -70,7 +70,7 @@ module GobiertoAdmin
     end
 
     def test_regular_admin_update_admin_groups
-      with_javascript do
+      with(js: true) do
         with_current_site(site) do
           with_signed_in_admin(manager_admin) do
             visit edit_admin_admin_path(regular_admin_on_santander)
@@ -98,7 +98,7 @@ module GobiertoAdmin
     end
 
     def test_regular_admin_deassign_admin_groups
-      with_javascript do
+      with(js: true) do
         with_current_site(site) do
           with_signed_in_admin(manager_admin) do
             visit edit_admin_admin_path(regular_admin)

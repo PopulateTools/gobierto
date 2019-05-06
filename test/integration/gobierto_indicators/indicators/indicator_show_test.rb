@@ -29,7 +29,7 @@ module GobiertoIndicators
     end
 
     def test_indicator_ita
-      with_javascript do
+      with(js: true) do
         with_current_site(site) do
           visit ita_path
 
@@ -43,7 +43,7 @@ module GobiertoIndicators
     end
 
     def test_indicator_ita
-      with_javascript do
+      with(js: true) do
         with_current_site(site) do
           visit ip_path
 
@@ -57,7 +57,7 @@ module GobiertoIndicators
     end
 
     def test_indicator_gci
-      with_javascript do
+      with(js: true) do
         with_current_site(site) do
           visit gci_path
 

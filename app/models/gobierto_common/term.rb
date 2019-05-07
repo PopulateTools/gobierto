@@ -75,12 +75,12 @@ module GobiertoCommon
       positions_from_params.each do |parent_id, children_ids|
         if parent_id == "0"
           children_ids.each_with_index do |child_id, position|
-            where(id: child_id).update_all({ position: position, term_id: nil, level: 0 })
+            where(id: child_id).update_all(position: position, term_id: nil, level: 0)
           end
         else
           children_ids.each_with_index do |child_id, position|
             parent_level = find(parent_id).level
-            where(id: child_id).update_all({ position: position, term_id: parent_id, level: parent_level + 1 })
+            where(id: child_id).update_all(position: position, term_id: parent_id, level: parent_level + 1)
           end
         end
       end

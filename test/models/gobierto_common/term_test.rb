@@ -114,4 +114,11 @@ class TermTest < ActiveSupport::TestCase
     assert_equal 1, dog.position
     assert_equal term_without_dependencies, dog.parent_term
   end
+
+  def test_create_term_slug
+    new_term = vocabulary.terms.new(name_translations: { en: "Term with long name", es: "Término con nombre largo" })
+    assert new_term.valid?
+    new_term.save
+    assert_equal "term-with-long-name", new_term.slug
+  end
 end

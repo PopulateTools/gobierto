@@ -27,7 +27,7 @@ module GobiertoCommon
     parent_item_foreign_key :term_id
 
     def attributes_for_slug
-      [vocabulary_name, name]
+      [name]
     end
 
     def vocabulary_name

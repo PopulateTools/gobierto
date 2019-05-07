@@ -118,7 +118,6 @@ GEM
     childprocess (1.0.1)
       rake (< 13.0)
     chroma (0.2.0)
-    cliver (0.3.2)
     cloudinary (1.11.1)
       aws_cf_signer
       rest-client
@@ -320,10 +319,6 @@ GEM
     parser (2.6.3.0)
       ast (~> 2.4.0)
     pg (1.1.4)
-    poltergeist (1.18.1)
-      capybara (>= 2.1, < 4)
-      cliver (~> 0.3.1)
-      websocket-driver (>= 0.2.0)
     public_suffix (3.0.3)
     puma (3.12.1)
     rack (2.0.7)
@@ -551,7 +546,6 @@ DEPENDENCIES
   paper_trail
   paranoia
   pg (~> 1.1)
-  poltergeist
   puma
   rack-cors
   rails (~> 5.2.1)

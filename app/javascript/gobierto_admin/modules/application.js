@@ -193,7 +193,7 @@ function initializePageWithOnlyOneDatepicker() {
   // If a default value was set, force datepicker parse it so the TZ offset is
   // not shown to the user
   $('.air-datepicker').each(function() {
-    if (this.value) {
+    if (this.value && !$(this).data('range')) {
       var dateAttr = $(this).data('startdate');
       setDateOnBindedDatepicker(new Date(dateAttr), $(this));
     }

@@ -27,6 +27,8 @@ module GobiertoPlans
 
       where("starts_at >= ? AND ends_at <= ?", *dates)
     }
+    scope :with_start_date, ->(start_date) { where("starts_at >= ?", Date.parse(start_date)) }
+    scope :with_end_date, ->(end_date) { where("ends_at <= ?", Date.parse(end_date)) }
     scope :with_author, ->(author_id) { where(admin_id: author_id) }
     scope :with_admin_actions, lambda { |admin|
       admin_id, action_name, site_id = admin.to_s.split("-")

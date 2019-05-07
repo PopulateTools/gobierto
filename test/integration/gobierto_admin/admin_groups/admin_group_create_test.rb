@@ -68,7 +68,7 @@ module GobiertoAdmin
 
           # grant permissions for Richard Rider
           find("label[for='admin_group_people_#{richard.id}']", visible: false).execute_script("this.click()")
-          # find("label[for='admin_group_people_#{richard.id}']", visible: false).click
+          # find("label[for='admin_group_people_#{richard.id}']", visible: false).execute_script("this.click()")
 
           # grant permissions for Templates
           find("label[for='admin_group_site_options_templates']").click

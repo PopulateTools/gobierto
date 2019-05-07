@@ -34,9 +34,7 @@ module Integration
     def sign_out_admin
       within("header") do
         if javascript_driver?
-          with_hidden_elements do
-            find("#admin-sign-out").click
-          end
+          find("#admin-sign-out").click
         else
           click_link "admin-sign-out"
         end
@@ -58,7 +56,7 @@ module Integration
 
     def sign_out_user
       within("header .user_links") do
-        # find_link("Sign out", visible: false).click
+        # find_link("Sign out", visible: false).execute_script("this.click()")
         find("Sign out", visible: false).execute_script("this.click()")
       end
     rescue Capybara::ElementNotFound

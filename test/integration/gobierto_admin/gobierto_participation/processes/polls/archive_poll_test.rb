@@ -36,13 +36,17 @@ module GobiertoAdmin
                 find("a[data-method='delete']").click
               end
 
-              assert has_message?("Poll archived successfully")
+              page.accept_alert
 
+              assert has_message?("Poll archived successfully")
+              
               click_on "Archived elements"
 
               within "tr#poll-item-#{poll.id}" do
                 click_on "Recover element"
               end
+
+              page.accept_alert
 
               assert has_message?("Poll recovered successfully")
             end

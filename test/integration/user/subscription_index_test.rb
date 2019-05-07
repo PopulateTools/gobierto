@@ -83,7 +83,7 @@ class User::SubscriptionIndexTest < ActionDispatch::IntegrationTest
       with_signed_in_user(user) do
         visit @path
 
-        page.find("#user_subscription_preferences_site_to_subscribe", visible: false).click
+        page.find("#user_subscription_preferences_site_to_subscribe", visible: false).execute_script("this.click()")
 
         element_names.each do |el|
           element = page.find("##{el}", visible: false)

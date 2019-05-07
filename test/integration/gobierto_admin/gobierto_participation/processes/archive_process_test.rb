@@ -39,6 +39,8 @@ module GobiertoAdmin
                 find("a[data-method='delete']").click
               end
 
+              page.accept_alert
+
               assert has_message?("The process has been archived correctly")
 
               refute ::GobiertoParticipation::ProcessStagePage.where(id: process_stage_page_id).exists?
@@ -51,6 +53,8 @@ module GobiertoAdmin
                 end
               end
 
+              page.accept_alert
+              
               assert has_message?("The process has been recovered correctly")
             end
           end

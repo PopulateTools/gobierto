@@ -52,7 +52,7 @@ module GobiertoAdmin
               fill_in "admin_email", with: "admin@email.dev"
 
               # set authorization level to 'Regular'
-              find("label[for='admin_authorization_level_regular']", visible: false).click
+              find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
 
               # grant permissions for madrid.gobierto.test
               find("label[for='admin_permitted_sites_#{madrid.id}']").click
@@ -112,7 +112,7 @@ module GobiertoAdmin
             fill_in "admin_email", with: "admin@email.dev"
 
             # set authorization level to 'Regular'
-            find("label[for='admin_authorization_level_regular']", visible: false).click
+            find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
 
             # grant permissions for madrid.gobierto.test
             find("label[for='admin_permitted_sites_#{madrid.id}']").click

@@ -110,7 +110,7 @@ module GobiertoParticipation
         with_current_site(site) do
           visit container_path
 
-          page.find("[data-filter=best_ratings]", visible: false).click
+          page.find("[data-filter=best_ratings]", visible: false).execute_script("this.click()")
 
           assert_equal contributions_best_ratings.size, all(".card").size
           within ".contributions_content" do
@@ -126,7 +126,7 @@ module GobiertoParticipation
         with_current_site(site) do
           visit container_path
 
-          page.find("[data-filter=worst_ratings]", visible: false).click
+          page.find("[data-filter=worst_ratings]", visible: false).execute_script("this.click()")
 
           assert_equal contributions_worst_ratings.size, all(".card").size
         end
@@ -138,7 +138,7 @@ module GobiertoParticipation
         with_current_site(site) do
           visit container_path
 
-          page.find("[data-filter=recent]", visible: false).click
+          page.find("[data-filter=recent]", visible: false).execute_script("this.click()")
 
           assert_equal contributions_recent.size, all(".card").size
 
@@ -154,7 +154,7 @@ module GobiertoParticipation
         with_current_site(site) do
           visit container_path
 
-          page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).click
+          page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).execute_script("this.click()")
           assert has_selector?("h1", text: "Carril bici hasta el Juan Carlos I")
         end
       end
@@ -182,13 +182,13 @@ module GobiertoParticipation
           visit container_path
           assert has_content? "What activities for children we can start up?"
 
-          page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).click
+          page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).execute_script("this.click()")
           assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
           assert has_content? "Rate the idea"
           page.find("a.action_button.love").click
           assert has_content? "It enchants to me"
 
-          find(".modal_like_control a", visible: false).click
+          find(".modal_like_control a", visible: false).execute_script("this.click()")
 
           assert_equal contribution_containers_path, current_path
         end
@@ -200,7 +200,7 @@ module GobiertoParticipation
         with_signed_in_user(user) do
           visit container_path
 
-          page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).click
+          page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).execute_script("this.click()")
           assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
 
           within "div.comments_container" do
@@ -209,7 +209,7 @@ module GobiertoParticipation
             end
           end
 
-          find(".modal_like_control a", visible: false).click
+          find(".modal_like_control a", visible: false).execute_script("this.click()")
 
           assert_equal contribution_containers_path, current_path
         end
@@ -226,7 +226,7 @@ module GobiertoParticipation
           # ensure button to create contribution is disabled
           assert find('a.js-disabled.disabled-grayed.disabled-cursor').present?
 
-          page.find('[data-url="/participacion/p/grupo-de-petanca/aportaciones/lawn-bowling-past-contributions/contributions/contribution-on-closed-container"]', visible: false).click
+          page.find('[data-url="/participacion/p/grupo-de-petanca/aportaciones/lawn-bowling-past-contributions/contributions/contribution-on-closed-container"]', visible: false).execute_script("this.click()")
 
           sleep 1
 

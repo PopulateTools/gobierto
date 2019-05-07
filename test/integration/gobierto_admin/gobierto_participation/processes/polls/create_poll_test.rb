@@ -61,26 +61,26 @@ module GobiertoAdmin
 
               within '#edit_question_0' do
                 find('#poll_questions_attributes_0_title_translations_en', visible: false).set('Single choice question text')
-                find('#poll_questions_attributes_0_answer_type_single_choice', visible: false).trigger('click')
+                find('#poll_questions_attributes_0_answer_type_single_choice', visible: false).click
 
                 # add available answer 0
 
-                find('a[data-behavior=add_answer]', visible: false).trigger('click')
+                find('a[data-behavior=add_answer]', visible: false).click
 
                 fill_in 'poll_questions_attributes_0_answer_templates_attributes_0_text', with: 'First answer to single-choice question'
 
                 within '#question_0_edit_answer_0' do
-                  find('a[data-behavior=confirm_edit_answer]', visible: false).trigger('click')
+                  find('a[data-behavior=confirm_edit_answer]', visible: false).click
                 end
 
                 # add available answer 1
 
-                find('a[data-behavior=add_answer]', visible: false).trigger('click')
+                find('a[data-behavior=add_answer]', visible: false).click
 
                 fill_in 'poll_questions_attributes_0_answer_templates_attributes_1_text', with: 'Second answer to single-choice question'
 
                 within '#question_0_edit_answer_1' do
-                  find('a[data-behavior=confirm_edit_answer]', visible: false).trigger('click')
+                  find('a[data-behavior=confirm_edit_answer]', visible: false).click
                 end
 
                 click_button 'Save'
@@ -92,7 +92,7 @@ module GobiertoAdmin
 
               within '#edit_question_1' do
                 find('#poll_questions_attributes_1_title_translations_en', visible: false).set('Open answer question text')
-                find('#poll_questions_attributes_1_answer_type_open', visible: false).trigger('click')
+                find('#poll_questions_attributes_1_answer_type_open', visible: false).click
 
                 click_button 'Save'
               end

@@ -119,7 +119,8 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
       within("#load_ask_more_information") do
         fill_in :email, with: "spam@email.com"
 
-        find("#ic_email", visible: false).set("spam@email.com")
+        # find("#ic_email", visible: false).set("spam@email.com")
+        page.execute_script('document.getElementById("ic_email").innerText = "spam@email.com"')
       end
 
       click_button "Send"
@@ -161,7 +162,9 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
       assert has_content? feedback_ack_message
 
       fill_in :email, with: "spam@email.com"
-      find("#ic_email", visible: false).set("spam@email.com")
+      
+      # find("#ic_email", visible: false).set("spam@email.com")
+      page.execute_script('document.getElementById("ic_email").innerText = "spam@email.com"')
 
       click_button "Follow"
 

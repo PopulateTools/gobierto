@@ -39,12 +39,12 @@ module GobiertoAdmin
 
               select "Old town", from: "process_scope_id"
 
-              find("#process_has_duration", visible: false).trigger(:click)
+              find("#process_has_duration", visible: false).click
 
               fill_in "process_starts", with: "2017-01-01"
               fill_in "process_ends", with: "2017-01-30"
 
-              find("#process_process_type_process", visible: false).trigger(:click)
+              find("#process_process_type_process", visible: false).click
 
               click_button "Create"
 

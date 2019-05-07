@@ -122,7 +122,6 @@ class ActionDispatch::IntegrationTest
 
   Capybara.javascript_driver = :headless_chrome
   Capybara.default_host = "http://gobierto.test"
-  Capybara.ignore_hidden_elements = true
 
   self.use_transactional_tests = true
 

@@ -78,7 +78,7 @@ module GobiertoAdmin
                 end
 
                 within ".person-event-state-radio-buttons" do
-                  find("label", text: "Published").trigger("click")
+                  find("label", text: "Published").click
                 end
 
                 with_stubbed_s3_file_upload do

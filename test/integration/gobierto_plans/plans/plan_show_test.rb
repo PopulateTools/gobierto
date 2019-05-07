@@ -87,7 +87,7 @@ module GobiertoPlans
 
           within "section.level_0" do
             within "div.node-root.cat_1" do
-              find("a").trigger("click")
+              find("a").click
             end
           end
 
@@ -134,7 +134,7 @@ module GobiertoPlans
 
           within "section.level_0" do
             within "div.node-root.cat_1" do
-              find("a").trigger("click")
+              find("a").click
             end
           end
 
@@ -159,7 +159,7 @@ module GobiertoPlans
 
           within "section.level_0" do
             within "div.node-root.cat_1" do
-              find("a").trigger("click")
+              find("a").click
             end
           end
 
@@ -190,7 +190,7 @@ module GobiertoPlans
 
           within "section.level_0" do
             within "div.node-root.cat_1" do
-              find("a").trigger("click")
+              find("a").click
             end
           end
 

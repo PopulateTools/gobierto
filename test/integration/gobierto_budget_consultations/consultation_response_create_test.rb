@@ -81,15 +81,15 @@ module GobiertoBudgetConsultations
         with_signed_in_user(user) do
           visit @path
 
-          page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
-          page.find("button", text: "Reduce").trigger("click")
+          page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").click
+          page.find("button", text: "Reduce").click
           assert_equal "Surplus", page.all(".budget-figure").last.text
           sleep 2
-          page.find("button", text: "Increase").trigger("click")
+          page.find("button", text: "Increase").click
           assert_equal "Balanced", page.all(".budget-figure").last.text
 
           assert page.find("a.budget-next i")["class"].include?("fa-check")
-          page.find("a.budget-next").trigger("click")
+          page.find("a.budget-next").click
 
           assert has_content?("Thanks for your response")
         end
@@ -101,15 +101,15 @@ module GobiertoBudgetConsultations
         with_signed_in_user(user) do
           visit @path
 
-          page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
-          page.find("button", text: "Increase").trigger("click")
+          page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").click
+          page.find("button", text: "Increase").click
           assert_equal "Deficit", page.all(".budget-figure").last.text
           sleep 2
-          page.find("button", text: "Increase").trigger("click")
+          page.find("button", text: "Increase").click
           assert_equal "Deficit", page.all(".budget-figure").last.text
 
           assert page.find("a.budget-next i")["class"].include?("fa-times")
-          page.find("a.budget-next").trigger("click")
+          page.find("a.budget-next").click
 
           assert has_no_content?("Estupendo, muchas gracias por tu aportación")
         end
@@ -121,15 +121,15 @@ module GobiertoBudgetConsultations
         with_signed_in_user(user) do
           visit gobierto_budget_consultations_consultation_new_response_path(consultation_not_requiring_balance)
 
-          page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
-          page.find("button", text: "Increase").trigger("click")
+          page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").click
+          page.find("button", text: "Increase").click
           assert_equal "Deficit", page.all(".budget-figure").last.text
           sleep 2
-          page.find("button", text: "Increase").trigger("click")
+          page.find("button", text: "Increase").click
           assert_equal "Deficit", page.all(".budget-figure").last.text
           sleep 2
           assert page.find("a.budget-next i")["class"].include?("fa-check")
-          page.find("a.budget-next").trigger("click")
+          page.find("a.budget-next").click
 
           assert has_content?("Thanks for your response")
         end

@@ -44,7 +44,7 @@ module GobiertoAdmin
 
               click_link cms_page.title
 
-              page.find("#show-modal").trigger("click")
+              page.find("#show-modal").click
               assert has_content?("XLSX Attachment Name")
               assert has_content?("PDF Attachment Name")
             end

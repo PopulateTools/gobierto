@@ -37,7 +37,7 @@ module GobiertoAdmin
                   content_block_records = all(".dynamic-content-record-wrapper")
 
                   # Update title and attachment for first record
-                  edit_links[0].trigger(:click)
+                  edit_links[0].click
                   within(content_block_records[0]) do
                     fill_in "Title", with: "Accomplishment 1 Edited Title"
                     attach_file find("input[type='file']")[:id], "test/fixtures/files/gobierto_common/document-1.pdf"
@@ -45,7 +45,7 @@ module GobiertoAdmin
                   end
 
                   # Update title and attachment for second record
-                  edit_links[1].trigger(:click)
+                  edit_links[1].click
                   within(content_block_records[1]) do
                     fill_in "Title", with: "Accomplishment 2 Edited Title"
                     attach_file find("input[type='file']")[:id], "test/fixtures/files/gobierto_common/document-2.pdf"
@@ -82,10 +82,10 @@ module GobiertoAdmin
 
                   row = all("td.content-block-record-value", text: "Ate 33 meatballs in 45 minutes").first
                   parent = row.find(:xpath, '..')
-                  parent.find("a[data-behavior=edit_record]", visible: false).trigger(:click)
+                  parent.find("a[data-behavior=edit_record]", visible: false).click
                   table = parent.find(:xpath, '..')
                   sibling = table.all("tr").last
-                  remove_atachment = sibling.first("input[data-behavior=remove_attachment]", visible: false).trigger(:click)
+                  remove_atachment = sibling.first("input[data-behavior=remove_attachment]", visible: false).click
                 end
 
                 click_button "Update"

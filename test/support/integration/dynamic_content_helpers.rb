@@ -13,7 +13,7 @@ module Integration
             content_block.records.each do |content_block_record|
               within ".dynamic-content-record-wrapper.content-block-record-#{content_block_record.id}" do
                 with_hidden_elements do
-                  find("a[data-behavior=edit_record]").trigger("click")
+                  find("a[data-behavior=edit_record]").click
                 end
 
                 content_block.fields.each do |content_block_field|
@@ -110,7 +110,7 @@ module Integration
       within "#content-block-#{content_block.id}" do
         within ".dynamic-content-record-wrapper.content-block-record-#{content_block_record.id}" do
           with_hidden_elements do
-            find("a[data-behavior=edit_record]").trigger("click")
+            find("a[data-behavior=edit_record]").click
           end
 
           content_block.fields.each do |content_block_field|
@@ -143,7 +143,7 @@ module Integration
       within "#content-block-#{content_block.id}" do
         within ".dynamic-content-record-wrapper.content-block-record-#{content_block_record.id}" do
           with_hidden_elements do
-            find("a[data-behavior=edit_record]").trigger("click")
+            find("a[data-behavior=edit_record]").click
           end
 
           content_block.fields.each do |content_block_field|
@@ -176,7 +176,7 @@ module Integration
       within "#content-block-#{content_block.id}" do
         within ".dynamic-content-record-wrapper.content-block-record-#{content_block_record.id}" do
           with_hidden_elements do
-            find("a[data-behavior=delete_record]").trigger("click")
+            find("a[data-behavior=delete_record]").click
           end
         end
 

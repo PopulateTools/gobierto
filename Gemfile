@@ -113,7 +113,6 @@ group :test do
   gem "minitest-stub_any_instance"
   gem "minitest-stub-const"
   gem "mocha"
-  gem "poltergeist"
   gem "rack-cors"
   gem "selenium-webdriver"
   gem "spy"

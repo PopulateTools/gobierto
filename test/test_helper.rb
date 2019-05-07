@@ -102,7 +102,7 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
-  require "capybara/poltergeist"
+  # require "capybara/poltergeist"
   require "support/integration/authentication_helpers"
   require "support/integration/site_session_helpers"
   require "support/integration/matcher_helpers"
@@ -120,8 +120,9 @@ class ActionDispatch::IntegrationTest
   include FileUploaderHelpers
   include GobiertoPeople::SubmodulesHelper
 
-  Capybara.javascript_driver = :poltergeist_custom
+  Capybara.javascript_driver = :headless_chrome
   Capybara.default_host = "http://gobierto.test"
+  Capybara.ignore_hidden_elements = true
 
   self.use_transactional_tests = true
 

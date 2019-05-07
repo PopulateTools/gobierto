@@ -72,7 +72,7 @@ Estas son algunas de las organizaciones que usan Gobierto:
 
 ## Quiénes somos
 
-Gobierto es un producto de Populate, un estudio de diseño y tecnología en torno al civic engagement. Más información en nuestra web: [populate.tools](https://populate.tools)
+Gobierto es un producto de Populate, un estudio de diseño y tecnología entorno al civic engagement. Más información en nuestra web: [populate.tools](https://populate.tools)
 
 ## Comienza a usarlo
 

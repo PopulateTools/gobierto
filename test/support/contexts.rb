@@ -32,9 +32,9 @@ def with(params = {})
     yield(params)
   end
 
-  sign_out_admin if admin
   Capybara.reset_session! if params[:js]
 ensure
+  sign_out_admin if admin
   factory&.teardown
   factories.each(&:teardown)
   Capybara.current_driver = Capybara.default_driver if params[:js]

@@ -44,7 +44,7 @@ module GobiertoAdmin
               fill_in "section_title_translations_en", with: "My section"
               fill_in "section_slug", with: "my-section"
 
-              click_link "ES"
+              switch_locale "ES"
               fill_in "section_title_translations_es", with: "Mi sección"
 
               click_button "Create"

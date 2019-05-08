@@ -32,6 +32,8 @@ module GobiertoAdmin
                 find("a[data-method='delete']").click
               end
 
+              page.accept_alert
+
               assert has_message?("Plan archived successfully")
 
               click_on "Archived elements"
@@ -41,6 +43,8 @@ module GobiertoAdmin
                   click_on "Recover element"
                 end
               end
+
+              page.accept_alert
 
               assert has_message?("Plan has been successfully recovered")
             end

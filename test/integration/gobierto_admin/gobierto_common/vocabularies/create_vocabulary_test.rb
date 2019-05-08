@@ -59,7 +59,7 @@ module GobiertoAdmin
                 fill_in "vocabulary_name_translations_en", with: "Monetary Systems"
                 fill_in "vocabulary_slug", with: "monetary-systems-new"
 
-                click_link "ES"
+                switch_locale "ES"
                 fill_in "vocabulary_name_translations_es", with: "Sistemas Monetarios"
 
                 click_button "Create"
@@ -72,7 +72,7 @@ module GobiertoAdmin
                 assert has_field?("vocabulary_name_translations_en", with: "Monetary Systems")
                 assert has_field?("vocabulary_slug", with: "monetary-systems-new")
 
-                click_link "ES"
+                switch_locale "ES"
 
                 assert has_field?("vocabulary_name_translations_es", with: "Sistemas Monetarios")
               end

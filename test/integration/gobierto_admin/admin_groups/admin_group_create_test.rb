@@ -51,6 +51,7 @@ module GobiertoAdmin
 
           # assert GobiertoBudgets is checked
           assert find("#admin_group_modules_gobiertobudgets", visible: false).checked?
+          # assert page.execute_script('document.querySelector("#admin_group_modules_gobiertobudgets").checked')
         end
       end
     end
@@ -66,7 +67,8 @@ module GobiertoAdmin
           find("label[for='admin_group_modules_gobiertopeople']").click
 
           # grant permissions for Richard Rider
-          find("label[for='admin_group_people_#{richard.id}']", visible: false).trigger(:click)
+          find("label[for='admin_group_people_#{richard.id}']", visible: false).execute_script("this.click()")
+          # find("label[for='admin_group_people_#{richard.id}']", visible: false).execute_script("this.click()")
 
           # grant permissions for Templates
           find("label[for='admin_group_site_options_templates']").click

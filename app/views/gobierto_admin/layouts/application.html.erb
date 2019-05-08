@@ -11,8 +11,7 @@
     <%= render 'layouts/analytics_header_site' %>
   <% end %>
 
-  <%= javascript_pack_tag 'commons', 'data-turbolinks-track': true %>
-  <%= javascript_pack_tag 'admin', 'data-turbolinks-track': true %>
+  <%= javascript_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
 
 </head>
 

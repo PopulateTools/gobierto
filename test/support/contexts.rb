@@ -20,13 +20,8 @@ end
 def with(params = {})
   factory = params[:factory]
   factories = params[:factories] || []
-  js_driver = if params[:js] == :deprecated
-                :poltergeist_custom
-              else
-                (ENV["INTEGRATION_TEST_DRIVER"] || :headless_chrome).to_sym
-              end
 
-  Capybara.current_driver = js_driver if params[:js]
+  Capybara.current_driver = Capybara.javascript_driver if params[:js]
 
   if (site = params[:site])
     stub_current_site(site) { yield }

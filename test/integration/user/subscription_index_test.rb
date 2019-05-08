@@ -57,15 +57,15 @@ class User::SubscriptionIndexTest < ActionDispatch::IntegrationTest
         refute person_element.checked?
         refute person_element.disabled?
 
-        site_element.trigger("click")
+        site_element.execute_script("this.click()")
 
         assert module_element.checked?
         assert module_element.disabled?
         assert person_element.checked?
         assert person_element.disabled?
 
-        site_element.trigger("click")
-        module_element.trigger("click")
+        site_element.execute_script("this.click()")
+        module_element.execute_script("this.click()")
 
         refute module_element.disabled?
         assert person_element.checked?
@@ -83,7 +83,7 @@ class User::SubscriptionIndexTest < ActionDispatch::IntegrationTest
       with_signed_in_user(user) do
         visit @path
 
-        page.find("#user_subscription_preferences_site_to_subscribe", visible: false).trigger("click")
+        page.find("#user_subscription_preferences_site_to_subscribe", visible: false).execute_script("this.click()")
 
         element_names.each do |el|
           element = page.find("##{el}", visible: false)

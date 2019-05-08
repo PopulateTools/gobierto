@@ -80,7 +80,7 @@ module GobiertoAdmin
               fill_in "admin_email", with: "wadus@gobierto.dev"
 
               find("label[for='admin_admin_group_ids_#{site_group.id}']").click
-              find("label[for='admin_authorization_level_regular']", visible: false).click
+              find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
 
               click_button "Update"
             end
@@ -108,7 +108,7 @@ module GobiertoAdmin
               fill_in "admin_email", with: "wadus@gobierto.dev"
 
               find("label[for='admin_admin_group_ids_#{site_group.id}']").click
-              find("label[for='admin_authorization_level_regular']", visible: false).click
+              find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
 
               click_button "Update"
             end

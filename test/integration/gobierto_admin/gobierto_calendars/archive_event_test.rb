@@ -35,6 +35,7 @@ module GobiertoAdmin
               within "#person-event-item-#{themes_event.id}" do
                 find("a[data-method='delete']").click
               end
+              page.driver.browser.switch_to.alert.accept
 
               assert has_message?("Event was successfully archived")
 
@@ -43,6 +44,7 @@ module GobiertoAdmin
               within "tr#person-event-item-#{themes_event.id}" do
                 click_on "Recover element"
               end
+              page.driver.browser.switch_to.alert.accept
 
               assert has_message?("Event was successfully recovered")
             end
@@ -59,6 +61,7 @@ module GobiertoAdmin
               within "#person-event-item-#{themes_event.id}" do
                 find("a[data-method='delete']").click
               end
+              page.driver.browser.switch_to.alert.accept
 
               assert has_message?("Event was successfully archived")
 

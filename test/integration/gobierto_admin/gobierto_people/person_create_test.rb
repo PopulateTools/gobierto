@@ -44,7 +44,7 @@ module GobiertoAdmin
 
                 within ".avatar_file_field" do
                   assert has_no_selector?("img")
-                  attach_file "person_avatar_image", "test/fixtures/files/gobierto_people/people/avatar.jpg"
+                  attach_file "person_avatar_image", Rails.root.join("test/fixtures/files/gobierto_people/people/avatar.jpg")
                 end
               end
 
@@ -67,11 +67,11 @@ module GobiertoAdmin
                 end
 
                 # Simulate Bio rich text area
-                find("#person_bio_translations_en", visible: false).set("Person Bio")
+                page.execute_script('document.getElementById("person_bio_translations_en").value = "Person Bio"')
 
                 within ".bio_file_field" do
                   assert has_no_selector?("a")
-                  attach_file "person_bio_file", "test/fixtures/files/gobierto_people/people/bio.pdf"
+                  attach_file "person_bio_file", Rails.root.join("test/fixtures/files/gobierto_people/people/bio.pdf")
                 end
 
                 within ".widget_save" do
@@ -80,10 +80,10 @@ module GobiertoAdmin
 
                 fill_in_content_blocks
 
-                click_link "ES"
+                switch_locale "ES"
 
                 fill_in "Position", with: "Cargo persona"
-                find("#person_bio_translations_es", visible: false).set("Bio Persona")
+                page.execute_script('document.getElementById("person_bio_translations_es").value = "Bio Persona"')
 
                 with_stubbed_s3_file_upload do
                   click_button "Create"
@@ -133,7 +133,7 @@ module GobiertoAdmin
                 assert_content_blocks_have_the_right_values
                 assert_content_blocks_can_be_managed
 
-                click_link "ES"
+                switch_locale "ES"
 
                 assert has_field?("Position", with: "Cargo persona")
 

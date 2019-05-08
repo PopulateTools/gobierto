@@ -1,5 +1,5 @@
 <% content_for :javascript_module_link do %>
-  <%= javascript_pack_tag 'indicators', 'data-turbolinks-track': true %>
+  <%= javascript_packs_with_chunks_tag 'indicators', 'data-turbolinks-track': true %>
 <% end %>
 
 <%= render template: "layouts/application" %>

@@ -59,7 +59,7 @@ module GobiertoAdmin
 
             fill_in "file_attachment_name", with: "My file_attachment"
             fill_in "file_attachment_description", with: "My file_attachment description"
-            attach_file("file_attachment_file", "test/fixtures/files/gobierto_attachments/attachment/pdf-collection-gender-attachment.pdf")
+            attach_file "file_attachment_file", Rails.root.join("test/fixtures/files/gobierto_attachments/attachment/pdf-collection-gender-attachment.pdf")
 
             with_stubbed_s3_file_upload do
               click_button "Create"
@@ -92,7 +92,7 @@ module GobiertoAdmin
 
             fill_in "file_attachment_name", with: "My file_attachment"
             fill_in "file_attachment_description", with: "My file_attachment description"
-            attach_file("file_attachment_file", "test/fixtures/files/gobierto_attachments/attachment/pdf-collection-update-attachment.pdf")
+            attach_file "file_attachment_file", Rails.root.join("test/fixtures/files/gobierto_attachments/attachment/pdf-collection-update-attachment.pdf")
 
             with_stubbed_s3_file_upload do
               click_button "Update"

@@ -39,7 +39,7 @@ gem "chroma"
 gem "font-awesome-sass", "~> 5.6"
 
 # Webpack
-gem "webpacker", "~> 3.0", git: "https://github.com/ferblape/webpacker.git", branch: "3-x-stable"
+gem "webpacker", "~> 4.0"
 
 # Elasticsearch
 gem "elasticsearch"
@@ -113,7 +113,6 @@ group :test do
   gem "minitest-stub_any_instance"
   gem "minitest-stub-const"
   gem "mocha"
-  gem "poltergeist"
   gem "rack-cors"
   gem "selenium-webdriver"
   gem "spy"

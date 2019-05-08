@@ -30,7 +30,7 @@ module CommonHelpers
   end
 
   def air_datepicker_field_value(field_id)
-    page.find("##{field_id}")["outerHTML"].gsub(/^.*value=\"/, "").gsub(/\" name.*/, "")
+    page.find("##{field_id}", visible: false)["outerHTML"].gsub(/^.*value=\"/, "").gsub(/\" name.*/, "")
   end
 
 end

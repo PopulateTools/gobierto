@@ -1,6 +1,5 @@
 <% content_for :javascript_module_link do %>
-  <!-- load module javascript specifics -->
-  <%= javascript_pack_tag 'charters', 'data-turbolinks-track': true %>
+  <%= javascript_packs_with_chunks_tag 'charters', 'data-turbolinks-track': true %>
 <% end %>
 
 <%= render template: "layouts/application" %>

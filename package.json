@@ -2,7 +2,7 @@
   "license": "SEE LICENSE IN LICENSE-AGPLv3.txt",
   "dependencies": {
     "@claviska/jquery-minicolors": "^2.3.2",
-    "@rails/webpacker": "^3.3.0",
+    "@rails/webpacker": "^4.0.2",
     "accounting": "^0.4.1",
     "air-datepicker": "^2.2.3",
     "algoliasearch": "^3.25.1",
@@ -41,15 +41,12 @@
     "velocity-animate": "^1.5.1",
     "velocity-ui-pack": "^1.2.2",
     "vue": "^2.5.16",
-    "webpack-jquery-ui": "^1.0.0",
+    "webpack-jquery-ui": "^2.0.1",
     "webpack-merge": "^4.1.2"
   },
   "devDependencies": {
-    "webpack-bundle-analyzer": "^2.11.1",
-    "webpack-cli": "^2.0.10",
-    "webpack-dev-server": "^2.11.2"
-  },
-  "resolutions": {
-    "d3-selection": "1.4.0"
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.3.1"
   }
 }

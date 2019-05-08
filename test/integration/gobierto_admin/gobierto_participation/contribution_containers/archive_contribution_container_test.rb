@@ -36,6 +36,8 @@ module GobiertoAdmin
                 find("a[data-method='delete']").click
               end
 
+              page.accept_alert
+
               assert has_message?("Container of contributions archived correctly")
 
               refute site.contribution_containers.exists?(id: contribution_container.id)
@@ -46,6 +48,8 @@ module GobiertoAdmin
                 click_on "Recover element"
               end
 
+              page.accept_alert
+              
               assert has_message?("Container of contributions recovered correctly")
             end
           end

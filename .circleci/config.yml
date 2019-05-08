@@ -55,12 +55,7 @@ jobs:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-      - run:
-          name: Install phantomjs
-          command: |
-            sudo curl --output /tmp/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
-            sudo chmod ugo+x /tmp/phantomjs
-            sudo ln -sf /tmp/phantomjs /usr/local/bin/phantomjs
+      # Install Chromedriver
       - run:
           name: Install Google Chrome
           command: |
@@ -73,7 +68,6 @@ jobs:
             curl --silent --show-error --location --fail --retry 3 --output /tmp/chromedriver_linux64.zip "https://chromedriver.storage.googleapis.com/2.46/chromedriver_linux64.zip"
             sudo unzip /tmp/chromedriver_linux64.zip chromedriver -d /usr/local/bin
             sudo chmod +x /usr/local/bin/chromedriver
-
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml

@@ -50,7 +50,7 @@ module GobiertoAdmin
 
             click_link "Import from CSV"
 
-            attach_file("plan_csv_file", "test/fixtures/files/gobierto_plans/plan2.csv")
+            attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
             within "form" do
               with_stubbed_s3_file_upload do
                 click_button "Import from CSV file"
@@ -82,7 +82,7 @@ module GobiertoAdmin
 
             click_link "Import from CSV"
 
-            attach_file("plan_csv_file", "test/fixtures/files/gobierto_plans/plan.csv")
+            attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan.csv")
             within "form" do
               with_stubbed_s3_file_upload do
                 click_button "Import from CSV file"

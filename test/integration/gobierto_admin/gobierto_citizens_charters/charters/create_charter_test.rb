@@ -55,7 +55,7 @@ module GobiertoAdmin
 
                 fill_in "charter_title_translations_en", with: "Dependent people"
 
-                click_link "ES"
+                switch_locale "ES"
                 fill_in "charter_title_translations_es", with: "Personas dependientes"
 
                 select "Teleassistance", from: "charter_service_id"
@@ -77,7 +77,7 @@ module GobiertoAdmin
 
                 assert has_field?("charter_title_translations_en", with: "Dependent people")
 
-                click_link "ES"
+                switch_locale "ES"
 
                 assert has_field?("charter_title_translations_es", with: "Personas dependientes")
               end

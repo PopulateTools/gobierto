@@ -140,7 +140,7 @@ module GobiertoAdmin
             choose "Regular"
           end
 
-          find("label[for='admin_permitted_sites_#{site.id}']", visible: false).execute_script("this.click()")
+          find("label[for='admin_permitted_sites_#{site.id}']", visible: false).click
 
           click_button "Update"
         end

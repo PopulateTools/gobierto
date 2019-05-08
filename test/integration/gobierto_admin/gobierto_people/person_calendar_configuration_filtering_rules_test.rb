@@ -78,7 +78,7 @@ module GobiertoAdmin
               click_link 'Agenda'
               click_link 'Configuration'
 
-              page.find('[data-behavior="delete_record"]').click
+              page.find("a[data-behavior=delete_record]", visible: false).execute_script("this.click()")
 
               click_button "Update"
 

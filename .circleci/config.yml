@@ -37,11 +37,6 @@ jobs:
           key: gobierto-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-
-      - run:
-          name: "[Yarn] Install dependencies"
-          command: yarn install
-
       - persist_to_workspace:
           root: ~/gobierto
           paths:
@@ -55,7 +50,7 @@ jobs:
       - attach_workspace:
           at: ~/gobierto
       - run: bundle --path vendor/bundle
-      - run: yarn install --cache-folder ~/gobierto/vendor/yarn
+      - run: yarn install
       # Wait for DB containers to be ready
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m

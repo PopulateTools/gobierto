@@ -25,13 +25,6 @@ environment.plugins.append(
 environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: { name: "commons", minChunks: 5 }}}))
 environment.loaders.delete('nodeModules')
 
-// Set the ecma version only works on assets:precompile, not with the dev-server
-// try {
-//   environment.plugins.get("UglifyJs").options.uglifyOptions.ecma = 5
-// } catch(e) {
-//   console.warn("Ignoring Uglify configuration")
-// }
-
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
 

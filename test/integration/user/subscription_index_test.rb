@@ -57,15 +57,15 @@ class User::SubscriptionIndexTest < ActionDispatch::IntegrationTest
         refute person_element.checked?
         refute person_element.disabled?
 
-        site_element.click
+        site_element.execute_script("this.click()")
 
         assert module_element.checked?
         assert module_element.disabled?
         assert person_element.checked?
         assert person_element.disabled?
 
-        site_element.click
-        module_element.click
+        site_element.execute_script("this.click()")
+        module_element.execute_script("this.click()")
 
         refute module_element.disabled?
         assert person_element.checked?

@@ -72,7 +72,7 @@ module GobiertoIndicators
           assert has_content? "S - Serveis de ciutat"
           assert has_content? "Habitatges"
           assert has_content? "Nombre total de llars"
-          assert has_content? "16366"
+          assert has_content? "16,366"
 
           within 'li.item.item-lvl-2' do
             find('div[class=item-text]').click
@@ -81,7 +81,7 @@ module GobiertoIndicators
           assert has_content? "Nombre total de llars"
           assert has_content? "El nombre total d'habitatges amb persones empadronades,
                                tant en règim de lloguer com en propietat.".squish
-          assert has_content? "16366"
+          assert has_content? "16,366"
           assert has_content? "Calculation"
           assert has_content? "Suma total d'habitatges amb persones empadronades"
           assert has_content? "Source"

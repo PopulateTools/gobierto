@@ -63,24 +63,23 @@ module GobiertoAdmin
                 fill_in "event_title_translations_en", with: "Event Title"
                 fill_in "event_starts_at", with: chosen_start_date
                 fill_in "event_ends_at", with: chosen_end_date
-                find("#event_description_translations_en", visible: false).set("Event Description")
                 page.execute_script('document.getElementById("event_description_translations_en").value = "Event Description"')
 
                 switch_locale "ES"
                 fill_in "event_title_translations_es", with: "Título Evento"
-                page.execute_script('document.getElementById("event_description_translations_en").value = "Descripción Evento"')
+                page.execute_script('document.getElementById("event_description_translations_es").value = "Descripción Evento"')
 
                 within "#person-event-locations" do
                   event.locations.each do |location|
                     within ".dynamic-content-record-wrapper.content-block-record-#{location.id}" do
                       with_hidden_elements do
-                        find("a[data-behavior=edit_record]").click
+                        find("a[data-behavior=edit_record]", visible: false).execute_script("this.click()")
                       end
 
                       fill_in "Place", with: "Location Place"
                       fill_in "Address", with: "Location Address"
 
-                      find("a[data-behavior=add_record]").click
+                      find("a[data-behavior=add_record]", visible: false).execute_script("this.click()")
                     end
                   end
                 end
@@ -90,14 +89,14 @@ module GobiertoAdmin
                     within ".dynamic-content-record-wrapper.content-block-record-#{attendee.id}" do
                       next if attendee.person && attendee.person == person
                       with_hidden_elements do
-                        find("a[data-behavior=edit_record]").click
+                        find("a[data-behavior=edit_record]", visible: false).execute_script("this.click()")
                       end
 
                       select "", from: "Person"
                       fill_in "Name", with: "Attendee Name"
                       fill_in "Position", with: "Attendee Position"
 
-                      find("a[data-behavior=add_record]").click
+                      find("a[data-behavior=add_record]", visible: false).execute_script("this.click()")
                     end
                   end
                 end
@@ -105,8 +104,6 @@ module GobiertoAdmin
                 within ".person-event-state-radio-buttons" do
                   find("label", text: "Pending").click
                 end
-
-                scroll_to_top
 
                 with_stubbed_s3_file_upload do
                   click_button "Update"

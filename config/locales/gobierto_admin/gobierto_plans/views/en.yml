@@ -82,7 +82,7 @@ en:
           title: New plan
       projects:
         filter_form:
-          author: Autor
+          author: Author
           category: Category
           clear_filters: Clear filters
           filter: Filter

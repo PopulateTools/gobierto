@@ -82,7 +82,7 @@ ca:
           title: Nou pla
       projects:
         filter_form:
-          author: Author
+          author: Autor
           category: Categoria
           clear_filters: Netejar filtres
           filter: Filtrar

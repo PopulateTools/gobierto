@@ -47,6 +47,9 @@ module GobiertoAdmin
       rescue CSVRowInvalid => e
         errors.add(:base, :invalid_row, row_data: e.message)
         false
+      rescue ActiveRecord::RecordNotDestroyed => e
+        errors.add(:base, :used_resource)
+        false
       end
 
       def csv_file_format

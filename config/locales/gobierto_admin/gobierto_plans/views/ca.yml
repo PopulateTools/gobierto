@@ -54,7 +54,13 @@ ca:
         import_csv_form:
           confirm_import: Estàs segur? totes les dades actuals seran eliminats
           disable_with: Carregant...
+          more_info_html: Per obtenir més informació visita la documentació <a href="%{url}"
+            target="_blank">Importar datos de un plan</a>.
           submit: Importa des de fitxer CSV
+          vocabulary_used_by_other_plans: El vocabulari configurat per aquest pla
+            ja està configurat per a algun altre. Si us plau, crea un vocabulari nou
+            per aquest pla o elimina-de la configuració dels altres plans que ho estiguin
+            fent servir, atès que s'esborrarien les seves dades amb la importació.
           warning: "<strong>Avís</strong> Si importes un fitxer CSV s'eliminarà tot
             el contingut actual, de manera que es perdran tots els canvis que hagis
             realitzat a través de la interfície d'usuari web de Gobierto."

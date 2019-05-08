@@ -54,7 +54,13 @@ en:
         import_csv_form:
           confirm_import: Are you sure? All current data will be deleted
           disable_with: Loading...
+          more_info_html: For more information, visit the documentation <a href="%{url}"
+            target="_blank">Importar datos de un plan</a>.
           submit: Import from CSV file
+          vocabulary_used_by_other_plans: The vocabulary configured for this plan
+            is already configured for someone else. Please create a new vocabulary
+            for this plan or remove it from the configuration of the other plans using
+            it, since their data would be deleted with the import.
           warning: "<strong>Warning</strong> If you upload a CSV, all current content
             will be deleted, so any change you might have done through the Gobierto
             Web UI will be lost."

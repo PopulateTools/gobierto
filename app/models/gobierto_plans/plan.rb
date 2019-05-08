@@ -65,6 +65,12 @@ module GobiertoPlans
       [title]
     end
 
+    def vocabulary_shared_with_other_plans?
+      return unless vocabulary_id
+
+      self.class.with_deleted.where(vocabulary_id: vocabulary_id).where.not(id: id).exists?
+    end
+
     private
 
     def level_key(level_size, level)

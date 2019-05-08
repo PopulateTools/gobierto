@@ -62,10 +62,10 @@ module GobiertoAdmin
 
               within('#edit_question_1', visible: false) do
                 # find('#poll_questions_attributes_1_title_translations_en', visible: false).set('Edited question title')
-                page.execute_script('document.getElementById("poll_questions_attributes_1_title_translations_en").innerText = "Edited question title"')
+                page.execute_script('document.getElementById("poll_questions_attributes_1_title_translations_en").value = "Edited question title"')
 
                 # find('#poll_questions_attributes_1_title_translations_es', visible: false).set('Título de pregunta editado')
-                page.execute_script('document.getElementById("poll_questions_attributes_1_title_translations_es").innerText = "Título de pregunta editado"')
+                page.execute_script('document.getElementById("poll_questions_attributes_1_title_translations_es").value = "Título de pregunta editado"')
 
                 find('#poll_questions_attributes_1_answer_type_single_choice', visible: false).execute_script("this.click()")
               end
@@ -80,7 +80,7 @@ module GobiertoAdmin
 
               within('#question_1_edit_answer_1', visible: false) do
                 # find('#poll_questions_attributes_1_answer_templates_attributes_1_text', visible: false).set('Edited answer text')
-                page.execute_script('document.getElementById("poll_questions_attributes_1_answer_templates_attributes_1_text").innerText = "Edited answer text"')
+                page.execute_script('document.getElementById("poll_questions_attributes_1_answer_templates_attributes_1_text").value = "Edited answer text"')
 
                 find('a[data-behavior=confirm_edit_answer]', visible: false).execute_script("this.click()")
               end
@@ -92,7 +92,7 @@ module GobiertoAdmin
               end
 
               # find('#poll_questions_attributes_1_answer_templates_attributes_3_text', visible: false).set('New answer text')
-              page.execute_script('document.getElementById("poll_questions_attributes_1_answer_templates_attributes_3_text").innerText = "New answer text"')
+              page.execute_script('document.getElementById("poll_questions_attributes_1_answer_templates_attributes_3_text").value = "New answer text"')
 
               within('#question_1_edit_answer_3', visible: false) do
                 find('a[data-behavior=confirm_edit_answer]', visible: false).execute_script("this.click()")
@@ -108,7 +108,7 @@ module GobiertoAdmin
 
               within '#edit_question_3' do
                 # find('#poll_questions_attributes_3_title_translations_en', visible: false).set('Open answer question text')
-                page.execute_script('document.getElementById("poll_questions_attributes_3_title_translations_en").innerText = "Open answer question text"')
+                page.execute_script('document.getElementById("poll_questions_attributes_3_title_translations_en").value = "Open answer question text"')
 
                 find('#poll_questions_attributes_3_answer_type_open', visible: false).execute_script("this.click()")
 

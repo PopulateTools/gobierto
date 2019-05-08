@@ -56,7 +56,7 @@ module GobiertoAdmin
 
                 fill_in_content_blocks
 
-                click_link "ES"
+                switch_locale "ES"
 
                 fill_in "person_statement_title_translations_es", with: "Título"
 
@@ -84,7 +84,7 @@ module GobiertoAdmin
                 assert_content_blocks_have_the_right_values
                 assert_content_blocks_can_be_managed
 
-                click_link "ES"
+                switch_locale "ES"
                 assert has_field?("person_statement_title_translations_es", with: "Título")
               end
             end

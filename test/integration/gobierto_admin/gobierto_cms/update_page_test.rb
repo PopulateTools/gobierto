@@ -76,11 +76,11 @@ module GobiertoAdmin
 
             assert_equal "collection_id=#{collection.id}", current_uri_query_params
 
-            within(".language_selector") { click_link "ES" }
+            switch_locale "ES"
 
             assert_equal "collection_id=#{collection.id}&locale=es", current_uri_query_params
 
-            within(".language_selector") { click_link "EN" }
+            switch_locale "EN"
           end
         end
       end

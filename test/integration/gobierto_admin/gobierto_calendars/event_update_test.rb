@@ -64,10 +64,11 @@ module GobiertoAdmin
                 fill_in "event_starts_at", with: chosen_start_date
                 fill_in "event_ends_at", with: chosen_end_date
                 find("#event_description_translations_en", visible: false).set("Event Description")
+                page.execute_script('document.getElementById("event_description_translations_en").value = "Event Description"')
 
-                click_link "ES"
+                switch_locale "ES"
                 fill_in "event_title_translations_es", with: "Título Evento"
-                find("#event_description_translations_es", visible: false).set("Descripción Evento")
+                page.execute_script('document.getElementById("event_description_translations_en").value = "Descripción Evento"')
 
                 within "#person-event-locations" do
                   event.locations.each do |location|
@@ -139,7 +140,7 @@ module GobiertoAdmin
                   end
                 end
 
-                click_link "ES"
+                switch_locale "ES"
 
                 assert has_field?("event_title_translations_es", with: "Título Evento")
                 assert_equal(

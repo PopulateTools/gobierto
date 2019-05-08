@@ -80,7 +80,7 @@ module GobiertoAdmin
 
                 fill_in_content_blocks
 
-                click_link "ES"
+                switch_locale "ES"
 
                 fill_in "Position", with: "Cargo persona"
                 page.execute_script('document.getElementById("person_bio_translations_es").value = "Bio Persona"')
@@ -133,7 +133,7 @@ module GobiertoAdmin
                 assert_content_blocks_have_the_right_values
                 assert_content_blocks_can_be_managed
 
-                click_link "ES"
+                switch_locale "ES"
 
                 assert has_field?("Position", with: "Cargo persona")
 

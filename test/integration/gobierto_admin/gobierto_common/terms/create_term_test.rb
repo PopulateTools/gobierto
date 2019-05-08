@@ -64,7 +64,7 @@ module GobiertoAdmin
                 fill_in "term_description_translations_en", with: "The goat is an animal"
                 fill_in "term_slug", with: "new-goat"
 
-                click_link "ES"
+                switch_locale "ES"
                 fill_in "term_name_translations_es", with: "Cabra"
                 fill_in "term_description_translations_es", with: "La cabra es un animal"
 
@@ -81,7 +81,7 @@ module GobiertoAdmin
                 assert has_field?("term_description_translations_en", with: "The goat is an animal")
                 assert has_field?("term_slug", with: "new-goat")
 
-                click_link "ES"
+                switch_locale "ES"
 
                 assert has_field?("term_name_translations_es", with: "Cabra")
                 assert has_field?("term_description_translations_es", with: "La cabra es un animal")

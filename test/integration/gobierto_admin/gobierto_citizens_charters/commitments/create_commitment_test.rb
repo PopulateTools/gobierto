@@ -60,7 +60,7 @@ module GobiertoAdmin
                 fill_in "commitment_title_translations_en", with: "Internet availability"
                 fill_in "commitment_description_translations_en", with: "There must be at least a device connected to Internet"
 
-                click_link "ES"
+                switch_locale "ES"
                 fill_in "commitment_title_translations_es", with: "Disponibilidad de Internet"
                 fill_in "commitment_description_translations_es", with: "Debe haber al menos un dispositivo conectado a Internet"
 
@@ -82,7 +82,7 @@ module GobiertoAdmin
 
                 assert has_field?("commitment_title_translations_en", with: "Internet availability")
                 assert has_field?("commitment_description_translations_en", with: "There must be at least a device connected to Internet")
-                click_link "ES"
+                switch_locale "ES"
                 assert has_field?("commitment_title_translations_es", with: "Disponibilidad de Internet")
                 assert has_field?("commitment_description_translations_es", with: "Debe haber al menos un dispositivo conectado a Internet")
               end

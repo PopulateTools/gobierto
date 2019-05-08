@@ -41,7 +41,7 @@ module GobiertoAdmin
               fill_in "plan_title_translations_en", with: "New plan title"
               fill_in "plan_introduction_translations_en", with: "New plan introduction"
 
-              click_link "ES"
+              switch_locale "ES"
 
               fill_in "plan_title_translations_es", with: "Título del nuevo plan"
               fill_in "plan_introduction_translations_es", with: "Introducción del nuevo plan"

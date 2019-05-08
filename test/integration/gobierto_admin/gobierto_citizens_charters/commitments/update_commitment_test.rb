@@ -54,7 +54,7 @@ module GobiertoAdmin
 
                 fill_in "commitment_title_translations_en", with: "Indicator updated"
                 fill_in "commitment_description_translations_en", with: "Commitment updated description"
-                click_link "ES"
+                switch_locale "ES"
                 fill_in "commitment_title_translations_es", with: "Indicador actualizado"
                 fill_in "commitment_description_translations_es", with: "Descripción del compromiso actualizado"
 
@@ -66,7 +66,7 @@ module GobiertoAdmin
 
                 assert has_field? "commitment_title_translations_en", with: "Indicator updated"
                 assert has_field? "commitment_description_translations_en", with: "Commitment updated description"
-                click_link "ES"
+                switch_locale "ES"
                 assert has_field? "commitment_title_translations_es", with: "Indicador actualizado"
                 assert has_field? "commitment_description_translations_es", with: "Descripción del compromiso actualizado"
               end
@@ -89,7 +89,7 @@ module GobiertoAdmin
 
                   fill_in "commitment_title_translations_en", with: "Indicator updated"
                   fill_in "commitment_description_translations_en", with: "Commitment updated description"
-                  click_link "ES"
+                  switch_locale "ES"
                   fill_in "commitment_title_translations_es", with: "Indicador actualizado"
                   fill_in "commitment_description_translations_es", with: "Descripción del compromiso actualizado"
 
@@ -101,7 +101,7 @@ module GobiertoAdmin
 
                   assert has_field? "commitment_title_translations_en", with: "Indicator updated"
                   assert has_field? "commitment_description_translations_en", with: "Commitment updated description"
-                  click_link "ES"
+                  switch_locale "ES"
                   assert has_field? "commitment_title_translations_es", with: "Indicador actualizado"
                   assert has_field? "commitment_description_translations_es", with: "Descripción del compromiso actualizado"
                 end
@@ -128,7 +128,7 @@ module GobiertoAdmin
 
                 assert has_field? "commitment_title_translations_en", with: draft_commitment.title_en
                 assert has_field? "commitment_description_translations_en", with: draft_commitment.description_en
-                click_link "ES"
+                switch_locale "ES"
                 assert has_field? "commitment_title_translations_es", with: draft_commitment.title_es
                 assert has_field? "commitment_description_translations_es", with: draft_commitment.description_es
               end
@@ -150,7 +150,7 @@ module GobiertoAdmin
 
                 fill_in "commitment_title_translations_en", with: ""
                 fill_in "commitment_description_translations_en", with: ""
-                click_link "ES"
+                switch_locale "ES"
                 fill_in "commitment_title_translations_es", with: ""
                 fill_in "commitment_description_translations_es", with: ""
 

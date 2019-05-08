@@ -57,7 +57,9 @@ module GobiertoAdmin
               end
             end
 
-            assert has_message? "Data imported successfully"
+            within ".flash-message", match: :first do
+              assert has_content? "Data imported successfully"
+            end
 
             assert has_content? "5 axes"
             assert has_content? "39 lines of action"
@@ -86,7 +88,9 @@ module GobiertoAdmin
               end
             end
 
-            assert has_message? "Data imported successfully"
+            within ".flash-message", match: :first do
+              assert has_content? "Data imported successfully"
+            end
           end
         end
       end

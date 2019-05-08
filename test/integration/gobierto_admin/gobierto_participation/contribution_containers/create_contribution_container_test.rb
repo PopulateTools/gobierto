@@ -57,7 +57,7 @@ module GobiertoAdmin
               fill_in "contribution_container_starts", with: "2017-01-01"
               fill_in "contribution_container_ends", with: "2017-01-30"
 
-              click_link "ES"
+              switch_locale "ES"
               fill_in "contribution_container_title_translations_es", with: "Mi contendedor de aportaciones"
               fill_in "contribution_container_description_translations_es", with: "Descripción de mi contenedor de aportaciones"
 
@@ -93,7 +93,7 @@ module GobiertoAdmin
               fill_in "contribution_container_starts", with: "2017-01-01"
               fill_in "contribution_container_ends", with: "2017-01-30"
 
-              click_link "ES"
+              switch_locale "ES"
               fill_in "contribution_container_title_translations_es", with: "Mi contendedor de aportaciones"
               fill_in "contribution_container_description_translations_es", with: "Descripción de mi contenedor de aportaciones"
 

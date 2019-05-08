@@ -31,8 +31,8 @@ export class ComparisonCard extends Card {
 
     // Append source
     this.div.selectAll('.widget_src')
-      .attr('title', json.metadata.indicator['source name'])
-      .text(json.metadata.indicator['source name']);
+      .attr('title', json.metadata.indicator['source_name'])
+      .text(json.metadata.indicator['source_name']);
 
     // Append update frequency
     this.div.selectAll('.widget_freq')

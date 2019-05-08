@@ -22,13 +22,8 @@ environment.plugins.append(
   })
 )
 
-environment.plugins.append(
-  'CommonsChunk',
-  new webpack.optimize.CommonsChunkPlugin({
-    name: "commons",
-    minChunks: 5
-  })
-)
+environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: { name: "commons", minChunks: 5 }}}))
+environment.loaders.delete('nodeModules')
 
 // Set the ecma version only works on assets:precompile, not with the dev-server
 try {

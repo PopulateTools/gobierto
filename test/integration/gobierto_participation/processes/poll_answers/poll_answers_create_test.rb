@@ -51,14 +51,14 @@ module GobiertoParticipation
 
             # answer first question
 
-            find('label', text: 'Si').trigger(:click)
+            find('label', text: 'Si').click
 
             find('input.next_question').click
 
             # answer second question
 
-            find('label', text: 'Horarios').trigger(:click)
-            find('label', text: 'Características de los cenadores').trigger(:click)
+            find('label', text: 'Horarios').click
+            find('label', text: 'Características de los cenadores').click
 
             find('input.next_question').click
 
@@ -104,7 +104,7 @@ module GobiertoParticipation
             visit answer_poll_path(poll_with_images)
 
             # answer first question
-            find("label", text: "Yes").trigger(:click)
+            find("label", text: "Yes").click
             find("input.next_question").click
 
             # lightbox is not yet visible

@@ -36,6 +36,8 @@ module GobiertoAdmin
                 find("a[data-method='delete']").click
               end
 
+              page.accept_alert
+
               assert has_message?("Attachment archived successfully")
 
               click_on "Archived elements"
@@ -43,6 +45,8 @@ module GobiertoAdmin
               within "tr#file_attachment-item-#{pdf_attachment.id}" do
                 click_on "Recover element"
               end
+
+              page.accept_alert
 
               assert has_message?("Attachment recovered successfully")
             end

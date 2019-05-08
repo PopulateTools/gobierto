@@ -36,7 +36,7 @@ module GobiertoAdmin
 
                   within ".dynamic-content-record-form" do
                     fill_in "Title", with: "Accomplishment 1 Title"
-                    attach_file find("input[type='file']")[:id], "test/fixtures/files/gobierto_common/document-1.pdf"
+                    attach_file find("input[type='file']")[:id], Rails.root.join("test/fixtures/files/gobierto_common/document-1.pdf")
                   end
                 end
 

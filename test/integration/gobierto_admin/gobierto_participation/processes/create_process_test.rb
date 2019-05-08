@@ -27,24 +27,26 @@ module GobiertoAdmin
               click_link "New"
 
               fill_in "process_title_translations_en", with: "New process title"
-              find("#process_body_translations_en", visible: false).set("New process body")
+              page.execute_script('document.getElementById("process_body_translations_en").value = "New process body"')
 
-              click_link "ES"
+              switch_locale "ES"
 
               fill_in "process_title_translations_es", with: "Título del nuevo proceso"
-              find("#process_body_translations_es", visible: false).set("Descripción del nuevo proceso")
+
+              page.execute_script('document.getElementById("process_body_translations_es").value = "Descripción del nuevo proceso"')
+
               fill_in "process_slug", with: ""
 
               select "Culture", from: "process_issue_id"
 
               select "Old town", from: "process_scope_id"
 
-              find("#process_has_duration", visible: false).trigger(:click)
+              find("#process_has_duration", visible: false).execute_script("this.click()")
 
               fill_in "process_starts", with: "2017-01-01"
               fill_in "process_ends", with: "2017-01-30"
 
-              find("#process_process_type_process", visible: false).trigger(:click)
+              find("#process_process_type_process", visible: false).execute_script("this.click()")
 
               click_button "Create"
 

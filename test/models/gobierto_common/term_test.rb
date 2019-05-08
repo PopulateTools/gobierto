@@ -17,8 +17,8 @@ class TermTest < ActiveSupport::TestCase
 
   def terms_with_dependencies
     @terms_with_dependencies ||= {
-      issue:  gobierto_common_terms(:culture_term),
-      scope:  gobierto_common_terms(:center_term),
+      issue: gobierto_common_terms(:culture_term),
+      scope: gobierto_common_terms(:center_term),
       political_group: gobierto_common_terms(:marvel_term)
     }
   end
@@ -79,7 +79,7 @@ class TermTest < ActiveSupport::TestCase
   end
 
   def test_update_parents_and_positions_to_root_level
-    positions_from_params = { "0" => [ term_without_dependencies.id, mammal ] }
+    positions_from_params = { "0" => [term_without_dependencies.id, mammal] }
 
     assert GobiertoCommon::Term.update_parents_and_positions(positions_from_params)
     term_without_dependencies.reload
@@ -92,7 +92,7 @@ class TermTest < ActiveSupport::TestCase
   end
 
   def test_update_parents_and_positions_reorder
-    positions_from_params = { "0" => [ term_without_dependencies.id, mammal ], mammal.id.to_s => [cat.id, dog.id] }
+    positions_from_params = { "0" => [term_without_dependencies.id, mammal], mammal.id.to_s => [cat.id, dog.id] }
 
     assert GobiertoCommon::Term.update_parents_and_positions(positions_from_params)
 
@@ -103,7 +103,7 @@ class TermTest < ActiveSupport::TestCase
   end
 
   def test_update_parents_and_positions_update_parent
-    positions_from_params = { "0" => [ term_without_dependencies.id, mammal ], term_without_dependencies.id.to_s => [cat.id, dog.id] }
+    positions_from_params = { "0" => [term_without_dependencies.id, mammal], term_without_dependencies.id.to_s => [cat.id, dog.id] }
 
     assert GobiertoCommon::Term.update_parents_and_positions(positions_from_params)
 
@@ -113,5 +113,12 @@ class TermTest < ActiveSupport::TestCase
     dog.reload
     assert_equal 1, dog.position
     assert_equal term_without_dependencies, dog.parent_term
+  end
+
+  def test_create_term_slug
+    new_term = vocabulary.terms.new(name_translations: { en: "Term with long name", es: "Término con nombre largo" })
+    assert new_term.valid?
+    new_term.save
+    assert_equal "term-with-long-name", new_term.slug
   end
 end

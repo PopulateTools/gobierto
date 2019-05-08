@@ -32,3 +32,5 @@ en:
               invalid_columns: Required columns are missing
               invalid_format: Invalid file format
               invalid_row: 'There is an invalid row: %{row_data}'
+              used_resource: The vocabulary contains terms used in other parts of
+                the application

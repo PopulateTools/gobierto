@@ -44,8 +44,10 @@ module GobiertoAdmin
 
               click_link "New"
               assert has_selector?("h1", text: "Sport city")
+
+              fill_in "page_title_translations_en", with: "My page"
               click_button "Create"
-              assert has_alert?("Title can't be blank")
+
               assert has_alert?("Body can't be blank")
             end
           end
@@ -73,13 +75,13 @@ module GobiertoAdmin
               assert_equal stubbed_current_time.to_s, air_datepicker_field_value(:page_published_on)
 
               fill_in "page_title_translations_en", with: "My page"
-              find("#page_body_translations_en", visible: false).set("The content of the page")
+              page.execute_script('document.getElementById("page_body_translations_en").value = "The content of the page"')
               fill_in "page_slug", with: "new-page"
               fill_in "page_published_on", with: chosen_publication_date
 
-              click_link "ES"
+              switch_locale "ES"
               fill_in "page_title_translations_es", with: "Mi página"
-              find("#page_body_translations_es", visible: false).set("Contenido de la página")
+              page.execute_script('document.getElementById("page_body_translations_es").value = "Contenido de la página"')
 
               click_button "Create"
 
@@ -92,7 +94,7 @@ module GobiertoAdmin
                 find("#page_body_translations_en", visible: false).value
               )
 
-              click_link "ES"
+              switch_locale "ES"
 
               assert_equal(
                 "Contenido de la página",

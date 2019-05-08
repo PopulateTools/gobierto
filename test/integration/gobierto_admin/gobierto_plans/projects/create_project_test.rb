@@ -75,7 +75,7 @@ module GobiertoAdmin
                 fill_in "project_name_translations_en", with: "New project"
                 fill_in "project_status_translations_en", with: "Not started"
 
-                click_link "ES"
+                switch_locale "ES"
                 fill_in "project_name_translations_es", with: "Nuevo proyecto"
                 fill_in "project_status_translations_es", with: "No iniciado"
 

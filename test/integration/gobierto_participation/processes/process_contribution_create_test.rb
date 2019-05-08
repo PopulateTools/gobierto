@@ -48,7 +48,7 @@ module GobiertoParticipation
 
           assert_equal 4, contributions.size
 
-          page.find("a", text: "Have an idea!").trigger("click")
+          page.find("a", text: "Have an idea!").click
 
           assert has_content? "WRITE YOUR IDEA CONCISE"
           assert has_content? "DO YOU WANT TO GIVE THEM DETAILS? DEVELOP THE MAIN POINTS OF YOUR IDEA"
@@ -75,7 +75,7 @@ module GobiertoParticipation
 
           assert_equal contributions.size, 4
 
-          page.find("a", text: "Have an idea!").trigger("click")
+          page.find("a", text: "Have an idea!").click
 
           assert has_content? "WRITE YOUR IDEA CONCISE"
           assert has_content? "DO YOU WANT TO GIVE THEM DETAILS? DEVELOP THE MAIN POINTS OF YOUR IDEA"

@@ -120,7 +120,7 @@ module GobiertoAdmin
                 click_link service.title
 
                 assert has_field? "service_title_translations_en", with: service.title_en
-                click_link "ES"
+                switch_locale "ES"
                 assert has_field? "service_title_translations_es", with: service.title_es
               end
             end
@@ -143,7 +143,7 @@ module GobiertoAdmin
 
                 within "form.edit_service" do
                   fill_in "service_title_translations_en", with: ""
-                  click_link "ES"
+                  switch_locale "ES"
                   fill_in "service_title_translations_es", with: ""
                   select "Culture", from: "service_category_id"
 

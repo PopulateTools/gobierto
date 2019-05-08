@@ -73,7 +73,7 @@ module GobiertoPlans
           visit @path
           within "div.header-resume" do
             within "span" do
-              assert has_content?("0.08333333333333334")
+              assert has_content?("8.333%")
             end
           end
         end
@@ -87,7 +87,7 @@ module GobiertoPlans
 
           within "section.level_0" do
             within "div.node-root.cat_1" do
-              find("a").trigger("click")
+              find("a").click
             end
           end
 
@@ -101,7 +101,7 @@ module GobiertoPlans
                 assert has_content?(action_lines.first.name)
                 assert has_content?("2 actions")
 
-                assert has_content?((projects.sum(:progress) / projects.count) / 100)
+                assert has_content?((projects.sum(:progress) / projects.count).to_i.to_s + "%")
               end
 
               assert has_selector?("h3", text: action_lines.first.name)
@@ -115,7 +115,7 @@ module GobiertoPlans
                 assert has_selector?("li", count: actions.count)
 
                 find("h3", text: actions.first.name).click
-                assert has_selector?("div", text: (projects.last.progress / 100).to_s)
+                assert has_selector?("div", text: (projects.last.progress).to_i.to_s + "%")
 
                 find("td", text: projects.first.name).click
 
@@ -134,7 +134,7 @@ module GobiertoPlans
 
           within "section.level_0" do
             within "div.node-root.cat_1" do
-              find("a").trigger("click")
+              find("a").click
             end
           end
 
@@ -159,7 +159,7 @@ module GobiertoPlans
 
           within "section.level_0" do
             within "div.node-root.cat_1" do
-              find("a").trigger("click")
+              find("a").click
             end
           end
 
@@ -190,7 +190,7 @@ module GobiertoPlans
 
           within "section.level_0" do
             within "div.node-root.cat_1" do
-              find("a").trigger("click")
+              find("a").click
             end
           end
 

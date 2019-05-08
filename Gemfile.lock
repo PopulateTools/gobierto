@@ -12,16 +12,6 @@ GIT
       oj (~> 3.5, >= 3.5.0)
       rake (~> 12.3.2)
 
-GIT
-  remote: https://github.com/ferblape/webpacker.git
-  revision: 2e1d0d7b4df98777fb19a4a2eb4feaf0dc8ac215
-  branch: 3-x-stable
-  specs:
-    webpacker (3.5.5)
-      activesupport (>= 4.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 4.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -87,14 +77,14 @@ GEM
     ansi (1.5.0)
     arel (9.0.0)
     ast (2.4.0)
-    aws-eventstream (1.0.2)
-    aws-sdk (2.11.256)
-      aws-sdk-resources (= 2.11.256)
-    aws-sdk-core (2.11.256)
+    aws-eventstream (1.0.3)
+    aws-sdk (2.11.268)
+      aws-sdk-resources (= 2.11.268)
+    aws-sdk-core (2.11.268)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.11.256)
-      aws-sdk-core (= 2.11.256)
+    aws-sdk-resources (2.11.268)
+      aws-sdk-core (= 2.11.268)
     aws-ses (0.6.0)
       builder
       mail (> 2.2.5)
@@ -128,7 +118,6 @@ GEM
     childprocess (1.0.1)
       rake (< 13.0)
     chroma (0.2.0)
-    cliver (0.3.2)
     cloudinary (1.11.1)
       aws_cf_signer
       rest-client
@@ -152,15 +141,15 @@ GEM
     docile (1.3.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
-    elasticsearch (6.3.0)
-      elasticsearch-api (= 6.3.0)
-      elasticsearch-transport (= 6.3.0)
-    elasticsearch-api (6.3.0)
+    elasticsearch (6.3.1)
+      elasticsearch-api (= 6.3.1)
+      elasticsearch-transport (= 6.3.1)
+    elasticsearch-api (6.3.1)
       multi_json
     elasticsearch-extensions (0.0.31)
       ansi
       elasticsearch
-    elasticsearch-transport (6.3.0)
+    elasticsearch-transport (6.3.1)
       faraday
       multi_json
     erubi (1.8.0)
@@ -184,7 +173,7 @@ GEM
     geocoder (1.5.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    google-api-client (0.28.7)
+    google-api-client (0.29.1)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (>= 0.5, < 0.10.0)
       httpclient (>= 2.8.1, < 3.0)
@@ -320,21 +309,16 @@ GEM
     nori (2.6.0)
     ntlm-http (0.1.1)
     oj (3.7.11)
-    os (1.0.0)
+    os (1.0.1)
     paper_trail (10.3.0)
       activerecord (>= 4.2, < 6.1)
       request_store (~> 1.1)
     parallel (1.17.0)
     paranoia (2.4.2)
       activerecord (>= 4.0, < 6.1)
-    parser (2.6.2.1)
+    parser (2.6.3.0)
       ast (~> 2.4.0)
     pg (1.1.4)
-    poltergeist (1.18.1)
-      capybara (>= 2.1, < 4)
-      cliver (~> 0.3.1)
-      websocket-driver (>= 0.2.0)
-    psych (3.1.0)
     public_suffix (3.0.3)
     puma (3.12.1)
     rack (2.0.7)
@@ -379,7 +363,7 @@ GEM
       ffi (~> 1.0)
     rb-readline (0.5.5)
     redcarpet (3.4.0)
-    redis (4.1.0)
+    redis (4.1.1)
     ref (2.0.0)
     regexp_parser (1.4.0)
     representable (3.0.4)
@@ -398,11 +382,10 @@ GEM
     retriable (3.1.2)
     rollbar (2.19.3)
       multi_json
-    rubocop (0.67.2)
+    rubocop (0.68.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5, != 2.5.1.1)
-      psych (>= 3.1.0)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.6)
@@ -429,7 +412,7 @@ GEM
       nokogiri (>= 1.8.1)
       nori (~> 2.4)
       wasabi (~> 3.4)
-    selenium-webdriver (3.142.0)
+    selenium-webdriver (3.142.1)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
     sidekiq (5.2.7)
@@ -495,6 +478,10 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    webpacker (4.0.2)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     webrobots (0.1.2)
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
@@ -559,7 +546,6 @@ DEPENDENCIES
   paper_trail
   paranoia
   pg (~> 1.1)
-  poltergeist
   puma
   rack-cors
   rails (~> 5.2.1)
@@ -587,7 +573,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   vcr
   webmock
-  webpacker (~> 3.0)!
+  webpacker (~> 4.0)
 
 BUNDLED WITH
    1.17.3

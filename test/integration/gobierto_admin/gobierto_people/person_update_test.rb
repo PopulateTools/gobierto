@@ -51,7 +51,7 @@ module GobiertoAdmin
 
               within "form.edit_person" do
                 within ".avatar_file_field" do
-                  attach_file "person_avatar_image", "test/fixtures/files/gobierto_people/people/avatar-small.jpg"
+                  attach_file "person_avatar_image", Rails.root.join("test/fixtures/files/gobierto_people/people/avatar-small.jpg")
                 end
               end
 
@@ -70,10 +70,10 @@ module GobiertoAdmin
                 select political_group.name, from: "Political group"
 
                 # Simulate Bio rich text area
-                find("#person_bio_translations_en", visible: false).set("Person Bio")
+                page.execute_script('document.getElementById("person_bio_translations_en").value = "Person Bio"')
 
                 within ".bio_file_field" do
-                  attach_file "person_bio_file", "test/fixtures/files/gobierto_people/people/bio.pdf"
+                  attach_file "person_bio_file", Rails.root.join("test/fixtures/files/gobierto_people/people/bio.pdf")
                 end
 
                 within ".widget_save" do
@@ -82,10 +82,10 @@ module GobiertoAdmin
 
                 fill_in_content_blocks
 
-                click_link "ES"
+                switch_locale "ES"
 
                 fill_in "person_charge_translations_es", with: "Cargo persona"
-                find("#person_bio_translations_es", visible: false).set("Bio Persona")
+                page.execute_script('document.getElementById("person_bio_translations_es").value = "Bio Persona"')
 
                 with_stubbed_s3_file_upload do
                   click_button "Update"
@@ -133,7 +133,7 @@ module GobiertoAdmin
                 assert_content_blocks_have_the_right_values
                 assert_content_blocks_can_be_managed
 
-                click_link "ES"
+                switch_locale "ES"
 
                 assert has_field?("person_charge_translations_es", with: "Cargo persona")
 

@@ -72,7 +72,9 @@ module GobiertoAdmin
               fill_in "event_title_translations_en", with: "Event Title"
               fill_in "event_starts_at", with: "2017-01-01 00:00"
               fill_in "event_ends_at", with: "2017-01-01 00:01"
-              find("#event_description_translations_en", visible: false).set("Event Description")
+              
+              # find("#event_description_translations_en", visible: false).set("Event Description")
+              page.execute_script('document.getElementById("event_description_translations_en").innerText = "Event Description"')
 
               click_button "Create"
 

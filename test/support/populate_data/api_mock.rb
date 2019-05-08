@@ -25,7 +25,7 @@ module PopulateData
           "indicator": {
             "name": "Indicator name",
             "description": "Indicator description",
-            "source name": "INE"
+            "source_name": "INE"
           }
         }
       }

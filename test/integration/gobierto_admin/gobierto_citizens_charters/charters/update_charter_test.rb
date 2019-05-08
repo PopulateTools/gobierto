@@ -110,7 +110,7 @@ module GobiertoAdmin
                 visit @path
 
                 assert has_field? "charter_title_translations_en", with: charter.title_en
-                click_link "ES"
+                switch_locale "ES"
                 assert has_field? "charter_title_translations_es", with: charter.title_es
               end
             end
@@ -130,7 +130,7 @@ module GobiertoAdmin
                 visit @path
 
                 fill_in "charter_title_translations_en", with: ""
-                click_link "ES"
+                switch_locale "ES"
                 fill_in "charter_title_translations_es", with: ""
 
                 click_button "Update"

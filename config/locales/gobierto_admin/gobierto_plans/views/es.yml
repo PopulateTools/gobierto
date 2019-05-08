@@ -54,7 +54,13 @@ es:
         import_csv_form:
           confirm_import: "¿Estás seguro? Todos los datos actuales serán eliminados"
           disable_with: Cargando...
+          more_info_html: Para obtener más información visita la documentación de
+            cómo <a href="%{url}" target="_blank">Importar datos de un plan</a>.
           submit: Importar desde fichero CSV
+          vocabulary_used_by_other_plans: El vocabulario configurado para este plan
+            ya está configurado para algún otro. Por favor, crea un vocabulario nuevo
+            para este plan o elimínalo de la configuración de los otros planes que
+            lo estén usando, dado que se borrarían sus datos con la importación.
           warning: "<strong>Aviso</strong> Si importas un archivo CSV se eliminará
             todo el contenido actual, por lo que se perderán todos los cambios que
             hayas realizado a través de la interfaz de usuario web de Gobierto."

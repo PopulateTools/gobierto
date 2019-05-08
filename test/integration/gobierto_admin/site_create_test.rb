@@ -48,7 +48,7 @@ YAML
             # Simulate Location selection in user control
             find("#site_organization_id", visible: false).set("1")
 
-            attach_file "site_logo_file", "test/fixtures/files/sites/logo-madrid.png"
+            attach_file "site_logo_file", Rails.root.join("test/fixtures/files/sites/logo-madrid.png")
 
             within ".site-module-check-boxes" do
               check "Gobierto Development"

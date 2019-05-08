@@ -44,6 +44,8 @@ module GobiertoAdmin
                 find("a[data-method='delete']").click
               end
 
+              page.driver.browser.switch_to.alert.accept
+
               assert has_message?("Page archived successfully")
 
               click_on "Archived elements"
@@ -51,6 +53,8 @@ module GobiertoAdmin
               within "tr#page-item-#{themes_page.id}" do
                 click_on "Recover element"
               end
+
+              page.driver.browser.switch_to.alert.accept
 
               assert has_message?("The page has been successfully recovered")
             end
@@ -67,6 +71,8 @@ module GobiertoAdmin
               within "#page-item-#{consultation_faq_page.id}" do
                 find("a[data-method='delete']").click
               end
+
+              page.driver.browser.switch_to.alert.accept
 
               assert has_message?("The page can not be deleted because it still has associated elements")
             end

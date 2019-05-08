@@ -55,7 +55,7 @@ module GobiertoAdmin
               find("select#collection_container_global_id").find("option[value='#{site_santander.to_global_id}']").select_option
               find("select#collection_item_type").find("option[value='GobiertoCms::Page']").select_option
 
-              click_link "ES"
+              switch_locale "ES"
               fill_in "collection_title_translations_es", with: "Mi colección"
 
               click_button "Create"

@@ -105,6 +105,15 @@ module GobiertoAdmin
 
       def import_data
         @plan = find_plan
+
+        if @plan.vocabulary_shared_with_other_plans?
+          redirect_to(
+            admin_plans_plan_import_csv_path(@plan),
+            alert: t("gobierto_admin.module_helper.not_enabled")
+          )
+          return
+        end
+
         if params[:plan].blank?
           redirect_to(
             admin_plans_plan_import_csv_path(@plan),

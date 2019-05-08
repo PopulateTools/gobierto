@@ -96,11 +96,11 @@ module GobiertoCitizensCharters
       with_current_site(site) do
         with_javascript do
           visit @path
-          within "#sparkline-#{ edition_without_other_editions.id }" do
+          within "#sparkline-#{ edition_without_other_editions.id }", visible: false do
             assert has_no_css? "svg"
           end
 
-          within "#sparkline-#{ edition_with_other_editions.id }" do
+          within "#sparkline-#{ edition_with_other_editions.id }", visible: false do
             assert has_css? "svg"
           end
         end

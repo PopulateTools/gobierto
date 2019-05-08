@@ -28,7 +28,7 @@ module GobiertoAdmin
             visit @path
 
             within "form.edit_user" do
-              sleep 2
+              sleep 1
 
               fill_in "user_name", with: "User Name"
 
@@ -36,12 +36,10 @@ module GobiertoAdmin
 
               assert_equal(
                 "You have unsaved changes. Are you sure you want to leave this page?",
-                page.driver.browser.modal_message
+                page.driver.browser.switch_to.alert.text
               )
 
-              click_button "Update"
-
-              refute page.driver.browser.modal_message
+              page.accept_alert
             end
           end
         end

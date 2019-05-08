@@ -37,7 +37,7 @@ module GobiertoAdmin
                 fill_in "person_post_title", with: "Post Title"
 
                 # Simulate Body rich text area
-                find("#person_post_body", visible: false).set("Post Body")
+                page.execute_script('document.getElementById("person_post_body").value = "Post Body"')
 
                 fill_in "person_post_tags", with: "one, two, three"
 

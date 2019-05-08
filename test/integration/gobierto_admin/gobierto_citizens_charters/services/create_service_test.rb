@@ -55,7 +55,7 @@ module GobiertoAdmin
 
                 fill_in "service_title_translations_en", with: "Big service"
 
-                click_link "ES"
+                switch_locale "ES"
                 fill_in "service_title_translations_es", with: "Gran servicio"
 
                 select "Culture", from: "service_category_id"
@@ -74,7 +74,7 @@ module GobiertoAdmin
 
                 assert has_field?("service_title_translations_en", with: "Big service")
 
-                click_link "ES"
+                switch_locale "ES"
 
                 assert has_field?("service_title_translations_es", with: "Gran servicio")
               end

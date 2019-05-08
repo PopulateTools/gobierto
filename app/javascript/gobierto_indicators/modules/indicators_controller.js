@@ -1,7 +1,7 @@
 import Vue from 'vue'
 Vue.config.productionTip = false
 
-import 'babel-polyfill'
+// import 'babel-polyfill'
 
 window.GobiertoIndicators.IndicatorsController = (function() {
 

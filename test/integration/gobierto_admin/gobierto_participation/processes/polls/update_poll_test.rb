@@ -54,41 +54,48 @@ module GobiertoAdmin
 
               # delete first question
 
-              within('#question_summary_0') { find('a[data-behavior=delete_record]').trigger(:click) }
+              within('#question_summary_0') { find('a[data-behavior=delete_record]').click }
 
               # edit second question
 
-              within('#question_summary_1') { find('a[data-behavior=edit_record]').trigger(:click) }
+              within('#question_summary_1') { find('a[data-behavior=edit_record]').click }
 
               within('#edit_question_1', visible: false) do
-                find('#poll_questions_attributes_1_title_translations_en', visible: false).set('Edited question title')
-                find('#poll_questions_attributes_1_title_translations_es', visible: false).set('Título de pregunta editado')
-                find('#poll_questions_attributes_1_answer_type_single_choice', visible: false).trigger('click')
+                # find('#poll_questions_attributes_1_title_translations_en', visible: false).set('Edited question title')
+                page.execute_script('document.getElementById("poll_questions_attributes_1_title_translations_en").value = "Edited question title"')
+
+                # find('#poll_questions_attributes_1_title_translations_es', visible: false).set('Título de pregunta editado')
+                page.execute_script('document.getElementById("poll_questions_attributes_1_title_translations_es").value = "Título de pregunta editado"')
+
+                find('#poll_questions_attributes_1_answer_type_single_choice', visible: false).execute_script("this.click()")
               end
 
               # delete second question first answer template
 
               within('#question_1_preview_answer_0', visible: false) do
-                find('a[data-behavior=delete_answer]', visible: false).trigger(:click)
+                find('a[data-behavior=delete_answer]', visible: false).execute_script("this.click()")
               end
 
               # edit second question second answer template
 
               within('#question_1_edit_answer_1', visible: false) do
-                find('#poll_questions_attributes_1_answer_templates_attributes_1_text', visible: false).set('Edited answer text')
-                find('a[data-behavior=confirm_edit_answer]', visible: false).trigger('click')
+                # find('#poll_questions_attributes_1_answer_templates_attributes_1_text', visible: false).set('Edited answer text')
+                page.execute_script('document.getElementById("poll_questions_attributes_1_answer_templates_attributes_1_text").value = "Edited answer text"')
+
+                find('a[data-behavior=confirm_edit_answer]', visible: false).execute_script("this.click()")
               end
 
               # add new answer template
 
               within('#edit_question_1', visible: false) do
-                find('a[data-behavior=add_answer]', visible: false).trigger('click')
+                find('a[data-behavior=add_answer]', visible: false).execute_script("this.click()")
               end
 
-              find('#poll_questions_attributes_1_answer_templates_attributes_3_text', visible: false).set('New answer text')
+              # find('#poll_questions_attributes_1_answer_templates_attributes_3_text', visible: false).set('New answer text')
+              page.execute_script('document.getElementById("poll_questions_attributes_1_answer_templates_attributes_3_text").value = "New answer text"')
 
               within('#question_1_edit_answer_3', visible: false) do
-                find('a[data-behavior=confirm_edit_answer]', visible: false).trigger(:click)
+                find('a[data-behavior=confirm_edit_answer]', visible: false).execute_script("this.click()")
               end
 
               # save question
@@ -100,8 +107,10 @@ module GobiertoAdmin
               click_link 'Add new question'
 
               within '#edit_question_3' do
-                find('#poll_questions_attributes_3_title_translations_en', visible: false).set('Open answer question text')
-                find('#poll_questions_attributes_3_answer_type_open', visible: false).trigger('click')
+                # find('#poll_questions_attributes_3_title_translations_en', visible: false).set('Open answer question text')
+                page.execute_script('document.getElementById("poll_questions_attributes_3_title_translations_en").value = "Open answer question text"')
+
+                find('#poll_questions_attributes_3_answer_type_open', visible: false).execute_script("this.click()")
 
                 click_button 'Save'
               end

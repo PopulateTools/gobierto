@@ -33,7 +33,7 @@ module GobiertoAdmin
 
                 within accomplishments_content_block do
                   delete_links = all("a[data-behavior=delete_record]", visible: false)
-                  delete_links[1].trigger(:click)
+                  delete_links[1].execute_script("this.click()")
                 end
 
                 click_button "Update"

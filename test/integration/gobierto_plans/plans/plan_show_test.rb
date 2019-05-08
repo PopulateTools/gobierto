@@ -73,7 +73,7 @@ module GobiertoPlans
           visit @path
           within "div.header-resume" do
             within "span" do
-              assert has_content?("0.08333333333333334")
+              assert has_content?("8.333%")
             end
           end
         end

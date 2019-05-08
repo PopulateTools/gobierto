@@ -43,7 +43,8 @@ module GobiertoAdmin
               click_link "New"
 
               fill_in "page_title_translations_en", with: "My page with section"
-              find("#page_body_translations_en", visible: false).set("The content of the page")
+
+              page.execute_script('document.getElementById("page_body_translations_en").value = "The content of the page"')
               fill_in "page_slug", with: "new-page-with-section"
               fill_in "page_published_on", with: "2017-01-01 00:00"
 

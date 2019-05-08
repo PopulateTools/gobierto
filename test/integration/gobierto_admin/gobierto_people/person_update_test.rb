@@ -70,7 +70,7 @@ module GobiertoAdmin
                 select political_group.name, from: "Political group"
 
                 # Simulate Bio rich text area
-                find("#person_bio_translations_en", visible: false).set("Person Bio")
+                page.execute_script('document.getElementById("person_bio_translations_en").value = "Person Bio"')
 
                 within ".bio_file_field" do
                   attach_file "person_bio_file", Rails.root.join("test/fixtures/files/gobierto_people/people/bio.pdf")
@@ -85,7 +85,7 @@ module GobiertoAdmin
                 click_link "ES"
 
                 fill_in "person_charge_translations_es", with: "Cargo persona"
-                find("#person_bio_translations_es", visible: false).set("Bio Persona")
+                page.execute_script('document.getElementById("person_bio_translations_es").value = "Bio Persona"')
 
                 with_stubbed_s3_file_upload do
                   click_button "Update"

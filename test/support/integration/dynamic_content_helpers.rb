@@ -13,7 +13,7 @@ module Integration
             content_block.records.each do |content_block_record|
               within ".dynamic-content-record-wrapper.content-block-record-#{content_block_record.id}" do
                 with_hidden_elements do
-                  find("a[data-behavior=edit_record]").click
+                  page.find("a[data-behavior=edit_record]", visible: false).execute_script("this.click()")
                 end
 
                 content_block.fields.each do |content_block_field|
@@ -26,11 +26,11 @@ module Integration
                   end
                 end
 
-                find("a[data-behavior=add_record]").click
+                page.find("a[data-behavior=add_record]", visible: false).execute_script("this.click()")
               end
             end
           else
-            find("a[data-behavior=add_child]").click
+            page.find("a[data-behavior=add_child]", visible: false).execute_script("this.click()")
 
             within ".cloned-dynamic-content-record-wrapper", match: :first do
               content_block.fields.each do |content_block_field|
@@ -43,7 +43,7 @@ module Integration
                 end
               end
 
-              find("a[data-behavior=add_record]").click
+              page.find("a[data-behavior=add_record]", visible: false).execute_script("this.click()")
             end
           end
         end
@@ -77,7 +77,7 @@ module Integration
       content_block = content_blocks.first
 
       within "#content-block-#{content_block.id}" do
-        find("a[data-behavior=add_child]").click
+        page.find("a[data-behavior=add_child]", visible: false).execute_script("this.click()")
 
         within ".cloned-dynamic-content-record-wrapper" do
           content_block.fields.each do |content_block_field|
@@ -90,7 +90,7 @@ module Integration
             end
           end
 
-          find("a[data-behavior=add_record]").click
+          page.find("a[data-behavior=add_record]", visible: false).execute_script("this.click()")
 
           content_block.fields.each do |content_block_field|
             if content_block_field.currency?
@@ -110,7 +110,7 @@ module Integration
       within "#content-block-#{content_block.id}" do
         within ".dynamic-content-record-wrapper.content-block-record-#{content_block_record.id}" do
           with_hidden_elements do
-            find("a[data-behavior=edit_record]").click
+            page.find("a[data-behavior=edit_record]", visible: false).execute_script("this.click()")
           end
 
           content_block.fields.each do |content_block_field|
@@ -143,7 +143,7 @@ module Integration
       within "#content-block-#{content_block.id}" do
         within ".dynamic-content-record-wrapper.content-block-record-#{content_block_record.id}" do
           with_hidden_elements do
-            find("a[data-behavior=edit_record]").click
+            page.find("a[data-behavior=edit_record]", visible: false).execute_script("this.click()")
           end
 
           content_block.fields.each do |content_block_field|
@@ -156,7 +156,7 @@ module Integration
             end
           end
 
-          find("a[data-behavior=cancel_record]").click
+          page.find("a[data-behavior=cancel_record]", visible: false).execute_script("this.click()")
 
           content_block.fields.each do |content_block_field|
             if content_block_field.currency?
@@ -176,7 +176,7 @@ module Integration
       within "#content-block-#{content_block.id}" do
         within ".dynamic-content-record-wrapper.content-block-record-#{content_block_record.id}" do
           with_hidden_elements do
-            find("a[data-behavior=delete_record]").click
+            page.find("a[data-behavior=delete_record]", visible: false).execute_script("this.click()")
           end
         end
 

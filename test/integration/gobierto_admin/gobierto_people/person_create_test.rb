@@ -67,7 +67,7 @@ module GobiertoAdmin
                 end
 
                 # Simulate Bio rich text area
-                find("#person_bio_translations_en", visible: false).set("Person Bio")
+                page.execute_script('document.getElementById("person_bio_translations_en").value = "Person Bio"')
 
                 within ".bio_file_field" do
                   assert has_no_selector?("a")
@@ -83,7 +83,7 @@ module GobiertoAdmin
                 click_link "ES"
 
                 fill_in "Position", with: "Cargo persona"
-                find("#person_bio_translations_es", visible: false).set("Bio Persona")
+                page.execute_script('document.getElementById("person_bio_translations_es").value = "Bio Persona"')
 
                 with_stubbed_s3_file_upload do
                   click_button "Create"

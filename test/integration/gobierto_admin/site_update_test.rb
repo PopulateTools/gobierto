@@ -52,7 +52,7 @@ var1: value1
 var2: value2
 YAML
 
-            attach_file "site_logo_file", "test/fixtures/files/sites/logo-madrid.png"
+            attach_file "site_logo_file", Rails.root.join("test/fixtures/files/sites/logo-madrid.png")
 
             within ".site-module-check-boxes" do
               check "Gobierto Development"

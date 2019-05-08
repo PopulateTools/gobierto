@@ -44,7 +44,7 @@ module GobiertoAdmin
 
                 within ".avatar_file_field" do
                   assert has_no_selector?("img")
-                  attach_file "person_avatar_image", "test/fixtures/files/gobierto_people/people/avatar.jpg"
+                  attach_file "person_avatar_image", Rails.root.join("test/fixtures/files/gobierto_people/people/avatar.jpg")
                 end
               end
 
@@ -71,7 +71,7 @@ module GobiertoAdmin
 
                 within ".bio_file_field" do
                   assert has_no_selector?("a")
-                  attach_file "person_bio_file", "test/fixtures/files/gobierto_people/people/bio.pdf"
+                  attach_file "person_bio_file", Rails.root.join("test/fixtures/files/gobierto_people/people/bio.pdf")
                 end
 
                 within ".widget_save" do

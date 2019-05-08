@@ -51,7 +51,7 @@ module GobiertoAdmin
 
               within "form.edit_person" do
                 within ".avatar_file_field" do
-                  attach_file "person_avatar_image", "test/fixtures/files/gobierto_people/people/avatar-small.jpg"
+                  attach_file "person_avatar_image", Rails.root.join("test/fixtures/files/gobierto_people/people/avatar-small.jpg")
                 end
               end
 
@@ -73,7 +73,7 @@ module GobiertoAdmin
                 find("#person_bio_translations_en", visible: false).set("Person Bio")
 
                 within ".bio_file_field" do
-                  attach_file "person_bio_file", "test/fixtures/files/gobierto_people/people/bio.pdf"
+                  attach_file "person_bio_file", Rails.root.join("test/fixtures/files/gobierto_people/people/bio.pdf")
                 end
 
                 within ".widget_save" do

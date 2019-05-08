@@ -40,7 +40,7 @@ module GobiertoAdmin
                   edit_links[0].execute_script("this.click()")
                   within(content_block_records[0]) do
                     fill_in "Title", with: "Accomplishment 1 Edited Title"
-                    attach_file find("input[type='file']")[:id], "test/fixtures/files/gobierto_common/document-1.pdf"
+                    attach_file find("input[type='file']")[:id], Rails.root.join("test/fixtures/files/gobierto_common/document-1.pdf")
                     find("a[data-behavior=add_record]").click
                   end
 
@@ -48,7 +48,7 @@ module GobiertoAdmin
                   edit_links[1].execute_script("this.click()")
                   within(content_block_records[1]) do
                     fill_in "Title", with: "Accomplishment 2 Edited Title"
-                    attach_file find("input[type='file']")[:id], "test/fixtures/files/gobierto_common/document-2.pdf"
+                    attach_file find("input[type='file']")[:id], Rails.root.join("test/fixtures/files/gobierto_common/document-2.pdf")
                     find("a[data-behavior=add_record]").click
                   end
                 end

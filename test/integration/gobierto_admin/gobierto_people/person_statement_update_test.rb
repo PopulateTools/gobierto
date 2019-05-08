@@ -47,7 +47,7 @@ module GobiertoAdmin
 
                 within ".attachment_file_field" do
                   assert has_selector?("a")
-                  attach_file "person_statement_attachment_file", "test/fixtures/files/gobierto_people/people/person_statement/attachment.pdf"
+                  attach_file "person_statement_attachment_file", Rails.root.join("test/fixtures/files/gobierto_people/people/person_statement/attachment.pdf")
                 end
 
                 within ".widget_save" do

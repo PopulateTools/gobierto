@@ -62,6 +62,7 @@ module GobiertoAdmin
 
             plan.reload
             assert_equal 247, plan.nodes.count
+            assert_equal "eix-1-economia-emprenedoria-i-ocupacio", plan.categories_vocabulary.terms.first.slug
           end
         end
       end

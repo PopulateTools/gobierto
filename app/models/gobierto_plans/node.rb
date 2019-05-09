@@ -25,7 +25,7 @@ module GobiertoPlans
 
       dates = [nil, nil].zip(dates).map { |date| date.compact.first }
 
-      where("starts_at >= ? AND ends_at <= ?", *dates)
+      where("starts_at >= ? OR ends_at <= ?", *dates)
     }
     scope :with_start_date, ->(start_date) { where("starts_at >= ?", Date.parse(start_date)) }
     scope :with_end_date, ->(end_date) { where("ends_at <= ?", Date.parse(end_date)) }

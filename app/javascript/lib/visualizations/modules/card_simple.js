@@ -33,7 +33,7 @@ export class SimpleCard extends Card {
 
     // If the data is 0
     if (divCard.find("div.indicator_widget.padded").find("div.widget_body").find("span.widget_figure").text() == 0)
-      divCard.remove()
+      return divCard.remove()
 
     // Append source
     this.div.selectAll('.widget_src')

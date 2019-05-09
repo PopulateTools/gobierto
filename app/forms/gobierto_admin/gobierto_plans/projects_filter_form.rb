@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class ProjectsFilterForm < BaseForm
-      FILTER_PARAMS = %w(name admin_actions category progress author moderation_stage interval).freeze
+      FILTER_PARAMS = %w(name admin_actions category progress author moderation_stage start_date end_date interval).freeze
 
       attr_accessor(*FILTER_PARAMS)
       attr_accessor :plan, :admin

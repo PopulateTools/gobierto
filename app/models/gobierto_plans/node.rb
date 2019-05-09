@@ -14,7 +14,21 @@ module GobiertoPlans
     scope :with_status, ->(status) { with_status_translation(status) }
     scope :with_category, ->(category) { where(gplan_categories_nodes: { category_id: GobiertoCommon::Term.find(category).last_descendants }) }
     scope :with_progress, ->(progress) { where("progress > ? AND progress <= ?", *progress.split(" - ")) }
-    scope :with_interval, ->(interval) { where("starts_at >= ? AND ends_at <= ?", *interval.split(",").map { |date| Date.parse(date) }) }
+    scope :with_interval, lambda { |interval|
+      dates = interval.split(",").map do |date|
+        begin
+          Date.parse(date)
+        rescue ArgumentError
+          nil
+        end
+      end
+
+      dates = [nil, nil].zip(dates).map { |date| date.compact.first }
+
+      where("starts_at >= ? OR ends_at <= ?", *dates)
+    }
+    scope :with_start_date, ->(start_date) { where("starts_at >= ?", Date.parse(start_date)) }
+    scope :with_end_date, ->(end_date) { where("ends_at <= ?", Date.parse(end_date)) }
     scope :with_author, ->(author_id) { where(admin_id: author_id) }
     scope :with_admin_actions, lambda { |admin|
       admin_id, action_name, site_id = admin.to_s.split("-")

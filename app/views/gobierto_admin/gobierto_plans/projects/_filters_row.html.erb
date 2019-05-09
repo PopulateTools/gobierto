@@ -8,7 +8,8 @@
       <%= link_to_if(
             @form.filter_params.present?,
             "#{content_tag(:span, t(".all"))} (#{all_value})".html_safe,
-            admin_plans_plan_projects_path(@plan)
+            admin_plans_plan_projects_path(@plan),
+            data: { turbolinks: false }
           ) %>
     </div>
     <% filters.each do |filter_option, value| %>
@@ -17,7 +18,8 @@
         <%= link_to_unless(
               option_active,
               "#{content_tag(:span, t(".#{filter}_value.#{filter_option}"))} (#{value.count})".html_safe,
-              admin_plans_plan_projects_path(@plan, projects_filter: { filter => value.id })
+              admin_plans_plan_projects_path(@plan, projects_filter: { filter => value.id }),
+              data: { turbolinks: false }
             ) %>
       </div>
     <% end %>

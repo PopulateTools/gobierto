@@ -73,7 +73,10 @@ Rails.application.configure do
     port: 1025
   }
 
-  config.action_mailer.default_url_options = { host: app_host }
+  config.action_mailer.default_url_options = {
+    host: app_host,
+    script_name: ""
+  }
   config.action_mailer.asset_host = "http://#{app_host}"
   config.action_mailer.perform_deliveries = true
 end

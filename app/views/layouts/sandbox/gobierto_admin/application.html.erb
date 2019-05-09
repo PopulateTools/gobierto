@@ -5,8 +5,8 @@
   <meta name="twitter:site" content="gobierto">
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
   <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_pack_tag 'commons', 'data-turbolinks-track': true %>
-  <%= javascript_pack_tag 'admin' %>
+  <%= javascript_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
+
   <%= csrf_meta_tags %>
   <%= yield(:javascript_module_link) %>
   <%= yield(:stylesheet_link) %>

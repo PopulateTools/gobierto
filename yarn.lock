@@ -3481,6 +3481,11 @@ findup-sync@^2.0.0:
     micromatch "^3.0.4"
     resolve-dir "^1.0.1"
 
+flatpickr@^1.9.1:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-1.9.1.tgz#6a6f8dea4a75d4ef9e4b92a8b50de7533ae27dab"
+  integrity sha1-am+N6kp11O+eS5KotQ3nUzrifas=
+
 flatted@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.0.tgz#55122b6536ea496b4b44893ee2608141d10d9916"
@@ -4468,7 +4473,7 @@ jquery-visible@^1.2.0:
   resolved "https://registry.yarnpkg.com/jquery-visible/-/jquery-visible-1.2.0.tgz#4839cac492f2e7f705fd06b1cde202b5da97c1e9"
   integrity sha1-SDnKxJLy5/cF/QaxzeICtdqXwek=
 
-"jquery@>= 1.4.3", jquery@>=1.7, jquery@>=1.8.0, jquery@>=1.9, "jquery@>=2.0.0 <4.0.0", jquery@^3.3.1:
+"jquery@>= 1.4.3", jquery@>=1.7, jquery@>=1.8.0, jquery@>=1.9, "jquery@>=2.0.0 <4.0.0", jquery@^3.1.0, jquery@^3.3.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
   integrity sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==
@@ -7077,6 +7082,14 @@ simplemde@^1.11.2:
     codemirror "*"
     codemirror-spell-checker "*"
     marked "*"
+
+slickgrid-es6@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/slickgrid-es6/-/slickgrid-es6-3.0.1.tgz#b21f716e1e460fe912b05f2afaecab550b792da9"
+  integrity sha512-QAST7goIygZ1jCokI3zpD3gssS26qh/+9q88Rh7z82sgLKEhSbwQZPpT8GN1V7cU9Xl41t/Wplgfklr34HIkUw==
+  dependencies:
+    flatpickr "^1.9.1"
+    jquery "^3.1.0"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"

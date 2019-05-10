@@ -21,7 +21,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
       Vue.filter('percent', function (value) {
         if (!value) return
-        return (value / 100).toLocaleString(I18n.locale, { style: 'percent', maximumSignificantDigits: 4 })
+        return (value / 100).toLocaleString(I18n.locale, { style: 'percent', maximumFractionDigits: 1 })
       });
 
       Vue.filter('date', function (date) {

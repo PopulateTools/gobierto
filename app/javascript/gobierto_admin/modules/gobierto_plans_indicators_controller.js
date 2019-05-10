@@ -118,16 +118,19 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
 
       grid.setSelectionModel(new Plugins.CellSelectionModel());
 
-      $(`.add-${new_column_id}`).click(function() {
-        let columns = grid.getColumns();
-        let lastColumn = columns.pop();
-        let lastYear = lastColumn.headerDateNameFunction(lastColumn.startYear, lastColumn.startMonth, lastColumn.offset)
-        let columnDefinition = {id: lastYear, name: lastYear, field: lastYear, width: 100, editor: Editors.Integer};
-        lastColumn.offset++
-        columns.push(columnDefinition);
-        columns.push(lastColumn);
-        grid.setColumns(columns);
-        grid.render();
+      grid.onHeaderClick.subscribe(function (e, args) {
+        let item = args.column;
+        if(item.name === "Add"){
+          let columns = args.grid.getColumns();
+          let lastColumn = columns.pop();
+          let lastYear = lastColumn.headerDateNameFunction(lastColumn.startYear, lastColumn.startMonth, lastColumn.offset)
+          let columnDefinition = {id: lastYear, name: lastYear, field: lastYear, width: 100, editor: Editors.Integer};
+          lastColumn.offset++;
+          columns.push(columnDefinition);
+          columns.push(lastColumn);
+          args.grid.setColumns(columns);
+          args.grid.render();
+        }
       });
 
       grid.onAddNewRow.subscribe(function (e, args) {

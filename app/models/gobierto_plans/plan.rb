@@ -44,6 +44,10 @@ module GobiertoPlans
       nodes.count
     end
 
+    def global_progress
+      nodes.average(:progress).to_f
+    end
+
     def to_s
       text = ""
       # "5 cats, 43 subcats, 151 subsubcats, 161 nodes"

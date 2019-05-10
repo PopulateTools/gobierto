@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_admin/previewable_item_test_module"
 
 module GobiertoAdmin
   module GobiertoPlans
     class UpdatePlanTest < ActionDispatch::IntegrationTest
+      include ::GobiertoAdmin::PreviewableItemTestModule
+
       def setup
         super
         @path = new_admin_plans_plan_path
@@ -20,6 +23,13 @@ module GobiertoAdmin
 
       def plan
         @plan ||= gobierto_plans_plans(:strategic_plan)
+      end
+
+      def preview_test_conf
+        {
+          item_admin_path: edit_admin_plans_plan_path(plan),
+          item_public_url: gobierto_plans_plan_url(plan.plan_type.slug, plan.year, host: site.domain)
+        }
       end
 
       def test_update_plan

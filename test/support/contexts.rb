@@ -20,8 +20,10 @@ end
 def with(params = {})
   factory = params[:factory]
   factories = params[:factories] || []
+  admin = params[:admin]
 
   Capybara.current_driver = Capybara.javascript_driver if params[:js]
+  sign_in_admin(admin) if admin
 
   if (site = params[:site])
     stub_current_site(site) { yield }
@@ -31,6 +33,7 @@ def with(params = {})
 
   Capybara.reset_session! if params[:js]
 ensure
+  sign_out_admin if admin
   factory&.teardown
   factories.each(&:teardown)
   Capybara.current_driver = Capybara.default_driver if params[:js]

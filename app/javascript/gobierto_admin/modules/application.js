@@ -102,9 +102,8 @@ function addDatepickerBehaviors() {
       }
 
       // Datepicker end time
-      $(toDatePicker).datepicker({
+      let toDatePickerOPTIONS = {
         autoClose: toDatePickerDEFAULTS.autoClose,
-        startDate: toDatePickerDEFAULTS.startDate,
         onSelect: function onSelect(a, selectedDate, instance) {
           $(instance.el).trigger("datepicker-change");
 
@@ -114,7 +113,13 @@ function addDatepickerBehaviors() {
             setDateOnBindedDatepicker(selectedDate, fromDatePicker)
           }
         }
-      });
+      }
+      if (!$(toDatePicker).data('allowBlank')) {
+        toDatePickerOPTIONS = {
+          ...toDatePickerOPTIONS, startDate: toDatePickerDEFAULTS.startDate
+        }
+      }
+      $(toDatePicker).datepicker(toDatePickerOPTIONS);
 
       // Datepicker start time
       var fromDatePicker = $fromDatePickers[index];
@@ -152,10 +157,12 @@ function addDatepickerBehaviors() {
           }
         });
 
-        var date = new Date($(fromDatePicker).data('startdate'));
+        if(!$(fromDatePicker).data('allowBlank')){
+          var date = new Date($(fromDatePicker).data('startdate'));
 
-        $(fromDatePicker).data('datepicker').selectDate(date);
-        if($(toDatePicker).length){
+          $(fromDatePicker).data('datepicker').selectDate(date);
+        }
+        if($(toDatePicker).length && !$(toDatePicker).data('allowBlank')){
           date = new Date($(toDatePicker).data('startdate'));
           $(toDatePicker).data('datepicker').selectDate(date);
         }
@@ -193,7 +200,7 @@ function initializePageWithOnlyOneDatepicker() {
   // If a default value was set, force datepicker parse it so the TZ offset is
   // not shown to the user
   $('.air-datepicker').each(function() {
-    if (this.value) {
+    if (this.value && !$(this).data('range')) {
       var dateAttr = $(this).data('startdate');
       setDateOnBindedDatepicker(new Date(dateAttr), $(this));
     }

@@ -48,7 +48,7 @@
               data: {
                 "language": I18n.locale,
                 "date-format": "yyyy-mm-dd",
-                "startDate": microseconds_since_epoch(f, :starts_at)
+                "allow-blank": true
               },
               class: "air-datepicker",
               disabled: !@project_form.allow_edit_attributes?
@@ -63,7 +63,7 @@
               data: {
                 "language": I18n.locale,
                 "date-format": "yyyy-mm-dd",
-                "startDate": microseconds_since_epoch(f, :ends_at)
+                "allow-blank": true
               },
               class: "air-datepicker",
               disabled: !@project_form.allow_edit_attributes?

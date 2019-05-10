@@ -84,6 +84,7 @@ es:
         filter_form:
           author: Autor
           category: Categoría
+          clear_filters: Limpiar filtros
           filter: Filtrar
           interval: Rango de fechas
           progress: Progreso

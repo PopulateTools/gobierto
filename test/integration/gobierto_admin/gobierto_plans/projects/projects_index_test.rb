@@ -91,51 +91,45 @@ module GobiertoAdmin
         def test_filter_progress
           allow_regular_admin_edit_plans
 
-          with_signed_in_admin(admin) do
-            with_current_site(site) do
-              visit @path
+          with(site: site, js: true, admin: admin) do
+            visit @path
 
-              within ".i_filters" do
-                select "0% - 25%", from: "projects_filter_progress"
-                click_button "Filter"
-              end
+            within ".i_filters" do
+              select "0% - 25%", from: "projects_filter_progress"
+              # click_button "Filter"
+            end
 
-              within "table#projects" do
-                assert has_selector?("tr#project-item-#{project_with_null_progress.id}")
-                assert has_no_selector?("tr#project-item-#{project_with_half_progress.id}")
-              end
+            within "table#projects" do
+              assert has_selector?("tr#project-item-#{project_with_null_progress.id}")
+              assert has_no_selector?("tr#project-item-#{project_with_half_progress.id}")
+            end
 
-              within ".i_filters" do
-                select "26% - 50%", from: "projects_filter_progress"
-                click_button "Filter"
-              end
+            within ".i_filters" do
+              select "26% - 50%", from: "projects_filter_progress"
+              # click_button "Filter"
+            end
 
-              within "table#projects" do
-                assert has_no_selector?("tr#project-item-#{project_with_null_progress.id}")
-                assert has_selector?("tr#project-item-#{project_with_half_progress.id}")
-              end
+            within "table#projects" do
+              assert has_no_selector?("tr#project-item-#{project_with_null_progress.id}")
+              assert has_selector?("tr#project-item-#{project_with_half_progress.id}")
             end
           end
         end
 
         def test_case_insensitive_title_filter_search
           allow_regular_admin_edit_plans
+          with(site: site, js: true, admin: admin) do
+            visit @path
 
-          with_signed_in_admin(admin) do
-            with_current_site(site) do
-              visit @path
+            within ".i_filters" do
+              find_field("projects_filter_name").send_keys "AGENDAS", :enter
+            end
 
-              within ".i_filters" do
-                fill_in "projects_filter_name", with: "AGENDAS"
-                click_button "Filter"
-              end
-
-              within "table#projects" do
-                assert has_selector?("tr#project-item-#{project_with_search_matching_name.id}")
-                assert has_content?("agendas")
-                assert has_no_content?("AGENDAS")
-                assert has_no_selector?("tr#project-item-#{project_with_no_search_matching_name.id}")
-              end
+            within "table#projects" do
+              assert has_selector?("tr#project-item-#{project_with_search_matching_name.id}")
+              assert has_content?("agendas")
+              assert has_no_content?("AGENDAS")
+              assert has_no_selector?("tr#project-item-#{project_with_no_search_matching_name.id}")
             end
           end
         end

@@ -109,6 +109,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
           showTable: {},
           showTableHeader: true,
           openNode: false,
+          globalProgress: 0,
           rootid: 0
         },
         created: function() {
@@ -134,9 +135,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
           }
         },
         computed: {
-          globalProgress: function () {
-            return _.meanBy(this.json, 'attributes.progress')
-          },
           availableOpts: function () {
             // Filter options object only to those values present in the configuration (optionKeys)
             return _.pick(this.activeNode.attributes.options, _.filter(_.keys(this.activeNode.attributes.options), function (o) {
@@ -157,6 +155,8 @@ window.GobiertoPlans.PlanTypesController = (function() {
               var showTableHeader = json["show_table_header"];
               // If you can open a node (project)
               var openNode = json["open_node"];
+              // Global progress, provided by json
+              var globalProgress = json["global_progress"];
 
               // Hide spinner
               $(".js-toggle-overlay").removeClass('is-active');
@@ -165,6 +165,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
               this.levelKeys = levelKeys;
               this.showTableHeader = showTableHeader;
               this.openNode = openNode;
+              this.globalProgress = globalProgress;
               this.optionKeys = Object.keys(optionKeys).reduce(function(c, k) {
                 return (c[k.toLowerCase()] = optionKeys[k]), c;
               }, {});

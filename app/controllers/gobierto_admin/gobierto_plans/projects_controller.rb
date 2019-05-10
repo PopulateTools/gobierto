@@ -139,6 +139,7 @@ module GobiertoAdmin
 
       def find_plan
         @plan = current_site.plans.find params[:plan_id]
+        @preview_item_url = gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain)
       end
 
       def find_versioned_project

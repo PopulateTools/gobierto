@@ -50,6 +50,7 @@ module GobiertoAdmin
 
       def find_vocabulary
         @plan = current_site.plans.find params[:plan_id]
+        @preview_item_url = gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain)
         @vocabulary = @plan.categories_vocabulary
       end
 
@@ -67,6 +68,13 @@ module GobiertoAdmin
           current_admin: current_admin,
           current_site: current_site
         ).allowed_actions
+      end
+
+      def gobierto_plans_plan_type_preview_url(plan, options = {})
+        if plan.draft?
+          options.merge!(preview_token: current_admin.preview_token)
+        end
+        gobierto_plans_plan_url(plan.plan_type.slug, plan.year, options)
       end
     end
   end

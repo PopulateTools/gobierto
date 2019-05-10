@@ -25,6 +25,7 @@ module GobiertoAdmin
 
       def edit
         @plan = find_plan
+        @preview_item_url = gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain)
         @plan_types = find_plan_types
         @plan_visibility_levels = plan_visibility_levels
         @vocabularies = current_site.vocabularies

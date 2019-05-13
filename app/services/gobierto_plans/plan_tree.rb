@@ -31,12 +31,12 @@ class GobiertoPlans::PlanTree
       category_nodes = category.nodes
 
       data = if category.level.zero?
-               logo_url = if logo_options = @plan.configuration_data["level0_options"].find { |option| option["slug"] == category.slug }
+               logo_url = if logo_options = @plan.configuration_data&.dig("level0_options")&.find { |option| option["slug"] == category.slug }
                             logo_options["logo"]
                           else
                             ""
                           end
-               counter = !@plan.configuration_data["hide_level0_counters"]
+               counter = !@plan.configuration_data&.dig("hide_level0_counters")
                { id: category.id,
                  uid: category.uid,
                  type: "category",

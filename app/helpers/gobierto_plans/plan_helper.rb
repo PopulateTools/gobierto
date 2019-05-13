@@ -2,10 +2,10 @@
 
 module GobiertoPlans
   module PlanHelper
-    def level_name_pluralize(number_of_elements, translation_key)
-      count = number_of_elements == 1 ? "one" : "other"
+    def level_name_pluralize(plan, level)
+      elements_count = level <= @plan.levels ? plan.categories.where(level: level).count : plan.nodes.published.count
 
-      "#{number_of_elements} #{translation_key[count][I18n.locale.to_s]}"
+      "#{elements_count} #{plan.level_key(elements_count, level)}"
     end
   end
 end

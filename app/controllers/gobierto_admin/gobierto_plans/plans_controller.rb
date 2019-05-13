@@ -87,7 +87,7 @@ module GobiertoAdmin
       end
 
       def import_csv
-        @plan = find_plan
+        @plan = ::GobiertoPlans::PlanDecorator.new(find_plan)
         @plan_data_form = PlanDataForm.new(plan: @plan)
       end
 

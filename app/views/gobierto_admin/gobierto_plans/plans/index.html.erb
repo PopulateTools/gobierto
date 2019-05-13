@@ -38,7 +38,7 @@
         <%= plan.plan_type.name %>
       </td>
       <td>
-        <%= link_to plan.title, admin_plans_plan_projects_path(plan) %>
+        <%= link_to plan.title, current_admin_can_manage_plans? ? admin_plans_plan_categories_path(plan) : admin_plans_plan_projects_path(plan) %>
       </td>
       <td>
         <%=  plan.year %>

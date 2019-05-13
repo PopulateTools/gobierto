@@ -10,12 +10,6 @@ module GobiertoAdmin
         @archived_plans = current_site.plans.only_archived.sort_by_updated_at
       end
 
-      def plan
-        @plan = find_plan
-        @vocabulary = @plan.categories_vocabulary
-        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: BaseTermDecorator, options: { plan: @plan })
-      end
-
       def new
         @plan_form = PlanForm.new(site_id: current_site.id)
         @plan_visibility_levels = plan_visibility_levels
@@ -25,6 +19,7 @@ module GobiertoAdmin
 
       def edit
         @plan = find_plan
+        @preview_item_url = gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain)
         @plan_types = find_plan_types
         @plan_visibility_levels = plan_visibility_levels
         @vocabularies = current_site.vocabularies

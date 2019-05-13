@@ -97,15 +97,15 @@
       <%= t(".notifications") %>
     </div>
 
-    <% if preview_item_url %>
-      <div class="right pure-menu-link">
-        <%= link_to t(".view_item"), preview_item_url, target: "_blank" %>
-      </div>
-    <% end %>
-
     <% if module_doc_url %>
       <div class="right pure-menu-link">
         <%= link_to t(".view_documentation"), module_doc_url, target: "_blank" %>
+      </div>
+    <% end %>
+
+    <% if preview_item_url %>
+      <div class="right pure-menu-link">
+        <%= link_to t(".view_item"), preview_item_url, target: "_blank" %>
       </div>
     <% end %>
 

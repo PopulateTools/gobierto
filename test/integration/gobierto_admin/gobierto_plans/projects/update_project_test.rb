@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_admin/previewable_item_test_module"
 
 module GobiertoAdmin
   module GobiertoPlans
     module Projects
       class UpdateProjectTest < ActionDispatch::IntegrationTest
         include Integration::AdminGroupsConcern
+        include ::GobiertoAdmin::PreviewableItemTestModule
 
         attr_reader :plan, :published_project, :unpublished_project, :path, :unpublished_path
 
@@ -25,6 +27,15 @@ module GobiertoAdmin
 
         def site
           @site ||= sites(:madrid)
+        end
+
+        def preview_test_conf
+          {
+            item_admin_path: @path,
+            item_public_url: gobierto_plans_plan_url(plan.plan_type.slug, plan.year, host: site.domain),
+            publish_proc: -> { plan.published! },
+            unpublish_proc: -> { plan.draft! }
+          }
         end
 
         def test_update_project_as_manager

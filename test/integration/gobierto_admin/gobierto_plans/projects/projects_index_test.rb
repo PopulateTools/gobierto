@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_admin/previewable_item_test_module"
 
 module GobiertoAdmin
   module GobiertoPlans
     module Projects
       class ProjectsIndexTest < ActionDispatch::IntegrationTest
         include Integration::AdminGroupsConcern
+        include ::GobiertoAdmin::PreviewableItemTestModule
 
         def setup
           super
@@ -34,6 +36,15 @@ module GobiertoAdmin
           @project_with_no_search_matching_name ||= gobierto_plans_nodes(:scholarships_kindergartens)
         end
         alias project_with_null_progress project_with_no_search_matching_name
+
+        def preview_test_conf
+          {
+            item_admin_path: @path,
+            item_public_url: gobierto_plans_plan_url(plan.plan_type.slug, plan.year, host: site.domain),
+            publish_proc: -> { plan.published! },
+            unpublish_proc: -> { plan.draft! }
+          }
+        end
 
         def test_admin_projects_index
           with_signed_in_admin(admin) do

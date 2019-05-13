@@ -9,7 +9,6 @@ module GobiertoAdmin
         :plan_id,
         :name_translations,
         :status_translations,
-        :progress,
         :starts_at,
         :ends_at,
         :options_json,
@@ -20,7 +19,8 @@ module GobiertoAdmin
         :visibility_level,
         :moderation_visibility_level,
         :moderation_stage,
-        :disable_attributes_edition
+        :disable_attributes_edition,
+        :progress
       )
 
       validates :plan, :admin, presence: true
@@ -92,6 +92,10 @@ module GobiertoAdmin
 
       def visibility_level
         @visibility_level ||= moderation_visibility_level || node.visibility_level || "draft"
+      end
+
+      def progress
+        @progress ||= node.progress || 0.0
       end
 
       def moderation_stage

@@ -113,6 +113,30 @@ module GobiertoAdmin
             end
           end
         end
+
+        def test_regular_editor_default_progress_on_create_is_zero
+          allow_regular_admin_edit_plans
+
+          with_javascript do
+            with_signed_in_admin(regular_admin) do
+              with_current_site(site) do
+                visit @path
+
+                select "Scholarships for families in the Central District", from: "project_category_id"
+
+                fill_in "project_name_translations_en", with: "New project"
+                fill_in "project_status_translations_en", with: "Not started"
+
+                click_button "Save"
+
+                assert has_content? "Project created correctly."
+
+                project = plan.nodes.last
+                assert_equal 0.0, project.progress
+              end
+            end
+          end
+        end
       end
     end
   end

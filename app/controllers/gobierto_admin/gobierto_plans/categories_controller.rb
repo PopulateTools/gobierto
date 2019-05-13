@@ -13,7 +13,7 @@ module GobiertoAdmin
         find_vocabulary
         calculate_accumulated_values
 
-        @global_progress = @plan.nodes.average(:progress).to_f
+        @global_progress = @plan.global_progress
         @projects_filter_form = ::GobiertoAdmin::GobiertoPlans::ProjectsFilterForm.new(plan: @plan, admin: current_admin)
         @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: ::GobiertoPlans::CategoryTermDecorator, options: { plan: @plan, vocabulary: @vocabulary, site: current_site })
       end

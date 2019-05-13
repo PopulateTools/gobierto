@@ -38,6 +38,10 @@ module GobiertoPlans
       @projects ||= GobiertoPlans::Node.where(id: node_ids)
     end
 
+    def project_with_progress
+      @project_with_progress ||= gobierto_plans_nodes(:political_agendas)
+    end
+
     def test_plan
       with_javascript do
         with_current_site(site) do
@@ -67,13 +71,31 @@ module GobiertoPlans
       end
     end
 
+    def test_progress_precission
+      project_with_progress.update_attribute(:progress, 2.666666666666666)
+
+      with_javascript do
+        with_current_site(site) do
+          visit @path
+
+          assert has_content? "Strategic Plan introduction"
+
+          within "div.header-resume" do
+            within "span" do
+              assert has_content? "1.3%"
+            end
+          end
+        end
+      end
+    end
+
     def test_global_execution
       with_javascript do
         with_current_site(site) do
           visit @path
           within "div.header-resume" do
             within "span" do
-              assert has_content?("8.333%")
+              assert has_content?("25%")
             end
           end
         end

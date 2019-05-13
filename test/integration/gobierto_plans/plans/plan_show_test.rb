@@ -139,7 +139,7 @@ module GobiertoPlans
                 assert has_selector?("li", count: actions.count)
 
                 find("h3", text: actions.first.name).click
-                assert has_selector?("div", text: (projects.last.progress).to_i.to_s + "%")
+                assert has_selector?("div", text: projects.last.progress.to_i.to_s + "%")
 
                 find("td", text: projects.first.name).click
 
@@ -291,7 +291,7 @@ module GobiertoPlans
                 assert has_selector?("li", count: actions.count)
 
                 find("h3", text: actions.first.name).click
-                assert has_selector?("div", text: (projects.last.progress).to_i.to_s + "%")
+                assert has_selector?("div", text: projects.last.progress.to_i.to_s + "%")
 
                 find("td", text: projects.first.name).click
 

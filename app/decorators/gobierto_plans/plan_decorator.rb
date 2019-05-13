@@ -14,7 +14,7 @@ module GobiertoPlans
                           next if level_keys["level#{level}"].present?
 
                           element_type = level <= levels ? "category" : "project"
-                          level_keys["level#{level}"] = default_translations(element_type, 1, level + 1)
+                          level_keys["level#{level}"] = default_translations(element_type, level + 1)
                         end
 
                         level_keys
@@ -24,7 +24,7 @@ module GobiertoPlans
     def to_s
       text = ""
       # "5 cats, 43 subcats, 151 subsubcats, 161 nodes"
-      if levels && levels.positive?
+      if levels&.positive?
         (0..(levels)).each do |level|
           category_size = categories.where(level: level).size
           text += category_size.to_s + " " + level_key(category_size, level) + ", "
@@ -47,7 +47,7 @@ module GobiertoPlans
 
     private
 
-    def default_translations(element_type, count, level)
+    def default_translations(element_type, level)
       {
         "one" => site.configuration.available_locales.inject({}) do |translations, locale|
           translations.update(

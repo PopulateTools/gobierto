@@ -31,7 +31,7 @@ class GobiertoPlans::PlanTree
       category_nodes = category.nodes
 
       data = if category.level.zero?
-               logo_url = if logo_options = @plan.configuration_data&.dig("level0_options")&.find { |option| option["slug"] == category.slug }
+               logo_url = if (logo_options = @plan.configuration_data&.dig("level0_options")&.find { |option| option["slug"] == category.slug })
                             logo_options["logo"]
                           else
                             ""

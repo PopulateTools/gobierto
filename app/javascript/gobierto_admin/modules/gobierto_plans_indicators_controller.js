@@ -26,7 +26,9 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
       let vElement = $(this).parent().parent().parent().parent().find('> .v_el')
       vElement.toggleClass('el-opened');
       if (vElement.hasClass('el-opened')) {
-        _slickGrid(vElement.attr('id'));
+        let id = vElement.attr('id');
+        let data = JSON.parse($(`#${id}`).find("input").val())
+        _slickGrid(id, data);
       }
 
     });
@@ -42,10 +44,17 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
       }
     );
 
+    $("form").submit(
+      function() {
+        $(".v_container .v_el .v_el_content.el-opened").each(function(i) {
+          let id = $(this).attr("id").replace(/[^\d]+/, "");
+          $(`input[name='project[indicators][${id}]']`).val(JSON.stringify($(this).data("slickGrid").getData()));
+        });
+      }
+    );
   }
 
-
-  function _slickGrid(id) {
+  function _slickGrid(id, data) {
     function requiredFieldValidator(value) {
       if (value == null || value == undefined || !value.length) {
         return {valid: false, msg: "This is a required field"};
@@ -63,12 +72,28 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
       return {id: headerName, name: headerName, field: headerName, width: 100, editor: Editors.Integer};
     }
 
+    function _dateColumnsFromData(data) {
+      let columns = [];
+      let firstRow = Object.assign({}, data[0]);
+      delete firstRow.indicator
+      let rowKeys = Object.keys(firstRow).sort();
+      let lastDateValues = rowKeys[rowKeys.length - 1].split("-");
+      for (let i = 0; i < rowKeys.length; i++) {
+        let dateValues = rowKeys[i].split("-");
+          columns.push(_dateColumn(parseInt(dateValues[0]), parseInt(dateValues[1]), 0));
+      }
+      return {
+        lastYear: parseInt(lastDateValues[0]),
+        lastMonth: parseInt(lastDateValues[1]),
+        columns: columns
+      };
+    }
+
     let new_column_id = `new_column_${id}`
     let dateColumnsCount = 5;
     let startYear = 2018;
     let startMonth = 12;
     let grid;
-    let data = [];
     let columns = [{
       id: "indicator",
       name: "",
@@ -85,21 +110,30 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
       enableCellNavigation: true,
       asyncEditorLoading: false,
       enableColumnReorder: false,
-      autoEdit: true
+      autoEdit: true,
+      itemsCountId: `${id}_items`
     };
 
     $(function () {
-      for (let i = 0; i < 10; i++) {
-        let d = (data[i] = {});
+      if (data.length === 0) {
+        for (let i = 0; i < 10; i++) {
+          let d = (data[i] = {});
 
-        d["indicator"] = "indicator " + i;
-        for (let o = 0; o < dateColumnsCount; o++) {
-          d[_headerDateName(startYear, startMonth, o)] =  Math.round(Math.random() * 100);
+          d["indicator"] = "indicator " + i;
+          for (let o = 0; o < dateColumnsCount; o++) {
+            d[_headerDateName(startYear, startMonth, o)] =  Math.round(Math.random() * 100);
+          }
         }
-      }
 
-      for (let i = 0; i < dateColumnsCount; i++) {
-        columns.push(_dateColumn(startYear, startMonth, i));
+        for (let i = 0; i < dateColumnsCount; i++) {
+          columns.push(_dateColumn(startYear, startMonth, i));
+        }
+      } else {
+        let dateColumns = _dateColumnsFromData(data);
+        columns = columns.concat(dateColumns.columns);
+        startYear = dateColumns.lastYear;
+        startMonth = dateColumns.lastMonth;
+        dateColumnsCount = 1;
       }
 
       columns.push({
@@ -115,6 +149,7 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
         offset: dateColumnsCount});
 
       grid = new Grid(`#${id} .slickgrid-container`, data, columns, options);
+      $(`#${id}`).data('slickGrid', grid);
 
       grid.setSelectionModel(new Plugins.CellSelectionModel());
 
@@ -140,6 +175,7 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
         grid.updateRowCount();
         grid.invalidate();
         grid.render();
+        $(`#${grid.getOptions().itemsCountId}`).html(data.length);
       });
     })
 

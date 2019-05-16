@@ -1,1 +1,7 @@
+<%= hidden_field_tag(
+  "project[indicators][#{id}]",
+  [].to_json,
+  id: "project_indicators_#{id}"
+) %>
+
 <div style="width:100%;height:500px;" class="slickgrid-container"></div>

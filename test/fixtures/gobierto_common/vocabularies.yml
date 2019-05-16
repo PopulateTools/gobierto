@@ -8,6 +8,11 @@ plan_categories_vocabulary:
   name_translations: <%= { es: "Plan Estratégico 2014-2018", en: "Strategic Plan 2014-2018" }.to_json %>
   slug: strategic-plan
 
+plan_projects_statuses_vocabulary:
+  site: madrid
+  name_translations: <%= { es: "Estados de proyectos", en: "Projects statuses"  }.to_json %>
+  slug: plan-projects-statuses-vocabulary
+
 issues_vocabulary:
   site: madrid
   name_translations: <%= { es: "Vocabulario de Temas", en: "Issues Vocabulary" }.to_json %>

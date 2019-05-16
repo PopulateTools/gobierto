@@ -43,7 +43,7 @@
       </td>
       <td><%= link_to_if current_admin_actions.include?(:edit), project.name, edit_admin_plans_plan_project_path(@plan, project), data: { turbolinks: false } %></td>
       <td><%= format_percentage(project.progress) %></td>
-      <td><%= project.status %></td>
+      <td><%= project.status&.name %></td>
       <td><%= time_ago_in_words(project.updated_at) %></td>
       <td>
         <%= link_to gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain), class: 'view_item' do %>

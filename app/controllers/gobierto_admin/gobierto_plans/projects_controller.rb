@@ -179,8 +179,8 @@ module GobiertoAdmin
             :visibility_level,
             :moderation_visibility_level,
             :moderation_stage,
+            :status_id,
             name_translations: [*I18n.available_locales],
-            status_translations: [*I18n.available_locales],
             indicators: {}
           )
         else
@@ -193,7 +193,7 @@ module GobiertoAdmin
       end
 
       def ignored_project_attributes
-        %w(created_at updated_at options admin_id)
+        %w(created_at updated_at options admin_id status_translations)
       end
 
       def project_visibility_levels

@@ -8,7 +8,7 @@ es:
         name: Proyecto
         progress: Progreso
         starts_at: Fecha de inicio
-        status: Estado
+        status_id: Estado
       gobierto_admin/gobierto_plans/plan_form:
         configuration_data: Configuración
         css: CSS

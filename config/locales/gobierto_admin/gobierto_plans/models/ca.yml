@@ -8,7 +8,7 @@ ca:
         name: Projecte
         progress: Progrés
         starts_at: Data d'inici
-        status: Estat
+        status_id: Estat
       gobierto_admin/gobierto_plans/plan_form:
         configuration_data: Configuració
         css: CSS

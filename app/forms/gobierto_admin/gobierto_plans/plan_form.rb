@@ -13,13 +13,14 @@ module GobiertoAdmin
         :introduction_translations,
         :year,
         :plan_type_id,
-        :visibility_level,
-        :slug,
-        :vocabulary_id
+        :slug
       )
 
       attr_writer(
-        :configuration_data
+        :configuration_data,
+        :visibility_level,
+        :vocabulary_id,
+        :statuses_vocabulary_id
       )
 
       validates :site_id, presence: true
@@ -56,6 +57,10 @@ module GobiertoAdmin
         @configuration_data ||= plan.new_record? ? ::GobiertoPlans.default_plans_configuration_data : plan.configuration_data
       end
 
+      def statuses_vocabulary_id
+        @statuses_vocabulary_id ||= plan.statuses_vocabulary_id
+      end
+
       private
 
       def build_plan
@@ -79,6 +84,7 @@ module GobiertoAdmin
           plan_attributes.year = year
           plan_attributes.footer_translations = footer_translations
           plan_attributes.vocabulary_id = vocabulary_id
+          plan_attributes.statuses_vocabulary_id = statuses_vocabulary_id
         end
 
         if @plan.valid?

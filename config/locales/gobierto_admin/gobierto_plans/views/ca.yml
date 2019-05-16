@@ -108,7 +108,6 @@ ca:
         form:
           placeholders:
             name: Títol del projecte
-            status: Pendent d'iniciar
         index:
           headers:
             progress: Progrés

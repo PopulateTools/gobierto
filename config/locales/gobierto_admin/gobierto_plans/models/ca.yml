@@ -17,6 +17,7 @@ ca:
         introduction: Introducció
         plan_type_id: Tipus
         slug: url
+        statuses_vocabulary_id: Vocabulari de estats
         title: Títol
         vocabulary_id: Vocabulari de categories
         year: Any

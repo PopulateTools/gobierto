@@ -108,7 +108,6 @@ en:
         form:
           placeholders:
             name: Project title
-            status: Pending to start
         index:
           headers:
             progress: Progress

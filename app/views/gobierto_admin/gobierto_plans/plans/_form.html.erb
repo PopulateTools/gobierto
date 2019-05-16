@@ -70,6 +70,15 @@
             options_from_collection_for_select(@vocabularies, :id, :name, f.object.vocabulary_id),
             include_blank: true %>
       </div>
+
+      <div class="form_item select_control">
+        <%= label_tag :statuses_vocabulary_id do %>
+          <%= f.object.class.human_attribute_name(:statuses_vocabulary_id) %>
+        <% end %>
+        <%= f.select :statuses_vocabulary_id,
+            options_from_collection_for_select(@vocabularies, :id, :name, f.object.statuses_vocabulary_id),
+            include_blank: true %>
+      </div>
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

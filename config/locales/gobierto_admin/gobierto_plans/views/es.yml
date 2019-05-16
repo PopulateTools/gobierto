@@ -108,7 +108,6 @@ es:
         form:
           placeholders:
             name: Título del proyecto
-            status: Pendiente de iniciar
         index:
           headers:
             progress: Progreso

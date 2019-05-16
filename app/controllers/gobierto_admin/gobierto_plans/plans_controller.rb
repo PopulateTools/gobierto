@@ -155,6 +155,7 @@ module GobiertoAdmin
           :visibility_level,
           :css,
           :vocabulary_id,
+          :statuses_vocabulary_id,
           title_translations: [*I18n.available_locales],
           footer_translations: [*I18n.available_locales],
           introduction_translations: [*I18n.available_locales]
@@ -166,7 +167,7 @@ module GobiertoAdmin
       end
 
       def ignored_plan_attributes
-        %w(created_at updated_at site_id archived_at vocabulary_id)
+        %w(created_at updated_at site_id archived_at vocabulary_id statuses_vocabulary_id)
       end
 
       def find_plan_by_slug

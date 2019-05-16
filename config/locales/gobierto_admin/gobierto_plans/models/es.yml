@@ -17,6 +17,7 @@ es:
         introduction: Introducción
         plan_type_id: Tipo
         slug: url
+        statuses_vocabulary_id: Vocabulario de estados
         title: Título
         vocabulary_id: Vocabulario de categorías
         year: Año

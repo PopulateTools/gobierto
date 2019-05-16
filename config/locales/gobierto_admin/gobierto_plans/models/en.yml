@@ -17,6 +17,7 @@ en:
         introduction: Introduction
         plan_type_id: Type
         slug: url
+        statuses_vocabulary_id: Statuses vocabulary
         title: Title
         vocabulary_id: Categories vocabulary
         year: Year

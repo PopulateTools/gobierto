@@ -12,6 +12,7 @@ module GobiertoCommon
       multiple_options: CustomFieldValue::MultipleOptions,
       color: CustomFieldValue::Color,
       image: CustomFieldValue::Image,
+      data_grid: CustomFieldValue::DataGrid,
       default: CustomFieldValue::Base
     }.freeze
 

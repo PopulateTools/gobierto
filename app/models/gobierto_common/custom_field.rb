@@ -15,7 +15,8 @@ module GobiertoCommon
                        single_option: 4,
                        multiple_options: 5,
                        color: 6,
-                       image: 7 }
+                       image: 7,
+                       data_grid: 8 }
 
     scope :sorted, -> { order(position: :asc) }
     scope :localized, -> { where(field_type: [:localized_string, :localized_paragraph]) }

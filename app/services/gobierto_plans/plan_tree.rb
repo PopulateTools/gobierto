@@ -61,7 +61,7 @@ class GobiertoPlans::PlanTree
                                           progress: node.progress,
                                           starts_at: node.starts_at,
                                           ends_at: node.ends_at,
-                                          status: node.status_translations,
+                                          status: node.status&.name_translations,
                                           options: node.options },
                             children: [])
                end

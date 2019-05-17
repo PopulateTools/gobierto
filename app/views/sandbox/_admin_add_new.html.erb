@@ -1,3 +1,14 @@
-<div class="admin_new_el">
-  <%= link_to '<i class="fa fa-plus-circle"></i> Añadir otra opción'.html_safe, '', class: 'p_1 border-el' %>
+<%
+# Use:
+#   render partial: "admin_add_new", locals: {
+#     label: 'Añadir otra opción'
+#   }
+#
+# Options:
+#   label: "Label" (default: Tipo)
+%><div class="admin_new_el">
+  <%= link_to('', class: 'p_1 border-el') do %>
+    <i class="fas fa-plus-circle"></i>
+    <%= local_assigns[:label]? label : 'Añadir otra opción' %>
+  <% end %>
 </div>

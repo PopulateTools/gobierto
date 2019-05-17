@@ -13,6 +13,11 @@ plan_projects_statuses_vocabulary:
   name_translations: <%= { es: "Estados de proyectos", en: "Projects statuses"  }.to_json %>
   slug: plan-projects-statuses-vocabulary
 
+plan_csv_import_statuses_vocabulary:
+  site: madrid
+  name_translations: <%= { es: "Estados presentes en ficheros de importación", en: "Statuses present in impor files" }.to_json %>
+  slug: plan-csv-import-statuses-vocabulary
+
 issues_vocabulary:
   site: madrid
   name_translations: <%= { es: "Vocabulario de Temas", en: "Issues Vocabulary" }.to_json %>

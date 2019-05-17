@@ -1,6 +1,7 @@
 political_agendas:
   name_translations: <%= { 'en' => 'Publish political agendas',
                             'es' => 'Publicar agendas políticas' }.to_json %>
+  status: in_progress_plan_status_term
   status_translations: <%= { 'en' => 'In progress',
                              'es' => 'En progreso' }.to_json %>
   progress: 50
@@ -18,6 +19,7 @@ scholarships_kindergartens:
                            'es' => 'Becas en guarderías'}.to_json %>
   status_translations: <%= { 'en' => 'Active',
                              'es' => 'Activo' }.to_json %>
+  status: active_plan_status_term
   progress: 0
   starts_at: 2016-11-01 00:02:00
   ends_at: 2019-11-01 00:02:00

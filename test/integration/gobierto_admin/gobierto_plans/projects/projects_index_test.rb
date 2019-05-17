@@ -54,6 +54,10 @@ module GobiertoAdmin
               within "table#projects" do
                 plan.nodes.each do |project|
                   assert has_selector?("tr#project-item-#{project.id}")
+                  within "tr#project-item-#{project.id}" do
+                    assert has_content? project.status.name
+                  end
+                  assert has_selector?("tr#project-item-#{project.id}")
                 end
               end
             end

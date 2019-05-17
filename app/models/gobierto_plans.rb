@@ -9,6 +9,14 @@ module GobiertoPlans
     "https://gobierto.readme.io/docs/planes"
   end
 
+  def self.classes_with_custom_fields
+    [GobiertoPlans::Node]
+  end
+
+  def self.classes_with_vocabularies
+    [GobiertoPlans::Node]
+  end
+
   def self.default_plans_configuration_data
     <<JSON
     {
@@ -65,9 +73,5 @@ module GobiertoPlans
       "open_node": false
     }
 JSON
-  end
-
-  def self.classes_with_custom_fields
-    [GobiertoPlans::Node]
   end
 end

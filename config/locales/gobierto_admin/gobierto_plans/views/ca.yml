@@ -89,6 +89,7 @@ ca:
           interval: Rang de dates
           progress: Progrés
           search: Cerca...
+          status: Estat
           submit: Filtrar
         filters_row:
           admin_actions: Permisos

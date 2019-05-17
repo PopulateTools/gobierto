@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class ProjectsFilterForm < BaseForm
-      FILTER_PARAMS = %w(name admin_actions category progress author moderation_stage start_date end_date interval).freeze
+      FILTER_PARAMS = %w(name admin_actions category progress author moderation_stage start_date end_date interval status).freeze
 
       attr_accessor(*FILTER_PARAMS)
       attr_accessor :plan, :admin
@@ -63,6 +63,14 @@ module GobiertoAdmin
         @plan.nodes.select(:admin_id).distinct.pluck(:admin_id).compact.map do |admin_id|
           [GobiertoAdmin::Admin.find(admin_id).name, admin_id]
         end.unshift([I18n.t("gobierto_admin.gobierto_plans.projects.filter_form.author"), nil])
+      end
+
+      def status_options
+        return unless @plan.statuses_vocabulary.present?
+
+        @plan.statuses_vocabulary.terms.map do |status|
+          [status.name, status.id]
+        end.unshift([I18n.t("gobierto_admin.gobierto_plans.projects.filter_form.status"), nil])
       end
 
       private

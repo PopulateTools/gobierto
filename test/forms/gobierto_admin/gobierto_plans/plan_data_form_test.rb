@@ -20,6 +20,10 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def csv_import_statuses_vocabulary
+        @csv_import_statuses_vocabulary = gobierto_common_vocabularies(:plan_csv_import_statuses_vocabulary)
+      end
+
       def valid_plan_data_form
         @valid_plan_data_form ||= PlanDataForm.new(
           plan: plan,
@@ -27,8 +31,14 @@ module GobiertoAdmin
         )
       end
 
-      def test_plan_data_upload
-        valid_plan_data_form.save
+      def test_plan_data_upload_with_wrong_statuses_vocabulary
+        refute valid_plan_data_form.save
+      end
+
+      def test_plan_data_upload_with_statuses_vocabulary
+        plan.update_attribute(:statuses_vocabulary_id, csv_import_statuses_vocabulary.id)
+
+        assert valid_plan_data_form.save
 
         assert_equal 2, plan.categories.where(level: 0).count
         assert_equal 4, plan.categories.where(level: 1).count
@@ -37,7 +47,7 @@ module GobiertoAdmin
 
         uploaded_node = ::GobiertoPlans::Node.with_name_translation("In Progress 2 Transportation B", site.configuration.default_locale).first
         refute_nil uploaded_node
-        assert_equal "Active", uploaded_node.status
+        assert_equal "Active", uploaded_node.status.name
         assert_equal 75.0, uploaded_node.progress
         assert_equal Date.parse("2016-06-04"), uploaded_node.starts_at
         assert_equal Date.parse("2018-12-31"), uploaded_node.ends_at

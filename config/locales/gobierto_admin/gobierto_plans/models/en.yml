@@ -33,5 +33,8 @@ en:
               invalid_columns: Required columns are missing
               invalid_format: Invalid file format
               invalid_row: 'There is an invalid row: %{row_data}'
+              status_missing: 'The state on the row has not been found in the corresponding
+                statuses vocabulary or there is a status in the row but none statuses
+                vocabulary has been configured in the plan. Row content: %{row_data}'
               used_resource: The vocabulary contains terms used in other parts of
                 the application

@@ -2,6 +2,8 @@
 
 module GobiertoPlans
   class RowNodeDecorator < BaseDecorator
+    attr_reader :status_missing
+
     STATUS_TRANSLATIONS = {
       %w(finalitzats terminada completado) => 100.0,
       %w(actius en\ ejecución) => 50.0,
@@ -52,14 +54,18 @@ module GobiertoPlans
 
                   category = CategoryTermDecorator.new(categories.last)
                   (category.nodes.where("#{ nodes_table_name }.name_translations @> ?::jsonb", { locale => node_data["Title"] }.to_json).first || category.nodes.new).tap do |node|
-                    node.assign_attributes node_attributes
-                    node.progress = progress_from_status(node.status) unless has_progress_column?
+                    node.assign_attributes node_attributes.except(:status_name)
+                    node.progress = progress_from_status(node.status.name) unless has_progress_column?
                     node.progress ||= 0.0
                     node.visibility_level = :published
                     node.build_moderation(stage: :approved)
                     node.categories << category unless node.categories.include?(category)
                   end
                 end
+    end
+
+    def status_term_required?
+      @plan.statuses_vocabulary.present?
     end
 
     protected
@@ -84,7 +90,12 @@ module GobiertoPlans
 
     def node_attributes
       attributes = node_mandatory_columns.invert.transform_values { |column| object[column] }
-      attributes.merge(options: node_data.except("Title", "Status", "Start", "End", "Progress"))
+      attributes[:options] = node_data.except("Title", "Status", "Start", "End", "Progress")
+
+      attributes[:status_id] = @plan.statuses_vocabulary.terms.with_name(attributes[:status_name]&.strip).take&.id if status_term_required?
+      @status_missing = status_term_required? ? attributes[:status_id].blank? : attributes[:status_name].present?
+
+      attributes
     end
 
     def progress_from_status(status)
@@ -97,7 +108,7 @@ module GobiertoPlans
 
     def node_mandatory_columns
       @node_mandatory_columns ||= { "Node.Title" => :"name_#{ locale }",
-                                    "Node.Status" => :"status_#{ locale }",
+                                    "Node.Status" => :status_name,
                                     "Node.Progress" => :progress,
                                     "Node.Start" => :starts_at,
                                     "Node.End" => :ends_at }

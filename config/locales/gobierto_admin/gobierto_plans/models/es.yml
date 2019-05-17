@@ -33,5 +33,9 @@ es:
               invalid_columns: No están todas las columnas necesarias
               invalid_format: Formato de fichero inválido
               invalid_row: 'Se ha encontrado una fila inválida: %{row_data}'
+              status_missing: 'El estado de la fila no se ha encontrado en el vocabulario
+                de estados correspondiente o existe un estado en la fila pero no hay
+                un vocabulario de estados configurado en el plan. Contenido de la
+                fila: %{row_data}'
               used_resource: El vocabulario emplea términos que se usan en otras partes
                 de la aplicación

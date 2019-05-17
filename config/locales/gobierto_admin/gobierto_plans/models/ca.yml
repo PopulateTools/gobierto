@@ -33,5 +33,8 @@ ca:
               invalid_columns: No estan totes les columnes necessàries
               invalid_format: Format de fitxer invàlid
               invalid_row: 'Hi ha una fila amb dades invàlid: %{row_data}'
+              status_missing: 'L''estat de la fila no s''ha trobat en el vocabulari
+                d''estats corresponent o hi ha un estat a la fila però no hi ha un
+                vocabulari d''estats configurat en el pla. Contingut de la fila: %{row_data}'
               used_resource: El vocabulari empra termes que s'usen en altres parts
                 de l'aplicació

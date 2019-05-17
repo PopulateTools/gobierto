@@ -17,6 +17,8 @@ module GobiertoPlans
 
     validates :progress, presence: true
 
+    delegate :name, to: :status, prefix: true
+
     scope :with_name, ->(name) { where("gplan_nodes.name_translations ->> 'en' ILIKE :name OR gplan_nodes.name_translations ->> 'es' ILIKE :name OR gplan_nodes.name_translations ->> 'ca' ILIKE :name", name: "%#{name}%") }
     scope :with_status, ->(status) { with_status_translation(status) }
     scope :with_category, ->(category) { where(gplan_categories_nodes: { category_id: GobiertoCommon::Term.find(category).last_descendants }) }

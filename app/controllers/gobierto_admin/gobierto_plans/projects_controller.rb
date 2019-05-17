@@ -193,7 +193,7 @@ module GobiertoAdmin
       end
 
       def ignored_project_attributes
-        %w(created_at updated_at options admin_id status_translations)
+        %w(created_at updated_at options admin_id)
       end
 
       def project_visibility_levels

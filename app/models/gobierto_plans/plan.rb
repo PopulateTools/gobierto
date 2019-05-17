@@ -48,23 +48,6 @@ module GobiertoPlans
       nodes.average(:progress).to_f
     end
 
-    def to_s
-      text = ""
-      # "5 cats, 43 subcats, 151 subsubcats, 161 nodes"
-      if levels && levels.positive?
-        (0..(levels)).each do |level|
-          category_size = categories.where(level: level).size
-          text += category_size.to_s + " " + level_key(category_size, level) + ", "
-        end
-      end
-
-      if nodes.any?
-        text += node_size.to_s + " " + level_key(node_size, levels + 1)
-      end
-
-      text
-    end
-
     def attributes_for_slug
       [title]
     end
@@ -74,15 +57,5 @@ module GobiertoPlans
 
       self.class.with_deleted.where(vocabulary_id: vocabulary_id).where.not(id: id).exists?
     end
-
-    private
-
-    def level_key(level_size, level)
-      return configuration_data["level#{level}"][level_size == 1 ? "one" : "other"][I18n.locale.to_s] if configuration_data.present? && configuration_data.has_key?("level#{level}")
-
-      element_type = level <= levels ? "category" : "project"
-      I18n.t("gobierto_admin.gobierto_plans.plans.import_csv.defaults.#{element_type}", count: level_size, level: level + 1)
-    end
-
   end
 end

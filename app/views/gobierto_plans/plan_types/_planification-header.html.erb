@@ -6,14 +6,11 @@
   </div>
 
   <div class="header-detail">
-    <% for i in 0..(@levels) %>
+    <% for i in 0..(@levels + 1) %>
       <div>
-        <%= level_name_pluralize(@plan.categories.where(level: i).size, @plan.configuration_data["level" + i.to_s]) %>
+        <%= level_name_pluralize(@plan, i) %>
       </div>
     <% end %>
-    <div>
-      <%= level_name_pluralize(@node_number, @plan.configuration_data["level" + (@levels + 1).to_s]) %>
-    </div>
   </div>
 
 </div>

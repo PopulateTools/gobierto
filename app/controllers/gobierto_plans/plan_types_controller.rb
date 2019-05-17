@@ -24,7 +24,7 @@ module GobiertoPlans
       load_year
       redirect_to gobierto_plans_plan_path(slug: params[:slug], year: @years.first) and return if @year.nil?
 
-      @plan = find_plan
+      @plan = PlanDecorator.new(find_plan)
 
       @site_stats = GobiertoPlans::SiteStats.new site: current_site, plan: @plan
       @plan_updated_at = @site_stats.plan_updated_at
@@ -40,10 +40,10 @@ module GobiertoPlans
 
           render(
             json: { plan_tree: plan_tree,
-                    option_keys: @plan.configuration_data["option_keys"],
-                    level_keys: level_keys,
-                    show_table_header: @plan.configuration_data["show_table_header"],
-                    open_node: @plan.configuration_data["open_node"],
+                    option_keys: @plan.configuration_data&.dig("option_keys") || {},
+                    level_keys: @plan.level_keys,
+                    show_table_header: @plan.configuration_data&.dig("show_table_header"),
+                    open_node: @plan.configuration_data&.dig("open_node"),
                     global_progress: @plan.global_progress }
           )
         end
@@ -58,10 +58,6 @@ module GobiertoPlans
 
     def find_plan
       valid_preview_token? ? @plan_type.plans.find_by!(year: params[:year]) : @plan_type.plans.published.find_by!(year: params[:year])
-    end
-
-    def level_keys
-      @plan.configuration_data.select { |k| k =~ /level\d\z/ }
     end
 
     def load_plans

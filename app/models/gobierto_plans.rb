@@ -66,4 +66,8 @@ module GobiertoPlans
     }
 JSON
   end
+
+  def self.classes_with_custom_fields
+    [GobiertoPlans::Node]
+  end
 end

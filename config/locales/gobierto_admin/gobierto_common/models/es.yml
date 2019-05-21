@@ -9,6 +9,7 @@ es:
         slug: URL
         title: Título
       gobierto_admin/gobierto_common/custom_field_form:
+        data_grid: Tabla de datos
         field_type: Tipo de campo
         localized_paragraph: Texto largo
         localized_string: Texto (línea)

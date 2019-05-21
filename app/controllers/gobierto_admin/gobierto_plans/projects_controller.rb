@@ -17,7 +17,7 @@ module GobiertoAdmin
 
       def edit
         find_versioned_project
-        @project_visibility_levels = project_visibility_levels
+        @unpublish_url = unpublish_admin_plans_plan_project_path(@plan, @project)
 
         @project_form = NodeForm.new(
           @project.attributes.except(*ignored_project_attributes).merge(
@@ -31,10 +31,11 @@ module GobiertoAdmin
       def update
         @project = @plan.nodes.find params[:id]
         @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
+        @unpublish_url = unpublish_admin_plans_plan_project_path(@plan, @project)
 
         if @project_form.save
           success_message = if suggest_unpublish?
-                              t(".suggest_unpublish_html", url: unpublish_admin_plans_plan_project_path(@plan, @project))
+                              t(".suggest_unpublish_html", url: @unpublish_url)
                             else
                               t(".success")
                             end

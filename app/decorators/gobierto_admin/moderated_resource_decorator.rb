@@ -78,7 +78,11 @@ module GobiertoAdmin
     end
 
     def step_visibility_value
-      @step_visibility_value ||= published? ? unpublished_value : (self.class.visibility_levels.keys - [unpublished_value]).first
+      @step_visibility_value ||= published? ? unpublished_value : step_published_value
+    end
+
+    def step_published_value
+      @step_published_value ||= (self.class.visibility_levels.keys - [unpublished_value]).first
     end
 
     def moderation_reachable_stages

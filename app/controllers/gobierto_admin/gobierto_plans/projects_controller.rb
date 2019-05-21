@@ -23,7 +23,8 @@ module GobiertoAdmin
           @project.attributes.except(*ignored_project_attributes).merge(
             plan_id: @plan.id,
             options_json: @project.options,
-            admin: current_admin
+            admin: current_admin,
+            version: params[:version]
           )
         )
       end

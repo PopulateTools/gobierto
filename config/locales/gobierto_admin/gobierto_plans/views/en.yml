@@ -118,6 +118,9 @@ en:
           new: New
           title: Projecs of %{name}
           view: View item
+        indicators:
+          items: Items
+          status: Status
         new:
           title: New project
       shared:

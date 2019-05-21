@@ -180,7 +180,8 @@ module GobiertoAdmin
             :moderation_visibility_level,
             :moderation_stage,
             name_translations: [*I18n.available_locales],
-            status_translations: [*I18n.available_locales]
+            status_translations: [*I18n.available_locales],
+            indicators: {}
           )
         else
           params.require(:project).permit(

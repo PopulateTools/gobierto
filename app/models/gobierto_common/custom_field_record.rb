@@ -12,6 +12,7 @@ module GobiertoCommon
       multiple_options: CustomFieldValue::MultipleOptions,
       color: CustomFieldValue::Color,
       image: CustomFieldValue::Image,
+      data_grid: CustomFieldValue::DataGrid,
       default: CustomFieldValue::Base
     }.freeze
 
@@ -31,6 +32,7 @@ module GobiertoCommon
 
     scope :searchable, -> { joins(:custom_field).where(custom_fields: { field_type: CustomField.searchable_fields }) }
     scope :for_item, ->(item) { where(item: item) }
+    scope :with_field_type, ->(field_type) { joins(:custom_field).where(custom_fields: { field_type: field_type }) }
 
     delegate :value, :raw_value, :value=, :searchable_value, to: :value_processor
 

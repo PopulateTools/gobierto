@@ -122,14 +122,14 @@
 
         </div>
 
-        <% for i in [
+        <% [
           'Estado de implantación de proyectos (interno)',
           'Estado de implantación de proyectos'
-        ] %>
+        ].each_with_index do |title, i| %>
         <div class="v_el v_el_level v_el_full_content">
           <div class="v_el_cont">
             <div class="v_el_icon_tree"><%= link_to '<i class="fas icon-caret fa-caret-right"></i>'.html_safe, '' %></div>
-            <div class="v_el_title"><%= i %></div>
+            <div class="v_el_title"><%= title %></div>
             <div class="v_el_decorated">
               <div>
                 4
@@ -144,7 +144,7 @@
             </div>
           </div>
 
-          <div class="v_el v_el_content tipsit" title="Arrastra">
+          <div class="v_el v_el_content" id="<%= "indicator_#{i}" %>" title="Arrastra">
 
             <div class="view_type" style="display: none">
               Ver
@@ -161,7 +161,7 @@
 
             <div class="indicators_table">
 
-              TABLE
+              <%= render partial: "admin_indicators", locals: { id: i } %>
 
             </div>
 
@@ -255,55 +255,8 @@
 
 </div>
 
-<script type="text/javascript">
-
-$(document).ready(function(){
-
-  // Toggle selected element child
-  $('.v_container .v_el .icon-caret').click(function(e) {
-    e.preventDefault();
-
-    // ToDo: Don't relay on icon specific names
-    if($(this).is('.fa-caret-right')) {
-      $(this).removeClass('fa-caret-right');
-      $(this).addClass('fa-caret-down');
-    }
-    else {
-      $(this).removeClass('fa-caret-down');
-      $(this).addClass('fa-caret-right');
-    }
-
-    $(this).parent().parent().parent().parent().find('> .v_el').toggleClass('el-opened');
-
-  });
-
-  // Close all elements except first level
-  $('.v_container .v_heading .fa-caret-square-right').click(function(e) {
-    // closes all elements
-    $('.v_container .v_el_level .v_el').removeClass('el-opened');
-  });
-
-  // Open all elements except first level
-  $('.v_container .v_heading .fa-caret-square-down').click(function(e) {
-    // Opens all elements
-    $('.v_container .v_el_level .v_el').addClass('el-opened');
-  });
-
-  // show only action buttons (edit, delete) when hovering an item
-  // ToDo: Control that only elements for the item are shown, not for it's parents
-  $('.v_el').hover(
-    function(e) {
-      $(this).first('.v_el_actions').addClass('v_el_active');
-    },
-    function(e) {
-      $(this).first('.v_el_actions').removeClass('v_el_active');
-    }
-  );
-
-  // only for sandbox
-  $('.sandbox_remove_decorated_content').click(function(e) {
-    $('.v_el_decorated').toggle();
-  });
-
-});
-</script>
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_plans_indicators_controller.form();
+  <% end %>
+<% end %>

@@ -92,6 +92,7 @@
         <%= f.select(:progress, @project_form.progress_options, { include_blank: "-", disabled: "disabled", selected: @project_form.progress_value }, disabled: !@project_form.allow_edit_attributes?) %>
       </div>
     </div>
+    <%= render partial: "indicators", locals: { indicators: @project_form.indicators } if @project_form.indicators.present? %>
   </div>
 
   <div class="pure-u-1 pure-u-md-1-24"></div>
@@ -99,4 +100,10 @@
   <%= render partial: "gobierto_admin/shared/admin_widget_save_v2", locals: { f: f, resource: @project_form.persisted? ? @project : @project_form.project } %>
   
 </div>
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_plans_indicators_controller.form();
+  <% end %>
 <% end %>

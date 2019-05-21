@@ -30,6 +30,13 @@ module GobiertoAdmin
       delegate :persisted?, to: :node
       delegate :site_id, to: :plan
 
+      def initialize(options = {})
+        options = options.to_h.with_indifferent_access
+        ordered_options = options.slice(:id, :plan_id, :admin).merge!(options)
+
+        super(ordered_options)
+      end
+
       def save
         check_visibility_level if allow_edit_attributes?
 
@@ -114,6 +121,20 @@ module GobiertoAdmin
         moderation_policy.moderate? ? @moderation_visibility_level : nil
       end
 
+      def indicators
+        @indicators ||= node.indicators
+      end
+
+      def indicators=(indicators_param)
+        @indicators = indicators_param.map do |indicator_id, content|
+          next if content.blank?
+
+          node.indicators.find(indicator_id).tap do |indicator|
+            indicator.value = JSON.parse(content)
+          end
+        end.compact
+      end
+
       private
 
       def disable_attributes_edition
@@ -158,6 +179,11 @@ module GobiertoAdmin
 
         if @node.valid?
           @node.save
+
+          indicators.each do |indicator|
+            indicator.save if indicator.changed?
+          end
+
           if allow_edit_attributes? && !@node.categories.include?(category)
             @node.categories.where(vocabulary: plan.categories_vocabulary).each do |plan_category|
               @node.categories.delete plan_category

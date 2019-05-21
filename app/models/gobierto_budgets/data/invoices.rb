@@ -10,7 +10,7 @@ module GobiertoBudgets
                  [{ options[:sort_asc_by].to_sym => { order: "asc" } }]
                end
         remove_columns = options[:except_columns].present? ? options[:except_columns].split(",") : []
-        limit = options[:limit] || 10_000
+        limit = options[:limit] || 100_000
 
         query_filters = [{ term: { location_id: options[:location_id] }}]
         if options[:date_date_range]

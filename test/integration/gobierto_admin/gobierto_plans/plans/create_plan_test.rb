@@ -87,6 +87,7 @@ module GobiertoAdmin
 
             select "pam", from: "plan_plan_type_id"
             select "New Strategic Plan", from: "plan_vocabulary_id"
+            fill_in "plan_configuration_data", with: ""
 
             click_button "Create"
 
@@ -132,6 +133,16 @@ module GobiertoAdmin
             visit admin_plans_plan_import_csv_path(plan)
 
             assert has_content? "No data loaded yet"
+          end
+        end
+      end
+
+      def test_create_plan_default_configuration_data
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit @path
+
+            assert has_field?("plan_configuration_data", with: ::GobiertoPlans.default_plans_configuration_data)
           end
         end
       end

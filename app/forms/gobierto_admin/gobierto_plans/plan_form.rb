@@ -13,10 +13,13 @@ module GobiertoAdmin
         :introduction_translations,
         :year,
         :plan_type_id,
-        :configuration_data,
         :visibility_level,
         :slug,
         :vocabulary_id
+      )
+
+      attr_writer(
+        :configuration_data
       )
 
       validates :site_id, presence: true
@@ -47,6 +50,10 @@ module GobiertoAdmin
 
       def vocabulary_id
         @vocabulary_id ||= plan.vocabulary_id
+      end
+
+      def configuration_data
+        @configuration_data ||= plan.new_record? ? ::GobiertoPlans.default_plans_configuration_data : plan.configuration_data
       end
 
       private

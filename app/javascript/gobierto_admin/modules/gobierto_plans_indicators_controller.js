@@ -69,7 +69,7 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
 
     function _dateColumn(startYear, startMonth, offset) {
       let headerName = _headerDateName(startYear, startMonth, offset);
-      return {id: headerName, name: headerName, field: headerName, width: 100, editor: Editors.Integer};
+      return {id: headerName, name: headerName, field: headerName, width: 100, editor: Editors.Float};
     }
 
     function _dateColumnsFromData(data) {

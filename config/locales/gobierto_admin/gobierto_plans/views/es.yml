@@ -89,6 +89,7 @@ es:
           interval: Rango de fechas
           progress: Progreso
           search: Busca...
+          status: Estado
           submit: Filtrar
         filters_row:
           admin_actions: Permisos
@@ -108,7 +109,6 @@ es:
         form:
           placeholders:
             name: Título del proyecto
-            status: Pendiente de iniciar
         index:
           headers:
             progress: Progreso

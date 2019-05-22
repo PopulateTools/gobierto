@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_10_172357) do
+ActiveRecord::Schema.define(version: 2019_05_17_155844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -874,7 +874,6 @@ ActiveRecord::Schema.define(version: 2019_05_10_172357) do
   create_table "gplan_nodes", force: :cascade do |t|
     t.jsonb "name_translations"
     t.float "progress", default: 0.0
-    t.jsonb "status_translations"
     t.date "starts_at"
     t.date "ends_at"
     t.jsonb "options"
@@ -882,8 +881,10 @@ ActiveRecord::Schema.define(version: 2019_05_10_172357) do
     t.datetime "updated_at", null: false
     t.integer "visibility_level", default: 0, null: false
     t.bigint "admin_id"
+    t.bigint "status_id"
     t.index ["admin_id"], name: "index_gplan_nodes_on_admin_id"
     t.index ["name_translations"], name: "index_gplan_nodes_on_name_translations", using: :gin
+    t.index ["status_id"], name: "index_gplan_nodes_on_status_id"
   end
 
   create_table "gplan_plan_types", force: :cascade do |t|
@@ -909,9 +910,11 @@ ActiveRecord::Schema.define(version: 2019_05_10_172357) do
     t.datetime "archived_at"
     t.jsonb "footer_translations"
     t.bigint "vocabulary_id"
+    t.bigint "statuses_vocabulary_id"
     t.index ["archived_at"], name: "index_gplan_plans_on_archived_at"
     t.index ["plan_type_id"], name: "index_gplan_plans_on_plan_type_id"
     t.index ["site_id"], name: "index_gplan_plans_on_site_id"
+    t.index ["statuses_vocabulary_id"], name: "index_gplan_plans_on_statuses_vocabulary_id"
     t.index ["title_translations"], name: "index_gplan_plans_on_title_translations", using: :gin
     t.index ["vocabulary_id"], name: "index_gplan_plans_on_vocabulary_id"
   end

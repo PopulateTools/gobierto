@@ -19,6 +19,11 @@ module GobiertoCommon
     validates :slug, uniqueness: { scope: :vocabulary_id }
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
+    scope :with_name, lambda { |name|
+      where(%(terms.name_translations ->> 'en' ILIKE :name OR
+      terms.name_translations ->> 'es' ILIKE :name OR
+      terms.name_translations ->> 'ca' ILIKE :name), name: name.to_s)
+    }
 
     translates :name, :description
 

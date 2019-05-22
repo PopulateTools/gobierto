@@ -8,7 +8,7 @@ es:
         name: Proyecto
         progress: Progreso
         starts_at: Fecha de inicio
-        status: Estado
+        status_id: Estado
       gobierto_admin/gobierto_plans/plan_form:
         configuration_data: Configuración
         css: CSS
@@ -17,6 +17,7 @@ es:
         introduction: Introducción
         plan_type_id: Tipo
         slug: url
+        statuses_vocabulary_id: Vocabulario de estados
         title: Título
         vocabulary_id: Vocabulario de categorías
         year: Año
@@ -32,5 +33,9 @@ es:
               invalid_columns: No están todas las columnas necesarias
               invalid_format: Formato de fichero inválido
               invalid_row: 'Se ha encontrado una fila inválida: %{row_data}'
+              status_missing: 'El estado de la fila no se ha encontrado en el vocabulario
+                de estados correspondiente o existe un estado en la fila pero no hay
+                un vocabulario de estados configurado en el plan. Contenido de la
+                fila: %{row_data}'
               used_resource: El vocabulario emplea términos que se usan en otras partes
                 de la aplicación

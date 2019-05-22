@@ -31,11 +31,13 @@ module GobiertoAdmin
           @project_with_search_matching_name ||= gobierto_plans_nodes(:political_agendas)
         end
         alias project_with_half_progress project_with_search_matching_name
+        alias project_in_progress_status project_with_search_matching_name
 
         def project_with_no_search_matching_name
           @project_with_no_search_matching_name ||= gobierto_plans_nodes(:scholarships_kindergartens)
         end
         alias project_with_null_progress project_with_no_search_matching_name
+        alias project_active_status project_with_no_search_matching_name
 
         def preview_test_conf
           {
@@ -53,6 +55,10 @@ module GobiertoAdmin
 
               within "table#projects" do
                 plan.nodes.each do |project|
+                  assert has_selector?("tr#project-item-#{project.id}")
+                  within "tr#project-item-#{project.id}" do
+                    assert has_content? project.status.name
+                  end
                   assert has_selector?("tr#project-item-#{project.id}")
                 end
               end
@@ -123,6 +129,45 @@ module GobiertoAdmin
             within "table#projects" do
               assert has_no_selector?("tr#project-item-#{project_with_null_progress.id}")
               assert has_selector?("tr#project-item-#{project_with_half_progress.id}")
+            end
+          end
+        end
+
+        def test_filter_status
+          allow_regular_admin_edit_plans
+
+          with(site: site, js: true, admin: admin) do
+            visit @path
+
+            within ".i_filters" do
+              select "Active", from: "projects_filter_status"
+            end
+
+            within "table#projects" do
+              assert has_selector?("tr#project-item-#{project_active_status.id}")
+              assert has_no_selector?("tr#project-item-#{project_in_progress_status.id}")
+            end
+
+            within ".i_filters" do
+              select "In progress", from: "projects_filter_status"
+            end
+
+            within "table#projects" do
+              assert has_selector?("tr#project-item-#{project_in_progress_status.id}")
+              assert has_no_selector?("tr#project-item-#{project_active_status.id}")
+            end
+          end
+        end
+
+        def test_filter_status_on_plan_without_vocabulary
+          plan.update_attribute(:statuses_vocabulary_id, nil)
+          allow_regular_admin_edit_plans
+
+          with(site: site, js: true, admin: admin) do
+            visit @path
+
+            within ".i_filters" do
+              assert has_no_selector?("#projects_filter_status")
             end
           end
         end

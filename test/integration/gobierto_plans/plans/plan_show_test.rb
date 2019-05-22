@@ -143,7 +143,7 @@ module GobiertoPlans
 
                 find("td", text: projects.first.name).click
 
-                assert has_content?(projects.first.status)
+                assert has_content?(projects.first.status.name)
               end
             end
           end
@@ -295,7 +295,7 @@ module GobiertoPlans
 
                 find("td", text: projects.first.name).click
 
-                assert has_content?(projects.first.status)
+                assert has_content?(projects.first.status.name)
               end
             end
           end

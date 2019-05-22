@@ -4,6 +4,7 @@ module GobiertoAdmin
   module GobiertoPlans
     class PlanDataForm < BaseForm
       class CSVRowInvalid < ArgumentError; end
+      class StatusMissing < ArgumentError; end
 
       REQUIRED_COLUMNS = %w(Node.Title).freeze
 
@@ -47,6 +48,9 @@ module GobiertoAdmin
       rescue CSVRowInvalid => e
         errors.add(:base, :invalid_row, row_data: e.message)
         false
+      rescue StatusMissing => e
+        errors.add(:base, :status_missing, row_data: e.message)
+        false
       rescue ActiveRecord::RecordNotDestroyed => e
         errors.add(:base, :used_resource)
         false
@@ -83,6 +87,7 @@ module GobiertoAdmin
           end
           if (node = row_decorator.node).present?
             raise CSVRowInvalid, row_decorator.to_csv unless REQUIRED_COLUMNS.all? { |column| row_decorator[column].present? } && node.save
+            raise StatusMissing, row_decorator.to_csv if row_decorator.status_missing
           end
         end
       end

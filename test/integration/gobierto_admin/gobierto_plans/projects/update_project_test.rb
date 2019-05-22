@@ -45,10 +45,10 @@ module GobiertoAdmin
 
               within "form" do
                 fill_in "project_name_translations_en", with: "Updated project"
-                fill_in "project_status_translations_en", with: "Not started"
 
                 fill_in "project_starts_at", with: "2020-01-01"
                 fill_in "project_ends_at", with: "2021-01-01"
+                select "Active", from: "project_status_id"
                 select "3%", from: "project_progress"
 
                 within "div.widget_save_v2.editor" do
@@ -62,7 +62,7 @@ module GobiertoAdmin
               published_project.reload
 
               assert_equal "Updated project", published_project.name
-              assert_equal "Not started", published_project.status
+              assert_equal "Active", published_project.status.name
               assert_equal 3.0, published_project.progress
               assert_equal Date.parse("2020-01-01"), published_project.starts_at
               assert_equal Date.parse("2021-01-01"), published_project.ends_at
@@ -81,7 +81,7 @@ module GobiertoAdmin
 
               within "form" do
                 assert has_field?("project_name_translations_en", disabled: true)
-                assert has_field?("project_status_translations_en", disabled: true)
+                assert has_field?("project_status_id", disabled: true)
                 assert has_field?("project_starts_at", disabled: true)
                 assert has_field?("project_ends_at", disabled: true)
                 assert has_field?("project_progress", disabled: true)
@@ -164,10 +164,10 @@ module GobiertoAdmin
 
               within "form" do
                 fill_in "project_name_translations_en", with: "Updated project"
-                fill_in "project_status_translations_en", with: "Not started"
 
                 fill_in "project_starts_at", with: "2020-01-01"
                 fill_in "project_ends_at", with: "2021-01-01"
+                select "Active", from: "project_status_id"
                 select "3%", from: "project_progress"
 
                 assert has_no_css? "div.widget_save_v2.moderator"
@@ -182,7 +182,7 @@ module GobiertoAdmin
               published_project.reload
 
               assert_equal "Updated project", published_project.name
-              assert_equal "Not started", published_project.status
+              assert_equal "Active", published_project.status.name
               assert_equal 3.0, published_project.progress
               assert_equal Date.parse("2020-01-01"), published_project.starts_at
               assert_equal Date.parse("2021-01-01"), published_project.ends_at
@@ -201,10 +201,10 @@ module GobiertoAdmin
 
               within "form" do
                 fill_in "project_name_translations_en", with: "Updated project"
-                fill_in "project_status_translations_en", with: "Not started"
 
                 fill_in "project_starts_at", with: "2020-01-01"
                 fill_in "project_ends_at", with: "2021-01-01"
+                select "In progress", from: "project_status_id"
                 select "3%", from: "project_progress"
 
                 assert has_no_css? "div.widget_save_v2.moderator"
@@ -219,7 +219,7 @@ module GobiertoAdmin
               unpublished_project.reload
 
               assert_equal "Updated project", unpublished_project.name
-              assert_equal "Not started", unpublished_project.status
+              assert_equal "In progress", unpublished_project.status.name
               assert_equal 3.0, unpublished_project.progress
               assert_equal Date.parse("2020-01-01"), unpublished_project.starts_at
               assert_equal Date.parse("2021-01-01"), unpublished_project.ends_at
@@ -300,10 +300,10 @@ module GobiertoAdmin
 
               within "form" do
                 fill_in "project_name_translations_en", with: "Updated project"
-                fill_in "project_status_translations_en", with: "Not started"
 
                 fill_in "project_starts_at", with: "2020-01-01"
                 fill_in "project_ends_at", with: "2021-01-01"
+                select "In progress", from: "project_status_id"
                 select "3%", from: "project_progress"
 
                 assert has_css? "div.widget_save_v2.moderator"
@@ -318,7 +318,7 @@ module GobiertoAdmin
               unpublished_project.reload
 
               assert_equal "Updated project", unpublished_project.name
-              assert_equal "Not started", unpublished_project.status
+              assert_equal "In progress", unpublished_project.status.name
               assert_equal 3.0, unpublished_project.progress
               assert_equal Date.parse("2020-01-01"), unpublished_project.starts_at
               assert_equal Date.parse("2021-01-01"), unpublished_project.ends_at

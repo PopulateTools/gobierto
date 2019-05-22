@@ -84,14 +84,13 @@ module GobiertoAdmin
                 select "Scholarships for families in the Central District", from: "project_category_id"
 
                 fill_in "project_name_translations_en", with: "New project"
-                fill_in "project_status_translations_en", with: "Not started"
 
                 switch_locale "ES"
                 fill_in "project_name_translations_es", with: "Nuevo proyecto"
-                fill_in "project_status_translations_es", with: "No iniciado"
 
                 fill_in "project_starts_at", with: "2020-01-01"
                 fill_in "project_ends_at", with: "2021-01-01"
+                select "Not started", from: "project_status_id"
                 select "1%", from: "project_progress"
 
                 click_button "Save"
@@ -101,9 +100,8 @@ module GobiertoAdmin
                 project = plan.nodes.last
                 assert_equal regular_admin, project.author
                 assert_equal "New project", project.name
-                assert_equal "Not started", project.status
+                assert_equal "Not started", project.status.name
                 assert_equal "Nuevo proyecto", project.name_es
-                assert_equal "No iniciado", project.status_es
                 assert_equal 1.0, project.progress
                 assert_equal Date.parse("2020-01-01"), project.starts_at
                 assert_equal Date.parse("2021-01-01"), project.ends_at
@@ -125,7 +123,7 @@ module GobiertoAdmin
                 select "Scholarships for families in the Central District", from: "project_category_id"
 
                 fill_in "project_name_translations_en", with: "New project"
-                fill_in "project_status_translations_en", with: "Not started"
+                select "Not started", from: "project_status_id"
 
                 click_button "Save"
 

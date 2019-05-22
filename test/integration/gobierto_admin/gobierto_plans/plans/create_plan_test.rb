@@ -49,6 +49,7 @@ module GobiertoAdmin
               fill_in "plan_year", with: "2017"
 
               select "pam", from: "plan_plan_type_id"
+              select "Projects statuses", from: "plan_statuses_vocabulary_id"
 
               click_button "Create"
 
@@ -64,6 +65,7 @@ module GobiertoAdmin
 
               assert_equal "pam", plan.plan_type.name
               assert_equal "new-plan-title", plan.slug
+              assert_equal "Projects statuses", plan.statuses_vocabulary.name
 
               activity = Activity.last
               assert_equal plan, activity.subject

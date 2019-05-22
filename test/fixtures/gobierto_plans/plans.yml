@@ -65,6 +65,7 @@ strategic_plan:
   slug: strategic-plan
   site: madrid
   categories_vocabulary: plan_categories_vocabulary
+  statuses_vocabulary: plan_projects_statuses_vocabulary
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
   plan_type: pam

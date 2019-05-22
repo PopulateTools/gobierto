@@ -8,7 +8,6 @@ module GobiertoAdmin
         :id,
         :plan_id,
         :name_translations,
-        :status_translations,
         :starts_at,
         :ends_at,
         :options_json,
@@ -16,6 +15,7 @@ module GobiertoAdmin
       )
       attr_writer(
         :category_id,
+        :status_id,
         :visibility_level,
         :moderation_visibility_level,
         :moderation_stage,
@@ -25,10 +25,11 @@ module GobiertoAdmin
 
       validates :plan, :admin, presence: true
       validates :category, :name_translations, presence: true, if: -> { allow_edit_attributes? }
+      validates :status_id, presence: true, if: -> { allow_edit_attributes? && statuses_vocabulary.present? }
       validate :options_json_format
 
       delegate :persisted?, to: :node
-      delegate :site_id, to: :plan
+      delegate :site_id, :statuses_vocabulary, to: :plan
 
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
@@ -72,6 +73,10 @@ module GobiertoAdmin
                                   ["#{"--" * term.level} #{term.name}".strip, term.level == enabled_level ? term.id : "disabled"]
                                 end
                               end
+      end
+
+      def statuses_options
+        @statuses_options ||= plan.statuses_vocabulary.terms.sorted.map { |term| [term.name, term.id] }
       end
 
       def progress_options
@@ -135,6 +140,12 @@ module GobiertoAdmin
         end.compact
       end
 
+      def status_id
+        return unless statuses_vocabulary && statuses_vocabulary.terms.where(id: @status_id).exists?
+
+        @status_id
+      end
+
       private
 
       def disable_attributes_edition
@@ -168,11 +179,11 @@ module GobiertoAdmin
         @node = node.tap do |attributes|
           if allow_edit_attributes?
             attributes.name_translations = name_translations
-            attributes.status_translations = status_translations
             attributes.progress = progress
             attributes.starts_at = starts_at
             attributes.ends_at = ends_at
             attributes.options = options
+            attributes.status_id = status_id
           end
           attributes.visibility_level = visibility_level
         end

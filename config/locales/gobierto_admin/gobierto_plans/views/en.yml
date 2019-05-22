@@ -89,6 +89,7 @@ en:
           interval: Date interval
           progress: Progress
           search: Search...
+          status: Status
           submit: Filter
         filters_row:
           admin_actions: Permissions
@@ -108,7 +109,6 @@ en:
         form:
           placeholders:
             name: Project title
-            status: Pending to start
         index:
           headers:
             progress: Progress

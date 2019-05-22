@@ -28,13 +28,6 @@
           <% end %>
           <%= text_field_tag "project[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t('.placeholders.name', locale: locale), disabled: !@project_form.allow_edit_attributes? %>
         </div>
-
-        <div class="form_item input_text" data-locale="<%= locale %>">
-          <%= label_tag "project[status_translations][#{locale}]" do %>
-            <%= @project_form.class.human_attribute_name(:status) %>
-          <% end %>
-          <%= text_field_tag "project[status_translations][#{locale}]", f.object.status_translations && f.object.status_translations[locale], placeholder: t('.placeholders.status', locale: locale), disabled: !@project_form.allow_edit_attributes? %>
-        </div>
       <% end %>
 
     </div>
@@ -70,20 +63,19 @@
         %>
       </div>
 
-      <div class="form_item select_control">
-        <label for="">Estado</label>
-        <select>
-          <% for i in [
-            'Pendiente iniciar',
-            'Iniciado',
-            'En progreso',
-            'Finalizado'
-          ]
-          %>
-          <option disabled><%= i %></option>
+      <% if @project_form.statuses_vocabulary.present? %>
+        <div class="form_item select_control">
+          <%= label_tag "project[status_id]]" do %>
+            <%= f.object.class.human_attribute_name(:status_id) %>
           <% end %>
-        </select>
-      </div>
+          <%= f.select(
+                :status_id,
+                @project_form.statuses_options,
+                {},
+                disabled: !@project_form.allow_edit_attributes?
+              ) %>
+        </div>
+      <% end %>
 
       <div class="form_item select_control">
         <%= label_tag "project[progress]" do %>

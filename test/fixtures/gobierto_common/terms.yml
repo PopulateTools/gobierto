@@ -183,6 +183,90 @@ city_plan_term:
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
 
+## plan_projects_statuses_vocabulary
+
+not_started_plan_status_term:
+  vocabulary: plan_projects_statuses_vocabulary
+  name_translations: <%= { 'en' => 'Not started',
+                           'es' => 'No iniciado' }.to_json %>
+  slug: not-started
+  level: 0
+  position: 0
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+in_progress_plan_status_term:
+  vocabulary: plan_projects_statuses_vocabulary
+  name_translations: <%= { 'en' => 'In progress',
+                           'es' => 'En progreso' }.to_json %>
+  slug: in-progress
+  level: 0
+  position: 0
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+active_plan_status_term:
+  vocabulary: plan_projects_statuses_vocabulary
+  name_translations: <%= { 'en' => 'Active',
+                           'es' => 'Activo' }.to_json %>
+  slug: in-progress
+  level: 0
+  position: 1
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+## plan_projects_statuses_vocabulary
+
+pending_imported_plan_status_term:
+  vocabulary: plan_csv_import_statuses_vocabulary
+  name_translations: <%= { 'en' => 'Pending',
+                           'es' => 'Pendiente' }.to_json %>
+  slug: pending
+  level: 0
+  position: 1
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+started_imported_plan_status_term:
+  vocabulary: plan_csv_import_statuses_vocabulary
+  name_translations: <%= { 'en' => 'Started',
+                           'es' => 'Iniciat' }.to_json %>
+  slug: started
+  level: 0
+  position: 2
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+active_imported_plan_status_term:
+  vocabulary: plan_csv_import_statuses_vocabulary
+  name_translations: <%= { 'en' => 'Active',
+                           'es' => 'En Marxa' }.to_json %>
+  slug: active
+  level: 0
+  position: 3
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+finished_imported_plan_status_term:
+  vocabulary: plan_csv_import_statuses_vocabulary
+  name_translations: <%= { 'en' => 'Finished',
+                           'es' => 'Finalitzat' }.to_json %>
+  slug: finished
+  level: 0
+  position: 4
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+blank_imported_plan_status_term:
+  vocabulary: plan_csv_import_statuses_vocabulary
+  name_translations: <%= { 'en' => 'Blank',
+                           'es' => '' }.to_json %>
+  slug: blank
+  level: 0
+  position: 5
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
 ## citizen_services_categories
 
 social_services_term:

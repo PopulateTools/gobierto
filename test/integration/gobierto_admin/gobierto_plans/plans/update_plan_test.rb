@@ -40,6 +40,7 @@ module GobiertoAdmin
             within "form" do
               fill_in "plan_title_translations_en", with: "Edited plan title"
 
+              select "Animals", from: "plan_statuses_vocabulary_id"
               click_button "Update"
             end
 
@@ -52,6 +53,7 @@ module GobiertoAdmin
             plan.reload
 
             assert_equal "Edited plan title", plan.title
+            assert_equal "Animals", plan.statuses_vocabulary.name
 
             activity = Activity.last
             assert_equal plan, activity.subject

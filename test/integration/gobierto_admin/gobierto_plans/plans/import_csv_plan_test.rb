@@ -7,11 +7,13 @@ module GobiertoAdmin
     class ImportCsvPlanTest < ActionDispatch::IntegrationTest
       include Integration::AdminGroupsConcern
 
-      attr_reader :plan, :path
+      attr_reader :plan, :path, :statuses_vocabulary
 
       def setup
         super
+        @statuses_vocabulary = gobierto_common_vocabularies(:plan_csv_import_statuses_vocabulary)
         @plan = gobierto_plans_plans(:strategic_plan)
+        @plan.update_attribute(:statuses_vocabulary_id, statuses_vocabulary.id)
         @path = edit_admin_plans_plan_path(plan)
       end
 
@@ -25,6 +27,10 @@ module GobiertoAdmin
 
       def vocabulary_used_in_other_context
         @vocabulary_used_in_other_context ||= gobierto_common_vocabularies(:issues_vocabulary)
+      end
+
+      def blank_status_term
+        @blank_status_term ||= gobierto_common_terms(:blank_imported_plan_status_term)
       end
 
       def test_import_csv_without_file
@@ -69,6 +75,75 @@ module GobiertoAdmin
             plan.reload
             assert_equal 247, plan.nodes.count
             assert_equal "eix-1-economia-emprenedoria-i-ocupacio", plan.categories_vocabulary.terms.first.slug
+            assert_equal 1, plan.nodes.where(status: blank_status_term).count
+          end
+        end
+      end
+
+      def test_import_csv_file_without_vocabulary
+        plan.update_attribute(:statuses_vocabulary_id, nil)
+
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+
+            visit path
+
+            click_link "Import from CSV"
+
+            attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
+            within "form" do
+              with_stubbed_s3_file_upload do
+                click_button "Import from CSV file"
+              end
+            end
+
+            assert has_alert? "The state on the row has not been found in the corresponding statuses vocabulary"
+          end
+        end
+      end
+
+      def test_import_csv_file_with_status_not_present_in_vocabulary
+        blank_status_term.destroy
+
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+
+            visit path
+
+            click_link "Import from CSV"
+
+            attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
+            within "form" do
+              with_stubbed_s3_file_upload do
+                click_button "Import from CSV file"
+              end
+            end
+
+            assert has_alert? "The state on the row has not been found in the corresponding statuses vocabulary"
+          end
+        end
+      end
+
+      def test_import_csv_file_without_statuses_and_not_defined_vocabulary
+        plan.update_attribute(:statuses_vocabulary_id, nil)
+
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+
+            visit path
+
+            click_link "Import from CSV"
+
+            attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan_blank_statuses.csv")
+            within "form" do
+              with_stubbed_s3_file_upload do
+                click_button "Import from CSV file"
+              end
+            end
+
+            within ".flash-message", match: :first do
+              assert has_content? "Data imported successfully"
+            end
           end
         end
       end

@@ -32,6 +32,10 @@ module GobiertoPlans
       @sample_import_csv_file ||= Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
     end
 
+    def csv_import_statuses_vocabulary
+      @csv_import_statuses_vocabulary = gobierto_common_vocabularies(:plan_csv_import_statuses_vocabulary)
+    end
+
     def test_csv_export
       csv_output = CSV.parse(GobiertoPlans::PlanDataDecorator.new(plan).csv, headers: true)
 
@@ -39,7 +43,7 @@ module GobiertoPlans
       assert_equal first_category.parent_term.name, csv_output.by_row[0]["Level 1"]
       assert_equal first_category.name, csv_output.by_row[0]["Level 2"]
       assert_equal first_node.name, csv_output.by_row[0]["Node.Title"]
-      assert_equal first_node.status, csv_output.by_row[0]["Node.Status"]
+      assert_equal first_node.status.name, csv_output.by_row[0]["Node.Status"]
       assert_equal first_node.progress, csv_output.by_row[0]["Node.Progress"].to_f
       assert_equal first_node.starts_at, Date.parse(csv_output.by_row[0]["Node.Start"])
       assert_equal first_node.ends_at, Date.parse(csv_output.by_row[0]["Node.End"])
@@ -48,6 +52,8 @@ module GobiertoPlans
     end
 
     def test_csv_import
+      plan.update_attribute(:statuses_vocabulary_id, csv_import_statuses_vocabulary.id)
+
       csv_input = CSV.read(csv_file, headers: true)
       GobiertoAdmin::GobiertoPlans::PlanDataForm.new(csv_file: csv_file, plan: plan).save
 
@@ -55,7 +61,7 @@ module GobiertoPlans
       assert_equal csv_input.by_row[0]["Level 2"], first_category.parent_term.name
       assert_equal csv_input.by_row[0]["Level 3"], first_category.name
       assert_equal csv_input.by_row[0]["Node.Title"], first_node.name
-      assert_equal csv_input.by_row[0]["Node.Status"], first_node.status
+      assert_equal csv_input.by_row[0]["Node.Status"], first_node.status.name
       assert_equal csv_input.by_row[0]["Node.Progress"].to_f, first_node.progress
       assert_equal Date.parse(csv_input.by_row[0]["Node.Start"]), first_node.starts_at
       assert_equal Date.parse(csv_input.by_row[0]["Node.End"]), first_node.ends_at
@@ -69,6 +75,8 @@ module GobiertoPlans
      end
 
     def test_sample_csv_import
+      plan.update_attribute(:statuses_vocabulary_id, csv_import_statuses_vocabulary.id)
+
       GobiertoAdmin::GobiertoPlans::PlanDataForm.new(csv_file: sample_import_csv_file, plan: plan).save
 
       assert_equal 2, plan.categories_vocabulary.terms.where(level: 2).with_name_translation("76. Avaluar les poítiques d'Igualtat mitjançant un sistema d'indicadors de gènere").count

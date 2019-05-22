@@ -89,6 +89,7 @@ ca:
           interval: Rang de dates
           progress: Progrés
           search: Cerca...
+          status: Estat
           submit: Filtrar
         filters_row:
           admin_actions: Permisos
@@ -108,7 +109,6 @@ ca:
         form:
           placeholders:
             name: Títol del projecte
-            status: Pendent d'iniciar
         index:
           headers:
             progress: Progrés

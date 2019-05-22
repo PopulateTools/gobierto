@@ -5,17 +5,22 @@ require_dependency "gobierto_plans"
 module GobiertoPlans
   class Node < ApplicationRecord
     include GobiertoCommon::Moderable
+    include GobiertoCommon::HasVocabulary
 
     belongs_to :author, class_name: "GobiertoAdmin::Admin", foreign_key: :admin_id
     has_and_belongs_to_many :categories, class_name: "GobiertoCommon::Term", association_foreign_key: :category_id, join_table: :gplan_categories_nodes
     has_many :indicators, -> { with_field_type(:data_grid) }, class_name: "GobiertoCommon::CustomFieldRecord", as: :item, dependent: :destroy
 
     has_paper_trail ignore: [:visibility_level]
+    has_vocabulary :statuses
+    belongs_to :status, class_name: "GobiertoCommon::Term"
 
     validates :progress, presence: true
 
+    delegate :name, to: :status, prefix: true
+
     scope :with_name, ->(name) { where("gplan_nodes.name_translations ->> 'en' ILIKE :name OR gplan_nodes.name_translations ->> 'es' ILIKE :name OR gplan_nodes.name_translations ->> 'ca' ILIKE :name", name: "%#{name}%") }
-    scope :with_status, ->(status) { with_status_translation(status) }
+    scope :with_status, ->(status) { where(status_id: status) }
     scope :with_category, ->(category) { where(gplan_categories_nodes: { category_id: GobiertoCommon::Term.find(category).last_descendants }) }
     scope :with_progress, ->(progress) { where("progress > ? AND progress <= ?", *progress.split(" - ")) }
     scope :with_interval, lambda { |interval|
@@ -57,7 +62,7 @@ module GobiertoPlans
       node.published? ? :approved : :not_sent
     end
 
-    translates :name, :status
+    translates :name
 
     enum visibility_level: { draft: 0, published: 1 }
   end

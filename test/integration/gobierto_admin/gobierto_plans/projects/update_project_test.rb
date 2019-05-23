@@ -15,10 +15,17 @@ module GobiertoAdmin
         def setup
           super
           @plan = gobierto_plans_plans(:strategic_plan)
-          @published_project = gobierto_plans_nodes(:political_agendas)
-          @unpublished_project = gobierto_plans_nodes(:scholarships_kindergartens)
-          published_project.paper_trail.save_with_version
-          unpublished_project.paper_trail.save_with_version
+
+          @published_project = @plan.nodes.create(gobierto_plans_nodes(:political_agendas).attributes.except("id"))
+          @published_project.categories << gobierto_plans_nodes(:political_agendas).categories
+          @published_project.save
+          @published_project.moderation.approved!
+
+          @unpublished_project = @plan.nodes.create(gobierto_plans_nodes(:scholarships_kindergartens).attributes.except("id"))
+          @unpublished_project.categories << gobierto_plans_nodes(:scholarships_kindergartens).categories
+          @unpublished_project.save
+          @unpublished_project.moderation.sent!
+
           @path = edit_admin_plans_plan_project_path(plan, published_project)
           @unpublished_path = edit_admin_plans_plan_project_path(plan, unpublished_project)
         end
@@ -530,6 +537,41 @@ module GobiertoAdmin
               assert has_content? "Editing version\n4"
               assert has_content? "Status\nNot published"
               assert has_content? "Published version\n2"
+              assert has_content? "Click on Publish to make this version publicly visible."
+
+              unpublished_project.reload
+
+              assert unpublished_project.published?
+            end
+          end
+        end
+
+        def test_editor_changes_published_version_to_first
+          allow_regular_admin_edit_plans
+          unpublished_project.moderation.approved!
+
+          unpublished_project.update_attribute(:progress, 10)
+          unpublished_project.update_attribute(:progress, 20)
+          unpublished_project.update_attribute(:progress, 50)
+
+          with_signed_in_admin(regular_admin) do
+            with_current_site(site) do
+              visit unpublished_path
+
+              within ".g_popup" do
+                click_link "1 - "
+              end
+
+              within "form" do
+                within "div.widget_save_v2.editor" do
+                  click_button "Publish"
+                end
+              end
+
+              assert has_button? "Publish"
+              assert has_content? "Editing version\n4"
+              assert has_content? "Status\nNot published"
+              assert has_content? "Published version\n1"
               assert has_content? "Click on Publish to make this version publicly visible."
 
               unpublished_project.reload

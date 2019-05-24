@@ -60,6 +60,23 @@ module GobiertoPlans
       plan.nodes.where(gplan_categories_nodes: { category_id: object.id })
     end
 
+    def nodes_data
+      nodes.map.with_index do |node, index|
+        { id: node.id,
+          uid: uid + "." + index.to_s,
+          type: "node",
+          level: level + 1,
+          attributes: { title: node.name_translations,
+                        parent_id: id,
+                        progress: node.progress,
+                        starts_at: node.starts_at,
+                        ends_at: node.ends_at,
+                        status: node.status&.name_translations,
+                        options: node.options },
+                        children: [] }
+      end
+    end
+
     def has_dependent_resources?
       plan.present? && progress.present?
     end

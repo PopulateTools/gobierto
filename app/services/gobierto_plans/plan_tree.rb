@@ -39,20 +39,7 @@ class GobiertoPlans::PlanTree
 
     decorated_tree.map do |category, subtree|
       children = if include_nodes && subtree.blank? && category.nodes.exists?
-                   category.nodes.map.with_index do |node, index|
-                     { id: node.id,
-                       uid: category.uid + "." + index.to_s,
-                       type: "node",
-                       level: category.level + 1,
-                       attributes: { title: node.name_translations,
-                                     parent_id: category.id,
-                                     progress: node.progress,
-                                     starts_at: node.starts_at,
-                                     ends_at: node.ends_at,
-                                     status: node.status&.name_translations,
-                                     options: node.options },
-                                     children: [] }
-                   end
+                   category.nodes_data
                  else
                    plan_tree(subtree, include_nodes)
                  end

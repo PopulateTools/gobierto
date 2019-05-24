@@ -52,6 +52,7 @@ class GobiertoPlans::PlanTree
       end
 
       attributes[:children_count] = subtree.blank? ? category.nodes.count : subtree.count
+      attributes[:nodes_list_path] = url_helper.gobierto_plans_api_plan_projects_path(plan_id: @plan.id, category_id: category.id)
 
       { id: category.id,
         uid: category.uid,
@@ -61,5 +62,9 @@ class GobiertoPlans::PlanTree
         attributes: attributes,
         children: children }
     end
+  end
+
+  def url_helper
+    Rails.application.routes.url_helpers
   end
 end

@@ -67,8 +67,17 @@ window.GobiertoPlans.PlanTypesController = (function() {
             }
 
             if (this.model.type === "category" && this.model.max_level) {
-              this.$emit("toggle");
-              this.isOpen = !this.isOpen;
+              let query_params = window.location.search.substring(0)
+              if ((this.model.children || []).length == 0 && this.model.attributes.children_count > 0) {
+                fetch(`${this.model.attributes.nodes_list_path}${query_params}`).then( response => response.json().then(json => {
+                  Vue.set(this.model, "children", json)
+                  this.$emit("toggle");
+                  this.isOpen = !this.isOpen;
+                }))
+              } else {
+                this.$emit("toggle");
+                this.isOpen = !this.isOpen;
+              }
             }
           },
           getLabel: function(level, number_of_elements) {

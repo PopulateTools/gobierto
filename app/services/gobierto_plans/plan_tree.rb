@@ -14,8 +14,8 @@ class GobiertoPlans::PlanTree
     )
   end
 
-  def call
-    plan_tree(@tree_decorator, true)
+  def call(include_nodes = false)
+    plan_tree(@tree_decorator, include_nodes)
   end
 
   private
@@ -34,7 +34,7 @@ class GobiertoPlans::PlanTree
     @counter ||= !@plan.configuration_data&.dig("hide_level0_counters")
   end
 
-  def plan_tree(decorated_tree, include_nodes = false)
+  def plan_tree(decorated_tree, include_nodes)
     return [] unless decorated_tree
 
     decorated_tree.map do |category, subtree|

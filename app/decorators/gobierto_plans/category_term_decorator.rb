@@ -73,7 +73,7 @@ module GobiertoPlans
                         ends_at: node.ends_at,
                         status: node.status&.name_translations,
                         options: node.options },
-                        children: [] }
+          children: [] }
       end
     end
 

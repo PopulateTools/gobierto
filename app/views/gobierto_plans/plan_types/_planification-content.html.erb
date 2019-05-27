@@ -13,7 +13,7 @@
     <section class="level_<%= level_index -%>" v-if="isOpen(<%= level_index -%>)" :class="['cat_' + color() ]">
       <% unless level_index == @levels %>
         <div class="lines-header">
-          <div>{{ (activeNode.children || []).length }} {{ getLabel(activeNode.level, (activeNode.children || []).length) | translate }}</div>
+          <div>{{ (activeNode.attributes || {}).children_count }} {{ getLabel(activeNode.level, (activeNode.attributes || {}).children_count) | translate }}</div>
 
           <div><%= t("gobierto_plans.plan_types.show.percentage_progress") %></div>
         </div>
@@ -35,7 +35,7 @@
               <div><i class="fas fa-caret-down"></i></div>
               <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
             </div>
-            <div>{{ (activeNode.children || []).length }} {{ getLabel(activeNode.level, (activeNode.children || []).length) | translate }}</div>
+            <div>{{ (activeNode.attributes || {}).children_count }} {{ getLabel(activeNode.level, (activeNode.attributes || {}).children_count) | translate }}</div>
             <div>{{ (activeNode.attributes || {}).progress || 0 | percent }}</div>
           </div>
 

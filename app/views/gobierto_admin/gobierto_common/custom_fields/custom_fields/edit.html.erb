@@ -1,9 +1,20 @@
 <div class='admin_breadcrumb'>
   <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
   <%= link_to t("gobierto_admin.layouts.application.custom_fields"), admin_common_custom_fields_module_resources_path %> »
-  <%= link_to @custom_field_form.human_class_name, admin_common_custom_fields_module_resource_custom_fields_path(module_resource_name: @custom_field_form.resource_param) %> »
+  <% if @decorated_instance.present? %>
+    <%= @decorated_instance.resource_model_name(count: 2) %> »
+    <%= @decorated_instance.name %> »
+  <% end %>
+  <%= link_to(
+        @custom_field_form.human_class_name,
+        admin_common_custom_fields_module_resource_custom_fields_path(
+          module_resource_name: @custom_field_form.resource_param,
+          instance_type: @custom_field_form.instance_class_name,
+          instance_id: @custom_field_form.instance_id
+        )
+      ) %> »
   <%= t(".title", name: @custom_field_form.custom_field.name ) %>
 </div>
 
-<h1><%= t(".title", name: @custom_field_form.custom_field.name ) %></h1>
+<h1><%= @decorated_instance.present? ? t(".instance_title", field_name: @custom_field_form.custom_field.name, instance_name: @decorated_instance.name) : t(".title", name: @custom_field_form.custom_field.name ) %></h1>
 <%= render "form" %>

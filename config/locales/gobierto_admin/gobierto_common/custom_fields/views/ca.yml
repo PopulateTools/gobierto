@@ -5,17 +5,20 @@ ca:
       custom_fields:
         custom_fields:
           edit:
+            instance_title: Edita %{field_name} de %{instance_name}
             title: Edita %{name}
           form:
             add_option: Afegir opció
             confirm: Estàs segur?
             crop: Retallar
           index:
+            instance_title: Camps personalitzats de %{instance_name}
             localized_custom_fields: Camps traduïbles
             new: Afegir nou camp
             not_localized_custom_fields: Camps no traduïbles
             title: Camps personalitzats
           new:
+            instance_title: Nou camp de %{instance_name}
             title: Nou camp
           new_option:
             cancel_new_option: Cancel·lar

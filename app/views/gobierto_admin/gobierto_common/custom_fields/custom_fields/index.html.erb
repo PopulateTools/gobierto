@@ -1,10 +1,14 @@
 <div class="admin_breadcrumb">
   <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
   <%= link_to t("gobierto_admin.layouts.application.custom_fields"), admin_common_custom_fields_module_resources_path %> »
+  <% if @decorated_instance.present? %>
+    <%= @decorated_instance.resource_model_name(count: 2) %> »
+    <%= @decorated_instance.name %> »
+  <% end %>
   <%= @class_human_name %>
 </div>
 
-<h1><%= t(".title") %></h1>
+<h1><%= @decorated_instance.present? ? t(".instance_title", instance_name: @decorated_instance.name) : t(".title") %></h1>
 
 <h3><%= t(".localized_custom_fields") %></h3>
 <div data-behavior="sortable-localized" data-sortable-target="<%= admin_common_custom_fields_module_resource_sort_path(module_resource_name: params[:module_resource_name], localized: "localized") %>">
@@ -57,7 +61,11 @@
   <% end %>
 </div>
 <div class="m_2">
-  <%= link_to new_admin_common_custom_fields_module_resource_custom_field_path(params[:module_resource_name]) do %>
+  <%= link_to new_admin_common_custom_fields_module_resource_custom_field_path(
+        params[:module_resource_name],
+        instance_type: @custom_field_form.instance_class_name,
+        instance_id: @custom_field_form.instance_id
+      ) do %>
     <i class="fas fa-plus-circle"></i>
     <%= t(".new") %>
   <% end %>

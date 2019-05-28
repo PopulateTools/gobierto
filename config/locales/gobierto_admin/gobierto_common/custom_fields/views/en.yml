@@ -5,17 +5,20 @@ en:
       custom_fields:
         custom_fields:
           edit:
+            instance_title: Edit %{field_name} of %{instance_name}
             title: Edit %{name}
           form:
             add_option: Add option
             confirm: Are you sure?
             crop: Crop
           index:
+            instance_title: Custom fields of %{instance_name}
             localized_custom_fields: Translatable fields
             new: Add new field
             not_localized_custom_fields: Non-translatable fields
             title: Custom fields
           new:
+            instance_title: New field of %{instance_name}
             title: New field
           new_option:
             cancel_new_option: Cancel

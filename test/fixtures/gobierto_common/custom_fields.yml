@@ -50,3 +50,26 @@ madrid_site_custom_field:
   name_translations: <%= { en: "Population", es: "Población" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:string] %>
   uid: population
+
+madrid_node_global:
+  site: madrid
+  class_name: "GobiertoPlans::Node"
+  mandatory: false
+  position: 0
+  name_translations: <%= { en: "Status", es: "Estado" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:single_option] %>
+  uid: status
+  options: <%= {
+    not_started: { en: "Not started", es: "No iniciado" },
+    started: { en: "Started", es: "Iniciado" }
+  }.to_json %>
+
+madrid_node_instance_level:
+  site: madrid
+  class_name: "GobiertoPlans::Node"
+  instance: strategic_plan (GobiertoPlans::Plan)
+  mandatory: false
+  position: 0
+  name_translations: <%= { en: "Goals", es: "Objetivos" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:localized_string] %>
+  uid: goals

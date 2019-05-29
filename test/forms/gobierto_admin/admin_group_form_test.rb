@@ -91,19 +91,20 @@ module GobiertoAdmin
     def test_grant_module_permissions
       form = subject.new(madrid_group_params.merge(modules_actions: { gobierto_people: [:manage],
                                                                       gobierto_budget_consultations: [:manage],
-                                                                      gobierto_participation: [:manage] }))
+                                                                      gobierto_participation: [:manage],
+                                                                      gobierto_plans: [:manage] }))
 
-      assert_equal 2, tony.modules_permissions.size
+      assert_equal 3, tony.modules_permissions.size
 
       assert form.save
 
-      assert_equal 3, tony.modules_permissions.size
+      assert_equal 4, tony.modules_permissions.size
     end
 
     def test_revoke_module_permissions
       form = subject.new(madrid_group_params.merge(modules_actions: { gobierto_people: [:manage] }))
 
-      assert_equal 2, tony.modules_permissions.size
+      assert_equal 3, tony.modules_permissions.size
 
       assert form.save
 
@@ -218,19 +219,19 @@ module GobiertoAdmin
     end
 
     def test_grant_site_options_permissions
-      form = subject.new(madrid_group_params.merge(site_options: %w(customize vocabularies templates)))
+      form = subject.new(madrid_group_params.merge(site_options: %w(customize vocabularies templates custom_fields)))
 
-      assert_equal 2, tony.site_options_permissions.size
+      assert_equal 3, tony.site_options_permissions.size
 
       assert form.save
 
-      assert_equal 3, tony.site_options_permissions.size
+      assert_equal 4, tony.site_options_permissions.size
     end
 
     def test_revoke_site_options_permissions
       form = subject.new(madrid_group_params.merge(site_options: %w(templates)))
 
-      assert_equal 2, tony.site_options_permissions.size
+      assert_equal 3, tony.site_options_permissions.size
 
       assert form.save
 

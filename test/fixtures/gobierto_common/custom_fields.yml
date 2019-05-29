@@ -56,7 +56,7 @@ madrid_node_global:
   class_name: "GobiertoPlans::Node"
   mandatory: false
   position: 0
-  name_translations: <%= { en: "Status", es: "Estado" }.to_json %>
+  name_translations: <%= { en: "Status custom", es: "Estado custom" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:single_option] %>
   uid: status
   options: <%= {
@@ -70,6 +70,6 @@ madrid_node_instance_level:
   instance: strategic_plan (GobiertoPlans::Plan)
   mandatory: false
   position: 0
-  name_translations: <%= { en: "Goals", es: "Objetivos" }.to_json %>
+  name_translations: <%= { en: "Goals custom", es: "Objetivos custom" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:localized_string] %>
   uid: goals

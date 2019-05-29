@@ -83,10 +83,12 @@ module GobiertoAdmin
 
                 select "Scholarships for families in the Central District", from: "project_category_id"
 
-                fill_in "project_name_translations_en", with: "New project"
+                within "div.globalized_fields", match: :first do
+                  fill_in "project_name_translations_en", with: "New project"
 
-                switch_locale "ES"
-                fill_in "project_name_translations_es", with: "Nuevo proyecto"
+                  switch_locale "ES"
+                  fill_in "project_name_translations_es", with: "Nuevo proyecto"
+                end
 
                 fill_in "project_starts_at", with: "2020-01-01"
                 fill_in "project_ends_at", with: "2021-01-01"

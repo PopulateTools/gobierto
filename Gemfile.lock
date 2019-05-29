@@ -469,7 +469,7 @@ GEM
     unf_ext (0.0.7.5)
     unicode-display_width (1.6.0)
     url (0.3.2)
-    vcr (4.0.0)
+    vcr (5.0.0)
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)

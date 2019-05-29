@@ -18,7 +18,7 @@ module GobiertoAdmin
       validates :site, presence: true
 
       def available_custom_fields
-        site.custom_fields.sorted.where(class_name: item.class.name)
+        site.custom_fields.sorted.where(class_name: item.class.name, instance_type: instance_type_options, instance_id: instance_id_options)
       end
 
       def custom_field_records
@@ -78,6 +78,18 @@ module GobiertoAdmin
       end
 
       private
+
+      def instance_type_options
+        return [nil] unless instance
+
+        [nil, instance.class.name]
+      end
+
+      def instance_id_options
+        return [nil] unless instance
+
+        [nil, instance.id]
+      end
 
       def site
         @site ||= Site.find_by(id: site_id || item.try(:site_id))

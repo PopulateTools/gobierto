@@ -67,8 +67,17 @@ window.GobiertoPlans.PlanTypesController = (function() {
             }
 
             if (this.model.type === "category" && this.model.max_level) {
-              this.$emit("toggle");
-              this.isOpen = !this.isOpen;
+              let query_params = window.location.search.substring(0)
+              if ((this.model.children || []).length == 0 && this.model.attributes.children_count > 0) {
+                fetch(`${this.model.attributes.nodes_list_path}${query_params}`).then( response => response.json().then(json => {
+                  Vue.set(this.model, "children", json)
+                  this.$emit("toggle");
+                  this.isOpen = !this.isOpen;
+                }))
+              } else {
+                this.$emit("toggle");
+                this.isOpen = !this.isOpen;
+              }
             }
           },
           getLabel: function(level, number_of_elements) {
@@ -125,7 +134,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
         watch: {
           activeNode: {
             handler: function(node) {
-              this.showTable = {}
               // update hash when a new node is active
               this.setPermalink()
 
@@ -218,8 +226,8 @@ window.GobiertoPlans.PlanTypesController = (function() {
             }
             return "object";
           },
-          toggle: function(i) {
-            Vue.set(this.showTable, i, !(this.showTable[i]));
+          toggle: function(node_i, i) {
+            Vue.set(this.showTable, `${node_i}-${i}`, !(this.showTable[`${node_i}-${i}`]));
           },
           getLabel: function(level, number_of_elements) {
             var l = (_.keys(this.levelKeys).length === (level + 1)) ? level : (level + 1);

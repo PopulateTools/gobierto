@@ -6,90 +6,65 @@ class GobiertoPlans::PlanTree
   def initialize(plan)
     @plan = plan
     @categories = CollectionDecorator.new(@plan.categories.where(term_id: nil).sorted, decorator: GobiertoPlans::CategoryTermDecorator)
+    @vocabulary = @plan.categories_vocabulary
+    @tree_decorator = TreeDecorator.new(
+      terms_tree(@vocabulary.terms),
+      decorator: ::GobiertoPlans::CategoryTermDecorator,
+      options: { plan: @plan, vocabulary: @vocabulary, site: @plan.site }
+    )
   end
 
-  def call
-    plan_tree(@categories)
+  def call(include_nodes = false)
+    plan_tree(@tree_decorator, include_nodes)
   end
 
   private
 
-  def max_level
-    @plan.categories.maximum(:level)
+  def terms_tree(relation)
+    relation.order(position: :asc).where(level: relation.minimum(:level)).inject({}) do |tree, term|
+      tree.merge(term.ordered_tree)
+    end
   end
 
-  def plan_tree(categories, tree = [])
-    categories.each do |category|
-      children_categories = CollectionDecorator.new(@plan.categories.where(term_id: category.id).sorted, decorator: GobiertoPlans::CategoryTermDecorator)
+  def max_level
+    @max_level ||= @vocabulary.maximum_level
+  end
 
-      children = if children_categories.exists?
-                   plan_tree(children_categories)
+  def counter?
+    @counter ||= !@plan.configuration_data&.dig("hide_level0_counters")
+  end
+
+  def plan_tree(decorated_tree, include_nodes)
+    return [] unless decorated_tree
+
+    decorated_tree.map do |category, subtree|
+      children = if include_nodes && subtree.blank? && category.nodes.exists?
+                   category.nodes_data
                  else
-                   []
+                   plan_tree(subtree, include_nodes)
                  end
+      attributes = { title: category.name_translations,
+                     parent_id: category.parent_id,
+                     progress: category.progress }
+      if category.level.zero?
+        attributes[:img] = @plan.configuration_data&.dig("level0_options")&.find { |option| option["slug"] == category.slug }&.dig("logo") || ""
+        attributes[:counter] = counter?
+      end
 
-      category_nodes = category.nodes
+      attributes[:children_count] = subtree.blank? ? category.nodes.count : subtree.count
+      attributes[:nodes_list_path] = url_helper.gobierto_plans_api_plan_projects_path(plan_id: @plan.id, category_id: category.id)
 
-      data = if category.level.zero?
-               logo_url = if (logo_options = @plan.configuration_data&.dig("level0_options")&.find { |option| option["slug"] == category.slug })
-                            logo_options["logo"]
-                          else
-                            ""
-                          end
-               counter = !@plan.configuration_data&.dig("hide_level0_counters")
-               { id: category.id,
-                 uid: category.uid,
-                 type: "category",
-                 max_level: category.level == max_level,
-                 level: category.level,
-                 attributes: { title: category.name_translations,
-                               parent_id: category.parent_id,
-                               progress: category.progress,
-                               img: logo_url,
-                               counter: counter },
-                 children: children }
-             elsif category_nodes.exists?
-               nodes = []
-
-               category_nodes.each_with_index do |node, index|
-                 nodes.push(id: node.id,
-                            uid: category.uid + "." + index.to_s,
-                            type: "node",
-                            level: category.level + 1,
-                            attributes: { title: node.name_translations,
-                                          parent_id: category.id,
-                                          progress: node.progress,
-                                          starts_at: node.starts_at,
-                                          ends_at: node.ends_at,
-                                          status: node.status&.name_translations,
-                                          options: node.options },
-                            children: [])
-               end
-
-               { id: category.id,
-                 uid: category.uid,
-                 type: "category",
-                 max_level: category.level == max_level,
-                 level: category.level,
-                 attributes: { title: category.name_translations,
-                               parent_id: category.parent_id,
-                               progress: category.progress },
-                 children: nodes }
-             else
-               { id: category.id,
-                 uid: category.uid,
-                 type: "category",
-                 max_level: category.level == max_level,
-                 level: category.level,
-                 attributes: { title: category.name_translations,
-                               parent_id: category.parent_id,
-                               progress: category.progress },
-                 children: children }
-             end
-
-      tree.push(data)
+      { id: category.id,
+        uid: category.uid,
+        type: "category",
+        max_level: category.level == max_level,
+        level: category.level,
+        attributes: attributes,
+        children: children }
     end
+  end
 
-    tree
+  def url_helper
+    Rails.application.routes.url_helpers
   end
 end

@@ -398,6 +398,11 @@ Rails.application.routes.draw do
       constraints GobiertoSiteConstraint.new do
         get "/" => "plan_types#index", as: :root
         get ":slug(/:year)" => "plan_types#show", as: :plan
+
+        # API
+        namespace :api, path: "gobierto_plans/api" do
+          get "plan_projects/:plan_id/:category_id" => "plan_projects#index", as: "plan_projects"
+        end
       end
     end
 

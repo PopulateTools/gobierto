@@ -20,6 +20,6 @@ class GobiertoPlans::PlanTreeTest < ActiveSupport::TestCase
   end
 
   def test_call
-    assert_equal plan_tree_json, plan_service.call.to_json
+    assert_equal plan_tree_json, plan_service.call(true).to_json
   end
 end

@@ -27,7 +27,7 @@ gem "truncate_html"
 # Frontend
 gem "bourbon", "~> 4.3.4"
 gem "cocoon"
-gem "d3-rails", "~> 4.8"
+gem "d3-rails", "~> 5.9"
 gem "flight-for-rails"
 gem "i18n-js", ">= 3.0.0.rc11"
 gem "jquery-rails"

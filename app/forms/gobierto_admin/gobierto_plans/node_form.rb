@@ -202,6 +202,9 @@ module GobiertoAdmin
             node.categories << category
           end
 
+          # Update plan cache
+          plan.touch
+
           save_moderation
 
           @node

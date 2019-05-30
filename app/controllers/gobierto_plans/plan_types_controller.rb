@@ -36,7 +36,9 @@ module GobiertoPlans
         end
 
         format.json do
-          plan_tree = GobiertoPlans::PlanTree.new(@plan).call
+          plan_tree = Rails.cache.fetch(@plan.cache_key + "/plan_tree") do
+            GobiertoPlans::PlanTree.new(@plan).call
+          end
 
           render(
             json: { plan_tree: plan_tree,

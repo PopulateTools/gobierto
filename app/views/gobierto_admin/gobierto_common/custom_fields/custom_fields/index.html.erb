@@ -2,8 +2,10 @@
   <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
   <%= link_to t("gobierto_admin.layouts.application.custom_fields"), admin_common_custom_fields_module_resources_path %> »
   <% if @decorated_instance.present? %>
-    <%= @decorated_instance.resource_model_name(count: 2) %> »
-    <%= @decorated_instance.name %> »
+    <%= link_to(
+          @decorated_instance.name,
+          admin_common_custom_fields_module_resource_instance_level_resource_path(@custom_field_form.instance_class_name, @custom_field_form.instance_id)
+        ) %> »
   <% end %>
   <%= @class_human_name %>
 </div>

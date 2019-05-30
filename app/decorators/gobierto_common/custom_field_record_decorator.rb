@@ -51,6 +51,12 @@ module GobiertoCommon
         field_tag: :file_field_tag,
         partial: "image",
         tag_attributes: {}
+      },
+      data_grid: {
+        class_names: "form_item file_field avatar_file_field",
+        field_tag: :hidden_field_tag,
+        partial: "data_grid",
+        tag_attributes: {}
       }
     }.freeze
 

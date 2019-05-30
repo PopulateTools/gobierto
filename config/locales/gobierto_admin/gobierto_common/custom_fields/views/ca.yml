@@ -26,4 +26,6 @@ ca:
             new: Nova opció
         module_resources:
           index:
+            custom_fields_for_instances_of: Camps personalitzats per a instàncies
+              de %{name}
             empty: De moment no hi ha cap model amb camps personalitzats habilitats

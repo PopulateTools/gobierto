@@ -26,4 +26,6 @@ es:
             new: Nueva opción
         module_resources:
           index:
+            custom_fields_for_instances_of: Campos personalizados para instancias
+              de %{name}
             empty: De momento no hay ningún modelo con campos personalizados habilitados

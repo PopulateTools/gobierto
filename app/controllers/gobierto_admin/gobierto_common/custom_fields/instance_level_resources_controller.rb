@@ -8,7 +8,7 @@ module GobiertoAdmin
 
         def show
           @available_resources = models_with_custom_fields
-          @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@class_name.constantize.find_by(id: params[:id]))
+          @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(class_name.constantize.where(site: current_site).find(params[:id]))
         end
 
         def index

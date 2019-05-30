@@ -26,4 +26,5 @@ en:
             new: New option
         module_resources:
           index:
+            custom_fields_for_instances_of: Custom fields for instances of %{name}
             empty: Currently there is no model with custom fields enabled

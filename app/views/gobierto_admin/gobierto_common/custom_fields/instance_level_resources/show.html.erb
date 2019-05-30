@@ -1,0 +1,25 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.layouts.application.custom_fields"), admin_common_custom_fields_module_resources_path %> »
+  <%= @decorated_instance.name %>
+</div>
+
+<h1><%= t("gobierto_admin.layouts.application.custom_fields") %>: <%= @decorated_instance.name %></h1>
+
+<% if @available_resources.blank? %>
+  <%= t("gobierto_admin.gobierto_common.custom_fields.module_resources.index.empty") %>
+<% else %>
+  <% @available_resources.each do |resource| %>
+    <div class="list_item">
+      <%= link_to(
+            resource.model_name.human,
+            admin_common_custom_fields_module_resource_custom_fields_path(
+              module_resource_name: resource.name.underscore.gsub("/", "-"),
+              instance_type: params[:module_resource_name],
+              instance_id: params[:id]
+            )
+          ) %>
+    </div>
+  <% end %>
+<% end %>
+

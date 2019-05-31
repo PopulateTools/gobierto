@@ -362,7 +362,7 @@ GEM
       ffi (~> 1.0)
     rb-readline (0.5.5)
     redcarpet (3.4.0)
-    redis (4.1.1)
+    redis (4.1.2)
     ref (2.0.0)
     regexp_parser (1.5.1)
     representable (3.0.4)

@@ -1,13 +1,21 @@
 import Vue from 'vue'
 Vue.config.productionTip = false
+import TurbolinksAdapter from 'vue-turbolinks'
+Vue.use(TurbolinksAdapter)
 
 window.GobiertoPlans.PlanTypesController = (function() {
 
     function PlanTypesController() {}
 
     PlanTypesController.prototype.show = function() {
-      if ($('body').attr('class').indexOf('gobierto_plans_plan_types_show') > -1) {
+      if ($('body').attr('class').indexOf('gobierto_plans_plan_types_show') !== -1) {
+        $('.planification-header').hide();
+        $('.planification-content').hide();
         _loadPlan();
+        $('.planification-header').show();
+        $('.planification-content').show();
+
+        //$('#gobierto-planification').show();
       }
     };
 

@@ -11,7 +11,8 @@ module GobiertoAdmin
         :starts_at,
         :ends_at,
         :options_json,
-        :admin
+        :admin,
+        :force_new_version
       )
       attr_writer(
         :category_id,
@@ -149,6 +150,10 @@ module GobiertoAdmin
         @status_id
       end
 
+      def attributes_updated?
+        set_node_attributes.changed? && attributes_for_new_version.any? { |attribute| @node.send("#{attribute}_changed?") }
+      end
+
       private
 
       def has_versions?
@@ -199,19 +204,26 @@ module GobiertoAdmin
         versioned_node.attributes.slice(*attributes_for_new_version) != node.attributes.slice(*attributes_for_new_version)
       end
 
-      def save_node
-        @node = node.tap do |attributes|
-          if allow_edit_attributes?
-            attributes.name_translations = name_translations
-            attributes.progress = progress
-            attributes.starts_at = starts_at
-            attributes.ends_at = ends_at
-            attributes.options = options
-            attributes.status_id = status_id
-          end
+      def set_node_attributes
+        return unless allow_edit_attributes?
 
+        @node.tap do |attributes|
+          attributes.name_translations = name_translations
+          attributes.progress = progress
+          attributes.starts_at = starts_at
+          attributes.ends_at = ends_at
+          attributes.options = options
+          attributes.status_id = status_id
+        end
+      end
+
+      def save_node
+        set_node_attributes
+
+        @node = node.tap do |attributes|
           if allow_edit_attributes? && @version.present?
             if version_attributes_updated?(versioned_node, attributes)
+              @force_new_version = false
               @published_version = attributes.versions.length + 1
             else
               attributes.reload
@@ -223,7 +235,7 @@ module GobiertoAdmin
         end
 
         if @node.valid?
-          @node.save
+          force_new_version && !attributes_updated? ? @node.paper_trail.save_with_version : @node.save
 
           indicators.each do |indicator|
             indicator.save if indicator.changed?

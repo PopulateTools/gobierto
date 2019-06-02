@@ -38,6 +38,33 @@ module GobiertoAdmin
           @site ||= sites(:madrid)
         end
 
+        def create_custom_fields_records
+          ::GobiertoCommon::CustomFieldRecord.create(
+            gobierto_common_custom_field_records(:political_agendas_custom_field_global).attributes.except("id", "item_id").merge(
+              item_id: published_project.id,
+              item_has_versions: true
+            )
+          )
+          ::GobiertoCommon::CustomFieldRecord.create(
+            gobierto_common_custom_field_records(:political_agendas_custom_field_instance_level).attributes.except("id", "item_id").merge(
+              item_id: published_project.id,
+              item_has_versions: true
+            )
+          )
+          ::GobiertoCommon::CustomFieldRecord.create(
+            gobierto_common_custom_field_records(:scholarships_kindergartens_custom_field_global).attributes.except("id", "item_id").merge(
+              item_id: unpublished_project.id,
+              item_has_versions: true
+            )
+          )
+          ::GobiertoCommon::CustomFieldRecord.create(
+            gobierto_common_custom_field_records(:scholarships_kindergartens_custom_field_instance_level).attributes.except("id", "item_id").merge(
+              item_id: unpublished_project.id,
+              item_has_versions: true
+            )
+          )
+        end
+
         def preview_test_conf
           {
             item_admin_path: @path,
@@ -139,6 +166,7 @@ module GobiertoAdmin
         end
 
         def test_publish_and_change_moderation_stage_of_project_as_regular_moderator
+          create_custom_fields_records
           allow_regular_admin_moderate_plans
 
           with_signed_in_admin(regular_admin) do
@@ -304,6 +332,7 @@ module GobiertoAdmin
         def test_send_project_as_regular_editor
           allow_regular_admin_edit_plans
           unpublished_project.moderation.not_sent!
+          create_custom_fields_records
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do
@@ -376,6 +405,7 @@ module GobiertoAdmin
         def test_moderate_project_as_regular_editor_and_moderator
           allow_regular_admin_edit_plans
           allow_regular_admin_moderate_plans
+          create_custom_fields_records
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do
@@ -515,6 +545,7 @@ module GobiertoAdmin
 
         def test_moderator_changes_published_version
           allow_regular_admin_moderate_plans
+          create_custom_fields_records
           unpublished_project.update_attribute(:starts_at, 34.years.ago)
           unpublished_project.update_attribute(:starts_at, 24.years.ago)
           unpublished_project.update_attribute(:starts_at, 14.years.ago)
@@ -548,6 +579,7 @@ module GobiertoAdmin
 
         def test_editor_changes_published_version_to_first
           allow_regular_admin_edit_plans
+          create_custom_fields_records
           unpublished_project.moderation.approved!
 
           unpublished_project.update_attribute(:progress, 10)

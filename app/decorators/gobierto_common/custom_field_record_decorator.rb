@@ -56,7 +56,7 @@ module GobiertoCommon
 
     attr_accessor :site
 
-    delegate :name, :field_type, :options, :uid, :required?, :has_options?, :has_localized_value?, to: :custom_field
+    delegate :name, :field_type, :options, :uid, :required?, :has_options?, :has_localized_value?, :has_vocabulary?, to: :custom_field
 
     def initialize(record)
       @object = record

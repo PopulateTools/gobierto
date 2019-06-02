@@ -32,6 +32,10 @@ module GobiertoCommon
       field_types.select { |key, _| /option/.match(key) }
     end
 
+    def self.field_types_with_vocabulary
+      field_types.select { |key, _| /vocabulary/.match(key) }
+    end
+
     def long_text?
       /paragraph/.match field_type
     end
@@ -42,6 +46,10 @@ module GobiertoCommon
 
     def has_options?
       /option/.match field_type
+    end
+
+    def has_vocabulary?
+      /vocabulary/.match field_type
     end
 
     def has_localized_value?

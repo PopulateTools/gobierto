@@ -6,6 +6,7 @@ module GobiertoAdmin
       skip_before_action :check_permissions!
 
       before_action -> { module_allowed_action!(current_admin, current_admin_module, :manage) }
+      after_action :expire_plan_cache, only: [:update]
 
       helper_method :current_admin_actions
 
@@ -75,6 +76,12 @@ module GobiertoAdmin
           options.merge!(preview_token: current_admin.preview_token)
         end
         gobierto_plans_plan_url(plan.plan_type.slug, plan.year, options)
+      end
+
+      def expire_plan_cache
+        term = current_site.terms.find(params[:id])
+        vocabulary = term.vocabulary
+        current_site.plans.where(vocabulary_id: vocabulary.id).or(current_site.plans.where(statuses_vocabulary_id: vocabulary.id)).each(&:touch)
       end
     end
   end

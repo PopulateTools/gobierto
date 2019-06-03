@@ -14,10 +14,11 @@ module GobiertoAdmin
 
       attr_writer(
         :options,
-        :uid
+        :uid,
+        :vocabulary_id
       )
 
-      delegate :persisted?, to: :custom_field
+      delegate :persisted?, :has_vocabulary?, to: :custom_field
 
       validates :name_translations, :site, :klass, :field_type, presence: true
 
@@ -50,7 +51,10 @@ module GobiertoAdmin
       end
 
       def options
-        @options ||= options_translations ? options_translations.except("new_option") : {}
+        @options ||= {}.tap do |opts|
+          opts.merge!(options_translations.except("new_option")) if options_translations
+          opts[:vocabulary_id] = vocabulary_id if vocabulary_id
+        end
       end
 
       def uid
@@ -65,10 +69,18 @@ module GobiertoAdmin
         @types_with_vocabulary ||= ::GobiertoCommon::CustomField.field_types_with_vocabulary.keys
       end
 
+      def has_options?
+        @has_options ||= !has_vocabulary? && custom_field.has_options?
+      end
+
       def valid_resource_name?
         klass.present?
       rescue NameError
         false
+      end
+
+      def vocabulary_id
+        @vocabulary_id ||= custom_field.vocabulary_id
       end
 
       private

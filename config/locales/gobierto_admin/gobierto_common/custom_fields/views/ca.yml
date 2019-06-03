@@ -7,7 +7,6 @@ ca:
           edit:
             title: Edita %{name}
           form:
-            add_option: Afegir opció
             confirm: Estàs segur?
             crop: Retallar
           index:
@@ -21,6 +20,10 @@ ca:
             cancel_new_option: Cancel·lar
             create: Crear opció
             new: Nova opció
+          options_form:
+            add_option: Afegir opció
+          vocabulary_select:
+            vocabulary: Vocabulari d'opcions
         module_resources:
           index:
             empty: De moment no hi ha cap model amb camps personalitzats habilitats

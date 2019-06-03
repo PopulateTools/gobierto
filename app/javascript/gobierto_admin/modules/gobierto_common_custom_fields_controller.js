@@ -8,10 +8,15 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
 
   function _handleItemTypeSelection() {
     $(document).on("change", "input[data-has-options]", function(e) {
-      if ($(this).data().hasOptions) {
-         $("#options").show();
+      if ($(this).data().hasVocabulary) {
+        $("#vocabulary").show();
+        $("#options").hide();
+      } else if ($(this).data().hasOptions) {
+        $("#vocabulary").hide();
+        $("#options").show();
       } else {
-         $("#options").hide();
+        $("#vocabulary").hide();
+        $("#options").hide();
       }
     })
   }

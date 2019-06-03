@@ -18,6 +18,7 @@ module GobiertoAdmin
         def new
           @custom_field_form = form_class.new(site_id: current_site.id, resource_name: params[:module_resource_name])
           @types_with_options = @custom_field_form.types_with_options
+          @types_with_vocabulary = @custom_field_form.types_with_vocabulary
         end
 
         def create
@@ -29,6 +30,7 @@ module GobiertoAdmin
             )
           else
             @types_with_options = @custom_field_form.types_with_options
+            @types_with_vocabulary = @custom_field_form.types_with_vocabulary
             render :new
           end
         end
@@ -44,6 +46,7 @@ module GobiertoAdmin
 
           @custom_field_form = form_class.new(@custom_field.attributes.except(*ignored_custom_field_attributes).merge(site_id: current_site.id))
           @types_with_options = @custom_field_form.types_with_options
+          @types_with_vocabulary = @custom_field_form.types_with_vocabulary
         end
 
         def update
@@ -57,6 +60,7 @@ module GobiertoAdmin
             )
           else
             @types_with_options = @custom_field_form.types_with_options
+            @types_with_vocabulary = @custom_field_form.types_with_vocabulary
             render :edit
           end
         end
@@ -88,6 +92,7 @@ module GobiertoAdmin
           params.require(:custom_field).permit(
             :field_type,
             :uid,
+            :vocabulary_id,
             name_translations: [*I18n.available_locales],
             options_translations: {}
           )
@@ -102,7 +107,7 @@ module GobiertoAdmin
         end
 
         def ignored_custom_field_attributes
-          %w(created_at updated_at class_name site_id mandatory position)
+          %w(created_at updated_at class_name site_id mandatory position vocabulary_id)
         end
 
         def find_custom_field

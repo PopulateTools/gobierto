@@ -1,0 +1,7 @@
+<h4 class="options compact"><%= t(".vocabulary") %></h4>
+
+<div class="field_item_def_cont">
+  <div class="field_item_def field_locale">
+    <%= select_tag "custom_field[vocabulary_id]", options_for_select(current_site.vocabularies.map { |v| [v.name, v.id] }, @custom_field_form.vocabulary_id), { include_blank: false } %>
+  </div>
+</div>

@@ -7,7 +7,6 @@ es:
           edit:
             title: Editar %{name}
           form:
-            add_option: Añadir opción
             confirm: "¿Estás seguro?"
             crop: Recortar
           index:
@@ -21,6 +20,10 @@ es:
             cancel_new_option: Cancelar
             create: Crear opción
             new: Nueva opción
+          options_form:
+            add_option: Añadir opción
+          vocabulary_select:
+            vocabulary: Vocabulario de opciones
         module_resources:
           index:
             empty: De momento no hay ningún modelo con campos personalizados habilitados

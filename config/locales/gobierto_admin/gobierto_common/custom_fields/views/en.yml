@@ -7,7 +7,6 @@ en:
           edit:
             title: Edit %{name}
           form:
-            add_option: Add option
             confirm: Are you sure?
             crop: Crop
           index:
@@ -21,6 +20,10 @@ en:
             cancel_new_option: Cancel
             create: Create option
             new: New option
+          options_form:
+            add_option: Add option
+          vocabulary_select:
+            vocabulary: Options vocabulary
         module_resources:
           index:
             empty: Currently there is no model with custom fields enabled

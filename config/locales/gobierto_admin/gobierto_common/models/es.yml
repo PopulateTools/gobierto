@@ -20,6 +20,7 @@ es:
         single_option: Selección única
         string: Texto sin traducciones (línea)
         uid: Identificador
+        vocabulary_single_option: Selección única de vocabulario
       gobierto_admin/gobierto_common/term_form:
         description: Descripción
         name: Nombre

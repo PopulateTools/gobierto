@@ -62,6 +62,16 @@ module GobiertoCommon
       end
     end
 
+    def vocabulary_id
+      return unless has_vocabulary? && options.present?
+
+      options.dig "vocabulary_id"
+    end
+
+    def vocabulary
+      site.vocabularies.find_by(id: vocabulary_id)
+    end
+
     private
 
     def set_uid

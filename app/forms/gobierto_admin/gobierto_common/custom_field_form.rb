@@ -15,7 +15,8 @@ module GobiertoAdmin
       attr_writer(
         :options,
         :uid,
-        :vocabulary_id
+        :vocabulary_id,
+        :vocabulary_type
       )
 
       delegate :persisted?, :has_vocabulary?, to: :custom_field
@@ -50,10 +51,17 @@ module GobiertoAdmin
         ::GobiertoCommon::CustomField.field_types
       end
 
+      def available_vocabulary_options
+        ::GobiertoCommon::CustomField.available_options
+      end
+
       def options
         @options ||= {}.tap do |opts|
-          opts.merge!(options_translations.except("new_option")) if options_translations
-          opts[:vocabulary_id] = vocabulary_id if vocabulary_id
+          opts.merge!(options_translations.except("new_option")) if has_options? && options_translations
+          if has_vocabulary?
+            opts[:vocabulary_id] = vocabulary_id if vocabulary_id
+            opts[:configuration] = (opts[:configuration] || {}).merge(vocabulary_type: vocabulary_type) if vocabulary_type.present?
+          end
         end
       end
 
@@ -81,6 +89,10 @@ module GobiertoAdmin
 
       def vocabulary_id
         @vocabulary_id ||= custom_field.vocabulary_id
+      end
+
+      def vocabulary_type
+        @vocabulary_type ||= custom_field.configuration.dig("vocabulary_type") || :single_select
       end
 
       private

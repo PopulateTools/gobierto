@@ -23,6 +23,10 @@ ca:
           options_form:
             add_option: Afegir opció
           vocabulary_select:
+            multiple_select: Selecció múltiple
+            single_select: Selecció única
+            tags: Tags
+            type: Tipus
             vocabulary: Vocabulari d'opcions
         module_resources:
           index:

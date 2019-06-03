@@ -36,6 +36,10 @@ module GobiertoCommon
       field_types.select { |key, _| /vocabulary/.match(key) }
     end
 
+    def self.available_options
+      [:single_select, :multiple_select, :tags]
+    end
+
     def long_text?
       /paragraph/.match field_type
     end
@@ -70,6 +74,10 @@ module GobiertoCommon
 
     def vocabulary
       site.vocabularies.find_by(id: vocabulary_id)
+    end
+
+    def configuration
+      (options || {}).dig("configuration") || {}
     end
 
     private

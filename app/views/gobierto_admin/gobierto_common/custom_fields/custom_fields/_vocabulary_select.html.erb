@@ -1,5 +1,15 @@
-<h4 class="options compact"><%= t(".vocabulary") %></h4>
+<h4 class="options compact"><%= t(".type") %></h4>
+<%= f.collection_radio_buttons("vocabulary_type", @custom_field_form.available_vocabulary_options, :itself, :itself) do |b| %>
+  <div class="option">
+    <%= b.radio_button %>
+    <%= b.label do %>
+      <span></span>
+      <%= t(".#{b.text}") %>
+    <% end %>
+  </div>
+<% end %>
 
+<h4 class="options compact"><%= t(".vocabulary") %></h4>
 <div class="field_item_def_cont">
   <div class="field_item_def field_locale">
     <%= select_tag "custom_field[vocabulary_id]", options_for_select(current_site.vocabularies.map { |v| [v.name, v.id] }, @custom_field_form.vocabulary_id), { include_blank: false } %>

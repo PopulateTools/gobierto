@@ -93,6 +93,7 @@ module GobiertoAdmin
             :field_type,
             :uid,
             :vocabulary_id,
+            :vocabulary_type,
             name_translations: [*I18n.available_locales],
             options_translations: {}
           )

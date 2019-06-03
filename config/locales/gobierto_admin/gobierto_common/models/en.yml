@@ -21,7 +21,7 @@ en:
         single_option: One selection
         string: Text without translations (line)
         uid: Identifier
-        vocabulary_single_option: One selection from vocabulary
+        vocabulary_options: Vocabulary
       gobierto_admin/gobierto_common/term_form:
         description: Description
         name: Name

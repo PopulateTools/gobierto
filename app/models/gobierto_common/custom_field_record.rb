@@ -13,7 +13,7 @@ module GobiertoCommon
       color: CustomFieldValue::Color,
       image: CustomFieldValue::Image,
       data_grid: CustomFieldValue::DataGrid,
-      vocabulary_single_option: CustomFieldValue::VocabularySingleOption,
+      vocabulary_options: CustomFieldValue::VocabularyOptions,
       default: CustomFieldValue::Base
     }.freeze
 

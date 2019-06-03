@@ -52,7 +52,7 @@ module GobiertoCommon
         partial: "image",
         tag_attributes: {}
       },
-      vocabulary_single_option: {
+      vocabulary_options: {
         class_names: "form_item select_control",
         field_tag: :select_tag,
         partial: "item",

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoCommon::CustomFieldValue
-  class VocabularySingleOption < Base
+  class VocabularyOptions < Base
     def value
       vocabulary.terms.find_by(id: raw_value)
     end

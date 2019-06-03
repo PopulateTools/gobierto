@@ -11,6 +11,7 @@ en:
       gobierto_admin/gobierto_common/custom_field_form:
         data_grid: Data grid
         field_type: Type of field
+        image: Image
         localized_paragraph: Long text
         localized_string: Text (line)
         multiple_options: Multiple selections

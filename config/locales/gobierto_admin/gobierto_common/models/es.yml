@@ -11,6 +11,7 @@ es:
       gobierto_admin/gobierto_common/custom_field_form:
         data_grid: Tabla de datos
         field_type: Tipo de campo
+        image: Imagen
         localized_paragraph: Texto largo
         localized_string: Texto (línea)
         multiple_options: Selección múltiple

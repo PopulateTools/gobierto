@@ -74,7 +74,6 @@ window.GobiertoAdmin.TermsController = (function() {
     // Loop through each nested sortable element
     for (let i = 0; i < nestedSortables.length; i++) {
       Sortable.create(nestedSortables[i], {
-        group: "nested",
         animation: 150,
         fallbackOnBody: true,
         swapThreshold: 0.65,

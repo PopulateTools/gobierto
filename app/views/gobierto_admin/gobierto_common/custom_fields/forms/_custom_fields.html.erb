@@ -1,35 +1,40 @@
-<% input_base_name = "#{ form_name }[custom_records]" %>
+<%# <% input_base_name = "#{ form_name }[custom_records]" %1> %>
 
-<% if item.has_localized_records? %>
-  <div class="globalized_fields">
-    <%= render "gobierto_admin/shared/form_locale_switchers" %>
+<%# <% if item.has_localized_records? %1> %>
+<%#   <div class="globalized_fields"> %>
+<%#     <%= render "gobierto_admin/shared/form_locale_switchers" %1> %>
 
-    <% item.localized_custom_field_records.select().each do |record| %>
-      <% current_site.configuration.available_locales.each do |locale| %>
-        <%= render(
-          partial: "gobierto_admin/gobierto_common/custom_fields/forms/#{ record.partial }",
-          locals: {
-            locale: locale,
-            record: record,
-            input_base_name: input_base_name,
-          }
-        ) %>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
+<%#     <% item.localized_custom_field_records.select().each do |record| %1> %>
+<%#       <% current_site.configuration.available_locales.each do |locale| %1> %>
+<%#         <%= render( %>
+<%#           partial: "gobierto_admin/gobierto_common/custom_fields/forms/#{ record.partial }", %>
+<%#           locals: { %>
+<%#             locale: locale, %>
+<%#             record: record, %>
+<%#             input_base_name: input_base_name, %>
+<%#           } %>
+<%#         ) %1> %>
+<%#       <% end %1> %>
+<%#     <% end %1> %>
+<%#   </div> %>
+<%# <% end %1> %>
 
-<% item.not_localized_custom_field_records.each do |record| %>
-  <%= render(
-    partial: "gobierto_admin/gobierto_common/custom_fields/forms/#{ record.partial }",
-    locals: {
-      f: f,
-      record: record,
-      input_base_name: input_base_name,
-    }
-  ) %>
-<% end %>
-
+<%# <% item.not_localized_custom_field_records.each do |record| %1> %>
+<%#   <%= render( %>
+<%#     partial: "gobierto_admin/gobierto_common/custom_fields/forms/#{ record.partial }", %>
+<%#     locals: { %>
+<%#       f: f, %>
+<%#       record: record, %>
+<%#       input_base_name: input_base_name, %>
+<%#     } %>
+<%#   ) %1> %>
+<%# <% end %1> %>
+  <select data-behavior="tags" multiple="multiple">
+      <option selected="selected">orange</option>
+  <option>white</option>
+  <option selected="selected">purple</option>
+  </select>
+ 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
     window.GobiertoAdmin.gobierto_common_custom_field_records_controller = new GobiertoAdmin.GobiertoCommonCustomFieldRecordsController;

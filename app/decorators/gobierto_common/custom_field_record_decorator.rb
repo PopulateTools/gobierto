@@ -55,8 +55,8 @@ module GobiertoCommon
       vocabulary_options: {
         class_names: "form_item select_control",
         field_tag: :select_tag,
-        partial: "item",
-        tag_attributes: {}
+        partial: "vocabulary",
+        tag_attributes: ->(record) { record.vocabulary_type_attributes }
       }
     }.freeze
 
@@ -95,6 +95,13 @@ module GobiertoCommon
       else
         has_localized_value? ? raw_value : value
       end
+    end
+
+    def vocabulary_type_attributes
+      {
+        multiple: custom_field.configuration["vocabulary_type"] != "single_select",
+        data: { behavior: custom_field.configuration["vocabulary_type"] }
+      }
     end
 
     def custom_field_id

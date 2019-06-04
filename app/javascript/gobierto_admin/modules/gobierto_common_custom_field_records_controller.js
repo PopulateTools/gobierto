@@ -95,6 +95,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
 
   function _handleSelectBehaviors() {
     $("[data-behavior=multiple_select]").select2()
+    $("[data-behavior=tags]").select2({
+      tags: true
+    })
 
     // This should be controlled via css
     $(".select2-container").css("padding-top", "22px");

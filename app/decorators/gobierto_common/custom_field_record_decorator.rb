@@ -100,7 +100,7 @@ module GobiertoCommon
     def vocabulary_type_attributes
       {
         multiple: !vocabulary_single_select?,
-        data: { behavior: custom_field.configuration["vocabulary_type"] }
+        data: { behavior: custom_field.configuration.vocabulary_type }
       }
     end
 
@@ -111,7 +111,7 @@ module GobiertoCommon
     def vocabulary_single_select?
       return unless custom_field.configuration
 
-      custom_field.configuration["vocabulary_type"] == "single_select"
+      custom_field.configuration.vocabulary_type == "single_select"
     end
 
     def custom_field_id

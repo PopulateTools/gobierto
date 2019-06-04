@@ -84,4 +84,9 @@ class TermTest < ActiveSupport::TestCase
     new_term.save
     assert_equal "term-with-long-name", new_term.slug
   end
+
+  def test_assign_itself_as_parent
+    dog.parent_term = dog
+    refute dog.valid?
+  end
 end

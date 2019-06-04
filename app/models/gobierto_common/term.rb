@@ -9,6 +9,7 @@ module GobiertoCommon
     include GobiertoCommon::Sluggable
     after_save :update_children_levels
     before_destroy :free_children
+    before_validation :clear_parent_if_itself
 
     belongs_to :vocabulary
 
@@ -97,6 +98,13 @@ module GobiertoCommon
       vocabulary.site.configuration.modules.map do |module_name|
         module_name.constantize.try(:classes_with_vocabularies)
       end.flatten.compact
+    end
+
+    def clear_parent_if_itself
+      if parent_term == self
+        term_id = nil
+        errors.add(:term_id)
+      end
     end
   end
 end

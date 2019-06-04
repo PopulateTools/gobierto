@@ -87,7 +87,7 @@ module GobiertoCommon
         if has_vocabulary?
           ApplicationController.helpers.options_for_select(
             VocabularyDecorator.new(custom_field.vocabulary).terms_for_select,
-            value&.id
+            value.map(&:id)
           )
         else
           ApplicationController.helpers.options_for_select(custom_field.localized_options(I18n.locale), payload.present? && payload[uid])

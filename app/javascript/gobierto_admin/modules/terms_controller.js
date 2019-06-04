@@ -55,19 +55,6 @@ window.GobiertoAdmin.TermsController = (function() {
     );
   }
 
-  function _getChildrenIds(idsTree, parent, parentId){
-    let children = $(parent).find('.list-group:eq(0)').children();
-    children.each((index, child) => {
-      let childId = child.dataset.id;
-      if(idsTree[parentId] === undefined) {
-        idsTree[parentId] = [];
-      }
-      idsTree[parentId].push(childId);
-      idsTree = _getChildrenIds(idsTree, child, childId);
-    });
-    return idsTree;
-  }
-
   function _handleSortableList() {
     var nestedSortables = [].slice.call(document.querySelectorAll('.list-group'));
 
@@ -79,17 +66,9 @@ window.GobiertoAdmin.TermsController = (function() {
         swapThreshold: 0.65,
         onEnd: function (e) {
           $(e.item).addClass('el-opened');
-          let nullParentId = 0;
           let idsTree = {};
-          $('.list-group:eq(0)').children().each((index, node) => {
-            // For the parents, we add a special entry with id = 0
-            // to define the position of the parent nodes
-            if(idsTree[nullParentId] === undefined) {
-              idsTree[nullParentId] = [];
-            }
-            let nodeId = node.dataset.id;
-            idsTree[nullParentId].push(nodeId);
-            idsTree = _getChildrenIds(idsTree, node, nodeId);
+          $('.list-group').children().each((index, node) => {
+            idsTree[index] = { id: node.dataset.id, position: index, class: node.dataset.class };
           });
           _requestUpdate('[data-behavior="sortable"]', idsTree);
         }

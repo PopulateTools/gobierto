@@ -11,7 +11,8 @@ module GobiertoAdmin
         :starts_at,
         :ends_at,
         :options_json,
-        :admin
+        :admin,
+        :position
       )
       attr_writer(
         :category_id,

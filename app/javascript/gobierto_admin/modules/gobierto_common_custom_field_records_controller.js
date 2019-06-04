@@ -97,7 +97,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
     $("[data-behavior=multiple_select]").select2()
 
     // This should be controlled via css
-    $(".select2-container").css("padding-top", "32px");
+    $(".select2-container").css("padding-top", "22px");
   }
 
   return GobiertoCommonCustomFieldRecordsController;

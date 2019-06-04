@@ -53,7 +53,7 @@ module GobiertoCommon
         tag_attributes: {}
       },
       vocabulary_options: {
-        class_names: "form_item select_control",
+        class_names: ->(record) { record.vocabulary_class_names },
         field_tag: :select_tag,
         partial: "vocabulary",
         tag_attributes: ->(record) { record.vocabulary_type_attributes }
@@ -99,9 +99,19 @@ module GobiertoCommon
 
     def vocabulary_type_attributes
       {
-        multiple: custom_field.configuration["vocabulary_type"] != "single_select",
+        multiple: !vocabulary_single_select?,
         data: { behavior: custom_field.configuration["vocabulary_type"] }
       }
+    end
+
+    def vocabulary_class_names
+      "form_item select_control #{"p_1" unless vocabulary_single_select?}"
+    end
+
+    def vocabulary_single_select?
+      return unless custom_field.configuration
+
+      custom_field.configuration["vocabulary_type"] == "single_select"
     end
 
     def custom_field_id

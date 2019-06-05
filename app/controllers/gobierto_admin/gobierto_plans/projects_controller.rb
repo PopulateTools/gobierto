@@ -17,13 +17,14 @@ module GobiertoAdmin
 
       def edit
         find_versioned_project
-        @project_visibility_levels = project_visibility_levels
+        @unpublish_url = unpublish_admin_plans_plan_project_path(@plan, @project)
 
         @project_form = NodeForm.new(
           @project.attributes.except(*ignored_project_attributes).merge(
             plan_id: @plan.id,
             options_json: @project.options,
-            admin: current_admin
+            admin: current_admin,
+            version: params[:version]
           )
         )
       end
@@ -31,10 +32,11 @@ module GobiertoAdmin
       def update
         @project = @plan.nodes.find params[:id]
         @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
+        @unpublish_url = unpublish_admin_plans_plan_project_path(@plan, @project)
 
         if @project_form.save
           success_message = if suggest_unpublish?
-                              t(".suggest_unpublish_html", url: unpublish_admin_plans_plan_project_path(@plan, @project))
+                              t(".suggest_unpublish_html", url: @unpublish_url)
                             else
                               t(".success")
                             end
@@ -148,10 +150,10 @@ module GobiertoAdmin
         return if params[:version].blank?
 
         version_number = params[:version].to_i
-        index = version_number - @project.versions.length
-        redirect_to(edit_admin_plans_plan_project_path(@plan, @project), alert: t(".unavailable_version")) and return if version_number < 1 || index >= 0
+        @version_index = version_number - @project.versions.length
+        redirect_to(edit_admin_plans_plan_project_path(@plan, @project), alert: t(".unavailable_version")) and return if version_number < 1 || @version_index >= 0
 
-        @project = @project.versions[index].reify
+        @project = @project.versions[@version_index].reify
       end
 
       def suggest_unpublish?
@@ -207,6 +209,29 @@ module GobiertoAdmin
           redirection_path,
           alert: t("gobierto_admin.module_helper.not_enabled")
         )
+      end
+
+      def initialize_custom_field_form
+        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(
+          site_id: current_site.id,
+          item: @project_form.project,
+          instance: @plan,
+          version_index: @version_index,
+          with_version: true
+        )
+        custom_params_key = self.class.name.demodulize.gsub("Controller", "").underscore.singularize
+        return if request.get? || !params.has_key?(custom_params_key)
+
+        @custom_fields_form.custom_field_records = params.require(custom_params_key).permit(custom_records: {})
+        @new_version = @custom_fields_form.changed? || @project_form.attributes_updated?
+        unless @project_form.project.new_record?
+          @custom_fields_form.force_new_version = @new_version
+          @project_form.force_new_version = @new_version
+        end
+      end
+
+      def custom_fields_save
+        @custom_fields_form.save
       end
     end
   end

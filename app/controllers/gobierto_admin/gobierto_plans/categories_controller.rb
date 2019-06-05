@@ -86,13 +86,19 @@ module GobiertoAdmin
       end
 
       def set_leaf_terms
-        @vocabulary = find_vocabulary
-        @leaf_terms = leaf_terms_for_select(@vocabulary.terms)
+        if params[:id]
+          find_term
+          @leaf_terms = leaf_terms_for_select(@vocabulary.terms)
+        end
       end
 
       def leaf_terms_for_select(relation)
         max_level = relation.pluck(:level).max
-        relation.where(level: max_level).pluck(:id)
+        if @term.level == max_level
+          relation.where("level <> ?", @term.level - 1).pluck(:id)
+        else
+          relation.where("level >= ?", @term.level).pluck(:id)
+        end
       end
     end
   end

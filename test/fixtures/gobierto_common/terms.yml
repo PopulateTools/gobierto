@@ -146,7 +146,7 @@ center_scholarships_plan_term:
   name_translations: <%= { 'en' => 'Scholarships for families in the Central District',
                            'es' => 'Becas las familias del Distrito Centro' }.to_json %>
   term_id: <%= ActiveRecord::FixtureSet.identify(:welfare_payments_plan_term) %>
-  slug: center-basic-needs
+  slug: center-scholarships
   level: 2
   position: 2
   created_at: 2016-11-01 00:02:00

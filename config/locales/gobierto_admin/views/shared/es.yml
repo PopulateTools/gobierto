@@ -38,7 +38,11 @@ es:
           not_sent: Cuando tu contenido esté listo para ser revisado por un moderador,
             haz click en Enviar.
           publicable: Haz click en Publicar para que esta versión sea visible publicamente.
-          published: La versión está publicada.
+          publicable_html: Haz click en Publicar para que esta versión sea visible
+            publicamente.
+          published: La versión actual es la que está publicada.
+          published_html: La versión actual es la que está publicada. <a rel="nofollow"
+            data-method="post" href="%{url}">Despublicar</a>.
           rejected: La versión está rechazada.
           sent: Tu contenido ha sido enviado para revisión. Recibirás una notificación
             cuando se apruebe o te soliciten cambios.

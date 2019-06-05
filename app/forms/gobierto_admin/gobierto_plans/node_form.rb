@@ -11,7 +11,8 @@ module GobiertoAdmin
         :starts_at,
         :ends_at,
         :options_json,
-        :admin
+        :admin,
+        :force_new_version
       )
       attr_writer(
         :category_id,
@@ -20,7 +21,9 @@ module GobiertoAdmin
         :moderation_visibility_level,
         :moderation_stage,
         :disable_attributes_edition,
-        :progress
+        :progress,
+        :published_version,
+        :version
       )
 
       validates :plan, :admin, presence: true
@@ -40,6 +43,7 @@ module GobiertoAdmin
 
       def save
         check_visibility_level if allow_edit_attributes?
+        set_publication_version if has_versions?
 
         save_node if valid?
       end
@@ -146,10 +150,26 @@ module GobiertoAdmin
         @status_id
       end
 
+      def attributes_updated?
+        return unless allow_edit_attributes?
+
+        version_attributes_updated?(versioned_node, set_node_attributes)# && attributes_for_new_version.any? { |attribute| @node.send("#{attribute}_changed?") }
+      end
+
       private
 
+      def has_versions?
+        @has_versions ||= node.respond_to?(:paper_trail)
+      end
+
+      def set_publication_version
+        @visibility_level, @version = visibility_level.to_s.split("-")
+
+        @published_version = @visibility_level == "published" ? (@version || node.published_version).to_i : nil
+      end
+
       def disable_attributes_edition
-        @disable_attributes_edition && moderation_policy.moderate?
+        @disable_attributes_edition && (moderation_policy.moderate? || moderation_policy.edit?)
       end
 
       def moderation_policy
@@ -175,21 +195,52 @@ module GobiertoAdmin
         errors.add :options_json, I18n.t("errors.messages.invalid")
       end
 
-      def save_node
-        @node = node.tap do |attributes|
-          if allow_edit_attributes?
-            attributes.name_translations = name_translations
-            attributes.progress = progress
-            attributes.starts_at = starts_at
-            attributes.ends_at = ends_at
-            attributes.options = options
-            attributes.status_id = status_id
-          end
-          attributes.visibility_level = visibility_level
+      def versioned_node
+        return node if @version.blank? || (version_number = @version.to_i) == node.versions.length
+
+        index = version_number - node.versions.length
+        node.versions[index].reify
+      end
+
+      def version_attributes_updated?(versioned_node, node)
+        versioned_node.attributes.slice(*attributes_for_new_version) != node.attributes.slice(*attributes_for_new_version)
+      end
+
+      def set_node_attributes
+        return unless allow_edit_attributes?
+
+        @node.tap do |attributes|
+          attributes.name_translations = name_translations
+          attributes.progress = progress
+          attributes.starts_at = starts_at
+          attributes.ends_at = ends_at
+          attributes.options = options
+          attributes.status_id = status_id
         end
+      end
+
+      def set_version_and_visiblity_level
+        node.tap do |attributes|
+          if allow_edit_attributes? && @version.present?
+            if version_attributes_updated?(versioned_node, attributes)
+              @force_new_version = false
+              @published_version = attributes.versions.length + 1
+            else
+              attributes.reload
+            end
+          end
+
+          attributes.visibility_level = visibility_level
+          attributes.published_version = @published_version
+        end
+      end
+
+      def save_node
+        set_node_attributes
+        set_version_and_visiblity_level
 
         if @node.valid?
-          @node.save
+          force_new_version && !attributes_updated? ? @node.paper_trail.save_with_version : @node.save
 
           indicators.each do |indicator|
             indicator.save if indicator.changed?
@@ -227,6 +278,10 @@ module GobiertoAdmin
 
       def progress_option(number)
         ["#{number.to_i}%", number.to_i]
+      end
+
+      def attributes_for_new_version
+        %w(name_translations status_translations progress starts_at ends_at options)
       end
     end
   end

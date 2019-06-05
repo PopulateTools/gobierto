@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_17_155844) do
+ActiveRecord::Schema.define(version: 2019_05_18_184430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -881,6 +881,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_155844) do
     t.datetime "updated_at", null: false
     t.integer "visibility_level", default: 0, null: false
     t.bigint "admin_id"
+    t.integer "published_version"
     t.bigint "status_id"
     t.index ["admin_id"], name: "index_gplan_nodes_on_admin_id"
     t.index ["name_translations"], name: "index_gplan_nodes_on_name_translations", using: :gin

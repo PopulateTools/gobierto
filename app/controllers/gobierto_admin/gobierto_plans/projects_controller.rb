@@ -27,14 +27,16 @@ module GobiertoAdmin
             version: params[:version]
           )
         )
+        initialize_custom_field_form
       end
 
       def update
         @project = @plan.nodes.find params[:id]
         @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
         @unpublish_url = unpublish_admin_plans_plan_project_path(@plan, @project)
+        initialize_custom_field_form
 
-        if @project_form.save
+        if @project_form.save && custom_fields_save
           success_message = if suggest_unpublish?
                               t(".suggest_unpublish_html", url: @unpublish_url)
                             else
@@ -65,12 +67,15 @@ module GobiertoAdmin
           options_json: {},
           admin: current_admin
         )
+        initialize_custom_field_form
       end
 
       def create
         @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
+        initialize_custom_field_form
 
         if @project_form.save
+          custom_fields_save
           redirect_to(
             edit_admin_plans_plan_project_path(@plan, @project_form.node),
             notice: t(".success")

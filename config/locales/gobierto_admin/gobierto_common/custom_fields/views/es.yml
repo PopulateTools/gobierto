@@ -5,17 +5,20 @@ es:
       custom_fields:
         custom_fields:
           edit:
+            instance_title: Editar %{field_name} de %{instance_name}
             title: Editar %{name}
           form:
             add_option: Añadir opción
             confirm: "¿Estás seguro?"
             crop: Recortar
           index:
+            instance_title: Campos personalizados de %{instance_name}
             localized_custom_fields: Campos traducibles
             new: Añadir nuevo campo
             not_localized_custom_fields: Campos no traducibles
             title: Campos personalizados
           new:
+            instance_title: Nuevo campo de %{instance_name}
             title: Nuevo campo
           new_option:
             cancel_new_option: Cancelar
@@ -23,4 +26,6 @@ es:
             new: Nueva opción
         module_resources:
           index:
+            custom_fields_for_instances_of: Campos personalizados para instancias
+              de %{name}
             empty: De momento no hay ningún modelo con campos personalizados habilitados

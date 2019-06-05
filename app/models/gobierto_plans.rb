@@ -13,6 +13,10 @@ module GobiertoPlans
     [GobiertoPlans::Node]
   end
 
+  def self.classes_with_custom_fields_at_instance_level
+    [GobiertoPlans::Plan]
+  end
+
   def self.classes_with_vocabularies
     [GobiertoPlans::Node]
   end

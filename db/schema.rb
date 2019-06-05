@@ -206,6 +206,9 @@ ActiveRecord::Schema.define(version: 2019_06_03_074757) do
     t.string "uid", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "instance_type"
+    t.bigint "instance_id"
+    t.index ["instance_type", "instance_id"], name: "index_custom_fields_on_instance_type_and_instance_id"
     t.index ["site_id", "uid", "class_name"], name: "index_custom_fields_on_site_id_and_uid_and_class_name", unique: true
     t.index ["site_id"], name: "index_custom_fields_on_site_id"
   end

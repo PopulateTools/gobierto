@@ -60,7 +60,7 @@ module GobiertoAdmin
       end
 
       def author_options
-        @plan.nodes.select(:admin_id).distinct.pluck(:admin_id).compact.map do |admin_id|
+        @plan.nodes.pluck(:admin_id).uniq.compact.map do |admin_id|
           [GobiertoAdmin::Admin.find(admin_id).name, admin_id]
         end.unshift([I18n.t("gobierto_admin.gobierto_plans.projects.filter_form.author"), nil])
       end

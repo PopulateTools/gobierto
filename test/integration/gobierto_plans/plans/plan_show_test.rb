@@ -22,15 +22,15 @@ module GobiertoPlans
     end
 
     def axes
-      @axes ||= CollectionDecorator.new(plan.categories.where(level: 0).sorted, decorator: GobiertoPlans::CategoryTermDecorator)
+      @axes ||= CollectionDecorator.new(plan.categories.where(level: 0).sorted, decorator: GobiertoPlans::CategoryTermDecorator).to_a
     end
 
     def action_lines
-      @action_lines ||= CollectionDecorator.new(plan.categories.where(level: 1).sorted, decorator: GobiertoPlans::CategoryTermDecorator)
+      @action_lines ||= CollectionDecorator.new(plan.categories.where(level: 1).sorted, decorator: GobiertoPlans::CategoryTermDecorator).to_a
     end
 
     def actions
-      @actions ||= CollectionDecorator.new(plan.categories.where(level: 2).sorted, decorator: GobiertoPlans::CategoryTermDecorator)
+      @actions ||= CollectionDecorator.new(plan.categories.where(level: 2).sorted, decorator: GobiertoPlans::CategoryTermDecorator).to_a
     end
 
     def projects
@@ -38,8 +38,25 @@ module GobiertoPlans
       @projects ||= GobiertoPlans::Node.where(id: node_ids)
     end
 
+    def published_projects
+      @published_projects ||= plan.nodes.published
+    end
+
+    def draft_projects
+      @draft_projects ||= plan.nodes.draft
+    end
+
     def project_with_progress
       @project_with_progress ||= gobierto_plans_nodes(:political_agendas)
+    end
+
+    def publish_last_version_on_all_projects!
+      projects.each do |project|
+        project.touch
+        project.published!
+        project.update_attribute(:published_version, project.versions.count)
+      end
+      plan.touch
     end
 
     def test_plan
@@ -105,6 +122,8 @@ module GobiertoPlans
     end
 
     def test_navigating_tree
+      publish_last_version_on_all_projects!
+
       with_javascript do
         with_current_site(site) do
           visit @path
@@ -141,9 +160,55 @@ module GobiertoPlans
                 find("h3", text: actions.first.name).click
                 assert has_selector?("div", text: projects.last.progress.to_i.to_s + "%")
 
-                find("td", text: projects.first.name).click
+                find("td", text: projects.last.name).click
 
-                assert has_content?(projects.first.status.name)
+                assert has_content?(projects.last.status.name)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    def test_draft_project
+      with_javascript do
+        with_current_site(site) do
+          visit @path
+
+          within "section.level_0" do
+            within "div.node-root.cat_1" do
+              find("a").click
+            end
+          end
+
+          within ".planification-content" do
+            within "section.level_1.cat_1" do
+              within ".lines-header" do
+                assert has_content?("1 line of action")
+              end
+
+              within ".lines-list" do
+                assert has_content?(action_lines.first.name)
+                assert has_content?("2 actions")
+
+                assert has_content?((projects.sum(:progress) / projects.count).to_i.to_s + "%")
+              end
+
+              assert has_selector?("h3", text: action_lines.first.name)
+              find("h3", text: action_lines.first.name).click
+            end
+
+            within "section.level_2.cat_1" do
+              assert has_content?(action_lines.first.name)
+
+              within "ul.action-line--list" do
+                assert has_selector?("li", count: actions.count)
+
+                find("h3", text: actions.first.name).click
+                assert has_no_content? draft_projects.first.name
+
+                find("h3", text: actions.last.name).click
+                assert has_no_content? published_projects.first.name
               end
             end
           end
@@ -225,12 +290,12 @@ module GobiertoPlans
 
             within "section.level_2.cat_1" do
               within "ul.action-line--list" do
-                find("h3", text: actions.first.name).click
+                find("h3", text: actions.last.name).click
               end
               assert has_selector?("div.node-breadcrumb")
 
               within "ul.action-line--list" do
-                find("td", text: projects.first.name).click
+                find("td", text: published_projects.first.name).click
               end
             end
 
@@ -281,21 +346,21 @@ module GobiertoPlans
               end
 
               assert has_selector?("h3", text: action_lines.first.name)
-              find("h3", text: action_lines.first.name).click
+              find("h3", text: action_lines.last.name).click
             end
 
             within "section.level_2.cat_1" do
-              assert has_content?(action_lines.first.name)
+              assert has_content?(action_lines.last.name)
 
               within "ul.action-line--list" do
                 assert has_selector?("li", count: actions.count)
 
-                find("h3", text: actions.first.name).click
-                assert has_selector?("div", text: projects.last.progress.to_i.to_s + "%")
+                find("h3", text: actions.last.name).click
+                assert has_selector?("div", text: published_projects.last.progress.to_i.to_s + "%")
 
-                find("td", text: projects.first.name).click
+                find("td", text: published_projects.first.name).click
 
-                assert has_content?(projects.first.status.name)
+                assert has_content?(published_projects.first.status.name)
               end
             end
           end

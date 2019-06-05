@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoCommon
     class OrderedTermsSortController < BaseController
       def create
-        vocabulary.terms.update_parents_and_positions(sort_params)
+        vocabulary.update_terms_positions(sort_params)
         head :no_content
       end
 

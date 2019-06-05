@@ -22,3 +22,23 @@ madrid_custom_field_record_population:
   item: madrid
   custom_field: madrid_site_custom_field
   payload: <%= { "population" => "3166000" }.to_json %>
+
+political_agendas_custom_field_global:
+  item: gobierto_plans_nodes_political_agendas (GobiertoPlans::Node)
+  custom_field: madrid_node_global
+  payload: <%= { "status" => "not_started" }.to_json %>
+
+political_agendas_custom_field_instance_level:
+  item: gobierto_plans_nodes_political_agendas (GobiertoPlans::Node)
+  custom_field: madrid_node_instance_level
+  payload: <%= { "goals" => { en: "Publish political agendas before the end of year", es: "Publicar agendas antes de fin de año" } }.to_json %>
+
+scholarships_kindergartens_custom_field_global:
+  item: gobierto_plans_nodes_scholarships_kindergartens (GobiertoPlans::Node)
+  custom_field: madrid_node_global
+  payload: <%= { "status" => "started" }.to_json %>
+
+scholarships_kindergartens_custom_field_instance_level:
+  item: gobierto_plans_nodes_scholarships_kindergartens (GobiertoPlans::Node)
+  custom_field: madrid_node_instance_level
+  payload: <%= { "goals" => { en: "Improve budgets", es: "Mejorar presupuestos" } }.to_json %>

@@ -6,12 +6,10 @@ es:
         back: Volver
         title: Detalles de %{title}
       index:
-        about: Qué son las cartas de servicios
         commitments:
           one: 1 indicador
           other: "%{count} indicadores"
           zero: No hay indicadores
-        contact: Contacto
         description_title: Información sobre el cumplimiento de los compromisos de
           los indicadores %{of_the_organization_name}
         global_progress: Cumplimiento global

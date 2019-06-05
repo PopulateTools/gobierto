@@ -15,8 +15,17 @@ module GobiertoAdmin
         def setup
           super
           @plan = gobierto_plans_plans(:strategic_plan)
-          @published_project = gobierto_plans_nodes(:political_agendas)
-          @unpublished_project = gobierto_plans_nodes(:scholarships_kindergartens)
+
+          @published_project = @plan.nodes.create(gobierto_plans_nodes(:political_agendas).attributes.except("id"))
+          @published_project.categories << gobierto_plans_nodes(:political_agendas).categories
+          @published_project.save
+          @published_project.moderation.approved!
+
+          @unpublished_project = @plan.nodes.create(gobierto_plans_nodes(:scholarships_kindergartens).attributes.except("id"))
+          @unpublished_project.categories << gobierto_plans_nodes(:scholarships_kindergartens).categories
+          @unpublished_project.save
+          @unpublished_project.moderation.sent!
+
           @path = edit_admin_plans_plan_project_path(plan, published_project)
           @unpublished_path = edit_admin_plans_plan_project_path(plan, unpublished_project)
         end
@@ -27,6 +36,33 @@ module GobiertoAdmin
 
         def site
           @site ||= sites(:madrid)
+        end
+
+        def create_custom_fields_records
+          ::GobiertoCommon::CustomFieldRecord.create(
+            gobierto_common_custom_field_records(:political_agendas_custom_field_global).attributes.except("id", "item_id").merge(
+              item_id: published_project.id,
+              item_has_versions: true
+            )
+          )
+          ::GobiertoCommon::CustomFieldRecord.create(
+            gobierto_common_custom_field_records(:political_agendas_custom_field_instance_level).attributes.except("id", "item_id").merge(
+              item_id: published_project.id,
+              item_has_versions: true
+            )
+          )
+          ::GobiertoCommon::CustomFieldRecord.create(
+            gobierto_common_custom_field_records(:scholarships_kindergartens_custom_field_global).attributes.except("id", "item_id").merge(
+              item_id: unpublished_project.id,
+              item_has_versions: true
+            )
+          )
+          ::GobiertoCommon::CustomFieldRecord.create(
+            gobierto_common_custom_field_records(:scholarships_kindergartens_custom_field_instance_level).attributes.except("id", "item_id").merge(
+              item_id: unpublished_project.id,
+              item_has_versions: true
+            )
+          )
         end
 
         def preview_test_conf
@@ -58,6 +94,10 @@ module GobiertoAdmin
 
               assert has_message? "Project updated correctly."
               assert has_content? "Updated project"
+              assert has_content? "Editing version\n2"
+              assert has_content? "Status\nNot published"
+              assert has_content? "Published version\n1"
+              assert has_content? "Click on Publish to make this version publicly visible."
 
               published_project.reload
 
@@ -88,12 +128,12 @@ module GobiertoAdmin
 
                 within "div.widget_save_v2.editor" do
                   assert has_no_button? "Save"
+                  assert has_link? "Unpublish"
                 end
 
                 within "div.widget_save_v2.moderator" do
                   assert has_checked_field?("Approved")
                   assert has_button? "Save"
-                  assert has_button? "Unpublish"
                 end
               end
             end
@@ -107,12 +147,16 @@ module GobiertoAdmin
             with_current_site(site) do
               visit path
 
-              within "div.widget_save_v2.moderator" do
-                click_button "Unpublish"
+              within "div.widget_save_v2.editor" do
+                click_link "Unpublish"
               end
 
-              assert has_message? "Project updated correctly."
+              assert has_message? "Project unpublished correctly."
 
+              assert has_content? "Editing version\n1"
+              assert has_content? "Status\nNot published"
+              assert has_content? "Published version\nnot published yet"
+              assert has_content? "Click on Publish to make this version publicly visible."
               published_project.reload
 
               refute published_project.published?
@@ -121,7 +165,8 @@ module GobiertoAdmin
           end
         end
 
-        def test_unpublish_and_change_moderation_stage_of_project_as_regular_moderator
+        def test_publish_and_change_moderation_stage_of_project_as_regular_moderator
+          create_custom_fields_records
           allow_regular_admin_moderate_plans
 
           with_signed_in_admin(regular_admin) do
@@ -130,12 +175,20 @@ module GobiertoAdmin
 
               within "div.widget_save_v2.moderator" do
                 choose "Under review"
+              end
+
+              within "div.widget_save_v2.editor" do
                 click_button "Publish"
               end
 
               assert has_message? "The project is not approved but still published"
 
+              assert has_content? "Editing version\n1"
+              assert has_content? "Status\nPublished"
+              assert has_content? "Published version\n1"
+              assert has_content? "Current version is the published one."
               assert has_link? "Unpublish"
+
               unpublished_project.reload
 
               assert unpublished_project.published?
@@ -178,6 +231,10 @@ module GobiertoAdmin
 
               assert has_message? "Project updated correctly."
               assert has_content? "Updated project"
+              assert has_content? "Editing version\n2"
+              assert has_content? "Status\nNot published"
+              assert has_content? "Published version\n1"
+              assert has_content? "Click on Publish to make this version publicly visible."
 
               published_project.reload
 
@@ -215,6 +272,10 @@ module GobiertoAdmin
 
               assert has_message? "Project updated correctly."
               assert has_content? "Updated project"
+              assert has_content? "Editing version\n2"
+              assert has_content? "Status\nNot published"
+              assert has_content? "Published version\nnot published yet"
+              assert has_content? "Your content has been sent for review. You will receive a notification if it is approved or you are asked for changes."
 
               unpublished_project.reload
 
@@ -237,10 +298,14 @@ module GobiertoAdmin
               visit path
 
               within "div.widget_save_v2.editor" do
-                click_button "Unpublish"
+                click_link "Unpublish"
               end
 
-              assert has_message? "Project updated correctly."
+              assert has_message? "Project unpublished correctly."
+              assert has_content? "Editing version\n1"
+              assert has_content? "Status\nNot published"
+              assert has_content? "Published version\nnot published yet"
+              assert has_content? "Click on Publish to make this version publicly visible."
 
               published_project.reload
 
@@ -267,6 +332,7 @@ module GobiertoAdmin
         def test_send_project_as_regular_editor
           allow_regular_admin_edit_plans
           unpublished_project.moderation.not_sent!
+          create_custom_fields_records
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do
@@ -281,6 +347,10 @@ module GobiertoAdmin
               end
 
               assert has_message? "Project updated correctly."
+              assert has_content? "Editing version\n1"
+              assert has_content? "Status\nNot published"
+              assert has_content? "Published version\nnot published yet"
+              assert has_content? "Your content has been sent for review. You will receive a notification if it is approved or you are asked for changes."
 
               unpublished_project.reload
 
@@ -314,6 +384,10 @@ module GobiertoAdmin
 
               assert has_message? "Project updated correctly."
               assert has_content? "Updated project"
+              assert has_content? "Editing version\n2"
+              assert has_content? "Status\nNot published"
+              assert has_content? "Published version\nnot published yet"
+              assert has_content? "Click on Publish to make this version publicly visible."
 
               unpublished_project.reload
 
@@ -328,9 +402,10 @@ module GobiertoAdmin
           end
         end
 
-        def test__moderate_project_as_regular_editor_and_moderator
+        def test_moderate_project_as_regular_editor_and_moderator
           allow_regular_admin_edit_plans
           allow_regular_admin_moderate_plans
+          create_custom_fields_records
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do
@@ -353,17 +428,187 @@ module GobiertoAdmin
               within "form" do
                 within "div.widget_save_v2.moderator" do
                   choose "Rejected"
+                end
+
+                within "div.widget_save_v2.editor" do
                   click_button "Publish"
                 end
               end
 
               assert has_message? "The project is not approved but still published"
               assert has_link? "Unpublish"
+              assert has_content? "Editing version\n1"
+              assert has_content? "Status\nPublished"
+              assert has_content? "Published version\n1"
+              assert has_content? "Current version is the published one."
 
               unpublished_project.reload
 
               assert unpublished_project.published?
               assert unpublished_project.moderation.rejected?
+            end
+          end
+        end
+
+        def test_editor_changes_version_and_publish
+          allow_regular_admin_edit_plans
+          unpublished_project.moderation.approved!
+
+          with_signed_in_admin(regular_admin) do
+            with_current_site(site) do
+              visit unpublished_path
+              within "form" do
+                fill_in "project_name_translations_en", with: "Updated project"
+
+                fill_in "project_starts_at", with: "2020-01-01"
+                fill_in "project_ends_at", with: "2021-01-01"
+                select "3%", from: "project_progress"
+
+                within "div.widget_save_v2.editor" do
+                  click_button "Save"
+                end
+              end
+
+              assert has_message? "Project updated correctly."
+              within ".g_popup" do
+                click_link "1 - "
+              end
+
+              within "form" do
+                within "div.widget_save_v2.editor" do
+                  click_button "Publish"
+                end
+              end
+
+              assert has_button? "Publish"
+              assert has_content? "Editing version\n2"
+              assert has_content? "Status\nNot published"
+              assert has_content? "Published version\n1"
+              assert has_content? "Click on Publish to make this version publicly visible."
+
+
+              unpublished_project.reload
+
+              assert unpublished_project.published?
+            end
+          end
+        end
+
+        def test_editor_changes_version_edits_and_publish
+          allow_regular_admin_edit_plans
+          unpublished_project.moderation.approved!
+
+          with_signed_in_admin(regular_admin) do
+            with_current_site(site) do
+              visit unpublished_path
+              within "form" do
+                fill_in "project_name_translations_en", with: "Updated project"
+
+                fill_in "project_starts_at", with: "2020-01-01"
+                fill_in "project_ends_at", with: "2021-01-01"
+                select "3%", from: "project_progress"
+
+                within "div.widget_save_v2.editor" do
+                  click_button "Save"
+                end
+              end
+
+              assert has_message? "Project updated correctly."
+              within ".g_popup" do
+                click_link "1 - "
+              end
+
+              within "form" do
+                fill_in "project_name_translations_en", with: "Changed version"
+
+                fill_in "project_starts_at", with: "2050-01-01"
+                fill_in "project_ends_at", with: "2051-01-01"
+                select "3%", from: "project_progress"
+
+                within "div.widget_save_v2.editor" do
+                  click_button "Publish"
+                end
+              end
+
+              assert has_link? "Unpublish"
+              assert has_content? "Editing version\n3"
+              assert has_content? "Status\nPublished"
+              assert has_content? "Published version\n3"
+              assert has_content? "Current version is the published one."
+
+              unpublished_project.reload
+
+              assert unpublished_project.published?
+            end
+          end
+        end
+
+        def test_moderator_changes_published_version
+          allow_regular_admin_moderate_plans
+          create_custom_fields_records
+          unpublished_project.update_attribute(:starts_at, 34.years.ago)
+          unpublished_project.update_attribute(:starts_at, 24.years.ago)
+          unpublished_project.update_attribute(:starts_at, 14.years.ago)
+
+          with_signed_in_admin(regular_admin) do
+            with_current_site(site) do
+              visit unpublished_path
+
+              within ".g_popup" do
+                click_link "2 - "
+              end
+
+              within "form" do
+                within "div.widget_save_v2.editor" do
+                  click_button "Publish"
+                end
+              end
+
+              assert has_button? "Publish"
+              assert has_content? "Editing version\n4"
+              assert has_content? "Status\nNot published"
+              assert has_content? "Published version\n2"
+              assert has_content? "Click on Publish to make this version publicly visible."
+
+              unpublished_project.reload
+
+              assert unpublished_project.published?
+            end
+          end
+        end
+
+        def test_editor_changes_published_version_to_first
+          allow_regular_admin_edit_plans
+          create_custom_fields_records
+          unpublished_project.moderation.approved!
+
+          unpublished_project.update_attribute(:progress, 10)
+          unpublished_project.update_attribute(:progress, 20)
+          unpublished_project.update_attribute(:progress, 50)
+
+          with_signed_in_admin(regular_admin) do
+            with_current_site(site) do
+              visit unpublished_path
+
+              within ".g_popup" do
+                click_link "1 - "
+              end
+
+              within "form" do
+                within "div.widget_save_v2.editor" do
+                  click_button "Publish"
+                end
+              end
+
+              assert has_button? "Publish"
+              assert has_content? "Editing version\n4"
+              assert has_content? "Status\nNot published"
+              assert has_content? "Published version\n1"
+              assert has_content? "Click on Publish to make this version publicly visible."
+
+              unpublished_project.reload
+
+              assert unpublished_project.published?
             end
           end
         end

@@ -42,6 +42,18 @@ admin_site_options_vocabularies:
   resource_name: vocabularies
   action_name: manage
 
+admin_site_options_custom_fields:
+  admin_group: madrid_group
+  namespace: site_options
+  resource_name: custom_fields
+  action_name: manage
+
+manage_citizen_charters_madrid:
+  admin_group: madrid_group
+  namespace: site_module
+  resource_name: gobierto_citizens_charters
+  action_name: manage
+
 manage_plans_madrid:
   admin_group: madrid_manage_plans_group
   namespace: site_module

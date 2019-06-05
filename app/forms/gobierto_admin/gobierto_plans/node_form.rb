@@ -12,6 +12,7 @@ module GobiertoAdmin
         :ends_at,
         :options_json,
         :admin,
+        :position,
         :force_new_version
       )
       attr_writer(

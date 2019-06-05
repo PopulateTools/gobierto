@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_28_111414) do
+ActiveRecord::Schema.define(version: 2019_06_03_074757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -238,11 +238,6 @@ ActiveRecord::Schema.define(version: 2019_05_28_111414) do
     t.index ["site_id"], name: "index_custom_user_fields_on_site_id"
   end
 
-  create_table "data_migrations", id: false, force: :cascade do |t|
-    t.string "version", null: false
-    t.index ["version"], name: "unique_data_migrations", unique: true
-  end
-
   create_table "ga_attachings", force: :cascade do |t|
     t.integer "site_id", null: false
     t.integer "attachment_id", null: false
@@ -314,8 +309,8 @@ ActiveRecord::Schema.define(version: 2019_05_28_111414) do
     t.string "sharing_token"
     t.string "document_number_digest"
     t.jsonb "user_information"
+    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id"
-    t.index ["document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true
     t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
@@ -886,8 +881,10 @@ ActiveRecord::Schema.define(version: 2019_05_28_111414) do
     t.bigint "admin_id"
     t.integer "published_version"
     t.bigint "status_id"
+    t.integer "position"
     t.index ["admin_id"], name: "index_gplan_nodes_on_admin_id"
     t.index ["name_translations"], name: "index_gplan_nodes_on_name_translations", using: :gin
+    t.index ["position"], name: "index_gplan_nodes_on_position"
     t.index ["status_id"], name: "index_gplan_nodes_on_status_id"
   end
 

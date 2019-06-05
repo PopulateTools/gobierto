@@ -29,5 +29,11 @@ module GobiertoCommon
         term.ordered_self_and_descendants
       end.flatten
     end
+
+    def update_terms_positions(sort_params)
+      sort_params.values.each do |term_attributes|
+        term_attributes[:class].constantize.where(id: term_attributes[:id]).update_all(position: term_attributes[:position])
+      end
+    end
   end
 end

@@ -182,6 +182,7 @@ module GobiertoAdmin
             :moderation_visibility_level,
             :moderation_stage,
             :status_id,
+            :position,
             name_translations: [*I18n.available_locales],
             indicators: {}
           )

@@ -3,7 +3,7 @@
   <% decorator = terms.try(:decorated_values?) ? terms.decorator : nil %>
   <% terms.each do |term, subterms| %>
     <% has_subterms = subterms.present? || decorator && term.decorated_resources.present? %>
-    <div class="v_el v_el_level list-group-item custom_handle " data-id="<%= term.id %>">
+    <div class="v_el v_el_level list-group-item custom_handle " data-id="<%= term.id %>" data-class="<%= term.class.name %>">
       <div class="v_el_cont ">
         <div class="v_el_icon_tree">
           <% if has_subterms %>

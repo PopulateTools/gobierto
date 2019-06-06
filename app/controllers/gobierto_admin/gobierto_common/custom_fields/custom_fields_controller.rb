@@ -10,13 +10,26 @@ module GobiertoAdmin
         def index
           set_class_name
 
+          @custom_field_form = form_class.new(
+            resource_name: params[:module_resource_name],
+            instance_class_name: params[:instance_type],
+            instance_id: params[:instance_id]
+          )
+          @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
           @class_human_name = @class_name.constantize.model_name.human(count: 2)
-          @localized_custom_fields = current_site.custom_fields.where(class_name: @class_name).localized.sorted
-          @not_localized_custom_fields = current_site.custom_fields.where(class_name: @class_name).not_localized.sorted
+
+          @localized_custom_fields = current_site.custom_fields.where(class_name: @class_name, instance: @custom_field_form.instance).localized.sorted
+          @not_localized_custom_fields = current_site.custom_fields.where(class_name: @class_name, instance: @custom_field_form.instance).not_localized.sorted
         end
 
         def new
-          @custom_field_form = form_class.new(site_id: current_site.id, resource_name: params[:module_resource_name])
+          @custom_field_form = form_class.new(
+            site_id: current_site.id,
+            resource_name: params[:module_resource_name],
+            instance_class_name: params[:instance_type],
+            instance_id: params[:instance_id]
+          )
+          @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
           @types_with_options = @custom_field_form.types_with_options
           @types_with_vocabulary = @custom_field_form.types_with_vocabulary
         end
@@ -25,12 +38,17 @@ module GobiertoAdmin
           @custom_field_form = form_class.new(custom_field_params.merge(site_id: current_site.id, resource_name: params[:module_resource_name]))
           if @custom_field_form.save
             redirect_to(
-              admin_common_custom_fields_module_resource_custom_fields_path(module_resource_name: @custom_field_form.resource_param),
+              admin_common_custom_fields_module_resource_custom_fields_path(
+                module_resource_name: @custom_field_form.resource_param,
+                instance_type: @custom_field_form.instance_class_name,
+                instance_id: @custom_field_form.instance_id
+              ),
               notice: t(".success")
             )
           else
             @types_with_options = @custom_field_form.types_with_options
             @types_with_vocabulary = @custom_field_form.types_with_vocabulary
+            @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
             render :new
           end
         end
@@ -45,6 +63,7 @@ module GobiertoAdmin
           find_custom_field
 
           @custom_field_form = form_class.new(@custom_field.attributes.except(*ignored_custom_field_attributes).merge(site_id: current_site.id))
+          @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
           @types_with_options = @custom_field_form.types_with_options
           @types_with_vocabulary = @custom_field_form.types_with_vocabulary
         end
@@ -55,28 +74,43 @@ module GobiertoAdmin
           @custom_field_form = form_class.new(custom_field_params.merge(id: @custom_field.id, site_id: current_site.id))
           if @custom_field_form.save
             redirect_to(
-              admin_common_custom_fields_module_resource_custom_fields_path(module_resource_name: @custom_field_form.resource_param),
+              admin_common_custom_fields_module_resource_custom_fields_path(
+                module_resource_name: @custom_field_form.resource_param,
+                instance_type: @custom_field_form.instance_class_name,
+                instance_id: @custom_field_form.instance_id
+              ),
               notice: t(".success")
             )
           else
             @types_with_options = @custom_field_form.types_with_options
             @types_with_vocabulary = @custom_field_form.types_with_vocabulary
+            @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
             render :edit
           end
         end
 
         def destroy
           find_custom_field
-          module_resource_name = form_class.new(id: params[:id], site_id: current_site.id).resource_param
+
+          @custom_field_form = form_class.new(id: @custom_field.id, site_id: current_site.id)
+          module_resource_name = @custom_field_form.resource_param
 
           if @custom_field.destroy
             redirect_to(
-              admin_common_custom_fields_module_resource_custom_fields_path(module_resource_name: module_resource_name),
+              admin_common_custom_fields_module_resource_custom_fields_path(
+                module_resource_name: module_resource_name,
+                instance_type: @custom_field_form.instance_class_name,
+                instance_id: @custom_field_form.instance_id
+              ),
               notice: t(".success")
             )
           else
             redirect_to(
-              admin_common_custom_fields_module_resource_custom_fields_path(module_resource_name: module_resource_name),
+              admin_common_custom_fields_module_resource_custom_fields_path(
+                module_resource_name: module_resource_name,
+                instance_type: @custom_field_form.instance_class_name,
+                instance_id: @custom_field_form.instance_id
+              ),
               alert: t(".failed")
             )
           end
@@ -94,6 +128,8 @@ module GobiertoAdmin
             :uid,
             :vocabulary_id,
             :vocabulary_type,
+            :instance_class_name,
+            :instance_id,
             name_translations: [*I18n.available_locales],
             options_translations: {}
           )
@@ -108,7 +144,7 @@ module GobiertoAdmin
         end
 
         def ignored_custom_field_attributes
-          %w(created_at updated_at class_name site_id mandatory position vocabulary_id)
+          %w(created_at updated_at class_name site_id mandatory position vocabulary_id instance_type instance_id)
         end
 
         def find_custom_field

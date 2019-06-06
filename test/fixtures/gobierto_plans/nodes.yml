@@ -11,6 +11,7 @@ political_agendas:
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
   visibility_level: <%= GobiertoPlans::Node.visibility_levels['published'] %>
+  published_version: 1
 
 scholarships_kindergartens:
   name_translations: <%= { 'en' => 'Scholarships in kindergartens',

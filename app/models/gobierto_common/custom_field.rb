@@ -5,6 +5,7 @@ module GobiertoCommon
     include GobiertoCommon::Sortable
 
     belongs_to :site
+    belongs_to :instance, polymorphic: true
     has_many :records, dependent: :destroy, class_name: "CustomFieldRecord"
     validates :name, presence: true
 

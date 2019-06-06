@@ -6,12 +6,10 @@ en:
         back: Return
         title: Detalls de %{title}
       index:
-        about: What are service charters
         commitments:
           one: 1 indicator
           other: "%{count} indicators"
           zero: No indicators found
-        contact: Contact
         description_title: Information about the fulfillment of the commitments of
           the indicators %{of_the_organization_name}
         global_progress: Global compliance

@@ -13,7 +13,7 @@ class GobiertoAdmin::Moderation < ApplicationRecord
                 approved: 3,
                 rejected: 4 }
 
-  STAGES_FLOW = { not_sent: { sent: [:edit] },
+  STAGES_FLOW = { not_sent: { sent: [:edit, :moderate] },
                   sent: { in_review: [:moderate] },
                   in_review: { sent: [:moderate],
                                approved: [:moderate],

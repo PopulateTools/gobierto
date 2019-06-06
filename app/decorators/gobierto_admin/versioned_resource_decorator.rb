@@ -10,6 +10,10 @@ module GobiertoAdmin
       @has_versions ||= respond_to?(:paper_trail)
     end
 
+    def has_publication_status?
+      @has_publication_status ||= respond_to?(:visibility_level)
+    end
+
     def versions_count
       @versions_count ||= versions.length
     end
@@ -22,8 +26,32 @@ module GobiertoAdmin
       @current_version = last_version? ? versions_count : version.index
     end
 
+    def published_version_number
+      return nil unless has_publication_status? && published?
+
+      @published_version_number ||= live_version.published_version
+    end
+
     def last_version?
       @last_version ||= paper_trail.live?
+    end
+
+    def current_version_published?
+      published_version_number == current_version
+    end
+
+    def current_version_publication_status
+      current_version_published? ? :approved : :not_published
+    end
+
+    def published?
+      return false if new_record?
+
+      live_version.published?
+    end
+
+    def current_version_publication_step
+      current_version_published? ? :published : :publicable
     end
 
     def live_version

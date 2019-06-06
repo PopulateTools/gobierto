@@ -6,7 +6,11 @@ module GobiertoAdmin
 
       attr_accessor(
         :site_id,
-        :item
+        :item,
+        :instance,
+        :with_version,
+        :force_new_version,
+        :version_index
       )
 
       delegate :persisted?, to: :item
@@ -14,12 +18,15 @@ module GobiertoAdmin
       validates :site, presence: true
 
       def available_custom_fields
-        site.custom_fields.sorted.where(class_name: item.class.name)
+        site.custom_fields.sorted.where(class_name: item.class.name, instance_type: instance_type_options, instance_id: instance_id_options)
       end
 
       def custom_field_records
         @custom_field_records ||= available_custom_fields.map do |custom_field|
-          ::GobiertoCommon::CustomFieldRecordDecorator.new(site.custom_field_records.find_or_initialize_by(item: item, custom_field: custom_field))
+          record = site.custom_field_records.find_or_initialize_by(item: item, custom_field: custom_field)
+          record = record.versions[version_index].reify if version_index && !(record.versions.count + version_index).negative? && record.versions[version_index].reify.present?
+
+          ::GobiertoCommon::CustomFieldRecordDecorator.new(record)
         end
       end
 
@@ -66,7 +73,23 @@ module GobiertoAdmin
         save_custom_fields if valid?
       end
 
+      def changed?
+        custom_field_records.any?(&:changed?)
+      end
+
       private
+
+      def instance_type_options
+        return [nil] unless instance
+
+        [nil, instance.class.name]
+      end
+
+      def instance_id_options
+        return [nil] unless instance
+
+        [nil, instance.id]
+      end
 
       def site
         @site ||= Site.find_by(id: site_id || item.try(:site_id))
@@ -89,7 +112,10 @@ module GobiertoAdmin
 
       def save_custom_fields
         custom_field_records.each do |record|
-          unless record.save
+          record.item_has_versions = with_version
+
+          save_success = with_version && force_new_version && !changed? ? record.paper_trail.save_with_version : record.save
+          unless save_success
             promote_errors(record.errors)
             return false
           end

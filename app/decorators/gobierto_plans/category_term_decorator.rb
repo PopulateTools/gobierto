@@ -61,7 +61,8 @@ module GobiertoPlans
     end
 
     def nodes_data
-      nodes.map.with_index do |node, index|
+      CollectionDecorator.new(nodes.published, decorator: GobiertoPlans::ProjectDecorator).map.with_index do |node, index|
+        node = node.at_current_version
         { id: node.id,
           uid: uid + "." + index.to_s,
           type: "node",

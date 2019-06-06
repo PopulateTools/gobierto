@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_17_155844) do
+ActiveRecord::Schema.define(version: 2019_06_03_074757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -206,6 +206,9 @@ ActiveRecord::Schema.define(version: 2019_05_17_155844) do
     t.string "uid", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "instance_type"
+    t.bigint "instance_id"
+    t.index ["instance_type", "instance_id"], name: "index_custom_fields_on_instance_type_and_instance_id"
     t.index ["site_id", "uid", "class_name"], name: "index_custom_fields_on_site_id_and_uid_and_class_name", unique: true
     t.index ["site_id"], name: "index_custom_fields_on_site_id"
   end
@@ -876,9 +879,12 @@ ActiveRecord::Schema.define(version: 2019_05_17_155844) do
     t.datetime "updated_at", null: false
     t.integer "visibility_level", default: 0, null: false
     t.bigint "admin_id"
+    t.integer "published_version"
     t.bigint "status_id"
+    t.integer "position"
     t.index ["admin_id"], name: "index_gplan_nodes_on_admin_id"
     t.index ["name_translations"], name: "index_gplan_nodes_on_name_translations", using: :gin
+    t.index ["position"], name: "index_gplan_nodes_on_position"
     t.index ["status_id"], name: "index_gplan_nodes_on_status_id"
   end
 

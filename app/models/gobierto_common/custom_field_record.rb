@@ -25,6 +25,8 @@ module GobiertoCommon
       end
     end
 
+    attr_accessor :item_has_versions
+
     belongs_to :item, polymorphic: true
     belongs_to :custom_field
 
@@ -34,6 +36,8 @@ module GobiertoCommon
     scope :searchable, -> { joins(:custom_field).where(custom_fields: { field_type: CustomField.searchable_fields }) }
     scope :for_item, ->(item) { where(item: item) }
     scope :with_field_type, ->(field_type) { joins(:custom_field).where(custom_fields: { field_type: field_type }) }
+
+    has_paper_trail if: ->(this) { this.item_has_versions }
 
     delegate :value, :raw_value, :value=, :searchable_value, to: :value_processor
 

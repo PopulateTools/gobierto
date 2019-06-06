@@ -34,7 +34,7 @@ module GobiertoPlans
     end
 
     def nodes
-      Node.joins(categories: [:vocabulary]).where(terms: { vocabulary_id: categories_vocabulary&.id })
+      @nodes ||= Node.joins(categories: [:vocabulary]).where(terms: { vocabulary_id: categories_vocabulary&.id }).order(position: :asc, id: :asc)
     end
 
     def levels

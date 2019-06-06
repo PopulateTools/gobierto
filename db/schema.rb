@@ -879,8 +879,8 @@ ActiveRecord::Schema.define(version: 2019_06_03_074757) do
     t.datetime "updated_at", null: false
     t.integer "visibility_level", default: 0, null: false
     t.bigint "admin_id"
-    t.integer "published_version"
     t.bigint "status_id"
+    t.integer "published_version"
     t.integer "position"
     t.index ["admin_id"], name: "index_gplan_nodes_on_admin_id"
     t.index ["name_translations"], name: "index_gplan_nodes_on_name_translations", using: :gin

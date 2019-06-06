@@ -1,0 +1,10 @@
+---
+ca:
+  activerecord:
+    models:
+      gobierto_plans/node:
+        one: Projecte
+        other: Projectes
+      gobierto_plans/plan:
+        one: Pla
+        other: Plans

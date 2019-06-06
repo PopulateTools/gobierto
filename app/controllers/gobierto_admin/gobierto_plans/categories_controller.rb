@@ -6,6 +6,7 @@ module GobiertoAdmin
       skip_before_action :check_permissions!
 
       before_action -> { module_allowed_action!(current_admin, current_admin_module, :manage) }
+      before_action :set_leaf_terms
       after_action :expire_plan_cache, only: [:update]
 
       helper_method :current_admin_actions
@@ -82,6 +83,22 @@ module GobiertoAdmin
         term = current_site.terms.find(params[:id])
         vocabulary = term.vocabulary
         current_site.plans.where(vocabulary_id: vocabulary.id).or(current_site.plans.where(statuses_vocabulary_id: vocabulary.id)).each(&:touch)
+      end
+
+      def set_leaf_terms
+        if params[:id]
+          find_term
+          @leaf_terms = leaf_terms_for_select(@vocabulary.terms)
+        end
+      end
+
+      def leaf_terms_for_select(relation)
+        max_level = relation.pluck(:level).max
+        if @term.level == max_level
+          relation.where("level <> ?", @term.level - 1).pluck(:id)
+        else
+          relation.where("level >= ?", @term.level).pluck(:id)
+        end
       end
     end
   end

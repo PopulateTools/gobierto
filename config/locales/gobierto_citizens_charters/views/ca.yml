@@ -6,12 +6,10 @@ ca:
         back: Tornar
         title: Details of %{title}
       index:
-        about: Què són les cartes de serveis
         commitments:
           one: 1 indicador
           other: "%{count} indicadors"
           zero: No hi ha indicadors
-        contact: Contacte
         description_title: Informació sobre el compliment dels compromisos dels indicadors
           %{of_the_organization_name}
         global_progress: Compliment global

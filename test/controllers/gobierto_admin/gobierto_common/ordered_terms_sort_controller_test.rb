@@ -50,6 +50,10 @@ module GobiertoAdmin
           @vocabulary ||= gobierto_common_vocabularies(:animals)
         end
 
+        def node
+          @node = gobierto_plans_nodes(:scholarships_kindergartens)
+        end
+
         def setup
           super
           sign_in_admin(admin)
@@ -63,19 +67,13 @@ module GobiertoAdmin
         def valid_sort_params
           {
             positions: {
-              "0" => [ mammal.id, bird.id ],
-              mammal.id.to_s => [ cat.id, dog.id, swift.id],
-              bird.id.to_s => [ pigeon.id ]
-            }
-          }
-        end
-
-        def valid_sort_params_update_parent
-          {
-            positions: {
-              "0" => [ mammal.id, swift.id, bird.id ],
-              mammal.id.to_s => [ cat.id, dog.id ],
-              bird.id.to_s => [ pigeon.id ]
+              "0" => { id: mammal.id, position: 0, class: "GobiertoCommon::Term" },
+              "1" => { id: bird.id, position: 1, class: "GobiertoCommon::Term" },
+              "2" => { id: cat.id, position: 0, class: "GobiertoCommon::Term" },
+              "3" => { id: dog.id, position: 1, class: "GobiertoCommon::Term" },
+              "4" => { id: swift.id, position: 2, class: "GobiertoCommon::Term" },
+              "5" => { id: pigeon.id, position: 0, class: "GobiertoCommon::Term" },
+              "6" => { id: node.id, position: 33, class: "GobiertoPlans::Node" }
             }
           }
         end
@@ -99,40 +97,13 @@ module GobiertoAdmin
             dog.reload
             swift.reload
             pigeon.reload
+            node.reload
 
             assert_equal 0, cat.position
             assert_equal 1, dog.position
             assert_equal 2, swift.position
-            assert_equal mammal, swift.parent_term
             assert_equal 0, pigeon.position
-          end
-        end
-
-        # Test new positions
-        # - mammal
-        #   - cat
-        #   - dog
-        # - swift
-        # - bird
-        #   - pigeon
-        def test_order_update_moving_element_to_other_parent
-          with_current_site(site) do
-            assert_equal 0, dog.position
-            assert_equal 1, cat.position
-
-            post admin_common_vocabulary_terms_sort_url(vocabulary), params: valid_sort_params_update_parent
-            assert_response :no_content
-
-            cat.reload
-            dog.reload
-            swift.reload
-            pigeon.reload
-
-            assert_equal 0, cat.position
-            assert_equal 1, dog.position
-            assert_equal 1, swift.position
-            assert_nil swift.parent_term
-            assert_equal 0, pigeon.position
+            assert_equal 33, node.position
           end
         end
       end

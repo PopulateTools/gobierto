@@ -13,6 +13,8 @@ module GobiertoAdmin
       )
 
       attr_writer(
+        :instance_class_name,
+        :instance_id,
         :options,
         :uid,
         :vocabulary_id,
@@ -22,6 +24,7 @@ module GobiertoAdmin
       delegate :persisted?, :has_vocabulary?, to: :custom_field
 
       validates :name_translations, :site, :klass, :field_type, presence: true
+      validate :instance_type_is_enabled
 
       def custom_field
         @custom_field ||= custom_fields_relation.find_by(id: id) || build_custom_field
@@ -39,8 +42,28 @@ module GobiertoAdmin
         @class_name ||= custom_field.class_name || resource_name&.tr("-", "/")&.camelize
       end
 
+      def instance_class_name
+        @instance_class_name ||= parameterize(custom_field.instance_type)
+      end
+
+      def instance_type
+        @instance_type ||= instance_class_name&.tr("-", "/")&.camelize || custom_field.instance_type
+      end
+
+      def instance
+        @instance ||= instance_class&.find_by(id: instance_id) || custom_field.instance
+      end
+
+      def instance_id
+        @instance_id ||= custom_field.instance_id
+      end
+
       def resource_param
-        class_name.underscore.tr("/", "-")
+        parameterize(class_name)
+      end
+
+      def instance_type_param
+        parameterize(instance_class_name)
       end
 
       def human_class_name
@@ -97,6 +120,12 @@ module GobiertoAdmin
 
       private
 
+      def instance_type_is_enabled
+        return if instance.blank? || classes_with_custom_fields_at_instance_level.include?(instance_class)
+
+        errors.add(:instance_class_name, I18n.t("errors.messages.invalid"))
+      end
+
       def save_custom_field
         @custom_field = custom_field.tap do |attributes|
           attributes.site_id = site_id
@@ -105,12 +134,17 @@ module GobiertoAdmin
           attributes.field_type = field_type
           attributes.options = options
           attributes.uid = uid
+          attributes.instance = instance
         end
 
         return @custom_field if @custom_field.save
 
         promote_errors(@custom_field.errors)
         false
+      end
+
+      def parameterize(name)
+        name&.underscore&.tr("/", "-")
       end
 
       def klass
@@ -125,12 +159,29 @@ module GobiertoAdmin
                    end
       end
 
+      def instance_class
+        @instance_class ||= begin
+                              return unless instance_type
+
+                              klass = instance_type.constantize
+                              return unless classes_with_custom_fields_at_instance_level.include? klass
+
+                              klass
+                            rescue NameError
+                              nil
+                            end
+      end
+
       def custom_fields_relation
         site ? site.custom_fields : ::GobiertoCommon::CustomField.none
       end
 
       def site
         @site ||= Site.find_by(id: site_id)
+      end
+
+      def classes_with_custom_fields_at_instance_level
+        @classes_with_custom_fields_at_instance_level ||= class_name.deconstantize.constantize.try(:classes_with_custom_fields_at_instance_level) || []
       end
     end
   end

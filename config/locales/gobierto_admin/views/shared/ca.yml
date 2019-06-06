@@ -38,7 +38,11 @@ ca:
           not_sent: Quan el teu contingut estigui llest per a ser revisat per un moderador,
             fes click a Enviar.
           publicable: Fes click a Publicar perquè aquesta versió sigui visible públicament.
-          published: La versió està publicada.
+          publicable_html: Fes click a Publicar perquè aquesta versió sigui visible
+            públicament.
+          published: La versió actual és la que està publicada.
+          published_html: La versió actual és la que està publicada. <a rel="nofollow"
+            data-method="post" href="%{url}">Despublicar</a>.
           rejected: La versió està rebutjada.
           sent: El teu contingut ha estat enviat per a revisió. Rebràs una notificació
             quan s'aprovi o et demanin canvis.

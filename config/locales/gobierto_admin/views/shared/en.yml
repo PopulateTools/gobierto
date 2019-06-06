@@ -38,7 +38,10 @@ en:
           not_sent: When your content is ready to be reviewed by a moderator, click
             on Send.
           publicable: Click on Publish to make this version publicly visible.
-          published: Version published.
+          publicable_html: Click on Publish to make this version publicly visible.
+          published: Current version is the published one.
+          published_html: Current version is the published one. <a rel="nofollow"
+            data-method="post" href="%{url}">Unpublish</a>.
           rejected: Version rejected.
           sent: Your content has been sent for review. You will receive a notification
             if it is approved or you are asked for changes.

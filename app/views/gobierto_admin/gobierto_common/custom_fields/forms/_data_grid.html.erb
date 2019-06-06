@@ -1,0 +1,8 @@
+<div class="<%= record.class_names %>">
+  <div class="form_item_data_grid">
+    <%= label_tag "#{ input_base_name }[#{ record.uid }][value]" do %>
+      <%= record.custom_field.name %>
+      <%= attribute_indication_tag required: record.required? %>
+    <% end %>
+  </div>
+</div>

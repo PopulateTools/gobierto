@@ -3,7 +3,7 @@
 module GobiertoCommon::CustomFieldValue
   class VocabularyOptions < Base
     def value
-      vocabulary.terms.find_by(id: raw_value)
+      vocabulary.terms.where(id: raw_value)
     end
 
     def value=(value)

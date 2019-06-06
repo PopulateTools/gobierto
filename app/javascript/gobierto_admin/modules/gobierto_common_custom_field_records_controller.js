@@ -7,6 +7,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
     for (let image_field of options.image_fields) {
       _cropImage(image_field)
     }
+    _handleSelectBehaviors()
   }
 
   function _cropImage(image_field) {
@@ -90,6 +91,13 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
         }
       };
     };
+  }
+
+  function _handleSelectBehaviors() {
+    $("[data-behavior=multiple_select]").select2()
+
+    // This should be controlled via css
+    $(".select2-container").css("padding-top", "22px");
   }
 
   return GobiertoCommonCustomFieldRecordsController;

@@ -16,10 +16,12 @@ module GobiertoAdmin
         :instance_class_name,
         :instance_id,
         :options,
-        :uid
+        :uid,
+        :vocabulary_id,
+        :vocabulary_type
       )
 
-      delegate :persisted?, to: :custom_field
+      delegate :persisted?, :has_vocabulary?, to: :custom_field
 
       validates :name_translations, :site, :klass, :field_type, presence: true
       validate :instance_type_is_enabled
@@ -72,8 +74,18 @@ module GobiertoAdmin
         ::GobiertoCommon::CustomField.field_types
       end
 
+      def available_vocabulary_options
+        ::GobiertoCommon::CustomField.available_options
+      end
+
       def options
-        @options ||= options_translations ? options_translations.except("new_option") : {}
+        @options ||= {}.tap do |opts|
+          opts.merge!(options_translations.except("new_option")) if has_options? && options_translations
+          if has_vocabulary?
+            opts[:vocabulary_id] = vocabulary_id if vocabulary_id
+            opts[:configuration] = (opts[:configuration] || {}).merge(vocabulary_type: vocabulary_type) if vocabulary_type.present?
+          end
+        end
       end
 
       def uid
@@ -84,10 +96,26 @@ module GobiertoAdmin
         @types_with_options ||= ::GobiertoCommon::CustomField.field_types_with_options.keys
       end
 
+      def types_with_vocabulary
+        @types_with_vocabulary ||= ::GobiertoCommon::CustomField.field_types_with_vocabulary.keys
+      end
+
+      def has_options?
+        @has_options ||= !has_vocabulary? && custom_field.has_options?
+      end
+
       def valid_resource_name?
         klass.present?
       rescue NameError
         false
+      end
+
+      def vocabulary_id
+        @vocabulary_id ||= custom_field.vocabulary_id
+      end
+
+      def vocabulary_type
+        @vocabulary_type ||= custom_field.configuration.dig("vocabulary_type") || :single_select
       end
 
       private

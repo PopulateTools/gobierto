@@ -8,7 +8,6 @@ es:
             instance_title: Editar %{field_name} de %{instance_name}
             title: Editar %{name}
           form:
-            add_option: Añadir opción
             confirm: "¿Estás seguro?"
             crop: Recortar
           index:
@@ -24,6 +23,14 @@ es:
             cancel_new_option: Cancelar
             create: Crear opción
             new: Nueva opción
+          options_form:
+            add_option: Añadir opción
+          vocabulary_select:
+            multiple_select: Selección múltiple
+            single_select: Selección única
+            tags: Tags
+            type: Tipo
+            vocabulary: Vocabulario de opciones
         module_resources:
           index:
             custom_fields_for_instances_of: Campos personalizados para instancias

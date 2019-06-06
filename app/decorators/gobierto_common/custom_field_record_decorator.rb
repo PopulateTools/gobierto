@@ -52,17 +52,22 @@ module GobiertoCommon
         partial: "image",
         tag_attributes: {}
       },
+      vocabulary_options: {
+        class_names: "form_item select_control",
+        field_tag: :select_tag,
+        partial: "item",
+        tag_attributes: {}
+      },
       data_grid: {
         class_names: "form_item file_field avatar_file_field",
         field_tag: :hidden_field_tag,
         partial: "data_grid",
-        tag_attributes: {}
       }
     }.freeze
 
     attr_accessor :site
 
-    delegate :name, :field_type, :options, :uid, :required?, :has_options?, :has_localized_value?, to: :custom_field
+    delegate :name, :field_type, :options, :uid, :required?, :has_options?, :has_localized_value?, :has_vocabulary?, to: :custom_field
 
     def initialize(record)
       @object = record
@@ -84,7 +89,14 @@ module GobiertoCommon
 
     def input_content
       if has_options?
-        ApplicationController.helpers.options_for_select(custom_field.localized_options(I18n.locale), payload.present? && payload[uid])
+        if has_vocabulary?
+          ApplicationController.helpers.options_for_select(
+            VocabularyDecorator.new(custom_field.vocabulary).terms_for_select,
+            value&.id
+          )
+        else
+          ApplicationController.helpers.options_for_select(custom_field.localized_options(I18n.locale), payload.present? && payload[uid])
+        end
       else
         has_localized_value? ? raw_value : value
       end

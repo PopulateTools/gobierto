@@ -38,7 +38,7 @@
             <h4><%= f.object.class.human_attribute_name(:field_type) %></h4>
             <%= f.collection_radio_buttons(:field_type, @custom_field_form.available_field_types, :first, :first) do |b| %>
               <div class="option">
-                <%= b.radio_button(data: { has_options: @types_with_options.include?(b.text) }) %>
+                <%= b.radio_button(data: { has_options: @types_with_options.include?(b.text), has_vocabulary: @types_with_vocabulary.include?(b.text) }) %>
                 <%= b.label do %>
                   <span></span>
                   <%= f.object.class.human_attribute_name(b.text) %>
@@ -50,32 +50,18 @@
       </div>
 
       <div class="form_block">
-        <%= content_tag :div,
-          class: "form_item",
-          id: "options",
-          style: GobiertoCommon::CustomField.field_types_with_options.keys.include?(@custom_field_form.field_type) ? nil : "display: none;" do %>
-
-          <h4 class="options compact"><%= f.object.class.human_attribute_name(:options) %></h4>
-
-          <div id="options-list">
-            <% @custom_field_form.options.each do |key, translations| %>
-              <%= render "option", key: key, translations: translations  %>
-            <% end %>
-          </div>
-
-          <%= content_tag :span,
-            id: "new-option-form",
-            style: "display: none;" do %>
-            <%= render "new_option" %>
+        <div class="form_item">
+          <%= content_tag :div,
+                id: "vocabulary",
+                style: @custom_field_form.has_vocabulary? ? nil : "display: none;" do %>
+            <%= render partial: "vocabulary_select", locals: { f: f } %>
           <% end %>
-
-          <div class="m_2" id="add-option">
-            <%= link_to "#", data: { behavior: "new_option" } do %>
-              <i class="fas fa-plus-circle"></i>
-              <%= t(".add_option") %>
-            <% end %>
-          </div>
-        <% end %>
+          <%= content_tag :div,
+                id: "options",
+                style: @custom_field_form.has_options? ? nil : "display: none;" do %>
+            <%= render partial: "options_form", locals: { f: f } %>
+          <% end %>
+        </div>
       </div>
 
     </div>

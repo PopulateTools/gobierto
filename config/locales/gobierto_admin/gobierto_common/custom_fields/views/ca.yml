@@ -8,7 +8,6 @@ ca:
             instance_title: Edita %{field_name} de %{instance_name}
             title: Edita %{name}
           form:
-            add_option: Afegir opció
             confirm: Estàs segur?
             crop: Retallar
           index:
@@ -24,6 +23,14 @@ ca:
             cancel_new_option: Cancel·lar
             create: Crear opció
             new: Nova opció
+          options_form:
+            add_option: Afegir opció
+          vocabulary_select:
+            multiple_select: Selecció múltiple
+            single_select: Selecció única
+            tags: Tags
+            type: Tipus
+            vocabulary: Vocabulari d'opcions
         module_resources:
           index:
             custom_fields_for_instances_of: Camps personalitzats per a instàncies

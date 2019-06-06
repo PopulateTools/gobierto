@@ -17,7 +17,8 @@ module GobiertoCommon
                        multiple_options: 5,
                        color: 6,
                        image: 7,
-                       data_grid: 8 }
+                       data_grid: 8,
+                       vocabulary_options: 9 }
 
     scope :sorted, -> { order(position: :asc) }
     scope :localized, -> { where(field_type: [:localized_string, :localized_paragraph]) }
@@ -32,6 +33,14 @@ module GobiertoCommon
       field_types.select { |key, _| /option/.match(key) }
     end
 
+    def self.field_types_with_vocabulary
+      field_types.select { |key, _| /vocabulary/.match(key) }
+    end
+
+    def self.available_options
+      [:single_select, :multiple_select, :tags]
+    end
+
     def long_text?
       /paragraph/.match field_type
     end
@@ -44,6 +53,10 @@ module GobiertoCommon
       /option/.match field_type
     end
 
+    def has_vocabulary?
+      /vocabulary/.match field_type
+    end
+
     def has_localized_value?
       /localized/.match field_type
     end
@@ -52,6 +65,20 @@ module GobiertoCommon
       options.map do |id, translations|
         [translations[locale.to_s], id]
       end
+    end
+
+    def vocabulary_id
+      return unless has_vocabulary? && options.present?
+
+      options.dig "vocabulary_id"
+    end
+
+    def vocabulary
+      site.vocabularies.find_by(id: vocabulary_id)
+    end
+
+    def configuration
+      (options || {}).dig("configuration") || {}
     end
 
     private

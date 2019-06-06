@@ -8,7 +8,6 @@ en:
             instance_title: Edit %{field_name} of %{instance_name}
             title: Edit %{name}
           form:
-            add_option: Add option
             confirm: Are you sure?
             crop: Crop
           index:
@@ -24,6 +23,14 @@ en:
             cancel_new_option: Cancel
             create: Create option
             new: New option
+          options_form:
+            add_option: Add option
+          vocabulary_select:
+            multiple_select: Multiple select
+            single_select: Single select
+            tags: Tags
+            type: Type
+            vocabulary: Options vocabulary
         module_resources:
           index:
             custom_fields_for_instances_of: Custom fields for instances of %{name}

@@ -1,0 +1,20 @@
+<h4 class="options compact"><%= f.object.class.human_attribute_name(:options) %></h4>
+
+<div id="options-list">
+  <% @custom_field_form.options.each do |key, translations| %>
+    <%= render "option", key: key, translations: translations  %>
+  <% end %>
+</div>
+
+<%= content_tag :span,
+  id: "new-option-form",
+  style: "display: none;" do %>
+  <%= render "new_option" %>
+<% end %>
+
+<div class="m_2" id="add-option">
+  <%= link_to "#", data: { behavior: "new_option" } do %>
+    <i class="fas fa-plus-circle"></i>
+    <%= t(".add_option") %>
+  <% end %>
+</div>

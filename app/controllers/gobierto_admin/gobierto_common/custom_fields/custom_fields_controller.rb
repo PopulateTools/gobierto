@@ -31,6 +31,7 @@ module GobiertoAdmin
           )
           @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
           @types_with_options = @custom_field_form.types_with_options
+          @types_with_vocabulary = @custom_field_form.types_with_vocabulary
         end
 
         def create
@@ -46,6 +47,7 @@ module GobiertoAdmin
             )
           else
             @types_with_options = @custom_field_form.types_with_options
+            @types_with_vocabulary = @custom_field_form.types_with_vocabulary
             @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
             render :new
           end
@@ -63,6 +65,7 @@ module GobiertoAdmin
           @custom_field_form = form_class.new(@custom_field.attributes.except(*ignored_custom_field_attributes).merge(site_id: current_site.id))
           @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
           @types_with_options = @custom_field_form.types_with_options
+          @types_with_vocabulary = @custom_field_form.types_with_vocabulary
         end
 
         def update
@@ -80,6 +83,7 @@ module GobiertoAdmin
             )
           else
             @types_with_options = @custom_field_form.types_with_options
+            @types_with_vocabulary = @custom_field_form.types_with_vocabulary
             @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
             render :edit
           end
@@ -122,6 +126,8 @@ module GobiertoAdmin
           params.require(:custom_field).permit(
             :field_type,
             :uid,
+            :vocabulary_id,
+            :vocabulary_type,
             :instance_class_name,
             :instance_id,
             name_translations: [*I18n.available_locales],
@@ -138,7 +144,7 @@ module GobiertoAdmin
         end
 
         def ignored_custom_field_attributes
-          %w(created_at updated_at class_name site_id mandatory position instance_type instance_id)
+          %w(created_at updated_at class_name site_id mandatory position vocabulary_id instance_type instance_id)
         end
 
         def find_custom_field

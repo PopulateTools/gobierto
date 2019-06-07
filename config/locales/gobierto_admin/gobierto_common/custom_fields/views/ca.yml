@@ -25,6 +25,8 @@ ca:
             new: Nova opció
           options_form:
             add_option: Afegir opció
+          plugin:
+            type: Tipus
           vocabulary_select:
             multiple_select: Selecció múltiple
             single_select: Selecció única

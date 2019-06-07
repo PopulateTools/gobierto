@@ -25,6 +25,8 @@ es:
             new: Nueva opción
           options_form:
             add_option: Añadir opción
+          plugin:
+            type: Tipo
           vocabulary_select:
             multiple_select: Selección múltiple
             single_select: Selección única

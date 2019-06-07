@@ -67,7 +67,7 @@ module Gobierto
     config.gobierto_engines_themes = {}
 
     # custom field plugins
-    config.custom_field_plugins = [:dummy]
+    config.custom_field_plugins = [:data_grid, :dummy]
 
     base_engines_path = %w(vendor gobierto_engines)
     available_engines = Dir.chdir(config.root.join(*base_engines_path)) do

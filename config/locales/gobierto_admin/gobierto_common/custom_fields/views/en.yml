@@ -26,6 +26,7 @@ en:
           options_form:
             add_option: Add option
           plugin:
+            data_grid: Data grid
             dummy: Dummy test type
             type: Type
           vocabulary_select:

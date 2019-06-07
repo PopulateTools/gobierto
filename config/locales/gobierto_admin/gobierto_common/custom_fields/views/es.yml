@@ -26,6 +26,7 @@ es:
           options_form:
             add_option: Añadir opción
           plugin:
+            data_grid: Tabla de datos
             dummy: Tipo de pruebas
             type: Tipo
           vocabulary_select:

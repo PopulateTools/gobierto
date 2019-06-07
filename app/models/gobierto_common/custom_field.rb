@@ -18,7 +18,8 @@ module GobiertoCommon
                        color: 6,
                        image: 7,
                        data_grid: 8,
-                       vocabulary_options: 9 }
+                       vocabulary_options: 9,
+                       plugin: 10 }
 
     scope :sorted, -> { order(position: :asc) }
     scope :localized, -> { where(field_type: [:localized_string, :localized_paragraph]) }

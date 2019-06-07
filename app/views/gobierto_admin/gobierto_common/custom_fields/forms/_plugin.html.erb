@@ -1,0 +1,13 @@
+<div class="<%= record.class_names %> <%= record.custom_field.configuration["plugin_type"] %>" id="<%= "custom_field_#{ record.uid }" %>" data-uid="<%= record.uid %>">
+  <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
+  <div class="custom_field_value">
+    <%= send(record.field_tag, "#{ input_base_name }[#{ record.uid }][value]", record.input_content, record.tag_attributes) %>
+    <div class="data-container"></div>
+  </div>
+</div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    <%== "window.GobiertoAdmin.gobierto_common_custom_field_records_#{record.custom_field.configuration["plugin_type"]}_plugin_controller.form({ uid: '#{record.uid}' })" %>
+  <% end %>
+<% end %>

@@ -131,20 +131,6 @@ module GobiertoAdmin
         moderation_policy.moderate? ? @moderation_visibility_level : nil
       end
 
-      def indicators
-        @indicators ||= node.indicators
-      end
-
-      def indicators=(indicators_param)
-        @indicators = indicators_param.map do |indicator_id, content|
-          next if content.blank?
-
-          node.indicators.find(indicator_id).tap do |indicator|
-            indicator.value = JSON.parse(content)
-          end
-        end.compact
-      end
-
       def status_id
         return unless statuses_vocabulary && statuses_vocabulary.terms.where(id: @status_id).exists?
 
@@ -242,10 +228,6 @@ module GobiertoAdmin
 
         if @node.valid?
           force_new_version && !attributes_updated? ? @node.paper_trail.save_with_version : @node.save
-
-          indicators.each do |indicator|
-            indicator.save if indicator.changed?
-          end
 
           if allow_edit_attributes? && !@node.categories.include?(category)
             @node.categories.where(vocabulary: plan.categories_vocabulary).each do |plan_category|

@@ -118,9 +118,6 @@ es:
           new: Nuevo
           title: Proyectos de %{name}
           view: Ver item
-        indicators:
-          items: Ítems
-          status: Estado
         new:
           title: Nuevo proyecto
       shared:

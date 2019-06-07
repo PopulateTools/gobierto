@@ -26,6 +26,7 @@ es:
           options_form:
             add_option: Añadir opción
           plugin:
+            dummy: Tipo de pruebas
             type: Tipo
           vocabulary_select:
             multiple_select: Selección múltiple

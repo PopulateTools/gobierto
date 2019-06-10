@@ -1,1 +1,0 @@
-/Users/fernando/proyectos/gobierto/vendor/gobierto_engines/custom-fields-data-grid-plugin/app/javascripts/packs/custom_fields_data_grid_plugin.js

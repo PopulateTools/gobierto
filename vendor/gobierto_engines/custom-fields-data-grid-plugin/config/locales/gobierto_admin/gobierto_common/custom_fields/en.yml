@@ -1,0 +1,8 @@
+---
+en:
+  gobierto_admin:
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          plugin:
+            data_grid: Data grid

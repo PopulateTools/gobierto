@@ -26,8 +26,6 @@ ca:
           options_form:
             add_option: Afegir opció
           plugin:
-            data_grid: Taula de dades
-            dummy: Tipus de proves
             type: Tipus
           vocabulary_select:
             multiple_select: Selecció múltiple

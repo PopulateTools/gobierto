@@ -120,7 +120,7 @@ class ActionDispatch::IntegrationTest
   include FileUploaderHelpers
   include GobiertoPeople::SubmodulesHelper
 
-  Capybara.javascript_driver = :headless_chrome
+  Capybara.javascript_driver = (ENV["INTEGRATION_TEST_DRIVER"] || :headless_chrome).to_sym
   Capybara.default_host = "http://gobierto.test"
 
   self.use_transactional_tests = true

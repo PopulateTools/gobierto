@@ -35,7 +35,7 @@ module GobiertoCommon
     end
 
     def self.field_types_with_vocabulary
-      field_types.select { |key, _| /vocabulary/.match(key) }
+      field_types.select { |key, _| /vocabulary/.match(key) || key == "plugin" }
     end
 
     def self.available_options
@@ -51,15 +51,16 @@ module GobiertoCommon
     end
 
     def has_options?
-      /option/.match field_type
+      /option/.match?(field_type)
     end
 
+    # TODO: the plugin itself should declare if it needs a vocabulary
     def has_vocabulary?
-      /vocabulary/.match field_type
+      /vocabulary/.match?(field_type) || options&.dig(*%w(configuration plugin_type)) == "data_grid"
     end
 
     def has_localized_value?
-      /localized/.match field_type
+      /localized/.match?(field_type)
     end
 
     def localized_options(locale)

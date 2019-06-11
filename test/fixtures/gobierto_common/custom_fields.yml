@@ -73,3 +73,16 @@ madrid_node_instance_level:
   name_translations: <%= { en: "Goals custom", es: "Objetivos custom" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:localized_string] %>
   uid: goals
+
+madrid_custom_field_indicators_plugin:
+  site: madrid
+  class_name: GobiertoPlans::Node
+  mandatory: false
+  position: 0
+  name_translations: <%= { en: "Indicator", es: "Indicador" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
+  uid: indicators
+  options: <%= {
+    configuration: { plugin_type: "data_grid" },
+    vocabulary_id: ActiveRecord::FixtureSet.identify(:indicators_vocabulary)
+  }.to_json %>

@@ -11,6 +11,11 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
       $("div.configuration .form_item").children("div").hide();
       if ($(this).data().hasVocabulary) {
         $("#vocabulary").show();
+        if ($(this).data().type !== "plugin") {
+          $("#vocabulary_type").show();
+        } else {
+          $("#vocabulary_type").hide();
+        }
       } else if ($(this).data().hasOptions) {
         $("#options").show();
       } else if ($(this).data().type) {

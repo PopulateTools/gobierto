@@ -43,6 +43,11 @@ new_plan_categories_vocabulary:
   name_translations: <%= { es: "Nuevo Plan Estratégico", en: "New Strategic Plan" }.to_json %>
   slug: strategic-plan
 
+indicators_vocabulary:
+  site: madrid
+  name_translations: <%= { es: "Vocabulario de Indicadores de Madrid", en: "Madrid Indicators Vocabulary" }.to_json %>
+  slug: indicators-vocabulary
+
 santander_vocabulary:
   site: santander
   name_translations: <%= { es: "Vocabulario Santander", en: "Santander Vocabulary" }.to_json %>

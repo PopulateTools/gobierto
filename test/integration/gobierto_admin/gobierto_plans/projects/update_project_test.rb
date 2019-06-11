@@ -63,6 +63,12 @@ module GobiertoAdmin
               item_has_versions: true
             )
           )
+          ::GobiertoCommon::CustomFieldRecord.create(
+            gobierto_common_custom_field_records(:political_agendas_indicators_custom_field_record).attributes.except("id", "item_id").merge(
+              item_id: unpublished_project.id,
+              item_has_versions: true
+            )
+          )
         end
 
         def preview_test_conf

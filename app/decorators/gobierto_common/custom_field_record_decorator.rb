@@ -84,6 +84,10 @@ module GobiertoCommon
       object.custom_field
     end
 
+    def payload
+      object.payload
+    end
+
     def required?
       custom_field.mandatory
     end

@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PluginTest < ActionDispatch::IntegrationTest
+class IndicatorsPluginTest < ActionDispatch::IntegrationTest
 
   def site
     @site ||= sites(:madrid)

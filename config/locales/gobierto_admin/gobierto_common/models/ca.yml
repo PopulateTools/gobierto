@@ -9,9 +9,10 @@ ca:
         slug: URL
         title: Títol
       gobierto_admin/gobierto_common/custom_field_form:
-        data_grid: Taula de dades
         field_type: Tipus de camp
+        human_resources: Recursos Humans
         image: Imatge
+        indicators: Indicadors
         localized_paragraph: Text llarg
         localized_string: Text (línia)
         multiple_options: Selecció múltiple

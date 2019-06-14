@@ -366,3 +366,19 @@ indicators_net_savings:
   slug: indicators-net-savings
   level: 0
   position: 1
+
+## human_resources_vocabulary
+
+human_resources_supervisor:
+  vocabulary: human_resources_vocabulary
+  name_translations: <%= { en: "Supervisor", es: "Supervisor" }.to_json %>
+  slug: human-resources-supervisor
+  level: 0
+  position: 0
+
+human_resources_employee:
+  vocabulary: human_resources_vocabulary
+  name_translations: <%= { en: "Employee", es: "Empleado" }.to_json %>
+  slug: human-resources-employee
+  level: 0
+  position: 1

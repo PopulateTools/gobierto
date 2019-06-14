@@ -68,6 +68,7 @@ module Gobierto
 
     # Custom field plugins
     config.custom_field_plugins = []
+    config.custom_field_plugins_packs = []
 
     base_engines_path = %w(vendor gobierto_engines)
     available_engines = Dir.chdir(config.root.join(*base_engines_path)) do

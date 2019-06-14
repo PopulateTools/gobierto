@@ -56,7 +56,8 @@ module GobiertoCommon
 
     # TODO: the plugin itself should declare if it needs a vocabulary
     def has_vocabulary?
-      /vocabulary/.match?(field_type) || options&.dig(*%w(configuration plugin_type)) == "data_grid"
+      /vocabulary/.match?(field_type) ||
+        %w(indicators human_resources).include?(options&.dig(*%w(configuration plugin_type)))
     end
 
     def has_localized_value?

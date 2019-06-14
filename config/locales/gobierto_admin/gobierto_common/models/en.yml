@@ -9,9 +9,10 @@ en:
         slug: URL
         title: Title
       gobierto_admin/gobierto_common/custom_field_form:
-        data_grid: Data grid
         field_type: Type of field
+        human_resources: Human Resources
         image: Image
+        indicators: Indicators
         localized_paragraph: Long text
         localized_string: Text (line)
         multiple_options: Multiple selections

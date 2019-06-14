@@ -5,4 +5,5 @@ ca:
       custom_fields:
         custom_fields:
           plugin:
-            data_grid: Taula de dades
+            indicators: Indicadors
+            human_resources: Recursos Humans

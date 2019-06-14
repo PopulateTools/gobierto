@@ -5,4 +5,5 @@ es:
       custom_fields:
         custom_fields:
           plugin:
-            data_grid: Tabla de datos
+            indicators: Indicadores
+            human_resources: Recursos Humanos

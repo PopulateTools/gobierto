@@ -1,4 +1,4 @@
-<div id="vocabulary_type" style="<%= @custom_field_form.custom_field.configuration["plugin_type"] == "data_grid" ? "display: none;" : nil %>">
+<div id="vocabulary_type" style="<%= %w(indicators human_resources).include?(@custom_field_form.custom_field.configuration["plugin_type"]) ? "display: none;" : nil %>">
 <h4 class="options compact"><%= t(".type") %></h4>
 <%= f.collection_radio_buttons("vocabulary_type", @custom_field_form.available_vocabulary_options, :itself, :itself) do |b| %>
   <div class="option">

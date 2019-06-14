@@ -5,13 +5,13 @@ const defaultStartYear = 2018;
 const defaultStartMonth = 12;
 const defaultDateColumnsCount = 3;
 
-window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsDataGridPluginController = (function() {
+window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController = (function() {
 
-  function GobiertoCommonCustomFieldRecordsDataGridPluginController() {}
+  function GobiertoCommonCustomFieldRecordsIndicatorsPluginController() {}
 
   var grid;
 
-  GobiertoCommonCustomFieldRecordsDataGridPluginController.prototype.form = function(opts = {}) {
+  GobiertoCommonCustomFieldRecordsIndicatorsPluginController.prototype.form = function(opts = {}) {
     _handlePluginData(opts.uid);
   };
 
@@ -242,7 +242,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsDataGridPluginController = 
 
     _initializeGrid(id, data, columns, options);
   }
-  return GobiertoCommonCustomFieldRecordsDataGridPluginController;
+  return GobiertoCommonCustomFieldRecordsIndicatorsPluginController;
 })();
 
-window.GobiertoAdmin.gobierto_common_custom_field_records_data_grid_plugin_controller = new GobiertoAdmin.GobiertoCommonCustomFieldRecordsDataGridPluginController;
+window.GobiertoAdmin.gobierto_common_custom_field_records_indicators_plugin_controller = new GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController;

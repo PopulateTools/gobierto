@@ -10,6 +10,7 @@ The purpose of this engine is to define new plugins or override existing ones, u
 ```ruby
   Rails.application.config.tap do |conf|
     conf.custom_field_plugins += ["test"]
+    conf.custom_field_plugins_packs += ["test"]
   end
 ```
 
@@ -47,4 +48,3 @@ Contribution directions go here.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-

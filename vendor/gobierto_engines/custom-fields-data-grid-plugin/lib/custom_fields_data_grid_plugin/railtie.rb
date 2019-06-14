@@ -8,7 +8,8 @@ else
     class Railtie < Rails::Railtie
       base_path = File.join(File.dirname(__FILE__), "../..")
       Rails.application.config.tap do |conf|
-        conf.custom_field_plugins += ["data_grid"]
+        conf.custom_field_plugins += %w(indicators human_resources)
+        conf.custom_field_plugins_packs += %w(data_grid)
         conf.i18n.load_path += Dir[File.join(base_path, 'config', 'locales', '**', '*.{rb,yml}')]
       end
       Webpacker::Compiler.watched_paths << "app/javascript/plugin/**/*.js"
@@ -16,4 +17,3 @@ else
     end
   end
 end
-

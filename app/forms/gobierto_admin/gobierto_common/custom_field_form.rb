@@ -83,6 +83,10 @@ module GobiertoAdmin
         Rails.application.config.custom_field_plugins
       end
 
+      def available_plugins_names
+        available_plugins.keys
+      end
+
       def options
         @options ||= {}.tap do |opts|
           opts[:configuration] ||= {}

@@ -67,7 +67,7 @@ module Gobierto
     config.gobierto_engines_themes = {}
 
     # Custom field plugins
-    config.custom_field_plugins = []
+    config.custom_field_plugins = {}
     config.custom_field_plugins_packs = []
 
     base_engines_path = %w(vendor gobierto_engines)

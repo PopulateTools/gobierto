@@ -9,6 +9,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
   function _handleItemTypeSelection() {
     $(document).on("change", "input[data-has-options]", function(e) {
       $("div.configuration .form_item").children("div").hide();
+
       if ($(this).data().hasVocabulary) {
         $("#vocabulary").show();
         if ($(this).data().type !== "plugin") {
@@ -18,7 +19,10 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
         }
       } else if ($(this).data().hasOptions) {
         $("#options").show();
-      } else if ($(this).data().type) {
+      }
+
+      // Show options related to type
+      if ($(this).data().type) {
         $(`#${$(this).data().type}`).show();
       }
     })

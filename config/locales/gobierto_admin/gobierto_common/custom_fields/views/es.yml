@@ -28,11 +28,12 @@ es:
           plugin:
             type: Tipo
           vocabulary_select:
+            vocabulary: Vocabulario de opciones
+          vocabulary_type_select:
             multiple_select: Selección múltiple
             single_select: Selección única
             tags: Tags
             type: Tipo
-            vocabulary: Vocabulario de opciones
         module_resources:
           index:
             custom_fields_for_instances_of: Campos personalizados para instancias

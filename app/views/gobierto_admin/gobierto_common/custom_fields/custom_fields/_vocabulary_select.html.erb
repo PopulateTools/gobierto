@@ -1,16 +1,3 @@
-<div id="vocabulary_type" style="<%= %w(indicators human_resources).include?(@custom_field_form.custom_field.configuration["plugin_type"]) ? "display: none;" : nil %>">
-<h4 class="options compact"><%= t(".type") %></h4>
-<%= f.collection_radio_buttons("vocabulary_type", @custom_field_form.available_vocabulary_options, :itself, :itself) do |b| %>
-  <div class="option">
-    <%= b.radio_button %>
-    <%= b.label do %>
-      <span></span>
-      <%= t(".#{b.text}") %>
-    <% end %>
-  </div>
-<% end %>
-</div>
-
 <h4 class="options compact"><%= t(".vocabulary") %></h4>
 <div class="field_item_def_cont">
   <div class="field_item_def field_locale">

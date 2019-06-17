@@ -1,5 +1,5 @@
 <h4 class="options compact"><%= t(".type") %></h4>
-<%= f.collection_radio_buttons("plugin_type", @custom_field_form.available_plugins, :itself, :itself) do |b| %>
+<%= f.collection_radio_buttons("plugin_type", @custom_field_form.available_plugins_names, :itself, :itself) do |b| %>
   <div class="option">
     <%= b.radio_button %>
     <%= b.label do %>

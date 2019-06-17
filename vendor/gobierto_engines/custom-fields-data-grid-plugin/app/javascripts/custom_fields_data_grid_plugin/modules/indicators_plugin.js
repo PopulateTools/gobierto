@@ -1,5 +1,7 @@
 import { Grid, Editors, Plugins } from 'slickgrid-es6';
 import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
+import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
+import { applyPluginStyles } from './common_slickgrid_behavior';
 
 const defaultStartYear = 2018;
 const defaultStartMonth = 12;
@@ -64,12 +66,12 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       let id = element.attr('id')
       let data = _deserializeTableData($(`#${id}`).find("input[name$='[value]'").val());
 
-      _applyPluginStyles(element)
+      applyPluginStyles(element, "indicators")
       _slickGrid(id, data, vocabularyTerms)
 
       $("form").submit(
         function() {
-          $(".v_container .v_el .form_item.plugin_field.data_grid").each(function(i) {
+          $(".v_container .v_el .form_item.plugin_field.indicators").each(function(i) {
             let uid = $(this).data("uid")
             $(`input[name$='[${uid}][value]']`).val(
               _serializeTableData($(this).data("slickGrid").getData())
@@ -78,12 +80,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
         }
       );
     })
-  }
-
-  function _applyPluginStyles(element) {
-    element.wrap("<div class='v_container'><div class='v_el v_el_level v_el_full_content'></div></div>");
-    element.find("div.custom_field_value").addClass("indicators_table")
-    element.find("div.data-container").addClass("slickgrid-container").css({ width: "100%", height: "500px" });
   }
 
   function _slickGrid(id, data, vocabularyTerms) {
@@ -97,7 +93,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
     }
 
     function _initializeGrid(id, data, columns, options) {
-      var checkboxSelector = new Plugins.CheckboxSelectColumn({
+      var checkboxSelector = new CheckboxDeleteRowPlugin({
         cssClass: "slick-cell-checkboxsel",
         hideSelectAllCheckbox: true
       });
@@ -107,7 +103,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       grid = new Grid(`#${id} .data-container`, data, columns, options);
       $(`#${id}`).data('slickGrid', grid);
 
-      grid.setSelectionModel(new Plugins.CellSelectionModel());
+      grid.setSelectionModel(new Plugins.CellSelectionModel({selectActiveCell: false}));
 
 
       grid.onHeaderClick.subscribe(function (e, args) {
@@ -125,14 +121,11 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
         }
       });
 
-      grid.onAddNewRow.subscribe(function (e, args) {
-        let item = args.item;
+      grid.onAddNewRow.subscribe(function (_e, args) {
         grid.invalidateRow(data.length);
-        data.push(item);
+        data.push(args.item);
         grid.updateRowCount();
-        grid.invalidate();
         grid.render();
-        $(`#${grid.getOptions().itemsCountId}`).html(data.length);
       });
 
       grid.registerPlugin(checkboxSelector);

@@ -8,7 +8,10 @@ else
     class Railtie < Rails::Railtie
       base_path = File.join(File.dirname(__FILE__), "../..")
       Rails.application.config.tap do |conf|
-        conf.custom_field_plugins += %w(indicators human_resources)
+        conf.custom_field_plugins.merge!(
+          indicators: { requires_vocabulary: true },
+          human_resources: { requires_vocabulary: true }
+        )
         conf.custom_field_plugins_packs += %w(data_grid)
         conf.i18n.load_path += Dir[File.join(base_path, 'config', 'locales', '**', '*.{rb,yml}')]
       end

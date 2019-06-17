@@ -1,5 +1,7 @@
-import { Grid, Plugins } from 'slickgrid-es6';
+import { Grid, Editors, Plugins } from 'slickgrid-es6';
 import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
+import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
+import { applyPluginStyles } from './common_slickgrid_behavior';
 
 window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginController = (function() {
 
@@ -12,38 +14,19 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
   };
 
   function _deserializeTableData(inputValue) {
+    if (inputValue === "null") return [];
+
     var inputDict = JSON.parse(inputValue);
-    let deserializedData = []
 
-    for (var termId in inputDict) {
-      var newRow = inputDict[termId]
-      newRow.human_resource = termId
-      deserializedData.push(newRow)
+    if ('human_resources' in inputDict) {
+      return inputDict.human_resources;
+    } else {
+      return [];
     }
-
-    return deserializedData;
   }
 
   function _serializeTableData(data) {
-    var serializedData = {}
-
-    for (let i = 0; i < data.length; i++) {
-      var humanResourceId = data[i].human_resource
-      var humanResourceValues = {}
-
-      var validKeys = $.map(Object.keys(data[0]), function(key) {
-        if (key !== "human_resource" && data[0][key] != "") { return key }
-      })
-
-      $.each(validKeys, function(idx) {
-        let date_key = validKeys[idx]
-        humanResourceValues[date_key] = data[i][date_key]
-      })
-
-      serializedData[humanResourceId] = humanResourceValues
-    }
-
-    return JSON.stringify(serializedData);
+    return JSON.stringify({ human_resources: data });
   }
 
   function _handlePluginData(uid) {
@@ -60,12 +43,12 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
       let id = element.attr('id')
       let data = _deserializeTableData($(`#${id}`).find("input[name$='[value]'").val());
 
-      _applyPluginStyles(element)
+      applyPluginStyles(element, "human_resources")
       _slickGrid(id, data, vocabularyTerms)
 
       $("form").submit(
         function() {
-          $(".v_container .v_el .form_item.plugin_field.data_grid").each(function(i) {
+          $(".v_container .v_el .form_item.plugin_field.human_resources").each(function(i) {
             let uid = $(this).data("uid")
             $(`input[name$='[${uid}][value]']`).val(
               _serializeTableData($(this).data("slickGrid").getData())
@@ -76,15 +59,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
     })
   }
 
-  function _applyPluginStyles(element) {
-    element.wrap("<div class='v_container'><div class='v_el v_el_level v_el_full_content'></div></div>");
-    element.find("div.custom_field_value").addClass("human_resources_table")
-    element.find("div.data-container").addClass("slickgrid-container").css({ width: "100%", height: "500px" });
-  }
-
   function _slickGrid(id, data, vocabularyTerms) {
     function _initializeGrid(id, data, columns, options) {
-      var checkboxSelector = new Plugins.CheckboxSelectColumn({
+      var checkboxSelector = new CheckboxDeleteRowPlugin({
         cssClass: "slick-cell-checkboxsel",
         hideSelectAllCheckbox: true
       });
@@ -94,16 +71,13 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
       grid = new Grid(`#${id} .data-container`, data, columns, options);
       $(`#${id}`).data('slickGrid', grid);
 
-      grid.setSelectionModel(new Plugins.CellSelectionModel());
+      grid.setSelectionModel(new Plugins.CellSelectionModel({selectActiveCell: false}));
 
-      grid.onAddNewRow.subscribe(function (e, args) {
-        let item = args.item;
+      grid.onAddNewRow.subscribe(function (_e, args) {
         grid.invalidateRow(data.length);
-        data.push(item);
+        data.push(args.item);
         grid.updateRowCount();
-        grid.invalidate();
         grid.render();
-        $(`#${grid.getOptions().itemsCountId}`).html(data.length);
       });
 
       grid.registerPlugin(checkboxSelector);
@@ -145,21 +119,24 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
         name: "Coste",
         field: "cost",
         width: 120,
-        cssClass: "cell-title"
+        cssClass: "cell-title",
+        editor: Editors.Text
       },
       {
         id: "start_date",
         name: "Inicio",
         field: "start_date",
         width: 120,
-        cssClass: "cell-title"
+        cssClass: "cell-title",
+        editor: Editors.Text
       },
       {
         id: "end_date",
         name: "Fin",
         field: "end_date",
         width: 120,
-        cssClass: "cell-title"
+        cssClass: "cell-title",
+        editor: Editors.Text
       }
     ];
 

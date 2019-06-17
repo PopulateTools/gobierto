@@ -58,6 +58,16 @@
       <div class="form_block configuration">
         <div class="form_item">
           <%= content_tag :div,
+                id: "plugin",
+                style: @custom_field_form.custom_field.plugin? ? nil : "display: none;" do %>
+            <%= render partial: "plugin", locals: { f: f } %>
+          <% end %>
+          <%= content_tag :div,
+                id: "vocabulary_type",
+                style: @custom_field_form.has_vocabulary? ? nil : "display: none;" do %>
+            <%= render partial: "vocabulary_type_select", locals: { f: f } %>
+          <% end %>
+          <%= content_tag :div,
                 id: "vocabulary",
                 style: @custom_field_form.has_vocabulary? ? nil : "display: none;" do %>
             <%= render partial: "vocabulary_select", locals: { f: f } %>
@@ -66,11 +76,6 @@
                 id: "options",
                 style: @custom_field_form.has_options? ? nil : "display: none;" do %>
             <%= render partial: "options_form", locals: { f: f } %>
-          <% end %>
-          <%= content_tag :div,
-                id: "plugin",
-                style: @custom_field_form.custom_field.plugin? ? nil : "display: none;" do %>
-            <%= render partial: "plugin", locals: { f: f } %>
           <% end %>
         </div>
       </div>

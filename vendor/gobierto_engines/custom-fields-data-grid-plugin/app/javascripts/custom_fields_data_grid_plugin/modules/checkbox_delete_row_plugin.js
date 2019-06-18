@@ -121,6 +121,15 @@ export default class {
           return;
         }
 
+        // Check / uncheck all checkboxes
+        if ($(e.target).is(':checked')){
+          $(`#${_options.containerId} input:checkbox`).attr("checked", true);
+          $(`.${_options.deleteRowsButtonClass}`).show();
+        } else {
+          $(`#${_options.containerId} input:checkbox`).attr("checked", false);
+          $(`.${_options.deleteRowsButtonClass}`).hide();
+        }
+
         if ($(e.target).is(':checked')){
           const rows = [];
           for (let i = 0; i < _grid.getDataLength(); i++){

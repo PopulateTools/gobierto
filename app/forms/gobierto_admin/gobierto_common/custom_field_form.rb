@@ -126,7 +126,7 @@ module GobiertoAdmin
       end
 
       def vocabulary_type
-        @vocabulary_type ||= custom_field.configuration.dig("vocabulary_type") || :single_select
+        @vocabulary_type ||= custom_field.configuration.vocabulary_type || :single_select
       end
 
       def plugin_type

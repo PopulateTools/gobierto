@@ -39,6 +39,7 @@ class TranslatedAttributePresenceValidatorTest < ActiveSupport::TestCase
   end
 
   def setup
+    super
     ::GobiertoCalendars::Event.class_eval do
       validates :title_translations, translated_attribute_length: { maximum: 10 }
     end

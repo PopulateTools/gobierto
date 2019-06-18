@@ -3,6 +3,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
 
   GobiertoCommonCustomFieldsController.prototype.handleForm = function() {
     _handleItemTypeSelection()
+    _handlePluginTypeSelection()
     _handleBehaviors()
   };
 
@@ -12,18 +13,31 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
 
       if ($(this).data().hasVocabulary) {
         $("#vocabulary").show();
-        if ($(this).data().type !== "plugin") {
-          $("#vocabulary_type").show();
-        } else {
-          $("#vocabulary_type").hide();
-        }
       } else if ($(this).data().hasOptions) {
         $("#options").show();
+      }
+
+      if ($(this).data().type === "plugin") {
+        $(".js-plugin-type-option").each(function() {
+          if ($(this).is(":checked") && $(this).attr("has_vocabulary")) {
+            $("#vocabulary").show();
+          }
+        });
       }
 
       // Show options related to type
       if ($(this).data().type) {
         $(`#${$(this).data().type}`).show();
+      }
+    })
+  }
+
+  function _handlePluginTypeSelection() {
+    $(".js-plugin-type-option").click(function(e) {
+      if ($(e.target).attr("has_vocabulary") === "true") {
+        $("#vocabulary").show();
+      } else {
+        $("#vocabulary").hide();
       }
     })
   }

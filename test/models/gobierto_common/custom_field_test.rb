@@ -12,6 +12,10 @@ class GobiertoCommon::CustomFieldTest < ActiveSupport::TestCase
     @indicators_plugin ||= gobierto_common_custom_fields(:madrid_custom_field_indicators_plugin)
   end
 
+  def human_resources_plugin
+    @human_resources_plugin ||= gobierto_common_custom_fields(:madrid_custom_field_human_resources_plugin)
+  end
+
   def subject
     @subject ||= gobierto_common_custom_fields(:madrid_custom_field_country)
   end
@@ -23,6 +27,7 @@ class GobiertoCommon::CustomFieldTest < ActiveSupport::TestCase
   def test_has_vocabulary?
     refute single_option_custom_field.has_vocabulary?
     assert indicators_plugin.has_vocabulary?
+    assert human_resources_plugin.has_vocabulary?
   end
 
 end

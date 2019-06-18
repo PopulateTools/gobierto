@@ -35,7 +35,7 @@ module GobiertoCommon
     end
 
     def self.field_types_with_vocabulary
-      field_types.select { |key, _| /vocabulary/.match(key) || key == "plugin" }
+      field_types.select { |key, _| /vocabulary/.match(key) }
     end
 
     def self.available_options
@@ -54,10 +54,12 @@ module GobiertoCommon
       /option/.match?(field_type)
     end
 
-    # TODO: the plugin itself should declare if it needs a vocabulary
     def has_vocabulary?
-      /vocabulary/.match?(field_type) ||
-        %w(indicators human_resources).include?(options&.dig(*%w(configuration plugin_type)))
+      if (plugin_type = options&.dig(*%w(configuration plugin_type))&.to_sym)
+        Rails.application.config.custom_field_plugins[plugin_type][:requires_vocabulary]
+      else
+        /vocabulary/.match?(field_type)
+      end
     end
 
     def has_localized_value?

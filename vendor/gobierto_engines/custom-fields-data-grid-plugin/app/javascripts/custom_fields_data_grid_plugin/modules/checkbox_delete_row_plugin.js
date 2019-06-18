@@ -83,12 +83,23 @@ export default class {
 
     function removeRow(e) {
       e.preventDefault();
-      let selectedRows = _grid.getSelectedRows();
+      let rowsToRemove = [];
+      _grid.getSelectedRows().forEach(idx => {
+        rowsToRemove.push(_grid.getData()[idx]);
+      })
 
-      selectedRows.forEach(idx => {
-        _grid.getData().splice(selectedRows[idx], 1);
+      rowsToRemove.forEach(row => {
+        _grid.getData().forEach((d, idx) => {
+          if(JSON.stringify(row) === JSON.stringify(d)){
+            _grid.getData().splice(idx, 1);
+          }
+        })
       });
+      _grid.setSelectedRows([]);
       _grid.invalidate()
+
+      // Hide button
+      $(`.${_options.deleteRowsButtonClass}`).hide();
     }
 
     function toggleRowSelection(row){

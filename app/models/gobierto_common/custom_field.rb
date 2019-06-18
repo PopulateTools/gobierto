@@ -56,7 +56,7 @@ module GobiertoCommon
 
     def has_vocabulary?
       if (plugin_type = options&.dig(*%w(configuration plugin_type))&.to_sym)
-        Rails.application.config.custom_field_plugins[plugin_type][:requires_vocabulary]
+        self.class.has_vocabulary?(plugin_type)
       else
         /vocabulary/.match?(field_type)
       end
@@ -89,6 +89,12 @@ module GobiertoCommon
     end
 
     private
+
+    def self.has_vocabulary?(plugin_type)
+      plugin = CustomFieldPlugin.all.find { |p| p.type == plugin_type.to_sym }
+
+      plugin && plugin.requires_vocabulary?
+    end
 
     def set_uid
       self.uid ||= SecureRandom.uuid

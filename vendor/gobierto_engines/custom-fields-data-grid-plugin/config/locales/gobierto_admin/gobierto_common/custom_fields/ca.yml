@@ -12,3 +12,10 @@ ca:
         add: "Afegir"
         remove_rows: "Eliminar files seleccionades"
         select_deselect_all: "Seleccionar / Deseleccionar totes"
+      indicators:
+        indicator: "Indicador"
+      human_resources:
+        human_resource: "Recurs humà"
+        cost: "Cost"
+        start_date: "Data inici"
+        end_date: "Data fi"

@@ -174,7 +174,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
     let startMonth = defaultStartMonth;
     let columns = [{
       id: "indicator",
-      name: "Indicador",
+      name: I18n.t("gobierto_admin.custom_fields_plugins.indicators.indicator"),
       field: "indicator",
       width: 120,
       cssClass: "cell-title",

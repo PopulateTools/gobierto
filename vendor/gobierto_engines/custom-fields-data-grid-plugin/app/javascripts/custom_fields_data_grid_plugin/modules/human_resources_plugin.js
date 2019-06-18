@@ -63,7 +63,8 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
     function _initializeGrid(id, data, columns, options) {
       var checkboxSelector = new CheckboxDeleteRowPlugin({
         cssClass: "slick-cell-checkboxsel",
-        hideSelectAllCheckbox: true
+        hideSelectAllCheckbox: true,
+        containerId: id
       });
 
       columns.unshift(checkboxSelector.getColumnDefinition());
@@ -81,20 +82,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
       });
 
       grid.registerPlugin(checkboxSelector);
-
-      var deleteRowsButton = $('<button class="small js-delete-rows">Delete selected rows</button>');
-      $(`#${id}`).append(deleteRowsButton);
-
-      $('.js-delete-rows').click(function (e) {
-        e.preventDefault();
-        var selectedRows = grid.getSelectedRows();
-
-        $.each(selectedRows, function(idx) {
-          grid.getData().splice(selectedRows[idx], 1);
-        })
-        grid.invalidate()
-      })
-
     }
 
     let humanResourcesDictionary = {}
@@ -106,7 +93,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
     let columns = [
       {
         id: "human_resource",
-        name: "Recurso Humano",
+        name: I18n.t("gobierto_admin.custom_fields_plugins.human_resources.human_resource"),
         field: "human_resource",
         width: 120,
         cssClass: "cell-title",
@@ -116,7 +103,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
       },
       {
         id: "cost",
-        name: "Coste",
+        name: I18n.t("gobierto_admin.custom_fields_plugins.human_resources.cost"),
         field: "cost",
         width: 120,
         cssClass: "cell-title",
@@ -124,7 +111,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
       },
       {
         id: "start_date",
-        name: "Inicio",
+        name: I18n.t("gobierto_admin.custom_fields_plugins.human_resources.start_date"),
         field: "start_date",
         width: 120,
         cssClass: "cell-title",
@@ -132,7 +119,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
       },
       {
         id: "end_date",
-        name: "Fin",
+        name: I18n.t("gobierto_admin.custom_fields_plugins.human_resources.end_date"),
         field: "end_date",
         width: 120,
         cssClass: "cell-title",

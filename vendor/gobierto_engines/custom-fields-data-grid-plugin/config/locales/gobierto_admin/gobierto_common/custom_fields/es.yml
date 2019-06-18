@@ -12,3 +12,10 @@ es:
         add: "Añadir"
         remove_rows: "Eliminar filas seleccionadas"
         select_deselect_all: "Seleccionar / Deseleccionar todas"
+      indicators:
+        indicator: "Indicador"
+      human_resources:
+        human_resource: "Recurso humano"
+        cost: "Coste"
+        start_date: "Fecha inicio"
+        end_date: "Fecha fin"

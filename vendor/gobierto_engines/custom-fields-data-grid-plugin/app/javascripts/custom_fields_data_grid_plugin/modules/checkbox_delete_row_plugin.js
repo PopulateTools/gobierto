@@ -2,7 +2,7 @@ import { Slick } from 'slickgrid-es6';
 
 export default class {
   constructor(options) {
-    let _grid;
+    let _grid, $container, $deleteButton;
     const _self = this;
     const _handler = new Slick.EventHandler();
     let _selectedRowsLookup = {};
@@ -24,10 +24,12 @@ export default class {
       .subscribe(_grid.onKeyDown, handleKeyDown);
 
       const deleteRowsButton = $(`<button class="small ${_options.deleteRowsButtonClass}">${I18n.t("gobierto_admin.custom_fields_plugins.data_grid.remove_rows")}</button>`);
-      $(`#${_options.containerId}`).append(deleteRowsButton);
+      $container = $(`#${_options.containerId}`);
+      $container.append(deleteRowsButton);
 
-      $(`.${_options.deleteRowsButtonClass}`).hide();
-      $(`.${_options.deleteRowsButtonClass}`).click(removeRow);
+      $deleteButton = $container.find(`.${_options.deleteRowsButtonClass}`);
+      $deleteButton.hide();
+      $deleteButton.click(removeRow);
     }
 
     function destroy(){
@@ -61,13 +63,13 @@ export default class {
 
         if ($(e.target).is(":checked")) {
           // Show delete button
-          $(`.${_options.deleteRowsButtonClass}`).show();
+          $deleteButton.show();
           // ensure row is selected
           var newSelectedRows = currentSelectedRows.concat(args.row);
           _grid.setSelectedRows(newSelectedRows);
         } else {
           // Hide delete button
-          $(`.${_options.deleteRowsButtonClass}`).hide();
+          $deleteButton.hide();
           // ensure row is not selected
           var index = currentSelectedRows.indexOf(args.row);
           if (index != -1) {
@@ -99,7 +101,7 @@ export default class {
       _grid.invalidate()
 
       // Hide button
-      $(`.${_options.deleteRowsButtonClass}`).hide();
+      $deleteButton.hide();
     }
 
     function toggleRowSelection(row){
@@ -123,11 +125,11 @@ export default class {
 
         // Check / uncheck all checkboxes
         if ($(e.target).is(':checked')){
-          $(`#${_options.containerId} input:checkbox`).attr("checked", true);
-          $(`.${_options.deleteRowsButtonClass}`).show();
+          $container.find("input:checkbox").attr("checked", true);
+          $deleteButton.show();
         } else {
-          $(`#${_options.containerId} input:checkbox`).attr("checked", false);
-          $(`.${_options.deleteRowsButtonClass}`).hide();
+          $container.find("input:checkbox").attr("checked", false);
+          $deleteButton.hide();
         }
 
         if ($(e.target).is(':checked')){

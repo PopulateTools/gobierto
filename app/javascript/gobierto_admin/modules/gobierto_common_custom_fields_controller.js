@@ -9,7 +9,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
 
   function _handleItemTypeSelection() {
     $(document).on("change", "input[data-has-options]", function(e) {
-      $("div.configuration .form_item").children("div").hide();
+      $("div.configuration .form_block").children("div").hide();
 
       if ($(this).data().hasVocabulary) {
         $("#vocabulary").show();

@@ -4,11 +4,12 @@
      id="<%= "custom_field_#{ record.uid }" %>"
      data-uid="<%= record.uid %>"
      data-vocabulary-id="<%= record.custom_field.vocabulary_id %>">
-  <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
-  <div class="custom_field_value">
-    <%= send(record.field_tag, "#{ input_base_name }[#{ record.uid }][value]", record.payload.to_json, record.tag_attributes) %>
-    <div class="data-container"></div>
-  </div>
+     <%= label_tag :custom_field_id, record.custom_field.name %>
+     <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
+     <div class="custom_field_value">
+       <%= send(record.field_tag, "#{ input_base_name }[#{ record.uid }][value]", record.payload.to_json, record.tag_attributes) %>
+       <div class="data-container"></div>
+     </div>
 </div>
 
 <% content_for :javascript_hook do %>

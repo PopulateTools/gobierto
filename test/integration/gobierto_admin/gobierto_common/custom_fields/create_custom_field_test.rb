@@ -166,6 +166,35 @@ module GobiertoAdmin
             assert_equal "human_resources", custom_field.options["configuration"]["plugin_type"]
           end
         end
+
+        def test_create_date_custom_field
+          with(site: site, js: true, admin: admin) do
+            visit @path
+
+            click_link "Add new field"
+
+            fill_in "custom_field_name_translations_en", with: "Date custom field"
+            fill_in "custom_field_uid", with: "date-custom-field"
+
+            click_link "ES"
+            fill_in "custom_field_name_translations_es", with: "Fecha custom field"
+
+            within(".site-module-check-boxes") do find("label", exact_text: "Date").click end
+
+            within "#date" do
+              find("label", exact_text: "Date and time").click
+            end
+
+            click_button "Create"
+
+            assert has_message?("Custom field created correctly")
+
+            custom_field = ::GobiertoCommon::CustomField.last
+
+            assert_equal "date", custom_field.field_type
+            assert_equal "datetime", custom_field.options["configuration"]["date_type"]
+          end
+        end
       end
     end
   end

@@ -1,4 +1,6 @@
-<div class="<%= record.class_names %> <%= record.custom_field.configuration["plugin_type"] %>"
+<% record_configuration = record.custom_field.configuration %>
+
+<div class="<%= record.class_names %> <%= record_configuration ? record_configuration["plugin_type"] : nil %>"
      id="<%= "custom_field_#{ record.uid }" %>"
      data-uid="<%= record.uid %>"
      data-vocabulary-id="<%= record.custom_field.vocabulary_id %>">

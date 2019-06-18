@@ -1,0 +1,15 @@
+<h4 class="options compact"><%= t(".type") %></h4>
+<%= f.collection_radio_buttons(
+      "date_type",
+      @custom_field_form.available_date_options,
+      :itself,
+      :itself
+    ) do |b| %>
+  <div class="option">
+    <%= b.radio_button %>
+    <%= b.label do %>
+      <span></span>
+      <%= t(".#{b.text}") %>
+    <% end %>
+  </div>
+<% end %>

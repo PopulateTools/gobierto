@@ -43,6 +43,10 @@ module GobiertoCommon
       [:single_select, :multiple_select, :tags]
     end
 
+    def self.date_options
+      [:date, :datetime]
+    end
+
     def long_text?
       /paragraph/.match field_type
     end

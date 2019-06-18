@@ -4,6 +4,10 @@ en:
     gobierto_common:
       custom_fields:
         custom_fields:
+          date_options:
+            date: Date
+            datetime: Date and time
+            type: Type
           edit:
             instance_title: Edit %{field_name} of %{instance_name}
             title: Edit %{name}

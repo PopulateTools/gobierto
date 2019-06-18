@@ -7,3 +7,8 @@ es:
           plugin:
             indicators: Indicadores
             human_resources: Recursos Humanos
+    custom_fields_plugins:
+      data_grid:
+        add: "Añadir"
+        remove_rows: "Eliminar filas seleccionadas"
+        select_deselect_all: "Seleccionar / Deseleccionar todas"

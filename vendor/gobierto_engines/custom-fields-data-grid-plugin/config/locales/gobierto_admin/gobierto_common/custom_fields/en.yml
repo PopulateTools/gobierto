@@ -7,3 +7,8 @@ en:
           plugin:
             indicators: Indicators
             human_resources: Human Resources
+    custom_fields_plugins:
+      data_grid:
+        add: "Add"
+        remove_rows: "Remove selected rows"
+        select_deselect_all: "Select / Deselect All"

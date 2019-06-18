@@ -95,7 +95,8 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
     function _initializeGrid(id, data, columns, options) {
       var checkboxSelector = new CheckboxDeleteRowPlugin({
         cssClass: "slick-cell-checkboxsel",
-        hideSelectAllCheckbox: true
+        hideSelectAllCheckbox: true,
+        containerId: id,
       });
 
       columns.unshift(checkboxSelector.getColumnDefinition());
@@ -105,10 +106,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
 
       grid.setSelectionModel(new Plugins.CellSelectionModel({selectActiveCell: false}));
 
-
       grid.onHeaderClick.subscribe(function (e, args) {
         let item = args.column;
-        if(item.name === "Add"){
+        if(item.name === I18n.t("gobierto_admin.custom_fields_plugins.data_grid.add")){
           let columns = args.grid.getColumns();
           let lastColumn = columns.pop();
           let lastYear = lastColumn.headerDateNameFunction(lastColumn.startYear, lastColumn.startMonth, lastColumn.offset)
@@ -129,20 +129,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       });
 
       grid.registerPlugin(checkboxSelector);
-
-      var deleteRowsButton = $('<button class="small js-delete-rows">Delete selected rows</button>');
-      $(`#${id}`).append(deleteRowsButton);
-
-      $('.js-delete-rows').click(function (e) {
-        e.preventDefault();
-        var selectedRows = grid.getSelectedRows();
-
-        $.each(selectedRows, function(idx) {
-          grid.getData().splice(selectedRows[idx], 1);
-        })
-        grid.invalidate()
-      })
-
     }
 
     function _initializeEmptyTable(data, indicatorsNames) {
@@ -223,7 +209,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
     // Create "button" to add new column
     columns.push({
       id: new_column_id,
-      name: "Add",
+      name: I18n.t("gobierto_admin.custom_fields_plugins.data_grid.add"),
       field: new_column_id,
       witdh: 50,
       headerCssClass: `add-${new_column_id}`,
@@ -231,7 +217,8 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       headerDateNameFunction: _headerDateName,
       startYear: startYear,
       startMonth: startMonth,
-      offset: dateColumnsCount});
+      offset: dateColumnsCount
+    });
 
     _initializeGrid(id, data, columns, options);
   }

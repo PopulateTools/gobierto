@@ -9,8 +9,9 @@ export default class {
     const _defaults = {
       columnId: '_checkbox_selector',
       cssClass: null,
-      toolTip: 'Select/Deselect All',
-      width: 30
+      toolTip: I18n.t("gobierto_admin.custom_fields_plugins.data_grid.select_deselect_all"),
+      width: 30,
+      deleteRowsButtonClass: "js-delete-rows"
     };
 
     const _options = $.extend(true, {}, _defaults, options);
@@ -21,6 +22,12 @@ export default class {
       .subscribe(_grid.onClick, handleClick)
       .subscribe(_grid.onHeaderClick, handleHeaderClick)
       .subscribe(_grid.onKeyDown, handleKeyDown);
+
+      const deleteRowsButton = $(`<button class="small ${_options.deleteRowsButtonClass}">${I18n.t("gobierto_admin.custom_fields_plugins.data_grid.remove_rows")}</button>`);
+      $(`#${_options.containerId}`).append(deleteRowsButton);
+
+      $(`.${_options.deleteRowsButtonClass}`).hide();
+      $(`.${_options.deleteRowsButtonClass}`).click(removeRow);
     }
 
     function destroy(){
@@ -41,7 +48,6 @@ export default class {
     }
 
     function handleClick(e, args){
-      console.log("checkbox plugin - handleClick")
       // clicking on a row select checkbox
       if (_grid.getColumns()[args.cell].id === _options.columnId && $(e.target).is(':checkbox')){
         // if editing, try to commit
@@ -54,10 +60,14 @@ export default class {
         var currentSelectedRows = _grid.getSelectedRows();
 
         if ($(e.target).is(":checked")) {
+          // Show delete button
+          $(`.${_options.deleteRowsButtonClass}`).show();
           // ensure row is selected
           var newSelectedRows = currentSelectedRows.concat(args.row);
           _grid.setSelectedRows(newSelectedRows);
         } else {
+          // Hide delete button
+          $(`.${_options.deleteRowsButtonClass}`).hide();
           // ensure row is not selected
           var index = currentSelectedRows.indexOf(args.row);
           if (index != -1) {
@@ -69,6 +79,16 @@ export default class {
         e.stopPropagation();
         e.stopImmediatePropagation();
       }
+    }
+
+    function removeRow(e) {
+      e.preventDefault();
+      let selectedRows = _grid.getSelectedRows();
+
+      selectedRows.forEach(idx => {
+        _grid.getData().splice(selectedRows[idx], 1);
+      });
+      _grid.invalidate()
     }
 
     function toggleRowSelection(row){

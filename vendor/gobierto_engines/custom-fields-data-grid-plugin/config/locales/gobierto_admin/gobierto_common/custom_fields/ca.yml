@@ -7,3 +7,8 @@ ca:
           plugin:
             indicators: Indicadors
             human_resources: Recursos Humans
+    custom_fields_plugins:
+      data_grid:
+        add: "Afegir"
+        remove_rows: "Eliminar files seleccionades"
+        select_deselect_all: "Seleccionar / Deseleccionar totes"

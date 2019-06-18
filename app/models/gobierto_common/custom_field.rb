@@ -78,7 +78,9 @@ module GobiertoCommon
     end
 
     def configuration
-      (options || {}).dig("configuration") || {}
+      @configuration ||= OpenStruct.new(
+        (options || {}).dig("configuration") || {}
+      )
     end
 
     private

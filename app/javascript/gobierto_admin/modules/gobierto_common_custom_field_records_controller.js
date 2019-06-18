@@ -95,9 +95,80 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
 
   function _handleSelectBehaviors() {
     $("[data-behavior=multiple_select]").select2()
+    $("[data-behavior=tags]").select2({
+      tags: true,
+      createTag: function(params) {
+        var term = $.trim(params.term);
+
+        if (term === '') {
+          return null;
+        }
+        if (_hasAccent(term)) {
+          term = _fixNonAsciiChars(term)
+          this.$element.parent().find(':input.select2-search__field').val(term)
+        }
+
+        return {
+          id: term,
+          text: term
+        }
+      }
+    })
 
     // This should be controlled via css
     $(".select2-container").css("padding-top", "22px");
+  }
+
+  function _fixNonAsciiChars(text) {
+    let transformations = {
+      "´a": "á",
+      "´e": "é",
+      "´i": "í",
+      "´o": "ó",
+      "´u": "ú",
+      "´A": "Á",
+      "´E": "É",
+      "´I": "Í",
+      "´O": "Ó",
+      "´U": "Ú",
+      "`a": "à",
+      "`e": "è",
+      "`i": "ì",
+      "`o": "ó",
+      "`u": "ù",
+      "`A": "À",
+      "`E": "È",
+      "`I": "Ì",
+      "`O": "Ò",
+      "`U": "Ù",
+      "^a": "â",
+      "^e": "ê",
+      "^i": "î",
+      "^o": "ô",
+      "^u": "û",
+      "^A": "Â",
+      "^E": "Ê",
+      "^I": "Î",
+      "^O": "Ô",
+      "^U": "Û",
+      "¨a": "ä",
+      "¨e": "ë",
+      "¨i": "ï",
+      "¨o": "ö",
+      "¨u": "ü",
+      "¨A": "Ä",
+      "¨E": "Ë",
+      "¨I": "Ï",
+      "¨O": "Ö",
+      "¨U": "Ü"
+    };
+    return text.replace(/[`´^¨][aeiouAEIOU]/, function(matched){
+      return transformations[matched];
+    });
+  }
+
+  function _hasAccent(term) {
+    return term.match(/[`´^¨][aeiouAEIOU]/)
   }
 
   return GobiertoCommonCustomFieldRecordsController;

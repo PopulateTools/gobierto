@@ -32,7 +32,7 @@
     "moment": "^2.21.0",
     "moment-locales-webpack-plugin": "^1.0.7",
     "mustache": "^2.3.0",
-    "select2": "^4.0.6-rc.1",
+    "select2": "4.0.5",
     "simplemde": "^1.11.2",
     "slickgrid-es6": "^3.0.1",
     "sortablejs": "^1.8.4",

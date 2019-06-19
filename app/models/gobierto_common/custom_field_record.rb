@@ -46,6 +46,22 @@ module GobiertoCommon
       VALUE_PROCESSORS[key].new(self)
     end
 
+    def functions
+      return unless custom_field.plugin?
+
+      unless Rails.env.production?
+        begin
+          GobiertoCommon::CustomFieldFunctions.const_get(custom_field.configuration.plugin_type.classify)
+        rescue NameError
+          nil
+        end
+      end
+
+      return unless GobiertoCommon::CustomFieldFunctions.const_defined?(custom_field.configuration.plugin_type.classify)
+
+      GobiertoCommon::CustomFieldFunctions.const_get(custom_field.configuration.plugin_type.classify).new(self)
+    end
+
     def item_class
       custom_field&.class_name&.constantize
     end

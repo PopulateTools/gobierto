@@ -84,7 +84,12 @@ function DateEditor(args) {
 
   this.loadValue = function(item) {
     var currentDateString = item[args.column.field];
-    var date = moment(currentDateString, "DD/MM/YYYY").toDate()
+
+    if (currentDateString) {
+      var date = moment(currentDateString, "YYYY-MM-DD").toDate();
+    } else {
+      var date = moment().toDate();
+    }
 
     $input.val(currentDateString);
     $input.select();

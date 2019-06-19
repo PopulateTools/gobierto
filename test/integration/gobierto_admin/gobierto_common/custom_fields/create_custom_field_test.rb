@@ -150,11 +150,11 @@ module GobiertoAdmin
 
             within(".site-module-check-boxes") do find("label", exact_text: "Plugin").click end
 
-            select "Human Resources", from: "custom_field_vocabulary_id"
-
             within "#plugin" do
               find("label", exact_text: "Human Resources").click
             end
+
+            select "Human Resources", from: "custom_field_vocabulary_id"
 
             click_button "Create"
 

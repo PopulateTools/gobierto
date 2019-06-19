@@ -217,51 +217,49 @@ module GobiertoPlans
     end
 
     def test_show_table_header
-      with_javascript do
-        with_current_site(site) do
-          visit @path
+      with(js: true, site: site) do
+        visit @path
 
-          within "section.level_0" do
-            within "div.node-root.cat_1" do
-              find("a").click
-            end
+        within "section.level_0" do
+          within "div.node-root.cat_1" do
+            find("a").click
+          end
+        end
+
+        within ".planification-content" do
+          within "section.level_1.cat_1" do
+            find("h3", text: action_lines.first.name).click
           end
 
-          within ".planification-content" do
-            within "section.level_1.cat_1" do
-              find("h3", text: action_lines.first.name).click
-            end
-
-            within "section.level_2.cat_1" do
-              within "ul.action-line--list" do
-                find("h3", text: actions.first.name).click
-                assert has_no_selector?("thead", count: 1)
-              end
+          within "section.level_2.cat_1" do
+            within "ul.action-line--list" do
+              find("h3", text: actions.first.name).click
+              assert has_no_selector?("thead", count: 1)
             end
           end
+        end
 
-          hash = plan.configuration_data
-          hash["show_table_header"] = true
-          plan.update_attribute(:configuration_data, JSON.pretty_generate(hash))
+        hash = plan.configuration_data
+        hash["show_table_header"] = true
+        plan.update_attribute(:configuration_data, JSON.pretty_generate(hash))
 
-          visit @path
+        visit @path
 
-          within "section.level_0" do
-            within "div.node-root.cat_1" do
-              find("a").click
-            end
+        within "section.level_0" do
+          within "div.node-root.cat_1" do
+            find("a").click
+          end
+        end
+
+        within ".planification-content" do
+          within "section.level_1.cat_1" do
+            find("h3", text: action_lines.first.name).click
           end
 
-          within ".planification-content" do
-            within "section.level_1.cat_1" do
-              find("h3", text: action_lines.first.name).click
-            end
-
-            within "section.level_2.cat_1" do
-              within "ul.action-line--list" do
-                find("h3", text: actions.first.name).click
-                assert has_selector?("thead", count: 1)
-              end
+          within "section.level_2.cat_1" do
+            within "ul.action-line--list" do
+              find("h3", text: actions.first.name).click
+              Capybara.using_wait_time(2) { assert has_selector?("thead", count: 1) }
             end
           end
         end

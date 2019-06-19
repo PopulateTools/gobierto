@@ -75,6 +75,7 @@ module GobiertoCommon
               behavior: "none",
               language: I18n.locale,
               timepicker: record.custom_field.configuration.date_type == "datetime",
+              autoclose: record.custom_field.configuration.date_type != "datetime",
               "time-format": "hh:ii",
               "date-format": "yyyy-mm-dd",
               "allow-blank": true

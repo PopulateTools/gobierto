@@ -103,34 +103,30 @@ module GobiertoAdmin
     end
 
     def test_create_regular_admin_with_custom_permissions
-      with_javascript do
-        with_current_site(madrid) do
-          with_signed_in_admin(admin) do
-            visit @path
+      with(js: true, site: madrid, admin: admin) do
+        visit @path
 
-            fill_in "admin_name", with: "Admin Name"
-            fill_in "admin_email", with: "admin@email.dev"
+        fill_in "admin_name", with: "Admin Name"
+        fill_in "admin_email", with: "admin@email.dev"
 
-            # set authorization level to 'Regular'
-            find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
+        # set authorization level to 'Regular'
+        find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
 
-            # grant permissions for madrid.gobierto.test
-            find("label[for='admin_permitted_sites_#{madrid.id}']").click
+        # grant permissions for madrid.gobierto.test
+        find("label[for='admin_permitted_sites_#{madrid.id}']").click
 
-            # grant permissions for madrid group
-            find("label[for='admin_admin_group_ids_#{madrid_group.id}']").click
+        # grant permissions for madrid group
+        find("label[for='admin_admin_group_ids_#{madrid_group.id}']").click
 
-            click_button "Create"
+        click_button "Create"
 
-            assert has_message?("Admin was successfully created")
-          end
-        end
+        assert has_message?("Admin was successfully created")
+
+        new_admin = ::GobiertoAdmin::Admin.last
+
+        assert_equal [madrid], new_admin.sites
+        assert_equal [madrid_group], new_admin.admin_groups
       end
-
-      new_admin = ::GobiertoAdmin::Admin.last
-
-      assert_equal [madrid], new_admin.sites
-      assert_equal [madrid_group], new_admin.admin_groups
     end
   end
 end

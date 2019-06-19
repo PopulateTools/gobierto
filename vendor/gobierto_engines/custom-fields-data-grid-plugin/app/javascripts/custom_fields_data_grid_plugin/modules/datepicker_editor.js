@@ -59,7 +59,7 @@ function DateEditor(args) {
 
     datepickerInstance = $input.datepicker({
       autoClose: true,
-      language: "es"
+      language: I18n.locale
     }).data('datepicker');
   };
 

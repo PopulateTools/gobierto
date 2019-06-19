@@ -12,7 +12,7 @@ $.fn.datepicker.language['en'] = {
   monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   today: 'Today',
   clear: 'Clear',
-  dateFormat: 'mm/dd/yyyy',
+  dateFormat: 'yyyy-mm-dd',
   timeFormat: 'hh:ii aa',
   firstDay: 0
 };
@@ -25,7 +25,7 @@ $.fn.datepicker.language['ca'] = {
   monthsShort: ['Gen', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Des'],
   today: 'Avui',
   clear: 'Netejar',
-  dateFormat: 'dd/mm/yyyy',
+  dateFormat: 'yyyy-mm-dd',
   timeFormat: 'hh:ii aa',
   firstDay: 1
 };
@@ -38,7 +38,7 @@ $.fn.datepicker.language['es'] = {
   monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
   today: 'Hoy',
   clear: 'Limpiar',
-  dateFormat: 'dd/mm/yyyy',
+  dateFormat: 'yyyy-mm-dd',
   timeFormat: 'hh:ii aa',
   firstDay: 1
 };

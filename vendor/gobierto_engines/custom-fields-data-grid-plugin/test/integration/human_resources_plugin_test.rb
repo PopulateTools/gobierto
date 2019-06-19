@@ -65,8 +65,8 @@ class HumanResourcesPluginTest < ActionDispatch::IntegrationTest
         assert has_content?("25000")
         assert has_content?("20000")
 
-        assert has_content?("01/01/2018")
-        assert has_content?("31/12/2018")
+        assert has_content?("2018-01-01")
+        assert has_content?("2018-12-31")
       end
     end
   end

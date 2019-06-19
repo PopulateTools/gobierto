@@ -67,20 +67,20 @@ political_agendas_human_resources_custom_field_record:
        {
         human_resource: ActiveRecord::FixtureSet.identify(:human_resources_supervisor),
         cost: 35_000,
-        start_date: Date.parse("01-01-2018"),
-        end_date: Date.parse("31-12-2018")
+        start_date: "01/01/2018",
+        end_date: "31/12/2018"
       },
       {
         human_resource: ActiveRecord::FixtureSet.identify(:human_resources_employee),
         cost: 25_000,
-        start_date: Date.parse("01-01-2018"),
-        end_date: Date.parse("31-12-2018")
+        start_date: "01/01/2018",
+        end_date: "31/12/2018"
       },
       {
         human_resource: ActiveRecord::FixtureSet.identify(:human_resources_employee),
         cost: 20_000,
-        start_date: Date.parse("01-01-2018"),
-        end_date: Date.parse("15-06-2018")
+        start_date: "01/01/2018",
+        end_date: "15/06/2018"
       }
     ]
   }.to_json %>

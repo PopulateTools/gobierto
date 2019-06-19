@@ -2,6 +2,7 @@ import { Grid, Editors, Plugins } from 'slickgrid-es6';
 import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
 import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
 import { applyPluginStyles } from './common_slickgrid_behavior';
+import { DateEditor } from './datepicker_editor';
 
 window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginController = (function() {
 
@@ -115,7 +116,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
         field: "start_date",
         width: 120,
         cssClass: "cell-title",
-        editor: Editors.Text
+        editor: DateEditor
       },
       {
         id: "end_date",
@@ -123,7 +124,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
         field: "end_date",
         width: 120,
         cssClass: "cell-title",
-        editor: Editors.Text
+        editor: DateEditor
       }
     ];
 

@@ -121,7 +121,6 @@ GEM
     cloudinary (1.11.1)
       aws_cf_signer
       rest-client
-    cocoon (1.2.12)
     codecov (0.1.14)
       json
       simplecov
@@ -293,7 +292,7 @@ GEM
       minitest (>= 5.0)
     minitest-stub-const (0.6)
     minitest-stub_any_instance (1.0.2)
-    mocha (1.8.0)
+    mocha (1.9.0)
       metaclass (~> 0.0.1)
     msgpack (1.2.10)
     multi_json (1.13.1)
@@ -506,7 +505,6 @@ DEPENDENCIES
   capybara-email
   chroma
   cloudinary
-  cocoon
   codecov (~> 0.1.9)
   cookies_eu
   d3-rails (~> 4.8)

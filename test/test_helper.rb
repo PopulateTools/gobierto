@@ -102,7 +102,6 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
-  # require "capybara/poltergeist"
   require "support/integration/authentication_helpers"
   require "support/integration/site_session_helpers"
   require "support/integration/matcher_helpers"

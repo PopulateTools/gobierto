@@ -55,10 +55,10 @@ module GobiertoAdmin
               find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
 
               # grant permissions for madrid.gobierto.test
-              find("label[for='admin_permitted_sites_#{madrid.id}']").click
+              find("label[for='admin_permitted_sites_#{madrid.id}']", visible: false).execute_script("this.click()")
 
               # grant permissions for madrid group
-              find("label[for='admin_admin_group_ids_#{madrid_group.id}']").click
+              find("label[for='admin_admin_group_ids_#{madrid_group.id}']", visible: false).execute_script("this.click()")
 
               click_button "Create"
             end
@@ -115,10 +115,10 @@ module GobiertoAdmin
             find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
 
             # grant permissions for madrid.gobierto.test
-            find("label[for='admin_permitted_sites_#{madrid.id}']").click
+            find("label[for='admin_permitted_sites_#{madrid.id}']", visible: false).execute_script("this.click()")
 
             # grant permissions for madrid group
-            find("label[for='admin_admin_group_ids_#{madrid_group.id}']").click
+            find("label[for='admin_admin_group_ids_#{madrid_group.id}']", visible: false).execute_script("this.click()")
 
             click_button "Create"
 

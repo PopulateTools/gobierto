@@ -121,7 +121,6 @@ GEM
     cloudinary (1.11.1)
       aws_cf_signer
       rest-client
-    cocoon (1.2.13)
     codecov (0.1.14)
       json
       simplecov
@@ -506,7 +505,6 @@ DEPENDENCIES
   capybara-email
   chroma
   cloudinary
-  cocoon
   codecov (~> 0.1.9)
   cookies_eu
   d3-rails (~> 4.8)

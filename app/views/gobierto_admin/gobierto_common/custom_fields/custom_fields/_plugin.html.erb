@@ -3,7 +3,8 @@
   <div class="option">
     <%= b.radio_button(
           class: "js-plugin-type-option",
-          has_vocabulary: b.object.requires_vocabulary?
+          has_vocabulary: b.object.requires_vocabulary?,
+          has_configuration: b.object.has_configuration?
         ) %>
     <%= b.label do %>
       <span></span>

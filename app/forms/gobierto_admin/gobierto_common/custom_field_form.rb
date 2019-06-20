@@ -20,13 +20,15 @@ module GobiertoAdmin
         :vocabulary_id,
         :vocabulary_type,
         :plugin_type,
-        :date_type
+        :date_type,
+        :plugin_configuration
       )
 
       delegate :persisted?, :has_vocabulary?, to: :custom_field
 
       validates :name_translations, :site, :klass, :field_type, presence: true
       validate :instance_type_is_enabled
+      validate :plugin_configuration_format
 
       def custom_field
         @custom_field ||= custom_fields_relation.find_by(id: id) || build_custom_field
@@ -95,7 +97,10 @@ module GobiertoAdmin
           if custom_field.date?
             opts[:configuration][:date_type] = date_type
           end
-          opts[:configuration][:plugin_type] = plugin_type if custom_field.plugin?
+          if custom_field.plugin?
+            opts[:configuration][:plugin_type] = plugin_type
+            opts[:configuration][:plugin_configuration] = plugin_configuration_format
+          end
         end
       end
 
@@ -130,7 +135,17 @@ module GobiertoAdmin
       end
 
       def plugin_type
-        @plugin_type ||= custom_field.configuration.dig("plugin_type") || :dummy
+        return unless custom_field.plugin?
+
+        @plugin_type ||= custom_field.configuration.dig("plugin_type")
+      end
+
+      def plugin_configuration
+        @plugin_configuration ||= custom_field.configuration.plugin_configuration || plugin&.default_configuration
+      end
+
+      def plugin
+        ::GobiertoCommon::CustomFieldPlugin.find(plugin_type)
       end
 
       def date_type
@@ -201,6 +216,14 @@ module GobiertoAdmin
 
       def classes_with_custom_fields_at_instance_level
         @classes_with_custom_fields_at_instance_level ||= class_name.deconstantize.constantize.try(:classes_with_custom_fields_at_instance_level) || []
+      end
+
+      def plugin_configuration_format
+        JSON.parse(plugin_configuration)
+      rescue JSON::ParserError
+        errors.add :plugin_configuration, I18n.t("errors.messages.invalid")
+
+        false
       end
     end
   end

@@ -8,10 +8,15 @@ module GobiertoCommon
     def initialize(type, params = {})
       self.type = type
       @requires_vocabulary = params[:requires_vocabulary] || false
+      @has_configuration = params[:has_configuration] || false
     end
 
     def requires_vocabulary?
       @requires_vocabulary
+    end
+
+    def has_configuration?
+      @has_configuration
     end
 
     def self.all

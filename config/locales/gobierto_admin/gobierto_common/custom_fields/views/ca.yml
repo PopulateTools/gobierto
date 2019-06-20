@@ -31,6 +31,8 @@ ca:
             add_option: Afegir opció
           plugin:
             type: Tipus
+          plugin_configuration_form:
+            configuration: Configuració
           vocabulary_select:
             vocabulary: Vocabulari d'opcions
           vocabulary_type_select:

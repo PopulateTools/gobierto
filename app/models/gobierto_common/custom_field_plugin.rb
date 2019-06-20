@@ -20,5 +20,13 @@ module GobiertoCommon
       end
     end
 
+    def self.find(type)
+      return unless type
+
+      all.find do |plugin|
+        plugin.type == type.to_sym
+      end
+    end
+
   end
 end

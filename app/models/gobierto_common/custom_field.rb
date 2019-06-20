@@ -96,7 +96,7 @@ module GobiertoCommon
     private
 
     def self.has_vocabulary?(plugin_type)
-      plugin = CustomFieldPlugin.all.find { |p| p.type == plugin_type.to_sym }
+      plugin = CustomFieldPlugin.find(plugin_type)
 
       plugin && plugin.requires_vocabulary?
     end

@@ -382,6 +382,7 @@ Rails.application.routes.draw do
         namespace :api do
           get "/categories" => "categories#index"
           get "/categories/:area/:kind" => "categories#index"
+          get "/data/available_years" => "data#available_years", as: :available_years
           get "/data/budget_lines/:area/*id" => "data#budget_line", as: :budget_line
           get "/data/widget/budget/:organization_id/:year/:code/:area/:kind" => "data#budget", as: :data_budget
           get "/data/widget/budget_per_inhabitant/:organization_id/:year/:code/:area/:kind" => "data#budget_per_inhabitant", as: :data_budget_per_inhabitant

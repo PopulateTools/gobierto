@@ -49,6 +49,14 @@ module GobiertoBudgets
         render json: { error: "not-found" }, status: 404
       end
 
+      def available_years
+        years = ::GobiertoBudgets::SearchEngineConfiguration::Year.with_data(
+          index: ::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+        )
+
+        render json: years
+      end
+
       def budget_per_inhabitant
         @year = params[:year].to_i
         @area = params[:area]

@@ -38,6 +38,17 @@ module GobiertoBudgets
         end
       end
 
+      def budget_line
+        result = GobiertoBudgets::BudgetLine.find_details(
+          type: params[:area],
+          id: params[:id]
+        )
+
+        render json: result
+      rescue BudgetLine::RecordNotFound
+        render json: { error: "not-found" }, status: 404
+      end
+
       def budget_per_inhabitant
         @year = params[:year].to_i
         @area = params[:area]

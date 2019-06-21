@@ -5,7 +5,11 @@ module GobiertoCommon::CustomFieldFunctions
     def progress(options = {})
       date = options[:date] || Date.current
 
-      progress_percentages(date).instance_eval { reduce(:+) / size.to_f }
+      progress_percentages(date).instance_eval do
+        return nil if blank?
+
+        sum / size.to_f
+      end
     end
 
     def cost(options = {})
@@ -39,9 +43,11 @@ module GobiertoCommon::CustomFieldFunctions
         elsif resource.end_date && date > resource.end_date
           1.0
         else
+          next unless resource.start_date.present? && resource.end_date.present?
+
           (date - resource.start_date).to_f / (resource.end_date - resource.start_date).to_f
         end
-      end
+      end.compact
     end
 
     def parse_date(date, fallback = nil)

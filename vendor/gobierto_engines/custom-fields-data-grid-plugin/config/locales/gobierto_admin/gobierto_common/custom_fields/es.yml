@@ -17,6 +17,7 @@ es:
         budget_line: Partida presupuestaria
         year: Año
         weight: Peso
+        not_available: No disp.
       data_grid:
         add: "Añadir"
         remove_rows: "Eliminar filas seleccionadas"

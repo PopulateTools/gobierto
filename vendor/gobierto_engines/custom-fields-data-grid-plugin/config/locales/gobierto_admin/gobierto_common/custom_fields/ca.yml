@@ -17,6 +17,7 @@ ca:
         budget_line: Partida pressupostària
         year: Any
         weight: Pes
+        not_available: No disp.
       data_grid:
         add: "Afegir"
         remove_rows: "Eliminar files seleccionades"

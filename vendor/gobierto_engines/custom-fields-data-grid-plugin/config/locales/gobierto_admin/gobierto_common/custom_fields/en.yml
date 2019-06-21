@@ -17,6 +17,7 @@ en:
         budget_line: Budget line
         year: Year
         weight: Weight
+        not_available: Not avail.
       data_grid:
         add: "Add"
         remove_rows: "Remove selected rows"

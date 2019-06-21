@@ -94,17 +94,21 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
     idSegments.splice(1, 0, updatedRow.year)
     var budgetLineId = idSegments.join("/")
 
-    var budgetLineAmountPromise = new Promise((resolve) => {
-      $.getJSON(`/presupuestos/api/data/budget_lines/${areaName}/${budgetLineId}`, function(jsonData) {
-        resolve(jsonData)
-      })
-    })
-
-    budgetLineAmountPromise.then(function(jsonData) {
-      var amount = jsonData.forecast.updated_amount || jsonData.forecast.original_amount
-      updatedRow.amount = `${Math.round(amount * updatedRow.weight / 100).toLocaleString(I18n.locale)} €`
-      _grid.invalidateRow(row)
-      _grid.render()
+    fetch(`/presupuestos/api/data/budget_lines/${areaName}/${budgetLineId}`).then(function(response) {
+      if (response.status === 200) {
+        return response.json()
+      } else {
+        updatedRow.amount = i18n("not_available")
+        _grid.invalidateRow(row)
+        _grid.render()
+      }
+    }).then(function(jsonData) {
+      if (jsonData) {
+        var amount = jsonData.forecast.updated_amount || jsonData.forecast.original_amount
+        updatedRow.amount = `${Math.round(amount * updatedRow.weight / 100).toLocaleString(I18n.locale)} €`
+        _grid.invalidateRow(row)
+        _grid.render()
+      }
     })
   }
 

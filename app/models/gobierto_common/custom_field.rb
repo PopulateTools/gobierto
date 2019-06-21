@@ -96,9 +96,7 @@ module GobiertoCommon
     private
 
     def self.has_vocabulary?(plugin_type)
-      plugin = CustomFieldPlugin.find(plugin_type)
-
-      plugin && plugin.requires_vocabulary?
+      CustomFieldPlugin.find(plugin_type)&.requires_vocabulary?
     end
 
     def set_uid

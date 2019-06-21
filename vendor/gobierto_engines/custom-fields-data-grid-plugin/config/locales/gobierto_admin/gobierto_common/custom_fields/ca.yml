@@ -9,7 +9,8 @@ ca:
             human_resources: Recursos Humans
     custom_fields_plugins:
       budgets:
-        amount: Import
+        assigned_amount: Import assignat
+        full_amount: Import complet
         area: Àrea
         economic: Econòmica
         functional: Funcional

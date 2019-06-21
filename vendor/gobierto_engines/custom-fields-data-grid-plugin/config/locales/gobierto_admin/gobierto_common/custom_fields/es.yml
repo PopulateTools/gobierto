@@ -9,7 +9,8 @@ es:
             human_resources: Recursos Humanos
     custom_fields_plugins:
       budgets:
-        amount: Importe
+        assigned_amount: Importe asignado
+        full_amount: Importe completo
         area: Área
         economic: Económica
         functional: Funcional

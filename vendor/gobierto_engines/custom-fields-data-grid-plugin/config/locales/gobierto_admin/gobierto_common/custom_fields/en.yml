@@ -9,7 +9,8 @@ en:
             human_resources: Human Resources
     custom_fields_plugins:
       budgets:
-        amount: Amount
+        assigned_amount: Assigned amount
+        full_amount: Full amount
         area: Area
         economic: Economic
         functional: Functional

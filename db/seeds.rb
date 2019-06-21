@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "../test/factories/budget_line_factory"
+
 fixtures_to_load = [
   "sites",
   "users",
@@ -23,8 +25,11 @@ fixtures_to_load = [
   "gobierto_people/person_posts",
   "gobierto_people/trips",
   "gobierto_common/collections",
+  "gobierto_common/collection_items",
   "gobierto_common/terms",
   "gobierto_common/vocabularies",
+  "gobierto_common/custom_fields",
+  "gobierto_common/custom_field_records",
   "gobierto_calendars/events",
   "gobierto_calendars/event_locations",
   "gobierto_calendars/event_attendees",
@@ -46,7 +51,6 @@ fixtures_to_load = [
   "gobierto_participation/poll_questions",
   "gobierto_participation/poll_answer_templates",
   "gobierto_participation/poll_answers",
-  "gobierto_common/collection_items",
   "gobierto_admin/group_permissions",
   "gobierto_plans/plan_types",
   "gobierto_plans/plans",
@@ -78,3 +82,20 @@ end
 ::GobiertoCore::Template.create template_path: "gobierto_participation/welcome/index"
 ::GobiertoCore::Template.create template_path: "gobierto_participation/layouts/navigation_process"
 ::GobiertoCore::Template.create template_path: "layouts/application"
+
+puts "* Seeding GobiertoBudgets::BudgetLine"
+
+(2014..Date.current.year).each do |year|
+  GobiertoBudgets::BudgetArea.all_areas.each do |area|
+    default_args = {
+      area: area,
+      year: year,
+      kind: GobiertoData::GobiertoBudgets::EXPENSE,
+      indexes: [:forecast]
+    }
+
+    %w(1 2 3).each do |code|
+      BudgetLineFactory.new(default_args.merge(code: code))
+    end
+  end
+end

@@ -12,6 +12,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
   var _budgetLines = {
     grouped: { economic: {}, functional: {} }
   }
+  var _organizationId
 
   GobiertoCommonCustomFieldRecordsBudgetsPluginController.prototype.form = function(opts = {}) {
     _initializePlugin(opts.uid)
@@ -45,19 +46,18 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
   }
 
   function _parseBudgetLines(jsonData) {
-    var organizationId = 28079
-
     Object.keys(jsonData.economic.G).sort().forEach(function(budgetLineCode) {
-      _budgetLines.grouped.economic[`economic/${organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData.economic.G[budgetLineCode]}`
+      _budgetLines.grouped.economic[`economic/${_organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData.economic.G[budgetLineCode]}`
     });
 
     Object.keys(jsonData.functional.G).sort().forEach(function(budgetLineCode) {
-      _budgetLines.grouped.functional[`functional/${organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData.functional.G[budgetLineCode]}`
+      _budgetLines.grouped.functional[`functional/${_organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData.functional.G[budgetLineCode]}`
     });
   }
 
   function _initializePlugin(uid) {
     var element = $(`[data-uid=${uid}]`)
+    _organizationId = element.attr("data-organization-id")
     var id = element.attr('id')
 
     var availableYearsPromise = new Promise((resolve) => {

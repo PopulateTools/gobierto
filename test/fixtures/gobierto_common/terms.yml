@@ -350,3 +350,35 @@ libraries_new_plan_term:
   position: 1
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+
+## indicators_vocabulary
+
+indicators_raw_savings:
+  vocabulary: indicators_vocabulary
+  name_translations: <%= { "en" => "Raw savings", "es" => "Ahorro bruto" }.to_json %>
+  slug: indicators-raw-savings
+  level: 0
+  position: 0
+
+indicators_net_savings:
+  vocabulary: indicators_vocabulary
+  name_translations: <%= { "en" => "Net savings", "es" => "Ahorro neto" }.to_json %>
+  slug: indicators-net-savings
+  level: 0
+  position: 1
+
+## human_resources_vocabulary
+
+human_resources_supervisor:
+  vocabulary: human_resources_vocabulary
+  name_translations: <%= { en: "Supervisor", es: "Supervisor" }.to_json %>
+  slug: human-resources-supervisor
+  level: 0
+  position: 0
+
+human_resources_employee:
+  vocabulary: human_resources_vocabulary
+  name_translations: <%= { en: "Employee", es: "Empleado" }.to_json %>
+  slug: human-resources-employee
+  level: 0
+  position: 1

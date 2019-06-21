@@ -167,6 +167,10 @@ Rails.application.routes.draw do
             end
           end
         end
+
+        namespace :api do
+          resources :vocabularies, only: [:show]
+        end
       end
 
       namespace :gobierto_plans, as: :plans, path: :plans do

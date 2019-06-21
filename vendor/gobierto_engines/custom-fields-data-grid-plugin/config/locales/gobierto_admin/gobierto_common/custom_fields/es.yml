@@ -1,0 +1,21 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          plugin:
+            indicators: Indicadores
+            human_resources: Recursos Humanos
+    custom_fields_plugins:
+      data_grid:
+        add: "Añadir"
+        remove_rows: "Eliminar filas seleccionadas"
+        select_deselect_all: "Seleccionar / Deseleccionar todas"
+      indicators:
+        indicator: "Indicador"
+      human_resources:
+        human_resource: "Recurso humano"
+        cost: "Coste"
+        start_date: "Fecha inicio"
+        end_date: "Fecha fin"

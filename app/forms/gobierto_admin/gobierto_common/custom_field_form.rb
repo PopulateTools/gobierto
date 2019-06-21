@@ -18,7 +18,8 @@ module GobiertoAdmin
         :options,
         :uid,
         :vocabulary_id,
-        :vocabulary_type
+        :vocabulary_type,
+        :plugin_type
       )
 
       delegate :persisted?, :has_vocabulary?, to: :custom_field
@@ -80,11 +81,13 @@ module GobiertoAdmin
 
       def options
         @options ||= {}.tap do |opts|
+          opts[:configuration] ||= {}
           opts.merge!(options_translations.except("new_option")) if has_options? && options_translations
-          if has_vocabulary?
+          if ::GobiertoCommon::CustomField.has_vocabulary?(plugin_type)
             opts[:vocabulary_id] = vocabulary_id if vocabulary_id
-            opts[:configuration] = (opts[:configuration] || {}).merge(vocabulary_type: vocabulary_type) if vocabulary_type.present?
+            opts[:configuration][:vocabulary_type] = vocabulary_type if vocabulary_type.present?
           end
+          opts[:configuration][:plugin_type] = plugin_type if custom_field.plugin?
         end
       end
 
@@ -101,7 +104,7 @@ module GobiertoAdmin
       end
 
       def has_options?
-        @has_options ||= !has_vocabulary? && custom_field.has_options?
+        @has_options ||= !::GobiertoCommon::CustomField.has_vocabulary?(plugin_type) && custom_field.has_options?
       end
 
       def valid_resource_name?
@@ -116,6 +119,10 @@ module GobiertoAdmin
 
       def vocabulary_type
         @vocabulary_type ||= custom_field.configuration.vocabulary_type || :single_select
+      end
+
+      def plugin_type
+        @plugin_type ||= custom_field.configuration.dig("plugin_type") || :dummy
       end
 
       private

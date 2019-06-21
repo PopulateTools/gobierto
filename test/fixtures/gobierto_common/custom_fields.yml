@@ -73,3 +73,29 @@ madrid_node_instance_level:
   name_translations: <%= { en: "Goals custom", es: "Objetivos custom" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:localized_string] %>
   uid: goals
+
+madrid_custom_field_indicators_plugin:
+  site: madrid
+  class_name: GobiertoPlans::Node
+  mandatory: false
+  position: 0
+  name_translations: <%= { en: "Indicator", es: "Indicador" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
+  uid: indicators
+  options: <%= {
+    configuration: { plugin_type: "indicators" },
+    vocabulary_id: ActiveRecord::FixtureSet.identify(:indicators_vocabulary)
+  }.to_json %>
+
+madrid_custom_field_human_resources_plugin:
+  site: madrid
+  class_name: GobiertoPlans::Node
+  mandatory: false
+  position: 1
+  name_translations: <%= { en: "Human Resources", es: "Recursos Humanos" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
+  uid: human-resources
+  options: <%= {
+    configuration: { plugin_type: "human_resources" },
+    vocabulary_id: ActiveRecord::FixtureSet.identify(:human_resources_vocabulary)
+  }.to_json %>

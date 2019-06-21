@@ -1,0 +1,13 @@
+<h4 class="options compact"><%= t(".type") %></h4>
+<%= f.collection_radio_buttons("plugin_type", ::GobiertoCommon::CustomFieldPlugin.all, :type, :type) do |b| %>
+  <div class="option">
+    <%= b.radio_button(
+          class: "js-plugin-type-option",
+          has_vocabulary: b.object.requires_vocabulary?
+        ) %>
+    <%= b.label do %>
+      <span></span>
+      <%= t(".#{b.object.type}") %>
+    <% end %>
+  </div>
+<% end %>

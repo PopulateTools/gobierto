@@ -54,7 +54,7 @@ module GobiertoAdmin
         @custom_field_records ||= begin
                                      values["custom_records"].to_h.map do |uid, value|
                                        record = site.custom_field_records.find_or_initialize_by(
-                                         custom_field: ::GobiertoCommon::CustomField.find_by(uid: uid, class_name: item.class.name),
+                                         custom_field: site.custom_fields.find_by(uid: uid, class_name: item.class.name),
                                          item: item
                                        )
                                        if record.custom_field_id == value["custom_field_id"].to_i

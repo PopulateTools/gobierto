@@ -14,6 +14,7 @@ module GobiertoCommon
       image: CustomFieldValue::Image,
       data_grid: CustomFieldValue::DataGrid,
       vocabulary_options: CustomFieldValue::VocabularyOptions,
+      plugin: CustomFieldValue::Plugin,
       default: CustomFieldValue::Base
     }.freeze
 

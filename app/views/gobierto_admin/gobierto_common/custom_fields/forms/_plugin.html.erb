@@ -1,0 +1,19 @@
+<% record_configuration = record.custom_field.configuration %>
+
+<div class="<%= record.class_names %> <%= record_configuration ? record_configuration["plugin_type"] : nil %>"
+     id="<%= "custom_field_#{ record.uid }" %>"
+     data-uid="<%= record.uid %>"
+     data-vocabulary-id="<%= record.custom_field.vocabulary_id %>">
+     <%= label_tag :custom_field_id, record.custom_field.name %>
+     <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
+     <div class="custom_field_value">
+       <%= send(record.field_tag, "#{ input_base_name }[#{ record.uid }][value]", record.payload.to_json, record.tag_attributes) %>
+       <div class="data-container"></div>
+     </div>
+</div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    <%== "window.GobiertoAdmin.gobierto_common_custom_field_records_#{record.custom_field.configuration["plugin_type"]}_plugin_controller.form({ uid: '#{record.uid}' })" %>
+  <% end %>
+<% end %>

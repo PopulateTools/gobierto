@@ -26,6 +26,7 @@ module GobiertoCommon
         @instance = gobierto_plans_plans(:strategic_plan)
         @path = edit_admin_common_custom_fields_custom_field_path(global_custom_field)
         @instance_level_path = edit_admin_common_custom_fields_custom_field_path(instance_level_custom_field)
+        @issues_vocabulary = gobierto_common_vocabularies(:issues_vocabulary)
         admin.admin_groups << gobierto_admin_admin_groups(:madrid_manage_plans_group)
       end
 
@@ -79,6 +80,21 @@ module GobiertoCommon
 
           assert_not_nil instance_level_custom_field.instance
           assert_equal instance, instance_level_custom_field.instance
+        end
+      end
+
+      def test_update_indicators_plugin_custom_field
+        custom_field = gobierto_common_custom_fields(:madrid_custom_field_indicators_plugin)
+
+        with(site: site, js: true, admin: admin) do
+          visit edit_admin_common_custom_fields_custom_field_path(custom_field)
+
+          find("#custom_field_vocabulary_id").select("Issues Vocabulary")
+
+          click_button "Update"
+
+          assert has_content? "Custom field updated correctly"
+          assert_equal @issues_vocabulary.id, custom_field.reload.options["vocabulary_id"].to_i
         end
       end
     end

@@ -135,6 +135,37 @@ module GobiertoAdmin
             assert_equal resource_instance, custom_field.instance
           end
         end
+
+        def test_create_custom_field_for_plugin
+          with(site: site, js: true, admin: admin) do
+            visit @path
+
+            click_link "Add new field"
+
+            fill_in "custom_field_name_translations_en", with: "Plugin custom field"
+            fill_in "custom_field_uid", with: "plugin-custom-field"
+
+            click_link "ES"
+            fill_in "custom_field_name_translations_es", with: "Plugin custom field"
+
+            within(".site-module-check-boxes") do find("label", exact_text: "Plugin").click end
+
+            within "#plugin" do
+              find("label", exact_text: "Human Resources").click
+            end
+
+            select "Human Resources", from: "custom_field_vocabulary_id"
+
+            click_button "Create"
+
+            assert has_message?("Custom field created correctly")
+
+            custom_field = ::GobiertoCommon::CustomField.last
+
+            assert_equal "plugin", custom_field.field_type
+            assert_equal "human_resources", custom_field.options["configuration"]["plugin_type"]
+          end
+        end
       end
     end
   end

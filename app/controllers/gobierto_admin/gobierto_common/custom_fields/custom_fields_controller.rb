@@ -128,6 +128,7 @@ module GobiertoAdmin
             :uid,
             :vocabulary_id,
             :vocabulary_type,
+            :plugin_type,
             :instance_class_name,
             :instance_id,
             name_translations: [*I18n.available_locales],

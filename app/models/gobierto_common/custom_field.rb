@@ -8,6 +8,7 @@ module GobiertoCommon
     belongs_to :instance, polymorphic: true
     has_many :records, dependent: :destroy, class_name: "CustomFieldRecord"
     validates :name, presence: true
+    validates :uid, uniqueness: { scope: [:site_id, :class_name] }
 
     enum field_type: { localized_string: 0,
                        string: 1,
@@ -18,7 +19,8 @@ module GobiertoCommon
                        color: 6,
                        image: 7,
                        data_grid: 8,
-                       vocabulary_options: 9 }
+                       vocabulary_options: 9,
+                       plugin: 10 }
 
     scope :sorted, -> { order(position: :asc) }
     scope :localized, -> { where(field_type: [:localized_string, :localized_paragraph]) }
@@ -50,15 +52,19 @@ module GobiertoCommon
     end
 
     def has_options?
-      /option/.match field_type
+      /option/.match?(field_type)
     end
 
     def has_vocabulary?
-      /vocabulary/.match field_type
+      if (plugin_type = options&.dig(*%w(configuration plugin_type))&.to_sym)
+        self.class.has_vocabulary?(plugin_type)
+      else
+        /vocabulary/.match?(field_type)
+      end
     end
 
     def has_localized_value?
-      /localized/.match field_type
+      /localized/.match?(field_type)
     end
 
     def localized_options(locale)
@@ -84,6 +90,12 @@ module GobiertoCommon
     end
 
     private
+
+    def self.has_vocabulary?(plugin_type)
+      plugin = CustomFieldPlugin.all.find { |p| p.type == plugin_type.to_sym }
+
+      plugin && plugin.requires_vocabulary?
+    end
 
     def set_uid
       self.uid ||= SecureRandom.uuid

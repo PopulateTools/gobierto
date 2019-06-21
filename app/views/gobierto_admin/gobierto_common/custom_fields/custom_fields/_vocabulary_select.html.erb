@@ -1,14 +1,3 @@
-<h4 class="options compact"><%= t(".type") %></h4>
-<%= f.collection_radio_buttons("vocabulary_type", @custom_field_form.available_vocabulary_options, :itself, :itself) do |b| %>
-  <div class="option">
-    <%= b.radio_button %>
-    <%= b.label do %>
-      <span></span>
-      <%= t(".#{b.text}") %>
-    <% end %>
-  </div>
-<% end %>
-
 <h4 class="options compact"><%= t(".vocabulary") %></h4>
 <div class="field_item_def_cont">
   <div class="field_item_def field_locale">

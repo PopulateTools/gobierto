@@ -3,20 +3,41 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
 
   GobiertoCommonCustomFieldsController.prototype.handleForm = function() {
     _handleItemTypeSelection()
+    _handlePluginTypeSelection()
     _handleBehaviors()
   };
 
   function _handleItemTypeSelection() {
     $(document).on("change", "input[data-has-options]", function(e) {
+      $("div.configuration .form_block").children("div").hide();
+
       if ($(this).data().hasVocabulary) {
         $("#vocabulary").show();
-        $("#options").hide();
       } else if ($(this).data().hasOptions) {
-        $("#vocabulary").hide();
         $("#options").show();
+      }
+
+      if ($(this).data().type === "plugin") {
+        $(".js-plugin-type-option").each(function() {
+          if ($(this).is(":checked") && $(this).attr("has_vocabulary")) {
+            $("#vocabulary").show();
+          }
+        });
+      }
+
+      // Show options related to type
+      if ($(this).data().type) {
+        $(`#${$(this).data().type}`).show();
+      }
+    })
+  }
+
+  function _handlePluginTypeSelection() {
+    $(".js-plugin-type-option").click(function(e) {
+      if ($(e.target).attr("has_vocabulary") === "true") {
+        $("#vocabulary").show();
       } else {
         $("#vocabulary").hide();
-        $("#options").hide();
       }
     })
   }

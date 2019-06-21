@@ -118,9 +118,6 @@ ca:
           new: Nou
           title: Projectes de %{name}
           view: Veure item
-        indicators:
-          items: Elements
-          status: Estat
         new:
           title: Nou projecte
       shared:

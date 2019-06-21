@@ -3,7 +3,9 @@
 
   <div class="pure-u-1 pure-u-md-1-4">
     <span class="field_item">
-      <%= translations[I18n.locale.to_s] %>
+      <% if translations.is_a?(Hash) %>
+        <%= translations[I18n.locale.to_s] %>
+      <% end %>
   </span>
   </div>
 
@@ -24,7 +26,7 @@
           <%= label_tag "custom_field[options_translations][#{ key }][#{locale}]" do %>
             <%= t("locales.#{ locale }") %>
           <% end %>
-          <%= text_field_tag "custom_field[options_translations][#{ key }][#{ locale }]", translations && translations[locale] %>
+          <%= text_field_tag "custom_field[options_translations][#{ key }][#{ locale }]", translations && translations.is_a?(Hash) && translations[locale] %>
         </div>
       <% end %>
     </div>

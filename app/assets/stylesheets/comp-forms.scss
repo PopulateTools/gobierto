@@ -332,6 +332,12 @@ input[type="radio"] {
   display: none;
 }
 
+.slickgrid-container {
+  input[type="checkbox"] {
+    display: inline;
+  }
+}
+
 input[type="checkbox"] + label,
 input[type="radio"] + label {
   cursor: pointer;

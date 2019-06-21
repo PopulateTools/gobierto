@@ -236,6 +236,8 @@ function initializeSingleDatepicker(element) {
         }
       }
     });
+    var dateAttr = element.data('startdate');
+    setDateOnBindedDatepicker(new Date(dateAttr), element);
 
     if(!element.data('allowBlank')){
       let date = new Date(element.data('startdate'));

@@ -41,6 +41,8 @@ module GobiertoCommon
 
     delegate :value, :raw_value, :value=, :searchable_value, to: :value_processor
 
+    after_save :check_plugin_callbacks
+
     def value_processor
       key = VALUE_PROCESSORS.has_key?(custom_field&.field_type&.to_sym) ? custom_field.field_type.to_sym : :default
       VALUE_PROCESSORS[key].new(self)
@@ -64,6 +66,29 @@ module GobiertoCommon
 
     def item_class
       custom_field&.class_name&.constantize
+    end
+
+    private
+
+    def check_plugin_callbacks
+      plugin_types_with_callbacks = GobiertoCommon::CustomFieldPlugin.with_callbacks.map(&:type)
+
+      return if plugin_types_with_callbacks.blank?
+
+      custom_fields_with_callbacks = GobiertoCommon::CustomField.plugin
+                                                                .where(instance: custom_field.instance)
+                                                                .where("options -> 'configuration' ->> 'plugin_type' in (:types)", types: plugin_types_with_callbacks)
+
+      custom_fields_with_callbacks.each do |custom_field_with_callback|
+        next unless custom_field_with_callback.refers_to?(custom_field)
+
+        GobiertoCommon::CustomFieldRecord.for_item(item).where(custom_field: custom_field_with_callback).each do |record|
+          plugin_type = custom_field_with_callback.configuration.plugin_type
+          GobiertoCommon::CustomFieldPlugin.find(plugin_type).callbacks.each do |callback|
+            record.functions.send(callback)
+          end
+        end
+      end
     end
   end
 end

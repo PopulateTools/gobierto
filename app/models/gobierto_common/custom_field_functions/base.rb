@@ -6,6 +6,7 @@ module GobiertoCommon
       attr_accessor :record
 
       delegate :custom_field, :value, to: :record
+      delegate :configuration, to: :custom_field
 
       def initialize(record)
         @record = record

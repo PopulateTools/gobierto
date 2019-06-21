@@ -5,10 +5,13 @@ module GobiertoCommon
 
     attr_accessor :type
 
+    attr_reader :callbacks
+
     def initialize(type, params = {})
       self.type = type
       @requires_vocabulary = params[:requires_vocabulary] || false
       @has_configuration = params[:has_configuration] || false
+      @callbacks = params[:callbacks] || []
     end
 
     def requires_vocabulary?
@@ -19,10 +22,18 @@ module GobiertoCommon
       @has_configuration
     end
 
+    def has_callbacks?
+      @callbacks.present?
+    end
+
     def self.all
       Rails.application.config.custom_field_plugins.map do |key, value|
         CustomFieldPlugin.new(key, value)
       end
+    end
+
+    def self.with_callbacks
+      all.select(&:has_callbacks?)
     end
 
     def self.find(type)

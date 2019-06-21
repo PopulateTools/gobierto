@@ -93,6 +93,11 @@ module GobiertoCommon
       )
     end
 
+    def refers_to?(custom_field)
+      configuration.plugin_configuration.dig("custom_field_ids")&.include?(custom_field.id) ||
+        configuration.plugin_configuration.dig("custom_field_uids")&.include?(custom_field.uid)
+    end
+
     private
 
     def self.has_vocabulary?(plugin_type)

@@ -64,11 +64,24 @@ module GobiertoCommon
         partial: "plugin",
         tag_attributes: {}
       },
-      data_grid: {
-        class_names: "form_item file_field avatar_file_field",
-        field_tag: :hidden_field_tag,
-        partial: "data_grid",
-        tag_attributes: {}
+      date: {
+        class_names: "form_item input_text",
+        field_tag: :text_field_tag,
+        partial: "date",
+        tag_attributes: ->(record) {
+          {
+            class: "air-datepicker",
+            data: {
+              behavior: "none",
+              language: I18n.locale,
+              timepicker: record.custom_field.configuration.date_type == "datetime",
+              autoclose: record.custom_field.configuration.date_type != "datetime",
+              "time-format": "hh:ii",
+              "date-format": "yyyy-mm-dd",
+              "allow-blank": true
+            }
+          }
+        }
       }
     }.freeze
 

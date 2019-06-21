@@ -76,6 +76,11 @@
             <%= render partial: "options_form", locals: { f: f } %>
           <% end %>
         <% end %>
+        <%= content_tag :div, class: "form_block" do %>
+          <%= content_tag :div, id: "date", class: "form_item", style: @custom_field_form.custom_field.date? ? nil : "display: none;" do %>
+            <%= render partial: "date_options", locals: { f: f } %>
+          <% end %>
+        <% end %>
       </div>
     </div>
 

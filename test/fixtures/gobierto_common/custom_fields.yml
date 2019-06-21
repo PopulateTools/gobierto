@@ -42,6 +42,18 @@ madrid_custom_field_languages:
     pt: { en: "Portuguese", es: "Portugués" }
   }.to_json %>
 
+madrid_custom_field_date_of_birth:
+  site: madrid
+  class_name: "GobiertoPeople::Person"
+  mandatory: false
+  position: 4
+  name_translations: <%= { en: "Date of birth", es: "Fecha de nacimiento" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:date] %>
+  uid: date-of-birth
+  options: <%= {
+    configuration: { "date_type" => "date" },
+  }.to_json %>
+
 madrid_site_custom_field:
   site: madrid
   class_name: "Site"

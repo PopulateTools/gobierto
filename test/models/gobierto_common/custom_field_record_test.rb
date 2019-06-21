@@ -19,6 +19,10 @@ class GobiertoCommon::CustomFieldRecordTest < ActiveSupport::TestCase
     @custom_field_multiple_options ||= gobierto_common_custom_fields(:madrid_custom_field_languages)
   end
 
+  def custom_field_date
+    @custom_field_date ||= gobierto_common_custom_fields(:madrid_custom_field_date_of_birth)
+  end
+
   def person
     @person ||= gobierto_people_people(:richard)
   end
@@ -40,7 +44,8 @@ class GobiertoCommon::CustomFieldRecordTest < ActiveSupport::TestCase
      custom_field_paragraph,
      custom_field_single_option,
      custom_field_multiple_options,
-     custom_field_multiple_options].each do |custom_field|
+     custom_field_multiple_options,
+     custom_field_date].each do |custom_field|
        subject = GobiertoCommon::CustomFieldRecord.new
        subject.custom_field = custom_field
        subject.value = "randomstring1"
@@ -68,6 +73,11 @@ class GobiertoCommon::CustomFieldRecordTest < ActiveSupport::TestCase
     subject.custom_field = custom_field_multiple_options
     subject.value = %w(es pt)
     assert_equal %w(Spanish Portuguese), subject.value
+
+    subject = GobiertoCommon::CustomFieldRecord.new
+    subject.custom_field = custom_field_date
+    subject.value = "2019-08-07"
+    assert_equal "2019-08-07", subject.value
   end
 
   def test_wrong_item_class

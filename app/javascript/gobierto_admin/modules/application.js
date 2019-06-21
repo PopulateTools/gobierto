@@ -10,6 +10,7 @@ $(document).on('turbolinks:load', function() {
   $(".stick_in_parent").stick_in_parent();
 
   addDatepickerBehaviors();
+  initializeDatepickersWithoutBehavior();
 
   $('#site_visibility_level_active').on('click', function(){
     $('#site_username').val('');
@@ -83,11 +84,13 @@ $(document).on('turbolinks:load', function() {
 });
 
 function addDatepickerBehaviors() {
-  if ($('.air-datepicker').length == 1) {
+  let $datepickerWithBehavior = $('input[data-behavior!="none"].air-datepicker')
+
+  if ($datepickerWithBehavior.length == 1) {
     initializePageWithOnlyOneDatepicker();
-  } else if($('.air-datepicker').length){
-    var $fromDatePickers = $('.air-datepicker:even');
-    var $toDatePickers   = $('.air-datepicker:odd');
+  } else if($datepickerWithBehavior.length){
+    var $fromDatePickers = $datepickerWithBehavior.filter(':even');
+    var $toDatePickers   = $datepickerWithBehavior.filter(':odd');
 
     $toDatePickers.each(function(index, toDatePicker) {
 
@@ -181,15 +184,15 @@ function addDatepickerBehaviors() {
 }
 
 function initializePageWithOnlyOneDatepicker() {
-  const $datepicker = $('.air-datepicker')
+  const $datepickerWithBehavior = $('input[data-behavior!="none"].air-datepicker')
 
   // Check if properties were informed before set defaults
   const datePickerDEFAULTS = {
-    autoClose: ($datepicker.data('autoclose') === undefined) ? true : ($datepicker.data('autoclose')),
-    startDate: ($datepicker.data('startdate') === undefined) ? new Date() : new Date($datepicker.data('startdate'))
+    autoClose: ($datepickerWithBehavior.data('autoclose') === undefined) ? true : ($datepickerWithBehavior.data('autoclose')),
+    startDate: ($datepickerWithBehavior.data('startdate') === undefined) ? new Date() : new Date($datepickerWithBehavior.data('startdate'))
   }
 
-  $('.air-datepicker').datepicker({
+  $('input[data-behavior!="none"].air-datepicker').datepicker({
     autoClose: datePickerDEFAULTS.autoClose,
     startDate: datePickerDEFAULTS.startDate,
     onSelect: function onSelect(_, selectedDate, instance) {
@@ -199,12 +202,63 @@ function initializePageWithOnlyOneDatepicker() {
 
   // If a default value was set, force datepicker parse it so the TZ offset is
   // not shown to the user
-  $('.air-datepicker').each(function() {
+  $('input[data-behavior!="none"].air-datepicker').each(function() {
     if (this.value && !$(this).data('range')) {
       var dateAttr = $(this).data('startdate');
       setDateOnBindedDatepicker(new Date(dateAttr), $(this));
     }
   });
+}
+
+function initializeSingleDatepicker(element) {
+  let datepickerDEFAULTS = {
+    autoClose: (element.data('autoclose') === undefined)
+      ? true
+      : (element.data('autoclose')),
+      minutesStep: (element.data('minutesstep') === undefined)
+        ? 5
+        : (element.data('minutesstep')),
+        startDate: (element.data('startdate') === undefined)
+          ? new Date()
+          : new Date(element.data('startdate')),
+  }
+
+  if(element.data('range') === undefined) {
+    element.datepicker({
+      autoClose: datepickerDEFAULTS.autoClose,
+      minutesStep: datepickerDEFAULTS.minutesStep,
+      startDate: datepickerDEFAULTS.startDate,
+      onSelect: function onSelect(_, selectedDate, instance) {
+        $(instance.el).trigger("datepicker-change");
+
+        if ($(instance.el).data('bind')) {
+          selectedDate.setHours(selectedDate.getHours() + 1)
+        }
+      }
+    });
+    var dateAttr = element.data('startdate');
+    setDateOnBindedDatepicker(new Date(dateAttr), element);
+
+    if(!element.data('allowBlank')){
+      let date = new Date(element.data('startdate'));
+
+      element.data('datepicker').selectDate(date);
+    }
+  } else {
+    element.datepicker({
+      autoClose: datepickerDEFAULTS.autoClose,
+      onSelect: function onSelect(_, selectedDate, instance) {
+        $(instance.el).trigger("datepicker-change");
+      }
+    });
+  }
+}
+
+function initializeDatepickersWithoutBehavior() {
+  let $datepickersWithoutBehavior = $('input[data-behavior="none"].air-datepicker')
+  $datepickersWithoutBehavior.each(function(index, datepicker) {
+    initializeSingleDatepicker($(datepicker))
+  })
 }
 
 function setDateOnBindedDatepicker(date, datepicker) {
@@ -249,4 +303,4 @@ function toggleStickyToolbar(wysiwyg) {
   })
 }
 
-export { addDatepickerBehaviors }
+export { addDatepickerBehaviors, initializeDatepickersWithoutBehavior }

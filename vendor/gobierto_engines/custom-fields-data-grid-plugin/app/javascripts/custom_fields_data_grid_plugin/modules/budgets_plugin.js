@@ -105,9 +105,11 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
     }).then(function(jsonData) {
       if (jsonData) {
         var amount = jsonData.forecast.updated_amount || jsonData.forecast.original_amount
-        updatedRow.amount = `${Math.round(amount * updatedRow.weight / 100).toLocaleString(I18n.locale)} €`
-        _grid.invalidateRow(row)
-        _grid.render()
+        if (updatedRow.weight) {
+          updatedRow.amount = `${Math.round(amount * updatedRow.weight / 100).toLocaleString(I18n.locale)} €`
+          _grid.invalidateRow(row)
+          _grid.render()
+        }
       }
     })
   }

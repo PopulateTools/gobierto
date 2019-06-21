@@ -165,7 +165,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
       },
       {
         id: "weight",
-        name: i18n("weight"),
+        name: `${i18n("weight")} %`,
         field: "weight",
         width: 120,
         cssClass: "cell-title",

@@ -52,7 +52,7 @@ module GobiertoBudgets
       def available_years
         years = ::GobiertoBudgets::SearchEngineConfiguration::Year.with_data(
           index: ::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
-        )
+        ).sort
 
         render json: years
       end

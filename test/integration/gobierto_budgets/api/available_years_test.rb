@@ -31,7 +31,7 @@ module GobiertoBudgets
         with(site: site, factories: factories) do
           get request_path
 
-          assert_equal [2019, 2018], response_body
+          assert_equal [2018, 2019], response_body
         end
       end
 

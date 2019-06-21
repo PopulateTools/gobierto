@@ -39,42 +39,22 @@ module GobiertoAdmin
         end
 
         def create_custom_fields_records
-          ::GobiertoCommon::CustomFieldRecord.create(
-            gobierto_common_custom_field_records(:political_agendas_custom_field_global).attributes.except("id", "item_id").merge(
-              item_id: published_project.id,
-              item_has_versions: true
+          {
+            political_agendas_custom_field_global: published_project,
+            political_agendas_custom_field_instance_level: published_project,
+            scholarships_kindergartens_custom_field_global: unpublished_project,
+            scholarships_kindergartens_custom_field_instance_level: unpublished_project,
+            political_agendas_indicators_custom_field_record: unpublished_project,
+            political_agendas_human_resources_custom_field_record: unpublished_project,
+            political_agendas_budgets_custom_field_record: unpublished_project
+          }.each do |fixture_key, project|
+            ::GobiertoCommon::CustomFieldRecord.create(
+              gobierto_common_custom_field_records(fixture_key).attributes.except("id", "item_id").merge(
+                item_id: project.id,
+                item_has_versions: true
+              )
             )
-          )
-          ::GobiertoCommon::CustomFieldRecord.create(
-            gobierto_common_custom_field_records(:political_agendas_custom_field_instance_level).attributes.except("id", "item_id").merge(
-              item_id: published_project.id,
-              item_has_versions: true
-            )
-          )
-          ::GobiertoCommon::CustomFieldRecord.create(
-            gobierto_common_custom_field_records(:scholarships_kindergartens_custom_field_global).attributes.except("id", "item_id").merge(
-              item_id: unpublished_project.id,
-              item_has_versions: true
-            )
-          )
-          ::GobiertoCommon::CustomFieldRecord.create(
-            gobierto_common_custom_field_records(:scholarships_kindergartens_custom_field_instance_level).attributes.except("id", "item_id").merge(
-              item_id: unpublished_project.id,
-              item_has_versions: true
-            )
-          )
-          ::GobiertoCommon::CustomFieldRecord.create(
-            gobierto_common_custom_field_records(:political_agendas_indicators_custom_field_record).attributes.except("id", "item_id").merge(
-              item_id: unpublished_project.id,
-              item_has_versions: true
-            )
-          )
-          ::GobiertoCommon::CustomFieldRecord.create(
-            gobierto_common_custom_field_records(:political_agendas_human_resources_custom_field_record).attributes.except("id", "item_id").merge(
-              item_id: unpublished_project.id,
-              item_has_versions: true
-            )
-          )
+          end
         end
 
         def preview_test_conf

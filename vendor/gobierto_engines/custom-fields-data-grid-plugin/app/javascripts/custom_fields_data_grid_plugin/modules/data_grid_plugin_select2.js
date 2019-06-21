@@ -8,14 +8,42 @@ function PopulateSelect(select, dataSource, addBlank) {
 
   if (addBlank) { select.appendChild(new Option('', '')); }
 
-  $.each(dataSource, function (value, text) {
-    newOption = new Option(text, value);
-    select.appendChild(newOption);
-  });
+  if (dataSource.grouped) {
+    $.each(dataSource.grouped, function (groupKey, groupItems) {
+      let groupName = I18n.t(`gobierto_admin.custom_fields_plugins.common.${groupKey}`)
+      var $group = $(`<optgroup label="${groupName}"></optgroup`)
+      $group.appendTo($(select));
+
+      $.each(groupItems, function (value, text) {
+        newOption = new Option(text, value);
+        $group[0].appendChild(newOption);
+      })
+    });
+  } else {
+    $.each(dataSource, function (value, text) {
+      newOption = new Option(text, value);
+      select.appendChild(newOption);
+    });
+  }
 };
 
 function Select2Formatter(_row, _cell, value, columnDef, _dataContext) {
-  return columnDef.dataSource[value] || '-';
+  var groupedData = columnDef.dataSource.grouped
+
+  if (groupedData) {
+    var result
+    $.each(groupedData, function (_groupKey, groupItems) {
+      $.each(groupItems, function (itemValue, _text) {
+        if (groupedData[itemValue.split("/")[0]][value]) {
+          result = groupedData[itemValue.split("/")[0]][value]
+          return false
+        }
+      })
+      if (result) return false
+    })
+  }
+
+  return result || columnDef.dataSource[value] || '-'
 }
 
 function Select2Editor(args) {

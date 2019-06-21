@@ -84,3 +84,14 @@ political_agendas_human_resources_custom_field_record:
       }
     ]
   }.to_json %>
+
+political_agendas_budgets_custom_field_record:
+  item: political_agendas (GobiertoPlans::Node)
+  custom_field: madrid_custom_field_budgets_plugin
+  payload: <%= {
+    budget_lines: [
+      { area: "economic", id: "28079/2014/1/G", weight: 10 },
+      { area: "economic", id: "28079/2015/2/G", weight: 15 },
+      { area: "functional", id: "28079/2016/3/G", weight: 20 }
+    ]
+  }.to_json %>

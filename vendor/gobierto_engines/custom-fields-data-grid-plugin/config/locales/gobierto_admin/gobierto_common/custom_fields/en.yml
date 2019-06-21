@@ -8,6 +8,15 @@ en:
             indicators: Indicators
             human_resources: Human Resources
     custom_fields_plugins:
+      budgets:
+        amount: Amount
+        area: Area
+        economic: Economic
+        functional: Functional
+        custom: Custom
+        budget_line: Budget line
+        year: Year
+        weight: Weight
       data_grid:
         add: "Add"
         remove_rows: "Remove selected rows"
@@ -19,3 +28,7 @@ en:
         cost: "Cost"
         start_date: "Start date"
         end_date: "End date"
+      common:
+        economic: Economic
+        functional: Functional
+        custom: Custom

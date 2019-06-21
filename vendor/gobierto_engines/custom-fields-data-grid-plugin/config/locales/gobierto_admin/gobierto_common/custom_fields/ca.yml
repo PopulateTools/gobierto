@@ -8,6 +8,15 @@ ca:
             indicators: Indicadors
             human_resources: Recursos Humans
     custom_fields_plugins:
+      budgets:
+        amount: Import
+        area: Àrea
+        economic: Econòmica
+        functional: Funcional
+        custom: Personalitzada
+        budget_line: Partida pressupostària
+        year: Any
+        weight: Pes
       data_grid:
         add: "Afegir"
         remove_rows: "Eliminar files seleccionades"
@@ -19,3 +28,7 @@ ca:
         cost: "Cost"
         start_date: "Data inici"
         end_date: "Data fi"
+      common:
+        economic: Econòmica
+        functional: Funcional
+        custom: Personalitzada

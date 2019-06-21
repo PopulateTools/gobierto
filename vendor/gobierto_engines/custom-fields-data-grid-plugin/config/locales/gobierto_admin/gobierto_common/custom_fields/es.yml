@@ -8,6 +8,15 @@ es:
             indicators: Indicadores
             human_resources: Recursos Humanos
     custom_fields_plugins:
+      budgets:
+        amount: Importe
+        area: Área
+        economic: Económica
+        functional: Funcional
+        custom: Personalizada
+        budget_line: Partida presupuestaria
+        year: Año
+        weight: Peso
       data_grid:
         add: "Añadir"
         remove_rows: "Eliminar filas seleccionadas"
@@ -19,3 +28,7 @@ es:
         cost: "Coste"
         start_date: "Fecha inicio"
         end_date: "Fecha fin"
+      common:
+        economic: Económica
+        functional: Funcional
+        custom: Personalizada

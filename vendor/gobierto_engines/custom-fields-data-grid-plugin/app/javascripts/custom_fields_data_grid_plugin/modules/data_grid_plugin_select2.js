@@ -14,8 +14,9 @@ function PopulateSelect(select, dataSource, addBlank) {
       var $group = $(`<optgroup label="${groupName}"></optgroup`)
       $group.appendTo($(select));
 
-      $.each(groupItems, function (value, text) {
-        newOption = new Option(text, value);
+      var groupItemsPairs = _.toPairs(groupItems)
+      $.each(groupItemsPairs, function(idx) {
+        newOption = new Option(groupItemsPairs[idx][1], groupItemsPairs[idx][0]);
         $group[0].appendChild(newOption);
       })
     });

@@ -47,11 +47,11 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
   function _parseBudgetLines(jsonData) {
     var organizationId = 28079
 
-    Object.keys(jsonData.economic.G).forEach(function(budgetLineCode) {
+    Object.keys(jsonData.economic.G).sort().forEach(function(budgetLineCode) {
       _budgetLines.grouped.economic[`economic/${organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData.economic.G[budgetLineCode]}`
     });
 
-    Object.keys(jsonData.functional.G).forEach(function(budgetLineCode) {
+    Object.keys(jsonData.functional.G).sort().forEach(function(budgetLineCode) {
       _budgetLines.grouped.functional[`functional/${organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData.functional.G[budgetLineCode]}`
     });
   }

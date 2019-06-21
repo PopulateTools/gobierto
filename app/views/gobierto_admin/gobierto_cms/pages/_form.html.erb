@@ -37,6 +37,7 @@
         <%= f.text_field :published_on, data: {
             "language": I18n.locale,
             "timepicker": true,
+            "autoclose": false,
             "date-format": "yyyy-mm-dd",
             "time-format": "hh:ii",
             "startDate": microseconds_since_epoch(f, :published_on)

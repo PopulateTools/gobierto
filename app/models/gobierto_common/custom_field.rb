@@ -18,7 +18,7 @@ module GobiertoCommon
                        multiple_options: 5,
                        color: 6,
                        image: 7,
-                       data_grid: 8,
+                       date: 8,
                        vocabulary_options: 9,
                        plugin: 10 }
 
@@ -41,6 +41,10 @@ module GobiertoCommon
 
     def self.available_options
       [:single_select, :multiple_select, :tags]
+    end
+
+    def self.date_options
+      [:date, :datetime]
     end
 
     def long_text?

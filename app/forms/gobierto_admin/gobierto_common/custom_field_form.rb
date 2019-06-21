@@ -19,7 +19,8 @@ module GobiertoAdmin
         :uid,
         :vocabulary_id,
         :vocabulary_type,
-        :plugin_type
+        :plugin_type,
+        :date_type
       )
 
       delegate :persisted?, :has_vocabulary?, to: :custom_field
@@ -79,6 +80,10 @@ module GobiertoAdmin
         ::GobiertoCommon::CustomField.available_options
       end
 
+      def available_date_options
+        ::GobiertoCommon::CustomField.date_options
+      end
+
       def options
         @options ||= {}.tap do |opts|
           opts[:configuration] ||= {}
@@ -86,6 +91,9 @@ module GobiertoAdmin
           if ::GobiertoCommon::CustomField.has_vocabulary?(plugin_type)
             opts[:vocabulary_id] = vocabulary_id if vocabulary_id
             opts[:configuration][:vocabulary_type] = vocabulary_type if vocabulary_type.present?
+          end
+          if custom_field.date?
+            opts[:configuration][:date_type] = date_type
           end
           opts[:configuration][:plugin_type] = plugin_type if custom_field.plugin?
         end
@@ -123,6 +131,10 @@ module GobiertoAdmin
 
       def plugin_type
         @plugin_type ||= custom_field.configuration.dig("plugin_type") || :dummy
+      end
+
+      def date_type
+        @date_type ||= custom_field.configuration.date_type || :date
       end
 
       private

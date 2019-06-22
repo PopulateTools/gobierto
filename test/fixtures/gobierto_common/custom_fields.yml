@@ -123,3 +123,18 @@ madrid_custom_field_budgets_plugin:
   options: <%= {
     configuration: { plugin_type: "budgets" }
   }.to_json %>
+
+madrid_custom_field_progress_plugin:
+  site: madrid
+  class_name: GobiertoPlans::Node
+  mandatory: false
+  position: 2
+  name_translations: <%= { en: "Progress", es: "Progreso" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
+  uid: progress
+  options: <%= {
+    configuration: {
+      plugin_type: "progress",
+      plugin_configuration: { custom_field_uids: ["human-resources"] }
+    }
+  }.to_json %>

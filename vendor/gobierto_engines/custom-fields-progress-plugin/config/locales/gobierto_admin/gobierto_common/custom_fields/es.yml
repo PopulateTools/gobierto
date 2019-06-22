@@ -1,0 +1,11 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          plugin:
+            progress: Progreso
+    custom_fields_plugins:
+      progress:
+        progress: Progreso

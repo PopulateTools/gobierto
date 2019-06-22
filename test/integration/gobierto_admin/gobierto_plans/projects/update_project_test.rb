@@ -46,7 +46,8 @@ module GobiertoAdmin
             scholarships_kindergartens_custom_field_instance_level: unpublished_project,
             political_agendas_indicators_custom_field_record: unpublished_project,
             political_agendas_human_resources_custom_field_record: unpublished_project,
-            political_agendas_budgets_custom_field_record: unpublished_project
+            political_agendas_budgets_custom_field_record: unpublished_project,
+            political_agendas_progress_custom_field_record: unpublished_project
           }.each do |fixture_key, project|
             ::GobiertoCommon::CustomFieldRecord.create(
               gobierto_common_custom_field_records(fixture_key).attributes.except("id", "item_id").merge(

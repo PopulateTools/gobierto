@@ -3,7 +3,7 @@
 module GobiertoCommon
   class CustomFieldPlugin
 
-    attr_accessor :type
+    attr_accessor :type, :default_configuration
 
     attr_reader :callbacks
 
@@ -11,6 +11,7 @@ module GobiertoCommon
       self.type = type
       @requires_vocabulary = params[:requires_vocabulary] || false
       @has_configuration = params[:has_configuration] || false
+      @default_configuration = params[:default_configuration]
       @callbacks = params[:callbacks] || []
     end
 

@@ -15,6 +15,7 @@ else
         )
         conf.custom_field_plugins_packs += %w(data_grid)
         conf.autoload_paths += Dir[Pathname.new(base_path).join('app', 'models')]
+        conf.eager_load_paths += Dir[Pathname.new(base_path).join("app", "models")]
         conf.i18n.load_path += Dir[File.join(base_path, 'config', 'locales', '**', '*.{rb,yml}')]
       end
       Webpacker::Compiler.watched_paths += [

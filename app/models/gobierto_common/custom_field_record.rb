@@ -51,15 +51,13 @@ module GobiertoCommon
     def functions
       return unless custom_field.plugin?
 
-      unless Rails.env.production?
+      unless GobiertoCommon::CustomFieldFunctions.const_defined?(custom_field.configuration.plugin_type.classify)
         begin
           GobiertoCommon::CustomFieldFunctions.const_get(custom_field.configuration.plugin_type.classify)
         rescue NameError
-          nil
+          return
         end
       end
-
-      return unless GobiertoCommon::CustomFieldFunctions.const_defined?(custom_field.configuration.plugin_type.classify)
 
       GobiertoCommon::CustomFieldFunctions.const_get(custom_field.configuration.plugin_type.classify).new(self)
     end
@@ -85,6 +83,8 @@ module GobiertoCommon
         GobiertoCommon::CustomFieldRecord.for_item(item).where(custom_field: custom_field_with_callback).each do |record|
           plugin_type = custom_field_with_callback.configuration.plugin_type
           GobiertoCommon::CustomFieldPlugin.find(plugin_type).callbacks.each do |callback|
+            next unless record.functions.respond_to? callback
+
             record.functions.send(callback)
           end
         end

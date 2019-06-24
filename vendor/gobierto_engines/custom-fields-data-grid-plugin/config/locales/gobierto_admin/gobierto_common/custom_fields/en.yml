@@ -1,36 +1,37 @@
 ---
 en:
   gobierto_admin:
+    custom_fields_plugins:
+      budgets:
+        area: Area
+        assigned_amount: Assigned amount
+        budget_line: Budget line
+        custom: Custom
+        economic: Economic
+        full_amount: Full amount
+        functional: Functional
+        not_available: Not avail.
+        weight: Weight
+        year: Year
+      common:
+        custom: Custom
+        economic: Economic
+        functional: Functional
+      data_grid:
+        add: Add
+        remove_rows: Remove selected rows
+        select_deselect_all: Select / Deselect All
+      human_resources:
+        cost: Cost
+        end_date: End date
+        human_resource: Human resource
+        start_date: Start date
+      indicators:
+        indicator: Indicator
     gobierto_common:
       custom_fields:
         custom_fields:
           plugin:
-            indicators: Indicators
+            budgets: Budgets
             human_resources: Human Resources
-    custom_fields_plugins:
-      budgets:
-        assigned_amount: Assigned amount
-        full_amount: Full amount
-        area: Area
-        economic: Economic
-        functional: Functional
-        custom: Custom
-        budget_line: Budget line
-        year: Year
-        weight: Weight
-        not_available: Not avail.
-      data_grid:
-        add: "Add"
-        remove_rows: "Remove selected rows"
-        select_deselect_all: "Select / Deselect All"
-      indicators:
-        indicator: "Indicator"
-      human_resources:
-        human_resource: "Human resource"
-        cost: "Cost"
-        start_date: "Start date"
-        end_date: "End date"
-      common:
-        economic: Economic
-        functional: Functional
-        custom: Custom
+            indicators: Indicators

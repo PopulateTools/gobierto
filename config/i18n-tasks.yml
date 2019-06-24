@@ -6,10 +6,12 @@ data:
     - config/locales/**/*/%{locale}.yml
     - vendor/auth_strategies/**/config/locales/**/%{locale}.yml
     - vendor/auth_strategies/**/config/locales/**/*/%{locale}.yml
+    - vendor/gobierto_engines/custom-fields-data-grid-plugin/config/locales/**/*/%{locale}.yml
 search:
   paths:
     - app/
     - vendor/auth_strategies/
+    - vendor/gobierto_engines/custom-fields-data-grid-plugin/
   relative_roots:
     - app/cells
     - app/controllers
@@ -109,6 +111,7 @@ ignore_unused:
   - 'gobierto_admin.gobierto_plans.categories.*'
   - 'gobierto_admin.gobierto_plans.projects.publish.*'
   - 'gobierto_admin.gobierto_plans.projects.unpublish.*'
+  - 'gobierto_admin.custom_fields_plugins.*'
 
 translation:
   api_key: ''

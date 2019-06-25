@@ -10,6 +10,8 @@ module GobiertoBudgets
         cache_path: proc { |c| "#{c.request.url}?locale=#{I18n.locale}" }
       )
 
+      skip_before_action :authenticate_user_in_site, only: [:budget_line, :available_years]
+
       def budget
         @year = params[:year].to_i
         @area = params[:area]

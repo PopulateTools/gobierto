@@ -256,7 +256,7 @@ module GobiertoBudgets
 
       def find_details(params = {})
         common_params = { type: params[:type], id: params[:id] }
-        puts "Common params: #{common_params}"
+
         budget_line = Hashie::Mash.new(
           id: params[:id],
           area: params[:type],

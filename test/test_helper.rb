@@ -128,6 +128,7 @@ class ActionDispatch::IntegrationTest
   self.use_transactional_tests = true
 
   def setup
+    Rails.cache.clear
     $redis.flushdb
     Capybara.current_driver = Capybara.default_driver
   end

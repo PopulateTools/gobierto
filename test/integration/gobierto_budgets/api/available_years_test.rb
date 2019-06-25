@@ -8,7 +8,7 @@ module GobiertoBudgets
     class AvailableYearsTest < ActionDispatch::IntegrationTest
 
       def site
-        @site ||= sites(:madrid)
+        @site ||= sites(:huesca)
       end
 
       def request_path
@@ -20,13 +20,18 @@ module GobiertoBudgets
       end
 
       def setup
+        super
+        site.active!
         budgets_settings = site.gobierto_budgets_settings
         budgets_settings.settings["budgets_elaboration"] = false
         budgets_settings.save
       end
 
       def test_when_ok
-        factories = [BudgetLineFactory.new(year: 2018), BudgetLineFactory.new(year: 2019)]
+        factories = [
+          BudgetLineFactory.new(organization_id: site.organization_id, year: 2018),
+          BudgetLineFactory.new(organization_id: site.organization_id, year: 2019)
+        ]
 
         with(site: site, factories: factories) do
           get request_path
@@ -36,9 +41,18 @@ module GobiertoBudgets
       end
 
       def test_when_empty
-        get request_path
+        with(site: site) { get request_path }
 
         assert response_body.empty?
+      end
+
+      def test_when_site_is_draft
+        site.draft!
+        Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
+
+        with(site: site) { get request_path }
+
+        assert_equal "200", response.code
       end
 
     end

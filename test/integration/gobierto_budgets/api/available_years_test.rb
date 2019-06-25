@@ -21,6 +21,7 @@ module GobiertoBudgets
 
       def setup
         super
+        Rails.cache.clear
         site.active!
         budgets_settings = site.gobierto_budgets_settings
         budgets_settings.settings["budgets_elaboration"] = false

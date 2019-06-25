@@ -2,6 +2,7 @@ module GobiertoBudgets
   module Api
     class CategoriesController < ApplicationController
       caches_action :index
+      skip_before_action :authenticate_user_in_site, only: [:index]
 
       def index
         kind      = params[:kind]

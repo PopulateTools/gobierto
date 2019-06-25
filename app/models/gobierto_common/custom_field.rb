@@ -25,6 +25,7 @@ module GobiertoCommon
     scope :sorted, -> { order(position: :asc) }
     scope :localized, -> { where(field_type: [:localized_string, :localized_paragraph]) }
     scope :not_localized, -> { where.not(field_type: [:localized_string, :localized_paragraph]) }
+    scope :with_plugin_type, ->(plugin_type) { plugin.where("options @> ?", { configuration: { plugin_type: plugin_type } }.to_json) }
 
     translates :name
 

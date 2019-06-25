@@ -5,9 +5,7 @@ namespace :gobierto_admin do
   task calculate_progress: :environment do
     GobiertoCommon::CustomField.with_plugin_type("progress").each do |custom_field|
       custom_field.instance.nodes.each do |node|
-        progress_record = custom_field.records.find_or_initialize_by(item: node)
-        progress_record.value = progress_record.functions.progress
-        progress_record.save!
+        custom_field.records.find_or_initialize_by(item: node).functions.update_progress!
       end
     end
   end

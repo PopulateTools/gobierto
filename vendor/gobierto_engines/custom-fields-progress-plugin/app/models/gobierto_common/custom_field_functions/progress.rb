@@ -23,8 +23,13 @@ module GobiertoCommon::CustomFieldFunctions
     end
 
     def update_progress!
-      record.value = progress
+      current_progress = progress
+      record.value = current_progress
       record.save!
+
+      return unless record.item&.has_attribute? :progress
+
+      record.item.update_column(:progress, current_progress&.*(100))
     end
   end
 end

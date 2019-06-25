@@ -80,7 +80,7 @@ module GobiertoCommon
       custom_fields_with_callbacks.each do |custom_field_with_callback|
         next unless custom_field_with_callback.refers_to?(custom_field)
 
-        GobiertoCommon::CustomFieldRecord.for_item(item).where(custom_field: custom_field_with_callback).each do |record|
+        GobiertoCommon::CustomFieldRecord.find_or_initialize_by(item: item, custom_field: custom_field_with_callback).tap do |record|
           plugin_type = custom_field_with_callback.configuration.plugin_type
           GobiertoCommon::CustomFieldPlugin.find(plugin_type).callbacks.each do |callback|
             next unless record.functions.respond_to? callback

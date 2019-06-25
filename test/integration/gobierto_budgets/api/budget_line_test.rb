@@ -8,7 +8,7 @@ module GobiertoBudgets
     class BudgetLineTest < ActionDispatch::IntegrationTest
 
       def site
-        @site ||= sites(:madrid)
+        @site ||= sites(:huesca)
       end
 
       def budget_line_id
@@ -19,10 +19,10 @@ module GobiertoBudgets
         BudgetLineFactory.default_amount
       end
 
-      def request_path
+      def request_path(budget_line_id_param = budget_line_id)
         gobierto_budgets_api_budget_line_path(
           area: GobiertoBudgets::EconomicArea.area_name,
-          id: budget_line_id
+          id: budget_line_id_param
         )
       end
 
@@ -31,7 +31,12 @@ module GobiertoBudgets
       end
 
       def budget_line_factory
-        BudgetLineFactory.new(year: 2019, site: site)
+        BudgetLineFactory.new(year: 2019, organization_id: site.organization_id)
+      end
+
+      def setup
+        super
+        site.active!
       end
 
       def test_ok
@@ -50,7 +55,7 @@ module GobiertoBudgets
       end
 
       def test_not_found
-        with(site: site) { get request_path }
+        with(site: site) { get request_path("wadus") }
 
         assert_equal({ "error" => "not-found" }, response_body)
       end

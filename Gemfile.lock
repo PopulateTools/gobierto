@@ -216,7 +216,7 @@ GEM
       activesupport (>= 4.2)
     invisible_captcha (0.12.1)
       rails (>= 3.2.0)
-    jaro_winkler (1.5.2)
+    jaro_winkler (1.5.3)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
     jmespath (1.4.0)
@@ -380,7 +380,7 @@ GEM
     retriable (3.1.2)
     rollbar (2.20.2)
       multi_json
-    rubocop (0.71.0)
+    rubocop (0.72.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)

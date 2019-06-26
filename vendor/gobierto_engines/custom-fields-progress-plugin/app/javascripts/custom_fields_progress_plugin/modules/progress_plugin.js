@@ -20,8 +20,10 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsProgressPluginController = 
     let progress_select = $("select[id$='_progress'")
     if(progress_select.length) {
       progress_select.replaceWith(
-        $('<input type="text" disabled="disabled">').val(
-          data.toLocaleString(I18n.locale, { style: 'percent', maximumFractionDigits: 1 })
+        $('<input type="text" disabled="disabled" data-plugin-type="progress">').val(
+          data
+            ? data.toLocaleString(I18n.locale, { style: 'percent', maximumFractionDigits: 1 })
+            : "-"
         )
       );
     }

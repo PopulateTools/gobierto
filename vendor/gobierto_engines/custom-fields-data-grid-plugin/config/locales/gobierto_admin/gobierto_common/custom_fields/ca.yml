@@ -1,21 +1,37 @@
 ---
 ca:
   gobierto_admin:
+    custom_fields_plugins:
+      budgets:
+        area: Àrea
+        assigned_amount: Import assignat
+        budget_line: Partida pressupostària
+        custom: Personalitzada
+        economic: Econòmica
+        full_amount: Import complet
+        functional: Funcional
+        not_available: No disp.
+        weight: Pes
+        year: Any
+      common:
+        custom: Personalitzada
+        economic: Econòmica
+        functional: Funcional
+      data_grid:
+        add: Afegir
+        remove_rows: Eliminar files seleccionades
+        select_deselect_all: Seleccionar / Deseleccionar totes
+      human_resources:
+        cost: Cost
+        end_date: Data fi
+        human_resource: Recurs humà
+        start_date: Data inici
+      indicators:
+        indicator: Indicador
     gobierto_common:
       custom_fields:
         custom_fields:
           plugin:
-            indicators: Indicadors
+            budgets: Pressupostos
             human_resources: Recursos Humans
-    custom_fields_plugins:
-      data_grid:
-        add: "Afegir"
-        remove_rows: "Eliminar files seleccionades"
-        select_deselect_all: "Seleccionar / Deseleccionar totes"
-      indicators:
-        indicator: "Indicador"
-      human_resources:
-        human_resource: "Recurs humà"
-        cost: "Cost"
-        start_date: "Data inici"
-        end_date: "Data fi"
+            indicators: Indicadors

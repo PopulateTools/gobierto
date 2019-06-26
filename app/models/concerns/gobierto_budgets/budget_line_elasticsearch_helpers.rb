@@ -250,6 +250,39 @@ module GobiertoBudgets
         return self.search(options)['hits'].detect{|h| h['code'] == options[:code] }
       end
 
+      def get_source(params = {})
+        SearchEngine.client.get_source(index: params[:index], type: params[:type], id: params[:id])
+      end
+
+      def find_details(params = {})
+        common_params = { type: params[:type], id: params[:id] }
+
+        budget_line = Hashie::Mash.new(
+          id: params[:id],
+          area: params[:type],
+          forecast: {},
+          execution: {}
+        )
+
+        forecast_info = SearchEngine.client.get_source(common_params.merge(
+          index: SearchEngineConfiguration::BudgetLine.index_forecast
+        ))
+
+        raise BudgetLine::RecordNotFound unless forecast_info
+
+        forecast_updated_info = SearchEngine.client.get_source(common_params.merge(
+          index: SearchEngineConfiguration::BudgetLine.index_forecast_updated
+        ))
+        execution_info = SearchEngine.client.get_source(common_params.merge(
+          index: SearchEngineConfiguration::BudgetLine.index_executed
+        ))
+
+        budget_line.forecast.original_amount = forecast_info["amount"] if forecast_info
+        budget_line.forecast.updated_amount = forecast_updated_info["amount"] if forecast_updated_info
+        budget_line.execution.amount = execution_info["amount"] if execution_info
+        budget_line
+      end
+
       def has_children?(options)
         options.symbolize_keys!
         conditions = { parent_code: options[:code], type: options[:area] }

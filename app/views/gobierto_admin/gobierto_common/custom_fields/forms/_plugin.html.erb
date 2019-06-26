@@ -3,7 +3,8 @@
 <div class="<%= record.class_names %> <%= record_configuration ? record_configuration["plugin_type"] : nil %>"
      id="<%= "custom_field_#{ record.uid }" %>"
      data-uid="<%= record.uid %>"
-     data-vocabulary-id="<%= record.custom_field.vocabulary_id %>">
+     data-vocabulary-id="<%= record.custom_field.vocabulary_id %>"
+     data-organization-id="<%= current_site.organization_id %>">
      <%= label_tag :custom_field_id, record.custom_field.name %>
      <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
      <div class="custom_field_value">

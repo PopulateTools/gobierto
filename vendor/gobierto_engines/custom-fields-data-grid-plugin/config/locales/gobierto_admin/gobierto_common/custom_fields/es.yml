@@ -1,21 +1,37 @@
 ---
 es:
   gobierto_admin:
+    custom_fields_plugins:
+      budgets:
+        area: Área
+        assigned_amount: Importe asignado
+        budget_line: Partida presupuestaria
+        custom: Personalizada
+        economic: Económica
+        full_amount: Importe completo
+        functional: Funcional
+        not_available: No disp.
+        weight: Peso
+        year: Año
+      common:
+        custom: Personalizada
+        economic: Económica
+        functional: Funcional
+      data_grid:
+        add: Añadir
+        remove_rows: Eliminar filas seleccionadas
+        select_deselect_all: Seleccionar / Deseleccionar todas
+      human_resources:
+        cost: Coste
+        end_date: Fecha fin
+        human_resource: Recurso humano
+        start_date: Fecha inicio
+      indicators:
+        indicator: Indicador
     gobierto_common:
       custom_fields:
         custom_fields:
           plugin:
-            indicators: Indicadores
+            budgets: Presupuestos
             human_resources: Recursos Humanos
-    custom_fields_plugins:
-      data_grid:
-        add: "Añadir"
-        remove_rows: "Eliminar filas seleccionadas"
-        select_deselect_all: "Seleccionar / Deseleccionar todas"
-      indicators:
-        indicator: "Indicador"
-      human_resources:
-        human_resource: "Recurso humano"
-        cost: "Coste"
-        start_date: "Fecha inicio"
-        end_date: "Fecha fin"
+            indicators: Indicadores

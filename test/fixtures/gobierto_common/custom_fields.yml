@@ -111,3 +111,15 @@ madrid_custom_field_human_resources_plugin:
     configuration: { plugin_type: "human_resources" },
     vocabulary_id: ActiveRecord::FixtureSet.identify(:human_resources_vocabulary)
   }.to_json %>
+
+madrid_custom_field_budgets_plugin:
+  site: madrid
+  class_name: GobiertoPlans::Node
+  mandatory: false
+  position: 2
+  name_translations: <%= { en: "Budgets", es: "Presupuestos" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
+  uid: budgets
+  options: <%= {
+    configuration: { plugin_type: "budgets" }
+  }.to_json %>

@@ -153,3 +153,9 @@ gobierto_budgets_settings_organization_wadus:
     "budgets_receipt_enabled": true,
     "budgets_receipt_configuration": {}
 }.to_json %>
+
+gobierto_budgets_settings_organization_huesca:
+  site: huesca
+  module_name: "GobiertoBudgets"
+  settings: <%= {
+}.to_json %>

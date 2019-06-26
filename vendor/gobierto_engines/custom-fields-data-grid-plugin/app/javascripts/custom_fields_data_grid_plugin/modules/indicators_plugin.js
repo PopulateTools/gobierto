@@ -30,28 +30,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
     return deserializedData;
   }
 
-  function _serializeTableData(data) {
-    var serializedData = {}
-
-    for (let i = 0; i < data.length; i++) {
-      var indicatorId = data[i].indicator
-      var indicatorValues = {}
-
-      var validKeys = $.map(Object.keys(data[0]), function(key) {
-        if (key !== "indicator" && data[0][key] != "") { return key }
-      })
-
-      $.each(validKeys, function(idx) {
-        let date_key = validKeys[idx]
-        indicatorValues[date_key] = data[i][date_key]
-      })
-
-      serializedData[indicatorId] = indicatorValues
-    }
-
-    return JSON.stringify(serializedData);
-  }
-
   function _handlePluginData(uid) {
     var indicatorsVocabularyId = $(`[data-uid=${uid}]`).attr("data-vocabulary-id");
     var vocabularyInfoPromise = new Promise((resolve) => {
@@ -68,17 +46,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
 
       applyPluginStyles(element, "indicators")
       _slickGrid(id, data, vocabularyTerms)
-
-      $("form").submit(
-        function() {
-          $(".v_container .v_el .form_item.plugin_field.indicators").each(function(i) {
-            let uid = $(this).data("uid")
-            $(`input[name$='[${uid}][value]']`).val(
-              _serializeTableData($(this).data("slickGrid").getData())
-            );
-          });
-        }
-      );
     })
   }
 
@@ -225,4 +192,27 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
   return GobiertoCommonCustomFieldRecordsIndicatorsPluginController;
 })();
 
+function serializeTableData(data) {
+  var serializedData = {}
+
+  for (let i = 0; i < data.length; i++) {
+    var indicatorId = data[i].indicator
+    var indicatorValues = {}
+
+    var validKeys = $.map(Object.keys(data[0]), function(key) {
+      if (key !== "indicator" && data[0][key] != "") { return key }
+    })
+
+    $.each(validKeys, function(idx) {
+      let date_key = validKeys[idx]
+      indicatorValues[date_key] = data[i][date_key]
+    })
+
+    serializedData[indicatorId] = indicatorValues
+  }
+
+  return JSON.stringify(serializedData);
+}
+
 window.GobiertoAdmin.gobierto_common_custom_field_records_indicators_plugin_controller = new GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController;
+window.GobiertoAdmin.serializeIndicatorsPluginData = serializeTableData

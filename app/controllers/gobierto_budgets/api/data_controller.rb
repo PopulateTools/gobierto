@@ -10,6 +10,8 @@ module GobiertoBudgets
         cache_path: proc { |c| "#{c.request.url}?locale=#{I18n.locale}" }
       )
 
+      skip_before_action :authenticate_user_in_site, only: [:budget_line, :available_years]
+
       def budget
         @year = params[:year].to_i
         @area = params[:area]
@@ -36,6 +38,25 @@ module GobiertoBudgets
             }.to_json
           end
         end
+      end
+
+      def budget_line
+        result = GobiertoBudgets::BudgetLine.find_details(
+          type: params[:area],
+          id: params[:id]
+        )
+
+        render json: result
+      rescue BudgetLine::RecordNotFound
+        render json: { error: "not-found" }, status: 404
+      end
+
+      def available_years
+        years = ::GobiertoBudgets::SearchEngineConfiguration::Year.with_data(
+          index: ::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+        ).sort
+
+        render json: years
       end
 
       def budget_per_inhabitant

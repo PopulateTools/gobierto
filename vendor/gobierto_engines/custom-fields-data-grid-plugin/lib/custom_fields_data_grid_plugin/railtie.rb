@@ -10,13 +10,17 @@ else
       Rails.application.config.tap do |conf|
         conf.custom_field_plugins.merge!(
           indicators: { requires_vocabulary: true },
-          human_resources: { requires_vocabulary: true }
+          human_resources: { requires_vocabulary: true },
+          budgets: {}
         )
         conf.custom_field_plugins_packs += %w(data_grid)
         conf.i18n.load_path += Dir[File.join(base_path, 'config', 'locales', '**', '*.{rb,yml}')]
       end
-      Webpacker::Compiler.watched_paths << "app/javascript/custom_fields_data_grid_plugin/**/*.js"
-      Webpacker::Compiler.watched_paths << "app/javascript/packs/*.js"
+      Webpacker::Compiler.watched_paths += [
+        "app/javascript/packs/*.js",
+        "app/javascript/custom_fields_data_grid_plugin/*.js",
+        "app/javascript/custom_fields_data_grid_plugin/**/*.js"
+      ]
     end
   end
 end

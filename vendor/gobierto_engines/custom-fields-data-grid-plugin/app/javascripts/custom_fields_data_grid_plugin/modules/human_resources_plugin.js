@@ -26,10 +26,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
     }
   }
 
-  function _serializeTableData(data) {
-    return JSON.stringify({ human_resources: data });
-  }
-
   function _handlePluginData(uid) {
     var humanResourcesVocabularyId = $(`[data-uid=${uid}]`).attr("data-vocabulary-id");
     var vocabularyInfoPromise = new Promise((resolve) => {
@@ -46,17 +42,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
 
       applyPluginStyles(element, "human_resources")
       _slickGrid(id, data, vocabularyTerms)
-
-      $("form").submit(
-        function() {
-          $(".v_container .v_el .form_item.plugin_field.human_resources").each(function(i) {
-            let uid = $(this).data("uid")
-            $(`input[name$='[${uid}][value]']`).val(
-              _serializeTableData($(this).data("slickGrid").getData())
-            );
-          });
-        }
-      );
     })
   }
 
@@ -144,4 +129,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
   return GobiertoCommonCustomFieldRecordsHumanResourcesPluginController;
 })();
 
+function serializeTableData(data) {
+  return JSON.stringify({ human_resources: data });
+}
+
 window.GobiertoAdmin.gobierto_common_custom_field_records_human_resources_plugin_controller = new GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginController;
+window.GobiertoAdmin.serializeHumanResourcesPluginData = serializeTableData

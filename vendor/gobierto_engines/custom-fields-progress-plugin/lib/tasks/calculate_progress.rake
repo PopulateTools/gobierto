@@ -8,5 +8,7 @@ namespace :gobierto_admin do
         custom_field.records.find_or_initialize_by(item: node).functions.update_progress!
       end
     end
+
+    GobiertoPlans::Plan.all.each(&:touch)
   end
 end

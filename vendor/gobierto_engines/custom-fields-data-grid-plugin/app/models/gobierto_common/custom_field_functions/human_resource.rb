@@ -15,7 +15,7 @@ module GobiertoCommon::CustomFieldFunctions
     def cost(options = {})
       percentages = progress_percentages(options[:date] || Date.current)
 
-      percentages(date).each_with_index.inject(0) do |total, (percentage, index)|
+      percentages.each_with_index.inject(0) do |total, (percentage, index)|
         total + percentage * data[index].cost
       end / percentages.size.to_f
     end

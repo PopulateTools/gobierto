@@ -356,6 +356,10 @@ libraries_new_plan_term:
 indicators_raw_savings:
   vocabulary: indicators_vocabulary
   name_translations: <%= { "en" => "Raw savings", "es" => "Ahorro bruto" }.to_json %>
+  description_translations: <%= {
+    en: "Description of raw savings",
+    es: "Descripción de ahorro bruto"
+  }.to_json %>
   slug: indicators-raw-savings
   level: 0
   position: 0
@@ -363,6 +367,10 @@ indicators_raw_savings:
 indicators_net_savings:
   vocabulary: indicators_vocabulary
   name_translations: <%= { "en" => "Net savings", "es" => "Ahorro neto" }.to_json %>
+  description_translations: <%= {
+    en: "Description of net savings",
+    es: "Descripción de ahorro neto"
+  }.to_json %>
   slug: indicators-net-savings
   level: 0
   position: 1

@@ -73,7 +73,9 @@ module GobiertoPlans
                         starts_at: node.starts_at,
                         ends_at: node.ends_at,
                         status: node.status&.name_translations,
-                        options: node.options },
+                        options: node.options,
+                        plugins_data: node_plugins_data(node)
+          },
           children: [] }
       end
     end
@@ -116,6 +118,12 @@ module GobiertoPlans
 
     def vocabulary
       @vocabulary ||= object.vocabulary
+    end
+
+    private
+
+    def node_plugins_data(node)
+      {}
     end
   end
 end

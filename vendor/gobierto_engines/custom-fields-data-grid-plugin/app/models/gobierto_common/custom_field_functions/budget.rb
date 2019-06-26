@@ -44,9 +44,9 @@ module GobiertoCommon::CustomFieldFunctions
 
     def progress_percentages
       @progress_percentages ||= data.map do |line|
-        next unless line.execution.present? && line.forecast.present?
+        next 0 unless line.forecast.present?
 
-        line.execution > line.forecast ? 1.0 : line.execution / line.forecast.to_f
+        (line.execution || 0) / line.forecast.to_f
       end.compact
     end
   end

@@ -26,6 +26,8 @@ module GobiertoAdmin
           @unpublished_project.save
           @unpublished_project.moderation.sent!
 
+          remove_custom_fields_with_callbacks
+
           @path = edit_admin_plans_plan_project_path(plan, published_project)
           @unpublished_path = edit_admin_plans_plan_project_path(plan, unpublished_project)
         end
@@ -38,6 +40,12 @@ module GobiertoAdmin
           @site ||= sites(:madrid)
         end
 
+        def remove_custom_fields_with_callbacks
+          ::GobiertoCommon::CustomFieldPlugin.with_callbacks.each do |plugin|
+            ::GobiertoCommon::CustomField.with_plugin_type(plugin.type).destroy_all
+          end
+        end
+
         def create_custom_fields_records
           {
             political_agendas_custom_field_global: published_project,
@@ -46,8 +54,7 @@ module GobiertoAdmin
             scholarships_kindergartens_custom_field_instance_level: unpublished_project,
             political_agendas_indicators_custom_field_record: unpublished_project,
             political_agendas_human_resources_custom_field_record: unpublished_project,
-            political_agendas_budgets_custom_field_record: unpublished_project,
-            political_agendas_progress_custom_field_record: unpublished_project
+            political_agendas_budgets_custom_field_record: unpublished_project
           }.each do |fixture_key, project|
             ::GobiertoCommon::CustomFieldRecord.create(
               gobierto_common_custom_field_records(fixture_key).attributes.except("id", "item_id").merge(

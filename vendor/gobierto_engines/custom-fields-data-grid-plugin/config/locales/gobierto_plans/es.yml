@@ -3,8 +3,8 @@ es:
   gobierto_plans:
     custom_fields_plugins:
       budgets:
-        title: Presupuesto
         detail_text: ver detalle en Presupuestos
+        title: Presupuesto
       human_resources:
         title: Recursos Humanos
       indicators:

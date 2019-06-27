@@ -48,7 +48,7 @@ module GobiertoCommon
       VALUE_PROCESSORS[key].new(self)
     end
 
-    def functions
+    def functions(version: nil)
       return unless custom_field.plugin?
 
       unless GobiertoCommon::CustomFieldFunctions.const_defined?(custom_field.configuration.plugin_type.classify)
@@ -59,7 +59,7 @@ module GobiertoCommon
         end
       end
 
-      GobiertoCommon::CustomFieldFunctions.const_get(custom_field.configuration.plugin_type.classify).new(self)
+      GobiertoCommon::CustomFieldFunctions.const_get(custom_field.configuration.plugin_type.classify).new(self, version: version)
     end
 
     def item_class

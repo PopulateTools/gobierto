@@ -226,7 +226,8 @@ function serializeTableData(data) {
     row.area = idSegments.shift()
     idSegments.splice(1, 0, row.year)
     row.id = idSegments.join("/")
-    delete row.amount
+    delete row.full_amount
+    delete row.assigned_amount
     delete row.budget_line
     delete row.year
 

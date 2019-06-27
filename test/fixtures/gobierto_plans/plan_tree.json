@@ -103,9 +103,9 @@
                         "link": "http://madrid.gobierto.test/presupuestos",
                         "text": "see detail in Budgets"
                       },
-                      "budgeted_amount": null,
-                      "executed_amount": null,
-                      "executed_percentage": null
+                      "budgeted_amount": 55555.56,
+                      "executed_amount": 27777.78,
+                      "executed_percentage": "50 %"
                     },
                     "indicators": {
                       "title_translations": {

@@ -26,7 +26,7 @@ module GobiertoPlans
         { configuration: { plugin_type: "budgets" } }.to_json
       )
 
-      budget_lines = field&.records&.first&.payload&.dig("budget_lines")
+      budget_lines = field&.records&.first&.payload&.dig("budget_lines") || []
 
       relative_total_amount = 0
       relative_executed_amount = 0

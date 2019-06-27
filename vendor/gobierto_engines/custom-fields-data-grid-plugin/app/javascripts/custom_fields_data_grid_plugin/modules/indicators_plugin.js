@@ -105,7 +105,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
     }
 
     function _parseColumns(data) {
-      let columns = [];
+      let columns = []
+      let lastYear = defaultStartYear
+      let lastMonth = defaultStartMonth
 
       var uniqueDates = Array.from(new Set(
         $.map(data, function(item) {
@@ -115,16 +117,21 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
         })
       ));
 
-      var lastDateValues = uniqueDates[uniqueDates.length - 1].split("-");
+      if (uniqueDates.length > 0) {
+        var lastDateValues = uniqueDates[uniqueDates.length - 1].split("-");
 
-      for (let item of uniqueDates) {
-        let dateValues = item.split("-");
-        columns.push(_dateColumn(parseInt(dateValues[0]), parseInt(dateValues[1]), 0));
+        for (let item of uniqueDates) {
+          let dateValues = item.split("-");
+          columns.push(_dateColumn(parseInt(dateValues[0]), parseInt(dateValues[1]), 0));
+        }
+
+        lastYear = parseInt(lastDateValues[0])
+        lastMonth = parseInt(lastDateValues[1])
       }
 
       return {
-        lastYear: parseInt(lastDateValues[0]),
-        lastMonth: parseInt(lastDateValues[1]),
+        lastYear: lastYear,
+        lastMonth: lastMonth,
         columns: columns
       };
     }

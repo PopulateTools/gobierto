@@ -1186,6 +1186,10 @@ table {
 .f_small {
   font-size: .85em;
   line-height: 1.2;
+
+  .form_item .options.compact {
+    font-size: 1em;
+  }
 }
 .f_soft,
 a.f_soft,

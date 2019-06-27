@@ -58,7 +58,8 @@ textarea {
   }
 }
 
-input[type=text].slim {
+input[type=text].slim,
+input[type=email].slim {
   height: auto;
   padding: 0.25em;
 }
@@ -258,7 +259,7 @@ button.light,
 
 button.gigantic,
 .button.gigantic {
-  font-size: 1.3em;
+  font-size: 1.3rem;
   height: initial;
   padding: 1.4em 4em 1.2em;
   margin: 1em 0;
@@ -270,7 +271,7 @@ button.gigantic,
 
 button.medium,
 .button.medium {
-  font-size: 0.85em;
+  font-size: 0.85rem;
   padding: .65em 1em 0.5em;
   @include border-radius(4px);
   display: inline-block;
@@ -278,7 +279,7 @@ button.medium,
 
 button.small,
 .button.small {
-  font-size: 0.85em;
+  font-size: 0.85rem;
   padding: 0.45em 1em 0.3em;
   height: initial;
   line-height: 1.2em;
@@ -719,6 +720,7 @@ select {
 
   .options.compact {
     font-size: 0.85em;
+    line-height: 1.8;
 
     .option {
       border: 0;

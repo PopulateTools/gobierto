@@ -12,12 +12,19 @@ class BudgetsSeeder
         default_args = {
           area: area_name,
           year: year,
-          kind: GobiertoData::GobiertoBudgets::EXPENSE,
-          indexes: [:forecast]
+          kind: GobiertoData::GobiertoBudgets::EXPENSE
         }
 
         %w(1 2 3).each do |code|
-          BudgetLineFactory.new(default_args.merge(code: code))
+          BudgetLineFactory.new(default_args.merge(
+            code: code,
+            indexes: [:forecast]
+          ))
+          BudgetLineFactory.new(default_args.merge(
+            code: code,
+            indexes: [:executed],
+            amount: BudgetLineFactory.default_amount / 2
+          ))
         end
       end
     end

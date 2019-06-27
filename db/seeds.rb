@@ -86,9 +86,9 @@ end
 puts "* Seeding GobiertoBudgets::BudgetLine"
 
 (2014..Date.current.year).each do |year|
-  GobiertoBudgets::BudgetArea.all_areas.each do |area|
+  GobiertoBudgets::BudgetArea.all_areas_names.each do |area_name|
     default_args = {
-      area: area,
+      area: area_name,
       year: year,
       kind: GobiertoData::GobiertoBudgets::EXPENSE,
       indexes: [:forecast]

@@ -23,7 +23,7 @@ else
       end
 
       rake_tasks do
-        Dir[Pathname.new(base_path).join("lib", "tasks", "*.rake")].each do |task|
+        Dir[Pathname.new(base_path).join("lib", "tasks", "custom_field_plugins", "**", "*.rake")].each do |task|
           load task
         end
       end

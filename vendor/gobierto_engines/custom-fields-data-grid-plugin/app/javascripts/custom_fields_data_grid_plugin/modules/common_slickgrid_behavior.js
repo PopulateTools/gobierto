@@ -20,5 +20,6 @@ var defaultSlickGridOptions = {
   asyncEditorLoading: false,
   enableColumnReorder: false,
   autoEdit: true,
+  forceFitColumns: true,
   autoHeight: true
 }

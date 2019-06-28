@@ -56,7 +56,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
 
     function _dateColumn(startYear, startMonth, offset) {
       let headerName = _headerDateName(startYear, startMonth, offset);
-      return {id: headerName, name: headerName, field: headerName, width: 100, editor: Editors.Text};
+      return { id: headerName, name: headerName, field: headerName, minWidth: 100, editor: Editors.Text };
     }
 
     function _initializeGrid(id, data, columns, options) {
@@ -79,7 +79,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
           let columns = args.grid.getColumns();
           let lastColumn = columns.pop();
           let lastYear = lastColumn.headerDateNameFunction(lastColumn.startYear, lastColumn.startMonth, lastColumn.offset)
-          let columnDefinition = {id: lastYear, name: lastYear, field: lastYear, width: 100, editor: Editors.Text};
+          let columnDefinition = {id: lastYear, name: lastYear, field: lastYear, minWidth: 100, editor: Editors.Text};
           lastColumn.offset++;
           columns.push(columnDefinition);
           columns.push(lastColumn);
@@ -143,7 +143,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       id: "indicator",
       name: I18n.t("gobierto_admin.custom_fields_plugins.indicators.indicator"),
       field: "indicator",
-      width: 120,
+      minWidth: 120,
       cssClass: "cell-title",
       formatter: Select2Formatter,
       editor: Select2Editor,
@@ -167,7 +167,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       id: new_column_id,
       name: I18n.t("gobierto_admin.custom_fields_plugins.data_grid.add"),
       field: new_column_id,
-      witdh: 50,
+      minWidth: 100,
       headerCssClass: `add-${new_column_id}`,
       sortable: false,
       headerDateNameFunction: _headerDateName,

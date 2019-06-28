@@ -111,49 +111,74 @@
         <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
       </div>
 
-      <div class="node-project-detail">
-        <div class="project-optional">
-          <div class="row" v-for="(value, key) in availableOpts">
-            <template v-if="typeOf(value) !== 'object'">
-              <div class="optional-title">{{ optionKeys[key] | translate }}</div>
-              <div class="optional-desc">{{ value }}</div>
-            </template>
-            <template v-else>
-              <div class="optional-container">
+      <div>
+        <div class="node-project-detail">
+          <div class="project-optional">
+            <div class="row" v-for="(value, key) in availableOpts">
+              <template v-if="typeOf(value) !== 'object'">
                 <div class="optional-title">{{ optionKeys[key] | translate }}</div>
-                <div class="optional-obj" v-for="(_value, _key) in value">
-                  <div class="optional-title">{{ optionKeys[_key] | translate }}</div>
-                  <div class="optional-desc">
-                    <template v-if="typeOf(_value) === 'string'">
-                      {{ _value }}
-                    </template>
-                    <template v-if="typeOf(_value) === 'array'">
-                      <div v-for="(_val, _key) in _value">{{ _val }}</div>
-                    </template>
+                <div class="optional-desc">{{ value }}</div>
+              </template>
+              <template v-else>
+                <div class="optional-container">
+                  <div class="optional-title">{{ optionKeys[key] | translate }}</div>
+                  <div class="optional-obj" v-for="(_value, _key) in value">
+                    <div class="optional-title">{{ optionKeys[_key] | translate }}</div>
+                    <div class="optional-desc">
+                      <template v-if="typeOf(_value) === 'string'">
+                        {{ _value }}
+                      </template>
+                      <template v-if="typeOf(_value) === 'array'">
+                        <div v-for="(_val, _key) in _value">{{ _val }}</div>
+                      </template>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </template>
+              </template>
+            </div>
+          </div>
+          <div class="project-mandatory">
+            <div class="row">
+              <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.progress") %></div>
+              <div class="mandatory-desc mandatory-desc--large">{{ activeNode.attributes.progress | percent }}</div>
+            </div>
+            <div class="row">
+              <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.starts") %></div>
+              <div class="mandatory-desc">{{ activeNode.attributes.starts_at | date }}</div>
+            </div>
+            <div class="row">
+              <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.ends") %></div>
+              <div class="mandatory-desc">{{ activeNode.attributes.ends_at | date }}</div>
+            </div>
+            <div class="row">
+              <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.status") %></div>
+              <div class="mandatory-desc">{{ activeNode.attributes.status | translate }}</div>
+            </div>
           </div>
         </div>
-        <div class="project-mandatory">
-          <div class="row">
-            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.progress") %></div>
-            <div class="mandatory-desc mandatory-desc--large">{{ activeNode.attributes.progress | percent }}</div>
-          </div>
-          <div class="row">
-            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.starts") %></div>
-            <div class="mandatory-desc">{{ activeNode.attributes.starts_at | date }}</div>
-          </div>
-          <div class="row">
-            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.ends") %></div>
-            <div class="mandatory-desc">{{ activeNode.attributes.ends_at | date }}</div>
-          </div>
-          <div class="row">
-            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.status") %></div>
-            <div class="mandatory-desc">{{ activeNode.attributes.status | translate }}</div>
-          </div>
-        </div>
+
+        <!-- Rails must add the markup if plugin is available -->
+        <% availablePlugins = ['plugin1', 'plugin2'] %>
+
+        <% if availablePlugins.length %>
+        
+          <!-- Add plugin markup -->
+          <% if availablePlugins[0] %>
+          <div id="plugin__data_grid_budgets_public"></div>
+          <% content_for :javascript_hook do %> window.GobiertoPlans.tablerow_controller.add("budgets", "plugin__data_grid_budgets_public"); <% end %>
+          <% end %> 
+          
+          <!-- Add plugin markup -->
+          <% if availablePlugins[1] %>
+            <div id="plugin__data_grid_human_resources_public"></div>
+            <% content_for :javascript_hook do %> window.GobiertoPlans.tablerow_controller.add("human_resources", "plugin__data_grid_human_resources_public"); <% end %>
+          <% end %>
+
+          <!-- Starts listeners -->
+          <% content_for :javascript_hook do %> window.GobiertoPlans.tablerow_controller.show(); <% end %>
+
+        <% end %>
+        <!-- End Rails plugins -->
       </div>
     </div>
   </section>

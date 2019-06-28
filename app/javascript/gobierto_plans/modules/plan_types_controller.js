@@ -127,6 +127,11 @@ window.GobiertoPlans.PlanTypesController = (function() {
               var project = { ...row };
 
               this.$emit('selection', project);
+
+              const { plugins_data } = project.attributes;
+              if (plugins_data) {
+                this.$emit("activate", plugins_data)
+              }
             }
           }
         }
@@ -243,6 +248,22 @@ window.GobiertoPlans.PlanTypesController = (function() {
             }
 
             return isOpen
+          },
+          activatePlugins: function(plugins) {
+            // Wait nextTick to elements be mounted
+            this.$nextTick(() => {
+              for (const key in plugins) {
+                if (plugins.hasOwnProperty(key)) {
+                  const element = plugins[key];
+                  
+                  // trigger activation
+                  const event = new CustomEvent("gobierto-plans-mount-plugin", {
+                    detail: { ...element, key }
+                  });
+                  document.dispatchEvent(event);
+                }
+              }
+            })
           },
           typeOf: function(val) {
             if (_.isString(val)) {

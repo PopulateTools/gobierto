@@ -44,7 +44,15 @@
               <li v-for="(model, index) in activeNode.children">
                 <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(activeNode.id, index)"></node-list>
                 <transition name="slide-fade">
-                <table-view :model="model" :key="model.id" :header="showTableHeader" :open="openNode" @selection="setSelection" v-if="showTable[`${activeNode.id}-${index}`]"></table-view>
+                  <table-view 
+                    :model="model" 
+                    :key="model.id" 
+                    :header="showTableHeader" 
+                    :open="openNode"
+                    @activate="activatePlugins"
+                    @selection="setSelection" 
+                    v-if="showTable[`${activeNode.id}-${index}`]">
+                  </table-view>
                 </transition>
               </li>
             </ul>
@@ -86,7 +94,15 @@
           <li v-for="(model, index) in activeNode.children">
             <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(activeNode.id, index)"></node-list>
             <transition name="slide-fade">
-            <table-view :model="model" :key="model.id" :header="showTableHeader" :open="openNode" @selection="setSelection" v-if="showTable[`${activeNode.id}-${index}`]"></table-view>
+              <table-view 
+                :model="model"
+                :key="model.id"
+                :header="showTableHeader"
+                :open="openNode"
+                @selection="setSelection" 
+                @activate="activatePlugins" 
+                v-if="showTable[`${activeNode.id}-${index}`]">
+              </table-view>
             </transition>
           </li>
         </ul>

@@ -1,7 +1,7 @@
 import { Grid, Editors, Plugins } from 'slickgrid-es6';
 import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
 import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
-import { applyPluginStyles } from './common_slickgrid_behavior';
+import { applyPluginStyles, preventLosingCurrentEdit } from './common_slickgrid_behavior';
 
 const defaultStartYear = 2018;
 const defaultStartMonth = 12;
@@ -12,9 +12,11 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
   function GobiertoCommonCustomFieldRecordsIndicatorsPluginController() {}
 
   var grid;
+  var _pluginCssClass = 'indicators'
 
   GobiertoCommonCustomFieldRecordsIndicatorsPluginController.prototype.form = function(opts = {}) {
     _handlePluginData(opts.uid);
+    preventLosingCurrentEdit()
   };
 
   function _deserializeTableData(inputValue) {
@@ -44,7 +46,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       let id = element.attr('id')
       let data = _deserializeTableData($(`#${id}`).find("input[name$='[value]'").val());
 
-      applyPluginStyles(element, "indicators")
+      applyPluginStyles(element, _pluginCssClass)
       _slickGrid(id, data, vocabularyTerms)
     })
   }

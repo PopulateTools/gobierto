@@ -15,23 +15,28 @@ module GobiertoPlans
         detail: {
           link: url_helpers.gobierto_budgets_root_url(host: site.domain),
           text: I18n.t("gobierto_plans.custom_fields_plugins.budgets.detail_text")
-        }
+        },
+        budgeted_amount: nil,
+        executed_amount: nil,
+        executed_percentage: nil
       }
 
       budgets_fields = site.custom_fields.where(
         "options @> ?",
         { configuration: { plugin_type: "budgets" } }.to_json
       )
-      records = node.custom_field_records.where(custom_field: budgets_fields)
+      records_functions = node.custom_field_records.where(custom_field: budgets_fields).map(&:functions)
+
+      return super_result if records_functions.empty?
 
       accumulated_planned_cost = 0
       accumulated_executed_cost = 0
       accumulated_progesses = []
 
-      records.each do |record|
-        accumulated_planned_cost += record.functions.planned_cost
-        accumulated_executed_cost += record.functions.executed_cost
-        accumulated_progesses.append(record.functions.progress)
+      records_functions.each do |function|
+        accumulated_planned_cost += function.planned_cost
+        accumulated_executed_cost += function.executed_cost
+        accumulated_progesses.append(function.progress)
       end
 
       accumulated_progess = 0

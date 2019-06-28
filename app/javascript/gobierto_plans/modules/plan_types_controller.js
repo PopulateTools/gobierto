@@ -81,24 +81,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
                   Vue.set(this.model, "children", json)
                   this.$emit("toggle");
                   this.isOpen = !this.isOpen;
-
-
-                  json.forEach(element => {
-                    const { plugins_data = {} } = element.attributes;
-
-                    for (const key in plugins_data) {
-                      if (plugins_data.hasOwnProperty(key)) {
-                        const element = plugins_data[key];
-
-                        const event = new CustomEvent("gobierto-plans-mount-plugin", {
-                          detail: {
-                            [key]: element
-                          }
-                        });
-                        document.dispatchEvent(event);
-                      }
-                    }
-                  });
                 }))
               } else {
                 this.$emit("toggle");

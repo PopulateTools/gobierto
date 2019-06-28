@@ -74,10 +74,18 @@ module GobiertoAdmin
       end
 
       def changed?
-        custom_field_records.any?(&:changed?)
+        custom_field_records.any? { |custom_field| version_changed?(custom_field) }
       end
 
       private
+
+      def version_changed?(custom_field)
+        if with_version && version_index.present?
+          (custom_field.versions[version_index]&.reify || custom_field.clone.reload).slice(*attributes_for_new_version) != custom_field.slice(*attributes_for_new_version)
+        else
+          custom_field.changed?
+        end
+      end
 
       def instance_type_options
         return [nil] unless instance
@@ -121,6 +129,10 @@ module GobiertoAdmin
           end
         end
         custom_field_records
+      end
+
+      def attributes_for_new_version
+        %w(item_type item_id custom_field_id payload)
       end
     end
   end

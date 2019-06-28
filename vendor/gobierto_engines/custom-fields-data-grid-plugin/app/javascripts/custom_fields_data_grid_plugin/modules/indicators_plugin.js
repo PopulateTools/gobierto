@@ -1,7 +1,7 @@
 import { Grid, Editors, Plugins } from 'slickgrid-es6';
 import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
 import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
-import { applyPluginStyles } from './common_slickgrid_behavior';
+import { applyPluginStyles, defaultSlickGridOptions } from './common_slickgrid_behavior';
 
 const defaultStartYear = 2018;
 const defaultStartMonth = 12;
@@ -150,17 +150,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       dataSource: indicatorsDictionary
     }];
 
-    // generice grid options
-    let options = {
-      editable: true,
-      enableAddRow: true,
-      enableCellNavigation: true,
-      asyncEditorLoading: false,
-      enableColumnReorder: false,
-      autoEdit: true,
-      itemsCountId: `${id}_items`
-    };
-
     var indicatorsNames = $.map(vocabularyTerms, function(item) { return item.name_translations[I18n.locale]});
 
     if (data.length === 0) {
@@ -187,7 +176,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       offset: dateColumnsCount
     });
 
-    _initializeGrid(id, data, columns, options);
+    let customSlickGridOptions = { itemsCountId: `${id}_items` }
+
+    _initializeGrid(id, data, columns, { ...defaultSlickGridOptions, ...customSlickGridOptions });
   }
   return GobiertoCommonCustomFieldRecordsIndicatorsPluginController;
 })();

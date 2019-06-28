@@ -119,6 +119,8 @@ module GobiertoAdmin
       end
 
       def save_custom_fields
+        return custom_field_records if with_version && !force_new_version && !changed?
+
         custom_field_records.each do |record|
           record.item_has_versions = with_version
 

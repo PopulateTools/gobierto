@@ -114,7 +114,7 @@ module GobiertoAdmin
         custom_field_records.each do |record|
           record.item_has_versions = with_version
 
-          save_success = with_version && force_new_version && !changed? ? record.paper_trail.save_with_version : record.save
+          save_success = with_version && force_new_version && !record.changed? ? record.paper_trail.save_with_version : record.save
           unless save_success
             promote_errors(record.errors)
             return false

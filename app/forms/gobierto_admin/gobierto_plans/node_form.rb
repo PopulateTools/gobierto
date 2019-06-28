@@ -139,7 +139,13 @@ module GobiertoAdmin
       def attributes_updated?
         return unless allow_edit_attributes?
 
-        version_attributes_updated?(versioned_node, set_node_attributes)# && attributes_for_new_version.any? { |attribute| @node.send("#{attribute}_changed?") }
+        nodes_attributes_differ?(set_node_attributes, versioned_node)
+      end
+
+      def version_index
+        return unless @version && @version.to_i < node.versions.length
+
+        @version.to_i - node.versions.length
       end
 
       private
@@ -184,14 +190,13 @@ module GobiertoAdmin
       end
 
       def versioned_node
-        return node if @version.blank? || (version_number = @version.to_i) == node.versions.length
+        return node.clone.reload unless version_index
 
-        index = version_number - node.versions.length
-        node.versions[index].reify
+        node.versions[version_index].reify
       end
 
-      def version_attributes_updated?(versioned_node, node)
-        versioned_node.attributes.slice(*attributes_for_new_version) != node.attributes.slice(*attributes_for_new_version)
+      def nodes_attributes_differ?(node_a, node_b)
+        node_a.attributes.slice(*attributes_for_new_version) != node_b.attributes.slice(*attributes_for_new_version)
       end
 
       def set_node_attributes
@@ -210,8 +215,7 @@ module GobiertoAdmin
       def set_version_and_visiblity_level
         node.tap do |attributes|
           if allow_edit_attributes? && @version.present?
-            if version_attributes_updated?(versioned_node, attributes)
-              @force_new_version = false
+            if attributes_updated? || force_new_version
               @published_version = attributes.versions.length + 1
             else
               attributes.reload

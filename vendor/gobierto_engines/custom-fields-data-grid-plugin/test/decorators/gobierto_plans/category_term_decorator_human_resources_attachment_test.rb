@@ -19,8 +19,8 @@ module GobiertoPlans
       assert_equal "Human Resources", plugin_data[:title_translations][:en]
 
       assert_equal 26_667, plugin_data[:budgeted_amount]
-      assert_equal 267, plugin_data[:executed_amount]
-      assert_equal "1 %", plugin_data[:executed_percentage]
+      assert_equal 26_667, plugin_data[:executed_amount]
+      assert_equal "100 %", plugin_data[:executed_percentage]
     end
 
   end

@@ -64,5 +64,10 @@ module GobiertoPlans
     translates :name
 
     enum visibility_level: { draft: 0, published: 1 }
+
+    def custom_field_records
+      ::GobiertoCommon::CustomFieldRecord.where(item: self)
+    end
+
   end
 end

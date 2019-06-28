@@ -15,12 +15,14 @@ module GobiertoPlans
         data: []
       }
 
-      field = site.custom_fields.find_by(
+      indicators_fields = site.custom_fields.where(
         "options @> ?",
         { configuration: { plugin_type: "indicators" } }.to_json
       )
+      records = node.custom_field_records.where(custom_field: indicators_fields)
+      indicators_payload = records.map(&:payload).compact.reduce({}, :merge)
 
-      field.records.first.payload.each do |indicator_id, values|
+      indicators_payload.each do |indicator_id, values|
         indicator = ::GobiertoCommon::Term.find(indicator_id)
 
         super_result[:indicators][:data].append(

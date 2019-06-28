@@ -89,16 +89,22 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
 
   function _refreshRowAmount(row) {
     var updatedRow = _grid.getData()[row]
+
+    if (!updatedRow.budget_line) return
+
     var idSegments = updatedRow.budget_line.split("/")
     var areaName = idSegments.shift()
     idSegments.splice(1, 0, updatedRow.year)
     var budgetLineId = idSegments.join("/")
 
+    if (!areaName || budgetLineId === null || budgetLineId === '') return
+
     fetch(`/presupuestos/api/data/budget_lines/${areaName}/${budgetLineId}`).then(function(response) {
       if (response.status === 200) {
         return response.json()
       } else {
-        updatedRow.amount = i18n("not_available")
+        updatedRow.full_amount = i18n("not_available")
+        updatedRow.assigned_amount = i18n("not_available")
         _grid.invalidateRow(row)
         _grid.render()
       }
@@ -135,7 +141,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         data.push(args.item)
         _grid.updateRowCount()
         _grid.render()
-        _updateBudgetLineAmount(e, args)
       })
 
       _grid.onCellChange.subscribe(function(_e, args) {
@@ -221,7 +226,8 @@ function serializeTableData(data) {
     row.area = idSegments.shift()
     idSegments.splice(1, 0, row.year)
     row.id = idSegments.join("/")
-    delete row.amount
+    delete row.full_amount
+    delete row.assigned_amount
     delete row.budget_line
     delete row.year
 

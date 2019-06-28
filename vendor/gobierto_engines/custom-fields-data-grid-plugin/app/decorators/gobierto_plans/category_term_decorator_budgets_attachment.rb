@@ -21,36 +21,30 @@ module GobiertoPlans
         executed_percentage: nil
       }
 
-      field = site.custom_fields.find_by(
+      budgets_fields = site.custom_fields.where(
         "options @> ?",
         { configuration: { plugin_type: "budgets" } }.to_json
       )
+      records_functions = node.custom_field_records.where(custom_field: budgets_fields).map(&:functions)
 
-      budget_lines = field&.records&.first&.payload&.dig("budget_lines") || []
+      return super_result if records_functions.empty?
 
-      relative_total_amount = 0
-      relative_executed_amount = 0
+      accumulated_planned_cost = 0
+      accumulated_executed_cost = 0
+      accumulated_progesses = []
 
-      budget_lines.map do |bl|
-        next unless (weight = bl["weight"])
-
-        details = GobiertoBudgets::BudgetLine.find_details(type: bl["area"], id: bl["id"])
-
-        total_amount = details.forecast.updated_amount || details.forecast.original_amount
-
-        next unless total_amount && weight
-
-        relative_total_amount += (total_amount * weight) / 100
-        relative_executed_amount += ((details.execution.amount || 0.0) * weight) / 100
-      rescue GobiertoBudgets::BudgetLine::RecordNotFound
-        next
+      records_functions.each do |function|
+        accumulated_planned_cost += function.planned_cost
+        accumulated_executed_cost += function.executed_cost
+        accumulated_progesses.append(function.progress)
       end
 
-      if relative_total_amount.positive?
-        super_result[:budgets][:budgeted_amount] = relative_total_amount.round(2)
-        super_result[:budgets][:executed_amount] = relative_executed_amount.round(2)
-        super_result[:budgets][:executed_percentage] = "#{((relative_executed_amount * 100) / relative_total_amount).round} %"
-      end
+      accumulated_progess = 0
+      accumulated_progess = (accumulated_progesses.sum / accumulated_progesses.size) if accumulated_progesses.any?
+
+      super_result[:budgets][:budgeted_amount] = accumulated_planned_cost.round(2)
+      super_result[:budgets][:executed_amount] = accumulated_executed_cost.round(2)
+      super_result[:budgets][:executed_percentage] = "#{(accumulated_progess * 100).round} %"
 
       super_result
     end

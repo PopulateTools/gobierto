@@ -14,8 +14,6 @@ module GobiertoPlans
     has_vocabulary :statuses
     belongs_to :status, class_name: "GobiertoCommon::Term"
 
-    validates :progress, presence: true
-
     delegate :name, to: :status, prefix: true
 
     scope :with_name, ->(name) { where("gplan_nodes.name_translations ->> 'en' ILIKE :name OR gplan_nodes.name_translations ->> 'es' ILIKE :name OR gplan_nodes.name_translations ->> 'ca' ILIKE :name", name: "%#{name}%") }

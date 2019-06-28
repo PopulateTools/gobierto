@@ -28,6 +28,7 @@ module GobiertoAdmin
       )
 
       validates :plan, :admin, presence: true
+      validates :progress, presence: true, if: -> { @passed_attributes.include?("progress") }
       validates :category, :name_translations, presence: true, if: -> { allow_edit_attributes? }
       validates :status_id, presence: true, if: -> { allow_edit_attributes? && statuses_vocabulary.present? }
       validate :options_json_format
@@ -269,7 +270,7 @@ module GobiertoAdmin
       end
 
       def attributes_for_new_version
-        %w(name_translations status_translations progress starts_at ends_at options)
+        %w(name_translations status_translations progress starts_at ends_at options) & @passed_attributes
       end
     end
   end

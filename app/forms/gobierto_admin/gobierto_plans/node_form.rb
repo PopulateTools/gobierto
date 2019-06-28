@@ -38,14 +38,13 @@ module GobiertoAdmin
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
         ordered_options = options.slice(:id, :plan_id, :admin).merge!(options)
-
+        @passed_attributes = ordered_options.keys
         super(ordered_options)
+        set_publication_version
       end
 
       def save
         check_visibility_level if allow_edit_attributes?
-        set_publication_version if has_versions?
-
         save_node if valid?
       end
 
@@ -150,6 +149,8 @@ module GobiertoAdmin
       end
 
       def set_publication_version
+        return if @version.present? || !has_versions?
+
         @visibility_level, @version = visibility_level.to_s.split("-")
 
         @published_version = @visibility_level == "published" ? (@version || node.published_version).to_i : nil

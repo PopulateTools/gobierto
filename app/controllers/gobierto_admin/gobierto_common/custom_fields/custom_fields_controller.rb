@@ -132,6 +132,7 @@ module GobiertoAdmin
             :date_type,
             :instance_class_name,
             :instance_id,
+            :plugin_configuration,
             name_translations: [*I18n.available_locales],
             options_translations: {}
           )

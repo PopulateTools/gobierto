@@ -81,6 +81,11 @@
             <%= render partial: "date_options", locals: { f: f } %>
           <% end %>
         <% end %>
+        <%= content_tag :div, class: "form_block" do %>
+          <%= content_tag :div, id: "configuration", class: "form_item", style: @custom_field_form.plugin&.has_configuration? ? nil : "display: none;" do %>
+            <%= render partial: "plugin_configuration_form", locals: { f: f } %>
+          <% end %>
+        <% end %>
       </div>
     </div>
 

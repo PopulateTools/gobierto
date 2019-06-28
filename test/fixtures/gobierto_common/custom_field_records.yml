@@ -95,3 +95,7 @@ political_agendas_budgets_custom_field_record:
       { area: "functional", id: "28079/2016/3/G", weight: 20 }
     ]
   }.to_json %>
+
+political_agendas_progress_custom_field_record:
+  item: political_agendas (GobiertoPlans::Node)
+  custom_field: madrid_custom_field_progress_plugin

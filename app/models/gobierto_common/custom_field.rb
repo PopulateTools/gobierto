@@ -25,6 +25,7 @@ module GobiertoCommon
     scope :sorted, -> { order(position: :asc) }
     scope :localized, -> { where(field_type: [:localized_string, :localized_paragraph]) }
     scope :not_localized, -> { where.not(field_type: [:localized_string, :localized_paragraph]) }
+    scope :with_plugin_type, ->(plugin_type) { plugin.where("options @> ?", { configuration: { plugin_type: plugin_type } }.to_json) }
 
     translates :name
 
@@ -93,12 +94,15 @@ module GobiertoCommon
       )
     end
 
+    def refers_to?(custom_field)
+      configuration.plugin_configuration.dig("custom_field_ids")&.include?(custom_field.id) ||
+        configuration.plugin_configuration.dig("custom_field_uids")&.include?(custom_field.uid)
+    end
+
     private
 
     def self.has_vocabulary?(plugin_type)
-      plugin = CustomFieldPlugin.all.find { |p| p.type == plugin_type.to_sym }
-
-      plugin && plugin.requires_vocabulary?
+      CustomFieldPlugin.find(plugin_type)&.requires_vocabulary?
     end
 
     def set_uid

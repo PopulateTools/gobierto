@@ -41,13 +41,54 @@ module GobiertoCommon
 
     delegate :value, :raw_value, :value=, :searchable_value, to: :value_processor
 
+    after_save :check_plugin_callbacks
+
     def value_processor
       key = VALUE_PROCESSORS.has_key?(custom_field&.field_type&.to_sym) ? custom_field.field_type.to_sym : :default
       VALUE_PROCESSORS[key].new(self)
     end
 
+    def functions(version: nil)
+      return unless custom_field.plugin?
+
+      unless GobiertoCommon::CustomFieldFunctions.const_defined?(custom_field.configuration.plugin_type.classify)
+        begin
+          GobiertoCommon::CustomFieldFunctions.const_get(custom_field.configuration.plugin_type.classify)
+        rescue NameError
+          return
+        end
+      end
+
+      GobiertoCommon::CustomFieldFunctions.const_get(custom_field.configuration.plugin_type.classify).new(self, version: version)
+    end
+
     def item_class
       custom_field&.class_name&.constantize
+    end
+
+    private
+
+    def check_plugin_callbacks
+      plugin_types_with_callbacks = GobiertoCommon::CustomFieldPlugin.with_callbacks.map(&:type)
+
+      return if plugin_types_with_callbacks.blank?
+
+      custom_fields_with_callbacks = GobiertoCommon::CustomField.plugin
+                                                                .where(instance: custom_field.instance)
+                                                                .where("options -> 'configuration' ->> 'plugin_type' in (:types)", types: plugin_types_with_callbacks)
+
+      custom_fields_with_callbacks.each do |custom_field_with_callback|
+        next unless custom_field_with_callback.refers_to?(custom_field)
+
+        GobiertoCommon::CustomFieldRecord.find_or_initialize_by(item: item, custom_field: custom_field_with_callback).tap do |record|
+          plugin_type = custom_field_with_callback.configuration.plugin_type
+          GobiertoCommon::CustomFieldPlugin.find(plugin_type).callbacks.each do |callback|
+            next unless record.functions.respond_to? callback
+
+            record.functions.send(callback)
+          end
+        end
+      end
     end
   end
 end

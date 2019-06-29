@@ -244,6 +244,44 @@ module GobiertoAdmin
 
           assert all_versions_are_equal(project, 3)
         end
+
+        def test_save_new_version_and_change_status
+          with(site: site, js: true, admin: admin) do
+
+            create_project
+
+            within "form" do
+              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+
+            visit edit_admin_plans_plan_project_path(plan, project, version: 1)
+
+            within "form" do
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+
+            within "form" do
+              find("label[for$='approved']").click
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+
+            assert has_content? "Editing version\n3"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\nnot published yet"
+            assert has_content? "Click on Publish to make this version publicly visible."
+          end
+
+          assert all_versions_are_equal(project, 3)
+        end
       end
     end
   end

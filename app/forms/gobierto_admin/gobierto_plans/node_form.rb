@@ -138,7 +138,7 @@ module GobiertoAdmin
       end
 
       def attributes_updated?
-        return unless allow_edit_attributes?
+        return if @node.new_record? || !allow_edit_attributes?
 
         nodes_attributes_differ?(set_node_attributes, versioned_node)
       end
@@ -233,6 +233,7 @@ module GobiertoAdmin
         set_version_and_visiblity_level
 
         if @node.valid?
+          @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?
           force_new_version && !attributes_updated? ? @node.paper_trail.save_with_version : @node.save
 
           if allow_edit_attributes? && !@node.categories.include?(category)
@@ -270,7 +271,15 @@ module GobiertoAdmin
       end
 
       def attributes_for_new_version
-        %w(name_translations status_translations progress starts_at ends_at options) & @passed_attributes
+        @attributes_for_new_version ||= version_attributes & @passed_attributes
+      end
+
+      def version_attributes
+        %w(name_translations status_id progress starts_at ends_at options)
+      end
+
+      def ignored_attributes
+        @ignored_attributes ||= version_attributes - @passed_attributes
       end
     end
   end

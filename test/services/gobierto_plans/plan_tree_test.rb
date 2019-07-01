@@ -32,7 +32,7 @@ class GobiertoPlans::PlanTreeTest < ActiveSupport::TestCase
   end
 
   def test_call
-    assert_equal plan_tree_json, service_call.to_json
+    assert_equal JSON.parse(plan_tree_json).to_json, service_call.to_json
   end
 
   def test_not_published_projects_are_not_included

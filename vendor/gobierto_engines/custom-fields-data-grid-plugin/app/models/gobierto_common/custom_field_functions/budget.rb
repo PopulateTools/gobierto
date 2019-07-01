@@ -10,11 +10,19 @@ module GobiertoCommon::CustomFieldFunctions
       end
     end
 
-    def cost(_options = {})
-      @cost ||= data.map do |line|
-        next unless line.weight.present? && line.execution.present?
+    def planned_cost
+      @planned_cost ||= data.map do |line|
+        next unless line.weight && line.forecast
 
-        line.weight * line.execution
+        line.forecast * line.weight
+      end.compact.sum
+    end
+
+    def executed_cost
+      @executed_cost ||= data.map do |line|
+        next unless line.weight && line.execution
+
+        line.execution * line.weight
       end.compact.sum
     end
 
@@ -27,12 +35,13 @@ module GobiertoCommon::CustomFieldFunctions
                   lines.map do |line|
                     line_details = GobiertoBudgets::BudgetLine.find_details(type: line["area"], id: line["id"])
 
-                    OpenStruct.new(
+                    Hashie::Mash.new(
                       forecast: line_details.forecast.updated_amount || line_details.forecast.original_amount,
                       execution: line_details.execution.amount,
                       weight: numeric?(line["weight"]) ? line["weight"].to_f / 100.0 : nil
                     )
-                  end
+                  rescue GobiertoBudgets::BudgetLine::RecordNotFound
+                  end.compact
                 end
     end
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tablerow">
     <div class="tablerow__title">{{ title | translate }}</div>
     <div class="tablerow__data">
       <template v-for="item in data">
@@ -38,6 +38,8 @@ export default {
 
 <style lang="sass" scoped>
 .tablerow {
+  padding: .5em 0;
+  
   &__title {
     font-size: 14px;
     text-transform: uppercase;
@@ -53,6 +55,7 @@ export default {
 
   &__item {
     background-color: rgba(#D8D8D8, 0.2);
+    padding: 0.5em 1em;
 
     &-title {
       font-size: 14px;

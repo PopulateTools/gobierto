@@ -89,12 +89,13 @@ $color_pam_5: #00529e;
         background-color: rgba($color_pam_1, 0.2);
       }
 
-      .node-project-detail .project-optional .row {
-        border-top: 1px solid rgba($color_pam_1, 0.2);
-      }
-
       .node-project-detail .project-mandatory .mandatory-progress > div {
         background-color: $color_pam_1;
+      }
+
+      .node-project-detail .project-description .description-more {
+        border-color: $color_pam_1;
+        color: $color_pam_1;
       }
 
       .cat--negative {
@@ -161,6 +162,11 @@ $color_pam_5: #00529e;
         background-color: $color_pam_2;
       }
 
+      .node-project-detail .project-description .description-more {
+        border-color: $color_pam_2;
+        color: $color_pam_2;
+      }
+
       .cat--negative {
         background: $color_pam_2;
         color: $color_main_negative;
@@ -223,6 +229,11 @@ $color_pam_5: #00529e;
 
       .node-project-detail .project-mandatory .mandatory-progress > div {
         background-color: $color_pam_3;
+      }
+
+      .node-project-detail .project-description .description-more {
+        border-color: $color_pam_3;
+        color: $color_pam_3;
       }
 
       .cat--negative {
@@ -289,6 +300,11 @@ $color_pam_5: #00529e;
         background-color: $color_pam_4;
       }
 
+      .node-project-detail .project-description .description-more {
+        border-color: $color_pam_4;
+        color: $color_pam_4;
+      }
+
       .cat--negative {
         background: $color_pam_4;
         color: $color_main_negative;
@@ -351,6 +367,11 @@ $color_pam_5: #00529e;
 
       .node-project-detail .project-mandatory .mandatory-progress > div {
         background-color: $color_pam_5;
+      }
+
+      .node-project-detail .project-description .description-more {
+        border-color: $color_pam_5;
+        color: $color_pam_5;
       }
 
       .cat--negative {
@@ -422,6 +443,10 @@ If you need extra colors, add this block again renaming cat_1 (cat_2, cat_3, cat
 }
 .gobierto_planification section:not(.level_0).cat_1 .cat--negative {
   background: rgb($color_pam_1);
+}
+.gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-description .description-more {
+  border-color: $color_pam_1;
+  color: $color_pam_1;
 }
 
 */

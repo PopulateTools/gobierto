@@ -128,31 +128,37 @@
       </div>
 
       <div class="node-project-detail">
-        <div class="node-project-desc">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque, vero voluptatum fugit recusandae ipsam assumenda quae distinctio nemo repellendus explicabo consectetur error sequi! Ex deserunt facilis fugiat repudiandae? Nihil, fuga?
-
-          <a>Leer más</a>
-        </div>
-        <div class="node-project-detail">
-          <div class="project-mandatory">
-            <div>
-              <div class="mandatory-progress">
-                <div :style="{ width: activeNode.attributes.progress + '%'}"></div>
-              </div>
+        <div class="project-mandatory">
+          <div>
+            <div class="mandatory-list">
               <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.progress") %></div>
-              <div class="mandatory-desc mandatory-desc--large">{{ activeNode.attributes.progress | percent }}</div>
+              <div class="mandatory-desc">{{ activeNode.attributes.progress | percent }}</div>
             </div>
-            <div>
-              <div class="mandatory-list">
-                <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.starts") %> - <%= t("gobierto_plans.plan_types.show.ends") %></div>
-                <div class="mandatory-desc">{{ activeNode.attributes.starts_at | date }} - {{ activeNode.attributes.ends_at | date }}</div>
-              </div>
-              <div class="mandatory-list">
-                <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.status") %></div>
-                <div class="mandatory-desc">{{ activeNode.attributes.status | translate }}</div>
-              </div>
+            <div class="mandatory-progress">
+              <div :style="{ width: activeNode.attributes.progress + '%'}"></div>
             </div>
           </div>
+          <div>
+            <div class="mandatory-list">
+              <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.starts") %> - <%= t("gobierto_plans.plan_types.show.ends") %></div>
+              <div class="mandatory-desc">{{ activeNode.attributes.starts_at | date }} - {{ activeNode.attributes.ends_at | date }}</div>
+            </div>
+            <div class="mandatory-list">
+              <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.status") %></div>
+              <div class="mandatory-desc">{{ activeNode.attributes.status | translate }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="project-description">
+          <div class="description-title"><%= t("gobierto_plans.plan_types.show.desc") %></div>
+          <div class="is-hidden">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus repellat recusandae inventore adipisci beatae voluptate? Laborum illo nesciunt adipisci voluptates. Voluptatem recusandae nulla maxime quo est perspiciatis impedit, laboriosam dolor!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam cumque ad, repudiandae dolor maxime neque itaque illum suscipit cum deleniti vitae numquam rerum dignissimos accusantium mollitia eligendi! Distinctio, itaque.</p>
+          </div>
+          <button class="description-more" @click="hideText($event)">
+            <span v-if="readMoreButton">Leer más</span>
+            <span v-else>Leer menos</span>
+          </button>
         </div>
 
         <!-- Rails must add the markup if plugin is available -->

@@ -13,6 +13,7 @@ ca:
         plans: Plans
     plan_types:
       show:
+        desc: Descripció
         ends: Fi
         global_execution: Estat d'execució global
         latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
@@ -20,6 +21,8 @@ ca:
         percentage_progress: "% progrés"
         progress: Progrés
         projects: Projectes
+        read_less: Llegiu menys
+        read_more: Llegiu més
         see_all: Veure tot en
         starts: Inici
         status: Estat

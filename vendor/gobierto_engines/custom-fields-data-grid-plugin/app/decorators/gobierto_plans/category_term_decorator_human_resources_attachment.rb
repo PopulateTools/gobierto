@@ -26,8 +26,8 @@ module GobiertoPlans
 
       return super_result if records_functions.empty?
 
-      total_cost = records_functions.map(&:cost).sum
-      total_executed = records_functions.map { |f| f.cost * f.progress }.sum
+      total_cost = records_functions.map(&:planned_cost).sum
+      total_executed = records_functions.map(&:executed_cost).sum
 
       super_result[:human_resources][:budgeted_amount] = total_cost.round
       super_result[:human_resources][:executed_amount] = total_executed.round

@@ -90,7 +90,7 @@ module GobiertoAdmin
         @options ||= {}.tap do |opts|
           opts[:configuration] ||= {}
           opts.merge!(options_translations.except("new_option")) if has_options? && options_translations
-          if ::GobiertoCommon::CustomField.has_vocabulary?(plugin_type)
+          if has_vocabulary?
             opts[:vocabulary_id] = vocabulary_id if vocabulary_id
             opts[:configuration][:vocabulary_type] = vocabulary_type if vocabulary_type.present?
           end
@@ -117,7 +117,7 @@ module GobiertoAdmin
       end
 
       def has_options?
-        @has_options ||= !::GobiertoCommon::CustomField.has_vocabulary?(plugin_type) && custom_field.has_options?
+        @has_options ||= !has_vocabulary? && custom_field.has_options?
       end
 
       def valid_resource_name?

@@ -13,6 +13,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
 
       if ($(this).data().hasVocabulary) {
         $("#vocabulary").show();
+        if ($(this).data().hasOptions) {
+          $("#vocabulary_type").show();
+        }
       } else if ($(this).data().hasOptions) {
         $("#options").show();
       }

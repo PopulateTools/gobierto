@@ -10,10 +10,3 @@
 import "lib/commons";
 import "gobierto_plans";
 import "lib/i18n";
-
-// Optional plugins
-try {
-  require("../plugin__data_grid_budgets_public");
-} catch (error) {
-  // Ignore
-}

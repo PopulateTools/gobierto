@@ -20,7 +20,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
     };
 
     function _loadPlan() {
-
       // filters
       Vue.filter('translate', function (key) {
         if (!key) return
@@ -231,22 +230,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
             return isOpen
           },
-          activatePlugins: function(plugins) {
-            // Wait nextTick to elements be mounted
-            this.$nextTick(() => {
-              for (const key in plugins) {
-                if (plugins.hasOwnProperty(key)) {
-                  const element = plugins[key];
-                  
-                  // trigger activation
-                  const event = new CustomEvent("gobierto-plans-mount-plugin", {
-                    detail: { ...element, key }
-                  });
-                  document.dispatchEvent(event);
-                }
-              }
-            })
-          },
           typeOf: function(val) {
             if (_.isString(val)) {
               return "string"
@@ -319,7 +302,10 @@ window.GobiertoPlans.PlanTypesController = (function() {
             }
 
             return result
-          }
+          },
+          activatePlugins: function(plugins) {
+            this.$nextTick(() => _loadPlugins(plugins))
+          },
         }
       })
 
@@ -350,6 +336,21 @@ window.GobiertoPlans.PlanTypesController = (function() {
           return false;
         }
       }
+    }
+
+    function _loadPlugins(plugins) {
+      document.querySelectorAll("[data-plugin]").forEach(node => {
+        const { plugin: pluginName } = node.dataset;
+
+        const Component = require(`../plugins/${pluginName}.vue`).default
+        const Plugin = Vue.extend(Component);
+        
+        const instance = new Plugin({
+          propsData: { config: plugins[pluginName] }
+        })        
+
+        instance.$mount(node)
+      })
     }
 
     return PlanTypesController;

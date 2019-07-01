@@ -93,8 +93,8 @@ $color_pam_5: #00529e;
         border-top: 1px solid rgba($color_pam_1, 0.2);
       }
 
-      .node-project-detail .project-mandatory {
-        background-color: rgba($color_pam_1, 0.2);
+      .node-project-detail .project-mandatory .mandatory-progress > div {
+        background-color: $color_pam_1;
       }
 
       .cat--negative {
@@ -157,8 +157,8 @@ $color_pam_5: #00529e;
         border-top: 1px solid rgba($color_pam_2, 0.2);
       }
 
-      .node-project-detail .project-mandatory {
-        background-color: rgba($color_pam_2, 0.2);
+      .node-project-detail .project-mandatory .mandatory-progress > div {
+        background-color: $color_pam_2;
       }
 
       .cat--negative {
@@ -221,8 +221,8 @@ $color_pam_5: #00529e;
         border-top: 1px solid rgba($color_pam_3, 0.2);
       }
 
-      .node-project-detail .project-mandatory {
-        background-color: rgba($color_pam_3, 0.2);
+      .node-project-detail .project-mandatory .mandatory-progress > div {
+        background-color: $color_pam_3;
       }
 
       .cat--negative {
@@ -285,8 +285,8 @@ $color_pam_5: #00529e;
         border-top: 1px solid rgba($color_pam_4, 0.2);
       }
 
-      .node-project-detail .project-mandatory {
-        background-color: rgba($color_pam_4, 0.2);
+      .node-project-detail .project-mandatory .mandatory-progress > div {
+        background-color: $color_pam_4;
       }
 
       .cat--negative {
@@ -349,8 +349,8 @@ $color_pam_5: #00529e;
         border-top: 1px solid rgba($color_pam_5, 0.2);
       }
 
-      .node-project-detail .project-mandatory {
-        background-color: rgba($color_pam_5, 0.2);
+      .node-project-detail .project-mandatory .mandatory-progress > div {
+        background-color: $color_pam_5;
       }
 
       .cat--negative {
@@ -407,7 +407,6 @@ If you need extra colors, add this block again renaming cat_1 (cat_2, cat_3, cat
 .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb {
   border: 1px solid rgba($color_pam_1, 0.75);
 }
-.gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-mandatory,
 .gobierto_planification section:not(.level_0).cat_1 .node-action-line table tbody tr:hover td {
   background-color: rgba($color_pam_1, 0.2);
 }
@@ -417,6 +416,7 @@ If you need extra colors, add this block again renaming cat_1 (cat_2, cat_3, cat
 .gobierto_planification section.level_0 .cat_1 {
   background-color: rgba($color_pam_1, 0.9);
 }
+.gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-mandatory .mandatory-progress > div,
 .gobierto_planification section.level_0 .cat_1 .progress {
   background-color: rgb($color_pam_1);
 }

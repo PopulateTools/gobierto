@@ -34,6 +34,7 @@ module GobiertoAdmin
         @project = @plan.nodes.find params[:id]
         @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
         @unpublish_url = unpublish_admin_plans_plan_project_path(@plan, @project)
+        @version_index = @project_form.version_index
         initialize_custom_field_form
 
         if @project_form.save && custom_fields_save

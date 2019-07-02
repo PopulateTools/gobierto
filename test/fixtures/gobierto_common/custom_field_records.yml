@@ -70,6 +70,33 @@ political_agendas_custom_field_record_image:
     "image" => "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
   }.to_json %>
 
+political_agendas_custom_field_record_vocabulary_single_select:
+  item: political_agendas (GobiertoPlans::Node)
+  custom_field: madrid_plans_custom_field_vocabulary_single_select
+  payload: <%= {
+    "madrid-vocabulary-single-select" => ActiveRecord::FixtureSet.identify(:mammal)
+  }.to_json %>
+
+political_agendas_custom_field_record_vocabulary_multiple_select:
+  item: political_agendas (GobiertoPlans::Node)
+  custom_field: madrid_plans_custom_field_vocabulary_multiple_select
+  payload: <%= {
+    "madrid-vocabulary-multiple-select" => [
+      ActiveRecord::FixtureSet.identify(:mammal),
+      ActiveRecord::FixtureSet.identify(:dog)
+    ]
+  }.to_json %>
+
+political_agendas_custom_field_record_vocabulary_tags:
+  item: political_agendas (GobiertoPlans::Node)
+  custom_field: madrid_plans_custom_field_vocabulary_tags
+  payload: <%= {
+    "madrid-vocabulary-tags" => [
+      ActiveRecord::FixtureSet.identify(:mammal),
+      ActiveRecord::FixtureSet.identify(:dog)
+    ]
+  }.to_json %>
+
 political_agendas_indicators_custom_field_record:
   item: political_agendas (GobiertoPlans::Node)
   custom_field: madrid_custom_field_indicators_plugin

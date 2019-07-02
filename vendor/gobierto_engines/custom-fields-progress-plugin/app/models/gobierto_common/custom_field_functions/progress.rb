@@ -17,12 +17,12 @@ module GobiertoCommon::CustomFieldFunctions
 
       t = GobiertoCommon::CustomField.arel_table
 
-      custom_fields = GobiertoCommon::CustomField.where(instance: custom_field.instance).where(
+      calculation_custom_fields = site.custom_fields.where(
         t[:uid].in(uids).or(t[:id].in(ids))
       )
 
-      records = GobiertoCommon::CustomFieldRecord.where(item: record.item, custom_field: custom_fields)
-      progress_items = records.map { |record| record.functions(version: @version).try(:progress, options) }.compact
+      calculation_records = GobiertoCommon::CustomFieldRecord.where(item: record.item, custom_field: calculation_custom_fields)
+      progress_items = calculation_records.map { |record| record.functions(version: @version).try(:progress, options) }.compact
 
       return if progress_items.blank?
 

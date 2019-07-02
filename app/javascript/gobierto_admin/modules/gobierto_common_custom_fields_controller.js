@@ -13,6 +13,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
 
       if ($(this).data().hasVocabulary) {
         $("#vocabulary").show();
+        if ($(this).data().hasOptions) {
+          $("#vocabulary_type").show();
+        }
       } else if ($(this).data().hasOptions) {
         $("#options").show();
       }
@@ -41,14 +44,17 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
 
   function _handleBehaviors() {
     $(document).on("click", "[data-behavior]", function handler(e) {
-      e.preventDefault()
       if ($(this).data("behavior") === "delete_option") {
+        e.preventDefault()
         _deleteOption($(this).data("index"))
       } else if ($(this).data("behavior") === "new_option") {
+        e.preventDefault()
         _showNew()
       } else if ($(this).data("behavior") === "cancel_new") {
+        e.preventDefault()
         _hideNew()
       } else if ($(this).data("behavior") === "create") {
+        e.preventDefault()
         $(`div[data-option=${$(this).data("index")}]`).find("input#custom_field_options_translations_new_option_es").val()
         let elems = $(`div[data-option=${$(this).data("index")}]`).find("input")
         let translations = {}

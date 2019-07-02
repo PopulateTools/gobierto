@@ -61,7 +61,7 @@ module GobiertoCommon
     end
 
     def has_vocabulary?
-      if (plugin_type = options&.dig(*%w(configuration plugin_type))&.to_sym)
+      if (plugin_type = configuration.plugin_type&.to_sym)
         self.class.has_vocabulary?(plugin_type)
       else
         /vocabulary/.match?(field_type)

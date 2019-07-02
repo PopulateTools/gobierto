@@ -128,6 +128,8 @@
       </div>
 
       <div class="node-project-detail">
+        
+        <!-- Native fields -->
         <div class="project-mandatory">
           <div>
             <div class="mandatory-list">
@@ -149,17 +151,40 @@
             </div>
           </div>
         </div>
-        <div class="project-description">
-          <div class="description-title"><%= t("gobierto_plans.plan_types.show.desc") %></div>
-          <div class="is-hidden">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus repellat recusandae inventore adipisci beatae voluptate? Laborum illo nesciunt adipisci voluptates. Voluptatem recusandae nulla maxime quo est perspiciatis impedit, laboriosam dolor!</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam cumque ad, repudiandae dolor maxime neque itaque illum suscipit cum deleniti vitae numquam rerum dignissimos accusantium mollitia eligendi! Distinctio, itaque.</p>
-          </div>
-          <button class="description-more" @click="hideText($event)">
-            <span v-if="readMoreButton">Leer más</span>
-            <span v-else>Leer menos</span>
-          </button>
-        </div>
+
+        <!-- CUSTOM FIELDS -->
+        <template v-if="activeNode.custom_field_records || true">
+        
+          <!-- Paragraph template  -->
+          <template v-if="custom_field === 'paragraph'">
+            <div class="project-description">
+              <div class="description-title"><%= t("gobierto_plans.plan_types.show.desc") %></div>
+              <div class="is-hidden">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus repellat recusandae inventore adipisci beatae
+                  voluptate? Laborum illo nesciunt adipisci voluptates. Voluptatem recusandae nulla maxime quo est perspiciatis
+                  impedit, laboriosam dolor!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam cumque ad, repudiandae dolor maxime neque
+                  itaque illum suscipit cum deleniti vitae numquam rerum dignissimos accusantium mollitia eligendi! Distinctio,
+                  itaque.</p>
+              </div>
+              <button class="description-more" @click="hideText($event)">
+                <span v-if="readMoreButton"><%= t("gobierto_plans.plan_types.show.read_more") %></span>
+                <span v-else><%= t("gobierto_plans.plan_types.show.read_less") %></span>
+              </button>
+            </div>
+          </template>
+        
+          <!-- String template  -->
+          <template v-else-if="custom_field === 'string'">
+            <div class="project-description">
+              <div class="description-title">Campo de texto</div>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus repellat recusandae inventore adipisci beatae
+                voluptate? Laborum illo nesciunt adipisci voluptates. Voluptatem recusandae nulla maxime quo est perspiciatis
+                impedit, laboriosam dolor!</p>
+            </div>
+          </template>
+        
+        </template>
 
         <!-- Rails must add the markup if plugin is available -->
         <% availablePlugins = ['budgets', 'human_resources', 'indicators'] %>

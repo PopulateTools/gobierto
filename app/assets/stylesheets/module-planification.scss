@@ -397,11 +397,11 @@ $white: $color_main_negative;
       &::after {
         content: "";
         display: block;
-        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%,rgba(255, 255, 255, 1) 100%);
         height: 50px;
         width: 100%;
         position: absolute;
-        bottom: 0; 
+        bottom: 0;
       }
     }
 

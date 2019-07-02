@@ -3,7 +3,7 @@
 module GobiertoCommon::CustomFieldValue
   class VocabularyOptions < Base
     def value
-      vocabulary.terms.where(id: raw_value)
+      vocabulary.terms.where(id: raw_value).map(&:name)
     end
 
     def value=(value)

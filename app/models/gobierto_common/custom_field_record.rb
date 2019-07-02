@@ -6,8 +6,8 @@ module GobiertoCommon
     VALUE_PROCESSORS = {
       string: CustomFieldValue::Text,
       localized_string: CustomFieldValue::LocalizedText,
-      paragraph: CustomFieldValue::Text,
-      localized_paragraph: CustomFieldValue::LocalizedText,
+      paragraph: CustomFieldValue::MarkdownText,
+      localized_paragraph: CustomFieldValue::LocalizedMarkdownText,
       single_option: CustomFieldValue::SingleOption,
       multiple_options: CustomFieldValue::MultipleOptions,
       color: CustomFieldValue::Color,

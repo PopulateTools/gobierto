@@ -6,15 +6,15 @@ neil_custom_field_record_position:
 neil_custom_field_record_bio:
   item: neil (GobiertoPeople::Person)
   custom_field: madrid_custom_field_bio
-  payload: <%= { "bio" => "Neil has a long bio" }.to_json %>
+  payload: <%= { bio: "**Neil** has a long bio" }.to_json %>
 
 neil_custom_field_record_localized_bio:
   item: neil (GobiertoPeople::Person)
   custom_field: madrid_custom_field_localized_bio
   payload: <%= {
     "localized-bio" => {
-      "es" => "Neil tiene una biografía larga",
-      "en" => "Neil has a long bio"
+      "es" => "**Neil** tiene una biografía larga",
+      "en" => "**Neil** has a long bio"
     }
   }.to_json %>
 

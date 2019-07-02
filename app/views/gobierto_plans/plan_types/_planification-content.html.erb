@@ -50,6 +50,7 @@
                     :header="showTableHeader" 
                     :open="openNode"
                     @activate="activatePlugins"
+                    @custom-fields="parseCustomFields"
                     @selection="setSelection" 
                     v-if="showTable[`${activeNode.id}-${index}`]">
                   </table-view>
@@ -101,6 +102,7 @@
                 :open="openNode"
                 @selection="setSelection" 
                 @activate="activatePlugins" 
+                @custom-fields="parseCustomFields"
                 v-if="showTable[`${activeNode.id}-${index}`]">
               </table-view>
             </transition>
@@ -153,34 +155,37 @@
         </div>
 
         <!-- CUSTOM FIELDS -->
-        <template v-if="activeNode.custom_field_records || true">
+        <template v-if="Object.keys(customFields).length">
         
           <!-- Paragraph template  -->
-          <template v-if="custom_field === 'paragraph'">
+          <template v-for="item in customFields.paragraphs">
             <div class="project-description">
-              <div class="description-title"><%= t("gobierto_plans.plan_types.show.desc") %></div>
-              <div class="is-hidden">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus repellat recusandae inventore adipisci beatae
-                  voluptate? Laborum illo nesciunt adipisci voluptates. Voluptatem recusandae nulla maxime quo est perspiciatis
-                  impedit, laboriosam dolor!</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam cumque ad, repudiandae dolor maxime neque
-                  itaque illum suscipit cum deleniti vitae numquam rerum dignissimos accusantium mollitia eligendi! Distinctio,
-                  itaque.</p>
+              <div class="description-title" :class="{ 'mb1': item.value.length < 200 }">
+                <span v-if="item.custom_field_name_translations">{{ item.custom_field_name_translations | translate }}</span>
+                <span v-else><%= t("gobierto_plans.plan_types.show.desc") %></span>
               </div>
-              <button class="description-more" @click="hideText($event)">
+              
+              <div :class="{ 'is-hidden': item.value.length > 200 }" v-html="item.value"></div>
+
+              <button v-if="item.value.length > 200" class="description-more" @click="hideText($event)">
                 <span v-if="readMoreButton"><%= t("gobierto_plans.plan_types.show.read_more") %></span>
                 <span v-else><%= t("gobierto_plans.plan_types.show.read_less") %></span>
               </button>
             </div>
           </template>
         
-          <!-- String template  -->
-          <template v-else-if="custom_field === 'string'">
-            <div class="project-description">
-              <div class="description-title">Campo de texto</div>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus repellat recusandae inventore adipisci beatae
-                voluptate? Laborum illo nesciunt adipisci voluptates. Voluptatem recusandae nulla maxime quo est perspiciatis
-                impedit, laboriosam dolor!</p>
+          <!-- Rest of fields template  -->
+          <template v-if="customFields.rest.length">
+            <div class="project-description project-grid">
+              <template v-for="item in customFields.rest">
+                <div class="description-list mb1">
+                  <div class="description-title">{{ item.custom_field_name_translations | translate }}</div>
+                  <div class="description-desc" v-if="typeOf(item.value) === 'array'">
+                    <div v-for="value in item.value">{{ value }}</div>
+                  </div>
+                  <div class="description-desc" v-else>{{ item.value }}</div>
+                </div>
+              </template>
             </div>
           </template>
         

@@ -311,7 +311,7 @@ $white: $color_main_negative;
     padding: 2em;
     color: $color_text;
 
-    > :not(:first-child) {
+    > :not(:first-child):not([data-plugin]) {
       border-top: 1px solid $color_dark_sep;
     }
   }
@@ -366,7 +366,7 @@ $white: $color_main_negative;
 
   .project-description {
     color: $color_text;
-    padding: 0.25em 0;
+    padding: 0.5em 0;
 
     .description-title {
       text-transform: uppercase;
@@ -386,7 +386,7 @@ $white: $color_main_negative;
       text-transform: none;
       background: none;
       color: inherit;
-      margin-bottom: 2em;
+      margin-bottom: 1em;
     }
 
     .is-hidden {
@@ -404,6 +404,25 @@ $white: $color_main_negative;
         bottom: 0; 
       }
     }
+
+    .description-desc {
+      font-size: 14px;
+      word-break: break-all;
+    }
+
+    .description-list {
+      display: flex;
+
+      > :first-child {
+        flex: 0 0 33%;
+      }
+    }
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px 10px;
   }
 
   // Animations

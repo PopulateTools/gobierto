@@ -1,5 +1,5 @@
 <template>
-  <div class="tablerow">
+  <div class="tablerow" v-if="config">
     <div class="tablerow__title">{{ title | translate }}</div>
     <div class="tablerow__data">
       <template v-for="item in data">
@@ -23,8 +23,8 @@ export default {
   },
   data() {
     return {
-      title: this.config.title_translations,
-      data: this.config.data
+      title: '',
+      data: []
     };
   },
   filters: {
@@ -32,6 +32,10 @@ export default {
       const lang = I18n.locale || "es";
       return value[lang];
     }
+  },
+    created() {
+    this.title = this.config.title_translations
+    this.data = this.config.data
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="tablerow">
+  <div class="tablerow" v-if="config">
     <div class="tablerow__title">{{ title | translate }}</div>
     <div class="tablerow__data">
       <div class="tablerow__item">
@@ -34,11 +34,11 @@ export default {
   },
   data() {
     return {
-      title: this.config.title_translations,
-      detail: this.config.detail,
-      budgetedAmount: this.config.budgeted_amount,
-      executedAmount: this.config.executed_amount,
-      executedPercent: this.config.executed_percentage
+      title: '',
+      detail: {},
+      budgetedAmount: 0,
+      executedAmount: 0,
+      executedPercent: ''
     };
   },
   filters: {
@@ -50,6 +50,13 @@ export default {
       const lang = I18n.locale || "es";
       return value.toLocaleString(lang, { style: "currency", currency: "EUR" });
     }
+  },
+  created() {
+    this.title = this.config.title_translations
+    this.detail = this.config.detail
+    this.budgetedAmount = this.config.budgeted_amount
+    this.executedAmount = this.config.executed_amount
+    this.executedPercent = this.config.executed_percentage
   }
 };
 </script>

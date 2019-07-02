@@ -81,6 +81,156 @@ window.GobiertoPlans.PlanTypesController = (function() {
             if ((this.model.children || []).length == 0 && this.model.attributes.children_count > 0) {
               fetch(`${this.model.attributes.nodes_list_path}${query_params}`).then(response =>
                 response.json().then(json => {
+
+                  const FAKE = {
+                    "custom_field_records": [
+                      {
+                        "value": "asdfasdfa",
+                        "raw_value": {
+                          "ca": "sfasdfasdf",
+                          "es": "asdfasdfa"
+                        },
+                        "custom_field_type": "localized_string",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes - Texto traducido",
+                          "es": "amiedes - Texto traducido"
+                        }
+                      },
+                      {
+                        "value": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit eget taciti interdum rutrum, morbi semper ullamcorper dui enim facilisis cum odio penatibus vehicula. Convallis laoreet lacus euismod semper donec nulla fames taciti quisque, sed dictum elementum interdum tortor etiam quis. Est suscipit nisl porta hendrerit lobortis id nulla cum, tristique leo habitasse volutpat luctus duis netus, iaculis ridiculus nullam molestie pulvinar dictumst scelerisque. Class eget donec consequat lacinia volutpat velit netus, hac posuere duis per nullam nec et integer, dapibus tincidunt magna sem mollis sapien.</p> <p>Donec sagittis varius urna non quisque rhoncus aptent, pharetra purus vel bibendum commodo felis nec, nibh magnis himenaeos ligula tellus odio. Conubia aenean habitasse erat nostra himenaeos leo magnis, proin curabitur cursus posuere phasellus vulputate varius felis, nascetur curae ad justo bibendum ornare. Nec ut eu tempus sociis nostra nisl augue magnis pulvinar, egestas taciti tincidunt conubia cubilia sodales ultricies nisi ultrices quis, semper aptent at cras nunc feugiat euismod hendrerit. Rutrum torquent sed lobortis feugiat orci fringilla ultricies habitasse risus, malesuada magnis sagittis eros semper pretium hendrerit nam class, justo mauris laoreet nascetur sociosqu magna ante lectus.</p>",
+                        "raw_value": {
+                          "ca": "asasdfasdf",
+                          "es": "sdfasfd"
+                        },
+                        "custom_field_type": "localized_paragraph",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes - Texto largo traducido",
+                          "es": "amiedes - Texto largo traducido"
+                        }
+                      },
+                      {
+                        "value": "asfasdfasdfas",
+                        "raw_value": "asfasdfasdfas",
+                        "custom_field_type": "string",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes - Texto sin traducciones",
+                          "es": "amiedes - Texto sin traducciones"
+                        }
+                      },
+                      {
+                        "value": "asdfasfdafds",
+                        "raw_value": "asdfasfdafds",
+                        "custom_field_type": "paragraph",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes - Texto largo sin traducciones",
+                          "es": "amiedes - Texto largo sin traducciones"
+                        }
+                      },
+                      {
+                        "value": "Opcion 2 es",
+                        "raw_value": "0252af94-7976-42bb-8a7c-bb806f27b8bc",
+                        "custom_field_type": "single_option",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes - Selección única",
+                          "es": "amiedes - Selección única"
+                        }
+                      },
+                      {
+                        "value": [
+                          "Opcion 1 es",
+                          "Opcion 2 es",
+                          "Opcion 1 es",
+                          "Opcion 2 es",
+                          "Opcion 1 es",
+                          "Opcion 2 es",
+                          "Opcion 1 es",
+                          "Opcion 2 es",
+                          "Opcion 1 es",
+                          "Opcion 2 es",
+                        ],
+                        "raw_value": [
+                          "configuration",
+                          "2f53bea2-4ccd-4405-a36a-319591dbf923"
+                        ],
+                        "custom_field_type": "multiple_options",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes - Selección múltiple",
+                          "es": "amiedes - Selección múltiple"
+                        }
+                      },
+                      {
+                        "value": "#42965a",
+                        "raw_value": "#42965a",
+                        "custom_field_type": "color",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes - color",
+                          "es": "amiedes - color"
+                        }
+                      },
+                      {
+                        "value": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-3/gobierto_plans/nodes/amiedes-imagen-f954b8f3-027e-477f-b21d-bbc9527b6b5a/Captura%20de%20pantalla%202019-07-02%20a%20las%2012.30.37.png",
+                        "raw_value": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-3/gobierto_plans/nodes/amiedes-imagen-f954b8f3-027e-477f-b21d-bbc9527b6b5a/Captura%20de%20pantalla%202019-07-02%20a%20las%2012.30.37.png",
+                        "custom_field_type": "image",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes-imagen",
+                          "es": "amiedes-imagen"
+                        }
+                      },
+                      {
+                        "value": "2019-07-19 12:29",
+                        "raw_value": "2019-07-19 12:29",
+                        "custom_field_type": "date",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes-fecha-y-hora",
+                          "es": "amiedes-fecha-y-hora"
+                        }
+                      },
+                      {
+                        "value": [
+                          "Limpieza de playas"
+                        ],
+                        "raw_value": "2221",
+                        "custom_field_type": "vocabulary_options",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes-vocabulario-seleccion-unica",
+                          "es": "amiedes-vocabulario-seleccion-unica"
+                        }
+                      },
+                      {
+                        "value": [
+                          "Limpieza de playas",
+                          "Limpieza de calles"
+                        ],
+                        "raw_value": [
+                          "2221",
+                          "2222"
+                        ],
+                        "custom_field_type": "vocabulary_options",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes-vocabulario-seleccion-multiple",
+                          "es": "amiedes-vocabulario-seleccion-multiple"
+                        }
+                      },
+                      {
+                        "value": [
+                          "Limpieza de playas",
+                          "Limpieza de calles"
+                        ],
+                        "raw_value": [
+                          "2221",
+                          "2222"
+                        ],
+                        "custom_field_type": "vocabulary_options",
+                        "custom_field_name_translations": {
+                          "ca": "amiedes-vocabulario-tags",
+                          "es": "amiedes-vocabulario-tags"
+                        }
+                      }
+                    ]
+                  }
+
+                  json[0] = { ...json[0], ...FAKE }
+
                   Vue.set(this.model, "children", json);
                   this.$emit("toggle");
                   this.isOpen = !this.isOpen;
@@ -114,8 +264,15 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
             this.$emit("selection", project);
 
-            const { plugins_data } = project.attributes;
-            if (plugins_data) {
+            // Preprocess custom fields
+            const { custom_field_records } = project;
+            if (custom_field_records) {
+              this.$emit("custom-fields", custom_field_records);
+            }
+            
+            // Activate plugins
+            const { plugins_data = {} } = project.attributes;
+            if (Object.keys(plugins_data).length) {
               this.$emit("activate", plugins_data);
             }
           }
@@ -138,6 +295,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
         globalProgress: 0,
         rootid: 0,
         readMoreButton: true,
+        customFields: {}
       },
       created: function() {
         this.getJson();
@@ -318,7 +476,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
           return result;
         },
-        activatePlugins: function(plugins) {
+        activatePlugins: function(plugins) {          
           this.$nextTick(() => _loadPlugins(plugins));
         },
         hideText: function(event) {
@@ -330,6 +488,25 @@ window.GobiertoPlans.PlanTypesController = (function() {
             : hiddenElementClasses.add(toggleClass);
 
           this.readMoreButton = hiddenElementClasses.contains(toggleClass)
+        },
+        parseCustomFields: function(fields) {
+          const paragraphs = []
+          const rest = []
+
+          fields.forEach(f => {
+            const { custom_field_type: type } = f;
+
+            if (type === "paragraph" || type === "localized_paragraph" || type === "string" || type === "localized_string") {
+              paragraphs.push(f)
+            } else {
+              rest.push(f)
+            }
+          })
+
+          this.customFields = {
+            paragraphs,
+            rest
+          }
         }
       }
     });
@@ -365,7 +542,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
       const { plugin: pluginName } = node.dataset;
 
       const Component = require(`../plugins/${pluginName}.vue`).default;
-      const Plugin = Vue.extend(Component);
+      const Plugin = Vue.extend(Component);      
 
       const instance = new Plugin({
         propsData: { config: plugins[pluginName] }

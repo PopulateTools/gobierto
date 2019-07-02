@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoCommon
     module CustomFields
-      class ModuleResourcesController < BaseController
+      class ModuleResourcesController < GobiertoCommon::CustomFields::BaseController
         before_action :check_permissions!
 
         def index

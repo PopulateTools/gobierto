@@ -1,7 +1,7 @@
 import { Grid, Editors, Plugins } from 'slickgrid-es6';
 import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
 import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
-import { applyPluginStyles, defaultSlickGridOptions } from './common_slickgrid_behavior';
+import { applyPluginStyles, preventLosingCurrentEdit, defaultSlickGridOptions } from './common_slickgrid_behavior';
 
 const defaultStartYear = 2018;
 const defaultStartMonth = 12;
@@ -12,9 +12,11 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
   function GobiertoCommonCustomFieldRecordsIndicatorsPluginController() {}
 
   var grid;
+  var _pluginCssClass = 'indicators'
 
   GobiertoCommonCustomFieldRecordsIndicatorsPluginController.prototype.form = function(opts = {}) {
     _handlePluginData(opts.uid);
+    preventLosingCurrentEdit()
   };
 
   function _deserializeTableData(inputValue) {
@@ -44,7 +46,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       let id = element.attr('id')
       let data = _deserializeTableData($(`#${id}`).find("input[name$='[value]'").val());
 
-      applyPluginStyles(element, "indicators")
+      applyPluginStyles(element, _pluginCssClass)
       _slickGrid(id, data, vocabularyTerms)
     })
   }
@@ -105,7 +107,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
     }
 
     function _parseColumns(data) {
-      let columns = [];
+      let columns = []
+      let lastYear = defaultStartYear
+      let lastMonth = defaultStartMonth
 
       var uniqueDates = Array.from(new Set(
         $.map(data, function(item) {
@@ -115,16 +119,21 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
         })
       ));
 
-      var lastDateValues = uniqueDates[uniqueDates.length - 1].split("-");
+      if (uniqueDates.length > 0) {
+        var lastDateValues = uniqueDates[uniqueDates.length - 1].split("-");
 
-      for (let item of uniqueDates) {
-        let dateValues = item.split("-");
-        columns.push(_dateColumn(parseInt(dateValues[0]), parseInt(dateValues[1]), 0));
+        for (let item of uniqueDates) {
+          let dateValues = item.split("-");
+          columns.push(_dateColumn(parseInt(dateValues[0]), parseInt(dateValues[1]), 0));
+        }
+
+        lastYear = parseInt(lastDateValues[0])
+        lastMonth = parseInt(lastDateValues[1])
       }
 
       return {
-        lastYear: parseInt(lastDateValues[0]),
-        lastMonth: parseInt(lastDateValues[1]),
+        lastYear: lastYear,
+        lastMonth: lastMonth,
         columns: columns
       };
     }

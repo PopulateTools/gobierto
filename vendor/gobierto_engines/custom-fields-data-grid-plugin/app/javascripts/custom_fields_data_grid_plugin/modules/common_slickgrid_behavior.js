@@ -1,4 +1,5 @@
-export { applyPluginStyles, defaultSlickGridOptions }
+export { applyPluginStyles, preventLosingCurrentEdit, defaultSlickGridOptions }
+import { Slick } from 'slickgrid-es6';
 
 function applyPluginStyles(element, plugin_name_hint) {
   element.wrap(`
@@ -22,4 +23,13 @@ var defaultSlickGridOptions = {
   autoEdit: true,
   forceFitColumns: true,
   autoHeight: true
+}
+
+function preventLosingCurrentEdit() {
+  $(document).click(function(e) {
+    if ($(e.target).parents(".plugin_field").length == 0) {
+      var lock = Slick.GlobalEditorLock;
+      if (lock.isActive()) lock.commitCurrentEdit()
+    }
+  })
 }

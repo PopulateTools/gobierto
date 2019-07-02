@@ -28,6 +28,7 @@ module GobiertoAdmin
       )
 
       validates :plan, :admin, presence: true
+      validates :progress, presence: true, if: -> { @passed_attributes.include?("progress") }
       validates :category, :name_translations, presence: true, if: -> { allow_edit_attributes? }
       validates :status_id, presence: true, if: -> { allow_edit_attributes? && statuses_vocabulary.present? }
       validate :options_json_format
@@ -38,14 +39,13 @@ module GobiertoAdmin
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
         ordered_options = options.slice(:id, :plan_id, :admin).merge!(options)
-
+        @passed_attributes = ordered_options.keys
         super(ordered_options)
+        set_publication_version
       end
 
       def save
         check_visibility_level if allow_edit_attributes?
-        set_publication_version if has_versions?
-
         save_node if valid?
       end
 
@@ -138,9 +138,15 @@ module GobiertoAdmin
       end
 
       def attributes_updated?
-        return unless allow_edit_attributes?
+        return if @node.new_record? || !allow_edit_attributes?
 
-        version_attributes_updated?(versioned_node, set_node_attributes)# && attributes_for_new_version.any? { |attribute| @node.send("#{attribute}_changed?") }
+        nodes_attributes_differ?(set_node_attributes, versioned_node)
+      end
+
+      def version_index
+        return unless @version && @version.to_i < node.versions.length
+
+        @version.to_i - node.versions.length
       end
 
       private
@@ -150,6 +156,8 @@ module GobiertoAdmin
       end
 
       def set_publication_version
+        return if @version.present? || !has_versions?
+
         @visibility_level, @version = visibility_level.to_s.split("-")
 
         @published_version = @visibility_level == "published" ? (@version || node.published_version).to_i : nil
@@ -183,14 +191,13 @@ module GobiertoAdmin
       end
 
       def versioned_node
-        return node if @version.blank? || (version_number = @version.to_i) == node.versions.length
+        return node.clone.reload unless version_index
 
-        index = version_number - node.versions.length
-        node.versions[index].reify
+        node.versions[version_index].reify
       end
 
-      def version_attributes_updated?(versioned_node, node)
-        versioned_node.attributes.slice(*attributes_for_new_version) != node.attributes.slice(*attributes_for_new_version)
+      def nodes_attributes_differ?(node_a, node_b)
+        node_a.attributes.slice(*attributes_for_new_version) != node_b.attributes.slice(*attributes_for_new_version)
       end
 
       def set_node_attributes
@@ -209,8 +216,7 @@ module GobiertoAdmin
       def set_version_and_visiblity_level
         node.tap do |attributes|
           if allow_edit_attributes? && @version.present?
-            if version_attributes_updated?(versioned_node, attributes)
-              @force_new_version = false
+            if attributes_updated? || force_new_version
               @published_version = attributes.versions.length + 1
             else
               attributes.reload
@@ -227,6 +233,7 @@ module GobiertoAdmin
         set_version_and_visiblity_level
 
         if @node.valid?
+          @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?
           force_new_version && !attributes_updated? ? @node.paper_trail.save_with_version : @node.save
 
           if allow_edit_attributes? && !@node.categories.include?(category)
@@ -264,7 +271,15 @@ module GobiertoAdmin
       end
 
       def attributes_for_new_version
-        %w(name_translations status_translations progress starts_at ends_at options)
+        @attributes_for_new_version ||= version_attributes & @passed_attributes
+      end
+
+      def version_attributes
+        %w(name_translations status_id progress starts_at ends_at options)
+      end
+
+      def ignored_attributes
+        @ignored_attributes ||= version_attributes - @passed_attributes
       end
     end
   end

@@ -12,6 +12,8 @@ module GobiertoAdmin
 
         def setup
           super
+
+          remove_custom_fields_with_callbacks
           @path = new_admin_plans_plan_project_path(plan)
         end
 
@@ -25,6 +27,12 @@ module GobiertoAdmin
 
         def plan
           @plan ||= gobierto_plans_plans(:strategic_plan)
+        end
+
+        def remove_custom_fields_with_callbacks
+          ::GobiertoCommon::CustomFieldPlugin.with_callbacks.each do |plugin|
+            ::GobiertoCommon::CustomField.with_plugin_type(plugin.type).destroy_all
+          end
         end
 
         def preview_test_conf

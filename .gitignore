@@ -62,6 +62,8 @@ app/javascript/valencia
 app/javascript/packs/valencia.js
 app/javascript/custom_fields_data_grid_plugin
 app/javascript/packs/custom_fields_data_grid_plugin.js
+app/javascript/custom_fields_progress_plugin
+app/javascript/packs/custom_fields_progress_plugin.js
 
 # Custom fields plugins
 !vendor/gobierto_engines/custom-fields-*-plugin

@@ -1,0 +1,11 @@
+---
+ca:
+  gobierto_plans:
+    custom_fields_plugins:
+      budgets:
+        detail_text: veure detall en Pressupostos
+        title: Pressupost
+      human_resources:
+        title: Recursos Humans
+      indicators:
+        title: Indicadors

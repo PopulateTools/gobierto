@@ -74,10 +74,18 @@ module GobiertoAdmin
       end
 
       def changed?
-        custom_field_records.any?(&:changed?)
+        custom_field_records.any? { |custom_field| version_changed?(custom_field) }
       end
 
       private
+
+      def version_changed?(custom_field)
+        if with_version && version_index.present?
+          (custom_field.versions[version_index]&.reify || custom_field.clone.reload).slice(*attributes_for_new_version) != custom_field.slice(*attributes_for_new_version)
+        else
+          custom_field.changed?
+        end
+      end
 
       def instance_type_options
         return [nil] unless instance
@@ -111,16 +119,22 @@ module GobiertoAdmin
       end
 
       def save_custom_fields
+        return custom_field_records if with_version && !force_new_version && !changed?
+
         custom_field_records.each do |record|
           record.item_has_versions = with_version
 
-          save_success = with_version && force_new_version && !changed? ? record.paper_trail.save_with_version : record.save
+          save_success = with_version && force_new_version && !record.changed? ? record.paper_trail.save_with_version : record.save
           unless save_success
             promote_errors(record.errors)
             return false
           end
         end
         custom_field_records
+      end
+
+      def attributes_for_new_version
+        %w(item_type item_id custom_field_id payload)
       end
     end
   end

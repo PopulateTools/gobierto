@@ -31,6 +31,8 @@ es:
             add_option: Añadir opción
           plugin:
             type: Tipo
+          plugin_configuration_form:
+            configuration: Configuración
           vocabulary_select:
             vocabulary: Vocabulario de opciones
           vocabulary_type_select:

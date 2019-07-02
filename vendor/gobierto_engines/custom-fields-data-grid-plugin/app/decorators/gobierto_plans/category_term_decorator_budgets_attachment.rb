@@ -5,7 +5,7 @@ module GobiertoPlans
 
     private
 
-    def node_plugins_data(node)
+    def node_plugins_data(plan, node)
       super_result = super
 
       super_result[:budgets] = {
@@ -25,7 +25,7 @@ module GobiertoPlans
         "options @> ?",
         { configuration: { plugin_type: "budgets" } }.to_json
       )
-      records_functions = node.custom_field_records.where(custom_field: budgets_fields).map(&:functions)
+      records_functions = ::GobiertoPlans::Node.node_custom_field_records(plan, node).where(custom_field: budgets_fields).map(&:functions)
 
       return super_result if records_functions.empty?
 

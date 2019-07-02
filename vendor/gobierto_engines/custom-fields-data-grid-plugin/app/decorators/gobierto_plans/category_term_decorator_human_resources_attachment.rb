@@ -5,7 +5,7 @@ module GobiertoPlans
 
     private
 
-    def node_plugins_data(node)
+    def node_plugins_data(plan, node)
       super_result = super
 
       super_result[:human_resources] = {
@@ -21,7 +21,7 @@ module GobiertoPlans
         "options @> ?",
         { configuration: { plugin_type: "human_resources" } }.to_json
       )
-      records = node.custom_field_records.where(custom_field: human_resources_fields)
+      records = ::GobiertoPlans::Node.node_custom_field_records(plan, node).where(custom_field: human_resources_fields)
       records_functions = records.map { |r| r.functions(version: node.published_version) }
 
       return super_result if records_functions.empty?

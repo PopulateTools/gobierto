@@ -74,7 +74,7 @@ module GobiertoPlans
                         ends_at: node.ends_at,
                         status: node.status&.name_translations,
                         options: node.options,
-                        plugins_data: node_plugins_data(node)
+                        plugins_data: node_plugins_data(plan, node),
           },
           children: [] }
       end
@@ -122,7 +122,7 @@ module GobiertoPlans
 
     private
 
-    def node_plugins_data(node)
+    def node_plugins_data(plan, node)
       {}
     end
   end

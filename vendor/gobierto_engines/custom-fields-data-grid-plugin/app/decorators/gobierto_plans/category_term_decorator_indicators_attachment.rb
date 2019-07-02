@@ -5,7 +5,7 @@ module GobiertoPlans
 
     private
 
-    def node_plugins_data(node)
+    def node_plugins_data(plan, node)
       super_result = super
 
       super_result[:indicators] = {
@@ -19,7 +19,7 @@ module GobiertoPlans
         "options @> ?",
         { configuration: { plugin_type: "indicators" } }.to_json
       )
-      records = node.custom_field_records.where(custom_field: indicators_fields)
+      records = ::GobiertoPlans::Node.node_custom_field_records(plan, node).where(custom_field: indicators_fields)
       indicators_payload = records.map(&:payload).compact.reduce({}, :merge)
 
       indicators_payload.each do |indicator_id, values|

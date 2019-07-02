@@ -38,6 +38,7 @@ madrid_custom_field_languages:
   field_type: <%= GobiertoCommon::CustomField.field_types[:multiple_options] %>
   uid: languages
   options: <%= {
+    en: { en: "English", es: "Inglés" },
     es: { en: "Spanish", es: "Español" },
     pt: { en: "Portuguese", es: "Portugués" }
   }.to_json %>

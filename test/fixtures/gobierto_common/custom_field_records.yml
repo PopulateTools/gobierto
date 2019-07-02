@@ -39,12 +39,12 @@ madrid_custom_field_record_population:
   payload: <%= { "population" => "3166000" }.to_json %>
 
 political_agendas_custom_field_global:
-  item: gobierto_plans_nodes_political_agendas (GobiertoPlans::Node)
+  item: political_agendas (GobiertoPlans::Node)
   custom_field: madrid_node_global
   payload: <%= { "status" => "not_started" }.to_json %>
 
 political_agendas_custom_field_instance_level:
-  item: gobierto_plans_nodes_political_agendas (GobiertoPlans::Node)
+  item: political_agendas (GobiertoPlans::Node)
   custom_field: madrid_node_instance_level
   payload: <%= { "goals" => { en: "Publish political agendas before the end of year", es: "Publicar agendas antes de fin de año" } }.to_json %>
 

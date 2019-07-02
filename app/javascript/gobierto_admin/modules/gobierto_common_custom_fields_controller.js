@@ -5,6 +5,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
     _handleItemTypeSelection()
     _handlePluginTypeSelection()
     _handleBehaviors()
+    _handlePluginOptionsDefault()
   };
 
   function _handleItemTypeSelection() {
@@ -20,7 +21,10 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
         $("#options").show();
       }
 
-      if ($(this).data().type === "plugin") _handlePluginOptionsVisibility($('.js-plugin-type-option[checked="checked"]'));
+      if ($(this).data().type === "plugin") {
+        _handlePluginOptionsVisibility($('.js-plugin-type-option[checked="checked"]'));
+        _handlePluginOptionsDefault();
+      }
 
       // Show options related to type
       if ($(this).data().type) {
@@ -30,12 +34,34 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
   }
 
   function _handlePluginOptionsVisibility(selection) {
-      selection.attr("has_vocabulary") === "true"
-        ? $("#vocabulary").show()
-        : $("#vocabulary").hide()
-      selection.attr("has_configuration") === "true"
-        ? $("#configuration").show()
-        : $("#configuration").hide()
+    let defaults = $("#configuration").data("defaults");
+    let current_type = $("#configuration").data("type");
+    let current_value = $("#configuration").attr("data-value")
+
+    selection.attr("has_vocabulary") === "true"
+      ? $("#vocabulary").show()
+      : $("#vocabulary").hide()
+
+    if (selection.attr("has_configuration") === "true") {
+      $("#configuration").show();
+
+      selection.val() === current_type
+        ? $("#custom_field_plugin_configuration").val(current_value)
+        : $("#custom_field_plugin_configuration").val(defaults[selection.val()]);
+    } else {
+      $("#configuration").hide();
+    }
+  }
+
+  function _handlePluginOptionsDefault() {
+    let defaults = $("#configuration").data("defaults");
+
+    $("#custom_field_plugin_configuration").change(function(e) {
+      if ($("#custom_field_plugin_configuration").val().length === 0) {
+        let selection = $('.js-plugin-type-option:checked').val();
+        $("#custom_field_plugin_configuration").val(defaults[selection]);
+      }
+    });
   }
 
   function _handlePluginTypeSelection() {

@@ -82,7 +82,10 @@
           <% end %>
         <% end %>
         <%= content_tag :div, class: "form_block" do %>
-          <%= content_tag :div, id: "configuration", class: "form_item", style: @custom_field_form.plugin&.has_configuration? ? nil : "display: none;" do %>
+          <%= content_tag :div, id: "configuration", class: "form_item", style: @custom_field_form.plugin&.has_configuration? ? nil : "display: none;", data: {
+                defaults: @custom_field_form.plugin_configuration_defaults,
+                type: @custom_field_form.plugin_type,
+                value: JSON.pretty_generate(@custom_field_form.plugin_configuration) } do %>
             <%= render partial: "plugin_configuration_form", locals: { f: f } %>
           <% end %>
         <% end %>

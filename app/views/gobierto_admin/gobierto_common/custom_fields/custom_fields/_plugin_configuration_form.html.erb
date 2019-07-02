@@ -1,6 +1,6 @@
 <h4 class="options compact"><%= t(".configuration") %></h4>
 <div class="field_item_def_cont">
   <div class="form_item textarea">
-    <%= text_area_tag "custom_field[plugin_configuration]", JSON.pretty_generate(f.object.plugin_configuration) %>
+    <%= text_area_tag "custom_field[plugin_configuration]", f.object.plugin_configuration.present? ? JSON.pretty_generate(f.object.plugin_configuration) : nil %>
   </div>
 </div>

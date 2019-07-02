@@ -141,7 +141,15 @@ module GobiertoAdmin
       end
 
       def plugin_configuration
-        @plugin_configuration ||= custom_field.configuration.plugin_configuration || plugin&.default_configuration
+        return unless plugin&.has_configuration?
+
+        @plugin_configuration ||= custom_field.configuration.plugin_configuration
+      end
+
+      def plugin_configuration_defaults
+        ::GobiertoCommon::CustomFieldPlugin.all.inject({}) do |defaults, plugin|
+          defaults.update(plugin.type => JSON.pretty_generate(plugin.default_configuration))
+        end
       end
 
       def plugin
@@ -219,6 +227,8 @@ module GobiertoAdmin
       end
 
       def plugin_configuration_format
+        return unless plugin_configuration
+
         JSON.parse(plugin_configuration)
       rescue JSON::ParserError
         errors.add :plugin_configuration, I18n.t("errors.messages.invalid")

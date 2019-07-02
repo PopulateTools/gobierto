@@ -200,3 +200,26 @@ government_plan:
                                                         "en": "technical supervisor department"}},
     "show_table_header": false,
     "open_node": false }).inspect %>
+
+economic_plan:
+  title_translations: <%= {
+    en: 'Economic Plan 2014-2018',
+    es: 'Plan Económico 2014-2018'
+  }.to_json %>
+  introduction_translations: <%= {
+    en: 'Economic Plan introduction',
+    es: 'Plan Económico introduction'
+  }.to_json %>
+  footer_translations: <%= {
+    en: 'Economic Plan footer',
+    es: 'Plan Económico footer'
+  }.to_json %>
+  css:
+  year: 2010
+  slug: economic-plan
+  site: madrid
+  categories_vocabulary: economic_plan_categories_vocabulary
+  statuses_vocabulary:
+  plan_type: pam
+  visibility_level: <%= ::GobiertoPlans::Plan.visibility_levels['draft'] %>
+  configuration_data: <%= JSON.pretty_generate({}).inspect %>

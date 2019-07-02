@@ -43,20 +43,10 @@ political_agendas_custom_field_global:
   custom_field: madrid_node_global
   payload: <%= { "status" => "not_started" }.to_json %>
 
-political_agendas_custom_field_instance_level:
-  item: political_agendas (GobiertoPlans::Node)
-  custom_field: madrid_node_instance_level
-  payload: <%= { "goals" => { en: "Publish political agendas before the end of year", es: "Publicar agendas antes de fin de año" } }.to_json %>
-
 scholarships_kindergartens_custom_field_global:
-  item: gobierto_plans_nodes_scholarships_kindergartens (GobiertoPlans::Node)
+  item: scholarships_kindergartens (GobiertoPlans::Node)
   custom_field: madrid_node_global
   payload: <%= { "status" => "started" }.to_json %>
-
-scholarships_kindergartens_custom_field_instance_level:
-  item: gobierto_plans_nodes_scholarships_kindergartens (GobiertoPlans::Node)
-  custom_field: madrid_node_instance_level
-  payload: <%= { "goals" => { en: "Improve budgets", es: "Mejorar presupuestos" } }.to_json %>
 
 political_agendas_custom_field_record_color:
   item: political_agendas (GobiertoPlans::Node)
@@ -74,7 +64,7 @@ political_agendas_custom_field_record_vocabulary_single_select:
   item: political_agendas (GobiertoPlans::Node)
   custom_field: madrid_plans_custom_field_vocabulary_single_select
   payload: <%= {
-    "madrid-vocabulary-single-select" => ActiveRecord::FixtureSet.identify(:mammal)
+    "madrid-vocabulary-single-select" => ActiveRecord::FixtureSet.identify(:mammal).to_s
   }.to_json %>
 
 political_agendas_custom_field_record_vocabulary_multiple_select:
@@ -82,8 +72,8 @@ political_agendas_custom_field_record_vocabulary_multiple_select:
   custom_field: madrid_plans_custom_field_vocabulary_multiple_select
   payload: <%= {
     "madrid-vocabulary-multiple-select" => [
-      ActiveRecord::FixtureSet.identify(:mammal),
-      ActiveRecord::FixtureSet.identify(:dog)
+      ActiveRecord::FixtureSet.identify(:mammal).to_s,
+      ActiveRecord::FixtureSet.identify(:dog).to_s
     ]
   }.to_json %>
 
@@ -92,8 +82,8 @@ political_agendas_custom_field_record_vocabulary_tags:
   custom_field: madrid_plans_custom_field_vocabulary_tags
   payload: <%= {
     "madrid-vocabulary-tags" => [
-      ActiveRecord::FixtureSet.identify(:mammal),
-      ActiveRecord::FixtureSet.identify(:dog)
+      ActiveRecord::FixtureSet.identify(:mammal).to_s,
+      ActiveRecord::FixtureSet.identify(:dog).to_s
     ]
   }.to_json %>
 
@@ -153,3 +143,20 @@ political_agendas_budgets_custom_field_record:
 political_agendas_progress_custom_field_record:
   item: political_agendas (GobiertoPlans::Node)
   custom_field: madrid_custom_field_progress_plugin
+
+## Economic Plan Nodes
+
+scholarships_in_school_cateens_custom_field_instance_level:
+  item: scholarships_in_school_cateens (GobiertoPlans::Node)
+  custom_field: madrid_economic_plan_node_instance_level
+  payload: <%= {
+    "economic-plan-status" => {
+      en: "Improve scolarships in school canteens",
+      es: "Mejorar becas comedor"
+    }
+  }.to_json %>
+
+scholarships_in_school_cateens_custom_field_global_level:
+  item: scholarships_in_school_cateens (GobiertoPlans::Node)
+  custom_field: madrid_node_global
+  payload: <%= { "status" => "not_started" }.to_json %>

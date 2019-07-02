@@ -100,7 +100,7 @@ module GobiertoAdmin
             create_project
 
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               within "div.widget_save_v2.editor" do
                 click_button "Save"
@@ -118,7 +118,7 @@ module GobiertoAdmin
             create_project
 
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               find("label[for$='approved']").click
 
@@ -146,7 +146,7 @@ module GobiertoAdmin
             create_project
 
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               find("label[for$='approved']").click
 
@@ -181,7 +181,7 @@ module GobiertoAdmin
             create_project
 
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               find("label[for$='approved']").click
 
@@ -192,7 +192,7 @@ module GobiertoAdmin
 
             visit edit_admin_plans_plan_project_path(plan, project, version: 1)
 
-            fill_in "project_custom_records_goals_value_en", with: "Custom field updated from first version"
+            select "Started", from: "project_custom_records_status_value" # Make change again
 
             within "form" do
               within "div.widget_save_v2.editor" do
@@ -218,7 +218,7 @@ module GobiertoAdmin
             create_project
 
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               find("label[for$='approved']").click
 
@@ -251,7 +251,7 @@ module GobiertoAdmin
             create_project
 
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               within "div.widget_save_v2.editor" do
                 click_button "Save"

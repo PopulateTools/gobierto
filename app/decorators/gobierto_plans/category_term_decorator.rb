@@ -132,7 +132,7 @@ module GobiertoPlans
         next if record.custom_field.field_type == "plugin"
 
         {
-          value: record.value,
+          value: record.value_string,
           raw_value: record.raw_value,
           custom_field_name_translations: record.custom_field.name_translations,
           custom_field_field_type: record.custom_field.field_type

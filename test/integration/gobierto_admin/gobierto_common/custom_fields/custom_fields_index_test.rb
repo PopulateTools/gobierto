@@ -23,8 +23,8 @@ module GobiertoCommon
         @admin = gobierto_admin_admins(:tony)
         @unauthorized_admin = gobierto_admin_admins(:steve)
         @global_custom_field = gobierto_common_custom_fields(:madrid_node_global)
-        @instance_level_custom_field = gobierto_common_custom_fields(:madrid_node_instance_level)
-        @instance = gobierto_plans_plans(:strategic_plan)
+        @instance_level_custom_field = gobierto_common_custom_fields(:madrid_economic_plan_node_instance_level)
+        @instance = gobierto_plans_plans(:economic_plan)
         @resource_class = GobiertoPlans::Node
         @path = admin_common_custom_fields_module_resource_custom_fields_path(module_resource_name: parameterize(resource_class.name))
         @instance_level_path = admin_common_custom_fields_module_resource_custom_fields_path(
@@ -40,7 +40,7 @@ module GobiertoCommon
       end
 
       def test_permissions
-        with(site: site, js: false, admin: unauthorized_admin) do
+        with(site: site, admin: unauthorized_admin) do
           visit path
           assert has_content?("You are not authorized to perform this action")
           assert_equal admin_root_path, current_path
@@ -48,7 +48,7 @@ module GobiertoCommon
       end
 
       def test_global_custom_fields_index
-        with(site: site, js: false, admin: admin) do
+        with(site: site, admin: admin) do
           visit path
 
           assert has_content? "Custom fields"
@@ -62,7 +62,7 @@ module GobiertoCommon
       end
 
       def test_instance_level_custom_fields_index
-        with(site: site, js: false, admin: admin) do
+        with(site: site, admin: admin) do
           visit instance_level_path
 
           assert has_content? "Custom fields of #{instance.title}"

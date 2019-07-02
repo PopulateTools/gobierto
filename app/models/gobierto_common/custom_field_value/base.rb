@@ -17,6 +17,10 @@ module GobiertoCommon
         raw_value
       end
 
+      def value_string
+        value
+      end
+
       def searchable_value
         value
       end

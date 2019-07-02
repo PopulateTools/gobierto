@@ -390,3 +390,15 @@ human_resources_employee:
   slug: human-resources-employee
   level: 0
   position: 1
+
+## economic_plan_categories_vocabulary
+
+economy_economic_plan_term:
+  vocabulary: economic_plan_categories_vocabulary
+  name_translations: <%= {
+    en: 'Economy',
+    es: 'Economía'
+  }.to_json %>
+  slug: economy-economic-plan-term
+  level: 0
+  position: 0

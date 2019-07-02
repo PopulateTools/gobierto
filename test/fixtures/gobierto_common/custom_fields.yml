@@ -86,15 +86,15 @@ madrid_node_global:
     started: { en: "Started", es: "Iniciado" }
   }.to_json %>
 
-madrid_node_instance_level:
+madrid_economic_plan_node_instance_level:
   site: madrid
   class_name: GobiertoPlans::Node
-  instance: strategic_plan (GobiertoPlans::Plan)
+  instance: economic_plan (GobiertoPlans::Plan)
   mandatory: false
-  position: 8
+  position: 1
   name_translations: <%= { en: "Goals custom", es: "Objetivos custom" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:localized_string] %>
-  uid: goals
+  uid: economic-plan-goals
 
 madrid_plans_custom_field_color:
   site: madrid

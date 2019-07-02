@@ -57,3 +57,11 @@ santander_vocabulary:
   site: santander
   name_translations: <%= { es: "Vocabulario Santander", en: "Santander Vocabulary" }.to_json %>
   slug: santander-vocabulary
+
+economic_plan_categories_vocabulary:
+  site: madrid
+  name_translations: <%= {
+    es: "Nuevo Plan Económico",
+    en: "New Economic Plan"
+  }.to_json %>
+  slug: economic-plan

@@ -7,14 +7,14 @@ module GobiertoPlans
 
     def setup
       super
-      @node = gobierto_plans_nodes(:political_agendas)
-      @plan = gobierto_plans_plans(:strategic_plan)
+      @node = gobierto_plans_nodes(:scholarships_in_school_cateens)
+      @plan = gobierto_plans_plans(:economic_plan)
 
-      @global_custom_field = gobierto_common_custom_fields(:madrid_plans_custom_field_color)
-      @instance_custom_field = gobierto_common_custom_fields(:madrid_node_instance_level)
+      @global_custom_field = gobierto_common_custom_fields(:madrid_node_global)
+      @global_custom_field_record = gobierto_common_custom_field_records(:scholarships_in_school_cateens_custom_field_global_level)
 
-      @global_custom_field_record = gobierto_common_custom_field_records(:political_agendas_custom_field_record_color)
-      @instance_custom_field_record = gobierto_common_custom_field_records(:political_agendas_custom_field_instance_level)
+      @instance_custom_field = gobierto_common_custom_fields(:madrid_economic_plan_node_instance_level)
+      @instance_custom_field_record = gobierto_common_custom_field_records(:scholarships_in_school_cateens_custom_field_instance_level)
     end
 
     def node_custom_field_records

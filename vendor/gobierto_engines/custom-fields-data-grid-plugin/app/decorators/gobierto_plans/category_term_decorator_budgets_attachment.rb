@@ -25,7 +25,9 @@ module GobiertoPlans
         "options @> ?",
         { configuration: { plugin_type: "budgets" } }.to_json
       )
-      records_functions = ::GobiertoPlans::Node.node_custom_field_records(plan, node).where(custom_field: budgets_fields).map(&:functions)
+      records_functions = ::GobiertoPlans::Node.node_custom_field_records(plan, node)
+                                               .where(custom_field: budgets_fields)
+                                               .map(&:functions)
 
       return super_result if records_functions.empty?
 

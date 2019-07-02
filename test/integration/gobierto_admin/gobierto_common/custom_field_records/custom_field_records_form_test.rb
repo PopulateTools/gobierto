@@ -6,16 +6,19 @@ module GobiertoAdmin
   module GobiertoCommon
     module CustomFieldRecords
       class CustomFieldRecordsFormTest < ActionDispatch::IntegrationTest
-        def path
-          @path ||= edit_admin_citizens_charters_charter_path(charter)
-        end
 
-        def admin
-          @admin ||= gobierto_admin_admins(:nick)
-        end
+        attr_reader(
+          :site,
+          :admin,
+          :resource_with_instance_level_custom_fields_path
+        )
 
-        def site
-          @site ||= sites(:madrid)
+        def setup
+          super
+          @site = sites(:madrid)
+          @admin = gobierto_admin_admins(:nick)
+          @economic_plan = gobierto_plans_plans(:economic_plan)
+          @resource_with_instance_level_custom_fields_path = new_admin_plans_plan_project_path(plan_id: @economic_plan.id)
         end
 
         def charter
@@ -24,10 +27,6 @@ module GobiertoAdmin
 
         def instance_with_custom_fields
           @instance_with_custom_fields ||= gobierto_plans_plans(:strategic_plan)
-        end
-
-        def resource_with_instance_level_custom_fields_path
-          @resource_with_instance_level_custom_fields_path ||= new_admin_plans_plan_project_path(plan_id: instance_with_custom_fields.id)
         end
 
         def instance_without_custom_fields
@@ -47,31 +46,30 @@ module GobiertoAdmin
         end
 
         def instance_level_custom_field
-          @instance_level_custom_field ||= gobierto_common_custom_fields(:madrid_node_instance_level)
+          @instance_level_custom_field ||= gobierto_common_custom_fields(:madrid_economic_plan_node_instance_level)
         end
 
         def test_custom_fields_record
-          with_signed_in_admin(admin) do
-            with_current_site(site) do
-              visit path
-              charters_custom_fields.each do |custom_field|
-                assert has_content? custom_field.name
-              end
+          with(site: site, admin: admin) do
+            visit edit_admin_citizens_charters_charter_path(charter)
+
+            charters_custom_fields.each do |custom_field|
+              assert has_content? custom_field.name
             end
           end
         end
 
         def test_instance_level_custom_fields
-          with(site: site, js: false, admin: admin) do
+          with(site: site, admin: admin) do
             visit resource_with_instance_level_custom_fields_path
 
-            assert has_content? global_custom_field.name
+            refute has_content? global_custom_field.name
             assert has_content? instance_level_custom_field.name
           end
         end
 
         def test_custom_fields_without_custom_fields
-          with(site: site, js: false, admin: admin) do
+          with(site: site, admin: admin) do
             visit resource_without_instance_level_custom_fields_path
 
             assert has_content? global_custom_field.name

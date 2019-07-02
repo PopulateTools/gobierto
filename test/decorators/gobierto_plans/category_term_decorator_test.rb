@@ -53,7 +53,7 @@ module GobiertoPlans
       )
       node_attributes = decorator.nodes_data.first[:attributes]
 
-      assert_equal 2, node_attributes[:custom_field_records].size
+      assert_equal 10, node_attributes[:custom_field_records].size
     end
 
   end

@@ -7,6 +7,13 @@
 
 <div class="field_item_def_cont">
   <div class="form_item textarea">
-    <%= text_area_tag "custom_field[plugin_configuration]", f.object.plugin_configuration.present? ? JSON.pretty_generate(f.object.plugin_configuration) : nil %>
+    <%= text_area_tag(
+          "custom_field[plugin_configuration]",
+          if (configuration = f.object.plugin_configuration).present?
+              configuration.is_a?(Hash) ? JSON.pretty_generate(configuration) : configuration
+          else
+            nil
+          end
+        ) %>
   </div>
 </div>

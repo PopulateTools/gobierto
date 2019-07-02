@@ -29,6 +29,7 @@ module GobiertoAdmin
       validates :name_translations, :site, :klass, :field_type, presence: true
       validate :instance_type_is_enabled
       validate :plugin_configuration_format
+      validate :plugin_configuration_valid
 
       def custom_field
         @custom_field ||= custom_fields_relation.find_by(id: id) || build_custom_field
@@ -160,6 +161,10 @@ module GobiertoAdmin
         @date_type ||= custom_field.configuration.date_type || :date
       end
 
+      def site
+        @site ||= Site.find_by(id: site_id)
+      end
+
       private
 
       def instance_type_is_enabled
@@ -218,10 +223,6 @@ module GobiertoAdmin
         site ? site.custom_fields : ::GobiertoCommon::CustomField.none
       end
 
-      def site
-        @site ||= Site.find_by(id: site_id)
-      end
-
       def classes_with_custom_fields_at_instance_level
         @classes_with_custom_fields_at_instance_level ||= class_name.deconstantize.constantize.try(:classes_with_custom_fields_at_instance_level) || []
       end
@@ -234,6 +235,20 @@ module GobiertoAdmin
         errors.add :plugin_configuration, I18n.t("errors.messages.invalid")
 
         false
+      end
+
+      def plugin_configuration_valid
+        return unless custom_field.plugin?
+
+        unless ::GobiertoCommon::CustomFieldValidators.const_defined?(plugin_type.classify)
+          begin
+            ::GobiertoCommon::CustomFieldValidators.const_get(plugin_type.classify)
+          rescue NameError
+            return
+          end
+        end
+
+        ::GobiertoCommon::CustomFieldValidators.const_get(plugin_type.classify).new(self).valid?
       end
     end
   end

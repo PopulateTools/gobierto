@@ -1,11 +1,17 @@
 ---
 en:
+  errors:
+    messages:
+      custom_fields:
+        options:
+          wrong_custom_field_uids: The configuration uids doesn't existe or belongs
+            to custom fields which doesn't have a definition for progress
   gobierto_admin:
+    custom_fields_plugins:
+      progress:
+        progress: Progress
     gobierto_common:
       custom_fields:
         custom_fields:
           plugin:
             progress: Progress
-    custom_fields_plugins:
-      progress:
-        progress: Progress

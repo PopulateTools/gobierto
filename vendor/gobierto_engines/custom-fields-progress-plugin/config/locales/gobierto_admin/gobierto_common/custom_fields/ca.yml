@@ -1,11 +1,17 @@
 ---
 ca:
+  errors:
+    messages:
+      custom_fields:
+        options:
+          wrong_custom_field_uids: Els uids configurats no existeixen o pertanyen
+            a camps personalitzats que no tenen definit un valor de progrés
   gobierto_admin:
+    custom_fields_plugins:
+      progress:
+        progress: Progrés
     gobierto_common:
       custom_fields:
         custom_fields:
           plugin:
             progress: Progrés
-    custom_fields_plugins:
-      progress:
-        progress: Progrés

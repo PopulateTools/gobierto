@@ -75,6 +75,7 @@ module GobiertoPlans
                         status: node.status&.name_translations,
                         options: node.options,
                         plugins_data: node_plugins_data(plan, node),
+                        custom_field_records: node_custom_field_records(node)
           },
           children: [] }
       end
@@ -125,5 +126,19 @@ module GobiertoPlans
     def node_plugins_data(plan, node)
       {}
     end
+
+    def node_custom_field_records(node)
+      ::GobiertoPlans::Node.node_custom_field_records(plan, node).map do |record|
+        next if record.custom_field.field_type == "plugin"
+
+        {
+          value: record.value,
+          raw_value: record.raw_value,
+          custom_field_name_translations: record.custom_field.name_translations,
+          custom_field_field_type: record.custom_field.field_type
+        }
+      end
+    end
+
   end
 end

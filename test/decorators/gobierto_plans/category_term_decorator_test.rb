@@ -46,5 +46,15 @@ module GobiertoPlans
 
       assert_equal 50, action.progress
     end
+
+    def test_includes_custom_fields
+      decorator = GobiertoPlans::CategoryTermDecorator.new(
+        gobierto_common_terms(:center_basic_needs_plan_term)
+      )
+      node_attributes = decorator.nodes_data.first[:attributes]
+
+      assert_equal 2, node_attributes[:custom_field_records].size
+    end
+
   end
 end

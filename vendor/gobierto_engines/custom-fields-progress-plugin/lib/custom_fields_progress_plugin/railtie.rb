@@ -12,7 +12,7 @@ else
           progress: {
             requires_vocabulary: false,
             has_configuration: true,
-            default_configuration: { "custom_field_ids": [], "custom_field_uids": [] },
+            default_configuration: { "custom_field_uids": [] },
             callbacks: [:update_progress!]
           }
         )

@@ -63,7 +63,15 @@ module GobiertoPlans
 
     enum visibility_level: { draft: 0, published: 1 }
 
-    def custom_field_records
+    def self.node_custom_field_records(plan, node)
+      if plan.instance_level_custom_fields.any?
+        ::GobiertoCommon::CustomFieldRecord.where(custom_field: plan.instance_level_custom_fields)
+      else
+        node.global_custom_field_records
+      end
+    end
+
+    def global_custom_field_records
       ::GobiertoCommon::CustomFieldRecord.where(item: self)
     end
 

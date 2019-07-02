@@ -16,11 +16,20 @@ madrid_custom_field_bio:
   field_type: <%= GobiertoCommon::CustomField.field_types[:paragraph] %>
   uid: bio
 
-madrid_custom_field_country:
+madrid_custom_field_localized_bio:
   site: madrid
   class_name: "GobiertoPeople::Person"
   mandatory: false
   position: 2
+  name_translations: <%= { en: "Localized Bio", es: "Bio Traducida" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:localized_paragraph] %>
+  uid: localized-bio
+
+madrid_custom_field_country:
+  site: madrid
+  class_name: "GobiertoPeople::Person"
+  mandatory: false
+  position: 3
   name_translations: <%= { en: "Country", es: "País" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:single_option] %>
   uid: country
@@ -33,11 +42,12 @@ madrid_custom_field_languages:
   site: madrid
   class_name: "GobiertoPeople::Person"
   mandatory: false
-  position: 3
+  position: 4
   name_translations: <%= { en: "Language", es: "Idioma" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:multiple_options] %>
   uid: languages
   options: <%= {
+    en: { en: "English", es: "Inglés" },
     es: { en: "Spanish", es: "Español" },
     pt: { en: "Portuguese", es: "Portugués" }
   }.to_json %>
@@ -46,7 +56,7 @@ madrid_custom_field_date_of_birth:
   site: madrid
   class_name: "GobiertoPeople::Person"
   mandatory: false
-  position: 4
+  position: 5
   name_translations: <%= { en: "Date of birth", es: "Fecha de nacimiento" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:date] %>
   uid: date-of-birth
@@ -78,7 +88,7 @@ madrid_node_global:
 
 madrid_node_instance_level:
   site: madrid
-  class_name: "GobiertoPlans::Node"
+  class_name: GobiertoPlans::Node
   instance: strategic_plan (GobiertoPlans::Plan)
   mandatory: false
   position: 0
@@ -86,11 +96,29 @@ madrid_node_instance_level:
   field_type: <%= GobiertoCommon::CustomField.field_types[:localized_string] %>
   uid: goals
 
-madrid_custom_field_indicators_plugin:
+madrid_plans_custom_field_color:
   site: madrid
   class_name: GobiertoPlans::Node
   mandatory: false
   position: 0
+  name_translations: <%= { en: "Color", es: "Color" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:color] %>
+  uid: color
+
+madrid_plans_custom_field_image:
+  site: madrid
+  class_name: GobiertoPlans::Node
+  mandatory: false
+  position: 1
+  name_translations: <%= { en: "Color", es: "Color" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:color] %>
+  uid: image
+
+madrid_custom_field_indicators_plugin:
+  site: madrid
+  class_name: GobiertoPlans::Node
+  mandatory: false
+  position: 2
   name_translations: <%= { en: "Indicator", es: "Indicador" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
   uid: indicators
@@ -103,7 +131,7 @@ madrid_custom_field_human_resources_plugin:
   site: madrid
   class_name: GobiertoPlans::Node
   mandatory: false
-  position: 1
+  position: 3
   name_translations: <%= { en: "Human Resources", es: "Recursos Humanos" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
   uid: human-resources
@@ -116,7 +144,7 @@ madrid_custom_field_budgets_plugin:
   site: madrid
   class_name: GobiertoPlans::Node
   mandatory: false
-  position: 2
+  position: 4
   name_translations: <%= { en: "Budgets", es: "Presupuestos" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
   uid: budgets
@@ -128,7 +156,7 @@ madrid_custom_field_progress_plugin:
   site: madrid
   class_name: GobiertoPlans::Node
   mandatory: false
-  position: 2
+  position: 5
   name_translations: <%= { en: "Progress", es: "Progreso" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
   uid: progress

@@ -1,5 +1,5 @@
 <template>
-  <div class="tablerow" v-if="config">
+  <div class="tablerow" v-if="config && data && data.length">
     <div class="tablerow__title">{{ title | translate }}</div>
     <div class="tablerow__data">
       <template v-for="item in data">
@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      title: '',
+      title: "",
       data: []
     };
   },
@@ -33,9 +33,9 @@ export default {
       return value[lang];
     }
   },
-    created() {
-    this.title = this.config.title_translations
-    this.data = this.config.data
+  created() {
+    this.title = this.config.title_translations;
+    this.data = this.config.data;
   }
 };
 </script>

@@ -115,8 +115,8 @@ window.GobiertoPlans.PlanTypesController = (function() {
             this.$emit("selection", project);
 
             // Preprocess custom fields
-            const { custom_field_records } = project.attributes;
-            if (custom_field_records) {
+            var custom_field_records = project.attributes.custom_field_records
+            if (custom_field_records.length > 0) {
               this.$emit("custom-fields", custom_field_records);
             }
 

@@ -123,7 +123,7 @@ module GobiertoPlans
 
     private
 
-    def node_plugins_data(plan, node)
+    def node_plugins_data(_plan, _node)
       {}
     end
 

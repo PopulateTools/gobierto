@@ -48,6 +48,16 @@ scholarships_kindergartens_custom_field_global:
   custom_field: madrid_node_global
   payload: <%= { "status" => "started" }.to_json %>
 
+political_agendas_custom_field_record_localized_description:
+  item: political_agendas (GobiertoPlans::Node)
+  custom_field: madrid_plans_custom_field_localized_description
+  payload: <%= {
+    "description" => {
+      "es" => "Descripción larga " * 20,
+      "en" => "Long description " * 20
+    }
+  }.to_json %>
+
 political_agendas_custom_field_record_color:
   item: political_agendas (GobiertoPlans::Node)
   custom_field: madrid_plans_custom_field_color

@@ -96,6 +96,15 @@ madrid_economic_plan_node_instance_level:
   field_type: <%= GobiertoCommon::CustomField.field_types[:localized_string] %>
   uid: economic-plan-goals
 
+madrid_plans_custom_field_localized_description:
+  site: madrid
+  class_name: GobiertoPlans::Node
+  mandatory: false
+  position: 0
+  name_translations: <%= { en: "Description", es: "Descripción" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:localized_paragraph] %>
+  uid: description
+
 madrid_plans_custom_field_color:
   site: madrid
   class_name: GobiertoPlans::Node

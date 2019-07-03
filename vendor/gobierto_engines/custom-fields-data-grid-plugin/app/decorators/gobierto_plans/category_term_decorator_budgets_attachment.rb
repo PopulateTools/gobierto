@@ -44,9 +44,9 @@ module GobiertoPlans
       accumulated_progess = 0
       accumulated_progess = (accumulated_progesses.sum / accumulated_progesses.size) if accumulated_progesses.any?
 
-      super_result[:budgets][:budgeted_amount] = accumulated_planned_cost.round(2)
-      super_result[:budgets][:executed_amount] = accumulated_executed_cost.round(2)
-      super_result[:budgets][:executed_percentage] = "#{(accumulated_progess * 100).round} %"
+      super_result[:budgets][:budgeted_amount] = accumulated_planned_cost.round(2) if accumulated_planned_cost
+      super_result[:budgets][:executed_amount] = accumulated_executed_cost.round(2) if accumulated_executed_cost
+      super_result[:budgets][:executed_percentage] = "#{(accumulated_progess * 100).round} %" if accumulated_progess
 
       super_result
     end

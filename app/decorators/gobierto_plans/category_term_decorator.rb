@@ -137,7 +137,7 @@ module GobiertoPlans
           custom_field_name_translations: record.custom_field.name_translations,
           custom_field_field_type: record.custom_field.field_type
         }
-      end
+      end.compact
     end
 
   end

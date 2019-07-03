@@ -48,7 +48,9 @@ export default {
     },
     money(value) {
       const lang = I18n.locale || "es";
-      return value.toLocaleString(lang, { style: "currency", currency: "EUR" });
+      if (value) {
+        return value.toLocaleString(lang, { style: "currency", currency: "EUR" });
+      }
     }
   },
   created() {

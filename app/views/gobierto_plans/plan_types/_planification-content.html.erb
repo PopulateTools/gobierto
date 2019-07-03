@@ -44,7 +44,16 @@
               <li v-for="(model, index) in activeNode.children">
                 <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(activeNode.id, index)"></node-list>
                 <transition name="slide-fade">
-                <table-view :model="model" :key="model.id" :header="showTableHeader" :open="openNode" @selection="setSelection" v-if="showTable[`${activeNode.id}-${index}`]"></table-view>
+                  <table-view 
+                    :model="model" 
+                    :key="model.id" 
+                    :header="showTableHeader" 
+                    :open="openNode"
+                    @activate="activatePlugins"
+                    @custom-fields="parseCustomFields"
+                    @selection="setSelection" 
+                    v-if="showTable[`${activeNode.id}-${index}`]">
+                  </table-view>
                 </transition>
               </li>
             </ul>
@@ -86,7 +95,16 @@
           <li v-for="(model, index) in activeNode.children">
             <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(activeNode.id, index)"></node-list>
             <transition name="slide-fade">
-            <table-view :model="model" :key="model.id" :header="showTableHeader" :open="openNode" @selection="setSelection" v-if="showTable[`${activeNode.id}-${index}`]"></table-view>
+              <table-view 
+                :model="model"
+                :key="model.id"
+                :header="showTableHeader"
+                :open="openNode"
+                @selection="setSelection" 
+                @activate="activatePlugins" 
+                @custom-fields="parseCustomFields"
+                v-if="showTable[`${activeNode.id}-${index}`]">
+              </table-view>
             </transition>
           </li>
         </ul>
@@ -112,48 +130,77 @@
       </div>
 
       <div class="node-project-detail">
-        <div class="project-optional">
-          <div class="row" v-for="(value, key) in availableOpts">
-            <template v-if="typeOf(value) !== 'object'">
-              <div class="optional-title">{{ optionKeys[key] | translate }}</div>
-              <div class="optional-desc">{{ value }}</div>
-            </template>
-            <template v-else>
-              <div class="optional-container">
-                <div class="optional-title">{{ optionKeys[key] | translate }}</div>
-                <div class="optional-obj" v-for="(_value, _key) in value">
-                  <div class="optional-title">{{ optionKeys[_key] | translate }}</div>
-                  <div class="optional-desc">
-                    <template v-if="typeOf(_value) === 'string'">
-                      {{ _value }}
-                    </template>
-                    <template v-if="typeOf(_value) === 'array'">
-                      <div v-for="(_val, _key) in _value">{{ _val }}</div>
-                    </template>
-                  </div>
-                </div>
-              </div>
-            </template>
-          </div>
-        </div>
+        
+        <!-- Native fields -->
         <div class="project-mandatory">
-          <div class="row">
-            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.progress") %></div>
-            <div class="mandatory-desc mandatory-desc--large">{{ activeNode.attributes.progress | percent }}</div>
+          <div>
+            <div class="mandatory-list">
+              <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.progress") %></div>
+              <div class="mandatory-desc">{{ activeNode.attributes.progress | percent }}</div>
+            </div>
+            <div class="mandatory-progress">
+              <div :style="{ width: activeNode.attributes.progress + '%'}"></div>
+            </div>
           </div>
-          <div class="row">
-            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.starts") %></div>
-            <div class="mandatory-desc">{{ activeNode.attributes.starts_at | date }}</div>
-          </div>
-          <div class="row">
-            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.ends") %></div>
-            <div class="mandatory-desc">{{ activeNode.attributes.ends_at | date }}</div>
-          </div>
-          <div class="row">
-            <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.status") %></div>
-            <div class="mandatory-desc">{{ activeNode.attributes.status | translate }}</div>
+          <div>
+            <div class="mandatory-list">
+              <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.starts") %> - <%= t("gobierto_plans.plan_types.show.ends") %></div>
+              <div class="mandatory-desc">{{ activeNode.attributes.starts_at | date }} - {{ activeNode.attributes.ends_at | date }}</div>
+            </div>
+            <div class="mandatory-list">
+              <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.status") %></div>
+              <div class="mandatory-desc">{{ activeNode.attributes.status | translate }}</div>
+            </div>
           </div>
         </div>
+
+        <!-- CUSTOM FIELDS -->
+        <template v-if="Object.keys(customFields).length">
+        
+          <!-- Paragraph template  -->
+          <template v-for="item in customFields.paragraphs">
+            <div class="project-description">
+              <div class="description-title" :class="{ 'mb1': item.value.length < 200 }">
+                <span v-if="item.custom_field_name_translations">{{ item.custom_field_name_translations | translate }}</span>
+                <span v-else><%= t("gobierto_plans.plan_types.show.desc") %></span>
+              </div>
+              
+              <div :class="{ 'is-hidden': item.value.length > 200 }" v-html="item.value"></div>
+
+              <button v-if="item.value.length > 200" class="description-more" @click="hideText($event)">
+                <span v-if="readMoreButton"><%= t("gobierto_plans.plan_types.show.read_more") %></span>
+                <span v-else><%= t("gobierto_plans.plan_types.show.read_less") %></span>
+              </button>
+            </div>
+          </template>
+        
+          <!-- Rest of fields template  -->
+          <template v-if="customFields.rest.length">
+            <div class="project-description project-grid">
+              <template v-for="item in customFields.rest">
+                <div class="description-list mb1">
+                  <div class="description-title">{{ item.custom_field_name_translations | translate }}</div>
+                  <div class="description-desc" v-if="typeOf(item.value) === 'array'">
+                    <div v-for="value in item.value">{{ value }}</div>
+                  </div>
+                  <div class="description-desc" v-else>{{ item.value }}</div>
+                </div>
+              </template>
+            </div>
+          </template>
+        
+        </template>
+
+        <!-- Rails must add the markup if plugin is available -->
+        <% availablePlugins = ['budgets', 'human_resources', 'indicators'] %>
+
+        <% availablePlugins.each do |plugin| %>
+        
+          <!-- Add plugin markup -->
+          <div data-plugin="<%= plugin %>"></div>
+
+        <% end %>
+        <!-- End Rails plugins -->
       </div>
     </div>
   </section>

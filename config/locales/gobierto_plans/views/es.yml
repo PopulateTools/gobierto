@@ -13,6 +13,7 @@ es:
         plans: Planes
     plan_types:
       show:
+        desc: Descripción
         ends: Fin
         global_execution: Estado de ejecución global
         latest_update_html: "<strong>Última actualización:</strong> %{date}"
@@ -20,6 +21,8 @@ es:
         percentage_progress: "% progreso"
         progress: Progreso
         projects: Proyectos
+        read_less: Leer menos
+        read_more: Leer más
         see_all: Ver todo en
         starts: Inicio
         status: Estado

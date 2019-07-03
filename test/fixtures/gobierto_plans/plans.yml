@@ -46,9 +46,6 @@ strategic_plan:
         .gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-optional .row {
           border-top: 1px solid rgba(0, 191, 255, 0.2);
         }
-        .gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-mandatory {
-          background-color: rgba(0, 191, 255, 0.2);
-        }
         .gobierto_planification section:not(.level_0).cat_1 .cat--negative {
           background: deepskyblue;
           color: white;
@@ -146,9 +143,6 @@ government_plan:
         }
         .gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-optional .row {
           border-top: 1px solid rgba(0, 191, 255, 0.2);
-        }
-        .gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-mandatory {
-          background-color: rgba(0, 191, 255, 0.2);
         }
         .gobierto_planification section:not(.level_0).cat_1 .cat--negative {
           background: deepskyblue;

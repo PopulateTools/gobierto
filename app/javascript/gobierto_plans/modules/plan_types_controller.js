@@ -344,8 +344,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
           const rest = []
 
           fields.forEach(f => {
-            const { custom_field_type: type } = f;
-
+            const { custom_field_field_type: type } = f;
             if (type === "paragraph" || type === "localized_paragraph" || type === "string" || type === "localized_string") {
               paragraphs.push(f)
             } else {

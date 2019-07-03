@@ -160,7 +160,75 @@
                       "executed_amount": 26667,
                       "executed_percentage": "100 %"
                     }
-                  }
+                  },
+                  "custom_field_records": [
+                    {
+                      "value": "Not started",
+                      "raw_value": "not_started",
+                      "custom_field_name_translations": {
+                        "en": "Status custom",
+                        "es": "Estado custom"
+                      },
+                      "custom_field_field_type": "single_option"
+                    },
+                    {
+                      "value": "<p>Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description </p>\n",
+                      "raw_value": {
+                        "en": "Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description Long description ",
+                        "es": "Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga Descripción larga "
+                      },
+                      "custom_field_name_translations": {
+                        "en": "Description",
+                        "es": "Descripción"
+                      },
+                      "custom_field_field_type": "localized_paragraph"
+                    },
+                    {
+                      "value": "#42965a",
+                      "raw_value": "#42965a",
+                      "custom_field_name_translations": {
+                        "en": "Color",
+                        "es": "Color"
+                      },
+                      "custom_field_field_type": "color"
+                    },
+                    {
+                      "value": "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png",
+                      "raw_value": "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png",
+                      "custom_field_name_translations": {
+                        "en": "Image",
+                        "es": "Imagen"
+                      },
+                      "custom_field_field_type": "image"
+                    },
+                    {
+                      "value": ["Mammal"],
+                      "raw_value": "274457570",
+                      "custom_field_name_translations": {
+                        "en": "Vocabulary (single select)",
+                        "es": "Vocabulario (single select)"
+                      },
+                      "custom_field_field_type": "vocabulary_options"
+                    },
+                    {
+                      "value": ["Mammal", "Dog"],
+                      "raw_value": ["274457570", "19675519"],
+                      "custom_field_name_translations": {
+                        "en": "Vocabulary (multiple select)",
+                        "es": "Vocabulario (multiple select)"
+                      },
+                      "custom_field_field_type": "vocabulary_options"
+                    },
+                    {
+                      "value": ["Mammal", "Dog"],
+                      "raw_value": ["274457570", "19675519"],
+                      "custom_field_name_translations": {
+                        "en": "Vocabulary (tags)",
+                        "es": "Vocabulario (tags)"
+                      },
+                      "custom_field_field_type": "vocabulary_options"
+                    }
+                  ]
                 },
                 "children": []
               }

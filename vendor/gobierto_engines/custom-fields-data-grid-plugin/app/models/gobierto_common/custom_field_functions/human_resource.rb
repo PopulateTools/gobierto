@@ -5,19 +5,23 @@ module GobiertoCommon::CustomFieldFunctions
     def progress(options = {})
       date = options[:date] || Date.current
 
-      progress_percentages(date).instance_eval do
+      result = progress_percentages(date).instance_eval do
         return nil if blank?
 
         sum / size.to_f
       end
+
+      result.nan? ? nil : result
     end
 
     def cost(options = {})
       percentages = progress_percentages(options[:date] || Date.current)
 
-      percentages.each_with_index.inject(0) do |total, (percentage, index)|
+      result = percentages.each_with_index.inject(0) do |total, (percentage, index)|
         total + percentage * data[index].cost
       end / percentages.size.to_f
+
+      result.nan? ? nil : result
     end
 
     private

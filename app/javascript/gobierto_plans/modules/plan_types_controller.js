@@ -115,11 +115,11 @@ window.GobiertoPlans.PlanTypesController = (function() {
             this.$emit("selection", project);
 
             // Preprocess custom fields
-            const { custom_field_records } = project;
+            const { custom_field_records } = project.attributes;
             if (custom_field_records) {
               this.$emit("custom-fields", custom_field_records);
             }
-            
+
             // Activate plugins
             const { plugins_data = {} } = project.attributes;
             if (Object.keys(plugins_data).length) {
@@ -326,7 +326,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
           return result;
         },
-        activatePlugins: function(plugins) {          
+        activatePlugins: function(plugins) {
           this.$nextTick(() => _loadPlugins(plugins));
         },
         hideText: function(event) {
@@ -392,7 +392,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
       const { plugin: pluginName } = node.dataset;
 
       const Component = require(`../plugins/${pluginName}.vue`).default;
-      const Plugin = Vue.extend(Component);      
+      const Plugin = Vue.extend(Component);
 
       const instance = new Plugin({
         propsData: { config: plugins[pluginName] }

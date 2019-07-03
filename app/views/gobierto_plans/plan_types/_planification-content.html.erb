@@ -44,14 +44,14 @@
               <li v-for="(model, index) in activeNode.children">
                 <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(activeNode.id, index)"></node-list>
                 <transition name="slide-fade">
-                  <table-view 
-                    :model="model" 
-                    :key="model.id" 
-                    :header="showTableHeader" 
+                  <table-view
+                    :model="model"
+                    :key="model.id"
+                    :header="showTableHeader"
                     :open="openNode"
                     @activate="activatePlugins"
                     @custom-fields="parseCustomFields"
-                    @selection="setSelection" 
+                    @selection="setSelection"
                     v-if="showTable[`${activeNode.id}-${index}`]">
                   </table-view>
                 </transition>
@@ -95,13 +95,13 @@
           <li v-for="(model, index) in activeNode.children">
             <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(activeNode.id, index)"></node-list>
             <transition name="slide-fade">
-              <table-view 
+              <table-view
                 :model="model"
                 :key="model.id"
                 :header="showTableHeader"
                 :open="openNode"
-                @selection="setSelection" 
-                @activate="activatePlugins" 
+                @selection="setSelection"
+                @activate="activatePlugins"
                 @custom-fields="parseCustomFields"
                 v-if="showTable[`${activeNode.id}-${index}`]">
               </table-view>
@@ -130,7 +130,7 @@
       </div>
 
       <div class="node-project-detail">
-        
+
         <!-- Native fields -->
         <div class="project-mandatory">
           <div>
@@ -156,7 +156,7 @@
 
         <!-- CUSTOM FIELDS -->
         <template v-if="Object.keys(customFields).length">
-        
+
           <!-- Paragraph template  -->
           <template v-for="item in customFields.paragraphs">
             <div class="project-description">
@@ -164,7 +164,7 @@
                 <span v-if="item.custom_field_name_translations">{{ item.custom_field_name_translations | translate }}</span>
                 <span v-else><%= t("gobierto_plans.plan_types.show.desc") %></span>
               </div>
-              
+
               <div :class="{ 'is-hidden': item.value.length > 200 }" v-html="item.value"></div>
 
               <button v-if="item.value.length > 200" class="description-more" @click="hideText($event)">
@@ -173,7 +173,7 @@
               </button>
             </div>
           </template>
-        
+
           <!-- Rest of fields template  -->
           <template v-if="customFields.rest.length">
             <div class="project-description project-grid">
@@ -188,14 +188,14 @@
               </template>
             </div>
           </template>
-        
+
         </template>
 
         <!-- Rails must add the markup if plugin is available -->
         <% availablePlugins = ['budgets', 'human_resources', 'indicators'] %>
 
         <% availablePlugins.each do |plugin| %>
-        
+
           <!-- Add plugin markup -->
           <div data-plugin="<%= plugin %>"></div>
 

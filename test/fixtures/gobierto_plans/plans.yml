@@ -95,7 +95,7 @@ strategic_plan:
                                                         "es": "departamento de supervisor técnico",
                                                         "en": "technical supervisor department"}},
     "show_table_header": false,
-    "open_node": false }).inspect %>
+    "open_node": true }).inspect %>
 government_plan:
   title_translations: <%= { 'en' => 'Government Plan',
                             'es' => 'Plan de Gobierno' }.to_json %>

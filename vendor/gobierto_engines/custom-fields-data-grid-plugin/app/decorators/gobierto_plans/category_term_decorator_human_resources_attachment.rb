@@ -31,7 +31,9 @@ module GobiertoPlans
 
       super_result[:human_resources][:budgeted_amount] = total_cost.round
       super_result[:human_resources][:executed_amount] = total_executed.round
-      super_result[:human_resources][:executed_percentage] = "#{((total_executed * 100) / total_cost).round} %"
+      if total_cost.positive?
+        super_result[:human_resources][:executed_percentage] = "#{((total_executed * 100) / total_cost).round} %"
+      end
 
       super_result
     end

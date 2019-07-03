@@ -6,7 +6,7 @@ module GobiertoPlans
     private
 
     def node_plugins_data(plan, node)
-      super_result = super
+      super_result = super(plan, node)
 
       super_result[:human_resources] = {
         title_translations: Hash[I18n.available_locales.map do |locale|

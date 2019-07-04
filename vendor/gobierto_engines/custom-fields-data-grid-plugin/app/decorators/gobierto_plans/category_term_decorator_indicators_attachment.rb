@@ -33,7 +33,7 @@ module GobiertoPlans
             existing_indicator[:last_value] = payload["value_reached"]
             existing_indicator[:date] = payload["date"]
           end
-        else
+        elsif payload["value_reached"] && payload["date"]
           super_result[:indicators][:data].append(
             id: indicator.id,
             name_translations: indicator.name_translations,

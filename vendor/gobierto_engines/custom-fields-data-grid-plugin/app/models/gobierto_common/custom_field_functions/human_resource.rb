@@ -19,7 +19,7 @@ module GobiertoCommon::CustomFieldFunctions
 
       percentages.each_with_index.inject(0) do |total, (percentage, index)|
         total + percentage * data[index].cost
-      end.compact
+      end
     end
 
     def planned_cost(_options = {})

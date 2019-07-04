@@ -36,6 +36,7 @@ module GobiertoCommon
     scope :searchable, -> { joins(:custom_field).where(custom_fields: { field_type: CustomField.searchable_fields }) }
     scope :for_item, ->(item) { where(item: item) }
     scope :with_field_type, ->(field_type) { joins(:custom_field).where(custom_fields: { field_type: field_type }) }
+    scope :sorted, -> { joins(:custom_field).order(position: :asc) }
 
     has_paper_trail if: ->(this) { this.item_has_versions }
 

@@ -5,7 +5,6 @@ class GobiertoPlans::PlanTree
 
   def initialize(plan)
     @plan = plan
-    @categories = CollectionDecorator.new(@plan.categories.where(term_id: nil).sorted, decorator: GobiertoPlans::CategoryTermDecorator)
     @vocabulary = @plan.categories_vocabulary
     @tree_decorator = TreeDecorator.new(
       terms_tree(@vocabulary.terms),

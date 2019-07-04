@@ -22,6 +22,8 @@ module GobiertoPlans
       records = ::GobiertoPlans::Node.node_custom_field_records(plan, node).where(custom_field: indicators_fields)
 
       records.map(&:payload).flatten.compact.each do |payload|
+        next unless payload["indicator"]
+
         indicator = ::GobiertoCommon::Term.find(payload["indicator"])
 
         next unless indicator

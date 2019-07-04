@@ -17,7 +17,8 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
   };
 
   function _deserializeTableData(inputValue) {
-    return JSON.parse(inputValue);
+    if (inputValue && inputValue !== "null") return JSON.parse(inputValue)
+    return []
   }
 
   function _handlePluginData(uid) {

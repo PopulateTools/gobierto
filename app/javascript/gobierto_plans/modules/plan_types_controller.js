@@ -115,7 +115,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
             this.$emit("selection", project);
 
             // Preprocess custom fields
-            var custom_field_records = project.attributes.custom_field_records
+            var custom_field_records = project.attributes.custom_field_records;
             if (custom_field_records.length > 0) {
               this.$emit("custom-fields", custom_field_records);
             }
@@ -169,6 +169,11 @@ window.GobiertoPlans.PlanTypesController = (function() {
         }
       },
       computed: {
+        computedProgress() {
+          if (!this.activeNode) return 0;
+
+          return Math.round(this.activeNode.attributes.progress) || 0;
+        },
         availableOpts: function() {
           // Filter options object only to those values present in the configuration (optionKeys)
           return _.pick(
@@ -302,11 +307,15 @@ window.GobiertoPlans.PlanTypesController = (function() {
         setPermalink: function() {
           window.location.hash = this.activeNode.uid;
         },
-        getPermalink: function(hash) {
+        getPermalink: function(hash, forced = true) {
           let found = this.searchByUid(hash, this.json);
           if (found) {
             this.setSelection(found);
           }
+          // else if (this.openNode) {
+          //   const newHash = hash.substring(0, hash.lastIndexOf("."));
+          //   this.getPermalink(newHash);
+          // }
         },
         searchByUid: function(id, data) {
           let result = false;
@@ -333,29 +342,27 @@ window.GobiertoPlans.PlanTypesController = (function() {
           const toggleClass = "is-hidden";
           const hiddenElementClasses = event.currentTarget.previousElementSibling.classList;
 
-          hiddenElementClasses.contains(toggleClass)
-            ? hiddenElementClasses.remove(toggleClass)
-            : hiddenElementClasses.add(toggleClass);
+          hiddenElementClasses.contains(toggleClass) ? hiddenElementClasses.remove(toggleClass) : hiddenElementClasses.add(toggleClass);
 
-          this.readMoreButton = hiddenElementClasses.contains(toggleClass)
+          this.readMoreButton = hiddenElementClasses.contains(toggleClass);
         },
         parseCustomFields: function(fields) {
-          const paragraphs = []
-          const rest = []
+          const paragraphs = [];
+          const rest = [];
 
           fields.forEach(f => {
             const { custom_field_field_type: type } = f;
-            if (type === "paragraph" || type === "localized_paragraph" || type === "string" || type === "localized_string") {
-              paragraphs.push(f)
+            if (type === "paragraph" || type === "localized_paragraph" || type === "string" || type === "localized_string") {
+              paragraphs.push(f);
             } else {
-              rest.push(f)
+              rest.push(f);
             }
-          })
+          });
 
           this.customFields = {
             paragraphs,
             rest
-          }
+          };
         }
       }
     });

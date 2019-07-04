@@ -1,5 +1,4 @@
 <div class="planification-content">
-
   <!-- Axes level -->
   <section class="level_0" :class="{ 'is-active': isOpen(0) }">
     <div class="node-root" v-for="(model, index) in json" :class="['cat_' + setRootColor(index) ]">
@@ -7,90 +6,40 @@
     </div>
   </section>
 
-  <% generic_levels = @levels == 2 ? 1 : @levels %>
-  <% (1..generic_levels).each do |level_index| %>
-    <!-- Lines level -->
-    <section class="level_<%= level_index -%>" v-if="isOpen(<%= level_index -%>)" :class="['cat_' + color() ]">
-      <% unless level_index == @levels %>
-        <div class="lines-header">
-          <div>{{ (activeNode.attributes || {}).children_count }} {{ getLabel(activeNode.level, (activeNode.attributes || {}).children_count) | translate }}</div>
+  <% generic_levels = @levels == 2 ? 1 : @levels %> <% (1..generic_levels).each do |level_index| %>
+  <!-- Lines level -->
+  <section class="level_<%= level_index -%>" v-if="isOpen(<%= level_index -%>)" :class="['cat_' + color() ]">
+    <% unless level_index == @levels %>
+    <div class="lines-header">
+      <div>
+        {{ (activeNode.attributes || {}).children_count }}
+        {{ getLabel(activeNode.level, (activeNode.attributes || {}).children_count) | translate }}
+      </div>
 
-          <div><%= t("gobierto_plans.plan_types.show.percentage_progress") %></div>
+      <div><%= t("gobierto_plans.plan_types.show.percentage_progress") %></div>
+    </div>
+    <% end %> <% if level_index > 1 %>
+    <div class="node-breadcrumb mb2">
+      <a data-turbolinks="false" @click.stop="setParent">
+        <i class="fas fa-caret-left"></i>
+        <%= t("gobierto_plans.plan_types.show.see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
+      </a>
+    </div>
+    <% end %> <% if level_index == @levels %>
+    <div class="node-action-line">
+      <div class="action-line--header node-list cat--negative">
+        <div class="node-title">
+          <div><i class="fas fa-caret-down"></i></div>
+          <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
         </div>
-      <% end %>
-
-      <% if level_index > 1 %>
-        <div class="node-breadcrumb mb2">
-          <a data-turbolinks="false" @click.stop="setParent">
-            <i class="fas fa-caret-left"></i>
-            <%= t("gobierto_plans.plan_types.show.see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
-          </a>
+        <div>
+          {{ (activeNode.attributes || {}).children_count }}
+          {{ getLabel(activeNode.level, (activeNode.attributes || {}).children_count) | translate }}
         </div>
-      <% end %>
-
-      <% if level_index == @levels %>
-        <div class="node-action-line">
-          <div class="action-line--header node-list cat--negative">
-            <div class="node-title">
-              <div><i class="fas fa-caret-down"></i></div>
-              <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
-            </div>
-            <div>{{ (activeNode.attributes || {}).children_count }} {{ getLabel(activeNode.level, (activeNode.attributes || {}).children_count) | translate }}</div>
-            <div>{{ (activeNode.attributes || {}).progress || 0 | percent }}</div>
-          </div>
-
-          <div class="node-action-line">
-            <ul class="action-line--list">
-              <li v-for="(model, index) in activeNode.children">
-                <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(activeNode.id, index)"></node-list>
-                <transition name="slide-fade">
-                  <table-view
-                    :model="model"
-                    :key="model.id"
-                    :header="showTableHeader"
-                    :open="openNode"
-                    @activate="activatePlugins"
-                    @custom-fields="parseCustomFields"
-                    @selection="setSelection"
-                    v-if="showTable[`${activeNode.id}-${index}`]">
-                  </table-view>
-                </transition>
-              </li>
-            </ul>
-          </div>
-        </div>
-      <% else %>
-        <ul class="lines-list">
-          <li class="mb2" v-for="(model, index) in activeNode.children">
-            <node-list :model="model" :key="model.id" :level="levelKeys" @selection="setSelection"></node-list>
-          </li>
-        </ul>
-      <% end %>
-    </section>
-  <% end %>
-
-  <% if @levels == 2 %>
-    <!-- Acts level -->
-    <section class="level_2" v-if="isOpen(2)" :class="['cat_' + color() ]">
-
-      <div class="node-breadcrumb mb2">
-        <a data-turbolinks="false" @click.stop="setParent">
-          <i class="fas fa-caret-left"></i>
-          <%= t("gobierto_plans.plan_types.show.see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
-        </a>
+        <div>{{ (activeNode.attributes || {}).progress || 0 | percent }}</div>
       </div>
 
       <div class="node-action-line">
-
-        <div class="action-line--header node-list cat--negative">
-          <div class="node-title">
-            <div><i class="fas fa-caret-down"></i></div>
-            <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
-          </div>
-          <div>{{ (activeNode.children || []).length }} {{ getLabel(activeNode.level, (activeNode.children || []).length) | translate }}</div>
-          <div>{{ (activeNode.attributes || {}).progress || 0 | percent }}</div>
-        </div>
-
         <ul class="action-line--list">
           <li v-for="(model, index) in activeNode.children">
             <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(activeNode.id, index)"></node-list>
@@ -100,16 +49,65 @@
                 :key="model.id"
                 :header="showTableHeader"
                 :open="openNode"
-                @selection="setSelection"
                 @activate="activatePlugins"
                 @custom-fields="parseCustomFields"
-                v-if="showTable[`${activeNode.id}-${index}`]">
+                @selection="setSelection"
+                v-if="showTable[`${activeNode.id}-${index}`]"
+              >
               </table-view>
             </transition>
           </li>
         </ul>
       </div>
-    </section>
+    </div>
+    <% else %>
+    <ul class="lines-list">
+      <li class="mb2" v-for="(model, index) in activeNode.children">
+        <node-list :model="model" :key="model.id" :level="levelKeys" @selection="setSelection"></node-list>
+      </li>
+    </ul>
+    <% end %>
+  </section>
+  <% end %> <% if @levels == 2 %>
+  <!-- Acts level -->
+  <section class="level_2" v-if="isOpen(2)" :class="['cat_' + color() ]">
+    <div class="node-breadcrumb mb2">
+      <a data-turbolinks="false" @click.stop="setParent">
+        <i class="fas fa-caret-left"></i>
+        <%= t("gobierto_plans.plan_types.show.see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
+      </a>
+    </div>
+
+    <div class="node-action-line">
+      <div class="action-line--header node-list cat--negative">
+        <div class="node-title">
+          <div><i class="fas fa-caret-down"></i></div>
+          <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
+        </div>
+        <div>{{ (activeNode.children || []).length }} {{ getLabel(activeNode.level, (activeNode.children || []).length) | translate }}</div>
+        <div>{{ (activeNode.attributes || {}).progress || 0 | percent }}</div>
+      </div>
+
+      <ul class="action-line--list">
+        <li v-for="(model, index) in activeNode.children">
+          <node-list :model="model" :key="model.id" :level="levelKeys" @toggle="toggle(activeNode.id, index)"></node-list>
+          <transition name="slide-fade">
+            <table-view
+              :model="model"
+              :key="model.id"
+              :header="showTableHeader"
+              :open="openNode"
+              @selection="setSelection"
+              @activate="activatePlugins"
+              @custom-fields="parseCustomFields"
+              v-if="showTable[`${activeNode.id}-${index}`]"
+            >
+            </table-view>
+          </transition>
+        </li>
+      </ul>
+    </div>
+  </section>
   <% end %>
 
   <!-- Projects level -->
@@ -121,7 +119,7 @@
           {{ (getParent(level).attributes || {}).title | translate }}
         </a>
       </div>
-      <br>
+      <br />
     </template>
 
     <div class="node-action-line" :style="{ marginLeft: activeNode.level + 'em' }">
@@ -130,7 +128,6 @@
       </div>
 
       <div class="node-project-detail">
-
         <!-- Native fields -->
         <div class="project-mandatory">
           <div>
@@ -139,12 +136,14 @@
               <div class="mandatory-desc">{{ activeNode.attributes.progress | percent }}</div>
             </div>
             <div class="mandatory-progress">
-              <div :style="{ width: activeNode.attributes.progress || 0 + '%'}"></div>
+              <div :style="{ width: computedProgress + '%'}"></div>
             </div>
           </div>
           <div>
             <div class="mandatory-list">
-              <div class="mandatory-title"><%= t("gobierto_plans.plan_types.show.starts") %> - <%= t("gobierto_plans.plan_types.show.ends") %></div>
+              <div class="mandatory-title">
+                <%= t("gobierto_plans.plan_types.show.starts") %> - <%= t("gobierto_plans.plan_types.show.ends") %>
+              </div>
               <div class="mandatory-desc">{{ activeNode.attributes.starts_at | date }} - {{ activeNode.attributes.ends_at | date }}</div>
             </div>
             <div class="mandatory-list">
@@ -156,7 +155,6 @@
 
         <!-- CUSTOM FIELDS -->
         <template v-if="Object.keys(customFields).length">
-
           <!-- Paragraph template  -->
           <template v-for="item in customFields.paragraphs">
             <div class="project-description">
@@ -188,21 +186,17 @@
               </template>
             </div>
           </template>
-
         </template>
 
         <!-- Rails must add the markup if plugin is available -->
-        <% availablePlugins = ['budgets', 'human_resources', 'indicators'] %>
+        <% availablePlugins = ['budgets', 'human_resources', 'indicators'] %> <% availablePlugins.each do |plugin| %>
 
-        <% availablePlugins.each do |plugin| %>
-
-          <!-- Add plugin markup -->
-          <div data-plugin="<%= plugin %>"></div>
+        <!-- Add plugin markup -->
+        <div data-plugin="<%= plugin %>"></div>
 
         <% end %>
         <!-- End Rails plugins -->
       </div>
     </div>
   </section>
-
 </div>

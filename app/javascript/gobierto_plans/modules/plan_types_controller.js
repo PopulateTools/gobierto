@@ -307,15 +307,44 @@ window.GobiertoPlans.PlanTypesController = (function() {
         setPermalink: function() {
           window.location.hash = this.activeNode.uid;
         },
-        getPermalink: function(hash, forced = true) {
+        getPermalink: function(hash, forcedNode = null) {
           let found = this.searchByUid(hash, this.json);
+
           if (found) {
             this.setSelection(found);
+
+            if (forcedNode !== null) {
+              let query_params = window.location.search.substring(0);
+              if ((found.children || []).length == 0 && found.attributes.children_count > 0) {
+                fetch(`${found.attributes.nodes_list_path}${query_params}`).then(response =>
+                  response.json().then(json => {
+                    Vue.set(found, "children", json);
+
+                    const parsedNode = found.children[forcedNode];
+
+                    if (parsedNode.attributes.hasOwnProperty("custom_field_records")) {
+                      this.parseCustomFields(parsedNode.attributes.custom_field_records);
+                    }
+
+                    if (parsedNode.attributes.hasOwnProperty("plugins_data")) {
+                      const pd = parsedNode.attributes.plugins_data;
+
+                      if (Object.keys(pd).length) {
+                        this.activatePlugins(pd);
+                      }
+                    }
+
+                    this.activeNode = parsedNode;
+                  })
+                );
+              }
+            }
+          } else if (this.openNode) {
+            const newHash = hash.substring(0, hash.lastIndexOf("."));
+            const lastHash = hash.substring(hash.lastIndexOf(".") + 1);
+
+            this.getPermalink(newHash, lastHash);
           }
-          // else if (this.openNode) {
-          //   const newHash = hash.substring(0, hash.lastIndexOf("."));
-          //   this.getPermalink(newHash);
-          // }
         },
         searchByUid: function(id, data) {
           let result = false;
@@ -393,7 +422,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
     }
   }
 
-  function _loadPlugins(plugins) {
+  function _loadPlugins(plugins = {}) {
     document.querySelectorAll("[data-plugin]").forEach(node => {
       const { plugin: pluginName } = node.dataset;
 
@@ -401,7 +430,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
       const Plugin = Vue.extend(Component);
 
       const instance = new Plugin({
-        propsData: { config: plugins[pluginName] }
+        propsData: { config: plugins[pluginName] || {} }
       });
 
       instance.$mount(node);

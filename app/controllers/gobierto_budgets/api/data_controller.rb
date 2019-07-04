@@ -118,17 +118,19 @@ module GobiertoBudgets
       private
 
       def budget_data(year, field)
-        result = GobiertoBudgets::BudgetLine.find(
-          year: year,
-          code: @code,
-          kind: @kind,
-          type: @area,
-          variable: field,
-          organization_id: params[:organization_id],
-          updated_forecast: true
+        if result = GobiertoBudgets::BudgetLine.find(
+            year: year,
+            code: @code,
+            kind: @kind,
+            type: @area,
+            variable: field,
+            organization_id: params[:organization_id],
+            updated_forecast: true
         )
-
-        { value: result[field] }
+          { value: result[field] }
+        else
+          { value: nil }
+        end
       end
 
       def delta_percentage(value, old_value)

@@ -139,7 +139,7 @@
               <div class="mandatory-desc">{{ activeNode.attributes.progress | percent }}</div>
             </div>
             <div class="mandatory-progress">
-              <div :style="{ width: activeNode.attributes.progress + '%'}"></div>
+              <div :style="{ width: activeNode.attributes.progress || 0 + '%'}"></div>
             </div>
           </div>
           <div>

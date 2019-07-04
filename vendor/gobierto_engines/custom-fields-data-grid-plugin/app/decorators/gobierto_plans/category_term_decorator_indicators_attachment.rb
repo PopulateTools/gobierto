@@ -20,24 +20,39 @@ module GobiertoPlans
         { configuration: { plugin_type: "indicators" } }.to_json
       )
       records = ::GobiertoPlans::Node.node_custom_field_records(plan, node).where(custom_field: indicators_fields)
-      indicators_payload = records.map(&:payload).compact.reduce({}, :merge)
 
-      indicators_payload.each do |indicator_id, values_hash|
-        indicator = ::GobiertoCommon::Term.find(indicator_id)
-        values = values_hash.to_a.sort_by { |item| Date.strptime(item[0], "%Y-%m") }.reverse
+      records.map(&:payload).flatten.compact.each do |payload|
+        indicator = ::GobiertoCommon::Term.find(payload["indicator"])
 
-        next unless values.any?
+        next unless indicator
 
-        super_result[:indicators][:data].append(
-          id: indicator_id.to_i,
-          name_translations: indicator.name_translations,
-          description_translations: indicator.description_translations,
-          last_value: values.first.second,
-          values: values_hash
-        )
+        existing_indicator = super_result[:indicators][:data].find { |e| e[:id] == indicator.id }
+
+        if existing_indicator
+          if payload["value_reached"] && (indicator_date(payload["date"]) > indicator_date(existing_indicator[:date]))
+            existing_indicator[:last_value] = payload["value_reached"]
+            existing_indicator[:date] = payload["date"]
+          end
+        else
+          super_result[:indicators][:data].append(
+            id: indicator.id,
+            name_translations: indicator.name_translations,
+            description_translations: indicator.description_translations,
+            last_value: payload["value_reached"],
+            date: payload["date"]
+          )
+        end
       end
 
       super_result
+    end
+
+    def indicator_date(date_string)
+      Date.strptime(date_string, "%Y-%m")
+    rescue ArgumentError
+      Date.strptime(date_string, "%Y")
+    rescue ArgumentError
+      nil
     end
 
   end

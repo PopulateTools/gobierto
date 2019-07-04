@@ -11,29 +11,25 @@ module GobiertoCommon::CustomFieldValue
 
     def test_value
       assert_equal(
-        {
-          "162407219" => {
-            "2018-12" => 5,
-            "2019-01" => 10,
-            "2019-02" => 15
-          },
-          "488958338" => {
-            "2018-12" => 50.1,
-            "2019-01" => 100.2,
-            "2019-02" => 150.3
-          }
-        },
+        [
+          { "date" => "2018-12", "indicator" => 162407219, "objective" => 100, "value_reached" => 92.5 },
+          { "date" => "2018-11", "indicator" => 162407219, "objective" => 100, "value_reached" => 85 },
+          { "date" => "2019", "indicator" => 488958338, "objective" => 200, "value_reached" => 210 },
+          { "indicator" => 142661490, "objective" => 50 },
+          { "indicator" => 428155164 }
+        ],
         record.value
       )
     end
 
     def test_assign_value
-      new_payload_hash = { "123" => { "2018-12" => 123.456 } }
+      new_payload_hash = [{ "date" => "2018", "indicator" => 1, "objective" => 2, "value_reached" => 3 }]
+
       record.value = new_payload_hash
 
       assert_equal new_payload_hash, record.payload
 
-      new_payload_json = "{\"123\":{\"2018-12\":123.456}}"
+      new_payload_json = "[{\"date\":\"2018\",\"indicator\":1,\"objective\":2,\"value_reached\":3}]"
       record.value = new_payload_json
 
       assert_equal new_payload_hash, record.payload

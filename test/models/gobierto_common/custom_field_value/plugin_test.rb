@@ -12,11 +12,11 @@ module GobiertoCommon::CustomFieldValue
     def test_value
       assert_equal(
         [
-          { "date" => "2018-12", "indicator" => 162407219, "objective" => 100, "value_reached" => 92.5 },
-          { "date" => "2018-11", "indicator" => 162407219, "objective" => 100, "value_reached" => 85 },
-          { "date" => "2019", "indicator" => 488958338, "objective" => 200, "value_reached" => 210 },
-          { "indicator" => 142661490, "objective" => 50 },
-          { "indicator" => 428155164 }
+          { "date" => "2018-12", "indicator" => 162_407_219, "objective" => 100, "value_reached" => 92.5 },
+          { "date" => "2018-11", "indicator" => 162_407_219, "objective" => 100, "value_reached" => 85 },
+          { "date" => "2019", "indicator" => 488_958_338, "objective" => 200, "value_reached" => 210 },
+          { "indicator" => 142_661_490, "objective" => 50 },
+          { "indicator" => 428_155_164 }
         ],
         record.value
       )

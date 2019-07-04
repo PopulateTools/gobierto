@@ -14,14 +14,16 @@ module GobiertoCommon::CustomFieldFunctions
       result.nan? ? nil : result
     end
 
-    def cost(options = {})
+    def executed_cost(options = {})
       percentages = progress_percentages(options[:date] || Date.current)
 
-      result = percentages.each_with_index.inject(0) do |total, (percentage, index)|
+      percentages.each_with_index.inject(0) do |total, (percentage, index)|
         total + percentage * data[index].cost
-      end / percentages.size.to_f
+      end.compact
+    end
 
-      result.nan? ? nil : result
+    def planned_cost(_options = {})
+      data.map(&:cost).compact.sum
     end
 
     private

@@ -17,7 +17,25 @@ class GobiertoPlans::PlanTree
     plan_tree(@tree_decorator, include_nodes)
   end
 
+  def global_progress
+    return unless (progress_values = progresses_with_version.values.compact).present?
+
+    progress_values.sum / progress_values.count.to_f
+  end
+
   private
+
+  def progresses_with_version
+    @progresses_with_version ||= CollectionDecorator.new(
+      @plan.nodes.published,
+      decorator: GobiertoPlans::ProjectDecorator,
+      opts: { plan: @plan, site: @plan.site }
+    ).inject({}) do |progresses, node|
+      progresses.update(
+        node.id => node.at_current_version.progress
+      )
+    end
+  end
 
   def terms_tree(relation)
     relation.order(position: :asc).where(level: relation.minimum(:level)).inject({}) do |tree, term|

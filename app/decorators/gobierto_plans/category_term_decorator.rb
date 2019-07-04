@@ -9,6 +9,7 @@ module GobiertoPlans
       @vocabulary = options[:vocabulary]
       @plan = options[:plan]
       @site = options[:site]
+      @with_published_versions = options[:with_published_versions]
     end
 
     def categories
@@ -21,6 +22,10 @@ module GobiertoPlans
 
     def plan
       @plan ||= site.plans.find_by_vocabulary_id(vocabulary.id)
+    end
+
+    def with_published_versions?
+      @with_published_versions.present?
     end
 
     def uid
@@ -57,7 +62,7 @@ module GobiertoPlans
     end
 
     def nodes
-      plan.nodes.where(gplan_categories_nodes: { category_id: object.id })
+      base_relation.where(gplan_categories_nodes: { category_id: object.id })
     end
 
     def nodes_data
@@ -118,7 +123,11 @@ module GobiertoPlans
     protected
 
     def descending_nodes
-      @descending_nodes ||= plan.nodes.where("gplan_categories_nodes.category_id IN (#{self.class.tree_sql_for(self)})")
+      @descending_nodes ||= base_relation.where("gplan_categories_nodes.category_id IN (#{self.class.tree_sql_for(self)})")
+    end
+
+    def base_relation
+      @base_relation ||= with_published_versions? ? plan.nodes.published : plan.nodes
     end
 
     def vocabulary

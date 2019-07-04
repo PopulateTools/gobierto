@@ -1,7 +1,7 @@
 import { Grid, Editors, Plugins } from 'slickgrid-es6';
 import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
 import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
-import { applyPluginStyles, preventLosingCurrentEdit } from './common_slickgrid_behavior';
+import { applyPluginStyles, preventLosingCurrentEdit, defaultSlickGridOptions } from './common_slickgrid_behavior';
 
 const defaultStartYear = 2018;
 const defaultStartMonth = 12;
@@ -58,7 +58,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
 
     function _dateColumn(startYear, startMonth, offset) {
       let headerName = _headerDateName(startYear, startMonth, offset);
-      return {id: headerName, name: headerName, field: headerName, width: 100, editor: Editors.Text};
+      return { id: headerName, name: headerName, field: headerName, minWidth: 100, editor: Editors.Text };
     }
 
     function _initializeGrid(id, data, columns, options) {
@@ -81,7 +81,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
           let columns = args.grid.getColumns();
           let lastColumn = columns.pop();
           let lastYear = lastColumn.headerDateNameFunction(lastColumn.startYear, lastColumn.startMonth, lastColumn.offset)
-          let columnDefinition = {id: lastYear, name: lastYear, field: lastYear, width: 100, editor: Editors.Text};
+          let columnDefinition = {id: lastYear, name: lastYear, field: lastYear, minWidth: 100, editor: Editors.Text};
           lastColumn.offset++;
           columns.push(columnDefinition);
           columns.push(lastColumn);
@@ -152,23 +152,12 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       id: "indicator",
       name: I18n.t("gobierto_admin.custom_fields_plugins.indicators.indicator"),
       field: "indicator",
-      width: 120,
+      minWidth: 120,
       cssClass: "cell-title",
       formatter: Select2Formatter,
       editor: Select2Editor,
       dataSource: indicatorsDictionary
     }];
-
-    // generice grid options
-    let options = {
-      editable: true,
-      enableAddRow: true,
-      enableCellNavigation: true,
-      asyncEditorLoading: false,
-      enableColumnReorder: false,
-      autoEdit: true,
-      itemsCountId: `${id}_items`
-    };
 
     var indicatorsNames = $.map(vocabularyTerms, function(item) { return item.name_translations[I18n.locale]});
 
@@ -187,7 +176,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       id: new_column_id,
       name: I18n.t("gobierto_admin.custom_fields_plugins.data_grid.add"),
       field: new_column_id,
-      witdh: 50,
+      minWidth: 100,
       headerCssClass: `add-${new_column_id}`,
       sortable: false,
       headerDateNameFunction: _headerDateName,
@@ -196,7 +185,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsIndicatorsPluginController 
       offset: dateColumnsCount
     });
 
-    _initializeGrid(id, data, columns, options);
+    let customSlickGridOptions = { itemsCountId: `${id}_items` }
+
+    _initializeGrid(id, data, columns, { ...defaultSlickGridOptions, ...customSlickGridOptions });
   }
   return GobiertoCommonCustomFieldRecordsIndicatorsPluginController;
 })();

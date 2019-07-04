@@ -1,7 +1,7 @@
 import { Grid, Editors, Plugins } from 'slickgrid-es6';
 import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
 import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
-import { applyPluginStyles, preventLosingCurrentEdit } from './common_slickgrid_behavior';
+import { applyPluginStyles, preventLosingCurrentEdit, defaultSlickGridOptions } from './common_slickgrid_behavior';
 
 window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (function() {
 
@@ -197,18 +197,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
       }
     ];
 
-    // generice grid options
-    let options = {
-      editable: true,
-      enableAddRow: true,
-      enableCellNavigation: true,
-      asyncEditorLoading: false,
-      enableColumnReorder: false,
-      autoEdit: true,
-      itemsCountId: `${id}_items`
-    };
+    let customSlickGridOptions = { itemsCountId: `${id}_items` }
 
-    _initializeGrid(id, data, columns, options);
+    _initializeGrid(id, data, columns, { ...defaultSlickGridOptions, ...customSlickGridOptions });
     for (let i = 0; i < data.length; i++) _refreshRowAmount(i)
   }
 

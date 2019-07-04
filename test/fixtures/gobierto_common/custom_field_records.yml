@@ -100,18 +100,33 @@ political_agendas_custom_field_record_vocabulary_tags:
 political_agendas_indicators_custom_field_record:
   item: political_agendas (GobiertoPlans::Node)
   custom_field: madrid_custom_field_indicators_plugin
-  payload: <%= {
-    ActiveRecord::FixtureSet.identify(:indicators_raw_savings) => {
-      "2018-12" => 5,
-      "2019-01" => 10,
-      "2019-02" => 15
+  payload: <%= [
+    {
+      indicator: ActiveRecord::FixtureSet.identify(:indicators_raw_savings),
+      objective: 100,
+      value_reached: 92.5,
+      date: "2018-12"
     },
-    ActiveRecord::FixtureSet.identify(:indicators_net_savings) => {
-      "2018-12" => 50.1,
-      "2019-01" => 100.2,
-      "2019-02" => 150.3
+    {
+      indicator: ActiveRecord::FixtureSet.identify(:indicators_raw_savings),
+      objective: 100,
+      value_reached: 85,
+      date: "2018-11"
+    },
+    {
+      indicator: ActiveRecord::FixtureSet.identify(:indicators_net_savings),
+      objective: 200,
+      value_reached: 210,
+      date: "2019"
+    },
+    {
+      indicator: ActiveRecord::FixtureSet.identify(:indicators_births),
+      objective: 50
+    },
+    {
+      indicator: ActiveRecord::FixtureSet.identify(:indicators_deaths)
     }
-  }.to_json %>
+  ].to_json %>
 
 political_agendas_human_resources_custom_field_record:
   item: political_agendas (GobiertoPlans::Node)

@@ -61,21 +61,25 @@ module GobiertoPlans
     end
 
     def nodes_data
-      CollectionDecorator.new(nodes.published, decorator: GobiertoPlans::ProjectDecorator).map.with_index do |node, index|
-        node = node.at_current_version
+      CollectionDecorator.new(
+        nodes.published,
+        decorator: GobiertoPlans::ProjectDecorator,
+        opts: { plan: plan, site: site }
+      ).map.with_index do |node, index|
         { id: node.id,
           uid: uid + "." + index.to_s,
           type: "node",
           level: level + 1,
-          attributes: { title: node.name_translations,
-                        parent_id: id,
-                        progress: node.progress,
-                        starts_at: node.starts_at,
-                        ends_at: node.ends_at,
-                        status: node.status&.name_translations,
-                        options: node.options,
-                        plugins_data: node_plugins_data(plan, node),
-                        custom_field_records: node_custom_field_records(node)
+          attributes: {
+            title: node.at_current_version.name_translations,
+            parent_id: id,
+            progress: node.at_current_version.progress,
+            starts_at: node.at_current_version.starts_at,
+            ends_at: node.at_current_version.ends_at,
+            status: node.at_current_version.status&.name_translations,
+            options: node.at_current_version.options,
+            plugins_data: node_plugins_data(plan, node),
+            custom_field_records: node_custom_field_records(node)
           },
           children: [] }
       end

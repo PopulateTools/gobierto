@@ -9,7 +9,13 @@ class GobiertoPlans::PlanTree
     @tree_decorator = TreeDecorator.new(
       terms_tree(@vocabulary.terms),
       decorator: ::GobiertoPlans::CategoryTermDecorator,
-      options: { plan: @plan, vocabulary: @vocabulary, site: @plan.site }
+      options: {
+        plan: @plan,
+        vocabulary: @vocabulary,
+        site: @plan.site,
+        with_published_versions: true,
+        cached_attributes: { progress: progresses_with_version }
+      }
     )
   end
 

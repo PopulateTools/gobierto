@@ -47,7 +47,15 @@ module GobiertoPlans
     def progress
       return if nodes_count.zero?
 
-      @progress ||= descending_nodes.average(:progress).to_f
+      @progress ||= if with_published_versions?
+                      versioned_progresses.compact.instance_eval do
+                        break nil if blank?
+
+                        sum / size.to_f
+                      end
+                    else
+                      descending_nodes.average(:progress).to_f
+                    end
     end
 
     def progress_percentage
@@ -154,6 +162,20 @@ module GobiertoPlans
           custom_field_field_type: record.custom_field.field_type
         }
       end.compact
+    end
+
+    def versioned_progresses
+      if cached_attributes&.has_key?(:progress)
+        descending_nodes.map { |node| cached_attributes[:progress][node.id] }
+      else
+        CollectionDecorator.new(
+          descending_nodes,
+          decorator: GobiertoPlans::ProjectDecorator,
+          opts: { plan: plan, site: site }
+        ).map do |node|
+          node.at_current_version.progress
+        end
+      end
     end
 
   end

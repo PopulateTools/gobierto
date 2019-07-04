@@ -417,7 +417,8 @@ $white: $color_main_negative;
       display: flex;
 
       > :first-child {
-        flex: 0 0 33%;
+        flex: 0 0 40%;
+        padding-right: 0.25em;
       }
     }
   }

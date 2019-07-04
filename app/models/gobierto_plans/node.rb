@@ -73,7 +73,7 @@ module GobiertoPlans
 
     def self.node_custom_field_records(plan, node)
       if plan.instance_level_custom_fields.any?
-        ::GobiertoCommon::CustomFieldRecord.where(custom_field: plan.instance_level_custom_fields)
+        ::GobiertoCommon::CustomFieldRecord.where(custom_field: plan.instance_level_custom_fields, item: node)
       else
         node.global_custom_field_records
       end

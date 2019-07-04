@@ -40,7 +40,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
       let vocabularyTerms = jsonData["terms"];
       let element = $(`[data-uid=${uid}]`)
       let id = element.attr('id')
-      let data = _deserializeTableData($(`#${id}`).find("input[name$='[value]'").val());
+      let data = _deserializeTableData($(`#project_custom_records_${uid}_value`).val());
 
       applyPluginStyles(element, _pluginCssClass)
       _slickGrid(id, data, vocabularyTerms)

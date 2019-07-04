@@ -22,16 +22,18 @@ module GobiertoPlans
       records = ::GobiertoPlans::Node.node_custom_field_records(plan, node).where(custom_field: indicators_fields)
       indicators_payload = records.map(&:payload).compact.reduce({}, :merge)
 
-      indicators_payload.each do |indicator_id, values|
+      indicators_payload.each do |indicator_id, values_hash|
         indicator = ::GobiertoCommon::Term.find(indicator_id)
+        values = values_hash.to_a.sort_by { |item| Date.strptime(item[0], "%Y-%m") }.reverse
+
+        next unless values.any?
 
         super_result[:indicators][:data].append(
           id: indicator_id.to_i,
           name_translations: indicator.name_translations,
           description_translations: indicator.description_translations,
-          last_value: values.to_a.sort_by { |item| Date.strptime(item[0], "%Y-%m") }
-                            .reverse.first.second,
-          values: values
+          last_value: values.first.second,
+          values: values_hash
         )
       end
 

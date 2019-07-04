@@ -38,7 +38,7 @@ module GobiertoPlans
       records_functions.each do |function|
         accumulated_planned_cost += function.planned_cost
         accumulated_executed_cost += function.executed_cost
-        accumulated_progesses.append(function.progress)
+        accumulated_progesses.append(function.progress) if function.progress
       end
 
       accumulated_progess = 0

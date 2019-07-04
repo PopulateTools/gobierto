@@ -1,15 +1,15 @@
 <template>
-  <div class="tablerow" v-if="config">
+  <div class="tablerow" v-if="config && (budgetedAmount || executedAmount)">
     <div class="tablerow__title">{{ title | translate }}</div>
     <div class="tablerow__data">
-      <div class="tablerow__item">
+      <div class="tablerow__item" v-if="budgetedAmount">
         <div>Inicial</div>
         <div class="tablerow__amount">
           <div class="tablerow__amount--numeric">{{ budgetedAmount | money }}</div>
           <div class="tablerow__amount--percent">100%</div>
         </div>
       </div>
-      <div class="tablerow__item">
+      <div class="tablerow__item" v-if="executedAmount">
         <div>Ejecutado</div>
         <div class="tablerow__amount">
           <div class="tablerow__amount--numeric">{{ executedAmount | money }}</div>

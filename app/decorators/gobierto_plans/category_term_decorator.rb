@@ -4,12 +4,15 @@ module GobiertoPlans
   class CategoryTermDecorator < BaseTermDecorator
     include ActionView::Helpers::NumberHelper
 
+    attr_reader :cached_attributes
+
     def initialize(term, options = {})
       @object = term
       @vocabulary = options[:vocabulary]
       @plan = options[:plan]
       @site = options[:site]
       @with_published_versions = options[:with_published_versions]
+      @cached_attributes = options[:cached_attributes]
     end
 
     def categories

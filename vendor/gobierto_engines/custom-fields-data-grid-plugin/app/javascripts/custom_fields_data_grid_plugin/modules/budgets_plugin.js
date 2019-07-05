@@ -114,9 +114,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
       if (jsonData) {
         var amount = jsonData.forecast.updated_amount || jsonData.forecast.original_amount
         updatedRow.full_amount = `${Math.round(amount).toLocaleString(I18n.locale)} €`
-        if (updatedRow.weight) {
-          updatedRow.assigned_amount = `${Math.round(amount * updatedRow.weight / 100).toLocaleString(I18n.locale)} €`
-        }
         _grid.invalidateRow(row)
         _grid.render()
       }
@@ -174,13 +171,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         dataSource: _budgetLines
       },
       {
-        id: "full_amount",
-        name: i18n("full_amount"),
-        field: "full_amount",
-        width: 120,
-        cssClass: "cell-title"
-      },
-      {
         id: "weight",
         name: `${i18n("weight")} %`,
         field: "weight",
@@ -189,9 +179,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         editor: Editors.Integer
       },
       {
-        id: "assigned_amount",
-        name: i18n("assigned_amount"),
-        field: "assigned_amount",
+        id: "full_amount",
+        name: i18n("full_amount"),
+        field: "full_amount",
         width: 120,
         cssClass: "cell-title"
       }

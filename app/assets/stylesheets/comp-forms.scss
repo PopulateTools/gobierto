@@ -337,16 +337,19 @@ input[type="radio"] {
     display: inline;
   }
 
-  .slick-row.even, .slick-row.odd {
+  .slick-row.even,
+  .slick-row.odd {
     .slick-cell {
       background: white;
+
       &.disabled {
         background: #f7f7f6;
         border-color: #d6d7d6 !important;
         border-style: solid;
+
         &.active {
-          border-left-width: 0px;
-          border-top-width: 0px;
+          border-left-width: 0;
+          border-top-width: 0;
           padding-left: 4px;
           padding-top: 4px;
         }

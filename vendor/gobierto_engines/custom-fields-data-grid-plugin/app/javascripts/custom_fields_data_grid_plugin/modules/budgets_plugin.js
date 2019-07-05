@@ -8,7 +8,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
   function GobiertoCommonCustomFieldRecordsBudgetsPluginController() {}
 
   var _grid
-  var _availableYears = {}
+  var _availableYears = []
   var _budgetLines = {
     grouped: { economic: {}, functional: {} }
   }
@@ -41,10 +41,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
   }
 
   function _parseAvailableYears(jsonData) {
-    $.each(jsonData, function(idx) {
-      let year = jsonData[idx]
-      _availableYears[year] = year.toString()
-    })
+    _availableYears = jsonData.sort().reverse()
   }
 
   function _parseBudgetLines(jsonData) {

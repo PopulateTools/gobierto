@@ -2,13 +2,20 @@
 
 module GobiertoPlans
   class ProjectDecorator < BaseDecorator
-    attr_reader :plan, :site
 
     def initialize(project, opts = {})
       @object = project
       options = opts[:opts] || {}
       @plan = options[:plan]
       @site = options[:site]
+    end
+
+    def plan
+      @plan ||= GobiertoPlans::Plan.find_by(categories_vocabulary: project.categories.first.vocabulary)
+    end
+
+    def site
+      @site ||= plan&.site
     end
 
     def version_index
@@ -30,5 +37,6 @@ module GobiertoPlans
     def node_plugins_attributes
       {}
     end
+
   end
 end

@@ -102,7 +102,11 @@ function Select2Editor(args) {
   };
 
   this.serializeValue = function () {
-    return $input.val();
+    var inputValue = $input.val()
+    var inputValueInt = parseInt(inputValue)
+
+    if (isNaN(inputValueInt)) return inputValue
+    return inputValueInt
   };
 
   this.applyValue = function (item, state) {

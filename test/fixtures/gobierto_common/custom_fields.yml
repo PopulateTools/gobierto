@@ -83,7 +83,8 @@ madrid_node_global:
   uid: status
   options: <%= {
     not_started: { en: "Not started", es: "No iniciado" },
-    started: { en: "Started", es: "Iniciado" }
+    started: { en: "Started", es: "Iniciado" },
+    done: { en: "Done", es: "Terminado" }
   }.to_json %>
 
 madrid_economic_plan_node_instance_level:

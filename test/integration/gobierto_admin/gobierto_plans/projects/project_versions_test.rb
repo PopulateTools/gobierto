@@ -184,6 +184,9 @@ module GobiertoAdmin
 
             create_project
 
+            assert has_content?("Editing version\n1")
+            assert has_content?("not published yet")
+
             within "form" do
               select "Not started", from: "project_custom_records_status_value"
 
@@ -194,9 +197,17 @@ module GobiertoAdmin
               end
             end
 
+            assert has_content?("Editing version\n2")
+            assert has_content?("not published yet")
+
             visit edit_admin_plans_plan_project_path(plan, project, version: 1)
 
-            select "Started", from: "project_custom_records_status_value" # Make change again
+            select "Done", from: "project_custom_records_status_value"
+
+            within(".widget_save_v2.editor") { click_button "Save" }
+
+            assert has_content?("Editing version\n3")
+            assert has_content?("not published yet")
 
             within "form" do
               within "div.widget_save_v2.editor" do

@@ -65,7 +65,7 @@ function Select2Editor(args) {
   this.init = function () {
     $input = $('<select></select>');
     $input.width(args.container.clientWidth + 3);
-    PopulateSelect($input[0], args.column.dataSource, true);
+    PopulateSelect($input[0], args.column.dataSource, false);
     $input.appendTo(args.container);
     $input.focus().select();
 

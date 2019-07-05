@@ -128,7 +128,7 @@ module GobiertoBudgets
           updated_forecast: true
         )
 
-        { value: result[field] }
+        result ? { value: result[field] } : nil
       end
 
       def delta_percentage(value, old_value)

@@ -6,8 +6,8 @@ module GobiertoCommon
     VALUE_PROCESSORS = {
       string: CustomFieldValue::Text,
       localized_string: CustomFieldValue::LocalizedText,
-      paragraph: CustomFieldValue::Text,
-      localized_paragraph: CustomFieldValue::LocalizedText,
+      paragraph: CustomFieldValue::MarkdownText,
+      localized_paragraph: CustomFieldValue::LocalizedMarkdownText,
       single_option: CustomFieldValue::SingleOption,
       multiple_options: CustomFieldValue::MultipleOptions,
       color: CustomFieldValue::Color,
@@ -36,10 +36,11 @@ module GobiertoCommon
     scope :searchable, -> { joins(:custom_field).where(custom_fields: { field_type: CustomField.searchable_fields }) }
     scope :for_item, ->(item) { where(item: item) }
     scope :with_field_type, ->(field_type) { joins(:custom_field).where(custom_fields: { field_type: field_type }) }
+    scope :sorted, -> { joins(:custom_field).order(position: :asc) }
 
     has_paper_trail if: ->(this) { this.item_has_versions }
 
-    delegate :value, :raw_value, :value=, :searchable_value, to: :value_processor
+    delegate :value, :value_string, :raw_value, :value=, :searchable_value, to: :value_processor
 
     after_save :check_plugin_callbacks
 

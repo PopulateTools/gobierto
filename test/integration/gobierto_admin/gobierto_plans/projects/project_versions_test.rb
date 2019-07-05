@@ -24,6 +24,10 @@ module GobiertoAdmin
           @site ||= sites(:madrid)
         end
 
+        def default_test_context
+          { site: site, js: true, admin: admin, window_size: :xl }
+        end
+
         def remove_custom_fields_with_callbacks
           ::GobiertoCommon::CustomFieldPlugin.with_callbacks.each do |plugin|
             ::GobiertoCommon::CustomField.with_plugin_type(plugin.type).destroy_all
@@ -62,7 +66,7 @@ module GobiertoAdmin
         end
 
         def test_create_project_as_manager
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
             create_project
 
             assert has_message? "Project created correctly."
@@ -78,7 +82,7 @@ module GobiertoAdmin
         end
 
         def test_create_new_version_as_manager
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
             create_project
 
             within "form" do
@@ -95,12 +99,12 @@ module GobiertoAdmin
         end
 
         def test_create_new_custom_field_version_as_manager
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               within "div.widget_save_v2.editor" do
                 click_button "Save"
@@ -113,12 +117,12 @@ module GobiertoAdmin
         end
 
         def test_publish_last_version_as_manager
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               find("label[for$='approved']").click
 
@@ -141,12 +145,12 @@ module GobiertoAdmin
         end
 
         def test_publish_old_version
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               find("label[for$='approved']").click
 
@@ -176,12 +180,15 @@ module GobiertoAdmin
         end
 
         def test_publish_old_version_with_changes
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 
+            assert has_content?("Editing version\n1")
+            assert has_content?("not published yet")
+
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               find("label[for$='approved']").click
 
@@ -190,9 +197,17 @@ module GobiertoAdmin
               end
             end
 
+            assert has_content?("Editing version\n2")
+            assert has_content?("not published yet")
+
             visit edit_admin_plans_plan_project_path(plan, project, version: 1)
 
-            fill_in "project_custom_records_goals_value_en", with: "Custom field updated from first version"
+            select "Done", from: "project_custom_records_status_value"
+
+            within(".widget_save_v2.editor") { click_button "Save" }
+
+            assert has_content?("Editing version\n3")
+            assert has_content?("not published yet")
 
             within "form" do
               within "div.widget_save_v2.editor" do
@@ -213,12 +228,12 @@ module GobiertoAdmin
         end
 
         def test_save_from_old_version_without_changes
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               find("label[for$='approved']").click
 
@@ -246,12 +261,12 @@ module GobiertoAdmin
         end
 
         def test_save_new_version_and_change_status
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 
             within "form" do
-              fill_in "project_custom_records_goals_value_en", with: "Custom field updated"
+              select "Not started", from: "project_custom_records_status_value"
 
               within "div.widget_save_v2.editor" do
                 click_button "Save"

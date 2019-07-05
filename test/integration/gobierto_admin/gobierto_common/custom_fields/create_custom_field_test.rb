@@ -57,7 +57,7 @@ module GobiertoAdmin
         end
 
         def test_permissions
-          with(site: site, js: false, admin: unauthorized_admin) do
+          with(site: site, admin: unauthorized_admin) do
             visit @path
             assert has_content?("You are not authorized to perform this action")
             assert_equal admin_root_path, current_path
@@ -65,7 +65,7 @@ module GobiertoAdmin
         end
 
         def test_create_custom_field_errors
-          with(site: site, js: false, admin: admin) do
+          with(site: site, admin: admin) do
             visit @path
 
             click_link "Add new field"

@@ -27,6 +27,9 @@ var defaultSlickGridOptions = {
 
 function preventLosingCurrentEdit() {
   $(document).click(function(e) {
+    // Avoid closing datepicker if we're navigating throught it
+    if ($(e.target).closest(".datepicker--nav-action,.datepicker--nav-title,.datepicker--cells-months,.datepicker--cells-years").length > 0) return
+
     if ($(e.target).parents(".plugin_field").length == 0) {
       var lock = Slick.GlobalEditorLock;
       if (lock.isActive()) lock.commitCurrentEdit()

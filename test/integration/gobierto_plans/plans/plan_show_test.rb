@@ -161,10 +161,10 @@ module GobiertoPlans
                 assert has_selector?("div", text: projects.last.progress.to_i.to_s + "%")
 
                 find("td", text: projects.last.name).click
-
-                assert has_content?(projects.last.status.name)
               end
             end
+
+            assert has_content?(projects.last.status.name)
           end
         end
       end

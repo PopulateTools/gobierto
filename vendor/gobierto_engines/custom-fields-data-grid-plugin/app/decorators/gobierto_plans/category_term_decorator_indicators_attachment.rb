@@ -5,8 +5,8 @@ module GobiertoPlans
 
     private
 
-    def node_plugins_data(node)
-      super_result = super
+    def node_plugins_data(plan, node)
+      super_result = super(plan, node)
 
       super_result[:indicators] = {
         title_translations: Hash[I18n.available_locales.map do |locale|
@@ -19,23 +19,42 @@ module GobiertoPlans
         "options @> ?",
         { configuration: { plugin_type: "indicators" } }.to_json
       )
-      records = node.custom_field_records.where(custom_field: indicators_fields)
-      indicators_payload = records.map(&:payload).compact.reduce({}, :merge)
+      records = ::GobiertoPlans::Node.node_custom_field_records(plan, node).where(custom_field: indicators_fields)
 
-      indicators_payload.each do |indicator_id, values|
-        indicator = ::GobiertoCommon::Term.find(indicator_id)
+      records.map(&:payload).flatten.compact.each do |payload|
+        next unless payload["indicator"]
 
-        super_result[:indicators][:data].append(
-          id: indicator_id.to_i,
-          name_translations: indicator.name_translations,
-          description_translations: indicator.description_translations,
-          last_value: values.to_a.sort_by { |item| Date.strptime(item[0], "%Y-%m") }
-                            .reverse.first.second,
-          values: values
-        )
+        indicator = ::GobiertoCommon::Term.find(payload["indicator"])
+
+        next unless indicator
+
+        existing_indicator = super_result[:indicators][:data].find { |e| e[:id] == indicator.id }
+
+        if existing_indicator
+          if payload["value_reached"] && (indicator_date(payload["date"]) > indicator_date(existing_indicator[:date]))
+            existing_indicator[:last_value] = payload["value_reached"]
+            existing_indicator[:date] = payload["date"]
+          end
+        elsif payload["value_reached"] && payload["date"]
+          super_result[:indicators][:data].append(
+            id: indicator.id,
+            name_translations: indicator.name_translations,
+            description_translations: indicator.description_translations,
+            last_value: payload["value_reached"],
+            date: payload["date"]
+          )
+        end
       end
 
       super_result
+    end
+
+    def indicator_date(date_string)
+      Date.strptime(date_string, "%Y-%m")
+    rescue ArgumentError
+      Date.strptime(date_string, "%Y")
+    rescue ArgumentError
+      nil
     end
 
   end

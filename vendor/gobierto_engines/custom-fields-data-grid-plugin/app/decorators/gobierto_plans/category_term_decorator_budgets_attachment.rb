@@ -5,8 +5,8 @@ module GobiertoPlans
 
     private
 
-    def node_plugins_data(node)
-      super_result = super
+    def node_plugins_data(plan, node)
+      super_result = super(plan, node)
 
       super_result[:budgets] = {
         title_translations: Hash[I18n.available_locales.map do |locale|
@@ -25,7 +25,9 @@ module GobiertoPlans
         "options @> ?",
         { configuration: { plugin_type: "budgets" } }.to_json
       )
-      records_functions = node.custom_field_records.where(custom_field: budgets_fields).map(&:functions)
+      records_functions = ::GobiertoPlans::Node.node_custom_field_records(plan, node)
+                                               .where(custom_field: budgets_fields)
+                                               .map(&:functions)
 
       return super_result if records_functions.empty?
 
@@ -36,15 +38,15 @@ module GobiertoPlans
       records_functions.each do |function|
         accumulated_planned_cost += function.planned_cost
         accumulated_executed_cost += function.executed_cost
-        accumulated_progesses.append(function.progress)
+        accumulated_progesses.append(function.progress) if function.progress
       end
 
       accumulated_progess = 0
       accumulated_progess = (accumulated_progesses.sum / accumulated_progesses.size) if accumulated_progesses.any?
 
-      super_result[:budgets][:budgeted_amount] = accumulated_planned_cost.round(2)
-      super_result[:budgets][:executed_amount] = accumulated_executed_cost.round(2)
-      super_result[:budgets][:executed_percentage] = "#{(accumulated_progess * 100).round} %"
+      super_result[:budgets][:budgeted_amount] = accumulated_planned_cost.round(2) if accumulated_planned_cost
+      super_result[:budgets][:executed_amount] = accumulated_executed_cost.round(2) if accumulated_executed_cost
+      super_result[:budgets][:executed_percentage] = "#{(accumulated_progess * 100).round} %" if accumulated_progess
 
       super_result
     end

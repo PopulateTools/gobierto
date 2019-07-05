@@ -24,6 +24,10 @@ module GobiertoAdmin
           @site ||= sites(:madrid)
         end
 
+        def default_test_context
+          { site: site, js: true, admin: admin, window_size: :xl }
+        end
+
         def remove_custom_fields_with_callbacks
           ::GobiertoCommon::CustomFieldPlugin.with_callbacks.each do |plugin|
             ::GobiertoCommon::CustomField.with_plugin_type(plugin.type).destroy_all
@@ -62,7 +66,7 @@ module GobiertoAdmin
         end
 
         def test_create_project_as_manager
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
             create_project
 
             assert has_message? "Project created correctly."
@@ -78,7 +82,7 @@ module GobiertoAdmin
         end
 
         def test_create_new_version_as_manager
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
             create_project
 
             within "form" do
@@ -95,7 +99,7 @@ module GobiertoAdmin
         end
 
         def test_create_new_custom_field_version_as_manager
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 
@@ -113,7 +117,7 @@ module GobiertoAdmin
         end
 
         def test_publish_last_version_as_manager
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 
@@ -141,7 +145,7 @@ module GobiertoAdmin
         end
 
         def test_publish_old_version
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 
@@ -176,7 +180,7 @@ module GobiertoAdmin
         end
 
         def test_publish_old_version_with_changes
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 
@@ -213,7 +217,7 @@ module GobiertoAdmin
         end
 
         def test_save_from_old_version_without_changes
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 
@@ -246,7 +250,7 @@ module GobiertoAdmin
         end
 
         def test_save_new_version_and_change_status
-          with(site: site, js: true, admin: admin) do
+          with default_test_context do
 
             create_project
 

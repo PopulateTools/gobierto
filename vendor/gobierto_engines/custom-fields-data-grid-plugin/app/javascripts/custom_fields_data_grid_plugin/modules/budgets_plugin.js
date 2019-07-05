@@ -180,7 +180,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         name: i18n("full_amount"),
         field: "full_amount",
         width: 120,
-        cssClass: "cell-title"
+        cssClass: "cell-title disabled"
       }
     ];
 

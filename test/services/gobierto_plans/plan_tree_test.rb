@@ -29,7 +29,7 @@ class GobiertoPlans::PlanTreeTest < ActiveSupport::TestCase
 
   def second_category
     {
-      id: 184796018,
+      id: 184_796_018,
       uid: "1",
       type: "category",
       max_level: false,
@@ -52,7 +52,7 @@ class GobiertoPlans::PlanTreeTest < ActiveSupport::TestCase
 
   def third_category
     {
-      id: 344799082,
+      id: 344_799_082,
       uid: "2",
       type: "category",
       max_level: false,

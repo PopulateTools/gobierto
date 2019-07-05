@@ -17,6 +17,10 @@ module GobiertoPlans
       @instance_custom_field_record = gobierto_common_custom_field_records(:scholarships_in_school_cateens_custom_field_instance_level)
     end
 
+    def node_custom_fields
+      ::GobiertoPlans::Node.node_custom_fields(@plan, @node)
+    end
+
     def node_custom_field_records
       ::GobiertoPlans::Node.node_custom_field_records(@plan, @node)
     end
@@ -25,7 +29,24 @@ module GobiertoPlans
       assert @node.valid?
     end
 
-    def test_custom_field_records
+    def test_node_custom_fields
+      ::GobiertoCommon::CustomField.destroy_all
+
+      # when empty
+      assert node_custom_fields.empty?
+
+      # when only global fields
+      field = ::GobiertoCommon::CustomField.create!(@global_custom_field.attributes)
+
+      assert_equal [field], node_custom_fields
+
+      # when global and instance-level fields
+      field = ::GobiertoCommon::CustomField.create!(@instance_custom_field.attributes)
+
+      assert_equal [field], node_custom_fields
+    end
+
+    def test_node_custom_field_records
       ::GobiertoCommon::CustomFieldRecord.destroy_all
       ::GobiertoCommon::CustomField.destroy_all
 

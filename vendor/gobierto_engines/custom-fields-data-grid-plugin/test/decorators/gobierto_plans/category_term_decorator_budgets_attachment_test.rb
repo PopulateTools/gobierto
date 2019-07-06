@@ -11,6 +11,14 @@ module GobiertoPlans
       )
     end
 
+    def custom_field_record
+      @custom_field_record ||= gobierto_common_custom_field_records :political_agendas_budgets_custom_field_record
+    end
+
+    def project
+      @project ||= gobierto_plans_nodes :political_agendas
+    end
+
     def plugin_data
       @plugin_data ||= decorator.nodes_data.first[:attributes][:plugins_data][:budgets]
     end
@@ -24,6 +32,22 @@ module GobiertoPlans
       assert_equal 55555.56, plugin_data[:budgeted_amount]
       assert_equal 27777.78, plugin_data[:executed_amount]
       assert_equal "50 %", plugin_data[:executed_percentage]
+    end
+
+    def test_versioned_plugin_data
+      project.paper_trail.save_with_version
+      project.update_attribute(:ends_at, 2.days.ago)
+
+      custom_field_record.paper_trail.save_with_version
+      custom_field_record.update(
+        payload: { "budget_lines" => [] },
+        item_has_versions: true
+      )
+      assert_equal "50 %", decorator.nodes_data.first[:attributes][:plugins_data][:budgets][:executed_percentage]
+
+      project.update_attribute(:published_version, 2)
+      assert_equal "0 %", decorator.nodes_data.first[:attributes][:plugins_data][:budgets][:executed_percentage]
+      assert_nil decorator.nodes_data.first[:attributes][:plugins_data][:budgets][:executed_percentage]
     end
 
   end

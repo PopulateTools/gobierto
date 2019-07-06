@@ -20,8 +20,11 @@ module GobiertoPlans
         { configuration: { plugin_type: "indicators" } }.to_json
       )
       records = ::GobiertoPlans::Node.node_custom_field_records(plan, node).where(custom_field: indicators_fields)
+      versioned_records = records.map do |record|
+        ::GobiertoCommon::CustomFieldFunctions::Base.new(record, version: node.published_version).record
+      end
 
-      records.map(&:payload).flatten.compact.each do |payload|
+      versioned_records.map(&:payload).flatten.compact.each do |payload|
         next unless payload["indicator"]
 
         indicator = ::GobiertoCommon::Term.find(payload["indicator"])

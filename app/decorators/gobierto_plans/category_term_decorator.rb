@@ -155,6 +155,10 @@ module GobiertoPlans
       ::GobiertoPlans::Node.node_custom_field_records(plan, node).map do |record|
         next if record.custom_field.field_type == "plugin"
 
+        record = record.versions[node.version_index]&.reify if node.version_index.negative?
+
+        next if record.blank?
+
         {
           value: record.value_string,
           raw_value: record.raw_value,

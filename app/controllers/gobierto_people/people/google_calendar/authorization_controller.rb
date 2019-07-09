@@ -20,8 +20,7 @@ module GobiertoPeople
             client_secrets = Google::APIClient::ClientSecrets.load(client_secret_path)
 
             auth_client = client_secrets.to_authorization
-            auth_client.update!(:scope => scope)
-            auth_client.code = params[:code]
+            auth_client.update!(scope: scope, code: params[:code], redirect_uri: redirect_uri)
             auth_client.fetch_access_token!
             auth_client.client_secret = nil
             @configuration.google_calendar_credentials = { GobiertoPeople::GoogleCalendar::CalendarIntegration::USERNAME => auth_client.to_json }.to_yaml
@@ -56,6 +55,11 @@ module GobiertoPeople
 
         def client_secret_path
           GobiertoPeople::GoogleCalendar::CalendarIntegration::CLIENT_SECRETS_PATH
+        end
+
+        def redirect_uri
+          uri = URI.parse(request.original_url)
+          "#{uri.scheme}://#{uri.host}#{uri.path}"
         end
       end
     end

@@ -18,6 +18,11 @@ module GobiertoAdmin
 
     attr_reader :permissions
 
+    attr_writer(
+      :resource_type,
+      :resource_id
+    )
+
     delegate :persisted?, to: :admin_group
 
     validates :name, :site, presence: true
@@ -51,6 +56,14 @@ module GobiertoAdmin
       return unless PERMISSION_TYPES.has_key? permission_type
 
       PERMISSION_TYPES.dig(permission_type, :action_names, resource_type.to_sym) || [:manage]
+    end
+
+    def resource_type
+      @resource_type ||= admin_group.resource_type
+    end
+
+    def resource_id
+      @resource_id ||= admin_group.resource_id
     end
 
     private

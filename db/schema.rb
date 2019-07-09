@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_03_074757) do
+ActiveRecord::Schema.define(version: 2019_07_09_132921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -89,10 +89,10 @@ ActiveRecord::Schema.define(version: 2019_06_03_074757) do
   create_table "admin_group_permissions", force: :cascade do |t|
     t.bigint "admin_group_id"
     t.string "namespace", default: "", null: false
-    t.string "resource_name", default: "", null: false
+    t.string "resource_type", default: "", null: false
     t.bigint "resource_id"
     t.string "action_name", default: "", null: false
-    t.index ["admin_group_id", "namespace", "resource_name", "resource_id", "action_name"], name: "index_admin_permissions_on_admin_group_id_and_fields"
+    t.index ["admin_group_id", "namespace", "resource_type", "resource_id", "action_name"], name: "index_admin_permissions_on_admin_group_id_and_fields"
     t.index ["admin_group_id"], name: "index_admin_group_permissions_on_admin_group_id"
   end
 

@@ -91,7 +91,7 @@ module GobiertoAdmin
     end
 
     def ignored_admin_group_attributes
-      [:site_id]
+      ["group_type"]
     end
 
     def set_admin_policy

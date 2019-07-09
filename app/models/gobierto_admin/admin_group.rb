@@ -14,5 +14,7 @@ module GobiertoAdmin
     has_many :site_options_permissions, -> { for_site_options }, class_name: "GobiertoAdmin::GroupPermission"
 
     validates :name, presence: true, uniqueness: { scope: :site_id }
+
+    enum group_type: { normal: 0, system: 1 }
   end
 end

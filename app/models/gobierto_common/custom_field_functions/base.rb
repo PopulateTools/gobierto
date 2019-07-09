@@ -19,7 +19,7 @@ module GobiertoCommon
 
         version_index = version_number - record.item.versions.length
 
-        return record unless record.versions[version_index].present?
+        return record unless record.versions[version_index].present? && record.versions[version_index].reify.present?
 
         record.versions[version_index].reify
       end

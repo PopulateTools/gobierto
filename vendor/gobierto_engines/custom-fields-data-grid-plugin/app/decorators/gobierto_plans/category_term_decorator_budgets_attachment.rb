@@ -27,7 +27,7 @@ module GobiertoPlans
       )
       records_functions = ::GobiertoPlans::Node.node_custom_field_records(plan, node)
                                                .where(custom_field: budgets_fields)
-                                               .map(&:functions)
+                                               .map { |record| record.functions(version: node.published_version) }
 
       return super_result if records_functions.empty?
 

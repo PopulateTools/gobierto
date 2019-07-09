@@ -21,7 +21,7 @@ en:
         remove_rows: Remove selected rows
         select_deselect_all: Select / Deselect All
       human_resources:
-        cost: Cost
+        cost: Annual cost
         end_date: End date
         human_resource: Human resource
         start_date: Start date

@@ -92,19 +92,19 @@ module GobiertoAdmin
     end
 
     def can_customize_site?
-      managing_user? || site_options_permissions.exists?(resource_name: :customize)
+      managing_user? || site_options_permissions.exists?(resource_type: :customize)
     end
 
     def can_edit_vocabularies?
-      managing_user? || site_options_permissions.exists?(resource_name: :vocabularies)
+      managing_user? || site_options_permissions.exists?(resource_type: :vocabularies)
     end
 
     def can_edit_custom_fields?
-      managing_user? || site_options_permissions.exists?(resource_name: :custom_fields)
+      managing_user? || site_options_permissions.exists?(resource_type: :custom_fields)
     end
 
     def can_edit_templates?
-      managing_user? || site_options_permissions.exists?(resource_name: :templates)
+      managing_user? || site_options_permissions.exists?(resource_type: :templates)
     end
 
     private

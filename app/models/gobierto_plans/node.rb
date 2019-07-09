@@ -50,7 +50,7 @@ module GobiertoPlans
     extra_moderation_permissions_lookup_attributes do |_|
       [{
         namespace: "site_module",
-        resource_name: "gobierto_plans",
+        resource_type: "gobierto_plans",
         resource_id: nil
       }]
     end

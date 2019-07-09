@@ -22,12 +22,12 @@ module GobiertoAdmin
 
       @admin_group_form = AdminGroupForm.new(
         @admin_group.attributes.except(*ignored_admin_group_attributes).merge(
-          modules_actions: @admin_group.modules_permissions.distinct.pluck(:resource_name).map do |resource_name|
-            [resource_name,
-             @admin_group.modules_permissions.where(resource_name: resource_name).distinct.pluck(:action_name)]
+          modules_actions: @admin_group.modules_permissions.distinct.pluck(:resource_type).map do |resource_type|
+            [resource_type,
+             @admin_group.modules_permissions.where(resource_type: resource_type).distinct.pluck(:action_name)]
           end.to_h,
           people: @admin_group.people_permissions.where(action_name: "manage").pluck(:resource_id),
-          site_options: @admin_group.site_options_permissions.where(action_name: "manage").pluck(:resource_name),
+          site_options: @admin_group.site_options_permissions.where(action_name: "manage").pluck(:resource_type),
           all_people: @admin_group.people_permissions.where(action_name: "manage_all").exists?
         )
       )
@@ -107,7 +107,7 @@ module GobiertoAdmin
     end
 
     def set_site_options
-      @site_options = Permission::SiteOption::RESOURCE_NAMES.map do |option_name|
+      @site_options = Permission::SiteOption::RESOURCE_TYPES.map do |option_name|
         OpenStruct.new(
           name: option_name,
           label_text: Permission::SiteOption.label_text(option_name)

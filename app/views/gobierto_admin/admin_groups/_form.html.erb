@@ -20,7 +20,7 @@
           <div class="options compact">
             <%= f.collection_check_boxes(:site_options, Array(@site_options), :name, :name) do |b| %>
               <div class="option">
-                <%= b.check_box(checked: @admin_group && @admin_group.site_options_permissions.exists?(resource_name: b.object.name)) %>
+                <%= b.check_box(checked: @admin_group && @admin_group.site_options_permissions.exists?(resource_type: b.object.name)) %>
                 <%= b.label do %>
                   <span></span>
                   <%= b.object.label_text %>
@@ -37,7 +37,7 @@
           <div class="options compact">
             <%= f.collection_check_boxes(:modules, Array(@site_modules), :namespace, :name) do |module_b| %>
               <div class="option">
-                <% check_module_permission = @admin_group && @admin_group.permissions.by_namespace("site_module").resource_names.map(&:camelize).include?(module_b.value) %>
+                <% check_module_permission = @admin_group && @admin_group.permissions.by_namespace("site_module").resource_types.map(&:camelize).include?(module_b.value) %>
                 <%= module_b.check_box(data: { behavior: "toggle-module" }, checked: check_module_permission) %>
                 <%= module_b.label do %>
                   <span></span>
@@ -54,7 +54,7 @@
                       <div class="option" data-class="<%= "modules_action" %>" data-module="<%= module_b.value %>">
                         <%= action_b.check_box(data: { behavior: "toggle-action" },
                                                id: "modules_action_#{module_b.value.underscore}_#{action_b.value}",
-                                               checked: @admin_group && @admin_group.modules_permissions.exists?(resource_name: module_b.value.underscore, action_name: action_b.value)) %>
+                                               checked: @admin_group && @admin_group.modules_permissions.exists?(resource_type: module_b.value.underscore, action_name: action_b.value)) %>
                         <%= action_b.label(for: "modules_action_#{module_b.value.underscore}_#{action_b.value}") do %>
                           <span></span><%= action_b.text %>
                         <% end %>

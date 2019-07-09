@@ -104,7 +104,7 @@ module GobiertoAdmin
       # assert site options permissions
 
       assert_equal "site_options", site_option_permission.namespace
-      assert_equal "templates", site_option_permission.resource_name
+      assert_equal "templates", site_option_permission.resource_type
       assert_equal "manage", site_option_permission.action_name
     end
   end

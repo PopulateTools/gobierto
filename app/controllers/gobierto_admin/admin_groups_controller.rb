@@ -5,7 +5,7 @@ module GobiertoAdmin
     before_action :managing_user
 
     def index
-      @admin_groups = AdminGroup.where(site: current_site).all
+      @admin_groups = AdminGroup.where(site: current_site).normal
     end
 
     def new
@@ -77,7 +77,7 @@ module GobiertoAdmin
     private
 
     def find_admin_group
-      AdminGroup.find(params[:id])
+      AdminGroup.normal.find(params[:id])
     end
 
     def admin_group_params

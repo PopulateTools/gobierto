@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_09_132921) do
+ActiveRecord::Schema.define(version: 2019_07_09_161330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -40,6 +40,10 @@ ActiveRecord::Schema.define(version: 2019_07_09_132921) do
   create_table "admin_admin_groups", force: :cascade do |t|
     t.bigint "site_id"
     t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.integer "group_type", default: 0, null: false
+    t.index ["resource_type", "resource_id"], name: "index_admin_admin_groups_on_resource_type_and_resource_id"
     t.index ["site_id"], name: "index_admin_admin_groups_on_site_id"
   end
 

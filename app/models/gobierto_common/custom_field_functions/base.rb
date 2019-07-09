@@ -6,7 +6,7 @@ module GobiertoCommon
       attr_accessor :record
 
       delegate :custom_field, :value, to: :record
-      delegate :configuration, to: :custom_field
+      delegate :configuration, :site, to: :custom_field
 
       def initialize(record, options = {})
         @record = versioned_record(record, options[:version])

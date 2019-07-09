@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoCommon
     module CustomFields
-      class InstanceLevelResourcesController < BaseController
+      class InstanceLevelResourcesController < GobiertoCommon::CustomFields::BaseController
         before_action :check_permissions!
 
         def show

@@ -10,23 +10,23 @@ module GobiertoCommon::CustomFieldFunctions
     end
 
     def progress(options = {})
-      ids = configuration.plugin_configuration["custom_field_ids"] || []
       uids = configuration.plugin_configuration["custom_field_uids"] || []
 
-      return if ids.blank? && uids.blank?
+      return if uids.blank?
 
-      t = GobiertoCommon::CustomField.arel_table
+      calculation_custom_fields = site.custom_fields.find_by!(uid: uids)
 
-      custom_fields = GobiertoCommon::CustomField.where(instance: custom_field.instance).where(
-        t[:uid].in(uids).or(t[:id].in(ids))
-      )
-
-      records = GobiertoCommon::CustomFieldRecord.where(item: record.item, custom_field: custom_fields)
-      progress_items = records.map { |record| record.functions(version: @version).try(:progress, options) }.compact
+      calculation_records = GobiertoCommon::CustomFieldRecord.where(item: record.item, custom_field: calculation_custom_fields)
+      progress_items = calculation_records.map { |record| record.functions(version: @version).progress(options) }.compact
 
       return if progress_items.blank?
 
       progress_items.instance_eval { sum / size.to_f }
+
+    rescue StandardError => e
+      Rollbar.error(e)
+
+      nil
     end
 
     def update_progress!

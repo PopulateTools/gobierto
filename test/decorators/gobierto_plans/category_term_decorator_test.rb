@@ -24,6 +24,14 @@ module GobiertoPlans
       @action ||= GobiertoPlans::CategoryTermDecorator.new(gobierto_common_terms(:center_basic_needs_plan_term))
     end
 
+    def custom_field_record
+      @custom_field_record ||= gobierto_common_custom_field_records :political_agendas_custom_field_record_localized_description
+    end
+
+    def project
+      @project ||= gobierto_plans_nodes :political_agendas
+    end
+
     def projects
       node_ids = GobiertoPlans::CategoriesNode.where(category_id: actions.pluck(:id)).pluck(:node_id)
       @projects ||= GobiertoPlans::Node.where(id: node_ids)
@@ -46,5 +54,36 @@ module GobiertoPlans
 
       assert_equal 50, action.progress
     end
+
+    def test_includes_custom_fields
+      decorator = GobiertoPlans::CategoryTermDecorator.new(
+        gobierto_common_terms(:center_basic_needs_plan_term)
+      )
+      node_attributes = decorator.nodes_data.first[:attributes]
+
+      assert_equal 7, node_attributes[:custom_field_records].size
+    end
+
+    def test_versioned_custom_field_record
+      project.paper_trail.save_with_version
+      project.update_attribute(:ends_at, 2.days.ago)
+
+      custom_field_record.paper_trail.save_with_version
+      custom_field_record.update(
+        payload: { "description" => { "es" => "Descripción corta", "en" => "Short description" } },
+        item_has_versions: true
+      )
+
+      decorator = GobiertoPlans::CategoryTermDecorator.new(
+        gobierto_common_terms(:center_basic_needs_plan_term)
+      )
+
+      assert_equal custom_field_record.versions[0].reify.value, decorator.nodes_data.first[:attributes][:custom_field_records].first[:value]
+
+      project.update_attribute(:published_version, 2)
+
+      assert_equal "<p>Short description</p>\n", decorator.nodes_data.first[:attributes][:custom_field_records].first[:value]
+    end
+
   end
 end

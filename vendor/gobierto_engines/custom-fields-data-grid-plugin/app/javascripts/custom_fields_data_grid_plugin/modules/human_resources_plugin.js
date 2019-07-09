@@ -1,7 +1,7 @@
 import { Grid, Editors, Plugins } from 'slickgrid-es6';
 import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
 import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
-import { applyPluginStyles, preventLosingCurrentEdit } from './common_slickgrid_behavior';
+import { applyPluginStyles, preventLosingCurrentEdit, defaultSlickGridOptions } from './common_slickgrid_behavior';
 import { DateEditor } from './datepicker_editor';
 
 window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginController = (function() {
@@ -40,7 +40,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
       let vocabularyTerms = jsonData["terms"];
       let element = $(`[data-uid=${uid}]`)
       let id = element.attr('id')
-      let data = _deserializeTableData($(`#${id}`).find("input[name$='[value]'").val());
+      let data = _deserializeTableData($(`#project_custom_records_${uid}_value`).val());
 
       applyPluginStyles(element, _pluginCssClass)
       _slickGrid(id, data, vocabularyTerms)
@@ -115,18 +115,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsHumanResourcesPluginControl
       }
     ];
 
-    // generice grid options
-    let options = {
-      editable: true,
-      enableAddRow: true,
-      enableCellNavigation: true,
-      asyncEditorLoading: false,
-      enableColumnReorder: false,
-      autoEdit: true,
-      itemsCountId: `${id}_items`
-    };
+    let customSlickGridOptions = { itemsCountId: `${id}_items` }
 
-    _initializeGrid(id, data, columns, options);
+    _initializeGrid(id, data, columns, { ...defaultSlickGridOptions, ...customSlickGridOptions });
   }
   return GobiertoCommonCustomFieldRecordsHumanResourcesPluginController;
 })();

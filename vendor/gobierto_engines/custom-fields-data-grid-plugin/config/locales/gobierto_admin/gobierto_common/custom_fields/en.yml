@@ -18,7 +18,6 @@ en:
         economic: Economic
         functional: Functional
       data_grid:
-        add: Add
         remove_rows: Remove selected rows
         select_deselect_all: Select / Deselect All
       human_resources:
@@ -27,7 +26,10 @@ en:
         human_resource: Human resource
         start_date: Start date
       indicators:
+        date: Updated at
         indicator: Indicator
+        objective: Objective
+        value_reached: Value reached
     gobierto_common:
       custom_fields:
         custom_fields:

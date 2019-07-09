@@ -482,7 +482,7 @@ A través del administrador se pueden definir los tipos de planes que se van a v
   .gobierto_planification section:not(.level_0).cat_1 .node-breadcrumb {
     border: 1px solid rgba(123,123,123, 0.75);
   }
-  .gobierto_planification section:not(.level_0).cat_1 .node-project-detail .project-mandatory,
+
   .gobierto_planification section:not(.level_0).cat_1 .node-action-line table tbody tr:hover td {
     background-color: rgba(123,123,123, 0.2);
   }

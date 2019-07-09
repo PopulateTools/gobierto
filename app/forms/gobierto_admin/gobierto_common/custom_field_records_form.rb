@@ -18,7 +18,11 @@ module GobiertoAdmin
       validates :site, presence: true
 
       def available_custom_fields
-        site.custom_fields.sorted.where(class_name: item.class.name, instance_type: instance_type_options, instance_id: instance_id_options)
+        if instance # GobiertoPlans
+          ::GobiertoPlans::Node.node_custom_fields(instance, item).sorted
+        else # GobiertoCitizensCharters
+          site.custom_fields.sorted.where(class_name: item.class.name, instance_type: instance_type_options, instance_id: instance_id_options)
+        end
       end
 
       def custom_field_records

@@ -58,5 +58,10 @@ module GobiertoPlans
 
       self.class.with_deleted.where(vocabulary_id: vocabulary_id).where.not(id: id).exists?
     end
+
+    def instance_level_custom_fields
+      ::GobiertoCommon::CustomField.where(instance: self)
+    end
+
   end
 end

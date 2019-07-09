@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+require_relative "../../app/decorators/gobierto_plans/project_decorator_progress_attachment"
+
+def attach_module(config, origin, module_class)
+  if config.plugins_attached_modules[origin]
+    config.plugins_attached_modules[origin].append(module_class)
+  else
+    config.plugins_attached_modules[origin] = [module_class]
+  end
+end
+
 begin
   require "rails/railtie"
 rescue LoadError
@@ -19,6 +29,7 @@ else
         conf.custom_field_plugins_packs += %w(progress)
         conf.autoload_paths += Dir[Pathname.new(base_path).join("app", "models")]
         conf.eager_load_paths += Dir[Pathname.new(base_path).join("app", "models")]
+        attach_module(conf, "::GobiertoPlans::ProjectDecorator", ::GobiertoPlans::ProjectDecoratorProgressAttachment)
         conf.i18n.load_path += Dir[File.join(base_path, "config", "locales", "**", "*.{rb,yml}")]
       end
 

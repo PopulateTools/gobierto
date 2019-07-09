@@ -36,8 +36,9 @@ module GobiertoPlans
         end
 
         format.json do
-          plan_tree = Rails.cache.fetch(@plan.cache_key + "/plan_tree") do
-            GobiertoPlans::PlanTree.new(@plan).call
+          plan_tree, global_progress = Rails.cache.fetch(@plan.cache_key + "/plan_tree") do
+            tree = GobiertoPlans::PlanTree.new(@plan)
+            [tree.call, tree.global_progress]
           end
 
           render(
@@ -46,7 +47,7 @@ module GobiertoPlans
                     level_keys: @plan.level_keys,
                     show_table_header: @plan.configuration_data&.dig("show_table_header"),
                     open_node: @plan.configuration_data&.dig("open_node"),
-                    global_progress: @plan.global_progress }
+                    global_progress: global_progress }
           )
         end
       end

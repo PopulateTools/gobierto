@@ -158,7 +158,7 @@ module GobiertoPeople
 
       def parse_date(time_attribute)
         if time_attribute
-          time_attribute.date_time || DateTime.parse(time_attribute.date)
+          time_attribute.date_time || time_attribute.date.to_datetime
         end
       end
 

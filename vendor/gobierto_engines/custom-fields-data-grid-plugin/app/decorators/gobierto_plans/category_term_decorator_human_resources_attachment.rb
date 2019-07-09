@@ -5,8 +5,8 @@ module GobiertoPlans
 
     private
 
-    def node_plugins_data(node)
-      super_result = super
+    def node_plugins_data(plan, node)
+      super_result = super(plan, node)
 
       super_result[:human_resources] = {
         title_translations: Hash[I18n.available_locales.map do |locale|
@@ -21,17 +21,19 @@ module GobiertoPlans
         "options @> ?",
         { configuration: { plugin_type: "human_resources" } }.to_json
       )
-      records = node.custom_field_records.where(custom_field: human_resources_fields)
+      records = ::GobiertoPlans::Node.node_custom_field_records(plan, node).where(custom_field: human_resources_fields)
       records_functions = records.map { |r| r.functions(version: node.published_version) }
 
       return super_result if records_functions.empty?
 
-      total_cost = records_functions.map(&:cost).sum
-      total_executed = records_functions.map { |f| f.cost * f.progress }.sum
+      total_cost = records_functions.map(&:planned_cost).compact.sum
+      total_executed = records_functions.map(&:executed_cost).compact.sum
 
       super_result[:human_resources][:budgeted_amount] = total_cost.round
       super_result[:human_resources][:executed_amount] = total_executed.round
-      super_result[:human_resources][:executed_percentage] = "#{((total_executed * 100) / total_cost).round} %"
+      if total_cost.positive?
+        super_result[:human_resources][:executed_percentage] = "#{((total_executed * 100) / total_cost).round} %"
+      end
 
       super_result
     end

@@ -1,14 +1,14 @@
 import { Grid, Editors, Plugins } from 'slickgrid-es6';
 import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
 import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
-import { applyPluginStyles, preventLosingCurrentEdit } from './common_slickgrid_behavior';
+import { applyPluginStyles, preventLosingCurrentEdit, defaultSlickGridOptions } from './common_slickgrid_behavior';
 
 window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (function() {
 
   function GobiertoCommonCustomFieldRecordsBudgetsPluginController() {}
 
   var _grid
-  var _availableYears = {}
+  var _availableYears = []
   var _budgetLines = {
     grouped: { economic: {}, functional: {} }
   }
@@ -41,10 +41,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
   }
 
   function _parseAvailableYears(jsonData) {
-    $.each(jsonData, function(idx) {
-      let year = jsonData[idx]
-      _availableYears[year] = year.toString()
-    })
+    _availableYears = jsonData.sort().reverse()
   }
 
   function _parseBudgetLines(jsonData) {
@@ -80,7 +77,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
       budgetLinesPromise.then(function(jsonData) {
         _parseBudgetLines(jsonData)
 
-        let data = _deserializeTableData($(`#${id}`).find("input[name$='[value]'").val())
+        let data = _deserializeTableData($(`#project_custom_records_${uid}_value`).val())
 
         applyPluginStyles(element, _pluginCssClass)
         _slickGrid(id, data)
@@ -114,9 +111,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
       if (jsonData) {
         var amount = jsonData.forecast.updated_amount || jsonData.forecast.original_amount
         updatedRow.full_amount = `${Math.round(amount).toLocaleString(I18n.locale)} €`
-        if (updatedRow.weight) {
-          updatedRow.assigned_amount = `${Math.round(amount * updatedRow.weight / 100).toLocaleString(I18n.locale)} €`
-        }
         _grid.invalidateRow(row)
         _grid.render()
       }
@@ -174,13 +168,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         dataSource: _budgetLines
       },
       {
-        id: "full_amount",
-        name: i18n("full_amount"),
-        field: "full_amount",
-        width: 120,
-        cssClass: "cell-title"
-      },
-      {
         id: "weight",
         name: `${i18n("weight")} %`,
         field: "weight",
@@ -189,26 +176,17 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         editor: Editors.Integer
       },
       {
-        id: "assigned_amount",
-        name: i18n("assigned_amount"),
-        field: "assigned_amount",
+        id: "full_amount",
+        name: i18n("full_amount"),
+        field: "full_amount",
         width: 120,
-        cssClass: "cell-title"
+        cssClass: "cell-title disabled"
       }
     ];
 
-    // generice grid options
-    let options = {
-      editable: true,
-      enableAddRow: true,
-      enableCellNavigation: true,
-      asyncEditorLoading: false,
-      enableColumnReorder: false,
-      autoEdit: true,
-      itemsCountId: `${id}_items`
-    };
+    let customSlickGridOptions = { itemsCountId: `${id}_items` }
 
-    _initializeGrid(id, data, columns, options);
+    _initializeGrid(id, data, columns, { ...defaultSlickGridOptions, ...customSlickGridOptions });
     for (let i = 0; i < data.length; i++) _refreshRowAmount(i)
   }
 

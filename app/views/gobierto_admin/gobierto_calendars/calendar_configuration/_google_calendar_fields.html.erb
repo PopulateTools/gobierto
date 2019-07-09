@@ -4,7 +4,7 @@
 
     <div class="form_item input_text">
       <p><%= t('.share_link') %></p>
-      <p><input type="text" name="google_calendar_invitation_url" value="<%= new_gobierto_people_google_calendar_authorization_url(token: @collection.container.google_calendar_token, host: ENV['BASE_HOST']) %>"/></p>
+      <p><input type="text" name="google_calendar_invitation_url" value="<%= new_gobierto_people_google_calendar_authorization_url(token: @collection.container.google_calendar_token, host: current_site.domain) %>"/></p>
     </div>
 
   <% else %>

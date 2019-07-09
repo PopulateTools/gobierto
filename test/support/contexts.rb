@@ -22,7 +22,16 @@ def with(params = {})
   factories = params[:factories] || []
   admin = params[:admin]
 
-  Capybara.current_driver = Capybara.javascript_driver if params[:js]
+  if params[:js]
+    Capybara.current_driver = Capybara.javascript_driver
+
+    if params[:window_size] == :xl
+      window_handle = page.driver.window_handles.first
+      default_size = page.driver.window_size(window_handle)
+      page.driver.resize_window_to(window_handle, 2000, 2000)
+    end
+  end
+
   sign_in_admin(admin) if admin
 
   if (site = params[:site])
@@ -36,5 +45,9 @@ ensure
   sign_out_admin if admin
   factory&.teardown
   factories.each(&:teardown)
-  Capybara.current_driver = Capybara.default_driver if params[:js]
+
+  if params[:js]
+    page.driver.resize_window_to(window_handle, *default_size) if params[:window_size]
+    Capybara.current_driver = Capybara.default_driver
+  end
 end

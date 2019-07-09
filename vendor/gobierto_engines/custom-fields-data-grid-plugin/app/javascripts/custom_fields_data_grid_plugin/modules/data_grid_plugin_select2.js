@@ -20,6 +20,11 @@ function PopulateSelect(select, dataSource, addBlank) {
         $group[0].appendChild(newOption);
       })
     });
+  } else if (Array.isArray(dataSource)) {
+    $.each(dataSource, function (_idx, value) {
+      newOption = new Option(value, value)
+      select.appendChild(newOption)
+    })
   } else {
     $.each(dataSource, function (value, text) {
       newOption = new Option(text, value);
@@ -44,6 +49,10 @@ function Select2Formatter(_row, _cell, value, columnDef, _dataContext) {
     })
   }
 
+  if (Array.isArray(columnDef.dataSource) && columnDef.dataSource.indexOf(value) > -1) {
+    return value
+  }
+
   return result || columnDef.dataSource[value] || '-'
 }
 
@@ -56,7 +65,7 @@ function Select2Editor(args) {
   this.init = function () {
     $input = $('<select></select>');
     $input.width(args.container.clientWidth + 3);
-    PopulateSelect($input[0], args.column.dataSource, true);
+    PopulateSelect($input[0], args.column.dataSource, false);
     $input.appendTo(args.container);
     $input.focus().select();
 
@@ -93,7 +102,11 @@ function Select2Editor(args) {
   };
 
   this.serializeValue = function () {
-    return $input.val();
+    var inputValue = $input.val()
+    var inputValueInt = parseInt(inputValue)
+
+    if (isNaN(inputValueInt)) return inputValue
+    return inputValueInt
   };
 
   this.applyValue = function (item, state) {

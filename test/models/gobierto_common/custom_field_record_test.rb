@@ -67,7 +67,7 @@ class GobiertoCommon::CustomFieldRecordTest < ActiveSupport::TestCase
     subject = GobiertoCommon::CustomFieldRecord.new
     subject.custom_field = custom_field_paragraph
     subject.value = "randomstring1"
-    assert_equal "randomstring1", subject.value
+    assert_equal "<p>randomstring1</p>\n", subject.value
 
     subject = GobiertoCommon::CustomFieldRecord.new
     subject.custom_field = custom_field_multiple_options

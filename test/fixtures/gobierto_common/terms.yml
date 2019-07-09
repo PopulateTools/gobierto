@@ -375,6 +375,28 @@ indicators_net_savings:
   level: 0
   position: 1
 
+indicators_births:
+  vocabulary: indicators_vocabulary
+  name_translations: <%= { "en" => "Births", "es" => "Nacimientos" }.to_json %>
+  description_translations: <%= {
+    en: "Description of births",
+    es: "Descripción de nacimientos"
+  }.to_json %>
+  slug: indicators-births
+  level: 0
+  position: 2
+
+indicators_deaths:
+  vocabulary: indicators_vocabulary
+  name_translations: <%= { "en" => "Deaths", "es" => "Defunciones" }.to_json %>
+  description_translations: <%= {
+    en: "Description of deaths",
+    es: "Descripción de defunciones"
+  }.to_json %>
+  slug: indicators-deaths
+  level: 0
+  position: 3
+
 ## human_resources_vocabulary
 
 human_resources_supervisor:
@@ -390,3 +412,15 @@ human_resources_employee:
   slug: human-resources-employee
   level: 0
   position: 1
+
+## economic_plan_categories_vocabulary
+
+economy_economic_plan_term:
+  vocabulary: economic_plan_categories_vocabulary
+  name_translations: <%= {
+    en: 'Economy',
+    es: 'Economía'
+  }.to_json %>
+  slug: economy-economic-plan-term
+  level: 0
+  position: 0

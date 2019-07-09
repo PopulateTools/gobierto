@@ -2,8 +2,20 @@
 
 module GobiertoPlans
   class ProjectDecorator < BaseDecorator
-    def initialize(project)
+
+    def initialize(project, opts = {})
       @object = project
+      options = opts[:opts] || {}
+      @plan = options[:plan]
+      @site = options[:site]
+    end
+
+    def plan
+      @plan ||= GobiertoPlans::Plan.find_by(categories_vocabulary: project.categories.first.vocabulary)
+    end
+
+    def site
+      @site ||= plan&.site
     end
 
     def version_index
@@ -11,9 +23,20 @@ module GobiertoPlans
     end
 
     def at_current_version
-      return self unless version_index.negative?
+      @at_current_version ||= begin
+                                versioned_project = version_index.negative? ? versions[version_index].reify : self
 
-      versions[version_index].reify
+                                versioned_project.tap do |attributes|
+                                  attributes.assign_attributes node_plugins_attributes
+                                end
+                              end
     end
+
+    private
+
+    def node_plugins_attributes
+      {}
+    end
+
   end
 end

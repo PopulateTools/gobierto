@@ -54,6 +54,7 @@ ca:
           sent: Sent
         new_version: Nova (no guardada)
         preview: Previsualitzar
+        previous_versions: Versions anteriors
         publication_status:
           approved: Publicada
           not_published: No publicada
@@ -63,7 +64,6 @@ ca:
         published_version_blank: sense publicar encara
         save: Guardar
         see_all: veure totes
-        see_versions: veure versions
         send: Enviar
         unpublish: Despublicar
       recover:

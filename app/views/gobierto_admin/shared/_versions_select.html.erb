@@ -1,6 +1,9 @@
 <% if resource.recent_versions.count > 1 %>
   <span class="g_popup_context">
-    <a href="" class="f_soft"><%= t("gobierto_admin.shared.moderation_save_widget.see_versions") %></a>
+    <a href="" class="f_soft">
+      <i class="fas fa-history"
+         title="<%= t('gobierto_admin.shared.moderation_save_widget.previous_versions') %>"></i>
+    </a>
 
     <div class="g_popup">
 

@@ -1,0 +1,42 @@
+<div class="modal" id="modal_item_permissions">
+
+  <h3><%= t(".add_title") %></h3>
+  <div class="pure-g">
+    <div class="pure-u-1-2">
+      SELECT2
+    </div>
+    <div class="pure-u-1-2">
+      <div class="form_item input_text ">
+        <div class="button medium"><%= t(".add") %></div>
+      </div>
+    </div>
+  </div>
+
+
+  <h3><%= t(".users_with_access") %></h3>
+
+  <table>
+  <tr>
+    <th><%= t(".user") %></th>
+    <th><%= t(".email") %></th>
+    <th><%= t(".created_at") %></th>
+    <th></th>
+  </tr>
+
+  <% @admins.each do |admin| %>
+    <tr>
+      <td><strong><%= admin.name %></strong></td>
+      <td><%= admin.email %></td>
+      <td><%= time_ago_in_words(admin.admin_group_membership_created_at(@admin_group)) %></td>
+      <td>
+        <%= link_to "", class: "view_item" do %>
+          <i class="fas fa-user-times"></i>
+          <%= t(".delete") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+
+  </table>
+
+</div>

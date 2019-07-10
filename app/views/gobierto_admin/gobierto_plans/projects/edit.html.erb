@@ -6,7 +6,13 @@
   <%= @project.name %>
 </div>
 
-<h1><%= @project.name %></h1>
+<div class="pure-g">
+  <div class="pure-u-md-2-3">
+    <h1><%= @project.name %></h1>
+  </div>
+
+  <%= render partial: "gobierto_admin/shared/resource_admin_button", locals: { resource: @project } %>
+</div>
 
 <%= render "gobierto_admin/gobierto_plans/shared/navigation" %>
 

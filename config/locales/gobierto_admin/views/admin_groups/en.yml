@@ -2,6 +2,15 @@
 en:
   gobierto_admin:
     admin_groups:
+      admins:
+        index:
+          add: Add
+          add_title: Add user
+          created_at: Access granted
+          delete: Delete access
+          email: email
+          user: User
+          users_with_access: Users with access
       breadcrumb:
         admin_groups: Groups
       edit:

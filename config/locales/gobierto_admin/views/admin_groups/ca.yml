@@ -2,6 +2,15 @@
 ca:
   gobierto_admin:
     admin_groups:
+      admins:
+        index:
+          add: Afegir
+          add_title: Afegir usuari
+          created_at: Accés concedit
+          delete: Eliminar accés
+          email: correu-e
+          user: Usuari
+          users_with_access: Usuaris amb accés
       breadcrumb:
         admin_groups: Grups
       edit:

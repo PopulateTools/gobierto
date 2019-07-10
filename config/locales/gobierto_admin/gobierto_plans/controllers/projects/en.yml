@@ -10,6 +10,8 @@ en:
         find_versioned_project:
           unavailable_version: Unavailable version.
         publish:
+          confirm: You are going to publish this project, so any user will be able
+            to see it in the front-end.
           error: Project couldn't be published.
           success: Project published correctly.
         unpublish:

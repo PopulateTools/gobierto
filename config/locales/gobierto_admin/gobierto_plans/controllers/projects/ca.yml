@@ -10,6 +10,8 @@ ca:
         find_versioned_project:
           unavailable_version: Versió no disponible
         publish:
+          confirm: Vas a publicar aquest projecte, de manera que qualsevol usuari
+            podrà veure-ho.
           error: El projecte no s'ha pogut publicar.
           success: El projecte s'ha publicat correctament.
         unpublish:

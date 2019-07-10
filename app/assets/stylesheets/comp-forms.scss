@@ -337,6 +337,10 @@ input[type="radio"] {
     display: inline;
   }
 
+  .slick-viewport {
+    overflow: visible !important;
+  }
+
   .slick-row.even,
   .slick-row.odd {
     .slick-cell {

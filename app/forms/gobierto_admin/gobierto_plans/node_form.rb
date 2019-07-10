@@ -3,6 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class NodeForm < BaseForm
+      include ::GobiertoAdmin::PermissionsGroupHelpers
 
       attr_accessor(
         :id,
@@ -247,6 +248,10 @@ module GobiertoAdmin
           plan.touch
 
           save_moderation
+
+          set_permissions_group(@node, action_name: :edit) do |group|
+            group.admins << @node.owner unless @node.owner.blank? || group.admins.where(id: @node.admin_id).exists?
+          end
 
           @node
         else

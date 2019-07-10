@@ -6,6 +6,7 @@ module GobiertoPlans
   class Node < ApplicationRecord
     include GobiertoCommon::Moderable
     include GobiertoCommon::HasVocabulary
+    include GobiertoAdmin::HasPermissionsGroup
 
     belongs_to :author, class_name: "GobiertoAdmin::Admin", foreign_key: :admin_id
     has_and_belongs_to_many :categories, class_name: "GobiertoCommon::Term", association_foreign_key: :category_id, join_table: :gplan_categories_nodes
@@ -62,6 +63,8 @@ module GobiertoPlans
     translates :name
 
     enum visibility_level: { draft: 0, published: 1 }
+
+    alias owner author
 
     def self.node_custom_fields(plan, node)
       if plan.instance_level_custom_fields.any?

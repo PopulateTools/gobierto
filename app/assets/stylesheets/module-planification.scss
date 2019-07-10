@@ -33,6 +33,11 @@ $white: $color_main_negative;
 
   .planification-content {
     display: flex;
+    flex-direction: column;
+
+    @include min-screen(768) {
+      flex-direction: row;
+    }
 
     .lines-header {
       display: flex;
@@ -217,6 +222,10 @@ $white: $color_main_negative;
   .node-action-line {
     background-color: $color_main_negative;
 
+    @include screen(768) {
+      margin-left: 0 !important;
+    }
+
     @include border-radius(6px);
 
     .action-line--header {
@@ -227,8 +236,14 @@ $white: $color_main_negative;
     }
 
     .action-line--list {
-      padding: 1em 2em;
+      padding: 1em;
+      margin: 0;
       color: $color_text;
+      
+      @include min-screen(768) {
+        padding: 1em 2em;
+        margin: auto;
+      }
 
       @include border-radius($bottom: 6px);
 
@@ -254,9 +269,13 @@ $white: $color_main_negative;
 
       table {
         margin: 0 0 1em;
-        padding: 0 0 0 1.5rem;
+        padding: 0;
         border-spacing: 0 0.5em;
         border-collapse: separate;
+        
+        @include min-screen(768) {
+          padding: 0 0 0 1.5rem;
+        }
 
         th:not(:first-child),
         td:not(:first-child) {
@@ -424,9 +443,13 @@ $white: $color_main_negative;
   }
 
   .project-grid {
-    display: grid;
+    display: block;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px 10px;
+
+    @include min-screen(768) {
+      display: grid;
+    }
   }
 
   // Animations
@@ -464,6 +487,10 @@ $white: $color_main_negative;
 
   section:not(.level_0) {
     flex: 10;
-    padding: 2em 3em;
+    padding: 1em 0;
+    
+    @include min-screen(768) {
+      padding: 2em 3em;
+    }
   }
 }

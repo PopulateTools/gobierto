@@ -18,7 +18,9 @@ ca:
             terms: Termes
           new: Nou
           title: Vocabularis
-          view_vocabulary: Veure termes
+          view_vocabulary:
+            one: Veure 1 terme
+            other: Veure %{count} termes
         new:
           new: Nou Vocabulari
         new_modal:

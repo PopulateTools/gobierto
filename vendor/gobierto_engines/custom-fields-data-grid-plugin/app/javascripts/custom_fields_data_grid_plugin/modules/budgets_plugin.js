@@ -164,7 +164,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         id: "budget_line",
         name: i18n("budget_line"),
         field: "budget_line",
-        width: 290,
+        width: 310,
         cssClass: "cell-title",
         formatter: Select2Formatter,
         editor: Select2Editor,
@@ -182,14 +182,14 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         id: "full_amount",
         name: i18n("full_amount"),
         field: "full_amount",
-        width: 120,
+        width: 100,
         cssClass: "cell-title disabled"
       },
       {
         id: "assigned_amount",
         name: i18n("assigned_amount"),
         field: "assigned_amount",
-        width: 120,
+        width: 100,
         cssClass: "cell-title disabled"
       }
     ];

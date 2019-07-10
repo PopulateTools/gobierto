@@ -4,11 +4,11 @@ en:
     custom_fields_plugins:
       budgets:
         area: Area
-        assigned_amount: Assigned amount
+        assigned_amount: Assigned
         budget_line: Budget line
         custom: Custom
         economic: Economic
-        full_amount: Full amount
+        full_amount: Total
         functional: Functional
         not_available: Not avail.
         weight: Weight

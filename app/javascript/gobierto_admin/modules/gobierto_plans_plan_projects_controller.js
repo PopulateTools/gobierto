@@ -1,7 +1,7 @@
 window.GobiertoAdmin.GobiertoPlansPlanProjectsController = (function() {
   function GobiertoPlansPlanProjectsController() {}
 
-  GobiertoPlansPlanProjectsController.prototype.form = function(opts) {
+  GobiertoPlansPlanProjectsController.prototype.index = function(opts) {
     _handleSubmitChangeBehaviors();
   };
 
@@ -20,6 +20,19 @@ window.GobiertoAdmin.GobiertoPlansPlanProjectsController = (function() {
       }
     })
   }
+
+  GobiertoPlansPlanProjectsController.prototype.form = function(opts) {
+    $(".js-admin-widget-save label").click(function(e) {
+      var styleClass = $(e.target).attr("data-status-style")
+      let $dropdownToggle = $(e.target).closest(".js-admin-widget-save").find("span.i_p_status")
+
+      $dropdownToggle.removeClass()
+      $dropdownToggle.addClass(`i_p_status ${styleClass}`)
+
+      var newStateText = e.target.textContent.trim();
+      $(".g_popup_context .i_p_status a").text(newStateText);
+    })
+  };
 
   return GobiertoPlansPlanProjectsController;
 })();

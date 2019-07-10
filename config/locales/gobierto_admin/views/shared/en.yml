@@ -29,6 +29,7 @@ en:
         define_content_in_locale: Define the content in %{locale_name} version
         translate: Translate
       moderation_save_widget:
+        change_moderation_status: Cambiar estado de moderación
         confirm: Are you sure?
         edit_version: Editing version
         last_versions: Last versions

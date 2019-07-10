@@ -29,6 +29,7 @@ ca:
         define_content_in_locale: Defineix el contingut en la versió en %{locale_name}
         translate: Traduxir
       moderation_save_widget:
+        change_moderation_status: Canvia l'estat de moderació
         confirm: Estàs segur?
         edit_version: Editant versió
         last_versions: Últimes versions

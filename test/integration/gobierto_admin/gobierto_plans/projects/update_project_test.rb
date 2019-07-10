@@ -77,6 +77,11 @@ module GobiertoAdmin
           }
         end
 
+        def choose_moderation_status(status_text)
+          find(".js-admin-widget-save a").click
+          find("label", text: status_text).click
+        end
+
         def test_update_project_as_manager
           with_signed_in_admin(admin) do
             with_current_site(site) do
@@ -118,26 +123,24 @@ module GobiertoAdmin
         def test_edit_project_as_regular_moderator
           allow_regular_admin_moderate_plans
 
-          with_signed_in_admin(regular_admin) do
-            with_current_site(site) do
-              visit path
+          with(site: site, admin: regular_admin) do
+            visit path
 
-              within "form" do
-                assert has_field?("project_name_translations_en", disabled: true)
-                assert has_field?("project_status_id", disabled: true)
-                assert has_field?("project_starts_at", disabled: true)
-                assert has_field?("project_ends_at", disabled: true)
-                assert has_field?("project_progress", disabled: true)
+            within "form" do
+              assert has_field?("project_name_translations_en", disabled: true)
+              assert has_field?("project_status_id", disabled: true)
+              assert has_field?("project_starts_at", disabled: true)
+              assert has_field?("project_ends_at", disabled: true)
+              assert has_field?("project_progress", disabled: true)
 
-                within "div.widget_save_v2.editor" do
-                  assert has_no_button? "Save"
-                  assert has_link? "Unpublish"
-                end
+              within "div.widget_save_v2" do
+                assert has_button? "Save"
+                assert has_link? "Unpublish"
+              end
 
-                within "div.widget_save_v2.moderator" do
-                  assert has_checked_field?("Approved")
-                  assert has_button? "Save"
-                end
+              within "div.widget_save_v2" do
+                find(".js-admin-widget-save .i_p_status a", text: "Approved")
+                assert has_button? "Save"
               end
             end
           end
@@ -146,25 +149,23 @@ module GobiertoAdmin
         def test_unpublish_project_as_regular_moderator
           allow_regular_admin_moderate_plans
 
-          with_signed_in_admin(regular_admin) do
-            with_current_site(site) do
-              visit path
+          with(site: site, admin: regular_admin) do
+            visit path
 
-              within "div.widget_save_v2.editor" do
-                click_link "Unpublish"
-              end
-
-              assert has_message? "Project unpublished correctly."
-
-              assert has_content? "Editing version\n1"
-              assert has_content? "Status\nNot published"
-              assert has_content? "Published version\nnot published yet"
-              assert has_content? "Click on Publish to make this version publicly visible."
-              published_project.reload
-
-              refute published_project.published?
-              assert published_project.moderation.approved?
+            within "div.widget_save_v2" do
+              click_link "Unpublish"
             end
+
+            assert has_message? "Project unpublished correctly."
+
+            assert has_content? "Editing version\n1"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\nnot published yet"
+            assert has_content? "Click on Publish to make this version publicly visible."
+            published_project.reload
+
+            refute published_project.published?
+            assert published_project.moderation.approved?
           end
         end
 
@@ -172,31 +173,27 @@ module GobiertoAdmin
           create_custom_fields_records
           allow_regular_admin_moderate_plans
 
-          with_signed_in_admin(regular_admin) do
-            with_current_site(site) do
-              visit unpublished_path
+          with(site: site, admin: regular_admin) do
+            visit unpublished_path
 
-              within "div.widget_save_v2.moderator" do
-                choose "Under review"
-              end
+            choose_moderation_status "Under review"
 
-              within "div.widget_save_v2.editor" do
-                click_button "Publish"
-              end
-
-              assert has_message? "The project is not approved but still published"
-
-              assert has_content? "Editing version\n1"
-              assert has_content? "Status\nPublished"
-              assert has_content? "Published version\n1"
-              assert has_content? "Current version is the published one."
-              assert has_link? "Unpublish"
-
-              unpublished_project.reload
-
-              assert unpublished_project.published?
-              assert unpublished_project.moderation.in_review?
+            within "div.widget_save_v2" do
+              click_button "Publish"
             end
+
+            assert has_message? "The project is not approved but still published"
+
+            assert has_content? "Editing version\n1"
+            assert has_content? "Status\nPublished"
+            assert has_content? "Published version\n1"
+            assert has_content? "Current version is the published one."
+            assert has_link? "Unpublish"
+
+            unpublished_project.reload
+
+            assert unpublished_project.published?
+            assert unpublished_project.moderation.in_review?
           end
         end
 
@@ -226,7 +223,7 @@ module GobiertoAdmin
                 select "Active", from: "project_status_id"
                 select "3%", from: "project_progress"
 
-                assert has_no_css? "div.widget_save_v2.moderator"
+                assert has_no_content? "Moderation"
                 within "div.widget_save_v2.editor" do
                   click_button "Save"
                 end
@@ -255,41 +252,40 @@ module GobiertoAdmin
         def test_edit_not_approved_project_as_regular_editor
           allow_regular_admin_edit_plans
 
-          with_signed_in_admin(regular_admin) do
-            with_current_site(site) do
-              visit unpublished_path
+          with(site: site, admin: regular_admin) do
+            visit unpublished_path
 
-              within "form" do
-                fill_in "project_name_translations_en", with: "Updated project"
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
 
-                fill_in "project_starts_at", with: "2020-01-01"
-                fill_in "project_ends_at", with: "2021-01-01"
-                select "In progress", from: "project_status_id"
-                select "3%", from: "project_progress"
+              fill_in "project_starts_at", with: "2020-01-01"
+              fill_in "project_ends_at", with: "2021-01-01"
+              select "In progress", from: "project_status_id"
+              select "3%", from: "project_progress"
 
-                assert has_no_css? "div.widget_save_v2.moderator"
-                within "div.widget_save_v2.editor" do
-                  click_button "Save"
-                end
+              within(".widget_save_v2") { refute has_content?("Moderation") }
+
+              within "div.widget_save_v2" do
+                click_button "Save"
               end
-
-              assert has_message? "Project updated correctly."
-              assert has_content? "Updated project"
-              assert has_content? "Editing version\n2"
-              assert has_content? "Status\nNot published"
-              assert has_content? "Published version\nnot published yet"
-              assert has_content? "Your content has been sent for review. You will receive a notification if it is approved or you are asked for changes."
-
-              unpublished_project.reload
-
-              assert_equal "Updated project", unpublished_project.name
-              assert_equal "In progress", unpublished_project.status.name
-              assert_equal 3.0, unpublished_project.progress
-              assert_equal Date.parse("2020-01-01"), unpublished_project.starts_at
-              assert_equal Date.parse("2021-01-01"), unpublished_project.ends_at
-              assert unpublished_project.draft?
-              assert unpublished_project.moderation.sent?
             end
+
+            assert has_message? "Project updated correctly."
+            assert has_content? "Updated project"
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\nnot published yet"
+            assert has_content? "Your content has been sent for review. You will receive a notification if it is approved or you are asked for changes."
+
+            unpublished_project.reload
+
+            assert_equal "Updated project", unpublished_project.name
+            assert_equal "In progress", unpublished_project.status.name
+            assert_equal 3.0, unpublished_project.progress
+            assert_equal Date.parse("2020-01-01"), unpublished_project.starts_at
+            assert_equal Date.parse("2021-01-01"), unpublished_project.ends_at
+            assert unpublished_project.draft?
+            assert unpublished_project.moderation.sent?
           end
         end
 
@@ -300,7 +296,7 @@ module GobiertoAdmin
             with_current_site(site) do
               visit path
 
-              within "div.widget_save_v2.editor" do
+              within "div.widget_save_v2" do
                 click_link "Unpublish"
               end
 
@@ -325,7 +321,7 @@ module GobiertoAdmin
             with_current_site(site) do
               visit unpublished_path
 
-              within "div.widget_save_v2.editor" do
+              within "div.widget_save_v2" do
                 assert has_button?("Publish", disabled: true)
               end
             end
@@ -341,11 +337,11 @@ module GobiertoAdmin
             with_current_site(site) do
               visit unpublished_path
 
-              within "div.widget_save_v2.editor" do
+              within "div.widget_save_v2" do
                 click_button "Send"
               end
 
-              within "div.widget_save_v2.editor" do
+              within "div.widget_save_v2" do
                 assert has_button?("Publish", disabled: true)
               end
 
@@ -379,8 +375,8 @@ module GobiertoAdmin
                 select "In progress", from: "project_status_id"
                 select "3%", from: "project_progress"
 
-                assert has_css? "div.widget_save_v2.moderator"
-                within "div.widget_save_v2.editor" do
+                assert has_css? "div.widget_save_v2"
+                within "div.widget_save_v2" do
                   click_button "Save"
                 end
               end
@@ -415,8 +411,8 @@ module GobiertoAdmin
               visit unpublished_path
 
               within "form" do
-                within "div.widget_save_v2.moderator" do
-                  choose "Under review"
+                within "div.widget_save_v2" do
+                  choose_moderation_status "Under review"
                   click_button "Save"
                 end
               end
@@ -429,11 +425,11 @@ module GobiertoAdmin
               assert unpublished_project.moderation.in_review?
 
               within "form" do
-                within "div.widget_save_v2.moderator" do
-                  choose "Rejected"
+                within "div.widget_save_v2" do
+                  choose_moderation_status "Rejected"
                 end
 
-                within "div.widget_save_v2.editor" do
+                within "div.widget_save_v2" do
                   click_button "Publish"
                 end
               end
@@ -467,7 +463,7 @@ module GobiertoAdmin
                 fill_in "project_ends_at", with: "2021-01-01"
                 select "3%", from: "project_progress"
 
-                within "div.widget_save_v2.editor" do
+                within "div.widget_save_v2" do
                   click_button "Save"
                 end
               end
@@ -478,7 +474,7 @@ module GobiertoAdmin
               end
 
               within "form" do
-                within "div.widget_save_v2.editor" do
+                within "div.widget_save_v2" do
                   click_button "Publish"
                 end
               end
@@ -511,7 +507,7 @@ module GobiertoAdmin
                 fill_in "project_ends_at", with: "2021-01-01"
                 select "3%", from: "project_progress"
 
-                within "div.widget_save_v2.editor" do
+                within "div.widget_save_v2" do
                   click_button "Save"
                 end
               end
@@ -553,30 +549,27 @@ module GobiertoAdmin
           unpublished_project.update_attribute(:starts_at, 24.years.ago)
           unpublished_project.update_attribute(:starts_at, 14.years.ago)
 
-          with_signed_in_admin(regular_admin) do
-            with_current_site(site) do
-              visit unpublished_path
+          with(site: site, admin: regular_admin) do
+            visit unpublished_path
 
-              within ".g_popup" do
-                click_link "2 - "
+            find(".widget_save_v2 .fa-history").click
+            within(first(".g_popup")) { click_link "2 - " }
+
+            within "form" do
+              within "div.widget_save_v2" do
+                click_button "Publish"
               end
-
-              within "form" do
-                within "div.widget_save_v2.editor" do
-                  click_button "Publish"
-                end
-              end
-
-              assert has_button? "Publish"
-              assert has_content? "Editing version\n4"
-              assert has_content? "Status\nNot published"
-              assert has_content? "Published version\n2"
-              assert has_content? "Click on Publish to make this version publicly visible."
-
-              unpublished_project.reload
-
-              assert unpublished_project.published?
             end
+
+            assert has_button? "Publish"
+            assert has_content? "Editing version\n4"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\n2"
+            assert has_content? "Click on Publish to make this version publicly visible."
+
+            unpublished_project.reload
+
+            assert unpublished_project.published?
           end
         end
 
@@ -598,7 +591,7 @@ module GobiertoAdmin
               end
 
               within "form" do
-                within "div.widget_save_v2.editor" do
+                within "div.widget_save_v2" do
                   click_button "Publish"
                 end
               end

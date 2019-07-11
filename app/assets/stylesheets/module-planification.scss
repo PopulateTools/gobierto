@@ -63,7 +63,7 @@ $white: $color_main_negative;
     position: relative;
     display: flex;
     min-height: $nodeLevel1HeightMobile;
-    
+
     @include min-screen(768) {
       min-height: $nodeLevel1Height;
     }
@@ -79,7 +79,7 @@ $white: $color_main_negative;
       text-decoration: none;
       cursor: pointer;
       max-height: $nodeLevel1HeightMobile;
-      
+
       @include min-screen(768) {
         max-height: $nodeLevel1Height;
       }
@@ -91,7 +91,7 @@ $white: $color_main_negative;
       mix-blend-mode: multiply;
       overflow: hidden;
 
-      @include screen(768) {        
+      @include screen(768) {
         position: absolute;
         left: 0;
         right: 0;
@@ -121,7 +121,7 @@ $white: $color_main_negative;
         height: 100%;
         z-index: 1;
 
-        @include screen(768) {        
+        @include screen(768) {
           opacity: 0.5;
         }
       }
@@ -183,8 +183,8 @@ $white: $color_main_negative;
     .node-title {
       display: flex;
       flex-basis: 40%;
-      
-      @include min-screen(768) {        
+
+      @include min-screen(768) {
         flex-basis: 65%;
       }
 
@@ -257,12 +257,11 @@ $white: $color_main_negative;
       @include border-radius(6px);
     }
 
-
     .action-line--header {
       padding: 1em 1em 0.25em;
       border-top: 0;
 
-      @include min-screen(768) {        
+      @include min-screen(768) {
         @include border-radius($top: 6px);
       }
     }
@@ -271,12 +270,12 @@ $white: $color_main_negative;
       padding: 1em 0;
       margin: 0;
       color: $color_text;
-      
+
       @include min-screen(768) {
         padding: 1em 2em;
         margin: auto;
       }
-      
+
       @include border-radius($bottom: 6px);
 
       li {
@@ -304,7 +303,7 @@ $white: $color_main_negative;
         padding: 0;
         border-spacing: 0 0.5em;
         border-collapse: separate;
-        
+
         @include min-screen(768) {
           padding: 0 0 0 1.5rem;
         }
@@ -362,7 +361,7 @@ $white: $color_main_negative;
   .node-project-detail {
     padding: 1em 0;
     color: $color_text;
-    
+
     @include min-screen(768) {
       padding: 2em;
     }
@@ -533,9 +532,9 @@ $white: $color_main_negative;
           max-height: 0;
           min-height: 0;
           transition: all 250ms;
-  
+
           * {
-            visibility: hidden
+            visibility: hidden;
           }
         }
       }
@@ -545,7 +544,7 @@ $white: $color_main_negative;
   section:not(.level_0) {
     flex: 10;
     padding: 1em 0 0 0;
-    
+
     @include min-screen(768) {
       padding: 2em 3em;
     }

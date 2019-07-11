@@ -40,10 +40,12 @@
       <td><%= admin.email %></td>
       <td><%= time_ago_in_words(admin.admin_group_membership_created_at(@admin_group)) %></td>
       <td>
-        <%= link_to({ action: :destroy, id: admin.id },
-            { method: :delete, remote: true, title: t("views.delete"), class: "view_item", data: { confirm: t("views.delete_confirm") } }) do %>
-          <i class="fas fa-user-times"></i>
-          <%= t(".delete") %>
+        <% unless admin == @owner %>
+          <%= link_to({ action: :destroy, id: admin.id },
+              { method: :delete, remote: true, title: t("views.delete"), class: "view_item", data: { confirm: t("views.delete_confirm") } }) do %>
+            <i class="fas fa-user-times"></i>
+            <%= t(".delete") %>
+          <% end %>
         <% end %>
       </td>
     </tr>

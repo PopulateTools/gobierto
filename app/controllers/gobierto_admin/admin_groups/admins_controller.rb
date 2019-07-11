@@ -13,7 +13,7 @@ module GobiertoAdmin
       end
 
       def destroy
-        admin_group.admins.delete(admin)
+        admin_group.admins.delete(admin) unless admin == owner
 
         set_members
 
@@ -51,6 +51,11 @@ module GobiertoAdmin
       def set_members
         @members = admin_group.admins.order(created_at: :desc)
         @available_not_members = current_site.admins.where.not(id: admin_group.admins)
+        owner
+      end
+
+      def owner
+        @owner ||= admin_group.resource.try(:owner)
       end
 
       def admin_group

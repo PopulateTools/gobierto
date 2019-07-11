@@ -33,6 +33,9 @@ $(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {
         if (window.GobiertoAdmin && window.GobiertoAdmin.gobierto_citizens_charters_editions_intervals_controller) {
           window.GobiertoAdmin.gobierto_citizens_charters_editions_intervals_controller.handleForm();
         }
+        if (window.GobiertoAdmin && window.GobiertoAdmin.admin_groups_admins_controller) {
+          window.GobiertoAdmin.admin_groups_admins_controller.index();
+        }
       }
     }
   });

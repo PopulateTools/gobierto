@@ -7,15 +7,54 @@ module GobiertoAdmin
       layout false
 
       def index
-        @admins = admin_group.admins
+        set_members
 
         render(:index, layout: false) && return if request.xhr?
       end
 
+      def destroy
+        admin_group.admins.delete(admin)
+
+        set_members
+
+        respond_to do |format|
+          format.js
+        end
+      end
+
+      def create
+        if params.has_key? :admin_group
+          create_admins_params[:admin_ids].each do |admin_id|
+            admin = GobiertoAdmin::Admin.find_by(id: admin_id)
+            next unless admin.present? && !admin_group.admins.where(id: admin_id).exists?
+
+            admin_group.admins << admin
+          end
+        end
+
+        set_members
+        respond_to do |format|
+          format.js
+        end
+      end
+
       private
 
+      def admin
+        @admin ||= admin_group.admins.find(params[:id])
+      end
+
+      def create_admins_params
+        params.require(:admin_group).permit(admin_ids: [])
+      end
+
+      def set_members
+        @members = admin_group.admins.order(created_at: :desc)
+        @available_not_members = current_site.admins.where.not(id: admin_group.admins)
+      end
+
       def admin_group
-        @admin_group = current_site.admin_groups.system.find(params[:admin_group_id])
+        @admin_group ||= current_site.admin_groups.system.find(params[:admin_group_id])
       end
 
       def moderation_policy

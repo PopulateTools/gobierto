@@ -1,0 +1,60 @@
+<div id="modal_index_content">
+
+  <% if @available_not_members.exists? %>
+    <h3><%= t(".add_title") %></h3>
+    <%= form_tag admin_admin_group_admins_path(@admin_group), remote: true do %>
+      <div class="pure-g">
+        <div class="pure-u-1-2">
+          <%= select_tag(
+                "admin_group[admin_ids]",
+                options_for_select(
+                  @available_not_members.map{|admin| ["#{admin.name} (#{admin.email})", admin.id]}
+                ),
+                multiple: true,
+                data: { behavior: "select2" }
+              )
+          %>
+        </div>
+        <div class="pure-u-1-2">
+          <div class="form_item input_text ">
+            <button class="button medium"><%= t(".add") %></button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <h3><%= t(".users_with_access") %></h3>
+
+  <table>
+  <tr>
+    <th><%= t(".user") %></th>
+    <th><%= t(".email") %></th>
+    <th><%= t(".created_at") %></th>
+    <th></th>
+  </tr>
+
+  <% @members.each do |admin| %>
+    <tr>
+      <td><strong><%= admin.name %></strong></td>
+      <td><%= admin.email %></td>
+      <td><%= time_ago_in_words(admin.admin_group_membership_created_at(@admin_group)) %></td>
+      <td>
+        <%= link_to({ action: :destroy, id: admin.id },
+            { method: :delete, remote: true, title: t("views.delete"), class: "view_item", data: { confirm: t("views.delete_confirm") } }) do %>
+          <i class="fas fa-user-times"></i>
+          <%= t(".delete") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+
+  </table>
+
+</div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.admin_groups_admins_controller.index();
+  <% end %>
+<% end %>

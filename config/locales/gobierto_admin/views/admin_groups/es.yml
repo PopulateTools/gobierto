@@ -3,7 +3,7 @@ es:
   gobierto_admin:
     admin_groups:
       admins:
-        index:
+        modal_index:
           add: Añadir
           add_title: Añadir usuario
           created_at: Acceso concedido

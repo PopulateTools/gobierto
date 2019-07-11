@@ -3,7 +3,7 @@ ca:
   gobierto_admin:
     admin_groups:
       admins:
-        index:
+        modal_index:
           add: Afegir
           add_title: Afegir usuari
           created_at: Accés concedit

@@ -3,7 +3,7 @@ en:
   gobierto_admin:
     admin_groups:
       admins:
-        index:
+        modal_index:
           add: Add
           add_title: Add user
           created_at: Access granted

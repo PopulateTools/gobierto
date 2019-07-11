@@ -338,10 +338,23 @@ input[type="radio"] {
     display: inline;
   }
 
+  .slick-viewport {
+    overflow: visible !important;
+  }
+
   .slick-row.even,
   .slick-row.odd {
     .slick-cell {
       background: white;
+
+      &.active > span {
+        margin-left: -5px;
+        margin-top: -3px;
+
+        .select2-selection {
+          border-radius: 0;
+        }
+      }
 
       &.disabled {
         background: #f7f7f6;

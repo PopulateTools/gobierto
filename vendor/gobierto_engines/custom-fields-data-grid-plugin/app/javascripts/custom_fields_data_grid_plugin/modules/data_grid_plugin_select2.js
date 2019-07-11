@@ -60,19 +60,20 @@ function Select2Editor(args) {
   var _grid = args.grid
   var $input;
   var defaultValue;
+  var _allowBlank = false
 
   this.keyCaptureList = [Slick.keyCode.UP, Slick.keyCode.DOWN, Slick.keyCode.ENTER];
 
   this.init = function () {
     $input = $('<select></select>');
     $input.width(args.container.clientWidth + 3);
-    PopulateSelect($input[0], args.column.dataSource, false);
+    PopulateSelect($input[0], args.column.dataSource, _allowBlank)
     $input.appendTo(args.container);
     $input.focus().select();
 
     $input.select2({
       placeholder: '-',
-      allowClear: true
+      allowClear: _allowBlank
     });
 
     /* Automatically focus on next cell after chosing an option */

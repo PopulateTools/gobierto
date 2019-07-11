@@ -1,4 +1,4 @@
-<% admin_group = ::GobiertoAdmin::AdminGroup.find_by(resource: resource) %>
+<% admin_group = ::GobiertoAdmin::AdminGroup.system.find_by(resource: resource) %>
 
 <% if admin_group.present? %>
   <div class="pure-u-md-1-3 right">

@@ -11,7 +11,7 @@
     <h1><%= @project.name %></h1>
   </div>
 
-  <%= render partial: "gobierto_admin/shared/resource_admin_button", locals: { resource: @project } %>
+  <%= render partial: "gobierto_admin/shared/resource_admin_permissions_button", locals: { resource: @project } %>
 </div>
 
 <%= render "gobierto_admin/gobierto_plans/shared/navigation" %>

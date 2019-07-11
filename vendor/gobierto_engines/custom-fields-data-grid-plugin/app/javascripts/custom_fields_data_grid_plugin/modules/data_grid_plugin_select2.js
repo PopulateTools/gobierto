@@ -57,6 +57,7 @@ function Select2Formatter(_row, _cell, value, columnDef, _dataContext) {
 }
 
 function Select2Editor(args) {
+  var _grid = args.grid
   var $input;
   var defaultValue;
 
@@ -73,6 +74,14 @@ function Select2Editor(args) {
       placeholder: '-',
       allowClear: true
     });
+
+    /* Ensure focus is lost after choosing an option */
+    $input.on('select2:close', function() {
+      var lock = Slick.GlobalEditorLock
+      if (lock.isActive()) lock.commitCurrentEdit()
+
+      if (_grid) _grid.resetActiveCell()
+    })
   };
 
   this.destroy = function () {

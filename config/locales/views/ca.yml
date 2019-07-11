@@ -11,6 +11,8 @@ ca:
     events:
       admins_admin_authorization_level_updated: Nivel autorització admin actualitzat
       admins_admin_created: Admin creat
+      admins_admin_group_member_created: Admin afegit a grup de permisos
+      admins_admin_group_member_deleted: Admin eliminat de grup de permisos
       admins_admin_updated: Admin actualitzat
       admins_invitation_accepted: Invitació admin aceptada
       admins_invitation_created: Admin invitat

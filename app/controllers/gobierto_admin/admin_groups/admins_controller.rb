@@ -13,7 +13,10 @@ module GobiertoAdmin
       end
 
       def destroy
-        admin_group.admins.delete(admin) unless admin == owner
+        if admin != owner
+          admin_group.admins.delete(admin)
+          track_destroy_activity
+        end
 
         set_members
 
@@ -29,6 +32,8 @@ module GobiertoAdmin
             next unless admin.present? && !admin_group.admins.where(id: admin_id).exists?
 
             admin_group.admins << admin
+
+            track_create_activity(admin)
           end
         end
 
@@ -68,6 +73,18 @@ module GobiertoAdmin
 
       def allow_admin
         redirect_to admin_users_path and return false unless moderation_policy.manage? || admin_group.admins.where(id: current_admin.id).exists?
+      end
+
+      def track_create_activity(admin)
+        Publishers::AdminActivity.broadcast_event("admin_group_member_created", default_activity_params.merge(subject: @admin_group.resource, recipient: admin))
+      end
+
+      def track_destroy_activity
+        Publishers::AdminActivity.broadcast_event("admin_group_member_deleted", default_activity_params.merge(subject: @admin_group.resource, recipient: @admin))
+      end
+
+      def default_activity_params
+        { ip: remote_ip, author: current_admin }
       end
 
     end

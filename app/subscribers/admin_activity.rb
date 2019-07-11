@@ -25,12 +25,21 @@ module Subscribers
       create_activity_from_event(event, 'admins.admin_updated')
     end
 
+    def admin_group_member_created(event)
+      create_activity_from_event(event, 'admins.admin_group_member_created')
+    end
+
+    def admin_group_member_deleted(event)
+      create_activity_from_event(event, 'admins.admin_group_member_deleted')
+    end
+
     private
 
     def create_activity_from_event(event, action)
       Activity.create! subject: event.payload[:subject],
                        author: event.payload[:author],
                        subject_ip: event.payload[:ip],
+                       recipient: event.payload[:recipient],
                        action: action,
                        admin_activity: true
     end

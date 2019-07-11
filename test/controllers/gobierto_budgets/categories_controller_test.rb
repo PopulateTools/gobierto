@@ -12,10 +12,10 @@ class GobiertoBudgets::Api::CategoriesControllerTest < GobiertoControllerTest
       get gobierto_budgets_api_categories_path, as: :json
       assert_response :success
       response_data = JSON.parse(response.body)
-      assert_equal  "Impuestos directos", response_data["economic"]["I"]["1"]
-      assert_equal  "Impuesto sobre la renta", response_data["economic"]["I"]["10"]
-      assert_equal  "Gastos de personal", response_data["economic"]["G"]["1"]
-      assert_equal  "Deuda pública", response_data["functional"]["G"]["0"]
+      assert_equal "Impuestos directos", response_data["economic"]["I"]["1"]
+      assert_equal "Impuesto sobre la renta", response_data["economic"]["I"]["10"]
+      assert_equal "Gastos de personal", response_data["economic"]["G"]["1"]
+      assert_equal "Deuda pública", response_data["functional"]["G"]["0"]
     end
   end
 
@@ -24,9 +24,25 @@ class GobiertoBudgets::Api::CategoriesControllerTest < GobiertoControllerTest
       get gobierto_budgets_api_categories_path, as: :json, params: { area: "economic", kind: "G" }
       assert_response :success
       response_data = JSON.parse(response.body)
-      assert_equal  "Gastos de personal", response_data["1"]
+      assert_equal "Gastos de personal", response_data["1"]
       assert_nil response_data["economic"]
       assert_nil response_data["functional"]
+    end
+  end
+
+  def test_index_json_with_data
+    with_current_site(site) do
+      get gobierto_budgets_api_categories_path, as: :json, params: { with_data: 2016 }
+      assert_response :success
+      response_data = JSON.parse(response.body)
+      assert_equal "Gastos de personal", response_data["economic"]["G"]["1"]
+      assert_nil response_data["economic"]["I"]["10"]
+
+      get gobierto_budgets_api_categories_path, as: :json, params: { with_data: 2018 }
+      assert_response :success
+      response_data = JSON.parse(response.body)
+      assert_equal "Gastos de personal", response_data["economic"]["G"]["1"]
+      assert_not_nil response_data["economic"]["I"]["10"]
     end
   end
 end

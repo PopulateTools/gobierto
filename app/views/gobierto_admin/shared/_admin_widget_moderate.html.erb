@@ -1,33 +1,40 @@
-<% if resource.moderable_has_moderation? && resource.moderation_policy.moderate? && resource.persisted? %>
-  <div class="widget_save_v2 m_b_2 moderator">
+<div class="w_s_content">
+  <div class="pure-g f_small">
 
-    <div class="w_s_content">
+    <div class="pure-u-1-2">
+      <%= t("gobierto_admin.shared.moderation_save_widget.moderation") %>
+    </div>
 
-      <h4><%= t("gobierto_admin.shared.moderation_save_widget.moderation") %></h4>
+    <div class="pure-u-1-2">
+      <span class="g_popup_context js-admin-widget-save">
 
-      <div class="form_item">
+        <span class="i_p_status <%= resource.moderation_style %>">
+          <a title="<%= t('gobierto_admin.shared.moderation_save_widget.change_moderation_status') %>">
+            <%= t("gobierto_admin.shared.moderation_save_widget.moderation_status.#{resource.moderation_status}") %>
+            <i class="fas fa-caret-down"></i>
+          </a>
+        </span>
 
-        <div class="options compact">
-          <%= f.collection_radio_buttons(:moderation_stage, resource.moderation_reachable_stages, :first, :first) do |b| %>
-            <div class="option">
-              <%= b.radio_button %>
-              <%= b.label do %>
-                <span></span>
-                <%= t("gobierto_admin.shared.moderation_save_widget.moderation_status.#{b.text}") %>
+        <div class="g_popup" style="width: 150px; min-width: 150px;">
+          <h3><%= t("gobierto_admin.shared.moderation_save_widget.moderation") %></h3>
+
+          <div class="form_item">
+            <div class="options compact">
+              <%= f.collection_radio_buttons(:moderation_stage, resource.moderation_reachable_stages, :first, :first) do |b| %>
+                <div class="option">
+                  <%= b.radio_button(id: "project_moderation_stage_#{b.text}") %>
+                  <%= b.label("data-status-style" => resource.status_style_class(b.text)) do %>
+                    <span></span>
+                    <%= t("gobierto_admin.shared.moderation_save_widget.moderation_status.#{b.text}") %>
+                  <% end %>
+                </div>
               <% end %>
             </div>
-          <% end %>
+          </div>
         </div>
 
-      </div>
-
-      <div class="w_actions m_b_1">
-        <% if resource.moderation_reachable_stages.any? %>
-          <button class="button medium"><%= t("gobierto_admin.shared.moderation_save_widget.save") %></button>
-        <% end %>
-      </div>
-
+      </span>
     </div>
 
   </div>
-<% end %>
+</div>

@@ -92,6 +92,12 @@ module GobiertoAdmin
                                        end
     end
 
+    def status_style_class(staus_text)
+      Hash[PUBLISH_MODERATION_STEPS.values.map do |dic|
+        [dic[:moderation_status], dic[:moderation_style]]
+      end][staus_text.to_sym] || :in_revision
+    end
+
     private
 
     def publish_moderation_status

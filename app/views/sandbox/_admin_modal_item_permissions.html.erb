@@ -1,0 +1,42 @@
+<div class="modal mfp-hide" id="modal_item_permissions">
+
+
+  <h3>Añadir usuario</h3>
+
+  <div class="pure-g">
+    <div class="pure-u-1-2">
+      SELECT2
+    </div>
+    <div class="pure-u-1-2">
+      <div class="form_item input_text ">
+        <div class="button medium">Añadir</div>
+      </div>
+    </div>
+  </div>
+
+
+  <h3>Usuarios con acceso</h3>
+
+  <table>
+  <tr>
+    <th>Usuario</th>
+    <th>Correo-e</th>
+    <th>Acceso concendido</th>
+    <th></th>
+  </tr>
+
+  <% for i in 0..4 %>
+  <tr>
+    <td><strong>Fernando Blat</strong></td>
+    <td>fernando@dival.es</td>
+    <td>hace 2 horas </td>
+    <td class="">
+      <%= link_to '<i class="fas fa-user-times"></i> Eliminar acceso'.html_safe, '', class:'view_item' %>
+    </td>
+  </tr>
+  <% end %>
+
+  </table>
+
+
+</div>

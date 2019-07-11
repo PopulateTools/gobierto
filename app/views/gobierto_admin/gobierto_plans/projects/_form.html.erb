@@ -104,3 +104,9 @@
   <%= render partial: "gobierto_admin/shared/admin_widget_save_v2", locals: { f: f, resource: @project_form.persisted? ? @project : @project_form.project } %>
 </div>
 <% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_plans_plan_projects_controller.form()
+  <% end %>
+<% end %>

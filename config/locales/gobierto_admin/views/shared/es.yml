@@ -29,6 +29,7 @@ es:
         define_content_in_locale: Define el contenido en su versión %{locale_name}
         translate: Traducir
       moderation_save_widget:
+        change_moderation_status: Cambiar estado de moderación
         confirm: "¿Estás seguro?"
         edit_version: Editando versión
         last_versions: Últimas versiones
@@ -54,6 +55,7 @@ es:
           sent: Enviado
         new_version: Nueva (no guardada)
         preview: Previsualizar
+        previous_versions: Versiones anteriores
         publication_status:
           approved: Publicada
           not_published: No publicada
@@ -63,7 +65,6 @@ es:
         published_version_blank: sin publicar todavía
         save: Guardar
         see_all: ver todas
-        see_versions: ver versiones
         send: Enviar
         unpublish: Despublicar
       recover:

@@ -65,6 +65,12 @@ module GobiertoAdmin
           true
         end
 
+        def choose_moderation_status(status_text)
+          find(".js-admin-widget-save a").click
+          find("label", text: status_text).click
+          find("body").click # lose popover hover so it closes
+        end
+
         def test_create_project_as_manager
           with default_test_context do
             create_project
@@ -121,15 +127,11 @@ module GobiertoAdmin
 
             create_project
 
-            within "form" do
-              select "Not started", from: "project_custom_records_status_value"
+            select "Not started", from: "project_custom_records_status_value"
 
-              find("label[for$='approved']").click
+            choose_moderation_status "Approved"
 
-              within "div.widget_save_v2.editor" do
-                click_button "Publish"
-              end
-            end
+            click_button "Publish"
 
             page.accept_alert
 
@@ -149,14 +151,12 @@ module GobiertoAdmin
 
             create_project
 
-            within "form" do
-              select "Not started", from: "project_custom_records_status_value"
+            select "Not started", from: "project_custom_records_status_value"
 
-              find("label[for$='approved']").click
+            choose_moderation_status "Approved"
 
-              within "div.widget_save_v2.editor" do
-                click_button "Save"
-              end
+            within "div.widget_save_v2.editor" do
+              click_button "Save"
             end
 
             visit edit_admin_plans_plan_project_path(plan, project, version: 1)
@@ -187,14 +187,12 @@ module GobiertoAdmin
             assert has_content?("Editing version\n1")
             assert has_content?("not published yet")
 
-            within "form" do
-              select "Not started", from: "project_custom_records_status_value"
+            select "Not started", from: "project_custom_records_status_value"
 
-              find("label[for$='approved']").click
+            choose_moderation_status "Approved"
 
-              within "div.widget_save_v2.editor" do
-                click_button "Save"
-              end
+            within "div.widget_save_v2.editor" do
+              click_button "Save"
             end
 
             assert has_content?("Editing version\n2")
@@ -232,14 +230,12 @@ module GobiertoAdmin
 
             create_project
 
-            within "form" do
-              select "Not started", from: "project_custom_records_status_value"
+            select "Not started", from: "project_custom_records_status_value"
 
-              find("label[for$='approved']").click
+            choose_moderation_status "Approved"
 
-              within "div.widget_save_v2.editor" do
-                click_button "Save"
-              end
+            within "div.widget_save_v2.editor" do
+              click_button "Save"
             end
 
             visit edit_admin_plans_plan_project_path(plan, project, version: 1)
@@ -281,12 +277,10 @@ module GobiertoAdmin
               end
             end
 
-            within "form" do
-              find("label[for$='approved']").click
+            choose_moderation_status "Approved"
 
-              within "div.widget_save_v2.editor" do
-                click_button "Save"
-              end
+            within "div.widget_save_v2.editor" do
+              click_button "Save"
             end
 
             assert has_content? "Editing version\n3"

@@ -61,5 +61,13 @@ module GobiertoAdmin
     def recent_versions(limit = 9)
       @recent_versions ||= versions.unscope(:order).order(created_at: :desc).limit(limit)
     end
+
+    def first_publication_confirm_message
+      if @object.is_a?(::GobiertoPlans::Node)
+        I18n.t("gobierto_admin.gobierto_plans.projects.publish.confirm")
+      else
+        I18n.t("gobierto_admin.shared.moderation_save_widget.confirm")
+      end
+    end
   end
 end

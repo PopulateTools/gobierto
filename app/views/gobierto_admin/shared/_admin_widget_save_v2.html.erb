@@ -95,7 +95,7 @@
                       class: "bl",
                       name: "#{f.object_name}[#{moderation_policy.moderate? ? "moderation_visibility_level" : "visibility_level"}]",
                       value: [moderated_resource.step_published_value, versioned_resource.current_version].compact.join("-"),
-                      data: { confirm: t("gobierto_admin.shared.moderation_save_widget.confirm") }
+                      data: { confirm: versioned_resource.first_publication_confirm_message }
                     ) %>
               </div>
             <% elsif moderation_policy.edit? %>
@@ -110,7 +110,7 @@
                       class: "bl",
                       name: "#{f.object_name}[visibility_level]",
                       value: [moderated_resource.step_visibility_value, versioned_resource.current_version].compact.join("-"),
-                      data: { confirm: t("gobierto_admin.shared.moderation_save_widget.confirm") }
+                      data: { confirm: versioned_resource.first_publication_confirm_message }
                     ) %>
               </div>
             <% end %>

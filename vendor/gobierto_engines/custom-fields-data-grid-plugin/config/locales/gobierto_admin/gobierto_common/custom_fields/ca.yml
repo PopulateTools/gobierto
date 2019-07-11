@@ -21,7 +21,7 @@ ca:
         remove_rows: Eliminar files seleccionades
         select_deselect_all: Seleccionar / Deseleccionar totes
       human_resources:
-        cost: Cost
+        cost: Cost anual
         end_date: Data fi
         human_resource: Recurs humà
         start_date: Data inici

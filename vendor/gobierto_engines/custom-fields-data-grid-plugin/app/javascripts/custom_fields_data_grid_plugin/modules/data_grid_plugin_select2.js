@@ -75,12 +75,15 @@ function Select2Editor(args) {
       allowClear: true
     });
 
-    /* Ensure focus is lost after choosing an option */
+    /* Automatically focus on next cell after chosing an option */
     $input.on('select2:close', function() {
       var lock = Slick.GlobalEditorLock
       if (lock.isActive()) lock.commitCurrentEdit()
 
-      if (_grid) _grid.resetActiveCell()
+      let activeCell = _grid.getActiveCell()
+
+      _grid.setActiveCell(activeCell.row, activeCell.cell + 1)
+      _grid.editActiveCell()
     })
   };
 

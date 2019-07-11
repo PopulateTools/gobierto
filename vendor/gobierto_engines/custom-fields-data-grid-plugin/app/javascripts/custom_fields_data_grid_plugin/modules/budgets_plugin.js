@@ -10,7 +10,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
   var _grid
   var _availableYears = []
   var _budgetLines = {
-    grouped: { economic: {}, functional: {} }
+    grouped: { custom: {} }
   }
   var _organizationId
   var _pluginCssClass = 'budgets'
@@ -45,12 +45,8 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
   }
 
   function _parseBudgetLines(jsonData) {
-    Object.keys(jsonData.economic.G).sort().forEach(function(budgetLineCode) {
-      _budgetLines.grouped.economic[`economic/${_organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData.economic.G[budgetLineCode]}`
-    });
-
-    Object.keys(jsonData.functional.G).sort().forEach(function(budgetLineCode) {
-      _budgetLines.grouped.functional[`functional/${_organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData.functional.G[budgetLineCode]}`
+    Object.keys(jsonData.custom.G).sort().forEach(function(budgetLineCode) {
+      _budgetLines.grouped.custom[`custom/${_organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData.custom.G[budgetLineCode]}`
     });
   }
 

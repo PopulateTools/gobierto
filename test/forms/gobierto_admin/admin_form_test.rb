@@ -176,7 +176,7 @@ module GobiertoAdmin
 
       assert admin_form.save
 
-      assert_equal [madrid_group], madrid_and_santander_admin.admin_groups
+      assert_equal [madrid_group], madrid_and_santander_admin.admin_groups.normal
     end
 
     def test_admin_groups_from_not_allowed_sites_are_deleted
@@ -188,11 +188,11 @@ module GobiertoAdmin
         )
       )
 
-      assert_equal 2, madrid_and_santander_admin.reload.admin_groups.count
+      assert_equal 2, madrid_and_santander_admin.reload.admin_groups.normal.count
 
       assert admin_form.save
 
-      assert_equal [madrid_group], madrid_and_santander_admin.reload.admin_groups
+      assert_equal [madrid_group], madrid_and_santander_admin.reload.admin_groups.normal
     end
 
     def test_admin_groups_deasign_group
@@ -204,11 +204,11 @@ module GobiertoAdmin
         )
       )
 
-      assert_equal 2, madrid_and_santander_admin.reload.admin_groups.count
+      assert_equal 2, madrid_and_santander_admin.reload.admin_groups.normal.count
 
       assert admin_form.save
 
-      assert_equal [santander_group], madrid_and_santander_admin.reload.admin_groups
+      assert_equal [santander_group], madrid_and_santander_admin.reload.admin_groups.normal
     end
 
     def test_admin_groups_from_other_allowed_sites_are_preserved
@@ -220,11 +220,11 @@ module GobiertoAdmin
         )
       )
 
-      assert_equal 2, madrid_and_santander_admin.reload.admin_groups.count
+      assert_equal 2, madrid_and_santander_admin.reload.admin_groups.normal.count
 
       assert admin_form.save
 
-      assert_equal [santander_group], madrid_and_santander_admin.reload.admin_groups
+      assert_equal [santander_group], madrid_and_santander_admin.reload.admin_groups.normal
     end
   end
 end

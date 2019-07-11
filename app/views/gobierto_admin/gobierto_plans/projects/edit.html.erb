@@ -11,7 +11,9 @@
     <h1><%= @project.name %></h1>
   </div>
 
-  <%= render partial: "gobierto_admin/shared/resource_admin_permissions_button", locals: { resource: @project } %>
+  <% if @project_form.allow_moderate? || @project_form.allow_edit_attributes? %>
+    <%= render partial: "gobierto_admin/shared/resource_admin_permissions_button", locals: { resource: @project } %>
+  <% end %>
 </div>
 
 <%= render "gobierto_admin/gobierto_plans/shared/navigation" %>

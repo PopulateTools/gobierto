@@ -14,7 +14,7 @@ module GobiertoAdmin
     has_many :people_permissions, -> { for_people }, class_name: "::GobiertoAdmin::GroupPermission"
     has_many :site_options_permissions, -> { for_site_options }, class_name: "GobiertoAdmin::GroupPermission"
 
-    validates :name, presence: true, uniqueness: { scope: :site_id }
+    validates :name, presence: true, uniqueness: { scope: [:site_id, :group_type] }
 
     enum group_type: { normal: 0, system: 1 }
   end

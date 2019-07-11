@@ -4,11 +4,11 @@ es:
     custom_fields_plugins:
       budgets:
         area: Área
-        assigned_amount: Importe asignado
+        assigned_amount: Asignado
         budget_line: Partida presupuestaria
         custom: Personalizada
         economic: Económica
-        full_amount: Importe completo
+        full_amount: Total
         functional: Funcional
         not_available: No disp.
         weight: Peso

@@ -4,11 +4,11 @@ ca:
     custom_fields_plugins:
       budgets:
         area: Àrea
-        assigned_amount: Import assignat
+        assigned_amount: Assignat
         budget_line: Partida pressupostària
         custom: Personalitzada
         economic: Econòmica
-        full_amount: Import complet
+        full_amount: Total
         functional: Funcional
         not_available: No disp.
         weight: Pes

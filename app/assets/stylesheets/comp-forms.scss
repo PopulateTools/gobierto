@@ -346,6 +346,15 @@ input[type="radio"] {
     .slick-cell {
       background: white;
 
+      &.active > span {
+        margin-left: -5px;
+        margin-top: -3px;
+
+        .select2-selection {
+          border-radius: 0;
+        }
+      }
+
       &.disabled {
         background: #f7f7f6;
         border-color: #d6d7d6 !important;

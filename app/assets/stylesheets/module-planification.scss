@@ -6,6 +6,7 @@
 // Vars
 $nodeLevel1IllustrationWidth: 33%;
 $nodeLevel1Height: 150px;
+$nodeLevel1HeightMobile: 20vh;
 $white: $color_main_negative;
 
 // styles only concern this module
@@ -61,7 +62,11 @@ $white: $color_main_negative;
   .node-root {
     position: relative;
     display: flex;
-    min-height: $nodeLevel1Height;
+    min-height: $nodeLevel1HeightMobile;
+    
+    @include min-screen(768) {
+      min-height: $nodeLevel1Height;
+    }
 
     &:hover {
       opacity: 0.9;
@@ -72,15 +77,29 @@ $white: $color_main_negative;
       width: 100%;
       color: $white;
       text-decoration: none;
-      max-height: $nodeLevel1Height;
       cursor: pointer;
+      max-height: $nodeLevel1HeightMobile;
+      
+      @include min-screen(768) {
+        max-height: $nodeLevel1Height;
+      }
     }
 
     .node-img {
       max-height: $nodeLevel1Height;
-      width: $nodeLevel1IllustrationWidth;
+      flex: 0 0 $nodeLevel1IllustrationWidth;
       mix-blend-mode: multiply;
       overflow: hidden;
+
+      @include screen(768) {        
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+      }
 
       img {
         object-fit: cover;
@@ -101,6 +120,10 @@ $white: $color_main_negative;
         position: absolute;
         height: 100%;
         z-index: 1;
+
+        @include screen(768) {        
+          opacity: 0.5;
+        }
       }
 
       .info-content {
@@ -232,7 +255,9 @@ $white: $color_main_negative;
       padding: 1em 1em 0.25em;
       border-top: 0;
 
-      @include border-radius($top: 6px);
+      @include min-screen(768) {        
+        @include border-radius($top: 6px);
+      }
     }
 
     .action-line--list {
@@ -244,7 +269,7 @@ $white: $color_main_negative;
         padding: 1em 2em;
         margin: auto;
       }
-
+      
       @include border-radius($bottom: 6px);
 
       li {
@@ -328,8 +353,12 @@ $white: $color_main_negative;
   }
 
   .node-project-detail {
-    padding: 2em;
+    padding: 1em;
     color: $color_text;
+    
+    @include min-screen(768) {
+      padding: 2em;
+    }
 
     > :not(:first-child):not([data-plugin]) {
       border-top: 1px solid $color_dark_sep;
@@ -469,6 +498,10 @@ $white: $color_main_negative;
     flex: 1 1 25%;
     counter-reset: section;
 
+    @include screen(768) {
+      max-height: 100vh;
+    }
+
     &.is-active {
       .node-img {
         display: none;
@@ -480,6 +513,23 @@ $white: $color_main_negative;
         h3,
         span {
           font-size: $f4;
+        }
+      }
+
+      @include screen(768) {
+        .node-root {
+          transition: all 250ms;
+          max-height: 100%;
+        }
+
+        &:not(.is-mobile-open) .node-root:not(.is-root-open) {
+          max-height: 0;
+          min-height: 0;
+          transition: all 250ms;
+  
+          * {
+            visibility: hidden
+          }
         }
       }
     }

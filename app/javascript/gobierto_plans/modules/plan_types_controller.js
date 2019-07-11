@@ -147,7 +147,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
         rootid: 0,
         readMoreButton: true,
         customFields: {},
-        openMenu: false
+        openMenu: true
       },
       created: function() {
         this.getJson();
@@ -313,6 +313,8 @@ window.GobiertoPlans.PlanTypesController = (function() {
           let found = this.searchByUid(hash, this.json);
 
           if (found) {
+            this.openMenu = false;
+
             this.setSelection(found);
 
             if (forcedNode !== null) {

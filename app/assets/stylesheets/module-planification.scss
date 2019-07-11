@@ -181,8 +181,12 @@ $white: $color_main_negative;
     }
 
     .node-title {
-      flex-basis: 65%;
       display: flex;
+      flex-basis: 40%;
+      
+      @include min-screen(768) {        
+        flex-basis: 65%;
+      }
 
       :first-child {
         flex: 0;
@@ -249,7 +253,10 @@ $white: $color_main_negative;
       margin-left: 0 !important;
     }
 
-    @include border-radius(6px);
+    @include min-screen(768) {
+      @include border-radius(6px);
+    }
+
 
     .action-line--header {
       padding: 1em 1em 0.25em;
@@ -261,7 +268,7 @@ $white: $color_main_negative;
     }
 
     .action-line--list {
-      padding: 1em;
+      padding: 1em 0;
       margin: 0;
       color: $color_text;
       
@@ -353,7 +360,7 @@ $white: $color_main_negative;
   }
 
   .node-project-detail {
-    padding: 1em;
+    padding: 1em 0;
     color: $color_text;
     
     @include min-screen(768) {
@@ -537,7 +544,7 @@ $white: $color_main_negative;
 
   section:not(.level_0) {
     flex: 10;
-    padding: 1em 0;
+    padding: 1em 0 0 0;
     
     @include min-screen(768) {
       padding: 2em 3em;

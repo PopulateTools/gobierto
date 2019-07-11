@@ -82,6 +82,7 @@ function Select2Editor(args) {
   };
 
   this.show = function () {
+    $input.select2('open');
   };
 
   this.hide = function () {

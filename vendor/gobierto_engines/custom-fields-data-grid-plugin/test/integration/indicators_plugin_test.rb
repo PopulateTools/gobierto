@@ -83,14 +83,14 @@ class IndicatorsPluginTest < ActionDispatch::IntegrationTest
     with(site: site, js: true, admin: admin) do
       visit edit_admin_plans_plan_project_path(plan, project)
 
-      within_plugin first(".slick-row.even") do
+      within_plugin do
         assert has_content?("Raw savings")
         assert has_content?("5")
       end
 
-      within_plugin first(".slick-row.odd") do
+      within_plugin do
         assert has_content?("Net savings")
-        assert has_content?("50.1")
+        assert has_content?("210")
       end
     end
   end
@@ -103,7 +103,7 @@ class IndicatorsPluginTest < ActionDispatch::IntegrationTest
 
       within_plugin do
         assert_equal 2, slickgrid_row_count
-        assert_equal 6, slickgrid_column_count
+        assert_equal 5, slickgrid_column_count
       end
     end
   end

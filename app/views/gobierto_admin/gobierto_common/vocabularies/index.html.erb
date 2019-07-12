@@ -33,7 +33,7 @@
         <td>
           <%= link_to admin_common_vocabulary_terms_path(vocabulary), class: "view_item" do %>
             <i class="fas fa-cog"></i>
-            <%= t(".view_vocabulary", count: vocabulary.terms.count) %>
+            <%= t(".view_vocabulary") %> - <%= vocabulary.terms.count %>
           <% end %>
         </td>
         <td>

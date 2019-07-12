@@ -18,9 +18,7 @@ es:
             terms: Términos
           new: Nuevo
           title: Vocabularios
-          view_vocabulary:
-            one: Ver 1 término
-            other: Ver %{count} términos
+          view_vocabulary: Ver términos
         new:
           new: Nuevo Vocabulario
         new_modal:

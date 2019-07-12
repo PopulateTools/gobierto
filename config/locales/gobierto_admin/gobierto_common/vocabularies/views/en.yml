@@ -18,9 +18,7 @@ en:
             terms: Terms
           new: New
           title: Vocabularies
-          view_vocabulary:
-            one: See 1 term
-            other: See %{count} terms
+          view_vocabulary: See terms
         new:
           new: New Vocabulary
         new_modal:

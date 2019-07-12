@@ -79,7 +79,11 @@ module BudgetsFactory
     params.delete(:indexes)
 
     documents = indexes.map { |index| build_document(index, params) }
-    @result = bulk(body: documents)
+    result = bulk(body: documents)
+
+    self.created_documents = result["items"].map do |doc|
+      doc["index"].slice("_index", "_type", "_id")
+    end
   end
 
   def teardown
@@ -89,14 +93,13 @@ module BudgetsFactory
   private
 
   def bulk(params = {})
-    client.bulk(params)
+    result = client.bulk(params)
+    sleep 1 # wait for search index to be ready
+    result
   end
 
   def teardown_body
-    created_documents = @result["items"].map do |doc|
-      doc["index"].slice("_index", "_type", "_id")
-    end
-
     created_documents.map { |doc_summary| { delete: doc_summary } }
   end
+
 end

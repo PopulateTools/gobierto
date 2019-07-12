@@ -45,8 +45,8 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
   }
 
   function _parseBudgetLines(jsonData) {
-    Object.keys(jsonData.custom.G).sort().forEach(function(budgetLineCode) {
-      _budgetLines.grouped.custom[`custom/${_organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData.custom.G[budgetLineCode]}`
+    Object.keys(jsonData).sort().forEach(function(budgetLineCode) {
+      _budgetLines.grouped.custom[`custom/${_organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData[budgetLineCode]}`
     });
   }
 
@@ -62,7 +62,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
     })
 
     var budgetLinesPromise = new Promise((resolve) => {
-      $.getJSON('/presupuestos/api/categories', function(jsonData) {
+      $.getJSON('/presupuestos/api/categories/custom/G', function(jsonData) {
         resolve(jsonData)
       });
     })

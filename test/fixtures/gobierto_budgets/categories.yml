@@ -5,7 +5,8 @@ economic_1_g:
   kind: <%= GobiertoBudgets::BudgetLine::EXPENSE %>
   custom_name_translations: <%= {
     'es' => 'Gastos de personal (custom, translated)',
-    'en' => 'Personal expenses (custom, translated)'
+    'en' => 'Personal expenses (custom, translated)',
+    'ca' => 'Despeses de personal'
   }.to_json %>
   custom_description_translations: <%= {
     'es' => 'Los gastos de personal son... (custom, translated)',

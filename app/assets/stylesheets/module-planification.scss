@@ -130,12 +130,16 @@ $white: $color_main_negative;
         position: relative;
         z-index: 2;
         box-sizing: border-box;
-        padding: 2em;
+        padding: 1em;
         color: $white;
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        @include min-screen(768) {
+          padding: 2em;
+        }
 
         h3 {
           color: $white;
@@ -228,6 +232,15 @@ $white: $color_main_negative;
   .node-breadcrumb {
     display: inline-block;
 
+    @include screen(768) {
+      margin-left: 0 !important;
+
+      &:first-child,
+      &:first-child + br {
+        display: none;
+      }
+    }
+
     @include border-radius(6px);
 
     .fas {
@@ -251,6 +264,10 @@ $white: $color_main_negative;
 
     @include screen(768) {
       margin-left: 0 !important;
+
+      h3 {
+        font-size: $f6;
+      }
     }
 
     @include min-screen(768) {
@@ -514,7 +531,15 @@ $white: $color_main_negative;
       }
 
       .node-info {
-        padding: 1.5em;
+        padding: 1em;
+
+        @include min-screen(768) {
+          padding: 1.5em;
+        }
+
+        .info-content {
+          padding: 0;
+        }
 
         h3,
         span {
@@ -528,15 +553,29 @@ $white: $color_main_negative;
           max-height: 100%;
         }
 
-        &:not(.is-mobile-open) .node-root:not(.is-root-open) {
-          max-height: 0;
-          min-height: 0;
-          transition: all 250ms;
+        &:not(.is-mobile-open) .node-root {
+          min-height: auto;
 
-          * {
-            visibility: hidden;
+          &:not(.is-root-open) {
+            max-height: 0;
+            min-height: 0;
+            transition: all 250ms;
+  
+            * {
+              visibility: hidden;
+            }
           }
         }
+      }
+    }
+  }
+
+  @include screen(768) {
+    section.level_1 {
+      padding: 0 !important;
+
+      .action-line--header {
+        display: none;
       }
     }
   }

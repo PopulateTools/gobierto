@@ -14,7 +14,7 @@ module GobiertoCommon::CustomFieldFunctions
 
       return if uids.blank?
 
-      calculation_custom_fields = site.custom_fields.find_by!(uid: uids)
+      calculation_custom_fields = uids.map { |uid| site.custom_fields.find_by!(uid: uid) }
 
       calculation_records = GobiertoCommon::CustomFieldRecord.where(item: record.item, custom_field: calculation_custom_fields)
       progress_items = calculation_records.map { |record| record.functions(version: @version).progress(options) }.compact

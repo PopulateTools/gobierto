@@ -11,6 +11,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
   var _availableYears = []
   var _organizationId
   var _pluginCssClass = 'budgets'
+  var _budgetLines = { grouped: { custom: {} } };
 
   GobiertoCommonCustomFieldRecordsBudgetsPluginController.prototype.form = function(opts = {}) {
     _initializePlugin(opts.uid)
@@ -48,12 +49,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
 
     var availableYearsPromise = new Promise((resolve) => {
       $.getJSON('/presupuestos/api/data/available_years', function(jsonData) {
-        resolve(jsonData)
-      });
-    })
-
-    var budgetLinesPromise = new Promise((resolve) => {
-      $.getJSON('/presupuestos/api/categories/custom/G', function(jsonData) {
         resolve(jsonData)
       });
     })
@@ -96,13 +91,17 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         if (updatedRow.weight) {
           updatedRow.assigned_amount = `${Math.round(amount * updatedRow.weight / 100).toLocaleString(I18n.locale)} €`
         }
+
+        let budgetsCell = _grid.getColumns().findIndex((c) => (c.field === "budget_line"))
+        _refreshBudgetLines(budgetsCell, updatedRow.year)
+
         _grid.invalidateRow(row)
         _grid.render()
       }
     })
   }
 
-  function _refreshBudgetLines(grid, cell, year) {
+  function _refreshBudgetLines(cell, year) {
     var budgetLinesPromise = new Promise((resolve) => {
       $.getJSON(`/presupuestos/api/categories/custom/G?with_data=${year}`, function(jsonData) {
         resolve(jsonData)
@@ -116,11 +115,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         budgetLines.grouped.custom[`custom/${_organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData[budgetLineCode]}`
       });
 
-      let currentCell = grid.getColumns()[cell]
-
-      let columns = grid.getColumns(columns);
+      let columns = _grid.getColumns(columns);
       columns[cell].dataSource = budgetLines;
-      grid.setColumns(columns);
+      _grid.setColumns(columns);
     })
   }
 
@@ -147,17 +144,17 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
       })
 
       _grid.onActiveCellChanged.subscribe(function(e, args) {
-        let grid = args.grid
-        let currentCellColumn = grid.getColumns()[args.cell]
+        let currentCellColumn = _grid.getColumns()[args.cell]
 
         if(currentCellColumn === undefined) { return }
 
         if(currentCellColumn.id === "budget_line"){
-          let yearCell = grid.getColumns().find((c) => (c.field === "year"))
+          let yearCell = _grid.getColumns().find((c) => (c.field === "year"))
           if(yearCell !== undefined){
-            let currentRow = grid.getData()[args.row]
+            let currentRow = _grid.getData()[args.row]
             if(currentRow !== undefined && currentRow.year !== undefined){
-              _refreshBudgetLines(grid, args.cell, currentRow.year)
+              _grid.invalidateRow(args.row)
+              _refreshBudgetLines(args.cell, currentRow.year)
             }
           }
         }

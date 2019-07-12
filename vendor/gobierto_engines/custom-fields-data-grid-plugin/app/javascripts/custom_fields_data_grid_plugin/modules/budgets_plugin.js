@@ -150,6 +150,8 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         let grid = args.grid
         let currentCellColumn = grid.getColumns()[args.cell]
 
+        if(currentCellColumn === undefined) { return }
+
         if(currentCellColumn.id === "budget_line"){
           let yearCell = grid.getColumns().find((c) => (c.field === "year"))
           if(yearCell !== undefined){

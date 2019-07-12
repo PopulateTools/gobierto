@@ -79,7 +79,8 @@ function Select2Editor(args) {
   };
 
   this.destroy = function () {
-    $input.select2('close');
+    // Don't close to avoid conflict on close callback
+    // $input.select2('close');
     $input.select2('destroy');
     $input.remove();
   };

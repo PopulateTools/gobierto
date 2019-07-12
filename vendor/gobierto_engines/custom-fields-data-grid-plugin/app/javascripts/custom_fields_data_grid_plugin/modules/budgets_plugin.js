@@ -9,9 +9,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
 
   var _grid
   var _availableYears = []
-  var _budgetLines = {
-    grouped: { custom: {} }
-  }
   var _organizationId
   var _pluginCssClass = 'budgets'
 
@@ -44,12 +41,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
     _availableYears = jsonData.sort().reverse()
   }
 
-  function _parseBudgetLines(jsonData) {
-    Object.keys(jsonData).sort().forEach(function(budgetLineCode) {
-      _budgetLines.grouped.custom[`custom/${_organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData[budgetLineCode]}`
-    });
-  }
-
   function _initializePlugin(uid) {
     var element = $(`[data-uid=${uid}]`)
     _organizationId = element.attr("data-organization-id")
@@ -70,15 +61,10 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
     availableYearsPromise.then(function(jsonData) {
       _parseAvailableYears(jsonData)
 
-      budgetLinesPromise.then(function(jsonData) {
-        _parseBudgetLines(jsonData)
+      let data = _deserializeTableData($(`#project_custom_records_${uid}_value`).val())
 
-        let data = _deserializeTableData($(`#project_custom_records_${uid}_value`).val())
-
-        applyPluginStyles(element, _pluginCssClass)
-        _slickGrid(id, data)
-      })
-
+      applyPluginStyles(element, _pluginCssClass)
+      _slickGrid(id, data)
     })
   }
 
@@ -116,6 +102,28 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
     })
   }
 
+  function _refreshBudgetLines(grid, cell, year) {
+    var budgetLinesPromise = new Promise((resolve) => {
+      $.getJSON(`/presupuestos/api/categories/custom/G?with_data=${year}`, function(jsonData) {
+        resolve(jsonData)
+      });
+    })
+
+    budgetLinesPromise.then(function(jsonData) {
+      let budgetLines = { grouped: { custom: {} } }
+
+      Object.keys(jsonData).sort().forEach(function(budgetLineCode) {
+        budgetLines.grouped.custom[`custom/${_organizationId}/${budgetLineCode}/G`] = `${budgetLineCode} - ${jsonData[budgetLineCode]}`
+      });
+
+      let currentCell = grid.getColumns()[cell]
+
+      let columns = grid.getColumns(columns);
+      columns[cell].dataSource = budgetLines;
+      grid.setColumns(columns);
+    })
+  }
+
   function _slickGrid(id, data) {
     function _initializeGrid(id, data, columns, options) {
       var checkboxSelector = new CheckboxDeleteRowPlugin({
@@ -136,6 +144,21 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         data.push(args.item)
         _grid.updateRowCount()
         _grid.render()
+      })
+
+      _grid.onActiveCellChanged.subscribe(function(e, args) {
+        let grid = args.grid
+        let currentCellColumn = grid.getColumns()[args.cell]
+
+        if(currentCellColumn.id === "budget_line"){
+          let yearCell = grid.getColumns().find((c) => (c.field === "year"))
+          if(yearCell !== undefined){
+            let currentRow = grid.getData()[args.row]
+            if(currentRow.year !== undefined){
+              _refreshBudgetLines(grid, args.cell, currentRow.year)
+            }
+          }
+        }
       })
 
       _grid.onCellChange.subscribe(function(_e, args) {
@@ -164,7 +187,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         cssClass: "cell-title",
         formatter: Select2Formatter,
         editor: Select2Editor,
-        dataSource: _budgetLines
+        dataSource: null
       },
       {
         id: "weight",

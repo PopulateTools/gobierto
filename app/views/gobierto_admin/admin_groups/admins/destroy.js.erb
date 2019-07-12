@@ -1,2 +1,4 @@
+var close_button = $(".mfp-close");
 $("#modal_item_permissions").html("<%= j render(partial: 'gobierto_admin/admin_groups/admins/modal_index') %>");
+$("#modal_item_permissions").append(close_button);
 window.GobiertoAdmin.admin_groups_admins_controller.index();

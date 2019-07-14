@@ -120,7 +120,7 @@ module GobiertoAdmin
     end
 
     def set_admin_groups
-      @admin_groups = AdminGroup.where(site_id: current_site.id).all
+      @admin_groups = AdminGroup.normal.where(site_id: current_site.id).all
     end
 
     def set_authorization_levels

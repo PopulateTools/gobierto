@@ -93,14 +93,15 @@ module GobiertoAdmin
                          else
                            []
                          end
-      @admin_groups = AdminGroup.where(id: admin_group_ids)
+      @admin_groups = AdminGroup.normal.where(id: admin_group_ids)
     end
 
     def allowed_admin_groups
-      permitted_sites_existing_groups = @admin.admin_groups.where(site: sites.where.not(id: site.id))
-      site_groups = admin_groups.where(site: site)
+      permitted_sites_existing_groups = @admin.admin_groups.normal.where(site: sites.where.not(id: site.id))
+      site_groups = admin_groups.normal.where(site: site)
+      system_groups = @admin.admin_groups.system
 
-      permitted_sites_existing_groups + site_groups
+      permitted_sites_existing_groups + site_groups + system_groups
     end
 
     def save_admin

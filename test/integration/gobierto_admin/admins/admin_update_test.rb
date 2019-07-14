@@ -30,6 +30,11 @@ module GobiertoAdmin
     def site_group
       @site_group ||= gobierto_admin_admin_groups(:madrid_group)
     end
+    alias regular_admin_normal_group site_group
+
+    def regular_admin_system_group
+      @regular_admin_system_group ||= gobierto_admin_admin_groups(:political_agendas_permissions_group)
+    end
 
     def test_regular_admin_update
       with_signed_in_admin(manager_admin) do
@@ -70,57 +75,66 @@ module GobiertoAdmin
     end
 
     def test_regular_admin_update_admin_groups
-      with_javascript do
-        with_current_site(site) do
-          with_signed_in_admin(manager_admin) do
-            visit edit_admin_admin_path(regular_admin_on_santander)
+      with(site: site, admin: manager_admin, js: true) do
+        visit edit_admin_admin_path(regular_admin_on_santander)
 
-            within "form.edit_admin" do
-              fill_in "admin_name", with: "Admin Name"
-              fill_in "admin_email", with: "wadus@gobierto.dev"
+        within "form.edit_admin" do
+          fill_in "admin_name", with: "Admin Name"
+          fill_in "admin_email", with: "wadus@gobierto.dev"
 
-              find("label[for='admin_admin_group_ids_#{site_group.id}']").click
-              find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
+          find("label[for='admin_admin_group_ids_#{site_group.id}']").click
+          find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
 
-              click_button "Update"
-            end
+          click_button "Update"
+        end
 
-            assert has_message?("Admin was successfully updated")
+        assert has_message?("Admin was successfully updated")
 
-            assert find("#admin_admin_group_ids_#{site_group.id}", visible: false).checked?
-            within "form.edit_admin" do
-              assert has_field?("admin_email", with: "wadus@gobierto.dev")
-              assert has_field?("admin_name", with: "Admin Name")
-            end
-          end
+        assert find("#admin_admin_group_ids_#{site_group.id}", visible: false).checked?
+        within "form.edit_admin" do
+          assert has_field?("admin_email", with: "wadus@gobierto.dev")
+          assert has_field?("admin_name", with: "Admin Name")
         end
       end
     end
 
+    def test_regular_admin_update_does_not_include_system_groups
+      with(site: site, admin: manager_admin, js: true) do
+        visit edit_admin_admin_path(regular_admin)
+
+        within "#admin_groups" do
+          assert has_no_content? regular_admin_system_group.name
+          assert has_content? regular_admin_normal_group.name
+          find("label[for='admin_admin_group_ids_#{regular_admin_normal_group.id}']").click
+        end
+
+        click_button "Update"
+
+        assert_includes regular_admin.admin_groups, regular_admin_system_group
+        refute_includes regular_admin.admin_groups, regular_admin_normal_group
+      end
+    end
+
     def test_regular_admin_deassign_admin_groups
-      with_javascript do
-        with_current_site(site) do
-          with_signed_in_admin(manager_admin) do
-            visit edit_admin_admin_path(regular_admin)
+      with(site: site, admin: manager_admin, js: true) do
+        visit edit_admin_admin_path(regular_admin)
 
-            within "form.edit_admin" do
-              fill_in "admin_name", with: "Admin Name"
-              fill_in "admin_email", with: "wadus@gobierto.dev"
+        within "form.edit_admin" do
+          fill_in "admin_name", with: "Admin Name"
+          fill_in "admin_email", with: "wadus@gobierto.dev"
 
-              find("label[for='admin_admin_group_ids_#{site_group.id}']").click
-              find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
+          find("label[for='admin_admin_group_ids_#{site_group.id}']").click
+          find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
 
-              click_button "Update"
-            end
+          click_button "Update"
+        end
 
-            assert has_message?("Admin was successfully updated")
+        assert has_message?("Admin was successfully updated")
 
-            refute find("#admin_admin_group_ids_#{site_group.id}", visible: false).checked?
-            within "form.edit_admin" do
-              assert has_field?("admin_email", with: "wadus@gobierto.dev")
-              assert has_field?("admin_name", with: "Admin Name")
-            end
-          end
+        refute find("#admin_admin_group_ids_#{site_group.id}", visible: false).checked?
+        within "form.edit_admin" do
+          assert has_field?("admin_email", with: "wadus@gobierto.dev")
+          assert has_field?("admin_name", with: "Admin Name")
         end
       end
     end

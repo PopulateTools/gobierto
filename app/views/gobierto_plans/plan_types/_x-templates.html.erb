@@ -2,7 +2,7 @@
 <script type="text/x-template" id="node-root-template">
   <a @click="open" data-turbolinks="false">
     <div class="node-img">
-      <img :src="model.attributes.img" alt="">
+      <img v-if="model.attributes.img" :src="model.attributes.img" alt="">
     </div>
     <div class="node-info">
       <div class="info-progress progress" :style="{ width: progressWidth }"></div>

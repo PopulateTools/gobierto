@@ -54,7 +54,11 @@ export default {
   &__data {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 40px 40px;
+    grid-gap: 20px 20px;
+
+    @media screen and (min-width: 768px) {
+      grid-gap: 40px 40px;
+    }
   }
 
   &__item {

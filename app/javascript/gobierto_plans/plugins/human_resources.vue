@@ -34,11 +34,11 @@ export default {
   },
   data() {
     return {
-      title: '',
+      title: "",
       detail: {},
       budgetedAmount: 0,
       executedAmount: 0,
-      executedPercent: ''
+      executedPercent: ""
     };
   },
   filters: {
@@ -49,16 +49,19 @@ export default {
     money(value) {
       const lang = I18n.locale || "es";
       if (value) {
-        return value.toLocaleString(lang, { style: "currency", currency: "EUR" });
+        return value.toLocaleString(lang, {
+          style: "currency",
+          currency: "EUR"
+        });
       }
     }
   },
   created() {
-    this.title = this.config.title_translations
-    this.detail = this.config.detail
-    this.budgetedAmount = this.config.budgeted_amount
-    this.executedAmount = this.config.executed_amount
-    this.executedPercent = this.config.executed_percentage
+    this.title = this.config.title_translations;
+    this.detail = this.config.detail;
+    this.budgetedAmount = this.config.budgeted_amount;
+    this.executedAmount = this.config.executed_amount;
+    this.executedPercent = this.config.executed_percentage;
   }
 };
 </script>
@@ -67,9 +70,14 @@ export default {
 .tablerow {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   font-size: 14px;
   min-height: 100px;
   padding: .5em 0;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
 
   &__title {
     flex: 0 0 25%;

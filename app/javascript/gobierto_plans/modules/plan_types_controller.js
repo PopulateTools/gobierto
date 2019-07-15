@@ -55,6 +55,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
         open: function() {
           // Trigger event
           this.$emit("selection", { ...this.model });
+          this.$emit("open-menu-mobile");
         }
       }
     });
@@ -145,7 +146,8 @@ window.GobiertoPlans.PlanTypesController = (function() {
         globalProgress: 0,
         rootid: 0,
         readMoreButton: true,
-        customFields: {}
+        customFields: {},
+        openMenu: true
       },
       created: function() {
         this.getJson();
@@ -311,6 +313,8 @@ window.GobiertoPlans.PlanTypesController = (function() {
           let found = this.searchByUid(hash, this.json);
 
           if (found) {
+            this.openMenu = false;
+
             this.setSelection(found);
 
             if (forcedNode !== null) {

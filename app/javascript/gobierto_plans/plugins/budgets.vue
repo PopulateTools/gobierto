@@ -67,9 +67,14 @@ export default {
 .tablerow {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   font-size: 14px;
   min-height: 100px;
   padding: .5em 0;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
 
   &__title {
     flex: 0 0 25%;

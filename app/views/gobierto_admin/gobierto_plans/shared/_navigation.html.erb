@@ -14,8 +14,10 @@
       </li>
     <% end %>
 
-    <li class="<%= class_if('active', controller_name == "plans") %>">
-      <%= link_to t(".configuration_tab"), edit_admin_plans_plan_path(@plan), data: { turbolinks: false } %>
-    </li>
+    <% if current_admin.module_allowed_action?("GobiertoPlans", current_site, :manage) %>
+      <li class="<%= class_if('active', controller_name == "plans") %>">
+        <%= link_to t(".configuration_tab"), edit_admin_plans_plan_path(@plan), data: { turbolinks: false } %>
+      </li>
+    <% end %>
   </ul>
 </div>

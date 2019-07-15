@@ -204,6 +204,31 @@ module GobiertoAdmin
           end
         end
 
+        def test_edit_not_allowed_project_as_regular_editor
+          allow_regular_admin_edit_plans
+
+          with(site: site, admin: regular_admin) do
+            visit unpublished_path
+
+            assert_equal 404, page.status_code
+          end
+        end
+
+        def test_edit_disabled_on_approved_project_as_regular_editor
+          allow_regular_admin_edit_plans
+
+          with(site: site, admin: regular_admin) do
+            visit path
+            assert has_field?("project_name_translations_en", disabled: true)
+            assert has_field?("project_status_id", disabled: true)
+            assert has_field?("project_starts_at", disabled: true)
+            assert has_field?("project_ends_at", disabled: true)
+            assert has_field?("project_progress", disabled: true)
+            assert has_no_button? "Save"
+            assert has_no_link? "Unpublish"
+          end
+        end
+
         def test_edit_project_as_regular_editor
           allow_regular_admin_edit_project(published_project)
 

@@ -48,12 +48,16 @@ module GobiertoPlans
       end
     }
 
-    extra_moderation_permissions_lookup_attributes do |_|
-      [{
-        namespace: "site_module",
-        resource_type: "gobierto_plans",
-        resource_id: nil
-      }]
+    extra_moderation_permissions_lookup_attributes do |node, action|
+      if node.new_record? || action != :edit
+        [{
+          namespace: "site_module",
+          resource_type: "gobierto_plans",
+          resource_id: nil
+        }]
+      else
+        []
+      end
     end
 
     default_moderation_stage do |node|

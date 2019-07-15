@@ -41,12 +41,10 @@ module GobiertoAdmin
         end
 
         def test_regular_admin_without_groups_delete_project
-          with_signed_in_admin(regular_admin) do
-            with_current_site(site) do
-              visit @path
+          with(site: site, admin: regular_admin) do
+            visit @path
 
-              assert has_alert? "You are not authorized to perform this action"
-            end
+            assert has_alert? "You are not authorized to perform this action"
           end
         end
 

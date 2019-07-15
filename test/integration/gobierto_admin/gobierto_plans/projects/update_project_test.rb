@@ -209,7 +209,7 @@ module GobiertoAdmin
         end
 
         def test_edit_project_as_regular_editor
-          allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(published_project)
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do
@@ -250,7 +250,7 @@ module GobiertoAdmin
         end
 
         def test_edit_not_approved_project_as_regular_editor
-          allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(unpublished_project)
 
           with(site: site, admin: regular_admin) do
             visit unpublished_path
@@ -290,7 +290,7 @@ module GobiertoAdmin
         end
 
         def test_unpublish_approved_project_as_regular_editor
-          allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(published_project)
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do
@@ -315,7 +315,7 @@ module GobiertoAdmin
         end
 
         def test_publish_not_approved_project_as_regular_editor
-          allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(unpublished_project)
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do
@@ -329,7 +329,7 @@ module GobiertoAdmin
         end
 
         def test_send_project_as_regular_editor
-          allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(unpublished_project)
           unpublished_project.moderation.not_sent!
           create_custom_fields_records
 
@@ -360,7 +360,7 @@ module GobiertoAdmin
         end
 
         def test_edit_project_as_regular_editor_and_moderator
-          allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(unpublished_project)
           allow_regular_admin_moderate_plans
 
           with_signed_in_admin(regular_admin) do
@@ -402,7 +402,7 @@ module GobiertoAdmin
         end
 
         def test_moderate_project_as_regular_editor_and_moderator
-          allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(unpublished_project)
           allow_regular_admin_moderate_plans
           create_custom_fields_records
 
@@ -450,7 +450,7 @@ module GobiertoAdmin
         end
 
         def test_editor_changes_version_and_publish
-          allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(unpublished_project)
           unpublished_project.moderation.approved!
 
           with_signed_in_admin(regular_admin) do
@@ -494,7 +494,7 @@ module GobiertoAdmin
         end
 
         def test_editor_changes_version_edits_and_publish
-          allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(unpublished_project)
           unpublished_project.moderation.approved!
 
           with_signed_in_admin(regular_admin) do
@@ -574,7 +574,7 @@ module GobiertoAdmin
         end
 
         def test_editor_changes_published_version_to_first
-          allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(unpublished_project)
           create_custom_fields_records
           unpublished_project.moderation.approved!
 

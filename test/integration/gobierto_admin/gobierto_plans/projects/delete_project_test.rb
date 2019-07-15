@@ -66,6 +66,7 @@ module GobiertoAdmin
 
         def test_regular_editor_admin_delete_project_with_empty_author
           allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(project)
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do
@@ -83,6 +84,7 @@ module GobiertoAdmin
 
         def test_regular_editor_admin_delete_other_author_project
           allow_regular_admin_edit_plans
+          allow_regular_admin_edit_project(project)
           project.update(admin_id: admin.id)
 
           with_signed_in_admin(regular_admin) do
@@ -99,6 +101,7 @@ module GobiertoAdmin
         def test_regular_editor_admin_delete_own_project
           allow_regular_admin_edit_plans
           project.update(admin_id: regular_admin.id)
+          allow_regular_admin_edit_project(project)
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do

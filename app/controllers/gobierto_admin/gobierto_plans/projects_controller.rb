@@ -156,7 +156,7 @@ module GobiertoAdmin
       end
 
       def find_versioned_project
-        @project = @plan.nodes.find params[:id]
+        @project = base_relation.find params[:id]
 
         return if params[:version].blank?
 

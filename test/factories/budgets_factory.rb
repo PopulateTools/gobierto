@@ -93,9 +93,7 @@ module BudgetsFactory
   private
 
   def bulk(params = {})
-    result = client.bulk(params)
-    sleep 1 # wait for search index to be ready
-    result
+    client.bulk(params.merge(refresh: true))
   end
 
   def teardown_body

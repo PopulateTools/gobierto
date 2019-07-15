@@ -49,16 +49,15 @@ module GobiertoBudgets
       end
 
       def translated_attributes
-        current_locale = I18n.locale
         translations = {}
 
         I18n.available_locales.each do |locale|
-          I18n.locale = locale
-          translations["name_#{locale}"] = get_name
-          translations["description_#{locale}"] = get_description
+          I18n.with_locale(locale) do
+            translations["name_#{locale}"] = get_name
+            translations["description_#{locale}"] = get_description
+          end
         end
 
-        I18n.locale = current_locale
         translations
       end
 

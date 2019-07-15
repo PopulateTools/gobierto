@@ -6,6 +6,8 @@ export { Select2Formatter, Select2Editor }
 function PopulateSelect(select, dataSource, addBlank) {
   var newOption;
 
+  if(dataSource === null) { return }
+
   if (addBlank) { select.appendChild(new Option('', '')); }
 
   if (dataSource.grouped) {
@@ -34,6 +36,7 @@ function PopulateSelect(select, dataSource, addBlank) {
 };
 
 function Select2Formatter(_row, _cell, value, columnDef, _dataContext) {
+  if(columnDef.dataSource === null) { return }
   var groupedData = columnDef.dataSource.grouped
 
   if (groupedData) {
@@ -76,7 +79,8 @@ function Select2Editor(args) {
   };
 
   this.destroy = function () {
-    $input.select2('close');
+    // Don't close to avoid conflict on close callback
+    // $input.select2('close');
     $input.select2('destroy');
     $input.remove();
   };

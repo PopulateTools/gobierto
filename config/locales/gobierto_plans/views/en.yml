@@ -7,6 +7,7 @@ en:
       gobierto_plans_plan_type_created: Plan type created
       gobierto_plans_plan_type_updated: Plan type updated
       gobierto_plans_plan_updated: Plan updated
+      gobierto_plans_progresses_updated: Projects progresses updated
     layouts:
       application:
         plans: Plans

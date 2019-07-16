@@ -7,7 +7,7 @@ module PermissionHelpers
     group.admins << admin unless group.admins.include? admin
     group.permissions.create!(
       namespace: "site_module",
-      resource_name: module_name,
+      resource_type: module_name,
       action_name: "manage"
     )
   end
@@ -26,7 +26,7 @@ module PermissionHelpers
     if options[:module]
       admin_permissions.build(
         namespace: "site_module",
-        resource_name: options[:module],
+        resource_type: options[:module],
         action_name: "manage"
       )
     end
@@ -34,7 +34,7 @@ module PermissionHelpers
     if options[:person]
       admin_permissions.build(
         namespace: "gobierto_people",
-        resource_name: "person",
+        resource_type: "GobiertoPeople::Person",
         resource_id: options[:person].id,
         action_name: "manage"
       )
@@ -43,7 +43,7 @@ module PermissionHelpers
     if options[:all_people]
       admin_permissions.build(
         namespace: "gobierto_people",
-        resource_name: "person",
+        resource_type: "GobiertoPeople::Person",
         action_name: "manage_all"
       )
     end
@@ -66,7 +66,7 @@ module PermissionHelpers
 
     admin_permissions.build(
       namespace: "site_options",
-      resource_name: "templates",
+      resource_type: "templates",
       action_name: "manage"
     )
     admin.sites = admin_sites
@@ -76,14 +76,14 @@ module PermissionHelpers
 
   def revoke_templates_permission(admin)
     admin.site_options_permissions.where(
-      resource_name: "templates",
+      resource_type: "templates",
       action_name: "manage"
     ).each(&:destroy)
   end
 
   def revoke_customize_site_permission(admin)
     admin.site_options_permissions.where(
-      resource_name: "customize",
+      resource_type: "customize",
       action_name: "manage"
     ).each(&:destroy)
   end

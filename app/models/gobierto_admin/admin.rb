@@ -14,6 +14,7 @@ module GobiertoAdmin
     has_many :admin_sites, dependent: :destroy
     has_many :sites, through: :admin_sites
 
+    has_many :admin_group_memberships, class_name: "GobiertoAdmin::GroupsAdmin"
     has_and_belongs_to_many :admin_groups, ->(admin) { where(site_id: admin.sites.pluck(:id)) }, join_table: "admin_groups_admins"
     has_many :permissions, ->(admin) { joins(:admin_group).where(admin_admin_groups: { site_id: admin.sites.pluck(:id) }) }, through: :admin_groups
     has_many :global_permissions, through: :admin_groups, class_name: "Permission::Global", source: :permissions
@@ -92,19 +93,27 @@ module GobiertoAdmin
     end
 
     def can_customize_site?
-      managing_user? || site_options_permissions.exists?(resource_name: :customize)
+      managing_user? || site_options_permissions.exists?(resource_type: :customize)
     end
 
     def can_edit_vocabularies?
-      managing_user? || site_options_permissions.exists?(resource_name: :vocabularies)
+      managing_user? || site_options_permissions.exists?(resource_type: :vocabularies)
     end
 
     def can_edit_custom_fields?
-      managing_user? || site_options_permissions.exists?(resource_name: :custom_fields)
+      managing_user? || site_options_permissions.exists?(resource_type: :custom_fields)
     end
 
     def can_edit_templates?
-      managing_user? || site_options_permissions.exists?(resource_name: :templates)
+      managing_user? || site_options_permissions.exists?(resource_type: :templates)
+    end
+
+    def admin_group_membership_created_at(group)
+      membership = admin_group_memberships.find_by(admin_group: group)
+
+      return unless membership
+
+      membership.created_at
     end
 
     private

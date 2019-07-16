@@ -71,6 +71,8 @@ en:
         element: Recover element
         not_recoverable: This element can't be recovered because it belongs to archived
           elements
+      resource_admin_permissions_button:
+        permissions: Permissions
       save_widget:
         save: Save
         visibility_level:

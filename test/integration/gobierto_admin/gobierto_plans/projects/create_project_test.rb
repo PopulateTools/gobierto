@@ -117,6 +117,7 @@ module GobiertoAdmin
                 assert_equal Date.parse("2021-01-01"), project.ends_at
                 assert project.draft?
                 assert project.moderation.not_sent?
+                assert has_link? "Permissions"
               end
             end
           end

@@ -70,7 +70,7 @@ ca:
   activerecord:
     attributes:
       gobierto_admin/permission/site_option:
-        resource_names:
+        resource_types:
           custom_fields: Camps personalitzats
           customize: Personalitzar site
           templates: Plantilles

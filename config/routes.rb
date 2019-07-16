@@ -35,7 +35,9 @@ Rails.application.routes.draw do
       end
 
       resources :admins, only: [:index, :show, :new, :create, :edit, :update]
-      resources :admin_groups, only: [:index, :new, :create, :edit, :update]
+      resources :admin_groups, only: [:index, :new, :create, :edit, :update] do
+        resources :admins, only: [:index, :new, :create, :destroy], controller: "admin_groups/admins"
+      end
 
       namespace :admin do
         resource :invitations, only: [:new, :create]

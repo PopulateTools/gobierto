@@ -24,6 +24,11 @@ module GobiertoAdmin
     def madrid_group
       @madrid_group ||= gobierto_admin_admin_groups(:madrid_group)
     end
+    alias normal_group madrid_group
+
+    def system_group
+      @system_group ||= gobierto_admin_admin_groups(:political_agendas_permissions_group)
+    end
 
     def other_site_group
       @other_site_group ||= gobierto_admin_admin_groups(:santander_group)
@@ -47,6 +52,17 @@ module GobiertoAdmin
         with_signed_in_admin(regular_admin) do
           visit @path
           assert has_no_selector?("tr#admin-item-#{madrid_group.id}")
+        end
+      end
+    end
+
+    def test_index_does_not_include_system_groups
+      with(site: madrid, admin: manager_admin) do
+        visit @path
+
+        within("table.admin-list tbody") do
+          assert has_content? normal_group.name
+          assert has_no_content? system_group.name
         end
       end
     end

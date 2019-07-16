@@ -54,7 +54,7 @@ module GobiertoCommon
     def base_permissions_lookup_attributes(action)
       [{
         namespace: moderation.moderable_type.deconstantize.underscore,
-        resource_name: moderation.moderable_type.demodulize.underscore,
+        resource_type: moderation.moderable_type.demodulize.underscore,
         resource_id: moderation.moderable_id,
         action_name: action
       }]

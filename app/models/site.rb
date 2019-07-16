@@ -10,6 +10,7 @@ class Site < ApplicationRecord
   has_many :admin_sites, dependent: :destroy, class_name: "GobiertoAdmin::AdminSite"
   has_many :admins, through: :admin_sites, class_name: "GobiertoAdmin::Admin"
   has_many :census_imports, dependent: :destroy, class_name: "GobiertoAdmin::CensusImport"
+  has_many :admin_groups, dependent: :destroy, class_name: "GobiertoAdmin::AdminGroup"
 
   # GobiertoCommon integration
   has_many :collections, dependent: :destroy, class_name: "GobiertoCommon::Collection"

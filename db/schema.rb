@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_03_074757) do
+ActiveRecord::Schema.define(version: 2019_07_10_130540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -40,6 +40,10 @@ ActiveRecord::Schema.define(version: 2019_06_03_074757) do
   create_table "admin_admin_groups", force: :cascade do |t|
     t.bigint "site_id"
     t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.integer "group_type", default: 0, null: false
+    t.index ["resource_type", "resource_id"], name: "index_admin_admin_groups_on_resource_type_and_resource_id"
     t.index ["site_id"], name: "index_admin_admin_groups_on_site_id"
   end
 
@@ -89,16 +93,18 @@ ActiveRecord::Schema.define(version: 2019_06_03_074757) do
   create_table "admin_group_permissions", force: :cascade do |t|
     t.bigint "admin_group_id"
     t.string "namespace", default: "", null: false
-    t.string "resource_name", default: "", null: false
+    t.string "resource_type", default: "", null: false
     t.bigint "resource_id"
     t.string "action_name", default: "", null: false
-    t.index ["admin_group_id", "namespace", "resource_name", "resource_id", "action_name"], name: "index_admin_permissions_on_admin_group_id_and_fields"
+    t.index ["admin_group_id", "namespace", "resource_type", "resource_id", "action_name"], name: "index_admin_permissions_on_admin_group_id_and_fields"
     t.index ["admin_group_id"], name: "index_admin_group_permissions_on_admin_group_id"
   end
 
   create_table "admin_groups_admins", id: false, force: :cascade do |t|
     t.bigint "admin_id", null: false
     t.bigint "admin_group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "admin_moderations", force: :cascade do |t|

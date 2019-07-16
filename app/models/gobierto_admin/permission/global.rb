@@ -2,6 +2,6 @@
 
 module GobiertoAdmin
   class Permission::Global < GroupPermission
-    default_scope -> { where(namespace: "global", resource_name: "global") }
+    default_scope -> { where(namespace: "global", resource_type: "global") }
   end
 end

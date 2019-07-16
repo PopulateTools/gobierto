@@ -2,6 +2,15 @@
 es:
   gobierto_admin:
     admin_groups:
+      admins:
+        modal_index:
+          add: Añadir
+          add_title: Añadir usuario
+          created_at: Acceso concedido
+          delete: Eliminar acceso
+          email: correo-e
+          user: Usuario
+          users_with_access: Usuarios con acceso
       breadcrumb:
         admin_groups: Grupos
       edit:

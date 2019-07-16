@@ -11,6 +11,8 @@ es:
     events:
       admins_admin_authorization_level_updated: Nivel autorización admin actualizado
       admins_admin_created: Admin creado
+      admins_admin_group_member_created: Admin añadido a grupo de permisos
+      admins_admin_group_member_deleted: Admin eliminado de grupo de permisos
       admins_admin_updated: Admin actualizado
       admins_invitation_accepted: Invitación admin aceptada
       admins_invitation_created: Admin invitado

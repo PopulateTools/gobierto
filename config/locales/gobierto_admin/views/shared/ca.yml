@@ -72,6 +72,8 @@ ca:
         element: Recuperar element
         not_recoverable: Aquest element no es pot recuperar perque depèn d'elements
           arxivats
+      resource_admin_permissions_button:
+        permissions: Permisos
       save_widget:
         save: Guardar
         visibility_level:

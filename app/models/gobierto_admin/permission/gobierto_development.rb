@@ -2,6 +2,6 @@
 
 module GobiertoAdmin
   class Permission::GobiertoDevelopment < GroupPermission
-    default_scope -> { where(namespace: "site_module", resource_name: "gobierto_development") }
+    default_scope -> { where(namespace: "site_module", resource_type: "gobierto_development") }
   end
 end

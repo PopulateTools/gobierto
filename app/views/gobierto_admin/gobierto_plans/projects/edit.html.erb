@@ -6,7 +6,15 @@
   <%= @project.name %>
 </div>
 
-<h1><%= @project.name %></h1>
+<div class="pure-g">
+  <div class="pure-u-md-2-3">
+    <h1><%= @project.name %></h1>
+  </div>
+
+  <% if @project_form.allow_moderate? || @project_form.allow_edit_attributes? %>
+    <%= render partial: "gobierto_admin/shared/resource_admin_permissions_button", locals: { resource: @project } %>
+  <% end %>
+</div>
 
 <%= render "gobierto_admin/gobierto_plans/shared/navigation" %>
 

@@ -116,6 +116,13 @@ module GobiertoAdmin
             assert_equal Date.parse("2021-01-01"), published_project.ends_at
             assert published_project.published?
             assert published_project.moderation.approved?
+
+            activity = Activity.last
+            assert_equal published_project, activity.subject
+            assert_equal plan, activity.recipient
+            assert_equal admin, activity.author
+            assert_equal site.id, activity.site_id
+            assert_equal "gobierto_plans.project_updated", activity.action
           end
         end
 

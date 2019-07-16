@@ -41,6 +41,7 @@ module GobiertoAdmin
         options = options.to_h.with_indifferent_access
         ordered_options = options.slice(:id, :plan_id, :admin).merge!(options)
         @passed_attributes = ordered_options.keys
+        @publication_updated = false
         super(ordered_options)
         set_publication_version
       end
@@ -144,6 +145,10 @@ module GobiertoAdmin
         nodes_attributes_differ?(set_node_attributes, versioned_node)
       end
 
+      def publication_updated?
+        @publication_updated
+      end
+
       def version_index
         return unless @version && @version.to_i < node.versions.length
 
@@ -226,6 +231,7 @@ module GobiertoAdmin
 
           attributes.visibility_level = visibility_level
           attributes.published_version = @published_version
+          @publication_updated = attributes.visibility_level_changed?
         end
       end
 

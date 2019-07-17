@@ -121,7 +121,7 @@ module GobiertoAdmin
       end
 
       def allow_edit_attributes?
-        moderation_policy.edit? && !disable_attributes_edition
+        !disable_attributes_edition && (moderation_policy.edit? || allow_moderate?)
       end
 
       def allow_moderate?

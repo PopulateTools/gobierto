@@ -23,7 +23,7 @@ module GobiertoPlans
       elsif object.is_a? GobiertoCommon::Term
         @category = CategoryTermDecorator.new(object)
         @plan = @category.plan
-        @node = Node.new
+        @node = Node.new(progress: nil)
         @object = CSV::Row.new(plan_csv_columns, node_csv_values)
       end
     end

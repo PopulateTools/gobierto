@@ -125,11 +125,11 @@ module GobiertoAdmin
             visit path
 
             within "form" do
-              assert has_field?("project_name_translations_en", disabled: true)
-              assert has_field?("project_status_id", disabled: true)
-              assert has_field?("project_starts_at", disabled: true)
-              assert has_field?("project_ends_at", disabled: true)
-              assert has_field?("project_progress", disabled: true)
+              fill_in "project_name_translations_en", with: "Updated project"
+              fill_in "project_starts_at", with: "2020-01-01"
+              fill_in "project_ends_at", with: "2021-01-01"
+              select "Active", from: "project_status_id"
+              select "3%", from: "project_progress"
 
               within "div.widget_save_v2" do
                 assert has_button? "Save"
@@ -140,7 +140,18 @@ module GobiertoAdmin
                 find(".js-admin-widget-save .i_p_status a", text: "Approved")
                 assert has_button? "Save"
               end
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
             end
+
+            assert has_message? "Project updated correctly."
+            assert has_content? "Updated project"
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\n1"
+            assert has_content? "Click on Publish to make this version publicly visible."
           end
         end
 

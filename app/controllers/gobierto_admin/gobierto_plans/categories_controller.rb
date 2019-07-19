@@ -3,8 +3,6 @@
 module GobiertoAdmin
   module GobiertoPlans
     class CategoriesController < GobiertoAdmin::GobiertoCommon::OrderedTermsController
-      skip_before_action :check_permissions!
-
       before_action -> { module_allowed_action!(current_admin, current_admin_module, :manage) }
       before_action :set_leaf_terms
       after_action :expire_plan_cache, only: [:update]
@@ -13,6 +11,11 @@ module GobiertoAdmin
 
       def index
         find_vocabulary
+        unless @vocabulary.present?
+          redirect_to edit_admin_plans_plan_path(@plan)
+          return
+        end
+
         calculate_accumulated_values
 
         @global_progress = @plan.global_progress

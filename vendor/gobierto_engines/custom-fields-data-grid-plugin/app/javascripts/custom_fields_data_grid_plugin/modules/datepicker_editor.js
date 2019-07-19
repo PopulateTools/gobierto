@@ -53,7 +53,7 @@ function DateEditor(args) {
   this.init = function(){
     defaultDate = options.defaultDate = args.item[args.column.field];
 
-    $input = $('<input type="text" class="editor-text" autocomplete="off" />');
+    $input = $('<input type="text" class="editor-text" autocomplete="off" disabled />');
     $input.appendTo(args.container);
     $input.focus().val(defaultDate).select();
 

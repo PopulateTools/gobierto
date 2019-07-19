@@ -60,22 +60,32 @@ function Select2Formatter(_row, _cell, value, columnDef, _dataContext) {
 }
 
 function Select2Editor(args) {
+  var _grid = args.grid
   var $input;
   var defaultValue;
+  var _allowBlank = false
 
   this.keyCaptureList = [Slick.keyCode.UP, Slick.keyCode.DOWN, Slick.keyCode.ENTER];
 
   this.init = function () {
     $input = $('<select></select>');
     $input.width(args.container.clientWidth + 3);
-    PopulateSelect($input[0], args.column.dataSource, false);
+    PopulateSelect($input[0], args.column.dataSource, _allowBlank)
     $input.appendTo(args.container);
     $input.focus().select();
 
     $input.select2({
       placeholder: '-',
-      allowClear: true
+      allowClear: _allowBlank
     });
+
+    /* Automatically remove focus after chosing an option */
+    $input.on('select2:close', function() {
+      var lock = Slick.GlobalEditorLock
+      if (lock.isActive()) lock.commitCurrentEdit()
+
+      _grid.resetActiveCell()
+    })
   };
 
   this.destroy = function () {
@@ -86,6 +96,7 @@ function Select2Editor(args) {
   };
 
   this.show = function () {
+    $input.select2('open');
   };
 
   this.hide = function () {

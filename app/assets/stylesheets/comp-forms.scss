@@ -129,6 +129,12 @@ textarea:focus {
   }
 }
 
+.form_item.plugin_field label {
+  text-transform: uppercase;
+  font-size: 0.75em;
+  font-weight: 700;
+}
+
 .select_control {
   background: #fafafa;
 

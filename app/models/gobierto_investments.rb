@@ -6,6 +6,6 @@ module GobiertoInvestments
   end
 
   def self.classes_with_custom_fields
-    []
+    [GobiertoInvestments::Project]
   end
 end

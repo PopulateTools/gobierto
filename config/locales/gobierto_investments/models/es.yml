@@ -1,0 +1,7 @@
+---
+es:
+  activerecord:
+    models:
+      gobierto_investments/project:
+        one: Proyecto
+        other: Proyectos

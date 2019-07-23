@@ -3,7 +3,7 @@
 module GobiertoCommon
   module TrackableGroupedAttributes
     module ClassMethods
-      attr_reader :trackable, :publisher, :subject
+      attr_reader :trackable, :publisher, :subject, :event_prefix
 
       def notify_changed(*attribute_names, **opts)
         changed_attributes_to_notify.push(*attribute_names)
@@ -22,6 +22,10 @@ module GobiertoCommon
 
       def use_trackable_subject(subject)
         @subject = subject
+      end
+
+      def use_event_prefix(prefix)
+        @event_prefix = "#{prefix}_"
       end
 
       private
@@ -146,11 +150,12 @@ module GobiertoCommon
     end
 
     def event_prefix
-      @event_prefix ||= if subject != trackable
-                          trackable.class.name.demodulize.tableize + "_"
-                        else
-                          ""
-                        end
+      self.class.event_prefix ||
+        @event_prefix ||= if subject != trackable
+                            trackable.class.name.demodulize.tableize + "_"
+                          else
+                            ""
+                          end
     end
 
     def store_changes

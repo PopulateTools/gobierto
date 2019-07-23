@@ -3,6 +3,7 @@
 module GobiertoAdmin
   module GobiertoInvestments
     class ProjectForm < BaseForm
+      prepend ::GobiertoCommon::TrackableGroupedAttributes
 
       attr_accessor(
         :id,
@@ -16,6 +17,12 @@ module GobiertoAdmin
       validates :site_id, presence: true
 
       delegate :persisted?, to: :project
+
+      trackable_on :project
+      use_event_prefix :project
+      notify_changed :title_translations, :external_id, as: :attribute
+      use_publisher Publishers::AdminGobiertoInvestmentsActivity
+      use_trackable_subject :project
 
       def save
         save_project if valid?
@@ -47,7 +54,9 @@ module GobiertoAdmin
         end
 
         if @project.valid?
-          @project.save
+          run_callbacks(:save) do
+            @project.save
+          end
 
           @project
         else

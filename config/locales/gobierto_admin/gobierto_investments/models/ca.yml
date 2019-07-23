@@ -1,0 +1,7 @@
+---
+ca:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_investments/project_form:
+        external_id: ID extern
+        title: Títol

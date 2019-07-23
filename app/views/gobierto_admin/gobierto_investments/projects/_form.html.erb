@@ -1,0 +1,44 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @project_form %>
+
+<%= form_for(@project_form, as: :project, url: @project_form.persisted? ? admin_investments_project_path(@project_form) : admin_investments_projects_path(@project), data: { 'globalized-form-container' => true }) do |f| %>
+  <div class="pure-g">
+    <div class="pure-u-1 pure-u-md-16-24">
+      <div class="globalized_fields">
+        <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+        <% current_site.configuration.available_locales.each do |locale| %>
+          <div class="form_item input_text" data-locale="<%= locale %>">
+            <%= label_tag "project[title_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:title) %>
+              <%= attribute_indication_tag required: true %>
+            <% end %>
+            <%= text_field_tag "project[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t('.placeholders.title', locale: locale) %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :external_id %>
+        <%= f.text_field :external_id, placeholder: t('.placeholders.external_id') %>
+      </div>
+
+    </div>
+
+    <div class="pure-u-1 pure-u-md-2-24"></div>
+
+    <div class="pure-u-1 pure-u-md-1-4 ">
+
+      <div class="stick_in_parent">
+
+        <div class="widget_save ">
+
+          <%= f.submit class: "button" %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+<% end %>

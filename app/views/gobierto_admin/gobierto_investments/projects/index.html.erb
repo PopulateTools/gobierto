@@ -1,0 +1,53 @@
+<div class='admin_breadcrumb'>
+  <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
+  <%= t('.title') %>
+</div>
+
+<h1><%= t('.title') %></h1>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_investments_project_path, class: "button" %>
+</div>
+
+<table id="projects">
+  <thead>
+    <tr>
+      <th class="icon_col"></th>
+      <th><%= t(".header.external_id") %></th>
+      <th><%= t(".header.title") %></th>
+      <th></th>
+      <th class="icon_col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @projects.each do |project| %>
+    <tr id="project-item-<%= project.id %>">
+      <td>
+        <%= link_to edit_admin_investments_project_path(project) do %>
+          <i class="fas fa-edit"></i>
+        <% end %>
+      </td>
+      <td>
+        <%= project.external_id %>
+      </td>
+      <td>
+        <%= link_to project.title, edit_admin_investments_project_path(project) %>
+      </td>
+      <td>
+        <%= link_to edit_admin_investments_project_path(project), target: "_blank", class: "view_item" do %>
+          <i class="fas fa-eye"></i>
+          <%= t(".view_project") %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to admin_investments_project_path(project.id),
+                    title: t("gobierto_admin.shared.archive.element"),
+                    method: :delete,
+                    data: { confirm: t("views.delete_confirm") } do %>
+          <i class="fas fa-trash"></i>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

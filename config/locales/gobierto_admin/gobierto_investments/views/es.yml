@@ -1,0 +1,18 @@
+---
+es:
+  gobierto_admin:
+    gobierto_investments:
+      projects:
+        form:
+          placeholders:
+            external_id: ID001
+            title: Centro deportivo
+        index:
+          header:
+            external_id: ID externo
+            title: Título
+          new: Nuevo
+          title: Proyectos
+          view_project: Ver proyecto
+        new:
+          title: Nuevo proyecto

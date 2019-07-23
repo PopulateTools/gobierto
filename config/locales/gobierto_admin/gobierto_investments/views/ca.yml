@@ -1,0 +1,18 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_investments:
+      projects:
+        form:
+          placeholders:
+            external_id: ID001
+            title: Centre esportiu
+        index:
+          header:
+            external_id: ID extern
+            title: Títol
+          new: Nou
+          title: Projectes
+          view_project: Veure projecte
+        new:
+          title: Nou projecte

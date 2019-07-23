@@ -137,7 +137,12 @@ module GobiertoCommon
     end
 
     def event_payload
-      { gid: subject.to_gid, site_id: trackable.site_id, admin_id: (trackable.admin_id if trackable.respond_to?(:admin_id)) }
+      {
+        gid: subject.to_gid,
+        site_id: trackable.site_id,
+        admin_id: (trackable.try(:admin_id) || try(:admin_id)),
+        ip: try(:ip)
+      }
     end
 
     def event_prefix

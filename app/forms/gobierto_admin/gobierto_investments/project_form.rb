@@ -8,7 +8,9 @@ module GobiertoAdmin
         :id,
         :site_id,
         :title_translations,
-        :external_id
+        :external_id,
+        :admin_id,
+        :ip
       )
 
       validates :site_id, presence: true

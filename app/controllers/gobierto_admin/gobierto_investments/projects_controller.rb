@@ -9,19 +9,19 @@ module GobiertoAdmin
       end
 
       def new
-        @project_form = ProjectForm.new(site_id: current_site.id)
+        @project_form = ProjectForm.new(site_id: current_site.id, admin_id: current_admin.id, ip: remote_ip)
       end
 
       def edit
         @project = find_project
 
         @project_form = ProjectForm.new(
-          @project.attributes.except(*ignored_project_attributes).merge(site_id: current_site.id)
+          @project.attributes.except(*ignored_project_attributes).merge(site_id: current_site.id, admin_id: current_admin.id, ip: remote_ip)
         )
       end
 
       def create
-        @project_form = ProjectForm.new(project_params.merge(site_id: current_site.id))
+        @project_form = ProjectForm.new(project_params.merge(site_id: current_site.id, admin_id: current_admin.id, ip: remote_ip))
 
         if @project_form.save
           redirect_to(
@@ -37,7 +37,7 @@ module GobiertoAdmin
         @project = find_project
 
         @project_form = ProjectForm.new(
-          project_params.merge(id: params[:id], site_id: current_site.id)
+          project_params.merge(id: params[:id], site_id: current_site.id, admin_id: current_admin.id, ip: remote_ip)
         )
 
         if @project_form.save

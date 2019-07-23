@@ -71,3 +71,9 @@ moderate_plans_madrid:
   namespace: site_module
   resource_type: gobierto_plans
   action_name: moderate
+
+madrid_manage_investments:
+  admin_group: madrid_group
+  namespace: site_module
+  resource_type: gobierto_investments
+  action_name: manage

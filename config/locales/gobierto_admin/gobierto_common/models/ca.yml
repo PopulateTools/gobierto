@@ -18,6 +18,7 @@ ca:
         localized_string: Text (línia)
         multiple_options: Selecció múltiple
         name: Nom
+        numeric: Nombre
         options: Opcions
         paragraph: Text llarg sense traduccions
         single_option: Selecció única

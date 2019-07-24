@@ -18,6 +18,7 @@ es:
         localized_string: Texto (línea)
         multiple_options: Selección múltiple
         name: Nombre
+        numeric: Número
         options: Opciones
         paragraph: Texto largo sin traducciones
         single_option: Selección única

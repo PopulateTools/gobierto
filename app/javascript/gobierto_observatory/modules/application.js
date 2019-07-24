@@ -1,5 +1,7 @@
 import 'sticky-kit/dist/sticky-kit.js'
 
+import 'babel-polyfill'
+
 import { GetUnemploymentAgeData } from './classes/get_unemployment_age_data.js'
 import { PopulationCard } from './classes/population.js'
 import { BirthRateCard } from './classes/birth_rate.js'

@@ -49,6 +49,31 @@ module GobiertoAdmin
             end
           end
         end
+
+        def test_index_without_categories_vocabulary
+          plan.update_attribute(:vocabulary_id, nil)
+          with(site: site, admin: admin, js: false) do
+            visit @path
+
+            within "div.tabs" do
+              assert has_no_content? "Categories"
+              within "li.active" do
+                assert has_content? "Configuration"
+              end
+            end
+
+          end
+        end
+
+        def test_regular_admin_index_without_categories_vocabulary
+          plan.update_attribute(:vocabulary_id, nil)
+          with(site: site, admin: regular_admin) do
+            visit @path
+
+            assert has_content? "You are not authorized to perform this action"
+          end
+        end
+
       end
     end
   end

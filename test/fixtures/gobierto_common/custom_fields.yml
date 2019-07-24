@@ -221,3 +221,12 @@ madrid_custom_field_progress_plugin:
       plugin_configuration: { custom_field_uids: ["human-resources"] }
     }
   }.to_json %>
+
+madrid_custom_field_weight:
+  site: madrid
+  class_name: "GobiertoPeople::Person"
+  mandatory: false
+  position: 6
+  name_translations: <%= { en: "Weight (kg)", es: "Peso (kg)" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:numeric] %>
+  uid: weight

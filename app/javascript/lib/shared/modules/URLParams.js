@@ -37,7 +37,7 @@ export const URLParams = function(args) {
     args.params = {}
   }
 
-  if (URLSearchParams) {
+  if (window.URLSearchParams) {
     params = new URLSearchParams()
 
     for (var param in args.params) {

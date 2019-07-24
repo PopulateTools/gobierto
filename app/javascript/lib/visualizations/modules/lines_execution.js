@@ -53,7 +53,15 @@ export class VisLinesExecution {
       this.setScales();
       this.updateRender();
 
-      window.dispatchEvent(new Event('chartloaded'));
+      var event;
+      if (typeof(Event) === 'function') {
+          event = new Event('chartloaded');
+      } else {
+          event = document.createEvent('Event');
+          event.initEvent('chartloaded', true, true);
+      }
+
+      window.dispatchEvent(event);
     }.bind(this));
   }
 

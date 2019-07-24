@@ -69,7 +69,7 @@
   </div>
 
   <div class="charter-container">
-    <% @charter.editions.each do |edition| %>
+    <% @charter.editions.order(id: :asc).each do |edition| %>
       <div class="charter">
         <div class="charter-inner">
           <div class="m_b_2"><%= edition.commitment.description %></div>

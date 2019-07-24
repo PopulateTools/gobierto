@@ -1,0 +1,18 @@
+---
+en:
+  gobierto_admin:
+    gobierto_investments:
+      projects:
+        form:
+          placeholders:
+            external_id: ID001
+            title: Sports center
+        index:
+          header:
+            external_id: External ID
+            title: Title
+          new: New
+          title: Projects
+          view_project: See project
+        new:
+          title: New project

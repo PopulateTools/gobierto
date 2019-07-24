@@ -1,0 +1,18 @@
+public_pool_project:
+  site: madrid
+  title_translations: <%= {
+    en: "Public pool",
+    es: "Piscina municipal"
+    }.to_json %>
+  external_id: EE022
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+sports_center_project:
+  site: madrid
+  title_translations: <%= {
+    en: "Sports center",
+    es: "Centro deportivo"
+    }.to_json %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

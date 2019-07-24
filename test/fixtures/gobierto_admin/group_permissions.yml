@@ -77,3 +77,9 @@ edit_political_agendas:
   namespace: gobierto_plans
   resource: political_agendas (GobiertoPlans::Node)
   action_name: edit
+
+madrid_manage_investments:
+  admin_group: madrid_group
+  namespace: site_module
+  resource_type: gobierto_investments
+  action_name: manage

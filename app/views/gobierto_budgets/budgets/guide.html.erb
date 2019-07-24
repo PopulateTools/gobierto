@@ -65,10 +65,12 @@
         <h3><%= t('.expenses') %></h3>
         <p><%= t('.expenses_how') %></p>
 
-        <div class="number">
-          <p><%= t('.expenses_per_inhabitant') %></p>
-          <div><%= format_currency @site_stats.total_budget_per_inhabitant %>/hab</div>
-        </div>
+        <% if @site_stats.population_data? %>
+          <div class="number">
+            <p><%= t('.expenses_per_inhabitant') %></p>
+            <div><%= format_currency @site_stats.total_budget_per_inhabitant %>/hab</div>
+          </div>
+        <% end %>
 
         <hr class="separator_responsive" />
 

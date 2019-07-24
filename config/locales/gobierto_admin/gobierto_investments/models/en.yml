@@ -1,0 +1,7 @@
+---
+en:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_investments/project_form:
+        external_id: External ID
+        title: Title

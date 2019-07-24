@@ -1,0 +1,11 @@
+---
+en:
+  gobierto_admin:
+    gobierto_investments:
+      projects:
+        create:
+          success: Project created correctly.
+        destroy:
+          success: Project deleted correctly.
+        update:
+          success: Project updated correctly.

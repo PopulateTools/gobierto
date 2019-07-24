@@ -230,6 +230,10 @@ Rails.application.routes.draw do
           end
         end
       end
+
+      namespace :gobierto_investments, as: :investments do
+        resources :projects
+      end
     end
 
     # User module

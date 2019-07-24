@@ -18,6 +18,7 @@ ca:
         edit_site: Personalitzar site
         file_attachments: Documents
         hey_admin: Hola, %{admin_name}
+        investments: Inversions
         manage_sites: Gestionar sites
         notifications: Notificacions
         participation: Participació

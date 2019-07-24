@@ -165,6 +165,12 @@
             </li>
             <% end %>
 
+            <% if show_module_link?("GobiertoInvestments") %>
+              <li>
+                <%= link_to t(".investments"), admin_investments_projects_path %>
+              </li>
+            <% end %>
+
             <li class="sep"></li>
 
             <li>

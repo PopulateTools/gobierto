@@ -18,6 +18,7 @@ es:
         edit_site: Personalizar sitio
         file_attachments: Documentos
         hey_admin: Hola, %{admin_name}
+        investments: Inversiones
         manage_sites: Gestionar sites
         notifications: Notificaciones
         participation: Participación

@@ -1,0 +1,6 @@
+---
+en:
+  gobierto_investments:
+    events:
+      gobierto_investments_project_project_created: Investment project created
+      gobierto_investments_project_project_updated: Investment project updated

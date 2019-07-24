@@ -84,6 +84,9 @@ class Site < ApplicationRecord
   has_many :commitments, through: :charters, class_name: "GobiertoCitizensCharters::Commitment"
   has_many :editions, through: :commitments, class_name: "GobiertoCitizensCharters::Edition"
 
+  # Gobierto Investments integration
+  has_many :projects, dependent: :destroy, class_name: "GobiertoInvestments::Project"
+
   serialize :configuration_data
 
   before_save :store_configuration

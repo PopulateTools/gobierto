@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_10_130540) do
+ActiveRecord::Schema.define(version: 2019_07_22_154502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -530,6 +530,15 @@ ActiveRecord::Schema.define(version: 2019_07_10_130540) do
     t.datetime "updated_at", null: false
     t.integer "year"
     t.index ["site_id"], name: "index_gi_indicators_on_site_id"
+  end
+
+  create_table "ginv_projects", force: :cascade do |t|
+    t.bigint "site_id"
+    t.jsonb "title_translations"
+    t.string "external_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_ginv_projects_on_site_id"
   end
 
   create_table "gobierto_module_settings", id: :serial, force: :cascade do |t|

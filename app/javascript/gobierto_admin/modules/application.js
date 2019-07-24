@@ -116,7 +116,7 @@ function addDatepickerBehaviors() {
       let toDatePickerOPTIONS = {
         autoClose: toDatePickerDEFAULTS.autoClose,
         onSelect: function onSelect(a, selectedDate, instance) {
-          $(instance.el).trigger("datepicker-change");
+          if (instance.visible) $(instance.el).trigger("datepicker-change");
 
           // Updates first datepicker if end_date is earlier
           if (selectedDate < $fromDatePicker.data('datepicker').lastSelectedDate) {
@@ -153,7 +153,7 @@ function addDatepickerBehaviors() {
           minutesStep: fromDatePickerDEFAULTS.minutesStep,
           startDate: fromDatePickerDEFAULTS.startDate,
           onSelect: function onSelect(_, selectedDate, instance) {
-            $(instance.el).trigger("datepicker-change");
+            if (instance.visible) $(instance.el).trigger("datepicker-change");
 
             // data-bind=true links fromDatePicker to toDatePicker
             // on fromDatePicker selection, updates toDatePicker +1h

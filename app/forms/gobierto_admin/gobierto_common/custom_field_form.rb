@@ -80,7 +80,7 @@ module GobiertoAdmin
       end
 
       def available_vocabulary_options
-        ::GobiertoCommon::CustomField.available_options
+        ::GobiertoCommon::CustomField.available_vocabulary_options
       end
 
       def available_date_options

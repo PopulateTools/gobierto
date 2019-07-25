@@ -40,7 +40,7 @@ module GobiertoCommon
       field_types.select { |key, _| /vocabulary/.match(key) }
     end
 
-    def self.available_options
+    def self.available_vocabulary_options
       [:single_select, :multiple_select, :tags]
     end
 

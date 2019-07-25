@@ -30,8 +30,7 @@ module GobiertoAdmin
             instance_id: params[:instance_id]
           )
           @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
-          @types_with_options = @custom_field_form.types_with_options
-          @types_with_vocabulary = @custom_field_form.types_with_vocabulary
+          set_options
         end
 
         def create
@@ -46,8 +45,7 @@ module GobiertoAdmin
               notice: t(".success")
             )
           else
-            @types_with_options = @custom_field_form.types_with_options
-            @types_with_vocabulary = @custom_field_form.types_with_vocabulary
+            set_options
             @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
             render :new
           end
@@ -64,8 +62,7 @@ module GobiertoAdmin
 
           @custom_field_form = form_class.new(@custom_field.attributes.except(*ignored_custom_field_attributes).merge(site_id: current_site.id))
           @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
-          @types_with_options = @custom_field_form.types_with_options
-          @types_with_vocabulary = @custom_field_form.types_with_vocabulary
+          set_options
         end
 
         def update
@@ -82,8 +79,7 @@ module GobiertoAdmin
               notice: t(".success")
             )
           else
-            @types_with_options = @custom_field_form.types_with_options
-            @types_with_vocabulary = @custom_field_form.types_with_vocabulary
+            set_options
             @decorated_instance = ::GobiertoAdmin::BaseResourceDecorator.new(@custom_field_form.instance) if @custom_field_form.instance
             render :edit
           end
@@ -133,6 +129,7 @@ module GobiertoAdmin
             :instance_class_name,
             :instance_id,
             :plugin_configuration,
+            :multiple,
             name_translations: [*I18n.available_locales],
             options_translations: {}
           )
@@ -160,6 +157,12 @@ module GobiertoAdmin
 
         def form_class
           ::GobiertoAdmin::GobiertoCommon::CustomFieldForm
+        end
+
+        def set_options
+          @types_with_options = @custom_field_form.types_with_options
+          @types_with_vocabulary = @custom_field_form.types_with_vocabulary
+          @types_with_multiple_setting = @custom_field_form.types_with_multiple_setting
         end
 
         def check_class

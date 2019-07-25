@@ -44,8 +44,16 @@ module GobiertoCommon
       [:single_select, :multiple_select, :tags]
     end
 
+    def self.field_types_with_multiple_setting
+      %w(image)
+    end
+
     def self.date_options
       [:date, :datetime]
+    end
+
+    def allow_multiple?
+      self.class.field_types_with_multiple_setting.include? field_type
     end
 
     def long_text?

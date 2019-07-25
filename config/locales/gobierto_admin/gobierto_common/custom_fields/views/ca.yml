@@ -14,6 +14,8 @@ ca:
           form:
             confirm: Estàs segur?
             crop: Retallar
+            multiple: Múltiple
+            type: Opcions de contingut
           index:
             instance_title: Camps personalitzats de %{instance_name}
             localized_custom_fields: Camps traduïbles

@@ -22,7 +22,7 @@ module GobiertoCommon
       def extra_moderation_permissions_lookup_attributes
         define_method :permissions_lookup_attributes do |action|
           base_permissions_lookup_attributes(action) +
-            yield(self).map { |attrs_set| attrs_set.merge(action_name: action) }
+            yield(self, action.to_sym).map { |attrs_set| attrs_set.merge(action_name: action) }
         end
       end
 
@@ -54,7 +54,7 @@ module GobiertoCommon
     def base_permissions_lookup_attributes(action)
       [{
         namespace: moderation.moderable_type.deconstantize.underscore,
-        resource_type: moderation.moderable_type.demodulize.underscore,
+        resource_type: moderation.moderable_type,
         resource_id: moderation.moderable_id,
         action_name: action
       }]

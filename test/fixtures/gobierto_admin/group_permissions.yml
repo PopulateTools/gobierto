@@ -72,6 +72,12 @@ moderate_plans_madrid:
   resource_type: gobierto_plans
   action_name: moderate
 
+edit_political_agendas:
+  admin_group: political_agendas_permissions_group
+  namespace: gobierto_plans
+  resource: political_agendas (GobiertoPlans::Node)
+  action_name: edit
+
 madrid_manage_investments:
   admin_group: madrid_group
   namespace: site_module

@@ -41,26 +41,26 @@ module GobiertoAdmin
       end
 
       def admin_actions_values
-        { owned: OpenStruct.new(id: admin.id, count: @plan.nodes.with_admin_actions(admin.id).count),
-          can_edit: OpenStruct.new(id: "#{admin.id}-edit", count: @plan.nodes.with_admin_actions("#{admin.id}-edit").count) }
+        { owned: OpenStruct.new(id: admin.id, count: editor_relation.with_author(admin.id).count),
+          can_edit: OpenStruct.new(id: "#{admin.id}-edit", count: editor_relation.count) }
       end
 
       def admin_actions_all_value
-        @plan.nodes.count
+        base_relation.count
       end
 
       def moderation_stage_values
         stages = ::GobiertoPlans::Node.moderation_stages.keys
-        stages.unshift(:blank) if @plan.nodes.with_moderation_stage(:blank).exists?
+        stages.unshift(:blank) if base_relation.with_moderation_stage(:blank).exists?
         stages.inject({}) do |data, stage_name|
           data.update(
-            stage_name => OpenStruct.new(id: stage_name, count: @plan.nodes.with_moderation_stage(stage_name).count)
+            stage_name => OpenStruct.new(id: stage_name, count: base_relation.with_moderation_stage(stage_name).count)
           )
         end
       end
 
       def author_options
-        @plan.nodes.pluck(:admin_id).uniq.compact.map do |admin_id|
+        base_relation.distinct(false).pluck(:admin_id).uniq.compact.map do |admin_id|
           [GobiertoAdmin::Admin.find(admin_id).name, admin_id]
         end.unshift([I18n.t("gobierto_admin.gobierto_plans.projects.filter_form.author"), nil])
       end
@@ -77,6 +77,18 @@ module GobiertoAdmin
 
       def format_percentage(number)
         "#{number.to_i}%"
+      end
+
+      def base_relation
+        if admin.module_allowed_action?("GobiertoPlans", site, :moderate)
+          @plan.nodes
+        else
+          GobiertoAdmin::AdminResourcesQuery.new(admin, relation: @plan.nodes).allowed
+        end
+      end
+
+      def editor_relation
+        @editor_relation ||= GobiertoAdmin::AdminResourcesQuery.new(admin, relation: @plan.nodes).allowed(include_moderated: false)
       end
 
     end

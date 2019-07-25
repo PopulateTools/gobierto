@@ -6,7 +6,7 @@ module GobiertoAdmin
       attr_reader :project
 
       ALLOWED_ACTIONS = { edit: [:index, :edit, :update, :new, :create, :destroy, :update_attributes],
-                          moderate: [:index, :edit, :update],
+                          moderate: [:index, :edit, :update, :update_attributes],
                           manage: [] }.freeze
 
       def initialize(attributes)

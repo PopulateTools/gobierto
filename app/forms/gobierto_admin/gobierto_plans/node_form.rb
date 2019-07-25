@@ -121,7 +121,7 @@ module GobiertoAdmin
       end
 
       def allow_edit_attributes?
-        moderation_policy.edit? && !disable_attributes_edition
+        !disable_attributes_edition && (moderation_policy.edit? || allow_moderate?)
       end
 
       def allow_moderate?
@@ -237,6 +237,10 @@ module GobiertoAdmin
           @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?
           force_new_version && !attributes_updated? ? @node.paper_trail.save_with_version : @node.save
 
+          set_permissions_group(@node, action_name: :edit) do |group|
+            group.admins << @node.owner unless @node.owner.blank? || group.admins.where(id: @node.admin_id).exists?
+          end
+
           if allow_edit_attributes? && !@node.categories.include?(category)
             @node.categories.where(vocabulary: plan.categories_vocabulary).each do |plan_category|
               @node.categories.delete plan_category
@@ -248,10 +252,6 @@ module GobiertoAdmin
           plan.touch
 
           save_moderation
-
-          set_permissions_group(@node, action_name: :edit) do |group|
-            group.admins << @node.owner unless @node.owner.blank? || group.admins.where(id: @node.admin_id).exists?
-          end
 
           @node
         else

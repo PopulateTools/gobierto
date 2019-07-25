@@ -138,8 +138,13 @@ module GobiertoAdmin
       end
 
       def set_filters
-        @relation = base_relation
         @form = ProjectsFilterForm.new(filter_params.merge(plan: @plan, admin: current_admin))
+        @relation = if @form.admin_actions.present?
+                      GobiertoAdmin::AdminResourcesQuery.new(current_admin, relation: @plan.nodes).allowed(include_moderated: false)
+                    else
+                      base_relation
+                    end
+
         @form.filter_params.each do |param|
           @relation = @relation.send(:"with_#{param}", filter_params[param])
         end
@@ -151,7 +156,7 @@ module GobiertoAdmin
       end
 
       def find_versioned_project
-        @project = @plan.nodes.find params[:id]
+        @project = base_relation.find params[:id]
 
         return if params[:version].blank?
 
@@ -167,7 +172,11 @@ module GobiertoAdmin
       end
 
       def base_relation
-        @plan.nodes
+        if current_admin.module_allowed_action?("GobiertoPlans", current_site, :moderate)
+          @plan.nodes
+        else
+          GobiertoAdmin::AdminResourcesQuery.new(current_admin, relation: @plan.nodes).allowed
+        end
       end
 
       def filter_params

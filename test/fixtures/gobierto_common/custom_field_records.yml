@@ -33,6 +33,11 @@ neil_custom_field_record_date_of_birth:
   custom_field: madrid_custom_field_date_of_birth
   payload: <%= { "date-of-birth" => "2019-07-19 12:29" }.to_json %>
 
+neil_custom_field_record_weight:
+  item: neil (GobiertoPeople::Person)
+  custom_field: madrid_custom_field_weight
+  payload: <%= { "weight" => 72.3 }.to_json %>
+
 madrid_custom_field_record_population:
   item: madrid (Site)
   custom_field: madrid_site_custom_field

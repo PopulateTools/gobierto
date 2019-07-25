@@ -82,6 +82,12 @@ module GobiertoCommon
             }
           }
         }
+      },
+      numeric: {
+        class_names: "form_item input_text",
+        field_tag: :number_field_tag,
+        partial: "item",
+        tag_attributes: { step: :any }
       }
     }.freeze
 

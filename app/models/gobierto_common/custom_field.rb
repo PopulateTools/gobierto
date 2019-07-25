@@ -20,7 +20,8 @@ module GobiertoCommon
                        image: 7,
                        date: 8,
                        vocabulary_options: 9,
-                       plugin: 10 }
+                       plugin: 10,
+                       numeric: 11 }
 
     scope :sorted, -> { order(position: :asc) }
     scope :localized, -> { where(field_type: [:localized_string, :localized_paragraph]) }

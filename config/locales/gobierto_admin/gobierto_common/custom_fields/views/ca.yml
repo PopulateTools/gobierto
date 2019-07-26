@@ -42,6 +42,10 @@ ca:
             single_select: Selecció única
             tags: Tags
             type: Tipus
+        forms:
+          new_gallery_image:
+            add_item: Afegir imatge
+            cancel_new_item: Cancel
         module_resources:
           index:
             custom_fields_for_instances_of: Camps personalitzats per a instàncies

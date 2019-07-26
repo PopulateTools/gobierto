@@ -1,0 +1,30 @@
+<%= content_tag :span,
+  id: "new-item-form",
+  style: "display: none;" do %>
+
+  <div class="user_field_container pure-g" data-option="new_option">
+    <div class="pure-u-1">
+      <div class="f_right">
+        <%= link_to "#",
+          class: "tipsit",
+          title: t(".cancel_new_item"),
+          data: { behavior: "cancel_new" } do %>
+          <i class="fas fa-times"></i>
+        <% end %>
+      </div>
+    </div>
+
+    <%= f.file_field "[custom_records][#{record.uid}][add_item][value]", id: record.uid, class: "add_item" %>
+    <% %w[x y w h].each do |attribute| %>
+      <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][add_item][crop][#{ attribute }]", nil, id: "#{ record.uid }_crop_#{ attribute }" %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
+<div class="m_2" id="add-item">
+  <%= link_to "#", data: { behavior: "new_item" } do %>
+    <i class="fas fa-plus-circle"></i>
+    <%= t(".add_item") %>
+  <% end %>
+</div>

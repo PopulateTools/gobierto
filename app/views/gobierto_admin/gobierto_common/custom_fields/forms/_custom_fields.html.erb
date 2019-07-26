@@ -26,6 +26,7 @@
       f: f,
       record: record,
       input_base_name: input_base_name,
+      multiple: record.custom_field.configuration.multiple && record.value.is_a?(Array)
     }
   ) %>
 <% end %>

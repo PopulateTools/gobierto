@@ -42,6 +42,10 @@ es:
             single_select: Selección única
             tags: Tags
             type: Tipo
+        forms:
+          new_gallery_image:
+            add_item: Añadir imagen
+            cancel_new_item: Cancelar
         module_resources:
           index:
             custom_fields_for_instances_of: Campos personalizados para instancias

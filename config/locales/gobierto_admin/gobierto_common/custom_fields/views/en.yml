@@ -42,6 +42,10 @@ en:
             single_select: Single select
             tags: Tags
             type: Type
+        forms:
+          new_gallery_image:
+            add_item: Add image
+            cancel_new_item: Cancel
         module_resources:
           index:
             custom_fields_for_instances_of: Custom fields for instances of %{name}

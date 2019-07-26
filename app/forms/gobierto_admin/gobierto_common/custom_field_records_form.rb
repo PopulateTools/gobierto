@@ -47,7 +47,7 @@ module GobiertoAdmin
       end
 
       def image_fields_options
-        site.custom_fields.pluck(:uid, :options).map do |uid, options|
+        site.custom_fields.pluck(:uid).map do |uid|
           { uid: uid,
             max_width: 500,
             max_height: 500 }

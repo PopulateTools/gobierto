@@ -4,7 +4,8 @@
      id="<%= "custom_field_#{ record.uid }" %>"
      data-uid="<%= record.uid %>"
      data-vocabulary-id="<%= record.custom_field.vocabulary_id %>"
-     data-organization-id="<%= current_site.organization_id %>">
+     data-organization-id="<%= current_site.organization_id %>"
+     data-configuration="<%= record.custom_field.configuration.plugin_configuration.to_json %>">
      <%= label_tag :custom_field_id, record.custom_field.name %>
      <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
      <div class="custom_field_value">

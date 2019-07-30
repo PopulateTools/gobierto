@@ -1,0 +1,20 @@
+---
+ca:
+  errors:
+    messages:
+      custom_fields:
+        options:
+          missing_vocabulary: Alguna columna de tipus "vocabulary" no té valor en
+            "dataSource"
+          wrong_column_type: 'Alguna columna no pertany a un tipus reconegut. Tipus
+            reconeguts: "text", "integer", "float", "date" y "vocabulary"'
+  gobierto_admin:
+    custom_fields_plugins:
+      table:
+        remove_rows: Eliminar files seleccionades
+        select_deselect_all: Seleccionar / Deseleccionar totes
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          plugin:
+            table: Taula

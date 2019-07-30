@@ -1,0 +1,19 @@
+---
+en:
+  errors:
+    messages:
+      custom_fields:
+        options:
+          missing_vocabulary: Some column of type "vocabulary" has no value in "dataSource"
+          wrong_column_type: 'Some column does not belong to a recognized type. Types
+            recognized: "text", "integer", "float", "date" y "vocabulary"'
+  gobierto_admin:
+    custom_fields_plugins:
+      table:
+        remove_rows: Remove selected rows
+        select_deselect_all: Select / Deselect All
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          plugin:
+            table: Table

@@ -1,0 +1,10 @@
+base_locale: es
+locales: [en, es, ca]
+
+data:
+  read:
+    - config/locales/**/%{locale}.yml
+    - config/locales/**/*/%{locale}.yml
+
+ignore_unused:
+  - 'gobierto_admin.gobierto_common.custom_fields.custom_fields.plugin.table'

@@ -14,6 +14,8 @@ en:
           form:
             confirm: Are you sure?
             crop: Crop
+            multiple: Multiple
+            type: Content options
           index:
             instance_title: Custom fields of %{instance_name}
             localized_custom_fields: Translatable fields
@@ -40,6 +42,10 @@ en:
             single_select: Single select
             tags: Tags
             type: Type
+        forms:
+          new_gallery_image:
+            add_item: Add image
+            cancel_new_item: Cancel
         module_resources:
           index:
             custom_fields_for_instances_of: Custom fields for instances of %{name}

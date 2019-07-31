@@ -21,6 +21,10 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldsController = (function() {
         $("#options").show();
       }
 
+      if ($(this).data().hasMultiple) {
+        $("#multiple").show();
+      }
+
       if ($(this).data().type === "plugin") {
         _handlePluginOptionsVisibility($('.js-plugin-type-option[checked="checked"]'));
         _handlePluginOptionsDefault();

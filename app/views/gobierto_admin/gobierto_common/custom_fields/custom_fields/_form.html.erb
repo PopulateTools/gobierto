@@ -42,7 +42,8 @@
                       data: {
                         type: b.text,
                         has_options: @types_with_options.include?(b.text),
-                        has_vocabulary: @types_with_vocabulary.include?(b.text)
+                        has_vocabulary: @types_with_vocabulary.include?(b.text),
+                        has_multiple: @types_with_multiple_setting.include?(b.text)
                       }
                     ) %>
                 <%= b.label do %>
@@ -56,6 +57,16 @@
       </div>
 
       <div class="configuration">
+        <%= content_tag :div, class: "form_block" do %>
+          <%= content_tag :div, id: "multiple", class: "form_item", style: @custom_field_form.allow_multiple? ? nil : "display: none;" do %>
+            <h4 class="options compact"><%= t(".type") %></h4>
+            <%= f.check_box(:multiple) %>
+            <%= f.label :multiple do %>
+              <span></span>
+              <%= t('.multiple') %>
+            <% end %>
+          <% end %>
+        <% end %>
         <%= content_tag :div, class: "form_block" do %>
           <%= content_tag :div, id: "plugin", class: "form_item", style: @custom_field_form.custom_field.plugin? ? nil : "display: none;" do %>
             <%= render partial: "plugin", locals: { f: f } %>

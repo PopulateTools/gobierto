@@ -47,7 +47,7 @@ module GobiertoAdmin
       end
 
       def image_fields_options
-        site.custom_fields.pluck(:uid, :options).map do |uid, options|
+        site.custom_fields.pluck(:uid).map do |uid|
           { uid: uid,
             max_width: 500,
             max_height: 500 }
@@ -62,11 +62,11 @@ module GobiertoAdmin
                                          item: item
                                        )
                                        if record.custom_field_id == value["custom_field_id"].to_i
-                                         if record.custom_field.image?
-                                           record.value = upload_file(uid, value) if value["value"].present?
-                                         else
-                                           record.value = value["value"]
-                                         end
+                                         record.value = if record.custom_field.configuration.multiple
+                                                          extract_multiple_values(value, record)
+                                                        else
+                                                          extract_single_value(value, record, default_value: record.value)
+                                                        end
                                        end
                                        ::GobiertoCommon::CustomFieldRecordDecorator.new(record)
                                      end
@@ -75,6 +75,26 @@ module GobiertoAdmin
 
       def save
         save_custom_fields if valid?
+      end
+
+      def extract_multiple_values(value, record)
+        new_values = value.values.map do |item|
+          extract_single_value(item, record)
+        end.compact
+        current_values = record.value
+        current_values = [current_values] unless current_values.is_a? Array
+        values = (value["existing"]&.values || []) & current_values
+        values + new_values
+      end
+
+      def extract_single_value(value, record, default_value: nil)
+        if record.custom_field.image?
+          return default_value unless value["value"].present?
+
+          upload_file(record.custom_field.uid, value)
+        else
+          value["value"]
+        end
       end
 
       def changed?

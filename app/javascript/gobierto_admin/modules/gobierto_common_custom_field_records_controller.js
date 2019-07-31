@@ -8,6 +8,26 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
       _cropImage(image_field)
     }
     _handleSelectBehaviors()
+    _handleMultipleElementsBehaviors()
+  }
+
+  function _handleMultipleElementsBehaviors() {
+    $(document).on("click", "[data-behavior]", function handler(e) {
+      if ($(this).data("behavior") === "delete_item") {
+        e.preventDefault();
+        _deleteItem($(this).data("index"), $(this).data("uid"));
+      } else if ($(this).data("behavior") === "new_item") {
+        e.preventDefault();
+        _showNewItem();
+      } else if ($(this).data("behavior") === "cancel_new") {
+        e.preventDefault();
+        if ($(this).parents("span#new-item-form").length > 0 ) {
+          _hideNewItem();
+        } else {
+          $(this).parents("span").remove();
+        }
+      }
+    })
   }
 
   function _cropImage(image_field) {
@@ -35,7 +55,28 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
       $crop_y.val(output.cropper.getData()["y"]);
       $crop_w.val(output.cropper.getData()["width"]);
       $crop_h.val(output.cropper.getData()["height"]);
+      _createNewItem(image_field)
     });
+  }
+
+  function _createNewItem(image_field) {
+    if ($("#new-item-form").length == 0) retun
+
+    let uid = image_field.uid
+    let index = $(".new_item").last().data("index") === undefined ? 0 : $(".new_item").last().data("index") + 1
+    let item_uid = `${uid}_${index}`
+
+    let addItemForm = $("#new-item-form").clone().prop("id", `new-item-form-${index}`).addClass("new_item")
+    addItemForm.find("input").each(function(i){
+      $(this).prop('name', $(this).prop("name").replace("add_item", index))
+      $(this).prop('id', $(this).prop("id").replace(uid, item_uid))
+    });
+    addItemForm.find(".add_item").removeClass("add_item")
+    addItemForm.data("index", index)
+
+    $("#new-item-form").before(addItemForm)
+    _hideNewItem()
+    $('.add_item').val('');
   }
 
   function openCropModal(loaded_image, image_field) {
@@ -87,10 +128,28 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
         if ((height > image_field.max_height || width > image_field.max_width)) {
           openCropModal(loaded_image, image_field);
         } else {
+          _createNewItem(image_field)
           $(`#saved_image_${ image_field.uid }`).hide();
         }
       };
     };
+  }
+
+  function _deleteItem(index, uid) {
+    if (confirm(I18n.t("gobierto_admin.gobierto_common.custom_fields.custom_fields.form.confirm"))) {
+      $(`div[data-index=${index}][data-uid=${uid}]`).remove()
+    }
+  }
+
+  function _showNewItem() {
+    $("div#add-item").hide()
+    $("#new-item-form").show()
+    $("#new-item-form").find(".add_item").click()
+  }
+
+  function _hideNewItem() {
+    $("#new-item-form").hide()
+    $("div#add-item").show()
   }
 
   function _handleSelectBehaviors() {

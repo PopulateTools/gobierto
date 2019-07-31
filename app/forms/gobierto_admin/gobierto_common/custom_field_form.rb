@@ -21,10 +21,11 @@ module GobiertoAdmin
         :vocabulary_type,
         :plugin_type,
         :date_type,
-        :plugin_configuration
+        :plugin_configuration,
+        :multiple
       )
 
-      delegate :persisted?, :has_vocabulary?, to: :custom_field
+      delegate :persisted?, :has_vocabulary?, :allow_multiple?, to: :custom_field
 
       validates :name_translations, :site, :klass, :field_type, presence: true
       validate :instance_type_is_enabled
@@ -80,7 +81,7 @@ module GobiertoAdmin
       end
 
       def available_vocabulary_options
-        ::GobiertoCommon::CustomField.available_options
+        ::GobiertoCommon::CustomField.available_vocabulary_options
       end
 
       def available_date_options
@@ -102,6 +103,9 @@ module GobiertoAdmin
             opts[:configuration][:plugin_type] = plugin_type
             opts[:configuration][:plugin_configuration] = plugin_configuration_format
           end
+          if allow_multiple?
+            opts[:configuration][:multiple] = multiple?
+          end
         end
       end
 
@@ -115,6 +119,10 @@ module GobiertoAdmin
 
       def types_with_vocabulary
         @types_with_vocabulary ||= ::GobiertoCommon::CustomField.field_types_with_vocabulary.keys
+      end
+
+      def types_with_multiple_setting
+        @types_with_multiple_setting ||= ::GobiertoCommon::CustomField.field_types_with_multiple_setting
       end
 
       def has_options?
@@ -163,6 +171,14 @@ module GobiertoAdmin
 
       def site
         @site ||= Site.find_by(id: site_id)
+      end
+
+      def multiple
+        @multiple ||= custom_field.configuration.multiple || false
+      end
+
+      def multiple?
+        multiple == "1" || multiple == true
       end
 
       private

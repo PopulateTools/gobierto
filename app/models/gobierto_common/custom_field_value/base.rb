@@ -12,7 +12,7 @@ module GobiertoCommon
       end
 
       def value
-        return unless custom_field && payload.present?
+        return default_value unless custom_field && payload.present?
 
         raw_value
       end
@@ -29,6 +29,10 @@ module GobiertoCommon
         @raw_value ||= if custom_field && payload.present?
                          payload[custom_field.uid]
                        end
+      end
+
+      def default_value
+        custom_field.configuration.multiple ? [] : nil
       end
 
       def value=(value)

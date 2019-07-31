@@ -24,6 +24,10 @@ class TablePluginTest < ActionDispatch::IntegrationTest
     gobierto_common_custom_field_records(:political_agendas_table_custom_field_record)
   end
 
+  def custom_field
+    gobierto_common_custom_fields(:madrid_custom_field_table_plugin)
+  end
+
   def clear_payload
     custom_field_record.update_attributes!(payload: { human_resources: [] })
   end
@@ -45,6 +49,29 @@ class TablePluginTest < ActionDispatch::IntegrationTest
     )
   end
 
+  def set_table_with_one_vocabulary
+    custom_field.update_attributes!(
+      options: {
+        configuration: {
+          plugin_type: "table",
+          plugin_configuration: {
+            columns: [
+              {
+                "id": "position",
+                "type": "vocabulary",
+                "dataSource": "/admin/api/vocabularies/#{ ActiveRecord::FixtureSet.identify(:human_resources_vocabulary) }",
+                "name_translations": {
+                  "en": "Position",
+                  "es": "Puesto"
+                }
+              }
+            ]
+          }
+        }
+      }
+    )
+  end
+
   def test_show_with_data
     set_payload
 
@@ -57,6 +84,23 @@ class TablePluginTest < ActionDispatch::IntegrationTest
         assert has_content?("1980-12-28")
         assert has_content?("Supervisor")
         assert has_content?("Net savings")
+      end
+    end
+  end
+
+  def test_show_with_one_vocabulary_column
+    set_payload
+    set_table_with_one_vocabulary
+
+    with(site: site, js: true, admin: admin, window_size: :xl) do
+      visit edit_admin_plans_plan_project_path(plan, project)
+      within("#custom_field_directory") do
+        assert has_no_content?("John")
+        assert has_no_content?("666666666")
+        assert has_no_content?("john@example.org")
+        assert has_no_content?("1980-12-28")
+        assert has_content?("Supervisor")
+        assert has_no_content?("Net savings")
       end
     end
   end

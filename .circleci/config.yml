@@ -65,7 +65,7 @@ jobs:
       - run:
           name: Install chromedriver
           command: |
-            curl --silent --show-error --location --fail --retry 3 --output /tmp/chromedriver_linux64.zip "https://chromedriver.storage.googleapis.com/2.46/chromedriver_linux64.zip"
+            curl --silent --show-error --location --fail --retry 3 --output /tmp/chromedriver_linux64.zip "https://chromedriver.storage.googleapis.com/76.0.3809.68/chromedriver_linux64.zip"
             sudo unzip /tmp/chromedriver_linux64.zip chromedriver -d /usr/local/bin
             sudo chmod +x /usr/local/bin/chromedriver
 

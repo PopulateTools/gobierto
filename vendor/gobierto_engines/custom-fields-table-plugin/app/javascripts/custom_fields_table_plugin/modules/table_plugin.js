@@ -24,16 +24,21 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
     let vocabulariesConfiguration = columnsConfiguration.filter(
       column => { return column.type == "vocabulary" }
     );
+
     let vocabulariesRequests = vocabulariesConfiguration.map(
-      column => { return $.getJSON(column.dataSource) }
+      column => {
+        return new Promise(
+          resolve => ($.getJSON(column.dataSource, jsonData => (resolve(jsonData))))
+        )
+      }
     )
 
-    $.when(...vocabulariesRequests).then(function(...args) {
+    Promise.all(vocabulariesRequests).then(function(values) {
       let vocabulariesData = {}
       $.each(
-        args,
+        values,
         idx => {
-          vocabulariesData[vocabulariesConfiguration[idx].id] = args[idx][0]["terms"] }
+          vocabulariesData[vocabulariesConfiguration[idx].id] = values[idx]["terms"] }
       )
       applyPluginStyles(element, _pluginCssClass)
       _slickGrid(id, data, _columnsSettings(columnsConfiguration, vocabulariesData))

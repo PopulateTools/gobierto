@@ -1,0 +1,20 @@
+---
+es:
+  errors:
+    messages:
+      custom_fields:
+        options:
+          missing_vocabulary: Alguna columna de tipo "vocabulary" no tiene valor en
+            "dataSource"
+          wrong_column_type: 'Alguna columna no pertenece a un tipo reconocido. Tipos
+            reconocidos: "text", "integer", "float", "date" y "vocabulary"'
+  gobierto_admin:
+    custom_fields_plugins:
+      table:
+        remove_rows: Eliminar filas seleccionadas
+        select_deselect_all: Seleccionar / Deseleccionar todas
+    gobierto_common:
+      custom_fields:
+        custom_fields:
+          plugin:
+            table: Tabla

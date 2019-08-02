@@ -230,3 +230,71 @@ madrid_custom_field_weight:
   name_translations: <%= { en: "Weight (kg)", es: "Peso (kg)" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:numeric] %>
   uid: weight
+
+madrid_custom_field_table_plugin:
+  site: madrid
+  class_name: GobiertoPlans::Node
+  mandatory: false
+  position: 7
+  name_translations: <%= { en: "Directory", es: "Directory" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
+  uid: directory
+  options: <%= {
+    configuration: {
+      plugin_type: "table",
+      plugin_configuration: {
+        columns: [
+          {
+            "id": "person",
+            "type": "text",
+            "name_translations": {
+              "en": "Person",
+              "es": "Persona"
+            }
+          },
+          {
+            "id": "phone_number",
+            "type": "integer",
+            "name_translations": {
+              "en": "Phone number",
+              "es": "Número de teléfono"
+            }
+          },
+          {
+            "id": "email",
+            "type": "text",
+            "name_translations": {
+              "en": "email",
+              "es": "Correo electrónico"
+            }
+          },
+          {
+            "id": "birthdate",
+            "type": "date",
+            "name_translations": {
+              "en": "Birthdate",
+              "es": "Fecha de nacimiento"
+            }
+          },
+          {
+            "id": "position",
+            "type": "vocabulary",
+            "dataSource": "/admin/api/vocabularies/#{ ActiveRecord::FixtureSet.identify(:human_resources_vocabulary) }",
+            "name_translations": {
+              "en": "Position",
+              "es": "Puesto"
+            }
+          },
+          {
+            "id": "indicator",
+            "type": "vocabulary",
+            "dataSource": "/admin/api/vocabularies/#{ ActiveRecord::FixtureSet.identify(:indicators_vocabulary) }",
+            "name_translations": {
+              "en": "Indicator",
+              "es": "Indicador"
+            }
+          }
+        ]
+      }
+    }
+  }.to_json %>

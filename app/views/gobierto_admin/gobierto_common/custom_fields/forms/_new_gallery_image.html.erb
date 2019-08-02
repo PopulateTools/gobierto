@@ -22,7 +22,7 @@
 <% end %>
 
 <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
-<div class="m_2" id="add-item">
+<div id="add-item">
   <%= link_to "#", data: { behavior: "new_item" } do %>
     <i class="fas fa-plus-circle"></i>
     <%= t(".add_item") %>

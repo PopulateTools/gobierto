@@ -13,8 +13,8 @@
   <thead>
     <tr>
       <th class="icon_col"></th>
-      <th><%= t(".header.external_id") %></th>
       <th><%= t(".header.title") %></th>
+      <th><%= t(".header.external_id") %></th>
       <th></th>
       <th class="icon_col"></th>
     </tr>
@@ -28,10 +28,10 @@
         <% end %>
       </td>
       <td>
-        <%= project.external_id %>
+        <%= link_to project.title, edit_admin_investments_project_path(project) %>
       </td>
       <td>
-        <%= link_to project.title, edit_admin_investments_project_path(project) %>
+        <%= project.external_id %>
       </td>
       <td>
         <%= link_to edit_admin_investments_project_path(project), target: "_blank", class: "view_item" do %>

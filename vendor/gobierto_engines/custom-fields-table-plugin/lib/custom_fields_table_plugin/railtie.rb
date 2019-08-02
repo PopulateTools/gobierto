@@ -20,7 +20,8 @@ else
           table: {
             requires_vocabulary: false,
             has_configuration: true,
-            default_configuration: { "columns": [] }
+            default_configuration: { "columns": [] },
+            position: 0
           }
         )
         conf.custom_field_plugins_packs += %w(table)

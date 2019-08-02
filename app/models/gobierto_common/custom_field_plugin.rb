@@ -5,7 +5,7 @@ module GobiertoCommon
 
     attr_accessor :type, :default_configuration
 
-    attr_reader :callbacks
+    attr_reader :callbacks, :position
 
     def initialize(type, params = {})
       self.type = type
@@ -13,6 +13,7 @@ module GobiertoCommon
       @has_configuration = params[:has_configuration] || false
       @default_configuration = params[:default_configuration]
       @callbacks = params[:callbacks] || []
+      @position = params[:position] || 999
     end
 
     def requires_vocabulary?
@@ -31,6 +32,10 @@ module GobiertoCommon
       Rails.application.config.custom_field_plugins.map do |key, value|
         CustomFieldPlugin.new(key, value)
       end
+    end
+
+    def self.all_sorted
+      all.sort_by(&:position)
     end
 
     def self.with_callbacks

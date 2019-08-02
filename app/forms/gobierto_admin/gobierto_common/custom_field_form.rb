@@ -3,6 +3,9 @@
 module GobiertoAdmin
   module GobiertoCommon
     class CustomFieldForm < BaseForm
+
+      DEFAULT_FIELD_TYPES_ORDER = %w(localized_string string localized_paragraph paragraph numeric date image single_option multiple_options vocabulary_options color plugin).freeze
+
       attr_accessor(
         :id,
         :site_id,
@@ -77,7 +80,7 @@ module GobiertoAdmin
       end
 
       def available_field_types
-        ::GobiertoCommon::CustomField.field_types
+        Hash[DEFAULT_FIELD_TYPES_ORDER.product([nil])].merge(::GobiertoCommon::CustomField.field_types)
       end
 
       def available_vocabulary_options

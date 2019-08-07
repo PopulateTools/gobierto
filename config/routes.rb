@@ -523,6 +523,19 @@ Rails.application.routes.draw do
       end
     end
 
+    # Gobierto Investments module
+    namespace :gobierto_investments do
+      constraints GobiertoSiteConstraint.new do
+
+        # API
+        namespace :api do
+          namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true) do
+            resources :projects, except: [:edit]
+          end
+        end
+      end
+    end
+
     # Sidekiq Web UI
     mount Sidekiq::Web => "/sidekiq", as: :sidekiq_console
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_22_154502) do
+ActiveRecord::Schema.define(version: 2019_08_08_150052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2019_07_22_154502) do
     t.string "invitation_token"
     t.datetime "invitation_sent_at"
     t.string "preview_token", null: false
+    t.string "api_token"
     t.index ["confirmation_token"], name: "index_admin_admins_on_confirmation_token", unique: true
     t.index ["email"], name: "index_admin_admins_on_email", unique: true
     t.index ["invitation_token"], name: "index_admin_admins_on_invitation_token", unique: true

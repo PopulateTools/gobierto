@@ -19,6 +19,10 @@ class ApiBaseController < ActionController::API
     end
   end
 
+  def api_errors_render(item, options = {})
+    render({ json: item, status: :unprocessable_entity, serializer: ActiveModel::Serializer::ErrorSerializer }.merge(options))
+  end
+
   protected
 
   def raise_module_not_enabled(_redirect)

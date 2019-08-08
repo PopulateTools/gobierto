@@ -39,9 +39,11 @@ module GobiertoInvestments
                       end
           @resource.assign_attributes(resource_params)
 
-          save_with_custom_fields
-
-          render json: @resource, adapter: :json_api
+          if save_with_custom_fields
+            render json: @resource, adapter: :json_api
+          else
+            api_errors_render(@resource, adapter: :json_api)
+          end
         end
 
         # PATCH/PUT /gobierto_investments/api/v1/projects/1
@@ -53,7 +55,11 @@ module GobiertoInvestments
 
           save_with_custom_fields
 
-          render json: @resource, adapter: :json_api
+          if save_with_custom_fields
+            render json: @resource, adapter: :json_api
+          else
+            api_errors_render(@resource, adapter: :json_api)
+          end
         end
 
         private

@@ -62,6 +62,16 @@ module GobiertoInvestments
           end
         end
 
+        # DELETE /gobierto_investments/api/v1/projects/1
+        # DELETE /gobierto_investments/api/v1/projects/1.json
+        def destroy
+          find_resource
+
+          @resource.destroy
+
+          head :no_content
+        end
+
         private
 
         def find_resource

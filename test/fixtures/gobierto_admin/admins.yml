@@ -9,6 +9,7 @@ tony:
   last_sign_in_at: 2016-12-01 00:00:00
   last_sign_in_ip: 0.0.0.0
   preview_token: tony-preview-token
+  api_token: tony-api-token
 
 steve:
   email: steve@gobierto.dev

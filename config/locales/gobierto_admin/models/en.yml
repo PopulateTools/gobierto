@@ -8,6 +8,7 @@ en:
         password: Password
         password_confirmation: Password confirmation
       gobierto_admin/admin_form:
+        api_token: API token
         email: Email
         name: Name
         password: Password

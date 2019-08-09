@@ -50,6 +50,7 @@ module GobiertoAdmin
             within "form.new_admin" do
               fill_in "admin_name", with: "Admin Name"
               fill_in "admin_email", with: "admin@email.dev"
+              fill_in "admin_api_token", with: "Adm1nT0k3n"
 
               # set authorization level to 'Regular'
               find("label[for='admin_authorization_level_regular']", visible: false).execute_script("this.click()")
@@ -100,6 +101,41 @@ module GobiertoAdmin
       click_button "Update"
 
       assert has_message?("Data updated successfully")
+    end
+
+    def test_create_regular_admin_with_empty_api_token
+      with(site: madrid, admin: admin) do
+        visit @path
+
+        fill_in "admin_name", with: "Admin Name"
+        fill_in "admin_email", with: "admin@email.dev"
+
+        click_button "Create"
+
+        assert has_message?("Admin was successfully created")
+
+        new_admin = ::GobiertoAdmin::Admin.last
+
+        assert_nil new_admin.api_token
+      end
+    end
+
+    def test_create_regular_admin_with_api_token
+      with(site: madrid, admin: admin) do
+        visit @path
+
+        fill_in "admin_name", with: "Admin Name"
+        fill_in "admin_email", with: "admin@email.dev"
+        fill_in "admin_api_token", with: "w4dU2"
+
+        click_button "Create"
+
+        assert has_message?("Admin was successfully created")
+
+        new_admin = ::GobiertoAdmin::Admin.last
+
+        assert_equal "w4dU2", new_admin.api_token
+      end
     end
 
     def test_create_regular_admin_with_custom_permissions

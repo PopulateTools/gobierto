@@ -525,6 +525,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   json_translate (~> 4.0)
+  jwt
   kaminari (~> 1.0)
   launchy
   liquid (~> 4.0)

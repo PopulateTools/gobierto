@@ -150,4 +150,5 @@ class GobiertoControllerTest < ActionDispatch::IntegrationTest
   require "support/integration/request_authentication_helpers"
 
   include Integration::RequestAuthenticationHelpers
+  include GobiertoCommon::TokenServiceHelpers
 end

@@ -21,7 +21,7 @@ module GobiertoCommon
 
       decoded_data = JWT.decode(token, @secret, true, algorithm: @algorithm)
       decoded_data[0]
-    rescue JWT::VerificationError
+    rescue JWT::VerificationError, JWT::DecodeError
       false
     end
   end

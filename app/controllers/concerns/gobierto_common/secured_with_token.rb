@@ -17,7 +17,7 @@ module GobiertoCommon
 
       # TODO: Implement bad request
       decoded_data = GobiertoCommon::TokenService.new.decode(@token)
-      if decoded_data && decoded_data["sub"] == "login" && (admin = ::GobiertoAdmin::Admin.find_by(api_token: decoded_data["api_token"]))
+      if decoded_data && decoded_data["sub"] == "login" && decoded_data["api_token"].present? && (admin = ::GobiertoAdmin::Admin.find_by(api_token: decoded_data["api_token"]))
         @current_admin = admin
       else
         send_unauthorized

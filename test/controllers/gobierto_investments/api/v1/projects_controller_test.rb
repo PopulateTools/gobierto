@@ -168,6 +168,22 @@ module GobiertoInvestments
           end
         end
 
+        def test_create_with_nil_api_token
+          with(site: site) do
+            with_stubbed_jwt_default_secret(default_secret) do
+              auth_header = "Bearer #{token_service.encode(sub: "login", api_token: nil)}"
+              post(
+                gobierto_investments_api_v1_projects_path,
+                headers: { "Authorization" => auth_header },
+                params: new_project_data,
+                as: :json
+              )
+              assert_response :unauthorized
+              assert_equal({ "message" => "Unauthorized" }, response.parsed_body)
+            end
+          end
+        end
+
         def test_create_invalid_default_secret
           with(site: site) do
             with_stubbed_jwt_default_secret(default_secret) do

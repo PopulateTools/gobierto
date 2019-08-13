@@ -4,7 +4,12 @@ module PopulateData
   class ApiMock
 
     def self.stub_endpoint
+      old_config = APP_CONFIG["populate_data"]["endpoint"]
       APP_CONFIG["populate_data"]["endpoint"] = "http://localhost:#{Capybara.current_session.server.port}/populate_data_mock"
+      yield
+    ensure
+      Capybara.current_session.quit
+      APP_CONFIG["populate_data"]["endpoint"] = old_config
     end
 
     def self.generic_indicator_data

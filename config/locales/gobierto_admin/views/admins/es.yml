@@ -34,3 +34,5 @@ es:
         view_admin: Ver Administrador
       new:
         title: Nuevo Administrador
+      show:
+        admin_tokens: Tokens de autorización

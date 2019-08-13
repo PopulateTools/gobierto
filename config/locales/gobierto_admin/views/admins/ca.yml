@@ -34,3 +34,5 @@ ca:
         view_admin: Veure Administrador
       new:
         title: Nou Administrador
+      show:
+        admin_tokens: Tokens d'autorització

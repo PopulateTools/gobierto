@@ -10,6 +10,7 @@ module GobiertoAdmin
 
     def show
       @admin = find_admin
+      set_api_tokens
     end
 
     def new
@@ -132,6 +133,17 @@ module GobiertoAdmin
 
     def set_activities
       @activities = ActivityCollectionDecorator.new(Activity.admin_activities(@admin).page(params[:page]))
+    end
+
+    def set_api_tokens
+      return unless @admin.api_token.present?
+
+      @api_tokens = {
+        login: ::GobiertoCommon::TokenService.new.encode(
+          sub: :login,
+          api_token: @admin.api_token
+        )
+      }
     end
 
     def track_create_activity

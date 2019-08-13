@@ -34,3 +34,5 @@ en:
         view_admin: View Admin
       new:
         title: New Admin
+      show:
+        admin_tokens: Authorization tokens

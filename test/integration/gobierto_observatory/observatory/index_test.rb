@@ -29,27 +29,29 @@ module GobiertoObservatory
 
       def test_index
         with(site: site, js: true) do
-          PopulateData::ApiMock.stub_endpoint
+          PopulateData::ApiMock.stub_endpoint do
 
-          visit gobierto_observatory_root_path
+            visit gobierto_observatory_root_path
 
-          assert_equal "Inhabitants", first_card_front.find("h3").text
-          assert first_card_front.text.include?("INE")
-          assert first_card_back.text.include?("Indicator description")
+            assert_equal "Inhabitants", first_card_front.find("h3").text
+            assert first_card_front.text.include?("INE")
+            assert first_card_back.text.include?("Indicator description")
+          end
         end
       end
 
       def test_flip_card
         with(site: site, js: true) do
-          PopulateData::ApiMock.stub_endpoint
+          PopulateData::ApiMock.stub_endpoint do
 
-          visit gobierto_observatory_root_path
+            visit gobierto_observatory_root_path
 
-          refute first_card_back_visible?
+            refute first_card_back_visible?
 
-          first_card.find(".fa-question-circle").click
+            first_card.find(".fa-question-circle").click
 
-          assert first_card_back_visible?
+            assert first_card_back_visible?
+          end
         end
       end
 

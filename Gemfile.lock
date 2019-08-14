@@ -506,7 +506,7 @@ DEPENDENCIES
   cloudinary
   codecov (~> 0.1.9)
   cookies_eu (>= 1.7.5)
-  d3-rails (~> 4.13, >= 4.13.0)
+  d3-rails (~> 4.8)
   dalli
   elasticsearch
   elasticsearch-extensions

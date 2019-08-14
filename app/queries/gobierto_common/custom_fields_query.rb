@@ -9,6 +9,7 @@ module GobiertoCommon
     def initialize(options = {})
       @relation = options[:relation]
       @instance = options[:instance]
+      @class = options[:class] || @relation.model
     end
 
     def filter(filters = {})
@@ -21,7 +22,7 @@ module GobiertoCommon
     end
 
     def custom_fields
-      @custom_fields ||= CustomField.where(instance: @instance)
+      @custom_fields ||= CustomField.where(instance: @instance).for_class(@class)
     end
 
     private
@@ -62,7 +63,7 @@ module GobiertoCommon
     def instance_join_manager
       @instance_join_manager ||= begin
                                    base_relation = relation
-                                   CustomField.where(instance: @instance).each do |custom_field|
+                                   custom_fields.each do |custom_field|
                                      base_relation = base_relation.joins(subquery_join(custom_field).join_sources)
                                    end
                                    base_relation

@@ -10,7 +10,7 @@ module GobiertoAdmin
 
         def show
           load_vocabulary
-          render json: ::GobiertoAdmin::GobiertoCommon::VocabularySerializer.new(@vocabulary)
+          render json: @vocabulary, serializer: ::GobiertoAdmin::GobiertoCommon::VocabularySerializer
         end
 
         private

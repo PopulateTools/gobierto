@@ -2,22 +2,22 @@
 
 source "https://rubygems.org"
 
-gem "actionpack-action_caching"
-gem "active_model_serializers"
+gem "actionpack-action_caching", ">= 1.2.0"
+gem "active_model_serializers", ">= 0.10.9"
 gem "bcrypt", "~> 3.1.0"
-gem "cookies_eu"
+gem "cookies_eu", ">= 1.7.5"
 gem "dalli"
 gem "hashie"
 gem "ine-places", "0.3.0"
 gem "jbuilder", "~> 2.5"
-gem "mechanize"
-gem "meta-tags"
+gem "mechanize", ">= 2.7.6"
+gem "meta-tags", ">= 2.11.1"
 gem "paper_trail"
 gem "paranoia"
 gem "pg", "~> 1.1"
-gem "rails", "~> 5.2.1"
+gem "rails", "~> 5.2.3"
 gem "redcarpet", require: true
-gem "responders"
+gem "responders", ">= 3.0.0"
 gem "rollbar"
 gem "ruby_px"
 gem "before_renders"
@@ -27,10 +27,10 @@ gem "truncate_html"
 # Frontend
 gem "bourbon", "~> 6.0.0"
 gem "sass", "~> 3.4"
-gem "d3-rails", "~> 4.8"
-gem "flight-for-rails"
+gem "d3-rails", "~> 4.13", ">= 4.13.0"
+gem "flight-for-rails", ">= 1.5.1"
 gem "i18n-js", ">= 3.0.0.rc11"
-gem "jquery-rails"
+gem "jquery-rails", ">= 4.3.5"
 gem "sassc"
 gem "therubyracer"
 gem "turbolinks"
@@ -39,7 +39,7 @@ gem "chroma"
 gem "font-awesome-sass", "~> 5.6"
 
 # Webpack
-gem "webpacker", "~> 4.0"
+gem "webpacker", "~> 4.0", ">= 4.0.7"
 
 # Elasticsearch
 gem "elasticsearch"
@@ -56,18 +56,18 @@ gem "aws-sdk", "~> 2.6", require: false
 gem "aws-ses", "~> 0.6.0"
 
 # Calendar view component
-gem "simple_calendar", "~> 2.2"
+gem "simple_calendar", "~> 2.3", ">= 2.3.0"
 
 # Algolia client
 gem "algoliasearch-rails", "~> 1.17"
 # Algolia client indexing sanitizer
-gem "rails-html-sanitizer"
+gem "rails-html-sanitizer", ">= 1.0.4"
 
 # Pagination
-gem "kaminari", "~> 1.0"
+gem "kaminari", "~> 1.1", ">= 1.1.1"
 
 # Captcha
-gem "invisible_captcha"
+gem "invisible_captcha", ">= 0.12.1"
 
 # Redis
 gem "redis", "~> 4.0"
@@ -84,7 +84,7 @@ gem "geocoder"
 gem "google-api-client"
 
 # Microsoft Exchange calendars
-gem "exchanger"
+gem "exchanger", ">= 0.2.1"
 
 # Web Services
 gem "savon", "~> 2.12.0"
@@ -97,14 +97,14 @@ gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 
 group :development, :test do
   gem "byebug", platform: :mri
-  gem "i18n-tasks"
+  gem "i18n-tasks", ">= 0.9.29"
   gem "spring"
   gem "puma"
 end
 
 group :test do
-  gem "capybara"
-  gem "capybara-email"
+  gem "capybara", ">= 3.26.0"
+  gem "capybara-email", ">= 3.0.1"
   gem "codecov", "~> 0.1.9", require: false
   gem "launchy"
   gem "minitest", "5.11.3"

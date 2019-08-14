@@ -14,7 +14,8 @@ module GobiertoInvestments
         # GET /gobierto_investments/api/v1/projects
         # GET /gobierto_investments/api/v1/projects.json
         def index
-          render json: base_relation, adapter: :json_api
+          @resource = GobiertoInvestments::Project.new
+          render json: filtered_relation, adapter: :json_api
         end
 
         # GET /gobierto_investments/api/v1/projects/1

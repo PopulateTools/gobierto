@@ -10,6 +10,13 @@ module GobiertoCommon
       serialization_scope :current_site
     end
 
+    def filtered_relation
+      return base_relation unless filter_params.present?
+
+      query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation)
+      query.filter(filter_params)
+    end
+
     def save_with_custom_fields
       return unless resource.save
 
@@ -34,8 +41,30 @@ module GobiertoCommon
       @custom_fields_form.custom_field_records = params.require(:data).require(:attributes).slice(*custom_field_keys).permit!
     end
 
+    def filter_params
+      return unless params[:filter].present?
+
+      filter_query_params = params.require(:filter).slice(*custom_field_keys).permit!.to_h
+
+      filter_query_params.inject({}) do |params, (uid, value)|
+        custom_field = custom_fields.find_by_uid(uid)
+
+        next params unless custom_field.present?
+
+        record = custom_field.records.new
+        record.value = value
+        params.update(
+          custom_field => record.value
+        )
+      end
+    end
+
     def custom_field_keys
-      current_site.custom_fields.where(class_name: resource.class.name).map(&:uid)
+      @custom_field_keys ||= custom_fields.map(&:uid)
+    end
+
+    def custom_fields
+      @custom_fields ||= current_site.custom_fields.for_class(resource.class)
     end
 
   end

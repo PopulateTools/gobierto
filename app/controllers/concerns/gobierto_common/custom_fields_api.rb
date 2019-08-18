@@ -54,7 +54,7 @@ module GobiertoCommon
         record = custom_field.records.new
         record.value = value
         params.update(
-          custom_field => record.value
+          custom_field => record.filter_value
         )
       end
     end

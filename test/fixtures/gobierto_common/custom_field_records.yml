@@ -194,3 +194,29 @@ scholarships_in_school_cateens_custom_field_global_level:
   item: scholarships_in_school_cateens (GobiertoPlans::Node)
   custom_field: madrid_node_global
   payload: <%= { "status" => "not_started" }.to_json %>
+
+## Investments projects
+
+sports_center_cost_custom_field_record:
+  item: sports_center_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_cost
+  payload: <%= { "cost" => 1000000.0 }.to_json %>
+
+sports_center_political_group_custom_field_record:
+  item: sports_center_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_political_group
+  payload: <%= {
+    "political-group" => ActiveRecord::FixtureSet.identify(:marvel_term).to_s
+  }.to_json %>
+
+public_pool_cost_custom_field_record:
+  item: public_pool_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_cost
+  payload: <%= { "cost" => 750000.0 }.to_json %>
+
+public_pool_political_group_custom_field_record:
+  item: public_pool_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_political_group
+  payload: <%= {
+    "political-group" => ActiveRecord::FixtureSet.identify(:dc_term).to_s
+  }.to_json %>

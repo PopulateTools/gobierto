@@ -1,0 +1,111 @@
+.gobierto_investments {
+
+  .investments-aside {
+    &--heading {
+      color: $color_text;
+      font-size: $f5;
+      font-weight: 300;
+      line-height: 22px;
+    }
+
+    &--block {
+      background-color: #F6F6F6;
+      padding: 1em;
+    }
+
+    &--block-head {
+      color: $color_headers;
+      font-size: $f8;
+      font-weight: 700;
+      line-height: 14px;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    &--link {
+      border-top: 1px solid $separator_dark;
+      font-size: $f7;
+      font-weight: 400;
+      line-height: 33px;
+      text-decoration: underline;
+      display: block;
+    }
+
+    &--steps {
+      ul {
+        padding: 0;
+        list-style-type: none;
+      }
+
+      li {
+        height: 2rem;
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          display: block;
+          background-color: #C5C5C5;
+          border-radius: 100%;
+          width: 9px;
+          height: 9px;
+          top: 50%;
+          left: 1rem;
+          transform: translate(-50%, -50%);
+          z-index: 2;
+        }
+
+        &:not(:last-of-type)::after {
+          content: "";
+          position: absolute;
+          height: 100%;
+          width: 1px;
+          border-left: 1px dashed #C5C5C5;
+          left: 1rem;
+          top: 50%;
+          z-index: 1;
+        }
+
+        &:hover::before {
+          background-color: #fff;
+        }
+      }
+
+      a {
+        color: $color_text;
+        font-size: $f6;
+        font-weight: 400;
+        line-height: 33px;
+        text-decoration: none;
+        display: block;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 2rem;
+
+        &:hover {
+          background-color: #0072BC;
+          border-radius: 3px;
+          color: $color_main_negative;
+          font-weight: 600;
+
+          &::before {
+            content: "";
+            position: absolute;
+            display: block;
+            background-color: #0072BC;
+            border-radius: 100%;
+            width: 3px;
+            height: 3px;
+            top: 50%;
+            left: 1rem;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+          }
+        }
+
+      }
+    }
+  }
+
+}

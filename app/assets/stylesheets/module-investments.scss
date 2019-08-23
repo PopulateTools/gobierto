@@ -1,6 +1,12 @@
 .gobierto_investments {
 
   .investments-aside {
+    @include min-screen(768) {
+      &--gap {
+        padding-right: 40px; 
+      }
+    }
+
     &--heading {
       color: $color_text;
       font-size: $f5;
@@ -108,4 +114,67 @@
     }
   }
 
+  .investments-main {
+    &--heading {
+      font-size: 26px;
+      font-weight: 300;
+      line-height: 31px;
+    }
+
+    &--table-row {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 2rem;
+      color: $color_text;
+
+      > :last-child {
+        flex: 1;
+      }
+    }
+
+    &--cell-heading {
+      flex: 0 0 20%;
+      font-size: $f6;
+      font-weight: 700;
+      line-height: 19px;
+      text-transform: uppercase;
+      padding-right: 1rem;
+    }
+
+    &--strong {
+      font-size: $f3;
+      font-weight: 700;
+      line-height: 29px;
+    }
+
+    &--inner-table-row {
+      display: flex;
+      align-items: baseline;
+      color: $color_text;
+      justify-content: space-between;
+
+      > :first-child {
+        flex: 1;
+        padding-right: 1rem;
+      }
+
+      &:not(:first-child) {
+        margin-top: 0.5rem;
+      }
+    }
+
+    &--icon-text {
+      display: flex;
+      align-items: baseline;
+
+      > :first-child {
+        flex: 0 0 1.5em;
+        color: $color_logo_yellow;
+      }
+
+      &:not(:first-child) {
+        margin-top: 0.5rem;
+      }
+    }
+  }
 }

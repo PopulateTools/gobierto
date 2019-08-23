@@ -2,8 +2,8 @@
 
 <div class="column">
   <div class="pure-g">
-    <div class="pure-u-1 pure-u-lg-1-3">
-      <aside>
+    <div class="pure-u-1 pure-u-lg-1-4">
+      <aside class="investments-aside--gap">
         <h4 class="investments-aside--heading">Detalle de proyecto</h4>
         <div class="investments-aside--block">
           <h6 class="investments-aside--block-head">Estado</h6>
@@ -24,44 +24,56 @@
       </aside>
     </div>
 
-    <div class="pure-u-1 pure-u-lg-2-3">
+    <div class="pure-u-1 pure-u-lg-3-4">
       <main>
-        <h1>EDXXX-1 Actuacions i millores col·lectives</h1>
-        <p>
+        <h1 class="investments-main--heading">EDXXX-1 Actuacions i millores col·lectives</h1>
+
+        <div class="js-read-more">
           La remodelació i reurbanització de la C-245 integrarà una nou carril bici, i un carril bus segregat i continu de 13 quilòmetres
           entre Castelldefels i Cornellà. La plataforma segregada per als autobusos permetrà augmentar la velocitat comercial almenys en un
-          25% en els trams urbans i guanyar puntualitat en …. ver más
-        </p>
-        <img src="http://lorempixel.com/400/200/sports/1" alt="" />
+          25% en els trams urbans i guanyar puntualitat en Mataró.
+        </div>
+
+        <!-- <img src="http://lorempixel.com/400/200/sports/1" alt="" /> -->
+
         <div>
-          <div>
-            <div>Edificio</div>
+          <div class="investments-main--table-row">
+            <div class="investments-main--cell-heading">Edificio</div>
             <div>Edificis educatius</div>
           </div>
-          <div>
-            <div>Servicio</div>
+          <div class="investments-main--table-row">
+            <div class="investments-main--cell-heading">Servicio</div>
             <div>Direcció d'Ensenyament</div>
           </div>
-          <div>
-            <div>Tareas</div>
+          <div class="investments-main--table-row">
+            <div class="investments-main--cell-heading">Presupuesto</div>
+            <div><strong class="investments-main--strong">1.150.000 €</strong></div>
+          </div>
+          <div class="investments-main--table-row">
+            <div class="investments-main--cell-heading">Tareas</div>
+            <% tareas = [ "Actuacions instal·lació de línies de vida", "Actuacions a l'instal.lació d'alarmes (adequació normativa)",
+            "Actuacions derivades de normativa de baixa tensió", "Actuacions derivades de normativa eficiència energètica", "Actuacions
+            derivades compliment normativa legionel.la", "Actuacions derivades compliment normativa extinció incendis", "Millores -
+            Substitució de tubs fluorescents pet TL8 (13 equip)", "Millores - Domòtica (21 equipaments)"] %>
             <div>
-              Actuacions instal·lació de línies de vida <br />
-              Actuacions a l'instal.lació d'alarmes (adequació normativa) <br />
-              Actuacions derivades de normativa de baixa tensió <br />
-              Actuacions derivades de normativa eficiència energètica <br />
-              Actuacions derivades compliment normativa legionel.la <br />
-              Actuacions derivades compliment normativa extinció incendis <br />
-              Millores - Substitució de tubs fluorescents pet TL8 (13 equip) <br />
-              Millores - Domòtica (21 equipaments)
+              <% tareas.each do |tarea| %>
+              <div class="investments-main--inner-table-row">
+                <div><%= tarea %></div>
+                <div><%= number_to_currency(SecureRandom.random_number(100000), locale: :es) %></div>
+              </div>
+              <% end %>
             </div>
           </div>
-          <div>
-            <div>Contrato y facturación</div>
-            <div>Ver ficha</div>
+          <div class="investments-main--table-row">
+            <div class="investments-main--cell-heading">Contrato y facturación</div>
+            <div>
+              <div class="investments-main--icon-text"><i class="fas fa-file-signature"></i> <a href="">Ver ficha del contrato</a></div>
+              <div class="investments-main--icon-text"><i class="fas fa-receipt"></i> <a href="">Ver facturas</a></div>
+            </div>
           </div>
-          <div>
-            <div>Documentos</div>
-            <div>Memorias</div>
+          <div class="investments-main--table-row">
+            <div class="investments-main--cell-heading">Documentos</div>
+            <div class="investments-main--icon-text"><i class="fas fa-file-pdf"></i> <a href="">Memoria del proyecto (PDF, 2.5 MB)</a></div>
           </div>
         </div>
       </main>

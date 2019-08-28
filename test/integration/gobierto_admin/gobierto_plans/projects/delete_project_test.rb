@@ -76,6 +76,11 @@ module GobiertoAdmin
 
               assert has_content? "Project deleted correctly."
 
+              activity = Activity.last
+              assert_equal plan, activity.subject
+              assert_equal regular_admin, activity.author
+              assert_equal site.id, activity.site_id
+              assert_equal "gobierto_plans.project_destroyed", activity.action
             end
           end
         end

@@ -8,6 +8,10 @@ es:
       gobierto_plans_plan_type_created: Tipo de plan creado
       gobierto_plans_plan_type_updated: Tipo de plan actualizado
       gobierto_plans_plan_updated: Plan actualizado
+      gobierto_plans_progresses_updated: Progresos de proyectos actualizados
+      gobierto_plans_project_created: Proyecto creado
+      gobierto_plans_project_destroyed: Proyecto eliminado del plan
+      gobierto_plans_project_updated: Proyecto actualizado
     layouts:
       application:
         plans: Planes

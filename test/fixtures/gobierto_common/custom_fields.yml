@@ -298,3 +298,107 @@ madrid_custom_field_table_plugin:
       }
     }
   }.to_json %>
+
+madrid_custom_field_human_resources_table_plugin:
+  site: madrid
+  class_name: GobiertoPlans::Node
+  mandatory: false
+  position: 8
+  name_translations: <%= { en: "Human Resources (table)", es: "Recursos Humanos (tabla)" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
+  uid: human_resources_table
+  options: <%= {
+    configuration: {
+            plugin_type: "table",
+            plugin_configuration: {
+        "columns": [
+          {
+            "id": "human_resource",
+            "type": "vocabulary",
+            "dataSource": "/admin/api/vocabularies/#{ ActiveRecord::FixtureSet.identify(:human_resources_vocabulary) }",
+            "name_translations": {
+              "en": "Human resource",
+              "es": "Recurso humano"
+            }
+          },
+          {
+            "id": "cost",
+            "type": "text",
+            "name_translations": {
+              "en": "Cost",
+              "es": "Coste"
+            }
+          },
+          {
+            "id": "start_date",
+            "type": "date",
+            "name_translations": {
+              "en": "Start date",
+              "es": "Fecha inicio"
+            }
+          },
+          {
+            "id": "end_date",
+            "type": "date",
+            "name_translations": {
+              "en": "End date",
+              "es": "Fecha de fin"
+            }
+          }
+        ],
+        "category_term_decorator": "human_resources"
+      }
+    }
+  }.to_json %>
+
+madrid_custom_field_indicators_table_plugin:
+  site: madrid
+  class_name: GobiertoPlans::Node
+  mandatory: false
+  position: 9
+  name_translations: <%= { en: "Indicator (table)", es: "Indicador (tabla)" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
+  uid: indicators_table
+  options: <%= {
+    configuration: {
+      plugin_type: "table",
+      plugin_configuration: {
+        "columns": [
+          {
+            "id": "indicator",
+            "type": "vocabulary",
+            "dataSource": "/admin/api/vocabularies/#{ ActiveRecord::FixtureSet.identify(:indicators_vocabulary) }",
+            "name_translations": {
+              "en": "Indicator",
+              "es": "Indicador"
+            }
+          },
+          {
+            "id": "objective",
+            "type": "float",
+            "name_translations": {
+              "en": "Objective",
+              "es": "Objetivo"
+            }
+          },
+          {
+            "id": "value_reached",
+            "type": "float",
+            "name_translations": {
+              "en": "Value reached",
+              "es": "Valor alcanzado"
+            }
+          },
+          {
+            "id": "date",
+            "type": "text",
+            "name_translations": {
+              "en": "Date",
+              "es": "Fecha"
+            }
+          }
+        ],
+        "category_term_decorator": "indicators"
+      }
+    }
+  }.to_json %>

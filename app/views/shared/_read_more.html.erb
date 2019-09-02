@@ -1,0 +1,10 @@
+<% snippet ||= ""; hidden_text ||= snippet %>
+<div id="read-more--<%= SecureRandom.hex(10) %>" class="read-more js-read-more">
+  <div>
+    <%= snippet %> <span data-toggle><a><%= t("views.see.more") %></a></span>
+  </div>
+  <div>
+    <%= hidden_text %>
+    <span data-toggle><a><%= t("views.see.less") %></a></span>
+  </div>
+</div>

@@ -105,7 +105,7 @@ ca:
       contribution_item: Aportacions
       drag_drop_instructions: Arrossegueu i deixeu anar al costat esquerre per a col·locar
         aquesta pàgina al menú
-      event_item: 'Esdeveniment '
+      event_item: "Esdeveniment "
       no_results: La cerca no ha coincidit amb cap pàgina. Intenteu fer servir termes
         més generals o comproveu l'ortografia.
       page_item: Pàgina
@@ -166,3 +166,6 @@ ca:
       next: Següent
       previous: Anterior
       truncate: "&hellip;"
+    see:
+      more: veure més
+      less: veure menys

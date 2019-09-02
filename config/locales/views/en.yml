@@ -160,3 +160,6 @@ en:
       next: Next
       previous: Prev
       truncate: "&hellip;"
+    see:
+      more: see more
+      less: see less

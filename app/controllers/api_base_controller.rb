@@ -19,14 +19,23 @@ class ApiBaseController < ActionController::API
     end
   end
 
+  protected
+
   def api_errors_render(item, options = {})
     render({ json: item, status: :unprocessable_entity, serializer: ActiveModel::Serializer::ErrorSerializer }.merge(options))
   end
 
-  protected
+  def send_unauthorized(options = {})
+    message = options.delete(:message) || "Unauthorized"
+    render(json: { message: message }, status: :unauthorized, adapter: :json_api) && return
+  end
 
   def raise_module_not_enabled(_redirect)
     head :forbidden
+  end
+
+  def raise_module_not_allowed
+    send_unauthorized(message: "Module not allowed")
   end
 
 end

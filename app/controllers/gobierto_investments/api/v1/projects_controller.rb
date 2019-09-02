@@ -6,6 +6,10 @@ module GobiertoInvestments
       class ProjectsController < ApiBaseController
 
         include ::GobiertoCommon::CustomFieldsApi
+        include ::GobiertoCommon::SecuredWithToken
+
+        skip_before_action :set_admin_with_token, only: [:index, :show, :new]
+        before_action :module_allowed, except: [:index, :show, :new]
 
         # GET /gobierto_investments/api/v1/projects
         # GET /gobierto_investments/api/v1/projects.json
@@ -84,6 +88,10 @@ module GobiertoInvestments
 
         def resource_params
           params.require(:data).require(:attributes).permit(:external_id, title_translations: {})
+        end
+
+        def module_allowed
+          module_allowed!(current_admin, "GobiertoInvestments")
         end
 
       end

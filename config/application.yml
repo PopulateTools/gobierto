@@ -82,6 +82,8 @@ default: &default
       description: Null Strategy
       session_form: NullStrategySessionForm
       default: false
+  jwt_config:
+    default_secret: <%= ENV["JWT_DEFAULT_SECRET"] %>
 
 development:
   <<: *default

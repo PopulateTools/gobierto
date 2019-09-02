@@ -293,10 +293,32 @@ madrid_custom_field_table_plugin:
               "en": "Indicator",
               "es": "Indicador"
             }
-          }
-        ]
-      }
-    }
+           }
+         ]
+       }
+     }
+  }.to_json %>
+
+madrid_investments_projects_custom_field_cost:
+  site: madrid
+  class_name: GobiertoInvestments::Project
+  position: 1
+  name_translations: <%= { en: "Cost", es: "Coste" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:numeric] %>
+  uid: cost
+
+madrid_investments_projects_custom_field_political_group:
+  site: madrid
+  class_name: GobiertoInvestments::Project
+  position: 2
+  name_translations: <%= { en: "Political group", es: "Grupo político" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:vocabulary_options] %>
+  uid: political-group
+  options: <%= {
+    configuration: {
+      vocabulary_type: "single_select"
+    },
+    vocabulary_id: ActiveRecord::FixtureSet.identify(:madrid_political_groups_vocabulary)
   }.to_json %>
 
 madrid_custom_field_human_resources_table_plugin:

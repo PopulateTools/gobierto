@@ -10,6 +10,10 @@ module GobiertoCommon::CustomFieldValue
       value.map(&:name)
     end
 
+    def filter_value
+      raw_value.to_s
+    end
+
     def value=(value)
       value = value.id if value.is_a?(GobiertoCommon::Term)
 

@@ -33,6 +33,7 @@ module GobiertoInvestments
         def project_without_external_id
           @project_without_external_id ||= gobierto_investments_projects(:sports_center_project)
         end
+        alias project_with_other_political_group project_without_external_id
 
         def manager_admin
           gobierto_admin_admins(:nick)
@@ -48,6 +49,10 @@ module GobiertoInvestments
 
         def auth_token(admin)
           token_service.encode(sub: "login", api_token: admin.api_token)
+        end
+
+        def political_group
+          gobierto_common_terms(:dc_term)
         end
 
         def new_project_data
@@ -97,6 +102,49 @@ module GobiertoInvestments
             ids = response_data["data"].map { |item| item["id"].to_i }
             assert_includes ids, project.id
             assert_includes ids, project_without_external_id.id
+          end
+        end
+
+        def test_index_filtered_by_vocabulary
+          with(site: site) do
+            # Rack::Utils.build_nested_query(filter: { "political-group" => political_group.id })
+            get gobierto_investments_api_v1_projects_path(filter: { "political-group" => political_group.id }), as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert_equal 1, response_data["data"].count
+            ids = response_data["data"].map { |item| item["id"].to_i }
+            assert_includes ids, project.id
+            refute_includes ids, project_with_other_political_group.id
+          end
+        end
+
+        def test_index_filtered_multiple_filters
+          with(site: site) do
+            get gobierto_investments_api_v1_projects_path(filter: { "political-group" => political_group.id, "cost": 750_000 }), as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert_equal 1, response_data["data"].count
+            ids = response_data["data"].map { |item| item["id"].to_i }
+            assert_includes ids, project.id
+            refute_includes ids, project_with_other_political_group.id
+          end
+        end
+
+        def test_index_filtered_empty_result
+          with(site: site) do
+            get gobierto_investments_api_v1_projects_path(filter: { "political-group" => political_group.id, "cost": 1_000_000 }), as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert_equal 0, response_data["data"].count
           end
         end
 

@@ -36,6 +36,63 @@ javascript_packs_with_chunks_tag 'sandbox', 'data-turbolinks-track': true %> <% 
           hidden_text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum doloremque aperiam laboriosam ad, nulla autem maiores aliquid eum, illum beatae nam natus magni temporibus! Totam ipsum laboriosam nulla officia ducimus similique rerum laborum doloremque id obcaecati, cum reprehenderit temporibus! Omnis voluptates debitis suscipit, facere mollitia, officia excepturi vero culpa asperiores voluptatem eligendi voluptate aut consequuntur aliquam sint ipsa eius impedit dicta veritatis voluptatum eveniet laudantium necessitatibus ea repellat. Fuga reprehenderit illum error enim aliquid fugiat nihil. Voluptatem esse aperiam quam, id doloribus ipsam animi cum corrupti expedita veniam recusandae culpa atque distinctio placeat quos, ea natus, minima nemo non. Itaque!"
         
         } %>
+        
+        <style>
+.carousel-wrapper {
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 300ms ease-out;
+}
+
+.carousel > * {
+  flex: 0 0 calc(100%/var(--visible-items, 2));
+}
+        </style>
+
+<div class="carousel-wrapper">  
+    <div class="carousel">
+        <% 10.times do |i| %>
+        <% random_img = "https://loremflickr.com/320/240/building?random=" + i.to_s %>
+        <img src="<%= random_img %>">
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+      <button data-prev>Prev</button>
+      <button data-next>Next</button>
+    </div>
+
+    <script>
+        const visibleItems = 3
+        document.body.style.setProperty("--visible-items", visibleItems)
+        
+        const carousel = document.querySelector(".carousel")
+        const next = document.querySelector("[data-next]")
+        const prev = document.querySelector("[data-prev]")
+        const maxValue = (carousel.children.length - visibleItems) * (100 / visibleItems)
+        
+        const setStyle = p => (carousel.style.transform = `translateX(${start}%)`)
+        
+        let start = 0
+        next.addEventListener("click", () => {
+          if (Math.abs(start) < maxValue) {
+            start -= 100 / visibleItems
+            setStyle(start) 
+          }
+        })
+        
+        prev.addEventListener("click", () => {
+          if (start < 0) {
+            start += 100 / visibleItems
+            setStyle(start)
+          }
+        })
+        
+        </script>
 
         <div>
           <div class="investments-main--table-row">

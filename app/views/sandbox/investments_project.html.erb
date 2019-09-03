@@ -44,11 +44,12 @@ javascript_packs_with_chunks_tag 'sandbox', 'data-turbolinks-track': true %> <% 
         <div class="m_v_2"></div>
 
         <!-- WIDGET HORIZONTAL CAROUSEL -->
-        <%= render layout: 'shared/widget_horizontal_carousel', locals: { items: 3 } do %>
+        <%= render layout: 'shared/widget_horizontal_carousel', locals: { items: 2 } do %>
 
+          <% sizes = [240, 320, 360, 480, 540] %>
           <% 5.times do |i| %>
-            <% random_img = "https://loremflickr.com/320/240/building?random=" + i.to_s %>
-            <img src="<%= random_img %>">
+            <% random_img = "https://loremflickr.com/"+ sizes.sample.to_s + "/" + sizes.sample.to_s + "/building?random=" + i.to_s %>
+            <img class="investments-main--carousel" src="<%= random_img %>">
           <% end %>
 
         <% end %>

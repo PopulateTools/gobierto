@@ -121,6 +121,15 @@
       line-height: 31px;
     }
 
+    &--carousel {
+      max-height: 300px;
+      object-fit: cover;
+
+      &:not(:first-child) {
+        margin-left: 0.5rem;
+      }
+    }
+
     &--table-row {
       display: flex;
       align-items: baseline;

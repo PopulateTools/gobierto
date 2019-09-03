@@ -29,70 +29,31 @@ javascript_packs_with_chunks_tag 'sandbox', 'data-turbolinks-track': true %> <% 
       <main>
         <h1 class="investments-main--heading">EDXXX-1 Actuacions i millores col·lectives</h1>
 
+        <!-- WIDGET READ MORE -->
         <%= render partial: 'shared/widget_read_more', locals: { 
-          
           snippet: "La remodelació i reurbanització de la C-245 integrarà una nou carril bici, i un carril bus segregat i continu de 13 quilòmetres entre Castelldefels i Cornellà. La plataforma segregada per als autobusos permetrà augmentar la velocitat comercial almenys en un 25% en els trams urbans i guanyar puntualitat en Mataró.",
-          
-          hidden_text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum doloremque aperiam laboriosam ad, nulla autem maiores aliquid eum, illum beatae nam natus magni temporibus! Totam ipsum laboriosam nulla officia ducimus similique rerum laborum doloremque id obcaecati, cum reprehenderit temporibus! Omnis voluptates debitis suscipit, facere mollitia, officia excepturi vero culpa asperiores voluptatem eligendi voluptate aut consequuntur aliquam sint ipsa eius impedit dicta veritatis voluptatum eveniet laudantium necessitatibus ea repellat. Fuga reprehenderit illum error enim aliquid fugiat nihil. Voluptatem esse aperiam quam, id doloribus ipsam animi cum corrupti expedita veniam recusandae culpa atque distinctio placeat quos, ea natus, minima nemo non. Itaque!"
         
-        } %>
-        
-        <style>
-.carousel-wrapper {
-  overflow: hidden;
-}
+        hidden_text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum doloremque aperiam laboriosam ad, nulla autem maiores
+        aliquid eum, illum beatae nam natus magni temporibus! Totam ipsum laboriosam nulla officia ducimus similique rerum laborum
+        doloremque id obcaecati, cum reprehenderit temporibus! Omnis voluptates debitis suscipit, facere mollitia, officia excepturi vero
+        culpa asperiores voluptatem eligendi voluptate aut consequuntur aliquam sint ipsa eius impedit dicta veritatis voluptatum eveniet
+        laudantium necessitatibus ea repellat. Fuga reprehenderit illum error enim aliquid fugiat nihil. Voluptatem esse aperiam quam, id
+        doloribus ipsam animi cum corrupti expedita veniam recusandae culpa atque distinctio placeat quos, ea natus, minima nemo non.
+        Itaque!" } %>
 
-.carousel {
-  display: flex;
-  transition: transform 300ms ease-out;
-}
+        <div class="m_v_2"></div>
 
-.carousel > * {
-  flex: 0 0 calc(100%/var(--visible-items, 2));
-}
-        </style>
+        <!-- WIDGET HORIZONTAL CAROUSEL -->
+        <%= render layout: 'shared/widget_horizontal_carousel', locals: { items: 3 } do %>
 
-<div class="carousel-wrapper">  
-    <div class="carousel">
-        <% 10.times do |i| %>
-        <% random_img = "https://loremflickr.com/320/240/building?random=" + i.to_s %>
-        <img src="<%= random_img %>">
-      <% end %>
-    </div>
-  </div>
+          <% 5.times do |i| %>
+            <% random_img = "https://loremflickr.com/320/240/building?random=" + i.to_s %>
+            <img src="<%= random_img %>">
+          <% end %>
 
-  <div>
-      <button data-prev>Prev</button>
-      <button data-next>Next</button>
-    </div>
+        <% end %>
 
-    <script>
-        const visibleItems = 3
-        document.body.style.setProperty("--visible-items", visibleItems)
-        
-        const carousel = document.querySelector(".carousel")
-        const next = document.querySelector("[data-next]")
-        const prev = document.querySelector("[data-prev]")
-        const maxValue = (carousel.children.length - visibleItems) * (100 / visibleItems)
-        
-        const setStyle = p => (carousel.style.transform = `translateX(${start}%)`)
-        
-        let start = 0
-        next.addEventListener("click", () => {
-          if (Math.abs(start) < maxValue) {
-            start -= 100 / visibleItems
-            setStyle(start) 
-          }
-        })
-        
-        prev.addEventListener("click", () => {
-          if (start < 0) {
-            start += 100 / visibleItems
-            setStyle(start)
-          }
-        })
-        
-        </script>
+        <div class="m_v_2"></div>
 
         <div>
           <div class="investments-main--table-row">
@@ -134,6 +95,7 @@ javascript_packs_with_chunks_tag 'sandbox', 'data-turbolinks-track': true %> <% 
             <div class="investments-main--icon-text"><i class="fas fa-file-pdf"></i> <a href="">Memoria del proyecto (PDF, 2.5 MB)</a></div>
           </div>
         </div>
+
       </main>
     </div>
   </div>

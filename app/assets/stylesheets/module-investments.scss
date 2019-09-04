@@ -1,13 +1,13 @@
 .gobierto_investments .investments {
 
-  &--heading {
+  &-project--heading {
     color: $color_text;
     font-size: $f5;
     font-weight: 300;
     line-height: 22px;
   }
 
-  &-aside {
+  &-project-aside {
     @include min-screen(768) {
       &--gap {
         padding-right: 40px;
@@ -117,7 +117,7 @@
     }
   }
 
-  &-main {
+  &-project-main {
     &--heading {
       font-size: 26px;
       font-weight: 300;
@@ -202,6 +202,77 @@
 
       &:not(:first-child) {
         margin-top: 0.5rem;
+      }
+    }
+  }
+
+  &-home-aside {
+    @include min-screen(768) {
+      &--gap {
+        @extend .investments-project-aside--gap;
+      }
+    }
+
+    &--block {
+      padding: 16px 0;
+      border-bottom: 1px solid $separator_dark;
+    }
+
+    &--block-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: $f8;
+      line-height: 14px;
+
+      > :first-child {
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      > :last-child {
+        font-weight: 400;
+      }
+    }
+
+    &--checkbox {
+      cursor: pointer;
+
+      label {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 28px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        position: relative;
+        
+        &:hover {
+          background: transparent;
+        }
+      }
+      
+      input[type="checkbox"] + label {
+        background: transparent;
+
+        &::before {
+          content: "";
+          border: 1px solid $separator_dark;
+          display: inline-block;
+          border-radius: 3px;
+          width: 16px;
+          height: 16px;
+          margin-right: 10px;
+          line-height: 16px;
+          text-align: center;
+          transition: all .2s ease;
+        }
+      }
+
+      input[type="checkbox"]:checked + label:before {
+        background: $color_main;
+        color: $color_main_negative;
+        content: "✔";
       }
     }
   }

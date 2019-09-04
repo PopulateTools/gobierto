@@ -1,7 +1,7 @@
 <main>
-  <h1 class="investments-main--heading">EDXXX-1 Actuacions i millores col·lectives</h1>
+  <h1 class="investments-project-main--heading">EDXXX-1 Actuacions i millores col·lectives</h1>
 
-  <div class="investments-main--intro">
+  <div class="investments-project-main--intro">
     <!-- WIDGET READ MORE -->
     <%= render partial: 'shared/widget_read_more', locals: { 
       
@@ -15,7 +15,7 @@
     } %>
   </div>
 
-  <div class="investments-main--carousel">
+  <div class="investments-project-main--carousel">
     <!-- WIDGET HORIZONTAL CAROUSEL -->
     <%= render layout: 'shared/widget_horizontal_carousel', locals: { items: 3 } do %>
 
@@ -31,43 +31,43 @@
   </div>
 
   <div>
-    <div class="investments-main--table-row">
-      <div class="investments-main--cell-heading">Edificio</div>
+    <div class="investments-project-main--table-row">
+      <div class="investments-project-main--cell-heading">Edificio</div>
       <div>Edificis educatius</div>
     </div>
-    <div class="investments-main--table-row">
-      <div class="investments-main--cell-heading">Servicio</div>
+    <div class="investments-project-main--table-row">
+      <div class="investments-project-main--cell-heading">Servicio</div>
       <div>Direcció d'Ensenyament</div>
     </div>
-    <div class="investments-main--table-row">
-      <div class="investments-main--cell-heading">Presupuesto</div>
-      <div><strong class="investments-main--strong">1.150.000 €</strong></div>
+    <div class="investments-project-main--table-row">
+      <div class="investments-project-main--cell-heading">Presupuesto</div>
+      <div><strong class="investments-project-main--strong">1.150.000 €</strong></div>
     </div>
-    <div class="investments-main--table-row">
-      <div class="investments-main--cell-heading">Tareas</div>
+    <div class="investments-project-main--table-row">
+      <div class="investments-project-main--cell-heading">Tareas</div>
       <% tareas = [ "Actuacions instal·lació de línies de vida", "Actuacions a l'instal.lació d'alarmes (adequació normativa)",
       "Actuacions derivades de normativa de baixa tensió", "Actuacions derivades de normativa eficiència energètica", "Actuacions
       derivades compliment normativa legionel.la", "Actuacions derivades compliment normativa extinció incendis", "Millores -
       Substitució de tubs fluorescents pet TL8 (13 equip)", "Millores - Domòtica (21 equipaments)"] %>
       <div>
         <% tareas.each do |tarea| %>
-        <div class="investments-main--inner-table-row">
+        <div class="investments-project-main--inner-table-row">
           <div><%= tarea %></div>
           <div><%= number_to_currency(SecureRandom.random_number(100000), locale: :es) %></div>
         </div>
         <% end %>
       </div>
     </div>
-    <div class="investments-main--table-row">
-      <div class="investments-main--cell-heading">Contrato y facturación</div>
+    <div class="investments-project-main--table-row">
+      <div class="investments-project-main--cell-heading">Contrato y facturación</div>
       <div>
-        <div class="investments-main--icon-text"><i class="fas fa-file-signature"></i> <a href="">Ver ficha del contrato</a></div>
-        <div class="investments-main--icon-text"><i class="fas fa-receipt"></i> <a href="">Ver facturas</a></div>
+        <div class="investments-project-main--icon-text"><i class="fas fa-file-signature"></i> <a href="">Ver ficha del contrato</a></div>
+        <div class="investments-project-main--icon-text"><i class="fas fa-receipt"></i> <a href="">Ver facturas</a></div>
       </div>
     </div>
-    <div class="investments-main--table-row">
-      <div class="investments-main--cell-heading">Documentos</div>
-      <div class="investments-main--icon-text"><i class="fas fa-file-pdf"></i> <a href="">Memoria del proyecto (PDF, 2.5 MB)</a></div>
+    <div class="investments-project-main--table-row">
+      <div class="investments-project-main--cell-heading">Documentos</div>
+      <div class="investments-project-main--icon-text"><i class="fas fa-file-pdf"></i> <a href="">Memoria del proyecto (PDF, 2.5 MB)</a></div>
     </div>
   </div>
 

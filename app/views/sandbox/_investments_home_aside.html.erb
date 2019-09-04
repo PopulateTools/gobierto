@@ -1,0 +1,42 @@
+<aside class="investments-home-aside--gap">
+  <div class="investments-home-aside--block">
+    Últimu añu
+  </div>
+  <div class="investments-home-aside--block">
+    <div class="investments-home-aside--block-header">
+      <strong>Tipu de contratu</strong>
+      <a href="">Tou</a>
+    </div>
+
+    <% check1 = ['Totes', 'Millores equipaments', 'Millores espai públic', 'Nous equipaments', 'Nous espais públics', 'Habitatge',
+    'Sostenibilitat energètica', 'Infraestructures i projectes', 'Altres'] %> <% check1.each do |check| %>
+
+    <div class="investments-home-aside--checkbox">
+      <% seed = SecureRandom.hex %>
+      <input type="checkbox" id="investments-home-aside--checkbox-<%= seed %>" />
+      <label for="investments-home-aside--checkbox-<%= seed %>"><%= check %></label>
+    </div>
+
+    <% end %>
+  </div>
+  <div class="investments-home-aside--block">
+    <div class="investments-home-aside--block-header">
+      <strong>Estáu</strong>
+      <a href="">Tou</a>
+    </div>
+
+    <% check1 = ['Totes', 'Millores equipaments', 'Millores espai públic', 'Nous equipaments', 'Nous espais públics', 'Habitatge',
+    'Sostenibilitat energètica', 'Infraestructures i projectes', 'Altres'] %> <% check1.each do |check| %>
+
+    <div class="investments-home-aside--checkbox">
+      <% seed = SecureRandom.hex %>
+      <input type="checkbox" id="investments-home-aside--checkbox-<%= seed %>" />
+      <label for="investments-home-aside--checkbox-<%= seed %>"><%= check %></label>
+    </div>
+
+    <% end %>
+  </div>
+  <div class="investments-home-aside--block">
+    Cantidá
+  </div>
+</aside>

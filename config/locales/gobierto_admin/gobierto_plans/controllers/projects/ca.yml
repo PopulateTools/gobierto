@@ -14,6 +14,8 @@ ca:
             podrà veure-ho.
           error: El projecte no s'ha pogut publicar.
           success: El projecte s'ha publicat correctament.
+        send:
+          confirm: Vas a enviar aquest projecte a un moderador per a la seva validació.
         unpublish:
           error: El projecte no s'ha pogut despublicar.
           success: El projecte s'ha despublicat correctament.

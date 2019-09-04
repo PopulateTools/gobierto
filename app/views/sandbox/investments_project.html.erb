@@ -47,9 +47,21 @@ javascript_packs_with_chunks_tag 'sandbox', 'data-turbolinks-track': true %> <% 
         <%= render layout: 'shared/widget_horizontal_carousel', locals: { items: 4 } do %>
 
           <% sizes = [240, 320, 360, 480, 540] %>
-          <% 8.times do |i| %>
+          <% 1.times do |i| %>
             <% random_img = "https://loremflickr.com/"+ sizes.sample.to_s + "/" + sizes.sample.to_s + "/building?random=" + i.to_s %>
+            <a class="js-lightbox" href="<%= random_img %>">
+              <img class="investments-main--carousel" src="<%= random_img %>" />
+            </a>
+
             <img class="investments-main--carousel js-lightbox" src="<%= random_img %>" />
+
+            <a href="" class="js-lightbox">
+              <h1>PANTUFLAS</h1>
+              <h2>TENIS</h2>
+              <h3>ZAPATAS</h3>
+              <h4>CHOLAS</h4>
+            </a>
+
           <% end %>
 
         <% end %>

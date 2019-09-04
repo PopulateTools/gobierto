@@ -45,27 +45,4 @@ $(document).on("turbolinks:load", function() {
       setVisibility(next, Math.abs(start) < maxValue)
     })
   })
-  
-  
-
-  const lightboxes = document.querySelectorAll(".js-lightbox")
-
-  lightboxes.forEach(lightbox => {
-    if (lightbox.src !== undefined) {
-      // TODO: QUITAR, PIERDES EL CONTROL DEL CSS
-      const wrapper = document.createElement('a');
-      wrapper.href = lightbox.src;
-      lightbox.parentNode.insertBefore(wrapper, lightbox);
-      wrapper.appendChild(lightbox);
-  
-      $(wrapper).magnificPopup({
-        type: 'image',
-        closeOnContentClick: true,
-        image: {
-          verticalFit: false
-        }
-      });
-    }
-  })
-
 });

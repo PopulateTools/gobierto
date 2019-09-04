@@ -121,13 +121,24 @@
       line-height: 31px;
     }
 
-    &--carousel {
-      max-height: 300px;
-      object-fit: cover;
-      cursor: pointer;
+    &--intro {
+      font-size: $f5;
+      font-weight: 400;
+      line-height: 22px;
+      margin-bottom: 38px;
+    }
 
-      &:not(:first-child) {
-        margin-left: 5px;
+    &--carousel {
+      margin-bottom: 28px;
+      
+      img {
+        max-height: 300px;
+        object-fit: cover;
+        cursor: pointer;
+  
+        &:not(:first-child) {
+          margin-left: 5px;
+        }
       }
     }
 

@@ -29,34 +29,34 @@ javascript_packs_with_chunks_tag 'sandbox', 'data-turbolinks-track': true %> <% 
       <main>
         <h1 class="investments-main--heading">EDXXX-1 Actuacions i millores col·lectives</h1>
 
-        <!-- WIDGET READ MORE -->
-        <%= render partial: 'shared/widget_read_more', locals: { 
+        <div class="investments-main--intro">
+          <!-- WIDGET READ MORE -->
+          <%= render partial: 'shared/widget_read_more', locals: { 
+            
+            snippet: "La remodelació i reurbanització de la C-245 integrarà una nou carril bici, i un carril bus segregat i continu de 13 quilòmetres entre Castelldefels i Cornellà. La plataforma segregada per als autobusos permetrà augmentar la velocitat comercial almenys en un 25% en els trams urbans i guanyar puntualitat en Mataró.",
           
-          snippet: "La remodelació i reurbanització de la C-245 integrarà una nou carril bici, i un carril bus segregat i continu de 13 quilòmetres entre Castelldefels i Cornellà. La plataforma segregada per als autobusos permetrà augmentar la velocitat comercial almenys en un 25% en els trams urbans i guanyar puntualitat en Mataró.",
-        
-          hidden_text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum doloremque aperiam laboriosam ad, nulla autem maiores aliquid eum, illum beatae nam natus magni temporibus! Totam ipsum laboriosam nulla officia ducimus similique rerum laborum
-          doloremque id obcaecati, cum reprehenderit temporibus! Omnis voluptates debitis suscipit, facere mollitia, officia excepturi vero culpa asperiores voluptatem eligendi voluptate aut consequuntur aliquam sint ipsa eius impedit dicta veritatis voluptatum eveniet
-          laudantium necessitatibus ea repellat. Fuga reprehenderit illum error enim aliquid fugiat nihil. Voluptatem esse aperiam quam, id doloribus ipsam animi cum corrupti expedita veniam recusandae culpa atque distinctio placeat quos, ea natus, minima nemo non.
-          Itaque!" 
+            hidden_text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum doloremque aperiam laboriosam ad, nulla autem maiores aliquid eum, illum beatae nam natus magni temporibus! Totam ipsum laboriosam nulla officia ducimus similique rerum laborum
+            doloremque id obcaecati, cum reprehenderit temporibus! Omnis voluptates debitis suscipit, facere mollitia, officia excepturi vero culpa asperiores voluptatem eligendi voluptate aut consequuntur aliquam sint ipsa eius impedit dicta veritatis voluptatum eveniet
+            laudantium necessitatibus ea repellat. Fuga reprehenderit illum error enim aliquid fugiat nihil. Voluptatem esse aperiam quam, id doloribus ipsam animi cum corrupti expedita veniam recusandae culpa atque distinctio placeat quos, ea natus, minima nemo non.
+            Itaque!" 
+  
+          } %>
+        </div>
 
-        } %>
-
-        <div class="m_v_2"></div>
-
-        <!-- WIDGET HORIZONTAL CAROUSEL -->
-        <%= render layout: 'shared/widget_horizontal_carousel', locals: { items: 3 } do %>
-
-          <% sizes = [240, 320, 360, 480, 540] %>
-          <% 8.times do |i| %>
-
-            <% random_img = "https://loremflickr.com/"+ sizes.sample.to_s + "/" + sizes.sample.to_s + "/building?random=" + i.to_s %>
-            <img class="investments-main--carousel js-image-lightbox" src="<%= random_img %>" />
-
+        <div class="investments-main--carousel">
+          <!-- WIDGET HORIZONTAL CAROUSEL -->
+          <%= render layout: 'shared/widget_horizontal_carousel', locals: { items: 3 } do %>
+  
+            <% sizes = [240, 320, 360, 480, 540] %>
+            <% 8.times do |i| %>
+  
+              <% random_img = "https://loremflickr.com/"+ sizes.sample.to_s + "/" + sizes.sample.to_s + "/building?random=" + i.to_s %>
+              <img class="js-image-lightbox" src="<%= random_img %>" />
+  
+            <% end %>
+  
           <% end %>
-
-        <% end %>
-
-        <div class="m_v_2"></div>
+        </div>
 
         <div>
           <div class="investments-main--table-row">

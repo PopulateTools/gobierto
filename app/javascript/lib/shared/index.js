@@ -12,7 +12,7 @@ import "./modules/air-datepicker.js";
 import "./modules/shareContent.js";
 import "./modules/readmore.js";
 import "./modules/horizontal-carousel.js";
-import "./modules/lightbox.js";
+import "./modules/image-lightbox.js";
 
 import accounting from "accounting";
 import { SETTINGS } from "./modules/accounting_settings.js";

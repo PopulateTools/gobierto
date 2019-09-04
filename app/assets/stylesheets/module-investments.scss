@@ -1,22 +1,25 @@
-.gobierto_investments {
+.gobierto_investments .investments {
 
-  .investments-aside {
+  &--heading {
+    color: $color_text;
+    font-size: $f5;
+    font-weight: 300;
+    line-height: 22px;
+  }
+
+  &-aside {
     @include min-screen(768) {
       &--gap {
-        padding-right: 40px; 
+        padding-right: 40px;
+        height: 100%;
       }
-    }
-
-    &--heading {
-      color: $color_text;
-      font-size: $f5;
-      font-weight: 300;
-      line-height: 22px;
     }
 
     &--block {
       background-color: #F6F6F6;
       padding: 1em;
+      height: 100%;
+      box-sizing: border-box;
     }
 
     &--block-head {
@@ -114,11 +117,12 @@
     }
   }
 
-  .investments-main {
+  &-main {
     &--heading {
       font-size: 26px;
       font-weight: 300;
       line-height: 31px;
+      margin-top: 0;
     }
 
     &--intro {
@@ -145,8 +149,11 @@
     &--table-row {
       display: flex;
       align-items: baseline;
-      margin-bottom: 2rem;
       color: $color_text;
+      
+      &:not(:last-child) {
+        margin-bottom: 2rem;
+      }
 
       > :last-child {
         flex: 1;
@@ -198,4 +205,5 @@
       }
     }
   }
+  
 }

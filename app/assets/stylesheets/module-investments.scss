@@ -275,6 +275,80 @@
         content: "✔";
       }
     }
+
+    &--calendar-button {
+      background-color: $color_main_soft;
+      border-radius: 4px;
+      padding: 6px;
+      cursor: pointer;
+      
+      > :first-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      strong {
+        font-size: $f7;
+        font-weight: 700;
+        line-height: 17px;
+      }
+
+      i {
+        color: $color_main;
+        font-size: $f5;
+      }
+
+      small {
+        font-size: $f8;
+        font-weight: 400;
+        line-height: 14px;
+        opacity: 0.5;
+      }
+    }
   }
   
+  &-home-nav {
+    background-color: rgba($color_headers, 0.04);
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+    }
+    
+    &--item {
+      color: $color_main;
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 24px;
+      text-transform: uppercase;
+      padding: 14px 0;
+      margin-left: 20px;
+      border-top: 3px solid transparent;
+      box-sizing: border-box;
+      cursor: pointer;
+
+      > :first-child {
+        flex: 0 0 25px;
+      }
+
+      &.is-active {
+        font-weight: 700;
+        border-top-color: $color_main;
+      }
+
+      &:not(.is-active) i:first-of-type,
+      &.is-active i:last-of-type {
+        display: block;
+      }
+
+      &:not(.is-active) i:first-of-type,
+      &.is-active i:last-of-type {
+        display: none;
+      }
+    }
+  }
 }

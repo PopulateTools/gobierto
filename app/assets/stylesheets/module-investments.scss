@@ -16,7 +16,7 @@
     }
 
     &--block {
-      background-color: #F6F6F6;
+      background-color: #f6f6f6;
       padding: 1em;
       height: 100%;
       box-sizing: border-box;
@@ -54,7 +54,7 @@
           content: "";
           position: absolute;
           display: block;
-          background-color: #C5C5C5;
+          background-color: #c5c5c5;
           border-radius: 100%;
           width: 9px;
           height: 9px;
@@ -69,7 +69,7 @@
           position: absolute;
           height: 100%;
           width: 1px;
-          border-left: 1px dashed #C5C5C5;
+          border-left: 1px dashed #c5c5c5;
           left: 1rem;
           top: 50%;
           z-index: 1;
@@ -93,7 +93,7 @@
         padding: 0 2rem;
 
         &:hover {
-          background-color: #0072BC;
+          background-color: #0072bc;
           border-radius: 3px;
           color: $color_main_negative;
           font-weight: 600;
@@ -102,7 +102,7 @@
             content: "";
             position: absolute;
             display: block;
-            background-color: #0072BC;
+            background-color: #0072bc;
             border-radius: 100%;
             width: 3px;
             height: 3px;
@@ -134,12 +134,12 @@
 
     &--carousel {
       margin-bottom: 28px;
-      
+
       img {
         max-height: 300px;
         object-fit: cover;
         cursor: pointer;
-  
+
         &:not(:first-child) {
           margin-left: 5px;
         }
@@ -150,7 +150,7 @@
       display: flex;
       align-items: baseline;
       color: $color_text;
-      
+
       &:not(:last-child) {
         margin-bottom: 2rem;
       }
@@ -246,12 +246,12 @@
         display: flex;
         align-items: center;
         position: relative;
-        
+
         &:hover {
           background: transparent;
         }
       }
-      
+
       input[type="checkbox"] + label {
         background: transparent;
 
@@ -269,7 +269,7 @@
         }
       }
 
-      input[type="checkbox"]:checked + label:before {
+      input[type="checkbox"]:checked + label::before {
         background: $color_main;
         color: $color_main_negative;
         content: "✔";
@@ -281,7 +281,7 @@
       border-radius: 4px;
       padding: 6px;
       cursor: pointer;
-      
+
       > :first-child {
         display: flex;
         justify-content: space-between;
@@ -307,7 +307,7 @@
       }
     }
   }
-  
+
   &-home-nav {
     background-color: rgba($color_headers, 0.04);
 
@@ -318,7 +318,7 @@
       display: flex;
       align-items: center;
     }
-    
+
     &--item {
       color: $color_main;
       font-size: 20px;
@@ -340,13 +340,13 @@
         border-top-color: $color_main;
       }
 
-      &:not(.is-active) i:first-of-type,
-      &.is-active i:last-of-type {
-        display: block;
+      &.is-active i:first-of-type,
+      &:not(.is-active) i:last-of-type {
+        display: inline-block;
       }
 
-      &:not(.is-active) i:first-of-type,
-      &.is-active i:last-of-type {
+      &.is-active i:last-of-type,
+      &:not(.is-active) i:first-of-type {
         display: none;
       }
     }

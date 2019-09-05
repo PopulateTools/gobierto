@@ -51,12 +51,17 @@
     "webpack-merge": "^4.1.2"
   },
   "devDependencies": {
+    "eslint": "^6.3.0",
+    "sass-lint": "^1.13.1",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.3.1"
   },
   "scripts": {
-    "snyk-protect": "snyk protect"
+    "snyk-protect": "snyk protect",
+    "jslint": "eslint $(git diff --name-status master | grep -E '.js$' | cut -f 2)",
+    "jslint:fix": "yarn run jslint --fix",
+    "csslint": "sass-lint -v $(git diff --name-status master | grep -E '.css$|.scss$' | cut -f 2)"
   },
   "snyk": true
 }

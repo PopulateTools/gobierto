@@ -6,8 +6,6 @@ ca:
         admin_dropdown:
           account: El teu compte
           sign_out: Tancar sessió
-        budget_consultations: Consultes de pressupostos
-        budgets: Pressupostos
         calendars: Agendes
         citizens_charters: Serveis i cartes de serveis
         cms: CMS
@@ -18,12 +16,16 @@ ca:
         edit_site: Personalitzar site
         file_attachments: Documents
         hey_admin: Hola, %{admin_name}
-        investments: Inversions
         manage_sites: Gestionar sites
+        modules:
+          budget_consultations: Consultes de pressupostos
+          budgets: Pressupostos
+          citizens_charters: Serveis i cartes de serveis
+          investments: Inversions
+          participation: Participació
+          people: Alts càrrecs i Agendes
+          plans: Plans
         notifications: Notificacions
-        participation: Participació
-        people: Alts càrrecs i Agendes
-        plans: Plans
         site_network: Xarxa
         templates: Plantilles
         users: Usuaris

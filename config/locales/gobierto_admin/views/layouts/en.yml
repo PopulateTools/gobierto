@@ -6,8 +6,6 @@ en:
         admin_dropdown:
           account: Account
           sign_out: Sign out
-        budget_consultations: Budget consultations
-        budgets: Budgets
         calendars: Calendars
         citizens_charters: Services and services charters
         cms: CMS
@@ -18,12 +16,16 @@ en:
         edit_site: Customize site
         file_attachments: Documents
         hey_admin: Hey, %{admin_name}
-        investments: Investments
         manage_sites: Manage sites
+        modules:
+          budget_consultations: Budget consultations
+          budgets: Budgets
+          citizens_charters: Services and services charters
+          investments: Investments
+          participation: Participation
+          people: Officers and Agendas
+          plans: Plans
         notifications: Notifications
-        participation: Participation
-        people: Officers and Agendas
-        plans: Plans
         site_network: Network
         templates: Templates
         users: Users

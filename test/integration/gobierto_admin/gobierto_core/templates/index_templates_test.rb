@@ -15,7 +15,7 @@ module GobiertoAdmin
       end
 
       def unauthorized_admin
-        @unauthorized_admin ||= gobierto_admin_admins(:tony)
+        @unauthorized_admin ||= gobierto_admin_admins(:steve)
       end
 
       def site
@@ -46,7 +46,7 @@ module GobiertoAdmin
             visit @path
 
             assert has_content?("You are not authorized to perform this action")
-            assert_equal admin_root_path, current_path
+            assert_equal edit_admin_admin_settings_path, current_path
           end
         end
       end

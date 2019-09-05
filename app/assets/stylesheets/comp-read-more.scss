@@ -1,13 +1,13 @@
 .read-more {
   $transition-time: 250ms;
-  
+
   [data-toggle] a {
     cursor: pointer;
     text-decoration: underline;
   }
 
   [data-toggle]::before {
-    content: " ... "
+    content: " ... ";
   }
 
   > :last-child {
@@ -16,7 +16,7 @@
     overflow: hidden;
     transition: max-height $transition-time ease-out;
   }
-  
+
   &.is-active {
     > :first-child [data-toggle] {
       opacity: 0;

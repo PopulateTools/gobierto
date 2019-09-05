@@ -17,7 +17,7 @@ $(document).on("turbolinks:load", function() {
     document.body.style.setProperty("--visible-items", visibleItems)
     
     // update frame position
-    const setTransform = p => (content.style.transform = `translateX(${start}%)`)
+    const setTransform = () => (content.style.transform = `translateX(${start}%)`)
   
     // update arrows
     const setVisibility = (element, visible = true) => (element.style.visibility = visible ? 'visible' : 'hidden')

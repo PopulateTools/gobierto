@@ -1,46 +1,24 @@
+<% data = ["EE022 Piscina Municipal", "EE023 Camp Municipal d'Esports 'El Centenari'", "ED028 Edifici de la Presó. Obra", "ED028 Edifici de
+la Presó. Honoraris", "ED031 Antic Vapor Gordils i Dalmau", "ED031 Antic Vapor Gordils i Dalmau", "ED035-1 Escola Les Aigües / ED038 Escola
+Camí del Cros", "ED036 Escola Àngela Bransuela", "ED043 Centre de distribució d'aliments solidaris", "ED044 Escola La Llàntia", "ED047
+Escola Rocafonda", "ED049 Escola Torre Llauder - Angeleta Ferrer", "ED050 Escola Vista Alegre", "ED071 IES Miquel Biada", "ED078 Espai Jove
+de Cerdanyola", "ED085 CFA Can Noè", "ED090 Casal de Barri Les Esmandies", "ED145 Casal Gent Gran Cirera", "ED170 Antic Parvulari Menéndez
+Pelayo (c. Alarcón)", "ED192 Escola Bressol Rocafonda", "ED194 Escola Bressol Cerdanyola", "ED239 Biblioteca Pompeu Fabra", "ED262 Mercat
+Plaça de Cuba", "ED265 Refugi d'animals de Cal Pilé", "ED265 Refugi d'animals de Cal Pilé", "EDXXX-11 Cuines centres educatius", "EDXXX-12
+CMF Camí del Mig i CMF Pla d'en Boet"] %>
+
 <main>
   <div role="tabscontent<%= '-' + seed.to_s %>">
     <div class="investments-home-main--tab-content" role="tabcontent">
       MAPA
     </div>
-    <div class="investments-home-main--tab-content" role="tabcontent">GALERÍA</div>
+
     <div class="investments-home-main--tab-content" role="tabcontent">
-      <table class="investments-home-main--table">
-        <thead>
-          <th class="investments-home-main--th">
-            <div>Proyectu</div>
-          </th>
-          <th class="investments-home-main--th">
-            <div>Estáu</div>
-          </th>
-          <th class="investments-home-main--th">
-            <div>Cantidá</div>
-          </th>
-        </thead>
-        <tbody>
-          <% rows = ["EE022 Piscina Municipal", "EE023 Camp Municipal d'Esports 'El Centenari'", "ED028 Edifici de la Presó. Obra", "ED028
-          Edifici de la Presó. Honoraris", "ED031 Antic Vapor Gordils i Dalmau", "ED031 Antic Vapor Gordils i Dalmau", "ED035-1 Escola Les
-          Aigües / ED038 Escola Camí del Cros", "ED036 Escola Àngela Bransuela", "ED043 Centre de distribució d'aliments solidaris", "ED044
-          Escola La Llàntia", "ED047 Escola Rocafonda", "ED049 Escola Torre Llauder - Angeleta Ferrer", "ED050 Escola Vista Alegre", "ED071
-          IES Miquel Biada", "ED078 Espai Jove de Cerdanyola", "ED085 CFA Can Noè", "ED090 Casal de Barri Les Esmandies", "ED145 Casal Gent
-          Gran Cirera", "ED170 Antic Parvulari Menéndez Pelayo (c. Alarcón)", "ED192 Escola Bressol Rocafonda", "ED194 Escola Bressol
-          Cerdanyola", "ED239 Biblioteca Pompeu Fabra", "ED262 Mercat Plaça de Cuba", "ED265 Refugi d'animals de Cal Pilé", "ED265 Refugi
-          d'animals de Cal Pilé", "EDXXX-11 Cuines centres educatius", "EDXXX-12 CMF Camí del Mig i CMF Pla d'en Boet"] %> <% states =
-          ['execución', 'completu', 'llicitación'] %> <% rows.each do |row| %>
-          <tr class="investments-home-main--tr">
-            <td class="investments-home-main--td">
-              <div><%= row %></div>
-            </td>
-            <td class="investments-home-main--td">
-              <div><%= states.sample %></div>
-            </td>
-            <td class="investments-home-main--td">
-              <div><%= rand(4000..120000) %></div>
-            </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <%= render "investments_home_main_gallery", data: data %>
+    </div>
+
+    <div class="investments-home-main--tab-content" role="tabcontent">
+      <%= render "investments_home_main_table", data: data %>
     </div>
   </div>
 </main>

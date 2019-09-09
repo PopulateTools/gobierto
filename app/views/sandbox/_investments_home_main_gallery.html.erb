@@ -1,0 +1,32 @@
+<div class="investments-home-main--gallery">
+  <% data.each do |value| %>
+  <div>
+    <div class="investments-home-main--gallery-item">
+      <div class="investments-home-main--photo">
+        <img src="https://loremflickr.com/g/320/240/mataro" alt="" />
+      </div>
+      <div class="investments-home-main--data">
+        <a href="" class="investments-home-main--link"><%= value %></a>
+        <div>
+          <div class="investments-home-main--property">
+            <div>Estáu</div>
+            <div>N'estudiu</div>
+          </div>
+          <div class="investments-home-main--property">
+            <div>Tipu</div>
+            <div>Pisu</div>
+          </div>
+          <div class="investments-home-main--property">
+            <div>Edificiu</div>
+            <div>Edificius deportivus</div>
+          </div>
+          <div class="investments-home-main--property">
+            <div>Cantidá</div>
+            <div><%= number_to_currency(rand(4000..120000)) %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

@@ -1,5 +1,4 @@
 .investments {
-
   &-project--heading {
     color: $color_text;
     font-size: $f5;
@@ -262,6 +261,8 @@
 
       input[type="checkbox"] + label {
         background: transparent;
+        padding: 0;
+        display: flex;
 
         &::before {
           content: "";
@@ -273,7 +274,7 @@
           margin-right: 10px;
           line-height: 16px;
           text-align: center;
-          transition: all .2s ease;
+          transition: all .2s ease-out;
         }
       }
 
@@ -361,6 +362,73 @@
   }
 
   &-home-main {
+    $gallery-gap: 32px;
+
+    &--gallery {
+      @include grid($gallery-gap, 3);
+    }
+
+    &--gallery-item {
+      border: 1px solid $separator_dark;
+      border-radius: 3px 4px 4px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+    }
+
+    &--photo {
+      @include aspect-ratio(16, 9);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &--data {
+      padding: 1em;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    &--link {
+      color: $color_link;
+      font-size: $f6;
+      font-weight: 700;
+      line-height: 19px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    &--property {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      > :first-child {
+        font-size: $f8;
+        font-weight: 700;
+        line-height: 14px;
+        text-transform: uppercase;
+        flex: 0 0 25%;
+        padding-right: 1em;
+      }
+
+      > :last-child {
+        font-size: $f7;
+        font-weight: 400;
+        line-height: 16px;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: .5em;
+      }
+    }
+
     &--tab-content {
       display: none;
 

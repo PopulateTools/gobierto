@@ -1,0 +1,31 @@
+<% states = ['execución', 'completu', 'llicitación'] %>
+<table class="investments-home-main--table">
+  <thead>
+    <th class="investments-home-main--th">
+      <div>Proyectu</div>
+    </th>
+    <th class="investments-home-main--th">
+      <div>Estáu</div>
+    </th>
+    <th class="investments-home-main--th">
+      <div>Cantidá</div>
+    </th>
+  </thead>
+  <tbody>
+    <% data.each do |value| %>
+
+    <tr class="investments-home-main--tr">
+      <td class="investments-home-main--td">
+        <div><%= value %></div>
+      </td>
+      <td class="investments-home-main--td">
+        <div><%= states.sample %></div>
+      </td>
+      <td class="investments-home-main--td">
+        <div><%= number_to_currency(rand(4000..120000)) %></div>
+      </td>
+    </tr>
+
+    <% end %>
+  </tbody>
+</table>

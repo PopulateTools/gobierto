@@ -178,6 +178,65 @@ political_agendas_table_custom_field_record:
   item: political_agendas (GobiertoPlans::Node)
   custom_field: madrid_custom_field_table_plugin
 
+political_agendas_human_resources_table_custom_field_record:
+  item: political_agendas (GobiertoPlans::Node)
+  custom_field: madrid_custom_field_human_resources_table_plugin
+  payload: <%= {
+    human_resources_table: [
+       {
+        human_resource: ActiveRecord::FixtureSet.identify(:human_resources_supervisor),
+        cost: 35_000,
+        start_date: "2018-01-01",
+        end_date: "2018-12-31"
+      },
+      {
+        human_resource: ActiveRecord::FixtureSet.identify(:human_resources_employee),
+        cost: 25_000,
+        start_date: "2018-01-01",
+        end_date: "2018-12-31"
+      },
+      {
+        human_resource: ActiveRecord::FixtureSet.identify(:human_resources_employee),
+        cost: 20_000,
+        start_date: "2018-01-01",
+        end_date: "2018-06-15"
+      }
+    ]
+  }.to_json %>
+
+political_agendas_indicators_table_custom_field_record:
+  item: political_agendas (GobiertoPlans::Node)
+  custom_field: madrid_custom_field_indicators_table_plugin
+  payload: <%= {
+    indicators_table: [
+      {
+        indicator: ActiveRecord::FixtureSet.identify(:indicators_raw_savings),
+        objective: 100,
+        value_reached: 92.5,
+        date: "2018-12"
+      },
+      {
+        indicator: ActiveRecord::FixtureSet.identify(:indicators_raw_savings),
+        objective: 100,
+        value_reached: 85,
+        date: "2018-11"
+      },
+      {
+        indicator: ActiveRecord::FixtureSet.identify(:indicators_net_savings),
+        objective: 200,
+        value_reached: 210,
+        date: "2019"
+      },
+      {
+        indicator: ActiveRecord::FixtureSet.identify(:indicators_births),
+        objective: 50
+      },
+      {
+        indicator: ActiveRecord::FixtureSet.identify(:indicators_deaths)
+      }
+    ]
+  }.to_json %>
+
 ## Economic Plan Nodes
 
 scholarships_in_school_cateens_custom_field_instance_level:
@@ -194,3 +253,29 @@ scholarships_in_school_cateens_custom_field_global_level:
   item: scholarships_in_school_cateens (GobiertoPlans::Node)
   custom_field: madrid_node_global
   payload: <%= { "status" => "not_started" }.to_json %>
+
+## Investments projects
+
+sports_center_cost_custom_field_record:
+  item: sports_center_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_cost
+  payload: <%= { "cost" => 1000000.0 }.to_json %>
+
+sports_center_political_group_custom_field_record:
+  item: sports_center_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_political_group
+  payload: <%= {
+    "political-group" => ActiveRecord::FixtureSet.identify(:marvel_term).to_s
+  }.to_json %>
+
+public_pool_cost_custom_field_record:
+  item: public_pool_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_cost
+  payload: <%= { "cost" => 750000.0 }.to_json %>
+
+public_pool_political_group_custom_field_record:
+  item: public_pool_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_political_group
+  payload: <%= {
+    "political-group" => ActiveRecord::FixtureSet.identify(:dc_term).to_s
+  }.to_json %>

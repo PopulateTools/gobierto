@@ -41,7 +41,7 @@ module GobiertoCommon
 
     has_paper_trail if: ->(this) { this.item_has_versions }
 
-    delegate :value, :value_string, :raw_value, :value=, :searchable_value, to: :value_processor
+    delegate :value, :value_string, :raw_value, :value=, :filter_value, :searchable_value, to: :value_processor
 
     after_save :check_plugin_callbacks
 

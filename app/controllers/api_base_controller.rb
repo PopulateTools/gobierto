@@ -1,9 +1,41 @@
 # frozen_string_literal: true
 
-class ApiBaseController < ApplicationController
+class ApiBaseController < ActionController::API
+  include SubmodulesHelper
+  include ::GobiertoCommon::ModuleHelper
+  include ApplicationConcern
 
-  respond_to :json
+  def preferred_locale
+    @preferred_locale ||= begin
+                            locale_param = params[:locale]
+                            site_locale = current_site.configuration.default_locale if current_site.present?
+                            (locale_param || site_locale || I18n.default_locale).to_s
+                          end
+  end
 
-  skip_before_action :verify_authenticity_token
+  def set_locale
+    if available_locales.include?(preferred_locale)
+      I18n.locale = preferred_locale.to_sym
+    end
+  end
+
+  protected
+
+  def api_errors_render(item, options = {})
+    render({ json: item, status: :unprocessable_entity, serializer: ActiveModel::Serializer::ErrorSerializer }.merge(options))
+  end
+
+  def send_unauthorized(options = {})
+    message = options.delete(:message) || "Unauthorized"
+    render(json: { message: message }, status: :unauthorized, adapter: :json_api) && return
+  end
+
+  def raise_module_not_enabled(_redirect)
+    head :forbidden
+  end
+
+  def raise_module_not_allowed
+    send_unauthorized(message: "Module not allowed")
+  end
 
 end

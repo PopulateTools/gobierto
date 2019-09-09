@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPlans
   module CategoryTermDecoratorIndicatorsAttachment
 
@@ -8,56 +10,35 @@ module GobiertoPlans
     def node_plugins_data(plan, node)
       super_result = super(plan, node)
 
-      super_result[:indicators] = {
-        title_translations: Hash[I18n.available_locales.map do |locale|
-          [locale, I18n.t("gobierto_plans.custom_fields_plugins.indicators.title", locale: locale)]
-        end],
-        data: []
-      }
-
+      super_result[:indicators] = indicators_template
       indicators_fields = site.custom_fields.where(
         "options @> ?",
         { configuration: { plugin_type: "indicators" } }.to_json
       )
       records = ::GobiertoPlans::Node.node_custom_field_records(plan, node).where(custom_field: indicators_fields)
-      versioned_records = records.map do |record|
-        ::GobiertoCommon::CustomFieldFunctions::Base.new(record, version: node.published_version).record
-      end
 
-      versioned_records.map(&:payload).flatten.compact.each do |payload|
-        next unless payload["indicator"]
+      combined_table = records.map do |record|
+        ::GobiertoCommon::CustomFieldFunctions::Indicator.new(record, version: node.published_version).indicators
+      end.flatten
 
-        indicator = ::GobiertoCommon::Term.find(payload["indicator"])
-
-        next unless indicator
-
-        existing_indicator = super_result[:indicators][:data].find { |e| e[:id] == indicator.id }
-
-        if existing_indicator
-          if payload["value_reached"] && (indicator_date(payload["date"]) > indicator_date(existing_indicator[:date]))
-            existing_indicator[:last_value] = payload["value_reached"]
-            existing_indicator[:date] = payload["date"]
-          end
-        elsif payload["value_reached"] && payload["date"]
-          super_result[:indicators][:data].append(
-            id: indicator.id,
-            name_translations: indicator.name_translations,
-            description_translations: indicator.description_translations,
-            last_value: payload["value_reached"],
-            date: payload["date"]
-          )
-        end
+      super_result[:indicators][:data] = ::GobiertoCommon::CustomFieldFunctions::Indicator.latest_indicators(combined_table).map do |row|
+        { id: row.id,
+          name_translations: row.indicator.name_translations,
+          description_translations: row.indicator.description_translations,
+          last_value: row.value_reached,
+          date: row.date_string }
       end
 
       super_result
     end
 
-    def indicator_date(date_string)
-      Date.strptime(date_string, "%Y-%m")
-    rescue ArgumentError
-      Date.strptime(date_string, "%Y")
-    rescue ArgumentError
-      nil
+    def indicators_template
+      {
+        title_translations: Hash[I18n.available_locales.map do |locale|
+          [locale, I18n.t("gobierto_plans.custom_fields_plugins.indicators.title", locale: locale)]
+        end],
+        data: []
+      }
     end
 
   end

@@ -14,6 +14,8 @@ en:
             to see it in the front-end.
           error: Project couldn't be published.
           success: Project published correctly.
+        send:
+          confirm: You are going to send this project to be validated by a moderator.
         unpublish:
           error: Project couldn't be unpublished.
           success: Project unpublished correctly.

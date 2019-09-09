@@ -38,6 +38,8 @@ module GobiertoAdmin
         initialize_custom_field_form
 
         if @project_form.save && custom_fields_save
+          track_update_activity
+
           success_message = if suggest_unpublish?
                               t(".suggest_unpublish_html", url: @unpublish_url)
                             else
@@ -77,6 +79,8 @@ module GobiertoAdmin
 
         if @project_form.save
           custom_fields_save
+          track_create_activity
+
           redirect_to(
             edit_admin_plans_plan_project_path(@plan, @project_form.node),
             notice: t(".success")
@@ -94,6 +98,8 @@ module GobiertoAdmin
         @project = @plan.nodes.find params[:id]
 
         @project.destroy
+
+        track_destroy_activity
 
         projects_filter = if filter_params.values.any?(&:present?)
                             { projects_filter: filter_params }
@@ -247,6 +253,25 @@ module GobiertoAdmin
       def custom_fields_save
         @custom_fields_form.save
       end
+
+      def track_create_activity
+        Publishers::GobiertoPlansProjectActivity.broadcast_event("project_created", default_activity_params.merge(subject: @project_form.node, recipient: @plan))
+      end
+
+      def track_update_activity
+        return unless @new_version || @project_form.publication_updated?
+
+        Publishers::GobiertoPlansProjectActivity.broadcast_event("project_updated", default_activity_params.merge(subject: @project_form.node, recipient: @plan))
+      end
+
+      def track_destroy_activity
+        Publishers::GobiertoPlansProjectActivity.broadcast_event("project_destroyed", default_activity_params.merge(subject: @plan, recipient: @plan))
+      end
+
+      def default_activity_params
+        { ip: remote_ip, author: current_admin, site_id: current_site.id }
+      end
+
     end
   end
 end

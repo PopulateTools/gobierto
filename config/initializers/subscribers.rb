@@ -24,6 +24,7 @@ Subscribers::GobiertoParticipationProcessActivity.attach_to("activities/gobierto
 Subscribers::GobiertoParticipationPollActivity.attach_to("activities/gobierto_participation_polls")
 Subscribers::GobiertoParticipationContributionContainerActivity.attach_to("activities/gobierto_participation_contribution_containers")
 Subscribers::GobiertoPlansPlanActivity.attach_to("activities/gobierto_plans_plans")
+Subscribers::GobiertoPlansProjectActivity.attach_to("activities/gobierto_plans_projects")
 Subscribers::GobiertoIndicatorsIndicatorActivity.attach_to("activities/gobierto_indicators_indicators")
 Subscribers::GobiertoPlansPlanTypeActivity.attach_to("activities/gobierto_plans_plan_types")
 Subscribers::UserActivity.attach_to("activities/users")

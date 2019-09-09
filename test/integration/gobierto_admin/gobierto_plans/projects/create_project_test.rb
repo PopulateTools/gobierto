@@ -106,21 +106,28 @@ module GobiertoAdmin
                 click_button "Save"
 
                 assert has_content? "Project created correctly."
-
-                project = plan.nodes.last
-                assert_equal regular_admin, project.author
-                assert_equal "New project", project.name
-                assert_equal "Not started", project.status.name
-                assert_equal "Nuevo proyecto", project.name_es
-                assert_equal 1.0, project.progress
-                assert_equal Date.parse("2020-01-01"), project.starts_at
-                assert_equal Date.parse("2021-01-01"), project.ends_at
-                assert project.draft?
-                assert project.moderation.not_sent?
                 assert has_link? "Permissions"
               end
             end
           end
+
+          project = plan.nodes.last
+          assert_equal regular_admin, project.author
+          assert_equal "New project", project.name
+          assert_equal "Not started", project.status.name
+          assert_equal "Nuevo proyecto", project.name_es
+          assert_equal 1.0, project.progress
+          assert_equal Date.parse("2020-01-01"), project.starts_at
+          assert_equal Date.parse("2021-01-01"), project.ends_at
+          assert project.draft?
+          assert project.moderation.not_sent?
+
+          activity = Activity.last
+          assert_equal project, activity.subject
+          assert_equal plan, activity.recipient
+          assert_equal regular_admin, activity.author
+          assert_equal site.id, activity.site_id
+          assert_equal "gobierto_plans.project_created", activity.action
         end
 
         def test_regular_editor_default_progress_on_create_is_zero

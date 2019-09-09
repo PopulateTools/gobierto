@@ -3,4 +3,14 @@
 <p>
   <%= mail_to @admin.email %>
   <%= render "session_information", admin: @admin %>
+
+  <% if @api_tokens.present? %>
+    <strong><%= t(".admin_tokens") %></strong>:
+    <div>
+      <% @api_tokens.each do |token_key, value| %>
+        <%= content_tag(:span, token_key) %>
+        <%= content_tag(:pre, value) %>
+      <% end %>
+    </div>
+  <% end %>
 </p>

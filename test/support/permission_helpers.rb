@@ -88,4 +88,8 @@ module PermissionHelpers
     ).each(&:destroy)
   end
 
+  def revoke_modules_permission(admin)
+    admin.modules_permissions.each(&:destroy)
+  end
+
 end

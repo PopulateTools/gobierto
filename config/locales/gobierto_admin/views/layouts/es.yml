@@ -6,8 +6,6 @@ es:
         admin_dropdown:
           account: Tu cuenta
           sign_out: Cerrar sesión
-        budget_consultations: Consultas de presupuestos
-        budgets: Presupuestos
         calendars: Agendas
         citizens_charters: Servicios y cartas de servicios
         cms: CMS
@@ -18,12 +16,16 @@ es:
         edit_site: Personalizar sitio
         file_attachments: Documentos
         hey_admin: Hola, %{admin_name}
-        investments: Inversiones
         manage_sites: Gestionar sites
+        modules:
+          budget_consultations: Consultas de presupuestos
+          budgets: Presupuestos
+          citizens_charters: Servicios y cartas de servicios
+          investments: Inversiones
+          participation: Participación
+          people: Altos cargos y Agendas
+          plans: Planes
         notifications: Notificaciones
-        participation: Participación
-        people: Altos cargos y Agendas
-        plans: Planes
         site_network: Red
         templates: Plantillas
         users: Usuarios

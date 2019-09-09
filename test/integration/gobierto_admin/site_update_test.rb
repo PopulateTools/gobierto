@@ -192,6 +192,7 @@ YAML
 
     def test_authorized_regular_admin_access
       with_signed_in_admin(regular_admin) do
+        revoke_modules_permission(regular_admin)
         visit admin_root_path
 
         click_link "Customize site"
@@ -208,6 +209,7 @@ YAML
         click_link "Customize site"
 
         revoke_customize_site_permission(regular_admin)
+        revoke_modules_permission(regular_admin)
 
         # HACK: https://github.com/PopulateTools/gobierto/blob/master/app/controllers/concerns/user/session_helper.rb#L67
         # causes infinite redirects, since referer in not authorized either. Since it's
@@ -217,7 +219,7 @@ YAML
         click_button "Update"
 
         assert has_content?("You are not authorized to perform this action")
-        assert_equal admin_root_path, current_path
+        assert_equal edit_admin_admin_settings_path, current_path
       end
     end
 

@@ -37,7 +37,7 @@ module GobiertoAdmin
             click_button "Save"
 
             assert has_content? "You are not authorized to perform this action"
-            assert_equal admin_root_path, current_path
+            assert_equal edit_admin_admin_settings_path, current_path
           end
         end
       end
@@ -54,7 +54,7 @@ module GobiertoAdmin
             click_link "application"
 
             assert has_content? "You are not authorized to perform this action"
-            assert_equal admin_root_path, current_path
+            assert_equal edit_admin_admin_settings_path, current_path
           end
         end
       end
@@ -71,7 +71,7 @@ module GobiertoAdmin
             click_button "Reset"
 
             assert has_content? "You are not authorized to perform this action"
-            assert_equal admin_root_path, current_path
+            assert_equal edit_admin_admin_settings_path, current_path
           end
         end
       end

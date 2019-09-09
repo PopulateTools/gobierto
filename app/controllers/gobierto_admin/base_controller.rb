@@ -12,7 +12,7 @@ module GobiertoAdmin
 
     helper_method :current_admin, :admin_signed_in?, :current_site, :managing_site?,
                   :managed_sites, :can_manage_sites?, :gobierto_cms_page_preview_path,
-                  :preview_item_url, :module_doc_url
+                  :preview_item_url, :module_doc_url, :default_modules_home_paths
 
     rescue_from Errors::NotAuthorized, with: :raise_admin_not_authorized
 
@@ -62,6 +62,18 @@ module GobiertoAdmin
       rescue NameError
         default_doc_url
       end
+    end
+
+    def default_modules_home_paths
+      @default_modules_home_paths ||= {
+        gobierto_budgets: admin_gobierto_budgets_options_path,
+        gobierto_budget_consultations: admin_budget_consultations_path,
+        gobierto_people: admin_people_people_path,
+        gobierto_participation: admin_participation_path,
+        gobierto_plans: admin_plans_plans_path,
+        gobierto_citizens_charters: admin_citizens_charters_path,
+        gobierto_investments: admin_investments_projects_path
+      }.with_indifferent_access
     end
 
     protected

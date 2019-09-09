@@ -1,4 +1,4 @@
-.gobierto_investments .investments {
+.investments {
 
   &-project--heading {
     color: $color_text;
@@ -367,6 +367,75 @@
       &.is-active {
         display: block;
       }
+    }
+
+    &--th {
+      font-size: $f8;
+      font-weight: 700;
+      line-height: 14px;
+      text-align: left;
+      border-top: 0;
+      text-transform: uppercase;
+      padding: 0 0 0.5em;
+
+      &:first-child > * {
+        padding-left: 20px;
+      }
+
+      &:last-child > * {
+        text-align: right;
+        padding-right: 20px;
+      }
+    }
+
+    &--td {
+      padding: 0;
+      font-size: $f6;
+      font-weight: 400;
+      line-height: 28px;
+      text-align: left;
+      border-top: 0;
+
+      > * {
+        border-top: 1px solid transparentize($color_main, 0.85);
+        padding: 0.5em 0;
+      }
+
+      &:first-child > * {
+        font-weight: 700;
+        margin-left: 20px;
+      }
+
+      &:last-child > * {
+        text-align: right;
+        margin-right: 20px;
+      }
+
+      &:not(:first-child):not(:last-child) > *::first-letter {
+        text-transform: uppercase;
+      }
+    }
+
+    &--tr:hover > * {
+      background-color: rgba($color_main, 0.25);
+
+      > * {
+        border-top-color: transparent;
+      }
+
+      &:first-child {
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+    }
+
+    &--tr:hover + &--tr > * > * {
+      border-top-color: transparent;
     }
   }
 }

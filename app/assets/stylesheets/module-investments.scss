@@ -214,8 +214,16 @@
     }
 
     &--block {
-      padding: 16px 0;
+      padding: 1em 0;
       border-bottom: 1px solid $separator_dark;
+
+      &:first-child {
+        padding-top: 0;
+      }
+
+      &:last-child {
+        padding-bottom: 0;
+      }
     }
 
     &--block-header {
@@ -319,7 +327,7 @@
       align-items: center;
     }
 
-    &--item {
+    &--tab {
       color: $color_main;
       font-size: 20px;
       font-weight: 300;
@@ -348,6 +356,16 @@
       &.is-active i:last-of-type,
       &:not(.is-active) i:first-of-type {
         display: none;
+      }
+    }
+  }
+
+  &-home-main {
+    &--tab-content {
+      display: none;
+
+      &.is-active {
+        display: block;
       }
     }
   }

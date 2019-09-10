@@ -14,6 +14,7 @@ import "./modules/readmore.js";
 import "./modules/horizontal-carousel.js";
 import "./modules/image-lightbox.js";
 import "./modules/separate-tabs.js";
+import "./modules/range-slider.js";
 
 import accounting from "accounting";
 import { SETTINGS } from "./modules/accounting_settings.js";

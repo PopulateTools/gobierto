@@ -1,3 +1,6 @@
+<% checks = ['Totes', 'Millores equipaments', 'Millores espai públic', 'Nous equipaments', 'Nous espais públics', 'Habitatge',
+'Sostenibilitat energètica', 'Infraestructures i projectes', 'Altres'] %>
+
 <aside class="investments-home-aside--gap">
   <div class="investments-home-aside--block">
     <div class="investments-home-aside--calendar-button">
@@ -14,8 +17,7 @@
       <a href="">Tou</a>
     </div>
 
-    <% check1 = ['Totes', 'Millores equipaments', 'Millores espai públic', 'Nous equipaments', 'Nous espais públics', 'Habitatge',
-    'Sostenibilitat energètica', 'Infraestructures i projectes', 'Altres'] %> <% check1.each do |check| %>
+    <% checks.each do |check| %>
 
     <div class="investments-home-aside--checkbox">
       <% seed = SecureRandom.hex %>
@@ -31,8 +33,7 @@
       <a href="">Tou</a>
     </div>
 
-    <% check1 = ['Totes', 'Millores equipaments', 'Millores espai públic', 'Nous equipaments', 'Nous espais públics', 'Habitatge',
-    'Sostenibilitat energètica', 'Infraestructures i projectes', 'Altres'] %> <% check1.each do |check| %>
+    <% checks.each do |check| %>
 
     <div class="investments-home-aside--checkbox">
       <% seed = SecureRandom.hex %>
@@ -43,6 +44,15 @@
     <% end %>
   </div>
   <div class="investments-home-aside--block">
-    Cantidá
+    <div class="investments-home-aside--block-header">
+      <strong>Cantidá</strong>
+    </div>
+
+    <div class="investments-home-aside--bars">
+      <% 6.times do %>
+      <div style="height: <%= rand(25..80) %>%"></div>
+      <% end %>
+    </div>
+    <div class="js-range-slider" data-min="0" data-max="100" data-default="[23, 78]"></div>
   </div>
 </aside>

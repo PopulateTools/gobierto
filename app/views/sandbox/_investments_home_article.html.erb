@@ -8,7 +8,7 @@ Plaça de Cuba", "ED265 Refugi d'animals de Cal Pilé", "ED265 Refugi d'animals 
 CMF Camí del Mig i CMF Pla d'en Boet"] %>
 
 <article>
-  <h3>Resumen por estados</h3>
+  <h3 class="investments-home-article--header">Resumen por estados</h3>
 
   <% states = ["N'estudiu", "Programao", "Redaición", "Llicitación", "Execución", "Terminao"]%>
   <div class="investments-home-article--container">
@@ -19,8 +19,8 @@ CMF Camí del Mig i CMF Pla d'en Boet"] %>
         <div><%= rand(3..20) %> proyectos</div>
         <div><%= number_to_currency(rand(3..20)) %></div>
       </div>
-      <div class="p_1">
-        <% 5.times do %>
+      <div class="investments-home-article--list">
+        <% rand(3..10).times do %>
         <a href="" class="investments-home-article--list-item"><%= data.sample %></a>
         <% end %>
       </div>

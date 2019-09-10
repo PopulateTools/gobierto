@@ -7,10 +7,36 @@ Pelayo (c. Alarcón)", "ED192 Escola Bressol Rocafonda", "ED194 Escola Bressol C
 Plaça de Cuba", "ED265 Refugi d'animals de Cal Pilé", "ED265 Refugi d'animals de Cal Pilé", "EDXXX-11 Cuines centres educatius", "EDXXX-12
 CMF Camí del Mig i CMF Pla d'en Boet"] %>
 
-<main>
-  <div role="tabscontent<%= '-' + seed.to_s %>">
-    <div class="investments-home-main--tab-content" role="tabcontent">
-      MAPA
+<main class="investments-home-main--h-100">
+  <div class="investments-home-main--h-100" role="tabscontent<%= '-' + seed.to_s %>">
+    <div class="investments-home-main--tab-content investments-home-main--h-100" role="tabcontent">
+      <!-- JUST FOR TESTING -->
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""
+      />
+      <script
+        src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""
+      ></script>
+
+      <!-- REQUIRED THE CLASSNAME -->
+      <div id="mapid" class="investments-home-main--h-100"></div>
+
+      <script>
+        var mymap = L.map("mapid").setView([40, -3], 8);
+
+        L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 18,
+          attribution:
+            'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+        }).addTo(mymap);
+      </script>
+      <!-- END TESTING -->
     </div>
 
     <div class="investments-home-main--tab-content" role="tabcontent">

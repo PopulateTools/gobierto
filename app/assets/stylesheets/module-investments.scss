@@ -208,7 +208,8 @@
   &-home-aside {
     @include min-screen(768) {
       &--gap {
-        @extend .investments-project-aside--gap;
+        padding-right: 66px;
+        height: 100%;
       }
     }
 
@@ -218,10 +219,6 @@
 
       &:first-child {
         padding-top: 0;
-      }
-
-      &:last-child {
-        padding-bottom: 0;
       }
     }
 
@@ -237,7 +234,7 @@
         font-weight: 700;
       }
 
-      > :last-child {
+      > :last-child:not(:only-child) {
         font-weight: 400;
       }
     }
@@ -315,6 +312,25 @@
         opacity: 0.5;
       }
     }
+
+    &--bars {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 100px;
+      padding: 0 0.5em;
+
+      > * {
+        background-color: $color_main_soft;
+        border: 1px solid darken($color_main_soft, 25%);
+        border-bottom-width: 0;
+        flex: 1;
+
+        &:not(:first-child) {
+          margin-left: -1px;
+        }
+      }
+    }
   }
 
   &-home-nav {
@@ -339,6 +355,9 @@
       border-top: 3px solid transparent;
       box-sizing: border-box;
       cursor: pointer;
+      transition: all 100ms ease-out;
+      min-width: 100px;
+      text-align: center;
 
       > :first-child {
         flex: 0 0 25px;
@@ -363,6 +382,10 @@
 
   &-home-main {
     $gallery-gap: 32px;
+
+    &--h-100 {
+      height: 100%;
+    }
 
     &--gallery {
       @include grid($gallery-gap, 3);
@@ -514,10 +537,18 @@
       counter-reset: section;
     }
 
-    $initial-color-range: lighten($color_main, 60%);
+    &--header {
+      font-size: 26px;
+      font-weight: 300;
+      line-height: 31px;
+      text-transform: uppercase;
+      margin-bottom: 50px;
+    }
 
     &--item {
       flex: 0 0 calc(100% / 6);
+      display: flex;
+      flex-direction: column;
 
       &:not(:last-child) {
         border-right-width: 0;
@@ -555,6 +586,8 @@
       }
     }
 
+    $initial-color-range: lighten($color_main, 60%);
+
     @for $i from 1 through 6 {
       &--item:nth-child(#{$i}) &--heading {
         background-color: darken($initial-color-range, 12% * $i);
@@ -578,6 +611,17 @@
         counter-increment: section;
         content: counters(section, "", decimal-leading-zero) ". ";
       }
+    }
+
+    &--list {
+      padding: 1em;
+      border: 1px solid rgba($separator_dark, 0.25);
+      border-top-width: 0;
+      flex: 1;
+    }
+
+    &--item:not(:last-child) &--list {
+      border-right-width: 0;
     }
 
     &--list-item {

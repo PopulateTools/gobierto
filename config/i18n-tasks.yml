@@ -114,6 +114,7 @@ ignore_unused:
   - 'gobierto_admin.custom_fields_plugins.*'
   - 'gobierto_plans.plan_types.show.read_less'
   - 'gobierto_plans.plan_types.show.read_more'
+  - 'gobierto_admin.layouts.application.modules.*'
 
 translation:
   api_key: ''

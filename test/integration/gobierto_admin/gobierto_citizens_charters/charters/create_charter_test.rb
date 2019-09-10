@@ -28,7 +28,7 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
               assert has_content?("You are not authorized to perform this action")
-              assert_equal admin_root_path, current_path
+              assert_equal edit_admin_admin_settings_path, current_path
             end
           end
         end

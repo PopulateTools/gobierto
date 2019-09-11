@@ -51,10 +51,28 @@ module GobiertoCommon
 
         next params unless custom_field.present?
 
+        value = { eq: value }.with_indifferent_access unless value.is_a?(Hash)
+
+        value.slice!(*GobiertoCommon::CustomFieldsQuery.allowed_operators)
+
+        if value.has_key?(:in)
+          value[:in] = value[:in].split(",")
+        end
+
         record = custom_field.records.new
-        record.value = value
+
         params.update(
-          custom_field => record.filter_value
+          custom_field => value.transform_values do |val|
+            if val.is_a?(Array)
+              val.map do |single_val|
+                record.value = single_val
+                record.filter_value
+              end
+            else
+              record.value = val
+              record.filter_value
+            end
+          end
         )
       end
     end

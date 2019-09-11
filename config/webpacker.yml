@@ -70,10 +70,9 @@ development:
     use_local_ip: false
     quiet: false
     headers:
-      'Access-Control-Allow-Origin': '*'
+      "Access-Control-Allow-Origin": "*"
     watch_options:
-      ignored: '**/node_modules/**'
-
+      ignored: "**/node_modules/**"
 
 test:
   <<: *default
@@ -89,7 +88,7 @@ staging:
   compile: false
 
   # Extract and emit a css file
-  extract_css: true
+  extract_css: false
 
   # Cache manifest.json for performance
   cache_manifest: true

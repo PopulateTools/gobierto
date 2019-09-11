@@ -24,6 +24,11 @@ module GobiertoCommon
       custom_fields_save
     end
 
+    def meta
+      @resource = base_relation.new
+      render json: custom_fields, adapter: :json_api
+    end
+
     private
 
     def custom_fields_save

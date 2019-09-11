@@ -530,7 +530,11 @@ Rails.application.routes.draw do
         # API
         namespace :api do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true) do
-            resources :projects, except: [:edit]
+            resources :projects, except: [:edit] do
+              collection do
+                get :meta
+              end
+            end
           end
         end
       end

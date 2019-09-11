@@ -14,10 +14,10 @@ import "./modules/readmore.js";
 import "./modules/horizontal-carousel.js";
 import "./modules/image-lightbox.js";
 import "./modules/separate-tabs.js";
-import "./modules/range-slider.js";
+import { rangeSlider } from "./modules/range-slider.js";
 
 import accounting from "accounting";
 import { SETTINGS } from "./modules/accounting_settings.js";
 accounting.settings = SETTINGS;
 
-export { AUTOCOMPLETE_DEFAULTS, accounting, d3locale, isDesktop, isMobile, URLParams };
+export { AUTOCOMPLETE_DEFAULTS, accounting, d3locale, isDesktop, isMobile, URLParams, rangeSlider };

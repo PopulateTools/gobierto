@@ -1,7 +1,12 @@
 <%= content_for :body_attributes do %> class="gobierto_investments" <% end %>
 
-<!-- ONLY for testing: load the sandbox pack -->
-<% content_for :javascript_module_link do %> <%= javascript_packs_with_chunks_tag 'sandbox', 'data-turbolinks-track': true %> <% end %>
+<% content_for :javascript_module_link do %>
+  <%= javascript_packs_with_chunks_tag 'investments', 'data-turbolinks-track': true %>
+<% end %>
+
+<script type="module">
+  window.GobiertoInvestments.investments_controller.show();
+</script>
 
 <div class="column">
   <div class="pure-g block header_block_inline m_b_1">

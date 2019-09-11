@@ -53,6 +53,25 @@
       <div style="height: <%= rand(25..80) %>%"></div>
       <% end %>
     </div>
+
     <div class="js-range-slider" data-min="0" data-max="100" data-default="[23, 78]"></div>
+    <!-- <script type="module">
+      const rangeSliders = document.querySelectorAll(".js-range-slider");
+      console.log(rangeSliders);
+
+      rangeSliders.forEach(slider => {
+        const { min = 0, max = 100, default: defaultRange = [0, 100] } = slider.dataset;
+
+        const fn = (event, ui) => console.log(event, ui);
+
+        rangeSlider({
+          elem: slider,
+          min: parseFloat(min),
+          max: parseFloat(max),
+          defaultRange: JSON.parse(defaultRange),
+          rangeCallback: fn
+        });
+      });
+    </script> -->
   </div>
 </aside>

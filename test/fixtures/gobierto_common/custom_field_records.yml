@@ -268,6 +268,11 @@ sports_center_political_group_custom_field_record:
     "political-group" => ActiveRecord::FixtureSet.identify(:marvel_term).to_s
   }.to_json %>
 
+sports_center_start_date_custom_field_record:
+  item: sports_center_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_start_date
+  payload: <%= { "start-date" => "2018-01-01" }.to_json %>
+
 public_pool_cost_custom_field_record:
   item: public_pool_project (GobiertoInvestments::Project)
   custom_field: madrid_investments_projects_custom_field_cost
@@ -279,3 +284,42 @@ public_pool_political_group_custom_field_record:
   payload: <%= {
     "political-group" => ActiveRecord::FixtureSet.identify(:dc_term).to_s
   }.to_json %>
+
+public_pool_start_date_custom_field_record:
+  item: public_pool_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_start_date
+  payload: <%= { "start-date" => "2018-07-15" }.to_json %>
+
+public_library_cost_custom_field_record:
+  item: public_library_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_cost
+  payload: <%= { "cost" => 500000.0 }.to_json %>
+
+public_library_political_group_custom_field_record:
+  item: public_library_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_political_group
+  payload: <%= {
+    "political-group" => ActiveRecord::FixtureSet.identify(:marvel_term).to_s
+  }.to_json %>
+
+public_library_start_date_custom_field_record:
+  item: public_library_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_start_date
+  payload: <%= { "start-date" => "2010-12-31" }.to_json %>
+
+art_gallery_cost_custom_field_record:
+  item: art_gallery_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_cost
+  payload: <%= { "cost" => 1000000.0 }.to_json %>
+
+art_gallery_political_group_custom_field_record:
+  item: art_gallery_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_political_group
+  payload: <%= {
+    "political-group" => ActiveRecord::FixtureSet.identify(:dc_term).to_s
+  }.to_json %>
+
+art_gallery_start_date_custom_field_record:
+  item: art_gallery_project (GobiertoInvestments::Project)
+  custom_field: madrid_investments_projects_custom_field_start_date
+  payload: <%= { "start-date" => "1819-11-19" }.to_json %>

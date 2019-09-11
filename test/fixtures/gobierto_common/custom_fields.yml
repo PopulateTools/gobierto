@@ -321,6 +321,17 @@ madrid_investments_projects_custom_field_political_group:
     vocabulary_id: ActiveRecord::FixtureSet.identify(:madrid_political_groups_vocabulary)
   }.to_json %>
 
+madrid_investments_projects_custom_field_start_date:
+  site: madrid
+  class_name: GobiertoInvestments::Project
+  position: 3
+  name_translations: <%= { en: "Start date", es: "Fecha de inicio" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:date] %>
+  uid: start-date
+  options: <%= {
+    configuration: { "date_type" => "date" },
+  }.to_json %>
+
 madrid_custom_field_human_resources_table_plugin:
   site: madrid
   class_name: GobiertoPlans::Node

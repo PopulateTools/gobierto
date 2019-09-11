@@ -13,6 +13,26 @@ sports_center_project:
   title_translations: <%= {
     en: "Sports center",
     es: "Centro deportivo"
-    }.to_json %>
+     }.to_json %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+public_library_project:
+  site: madrid
+  title_translations: <%= {
+    en: "Public library",
+    es: "Biblioteca pública"
+     }.to_json %>
+  external_id: EE001
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+art_gallery_project:
+  site: madrid
+  title_translations: <%= {
+    en: "Art gallery",
+    es: "Pinacoteca"
+     }.to_json %>
+  external_id: EE002
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>

@@ -35,6 +35,14 @@ module GobiertoInvestments
         end
         alias project_with_other_political_group project_without_external_id
 
+        def very_old_project
+          @very_old_project ||= gobierto_investments_projects(:art_gallery_project)
+        end
+
+        def lower_cost_project
+          @lower_cost_project ||= gobierto_investments_projects(:public_library_project)
+        end
+
         def manager_admin
           gobierto_admin_admins(:nick)
         end
@@ -98,7 +106,7 @@ module GobiertoInvestments
 
             response_data = response.parsed_body
 
-            assert_equal 2, response_data["data"].count
+            assert_equal 4, response_data["data"].count
             ids = response_data["data"].map { |item| item["id"].to_i }
             assert_includes ids, project.id
             assert_includes ids, project_without_external_id.id
@@ -114,7 +122,7 @@ module GobiertoInvestments
 
             response_data = response.parsed_body
 
-            assert_equal 1, response_data["data"].count
+            assert_equal 2, response_data["data"].count
             ids = response_data["data"].map { |item| item["id"].to_i }
             assert_includes ids, project.id
             refute_includes ids, project_with_other_political_group.id
@@ -136,9 +144,40 @@ module GobiertoInvestments
           end
         end
 
+        def test_index_filtered_with_dates_interval
+          with(site: site) do
+            get gobierto_investments_api_v1_projects_path(filter: { "start-date" => { gteq: "1800-01-01", lt: "1900-01-01" } }), as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert_equal 1, response_data["data"].count
+            ids = response_data["data"].map { |item| item["id"].to_i }
+            assert_includes ids, very_old_project.id
+            refute_includes ids, project_with_other_political_group.id
+          end
+        end
+
+        def test_index_filtered_with_numeric_interval
+          with(site: site) do
+            get gobierto_investments_api_v1_projects_path(filter: { "cost" => { gt: 500_000, lt: 1_000_000 } }), as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert_equal 1, response_data["data"].count
+            ids = response_data["data"].map { |item| item["id"].to_i }
+            assert_includes ids, project.id
+            refute_includes ids, lower_cost_project.id
+            refute_includes ids, very_old_project.id
+          end
+        end
+
         def test_index_filtered_empty_result
           with(site: site) do
-            get gobierto_investments_api_v1_projects_path(filter: { "political-group" => political_group.id, "cost": 1_000_000 }), as: :json
+            get gobierto_investments_api_v1_projects_path(filter: { "political-group" => political_group.id, "cost": 500_000 }), as: :json
 
             assert_response :success
 

@@ -1,5 +1,4 @@
 import "webpack-jquery-ui/slider";
-import "jquery-ui/themes/base/slider.css";
 
 $(document).on("turbolinks:load", function() {
   const rangeSliders = document.querySelectorAll(".js-range-slider");

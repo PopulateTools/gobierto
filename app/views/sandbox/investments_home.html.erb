@@ -4,6 +4,10 @@
   <%= javascript_packs_with_chunks_tag 'investments', 'data-turbolinks-track': true %>
 <% end %>
 
+<% content_for :stylesheet_module_link do %>
+  <%= stylesheet_packs_with_chunks_tag 'investments', 'data-turbolinks-track': true %>
+<% end %>
+
 <script type="module">
   window.GobiertoInvestments.investments_controller.show();
 </script>

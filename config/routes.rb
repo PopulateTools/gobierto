@@ -524,8 +524,11 @@ Rails.application.routes.draw do
     end
 
     # Gobierto Investments module
-    namespace :gobierto_investments do
+    namespace :gobierto_investments, path: "/" do
       constraints GobiertoSiteConstraint.new do
+
+        # Front
+        get "inversiones" => "investments#index", as: :root
 
         # API
         namespace :api do

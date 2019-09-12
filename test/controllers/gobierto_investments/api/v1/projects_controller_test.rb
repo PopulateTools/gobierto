@@ -113,6 +113,10 @@ module GobiertoInvestments
           end
         end
 
+        # Index filters
+        #
+        # GET /gobierto_investments/api/v1/projects?filter[political-group]=1
+        # GET /gobierto_investments/api/v1/projects.json?filter[political-group]=1
         def test_index_filtered_by_vocabulary
           with(site: site) do
             # Rack::Utils.build_nested_query(filter: { "political-group" => political_group.id })
@@ -129,6 +133,8 @@ module GobiertoInvestments
           end
         end
 
+        # GET /gobierto_investments/api/v1/projects?filter[political-group]=1&filter[cost]=750000
+        # GET /gobierto_investments/api/v1/projects.json?filter[political-group]=1&filter[cost]=750000
         def test_index_filtered_multiple_filters
           with(site: site) do
             get gobierto_investments_api_v1_projects_path(filter: { "political-group" => political_group.id, "cost": 750_000 }), as: :json
@@ -144,6 +150,25 @@ module GobiertoInvestments
           end
         end
 
+        # GET /gobierto_investments/api/v1/projects?filter[political-group][eq]=1
+        # GET /gobierto_investments/api/v1/projects.json?filter[political-group][eq]=1
+        def test_index_filtered_using_eq_operator
+          with(site: site) do
+            get gobierto_investments_api_v1_projects_path(filter: { "political-group" => { eq: political_group.id } }), as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert_equal 2, response_data["data"].count
+            ids = response_data["data"].map { |item| item["id"].to_i }
+            assert_includes ids, project.id
+            refute_includes ids, project_with_other_political_group.id
+          end
+        end
+
+        # GET /gobierto_investments/api/v1/projects?filter[start-date][gteq]=1800-01-01&filter[start-date][lt]=1900-01-01
+        # GET /gobierto_investments/api/v1/projects.json?filter[start-date][gteq]=1800-01-01&filter[start-date][lt]=1900-01-01
         def test_index_filtered_with_dates_interval
           with(site: site) do
             get gobierto_investments_api_v1_projects_path(filter: { "start-date" => { gteq: "1800-01-01", lt: "1900-01-01" } }), as: :json
@@ -159,6 +184,8 @@ module GobiertoInvestments
           end
         end
 
+        # GET /gobierto_investments/api/v1/projects?filter[cost][gt]=500000&filter[cost][lt]=1000000
+        # GET /gobierto_investments/api/v1/projects.json?filter[cost][gt]=500000&filter[cost][lt]=1000000
         def test_index_filtered_with_numeric_interval
           with(site: site) do
             get gobierto_investments_api_v1_projects_path(filter: { "cost" => { gt: 500_000, lt: 1_000_000 } }), as: :json
@@ -172,6 +199,40 @@ module GobiertoInvestments
             assert_includes ids, project.id
             refute_includes ids, lower_cost_project.id
             refute_includes ids, very_old_project.id
+          end
+        end
+
+        # GET /gobierto_investments/api/v1/projects?filter[start-date][in]=1819-11-09,2010-12-31
+        # GET /gobierto_investments/api/v1/projects.json?filter[start-date][in]=1819-11-09,2010-12-31
+        def test_index_filtered_with_in_operator
+          with(site: site) do
+            get gobierto_investments_api_v1_projects_path(filter: { "start-date": { in: "1819-11-19,2010-12-31" } }), as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert_equal 2, response_data["data"].count
+            ids = response_data["data"].map { |item| item["id"].to_i }
+            assert_includes ids, very_old_project.id
+            assert_includes ids, lower_cost_project.id
+          end
+        end
+
+        # GET /gobierto_investments/api/v1/projects?filter[text-code][like]=%culture-%
+        # GET /gobierto_investments/api/v1/projects.json?filter[text-code][like]=%culture-%
+        def test_index_filtered_with_like_operator
+          with(site: site) do
+            get gobierto_investments_api_v1_projects_path(filter: { "text-code": { like: "%culture-%" } }), as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert_equal 2, response_data["data"].count
+            ids = response_data["data"].map { |item| item["id"].to_i }
+            assert_includes ids, very_old_project.id
+            assert_includes ids, lower_cost_project.id
           end
         end
 

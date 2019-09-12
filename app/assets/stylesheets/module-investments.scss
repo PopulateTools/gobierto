@@ -325,6 +325,12 @@
         border: 1px solid darken($color_main_soft, 25%);
         border-bottom-width: 0;
         flex: 1;
+        opacity: 0.5;
+        transition: opacity .3s ease-out;
+
+        &.in-range {
+          opacity: 1;
+        }
 
         &:not(:first-child) {
           margin-left: -1px;

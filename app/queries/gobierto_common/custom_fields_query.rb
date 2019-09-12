@@ -126,8 +126,8 @@ module GobiertoCommon
     end
 
     def filter_comparison_condition(custom_field, operator, value)
-      value = if operator == "in" && value.is_a?(Array)
-                "(#{value.map { |v| "'#{v}'" }.join(", ")})"
+      value = if operator == "IN" && value.is_a?(Array)
+                "(#{value.map { |v| "'#{v.inspect}'" }.join(", ")})"
               else
                 "'#{value}'"
               end

@@ -52,7 +52,75 @@ module GobiertoCommon
       @custom_fields ||= CustomField.where(instance: @instance).for_class(@class)
     end
 
+    def stats(custom_field, filters)
+      filters ||= {}
+      data = OpenStruct.new
+
+      data[:count] = aggregated_field(:count, custom_field, filters)
+      data[:distribution] = distribution(custom_field, filters) if custom_field.vocabulary_options?
+
+      if custom_field.date? || custom_field.numeric?
+        data[:min] = aggregated_field(:min, custom_field, filters)
+        data[:max] = aggregated_field(:max, custom_field, filters)
+        data[:histogram] = histogram(custom_field, filters, data) if custom_field.numeric?
+      end
+
+      data.to_h
+    end
+
     private
+
+    def aggregated_field(aggregate_function, custom_field, filters)
+      aggregate_value = Arel::Nodes::SqlLiteral.new(
+        "#{aggregate_function}(#{extracted_attribute(custom_field)}) as result"
+      )
+
+      filtered_query(
+        filters,
+        instance_join_manager_for_custom_fields(filters.keys | [custom_field]),
+        aggregate_value
+      )[0]&.result
+    end
+
+    def histogram(custom_field, filters, stats)
+      return unless stats.min != stats.max && stats.count > 1
+
+      separations = Math.log(stats.count, 2).floor
+      interval_width = (stats.max - stats.min).to_f / (1 + separations)
+      bucket_attributes = Arel::Nodes::SqlLiteral.new(
+        "width_bucket(#{extracted_attribute(custom_field)}, #{stats.min}, #{stats.max}, #{separations}) as bucket, count(*)"
+      )
+
+      histogram_query = filtered_query(
+        filters,
+        instance_join_manager_for_custom_fields(filters.keys | [custom_field]),
+        bucket_attributes
+      ).group(:bucket).order(bucket: :asc)
+
+      histogram_query.map do |bin_data|
+        { bucket: bin_data.bucket,
+          start: stats.min + interval_width * (bin_data.bucket - 1),
+          end: stats.min + interval_width * bin_data.bucket,
+          count: bin_data.count }
+      end
+    end
+
+    def distribution(custom_field, filters)
+      distribution_attributes = Arel::Nodes::SqlLiteral.new(
+        "#{extracted_attribute(custom_field)} as value, count(*)"
+      )
+
+      distribution_query = filtered_query(
+        filters,
+        instance_join_manager_for_custom_fields(filters.keys | [custom_field]),
+        distribution_attributes
+      ).group(:value).order(value: :asc)
+
+      distribution_query.map do |value_data|
+        { value: value_data.value,
+          count: value_data.count }
+      end
+    end
 
     def extracted_attribute(custom_field)
       extraction_function = Arel::Nodes::NamedFunction.new(

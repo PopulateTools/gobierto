@@ -26,13 +26,31 @@ module GobiertoCommon
 
     def meta
       @resource = base_relation.new
-      render json: custom_fields, adapter: :json_api
+
+      meta_stats = if params[:stats] == "true"
+                     filterable_custom_fields.inject({}) do |stats, custom_field|
+                       stats.update(
+                         custom_field.uid => GobiertoCommon::CustomFieldsQuery.new(relation: base_relation).stats(custom_field, filter_params)
+                       )
+                     end
+                   else
+                     {}
+                   end
+      render json: custom_fields, adapter: :json_api, meta: meta_stats
     end
 
     private
 
     def custom_fields_save
       @custom_fields_form.save
+    end
+
+    def filterable_custom_fields
+      @filterable_custom_fields ||= if (filterable_custom_fields_uids = current_site.settings_for_module(current_module)&.filterable_custom_fields).present?
+                                      custom_fields.where(uid: filterable_custom_fields_uids)
+                                    else
+                                      custom_fields.where(field_type: [:date, :vocabulary_options, :numeric])
+                                    end
     end
 
     def initialize_custom_fields_form

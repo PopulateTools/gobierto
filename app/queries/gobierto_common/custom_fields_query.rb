@@ -34,7 +34,7 @@ module GobiertoCommon
     def filter(filters = {})
       filtered_query(
         filters,
-        instance_join_manager_for_filters(filters),
+        instance_join_manager_for_custom_fields(filters.keys),
         model_table[Arel.star]
       )
     end
@@ -53,6 +53,14 @@ module GobiertoCommon
     end
 
     private
+
+    def extracted_attribute(custom_field)
+      extraction_function = Arel::Nodes::NamedFunction.new(
+        "jsonb_extract_path",
+        [custom_fields_subqueries[custom_field.id][:payload], Arel::Nodes::SqlLiteral.new("'#{custom_field.uid}'")]
+      )
+      Arel::Nodes::SqlLiteral.new("#{extraction_function.to_sql}#{cast_function(custom_field)}")
+    end
 
     def filtered_query(filters, join_manager, *select_attributes)
       filters.inject(join_manager) do |global_result, (custom_field, operations)|
@@ -96,15 +104,11 @@ module GobiertoCommon
     end
 
     def instance_join_manager_with_all_fields
-      @instance_join_manager_with_all_fields ||= begin
-                                                   custom_fields.inject(relation.dup) do |rel, custom_field|
-                                                     rel.joins(subquery_join(custom_field).join_sources)
-                                                   end
-                                                 end
+      @instance_join_manager_with_all_fields ||= instance_join_manager_for_custom_fields(custom_fields)
     end
 
-    def instance_join_manager_for_filters(filters = {})
-      custom_fields.where(id: filters.keys.map(&:id)).inject(relation.dup) do |rel, custom_field|
+    def instance_join_manager_for_custom_fields(custom_fields_list)
+      custom_fields.where(id: custom_fields_list.map(&:id)).inject(relation.dup) do |rel, custom_field|
         rel.joins(subquery_join(custom_field).join_sources)
       end
     end
@@ -132,13 +136,8 @@ module GobiertoCommon
                 "'#{value}'"
               end
 
-      value_function = Arel::Nodes::NamedFunction.new(
-        "jsonb_extract_path",
-        [custom_fields_subqueries[custom_field.id][:payload], Arel::Nodes::SqlLiteral.new("'#{custom_field.uid}'")]
-      )
-
       Arel::Nodes::SqlLiteral.new(
-        "#{value_function.to_sql}#{cast_function(custom_field)} #{operator} #{value}"
+        "#{extracted_attribute(custom_field)} #{operator} #{value}"
       )
     end
 

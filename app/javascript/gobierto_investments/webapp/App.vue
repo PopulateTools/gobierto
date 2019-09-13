@@ -1,53 +1,24 @@
 <template>
-  <div>
-    <div class="pure-g m_b_1">
-      <div class="pure-u-1 pure-u-lg-1-4"></div>
-      <div class="pure-u-1 pure-u-lg-3-4">
-        <Nav @active-tab="activeTabIndex = $event"></Nav>
-      </div>
-    </div>
-
-    <div class="pure-g m_b_4">
-      <div class="pure-u-1 pure-u-lg-1-4">
-        <Aside></Aside>
-      </div>
-      <div class="pure-u-1 pure-u-lg-3-4">
-        <Main :active-tab="activeTabIndex" :items="items"></Main>
-      </div>
-    </div>
-  </div>
+  <keep-alive>
+    <component v-bind:is="currentTabComponent"></component>
+  </keep-alive>
 </template>
 
 <script>
-import Aside from "./containers/Aside.vue";
-import Main from "./containers/Main.vue";
-import Nav from "./containers/Nav.vue";
+import Vue from "vue";
+import Home from "./containers/home/Home.vue";
+import Project from "./containers/project/Project.vue";
 
 export default {
   name: "Investments",
-  components: {
-    Aside,
-    Main,
-    Nav
-  },
   data() {
     return {
-      items: [],
-      activeTabIndex: 0
+      currentTabComponent: null
     };
   },
   created() {
-    // fake data
-    this.items = [...Array(20)].map((e, i) => ({
-      id: i,
-      title: Math.random()
-        .toString(36)
-        .substring(7),
-      status: Math.random()
-        .toString(36)
-        .substring(7),
-      import: ~~(Math.random() * 1e7)
-    }));
+    // TODO
+    this.currentTabComponent = Project;
   }
 };
 </script>

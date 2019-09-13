@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import Calendar from "../components/Calendar.vue";
-import BlockHeader from "../components/BlockHeader.vue";
-import Checkbox from "../components/Checkbox.vue";
-import RangeBars from "../components/RangeBars.vue";
+import Calendar from "../../components/Calendar.vue";
+import BlockHeader from "../../components/BlockHeader.vue";
+import Checkbox from "../../components/Checkbox.vue";
+import RangeBars from "../../components/RangeBars.vue";
 
 export default {
   name: "Aside",

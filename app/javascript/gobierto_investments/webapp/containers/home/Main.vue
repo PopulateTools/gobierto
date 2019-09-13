@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import Map from "../components/Map.vue";
-import Gallery from "../components/Gallery.vue";
-import Table from "../components/Table.vue";
+import Map from "../../components/Map.vue";
+import Gallery from "../../components/Gallery.vue";
+import Table from "../../components/Table.vue";
 
 export default {
   name: "Main",

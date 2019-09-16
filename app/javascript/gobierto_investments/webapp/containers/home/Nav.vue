@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: "Nav",
+  name: "HomeNav",
   data() {
     return {
       isActive: 0

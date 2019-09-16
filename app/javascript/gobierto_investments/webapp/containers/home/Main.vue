@@ -12,7 +12,7 @@ import Gallery from "../../components/Gallery.vue";
 import Table from "../../components/Table.vue";
 
 export default {
-  name: "Main",
+  name: "HomeMain",
   components: {
     Map,
     Gallery,

@@ -3,13 +3,7 @@
     <div class="investments-project-aside--block">
       <h6 class="investments-project-aside--block-head">Estado</h6>
 
-      <nav class="investments-project-aside--steps">
-        <ul>
-          <li>
-            <a href>1</a>
-          </li>
-        </ul>
-      </nav>
+      <Steps :steps="items"></Steps>
 
       <a href class="investments-project-aside--link">ver detalle de evolución</a>
     </div>
@@ -17,8 +11,18 @@
 </template>
 
 <script>
+import Steps from "../../components/Steps.vue";
+
 export default {
-  name: "Aside"
+  name: "ProjectAside",
+  components: {
+    Steps
+  },
+  data() {
+    return {
+      items: [{ i: 0, title: "a" }, { i: 1, title: "b" }, { i: 2, title: "c" }]
+    };
+  }
 };
 </script>
 

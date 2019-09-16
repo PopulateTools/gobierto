@@ -1,0 +1,69 @@
+<template>
+  <div class="read-more js-read-more">
+    <div>
+      {{ firstChars }}
+      <span data-toggle>
+        <a>Ver más</a>
+      </span>
+    </div>
+    <div>
+      {{ lastChars }}
+      <span data-toggle>
+        <a>Ver menos</a>
+      </span>
+    </div>
+  </div>
+</template>
+
+<script>
+import { readMore } from "lib/shared";
+
+export default {
+  name: "ReadMore",
+  props: {
+    roundChars: {
+      type: Number,
+      default: 150
+    }
+  },
+  data() {
+    return {
+      text: "",
+      breakIndex: 0
+    };
+  },
+  computed: {
+    firstChars() {
+      return this.text.substring(0, this.breakIndex);
+    },
+    lastChars() {
+      return this.text.substring(this.breakIndex, this.text.length);
+    }
+  },
+  created() {
+    const { text = "" } = this.$slots.default[0];
+    this.text = text;
+    this.breakIndex = this.roundChars + this.firstBreakAppearance() + 1;
+  },
+  mounted() {
+    readMore(this.$el);
+  },
+  methods: {
+    firstBreakAppearance() {
+      const textBreaks = [".", ";", "\n"];
+      const indexTextBreaks = [];
+      for (let i = 0; i < textBreaks.length; i++) {
+        const element = textBreaks[i];
+        const index = this.text
+          .substring(this.roundChars, this.text.length)
+          .indexOf(element);
+        if (index >= 0) {
+          indexTextBreaks.push(index);
+        }
+      }
+
+      return Math.min.apply(Math, indexTextBreaks);
+    }
+  }
+};
+</script>

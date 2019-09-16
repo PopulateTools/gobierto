@@ -1,41 +1,55 @@
 <template>
   <main>
-    <keep-alive>
-      <component v-bind:is="currentTabComponent" :items="items"></component>
-    </keep-alive>
+    <h1 class="investments-project-main--heading">{{ project.title }}</h1>
+
+    <div class="investments-project-main--intro">
+      <ReadMore :round-chars="300">{{ project.description }}</ReadMore>
+    </div>
+
+    <div class="investments-project-main--carousel">
+      <HorizontalCarousel :visible-items="visibleItems">
+        <img class="js-image-lightbox" src="https://loremflickr.com/540/480/building" alt />
+        <img class="js-image-lightbox" src="https://loremflickr.com/540/480/building" alt />
+        <img class="js-image-lightbox" src="https://loremflickr.com/540/480/building" alt />
+        <img class="js-image-lightbox" src="https://loremflickr.com/540/480/building" alt />
+        <img class="js-image-lightbox" src="https://loremflickr.com/540/480/building" alt />
+        <img class="js-image-lightbox" src="https://loremflickr.com/540/480/building" alt />
+      </HorizontalCarousel>
+    </div>
+
+    <div>
+      <template v-for="(value, name, index) in project.attributes">
+        <DictionaryItem :key="index" :name="name" :value="value"></DictionaryItem>
+      </template>
+    </div>
   </main>
 </template>
 
 <script>
-import Map from "../../components/Map.vue";
-import Gallery from "../../components/Gallery.vue";
-import Table from "../../components/Table.vue";
+import DictionaryItem from "../../components/DictionaryItem.vue";
+import HorizontalCarousel from "../../components/HorizontalCarousel.vue";
+import ReadMore from "../../components/ReadMore.vue";
+import { ImageLightbox } from "lib/shared";
 
 export default {
-  name: "Main",
+  name: "ProjectMain",
   components: {
-    Map,
-    Gallery,
-    Table
+    DictionaryItem,
+    HorizontalCarousel,
+    ReadMore
   },
   props: {
-    activeTab: Number,
-    items: Array
+    project: Object
   },
   data() {
     return {
-      tabs: [],
-      currentTabComponent: null
+      attributes: {},
+      visibleItems: 3
     };
   },
-  created() {
-    this.tabs = [Map, Gallery, Table];
-    this.currentTabComponent = this.tabs[this.activeTab];
-  },
-  watch: {
-    activeTab(tab) {
-      this.currentTabComponent = this.tabs[tab];
-    }
+  mounted() {
+    const lightboxes = this.$el.querySelectorAll(".js-image-lightbox");
+    lightboxes.forEach(lightbox => new ImageLightbox(lightbox));
   }
 };
 </script>

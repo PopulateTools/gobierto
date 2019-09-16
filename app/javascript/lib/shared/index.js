@@ -10,9 +10,9 @@ import "./modules/tabs.js";
 import "./modules/velocity_settings.js";
 import "./modules/air-datepicker.js";
 import "./modules/shareContent.js";
-import "./modules/readmore.js";
-import "./modules/horizontal-carousel.js";
-import "./modules/image-lightbox.js";
+import { readMore } from "./modules/read-more.js";
+import { HorizontalCarousel } from "./modules/horizontal-carousel.js";
+import { ImageLightbox } from "./modules/image-lightbox.js";
 import "./modules/separate-tabs.js";
 import { rangeSlider } from "./modules/range-slider.js";
 
@@ -20,4 +20,15 @@ import accounting from "accounting";
 import { SETTINGS } from "./modules/accounting_settings.js";
 accounting.settings = SETTINGS;
 
-export { AUTOCOMPLETE_DEFAULTS, accounting, d3locale, isDesktop, isMobile, URLParams, rangeSlider };
+export {
+  AUTOCOMPLETE_DEFAULTS,
+  accounting,
+  d3locale,
+  isDesktop,
+  isMobile,
+  URLParams,
+  rangeSlider,
+  readMore,
+  HorizontalCarousel,
+  ImageLightbox
+};

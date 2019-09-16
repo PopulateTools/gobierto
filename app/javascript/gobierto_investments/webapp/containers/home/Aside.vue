@@ -28,7 +28,7 @@ import Checkbox from "../../components/Checkbox.vue";
 import RangeBars from "../../components/RangeBars.vue";
 
 export default {
-  name: "Aside",
+  name: "HomeAside",
   components: {
     Calendar,
     BlockHeader,

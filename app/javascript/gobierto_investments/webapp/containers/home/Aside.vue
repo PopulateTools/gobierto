@@ -1,22 +1,36 @@
 <template>
   <aside class="investments-home-aside--gap">
     <div class="investments-home-aside--block">
-      <Calendar></Calendar>
+      <Calendar />
     </div>
 
     <div class="investments-home-aside--block">
-      <BlockHeader title="Tipu de contratu" see-link></BlockHeader>
-      <Checkbox v-for="item in items" :key="item.i" :item="item"></Checkbox>
+      <BlockHeader
+        title="Tipu de contratu"
+        see-link
+      />
+      <Checkbox
+        v-for="item in items"
+        :key="item.i"
+        :item="item"
+      />
     </div>
 
     <div class="investments-home-aside--block">
-      <BlockHeader title="Estáu" see-link></BlockHeader>
-      <Checkbox v-for="item in items" :key="item.i" :item="item"></Checkbox>
+      <BlockHeader
+        title="Estáu"
+        see-link
+      />
+      <Checkbox
+        v-for="item in items"
+        :key="item.i"
+        :item="item"
+      />
     </div>
 
     <div class="investments-home-aside--block">
-      <BlockHeader title="Cantidá"></BlockHeader>
-      <RangeBars :bars="6"></RangeBars>
+      <BlockHeader title="Cantidá" />
+      <RangeBars :bars="6" />
     </div>
   </aside>
 </template>

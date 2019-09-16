@@ -12,7 +12,11 @@
       </th>
     </thead>
     <tbody>
-      <TableRow v-for="item in items" :key="item.id" :item="item"></TableRow>
+      <TableRow
+        v-for="item in items"
+        :key="item.id"
+        :item="item"
+      />
     </tbody>
   </table>
 </template>

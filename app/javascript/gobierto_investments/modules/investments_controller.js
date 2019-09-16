@@ -19,7 +19,7 @@ export class InvestmentsController {
         mode: "history",
         routes
       });
-      // new Vue({ render: h => h(App) }).$mount(entryPoint);
+
       new Vue({ router }).$mount(entryPoint);
     }
   }

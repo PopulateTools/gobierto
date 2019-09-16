@@ -1,7 +1,10 @@
 <template>
   <main>
     <keep-alive>
-      <component v-bind:is="currentTabComponent" :items="items"></component>
+      <component
+        :is="currentTabComponent"
+        :items="items"
+      />
     </keep-alive>
   </main>
 </template>
@@ -28,14 +31,14 @@ export default {
       currentTabComponent: null
     };
   },
-  created() {
-    this.tabs = [Map, Gallery, Table];
-    this.currentTabComponent = this.tabs[this.activeTab];
-  },
   watch: {
     activeTab(tab) {
       this.currentTabComponent = this.tabs[tab];
     }
+  },
+  created() {
+    this.tabs = [Map, Gallery, Table];
+    this.currentTabComponent = this.tabs[this.activeTab];
   }
 };
 </script>

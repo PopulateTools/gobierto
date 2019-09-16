@@ -1,6 +1,10 @@
 <template>
   <div class="investments-home-main--gallery">
-    <GalleryItem v-for="item in items" :key="item.id" :item="item"></GalleryItem>
+    <GalleryItem
+      v-for="item in items"
+      :key="item.id"
+      :item="item"
+    />
   </div>
 </template>
 

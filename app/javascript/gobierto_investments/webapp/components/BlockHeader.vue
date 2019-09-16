@@ -1,13 +1,16 @@
 <template>
   <div class="investments-home-aside--block-header">
     <strong>{{ title }}</strong>
-    <a v-if="seeLink" href>Tou</a>
+    <a
+      v-if="seeLink"
+      href
+    >Tou</a>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Block-Header",
+  name: "BlockHeader",
   props: {
     title: String,
     seeLink: {

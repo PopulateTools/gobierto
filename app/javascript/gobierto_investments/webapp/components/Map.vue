@@ -1,5 +1,5 @@
 <template>
-  <div style="background: #eee; min-height: 500px"></div>
+  <div style="background: #eee; min-height: 500px" />
   <!-- <div id="mapid" style="background: #eee"></div> -->
 </template>
 

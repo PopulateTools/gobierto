@@ -1,14 +1,17 @@
 <template>
-  <div class="horizontal-carousel js-horizontal-carousel" :data-visible-items="visibleItems">
+  <div
+    class="horizontal-carousel js-horizontal-carousel"
+    :data-visible-items="visibleItems"
+  >
     <div class="horizontal-carousel-content">
-      <slot></slot>
+      <slot />
     </div>
 
     <div data-prev>
-      <i class="fas fa-angle-left fa-2x"></i>
+      <i class="fas fa-angle-left fa-2x" />
     </div>
     <div data-next>
-      <i class="fas fa-angle-right fa-2x"></i>
+      <i class="fas fa-angle-right fa-2x" />
     </div>
   </div>
 </template>

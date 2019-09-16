@@ -1,7 +1,14 @@
 <template>
   <div>
-    <div id="randomID" class="investments-home-aside--bars">
-      <div :style="{ height: `${100 * Math.random()}%`}" v-for="i in bars" :key="i"></div>
+    <div
+      id="randomID"
+      class="investments-home-aside--bars"
+    >
+      <div
+        v-for="i in bars"
+        :key="i"
+        :style="{ height: `${100 * Math.random()}%`}"
+      />
     </div>
     <div
       class="js-range-slider"
@@ -9,7 +16,7 @@
       data-max="500"
       data-default="[100, 200]"
       data-range-bars-selector="#randomID"
-    ></div>
+    />
   </div>
 </template>
 
@@ -17,7 +24,7 @@
 import { rangeSlider } from "lib/shared";
 
 export default {
-  name: "Range-Bars",
+  name: "RangeBars",
   props: {
     bars: Number
   },

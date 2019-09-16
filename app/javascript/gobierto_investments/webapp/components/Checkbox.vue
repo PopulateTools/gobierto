@@ -1,6 +1,9 @@
 <template>
   <div class="investments-home-aside--checkbox">
-    <input type="checkbox" :id="`investments-home-aside--checkbox-${item.i}`" />
+    <input
+      :id="`investments-home-aside--checkbox-${item.i}`"
+      type="checkbox"
+    >
     <label :for="`investments-home-aside--checkbox-${item.i}`">{{ item.title }}</label>
   </div>
 </template>

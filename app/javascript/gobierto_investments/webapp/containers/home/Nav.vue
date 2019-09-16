@@ -6,8 +6,8 @@
         :class="{ 'is-active': isActive === 0 }"
         @click="activateTab(0)"
       >
-        <i class="fas fa-map"></i>
-        <i class="far fa-map"></i>
+        <i class="fas fa-map" />
+        <i class="far fa-map" />
         <span>Mapa</span>
       </li>
       <li
@@ -15,8 +15,8 @@
         :class="{ 'is-active': isActive === 1 }"
         @click="activateTab(1)"
       >
-        <i class="fas fa-clone"></i>
-        <i class="far fa-clone"></i>
+        <i class="fas fa-clone" />
+        <i class="far fa-clone" />
         <span>Galería</span>
       </li>
       <li
@@ -24,8 +24,8 @@
         :class="{ 'is-active': isActive === 2 }"
         @click="activateTab(2)"
       >
-        <i class="fas fa-list-alt"></i>
-        <i class="far fa-list-alt"></i>
+        <i class="fas fa-list-alt" />
+        <i class="far fa-list-alt" />
         <span>Llista</span>
       </li>
     </ul>

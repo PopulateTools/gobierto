@@ -2,10 +2,17 @@
   <div>
     <div class="investments-home-main--gallery-item">
       <div class="investments-home-main--photo">
-        <img src="https://loremflickr.com/g/320/240/mataro" alt />
+        <img
+          src="https://loremflickr.com/g/320/240/mataro"
+          alt
+        >
       </div>
       <div class="investments-home-main--data">
-        <a href class="investments-home-main--link" @click.prevent="nav(item.id)">{{ item.title }}</a>
+        <a
+          href
+          class="investments-home-main--link"
+          @click.prevent="nav(item.id)"
+        >{{ item.title }}</a>
         <div>
           <div class="investments-home-main--property">
             <div>Estáu</div>
@@ -31,7 +38,7 @@
 
 <script>
 export default {
-  name: "Gallery-Item",
+  name: "GalleryItem",
   props: {
     item: Object
   },

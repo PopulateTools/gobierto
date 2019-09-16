@@ -1,5 +1,8 @@
 <template>
-  <tr class="investments-home-main--tr" @click="nav(item.id)">
+  <tr
+    class="investments-home-main--tr"
+    @click="nav(item.id)"
+  >
     <td class="investments-home-main--td">
       <div>{{ item.title }}</div>
     </td>
@@ -14,7 +17,7 @@
 
 <script>
 export default {
-  name: "Table-Row",
+  name: "TableRow",
   props: {
     item: Object
   },

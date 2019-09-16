@@ -53,7 +53,8 @@
     "webpack-merge": "^4.1.2"
   },
   "devDependencies": {
-    "eslint": "^6.3.0",
+    "eslint": "^6.4.0",
+    "eslint-plugin-vue": "^5.2.3",
     "sass-lint": "^1.13.1",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.1",
@@ -61,7 +62,7 @@
   },
   "scripts": {
     "snyk-protect": "snyk protect",
-    "jslint": "eslint $(git diff --name-status master | grep -E '.js$' | cut -f 2)",
+    "jslint": "eslint $(git diff --name-status master | grep -E '.js$|.vue$' | cut -f 2)",
     "jslint:fix": "yarn run jslint --fix",
     "csslint": "sass-lint -v $(git diff --name-status master | grep -E '.css$|.scss$' | cut -f 2)"
   },

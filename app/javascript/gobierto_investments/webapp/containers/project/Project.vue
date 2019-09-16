@@ -1,12 +1,14 @@
 <template>
   <div class="column">
-    <h4 class="investments-project--heading">Detalle de proyecto</h4>
+    <h4 class="investments-project--heading">
+      Detalle de proyecto
+    </h4>
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-1-4">
-        <Aside></Aside>
+        <Aside />
       </div>
       <div class="pure-u-1 pure-u-lg-3-4">
-        <Main :project="project"></Main>
+        <Main :project="project" />
       </div>
     </div>
   </div>

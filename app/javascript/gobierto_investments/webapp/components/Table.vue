@@ -30,7 +30,10 @@ export default {
     TableRow
   },
   props: {
-    items: Array
+    items: {
+      type: Array,
+      default: () => []
+    }
   }
 };
 </script>

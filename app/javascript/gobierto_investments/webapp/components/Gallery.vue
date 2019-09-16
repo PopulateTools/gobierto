@@ -17,7 +17,10 @@ export default {
     GalleryItem
   },
   props: {
-    items: Array
+    items: {
+      type: Array,
+      default: () => []
+    }
   }
 };
 </script>

@@ -40,7 +40,10 @@
 export default {
   name: "GalleryItem",
   props: {
-    item: Object
+    item: {
+      type: Object,
+      default: () => {}
+    }
   },
   methods: {
     nav(id) {

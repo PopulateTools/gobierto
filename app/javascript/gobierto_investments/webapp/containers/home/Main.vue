@@ -22,8 +22,14 @@ export default {
     Table
   },
   props: {
-    activeTab: Number,
-    items: Array
+    activeTab: {
+      type: Number,
+      default: 0
+    },
+    items: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {

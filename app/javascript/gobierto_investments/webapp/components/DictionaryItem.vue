@@ -27,8 +27,14 @@
 export default {
   name: "DictionaryItem",
   props: {
-    name: String,
-    value: [String, Array]
+    name: {
+      type: String,
+      default: ""
+    },
+    value: {
+      type: [String, Array],
+      default: ""
+    }
   },
   data() {
     return {

@@ -12,7 +12,10 @@
 export default {
   name: "Checkbox",
   props: {
-    item: Object
+    item: {
+      type: Object,
+      default: () => {}
+    }
   }
 };
 </script>

@@ -15,7 +15,10 @@
 export default {
   name: "Steps",
   props: {
-    steps: Array
+    steps: {
+      type: Array,
+      default: () => []
+    }
   }
 };
 </script>

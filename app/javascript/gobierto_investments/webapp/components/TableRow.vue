@@ -19,7 +19,10 @@
 export default {
   name: "TableRow",
   props: {
-    item: Object
+    item: {
+      type: Object,
+      default: () => {}
+    }
   },
   methods: {
     nav(id) {

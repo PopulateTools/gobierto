@@ -71,7 +71,10 @@ export default {
     ReadMore
   },
   props: {
-    project: Object
+    project: {
+      type: Object,
+      default: () => {}
+    }
   },
   data() {
     return {

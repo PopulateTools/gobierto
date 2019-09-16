@@ -53,6 +53,7 @@
     "webpack-merge": "^4.1.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
     "eslint": "^6.4.0",
     "eslint-plugin-vue": "^5.2.3",
     "sass-lint": "^1.13.1",

@@ -26,7 +26,10 @@ import { rangeSlider } from "lib/shared";
 export default {
   name: "RangeBars",
   props: {
-    bars: Number
+    bars: {
+      type: Number,
+      default: 6
+    }
   },
   inRangeClass: "in-range",
   mounted() {

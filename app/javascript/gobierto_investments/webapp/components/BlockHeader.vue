@@ -12,7 +12,10 @@
 export default {
   name: "BlockHeader",
   props: {
-    title: String,
+    title: {
+      type: String,
+      default: ""
+    },
     seeLink: {
       type: Boolean,
       default: false

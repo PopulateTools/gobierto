@@ -480,6 +480,7 @@
       line-height: 28px;
       text-align: left;
       border-top: 0;
+      cursor: pointer;
 
       > * {
         border-top: 1px solid transparentize($color_main, 0.85);

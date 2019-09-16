@@ -18,7 +18,7 @@ export default {
   },
   created() {
     // TODO
-    this.currentTabComponent = Project;
+    this.currentTabComponent = Home;
   }
 };
 </script>

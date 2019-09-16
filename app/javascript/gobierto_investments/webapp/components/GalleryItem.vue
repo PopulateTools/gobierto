@@ -5,7 +5,7 @@
         <img src="https://loremflickr.com/g/320/240/mataro" alt />
       </div>
       <div class="investments-home-main--data">
-        <a href class="investments-home-main--link">{{ item.title }}</a>
+        <a href class="investments-home-main--link" @click.prevent="nav(item.id)">{{ item.title }}</a>
         <div>
           <div class="investments-home-main--property">
             <div>Estáu</div>
@@ -34,6 +34,11 @@ export default {
   name: "Gallery-Item",
   props: {
     item: Object
+  },
+  methods: {
+    nav(id) {
+      this.$router.push({ name: "project", params: { id } });
+    }
   }
 };
 </script>

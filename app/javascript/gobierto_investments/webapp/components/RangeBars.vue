@@ -21,6 +21,7 @@ export default {
   props: {
     bars: Number
   },
+  inRangeClass: "in-range",
   mounted() {
     const rangeSlider = this.$el.querySelector(".js-range-slider");
     this.setRangeSlider(rangeSlider);
@@ -70,8 +71,8 @@ export default {
         const bar = bars[index];
 
         start <= step * index + step + min && end >= step * index + min
-          ? bar.classList.add(this.inRangeClass)
-          : bar.classList.remove(this.inRangeClass);
+          ? bar.classList.add(this.$options.inRangeClass)
+          : bar.classList.remove(this.$options.inRangeClass);
       }
     }
   }

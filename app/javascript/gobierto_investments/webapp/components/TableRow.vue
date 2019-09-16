@@ -1,5 +1,5 @@
 <template>
-  <tr class="investments-home-main--tr">
+  <tr class="investments-home-main--tr" @click="nav(item.id)">
     <td class="investments-home-main--td">
       <div>{{ item.title }}</div>
     </td>
@@ -17,6 +17,11 @@ export default {
   name: "Table-Row",
   props: {
     item: Object
+  },
+  methods: {
+    nav(id) {
+      this.$router.push({ name: "project", params: { id } });
+    }
   }
 };
 </script>

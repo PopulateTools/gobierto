@@ -528,7 +528,7 @@ Rails.application.routes.draw do
       constraints GobiertoSiteConstraint.new do
 
         # Front
-        get "inversiones" => "investments#index", as: :root
+        get "inversiones/proyectos" => "investments#index", as: :root
 
         # API
         namespace :api do

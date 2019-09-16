@@ -6,7 +6,7 @@ module GobiertoCitizensCharters
 
     def initialize(charter, opts: {})
       @object = charter
-      @commitments = charter.commitments.active
+      @commitments = charter.commitments.active.sorted
       @reference_edition =
         opts[:reference_edition] ||
         charter.editions.where(commitment: @commitments).order(:period).last ||

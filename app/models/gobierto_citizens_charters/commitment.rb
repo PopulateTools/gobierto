@@ -29,6 +29,8 @@ module GobiertoCitizensCharters
     translates :description
     delegate :site_id, to: :charter
 
+    scope :sorted, -> { order(title_translations: :asc) }
+
     after_restore :set_slug
 
     def parameterize

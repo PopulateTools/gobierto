@@ -19,7 +19,9 @@ export class InvestmentsController {
         ]
       });
 
-      new Vue({ router }).$mount(entryPoint);
+      // TODO: Instance property
+      Vue.prototype.$endpoint = "http://mataro.gobierto.test/api/v1/projects";
+      new Vue({ ejem: "ejem", router }).$mount(entryPoint);
     }
   }
 }

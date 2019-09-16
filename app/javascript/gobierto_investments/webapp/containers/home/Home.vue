@@ -12,10 +12,7 @@
         <Aside />
       </div>
       <div class="pure-u-1 pure-u-lg-3-4">
-        <Main
-          :active-tab="activeTabIndex"
-          :items="items"
-        />
+        <Main :active-tab="activeTabIndex" :items="items" />
       </div>
     </div>
   </div>
@@ -25,6 +22,7 @@
 import Aside from "./Aside.vue";
 import Main from "./Main.vue";
 import Nav from "./Nav.vue";
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -40,17 +38,23 @@ export default {
     };
   },
   created() {
+    axios.get(this.$endpoint).then(response => {
+      if (response.data) {
+        const { data = [] } = response.data;
+        this.items = data;
+      }
+    });
     // fake data
-    this.items = [...Array(20)].map((e, i) => ({
-      id: i,
-      title: Math.random()
-        .toString(36)
-        .substring(7),
-      status: Math.random()
-        .toString(36)
-        .substring(7),
-      import: ~~(Math.random() * 1e7)
-    }));
+    // this.items = [...Array(20)].map((e, i) => ({
+    //   id: i,
+    //   title: Math.random()
+    //     .toString(36)
+    //     .substring(7),
+    //   status: Math.random()
+    //     .toString(36)
+    //     .substring(7),
+    //   import: ~~(Math.random() * 1e7)
+    // }));
   }
 };
 </script>

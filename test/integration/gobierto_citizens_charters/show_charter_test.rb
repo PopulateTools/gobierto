@@ -196,5 +196,14 @@ module GobiertoCitizensCharters
         end
       end
     end
+
+    def test_editions_order_by_commitment_title
+      with(site: site) do
+        visit @path
+
+        commitments_titles = find(".charter-container").all(".charter-inner").map { |element| element.first("small").text }
+        assert_equal commitments_titles, commitments_titles.sort
+      end
+    end
   end
 end

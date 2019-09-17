@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { VueFiltersMixin } from "lib/shared";
+
 export default {
   name: "Budgets",
   props: {
@@ -32,33 +34,22 @@ export default {
       default: () => {}
     }
   },
+  mixins: [VueFiltersMixin],
   data() {
     return {
-      title: '',
+      title: "",
       detail: {},
       budgetedAmount: 0,
       executedAmount: 0,
-      executedPercent: ''
+      executedPercent: ""
     };
   },
-  filters: {
-    translate(value) {
-      const lang = I18n.locale || "es";
-      return value[lang];
-    },
-    money(value) {
-      const lang = I18n.locale || "es";
-      if (value) {
-        return value.toLocaleString(lang, { style: "currency", currency: "EUR" });
-      }
-    }
-  },
   created() {
-    this.title = this.config.title_translations
-    this.detail = this.config.detail
-    this.budgetedAmount = this.config.budgeted_amount
-    this.executedAmount = this.config.executed_amount
-    this.executedPercent = this.config.executed_percentage
+    this.title = this.config.title_translations;
+    this.detail = this.config.detail;
+    this.budgetedAmount = this.config.budgeted_amount;
+    this.executedAmount = this.config.executed_amount;
+    this.executedPercent = this.config.executed_percentage;
   }
 };
 </script>

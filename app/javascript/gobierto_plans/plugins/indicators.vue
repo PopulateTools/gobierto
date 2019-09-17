@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { VueFiltersMixin } from "lib/shared";
+
 export default {
   name: "Indicators",
   props: {
@@ -21,17 +23,12 @@ export default {
       default: () => {}
     }
   },
+  mixins: [VueFiltersMixin],
   data() {
     return {
       title: "",
       data: []
     };
-  },
-  filters: {
-    translate(value) {
-      const lang = I18n.locale || "es";
-      return value[lang];
-    }
   },
   created() {
     this.title = this.config.title_translations;

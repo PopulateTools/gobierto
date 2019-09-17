@@ -15,6 +15,7 @@ import { HorizontalCarousel } from "./modules/horizontal-carousel.js";
 import { ImageLightbox } from "./modules/image-lightbox.js";
 import "./modules/separate-tabs.js";
 import { rangeSlider } from "./modules/range-slider.js";
+import { VueFiltersMixin } from "./modules/vue-filters.js";
 
 import accounting from "accounting";
 import { SETTINGS } from "./modules/accounting_settings.js";
@@ -30,5 +31,6 @@ export {
   rangeSlider,
   readMore,
   HorizontalCarousel,
-  ImageLightbox
+  ImageLightbox,
+  VueFiltersMixin
 };

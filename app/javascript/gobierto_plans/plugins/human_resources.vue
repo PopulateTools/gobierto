@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { VueFiltersMixin } from "lib/shared";
+
 export default {
   name: "HumanResources",
   props: {
@@ -32,6 +34,7 @@ export default {
       default: () => {}
     }
   },
+  mixins: [VueFiltersMixin],
   data() {
     return {
       title: "",
@@ -40,21 +43,6 @@ export default {
       executedAmount: 0,
       executedPercent: ""
     };
-  },
-  filters: {
-    translate(value) {
-      const lang = I18n.locale || "es";
-      return value[lang];
-    },
-    money(value) {
-      const lang = I18n.locale || "es";
-      if (value) {
-        return value.toLocaleString(lang, {
-          style: "currency",
-          currency: "EUR"
-        });
-      }
-    }
   },
   created() {
     this.title = this.config.title_translations;

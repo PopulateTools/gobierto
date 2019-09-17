@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
@@ -8,6 +9,7 @@ export class InvestmentsController {
     // Mount Vue application
     const entryPoint = document.getElementById("investments-app");
     if (entryPoint) {
+      // Dynamic imports for better code splitting
       const Home = () => import("../webapp/containers/home/Home.vue");
       const Project = () => import("../webapp/containers/project/Project.vue");
 
@@ -19,9 +21,8 @@ export class InvestmentsController {
         ]
       });
 
-      // TODO: Instance property
-      Vue.prototype.$endpoint = "http://mataro.gobierto.test/api/v1/projects";
-      new Vue({ ejem: "ejem", router }).$mount(entryPoint);
+      Vue.prototype.$endpoint = `${location.origin}/api/v1/projects`;
+      new Vue({ router }).$mount(entryPoint);
     }
   }
 }

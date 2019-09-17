@@ -42,19 +42,17 @@ export default {
       if (response.data) {
         const { data = [] } = response.data;
         this.items = data;
+        // this.items = parse(data);
       }
     });
-    // fake data
-    // this.items = [...Array(20)].map((e, i) => ({
-    //   id: i,
-    //   title: Math.random()
-    //     .toString(36)
-    //     .substring(7),
-    //   status: Math.random()
-    //     .toString(36)
-    //     .substring(7),
-    //   import: ~~(Math.random() * 1e7)
-    // }));
+  },
+  methods: {
+    parse(data) {
+      return data.map(d => ({
+        id: parseInt(d.id)
+        // title
+      }));
+    }
   }
 };
 </script>

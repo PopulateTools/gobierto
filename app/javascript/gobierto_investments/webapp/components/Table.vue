@@ -12,23 +12,21 @@
       </th>
     </thead>
     <tbody>
-      <TableRow
-        v-for="item in items"
-        :key="item.id"
-        :item="item"
-      />
+      <TableRow v-for="item in items" :key="item.id" :item="item" />
     </tbody>
   </table>
 </template>
 
 <script>
 import TableRow from "./TableRow.vue";
+import { VueFiltersMixin } from "lib/shared";
 
 export default {
   name: "Table",
   components: {
     TableRow
   },
+  mixins: [VueFiltersMixin],
   props: {
     items: {
       type: Array,

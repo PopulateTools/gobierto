@@ -63,6 +63,10 @@ module GobiertoInvestments
           gobierto_common_terms(:dc_term)
         end
 
+        def vocabulary_custom_field
+          gobierto_common_custom_fields(:madrid_investments_projects_custom_field_political_group)
+        end
+
         def new_project_data
           @new_project_data ||= {
             "data": {
@@ -561,6 +565,55 @@ module GobiertoInvestments
               assert_equal({ "message" => "Module not allowed" }, response.parsed_body)
               assert GobiertoInvestments::Project.where(id: project_id).exists?
             end
+          end
+        end
+
+        # Meta
+        #
+        # GET /gobierto_investments/api/v1/projects/meta
+        # GET /gobierto_investments/api/v1/projects/meta.json
+        def test_meta
+          with(site: site) do
+
+            get meta_gobierto_investments_api_v1_projects_path, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert_equal 4, response_data["data"].count
+
+            vocabulary_custom_field_entry = response_data["data"].find { |item| item["attributes"]["uid"] == vocabulary_custom_field.uid }
+
+            terms_ids = vocabulary_custom_field_entry.dig("attributes", "vocabulary_terms").map { |term| term["id"] }
+            terms_translations = vocabulary_custom_field_entry.dig("attributes", "vocabulary_terms").map { |term| term["name_translations"] }
+
+            vocabulary_custom_field.vocabulary.terms.each do |term|
+              assert_includes terms_ids, term.id
+              assert_includes terms_translations, term.name_translations
+            end
+          end
+        end
+
+        # GET /gobierto_investments/api/v1/projects/meta/stats=true
+        # GET /gobierto_investments/api/v1/projects/meta.json?stats=true
+        def test_meta_with_statistics
+          with(site: site) do
+
+            get meta_gobierto_investments_api_v1_projects_path(stats: "true"), as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key?("meta")
+
+            assert_equal 4, response_data.dig("meta", "cost", "count").to_i
+            assert_equal 500_000, response_data.dig("meta", "cost", "min").to_i
+            assert_equal 1_000_000, response_data.dig("meta", "cost", "max").to_i
+
+            vocabulary_distribution = response_data.dig("meta", "political-group", "distribution")
+            assert_equal 2, vocabulary_distribution.find { |item| item["value"].match?(/#{vocabulary_custom_field.vocabulary.terms.first.id}/) }["count"]
           end
         end
 

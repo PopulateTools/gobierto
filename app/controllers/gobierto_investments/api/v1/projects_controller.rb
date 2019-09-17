@@ -8,8 +8,8 @@ module GobiertoInvestments
         include ::GobiertoCommon::CustomFieldsApi
         include ::GobiertoCommon::SecuredWithToken
 
-        skip_before_action :set_admin_with_token, only: [:index, :show, :new]
-        before_action :module_allowed, except: [:index, :show, :new]
+        skip_before_action :set_admin_with_token, only: [:index, :show, :new, :meta]
+        before_action :module_allowed, except: [:index, :show, :new, :meta]
 
         # GET /gobierto_investments/api/v1/projects
         # GET /gobierto_investments/api/v1/projects.json

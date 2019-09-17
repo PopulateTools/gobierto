@@ -20,7 +20,7 @@ module GobiertoCommon
       if decoded_data && decoded_data["sub"] == "login" && decoded_data["api_token"].present? && (admin = ::GobiertoAdmin::Admin.find_by(api_token: decoded_data["api_token"]))
         @current_admin = admin
       else
-        send_unauthorized
+        render(json: { message: "Unauthorized" }, status: :unauthorized, adapter: :json_api) && return
       end
     end
 

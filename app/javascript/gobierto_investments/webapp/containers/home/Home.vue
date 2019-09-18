@@ -21,7 +21,7 @@
 
     <article>
       <h3 class="investments-home-article--header">
-        Resumen por estados
+        {{ labelSummary }}
       </h3>
 
       <Article :phases="phases" />
@@ -52,10 +52,13 @@ export default {
       dictionary: [],
       filters: [],
       phases: [],
-      activeTabIndex: 0
+      activeTabIndex: 0,
+      labelSummary: ""
     };
   },
   created() {
+    this.labelSummary = I18n.t("gobierto_investments.projects.summary")
+
     axios
       .all([
         axios.get(this.$baseUrl),

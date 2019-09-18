@@ -44,9 +44,9 @@ export default {
     };
   },
   created() {
-    this.labelMap = I18n.t("gobierto_investments.home.nav.map")
-    this.labelGallery = I18n.t("gobierto_investments.home.nav.gallery")
-    this.labelList = I18n.t("gobierto_investments.home.nav.list")
+    this.labelMap = I18n.t("gobierto_investments.projects.map")
+    this.labelGallery = I18n.t("gobierto_investments.projects.gallery")
+    this.labelList = I18n.t("gobierto_investments.projects.list")
   },
   methods: {
     activateTab(index) {

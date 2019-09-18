@@ -10,7 +10,7 @@
       <a
         href
         class="investments-project-aside--link"
-      >ver detalle de evolución</a>
+      >{{ labelDetail }}</a>
     </div>
   </aside>
 </template>
@@ -28,6 +28,14 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+  data() {
+    return {
+      labelDetail: ""
+    }
+  },
+  created() {
+    this.labelDetail = I18n.t("gobierto_investments.projects.detail")
   }
 };
 </script>

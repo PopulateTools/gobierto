@@ -4,8 +4,11 @@ en:
     events:
       gobierto_investments_project_project_created: Investment project created
       gobierto_investments_project_project_updated: Investment project updated
-    home:
-      nav:
-        map: Map
-        gallery: Gallery
-        list: List
+    projects:
+      all: All
+      date: Last year
+      detail: See project details
+      gallery: Gallery
+      list: List
+      map: Map
+      summary: Summary by stats

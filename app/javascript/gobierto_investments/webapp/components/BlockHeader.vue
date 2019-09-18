@@ -4,7 +4,7 @@
     <a
       v-if="seeLink"
       @click="selectAll"
-    >Tou</a>
+    >{{ labelAll }}</a>
   </div>
 </template>
 
@@ -23,6 +23,14 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  data() {
+    return {
+      labelAll: ""
+    }
+  },
+  created() {
+    this.labelAll = I18n.t("gobierto_investments.projects.all")
   },
   methods: {
     selectAll() {

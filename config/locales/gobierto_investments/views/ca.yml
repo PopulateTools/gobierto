@@ -4,8 +4,11 @@ ca:
     events:
       gobierto_investments_project_project_created: Projecte d'inversió creat
       gobierto_investments_project_project_updated: Projecte d'inversió actualitzat
-    home:
-      nav:
-        map: Mapa
-        gallery: Galeria
-        list: Llista
+    projects:
+      all: Totes
+      date: Darrer any
+      detail: veure detall del projecte
+      gallery: Galeria
+      list: Llista
+      map: Mapa
+      summary: Resum per estats

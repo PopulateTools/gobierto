@@ -2,8 +2,8 @@
   <div class="investments-home-aside--checkbox">
     <input
       :id="`investments-home-aside--checkbox-${id}`"
-      type="checkbox"
       :checked="checked"
+      type="checkbox"
     >
     <label :for="`investments-home-aside--checkbox-${id}`">{{ title | translate }}</label>
   </div>

@@ -8,7 +8,7 @@
       >
         <i class="fas fa-map" />
         <i class="far fa-map" />
-        <span>Mapa</span>
+        <span>{{ labelMap }}</span>
       </li>
       <li
         class="investments-home-nav--tab"
@@ -17,7 +17,7 @@
       >
         <i class="fas fa-clone" />
         <i class="far fa-clone" />
-        <span>Galería</span>
+        <span>{{ labelGallery }}</span>
       </li>
       <li
         class="investments-home-nav--tab"
@@ -26,7 +26,7 @@
       >
         <i class="fas fa-list-alt" />
         <i class="far fa-list-alt" />
-        <span>Llista</span>
+        <span>{{ labelList }}</span>
       </li>
     </ul>
   </nav>
@@ -37,8 +37,16 @@ export default {
   name: "HomeNav",
   data() {
     return {
-      isActive: 0
+      isActive: 0,
+      labelMap: "",
+      labelGallery: "",
+      labelList: "",
     };
+  },
+  created() {
+    this.labelMap = I18n.t("gobierto_investments.home.nav.map")
+    this.labelGallery = I18n.t("gobierto_investments.home.nav.gallery")
+    this.labelList = I18n.t("gobierto_investments.home.nav.list")
   },
   methods: {
     activateTab(index) {

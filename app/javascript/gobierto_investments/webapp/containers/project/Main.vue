@@ -18,8 +18,8 @@
         <img
           v-for="photo in gallery"
           :key="photo"
-          class="js-image-lightbox"
           :src="photo"
+          class="js-image-lightbox"
         >
       </HorizontalCarousel>
     </div>

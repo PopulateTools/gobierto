@@ -77,7 +77,7 @@ export default {
         this.dictionary = attributesDictionary;
         this.items = this.setData(items);
         // get the phases, and append the items for that phase
-        this.phases = this.getPhases(filtersSelected).map(phase => ({ ...phase, items: this.items.filter(d => d.phases[0].id === phase.id) }))
+        this.phases = this.getPhases(filtersSelected).map(phase => ({ ...phase, items: this.items.filter(d => d.phases.length ? d.phases[0].id === phase.id : false) }))
 
         for (const key in filtersSelected) {
           if (Object.prototype.hasOwnProperty.call(filtersSelected, key)) {

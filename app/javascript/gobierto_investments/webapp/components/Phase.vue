@@ -1,8 +1,8 @@
 <template>
   <div class="investments-home-article--item">
     <div
-      class="investments-home-article--heading p_1"
       :class="{ 'is-negative': isNegative }"
+      class="investments-home-article--heading p_1"
     >
       <div class="investments-home-article--title">
         {{ title }}

@@ -4,3 +4,8 @@ en:
     events:
       gobierto_investments_project_project_created: Investment project created
       gobierto_investments_project_project_updated: Investment project updated
+    home:
+      nav:
+        map: Map
+        gallery: Gallery
+        list: List

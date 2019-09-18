@@ -1,59 +1,29 @@
 <template>
   <aside class="investments-home-aside--gap">
-    <div class="investments-home-aside--block">
-      <Calendar />
-    </div>
-
-    <div class="investments-home-aside--block">
-      <BlockHeader
-        title="Tipu de contratu"
-        see-link
-      />
-      <Checkbox
-        v-for="item in items"
-        :key="item.i"
-        :item="item"
-      />
-    </div>
-
-    <div class="investments-home-aside--block">
-      <BlockHeader
-        title="Estáu"
-        see-link
-      />
-      <Checkbox
-        v-for="item in items"
-        :key="item.i"
-        :item="item"
-      />
-    </div>
-
-    <div class="investments-home-aside--block">
-      <BlockHeader title="Cantidá" />
-      <RangeBars :bars="6" />
+    <div
+      v-for="filter in filters"
+      :key="filter.key"
+      class="investments-home-aside--block"
+    >
+      <BlockFilter :filter="filter" />
     </div>
   </aside>
 </template>
 
 <script>
-import Calendar from "../../components/Calendar.vue";
-import BlockHeader from "../../components/BlockHeader.vue";
-import Checkbox from "../../components/Checkbox.vue";
-import RangeBars from "../../components/RangeBars.vue";
+import BlockFilter from "../../components/BlockFilter.vue";
 
 export default {
   name: "HomeAside",
   components: {
-    Calendar,
-    BlockHeader,
-    Checkbox,
-    RangeBars
+    BlockFilter
   },
-  data() {
-    return {
-      items: [{ i: 0, title: "a" }, { i: 1, title: "b" }, { i: 2, title: "c" }]
-    };
-  }
+  props: {
+    filters: {
+      type: Array,
+      default: () => []
+    }
+  },
 };
 </script>
 

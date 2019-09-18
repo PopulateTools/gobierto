@@ -1,14 +1,20 @@
 <template>
-  <div class="column">
+  <div>
     <h4 class="investments-project--heading">
       Detalle de proyecto
     </h4>
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-1-4">
-        <Aside />
+        <Aside
+          v-if="project"
+          :items="project.phases"
+        />
       </div>
       <div class="pure-u-1 pure-u-lg-3-4">
-        <Main :project="project" />
+        <Main
+          v-if="project"
+          :project="project"
+        />
       </div>
     </div>
   </div>
@@ -17,6 +23,8 @@
 <script>
 import Aside from "./Aside.vue";
 import Main from "./Main.vue";
+import axios from "axios";
+import { CommonsMixin } from "../../mixins/common.js";
 
 export default {
   name: "Project",
@@ -24,26 +32,32 @@ export default {
     Aside,
     Main
   },
+  mixins: [CommonsMixin],
   data() {
     return {
-      project: {}
+      dictionary: [],
+      project: null
     };
   },
   created() {
-    // fake data
-    this.project.title = "EDXXX-1 Actuacions i millores col·lectives";
-    this.project.description = `La remodelació i reurbanització de la C-245 integrarà una nou carril bici, i un carril bus segregat i continu de 13 quilòmetres entre Castelldefels i Cornellà. La plataforma segregada per als autobusos permetrà augmentar la velocitat comercial almenys en un 25% en els trams urbans i guanyar puntualitat en Mataró.
-    Mataró est également un centre culturel important dans la comarque du Maresme, dont elle est la capitale. Il y a deux musées et un parc, le Parc Central ; ce dernier est très grand et dispose de zones pour les enfants et la famille.
-    Le centre est composé de rues piétonnes, la Riera et la rue Barcelona constituent la principale zone marchande de la ville. Il y a aussi un centre commercial, le Mataró Park, à côté de l'hôpital. Dernièrement, cette ville a connu un net accroissement de sa population, ce qui a engendré la naissance d'un nouveau quartier avec des appartements modernes : La Via Europa.`;
-    this.project.attributes = {};
-    for (let i = 0; i < 5; i++) {
-      if (i === 2) {
-        this.project.attributes[`attr-${i}`] = [...Array(5)].map(
-          (_, j) => `value-${i}-list-${j}`
-        );
-      } else {
-        this.project.attributes[`attr-${i}`] = `value-${i}`;
-      }
+    const { item } = this.$route.params;
+
+    if (item) {
+      this.project = item;
+    } else {
+      axios.all([axios.get(`${this.$baseUrl}/${this.$route.params.id}`), axios.get(`${this.$baseUrl}/meta?stats=true`)]).then(responses => {
+        const [
+          {
+            data: { data: item }
+          },
+          {
+            data: { data: attributesDictionary }
+          }
+        ] = responses;
+
+        this.dictionary = attributesDictionary;
+        this.project = this.parseItem(item);
+      });
     }
   }
 };

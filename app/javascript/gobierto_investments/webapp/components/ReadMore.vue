@@ -2,7 +2,10 @@
   <div class="read-more js-read-more">
     <div>
       {{ firstChars }}
-      <span data-toggle>
+      <span
+        v-if="isFeatureEnable"
+        data-toggle
+      >
         <a>Ver más</a>
       </span>
     </div>
@@ -33,6 +36,9 @@ export default {
     };
   },
   computed: {
+    isFeatureEnable() {
+      return this.text.length > this.breakIndex
+    },
     firstChars() {
       return this.text.substring(0, this.breakIndex);
     },
@@ -46,7 +52,9 @@ export default {
     this.breakIndex = this.roundChars + this.firstBreakAppearance() + 1;
   },
   mounted() {
-    readMore(this.$el);
+    if (this.isFeatureEnable) {
+      readMore(this.$el);
+    }
   },
   methods: {
     firstBreakAppearance() {

@@ -1,37 +1,48 @@
 <template>
   <table class="investments-home-main--table">
     <thead>
-      <th class="investments-home-main--th">
-        <div>Proyectu</div>
-      </th>
-      <th class="investments-home-main--th">
-        <div>Estáu</div>
-      </th>
-      <th class="investments-home-main--th">
-        <div>Cantidá</div>
+      <th
+        v-for="column in columns"
+        :key="column.key"
+        class="investments-home-main--th"
+      >
+        <div>{{ column.key }}</div>
       </th>
     </thead>
     <tbody>
-      <TableRow v-for="item in items" :key="item.id" :item="item" />
+      <TableRow
+        v-for="item in items"
+        :key="item.id"
+        :item="item"
+      />
     </tbody>
   </table>
 </template>
 
 <script>
 import TableRow from "./TableRow.vue";
-import { VueFiltersMixin } from "lib/shared";
+import { CommonsMixin } from "../mixins/common.js";
 
 export default {
   name: "Table",
   components: {
     TableRow
   },
-  mixins: [VueFiltersMixin],
+  mixins: [CommonsMixin],
   props: {
     items: {
       type: Array,
       default: () => []
     }
-  }
+  },
+  data() {
+    return {
+      columns: [],
+    }
+  },
+  created() {
+    const { availableTableFields = [] } = this.items[0]
+    this.columns = availableTableFields
+  },
 };
 </script>

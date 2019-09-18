@@ -23,10 +23,11 @@ export default {
   components: {
     Steps
   },
-  data() {
-    return {
-      items: [{ i: 0, title: "a" }, { i: 1, title: "b" }, { i: 2, title: "c" }]
-    };
+  props: {
+    items: {
+      type: Array,
+      default: () => []
+    }
   }
 };
 </script>

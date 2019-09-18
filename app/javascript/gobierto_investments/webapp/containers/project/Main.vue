@@ -1,10 +1,13 @@
 <template>
   <main>
     <h1 class="investments-project-main--heading">
-      {{ project.title }}
+      {{ project.title | translate }}
     </h1>
 
-    <div class="investments-project-main--intro">
+    <div
+      v-if="project.description"
+      class="investments-project-main--intro"
+    >
       <ReadMore :round-chars="300">
         {{ project.description }}
       </ReadMore>
@@ -13,44 +16,33 @@
     <div class="investments-project-main--carousel">
       <HorizontalCarousel :visible-items="visibleItems">
         <img
+          v-for="photo in gallery"
+          :key="photo"
           class="js-image-lightbox"
-          src="https://loremflickr.com/540/480/building"
-          alt
-        >
-        <img
-          class="js-image-lightbox"
-          src="https://loremflickr.com/540/480/building"
-          alt
-        >
-        <img
-          class="js-image-lightbox"
-          src="https://loremflickr.com/540/480/building"
-          alt
-        >
-        <img
-          class="js-image-lightbox"
-          src="https://loremflickr.com/540/480/building"
-          alt
-        >
-        <img
-          class="js-image-lightbox"
-          src="https://loremflickr.com/540/480/building"
-          alt
-        >
-        <img
-          class="js-image-lightbox"
-          src="https://loremflickr.com/540/480/building"
-          alt
+          :src="photo"
         >
       </HorizontalCarousel>
     </div>
 
     <div>
-      <template v-for="(value, name, index) in project.attributes">
+      <template v-for="attr in attributes">
         <DictionaryItem
-          :key="index"
-          :name="name"
-          :value="value"
+          v-if="attr.filter === 'translate'"
+          :key="attr.id"
+          :name="attr.name | translate"
+          :value="attr.value | translate"
+        />
+        <DictionaryItem
+          v-else-if="attr.filter === 'money'"
+          :key="attr.id"
+          :name="attr.name | translate"
+          :value="attr.value | money"
+        />
+        <DictionaryItem
+          v-else
+          :key="attr.id"
+          :name="attr.name | translate"
+          :value="attr.value"
         />
       </template>
     </div>
@@ -62,6 +54,8 @@ import DictionaryItem from "../../components/DictionaryItem.vue";
 import HorizontalCarousel from "../../components/HorizontalCarousel.vue";
 import ReadMore from "../../components/ReadMore.vue";
 import { ImageLightbox } from "lib/shared";
+import { CommonsMixin } from "../../mixins/common.js";
+import Vue from "vue"
 
 export default {
   name: "ProjectMain",
@@ -70,6 +64,7 @@ export default {
     HorizontalCarousel,
     ReadMore
   },
+  mixins: [CommonsMixin],
   props: {
     project: {
       type: Object,
@@ -79,12 +74,27 @@ export default {
   data() {
     return {
       attributes: {},
+      gallery: [],
       visibleItems: 3
     };
+  },
+  created() {
+    const { gallery = [], availableGalleryFields = [] } = this.project
+    this.gallery = gallery
+    this.attributes = availableGalleryFields
+
+    if (gallery.length < this.visibleItems) {
+      this.visibleItems = gallery.length
+    }
   },
   mounted() {
     const lightboxes = this.$el.querySelectorAll(".js-image-lightbox");
     lightboxes.forEach(lightbox => new ImageLightbox(lightbox));
+  },
+  methods: {
+      dynamicFilter: function (value, filter) {
+    return Vue.filter(filter)(value)
+  }
   }
 };
 </script>

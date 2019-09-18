@@ -1,11 +1,23 @@
 <template>
-  <div class="tablerow" v-if="config && data && data.length">
-    <div class="tablerow__title">{{ title | translate }}</div>
+  <div
+    v-if="config && data && data.length"
+    class="tablerow"
+  >
+    <div class="tablerow__title">
+      {{ title | translate }}
+    </div>
     <div class="tablerow__data">
       <template v-for="item in data">
-        <div class="tablerow__item" :key="item.id">
-          <div class="tablerow__item-title">{{ item.name_translations | translate }}</div>
-          <div class="tablerow__item-amount">{{ item.last_value }}</div>
+        <div
+          :key="item.id"
+          class="tablerow__item"
+        >
+          <div class="tablerow__item-title">
+            {{ item.name_translations | translate }}
+          </div>
+          <div class="tablerow__item-amount">
+            {{ item.last_value }}
+          </div>
         </div>
       </template>
     </div>
@@ -17,13 +29,13 @@ import { VueFiltersMixin } from "lib/shared";
 
 export default {
   name: "Indicators",
+  mixins: [VueFiltersMixin],
   props: {
     config: {
       type: Object,
       default: () => {}
     }
   },
-  mixins: [VueFiltersMixin],
   data() {
     return {
       title: "",
@@ -40,7 +52,7 @@ export default {
 <style lang="sass" scoped>
 .tablerow {
   padding: .5em 0;
-  
+
   &__title {
     font-size: 14px;
     text-transform: uppercase;

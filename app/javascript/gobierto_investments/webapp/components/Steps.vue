@@ -3,17 +3,20 @@
     <ul>
       <li
         v-for="step in steps"
-        :key="step.i"
+        :key="step.id"
       >
-        <a href>{{ step.title }}</a>
+        <a href>{{ step.title | translate }}</a>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
+import { CommonsMixin } from "../mixins/common.js";
+
 export default {
   name: "Steps",
+  mixins: [CommonsMixin],
   props: {
     steps: {
       type: Array,

@@ -236,6 +236,7 @@
 
       > :last-child:not(:only-child) {
         font-weight: 400;
+        cursor: pointer;
       }
     }
 
@@ -421,7 +422,7 @@
     }
 
     &--link {
-      color: $color_link;
+      color: $color_main;
       font-size: $f6;
       font-weight: 700;
       line-height: 19px;

@@ -529,6 +529,7 @@ Rails.application.routes.draw do
 
         # Front
         get "inversiones/proyectos" => "investments#index", as: :root
+        get "inversiones/proyectos/:id" => "investments#index"
 
         # API
         namespace :api do

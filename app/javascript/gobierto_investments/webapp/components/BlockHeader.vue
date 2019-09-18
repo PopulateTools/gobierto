@@ -1,24 +1,32 @@
 <template>
   <div class="investments-home-aside--block-header">
-    <strong>{{ title }}</strong>
+    <strong>{{ title | translate }}</strong>
     <a
       v-if="seeLink"
-      href
+      @click="selectAll"
     >Tou</a>
   </div>
 </template>
 
 <script>
+import { CommonsMixin } from "../mixins/common.js";
+
 export default {
   name: "BlockHeader",
+  mixins: [CommonsMixin],
   props: {
     title: {
-      type: String,
-      default: ""
+      type: Object,
+      default: () => {}
     },
     seeLink: {
       type: Boolean,
       default: false
+    }
+  },
+  methods: {
+    selectAll() {
+      this.$emit('select-all')
     }
   }
 };

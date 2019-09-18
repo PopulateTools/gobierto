@@ -14,7 +14,7 @@ export class HorizontalCarousel {
       document.body.style.setProperty("--visible-items", this.visibleItems);
 
       // init frames
-      this.setVisibility(this.next, this.start <= this.maxValue);
+      this.setVisibility(this.next, this.start < this.maxValue);
       this.setVisibility(this.prev, this.start !== 0);
 
       // event handling

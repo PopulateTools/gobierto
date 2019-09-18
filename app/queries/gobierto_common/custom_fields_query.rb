@@ -127,7 +127,7 @@ module GobiertoCommon
         "jsonb_extract_path",
         [custom_fields_subqueries[custom_field.id][:payload], Arel::Nodes::SqlLiteral.new("'#{custom_field.uid}'")]
       )
-      Arel::Nodes::SqlLiteral.new("#{extraction_function.to_sql}#{cast_function(custom_field)}")
+      Arel::Nodes::SqlLiteral.new("CASE #{extraction_function.to_sql}::text WHEN 'null' THEN NULL WHEN '\"\"' THEN NULL ELSE #{extraction_function.to_sql}#{cast_function(custom_field)} END")
     end
 
     def filtered_query(filters, join_manager, *select_attributes)

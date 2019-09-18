@@ -56,7 +56,7 @@ export default {
         ] = responses;
 
         this.dictionary = attributesDictionary;
-        this.project = this.parseItem(item);
+        this.project = this.setItem(item);
       });
     }
   }

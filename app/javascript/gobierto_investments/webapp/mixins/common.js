@@ -1,6 +1,6 @@
 import { VueFiltersMixin } from "lib/shared";
 
-const CONFIG = {
+const CONFIGURATION = {
   title: {
     id: "title_translations",
     filter: "translate"
@@ -46,6 +46,18 @@ export const CommonsMixin = {
     nav(id) {
       this.$router.push({ name: "project", params: { id, item: this.item } });
     },
+    getPhases(stats) {
+      const { phases: { id } } = CONFIGURATION
+      const { vocabulary_terms = [] } = this.getAttributesByKey(id)
+      const { distribution = [] } = stats[id];
+      return vocabulary_terms.map(term => {
+        const { count = 0 } = distribution.find(el => parseFloat(JSON.parse(el.value)) === parseFloat(term.id)) || {}
+        return {
+          ...term,
+          count
+        }
+      })
+    },
     getItem(element, attributes) {
       const attr = this.getAttributesByKey(element.id)
 
@@ -53,12 +65,12 @@ export const CommonsMixin = {
         ...attr,
         ...element,
         name: attr.name_translations,
-        value: Array.isArray(attributes[element.id]) ? attributes[element.id][0].name_translations : attributes[element.id]
+        value: Array.isArray(attributes[element.id]) ? attributes[element.id].length ? attributes[element.id][0].name_translations : null : attributes[element.id]
       })
     },
-    parseItem(element) {
+    setItem(element) {
       const { attributes = {} } = element;
-      const { title, description, gallery, phases, availableGalleryFields, availableTableFields } = CONFIG;
+      const { title, description, gallery, phases, availableGalleryFields, availableTableFields } = CONFIGURATION;
 
       return ({
         ...element,
@@ -71,8 +83,8 @@ export const CommonsMixin = {
         availableTableFields: availableTableFields.map(element => this.getItem(element, attributes))
       })
     },
-    parseData(data) {
-      return data.map(element => this.parseItem(element));
+    setData(data) {
+      return data.map(element => this.setItem(element));
     },
     getAttributesByKey(prop) {
       const { attributes = {} } = this.dictionary.find(

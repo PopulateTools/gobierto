@@ -3,10 +3,10 @@
     <thead>
       <th
         v-for="column in columns"
-        :key="column.key"
+        :key="column.id"
         class="investments-home-main--th"
       >
-        <div>{{ column.key }}</div>
+        <div>{{ column.name | translate }}</div>
       </th>
     </thead>
     <tbody>

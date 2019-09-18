@@ -18,6 +18,14 @@
         />
       </div>
     </div>
+
+    <article>
+      <h3 class="investments-home-article--header">
+        Resumen por estados
+      </h3>
+
+      <Article :phases="phases" />
+    </article>
   </div>
 </template>
 
@@ -25,6 +33,7 @@
 import Aside from "./Aside.vue";
 import Main from "./Main.vue";
 import Nav from "./Nav.vue";
+import Article from "./Article.vue";
 import axios from "axios";
 import { CommonsMixin } from "../../mixins/common.js";
 
@@ -33,7 +42,8 @@ export default {
   components: {
     Aside,
     Main,
-    Nav
+    Nav,
+    Article
   },
   mixins: [CommonsMixin],
   data() {
@@ -41,6 +51,7 @@ export default {
       items: [],
       dictionary: [],
       filters: [],
+      phases: [],
       activeTabIndex: 0
     };
   },
@@ -64,7 +75,9 @@ export default {
         ] = responses;
 
         this.dictionary = attributesDictionary;
-        this.items = this.parseData(items);
+        this.items = this.setData(items);
+        // get the phases, and append the items for that phase
+        this.phases = this.getPhases(filtersSelected).map(phase => ({ ...phase, items: this.items.filter(d => d.phases[0].id === phase.id) }))
 
         for (const key in filtersSelected) {
           if (Object.prototype.hasOwnProperty.call(filtersSelected, key)) {

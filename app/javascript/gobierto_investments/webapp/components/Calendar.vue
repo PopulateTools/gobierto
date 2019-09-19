@@ -11,7 +11,7 @@
 <script>
 export default {
   name: "Calendar",
-  data() {
+  data() {
     return {
       labelDate: ""
     }

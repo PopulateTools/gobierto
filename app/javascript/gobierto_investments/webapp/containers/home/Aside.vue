@@ -1,15 +1,17 @@
 <template>
   <aside class="investments-home-aside--gap">
-    <div
-      v-for="filter in filters"
-      :key="filter.key"
-      class="investments-home-aside--block"
-    >
-      <BlockFilter
-        :filter="filter"
-        @set-filter="setFilter"
-      />
-    </div>
+    <template v-for="filter in filters">
+      <div
+        v-if="filter.type !== 'date'"
+        :key="filter.key"
+        class="investments-home-aside--block"
+      >
+        <BlockFilter
+          :filter="filter"
+          @set-filter="setFilter"
+        />
+      </div>
+    </template>
   </aside>
 </template>
 

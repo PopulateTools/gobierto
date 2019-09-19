@@ -33,6 +33,9 @@ module GobiertoAdmin
         render json: { error: error_message }, status: 400
       end
 
+      def set_admin_by_session_or_token
+        set_admin_with_token unless (@current_admin = find_current_admin).present?
+      end
     end
   end
 end

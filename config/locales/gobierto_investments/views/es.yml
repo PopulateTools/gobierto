@@ -4,11 +4,14 @@ es:
     events:
       gobierto_investments_project_project_created: Proyecto de inversión creado
       gobierto_investments_project_project_updated: Proyecto de inversión actualizado
+    layouts:
+      application:
+        investments: Inversiones
     projects:
       all: Todas
-      none: Ninguna
       date: Último año
       gallery: Galería
       list: Lista
       map: Mapa
+      none: Ninguna
       summary: Resumen por estados

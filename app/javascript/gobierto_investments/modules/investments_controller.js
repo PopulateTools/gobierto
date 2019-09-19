@@ -16,12 +16,12 @@ export class InvestmentsController {
       const router = new VueRouter({
         mode: "history",
         routes: [
-          { path: "/inversiones/proyectos", name: "home", component: Home },
+          { path: "/inversiones", name: "home", component: Home },
           { path: "/inversiones/proyectos/:id", name: "project", component: Project }
         ]
       });
 
-      Vue.prototype.$baseUrl = `${location.origin}/api/v1/projects`;
+      Vue.prototype.$baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`;
       new Vue({ router }).$mount(entryPoint);
     }
   }

@@ -4,11 +4,14 @@ en:
     events:
       gobierto_investments_project_project_created: Investment project created
       gobierto_investments_project_project_updated: Investment project updated
+    layouts:
+      application:
+        investments: Investments
     projects:
       all: All
-      none: None
       date: Last year
       gallery: Gallery
       list: List
       map: Map
+      none: None
       summary: Summary by stats

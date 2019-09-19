@@ -18,9 +18,7 @@ export const VueFiltersMixin = {
     },
     money(value) {
       const lang = I18n.locale || "es";
-      if (value) {
-        return value.toLocaleString(lang, { style: "currency", currency: "EUR" });
-      }
+      return value ? value.toLocaleString(lang, { style: "currency", currency: "EUR" }) : undefined;
     }
   }
 };

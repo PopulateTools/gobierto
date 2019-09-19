@@ -5,7 +5,10 @@
       :key="filter.key"
       class="investments-home-aside--block"
     >
-      <BlockFilter :filter="filter" />
+      <BlockFilter
+        :filter="filter"
+        @set-filter="setFilter"
+      />
     </div>
   </aside>
 </template>
@@ -24,6 +27,11 @@ export default {
       default: () => []
     }
   },
+  methods: {
+    setFilter(filter) {
+      this.$emit('set-filter', filter)
+    }
+  }
 };
 </script>
 

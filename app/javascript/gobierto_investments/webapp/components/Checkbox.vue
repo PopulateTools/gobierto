@@ -4,6 +4,7 @@
       :id="`investments-home-aside--checkbox-${id}`"
       :checked="checked"
       type="checkbox"
+      @change="marked = !marked"
     >
     <label :for="`investments-home-aside--checkbox-${id}`">{{ title | translate }}</label>
   </div>
@@ -28,6 +29,16 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  data() {
+    return {
+      marked: false
+    }
+  },
+  watch: {
+    marked(newVal) {
+      this.$emit("checkbox-change", this.id, newVal)
+    },
   }
 };
 </script>

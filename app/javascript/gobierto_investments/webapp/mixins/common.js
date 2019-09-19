@@ -17,7 +17,7 @@ const CONFIGURATION = {
   },
   availableGalleryFields: [
     {
-      id: "wkt"
+      id: "data-final"
     }, {
       id: "import",
       filter: "money"
@@ -65,7 +65,7 @@ export const CommonsMixin = {
         ...attr,
         ...element,
         name: attr.name_translations,
-        value: Array.isArray(attributes[element.id]) ? attributes[element.id].length ? attributes[element.id][0].name_translations : null : attributes[element.id]
+        value: Array.isArray(attributes[element.id]) ? attributes[element.id].length ? attributes[element.id][0].name_translations : undefined : attributes[element.id]
       })
     },
     setItem(element) {

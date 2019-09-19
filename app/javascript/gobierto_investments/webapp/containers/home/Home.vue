@@ -9,12 +9,15 @@
 
     <div class="pure-g m_b_4">
       <div class="pure-u-1 pure-u-lg-1-4">
-        <Aside :filters="filters" />
+        <Aside
+          :filters="filters"
+          @set-filter="filterItems"
+        />
       </div>
       <div class="pure-u-1 pure-u-lg-3-4">
         <Main
           :active-tab="activeTabIndex"
-          :items="items"
+          :items="subsetItems"
         />
       </div>
     </div>
@@ -49,6 +52,7 @@ export default {
   data() {
     return {
       items: [],
+      subsetItems: [],
       dictionary: [],
       filters: [],
       phases: [],
@@ -78,7 +82,10 @@ export default {
         ] = responses;
 
         this.dictionary = attributesDictionary;
+
         this.items = this.setData(items);
+        this.subsetItems = this.items;
+
         // get the phases, and append the items for that phase
         this.phases = this.getPhases(filtersSelected).map(phase => ({ ...phase, items: this.items.filter(d => d.phases.length ? d.phases[0].id === phase.id : false) }))
 
@@ -98,5 +105,10 @@ export default {
         }
       });
   },
+  methods: {
+    filterItems(filter) {
+      this.subsetItems = filter ? this.items.filter(d => filter(d.attributes)) : this.items
+    }
+  }
 };
 </script>

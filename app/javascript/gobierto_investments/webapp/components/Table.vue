@@ -41,7 +41,7 @@ export default {
     }
   },
   created() {
-    const { availableTableFields = [] } = this.items[0]
+    const { availableTableFields = [] } = this.items.length ? this.items[0] : {}
     this.columns = availableTableFields
   },
 };

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Phase from "../../components/Phase.vue"
+import Phase from "../../components/Phase.vue";
 import { CommonsMixin } from "../../mixins/common.js";
 
 export default {
@@ -27,7 +27,6 @@ export default {
       type: Array,
       default: () => []
     }
-  },
+  }
 };
 </script>
-

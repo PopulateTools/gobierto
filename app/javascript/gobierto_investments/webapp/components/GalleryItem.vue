@@ -2,7 +2,10 @@
   <div>
     <div class="investments-home-main--gallery-item">
       <div class="investments-home-main--photo">
-        <img :src="item.photo">
+        <img
+          v-if="item.photo"
+          :src="item.photo"
+        >
       </div>
       <div class="investments-home-main--data">
         <a

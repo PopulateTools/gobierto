@@ -276,6 +276,18 @@
         }
       }
 
+      input[type="checkbox"] + label:hover,
+      input[type="checkbox"]:checked + label {
+        $space: 1em;
+
+        width: calc(100% + $space);
+        margin-left: - $space / 2;
+        margin-right: - $space / 2;
+        padding-left: $space / 2;
+        padding-right: $space / 2;
+        box-sizing: border-box;
+      }
+
       input[type="checkbox"]:checked + label::before {
         background: $color_main;
         color: $color_main_negative;
@@ -401,10 +413,12 @@
       flex-direction: column;
       height: 100%;
       justify-content: space-between;
+      overflow: hidden;
     }
 
     &--photo {
       @include aspect-ratio(16, 9);
+      background-color: $color_neutral_soft;
 
       img {
         width: 100%;

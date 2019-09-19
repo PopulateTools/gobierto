@@ -4,6 +4,9 @@ module GobiertoAdmin
   module GobiertoAttachments
     module Api
       class AttachmentsController < ::GobiertoAdmin::Api::BaseController
+        include ::GobiertoCommon::SecuredWithToken
+        skip_before_action :authenticate_admin!, :set_admin_with_token
+        before_action :set_admin_by_session_or_token
 
         before_action :find_attachable, only: [:index]
         before_action :find_attachment, only: [:show, :destroy]

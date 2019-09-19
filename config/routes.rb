@@ -532,7 +532,7 @@ Rails.application.routes.draw do
         get "inversiones/proyectos/:id" => "investments#index"
 
         # API
-        namespace :api do
+        namespace :api, path: "/gobierto_investments/api" do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true) do
             resources :projects, except: [:edit] do
               collection do

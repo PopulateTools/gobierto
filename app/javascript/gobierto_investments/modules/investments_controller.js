@@ -21,7 +21,7 @@ export class InvestmentsController {
         ]
       });
 
-      Vue.prototype.$baseUrl = `${location.origin}/api/v1/projects`;
+      Vue.prototype.$baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`;
       new Vue({ router }).$mount(entryPoint);
     }
   }

@@ -8,7 +8,7 @@ import d3locale from "./modules/d3-locale.js";
 import { isDesktop, isMobile } from "./modules/globals.js";
 import "./modules/tabs.js";
 import "./modules/velocity_settings.js";
-import "./modules/air-datepicker.js";
+import { datepicker } from "./modules/air-datepicker.js";
 import "./modules/shareContent.js";
 import { readMore } from "./modules/read-more.js";
 import { HorizontalCarousel } from "./modules/horizontal-carousel.js";
@@ -29,6 +29,7 @@ export {
   isMobile,
   URLParams,
   rangeSlider,
+  datepicker,
   readMore,
   HorizontalCarousel,
   ImageLightbox,

@@ -4,20 +4,50 @@
       <strong>{{ labelDate }}</strong>
       <i class="fas fa-caret-down" />
     </div>
-    <small>12 ene 2018 - 13 ene 2018</small>
+    <small>{{ startDateFmt }}{{ endDate ? " - " : "" }}{{ endDateFmt }}</small>
+    <input
+      type="text"
+      class="investments-home-aside--calendar-input datepicker-here"
+    >
   </div>
 </template>
 
 <script>
+import { datepicker } from "lib/shared";
+
 export default {
   name: "Calendar",
   data() {
     return {
-      labelDate: ""
+      labelDate: "",
+      startDate: new Date(),
+      endDate: new Date()
+    };
+  },
+  dateFmt: { day: "numeric", month: "short", year: "numeric" },
+  computed: {
+    startDateFmt() {
+      return this.startDate ? this.startDate.toLocaleDateString(I18n.locale, this.$options.dateFmt) : undefined
+    },
+    endDateFmt() {
+      return this.endDate ? this.endDate.toLocaleDateString(I18n.locale, this.$options.dateFmt) : undefined
     }
   },
   created() {
-    this.labelDate = I18n.t("gobierto_investments.projects.date")
+    this.labelDate = I18n.t("gobierto_investments.projects.date");
+  },
+  mounted() {
+    this.calendar = datepicker(this.$el.querySelector("input"), {
+      language: I18n.locale,
+      autoClose: true,
+      range: true,
+      inline: false,
+      onSelect: (_, date) => {
+        const [start, end] = date;
+        this.startDate = start;
+        this.endDate = end;
+      }
+    });
   }
 };
 </script>

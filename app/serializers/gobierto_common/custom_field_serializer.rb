@@ -8,7 +8,7 @@ module GobiertoCommon
     def vocabulary_terms
       return unless object.has_vocabulary?
 
-      ActiveModelSerializers::SerializableResource.new(object.vocabulary.terms).as_json
+      ActiveModelSerializers::SerializableResource.new(object.vocabulary.terms.sorted).as_json
     end
 
   end

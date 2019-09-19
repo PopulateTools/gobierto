@@ -7,7 +7,6 @@ es:
     projects:
       all: Todas
       date: Último año
-      detail: ver detalle del proyecto
       gallery: Galería
       list: Lista
       map: Mapa

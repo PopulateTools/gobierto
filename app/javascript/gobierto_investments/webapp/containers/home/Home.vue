@@ -76,7 +76,7 @@ export default {
           {
             data: {
               data: attributesDictionary = [],
-              meta: filtersSelected = {}
+              meta: filtersSelected
             }
           }
         ] = responses;
@@ -86,23 +86,26 @@ export default {
         this.items = this.setData(items);
         this.subsetItems = this.items;
 
-        // get the phases, and append the items for that phase
-        this.phases = this.getPhases(filtersSelected).map(phase => ({ ...phase, items: this.items.filter(d => d.phases.length ? d.phases[0].id === phase.id : false) }))
+        if (filtersSelected) {
+          // get the phases, and append the items for that phase
+          this.phases = this.getPhases(filtersSelected).map(phase => ({ ...phase, items: this.items.filter(d => d.phases.length ? d.phases[0].id === phase.id : false) }))
 
-        for (const key in filtersSelected) {
-          if (Object.prototype.hasOwnProperty.call(filtersSelected, key)) {
-            const { field_type: type = "", vocabulary_terms: options = [], name_translations: title = {} } = this.getAttributesByKey(key);
-            const element = filtersSelected[key];
+          for (const key in filtersSelected) {
+            if (Object.prototype.hasOwnProperty.call(filtersSelected, key)) {
+              const { field_type: type = "", vocabulary_terms: options = [], name_translations: title = {} } = this.getAttributesByKey(key);
+              const element = filtersSelected[key];
 
-            this.filters.push({
-              ...element,
-              title,
-              options,
-              type,
-              key
-            });
+              this.filters.push({
+                ...element,
+                title,
+                options,
+                type,
+                key
+              });
+            }
           }
         }
+
       });
   },
   methods: {

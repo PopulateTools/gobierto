@@ -1,21 +1,21 @@
 <template>
   <div>
     <div
-      id="randomID"
+      :id="`range-bars-${random}`"
       class="investments-home-aside--bars"
     >
       <div
-        v-for="i in bars"
-        :key="i"
-        :style="{ height: `${100 * Math.random()}%`}"
+        v-for="bar in rangeBars"
+        :key="bar.id"
+        :style="{ height: `${100 * (bar.count / total)}%`}"
       />
     </div>
     <div
       class="js-range-slider"
-      data-min="50"
-      data-max="500"
-      data-default="[100, 200]"
-      data-range-bars-selector="#randomID"
+      :data-min="min"
+      :data-max="max"
+      :data-default="rangeDefault"
+      :data-range-bars-selector="`#range-bars-${random}`"
     />
   </div>
 </template>
@@ -26,12 +26,35 @@ import { rangeSlider } from "lib/shared";
 export default {
   name: "RangeBars",
   props: {
-    bars: {
+    min: {
       type: Number,
-      default: 6
+      default: 0
+    },
+    max: {
+      type: Number,
+      default: 100
+    },
+    total: {
+      type: Number,
+      default: 1
+    },
+    rangeBars: {
+      type: Array,
+      default: () => []
     }
   },
   inRangeClass: "in-range",
+  data() {
+    return {
+      defaultRange: [this.min, this.max],
+      random: Math.random().toString(36).substring(7)
+    }
+  },
+  computed: {
+    rangeDefault() {
+      return JSON.stringify([Math.floor(this.min), Math.ceil(this.max)])
+    }
+  },
   mounted() {
     const rangeSlider = this.$el.querySelector(".js-range-slider");
     this.setRangeSlider(rangeSlider);
@@ -40,8 +63,8 @@ export default {
     setRangeSlider(slider) {
       const {
         min = 0,
-        max = 1,
-        default: defaultRange = [0, 100],
+        max = 100,
+        default: defaultRange = `[${min},${max}]`,
         rangeBarsSelector
       } = slider.dataset;
 
@@ -50,6 +73,9 @@ export default {
 
         slider.selectedRange = values;
         this.setRangeBar(slider);
+
+        const [min = this.min, max = this.max] = values
+        this.$emit("range-change", min, max)
       };
 
       // Update values for THIS slider

@@ -10,7 +10,7 @@
       <BlockHeader
         :title="filter.title"
         see-link
-        @select-all="handleAllChecked"
+        @select-all="handleIsChecked"
       />
       <Checkbox
         v-for="option in filter.options"
@@ -25,7 +25,13 @@
     <!-- Filter type: range -->
     <template v-else-if="filter.type === 'numeric'">
       <BlockHeader :title="filter.title" />
-      <RangeBars :bars="6" />
+      <RangeBars
+        :range-bars="(filter.histogram || []).map((item, i) => ({ ...item, id: item.bucket || i }))"
+        :min="Math.floor(parseFloat(filter.min))"
+        :max="Math.ceil(parseFloat(filter.max))"
+        :total="parseFloat(filter.count)"
+        @range-change="handleRangeFilter"
+      />
     </template>
   </div>
 </template>
@@ -52,8 +58,7 @@ export default {
   },
   data() {
     return {
-      isChecked: false,
-      mapCheckboxStatus: null
+      isChecked: false
     };
   },
   watch: {
@@ -62,9 +67,8 @@ export default {
     }
   },
   created() {
-    this.mapCheckboxStatus = new Map();
-
     if (this.filter.type === "vocabulary_options") {
+      this.mapCheckboxStatus = new Map();
       const { options = [] } = this.filter;
       if (options && options.length) {
         for (let index = 0; index < options.length; index++) {
@@ -75,16 +79,16 @@ export default {
     }
   },
   methods: {
-    handleAllChecked() {
+    handleIsChecked() {
       this.isChecked = !this.isChecked;
       // To allow the watcher updates
-      this.$nextTick(() => this.sendEvent());
+      this.$nextTick(() => this.handleCheckboxFilter());
     },
     handleCheckboxStatus(id, value) {
       this.mapCheckboxStatus.set(id, value);
-      this.sendEvent();
+      this.handleCheckboxFilter();
     },
-    sendEvent() {
+    handleCheckboxFilter() {
       const { key } = this.filter;
       const checkboxesSelected = [];
 
@@ -107,8 +111,13 @@ export default {
 
       const checkboxFilterFn = attrs => attrs[key].find(d => checkboxesSelected.includes(parseFloat(d.id)));
 
-      // TODO: solo apra checkboxes de momento
       this.$emit("set-filter", checkboxesSelected.length ? checkboxFilterFn : undefined);
+    },
+    handleRangeFilter(min, max) {
+      const { key, min: _min, max: _max } = this.filter;
+      const rangeFilterFn = attrs => attrs[key] >= min && attrs[key] <= max;
+
+      this.$emit("set-filter", (Math.floor(min) <= Math.floor(parseFloat(_min)) && Math.floor(max) >= Math.floor(parseFloat(_max))) ? undefined: rangeFilterFn);
     }
   }
 };

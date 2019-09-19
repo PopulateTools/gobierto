@@ -607,14 +607,15 @@
       }
     }
 
-    $initial-color-range: lighten($color_main, 60%);
+    $ranges-opacity: [80%, 60%, 40%, 25%, 10%, 0%];
+    @for $i from 1 through length($ranges-opacity) {
+      $opacity: nth($ranges-opacity, $i);
 
-    @for $i from 1 through 6 {
       &--item:nth-child(#{$i}) &--heading {
-        background-color: darken($initial-color-range, 12% * $i);
+        background-color: mix(#fff, $color_main, $opacity);
 
         &::after {
-          border-left: 15px solid darken($initial-color-range, 12% * $i);
+          border-left: 15px solid mix(#fff, $color_main, $opacity);
         }
       }
     }

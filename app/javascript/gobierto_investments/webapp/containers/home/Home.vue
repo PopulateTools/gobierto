@@ -56,7 +56,7 @@ export default {
       dictionary: [],
       filters: [],
       phases: [],
-      activeTabIndex: 0,
+      activeTabIndex: 1,
       labelSummary: ""
     };
   },

@@ -16,7 +16,7 @@ export class InvestmentsController {
       const router = new VueRouter({
         mode: "history",
         routes: [
-          { path: "/inversiones/proyectos", name: "home", component: Home },
+          { path: "/inversiones", name: "home", component: Home },
           { path: "/inversiones/proyectos/:id", name: "project", component: Project }
         ]
       });

@@ -4,7 +4,7 @@
     <a
       v-if="seeLink"
       @click="selectAll"
-    >{{ labelAll }}</a>
+    >{{ labelAlt ? labelNone : labelAll }}</a>
   </div>
 </template>
 
@@ -22,15 +22,21 @@ export default {
     seeLink: {
       type: Boolean,
       default: false
+    },
+    labelAlt: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      labelAll: ""
+      labelAll: "",
+      labelNone: ""
     }
   },
   created() {
     this.labelAll = I18n.t("gobierto_investments.projects.all")
+    this.labelNone = I18n.t("gobierto_investments.projects.none")
   },
   methods: {
     selectAll() {

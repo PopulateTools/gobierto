@@ -6,6 +6,7 @@ ca:
       gobierto_investments_project_project_updated: Projecte d'inversió actualitzat
     projects:
       all: Totes
+      none: Cap
       date: Darrer any
       gallery: Galeria
       list: Llista

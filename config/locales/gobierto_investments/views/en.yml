@@ -6,6 +6,7 @@ en:
       gobierto_investments_project_project_updated: Investment project updated
     projects:
       all: All
+      none: None
       date: Last year
       gallery: Gallery
       list: List

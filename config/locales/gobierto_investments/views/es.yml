@@ -6,6 +6,7 @@ es:
       gobierto_investments_project_project_updated: Proyecto de inversión actualizado
     projects:
       all: Todas
+      none: Ninguna
       date: Último año
       gallery: Galería
       list: Lista

@@ -11,11 +11,11 @@
       />
     </div>
     <div
-      class="js-range-slider"
       :data-min="min"
       :data-max="max"
       :data-default="rangeDefault"
       :data-range-bars-selector="`#range-bars-${random}`"
+      class="js-range-slider"
     />
   </div>
 </template>

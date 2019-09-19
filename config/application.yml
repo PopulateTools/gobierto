@@ -57,6 +57,9 @@ default: &default
     -
       name: Gobierto Citizens Charters
       namespace: GobiertoCitizensCharters
+    -
+      name: Gobierto Investments
+      namespace: GobiertoInvestments
   dns_config:
     cname_record_target: site.gobierto.test
     a_record_target: 222.111.222.11

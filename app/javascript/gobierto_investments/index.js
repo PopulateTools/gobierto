@@ -1,5 +1,5 @@
 import { InvestmentsController } from "./modules/investments_controller.js";
 
-$(document).on("turbolinks:load", function() {
+document.addEventListener('DOMContentLoaded', () => {
   new InvestmentsController();
 });

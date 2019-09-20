@@ -373,12 +373,12 @@
 
           &:first-child {
             left: 0;
-            transform: translateX(-50%);
+            transform: translateX(-85%);
           }
 
           &:last-child {
             right: 0;
-            transform: translateX(50%);
+            transform: translateX(85%);
           }
         }
 

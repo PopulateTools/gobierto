@@ -85,7 +85,7 @@ module GobiertoCommon
     def histogram(custom_field, filters, stats)
       return unless stats.min != stats.max && stats.count > 1
 
-      separations = Math.log(stats.count, 2).floor
+      separations = [stats.count, 9].min
       interval_width = (stats.max - stats.min).to_f / (1 + separations)
       bucket_attributes = Arel::Nodes::SqlLiteral.new(
         "width_bucket(#{extracted_attribute(custom_field)}, #{stats.min}, #{stats.max}, #{separations}) as bucket, count(*)"
@@ -97,11 +97,11 @@ module GobiertoCommon
         bucket_attributes
       ).group(:bucket).order(bucket: :asc)
 
-      histogram_query.map do |bin_data|
-        { bucket: bin_data.bucket,
-          start: stats.min + interval_width * (bin_data.bucket - 1),
-          end: stats.min + interval_width * bin_data.bucket,
-          count: bin_data.count }
+      (1..separations + 1).map do |bucket|
+        { bucket: bucket,
+          start: (stats.min + interval_width * (bucket - 1)).ceil,
+          end: (stats.min + interval_width * bucket).floor,
+          count: histogram_query.find { |bin_data| bin_data.bucket == bucket }&.count || 0 }
       end
     end
 

@@ -7,8 +7,12 @@
 
     <!-- Filter type: checkbox -->
     <template v-else-if="filter.type === 'vocabulary_options'">
-      <BlockHeader :title="filter.title"
-:label-alt="isChecked" see-link @select-all="handleIsChecked" />
+      <BlockHeader
+        :title="filter.title"
+        :label-alt="isChecked"
+        see-link
+        @select-all="handleIsChecked"
+      />
       <Checkbox
         v-for="option in filter.options"
         :id="option.id"

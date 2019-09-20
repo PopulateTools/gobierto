@@ -49,10 +49,6 @@ export default {
         this.endDate = end;
 
         this.$emit("calendar-change", start, end)
-      },
-      onHide(inst, animationCompleted) {
-        console.log(1);
-
       }
     });
   }

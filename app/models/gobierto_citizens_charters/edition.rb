@@ -33,6 +33,7 @@ module GobiertoCitizensCharters
     scope :recent, -> { order(period: :desc) }
     scope :of_same_period, ->(edition) { where(period: (edition.period_start..edition.period_end), period_interval: edition.period_interval) }
     scope :group_by_period_interval, ->(period_interval) { where(period_interval: period_interval).group(Arel.sql("date_trunc('#{ period_interval }', period)"), :period_interval) }
+    scope :sorted, -> { joins(:commitment).merge(Commitment.sorted) }
 
     def proportion
       return nil if percentage.blank? && [value, max_value].any?(&:blank?)

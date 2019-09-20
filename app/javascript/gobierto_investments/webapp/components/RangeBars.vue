@@ -8,7 +8,10 @@
         v-for="bar in rangeBars"
         :key="bar.id"
         :style="{ height: `${100 * (bar.count / total)}%`}"
-      />
+      >
+        <span>{{ rangeMin(bar.start) | money({ minimumFractionDigits: 0 }) }}</span>
+        <span>{{ rangeMax(bar.end) | money({ minimumFractionDigits: 0 }) }}</span>
+      </div>
     </div>
     <div
       :data-min="min"
@@ -59,6 +62,12 @@ export default {
     }
   },
   computed: {
+    rangeMin() {
+      return value => Math.floor(parseFloat(value))
+    },
+    rangeMax() {
+      return value => Math.ceil(parseFloat(value))
+    },
     rangeDefault() {
       return JSON.stringify([Math.floor(this.min), Math.ceil(this.max)])
     }

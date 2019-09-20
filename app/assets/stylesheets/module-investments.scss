@@ -351,6 +351,7 @@
         flex: 1;
         opacity: 0.5;
         transition: opacity .3s ease-out;
+        position: relative;
 
         &.in-range {
           opacity: 1;
@@ -358,6 +359,31 @@
 
         &:not(:first-child) {
           margin-left: -1px;
+        }
+
+        > span {
+          font-size: $f8;
+          font-weight: 400;
+          line-height: $f8;
+          opacity: 0;
+          position: absolute;
+          top: -1rem;
+          z-index: 2;
+          transition: opacity .3s ease-out;
+
+          &:first-child {
+            left: 0;
+            transform: translateX(-50%);
+          }
+
+          &:last-child {
+            right: 0;
+            transform: translateX(50%);
+          }
+        }
+
+        &:hover > span {
+          opacity: 0.5;
         }
       }
     }

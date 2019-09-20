@@ -8,9 +8,6 @@ const CONFIGURATION = {
   description: {
     id: "descripcio-projecte"
   },
-  gallery: {
-    id: "gallerypichicorto"
-  },
   phases: {
     id: "estat",
     filter: "translate"

@@ -37,15 +37,22 @@ export default {
     this.labelDate = I18n.t("gobierto_investments.projects.date");
   },
   mounted() {
-    this.calendar = datepicker(this.$el.querySelector("input"), {
+    datepicker(this.$el.querySelector("input"), {
       language: I18n.locale,
       autoClose: true,
       range: true,
       inline: false,
+      clearButton: true,
       onSelect: (_, date) => {
         const [start, end] = date;
         this.startDate = start;
         this.endDate = end;
+
+        this.$emit("calendar-change", start, end)
+      },
+      onHide(inst, animationCompleted) {
+        console.log(1);
+
       }
     });
   }

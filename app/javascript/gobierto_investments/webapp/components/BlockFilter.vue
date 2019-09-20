@@ -2,17 +2,13 @@
   <div>
     <!-- Filter type: date -->
     <template v-if="filter.type === 'date'">
-      <Calendar />
+      <Calendar @calendar-change="handleCalendarFilter" />
     </template>
 
     <!-- Filter type: checkbox -->
     <template v-else-if="filter.type === 'vocabulary_options'">
-      <BlockHeader
-        :title="filter.title"
-        :label-alt="isChecked"
-        see-link
-        @select-all="handleIsChecked"
-      />
+      <BlockHeader :title="filter.title"
+:label-alt="isChecked" see-link @select-all="handleIsChecked" />
       <Checkbox
         v-for="option in filter.options"
         :id="option.id"
@@ -118,7 +114,30 @@ export default {
       const { key, min: _min, max: _max } = this.filter;
       const rangeFilterFn = attrs => attrs[key] >= min && attrs[key] <= max;
 
-      this.$emit("set-filter", (Math.floor(min) <= Math.floor(parseFloat(_min)) && Math.floor(max) >= Math.floor(parseFloat(_max))) ? undefined: rangeFilterFn);
+      this.$emit(
+        "set-filter",
+        Math.floor(min) <= Math.floor(parseFloat(_min)) && Math.floor(max) >= Math.floor(parseFloat(_max)) ? undefined : rangeFilterFn
+      );
+    },
+    handleCalendarFilter(start, end) {
+      const { key } = this.filter;
+      const calendarFilterFn = attrs => {
+        if (attrs[key] !== null) {
+          if (start && end) {
+            return new Date(attrs[key]).getTime() >= start.getTime() && new Date(attrs[key]).getTime() <= end.getTime();
+          } else if (start && !end) {
+            return new Date(attrs[key]).getTime() >= start.getTime();
+          } else if (!start && end) {
+            return new Date(attrs[key]).getTime() <= end.getTime();
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      };
+
+      this.$emit("set-filter", !start && !end ? undefined : calendarFilterFn);
     }
   }
 };

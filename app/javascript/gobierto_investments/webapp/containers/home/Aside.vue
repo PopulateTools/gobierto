@@ -2,7 +2,6 @@
   <aside class="investments-home-aside--gap">
     <template v-for="filter in filters">
       <div
-        v-if="filter.type !== 'date'"
         :key="filter.key"
         class="investments-home-aside--block"
       >

@@ -99,8 +99,8 @@ module GobiertoCommon
 
       (1..separations + 1).map do |bucket|
         { bucket: bucket,
-          start: stats.min + interval_width * (bucket - 1),
-          end: stats.min + interval_width * bucket,
+          start: (stats.min + interval_width * (bucket - 1)).ceil,
+          end: (stats.min + interval_width * bucket).floor,
           count: histogram_query.find { |bin_data| bin_data.bucket == bucket }&.count || 0 }
       end
     end

@@ -3,7 +3,7 @@
     <ul>
       <!-- <li
         class="investments-home-nav--tab"
-        :class="{ 'is-active': isActive === 0 }"
+        :class="{ 'is-active': activeTab === 0 }"
         @click="activateTab(0)"
       >
         <i class="fas fa-map" />
@@ -12,7 +12,7 @@
       </li> -->
       <li
         class="investments-home-nav--tab"
-        :class="{ 'is-active': isActive === 1 }"
+        :class="{ 'is-active': activeTab === 1 }"
         @click="activateTab(1)"
       >
         <i class="fas fa-clone" />
@@ -21,7 +21,7 @@
       </li>
       <li
         class="investments-home-nav--tab"
-        :class="{ 'is-active': isActive === 2 }"
+        :class="{ 'is-active': activeTab === 2 }"
         @click="activateTab(2)"
       >
         <i class="fas fa-list-alt" />
@@ -35,9 +35,14 @@
 <script>
 export default {
   name: "HomeNav",
+  props: {
+    activeTab: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
-      isActive: 0,
       labelMap: "",
       labelGallery: "",
       labelList: "",
@@ -50,7 +55,6 @@ export default {
   },
   methods: {
     activateTab(index) {
-      this.isActive = index;
       this.$emit("active-tab", index);
     }
   }

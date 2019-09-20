@@ -16,9 +16,10 @@ export const VueFiltersMixin = {
       // Look for the language key, fallback to the first found key
       return (Object.prototype.hasOwnProperty.call(value, lang) && value[lang]) ? value[lang] : value[Object.keys(value)[0]];
     },
-    money(value) {
+    money(value, opts = {}) {
       const lang = I18n.locale || "es";
-      return value ? value.toLocaleString(lang, { style: "currency", currency: "EUR" }) : undefined;
+      const options = { style: "currency", currency: "EUR", ...opts }
+      return value !== undefined && value !== null ? value.toLocaleString(lang, options) : undefined;
     }
   }
 };

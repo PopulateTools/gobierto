@@ -17,14 +17,20 @@
       :data-range-bars-selector="`#range-bars-${random}`"
       class="js-range-slider"
     />
+    <div class="investments-home-aside--bars-values">
+      <span>{{ selectedMin | money({ minimumFractionDigits: 0 }) }}</span>
+      <span>{{ selectedMax | money({ minimumFractionDigits: 0 }) }}</span>
+    </div>
   </div>
 </template>
 
 <script>
 import { rangeSlider } from "lib/shared";
+import { CommonsMixin } from "../mixins/common.js";
 
 export default {
   name: "RangeBars",
+  mixins: [CommonsMixin],
   props: {
     min: {
       type: Number,
@@ -47,7 +53,9 @@ export default {
   data() {
     return {
       defaultRange: [this.min, this.max],
-      random: Math.random().toString(36).substring(7)
+      selectedMin: this.min,
+      selectedMax: this.max,
+      random: Math.random().toString(36).substring(7),
     }
   },
   computed: {
@@ -75,6 +83,8 @@ export default {
         this.setRangeBar(slider);
 
         const [min = this.min, max = this.max] = values
+        this.selectedMin = min
+        this.selectedMax = max
         this.$emit("range-change", min, max)
       };
 
@@ -110,7 +120,7 @@ export default {
           ? bar.classList.add(this.$options.inRangeClass)
           : bar.classList.remove(this.$options.inRangeClass);
       }
-    }
+    },
   }
 };
 </script>

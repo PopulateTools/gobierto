@@ -9,7 +9,7 @@ const CONFIGURATION = {
     id: "descripcio-projecte"
   },
   gallery: {
-    id: "imagen-principal"
+    id: "gallerypichicorto"
   },
   phases: {
     id: "estat",
@@ -70,14 +70,14 @@ export const CommonsMixin = {
     },
     setItem(element) {
       const { attributes = {} } = element;
-      const { title, description, gallery, phases, availableGalleryFields, availableTableFields } = CONFIGURATION;
+      const { title, description, phases, availableGalleryFields, availableTableFields } = CONFIGURATION;
 
       return ({
         ...element,
         title: attributes[title.id],
-        description: attributes[description.id],
-        photo: attributes[gallery.id][0],
-        gallery: attributes[gallery.id],
+        description: attributes[description.id] || "",
+        photo: Array.isArray(attributes.gallery) ? attributes.gallery[0] : "",
+        gallery: attributes.gallery || [],
         phases: attributes[phases.id].map(element => ({ ...element, title: element.name_translations })),
         availableGalleryFields: availableGalleryFields.map(element => this.getItem(element, attributes)),
         availableTableFields: availableTableFields.map(element => this.getItem(element, attributes))

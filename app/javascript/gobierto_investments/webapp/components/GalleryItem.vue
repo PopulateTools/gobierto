@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="investments-home-main--gallery-item">
+    <div
+      class="investments-home-main--gallery-item"
+      @click.prevent="nav(item.id)"
+    >
       <div class="investments-home-main--photo">
         <img
           v-if="item.photo"

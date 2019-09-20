@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Filter type: date -->
-    <template v-if="filter.type === 'date'">
+    <template v-if="filter.type === 'range'">
       <Calendar @calendar-change="handleCalendarFilter" />
     </template>
 
@@ -124,18 +124,14 @@ export default {
       );
     },
     handleCalendarFilter(start, end) {
-      const { key } = this.filter;
+      const { startKey, endKey } = this.filter;
       const calendarFilterFn = attrs => {
-        if (attrs[key] !== null) {
-          if (start && end) {
-            return new Date(attrs[key]).getTime() >= start.getTime() && new Date(attrs[key]).getTime() <= end.getTime();
-          } else if (start && !end) {
-            return new Date(attrs[key]).getTime() >= start.getTime();
-          } else if (!start && end) {
-            return new Date(attrs[key]).getTime() <= end.getTime();
-          } else {
-            return false;
-          }
+        if (start && end) {
+          return new Date(attrs[startKey]).getTime() >= start.getTime() && new Date(attrs[endKey]).getTime() <= end.getTime();
+        } else if (start && !end) {
+          return new Date(attrs[startKey]).getTime() >= start.getTime();
+        } else if (!start && end) {
+          return new Date(attrs[endKey]).getTime() <= end.getTime();
         } else {
           return false;
         }

@@ -573,7 +573,8 @@
       cursor: pointer;
 
       > * {
-        border-top: 1px solid rgba(var(--color-base), 0.85);
+        border-top: 1px solid;
+        border-top-color: 1px solid hsla(var(--color-main-h), calc(var(--color-main-s) * 1%), calc(var(--color-main-l) * 1%), 15%);
         padding: 0.5em 0;
       }
 
@@ -593,7 +594,7 @@
     }
 
     &--tr:hover > * {
-      background-color: rgba(var(--color-base), 0.25);
+      background-color: var(--color-base-soft);
 
       > * {
         border-top-color: transparent;

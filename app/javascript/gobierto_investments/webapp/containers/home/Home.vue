@@ -89,12 +89,29 @@ export default {
         }));
 
         this.filters = this.getFilters(filtersSelected) || [];
+
+        if (this.filters.length) {
+          this.activeFilters = new Map();
+          this.filters.forEach(f => this.activeFilters.set(f.key, undefined));
+        }
       }
     });
   },
   methods: {
-    filterItems(filter) {
-      this.subsetItems = filter ? this.items.filter(d => filter(d.attributes)) : this.items;
+    filterItems(filter, key) {
+      this.activeFilters.set(key, filter);
+
+      let a = this.items
+      this.activeFilters.forEach(activeFn => {
+        if (activeFn) {
+          a = a.filter(d => activeFn(d.attributes));
+        }
+      });
+
+      console.log(a);
+
+      this.subsetItems = a
+
     }
   }
 };

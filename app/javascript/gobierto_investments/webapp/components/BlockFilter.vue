@@ -112,7 +112,7 @@ export default {
 
       const checkboxFilterFn = attrs => attrs[key].find(d => checkboxesSelected.includes(parseFloat(d.id)));
 
-      this.$emit("set-filter", checkboxesSelected.length ? checkboxFilterFn : undefined);
+      this.$emit("set-filter", checkboxesSelected.length ? checkboxFilterFn : undefined, key);
     },
     handleRangeFilter(min, max) {
       const { key, min: _min, max: _max } = this.filter;
@@ -120,11 +120,11 @@ export default {
 
       this.$emit(
         "set-filter",
-        Math.floor(min) <= Math.floor(parseFloat(_min)) && Math.floor(max) >= Math.floor(parseFloat(_max)) ? undefined : rangeFilterFn
+        Math.floor(min) <= Math.floor(parseFloat(_min)) && Math.floor(max) >= Math.floor(parseFloat(_max)) ? undefined : rangeFilterFn, key
       );
     },
     handleCalendarFilter(start, end) {
-      const { startKey, endKey } = this.filter;
+      const { key, startKey, endKey } = this.filter;
       const calendarFilterFn = attrs => {
         if (start && end) {
           return new Date(attrs[startKey]).getTime() >= start.getTime() && new Date(attrs[endKey]).getTime() <= end.getTime();
@@ -137,7 +137,7 @@ export default {
         }
       };
 
-      this.$emit("set-filter", !start && !end ? undefined : calendarFilterFn);
+      this.$emit("set-filter", !start && !end ? undefined : calendarFilterFn, key);
     }
   }
 };

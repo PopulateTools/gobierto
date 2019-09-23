@@ -27,6 +27,8 @@ module GobiertoCommon
     def meta
       @resource = base_relation.new
 
+      return unless stale?(base_relation)
+
       meta_stats = if params[:stats] == "true"
                      filterable_custom_fields.inject({}) do |stats, custom_field|
                        stats.update(

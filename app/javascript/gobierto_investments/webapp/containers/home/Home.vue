@@ -101,17 +101,14 @@ export default {
     filterItems(filter, key) {
       this.activeFilters.set(key, filter);
 
-      let a = this.items
+      let results = this.items
       this.activeFilters.forEach(activeFn => {
         if (activeFn) {
-          a = a.filter(d => activeFn(d.attributes));
+          results = results.filter(d => activeFn(d.attributes));
         }
       });
 
-      console.log(a);
-
-      this.subsetItems = a
-
+      this.subsetItems = results;
     }
   }
 };

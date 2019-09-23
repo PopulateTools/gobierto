@@ -28,7 +28,7 @@ module GobiertoCommon
 
     attr_accessor :item_has_versions
 
-    belongs_to :item, polymorphic: true, touch: true
+    belongs_to :item, polymorphic: true
     belongs_to :custom_field
 
     validates :custom_field, presence: true
@@ -43,7 +43,7 @@ module GobiertoCommon
 
     delegate :value, :value_string, :raw_value, :value=, :filter_value, :searchable_value, to: :value_processor
 
-    after_save :check_plugin_callbacks
+    after_save :check_plugin_callbacks, :touch_item
 
     def value_processor
       key = VALUE_PROCESSORS.has_key?(custom_field&.field_type&.to_sym) ? custom_field.field_type.to_sym : :default
@@ -69,6 +69,12 @@ module GobiertoCommon
     end
 
     private
+
+    def touch_item
+      return if item_has_versions
+
+      item.touch
+    end
 
     def check_plugin_callbacks
       plugin_types_with_callbacks = GobiertoCommon::CustomFieldPlugin.with_callbacks.map(&:type)

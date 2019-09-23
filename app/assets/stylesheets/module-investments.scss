@@ -1,8 +1,5 @@
 :root {
-  --color-main-h: hue(#{$color_main});
-  --color-main-s: saturation(#{$color_main});
-  --color-main-l: lightness(#{$color_main});
-
+  --color-main: #{$color_main};
   --hsl: var(--color-main-h), calc(var(--color-main-s) * 1%), calc(var(--color-main-l) * 1%);
   --color-base: hsl(var(--hsl));
   --color-base-soft: hsla(var(--hsl), 10%);

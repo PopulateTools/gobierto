@@ -68,7 +68,6 @@ export class ParseHexColor {
 
   setCustomPropertiesOfColor(prop, color) {
     const { h: hue, s: saturation , l: lightness } = hexToHSL(color)
-    document.documentElement.style.setProperty(prop, `hsl(${hue},${saturation}%,${lightness}%)`)
     document.documentElement.style.setProperty(`${prop}-h`, hue)
     document.documentElement.style.setProperty(`${prop}-s`, saturation)
     document.documentElement.style.setProperty(`${prop}-l`, lightness)

@@ -1,3 +1,13 @@
+:root {
+  --color-main-h: hue(#{$color_main});
+  --color-main-s: saturation(#{$color_main});
+  --color-main-l: lightness(#{$color_main});
+
+  --color-base: hsl(var(--color-main-h), calc(var(--color-main-s) * 1%), calc(var(--color-main-l) * 1%));
+  --color-base-soft: hsla(var(--color-main-h), calc(var(--color-main-s) * 1%), calc(var(--color-main-l) * 1%), 10%);
+  --color-base-soft-darker: hsla(var(--color-main-h), calc(var(--color-main-s) * 1%), calc((var(--color-main-l) - 25) * 1%), 25%);
+}
+
 .investments {
   &-project--heading {
     color: $color_text;
@@ -289,14 +299,14 @@
       }
 
       input[type="checkbox"]:checked + label::before {
-        background: $color_main;
+        background: var(--color-base);
         color: $color_main_negative;
         content: "✔";
       }
     }
 
     &--calendar-button {
-      background-color: $color_main_soft;
+      background-color: var(--color-base-soft);
       border-radius: 4px;
       padding: 6px;
       cursor: pointer;
@@ -315,7 +325,7 @@
       }
 
       i {
-        color: $color_main;
+        color: var(--color-base);
         font-size: $f5;
       }
 
@@ -345,8 +355,8 @@
       padding: 0 0.5em;
 
       > * {
-        background-color: $color_main_soft;
-        border: 1px solid darken($color_main_soft, 25%);
+        background-color: var(--color-base-soft);
+        border: 1px solid var(--color-base-soft-darker);
         border-bottom-width: 0;
         flex: 1;
         opacity: 0.5;
@@ -388,6 +398,13 @@
       }
     }
 
+    &--slider {
+      .ui-slider-handle,
+      .ui-slider-range {
+        background-color: var(--color-base);
+      }
+    }
+
     &--bars-values {
       display: flex;
       justify-content: space-between;
@@ -411,7 +428,7 @@
     }
 
     &--tab {
-      color: $color_main;
+      color: var(--color-base);
       font-size: 20px;
       font-weight: 300;
       line-height: 24px;
@@ -431,7 +448,7 @@
 
       &.is-active {
         font-weight: 700;
-        border-top-color: $color_main;
+        border-top-color: var(--color-base);
       }
 
       &.is-active i:first-of-type,
@@ -494,7 +511,7 @@
     }
 
     &--link {
-      color: $color_main;
+      color: var(--color-base);
       font-size: $f6;
       font-weight: 700;
       line-height: 19px;
@@ -556,7 +573,7 @@
       cursor: pointer;
 
       > * {
-        border-top: 1px solid transparentize($color_main, 0.85);
+        border-top: 1px solid rgba(var(--color-base), 0.85);
         padding: 0.5em 0;
       }
 
@@ -576,7 +593,7 @@
     }
 
     &--tr:hover > * {
-      background-color: rgba($color_main, 0.25);
+      background-color: rgba(var(--color-base), 0.25);
 
       > * {
         border-top-color: transparent;
@@ -627,7 +644,7 @@
       font-size: $f5;
       font-weight: 400;
       line-height: 22px;
-      color: $color_main;
+      color: var(--color-base);
       position: relative;
       height: 128px;
       box-sizing: border-box;
@@ -639,11 +656,27 @@
         color: $color_main_negative;
       }
 
+      &::before {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        border-left: 15px solid;
+        border-top: 64px solid transparent;
+        border-bottom: 64px solid transparent;
+        position: absolute;
+        top: 50%;
+        margin-top: -64px;
+        left: 100%;
+        z-index: 2;
+      }
+
       &::after {
         content: "";
         display: block;
         width: 0;
         height: 0;
+        border-left: 15px solid;
         border-top: 64px solid transparent;
         border-bottom: 64px solid transparent;
         position: absolute;
@@ -654,15 +687,19 @@
       }
     }
 
-    $ranges-opacity: [80%, 60%, 40%, 25%, 10%, 0%];
+    $ranges-opacity: [10%, 25%, 40%, 60%, 80%, 100%];
     @for $i from 1 through length($ranges-opacity) {
       $opacity: nth($ranges-opacity, $i);
 
       &--item:nth-child(#{$i}) &--heading {
-        background-color: mix(#fff, $color_main, $opacity);
+        background-color: hsla(var(--color-main-h), calc(var(--color-main-s) * 1%), calc((var(--color-main-l)) * 1%), $opacity);
+
+        &::before {
+          border-left-color: white;
+        }
 
         &::after {
-          border-left: 15px solid mix(#fff, $color_main, $opacity);
+          border-left-color: hsla(var(--color-main-h), calc(var(--color-main-s) * 1%), calc((var(--color-main-l)) * 1%), $opacity);
         }
       }
     }

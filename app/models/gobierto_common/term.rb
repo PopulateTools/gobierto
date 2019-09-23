@@ -11,7 +11,7 @@ module GobiertoCommon
     before_destroy :free_children
     before_validation :clear_parent_if_itself
 
-    belongs_to :vocabulary
+    belongs_to :vocabulary, touch: true
 
     has_many :terms, dependent: :nullify
     belongs_to :parent_term, class_name: name, foreign_key: :term_id

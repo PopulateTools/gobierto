@@ -398,7 +398,7 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sassc (2.2.0)
+    sassc (2.2.1)
       ffi (~> 1.9)
     savon (2.12.0)
       akami (~> 1.2)

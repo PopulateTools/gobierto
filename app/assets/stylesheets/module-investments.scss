@@ -3,9 +3,10 @@
   --color-main-s: saturation(#{$color_main});
   --color-main-l: lightness(#{$color_main});
 
-  --color-base: hsl(var(--color-main-h), calc(var(--color-main-s) * 1%), calc(var(--color-main-l) * 1%));
-  --color-base-soft: hsla(var(--color-main-h), calc(var(--color-main-s) * 1%), calc(var(--color-main-l) * 1%), 10%);
-  --color-base-soft-darker: hsla(var(--color-main-h), calc(var(--color-main-s) * 1%), calc((var(--color-main-l) - 25) * 1%), 25%);
+  --hsl: var(--color-main-h), calc(var(--color-main-s) * 1%), calc(var(--color-main-l) * 1%);
+  --color-base: hsl(var(--hsl));
+  --color-base-soft: hsla(var(--hsl), 10%);
+  --color-base-soft-darker: hsla(var(--hsl), 25%);
 }
 
 .investments {
@@ -574,7 +575,7 @@
 
       > * {
         border-top: 1px solid;
-        border-top-color: 1px solid hsla(var(--color-main-h), calc(var(--color-main-s) * 1%), calc(var(--color-main-l) * 1%), 15%);
+        border-top-color: hsla(var(--hsl), 15%);
         padding: 0.5em 0;
       }
 
@@ -693,14 +694,14 @@
       $opacity: nth($ranges-opacity, $i);
 
       &--item:nth-child(#{$i}) &--heading {
-        background-color: hsla(var(--color-main-h), calc(var(--color-main-s) * 1%), calc((var(--color-main-l)) * 1%), $opacity);
+        background-color: hsla(var(--hsl), $opacity);
 
         &::before {
           border-left-color: white;
         }
 
         &::after {
-          border-left-color: hsla(var(--color-main-h), calc(var(--color-main-s) * 1%), calc((var(--color-main-l)) * 1%), $opacity);
+          border-left-color: hsla(var(--hsl), $opacity);
         }
       }
     }

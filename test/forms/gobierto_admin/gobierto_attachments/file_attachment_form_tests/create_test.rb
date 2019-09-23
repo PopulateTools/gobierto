@@ -42,10 +42,22 @@ module GobiertoAdmin
           assert_equal "http://www.domain.com/logo-madrid.png", file_attachment.url
         end
 
+        def test_create_when_file_exists
+          form = ::GobiertoAdmin::FileAttachmentForm.new(file_attachment_attributes)
+          form.save
+
+          new_form = ::GobiertoAdmin::FileAttachmentForm.new(file_attachment_attributes.merge(name: "Duplicated file"))
+          new_form.save
+
+          file_attachment = file_attachment_class.find(form.file_attachment.id)
+          assert_equal form.file_attachment.id, new_form.file_attachment.id
+          assert_equal "Duplicated file", file_attachment.name
+        end
+
         def test_create_attachment_on_collection
           form = ::GobiertoAdmin::FileAttachmentForm.new(file_attachment_attributes.merge(
                                                            collection_id: collection.id
-          ))
+                                                         ))
 
           assert form.save
 

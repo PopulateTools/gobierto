@@ -4,11 +4,11 @@ require "test_helper"
 
 module GobiertoAdmin
   module GobiertoCitizensCharters
-    module Commitments
-      class CommitmentsIndexTest < ActionDispatch::IntegrationTest
+    module Editions
+      class EditionssIndexTest < ActionDispatch::IntegrationTest
         def setup
           super
-          @path = admin_citizens_charters_charter_commitments_path(charter)
+          @path = admin_citizens_charters_charter_editions_path(charter, period: "2018-01-01", period_interval: :year)
         end
 
         def admin
@@ -41,31 +41,11 @@ module GobiertoAdmin
           end
         end
 
-        def test_commitments_index
-          with_signed_in_admin(admin) do
-            with_current_site(site) do
-              visit @path
-
-              within "table tbody" do
-                assert has_selector?("tr", count: commitments.size)
-
-                commitments.each do |commitment|
-                  assert has_selector?("tr#commitment-item-#{commitment.id}")
-
-                  within "tr#commitment-item-#{commitment.id}" do
-                    assert has_link?(commitment.title)
-                  end
-                end
-              end
-            end
-          end
-        end
-
-        def test_commitments_index_order_by_title
-          with(admin: admin, site: site) do
+        def test_order_by_commitments_title
+          with(admin: admin, site: site, js: true) do
             visit(@path)
-            within "table tbody" do
-              commitments_titles = find_all("tr").map { |row| row.find_all("td")[1].text }
+            within "div.jsgrid-grid-body table.jsgrid-table" do
+              commitments_titles = find_all("tr").map { |row| row.find_all("td")[0].text }
               assert_equal commitments_titles, commitments_titles.sort
             end
           end

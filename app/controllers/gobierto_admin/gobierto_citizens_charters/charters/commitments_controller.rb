@@ -7,8 +7,8 @@ module GobiertoAdmin
         before_action :set_charter
 
         def index
-          @commitments = @charter.commitments
-          @archived_commitments = @commitments.only_archived
+          @commitments = @charter.commitments.sorted
+          @archived_commitments = @commitments.only_archived.sorted
         end
 
         def new

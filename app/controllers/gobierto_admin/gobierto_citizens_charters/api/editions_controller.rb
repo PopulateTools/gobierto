@@ -8,7 +8,7 @@ module GobiertoAdmin
           find_charter
 
           reference_edition = @charter.editions.new params.permit(:period, :period_interval)
-          @editions = @charter.editions.of_same_period(reference_edition).order(id: :asc)
+          @editions = @charter.editions.of_same_period(reference_edition).sorted
           render json: @editions, each_serializer: ::GobiertoAdmin::GobiertoCitizensCharters::EditionSerializer
         end
 

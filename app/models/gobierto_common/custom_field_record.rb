@@ -28,7 +28,7 @@ module GobiertoCommon
 
     attr_accessor :item_has_versions
 
-    belongs_to :item, polymorphic: true
+    belongs_to :item, polymorphic: true, touch: true
     belongs_to :custom_field
 
     validates :custom_field, presence: true

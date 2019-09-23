@@ -9,7 +9,7 @@ module GobiertoCommon
       data = super
 
       if data[:id].present?
-        ::GobiertoCommon::CustomFieldRecord.includes(:custom_field).where(custom_field: custom_fields, item: object).each do |record|
+        ::GobiertoCommon::CustomFieldRecord.includes(:custom_field).where(custom_field: custom_fields, item: object).sorted.each do |record|
           data[record.custom_field.uid] = record.value
         end
       else
@@ -22,7 +22,7 @@ module GobiertoCommon
     end
 
     def custom_fields
-      @custom_fields ||= current_site.custom_fields.where(class_name: object.class.name)
+      @custom_fields ||= current_site.custom_fields.where(class_name: object.class.name).sorted
     end
 
   end

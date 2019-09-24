@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4 class="investments-project--heading">
-      Detalle de proyecto
+      {{ labelBack }} {{ labelDetailTitle }}
     </h4>
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-1-4">
@@ -40,6 +40,9 @@ export default {
     };
   },
   created() {
+    this.labelBack = I18n.t("gobierto_investments.projects.back");
+    this.labelDetailTitle = I18n.t("gobierto_investments.projects.detail_title");
+
     const { item } = this.$route.params;
 
     if (item) {

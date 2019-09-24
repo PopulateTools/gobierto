@@ -15,3 +15,5 @@ en:
       map: Map
       none: None
       summary: Summary by stats
+      back: see all
+      detail_title: Project detail

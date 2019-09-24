@@ -15,3 +15,5 @@ ca:
       map: Mapa
       none: Cap
       summary: Resum per estats
+      back: veure tot
+      detail_title: Detall del projecte

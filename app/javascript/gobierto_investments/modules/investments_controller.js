@@ -17,9 +17,8 @@ export class InvestmentsController {
 
       entryPoint.innerHTML = htmlRouterBlock
 
-      // Dynamic imports for better code splitting
-      const Home = () => import("../webapp/containers/home/Home.vue");
-      const Project = () => import("../webapp/containers/project/Project.vue");
+      const Home = () => import("../webapp/containers/home/Home.vue")
+      const Project = () => import("../webapp/containers/project/Project.vue")
 
       const router = new VueRouter({
         mode: "history",

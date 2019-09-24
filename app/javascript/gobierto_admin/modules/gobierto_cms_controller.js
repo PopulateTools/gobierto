@@ -1,12 +1,10 @@
-// import 'babel-polyfill'
-
 window.GobiertoAdmin.GobiertoCmsController = (function() {
   function GobiertoCmsController() {}
 
   GobiertoCmsController.prototype.edit = function(sectionId, parentId, sectionItemId) {
     _sections(sectionId, parentId, sectionItemId);
 
-    if(sectionId != "null") {
+    if (sectionId != "null") {
       $("#permission_1").prop("checked", true)
       $('.open_level_1').trigger('change');
       $('#page_section').val(sectionId);
@@ -29,8 +27,8 @@ window.GobiertoAdmin.GobiertoCmsController = (function() {
     $('.open_level_1').on('change', function(e){
       e.preventDefault();
 
-      if($("#permission_1").prop('checked'))
-        if(sectionId != "null") {
+      if ($("#permission_1").prop('checked'))
+        if (sectionId != "null") {
           getSections(sectionId)
           $level1.show();
           $level2.show();
@@ -41,7 +39,7 @@ window.GobiertoAdmin.GobiertoCmsController = (function() {
           $level1.show();
           getSections(sectionId)
           // parent
-          if($section.val() == "") {
+          if ($section.val() == "") {
             $level2.hide();
           } else {
             $parent.empty();
@@ -61,7 +59,7 @@ window.GobiertoAdmin.GobiertoCmsController = (function() {
       e.preventDefault();
       var section = $(this).val();
 
-      if(section == "0") {
+      if (section == "0") {
         // open the new ajax popup
         $.magnificPopup.open({
           closeOnBgClick: false,
@@ -140,7 +138,7 @@ window.GobiertoAdmin.GobiertoCmsController = (function() {
   function populateParent(section, parentId, sectionItemId) {
     var $parent = $('#page_parent')
 
-    if(!(section=="null")) {
+    if (!(section=="null")) {
 
       // Get children
       $.getJSON(
@@ -151,7 +149,7 @@ window.GobiertoAdmin.GobiertoCmsController = (function() {
 
           $parent.append('<option value="0">' + I18n.t('gobierto_admin.gobierto_cms.pages.form.without_parent') + '</option>');
 
-          if(theOptions.length >= 1){
+          if (theOptions.length >= 1){
             // Create the container <div>
             appendParents($parent, theOptions, 0);
 
@@ -178,7 +176,7 @@ window.GobiertoAdmin.GobiertoCmsController = (function() {
       anOption.value = nodes[i]['id'];
       anOption.innerHTML = "-".repeat(level) + " " + nodes[i]['name'];
       parent.append(anOption);
-      if(nodes[i] && nodes[i].children && nodes[i].children.length >= 1) {
+      if (nodes[i] && nodes[i].children && nodes[i].children.length >= 1) {
         appendParents(parent, nodes[i].children, level + 1)
       }
     }

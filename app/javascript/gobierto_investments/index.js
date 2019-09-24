@@ -1,7 +1,7 @@
 import { InvestmentsController } from "./modules/investments_controller.js";
-import { ParseHexColor } from "lib/shared"
+// import { ParseHexColor } from "lib/shared"
 
 document.addEventListener('DOMContentLoaded', () => {
-  new ParseHexColor(["--color-main"]);
+  // new ParseHexColor(["--color-main"]);
   new InvestmentsController();
 });

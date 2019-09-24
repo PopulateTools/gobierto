@@ -96,7 +96,9 @@
   > * {
     padding: $gap / 2;
     box-sizing: border-box;
-    flex: 0 0 calc(100% / #{$columns});
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: calc(100% / #{$columns});
   }
 }
 

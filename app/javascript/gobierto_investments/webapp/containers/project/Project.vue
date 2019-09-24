@@ -26,9 +26,6 @@ import Main from "./Main.vue";
 import axios from "axios";
 import { CommonsMixin } from "../../mixins/common.js";
 
-// IE polyfill. FIXME: delete this when babel don't use @babel-polyfill anymore
-require('es6-promise').polyfill();
-
 export default {
   name: "Project",
   components: {

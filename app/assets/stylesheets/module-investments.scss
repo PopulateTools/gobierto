@@ -1,9 +1,8 @@
 :root {
-  --color-main: #{$color_main};
-  --hsl: var(--color-main-h), calc(var(--color-main-s) * 1%), calc(var(--color-main-l) * 1%);
-  --color-base: hsl(var(--hsl));
-  --color-base-soft: hsla(var(--hsl), 10%);
-  --color-base-soft-darker: hsla(var(--hsl), 25%);
+  --color-base-string: var(--color-main, #{red($color_main), green($color_main), blue($color_main)});
+  --color-base: rgb(var(--color-base-string));
+  --color-base-soft: rgba(var(--color-base-string), 10%);
+  --color-base-soft-darker: rgba(var(--color-base-string), 25%);
 }
 
 .investments {
@@ -692,14 +691,14 @@
       $opacity: nth($ranges-opacity, $i);
 
       &--item:nth-child(#{$i}) &--heading {
-        background-color: hsla(var(--hsl), $opacity);
+        background-color: rgba(var(--color-base-string), $opacity);
 
         &::before {
           border-left-color: white;
         }
 
         &::after {
-          border-left-color: hsla(var(--hsl), $opacity);
+          border-left-color: rgba(var(--color-base-string), $opacity);
         }
       }
     }

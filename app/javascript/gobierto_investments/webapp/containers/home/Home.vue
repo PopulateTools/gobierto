@@ -43,9 +43,6 @@ import Article from "./Article.vue";
 import axios from "axios";
 import { CommonsMixin } from "../../mixins/common.js";
 
-// IE polyfill. FIXME: delete this when babel don't use @babel-polyfill anymore
-require('es6-promise').polyfill();
-
 export default {
   name: "Home",
   components: {
@@ -98,7 +95,7 @@ export default {
           this.filters.forEach(f => this.activeFilters.set(f.key, undefined));
         }
       }
-    });
+    })
   },
   methods: {
     filterItems(filter, key) {

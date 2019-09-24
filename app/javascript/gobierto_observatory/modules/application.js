@@ -1,7 +1,5 @@
 import 'sticky-kit/dist/sticky-kit.js'
 
-import 'babel-polyfill'
-
 import { GetUnemploymentAgeData } from './classes/get_unemployment_age_data.js'
 import { PopulationCard } from './classes/population.js'
 import { BirthRateCard } from './classes/birth_rate.js'
@@ -35,15 +33,15 @@ import {
 function selectSection(html){
   var $el = $('[data-breadcrumb-sub-item]');
   var $prev = $el.prev();
-  if($prev !== undefined && $prev[0] !== undefined){
-    if($prev[0].tagName !== "SPAN") {
+  if ($prev !== undefined && $prev[0] !== undefined){
+    if ($prev[0].tagName !== "SPAN") {
       $('<span>/</span>').insertBefore($el);
     }
   }
 
-  if(html === undefined) {
+  if (html === undefined) {
     $('.sub_sections li a').each(function(){
-      if($(this).attr('href').indexOf(window.location.hash) !== -1)
+      if ($(this).attr('href').indexOf(window.location.hash) !== -1)
         $el.html($(this).html());
     });
   } else {
@@ -128,25 +126,25 @@ $(document).on('turbolinks:load', function() {
   var incomeCard = new IncomeCard('.income', window.populateData.municipalityId);
   incomeCard.render();
 
-  var invByInhab  = new InvestmentByInhabitantCard('.investment_by_inhabitant', window.populateData.municipalityId);
+  var invByInhab = new InvestmentByInhabitantCard('.investment_by_inhabitant', window.populateData.municipalityId);
   invByInhab.render();
 
   var debtPerInhab = new DebtByInhabitantCard('.debt_by_inhabitant', window.populateData.municipalityId);
   debtPerInhab.render();
 
-  var ibi =  new IbiCard('.ibi', window.populateData.municipalityId)
+  var ibi = new IbiCard('.ibi', window.populateData.municipalityId)
   ibi.render();
 
-  var budget =  new BudgetByInhabitantCard('.budget_by_inhabitant', window.populateData.municipalityId)
+  var budget = new BudgetByInhabitantCard('.budget_by_inhabitant', window.populateData.municipalityId)
   budget.render();
 
-  var constructionTax =  new ConstructionTaxCard('.construction_tax', window.populateData.municipalityId)
+  var constructionTax = new ConstructionTaxCard('.construction_tax', window.populateData.municipalityId)
   constructionTax.render();
 
-  var carsTax =  new CarsTaxCard('.cars_tax', window.populateData.municipalityId)
+  var carsTax = new CarsTaxCard('.cars_tax', window.populateData.municipalityId)
   carsTax.render();
 
-  var economicTax =  new EconomicTaxCard('.economic_tax', window.populateData.municipalityId)
+  var economicTax = new EconomicTaxCard('.economic_tax', window.populateData.municipalityId)
   economicTax.render();
 
   $(".sections-nav").stick_in_parent();
@@ -171,7 +169,7 @@ $(document).on('turbolinks:load', function() {
     $(this).closest('.card_container').toggleClass('hover');
   });
 
-  if(window.location.hash !== ""){
+  if (window.location.hash !== ""){
     selectSection();
   }
 

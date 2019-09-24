@@ -1,8 +1,6 @@
 import Vue from 'vue'
 Vue.config.productionTip = false
 
-// import 'babel-polyfill'
-
 window.GobiertoIndicators.IndicatorsController = (function() {
 
     function IndicatorsController() {}
@@ -15,8 +13,8 @@ window.GobiertoIndicators.IndicatorsController = (function() {
 
       // define the item component
       Vue.component('item-tree', {
-        template: '#item-tree-template',
         props: ['model'],
+        template: '#item-tree-template',
         data: function() {
           return {
             open: true,
@@ -63,12 +61,21 @@ window.GobiertoIndicators.IndicatorsController = (function() {
 
       // define the item view component
       Vue.component('item-view', {
-        template: '#item-view-template',
         props: ['model'],
+        template: '#item-view-template',
         data: function() {
           return {
             type: this.$root.type,
             year: this.$root.year
+          }
+        },
+        computed: {
+          value: function (i) {
+            var p = 0;
+            p = (_.find(i.model.attributes.values, function (o) {
+              return o[this.year]
+            }.bind(this)) || {})[this.year] || 0
+            return parseValue(p);
           }
         },
         created: function () {
@@ -82,15 +89,6 @@ window.GobiertoIndicators.IndicatorsController = (function() {
           } else {
             // Or updates it
             window.location.hash = hash.replace(hash.split('&')[1], "v=" + _model)
-          }
-        },
-        computed: {
-          value: function (i) {
-            var p = 0;
-            p = (_.find(i.model.attributes.values, function (o) {
-              return o[this.year]
-            }.bind(this)) || {})[this.year] || 0
-            return parseValue(p);
           }
         },
         mounted: function () {
@@ -109,18 +107,10 @@ window.GobiertoIndicators.IndicatorsController = (function() {
 
       // define the item view wrap component
       Vue.component('item-view-wrap', {
-        template: '#item-view-wrap-template',
         props: ['model'],
+        template: '#item-view-wrap-template',
         data: function() {
           return {}
-        },
-        created: function () {
-          // Creates a hash
-          var _ancestors = this.model.ancestors;
-          var group = _.map(_ancestors, 'id').toString();
-          if (!window.location.hash.includes("a=")) {
-            window.location.hash += "a=" + group
-          }
         },
         computed: {
           title: function() {
@@ -131,6 +121,14 @@ window.GobiertoIndicators.IndicatorsController = (function() {
           hasAncestors: function() {
             return this.model.ancestors &&
               this.model.ancestors.length
+          }
+        },
+        created: function () {
+          // Creates a hash
+          var _ancestors = this.model.ancestors;
+          var group = _.map(_ancestors, 'id').toString();
+          if (!window.location.hash.includes("a=")) {
+            window.location.hash += "a=" + group
           }
         },
         methods: {
@@ -183,7 +181,7 @@ window.GobiertoIndicators.IndicatorsController = (function() {
 
       new Vue({
         el: '#indicators-tree',
-        name: 'indicators-tree',
+        name: 'IndicatorsTree',
         data: function() {
           return {
             json: {},

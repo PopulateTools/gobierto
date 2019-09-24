@@ -28,6 +28,7 @@ module GobiertoCommon
     scope :not_localized, -> { where.not(field_type: [:localized_string, :localized_paragraph]) }
     scope :with_plugin_type, ->(plugin_type) { plugin.where("options @> ?", { configuration: { plugin_type: plugin_type } }.to_json) }
     scope :for_class, ->(klass) { klass.present? ? where(class_name: klass.name).all : all }
+    scope :for_vocabulary, ->(vocabulary) { where("options @> ?", { vocabulary_id: vocabulary.id.to_s }.to_json) }
 
     translates :name
 

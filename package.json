@@ -18,6 +18,7 @@
     "d3-svg-legend": "^2.25.5",
     "dc": "^3.0.6",
     "devbridge-autocomplete": "^1.4.7",
+    "es6-promise": "^4.2.8",
     "flightjs": "^1.5.2",
     "fullcalendar": "^3.9.0",
     "geocomplete": "^1.7.0",

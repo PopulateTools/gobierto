@@ -9,11 +9,11 @@ ca:
         investments: Inversions
     projects:
       all: Totes
+      back: veure tot
       date: Darrer any
+      detail_title: Detall del projecte
       gallery: Galeria
       list: Llista
       map: Mapa
       none: Cap
       summary: Resum per estats
-      back: veure tot
-      detail_title: Detall del projecte

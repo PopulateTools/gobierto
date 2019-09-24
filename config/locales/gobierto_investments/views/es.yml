@@ -9,11 +9,11 @@ es:
         investments: Inversiones
     projects:
       all: Todas
+      back: ver todo
       date: Último año
+      detail_title: Detalle del proyecto
       gallery: Galería
       list: Lista
       map: Mapa
       none: Ninguna
       summary: Resumen por estados
-      back: ver todo
-      detail_title: Detalle del proyecto

@@ -9,11 +9,11 @@ en:
         investments: Investments
     projects:
       all: All
+      back: see all
       date: Last year
+      detail_title: Project detail
       gallery: Gallery
       list: List
       map: Map
       none: None
       summary: Summary by stats
-      back: see all
-      detail_title: Project detail

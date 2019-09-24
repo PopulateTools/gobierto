@@ -71,6 +71,7 @@ module GobiertoPlans
       assert_equal csv_input.by_row[0]["Node.Priority"], first_node.options["Priority"]
       assert_equal csv_input.by_row[0]["Node.Custom Field 1"], first_node.options["Custom Field 1"]
       assert first_node.published?
+      assert first_node.published_version.present?
       assert first_node.moderation.approved?
      end
 

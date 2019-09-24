@@ -50,33 +50,40 @@ module GobiertoAdmin
       end
 
       def test_import_csv_file
-        with_signed_in_admin(admin) do
-          with_current_site(site) do
-            visit path
+        with(site: site, admin: admin) do
+          visit path
 
-            click_link "Import from CSV"
+          click_link "Import from CSV"
 
-            attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
-            within "form" do
-              with_stubbed_s3_file_upload do
-                click_button "Import from CSV file"
-              end
+          attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
+          within "form" do
+            with_stubbed_s3_file_upload do
+              click_button "Import from CSV file"
             end
-
-            within ".flash-message", match: :first do
-              assert has_content? "Data imported successfully"
-            end
-
-            assert has_content? "5 axes"
-            assert has_content? "39 lines of action"
-            assert has_content? "119 actions"
-            assert has_content? "247 projects/actions"
-
-            plan.reload
-            assert_equal 247, plan.nodes.count
-            assert_equal "eix-1-economia-emprenedoria-i-ocupacio", plan.categories_vocabulary.terms.first.slug
-            assert_equal 1, plan.nodes.where(status: blank_status_term).count
           end
+
+          within ".flash-message", match: :first do
+            assert has_content? "Data imported successfully"
+          end
+
+          assert has_content? "5 axes"
+          assert has_content? "39 lines of action"
+          assert has_content? "119 actions"
+          assert has_content? "247 projects/actions"
+
+          plan.reload
+          assert_equal 247, plan.nodes.count
+          assert_equal "eix-1-economia-emprenedoria-i-ocupacio", plan.categories_vocabulary.terms.first.slug
+          assert_equal 1, plan.nodes.where(status: blank_status_term).count
+        end
+
+        with(site: site, js: true) do
+          visit gobierto_plans_plan_path(slug: plan.plan_type.slug, year: plan.year)
+
+          assert has_content? "5 axes"
+          assert has_content? "39 lines of action"
+          assert has_content? "119 actions"
+          assert has_content? "247 projects/actions"
         end
       end
 

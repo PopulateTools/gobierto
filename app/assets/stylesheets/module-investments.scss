@@ -6,19 +6,28 @@
 }
 
 .investments {
+  @include min-screen(768) {
+    @include gutters(66px)
+  }
+
   &-project--heading {
     color: $color_text;
     font-size: $f5;
     font-weight: 300;
     line-height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > :first-child {
+      font-size: $f7;
+      cursor: pointer;
+    }
   }
 
   &-project-aside {
-    @include min-screen(768) {
-      &--gap {
-        padding-right: 40px;
-        height: 100%;
-      }
+    &--gap {
+      height: 100%;
     }
 
     &--block {
@@ -213,11 +222,8 @@
   }
 
   &-home-aside {
-    @include min-screen(768) {
-      &--gap {
-        padding-right: 66px;
-        height: 100%;
-      }
+    &--gap {
+      height: 100%;
     }
 
     &--block {

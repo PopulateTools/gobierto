@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="pure-g m_b_1">
+  <div class="investments">
+    <div class="pure-g gutters m_b_1">
       <div class="pure-u-1 pure-u-lg-1-4" />
       <div class="pure-u-1 pure-u-lg-3-4">
         <Nav
@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="pure-g m_b_4">
+    <div class="pure-g gutters m_b_4">
       <div class="pure-u-1 pure-u-lg-1-4">
         <Aside
           :filters="filters"

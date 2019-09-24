@@ -1,9 +1,16 @@
 <template>
-  <div>
-    <h4 class="investments-project--heading">
-      {{ labelBack }} {{ labelDetailTitle }}
-    </h4>
-    <div class="pure-g">
+  <div class="investments">
+    <div class="pure-g gutters">
+      <div class="pure-u-1 pure-u-lg-1-4">
+        <h4 class="investments-project--heading">
+          <span @click="navBack"><i class="fas fa-arrow-left" /> {{ labelBack }}</span>
+          <span>{{ labelDetailTitle }}</span>
+        </h4>
+      </div>
+      <div class="pure-u-1 pure-u-lg-3-4" />
+    </div>
+
+    <div class="pure-g gutters">
       <div class="pure-u-1 pure-u-lg-1-4">
         <Aside
           v-if="project"
@@ -61,6 +68,11 @@ export default {
         this.dictionary = attributesDictionary;
         this.project = this.setItem(item);
       });
+    }
+  },
+  methods: {
+    navBack() {
+      this.$router.push({ name: "home" });
     }
   }
 };

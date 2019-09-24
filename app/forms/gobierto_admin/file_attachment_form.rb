@@ -7,13 +7,13 @@ module GobiertoAdmin
       :id,
       :site_id,
       :collection_id,
-      :file,
       :description,
       :slug
     )
 
     attr_writer(
       :admin_id,
+      :file,
       :file_name,
       :file_size,
       :file_digest,
@@ -49,7 +49,9 @@ module GobiertoAdmin
     end
 
     def file_attachment
-      @file_attachment ||= file_attachment_class.find_by(id: id).presence || build_file_attachment
+      @file_attachment ||= file_attachment_class.find_by(id: id).presence ||
+                           file && file_attachment_class.find_by(collection: collection, file_digest: file_digest).presence ||
+                           build_file_attachment
     end
     alias content_context file_attachment
 
@@ -73,7 +75,7 @@ module GobiertoAdmin
     def current_version
       @current_version ||= begin
         if persisted?
-          persisted_attachment = file_attachment_class.find(id) # don't access memoized version, since its digest may already be updated
+          persisted_attachment = file_attachment_class.find(file_attachment.id) # don't access memoized version, since its digest may already be updated
           if persisted_attachment.file_digest != file_digest
             persisted_attachment.current_version + 1
           else

@@ -167,6 +167,31 @@ module GobiertoAdmin
         assert_equal 1, attachment["current_version"]
       end
 
+      def test_attachments_create_twice_success
+        login_admin_for_api(admin)
+
+        payload = {
+          attachment: {
+            collection_id: collection.id,
+            name: "New attachment name",
+            description: "New attachment description",
+            file_name: "new-pdf-attachment.pdf",
+            file: ::Base64.strict_encode64(new_pdf_file.read)
+          }
+        }
+
+        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:upload!).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
+        assert_difference "::GobiertoAttachments::Attachment.count", 1 do
+          post admin_attachments_api_attachments_path(payload)
+          assert_response :success
+        end
+
+        assert_no_difference "::GobiertoAttachments::Attachment.count" do
+          post admin_attachments_api_attachments_path(payload)
+          assert_response :success
+        end
+      end
+
       def test_attachments_create_error
         login_admin_for_api(admin)
 

@@ -38,7 +38,11 @@
         <%= plan.plan_type.name %>
       </td>
       <td>
-        <%= link_to plan.title, current_admin_can_manage_plans? ? admin_plans_plan_categories_path(plan) : admin_plans_plan_projects_path(plan) %>
+        <% if current_admin_can_manage_plans? %>
+          <%= link_to plan.title, admin_plans_plan_categories_path(plan) %>
+        <% else %>
+          <%= link_to plan.title, current_admin_can_edit_plans? ? admin_plans_plan_projects_path(plan, projects_filter: { admin_actions: current_admin.id }) : admin_plans_plan_projects_path(plan) %>
+        <% end %>
       </td>
       <td>
         <%=  plan.year %>

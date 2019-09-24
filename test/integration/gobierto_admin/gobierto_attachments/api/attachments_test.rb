@@ -45,7 +45,7 @@ module GobiertoAdmin
       def test_requests_need_authentication
         get admin_attachments_api_attachments_path(site_id: site.id)
 
-        assert_response :redirect
+        assert_response :unauthorized
       end
 
       def test_attachments_index

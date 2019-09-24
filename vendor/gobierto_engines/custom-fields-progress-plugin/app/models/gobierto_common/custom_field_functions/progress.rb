@@ -32,6 +32,8 @@ module GobiertoCommon::CustomFieldFunctions
     def update_progress!
       current_progress = progress
       record.value = current_progress
+      record.callback_update = true
+
       record.save!
 
       return unless record.item&.has_attribute? :progress

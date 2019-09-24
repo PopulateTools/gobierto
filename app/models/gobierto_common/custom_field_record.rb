@@ -26,7 +26,7 @@ module GobiertoCommon
       end
     end
 
-    attr_accessor :item_has_versions
+    attr_accessor :item_has_versions, :callback_update
 
     belongs_to :item, polymorphic: true
     belongs_to :custom_field
@@ -71,7 +71,7 @@ module GobiertoCommon
     private
 
     def touch_item
-      return if item_has_versions
+      return if item_has_versions || callback_update
 
       item.touch
     end

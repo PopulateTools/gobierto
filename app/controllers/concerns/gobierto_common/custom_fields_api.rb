@@ -27,6 +27,8 @@ module GobiertoCommon
     def meta
       @resource = base_relation.new
 
+      return unless stale?(base_relation)
+
       meta_stats = if params[:stats] == "true"
                      filterable_custom_fields.inject({}) do |stats, custom_field|
                        stats.update(
@@ -47,9 +49,9 @@ module GobiertoCommon
 
     def filterable_custom_fields
       @filterable_custom_fields ||= if (filterable_custom_fields_uids = current_site.settings_for_module(current_module)&.filterable_custom_fields).present?
-                                      custom_fields.where(uid: filterable_custom_fields_uids)
+                                      custom_fields.where(uid: filterable_custom_fields_uids).sorted
                                     else
-                                      custom_fields.where(field_type: [:date, :vocabulary_options, :numeric])
+                                      custom_fields.where(field_type: [:date, :vocabulary_options, :numeric]).sorted
                                     end
     end
 

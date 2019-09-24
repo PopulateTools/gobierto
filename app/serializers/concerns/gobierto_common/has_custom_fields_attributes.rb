@@ -8,15 +8,21 @@ module GobiertoCommon
     def attributes(*args)
       data = super
 
-      custom_fields_attributes = current_site.custom_fields.where(class_name: object.class.name).inject({}) do |attrs, custom_field|
-        attrs.update(
-          custom_field.uid => ::GobiertoCommon::CustomFieldRecord.find_or_initialize_by(
-            item: object,
-            custom_field: custom_field
-          ).value
-        )
+      if data[:id].present?
+        ::GobiertoCommon::CustomFieldRecord.includes(:custom_field).where(custom_field: custom_fields, item: object).sorted.each do |record|
+          data[record.custom_field.uid] = record.value
+        end
+      else
+        custom_fields.each do |custom_field|
+          data[custom_field.uid] = custom_field.records.new.value
+        end
       end
-      data.merge(custom_fields_attributes)
+
+      data
+    end
+
+    def custom_fields
+      @custom_fields ||= current_site.custom_fields.where(class_name: object.class.name).sorted
     end
 
   end

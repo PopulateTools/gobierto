@@ -100,7 +100,7 @@
         padding: 0 2rem;
 
         &:hover {
-          background-color: #0072bc;
+          background-color: var(--color-base);
           border-radius: 3px;
           color: $color_main_negative;
           font-weight: 600;
@@ -109,7 +109,7 @@
             content: "";
             position: absolute;
             display: block;
-            background-color: #0072bc;
+            background-color: var(--color-base);
             border-radius: 100%;
             width: 3px;
             height: 3px;
@@ -294,6 +294,7 @@
         padding-left: $space / 2;
         padding-right: $space / 2;
         box-sizing: border-box;
+        background-color: var(--color-base-soft);
       }
 
       input[type="checkbox"]:checked + label::before {

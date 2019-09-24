@@ -9,6 +9,14 @@ export class InvestmentsController {
     // Mount Vue application
     const entryPoint = document.getElementById("investments-app");
     if (entryPoint) {
+      const htmlRouterBlock = `
+        <keep-alive>
+          <router-view :key="$route.fullPath"></router-view>
+        </keep-alive>
+      `;
+
+      entryPoint.innerHTML = htmlRouterBlock
+
       // Dynamic imports for better code splitting
       const Home = () => import("../webapp/containers/home/Home.vue");
       const Project = () => import("../webapp/containers/project/Project.vue");

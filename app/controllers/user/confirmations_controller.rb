@@ -8,7 +8,8 @@ class User::ConfirmationsController < User::BaseController
       confirmation_token: params[:confirmation_token],
       creation_ip: remote_ip,
       site: current_site,
-      password_enabled: password_enabled
+      password_enabled: password_enabled,
+      read_only_user_attributes: read_only_user_attributes
     )
 
     @user_genders = get_user_genders
@@ -25,7 +26,8 @@ class User::ConfirmationsController < User::BaseController
         date_of_birth_day: user_confirmation_params["date_of_birth(3i)"],
         creation_ip: remote_ip,
         site: current_site,
-        password_enabled: password_enabled
+        password_enabled: password_enabled,
+        read_only_user_attributes: read_only_user_attributes
       )
     )
 
@@ -47,9 +49,10 @@ class User::ConfirmationsController < User::BaseController
   private
 
   def user_confirmation_params
-    permitted_params = [:confirmation_token, :name, :password, :password_confirmation, :date_of_birth, :gender, :document_number]
+    permitted_params = [:confirmation_token, :name, :password, :password_confirmation, :date_of_birth, :gender, :document_number] - read_only_user_attributes
     if params[:user_confirmation] && params[:user_confirmation][:custom_records]
-      permitted_params << {custom_records: Hash[params[:user_confirmation][:custom_records].keys.map{ |k| [k, [:custom_user_field_id, :value]] }]}
+      custom_keys = params[:user_confirmation][:custom_records].except(*read_only_user_attributes).keys
+      permitted_params << { custom_records: Hash[custom_keys.map { |k| [k, [:custom_user_field_id, :value]] }] } unless custom_keys.blank?
     end
 
     params.require(:user_confirmation).permit(permitted_params)

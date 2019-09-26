@@ -10,6 +10,7 @@ class User::ConfirmationForm < BaseForm
     :password_enabled,
     :password,
     :password_confirmation,
+    :read_only_user_attributes,
     :date_of_birth_year,
     :date_of_birth_month,
     :date_of_birth_day,
@@ -21,7 +22,10 @@ class User::ConfirmationForm < BaseForm
   )
   attr_reader :user
 
-  validates :name, :date_of_birth, :gender, :user, presence: true
+  validates :user, presence: true
+  [:name, :date_of_birth, :gender].each do |attribute|
+    validates attribute, presence: true, unless: -> { read_only_user_attributes.include?(attribute.to_s) }
+  end
   validates :password, presence: true, confirmation: true, if: :password_enabled
   validate :user_verification
 
@@ -91,14 +95,18 @@ class User::ConfirmationForm < BaseForm
     @census_verification ||= User::Verification::CensusVerification.new
   end
 
+  def disabled_user_attribute?(attribute)
+    read_only_user_attributes.include? attribute.to_s
+  end
+
   private
 
   def save_user
     @user = user.tap do |user_attributes|
-      user_attributes.name = name
+      user_attributes.name = name unless disabled_user_attribute?(:name)
       user_attributes.password = password if password_enabled
-      user_attributes.date_of_birth = date_of_birth
-      user_attributes.gender = gender
+      user_attributes.date_of_birth = date_of_birth unless disabled_user_attribute?(:date_of_birth)
+      user_attributes.gender = gender unless disabled_user_attribute?(:gender)
       user_attributes.custom_records = custom_records
     end
 

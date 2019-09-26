@@ -8,7 +8,6 @@ class User::ConfirmationForm < BaseForm
     :confirmation_token,
     :password,
     :password_confirmation,
-    :read_only_user_attributes,
     :creation_ip,
     :site,
     :document_number
@@ -16,6 +15,7 @@ class User::ConfirmationForm < BaseForm
   attr_writer(
     :user,
     :password_enabled,
+    :read_only_user_attributes,
     :name,
     :gender,
     :date_of_birth_year,
@@ -99,6 +99,10 @@ class User::ConfirmationForm < BaseForm
 
   def disabled_user_attribute?(attribute)
     read_only_user_attributes.include? attribute.to_s
+  end
+
+  def read_only_user_attributes
+    @read_only_user_attributes ||= []
   end
 
   private

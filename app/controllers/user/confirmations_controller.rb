@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::ConfirmationsController < User::BaseController
   before_action :require_no_authentication
 
@@ -20,7 +22,9 @@ class User::ConfirmationsController < User::BaseController
 
   def create
     @user_confirmation_form = User::ConfirmationForm.new(
-      user_confirmation_params.except(*ignored_user_confirmation_params).merge(
+      user_confirmation_params.except(
+        *ignored_user_confirmation_params
+      ).merge(
         date_of_birth_year: user_confirmation_params["date_of_birth(1i)"],
         date_of_birth_month: user_confirmation_params["date_of_birth(2i)"],
         date_of_birth_day: user_confirmation_params["date_of_birth(3i)"],
@@ -63,7 +67,7 @@ class User::ConfirmationsController < User::BaseController
   end
 
   def password_enabled
-    @password_enabled ||= !auth_modules_present? || current_site.configuration.auth_modules_data.any? { |auth_module| auth_module.password_enabled }
+    @password_enabled ||= !auth_modules_present? || current_site.configuration.auth_modules_data.any?(&:password_enabled)
   end
 
   def ignored_user_confirmation_params

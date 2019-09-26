@@ -7,7 +7,6 @@ class User::SettingsForm < BaseForm
   attr_accessor(
     :user_id,
     :name,
-    :password_enabled,
     :password,
     :read_only_user_attributes,
     :password_confirmation,
@@ -17,8 +16,10 @@ class User::SettingsForm < BaseForm
     :gender,
     :email
   )
-
-  attr_reader :user
+  attr_writer(
+    :user,
+    :password_enabled
+  )
 
   validates :user, presence: true
   [:name, :date_of_birth, :gender].each do |attribute|
@@ -45,8 +46,8 @@ class User::SettingsForm < BaseForm
 
   def date_of_birth
     @date_of_birth ||= if date_of_birth_year && date_of_birth_month && date_of_birth_day
-      Date.new(date_of_birth_year.to_i, date_of_birth_month.to_i, date_of_birth_day.to_i)
-    end
+                         Date.new(date_of_birth_year.to_i, date_of_birth_month.to_i, date_of_birth_day.to_i)
+                       end
   rescue ArgumentError
     nil
   end

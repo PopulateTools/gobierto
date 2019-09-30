@@ -34,6 +34,7 @@ module GobiertoParticipation
 
     enum visibility_level: { draft: 0, active: 1 }
     enum process_type: { process: 0, group_process: 1 }
+    enum privacy_status: { public_process: 0, private_process: 1 }
 
     validates :site, presence: true
     validates :slug, uniqueness: { scope: :site_id }

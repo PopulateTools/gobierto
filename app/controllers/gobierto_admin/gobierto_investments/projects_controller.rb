@@ -3,6 +3,7 @@
 module GobiertoAdmin
   module GobiertoInvestments
     class ProjectsController < GobiertoAdmin::GobiertoInvestments::BaseController
+      include CustomFieldsHelper
 
       def index
         @projects = current_site.projects.order(id: :desc)
@@ -10,6 +11,7 @@ module GobiertoAdmin
 
       def new
         @project_form = ProjectForm.new(site_id: current_site.id, admin_id: current_admin.id, ip: remote_ip)
+        @project = @project_form.project
         initialize_custom_field_form
       end
 
@@ -24,6 +26,7 @@ module GobiertoAdmin
 
       def create
         @project_form = ProjectForm.new(project_params.merge(site_id: current_site.id, admin_id: current_admin.id, ip: remote_ip))
+        @project = @project_form.project
         initialize_custom_field_form
 
         if @project_form.save
@@ -78,21 +81,6 @@ module GobiertoAdmin
 
       def find_project
         current_site.projects.find(params[:id])
-      end
-
-      def initialize_custom_field_form
-        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(
-          site_id: current_site.id,
-          item: @project_form.project
-        )
-        custom_params_key = self.class.name.demodulize.gsub("Controller", "").underscore.singularize
-        return if request.get? || !params.has_key?(custom_params_key)
-
-        @custom_fields_form.custom_field_records = params.require(custom_params_key).permit(custom_records: {})
-      end
-
-      def custom_fields_save
-        @custom_fields_form.save
       end
 
     end

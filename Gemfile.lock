@@ -120,7 +120,7 @@ GEM
     cloudinary (1.11.1)
       aws_cf_signer
       rest-client
-    codecov (0.1.14)
+    codecov (0.1.15)
       json
       simplecov
       url
@@ -136,7 +136,7 @@ GEM
     dalli (2.7.10)
     declarative (0.0.10)
     declarative-option (0.1.0)
-    docile (1.3.1)
+    docile (1.3.2)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     elasticsearch (6.3.1)
@@ -425,7 +425,7 @@ GEM
       multi_json (~> 1.10)
     simple_calendar (2.3.0)
       rails (>= 3.0)
-    simplecov (0.16.1)
+    simplecov (0.17.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)

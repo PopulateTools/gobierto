@@ -22,6 +22,9 @@ ca:
         poll: Enquesta
         title: Títol
       gobierto_participation/process:
+        privacy_statuses:
+          private_process: Privat
+          public_process: Públic
         process_types:
           group_process: Grup
           process: Procés

@@ -22,6 +22,9 @@ es:
         poll: Encuesta
         title: Título
       gobierto_participation/process:
+        privacy_statuses:
+          private_process: Privado
+          public_process: Público
         process_types:
           group_process: Grupo
           process: Proceso

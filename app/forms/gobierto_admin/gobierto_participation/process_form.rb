@@ -22,11 +22,16 @@ module GobiertoAdmin
         :has_duration
       )
 
+      attr_writer(
+        :privacy_status
+      )
+
       delegate :persisted?, to: :process
 
       validates :site, :process_type, presence: true
       validates :title_translations, translated_attribute_presence: true
       validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
+      validates :privacy_status, inclusion: { in: ::GobiertoParticipation::Process.privacy_statuses }
 
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
@@ -62,6 +67,10 @@ module GobiertoAdmin
 
       def process_type
         @process_type ||= "process"
+      end
+
+      def privacy_status
+        @privacy_status ||= "public_process"
       end
 
       def issue
@@ -152,6 +161,7 @@ module GobiertoAdmin
           process_attributes.header_image_url   = header_image_url
           process_attributes.visibility_level   = visibility_level
           process_attributes.process_type       = process_type
+          process_attributes.privacy_status = privacy_status
           process_attributes.starts             = has_duration ? starts : nil
           process_attributes.ends               = has_duration ? ends : nil
           process_attributes.slug               = slug

@@ -30,6 +30,7 @@ ca:
         header_image: Imatge de capçalera
         header_image_url: URL d'imatge de capçalera
         issue_id: Tema
+        privacy_status: Privacitat
         process_type: Tipus
         scope_id: Àmbit
         slug: Slug

@@ -22,6 +22,9 @@ en:
         poll: Poll
         title: Title
       gobierto_participation/process:
+        privacy_statuses:
+          private_process: Private
+          public_process: Public
         process_types:
           group_process: Group
           process: Process

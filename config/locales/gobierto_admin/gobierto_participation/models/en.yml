@@ -30,6 +30,7 @@ en:
         header_image: Header image
         header_image_url: Header image URL
         issue_id: Theme
+        privacy_status: Privacy
         process_type: Type
         scope_id: Scope
         slug: Slug

@@ -30,6 +30,7 @@ es:
         header_image: Imagen de cabecera
         header_image_url: URL de la imagen de cabecera
         issue_id: Tema
+        privacy_status: Privacidad
         process_type: Tipo
         scope_id: Ámbito
         slug: Slug

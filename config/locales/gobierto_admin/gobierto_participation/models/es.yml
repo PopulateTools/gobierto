@@ -51,6 +51,10 @@ es:
         stage_type: Herramienta
         starts: Fecha de comienzo
         title: Título de fase
+      gobierto_admin/gobierto_participation/settings_form:
+        issues_vocabulary_id: Vocabulario de temas
+        scopes_vocabulary_id: Vocabulario de ámbitos
+        users_issues_field_id: Atributo de usuarios asociado a temas
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grupo de
         aportaciones

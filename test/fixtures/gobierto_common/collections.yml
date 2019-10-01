@@ -138,6 +138,29 @@ group_archived_documents:
   container: group_archived (GobiertoParticipation::Process)
   item_type: GobiertoAttachments::Attachment
 
+# private_group
+
+private_group_news:
+  site: madrid
+  title_translations: <%= {'en' => 'News of private group', 'es' => 'Noticias de grupo privado' }.to_json %>
+  slug: private_group-news
+  container: private_group (GobiertoParticipation::Process)
+  item_type: GobiertoCms::News
+
+private_group_calendar:
+  site: madrid
+  title_translations: <%= {'en' => 'Events of private group', 'es' => 'Eventos de grupo privado' }.to_json %>
+  slug: private_group-calendar
+  container: private_group (GobiertoParticipation::Process)
+  item_type: GobiertoCalendars::Event
+
+private_group_documents:
+  site: madrid
+  title_translations: <%= {'en' => 'Documents of private group', 'es' => 'Documentos de grupo privado' }.to_json %>
+  slug: private_group-documents
+  container: private_group (GobiertoParticipation::Process)
+  item_type: GobiertoAttachments::Attachment
+
 # bowling_group_very_active
 
 bowling_group_very_active_news:

@@ -1,17 +1,25 @@
 <template>
-  <l-map ref="map">
+  <l-map
+    ref="map"
+    class="investments-home-main--map"
+  >
     <l-tile-layer :url="url" />
     <l-feature-group ref="features">
       <l-geo-json
         v-for="geojson in geojsons"
         :key="geojson.index"
         :geojson="geojson"
+        :options="options"
       />
     </l-feature-group>
   </l-map>
 </template>
 
 <script>
+import { LMap, LTileLayer, LFeatureGroup, LGeoJson } from "vue2-leaflet";
+import Wkt from "wicket";
+import Vue from "vue";
+import GalleryItem from "./GalleryItem.vue";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -22,9 +30,6 @@ Icon.Default.mergeOptions({
   iconUrl: require("leaflet/dist/images/marker-icon.png"),
   shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
-
-import { LMap, LTileLayer, LFeatureGroup, LGeoJson } from "vue2-leaflet";
-import Wkt from "wicket";
 
 export default {
   name: "Map",
@@ -40,10 +45,12 @@ export default {
       default: () => []
     }
   },
+  popupClass: "investments-home-main--map-popup",
   data() {
     return {
       url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
-      geojsons: []
+      geojsons: [],
+      options: {}
     };
   },
   watch: {
@@ -52,6 +59,27 @@ export default {
     }
   },
   created() {
+    // https://github.com/KoRiGaN/Vue2Leaflet/blob/master/examples/src/components/GeoJSON2.vue
+    const onEachFeature = (feature, layer) => {
+      const PopupComponent = Vue.extend(GalleryItem);
+      const popup = new PopupComponent({
+        propsData: {
+          item: this.items.find(item => item.id === feature.id)
+        }
+      });
+
+      const { x } = this.$refs.map.mapObject.getSize();
+
+      layer.bindPopup(popup.$mount().$el, {
+        className: this.$options.popupClass,
+        closeButton: false,
+        maxWidth: x / 3,
+        minWidth: x / 3,
+      });
+    };
+
+    this.options = { onEachFeature }
+
     this.setGeoJSONs(this.items);
   },
   mounted() {
@@ -66,18 +94,20 @@ export default {
       return wkt.toJson();
     },
     setGeoJSONs(items) {
+      this.geojsons = [];
+
       // get the Well-Known Text (WKT)
-      const markerStrings = items.reduce((acc, i) => {
+      const markerWithLocation = items.reduce((acc, i) => {
         if (i.location && i.location !== null) {
-          acc.push(i.location);
+          acc.push(i);
         }
         return acc;
       }, []);
 
-      this.geojsons = [];
       // convert all WKT objets to GeoJSON, and add them to a feature group
-      for (let index = 0; index < markerStrings.length; index++) {
-        this.geojsons.push({ ...this.convertWKTtoGeoJSON(markerStrings[index]), index });
+      for (let index = 0; index < markerWithLocation.length; index++) {
+        const { id, location } = markerWithLocation[index]
+        this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id });
       }
     }
   }

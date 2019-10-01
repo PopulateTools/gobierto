@@ -28,7 +28,7 @@ module GobiertoAdmin
         end
 
         def modules_with_custom_fields
-          @modules_with_custom_fields ||= current_site.configuration.modules.inject("global" => GobiertoCore.classes_with_custom_fields) do |modules, module_name|
+          @modules_with_custom_fields ||= current_site.configuration.modules.inject("global" => ::GobiertoCore.classes_with_custom_fields) do |modules, module_name|
             modules.update(
               module_name => module_name.constantize.try(:classes_with_custom_fields)
             )

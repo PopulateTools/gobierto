@@ -1,5 +1,8 @@
 module GobiertoAdmin
   class UsersController < BaseController
+
+    include CustomFieldsHelper
+
     def index
       @users = get_users_in_current_site.sorted
       @users_stats = get_users_stats
@@ -14,13 +17,15 @@ module GobiertoAdmin
       @user_form = UserForm.new(
         @user.attributes.except(*ignored_user_attributes)
       )
+      initialize_custom_field_form
     end
 
     def update
       @user = find_user
       @user_form = UserForm.new(user_params.merge(id: params[:id]))
+      initialize_custom_field_form
 
-      if @user_form.save
+      if @user_form.save && custom_fields_save
         track_update_activity
         redirect_to edit_admin_user_path(@user), notice: t(".success")
       else

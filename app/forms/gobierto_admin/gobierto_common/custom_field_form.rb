@@ -219,7 +219,7 @@ module GobiertoAdmin
 
                      module_name = class_name.deconstantize
                      klass = class_name.constantize
-                     return unless site.configuration.modules.include?(module_name) && module_name.constantize.try(:classes_with_custom_fields)&.include?(klass)
+                     return unless custom_fields_allowed?(module_name, klass)
 
                      klass
                    end
@@ -236,6 +236,14 @@ module GobiertoAdmin
                             rescue NameError
                               nil
                             end
+      end
+
+      def custom_fields_allowed?(module_name, klass)
+        if module_name.blank?
+          ::GobiertoCore.classes_with_custom_fields.include?(klass)
+        else
+          site.configuration.modules.include?(module_name) && module_name.constantize.try(:classes_with_custom_fields)&.include?(klass)
+        end
       end
 
       def custom_fields_relation

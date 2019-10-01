@@ -15,6 +15,7 @@ ca:
           message: Hi ha canvis sense desar. Estàs segur de voler continuar?
         edit_site: Personalitzar site
         file_attachments: Documents
+        global: General
         hey_admin: Hola, %{admin_name}
         manage_sites: Gestionar sites
         modules:

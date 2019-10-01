@@ -53,9 +53,9 @@ $color_warn: #981f2e;
 $color_success: #2ca25f;
 
 /* admin semaphore colors */
-$color_sem_red: #981F2E;
-$color_sem_yellow: #ECAD4C;
-$color_sem_green: #85A81C;
+$color_sem_red: #981f2e;
+$color_sem_yellow: #ecad4c;
+$color_sem_green: #85a81c;
 
 .color_bg_main {
   background: $color_main;
@@ -75,3 +75,13 @@ $f5: 1.125rem;
 $f6: 1rem;
 $f7: 0.875rem;
 $f8: 0.75rem;
+
+
+/*
+ * CSS Custom Variables
+ *
+ */
+:root {
+  --color-base-string: var(--color-main, #{red($color_main), green($color_main), blue($color_main)});
+  --color-base: rgb(var(--color-base-string));
+}

@@ -12,6 +12,9 @@ const CONFIGURATION = {
     id: "estat",
     filter: "translate"
   },
+  location: {
+    id: "wkt"
+  },
   availableFilters: [
     {
       id: "range",
@@ -117,7 +120,7 @@ export const CommonsMixin = {
     },
     setItem(element) {
       const { attributes = {} } = element;
-      const { title, description, phases, availableGalleryFields, availableTableFields } = CONFIGURATION;
+      const { title, description, phases, location, availableGalleryFields, availableTableFields } = CONFIGURATION;
 
       return {
         ...element,
@@ -125,6 +128,7 @@ export const CommonsMixin = {
         description: attributes[description.id] || "",
         photo: Array.isArray(attributes.gallery) ? attributes.gallery[0] : "",
         gallery: attributes.gallery || [],
+        location: attributes[location.id],
         phases: attributes[phases.id].map(element => ({ ...element, title: element.name_translations })),
         availableGalleryFields: availableGalleryFields.map(element => this.getItem(element, attributes)),
         availableTableFields: availableTableFields.map(element => this.getItem(element, attributes))

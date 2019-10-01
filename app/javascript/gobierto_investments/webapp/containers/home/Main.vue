@@ -1,8 +1,9 @@
 <template>
-  <main>
+  <main class="investments-home-main">
     <keep-alive>
       <component
         :is="currentTabComponent"
+        v-if="items.length"
         :items="items"
       />
     </keep-alive>

@@ -470,6 +470,12 @@
   &-home-main {
     $gallery-gap: 32px;
 
+    height: 100%;
+
+    &--map {
+      height: 100%;
+    }
+
     &--gallery {
       @include grid($gallery-gap / 2, 2);
 

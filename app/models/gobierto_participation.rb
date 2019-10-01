@@ -16,4 +16,8 @@ module GobiertoParticipation
   def self.doc_url
     "https://gobierto.readme.io/docs/participaci%C3%B3n"
   end
+
+  def self.root_path(_)
+    Rails.application.routes.url_helpers.gobierto_participation_root_path
+  end
 end

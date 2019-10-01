@@ -4,6 +4,8 @@ module GobiertoParticipation
   class WelcomeController < GobiertoParticipation::ApplicationController
     include LiquidHelper
 
+    before_action :overrided_root_redirect, only: [:index]
+
     def index
       @processes = current_site.processes.process.active
       @issues = find_issues

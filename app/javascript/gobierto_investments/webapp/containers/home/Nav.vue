@@ -2,8 +2,8 @@
   <nav class="investments-home-nav">
     <ul>
       <li
-        class="investments-home-nav--tab"
         :class="{ 'is-active': activeTab === 0 }"
+        class="investments-home-nav--tab"
         @click="activateTab(0)"
       >
         <i class="fas fa-map" />
@@ -11,8 +11,8 @@
         <span>{{ labelMap }}</span>
       </li>
       <li
-        class="investments-home-nav--tab"
         :class="{ 'is-active': activeTab === 1 }"
+        class="investments-home-nav--tab"
         @click="activateTab(1)"
       >
         <i class="fas fa-clone" />
@@ -20,8 +20,8 @@
         <span>{{ labelGallery }}</span>
       </li>
       <li
-        class="investments-home-nav--tab"
         :class="{ 'is-active': activeTab === 2 }"
+        class="investments-home-nav--tab"
         @click="activateTab(2)"
       >
         <i class="fas fa-list-alt" />

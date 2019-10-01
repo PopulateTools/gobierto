@@ -40,6 +40,19 @@ module GobiertoParticipation
     validates :slug, uniqueness: { scope: :site_id }
 
     scope :sorted, -> { order(id: :desc) }
+    scope :available_for_user, lambda { |user|
+      public_process.or(
+        if user.present?
+          private_process.where.not(
+            issue: nil
+          ).where(
+            issue: ::GobiertoCommon::CustomFieldRecord.find_by(custom_field_id: user.site.gobierto_participation_settings.users_issues_field_id, item: user)&.value
+          )
+        else
+          none
+        end
+      )
+    }
 
     after_create :create_collections
     after_destroy :delete_collections
@@ -98,6 +111,7 @@ module GobiertoParticipation
     def open?
       return false if starts.present? && starts > Time.zone.now
       return false if ends.present? && ends < Time.zone.now
+
       true
     end
 

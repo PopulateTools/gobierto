@@ -7,8 +7,8 @@ module GobiertoParticipation
     helper_method :current_process, :process_stage_path
 
     def index
-      @processes = current_site.processes.process.active
-      @groups = CollectionDecorator.new(current_site.processes.group_process.active, decorator: GobiertoParticipation::ProcessDecorator)
+      @processes = base_relation.process
+      @groups = CollectionDecorator.new(base_relation.group_process, decorator: GobiertoParticipation::ProcessDecorator)
     end
 
     def show
@@ -36,11 +36,15 @@ module GobiertoParticipation
     end
 
     def processes_scope
-      valid_preview_token? ? current_site.processes.draft : current_site.processes.active
+      valid_preview_token? ? current_site.processes.draft : base_relation
     end
 
     def find_process_activities
       ActivityCollectionDecorator.new(Activity.in_site(current_site).no_admin.in_process(current_process).sorted.limit(5).includes(:subject, :author, :recipient))
+    end
+
+    def base_relation
+      current_site.processes.active.available_for_user(current_user)
     end
 
     def process_stage_path(stage)

@@ -14,7 +14,8 @@
       <div class="pure-u-1 pure-u-lg-1-4">
         <Aside
           v-if="project"
-          :items="project.phases"
+          :phases="phases"
+          :project="project"
         />
       </div>
       <div class="pure-u-1 pure-u-lg-3-4">
@@ -43,6 +44,7 @@ export default {
   data() {
     return {
       dictionary: [],
+      phases: [],
       project: null
     };
   },
@@ -61,12 +63,13 @@ export default {
             data: { data: item }
           },
           {
-            data: { data: attributesDictionary }
+            data: { data: attributesDictionary, meta: filtersFromConfiguration }
           }
         ] = responses;
 
         this.dictionary = attributesDictionary;
         this.project = this.setItem(item);
+        this.phases = this.getPhases(filtersFromConfiguration)
       });
     }
   },

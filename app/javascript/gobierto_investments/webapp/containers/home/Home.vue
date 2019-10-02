@@ -72,7 +72,7 @@ export default {
           data: { data: items = [] }
         },
         {
-          data: { data: attributesDictionary = [], meta: filtersSelected }
+          data: { data: attributesDictionary = [], meta: filtersFromConfiguration }
         }
       ] = responses;
 
@@ -81,14 +81,14 @@ export default {
       this.items = this.setData(items);
       this.subsetItems = this.items;
 
-      if (filtersSelected) {
+      if (filtersFromConfiguration) {
         // get the phases, and append the items for that phase
-        this.phases = this.getPhases(filtersSelected).map(phase => ({
+        this.phases = this.getPhases(filtersFromConfiguration).map(phase => ({
           ...phase,
           items: this.items.filter(d => (d.phases.length ? d.phases[0].id === phase.id : false))
         }));
 
-        this.filters = this.getFilters(filtersSelected) || [];
+        this.filters = this.getFilters(filtersFromConfiguration) || [];
 
         if (this.filters.length) {
           this.activeFilters = new Map();

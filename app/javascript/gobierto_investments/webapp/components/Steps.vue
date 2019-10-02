@@ -5,7 +5,7 @@
         v-for="step in steps"
         :key="step.id"
       >
-        <a href>{{ step.title | translate }}</a>
+        <span :class="{ 'is-active': step.active }">{{ step.title | translate }}</span>
       </li>
     </ul>
   </nav>

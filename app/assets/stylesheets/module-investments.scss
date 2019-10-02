@@ -95,7 +95,7 @@
         }
       }
 
-      a {
+      span {
         color: $color_text;
         font-size: $f6;
         font-weight: 400;
@@ -107,7 +107,7 @@
         box-sizing: border-box;
         padding: 0 2rem;
 
-        &:hover {
+        &.is-active {
           background-color: var(--color-base);
           border-radius: 3px;
           color: $color_main_negative;

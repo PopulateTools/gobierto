@@ -5,7 +5,9 @@
         Estado
       </h6>
 
-      <Steps :steps="items" />
+      <Steps
+        :steps="phasesMutated"
+      />
     </div>
   </aside>
 </template>
@@ -19,10 +21,25 @@ export default {
     Steps
   },
   props: {
-    items: {
+    phases: {
       type: Array,
       default: () => []
+    },
+    project: {
+      type: Object,
+      default: () => {}
     }
+  },
+  data() {
+    return {
+      phasesMutated: []
+    }
+  },
+  created() {
+    const { phases = [] } = this.project;
+    const activePhases = phases.map(p => p.id);
+
+    this.phasesMutated = this.phases.map(phase => ({ ...phase, active: activePhases.includes(phase.id) }))
   }
 };
 </script>

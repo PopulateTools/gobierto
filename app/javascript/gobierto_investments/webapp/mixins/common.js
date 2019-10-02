@@ -97,9 +97,11 @@ export const CommonsMixin = {
       const { vocabulary_terms = [] } = this.getAttributesByKey(id);
       const { distribution = [] } = stats[id];
       return vocabulary_terms.map(term => {
+        const { name_translations: title = {} } = term
         const { count = 0 } = distribution.find(el => parseFloat(JSON.parse(el.value)) === parseFloat(term.id)) || {};
         return {
           ...term,
+          title,
           count
         };
       });

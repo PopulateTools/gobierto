@@ -10,12 +10,11 @@ module GobiertoPlans
   end
 
   def self.root_path(current_site)
-    plan_types = current_site.plan_types
-    if plan_type = plan_types.detect { |pt| pt.plans.published.any? }
-      plans = plan_type.plans.published
-      years = plans.pluck(:year).sort.reverse!
+    site_plans = GobiertoPlans::PlanType.site_plan_types_with_years(current_site)
+    if site_plans.any?
+      plan_type = site_plans.first
 
-      Rails.application.routes.url_helpers.gobierto_plans_plan_path(slug: plan_type.slug, year: years.first)
+      Rails.application.routes.url_helpers.gobierto_plans_plan_path(slug: plan_type.slug, year: plan_type.max_year)
     else
       ""
     end

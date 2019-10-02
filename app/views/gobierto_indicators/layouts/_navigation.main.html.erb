@@ -1,3 +1,3 @@
 <div class="main-nav-item<%= class_if(' active', current_module == 'gobierto_indicators') %>">
-  <%= link_to t("gobierto_indicators.layouts.application.indicators"), GobiertoIndicators.root_path(current_site), data: { turbolinks: false } %>
+  <%= link_to t("gobierto_indicators.layouts.application.indicators"), current_site.configuration.home_page == "GobiertoIndicators" ? root_path : GobiertoIndicators.root_path(current_site), data: { turbolinks: false } %>
 </div>

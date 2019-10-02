@@ -1,5 +1,7 @@
+<% gobierto_root_path = current_site.root_path %>
 <% GobiertoPlans::PlanType.site_plan_types_with_years(current_site).each do |plan_type| %>
+  <% plan_path = gobierto_plans_plan_path(slug: plan_type.slug, year: plan_type.max_year) %>
   <div class="sub-nav-item <%= class_if(' active', plan_type.slug == params[:slug] ) %>">
-    <%= link_to plan_type.name, gobierto_plans_plan_path(slug: plan_type.slug, year: plan_type.max_year) %>
+    <%= link_to plan_type.name, plan_path == gobierto_root_path ? root_path : plan_path %>
   </div>
 <% end %>

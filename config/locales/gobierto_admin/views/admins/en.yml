@@ -13,6 +13,7 @@ en:
           regular: Regular
         password_block: Password
         placeholders:
+          api_token: Rand0mStr0ngPassw0rd
           email: fgonzalez@gmail.com
           name: Fernando González
         sites_block: Allowed sites
@@ -33,3 +34,5 @@ en:
         view_admin: View Admin
       new:
         title: New Admin
+      show:
+        admin_tokens: Authorization tokens

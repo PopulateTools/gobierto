@@ -75,7 +75,7 @@ class GobiertoPlans::PlanTree
       end
 
       attributes[:children_count] = subtree.blank? ? category.nodes.count : subtree.count
-      attributes[:nodes_list_path] = url_helper.gobierto_plans_api_plan_projects_path(plan_id: @plan.id, category_id: category.id)
+      attributes[:nodes_list_path] = url_helper.gobierto_plans_api_plan_projects_path(plan_id: @plan.id, category_id: category.id, locale: I18n.locale)
 
       { id: category.id,
         uid: category.uid,

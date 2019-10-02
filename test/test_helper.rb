@@ -48,6 +48,7 @@ require "support/gobierto_site_constraint_helpers"
 require "support/asymmetric_encryptor_helpers"
 require "support/site_config_helpers"
 require "support/gobierto_people/submodules_helper"
+require "support/gobierto_common/token_service_helpers"
 require "capybara/email"
 require "capybara/rails"
 require "capybara/minitest"
@@ -149,4 +150,5 @@ class GobiertoControllerTest < ActionDispatch::IntegrationTest
   require "support/integration/request_authentication_helpers"
 
   include Integration::RequestAuthenticationHelpers
+  include GobiertoCommon::TokenServiceHelpers
 end

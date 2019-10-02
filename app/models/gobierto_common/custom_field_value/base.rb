@@ -16,6 +16,7 @@ module GobiertoCommon
 
         raw_value
       end
+      alias filter_value value
 
       def value_string
         value

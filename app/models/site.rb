@@ -198,7 +198,7 @@ class Site < ApplicationRecord
   end
 
   def root_path
-    url_helpers.send("#{configuration.home_page.underscore}_root_path")
+    configuration.home_page.constantize.send(:root_path, self)
   end
 
   def algolia_search_disabled?

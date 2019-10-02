@@ -8,6 +8,10 @@ ca:
       gobierto_plans_plan_type_created: Tipus de pla creat
       gobierto_plans_plan_type_updated: Tipus de pla actualitzat
       gobierto_plans_plan_updated: Pla actualitzat
+      gobierto_plans_progresses_updated: Progressos de projectes actualitzats
+      gobierto_plans_project_created: Projecte creat
+      gobierto_plans_project_destroyed: Projecte eliminat del pla
+      gobierto_plans_project_updated: Projecte actualitzat
     layouts:
       application:
         plans: Plans

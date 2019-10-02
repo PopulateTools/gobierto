@@ -19,23 +19,29 @@ module GobiertoBudgets
         @code = params[:code]
 
         @category_name = @kind == 'G' ? I18n.t("controllers.gobierto_budgets.api.data.expense") : I18n.t("controllers.gobierto_budgets.api.data.income")
-
         budget_data = budget_data(@year, 'amount')
         budget_data_previous_year = budget_data(@year - 1, 'amount')
-        position = budget_data[:position].to_i
-        sign = sign(budget_data[:value], budget_data_previous_year[:value])
+
+        result = if budget_data.present? && budget_data_previous_year.present?
+          position = budget_data[:position].to_i
+          sign = sign(budget_data[:value], budget_data_previous_year[:value])
+
+          {
+            title: @category_name,
+            sign: sign,
+            value: format_currency(budget_data[:value]),
+            delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
+            ranking_position: position,
+            ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
+            ranking_url: ''
+          }
+        else
+          {}
+        end
 
         respond_to do |format|
           format.json do
-            render json: {
-              title: @category_name,
-              sign: sign,
-              value: format_currency(budget_data[:value]),
-              delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
-              ranking_position: position,
-              ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
-              ranking_url: ''
-            }.to_json
+            render json: result
           end
         end
       end
@@ -68,20 +74,26 @@ module GobiertoBudgets
         @category_name = @kind == 'G' ? I18n.t("controllers.gobierto_budgets.api.data.expense") : I18n.t("controllers.gobierto_budgets.api.data.income")
         budget_data = budget_data(@year, 'amount_per_inhabitant')
         budget_data_previous_year = budget_data(@year - 1, 'amount_per_inhabitant')
-        position = budget_data[:position].to_i
-        sign = sign(budget_data[:value], budget_data_previous_year[:value])
+        result = if budget_data.present? && budget_data_previous_year.present?
+          position = budget_data[:position].to_i
+          sign = sign(budget_data[:value], budget_data_previous_year[:value])
+
+          {
+            sign: sign,
+            title: "#{@category_name} por habitante",
+            value: format_currency(budget_data[:value]),
+            delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
+            ranking_position: position,
+            ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
+            ranking_url: ''
+          }
+        else
+          {}
+        end
 
         respond_to do |format|
           format.json do
-            render json: {
-              sign: sign,
-              title: "#{@category_name} por habitante",
-              value: format_currency(budget_data[:value]),
-              delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
-              ranking_position: position,
-              ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
-              ranking_url: ''
-            }.to_json
+            render json: result
           end
         end
       end

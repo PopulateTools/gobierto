@@ -44,7 +44,7 @@ class GobiertoPlans::PlanTreeTest < ActiveSupport::TestCase
         img: "http://gobierto.es/assets/v2/logo-gobierto.svg",
         counter: true,
         children_count: 0,
-        nodes_list_path: "/planes/gobierto_plans/api/plan_projects/28856268/184796018"
+        nodes_list_path: "/planes/gobierto_plans/api/plan_projects/28856268/184796018?locale=en"
       },
       children: []
     }.with_indifferent_access
@@ -67,7 +67,7 @@ class GobiertoPlans::PlanTreeTest < ActiveSupport::TestCase
         img: "http://gobierto.es/assets/v2/logo-gobierto.svg",
         counter: true,
         children_count: 0,
-        nodes_list_path: "/planes/gobierto_plans/api/plan_projects/28856268/344799082"
+        nodes_list_path: "/planes/gobierto_plans/api/plan_projects/28856268/344799082?locale=en"
       },
       children: []
     }.with_indifferent_access

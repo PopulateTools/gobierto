@@ -14,6 +14,8 @@ es:
             verlo.
           error: El proyecto no se ha podido publicar.
           success: El proyecto ha sido publicado correctamente.
+        send:
+          confirm: Vas a enviar este proyecto a un moderador para su validación.
         unpublish:
           error: El proyecto no se ha podido despublicar.
           success: El proyecto ha sido despublicado correctamente.

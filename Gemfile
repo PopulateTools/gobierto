@@ -95,6 +95,9 @@ gem "cloudinary"
 # Gobierto data
 gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 
+# API
+gem "jwt"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
@@ -107,7 +110,7 @@ group :test do
   gem "capybara-email"
   gem "codecov", "~> 0.1.9", require: false
   gem "launchy"
-  gem "minitest", "5.11.3"
+  gem "minitest", "5.12.2"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"

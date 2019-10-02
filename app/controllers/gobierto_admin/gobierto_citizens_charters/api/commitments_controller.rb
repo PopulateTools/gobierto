@@ -7,7 +7,7 @@ module GobiertoAdmin
         def index
           find_charter
           reference_edition = @charter.editions.new params.permit(:period, :period_interval)
-          @commitments = @charter.commitments
+          @commitments = @charter.commitments.sorted
 
           render json: @commitments, each_serializer: ::GobiertoAdmin::GobiertoCitizensCharters::CommitmentSerializer, reference_edition: reference_edition
         end

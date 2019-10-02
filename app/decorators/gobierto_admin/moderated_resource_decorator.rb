@@ -98,6 +98,14 @@ module GobiertoAdmin
       end][staus_text.to_sym] || :in_revision
     end
 
+    def publish_step_action_confirm_message
+      if @object.is_a?(::GobiertoPlans::Node)
+        I18n.t("gobierto_admin.gobierto_plans.projects.#{publish_step_action}.confirm")
+      else
+        I18n.t("gobierto_admin.shared.moderation_save_widget.confirm")
+      end
+    end
+
     private
 
     def publish_moderation_status

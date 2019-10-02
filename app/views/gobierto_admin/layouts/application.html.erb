@@ -129,46 +129,12 @@
         <div class="menu_content">
 
           <ul>
-            <% if show_module_link?("GobiertoBudgets") %>
-            <li>
-              <%= link_to t(".budgets"), admin_gobierto_budgets_options_path %>
-            </li>
-            <% end %>
-
-            <% if show_module_link?("GobiertoBudgetConsultations") %>
-            <li>
-              <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>
-            </li>
-            <% end %>
-
-            <% if show_module_link?("GobiertoPeople") %>
-            <li>
-              <%= link_to t(".people"), admin_people_people_path %>
-            </li>
-            <% end %>
-
-            <% if show_module_link?("GobiertoParticipation") %>
-            <li>
-              <%= link_to t(".participation"), admin_participation_path %>
-            </li>
-            <% end %>
-
-            <% if show_module_link?("GobiertoPlans") %>
-            <li>
-              <%= link_to t(".plans"), admin_plans_plans_path %>
-            </li>
-            <% end %>
-
-            <% if show_module_link?("GobiertoCitizensCharters") %>
-            <li>
-              <%= link_to t(".citizens_charters"), admin_citizens_charters_path %>
-            </li>
-            <% end %>
-
-            <% if show_module_link?("GobiertoInvestments") %>
-              <li>
-                <%= link_to t(".investments"), admin_investments_projects_path %>
-              </li>
+            <% default_modules_home_paths.each do |module_name, path| %>
+              <% if show_module_link?(module_name.camelize) %>
+                <li>
+                  <%= link_to t(".modules.#{module_name.gsub(/\Agobierto_/,"")}"), path %>
+                </li>
+              <% end %>
             <% end %>
 
             <li class="sep"></li>

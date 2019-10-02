@@ -110,7 +110,7 @@
                       class: "bl",
                       name: "#{f.object_name}[visibility_level]",
                       value: [moderated_resource.step_visibility_value, versioned_resource.current_version].compact.join("-"),
-                      data: { confirm: versioned_resource.first_publication_confirm_message }
+                      data: { confirm: moderated_resource.publish_step_action_confirm_message }
                     ) %>
               </div>
             <% end %>

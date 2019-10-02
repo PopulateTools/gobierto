@@ -34,6 +34,11 @@
         </div>
       <% end %>
 
+      <div class="form_item input_text">
+        <%= f.label :api_token %>
+        <%= f.text_field :api_token, placeholder: t(".placeholders.api_token"), disabled: !@admin_policy.update? %>
+      </div>
+
       <% unless @admin && @admin.god? %>
         <!-- Admin groups -->
         <div class="form_block" id="admin_groups" style="<%= @admin&.regular? && @admin.sites.include?(current_site) ? '' : 'display: none;' %>">

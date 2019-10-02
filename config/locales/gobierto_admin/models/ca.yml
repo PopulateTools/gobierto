@@ -8,6 +8,7 @@ ca:
         password: Contrasenya
         password_confirmation: Confirmació de la contrasenya
       gobierto_admin/admin_form:
+        api_token: Token de l'API
         email: Email
         name: Nom
         password: Contrasenya

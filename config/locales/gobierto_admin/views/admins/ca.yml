@@ -13,6 +13,7 @@ ca:
           regular: Regular
         password_block: Contrasenya
         placeholders:
+          api_token: Rand0mStr0ngPassw0rd
           email: fgonzalez@gmail.com
           name: Fernando González
         sites_block: Sites amb accés
@@ -33,3 +34,5 @@ ca:
         view_admin: Veure Administrador
       new:
         title: Nou Administrador
+      show:
+        admin_tokens: Tokens d'autorització

@@ -30,7 +30,7 @@ module GobiertoCommon::CustomFieldFunctions
 
     def data
       @data ||= begin
-                  resources = value.dig("human_resources") || []
+                  resources = value.is_a?(Array) ? value : value.dig("human_resources") || value.dig(custom_field.uid) || []
 
                   resources.map do |resource|
                     OpenStruct.new(

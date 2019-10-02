@@ -58,7 +58,9 @@ module GobiertoAdmin
             political_agendas_custom_field_record_color: unpublished_project,
             political_agendas_custom_field_record_image: unpublished_project,
             political_agendas_custom_field_record_localized_description: unpublished_project,
-            political_agendas_table_custom_field_record: unpublished_project
+            political_agendas_table_custom_field_record: unpublished_project,
+            political_agendas_human_resources_table_custom_field_record: unpublished_project,
+            political_agendas_indicators_table_custom_field_record: unpublished_project
           }.each do |fixture_key, project|
             ::GobiertoCommon::CustomFieldRecord.create(
               gobierto_common_custom_field_records(fixture_key).attributes.except("id", "item_id").merge(
@@ -116,6 +118,13 @@ module GobiertoAdmin
             assert_equal Date.parse("2021-01-01"), published_project.ends_at
             assert published_project.published?
             assert published_project.moderation.approved?
+
+            activity = Activity.last
+            assert_equal published_project, activity.subject
+            assert_equal plan, activity.recipient
+            assert_equal admin, activity.author
+            assert_equal site.id, activity.site_id
+            assert_equal "gobierto_plans.project_updated", activity.action
           end
         end
 

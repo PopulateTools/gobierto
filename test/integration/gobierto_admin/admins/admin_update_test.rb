@@ -43,6 +43,7 @@ module GobiertoAdmin
         within "form.edit_admin" do
           fill_in "admin_name", with: "Admin Name"
           fill_in "admin_email", with: "wadus@gobierto.dev"
+          fill_in "admin_api_token", with: "W4duS"
 
           within "#sites_permissions" do
             uncheck "santander.gobierto.test"
@@ -61,6 +62,7 @@ module GobiertoAdmin
         within "form.edit_admin" do
           assert has_field?("admin_email", with: "wadus@gobierto.dev")
           assert has_field?("admin_name", with: "Admin Name")
+          assert has_field?("admin_api_token", with: "W4duS")
 
           within "#sites_permissions" do
             assert has_no_checked_field?("santander.gobierto.test")
@@ -234,6 +236,21 @@ module GobiertoAdmin
         end
 
         assert has_alert?("Password confirmation doesn't match Password")
+      end
+    end
+
+    def test_admin_update_set_blank_api_token
+      with_signed_in_admin(manager_admin) do
+        visit edit_admin_admin_path(regular_admin)
+
+        within "form.edit_admin" do
+          fill_in "admin_api_token", with: ""
+
+          click_button "Update"
+        end
+
+        regular_admin.reload
+        assert_nil regular_admin.api_token
       end
     end
   end

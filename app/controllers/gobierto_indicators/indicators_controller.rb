@@ -4,6 +4,7 @@ module GobiertoIndicators
   class IndicatorsController < GobiertoIndicators::ApplicationController
     include User::SessionHelper
 
+    before_action :overrided_root_redirect, only: [:index]
     before_action :load_indicators, only: [:ita, :ip, :gci]
     before_action :load_years, only: [:ita, :ip, :gci]
     before_action :load_year, only: [:ita, :ip, :gci]

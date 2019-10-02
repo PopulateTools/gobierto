@@ -12,4 +12,8 @@ module GobiertoCms
   def self.doc_url
     "https://gobierto.readme.io/docs/cms"
   end
+
+  def self.root_path(_)
+    Rails.application.routes.url_helpers.root_path
+  end
 end

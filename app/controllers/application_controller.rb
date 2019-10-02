@@ -84,4 +84,10 @@ class ApplicationController < ActionController::Base
       head :forbidden
     end
   end
+
+  def overrided_root_redirect
+    if !request.env["gobierto_welcome_override"] && request.path == current_site.root_path
+      redirect_to root_path and return false
+    end
+  end
 end

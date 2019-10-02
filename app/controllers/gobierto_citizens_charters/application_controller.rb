@@ -2,7 +2,7 @@
 
 class GobiertoCitizensCharters::ApplicationController < ApplicationController
   include User::SessionHelper
-  helper_method :services_enabled?, :services_home_enabled?
+  helper_method :services_enabled?
 
   layout "gobierto_citizens_charters/layouts/application"
 
@@ -10,10 +10,6 @@ class GobiertoCitizensCharters::ApplicationController < ApplicationController
 
   def services_enabled?
     !current_site.gobierto_citizens_charters_settings&.disable_services
-  end
-
-  def services_home_enabled?
-    current_site.gobierto_citizens_charters_settings&.enable_services_home
   end
 
   private

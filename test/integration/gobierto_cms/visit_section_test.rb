@@ -89,7 +89,7 @@ module GobiertoCms
       with_current_site(site) do
         visit @path
 
-        assert_equal site.root_path, current_path
+        assert_equal "/", current_path
       end
     end
 

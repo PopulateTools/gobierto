@@ -2,7 +2,7 @@
   <aside class="investments-project-aside--gap">
     <div class="investments-project-aside--block">
       <h6 class="investments-project-aside--block-head">
-        Estado
+        {{ project.phasesFieldName | translate }}
       </h6>
 
       <Steps
@@ -14,12 +14,14 @@
 
 <script>
 import Steps from "../../components/Steps.vue";
+import { CommonsMixin } from "../../mixins/common.js";
 
 export default {
   name: "ProjectAside",
   components: {
     Steps
   },
+  mixins: [CommonsMixin],
   props: {
     phases: {
       type: Array,

@@ -132,6 +132,7 @@ export const CommonsMixin = {
         gallery: attributes.gallery || [],
         location: attributes[location.id],
         phases: attributes[phases.id].map(element => ({ ...element, title: element.name_translations })),
+        phasesFieldName: this.getItem(phases, attributes).name_translations,
         availableGalleryFields: availableGalleryFields.map(element => this.getItem(element, attributes)),
         availableTableFields: availableTableFields.map(element => this.getItem(element, attributes))
       };

@@ -432,7 +432,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      
+
       @include min-screen(768) {
         justify-content: flex-start;
         flex-direction: row;

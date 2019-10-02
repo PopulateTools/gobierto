@@ -1,10 +1,10 @@
 <template>
   <l-map
     ref="map"
-    class="investments-home-main--map"
     :options="{
       scrollWheelZoom:false
     }"
+    class="investments-home-main--map"
   >
     <l-tile-layer
       :url="url"

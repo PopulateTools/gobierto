@@ -36,14 +36,27 @@
   $size: if(unitless($size), $size * $unit, $size);
 
   .pure-g.gutters {
-    margin-left: -$size / 2;
-    margin-right: -$size / 2;
+    margin-top: -$size / 2;
+    margin-bottom: -$size / 2;
   }
 
   .pure-g.gutters > [class *=pure-u] {
     box-sizing: border-box;
-    padding-left: $size / 2;
-    padding-right: $size / 2;
+    padding-top: $size / 2;
+    padding-bottom: $size / 2;
+  }
+
+  @include min-screen(768) {
+    .pure-g.gutters {
+      margin-left: -$size / 2;
+      margin-right: -$size / 2;
+    }
+
+    .pure-g.gutters > [class *=pure-u] {
+      box-sizing: border-box;
+      padding-left: $size / 2;
+      padding-right: $size / 2;
+    }
   }
 }
 @include gutters;

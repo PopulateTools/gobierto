@@ -20,8 +20,10 @@ module GobiertoPlans
       [name]
     end
 
-    def self.site_plant_types(site)
-      site.plans.includes(:plan_type).published.group_by(&:plan_type).keys
+    def self.site_plan_types_with_years(site)
+      site.plan_types.joins(:plans).where("visibility_level = ?", GobiertoPlans::Plan.visibility_levels[:published]).
+        select("max(year) as max_year, gplan_plan_types.*").
+        group("gplan_plan_types.id")
     end
   end
 end

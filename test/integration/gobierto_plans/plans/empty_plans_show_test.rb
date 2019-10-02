@@ -17,7 +17,7 @@ module GobiertoPlans
       with_current_site(site) do
         visit @path
 
-        assert_equal 404, page.status_code
+        assert_equal "/", current_path
       end
     end
   end

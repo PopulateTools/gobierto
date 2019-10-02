@@ -12,4 +12,12 @@ module GobiertoBudgets
   def self.doc_url
     "https://gobierto.readme.io/docs/presupuestos"
   end
+
+  def self.root_path(current_site)
+    if current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_elaboration"]
+      Rails.application.routes.url_helpers.gobierto_budgets_budgets_elaboration_path
+    else
+      Rails.application.routes.url_helpers.gobierto_budgets_budgets_path(GobiertoBudgets::SearchEngineConfiguration::Year.last)
+    end
+  end
 end

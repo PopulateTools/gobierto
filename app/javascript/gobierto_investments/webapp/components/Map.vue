@@ -3,7 +3,11 @@
     ref="map"
     class="investments-home-main--map"
   >
-    <l-tile-layer :url="url" />
+    <l-tile-layer
+      :url="url"
+      :options="tileOptions"
+      :detect-retina="true"
+    />
     <l-feature-group ref="features">
       <l-geo-json
         v-for="geojson in geojsons"
@@ -48,7 +52,11 @@ export default {
   popupClass: "investments-home-main--map-popup",
   data() {
     return {
-      url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+      url: "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}{r}.png?access_token={token}",
+      tileOptions: {
+        id: "mapbox.light",
+        token: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ"
+      },
       geojsons: [],
       options: {}
     };

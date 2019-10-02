@@ -32,7 +32,7 @@ module GobiertoParticipation
     def find_scope_notifications
       ActivityCollectionDecorator.new(Activity.in_site(current_site)
                                  .no_admin
-                                 .in_process(@scope.processes)
+                                 .in_process(@scope.processes.public_process)
                                  .sorted
                                  .limit(5)
                                  .includes(:subject, :author, :recipient))

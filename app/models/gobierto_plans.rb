@@ -9,6 +9,17 @@ module GobiertoPlans
     "https://gobierto.readme.io/docs/planes"
   end
 
+  def self.root_path(current_site)
+    site_plans = GobiertoPlans::PlanType.site_plan_types_with_years(current_site)
+    if site_plans.any?
+      plan_type = site_plans.first
+
+      Rails.application.routes.url_helpers.gobierto_plans_plan_path(slug: plan_type.slug, year: plan_type.max_year)
+    else
+      ""
+    end
+  end
+
   def self.classes_with_custom_fields
     [GobiertoPlans::Node]
   end

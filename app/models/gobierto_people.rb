@@ -32,4 +32,8 @@ module GobiertoPeople
   def self.doc_url
     "https://gobierto.readme.io/docs/altos-cargos-y-agendas"
   end
+
+  def self.root_path(_)
+    Rails.application.routes.url_helpers.gobierto_people_root_path
+  end
 end

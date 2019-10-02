@@ -1,5 +1,6 @@
 class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationController
   before_action :load_year, except: [:guide]
+  before_action :overrided_root_redirect, only: [:index]
 
   def index
     @kind = GobiertoBudgets::BudgetLine::INCOME

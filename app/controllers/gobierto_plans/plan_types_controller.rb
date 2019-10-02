@@ -5,16 +5,10 @@ module GobiertoPlans
     include ::PreviewTokenHelper
     include User::SessionHelper
 
+    before_action :overrided_root_redirect, only: [:show]
+
     def index
-      # Select last plan published
-      plan_types = current_site.plan_types
-      @plan_type = plan_types.detect { |pt| pt.plans.published.any? }
-      render_404 and return if @plan_type.nil?
-
-      load_plans
-      load_years
-
-      redirect_to gobierto_plans_plan_path(slug: @plan_type.slug, year: @years.first)
+      redirect_to GobiertoPlans.root_path(current_site)
     end
 
     def show

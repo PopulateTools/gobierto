@@ -41,11 +41,6 @@ export default {
   created() {
     const { availableTableFields = [] } = this.item
     this.columns = availableTableFields
-  },
-  methods: {
-    nav(id) {
-      this.$router.push({ name: "project", params: { id } });
-    }
   }
 };
 </script>

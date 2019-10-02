@@ -6,7 +6,7 @@
       type="checkbox"
       @change="marked = !marked"
     >
-    <label :for="`investments-home-aside--checkbox-${id}`">{{ title | translate }}</label>
+    <label :for="`investments-home-aside--checkbox-${id}`">{{ title | translate }} <div>({{ counter }})</div></label>
   </div>
 </template>
 
@@ -28,6 +28,10 @@ export default {
     checked: {
       type: Boolean,
       default: false
+    },
+    counter: {
+      type: Number,
+      default: 0
     }
   },
   data() {

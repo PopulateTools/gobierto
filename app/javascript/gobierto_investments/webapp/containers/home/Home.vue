@@ -77,24 +77,36 @@ export default {
       ] = responses;
 
       this.dictionary = attributesDictionary;
-
       this.items = this.setData(items);
-      this.subsetItems = this.items;
 
       if (filtersFromConfiguration) {
-        // get the phases, and append the items for that phase
-        this.phases = this.getPhases(filtersFromConfiguration).map(phase => ({
+        // get the phases, and append what items are in that phase
+        const phases = this.getPhases(filtersFromConfiguration)
+        this.phases = phases.map(phase => ({
           ...phase,
           items: this.items.filter(d => (d.phases.length ? d.phases[0].id === phase.id : false))
         }));
+
+        // Add dictionary of phases in order to fulfill project page
+        this.items = this.items.map(item => ({ ...item, phasesDictionary: phases }))
 
         this.filters = this.getFilters(filtersFromConfiguration) || [];
 
         if (this.filters.length) {
           this.activeFilters = new Map();
-          this.filters.forEach(f => this.activeFilters.set(f.key, undefined));
+          this.filters.forEach(f => {
+            // initialize active filters
+            this.activeFilters.set(f.key, undefined);
+
+            if (f.type === "vocabulary_options") {
+              // Add a counter for each option
+              f.options = f.options.map(opt => ({ ...opt, counter: this.items.filter(i => i.attributes[f.key].map(g => g.id).includes(opt.id)).length }))
+            }
+          });
         }
       }
+
+      this.subsetItems = this.items;
     })
   },
   methods: {

@@ -1,25 +1,26 @@
 <template>
-  <l-map
-    ref="map"
-    :options="{
-      scrollWheelZoom:false
-    }"
-    class="investments-home-main--map"
-  >
-    <l-tile-layer
-      :url="url"
-      :options="tileOptions"
-      :detect-retina="true"
-    />
-    <l-feature-group ref="features">
-      <l-geo-json
-        v-for="geojson in geojsons"
-        :key="geojson.index"
-        :geojson="geojson"
-        :options="geojsonOptions"
+  <div class="investments-home-main--map">
+    <l-map
+      ref="map"
+      :options="{
+        scrollWheelZoom:false
+      }"
+    >
+      <l-tile-layer
+        :url="url"
+        :options="tileOptions"
+        :detect-retina="true"
       />
-    </l-feature-group>
-  </l-map>
+      <l-feature-group ref="features">
+        <l-geo-json
+          v-for="geojson in geojsons"
+          :key="geojson.index"
+          :geojson="geojson"
+          :options="geojsonOptions"
+        />
+      </l-feature-group>
+    </l-map>
+  </div>
 </template>
 
 <script>
@@ -58,7 +59,8 @@ export default {
       url: "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}{r}.png?access_token={token}",
       tileOptions: {
         id: "mapbox.light",
-        token: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ"
+        token: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
+        attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors"
       },
       geojsons: [],
       geojsonOptions: {},

@@ -56,6 +56,7 @@ export default {
 
     if (item) {
       this.project = item;
+      this.phases = item.phasesDictionary;
     } else {
       axios.all([axios.get(`${this.$baseUrl}/${this.$route.params.id}`), axios.get(`${this.$baseUrl}/meta?stats=true`)]).then(responses => {
         const [
@@ -69,7 +70,10 @@ export default {
 
         this.dictionary = attributesDictionary;
         this.project = this.setItem(item);
-        this.phases = this.getPhases(filtersFromConfiguration)
+
+        if (filtersFromConfiguration) {
+          this.phases = this.getPhases(filtersFromConfiguration)
+        }
       });
     }
   },

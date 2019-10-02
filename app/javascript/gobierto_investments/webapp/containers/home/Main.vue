@@ -1,11 +1,16 @@
 <template>
   <main class="investments-home-main">
     <keep-alive>
-      <component
-        :is="currentTabComponent"
-        v-if="items.length"
-        :items="items"
-      />
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <component
+          :is="currentTabComponent"
+          v-if="items.length"
+          :items="items"
+        />
+      </transition>
     </keep-alive>
   </main>
 </template>
@@ -49,4 +54,3 @@ export default {
   }
 };
 </script>
-

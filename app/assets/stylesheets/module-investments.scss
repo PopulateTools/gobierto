@@ -90,8 +90,31 @@
           z-index: 1;
         }
 
-        &:hover::before {
-          background-color: #fff;
+        &.is-active {
+          &::before {
+            background-color: #fff;
+          }
+
+          span {
+            background-color: var(--color-base);
+            border-radius: 3px;
+            color: $color_main_negative;
+            font-weight: 600;
+
+            &::before {
+              content: "";
+              position: absolute;
+              display: block;
+              background-color: var(--color-base);
+              border-radius: 100%;
+              width: 3px;
+              height: 3px;
+              top: 50%;
+              left: 1rem;
+              transform: translate(-50%, -50%);
+              z-index: 3;
+            }
+          }
         }
       }
 
@@ -106,28 +129,6 @@
         width: 100%;
         box-sizing: border-box;
         padding: 0 2rem;
-
-        &.is-active {
-          background-color: var(--color-base);
-          border-radius: 3px;
-          color: $color_main_negative;
-          font-weight: 600;
-
-          &::before {
-            content: "";
-            position: absolute;
-            display: block;
-            background-color: var(--color-base);
-            border-radius: 100%;
-            width: 3px;
-            height: 3px;
-            top: 50%;
-            left: 1rem;
-            transform: translate(-50%, -50%);
-            z-index: 3;
-          }
-        }
-
       }
     }
   }
@@ -264,6 +265,11 @@
         display: flex;
         align-items: center;
         position: relative;
+
+        > div {
+          margin-left: 0.5em;
+          opacity: 0.5;
+        }
 
         &:hover {
           background: transparent;
@@ -490,7 +496,9 @@
 
     // Overwrite Leaflet
     &--map {
-      &.leaflet-container {
+      height: 100%;
+
+      .leaflet-container {
         font: inherit;
       }
 

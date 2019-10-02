@@ -23,6 +23,7 @@ module GobiertoParticipation
                 Arel.sql(
                   <<-SQL
                     #{ process_class.table_name }.privacy_status = #{ process_class.privacy_statuses[:public_process] } OR
+                    #{ process_class.table_name }.privacy_status IS NULL OR
                     (
                       #{ process_class.table_name }.privacy_status = #{ process_class.privacy_statuses[:private_process] } AND
                       #{ process_class.table_name }.issue_id IS NOT NULL AND
@@ -31,7 +32,7 @@ module GobiertoParticipation
                   SQL
                 )
               else
-                { process_class.table_name => { privacy_status: ::GobiertoParticipation::Process.privacy_statuses[:public_process] } }
+                { process_class.table_name => { privacy_status: [nil, ::GobiertoParticipation::Process.privacy_statuses[:public_process]] } }
               end
             )
     end

@@ -11,14 +11,14 @@ module GobiertoParticipation
       @issue_news = find_issue_news
       @issue_notifications = find_issue_notifications
       @issue_events = find_issue_events
-      @processes = current_site.processes.process.where(issue: @issue).active
+      @processes = base_relation.process
       @groups = CollectionDecorator.new(find_groups, decorator: GobiertoParticipation::ProcessDecorator)
     end
 
     private
 
     def find_groups
-      current_site.processes.group_process.where(issue: @issue).active
+      base_relation.group_process
     end
 
     def find_issue
@@ -35,6 +35,10 @@ module GobiertoParticipation
 
     def find_issue_events
       @issue.events.published.upcoming.order(starts_at: :asc).limit(5)
+    end
+
+    def base_relation
+      current_site.processes.active.available_for_user(current_user).where(issue: @issue)
     end
   end
 end

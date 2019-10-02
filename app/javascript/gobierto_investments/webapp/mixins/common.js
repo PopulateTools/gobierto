@@ -22,9 +22,6 @@ const CONFIGURATION = {
       endKey: "data-fin",
     },
     {
-      id: "import"
-    },
-    {
       id: "estat"
     },
     {
@@ -32,6 +29,9 @@ const CONFIGURATION = {
     },
     {
       id: "tipus-projecte"
+    },
+    {
+      id: "import"
     },
   ],
   availableGalleryFields: [

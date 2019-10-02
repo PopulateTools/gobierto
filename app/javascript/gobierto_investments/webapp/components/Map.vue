@@ -2,6 +2,9 @@
   <l-map
     ref="map"
     class="investments-home-main--map"
+    :options="{
+      scrollWheelZoom:false
+    }"
   >
     <l-tile-layer
       :url="url"
@@ -13,7 +16,7 @@
         v-for="geojson in geojsons"
         :key="geojson.index"
         :geojson="geojson"
-        :options="options"
+        :options="geojsonOptions"
       />
     </l-feature-group>
   </l-map>
@@ -58,7 +61,7 @@ export default {
         token: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ"
       },
       geojsons: [],
-      options: {},
+      geojsonOptions: {},
       item: null
     };
   },
@@ -88,7 +91,7 @@ export default {
       });
     };
 
-    this.options = { onEachFeature }
+    this.geojsonOptions = { onEachFeature }
 
     this.setGeoJSONs(this.items);
   },

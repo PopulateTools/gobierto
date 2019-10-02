@@ -357,6 +357,8 @@
       align-items: flex-end;
       height: 100px;
       padding: 0 0.5em;
+      box-sizing: border-box;
+      overflow: hidden;
 
       > * {
         background-color: var(--color-base-soft);
@@ -429,6 +431,12 @@
       list-style-type: none;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+
+      @include min-screen(768) {
+        flex-direction: row;
+        margin-right: 0;
+      }
     }
 
     &--tab {
@@ -438,13 +446,18 @@
       line-height: 24px;
       text-transform: uppercase;
       padding: 14px 0;
-      margin-left: 20px;
       border-top: 3px solid transparent;
       box-sizing: border-box;
       cursor: pointer;
       transition: all 100ms ease-out;
-      min-width: 100px;
       text-align: center;
+      margin-left: 20px;
+      flex: 1;
+
+      @include min-screen(768) {
+        flex: 0;
+        min-width: 100px;
+      }
 
       > :first-child {
         flex: 0 0 25px;
@@ -647,10 +660,19 @@
   }
 
   &-home-article {
+    $triangle-width: 15px;
+
     &--container {
       display: flex;
       justify-content: stretch;
+      flex-direction: column;
       counter-reset: section;
+      margin-right: $triangle-width;
+
+      @include min-screen(768) {
+        flex-direction: row;
+        margin-right: 0;
+      }
     }
 
     &--header {
@@ -692,7 +714,7 @@
         display: block;
         width: 0;
         height: 0;
-        border-left: 15px solid;
+        border-left: $triangle-width solid;
         border-top: 64px solid transparent;
         border-bottom: 64px solid transparent;
         position: absolute;
@@ -707,7 +729,7 @@
         display: block;
         width: 0;
         height: 0;
-        border-left: 15px solid;
+        border-left: $triangle-width solid;
         border-top: 64px solid transparent;
         border-bottom: 64px solid transparent;
         position: absolute;
@@ -757,8 +779,10 @@
       flex: 1;
     }
 
-    &--item:not(:last-child) &--list {
-      border-right-width: 0;
+    @include min-screen(768) {
+      &--item:not(:last-child) &--list {
+        border-right-width: 0;
+      }
     }
 
     &--list-item {

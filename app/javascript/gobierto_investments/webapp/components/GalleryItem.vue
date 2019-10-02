@@ -14,7 +14,7 @@
         <a
           href
           class="investments-home-main--link"
-          @click.prevent="nav(item.id)"
+          @click.stop.prevent="nav(item.id)"
         >{{ item.title | translate }}</a>
         <div>
           <div

@@ -58,7 +58,8 @@ export default {
         token: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ"
       },
       geojsons: [],
-      options: {}
+      options: {},
+      item: null
     };
   },
   watch: {
@@ -71,6 +72,7 @@ export default {
     const onEachFeature = (feature, layer) => {
       const PopupComponent = Vue.extend(GalleryItem);
       const popup = new PopupComponent({
+        router: this.$router,
         propsData: {
           item: this.items.find(item => item.id === feature.id)
         }

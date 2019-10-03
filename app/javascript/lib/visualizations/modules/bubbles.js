@@ -1,8 +1,8 @@
 import * as __d3 from 'd3'
-import { wordwrap, tspans } from 'd3-jetpack'
+import { wordwrap } from 'd3-jetpack'
 import { d3locale, accounting } from 'lib/shared'
 
-const d3 = { ...__d3, wordwrap, tspans }
+const d3 = { ...__d3, wordwrap }
 
 export class VisBubbles {
   constructor(divId, budgetCategory, data) {
@@ -143,6 +143,7 @@ export class VisBubbles {
 
   updateRender() {
 
+    debugger
     // var budgetCategory = this.budget_category;
     this.nodes = this.createNodes(this.data, this.currentYear);
 

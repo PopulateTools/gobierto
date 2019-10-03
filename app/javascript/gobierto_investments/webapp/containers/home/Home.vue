@@ -41,7 +41,7 @@ import Main from "./Main.vue";
 import Nav from "./Nav.vue";
 import Article from "./Article.vue";
 import axios from "axios";
-import { CommonsMixin } from "../../mixins/common.js";
+import { CommonsMixin, baseUrl } from "../../mixins/common.js";
 
 export default {
   name: "Home",
@@ -66,7 +66,7 @@ export default {
   created() {
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
 
-    axios.all([axios.get(this.$baseUrl), axios.get(`${this.$baseUrl}/meta?stats=true`)]).then(responses => {
+    axios.all([axios.get(baseUrl), axios.get(`${baseUrl}/meta?stats=true`)]).then(responses => {
       const [
         {
           data: { data: items = [] }

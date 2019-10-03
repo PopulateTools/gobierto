@@ -7,7 +7,6 @@
       >
         <component
           :is="currentTabComponent"
-          v-if="items.length"
           :items="items"
         />
       </transition>

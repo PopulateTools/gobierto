@@ -2,7 +2,7 @@
   <div>
     <div
       class="investments-home-main--gallery-item"
-      @click.prevent="nav(item.id)"
+      @click.prevent="nav(item)"
     >
       <div class="investments-home-main--photo">
         <img
@@ -14,7 +14,7 @@
         <a
           href
           class="investments-home-main--link"
-          @click.stop.prevent="nav(item.id)"
+          @click.stop.prevent="nav(item)"
         >{{ item.title | translate }}</a>
         <div>
           <div

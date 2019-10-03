@@ -64,11 +64,13 @@ const CONFIGURATION = {
   ]
 };
 
+export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`
+
 export const CommonsMixin = {
   mixins: [VueFiltersMixin],
   methods: {
-    nav(id) {
-      this.$router.push({ name: "project", params: { id, item: this.item } });
+    nav(item) {
+      this.$router.push({ name: "project", params: { id: item.id, item } });
     },
     getFilters(stats) {
       const { availableFilters } = CONFIGURATION

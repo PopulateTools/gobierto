@@ -239,7 +239,7 @@
     &--block-header {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
       font-size: $f8;
       line-height: 14px;
 
@@ -260,8 +260,7 @@
       label {
         font-size: 14px;
         font-weight: 400;
-        line-height: 28px;
-        padding: 0;
+        line-height: 1;
         display: flex;
         align-items: center;
         position: relative;
@@ -278,7 +277,7 @@
 
       input[type="checkbox"] + label {
         background: transparent;
-        padding: 0;
+        padding: 6px 0;
         display: flex;
 
         &::before {
@@ -292,6 +291,7 @@
           line-height: 16px;
           text-align: center;
           transition: all .2s ease-out;
+          flex: 0 0 auto;
         }
       }
 
@@ -816,7 +816,7 @@
       text-decoration: none;
       color: $color_text;
       display: block;
-      margin-bottom: 2em;
+      margin-bottom: 1.5em;
       cursor: pointer;
     }
   }

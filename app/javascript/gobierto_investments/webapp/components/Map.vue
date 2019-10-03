@@ -99,7 +99,11 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.$refs.map.mapObject.fitBounds(this.$refs.features.mapObject.getBounds(), { maxZoom: 15 });
+      const bounds = this.$refs.features.mapObject.getBounds()
+
+      if (Object.keys(bounds).length) {
+        this.$refs.map.mapObject.fitBounds(bounds, { maxZoom: 15 });
+      }
     });
   },
   methods: {

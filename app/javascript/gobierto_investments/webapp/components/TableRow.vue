@@ -1,7 +1,7 @@
 <template>
   <tr
     class="investments-home-main--tr"
-    @click="nav(item.id)"
+    @click="nav(item)"
   >
     <td
       v-for="column in columns"

@@ -36,7 +36,23 @@ export class InvestmentsController {
         }
       });
 
-      Vue.prototype.$baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`;
+      const baseTitle = document.title
+      router.afterEach(to => {
+        // Wait 2 ticks
+        Vue.nextTick(() => Vue.nextTick(() => {
+          let title = baseTitle;
+          if (to.name === "project") {
+            const { item: { title: projectTitle } = {} } = to.params
+
+            if (projectTitle) {
+              title = `${projectTitle[I18n.locale]} · ${baseTitle}`
+            }
+          }
+
+          document.title = title;
+        }))
+      })
+
       new Vue({ router }).$mount(entryPoint);
     }
   }

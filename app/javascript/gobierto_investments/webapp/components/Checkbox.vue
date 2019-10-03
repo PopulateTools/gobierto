@@ -6,7 +6,14 @@
       type="checkbox"
       @change="marked = !marked"
     >
-    <label :for="`investments-home-aside--checkbox-${id}`">{{ title | translate }} <div>({{ counter }})</div></label>
+    <label
+      :for="`investments-home-aside--checkbox-${id}`"
+    >
+      <div>
+        {{ title | translate }}
+        <i>({{ counter }})</i>
+      </div>
+    </label>
   </div>
 </template>
 

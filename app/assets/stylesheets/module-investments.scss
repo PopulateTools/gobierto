@@ -265,9 +265,10 @@
         align-items: center;
         position: relative;
 
-        > div {
+        i {
           margin-left: 0.5em;
           opacity: 0.5;
+          font-style: normal;
         }
 
         &:hover {
@@ -640,6 +641,7 @@
       &:first-child > * {
         font-weight: 700;
         margin-left: 0;
+        padding-right: 8px;
 
         @include min-screen(768) {
           margin-left: 20px;
@@ -649,10 +651,15 @@
       &:last-child > * {
         text-align: right;
         margin-right: 0;
+        padding-left: 8px;
 
         @include min-screen(768) {
           margin-right: 20px;
         }
+      }
+
+      &:not(:first-child) {
+        white-space: nowrap;
       }
 
       &:not(:first-child):not(:last-child) > *::first-letter {

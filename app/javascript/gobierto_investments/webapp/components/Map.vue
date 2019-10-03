@@ -3,7 +3,7 @@
     <l-map
       ref="map"
       :options="{
-        scrollWheelZoom: true
+        scrollWheelZoom: false
       }"
     >
       <l-tile-layer

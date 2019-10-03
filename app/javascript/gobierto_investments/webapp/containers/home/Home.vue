@@ -19,6 +19,7 @@
       </div>
       <div class="pure-u-1 pure-u-lg-3-4">
         <Main
+          v-if="items.length"
           :active-tab="activeTabIndex"
           :items="subsetItems"
         />

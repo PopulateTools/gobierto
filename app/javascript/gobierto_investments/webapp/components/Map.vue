@@ -130,10 +130,12 @@ export default {
       }
 
       this.$nextTick(() => {
-        const bounds = this.$refs.features.mapObject.getBounds();
-
+        // force to map size recalculation, container size might have changed
+        this.$refs.map.mapObject.invalidateSize()
+        // center map on the selected
+        const bounds = this.$refs.features.mapObject.getBounds()
         if (Object.keys(bounds).length) {
-          this.$refs.map.mapObject.fitBounds(bounds, { maxZoom: 14 });
+          this.$refs.map.mapObject.fitBounds(bounds, { maxZoom: 15 });
         }
       });
     }

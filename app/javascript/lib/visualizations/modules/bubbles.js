@@ -143,7 +143,6 @@ export class VisBubbles {
 
   updateRender() {
 
-    debugger
     // var budgetCategory = this.budget_category;
     this.nodes = this.createNodes(this.data, this.currentYear);
 

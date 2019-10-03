@@ -3,7 +3,7 @@
     <l-map
       ref="map"
       :options="{
-        scrollWheelZoom:false
+        scrollWheelZoom: true
       }"
     >
       <l-tile-layer
@@ -11,7 +11,10 @@
         :options="tileOptions"
         :detect-retina="true"
       />
-      <l-feature-group ref="features">
+      <l-feature-group
+        v-if="geojsons"
+        ref="features"
+      >
         <l-geo-json
           v-for="geojson in geojsons"
           :key="geojson.index"
@@ -56,11 +59,13 @@ export default {
   popupClass: "investments-home-main--map-popup",
   data() {
     return {
-      url: "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}{r}.png?access_token={token}",
+      url: "https://api.tiles.mapbox.com/styles/v1/{username}/{style_id}/tiles/{tilesize}/{z}/{x}/{y}?access_token={token}",
       tileOptions: {
-        id: "mapbox.light",
+        username: "gobierto",
+        style_id: "ck18y48jg11ip1cqeu3b9wpar",
+        tilesize: "256",
         token: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
-        attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors"
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       },
       geojsons: [],
       geojsonOptions: {},
@@ -69,7 +74,9 @@ export default {
   },
   watch: {
     items(items) {
-      this.setGeoJSONs(items);
+      if (items.length) {
+        this.setGeoJSONs(items);
+      }
     }
   },
   created() {
@@ -89,22 +96,15 @@ export default {
         className: this.$options.popupClass,
         closeButton: false,
         maxWidth: x / 3,
-        minWidth: x / 3,
+        minWidth: x / 3
       });
     };
 
-    this.geojsonOptions = { onEachFeature }
+    this.geojsonOptions = { onEachFeature };
 
-    this.setGeoJSONs(this.items);
-  },
-  mounted() {
-    this.$nextTick(() => {
-      const bounds = this.$refs.features.mapObject.getBounds()
-
-      if (Object.keys(bounds).length) {
-        this.$refs.map.mapObject.fitBounds(bounds, { maxZoom: 15 });
-      }
-    });
+    if (this.items.length) {
+      this.setGeoJSONs(this.items);
+    }
   },
   methods: {
     convertWKTtoGeoJSON(wktString) {
@@ -125,9 +125,17 @@ export default {
 
       // convert all WKT objets to GeoJSON, and add them to a feature group
       for (let index = 0; index < markerWithLocation.length; index++) {
-        const { id, location } = markerWithLocation[index]
+        const { id, location } = markerWithLocation[index];
         this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id });
       }
+
+      this.$nextTick(() => {
+        const bounds = this.$refs.features.mapObject.getBounds();
+
+        if (Object.keys(bounds).length) {
+          this.$refs.map.mapObject.fitBounds(bounds, { maxZoom: 14 });
+        }
+      });
     }
   }
 };

@@ -64,7 +64,7 @@
     "webpack-dev-server": "^3.3.1"
   },
   "scripts": {
-    "jslint": "eslint $(git diff --name-status master | grep -E '.js|.vue$' | cut -f 2)",
+    "jslint": "eslint $(git diff --name-status master | grep -E '.js$|.vue$' | cut -f 2)",
     "jslint:fix": "yarn run jslint --fix",
     "csslint": "sass-lint -v $(git diff --name-status master | grep -E '.css$|.scss$' | cut -f 2)"
   }

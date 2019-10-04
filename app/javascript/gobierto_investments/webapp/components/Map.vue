@@ -74,9 +74,7 @@ export default {
   },
   watch: {
     items(items) {
-      if (items.length) {
-        this.setGeoJSONs(items);
-      }
+      this.setGeoJSONs(items);
     }
   },
   created() {

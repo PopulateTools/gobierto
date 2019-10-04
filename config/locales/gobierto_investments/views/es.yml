@@ -12,6 +12,7 @@ es:
       back: ver todo
       date: Último año
       detail_title: Detalle del proyecto
+      empty: Sin resultados
       gallery: Galería
       list: Lista
       map: Mapa

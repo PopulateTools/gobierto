@@ -2,6 +2,7 @@
   <div class="investments-home-main--map">
     <l-map
       ref="map"
+      :center="center"
       :options="{
         scrollWheelZoom: false
       }"
@@ -65,11 +66,14 @@ export default {
         style_id: "ck18y48jg11ip1cqeu3b9wpar",
         tilesize: "256",
         token: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        minZoom: 6,
+        maxZoom: 16
       },
       geojsons: [],
       geojsonOptions: {},
-      item: null
+      item: null,
+      center: [40.199867, -4.0654947] // Spain center
     };
   },
   watch: {
@@ -101,6 +105,14 @@ export default {
     this.geojsonOptions = { onEachFeature };
 
     if (this.items.length) {
+      // Parse defaults
+      ({
+        center: this.center = this.center,
+        maxZoom: this.tileOptions.maxZoom = this.tileOptions.maxZoom,
+        minZoom: this.tileOptions.minZoom = this.tileOptions.minZoom
+      } = this.items[0].locationOptions || {});
+
+      // Draw elements
       this.setGeoJSONs(this.items);
     }
   },
@@ -129,11 +141,16 @@ export default {
 
       this.$nextTick(() => {
         // force to map size recalculation, container size might have changed
-        this.$refs.map.mapObject.invalidateSize()
+        this.$refs.map.mapObject.invalidateSize();
         // center map on the selected
-        const bounds = this.$refs.features.mapObject.getBounds()
+        const bounds = this.$refs.features.mapObject.getBounds();
+
         if (Object.keys(bounds).length) {
-          this.$refs.map.mapObject.fitBounds(bounds, { maxZoom: 15 });
+          this.$refs.map.mapObject.fitBounds(bounds);
+        } else {
+          // If no features, fit the map to the minimal zoom
+          this.$refs.map.mapObject.panTo(this.center)
+          this.$refs.map.mapObject.fitBounds(this.$refs.map.mapObject.getBounds(), { maxZoom: this.tileOptions.minZoom });
         }
       });
     }

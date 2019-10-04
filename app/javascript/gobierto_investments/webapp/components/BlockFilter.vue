@@ -127,12 +127,12 @@ export default {
     handleCalendarFilter(start, end) {
       const { key, startKey, endKey } = this.filter;
       const calendarFilterFn = attrs => {
-        if (start && end) {
-          return new Date(attrs[startKey]).getTime() >= start.getTime() && new Date(attrs[endKey]).getTime() <= end.getTime();
-        } else if (start && !end) {
-          return new Date(attrs[startKey]).getTime() >= start.getTime();
-        } else if (!start && end) {
-          return new Date(attrs[endKey]).getTime() <= end.getTime();
+        if (start && end && attrs[startKey] && attrs[endKey]) {
+          return new Date(attrs[startKey]).getTime() <= start.getTime() && new Date(attrs[endKey]).getTime() >= end.getTime();
+        } else if (start && !end && attrs[startKey]) {
+          return new Date(attrs[startKey]).getTime() <= start.getTime();
+        } else if (!start && end && attrs[endKey]) {
+          return new Date(attrs[endKey]).getTime() >= end.getTime();
         } else {
           return false;
         }

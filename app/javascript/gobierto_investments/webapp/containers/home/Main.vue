@@ -1,16 +1,16 @@
 <template>
   <main class="investments-home-main">
-    <keep-alive>
-      <transition
-        name="fade"
-        mode="out-in"
-      >
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <keep-alive>
         <component
           :is="currentTabComponent"
           :items="items"
         />
-      </transition>
-    </keep-alive>
+      </keep-alive>
+    </transition>
   </main>
 </template>
 

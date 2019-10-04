@@ -18,11 +18,11 @@ ca:
         form:
           duration: Durada
           hints:
-            privacy_status_html: Els grups tancats només seran visibles per a aquells
-              usuaris que tinguin el mateix tema que el grup.&#13;Pots assignar un
-              tema a un usuari definint un camp personalitzat per als usuraris de
-              tipus vocabulari amb el vocabulari de temes i afegint en la configuració
-              del mòdul de participació.
+            privacy_status_html: Els processos/grups tancats només seran visibles
+              per a aquells usuaris que tinguin el mateix tema que el procés/grup.&#13;Pots
+              assignar un tema a un usuari definint un camp personalitzat per als
+              usuraris de tipus vocabulari amb el vocabulari de temes i afegint en
+              la configuració del mòdul de participació.
           placeholders:
             body: ex. En aquesta comissió es tractaran temes relacionats amb ...
             slug: ex. comissio-de-festes-de-carnaval

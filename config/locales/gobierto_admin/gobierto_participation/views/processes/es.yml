@@ -18,11 +18,11 @@ es:
         form:
           duration: Duración
           hints:
-            privacy_status_html: Los grupos cerrados solo serán visibles para aquellos
-              usuarios que tengan el mismo tema que el grupo.&#13;Puedes asignar un
-              tema a un usuario definiendo un campo personalizado para los usuarios
-              de tipo vocabulario con el vocabulario de temas y añadiéndolo en la
-              configuración del módulo de participación.
+            privacy_status_html: Los procesos/grupos cerrados solo serán visibles
+              para aquellos usuarios que tengan el mismo tema que el proceso/grupo.&#13;Puedes
+              asignar un tema a un usuario definiendo un campo personalizado para
+              los usuarios de tipo vocabulario con el vocabulario de temas y añadiéndolo
+              en la configuración del módulo de participación.
           placeholders:
             body: ej. En esta comisión se tratarán temas relacionados con...
             slug: ej. comision-de-fiestas-de-carnaval

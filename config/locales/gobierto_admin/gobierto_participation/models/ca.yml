@@ -55,7 +55,7 @@ ca:
         issues_vocabulary_id: Vocabulari de temes
         scopes_vocabulary_id: Vocabulari d'àmbits
         users_issues_field_id: Camp personalitzat d'usuaris per al control d'accés
-          a grups tancats
+          a processos tancats
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grup d'aportacions
       gobierto_admin/gobierto_participation/poll_form: Enquesta

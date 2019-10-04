@@ -1,8 +1,12 @@
 import * as __d3 from 'd3'
 import { wordwrap } from 'd3-jetpack'
+import tspans from 'd3-jetpack/src/tspans'
 import { d3locale, accounting } from 'lib/shared'
 
-const d3 = { ...__d3, wordwrap }
+const { selection } = __d3;
+selection.prototype.tspans = tspans
+
+const d3 = { ...__d3, wordwrap, selection }
 
 export class VisBubbles {
   constructor(divId, budgetCategory, data) {

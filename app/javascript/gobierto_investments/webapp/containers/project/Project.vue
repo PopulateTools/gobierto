@@ -14,7 +14,8 @@
       <div class="pure-u-1 pure-u-lg-1-4">
         <Aside
           v-if="project"
-          :items="project.phases"
+          :phases="phases"
+          :project="project"
         />
       </div>
       <div class="pure-u-1 pure-u-lg-3-4">
@@ -31,7 +32,7 @@
 import Aside from "./Aside.vue";
 import Main from "./Main.vue";
 import axios from "axios";
-import { CommonsMixin } from "../../mixins/common.js";
+import { CommonsMixin, baseUrl } from "../../mixins/common.js";
 
 export default {
   name: "Project",
@@ -43,8 +44,40 @@ export default {
   data() {
     return {
       dictionary: [],
+      phases: [],
       project: null
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    const { item } = to.params;
+
+    if (!item) {
+      // If there's no item (project) it must request it
+      axios.all([axios.get(`${baseUrl}/${to.params.id}`), axios.get(`${baseUrl}/meta?stats=true`)]).then(responses =>
+        next(vm => {
+          const [
+            {
+              data: { data: item }
+            },
+            {
+              data: { data: attributesDictionary, meta: filtersFromConfiguration }
+            }
+          ] = responses;
+
+          vm.dictionary = attributesDictionary;
+          vm.project = vm.setItem(item);
+
+          // Update $router
+          to.params.item = vm.project;
+
+          if (filtersFromConfiguration) {
+            vm.phases = vm.getPhases(filtersFromConfiguration);
+          }
+        })
+      );
+    } else {
+      next();
+    }
   },
   created() {
     this.labelBack = I18n.t("gobierto_investments.projects.back");
@@ -54,20 +87,7 @@ export default {
 
     if (item) {
       this.project = item;
-    } else {
-      axios.all([axios.get(`${this.$baseUrl}/${this.$route.params.id}`), axios.get(`${this.$baseUrl}/meta?stats=true`)]).then(responses => {
-        const [
-          {
-            data: { data: item }
-          },
-          {
-            data: { data: attributesDictionary }
-          }
-        ] = responses;
-
-        this.dictionary = attributesDictionary;
-        this.project = this.setItem(item);
-      });
+      this.phases = item.phasesDictionary;
     }
   },
   methods: {

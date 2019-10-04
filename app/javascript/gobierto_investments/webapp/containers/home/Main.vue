@@ -1,10 +1,15 @@
 <template>
-  <main>
+  <main class="investments-home-main">
     <keep-alive>
-      <component
-        :is="currentTabComponent"
-        :items="items"
-      />
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <component
+          :is="currentTabComponent"
+          :items="items"
+        />
+      </transition>
     </keep-alive>
   </main>
 </template>
@@ -48,4 +53,3 @@ export default {
   }
 };
 </script>
-

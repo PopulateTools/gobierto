@@ -9114,6 +9114,11 @@ vue-turbolinks@^2.0.4:
   dependencies:
     vue "^2.2.4"
 
+vue2-leaflet@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/vue2-leaflet/-/vue2-leaflet-2.2.1.tgz#cd67274951751a33df147481fce2b956ba174c7e"
+  integrity sha512-yBB3Ilv9LTszNn/uxUATq8+Ahw/1FqIasdQehb9m1tJ5T9qeEk8Fr9a6uLzvR+zuz88rnEQVo7/iGUd96E7iLg==
+
 vue@^2.2.4, vue@^2.5.16:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
@@ -9327,6 +9332,11 @@ which@1, which@^1.2.14, which@^1.2.9, which@^1.3.1:
   integrity sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==
   dependencies:
     isexe "^2.0.0"
+
+wicket@^1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/wicket/-/wicket-1.3.5.tgz#8cddc99e4fc94b52bd59a08d931cd667334a4f54"
+  integrity sha512-DsGYwYn5ToLyqFL7oeko6y5UHsuluMyvAOQTTL0nbzWxJY/KT3sprY+BEOXkNxnqmcdjGn0YYG6DvzwKIL66ow==
 
 wide-align@^1.1.0:
   version "1.1.3"

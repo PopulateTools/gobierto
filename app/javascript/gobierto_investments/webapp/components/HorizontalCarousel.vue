@@ -1,7 +1,7 @@
 <template>
   <div
-    class="horizontal-carousel js-horizontal-carousel"
     :data-visible-items="visibleItems"
+    class="horizontal-carousel js-horizontal-carousel"
   >
     <div class="horizontal-carousel-content">
       <slot />

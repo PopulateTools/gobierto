@@ -6,12 +6,16 @@ Vue.config.productionTip = false;
 
 export class InvestmentsController {
   constructor() {
+    const selector = "investments-app";
+
     // Mount Vue application
-    const entryPoint = document.getElementById("investments-app");
+    const entryPoint = document.getElementById(selector);
     if (entryPoint) {
       const htmlRouterBlock = `
         <keep-alive>
-          <router-view :key="$route.fullPath"></router-view>
+          <transition name="fade" mode="out-in">
+            <router-view :key="$route.fullPath"></router-view>
+          </transition>
         </keep-alive>
       `;
 
@@ -25,10 +29,30 @@ export class InvestmentsController {
         routes: [
           { path: "/inversiones", name: "home", component: Home },
           { path: "/inversiones/proyectos/:id", name: "project", component: Project }
-        ]
+        ],
+        scrollBehavior () {
+          const element = document.getElementById(selector)
+          window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
+        }
       });
 
-      Vue.prototype.$baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`;
+      const baseTitle = document.title
+      router.afterEach(to => {
+        // Wait 2 ticks
+        Vue.nextTick(() => Vue.nextTick(() => {
+          let title = baseTitle;
+          if (to.name === "project") {
+            const { item: { title: projectTitle } = {} } = to.params
+
+            if (projectTitle) {
+              title = `${projectTitle[I18n.locale]} · ${baseTitle}`
+            }
+          }
+
+          document.title = title;
+        }))
+      })
+
       new Vue({ router }).$mount(entryPoint);
     }
   }

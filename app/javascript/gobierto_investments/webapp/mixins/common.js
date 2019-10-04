@@ -12,14 +12,14 @@ const CONFIGURATION = {
     id: "estat",
     filter: "translate"
   },
+  location: {
+    id: "wkt"
+  },
   availableFilters: [
     {
       id: "range",
       startKey: "data-inici",
       endKey: "data-fin",
-    },
-    {
-      id: "import"
     },
     {
       id: "estat"
@@ -29,6 +29,9 @@ const CONFIGURATION = {
     },
     {
       id: "tipus-projecte"
+    },
+    {
+      id: "import"
     },
   ],
   availableGalleryFields: [
@@ -61,11 +64,13 @@ const CONFIGURATION = {
   ]
 };
 
+export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`
+
 export const CommonsMixin = {
   mixins: [VueFiltersMixin],
   methods: {
-    nav(id) {
-      this.$router.push({ name: "project", params: { id, item: this.item } });
+    nav(item) {
+      this.$router.push({ name: "project", params: { id: item.id, item } });
     },
     getFilters(stats) {
       const { availableFilters } = CONFIGURATION
@@ -94,9 +99,11 @@ export const CommonsMixin = {
       const { vocabulary_terms = [] } = this.getAttributesByKey(id);
       const { distribution = [] } = stats[id];
       return vocabulary_terms.map(term => {
+        const { name_translations: title = {} } = term
         const { count = 0 } = distribution.find(el => parseFloat(JSON.parse(el.value)) === parseFloat(term.id)) || {};
         return {
           ...term,
+          title,
           count
         };
       });
@@ -117,7 +124,7 @@ export const CommonsMixin = {
     },
     setItem(element) {
       const { attributes = {} } = element;
-      const { title, description, phases, availableGalleryFields, availableTableFields } = CONFIGURATION;
+      const { title, description, phases, location, availableGalleryFields, availableTableFields } = CONFIGURATION;
 
       return {
         ...element,
@@ -125,7 +132,9 @@ export const CommonsMixin = {
         description: attributes[description.id] || "",
         photo: Array.isArray(attributes.gallery) ? attributes.gallery[0] : "",
         gallery: attributes.gallery || [],
+        location: attributes[location.id],
         phases: attributes[phases.id].map(element => ({ ...element, title: element.name_translations })),
+        phasesFieldName: this.getItem(phases, attributes).name_translations,
         availableGalleryFields: availableGalleryFields.map(element => this.getItem(element, attributes)),
         availableTableFields: availableTableFields.map(element => this.getItem(element, attributes))
       };

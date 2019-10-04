@@ -19,6 +19,7 @@
         :key="option.id"
         :title="option.name_translations"
         :checked="isChecked"
+        :counter="option.counter"
         @checkbox-change="handleCheckboxStatus"
       />
     </template>

@@ -19,6 +19,7 @@
       </div>
       <div class="pure-u-1 pure-u-lg-3-4">
         <Main
+          v-if="items.length"
           :active-tab="activeTabIndex"
           :items="subsetItems"
         />
@@ -41,7 +42,7 @@ import Main from "./Main.vue";
 import Nav from "./Nav.vue";
 import Article from "./Article.vue";
 import axios from "axios";
-import { CommonsMixin } from "../../mixins/common.js";
+import { CommonsMixin, baseUrl } from "../../mixins/common.js";
 
 export default {
   name: "Home",
@@ -59,42 +60,54 @@ export default {
       dictionary: [],
       filters: [],
       phases: [],
-      activeTabIndex: 1,
+      activeTabIndex: 0,
       labelSummary: ""
     };
   },
   created() {
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
 
-    axios.all([axios.get(this.$baseUrl), axios.get(`${this.$baseUrl}/meta?stats=true`)]).then(responses => {
+    axios.all([axios.get(baseUrl), axios.get(`${baseUrl}/meta?stats=true`)]).then(responses => {
       const [
         {
           data: { data: items = [] }
         },
         {
-          data: { data: attributesDictionary = [], meta: filtersSelected }
+          data: { data: attributesDictionary = [], meta: filtersFromConfiguration }
         }
       ] = responses;
 
       this.dictionary = attributesDictionary;
-
       this.items = this.setData(items);
-      this.subsetItems = this.items;
 
-      if (filtersSelected) {
-        // get the phases, and append the items for that phase
-        this.phases = this.getPhases(filtersSelected).map(phase => ({
+      if (filtersFromConfiguration) {
+        // get the phases, and append what items are in that phase
+        const phases = this.getPhases(filtersFromConfiguration)
+        this.phases = phases.map(phase => ({
           ...phase,
           items: this.items.filter(d => (d.phases.length ? d.phases[0].id === phase.id : false))
         }));
 
-        this.filters = this.getFilters(filtersSelected) || [];
+        // Add dictionary of phases in order to fulfill project page
+        this.items = this.items.map(item => ({ ...item, phasesDictionary: phases }))
+
+        this.filters = this.getFilters(filtersFromConfiguration) || [];
 
         if (this.filters.length) {
           this.activeFilters = new Map();
-          this.filters.forEach(f => this.activeFilters.set(f.key, undefined));
+          this.filters.forEach(f => {
+            // initialize active filters
+            this.activeFilters.set(f.key, undefined);
+
+            if (f.type === "vocabulary_options") {
+              // Add a counter for each option
+              f.options = f.options.map(opt => ({ ...opt, counter: this.items.filter(i => i.attributes[f.key].map(g => g.id).includes(opt.id)).length }))
+            }
+          });
         }
       }
+
+      this.subsetItems = this.items;
     })
   },
   methods: {

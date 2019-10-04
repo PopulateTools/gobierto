@@ -7,8 +7,8 @@ module GobiertoParticipation
     helper_method :current_process, :process_stage_path
 
     def index
-      @processes = base_relation.process
-      @groups = CollectionDecorator.new(base_relation.group_process, decorator: GobiertoParticipation::ProcessDecorator)
+      @processes = CollectionDecorator.new(base_relation.process, decorator: ProcessDecorator)
+      @groups = CollectionDecorator.new(base_relation.group_process, decorator: ProcessDecorator)
     end
 
     def show
@@ -30,9 +30,7 @@ module GobiertoParticipation
     end
 
     def current_process
-      @current_process ||= begin
-        params[:id] ? processes_scope.find_by_slug!(params[:id]) : nil
-      end
+      @current_process ||= params[:id] ? ProcessDecorator.new(processes_scope.find_by_slug!(params[:id])) : nil
     end
 
     def processes_scope

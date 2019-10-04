@@ -25,8 +25,6 @@ class User::SubscriptionCreateTest < ActionDispatch::IntegrationTest
       assert_difference subscriptions_count, 1 do
         click_button "Subscribe"
       end
-
-      assert_equal gobierto_participation_root_path, current_path
     end
   end
 
@@ -69,8 +67,6 @@ class User::SubscriptionCreateTest < ActionDispatch::IntegrationTest
         fill_in :user_subscription_user_email, with: "email@example.com"
         click_button "Subscribe"
       end
-
-      assert_equal site.root_path, current_path
     end
   end
 

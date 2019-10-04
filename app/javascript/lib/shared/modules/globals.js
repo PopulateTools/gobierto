@@ -1,8 +1,8 @@
-import 'magnific-popup'
-import 'tipsy-1a'
+import "magnific-popup";
+import "tipsy-1a";
 
 // Global util functions
-export function isDesktop(){
+export function isDesktop() {
   return $(window).width() > 740;
 }
 
@@ -12,16 +12,16 @@ export function isMobile() {
 
 /* Toggle text method */
 $.fn.extend({
-  toggleText: function(a, b){
+  toggleText: function(a, b) {
     return this.text(this.text() == b ? a : b);
   }
 });
 
-$(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {
-  $('.open_remote_modal').magnificPopup({
-    type: 'ajax',
+$(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
+  $(".open_remote_modal").magnificPopup({
+    type: "ajax",
     removalDelay: 300,
-    mainClass: 'mfp-fade',
+    mainClass: "mfp-move-horizontal",
     callbacks: {
       ajaxContentAdded: function() {
         if (window.GobiertoAdmin && window.GobiertoAdmin.process_stages_controller) {
@@ -41,58 +41,66 @@ $(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {
   });
 });
 
-$(document).on('ajax:complete ajaxSuccess', function() {
-  $('.tipsit').tipsy({fade: false, gravity: 's', html: true});
-  $('.tipsit-n').tipsy({fade: false, gravity: 'n', html: true});
-  $('.tipsit-w').tipsy({fade: false, gravity: 'w', html: true});
-  $('.tipsit-e').tipsy({fade: false, gravity: 'e', html: true});
-  $('.tipsit-treemap').tipsy({fade: false, gravity: $.fn.tipsy.autoNS, html: true});
+$(document).on("ajax:complete ajaxSuccess", function() {
+  $(".tipsit").tipsy({ fade: false, gravity: "s", html: true });
+  $(".tipsit-n").tipsy({ fade: false, gravity: "n", html: true });
+  $(".tipsit-w").tipsy({ fade: false, gravity: "w", html: true });
+  $(".tipsit-e").tipsy({ fade: false, gravity: "e", html: true });
+  $(".tipsit-treemap").tipsy({ fade: false, gravity: $.fn.tipsy.autoNS, html: true });
 });
 
-$(document).on('turbolinks:load', function() {
-
+$(document).on("turbolinks:load", function() {
   // Include here common callbacks and behaviours
 
   // Tabs navigation
-  $('[data-tab-target]').on('click', function(e){
+  $("[data-tab-target]").on("click", function(e) {
     e.preventDefault();
-    var target = $(this).data('tab-target');
-    var scope = $('[data-tab-scope]').length ? $(this).closest('[data-tab-scope]') : $('body');
+    var target = $(this).data("tab-target");
+    var scope = $("[data-tab-scope]").length ? $(this).closest("[data-tab-scope]") : $("body");
 
-    scope.find('[data-tab-target]').parent().removeClass('active');
-    scope.find('[data-tab-target="' + target + '"]').parent().addClass('active');
-    scope.find('[data-tab]').removeClass('active');
-    scope.find('[data-tab="' + target + '"]').addClass('active');
+    scope
+      .find("[data-tab-target]")
+      .parent()
+      .removeClass("active");
+    scope
+      .find('[data-tab-target="' + target + '"]')
+      .parent()
+      .addClass("active");
+    scope.find("[data-tab]").removeClass("active");
+    scope.find('[data-tab="' + target + '"]').addClass("active");
   });
 
   // Modal windows
-  $('.open_modal').magnificPopup({
-    type: 'inline',
+  $(".open_modal").magnificPopup({
+    type: "inline",
     removalDelay: 300,
-    mainClass: 'mfp-fade'
+    mainClass: "mfp-move-horizontal"
   });
 
-  $('.close_modal').click(function() {
+  $(".close_modal").click(function() {
     $.magnificPopup.close();
   });
 
-  function toggleTarget($this){
-    var $target = $('[data-toggle-target="'+$this.data('toggle')+'"]');
-    $this.is(':checked') ? $target.show() : $target.hide();
+  function toggleTarget($this) {
+    var $target = $('[data-toggle-target="' + $this.data("toggle") + '"]');
+    $this.is(":checked") ? $target.show() : $target.hide();
   }
 
-  $('[data-toggle-target]').hide();
-  $('[data-toggle]').each(function(){ toggleTarget($(this)) });
-  $('[data-toggle]').click(function(){ toggleTarget($(this)) });
+  $("[data-toggle-target]").hide();
+  $("[data-toggle]").each(function() {
+    toggleTarget($(this));
+  });
+  $("[data-toggle]").click(function() {
+    toggleTarget($(this));
+  });
 
   // js-disabled elements
-  $('.js-disabled').click(function(e) {
+  $(".js-disabled").click(function(e) {
     e.preventDefault();
   });
 
   // js-dropdown
-  $('.js-dropdown').on('click', function(){
-
+  $(".js-dropdown").on("click", function() {
     /*
       HOW TO USE JS-DROPDOWN
 
@@ -105,10 +113,10 @@ $(document).on('turbolinks:load', function() {
       - Add 'js-dropdown' class to the trigger (button tag or whatever) and 'hidden' to the contents
     */
 
-    const dropdownname = $(this).data('dropdown');
-    const $content = $('[data-dropdown="' + dropdownname + '"]:not(.js-dropdown)')
+    const dropdownname = $(this).data("dropdown");
+    const $content = $('[data-dropdown="' + dropdownname + '"]:not(.js-dropdown)');
 
-    $content.toggleClass('hidden');
-    $content.parent().css('position', 'relative');
+    $content.toggleClass("hidden");
+    $content.parent().css("position", "relative");
   });
 });

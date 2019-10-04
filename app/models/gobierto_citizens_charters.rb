@@ -24,4 +24,13 @@ module GobiertoCitizensCharters
   def self.doc_url
     "https://gobierto.readme.io/docs/servicios-y-cartas-de-servicio"
   end
+
+  def self.root_path(current_site)
+    if current_site.gobierto_citizens_charters_settings&.enable_services_home
+      Rails.application.routes.url_helpers.gobierto_citizens_charters_services_path
+    else
+      reference_edition = ::GobiertoCitizensCharters::CharterDecorator.new(current_site).reference_edition
+      Rails.application.routes.url_helpers.gobierto_citizens_charters_charters_period_path(reference_edition.front_period_params)
+    end
+  end
 end

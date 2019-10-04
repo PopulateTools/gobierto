@@ -2,6 +2,8 @@
 
 class GobiertoCitizensCharters::ChartersController < GobiertoCitizensCharters::ApplicationController
 
+  before_action :overrided_root_redirect, only: [:index, :show]
+
   def index
     @site = SiteDecorator.new(current_site)
     @resources_root = ::GobiertoCitizensCharters::CharterDecorator.new(

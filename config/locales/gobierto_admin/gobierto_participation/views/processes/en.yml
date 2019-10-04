@@ -17,6 +17,11 @@ en:
           edit_process: Edit process
         form:
           duration: Duration
+          hints:
+            privacy_status_html: Closed groups will only be visible to the users with
+              the same issue as the group.&#13;Issues can be assigned to users by
+              defining a custom field on users of type vocabulary with the issues
+              vocabulary and by adding it to the participation module configuration.
           placeholders:
             body: ex. This committee will discuss issues related to ...
             slug: ex. carnival-party-commission

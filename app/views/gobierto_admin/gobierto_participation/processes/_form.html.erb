@@ -128,7 +128,10 @@
 
           <div id="privacy_status_radio_buttons" class="options compact">
 
-            <h3><%= t('activemodel.attributes.gobierto_admin/gobierto_participation/process_form.privacy_status') %></h3>
+            <h3>
+              <%= t('activemodel.attributes.gobierto_admin/gobierto_participation/process_form.privacy_status') %>
+              <i class="fas fa-question-circle tipsit" title="<%= t(".hints.privacy_status_html") %>"></i>
+            </h3>
 
             <% GobiertoParticipation::Process.privacy_statuses.keys.each do |status| %>
               <div class="option">

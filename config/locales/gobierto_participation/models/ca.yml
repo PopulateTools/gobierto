@@ -23,8 +23,8 @@ ca:
         title: Títol
       gobierto_participation/process:
         privacy_statuses:
-          private_process: Privat
-          public_process: Públic
+          closed_process: Tancat
+          open_process: Obert
         process_types:
           group_process: Grup
           process: Procés

@@ -70,7 +70,7 @@ module GobiertoAdmin
       end
 
       def privacy_status
-        @privacy_status ||= "public_process"
+        @privacy_status ||= "open_process"
       end
 
       def issue

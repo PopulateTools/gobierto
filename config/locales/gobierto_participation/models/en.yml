@@ -23,8 +23,8 @@ en:
         title: Title
       gobierto_participation/process:
         privacy_statuses:
-          private_process: Private
-          public_process: Public
+          closed_process: Closed
+          open_process: Open
         process_types:
           group_process: Group
           process: Process

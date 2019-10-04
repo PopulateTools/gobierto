@@ -87,26 +87,26 @@ group_archived:
   created_at: <%= 1.hour.ago %>
   archived_at: <%= 1.second.ago %>
 
-private_group:
+closed_group:
   site: madrid
   title_translations: <%= {
-    "en" => "Private group of women",
-    "es" => "Grupo privado de mujeres"
+    "en" => "Closed group of women",
+    "es" => "Grupo cerrado de mujeres"
   }.to_json %>
   body_translations: <%= {
-    "en" => "Private group for users with women issue",
-    "es" => "Grupo privado de usuarias pertenecientes al tema de mujeres"
+    "en" => "Closed group for users with women issue",
+    "es" => "Grupo cerrado de usuarias pertenecientes al tema de mujeres"
   }.to_json %>
   body_source_translations: <%= {
-    "en" => "Private group",
-    "es" => "Grupo privado"
+    "en" => "Closed group",
+    "es" => "Grupo cerrado"
   }.to_json %>
-  slug: private-group
+  slug: closed-group
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels["active"] %>
   scope: center_term
   issue: women_term
-  privacy_status: <%= GobiertoParticipation::Process.privacy_statuses[:private_process] %>
+  privacy_status: <%= GobiertoParticipation::Process.privacy_statuses[:closed_process] %>
 
 # Processes
 

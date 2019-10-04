@@ -34,16 +34,16 @@ module GobiertoParticipation
 
     enum visibility_level: { draft: 0, active: 1 }
     enum process_type: { process: 0, group_process: 1 }
-    enum privacy_status: { public_process: 0, private_process: 1 }
+    enum privacy_status: { open_process: 0, closed_process: 1 }
 
     validates :site, presence: true
     validates :slug, uniqueness: { scope: :site_id }
 
     scope :sorted, -> { order(id: :desc) }
     scope :available_for_user, lambda { |user|
-      public_process.or(
+      open_process.or(
         if user.present?
-          private_process.where.not(
+          closed_process.where.not(
             issue: nil
           ).where(
             issue: ::GobiertoCommon::CustomFieldRecord.find_by(custom_field_id: user.site.gobierto_participation_settings.users_issues_field_id, item: user)&.value

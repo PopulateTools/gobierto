@@ -54,7 +54,8 @@ es:
       gobierto_admin/gobierto_participation/settings_form:
         issues_vocabulary_id: Vocabulario de temas
         scopes_vocabulary_id: Vocabulario de ámbitos
-        users_issues_field_id: Atributo de usuarios asociado a temas
+        users_issues_field_id: Campo personalizado de usuarios para el control de
+          acceso a grupos cerrados
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grupo de
         aportaciones

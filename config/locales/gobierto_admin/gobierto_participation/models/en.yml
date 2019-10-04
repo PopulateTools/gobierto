@@ -54,7 +54,7 @@ en:
       gobierto_admin/gobierto_participation/settings_form:
         issues_vocabulary_id: Issues vocabulary
         scopes_vocabulary_id: Scopes vocabulary
-        users_issues_field_id: Users field associated with issues
+        users_issues_field_id: Custom field of user to control access to closed groups
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Contribution
         container

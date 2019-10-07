@@ -19,10 +19,10 @@ export class InvestmentsController {
         </keep-alive>
       `;
 
-      entryPoint.innerHTML = htmlRouterBlock
+      entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () => import("../webapp/containers/home/Home.vue")
-      const Project = () => import("../webapp/containers/project/Project.vue")
+      const Home = () => import("../webapp/containers/home/Home.vue");
+      const Project = () => import("../webapp/containers/project/Project.vue");
 
       const router = new VueRouter({
         mode: "history",
@@ -30,28 +30,36 @@ export class InvestmentsController {
           { path: "/inversiones", name: "home", component: Home },
           { path: "/inversiones/proyectos/:id", name: "project", component: Project }
         ],
-        scrollBehavior () {
-          const element = document.getElementById(selector)
-          window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
+        scrollBehavior() {
+          const element = document.getElementById(selector);
+          window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
         }
       });
 
-      const baseTitle = document.title
+      const baseTitle = document.title;
       router.afterEach(to => {
         // Wait 2 ticks
-        Vue.nextTick(() => Vue.nextTick(() => {
-          let title = baseTitle;
-          if (to.name === "project") {
-            const { item: { title: projectTitle } = {} } = to.params
+        Vue.nextTick(() =>
+          Vue.nextTick(() => {
+            let title = baseTitle;
+            if (to.name === "project") {
+              const { item: { title: projectTitle } = {} } = to.params;
 
-            if (projectTitle) {
-              title = `${projectTitle[I18n.locale]} · ${baseTitle}`
+              if (projectTitle) {
+                const titleI18n = projectTitle[I18n.locale]
+                  ? `${projectTitle[I18n.locale]} · `
+                  : Object.keys(projectTitle).length
+                  ? `${projectTitle[Object.keys(projectTitle)[0]]} · `
+                  : "";
+
+                title = `${titleI18n}${baseTitle}`;
+              }
             }
-          }
 
-          document.title = title;
-        }))
-      })
+            document.title = title;
+          })
+        );
+      });
 
       new Vue({ router }).$mount(entryPoint);
     }

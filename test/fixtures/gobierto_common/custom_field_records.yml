@@ -38,6 +38,15 @@ neil_custom_field_record_weight:
   custom_field: madrid_custom_field_weight
   payload: <%= { "weight" => 72.3 }.to_json %>
 
+juana_custom_field_record_blank_localized_bio:
+  item: juana (GobiertoPeople::Person)
+  custom_field: madrid_custom_field_localized_bio
+  payload: <%= {
+    "localized-bio" => {
+      "es" => ""
+    }
+  }.to_json %>
+
 madrid_custom_field_record_population:
   item: madrid (Site)
   custom_field: madrid_site_custom_field

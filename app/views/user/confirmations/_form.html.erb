@@ -16,7 +16,7 @@
     <%= label_tag "user_confirmation[name]" do %>
       <%= t("activemodel.attributes.gobierto_admin/confirmation_form.name") %>
       <% if @user_confirmation_form.disabled_user_attribute?(:name) %>
-        <i class="fas fa-lock tipsit"></i>
+        <i class="fas fa-lock tipsit" title="<%= t(".hints.census_locked") %>"></i>
       <% end %>
     <% end %>
     <%= f.text_field :name, disabled: @user_confirmation_form.disabled_user_attribute?(:name) %>
@@ -45,7 +45,7 @@
     <%= label_tag "user_confirmation[date_of_birth]" do %>
       <%= t("activemodel.attributes.user/confirmation_form.date_of_birth") %>
       <% if @user_confirmation_form.disabled_user_attribute?(:date_of_birth) %>
-        <i class="fas fa-lock tipsit"></i>
+        <i class="fas fa-lock tipsit" title="<%= t(".hints.census_locked") %>"></i>
       <% end %>
     <% end %>
     <i class="fas fa-question-circle tipsit" title="<%= t(".hints.date_of_birth") %>"></i>
@@ -62,7 +62,7 @@
       <%= label_tag "user_confirmation[gender]" do %>
         <%= t(".your_gender_is") %>
         <% if @user_confirmation_form.disabled_user_attribute?(:gender) %>
-          <i class="fas fa-lock tipsit"></i>
+          <i class="fas fa-lock tipsit" title="<%= t(".hints.census_locked") %>"></i>
         <% end %>
       <% end %>
       <i class="fas fa-question-circle tipsit" title="<%= t(".hints.gender") %>"></i>

@@ -4,7 +4,7 @@
     <%= label_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][value]" do %>
       <%= custom_record.custom_user_field.localized_title %>
       <% if disabled %>
-        <i class="fas fa-lock tipsit"></i>
+        <i class="fas fa-lock tipsit" title="<%= t("user.settings.form.hints.census_locked") %>"></i>
       <% end %>
     <% end %>
     <%= hidden_field_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][custom_user_field_id]", custom_record.custom_user_field_id %>

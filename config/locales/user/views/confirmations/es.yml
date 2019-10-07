@@ -8,6 +8,7 @@ es:
           female: Mujer
           male: Hombre
         hints:
+          census_locked: Esta información proviene del censo, por lo que no es editable.
           date_of_birth: Esta información será privada, y nunca se identificará con
             tu perfil. El dato será anonimizado, y te lo pedimos para poder obtener
             información segmentada para entender mejor las opiniones y preferencias

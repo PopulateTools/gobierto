@@ -724,6 +724,7 @@ select {
     text-transform: uppercase;
     font-size: 0.75em;
     font-weight: 700;
+    pointer-events: none;
   }
 }
 
@@ -812,6 +813,10 @@ select {
   .fas {
     margin: 0 0.5em;
     opacity: 0.5;
+  }
+
+  > i {
+    pointer-events: auto;
   }
 
   .fa-question-circle {

@@ -1,7 +1,7 @@
 <template>
   <tr
     class="investments-home-main--tr"
-    @click="nav(item.id)"
+    @click="nav(item)"
   >
     <td
       v-for="column in columns"
@@ -41,11 +41,6 @@ export default {
   created() {
     const { availableTableFields = [] } = this.item
     this.columns = availableTableFields
-  },
-  methods: {
-    nav(id) {
-      this.$router.push({ name: "project", params: { id } });
-    }
   }
 };
 </script>

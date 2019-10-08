@@ -17,7 +17,7 @@
         v-for="project in projects"
         :key="project.id"
         class="investments-home-article--list-item"
-        @click="nav(project.id)"
+        @click="nav(project)"
       >{{ project.title | translate }}</a>
     </div>
   </div>

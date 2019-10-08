@@ -1,5 +1,8 @@
 <template>
-  <table class="investments-home-main--table">
+  <table
+    v-if="items.length"
+    class="investments-home-main--table"
+  >
     <thead>
       <th
         v-for="column in columns"
@@ -17,6 +20,9 @@
       />
     </tbody>
   </table>
+  <div v-else>
+    {{ labelEmpty }}
+  </div>
 </template>
 
 <script>
@@ -38,9 +44,12 @@ export default {
   data() {
     return {
       columns: [],
+      labelEmpty: ""
     }
   },
   created() {
+    this.labelEmpty = I18n.t("gobierto_investments.projects.empty");
+
     const { availableTableFields = [] } = this.items.length ? this.items[0] : {}
     this.columns = availableTableFields
   },

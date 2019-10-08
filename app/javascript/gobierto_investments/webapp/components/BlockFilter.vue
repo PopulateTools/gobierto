@@ -19,6 +19,7 @@
         :key="option.id"
         :title="option.name_translations"
         :checked="isChecked"
+        :counter="option.counter"
         @checkbox-change="handleCheckboxStatus"
       />
     </template>
@@ -120,18 +121,19 @@ export default {
 
       this.$emit(
         "set-filter",
-        Math.floor(min) <= Math.floor(parseFloat(_min)) && Math.floor(max) >= Math.floor(parseFloat(_max)) ? undefined : rangeFilterFn, key
+        Math.floor(min) <= Math.floor(parseFloat(_min)) && Math.floor(max) >= Math.floor(parseFloat(_max)) ? undefined : rangeFilterFn,
+        key
       );
     },
     handleCalendarFilter(start, end) {
       const { key, startKey, endKey } = this.filter;
       const calendarFilterFn = attrs => {
-        if (start && end) {
-          return new Date(attrs[startKey]).getTime() >= start.getTime() && new Date(attrs[endKey]).getTime() <= end.getTime();
-        } else if (start && !end) {
-          return new Date(attrs[startKey]).getTime() >= start.getTime();
-        } else if (!start && end) {
-          return new Date(attrs[endKey]).getTime() <= end.getTime();
+        if (start && end && attrs[startKey] && attrs[endKey]) {
+          return !(end < new Date(attrs[startKey]) || start > new Date(attrs[endKey]));
+        } else if (start && !end && attrs[endKey]) {
+          return !(start > new Date(attrs[endKey]));
+        } else if (!start && end && attrs[startKey]) {
+          return !(end < new Date(attrs[startKey]));
         } else {
           return false;
         }

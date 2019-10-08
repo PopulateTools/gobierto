@@ -96,6 +96,18 @@ module GobiertoAdmin
             end
           end
         end
+
+        def test_update_custom_field_updates_project
+          with(site: site, admin: admin) do
+            visit @path
+
+            assert_changes "project.reload.updated_at" do
+              fill_in "project_custom_records_text-code_value", with: "test changed"
+              click_button "Update"
+              assert has_message?("Project updated correctly.")
+            end
+          end
+        end
       end
     end
   end

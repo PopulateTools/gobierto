@@ -96,7 +96,7 @@ module GobiertoAdmin
           opts[:configuration] ||= {}
           opts.merge!(options_translations.except("new_option")) if has_options? && options_translations
           if has_vocabulary?
-            opts[:vocabulary_id] = vocabulary_id if vocabulary_id
+            opts[:vocabulary_id] = vocabulary_id.to_i if vocabulary_id
             opts[:configuration][:vocabulary_type] = vocabulary_type if vocabulary_type.present?
           end
           if custom_field.date?

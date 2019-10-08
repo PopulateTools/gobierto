@@ -12,6 +12,7 @@ ca:
       back: veure tot
       date: Darrer any
       detail_title: Detall del projecte
+      empty: Sense resultats
       gallery: Galeria
       list: Llista
       map: Mapa

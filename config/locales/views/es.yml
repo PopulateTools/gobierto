@@ -166,3 +166,6 @@ es:
       next: Siguiente
       previous: Anterior
       truncate: "&hellip;"
+    see:
+      less: ver menos
+      more: ver más

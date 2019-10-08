@@ -1,31 +1,56 @@
 <template>
-  <div class="tablerow" v-if="config && (budgetedAmount || executedAmount)">
-    <div class="tablerow__title">{{ title | translate }}</div>
+  <div
+    v-if="config && (budgetedAmount || executedAmount)"
+    class="tablerow"
+  >
+    <div class="tablerow__title">
+      {{ title | translate }}
+    </div>
     <div class="tablerow__data">
-      <div class="tablerow__item" v-if="budgetedAmount">
+      <div
+        v-if="budgetedAmount"
+        class="tablerow__item"
+      >
         <div>Inicial</div>
         <div class="tablerow__amount">
-          <div class="tablerow__amount--numeric">{{ budgetedAmount | money }}</div>
-          <div class="tablerow__amount--percent">100%</div>
+          <div class="tablerow__amount--numeric">
+            {{ budgetedAmount | money }}
+          </div>
+          <div class="tablerow__amount--percent">
+            100%
+          </div>
         </div>
       </div>
-      <div class="tablerow__item" v-if="executedAmount">
+      <div
+        v-if="executedAmount"
+        class="tablerow__item"
+      >
         <div>Ejecutado</div>
         <div class="tablerow__amount">
-          <div class="tablerow__amount--numeric">{{ executedAmount | money }}</div>
-          <div class="tablerow__amount--percent">{{ executedPercent }}</div>
+          <div class="tablerow__amount--numeric">
+            {{ executedAmount | money }}
+          </div>
+          <div class="tablerow__amount--percent">
+            {{ executedPercent }}
+          </div>
         </div>
       </div>
     </div>
     <div class="tablerow__extra">
-      <a v-if="detail" :href="detail.link">{{ detail.text }}</a>
+      <a
+        v-if="detail"
+        :href="detail.link"
+      >{{ detail.text }}</a>
     </div>
   </div>
 </template>
 
 <script>
+import { VueFiltersMixin } from "lib/shared";
+
 export default {
   name: "HumanResources",
+  mixins: [VueFiltersMixin],
   props: {
     config: {
       type: Object,
@@ -40,21 +65,6 @@ export default {
       executedAmount: 0,
       executedPercent: ""
     };
-  },
-  filters: {
-    translate(value) {
-      const lang = I18n.locale || "es";
-      return value[lang];
-    },
-    money(value) {
-      const lang = I18n.locale || "es";
-      if (value) {
-        return value.toLocaleString(lang, {
-          style: "currency",
-          currency: "EUR"
-        });
-      }
-    }
   },
   created() {
     this.title = this.config.title_translations;

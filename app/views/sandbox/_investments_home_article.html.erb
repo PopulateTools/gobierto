@@ -1,0 +1,30 @@
+<% data = ["EE022 Piscina Municipal", "EE023 Camp Municipal d'Esports 'El Centenari'", "ED028 Edifici de la Presó. Obra", "ED028 Edifici de
+la Presó. Honoraris", "ED031 Antic Vapor Gordils i Dalmau", "ED031 Antic Vapor Gordils i Dalmau", "ED035-1 Escola Les Aigües / ED038 Escola
+Camí del Cros", "ED036 Escola Àngela Bransuela", "ED043 Centre de distribució d'aliments solidaris", "ED044 Escola La Llàntia", "ED047
+Escola Rocafonda", "ED049 Escola Torre Llauder - Angeleta Ferrer", "ED050 Escola Vista Alegre", "ED071 IES Miquel Biada", "ED078 Espai Jove
+de Cerdanyola", "ED085 CFA Can Noè", "ED090 Casal de Barri Les Esmandies", "ED145 Casal Gent Gran Cirera", "ED170 Antic Parvulari Menéndez
+Pelayo (c. Alarcón)", "ED192 Escola Bressol Rocafonda", "ED194 Escola Bressol Cerdanyola", "ED239 Biblioteca Pompeu Fabra", "ED262 Mercat
+Plaça de Cuba", "ED265 Refugi d'animals de Cal Pilé", "ED265 Refugi d'animals de Cal Pilé", "EDXXX-11 Cuines centres educatius", "EDXXX-12
+CMF Camí del Mig i CMF Pla d'en Boet"] %>
+
+<article>
+  <h3 class="investments-home-article--header">Resumen por estados</h3>
+
+  <% states = ["N'estudiu", "Programao", "Redaición", "Llicitación", "Execución", "Terminao"]%>
+  <div class="investments-home-article--container">
+    <% states.each_with_index do |state, i| %>
+    <div class="investments-home-article--item">
+      <div class="investments-home-article--heading p_1<%= i >= 3 ? ' is-negative' : '' %>">
+        <div class="investments-home-article--title"><%= state %></div>
+        <div><%= rand(3..20) %> proyectos</div>
+        <div><%= number_to_currency(rand(3..20)) %></div>
+      </div>
+      <div class="investments-home-article--list">
+        <% rand(3..10).times do %>
+        <a href="" class="investments-home-article--list-item"><%= data.sample %></a>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</article>

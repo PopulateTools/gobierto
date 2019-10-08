@@ -1,0 +1,59 @@
+<% checks = ['Totes', 'Millores equipaments', 'Millores espai públic', 'Nous equipaments', 'Nous espais públics', 'Habitatge',
+'Sostenibilitat energètica', 'Infraestructures i projectes', 'Altres'] %>
+
+<aside class="investments-home-aside--gap">
+  <div class="investments-home-aside--block">
+    <div class="investments-home-aside--calendar-button">
+      <div>
+        <strong>Últimu añu</strong>
+        <i class="fas fa-caret-down"></i>
+      </div>
+      <small>12 ene 2018 - 13 ene 2018</small>
+    </div>
+  </div>
+  <div class="investments-home-aside--block">
+    <div class="investments-home-aside--block-header">
+      <strong>Tipu de contratu</strong>
+      <a href="">Tou</a>
+    </div>
+
+    <% checks.each do |check| %>
+
+    <div class="investments-home-aside--checkbox">
+      <% seed = SecureRandom.hex %>
+      <input type="checkbox" id="investments-home-aside--checkbox-<%= seed %>" />
+      <label for="investments-home-aside--checkbox-<%= seed %>"><%= check %></label>
+    </div>
+
+    <% end %>
+  </div>
+  <div class="investments-home-aside--block">
+    <div class="investments-home-aside--block-header">
+      <strong>Estáu</strong>
+      <a href="">Tou</a>
+    </div>
+
+    <% checks.each do |check| %>
+
+    <div class="investments-home-aside--checkbox">
+      <% seed = SecureRandom.hex %>
+      <input type="checkbox" id="investments-home-aside--checkbox-<%= seed %>" />
+      <label for="investments-home-aside--checkbox-<%= seed %>"><%= check %></label>
+    </div>
+
+    <% end %>
+  </div>
+  <div class="investments-home-aside--block">
+    <div class="investments-home-aside--block-header">
+      <strong>Cantidá</strong>
+    </div>
+
+    <div id="randomID" class="investments-home-aside--bars">
+      <% 6.times do %>
+      <div style="height: <%= rand(25..80) %>%"></div>
+      <% end %>
+    </div>
+
+    <div class="js-range-slider" data-min="50" data-max="500" data-default="[100, 200]" data-range-bars-selector="#randomID"></div>
+  </div>
+</aside>

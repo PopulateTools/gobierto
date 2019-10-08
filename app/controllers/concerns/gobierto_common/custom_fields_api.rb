@@ -24,10 +24,35 @@ module GobiertoCommon
       custom_fields_save
     end
 
+    def meta
+      @resource = base_relation.new
+
+      return unless stale?(base_relation)
+
+      meta_stats = if params[:stats] == "true"
+                     filterable_custom_fields.inject({}) do |stats, custom_field|
+                       stats.update(
+                         custom_field.uid => GobiertoCommon::CustomFieldsQuery.new(relation: base_relation).stats(custom_field, filter_params)
+                       )
+                     end
+                   else
+                     {}
+                   end
+      render json: custom_fields, adapter: :json_api, meta: meta_stats
+    end
+
     private
 
     def custom_fields_save
       @custom_fields_form.save
+    end
+
+    def filterable_custom_fields
+      @filterable_custom_fields ||= if (filterable_custom_fields_uids = current_site.settings_for_module(current_module)&.filterable_custom_fields).present?
+                                      custom_fields.where(uid: filterable_custom_fields_uids).sorted
+                                    else
+                                      custom_fields.where(field_type: [:date, :vocabulary_options, :numeric]).sorted
+                                    end
     end
 
     def initialize_custom_fields_form
@@ -51,10 +76,28 @@ module GobiertoCommon
 
         next params unless custom_field.present?
 
+        value = { eq: value }.with_indifferent_access unless value.is_a?(Hash)
+
+        value.slice!(*GobiertoCommon::CustomFieldsQuery.allowed_operators)
+
+        if value.has_key?(:in)
+          value[:in] = value[:in].split(",")
+        end
+
         record = custom_field.records.new
-        record.value = value
+
         params.update(
-          custom_field => record.filter_value
+          custom_field => value.transform_values do |val|
+            if val.is_a?(Array)
+              val.map do |single_val|
+                record.value = single_val
+                record.filter_value
+              end
+            else
+              record.value = val
+              record.filter_value
+            end
+          end
         )
       end
     end

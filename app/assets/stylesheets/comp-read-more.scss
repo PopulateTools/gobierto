@@ -1,0 +1,30 @@
+.read-more {
+  $transition-time: 250ms;
+
+  [data-toggle] a {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  [data-toggle]::before {
+    content: " ... ";
+  }
+
+  > :last-child {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height $transition-time ease-out;
+  }
+
+  &.is-active {
+    > :first-child [data-toggle] {
+      opacity: 0;
+    }
+
+    > :last-child {
+      max-height: 100vh;
+      opacity: 1;
+    }
+  }
+}

@@ -88,8 +88,41 @@
 }
 
 // Simulates CSS Grid
-// Tips:
-// - Avoid very large gaps
+@mixin grid($gap: 0, $columns: 3) {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -$gap / 2;
+
+  > * {
+    padding: $gap / 2;
+    box-sizing: border-box;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: calc(100% / #{$columns});
+  }
+}
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+
+  &::before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+// LEGACY, better use grid()
+// (still used in citizen-charters)
 @mixin flexgrid($gap: 0, $columns: 3) {
   $unit: 1rem !default;
   $gutter: if(unitless($gap), $gap * $unit, $gap);

@@ -1,5 +1,3 @@
-// import 'babel-polyfill'
-
 window.GobiertoAdmin.GobiertoCmsController = (function() {
   function GobiertoCmsController() {}
 

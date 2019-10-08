@@ -7,7 +7,7 @@ export class VisTreemap {
 
     // Chart dimensions
     this.containerWidth = null;
-    this.margin = {top: 0, right: 0, bottom: 0, left: 0};
+    this.margin = { top: 0, right: 0, bottom: 0, left: 0 };
     this.width = null;
     this.height = null;
 
@@ -28,7 +28,7 @@ export class VisTreemap {
     $(this.containerId).html('');
 
     // Chart dimensions
-    this.containerWidth = d3.select(this.containerId).parent().node().getBoundingClientRect().width;
+    this.containerWidth = d3.select(this.containerId).node().parentNode.getBoundingClientRect().width;
 
     this.width = this.containerWidth - this.margin.left - this.margin.right;
     this.height = (this.containerWidth / this.sizeFactor) - this.margin.top - this.margin.bottom;
@@ -58,7 +58,7 @@ export class VisTreemap {
         .data(this.treemap(root).leaves())
         .enter().append("div")
         .attr("class", function(){
-          if(this.clickable){
+          if (this.clickable){
             return "tipsit-treemap treemap_node clickable";
           } else {
             return "tipsit-treemap treemap_node";
@@ -74,7 +74,7 @@ export class VisTreemap {
           return "<strong>" + d.data.name + "</strong>" + totalBudgetTooltipStr(d.data.budget) + perInhabitantTooltipStr(d.data.budget_per_inhabitant);
         }.bind(this))
         .attr("data-url", function(d){
-          if(this.clickable){
+          if (this.clickable){
             return d.children ? null : urlData.split('?')[0] + "?parent_code=" + d.data.code;
           }
         }.bind(this))
@@ -91,17 +91,17 @@ export class VisTreemap {
               return accounting.formatMoney(d.data.budget, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"));
             }
           }
-          if(d.children) {
+          if (d.children) {
             return null;
           } else {
             // If the square is small, don't add the text
-            if((d.x1 - d.x0) > 70 && (d.y1 - d.y0) > 90) {
+            if ((d.x1 - d.x0) > 70 && (d.y1 - d.y0) > 90) {
               return "<p><strong>" + d.data.name + "</strong></p><p>" + getBudgetAmount(d) + "</p>";
             }
           }
         })
 
-        $('.tipsit-treemap').tipsy({fade: false, gravity: $.fn.tipsy.autoNS, html: true});
+        $('.tipsit-treemap').tipsy({ fade: false, gravity: $.fn.tipsy.autoNS, html: true });
 
     }.bind(this));
   }

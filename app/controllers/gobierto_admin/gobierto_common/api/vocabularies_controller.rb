@@ -4,9 +4,12 @@ module GobiertoAdmin
   module GobiertoCommon
     module Api
       class VocabulariesController < ::GobiertoAdmin::Api::BaseController
+        include ::GobiertoCommon::SecuredWithToken
 
-        def index
-        end
+        skip_before_action :authenticate_admin!, :set_admin_with_token
+        before_action :set_admin_by_session_or_token
+
+        def index; end
 
         def show
           load_vocabulary
@@ -17,6 +20,10 @@ module GobiertoAdmin
 
         def load_vocabulary
           @vocabulary = current_site.vocabularies.find(params[:id])
+        end
+
+        def set_admin_by_session_or_token
+          set_admin_with_token unless (@current_admin = find_current_admin).present?
         end
 
       end

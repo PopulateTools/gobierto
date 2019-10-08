@@ -166,3 +166,6 @@ ca:
       next: Següent
       previous: Anterior
       truncate: "&hellip;"
+    see:
+      less: veure menys
+      more: veure més

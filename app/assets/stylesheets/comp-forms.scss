@@ -724,7 +724,6 @@ select {
     text-transform: uppercase;
     font-size: 0.75em;
     font-weight: 700;
-    pointer-events: none;
   }
 }
 
@@ -738,6 +737,14 @@ select {
 
 .form_item {
   position: relative;
+
+  label {
+    pointer-events: none;
+  }
+
+  i {
+    pointer-events: auto;
+  }
 
   .options {
     .option {
@@ -813,10 +820,6 @@ select {
   .fas {
     margin: 0 0.5em;
     opacity: 0.5;
-  }
-
-  > i {
-    pointer-events: auto;
   }
 
   .fa-question-circle {

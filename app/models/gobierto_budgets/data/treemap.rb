@@ -18,7 +18,7 @@ module GobiertoBudgets
 
         children_json = budget_lines_hits.map do |h|
           {
-            name: areas.all_items[@kind][h["_source"]["code"]],
+            name: BudgetLinePresenter.load("#{h["_id"]}/#{h["_type"]}", @site).name,
             code: h["_source"]["code"],
             budget: h["_source"]["amount"],
             budget_per_inhabitant: h["_source"]["amount_per_inhabitant"]

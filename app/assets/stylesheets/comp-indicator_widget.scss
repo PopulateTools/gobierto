@@ -131,7 +131,7 @@
         .bar {
           display: inline-block;
           height: 10px;
-          background: $color_main;
+          background: var(--color-base);
 
           @media (min-width: 768px) {
             height: 20px;
@@ -208,7 +208,7 @@
   .widget_figure {
     font-weight: 300;
     font-size: 1.75rem;
-    color: $color_1;
+    color: var(--color-base);
   }
 
   .widget_pct {

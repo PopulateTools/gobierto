@@ -8,8 +8,8 @@
     padding: 0 0.25rem;
     position: relative;
     color: #000;
-    background: lighten($color_main, 10%);
-    border: 1px solid $color_main;
+    background: rgba(var(--color-base-string), 0.9);
+    border: 1px solid var(--color-base);
 
     &:empty {
       display: none;
@@ -26,12 +26,12 @@
     }
 
     &::after {
-      border-color: rgba(lighten($color_main, 10%), 0);
+      border-color: transparent;
       border-width: 5px;
     }
 
     &::before {
-      border-color: rgba($color_main, 0);
+      border-color: transparent;
       border-width: 6px;
     }
 
@@ -43,12 +43,12 @@
       }
 
       &::after {
-        border-right-color: lighten($color_main, 10%);
+        border-right-color: rgba(var(--color-base-string), 0.9);
         margin-top: -5px;
       }
 
       &::before {
-        border-right-color: $color_main;
+        border-right-color: var(--color-base);
         margin-top: -6px;
       }
     }
@@ -61,12 +61,12 @@
       }
 
       &::after {
-        border-top-color: lighten($color_main, 10%);
+        border-top-color: rgba(var(--color-base-string), 0.9);
         margin-left: -5px;
       }
 
       &::before {
-        border-top-color: $color_main;
+        border-top-color: var(--color-base);
         margin-left: -6px;
       }
     }
@@ -79,12 +79,12 @@
       }
 
       &::after {
-        border-left-color: lighten($color_main, 10%);
+        border-left-color: rgba(var(--color-base-string), 0.9);
         margin-top: -5px;
       }
 
       &::before {
-        border-left-color: $color_main;
+        border-left-color: var(--color-base);
         margin-top: -6px;
       }
     }
@@ -97,12 +97,12 @@
       }
 
       &::after {
-        border-bottom-color: lighten($color_main, 10%);
+        border-bottom-color: rgba(var(--color-base-string), 0.9);
         margin-left: -5px;
       }
 
       &::before {
-        border-bottom-color: $color_main;
+        border-bottom-color: var(--color-base)
         margin-left: -6px;
       }
     }

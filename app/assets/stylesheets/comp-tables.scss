@@ -7,7 +7,7 @@ table {
 
   td,
   th {
-    border-top: 1px solid transparentize($color_main, 0.85);
+    border-top: 1px solid rgba(var(--color-base-string), 0.15);
     padding: 0.4em 0.5em;
     font-size: 0.85em;
     line-height: 1.4em;
@@ -27,7 +27,7 @@ table {
 
   tr.summary_row {
     td {
-      border-top: 3px solid transparentize($color_main, 0.65);
+      border-top: 3px solid rgba(var(--color-base-string), 0.35);
       padding-top: 1em;
     }
   }
@@ -40,7 +40,7 @@ table {
 
   tr.summary_row_end {
     td {
-      border-bottom: 3px solid transparentize($color_main, 0.65);
+      border-bottom: 3px solid rgba(var(--color-base-string), 0.35);
       padding-bottom: 1em;
     }
   }
@@ -70,7 +70,7 @@ td.visibility_level {
 }
 
 .table_cont_round {
-  background: transparentize($color_main, 0.94); // rgba($color_main, .06);
+  background: rgba(var(--color-base-string), 0.06);
 
   @include border-radius(6px);
 
@@ -94,7 +94,7 @@ table.explore_slow {
 
   tr.group {
     td {
-      border-top: 3px solid transparentize($color_main, 0.85);
+      border-top: 3px solid rgba(var(--color-base-string), 0.15);
     }
   }
 
@@ -115,7 +115,7 @@ table.explore_slow {
     transition: all 0.15s ease-out 0s;
 
     td:not(.level_1) {
-      background: rgba($color_main, 0.1) !important;
+      background: rgba(var(--color-base-string), 0.1) !important;
     }
   }
 
@@ -145,8 +145,8 @@ table.med_bg {
 
   td,
   th {
-    border-top: 1px solid transparentize($color_main, 0.85);
-    background: transparentize($color_main, 0.94);
+    border-top: 1px solid rgba(var(--color-base-string), 0.15);
+    background: rgba(var(--color-base-string), 0.06);
     padding: 0.7em 1em 0.4em;
     font-size: 0.85em;
 
@@ -170,7 +170,7 @@ table.med_bg {
 
     td,
     th {
-      background: rgba($color_main, 0.1) !important;
+      background: rgba(var(--color-base-string), 0.1) !important;
     }
   }
 
@@ -214,10 +214,10 @@ th.icon_col {
 
 table.block_content {
   th {
-    background: transparentize($color_main, 0.85);
+    background: rgba(var(--color-base-string), 0.15);
     text-align: left;
     text-transform: uppercase;
-    color: transparentize($color_main, 0.5);
+    color: rgba(var(--color-base-string), 0.5);
     border: 0;
   }
 
@@ -231,19 +231,19 @@ table.block_content {
 
   tr:visible:nth-child(2n-1) {
     td {
-      background: transparentize($color_main, 0.95);
+      background: rgba(var(--color-base-string), 0.05);
     }
   }
 
   tr:nth-child(2n-1) {
     td {
-      background: transparentize($color_main, 0.95);
+      background: rgba(var(--color-base-string), 0.05);
     }
   }
 
   tr:hover {
     td {
-      background: transparentize($color_main, 0.9);
+      background: rgba(var(--color-base-string), 0.1);
     }
   }
 

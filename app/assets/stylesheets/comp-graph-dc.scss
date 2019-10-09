@@ -22,7 +22,7 @@
 
 .dc-chart g.row rect,
 .dc-chart rect.bar {
-  fill: $color_main;
+  fill: var(--color-base);
 
   &.deselected {
     fill: #ccc;

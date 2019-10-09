@@ -14,6 +14,14 @@ module GobiertoCommon
         gobierto_common_vocabularies(:animals)
       end
 
+      def vocabulary_associated_to_custom_fields
+        gobierto_common_vocabularies(:madrid_political_groups_vocabulary)
+      end
+
+      def item_related_with_vocabulary
+        @item_related_with_vocabulary ||= gobierto_investments_projects(:public_pool_project)
+      end
+
       def admin
         @admin ||= gobierto_admin_admins(:tony)
       end
@@ -83,6 +91,28 @@ module GobiertoCommon
           end
         end
       end
+
+      def test_update_term_updates_items_with_custom_fields
+        with(site: site, admin: admin) do
+          visit admin_common_vocabulary_terms_path(vocabulary_associated_to_custom_fields)
+
+          within("#v_el_actions_#{vocabulary_associated_to_custom_fields.terms.first.id}") do
+            click_link("Edit")
+          end
+
+          assert_changes "item_related_with_vocabulary.reload.updated_at" do
+            within "form.edit_term" do
+              fill_in "term_name_translations_en", with: "WADUS"
+              fill_in "term_slug", with: "wadus-updated"
+
+              click_button "Update"
+            end
+
+            assert has_message?("Term updated successfully.")
+          end
+        end
+      end
+
     end
   end
 end

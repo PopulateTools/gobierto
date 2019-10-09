@@ -15,6 +15,7 @@ module GobiertoCommon::CustomFieldValue
 
         return markdown(value) if value.present?
       end
+      ""
     end
 
   end

@@ -226,7 +226,7 @@ input[type=submit].button {
 input[type=submit]:hover,
 .button:hover,
 button:hover {
-  background: darken($color_main, 10%);
+  background: rgba(var(--color-base-string), 0.8);
 }
 
 input[type=submit]:disabled,

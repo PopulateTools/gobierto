@@ -5,6 +5,7 @@ module GobiertoBudgets
     class Treemap
       def initialize(options)
         @organization_id = options[:organization_id]
+        @site = options[:site] || Site.find_by(organization_id: @organization_id)
         @kind = options[:kind]
         @type = options[:type]
         @year = options[:year]

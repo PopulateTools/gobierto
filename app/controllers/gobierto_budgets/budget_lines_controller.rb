@@ -36,7 +36,7 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
   def treemap
     respond_to do |format|
       format.json do
-        data_line = GobiertoBudgets::Data::Treemap.new organization_id: current_site.organization_id, year: @year, kind: @kind, type: @area_name, parent_code: params[:parent_code], level: params[:level]
+        data_line = GobiertoBudgets::Data::Treemap.new site: current_site, organization_id: current_site.organization_id, year: @year, kind: @kind, type: @area_name, parent_code: params[:parent_code], level: params[:level]
         render json: data_line.generate_json
       end
       format.js

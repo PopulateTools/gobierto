@@ -30,7 +30,7 @@
       }
 
       a:hover {
-        background: $color_1_soft;
+        background: rgba(var(--color-base-string), 0.06);
       }
     }
 

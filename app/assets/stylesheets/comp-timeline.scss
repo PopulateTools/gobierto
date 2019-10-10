@@ -62,7 +62,7 @@
     width: 4px;
     top: calc(-100% - 2em);
     height: calc(100% + 3em);
-    background: $color_main;
+    background: var(--color-base);
   }
 
   .content_block {
@@ -111,7 +111,7 @@
       content: '';
       z-index: 2;
       position: absolute;
-      background: $color_main;
+      background: var(--color-base);
       border-radius: 50%;
       width: 10px;
       height: 10px;

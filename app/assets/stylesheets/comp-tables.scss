@@ -54,7 +54,7 @@ td.bar {
   padding-right: 0;
 
   div.bar {
-    background: $color_vis_country;
+    background: var(--color-base);
     height: 18px;
 
     @include border-radius(3px);

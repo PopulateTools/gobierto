@@ -148,7 +148,7 @@
 }
 
 .small_button {
-  background: $color_1;
+  background: var(--color-base);
 
   @include border-radius(3px);
 
@@ -159,7 +159,7 @@
 }
 
 .small_button:hover {
-  background: darken($color_1, 5%);
+  background: rgba(var(--color-base-string), 0.8);
   text-decoration: none;
 }
 

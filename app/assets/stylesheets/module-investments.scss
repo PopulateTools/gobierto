@@ -1,7 +1,4 @@
 :root {
-  // FIXME: color base string mover a configuration
-  --color-base-string: var(--color-main, #{red($color_main), green($color_main), blue($color_main)});
-  --color-base: rgb(var(--color-base-string));
   --color-base-soft: rgba(var(--color-base-string), 10%);
   --color-base-soft-darker: rgba(var(--color-base-string), 25%);
 }

@@ -134,7 +134,7 @@
     li.active {
       a {
         background: rgba(var(--color-base-string), 0.06);
-        color: $color_main;
+        color: var(--color-base);
         font-weight: bold;
         border: 0;
       }

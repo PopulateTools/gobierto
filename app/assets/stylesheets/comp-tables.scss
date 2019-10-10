@@ -289,7 +289,7 @@ table.block_content {
     }
 
     th {
-      color: $color_main;
+      color: var(--color-base);
       text-transform: none;
       font-weight: normal;
     }

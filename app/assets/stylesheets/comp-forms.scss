@@ -332,7 +332,7 @@ button.outline,
 .button.outline {
   background: #fff;
   border: 1px solid rgba(var(--color-base-string), 0.25);
-  color: $color_main;
+  color: var(--color-base);
 }
 
 button.outline:hover,
@@ -507,7 +507,7 @@ input[type="radio"] + label {
 .inline_button {
   background: rgba(var(--color-base-string), 0.1);
   border-radius: 4px;
-  color: $color_main;
+  color: var(--color-base);
   font-weight: 600;
   text-decoration: none;
   padding: 0.35em 0.75em;

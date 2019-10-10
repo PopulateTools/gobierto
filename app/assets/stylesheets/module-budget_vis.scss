@@ -196,7 +196,7 @@
 
   a:hover {
     background: rgba(var(--color-base-string), 0.1);
-    color: $color_main;
+    color: var(--color-base);
   }
 }
 
@@ -254,7 +254,7 @@
 
     h3 {
       margin: 0.67em 0;
-      color: $color_1;
+      color: var(--color-base);
       font-size: 3.6em;
     }
 

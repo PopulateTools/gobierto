@@ -90,7 +90,7 @@
 
   li a {
     display: inline-block;
-    border-right: 1px solid $background;
+    border-right: 1px solid var(--color-base);
     text-decoration: none;
     padding: 1px 7px;
     margin: 0;

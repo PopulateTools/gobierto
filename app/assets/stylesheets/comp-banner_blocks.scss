@@ -72,7 +72,7 @@
           margin: 0 auto;
           width: 3em;
           line-height: 3em;
-          color: $color_main;
+          color: var(--color-base);
 
           @media (min-width: 740px) {
             font-size: 4em;

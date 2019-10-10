@@ -325,7 +325,7 @@ body.gobierto_people.welcome.index {
   padding: 1em 1em 0.65em 1em;
   box-sizing: border-box;
   position: relative;
-  color: $color_main;
+  color: var(--color-base);
 
   transition: all 0.15s ease-out 0s;
 

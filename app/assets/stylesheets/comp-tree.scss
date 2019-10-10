@@ -210,7 +210,7 @@
       .item-toggle {
         .toggle-container {
           background-color: rgba(var(--color-base-string), 0.12);
-          color: $color_1;
+          color: var(--color-base);
           width: 18px;
           height: 18px;
           cursor: pointer;

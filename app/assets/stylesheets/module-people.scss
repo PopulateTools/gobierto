@@ -151,6 +151,16 @@ body.gobierto_people {
   .person_post-title {
     font-size: 1.5em;
   }
+
+  .filter_boxed {
+    .pure-menu-horizontal.pure-menu-scrollable {
+      padding: 0;
+    }
+
+    .sub_filter {
+      margin: 0 0 2em 0;
+    }
+  }
 }
 
 body.gobierto_people.welcome.index {
@@ -166,18 +176,6 @@ body.gobierto_people.welcome.index {
           margin: 0;
         }
       }
-    }
-  }
-}
-
-body.gobierto_people {
-  .filter_boxed {
-    .pure-menu-horizontal.pure-menu-scrollable {
-      padding: 0;
-    }
-
-    .sub_filter {
-      margin: 0 0 2em 0;
     }
   }
 }

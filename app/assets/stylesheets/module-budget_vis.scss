@@ -128,7 +128,7 @@
     td {
       table {
         font-size: 1rem;
-        border: 1px solid transparentize($color_main, 0.85);
+        border: 1px solid rgba(var(--color-base-string), 0.15);
       }
 
       .child_tb_cont {
@@ -182,7 +182,7 @@
   a {
     text-decoration: none;
     text-transform: uppercase;
-    color: rgba($color_main, 0.75);
+    color: rgba(var(--color-base-string), 0.75);
     display: inline-block;
     padding: 0.5em 2em 0.25em;
 
@@ -195,7 +195,7 @@
   }
 
   a:hover {
-    background: rgba($color_main, 0.1);
+    background: rgba(var(--color-base-string), 0.1);
     color: $color_main;
   }
 }

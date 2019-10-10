@@ -34,7 +34,7 @@
   <% end %>
 
   <div class="form_item select_control selects_inline">
-    <%= label_tag "user_settings[date_of_birth]" do %>
+    <%= label_tag "user_settings[date_of_birth]", class: "pointer-events-none" do %>
       <%= t("activemodel.attributes.user/settings_form.date_of_birth") %>
       <% if @user_settings_form.disabled_user_attribute?(:date_of_birth) %>
         <i class="fas fa-lock tipsit" title="<%= t(".hints.census_locked") %>"></i>

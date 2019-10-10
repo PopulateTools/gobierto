@@ -738,14 +738,6 @@ select {
 .form_item {
   position: relative;
 
-  label {
-    pointer-events: none;
-  }
-
-  i {
-    pointer-events: auto;
-  }
-
   .options {
     .option {
       display: block;

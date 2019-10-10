@@ -14,7 +14,7 @@
   @include tabs;
 
   ul {
-    border-color: rgba($color_main, 0.41);
+    border-color: rgba(var(--color-base-string), 0.41);
 
     li {
       height: initial;
@@ -22,7 +22,7 @@
 
       a {
         border: 0;
-        background: rgba($color_main, 0.1);
+        background: rgba(var(--color-base-string), 0.1);
         color: $color_text;
         font-weight: 200;
 
@@ -36,13 +36,13 @@
       }
 
       a:hover {
-        background: rgba($color_main, 0.3);
+        background: rgba(var(--color-base-string), 0.3);
       }
     }
 
     li.active {
       a {
-        border: 1px solid rgba($color_main, 0.41);
+        border: 1px solid rgba(var(--color-base-string), 0.41);
         border-bottom: 1px solid #fff;
         background: $color_main_negative;
         color: $color_text;
@@ -83,7 +83,7 @@
     position: absolute;
     pointer-events: none;
     border-color: white;
-    border-top-color: $color_main;
+    border-top-color: var(--color-base);
     border-width: 10px;
     margin-left: -10px;
 
@@ -91,7 +91,7 @@
   }
 
   li:hover a {
-    background: transparentize($color_main, 0.8);
+    background: rgba(var(--color-base-string), 0.2);
   }
 }
 
@@ -127,13 +127,13 @@
 
     li:hover {
       a {
-        background: $color_1_soft;
+        background: rgba(var(--color-base-string), 0.06);
       }
     }
 
     li.active {
       a {
-        background: $color_1_soft;
+        background: rgba(var(--color-base-string), 0.06);
         color: $color_main;
         font-weight: bold;
         border: 0;
@@ -150,7 +150,7 @@
       position: absolute;
       pointer-events: none;
       border-color: white;
-      border-top-color: $color_1_soft;
+      border-top-color: rgba(var(--color-base-string), 0.06);
       border-width: 10px;
       margin-left: -10px;
 

@@ -210,7 +210,7 @@ body.gobierto_people {
 
     .person_party,
     .political_group {
-      background: $color_1_soft;
+      background: rgba(var(--color-base-string), 0.06);
       font-size: 0.75em;
       padding: 0.45em 0.75em;
       margin: 0 1em 0 0;
@@ -218,7 +218,7 @@ body.gobierto_people {
       @include border-radius(3px);
 
       text-transform: uppercase;
-      color: $color_main;
+      color: var(--color-main);
       font-weight: 600;
       line-height: 1.2em;
     }
@@ -273,7 +273,7 @@ body.gobierto_people {
 
       a.active,
       a:hover {
-        background: $color_1_soft;
+        background: rgba(var(--color-base-string), 0.06);
       }
     }
   }
@@ -294,7 +294,7 @@ body.gobierto_people {
     }
 
     a:hover {
-      background: $color_1_soft;
+      background: rgba(var(--color-base-string), 0.06);
     }
   }
 }
@@ -323,7 +323,7 @@ body.gobierto_people {
 .agenda-switcher {
   @include border-radius(5px);
 
-  border: 2px solid transparentize($color_main, 0.8);
+  border: 2px solid rgba(var(--color-base-string), 0.2);
   padding: 1em 1em 0.65em 1em;
   box-sizing: border-box;
   position: relative;
@@ -338,7 +338,7 @@ body.gobierto_people {
     @include box-shadow;
     @include border-radius(5px);
 
-    border: 1px solid transparentize($color_main, 0.8);
+    border: 1px solid rgba(var(--color-base-string), 0.2);
     position: absolute;
     width: calc(100% + 2px);
     padding: 1em;
@@ -376,7 +376,7 @@ body.gobierto_people {
   }
 
   .today {
-    background: $color_1;
+    background: var(--color-base);
     color: #fff;
   }
 

@@ -10,4 +10,8 @@
   data-turbolinks="false"
 <% end %>
 
+<% if action_name == "tour" %>
+<%= render template: "layouts/minimal" %>
+<% else %>
 <%= render template: "layouts/application" %>
+<% end %>

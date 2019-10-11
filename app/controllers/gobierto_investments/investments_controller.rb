@@ -3,8 +3,6 @@
 module GobiertoInvestments
   class InvestmentsController < GobiertoInvestments::ApplicationController
     def index; end
-    def tour
-      render "tour", layout: "minimal"
-     end
+    def tour; end
   end
 end

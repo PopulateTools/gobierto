@@ -1,5 +1,8 @@
 import * as d3 from 'd3'
+import { transition } from 'd3-transition'
 import { URLParams } from 'lib/shared'
+
+d3.selection.prototype.transition = transition;
 
 export class VisPopulationPyramid {
   constructor(divId, city_id, current_year, filter) {
@@ -108,7 +111,7 @@ export class VisPopulationPyramid {
 
     // Dynamic filters
     for (var endpoint in endpoints) {
-      if (endpoints.hasOwnProperty(endpoint)) {
+      if (Object.prototype.hasOwnProperty.call(endpoints, endpoint)) {
         let param = endpoints[endpoint].params || {}
 
         if (this.currentYear) {
@@ -226,16 +229,19 @@ export class VisPopulationPyramid {
   }
 
   _updateAxes () {
-    this.pyramid.select(".x.axis.males")
+    this.pyramid
       .transition().duration(500)
+      .select(".x.axis.males")
       .call(this._xAxisMale.bind(this))
 
-    this.pyramid.select(".x.axis.females")
+    this.pyramid
       .transition().duration(500)
+      .select(".x.axis.females")
       .call(this._xAxisFemale.bind(this))
 
-    this.pyramid.select(".y.axis")
+    this.pyramid
       .transition().duration(500)
+      .select(".y.axis")
       .call(this._yAxis.bind(this))
   }
 
@@ -248,6 +254,10 @@ export class VisPopulationPyramid {
       .selectAll("g")
       .data(data.filter(d => d.sex === "M"))
 
+    // exits
+    male.exit().remove()
+    female.exit().remove()
+
     // enters
     let mm = male.enter().append("g")
 
@@ -259,6 +269,7 @@ export class VisPopulationPyramid {
       .on("mouseout", this._mouseout.bind(this))
       .transition()
       .duration(500)
+      .selectAll("g.bars g.males rect")
       .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d._value))
       .attr("x", d => this.xScaleMale(d._value)) // Real value
 
@@ -269,6 +280,7 @@ export class VisPopulationPyramid {
       .attr("y2", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
       .transition()
       .duration(500)
+      .selectAll("g.bars g.males line")
       .attr("x1", d => this.xScaleMale(d._value))
 
     let ff = female.enter().append("g")
@@ -281,6 +293,7 @@ export class VisPopulationPyramid {
       .on("mouseout", this._mouseout.bind(this))
       .transition()
       .duration(500)
+      .selectAll("g.bars g.females rect")
       .attr("width", d => this.xScaleFemale(d._value))
 
     ff.append("line")
@@ -290,33 +303,34 @@ export class VisPopulationPyramid {
       .attr("y2", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
       .transition()
       .duration(500)
+      .selectAll("g.bars g.females line")
       .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
 
     // updates
     male.select("rect")
       .transition()
       .duration(500)
+      .selectAll("g.bars g.males rect")
       .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d._value))
       .attr("x", d => this.xScaleMale(d._value)) // Real value
 
     male.select("line")
       .transition()
       .duration(500)
+      .selectAll("g.bars g.males line")
       .attr("x1", d => this.xScaleMale(d._value))
 
     female.select("rect")
       .transition()
       .duration(500)
+      .selectAll("g.bars g.females rect")
       .attr("width", d => this.xScaleFemale(d._value))
 
     female.select("line")
       .transition()
       .duration(500)
+      .selectAll("g.bars g.females line")
       .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
-
-    // exits
-    male.exit().remove()
-    female.exit().remove()
   }
 
   _updateAreas (data, unemployed) {
@@ -337,6 +351,7 @@ export class VisPopulationPyramid {
       .attr("height", d => this.yScale(d.range[0]) - this.yScale(d.range[1]))
       .transition()
       .duration(1000)
+      .selectAll("g.range rect")
       .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
       .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
 
@@ -357,6 +372,7 @@ export class VisPopulationPyramid {
     g.select("rect")
       .transition()
       .duration(1000)
+      .selectAll("g.range rect")
       .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
       .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
 
@@ -382,7 +398,7 @@ export class VisPopulationPyramid {
       .domain([0, fakeObj.value])
 
     let fakeG = ranges.selectAll("rect")
-      .filter(d => !d.hasOwnProperty("fake"))
+      .filter(d => !Object.prototype.hasOwnProperty.call(d, "fake"))
       .data(fakeData)
 
     // enters
@@ -401,6 +417,7 @@ export class VisPopulationPyramid {
       .transition()
       .delay(1000)
       .duration(1000)
+      .selectAll("g.r-fake rect.inner")
       .attr("height", d => yFakeScale(d.fake))
       .attr("y", 0)
 
@@ -413,21 +430,27 @@ export class VisPopulationPyramid {
       .transition()
       .delay(1000)
       .duration(1000)
+      .selectAll("g.r-fake text")
       .attr("opacity", 1)
 
     // updates
     // NOTE: fakeG doesn't work here, we need the g.range updates
     g.select("g.r-fake")
       .transition()
+      .delay(1000)
       .duration(1000)
+      .selectAll("g.r-fake")
       .attr("transform", d => `translate(0, ${this.yScale(d.range[0]) - this.yScale(d.range[1]) - yFakeScale(d.fake)})`)
 
     g.select("g.r-fake rect")
       .transition()
+      .delay(1000)
       .duration(1000)
+      .selectAll("g.r-fake rect")
       .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
       .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
       .attr("height", d => yFakeScale(d.fake))
+      .attr("y", 0)
 
     g.select("g.r-fake text.subtitle")
       .html(d => `<tspan class="as-title">${(d.fake / d.value).toLocaleString(I18n.locale, { style: 'percent' })}</tspan> ${I18n.t('gobierto_common.visualizations.unemployed')}`)
@@ -447,6 +470,7 @@ export class VisPopulationPyramid {
     marks
       .transition()
       .duration(1000)
+      .selectAll("g.mark")
       .attr("transform", d => `translate(0, ${this.yScale(d.value)})`)
 
     marks.append("line")
@@ -463,6 +487,7 @@ export class VisPopulationPyramid {
     g
       .transition()
       .duration(500)
+      .selectAll("g.mark")
       .attr("transform", d =>`translate(0, ${this.yScale(d.value)})`)
 
     g.select("text")

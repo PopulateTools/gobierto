@@ -63,7 +63,6 @@ export default {
     LFeatureGroup,
     LGeoJson
   },
-  popupClass: "investments-home-main--map-popup",
   data() {
     return {
       url: "https://api.tiles.mapbox.com/styles/v1/{username}/{style_id}/tiles/{tilesize}/{z}/{x}/{y}?access_token={token}",
@@ -78,7 +77,8 @@ export default {
       },
       geojsons: [],
       geojsonOptions: {},
-      center: [40.199867, -4.0654947], // Spain center
+      zoom: 3.5,
+      center: [41.540, 2.441], // Spain center
       titleButton: 'Volver',
       items: []
     };
@@ -129,6 +129,18 @@ export default {
       this.subsetItems = this.items;
       console.log(this.items)
     })
+
+    if (this.items.length) {
+      // Parse defaults
+      ({
+        center: this.center = this.center,
+        maxZoom: this.tileOptions.maxZoom = this.tileOptions.maxZoom,
+        minZoom: this.tileOptions.minZoom = this.tileOptions.minZoom
+      } = this.items[0].locationOptions || {});
+
+      // Draw elements
+      this.setGeoJSONs(this.items);
+    }
 
   },
   methods: {

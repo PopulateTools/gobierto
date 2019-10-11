@@ -1,5 +1,33 @@
 <template>
-  <div>
+  <div style="height: 100vh; ">
+    <div class="investments-home-main--map">
+      <l-map
+        ref="map"
+        :center="center"
+        :options="{
+          scrollWheelZoom: false
+        }"
+      >
+        <l-tile-layer
+          :url="url"
+          :options="tileOptions"
+          :detect-retina="true"
+        />
+        <l-feature-group
+          v-if="geojsons"
+          ref="features"
+        >
+          <l-geo-json
+            v-for="geojson in geojsons"
+            :key="geojson.index"
+            :geojson="geojson"
+            :options="geojsonOptions"
+          />
+        </l-feature-group>
+
+      </l-map>
+
+    </div>
     <button
       class="btn-tour-virtual"
       @click="backInvestments"
@@ -13,9 +41,10 @@
 import { LMap, LTileLayer, LFeatureGroup, LGeoJson } from "vue2-leaflet";
 import Wkt from "wicket";
 import Vue from "vue";
-import GalleryItem from "./GalleryItem.vue";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import axios from "axios";
+import { CommonsMixin, baseUrl } from "./../mixins/common.js";
 
 // leaflet bug w/ webpack - https://github.com/PaulLeCam/react-leaflet/issues/255
 delete Icon.Default.prototype._getIconUrl;
@@ -26,18 +55,13 @@ Icon.Default.mergeOptions({
 });
 
 export default {
-  name: "Map",
+  name: "MapTour",
+  mixins: [CommonsMixin],
   components: {
     LMap,
     LTileLayer,
     LFeatureGroup,
     LGeoJson
-  },
-  props: {
-    items: {
-      type: Array,
-      default: () => []
-    }
   },
   popupClass: "investments-home-main--map-popup",
   data() {
@@ -54,51 +78,58 @@ export default {
       },
       geojsons: [],
       geojsonOptions: {},
-      item: null,
       center: [40.199867, -4.0654947], // Spain center
-      titleButton: 'Volver'
+      titleButton: 'Volver',
+      items: []
     };
-  },
-  watch: {
-    items(items) {
-      this.setGeoJSONs(items);
-    }
   },
   created() {
-    // https://github.com/KoRiGaN/Vue2Leaflet/blob/master/examples/src/components/GeoJSON2.vue
-    const onEachFeature = (feature, layer) => {
-      const PopupComponent = Vue.extend(GalleryItem);
-      const popup = new PopupComponent({
-        router: this.$router,
-        propsData: {
-          item: this.items.find(item => item.id === feature.id)
+    this.labelSummary = I18n.t("gobierto_investments.projects.summary");
+
+    axios.all([axios.get(baseUrl), axios.get(`${baseUrl}/meta?stats=true`)]).then(responses => {
+      const [
+        {
+          data: { data: items = [] }
+        },
+        {
+          data: { data: attributesDictionary = [], meta: filtersFromConfiguration }
         }
-      });
+      ] = responses;
 
-      const { x } = this.$refs.map.mapObject.getSize();
+      this.dictionary = attributesDictionary;
+      this.items = this.setData(items);
 
-      layer.bindPopup(popup.$mount().$el, {
-        className: this.$options.popupClass,
-        closeButton: false,
-        maxWidth: x / 3,
-        minWidth: x / 3
-      });
-    };
+      if (filtersFromConfiguration) {
+        // get the phases, and append what items are in that phase
+        const phases = this.getPhases(filtersFromConfiguration)
+        this.phases = phases.map(phase => ({
+          ...phase,
+          items: this.items.filter(d => (d.phases.length ? d.phases[0].id === phase.id : false))
+        }));
 
-    this.geojsonOptions = { onEachFeature };
+        // Add dictionary of phases in order to fulfill project page
+        this.items = this.items.map(item => ({ ...item, phasesDictionary: phases }))
 
-    if (this.items.length) {
-      // Parse defaults
-      ({
-        center: this.center = this.center,
-        maxZoom: this.tileOptions.maxZoom = this.tileOptions.maxZoom,
-        minZoom: this.tileOptions.minZoom = this.tileOptions.minZoom
-      } = this.items[0].locationOptions || {});
+        this.filters = this.getFilters(filtersFromConfiguration) || [];
+
+        if (this.filters.length) {
+          this.activeFilters = new Map();
+          this.filters.forEach(f => {
+            // initialize active filters
+            this.activeFilters.set(f.key, undefined);
+
+            if (f.type === "vocabulary_options") {
+              // Add a counter for each option
+              f.options = f.options.map(opt => ({ ...opt, counter: this.items.filter(i => i.attributes[f.key].map(g => g.id).includes(opt.id)).length }))
+            }
+          });
+        }
+      }
+
+      this.subsetItems = this.items;
       console.log(this.items)
+    })
 
-      // Draw elements
-      this.setGeoJSONs(this.items);
-    }
   },
   methods: {
     convertWKTtoGeoJSON(wktString) {

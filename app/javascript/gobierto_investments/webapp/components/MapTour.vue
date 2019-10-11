@@ -1,36 +1,11 @@
 <template>
-  <div class="investments-home-main--map">
-    <l-map
-      ref="map"
-      :center="center"
-      :options="{
-        scrollWheelZoom: false
-      }"
-    >
-      <l-tile-layer
-        :url="url"
-        :options="tileOptions"
-        :detect-retina="true"
-      />
-      <l-feature-group
-        v-if="geojsons"
-        ref="features"
+  <div>
+    <button
+      class="btn-tour-virtual"
+      @click="backInvestments"
       >
-        <l-geo-json
-          v-for="geojson in geojsons"
-          :key="geojson.index"
-          :geojson="geojson"
-          :options="geojsonOptions"
-        />
-      </l-feature-group>
-      <button
-        class="btn-tour-virtual"
-        @click="goTourVirtual"
-        >
-        {{ titleButton }}
-      </button>
-
-    </l-map>
+      {{ titleButton }}
+    </button>
   </div>
 </template>
 
@@ -81,7 +56,7 @@ export default {
       geojsonOptions: {},
       item: null,
       center: [40.199867, -4.0654947], // Spain center
-      titleButton: 'Tour Virtual'
+      titleButton: 'Volver'
     };
   },
   watch: {
@@ -119,6 +94,7 @@ export default {
         maxZoom: this.tileOptions.maxZoom = this.tileOptions.maxZoom,
         minZoom: this.tileOptions.minZoom = this.tileOptions.minZoom
       } = this.items[0].locationOptions || {});
+      console.log(this.items)
 
       // Draw elements
       this.setGeoJSONs(this.items);
@@ -162,8 +138,8 @@ export default {
         }
       });
     },
-    goTourVirtual() {
-      window.location.href="/inversiones/tour-virtual"
+    backInvestments() {
+      this.$router.push({ name: "home" });
     }
   }
 };

@@ -512,6 +512,13 @@
       .leaflet-popup-content {
         margin: 0;
       }
+
+      .btn-tour-virtual {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 999;
+      }
     }
 
     &--map &--gallery-item {

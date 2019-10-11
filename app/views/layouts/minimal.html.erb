@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <%= render partial: "layouts/gobierto_head" %>
+  </head>
+
+  <body class="<%= body_css_classes %>" <%= yield :body_attributes %>>
+
+    <%= render partial: 'layouts/header' %>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+
+    <%= render partial: 'layouts/footer' %>
+
+    <%= render partial: 'layouts/gobierto_footer' %>
+  </body>
+</html>

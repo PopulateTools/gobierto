@@ -9,13 +9,13 @@ defaults: &defaults
         PGUSER: gobierto
         # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
         DISABLE_SPRING: true
-    - image: postgres:9.6
-      environment:
-        POSTGRES_USER: gobierto
-        POSTGRES_DB: gobierto_test
-        POSTGRES_PASSWORD: ""
-    - image: elasticsearch:2.4.1
-    - image: redis:4.0.9
+    # - image: postgres:9.6
+    #   environment:
+    #     POSTGRES_USER: gobierto
+    #     POSTGRES_DB: gobierto_test
+    #     POSTGRES_PASSWORD: ""
+    # - image: elasticsearch:2.4.1
+    # - image: redis:4.0.9
 
 version: 2
 jobs:
@@ -25,22 +25,22 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/gobierto
-      - restore_cache:
-          name: "[Bundler] Restore cache"
-          keys:
-            - gobierto-{{ checksum "Gemfile.lock" }}
-      - run:
-          name: "[Bundler] Install dependencies"
-          command: bundle install --path vendor/bundle --jobs=4 --retry=3  --without development
-      - save_cache:
-          name: "[Bundler] Cache dependencies"
-          key: gobierto-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - persist_to_workspace:
-          root: ~/gobierto
-          paths:
-            - vendor/bundle
+      # - restore_cache:
+      #     name: "[Bundler] Restore cache"
+      #     keys:
+      #       - gobierto-{{ checksum "Gemfile.lock" }}
+      # - run:
+      #     name: "[Bundler] Install dependencies"
+      #     command: bundle install --path vendor/bundle --jobs=4 --retry=3  --without development
+      # - save_cache:
+      #     name: "[Bundler] Cache dependencies"
+      #     key: gobierto-{{ checksum "Gemfile.lock" }}
+      #     paths:
+      #       - vendor/bundle
+      # - persist_to_workspace:
+      #     root: ~/gobierto
+      #     paths:
+      #       - vendor/bundle
 
   tests:
     <<: *defaults
@@ -49,60 +49,57 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
+      #- run: bundle --path vendor/bundle
+      #- run: yarn install
       # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+      # - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      # - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      # - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
+      # # Copy database config
+      # - run: cp config/database.yml.example config/database.yml
 
-      # Setup the database
-      - run: bin/rails db:create db:migrate
+      # # Setup the database
+      # - run: bin/rails db:create db:migrate
 
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
+      # # Install custom engines
+      # - run: script/custom_engines_ci_setup
 
-      # Compile I18n JS file
-      - run: bin/rails i18n:js:export
+      # # Compile I18n JS file
+      # - run: bin/rails i18n:js:export
 
-      # Precompile assets
-      - run: bin/rails assets:precompile
+      # # Precompile assets
+      # - run: bin/rails assets:precompile
 
       # Run tests
       - run:
           name: Run tests
+          #
           command: |
-            TEST_FILES="$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(circleci tests glob "test/**/*_test.rb|vendor/gobierto_engines/**/test" | circleci tests split --split-by=timings)"
+            echo $TEST_FILES
 
-  staging-deploy:
-    working_directory: ~/gobierto
-    machine:
-      enabled: true
-    steps:
-      # deploy script is in the repository
-      - checkout
-      - run:
-          name: Deploy staging branch
-          command: script/staging_deploy.sh
+  # staging-deploy:
+  #   working_directory: ~/gobierto
+  #   machine:
+  #     enabled: true
+  #   steps:
+  #     # deploy script is in the repository
+  #     - checkout
+  #     - run:
+  #         name: Deploy staging branch
+  #         command: script/staging_deploy.sh
 
-  production-deploy:
-    working_directory: ~/gobierto
-    machine:
-      enabled: true
-    steps:
-      # deploy script is in the repository
-      - checkout
-      - run:
-          name: Deploy master branch
-          command: script/production_deploy.sh
+  # production-deploy:
+  #   working_directory: ~/gobierto
+  #   machine:
+  #     enabled: true
+  #   steps:
+  #     # deploy script is in the repository
+  #     - checkout
+  #     - run:
+  #         name: Deploy master branch
+  #         command: script/production_deploy.sh
 
 workflows:
   version: 2
@@ -112,17 +109,17 @@ workflows:
       - tests:
           requires:
             - bundle_dependencies
-      - staging-deploy:
-          requires:
-            - bundle_dependencies
-            - tests
-          filters:
-            branches:
-              only: staging
-      - production-deploy:
-          requires:
-            - bundle_dependencies
-            - tests
-          filters:
-            branches:
-              only: master
+      # - staging-deploy:
+      #     requires:
+      #       - bundle_dependencies
+      #       - tests
+      #     filters:
+      #       branches:
+      #         only: staging
+      # - production-deploy:
+      #     requires:
+      #       - bundle_dependencies
+      #       - tests
+      #     filters:
+      #       branches:
+      #         only: master

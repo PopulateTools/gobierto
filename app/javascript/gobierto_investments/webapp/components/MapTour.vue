@@ -1,18 +1,24 @@
 <template>
   <div style="height: 100vh; position:relative; ">
     <template>
-      <MglMap ref="mglMap" :accessToken="accessToken" :mapStyle.sync="mapStyle" @load="onMapLoaded" :scrollZoom="scrollZoom" />
+      <MglMap ref="mglMap"
+      :accessToken="accessToken"
+      :scrollZoom="scrollZoom"
+      :mapStyle.sync="mapStyle"
+      :minZoom="14"
+      :maxZoom="18"
+      @load="onMapLoaded"/>
     </template>
     <button class="btn-tour-virtual" @click="backInvestments">
       {{ titleButton }}
     </button>
-    <div v-on:scroll.passive="cardsOnScreen" class="container-scroll-map" style="position: absolute; top: 10px; left: 85%; height: 100%; overflow-y: scroll;">
+    <div v-on:scroll.passive="cardsOnScreen" class="container-scroll-map" style="position: absolute; top: 10px; left: 77%; height: 100%; overflow-y: scroll;">
       <div v-for="(item, index) in geojsons"
         class="investments-home-main--gallery-item"
         @click.prevent="nav(item)"
         :key="item.id"
         :id="`${index}`"
-        style="height:auto; margin-bottom: 90vh; width: 200px; background: #fff;">
+        style="height:auto; margin-bottom: 90vh; width: 300px; background: #fff; box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025); ">
         <div class="investments-home-main--photo">
           <img
             v-if="item.photo"
@@ -59,7 +65,7 @@ export default {
       items: [],
       geojsons: [],
       map: null,
-      zoom: 16,
+      zoom: 18,
       mapbox: null,
       activeCardId: 0
     };
@@ -85,7 +91,6 @@ export default {
 
       this.subsetItems = this.items;
 
-      this.locations = this.subsetItems.map(d => d.locationOptions);
       this.setGeoJSONs(this.items);
     })
   },
@@ -135,16 +140,19 @@ export default {
     },
     activeCard(card) {
       if (card === this.activeCardId) return;
+
       const [lat, lng] = Object.values(this.geojsons[card].coordinates)
+
       if(this.geojsons[card].coordinates.length <= 1) {
         const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
-        this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 1 });
+        this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 0.2 });
       } else {
-        this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 1 });
+        this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 0.2 });
       }
 
       document.getElementById(this.card).setAttribute('class', 'active container-text');
       document.getElementById(this.activeCardId).setAttribute('class', 'container-text');
+
       this.activeCardId = this.card;
     },
     isElementOnScreen(activeId) {

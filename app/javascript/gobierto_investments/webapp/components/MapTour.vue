@@ -1,42 +1,20 @@
 <template>
   <div style="height: 100vh; ">
     <div class="investments-home-main--map">
-      <l-map
-        ref="map"
-        :center="center"
-        :options="{
+      <l-map ref="map" :center="center" :options="{
           scrollWheelZoom: false
-        }"
-      >
-        <l-tile-layer
-          :url="url"
-          :options="tileOptions"
-          :detect-retina="true"
-        />
-        <l-feature-group
-          v-if="geojsons"
-          ref="features"
-        >
-          <l-geo-json
-            v-for="geojson in geojsons"
-            :key="geojson.index"
-            :geojson="geojson"
-            :options="geojsonOptions"
-          />
-        </l-feature-group>
-
+        }">
+        <l-tile-layer :url="url" :options="tileOptions" :detect-retina="true" />
       </l-map>
-
     </div>
-    <button
-      class="btn-tour-virtual"
-      @click="backInvestments"
-      >
+    <button class="btn-tour-virtual" @click="backInvestments">
       {{ titleButton }}
+    </button>
+    <button class="btn-tour-virtual" @click="flyTo">
+      FLYTO
     </button>
   </div>
 </template>
-
 <script>
 import { LMap, LTileLayer, LFeatureGroup, LGeoJson } from "vue2-leaflet";
 import Wkt from "wicket";
@@ -71,14 +49,13 @@ export default {
         style_id: "ck18y48jg11ip1cqeu3b9wpar",
         tilesize: "256",
         token: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        minZoom: 6,
-        maxZoom: 16
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       },
+      zoom: 5,
       geojsons: [],
       geojsonOptions: {},
-      zoom: 3.5,
-      center: [41.540, 2.441], // Spain center
+      item: null,
+      center: [40.199867, -4.0654947], // Spain center
       titleButton: 'Volver',
       items: []
     };
@@ -87,8 +64,7 @@ export default {
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
 
     axios.all([axios.get(baseUrl), axios.get(`${baseUrl}/meta?stats=true`)]).then(responses => {
-      const [
-        {
+      const [{
           data: { data: items = [] }
         },
         {
@@ -99,91 +75,20 @@ export default {
       this.dictionary = attributesDictionary;
       this.items = this.setData(items);
 
-      if (filtersFromConfiguration) {
-        // get the phases, and append what items are in that phase
-        const phases = this.getPhases(filtersFromConfiguration)
-        this.phases = phases.map(phase => ({
-          ...phase,
-          items: this.items.filter(d => (d.phases.length ? d.phases[0].id === phase.id : false))
-        }));
-
-        // Add dictionary of phases in order to fulfill project page
-        this.items = this.items.map(item => ({ ...item, phasesDictionary: phases }))
-
-        this.filters = this.getFilters(filtersFromConfiguration) || [];
-
-        if (this.filters.length) {
-          this.activeFilters = new Map();
-          this.filters.forEach(f => {
-            // initialize active filters
-            this.activeFilters.set(f.key, undefined);
-
-            if (f.type === "vocabulary_options") {
-              // Add a counter for each option
-              f.options = f.options.map(opt => ({ ...opt, counter: this.items.filter(i => i.attributes[f.key].map(g => g.id).includes(opt.id)).length }))
-            }
-          });
-        }
-      }
-
       this.subsetItems = this.items;
       console.log(this.items)
+      this.$refs.map.mapObject.flyTo([41.552,2.451], 15);
     })
-
-    if (this.items.length) {
-      // Parse defaults
-      ({
-        center: this.center = this.center,
-        maxZoom: this.tileOptions.maxZoom = this.tileOptions.maxZoom,
-        minZoom: this.tileOptions.minZoom = this.tileOptions.minZoom
-      } = this.items[0].locationOptions || {});
-
-      // Draw elements
-      this.setGeoJSONs(this.items);
-    }
-
   },
   methods: {
-    convertWKTtoGeoJSON(wktString) {
-      const wkt = new Wkt.Wkt();
-      wkt.read(wktString);
-      return wkt.toJson();
-    },
-    setGeoJSONs(items) {
-      this.geojsons = [];
 
-      // get the Well-Known Text (WKT)
-      const markerWithLocation = items.reduce((acc, i) => {
-        if (i.location && i.location !== null) {
-          acc.push(i);
-        }
-        return acc;
-      }, []);
-
-      // convert all WKT objets to GeoJSON, and add them to a feature group
-      for (let index = 0; index < markerWithLocation.length; index++) {
-        const { id, location } = markerWithLocation[index];
-        this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id });
-      }
-
-      this.$nextTick(() => {
-        // force to map size recalculation, container size might have changed
-        this.$refs.map.mapObject.invalidateSize();
-        // center map on the selected
-        const bounds = this.$refs.features.mapObject.getBounds();
-
-        if (Object.keys(bounds).length) {
-          this.$refs.map.mapObject.fitBounds(bounds);
-        } else {
-          // If no features, fit the map to the minimal zoom
-          this.$refs.map.mapObject.panTo(this.center)
-          this.$refs.map.mapObject.fitBounds(this.$refs.map.mapObject.getBounds(), { maxZoom: this.tileOptions.minZoom });
-        }
-      });
+    flyTo() {
+      this.$refs.map.mapObject.flyTo([40.199867, -4.0654947], 15);
     },
     backInvestments() {
       this.$router.push({ name: "home" });
     }
   }
 };
+
 </script>

@@ -26,12 +26,8 @@ module GobiertoPlans
           "en" => "Description of raw savings",
           "es" => "Descripción de ahorro bruto"
         },
-        last_value: 15,
-        values: {
-          "2018-12" => 5,
-          "2019-01" => 10,
-          "2019-02" => 15
-        }
+        last_value: 92.5,
+        date: "2018-12"
       }
     end
 

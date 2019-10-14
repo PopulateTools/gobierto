@@ -35,7 +35,10 @@ module GobiertoPeople
         end
 
         def person_attributes
-          %w(key value properties)
+          %w(
+            id name email position bio bio_url avatar_url category political_group
+            party url created_at updated_at content_block_records
+          )
         end
 
         def people_attending_count
@@ -57,7 +60,7 @@ module GobiertoPeople
         end
 
         def test_people_index_test
-          with_current_site(madrid) do
+          with(site: madrid) do
 
             get gobierto_people_api_v1_people_path
 
@@ -72,7 +75,7 @@ module GobiertoPeople
         end
 
         def test_people_index_with_filters_test
-          with_current_site(madrid) do
+          with(site: madrid) do
 
             get(
               gobierto_people_api_v1_people_path,
@@ -88,13 +91,13 @@ module GobiertoPeople
             people = JSON.parse(response.body)
 
             assert_equal people_with_events_on_justice_department.size, people.size
-            assert_equal people.first["key"], tamara.name
-            assert_match "?end_date=#{ short_date(FAR_FUTURE) }&start_date=#{ short_date(FAR_PAST) }", people.first["properties"]["url"]
+            assert_equal tamara.name, people.first["name"]
+            assert_match "?end_date=#{ short_date(FAR_FUTURE) }&start_date=#{ short_date(FAR_PAST) }", people.first["url"]
           end
         end
 
         def test_people_index_with_interest_group_filter
-          with_current_site(madrid) do
+          with(site: madrid) do
             get(
               gobierto_people_api_v1_people_path,
               params: {
@@ -106,7 +109,7 @@ module GobiertoPeople
             people = JSON.parse(response.body)
 
             assert_equal people_with_events_on_coca_cola_group.size, people.size
-            assert_equal people.first["key"], tamara.name
+            assert_equal tamara.name, people.first["name"]
           end
         end
 
@@ -115,7 +118,7 @@ module GobiertoPeople
           create_event(person: tamara, starts_at: "15-01-2017")
           create_event(person: tamara, starts_at: "16-01-2017")
 
-          with_current_site(madrid) do
+          with(site: madrid) do
 
             get(
               gobierto_people_api_v1_people_path,
@@ -153,7 +156,7 @@ module GobiertoPeople
         def test_people_index_test_with_submodule_disabled
           disable_submodule(madrid, :agendas)
 
-          with_current_site(madrid) do
+          with(site: madrid) do
             get gobierto_people_api_v1_people_path
 
             assert_response :forbidden

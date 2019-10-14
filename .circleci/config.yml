@@ -75,7 +75,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)"
+            TEST_FILES="$(circleci tests glob "test/**/*_test.rb" "vendor/gobierto_engines/*/test/**/*_test.rb" | circleci tests split --split-by=timings)"
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load

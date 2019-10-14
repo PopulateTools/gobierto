@@ -6,14 +6,13 @@
     <button class="btn-tour-virtual" @click="backInvestments">
       {{ titleButton }}
     </button>
-    <button class="btn-tour-virtual" @click="flyToMataro">
-      FLYTO
-    </button>
-    <div class="container-scroll-map" style="position: absolute; top: 10px; left: 95%; height: 100%; overflow-y: scroll;">
-      <div v-for="item in items"
+    <div v-on:scroll.passive="cardsOnScreen" class="container-scroll-map" style="position: absolute; top: 10px; left: 85%; height: 100%; overflow-y: scroll;">
+      <div v-for="item in geojsons"
         class="investments-home-main--gallery-item"
         @click.prevent="nav(item)"
-        style="height:auto; margin-bottom: 90vh;">
+        :key="item.id"
+        :id="item.id"
+        style="height:auto; margin-bottom: 90vh; width: 200px; background: #fff;">
         <div class="investments-home-main--photo">
           <img
             v-if="item.photo"
@@ -25,28 +24,21 @@
             href
             class="investments-home-main--link"
             @click.stop.prevent="nav(item)"
-          >{{ item.title | translate }}</a>
+          >{{item.title | translate}}</a>
         </div>
       </div>
     </div>
-    <ul>
+    <!-- <ul>
       <li v-for="item in geojsons">
         <button @click="flyOnMap(item.coordinates)">{{item.coordinates}}</button>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 <script>
 import Mapbox from "mapbox-gl";
 import {
-  MglMap,
-  MglMarker,
-  MglPopup,
-  MglAttributionControl,
-  MglNavigationControl,
-  MglGeolocateControl,
-  MglFullscreenControl,
-  MglScaleControl
+  MglMap
 } from "vue-mapbox";
 import Wkt from "wicket";
 import Vue from "vue";
@@ -57,14 +49,7 @@ export default {
   name: "MapTour",
   mixins: [CommonsMixin],
   components: {
-    MglMap,
-    MglMarker,
-    MglPopup,
-    MglAttributionControl,
-    MglNavigationControl,
-    MglGeolocateControl,
-    MglFullscreenControl,
-    MglScaleControl
+    MglMap
   },
   data() {
     return {
@@ -80,10 +65,15 @@ export default {
       geojsons: [],
       map: null,
       zoom: 16,
-      mapbox: null
+      mapbox: null,
+      activeChapterName: 45
     };
   },
+  mounted() {
+  },
   created() {
+    window.addEventListener('scroll', this.cardsOnScreen)
+
     this.mapbox = Mapbox;
 
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
@@ -138,19 +128,45 @@ export default {
 
       // convert all WKT objets to GeoJSON, and add them to a feature group
       for (let index = 0; index < markerWithLocation.length; index++) {
-        const { id, location } = markerWithLocation[index];
-        this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id });
+        const { id, location, photo, title, description } = markerWithLocation[index];
+        this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id, photo, title, description });
       }
+
     },
     backInvestments() {
       this.$router.push({ name: "home" });
     },
-    flyToMataro() {
-      this.map.flyTo({ center: [2.451, 41.552], pitch: 40, bearing: 40, zoom: this.zoom, speed: 1 });
-    },
     flyOnMap(coordinates) {
       const [lat, lng] = Object.values(coordinates)
       this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 1 });
+    },
+    cardsOnScreen() {
+      const cardElements = Object.keys(this.geojsons);
+      console.log('card-On-screen')
+      for (let i = 0; i < cardElements.length; i++) {
+          const card = cardElements[i];
+          if (isElementOnScreen(card)) {
+              setActiveCard(card);
+              break;
+          }
+      }
+    },
+    activeCard() {
+      function setActiveCard(card) {
+          if (card === activeCard) return;
+          console.log('card-activa')
+          map.flyTo(this.geojsons[card]);
+
+          document.getElementById(card).setAttribute('class', 'active container-text');
+          document.getElementById(activeCard).setAttribute('class', 'container-text');
+
+          activeCard = card;
+      }
+    },
+    isElementOnScreen(id) {
+      const element = document.getElementById(id);
+      const bounds = element.getBoundingClientRect();
+      return bounds.top < window.innerHeight && bounds.bottom > 0;
     }
   }
 };

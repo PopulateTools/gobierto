@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100vh; ">
+  <div style="height: 100vh; position:relative; ">
     <template>
       <MglMap ref="mglMap" :accessToken="accessToken" :mapStyle.sync="mapStyle" @load="onMapLoaded" :scrollZoom="scrollZoom" />
     </template>
@@ -9,6 +9,26 @@
     <button class="btn-tour-virtual" @click="flyToMataro">
       FLYTO
     </button>
+    <div class="container-scroll-map" style="position: absolute; top: 10px; left: 95%; height: 100%; overflow-y: scroll;">
+      <div v-for="item in items"
+        class="investments-home-main--gallery-item"
+        @click.prevent="nav(item)"
+        style="height:auto; margin-bottom: 90vh;">
+        <div class="investments-home-main--photo">
+          <img
+            v-if="item.photo"
+            :src="item.photo"
+          >
+        </div>
+        <div class="investments-home-main--data">
+          <a
+            href
+            class="investments-home-main--link"
+            @click.stop.prevent="nav(item)"
+          >{{ item.title | translate }}</a>
+        </div>
+      </div>
+    </div>
     <ul>
       <li v-for="item in geojsons">
         <button @click="flyOnMap(item.coordinates)">{{item.coordinates}}</button>

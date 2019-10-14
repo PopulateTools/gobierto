@@ -1,12 +1,12 @@
 <template>
   <div style="height: 100vh; ">
-    <div class="investments-home-main--map">
-      <l-map ref="map" :center="center" :options="{
-          scrollWheelZoom: false
-        }">
-        <l-tile-layer :url="url" :options="tileOptions" :detect-retina="true" />
-      </l-map>
-    </div>
+    <template>
+      <MglMap
+          ref="map"
+          :accessToken="accessToken"
+          :mapStyle.sync="mapStyle"
+      />
+    </template>
     <button class="btn-tour-virtual" @click="backInvestments">
       {{ titleButton }}
     </button>
@@ -16,42 +16,28 @@
   </div>
 </template>
 <script>
-import { LMap, LTileLayer, LFeatureGroup, LGeoJson } from "vue2-leaflet";
+import Mapbox from "mapbox-gl";
+import { MglMap, MglGeojsonLayer } from "vue-mapbox";
 import Wkt from "wicket";
 import Vue from "vue";
-import { Icon } from "leaflet";
-import "leaflet/dist/leaflet.css";
 import axios from "axios";
 import { CommonsMixin, baseUrl } from "./../mixins/common.js";
-
-// leaflet bug w/ webpack - https://github.com/PaulLeCam/react-leaflet/issues/255
-delete Icon.Default.prototype._getIconUrl;
-Icon.Default.mergeOptions({
-  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-  iconUrl: require("leaflet/dist/images/marker-icon.png"),
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png")
-});
 
 export default {
   name: "MapTour",
   mixins: [CommonsMixin],
   components: {
-    LMap,
-    LTileLayer,
-    LFeatureGroup,
-    LGeoJson
+   MglMap,
+   MglGeojsonLayer
   },
   data() {
     return {
       url: "https://api.tiles.mapbox.com/styles/v1/{username}/{style_id}/tiles/{tilesize}/{z}/{x}/{y}?access_token={token}",
-      tileOptions: {
-        username: "gobierto",
-        style_id: "ck18y48jg11ip1cqeu3b9wpar",
-        tilesize: "256",
-        token: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      },
-      zoom: 5,
+      mapStyle: "mapbox://styles/gobierto/ck18y48jg11ip1cqeu3b9wpar", // your map style
+      username: "gobierto",
+      style_id: "ck18y48jg11ip1cqeu3b9wpar",
+      tilesize: "256",
+      accessToken: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
       center: [40.199867, -4.0654947],
       titleButton: 'Volver',
       items: [],
@@ -76,7 +62,6 @@ export default {
       this.subsetItems = this.items;
 
       this.locations = this.subsetItems.map(d => d.locationOptions);
-      this.$refs.map.mapObject.flyTo([41.520, 2.424], 15, 5);
     })
   },
   watch: {
@@ -106,15 +91,8 @@ export default {
         const { id, location } = markerWithLocation[index];
         this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id });
       }
+      console.log(this.geojsons)
 
-    },
-    flyTo() {
-      console.log(this.geojsons[1].coordinates[1])
-      console.log(this.geojsons[1].coordinates[0])
-      this.$refs.map.mapObject.flyTo([this.geojsons[1].coordinates[1], this.geojsons[1].coordinates[0]], 15, 30);
-      setTimeout(() => {
-        this.$refs.map.mapObject.flyTo([this.geojsons[2].coordinates[1], this.geojsons[2].coordinates[0]], 15, 17);
-      }, 2000);
     },
     backInvestments() {
       this.$router.push({ name: "home" });

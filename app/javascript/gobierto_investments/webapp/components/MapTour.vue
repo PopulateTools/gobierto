@@ -137,7 +137,8 @@ export default {
       if (card === this.activeCardId) return;
       const [lat, lng] = Object.values(this.geojsons[card].coordinates)
       if(this.geojsons[card].coordinates.length <= 1) {
-        this.map.flyTo([2.451, 41.552],{ zoom: this.zoom, speed: 1 });
+        const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
+        this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 1 });
       } else {
         this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 1 });
       }

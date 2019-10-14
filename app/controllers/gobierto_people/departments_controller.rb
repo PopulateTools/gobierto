@@ -36,12 +36,13 @@ module GobiertoPeople
                                    start_date: filter_start_date,
                                    end_date: filter_end_date)
 
-      interest_groups = QueryWithEvents.new(source: @department.events.published,
-                                            start_date: filter_start_date,
-                                            end_date: filter_end_date)
+      meetings = QueryWithEvents.new(source: @department.events.published,
+                                     start_date: filter_start_date,
+                                     end_date: filter_end_date)
       @department_stats = {
         total_people_with_attendances: people.count,
-        unique_interest_groups: interest_groups.select(:interest_group_id).distinct.count
+        total_meetings: meetings.count,
+        unique_interest_groups: meetings.select(:interest_group_id).distinct.count
       }
     end
 

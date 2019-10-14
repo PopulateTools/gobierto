@@ -3,16 +3,22 @@
 module GobiertoPeople
   class TripsQuery
 
-    attr_reader :start_date, :end_date, :department
+    attr_reader(
+      :start_date,
+      :end_date,
+      :department,
+      :site
+    )
 
     def initialize(params = {})
+      @site = params[:site]
       @department = params[:department]
       @start_date = params[:start_date]
       @end_date = params[:end_date]
     end
 
     def count
-      department.trips.between_dates(start_date, end_date).count
+      base_trips.between_dates(start_date, end_date).count
     end
 
     def unique_destinations_count
@@ -33,8 +39,9 @@ FROM
   #{Trip.table_name}, jsonb_array_elements(destinations_meta->'destinations') destination
 WHERE
   #{date_range_scope_sql}
-  (destination->>'city_name') IS NOT NULL AND
-  department_id = #{department.id}
+  #{department_filter_sql}
+  #{site_filter_sql}
+  (destination->>'city_name') IS NOT NULL
       }
     end
 
@@ -48,8 +55,20 @@ WHERE
       end
     end
 
+    def department_filter_sql
+      "department_id = #{Trip.sanitize_sql department.id} AND" if department.present?
+    end
+
+    def site_filter_sql
+      "person_id IN (SELECT id FROM gp_people WHERE site_id = #{Trip.sanitize_sql site.id}) AND" if department.blank?
+    end
+
     def db_date(date)
       "'#{Trip.sanitize_sql date.to_s(:db)}'"
+    end
+
+    def base_trips
+      department ? department.trips : site.trips
     end
 
   end

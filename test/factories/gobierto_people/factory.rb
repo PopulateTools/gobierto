@@ -20,7 +20,21 @@ module GobiertoPeople
       )
     end
 
+    def self.department(params = {})
+      name = params[:name] || "Department name"
+
+      GobiertoPeople::Department.create!(
+        site: params[:site] || default_site,
+        name: name,
+        slug: name.parameterize
+      )
+    end
+
     private
+
+    def self.default_site
+      @default_site ||= GobiertoPeople::Person.find(fixture :madrid)
+    end
 
     def self.default_person
       @default_person ||= GobiertoPeople::Person.find(fixture :richard)

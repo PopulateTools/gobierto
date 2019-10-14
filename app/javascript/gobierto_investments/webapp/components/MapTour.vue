@@ -28,11 +28,6 @@
         </div>
       </div>
     </div>
-    <ul>
-      <li v-for="item in geojsons">
-        <button @click="flyOnMap(item.coordinates)">{{item.coordinates}}</button>
-      </li>
-    </ul>
   </div>
 </template>
 <script>
@@ -128,12 +123,7 @@ export default {
     backInvestments() {
       this.$router.push({ name: "home" });
     },
-    flyOnMap(coordinates) {
-      const [lat, lng] = Object.values(coordinates)
-      this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 1 });
-    },
     cardsOnScreen() {
-
       this.cardElements = Object.keys(this.geojsons);
       for (let i = 0; i < this.cardElements.length; i++) {
           this.card = this.cardElements[i];
@@ -145,13 +135,16 @@ export default {
     },
     activeCard(card) {
       if (card === this.activeCardId) return;
-      this.flyOnMap([2.451, 41.552])
-      console.log(this.activeCardId)
+      const [lat, lng] = Object.values(this.geojsons[card].coordinates)
+      if(this.geojsons[card].coordinates.length <= 1) {
+        this.map.flyTo([2.451, 41.552],{ zoom: this.zoom, speed: 1 });
+      } else {
+        this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 1 });
+      }
 
       document.getElementById(this.card).setAttribute('class', 'active container-text');
       document.getElementById(this.activeCardId).setAttribute('class', 'container-text');
       this.activeCardId = this.card;
-      console.log(this.activeCardId)
     },
     isElementOnScreen(activeId) {
       this.element = document.getElementById(activeId);

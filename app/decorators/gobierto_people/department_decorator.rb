@@ -53,5 +53,31 @@ module GobiertoPeople
       }
     end
 
+    def trips_count
+      trips.between_dates(filter_start_date, filter_end_date).count
+    end
+
+    def trips_unique_destinations_count
+      ActiveRecord::Base.connection.execute(%{
+        SELECT COUNT(*) FROM (#{unique_destinations_sql}) AS unique_destinations
+      }).first["count"]
+    end
+
+    private
+
+    def unique_destinations_sql
+      %{
+SELECT
+  DISTINCT
+  (destination->>'city_name') AS destination_city_name,
+  (destination->>'country_code') AS country_code
+FROM
+  #{Trip.table_name}, jsonb_array_elements(destinations_meta->'destinations') destination
+WHERE
+  (destination->>'city_name') IS NOT NULL AND
+  department_id = #{id}
+      }
+    end
+
   end
 end

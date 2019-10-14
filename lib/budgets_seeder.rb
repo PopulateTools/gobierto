@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../test/factories/budget_line_factory"
+#require_relative "../test/factories/budget_line_factory"
 
 class BudgetsSeeder
 

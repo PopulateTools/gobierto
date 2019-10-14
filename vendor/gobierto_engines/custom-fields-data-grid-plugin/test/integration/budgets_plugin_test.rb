@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative "../../../../../test/factories/budget_line_factory"
+#require_relative "../../../../../test/factories/budget_line_factory"
 
 class BudgetsPluginTest < ActionDispatch::IntegrationTest
 

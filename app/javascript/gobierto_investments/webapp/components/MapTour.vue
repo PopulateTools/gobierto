@@ -52,12 +52,10 @@ export default {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       },
       zoom: 5,
-      geojsons: [],
-      geojsonOptions: {},
-      item: null,
-      center: [40.199867, -4.0654947], // Spain center
+      center: [40.199867, -4.0654947],
       titleButton: 'Volver',
-      items: []
+      items: [],
+      geojsons: []
     };
   },
   created() {
@@ -76,18 +74,52 @@ export default {
       this.items = this.setData(items);
 
       this.subsetItems = this.items;
-      console.log(this.items)
-      this.$refs.map.mapObject.flyTo([41.552,2.451], 15);
+
+      this.locations = this.subsetItems.map(d => d.locationOptions);
+      this.$refs.map.mapObject.flyTo([41.520, 2.424], 15, 5);
     })
   },
+  watch: {
+    items(items) {
+      this.setGeoJSONs(items);
+    }
+  },
   methods: {
+    convertWKTtoGeoJSON(wktString) {
+      const wkt = new Wkt.Wkt();
+      wkt.read(wktString);
+      return wkt.toJson();
+    },
+    setGeoJSONs(items) {
+      this.geojsons = [];
 
+      // get the Well-Known Text (WKT)
+      const markerWithLocation = items.reduce((acc, i) => {
+        if (i.location && i.location !== null) {
+          acc.push(i);
+        }
+        return acc;
+      }, []);
+
+      // convert all WKT objets to GeoJSON, and add them to a feature group
+      for (let index = 0; index < markerWithLocation.length; index++) {
+        const { id, location } = markerWithLocation[index];
+        this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id });
+      }
+
+    },
     flyTo() {
-      this.$refs.map.mapObject.flyTo([40.199867, -4.0654947], 15);
+      console.log(this.geojsons[1].coordinates[1])
+      console.log(this.geojsons[1].coordinates[0])
+      this.$refs.map.mapObject.flyTo([this.geojsons[1].coordinates[1], this.geojsons[1].coordinates[0]], 15, 30);
+      setTimeout(() => {
+        this.$refs.map.mapObject.flyTo([this.geojsons[2].coordinates[1], this.geojsons[2].coordinates[0]], 15, 17);
+      }, 2000);
     },
     backInvestments() {
       this.$router.push({ name: "home" });
     }
+
   }
 };
 

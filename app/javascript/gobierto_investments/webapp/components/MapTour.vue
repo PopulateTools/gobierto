@@ -7,11 +7,11 @@
       {{ titleButton }}
     </button>
     <div v-on:scroll.passive="cardsOnScreen" class="container-scroll-map" style="position: absolute; top: 10px; left: 85%; height: 100%; overflow-y: scroll;">
-      <div v-for="item in geojsons"
+      <div v-for="(item, index) in geojsons"
         class="investments-home-main--gallery-item"
         @click.prevent="nav(item)"
         :key="item.id"
-        :id="item.id"
+        :id="`${index}`"
         style="height:auto; margin-bottom: 90vh; width: 200px; background: #fff;">
         <div class="investments-home-main--photo">
           <img
@@ -28,11 +28,11 @@
         </div>
       </div>
     </div>
-    <!-- <ul>
+    <ul>
       <li v-for="item in geojsons">
         <button @click="flyOnMap(item.coordinates)">{{item.coordinates}}</button>
       </li>
-    </ul> -->
+    </ul>
   </div>
 </template>
 <script>
@@ -66,10 +66,8 @@ export default {
       map: null,
       zoom: 16,
       mapbox: null,
-      activeChapterName: 45
+      activeCardId: 0
     };
-  },
-  mounted() {
   },
   created() {
     window.addEventListener('scroll', this.cardsOnScreen)
@@ -93,13 +91,8 @@ export default {
       this.subsetItems = this.items;
 
       this.locations = this.subsetItems.map(d => d.locationOptions);
-
+      this.setGeoJSONs(this.items);
     })
-  },
-  watch: {
-    items(items) {
-      this.setGeoJSONs(items);
-    }
   },
   computed: {
     center() {
@@ -131,7 +124,6 @@ export default {
         const { id, location, photo, title, description } = markerWithLocation[index];
         this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id, photo, title, description });
       }
-
     },
     backInvestments() {
       this.$router.push({ name: "home" });
@@ -141,32 +133,30 @@ export default {
       this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 1 });
     },
     cardsOnScreen() {
-      const cardElements = Object.keys(this.geojsons);
-      console.log('card-On-screen')
-      for (let i = 0; i < cardElements.length; i++) {
-          const card = cardElements[i];
-          if (isElementOnScreen(card)) {
-              setActiveCard(card);
+
+      this.cardElements = Object.keys(this.geojsons);
+      for (let i = 0; i < this.cardElements.length; i++) {
+          this.card = this.cardElements[i];
+          if (this.isElementOnScreen(this.card)) {
+              this.activeCard(this.card);
               break;
           }
       }
     },
-    activeCard() {
-      function setActiveCard(card) {
-          if (card === activeCard) return;
-          console.log('card-activa')
-          map.flyTo(this.geojsons[card]);
+    activeCard(card) {
+      if (card === this.activeCardId) return;
+      this.flyOnMap([2.451, 41.552])
+      console.log(this.activeCardId)
 
-          document.getElementById(card).setAttribute('class', 'active container-text');
-          document.getElementById(activeCard).setAttribute('class', 'container-text');
-
-          activeCard = card;
-      }
+      document.getElementById(this.card).setAttribute('class', 'active container-text');
+      document.getElementById(this.activeCardId).setAttribute('class', 'container-text');
+      this.activeCardId = this.card;
+      console.log(this.activeCardId)
     },
-    isElementOnScreen(id) {
-      const element = document.getElementById(id);
-      const bounds = element.getBoundingClientRect();
-      return bounds.top < window.innerHeight && bounds.bottom > 0;
+    isElementOnScreen(activeId) {
+      this.element = document.getElementById(activeId);
+      this.bounds = this.element.getBoundingClientRect();
+      return this.bounds.top < window.innerHeight && this.bounds.bottom > 0;
     }
   }
 };

@@ -74,9 +74,24 @@ SELECT
 FROM
   #{Trip.table_name}, jsonb_array_elements(destinations_meta->'destinations') destination
 WHERE
+  #{date_range_scope_sql}
   (destination->>'city_name') IS NOT NULL AND
   department_id = #{id}
       }
+    end
+
+    def date_range_scope_sql
+      if filter_start_date && filter_end_date
+        "start_date >= #{db_date(filter_start_date)} AND end_date <= #{db_date(filter_end_date)} AND"
+      elsif filter_start_date
+        "start_date >= #{db_date(filter_start_date)} AND"
+      elsif end_date
+        "end_date <= #{db_date(filter_end_date)} AND"
+      end
+    end
+
+    def db_date(date)
+      "'#{Trip.sanitize_sql date.to_s(:db)}'"
     end
 
   end

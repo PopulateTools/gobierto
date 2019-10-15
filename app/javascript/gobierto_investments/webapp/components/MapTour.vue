@@ -20,6 +20,9 @@
         </div>
       </div>
     </template>
+    <button class="btn-reload-tour-virtual" @click="reloadTour">
+      {{ titleReload }}
+    </button>
   </div>
 </template>
 <script>
@@ -47,6 +50,7 @@ export default {
       tilesize: "256",
       accessToken: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
       titleButton: 'Volver',
+      titleReload: 'ver el tour de nuevo',
       scrollZoom: false,
       items: [],
       geojsons: [],
@@ -128,15 +132,18 @@ export default {
 
       if (this.geojsons[card].coordinates.length <= 1) {
         const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
-        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.75 });
+        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.35 });
       } else {
-        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.75 });
+        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.35 });
       }
       this.activeCardId += 1
       if(this.activeCardId < this.geojsons.length) {
         setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2500)
       }
-
+    },
+    reloadTour() {
+      this.activeCardId = 0
+      this.cardsOnScreen(this.activeCardId)
     },
     backInvestments() {
       this.$router.back({ name: "home" });

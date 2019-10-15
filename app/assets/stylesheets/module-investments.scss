@@ -842,13 +842,23 @@
     position: relative;
   }
 
-  .btn-back-tour-virtual {
+  .site_header {
+    padding: 0 1em;
+  }
+
+  .btn-back-tour-virtual,
+  .btn-reload-tour-virtual {
     position: absolute;
     top: 90%;
     left: 8px;
     font-size: 14px;
     font-weight: normal;
     padding: .5em 1em;
+  }
+
+  .btn-reload-tour-virtual {
+    top: -55px;
+    left: 88.6%;
   }
 
   .container-scroll-map {
@@ -869,7 +879,8 @@
     box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025);
   }
 
-  .investments-home-main--photo {
+  .investments-home-main--photo,
+  .investments-home-main--photo img {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
   }

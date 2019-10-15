@@ -4,6 +4,7 @@
       <MglMap
         :accessToken="accessToken"
         :mapStyle.sync="mapStyle"
+        :scrollZoom="scrollZoom"
         @load="onMapLoaded">
         <MglMarker
           :coordinates="coordinatesMarker"
@@ -12,7 +13,9 @@
       <div class="container-card">
         <div class="container-card-element">
           <div class="investments-home-main--photo">
-            <img v-if="photoCard" :src="photoCard" />
+            <img
+              v-if="photoCard"
+              :src="photoCard" />
           </div>
           <div class="investments-home-main--data">
             <a href class="investments-home-main--link">{{titleCard}}</a>
@@ -29,10 +32,10 @@
     </template>
     <div class="container-map-btns">
       <button class="btn-reload-tour-virtual" @click="reloadTour">
-        {{ titleReload }}
+        {{titleReload}}
       </button>
       <button class="btn-back-tour-virtual" @click="backInvestments">
-        {{ titleButton }}
+        {{titleButton}}
       </button>
     </div>
   </div>
@@ -66,7 +69,6 @@ export default {
       titleButton: 'Salir',
       titleReload: 'ver el tour de nuevo',
       scrollZoom: false,
-      items: [],
       geojsons: [],
       zoomDefault: 15,
       mapbox: null,
@@ -76,7 +78,6 @@ export default {
       photoCard: null,
       coordinatesMarker: [41.552, 2.451],
       colorTheme: '#0178A8'
-
     };
   },
   created() {
@@ -107,7 +108,7 @@ export default {
     },
   },
   mounted() {
-    setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2750)
+    setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 3000)
   },
   methods: {
     onMapLoaded(event) {
@@ -148,18 +149,29 @@ export default {
 
       const [lat, lng] = Object.values(this.geojsons[card].coordinates)
 
-
       if (this.geojsons[card].coordinates.length <= 1) {
         const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
-        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.75 });
+        this.map.flyTo({
+          center: [lat, lng],
+          zoom: this.randomNumbers(15, 17),
+          bearing: this.randomNumbers(-60, 60),
+          pitch: this.randomNumbers(10, 60),
+          speed: 0.75
+        });
         this.coordinatesMarker = this.geojsons[card].coordinates[0][0]
       } else {
-        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.75 });
+        this.map.flyTo({
+          center: [lat, lng],
+          zoom: this.randomNumbers(15, 17),
+          bearing: this.randomNumbers(-60, 60),
+          pitch: this.randomNumbers(10, 60),
+          speed: 0.75
+        });
         this.coordinatesMarker = this.geojsons[card].coordinates
       }
       this.activeCardId += 1
       if (this.activeCardId < this.geojsons.length) {
-        this.activeTour = setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2750)
+        this.activeTour = setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 3000)
         this.activeTour
       }
     },

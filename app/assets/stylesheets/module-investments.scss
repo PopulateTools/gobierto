@@ -864,9 +864,12 @@
     @include screen(768) {
       font-size: 12px;
     }
+    &:focus {
+      background-color: var(--color-base);
+    }
   }
 
-  .btn-back-tour-virtual {
+  .btn-reload-tour-virtual {
     .icon {
       padding-right: .5em;
     }

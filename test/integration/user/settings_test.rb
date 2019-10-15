@@ -62,6 +62,32 @@ class User::SettingsTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_settings_page_with_read_only_attributes
+    auth_strategy_site.configuration.stubs(:auth_modules_data).returns(
+      [OpenStruct.new(
+        name: "null_strategy",
+        read_only_user_attributes: %w(name gender date_of_birth)
+      )]
+    )
+
+    with(site: auth_strategy_site) do
+      with_current_user(auth_strategy_site_user) do
+        visit @path
+
+        assert has_field?("user_settings_name", disabled: true)
+        assert has_field?("user_settings_date_of_birth_1i", disabled: true)
+        assert has_field?("user_settings_date_of_birth_2i", disabled: true)
+        assert has_field?("user_settings_date_of_birth_3i", disabled: true)
+        assert has_field?("user_settings_gender_male", disabled: true)
+        assert has_field?("user_settings_gender_female", disabled: true)
+
+        click_on "Save"
+        assert has_message?("Settings saved successfully")
+        assert has_field?("user_settings_name", disabled: true, with: auth_strategy_site_user.name)
+      end
+    end
+  end
+
   def test_settings_page_update_custom_fields
     with_signed_in_user(user) do
       visit @path

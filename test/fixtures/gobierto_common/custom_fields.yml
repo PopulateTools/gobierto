@@ -443,3 +443,18 @@ madrid_custom_field_indicators_table_plugin:
       }
     }
   }.to_json %>
+
+madrid_users_custom_field_issues:
+  site: madrid
+  class_name: User
+  mandatory: false
+  position: 1
+  name_translations: <%= { en: "User issue", es: "Tema de usuario" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:vocabulary_options] %>
+  uid: madrid-users-custom-field-issues-vocabulary
+  options: <%= {
+    configuration: {
+      vocabulary_type: "single_select"
+    },
+    vocabulary_id: ActiveRecord::FixtureSet.identify(:issues_vocabulary)
+  }.to_json %>

@@ -15,7 +15,7 @@ module GobiertoParticipation
       if @filtered_issue
         @issue.attachments
       else
-        ProcessCollectionDecorator.new(current_site.attachments).in_participation_module
+        ProcessCollectionDecorator.new(current_site.attachments).in_participation_module(private_issue_id: current_user_issue_id)
       end
     end
   end

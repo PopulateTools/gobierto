@@ -13,8 +13,13 @@
   </div>
 
   <div class="form_item input_text">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= label_tag "user_confirmation[name]" do %>
+      <%= t("activemodel.attributes.gobierto_admin/confirmation_form.name") %>
+      <% if @user_confirmation_form.disabled_user_attribute?(:name) %>
+        <i class="fas fa-lock tipsit" title="<%= t(".hints.census_locked") %>"></i>
+      <% end %>
+    <% end %>
+    <%= f.text_field :name, disabled: @user_confirmation_form.disabled_user_attribute?(:name) %>
   </div>
 
   <% if @user_confirmation_form.password_enabled %>
@@ -37,22 +42,33 @@
   <% end %>
 
   <div class="form_item select_control selects_inline">
-    <%= f.label :date_of_birth %>
+    <%= label_tag "user_confirmation[date_of_birth]", class: "pointer-events-none" do %>
+      <%= t("activemodel.attributes.user/confirmation_form.date_of_birth") %>
+      <% if @user_confirmation_form.disabled_user_attribute?(:date_of_birth) %>
+        <i class="fas fa-lock tipsit" title="<%= t(".hints.census_locked") %>"></i>
+      <% end %>
+    <% end %>
     <i class="fas fa-question-circle tipsit" title="<%= t(".hints.date_of_birth") %>"></i>
     <%= f.date_select(
       :date_of_birth,
       prompt: true,
       end_year: 100.years.ago.year,
-      start_year: Date.current.year) %>
+      start_year: Date.current.year,
+      disabled: @user_confirmation_form.disabled_user_attribute?(:date_of_birth)) %>
   </div>
 
   <div class="form_item">
     <div class="options options_cont">
-      <%= f.label :gender, t(".your_gender_is") %>
+      <%= label_tag "user_confirmation[gender]" do %>
+        <%= t(".your_gender_is") %>
+        <% if @user_confirmation_form.disabled_user_attribute?(:gender) %>
+          <i class="fas fa-lock tipsit" title="<%= t(".hints.census_locked") %>"></i>
+        <% end %>
+      <% end %>
       <i class="fas fa-question-circle tipsit" title="<%= t(".hints.gender") %>"></i>
 
       <div class="pure-g">
-        <%= f.collection_radio_buttons(:gender, @user_genders, :first, :first) do |b| %>
+        <%= f.collection_radio_buttons(:gender, @user_genders, :first, :first, {}, {disabled: @user_confirmation_form.disabled_user_attribute?(:gender)}) do |b| %>
           <div class="pure-u-1-2">
             <div class="option ">
               <%= b.radio_button %>
@@ -67,7 +83,7 @@
     </div>
   </div>
 
-  <%= render partial: 'user/shared/custom_fields', locals: {custom_records: f.object.custom_records, form_name: "user_confirmation"} %>
+  <%= render partial: 'user/shared/custom_fields', locals: {custom_records: f.object.custom_records, disabled_attributes: @user_confirmation_form.read_only_user_attributes, form_name: "user_confirmation"} %>
 
   <%= f.submit t(".submit"), class: "button" %>
 

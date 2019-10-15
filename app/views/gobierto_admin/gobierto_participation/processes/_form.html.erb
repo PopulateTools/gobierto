@@ -49,26 +49,9 @@
         <%= f.file_field :header_image %>
       </div>
 
-      <div class="pure-g">
-
-        <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
-
-          <div class="form_item select_control">
-            <%= f.label :issue_id %>
-            <%= f.select(:issue_id, @issues, { include_blank: '-' }) %>
-          </div>
-
-        </div>
-
-        <div class="pure-u-1 pure-u-md-1-2 ">
-
-          <div class="form_item select_control">
-            <%= f.label :scope_id %>
-            <%= f.select(:scope_id, @scopes, { include_blank: '-' }) %>
-          </div>
-
-        </div>
-
+      <div class="form_item select_control">
+        <%= f.label :scope_id %>
+        <%= f.select(:scope_id, @scopes, { include_blank: '-' }) %>
       </div>
 
       <h3><%= t('.duration') %></h3>
@@ -137,6 +120,38 @@
 
         </div>
 
+      </div>
+
+      <div class="form_block">
+
+        <div class="form_item">
+
+          <div id="privacy_status_radio_buttons" class="options compact">
+
+            <h3>
+              <%= t('activemodel.attributes.gobierto_admin/gobierto_participation/process_form.privacy_status') %>
+              <i class="fas fa-question-circle tipsit" title="<%= t(".hints.privacy_status_html") %>"></i>
+            </h3>
+
+            <% GobiertoParticipation::Process.privacy_statuses.keys.each do |status| %>
+              <div class="option">
+                <%= f.radio_button :privacy_status, status %>
+                <%= f.label :privacy_status, value: status do %>
+                  <span></span>
+                  <%= translate_enum_value(GobiertoParticipation::Process, :privacy_status, status) %>
+                <% end %>
+              </div>
+            <% end %>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="form_item select_control">
+        <%= f.label :issue_id %>
+        <%= f.select(:issue_id, @issues, { include_blank: '-' }) %>
       </div>
 
     </div>

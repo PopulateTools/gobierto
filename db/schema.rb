@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_08_150052) do
+ActiveRecord::Schema.define(version: 2019_09_30_142501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -853,6 +853,7 @@ ActiveRecord::Schema.define(version: 2019_08_08_150052) do
     t.bigint "scope_id"
     t.datetime "archived_at"
     t.jsonb "body_source_translations"
+    t.integer "privacy_status", default: 0, null: false
     t.index ["archived_at"], name: "index_gpart_processes_on_archived_at"
     t.index ["body_source_translations"], name: "index_gpart_processes_on_body_source_translations", using: :gin
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin

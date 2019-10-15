@@ -43,7 +43,7 @@ module GobiertoParticipation
     end
 
     def container_events
-      @container_events = ProcessCollectionDecorator.new(current_site.events).in_participation_module.published
+      @container_events = ProcessCollectionDecorator.new(current_site.events).in_participation_module(private_issue_id: current_user_issue_id).published
     end
 
     def participation_events_scope

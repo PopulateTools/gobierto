@@ -34,11 +34,25 @@ module GobiertoParticipation
 
     enum visibility_level: { draft: 0, active: 1 }
     enum process_type: { process: 0, group_process: 1 }
+    enum privacy_status: { open_process: 0, closed_process: 1 }
 
     validates :site, presence: true
     validates :slug, uniqueness: { scope: :site_id }
 
     scope :sorted, -> { order(id: :desc) }
+    scope :available_for_user, lambda { |user|
+      open_process.or(
+        if user.present?
+          closed_process.where.not(
+            issue: nil
+          ).where(
+            issue: ::GobiertoCommon::CustomFieldRecord.find_by(custom_field_id: user.site.gobierto_participation_settings.users_issues_field_id, item: user)&.value
+          )
+        else
+          none
+        end
+      )
+    }
 
     after_create :create_collections
     after_destroy :delete_collections
@@ -97,6 +111,7 @@ module GobiertoParticipation
     def open?
       return false if starts.present? && starts > Time.zone.now
       return false if ends.present? && ends < Time.zone.now
+
       true
     end
 

@@ -351,3 +351,12 @@ art_gallery_text_code_custom_field_record:
   item: art_gallery_project (GobiertoInvestments::Project)
   custom_field: madrid_investments_projects_custom_field_text_code
   payload: <%= { "text-code" => "culture-02" }.to_json %>
+
+## Users
+
+peter_custom_field_issue:
+  item: peter (User)
+  custom_field: madrid_users_custom_field_issues
+  payload: <%= {
+    "madrid-users-custom-field-issues-vocabulary" => ActiveRecord::FixtureSet.identify(:women_term)
+  }.to_json %>

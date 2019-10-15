@@ -1,5 +1,7 @@
 import * as d3 from 'd3'
 import moment from 'moment'
+import { transition } from 'd3-transition'
+d3.selection.prototype.transition = transition;
 
 export const punchcard = (context, data, options = {}) => {
 	// Markup has already a svg inside
@@ -120,7 +122,8 @@ export const punchcard = (context, data, options = {}) => {
 		})
 		.on("mouseout", () => tooltip.style("opacity", "0"))
     .transition()
-    .duration(800)
+		.duration(800)
+		.selectAll(`${context} circle.circle`)
     .attr("r", d => r(d.value));
 
 		// Custom X-axis
@@ -175,19 +178,19 @@ export const punchcard = (context, data, options = {}) => {
 		// chart title
 		if (title) {
 			const topSpace = (margin.top / 3) + (itemHeight / 2)
-			
+
 			// To overlap axis text, we create a fake background
 			let bgText = svg.append("rect")
 				.attr("x", 0)
 				.attr("fill", "white")
-			
+
 			let titleText = svg.append("text")
 				.attr("x", 0)
 				.attr("y", topSpace)
 				.attr("class", "title")
 				.attr("text-anchor", "start")
 				.text(title);
-				
+
 			bgText
 				.attr("width", titleText.node().getBBox().width)
 				.attr("height", titleText.node().getBBox().height)

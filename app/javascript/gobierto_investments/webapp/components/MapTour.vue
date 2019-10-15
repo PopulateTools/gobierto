@@ -32,10 +32,10 @@
     </template>
     <div class="container-map-btns">
       <button class="btn-reload-tour-virtual" @click="reloadTour">
-        {{titleReload}}
+        <i class="fas icon fa-redo-alt"></i>{{titleReload}}
       </button>
       <button class="btn-back-tour-virtual" @click="backInvestments">
-        {{titleButton}}
+        {{titleButton}}<i class="fas icon fa-sign-out-alt"></i>
       </button>
     </div>
   </div>
@@ -67,7 +67,7 @@ export default {
       tilesize: "256",
       accessToken: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
       titleButton: 'Salir',
-      titleReload: 'ver el tour de nuevo',
+      titleReload: 'ver de nuevo',
       scrollZoom: false,
       geojsons: [],
       zoomDefault: 15,

@@ -867,8 +867,16 @@
   }
 
   .btn-back-tour-virtual {
-    background-color: #008000;
-    max-width: 60px;
+    .icon {
+      padding-right: .5em;
+    }
+  }
+
+  .btn-back-tour-virtual {
+    max-width: 95px;
+    .icon {
+      padding-left: .5em;
+    }
   }
 
   .container-card {

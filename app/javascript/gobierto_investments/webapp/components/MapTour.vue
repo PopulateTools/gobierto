@@ -1,21 +1,18 @@
 <template>
-  <div style="height: 100vh; position:relative; ">
+  <div class="map-container">
     <template>
       <MglMap ref="mglMap" :accessToken="accessToken" :scrollZoom="scrollZoom" :mapStyle.sync="mapStyle" :minZoom="5" :maxZoom="18" @load="onMapLoaded">
-        <MglNavigationControl position="top-left" />
-        <MglGeolocateControl position="top-right" />
       </MglMap>
-      <button style="position: absolute; top: 80%; left: 8px;" class="btn-tour-virtual" @click="backInvestments">
+      <button class="btn-back-tour-virtual" @click="backInvestments">
         {{ titleButton }}
       </button>
-      <div v-on:scroll.passive="cardsOnScreen" class="container-scroll-map" style="position: absolute; top: 10px; left: 77%; height: 100%; overflow-y: scroll;">
+      <div v-on:scroll.passive="cardsOnScreen" class="container-scroll-map">
         <div
           v-for="(item, index) in geojsons"
-          class="investments-home-main--gallery-item"
+          class="container-card"
           @click.prevent="nav(item)"
           :key="item.id"
-          :id="`${index}`"
-          style="height:auto; margin-bottom: 90vh; width: 300px; background: #fff; box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025);">
+          :id="`${index}`">
           <div class="investments-home-main--photo">
             <img v-if="item.photo" :src="item.photo" />
           </div>
@@ -31,9 +28,7 @@
 <script>
 import Mapbox from "mapbox-gl";
 import {
-  MglMap,
-  MglNavigationControl,
-  MglGeolocateControl
+  MglMap
 } from "vue-mapbox";
 import Wkt from "wicket";
 import Vue from "vue";
@@ -44,9 +39,7 @@ export default {
   name: "MapTour",
   mixins: [CommonsMixin],
   components: {
-    MglMap,
-    MglNavigationControl,
-    MglGeolocateControl
+    MglMap
   },
   data() {
     return {
@@ -63,7 +56,8 @@ export default {
       zoom: 14,
       mapbox: null,
       activeCardId: 0,
-      attributes: []
+      attributes: [],
+      coordinatesCities: [2.451, 41.552]
     };
   },
   created() {
@@ -92,7 +86,7 @@ export default {
   },
   computed: {
     center() {
-      return this.geojsons.length !== 0 ? Object.values(this.geojsons).reverse() : [2.451, 41.552];
+      return this.geojsons.length !== 0 ? Object.values(this.geojsons).reverse() : this.coordinatesCities;
     },
   },
   methods: {
@@ -122,9 +116,6 @@ export default {
       }
 
     },
-    backInvestments() {
-      this.$router.push({ name: "home" });
-    },
     cardsOnScreen() {
       this.cardElements = Object.keys(this.geojsons);
       for (let i = 0; i < this.cardElements.length; i++) {
@@ -145,13 +136,13 @@ export default {
 
       if (this.geojsons[card].coordinates.length <= 1) {
         const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
-        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(13,17), speed: 0.75 });
-      } else {
-        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(13,17), speed: 0.75 });
+        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15,17), bearing: this.randomNumbers(-60,60), pitch: this.randomNumbers(10,60), speed: 0.75 });
+       } else {
+         this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15,17), bearing: this.randomNumbers(-60,60), pitch: this.randomNumbers(10,60), speed: 0.75 });
       }
 
-      document.getElementById(this.card).setAttribute('class', 'active container-text');
-      document.getElementById(this.activeCardId).setAttribute('class', 'container-text');
+      document.getElementById(this.card).setAttribute('class', 'active container-card');
+      document.getElementById(this.activeCardId).setAttribute('class', 'container-card');
 
       this.activeCardId = this.card;
     },
@@ -159,6 +150,9 @@ export default {
       this.element = document.getElementById(activeId);
       this.bounds = this.element.getBoundingClientRect();
       return this.bounds.top < window.innerHeight && this.bounds.bottom > 0;
+    },
+    backInvestments() {
+      this.$router.back({ name: "home" });
     }
   }
 };

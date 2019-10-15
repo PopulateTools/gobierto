@@ -1,0 +1,39 @@
+<%= render 'layouts/demo' %>
+
+<% unless full_layout? %>
+  <header class="meta">
+
+
+    <% if @site.configuration.head_markup.present? %>
+      <%= render_liquid @site.configuration.head_markup %>
+    <% end %>
+
+    <div class="site_header">
+
+      <div class="column site_header_block">
+
+        <div class="site_header_logo">
+
+          <div class="site_header_image">
+            <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
+          </div>
+
+          <div class="mobile_only right">
+            <div class="hamburger_container">
+              <%= link_to "#", class: "nav_control" do %>
+                <i class="fas fa-bars" aria-label="<%= t('layouts.application.start') %>"></i>
+              <% end %>
+            </div>
+          </div>
+
+        </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+<% end %>

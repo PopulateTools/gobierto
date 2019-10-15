@@ -12,14 +12,11 @@
 
   <body class="<%= body_css_classes %>" <%= yield :body_attributes %>>
 
-    <%= render partial: 'layouts/header' %>
+    <%= render partial: 'layouts/header_minimal' %>
 
     <div class="container">
       <%= yield %>
     </div>
 
-    <%= render partial: 'layouts/footer' %>
-
-    <%= render partial: 'layouts/gobierto_footer' %>
   </body>
 </html>

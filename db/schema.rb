@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_08_150052) do
+ActiveRecord::Schema.define(version: 2019_09_30_142501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -316,8 +316,8 @@ ActiveRecord::Schema.define(version: 2019_08_08_150052) do
     t.string "sharing_token"
     t.string "document_number_digest"
     t.jsonb "user_information"
-    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id"
+    t.index ["document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true
     t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
@@ -374,9 +374,9 @@ ActiveRecord::Schema.define(version: 2019_08_08_150052) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
+    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
@@ -853,6 +853,7 @@ ActiveRecord::Schema.define(version: 2019_08_08_150052) do
     t.bigint "scope_id"
     t.datetime "archived_at"
     t.jsonb "body_source_translations"
+    t.integer "privacy_status", default: 0, null: false
     t.index ["archived_at"], name: "index_gpart_processes_on_archived_at"
     t.index ["body_source_translations"], name: "index_gpart_processes_on_body_source_translations", using: :gin
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin

@@ -836,11 +836,47 @@
   }
 }
 
-.tour {
-  &.investments {
-    .column {
-      width: 100%;
-      max-width: 100vw;
-    }
+.investments_tour {
+  .map-container {
+    height: calc(100vh - 70px);
+    position: relative;
+  }
+
+  .btn-back-tour-virtual {
+    position: absolute;
+    top: 90%;
+    left: 8px;
+    font-size: 14px;
+    font-weight: normal;
+    padding: .5em 1em;
+  }
+
+  .container-scroll-map {
+    position: absolute;
+    top: 0;
+    left: 77%;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .container-card {
+    height:auto;
+    margin-bottom: 90vh;
+    width: 300px;
+    background: #fff;
+    box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025);
+  }
+
+  .column {
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  header .site_header .site_header_block .site_header_logo .site_header_image a img {
+    max-height: 40px;
+  }
+
+  header .site_header .site_header_block {
+    height: 70px;
   }
 }

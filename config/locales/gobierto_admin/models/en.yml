@@ -76,3 +76,5 @@ en:
           customize: Customize site
           templates: Templates
           vocabularies: Vocabularies
+    models:
+      user: User

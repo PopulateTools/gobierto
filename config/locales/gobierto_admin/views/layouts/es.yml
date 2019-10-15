@@ -15,6 +15,7 @@ es:
           message: Hay cambios sin guardar. ¿Estás seguro de querer continuar?
         edit_site: Personalizar sitio
         file_attachments: Documentos
+        global: General
         hey_admin: Hola, %{admin_name}
         manage_sites: Gestionar sites
         modules:

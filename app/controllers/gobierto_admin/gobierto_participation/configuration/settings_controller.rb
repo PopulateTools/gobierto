@@ -21,7 +21,7 @@ module GobiertoAdmin
         private
 
         def settings_params
-          params.require(:gobierto_participation_settings).permit(:issues_vocabulary_id, :scopes_vocabulary_id)
+          params.require(:gobierto_participation_settings).permit(:issues_vocabulary_id, :scopes_vocabulary_id, :users_issues_field_id)
         end
       end
     end

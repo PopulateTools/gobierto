@@ -30,6 +30,7 @@ es:
         header_image: Imagen de cabecera
         header_image_url: URL de la imagen de cabecera
         issue_id: Tema
+        privacy_status: Privacidad
         process_type: Tipo
         scope_id: Ámbito
         slug: Slug
@@ -50,6 +51,11 @@ es:
         stage_type: Herramienta
         starts: Fecha de comienzo
         title: Título de fase
+      gobierto_admin/gobierto_participation/settings_form:
+        issues_vocabulary_id: Vocabulario de temas
+        scopes_vocabulary_id: Vocabulario de ámbitos
+        users_issues_field_id: Campo personalizado de usuarios para el control de
+          acceso a procesos cerrados
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grupo de
         aportaciones

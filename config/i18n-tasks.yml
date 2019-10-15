@@ -115,6 +115,7 @@ ignore_unused:
   - 'gobierto_plans.plan_types.show.read_less'
   - 'gobierto_plans.plan_types.show.read_more'
   - 'gobierto_admin.layouts.application.modules.*'
+  - 'gobierto_admin.layouts.application.global'
 
 translation:
   api_key: ''

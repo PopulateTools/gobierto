@@ -11,7 +11,7 @@ module GobiertoParticipation
       protected
 
       def current_process
-        @current_process ||= processes_scope.find_by_slug!(params[:process_id])
+        @current_process ||= ProcessDecorator.new(processes_scope.find_by_slug!(params[:process_id]))
       end
 
       private

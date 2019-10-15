@@ -29,7 +29,7 @@ module GobiertoParticipation
       elsif @scope
         @scope.news
       else
-        ProcessCollectionDecorator.new(current_site.pages, item_type: "GobiertoCms::News").in_participation_module.active
+        ProcessCollectionDecorator.new(current_site.pages, item_type: "GobiertoCms::News").in_participation_module(private_issue_id: current_user_issue_id).active
       end
     end
   end

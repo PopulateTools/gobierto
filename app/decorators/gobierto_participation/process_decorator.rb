@@ -10,6 +10,12 @@ module GobiertoParticipation
       related_contributions.size + related_comments.size
     end
 
+    def title
+      return object.title unless closed_process?
+
+      "🔒#{object.title}"
+    end
+
     def participants_count
       (
         related_contributions.pluck(:user_id) +

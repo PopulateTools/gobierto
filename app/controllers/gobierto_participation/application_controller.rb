@@ -24,6 +24,12 @@ module GobiertoParticipation
       ProcessTermDecorator.new(current_site.scopes.find_by_slug!(params[:scope_id]))
     end
 
+    def current_user_issue_id
+      return unless user_signed_in? && current_site.present?
+
+      ::GobiertoCommon::CustomFieldRecord.find_by(custom_field_id: current_site.gobierto_participation_settings&.users_issues_field_id, item: current_user)&.raw_value
+    end
+
     protected
 
     def current_process

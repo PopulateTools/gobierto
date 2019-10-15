@@ -1,28 +1,25 @@
 <template>
   <div class="map-container">
     <template>
-      <MglMap ref="mglMap" :accessToken="accessToken" :scrollZoom="scrollZoom" :mapStyle.sync="mapStyle" :minZoom="5" :maxZoom="18" @load="onMapLoaded">
+      <MglMap :accessToken="accessToken" :scrollZoom="scrollZoom" :mapStyle.sync="mapStyle" @load="onMapLoaded">
       </MglMap>
       <button class="btn-back-tour-virtual" @click="backInvestments">
         {{ titleButton }}
       </button>
-      <div v-on:scroll.passive="cardsOnScreen" class="container-scroll-map">
-        <div
-          v-for="(item, index) in geojsons"
-          class="container-card"
-          @click.prevent="nav(item)"
-          :key="item.id"
-          :id="`${index}`">
+      <div class="container-scroll-map">
+        <div class="container-card">
           <div class="investments-home-main--photo">
-            <img v-if="item.photo" :src="item.photo" />
+            <img
+              v-if="photoCard"
+              :src="photoCard"
+            />
           </div>
           <div class="investments-home-main--data">
-            <a href class="investments-home-main--link" @click.stop.prevent="nav(item)">{{item.title | translate}}</a>
+            <a href class="investments-home-main--link">{{titleCard}}</a>
           </div>
         </div>
       </div>
     </template>
-
   </div>
 </template>
 <script>
@@ -56,13 +53,12 @@ export default {
       zoom: 14,
       mapbox: null,
       activeCardId: 0,
-      attributes: [],
-      coordinatesCities: [2.451, 41.552]
+      coordinatesCities: [2.451, 41.552],
+      titleCard: null,
+      photoCard: null
     };
   },
   created() {
-    window.addEventListener('scroll', this.cardsOnScreen)
-
     this.mapbox = Mapbox;
 
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
@@ -89,6 +85,9 @@ export default {
       return this.geojsons.length !== 0 ? Object.values(this.geojsons).reverse() : this.coordinatesCities;
     },
   },
+  mounted() {
+    setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2500)
+  },
   methods: {
     onMapLoaded(event) {
       this.map = event.map;
@@ -114,42 +113,31 @@ export default {
         const { id, location, photo, title, description, attributes } = markerWithLocation[index];
         this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id, photo, title, description, attributes });
       }
-
     },
-    cardsOnScreen() {
-      this.cardElements = Object.keys(this.geojsons);
-      for (let i = 0; i < this.cardElements.length; i++) {
-        this.card = this.cardElements[i];
-        if (this.isElementOnScreen(this.card)) {
-          this.activeCard(this.card);
-          break;
-        }
-      }
+    cardsOnScreen(elementCard) {
+      console.log(this.activeCardId)
+      this.activeCard(this.activeCardId);
     },
     randomNumbers(min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min);
     },
     activeCard(card) {
-      if (card === this.activeCardId) return;
+      this.titleCard = this.geojsons[card].title.ca
+      this.photoCard = this.geojsons[card].photo
 
       const [lat, lng] = Object.values(this.geojsons[card].coordinates)
 
       if (this.geojsons[card].coordinates.length <= 1) {
         const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
-        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15,17), bearing: this.randomNumbers(-60,60), pitch: this.randomNumbers(10,60), speed: 0.75 });
-       } else {
-         this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15,17), bearing: this.randomNumbers(-60,60), pitch: this.randomNumbers(10,60), speed: 0.75 });
+        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.75 });
+      } else {
+        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.75 });
+      }
+      this.activeCardId += 1
+      if(this.activeCardId < this.geojsons.length) {
+        setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2500)
       }
 
-      document.getElementById(this.card).setAttribute('class', 'active container-card');
-      document.getElementById(this.activeCardId).setAttribute('class', 'container-card');
-
-      this.activeCardId = this.card;
-    },
-    isElementOnScreen(activeId) {
-      this.element = document.getElementById(activeId);
-      this.bounds = this.element.getBoundingClientRect();
-      return this.bounds.top < window.innerHeight && this.bounds.bottom > 0;
     },
     backInvestments() {
       this.$router.back({ name: "home" });

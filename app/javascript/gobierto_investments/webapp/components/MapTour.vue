@@ -1,45 +1,39 @@
 <template>
   <div style="height: 100vh; position:relative; ">
     <template>
-      <MglMap ref="mglMap"
-      :accessToken="accessToken"
-      :scrollZoom="scrollZoom"
-      :mapStyle.sync="mapStyle"
-      :minZoom="14"
-      :maxZoom="18"
-      @load="onMapLoaded"/>
-    </template>
-    <button class="btn-tour-virtual" @click="backInvestments">
-      {{ titleButton }}
-    </button>
-    <div v-on:scroll.passive="cardsOnScreen" class="container-scroll-map" style="position: absolute; top: 10px; left: 77%; height: 100%; overflow-y: scroll;">
-      <div v-for="(item, index) in geojsons"
-        class="investments-home-main--gallery-item"
-        @click.prevent="nav(item)"
-        :key="item.id"
-        :id="`${index}`"
-        style="height:auto; margin-bottom: 90vh; width: 300px; background: #fff; box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025); ">
-        <div class="investments-home-main--photo">
-          <img
-            v-if="item.photo"
-            :src="item.photo"
-          >
-        </div>
-        <div class="investments-home-main--data">
-          <a
-            href
-            class="investments-home-main--link"
-            @click.stop.prevent="nav(item)"
-          >{{item.title | translate}}</a>
+      <MglMap ref="mglMap" :accessToken="accessToken" :scrollZoom="scrollZoom" :mapStyle.sync="mapStyle" :minZoom="5" :maxZoom="18" @load="onMapLoaded">
+        <MglNavigationControl position="top-left" />
+        <MglGeolocateControl position="top-right" />
+      </MglMap>
+      <button style="position: absolute; top: 80%; left: 8px;" class="btn-tour-virtual" @click="backInvestments">
+        {{ titleButton }}
+      </button>
+      <div v-on:scroll.passive="cardsOnScreen" class="container-scroll-map" style="position: absolute; top: 10px; left: 77%; height: 100%; overflow-y: scroll;">
+        <div
+          v-for="(item, index) in geojsons"
+          class="investments-home-main--gallery-item"
+          @click.prevent="nav(item)"
+          :key="item.id"
+          :id="`${index}`"
+          style="height:auto; margin-bottom: 90vh; width: 300px; background: #fff; box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025);">
+          <div class="investments-home-main--photo">
+            <img v-if="item.photo" :src="item.photo" />
+          </div>
+          <div class="investments-home-main--data">
+            <a href class="investments-home-main--link" @click.stop.prevent="nav(item)">{{item.title | translate}}</a>
+          </div>
         </div>
       </div>
-    </div>
+    </template>
+
   </div>
 </template>
 <script>
 import Mapbox from "mapbox-gl";
 import {
-  MglMap
+  MglMap,
+  MglNavigationControl,
+  MglGeolocateControl
 } from "vue-mapbox";
 import Wkt from "wicket";
 import Vue from "vue";
@@ -50,7 +44,9 @@ export default {
   name: "MapTour",
   mixins: [CommonsMixin],
   components: {
-    MglMap
+    MglMap,
+    MglNavigationControl,
+    MglGeolocateControl
   },
   data() {
     return {
@@ -64,10 +60,10 @@ export default {
       scrollZoom: false,
       items: [],
       geojsons: [],
-      map: null,
-      zoom: 18,
+      zoom: 14,
       mapbox: null,
-      activeCardId: 0
+      activeCardId: 0,
+      attributes: []
     };
   },
   created() {
@@ -121,9 +117,10 @@ export default {
 
       // convert all WKT objets to GeoJSON, and add them to a feature group
       for (let index = 0; index < markerWithLocation.length; index++) {
-        const { id, location, photo, title, description } = markerWithLocation[index];
-        this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id, photo, title, description });
+        const { id, location, photo, title, description, attributes } = markerWithLocation[index];
+        this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id, photo, title, description, attributes });
       }
+
     },
     backInvestments() {
       this.$router.push({ name: "home" });
@@ -131,11 +128,11 @@ export default {
     cardsOnScreen() {
       this.cardElements = Object.keys(this.geojsons);
       for (let i = 0; i < this.cardElements.length; i++) {
-          this.card = this.cardElements[i];
-          if (this.isElementOnScreen(this.card)) {
-              this.activeCard(this.card);
-              break;
-          }
+        this.card = this.cardElements[i];
+        if (this.isElementOnScreen(this.card)) {
+          this.activeCard(this.card);
+          break;
+        }
       }
     },
     activeCard(card) {
@@ -143,11 +140,11 @@ export default {
 
       const [lat, lng] = Object.values(this.geojsons[card].coordinates)
 
-      if(this.geojsons[card].coordinates.length <= 1) {
+      if (this.geojsons[card].coordinates.length <= 1) {
         const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
-        this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 0.2 });
+        this.map.flyTo({ center: [lat, lng], zoom: 28, speed: 0.5 });
       } else {
-        this.map.flyTo({ center: [lat, lng], zoom: this.zoom, speed: 0.2 });
+        this.map.flyTo({ center: [lat, lng], zoom: 28, speed: 0.5 });
       }
 
       document.getElementById(this.card).setAttribute('class', 'active container-text');

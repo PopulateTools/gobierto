@@ -842,37 +842,41 @@
     position: relative;
   }
 
-  .site_header {
+  header .site_header .site_header_block .site_header_logo {
     padding: 0 1em;
+  }
+
+  .container-map-btns {
+    position: absolute;
+    top: -55px;
+    right: 16px;
   }
 
   .btn-back-tour-virtual,
   .btn-reload-tour-virtual {
-    position: absolute;
-    top: 90%;
-    left: 16px;
     font-size: 14px;
     font-weight: normal;
     padding: .5em 1em;
+    max-width: 170px;
   }
 
-  .btn-reload-tour-virtual {
-    top: -55px;
-    right: 16px;
-    left: initial;
-  }
-
-  .container-scroll-map {
-    position: absolute;
-    top: 16px;
-    right: 0;
-    width: 20%;
+  .btn-back-tour-virtual {
+    background-color: green;
   }
 
   .container-card {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 20%;
+    min-width: 250px;
+  }
+
+  .container-card-element {
     height: auto;
     margin-bottom: 90vh;
     width: 90%;
+    min-width: 250px;
     margin: 0 auto;
     border-radius: 4px;
     background: #fff;

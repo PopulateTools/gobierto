@@ -1,18 +1,13 @@
 <template>
   <div class="map-container">
     <template>
-      <MglMap :accessToken="accessToken" :scrollZoom="scrollZoom" :mapStyle.sync="mapStyle" @load="onMapLoaded">
+      <MglMap :accessToken="accessToken" :mapStyle.sync="mapStyle" @load="onMapLoaded">
+        <MglMarker :coordinates="coordinatesMarker" color="blue" />
       </MglMap>
-      <button class="btn-back-tour-virtual" @click="backInvestments">
-        {{ titleButton }}
-      </button>
-      <div class="container-scroll-map">
-        <div class="container-card">
+      <div class="container-card">
+        <div class="container-card-element">
           <div class="investments-home-main--photo">
-            <img
-              v-if="photoCard"
-              :src="photoCard"
-            />
+            <img v-if="photoCard" :src="photoCard" />
           </div>
           <div class="investments-home-main--data">
             <a href class="investments-home-main--link">{{titleCard}}</a>
@@ -27,15 +22,21 @@
         </div>
       </div>
     </template>
-    <button class="btn-reload-tour-virtual" @click="reloadTour">
-      {{ titleReload }}
-    </button>
+    <div class="container-map-btns">
+      <button class="btn-reload-tour-virtual" @click="reloadTour">
+        {{ titleReload }}
+      </button>
+      <button class="btn-back-tour-virtual" @click="backInvestments">
+        {{ titleButton }}
+      </button>
+    </div>
   </div>
 </template>
 <script>
 import Mapbox from "mapbox-gl";
 import {
-  MglMap
+  MglMap,
+  MglMarker
 } from "vue-mapbox";
 import Wkt from "wicket";
 import Vue from "vue";
@@ -46,7 +47,8 @@ export default {
   name: "MapTour",
   mixins: [CommonsMixin],
   components: {
-    MglMap
+    MglMap,
+    MglMarker
   },
   data() {
     return {
@@ -56,17 +58,19 @@ export default {
       style_id: "ck18y48jg11ip1cqeu3b9wpar",
       tilesize: "256",
       accessToken: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
-      titleButton: 'Volver',
+      titleButton: 'Salir',
       titleReload: 'ver el tour de nuevo',
       scrollZoom: false,
       items: [],
       geojsons: [],
-      zoom: 14,
+      zoomDefault: 15,
       mapbox: null,
       activeCardId: 0,
       coordinatesCities: [2.451, 41.552],
       titleCard: null,
-      photoCard: null
+      photoCard: null,
+      coordinatesMarker: [41.552, 2.451]
+
     };
   },
   created() {
@@ -102,6 +106,7 @@ export default {
   methods: {
     onMapLoaded(event) {
       this.map = event.map;
+      this.addMarkers
     },
     convertWKTtoGeoJSON(wktString) {
       const wkt = new Wkt.Wkt();
@@ -135,16 +140,20 @@ export default {
       this.titleCard = this.geojsons[card].title.ca
       this.photoCard = this.geojsons[card].photo
 
+
       const [lat, lng] = Object.values(this.geojsons[card].coordinates)
+
 
       if (this.geojsons[card].coordinates.length <= 1) {
         const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
         this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.75 });
+        this.coordinatesMarker = this.geojsons[card].coordinates[0][0]
       } else {
         this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.75 });
+        this.coordinatesMarker = this.geojsons[card].coordinates
       }
       this.activeCardId += 1
-      if(this.activeCardId < this.geojsons.length) {
+      if (this.activeCardId < this.geojsons.length) {
         this.activeTour = setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2750)
         this.activeTour
       }

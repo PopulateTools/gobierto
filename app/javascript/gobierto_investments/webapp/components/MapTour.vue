@@ -135,6 +135,9 @@ export default {
         }
       }
     },
+    randomNumbers(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    },
     activeCard(card) {
       if (card === this.activeCardId) return;
 
@@ -142,9 +145,9 @@ export default {
 
       if (this.geojsons[card].coordinates.length <= 1) {
         const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
-        this.map.flyTo({ center: [lat, lng], zoom: 28, speed: 0.5 });
+        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(13,17), speed: 0.75 });
       } else {
-        this.map.flyTo({ center: [lat, lng], zoom: 28, speed: 0.5 });
+        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(13,17), speed: 0.75 });
       }
 
       document.getElementById(this.card).setAttribute('class', 'active container-text');

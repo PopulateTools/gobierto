@@ -1,14 +1,16 @@
 import * as __d3 from 'd3'
 import { legendColor } from 'd3-svg-legend'
 import { accounting } from 'lib/shared'
+import { transition } from 'd3-transition'
 
 const d3 = { ...__d3, legendColor }
+d3.selection.prototype.transition = transition;
 
 Array.prototype.unique = function() {
     var a = this.concat();
-    for(var i=0; i<a.length; ++i) {
-        for(var j=i+1; j<a.length; ++j) {
-            if(a[i] === a[j])
+    for (var i=0; i<a.length; ++i) {
+        for (var j=i+1; j<a.length; ++j) {
+            if (a[i] === a[j])
                 a.splice(j--, 1);
         }
     }
@@ -24,7 +26,7 @@ export class VisLineasJ {
     // Chart dimensions
     this.containerWidth = null;
     this.tableWidth = null;
-    this.margin = {top: 30, right: 60, bottom: 20, left: 20};
+    this.margin = { top: 30, right: 60, bottom: 20, left: 20 };
     this.width = null;
     this.height = null;
 
@@ -176,7 +178,7 @@ export class VisLineasJ {
       this.kind = this.data.kind;
       this.dataYear = this._defaultYearForVerticalLine(this.data);
       this.lastYear = this.parseDate(this.data.year).getFullYear(); // For the mouseover interaction
-      if(this.lastYear > this.maxYear) {
+      if (this.lastYear > this.maxYear) {
         this.dataYear = new Date(this.maxYear + "-01-01")
         this.lastYear = this.maxYear;
       }
@@ -328,7 +330,7 @@ export class VisLineasJ {
           .attr('d', function(d) { return this.line(d.values.filter(function(v) { return v.value != null; })); }.bind(this))
           .style('stroke', function(d) { return this.colorScale(d.name); }.bind(this))
           .style('stroke-width', function(d, i) {
-            if(this.series == 'means')
+            if (this.series == 'means')
               return i == 3 ? this.heavyLine : this.lightLine;
             else
               return this.lightLine;
@@ -377,19 +379,22 @@ export class VisLineasJ {
           if (self.lastYear != selectedData.date.getFullYear()) {
             // Hide table figures and update text
             // Year header
-            d3.selectAll(self.tableContainer + ' .year_header')
+            d3
               .transition()
               .duration(self.duration / 2)
+              .selectAll(self.tableContainer + ' .year_header')
               .style('opacity', 0)
               .text(selectedData.date.getFullYear())
               .transition()
               .duration(self.duration)
+              .selectAll(self.tableContainer + ' .year_header')
               .style('opacity', 1);
 
             // Values
-            d3.selectAll(self.tableContainer + ' .value')
+            d3
               .transition()
               .duration(self.duration / 2)
+              .selectAll(self.tableContainer + ' .value')
               .style('opacity', 0)
               .text(function(d) {
                 var newValue = dataChartFiltered.filter(function(value) {
@@ -400,12 +405,14 @@ export class VisLineasJ {
               })
               .transition()
               .duration(self.duration)
+              .selectAll(self.tableContainer + ' .value')
               .style('opacity', 1);
 
             // Difs
-            d3.selectAll(self.tableContainer + ' .dif')
+            d3
               .transition()
               .duration(self.duration / 2)
+              .selectAll(self.tableContainer + ' .dif')
               .style('opacity', 0)
               .text(function(d) {
                 var newValue = dataChartFiltered.filter(function(dif) {
@@ -421,14 +428,16 @@ export class VisLineasJ {
               })
               .transition()
               .duration(self.duration)
+              .selectAll(self.tableContainer + ' .dif')
               .style('opacity', 1);
           }
 
           self.lastYear = selectedData.date.getFullYear();
 
-          self.svgLines.selectAll('.v_line')
+          self.svgLines
             .transition()
             .duration(self.duration / 2)
+            .selectAll(self.container + ' .v_line')
             .attr('x1', function() {
               return self.xScale(selectedData.date);
             }.bind(this))
@@ -436,36 +445,40 @@ export class VisLineasJ {
               return self.xScale(selectedData.date);
             }.bind(self));
 
-          d3.select(selected).transition()
-            .duration(self.duration)
+          d3
+            .select(selected)
             .attr('r', self.radius * 1.5);
 
-          self.svgLines.selectAll('.dot_line')
+          self.svgLines
+            .transition()
+            .duration(self.duration)
+            .selectAll(self.container + ' .dot_line')
             .filter(function(d) {
               return d.name != selectedClass[1] && 'x' + d.date.getFullYear() != selectedClass[2];
             })
-            .transition()
-            .duration(self.duration)
             .style('opacity', self.opacityLow);
 
-          self.svgLines.selectAll('.evolution_line')
+          self.svgLines
+            .transition()
+            .duration(self.duration)
+            .selectAll(self.container + ' .evolution_line')
             .filter(function(d) {
               return d.name != selectedClass[1];
             })
-            .transition()
-            .duration(self.duration)
             .style('opacity', self.opacityLow);
         })
         .on('mouseout', function() {
-          this.svgLines.selectAll('.dot_line')
+          this.svgLines
             .transition()
             .duration(this.duration)
+            .selectAll(this.container + ' .dot_line')
             .attr('r', this.radius)
             .style('opacity', 1);
 
-          this.svgLines.selectAll('.evolution_line')
+          this.svgLines
             .transition()
             .duration(this.duration)
+            .selectAll(this.container + ' .evolution_line')
             .style('opacity', 1);
         }.bind(this));
 
@@ -542,28 +555,32 @@ export class VisLineasJ {
           .on('mouseover', function () {
             var classed = this.classList[this.classList.length - 1]
 
-            self.svgLines.selectAll('.dot_line')
-              .filter(function(d) { return self._normalize(d.name) !== classed; }.bind(self))
+            self.svgLines
               .transition()
               .duration(self.duration)
+              .selectAll(self.container + ' .dot_line')
+              .filter(function(d) { return self._normalize(d.name) !== classed; }.bind(self))
               .style('opacity', self.opacityLow);
 
-            self.svgLines.selectAll('.evolution_line')
-              .filter(function(d) { return self._normalize(d.name) !== classed; }.bind(self))
+            self.svgLines
               .transition()
               .duration(self.duration)
+              .selectAll(self.container + ' .evolution_line')
+              .filter(function(d) { return self._normalize(d.name) !== classed; }.bind(self))
               .style('opacity', self.opacityLow);
           })
           .on('mouseout', function () {
-            this.svgLines.selectAll('.dot_line')
+            this.svgLines
               .transition()
               .duration(this.duration)
+              .selectAll(self.container + ' .dot_line')
               .attr('r', this.radius)
               .style('opacity', 1);
 
-            this.svgLines.selectAll('.evolution_line')
+            this.svgLines
               .transition()
               .duration(this.duration)
+              .selectAll(self.container + ' .evolution_line')
               .style('opacity', 1);
           }.bind(this));
 
@@ -597,7 +614,7 @@ export class VisLineasJ {
                   value = dataChartFiltered[0][column]
                   classed = this._normalize(dataChartFiltered[0].name)
                 }
-                return {column: column,
+                return { column: column,
                         value: value,
                         name: dataChartFiltered[0].name,
                         classed: classed
@@ -666,11 +683,10 @@ export class VisLineasJ {
   _mouseover() {
 
 
-
   }
 
   _units() {
-    if(this.measure == 'total_budget'){
+    if (this.measure == 'total_budget'){
       return ' €';
     } else {
       return ' €/hab';
@@ -689,7 +705,7 @@ export class VisLineasJ {
     var ret = [];
     for (let i = 0, j = str.length; i < j; i++) {
       var c = str.charAt(i);
-      if (mapping.hasOwnProperty(str.charAt(i))) {
+      if (Object.prototype.hasOwnProperty.call(mapping, str.charAt(i))) {
         ret.push(mapping[c]);
       }
       else {

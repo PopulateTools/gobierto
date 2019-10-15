@@ -1,4 +1,6 @@
 import * as d3 from 'd3'
+import { transition } from 'd3-transition'
+d3.selection.prototype.transition = transition;
 
 export const rowchart = (context, data, options = {}) => {
   // Markup has already a svg inside
@@ -87,6 +89,7 @@ export const rowchart = (context, data, options = {}) => {
     .attr("height", y.bandwidth())
     .transition()
     .duration(750)
+    .selectAll(`${context} rect.bar`)
     .attr("width", d => x(d.value))
 
   g.append("g")

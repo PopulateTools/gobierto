@@ -1,8 +1,7 @@
 import * as d3 from 'd3'
-import 'd3-transition'
 import { d3locale, accounting } from 'lib/shared'
-
-// d3.selection.prototype.transition = transition;
+import { transition } from 'd3-transition'
+d3.selection.prototype.transition = transition;
 
 export class VisLinesExecution {
   constructor(divId, type, category) {
@@ -80,7 +79,7 @@ export class VisLinesExecution {
 
     if (this.svg) {
       // Destroy the container and render again
-      this.svg.parent().remove();
+      this.svg.node().parentNode.remove();
       this.isMobile = window.innerWidth <= 768;
       this.render()
     }
@@ -339,11 +338,12 @@ export class VisLinesExecution {
     this.svg.select('.legend-value')
       .text(valueKind === 'executed' ? I18n.t('gobierto_common.visualizations.absolute') : I18n.t('gobierto_common.visualizations.percent'));
 
-    this.svg.selectAll('.hundred_percent')
+    this.svg
       .transition()
+      .selectAll(`${this.container} .hundred_percent`)
       .style('opacity', valueKind === 'executed' ? 0 : 1);
 
-    this.svg.selectAll('.bar')
+    this.svg
       .transition()
       .duration(300)
       .selectAll(`${this.container} .bar`)
@@ -359,7 +359,7 @@ export class VisLinesExecution {
       return d.values.map(function(v) { return v.id }); })
     ));
 
-    this.svg.selectAll('.line-group')
+    this.svg
       .data(this.nested)
       .transition()
       .duration(500)
@@ -368,25 +368,25 @@ export class VisLinesExecution {
         return 'translate(' + 0 + ',' + this.y0(d.key) / 14 + ')';
       }.bind(this));
 
-    this.svg.selectAll('.bar')
+    this.svg
       .transition()
       .duration(300)
       .selectAll(`${this.container} .bar`)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
-    this.svg.selectAll('.bar-bg')
+    this.svg
       .transition()
       .duration(300)
       .selectAll(`${this.container} .bar-bg`)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
-    this.svg.selectAll('.line text')
+    this.svg
       .transition()
       .duration(300)
       .selectAll(`${this.container} .line text`)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
-    this.svg.selectAll('.hundred_percent')
+    this.svg
       .transition()
       .duration(300)
       .selectAll(`${this.container} .hundred_percent`)

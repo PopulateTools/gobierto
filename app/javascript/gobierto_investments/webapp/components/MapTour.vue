@@ -115,7 +115,6 @@ export default {
       }
     },
     cardsOnScreen(elementCard) {
-      console.log(this.activeCardId)
       this.activeCard(this.activeCardId);
     },
     randomNumbers(min, max) {

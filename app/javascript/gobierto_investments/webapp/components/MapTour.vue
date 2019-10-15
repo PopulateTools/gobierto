@@ -1,8 +1,13 @@
 <template>
   <div class="map-container">
     <template>
-      <MglMap :accessToken="accessToken" :mapStyle.sync="mapStyle" @load="onMapLoaded">
-        <MglMarker :coordinates="coordinatesMarker" color="blue" />
+      <MglMap
+        :accessToken="accessToken"
+        :mapStyle.sync="mapStyle"
+        @load="onMapLoaded">
+        <MglMarker
+          :coordinates="coordinatesMarker"
+          :color="colorTheme"/>
       </MglMap>
       <div class="container-card">
         <div class="container-card-element">
@@ -69,7 +74,8 @@ export default {
       coordinatesCities: [2.451, 41.552],
       titleCard: null,
       photoCard: null,
-      coordinatesMarker: [41.552, 2.451]
+      coordinatesMarker: [41.552, 2.451],
+      colorTheme: '#0178A8'
 
     };
   },
@@ -139,7 +145,6 @@ export default {
     activeCard(card) {
       this.titleCard = this.geojsons[card].title.ca
       this.photoCard = this.geojsons[card].photo
-
 
       const [lat, lng] = Object.values(this.geojsons[card].coordinates)
 

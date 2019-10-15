@@ -13,8 +13,11 @@ ca:
       date: Darrer any
       detail_title: Detall del projecte
       empty: Sense resultats
+      exit: Sortida
       gallery: Galeria
       list: Llista
       map: Mapa
       none: Cap
+      see: Veure de nou
       summary: Resum per estats
+      tour: Tour virtual

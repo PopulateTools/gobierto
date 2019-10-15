@@ -13,8 +13,11 @@ es:
       date: Último año
       detail_title: Detalle del proyecto
       empty: Sin resultados
+      exit: Salida
       gallery: Galería
       list: Lista
       map: Mapa
       none: Ninguna
+      see: Ver de nuevo
       summary: Resumen por estados
+      tour: Tour virtual

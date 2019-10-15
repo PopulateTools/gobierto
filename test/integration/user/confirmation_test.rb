@@ -67,6 +67,30 @@ class User::ConfirmationTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_confirmation_with_read_only_attributes
+    auth_strategy_site.configuration.stubs(:auth_modules_data).returns(
+      [OpenStruct.new(
+        name: "null_strategy",
+        read_only_user_attributes: %w(name gender date_of_birth)
+      )]
+    )
+
+    with(site: auth_strategy_site) do
+      visit new_user_confirmations_path(confirmation_token: unconfirmed_user_in_auth_strategy_site.confirmation_token)
+
+      assert has_field?("user_confirmation_name", disabled: true, with: unconfirmed_user_in_auth_strategy_site.name)
+      assert has_field?("user_confirmation_date_of_birth_1i", disabled: true)
+      assert has_field?("user_confirmation_date_of_birth_2i", disabled: true)
+      assert has_field?("user_confirmation_date_of_birth_3i", disabled: true)
+      assert has_field?("user_confirmation_gender_male", disabled: true)
+      assert has_field?("user_confirmation_gender_female", disabled: true)
+
+      click_on "Save"
+
+      assert has_message?("Signed in successfully")
+    end
+  end
+
   def test_invalid_confirmation
     with_current_site(site) do
       visit @confirmation_path

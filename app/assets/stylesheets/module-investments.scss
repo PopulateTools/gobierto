@@ -837,6 +837,7 @@
 }
 
 .investments_tour {
+
   .map-container {
     height: calc(100vh - 70px);
     position: relative;
@@ -850,6 +851,8 @@
     position: absolute;
     top: -55px;
     right: 16px;
+    width: 90%;
+    text-align: right;
   }
 
   .btn-back-tour-virtual,
@@ -858,10 +861,14 @@
     font-weight: normal;
     padding: .5em 1em;
     max-width: 170px;
+    @include screen(768) {
+      font-size: 12px;
+    }
   }
 
   .btn-back-tour-virtual {
-    background-color: green;
+    background-color: #008000;
+    max-width: 60px;
   }
 
   .container-card {
@@ -870,6 +877,10 @@
     right: 16px;
     width: 20%;
     min-width: 250px;
+    @include screen(768) {
+      right: 0;
+      min-width: 200px;
+    }
   }
 
   .container-card-element {
@@ -881,6 +892,10 @@
     border-radius: 4px;
     background: #fff;
     box-shadow: 0 13px 27px -5px rgba(50, 50, 93, .25), 0 8px 16px -8px rgba(0, 0, 0, .3), 0 -6px 16px -6px rgba(0, 0, 0, .025);
+    @include screen(768) {
+      min-width: 170px;
+      width: 70%;
+    }
   }
 
   .investments-home-main--photo,
@@ -892,6 +907,9 @@
   .column {
     width: 100%;
     max-width: 100vw;
+    @include screen(768) {
+      margin: 0;
+    }
   }
 
   header .site_header .site_header_block .site_header_logo .site_header_image a img {
@@ -910,6 +928,12 @@
     width: 64px;
     height: 64px;
     background-color: var(--color-base-soft-darker);
+    @include screen(768) {
+      width: 48px;
+      height: 48px;
+      top: 8px;
+      left: 8px;
+    }
   }
 
   .container-counter-elements-circle {
@@ -920,6 +944,10 @@
     position: relative;
     left: 8px;
     top: 8px;
+    @include screen(768) {
+      width: 32px;
+      height: 32px;
+    }
   }
 
   .counter-elements-text {
@@ -930,6 +958,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    @include screen(768) {
+      font-size: 14px;
+      font-weight: normal;
+    }
   }
 
 }

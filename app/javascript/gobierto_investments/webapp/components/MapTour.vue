@@ -19,6 +19,13 @@
           </div>
         </div>
       </div>
+      <div class="container-counter-elements">
+        <div class="container-counter-elements-circle">
+          <span class="counter-elements-text">
+            {{activeCardId}}
+          </span>
+        </div>
+      </div>
     </template>
     <button class="btn-reload-tour-virtual" @click="reloadTour">
       {{ titleReload }}
@@ -90,7 +97,7 @@ export default {
     },
   },
   mounted() {
-    setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2500)
+    setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2750)
   },
   methods: {
     onMapLoaded(event) {
@@ -132,13 +139,13 @@ export default {
 
       if (this.geojsons[card].coordinates.length <= 1) {
         const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
-        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.35 });
+        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.75 });
       } else {
-        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.35 });
+        this.map.flyTo({ center: [lat, lng], zoom: this.randomNumbers(15, 17), bearing: this.randomNumbers(-60, 60), pitch: this.randomNumbers(10, 60), speed: 0.75 });
       }
       this.activeCardId += 1
       if(this.activeCardId < this.geojsons.length) {
-        this.activeTour = setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2500)
+        this.activeTour = setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2750)
         this.activeTour
       }
     },

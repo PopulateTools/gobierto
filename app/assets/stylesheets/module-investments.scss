@@ -850,7 +850,7 @@
   .btn-reload-tour-virtual {
     position: absolute;
     top: 90%;
-    left: 8px;
+    left: 16px;
     font-size: 14px;
     font-weight: normal;
     padding: .5em 1em;
@@ -858,12 +858,13 @@
 
   .btn-reload-tour-virtual {
     top: -55px;
-    left: 88.6%;
+    right: 16px;
+    left: initial;
   }
 
   .container-scroll-map {
     position: absolute;
-    top: 8px;
+    top: 16px;
     right: 0;
     height: 100%;
     width: 20%;
@@ -897,4 +898,35 @@
   header .site_header .site_header_block {
     height: 70px;
   }
+
+  .container-counter-elements {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    border-radius: 100%;
+    width: 64px;
+    height: 64px;
+    background-color: var(--color-base-soft-darker);
+  }
+
+  .container-counter-elements-circle {
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-base);
+    border-radius: 100%;
+    position: relative;
+    left: 8px;
+    top: 8px;
+  }
+
+  .counter-elements-text {
+    font-size: 1rem;
+    font-weight: bold;
+    color: $white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
 }

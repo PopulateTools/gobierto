@@ -48,7 +48,8 @@ module GobiertoPeople
 
             render json: result
           else
-            render json: top_people, each_serializer: GobiertoPeople::PersonSerializer, date_range_query: date_range_params.to_query
+            serializer = params[:serializer] == "rowchart" ? GobiertoPeople::RowchartItemSerializer : GobiertoPeople::PersonSerializer
+            render json: top_people, each_serializer: serializer, date_range_query: date_range_params.to_query
           end
         end
 

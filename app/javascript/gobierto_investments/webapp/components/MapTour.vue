@@ -138,10 +138,12 @@ export default {
       }
       this.activeCardId += 1
       if(this.activeCardId < this.geojsons.length) {
-        setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2500)
+        this.activeTour = setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 2500)
+        this.activeTour
       }
     },
     reloadTour() {
+      clearTimeout(this.activeTour)
       this.activeCardId = 0
       this.cardsOnScreen(this.activeCardId)
     },

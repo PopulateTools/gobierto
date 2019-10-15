@@ -135,6 +135,7 @@ module GobiertoCommon
     def vocabulary_type_attributes
       {
         multiple: !vocabulary_single_select?,
+        include_blank: !required?,
         data: { behavior: custom_field.configuration.vocabulary_type }
       }
     end

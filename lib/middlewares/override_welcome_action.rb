@@ -18,7 +18,7 @@ class OverrideWelcomeAction
     end
 
     # If the path is the homepage, the route should be the site root path
-    if env["PATH_INFO"] == "/"
+    if env["PATH_INFO"] == "/" && env["gobierto_site"].present?
       # A CMS page is handled by meta welcome controller
       if env["gobierto_site"].configuration.home_page != "GobiertoCms"
         env["PATH_INFO"] = env["gobierto_site"].root_path

@@ -1,16 +1,22 @@
 <% custom_records.each do |custom_record| %>
+  <% disabled = local_assigns[:disabled_attributes]&.include?(custom_record.custom_user_field.name) %>
   <div class="form_item input_text">
-    <%= label_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][value]", custom_record.custom_user_field.localized_title %>
+    <%= label_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][value]" do %>
+      <%= custom_record.custom_user_field.localized_title %>
+      <% if disabled %>
+        <i class="fas fa-lock tipsit" title="<%= t("user.settings.form.hints.census_locked") %>"></i>
+      <% end %>
+    <% end %>
     <%= hidden_field_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][custom_user_field_id]", custom_record.custom_user_field_id %>
 
     <% if custom_record.custom_user_field.string? %>
-      <%= text_field_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][value]", custom_record.value %>
+      <%= text_field_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][value]", custom_record.value, disabled: disabled %>
     <% elsif custom_record.custom_user_field.paragraph? %>
-      <%= text_area_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][value]", custom_record.value %>
+      <%= text_area_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][value]", custom_record.value, disabled: disabled %>
     <% elsif custom_record.custom_user_field.single_option? %>
-      <%= select_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][value]", options_for_custom_user_record(custom_record), include_blank: !custom_record.custom_user_field.mandatory? %>
+      <%= select_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][value]", options_for_custom_user_record(custom_record), include_blank: !custom_record.custom_user_field.mandatory?, disabled: disabled %>
     <% elsif custom_record.custom_user_field.multiple_options? %>
-      <%= select_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][value]", options_for_custom_user_record(custom_record), include_blank: !custom_record.custom_user_field.mandatory?, multiple: true %>
+      <%= select_tag "#{form_name}[custom_records][#{custom_record.custom_user_field.name}][value]", options_for_custom_user_record(custom_record), include_blank: !custom_record.custom_user_field.mandatory?, multiple: true, disabled: disabled %>
     <% end %>
   </div>
 <% end %>

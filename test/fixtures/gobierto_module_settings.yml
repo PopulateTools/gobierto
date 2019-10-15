@@ -16,7 +16,8 @@ gobierto_participation_settings_madrid:
   module_name: "GobiertoParticipation"
   settings: <%= {
     "issues_vocabulary_id": ActiveRecord::FixtureSet.identify(:issues_vocabulary),
-    "scopes_vocabulary_id": ActiveRecord::FixtureSet.identify(:scopes_vocabulary)
+    "scopes_vocabulary_id": ActiveRecord::FixtureSet.identify(:scopes_vocabulary),
+    "users_issues_field_id": ActiveRecord::FixtureSet.identify(:madrid_users_custom_field_issues)
     }.to_json %>
 
 gobierto_budgets_settings_madrid:

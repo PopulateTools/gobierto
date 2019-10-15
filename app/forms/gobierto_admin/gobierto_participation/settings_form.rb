@@ -6,7 +6,8 @@ module GobiertoAdmin
 
       attr_accessor(
         :issues_vocabulary_id,
-        :scopes_vocabulary_id
+        :scopes_vocabulary_id,
+        :users_issues_field_id
       )
 
       attr_writer :site_id
@@ -36,6 +37,12 @@ module GobiertoAdmin
         end
       end
 
+      def users_issues_fields_options
+        site.custom_fields.vocabulary_options.for_class(User).map do |custom_field|
+          [custom_field.name, custom_field.id]
+        end
+      end
+
       private
 
       def gobierto_module_settings_class
@@ -52,6 +59,7 @@ module GobiertoAdmin
           settings_attributes.site_id = site_id
           settings_attributes.issues_vocabulary_id = issues_vocabulary_id
           settings_attributes.scopes_vocabulary_id = scopes_vocabulary_id
+          settings_attributes.users_issues_field_id = users_issues_field_id
         end
 
         if @gobierto_module_settings.save
@@ -68,6 +76,10 @@ module GobiertoAdmin
 
       def scopes_vocabulary
         @scopes_vocabulary ||= site.vocabularies.find_by_id(scopes_vocabulary_id)
+      end
+
+      def users_issues_field
+        @users_issues_field ||= site.custom_fields.find_by_id(users_issues_field_id)
       end
     end
   end

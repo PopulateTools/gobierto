@@ -8,6 +8,7 @@ ca:
           female: Dona
           male: Home
         hints:
+          census_locked: Aquesta informació prové del cens, de manera que no és editable.
           date_of_birth: Aquesta informació serà privada, i mai se t'identificarà
             amb el teu perfil. La dada serà anonimitzada, i te la demanem només per
             poder obtindre informació segmentada i entendre millor les opinions i

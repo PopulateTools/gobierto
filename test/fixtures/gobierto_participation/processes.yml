@@ -87,6 +87,27 @@ group_archived:
   created_at: <%= 1.hour.ago %>
   archived_at: <%= 1.second.ago %>
 
+closed_group:
+  site: madrid
+  title_translations: <%= {
+    "en" => "Closed group of women",
+    "es" => "Grupo cerrado de mujeres"
+  }.to_json %>
+  body_translations: <%= {
+    "en" => "Closed group for users with women issue",
+    "es" => "Grupo cerrado de usuarias pertenecientes al tema de mujeres"
+  }.to_json %>
+  body_source_translations: <%= {
+    "en" => "Closed group",
+    "es" => "Grupo cerrado"
+  }.to_json %>
+  slug: closed-group
+  process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
+  visibility_level: <%= Site.visibility_levels["active"] %>
+  scope: center_term
+  issue: women_term
+  privacy_status: <%= GobiertoParticipation::Process.privacy_statuses[:closed_process] %>
+
 # Processes
 
 sport_city_process:

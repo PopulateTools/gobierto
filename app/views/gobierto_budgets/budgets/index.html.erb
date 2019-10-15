@@ -60,7 +60,7 @@
 
               <div class="explanation explanation_bar">
                 <% percentage = @budgets_execution_summary.expenses_execution_percentage %>
-                <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
+                <% percentage_bar_width = (percentage.nil? || percentage > 100) ? 100 : percentage %>
                 <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
                 <span><%= t('.executed_percent', percentage: percentage) %></span>
               </div>

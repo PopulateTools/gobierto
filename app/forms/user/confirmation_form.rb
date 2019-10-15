@@ -6,22 +6,28 @@ class User::ConfirmationForm < BaseForm
 
   attr_accessor(
     :confirmation_token,
-    :name,
-    :password_enabled,
     :password,
     :password_confirmation,
-    :date_of_birth_year,
-    :date_of_birth_month,
-    :date_of_birth_day,
-    :date_of_birth,
-    :gender,
     :creation_ip,
     :site,
     :document_number
   )
-  attr_reader :user
+  attr_writer(
+    :user,
+    :password_enabled,
+    :read_only_user_attributes,
+    :name,
+    :gender,
+    :date_of_birth_year,
+    :date_of_birth_month,
+    :date_of_birth_day,
+    :date_of_birth
+  )
 
-  validates :name, :date_of_birth, :gender, :user, presence: true
+  validates :user, presence: true
+  [:name, :date_of_birth, :gender].each do |attribute|
+    validates attribute, presence: true, unless: -> { read_only_user_attributes.include?(attribute.to_s) }
+  end
   validates :password, presence: true, confirmation: true, if: :password_enabled
   validate :user_verification
 
@@ -77,12 +83,12 @@ class User::ConfirmationForm < BaseForm
 
   def date_of_birth
     @date_of_birth ||= if date_of_birth_year && date_of_birth_month && date_of_birth_day
-      Date.new(
-        date_of_birth_year.to_i,
-        date_of_birth_month.to_i,
-        date_of_birth_day.to_i
-      )
-    end
+                         Date.new(
+                           date_of_birth_year.to_i,
+                           date_of_birth_month.to_i,
+                           date_of_birth_day.to_i
+                         )
+                       end
   rescue ArgumentError
     nil
   end
@@ -91,18 +97,26 @@ class User::ConfirmationForm < BaseForm
     @census_verification ||= User::Verification::CensusVerification.new
   end
 
+  def disabled_user_attribute?(attribute)
+    read_only_user_attributes.include? attribute.to_s
+  end
+
+  def read_only_user_attributes
+    @read_only_user_attributes ||= []
+  end
+
   private
 
   def save_user
     @user = user.tap do |user_attributes|
-      user_attributes.name = name
+      user_attributes.name = name unless disabled_user_attribute?(:name)
       user_attributes.password = password if password_enabled
-      user_attributes.date_of_birth = date_of_birth
-      user_attributes.gender = gender
+      user_attributes.date_of_birth = date_of_birth unless disabled_user_attribute?(:date_of_birth)
+      user_attributes.gender = gender unless disabled_user_attribute?(:gender)
       user_attributes.custom_records = custom_records
     end
 
-    if !@user.valid?
+    unless @user.valid?
       promote_errors(@user.errors)
       return false
     end
@@ -110,13 +124,13 @@ class User::ConfirmationForm < BaseForm
     if require_user_verification?
       @census_verification = build_census_verification
 
-      if !@census_verification.valid?
+      unless @census_verification.valid?
         promote_errors(@census_verification.errors)
         return false
       end
 
-      if !@census_verification.will_verify?
-        errors[:base] << "#{I18n.t('activemodel.models.user/census_verification_form')} #{I18n.t('errors.messages.invalid')}"
+      unless @census_verification.will_verify?
+        errors[:base] << "#{I18n.t("activemodel.models.user/census_verification_form")} #{I18n.t("errors.messages.invalid")}"
         return false
       end
 
@@ -125,12 +139,11 @@ class User::ConfirmationForm < BaseForm
         @census_verification.save
         @census_verification.verify!
       end
-
-      return @user
     else
       @user.save
-      return @user
     end
+
+    @user
   end
 
   def confirm_user
@@ -141,7 +154,7 @@ class User::ConfirmationForm < BaseForm
 
   def user_verification
     if require_user_verification? && document_number.blank?
-      errors.add(:document_number, I18n.t('errors.messages.blank'))
+      errors.add(:document_number, I18n.t("errors.messages.blank"))
     end
   end
 

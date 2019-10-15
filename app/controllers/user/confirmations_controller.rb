@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::ConfirmationsController < User::BaseController
   before_action :require_no_authentication
 
@@ -8,7 +10,8 @@ class User::ConfirmationsController < User::BaseController
       confirmation_token: params[:confirmation_token],
       creation_ip: remote_ip,
       site: current_site,
-      password_enabled: password_enabled
+      password_enabled: password_enabled,
+      read_only_user_attributes: read_only_user_attributes
     )
 
     @user_genders = get_user_genders
@@ -19,13 +22,16 @@ class User::ConfirmationsController < User::BaseController
 
   def create
     @user_confirmation_form = User::ConfirmationForm.new(
-      user_confirmation_params.except(*ignored_user_confirmation_params).merge(
+      user_confirmation_params.except(
+        *ignored_user_confirmation_params
+      ).merge(
         date_of_birth_year: user_confirmation_params["date_of_birth(1i)"],
         date_of_birth_month: user_confirmation_params["date_of_birth(2i)"],
         date_of_birth_day: user_confirmation_params["date_of_birth(3i)"],
         creation_ip: remote_ip,
         site: current_site,
-        password_enabled: password_enabled
+        password_enabled: password_enabled,
+        read_only_user_attributes: read_only_user_attributes
       )
     )
 
@@ -47,9 +53,10 @@ class User::ConfirmationsController < User::BaseController
   private
 
   def user_confirmation_params
-    permitted_params = [:confirmation_token, :name, :password, :password_confirmation, :date_of_birth, :gender, :document_number]
+    permitted_params = [:confirmation_token, :name, :password, :password_confirmation, :date_of_birth, :gender, :document_number] - read_only_user_attributes
     if params[:user_confirmation] && params[:user_confirmation][:custom_records]
-      permitted_params << {custom_records: Hash[params[:user_confirmation][:custom_records].keys.map{ |k| [k, [:custom_user_field_id, :value]] }]}
+      custom_keys = params[:user_confirmation][:custom_records].except(*read_only_user_attributes).keys
+      permitted_params << { custom_records: Hash[custom_keys.map { |k| [k, [:custom_user_field_id, :value]] }] } unless custom_keys.blank?
     end
 
     params.require(:user_confirmation).permit(permitted_params)
@@ -60,7 +67,7 @@ class User::ConfirmationsController < User::BaseController
   end
 
   def password_enabled
-    @password_enabled ||= !auth_modules_present? || current_site.configuration.auth_modules_data.any? { |auth_module| auth_module.password_enabled }
+    @password_enabled ||= !auth_modules_present? || current_site.configuration.auth_modules_data.any?(&:password_enabled)
   end
 
   def ignored_user_confirmation_params

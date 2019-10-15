@@ -11,14 +11,14 @@ module GobiertoParticipation
       @scope_news = find_scope_news
       @scope_notifications = find_scope_notifications
       @scope_events = find_scope_events
-      @processes = current_site.processes.process.where(scope: @scope).active
+      @processes = base_relation.process
       @groups = CollectionDecorator.new(find_groups, decorator: GobiertoParticipation::ProcessDecorator)
     end
 
     private
 
     def find_groups
-      current_site.processes.group_process.where(scope: @scope).active
+      base_relation.group_process
     end
 
     def find_scope
@@ -32,7 +32,7 @@ module GobiertoParticipation
     def find_scope_notifications
       ActivityCollectionDecorator.new(Activity.in_site(current_site)
                                  .no_admin
-                                 .in_process(@scope.processes)
+                                 .in_process(@scope.processes.open_process)
                                  .sorted
                                  .limit(5)
                                  .includes(:subject, :author, :recipient))
@@ -40,6 +40,10 @@ module GobiertoParticipation
 
     def find_scope_events
       @scope.events.published.upcoming.order(starts_at: :asc).limit(5)
+    end
+
+    def base_relation
+      current_site.processes.active.available_for_user(current_user).where(scope: @scope)
     end
   end
 end

@@ -138,6 +138,29 @@ group_archived_documents:
   container: group_archived (GobiertoParticipation::Process)
   item_type: GobiertoAttachments::Attachment
 
+# closed_group
+
+closed_group_news:
+  site: madrid
+  title_translations: <%= {'en' => 'News of closed group', 'es' => 'Noticias de grupo cerrado' }.to_json %>
+  slug: closed_group-news
+  container: closed_group (GobiertoParticipation::Process)
+  item_type: GobiertoCms::News
+
+closed_group_calendar:
+  site: madrid
+  title_translations: <%= {'en' => 'Events of closed group', 'es' => 'Eventos de grupo cerrado' }.to_json %>
+  slug: closed_group-calendar
+  container: closed_group (GobiertoParticipation::Process)
+  item_type: GobiertoCalendars::Event
+
+closed_group_documents:
+  site: madrid
+  title_translations: <%= {'en' => 'Documents of closed group', 'es' => 'Documentos de grupo cerrado' }.to_json %>
+  slug: closed_group-documents
+  container: closed_group (GobiertoParticipation::Process)
+  item_type: GobiertoAttachments::Attachment
+
 # bowling_group_very_active
 
 bowling_group_very_active_news:

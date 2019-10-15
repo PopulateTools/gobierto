@@ -123,6 +123,7 @@ module GobiertoAdmin
           :issue_id,
           :scope_id,
           :visibility_level,
+          :privacy_status,
           :has_duration,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales],

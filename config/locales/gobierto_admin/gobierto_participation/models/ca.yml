@@ -30,6 +30,7 @@ ca:
         header_image: Imatge de capçalera
         header_image_url: URL d'imatge de capçalera
         issue_id: Tema
+        privacy_status: Privacitat
         process_type: Tipus
         scope_id: Àmbit
         slug: Slug
@@ -50,6 +51,11 @@ ca:
         stage_type: Eina
         starts: Data de començament
         title: Títol de fase
+      gobierto_admin/gobierto_participation/settings_form:
+        issues_vocabulary_id: Vocabulari de temes
+        scopes_vocabulary_id: Vocabulari d'àmbits
+        users_issues_field_id: Camp personalitzat d'usuaris per al control d'accés
+          a processos tancats
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grup d'aportacions
       gobierto_admin/gobierto_participation/poll_form: Enquesta

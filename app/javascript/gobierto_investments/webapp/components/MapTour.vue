@@ -26,10 +26,10 @@
         :accessToken="accessToken"
         :mapStyle.sync="mapStyle"
         :scrollZoom="scrollZoom"
-        v-if="loadData"
         @load="onMapLoaded">
         <MglMarker
-          :coordinates="coordinatesMarker">
+          :coordinates="coordinatesMarker"
+          >
           <img
             slot="marker"
             src="/packs/media/images/marker-icon-2273e3d8.png"
@@ -76,11 +76,11 @@ import { CommonsMixin, baseUrl } from "./../mixins/common.js";
 
 export default {
   name: "MapTour",
-  mixins: [CommonsMixin],
   components: {
     MglMap,
     MglMarker
   },
+  mixins: [CommonsMixin],
   data() {
     return {
       url: "https://api.tiles.mapbox.com/styles/v1/{username}/{style_id}/tiles/{tilesize}/{z}/{x}/{y}?access_token={token}",
@@ -136,10 +136,17 @@ export default {
     })
 
   },
+  watch: {
+    loadData: {
+      inmediate: true,
+      handler() {
+        setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 1000)
+      }
+    }
+  },
   methods: {
     onMapLoaded(event) {
       this.map = event.map;
-      this.cardsOnScreen(this.activeCardId)
     },
     convertWKTtoGeoJSON(wktString) {
       const wkt = new Wkt.Wkt();

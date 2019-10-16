@@ -17,7 +17,7 @@
         <button
           class="btn-back-tour-virtual"
           @click="backInvestments">
-          {{buttonExit}}<i class="fas icon fa-sign-out-alt"/>
+          {{ buttonExit }}<i class="fas icon fa-sign-out-alt"/>
         </button>
       </div>
     </div>
@@ -27,14 +27,14 @@
         :mapStyle.sync="mapStyle"
         :scrollZoom="scrollZoom"
         @load="onMapLoaded">
-        <MglMarker
-          :coordinates="coordinatesMarker"
-          >
-          <img
-            slot="marker"
-            src="/packs/media/images/marker-icon-2273e3d8.png"
-          />
-        </MglMarker>
+          <MglMarker
+            :coordinates="coordinatesMarker"
+            >
+            <img
+              slot="marker"
+              src="/packs/media/images/marker-icon-2273e3d8.png"
+            />
+          </MglMarker>
       </MglMap>
       <div class="container-card">
         <div
@@ -100,7 +100,7 @@ export default {
       photoCard: null,
       projectId: null,
       item: null,
-      coordinatesMarker: [-4.0654947, 40.199867],
+      coordinatesMarker: [2.445,41.542],
       homeUrl: this.$root.$data.homeUrl,
       logoUrl: this.$root.$data.logoUrl,
       siteName: this.$root.$data.siteName,
@@ -139,8 +139,9 @@ export default {
   watch: {
     loadData: {
       inmediate: true,
+
       handler() {
-        setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 1000)
+        setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 3000)
       }
     }
   },

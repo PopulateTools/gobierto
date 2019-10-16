@@ -23,7 +23,9 @@
         @load="onMapLoaded">
         <MglMarker
           :coordinates="coordinatesMarker"
-          :color="colorTheme"/>
+          >
+          <img slot="marker" src="/packs/media/images/marker-icon-2273e3d8.png" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive"/>
+        </MglMarker>
       </MglMap>
       <div class="container-card">
         <div
@@ -56,7 +58,6 @@ import {
   MglMarker
 } from "vue-mapbox";
 import Wkt from "wicket";
-import Vue from "vue";
 import axios from "axios";
 import { CommonsMixin, baseUrl } from "./../mixins/common.js";
 
@@ -88,7 +89,6 @@ export default {
       projectId: null,
       item: null,
       coordinatesMarker: [2.451, 41.552],
-      colorTheme: '#0178A8',
       homeUrl: this.$root.$data.homeUrl,
       logoUrl: this.$root.$data.logoUrl,
       siteName: this.$root.$data.siteName

@@ -838,21 +838,19 @@
 
 .investments_tour {
 
-  .map-container {
-    height: calc(100vh - 70px);
-    position: relative;
-  }
-
-  header .site_header .site_header_block .site_header_logo {
-    padding: 0 1em;
-  }
-
-  .container-map-btns {
+  .map-flyto-container {
+    height: 100vh;
+    width: 100%;
     position: absolute;
-    top: -55px;
-    right: 16px;
-    width: 90%;
-    text-align: right;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+
+  .map-flyto-header {
+    width: 100%;
+    background-color: $white;
+    padding: 1em;
   }
 
   .btn-back-tour-virtual,
@@ -882,9 +880,25 @@
     }
   }
 
+  .site_header_image a img {
+    max-height: 40px;
+  }
+
+  .site_header_image {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .map-flyto-header-btns {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: right;
+    width: calc(100% - 135px);
+  }
+
   .container-card {
     position: absolute;
-    top: 16px;
+    top: 86px;
     right: 16px;
     width: 20%;
     min-width: 250px;
@@ -923,17 +937,9 @@
     }
   }
 
-  header .site_header .site_header_block .site_header_logo .site_header_image a img {
-    max-height: 40px;
-  }
-
-  header .site_header .site_header_block {
-    height: 70px;
-  }
-
   .container-counter-elements {
     position: absolute;
-    top: 16px;
+    top: 86px;
     left: 16px;
     border-radius: 100%;
     width: 64px;

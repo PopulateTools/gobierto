@@ -1,21 +1,26 @@
 <template>
-  <div class="map-container">
+  <div class="map-flyto-container">
+    <div class="map-flyto-header">
+      <div class="site_header_image">
+        <a href="#"><img alt="Ajuntament de Mataró" src="https://gobierto-populate-staging.s3-eu-west-1.amazonaws.com/site-8/sites/logo-e92cb83c-9c73-46e8-ae2d-af48fcf7b494/logo_mataro.png"></a>
+      </div>
+      <div class="map-flyto-header-btns">
+        <button class="btn-reload-tour-virtual" @click="reloadTour">
+          <i class="fas icon fa-redo-alt"></i>{{titleReload}}
+        </button>
+        <button class="btn-back-tour-virtual" @click="backInvestments">
+          {{titleButton}}<i class="fas icon fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
     <template>
-      <MglMap
-        :accessToken="accessToken"
-        :mapStyle.sync="mapStyle"
-        :scrollZoom="scrollZoom"
-        @load="onMapLoaded">
-        <MglMarker
-          :coordinates="coordinatesMarker"
-          :color="colorTheme"/>
+      <MglMap :accessToken="accessToken" :mapStyle.sync="mapStyle" :scrollZoom="scrollZoom" @load="onMapLoaded">
+        <MglMarker :coordinates="coordinatesMarker" :color="colorTheme" />
       </MglMap>
       <div class="container-card">
         <div class="container-card-element">
           <div class="investments-home-main--photo">
-            <img
-              v-if="photoCard"
-              :src="photoCard" />
+            <img v-if="photoCard" :src="photoCard" />
           </div>
           <div class="investments-home-main--data">
             <a href class="investments-home-main--link">{{titleCard}}</a>
@@ -30,14 +35,6 @@
         </div>
       </div>
     </template>
-    <div class="container-map-btns">
-      <button class="btn-reload-tour-virtual" @click="reloadTour">
-        <i class="fas icon fa-redo-alt"></i>{{titleReload}}
-      </button>
-      <button class="btn-back-tour-virtual" @click="backInvestments">
-        {{titleButton}}<i class="fas icon fa-sign-out-alt"></i>
-      </button>
-    </div>
   </div>
 </template>
 <script>

@@ -24,7 +24,7 @@
         <MglMarker
           :coordinates="coordinatesMarker"
           >
-          <img slot="marker" src="/packs/media/images/marker-icon-2273e3d8.png" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive"/>
+          <i slot="marker" class="fas icon fa-map-marker-alt leaflet-marker-icon leaflet-zoom-animated leaflet-interactive"></i>
         </MglMarker>
       </MglMap>
       <div class="container-card">

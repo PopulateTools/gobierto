@@ -981,13 +981,11 @@
     }
   }
 
-  a.mapboxgl-ctrl-logo {
-    width: 85px;
-    height: 21px;
-    margin: 0 0 -3px -3px;
-    display: block;
-    background-repeat: no-repeat;
-    cursor: pointer;
+  .fa-map-marker-alt {
+    font-size: 32px;
+    &::before {
+      color: var(--color-base);
+    }
   }
 
 }

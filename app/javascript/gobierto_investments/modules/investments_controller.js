@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
 export class InvestmentsController {
-  constructor() {
+  constructor(options) {
     const selector = "investments-app";
 
     // Mount Vue application
@@ -63,7 +63,14 @@ export class InvestmentsController {
         );
       });
 
-      new Vue({ router }).$mount(entryPoint);
+      new Vue({
+        router,
+        data: {
+          siteName: options.siteName,
+          logoUrl: options.logoUrl,
+          homeUrl: options.homeUrl
+        },
+      }).$mount(entryPoint);
     }
   }
 }

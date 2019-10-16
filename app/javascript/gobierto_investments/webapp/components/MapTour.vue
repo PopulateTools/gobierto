@@ -2,8 +2,8 @@
   <div class="map-flyto-container">
     <div class="map-flyto-header">
       <div class="site_header_image">
-        <a href="#">
-          <img alt="Ajuntament de Mataró" src="https://gobierto-populate-staging.s3-eu-west-1.amazonaws.com/site-8/sites/logo-e92cb83c-9c73-46e8-ae2d-af48fcf7b494/logo_mataro.png">
+        <a :href="homeUrl">
+          <img :alt="siteName" :src="logoUrl">
         </a>
       </div>
       <div class="map-flyto-header-btns">
@@ -89,7 +89,10 @@ export default {
       projectId: null,
       item: null,
       coordinatesMarker: [2.451, 41.552],
-      colorTheme: '#0178A8'
+      colorTheme: '#0178A8',
+      homeUrl: this.$root.$data.homeUrl,
+      logoUrl: this.$root.$data.logoUrl,
+      siteName: this.$root.$data.siteName
     };
   },
   computed: {

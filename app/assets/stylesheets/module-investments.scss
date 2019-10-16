@@ -847,6 +847,10 @@
     z-index: 999;
   }
 
+  .mgl-map-wrapper {
+    height: calc(100% - 79px);
+  }
+
   .map-flyto-header {
     width: 100%;
     background-color: $white;
@@ -910,6 +914,7 @@
 
   .container-card-element {
     height: auto;
+    cursor: pointer;
     margin-bottom: 90vh;
     width: 90%;
     min-width: 250px;
@@ -927,14 +932,6 @@
   .investments-home-main--photo img {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-  }
-
-  .column {
-    width: 100%;
-    max-width: 100vw;
-    @include screen(768) {
-      margin: 0;
-    }
   }
 
   .container-counter-elements {

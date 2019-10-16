@@ -8,7 +8,7 @@
       </div>
       <div class="map-flyto-header-btns">
         <button class="btn-reload-tour-virtual" @click="reloadTour">
-          <i class="fas icon fa-redo-alt"></i>{{titleReload}}
+          <i class="fas icon fa-redo-alt"></i>{{ titleReload }}
         </button>
         <button class="btn-back-tour-virtual" @click="backInvestments">
           {{titleButton}}<i class="fas icon fa-sign-out-alt"></i>
@@ -16,23 +16,33 @@
       </div>
     </div>
     <template>
-      <MglMap :accessToken="accessToken" :mapStyle.sync="mapStyle" :scrollZoom="scrollZoom" @load="onMapLoaded">
-        <MglMarker :coordinates="coordinatesMarker" :color="colorTheme" />
+      <MglMap
+        :accessToken="accessToken"
+        :mapStyle.sync="mapStyle"
+        :scrollZoom="scrollZoom"
+        @load="onMapLoaded">
+        <MglMarker
+          :coordinates="coordinatesMarker"
+          :color="colorTheme"/>
       </MglMap>
       <div class="container-card">
-        <div class="container-card-element">
+        <div
+          @click.stop.prevent="navTo(item)"
+          class="container-card-element">
           <div class="investments-home-main--photo">
             <img v-if="photoCard" :src="photoCard" />
           </div>
           <div class="investments-home-main--data">
-            <a href @click.stop.prevent="navTo(item)" class="investments-home-main--link">{{titleCard}}</a>
+            <a href
+              @click.stop.prevent="navTo(item)"
+              class="investments-home-main--link">{{ titleCard }}</a>
           </div>
         </div>
       </div>
       <div class="container-counter-elements">
         <div class="container-counter-elements-circle">
           <span class="counter-elements-text">
-            {{activeCardId}}
+            {{ activeCardId }}
           </span>
         </div>
       </div>
@@ -82,6 +92,11 @@ export default {
       colorTheme: '#0178A8'
     };
   },
+  computed: {
+    center() {
+      return this.geojsons.length !== 0 ? Object.values(this.geojsons).reverse() : this.coordinatesCities;
+    },
+  },
   created() {
     this.mapbox = Mapbox;
 
@@ -103,11 +118,6 @@ export default {
 
       this.setGeoJSONs(this.items);
     })
-  },
-  computed: {
-    center() {
-      return this.geojsons.length !== 0 ? Object.values(this.geojsons).reverse() : this.coordinatesCities;
-    },
   },
   mounted() {
     setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 3000)
@@ -186,7 +196,7 @@ export default {
       this.cardsOnScreen(this.activeCardId)
     },
     backInvestments() {
-      this.$router.back({ name: "home" });
+      this.$router.push({ name: "home" });
     },
     navTo(item) {
       this.$router.push({ name: "project", params: { id: item } });

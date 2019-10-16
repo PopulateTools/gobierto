@@ -1,4 +1,4 @@
-@import 'mapbox-gl.scss';
+@import 'mapbox-gl';
 
 :root {
   --color-base-string: var(--color-main, #{red($color_main), green($color_main), blue($color_main)});
@@ -868,6 +868,7 @@
     @include screen(768) {
       font-size: 12px;
     }
+
     &:focus {
       background-color: var(--color-base);
     }
@@ -881,6 +882,7 @@
 
   .btn-back-tour-virtual {
     max-width: 95px;
+
     .icon {
       padding-left: .5em;
     }

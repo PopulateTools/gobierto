@@ -8,10 +8,10 @@
       </div>
       <div class="map-flyto-header-btns">
         <button class="btn-reload-tour-virtual" @click="reloadTour">
-          <i class="fas icon fa-redo-alt"></i>{{ titleReload }}
+          <i class="fas icon fa-redo-alt"></i>{{ buttonReload }}
         </button>
         <button class="btn-back-tour-virtual" @click="backInvestments">
-          {{titleButton}}<i class="fas icon fa-sign-out-alt"></i>
+          {{buttonExit}}<i class="fas icon fa-sign-out-alt"></i>
         </button>
       </div>
     </div>
@@ -59,7 +59,6 @@ import Wkt from "wicket";
 import Vue from "vue";
 import axios from "axios";
 import { CommonsMixin, baseUrl } from "./../mixins/common.js";
-import "../../../../assets/stylesheets/mapbox-gl.css";
 
 export default {
   name: "MapTour",
@@ -76,8 +75,8 @@ export default {
       style_id: "ck18y48jg11ip1cqeu3b9wpar",
       tilesize: "256",
       accessToken: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
-      titleButton: 'Salir',
-      titleReload: 'ver de nuevo',
+      buttonExit: I18n.t("gobierto_investments.projects.exit"),
+      buttonReload: I18n.t("gobierto_investments.projects.see"),
       scrollZoom: false,
       geojsons: [],
       zoomDefault: 15,

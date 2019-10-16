@@ -27,7 +27,7 @@
         class="btn-tour-virtual"
         @click="goTourVirtual"
         >
-        {{ titleButton }}
+        {{ titleTour }}
       </button>
 
     </l-map>
@@ -81,7 +81,7 @@ export default {
       geojsonOptions: {},
       item: null,
       center: [40.199867, -4.0654947], // Spain center
-      titleButton: 'Tour Virtual'
+      titleTour: I18n.t("gobierto_investments.projects.tour")
     };
   },
   watch: {

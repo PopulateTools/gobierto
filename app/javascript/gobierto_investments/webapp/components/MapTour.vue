@@ -2,7 +2,9 @@
   <div class="map-flyto-container">
     <div class="map-flyto-header">
       <div class="site_header_image">
-        <a href="#"><img alt="Ajuntament de Mataró" src="https://gobierto-populate-staging.s3-eu-west-1.amazonaws.com/site-8/sites/logo-e92cb83c-9c73-46e8-ae2d-af48fcf7b494/logo_mataro.png"></a>
+        <a href="#">
+          <img alt="Ajuntament de Mataró" src="https://gobierto-populate-staging.s3-eu-west-1.amazonaws.com/site-8/sites/logo-e92cb83c-9c73-46e8-ae2d-af48fcf7b494/logo_mataro.png">
+        </a>
       </div>
       <div class="map-flyto-header-btns">
         <button class="btn-reload-tour-virtual" @click="reloadTour">
@@ -23,7 +25,7 @@
             <img v-if="photoCard" :src="photoCard" />
           </div>
           <div class="investments-home-main--data">
-            <a href class="investments-home-main--link">{{titleCard}}</a>
+            <a href @click.stop.prevent="navTo(item)" class="investments-home-main--link">{{titleCard}}</a>
           </div>
         </div>
       </div>
@@ -47,6 +49,7 @@ import Wkt from "wicket";
 import Vue from "vue";
 import axios from "axios";
 import { CommonsMixin, baseUrl } from "./../mixins/common.js";
+import "../../../../assets/stylesheets/mapbox-gl.css";
 
 export default {
   name: "MapTour",
@@ -73,7 +76,9 @@ export default {
       coordinatesCities: [2.451, 41.552],
       titleCard: null,
       photoCard: null,
-      coordinatesMarker: [41.552, 2.451],
+      projectId: null,
+      item: null,
+      coordinatesMarker: [2.451, 41.552],
       colorTheme: '#0178A8'
     };
   },
@@ -143,10 +148,12 @@ export default {
     activeCard(card) {
       this.titleCard = this.geojsons[card].title.ca
       this.photoCard = this.geojsons[card].photo
+      this.item = this.geojsons[card].id
 
       const [lat, lng] = Object.values(this.geojsons[card].coordinates)
 
       if (this.geojsons[card].coordinates.length <= 1) {
+        this.coordinatesMarker = this.geojsons[card].coordinates[0][0]
         const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
         this.map.flyTo({
           center: [lat, lng],
@@ -155,8 +162,9 @@ export default {
           pitch: this.randomNumbers(10, 60),
           speed: 0.75
         });
-        this.coordinatesMarker = this.geojsons[card].coordinates[0][0]
+
       } else {
+        this.coordinatesMarker = this.geojsons[card].coordinates
         this.map.flyTo({
           center: [lat, lng],
           zoom: this.randomNumbers(15, 17),
@@ -164,7 +172,7 @@ export default {
           pitch: this.randomNumbers(10, 60),
           speed: 0.75
         });
-        this.coordinatesMarker = this.geojsons[card].coordinates
+
       }
       this.activeCardId += 1
       if (this.activeCardId < this.geojsons.length) {
@@ -179,7 +187,10 @@ export default {
     },
     backInvestments() {
       this.$router.back({ name: "home" });
-    }
+    },
+    navTo(item) {
+      this.$router.push({ name: "project", params: { id: item } });
+    },
   }
 };
 

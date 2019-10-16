@@ -26,6 +26,7 @@
         :accessToken="accessToken"
         :mapStyle.sync="mapStyle"
         :scrollZoom="scrollZoom"
+        v-if="loadData"
         @load="onMapLoaded">
         <MglMarker
           :coordinates="coordinatesMarker">
@@ -102,7 +103,8 @@ export default {
       coordinatesMarker: [-4.0654947, 40.199867],
       homeUrl: this.$root.$data.homeUrl,
       logoUrl: this.$root.$data.logoUrl,
-      siteName: this.$root.$data.siteName
+      siteName: this.$root.$data.siteName,
+      loadData: false
     };
   },
   computed: {
@@ -130,15 +132,14 @@ export default {
       this.subsetItems = this.items;
 
       this.setGeoJSONs(this.items);
+      this.loadData = true
     })
-  },
-  mounted() {
-    setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 3000)
+
   },
   methods: {
     onMapLoaded(event) {
       this.map = event.map;
-      this.addMarkers
+      this.cardsOnScreen(this.activeCardId)
     },
     convertWKTtoGeoJSON(wktString) {
       const wkt = new Wkt.Wkt();

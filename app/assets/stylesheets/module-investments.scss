@@ -880,7 +880,6 @@
   }
 
   .btn-back-tour-virtual {
-    max-width: 95px;
 
     .icon {
       padding-left: .5em;
@@ -948,8 +947,6 @@
     @include screen(768) {
       width: 48px;
       height: 48px;
-      top: 8px;
-      left: 8px;
     }
   }
 
@@ -981,11 +978,42 @@
     }
   }
 
-  .fa-map-marker-alt {
-    font-size: 32px;
-    &::before {
-      color: var(--color-base);
-    }
+  .mapboxgl-ctrl-bottom-left,
+  .mapboxgl-ctrl-bottom-right {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+    padding: 0 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+  }
+
+  .mapboxgl-ctrl-bottom-right {
+    bottom: 0;
+    right: 0;
+  }
+
+  .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl {
+    float: right;
+  }
+
+  .mapboxgl-ctrl {
+    clear: both;
+    pointer-events: auto;
+    transform: translate(0, 0);
+  }
+
+  .mapboxgl-ctrl-attrib a {
+    color: rgba(0, 0, 0, 0.75);
+    text-decoration: none;
+  }
+
+  .mapboxgl-ctrl-attrib .mapbox-improve-map {
+    font-weight: bold;
+    margin-left: 2px;
   }
 
 }

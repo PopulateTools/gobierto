@@ -3,15 +3,21 @@
     <div class="map-flyto-header">
       <div class="site_header_image">
         <a :href="homeUrl">
-          <img :alt="siteName" :src="logoUrl">
+          <img
+            :alt="siteName"
+            :src="logoUrl">
         </a>
       </div>
       <div class="map-flyto-header-btns">
-        <button class="btn-reload-tour-virtual" @click="reloadTour">
-          <i class="fas icon fa-redo-alt"></i>{{ buttonReload }}
+        <button
+          class="btn-reload-tour-virtual"
+          @click="reloadTour">
+          <i class="fas icon fa-redo-alt"/>{{ buttonReload }}
         </button>
-        <button class="btn-back-tour-virtual" @click="backInvestments">
-          {{buttonExit}}<i class="fas icon fa-sign-out-alt"></i>
+        <button
+          class="btn-back-tour-virtual"
+          @click="backInvestments">
+          {{buttonExit}}<i class="fas icon fa-sign-out-alt"/>
         </button>
       </div>
     </div>
@@ -22,9 +28,11 @@
         :scrollZoom="scrollZoom"
         @load="onMapLoaded">
         <MglMarker
-          :coordinates="coordinatesMarker"
-          >
-          <i slot="marker" class="fas icon fa-map-marker-alt leaflet-marker-icon leaflet-zoom-animated leaflet-interactive"></i>
+          :coordinates="coordinatesMarker">
+          <img
+            slot="marker"
+            src="/packs/media/images/marker-icon-2273e3d8.png"
+          />
         </MglMarker>
       </MglMap>
       <div class="container-card">
@@ -32,12 +40,16 @@
           @click.stop.prevent="navTo(item)"
           class="container-card-element">
           <div class="investments-home-main--photo">
-            <img v-if="photoCard" :src="photoCard" />
+            <img
+              v-if="photoCard"
+              :src="photoCard"
+            />
           </div>
           <div class="investments-home-main--data">
             <a href
               @click.stop.prevent="navTo(item)"
-              class="investments-home-main--link">{{ titleCard }}</a>
+              class="investments-home-main--link">{{ titleCard }}
+            </a>
           </div>
         </div>
       </div>
@@ -83,12 +95,11 @@ export default {
       zoomDefault: 15,
       mapbox: null,
       activeCardId: 0,
-      coordinatesCities: [2.451, 41.552],
       titleCard: null,
       photoCard: null,
       projectId: null,
       item: null,
-      coordinatesMarker: [2.451, 41.552],
+      coordinatesMarker: [-4.0654947, 40.199867],
       homeUrl: this.$root.$data.homeUrl,
       logoUrl: this.$root.$data.logoUrl,
       siteName: this.$root.$data.siteName
@@ -96,7 +107,7 @@ export default {
   },
   computed: {
     center() {
-      return this.geojsons.length !== 0 ? Object.values(this.geojsons).reverse() : this.coordinatesCities;
+      return this.geojsons.length !== 0 ? Object.values(this.geojsons).reverse() : this.coordinatesMarker;
     },
   },
   created() {

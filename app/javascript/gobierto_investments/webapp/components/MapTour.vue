@@ -104,17 +104,19 @@ export default {
       homeUrl: this.$root.$data.homeUrl,
       logoUrl: this.$root.$data.logoUrl,
       siteName: this.$root.$data.siteName,
-      loadData: false
+      loadData: false,
+      loadMap: false
     };
   },
   computed: {
     center() {
       return this.geojsons.length !== 0 ? Object.values(this.geojsons).reverse() : this.coordinatesMarker;
     },
+    combinedMapData(){
+      return this.loadData && this.loadMap
+    }
   },
   created() {
-    this.mapbox = Mapbox;
-
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
 
     axios.all([axios.get(baseUrl), axios.get(`${baseUrl}/meta?stats=true`)]).then(responses => {
@@ -134,20 +136,18 @@ export default {
       this.setGeoJSONs(this.items);
       this.loadData = true
     })
-
   },
   watch: {
-    loadData: {
-      inmediate: true,
-
-      handler() {
-        setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 3000)
+    combinedMapData(value){
+      if (value === true) {
+        this.cardsOnScreen(this.activeCardId)
       }
     }
   },
   methods: {
     onMapLoaded(event) {
       this.map = event.map;
+      this.loadMap = true
     },
     convertWKTtoGeoJSON(wktString) {
       const wkt = new Wkt.Wkt();

@@ -7,6 +7,9 @@ ca:
     layouts:
       application:
         investments: Inversions
+        investments_paragraph: Consulta els projectes que té en marxa l'Ajuntament,
+          els que començaran properament, i els plans a mig termini. Detall sobre
+          el pla anual d'inversions i mecanismes de seguiment de les obres en marxa.
     projects:
       all: Totes
       back: veure tot

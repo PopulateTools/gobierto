@@ -38,8 +38,8 @@
       </MglMap>
       <div class="container-card">
         <div
-          @click.stop.prevent="navTo(item)"
-          class="container-card-element">
+          class="container-card-element"
+          @click.stop.prevent="navTo(item)">
           <div class="investments-home-main--photo">
             <img
               v-if="photoCard"
@@ -48,8 +48,8 @@
           </div>
           <div class="investments-home-main--data">
             <a href
-              @click.stop.prevent="navTo(item)"
-              class="investments-home-main--link">{{ titleCard }}
+              class="investments-home-main--link"
+              @click.stop.prevent="navTo(item)">{{ titleCard }}
             </a>
           </div>
         </div>
@@ -65,7 +65,6 @@
   </div>
 </template>
 <script>
-import Mapbox from "mapbox-gl";
 import {
   MglMap,
   MglMarker
@@ -116,6 +115,13 @@ export default {
       return this.loadData && this.loadMap
     }
   },
+  watch: {
+    combinedMapData(value){
+      if (value === true) {
+        this.cardsOnScreen(this.activeCardId)
+      }
+    }
+  },
   created() {
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
 
@@ -136,13 +142,6 @@ export default {
       this.setGeoJSONs(this.items);
       this.loadData = true
     })
-  },
-  watch: {
-    combinedMapData(value){
-      if (value === true) {
-        this.cardsOnScreen(this.activeCardId)
-      }
-    }
   },
   methods: {
     onMapLoaded(event) {

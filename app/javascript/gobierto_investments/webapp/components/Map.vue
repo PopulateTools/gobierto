@@ -163,7 +163,7 @@ export default {
       });
     },
     goTourVirtual() {
-      window.location.href="/inversiones/tour-virtual"
+      window.location.href = this.$root.$data.tourUrl;
     }
   }
 };

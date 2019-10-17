@@ -65,11 +65,7 @@ export class InvestmentsController {
 
       new Vue({
         router,
-        data: {
-          siteName: options.siteName,
-          logoUrl: options.logoUrl,
-          homeUrl: options.homeUrl
-        },
+        data: options,
       }).$mount(entryPoint);
     }
   }

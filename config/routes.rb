@@ -530,7 +530,7 @@ Rails.application.routes.draw do
         # Front
         get "inversiones" => "investments#index", as: :root
         get "inversiones/proyectos/:id" => "investments#index"
-        get "inversiones/tour-virtual" => "investments#tour"
+        get "inversiones/tour-virtual" => "investments#tour", as: :tour
 
         # API
         namespace :api, path: "/gobierto_investments/api" do

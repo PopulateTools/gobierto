@@ -1,7 +1,5 @@
 
 :root {
-  --color-base-string: var(--color-main, #{red($color_main), green($color_main), blue($color_main)});
-  --color-base: rgb(var(--color-base-string));
   --color-base-soft: rgba(var(--color-base-string), 10%);
   --color-base-soft-darker: rgba(var(--color-base-string), 25%);
 }
@@ -856,6 +854,7 @@
     width: 100%;
     background-color: $color_main_negative;
     padding: 1em;
+    box-sizing: border-box;
   }
 
   .btn-back-tour-virtual,
@@ -865,6 +864,7 @@
     padding: .5em 1em;
     max-width: 170px;
     @include screen(768) {
+      max-width: 130px;
       font-size: 12px;
     }
 
@@ -899,7 +899,7 @@
     display: inline-block;
     vertical-align: middle;
     text-align: right;
-    width: calc(100% - 135px);
+    width: calc(100% - 101px);
   }
 
   .container-card {
@@ -909,7 +909,6 @@
     width: 20%;
     min-width: 250px;
     @include screen(768) {
-      right: 0;
       min-width: 200px;
     }
   }
@@ -918,7 +917,7 @@
     height: auto;
     cursor: pointer;
     margin-bottom: 90vh;
-    width: 90%;
+    width: 100%;
     min-width: 250px;
     margin: 0 auto;
     border-radius: 4px;
@@ -926,7 +925,6 @@
     box-shadow: 0 13px 27px -5px rgba(50, 50, 93, .25), 0 8px 16px -8px rgba(0, 0, 0, .3), 0 -6px 16px -6px rgba(0, 0, 0, .025);
     @include screen(768) {
       min-width: 170px;
-      width: 70%;
     }
   }
 

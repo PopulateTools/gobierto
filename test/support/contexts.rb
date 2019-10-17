@@ -17,6 +17,16 @@ ensure
   Capybara.ignore_hidden_elements = true
 end
 
+def check_js_errors!(page)
+  js_errors = page.driver.browser.manage.logs.get(:browser)
+                  .select { |e| e.level == "SEVERE" }
+
+  if js_errors.any?
+    messages = js_errors.map { |e| "[#{e.level}] #{e.message}" }.join("\n")
+    raise "JS errors where raised:\n\n#{messages}\n"
+  end
+end
+
 def with(params = {})
   factory = params[:factory]
   factories = params[:factories] || []
@@ -40,7 +50,10 @@ def with(params = {})
     yield(params)
   end
 
-  Capybara.reset_session! if params[:js]
+  if params[:js]
+    check_js_errors!(page)
+    Capybara.reset_session!
+  end
 ensure
   sign_out_admin if admin
   factory&.teardown

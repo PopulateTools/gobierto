@@ -21,8 +21,10 @@ import { VisTreemap } from './modules/treemap.js'
 import { VisUnemploymentAge } from './modules/unemployment_age.js'
 import { VisUnemploymentRate } from './modules/unemployment_rate.js'
 import { VisUnemploymentSex } from './modules/unemployment_sex.js'
+import { Areachart } from './modules/areachart'
 
 export {
+  Areachart,
   VisAgeDistribution,
   VisAgeReport,
   VisBubbleLegend,

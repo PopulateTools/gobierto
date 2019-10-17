@@ -1,0 +1,18 @@
+.areachart {
+  width: 100%;
+
+  .area {
+    fill: rgba(var(--color-base-string), 0.25);
+  }
+
+  .headline {
+    fill: none;
+    stroke: var(--color-base);
+    stroke-width: 3;
+  }
+
+  .circle {
+    cursor: pointer;
+    fill: var(--color-base);
+  }
+}

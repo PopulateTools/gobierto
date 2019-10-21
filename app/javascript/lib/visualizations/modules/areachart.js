@@ -127,6 +127,27 @@ export class Areachart {
       .attr("cx", d => this.x(d.key))
       .attr("cy", d => this.y(d.value))
       .attr("r", this.circleSize);
+
+    if (this.circleSize < 5) {
+      const hoverCircles = this.g.selectAll(`circle.hover-circle`).data(this.data);
+
+      hoverCircles.exit().remove();
+
+      const hoverCirclesEnter = hoverCircles
+        .enter()
+        .append("circle")
+        .attr("class", "hover-circle")
+        .attr("fill", "transparent")
+        .attr("cursor", "pointer")
+        .on("mouseover", this.onCircleMouseover.bind(this))
+        .on("mouseout", this.onCircleMouseout.bind(this));
+
+      hoverCircles
+        .merge(hoverCirclesEnter)
+        .attr("cx", d => this.x(d.key))
+        .attr("cy", d => this.y(d.value))
+        .attr("r", 5);
+    }
   }
 
   onCircleMouseover(d) {
@@ -144,6 +165,7 @@ export class Areachart {
   onCircleMouseout() {
     this.tooltipContainer
       .style("opacity", 0)
+      .style("z-index", "-1")
   }
 
   defaultTooltip(d) {

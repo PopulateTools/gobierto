@@ -64,6 +64,62 @@ const CONFIGURATION = {
       id: "import",
       filter: "money"
     }
+  ],
+  availableProjectFields: [
+    {
+      id: "nom-projecte"
+    },
+    {
+      id: "nom-servei-responsable",
+      filter: "translate"
+    },
+    {
+      id: "tipus-projecte",
+      filter: "translate"
+    },
+    {
+      id: "descripcio-projecte"
+    },
+    {
+      id: "notes"
+    },
+    {
+      id: "adreca"
+    },
+    {
+      id: "adjudicatari"
+    },
+    {
+      id: "estat",
+      filter: "translate"
+    },
+    {
+    id: "data-inici"
+    },
+    {
+      id: "data-adjudicacio"
+    },
+    {
+      id: "data-inici-redaccio"
+    },
+    {
+      id: "data-fi-redaccio"
+    },
+    {
+      id: "data-final"
+    },
+    {
+      id: "import",
+      filter: "money"
+    },
+    {
+      id: "import-adjudicacio",
+      filter: "money"
+    },
+    {
+      id: "import-liquidacio",
+      filter: "money"
+    }
   ]
 };
 
@@ -127,7 +183,7 @@ export const CommonsMixin = {
     },
     setItem(element) {
       const { attributes = {} } = element;
-      const { title, description, phases, location, availableGalleryFields, availableTableFields } = CONFIGURATION;
+      const { title, description, phases, location, availableGalleryFields, availableTableFields, availableProjectFields } = CONFIGURATION;
       const { id: locationId, ...restLocationOptions } = location;
 
       return {
@@ -141,7 +197,8 @@ export const CommonsMixin = {
         phases: attributes[phases.id].map(element => ({ ...element, title: element.name_translations })),
         phasesFieldName: this.getItem(phases, attributes).name_translations,
         availableGalleryFields: availableGalleryFields.map(element => this.getItem(element, attributes)),
-        availableTableFields: availableTableFields.map(element => this.getItem(element, attributes))
+        availableTableFields: availableTableFields.map(element => this.getItem(element, attributes)),
+        availableProjectFields: availableProjectFields.map(element => this.getItem(element, attributes))
       };
     },
     setData(data) {

@@ -79,9 +79,9 @@ export default {
     };
   },
   created() {
-    const { gallery = [], availableGalleryFields = [] } = this.project
+    const { gallery = [], availableProjectFields = [] } = this.project
     this.gallery = gallery
-    this.attributes = availableGalleryFields
+    this.attributes = availableProjectFields
 
     if (gallery.length < this.visibleItems) {
       this.visibleItems = gallery.length

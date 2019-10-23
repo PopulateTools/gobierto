@@ -125,7 +125,7 @@ GEM
       url
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
-    cookies_eu (1.7.5)
+    cookies_eu (1.7.6)
       js_cookie_rails (~> 2.2.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)

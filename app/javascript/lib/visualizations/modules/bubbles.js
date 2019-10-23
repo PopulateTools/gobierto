@@ -64,9 +64,12 @@ export class VisBubbles {
   }
 
   resize() {
-    this.svg.parent().remove();
-    this.constructor(this.container, this.budget_category, this.data);
-    this.render();
+    const { parentNode } = this.svg.node()
+    if (parentNode) {
+      parentNode.remove();
+      this.constructor(this.container, this.budget_category, this.data);
+      this.render();
+    }
   }
 
   createNodes(rawData, year) {

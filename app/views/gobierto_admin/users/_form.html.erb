@@ -16,6 +16,15 @@
         <%= f.email_field :email, placeholder: t(".placeholders.email") %>
       </div>
 
+      <%= render(
+        partial: "gobierto_admin/gobierto_common/custom_fields/forms/custom_fields",
+        locals: {
+          f: f,
+          item: @custom_fields_form,
+          form_name: f.object_name
+        }
+      ) %>
+
       <div class="form_block">
 
         <h2><%= t(".password_block") %></h2>

@@ -22,6 +22,9 @@ ca:
         poll: Enquesta
         title: Títol
       gobierto_participation/process:
+        privacy_statuses:
+          closed_process: Tancat
+          open_process: Obert
         process_types:
           group_process: Grup
           process: Procés

@@ -31,9 +31,9 @@ module GobiertoParticipation
 
     def base_relation
       @base_relation ||= if valid_preview_token?
-                           ProcessCollectionDecorator.new(current_site.events).in_participation_module
+                           ProcessCollectionDecorator.new(current_site.events).in_participation_module(private_issue_id: current_user_issue_id)
                          else
-                           ProcessCollectionDecorator.new(current_site.events).in_participation_module.published
+                           ProcessCollectionDecorator.new(current_site.events).in_participation_module(private_issue_id: current_user_issue_id).published
                          end
     end
 

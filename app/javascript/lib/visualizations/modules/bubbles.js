@@ -2,11 +2,11 @@ import * as __d3 from 'd3'
 import { wordwrap } from 'd3-jetpack'
 import tspans from 'd3-jetpack/src/tspans'
 import { d3locale, accounting } from 'lib/shared'
+import { transition } from 'd3-transition'
 
-const { selection } = __d3;
-selection.prototype.tspans = tspans
-
-const d3 = { ...__d3, wordwrap, selection }
+const d3 = { ...__d3, wordwrap }
+d3.selection.prototype.transition = transition;
+d3.selection.prototype.tspans = tspans
 
 export class VisBubbles {
   constructor(divId, budgetCategory, data) {
@@ -64,9 +64,12 @@ export class VisBubbles {
   }
 
   resize() {
-    this.svg.parent().remove();
-    this.constructor(this.container, this.budget_category, this.data);
-    this.render();
+    const { parentNode } = this.svg.node()
+    if (parentNode) {
+      parentNode.remove();
+      this.constructor(this.container, this.budget_category, this.data);
+      this.render();
+    }
   }
 
   createNodes(rawData, year) {

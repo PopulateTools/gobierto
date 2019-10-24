@@ -76,3 +76,5 @@ es:
           customize: Personalizar sitio
           templates: Plantillas
           vocabularies: Vocabularios
+    models:
+      user: Usuario

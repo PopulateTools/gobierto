@@ -21,11 +21,11 @@ module GobiertoParticipation
     private
 
     def find_participation_events
-      ProcessCollectionDecorator.new(current_site.events).in_participation_module.published.sorted.upcoming.limit(4)
+      ProcessCollectionDecorator.new(current_site.events).in_participation_module(private_issue_id: current_user_issue_id).published.sorted.upcoming.limit(4)
     end
 
     def find_participation_news
-      ProcessCollectionDecorator.new(current_site.pages, item_type: "GobiertoCms::News").in_participation_module.active.sorted.limit(5)
+      ProcessCollectionDecorator.new(current_site.pages, item_type: "GobiertoCms::News").in_participation_module(private_issue_id: current_user_issue_id).active.sorted.limit(5)
     end
 
     def find_participation_activities

@@ -30,7 +30,7 @@ class Activity < ApplicationRecord
   end
 
   def self.in_participation(current_site)
-    processes = current_site.processes
+    processes = current_site.processes.open_process
     Activity.no_admin.where(recipient: processes)
   end
 

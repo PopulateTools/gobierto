@@ -1,5 +1,7 @@
 import * as d3 from 'd3'
 import { d3locale, accounting } from 'lib/shared'
+import { transition } from 'd3-transition'
+d3.selection.prototype.transition = transition;
 
 export class VisLinesExecution {
   constructor(divId, type, category) {
@@ -77,13 +79,13 @@ export class VisLinesExecution {
 
     if (this.svg) {
       // Destroy the container and render again
-      this.svg.parent().remove();
+      this.svg.node().parentNode.remove();
       this.isMobile = window.innerWidth <= 768;
       this.render()
     }
 
     // Chart dimensions
-    this.margin = {top: 55, right: 0, bottom: 50, left: this.isMobile ? 0 : 385};
+    this.margin = { top: 55, right: 0, bottom: 50, left: this.isMobile ? 0 : 385 };
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -336,51 +338,58 @@ export class VisLinesExecution {
     this.svg.select('.legend-value')
       .text(valueKind === 'executed' ? I18n.t('gobierto_common.visualizations.absolute') : I18n.t('gobierto_common.visualizations.percent'));
 
-    this.svg.selectAll('.hundred_percent')
+    this.svg
       .transition()
+      .selectAll(`${this.container} .hundred_percent`)
       .style('opacity', valueKind === 'executed' ? 0 : 1);
 
-    this.svg.selectAll('.bar')
+    this.svg
       .transition()
       .duration(300)
+      .selectAll(`${this.container} .bar`)
       .attr('width', function(d) { return this.x(d[valueKind]); }.bind(this));
   }
 
   _sortValues (target, sortKind) {
     sortKind === 'highest' ? this.nested.sort(function(a, b) { return a.group_pct - b.group_pct; }) : this.nested.sort(function(a, b) { return b.group_pct - a.group_pct; })
 
-    this.y0.domain(sortKind === 'highest' ?  this.nested.map(function(d) { return d.key; }) : this.nested.map(function(d) { return d.key; }).reverse());
+    this.y0.domain(sortKind === 'highest' ? this.nested.map(function(d) { return d.key; }) : this.nested.map(function(d) { return d.key; }).reverse());
 
     this.y1.domain(_.flatten(this.nested.map(function(d) {
       return d.values.map(function(v) { return v.id }); })
     ));
 
-    this.svg.selectAll('.line-group')
+    this.svg
       .data(this.nested)
       .transition()
       .duration(500)
+      .selectAll(`${this.container} .line-group`)
       .attr('transform', function(d) {
         return 'translate(' + 0 + ',' + this.y0(d.key) / 14 + ')';
       }.bind(this));
 
-    this.svg.selectAll('.bar')
+    this.svg
       .transition()
       .duration(300)
+      .selectAll(`${this.container} .bar`)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
-    this.svg.selectAll('.bar-bg')
+    this.svg
       .transition()
       .duration(300)
+      .selectAll(`${this.container} .bar-bg`)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
-    this.svg.selectAll('.line text')
+    this.svg
       .transition()
       .duration(300)
+      .selectAll(`${this.container} .line text`)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
-    this.svg.selectAll('.hundred_percent')
+    this.svg
       .transition()
       .duration(300)
+      .selectAll(`${this.container} .hundred_percent`)
       .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
       .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) );
   }
@@ -395,12 +404,12 @@ export class VisLinesExecution {
       .style('top', (y + 40) + 'px');
 
     var tooltipHtml = '<div class="line-name"><strong>' + d['name_' + this.localeFallback] + '</strong></div>' +
-                      '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_budgeted')  + ': ' + accounting.formatMoney(d.budget, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) + '</div>';
+                      '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_budgeted') + ': ' + accounting.formatMoney(d.budget, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) + '</div>';
 
-    if(d.budget_updated !== null)
-      tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_budgeted_updated')  + ': ' + accounting.formatMoney(d.budget_updated, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) + '</div>';
+    if (d.budget_updated !== null)
+      tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_budgeted_updated') + ': ' + accounting.formatMoney(d.budget_updated, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) + '</div>';
 
-    tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_executed_amount')  + ': ' + accounting.formatMoney(d.executed, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) + '</div>';
+    tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_common.visualizations.tooltip_executed_amount') + ': ' + accounting.formatMoney(d.executed, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) + '</div>';
 
     tooltipHtml += '<div>' + I18n.t('gobierto_common.visualizations.tooltip') + ' ' + this.pctFormat(d.pct_executed) + ' %</div>';
 

@@ -15,6 +15,7 @@ en:
           message: You have unsaved changes. Are you sure you want to leave this page?
         edit_site: Customize site
         file_attachments: Documents
+        global: General
         hey_admin: Hey, %{admin_name}
         manage_sites: Manage sites
         modules:

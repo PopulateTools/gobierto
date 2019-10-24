@@ -8,6 +8,8 @@ en:
           female: Female
           male: Male
         hints:
+          census_locked: This information has been provided by the census, so it is
+            not editable.
           date_of_birth: This information will be considered private at all times.
           email: Your email address will be considered private at all times.
           gender: This information will be considered private at all times.

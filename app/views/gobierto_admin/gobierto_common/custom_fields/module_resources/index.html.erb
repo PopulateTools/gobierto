@@ -9,7 +9,7 @@
   <%= t(".empty") %>
 <% else %>
   <% @available_resources.each do |module_name, resources| %>
-    <div>
+    <div class="m_b_4">
       <h3><%= t("gobierto_admin.layouts.application.#{ module_name.underscore.gsub("gobierto_", "") }") %></h3>
       <% resources.each do |resource| %>
         <div class="list_item">

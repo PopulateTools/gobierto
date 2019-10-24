@@ -76,3 +76,5 @@ ca:
           customize: Personalitzar site
           templates: Plantilles
           vocabularies: Vocabularis
+    models:
+      user: Usuari

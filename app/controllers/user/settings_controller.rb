@@ -1,25 +1,32 @@
+# frozen_string_literal: true
+
 class User::SettingsController < User::BaseController
   before_action :authenticate_user!
 
   def show
-    @user_settings_form = User::SettingsForm.new({
+    @user_settings_form = User::SettingsForm.new(
       user_id: current_user.id, name: current_user.name,
       email: current_user.email, gender: current_user.gender,
       date_of_birth_year: current_user.date_of_birth.year,
       date_of_birth_month: current_user.date_of_birth.month,
       date_of_birth_day: current_user.date_of_birth.day,
-      password_enabled: password_enabled
-    })
+      password_enabled: password_enabled,
+      read_only_user_attributes: read_only_user_attributes
+    )
     @user_genders = get_user_genders
   end
 
   def update
-    @user_settings_form = User::SettingsForm.new(user_id: current_user.id, password_enabled: password_enabled)
-    @user_settings_form.assign_attributes(user_settings_params.except(*ignored_user_settings_params).merge(
-      date_of_birth_year: user_settings_params["date_of_birth(1i)"],
-      date_of_birth_month: user_settings_params["date_of_birth(2i)"],
-      date_of_birth_day: user_settings_params["date_of_birth(3i)"],
-    ))
+    @user_settings_form = User::SettingsForm.new(user_id: current_user.id, password_enabled: password_enabled, read_only_user_attributes: read_only_user_attributes)
+    @user_settings_form.assign_attributes(
+      user_settings_params.except(
+        *ignored_user_settings_params
+      ).merge(
+        date_of_birth_year: user_settings_params["date_of_birth(1i)"],
+        date_of_birth_month: user_settings_params["date_of_birth(2i)"],
+        date_of_birth_day: user_settings_params["date_of_birth(3i)"]
+      )
+    )
 
     if @user_settings_form.save
       flash[:notice] = t(".success")
@@ -27,16 +34,17 @@ class User::SettingsController < User::BaseController
     else
       @user_genders = get_user_genders
       flash[:alert] = t(".error")
-      render 'show'
+      render "show"
     end
   end
 
   private
 
   def user_settings_params
-    permitted_params = [:name, :password, :password_confirmation, :date_of_birth, :gender]
+    permitted_params = [:name, :password, :password_confirmation, :date_of_birth, :gender] - read_only_user_attributes
     if params[:user_settings] && params[:user_settings][:custom_records]
-      permitted_params << {custom_records: Hash[params[:user_settings][:custom_records].keys.map{ |k| [k, [:custom_user_field_id, :value]] }]}
+      custom_keys = params[:user_settings][:custom_records].except(*read_only_user_attributes).keys
+      permitted_params << { custom_records: Hash[custom_keys.map { |k| [k, [:custom_user_field_id, :value]] }] } unless custom_keys.blank?
     end
 
     params.require(:user_settings).permit(permitted_params)
@@ -47,7 +55,7 @@ class User::SettingsController < User::BaseController
   end
 
   def password_enabled
-    @password_enabled ||= !auth_modules_present? || current_site.configuration.auth_modules_data.any? { |auth_module| auth_module.password_enabled }
+    @password_enabled ||= !auth_modules_present? || current_site.configuration.auth_modules_data.any?(&:password_enabled)
   end
 
   def ignored_user_settings_params

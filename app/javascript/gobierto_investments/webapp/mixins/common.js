@@ -94,7 +94,7 @@ const CONFIGURATION = {
       filter: "translate"
     },
     {
-    id: "data-inici"
+      id: "data-inici"
     },
     {
       id: "data-adjudicacio"
@@ -106,11 +106,17 @@ const CONFIGURATION = {
       id: "data-fi-redaccio"
     },
     {
-      id: "data-final"
+      id: "data-final",
+      type: "icon",
+      icon: {
+        href: "https://twitter.com",
+        name: "file"
+      }
     },
     {
       id: "import",
-      filter: "money"
+      filter: "money",
+      type: "highlight"
     },
     {
       id: "import-adjudicacio",

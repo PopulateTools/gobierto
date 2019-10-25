@@ -16,6 +16,18 @@
       </div>
     </div>
 
+    <!-- Icon type -->
+    <div v-else-if="type === 'icon'">
+      <div class="investments-project-main--icon-text">
+        <i :class="`fas fa-${icon.name}`" /> <a :href="icon.href">{{ value }}</a>
+      </div>
+    </div>
+
+    <!-- Highlight type -->
+    <div v-else-if="type === 'highlight'">
+      <strong class="investments-project-main--strong">{{ value }}</strong>
+    </div>
+
     <!-- Simple type -->
     <div v-else>
       {{ value }}
@@ -33,6 +45,14 @@ export default {
     },
     value: {
       type: [String, Array, Number, Object],
+      default: ""
+    },
+    type: {
+      type: String,
+      default: ""
+    },
+    icon: {
+      type: String,
       default: ""
     }
   },

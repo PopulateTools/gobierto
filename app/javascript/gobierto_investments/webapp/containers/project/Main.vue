@@ -31,24 +31,30 @@
           :key="attr.id"
           :name="attr.name | translate"
           :value="attr.value | translate"
+          :type="attr.type"
+          :icon="attr.icon"
         />
         <DictionaryItem
           v-else-if="attr.filter === 'money'"
           :key="attr.id"
           :name="attr.name | translate"
           :value="attr.value | money"
+          :type="attr.type"
+          :icon="attr.icon"
         />
-        <DictionaryItem
+        <!-- <DictionaryItem
           v-else-if="attr.filter === 'tableList'"
           :key="attr.id"
           :name="attr.name | translate"
           :value="attr.value | tableList(attr.options)"
-        />
+        /> -->
         <DictionaryItem
           v-else
           :key="attr.id"
           :name="attr.name | translate"
           :value="attr.value"
+          :type="attr.type"
+          :icon="attr.icon"
         />
       </template>
     </div>

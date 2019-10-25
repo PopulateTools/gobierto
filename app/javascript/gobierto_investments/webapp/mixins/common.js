@@ -174,7 +174,7 @@ export const CommonsMixin = {
         ...attr,
         ...element,
         name: attr.name_translations,
-        value: Array.isArray(attributes[element.id])
+        value: Array.isArray(attributes[element.id]) && element.filter !== "tableList"
           ? attributes[element.id].length
             ? attributes[element.id][0].name_translations
             : undefined

@@ -20,6 +20,10 @@ export const VueFiltersMixin = {
       const lang = I18n.locale || "es";
       const options = { style: "currency", currency: "EUR", ...opts }
       return value !== undefined && value !== null ? value.toLocaleString(lang, options) : undefined;
+    },
+    tableList(value, opts = {}) {
+      const options = { values: [], ...opts}
+      return value.map(el => (`${el[options.header] || el[Object.keys(el)[0]]}: ${options.values.map(val => (el[val]))}`));
     }
   }
 };

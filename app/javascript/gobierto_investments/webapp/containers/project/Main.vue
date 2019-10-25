@@ -1,7 +1,7 @@
 <template>
   <main>
     <h1 class="investments-project-main--heading">
-      {{ project.title | translate }}
+      {{ project.title }}
     </h1>
 
     <div
@@ -29,32 +29,38 @@
         <DictionaryItem
           v-if="attr.filter === 'translate'"
           :key="attr.id"
-          :name="attr.name | translate"
-          :value="attr.value | translate"
+          :name="attr.name"
+          :value="attr.value"
           :type="attr.type"
           :icon="attr.icon"
+          :table="attr.table"
         />
         <DictionaryItem
           v-else-if="attr.filter === 'money'"
           :key="attr.id"
-          :name="attr.name | translate"
+          :name="attr.name"
           :value="attr.value | money"
           :type="attr.type"
           :icon="attr.icon"
+          :table="attr.table"
         />
-        <!-- <DictionaryItem
-          v-else-if="attr.filter === 'tableList'"
+        <DictionaryItem
+          v-else-if="attr.filter === 'date'"
           :key="attr.id"
-          :name="attr.name | translate"
-          :value="attr.value | tableList(attr.options)"
-        /> -->
+          :name="attr.name"
+          :value="attr.value | date"
+          :type="attr.type"
+          :icon="attr.icon"
+          :table="attr.table"
+        />
         <DictionaryItem
           v-else
           :key="attr.id"
-          :name="attr.name | translate"
+          :name="attr.name"
           :value="attr.value"
           :type="attr.type"
           :icon="attr.icon"
+          :table="attr.table"
         />
       </template>
     </div>
@@ -103,11 +109,11 @@ export default {
     const lightboxes = this.$el.querySelectorAll(".js-image-lightbox");
     lightboxes.forEach(lightbox => new ImageLightbox(lightbox));
   },
-  methods: {
-      dynamicFilter: function (value, filter) {
-    return Vue.filter(filter)(value)
-  }
-  }
+  // methods: {
+  //     dynamicFilter: function (value, filter) {
+  //       return Vue.filter(filter)(value)
+  //     }
+  // }
 };
 </script>
 

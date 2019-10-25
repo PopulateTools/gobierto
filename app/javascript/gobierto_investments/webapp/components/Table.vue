@@ -9,7 +9,7 @@
         :key="column.id"
         class="investments-home-main--th"
       >
-        <div>{{ column.name | translate }}</div>
+        <div>{{ column.name }}</div>
       </th>
     </thead>
     <tbody>

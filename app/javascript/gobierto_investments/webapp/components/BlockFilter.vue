@@ -17,7 +17,7 @@
         v-for="option in filter.options"
         :id="option.id"
         :key="option.id"
-        :title="option.name_translations"
+        :title="option.title"
         :checked="isChecked"
         :counter="option.counter"
         @checkbox-change="handleCheckboxStatus"

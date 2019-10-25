@@ -4,8 +4,17 @@
       {{ name }}
     </div>
 
-    <!-- List type -->
-    <div v-if="isList">
+    <!-- Table type -->
+    <div v-if="type === 'table'">
+      <div
+        v-for="column in table.columns"
+        :key="column"
+        class="investments-project-main--inner-table-row"
+      >
+        <div>{{ value }}</div>
+      </div>
+    </div>
+    <!-- <div v-if="isList">
       <div
         v-for="(itemList, i) in value"
         :key="i"
@@ -14,7 +23,7 @@
         <div>{{ itemList }}</div>
         <div />
       </div>
-    </div>
+    </div> -->
 
     <!-- Icon type -->
     <div v-else-if="type === 'icon'">
@@ -52,8 +61,12 @@ export default {
       default: ""
     },
     icon: {
-      type: String,
-      default: ""
+      type: Object,
+      default: () => {}
+    },
+    table: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {

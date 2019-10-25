@@ -1,3 +1,4 @@
+import Vue from "vue";
 import { VueFiltersMixin } from "lib/shared";
 
 const CONFIGURATION = {
@@ -42,7 +43,7 @@ const CONFIGURATION = {
       id: "data-inici"
     },
     {
-      id: "data-fin"
+      id: "data-final"
     },
     {
       id: "import",
@@ -94,19 +95,24 @@ const CONFIGURATION = {
       filter: "translate"
     },
     {
-      id: "data-inici"
+      id: "data-inici",
+      filter: "date",
     },
     {
-      id: "data-adjudicacio"
+      id: "data-adjudicacio",
+      filter: "date",
     },
     {
-      id: "data-inici-redaccio"
+      id: "data-inici-redaccio",
+      filter: "date",
     },
     {
-      id: "data-fi-redaccio"
+      id: "data-fi-redaccio",
+      filter: "date",
     },
     {
       id: "data-final",
+      // filter: "date",
       type: "icon",
       icon: {
         href: "https://twitter.com",
@@ -126,11 +132,14 @@ const CONFIGURATION = {
       id: "import-liquidacio",
       filter: "money"
     },
-    {
-      id: "tasques",
-      filter: "tableList",
-      options: { header: 'nomactuacio', values: ['nimport'] }
-    }
+    // {
+    //   id: "tasques",
+    //   type: "table",
+    //   table: {
+    //     columns: ['nomactuacio', 'nimport']
+    //   },
+    //   // options: { header: 'nomactuacio', values: ['nimport'] }
+    // }
   ]
 };
 
@@ -153,8 +162,8 @@ export const CommonsMixin = {
         filters.push({
           ...element,
           ...rest,
-          title,
-          options,
+          title: this.translate(title),
+          options: Array.isArray(options) ? options.map(opt => ({ ...opt, title: this.translate(opt.name_translations) })) : [],
           type: type ? type : key,
           key
         });
@@ -171,9 +180,10 @@ export const CommonsMixin = {
       return vocabulary_terms.map(term => {
         const { name_translations: title = {} } = term
         const { count = 0 } = distribution.find(el => parseFloat(JSON.parse(el.value)) === parseFloat(term.id)) || {};
+
         return {
           ...term,
-          title,
+          title: this.translate(title),
           count
         };
       });
@@ -184,10 +194,10 @@ export const CommonsMixin = {
       return {
         ...attr,
         ...element,
-        name: attr.name_translations,
+        name: this.translate(attr.name_translations),
         value: Array.isArray(attributes[element.id]) && element.filter !== "tableList"
           ? attributes[element.id].length
-            ? attributes[element.id][0].name_translations
+            ? this.translate(attributes[element.id][0].name_translations)
             : undefined
           : attributes[element.id]
       };
@@ -199,14 +209,14 @@ export const CommonsMixin = {
 
       return {
         ...element,
-        title: attributes[title.id],
+        title: this.translate(attributes[title.id]),
         description: attributes[description.id] || "",
         photo: Array.isArray(attributes.gallery) ? attributes.gallery[0] : "",
         gallery: attributes.gallery || [],
         location: attributes[locationId],
         locationOptions: restLocationOptions || {},
-        phases: attributes[phases.id].map(element => ({ ...element, title: element.name_translations })),
-        phasesFieldName: this.getItem(phases, attributes).name_translations,
+        phases: attributes[phases.id].map(element => ({ ...element, title: this.translate(element.name_translations) })),
+        phasesFieldName: this.translate(this.getItem(phases, attributes).name_translations),
         availableGalleryFields: availableGalleryFields.map(element => this.getItem(element, attributes)),
         availableTableFields: availableTableFields.map(element => this.getItem(element, attributes)),
         availableProjectFields: availableProjectFields.map(element => this.getItem(element, attributes))
@@ -223,6 +233,6 @@ export const CommonsMixin = {
         }) || {};
 
       return attributes;
-    }
+    },
   }
 };

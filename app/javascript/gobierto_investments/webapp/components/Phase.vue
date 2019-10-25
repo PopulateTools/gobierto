@@ -18,7 +18,7 @@
         :key="project.id"
         class="investments-home-article--list-item"
         @click="nav(project)"
-      >{{ project.title | translate }}</a>
+      >{{ project.title }}</a>
     </div>
   </div>
 </template>

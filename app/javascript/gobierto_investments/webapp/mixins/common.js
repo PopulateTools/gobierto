@@ -119,6 +119,11 @@ const CONFIGURATION = {
     {
       id: "import-liquidacio",
       filter: "money"
+    },
+    {
+      id: "tasques",
+      filter: "tableList",
+      options: { header: 'nomactuacio', values: ['nimport'] }
     }
   ]
 };

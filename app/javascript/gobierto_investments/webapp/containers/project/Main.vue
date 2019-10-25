@@ -39,6 +39,12 @@
           :value="attr.value | money"
         />
         <DictionaryItem
+          v-else-if="attr.filter === 'tableList'"
+          :key="attr.id"
+          :name="attr.name | translate"
+          :value="attr.value | tableList(attr.options)"
+        />
+        <DictionaryItem
           v-else
           :key="attr.id"
           :name="attr.name | translate"

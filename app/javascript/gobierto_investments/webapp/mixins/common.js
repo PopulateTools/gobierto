@@ -1,17 +1,14 @@
-import Vue from "vue";
 import { VueFiltersMixin } from "lib/shared";
 
 const CONFIGURATION = {
   title: {
-    id: "title_translations",
-    filter: "translate"
+    id: "title_translations"
   },
   description: {
     id: "descripcio-projecte"
   },
   phases: {
     id: "estat",
-    filter: "translate"
   },
   location: {
     id: "wkt",
@@ -26,10 +23,12 @@ const CONFIGURATION = {
       endKey: "data-fin",
     },
     {
-      id: "estat"
+      id: "estat",
+      multiple: true
     },
     {
-      id: "nom-servei-responsable"
+      id: "nom-servei-responsable",
+      multiple: true
     },
     {
       id: "tipus-projecte"
@@ -51,7 +50,7 @@ const CONFIGURATION = {
     },
     {
       id: "adjudicatari"
-    }
+    },
   ],
   availableTableFields: [
     {
@@ -59,7 +58,7 @@ const CONFIGURATION = {
     },
     {
       id: "estat",
-      filter: "translate"
+      multiple: true
     },
     {
       id: "import",
@@ -72,11 +71,11 @@ const CONFIGURATION = {
     },
     {
       id: "nom-servei-responsable",
-      filter: "translate"
+      multiple: true
     },
     {
       id: "tipus-projecte",
-      filter: "translate"
+      multiple: true
     },
     {
       id: "descripcio-projecte"
@@ -92,7 +91,7 @@ const CONFIGURATION = {
     },
     {
       id: "estat",
-      filter: "translate"
+      multiple: true
     },
     {
       id: "data-inici",
@@ -132,14 +131,13 @@ const CONFIGURATION = {
       id: "import-liquidacio",
       filter: "money"
     },
-    // {
-    //   id: "tasques",
-    //   type: "table",
-    //   table: {
-    //     columns: ['nomactuacio', 'nimport']
-    //   },
-    //   // options: { header: 'nomactuacio', values: ['nimport'] }
-    // }
+    {
+      id: "tasques",
+      type: "table",
+      table: {
+        columns: ['nomactuacio', 'nimport']
+      }
+    }
   ]
 };
 
@@ -191,15 +189,17 @@ export const CommonsMixin = {
     getItem(element, attributes) {
       const attr = this.getAttributesByKey(element.id);
 
+      let value = attributes[element.id]
+
+      if (element.multiple) {
+        value = this.translate(attributes[element.id][0].name_translations)
+      }
+
       return {
         ...attr,
         ...element,
         name: this.translate(attr.name_translations),
-        value: Array.isArray(attributes[element.id]) && element.filter !== "tableList"
-          ? attributes[element.id].length
-            ? this.translate(attributes[element.id][0].name_translations)
-            : undefined
-          : attributes[element.id]
+        value: value
       };
     },
     setItem(element) {

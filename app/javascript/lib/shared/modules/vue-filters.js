@@ -29,10 +29,6 @@ export const VueFiltersMixin = {
     date(value, opts = {}) {
       const lang = I18n.locale || "es";
       return value instanceof Date ? value.toLocaleDateString(lang, opts) : new Date(value).toLocaleDateString(lang, opts);
-    },
-    tableList(value, opts = {}) {
-      const options = { values: [], ...opts }
-      return value.map(el => (`${el[options.header] || el[Object.keys(el)[0]]}: ${options.values.map(val => (el[val]))}`));
     }
   }
 };

@@ -7,23 +7,18 @@
     <!-- Table type -->
     <div v-if="type === 'table'">
       <div
-        v-for="column in table.columns"
-        :key="column"
+        v-for="v in value"
+        :key="v"
         class="investments-project-main--inner-table-row"
       >
-        <div>{{ value }}</div>
+        <div
+          v-for="column in table.columns"
+          :key="column"
+        >
+          <div>{{ v[column] }}</div>
+        </div>
       </div>
     </div>
-    <!-- <div v-if="isList">
-      <div
-        v-for="(itemList, i) in value"
-        :key="i"
-        class="investments-project-main--inner-table-row"
-      >
-        <div>{{ itemList }}</div>
-        <div />
-      </div>
-    </div> -->
 
     <!-- Icon type -->
     <div v-else-if="type === 'icon'">
@@ -68,14 +63,6 @@ export default {
       type: Object,
       default: () => {}
     }
-  },
-  data() {
-    return {
-      isList: false
-    };
-  },
-  created() {
-    this.isList = this.value && this.value instanceof Array;
   }
 };
 </script>

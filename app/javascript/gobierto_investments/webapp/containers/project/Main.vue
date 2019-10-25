@@ -27,16 +27,7 @@
     <div>
       <template v-for="attr in attributes">
         <DictionaryItem
-          v-if="attr.filter === 'translate'"
-          :key="attr.id"
-          :name="attr.name"
-          :value="attr.value"
-          :type="attr.type"
-          :icon="attr.icon"
-          :table="attr.table"
-        />
-        <DictionaryItem
-          v-else-if="attr.filter === 'money'"
+          v-if="attr.filter === 'money'"
           :key="attr.id"
           :name="attr.name"
           :value="attr.value | money"

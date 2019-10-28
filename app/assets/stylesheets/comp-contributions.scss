@@ -7,7 +7,7 @@ body.contributions_layout {
 
 .contributions_container {
   box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
-  border-top: 3px solid $color_main;
+  border-top: 3px solid var(--color-base);
   border-radius: 0;
   max-width: 1200px;
   margin: 4em auto;
@@ -35,7 +35,7 @@ body.contributions_layout {
     .circle {
       @include circle(5em);
 
-      border: 2px solid $color_main;
+      border: 2px solid var(--color-base);
       margin: 1em auto;
 
       @include min-screen(740) {
@@ -44,7 +44,7 @@ body.contributions_layout {
 
       span {
         font-size: 2.5em;
-        color: $color_main;
+        color: var(--color-base);
       }
     }
 

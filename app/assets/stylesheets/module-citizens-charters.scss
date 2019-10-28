@@ -177,7 +177,7 @@
     }
 
     .subheader-title {
-      color: $color_main;
+      color: var(--color-base);
       text-transform: uppercase;
       font-size: $f6;
     }

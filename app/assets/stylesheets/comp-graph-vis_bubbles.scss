@@ -98,7 +98,7 @@
 
   .bubble_legend {
     text {
-      fill: $color_1;
+      fill: var(--color-base);
       font-weight: 600;
       text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7), -1px -1px 0 rgba(255, 255, 255, 0.7), -1px 1px 0 rgba(255, 255, 255, 0.7), 1px -1px 0 rgba(255, 255, 255, 0.7);
     }

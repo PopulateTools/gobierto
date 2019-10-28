@@ -14,8 +14,8 @@
   }
 
   .pyramid {
-    $male-color: $color_1;
-    $female-color: invert($color_1);
+    $male-color: $color_main;
+    $female-color: invert($color_main);
 
     .males {
       rect {

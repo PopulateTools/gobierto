@@ -6,13 +6,13 @@
   }
 
   .ui-slider-range {
-    background-color: $color_main;
+    background-color: var(--color-base);
   }
 
   .ui-slider-handle {
     border-radius: 100%;
     border: 1px solid $color_main_negative;
-    background-color: $color_main;
+    background-color: var(--color-base);
     width: 12px;
     height: 12px;
     cursor: pointer;

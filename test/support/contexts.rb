@@ -3,6 +3,8 @@
 require "support/site_session_helpers"
 
 def with_javascript
+  ensure_app_host_blank
+
   Capybara.current_driver = Capybara.javascript_driver
   yield
   Capybara.reset_session!
@@ -23,6 +25,8 @@ def with(params = {})
   admin = params[:admin]
 
   if params[:js]
+    ensure_app_host_blank
+
     Capybara.current_driver = Capybara.javascript_driver
 
     if params[:window_size] == :xl
@@ -50,4 +54,16 @@ ensure
     page.driver.resize_window_to(window_handle, *default_size) if params[:window_size]
     Capybara.current_driver = Capybara.default_driver
   end
+end
+
+def ensure_app_host_blank
+  return if Capybara.app_host.blank?
+
+  message = <<-MESSAGE
+ Capybara current driver is javascript_driver. This would make the browser to send a
+            request to a remote application with host #{site.domain} instead of the Capybara's
+            rack server. Avoid the use of with_site_host or include_host: true option combined
+            with javascript driver.
+  MESSAGE
+  raise(Exception, message)
 end

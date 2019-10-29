@@ -1,4 +1,4 @@
-import { VueFiltersMixin } from "lib/shared";
+import { VueUtilsMixin } from "lib/shared";
 
 const CONFIGURATION = {
   title: {
@@ -144,7 +144,7 @@ const CONFIGURATION = {
 export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`
 
 export const CommonsMixin = {
-  mixins: [VueFiltersMixin],
+  mixins: [VueUtilsMixin],
   methods: {
     nav(item) {
       this.$router.push({ name: "project", params: { id: item.id, item } });

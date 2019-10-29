@@ -46,11 +46,11 @@
 </template>
 
 <script>
-import { VueFiltersMixin } from "lib/shared";
+import { VueUtilsMixin } from "lib/shared";
 
 export default {
   name: "Budgets",
-  mixins: [VueFiltersMixin],
+  mixins: [VueUtilsMixin],
   props: {
     config: {
       type: Object,

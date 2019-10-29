@@ -22,12 +22,10 @@
       "endKey": "data-fin"
     },
     {
-      "id": "estat",
-      "multiple": true
+      "id": "estat"
     },
     {
-      "id": "nom-servei-responsable",
-      "multiple": true
+      "id": "nom-servei-responsable"
     },
     {
       "id": "tipus-projecte"
@@ -56,8 +54,7 @@
       "id": "nom-projecte"
     },
     {
-      "id": "estat",
-      "multiple": true
+      "id": "estat"
     },
     {
       "id": "import",
@@ -69,12 +66,10 @@
       "id": "nom-projecte"
     },
     {
-      "id": "nom-servei-responsable",
-      "multiple": true
+      "id": "nom-servei-responsable"
     },
     {
-      "id": "tipus-projecte",
-      "multiple": true
+      "id": "tipus-projecte"
     },
     {
       "id": "descripcio-projecte"
@@ -89,8 +84,7 @@
       "id": "adjudicatari"
     },
     {
-      "id": "estat",
-      "multiple": true
+      "id": "estat"
     },
     {
       "id": "data-inici",

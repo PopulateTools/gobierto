@@ -51,7 +51,7 @@ export const GobiertoInvestmentsSharedMixin = {
 
       let value = attributes[element.id]
 
-      if (element.multiple) {
+      if (attr.field_type === "vocabulary_options") {
         value = this.translate(attributes[element.id][0].name_translations)
       }
 

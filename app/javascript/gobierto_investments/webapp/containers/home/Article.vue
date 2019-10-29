@@ -14,14 +14,14 @@
 
 <script>
 import Phase from "../../components/Phase.vue";
-import { CommonsMixin } from "../../mixins/common.js";
+import { GobiertoInvestmentsSharedMixin } from "../../mixins/common.js";
 
 export default {
   name: "HomeArticle",
   components: {
     Phase
   },
-  mixins: [CommonsMixin],
+  mixins: [GobiertoInvestmentsSharedMixin],
   props: {
     phases: {
       type: Array,

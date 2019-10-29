@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import { CommonsMixin } from "../mixins/common.js";
+import { GobiertoInvestmentsSharedMixin } from "../mixins/common.js";
 
 export default {
   name: "BlockHeader",
-  mixins: [CommonsMixin],
+  mixins: [GobiertoInvestmentsSharedMixin],
   props: {
     title: {
       type: String,

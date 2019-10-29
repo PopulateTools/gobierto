@@ -42,7 +42,7 @@ import Main from "./Main.vue";
 import Nav from "./Nav.vue";
 import Article from "./Article.vue";
 import axios from "axios";
-import { CommonsMixin, baseUrl } from "../../mixins/common.js";
+import { GobiertoInvestmentsSharedMixin, baseUrl, configUrl } from "../../mixins/common.js";
 
 export default {
   name: "Home",
@@ -52,7 +52,7 @@ export default {
     Nav,
     Article
   },
-  mixins: [CommonsMixin],
+  mixins: [GobiertoInvestmentsSharedMixin],
   data() {
     return {
       items: [],
@@ -67,29 +67,31 @@ export default {
   created() {
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
 
-    axios.all([axios.get(baseUrl), axios.get(`${baseUrl}/meta?stats=true`)]).then(responses => {
+    axios.all([axios.get(baseUrl), axios.get(`${baseUrl}/meta?stats=true`), axios.get(configUrl)]).then(responses => {
       const [
         {
           data: { data: items = [] }
         },
         {
           data: { data: attributesDictionary = [], meta: filtersFromConfiguration }
-        }
+        },
+        { data: siteConfiguration = {} }
       ] = responses;
 
+      this.configuration = siteConfiguration;
       this.dictionary = attributesDictionary;
-      this.items = this.setData(items);
+      this.items = this.setItems(items);
 
       if (filtersFromConfiguration) {
         // get the phases, and append what items are in that phase
-        const phases = this.getPhases(filtersFromConfiguration)
+        const phases = this.getPhases(filtersFromConfiguration);
         this.phases = phases.map(phase => ({
           ...phase,
           items: this.items.filter(d => (d.phases.length ? d.phases[0].id === phase.id : false))
         }));
 
         // Add dictionary of phases in order to fulfill project page
-        this.items = this.items.map(item => ({ ...item, phasesDictionary: phases }))
+        this.items = this.items.map(item => ({ ...item, phasesDictionary: phases }));
 
         this.filters = this.getFilters(filtersFromConfiguration) || [];
 
@@ -101,20 +103,23 @@ export default {
 
             if (f.type === "vocabulary_options") {
               // Add a counter for each option
-              f.options = f.options.map(opt => ({ ...opt, counter: this.items.filter(i => i.attributes[f.key].map(g => g.id).includes(opt.id)).length }))
+              f.options = f.options.map(opt => ({
+                ...opt,
+                counter: this.items.filter(i => i.attributes[f.key].map(g => g.id).includes(opt.id)).length
+              }));
             }
           });
         }
       }
 
       this.subsetItems = this.items;
-    })
+    });
   },
   methods: {
     filterItems(filter, key) {
       this.activeFilters.set(key, filter);
 
-      let results = this.items
+      let results = this.items;
       this.activeFilters.forEach(activeFn => {
         if (activeFn) {
           results = results.filter(d => activeFn(d.attributes));

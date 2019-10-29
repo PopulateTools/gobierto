@@ -29,11 +29,11 @@
 
 <script>
 import { rangeSlider } from "lib/shared";
-import { CommonsMixin } from "../mixins/common.js";
+import { GobiertoInvestmentsSharedMixin } from "../mixins/common.js";
 
 export default {
   name: "RangeBars",
-  mixins: [CommonsMixin],
+  mixins: [GobiertoInvestmentsSharedMixin],
   props: {
     min: {
       type: Number,

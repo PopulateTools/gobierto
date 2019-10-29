@@ -14,14 +14,14 @@
 
 <script>
 import Steps from "../../components/Steps.vue";
-import { CommonsMixin } from "../../mixins/common.js";
+import { GobiertoInvestmentsSharedMixin } from "../../mixins/common.js";
 
 export default {
   name: "ProjectAside",
   components: {
     Steps
   },
-  mixins: [CommonsMixin],
+  mixins: [GobiertoInvestmentsSharedMixin],
   props: {
     phases: {
       type: Array,

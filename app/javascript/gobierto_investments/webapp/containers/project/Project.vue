@@ -32,7 +32,7 @@
 import Aside from "./Aside.vue";
 import Main from "./Main.vue";
 import axios from "axios";
-import { CommonsMixin, baseUrl } from "../../mixins/common.js";
+import { GobiertoInvestmentsSharedMixin, baseUrl, configUrl } from "../../mixins/common.js";
 
 export default {
   name: "Project",
@@ -40,7 +40,7 @@ export default {
     Aside,
     Main
   },
-  mixins: [CommonsMixin],
+  mixins: [GobiertoInvestmentsSharedMixin],
   data() {
     return {
       dictionary: [],
@@ -53,7 +53,7 @@ export default {
 
     if (!item) {
       // If there's no item (project) it must request it
-      axios.all([axios.get(`${baseUrl}/${to.params.id}`), axios.get(`${baseUrl}/meta?stats=true`)]).then(responses =>
+      axios.all([axios.get(`${baseUrl}/${to.params.id}`), axios.get(`${baseUrl}/meta?stats=true`), axios.get(configUrl)]).then(responses =>
         next(vm => {
           const [
             {
@@ -61,9 +61,11 @@ export default {
             },
             {
               data: { data: attributesDictionary, meta: filtersFromConfiguration }
-            }
+            },
+            { data: siteConfiguration = {} }
           ] = responses;
 
+          vm.configuration = siteConfiguration;
           vm.dictionary = attributesDictionary;
           vm.project = vm.setItem(item);
 

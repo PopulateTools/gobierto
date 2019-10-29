@@ -63,7 +63,7 @@ import DictionaryItem from "../../components/DictionaryItem.vue";
 import HorizontalCarousel from "../../components/HorizontalCarousel.vue";
 import ReadMore from "../../components/ReadMore.vue";
 import { ImageLightbox } from "lib/shared";
-import { CommonsMixin } from "../../mixins/common.js";
+import { GobiertoInvestmentsSharedMixin } from "../../mixins/common.js";
 import Vue from "vue"
 
 export default {
@@ -73,7 +73,7 @@ export default {
     HorizontalCarousel,
     ReadMore
   },
-  mixins: [CommonsMixin],
+  mixins: [GobiertoInvestmentsSharedMixin],
   props: {
     project: {
       type: Object,

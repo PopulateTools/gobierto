@@ -41,11 +41,11 @@
 </template>
 
 <script>
-import { CommonsMixin } from "../mixins/common.js";
+import { GobiertoInvestmentsSharedMixin } from "../mixins/common.js";
 
 export default {
   name: "GalleryItem",
-  mixins: [CommonsMixin],
+  mixins: [GobiertoInvestmentsSharedMixin],
   props: {
     item: {
       type: Object,

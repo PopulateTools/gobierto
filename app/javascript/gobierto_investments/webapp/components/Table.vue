@@ -27,14 +27,14 @@
 
 <script>
 import TableRow from "./TableRow.vue";
-import { CommonsMixin } from "../mixins/common.js";
+import { GobiertoInvestmentsSharedMixin } from "../mixins/common.js";
 
 export default {
   name: "Table",
   components: {
     TableRow
   },
-  mixins: [CommonsMixin],
+  mixins: [GobiertoInvestmentsSharedMixin],
   props: {
     items: {
       type: Array,

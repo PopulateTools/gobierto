@@ -1,156 +1,16 @@
 import { VueUtilsMixin } from "lib/shared";
 
-const CONFIGURATION = {
-  title: {
-    id: "title_translations"
-  },
-  description: {
-    id: "descripcio-projecte"
-  },
-  phases: {
-    id: "estat",
-  },
-  location: {
-    id: "wkt",
-    center: [41.536908,2.4418503],
-    minZoom: 13,
-    maxZoom: 16
-  },
-  availableFilters: [
-    {
-      id: "range",
-      startKey: "data-inici",
-      endKey: "data-fin",
-    },
-    {
-      id: "estat",
-      multiple: true
-    },
-    {
-      id: "nom-servei-responsable",
-      multiple: true
-    },
-    {
-      id: "tipus-projecte"
-    },
-    {
-      id: "import"
-    },
-  ],
-  availableGalleryFields: [
-    {
-      id: "data-inici"
-    },
-    {
-      id: "data-final"
-    },
-    {
-      id: "import",
-      filter: "money"
-    },
-    {
-      id: "adjudicatari"
-    },
-  ],
-  availableTableFields: [
-    {
-      id: "nom-projecte"
-    },
-    {
-      id: "estat",
-      multiple: true
-    },
-    {
-      id: "import",
-      filter: "money"
-    }
-  ],
-  availableProjectFields: [
-    {
-      id: "nom-projecte"
-    },
-    {
-      id: "nom-servei-responsable",
-      multiple: true
-    },
-    {
-      id: "tipus-projecte",
-      multiple: true
-    },
-    {
-      id: "descripcio-projecte"
-    },
-    {
-      id: "notes"
-    },
-    {
-      id: "adreca"
-    },
-    {
-      id: "adjudicatari"
-    },
-    {
-      id: "estat",
-      multiple: true
-    },
-    {
-      id: "data-inici",
-      filter: "date",
-    },
-    {
-      id: "data-adjudicacio",
-      filter: "date",
-    },
-    {
-      id: "data-inici-redaccio",
-      filter: "date",
-    },
-    {
-      id: "data-fi-redaccio",
-      filter: "date",
-    },
-    {
-      id: "data-final",
-      // filter: "date",
-      type: "icon",
-      icon: {
-        href: "https://twitter.com",
-        name: "file"
-      }
-    },
-    {
-      id: "import",
-      filter: "money",
-      type: "highlight"
-    },
-    {
-      id: "import-adjudicacio",
-      filter: "money"
-    },
-    {
-      id: "import-liquidacio",
-      filter: "money"
-    },
-    {
-      id: "tasques",
-      type: "table",
-      table: {
-        columns: ['nomactuacio', 'nimport']
-      }
-    }
-  ]
-};
-
 export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`
+export const configUrl = "/mataro.config.json"
 
-export const CommonsMixin = {
+export const GobiertoInvestmentsSharedMixin = {
   mixins: [VueUtilsMixin],
   methods: {
     nav(item) {
       this.$router.push({ name: "project", params: { id: item.id, item } });
     },
     getFilters(stats) {
-      const { availableFilters } = CONFIGURATION
+      const { availableFilters } = this.configuration
       const filters = []
       for (let index = 0; index < availableFilters.length; index++) {
         const { id: key, ...rest } = availableFilters[index];
@@ -172,7 +32,7 @@ export const CommonsMixin = {
     getPhases(stats) {
       const {
         phases: { id }
-      } = CONFIGURATION;
+      } = this.configuration;
       const { vocabulary_terms = [] } = this.getAttributesByKey(id);
       const { distribution = [] } = stats[id];
       return vocabulary_terms.map(term => {
@@ -204,7 +64,7 @@ export const CommonsMixin = {
     },
     setItem(element) {
       const { attributes = {} } = element;
-      const { title, description, phases, location, availableGalleryFields, availableTableFields, availableProjectFields } = CONFIGURATION;
+      const { title, description, phases, location, availableGalleryFields, availableTableFields, availableProjectFields } = this.configuration;
       const { id: locationId, ...restLocationOptions } = location;
 
       return {
@@ -222,7 +82,7 @@ export const CommonsMixin = {
         availableProjectFields: availableProjectFields.map(element => this.getItem(element, attributes))
       };
     },
-    setData(data) {
+    setItems(data) {
       return data.map(element => this.setItem(element));
     },
     getAttributesByKey(prop) {

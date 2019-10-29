@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import { CommonsMixin } from "../mixins/common.js";
+import { GobiertoInvestmentsSharedMixin } from "../mixins/common.js";
 
 export default {
   name: "Steps",
-  mixins: [CommonsMixin],
+  mixins: [GobiertoInvestmentsSharedMixin],
   props: {
     steps: {
       type: Array,

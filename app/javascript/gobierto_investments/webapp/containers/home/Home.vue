@@ -67,7 +67,7 @@ export default {
   created() {
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
 
-    axios.all([axios.get(baseUrl), axios.get(`${baseUrl}/meta?stats=true`), axios.get(configUrl)]).then(responses => {
+    axios.all([axios.get(`${baseUrl}?locale=${I18n.locale}`), axios.get(`${baseUrl}/meta?stats=true&locale=${I18n.locale}`), axios.get(`${configUrl}?locale=${I18n.locale}`)]).then(responses => {
       const [
         {
           data: { data: items = [] }

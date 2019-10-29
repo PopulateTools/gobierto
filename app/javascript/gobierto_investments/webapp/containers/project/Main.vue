@@ -64,7 +64,6 @@ import HorizontalCarousel from "../../components/HorizontalCarousel.vue";
 import ReadMore from "../../components/ReadMore.vue";
 import { ImageLightbox } from "lib/shared";
 import { GobiertoInvestmentsSharedMixin } from "../../mixins/common.js";
-import Vue from "vue"
 
 export default {
   name: "ProjectMain",
@@ -99,12 +98,7 @@ export default {
   mounted() {
     const lightboxes = this.$el.querySelectorAll(".js-image-lightbox");
     lightboxes.forEach(lightbox => new ImageLightbox(lightbox));
-  },
-  // methods: {
-  //     dynamicFilter: function (value, filter) {
-  //       return Vue.filter(filter)(value)
-  //     }
-  // }
+  }
 };
 </script>
 

@@ -53,7 +53,7 @@ export default {
 
     if (!item) {
       // If there's no item (project) it must request it
-      axios.all([axios.get(`${baseUrl}/${to.params.id}`), axios.get(`${baseUrl}/meta?stats=true`), axios.get(configUrl)]).then(responses =>
+      axios.all([axios.get(`${baseUrl}/${to.params.id}?locale=${I18n.locale}`), axios.get(`${baseUrl}/meta?stats=true&locale=${I18n.locale}`), axios.get(`${configUrl}?locale=${I18n.locale}`)]).then(responses =>
         next(vm => {
           const [
             {

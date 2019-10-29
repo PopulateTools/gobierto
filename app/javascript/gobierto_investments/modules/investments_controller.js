@@ -46,10 +46,8 @@ export class InvestmentsController {
               const { item: { title: projectTitle } = {} } = to.params;
 
               if (projectTitle) {
-                const titleI18n = projectTitle[I18n.locale]
-                  ? `${projectTitle[I18n.locale]} · `
-                  : Object.keys(projectTitle).length
-                  ? `${projectTitle[Object.keys(projectTitle)[0]]} · `
+                const titleI18n = projectTitle
+                  ? `${projectTitle} · `
                   : "";
 
                 title = `${titleI18n}${baseTitle}`;

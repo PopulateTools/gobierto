@@ -11,7 +11,7 @@ export class VisAgeDistribution {
     this.isMobile = window.innerWidth <= 768;
 
     // Chart dimensions
-    this.margin = {top: 25, right: 10, bottom: 25, left: 15};
+    this.margin = { top: 25, right: 10, bottom: 25, left: 15 };
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -49,7 +49,11 @@ export class VisAgeDistribution {
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
 
-    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
+    d3.select(window).on('resize.' + this.container, () => {
+      if (this.data) {
+        this._resize()
+      }
+    });
   }
 
   getData() {
@@ -171,11 +175,11 @@ export class VisAgeDistribution {
     // We only want multiples of 10 in the x axis
     if (this.isMobile) {
       this.svg.selectAll(".x.axis .tick")
-        .filter(function (d) { return d % 20 !== 0;  })
+        .filter(function (d) { return d % 20 !== 0; })
         .remove();
     } else {
       this.svg.selectAll(".x.axis .tick")
-        .filter(function (d) { return d % 10 !== 0;  })
+        .filter(function (d) { return d % 10 !== 0; })
         .remove();
     }
 
@@ -191,7 +195,7 @@ export class VisAgeDistribution {
 
     // Remove the zero
     this.svg.selectAll(".y.axis .tick")
-      .filter(function (d) { return d === 0;  })
+      .filter(function (d) { return d === 0; })
       .remove();
   }
 

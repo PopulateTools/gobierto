@@ -16,6 +16,15 @@ Rollbar.configure do |config|
   config.js_options = {
     accessToken: Rails.application.secrets.rollbar_post_client_item,
     captureUncaught: true,
-    payload: { environment: Rails.env }
+    payload: { 
+      environment: Rails.env,
+      client: {
+        javascript: {
+          source_map_enabled: true,
+          code_version: GIT_REVISION,
+          guess_uncaught_frames: true
+        }
+      }
+    }
   }
 end

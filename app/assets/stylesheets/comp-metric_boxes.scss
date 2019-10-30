@@ -10,7 +10,7 @@
     box-sizing: border-box;
 
     .inner {
-      background: transparentize($color_main, 0.85);
+      background: rgba(var(--color-base-string), 0.15);
       margin: 0 0.5em;
       padding: 0.8em 1em;
       min-height: 100px;
@@ -22,7 +22,7 @@
     }
 
     h3 {
-      color: $color_main;
+      color: var(--color-base);
       margin: 0 0 0.75em 0;
       font-size: 1em;
       opacity: 0.6;
@@ -80,13 +80,13 @@
       width: 25%;
       opacity: 1;
       height: 10px;
-      background: rgba($color_main, 0.1);
+      background: rgba(var(--color-base-string), 0.1);
       margin-right: 0.25rem;
 
       .line {
         opacity: 1;
         height: 10px;
-        background: $color_main;
+        background: var(--color-base);
       }
     }
 

@@ -23,6 +23,13 @@
           :options="geojsonOptions"
         />
       </l-feature-group>
+      <button
+        class="btn-tour-virtual"
+        @click="goTourVirtual"
+        >
+        {{ titleTour }}
+      </button>
+
     </l-map>
   </div>
 </template>
@@ -73,7 +80,8 @@ export default {
       geojsons: [],
       geojsonOptions: {},
       item: null,
-      center: [40.199867, -4.0654947] // Spain center
+      center: [40.199867, -4.0654947], // Spain center
+      titleTour: I18n.t("gobierto_investments.projects.tour")
     };
   },
   watch: {
@@ -153,6 +161,9 @@ export default {
           this.$refs.map.mapObject.fitBounds(this.$refs.map.mapObject.getBounds(), { maxZoom: this.tileOptions.minZoom });
         }
       });
+    },
+    goTourVirtual() {
+      window.location.href = this.$root.$data.tourUrl;
     }
   }
 };

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Sidekiq::Logging.logger.level = Rails.logger.level
+Sidekiq.logger.level = Rails.logger.level
 
 Sidekiq.configure_server do |config|
   config.redis = { url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/0" } }

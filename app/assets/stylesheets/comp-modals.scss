@@ -57,7 +57,7 @@
 
 .modal_background {
   position: relative;
-  background-color: $color_main;
+  background-color: var(--color-base);
   padding: 1em 4em;
   width: auto;
   max-width: 950px;
@@ -177,7 +177,7 @@
       }
 
       button {
-        background: $color_1;
+        background: var(--color-base);
         color: white;
         text-transform: uppercase;
         padding: 0.75em 2em;

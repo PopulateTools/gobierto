@@ -1,4 +1,4 @@
-$colors: $color_main #ff8400 #717e86 #2989dc #a600a9 #e1d73b;
+$colors: var(--color-base) #ff8400 #717e86 #2989dc #a600a9 #e1d73b;
 
 .gobierto_citizens-charters {
   .charters-box-container {
@@ -12,22 +12,22 @@ $colors: $color_main #ff8400 #717e86 #2989dc #a600a9 #e1d73b;
   }
 
   .charter-header {
-    background-color: $color_main;
+    background-color: var(--color-base);
   }
 
   .charter-inner,
   .charter-inner:hover,
   .sparkline svg {
-    background-color: rgba($color_main, .1);
+    background-color: rgba(var(--color-base-string), 0.1);
   }
 
   .sparkline {
     path {
-      stroke: $color_main;
+      stroke: var(--color-base);
     }
 
     .axis line {
-      stroke: rgba($color_main, .1);
+      stroke: rgba(var(--color-base-string), 0.1);
     }
   }
 }

@@ -52,7 +52,7 @@
   }
 
   .handle {
-    fill: $color_1;
+    fill: var(--color-base);
     stroke: white;
     stroke-opacity: 0.5;
     stroke-width: 1.25px;

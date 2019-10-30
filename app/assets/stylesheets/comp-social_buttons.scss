@@ -60,7 +60,7 @@
 }
 
 .email {
-  background: $color_main;
+  background: var(--color-base);
 }
 
 .whatsapp {
@@ -72,7 +72,7 @@
 }
 
 .code {
-  background: $color_main;
+  background: var(--color-base);
 }
 
 .facebook:hover {
@@ -84,7 +84,7 @@
 }
 
 .email:hover {
-  background: darken($color_main, 10%);
+  background: rgba(var(--color-base-string), 0.8);
 }
 
 .linkedin:hover {
@@ -92,7 +92,7 @@
 }
 
 .code:hover {
-  background: darken($color_main, 10%);
+  background: rgba(var(--color-base-string), 0.8);
 }
 
 .social_links_container {

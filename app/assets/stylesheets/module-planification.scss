@@ -7,15 +7,14 @@
 $nodeLevel1IllustrationWidth: 33%;
 $nodeLevel1Height: 150px;
 $nodeLevel1HeightMobile: 20vh;
-$white: $color_main_negative;
 
 // styles only concern this module
 .gobierto_planification {
   min-height: 300px;
 
   .planification-header {
-    border-top: 1px solid $color_1_soft;
-    border-bottom: 1px solid $color_1_soft;
+    border-top: 1px solid rgba(var(--color-base-string), 0.06);
+    border-bottom: 1px solid rgba(var(--color-base-string), 0.06);
     padding: 1rem;
     display: flex;
 
@@ -75,7 +74,7 @@ $white: $color_main_negative;
     a {
       display: flex;
       width: 100%;
-      color: $white;
+      color: $color_main_negative;
       text-decoration: none;
       cursor: pointer;
       max-height: $nodeLevel1HeightMobile;
@@ -131,7 +130,7 @@ $white: $color_main_negative;
         z-index: 2;
         box-sizing: border-box;
         padding: 1em;
-        color: $white;
+        color: $color_main_negative;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -142,7 +141,7 @@ $white: $color_main_negative;
         }
 
         h3 {
-          color: $white;
+          color: $color_main_negative;
           margin: 0 0 0.25em 0;
           font-size: $f3;
         }

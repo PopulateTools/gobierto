@@ -7,7 +7,7 @@ h2,
 h3,
 h4 {
   line-height: 1.2em;
-  color: $color_main;
+  color: var(--color-base);
 
   .soft {
     color: $color_meta_text;
@@ -96,12 +96,12 @@ h4 {
 
 .with_separator {
   font-size: 1.25em;
-  color: $color_main;
+  color: var(--color-base);
   margin-top: 0;
   display: inline-block;
   min-width: 10em;
   padding-top: 1em;
-  border-top: 3px solid $color_main;
+  border-top: 3px solid var(--color-base);
 
   & ~ .soft {
     @include min-screen(740) {
@@ -167,7 +167,7 @@ p.intro {
  *
  */
 .box {
-  background: $color_1_soft;
+  background: rgba(var(--color-base-string), 0.06);
 
   @include border-radius(6px);
 
@@ -233,7 +233,7 @@ p.intro {
 
   a:hover {
     text-decoration: none;
-    background: darken($color_1_soft, 15%);
+    background: rgba(var(--color-base-string), 0.15);
   }
 
   .fas {
@@ -277,7 +277,7 @@ p.intro {
   .circle_teaser {
     height: 6.25em;
     width: 6.25em;
-    background: rgba($color_main, 0.1);
+    background: rgba(var(--color-base-string), 0.1);
     margin: 0 auto;
     border-radius: 50%;
   }
@@ -322,7 +322,7 @@ a.content_block {
 }
 
 .content_block.filled_block {
-  background-color: $color_main;
+  background-color: var(--color-base);
 
   h2 {
     font-size: 1.25em;
@@ -455,7 +455,7 @@ a.content_block {
 }
 
 .separator_blue_medium {
-  border-top: 3px solid transparentize($color_main, 0.65);
+  border-top: 3px solid rgba(var(--color-base-string), 0.35);
 }
 
 .separator_responsive {
@@ -477,8 +477,8 @@ a.content_block {
 }
 
 .block_color {
-  background: transparentize($color_main, 0.94);
-  border-top: 4px solid $color_main;
+  background: rgba(var(--color-base-string), 0.06);
+  border-top: 4px solid var(--color-base);
 }
 
 .section_separator {
@@ -530,12 +530,12 @@ a.content_block {
   text-transform: uppercase;
   text-decoration: none;
   font-weight: 600;
-  background: $color_1_soft;
+  background: rgba(var(--color-base-string), 0.06);
 }
 
 .see_more:hover {
   text-decoration: none;
-  background: darken($color_1_soft, 15%);
+  background: rgba(var(--color-base-string), 0.15);
 }
 
 .inpage_section {
@@ -573,25 +573,25 @@ a.content_block {
     top: -1em;
     width: 2em;
     height: 3px;
-    background: rgba($color_main, 0.5);
+    background: rgba(var(--color-base-string), 0.5);
   }
 }
 
 .accent {
   font-weight: 600;
-  color: $color_main;
+  color: var(--color-base);
 }
 
 .date_badge {
   box-sizing: border-box;
   padding: 0.3em 0;
-  background-color: $color_main;
+  background-color: var(--color-base);
   text-align: center;
-  background: $color_1_soft;
+  background: rgba(var(--color-base-string), 0.06);
 
   @include border-radius(4px);
 
-  color: $color_main;
+  color: var(--color-base);
 
   .day,
   .month,
@@ -618,13 +618,12 @@ a.content_block {
 .badge {
   box-sizing: border-box;
   padding: 0.3em 0;
-  background-color: $color_main;
   text-align: center;
-  background: $color_1_soft;
+  background: rgba(var(--color-base-string), 0.06);
 
   @include border-radius(4px);
 
-  color: $color_main;
+  color: var(--color-base);
 
   strong {
     font-size: 1.4em;
@@ -637,7 +636,7 @@ a.content_block {
   font-size: $f7 !important;
 
   strong {
-    color: $color_1;
+    color: var(--color-base);
   }
 }
 

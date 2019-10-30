@@ -7,14 +7,21 @@ es:
     layouts:
       application:
         investments: Inversiones
+        investments_paragraph: Consulta los proyectos que tiene en marcha el Ayuntamiento,
+          los que empezarán proximamente, y los planes a medio plazo. Detalle sobre
+          el plan anual de inversiones y mecanismos de seguimiento de las obras en
+          marcha.
     projects:
       all: Todas
       back: ver todo
       date: Último año
       detail_title: Detalle del proyecto
       empty: Sin resultados
+      exit: Salir
       gallery: Galería
       list: Lista
       map: Mapa
       none: Ninguna
+      see: Ver de nuevo
       summary: Resumen por estados
+      tour: Tour virtual

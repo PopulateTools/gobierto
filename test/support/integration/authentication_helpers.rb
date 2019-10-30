@@ -8,8 +8,10 @@ module Integration
       sign_out_admin
     end
 
-    def with_signed_in_user(user, logout=true)
-      with_current_site(user.site) do
+    def with_signed_in_user(user, opts = {})
+      logout = opts.has_key?(:logout) ? opts[:logout] : true
+
+      with_current_site(user.site, opts.slice(:include_host)) do
         sign_in_user(user)
         yield
         # permits skipping logout on some pages that don't have layout, thus no logout link

@@ -73,12 +73,12 @@ module GobiertoAdmin
     end
 
     def test_sign_in_mantains_session_across_sites
-      with_current_site_with_host(site) do
+      with_current_site(site, include_host: true) do
         sign_in_admin(admin)
         assert_equal site.name, find('div#current-site-name').text
       end
 
-      with_current_site_with_host(other_site) do
+      with_current_site(other_site, include_host: true) do
         visit @sign_in_path
 
         assert has_message?("You are already signed in")
@@ -112,11 +112,11 @@ module GobiertoAdmin
     end
 
     def test_sign_out
-      with_current_site_with_host(site) do
+      with_current_site(site, include_host: true) do
         sign_in_admin(admin)
       end
 
-      with_current_site_with_host(site) do
+      with_current_site(site, include_host: true) do
         visit admin_root_path
         click_link "admin-sign-out"
         visit @sign_in_path
@@ -124,7 +124,7 @@ module GobiertoAdmin
         assert has_content?("Log in")
       end
 
-      with_current_site_with_host(other_site) do
+      with_current_site(other_site, include_host: true) do
         visit @sign_in_path
 
         assert has_content?("Log in")

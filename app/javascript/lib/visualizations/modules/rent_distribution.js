@@ -335,7 +335,15 @@ export class VisRentDistribution {
 
       this.voronoiGroup.selectAll('.voronoiPath')
         .data(this.voronoi(this.data))
-        .attr("d", function(d) { return d.path; });
+        .attr("d", function(d, i, _) {
+          if (!d) {
+            console.log(d, i, _);
+
+            return
+          }
+
+          return d.path;
+         });
     }
   }
 

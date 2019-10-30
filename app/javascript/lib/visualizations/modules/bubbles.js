@@ -22,7 +22,8 @@ export class VisBubbles {
     d3.formatDefaultLocale(d3locale[this.locale]);
 
     this.margin = { top: 20, right: 10, bottom: 20, left: 10 }
-    this.width = parseInt(d3.select(this.container).node().parentNode.getBoundingClientRect().width) - this.margin.left - this.margin.right;
+    const containerNode = d3.select(this.container).node() || document.createElement("div")
+    this.width = (containerNode.parentNode || containerNode).getBoundingClientRect().width - this.margin.left - this.margin.right;
     this.height = this.isMobile ? 320 : 520 - this.margin.top - this.margin.bottom;
     this.center = { x: this.width / 2, y: this.height / 2 };
 

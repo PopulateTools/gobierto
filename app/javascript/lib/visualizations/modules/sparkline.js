@@ -106,7 +106,7 @@ export class Sparkline {
   }
 
   _width() {
-    return parseInt(d3.select(this.container).style('width')) || +d3.select(this.container).node().getBoundingClientRect().width
+    return parseInt(d3.select(this.container).style('width')) || +(d3.select(this.container).node() || document.createElement("div")).getBoundingClientRect().width
   }
 
   _height() {

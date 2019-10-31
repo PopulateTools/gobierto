@@ -1,4 +1,3 @@
-// import * as d3 from 'd3'
 import { select, selectAll, mouse } from 'd3-selection'
 import { keys } from 'd3-collection'
 import { scalePoint, scaleQuantize } from 'd3-scale'

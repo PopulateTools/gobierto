@@ -26,6 +26,7 @@ gobierto_budgets_settings_madrid:
   settings: <%= {
     "budgets_elaboration": true,
     "budgets_receipt_enabled": true,
+    "comparison_context_table_enabled": true,
     "budgets_receipt_configuration": {"budgets_simulation_sections": [{
       "name": "IBI",
       "options": [{

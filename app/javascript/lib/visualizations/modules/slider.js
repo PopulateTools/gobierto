@@ -1,4 +1,10 @@
-import * as d3 from 'd3'
+// import * as d3 from 'd3'
+import { select, selectAll, mouse } from 'd3-selection'
+import { keys } from 'd3-collection'
+import { scalePoint, scaleQuantize } from 'd3-scale'
+import { drag } from 'd3-drag'
+
+const d3 = { select, selectAll, keys, scalePoint, scaleQuantize, drag, mouse }
 
 export class VisSlider {
   constructor(divId, data) {

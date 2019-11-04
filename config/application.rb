@@ -49,7 +49,8 @@ module Gobierto
       "#{config.root}/lib/constraints",
       "#{config.root}/lib/errors",
       "#{config.root}/lib/ibm_notes",
-      "#{config.root}/lib/liquid"
+      "#{config.root}/lib/liquid",
+      "#{config.root}/lib/custom_cache_file_store"
     ]
     config.autoload_paths += required_paths
     config.eager_load_paths += required_paths

@@ -323,8 +323,10 @@ window.GobiertoBudgets.InvoicesController = (function() {
         return +d.value;
       });
 
+    const node = bars.root().node() || document.createElement("div")
+
     bars
-      .width(bars.root().node().parentNode.getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
+      .width((node.parentNode || node).getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
       .dimension(months)
       .group(budgetMonthly)
       .x(d3.scaleBand())
@@ -382,8 +384,10 @@ window.GobiertoBudgets.InvoicesController = (function() {
       _barHeight = 15,
       _labelOffset = 195;
 
+    const node = hbars1.root().node() || document.createElement("div")
+
     hbars1
-      .width(hbars1.root().node().parentNode.getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
+      .width((node.parentNode || node).getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
       .height(hbars1.margins().top + hbars1.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // Margins top/bottom + bars + gaps (space between)
       .fixedBarHeight(_barHeight)
       .cap(_count).othersGrouper(null) // Show only a couple of results, and hide Others groups
@@ -393,7 +397,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
       .gap(_gap)
       .labelOffsetX(-_labelOffset)
       .label(function (d) {
-        return((d.key.length > 24) ? d.key.slice(0, 24) + "..." : d.key);
+        return ((d.key.length > 24) ? d.key.slice(0, 24) + "..." : d.key);
       })
       .title(function(d) { return d.key + " - " + _abbrevLargeCurrency(d.value, { minimumFractionDigits: 0 }); })
       .elasticX(true)
@@ -452,8 +456,10 @@ window.GobiertoBudgets.InvoicesController = (function() {
       _barHeight = 18,
       _labelOffset = 195;
 
+    const node = hbars2.root().node() || document.createElement("div")
+
     hbars2
-      .width(hbars2.root().node().parentNode.getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
+      .width((node.parentNode || node).getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
       .height(hbars2.margins().top + hbars2.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // Margins top/bottom + bars + gaps (space between)
       .fixedBarHeight(_barHeight)
       .x(d3.scaleThreshold())

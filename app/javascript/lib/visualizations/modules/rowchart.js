@@ -83,10 +83,11 @@ export const rowchart = (context, data, options = {}) => {
           </div>`;
       }
 
-      let coords = {
-        x: window.pageXOffset + container.node().getBoundingClientRect().left,
-        y: window.pageYOffset + container.node().getBoundingClientRect().top
-      };
+      const node = container.node() || document.createElement("div")
+      const coords = {
+        x: window.pageXOffset + node.getBoundingClientRect().left,
+        y: window.pageYOffset + node.getBoundingClientRect().top
+      }
 
       tooltip
         .style("opacity", "1")

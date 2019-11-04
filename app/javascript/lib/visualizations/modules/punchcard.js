@@ -53,7 +53,8 @@ export const punchcard = (context, data, options = {}) => {
 
   // dimensions
   let container = d3.select(context);
-  let width = fixedWidth || +container.node().getBoundingClientRect().width - margin.left - margin.right;
+  let containerNode = container.node() || document.createElement("div");
+  let width = fixedWidth || +containerNode.getBoundingClientRect().width - margin.left - margin.right;
   let height = fixedHeight || data.length * itemHeight + margin.top + margin.bottom;
   let svg = container
     .append("svg")
@@ -113,9 +114,10 @@ export const punchcard = (context, data, options = {}) => {
           </div>`;
       }
 
-      let coords = {
-        x: window.pageXOffset + container.node().getBoundingClientRect().left,
-        y: window.pageYOffset + container.node().getBoundingClientRect().top
+      const node = container.node() || document.createElement("div");
+      const coords = {
+        x: window.pageXOffset + node.getBoundingClientRect().left,
+        y: window.pageYOffset + node.getBoundingClientRect().top
       };
 
       tooltip

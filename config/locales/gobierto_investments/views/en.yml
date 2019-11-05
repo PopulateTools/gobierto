@@ -7,14 +7,20 @@ en:
     layouts:
       application:
         investments: Investments
+        investments_paragraph: Check the projects that the City Council has underway,
+          those that will start soon, and the medium-term plans. Detail on the annual
+          investment plan and mechanisms for monitoring the works in progress.
     projects:
       all: All
       back: see all
       date: Last year
       detail_title: Project detail
       empty: No results
+      exit: Exit
       gallery: Gallery
       list: List
       map: Map
       none: None
+      see: See again
       summary: Summary by stats
+      tour: Tour virtual

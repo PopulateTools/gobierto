@@ -34,7 +34,7 @@
   }
 
   .bread_links {
-    background: transparentize($color_main, 0.9);
+    background: rgba(var(--color-base-string), 0.1);
     padding: 0.3em 0.75em;
 
     @include border-radius(4px);
@@ -49,7 +49,7 @@
     .fas {
       vertical-align: middle;
       margin-top: -10px;
-      color: $color_main;
+      color: var(--color-base);
     }
   }
 
@@ -114,7 +114,7 @@
 
   td.selected,
   td.selected_no_children {
-    border-left: 2px solid rgba($color_main, 0.5);
+    border-left: 2px solid rgba(var(--color-base-string), 0.5);
     position: relative;
   }
 
@@ -125,7 +125,7 @@
     width: 0;
     border-style: solid;
     border-width: 6px 0 6px 11.3px;
-    border-color: transparent transparent transparent rgba($color_main, 0.5);
+    border-color: transparent transparent transparent rgba(var(--color-base-string), 0.5);
     top: 38%;
     left: 100%;
   }
@@ -138,7 +138,7 @@
 .open_line_browser,
 .close_line_browser {
   opacity: 0.5;
-  color: $color_main;
+  color: var(--color-base);
   cursor: pointer;
   margin: 0 1em 0 0;
 }
@@ -190,7 +190,7 @@
     padding: 0.5rem 0.75rem;
     margin-left: -1px;
     line-height: 1.25;
-    color: $color_main;
+    color: var(--color-base);
     background-color: #fff;
     border: 1px solid #ddd;
 
@@ -204,13 +204,13 @@
   }
 
   .disabled {
-    color: rgba($color_main, 0.5);
+    color: rgba(var(--color-base-string), 0.5);
     pointer-events: none;
   }
 
   .active a {
-    border-color: $color_main;
-    background: $color_main;
+    border-color: var(--color-base);
+    background: var(--color-base);
     color: white;
     font-weight: 700;
   }

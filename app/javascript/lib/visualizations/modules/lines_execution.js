@@ -317,7 +317,8 @@ export class VisLinesExecution {
     d3.select('body:not(' + this.container +')').on('touchstart', this._mouseleft.bind(this));
 
     // NOTE: resize container once all data has been displayed
-    d3.select(this.container + ' svg').attr('height', this.svg.node().getBoundingClientRect().height + this.margin.top);
+    const node = this.svg.node() || document.createElement("div")
+    d3.select(this.container + ' svg').attr('height', node.getBoundingClientRect().height + this.margin.top);
   }
 
   _update(valueKind, symbol) {

@@ -21,7 +21,7 @@ export class VisRentDistribution {
     d3.formatDefaultLocale(d3locale[I18n.locale]);
 
     // Chart dimensions
-    this.margin = {top: 25, right: 15, bottom: 30, left: 15};
+    this.margin = { top: 25, right: 15, bottom: 30, left: 15 };
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -56,7 +56,11 @@ export class VisRentDistribution {
       .append('div')
       .attr('class', 'tooltip');
 
-    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
+    d3.select(window).on('resize.' + this.container, () => {
+      if (this.data) {
+        this._resize()
+      }
+    });
   }
 
   getData() {
@@ -150,7 +154,7 @@ export class VisRentDistribution {
   }
 
   _renderVoronoi() {
-    
+
     // Create voronoi
     this.voronoi = d3.distanceLimitedVoronoi()
       .x(function(d) { return this.xScale(d.value); }.bind(this))
@@ -265,7 +269,7 @@ export class VisRentDistribution {
 
     // Remove the zero on the y axis
     this.svg.selectAll('.y.axis .tick')
-      .filter(function (d) { return d === 0;  })
+      .filter(function (d) { return d === 0; })
       .remove();
   }
 
@@ -331,7 +335,7 @@ export class VisRentDistribution {
 
       this.voronoiGroup.selectAll('.voronoiPath')
         .data(this.voronoi(this.data))
-        .attr("d", function(d) { return d.path; });
+        .attr("d", function(d) { return (d || {}).path; });
     }
   }
 

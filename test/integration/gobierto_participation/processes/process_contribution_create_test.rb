@@ -43,7 +43,7 @@ module GobiertoParticipation
 
     def test_contribution_create
       with_javascript do
-        with_signed_in_user(user, logout=false) do
+        with_signed_in_user(user, logout: false) do
           visit container_path
 
           assert_equal 4, contributions.size
@@ -70,7 +70,7 @@ module GobiertoParticipation
 
     def test_contribution_errors
       with_javascript do
-        with_signed_in_user(user, logout=false) do
+        with_signed_in_user(user, logout: false) do
           visit container_path
 
           assert_equal contributions.size, 4

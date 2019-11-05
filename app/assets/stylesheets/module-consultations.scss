@@ -70,7 +70,7 @@ img.side_50 {
 
   @include border-radius(6px);
 
-  background: $color_1_soft;
+  background: rgba(var(--color-base-string), 0.06);
 }
 
 /* Consultation intro */
@@ -146,7 +146,7 @@ img.side_50 {
 
 .bottom-info {
   padding: 1rem;
-  background: $color_1;
+  background: var(--color-base);
   color: $color_main_negative;
 
   @include min-screen(768) {
@@ -252,7 +252,7 @@ img.side_50 {
 
 .bottom-info-small {
   padding: 1rem 2rem;
-  background: $color_1;
+  background: var(--color-base);
   color: $color_main_negative;
   max-width: 25rem;
   margin: 0 auto;
@@ -383,15 +383,15 @@ img.side_50 {
 }
 
 .consultation-figure .fa-arrow-up {
-  color: $color_1;
+  color: var(--color-base);
 }
 
 .consultation-figure .fa-arrow-down {
-  color: $color_1;
+  color: var(--color-base);
 }
 
 .consultation-figure .fa-circle {
-  color: $color_1;
+  color: var(--color-base);
 }
 
 .desktop .consultation-card.active .consultation-title,
@@ -424,7 +424,7 @@ img.side_50 {
 
 #notice {
   color: #fff;
-  background-color: $color_1;
+  background-color: var(--color-base);
   border: 1px solid transparent;
   border-radius: 4px;
   margin: 1rem 1rem 2rem 1rem;
@@ -438,10 +438,6 @@ img.side_50 {
 /* Card content (desktop only) */
 .card-wrapper {
   padding: 0 0 0 3rem;
-}
-
-.card-header {
-  position: relative;
 }
 
 .card-headline {
@@ -606,7 +602,7 @@ img.side_50 {
 
 /* Fixed stuff */
 .consultation-info {
-  background: $color_1;
+  background: var(--color-base);
   position: fixed;
   width: 100%;
   bottom: 0;
@@ -619,6 +615,7 @@ img.side_50 {
 
 .surplus-1 .budget-status {
   background: #dec;
+  color: #55a900;
 }
 
 .surplus-2 .budget-status {
@@ -635,6 +632,7 @@ img.side_50 {
 
 .deficit-1 .budget-status {
   background: #eed1cc;
+  color: #a91900;
 }
 
 .deficit-2 .budget-status {
@@ -647,14 +645,6 @@ img.side_50 {
 
 .deficit-4 .budget-status {
   background: #a91900;
-}
-
-.surplus-1 .budget-status {
-  color: #55a900;
-}
-
-.deficit-1 .budget-status {
-  color: #a91900;
 }
 
 .consultation-info h3 {
@@ -806,7 +796,7 @@ img.side_50 {
 }
 
 .tip-info .tipsy-inner {
-  background: $color_main;
+  background: var(--color-base);
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -890,7 +880,7 @@ img.side_50 {
 
 .consultation-confirm {
   width: 320px;
-  border: 1px solid $color_1;
+  border: 1px solid var(--color-base);
   border-radius: 4px;
   padding: 0.9375rem;
   position: absolute;

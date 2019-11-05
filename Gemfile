@@ -46,7 +46,7 @@ gem "elasticsearch"
 gem "elasticsearch-extensions"
 
 # Background processing
-gem "sidekiq", "~> 5.2.1"
+gem "sidekiq", "~> 5.2"
 gem "sidekiq-monitor-stats"
 
 # AWS SDK client
@@ -110,7 +110,7 @@ group :test do
   gem "capybara-email"
   gem "codecov", "~> 0.1.9", require: false
   gem "launchy"
-  gem "minitest", "5.12.2"
+  gem "minitest", "5.13.0"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"

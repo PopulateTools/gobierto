@@ -109,7 +109,8 @@ menu.main {
       li {
         padding: 0;
 
-        a,span {
+        a,
+        span {
           padding: 0 0 0 2em;
         }
       }
@@ -121,16 +122,12 @@ menu.main {
       padding-top: 1em;
     }
 
-    a,span {
+    a,
+    span {
       padding: 0.25em 1em;
       display: block;
-      // color: $color_text;
       text-decoration: none;
     }
-
-    // a:hover {
-    //   // background: transparentize($color_logo_yellow, .7);
-    // }
   }
 }
 
@@ -222,9 +219,13 @@ menu.main {
   }
 }
 
-/* Headings */
 body.gobierto_admin {
-  h1, h2, h3, h4, h5 {
+  /* Headings */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     &:first-child {
       margin-top: 0;
     }
@@ -249,19 +250,14 @@ body.gobierto_admin {
   }
 
   .form_block:first-child {
-    margin-top: .6em;
+    margin-top: 0.6em;
   }
 
   .pure-u-1 p:first-child {
     margin-top: 0;
   }
 
-}
-
-
-
-/* Tabs modification */
-body.gobierto_admin {
+  /* Tabs modification */
   .container {
     max-width: 1800px;
   }
@@ -280,7 +276,7 @@ body.gobierto_admin {
         }
 
         a:hover {
-          color: $color_main;
+          color: var(--color-base);
         }
       }
 
@@ -328,6 +324,7 @@ body.gobierto_admin {
   button {
     margin-left: 0.25em;
   }
+
   .button:last-child,
   button:last-child {
     margin: 0;
@@ -352,18 +349,17 @@ body.gobierto_admin {
   margin-top: 60px;
 }
 
-
 /* Widget Save v2 */
 .widget_save_v2 {
   background: $color_neutral_soft;
   @include border-radius(6px);
 
   .w_s_content {
-    padding: .75em;
+    padding: 0.75em;
   }
 
   .publication_section {
-    background: transparentize($color_main, .85);
+    background: rgba(var(--color-base-string), 0.15);
   }
 
   .w_actions {
@@ -381,7 +377,6 @@ body.gobierto_admin {
   margin-top: 60px;
 }
 
-
 .admin_side_actions {
   margin-top: 20px;
 }
@@ -389,7 +384,6 @@ body.gobierto_admin {
 .admin_side_actions.is_stuck {
   margin-top: 220px;
 }
-
 
 .sep_top_bot {
   border-top: 1px solid $color_separator;
@@ -443,8 +437,9 @@ body.gobierto_admin {
 .fas {
   margin: 0 0.25em 0 0;
 }
+
 .fas:hover {
-  opacity: .75;
+  opacity: 0.75;
 }
 
 pre {
@@ -458,13 +453,9 @@ pre {
 .list_item_with_editable_content {
   margin: 0 0 0.5em 0;
   display: flex;
-}
 
-.list_item, .list_item_with_editable_content {
-  margin: 0 0 .5em 0;
-  display: flex;
   .fa-bars {
-    padding: .5em;
+    padding: 0.5em;
     cursor: pointer;
   }
 
@@ -510,9 +501,6 @@ pre {
   .inline_notice {
     display: flex;
     margin: 0 1em 0 0;
-  }
-
-  .inline_notice {
     font-style: italic;
     opacity: 0.5;
   }
@@ -520,7 +508,6 @@ pre {
   .tools {
     display: flex;
     padding: 4px 0;
-    // width: 70px;
 
     .fas {
       margin: 0 0 0 1em;
@@ -532,6 +519,7 @@ pre {
     display: initial;
     margin-right: 0.5em;
   }
+
   .media {
     img {
       max-width: 100%;
@@ -558,7 +546,7 @@ pre {
 }
 
 .list_item_with_editable_content {
-  input[type=text] {
+  input[type="text"] {
     height: initial;
     padding: 4px 10px;
     margin: 0 1em 0 0;
@@ -658,22 +646,22 @@ pre {
 
       @include border-radius(3px);
 
-      background: rgba($color_main, 0.1);
+      background: rgba(var(--color-base-string), 0.1);
     }
 
     a.locale_option:hover {
-      background: rgba($color_main, 0.3);
+      background: rgba(var(--color-base-string), 0.3);
     }
 
     a.selected,
     a.selected.locale_option:hover {
-      background: $color_main;
+      background: var(--color-base);
       color: #fff;
     }
 
     .status {
       display: inline-block;
-      background: $color_main;
+      background: var(--color-base);
       width: 0.5em;
       height: 0.5em;
 
@@ -745,7 +733,7 @@ pre {
       }
 
       a:hover {
-        background: $color_1_soft;
+        background: rgba(var(--color-base-string), 0.06);
       }
     }
 
@@ -836,7 +824,7 @@ a .global_menu {
 }
 
 .file_browser {
-  background: $color_1_soft;
+  background: rgba(var(--color-base-string), 0.06);
   font-size: 0.85em;
   box-sizing: border-box;
   padding: 1em;
@@ -857,7 +845,7 @@ a .global_menu {
 
   li:hover {
     border-radius: 3px;
-    background: darken($color_1_soft, 5%);
+    background: rgba(var(--color-base-string), 0.15);
     cursor: pointer;
   }
 
@@ -869,7 +857,7 @@ a .global_menu {
 
 .template_editor {
   .template_editor_main_pane {
-    background: $color_1_soft;
+    background: rgba(var(--color-base-string), 0.06);
   }
 
   .action_buttons {
@@ -881,7 +869,7 @@ a .global_menu {
   }
 
   .code_editor {
-    background: $color_1_soft;
+    background: rgba(var(--color-base-string), 0.06);
     box-sizing: border-box;
     padding: 1em;
     min-height: 600px;
@@ -912,35 +900,35 @@ a .global_menu {
 
 // reset gobierto styles (comp-forms.scss)
 .jsgrid {
-  input[type=text],
-  input[type=email],
-  input[type=number],
-  input[type=submit],
-  input[type=password],
-  input[type=file],
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="submit"],
+  input[type="password"],
+  input[type="file"],
   .button,
   button,
   select,
   option,
   textarea {
     height: 2em;
-    padding: .2em;
+    padding: 0.2em;
     margin: initial;
     font-size: 1.15em;
   }
 
   .jsgrid-control-field {
     .fas {
-      padding: .65em;
+      padding: 0.65em;
       border-radius: 3px;
       font-size: 1em;
       color: #fff;
-      background: $color_main;
+      background: var(--color-main);
       cursor: pointer;
     }
 
     .fas:not(:last-child) {
-      margin-right: .75em;
+      margin-right: 0.75em;
     }
   }
 
@@ -981,55 +969,50 @@ table {
   }
 }
 
-
-
 .border-el {
   border: 1px solid $color_separator;
   @include border-radius(6px);
 }
 
-
-
-
 /* Gobierto Vocabulary */
 .v_container {
   .v_el {
     margin: 0 0 0 1.75em;
-    padding: .35em 0 .15em 0;
+    padding: 0.35em 0 0.15em 0;
 
     .v_el {
-      border-top: 1px solid rgba($color_main, 0.2);
+      border-top: 1px solid rgba(var(--color-base-string), 0.2);
       display: none;
     }
 
     .el-opened {
       display: block;
       // font-weight: bold;
-
     }
 
     .v_el:hover {
-      background: transparentize($color_main, .95);
+      background: rgba(var(--color-base-string), 0.05);
 
       .v_el:hover {
-        background: transparentize(#FFF, .5);;
+        background: transparentize(#fff, 0.5);
       }
     }
 
     &.v_el_full_content {
       .v_el {
-        background: #FFF;
+        background: #fff;
       }
+
       .v_el:hover {
-        background: #FFF;
+        background: #fff;
       }
     }
 
     .v_el_actions {
       opacity: 0;
     }
-
   }
+
   .v_el_active {
     > .v_el_cont .v_el_actions {
       opacity: 1;
@@ -1041,18 +1024,18 @@ table {
 
     &.v_el_full_content {
       cursor: initial;
+
       .v_el:hover {
         cursor: initial;
       }
     }
   }
 
-
-
   .v_el_level {
     @include border-radius(6px);
-    background: rgba($color_main, 0.1);
-    padding: .75em 0 .5em .8em;
+
+    background: rgba(var(--color-base-string), 0.1);
+    padding: 0.75em 0 0.5em 0.8em;
     margin: 0 0 1em 0;
 
     .icon-caret {
@@ -1062,21 +1045,19 @@ table {
 
     .list-group > .v_el_level {
       background: initial;
-      padding: .35em 0 .15em 0;
+      padding: 0.35em 0 0.15em 0;
       margin: 0 0 0 1.75em;
       border-radius: 0;
 
       .v_el_title {
-        font-size: .85rem;
+        font-size: 0.85rem;
         line-height: 1.2;
-        margin: .45em 0;
+        margin: 0.45em 0;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
       }
-
     }
-
   }
 
   .v_el_cont,
@@ -1087,7 +1068,6 @@ table {
     .v_el_decorated {
       flex-grow: 5;
     }
-
   }
 
   .v_heading {
@@ -1095,7 +1075,7 @@ table {
 
     .v_el_decorated {
       flex-grow: 5;
-      font-size: .85em;
+      font-size: 0.85em;
       font-weight: bold;
     }
 
@@ -1109,9 +1089,9 @@ table {
     justify-content: flex-end;
 
     > div {
-      margin: .45em 0 .45em 1em;
+      margin: 0.45em 0 0.45em 1em;
       width: 60px;
-      font-size: .85em;
+      font-size: 0.85em;
       line-height: 1;
       color: $color_meta_text;
       text-align: center;
@@ -1126,40 +1106,40 @@ table {
   .v_el_actions {
     min-width: 75px;
     text-align: right;
-    margin: 0 .75em;
+    margin: 0 0.75em;
 
     a {
       text-decoration: none;
     }
 
     .fas {
-      margin: 0 .5em;
-      font-size: .85em;
+      margin: 0 0.5em;
+      font-size: 0.85em;
     }
   }
 
   .v_el_full_content {
-
     .v_el_content {
       border: 1px solid red;
       margin: 4px 10px 4px 0;
-      background: #FFF;
+      background: #fff;
       padding: 0;
-
     }
-
   }
 }
 
-.color_sem_red, .color_sem_red a {
+.color_sem_red,
+.color_sem_red a {
   color: $color_sem_red;
 }
 
-.color_sem_yellow, .color_sem_yellow a {
+.color_sem_yellow,
+.color_sem_yellow a {
   color: $color_sem_yellow;
 }
 
-.color_sem_green, .color_sem_green a {
+.color_sem_green,
+.color_sem_green a {
   color: $color_sem_green;
 }
 
@@ -1170,9 +1150,11 @@ table {
       font-weight: bold;
     }
   }
+
   .metric_label {
     font-size: $f8;
   }
+
   .metric_progress_bar {
     background: $color_neutral_soft;
     margin: 14px 0 0 0;
@@ -1180,6 +1162,7 @@ table {
     height: 8px;
     border-radius: 8px;
   }
+
   .metric_progress_bar_progress {
     background: $color_sem_yellow;
     border-radius: 8px;
@@ -1188,16 +1171,17 @@ table {
 }
 
 .f_small {
-  font-size: .85em;
+  font-size: 0.85em;
   line-height: 1.2;
 
   .form_item .options.compact {
     font-size: 1em;
   }
 }
+
 .f_soft,
 a.f_soft,
-.f_soft a, {
+.f_soft a {
   color: $color_meta_text;
 }
 
@@ -1206,8 +1190,8 @@ a.f_soft,
 
   .g_popup {
     position: absolute;
-    background: #F0F0F0;
-    box-shadow: 0 0 26px 0 rgba(0,0,0,0.24);
+    background: #f0f0f0;
+    box-shadow: 0 0 26px 0 rgba(0, 0, 0, 0.24);
     border-radius: 6px;
     padding: 1.5em;
     width: 25vw;
@@ -1215,11 +1199,12 @@ a.f_soft,
     max-width: 600px;
     right: -40px;
     z-index: 1;
-    transition: visibility 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000), opacity 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000); /* ease-in-out */
+    transition: visibility 200ms cubic-bezier(0.42, 0, 0.58, 1), opacity 200ms cubic-bezier(0.42, 0, 0.58, 1); /* ease-in-out */
     opacity: 0;
     visibility: hidden;
 
-    ul, li {
+    ul,
+    li {
       margin: 0;
       padding: 0;
       list-style-type: none;
@@ -1227,18 +1212,17 @@ a.f_soft,
 
     a {
       border-radius: 3px;
-      padding: .5em;
+      padding: 0.5em;
       display: block;
     }
-    a:hover {
-      background: rgba($color_main, 0.1);
-    }
 
+    a:hover {
+      background: rgba(var(--color-base-string), 0.1);
+    }
   }
 
   &:hover > .g_popup {
     visibility: visible;
     opacity: 1;
   }
-
 }

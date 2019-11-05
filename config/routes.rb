@@ -4,7 +4,10 @@ require "sidekiq/web"
 
 Rails.application.routes.draw do
 
-  get("/populate_data_mock/datasets/*dataset_file", to: "stubbed_external_request#show") if Rails.env.test?
+  if Rails.env.test?
+    get("/populate_data_mock/datasets/*dataset_file", to: "stubbed_external_request#populate_data_indicator")
+    get("/bubbles_file_mock/bubbles.json", to: "stubbed_external_request#bubbles_file")
+  end
 
   unless Rails.env.production?
     get "/sandbox" => "sandbox#index"
@@ -530,6 +533,7 @@ Rails.application.routes.draw do
         # Front
         get "inversiones" => "investments#index", as: :root
         get "inversiones/proyectos/:id" => "investments#index"
+        get "inversiones/tour-virtual" => "investments#tour", as: :tour
 
         # API
         namespace :api, path: "/gobierto_investments/api" do

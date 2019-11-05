@@ -3,10 +3,10 @@
   position: relative;
 
   circle {
-    fill: $color_main;
+    fill: var(--color-base);
 
     &:hover {
-      fill: lighten($color_main, 10%);
+      fill: rgba(var(--color-base-string), 0.9);
       // cursor: pointer;
     }
   }
@@ -21,7 +21,7 @@
 
   g.row {
     &:nth-of-type(odd) rect {
-      fill: rgba($color_main, .2);
+      fill: rgba(var(--color-base-string), 0.2);
     }
 
     &:nth-of-type(even) rect {

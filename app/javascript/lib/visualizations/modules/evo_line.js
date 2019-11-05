@@ -9,7 +9,7 @@ export class VisEvoLine {
     this.classed = "evoline"
 
     // Chart dimensions
-    this.margin = {top: 5, right: 50, bottom: 25, left: 0};
+    this.margin = { top: 5, right: 50, bottom: 25, left: 0 };
     this.width = this._width();
     this.height = 60 + this.margin.top + this.margin.bottom;
 
@@ -47,7 +47,7 @@ export class VisEvoLine {
       .datum(this.data)
       .attr("class", "line")
 
-    if(this.currentYear != null) {
+    if (this.currentYear != null) {
       this.svg.selectAll('.year_marker')
             .data([this.currentYear])
             .enter()
@@ -55,7 +55,11 @@ export class VisEvoLine {
             .attr('class', 'year_marker');
     }
 
-    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
+    d3.select(window).on('resize.' + this.container, () => {
+      if (this.data) {
+        this._resize()
+      }
+    });
   }
 
   getData() {
@@ -140,7 +144,7 @@ export class VisEvoLine {
         return Math.abs(e.deviation);
       })));
     var edge, lower_edge;
-    if(max_abs > 100) {
+    if (max_abs > 100) {
       edge = ((max_abs % 100) < 50) ? Math.floor(max_abs/100) * 100 : (Math.floor(max_abs/100) + 1) * 100;
       lower_edge = -100;
     } else if (max_abs < 10) {

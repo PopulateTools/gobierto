@@ -10,7 +10,7 @@ export class Sparkline {
     this.trend = options.trend;
     this.axes = options.axes || false;
     this.aspectRatio = options.aspectRatio || 5
-    this.margin = options.margins || {top: 5, right: 5, bottom: 5, left: 5};
+    this.margin = options.margins || { top: 5, right: 5, bottom: 5, left: 5 };
 
     // Chart dimensions
     this.width = this._width() - this.margin.left - this.margin.right;
@@ -30,7 +30,11 @@ export class Sparkline {
       .attr('class', 'chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
-    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
+    d3.select(window).on('resize.' + this.container, () => {
+      if (this.data) {
+        this._resize()
+      }
+    });
   }
 
   render() {
@@ -102,7 +106,7 @@ export class Sparkline {
   }
 
   _width() {
-    return parseInt(d3.select(this.container).style('width')) || +d3.select(this.container).node().getBoundingClientRect().width
+    return parseInt(d3.select(this.container).style('width')) || +(d3.select(this.container).node() || document.createElement("div")).getBoundingClientRect().width
   }
 
   _height() {

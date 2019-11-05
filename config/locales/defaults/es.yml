@@ -111,8 +111,8 @@ es:
     messages:
       accepted: debe ser aceptado
       array_too_short:
-        one: es demasiado corto (al menos ${count} elemento)
-        other: es demasiado corto (al menos ${count} elementos)
+        one: es demasiado corto (al menos 1 elemento)
+        other: es demasiado corto (al menos %{count} elementos)
       blank: no puede estar en blanco
       blank_for_modules: La organización no está bien configurada. El identificador
         es obligatorio para los módulos que tienes activados.
@@ -142,9 +142,15 @@ es:
         one: No se puede eliminar el registro porque existe un %{record} dependiente
         other: No se puede eliminar el registro porque existen %{record} dependientes
       taken: ya está en uso
-      too_long: es demasiado largo (%{count} caracteres máximo)
-      too_short: es demasiado corto (%{count} caracteres mínimo)
-      wrong_length: no tiene la longitud correcta (%{count} caracteres exactos)
+      too_long:
+        one: es demasiado largo (1 carácter máximo)
+        other: es demasiado largo (%{count} caracteres máximo)
+      too_short:
+        one: es demasiado corto (1 carácter mínimo)
+        other: es demasiado corto (%{count} caracteres mínimo)
+      wrong_length:
+        one: no tiene la longitud correcta (1 carácter exacto)
+        other: no tiene la longitud correcta (%{count} caracteres exactos)
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:

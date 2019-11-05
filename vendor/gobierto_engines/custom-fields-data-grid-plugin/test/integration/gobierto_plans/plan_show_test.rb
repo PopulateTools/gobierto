@@ -20,7 +20,7 @@ module GobiertoPlans
 
         find("h3", text: "People and families").click
         find("a", text: "Provide social assistance to individuals and families who need it for lack of resources").click
-        find("a", text: /Necesidades.*/).click
+        find("a", text: "Basic needs of District Center families").click
         find("td", text: "Publish political agendas").click
 
         assert has_content?("Long description")

@@ -1,10 +1,16 @@
-import * as __d3 from 'd3'
+import { select, selectAll } from 'd3-selection'
+import { scaleTime, scaleLinear, scaleOrdinal, scaleBand } from 'd3-scale'
+import { axisBottom, axisRight } from 'd3-axis'
+import { format } from 'd3-format'
+import { timeParse } from 'd3-time-format'
+import { line, curveCardinal } from 'd3-shape'
+import { json } from 'd3-request'
+import { min, max, extent } from 'd3-array'
+import { transition } from 'd3-transition'
 import { legendColor } from 'd3-svg-legend'
 import { accounting } from 'lib/shared'
-import { transition } from 'd3-transition'
 
-const d3 = { ...__d3, legendColor }
-d3.selection.prototype.transition = transition;
+const d3 = { select, selectAll, scaleTime, scaleLinear, scaleOrdinal, scaleBand, axisBottom, axisRight, format, timeParse, line, curveCardinal, json, min, max, extent, transition, legendColor }
 
 Array.prototype.unique = function() {
     var a = this.concat();
@@ -125,7 +131,7 @@ export class VisLineasJ {
         .attr('width', this.width + this.margin.left + this.margin.right)
         .attr('height', this.height + this.margin.top + this.margin.bottom + 10)
         .attr('class', 'svg_lines')
-      .append('g')
+        .append('g')
         .attr('transform', 'translate(' + 0 + ',' + this.margin.top + ')');
 
     // Set nice category
@@ -380,21 +386,20 @@ export class VisLineasJ {
             // Hide table figures and update text
             // Year header
             d3
+              .selectAll(self.tableContainer + ' .year_header')
               .transition()
               .duration(self.duration / 2)
-              .selectAll(self.tableContainer + ' .year_header')
               .style('opacity', 0)
               .text(selectedData.date.getFullYear())
               .transition()
               .duration(self.duration)
-              .selectAll(self.tableContainer + ' .year_header')
               .style('opacity', 1);
 
             // Values
             d3
+              .selectAll(self.tableContainer + ' .value')
               .transition()
               .duration(self.duration / 2)
-              .selectAll(self.tableContainer + ' .value')
               .style('opacity', 0)
               .text(function(d) {
                 var newValue = dataChartFiltered.filter(function(value) {
@@ -405,14 +410,13 @@ export class VisLineasJ {
               })
               .transition()
               .duration(self.duration)
-              .selectAll(self.tableContainer + ' .value')
               .style('opacity', 1);
 
             // Difs
             d3
+              .selectAll(self.tableContainer + ' .dif')
               .transition()
               .duration(self.duration / 2)
-              .selectAll(self.tableContainer + ' .dif')
               .style('opacity', 0)
               .text(function(d) {
                 var newValue = dataChartFiltered.filter(function(dif) {
@@ -428,16 +432,14 @@ export class VisLineasJ {
               })
               .transition()
               .duration(self.duration)
-              .selectAll(self.tableContainer + ' .dif')
               .style('opacity', 1);
           }
 
           self.lastYear = selectedData.date.getFullYear();
 
-          self.svgLines
+          self.svgLines.selectAll('.v_line')
             .transition()
             .duration(self.duration / 2)
-            .selectAll(self.container + ' .v_line')
             .attr('x1', function() {
               return self.xScale(selectedData.date);
             }.bind(this))
@@ -445,40 +447,37 @@ export class VisLineasJ {
               return self.xScale(selectedData.date);
             }.bind(self));
 
-          d3
-            .select(selected)
-            .attr('r', self.radius * 1.5);
-
-          self.svgLines
+          d3.select(selected)
             .transition()
             .duration(self.duration)
-            .selectAll(self.container + ' .dot_line')
+            .attr('r', self.radius * 1.5);
+
+          self.svgLines.selectAll('.dot_line')
+            .transition()
+            .duration(self.duration)
             .filter(function(d) {
               return d.name != selectedClass[1] && 'x' + d.date.getFullYear() != selectedClass[2];
             })
             .style('opacity', self.opacityLow);
 
-          self.svgLines
+          self.svgLines.selectAll('.evolution_line')
             .transition()
             .duration(self.duration)
-            .selectAll(self.container + ' .evolution_line')
             .filter(function(d) {
               return d.name != selectedClass[1];
             })
             .style('opacity', self.opacityLow);
         })
         .on('mouseout', function() {
-          this.svgLines
+          this.svgLines.selectAll('.dot_line')
             .transition()
             .duration(this.duration)
-            .selectAll(this.container + ' .dot_line')
             .attr('r', this.radius)
             .style('opacity', 1);
 
-          this.svgLines
+          this.svgLines.selectAll('.evolution_line')
             .transition()
             .duration(this.duration)
-            .selectAll(this.container + ' .evolution_line')
             .style('opacity', 1);
         }.bind(this));
 
@@ -555,32 +554,28 @@ export class VisLineasJ {
           .on('mouseover', function () {
             var classed = this.classList[this.classList.length - 1]
 
-            self.svgLines
+            self.svgLines.selectAll('.dot_line')
               .transition()
               .duration(self.duration)
-              .selectAll(self.container + ' .dot_line')
               .filter(function(d) { return self._normalize(d.name) !== classed; }.bind(self))
               .style('opacity', self.opacityLow);
 
-            self.svgLines
+            self.svgLines.selectAll('.evolution_line')
               .transition()
               .duration(self.duration)
-              .selectAll(self.container + ' .evolution_line')
               .filter(function(d) { return self._normalize(d.name) !== classed; }.bind(self))
               .style('opacity', self.opacityLow);
           })
           .on('mouseout', function () {
-            this.svgLines
+            this.svgLines.selectAll('.dot_line')
               .transition()
               .duration(this.duration)
-              .selectAll(self.container + ' .dot_line')
               .attr('r', this.radius)
               .style('opacity', 1);
 
-            this.svgLines
+            this.svgLines.selectAll('.evolution_line')
               .transition()
               .duration(this.duration)
-              .selectAll(self.container + ' .evolution_line')
               .style('opacity', 1);
           }.bind(this));
 

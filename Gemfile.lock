@@ -119,7 +119,7 @@ GEM
     cloudinary (1.12.0)
       aws_cf_signer
       rest-client
-    codecov (0.1.15)
+    codecov (0.1.16)
       json
       simplecov
       url

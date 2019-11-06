@@ -232,6 +232,6 @@ ca:
         intro: Coneix els mecanismes de participació que t'ofereix %{location_name}
         intro_p1: Votar cada quatre anys? Implica't en el dia a dia.
       participation_themes_list_a:
-        intro: Aporta els teus millors idees per millorar% {location_name} i la vida
+        intro: Aporta els teus millors idees per millorar %{location_name} i la vida
           de tots els que residim aquí.
         issues: Temes

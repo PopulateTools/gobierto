@@ -59,6 +59,36 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_lines_chart
+    with(js: true, site: placed_site) do
+      visit @path
+
+      # Check default tooltip
+
+      within("#lines_tooltip") do
+        assert has_content?("2019")
+
+        assert has_content?("Madrid")
+        assert has_content?("National mean")
+        assert has_content?("Province mean")
+        assert has_content?("Autonomy mean")
+      end
+
+      # Check lines and dots
+
+      within("#lines_chart") do
+        assert_equal 4, all(".evolution_line").size
+        assert all("circle").any?
+      end
+
+      # Check hover another year
+
+      all("circle.x2017").first.hover
+
+      within("#lines_tooltip") { assert has_content?("2017") }
+    end
+  end
+
   def test_menu_subsections
     with_each_current_site(placed_site, organization_site) do
       visit @path

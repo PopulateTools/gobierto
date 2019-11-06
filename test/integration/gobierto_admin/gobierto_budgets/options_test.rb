@@ -23,45 +23,45 @@ module GobiertoAdmin
       end
 
       def test_enable_options
-        with_javascript do
-          with_signed_in_admin(admin) do
-            with_current_site(site) do
-              visit @path
+        budgets_settings = site.gobierto_budgets_settings
+        budgets_settings.settings["comparison_context_table_enabled"] = false
+        budgets_settings.save!
 
-              assert has_content?("Options")
+        with(js: true, site: site, admin: admin) do
+          visit @path
 
-              assert find("#gobierto_budgets_options_elaboration_enabled", visible: false).checked?
-              refute find("#gobierto_budgets_options_budget_lines_feedback_enabled", visible: false).checked?
-              assert find("#gobierto_budgets_options_receipt_enabled", visible: false).checked?
-              refute find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).checked?
-              refute find("#gobierto_budgets_options_providers_enabled", visible: false).checked?
-              refute find("#gobierto_budgets_options_indicators_enabled", visible: false).checked?
+          assert has_content?("Options")
 
-              find("#gobierto_budgets_options_elaboration_enabled", visible: false).execute_script("this.click()")
-              find("#gobierto_budgets_options_budget_lines_feedback_enabled", visible: false).execute_script("this.click()")
-              fill_in "gobierto_budgets_options_feedback_emails", with: "email@example.com"
-              fill_in "gobierto_budgets_options_receipt_configuration", with: "{}"
+          assert find("#gobierto_budgets_options_elaboration_enabled", visible: false).checked?
+          refute find("#gobierto_budgets_options_budget_lines_feedback_enabled", visible: false).checked?
+          assert find("#gobierto_budgets_options_receipt_enabled", visible: false).checked?
+          refute find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).checked?
+          refute find("#gobierto_budgets_options_providers_enabled", visible: false).checked?
+          refute find("#gobierto_budgets_options_indicators_enabled", visible: false).checked?
 
-              find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).execute_script("this.click()")
-              find("#gobierto_budgets_options_comparison_context_table_enabled", visible: false).execute_script("this.click()")
-              find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).execute_script("this.click()")
-              find("#gobierto_budgets_options_indicators_enabled", visible: false).execute_script("this.click()")
-              select cms_page.title, from: "gobierto_budgets_options_budgets_guide_page"
+          find("#gobierto_budgets_options_elaboration_enabled", visible: false).execute_script("this.click()")
+          find("#gobierto_budgets_options_budget_lines_feedback_enabled", visible: false).execute_script("this.click()")
+          fill_in "gobierto_budgets_options_feedback_emails", with: "email@example.com"
+          fill_in "gobierto_budgets_options_receipt_configuration", with: "{}"
 
-              click_button "Save"
+          find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).execute_script("this.click()")
+          find("#gobierto_budgets_options_comparison_context_table_enabled", visible: false).execute_script("this.click()")
+          find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).execute_script("this.click()")
+          find("#gobierto_budgets_options_indicators_enabled", visible: false).execute_script("this.click()")
+          select cms_page.title, from: "gobierto_budgets_options_budgets_guide_page"
 
-              assert has_message?("Settings saved successfully")
-              refute find("#gobierto_budgets_options_elaboration_enabled", visible: false).checked?
-              assert find("#gobierto_budgets_options_budget_lines_feedback_enabled", visible: false).checked?
-              assert has_field?("gobierto_budgets_options_feedback_emails", with: "email@example.com")
-              assert find("#gobierto_budgets_options_receipt_enabled", visible: false).checked?
-              assert has_field?("gobierto_budgets_options_receipt_configuration", with: "{}")
-              refute find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).checked?
-              refute find("#gobierto_budgets_options_comparison_context_table_enabled", visible: false).checked?
-              assert find("#gobierto_budgets_options_indicators_enabled", visible: false).checked?
-              assert has_field?("gobierto_budgets_options_budgets_guide_page", with: cms_page.id)
-            end
-          end
+          click_button "Save"
+
+          assert has_message?("Settings saved successfully")
+          refute find("#gobierto_budgets_options_elaboration_enabled", visible: false).checked?
+          assert find("#gobierto_budgets_options_budget_lines_feedback_enabled", visible: false).checked?
+          assert has_field?("gobierto_budgets_options_feedback_emails", with: "email@example.com")
+          assert find("#gobierto_budgets_options_receipt_enabled", visible: false).checked?
+          assert has_field?("gobierto_budgets_options_receipt_configuration", with: "{}")
+          refute find("#gobierto_budgets_options_comparison_tool_enabled", visible: false).checked?
+          refute find("#gobierto_budgets_options_comparison_context_table_enabled", visible: false).checked?
+          assert find("#gobierto_budgets_options_indicators_enabled", visible: false).checked?
+          assert has_field?("gobierto_budgets_options_budgets_guide_page", with: cms_page.id)
         end
       end
 

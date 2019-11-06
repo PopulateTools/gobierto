@@ -1,7 +1,13 @@
-import * as d3 from "d3";
-import moment from "moment";
+import { select, selectAll } from "d3-selection";
+import { extent, max, min } from "d3-array";
+import { scaleTime, scaleBand, scaleSqrt } from "d3-scale";
+import { axisTop, axisLeft } from "d3-axis";
+import { timeMonth } from "d3-time";
 import { transition } from "d3-transition";
-d3.selection.prototype.transition = transition;
+
+const d3 = { select, selectAll, scaleTime, scaleBand, scaleSqrt, extent, max, min, axisTop, axisLeft, timeMonth, transition };
+
+import moment from "moment";
 
 export const punchcard = (context, data, options = {}) => {
   // Markup has already a svg inside
@@ -123,7 +129,6 @@ export const punchcard = (context, data, options = {}) => {
     .on("mouseout", () => tooltip.style("opacity", "0"))
     .transition()
     .duration(800)
-    .selectAll(`${context} circle.circle`)
     .attr("r", d => r(d.value));
 
   // Custom X-axis

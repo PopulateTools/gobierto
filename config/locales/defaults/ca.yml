@@ -111,7 +111,7 @@ ca:
     messages:
       accepted: ha de ser acceptat
       array_too_short:
-        one: és massa curt (al menys %{count} element)
+        one: és massa curt (al menys 1 element)
         other: és massa curt (al menys %{count} elements)
       blank: no pot estar en blanc
       blank_for_modules: L'organització no està correctament configurada. L'identificador
@@ -142,9 +142,15 @@ ca:
         one: No es pot eliminar el registre perque existeix %{record} dependent
         other: No es pot eliminar el registre perque hi ha %{record} dependents
       taken: no està disponible
-      too_long: és massa llarg (%{count} caràcters màxim)
-      too_short: és massa curt (%{count} caràcters mínim)
-      wrong_length: no té la longitud correcta (%{count} caràcters exactament)
+      too_long:
+        one: és massa llarg (1 caràcter màxim)
+        other: és massa llarg (%{count} caràcters màxim)
+      too_short:
+        one: és massa curt (1 caràcter mínim)
+        other: és massa curt (%{count} caràcters mínim)
+      wrong_length:
+        one: no té la longitud correcta (1 caràcter exactament)
+        other: no té la longitud correcta (%{count} caràcters exactament)
     template:
       body: 'Hi ha hagut problemes amb els següents camps:'
       header:

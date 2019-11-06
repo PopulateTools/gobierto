@@ -1,4 +1,12 @@
-import * as d3 from "d3";
+import { select, selectAll } from "d3-selection"
+import { scaleTime, scaleLinear } from "d3-scale"
+import { extent, max } from "d3-array"
+import { area, line } from "d3-shape"
+import { axisBottom } from "d3-axis"
+import { timeMonth } from "d3-time"
+import { timeFormat } from "d3-time-format"
+
+const d3 = { select, selectAll, scaleTime, scaleLinear, extent, max, area, line, axisBottom, timeMonth, timeFormat }
 
 export class Areachart {
   constructor(props) {
@@ -12,15 +20,16 @@ export class Areachart {
     this.circleSize = props.circleSize || 3;
     this.minValue = props.minValue || 0;
     this.tooltip = props.tooltip || this.defaultTooltip;
+    this.xTickFormat = props.xTickFormat || (d => d3.timeFormat("%b %y")(d));
     this.margin = {
-      top: props.marginTop !== undefined ? props.marginTop : 10,
-      right: props.marginRight !== undefined ? props.marginRight : 10,
-      bottom: props.marginBottom !== undefined ? props.marginBottom : 10,
-      left: props.marginLeft !== undefined ? props.marginLeft : 10
+      top: props.marginTop !== undefined ? props.marginTop : 5,
+      right: props.marginRight !== undefined ? props.marginRight : 5,
+      bottom: props.marginBottom !== undefined ? props.marginBottom : 20,
+      left: props.marginLeft !== undefined ? props.marginLeft : 5
     };
 
     // create main elements
-    this.svg = this.container.append("svg");
+    this.svg = this.container.append("svg").attr("class", "areachart");
     this.g = this.svg.append("g");
     this.g.append("path").attr("class", "area");
     this.g.append("path").attr("class", "headline");
@@ -63,6 +72,12 @@ export class Areachart {
       .attr("width", this.width + this.margin.left + this.margin.right)
       .attr("height", this.height + this.margin.top + this.margin.bottom);
     this.g.attr("transform", `translate(${this.margin.left},${this.margin.top})`);
+
+    // Axes
+    this.g.append("g")
+      .attr("class", "x axis")
+      .attr("transform", `translate(0,${this.height})`)
+      .call(this.xAxis.bind(this));
   }
 
   handleArea() {
@@ -166,6 +181,23 @@ export class Areachart {
     this.tooltipContainer
       .style("opacity", 0)
       .style("z-index", "-1")
+  }
+
+  xAxis(g) {
+    g.call(
+      d3
+        .axisBottom(this.x)
+        .tickSize(0)
+        .tickArguments([this.data.length])
+        .tickFormat(this.xTickFormat)
+    );
+
+    // remove baseline
+    g.select(".domain").remove();
+    // remove default formats
+    g.attr("font-family", null)
+    // align last item
+    g.select(".x.axis .tick:last-of-type:not(:only-child) text").attr("text-anchor", "end")
   }
 
   defaultTooltip(d) {

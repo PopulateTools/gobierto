@@ -1,12 +1,12 @@
-import { select, selectAll } from "d3-selection"
-import { scaleTime, scaleLinear } from "d3-scale"
-import { extent, max } from "d3-array"
-import { area, line } from "d3-shape"
-import { axisBottom } from "d3-axis"
-import { timeMonth } from "d3-time"
-import { timeFormat } from "d3-time-format"
+import { select, selectAll } from "d3-selection";
+import { scaleTime, scaleLinear } from "d3-scale";
+import { extent, max } from "d3-array";
+import { area, line } from "d3-shape";
+import { axisBottom } from "d3-axis";
+import { timeMonth } from "d3-time";
+import { timeFormat } from "d3-time-format";
 
-const d3 = { select, selectAll, scaleTime, scaleLinear, extent, max, area, line, axisBottom, timeMonth, timeFormat }
+const d3 = { select, selectAll, scaleTime, scaleLinear, extent, max, area, line, axisBottom, timeMonth, timeFormat };
 
 export class Areachart {
   constructor(props) {
@@ -33,6 +33,7 @@ export class Areachart {
     this.g = this.svg.append("g");
     this.g.append("path").attr("class", "area");
     this.g.append("path").attr("class", "headline");
+    this.g.append("g").attr("class", "x axis");
     this.tooltipContainer = this.container.append("div");
 
     if (this.data.length) {
@@ -74,8 +75,8 @@ export class Areachart {
     this.g.attr("transform", `translate(${this.margin.left},${this.margin.top})`);
 
     // Axes
-    this.g.append("g")
-      .attr("class", "x axis")
+    this.g
+      .select(".x.axis")
       .attr("transform", `translate(0,${this.height})`)
       .call(this.xAxis.bind(this));
   }
@@ -174,13 +175,11 @@ export class Areachart {
       .style("transform", "translate(-50%, -100%)")
       .style("transition", "opacity 250ms")
       .style("left", `${this.x(d.key) + this.margin.left}px`)
-      .style("top", `${this.y(d.value) + this.margin.top - this.circleSize * 3}px`)
+      .style("top", `${this.y(d.value) + this.margin.top - this.circleSize * 3}px`);
   }
 
   onCircleMouseout() {
-    this.tooltipContainer
-      .style("opacity", 0)
-      .style("z-index", "-1")
+    this.tooltipContainer.style("opacity", 0).style("z-index", "-1");
   }
 
   xAxis(g) {
@@ -195,9 +194,9 @@ export class Areachart {
     // remove baseline
     g.select(".domain").remove();
     // remove default formats
-    g.attr("font-family", null)
+    g.attr("font-family", null);
     // align last item
-    g.select(".x.axis .tick:last-of-type:not(:only-child) text").attr("text-anchor", "end")
+    g.select(".x.axis .tick:last-of-type:not(:only-child) text").attr("text-anchor", "end");
   }
 
   defaultTooltip(d) {

@@ -41,11 +41,7 @@ module GobiertoPeople
     end
 
     def append_condition(attribute_name, attribute_value, operator = "=")
-      if attribute_name == :department_id
-        @relation = Department.filter_department_people(relation, attribute_value)
-      else
-        @relation = relation.where("#{events_table}.#{attribute_name} #{operator} ?", attribute_value)
-      end
+      @relation = relation.where("#{events_table}.#{attribute_name} #{operator} ?", attribute_value)
     end
 
   end

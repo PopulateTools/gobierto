@@ -8,29 +8,30 @@ module GobiertoPeople
 
     include ::EventHelpers
 
-    def justice_department
-      @justice_department ||= gobierto_people_departments(:justice_department)
+    attr_accessor(
+      :justice_department,
+      :coca_cola_interest_group,
+      :tamara,
+      :richard,
+      :site,
+      :nelson
+    )
+
+    def setup
+      super
+      @site = sites(:madrid)
+      @justice_department = gobierto_people_departments(:justice_department)
+      @coca_cola_interest_group = gobierto_people_interest_groups(:coca_cola)
+      @tamara = gobierto_people_people(:tamara)
+      @richard = gobierto_people_people(:richard)
+      @nelson = gobierto_people_people(:nelson)
     end
 
-    def coca_cola_interest_group
-      @coca_cola_interest_group ||= gobierto_people_interest_groups(:coca_cola)
-    end
-
-    def tamara
-      @tamara ||= gobierto_people_people(:tamara)
-    end
     alias person_with_justice_department_events tamara
     alias person_with_coca_cola_events tamara
-
-    def richard
-      @richard ||= gobierto_people_people(:richard)
-    end
-    alias person_without_justice_department_events richard
+    alias person_with_justice_department_trips richard
     alias person_without_coca_cola_events richard
-
-    def site
-      @site || sites(:madrid)
-    end
+    alias person_without_justice_department_events nelson
 
     def test_query
       query_results = PeopleQuery.new(relation: site.people).results
@@ -53,6 +54,7 @@ module GobiertoPeople
       ).results
 
       assert query_results.include?(person_with_justice_department_events)
+      assert query_results.include?(person_with_justice_department_trips)
       assert query_results.exclude?(person_without_justice_department_events)
     end
 

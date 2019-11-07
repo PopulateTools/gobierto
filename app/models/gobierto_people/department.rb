@@ -42,18 +42,20 @@ module GobiertoPeople
     end
 
     def people
-      site.people
-          .left_outer_joins(attending_person_events: :event)
-          .where("gc_events.department_id = :id OR
-gp_people.id IN (select distinct(person_id) from gp_trips where gp_trips.department_id = :id) OR
-gp_people.id IN (select distinct(person_id) from gp_invitations where gp_invitations.department_id = :id) OR
-gp_people.id IN (select distinct(person_id) from gp_gifts where gp_gifts.department_id = :id)", id: id)
-          .distinct
+      self.class.filter_department_people(site.people, id).distinct
     end
 
     def short_name
       result = name.gsub(SHORT_NAME_TRUNCATE_REGEX, "")
       I18n.locale == :ca ? result.gsub("i d'", "i ") : result
+    end
+
+    def self.filter_department_people(people_relation, department_id)
+      people_relation.left_outer_joins(attending_person_events: :event)
+                     .where("gc_events.department_id = :id OR
+gp_people.id IN (select distinct(person_id) FROM gp_trips WHERE gp_trips.department_id = :id) OR
+gp_people.id IN (select distinct(person_id) FROM gp_invitations WHERE gp_invitations.department_id = :id) OR
+gp_people.id IN (select distinct(person_id) FROM gp_gifts WHERE gp_gifts.department_id = :id)", id: department_id)
     end
 
   end

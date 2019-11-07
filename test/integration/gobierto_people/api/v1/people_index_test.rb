@@ -13,25 +13,23 @@ module GobiertoPeople
         FAR_PAST = 10.years.ago.iso8601
         FAR_FUTURE = 10.years.from_now.iso8601
 
+        attr_accessor(
+          :madrid,
+          :justice_department,
+          :coca_cola_group,
+          :tamara,
+          :richard
+        )
+
         def setup
-          enable_submodule(madrid, :agendas)
           super
-        end
+          @madrid = sites(:madrid)
+          @justice_department = gobierto_people_departments(:justice_department)
+          @coca_cola_group = gobierto_people_interest_groups(:coca_cola)
+          @tamara = gobierto_people_people(:tamara)
+          @richard = gobierto_people_people(:richard)
 
-        def madrid
-          @madrid ||= sites(:madrid)
-        end
-
-        def justice_department
-          @justice_department ||= gobierto_people_departments(:justice_department)
-        end
-
-        def coca_cola_group
-          @coca_cola_group ||= gobierto_people_interest_groups(:coca_cola)
-        end
-
-        def tamara
-          @tamara ||= gobierto_people_people(:tamara)
+          enable_submodule(madrid, :agendas)
         end
 
         def person_attributes
@@ -47,8 +45,8 @@ module GobiertoPeople
                                             .uniq.size
         end
 
-        def people_with_events_on_justice_department
-          [tamara]
+        def people_with_activity_on_justice_department
+          [tamara, richard]
         end
 
         def people_with_events_on_coca_cola_group
@@ -90,8 +88,8 @@ module GobiertoPeople
 
             people = JSON.parse(response.body)
 
-            assert_equal people_with_events_on_justice_department.size, people.size
-            assert_equal tamara.name, people.first["name"]
+            assert_equal people_with_activity_on_justice_department.size, people.size
+            assert_equal richard.name, people.first["name"]
             assert_match "?end_date=#{ short_date(FAR_FUTURE) }&start_date=#{ short_date(FAR_PAST) }", people.first["url"]
           end
         end

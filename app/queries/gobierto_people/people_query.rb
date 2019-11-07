@@ -7,7 +7,7 @@ module GobiertoPeople
 
     def append_query_conditions(conditions)
       if conditions[:department_id]
-        append_condition(:department_id, conditions[:department_id])
+        @relation = Department.filter_department_people(relation, conditions[:department_id])
       end
 
       if conditions[:interest_group_id]

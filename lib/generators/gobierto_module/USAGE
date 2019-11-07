@@ -1,0 +1,18 @@
+Description:
+    Generator to start a new gobierto module
+
+Example:
+    rails generate gobierto_module GobiertoData
+
+    This will do:
+        insert  config/application.yml
+        insert  config/routes.rb
+        create  app/models/gobierto_test.rb
+        create  app/controllers/gobierto_test/application_controller.rb
+        create  app/controllers/gobierto_test/welcome_controller.rb
+        create  app/views/gobierto_test/layouts/_navigation.main.html.erb
+        create  app/views/gobierto_test/layouts/application.html.erb
+        create  app/views/gobierto_test/welcome/index.html.erb
+        create  config/locales/gobierto_test/views/ca.yml
+        create  config/locales/gobierto_test/views/en.yml
+        create  config/locales/gobierto_test/views/es.yml

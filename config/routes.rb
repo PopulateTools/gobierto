@@ -548,6 +548,8 @@ Rails.application.routes.draw do
       end
     end
 
+    # Add new modules before this line
+
     # Sidekiq Web UI
     mount Sidekiq::Web => "/sidekiq", as: :sidekiq_console
   end

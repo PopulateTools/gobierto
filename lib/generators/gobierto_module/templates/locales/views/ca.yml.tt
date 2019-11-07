@@ -1,0 +1,6 @@
+---
+ca:
+  <%= module_name %>:
+    layouts:
+      application:
+        <%= module_name %>: <%= module_title %>

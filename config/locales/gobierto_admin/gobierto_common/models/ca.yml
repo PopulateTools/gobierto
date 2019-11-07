@@ -11,7 +11,6 @@ ca:
       gobierto_admin/gobierto_common/custom_field_form:
         date: Data
         field_type: Tipus de camp
-        human_resources: Recursos Humans
         image: Imatge
         indicators: Indicadors
         localized_paragraph: Text llarg

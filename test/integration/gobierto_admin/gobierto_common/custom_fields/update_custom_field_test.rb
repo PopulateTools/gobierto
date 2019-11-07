@@ -82,21 +82,6 @@ module GobiertoCommon
           assert_equal instance, instance_level_custom_field.instance
         end
       end
-
-      def test_update_indicators_plugin_custom_field
-        custom_field = gobierto_common_custom_fields(:madrid_custom_field_indicators_plugin)
-
-        with(site: site, js: true, admin: admin) do
-          visit edit_admin_common_custom_fields_custom_field_path(custom_field)
-
-          find("#custom_field_vocabulary_id").select("Issues Vocabulary")
-
-          click_button "Update"
-
-          assert has_content? "Custom field updated correctly"
-          assert_equal @issues_vocabulary.id, custom_field.reload.options["vocabulary_id"].to_i
-        end
-      end
     end
   end
 end

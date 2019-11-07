@@ -49,8 +49,6 @@ module GobiertoAdmin
         def create_custom_fields_records
           {
             political_agendas_custom_field_global: unpublished_project,
-            political_agendas_indicators_custom_field_record: unpublished_project,
-            political_agendas_human_resources_custom_field_record: unpublished_project,
             political_agendas_budgets_custom_field_record: unpublished_project,
             political_agendas_custom_field_record_vocabulary_single_select: unpublished_project,
             political_agendas_custom_field_record_vocabulary_multiple_select: unpublished_project,

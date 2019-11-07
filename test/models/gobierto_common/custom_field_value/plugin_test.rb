@@ -6,7 +6,7 @@ module GobiertoCommon::CustomFieldValue
   class PluginTest < ActiveSupport::TestCase
 
     def record
-      gobierto_common_custom_field_records(:political_agendas_indicators_custom_field_record)
+      gobierto_common_custom_field_records(:political_agendas_indicators_table_custom_field_record)
     end
 
     def test_value

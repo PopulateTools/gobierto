@@ -35,6 +35,9 @@ default: &default
     -
       name: Gobierto Investments
       namespace: GobiertoInvestments
+    -
+      name: Gobierto Data
+      namespace: GobiertoData
   site_modules_with_root_path:
     -
       name: Gobierto Budgets

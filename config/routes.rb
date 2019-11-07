@@ -548,6 +548,18 @@ Rails.application.routes.draw do
       end
     end
 
+    # Gobierto Data module
+    namespace :gobierto_data, path: "gobierto_data" do
+      constraints GobiertoSiteConstraint.new do
+        # API
+        namespace :api, path: "/api" do
+          namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true) do
+            get "/" => "query#index", as: :root
+          end
+        end
+      end
+    end
+
     # Add new modules before this line
 
     # Sidekiq Web UI

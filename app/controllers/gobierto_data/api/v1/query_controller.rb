@@ -5,10 +5,15 @@ module GobiertoData
     module V1
       class QueryController < ApiBaseController
 
-        # GET /gobierto-data/api/v1
-        # GET /gobierto_investments/api/v1.json
+        # GET /gobierto_data/api/v1?sql=SELECT%20%2A%20FROM%20table_name
         def index
-          render json: { data: nil }, adapter: :json_api
+          render json: { data: execute_query(params[:sql]) }, adapter: :json_api
+        end
+
+        private
+
+        def execute_query(sql)
+          GobiertoData::Connection.execute_query(current_site, Arel.sql(sql))
         end
 
       end

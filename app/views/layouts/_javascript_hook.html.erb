@@ -1,5 +1,7 @@
-<%= javascript_tag do %>
-  $(document).on('turbolinks:load', function() {
-    <%= yield(:javascript_hook) %>
-  });
-<% end %>
+<% if content_for? :javascript_hook %>
+  <%= javascript_tag do %>
+    $(document).on('turbolinks:load', function() {
+      <%= yield(:javascript_hook) %>
+    });
+  <% end %>
+<% end%>

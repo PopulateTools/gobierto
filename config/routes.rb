@@ -549,11 +549,11 @@ Rails.application.routes.draw do
     end
 
     # Gobierto Data module
-    namespace :gobierto_data, path: "gobierto_data" do
+    namespace :gobierto_data, path: "/" do
       constraints GobiertoSiteConstraint.new do
         # API
-        namespace :api, path: "/api" do
-          namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true) do
+        namespace :api, path: "/" do
+          namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1/data" do
             get "/" => "query#index", as: :root
           end
         end

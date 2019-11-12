@@ -9,7 +9,7 @@ module GobiertoData
     class << self
       def execute_query(site, query)
         base_connection_config = connection_config
-        return null_query unless (db_config = site&.gobierto_data_settings&.db_config&.dig(Rails.env)).present?
+        return null_query unless (db_config = site&.gobierto_data_settings&.db_config).present?
 
         establish_connection(db_config)
         connection.execute(query)

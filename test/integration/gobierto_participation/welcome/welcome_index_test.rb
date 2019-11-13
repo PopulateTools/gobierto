@@ -134,13 +134,11 @@ module GobiertoParticipation
     end
 
     def test_show_poll
-      with_javascript do
-        with_signed_in_user(user) do
-          visit @path
+      with_signed_in_user(user) do
+        visit @path
 
-          assert has_link? poll.title
-          assert has_content? poll.questions.first.title
-        end
+        assert has_link? poll.title
+        assert has_content? poll.questions.first.title
       end
     end
 

@@ -111,63 +111,6 @@ political_agendas_custom_field_record_vocabulary_tags:
     ]
   }.to_json %>
 
-political_agendas_indicators_custom_field_record:
-  item: political_agendas (GobiertoPlans::Node)
-  custom_field: madrid_custom_field_indicators_plugin
-  payload: <%= [
-    {
-      indicator: ActiveRecord::FixtureSet.identify(:indicators_raw_savings),
-      objective: 100,
-      value_reached: 92.5,
-      date: "2018-12"
-    },
-    {
-      indicator: ActiveRecord::FixtureSet.identify(:indicators_raw_savings),
-      objective: 100,
-      value_reached: 85,
-      date: "2018-11"
-    },
-    {
-      indicator: ActiveRecord::FixtureSet.identify(:indicators_net_savings),
-      objective: 200,
-      value_reached: 210,
-      date: "2019"
-    },
-    {
-      indicator: ActiveRecord::FixtureSet.identify(:indicators_births),
-      objective: 50
-    },
-    {
-      indicator: ActiveRecord::FixtureSet.identify(:indicators_deaths)
-    }
-  ].to_json %>
-
-political_agendas_human_resources_custom_field_record:
-  item: political_agendas (GobiertoPlans::Node)
-  custom_field: madrid_custom_field_human_resources_plugin
-  payload: <%= {
-    human_resources: [
-       {
-        human_resource: ActiveRecord::FixtureSet.identify(:human_resources_supervisor),
-        cost: 35_000,
-        start_date: "2018-01-01",
-        end_date: "2018-12-31"
-      },
-      {
-        human_resource: ActiveRecord::FixtureSet.identify(:human_resources_employee),
-        cost: 25_000,
-        start_date: "2018-01-01",
-        end_date: "2018-12-31"
-      },
-      {
-        human_resource: ActiveRecord::FixtureSet.identify(:human_resources_employee),
-        cost: 20_000,
-        start_date: "2018-01-01",
-        end_date: "2018-06-15"
-      }
-    ]
-  }.to_json %>
-
 political_agendas_budgets_custom_field_record:
   item: political_agendas (GobiertoPlans::Node)
   custom_field: madrid_custom_field_budgets_plugin

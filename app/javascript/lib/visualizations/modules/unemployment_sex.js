@@ -1,4 +1,16 @@
-import * as d3 from 'd3'
+import { timeParse } from 'd3-time-format'
+import { format } from 'd3-format'
+import { select, selectAll } from 'd3-selection'
+import { scaleTime, scaleLinear, scaleOrdinal } from 'd3-scale'
+import { axisBottom, axisLeft } from 'd3-axis'
+import { json } from 'd3-request'
+import { queue } from 'd3-queue'
+import { nest } from 'd3-collection'
+import { max, merge, sum } from 'd3-array'
+import { line } from 'd3-shape'
+import { voronoi } from 'd3-voronoi'
+
+const d3 = { timeParse, format, scaleTime, scaleLinear, scaleOrdinal, select, axisBottom, axisLeft, json, queue, nest, sum, max, line, voronoi, merge, selectAll }
 
 export class VisUnemploymentSex {
   constructor(divId, city_id, unemplAgeData) {
@@ -14,7 +26,7 @@ export class VisUnemploymentSex {
     this.isMobile = window.innerWidth <= 768;
 
     // Chart dimensions
-    this.margin = {top: 25, right: 50, bottom: 25, left: 20};
+    this.margin = { top: 25, right: 50, bottom: 25, left: 20 };
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -44,7 +56,11 @@ export class VisUnemploymentSex {
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
 
-    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
+    d3.select(window).on('resize.' + this.container, () => {
+      if (this.data) {
+        this._resize()
+      }
+    });
   }
 
   getData() {
@@ -60,7 +76,7 @@ export class VisUnemploymentSex {
       .await(function (error, population, unemployment) {
         if (error) throw error;
 
-        if(this.location_id === 8077) {
+        if (this.location_id === 8077) {
           let factor = 0.7786712568;
           population.forEach((d) => {
             d.value = d.value * factor;
@@ -84,9 +100,9 @@ export class VisUnemploymentSex {
         unemployment.forEach(function(d) {
           var year = d.date.slice(0,4);
 
-          if(nested.hasOwnProperty(year)) {
+          if (Object.prototype.hasOwnProperty.call(nested, year)) {
             d.pct = d.value / nested[year]
-          } else if(year === lastYear) {
+          } else if (year === lastYear) {
             // If we are in the last year, divide the unemployment by last year's population
             d.pct = d.value / nested[year - 1]
           } else {
@@ -208,7 +224,7 @@ export class VisUnemploymentSex {
     this.focus.select('circle').attr('stroke', this.color(d.data.sex));
     this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.pct) + ')');
     this.focus.select('text').attr('text-anchor', d.data.date >= this.parseTime('2014-01') ? 'end' : 'start');
-    this.focus.select('tspan').text(`${this._getLabel(d.data.sex)}: ${this.pctFormat(d.data.pct)} (${d.data.date.toLocaleString(I18n.locale, {month: 'short'})} ${d.data.date.getFullYear()})`);
+    this.focus.select('tspan').text(`${this._getLabel(d.data.sex)}: ${this.pctFormat(d.data.pct)} (${d.data.date.toLocaleString(I18n.locale, { month: 'short' })} ${d.data.date.getFullYear()})`);
   }
 
   _mouseout() {
@@ -247,7 +263,7 @@ export class VisUnemploymentSex {
 
     // Remove the zero
     this.svg.selectAll(".y.axis .tick")
-      .filter(function (d) { return d === 0;  })
+      .filter(function (d) { return d === 0; })
       .remove();
 
     // Move y axis ticks on top of the chart
@@ -258,7 +274,7 @@ export class VisUnemploymentSex {
   }
 
   _width() {
-    return parseInt(d3.select(this.container).style('width'));
+    return this.container ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _height() {

@@ -25,7 +25,8 @@ ca:
             i l'equip municipal el farà servir per comprovar quines són les preferències
             dels veïns i ho tindrà amb compte a l'hora d'elaborar els pressupostos."
           p3: T’enviarem un avís quan es publiquin els resultats de la consulta i
-            podràs rebre un altre quan l’Ajuntament publiqui el seu projecte de pressupostos.
+            podràs rebre un altre quan %{the_organization_name} publiqui el seu projecte
+            de pressupostos.
           share_text: He participat a la consulta sobre pressupostos a %{current_site_name}
           thanks: Molt bé, moltes gràcies per la teva aportació
       consultation_items:

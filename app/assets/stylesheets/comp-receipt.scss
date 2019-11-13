@@ -32,7 +32,7 @@
     padding: 0.5em 0;
     position: relative;
     display: inline-block;
-    color: $color_main;
+    color: var(--color-base);
 
     @include min-screen(740) {
       padding: 0 0.5em;
@@ -79,7 +79,7 @@
 
     @include min-screen(740) {
       display: block;
-      background-image: linear-gradient(to right, $color_main 33%, rgba(255, 255, 255, 0) 0%);
+      background-image: linear-gradient(to right, var(--color-base) 33%, rgba(255, 255, 255, 0) 0%);
       background-position: bottom;
       background-size: 7px 2px;
       background-repeat: repeat-x;
@@ -215,7 +215,7 @@
       border-radius: 50%;
       height: 16px;
       width: 16px;
-      background: $color_main;
+      background: var(--color-base);
       color: white;
       line-height: 13px;
       text-align: center;

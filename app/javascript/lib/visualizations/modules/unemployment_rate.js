@@ -1,4 +1,16 @@
-import * as d3 from 'd3'
+import { timeParse } from 'd3-time-format'
+import { format } from 'd3-format'
+import { select, selectAll } from 'd3-selection'
+import { scaleTime, scaleLinear, scaleOrdinal } from 'd3-scale'
+import { axisBottom, axisLeft } from 'd3-axis'
+import { json } from 'd3-request'
+import { queue } from 'd3-queue'
+import { nest } from 'd3-collection'
+import { max, merge } from 'd3-array'
+import { line } from 'd3-shape'
+import { voronoi } from 'd3-voronoi'
+
+const d3 = { timeParse, format, select, scaleTime, scaleLinear, scaleOrdinal, axisBottom, axisLeft, json, queue, nest, max, line, voronoi, merge, selectAll }
 
 export class VisUnemploymentRate {
   constructor(divId, city_id, ccaa_id) {
@@ -13,7 +25,7 @@ export class VisUnemploymentRate {
     this.isMobile = window.innerWidth <= 768;
 
     // Chart dimensions
-    this.margin = {top: 25, right: 80, bottom: 25, left: 0};
+    this.margin = { top: 25, right: 80, bottom: 25, left: 0 };
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -43,7 +55,11 @@ export class VisUnemploymentRate {
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
 
-    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
+    d3.select(window).on('resize.' + this.container, () => {
+      if (this.data) {
+        this._resize()
+      }
+    });
   }
 
   getData() {
@@ -191,7 +207,7 @@ export class VisUnemploymentRate {
 
     this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.value) + ')');
     this.focus.select('text').attr('text-anchor', d.data.date >= this.parseTime('2014-01') ? 'end' : 'start');
-    this.focus.select('tspan').text(`${this._getPlaceType(d.data.location_type)}: ${d.data.value}% (${d.data.date.toLocaleString(I18n.locale, {month: 'short'})} ${d.data.date.getFullYear()})`);
+    this.focus.select('tspan').text(`${this._getPlaceType(d.data.location_type)}: ${d.data.value}% (${d.data.date.toLocaleString(I18n.locale, { month: 'short' })} ${d.data.date.getFullYear()})`);
   }
 
   _mouseout() {
@@ -220,7 +236,7 @@ export class VisUnemploymentRate {
 
     // Remove the zero
     this.svg.selectAll('.y.axis .tick')
-      .filter(function (d) { return d === 0;  })
+      .filter(function (d) { return d === 0; })
       .remove();
 
     // Move y axis ticks on top of the chart
@@ -242,7 +258,7 @@ export class VisUnemploymentRate {
   }
 
   _width() {
-    return parseInt(d3.select(this.container).style('width'));
+    return this.container ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _height() {

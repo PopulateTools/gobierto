@@ -2,3 +2,38 @@
 
 <!-- generic content hook -->
 <%= yield(:gobierto_footer_content) %>
+
+<!-- site js variables -->
+<script type="text/javascript">
+  I18n.defaultLocale = "<%= I18n.default_locale %>";
+  I18n.locale = "<%= I18n.locale %>";
+
+  <% if algoliasearch_configured? %>
+    window.searchClient = {
+      client: algoliasearch('<%= Rails.application.secrets.algolia_application_id %>', '<%= Rails.application.secrets.algolia_search_api_key %>'),
+      indexes: [<%= algolia_search_client.search_in_indexes.html_safe %>],
+      filters: "site_id:<%= algolia_search_client.site.id %>"
+    };
+  <% end %>
+  window.populateData = {
+    token: "<%= current_site.configuration.populate_data_api_token %>",
+    <% if current_site.place %>
+      municipalityId: "<%= current_site.place.id %>",
+      municipalityName: "<%= current_site.place.name %>",
+      provinceId: "<%= current_site.place.province.id %>",
+      provinceName: "<%= current_site.place.province.name %>",
+      ccaaId: "<%= current_site.place.province.autonomous_region.id %>",
+      ccaaName: "<%= current_site.place.province.autonomous_region.name(I18n.locale) %>",
+    <% else %>
+      municipalityId: "<%= current_site.organization_id %>",
+    <% end %>
+    year: <%= APP_CONFIG["gobierto_observatory"]["year"] %>,
+    endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"
+  };
+  window.populateDataYear = {
+    currentYear: <%= @selected_year || Date.current.year %>
+  };
+</script>
+
+<!-- page controller initialization -->
+<%= render "layouts/javascript_hook" %>

@@ -1,22 +1,20 @@
 # frozen_string_literal: true
 
 module SiteSessionHelpers
-  def with_current_site(site)
-    stub_current_site(site) { yield }
+  def with_current_site(site, opts = {})
+    if opts[:include_host]
+      with_site_host(site) do
+        yield
+      end
+    else
+      stub_current_site(site) { yield }
+    end
   end
 
   def with_each_current_site(*sites)
     sites.each do |site|
       with_current_site(site) do
         yield(site)
-      end
-    end
-  end
-
-  def with_current_site_with_host(site)
-    with_current_site(site) do
-      with_site_host(site) do
-        yield
       end
     end
   end

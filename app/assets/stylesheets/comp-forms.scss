@@ -84,7 +84,7 @@ textarea:focus {
 .select_control,
 .file_field {
   position: relative;
-  margin: 0 0 1em 0;
+  margin: 0 0 2em 0;
 
   label {
     z-index: 1;
@@ -105,12 +105,14 @@ textarea:focus {
 
   .form_item_colorpicker {
     position: relative;
+
     .minicolors-swatch {
       margin-top: auto;
       bottom: 0;
       margin-bottom: 0.8rem;
       margin-left: 12px;
     }
+
     .minicolors-input {
       padding-left: 52px;
     }
@@ -118,14 +120,20 @@ textarea:focus {
 
   input,
   textarea {
-    padding: 1.9rem 1rem 0.25rem 1rem;
+    padding: 1.75rem 1rem 0.5rem 0.95rem;
     width: 100%;
     outline: none;
   }
 
   textarea {
     box-sizing: border-box;
-    min-height: 300px;
+    height: 300px;
+    font-size: 1em;
+  }
+
+  input[type=password] {
+    height: 67px;
+    padding: 1.5rem 1rem 0.25rem 1rem;
   }
 }
 
@@ -196,7 +204,7 @@ button {
   transition: all 0.15s ease-out 0s;
   border: 0;
   height: initial;
-  background: $color_main;
+  background: var(--color-base);
   color: #fff;
   padding: 1em 2em;
   text-align: center;
@@ -218,15 +226,13 @@ input[type=submit].button {
 input[type=submit]:hover,
 .button:hover,
 button:hover {
-  background: darken($color_main, 10%);
+  background: rgba(var(--color-base-string), 0.8);
 }
 
 input[type=submit]:disabled,
 .button:disabled,
 button:disabled {
-  // background: darken($color_main, 20%);
-  // color: darken(#fff, 20%);
-  background: $color_main;
+  background: var(--color-base);
   opacity: .2;
 }
 
@@ -236,6 +242,7 @@ a.button,
   color: #fff;
   text-decoration: none;
 }
+
 button.bl,
 .button.bl {
   width: 100%;
@@ -253,14 +260,14 @@ button {
 
 button.soft,
 .button.soft {
-  background: transparentize($color_main, 0.35);
+  background: rgba(var(--color-base-string), 0.65);
 }
 
 button.light,
 .button.light {
   background: $color_main_negative;
   border: 1px solid $color_separator;
-  color: $color_main;
+  color: var(--color-base);
 }
 
 button.gigantic,
@@ -297,11 +304,11 @@ button.small,
 
 button.light:hover,
 .button.light:hover {
-  background: rgba($color_main, 0.2);
+  background: rgba(var(--color-base-string), 0.2);
 }
 
 .button_light {
-  background: rgba($color_1, 0.2);
+  background: rgba(var(--color-base-string), 0.2);
 
   transition: all 0.15s ease-out 0s;
 
@@ -317,20 +324,20 @@ button.light:hover,
 }
 
 .button_light:hover {
-  background: rgba($color_1, 0.3);
+  background: rgba(var(--color-base-string), 0.3);
   text-decoration: none;
 }
 
 button.outline,
 .button.outline {
   background: #fff;
-  border: 1px solid transparentize($color_1, 0.75);
-  color: $color_main;
+  border: 1px solid rgba(var(--color-base-string), 0.25);
+  color: var(--color-base);
 }
 
 button.outline:hover,
 .button.outline:hover {
-  background: $color_1_soft;
+  background: rgba(var(--color-base-string), 0.06);
   text-decoration: none;
 }
 
@@ -498,9 +505,9 @@ input[type="radio"] + label {
 }
 
 .inline_button {
-  background: rgba($color_main, 0.1);
+  background: rgba(var(--color-base-string), 0.1);
   border-radius: 4px;
-  color: $color_main;
+  color: var(--color-base);
   font-weight: 600;
   text-decoration: none;
   padding: 0.35em 0.75em;
@@ -509,7 +516,7 @@ input[type="radio"] + label {
   &:hover,
   &:active,
   &:focus {
-    background: rgba($color_main, 0.15);
+    background: rgba(var(--color-base-string), 0.15);
     text-decoration: none;
   }
 }
@@ -518,6 +525,7 @@ input[type="radio"] + label {
   border-radius: 20px;
   font-weight: 600;
 }
+
 .button.outline.rounded {
   text-transform: none;
   padding: 0.2em 1em;
@@ -534,7 +542,7 @@ input[type="radio"] + label {
 }
 
 .button.outline.rounded.checked {
-  background: $color_main;
+  background: var(--color-base);
 
   .fas {
     color: white;
@@ -549,7 +557,7 @@ input[type="radio"] + label {
   &:focus,
   &:active,
   &:hover {
-    background: $color_main;
+    background: var(--color-base);
   }
 }
 
@@ -558,7 +566,7 @@ input[type="radio"] + label span {
   display: inline-block;
   width: 19px;
   height: 19px;
-  border: 1px solid $color_main;
+  border: 1px solid var(--color-base);
   background: #fff;
 
   @include border-radius(3px);
@@ -575,12 +583,12 @@ input[type="radio"] + label span {
 input[type="checkbox"] + label:hover,
 input[type="radio"] + label:hover,
 .admin_new_el a:hover {
-  background: rgba($color_main, 0.1);
+  background: rgba(var(--color-base-string), 0.1);
 }
 
 input[type="checkbox"]:checked + label,
 input[type="radio"]:checked + label {
-  background: rgba($color_main, 0.2);
+  background: rgba(var(--color-base-string), 0.2);
 
   .password_protected {
     margin: 0.5em 0;
@@ -607,7 +615,7 @@ input[type="radio"]:checked + label {
 
 input[type="checkbox"]:checked + label span,
 input[type="radio"]:checked + label span {
-  background: $color_main;
+  background: var(--color-base);
 }
 
 input[type="radio"] + label span {
@@ -650,41 +658,6 @@ select {
 .option.separate {
   margin-top: 1em;
   padding-top: 1em;
-}
-
-.form_item.input_text,
-.form_item.textarea,
-.select_control,
-.file_field {
-  position: relative;
-  margin: 0 0 2em 0;
-
-  label {
-    position: absolute;
-    top: 0.5rem;
-    left: 1rem;
-    text-transform: uppercase;
-    font-size: 0.75em;
-    font-weight: 700;
-  }
-
-  input,
-  textarea {
-    padding: 1.75rem 1rem 0.5rem 0.95rem;
-    width: 100%;
-    outline: none;
-  }
-
-  textarea {
-    box-sizing: border-box;
-    height: 300px;
-    font-size: 1em;
-  }
-
-  input[type=password] {
-    height: 67px;
-    padding: 1.5rem 1rem 0.25rem 1rem;
-  }
 }
 
 .select_control,
@@ -784,7 +757,7 @@ select {
     }
 
     .option_contextual {
-      background: rgba($color_main, 0.2);
+      background: rgba(var(--color-base-string), 0.2);
       padding: 0.5em 1em 0.5em 2.5em;
       margin-left: calc(-0.5rem - 1px);
       margin-top: -1px;
@@ -866,6 +839,7 @@ select {
     display: block;
   }
 }
+
 .admin_new_el.inline {
   display: inline-block;
 }
@@ -893,7 +867,7 @@ select {
         border-radius: 50%;
 
         &.active {
-          background: $color_main;
+          background: var(--color-base);
         }
       }
     }
@@ -931,7 +905,7 @@ select {
 }
 
 .autocomplete-selected {
-  background: $color_main;
+  background: var(--color-base);
   color: #fff;
 }
 
@@ -996,7 +970,7 @@ select {
     user-select: none;
 
     &:hover {
-      background: rgba($color_main, 0.5) !important;
+      background: rgba(var(--color-base-string), 0.5) !important;
     }
   }
 
@@ -1029,14 +1003,14 @@ select {
 
   input:checked + label::after {
     margin-left: 45px;
-    background-color: $color_main;
+    background-color: var(--color-base);
   }
 }
 
 .inline_login_cta {
   a {
     margin: 2em 0;
-    background: $color_main;
+    background: var(--color-base);
     color: #fff;
     border-radius: 6px;
     text-align: center;
@@ -1057,6 +1031,7 @@ select {
   }
 
 }
+
 .f_flex_col_7 {
   > div.form_item.input_text,
   > div.form_item.select_control {
@@ -1098,7 +1073,7 @@ select {
 
         span {
           text-decoration: underline;
-          color: $color_main;
+          color: var(--color-base);
         }
       }
 
@@ -1112,7 +1087,7 @@ select {
       padding: .2em 1em .2em .25em;
     }
 
-    .i_f_option:not(:last-child):after {
+    .i_f_option:not(:last-child)::after {
       content: "";
       border-left: 1px solid $color_separator;
       position: absolute;

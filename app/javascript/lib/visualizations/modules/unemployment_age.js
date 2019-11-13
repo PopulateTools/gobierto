@@ -1,4 +1,14 @@
-import * as d3 from 'd3'
+import { timeParse } from 'd3-time-format'
+import { format } from 'd3-format'
+import { select, selectAll } from 'd3-selection'
+import { scaleTime, scaleLinear, scaleOrdinal } from 'd3-scale'
+import { axisBottom, axisLeft } from 'd3-axis'
+import { nest } from 'd3-collection'
+import { max, merge } from 'd3-array'
+import { line, curveCatmullRom } from 'd3-shape'
+import { voronoi } from 'd3-voronoi'
+
+const d3 = { timeParse, format, scaleTime, scaleLinear, scaleOrdinal, axisBottom, axisLeft, select, nest, max, line, selectAll, curveCatmullRom, voronoi, merge }
 
 export class VisUnemploymentAge {
   constructor(divId, city_id, unemplAgeData) {
@@ -9,7 +19,7 @@ export class VisUnemploymentAge {
     this.isMobile = window.innerWidth <= 768;
 
     // Chart dimensions
-    this.margin = {top: 25, right: 20, bottom: 25, left: 50};
+    this.margin = { top: 25, right: 20, bottom: 25, left: 50 };
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -39,7 +49,11 @@ export class VisUnemploymentAge {
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
 
-    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
+    d3.select(window).on('resize.' + this.container, () => {
+      if (this.data) {
+        this._resize()
+      }
+    });
   }
 
   getData() {
@@ -149,7 +163,7 @@ export class VisUnemploymentAge {
 
     this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.pct) + ')');
     this.focus.select('text').attr('text-anchor', d.data.date >= this.parseTime('2014-01') ? 'end' : 'start');
-    this.focus.select('tspan').text(`${this._getAgeRange(d.data.age_range)}: ${this.pctFormat(d.data.pct)} (${d.data.date.toLocaleString(I18n.locale, {month: 'short'})} ${d.data.date.getFullYear()})`);
+    this.focus.select('tspan').text(`${this._getAgeRange(d.data.age_range)}: ${this.pctFormat(d.data.pct)} (${d.data.date.toLocaleString(I18n.locale, { month: 'short' })} ${d.data.date.getFullYear()})`);
   }
 
   _mouseout() {
@@ -188,7 +202,7 @@ export class VisUnemploymentAge {
 
     // Remove the zero
     this.svg.selectAll(".y.axis .tick")
-      .filter(function (d) { return d === 0;  })
+      .filter(function (d) { return d === 0; })
       .remove();
 
     // Move y axis ticks on top of the chart
@@ -205,7 +219,7 @@ export class VisUnemploymentAge {
   }
 
   _width() {
-    return parseInt(d3.select(this.container).style('width'));
+    return this.container ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _height() {

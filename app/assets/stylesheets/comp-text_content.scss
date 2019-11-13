@@ -42,17 +42,17 @@ figure.gif {
         a {
           padding: 0.5em 0.75em;
           color: #fff;
-          background: $color_main;
+          background: var(--color-base);
           display: block;
           text-decoration: none;
         }
 
         a:hover {
-          background: lighten($color_main, 5%);
+          background: rgba(var(--color-base-string), 0.9);
         }
 
         ul {
-          background: $color_1_soft;
+          background: rgba(var(--color-base-string), 0.06);
           padding: 0.75em 0.75em 0.75em 1.25em;
           font-size: 0.85rem;
 
@@ -63,12 +63,13 @@ figure.gif {
               background: initial;
               padding: 0;
               font-weight: bold;
-              color: $color_main;
+              color: var(--color-base);
             }
 
             a:hover {
               background: initial;
-              color: darken($color_main, 10%);
+              color: var(--color-base);
+              filter: brightness(0.9);
             }
 
             ul {
@@ -107,7 +108,7 @@ figure.gif {
     }
 
     .page_attachments {
-      background: $color_1_soft;
+      background: rgba(var(--color-base-string), 0.06);
       width: 50%;
       float: right;
       margin: 0 0 2em 2em;
@@ -139,7 +140,8 @@ figure.gif {
         }
 
         a:hover {
-          background: darken($color_1_soft, 5%);
+          background: rgba(var(--color-base-string), 0.06);
+          filter: brightness(0.95);
         }
 
         h4 {
@@ -168,7 +170,7 @@ figure.gif {
   line-height: 1.2;
 
   .page_child {
-    background: $color_1_soft;
+    background: rgba(var(--color-base-string), 0.06);
     border-radius: 6px;
     margin: 0.5em;
     font-size: $f5;
@@ -183,7 +185,8 @@ figure.gif {
     }
 
     a:hover {
-      background: darken($color_1_soft, 5%);
+      background: rgba(var(--color-base-string), 0.06);
+      filter: brightness(0.95);
     }
 
     .page_children {

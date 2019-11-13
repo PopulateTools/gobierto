@@ -9,7 +9,7 @@ ul.block_list {
 
   li {
     a {
-      background: $color_1_soft;
+      background: rgba(var(--color-base-string), 0.06);
 
       @include border-radius(4px);
 
@@ -28,7 +28,7 @@ ul.block_list {
     }
 
     a:hover {
-      background: darken($color_1_soft, 30%);
+      background: rgba(var(--color-base-string), 0.3);
     }
   }
 }

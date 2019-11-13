@@ -11,7 +11,6 @@ en:
       gobierto_admin/gobierto_common/custom_field_form:
         date: Date
         field_type: Type of field
-        human_resources: Human Resources
         image: Image
         indicators: Indicators
         localized_paragraph: Long text

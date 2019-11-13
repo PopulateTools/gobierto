@@ -77,7 +77,7 @@ module GobiertoPlans
     end
 
     def nodes_data
-      CollectionDecorator.new(
+      @nodes_data ||= CollectionDecorator.new(
         nodes.published,
         decorator: GobiertoPlans::ProjectDecorator,
         opts: { plan: plan, site: site }

@@ -10,23 +10,14 @@ module GobiertoPlans
     def node_plugins_data(plan, node)
       super_result = super(plan, node)
 
-      table_records = GobiertoCommon::CustomFieldRecord.where(
-        item: node
-      ).joins(
-        :custom_field
-      ).where(
-        "custom_fields.options @> ?",
-        { configuration: { plugin_type: "table" } }.to_json
-      )
+      indicators_records = get_indicators_records(node)
+      human_resources_records = get_human_resources_records(node)
 
-      human_resources_condition = { configuration: { plugin_configuration: { category_term_decorator: "human_resources" } } }.to_json
-      indicators_condition = { configuration: { plugin_configuration: { category_term_decorator: "indicators" } } }.to_json
-
-      if (human_resources_records = table_records.where("custom_fields.options @> ?", human_resources_condition)).exists?
+      if human_resources_records.exists?
         super_result[:human_resources] = human_resources_data(human_resources_records, version: node.published_version)
       end
 
-      if (indicators_records = table_records.where("custom_fields.options @> ?", indicators_condition)).exists?
+      if indicators_records.exists?
         super_result[:indicators] = indicators_data(indicators_records, version: node.published_version)
       end
 
@@ -76,22 +67,40 @@ module GobiertoPlans
 
     def indicators_data_template
       {
-        title_translations: Hash[I18n.available_locales.map do |locale|
-          [locale, I18n.t("gobierto_plans.custom_fields_plugins.indicators.title", locale: locale)]
-        end],
+        title_translations: indicators_custom_fields&.first&.name_translations,
         data: []
       }
     end
 
     def human_resources_data_template
       {
-        title_translations: Hash[I18n.available_locales.map do |locale|
-          [locale, I18n.t("gobierto_plans.custom_fields_plugins.human_resources.title", locale: locale)]
-        end],
+        title_translations: human_resources_custom_fields&.first&.name_translations,
         budgeted_amount: nil,
         executed_amount: nil,
         executed_percentage: nil
       }
+    end
+
+    def get_indicators_records(node)
+      ::GobiertoCommon::CustomFieldRecord.where(custom_field: indicators_custom_fields, item: node)
+    end
+
+    def get_human_resources_records(node)
+      ::GobiertoCommon::CustomFieldRecord.where(custom_field: human_resources_custom_fields, item: node)
+    end
+
+    def indicators_custom_fields
+      @indicators_custom_fields ||= site.custom_fields.where("options @> ?", { configuration: {
+        plugin_type: "table",
+        plugin_configuration: { category_term_decorator: "indicators" }
+      }}.to_json)
+    end
+
+    def human_resources_custom_fields
+      @human_resources_custom_fields ||= site.custom_fields.where("options @> ?", { configuration: {
+        plugin_type: "table",
+        plugin_configuration: { category_term_decorator: "human_resources" }
+      }}.to_json)
     end
 
   end

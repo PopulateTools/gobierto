@@ -5,7 +5,3 @@ en:
       budgets:
         detail_text: see detail in Budgets
         title: Budget
-      human_resources:
-        title: Human Resources
-      indicators:
-        title: Indicators

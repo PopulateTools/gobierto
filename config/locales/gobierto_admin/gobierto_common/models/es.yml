@@ -11,7 +11,6 @@ es:
       gobierto_admin/gobierto_common/custom_field_form:
         date: Fecha
         field_type: Tipo de campo
-        human_resources: Recursos Humanos
         image: Imagen
         indicators: Indicadores
         localized_paragraph: Texto largo

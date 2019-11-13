@@ -119,7 +119,7 @@ GEM
     cloudinary (1.12.0)
       aws_cf_signer
       rest-client
-    codecov (0.1.15)
+    codecov (0.1.16)
       json
       simplecov
       url
@@ -169,7 +169,7 @@ GEM
     geocoder (1.5.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    google-api-client (0.33.2)
+    google-api-client (0.34.0)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (~> 0.9)
       httpclient (>= 2.8.1, < 3.0)
@@ -187,7 +187,7 @@ GEM
     gyoku (1.3.1)
       builder (>= 2.1.2)
     hashdiff (1.0.0)
-    hashie (3.6.0)
+    hashie (4.0.0)
     highline (2.0.1)
     http-accept (1.7.0)
     http-cookie (1.0.3)
@@ -198,7 +198,7 @@ GEM
       socksify
     i18n (1.7.0)
       concurrent-ruby (~> 1.0)
-    i18n-js (3.4.0)
+    i18n-js (3.4.1)
       i18n (>= 0.6.6)
     i18n-tasks (0.9.29)
       activesupport (>= 4.0.2)
@@ -279,7 +279,7 @@ GEM
     mimemagic (0.3.3)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.12.2)
+    minitest (5.13.0)
     minitest-reporters (1.4.2)
       ansi
       builder
@@ -378,7 +378,7 @@ GEM
       netrc (~> 0.8)
     retriable (3.1.2)
     rollbar (2.22.1)
-    rubocop (0.75.1)
+    rubocop (0.76.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -530,7 +530,7 @@ DEPENDENCIES
   listen
   mechanize
   meta-tags
-  minitest (= 5.12.2)
+  minitest (= 5.13.0)
   minitest-reporters
   minitest-retry
   minitest-stub-const

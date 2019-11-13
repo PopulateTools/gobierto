@@ -1,4 +1,16 @@
-import * as d3 from 'd3'
+import { timeParse } from 'd3-time-format'
+import { format } from 'd3-format'
+import { select, selectAll } from 'd3-selection'
+import { scaleTime, scaleLinear, scaleOrdinal } from 'd3-scale'
+import { axisBottom, axisLeft } from 'd3-axis'
+import { json } from 'd3-request'
+import { queue } from 'd3-queue'
+import { nest } from 'd3-collection'
+import { max, merge } from 'd3-array'
+import { line } from 'd3-shape'
+import { voronoi } from 'd3-voronoi'
+
+const d3 = { timeParse, format, select, scaleTime, scaleLinear, scaleOrdinal, axisBottom, axisLeft, json, queue, nest, max, line, voronoi, merge, selectAll }
 
 export class VisUnemploymentRate {
   constructor(divId, city_id, ccaa_id) {
@@ -246,7 +258,7 @@ export class VisUnemploymentRate {
   }
 
   _width() {
-    return parseInt(d3.select(this.container).style('width'));
+    return this.container ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _height() {

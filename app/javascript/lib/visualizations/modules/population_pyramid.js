@@ -27,17 +27,19 @@ export class VisPopulationPyramid {
       bottom: this.gutter * 4,
       left: this.gutter * 4
     }
+
+    const dimensions = this._getDimensions()
     this.width = {
-      chart: this._getDimensions().width + this.margin.left + this.margin.right,
-      pyramid: this._getDimensions().pyramid.width,
-      areas: this._getDimensions().areas.width,
-      marks: this._getDimensions().marks.width
+      chart: dimensions.width + this.margin.left + this.margin.right,
+      pyramid: dimensions.pyramid.width,
+      areas: dimensions.areas.width,
+      marks: dimensions.marks.width
     }
     this.height = {
-      chart: this._getDimensions().height + this.margin.bottom + this.margin.top,
-      pyramid: this._getDimensions().pyramid.height,
-      areas: this._getDimensions().areas.height,
-      marks: this._getDimensions().marks.height
+      chart: dimensions.height + this.margin.bottom + this.margin.top,
+      pyramid: dimensions.pyramid.height,
+      areas: dimensions.areas.height,
+      marks: dimensions.marks.height
     }
 
     // Scales & Ranges
@@ -658,20 +660,20 @@ export class VisPopulationPyramid {
     }]
   }
 
-  _getDimensions(opts = {}) {
-    let width = opts.width || +d3.select(this.container).node().getBoundingClientRect().width
-    let ratio = opts.ratio || 2
-    let height = opts.height || width / ratio
+  _getDimensions() {
+    const width = +(d3.select(this.container).node() || document.createElement("div")).getBoundingClientRect().width
+    const ratio = 2
+    const height = width / ratio
 
-    let pyramid = {
+    const pyramid = {
       width: width / 2,
       height
     }
-    let areas = {
+    const areas = {
       width: width / 4,
       height
     }
-    let marks = {
+    const marks = {
       width: width / 4,
       height
     }

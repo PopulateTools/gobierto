@@ -28,7 +28,8 @@ export class VisTreemap {
     $(this.containerId).html('');
 
     // Chart dimensions
-    this.containerWidth = d3.select(this.containerId).node().parentNode.getBoundingClientRect().width;
+    const containerNode = d3.select(this.containerId).node() || document.createElement("div")
+    this.containerWidth = (containerNode.parentNode || containerNode).getBoundingClientRect().width;
 
     this.width = this.containerWidth - this.margin.left - this.margin.right;
     this.height = (this.containerWidth / this.sizeFactor) - this.margin.top - this.margin.bottom;

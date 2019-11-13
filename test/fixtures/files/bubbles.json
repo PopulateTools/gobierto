@@ -1,0 +1,38 @@
+[
+    {
+        "budget_category": "expense",
+        "id": "15",
+        "pct_diff": {
+            "2018": 0,
+            "2019": -1.35
+        },
+        "values": {
+            "2018": 604335087,
+            "2019": 596148608
+        },
+        "values_per_inhabitant": {
+            "2018": 189.86,
+            "2019": 184.95
+        },
+        "level_2_es": "Vivienda y urbanismo",
+        "level_2_ca": "Habitatge i urbanisme"
+    },
+    {
+        "budget_category": "income",
+        "id": "29",
+        "pct_diff": {
+            "2018": 0,
+            "2019": 37.34
+        },
+        "values": {
+            "2018": 64388419,
+            "2019": 88429832
+        },
+        "values_per_inhabitant": {
+            "2018": 20.23,
+            "2019": 27.43
+        },
+        "level_2_es": "Otros impuestos indirectos",
+        "level_2_ca": "Altres impostos indirectes"
+    }
+]

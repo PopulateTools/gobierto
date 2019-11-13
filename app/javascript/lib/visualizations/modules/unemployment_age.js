@@ -1,4 +1,14 @@
-import * as d3 from 'd3'
+import { timeParse } from 'd3-time-format'
+import { format } from 'd3-format'
+import { select, selectAll } from 'd3-selection'
+import { scaleTime, scaleLinear, scaleOrdinal } from 'd3-scale'
+import { axisBottom, axisLeft } from 'd3-axis'
+import { nest } from 'd3-collection'
+import { max, merge } from 'd3-array'
+import { line, curveCatmullRom } from 'd3-shape'
+import { voronoi } from 'd3-voronoi'
+
+const d3 = { timeParse, format, scaleTime, scaleLinear, scaleOrdinal, axisBottom, axisLeft, select, nest, max, line, selectAll, curveCatmullRom, voronoi, merge }
 
 export class VisUnemploymentAge {
   constructor(divId, city_id, unemplAgeData) {
@@ -209,7 +219,7 @@ export class VisUnemploymentAge {
   }
 
   _width() {
-    return parseInt(d3.select(this.container).style('width'));
+    return this.container ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _height() {

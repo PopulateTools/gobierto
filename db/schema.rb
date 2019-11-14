@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_30_142501) do
+ActiveRecord::Schema.define(version: 2019_11_14_152643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -521,6 +521,16 @@ ActiveRecord::Schema.define(version: 2019_09_30_142501) do
     t.string "template_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "gdata_datasets", force: :cascade do |t|
+    t.bigint "site_id"
+    t.jsonb "name_translations"
+    t.string "table_name"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_gdata_datasets_on_site_id"
   end
 
   create_table "gi_indicators", force: :cascade do |t|

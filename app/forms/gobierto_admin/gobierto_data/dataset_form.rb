@@ -16,6 +16,7 @@ module GobiertoAdmin
       )
 
       validates :site_id, presence: true
+      validate :table_reachable
 
       delegate :persisted?, to: :dataset
 
@@ -68,6 +69,11 @@ module GobiertoAdmin
         end
       end
 
+      def table_reachable
+        query_result = ::GobiertoData::Connection.execute_query(site, Arel.sql("SELECT COUNT(*) FROM #{table_name} LIMIT 1"))
+
+        errors.add(:table_name, :invalid_table, error_message: query_result[:error]) if query_result.is_a?(Hash) && query_result.has_key?(:error)
+      end
     end
   end
 end

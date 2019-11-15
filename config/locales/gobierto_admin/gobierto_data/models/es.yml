@@ -6,3 +6,9 @@ es:
         name: Nombre
         slug: Slug
         table_name: Nombre de la tabla
+    errors:
+      models:
+        gobierto_admin/gobierto_data/dataset_form:
+          attributes:
+            table_name:
+              invalid_table: 'No se puede acceder a la tabla. Mensaje de error: "%{error_message}"'

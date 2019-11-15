@@ -6,3 +6,9 @@ en:
         name: Name
         slug: Slug
         table_name: Table name
+    errors:
+      models:
+        gobierto_admin/gobierto_data/dataset_form:
+          attributes:
+            table_name:
+              invalid_table: 'Unable to access the table. Error message: "%{error_message}"'

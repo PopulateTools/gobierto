@@ -1,4 +1,5 @@
 import { VueFiltersMixin } from "lib/shared";
+import axios from "axios";
 
 const CONFIGURATION = {
   title: {
@@ -8,11 +9,11 @@ const CONFIGURATION = {
     id: "descripcio-projecte"
   },
   phases: {
-    id: "estat",
+    id: "estat"
   },
   location: {
     id: "wkt",
-    center: [41.536908,2.4418503],
+    center: [41.536908, 2.4418503],
     minZoom: 13,
     maxZoom: 16
   },
@@ -20,7 +21,7 @@ const CONFIGURATION = {
     {
       id: "range",
       startKey: "data-inici",
-      endKey: "data-fin",
+      endKey: "data-fin"
     },
     {
       id: "estat",
@@ -35,7 +36,7 @@ const CONFIGURATION = {
     },
     {
       id: "import"
-    },
+    }
   ],
   availableGalleryFields: [
     {
@@ -50,7 +51,7 @@ const CONFIGURATION = {
     },
     {
       id: "adjudicatari"
-    },
+    }
   ],
   availableTableFields: [
     {
@@ -95,23 +96,22 @@ const CONFIGURATION = {
     },
     {
       id: "data-inici",
-      filter: "date",
+      filter: "date"
     },
     {
       id: "data-adjudicacio",
-      filter: "date",
+      filter: "date"
     },
     {
       id: "data-inici-redaccio",
-      filter: "date",
+      filter: "date"
     },
     {
       id: "data-fi-redaccio",
-      filter: "date",
+      filter: "date"
     },
     {
       id: "data-final",
-      // filter: "date",
       type: "icon",
       icon: {
         href: "https://twitter.com",
@@ -119,9 +119,13 @@ const CONFIGURATION = {
       }
     },
     {
-      id: "import",
+      id: "partida",
       filter: "money",
       type: "highlight"
+    },
+    {
+      id: "import",
+      filter: "money"
     },
     {
       id: "import-adjudicacio",
@@ -135,13 +139,44 @@ const CONFIGURATION = {
       id: "tasques",
       type: "table",
       table: {
-        columns: ['nomactuacio', 'nimport']
+        columns: ["nomactuacio", "nimport"]
       }
     }
-  ]
+  ],
+  itemSpecialConfiguration: {
+    fn: async data => {
+      const dataArr = Array.isArray(data) ? data : [data];
+      const filterArr = dataArr.filter(d => d.attributes.partida && d.attributes["any-partida"]);
+      const allIds = filterArr.map(d => `'${d.attributes.partida}'`).join(",");
+      const endpoint = `http://mataro.gobify.net/api/v1/data`;
+      const query = `
+        SELECT code_with_zone as partida, paranyprs as year, sum(parimport) as budget
+        FROM mataro_budgets
+        WHERE "parimport" IS NOT NULL
+        AND "code_with_zone" IN (${allIds})
+        GROUP BY code_with_zone, paranyprs
+      `;
+
+      const { data: { data: sql } } = await axios.get(endpoint, {
+        params: {
+          sql: query.trim()
+        }
+      })
+
+      for (let index = 0; index < dataArr.length; index++) {
+        const { attributes: { partida, "any-partida": year } } = dataArr[index];
+        const { budget } = sql.find(d => d.partida === partida && d.year === year) || {};
+
+        dataArr[index].attributes.old_partida = partida
+        dataArr[index].attributes.partida = budget ? budget : null
+      }
+
+      return Array.isArray(data) ? dataArr : dataArr[0];
+    }
+  }
 };
 
-export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`
+export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`;
 
 export const CommonsMixin = {
   mixins: [VueFiltersMixin],
@@ -150,8 +185,8 @@ export const CommonsMixin = {
       this.$router.push({ name: "project", params: { id: item.id, item } });
     },
     getFilters(stats) {
-      const { availableFilters } = CONFIGURATION
-      const filters = []
+      const { availableFilters } = CONFIGURATION;
+      const filters = [];
       for (let index = 0; index < availableFilters.length; index++) {
         const { id: key, ...rest } = availableFilters[index];
         const element = stats[key];
@@ -167,7 +202,7 @@ export const CommonsMixin = {
         });
       }
 
-      return filters
+      return filters;
     },
     getPhases(stats) {
       const {
@@ -176,7 +211,7 @@ export const CommonsMixin = {
       const { vocabulary_terms = [] } = this.getAttributesByKey(id);
       const { distribution = [] } = stats[id];
       return vocabulary_terms.map(term => {
-        const { name_translations: title = {} } = term
+        const { name_translations: title = {} } = term;
         const { count = 0 } = distribution.find(el => parseFloat(JSON.parse(el.value)) === parseFloat(term.id)) || {};
 
         return {
@@ -189,10 +224,10 @@ export const CommonsMixin = {
     getItem(element, attributes) {
       const attr = this.getAttributesByKey(element.id);
 
-      let value = attributes[element.id]
+      let value = attributes[element.id];
 
       if (element.multiple) {
-        value = this.translate(attributes[element.id][0].name_translations)
+        value = this.translate(attributes[element.id][0].name_translations);
       }
 
       return {
@@ -225,6 +260,17 @@ export const CommonsMixin = {
     setData(data) {
       return data.map(element => this.setItem(element));
     },
+    async alterDataObjectOptional(data) {
+      const { itemSpecialConfiguration } = CONFIGURATION;
+
+      let spreadData = data;
+      if (itemSpecialConfiguration) {
+        const { fn = () => data } = itemSpecialConfiguration;
+        spreadData = await fn(data);
+      }
+
+      return Array.isArray(spreadData) ? this.setData(spreadData) : this.setItem(spreadData);
+    },
     getAttributesByKey(prop) {
       const { attributes = {} } =
         this.dictionary.find(entry => {
@@ -233,6 +279,6 @@ export const CommonsMixin = {
         }) || {};
 
       return attributes;
-    },
+    }
   }
 };

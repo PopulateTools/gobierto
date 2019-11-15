@@ -87,6 +87,9 @@ class Site < ApplicationRecord
   # Gobierto Investments integration
   has_many :projects, dependent: :destroy, class_name: "GobiertoInvestments::Project"
 
+  # GobiertoData integration
+  has_many :datasets, dependent: :destroy, class_name: "GobiertoData::Dataset"
+
   serialize :configuration_data
 
   before_save :store_configuration

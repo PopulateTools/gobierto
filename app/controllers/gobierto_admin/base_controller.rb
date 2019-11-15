@@ -72,7 +72,8 @@ module GobiertoAdmin
         gobierto_participation: admin_participation_path,
         gobierto_plans: admin_plans_plans_path,
         gobierto_citizens_charters: admin_citizens_charters_path,
-        gobierto_investments: admin_investments_projects_path
+        gobierto_investments: admin_investments_projects_path,
+        gobierto_data: admin_data_datasets_path
       }.with_indifferent_access
     end
 

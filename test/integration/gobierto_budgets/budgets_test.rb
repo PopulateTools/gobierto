@@ -2,6 +2,13 @@
 
 require "test_helper"
 
+def hover_bubble
+  all(".bubble-g")[1].hover
+  find(".tooltip")
+rescue # sometimes the hover fails
+  all(".bubble-g")[1].hover
+end
+
 class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
   def setup
     super
@@ -44,7 +51,7 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
 
       # Check bubble hover
 
-      all(".bubble-g")[1].hover
+      hover_bubble
 
       bubble_tooltip = find(".tooltip").text
       assert bubble_tooltip.include?("Vivienda y urbanismo")
@@ -54,7 +61,7 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
       # Check change slider year
 
       all(".slider text").find { |node| node.text == "2018" }.click
-      all(".bubble-g")[1].hover
+      hover_bubble
       assert find(".tooltip").text.include?("HAS GONE DOWN 0,0 % SINCE 2017")
     end
   end

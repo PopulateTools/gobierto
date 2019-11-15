@@ -3,6 +3,7 @@
 module GobiertoAdmin
   module GobiertoData
     class DatasetForm < BaseForm
+      prepend ::GobiertoCommon::TrackableGroupedAttributes
 
       attr_accessor(
         :id,
@@ -17,6 +18,12 @@ module GobiertoAdmin
       validates :site_id, presence: true
 
       delegate :persisted?, to: :dataset
+
+      trackable_on :dataset
+      use_event_prefix :dataset
+      notify_changed :name_translations, :table_name, :slug, as: :attribute
+      use_publisher Publishers::AdminGobiertoDataActivity
+      use_trackable_subject :dataset
 
       def save
         save_dataset if valid?
@@ -49,7 +56,9 @@ module GobiertoAdmin
         end
 
         if @dataset.valid?
-          @dataset.save
+          run_callbacks(:save) do
+            @dataset.save
+          end
 
           @dataset
         else

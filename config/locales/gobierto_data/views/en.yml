@@ -1,0 +1,6 @@
+---
+en:
+  gobierto_data:
+    events:
+      gobierto_data_dataset_dataset_created: Dataset created
+      gobierto_data_dataset_dataset_updated: Dataset updated

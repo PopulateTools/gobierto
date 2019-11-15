@@ -1,0 +1,9 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_data.datasets.index.title"), admin_data_datasets_path %> »
+  <%= @dataset.name %>
+</div>
+
+<h1><%= @dataset.name %></h1>
+
+<%= render "form" %>

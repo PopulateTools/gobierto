@@ -1,0 +1,7 @@
+---
+ca:
+  activerecord:
+    models:
+      gobierto_data/dataset:
+        one: Dataset
+        other: Datasets

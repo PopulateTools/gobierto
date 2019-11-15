@@ -1,0 +1,8 @@
+---
+en:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_data/dataset_form:
+        name: Name
+        slug: Slug
+        table_name: Table name

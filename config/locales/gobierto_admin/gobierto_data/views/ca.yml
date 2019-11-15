@@ -1,0 +1,19 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_data:
+      datasets:
+        form:
+          placeholders:
+            name: Habitants
+            slug: habitants
+            table_name: population_census
+        index:
+          header:
+            name: Nom
+            table_name: Nom de la taula
+          new: Nou
+          title: Datasets
+          view_dataset: Veure dataset
+        new:
+          title: Nou dataset

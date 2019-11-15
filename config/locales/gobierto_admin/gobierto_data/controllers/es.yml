@@ -1,0 +1,11 @@
+---
+es:
+  gobierto_admin:
+    gobierto_data:
+      datasets:
+        create:
+          success: El dataset ha sido creado correctamente.
+        destroy:
+          success: El dataset ha sido eliminado correctamente.
+        update:
+          success: El dataset ha sido actualizado correctamente.

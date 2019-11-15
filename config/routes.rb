@@ -237,6 +237,10 @@ Rails.application.routes.draw do
       namespace :gobierto_investments, as: :investments do
         resources :projects
       end
+
+      namespace :gobierto_data, as: :data do
+        resources :datasets
+      end
     end
 
     # User module

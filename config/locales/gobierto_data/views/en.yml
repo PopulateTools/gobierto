@@ -1,6 +1,14 @@
 ---
 en:
   gobierto_data:
+    datasets:
+      index:
+        title: Datasets
+      show:
+        title: Dataset %{dataset_name}
     events:
       gobierto_data_dataset_dataset_created: Dataset created
       gobierto_data_dataset_dataset_updated: Dataset updated
+    layouts:
+      application:
+        gobierto_data: Data

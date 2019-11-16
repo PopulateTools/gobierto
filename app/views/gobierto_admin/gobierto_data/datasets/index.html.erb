@@ -34,7 +34,7 @@
         <%= dataset.table_name %>
       </td>
       <td>
-        <%= link_to edit_admin_data_dataset_path(dataset), target: "_blank", class: "view_item" do %>
+        <%= link_to gobierto_data_dataset_path(dataset.slug), target: "_blank", class: "view_item" do %>
           <i class="fas fa-eye"></i>
           <%= t(".view_dataset") %>
         <% end %>

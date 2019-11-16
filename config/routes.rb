@@ -555,6 +555,9 @@ Rails.application.routes.draw do
     # Gobierto Data module
     namespace :gobierto_data, path: "/" do
       constraints GobiertoSiteConstraint.new do
+        resources :datasets, only: [:index, :show], param: :slug, path: "datasets"
+        get "/datasets" => "datasets#index", as: :root
+
         # API
         namespace :api, path: "/" do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1/data" do

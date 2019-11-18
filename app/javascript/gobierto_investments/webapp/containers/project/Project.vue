@@ -12,12 +12,17 @@
 
     <div class="pure-g gutters">
       <div class="pure-u-1 pure-u-lg-1-4">
-        <Aside v-if="project"
-:phases="phases" :project="project" />
+        <Aside
+          v-if="project"
+          :phases="phases"
+          :project="project"
+        />
       </div>
       <div class="pure-u-1 pure-u-lg-3-4">
-        <Main v-if="project"
-:project="project" />
+        <Main
+          v-if="project"
+          :project="project"
+        />
       </div>
     </div>
   </div>
@@ -45,9 +50,6 @@ export default {
   },
   async beforeRouteEnter(to, from, next) {
     const { item } = to.params;
-
-    console.log(item);
-
 
     if (!item) {
       // If there's no item (project) it must request it

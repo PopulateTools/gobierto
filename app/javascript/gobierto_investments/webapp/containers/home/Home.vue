@@ -109,10 +109,13 @@ export default {
       }
     }
 
+    // Assign this object BEFORE next function for better performance
     this.subsetItems = this.items;
 
     // Optional callback to update data in background, setup in CONFIGURATION object
     this.items = await this.alterDataObjectOptional(items);
+    // Once items is updated, assign again the result
+    this.subsetItems = this.items;
   },
   methods: {
     filterItems(filter, key) {

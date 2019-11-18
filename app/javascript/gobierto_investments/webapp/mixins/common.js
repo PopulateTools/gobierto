@@ -148,27 +148,32 @@ const CONFIGURATION = {
       const dataArr = Array.isArray(data) ? data : [data];
       const filterArr = dataArr.filter(d => d.attributes.partida && d.attributes["any-partida"]);
       const allIds = filterArr.map(d => `'${d.attributes.partida}'`).join(",");
-      const endpoint = `http://mataro.gobify.net/api/v1/data`;
-      const query = `
-        SELECT code_with_zone as partida, paranyprs as year, sum(parimport) as budget
-        FROM mataro_budgets
-        WHERE "parimport" IS NOT NULL
-        AND "code_with_zone" IN (${allIds})
-        GROUP BY code_with_zone, paranyprs
-      `;
 
-      const { data: { data: sql } } = await axios.get(endpoint, {
-        params: {
-          sql: query.trim()
+      // Avoid the query if there's no code_with_zone (partida)
+      if (allIds) {
+        const endpoint = `http://mataro.gobify.net/api/v1/data`;
+        // const endpoint = `${location.origin}/api/v1/data`;
+        const query = `
+          SELECT code_with_zone as partida, paranyprs as year, sum(parimport) as budget
+          FROM mataro_budgets
+          WHERE "parimport" IS NOT NULL
+          AND "code_with_zone" IN (${allIds})
+          GROUP BY code_with_zone, paranyprs
+        `;
+
+        const { data: { data: sql } } = await axios.get(endpoint, {
+          params: {
+            sql: query.trim()
+          }
+        })
+
+        for (let index = 0; index < dataArr.length; index++) {
+          const { attributes: { partida, "any-partida": year } } = dataArr[index];
+          const { budget } = sql.find(d => d.partida === partida && d.year === year) || {};
+
+          dataArr[index].attributes.old_partida = partida
+          dataArr[index].attributes.partida = budget ? budget : null
         }
-      })
-
-      for (let index = 0; index < dataArr.length; index++) {
-        const { attributes: { partida, "any-partida": year } } = dataArr[index];
-        const { budget } = sql.find(d => d.partida === partida && d.year === year) || {};
-
-        dataArr[index].attributes.old_partida = partida
-        dataArr[index].attributes.partida = budget ? budget : null
       }
 
       return Array.isArray(data) ? dataArr : dataArr[0];

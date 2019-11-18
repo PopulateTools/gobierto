@@ -20,20 +20,8 @@ ca:
       data_grid:
         remove_rows: Eliminar files seleccionades
         select_deselect_all: Seleccionar / Deseleccionar totes
-      human_resources:
-        cost: Cost anual
-        end_date: Data fi
-        human_resource: Recurs humà
-        start_date: Data inici
-      indicators:
-        date: Data d'actualització
-        indicator: Indicador
-        objective: Objectiu
-        value_reached: Valor aconseguit
     gobierto_common:
       custom_fields:
         custom_fields:
           plugin:
             budgets: Pressupostos
-            human_resources: Recursos Humans
-            indicators: Indicadors

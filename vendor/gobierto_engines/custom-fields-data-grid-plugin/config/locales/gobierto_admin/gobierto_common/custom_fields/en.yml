@@ -20,20 +20,8 @@ en:
       data_grid:
         remove_rows: Remove selected rows
         select_deselect_all: Select / Deselect All
-      human_resources:
-        cost: Annual cost
-        end_date: End date
-        human_resource: Human resource
-        start_date: Start date
-      indicators:
-        date: Updated at
-        indicator: Indicator
-        objective: Objective
-        value_reached: Value reached
     gobierto_common:
       custom_fields:
         custom_fields:
           plugin:
             budgets: Budgets
-            human_resources: Human Resources
-            indicators: Indicators

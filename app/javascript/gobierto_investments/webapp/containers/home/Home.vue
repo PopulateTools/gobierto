@@ -113,7 +113,7 @@ export default {
     this.subsetItems = this.items;
 
     // Optional callback to update data in background, setup in CONFIGURATION object
-    this.items = await this.alterDataObjectOptional(items);
+    this.items = await this.alterDataObjectOptional(this.items);
     // Once items is updated, assign again the result
     this.subsetItems = this.items;
   },

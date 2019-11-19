@@ -171,7 +171,7 @@ export class VisEvoLine {
   }
 
   _width() {
-    return parseInt(d3.select(this.container).style('width'));
+    return d3.select(this.container) ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _resize() {

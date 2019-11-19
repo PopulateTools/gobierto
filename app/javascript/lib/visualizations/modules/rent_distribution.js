@@ -298,7 +298,7 @@ export class VisRentDistribution {
   }
 
   _width() {
-    return parseInt(d3.select(this.container).style('width'));
+    return d3.select(this.container) ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _height() {

@@ -1,8 +1,13 @@
-import * as d3 from 'd3'
+import { scaleLinear, scaleBand } from 'd3-scale'
+import { axisBottom, axisRight } from 'd3-axis'
+import { select, selectAll } from 'd3-selection'
+import { json, csv } from 'd3-request'
+import { queue } from 'd3-queue'
+import { max, min } from 'd3-array'
 import { transition } from 'd3-transition'
 import { URLParams } from 'lib/shared'
 
-d3.selection.prototype.transition = transition;
+const d3 = { scaleLinear, scaleBand, axisBottom, axisRight, select, selectAll, json, csv, queue, max, min, transition }
 
 export class VisPopulationPyramid {
   constructor(divId, city_id, current_year, filter) {
@@ -196,6 +201,7 @@ export class VisPopulationPyramid {
         }
 
         this.data = aux
+
         this.update(this.data)
       }.bind(this))
   }
@@ -232,18 +238,18 @@ export class VisPopulationPyramid {
 
   _updateAxes () {
     this.pyramid
-      .transition().duration(500)
       .select(".x.axis.males")
+      .transition().duration(500)
       .call(this._xAxisMale.bind(this))
 
     this.pyramid
-      .transition().duration(500)
       .select(".x.axis.females")
+      .transition().duration(500)
       .call(this._xAxisFemale.bind(this))
 
     this.pyramid
-      .transition().duration(500)
       .select(".y.axis")
+      .transition().duration(500)
       .call(this._yAxis.bind(this))
   }
 
@@ -271,7 +277,6 @@ export class VisPopulationPyramid {
       .on("mouseout", this._mouseout.bind(this))
       .transition()
       .duration(500)
-      .selectAll("g.bars g.males rect")
       .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d._value))
       .attr("x", d => this.xScaleMale(d._value)) // Real value
 
@@ -282,7 +287,6 @@ export class VisPopulationPyramid {
       .attr("y2", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
       .transition()
       .duration(500)
-      .selectAll("g.bars g.males line")
       .attr("x1", d => this.xScaleMale(d._value))
 
     let ff = female.enter().append("g")
@@ -295,7 +299,6 @@ export class VisPopulationPyramid {
       .on("mouseout", this._mouseout.bind(this))
       .transition()
       .duration(500)
-      .selectAll("g.bars g.females rect")
       .attr("width", d => this.xScaleFemale(d._value))
 
     ff.append("line")
@@ -305,33 +308,28 @@ export class VisPopulationPyramid {
       .attr("y2", d => this.yScale(d.age) + this.yScale.bandwidth() - 1)
       .transition()
       .duration(500)
-      .selectAll("g.bars g.females line")
       .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
 
     // updates
     male.select("rect")
       .transition()
       .duration(500)
-      .selectAll("g.bars g.males rect")
       .attr("width", d => (this.width.pyramid / 2) - this.xScaleMale(d._value))
       .attr("x", d => this.xScaleMale(d._value)) // Real value
 
     male.select("line")
       .transition()
       .duration(500)
-      .selectAll("g.bars g.males line")
       .attr("x1", d => this.xScaleMale(d._value))
 
     female.select("rect")
       .transition()
       .duration(500)
-      .selectAll("g.bars g.females rect")
       .attr("width", d => this.xScaleFemale(d._value))
 
     female.select("line")
       .transition()
       .duration(500)
-      .selectAll("g.bars g.females line")
       .attr("x2", d => this.width.pyramid / 2 + this.xScaleFemale(d._value))
   }
 
@@ -353,7 +351,6 @@ export class VisPopulationPyramid {
       .attr("height", d => this.yScale(d.range[0]) - this.yScale(d.range[1]))
       .transition()
       .duration(1000)
-      .selectAll("g.range rect")
       .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
       .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
 
@@ -374,7 +371,6 @@ export class VisPopulationPyramid {
     g.select("rect")
       .transition()
       .duration(1000)
-      .selectAll("g.range rect")
       .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
       .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
 
@@ -419,7 +415,6 @@ export class VisPopulationPyramid {
       .transition()
       .delay(1000)
       .duration(1000)
-      .selectAll("g.r-fake rect.inner")
       .attr("height", d => yFakeScale(d.fake))
       .attr("y", 0)
 
@@ -432,7 +427,6 @@ export class VisPopulationPyramid {
       .transition()
       .delay(1000)
       .duration(1000)
-      .selectAll("g.r-fake text")
       .attr("opacity", 1)
 
     // updates
@@ -441,14 +435,12 @@ export class VisPopulationPyramid {
       .transition()
       .delay(1000)
       .duration(1000)
-      .selectAll("g.r-fake")
       .attr("transform", d => `translate(0, ${this.yScale(d.range[0]) - this.yScale(d.range[1]) - yFakeScale(d.fake)})`)
 
     g.select("g.r-fake rect")
       .transition()
       .delay(1000)
       .duration(1000)
-      .selectAll("g.r-fake rect")
       .attr("width", d => chartWidth - this.xScaleAgeRanges(d.value))
       .attr("x", d => this.xScaleAgeRanges(d.value)) // Real value
       .attr("height", d => yFakeScale(d.fake))
@@ -472,7 +464,6 @@ export class VisPopulationPyramid {
     marks
       .transition()
       .duration(1000)
-      .selectAll("g.mark")
       .attr("transform", d => `translate(0, ${this.yScale(d.value)})`)
 
     marks.append("line")
@@ -489,7 +480,6 @@ export class VisPopulationPyramid {
     g
       .transition()
       .duration(500)
-      .selectAll("g.mark")
       .attr("transform", d =>`translate(0, ${this.yScale(d.value)})`)
 
     g.select("text")

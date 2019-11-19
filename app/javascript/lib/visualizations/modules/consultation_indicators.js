@@ -1,4 +1,12 @@
-import * as d3 from 'd3'
+import { csv } from 'd3-request'
+import { nest, keys } from 'd3-collection'
+import { select } from 'd3-selection'
+import { format } from 'd3-format'
+import { sum, mean } from 'd3-array'
+import { scaleQuantile } from 'd3-scale'
+
+const d3 = { csv, nest, select, format, sum, mean, scaleQuantile, keys }
+
 import { accounting } from 'lib/shared'
 
 export class VisIndicators {
@@ -158,7 +166,7 @@ export class VisIndicators {
 
     var columns = [
       { head: I18n.t('gobierto_common.visualizations.questions'), headCl: 'title', cl: 'title', html(d) { return d.key; } },
-      { head: I18n.t('gobierto_common.visualizations.reduce'), headCl: 'center', cl(d) { return customClass(extractValue(d.values, '-5')) }, html(d) { return returnValue(extractValue(d.values, '-5'))  } },
+      { head: I18n.t('gobierto_common.visualizations.reduce'), headCl: 'center', cl(d) { return customClass(extractValue(d.values, '-5')) }, html(d) { return returnValue(extractValue(d.values, '-5')) } },
       { head: I18n.t('gobierto_common.visualizations.keep'), headCl: 'center', cl(d) { return customClass(extractValue(d.values, '0')) }, html(d) { return returnValue(extractValue(d.values, '0')) } },
       { head: I18n.t('gobierto_common.visualizations.increase'), headCl: 'center', cl(d) { return customClass(extractValue(d.values, '5')) }, html(d) { return returnValue(extractValue(d.values, '5')) } },
     ];

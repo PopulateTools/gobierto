@@ -1,8 +1,15 @@
-import * as __d3 from 'd3'
+import { format, formatDefaultLocale } from 'd3-format'
+import { scaleLog, scaleLinear, scaleSequential, interpolatePlasma } from 'd3-scale'
+import { axisBottom, axisRight } from 'd3-axis'
+import { select, selectAll, mouse } from 'd3-selection'
+import { json } from 'd3-request'
+import { queue } from 'd3-queue'
+import { extent } from 'd3-array'
 import { distanceLimitedVoronoi } from './d3-distance-limited-voronoi.js'
-import { d3locale, accounting } from 'lib/shared'
 
-const d3 = { ...__d3, distanceLimitedVoronoi }
+const d3 = { format, formatDefaultLocale, scaleLog, scaleLinear, scaleSequential, axisBottom, axisRight, select, json, interpolatePlasma, distanceLimitedVoronoi, extent, queue, selectAll, mouse }
+
+import { d3locale, accounting } from 'lib/shared'
 
 export class VisRentDistribution {
   constructor(divId, city_id, province_id, current_year) {
@@ -298,7 +305,7 @@ export class VisRentDistribution {
   }
 
   _width() {
-    return d3.select(this.container) ? parseInt(d3.select(this.container).style('width')) : 0;
+    return d3.select(this.container).node() ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _height() {

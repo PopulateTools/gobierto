@@ -1,4 +1,7 @@
-import * as d3 from 'd3'
+import { voronoi } from 'd3-voronoi'
+import { path } from 'd3-path'
+
+const d3 = { voronoi, path }
 
 export function distanceLimitedVoronoi() {
   /////// Internals ///////

@@ -1,4 +1,12 @@
-import * as d3 from 'd3'
+import { select } from 'd3-selection'
+import { scaleLinear } from 'd3-scale'
+import { axisBottom, axisRight } from 'd3-axis'
+import { json } from 'd3-request'
+import { extent, max } from 'd3-array'
+import { line } from 'd3-shape'
+import { format } from 'd3-format'
+
+const d3 = { select, scaleLinear, axisBottom, axisRight, json, extent, line, max, format }
 
 export class VisEvoLine {
   constructor(divId, series, current_year) {
@@ -171,7 +179,7 @@ export class VisEvoLine {
   }
 
   _width() {
-    return d3.select(this.container) ? parseInt(d3.select(this.container).style('width')) : 0;
+    return d3.select(this.container).node() ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _resize() {

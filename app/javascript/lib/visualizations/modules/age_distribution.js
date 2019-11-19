@@ -224,7 +224,7 @@ export class VisAgeDistribution {
   }
 
   _width() {
-    return d3.select(this.container) ? parseInt(d3.select(this.container).style('width')) : 0;
+    return d3.select(this.container).node() ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _height() {

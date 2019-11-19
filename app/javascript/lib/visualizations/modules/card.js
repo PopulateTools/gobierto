@@ -1,4 +1,8 @@
-import * as d3 from 'd3'
+import { select } from 'd3-selection'
+import { timeFormatDefaultLocale } from 'd3-time-format'
+
+const d3 = { timeFormatDefaultLocale, select }
+
 import { d3locale, accounting } from 'lib/shared'
 
 export class Card {

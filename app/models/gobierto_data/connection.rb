@@ -30,7 +30,7 @@ module GobiertoData
       end
 
       def failed_query(message)
-        { error: message }
+        { errors: [{ sql: message }] }
       end
     end
   end

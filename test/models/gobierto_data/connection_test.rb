@@ -33,8 +33,8 @@ module GobiertoData
       result = Connection.execute_query(site, "SELECT COUNT(*) FROM not_existing_table")
       hash_result = JSON.parse(result.to_json)
 
-      assert hash_result.has_key?("error")
-      assert_match(/UndefinedTable/, hash_result["error"])
+      assert hash_result.has_key?("errors")
+      assert_match(/UndefinedTable/, hash_result["errors"].first["sql"])
     end
 
     def test_execute_query_with_module_disabled

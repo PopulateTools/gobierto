@@ -9,4 +9,5 @@
 
 import 'lib/commons'
 import 'gobierto_budgets'
-import 'lib/i18n'
+import 'lib/i18n/gobierto_budgets'
+import 'lib/i18n/gobierto_common'

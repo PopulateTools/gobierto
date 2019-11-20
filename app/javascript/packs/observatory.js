@@ -9,4 +9,5 @@
 
 import 'lib/commons'
 import 'gobierto_observatory'
-import 'lib/i18n'
+import 'lib/i18n/gobierto_observatory'
+import 'lib/i18n/gobierto_common'

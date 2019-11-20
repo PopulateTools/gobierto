@@ -27,4 +27,51 @@
 #
 export_i18n_js: false
 translations:
-  - file: "app/javascript/lib/i18n/modules/translations.js"
+  # - file: "app/javascript/lib/i18n/translations.js"
+  #   prefix: "import I18n from 'i18n-js';\n"
+  #   except: '*.gobierto_admin.*'
+  - file: "app/javascript/lib/i18n/gobierto_admin.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_admin.*'
+  - file: "app/javascript/lib/i18n/gobierto_common.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_common.*'
+  - file: "app/javascript/lib/i18n/gobierto_budgets.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_budgets.*'
+  - file: "app/javascript/lib/i18n/gobierto_charters.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_charters.*'
+  - file: "app/javascript/lib/i18n/gobierto_cms.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_cms.*'
+  - file: "app/javascript/lib/i18n/gobierto_consultations.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_consultations.*'
+  - file: "app/javascript/lib/i18n/gobierto_exports.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_exports.*'
+  - file: "app/javascript/lib/i18n/gobierto_indicators.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_indicators.*'
+  - file: "app/javascript/lib/i18n/gobierto_investments.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_investments.*'
+  - file: "app/javascript/lib/i18n/gobierto_observatory.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_observatory.*'
+  - file: "app/javascript/lib/i18n/gobierto_participation.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_participation.*'
+  - file: "app/javascript/lib/i18n/gobierto_people.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_people.*'
+  - file: "app/javascript/lib/i18n/gobierto_plans.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_plans.*'
+  - file: "app/javascript/lib/i18n/gobierto_user.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_user.*'
+  - file: "app/javascript/lib/i18n/gencat.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    only: '*.gobierto_user.*'

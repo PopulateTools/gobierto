@@ -9,4 +9,4 @@
 
 import 'lib/commons'
 import 'gobierto_indicators'
-import 'lib/i18n'
+import 'lib/i18n/gobierto_indicators'

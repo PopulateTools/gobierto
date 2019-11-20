@@ -9,4 +9,4 @@
 
 import 'lib/commons'
 import 'gobierto_consultations'
-import 'lib/i18n'
+import 'lib/i18n/gobierto_consultations'

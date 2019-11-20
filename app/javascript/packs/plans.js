@@ -9,4 +9,4 @@
 
 import "lib/commons";
 import "gobierto_plans";
-import "lib/i18n";
+import "lib/i18n/gobierto_people";

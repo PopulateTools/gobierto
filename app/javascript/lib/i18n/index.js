@@ -1,1 +1,0 @@
-import './modules/translations.js'

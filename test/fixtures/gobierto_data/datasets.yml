@@ -1,0 +1,7 @@
+users_dataset:
+  site: madrid
+  name_translations: <%= { en: "Users", es: "Usuarios" }.to_json %>
+  table_name: users
+  slug: users-dataset
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

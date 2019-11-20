@@ -3,12 +3,12 @@ ca:
   gobierto_data:
     datasets:
       index:
-        title: Datasets
+        title: Conjunts de dades
       show:
-        title: Dataset %{dataset_name}
+        title: Conjunt de dades %{dataset_name}
     events:
-      gobierto_data_dataset_dataset_created: Dataset creat
-      gobierto_data_dataset_dataset_updated: Dataset actualitzat
+      gobierto_data_dataset_dataset_created: Conjunt de dades creat
+      gobierto_data_dataset_dataset_updated: Conjunt de dades actualitzat
     layouts:
       application:
         gobierto_data: Dades

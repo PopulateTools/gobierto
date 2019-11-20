@@ -12,7 +12,7 @@ ca:
             name: Nom
             table_name: Nom de la taula
           new: Nou
-          title: Datasets
-          view_dataset: Veure dataset
+          title: Conjunts de dades
+          view_dataset: Veure conjunt de dades
         new:
-          title: Nou dataset
+          title: Nou conjunt de dades

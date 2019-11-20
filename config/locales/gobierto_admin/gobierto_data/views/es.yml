@@ -12,7 +12,7 @@ es:
             name: Nombre
             table_name: Nombre de la tabla
           new: Nuevo
-          title: Datasets
-          view_dataset: Ver dataset
+          title: Conjuntos de datos
+          view_dataset: Ver conjunto de datos
         new:
-          title: Nuevo dataset
+          title: Nuevo conjunto de datos

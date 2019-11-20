@@ -3,5 +3,5 @@ es:
   activerecord:
     models:
       gobierto_data/dataset:
-        one: Dataset
-        other: Datasets
+        one: Conjunto de datos
+        other: Conjuntos de datos

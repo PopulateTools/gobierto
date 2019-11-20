@@ -7,7 +7,6 @@ en:
           placeholders:
             name: Population
             slug: population
-            table_name: population_census
         index:
           header:
             name: Name

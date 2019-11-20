@@ -17,13 +17,13 @@
         <% end %>
       </div>
 
-      <div class="form_item input_text">
+      <div class="form_item select_control">
         <%= label_tag "dataset[table_name]" do %>
           <%= t("activemodel.attributes.gobierto_admin/gobierto_data/dataset_form.table_name") %>
           <%= attribute_indication_tag required: true %>
         <% end %>
 
-        <%= f.text_field :table_name, placeholder: t(".placeholders.table_name") %>
+        <%= f.select(:table_name, @dataset_form.available_table_names) %>
       </div>
 
       <div class="form_item input_text">

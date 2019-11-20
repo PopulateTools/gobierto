@@ -7,7 +7,6 @@ ca:
           placeholders:
             name: Habitants
             slug: habitants
-            table_name: population_census
         index:
           header:
             name: Nom

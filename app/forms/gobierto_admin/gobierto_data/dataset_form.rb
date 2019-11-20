@@ -38,6 +38,10 @@ module GobiertoAdmin
         @dataset ||= dataset_class.find_by(id: id).presence || build_dataset
       end
 
+      def available_table_names
+        ::GobiertoData::Connection.tables(site)
+      end
+
       private
 
       def build_dataset

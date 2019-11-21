@@ -9,7 +9,7 @@ module GobiertoData
     class << self
 
       def execute_query(site, query)
-        with_connection(site, fallback: null_query) do
+        with_connection(db_config(site), fallback: null_query) do
           connection.execute(query) || null_query
         end
       rescue ActiveRecord::StatementInvalid => e
@@ -17,7 +17,7 @@ module GobiertoData
       end
 
       def tables(site)
-        with_connection(site) do
+        with_connection(db_config(site)) do
           connection.tables
         end
       end
@@ -26,11 +26,17 @@ module GobiertoData
         site&.gobierto_data_settings&.db_config
       end
 
+      def test_connection_config(config)
+        with_connection(config) do
+          connection.present?
+        end
+      end
+
       private
 
-      def with_connection(site, fallback: nil)
+      def with_connection(db_conf, fallback: nil)
         base_connection_config = connection_config
-        return fallback unless (db_conf = db_config(site)).present?
+        return fallback if db_conf.nil?
 
         establish_connection(db_conf)
         yield

@@ -12,6 +12,14 @@ module GobiertoData
       @site_with_module_disabled ||= sites(:santander)
     end
 
+    def valid_connection_config
+      @valid_connection_config ||= site.gobierto_data_settings.db_config
+    end
+
+    def invalid_connection_config
+      @invalid_connection_config ||= { foo: :bar }
+    end
+
     def test_execute_query_with_module_enabled
       result = Connection.execute_query(site, "SELECT COUNT(*) AS test_count FROM users")
       hash_result = JSON.parse(result.to_json)
@@ -21,7 +29,7 @@ module GobiertoData
 
     def test_execute_query_with_wrong_configuration
       module_settings = site.gobierto_data_settings
-      module_settings.db_config = { foo: :bar }
+      module_settings.db_config = invalid_connection_config
       module_settings.save
 
       assert_raise ActiveRecord::AdapterNotSpecified do
@@ -42,6 +50,14 @@ module GobiertoData
       hash_result = JSON.parse(result.to_json)
 
       assert_equal [], hash_result
+    end
+
+    def test_test_connection_config_with_valid_config
+      assert Connection.test_connection_config(valid_connection_config)
+    end
+
+    def test_test_connection_config_with_invalid_config
+      assert_raises(Exception) { Connection.test_connection_config(invalid_connection_config) }
     end
   end
 end

@@ -2,6 +2,14 @@
 ca:
   gobierto_admin:
     gobierto_data:
+      configuration:
+        settings:
+          edit:
+            db_config_placeholder: '{"pool":5, "adapter":"postgresql", "database":"gobierto_test",
+              "encoding":"unicode", "password":"gobierto", "username":"gobierto"}'
+            title: Configuració
+            update: Actualitzar
+          title: Preferencies
       datasets:
         form:
           placeholders:

@@ -2,6 +2,11 @@
 en:
   gobierto_admin:
     gobierto_data:
+      configuration:
+        settings:
+          update:
+            error: 'There was a problem when saving configuration: %{validation_errors}'
+            success: Configuration stored successfully
       datasets:
         create:
           success: Dataset created correctly.

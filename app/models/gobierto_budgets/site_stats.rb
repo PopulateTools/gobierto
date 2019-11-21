@@ -212,13 +212,6 @@ module GobiertoBudgets
                return nil if v1.nil? || v2.nil?
                ((v1.to_f - v2.to_f) / v2.to_f) * 100
       end
-      total_income = 0
-      (1..5).each do |code|
-        total_income += get_income_budget_line(year, code)
-      end
-      return 0 if total_income == 0
-
-
       if diff < 0
         direction = I18n.t("gobierto_budgets.budgets.index.less")
         diff *= -1

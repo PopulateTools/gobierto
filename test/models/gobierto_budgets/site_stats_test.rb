@@ -187,5 +187,13 @@ module GobiertoBudgets
       end
     end
 
+    def test_percentage_difference
+      f1 = total(forecast: TOTAL_BUDGET)
+      f2 = total(executed: TOTAL_BUDGET/2)
+
+      with factories: [f1, f2] do
+        assert_equal "100.00 % more", stats.percentage_difference(variable1: :total_budget, variable2: :total_budget_executed, year: Date.today.year)
+      end
+    end
   end
 end

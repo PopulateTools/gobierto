@@ -240,6 +240,10 @@ Rails.application.routes.draw do
 
       namespace :gobierto_data, as: :data do
         resources :datasets
+
+        namespace :configuration do
+          resource :settings, only: [:edit, :update], path: :settings
+        end
       end
     end
 

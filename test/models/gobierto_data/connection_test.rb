@@ -24,7 +24,10 @@ module GobiertoData
       result = Connection.execute_query(site, "SELECT COUNT(*) AS test_count FROM users")
       hash_result = JSON.parse(result.to_json)
 
-      assert_equal [{ "test_count" => 7 }], hash_result
+      assert hash_result.has_key?("result")
+      assert hash_result.has_key?("rows")
+      assert hash_result.has_key?("duration")
+      assert_equal [{ "test_count" => 7 }], hash_result["result"]
     end
 
     def test_execute_query_with_wrong_configuration

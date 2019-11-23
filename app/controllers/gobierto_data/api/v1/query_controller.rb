@@ -12,7 +12,7 @@ module GobiertoData
           if query_result.is_a?(Hash) && query_result.has_key?(:errors)
             render json: query_result, status: :bad_request, adapter: :json_api
           else
-            render json: { data: query_result }, adapter: :json_api
+            render json: { data: query_result.delete(:result), meta: query_result }, adapter: :json_api
           end
         end
 

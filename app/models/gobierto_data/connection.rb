@@ -8,9 +8,26 @@ module GobiertoData
 
     class << self
 
-      def execute_query(site, query)
+      def execute_query(site, query, include_stats: true)
         with_connection(db_config(site), fallback: null_query) do
-          connection.execute(query) || null_query
+
+          event = nil
+          if include_stats
+            ActiveSupport::Notifications.subscribe("sql.active_record") do |name, start, finish, id, payload|
+              if event.blank? && payload[:sql] == query
+                event = ActiveSupport::Notifications::Event.new(name, start, finish, id, payload)
+              end
+            end
+          end
+
+          execution = connection.execute(query) || null_query
+
+          {
+            result: execution,
+            duration: event&.duration,
+            rows: execution.ntuples,
+            status: execution.cmd_status
+          }
         end
       rescue ActiveRecord::StatementInvalid => e
         failed_query(e.message)

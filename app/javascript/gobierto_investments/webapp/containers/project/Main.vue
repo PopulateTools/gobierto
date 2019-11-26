@@ -26,6 +26,13 @@
 
     <div>
       <template v-for="(attr, i) in attributes">
+        <!-- Separator -->
+        <hr
+          v-if="attr.type === 'separator'"
+          :key="`${attr.id}-${i}`"
+          class="investments-project-main--hr"
+        >
+
         <DictionaryItem
           v-if="attr.filter === 'money'"
           :key="`${attr.id}-${i}`"
@@ -100,17 +107,11 @@ export default {
     setDisplay() {
       const { gallery = [], availableProjectFields = [] } = this.project;
       this.gallery = gallery;
-      this.attributes = availableProjectFields;
+      this.attributes = availableProjectFields.filter(d => d.value && d.value.length);
 
       if (gallery.length < this.visibleItems) {
         this.visibleItems = gallery.length;
       }
-
-      // // test
-      // const { attributes: { partida, "any-partida": year, old_partida } } = this.project
-      // // const { partida, old_partida, year } = this.attributes.find(d => d.id === "partida")
-      // console.log(partida, year, old_partida);
-
     }
   }
 };

@@ -59,7 +59,7 @@ export default {
   },
   created() {
     const { availableGalleryFields = {} } = this.item
-    this.attributes = availableGalleryFields
+    this.attributes = availableGalleryFields.filter(d => d.value && d.value.length);
   },
 };
 </script>

@@ -50,6 +50,10 @@ export default {
     },
     {
       id: "adjudicatari"
+    },
+    {
+      id: "estat",
+      multiple: true
     }
   ],
   availableTableFields: [

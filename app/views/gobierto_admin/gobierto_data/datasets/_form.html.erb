@@ -1,0 +1,65 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @dataset_form %>
+
+<%= form_for(@dataset_form, as: :dataset, url: @dataset_form.persisted? ? admin_data_dataset_path(@dataset_form) : admin_data_datasets_path(@dataset), data: { "globalized-form-container" => true }) do |f| %>
+  <div class="pure-g">
+    <div class="pure-u-1 pure-u-md-16-24">
+      <div class="globalized_fields">
+        <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+        <% current_site.configuration.available_locales.each do |locale| %>
+          <div class="form_item input_text" data-locale="<%= locale %>">
+            <%= label_tag "dataset[name_translations][#{locale}]" do %>
+              <%= f.object.class.human_attribute_name(:name) %>
+              <%= attribute_indication_tag required: true %>
+            <% end %>
+            <%= text_field_tag "dataset[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t(".placeholders.name", locale: locale) %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form_item select_control">
+        <%= label_tag "dataset[table_name]" do %>
+          <%= t("activemodel.attributes.gobierto_admin/gobierto_data/dataset_form.table_name") %>
+          <%= attribute_indication_tag required: true %>
+        <% end %>
+
+        <%= f.select(:table_name, @dataset_form.available_table_names) %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= label_tag "dataset[slug]" do %>
+          <%= t("activemodel.attributes.gobierto_admin/gobierto_data/dataset_form.slug") %>
+          <%= attribute_indication_tag required: @dataset_form.persisted? %>
+        <% end %>
+        <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+      </div>
+
+      <%= render(
+        partial: "gobierto_admin/gobierto_common/custom_fields/forms/custom_fields",
+        locals: {
+          f: f,
+          item: @custom_fields_form,
+          form_name: "dataset"
+        }
+      ) %>
+
+    </div>
+
+    <div class="pure-u-1 pure-u-md-2-24"></div>
+
+    <div class="pure-u-1 pure-u-md-1-4 ">
+
+      <div class="stick_in_parent">
+
+        <div class="widget_save ">
+
+          <%= f.submit class: "button" %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+<% end %>

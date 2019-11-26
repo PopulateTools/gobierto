@@ -1,0 +1,11 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_data:
+      datasets:
+        create:
+          success: El conjunt de dades s'ha creat correctament.
+        destroy:
+          success: El conjunt de dades s'ha esborrat correctament.
+        update:
+          success: El conjunt de dades s'ha actualitzat correctament.

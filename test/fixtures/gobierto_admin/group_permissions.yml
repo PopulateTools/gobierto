@@ -83,3 +83,9 @@ madrid_manage_investments:
   namespace: site_module
   resource_type: gobierto_investments
   action_name: manage
+
+madrid_manage_data:
+  admin_group: madrid_group
+  namespace: site_module
+  resource_type: gobierto_data
+  action_name: manage

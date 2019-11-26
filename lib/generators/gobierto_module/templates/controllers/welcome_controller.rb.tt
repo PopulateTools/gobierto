@@ -1,0 +1,5 @@
+# frozen_string_literal: true
+
+class <%= module_class_name %>::WelcomeController < <%= module_class_name %>::ApplicationController
+  def index; end
+end

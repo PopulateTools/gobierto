@@ -1,0 +1,7 @@
+---
+es:
+  activerecord:
+    models:
+      gobierto_data/dataset:
+        one: Conjunto de datos
+        other: Conjuntos de datos

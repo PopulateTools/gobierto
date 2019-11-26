@@ -1,0 +1,18 @@
+---
+es:
+  gobierto_admin:
+    gobierto_data:
+      datasets:
+        form:
+          placeholders:
+            name: Habitantes
+            slug: habitantes
+        index:
+          header:
+            name: Nombre
+            table_name: Nombre de la tabla
+          new: Nuevo
+          title: Conjuntos de datos
+          view_dataset: Ver conjunto de datos
+        new:
+          title: Nuevo conjunto de datos

@@ -7,13 +7,13 @@
     <!-- Table type -->
     <div v-if="type === 'table'">
       <div
-        v-for="v in value"
-        :key="v"
+        v-for="(v, i) in value"
+        :key="`${v}-${i}`"
         class="investments-project-main--inner-table-row"
       >
         <div
           v-for="column in table.columns"
-          :key="column"
+          :key="`${column}-${v}`"
         >
           <div>{{ v[column] }}</div>
         </div>

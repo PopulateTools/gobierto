@@ -6,7 +6,7 @@
         :key="step.id"
         :class="{ 'is-active': step.active }"
       >
-        <span>{{ step.title | translate }}</span>
+        <span>{{ step.title }}</span>
       </li>
     </ul>
   </nav>

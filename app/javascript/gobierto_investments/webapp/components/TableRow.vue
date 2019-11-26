@@ -12,7 +12,7 @@
         {{ column.value | money }}
       </div>
       <div v-else-if="column.filter === 'translate'">
-        {{ column.value | translate }}
+        {{ column.value }}
       </div>
       <div v-else>
         {{ column.value }}

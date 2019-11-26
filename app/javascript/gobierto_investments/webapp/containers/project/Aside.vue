@@ -2,7 +2,7 @@
   <aside class="investments-project-aside--gap">
     <div class="investments-project-aside--block">
       <h6 class="investments-project-aside--block-head">
-        {{ project.phasesFieldName | translate }}
+        {{ project.phasesFieldName }}
       </h6>
 
       <Steps

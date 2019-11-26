@@ -15,20 +15,20 @@
           href
           class="investments-home-main--link"
           @click.stop.prevent="nav(item)"
-        >{{ item.title | translate }}</a>
+        >{{ item.title }}</a>
         <div>
           <div
             v-for="attr in attributes"
             :key="attr.id"
             class="investments-home-main--property"
           >
-            <div>{{ attr.name | translate }}</div>
+            <div>{{ attr.name }}</div>
 
             <div v-if="attr.filter === 'money'">
               {{ attr.value | money }}
             </div>
             <div v-else-if="attr.filter === 'translate'">
-              {{ attr.value | translate }}
+              {{ attr.value }}
             </div>
             <div v-else>
               {{ attr.value }}

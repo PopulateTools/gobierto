@@ -2,15 +2,13 @@ import { VueFiltersMixin } from "lib/shared";
 
 const CONFIGURATION = {
   title: {
-    id: "title_translations",
-    filter: "translate"
+    id: "title_translations"
   },
   description: {
     id: "descripcio-projecte"
   },
   phases: {
     id: "estat",
-    filter: "translate"
   },
   location: {
     id: "wkt",
@@ -25,10 +23,12 @@ const CONFIGURATION = {
       endKey: "data-fin",
     },
     {
-      id: "estat"
+      id: "estat",
+      multiple: true
     },
     {
-      id: "nom-servei-responsable"
+      id: "nom-servei-responsable",
+      multiple: true
     },
     {
       id: "tipus-projecte"
@@ -42,7 +42,7 @@ const CONFIGURATION = {
       id: "data-inici"
     },
     {
-      id: "data-fin"
+      id: "data-final"
     },
     {
       id: "import",
@@ -50,7 +50,7 @@ const CONFIGURATION = {
     },
     {
       id: "adjudicatari"
-    }
+    },
   ],
   availableTableFields: [
     {
@@ -58,11 +58,85 @@ const CONFIGURATION = {
     },
     {
       id: "estat",
-      filter: "translate"
+      multiple: true
     },
     {
       id: "import",
       filter: "money"
+    }
+  ],
+  availableProjectFields: [
+    {
+      id: "nom-projecte"
+    },
+    {
+      id: "nom-servei-responsable",
+      multiple: true
+    },
+    {
+      id: "tipus-projecte",
+      multiple: true
+    },
+    {
+      id: "descripcio-projecte"
+    },
+    {
+      id: "notes"
+    },
+    {
+      id: "adreca"
+    },
+    {
+      id: "adjudicatari"
+    },
+    {
+      id: "estat",
+      multiple: true
+    },
+    {
+      id: "data-inici",
+      filter: "date",
+    },
+    {
+      id: "data-adjudicacio",
+      filter: "date",
+    },
+    {
+      id: "data-inici-redaccio",
+      filter: "date",
+    },
+    {
+      id: "data-fi-redaccio",
+      filter: "date",
+    },
+    {
+      id: "data-final",
+      // filter: "date",
+      type: "icon",
+      icon: {
+        href: "https://twitter.com",
+        name: "file"
+      }
+    },
+    {
+      id: "import",
+      filter: "money",
+      type: "highlight"
+    },
+    {
+      id: "import-adjudicacio",
+      filter: "money"
+    },
+    {
+      id: "import-liquidacio",
+      filter: "money"
+    },
+    {
+      id: "tasques",
+      type: "table",
+      table: {
+        columns: ['nomactuacio', 'nimport']
+      }
     }
   ]
 };
@@ -86,8 +160,8 @@ export const CommonsMixin = {
         filters.push({
           ...element,
           ...rest,
-          title,
-          options,
+          title: this.translate(title),
+          options: Array.isArray(options) ? options.map(opt => ({ ...opt, title: this.translate(opt.name_translations) })) : [],
           type: type ? type : key,
           key
         });
@@ -104,9 +178,10 @@ export const CommonsMixin = {
       return vocabulary_terms.map(term => {
         const { name_translations: title = {} } = term
         const { count = 0 } = distribution.find(el => parseFloat(JSON.parse(el.value)) === parseFloat(term.id)) || {};
+
         return {
           ...term,
-          title,
+          title: this.translate(title),
           count
         };
       });
@@ -114,34 +189,37 @@ export const CommonsMixin = {
     getItem(element, attributes) {
       const attr = this.getAttributesByKey(element.id);
 
+      let value = attributes[element.id]
+
+      if (element.multiple) {
+        value = this.translate(attributes[element.id][0].name_translations)
+      }
+
       return {
         ...attr,
         ...element,
-        name: attr.name_translations,
-        value: Array.isArray(attributes[element.id])
-          ? attributes[element.id].length
-            ? attributes[element.id][0].name_translations
-            : undefined
-          : attributes[element.id]
+        name: this.translate(attr.name_translations),
+        value: value
       };
     },
     setItem(element) {
       const { attributes = {} } = element;
-      const { title, description, phases, location, availableGalleryFields, availableTableFields } = CONFIGURATION;
+      const { title, description, phases, location, availableGalleryFields, availableTableFields, availableProjectFields } = CONFIGURATION;
       const { id: locationId, ...restLocationOptions } = location;
 
       return {
         ...element,
-        title: attributes[title.id],
+        title: this.translate(attributes[title.id]),
         description: attributes[description.id] || "",
         photo: Array.isArray(attributes.gallery) ? attributes.gallery[0] : "",
         gallery: attributes.gallery || [],
         location: attributes[locationId],
         locationOptions: restLocationOptions || {},
-        phases: attributes[phases.id].map(element => ({ ...element, title: element.name_translations })),
-        phasesFieldName: this.getItem(phases, attributes).name_translations,
+        phases: attributes[phases.id].map(element => ({ ...element, title: this.translate(element.name_translations) })),
+        phasesFieldName: this.translate(this.getItem(phases, attributes).name_translations),
         availableGalleryFields: availableGalleryFields.map(element => this.getItem(element, attributes)),
-        availableTableFields: availableTableFields.map(element => this.getItem(element, attributes))
+        availableTableFields: availableTableFields.map(element => this.getItem(element, attributes)),
+        availableProjectFields: availableProjectFields.map(element => this.getItem(element, attributes))
       };
     },
     setData(data) {
@@ -155,6 +233,6 @@ export const CommonsMixin = {
         }) || {};
 
       return attributes;
-    }
+    },
   }
 };

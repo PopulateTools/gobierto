@@ -1,7 +1,7 @@
 <template>
   <main>
     <h1 class="investments-project-main--heading">
-      {{ project.title | translate }}
+      {{ project.title }}
     </h1>
 
     <div
@@ -27,22 +27,31 @@
     <div>
       <template v-for="attr in attributes">
         <DictionaryItem
-          v-if="attr.filter === 'translate'"
+          v-if="attr.filter === 'money'"
           :key="attr.id"
-          :name="attr.name | translate"
-          :value="attr.value | translate"
+          :name="attr.name"
+          :value="attr.value | money"
+          :type="attr.type"
+          :icon="attr.icon"
+          :table="attr.table"
         />
         <DictionaryItem
-          v-else-if="attr.filter === 'money'"
+          v-else-if="attr.filter === 'date'"
           :key="attr.id"
-          :name="attr.name | translate"
-          :value="attr.value | money"
+          :name="attr.name"
+          :value="attr.value | date"
+          :type="attr.type"
+          :icon="attr.icon"
+          :table="attr.table"
         />
         <DictionaryItem
           v-else
           :key="attr.id"
-          :name="attr.name | translate"
+          :name="attr.name"
           :value="attr.value"
+          :type="attr.type"
+          :icon="attr.icon"
+          :table="attr.table"
         />
       </template>
     </div>
@@ -79,9 +88,9 @@ export default {
     };
   },
   created() {
-    const { gallery = [], availableGalleryFields = [] } = this.project
+    const { gallery = [], availableProjectFields = [] } = this.project
     this.gallery = gallery
-    this.attributes = availableGalleryFields
+    this.attributes = availableProjectFields
 
     if (gallery.length < this.visibleItems) {
       this.visibleItems = gallery.length
@@ -91,11 +100,11 @@ export default {
     const lightboxes = this.$el.querySelectorAll(".js-image-lightbox");
     lightboxes.forEach(lightbox => new ImageLightbox(lightbox));
   },
-  methods: {
-      dynamicFilter: function (value, filter) {
-    return Vue.filter(filter)(value)
-  }
-  }
+  // methods: {
+  //     dynamicFilter: function (value, filter) {
+  //       return Vue.filter(filter)(value)
+  //     }
+  // }
 };
 </script>
 

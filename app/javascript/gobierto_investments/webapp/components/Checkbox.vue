@@ -10,7 +10,7 @@
       :for="`investments-home-aside--checkbox-${id}`"
     >
       <div>
-        {{ title | translate }}
+        {{ title }}
         <i>({{ counter }})</i>
       </div>
     </label>
@@ -25,8 +25,8 @@ export default {
   mixins: [CommonsMixin],
   props: {
     title: {
-      type: Object,
-      default: () => {}
+      type: String,
+      default: ""
     },
     id: {
       type: Number,

@@ -565,7 +565,7 @@ Rails.application.routes.draw do
         # API
         namespace :api, path: "/" do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1/data" do
-            get "/" => "query#index", as: :root
+            get "/" => "query#index", as: :root, defaults: { :format => "json" }
           end
         end
       end

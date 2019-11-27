@@ -37,11 +37,11 @@ module GobiertoCommon
     end
 
     def descendents
-      self_and_descendents - [self]
+      @descendents ||= self_and_descendents - [self]
     end
 
     def self_and_descendents
-      self.class.tree_for(self)
+      @self_and_descendents ||= self.class.tree_for(self)
     end
   end
 end

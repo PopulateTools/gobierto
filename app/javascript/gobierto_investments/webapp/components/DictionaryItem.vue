@@ -4,16 +4,32 @@
       {{ name }}
     </div>
 
-    <!-- List type -->
-    <div v-if="isList">
+    <!-- Table type -->
+    <div v-if="type === 'table'">
       <div
-        v-for="(itemList, i) in value"
-        :key="i"
+        v-for="(v, i) in value"
+        :key="`${v}-${i}`"
         class="investments-project-main--inner-table-row"
       >
-        <div>{{ itemList }}</div>
-        <div />
+        <div
+          v-for="column in table.columns"
+          :key="`${column}-${v}`"
+        >
+          <div>{{ v[column] }}</div>
+        </div>
       </div>
+    </div>
+
+    <!-- Icon type -->
+    <div v-else-if="type === 'icon'">
+      <div class="investments-project-main--icon-text">
+        <i :class="`fas fa-${icon.name}`" /> <a :href="icon.href">{{ value }}</a>
+      </div>
+    </div>
+
+    <!-- Highlight type -->
+    <div v-else-if="type === 'highlight'">
+      <strong class="investments-project-main--strong">{{ value }}</strong>
     </div>
 
     <!-- Simple type -->
@@ -34,15 +50,19 @@ export default {
     value: {
       type: [String, Array, Number, Object],
       default: ""
+    },
+    type: {
+      type: String,
+      default: ""
+    },
+    icon: {
+      type: Object,
+      default: () => {}
+    },
+    table: {
+      type: Object,
+      default: () => {}
     }
-  },
-  data() {
-    return {
-      isList: false
-    };
-  },
-  created() {
-    this.isList = this.value && this.value instanceof Array;
   }
 };
 </script>

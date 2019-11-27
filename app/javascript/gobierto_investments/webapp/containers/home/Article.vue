@@ -3,7 +3,7 @@
     <Phase
       v-for="(phase, i) in phases"
       :key="phase.id"
-      :title="phase.title | translate"
+      :title="phase.title"
       :count="phase.count"
       :budget="phase.budget | money"
       :projects="phase.items"

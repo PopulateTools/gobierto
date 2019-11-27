@@ -48,33 +48,35 @@ export default {
       project: null
     };
   },
-  beforeRouteEnter(to, from, next) {
+  async beforeRouteEnter(to, from, next) {
     const { item } = to.params;
 
     if (!item) {
       // If there's no item (project) it must request it
-      axios.all([axios.get(`${baseUrl}/${to.params.id}`), axios.get(`${baseUrl}/meta?stats=true`)]).then(responses =>
-        next(vm => {
-          const [
-            {
-              data: { data: item }
-            },
-            {
-              data: { data: attributesDictionary, meta: filtersFromConfiguration }
-            }
-          ] = responses;
+      const [
+        {
+          data: { data: item }
+        },
+        {
+          data: { data: attributesDictionary, meta: filtersFromConfiguration }
+        }
+      ] = await axios.all([axios.get(`${baseUrl}/${to.params.id}`), axios.get(`${baseUrl}/meta?stats=true`)]);
 
-          vm.dictionary = attributesDictionary;
-          vm.project = vm.setItem(item);
+      next(async vm => {
+        vm.dictionary = attributesDictionary;
+        vm.project = vm.setItem(item);
 
-          // Update $router
-          to.params.item = vm.project;
+        // Update $router
+        to.params.item = vm.project;
 
-          if (filtersFromConfiguration) {
-            vm.phases = vm.getPhases(filtersFromConfiguration);
-          }
-        })
-      );
+        if (filtersFromConfiguration) {
+          vm.phases = vm.getPhases(filtersFromConfiguration);
+        }
+
+        // Optional callback to update data in background, setup in CONFIGURATION object
+        // eslint-disable-next-line require-atomic-updates
+        vm.project = await vm.alterDataObjectOptional(vm.project);
+      });
     } else {
       next();
     }

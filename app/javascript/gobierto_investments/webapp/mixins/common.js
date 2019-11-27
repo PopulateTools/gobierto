@@ -1,20 +1,19 @@
 import { VueFiltersMixin } from "lib/shared";
+import axios from "axios";
 
 const CONFIGURATION = {
   title: {
-    id: "title_translations",
-    filter: "translate"
+    id: "title_translations"
   },
   description: {
     id: "descripcio-projecte"
   },
   phases: {
-    id: "estat",
-    filter: "translate"
+    id: "estat"
   },
   location: {
     id: "wkt",
-    center: [41.536908,2.4418503],
+    center: [41.536908, 2.4418503],
     minZoom: 13,
     maxZoom: 16
   },
@@ -22,27 +21,29 @@ const CONFIGURATION = {
     {
       id: "range",
       startKey: "data-inici",
-      endKey: "data-fin",
+      endKey: "data-fin"
     },
     {
-      id: "estat"
+      id: "estat",
+      multiple: true
     },
     {
-      id: "nom-servei-responsable"
+      id: "nom-servei-responsable",
+      multiple: true
     },
     {
       id: "tipus-projecte"
     },
     {
       id: "import"
-    },
+    }
   ],
   availableGalleryFields: [
     {
       id: "data-inici"
     },
     {
-      id: "data-fin"
+      id: "data-final"
     },
     {
       id: "import",
@@ -58,16 +59,128 @@ const CONFIGURATION = {
     },
     {
       id: "estat",
-      filter: "translate"
+      multiple: true
     },
     {
       id: "import",
       filter: "money"
     }
-  ]
+  ],
+  availableProjectFields: [
+    {
+      id: "nom-projecte"
+    },
+    {
+      id: "nom-servei-responsable",
+      multiple: true
+    },
+    {
+      id: "tipus-projecte",
+      multiple: true
+    },
+    {
+      id: "descripcio-projecte"
+    },
+    {
+      id: "notes"
+    },
+    {
+      id: "adreca"
+    },
+    {
+      id: "adjudicatari"
+    },
+    {
+      id: "estat",
+      multiple: true
+    },
+    {
+      id: "data-inici",
+      filter: "date"
+    },
+    {
+      id: "data-adjudicacio",
+      filter: "date"
+    },
+    {
+      id: "data-inici-redaccio",
+      filter: "date"
+    },
+    {
+      id: "data-fi-redaccio",
+      filter: "date"
+    },
+    {
+      id: "data-final",
+      type: "icon",
+      icon: {
+        href: "https://twitter.com",
+        name: "file"
+      }
+    },
+    {
+      id: "partida",
+      filter: "money",
+      type: "highlight"
+    },
+    {
+      id: "import",
+      filter: "money"
+    },
+    {
+      id: "import-adjudicacio",
+      filter: "money"
+    },
+    {
+      id: "import-liquidacio",
+      filter: "money"
+    },
+    {
+      id: "tasques",
+      type: "table",
+      table: {
+        columns: ["nomactuacio", "nimport"]
+      }
+    }
+  ],
+  itemSpecialConfiguration: {
+    fn: async data => {
+      const dataArr = Array.isArray(data) ? data : [data];
+      const filterArr = dataArr.filter(d => d.attributes.partida && d.attributes["any-partida"]);
+      const allIds = filterArr.map(d => `'${d.attributes.partida}'`).join(",");
+
+      // Avoid the query if there's no code_with_zone (partida)
+      if (allIds) {
+        const endpoint = `${location.origin}/api/v1/data`;
+        const query = `
+          SELECT code_with_zone as partida, paranyprs as year, sum(parimport) as budget
+          FROM mataro_budgets
+          WHERE "parimport" IS NOT NULL
+          AND "code_with_zone" IN (${allIds})
+          GROUP BY code_with_zone, paranyprs
+        `;
+
+        const { data: { data: sql } } = await axios.get(endpoint, {
+          params: {
+            sql: query.trim()
+          }
+        })
+
+        for (let index = 0; index < dataArr.length; index++) {
+          const { attributes: { partida, "any-partida": year } } = dataArr[index];
+          const { budget } = sql.find(d => d.partida === partida && d.year === year) || {};
+
+          dataArr[index].attributes.old_partida = partida
+          dataArr[index].attributes.partida = budget ? budget : null
+        }
+      }
+
+      return Array.isArray(data) ? dataArr : dataArr[0];
+    }
+  }
 };
 
-export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`
+export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`;
 
 export const CommonsMixin = {
   mixins: [VueFiltersMixin],
@@ -76,8 +189,8 @@ export const CommonsMixin = {
       this.$router.push({ name: "project", params: { id: item.id, item } });
     },
     getFilters(stats) {
-      const { availableFilters } = CONFIGURATION
-      const filters = []
+      const { availableFilters } = CONFIGURATION;
+      const filters = [];
       for (let index = 0; index < availableFilters.length; index++) {
         const { id: key, ...rest } = availableFilters[index];
         const element = stats[key];
@@ -86,14 +199,14 @@ export const CommonsMixin = {
         filters.push({
           ...element,
           ...rest,
-          title,
-          options,
+          title: this.translate(title),
+          options: Array.isArray(options) ? options.map(opt => ({ ...opt, title: this.translate(opt.name_translations) })) : [],
           type: type ? type : key,
           key
         });
       }
 
-      return filters
+      return filters;
     },
     getPhases(stats) {
       const {
@@ -102,11 +215,12 @@ export const CommonsMixin = {
       const { vocabulary_terms = [] } = this.getAttributesByKey(id);
       const { distribution = [] } = stats[id];
       return vocabulary_terms.map(term => {
-        const { name_translations: title = {} } = term
+        const { name_translations: title = {} } = term;
         const { count = 0 } = distribution.find(el => parseFloat(JSON.parse(el.value)) === parseFloat(term.id)) || {};
+
         return {
           ...term,
-          title,
+          title: this.translate(title),
           count
         };
       });
@@ -114,38 +228,52 @@ export const CommonsMixin = {
     getItem(element, attributes) {
       const attr = this.getAttributesByKey(element.id);
 
+      let value = attributes[element.id];
+
+      if (element.multiple) {
+        value = this.translate(attributes[element.id][0].name_translations);
+      }
+
       return {
         ...attr,
         ...element,
-        name: attr.name_translations,
-        value: Array.isArray(attributes[element.id])
-          ? attributes[element.id].length
-            ? attributes[element.id][0].name_translations
-            : undefined
-          : attributes[element.id]
+        name: this.translate(attr.name_translations),
+        value: value
       };
     },
     setItem(element) {
       const { attributes = {} } = element;
-      const { title, description, phases, location, availableGalleryFields, availableTableFields } = CONFIGURATION;
+      const { title, description, phases, location, availableGalleryFields, availableTableFields, availableProjectFields } = CONFIGURATION;
       const { id: locationId, ...restLocationOptions } = location;
 
       return {
         ...element,
-        title: attributes[title.id],
+        title: this.translate(attributes[title.id]),
         description: attributes[description.id] || "",
         photo: Array.isArray(attributes.gallery) ? attributes.gallery[0] : "",
         gallery: attributes.gallery || [],
         location: attributes[locationId],
         locationOptions: restLocationOptions || {},
-        phases: attributes[phases.id].map(element => ({ ...element, title: element.name_translations })),
-        phasesFieldName: this.getItem(phases, attributes).name_translations,
+        phases: attributes[phases.id].map(element => ({ ...element, title: this.translate(element.name_translations) })),
+        phasesFieldName: this.translate(this.getItem(phases, attributes).name_translations),
         availableGalleryFields: availableGalleryFields.map(element => this.getItem(element, attributes)),
-        availableTableFields: availableTableFields.map(element => this.getItem(element, attributes))
+        availableTableFields: availableTableFields.map(element => this.getItem(element, attributes)),
+        availableProjectFields: availableProjectFields.map(element => this.getItem(element, attributes))
       };
     },
     setData(data) {
       return data.map(element => this.setItem(element));
+    },
+    async alterDataObjectOptional(data) {
+      const { itemSpecialConfiguration } = CONFIGURATION;
+
+      let spreadData = data;
+      if (itemSpecialConfiguration) {
+        const { fn = () => data } = itemSpecialConfiguration;
+        spreadData = await fn(data);
+      }
+
+      return Array.isArray(spreadData) ? this.setData(spreadData) : this.setItem(spreadData);
     },
     getAttributesByKey(prop) {
       const { attributes = {} } =

@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+module <%= module_class_name %>
+  def self.table_name_prefix
+    "<%= table_prefix %>"
+  end
+end

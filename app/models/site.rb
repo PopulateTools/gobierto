@@ -87,6 +87,9 @@ class Site < ApplicationRecord
   # Gobierto Investments integration
   has_many :projects, dependent: :destroy, class_name: "GobiertoInvestments::Project"
 
+  # GobiertoData integration
+  has_many :datasets, dependent: :destroy, class_name: "GobiertoData::Dataset"
+
   serialize :configuration_data
 
   before_save :store_configuration
@@ -147,6 +150,12 @@ class Site < ApplicationRecord
     @gobierto_citizens_charters_settings ||= if configuration.available_module?("GobiertoCitizensCharters") && configuration.gobierto_citizens_charters_enabled?
                                                module_settings.find_by(module_name: "GobiertoCitizensCharters")
                                              end
+  end
+
+  def gobierto_data_settings
+    @gobierto_data_settings ||= if configuration.available_module?("GobiertoData") && configuration.gobierto_data_enabled?
+                                  module_settings.find_by(module_name: "GobiertoData")
+                                end
   end
 
   def settings_for_module(module_name)

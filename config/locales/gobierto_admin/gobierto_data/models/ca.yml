@@ -1,0 +1,14 @@
+---
+ca:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_data/dataset_form:
+        name: Nom
+        slug: Slug
+        table_name: Nom de la taula
+    errors:
+      models:
+        gobierto_admin/gobierto_data/dataset_form:
+          attributes:
+            table_name:
+              invalid_table: 'No es pot accedir a la taula. Missatge d''error: "%{error_message}"'

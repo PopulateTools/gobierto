@@ -1,6 +1,6 @@
 <template>
   <div class="investments-home-aside--block-header">
-    <strong>{{ title | translate }}</strong>
+    <strong>{{ title }}</strong>
     <a
       v-if="seeLink"
       @click="selectAll"
@@ -16,8 +16,8 @@ export default {
   mixins: [CommonsMixin],
   props: {
     title: {
-      type: Object,
-      default: () => {}
+      type: String,
+      default: ""
     },
     seeLink: {
       type: Boolean,

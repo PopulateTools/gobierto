@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+class <%= module_class_name %>::ApplicationController < ApplicationController
+  include User::SessionHelper
+
+  layout "<%= module_name %>/layouts/application"
+end

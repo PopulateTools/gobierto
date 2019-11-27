@@ -1,0 +1,18 @@
+---
+en:
+  gobierto_admin:
+    gobierto_data:
+      datasets:
+        form:
+          placeholders:
+            name: Population
+            slug: population
+        index:
+          header:
+            name: Name
+            table_name: Table name
+          new: New
+          title: Datasets
+          view_dataset: See dataset
+        new:
+          title: New dataset

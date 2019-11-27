@@ -17,6 +17,7 @@ class GobiertoPlans::PlanTree
         cached_attributes: { progress: progresses_with_version }
       }
     )
+    @nodes_count = plan.nodes.joins(:categories).group(:category_id).reorder("").count(:id)
   end
 
   def call(include_nodes = false)
@@ -74,7 +75,7 @@ class GobiertoPlans::PlanTree
         attributes[:counter] = counter?
       end
 
-      attributes[:children_count] = subtree.blank? ? category.nodes.count : subtree.count
+      attributes[:children_count] = subtree.blank? ? @nodes_count.fetch(category.id, 0) : subtree.count
       attributes[:nodes_list_path] = url_helper.gobierto_plans_api_plan_projects_path(plan_id: @plan.id, category_id: category.id, locale: I18n.locale)
 
       { id: category.id,

@@ -20,11 +20,7 @@ module GobiertoData
               end
 
               format.csv do
-                headers["Content-Disposition"] = "inline"
-                headers["Content-Type"] = "text/plain; charset=utf-8"
-                render(
-                  plain: csv_from_query_result(query_result.fetch(:result, ""), csv_options_params)
-                )
+                render_csv(csv_from_query_result(query_result.fetch(:result, ""), csv_options_params))
               end
             end
           end

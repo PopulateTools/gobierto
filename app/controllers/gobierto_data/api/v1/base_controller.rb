@@ -34,6 +34,14 @@ module GobiertoData
           end.force_encoding("utf-8")
         end
 
+        def render_csv(content)
+          headers["Content-Disposition"] = "inline"
+          headers["Content-Type"] = "text/plain; charset=utf-8"
+          render(
+            plain: content
+          )
+        end
+
       end
     end
   end

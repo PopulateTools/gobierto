@@ -29,7 +29,7 @@
         <!-- Separator -->
         <hr
           v-if="attr.type === 'separator'"
-          :key="`${attr.id}-${i}`"
+          :key="`${attr.type}-${i}`"
           class="investments-project-main--hr"
         >
 
@@ -107,7 +107,8 @@ export default {
     setDisplay() {
       const { gallery = [], availableProjectFields = [] } = this.project;
       this.gallery = gallery;
-      this.attributes = availableProjectFields.filter(d => d.value && d.value.length);
+
+      this.attributes = availableProjectFields.filter(d => d.type === "separator" || (d.value && d.value.length));
 
       if (gallery.length < this.visibleItems) {
         this.visibleItems = gallery.length;

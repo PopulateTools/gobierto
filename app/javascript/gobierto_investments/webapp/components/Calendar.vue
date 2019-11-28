@@ -17,11 +17,21 @@ import { datepicker } from "lib/shared";
 
 export default {
   name: "Calendar",
+  props: {
+    savedStartDate: {
+      type: Date,
+      default: null
+    },
+    savedEndDate: {
+      type: Date,
+      default: null
+    },
+  },
   data() {
     return {
       labelDate: "",
-      startDate: new Date(),
-      endDate: new Date()
+      startDate: this.savedStartDate || new Date(),
+      endDate: this.savedEndDate || new Date()
     };
   },
   dateFmt: { day: "numeric", month: "short", year: "numeric" },

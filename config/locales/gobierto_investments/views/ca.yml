@@ -12,15 +12,16 @@ ca:
           el pla anual d'inversions i mecanismes de seguiment de les obres en marxa.
     projects:
       all: Totes
-      back: veure tot
+      back: vegeu-ho tot
       date: Darrer any
       detail_title: Detall del projecte
       empty: Sense resultats
       exit: Sortir
       gallery: Galeria
       list: Llista
+      loading: Carregant dades...
       map: Mapa
       none: Cap
-      see: Veure de nou
+      see: Vegeu-ho de nou
       summary: Resum per estats
       tour: Tour virtual

@@ -19,6 +19,7 @@ en:
       exit: Exit
       gallery: Gallery
       list: List
+      loading: Loading data...
       map: Map
       none: None
       see: See again

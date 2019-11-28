@@ -3,6 +3,10 @@
     @include gutters(66px)
   }
 
+  &--loading {
+    font-size: $f4;
+  }
+
   &-project--heading {
     color: $color_text;
     font-size: $f5;

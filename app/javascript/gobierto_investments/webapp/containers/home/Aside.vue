@@ -29,8 +29,8 @@ export default {
     }
   },
   methods: {
-    setFilter(filter, key) {
-      this.$emit('set-filter', filter, key)
+    setFilter(filter, key, values) {
+      this.$emit('set-filter', filter, key, values)
     }
   }
 };

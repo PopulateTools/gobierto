@@ -1,5 +1,9 @@
 <template>
-  <div class="investments">
+  <Loading v-if="isFetchingData" />
+  <div
+    v-else
+    class="investments"
+  >
     <div class="pure-g gutters m_b_1">
       <div class="pure-u-1 pure-u-lg-1-4" />
       <div class="pure-u-1 pure-u-lg-3-4">
@@ -41,8 +45,10 @@ import Aside from "./Aside.vue";
 import Main from "./Main.vue";
 import Nav from "./Nav.vue";
 import Article from "./Article.vue";
+import Loading from "../../components/Loading.vue";
 import axios from "axios";
 import { CommonsMixin, baseUrl } from "../../mixins/common.js";
+import { store } from "../../mixins/store";
 
 export default {
   name: "Home",
@@ -50,7 +56,8 @@ export default {
     Aside,
     Main,
     Nav,
-    Article
+    Article,
+    Loading
   },
   mixins: [CommonsMixin],
   data() {
@@ -61,74 +68,137 @@ export default {
       filters: [],
       phases: [],
       activeTabIndex: 0,
-      labelSummary: ""
+      labelSummary: "",
+      activeFilters: new Map(),
+      activeFiltersSelection: new Map(),
+      isFetchingData: false
     };
   },
   async created() {
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
 
-    const [
-      {
-        data: { data: items = [] }
-      },
-      {
-        data: { data: attributesDictionary = [], meta: filtersFromConfiguration }
+    const { items, phases, filters, activeFilters } = store.state;
+
+    if (items.length) {
+      this.items = items;
+      this.phases = phases;
+      this.filters = filters;
+
+      if (activeFilters) {
+        this.subsetItems = this.applyFilters(activeFilters);
       }
-    ] = await axios.all([axios.get(baseUrl), axios.get(`${baseUrl}/meta?stats=true`)]);
+    } else {
+      this.isFetchingData = true
+      const { items, phases, filters } = await this.getItems();
+      this.isFetchingData = false
 
-    this.dictionary = attributesDictionary;
-    this.items = this.setData(items);
-
-    if (filtersFromConfiguration) {
-      // get the phases, and append what items are in that phase
-      const phases = this.getPhases(filtersFromConfiguration);
-      this.phases = phases.map(phase => ({
-        ...phase,
-        items: this.items.filter(d => (d.phases.length ? d.phases[0].id === phase.id : false))
-      }));
-
-      // Add dictionary of phases in order to fulfill project page
-      this.items = this.items.map(item => ({ ...item, phasesDictionary: phases }));
-
-      this.filters = this.getFilters(filtersFromConfiguration) || [];
-
-      if (this.filters.length) {
-        this.activeFilters = new Map();
-        this.filters.forEach(f => {
-          // initialize active filters
-          this.activeFilters.set(f.key, undefined);
-
-          if (f.type === "vocabulary_options") {
-            // Add a counter for each option
-            f.options = f.options.map(opt => ({
-              ...opt,
-              counter: this.items.filter(i => i.attributes[f.key].map(g => g.id).includes(opt.id)).length
-            }));
-          }
-        });
-      }
+      this.items = items;
+      this.phases = phases;
+      this.filters = filters;
     }
-
-    // Assign this object BEFORE next function for better performance
-    this.subsetItems = this.items;
-
-    // Optional callback to update data in background, setup in CONFIGURATION object
-    this.items = await this.alterDataObjectOptional(this.items);
-    // Once items is updated, assign again the result
-    this.subsetItems = this.items;
   },
   methods: {
-    filterItems(filter, key) {
-      this.activeFilters.set(key, filter);
+    async getItems() {
+      const [
+        {
+          data: { data: __items__ = [] }
+        },
+        {
+          data: {
+            data: attributesDictionary = [],
+            meta: filtersFromConfiguration
+          }
+        }
+      ] = await axios.all([
+        axios.get(baseUrl),
+        axios.get(`${baseUrl}/meta?stats=true`)
+      ]);
 
+      this.dictionary = attributesDictionary;
+
+      let items = this.setData(__items__);
+      let phases = [];
+      let filters = [];
+
+      if (filtersFromConfiguration) {
+        // get the phases
+        const __phases__ = this.getPhases(filtersFromConfiguration);
+        // append what items are in that phase
+        phases = __phases__.map(phase => ({
+          ...phase,
+          items: items.filter(d =>
+            d.phases.length ? d.phases[0].id === phase.id : false
+          )
+        }));
+        // save the phases
+        store.addPhases(phases);
+
+        // Add dictionary of phases in order to fulfill project page
+        items = items.map(item => ({ ...item, phasesDictionary: __phases__ }));
+
+        filters = this.getFilters(filtersFromConfiguration) || [];
+
+        if (filters.length) {
+          this.activeFilters = new Map();
+          this.activeFiltersSelection = new Map();
+          filters.forEach(f => {
+            // initialize active filters
+            this.activeFilters.set(f.key, undefined);
+
+            if (f.type === "vocabulary_options") {
+              // Add a counter for each option
+              f.options = f.options.map(opt => ({
+                ...opt,
+                counter: items.filter(i =>
+                  i.attributes[f.key].map(g => g.id).includes(opt.id)
+                ).length
+              }));
+            }
+          });
+
+          // save the filters
+          store.addFilters(filters);
+        }
+      }
+
+      // Assign this object BEFORE next function for better performance
+      this.subsetItems = items;
+
+      // Optional callback to update data in background, setup in CONFIGURATION object
+      // eslint-disable-next-line require-atomic-updates
+      items = await this.alterDataObjectOptional(items);
+
+      // Once items is updated, assign again the result
+      this.subsetItems = items;
+
+      // save the items
+      store.addItems(items);
+
+      return {
+        phases,
+        filters,
+        items
+      };
+    },
+    filterItems(filter, key, values) {
+      this.activeFilters.set(key, filter);
+      this.activeFiltersSelection.set(key, values);
+
+      this.subsetItems = this.applyFilters(this.activeFilters);
+
+      // save the selected filters
+      store.addActiveFilters(this.activeFilters);
+      store.addActiveFiltersSelection(this.activeFiltersSelection);
+    },
+    applyFilters(activeFilters) {
       let results = this.items;
-      this.activeFilters.forEach(activeFn => {
+      activeFilters.forEach(activeFn => {
         if (activeFn) {
           results = results.filter(d => activeFn(d.attributes));
         }
       });
 
-      this.subsetItems = results;
+      return results
     }
   }
 };

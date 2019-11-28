@@ -47,6 +47,14 @@ export default {
       type: Number,
       default: 1
     },
+    savedMin: {
+      type: Number,
+      default: null
+    },
+    savedMax: {
+      type: Number,
+      default: null
+    },
     rangeBars: {
       type: Array,
       default: () => []
@@ -56,8 +64,8 @@ export default {
   data() {
     return {
       defaultRange: [this.min, this.max],
-      selectedMin: this.min,
-      selectedMax: this.max,
+      selectedMin: this.savedMin || this.min,
+      selectedMax: this.savedMax || this.max,
       random: Math.random().toString(36).substring(7),
     }
   },
@@ -69,7 +77,7 @@ export default {
       return value => Math.ceil(parseFloat(value))
     },
     rangeDefault() {
-      return JSON.stringify([Math.floor(this.min), Math.ceil(this.max)])
+      return JSON.stringify([this.savedMin || Math.floor(this.min), this.savedMax || Math.ceil(this.max)])
     }
   },
   mounted() {

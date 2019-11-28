@@ -27,8 +27,8 @@
             <div v-if="attr.filter === 'money'">
               {{ attr.value | money }}
             </div>
-            <div v-else-if="attr.filter === 'translate'">
-              {{ attr.value }}
+            <div v-else-if="attr.filter === 'date'">
+              {{ attr.value | date }}
             </div>
             <div v-else>
               {{ attr.value }}
@@ -59,7 +59,7 @@ export default {
   },
   created() {
     const { availableGalleryFields = {} } = this.item
-    this.attributes = availableGalleryFields.filter(d => d.value && d.value.length);
+    this.attributes = availableGalleryFields.filter(d => d.type === "separator" || (d.value && d.value.length));
   },
 };
 </script>

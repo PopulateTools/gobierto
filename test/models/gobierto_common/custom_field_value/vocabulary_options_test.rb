@@ -40,15 +40,15 @@ module GobiertoCommon::CustomFieldValue
     end
 
     def test_vocabulary_single_select_value_string
-      assert_equal [mammal_term.name], single_select_record.value_string
+      assert_equal mammal_term.name, single_select_record.value_string
     end
 
     def test_vocabulary_multiple_select_value_string
-      assert_equal [mammal_term.name, dog_term.name], multiple_select_record.value_string
+      assert_equal "#{mammal_term.name}, #{dog_term.name}", multiple_select_record.value_string
     end
 
     def test_vocabulary_tags_value_string
-      assert_equal [mammal_term.name, dog_term.name], multiple_tags_select_record.value_string
+      assert_equal "#{mammal_term.name}, #{dog_term.name}", multiple_tags_select_record.value_string
     end
 
     def test_vocabulary_single_select_filter_value
@@ -66,56 +66,56 @@ module GobiertoCommon::CustomFieldValue
     def test_vocabulary_single_select_value_assign_with_vocabulary_term
       single_select_record.value = vocabulary_term
 
-      assert_equal [vocabulary_term.name], single_select_record.value_string
+      assert_equal vocabulary_term.name, single_select_record.value_string
       assert_equal vocabulary_term.id.to_s, single_select_record.filter_value
     end
 
     def test_vocabulary_single_select_value_assign_with_other_vocabulary_term
       single_select_record.value = other_vocabulary_term
 
-      assert_equal [], single_select_record.value_string
+      assert_equal "", single_select_record.value_string
       refute_equal other_vocabulary_term.id.to_s, single_select_record.filter_value
     end
 
     def test_vocabulary_single_select_value_assign_with_term_integer_id
       single_select_record.value = vocabulary_term.id
 
-      assert_equal [vocabulary_term.name], single_select_record.value_string
+      assert_equal vocabulary_term.name, single_select_record.value_string
       assert_equal vocabulary_term.id.to_s, single_select_record.filter_value
     end
 
     def test_vocabulary_single_select_value_assign_with_other_vocabulary_integer_id
       single_select_record.value = other_vocabulary_term.id
 
-      assert_equal [], single_select_record.value_string
+      assert_equal "", single_select_record.value_string
       refute_equal other_vocabulary_term.id.to_s, single_select_record.filter_value
     end
 
     def test_vocabulary_single_select_value_assign_with_term_string_id
       single_select_record.value = vocabulary_term.id.to_s
 
-      assert_equal [vocabulary_term.name], single_select_record.value_string
+      assert_equal vocabulary_term.name, single_select_record.value_string
       assert_equal vocabulary_term.id.to_s, single_select_record.filter_value
     end
 
     def test_vocabulary_single_select_value_assign_with_other_vocabulary_string_id
       single_select_record.value = other_vocabulary_term.id.to_s
 
-      assert_equal [], single_select_record.value_string
+      assert_equal "", single_select_record.value_string
       refute_equal other_vocabulary_term.id.to_s, single_select_record.filter_value
     end
 
     def test_vocabulary_single_select_value_assign_with_array_of_integer_ids
       single_select_record.value = [vocabulary_term.id, mammal_term.id]
 
-      assert_equal [vocabulary_term.name], single_select_record.value_string
+      assert_equal vocabulary_term.name, single_select_record.value_string
       assert_equal vocabulary_term.id.to_s, single_select_record.filter_value
     end
 
     def test_vocabulary_single_select_value_assign_with_array_of_string_ids
       single_select_record.value = [vocabulary_term.id.to_s, mammal_term.id.to_s]
 
-      assert_equal [vocabulary_term.name], single_select_record.value_string
+      assert_equal vocabulary_term.name, single_select_record.value_string
       assert_equal vocabulary_term.id.to_s, single_select_record.filter_value
     end
 

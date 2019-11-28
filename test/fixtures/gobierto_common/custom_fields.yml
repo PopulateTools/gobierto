@@ -314,6 +314,20 @@ madrid_investments_projects_custom_field_text_code:
   field_type: <%= GobiertoCommon::CustomField.field_types[:string] %>
   uid: text-code
 
+madrid_data_datasets_custom_field_category:
+  site: madrid
+  class_name: GobiertoData::Dataset
+  position: 1
+  name_translations: <%= { en: "Category", es: "Categoría" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:vocabulary_options] %>
+  uid: category
+  options: <%= {
+    configuration: {
+      vocabulary_type: "single_select"
+    },
+    vocabulary_id: ActiveRecord::FixtureSet.identify(:issues_vocabulary)
+  }.to_json %>
+
 madrid_custom_field_human_resources_table_plugin:
   site: madrid
   class_name: GobiertoPlans::Node

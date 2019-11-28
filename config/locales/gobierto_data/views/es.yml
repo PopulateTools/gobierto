@@ -1,0 +1,14 @@
+---
+es:
+  gobierto_data:
+    datasets:
+      index:
+        title: Conjuntos de datos
+      show:
+        title: Conjunto de datos %{dataset_name}
+    events:
+      gobierto_data_dataset_dataset_created: Conjunto de datos creado
+      gobierto_data_dataset_dataset_updated: Conjunto de datos actualizado
+    layouts:
+      application:
+        gobierto_data: Datos

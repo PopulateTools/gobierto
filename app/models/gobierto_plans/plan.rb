@@ -38,7 +38,7 @@ module GobiertoPlans
     end
 
     def levels
-      categories.maximum("level")
+      categories.maximum("level") || 0
     end
 
     def node_size

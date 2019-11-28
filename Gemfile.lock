@@ -116,7 +116,7 @@ GEM
       activesupport
     childprocess (3.0.0)
     chroma (0.2.0)
-    cloudinary (1.13.0)
+    cloudinary (1.13.1)
       aws_cf_signer
       rest-client
     codecov (0.1.16)
@@ -318,7 +318,8 @@ GEM
     puma (4.3.0)
       nio4r (~> 2.0)
     rack (2.0.7)
-    rack-cors (1.0.3)
+    rack-cors (1.0.5)
+      rack (>= 1.6.0)
     rack-protection (2.0.7)
       rack
     rack-proxy (0.6.5)

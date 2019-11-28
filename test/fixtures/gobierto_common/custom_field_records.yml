@@ -296,6 +296,15 @@ art_gallery_text_code_custom_field_record:
   custom_field: madrid_investments_projects_custom_field_text_code
   payload: <%= { "text-code" => "culture-02" }.to_json %>
 
+## Data datasets
+
+users_dataset_category_custom_field_record:
+  item: users_dataset (GobiertoData::Dataset)
+  custom_field: madrid_data_datasets_custom_field_category
+  payload: <%= {
+     "category" => ActiveRecord::FixtureSet.identify(:culture_term).to_s
+   }.to_json %>
+
 ## Users
 
 peter_custom_field_issue:

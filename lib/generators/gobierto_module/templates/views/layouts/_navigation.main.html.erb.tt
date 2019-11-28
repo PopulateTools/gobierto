@@ -1,0 +1,3 @@
+<div class="main-nav-item<%%= class_if(" active", current_module == "<%= module_name %>") %>">
+  <%%= link_to t("<%= module_name %>.layouts.application.<%= module_name %>"), <%= module_name %>_root_path, data: { turbolinks: false } %>
+</div>

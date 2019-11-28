@@ -34,6 +34,20 @@ module GobiertoData
           end.force_encoding("utf-8")
         end
 
+        def csv_from_relation(relation, options = {})
+          serialized_data_as_json = ActiveModelSerializers::SerializableResource.new(relation, exclude_links: true, string_output: true).as_json
+          new = ActiveModelSerializers::SerializableResource.new(relation.new, exclude_links: true, string_output: true).as_json
+
+          return "" if serialized_data_as_json.blank?
+
+          CSV.generate(**options) do |csv|
+            csv << new.keys
+            serialized_data_as_json.each do |row|
+              csv << new.merge(row).values
+            end
+          end.force_encoding("utf-8")
+        end
+
         def render_csv(content)
           headers["Content-Disposition"] = "inline"
           headers["Content-Type"] = "text/plain; charset=utf-8"

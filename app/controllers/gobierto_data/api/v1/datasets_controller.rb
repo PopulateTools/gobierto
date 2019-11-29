@@ -11,13 +11,14 @@ module GobiertoData
         # GET /api/v1/data/datasets.json
         # GET /api/v1/data/datasets.csv
         def index
+          relation = filtered_relation
           respond_to do |format|
             format.json do
-              render json: base_relation, links: { self: gobierto_data_api_v1_datasets_path }, adapter: :json_api
+              render json: relation, links: { self: gobierto_data_api_v1_datasets_path }, adapter: :json_api
             end
 
             format.csv do
-              render_csv(csv_from_relation(base_relation, csv_options_params))
+              render_csv(csv_from_relation(relation, csv_options_params))
             end
           end
         end

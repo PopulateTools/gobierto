@@ -18,7 +18,7 @@ export default {
   },
   availableFilters: [
     {
-      id: "range",
+      id: "daterange",
       startKey: "data-inici",
       endKey: "data-final"
     },

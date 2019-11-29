@@ -14,7 +14,7 @@ es:
     projects:
       all: Todas
       back: ver todo
-      date: Último año
+      date: Seleccione fecha
       detail_title: Detalle del proyecto
       empty: Sin resultados
       exit: Salir

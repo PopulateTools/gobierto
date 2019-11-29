@@ -6,15 +6,15 @@
   >
     <div class="pure-g gutters m_b_1">
       <div class="pure-u-1 pure-u-lg-1-4">
-        <div class="investments-home-nav--reset">
+        <div
+          v-if="isFiltering"
+          class="investments-home-nav--reset"
+        >
           <transition
             name="fade"
             mode="out-in"
           >
-            <a
-              v-if="isFiltering"
-              @click="cleanFilters"
-            >{{ labelReset }}</a>
+            <a @click="cleanFilters">{{ labelReset }}</a>
           </transition>
         </div>
       </div>
@@ -32,8 +32,8 @@
           v-slot="{ filter }"
           :filters="filters"
         >
-          <!-- Filter type: date -->
-          <template v-if="filter.type === 'range'">
+          <!-- Filter type: calendar -->
+          <template v-if="filter.type === 'daterange'">
             <Calendar
               :saved-start-date="filter.savedStartDate"
               :saved-end-date="filter.savedEndDate"
@@ -60,7 +60,7 @@
             />
           </template>
 
-          <!-- Filter type: range -->
+          <!-- Filter type: numeric range -->
           <template v-else-if="filter.type === 'numeric'">
             <BlockHeader :title="filter.title" />
             <RangeBars
@@ -138,7 +138,6 @@ export default {
       labelSummary: "",
       labelReset: "",
       activeFilters: new Map(),
-      activeFiltersSelection: new Map(),
       isFetchingData: false,
       isFiltering: false
     };
@@ -147,22 +146,17 @@ export default {
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
     this.labelReset = I18n.t("gobierto_investments.projects.reset");
 
-    const {
-      items,
-      phases,
-      filters,
-      activeFilters,
-      activeFiltersSelection
-    } = store.state;
+    const { items, phases, filters, defaultFilters, activeFilters } = store.state;
 
     if (items.length) {
       this.items = items;
       this.phases = phases;
       this.filters = filters;
+      this.activeFilters = activeFilters;
+      this.defaultFilters = this.clone(defaultFilters);
 
       if (activeFilters) {
-        this.subsetItems = this.applyFilters(activeFilters);
-        this.activeFiltersSelection = activeFiltersSelection;
+        this.updateDOM()
       }
     } else {
       this.isFetchingData = true;
@@ -171,6 +165,8 @@ export default {
 
       this.items = items;
       this.phases = phases;
+
+      this.defaultFilters = this.clone(filters);
       this.filters = filters;
     }
   },
@@ -217,24 +213,16 @@ export default {
 
         if (filters.length) {
           this.activeFilters = new Map();
-          this.activeFiltersSelection = new Map();
-          filters.forEach(f => {
-            // initialize active filters
-            this.activeFilters.set(f.key, undefined);
 
-            if (f.type === "vocabulary_options") {
-              // Add a counter for each option
-              f.options = f.options.map(opt => ({
-                ...opt,
-                counter: items.filter(i =>
-                  i.attributes[f.key].map(g => g.id).includes(opt.id)
-                ).length
-              }));
-            }
+          filters.forEach(filter => {
+            // initialize active filters
+            this.activeFilters.set(filter.key, undefined);
+            this.calculateOptionCounters(filter, items)
           });
 
           // save the filters
           store.addFilters(filters);
+          store.addDefaultFilters(this.clone(filters));
         }
       }
 
@@ -242,37 +230,32 @@ export default {
       this.subsetItems = items;
 
       // Optional callback to update data in background, setup in CONFIGURATION object
-      // eslint-disable-next-line require-atomic-updates
-      items = await this.alterDataObjectOptional(items);
+      const itemsUpdated = await this.alterDataObjectOptional(items);
 
       // Once items is updated, assign again the result
-      this.subsetItems = items;
+      this.subsetItems = itemsUpdated;
 
       // save the items
-      store.addItems(items);
+      store.addItems(itemsUpdated);
 
       return {
         phases,
         filters,
-        items
+        items: itemsUpdated
       };
     },
-    filterItems(filter, key, values) {
+    filterItems(filter, key) {
       this.activeFilters.set(key, filter);
-      this.activeFiltersSelection.set(key, values);
-
-      this.setVisibleItems();
-    },
-    setVisibleItems() {
-      this.subsetItems = this.applyFilters(this.activeFilters);
-
+      this.updateDOM()
       // save the selected filters
       store.addActiveFilters(this.activeFilters);
-      store.addActiveFiltersSelection(this.activeFiltersSelection);
-
-      this.handleIsFiltering();
     },
-    applyFilters(activeFilters) {
+    updateDOM() {
+      this.subsetItems = this.applyFiltersCallbacks(this.activeFilters);
+      this.filters.forEach(filter => this.calculateOptionCounters(filter, this.subsetItems))
+      this.isFiltering = [...this.activeFilters.values()].filter(Boolean).length > 0;
+    },
+    applyFiltersCallbacks(activeFilters) {
       let results = this.items;
       activeFilters.forEach(activeFn => {
         if (activeFn) {
@@ -283,13 +266,9 @@ export default {
       return results;
     },
     cleanFilters() {
+      this.filters.splice(0, this.filters.length, ...this.clone(this.defaultFilters)); // TODO: deshacer este intento
       this.activeFilters.clear();
-      this.activeFiltersSelection.clear();
-      this.setVisibleItems();
-    },
-    handleIsFiltering() {
-      this.isFiltering =
-        [...store.state.activeFilters.values()].filter(Boolean).length > 0;
+      this.updateDOM()
     },
     handleIsEverythingChecked({ filter }) {
       filter.isEverythingChecked = !filter.isEverythingChecked;
@@ -319,25 +298,31 @@ export default {
         filter.isEverythingChecked = false;
       }
 
-      const index = this.filters.findIndex(d => d.key === key)
-      this.filters.splice(index, 1, filter) // To detect array mutations
+      const index = this.filters.findIndex(d => d.key === key);
+      this.filters.splice(index, 1, filter); // To detect array mutations
 
       const checkboxFilterFn = attrs =>
         attrs[key].find(d => checkboxesSelected.get(+d.id));
 
       const callback = size ? checkboxFilterFn : undefined;
-      this.filterItems(callback, key, checkboxesSelected);
+      this.filterItems(callback, key);
     },
     handleRangeFilter({ min, max, filter }) {
       const { key, min: __min__, max: __max__ } = filter;
       const rangeFilterFn = attrs => attrs[key] >= min && attrs[key] <= max;
+
+      filter.savedMin = min;
+      filter.savedMax = max;
+
+      const index = this.filters.findIndex(d => d.key === key);
+      this.filters.splice(index, 1, filter); // To detect array mutations
 
       const callback =
         Math.floor(min) <= Math.floor(+__min__) &&
         Math.floor(max) >= Math.floor(+__max__)
           ? undefined
           : rangeFilterFn;
-      this.filterItems(callback, key, { min, max });
+      this.filterItems(callback, key);
     },
     handleCalendarFilter({ start, end, filter }) {
       const { key, startKey, endKey } = filter;
@@ -355,38 +340,26 @@ export default {
         }
       };
 
+      // Update object
+      filter.savedStartDate = start;
+      filter.savedEndDate = end;
+
+      const index = this.filters.findIndex(d => d.key === key);
+      this.filters.splice(index, 1, filter); // To detect array mutations
+
       const callback = !start && !end ? undefined : calendarFilterFn;
-      this.filterItems(callback, key, { start, end });
+      this.filterItems(callback, key);
     },
-    handleFilterSelections() {
-      const { activeFiltersSelection } = store.state;
-      const { type, options = [], key, max, min } = this.filter;
-
-      if (type === "vocabulary_options" && options.length) {
-        options.map(
-          d =>
-            (d.isOptionChecked = activeFiltersSelection.has(key)
-              ? activeFiltersSelection.get(key).get(d.id)
-              : false)
-        );
-      }
-
-      if (
-        type === "numeric" &&
-        (max !== undefined || min !== undefined) &&
-        activeFiltersSelection.has(key)
-      ) {
-        const { min: __min__, max: __max__ } = activeFiltersSelection.get(key);
-
-        this.filter.savedMin = __min__;
-        this.filter.savedMax = __max__;
-      }
-
-      if (type === "range" && activeFiltersSelection.has(key)) {
-        const { start, end } = activeFiltersSelection.get(key);
-
-        this.filter.savedStartDate = start;
-        this.filter.savedEndDate = end;
+    clone(data) {
+      return JSON.parse(JSON.stringify(data))
+    },
+    calculateOptionCounters(filter, items) {
+      const counter = ({ key, id }) => items.filter(({ attributes }) => attributes[key].map(g => g.id).includes(id)).length
+      const { key, options = [] } = filter
+      if (options.length) {
+        filter.options = options.map(o => ({ ...o, counter: counter({ id: o.id, key }) }))
+        const index = this.filters.findIndex(d => d.key === key)
+        this.filters.splice(index, 1, filter)
       }
     }
   }

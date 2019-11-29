@@ -3,8 +3,8 @@ export const store = {
     items: [],
     phases: [],
     filters: [],
-    activeFilters: new Map(),
-    activeFiltersSelection: new Map()
+    defaultFilters: [],
+    activeFilters: new Map()
   },
   addItems(value) {
     this.state.items = value;
@@ -15,10 +15,10 @@ export const store = {
   addFilters(value) {
     this.state.filters = value;
   },
+  addDefaultFilters(value) {
+    this.state.defaultFilters = value;
+  },
   addActiveFilters(value) {
     this.state.activeFilters = value;
-  },
-  addActiveFiltersSelection(value) {
-    this.state.activeFiltersSelection = value;
   }
 };

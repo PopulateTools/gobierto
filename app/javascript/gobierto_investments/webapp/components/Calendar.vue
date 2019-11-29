@@ -58,7 +58,7 @@ export default {
         this.startDate = start;
         this.endDate = end;
 
-        this.$emit("calendar-change", start, end)
+        this.$emit("calendar-change", { start, end })
       }
     });
   }

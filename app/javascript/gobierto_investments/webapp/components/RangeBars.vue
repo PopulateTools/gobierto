@@ -102,7 +102,7 @@ export default {
         const [min = this.min, max = this.max] = values
         this.selectedMin = min
         this.selectedMax = max
-        this.$emit("range-change", min, max)
+        this.$emit("range-change", { min, max })
       };
 
       // Update values for THIS slider

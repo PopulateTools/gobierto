@@ -11,6 +11,7 @@ module GobiertoCommon
     end
 
     def filtered_relation
+      @resource ||= base_relation.try(:model)&.new
       return base_relation unless filter_params.present?
 
       query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation)

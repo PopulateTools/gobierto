@@ -22,6 +22,7 @@ en:
       loading: Loading data...
       map: Map
       none: None
+      reset: Clean filters
       see: See again
       summary: Summary by stats
       tour: Tour virtual

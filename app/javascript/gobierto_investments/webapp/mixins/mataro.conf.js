@@ -149,7 +149,8 @@ export default {
 
       // Avoid the query if there's no code_with_zone (partida)
       if (allIds) {
-        const endpoint = `${location.origin}/api/v1/data`;
+        const endpoint = `http://mataro.gobify.net/api/v1/data`;
+        // const endpoint = `${location.origin}/api/v1/data`;
         const query = `
           SELECT code_with_zone as partida, paranyprs as year, sum(parimport) as budget
           FROM mataro_budgets

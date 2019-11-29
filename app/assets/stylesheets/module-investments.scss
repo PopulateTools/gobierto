@@ -434,6 +434,15 @@
   &-home-nav {
     background-color: rgba($color_headers, 0.04);
 
+    &--reset {
+      display: flex;
+      align-items: flex-end;
+      height: 100%;
+      font-size: $f7;
+      cursor: pointer;
+      justify-content: flex-end;
+    }
+
     ul {
       margin: 0;
       padding: 0;

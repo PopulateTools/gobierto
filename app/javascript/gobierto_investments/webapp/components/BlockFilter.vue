@@ -54,7 +54,7 @@ import Calendar from "./Calendar.vue";
 import BlockHeader from "./BlockHeader.vue";
 import Checkbox from "./Checkbox.vue";
 import RangeBars from "./RangeBars.vue";
-import { store } from "../mixins/store";
+import { store } from "../mixins/store"
 
 export default {
   name: "BlockFilter",
@@ -76,42 +76,7 @@ export default {
     };
   },
   created() {
-    const { activeFiltersSelection } = store.state;
-
-    const { type, options = [], key, max, min } = this.filter;
-
-    if (type === "vocabulary_options" && options.length) {
-      options.map(
-        d =>
-          (d.isOptionChecked =
-            activeFiltersSelection && activeFiltersSelection.has(key)
-              ? activeFiltersSelection.get(key).get(d.id)
-              : false)
-      );
-    }
-
-    if (
-      type === "numeric" &&
-      (max !== undefined || min !== undefined) &&
-      activeFiltersSelection &&
-      activeFiltersSelection.has(key)
-    ) {
-      const { min: __min__, max: __max__ } = activeFiltersSelection.get(key);
-
-      this.filter.savedMin = __min__;
-      this.filter.savedMax = __max__;
-    }
-
-    if (
-      type === "range" &&
-      activeFiltersSelection &&
-      activeFiltersSelection.has(key)
-    ) {
-      const { start, end } = activeFiltersSelection.get(key);
-
-      this.filter.savedStartDate = start;
-      this.filter.savedEndDate = end;
-    }
+    this.handleFilterSelections();
   },
   methods: {
     handleIsEverythingChecked() {
@@ -190,6 +155,39 @@ export default {
         key,
         { start, end }
       );
+    },
+    handleFilterSelections() {
+      const { activeFiltersSelection } = store.state
+      const { type, options = [], key, max, min } = this.filter;
+
+      if (type === "vocabulary_options" && options.length) {
+        options.map(
+          d =>
+            (d.isOptionChecked = activeFiltersSelection.has(key)
+              ? activeFiltersSelection.get(key).get(d.id)
+              : false)
+        );
+      }
+
+      if (
+        type === "numeric" &&
+        (max !== undefined || min !== undefined) &&
+        activeFiltersSelection.has(key)
+      ) {
+        const { min: __min__, max: __max__ } = activeFiltersSelection.get(
+          key
+        );
+
+        this.filter.savedMin = __min__;
+        this.filter.savedMax = __max__;
+      }
+
+      if (type === "range" && activeFiltersSelection.has(key)) {
+        const { start, end } = activeFiltersSelection.get(key);
+
+        this.filter.savedStartDate = start;
+        this.filter.savedEndDate = end;
+      }
     }
   }
 };

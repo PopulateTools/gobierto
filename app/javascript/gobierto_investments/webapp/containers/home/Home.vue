@@ -5,7 +5,19 @@
     class="investments"
   >
     <div class="pure-g gutters m_b_1">
-      <div class="pure-u-1 pure-u-lg-1-4" />
+      <div class="pure-u-1 pure-u-lg-1-4">
+        <div class="investments-home-nav--reset">
+          <transition
+            name="fade"
+            mode="out-in"
+          >
+            <a
+              v-if="isFiltering"
+              @click="cleanFilters"
+            >{{ labelReset }}</a>
+          </transition>
+        </div>
+      </div>
       <div class="pure-u-1 pure-u-lg-3-4">
         <Nav
           :active-tab="activeTabIndex"
@@ -69,15 +81,18 @@ export default {
       phases: [],
       activeTabIndex: 0,
       labelSummary: "",
+      labelReset: "",
       activeFilters: new Map(),
       activeFiltersSelection: new Map(),
-      isFetchingData: false
+      isFetchingData: false,
+      isFiltering: false,
     };
   },
   async created() {
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
+    this.labelReset = I18n.t("gobierto_investments.projects.reset");
 
-    const { items, phases, filters, activeFilters } = store.state;
+    const { items, phases, filters, activeFilters, activeFiltersSelection } = store.state;
 
     if (items.length) {
       this.items = items;
@@ -86,11 +101,12 @@ export default {
 
       if (activeFilters) {
         this.subsetItems = this.applyFilters(activeFilters);
+        this.activeFiltersSelection = activeFiltersSelection;
       }
     } else {
-      this.isFetchingData = true
+      this.isFetchingData = true;
       const { items, phases, filters } = await this.getItems();
-      this.isFetchingData = false
+      this.isFetchingData = false;
 
       this.items = items;
       this.phases = phases;
@@ -184,11 +200,16 @@ export default {
       this.activeFilters.set(key, filter);
       this.activeFiltersSelection.set(key, values);
 
+      this.setVisibleItems();
+    },
+    setVisibleItems() {
       this.subsetItems = this.applyFilters(this.activeFilters);
 
       // save the selected filters
       store.addActiveFilters(this.activeFilters);
       store.addActiveFiltersSelection(this.activeFiltersSelection);
+
+      this.handleIsFiltering()
     },
     applyFilters(activeFilters) {
       let results = this.items;
@@ -198,7 +219,15 @@ export default {
         }
       });
 
-      return results
+      return results;
+    },
+    cleanFilters() {
+      this.activeFilters.clear();
+      this.activeFiltersSelection.clear();
+      this.setVisibleItems();
+    },
+    handleIsFiltering() {
+      this.isFiltering = [...store.state.activeFilters.values()].filter(Boolean).length > 0
     }
   }
 };

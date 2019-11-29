@@ -59,14 +59,7 @@ module GobiertoData
 
           render(
             json: @item,
-            links:
-            {
-              self: meta_gobierto_data_api_v1_dataset_path(params[:slug]),
-              data: gobierto_data_api_v1_dataset_path(params[:slug], format: :json)
-            },
-            serializer: ::GobiertoData::DatasetMetaSerializer,
-            exclude_links: true,
-            adapter: :json_api
+            serializer: ::GobiertoData::DatasetMetaSerializer
           )
         end
 

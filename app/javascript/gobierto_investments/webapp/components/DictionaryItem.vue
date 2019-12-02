@@ -13,9 +13,17 @@
       >
         <div
           v-for="column in table.columns"
-          :key="`${column}-${v}`"
+          :key="`${column.id}-${v}`"
         >
-          <div>{{ v[column] }}</div>
+          <div v-if="column.filter === 'money'">
+            {{ v[column.id] | money }}
+          </div>
+          <div v-else-if="column.filter === 'date'">
+            {{ v[column.id] | date }}
+          </div>
+          <div v-else>
+            {{ v[column.id] }}
+          </div>
         </div>
       </div>
     </div>
@@ -40,8 +48,11 @@
 </template>
 
 <script>
+import { CommonsMixin } from "../mixins/common.js";
+
 export default {
   name: "DictionaryItem",
+  mixins: [CommonsMixin],
   props: {
     name: {
       type: String,

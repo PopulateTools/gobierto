@@ -162,7 +162,8 @@ export default {
         const { data: { data: sql } } = await axios.get(endpoint, {
           params: {
             sql: query.trim()
-          }
+          },
+          timeout: 5000
         })
 
         for (let index = 0; index < dataArr.length; index++) {

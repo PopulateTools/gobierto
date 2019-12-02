@@ -15,12 +15,21 @@
 
     <div class="investments-project-main--carousel">
       <HorizontalCarousel :visible-items="visibleItems">
-        <img
+        <div
           v-for="photo in gallery"
           :key="photo"
-          :src="photo"
-          class="js-image-lightbox"
+          class="investments-project-main--carousel-element"
         >
+          <img
+            :src="photo"
+            class="investments-project-main--carousel-img js-image-lightbox"
+          >
+          <img
+            v-if="gallery.length <= 1"
+            :src="photo"
+            class="investments-project-main--carousel-blur"
+          >
+        </div>
       </HorizontalCarousel>
     </div>
 

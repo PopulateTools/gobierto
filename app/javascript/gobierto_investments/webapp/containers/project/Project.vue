@@ -69,10 +69,10 @@ export default {
 
       next(async vm => {
         vm.dictionary = attributesDictionary;
-        vm.project = vm.setItem(item);
+        let project = vm.setItem(item);
 
         // Update $router
-        to.params.item = vm.project;
+        to.params.item = project;
 
         if (filtersFromConfiguration) {
           vm.phases = vm.getPhases(filtersFromConfiguration);
@@ -80,7 +80,7 @@ export default {
 
         // Optional callback to update data in background, setup in CONFIGURATION object
         // eslint-disable-next-line require-atomic-updates
-        vm.project = await vm.alterDataObjectOptional(vm.project);
+        vm.project = await vm.alterDataObjectOptional(project)
       });
     } else {
       next();

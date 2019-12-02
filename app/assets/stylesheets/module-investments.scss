@@ -557,6 +557,17 @@
       cursor: pointer;
     }
 
+    &--button-container {
+      margin: $gallery-gap / 2;
+    }
+
+    &--button:last-child,
+    &--button {
+      margin: 0 auto;
+      display: block;
+      background: var(--color-base);
+    }
+
     &--photo {
       @include aspect-ratio(16, 9);
       background-color: $color_neutral_soft;

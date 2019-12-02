@@ -24,5 +24,7 @@ en:
       none: None
       reset: Clean filters
       see: See again
+      showall: Show all
+      showless: Show less
       summary: Summary by stats
       tour: Tour virtual

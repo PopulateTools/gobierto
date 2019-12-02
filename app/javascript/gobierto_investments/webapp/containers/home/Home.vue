@@ -161,11 +161,10 @@ export default {
     } else {
       this.isFetchingData = true;
       const { items, phases, filters } = await this.getItems();
-      this.isFetchingData = false;
 
+      this.isFetchingData = false;
       this.items = items;
       this.phases = phases;
-
       this.defaultFilters = this.clone(filters);
       this.filters = filters;
     }
@@ -266,7 +265,7 @@ export default {
       return results;
     },
     cleanFilters() {
-      this.filters.splice(0, this.filters.length, ...this.clone(this.defaultFilters)); // TODO: deshacer este intento
+      this.filters.splice(0, this.filters.length, ...this.clone(this.defaultFilters));
       this.activeFilters.clear();
       this.updateDOM()
     },

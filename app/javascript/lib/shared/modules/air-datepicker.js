@@ -45,7 +45,12 @@ export class Datepicker {
     this.element = elem || undefined
 
     if (this.element) {
-      $(this.element).datepicker(options);
+      const $selector = $(this.element)
+      if ($selector.data('datepicker') === undefined) {
+        $selector.datepicker(options);
+      }
+
+      return $selector.data('datepicker');
     }
   }
 

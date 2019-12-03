@@ -1,9 +1,5 @@
 <template>
   <div v-if="items.length">
-    <!-- <div
-      class="investments-home-main--gallery"
-    >
-    </div> -->
     <transition-group
       name="fade"
       mode="out-in"
@@ -17,7 +13,10 @@
       />
     </transition-group>
 
-    <ShowAll @show-all="showAll" />
+    <ShowAll
+      v-if="items.length > maxItems"
+      @show-all="showAll"
+    />
   </div>
   <div v-else>
     {{ labelEmpty }}
@@ -43,17 +42,21 @@ export default {
   data() {
     return {
       labelEmpty: "",
-      visibleItems: [],
+      isAllVisible: false,
       maxItems: 24
     };
   },
+  computed: {
+    visibleItems() {
+      return this.isAllVisible ? this.items : this.items.slice(0, this.maxItems);
+    }
+  },
   created() {
     this.labelEmpty = I18n.t("gobierto_investments.projects.empty");
-    this.visibleItems = this.items.slice(0, this.maxItems);
   },
   methods: {
     showAll(isAllVisible) {
-      this.visibleItems = isAllVisible ? this.items : this.items.slice(0, this.maxItems)
+      this.isAllVisible = isAllVisible
     }
   }
 };

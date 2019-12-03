@@ -23,7 +23,10 @@
       </transition-group>
     </table>
 
-    <ShowAll @show-all="showAll" />
+    <ShowAll
+      v-if="items.length > maxItems"
+      @show-all="showAll"
+    />
   </div>
   <div v-else>
     {{ labelEmpty }}
@@ -52,13 +55,17 @@ export default {
     return {
       columns: [],
       labelEmpty: "",
-      visibleItems: [],
+      isAllVisible: false,
       maxItems: 24
     };
   },
+  computed: {
+    visibleItems() {
+      return this.isAllVisible ? this.items : this.items.slice(0, this.maxItems);
+    }
+  },
   created() {
     this.labelEmpty = I18n.t("gobierto_investments.projects.empty");
-    this.visibleItems = this.items.slice(0, this.maxItems);
 
     const { availableTableFields = [] } = this.items.length
       ? this.items[0]
@@ -67,9 +74,7 @@ export default {
   },
   methods: {
     showAll(isAllVisible) {
-      this.visibleItems = isAllVisible
-        ? this.items
-        : this.items.slice(0, this.maxItems);
+      this.isAllVisible = isAllVisible
     }
   }
 };

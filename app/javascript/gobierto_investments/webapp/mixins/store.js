@@ -4,7 +4,8 @@ export const store = {
     phases: [],
     filters: [],
     defaultFilters: [],
-    activeFilters: new Map()
+    activeFilters: new Map(),
+    currentTab: 0
   },
   addItems(value) {
     this.state.items = value;
@@ -20,5 +21,8 @@ export const store = {
   },
   addActiveFilters(value) {
     this.state.activeFilters = value;
+  },
+  addCurrentTab(value) {
+    this.state.currentTab = value;
   }
 };

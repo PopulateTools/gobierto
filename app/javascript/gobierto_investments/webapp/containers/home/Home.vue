@@ -21,7 +21,7 @@
       <div class="pure-u-1 pure-u-lg-3-4">
         <Nav
           :active-tab="activeTabIndex"
-          @active-tab="activeTabIndex = $event"
+          @active-tab="setActiveTab"
         />
       </div>
     </div>
@@ -129,15 +129,16 @@ export default {
   mixins: [CommonsMixin],
   data() {
     return {
-      items: [],
+      items: store.state.items || [],
       subsetItems: [],
       dictionary: [],
-      filters: [],
-      phases: [],
-      activeTabIndex: 0,
+      filters: store.state.filters || [],
+      phases: store.state.phases || [],
+      activeTabIndex: store.state.currentTab || 0,
       labelSummary: "",
       labelReset: "",
-      activeFilters: new Map(),
+      activeFilters: store.state.activeFilters || new Map(),
+      defaultFilters: store.state.defaultFilters || new Map(),
       isFetchingData: false,
       isFiltering: false
     };
@@ -146,23 +147,15 @@ export default {
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
     this.labelReset = I18n.t("gobierto_investments.projects.reset");
 
-    const { items, phases, filters, defaultFilters, activeFilters } = store.state;
-
-    if (items.length) {
-      this.items = items;
-      this.phases = phases;
-      this.filters = filters;
-      this.activeFilters = activeFilters;
-      this.defaultFilters = this.clone(defaultFilters);
-
-      if (activeFilters) {
-        this.updateDOM()
-      }
+    if (this.items.length) {
+      this.updateDOM()
     } else {
       this.isFetchingData = true;
+
       const { items, phases, filters } = await this.getItems();
 
       this.isFetchingData = false;
+
       this.items = items;
       this.phases = phases;
       this.defaultFilters = this.clone(filters);
@@ -172,6 +165,10 @@ export default {
     }
   },
   methods: {
+    setActiveTab(value) {
+      this.activeTabIndex = value
+      store.addCurrentTab(value)
+    },
     async getItems() {
       const [
         {

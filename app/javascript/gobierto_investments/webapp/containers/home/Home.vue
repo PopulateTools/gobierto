@@ -167,6 +167,8 @@ export default {
       this.phases = phases;
       this.defaultFilters = this.clone(filters);
       this.filters = filters;
+
+      this.updateDOM()
     }
   },
   methods: {
@@ -213,11 +215,8 @@ export default {
         if (filters.length) {
           this.activeFilters = new Map();
 
-          filters.forEach(filter => {
-            // initialize active filters
-            this.activeFilters.set(filter.key, undefined);
-            this.calculateOptionCounters(filter, items)
-          });
+          // initialize active filters
+          filters.forEach(filter => this.activeFilters.set(filter.key, undefined));
 
           // save the filters
           store.addFilters(filters);
@@ -251,7 +250,7 @@ export default {
     },
     updateDOM() {
       this.subsetItems = this.applyFiltersCallbacks(this.activeFilters);
-      this.filters.forEach(filter => this.calculateOptionCounters(filter, this.subsetItems))
+      this.filters.forEach(filter => this.calculateOptionCounters(filter))
       this.isFiltering = [...this.activeFilters.values()].filter(Boolean).length > 0;
     },
     applyFiltersCallbacks(activeFilters) {
@@ -352,8 +351,17 @@ export default {
     clone(data) {
       return JSON.parse(JSON.stringify(data))
     },
-    calculateOptionCounters(filter, items) {
-      const counter = ({ key, id }) => items.filter(({ attributes }) => attributes[key].map(g => g.id).includes(id)).length
+    calculateOptionCounters(filter) {
+      const counter = ({ key, id }) => {
+        // Clone current filters
+        const __activeFilters__ = new Map(this.activeFilters)
+        // Ignore same key callbacks (as if none of the same category are selected)
+        __activeFilters__.set(key, undefined)
+        // Get the items based on these new active filters
+        const __items__ = this.applyFiltersCallbacks(__activeFilters__)
+
+        return __items__.filter(({ attributes }) => attributes[key].map(g => g.id).includes(id)).length
+      }
       const { key, options = [] } = filter
       if (options.length) {
         filter.options = options.map(o => ({ ...o, counter: counter({ id: o.id, key }) }))

@@ -12,7 +12,7 @@ module GobiertoData
         @base_table_name = dataset.table_name
         @source_file = source_file
         @csv_separator = csv_separator
-        @schema = schema.present? ? schema.deep_symbolize_keys : inspect_csv_schema(source_file)
+        @schema = schema.present? ? schema.deep_symbolize_keys : inspect_csv_schema(source_file, csv_separator: csv_separator)
         @transform_functions = @schema.inject({}) do |functions, (column, params)|
           functions.update(
             column => SqlFunction::Transformation.new(
@@ -88,8 +88,8 @@ module GobiertoData
         SQL
       end
 
-      def inspect_csv_schema(source_file)
-        data = CSV.parse(File.open(source_file, "r").first(2).join, headers: true)
+      def inspect_csv_schema(source_file, csv_separator:)
+        data = CSV.parse(File.open(source_file, "r").first(2).join, headers: true, col_sep: csv_separator)
         data.headers.inject({}) do |cols, col|
           col_name = col.parameterize.underscore.to_sym
           cols.update(

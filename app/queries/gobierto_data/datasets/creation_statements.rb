@@ -44,14 +44,14 @@ module GobiertoData
       end
 
       def create_transformed_temp_table
-        "CREATE TEMP TABLE #{@base_table_name}_transformed(\n#{schema.map { |column, params| "#{column} #{params[:type]}" }.join(",\n")}\n);"
+        "CREATE TEMP TABLE #{@base_table_name}_transformed(\n#{@transform_functions.map { |column, f| "#{column} #{f.output_type}" }.join(",\n")}\n);"
       end
 
       def create_destination_table
         <<-SQL
         DROP TABLE IF EXISTS #{@base_table_name};
         CREATE TABLE #{@base_table_name}(
-          #{schema.map { |column, params| "#{column} #{params[:type]}" }.join(",\n")}
+          #{@transform_functions.map { |column, f| "#{column} #{f.output_type}" }.join(",\n")}
         );
         SQL
       end

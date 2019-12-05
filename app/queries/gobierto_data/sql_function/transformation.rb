@@ -48,6 +48,10 @@ module GobiertoData
         @optional_params = default_optional_params.merge(opts.fetch(:optional_params, {}).slice(*default_optional_params.keys))
       end
 
+      def output_type
+        function[:output_type]
+      end
+
       def function_definition
         return unless function.present?
 

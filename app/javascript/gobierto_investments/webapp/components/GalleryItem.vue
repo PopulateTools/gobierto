@@ -54,12 +54,14 @@ export default {
   },
   data() {
     return {
-      attributes: {},
-    }
+      attributes: {}
+    };
   },
   created() {
-    const { availableGalleryFields = {} } = this.item
-    this.attributes = availableGalleryFields.filter(d => d.type === "separator" || (d.value && d.value.length));
-  },
+    const { availableGalleryFields = {} } = this.item;
+    this.attributes = availableGalleryFields.filter(
+      ({ type, value }) => type === "separator" || (value !== null && value !== undefined && !(value instanceof Array && value.length === 0))
+    );
+  }
 };
 </script>

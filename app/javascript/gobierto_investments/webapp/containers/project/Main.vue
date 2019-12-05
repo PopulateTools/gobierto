@@ -42,33 +42,35 @@
           class="investments-project-main--hr"
         >
 
-        <DictionaryItem
-          v-if="attr.filter === 'money'"
-          :key="`${attr.id}-${i}`"
-          :name="attr.name"
-          :value="attr.value | money"
-          :type="attr.type"
-          :icon="attr.icon"
-          :table="attr.table"
-        />
-        <DictionaryItem
-          v-else-if="attr.filter === 'date'"
-          :key="`${attr.id}-${i}`"
-          :name="attr.name"
-          :value="attr.value | date"
-          :type="attr.type"
-          :icon="attr.icon"
-          :table="attr.table"
-        />
-        <DictionaryItem
-          v-else
-          :key="`${attr.id}-${i}`"
-          :name="attr.name"
-          :value="attr.value"
-          :type="attr.type"
-          :icon="attr.icon"
-          :table="attr.table"
-        />
+        <template v-else>
+          <DictionaryItem
+            v-if="attr.filter === 'money'"
+            :key="`${attr.id}-${i}`"
+            :name="attr.name"
+            :value="attr.value | money"
+            :type="attr.type"
+            :icon="attr.icon"
+            :table="attr.table"
+          />
+          <DictionaryItem
+            v-else-if="attr.filter === 'date'"
+            :key="`${attr.id}-${i}`"
+            :name="attr.name"
+            :value="attr.value | date"
+            :type="attr.type"
+            :icon="attr.icon"
+            :table="attr.table"
+          />
+          <DictionaryItem
+            v-else
+            :key="`${attr.id}-${i}`"
+            :name="attr.name"
+            :value="attr.value"
+            :type="attr.type"
+            :icon="attr.icon"
+            :table="attr.table"
+          />
+        </template>
       </template>
     </div>
   </main>
@@ -117,7 +119,9 @@ export default {
       const { gallery = [], availableProjectFields = [] } = this.project;
       this.gallery = gallery;
 
-      this.attributes = availableProjectFields.filter(d => d.type === "separator" || (d.value && d.value.length));
+      this.attributes = availableProjectFields.filter(
+        ({ type, value }) => type === "separator" || (value !== null && value !== undefined && !(value instanceof Array && value.length === 0))
+      );
 
       if (gallery.length < this.visibleItems) {
         this.visibleItems = gallery.length;

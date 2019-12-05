@@ -179,6 +179,15 @@
     &--hr {
       border: 0;
       border-top: 1px solid $separator;
+      margin-bottom: 2rem;
+
+      &:last-child {
+        display: none;
+      }
+    }
+
+    &--hr + &--hr {
+      display: none;
     }
 
     &--table-row {
@@ -218,7 +227,10 @@
 
       > :first-child {
         flex: 1;
-        padding-right: 1rem;
+      }
+
+      > :not(:first-child) {
+        padding-left: 1rem;
       }
 
       &:not(:first-child) {
@@ -372,7 +384,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: 100% !important;
       opacity: 0;
       cursor: pointer;
     }
@@ -628,7 +640,7 @@
         line-height: 14px;
         text-transform: uppercase;
         flex: 1 0 25%;
-        padding-right: 5%;
+        padding-right: 3%;
         box-sizing: border-box;
       }
 
@@ -652,6 +664,7 @@
       border-top: 0;
       text-transform: uppercase;
       padding: 0 0 0.5em;
+      color: var(--color-base);
 
       @include min-screen(768) {
         &:first-child > * {

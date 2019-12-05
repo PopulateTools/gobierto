@@ -30,9 +30,17 @@
 
     <!-- Icon type -->
     <div v-else-if="type === 'icon'">
-      <div class="investments-project-main--icon-text">
-        <i :class="`fas fa-${icon.name}`" /> <a :href="icon.href">{{ value }}</a>
-      </div>
+      <template v-for="(v, i) in value">
+        <div
+          :key="`${v}-${i}`"
+          class="investments-project-main--icon-text"
+        >
+          <i :class="`fas fa-${icon.name}`" /> <a
+            :href="v[icon.href]"
+            target="_blank"
+          >{{ v[icon.title] }}</a>
+        </div>
+      </template>
     </div>
 
     <!-- Highlight type -->
@@ -42,7 +50,7 @@
 
     <!-- Simple type -->
     <div v-else>
-      {{ value }}
+      {{ value }} {{ type }}
     </div>
   </div>
 </template>

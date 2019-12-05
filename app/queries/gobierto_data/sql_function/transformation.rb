@@ -19,6 +19,12 @@ module GobiertoData
           sql: "select (nullif(trim($1), '#null_value')::numeric);",
           optional_params: { null_value: "" }
         },
+        numeric_with_custom_decimal_separator: {
+          input_type: "text",
+          output_type: "numeric",
+          sql: "select (replace(nullif(trim($1), '#null_value'), '#decimal_separator', '.')::numeric);",
+          optional_params: { null_value: "", decimal_separator: "," }
+        },
         text: {
           input_type: "text",
           output_type: "text",

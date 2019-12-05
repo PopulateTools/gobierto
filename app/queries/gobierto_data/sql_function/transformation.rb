@@ -10,31 +10,31 @@ module GobiertoData
         integer: {
           input_type: "text",
           output_type: "integer",
-          sql: "select (nullif($1, '#null_value')::integer);",
+          sql: "select (nullif(trim($1), '#null_value')::integer);",
           optional_params: { null_value: "" }
         },
         numeric: {
           input_type: "text",
           output_type: "numeric",
-          sql: "select (nullif($1, '#null_value')::numeric);",
+          sql: "select (nullif(trim($1), '#null_value')::numeric);",
           optional_params: { null_value: "" }
         },
         text: {
           input_type: "text",
           output_type: "text",
-          sql: "select (nullif($1, '#null_value')::text);",
+          sql: "select (nullif(trim($1), '#null_value')::text);",
           optional_params: { null_value: "" }
         },
         date: {
           input_type: "text",
           output_type: "date",
-          sql: "select (to_date(nullif($1, '#null_value'), '#date_format'));",
+          sql: "select (to_date(nullif(trim($1), '#null_value'), '#date_format'));",
           optional_params: { date_format: "DD-MON-YYY", null_value: "" }
         },
         boolean: {
           input_type: "text",
           output_type: "boolean",
-          sql: "select (case\n  when $1 = '#true_value' then true\n  when $1 = '#false_value' then false\n  else NULL\nend)",
+          sql: "select (case\n  when trim($1) = '#true_value' then true\n  when trim($1) = '#false_value' then false\n  else NULL\nend)",
           optional_params: { false_value: "0", true_value: "1" }
         }
       }.freeze

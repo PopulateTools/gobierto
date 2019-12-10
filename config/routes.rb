@@ -174,7 +174,9 @@ Rails.application.routes.draw do
         end
 
         namespace :api do
-          resources :vocabularies, only: [:show]
+          resources :vocabularies, only: [:show] do
+            resources :terms, only: [:create]
+          end
         end
       end
 

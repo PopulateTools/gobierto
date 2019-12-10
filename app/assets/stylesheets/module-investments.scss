@@ -154,13 +154,17 @@
       }
 
       &-img {
-        object-fit: none;
+        object-fit: cover;
         cursor: pointer;
         width: 100%;
         height: 100%;
 
         &:not(:first-child) {
           margin-left: 5px;
+        }
+
+        &.is-portrait {
+          object-fit: contain;
         }
       }
 

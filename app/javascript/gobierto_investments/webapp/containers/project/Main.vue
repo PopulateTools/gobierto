@@ -23,6 +23,7 @@
           <img
             :src="photo"
             class="investments-project-main--carousel-img js-image-lightbox"
+            @load="onload"
           >
           <img
             v-if="gallery.length <= 1"
@@ -120,11 +121,22 @@ export default {
       this.gallery = gallery;
 
       this.attributes = availableProjectFields.filter(
-        ({ type, value }) => type === "separator" || (value !== null && value !== undefined && !(value instanceof Array && value.length === 0))
+        ({ type, value }) =>
+          type === "separator" ||
+          (value !== null &&
+            value !== undefined &&
+            !(value instanceof Array && value.length === 0))
       );
 
       if (gallery.length < this.visibleItems) {
         this.visibleItems = gallery.length;
+      }
+    },
+    onload({ target }) {
+      const { naturalHeight, naturalWidth } = target;
+
+      if (this.gallery.length <= 1 && naturalHeight > naturalWidth) {
+        target.classList.add("is-portrait");
       }
     }
   }

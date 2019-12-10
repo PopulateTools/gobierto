@@ -27,7 +27,7 @@ export default {
       multiple: true
     },
     {
-      id: "nom-servei-responsable",
+      id: "nom-servei-gestor",
       multiple: true
     },
     {
@@ -118,12 +118,6 @@ export default {
     },
     {
       type: "separator"
-    },
-    {
-      id: "partida",
-    },
-    {
-      id: "any-partida",
     },
     {
       id: "import",

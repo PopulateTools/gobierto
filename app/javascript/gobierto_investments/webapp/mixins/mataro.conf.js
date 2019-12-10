@@ -139,7 +139,8 @@ export default {
     },
     {
       id: "budget",
-      filter: "money"
+      filter: "money",
+      type: "highlight"
     },
     {
       type: "separator"
@@ -196,8 +197,7 @@ export default {
           const { attributes: { partida, "any-partida": year } } = dataArr[index];
           const { budget } = sql.find(d => d.partida === partida && d.year === year) || {};
 
-          // TODO: Añadir traducciones falsas
-          dataArr[index].attributes.budget = budget ? budget : null
+          dataArr[index].attributes.budget = budget ? Number(budget) : null
         }
       }
 

@@ -50,7 +50,7 @@
 
     <!-- Simple type -->
     <div v-else>
-      {{ value }} {{ type }}
+      {{ value }}
     </div>
   </div>
 </template>

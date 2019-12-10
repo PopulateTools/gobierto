@@ -169,38 +169,38 @@ export default {
       }
     }
   ],
-  // itemSpecialConfiguration: {
-  //   fn: async data => {
-  //     const dataArr = Array.isArray(data) ? data : [data];
-  //     const filterArr = dataArr.filter(d => d.attributes.partida && d.attributes["any-partida"]);
-  //     const allIds = filterArr.map(d => `'${d.attributes.partida}'`).join(",");
+  itemSpecialConfiguration: {
+    fn: async data => {
+      const dataArr = Array.isArray(data) ? data : [data];
+      const filterArr = dataArr.filter(d => d.attributes.partida && d.attributes["any-partida"]);
+      const allIds = filterArr.map(d => `'${d.attributes.partida}'`).join(",");
 
-  //     // Avoid the query if there's no code_with_zone (partida)
-  //     if (allIds) {
-  //       const endpoint = `${location.origin}/api/v1/data`;
-  //       const query = `
-  //         SELECT code_with_zone as partida, paranyprs as year, sum(parimport) as budget
-  //         FROM mataro_budgets
-  //         WHERE "parimport" IS NOT NULL
-  //         AND "code_with_zone" IN (${allIds})
-  //         GROUP BY code_with_zone, paranyprs
-  //       `;
+      // Avoid the query if there's no code_with_zone (partida)
+      if (allIds) {
+        const endpoint = `${location.origin}/api/v1/data`;
+        const query = `
+          SELECT code_with_zone as partida, paranyprs as year, sum(parimport) as budget
+          FROM mataro_budgets
+          WHERE "parimport" IS NOT NULL
+          AND "code_with_zone" IN (${allIds})
+          GROUP BY code_with_zone, paranyprs
+        `;
 
-  //       const { data: { data: sql } } = await axios.get(endpoint, {
-  //         params: {
-  //           sql: query.trim()
-  //         }
-  //       })
+        const { data: { data: sql } } = await axios.get(endpoint, {
+          params: {
+            sql: query.trim()
+          }
+        })
 
-  //       for (let index = 0; index < dataArr.length; index++) {
-  //         const { attributes: { partida, "any-partida": year } } = dataArr[index];
-  //         const { budget } = sql.find(d => d.partida === partida && d.year === year) || {};
+        for (let index = 0; index < dataArr.length; index++) {
+          const { attributes: { partida, "any-partida": year } } = dataArr[index];
+          const { budget } = sql.find(d => d.partida === partida && d.year === year) || {};
 
-  //         dataArr[index].attributes.budget = budget ? Number(budget) : null
-  //       }
-  //     }
+          dataArr[index].attributes.budget = budget ? Number(budget) : null
+        }
+      }
 
-  //     return Array.isArray(data) ? dataArr : dataArr[0];
-  //   }
-  // }
+      return Array.isArray(data) ? dataArr : dataArr[0];
+    }
+  }
 };

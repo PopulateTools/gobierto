@@ -1,4 +1,10 @@
-import * as d3 from 'd3'
+import { select } from 'd3-selection'
+import { scaleLinear } from 'd3-scale'
+import { max } from 'd3-array'
+import { timeFormat, timeParse } from 'd3-time-format'
+
+const d3 = { select, scaleLinear, timeFormat, timeParse, max }
+
 import { Card } from './card.js'
 
 export class BarsCard extends Card {
@@ -15,7 +21,7 @@ export class BarsCard extends Card {
 
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
-      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_common.visualizations.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_common.visualizations.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_common.visualizations.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(data[0].figure))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
+      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_common.visualizations.where') + encodeURI(window.populateData.municipalityName) + ': ' + encodeURI(I18n.t('gobierto_common.visualizations.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_common.visualizations.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(data[0].figure)) + '&url=' + window.location.href + '&via=gobierto&source=webclient');
 
     this.div.selectAll('.fb-sharer')
       .attr('target', '_blank')

@@ -1,4 +1,10 @@
-import * as d3 from 'd3'
+import { scaleOrdinal } from 'd3-scale'
+import { select } from 'd3-selection'
+import { json } from 'd3-request'
+import { treemap, hierarchy } from 'd3-hierarchy'
+
+const d3 = { scaleOrdinal, select, json, treemap, hierarchy }
+
 import { accounting } from 'lib/shared'
 
 export class VisTreemap {

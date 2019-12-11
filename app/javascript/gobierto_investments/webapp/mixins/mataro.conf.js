@@ -80,6 +80,12 @@ export default {
       multiple: true
     },
     {
+      id: "tipus"
+    },
+    {
+      id: "element"
+    },
+    {
       id: "tipus-projecte",
       multiple: true
     },

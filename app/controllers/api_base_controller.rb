@@ -5,6 +5,8 @@ class ApiBaseController < ActionController::API
   include ::GobiertoCommon::ModuleHelper
   include ApplicationConcern
 
+  before_action :disable_cors
+
   def preferred_locale
     @preferred_locale ||= begin
                             locale_param = params[:locale]
@@ -36,6 +38,11 @@ class ApiBaseController < ActionController::API
 
   def raise_module_not_allowed
     send_unauthorized(message: "Module not allowed")
+  end
+
+  def disable_cors
+    response.set_header("Access-Control-Allow-Origin", "*")
+    response.set_header("Access-Control-Request-Method", "*")
   end
 
 end

@@ -7,6 +7,8 @@ module GobiertoData
     include GobiertoCommon::Sluggable
 
     belongs_to :site
+    has_many :queries, dependent: :destroy
+    has_many :visualizations, through: :queries
 
     translates :name
 

@@ -154,8 +154,8 @@ center_scholarships_plan_term:
 
 center_basic_needs_plan_term:
   vocabulary: plan_categories_vocabulary
-  name_translations: <%= { 'en' => 'Necesidades básicas de las familias del Distrito Centro',
-                           'es' => 'Basic needs of District Center families' }.to_json %>
+  name_translations: <%= { 'en' => 'Basic needs of District Center families',
+                           'es' => 'Necesidades básicas de las familias del Distrito Centro' }.to_json %>
   term_id: <%= ActiveRecord::FixtureSet.identify(:welfare_payments_plan_term) %>
   slug: center-basic-needs
   level: 2

@@ -12,17 +12,19 @@ import { VisEvoLine } from './modules/evo_line.js'
 import { VisLineasJ } from './modules/lineas_tabla.js'
 import { VisLinesExecution } from './modules/lines_execution.js'
 import { VisPopulationPyramid } from './modules/population_pyramid.js'
-import { punchcard } from './modules/punchcard.js'
+import { Punchcard } from './modules/punchcard.js'
 import { VisRentDistribution } from './modules/rent_distribution.js'
-import { rowchart } from './modules/rowchart.js'
+import { Rowchart } from './modules/rowchart.js'
 import { VisSlider } from './modules/slider.js'
 import { Sparkline } from './modules/sparkline.js'
 import { VisTreemap } from './modules/treemap.js'
 import { VisUnemploymentAge } from './modules/unemployment_age.js'
 import { VisUnemploymentRate } from './modules/unemployment_rate.js'
 import { VisUnemploymentSex } from './modules/unemployment_sex.js'
+import { Areachart } from './modules/areachart'
 
 export {
+  Areachart,
   VisAgeDistribution,
   VisAgeReport,
   VisBubbleLegend,
@@ -37,9 +39,9 @@ export {
   VisLineasJ,
   VisLinesExecution,
   VisPopulationPyramid,
-  punchcard,
+  Punchcard,
   VisRentDistribution,
-  rowchart,
+  Rowchart,
   VisSlider,
   Sparkline,
   VisTreemap,

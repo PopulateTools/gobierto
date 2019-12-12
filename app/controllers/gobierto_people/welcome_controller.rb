@@ -49,6 +49,12 @@ module GobiertoPeople
       @gifts = current_site.gifts.limit(4).between_dates(filter_start_date, filter_end_date)
       @invitations = current_site.invitations.limit(4).between_dates(filter_start_date, filter_end_date)
 
+      site_trips_query = GobiertoPeople::TripsQuery.new(
+        site: current_site,
+        start_date: filter_start_date,
+        end_date: filter_end_date
+      )
+
       # home statistics
       people = QueryWithEvents.new(source: current_site.event_attendances,
                                    start_date: filter_start_date,
@@ -57,10 +63,13 @@ module GobiertoPeople
       interest_groups = QueryWithEvents.new(source: current_site.interest_groups,
                                             start_date: filter_start_date,
                                             end_date: filter_end_date)
+
       @home_statistics = {
         total_events: people.count,
         total_interest_groups: interest_groups.count,
-        total_people_with_attendances: people.select(:person_id).distinct.count
+        total_people_with_attendances: people.select(:person_id).distinct.count,
+        total_trips: site_trips_query.count,
+        total_unique_destinations: site_trips_query.unique_destinations_count
       }
     end
 

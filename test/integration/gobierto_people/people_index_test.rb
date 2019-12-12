@@ -221,8 +221,8 @@ YAML
         get @path_for_json
 
         json_response = JSON.parse(response.body)
-        assert_equal json_response.last["name"], people.last.name
-        assert_equal json_response.last["email"], people.last.email
+        assert_equal people.last.name, json_response.last["name"]
+        assert_equal people.last.email, json_response.last["email"]
       end
     end
 
@@ -232,8 +232,8 @@ YAML
 
         csv_response = CSV.parse(response.body, headers: true)
         last_index = csv_response.by_row.length - 1
-        assert_equal csv_response.by_row[last_index]["name"], people.last.name
-        assert_equal csv_response.by_row[last_index]["email"], people.last.email
+        assert_equal people.last.name, csv_response.by_row[last_index]["name"]
+        assert_equal people.last.email, csv_response.by_row[last_index]["email"]
       end
     end
 

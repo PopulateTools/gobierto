@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_14_152643) do
+ActiveRecord::Schema.define(version: 2019_12_12_104759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -531,6 +531,27 @@ ActiveRecord::Schema.define(version: 2019_11_14_152643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["site_id"], name: "index_gdata_datasets_on_site_id"
+  end
+
+  create_table "gdata_queries", force: :cascade do |t|
+    t.bigint "dataset_id"
+    t.bigint "user_id"
+    t.jsonb "name_translations"
+    t.integer "privacy_status", default: 0, null: false
+    t.string "sql"
+    t.jsonb "options"
+    t.index ["dataset_id"], name: "index_gdata_queries_on_dataset_id"
+    t.index ["user_id"], name: "index_gdata_queries_on_user_id"
+  end
+
+  create_table "gdata_visualizations", force: :cascade do |t|
+    t.bigint "query_id"
+    t.bigint "user_id"
+    t.jsonb "name_translations"
+    t.integer "privacy_status", default: 0, null: false
+    t.jsonb "spec"
+    t.index ["query_id"], name: "index_gdata_visualizations_on_query_id"
+    t.index ["user_id"], name: "index_gdata_visualizations_on_user_id"
   end
 
   create_table "gi_indicators", force: :cascade do |t|

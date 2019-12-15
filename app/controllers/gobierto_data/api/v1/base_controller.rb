@@ -56,6 +56,14 @@ module GobiertoData
           )
         end
 
+        def available_locales_hash
+          @available_locales_hash ||= current_site.configuration.available_locales.inject({}) do |hash, locale|
+            hash.update(
+              locale => nil
+            )
+          end
+        end
+
       end
     end
   end

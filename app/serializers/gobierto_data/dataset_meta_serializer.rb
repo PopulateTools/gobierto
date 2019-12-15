@@ -2,6 +2,8 @@
 
 module GobiertoData
   class DatasetMetaSerializer < DatasetSerializer
+    has_many :queries
+
     attribute :data_summary do
       {
         number_of_rows: object.rails_model.count

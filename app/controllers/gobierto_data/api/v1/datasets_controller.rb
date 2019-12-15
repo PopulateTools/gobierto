@@ -37,11 +37,7 @@ module GobiertoData
                 {
                   data: query_result.delete(:result),
                   meta: query_result,
-                  links:
-                  {
-                    self: gobierto_data_api_v1_dataset_path(params[:slug], format: :json),
-                    metadata: meta_gobierto_data_api_v1_dataset_path(params[:slug])
-                  }
+                  links: links(:data)
                 },
                 adapter: :json_api
               )
@@ -60,7 +56,10 @@ module GobiertoData
 
           render(
             json: @item,
-            serializer: ::GobiertoData::DatasetMetaSerializer
+            serializer: ::GobiertoData::DatasetMetaSerializer,
+            exclude_links: true,
+            links: links(:metadata),
+            adapter: :json_api
           )
         end
 
@@ -76,6 +75,16 @@ module GobiertoData
 
         def execute_query(relation)
           GobiertoData::Connection.execute_query(current_site, relation.to_sql)
+        end
+
+        def links(self_key = nil)
+          {
+            data: gobierto_data_api_v1_dataset_path(params[:slug]),
+            metadata: meta_gobierto_data_api_v1_dataset_path(params[:slug]),
+            queries: gobierto_data_api_v1_dataset_queries_path(params[:slug])
+          }.tap do |hash|
+            hash[:self] = hash.delete(self_key) if self_key.present?
+          end
         end
 
       end

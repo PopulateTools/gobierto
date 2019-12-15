@@ -570,6 +570,11 @@ Rails.application.routes.draw do
               collection do
                 get :meta
               end
+              resources :queries, except: [:edit], defaults: { format: "json" }, path: "q" do
+                member do
+                  get :meta
+                end
+              end
               member do
                 get "meta" => "datasets#dataset_meta"
               end

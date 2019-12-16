@@ -1,4 +1,11 @@
-import * as d3 from 'd3'
+import { timeParse } from 'd3-time-format'
+import { scaleTime, scaleLinear, scaleOrdinal } from 'd3-scale'
+import { select } from 'd3-selection'
+import { extent } from 'd3-array'
+import { line } from 'd3-shape'
+import { axisTop } from 'd3-axis'
+
+const d3 = { timeParse, scaleTime, scaleLinear, scaleOrdinal, select, extent, line, axisTop }
 
 export class Sparkline {
   constructor(context, data, options = {}) {
@@ -106,7 +113,7 @@ export class Sparkline {
   }
 
   _width() {
-    return parseInt(d3.select(this.container).style('width')) || +(d3.select(this.container).node() || document.createElement("div")).getBoundingClientRect().width
+    return d3.select(this.container).node() ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _height() {

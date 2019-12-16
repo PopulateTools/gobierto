@@ -35,9 +35,9 @@ window.GobiertoBudgets.InvoicesController = (function() {
     }
 
     // Insert the buttons to the DOM
-    Promise.all([getYear(maxYearUrl), getYear(minYearUrl)]).then((range) => {
+    Promise.all([getYear(minYearUrl), getYear(maxYearUrl)]).then((range) => {
       const $dropdownContent = $('[data-dropdown]:not(.js-dropdown)')
-      for (var i = range[0]; i >= range[1]; i--) {
+      for (var i = range[0]; i <= range[1]; i++) {
         $('<button class="button-grouped button-compact sort-G" data-toggle="' + i + '">' + i + '</button>')
           .appendTo($dropdownContent)
           .bind('click', btnOnClickExtended);
@@ -118,6 +118,9 @@ window.GobiertoBudgets.InvoicesController = (function() {
         $tableHTML.removeClass('hidden');
 
         data = _.filter(csv, _callback(filter));
+
+        // enable empty filter
+        $('#invoices-filters button[data-toggle=' + filter + ']').prop('disabled', false)
 
         if (!data.length) {
           // disable empty filter

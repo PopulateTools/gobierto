@@ -1,4 +1,13 @@
-import * as d3 from 'd3'
+import { select, selectAll } from 'd3-selection'
+import { scaleBand, scaleLinear } from 'd3-scale'
+import { axisBottom, axisRight } from 'd3-axis'
+import { csv } from 'd3-request'
+import { nest } from 'd3-collection'
+import { max } from 'd3-array'
+import { format } from 'd3-format'
+
+const d3 = { select, selectAll, scaleBand, scaleLinear, axisBottom, axisRight, csv, nest, max, format }
+
 import { accounting } from 'lib/shared'
 
 export class VisAgeReport {
@@ -178,7 +187,7 @@ export class VisAgeReport {
   }
 
   _width() {
-    return parseInt(d3.select(this.container).style('width'));
+    return d3.select(this.container).node() ? parseInt(d3.select(this.container).style('width')) : 0;
   }
 
   _height() {

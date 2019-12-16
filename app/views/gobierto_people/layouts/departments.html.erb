@@ -10,7 +10,7 @@
 
         <% if @sidebar_departments.any? %>
           <ul>
-            <% @sidebar_departments.each do |department| %>
+            <% @sidebar_departments.sort_by(&:name).each do |department| %>
               <li class="<%= class_if('strong', try(:current_department) == department) %>">
                 <%= link_to(
                       department.name,

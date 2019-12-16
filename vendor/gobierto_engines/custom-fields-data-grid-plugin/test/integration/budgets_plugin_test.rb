@@ -37,9 +37,7 @@ class BudgetsPluginTest < ActionDispatch::IntegrationTest
       indexes: [:forecast]
     }
 
-    BudgetLineFactory.new(common_args.merge(code: "1", year: 2014, area: GobiertoData::GobiertoBudgets::ECONOMIC_AREA_NAME))
-    BudgetLineFactory.new(common_args.merge(code: "2", year: 2015, area: GobiertoData::GobiertoBudgets::ECONOMIC_AREA_NAME))
-    BudgetLineFactory.new(common_args.merge(code: "3", year: 2016, area: GobiertoData::GobiertoBudgets::FUNCTIONAL_AREA_NAME))
+    BudgetLineFactory.new(common_args.merge(code: "1", year: 2014, area: GobiertoData::GobiertoBudgets::CUSTOM_AREA_NAME))
   end
 
   def test_show
@@ -49,18 +47,10 @@ class BudgetsPluginTest < ActionDispatch::IntegrationTest
       visit edit_admin_plans_plan_project_path(plan, project)
 
       within_plugin do
-        assert has_content?("1 - Gastos de personal")
+        assert has_content?("1 - Servicios")
         assert has_content?("123,457")
         assert has_content?("10")
         assert has_content?("12,346")
-
-        assert has_content?("2 - Gastos en bienes corrientes y servicios")
-        assert has_content?("15")
-        assert has_content?("18,519")
-
-        assert has_content?("3 - Producci")
-        assert has_content?("20")
-        assert has_content?("24,691")
       end
     end
   end

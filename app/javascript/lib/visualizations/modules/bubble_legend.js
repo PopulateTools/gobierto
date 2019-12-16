@@ -1,4 +1,8 @@
-import * as d3 from 'd3'
+import { select, selectAll } from 'd3-selection'
+import { scaleOrdinal } from 'd3-scale'
+import { range } from 'd3-array'
+
+const d3 = { select, selectAll, scaleOrdinal, range }
 
 export class VisBubbleLegend {
   constructor(divId) {
@@ -14,7 +18,7 @@ export class VisBubbleLegend {
       .domain(colors.reverse())
       .range(d3.range(0, 100, 100 / colors.length));
 
-    var margin = {top: 15, right: 5, bottom: 15, left: 5},
+    var margin = { top: 15, right: 5, bottom: 15, left: 5 },
       width = parseInt(d3.select(this.container).style('width')) - margin.left - margin.right,
       height = this.isMobile ? 320 : 520 - margin.top - margin.bottom;
 

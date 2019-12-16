@@ -29,8 +29,8 @@ module GobiertoPlans
       assert_equal "http://madrid.gobierto.test/presupuestos", plugin_data[:detail][:link]
       assert_equal "see detail in Budgets", plugin_data[:detail][:text]
 
-      assert_equal 55555.56, plugin_data[:budgeted_amount]
-      assert_equal 27777.78, plugin_data[:executed_amount]
+      assert_equal 37037.04, plugin_data[:budgeted_amount]
+      assert_equal 18518.52, plugin_data[:executed_amount]
       assert_equal "50 %", plugin_data[:executed_percentage]
     end
 
@@ -47,7 +47,6 @@ module GobiertoPlans
 
       project.update_attribute(:published_version, 2)
       assert_equal "0 %", decorator.nodes_data.first[:attributes][:plugins_data][:budgets][:executed_percentage]
-      assert_nil decorator.nodes_data.first[:attributes][:plugins_data][:budgets][:executed_percentage]
     end
 
   end

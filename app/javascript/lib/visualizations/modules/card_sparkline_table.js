@@ -1,4 +1,7 @@
-import * as d3 from 'd3'
+import { timeFormat, timeParse } from 'd3-time-format'
+
+const d3 = { timeFormat, timeParse }
+
 import { Card } from './card.js'
 import { accounting } from 'lib/shared'
 
@@ -16,7 +19,7 @@ export class SparklineTableCard extends Card {
 
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
-      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_common.visualizations.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_common.visualizations.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_common.visualizations.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(value[0].value))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
+      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_common.visualizations.where') + encodeURI(window.populateData.municipalityName) + ': ' + encodeURI(I18n.t('gobierto_common.visualizations.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_common.visualizations.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(value[0].value)) + '&url=' + window.location.href + '&via=gobierto&source=webclient');
 
     this.div.selectAll('.fb-sharer')
       .attr('target', '_blank')
@@ -47,7 +50,7 @@ export class SparklineTableCard extends Card {
       .text(formatDate(parsedDate));
 
     var rows = value.map(function(d) {
-      return '<td>' + I18n.t('gobierto_common.visualizations.cards.' + cardName + '.' + this._normalize(d.key), {place: window.populateData.municipalityName, province: window.populateData.provinceName }) + '</td> \
+      return '<td>' + I18n.t('gobierto_common.visualizations.cards.' + cardName + '.' + this._normalize(d.key), { place: window.populateData.municipalityName, province: window.populateData.provinceName }) + '</td> \
         <td class="sparktable sparkline-' + this._normalize(d.key) + '"></td> \
         <td>' + accounting.formatNumber(d.diff, 1) + '%</td> \
         <td>' + this._printData(d.value) + '</td>'

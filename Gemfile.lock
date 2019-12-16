@@ -163,7 +163,7 @@ GEM
     flight-for-rails (1.5.1)
       jquery-rails (>= 2.1.4)
       rails (>= 3.1.0)
-    font-awesome-sass (5.11.2)
+    font-awesome-sass (5.12.0)
       sassc (>= 1.11)
     foreman (0.86.0)
     geocoder (1.5.2)

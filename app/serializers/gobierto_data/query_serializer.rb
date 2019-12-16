@@ -11,6 +11,7 @@ module GobiertoData
     attributes :privacy_status, :sql, :dataset_id, :user_id
     belongs_to :dataset
     belongs_to :user
+    has_many :visualizations
 
     attribute :links, unless: :exclude_links? do
       slug = object.dataset.slug

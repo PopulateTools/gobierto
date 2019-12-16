@@ -574,6 +574,7 @@ Rails.application.routes.draw do
                 member do
                   get :meta
                 end
+                resources :visualizations, except: [:edit], defaults: { format: "json" }, path: "v"
               end
               member do
                 get "meta" => "datasets#dataset_meta"

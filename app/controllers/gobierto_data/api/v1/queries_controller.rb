@@ -152,7 +152,8 @@ module GobiertoData
             if id.present?
               hash.merge!(
                 data: gobierto_data_api_v1_dataset_query_path(params[:dataset_slug], id),
-                metadata: meta_gobierto_data_api_v1_dataset_query_path(params[:dataset_slug], id)
+                metadata: meta_gobierto_data_api_v1_dataset_query_path(params[:dataset_slug], id),
+                visualizations: gobierto_data_api_v1_dataset_query_visualizations_path(params[:dataset_slug], id)
               )
             end
 

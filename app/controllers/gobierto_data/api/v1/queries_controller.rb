@@ -75,8 +75,7 @@ module GobiertoData
         # POST /api/v1/data/dataset/dataset-slug/q
         # POST /api/v1/data/dataset/dataset-slug/q.json
         def create
-          find_dataset
-          @query_form = QueryForm.new(query_params.merge(site_id: current_site.id, dataset_id: @dataset.id))
+          @query_form = QueryForm.new(query_params.merge(site_id: current_site.id))
 
           if @query_form.save
             render(
@@ -96,7 +95,7 @@ module GobiertoData
         # PUT /api/v1/data/dataset/dataset-slug/q/1.json
         def update
           find_item
-          @query_form = QueryForm.new(query_params.merge(site_id: current_site.id, dataset_id: @dataset.id, id: @item.id))
+          @query_form = QueryForm.new(query_params.except(*ignored_attributes_on_update).merge(site_id: current_site.id, id: @item.id))
 
           if @query_form.save
             render(
@@ -124,16 +123,19 @@ module GobiertoData
         private
 
         def base_relation
-          find_dataset
-          @dataset.queries.open
+          if find_dataset.present?
+            @dataset.queries.open
+          else
+            current_site.queries.open
+          end
         end
 
         def find_dataset
-          @dataset = current_site.datasets.find_by!(slug: params[:dataset_slug])
+          @dataset = current_site.datasets.find_by(id: params[:dataset_id])
         end
 
         def query_params
-          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:user_id, :name_translations, :privacy_status, :sql])
+          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:user_id, :dataset_id, :name_translations, :privacy_status, :sql])
         end
 
         def find_item
@@ -156,6 +158,10 @@ module GobiertoData
 
             hash[:self] = hash.delete(self_key) if self_key.present?
           end
+        end
+
+        def ignored_attributes_on_update
+          [:dataset_id, :user_id]
         end
 
       end

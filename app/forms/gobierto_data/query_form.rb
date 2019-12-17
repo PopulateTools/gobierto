@@ -27,11 +27,11 @@ module GobiertoData
     end
 
     def dataset
-      @dataset ||= site.datasets.find_by(id: dataset_id)
+      @dataset ||= site.datasets.find_by(id: dataset_id) || query.dataset
     end
 
     def user
-      @user ||= site.users.find_by(id: user_id)
+      @user ||= site.users.find_by(id: user_id) || query.user
     end
 
     def privacy_status
@@ -54,8 +54,8 @@ module GobiertoData
 
     def save_query
       @query = query.tap do |attributes|
-        attributes.dataset_id = dataset_id
-        attributes.user_id = user_id
+        attributes.dataset_id = dataset.id
+        attributes.user_id = user.id
         attributes.name_translations = name_translations
         attributes.sql = sql
         attributes.privacy_status = privacy_status

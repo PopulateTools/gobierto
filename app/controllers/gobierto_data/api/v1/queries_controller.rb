@@ -5,9 +5,9 @@ module GobiertoData
     module V1
       class QueriesController < BaseController
 
-        # GET /api/v1/data/dataset/dataset-slug/q
-        # GET /api/v1/data/dataset/dataset-slug/q.json
-        # GET /api/v1/data/dataset/dataset-slug/q.csv
+        # GET /api/v1/data/queries
+        # GET /api/v1/data/queries.json
+        # GET /api/v1/data/queries.csv
         def index
           respond_to do |format|
             format.json do
@@ -20,9 +20,9 @@ module GobiertoData
           end
         end
 
-        # GET /api/v1/data/dataset/dataset-slug/q/1
-        # GET /api/v1/data/dataset/dataset-slug/q/1.json
-        # GET /api/v1/data/dataset/dataset-slug/q/1.csv
+        # GET /api/v1/data/queries/1
+        # GET /api/v1/data/queries/1.json
+        # GET /api/v1/data/queries/1.csv
         def show
           find_item
           query_result = @item.result
@@ -45,8 +45,8 @@ module GobiertoData
           end
         end
 
-        # GET /api/v1/data/dataset/dataset-slug/q/1/meta
-        # GET /api/v1/data/dataset/dataset-slug/q/1/meta.json
+        # GET /api/v1/data/queries/1/meta
+        # GET /api/v1/data/queries/1/meta.json
         def meta
           find_item
 
@@ -58,8 +58,8 @@ module GobiertoData
           )
         end
 
-        # GET /api/v1/data/dataset/dataset-slug/q/new
-        # GET /api/v1/data/dataset/dataset-slug/q/new.json
+        # GET /api/v1/data/queries/new
+        # GET /api/v1/data/queries/new.json
         def new
           @item = base_relation.new(name_translations: available_locales_hash)
 
@@ -72,8 +72,8 @@ module GobiertoData
           )
         end
 
-        # POST /api/v1/data/dataset/dataset-slug/q
-        # POST /api/v1/data/dataset/dataset-slug/q.json
+        # POST /api/v1/data/queries
+        # POST /api/v1/data/queries.json
         def create
           @query_form = QueryForm.new(query_params.merge(site_id: current_site.id))
 
@@ -92,8 +92,8 @@ module GobiertoData
           end
         end
 
-        # PUT /api/v1/data/dataset/dataset-slug/q/1
-        # PUT /api/v1/data/dataset/dataset-slug/q/1.json
+        # PUT /api/v1/data/queries/1
+        # PUT /api/v1/data/queries/1.json
         def update
           find_item
           @query_form = QueryForm.new(query_params.except(*ignored_attributes_on_update).merge(site_id: current_site.id, id: @item.id))
@@ -111,8 +111,8 @@ module GobiertoData
           end
         end
 
-        # DELETE /api/v1/data/dataset/dataset-slug/q/1
-        # DELETE /api/v1/data/dataset/dataset-slug/q/1.json
+        # DELETE /api/v1/data/queries/1
+        # DELETE /api/v1/data/queries/1.json
         def destroy
           find_item
 

@@ -5,9 +5,9 @@ module GobiertoData
     module V1
       class VisualizationsController < BaseController
 
-        # GET /api/v1/data/dataset/dataset-slug/q/1/v
-        # GET /api/v1/data/dataset/dataset-slug/q/1/v.json
-        # GET /api/v1/data/dataset/dataset-slug/q/1/v.csv
+        # GET /api/v1/data/visualizations
+        # GET /api/v1/data/visualizations.json
+        # GET /api/v1/data/visualizations.csv
         def index
           respond_to do |format|
             format.json do
@@ -20,8 +20,8 @@ module GobiertoData
           end
         end
 
-        # GET /api/v1/data/dataset/dataset-slug/q/1/v/1
-        # GET /api/v1/data/dataset/dataset-slug/q/1/v/1.json
+        # GET /api/v1/data/visualizations/1
+        # GET /api/v1/data/visualizations/1.json
         def show
           find_item
 
@@ -33,8 +33,8 @@ module GobiertoData
           )
         end
 
-        # GET /api/v1/data/dataset/dataset-slug/q/1/v/new
-        # GET /api/v1/data/dataset/dataset-slug/q/1/v/new.json
+        # GET /api/v1/data/visualizations/new
+        # GET /api/v1/data/visualizations/new.json
         def new
           @item = base_relation.new(name_translations: available_locales_hash)
 
@@ -47,8 +47,8 @@ module GobiertoData
           )
         end
 
-        # POST /api/v1/data/dataset/dataset-slug/q/1/v
-        # POST /api/v1/data/dataset/dataset-slug/q/1/v.json
+        # POST /api/v1/data/visualizations
+        # POST /api/v1/data/visualizations.json
         def create
           @visualization_form = VisualizationForm.new(visualization_params.merge(site_id: current_site.id))
 
@@ -67,8 +67,8 @@ module GobiertoData
           end
         end
 
-        # PUT /api/v1/data/dataset/dataset-slug/q/1/v/1
-        # PUT /api/v1/data/dataset/dataset-slug/q/1/v/1.json
+        # PUT /api/v1/data/visualizations/1
+        # PUT /api/v1/data/visualizations/1.json
         def update
           find_item
           @visualization_form = VisualizationForm.new(visualization_params.except(*ignored_attributes_on_update).merge(site_id: current_site.id, id: @item.id))
@@ -86,8 +86,8 @@ module GobiertoData
           end
         end
 
-        # DELETE /api/v1/data/dataset/dataset-slug/q/1/v/1
-        # DELETE /api/v1/data/dataset/dataset-slug/q/1/v/1.json
+        # DELETE /api/v1/data/visualizations/1
+        # DELETE /api/v1/data/visualizations/1.json
         def destroy
           find_item
 

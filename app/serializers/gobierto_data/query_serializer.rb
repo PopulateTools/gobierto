@@ -13,11 +13,10 @@ module GobiertoData
     has_many :visualizations
 
     attribute :links, unless: :exclude_links? do
-      slug = object.dataset.slug
       id = object.id
       {
-        data: gobierto_data_api_v1_dataset_query_path(slug, id),
-        metadata: meta_gobierto_data_api_v1_dataset_query_path(slug, id)
+        data: gobierto_data_api_v1_query_path(id),
+        metadata: meta_gobierto_data_api_v1_query_path(id)
       }
     end
 

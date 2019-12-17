@@ -14,7 +14,7 @@ module GobiertoData
           relation = filtered_relation
           respond_to do |format|
             format.json do
-              render json: relation, links: { self: gobierto_data_api_v1_datasets_path }, adapter: :json_api
+              render json: relation, links: links(:index), adapter: :json_api
             end
 
             format.csv do
@@ -78,11 +78,19 @@ module GobiertoData
         end
 
         def links(self_key = nil)
+          id = @item&.id
           {
-            data: gobierto_data_api_v1_dataset_path(params[:slug]),
-            metadata: meta_gobierto_data_api_v1_dataset_path(params[:slug]),
-            queries: gobierto_data_api_v1_dataset_queries_path(params[:slug])
+            index: gobierto_data_api_v1_datasets_path
           }.tap do |hash|
+            if id.present?
+              hash.merge!(
+                data: gobierto_data_api_v1_dataset_path(params[:slug]),
+                metadata: meta_gobierto_data_api_v1_dataset_path(params[:slug]),
+                queries: gobierto_data_api_v1_queries_path(dataset_id: @item.id),
+                visualizations: gobierto_data_api_v1_visualizations_path(dataset_id: @item.id)
+              )
+            end
+
             hash[:self] = hash.delete(self_key) if self_key.present?
           end
         end

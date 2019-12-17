@@ -53,12 +53,13 @@ module GobiertoData
           @visualization_form = VisualizationForm.new(visualization_params.merge(site_id: current_site.id))
 
           if @visualization_form.save
+            @item = @visualization_form.id
             render(
               json: @visualization_form.visualization,
               status: :created,
               exclude_links: true,
               with_translations: true,
-              links: links(:show, id: @visualization_form.visualization.id),
+              links: links(:show),
               adapter: :json_api
             )
           else
@@ -119,19 +120,23 @@ module GobiertoData
           ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:user_id, :query_id, :name_translations, :privacy_status, :spec])
         end
 
+        def filter_params
+          params.permit(:dataset_id, :query_id)
+        end
+
         def find_item
           @item = base_relation.unscope(where: :privacy_status).find(params[:id])
         end
 
-        def links(self_key = nil, opts = {})
-          id = opts[:id] || params[:id]
+        def links(self_key = nil)
+          id = @item&.id
           {
-            index: gobierto_data_api_v1_dataset_query_visualizations_path(params[:dataset_slug], params[:query_id]),
-            new: new_gobierto_data_api_v1_dataset_query_visualization_path(params[:dataset_slug], params[:query_id])
+            index: gobierto_data_api_v1_visualizations_path(filter_params),
+            new: new_gobierto_data_api_v1_visualization_path
           }.tap do |hash|
             if id.present?
               hash.merge!(
-                show: gobierto_data_api_v1_dataset_query_visualization_path(params[:dataset_slug], params[:query_id], id)
+                show: gobierto_data_api_v1_visualization_path(id)
               )
             end
 

@@ -12,11 +12,8 @@ module GobiertoData
     belongs_to :user
 
     attribute :links, unless: :exclude_links? do
-      dataset_slug = object.dataset.slug
-      query_id = object.query_id
-      id = object.id
       {
-        show: gobierto_data_api_v1_dataset_query_visualization_path(dataset_slug: dataset_slug, query_id: query_id, id: id)
+        show: gobierto_data_api_v1_visualization_path(object.id)
       }
     end
 

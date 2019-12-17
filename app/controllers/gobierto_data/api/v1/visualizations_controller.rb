@@ -50,8 +50,7 @@ module GobiertoData
         # POST /api/v1/data/dataset/dataset-slug/q/1/v
         # POST /api/v1/data/dataset/dataset-slug/q/1/v.json
         def create
-          find_query
-          @visualization_form = VisualizationForm.new(visualization_params.merge(site_id: current_site.id, query_id: @query.id))
+          @visualization_form = VisualizationForm.new(visualization_params.merge(site_id: current_site.id))
 
           if @visualization_form.save
             render(
@@ -71,7 +70,7 @@ module GobiertoData
         # PUT /api/v1/data/dataset/dataset-slug/q/1/v/1.json
         def update
           find_item
-          @visualization_form = VisualizationForm.new(visualization_params.merge(site_id: current_site.id, query_id: @query.id, id: @item.id))
+          @visualization_form = VisualizationForm.new(visualization_params.except(*ignored_attributes_on_update).merge(site_id: current_site.id, id: @item.id))
 
           if @visualization_form.save
             render(
@@ -99,21 +98,25 @@ module GobiertoData
         private
 
         def base_relation
-          find_query
-          @query.visualizations.open
-        end
-
-        def find_dataset
-          @dataset = current_site.datasets.find_by!(slug: params[:dataset_slug])
+          if find_dataset.present?
+            @dataset.visualizations.open
+          elsif find_query.present?
+            @query.visualizations.open
+          else
+            current_site.visualizations.open
+          end
         end
 
         def find_query
-          find_dataset
-          @query = @dataset.queries.find(params[:query_id])
+          @query = current_site.queries.find_by(id: params[:query_id])
+        end
+
+        def find_dataset
+          @dataset = current_site.datasets.find_by(id: params[:dataset_id])
         end
 
         def visualization_params
-          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:user_id, :name_translations, :privacy_status, :spec])
+          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:user_id, :query_id, :name_translations, :privacy_status, :spec])
         end
 
         def find_item
@@ -136,6 +139,9 @@ module GobiertoData
           end
         end
 
+        def ignored_attributes_on_update
+          [:query_id, :user_id]
+        end
       end
     end
   end

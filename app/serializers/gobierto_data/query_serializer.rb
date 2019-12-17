@@ -3,7 +3,6 @@
 module GobiertoData
   class QuerySerializer < ActiveModel::Serializer
     include Rails.application.routes.url_helpers
-    include ::GobiertoCommon::HasCustomFieldsAttributes
 
     attributes :id
     attribute :name, unless: :with_translations?

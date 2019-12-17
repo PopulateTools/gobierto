@@ -5,20 +5,17 @@ module GobiertoData
     module V1
       class QueriesController < BaseController
 
-        include ::GobiertoCommon::CustomFieldsApi
-
         # GET /api/v1/data/dataset/dataset-slug/q
         # GET /api/v1/data/dataset/dataset-slug/q.json
         # GET /api/v1/data/dataset/dataset-slug/q.csv
         def index
-          relation = filtered_relation
           respond_to do |format|
             format.json do
-              render json: relation, links: links(:index), adapter: :json_api
+              render json: base_relation, links: links(:index), adapter: :json_api
             end
 
             format.csv do
-              render_csv(csv_from_relation(relation, csv_options_params))
+              render_csv(csv_from_relation(base_relation, csv_options_params))
             end
           end
         end

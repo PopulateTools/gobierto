@@ -80,7 +80,10 @@ module GobiertoData
         def links(self_key = nil)
           id = @item&.id
           {
-            index: gobierto_data_api_v1_datasets_path
+            index: gobierto_data_api_v1_datasets_path,
+            datasets_meta: meta_gobierto_data_api_v1_datasets_path,
+            queries: gobierto_data_api_v1_queries_path,
+            visualizations: gobierto_data_api_v1_visualizations_path
           }.tap do |hash|
             if id.present?
               hash.merge!(

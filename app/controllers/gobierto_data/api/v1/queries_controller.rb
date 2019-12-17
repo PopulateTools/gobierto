@@ -151,7 +151,8 @@ module GobiertoData
           id = @item&.id
           {
             index: gobierto_data_api_v1_queries_path(filter_params),
-            new: new_gobierto_data_api_v1_query_path
+            new: new_gobierto_data_api_v1_query_path,
+            visualizations: gobierto_data_api_v1_visualizations_path
           }.tap do |hash|
             if id.present?
               hash.merge!(

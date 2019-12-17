@@ -27,11 +27,11 @@ module GobiertoData
     end
 
     def query
-      @query ||= site.queries.find_by(id: query_id)
+      @query ||= site.queries.find_by(id: query_id) || visualization.query
     end
 
     def user
-      @user ||= site.users.find_by(id: user_id)
+      @user ||= site.users.find_by(id: user_id) || visualization.user
     end
 
     def privacy_status
@@ -58,8 +58,8 @@ module GobiertoData
 
     def save_visualization
       @visualization = visualization.tap do |attributes|
-        attributes.query_id = query_id
-        attributes.user_id = user_id
+        attributes.query_id = query.id
+        attributes.user_id = user.id
         attributes.name_translations = name_translations
         attributes.privacy_status = privacy_status
         attributes.spec = spec

@@ -53,9 +53,9 @@ module GobiertoData
           @visualization_form = VisualizationForm.new(visualization_params.merge(site_id: current_site.id))
 
           if @visualization_form.save
-            @item = @visualization_form.id
+            @item = @visualization_form.visualization
             render(
-              json: @visualization_form.visualization,
+              json: @item,
               status: :created,
               exclude_links: true,
               with_translations: true,

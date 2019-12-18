@@ -80,7 +80,7 @@ module GobiertoData
           if @query_form.save
             @item = @query_form.query
             render(
-              json: @query_form.query,
+              json: @item,
               status: :created,
               exclude_links: true,
               with_translations: true,

@@ -89,8 +89,8 @@ module GobiertoData
               hash.merge!(
                 data: gobierto_data_api_v1_dataset_path(params[:slug]),
                 metadata: meta_gobierto_data_api_v1_dataset_path(params[:slug]),
-                queries: gobierto_data_api_v1_queries_path(dataset_id: @item.id),
-                visualizations: gobierto_data_api_v1_visualizations_path(dataset_id: @item.id)
+                queries: gobierto_data_api_v1_queries_path(filter: { dataset_id: @item.id }),
+                visualizations: gobierto_data_api_v1_visualizations_path(filter: { dataset_id: @item.id })
               )
             end
 

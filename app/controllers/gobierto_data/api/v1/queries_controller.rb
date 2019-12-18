@@ -11,11 +11,11 @@ module GobiertoData
         def index
           respond_to do |format|
             format.json do
-              render json: base_relation, links: links(:index), adapter: :json_api
+              render json: filtered_relation, links: links(:index), adapter: :json_api
             end
 
             format.csv do
-              render_csv(csv_from_relation(base_relation, csv_options_params))
+              render_csv(csv_from_relation(filtered_relation, csv_options_params))
             end
           end
         end
@@ -140,7 +140,11 @@ module GobiertoData
         end
 
         def filter_params
-          params.permit(:dataset_id)
+          params.fetch(:filter, {}).permit(:user_id, :dataset_id)
+        end
+
+        def filtered_relation
+          base_relation.where(filter_params)
         end
 
         def find_item
@@ -150,7 +154,7 @@ module GobiertoData
         def links(self_key = nil)
           id = @item&.id
           {
-            index: gobierto_data_api_v1_queries_path(filter_params),
+            index: gobierto_data_api_v1_queries_path(filter: filter_params),
             new: new_gobierto_data_api_v1_query_path,
             visualizations: gobierto_data_api_v1_visualizations_path
           }.tap do |hash|
@@ -158,7 +162,7 @@ module GobiertoData
               hash.merge!(
                 data: gobierto_data_api_v1_query_path(id),
                 metadata: meta_gobierto_data_api_v1_query_path(id),
-                visualizations: gobierto_data_api_v1_visualizations_path(query_id: id)
+                visualizations: gobierto_data_api_v1_visualizations_path(filter: { query_id: id })
               )
             end
 

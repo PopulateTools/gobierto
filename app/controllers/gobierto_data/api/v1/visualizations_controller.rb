@@ -36,7 +36,7 @@ module GobiertoData
         # GET /api/v1/data/visualizations/new
         # GET /api/v1/data/visualizations/new.json
         def new
-          @item = base_relation.new(name_translations: available_locales_hash)
+          @item = base_relation.model.new(name_translations: available_locales_hash)
 
           render(
             json: @item,

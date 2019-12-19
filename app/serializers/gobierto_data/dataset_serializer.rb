@@ -16,7 +16,7 @@ module GobiertoData
     end
 
     def current_site
-      Site.find(object.site_id)
+      Site.find_by(id: object.site_id) || instance_options[:site]
     end
 
     def exclude_links?

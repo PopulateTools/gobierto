@@ -36,7 +36,7 @@ module GobiertoData
 
         def csv_from_relation(relation, options = {})
           serialized_data_as_json = ActiveModelSerializers::SerializableResource.new(relation, exclude_links: true, string_output: true).as_json
-          new = ActiveModelSerializers::SerializableResource.new(relation.new, exclude_links: true, string_output: true).as_json
+          new = ActiveModelSerializers::SerializableResource.new(relation.model.new, exclude_links: true, string_output: true, site: current_site).as_json
 
           return "" if serialized_data_as_json.blank?
 

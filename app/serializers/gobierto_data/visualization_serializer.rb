@@ -8,8 +8,8 @@ module GobiertoData
     attribute :name, unless: :with_translations?
     attribute :name_translations, if: :with_translations?
     attributes :privacy_status, :spec, :query_id, :user_id
-    belongs_to :query
-    belongs_to :user
+    belongs_to :query, unless: :exclude_relationships?
+    belongs_to :user, unless: :exclude_relationships?
 
     attribute :links, unless: :exclude_links? do
       {
@@ -23,6 +23,10 @@ module GobiertoData
 
     def exclude_links?
       instance_options[:exclude_links]
+    end
+
+    def exclude_relationships?
+      instance_options[:exclude_relationships]
     end
 
     def with_translations?

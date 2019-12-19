@@ -8,9 +8,9 @@ module GobiertoData
     attribute :name, unless: :with_translations?
     attribute :name_translations, if: :with_translations?
     attributes :privacy_status, :sql, :dataset_id, :user_id
-    belongs_to :dataset
-    belongs_to :user
-    has_many :visualizations
+    belongs_to :dataset, unless: :exclude_relationships?
+    belongs_to :user, unless: :exclude_relationships?
+    has_many :visualizations, unless: :exclude_relationships?
 
     attribute :links, unless: :exclude_links? do
       id = object.id
@@ -26,6 +26,10 @@ module GobiertoData
 
     def exclude_links?
       instance_options[:exclude_links]
+    end
+
+    def exclude_relationships?
+      instance_options[:exclude_relationships]
     end
 
     def with_translations?

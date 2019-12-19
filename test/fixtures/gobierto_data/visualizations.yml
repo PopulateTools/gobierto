@@ -1,0 +1,55 @@
+users_count_visualization:
+  query: users_count_query
+  user: dennis
+  name_translations: <%= { en: "Users count visualization", es: "Visualización de cuenta de usuarios" }.to_json %>
+  privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
+  spec: <%= {
+    "$schema" => "https://vega.github.io/schema/vega/v5.json",
+    "description" => "A specification outline example.",
+    "width" => 500,
+    "height" => 200,
+    "padding" => 5,
+    "autosize" => "pad",
+    "signals" => [],
+    "data" => [],
+    "scales" => [],
+    "projections" => [],
+    "axes" => [],
+    "legends" => [],
+    "marks" => []
+  }.to_json %>
+
+census_verified_users_visualization:
+  query: census_verified_users_query
+  user: peter
+  name_translations: <%= { en: "Verified users", es: "Usuarios verificados" }.to_json %>
+  privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
+  spec: <%= {
+    "$schema" => "https://vega.github.io/schema/vega/v5.json",
+    "description" => "A specification outline example.",
+    "width" => 500,
+    "height" => 200,
+    "padding" => 5,
+    "autosize" => "pad",
+    "signals" => [],
+    "data" => [],
+    "scales" => [],
+    "projections" => [],
+    "axes" => [],
+    "legends" => [],
+    "marks" => []
+  }.to_json %>
+
+events_count_open_visualization:
+  query: events_count_query
+  user: dennis
+  name_translations: <%= { en: "Events count visualization open", es: "Visualización de cuenta de eventos abierta" }.to_json %>
+  privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
+  spec: "{}"
+
+events_count_closed_visualization:
+  query: events_count_query
+  user: dennis
+  name_translations: <%= { en: "Events count visualization closed", es: "Visualización de cuenta de eventos cerrada" }.to_json %>
+  privacy_status: <%= GobiertoData::Visualization.privacy_statuses["closed"] %>
+  spec: "{}"

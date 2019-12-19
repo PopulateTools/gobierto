@@ -1,0 +1,20 @@
+users_count_query:
+  dataset: users_dataset
+  user: dennis
+  name_translations: <%= { en: "Users count", es: "Cuenta de usuarios" }.to_json %>
+  privacy_status: <%= GobiertoData::Query.privacy_statuses["open"] %>
+  sql: "select count(*) from users"
+
+census_verified_users_query:
+  dataset: users_dataset
+  user: peter
+  name_translations: <%= { en: "Verified users", es: "Usuarios verificados" }.to_json %>
+  privacy_status: <%= GobiertoData::Query.privacy_statuses["closed"] %>
+  sql: "select id, email, name from users where census_verified"
+
+events_count_query:
+  dataset: events_dataset
+  user: dennis
+  name_translations: <%= { en: "Published events", es: "Eventos publicados" }.to_json %>
+  privacy_status: <%= GobiertoData::Query.privacy_statuses["open"] %>
+  sql: "select * from events where state = <%= GobiertoCalendars::Event.states["published"] %>"

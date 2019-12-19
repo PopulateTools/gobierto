@@ -29,11 +29,11 @@ module GobiertoData
     end
 
     def query
-      @query ||= site.queries.find_by(id: query_id) || visualization.query
+      @query ||= site.presence && site.queries.find_by(id: query_id) || visualization.query
     end
 
     def user
-      @user ||= site.users.find_by(id: user_id) || visualization.user
+      @user ||= site.presence && site.users.find_by(id: user_id) || visualization.user
     end
 
     def site

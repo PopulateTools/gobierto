@@ -29,11 +29,11 @@ module GobiertoData
     end
 
     def dataset
-      @dataset ||= site.datasets.find_by(id: dataset_id) || query.dataset
+      @dataset ||= site.presence && site.datasets.find_by(id: dataset_id) || query.dataset
     end
 
     def user
-      @user ||= site.users.find_by(id: user_id) || query.user
+      @user ||= site.presence && site.users.find_by(id: user_id) || query.user
     end
 
     def site

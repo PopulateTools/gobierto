@@ -3,6 +3,7 @@
 module GobiertoData
   class DatasetMetaSerializer < DatasetSerializer
     has_many :queries
+    has_many :visualizations
 
     attribute :data_summary do
       {

@@ -13,3 +13,11 @@ events_dataset:
   slug: events-dataset
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+
+santander_dataset:
+  site: santander
+  name_translations: <%= { en: "Santander dataset", es: "Dataset de Santander" }.to_json %>
+  table_name: activities
+  slug: santander-dataset
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

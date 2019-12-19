@@ -2,17 +2,19 @@
 
 module GobiertoData
   class VisualizationForm < BaseForm
+    include ::GobiertoCore::TranslationsHelpers
 
     attr_accessor(
       :id,
       :site_id,
       :query_id,
       :user_id,
-      :name_translations
+      :name
     )
 
     attr_writer(
       :privacy_status,
+      :name_translations,
       :spec
     )
 
@@ -32,6 +34,18 @@ module GobiertoData
 
     def user
       @user ||= site.users.find_by(id: user_id) || visualization.user
+    end
+
+    def site
+      @site ||= Site.find_by(id: site_id)
+    end
+
+    def name_translations
+      @name_translations ||= begin
+                               (visualization.name_translations || available_locales_blank_translations).tap do |translations|
+                                 translations[I18n.locale] = name if name.present?
+                               end
+                             end
     end
 
     def privacy_status
@@ -70,10 +84,6 @@ module GobiertoData
       promote_errors(@visualization.errors)
 
       false
-    end
-
-    def site
-      @site ||= Site.find_by(id: site_id)
     end
 
     def spec_validation

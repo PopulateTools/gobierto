@@ -2,18 +2,20 @@
 
 module GobiertoData
   class QueryForm < BaseForm
+    include ::GobiertoCore::TranslationsHelpers
 
     attr_accessor(
       :id,
       :site_id,
       :dataset_id,
       :user_id,
-      :name_translations,
+      :name,
       :sql
     )
 
     attr_writer(
-      :privacy_status
+      :privacy_status,
+      :name_translations
     )
 
     validates :dataset, :site, :user, :sql, presence: true
@@ -32,6 +34,18 @@ module GobiertoData
 
     def user
       @user ||= site.users.find_by(id: user_id) || query.user
+    end
+
+    def site
+      @site ||= Site.find_by(id: site_id)
+    end
+
+    def name_translations
+      @name_translations ||= begin
+                               (query.name_translations || available_locales_blank_translations).tap do |translations|
+                                 translations[I18n.locale] = name if name.present?
+                               end
+                             end
     end
 
     def privacy_status
@@ -66,10 +80,6 @@ module GobiertoData
       promote_errors(@query.errors)
 
       false
-    end
-
-    def site
-      @site ||= Site.find_by(id: site_id)
     end
 
     def sql_validation

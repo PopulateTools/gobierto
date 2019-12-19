@@ -136,7 +136,7 @@ module GobiertoData
         end
 
         def query_params
-          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:user_id, :dataset_id, :name_translations, :privacy_status, :sql])
+          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:user_id, :dataset_id, :name_translations, :name, :privacy_status, :sql])
         end
 
         def filter_params

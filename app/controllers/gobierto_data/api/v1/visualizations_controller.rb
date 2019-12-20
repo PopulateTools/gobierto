@@ -121,7 +121,11 @@ module GobiertoData
         end
 
         def filter_params
-          params.fetch(:filter, {}).permit(:user_id, :dataset_id, :query_id)
+          params.fetch(:filter, {}).permit(:user_id, :dataset_id, :query_id).tap do |f_params|
+            if (dataset_id = f_params.delete(:dataset_id))
+              f_params[Query.table_name] = { dataset_id: dataset_id }
+            end
+          end
         end
 
         def filtered_relation

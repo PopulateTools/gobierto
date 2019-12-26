@@ -25,17 +25,17 @@ class ProgressPluginTest < ActionDispatch::IntegrationTest
   end
 
   def source_custom_field_of_progress_calculations
-    gobierto_common_custom_field_records(:political_agendas_human_resources_custom_field_record)
+    gobierto_common_custom_field_records(:political_agendas_human_resources_table_custom_field_record)
   end
 
   def clear_source_payload
-    source_custom_field_of_progress_calculations.update_attributes!(payload: { human_resources: [] })
+    source_custom_field_of_progress_calculations.update_attributes!(payload: { human_resources_table: [] })
   end
 
   def set_source_payload
     source_custom_field_of_progress_calculations.update_attributes!(
       payload: {
-        human_resources: [
+        human_resources_table: [
           {
             human_resource: ActiveRecord::FixtureSet.identify(:human_resources_supervisor),
             cost: 35_000,

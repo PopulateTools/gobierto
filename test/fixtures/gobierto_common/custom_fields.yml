@@ -192,7 +192,7 @@ madrid_custom_field_progress_plugin:
   options: <%= {
     configuration: {
       plugin_type: "progress",
-      plugin_configuration: { custom_field_uids: ["human-resources"] }
+      plugin_configuration: { custom_field_uids: ["human_resources_table"] }
     }
   }.to_json %>
 

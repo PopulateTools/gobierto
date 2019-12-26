@@ -16,12 +16,12 @@ module GobiertoCommon::CustomFieldFunctions
       @item.update_attribute(:ends_at, 3.days.from_now)
 
       @progress_record = gobierto_common_custom_field_records(:political_agendas_progress_custom_field_record)
-      @source_calculations_record = gobierto_common_custom_field_records(:political_agendas_human_resources_custom_field_record)
+      @source_calculations_record = gobierto_common_custom_field_records(:political_agendas_human_resources_table_custom_field_record)
       @source_calculations_record.paper_trail.save_with_version
       @source_calculations_record.update(
         payload:
         {
-          human_resources: [
+          human_resources_table: [
             {
               human_resource: ActiveRecord::FixtureSet.identify(:human_resources_supervisor),
               cost: 35_000,
@@ -47,7 +47,7 @@ module GobiertoCommon::CustomFieldFunctions
       @source_calculations_record.update(
         payload:
         {
-          human_resources: [
+          human_resources_table: [
             {
               human_resource: ActiveRecord::FixtureSet.identify(:human_resources_supervisor),
               cost: 35_000,

@@ -46,7 +46,7 @@ module GobiertoPlans
     end
 
     def human_resources_record
-      @human_resources_record ||= gobierto_common_custom_field_records(:political_agendas_human_resources_custom_field_record)
+      @human_resources_record ||= gobierto_common_custom_field_records(:political_agendas_human_resources_table_custom_field_record)
     end
 
     def publish_last_version_on_all_projects!
@@ -147,7 +147,7 @@ module GobiertoPlans
       human_resources_record.update(
         payload:
         {
-          human_resources: [
+          human_resources_table: [
             {
               human_resource: ActiveRecord::FixtureSet.identify(:human_resources_supervisor),
               cost: 35_000,

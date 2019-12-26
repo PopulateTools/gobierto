@@ -85,13 +85,13 @@ module GobiertoCommon::CustomFieldFunctions
     end
 
     def test_progress_refered_to_not_existing_custom_field
-      progress_custom_field.update_attribute(:options, {"configuration"=>{"plugin_type"=>"progress", "plugin_configuration"=>{"custom_field_uids"=>["wadus"]}}})
+      progress_custom_field.update_attribute(:options, "configuration" => { "plugin_type" => "progress", "plugin_configuration" => { "custom_field_uids" => %w(wadus) } })
 
       assert_nil progress_record.functions.progress
     end
 
     def test_progress_refered_to_custom_field_not_providing_progress_function
-      progress_custom_field.update_attribute(:options, {"configuration"=>{"plugin_type"=>"progress", "plugin_configuration"=>{"custom_field_uids"=>["goals"]}}})
+      progress_custom_field.update_attribute(:options, "configuration" => { "plugin_type" => "progress", "plugin_configuration" => { "custom_field_uids" => %w(goals) } })
 
       assert_nil progress_record.functions.progress
     end

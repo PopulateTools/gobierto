@@ -17,7 +17,7 @@ module GobiertoPlans
 
     def expected_indicator_attributes
       {
-        id: 162407219,
+        id: 162_407_219,
         name_translations: {
           "en" => "Raw savings",
           "es" => "Ahorro bruto"

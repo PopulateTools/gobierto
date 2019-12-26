@@ -32,7 +32,7 @@ module GobiertoPlans
     end
 
     def test_plugin_data
-      assert_equal "Indicators", plugin_data[:title_translations][:en]
+      assert_equal "Indicator (table)", plugin_data[:title_translations]["en"]
       assert_equal 2, plugin_data[:data].size
       assert_equal expected_indicator_attributes, plugin_data[:data].first
     end

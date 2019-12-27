@@ -6,9 +6,17 @@ ca:
         name: Nom
         slug: Slug
         table_name: Nom de la taula
+      gobierto_admin/gobierto_data/settings_form:
+        db_config: Configuració de la connexió a la base de dades
     errors:
       models:
         gobierto_admin/gobierto_data/dataset_form:
           attributes:
             table_name:
               invalid_table: 'No es pot accedir a la taula. Missatge d''error: "%{error_message}"'
+        gobierto_admin/gobierto_data/settings_form:
+          attributes:
+            db_config:
+              invalid_connection: 'No es pot connectar amb les dades de configuració.
+                Missatge d''error: "%{error_message}"'
+              invalid_format: La configuració no té un format JSON vàlid

@@ -2,6 +2,11 @@
 ca:
   gobierto_admin:
     gobierto_data:
+      configuration:
+        settings:
+          update:
+            error: 'Hi ha hagut un error al desar la configuració: %{validation_errors}'
+            success: Configuració guardada correctament
       datasets:
         create:
           success: El conjunt de dades s'ha creat correctament.

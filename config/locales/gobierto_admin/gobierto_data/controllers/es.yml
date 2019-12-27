@@ -2,6 +2,11 @@
 es:
   gobierto_admin:
     gobierto_data:
+      configuration:
+        settings:
+          update:
+            error: 'Se ha producido un error al actualizar la configuración: %{validation_errors}'
+            success: Configuración guardada correctamente
       datasets:
         create:
           success: El conjunto de datos ha sido creado correctamente.

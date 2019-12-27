@@ -34,7 +34,7 @@ module GobiertoData
                        end
     end
 
-    def create_dataset_from_file(file_path, schema_file: nil, export_files: false, csv_separator: ",")
+    def load_data_from_file(file_path, schema_file: nil, export_files: false, csv_separator: ",")
       schema = schema_file.present? ? JSON.parse(File.read(schema_file)).deep_symbolize_keys : {}
       statements = GobiertoData::Datasets::CreationStatements.new(
         dataset: self,

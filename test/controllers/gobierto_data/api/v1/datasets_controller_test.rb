@@ -106,6 +106,27 @@ module GobiertoData
           end
         end
 
+        # GET /api/v1/data/datasets.xlsx
+        def test_index_xlsx_format
+          with(site: site) do
+            get gobierto_data_api_v1_datasets_path(format: :xlsx), as: :xlsx
+
+            assert_response :success
+
+            parsed_xlsx = RubyXL::Parser.parse_buffer response.parsed_body
+
+            assert_equal 1, parsed_xlsx.worksheets.count
+            sheet = parsed_xlsx.worksheets.first
+            assert_nil sheet[datasets_count + 1]
+            assert_equal %w(id name slug updated_at category), sheet[0].cells.map(&:value)
+            values = (1..datasets_count).map do |row_number|
+              sheet[row_number].cells.map { |cell| cell.value.to_s }
+            end
+            assert_includes values, array_data(dataset)
+            refute_includes values, array_data(other_site_dataset)
+          end
+        end
+
         # GET /api/v1/data/datasets/dataset-slug.json
         def test_dataset_data
           with(site: site) do
@@ -134,6 +155,22 @@ module GobiertoData
             parsed_csv = CSV.parse(response_data)
 
             assert_equal dataset.rails_model.count + 1, parsed_csv.count
+          end
+        end
+
+        # GET /api/v1/data/datasets/dataset-slug.xlsx
+        def test_dataset_data_as_xlsx
+          with(site: site) do
+            get gobierto_data_api_v1_dataset_path(dataset.slug, format: :xlsx), as: :xlsx
+
+            assert_response :success
+
+            parsed_xlsx = RubyXL::Parser.parse_buffer response.parsed_body
+
+            assert_equal 1, parsed_xlsx.worksheets.count
+            sheet = parsed_xlsx.worksheets.first
+            refute_nil sheet[dataset.rails_model.count]
+            assert_nil sheet[dataset.rails_model.count + 1]
           end
         end
 

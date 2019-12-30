@@ -160,6 +160,27 @@ module GobiertoData
           end
         end
 
+        # GET /api/v1/data/queries.xlsx
+        def test_index_xlsx_format
+          with(site: site) do
+            get gobierto_data_api_v1_queries_path(format: :xlsx), as: :xlsx
+
+            assert_response :success
+
+            parsed_xlsx = RubyXL::Parser.parse_buffer response.parsed_body
+
+            assert_equal 1, parsed_xlsx.worksheets.count
+            sheet = parsed_xlsx.worksheets.first
+            assert_nil sheet[open_queries_count + 1]
+            assert_equal %w(id name privacy_status sql dataset_id user_id), sheet[0].cells.map(&:value)
+            values = (1..open_queries_count).map do |row_number|
+              sheet[row_number].cells.map { |cell| cell.value.to_s }
+            end
+            assert_includes values, array_data(open_query)
+            refute_includes values, array_data(closed_query)
+          end
+        end
+
         # GET /api/v1/data/queries.json?dataset_id=1
         def test_index_filtered_by_dataset
           with(site: site) do
@@ -234,7 +255,7 @@ module GobiertoData
         end
 
         # GET /api/v1/data/queries/1.csv
-        def test_dataset_data_as_csv
+        def test_query_data_as_csv
           with(site: site) do
             get gobierto_data_api_v1_query_path(query, format: :csv), as: :csv
 
@@ -246,6 +267,23 @@ module GobiertoData
             assert_equal 2, parsed_csv.count
             assert_equal %w(count), parsed_csv.first
             assert_equal %w(7), parsed_csv.last
+          end
+        end
+
+        # GET /api/v1/data/queries/1.xlsx
+        def test_query_data_as_xlsx
+          with(site: site) do
+            get gobierto_data_api_v1_query_path(query, format: :xlsx), as: :xlsx
+
+            assert_response :success
+
+            parsed_xlsx = RubyXL::Parser.parse_buffer response.parsed_body
+
+            assert_equal 1, parsed_xlsx.worksheets.count
+            sheet = parsed_xlsx.worksheets.first
+            assert_nil sheet[2]
+            assert_equal %w(count), sheet[0].cells.map(&:value)
+            assert_equal [7], sheet[1].cells.map(&:value)
           end
         end
 

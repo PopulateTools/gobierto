@@ -8,6 +8,7 @@ module GobiertoData
         # GET /api/v1/data?sql=SELECT%20%2A%20FROM%20table_name
         # GET /api/v1/data.json?sql=SELECT%20%2A%20FROM%20table_name
         # GET /api/v1/data.csv?sql=SELECT%20%2A%20FROM%20table_name
+        # GET /api/v1/data.xlsx?sql=SELECT%20%2A%20FROM%20table_name
         def index
           query_result = execute_query(params[:sql] || {})
 
@@ -21,6 +22,10 @@ module GobiertoData
 
               format.csv do
                 render_csv(csv_from_query_result(query_result.fetch(:result, ""), csv_options_params))
+              end
+
+              format.xlsx do
+                send_data xlsx_from_query_result(query_result.fetch(:result, "")).read, filename: "data.xlsx"
               end
             end
           end

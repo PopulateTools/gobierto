@@ -3,7 +3,9 @@
     <div class="pure-g gutters">
       <div class="pure-u-1 pure-u-lg-1-4">
         <h4 class="investments-project--heading">
-          <span @click="navBack"><i class="fas fa-arrow-left" /> {{ labelBack }}</span>
+          <span
+            @click="navBack"
+          ><i class="fas fa-arrow-left" /> {{ labelBack }}</span>
           <span>{{ labelDetailTitle }}</span>
         </h4>
       </div>
@@ -60,14 +62,17 @@ export default {
         {
           data: { data: attributesDictionary, meta: filtersFromConfiguration }
         }
-      ] = await axios.all([axios.get(`${baseUrl}/${to.params.id}`), axios.get(`${baseUrl}/meta?stats=true`)]);
+      ] = await axios.all([
+        axios.get(`${baseUrl}/${to.params.id}`),
+        axios.get(`${baseUrl}/meta?stats=true`)
+      ]);
 
       next(async vm => {
         vm.dictionary = attributesDictionary;
-        vm.project = vm.setItem(item);
+        let project = vm.setItem(item);
 
         // Update $router
-        to.params.item = vm.project;
+        to.params.item = project;
 
         if (filtersFromConfiguration) {
           vm.phases = vm.getPhases(filtersFromConfiguration);
@@ -75,7 +80,7 @@ export default {
 
         // Optional callback to update data in background, setup in CONFIGURATION object
         // eslint-disable-next-line require-atomic-updates
-        vm.project = await vm.alterDataObjectOptional(vm.project);
+        vm.project = await vm.alterDataObjectOptional(project)
       });
     } else {
       next();
@@ -83,7 +88,9 @@ export default {
   },
   created() {
     this.labelBack = I18n.t("gobierto_investments.projects.back");
-    this.labelDetailTitle = I18n.t("gobierto_investments.projects.detail_title");
+    this.labelDetailTitle = I18n.t(
+      "gobierto_investments.projects.detail_title"
+    );
 
     const { item } = this.$route.params;
 

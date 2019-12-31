@@ -47,8 +47,8 @@ export default {
     }
   },
   watch: {
-    marked(newVal) {
-      this.$emit("checkbox-change", this.id, newVal)
+    marked(value) {
+      this.$emit("checkbox-change", { id: this.id, value })
     },
   }
 };

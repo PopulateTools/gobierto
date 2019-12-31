@@ -14,14 +14,18 @@ es:
     projects:
       all: Todas
       back: ver todo
-      date: Último año
+      date: Seleccione fecha
       detail_title: Detalle del proyecto
       empty: Sin resultados
       exit: Salir
       gallery: Galería
       list: Lista
+      loading: Cargando datos...
       map: Mapa
       none: Ninguna
+      reset: Limpiar filtros
       see: Ver de nuevo
+      showall: Ver todo
+      showless: Ver menos
       summary: Resumen por estados
       tour: Tour virtual

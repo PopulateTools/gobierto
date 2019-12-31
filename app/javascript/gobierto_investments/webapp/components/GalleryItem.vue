@@ -27,8 +27,8 @@
             <div v-if="attr.filter === 'money'">
               {{ attr.value | money }}
             </div>
-            <div v-else-if="attr.filter === 'translate'">
-              {{ attr.value }}
+            <div v-else-if="attr.filter === 'date'">
+              {{ attr.value | date }}
             </div>
             <div v-else>
               {{ attr.value }}
@@ -54,12 +54,14 @@ export default {
   },
   data() {
     return {
-      attributes: {},
-    }
+      attributes: {}
+    };
   },
   created() {
-    const { availableGalleryFields = {} } = this.item
-    this.attributes = availableGalleryFields
-  },
+    const { availableGalleryFields = {} } = this.item;
+    this.attributes = availableGalleryFields.filter(
+      ({ type, value }) => type === "separator" || (value !== null && value !== undefined && !(value instanceof Array && value.length === 0))
+    );
+  }
 };
 </script>

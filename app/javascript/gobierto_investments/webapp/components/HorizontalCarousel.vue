@@ -28,7 +28,10 @@ export default {
     }
   },
   mounted() {
-    new HorizontalCarousel(this.$el);
+    this.horizontalCarousel = new HorizontalCarousel(this.$el);
+  },
+  beforeDestroy() {
+    this.horizontalCarousel.destroy()
   }
 };
 </script>

@@ -8,6 +8,7 @@ module GobiertoData
         # GET /api/v1/data/visualizations
         # GET /api/v1/data/visualizations.json
         # GET /api/v1/data/visualizations.csv
+        # GET /api/v1/data/visualizations.xlsx
         def index
           respond_to do |format|
             format.json do
@@ -16,6 +17,10 @@ module GobiertoData
 
             format.csv do
               render_csv(csv_from_relation(filtered_relation, csv_options_params))
+            end
+
+            format.xlsx do
+              send_data xlsx_from_relation(filtered_relation, name: controller_name.titleize).read, filename: "#{controller_name.underscore}.xlsx"
             end
           end
         end

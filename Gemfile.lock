@@ -408,11 +408,11 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    sidekiq (6.0.4)
-      connection_pool (>= 2.2.2)
-      rack (>= 2.0.0)
-      rack-protection (>= 2.0.0)
-      redis (>= 4.1.0)
+    sidekiq (5.2.7)
+      connection_pool (~> 2.2, >= 2.2.2)
+      rack (>= 1.5.0)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
     sidekiq-monitor-stats (0.0.3)
       sidekiq
     signet (0.12.0)
@@ -553,7 +553,7 @@ DEPENDENCIES
   sassc
   savon (~> 2.12.0)
   selenium-webdriver
-  sidekiq (~> 6.0)
+  sidekiq (~> 5.2.7)
   sidekiq-monitor-stats
   simple_calendar (~> 2.2)
   spring

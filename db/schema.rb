@@ -533,6 +533,16 @@ ActiveRecord::Schema.define(version: 2020_01_13_173645) do
     t.index ["site_id"], name: "index_gdata_datasets_on_site_id"
   end
 
+  create_table "gdata_favorites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "favorited_type"
+    t.bigint "favorited_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["favorited_type", "favorited_id"], name: "index_gdata_favorites_on_favorited_type_and_favorited_id"
+    t.index ["user_id"], name: "index_gdata_favorites_on_user_id"
+  end
+
   create_table "gdata_queries", force: :cascade do |t|
     t.bigint "dataset_id"
     t.bigint "user_id"

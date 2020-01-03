@@ -5,6 +5,7 @@ require_dependency "gobierto_data"
 module GobiertoData
   class Dataset < ApplicationRecord
     include GobiertoCommon::Sluggable
+    include GobiertoData::Favoriteable
 
     belongs_to :site
     has_many :queries, dependent: :destroy

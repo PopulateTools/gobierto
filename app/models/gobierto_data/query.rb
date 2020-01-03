@@ -4,6 +4,8 @@ require_dependency "gobierto_data"
 
 module GobiertoData
   class Query < ApplicationRecord
+    include GobiertoData::Favoriteable
+
     belongs_to :dataset
     belongs_to :user
     has_many :visualizations, dependent: :destroy

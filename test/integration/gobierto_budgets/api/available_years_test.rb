@@ -30,14 +30,14 @@ module GobiertoBudgets
 
       def test_when_ok
         factories = [
-          BudgetLineFactory.new(organization_id: site.organization_id, year: 2018),
-          BudgetLineFactory.new(organization_id: site.organization_id, year: 2019)
+          BudgetLineFactory.new(organization_id: site.organization_id, year: Date.today.year - 1),
+          BudgetLineFactory.new(organization_id: site.organization_id, year: Date.today.year)
         ]
 
         with(site: site, factories: factories) do
           get request_path
 
-          assert_equal [2018, 2019], response_body
+          assert_equal [Date.today.year - 1, Date.today.year], response_body
         end
       end
 

@@ -21,7 +21,7 @@ module GobiertoBudgets
     end
 
     def stats
-      SUBJECT_CLASS.new(site: site, year: 2019)
+      SUBJECT_CLASS.new(site: site, year: Date.today.year)
     end
 
     def factory_params(params)

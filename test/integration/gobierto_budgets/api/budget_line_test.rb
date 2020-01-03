@@ -12,7 +12,7 @@ module GobiertoBudgets
       end
 
       def budget_line_id
-        "28079/2019/1/G"
+        "28079/#{Date.today.year}/1/G"
       end
 
       def amount
@@ -31,7 +31,7 @@ module GobiertoBudgets
       end
 
       def budget_line_factory
-        BudgetLineFactory.new(year: 2019, organization_id: site.organization_id)
+        BudgetLineFactory.new(year: Date.today.year, organization_id: site.organization_id)
       end
 
       def setup

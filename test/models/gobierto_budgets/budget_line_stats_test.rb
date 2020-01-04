@@ -36,7 +36,7 @@ module GobiertoBudgets
       {
         site: site,
         code: BudgetLineFactory.default_code,
-        year: 2019,
+        year: Date.today.year,
         kind: BudgetLineFactory.default_kind,
         area_name: BudgetLineFactory.default_area
       }

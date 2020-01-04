@@ -7,7 +7,7 @@ module GobiertoBudgets
   class BudgetTotalTest < ActiveSupport::TestCase
 
     POPULATION = 10
-    YEAR = 2019
+    YEAR = Date.today.year
     AMOUNT = 20_000
 
     def organization_id

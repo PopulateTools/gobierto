@@ -10,6 +10,7 @@ module GobiertoData
         # GET /api/v1/data/datasets
         # GET /api/v1/data/datasets.json
         # GET /api/v1/data/datasets.csv
+        # GET /api/v1/data/datasets.xlsx
         def index
           relation = filtered_relation
           respond_to do |format|
@@ -20,12 +21,17 @@ module GobiertoData
             format.csv do
               render_csv(csv_from_relation(relation, csv_options_params))
             end
+
+            format.xlsx do
+              send_data xlsx_from_relation(relation, name: controller_name.titleize).read, filename: "#{controller_name.underscore}.xlsx"
+            end
           end
         end
 
         # GET /api/v1/data/datasets/dataset-slug
         # GET /api/v1/data/datasets/dataset-slug.json
         # GET /api/v1/data/datasets/dataset-slug.csv
+        # GET /api/v1/data/datasets/dataset-slug.xlsx
         def show
           find_item
           relation = @item.rails_model.all
@@ -45,6 +51,10 @@ module GobiertoData
 
             format.csv do
               render_csv(csv_from_query_result(query_result.fetch(:result, ""), csv_options_params))
+            end
+
+            format.xlsx do
+              send_data xlsx_from_query_result(query_result.fetch(:result, ""), name: @item.name).read, filename: "#{@item.slug}.xlsx"
             end
           end
         end

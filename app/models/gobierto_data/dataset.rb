@@ -8,8 +8,8 @@ module GobiertoData
     include GobiertoData::Favoriteable
 
     belongs_to :site
-    has_many :queries, dependent: :destroy
-    has_many :visualizations, through: :queries
+    has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"
+    has_many :visualizations, through: :queries, class_name: "GobiertoData::Visualization"
 
     translates :name
 

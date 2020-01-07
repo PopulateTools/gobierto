@@ -107,12 +107,22 @@ module GobiertoData
           @user = current_site.users.find_by(id: filter_params&.dig(:user_id)) || current_user
         end
 
+        def find_user
+          @user = User.find_by(id: params[:user_id])
+        end
+
         def links(self_key = nil)
           return unless resource_type.present?
 
           {
             index: send("gobierto_data_api_v1_#{resource_type}_favorites_path", filter: filter_params)
           }.tap do |hash|
+            if resource_type == :dataset
+              hash[:user_favorited_queries] = send("user_favorited_queries_gobierto_data_api_v1_#{resource_type}_favorites_path", user_id: params[:user_id])
+            end
+            if [:dataset, :query].include? resource_type
+              hash[:user_favorited_visualizations] = send("user_favorited_visualizations_gobierto_data_api_v1_#{resource_type}_favorites_path", user_id: params[:user_id])
+            end
             hash[:self] = hash.delete(self_key) if self_key.present?
           end
         end

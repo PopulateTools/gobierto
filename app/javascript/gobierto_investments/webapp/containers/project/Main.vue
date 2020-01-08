@@ -109,7 +109,6 @@ export default {
       // // test
       // const { attributes: { partida, "any-partida": year, old_partida } } = this.project
       // // const { partida, old_partida, year } = this.attributes.find(d => d.id === "partida")
-      // console.log(partida, year, old_partida);
 
     }
   }

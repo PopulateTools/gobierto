@@ -12,3 +12,17 @@ es:
     layouts:
       application:
         gobierto_data: Datos
+    projects:
+      dataset: Conjunto de datos
+      queries: Consultas
+      visualizations: Visualizaciones
+      dashboards: Dashboards
+      analysis: Análisis
+      news: Noticias
+      info: Información
+      api: API
+      categories: Categorías
+      sets: Conjuntos
+      summary: Resumen
+      data: Datos
+      download: Descargar

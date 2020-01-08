@@ -12,3 +12,17 @@ ca:
     layouts:
       application:
         gobierto_data: Dades
+    projects:
+      dataset: Conjunt de dades
+      queries: Consultes
+      visualizations: Visualitzacions
+      dashboards: Dashboards
+      analysis: Anàlisi
+      news: Notícies
+      info: Informació
+      api: API
+      categories: Categories
+      sets: Conjunts
+      summary: Resum
+      data: Dades
+      download: Descàrrega

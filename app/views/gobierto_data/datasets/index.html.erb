@@ -3,7 +3,6 @@
 <div class="column">
     <div class="m_b_2">
     <div class="container sandbox">
-      <div class="column inner_cols one_col">
         <% @datasets.each do |dataset| %>
             <%= link_to(dataset.name, gobierto_data_dataset_path(dataset.slug)) %>
         <% end %>
@@ -12,7 +11,6 @@
              data-logo-url="<%= @site.configuration.logo_with_fallback %>"
              data-home-url="<%= root_url %>">
         </div>
-      </div>
     </div>
     </div>
 

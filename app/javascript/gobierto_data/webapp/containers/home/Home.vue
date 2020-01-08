@@ -27,11 +27,6 @@
     </div>
 
     <article>
-      <h3 class="investments-home-article--header">
-        {{ labelSummary }}
-      </h3>
-
-      <Article :phases="phases" />
     </article>
   </div>
 </template>

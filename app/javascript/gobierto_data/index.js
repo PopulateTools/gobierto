@@ -1,7 +1,7 @@
 import { GobiertoDataController } from "./modules/gobierto_data_controller.js";
 
 document.addEventListener('DOMContentLoaded', () => {
-  const appNode = document.getElementById("gobierto-data-app");
+  const appNode = document.getElementById("gobierto-datos-app");
 
   new GobiertoDataController({
     siteName: appNode.dataset.siteName,

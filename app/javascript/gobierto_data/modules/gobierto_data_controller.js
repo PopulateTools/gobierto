@@ -6,7 +6,7 @@ Vue.config.productionTip = false;
 
 export class GobiertoDataController {
   constructor(options) {
-    const selector = "gobierto-data-app";
+    const selector = "gobierto-datos-app";
 
     // Mount Vue application
     const entryPoint = document.getElementById(selector);
@@ -22,15 +22,11 @@ export class GobiertoDataController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () => import("../webapp/containers/home/Home.vue");
-      /*const Project = () => import("../webapp/containers/project/Project.vue");
-      const MapTour = () => import("../webapp/components/MapTour.vue");*/
 
       const router = new VueRouter({
         mode: "history",
         routes: [
           { path: "/datasets", name: "home", component: Home }
-          /*{ path: "/inversiones/proyectos/:id", name: "project", component: Project },
-          { path: "/inversiones/tour-virtual", name: "tourVirtual", component: MapTour }*/
         ],
         scrollBehavior() {
           const element = document.getElementById(selector);

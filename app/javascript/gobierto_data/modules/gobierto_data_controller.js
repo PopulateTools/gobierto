@@ -21,7 +21,7 @@ export class GobiertoDataController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () => import("../webapp/containers/home/Home.vue");
+      const Home = () => import("../webapp/pages/Home.vue");
 
       const router = new VueRouter({
         mode: "history",

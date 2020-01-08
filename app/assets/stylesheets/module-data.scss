@@ -1,0 +1,16 @@
+.gobierto-data {
+  @include min-screen(768) {
+    @include gutters(66px)
+  }
+
+
+  &-gobierto-data-home-nav {
+
+  }
+
+  &-gobierto-data-home-nav--tab {
+    font-size: 15px;
+    list-style: none;
+  }
+}
+

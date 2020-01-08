@@ -14,7 +14,6 @@ module GobiertoInvestments
         # GET /gobierto_investments/api/v1/projects
         # GET /gobierto_investments/api/v1/projects.json
         def index
-          @resource = GobiertoInvestments::Project.new
           relation = filtered_relation
 
           if stale?(relation)

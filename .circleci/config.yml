@@ -2,14 +2,14 @@
 defaults: &defaults
   working_directory: ~/gobierto
   docker:
-    - image: circleci/ruby:2.6.3-node-browsers
+    - image: circleci/ruby:2.6.5-node-browsers
       environment:
         RAILS_ENV: test
         PGHOST: localhost
         PGUSER: gobierto
         # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
         DISABLE_SPRING: true
-    - image: postgres:9.6
+    - image: postgres:12
       environment:
         POSTGRES_USER: gobierto
         POSTGRES_DB: gobierto_test

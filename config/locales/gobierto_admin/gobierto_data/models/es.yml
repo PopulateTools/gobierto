@@ -6,9 +6,17 @@ es:
         name: Nombre
         slug: Slug
         table_name: Nombre de la tabla
+      gobierto_admin/gobierto_data/settings_form:
+        db_config: Configuración de la conexión a la base de datos
     errors:
       models:
         gobierto_admin/gobierto_data/dataset_form:
           attributes:
             table_name:
               invalid_table: 'No se puede acceder a la tabla. Mensaje de error: "%{error_message}"'
+        gobierto_admin/gobierto_data/settings_form:
+          attributes:
+            db_config:
+              invalid_connection: 'No se puede conectar con los datos de configuración.
+                Mensaje de error: "%{error_message}"'
+              invalid_format: La configuración no tiene un formato JSON válido

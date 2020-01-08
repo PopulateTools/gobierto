@@ -7,6 +7,8 @@ module GobiertoData
     include GobiertoCommon::Sluggable
 
     belongs_to :site
+    has_many :queries, dependent: :destroy
+    has_many :visualizations, through: :queries
 
     translates :name
 
@@ -30,6 +32,22 @@ module GobiertoData
                            connection_model.table_name = table_name
                          end
                        end
+    end
+
+    def load_data_from_file(file_path, schema_file: nil, export_files: false, csv_separator: ",")
+      schema = schema_file.present? ? JSON.parse(File.read(schema_file)).deep_symbolize_keys : {}
+      statements = GobiertoData::Datasets::CreationStatements.new(
+        dataset: self,
+        source_file: file_path,
+        schema: schema,
+        csv_separator: csv_separator
+      )
+      if export_files
+        base_path = File.join(File.dirname(file_path), File.basename(file_path, ".*"))
+        File.open("#{base_path}_schema.json", "w") { |file| file.write(JSON.pretty_generate(statements.schema)) } if schema_file.blank?
+        File.open("#{base_path}_script.sql", "w") { |file| file.write(statements.sql_code) }
+      end
+      Connection.execute_query(site, statements.sql_code)
     end
 
     private

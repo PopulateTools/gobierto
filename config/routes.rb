@@ -240,6 +240,10 @@ Rails.application.routes.draw do
 
       namespace :gobierto_data, as: :data do
         resources :datasets
+
+        namespace :configuration do
+          resource :settings, only: [:edit, :update], path: :settings
+        end
       end
     end
 
@@ -561,7 +565,21 @@ Rails.application.routes.draw do
         # API
         namespace :api, path: "/" do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1/data" do
-            get "/" => "query#index", as: :root
+            get "data" => "query#index", as: :root, defaults: { format: "json" }
+            resources :datasets, only: [:index, :show], param: :slug, defaults: { format: "json" } do
+              collection do
+                get :meta
+              end
+              member do
+                get "meta" => "datasets#dataset_meta"
+              end
+            end
+            resources :queries, except: [:edit], defaults: { format: "json" } do
+              member do
+                get :meta
+              end
+            end
+            resources :visualizations, except: [:edit], defaults: { format: "json" }
           end
         end
       end

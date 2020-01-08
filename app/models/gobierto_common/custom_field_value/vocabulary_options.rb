@@ -7,7 +7,7 @@ module GobiertoCommon::CustomFieldValue
     end
 
     def value_string
-      value.map(&:name)
+      value.map(&:name).join(", ")
     end
 
     def filter_value

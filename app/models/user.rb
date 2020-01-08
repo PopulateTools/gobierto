@@ -20,6 +20,10 @@ class User < ApplicationRecord
   has_many :votes, dependent: :destroy, class_name: "GobiertoParticipation::Vote"
   has_many :comment, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
 
+  # GobiertoData
+  has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"
+  has_many :visualizations, dependent: :destroy, class_name: "GobiertoData::Visualization"
+
   accepts_nested_attributes_for :custom_records
 
   validates :email, uniqueness: { scope: :site }

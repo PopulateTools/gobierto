@@ -28,7 +28,7 @@ export class GobiertoDataController {
       const router = new VueRouter({
         mode: "history",
         routes: [
-          { path: "/gobierto-data", name: "home", component: Home }
+          { path: "/datasets", name: "home", component: Home }
           /*{ path: "/inversiones/proyectos/:id", name: "project", component: Project },
           { path: "/inversiones/tour-virtual", name: "tourVirtual", component: MapTour }*/
         ],

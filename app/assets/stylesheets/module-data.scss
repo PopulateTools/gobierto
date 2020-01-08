@@ -4,13 +4,23 @@
   }
 
 
-  &-gobierto-data-home-nav {
+  &-home-nav {
 
   }
 
-  &-gobierto-data-home-nav--tab {
-    font-size: 15px;
+  ul {
+    padding-left: 0;
+  }
+
+  &-home-nav--tab {
     list-style: none;
+    display: inline-block;
+    color: var(--color-base);
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 200;
+    font-style: normal;
+    margin: 0 1.5em 0 0;
   }
 }
 

@@ -166,7 +166,7 @@ GEM
     font-awesome-sass (5.12.0)
       sassc (>= 1.11)
     foreman (0.86.0)
-    geocoder (1.5.2)
+    geocoder (1.6.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     google-api-client (0.36.4)

@@ -7,9 +7,11 @@
       <h2 class="gobierto-data-title-dataset">
         {{ titleDataset }}
         <BlueButton>
+          <i class="fas fa-star" />
           <span>{{ labelFav }}</span>
         </BlueButton>
         <BlueButton>
+          <i class="fas fa-bell" />
           <span>{{ labelFollow }}</span>
         </BlueButton>
         <NavSets

@@ -13,44 +13,80 @@
 </template>
 
 <script>
-import { datepicker } from "lib/shared";
+import { Datepicker } from "lib/shared";
 
 export default {
   name: "Calendar",
+  props: {
+    savedStartDate: {
+      type: Date,
+      default: null
+    },
+    savedEndDate: {
+      type: Date,
+      default: null
+    }
+  },
   data() {
     return {
       labelDate: "",
-      startDate: new Date(),
-      endDate: new Date()
+      startDate: this.savedStartDate,
+      endDate: this.savedEndDate
     };
   },
   dateFmt: { day: "numeric", month: "short", year: "numeric" },
   computed: {
     startDateFmt() {
-      return this.startDate ? this.startDate.toLocaleDateString(I18n.locale, this.$options.dateFmt) : undefined
+      return this.startDate
+        ? this.startDate.toLocaleDateString(I18n.locale, this.$options.dateFmt)
+        : undefined;
     },
     endDateFmt() {
-      return this.endDate ? this.endDate.toLocaleDateString(I18n.locale, this.$options.dateFmt) : undefined
+      return this.endDate
+        ? this.endDate.toLocaleDateString(I18n.locale, this.$options.dateFmt)
+        : undefined;
+    }
+  },
+  watch: {
+    savedStartDate(n) {
+      this.startDate = n;
+    },
+    savedEndDate(n) {
+      this.endDate = n;
     }
   },
   created() {
     this.labelDate = I18n.t("gobierto_investments.projects.date");
   },
   mounted() {
-    datepicker(this.$el.querySelector("input"), {
-      language: I18n.locale,
-      autoClose: true,
-      range: true,
-      inline: false,
-      clearButton: true,
-      onSelect: (_, date) => {
-        const [start, end] = date;
-        this.startDate = start;
-        this.endDate = end;
+    this.setDatePicker();
+  },
+  updated() {
+    this.startDate = this.savedStartDate;
+    this.endDate = this.savedEndDate;
+    this.setDatePicker();
+  },
+  beforeDestroy() {
+    // https://vuejs.org/v2/cookbook/avoiding-memory-leaks.html
+    this.datepicker.destroy();
+  },
+  methods: {
+    setDatePicker() {
+      this.datepicker = new Datepicker(this.$el.querySelector("input"), {
+        language: I18n.locale,
+        autoClose: true,
+        range: true,
+        inline: false,
+        clearButton: true,
+        onSelect: (_, date) => {
+          const [start, end] = date;
+          this.startDate = start;
+          this.endDate = end;
 
-        this.$emit("calendar-change", start, end)
-      }
-    });
+          this.$emit("calendar-change", { start, end });
+        }
+      });
+    }
   }
 };
 </script>

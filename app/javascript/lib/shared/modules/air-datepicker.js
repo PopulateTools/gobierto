@@ -39,10 +39,22 @@ $.fn.datepicker.language["es"] = {
   firstDay: 1
 };
 
-export const datepicker = (elem, options) => {
-  if (elem) {
-    $(elem).datepicker(options);
+// http://t1m0n.name/air-datepicker/docs/
+export class Datepicker {
+  constructor(elem, options) {
+    this.element = elem || undefined
 
-    return $(elem)
+    if (this.element) {
+      const $selector = $(this.element)
+      if ($selector.data('datepicker') === undefined) {
+        $selector.datepicker(options);
+      }
+
+      return $selector.data('datepicker');
+    }
   }
-};
+
+  destroy() {
+    $(this.element).data('datepicker').destroy()
+  }
+}

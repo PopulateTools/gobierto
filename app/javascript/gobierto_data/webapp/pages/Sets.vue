@@ -12,7 +12,10 @@
         <BlueButton>
           <span>{{ labelFollow }}</span>
         </BlueButton>
-        <NavSets />
+        <NavSets
+          :active-tab="activeTabIndex"
+          @active-tab="activeTabIndex = $event"
+        />
       </h2>
     </div>
   </div>

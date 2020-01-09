@@ -80,7 +80,7 @@ export default {
       labelNews: "",
       labelInformation: "",
       labelAPI: ""
-    };
+    }
   },
   created() {
     this.labelDatasets = I18n.t("gobierto_data.projects.dataset")

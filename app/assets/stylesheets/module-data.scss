@@ -21,6 +21,53 @@
     font-weight: 200;
     font-style: normal;
     margin: 0 1.5em 0 0;
+    cursor: pointer;
+  }
+
+  &-layout-sidebar {
+    background-color: navajowhite;
+    height: 100%;
+  }
+
+  &-layout-column {
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  &-title-dataset {
+    font-family: $font_headings;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--color-base);
+    margin-top: 0;
+  }
+
+  &-btn-blue {
+    font-size: 14px;
+    background-color: var(--color-base);
+    cursor: pointer;
+    padding: 4px 9px;
+    line-height: 1.5;
+    font-weight: normal;
+    border-radius: 3px;
+    color: $color_main_negative;
+  }
+
+  &-sets-nav--tab {
+    list-style: none;
+    font-family: $font_text;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    color: #4A4A4A;
+    display: inline-block;
+    padding: .5rem;
+    background-color: #0065C8;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    cursor: pointer;
   }
 }
 

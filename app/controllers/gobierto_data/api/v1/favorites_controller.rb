@@ -55,7 +55,10 @@ module GobiertoData
         def destroy
           @item.destroy
 
-          head :no_content
+            head :no_content
+          else
+            send_not_found
+          end
         end
 
         private

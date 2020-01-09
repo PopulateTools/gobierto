@@ -43,6 +43,10 @@
     margin-top: 0;
   }
 
+  &-buttons {
+    text-align: right;
+  }
+
   &-btn-blue {
     font-size: 14px;
     background-color: var(--color-base);

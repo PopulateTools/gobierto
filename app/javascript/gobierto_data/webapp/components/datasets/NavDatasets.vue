@@ -7,6 +7,7 @@
         @click="activateTab(0)"
       >
         <span>{{ labelSummary }}</span>
+        <DatasetsSummary />
       </li>
       <li
         :class="{ 'is-active': activeTab === 1 }"
@@ -14,6 +15,7 @@
         @click="activateTab(1)"
       >
         <span>{{ labelData }}</span>
+        <DatasetsData />
       </li>
       <li
         :class="{ 'is-active': activeTab === 2 }"
@@ -21,6 +23,7 @@
         @click="activateTab(2)"
       >
         <span>{{ labelQueries }}</span>
+        <DatasetsQueries />
       </li>
       <li
         :class="{ 'is-active': activeTab === 3 }"
@@ -28,6 +31,7 @@
         @click="activateTab(3)"
       >
         <span>{{ labelVisualizations }}</span>
+        <DatasetsVisualizations />
       </li>
       <li
         :class="{ 'is-active': activeTab === 4 }"
@@ -36,13 +40,28 @@
       >
         <span>{{ labelDownload }}</span>
       </li>
+      <DatasetsDownloads />
     </ul>
   </nav>
 </template>
 
 <script>
+import DatasetsSummary from "./DatasetsSummary.vue";
+import DatasetsData from "./DatasetsData.vue";
+import DatasetsQueries from "./DatasetsQueries.vue";
+import DatasetsVisualizations from "./DatasetsVisualizations.vue";
+import DatasetsDownloads from "./DatasetsDownloads.vue";
+
+
 export default {
   name: "NavSets",
+  components: {
+    DatasetsSummary,
+    DatasetsData,
+    DatasetsQueries,
+    DatasetsVisualizations,
+    DatasetsDownloads
+  },
   props: {
     activeTab: {
       type: Number,

@@ -6,7 +6,7 @@
           :active-tab="activeTabIndex"
           @active-tab="activeTabIndex = $event"
         />
-        <Sets/>
+        <Datasets />
       </div>
     </div>
   </div>
@@ -14,14 +14,14 @@
 
 <script>
 import Nav from "./../components/Nav.vue";
-import Sets from "./../pages/Sets.vue";
+import Datasets from "./../pages/Datasets.vue";
 
 
 export default {
   name: "Home",
   components: {
     Nav,
-    Sets
+    Datasets
   },
   data() {
     return {

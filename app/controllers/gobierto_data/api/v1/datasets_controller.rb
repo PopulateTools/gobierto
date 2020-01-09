@@ -100,7 +100,10 @@ module GobiertoData
                 data: gobierto_data_api_v1_dataset_path(params[:slug]),
                 metadata: meta_gobierto_data_api_v1_dataset_path(params[:slug]),
                 queries: gobierto_data_api_v1_queries_path(filter: { dataset_id: id }),
-                visualizations: gobierto_data_api_v1_visualizations_path(filter: { dataset_id: id })
+                visualizations: gobierto_data_api_v1_visualizations_path(filter: { dataset_id: id }),
+                favorites: gobierto_data_api_v1_dataset_favorites_path(@item.slug),
+                user_favorited_queries: user_favorited_queries_gobierto_data_api_v1_dataset_favorites_path(@item.slug),
+                user_favorited_visualizations: user_favorited_visualizations_gobierto_data_api_v1_dataset_favorites_path(@item.slug)
               )
             end
 

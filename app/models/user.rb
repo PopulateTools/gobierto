@@ -23,6 +23,7 @@ class User < ApplicationRecord
   # GobiertoData
   has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"
   has_many :visualizations, dependent: :destroy, class_name: "GobiertoData::Visualization"
+  has_many :data_favorites, dependent: :destroy, class_name: "GobiertoData::Favorite"
 
   accepts_nested_attributes_for :custom_records
 

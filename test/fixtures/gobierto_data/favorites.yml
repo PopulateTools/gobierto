@@ -1,0 +1,47 @@
+dennis_users_dataset_favorite:
+  user: dennis
+  favorited: users_dataset (GobiertoData::Dataset)
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+dennis_events_dataset_favorite:
+  user: dennis
+  favorited: events_dataset (GobiertoData::Dataset)
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+dennis_users_count_query_favorite:
+  user: dennis
+  favorited: users_count_query (GobiertoData::Query)
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+dennis_events_count_query_favorite:
+  user: dennis
+  favorited: events_count_query (GobiertoData::Query)
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+dennis_users_count_visualization_favorite:
+  user: dennis
+  favorited: users_count_visualization (GobiertoData::Visualization)
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+dennis_census_verified_users_visualization_favorite:
+  user: dennis
+  favorited: census_verified_users_visualization (GobiertoData::Visualization)
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+
+peter_dataset_favorite:
+  user: peter
+  favorited: users_dataset (GobiertoData::Dataset)
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+reed_census_verified_users_query_favorite:
+  user: reed
+  favorited: census_verified_users_query (GobiertoData::Query)
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>

@@ -4,6 +4,8 @@ require_dependency "gobierto_data"
 
 module GobiertoData
   class Visualization < ApplicationRecord
+    include GobiertoData::Favoriteable
+
     belongs_to :query
     belongs_to :user
     enum privacy_status: { open: 0, closed: 1 }

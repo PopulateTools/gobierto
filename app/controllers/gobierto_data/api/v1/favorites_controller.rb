@@ -87,9 +87,13 @@ module GobiertoData
         def destroy
           find_item
 
-          @item.destroy
+          if @item.present?
+            @item.destroy
 
-          head :no_content
+            head :no_content
+          else
+            send_not_found
+          end
         end
 
         private
@@ -138,7 +142,7 @@ module GobiertoData
         end
 
         def find_item
-          @item = filtered_relation.find(params[:id])
+          @item = filtered_relation.find_by(id: params[:id])
         end
 
         def find_user

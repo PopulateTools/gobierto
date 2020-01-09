@@ -32,6 +32,11 @@ class ApiBaseController < ActionController::API
     render(json: { message: message }, status: :unauthorized, adapter: :json_api) && return
   end
 
+  def send_not_found(options = {})
+    message = options.delete(:message) || "Not found"
+    render(json: { message: message }, status: :not_found, adapter: :json_api) && return
+  end
+
   def raise_module_not_enabled(_redirect)
     head :forbidden
   end

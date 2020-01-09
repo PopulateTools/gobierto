@@ -20,7 +20,7 @@
   }
 
   &-layout-sidebar {
-    background-color: navajowhite;
+    background-color: rgba(1,120,168, .2);
     height: 100%;
   }
 
@@ -92,6 +92,9 @@
 
   &-summary-header-container {
     margin: .5rem 0;
+    .fas {
+      color: rgba(1,120,168, .2);
+    }
   }
 
   &-summary-header-container-text,
@@ -105,6 +108,31 @@
     width: 110px;
     color: rgba(102, 102, 102, .5);
   }
+
+  &-summary-btn-download-data {
+    background-color: #fff;
+    color: var(--color-base);
+    border-radius: 3px;
+    padding: 1.5rem;
+    border: 1px solid rgba(1,120,168, .2);
+  }
+
+  &-summary-resources {
+    display: block;
+    width: 100%;
+    letter-spacing: 0;
+    padding: 1rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(102, 102, 102, .75);
+  }
+
+  &-tabs-section-title {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    color: #666;
+  }
+
 
 
 }

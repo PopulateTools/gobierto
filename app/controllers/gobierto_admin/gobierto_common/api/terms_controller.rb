@@ -8,6 +8,7 @@ module GobiertoAdmin
 
         skip_before_action :authenticate_admin!, :set_admin_with_token
         before_action :set_admin_by_session_or_token
+        before_action :check_permissions!
 
         def create
           load_vocabulary
@@ -31,6 +32,9 @@ module GobiertoAdmin
           set_admin_with_token unless (@current_admin = find_current_admin).present?
         end
 
+        def check_permissions!
+          render(json: { message: "Module not allowed" }, status: :unauthorized) unless current_admin.can_edit_vocabularies?
+        end
       end
     end
   end

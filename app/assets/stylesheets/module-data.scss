@@ -3,11 +3,6 @@
     @include gutters(66px)
   }
 
-
-  &-home-nav {
-
-  }
-
   ul {
     padding-left: 0;
   }
@@ -89,6 +84,28 @@
       margin: 0;
     }
   }
+
+  &-summary-header {
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  &-summary-header-container {
+    margin: .5rem 0;
+  }
+
+  &-summary-header-container-text,
+  &-summary-header-container-label {
+    font-size: 1rem;
+    color: #666;
+    display: inline-block;
+  }
+
+  &-summary-header-container-label {
+    width: 110px;
+    color: rgba(102, 102, 102, .5);
+  }
+
 
 }
 

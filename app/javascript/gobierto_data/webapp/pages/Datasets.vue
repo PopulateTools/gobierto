@@ -51,8 +51,6 @@ export default {
   created() {
     this.labelFav = I18n.t("gobierto_data.projects.fav")
     this.labelFollow = I18n.t("gobierto_data.projects.follow")
-  },
-  methods: {
   }
-};
+}
 </script>

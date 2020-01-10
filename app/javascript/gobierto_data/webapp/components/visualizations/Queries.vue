@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: "SetsSummary",
+  name: "Queries",
   data() {
     return {
 

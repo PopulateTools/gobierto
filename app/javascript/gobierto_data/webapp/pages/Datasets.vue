@@ -1,19 +1,49 @@
 <template>
-  <div class="pure-g gobierto-data-datasets">
-    <div class="pure-u-1 pure-u-lg-1-4 gobierto-data-layout-column gobierto-data-layout-sidebar">
-      <p>Sidebar</p>
-    </div>
-    <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
+  <div class="pure-g gobierto-data-visualizations">
+    <Layout>
+      <template v-slot:header />
 
-    </div>
+      <template v-slot:default>
+        <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
+          <div class="pure-g">
+            <div class="pure-u-1-2">
+              <h2 class="gobierto-data-title-dataset">
+                {{ titleDataset }}
+              </h2>
+            </div>
+            <div class="pure-u-1-2 gobierto-data-buttons">
+              <Button>
+                <i class="fas fa-star" />
+                <span>{{ labelFav }}</span>
+              </Button>
+              <Button>
+                <i class="fas fa-bell" />
+                <span>{{ labelFollow }}</span>
+              </Button>
+            </div>
+          </div>
+          <NavDatasets
+            :active-tab="activeTabIndex"
+            @active-tab="activeTabIndex = $event"
+          />
+        </div>
+      </template>
+    </Layout>
   </div>
 </template>
-
 <script>
+import Layout from "./../layouts/Layout.vue";
+import Button from "./../components/commons/Button.vue";
+import NavDatasets from "./../components/visualizations/Nav.vue";
 
 
 export default {
   name: "Datasets",
+  components: {
+    Button,
+    Layout,
+    NavDatasets
+  },
   data() {
     return {
       activeTabIndex: 0,
@@ -27,4 +57,5 @@ export default {
     this.labelFollow = I18n.t("gobierto_data.projects.follow")
   }
 }
+
 </script>

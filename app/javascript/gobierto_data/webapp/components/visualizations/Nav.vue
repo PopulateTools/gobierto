@@ -39,29 +39,29 @@
         </li>
       </ul>
     </nav>
-    <DatasetsSummary v-if="activeTab === 0" />
-    <DatasetsData v-if="activeTab === 1" />
-    <DatasetsQueries v-if="activeTab === 2" />
-    <DatasetsVisualizations v-if="activeTab === 3" />
-    <DatasetsDownloads v-if="activeTab === 4" />
+    <Summary v-if="activeTab === 0" />
+    <Data v-if="activeTab === 1" />
+    <Queries v-if="activeTab === 2" />
+    <Visualizations v-if="activeTab === 3" />
+    <Downloads v-if="activeTab === 4" />
   </div>
 </template>
 <script>
-import DatasetsSummary from "./Summary.vue";
-import DatasetsData from "./Data.vue";
-import DatasetsQueries from "./Queries.vue";
-import DatasetsVisualizations from "./Visualizations.vue";
-import DatasetsDownloads from "./Downloads.vue";
+import Summary from "./Summary.vue";
+import Data from "./Data.vue";
+import Queries from "./Queries.vue";
+import Visualizations from "./Visualizations.vue";
+import Downloads from "./Downloads.vue";
 
 
 export default {
   name: "NavSets",
   components: {
-    DatasetsSummary,
-    DatasetsData,
-    DatasetsQueries,
-    DatasetsVisualizations,
-    DatasetsDownloads
+    Summary,
+    Data,
+    Queries,
+    Visualizations,
+    Downloads
   },
   props: {
     activeTab: {

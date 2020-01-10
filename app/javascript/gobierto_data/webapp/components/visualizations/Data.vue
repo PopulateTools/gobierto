@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: "SetsData",
+  name: "Data",
   data() {
     return {
 

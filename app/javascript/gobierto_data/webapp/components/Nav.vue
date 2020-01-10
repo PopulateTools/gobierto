@@ -60,23 +60,22 @@
         </li>
       </ul>
     </nav>
-    <Datasets v-if="activeTab === 0" />
-    <Queries v-if="activeTab === 1" />
-    <Visualizations v-if="activeTab === 2" />
+    <!-- <Sets v-if="activeTab === 0" />
+    <Queries v-if="activeTab === 2" /> -->
   </div>
 </template>
 
 <script>
-import Datasets from "./../pages/Datasets.vue";
+import Categories from "./../pages/Categories.vue";
 import Queries from "./../pages/Queries.vue";
-import Visualizations from "./../pages/Visualizations.vue";
+import Sets from "./../pages/Sets.vue";
 
 
 export default {
   name: "HomeNav",
   components: {
-    Visualizations,
-    Datasets,
+    Sets,
+    Categories,
     Queries
   },
   props: {

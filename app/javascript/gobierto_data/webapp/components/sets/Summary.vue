@@ -58,9 +58,7 @@ export default {
       labelFrequency: '',
       labelSubject: '',
       labelDownloadData: '',
-      dataset: {
-        description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
-      }
+      datasetDescription: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
     }
   },
   created() {

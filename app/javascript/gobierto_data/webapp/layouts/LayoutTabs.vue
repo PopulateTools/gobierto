@@ -1,12 +1,12 @@
 <template>
-  <Layout>
+  <div>
     <Sidebar>
       <template v-slot:sidebar>
         <slot name="sidebar" />
       </template>
     </Sidebar>
     <slot />
-  </Layout>
+  </div>
 </template>
 <script>
 import Sidebar from "./../components/Sidebar.vue";

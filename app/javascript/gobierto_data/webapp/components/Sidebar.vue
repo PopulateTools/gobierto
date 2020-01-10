@@ -1,34 +1,34 @@
 <template>
-  <div class="pure-g gobierto-data-visualizations">
+  <div class="pure-g">
     <div class="pure-u-1 pure-u-lg-1-4 gobierto-data-layout-column gobierto-data-layout-sidebar">
-      <nav class="gobierto-data-home-nav">
+      <nav class="gobierto-data-tabs-sidebar">
         <ul>
           <li
             :class="{ 'is-active': activeTab === 0 }"
-            class="gobierto-data-home-nav--tab"
+            class="gobierto-data-tab-sidebar--tab"
             @click="activateTab(0)"
+          >
+            <span>{{ labelCategories }}</span>
+          </li>
+          <li
+            :class="{ 'is-active': activeTab === 1 }"
+            class="gobierto-data-tab-sidebar--tab"
+            @click="activateTab(1)"
           >
             <span>{{ labelSets }}</span>
           </li>
           <li
-            :class="{ 'is-active': activeTab === 1 }"
-            class="gobierto-data-home-nav--tab"
-            @click="activateTab(1)"
-          >
-            <span>{{ labelQueries }}</span>
-          </li>
-          <li
             :class="{ 'is-active': activeTab === 2 }"
-            class="gobierto-data-home-nav--tab"
+            class="gobierto-data-tab-sidebar--tab"
             @click="activateTab(2)"
           >
-            <span>{{ labelCategories }}</span>
+            <span>{{ labelQueries }}</span>
           </li>
         </ul>
       </nav>
     </div>
-    <Categories v-if="activeTab === 1" />
     <Sets v-if="activeTab === 0" />
+    <Categories v-if="activeTab === 1" />
     <Queries v-if="activeTab === 2" />
   </div>
 </template>

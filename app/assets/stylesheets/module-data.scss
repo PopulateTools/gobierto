@@ -27,9 +27,32 @@
   }
 
   &-layout-sidebar {
-    background-color: rgba(1,120,168, .2);
     height: 100%;
   }
+
+  &-tabs-sidebar {
+    list-style: none;
+  }
+
+  &-tab-sidebar--tab {
+    font-style: normal;
+    font-size: 14px;
+    line-height: 18px;
+    color: #666;
+    cursor: pointer;
+    width: 32%;
+    display: inline-block;
+    text-align: center;
+    padding-bottom: .25rem;
+    border-bottom: 2px solid #0065C8;
+    opacity: .5;
+    &.is-active {
+      opacity: 1;
+      font-weight: bold;
+    }
+  }
+
+
 
   &-layout-column {
     padding: 1rem;

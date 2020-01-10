@@ -137,10 +137,30 @@
     font-weight: bold;
     font-size: 16px;
     line-height: 20px;
+    margin-bottom: 1rem;
     color: #666;
   }
 
+  &-resources-list-element {
+    display: inline-block;
+    width: 50%;
+    margin-bottom: 1rem;
+    .fas {
+      color: var(--color-base);
+    }
+  }
 
+  &-resources-list-element-name {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--color-base);
+  }
+
+  &-resources-list-element-size {
+    font-size: 16px;
+    color: var(--color-base);
+  }
 
 }
 

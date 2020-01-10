@@ -185,5 +185,44 @@
     color: var(--color-base);
   }
 
+  &-summary-queries {
+    width: 100%;
+    letter-spacing: 0;
+  }
+
+  &-summary-queries-panel {
+    border: 1px solid rgba(var(--color-base-string), 0.3);
+    border-radius: 3px;
+    position: relative;
+    &:after {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      width: 1px;
+      position: absolute;
+      left: 50%;
+      background-color: rgba(var(--color-base-string), 0.3);
+    }
+  }
+
+  &-summary-queries-panel-title {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    color: #666;
+    display: inline-block;
+
+  }
+
+  &-summary-queries-element {
+    padding: 1rem;
+  }
+
+  &-summary-queries-sql-code {
+    padding: 1rem;
+  }
+
+
+
 }
 

@@ -1,17 +1,17 @@
 <template>
   <div>
-    <p>Queries</p>
+    <QueriesCode />
   </div>
 </template>
 
 <script>
 
+import QueriesCode from "./../commons/Queries.vue";
+
 export default {
   name: "Queries",
-  data() {
-    return {
-
-    }
+  components: {
+    QueriesCode
   }
 }
 </script>

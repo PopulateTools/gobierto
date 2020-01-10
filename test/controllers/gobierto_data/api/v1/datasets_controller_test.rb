@@ -188,7 +188,7 @@ module GobiertoData
             assert_equal resource_data["id"], dataset.id.to_s
 
             # attributes
-            %w(name slug updated_at data_summary data_preview).each do |attribute|
+            %w(name slug updated_at data_summary columns data_preview).each do |attribute|
               resource_data["attributes"].has_key? attribute
             end
             assert resource_data["attributes"].has_key?(datasets_category.uid)

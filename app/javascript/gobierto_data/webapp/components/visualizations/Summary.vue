@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import Resources from "./../Resources.vue";
+import Resources from "./../commons/Resources.vue";
 
 export default {
   name: "DatasetsSummary",

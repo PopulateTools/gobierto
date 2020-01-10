@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import BlueButton from "./../components/BlueButton.vue";
-import NavDatasets from "./../components/datasets/NavDatasets.vue";
+import BlueButton from "./../components/commons/Button.vue";
+import NavDatasets from "./../components/visualizations/Nav.vue";
 
 
 export default {

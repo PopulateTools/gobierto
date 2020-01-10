@@ -14,7 +14,7 @@
 
 <script>
 import Nav from "./../components/Nav.vue";
-import Datasets from "./../pages/Datasets.vue";
+import Datasets from "./../pages/Visualizations.vue";
 
 
 export default {
@@ -30,5 +30,5 @@ export default {
   },
   methods: {
   }
-};
+}
 </script>

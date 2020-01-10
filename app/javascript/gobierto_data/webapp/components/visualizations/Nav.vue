@@ -47,11 +47,11 @@
   </div>
 </template>
 <script>
-import DatasetsSummary from "./DatasetsSummary.vue";
-import DatasetsData from "./DatasetsData.vue";
-import DatasetsQueries from "./DatasetsQueries.vue";
-import DatasetsVisualizations from "./DatasetsVisualizations.vue";
-import DatasetsDownloads from "./DatasetsDownloads.vue";
+import DatasetsSummary from "./Summary.vue";
+import DatasetsData from "./Data.vue";
+import DatasetsQueries from "./Queries.vue";
+import DatasetsVisualizations from "./Visualizations.vue";
+import DatasetsDownloads from "./Downloads.vue";
 
 
 export default {

@@ -1,69 +1,84 @@
 <template>
-  <nav class="gobierto-data-home-nav">
-    <ul>
-      <li
-        :class="{ 'is-active': activeTab === 0 }"
-        class="gobierto-data-home-nav--tab"
-        @click="activateTab(0)"
-      >
-        <span>{{ labelDatasets }}</span>
-      </li>
-      <li
-        :class="{ 'is-active': activeTab === 1 }"
-        class="gobierto-data-home-nav--tab"
-        @click="activateTab(1)"
-      >
-        <span>{{ labelQueries }}</span>
-      </li>
-      <li
-        :class="{ 'is-active': activeTab === 2 }"
-        class="gobierto-data-home-nav--tab"
-        @click="activateTab(2)"
-      >
-        <span>{{ labelVisualizations }}</span>
-      </li>
-      <li
-        :class="{ 'is-active': activeTab === 3 }"
-        class="gobierto-data-home-nav--tab"
-        @click="activateTab(3)"
-      >
-        <span>{{ labelDashboards }}</span>
-      </li>
-      <li
-        :class="{ 'is-active': activeTab === 4 }"
-        class="gobierto-data-home-nav--tab"
-        @click="activateTab(4)"
-      >
-        <span>{{ labelAnalysis }}</span>
-      </li>
-      <li
-        :class="{ 'is-active': activeTab === 5 }"
-        class="gobierto-data-home-nav--tab"
-        @click="activateTab(5)"
-      >
-        <span>{{ labelNews }}</span>
-      </li>
-      <li
-        :class="{ 'is-active': activeTab === 6 }"
-        class="gobierto-data-home-nav--tab"
-        @click="activateTab(6)"
-      >
-        <span>{{ labelInformation }}</span>
-      </li>
-      <li
-        :class="{ 'is-active': activeTab === 7 }"
-        class="gobierto-data-home-nav--tab"
-        @click="activateTab(7)"
-      >
-        <span>{{ labelAPI }}</span>
-      </li>
-    </ul>
-  </nav>
+  <div>
+    <nav class="gobierto-data-home-nav">
+      <ul>
+        <li
+          :class="{ 'is-active': activeTab === 0 }"
+          class="gobierto-data-home-nav--tab"
+          @click="activateTab(0)"
+        >
+          <span>{{ labelDatasets }}</span>
+        </li>
+        <li
+          :class="{ 'is-active': activeTab === 1 }"
+          class="gobierto-data-home-nav--tab"
+          @click="activateTab(1)"
+        >
+          <span>{{ labelQueries }}</span>
+        </li>
+        <li
+          :class="{ 'is-active': activeTab === 2 }"
+          class="gobierto-data-home-nav--tab"
+          @click="activateTab(2)"
+        >
+          <span>{{ labelVisualizations }}</span>
+        </li>
+        <li
+          :class="{ 'is-active': activeTab === 3 }"
+          class="gobierto-data-home-nav--tab"
+          @click="activateTab(3)"
+        >
+          <span>{{ labelDashboards }}</span>
+        </li>
+        <li
+          :class="{ 'is-active': activeTab === 4 }"
+          class="gobierto-data-home-nav--tab"
+          @click="activateTab(4)"
+        >
+          <span>{{ labelAnalysis }}</span>
+        </li>
+        <li
+          :class="{ 'is-active': activeTab === 5 }"
+          class="gobierto-data-home-nav--tab"
+          @click="activateTab(5)"
+        >
+          <span>{{ labelNews }}</span>
+        </li>
+        <li
+          :class="{ 'is-active': activeTab === 6 }"
+          class="gobierto-data-home-nav--tab"
+          @click="activateTab(6)"
+        >
+          <span>{{ labelInformation }}</span>
+        </li>
+        <li
+          :class="{ 'is-active': activeTab === 7 }"
+          class="gobierto-data-home-nav--tab"
+          @click="activateTab(7)"
+        >
+          <span>{{ labelAPI }}</span>
+        </li>
+      </ul>
+    </nav>
+    <Datasets v-if="activeTab === 0" />
+    <Queries v-if="activeTab === 1" />
+    <Visualizations v-if="activeTab === 2" />
+  </div>
 </template>
 
 <script>
+import Datasets from "./../pages/Datasets.vue";
+import Queries from "./../pages/Queries.vue";
+import Visualizations from "./../pages/Visualizations.vue";
+
+
 export default {
   name: "HomeNav",
+  components: {
+    Visualizations,
+    Datasets,
+    Queries
+  },
   props: {
     activeTab: {
       type: Number,

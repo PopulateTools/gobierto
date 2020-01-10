@@ -16,7 +16,14 @@
     font-weight: 200;
     font-style: normal;
     margin: 0 1.5em 0 0;
+    border-bottom: 2px solid transparent;
     cursor: pointer;
+    &:hover {
+      border-bottom: 2px solid rgba(var(--color-base-string), 0.5);
+    }
+    &.is-active {
+      font-weight: bold;
+    }
   }
 
   &-layout-sidebar {

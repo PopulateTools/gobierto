@@ -1,5 +1,5 @@
 <template>
-  <div class="pure-g">
+  <div class="pure-g gobierto-data-visualizations">
     <div class="pure-u-1 pure-u-lg-1-4 gobierto-data-layout-column gobierto-data-layout-sidebar">
       <p>Sidebar</p>
     </div>
@@ -11,14 +11,14 @@
           </h2>
         </div>
         <div class="pure-u-1-2 gobierto-data-buttons">
-          <BlueButton>
+          <Button>
             <i class="fas fa-star" />
             <span>{{ labelFav }}</span>
-          </BlueButton>
-          <BlueButton>
+          </Button>
+          <Button>
             <i class="fas fa-bell" />
             <span>{{ labelFollow }}</span>
-          </BlueButton>
+          </Button>
         </div>
       </div>
       <NavDatasets
@@ -30,14 +30,14 @@
 </template>
 
 <script>
-import BlueButton from "./../components/commons/Button.vue";
+import Button from "./../components/commons/Button.vue";
 import NavDatasets from "./../components/visualizations/Nav.vue";
 
 
 export default {
-  name: "Datasets",
+  name: "Visualizations",
   components: {
-    BlueButton,
+    Button,
     NavDatasets
   },
   data() {

@@ -22,16 +22,18 @@ export class GobiertoDataController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () => import("../webapp/pages/Home.vue");
+      const Datasets = () => import("../webapp/pages/Datasets.vue");
+      const Queries = () => import("../webapp/pages/Queries.vue");
+      const Visualizations = () => import("../webapp/pages/Visualizations.vue");
 
       const router = new VueRouter({
         mode: "history",
         routes: [
-          { path: "/datasets", name: "home", component: Home }
-        ],
-        scrollBehavior() {
-          const element = document.getElementById(selector);
-          window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
-        }
+          { path: "/datasets", name: "home", component: Home },
+          { path: "/datasets/conjuntos", name: "datasets", component: Datasets },
+          { path: "/datasets/consultas", name: "queries", component: Queries },
+          { path: "/datasets/visualizaciones", name: "visualizations", component: Visualizations }
+        ]
       });
 
       const baseTitle = document.title;

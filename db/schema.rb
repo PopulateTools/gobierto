@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_12_104759) do
+ActiveRecord::Schema.define(version: 2020_01_10_121522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -1015,6 +1015,16 @@ ActiveRecord::Schema.define(version: 2019_12_12_104759) do
     t.integer "site_id"
     t.index ["key"], name: "index_translations_on_key"
     t.index ["locale"], name: "index_translations_on_locale"
+  end
+
+  create_table "user_api_tokens", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name"
+    t.string "token"
+    t.boolean "primary", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_api_tokens_on_user_id"
   end
 
   create_table "user_notifications", id: :serial, force: :cascade do |t|

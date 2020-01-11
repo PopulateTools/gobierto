@@ -1,0 +1,34 @@
+dennis_primary_api_token:
+  user: dennis
+  primary: true
+  token: dennis_primary_api_token
+
+reed_primary_api_token:
+  user: reed
+  primary: true
+  token: reed_primary_api_token
+
+susan_primary_api_token:
+  user: susan
+  primary: true
+  token: susan_primary_api_token
+
+peter_primary_api_token:
+  user: peter
+  primary: true
+  token: peter_primary_api_token
+
+charles_primary_api_token:
+  user: charles
+  primary: true
+  token: charles_primary_api_token
+
+janet_primary_api_token:
+  user: janet
+  primary: true
+  token: janet_primary_api_token
+
+martin_primary_api_token:
+  user: martin
+  primary: true
+  token: martin_primary_api_token

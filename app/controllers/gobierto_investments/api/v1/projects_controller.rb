@@ -6,7 +6,7 @@ module GobiertoInvestments
       class ProjectsController < ApiBaseController
 
         include ::GobiertoCommon::CustomFieldsApi
-        include ::GobiertoCommon::SecuredWithToken
+        include ::GobiertoCommon::SecuredWithAdminToken
 
         skip_before_action :set_admin_with_token, only: [:index, :show, :new, :meta]
         before_action :module_allowed, except: [:index, :show, :new, :meta]

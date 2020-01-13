@@ -201,7 +201,7 @@
       width: 1px;
       position: absolute;
       left: 50%;
-      background-color: rgba(var(--color-base-string), 0.3);
+      background-color: rgba(var(--color-base-string), .3);
     }
   }
 
@@ -222,6 +222,10 @@
     padding: 1rem;
   }
 
+  &-btn-download-data {
+    border: 1px solid rgba(var(--color-base-string), .2);
+    padding: 1rem;
+  }
 
 
 }

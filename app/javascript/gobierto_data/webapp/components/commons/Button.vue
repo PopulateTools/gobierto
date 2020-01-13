@@ -1,7 +1,7 @@
 <template>
   <button
     class="gobierto-data-btn-blue"
-    :style="{ 'color': color }"
+    :style="{ 'color': color, 'background-color': background }"
   >
     <i
       class="fas"
@@ -24,6 +24,10 @@ export default {
       required: true
     },
     color: {
+      type: String,
+      required: true
+    },
+    background: {
       type: String,
       required: true
     }

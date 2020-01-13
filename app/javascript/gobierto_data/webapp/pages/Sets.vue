@@ -11,11 +11,13 @@
           :text="labelFav"
           icon="star"
           color="#fff"
+          background="var(--color-base)"
         />
         <Button
           :text="labelFollow"
           icon="bell"
           color="#fff"
+          background="var(--color-base)"
         />
       </div>
     </div>

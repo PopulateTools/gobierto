@@ -4,7 +4,9 @@
     <Button
       :text="labelDownloadData"
       icon="download"
-      color="#fff"
+      color="var(--color-base)"
+      background="#fff"
+      class="gobierto-data-btn-download-data"
     />
     <Resources :items="filesDataset" />
     <Queries />
@@ -27,7 +29,7 @@ export default {
   },
   data() {
     return {
-      labelResources: "",
+      labelDownloadData: "",
       filesDataset: [{
           file: {
             name: 'Actuaciones Bomberos Enero 2019.xls',
@@ -102,7 +104,11 @@ export default {
         }
       ]
     }
+  },
+  created() {
+    this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
   }
+
 }
 
 </script>

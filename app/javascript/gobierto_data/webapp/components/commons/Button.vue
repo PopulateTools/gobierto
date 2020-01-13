@@ -4,9 +4,9 @@
     :style="{ 'color': color, 'background-color': background }"
   >
     <i
-      class="fas"
-      :class="'fa-' + icon"
       :style="{ 'color': iconColor }"
+      :class="'fa-' + icon"
+      class="fas"
     />
     {{ text }}
   </button>

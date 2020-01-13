@@ -26,7 +26,7 @@
         </span>
         <a
           href=""
-          class="gobierto-data-summary-header-container-text"
+          class="gobierto-data-summary-header-container-text-link"
         >
           Urbanismo e infraestructuras
         </a>

@@ -28,7 +28,7 @@ import { commands } from 'codemirror/src/edit/commands.js'
 import 'codemirror/src/model/selection_updates.js'
 
 export default {
-  name: 'CodeMirror',
+  name: 'codemirror',
   props: {
     msg: String
   },
@@ -139,11 +139,6 @@ FROM
 <style>
 .CodeMirror-code {
   text-align: left;
-}
-
-.container {
-  width: 80%;
-  margin: 0 auto;
 }
 
 .container-editor {

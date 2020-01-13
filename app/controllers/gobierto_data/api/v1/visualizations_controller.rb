@@ -5,6 +5,9 @@ module GobiertoData
     module V1
       class VisualizationsController < BaseController
 
+        before_action :authenticate_user!, except: [:index, :show, :new]
+        before_action :allow_author!, only: [:update, :destroy]
+
         # GET /api/v1/data/visualizations
         # GET /api/v1/data/visualizations.json
         # GET /api/v1/data/visualizations.csv
@@ -41,7 +44,7 @@ module GobiertoData
         # GET /api/v1/data/visualizations/new
         # GET /api/v1/data/visualizations/new.json
         def new
-          @item = base_relation.model.new(name_translations: available_locales_hash)
+          @item = base_relation.model.new(name_translations: available_locales_hash, user: current_user)
 
           render(
             json: @item,
@@ -55,7 +58,7 @@ module GobiertoData
         # POST /api/v1/data/visualizations
         # POST /api/v1/data/visualizations.json
         def create
-          @visualization_form = VisualizationForm.new(visualization_params.merge(site_id: current_site.id))
+          @visualization_form = VisualizationForm.new(visualization_params.merge(site_id: current_site.id, user_id: current_user.id))
 
           if @visualization_form.save
             @item = @visualization_form.visualization
@@ -75,7 +78,6 @@ module GobiertoData
         # PUT /api/v1/data/visualizations/1
         # PUT /api/v1/data/visualizations/1.json
         def update
-          find_item
           @visualization_form = VisualizationForm.new(visualization_params.except(*ignored_attributes_on_update).merge(site_id: current_site.id, id: @item.id))
 
           if @visualization_form.save
@@ -94,8 +96,6 @@ module GobiertoData
         # DELETE /api/v1/data/visualizations/1
         # DELETE /api/v1/data/visualizations/1.json
         def destroy
-          find_item
-
           @item.destroy
 
           head :no_content
@@ -122,7 +122,7 @@ module GobiertoData
         end
 
         def visualization_params
-          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:user_id, :query_id, :name_translations, :name, :privacy_status, :spec])
+          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:query_id, :name_translations, :name, :privacy_status, :spec])
         end
 
         def filter_params
@@ -159,6 +159,11 @@ module GobiertoData
 
         def ignored_attributes_on_update
           [:query_id, :user_id]
+        end
+
+        def allow_author!
+          find_item
+          render(json: { message: "Unauthorized" }, status: :unauthorized, adapter: :json_api) && return if @item.user != current_user
         end
       end
     end

@@ -37,11 +37,7 @@
         {{ datasetDescription }}
       </p>
     </div>
-    <Button
-      :text="labelDownloadData"
-      icon="download"
-      color="#fff"
-    />
+
   </div>
 </template>
 <script>

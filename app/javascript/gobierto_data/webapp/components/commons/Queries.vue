@@ -9,26 +9,26 @@
         <div class="gobierto-data-summary-queries-element">
           <i class="fas fa-caret-down" />
           <h3 class="gobierto-data-summary-queries-panel-title">
-            TUs consultas
+            {{ labelYourQueries }}
           </h3>
         </div>
         <div class="gobierto-data-summary-queries-element">
           <i class="fas fa-caret-down" />
           <h3 class="gobierto-data-summary-queries-panel-title">
-            TUs consultas
+            {{ labelYourQueries }}
           </h3>
         </div>
         <div class="gobierto-data-summary-queries-element">
           <i class="fas fa-caret-down" />
           <h3 class="gobierto-data-summary-queries-panel-title">
-            Tus consultas
+            {{ labelYourQueries }}
           </h3>
         </div>
       </div>
       <div class="pure-u-1-2">
-          <p class="gobierto-data-summary-queries-sql-code">
-            SELECT tipo, nombre
-          </p>
+        <p class="gobierto-data-summary-queries-sql-code">
+          SELECT tipo, nombre
+        </p>
       </div>
     </div>
   </div>
@@ -38,10 +38,12 @@ export default {
   name: "Queries",
   data() {
     return {
-      labelQueries: ''
+      labelQueries: '',
+      labelYourQueries: ''
     }
   },
   created() {
+    this.labelYourQueries = I18n.t("gobierto_data.projects.yourQueries")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
   }
 }

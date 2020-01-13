@@ -27,8 +27,8 @@
         </ul>
       </nav>
     </div>
-    <Sets v-if="activeTab === 0" />
-    <Categories v-if="activeTab === 1" />
+    <Categories v-if="activeTab === 0" />
+    <Sets v-if="activeTab === 1" />
     <Queries v-if="activeTab === 2" />
   </div>
 </template>

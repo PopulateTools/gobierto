@@ -1,6 +1,11 @@
 <template>
   <div class="pure-g">
     <Info />
+    <Button
+      :text="labelDownloadData"
+      icon="download"
+      color="#fff"
+    />
     <Resources :items="filesDataset" />
     <Queries />
   </div>
@@ -9,6 +14,7 @@
 <script>
 import Resources from "./../commons/Resources.vue";
 import Info from "./../commons/Info.vue";
+import Button from "./../commons/Button.vue";
 import Queries from "./../commons/Queries.vue";
 
 export default {
@@ -16,6 +22,7 @@ export default {
   components: {
     Resources,
     Queries,
+    Button,
     Info
   },
   data() {

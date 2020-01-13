@@ -17,7 +17,7 @@ export default {
     return {
       datasets: [{
         file: {
-          title: 'Actuaciones Bomberos Enero 2019.xls',
+          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
           date: '12 de octubre de 2019',
           frequency: 'Anual',
           subject: 'Urbanismo e infraestructuras',
@@ -26,7 +26,7 @@ export default {
       },
       {
         file: {
-          title: 'Actuaciones Bomberos Enero 2019.xls',
+          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
           date: '12 de octubre de 2019',
           frequency: 'Anual',
           subject: 'Urbanismo e infraestructuras',
@@ -35,7 +35,7 @@ export default {
       },
       {
         file: {
-          title: 'Actuaciones Bomberos Enero 2019.xls',
+          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
           date: '12 de octubre de 2019',
           frequency: 'Anual',
           subject: 'Urbanismo e infraestructuras',
@@ -44,7 +44,7 @@ export default {
       },
       {
         file: {
-          title: 'Actuaciones Bomberos Enero 2019.xls',
+          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
           date: '12 de octubre de 2019',
           frequency: 'Anual',
           subject: 'Urbanismo e infraestructuras',
@@ -53,7 +53,7 @@ export default {
       },
       {
         file: {
-          title: 'Actuaciones Bomberos Enero 2019.xls',
+          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
           date: '12 de octubre de 2019',
           frequency: 'Anual',
           subject: 'Urbanismo e infraestructuras',
@@ -62,7 +62,7 @@ export default {
       },
       {
         file: {
-          title: 'Actuaciones Bomberos Enero 2019.xls',
+          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
           date: '12 de octubre de 2019',
           frequency: 'Anual',
           subject: 'Urbanismo e infraestructuras',
@@ -71,7 +71,7 @@ export default {
       },
       {
         file: {
-          title: 'Actuaciones Bomberos Enero 2019.xls',
+          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
           date: '12 de octubre de 2019',
           frequency: 'Anual',
           subject: 'Urbanismo e infraestructuras',
@@ -80,7 +80,7 @@ export default {
       },
       {
         file: {
-          title: 'Actuaciones Bomberos Enero 2019.xls',
+          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
           date: '12 de octubre de 2019',
           frequency: 'Anual',
           subject: 'Urbanismo e infraestructuras',
@@ -89,7 +89,7 @@ export default {
       },
       {
         file: {
-          title: 'Actuaciones Bomberos Enero 2019.xls',
+          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
           date: '12 de octubre de 2019',
           frequency: 'Anual',
           subject: 'Urbanismo e infraestructuras',

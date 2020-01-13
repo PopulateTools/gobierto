@@ -1,16 +1,19 @@
 <template>
   <div>
+    <DownloadButton />
     <Resources :items="filesDataset" />
   </div>
 </template>
 
 <script>
 import Resources from "./../commons/Resources.vue";
+import DownloadButton from "./../commons/DownloadButton.vue";
 
 export default {
   name: "Downloads",
   components: {
-    Resources
+    Resources,
+    DownloadButton
   },
   data() {
     return {

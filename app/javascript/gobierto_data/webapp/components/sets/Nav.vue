@@ -40,10 +40,10 @@
       </ul>
     </nav>
     <Summary v-if="activeTab === 0" />
-    <Data v-if="activeTab === 1" />
-    <Queries v-if="activeTab === 2" />
-    <Visualizations v-if="activeTab === 3" />
-    <Downloads v-if="activeTab === 4" />
+    <Data v-else-if="activeTab === 1" />
+    <Queries v-else-if="activeTab === 2" />
+    <Visualizations v-else-if="activeTab === 3" />
+    <Downloads v-else-if="activeTab === 4" />
   </div>
 </template>
 <script>

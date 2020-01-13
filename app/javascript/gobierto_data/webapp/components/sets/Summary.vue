@@ -1,34 +1,7 @@
 <template>
   <div>
     <Info />
-    <div class="gobierto-data-container-btn-download-data">
-      <Button
-        :text="labelDownloadData"
-        icon="download"
-        color="var(--color-base)"
-        background="#fff"
-        class="gobierto-data-btn-download-data"
-        icon-color="rgba(var(--color-base-string), .2)"
-        @click.native="showModalButton"
-      />
-      <div
-        :class="{ 'active': isActive }"
-        class="gobierto-data-btn-download-data-modal arrow-top"
-      >
-        <button class="gobierto-data-btn-download-data-modal-element">
-          CSV
-        </button>
-        <button class="gobierto-data-btn-download-data-modal-element">
-          JSON
-        </button>
-        <button class="gobierto-data-btn-download-data-modal-element">
-          XLXS
-        </button>
-        <button class="gobierto-data-btn-download-data-modal-element">
-          OTHER
-        </button>
-      </div>
-    </div>
+    <DownloadButton />
     <Resources :items="filesDataset" />
     <Queries />
   </div>
@@ -37,7 +10,7 @@
 <script>
 import Resources from "./../commons/Resources.vue";
 import Info from "./../commons/Info.vue";
-import Button from "./../commons/Button.vue";
+import DownloadButton from "./../commons/DownloadButton.vue";
 import Queries from "./../commons/Queries.vue";
 
 export default {
@@ -45,7 +18,7 @@ export default {
   components: {
     Resources,
     Queries,
-    Button,
+    DownloadButton,
     Info
   },
   data() {

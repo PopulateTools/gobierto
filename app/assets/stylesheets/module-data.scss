@@ -72,10 +72,10 @@
     color: var(--color-base);
     margin-top: 0;
     letter-spacing: 0;
+
     &-big {
       font-size: 24px;
       margin-bottom: 0;
-      margin-top: 1rem;
     }
   }
 
@@ -131,17 +131,11 @@
   }
 
   &-summary-header {
-    padding-top: 1rem;
     box-sizing: border-box;
   }
 
   &-summary-header-container {
     margin: .5rem 0;
-
-    .fas {
-      color: rgba(1, 120, 168, .2);
-    }
-
   }
 
   &-summary-header-container-text,
@@ -190,15 +184,14 @@
     display: inline-block;
     width: 50%;
     margin-bottom: 1rem;
-
-    .fas {
-      color: var(--color-base);
-    }
-
   }
 
   &-info-list-element {
     width: 100%;
+
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+    }
   }
 
   &-resources-list-element-name {
@@ -240,7 +233,6 @@
     line-height: 20px;
     color: #666;
     display: inline-block;
-
   }
 
   &-summary-queries-element {
@@ -256,6 +248,7 @@
     padding: 1rem;
     font-weight: bold;
     min-width: 250px;
+    margin: 1rem 0;
   }
 
   &-container-btn-download-data {

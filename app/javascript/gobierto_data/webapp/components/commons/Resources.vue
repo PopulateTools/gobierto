@@ -2,7 +2,7 @@
   <div class="gobierto-data-summary-resources">
     <h2 class="gobierto-data-tabs-section-title">
       <i class="fas fa-caret-down" />
-      Recursos
+      {{ labelResources }}
     </h2>
     <div class="gobierto-data-resources-list">
       <ResourcesItem
@@ -26,6 +26,14 @@ export default {
       type: Array,
       required: true
     }
+  },
+  data() {
+    return {
+      labelResources: ''
+    }
+  },
+  created() {
+    this.labelResources = I18n.t("gobierto_data.projects.resources")
   }
 }
 </script>

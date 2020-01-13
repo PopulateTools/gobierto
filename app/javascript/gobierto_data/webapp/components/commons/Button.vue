@@ -1,7 +1,7 @@
 <template>
   <button
-    class="gobierto-data-btn-blue"
     :style="{ 'color': color, 'background-color': background }"
+    class="gobierto-data-btn-blue"
   >
     <i
       :style="{ 'color': iconColor }"

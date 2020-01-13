@@ -12,8 +12,8 @@
         @click.native="showModalButton"
       />
       <div
-        class="gobierto-data-btn-download-data-modal arrow-top"
         :class="{ 'active': isActive }"
+        class="gobierto-data-btn-download-data-modal arrow-top"
       >
         <button class="gobierto-data-btn-download-data-modal-element">
           CSV

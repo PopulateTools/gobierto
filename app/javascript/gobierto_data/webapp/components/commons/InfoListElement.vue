@@ -1,5 +1,10 @@
 <template>
   <div>
+    <h1
+      class="gobierto-data-title-dataset gobierto-data-title-dataset-big"
+    >
+      {{ item.file.title }}
+    </h1>
     <div class="pure-g">
       <div class="pure-u-1-2 gobierto-data-summary-header">
         <div class="gobierto-data-summary-header-container">
@@ -8,7 +13,7 @@
             {{ labelUpdated }}
           </span>
           <span class="gobierto-data-summary-header-container-text">
-            12 oct 2019
+            {{ item.file.date }}
           </span>
         </div>
         <div class="gobierto-data-summary-header-container">
@@ -17,7 +22,7 @@
             {{ labelFrequency }}
           </span>
           <span class="gobierto-data-summary-header-container-text">
-            Anual
+            {{ item.file.frequency }}
           </span>
         </div>
         <div class="gobierto-data-summary-header-container">
@@ -29,13 +34,13 @@
             href=""
             class="gobierto-data-summary-header-container-text-link"
           >
-            Urbanismo e infraestructuras
+            {{ item.file.subject }}
           </a>
         </div>
       </div>
       <div class="pure-u-1-2">
         <p class="gobierto-data-summary-header-description">
-          {{ datasetDescription }}
+          {{ item.file.description }}
         </p>
       </div>
     </div>
@@ -44,13 +49,18 @@
 <script>
 export default {
   name: "Info",
+  props: {
+    item: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       labelUpdated: '',
       labelFrequency: '',
       labelSubject: '',
-      labelDownloadData: '',
-      datasetDescription: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
+      labelDownloadData: ''
     }
   },
   created() {

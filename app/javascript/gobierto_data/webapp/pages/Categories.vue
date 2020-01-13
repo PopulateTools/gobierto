@@ -3,22 +3,100 @@
     <div style="background-color: rgba(113, 184, 193, .1); color: #71B8C1; height: 40vh; widht: 100%; padding: 1rem; font-weight: bold;">
       Promo - Intro al módulo
     </div>
-    <Info />
+    <InfoList :items="datasets" />
   </div>
 </template>
 <script>
-import Info from "./../components/commons/Info.vue";
+import InfoList from "./../components/commons/InfoList.vue";
 export default {
   name: "Categories",
   components: {
-    Info
+    InfoList
   },
   data() {
     return {
-      activeTabIndex: 0,
-      titleDataset: "Actuaciones del Cuerpo de Bomberos",
-      labelFav: '',
-      labelFollow: ''
+      datasets: [{
+        file: {
+          title: 'Actuaciones Bomberos Enero 2019.xls',
+          date: '12 de octubre de 2019',
+          frequency: 'Anual',
+          subject: 'Urbanismo e infraestructuras',
+          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
+        }
+      },
+      {
+        file: {
+          title: 'Actuaciones Bomberos Enero 2019.xls',
+          date: '12 de octubre de 2019',
+          frequency: 'Anual',
+          subject: 'Urbanismo e infraestructuras',
+          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
+        }
+      },
+      {
+        file: {
+          title: 'Actuaciones Bomberos Enero 2019.xls',
+          date: '12 de octubre de 2019',
+          frequency: 'Anual',
+          subject: 'Urbanismo e infraestructuras',
+          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
+        }
+      },
+      {
+        file: {
+          title: 'Actuaciones Bomberos Enero 2019.xls',
+          date: '12 de octubre de 2019',
+          frequency: 'Anual',
+          subject: 'Urbanismo e infraestructuras',
+          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
+        }
+      },
+      {
+        file: {
+          title: 'Actuaciones Bomberos Enero 2019.xls',
+          date: '12 de octubre de 2019',
+          frequency: 'Anual',
+          subject: 'Urbanismo e infraestructuras',
+          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
+        }
+      },
+      {
+        file: {
+          title: 'Actuaciones Bomberos Enero 2019.xls',
+          date: '12 de octubre de 2019',
+          frequency: 'Anual',
+          subject: 'Urbanismo e infraestructuras',
+          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
+        }
+      },
+      {
+        file: {
+          title: 'Actuaciones Bomberos Enero 2019.xls',
+          date: '12 de octubre de 2019',
+          frequency: 'Anual',
+          subject: 'Urbanismo e infraestructuras',
+          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
+        }
+      },
+      {
+        file: {
+          title: 'Actuaciones Bomberos Enero 2019.xls',
+          date: '12 de octubre de 2019',
+          frequency: 'Anual',
+          subject: 'Urbanismo e infraestructuras',
+          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
+        }
+      },
+      {
+        file: {
+          title: 'Actuaciones Bomberos Enero 2019.xls',
+          date: '12 de octubre de 2019',
+          frequency: 'Anual',
+          subject: 'Urbanismo e infraestructuras',
+          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
+        }
+      }
+      ]
     }
   },
   created() {

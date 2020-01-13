@@ -71,6 +71,12 @@
     line-height: 30px;
     color: var(--color-base);
     margin-top: 0;
+    letter-spacing: 0;
+    &-big {
+      font-size: 24px;
+      margin-bottom: 0;
+      margin-top: 1rem;
+    }
   }
 
   &-buttons {
@@ -125,7 +131,7 @@
   }
 
   &-summary-header {
-    padding: 1rem;
+    padding-top: 1rem;
     box-sizing: border-box;
   }
 
@@ -191,6 +197,10 @@
 
   }
 
+  &-info-list-element {
+    width: 100%;
+  }
+
   &-resources-list-element-name {
     font-weight: 600;
     font-size: 16px;
@@ -245,6 +255,7 @@
     border: 1px solid rgba(var(--color-base-string), .2);
     padding: 1rem;
     font-weight: bold;
+    min-width: 250px;
   }
 
   &-container-btn-download-data {

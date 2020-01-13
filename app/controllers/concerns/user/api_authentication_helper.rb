@@ -24,9 +24,9 @@ module User::ApiAuthenticationHelper
   end
 
   def find_current_user
-    if token.present?
-      User.confirmed.joins(:api_tokens).find_by(site_id: current_site.id, user_api_tokens: { token: token })
-    end
+    return unless token.present?
+
+    current_site.users.confirmed.joins(:api_tokens).find_by(user_api_tokens: { token: token })
   end
 
   def raise_unauthorized

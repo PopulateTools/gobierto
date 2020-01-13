@@ -7,23 +7,27 @@
         </h2>
       </div>
       <div class="pure-u-1-2 gobierto-data-buttons">
-        <Button>
-          <i class="fas fa-star" />
-          <span>{{ labelFav }}</span>
-        </Button>
-        <Button>
-          <i class="fas fa-bell" />
-          <span>{{ labelFollow }}</span>
-        </Button>
+        <Button
+          :text="labelFav"
+          icon="star"
+          color="#fff"
+        />
+        <Button
+          :text="labelFollow"
+          icon="bell"
+          color="#fff"
+        />
       </div>
     </div>
-    <NavDatasets :active-tab="activeTabIndex" @active-tab="activeTabIndex = $event" />
+    <NavDatasets
+      :active-tab="activeTabIndex"
+      @active-tab="activeTabIndex = $event"
+    />
   </div>
 </template>
 <script>
 import Button from "./../components/commons/Button.vue";
 import NavDatasets from "./../components/sets/Nav.vue";
-
 
 export default {
   name: "Sets",

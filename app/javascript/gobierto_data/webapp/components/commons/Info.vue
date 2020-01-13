@@ -26,7 +26,8 @@
         </span>
         <a
           href=""
-          class="gobierto-data-summary-header-container-text">
+          class="gobierto-data-summary-header-container-text"
+        >
           Urbanismo e infraestructuras
         </a>
       </div>
@@ -36,15 +37,20 @@
         {{ datasetDescription }}
       </p>
     </div>
-    <button class="gobierto-data-summary-btn-download-data">
-      <i class="fas fa-download" />
-      {{ labelDownloadData }}
-    </button>
+    <Button
+      :text="labelDownloadData"
+      icon="download"
+      color="#fff"
+    />
   </div>
 </template>
 <script>
+import Button from "./Button.vue";
 export default {
   name: "Info",
+  components: {
+    Button
+  },
   data() {
     return {
       labelUpdated: '',

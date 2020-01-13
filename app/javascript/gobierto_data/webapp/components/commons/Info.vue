@@ -40,12 +40,8 @@
   </div>
 </template>
 <script>
-import Button from "./Button.vue";
 export default {
   name: "Info",
-  components: {
-    Button
-  },
   data() {
     return {
       labelUpdated: '',

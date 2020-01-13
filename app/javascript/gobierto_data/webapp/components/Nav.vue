@@ -60,24 +60,12 @@
         </li>
       </ul>
     </nav>
-    <!-- <Sets v-if="activeTab === 0" />
-    <Queries v-if="activeTab === 2" /> -->
   </div>
 </template>
 
 <script>
-import Categories from "./../pages/Categories.vue";
-import Queries from "./../pages/Queries.vue";
-import Sets from "./../pages/Sets.vue";
-
-
 export default {
   name: "HomeNav",
-  components: {
-    Sets,
-    Categories,
-    Queries
-  },
   props: {
     activeTab: {
       type: Number,

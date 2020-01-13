@@ -33,7 +33,8 @@ export default {
       required: true
     },
     iconColor: {
-      type: String
+      type: String,
+      required: true
     }
   }
 }

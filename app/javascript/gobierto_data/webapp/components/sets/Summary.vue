@@ -15,10 +15,18 @@
         class="gobierto-data-btn-download-data-modal arrow-top"
         :class="{ 'active': isActive }"
       >
-        <button class="gobierto-data-btn-download-data-modal-element">CSV</button>
-        <button class="gobierto-data-btn-download-data-modal-element">JSON</button>
-        <button class="gobierto-data-btn-download-data-modal-element">XLXS</button>
-        <button class="gobierto-data-btn-download-data-modal-element">OTHER</button>
+        <button class="gobierto-data-btn-download-data-modal-element">
+          CSV
+        </button>
+        <button class="gobierto-data-btn-download-data-modal-element">
+          JSON
+        </button>
+        <button class="gobierto-data-btn-download-data-modal-element">
+          XLXS
+        </button>
+        <button class="gobierto-data-btn-download-data-modal-element">
+          OTHER
+        </button>
       </div>
     </div>
     <Resources :items="filesDataset" />

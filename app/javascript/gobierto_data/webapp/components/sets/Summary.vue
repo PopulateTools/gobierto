@@ -1,13 +1,26 @@
 <template>
-  <div class="pure-g">
+  <div>
     <Info />
-    <Button
-      :text="labelDownloadData"
-      icon="download"
-      color="var(--color-base)"
-      background="#fff"
-      class="gobierto-data-btn-download-data"
-    />
+    <div class="gobierto-data-container-btn-download-data">
+      <Button
+        :text="labelDownloadData"
+        icon="download"
+        color="var(--color-base)"
+        background="#fff"
+        class="gobierto-data-btn-download-data"
+        icon-color="rgba(var(--color-base-string), .2)"
+        @click.native="showModalButton"
+      />
+      <div
+        class="gobierto-data-btn-download-data-modal arrow-top"
+        :class="{ 'active': isActive }"
+      >
+        <button class="gobierto-data-btn-download-data-modal-element">CSV</button>
+        <button class="gobierto-data-btn-download-data-modal-element">JSON</button>
+        <button class="gobierto-data-btn-download-data-modal-element">XLXS</button>
+        <button class="gobierto-data-btn-download-data-modal-element">OTHER</button>
+      </div>
+    </div>
     <Resources :items="filesDataset" />
     <Queries />
   </div>
@@ -29,6 +42,7 @@ export default {
   },
   data() {
     return {
+      isActive: false,
       labelDownloadData: "",
       filesDataset: [{
           file: {
@@ -107,6 +121,11 @@ export default {
   },
   created() {
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
+  },
+  methods: {
+    showModalButton() {
+      this.isActive = !this.isActive;
+    }
   }
 
 }

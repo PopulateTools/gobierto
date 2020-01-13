@@ -6,6 +6,7 @@
     <i
       class="fas"
       :class="'fa-' + icon"
+      :style="{ 'color': iconColor }"
     />
     {{ text }}
   </button>
@@ -30,6 +31,9 @@ export default {
     background: {
       type: String,
       required: true
+    },
+    iconColor: {
+      type: String
     }
   }
 }

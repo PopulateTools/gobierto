@@ -225,7 +225,67 @@
   &-btn-download-data {
     border: 1px solid rgba(var(--color-base-string), .2);
     padding: 1rem;
+    font-weight: bold;
   }
+
+  &-container-btn-download-data {
+    position: relative;
+  }
+
+  &-btn-download-data-modal {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, .3);
+    border: 1px solid var(--color-base);
+    border-radius: 3px;
+    padding: .5rem 0;
+    position: absolute;
+    width: 200px;
+    display: none;
+    top: 67px;
+    &.active {
+      display: block;
+    }
+    &.arrow-top {
+      background: #fff;
+      border: 1px solid var(--color-base);
+      &:after,
+      &:before {
+        bottom: 100%;
+        left: 90%;
+        border: solid transparent;
+        content: ' ';
+        height: 0;
+        width: 0;
+        position: absolute;
+        border-color: rgba(255, 255, 255, 0);
+      }
+      &:before {
+        border-bottom-color: var(--color-base) !important;
+        margin-left: -9px;
+        border-width: 9px;
+      }
+      &:after {
+        border-bottom-color: #fff !important;
+        margin-left: -8px;
+        border-width: 8px;
+      }
+    }
+  }
+
+  &-btn-download-data-modal-element {
+    background-color: transparent;
+    transition: background-color .3s ease-in;
+    padding: .5rem;
+    color: #000;
+    display: block;
+    width: 100%;
+    border-radius: 0;
+    text-align: left;
+    font-weight: normal;
+    &:hover {
+      background-color: rgba(var(--color-base-string), .1);
+    }
+  }
+
 
 
 }

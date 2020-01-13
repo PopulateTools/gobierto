@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pure-g">
     <div class="pure-u-1-2 gobierto-data-summary-header">
       <div class="gobierto-data-summary-header-container">
         <i class="fas fa-clock" />

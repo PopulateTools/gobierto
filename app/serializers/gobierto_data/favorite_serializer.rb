@@ -2,7 +2,7 @@
 
 module GobiertoData
   class FavoriteSerializer < ActiveModel::Serializer
-    attributes :id, :user_id, :favorited_type, :favorited_id
+    attributes :id, :user_id, :favorited_type, :favorited_id, :favorited, :created_at
     belongs_to :user, unless: :exclude_relationships?
     belongs_to :favorited, polymorphic: true, unless: :exclude_relationships?
 

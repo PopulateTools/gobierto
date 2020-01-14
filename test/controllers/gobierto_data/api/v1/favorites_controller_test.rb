@@ -19,8 +19,24 @@ module GobiertoData
           @user ||= users(:dennis)
         end
 
+        def user_token
+          @user_token ||= user_api_tokens(:dennis_primary_api_token)
+        end
+
         def other_user
-          @other_user ||= users(:peter)
+          @other_user ||= users(:janet)
+        end
+
+        def other_user_favorited_query
+          @other_user_favorited_query ||= gobierto_data_queries(:census_verified_users_query)
+        end
+
+        def other_user_favorited_visualization
+          @other_user_favorited_visualization ||= gobierto_data_visualizations(:events_count_closed_visualization)
+        end
+
+        def other_user_token
+          @other_user_token ||= user_api_tokens(:janet_primary_api_token)
         end
 
         def dataset_favorite
@@ -55,18 +71,6 @@ module GobiertoData
           @other_visualization ||= gobierto_data_visualizations(:census_verified_users_visualization)
         end
 
-        def valid_params(user)
-          {
-            data:
-            {
-              attributes:
-              {
-                user_id: user.id
-              }
-            }
-          }
-        end
-
         def test_dataset_index_with_module_disabled
           with(site: site_with_module_disabled) do
             get gobierto_data_api_v1_dataset_favorites_path(dataset.slug)
@@ -76,7 +80,7 @@ module GobiertoData
         end
 
         # GET /api/v1/data/datasets/slug/favorites.json
-        def test_dataset_index_as_json
+        def test_dataset_index_without_token
           with(site: site) do
             get gobierto_data_api_v1_dataset_favorites_path(dataset.slug), as: :json
 
@@ -84,20 +88,112 @@ module GobiertoData
 
             response_data = response.parsed_body
 
+            assert_empty response_data["data"]
+          end
+        end
+
+        # GET /api/v1/data/datasets/slug/favorites.json
+        def test_dataset_index_as_json_with_token
+          with(site: site) do
+            get gobierto_data_api_v1_dataset_favorites_path(dataset.slug), headers: { Authorization: user_token.token }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
             assert response_data.has_key? "data"
-            response_data["data"].each do |item|
-              assert_equal "GobiertoData::Dataset", item["attributes"]["favorited_type"]
-              assert_equal dataset.id, item["attributes"]["favorited_id"]
+            favorited_resources = response_data["data"].map do |item|
+              item["attributes"]["favorited_type"].constantize.find(item["attributes"]["favorited_id"])
+            end
+            favorited_resources.each do |resource|
+              assert resource.favorited_by_user? user
+              assert_equal dataset, resource.try(:dataset) || resource
             end
 
-            favorite_user_ids = response_data["data"].map { |item| item["attributes"]["user_id"] }
-            favorited_dataset_ids = response_data["data"].map { |item| item["attributes"]["favorited_id"] }.uniq
+            refute_includes favorited_resources, other_dataset_query_favorite
+            assert_includes favorited_resources, dataset
 
-            assert_equal 1, favorited_dataset_ids.count
-            assert_equal dataset_favorite.favorited_id, favorited_dataset_ids.first
+            assert response_data.has_key? "meta"
+            assert response_data["meta"]["self_favorited"]
+          end
+        end
 
-            assert_includes favorite_user_ids, user.id
-            assert_includes favorite_user_ids, other_user.id
+        # GET /api/v1/data/datasets/slug/favorites.json
+        def test_dataset_index_with_user_id
+          with(site: site) do
+            get gobierto_data_api_v1_dataset_favorites_path(dataset.slug, user_id: user.id), headers: { Authorization: other_user_token.token }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            favorited_resources = response_data["data"].map do |item|
+              item["attributes"]["favorited_type"].constantize.find(item["attributes"]["favorited_id"])
+            end
+            favorited_resources.each do |resource|
+              assert resource.favorited_by_user? user
+              assert_equal dataset, resource.try(:dataset) || resource
+            end
+
+            refute_includes favorited_resources, other_dataset_query_favorite
+            assert_includes favorited_resources, dataset
+
+            assert response_data.has_key? "meta"
+            assert response_data["meta"]["self_favorited"]
+          end
+        end
+
+        def test_query_index_with_token
+          with(site: site) do
+            get gobierto_data_api_v1_query_favorites_path(other_user_favorited_query), headers: { Authorization: other_user_token.token }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            favorited_resources = response_data["data"].map do |item|
+              item["attributes"]["favorited_type"].constantize.find(item["attributes"]["favorited_id"])
+            end
+            favorited_resources.each do |resource|
+              assert resource.favorited_by_user? other_user
+              assert_equal other_user_favorited_query, resource.try(:query) || resource
+            end
+
+            refute_includes favorited_resources, other_dataset_query_favorite
+            assert_includes favorited_resources, other_user_favorited_query
+
+            assert response_data.has_key? "meta"
+            assert response_data["meta"]["self_favorited"]
+            refute response_data["meta"]["dataset_favorited"]
+          end
+        end
+
+        def test_visualization_index_with_token
+          with(site: site) do
+            get gobierto_data_api_v1_visualization_favorites_path(other_user_favorited_visualization), headers: { Authorization: other_user_token.token }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            favorited_resources = response_data["data"].map do |item|
+              item["attributes"]["favorited_type"].constantize.find(item["attributes"]["favorited_id"])
+            end
+            favorited_resources.each do |resource|
+              assert resource.favorited_by_user? other_user
+              assert_equal other_user_favorited_visualization, resource
+            end
+
+            refute_includes favorited_resources, visualization
+            assert_includes favorited_resources, other_user_favorited_visualization
+
+            assert response_data.has_key? "meta"
+            assert response_data["meta"]["self_favorited"]
+            refute response_data["meta"]["query_favorited"]
+            refute response_data["meta"]["dataset_favorited"]
           end
         end
 
@@ -148,10 +244,30 @@ module GobiertoData
           end
         end
 
+        def test_create_dataset_favorite_without_token
+          with(site: site) do
+            assert_no_difference "GobiertoData::Favorite.count", 1 do
+              post gobierto_data_api_v1_dataset_favorite_path(other_dataset.slug)
+
+              assert_response :unauthorized
+            end
+          end
+        end
+
+        def test_create_dataset_favorite_with_invalid_token
+          with(site: site) do
+            assert_no_difference "GobiertoData::Favorite.count", 1 do
+              post gobierto_data_api_v1_dataset_favorite_path(other_dataset.slug), headers: { Authorization: "wadus" }
+
+              assert_response :unauthorized
+            end
+          end
+        end
+
         def test_create_dataset_favorite
           with(site: site) do
             assert_difference "GobiertoData::Favorite.count", 1 do
-              post gobierto_data_api_v1_dataset_favorites_path(other_dataset.slug, valid_params(other_user))
+              post gobierto_data_api_v1_dataset_favorite_path(other_dataset.slug), headers: { Authorization: other_user_token.token }
 
               assert_response :created
               response_data = response.parsed_body
@@ -171,7 +287,7 @@ module GobiertoData
 
         def test_create_dataset_favorite_already_favorited
           with(site: site) do
-            post gobierto_data_api_v1_dataset_favorites_path(dataset.slug, valid_params(user))
+            post gobierto_data_api_v1_dataset_favorite_path(dataset.slug), headers: { Authorization: user_token.token }
 
             assert_response :unprocessable_entity
             response_data = response.parsed_body
@@ -180,12 +296,42 @@ module GobiertoData
           end
         end
 
+        def test_delete_without_token
+          assert_no_difference "GobiertoData::Favorite.count" do
+            with(site: site) do
+              delete gobierto_data_api_v1_dataset_favorite_path(dataset.slug)
+
+              assert_response :unauthorized
+            end
+          end
+        end
+
+        def test_delete_with_invalid_token
+          assert_no_difference "GobiertoData::Favorite.count" do
+            with(site: site) do
+              delete gobierto_data_api_v1_dataset_favorite_path(dataset.slug), headers: { Authorization: "wadus" }
+
+              assert_response :unauthorized
+            end
+          end
+        end
+
+        def test_delete_with_other_user_token
+          assert_no_difference "GobiertoData::Favorite.count" do
+            with(site: site) do
+              delete gobierto_data_api_v1_dataset_favorite_path(dataset.slug), headers: { Authorization: other_user_token.token }
+
+              assert_response :unauthorized
+            end
+          end
+        end
+
         def test_delete
           id = dataset_favorite.id
 
           assert_difference "GobiertoData::Favorite.count", -1 do
             with(site: site) do
-              delete gobierto_data_api_v1_dataset_favorite_path(dataset.slug, id)
+              delete gobierto_data_api_v1_dataset_favorite_path(dataset.slug), headers: { Authorization: user_token.token }
 
               assert_response :no_content
 

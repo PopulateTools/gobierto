@@ -45,3 +45,15 @@ reed_census_verified_users_query_favorite:
   favorited: census_verified_users_query (GobiertoData::Query)
   created_at: <%= 1.day.ago %>
   updated_at: <%= 1.day.ago %>
+
+janet_census_verified_users_query_favorite:
+  user: janet
+  favorited: census_verified_users_query (GobiertoData::Query)
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+
+janet_events_count_closed_visualization:
+  user: janet
+  favorited: events_count_closed_visualization (GobiertoData::Visualization)
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>

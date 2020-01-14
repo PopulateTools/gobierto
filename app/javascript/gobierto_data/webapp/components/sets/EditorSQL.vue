@@ -3,6 +3,7 @@
     <div class="gobierto-data-sql-editor">
       <div class="gobierto-data-sql-editor-toolbar">
         <Button
+          class="btn-sql-editor"
           :text="undefined"
           icon="times"
           color="var(--color-base)"
@@ -10,32 +11,40 @@
           icon-color="var(--color-base)"
         />
         <Button
+          class="btn-sql-editor"
           :text="labelRecents"
           icon="history"
           color="var(--color-base)"
           background="#fff"
           icon-color="var(--color-base)"
+          :disabled="disabledRecents"
         />
         <Button
+          class="btn-sql-editor"
           :text="labelQueries"
           icon="list"
           color="var(--color-base)"
           background="#fff"
           icon-color="var(--color-base)"
+          :disabled="disabledQueries"
         />
         <Button
+          class="btn-sql-editor"
           :text="labelSave"
           icon="save"
           color="var(--color-base)"
           background="#fff"
           icon-color="var(--color-base)"
+          :disabled="disabledSave"
         />
         <Button
+          class="btn-sql-editor"
           :text="labelRunQuery"
           icon="play"
           color="var(--color-base)"
           background="#fff"
           icon-color="var(--color-base)"
+          :disabled="disabledRunQuery"
           @click="execute()"
         />
       </div>
@@ -73,6 +82,10 @@ export default {
       `SELECT * FROM mobiliario_urbano`
     return {
       code,
+      disabledRecents: true,
+      disabledQueries: false,
+      disabledSave: true,
+      disabledRunQuery: true,
       arrayQuerys: [],
       labelSave: '',
       labelRecents: '',
@@ -134,6 +147,9 @@ export default {
   methods: {
     onCmReady(cm) {
       cm.on('keypress', () => {
+        this.disabledRecents = false
+        this.disabledSave = false
+        this.disabledRunQuery = false
         cm.showHint()
       })
     },

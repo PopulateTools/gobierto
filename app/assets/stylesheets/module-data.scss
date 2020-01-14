@@ -335,8 +335,15 @@
   }
 
   &-sql-editor {
-    button {
+    margin: 1rem 0;
+    .btn-sql-editor {
       border: 1px solid var(--color-base);
+      font-weight: bold;
+      font-size: 14px;
+      &.isDisabled {
+        opacity: .4;
+        pointer-events: none;
+      }
     }
   }
 

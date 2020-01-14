@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>Data</p>
     <CodeMirror id="codemirror" />
   </div>
 </template>

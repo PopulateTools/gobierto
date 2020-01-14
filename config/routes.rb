@@ -569,7 +569,8 @@ Rails.application.routes.draw do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1/data" do
             get "data" => "query#index", as: :root, defaults: { format: "json" }
             resources :datasets, only: [:index, :show], param: :slug, defaults: { format: "json" } do
-              resources :favorites, only: [:index, :new, :create, :destroy] do
+              resource :favorite, only: [:new, :create, :destroy]
+              resources :favorites, only: [:index] do
                 collection do
                   get :user_favorited_queries
                   get :user_favorited_visualizations
@@ -583,7 +584,8 @@ Rails.application.routes.draw do
               end
             end
             resources :queries, except: [:edit], defaults: { format: "json" } do
-              resources :favorites, only: [:index, :new, :create, :destroy] do
+              resource :favorite, only: [:new, :create, :destroy]
+              resources :favorites, only: [:index] do
                 collection do
                   get :user_favorited_visualizations
                 end
@@ -593,7 +595,8 @@ Rails.application.routes.draw do
               end
             end
             resources :visualizations, except: [:edit], defaults: { format: "json" } do
-              resources :favorites, only: [:index, :new, :create, :destroy]
+              resource :favorite, only: [:new, :create, :destroy]
+              resources :favorites, only: [:index]
             end
           end
         end

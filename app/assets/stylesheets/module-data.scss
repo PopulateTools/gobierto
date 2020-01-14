@@ -344,6 +344,11 @@
         opacity: .4;
         pointer-events: none;
       }
+      &.btn-sql-editor-saved {
+        i {
+          color: inherit !important;
+        }
+      }
     }
   }
 
@@ -351,12 +356,34 @@
     padding: .5rem 0;
   }
 
-  .btn-viz {
-    border-bottom: 3px solid #0668C9;
-    border-radius: 0;
-    margin-bottom: 1rem;
+  &-sql-editor-container-save {
+    display: inline-block;
   }
 
+  &-sql-editor-container-save-checkbox {
+    display: inline-block;
+  }
+
+  &-sql-editor {
+    input[type="text"] {
+      background: #f9f9f9;
+      border: 1px solid rgba(0, 89, 201, .2);
+      height: auto;
+      border-radius: 3px;
+      display: inline-block;
+      padding: .25rem;
+    }
+    input[type="checkbox"],
+    input[type="checkbox"] + label {
+      display: inline-block;
+    }
+  }
+
+  &-sql-editor-container-save-label {
+    display: inline-block;
+    font-size: 14px;
+    color: #666;
+  }
 
 
 }

@@ -4,7 +4,7 @@
     class="gobierto-data-btn-blue"
   >
     <i
-      :style="{ 'color': iconColor }"
+      style="color: inherit;"
       :class="'fa-' + icon"
       class="fas"
     />
@@ -23,17 +23,14 @@ export default {
     },
     icon: {
       type: String,
-      required: true
+      required: true,
+      default: ''
     },
     color: {
       type: String,
       required: true
     },
     background: {
-      type: String,
-      required: true
-    },
-    iconColor: {
       type: String,
       required: true
     }

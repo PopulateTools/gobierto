@@ -8,7 +8,6 @@
           icon="times"
           color="var(--color-base)"
           background="#fff"
-          icon-color="var(--color-base)"
         />
         <Button
           class="btn-sql-editor"
@@ -16,7 +15,6 @@
           icon="history"
           color="var(--color-base)"
           background="#fff"
-          icon-color="var(--color-base)"
           :disabled="disabledRecents"
         />
         <Button
@@ -25,17 +23,47 @@
           icon="list"
           color="var(--color-base)"
           background="#fff"
-          icon-color="var(--color-base)"
           :disabled="disabledQueries"
         />
+        <div
+          v-if="saveQueryState"
+          class="gobierto-data-sql-editor-container-save"
+        >
+          <input
+            type="text"
+            :placeholder="labelQueryName"
+            class="gobierto-data-sql-editor-container-save-text"
+          >
+          <input
+            :id="labelPrivate"
+            type="checkbox"
+            class="gobierto-data-sql-editor-container-save-checkbox"
+            @change="marked = !marked"
+          >
+          <label
+            class="gobierto-data-sql-editor-container-save-label"
+            :for="labelPrivate"
+          >
+            {{ labelPrivate }}
+          </label>
+        </div>
         <Button
           class="btn-sql-editor"
+          :style="saveQueryState ? 'color: #fff; background-color: var(--color-base)' : 'color: var(--color-base); background-color: rgb(255, 255, 255);'"
           :text="labelSave"
           icon="save"
           color="var(--color-base)"
           background="#fff"
-          icon-color="var(--color-base)"
           :disabled="disabledSave"
+          @click.native="saveQueryName()"
+        />
+        <Button
+          v-if="saveQueryState"
+          class="btn-sql-editor"
+          :text="labelCancel"
+          icon="undefined"
+          color="var(--color-base)"
+          background="#fff"
         />
         <Button
           class="btn-sql-editor"
@@ -43,9 +71,8 @@
           icon="play"
           color="var(--color-base)"
           background="#fff"
-          icon-color="var(--color-base)"
           :disabled="disabledRunQuery"
-          @click="execute()"
+          @click.native="execute()"
         />
       </div>
       <div class="codemirror">
@@ -86,11 +113,15 @@ export default {
       disabledQueries: false,
       disabledSave: true,
       disabledRunQuery: true,
-      arrayQuerys: [],
+      saveQueryState: false,
+      marked: false,
       labelSave: '',
       labelRecents: '',
       labelQueries: '',
       labelRunQuery: '',
+      labelCancel: '',
+      labelPrivate: '',
+      labelQueryName: '',
       cmOption: {
         tabSize: 2,
         styleActiveLine: false,
@@ -143,14 +174,26 @@ export default {
     this.labelRecents = I18n.t("gobierto_data.projects.recents")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelRunQuery = I18n.t("gobierto_data.projects.runQuery")
+    this.labelCancel = I18n.t("gobierto_data.projects.cancel")
+    this.labelPrivate = I18n.t("gobierto_data.projects.private")
+    this.labelQueryName = I18n.t("gobierto_data.projects.queryName")
   },
   methods: {
     onCmReady(cm) {
+
       cm.on('keypress', () => {
         this.disabledRecents = false
         this.disabledSave = false
         this.disabledRunQuery = false
-        cm.showHint()
+        /*var options = {
+          hint: function() {
+            return {
+              from: cm.getDoc().getCursor(),
+              to: cm.getDoc().getCursor()
+            }
+          }
+        }
+        cm.showHint(options);*/
       })
     },
     formatCode() {
@@ -173,6 +216,12 @@ export default {
     queryRandom() {
       this.commands.selectAll(this.cm)
       this.cm.setValue(this.arrayQuerys[0])
+    },
+    saveQueryName() {
+      if (this.saveQueryState === true) {
+        console.log('guardamos la consulta')
+      }
+      this.saveQueryState = true
     }
   }
 }

@@ -41,3 +41,5 @@ ca:
       edit: Edita
       modifiedQuery: Consulta modificada
       records: Registres
+      private: Privat
+      queryName: Nom consulta

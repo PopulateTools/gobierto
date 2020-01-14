@@ -6,7 +6,6 @@
       color="var(--color-base)"
       background="#fff"
       class="gobierto-data-btn-download-data"
-      icon-color="rgba(var(--color-base-string), .2)"
       @click.native="showModalButton"
     />
     <div

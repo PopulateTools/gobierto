@@ -41,3 +41,5 @@ es:
       edit: Editar
       modifiedQuery: Consulta modificada
       records: Registros
+      private: Privada
+      queryName: Nombre consulta

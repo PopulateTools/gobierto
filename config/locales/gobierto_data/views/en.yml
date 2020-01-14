@@ -41,3 +41,5 @@ en:
       edit: Edit
       modifiedQuery: Modified Query
       records: Records
+      private: Private
+      queryName: Query name

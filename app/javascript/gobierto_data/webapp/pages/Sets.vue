@@ -12,14 +12,12 @@
           icon="star"
           color="#fff"
           background="var(--color-base)"
-          icon-color="#fff"
         />
         <Button
           :text="labelFollow"
           icon="bell"
           color="#fff"
           background="var(--color-base)"
-          icon-color="#fff"
         />
       </div>
     </div>

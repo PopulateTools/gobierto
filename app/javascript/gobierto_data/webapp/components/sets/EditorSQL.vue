@@ -1,20 +1,43 @@
 <template>
-  <div class="container">
-    <div class="container-editor">
-      <div class="codemirror-toolbar">
-        <button
-          @click="formatCode()"
-        >
-          Indentar
-        </button>
-        <button @click="saveCode()">
-          Guardar
-        </button>
-        <button
-          @click="queryRandom()"
-        >
-          Query Random
-        </button>
+  <div>
+    <div class="gobierto-data-sql-editor">
+      <div class="gobierto-data-sql-editor-toolbar">
+        <Button
+          :text="undefined"
+          icon="times"
+          color="var(--color-base)"
+          background="#fff"
+          icon-color="var(--color-base)"
+        />
+        <Button
+          :text="labelRecents"
+          icon="history"
+          color="var(--color-base)"
+          background="#fff"
+          icon-color="var(--color-base)"
+        />
+        <Button
+          :text="labelQueries"
+          icon="list"
+          color="var(--color-base)"
+          background="#fff"
+          icon-color="var(--color-base)"
+        />
+        <Button
+          :text="labelSave"
+          icon="save"
+          color="var(--color-base)"
+          background="#fff"
+          icon-color="var(--color-base)"
+        />
+        <Button
+          :text="labelRunQuery"
+          icon="play"
+          color="var(--color-base)"
+          background="#fff"
+          icon-color="var(--color-base)"
+          @click="execute()"
+        />
       </div>
       <div class="codemirror">
         <codemirror
@@ -26,16 +49,11 @@
           @blur="formatCode"
         />
       </div>
-      <button
-        class="editor-btn-execute"
-        @click="execute()"
-      >
-        Ejecutar
-      </button>
     </div>
   </div>
 </template>
 <script>
+import Button from "./../commons/Button.vue";
 import sqlFormatter from "sql-formatter"
 import 'codemirror/mode/sql/sql.js'
 import 'codemirror/addon/selection/active-line.js'
@@ -47,32 +65,19 @@ import 'codemirror/src/model/selection_updates.js'
 
 export default {
   name: 'CodeMirror',
+  components: {
+    Button
+  },
   data() {
     const code =
-      `SELECT
-  COUNT(*) AS lines,
-  COUNT(*) FILTER (
-    WHERE
-      TO_NUMBER(t.quantity, '999999999999') > 0
-      AND TO_NUMBER(t.value, '999999999999') > 0
-  ) AS loadable_lines,
-  COUNT(*) FILTER (
-    WHERE
-      t.type != 'import'
-      AND t.type != 'export'
-  ) AS invalid_type,
-  STRING_AGG(m_commodity.hs_code, '^') AS missing_hs_codes,
-  STRING_AGG(m_country.country, '^') AS missing_countries,
-  STRING_AGG(m_unit.unit, '^') AS missing_units
-FROM
-  staging_temp AS t
-  LEFT JOIN m_commodity ON (m_commodity.id = t.id)
-  LEFT JOIN m_country ON (m_country.id = t.id)
-  LEFT JOIN m_unit ON (m_unit.id = t.id)`
-
+      `SELECT * FROM mobiliario_urbano`
     return {
       code,
       arrayQuerys: [],
+      labelSave: '',
+      labelRecents: '',
+      labelQueries: '',
+      labelRunQuery: '',
       cmOption: {
         tabSize: 2,
         styleActiveLine: false,
@@ -119,6 +124,12 @@ FROM
     });
 
     this.cmOption.hintOptions.tables = tables
+  },
+  created() {
+    this.labelSave = I18n.t("gobierto_data.projects.save")
+    this.labelRecents = I18n.t("gobierto_data.projects.recents")
+    this.labelQueries = I18n.t("gobierto_data.projects.queries")
+    this.labelRunQuery = I18n.t("gobierto_data.projects.runQuery")
   },
   methods: {
     onCmReady(cm) {

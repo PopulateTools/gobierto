@@ -316,6 +316,40 @@
     }
   }
 
+  .codemirror {
+    border:0;
+  }
+
+  .CodeMirror {
+    background-color: rgba(#666, .05) !important;
+    border: 0;
+    padding: .5rem;
+    height: auto !important;
+    min-height: 100px !important;
+  }
+
+  .CodeMirror-code {
+    font-size: 12px;
+    color: #666;
+    font-family: monospace;
+  }
+
+  &-sql-editor {
+    button {
+      border: 1px solid var(--color-base);
+    }
+  }
+
+  &-sql-editor-toolbar {
+    padding: .5rem 0;
+  }
+
+  .btn-viz {
+    border-bottom: 3px solid #0668C9;
+    border-radius: 0;
+    margin-bottom: 1rem;
+  }
+
 
 
 }

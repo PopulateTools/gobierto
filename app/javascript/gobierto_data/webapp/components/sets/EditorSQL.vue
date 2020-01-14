@@ -3,6 +3,7 @@
     <div class="gobierto-data-sql-editor">
       <div class="gobierto-data-sql-editor-toolbar">
         <Button
+          v-if="showBtnRemove"
           class="btn-sql-editor"
           :text="undefined"
           icon="times"
@@ -11,6 +12,7 @@
         />
         <Button
           class="btn-sql-editor"
+          :class="removeLabelBtn ? 'remove-label' : ''"
           :text="labelRecents"
           icon="history"
           color="var(--color-base)"
@@ -19,6 +21,7 @@
         />
         <Button
           class="btn-sql-editor"
+          :class="removeLabelBtn ? 'remove-label' : ''"
           :text="labelQueries"
           icon="list"
           color="var(--color-base)"
@@ -30,24 +33,42 @@
           class="gobierto-data-sql-editor-container-save"
         >
           <input
+            ref="inputText"
             type="text"
             :placeholder="labelQueryName"
+            :class="saveQueryState ? 'query-saved' : ''"
             class="gobierto-data-sql-editor-container-save-text"
+            @keyup="nameQuery = $event.target.value"
           >
           <input
+            v-if="showLabelPrivate"
             :id="labelPrivate"
             type="checkbox"
             class="gobierto-data-sql-editor-container-save-checkbox"
-            @change="marked = !marked"
+            :checked="privateQuery"
+            @input="privateQuery = $event.target.checked"
           >
           <label
+            v-if="showLabelPrivate"
             class="gobierto-data-sql-editor-container-save-label"
             :for="labelPrivate"
           >
             {{ labelPrivate }}
           </label>
+          <i
+            style="color: #A0C51D;"
+            class="fas"
+            :class="privateQuery ? 'fa-lock' : 'fa-lock-open'"
+          />
+          <span
+            v-if="showLabelModified"
+            class="gobierto-data-sql-editor-modified-label"
+          >
+            {{ labelModifiedQuery }}
+          </span>
         </div>
         <Button
+          v-if="showBtnSave"
           class="btn-sql-editor"
           :style="saveQueryState ? 'color: #fff; background-color: var(--color-base)' : 'color: var(--color-base); background-color: rgb(255, 255, 255);'"
           :text="labelSave"
@@ -58,21 +79,32 @@
           @click.native="saveQueryName()"
         />
         <Button
-          v-if="saveQueryState"
+          v-if="showBtnCancel"
           class="btn-sql-editor"
           :text="labelCancel"
           icon="undefined"
           color="var(--color-base)"
           background="#fff"
+          @click.native="cancelQuery()"
         />
         <Button
+          v-if="showBtnEdit"
           class="btn-sql-editor"
+          :text="labelEdit"
+          icon="edit"
+          color="var(--color-base)"
+          background="#fff"
+          @click.native="editQuery()"
+        />
+        <Button
+          v-if="showBtnRun"
+          class="btn-sql-editor btn-sql-editor-run"
           :text="labelRunQuery"
           icon="play"
           color="var(--color-base)"
           background="#fff"
           :disabled="disabledRunQuery"
-          @click.native="execute()"
+          @click.native="runQuery()"
         />
       </div>
       <div class="codemirror">
@@ -84,6 +116,20 @@
           @input="onCmCodeChange"
           @blur="formatCode"
         />
+      </div>
+      <div class="gobierto-data-sql-editor-footer">
+        <span class="gobierto-data-sql-editor-footer-records">
+          {{ numberRecords }} registros
+        </span>
+        <span class="gobierto-data-sql-editor-footer-time">
+          consulta ejecutada en {{ timeQuery }}s
+        </span>
+        <a
+          href=""
+          class="gobierto-data-sql-editor-footer-guide"
+        >
+          {{ labelGuide }}
+        </a>
       </div>
     </div>
   </div>
@@ -105,8 +151,27 @@ export default {
     Button
   },
   data() {
-    const code =
-      `SELECT * FROM mobiliario_urbano`
+        const code =
+          `SELECT
+      COUNT(*) AS lines,
+      COUNT(*) FILTER (
+        WHERE
+          TO_NUMBER(t.quantity, '999999999999') > 0
+          AND TO_NUMBER(t.value, '999999999999') > 0
+      ) AS loadable_lines,
+      COUNT(*) FILTER (
+        WHERE
+          t.type != 'import'
+          AND t.type != 'export'
+      ) AS invalid_type,
+      STRING_AGG(m_commodity.hs_code, '^') AS missing_hs_codes,
+      STRING_AGG(m_country.country, '^') AS missing_countries,
+      STRING_AGG(m_unit.unit, '^') AS missing_units
+    FROM
+      staging_temp AS t
+      LEFT JOIN m_commodity ON (m_commodity.id = t.id)
+      LEFT JOIN m_country ON (m_country.id = t.id)
+      LEFT JOIN m_unit ON (m_unit.id = t.id)`
     return {
       code,
       disabledRecents: true,
@@ -115,6 +180,15 @@ export default {
       disabledRunQuery: true,
       saveQueryState: false,
       marked: false,
+      privateQuery: false,
+      showBtnCancel: false,
+      showBtnEdit: false,
+      showBtnRun: true,
+      showBtnSave: true,
+      showBtnRemove: true,
+      showLabelPrivate: true,
+      removeLabelBtn: false,
+      showLabelModified: false,
       labelSave: '',
       labelRecents: '',
       labelQueries: '',
@@ -122,6 +196,12 @@ export default {
       labelCancel: '',
       labelPrivate: '',
       labelQueryName: '',
+      labelEdit: '',
+      labelModifiedQuery: '',
+      labelGuide: '',
+      nameQuery: '',
+      numberRecords: '1337',
+      timeQuery: '0.1',
       cmOption: {
         tabSize: 2,
         styleActiveLine: false,
@@ -177,6 +257,9 @@ export default {
     this.labelCancel = I18n.t("gobierto_data.projects.cancel")
     this.labelPrivate = I18n.t("gobierto_data.projects.private")
     this.labelQueryName = I18n.t("gobierto_data.projects.queryName")
+    this.labelEdit = I18n.t("gobierto_data.projects.edit")
+    this.labelModifiedQuery = I18n.t("gobierto_data.projects.modifiedQuery")
+    this.labelGuide = I18n.t("gobierto_data.projects.guide")
   },
   methods: {
     onCmReady(cm) {
@@ -185,6 +268,11 @@ export default {
         this.disabledRecents = false
         this.disabledSave = false
         this.disabledRunQuery = false
+        if (this.saveQueryState === true) {
+          this.showLabelModified = true
+          this.showBtnEdit = false
+          this.showBtnSave = true
+        }
         /*var options = {
           hint: function() {
             return {
@@ -201,10 +289,10 @@ export default {
       const formaterCode = sqlFormatter.format(this.code)
       this.cm.setValue(formaterCode)
     },
-    execute() {
+    runQuery() {
       let oneLine = this.code.replace(/\n/g, ' ');
       oneLine = oneLine.replace(/  +/g, ' ');
-      alert('Ejecutando consulta ' + oneLine)
+      alert('Run Query ' + oneLine)
     },
     onCmCodeChange(newCode) {
       this.code = newCode
@@ -218,10 +306,42 @@ export default {
       this.cm.setValue(this.arrayQuerys[0])
     },
     saveQueryName() {
-      if (this.saveQueryState === true) {
-        console.log('guardamos la consulta')
+      if (this.saveQueryState === true && this.nameQuery.length > 0) {
+        this.showBtnCancel = false
+        this.showBtnEdit = true
+        this.showBtnSave = false
+        this.showBtnRemove = false
+        this.showLabelPrivate = false
+        this.removeLabelBtn = true
+        this.showLabelModified = false
+      } else {
+        this.saveQueryState = true
+        this.showBtnCancel = true
+        this.setFocus()
       }
-      this.saveQueryState = true
+    },
+    setFocus() {
+      this.$nextTick(() => {
+        this.$refs.inputText.focus()
+      })
+    },
+    editQuery() {
+      this.setFocus()
+      this.showBtnCancel = true
+      this.showBtnEdit = false
+      this.showBtnSave = true
+      this.showBtnRemove = true
+      this.showLabelPrivate = true
+      this.removeLabelBtn = false
+    },
+    cancelQuery() {
+      this.showBtnCancel = false
+      this.showBtnEdit = false
+      this.showBtnSave = true
+      this.showBtnRemove = true
+      this.showLabelPrivate = false
+      this.removeLabelBtn = false
+      this.saveQueryState = false
     }
   }
 }

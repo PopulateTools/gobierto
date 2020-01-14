@@ -1,7 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import VueCodemirror from 'vue-codemirror'
 
 Vue.use(VueRouter);
+Vue.use(VueCodemirror);
 Vue.config.productionTip = false;
 
 export class GobiertoDataController {

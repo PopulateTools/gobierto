@@ -2,18 +2,36 @@
   <div class="container">
     <div class="container-editor">
       <div class="codemirror-toolbar">
-        <button @click="formatCode()">Indentar</button>
-        <button @click="saveCode()">Guardar</button>
-        <button @click="queryRandom()">Query Random</button>
+        <button
+          @click="formatCode()"
+        >
+          Indentar
+        </button>
+        <button @click="saveCode()">
+          Guardar
+        </button>
+        <button
+          @click="queryRandom()"
+        >
+          Query Random
+        </button>
       </div>
       <div class="codemirror">
         <codemirror
           ref="myCm"
-          v-model="code" :options="cmOption" @ready="onCmReady" @input="onCmCodeChange" @blur="formatCode">
-          >
-        </codemirror>
+          v-model="code"
+          :options="cmOption"
+          @ready="onCmReady"
+          @input="onCmCodeChange"
+          @blur="formatCode"
+        />
       </div>
-      <button class="editor-btn-execute" @click="execute()">Ejecutar</button>
+      <button
+        class="editor-btn-execute"
+        @click="execute()"
+      >
+        Ejecutar
+      </button>
     </div>
   </div>
 </template>
@@ -28,10 +46,7 @@ import { commands } from 'codemirror/src/edit/commands.js'
 import 'codemirror/src/model/selection_updates.js'
 
 export default {
-  name: 'codemirror',
-  props: {
-    msg: String
-  },
+  name: 'CodeMirror',
   data() {
     const code =
       `SELECT
@@ -100,7 +115,6 @@ FROM
       if (e.key === 'Enter' || e.keyCode == 32) {
         this.formatCode()
         this.cm.setCursor(this.cm.lineCount(), 0);
-        // eslint-disable-next-line no-console
       }
     });
 
@@ -136,56 +150,3 @@ FROM
   }
 }
 </script>
-<style>
-.CodeMirror-code {
-  text-align: left;
-}
-
-.container-editor {
-  width: 50%;
-  margin: 0 auto;
-}
-
-.codemirror {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.CodeMirror {
-  background-color: #FAFAFA !important;
-  border-radius: 4px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  padding: .5rem;
-  height: auto !important;
-}
-
-button {
-  background-color: transparent;
-  border-radius: 4px;
-  border: 0;
-  padding: .5rem;
-  cursor: pointer;
-  margin-right: 1rem;
-  font-size: 12px;
-  color: #666;
-}
-
-.codemirror-toolbar {
-  background-color: #ECEAEA;
-  border: 1px solid #ccc;
-  border-bottom: 0;
-  border-radius: 4px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  padding: .5rem;
-}
-
-.btn-viz {
-  border-bottom: 3px solid #0668C9;
-  border-radius: 0;
-  margin-bottom: 1rem;
-}
-</style>

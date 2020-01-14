@@ -1,16 +1,16 @@
 <template>
   <div>
     <p>Data</p>
-    <EditorSQL />
+    <CodeMirror id="codemirror" />
   </div>
 </template>
 
 <script>
-import EditorSQL from "./EditorSQL.vue";
+import CodeMirror from "./EditorSQL.vue";
 export default {
   name: "Data",
   components: {
-    EditorSQL
+    CodeMirror,
   },
   data() {
     return {

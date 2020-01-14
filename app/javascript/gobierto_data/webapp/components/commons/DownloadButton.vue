@@ -39,7 +39,8 @@ export default {
   },
   data() {
     return {
-      labelDownloadData: ""
+      labelDownloadData: "",
+      isActive: false
     }
   },
   created() {

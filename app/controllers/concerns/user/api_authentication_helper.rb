@@ -28,6 +28,6 @@ module User::ApiAuthenticationHelper
   end
 
   def token
-    @token = request.headers["token"] || params["token"]
+    @token = request.headers["Authorization"] || params["token"]
   end
 end

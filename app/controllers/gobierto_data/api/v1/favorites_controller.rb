@@ -5,7 +5,7 @@ module GobiertoData
     module V1
       class FavoritesController < BaseController
 
-        before_action :authenticate_user!, except: [:index, :new]
+        before_action :authenticate_user!, except: [:index]
         before_action :allow_author!, only: [:destroy]
 
         # GET /api/v1/data/resource_type/resource_id/favorites
@@ -28,19 +28,6 @@ module GobiertoData
               )
             end
           end
-        end
-
-        # GET /api/v1/data/resource_type/resource_id/favorites/new
-        # GET /api/v1/data/resource_type/resource_id/favorites/new.json
-        def new
-          @item = filtered_relation.new
-
-          render(
-            json: @item,
-            exclude_links: true,
-            links: links(:new),
-            adapter: :json_api
-          )
         end
 
         # POST /api/v1/data/resource_type/resource_id/favorites
@@ -124,8 +111,7 @@ module GobiertoData
           return unless resource_type.present?
 
           {
-            index: send("gobierto_data_api_v1_#{resource_type}_favorites_path", filter: filter_params),
-            new: send("new_gobierto_data_api_v1_#{resource_type}_favorite_path", filter: filter_params)
+            index: send("gobierto_data_api_v1_#{resource_type}_favorites_path", filter: filter_params)
           }.tap do |hash|
             hash[:self] = hash.delete(self_key) if self_key.present?
           end

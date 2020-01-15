@@ -15,13 +15,13 @@
         :text="labelRecents"
         icon="history"
         color="var(--color-base)"
-        background="#fff"
         :disabled="disabledRecents"
+        background="#fff"
       />
       <Button
-        class="btn-sql-editor"
-        :class="removeLabelBtn ? 'remove-label' : ''"
         :text="labelQueries"
+        :class="removeLabelBtn ? 'remove-label' : ''"
+        class="btn-sql-editor"
         icon="list"
         color="var(--color-base)"
         :disabled="disabledQueries"
@@ -33,9 +33,9 @@
       >
         <input
           ref="inputText"
-          type="text"
-          :placeholder="labelQueryName"
           :class="disableInputName ? 'disable-input-text' : ' '"
+          :placeholder="labelQueryName"
+          type="text"
           class="gobierto-data-sql-editor-container-save-text"
           @keyup="nameQuery = $event.target.value"
         >
@@ -43,21 +43,21 @@
           v-if="showLabelPrivate"
           :id="labelPrivate"
           type="checkbox"
-          class="gobierto-data-sql-editor-container-save-checkbox"
           :checked="privateQuery"
+          class="gobierto-data-sql-editor-container-save-checkbox"
           @input="privateQuery = $event.target.checked"
         >
         <label
           v-if="showLabelPrivate"
-          class="gobierto-data-sql-editor-container-save-label"
           :for="labelPrivate"
+          class="gobierto-data-sql-editor-container-save-label"
         >
           {{ labelPrivate }}
         </label>
         <i
           style="color: #A0C51D;"
-          class="fas"
           :class="privateQuery ? 'fa-lock' : 'fa-lock-open'"
+          class="fas"
         />
         <span
           v-if="showLabelModified"
@@ -68,19 +68,19 @@
       </div>
       <Button
         v-if="showBtnSave"
-        class="btn-sql-editor"
-        :style="saveQueryState ? 'color: #fff; background-color: var(--color-base)' : 'color: var(--color-base); background-color: rgb(255, 255, 255);'"
         :text="labelSave"
+        :style="saveQueryState ? 'color: #fff; background-color: var(--color-base)' : 'color: var(--color-base); background-color: rgb(255, 255, 255);'"
+        class="btn-sql-editor"
         icon="save"
         color="var(--color-base)"
-        background="#fff"
         :disabled="disabledSave"
+        background="#fff"
         @click.native="saveQueryName()"
       />
       <Button
         v-if="showBtnCancel"
-        class="btn-sql-editor"
         :text="labelCancel"
+        class="btn-sql-editor"
         icon="undefined"
         color="var(--color-base)"
         background="#fff"
@@ -88,8 +88,8 @@
       />
       <Button
         v-if="showBtnEdit"
-        class="btn-sql-editor"
         :text="labelEdit"
+        class="btn-sql-editor"
         icon="edit"
         color="var(--color-base)"
         background="#fff"
@@ -97,12 +97,12 @@
       />
       <Button
         v-if="showBtnRun"
-        class="btn-sql-editor btn-sql-editor-run"
         :text="labelRunQuery"
+        class="btn-sql-editor btn-sql-editor-run"
         icon="play"
         color="var(--color-base)"
-        background="#fff"
         :disabled="disabledRunQuery"
+        background="#fff"
         @click.native="runQuery()"
       />
     </div>

@@ -21,7 +21,7 @@ module GobiertoData
                 meta: {
                   self_favorited: user_favorites.exists?(favorited: @favorited)
                 }.tap do |meta|
-                  [:query, :visualization].each do |res_type|
+                  [:dataset, :query].each do |res_type|
                     meta["#{res_type}_favorited"] = @user.data_favorites.exists?(favorited: @favorited.send(res_type)) if @favorited.respond_to?(res_type)
                   end
                 end

@@ -119,9 +119,9 @@ module GobiertoData
         end
 
         # GET /api/v1/data/datasets/slug/favorites.json
-        def test_dataset_index_with_user_id
+        def test_dataset_index_filtered_by_user_id
           with(site: site) do
-            get gobierto_data_api_v1_dataset_favorites_path(dataset.slug, user_id: user.id), headers: { Authorization: other_user_token.token }, as: :json
+            get gobierto_data_api_v1_dataset_favorites_path(dataset.slug, filter: { user_id: user.id }), headers: { Authorization: other_user_token.token }, as: :json
 
             assert_response :success
 

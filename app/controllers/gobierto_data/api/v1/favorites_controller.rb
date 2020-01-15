@@ -117,7 +117,7 @@ module GobiertoData
         end
 
         def find_user
-          @user = User.find_by(id: params[:user_id]) || current_user
+          @user = current_site.users.find_by(id: filter_params&.dig(:user_id)) || current_user
         end
 
         def links(self_key = nil)

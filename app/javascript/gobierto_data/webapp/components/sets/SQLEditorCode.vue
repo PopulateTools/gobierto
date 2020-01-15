@@ -44,8 +44,8 @@ export default {
       labelGuide: '',
       labelQueryExecuted: '',
       labelRecords: '',
-      numberRecords: '1337',
-      timeQuery: '0.1',
+      numberRecords: '',
+      timeQuery: '',
       cmOption: {
         tabSize: 2,
         styleActiveLine: false,
@@ -77,6 +77,7 @@ export default {
     this.labelQueryExecuted = I18n.t('gobierto_data.projects.queryExecuted');
     this.labelRecords = I18n.t('gobierto_data.projects.records');
     this.$root.$on('saveQueryState', this.saveQueryState);
+    this.$root.$on('recordsDuration', this.updateRecordsDuration);
   },
   mounted() {
     this.cm = this.$refs.myCm.codemirror;
@@ -99,6 +100,10 @@ export default {
     this.cmOption.hintOptions.tables = tables;
   },
   methods: {
+    updateRecordsDuration(values) {
+      this.numberRecords = values[0]
+      this.timeQuery = values[1].toFixed(2)
+    },
     saveQueryState(value) {
       this.saveQueryState = value;
     },
@@ -115,11 +120,6 @@ export default {
       this.commands.selectAll(this.cm);
       const formaterCode = sqlFormatter.format(this.code);
       this.cm.setValue(formaterCode);
-    },
-    runQuery() {
-      let oneLine = this.code.replace(/\n/g, ' ');
-      oneLine = oneLine.replace(/  +/g, ' ');
-      alert('Run Query ' + oneLine);
     },
     onCmCodeChange(newCode) {
       this.code = newCode;

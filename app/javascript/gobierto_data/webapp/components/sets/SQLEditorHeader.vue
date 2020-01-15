@@ -233,6 +233,11 @@ export default {
         this.removeLabelBtn = false;
         this.saveQueryState = false;
       }
+    },
+    runQuery() {
+      let oneLine = this.codeQuery.replace(/\n/g, ' ');
+      this.codeQuery = oneLine.replace(/  +/g, ' ');
+      this.$root.$emit('updateCodeQuery', this.codeQuery)
     }
   }
 };

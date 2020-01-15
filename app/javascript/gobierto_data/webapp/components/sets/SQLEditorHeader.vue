@@ -12,8 +12,8 @@
       <Button
         :text="labelRecents"
         :class="removeLabelBtn ? 'remove-label' : ''"
-        class="btn-sql-editor"
         :disabled="disabledRecents"
+        class="btn-sql-editor"
         icon="history"
         color="var(--color-base)"
         background="#fff"
@@ -21,8 +21,8 @@
       <Button
         :text="labelQueries"
         :class="removeLabelBtn ? 'remove-label' : ''"
-        class="btn-sql-editor"
         :disabled="disabledQueries"
+        class="btn-sql-editor"
         icon="list"
         color="var(--color-base)"
         background="#fff"
@@ -74,8 +74,8 @@
             ? 'color: #fff; background-color: var(--color-base)'
             : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
         "
-        class="btn-sql-editor"
         :disabled="disabledSave"
+        class="btn-sql-editor"
         icon="save"
         color="var(--color-base)"
         background="#fff"
@@ -102,8 +102,8 @@
       <Button
         v-if="showBtnRun"
         :text="labelRunQuery"
-        class="btn-sql-editor btn-sql-editor-run"
         :disabled="disabledRunQuery"
+        class="btn-sql-editor btn-sql-editor-run"
         icon="play"
         color="var(--color-base)"
         background="#fff"

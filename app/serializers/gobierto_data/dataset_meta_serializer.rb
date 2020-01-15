@@ -11,6 +11,10 @@ module GobiertoData
       }
     end
 
+    attribute :columns do
+      object.rails_model.column_names
+    end
+
     attribute :data_preview do
       object.rails_model.first(50)
     end

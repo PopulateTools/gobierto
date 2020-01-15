@@ -5,51 +5,58 @@
         <a :href="homeUrl">
           <img
             :alt="siteName"
-            :src="logoUrl">
+            :src="logoUrl"
+          >
         </a>
       </div>
       <div class="map-flyto-header-btns">
         <button
           class="btn-reload-tour-virtual"
-          @click="reloadTour">
-          <i class="fas icon fa-redo-alt"/>{{ buttonReload }}
+          @click="reloadTour"
+        >
+          <i class="fas icon fa-redo-alt" />{{ buttonReload }}
         </button>
         <button
           class="btn-back-tour-virtual"
-          @click="backInvestments">
-          {{ buttonExit }}<i class="fas icon fa-sign-out-alt"/>
+          @click="backInvestments"
+        >
+          {{ buttonExit }}<i class="fas icon fa-sign-out-alt" />
         </button>
       </div>
     </div>
     <template>
       <MglMap
-        :accessToken="accessToken"
-        :mapStyle.sync="mapStyle"
-        :scrollZoom="scrollZoom"
-        @load="onMapLoaded">
-          <MglMarker
-            :coordinates="coordinatesMarker"
-            >
-            <img
-              slot="marker"
-              src="/packs/media/images/marker-icon-2273e3d8.png"
-            />
-          </MglMarker>
+        :access-token="accessToken"
+        :map-style.sync="mapStyle"
+        :scroll-zoom="scrollZoom"
+        @load="onMapLoaded"
+      >
+        <MglMarker
+          :coordinates="coordinatesMarker"
+        >
+          <img
+            slot="marker"
+            src="/packs/media/images/marker-icon-2273e3d8.png"
+          >
+        </MglMarker>
       </MglMap>
       <div class="container-card">
         <div
           class="container-card-element"
-          @click.stop.prevent="navTo(item)">
+          @click.stop.prevent="navTo(item)"
+        >
           <div class="investments-home-main--photo">
             <img
               v-if="photoCard"
               :src="photoCard"
-            />
+            >
           </div>
           <div class="investments-home-main--data">
-            <a href
+            <a
+              href
               class="investments-home-main--link"
-              @click.stop.prevent="navTo(item)">{{ titleCard }}
+              @click.stop.prevent="navTo(item)"
+            >{{ titleCard }}
             </a>
           </div>
         </div>
@@ -170,14 +177,14 @@ export default {
         this.geojsons.push({ ...this.convertWKTtoGeoJSON(location), id, photo, title, description, attributes });
       }
     },
-    cardsOnScreen(elementCard) {
+    cardsOnScreen() {
       this.activeCard(this.activeCardId);
     },
     randomNumbers(min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min);
     },
     activeCard(card) {
-      this.titleCard = this.geojsons[card].title.ca
+      this.titleCard = this.geojsons[card].title
       this.photoCard = this.geojsons[card].photo
       this.item = this.geojsons[card].id
 

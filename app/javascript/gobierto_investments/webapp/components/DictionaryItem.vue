@@ -13,18 +13,34 @@
       >
         <div
           v-for="column in table.columns"
-          :key="`${column}-${v}`"
+          :key="`${column.id}-${v}`"
         >
-          <div>{{ v[column] }}</div>
+          <div v-if="column.filter === 'money'">
+            {{ v[column.id] | money }}
+          </div>
+          <div v-else-if="column.filter === 'date'">
+            {{ v[column.id] | date }}
+          </div>
+          <div v-else>
+            {{ v[column.id] }}
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Icon type -->
     <div v-else-if="type === 'icon'">
-      <div class="investments-project-main--icon-text">
-        <i :class="`fas fa-${icon.name}`" /> <a :href="icon.href">{{ value }}</a>
-      </div>
+      <template v-for="(v, i) in value">
+        <div
+          :key="`${v}-${i}`"
+          class="investments-project-main--icon-text"
+        >
+          <i :class="`fas fa-${icon.name}`" /> <a
+            :href="v[icon.href]"
+            target="_blank"
+          >{{ v[icon.title] }}</a>
+        </div>
+      </template>
     </div>
 
     <!-- Highlight type -->
@@ -40,8 +56,11 @@
 </template>
 
 <script>
+import { CommonsMixin } from "../mixins/common.js";
+
 export default {
   name: "DictionaryItem",
+  mixins: [CommonsMixin],
   props: {
     name: {
       type: String,

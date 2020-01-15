@@ -24,8 +24,8 @@
         class="btn-sql-editor"
         icon="list"
         color="var(--color-base)"
-        :disabled="disabledQueries"
         background="#fff"
+        :disabled="disabledQueries"
       />
       <div
         v-if="saveQueryState"
@@ -69,7 +69,11 @@
       <Button
         v-if="showBtnSave"
         :text="labelSave"
-        :style="saveQueryState ? 'color: #fff; background-color: var(--color-base)' : 'color: var(--color-base); background-color: rgb(255, 255, 255);'"
+        :style="
+          saveQueryState
+            ? 'color: #fff; background-color: var(--color-base)'
+            : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
+        "
         class="btn-sql-editor"
         icon="save"
         color="var(--color-base)"
@@ -109,7 +113,7 @@
   </div>
 </template>
 <script>
-import Button from "./../commons/Button.vue";
+import Button from './../commons/Button.vue';
 
 export default {
   name: 'SQLEditorHeader',
@@ -145,91 +149,91 @@ export default {
       labelModifiedQuery: '',
       nameQuery: '',
       codeQuery: ''
-    }
+    };
   },
   created() {
-    this.labelSave = I18n.t("gobierto_data.projects.save")
-    this.labelRecents = I18n.t("gobierto_data.projects.recents")
-    this.labelQueries = I18n.t("gobierto_data.projects.queries")
-    this.labelRunQuery = I18n.t("gobierto_data.projects.runQuery")
-    this.labelCancel = I18n.t("gobierto_data.projects.cancel")
-    this.labelPrivate = I18n.t("gobierto_data.projects.private")
-    this.labelQueryName = I18n.t("gobierto_data.projects.queryName")
-    this.labelEdit = I18n.t("gobierto_data.projects.edit")
-    this.labelModifiedQuery = I18n.t("gobierto_data.projects.modifiedQuery")
-    this.labelGuide = I18n.t("gobierto_data.projects.guide")
+    this.labelSave = I18n.t('gobierto_data.projects.save');
+    this.labelRecents = I18n.t('gobierto_data.projects.recents');
+    this.labelQueries = I18n.t('gobierto_data.projects.queries');
+    this.labelRunQuery = I18n.t('gobierto_data.projects.runQuery');
+    this.labelCancel = I18n.t('gobierto_data.projects.cancel');
+    this.labelPrivate = I18n.t('gobierto_data.projects.private');
+    this.labelQueryName = I18n.t('gobierto_data.projects.queryName');
+    this.labelEdit = I18n.t('gobierto_data.projects.edit');
+    this.labelModifiedQuery = I18n.t('gobierto_data.projects.modifiedQuery');
+    this.labelGuide = I18n.t('gobierto_data.projects.guide');
 
-    this.$root.$on("activeSave", this.activeSave);
-    this.$root.$on("updateCode", this.updateQuery);
-    this.$root.$on("updateActiveSave", this.updateActiveSave);
+    this.$root.$on('activeSave', this.activeSave);
+    this.$root.$on('updateCode', this.updateQuery);
+    this.$root.$on('updateActiveSave', this.updateActiveSave);
   },
   methods: {
     activeSave(value) {
-      this.disabledRecents = value
-      this.disabledSave = value
-      this.disabledRunQuery = value
+      this.disabledRecents = value;
+      this.disabledSave = value;
+      this.disabledRunQuery = value;
     },
     updateQuery(value) {
-      this.codeQuery = value
+      this.codeQuery = value;
     },
     updateActiveSave(activeLabel, disableLabel) {
-      this.showLabelModified = activeLabel
-      this.showBtnSave = activeLabel
-      this.showBtnEdit = disableLabel
-      this.disableInputName = disableLabel
+      this.showLabelModified = activeLabel;
+      this.showBtnSave = activeLabel;
+      this.showBtnEdit = disableLabel;
+      this.disableInputName = disableLabel;
     },
     saveQueryName() {
       if (this.saveQueryState === true && this.nameQuery.length > 0) {
-        this.showBtnCancel = false
-        this.showBtnEdit = true
-        this.showBtnSave = false
-        this.showBtnRemove = false
-        this.showLabelPrivate = false
-        this.removeLabelBtn = true
-        this.showLabelModified = false
-        this.disableInputName = true
+        this.showBtnCancel = false;
+        this.showBtnEdit = true;
+        this.showBtnSave = false;
+        this.showBtnRemove = false;
+        this.showLabelPrivate = false;
+        this.removeLabelBtn = true;
+        this.showLabelModified = false;
+        this.disableInputName = true;
       } else {
-        this.saveQueryState = true
-        this.showBtnCancel = true
-        this.setFocus()
-        this.$root.$emit("saveQueryState", true);
+        this.saveQueryState = true;
+        this.showBtnCancel = true;
+        this.setFocus();
+        this.$root.$emit('saveQueryState', true);
       }
     },
     setFocus() {
       this.$nextTick(() => {
-        this.$refs.inputText.focus()
-      })
+        this.$refs.inputText.focus();
+      });
     },
     editQuery() {
-      this.setFocus()
-      this.showBtnCancel = true
-      this.showBtnEdit = false
-      this.showBtnSave = true
-      this.showBtnRemove = true
-      this.showLabelPrivate = true
-      this.removeLabelBtn = false
-      this.disableInputName = false
+      this.setFocus();
+      this.showBtnCancel = true;
+      this.showBtnEdit = false;
+      this.showBtnSave = true;
+      this.showBtnRemove = true;
+      this.showLabelPrivate = true;
+      this.removeLabelBtn = false;
+      this.disableInputName = false;
     },
     cancelQuery() {
       if (this.nameQuery.length > 0) {
-        this.showBtnCancel = false
-        this.showBtnEdit = true
-        this.showBtnSave = false
-        this.showBtnRemove = false
-        this.showLabelPrivate = false
-        this.removeLabelBtn = true
-        this.showLabelModified = false
-        this.disableInputName = true
+        this.showBtnCancel = false;
+        this.showBtnEdit = true;
+        this.showBtnSave = false;
+        this.showBtnRemove = false;
+        this.showLabelPrivate = false;
+        this.removeLabelBtn = true;
+        this.showLabelModified = false;
+        this.disableInputName = true;
       } else {
-        this.showBtnCancel = false
-        this.showBtnEdit = false
-        this.showBtnSave = true
-        this.showBtnRemove = true
-        this.showLabelPrivate = true
-        this.removeLabelBtn = false
-        this.saveQueryState = false
+        this.showBtnCancel = false;
+        this.showBtnEdit = false;
+        this.showBtnSave = true;
+        this.showBtnRemove = true;
+        this.showLabelPrivate = true;
+        this.removeLabelBtn = false;
+        this.saveQueryState = false;
       }
     }
   }
-}
+};
 </script>

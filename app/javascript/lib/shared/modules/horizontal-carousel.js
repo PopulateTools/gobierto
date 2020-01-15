@@ -52,6 +52,11 @@ export class HorizontalCarousel {
     this.setVisibility(this.prev, this.start < 0);
     this.setVisibility(this.next, Math.abs(this.start) < this.maxValue);
   }
+
+  destroy() {
+    this.next.removeEventListener("click", this.onNextClick.bind(this));
+    this.prev.removeEventListener("click", this.onPrevClick.bind(this));
+  }
 }
 
 // Static initialization

@@ -7,10 +7,14 @@
       <div
         v-for="bar in rangeBars"
         :key="bar.id"
-        :style="{ height: `${100 * (bar.count / total)}%`}"
+        :style="{ height: `${100 * (bar.count / total)}%` }"
       >
-        <span>{{ rangeMin(bar.start) | money({ minimumFractionDigits: 0 }) }}</span>
-        <span>{{ rangeMax(bar.end) | money({ minimumFractionDigits: 0 }) }}</span>
+        <span>{{
+          rangeMin(bar.start) | money({ minimumFractionDigits: 0 })
+        }}</span>
+        <span>{{
+          rangeMax(bar.end) | money({ minimumFractionDigits: 0 })
+        }}</span>
       </div>
     </div>
     <div
@@ -28,7 +32,7 @@
 </template>
 
 <script>
-import { rangeSlider } from "lib/shared";
+import { RangeSlider } from "lib/shared";
 import { CommonsMixin } from "../mixins/common.js";
 
 export default {
@@ -47,6 +51,14 @@ export default {
       type: Number,
       default: 1
     },
+    savedMin: {
+      type: Number,
+      default: null
+    },
+    savedMax: {
+      type: Number,
+      default: null
+    },
     rangeBars: {
       type: Array,
       default: () => []
@@ -56,27 +68,44 @@ export default {
   data() {
     return {
       defaultRange: [this.min, this.max],
-      selectedMin: this.min,
-      selectedMax: this.max,
-      random: Math.random().toString(36).substring(7),
-    }
+      selectedMin: this.savedMin || this.min,
+      selectedMax: this.savedMax || this.max,
+      random: Math.random()
+        .toString(36)
+        .substring(7)
+    };
   },
   computed: {
     rangeMin() {
-      return value => Math.floor(parseFloat(value))
+      return value => Math.floor(parseFloat(value));
     },
     rangeMax() {
-      return value => Math.ceil(parseFloat(value))
+      return value => Math.ceil(parseFloat(value));
     },
     rangeDefault() {
-      return JSON.stringify([Math.floor(this.min), Math.ceil(this.max)])
+      return JSON.stringify([
+        this.savedMin || Math.floor(this.min),
+        this.savedMax || Math.ceil(this.max)
+      ]);
     }
   },
   mounted() {
-    const rangeSlider = this.$el.querySelector(".js-range-slider");
-    this.setRangeSlider(rangeSlider);
+    this.getRangeSlider()
+  },
+  updated() {
+    this.selectedMin = this.savedMin || this.min;
+    this.selectedMax = this.savedMax || this.max;
+    this.getRangeSlider()
+  },
+  beforeDestroy() {
+    // https://vuejs.org/v2/cookbook/avoiding-memory-leaks.html
+    this.rangeSlider.destroy()
   },
   methods: {
+    getRangeSlider() {
+      const rangeSlider = this.$el.querySelector(".js-range-slider");
+      this.setRangeSlider(rangeSlider);
+    },
     setRangeSlider(slider) {
       const {
         min = 0,
@@ -91,10 +120,10 @@ export default {
         slider.selectedRange = values;
         this.setRangeBar(slider);
 
-        const [min = this.min, max = this.max] = values
-        this.selectedMin = min
-        this.selectedMax = max
-        this.$emit("range-change", min, max)
+        const [min = this.min, max = this.max] = values;
+        this.selectedMin = min;
+        this.selectedMax = max;
+        this.$emit("range-change", { min, max });
       };
 
       // Update values for THIS slider
@@ -102,7 +131,7 @@ export default {
       slider.max = parseFloat(max);
       slider.selectedRange = JSON.parse(defaultRange);
 
-      rangeSlider({
+      this.rangeSlider = new RangeSlider({
         elem: slider,
         min: slider.min,
         max: slider.max,
@@ -129,7 +158,7 @@ export default {
           ? bar.classList.add(this.$options.inRangeClass)
           : bar.classList.remove(this.$options.inRangeClass);
       }
-    },
+    }
   }
 };
 </script>

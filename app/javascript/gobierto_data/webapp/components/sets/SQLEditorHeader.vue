@@ -3,19 +3,19 @@
     <div class="gobierto-data-sql-editor-toolbar">
       <Button
         v-if="showBtnRemove"
-        class="btn-sql-editor"
         :text="undefined"
+        class="btn-sql-editor"
         icon="times"
         color="var(--color-base)"
         background="#fff"
       />
       <Button
-        class="btn-sql-editor"
-        :class="removeLabelBtn ? 'remove-label' : ''"
         :text="labelRecents"
+        :class="removeLabelBtn ? 'remove-label' : ''"
+        class="btn-sql-editor"
         icon="history"
-        color="var(--color-base)"
         :disabled="disabledRecents"
+        color="var(--color-base)"
         background="#fff"
       />
       <Button
@@ -23,9 +23,9 @@
         :class="removeLabelBtn ? 'remove-label' : ''"
         class="btn-sql-editor"
         icon="list"
+        :disabled="disabledQueries"
         color="var(--color-base)"
         background="#fff"
-        :disabled="disabledQueries"
       />
       <div
         v-if="saveQueryState"
@@ -42,8 +42,8 @@
         <input
           v-if="showLabelPrivate"
           :id="labelPrivate"
-          type="checkbox"
           :checked="privateQuery"
+          type="checkbox"
           class="gobierto-data-sql-editor-container-save-checkbox"
           @input="privateQuery = $event.target.checked"
         >
@@ -55,8 +55,8 @@
           {{ labelPrivate }}
         </label>
         <i
-          style="color: #A0C51D;"
           :class="privateQuery ? 'fa-lock' : 'fa-lock-open'"
+          style="color: #A0C51D;"
           class="fas"
         />
         <span
@@ -76,8 +76,8 @@
         "
         class="btn-sql-editor"
         icon="save"
-        color="var(--color-base)"
         :disabled="disabledSave"
+        color="var(--color-base)"
         background="#fff"
         @click.native="saveQueryName()"
       />
@@ -104,8 +104,8 @@
         :text="labelRunQuery"
         class="btn-sql-editor btn-sql-editor-run"
         icon="play"
-        color="var(--color-base)"
         :disabled="disabledRunQuery"
+        color="var(--color-base)"
         background="#fff"
         @click.native="runQuery()"
       />

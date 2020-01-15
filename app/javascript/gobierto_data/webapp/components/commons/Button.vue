@@ -4,8 +4,8 @@
     class="gobierto-data-btn-blue"
   >
     <i
-      style="color: inherit;"
       :class="'fa-' + icon"
+      style="color: inherit;"
       class="fas"
     />
     {{ text }}

@@ -5,45 +5,26 @@ module GobiertoData
     module V1
       class FavoritesController < BaseController
 
+        before_action :authenticate_user!, except: [:index, :new]
+        before_action :allow_author!, only: [:destroy]
+
         # GET /api/v1/data/resource_type/resource_id/favorites
         # GET /api/v1/data/resource_type/resource_id/favorites.json
         def index
           respond_to do |format|
             format.json do
-              render json: filtered_relation.recent, links: links(:index), adapter: :json_api
-            end
-          end
-        end
-
-        # GET /api/v1/data/resource_type/resource_id/user_favorited_queries?user_id=1
-        # GET /api/v1/data/resource_type/resource_id/user_favorited_queries.json?user_id=1
-        def user_favorited_queries
-          find_favorited
-          find_user
-          respond_to do |format|
-            format.json do
               render(
-                json: GobiertoData::Query.favorited_by_user(@user, parent: @favorited),
+                json: user_favorites,
                 exclude_relationships: true,
-                links: links(:user_favorited_queries),
-                adapter: :json_api
-              )
-            end
-          end
-        end
-
-        # GET /api/v1/data/resource_type/resource_id/user_favorited_visualizations?user_id=1
-        # GET /api/v1/data/resource_type/resource_id/user_favorited_visualizations.json?user_id=1
-        def user_favorited_visualizations
-          find_favorited
-          find_user
-          respond_to do |format|
-            format.json do
-              render(
-                json: GobiertoData::Visualization.favorited_by_user(@user, parent: @favorited),
-                exclude_relationships: true,
-                links: links(:user_favorited_visualizations),
-                adapter: :json_api
+                links: links(:index),
+                adapter: :json_api,
+                meta: {
+                  self_favorited: user_favorites.exists?(favorited: @favorited)
+                }.tap do |meta|
+                  [:query, :visualization].each do |res_type|
+                    meta["#{res_type}_favorited"] = @user.data_favorites.exists?(favorited: @favorited.send(res_type)) if @favorited.respond_to?(res_type)
+                  end
+                end
               )
             end
           end
@@ -66,7 +47,7 @@ module GobiertoData
         # POST /api/v1/data/resource_type/resource_id/favorites.json
         def create
           find_favorited
-          @favorite_form = FavoriteForm.new(favorite_params.merge(site_id: current_site.id, favorited: @favorited))
+          @favorite_form = FavoriteForm.new(site_id: current_site.id, favorited: @favorited, user_id: current_user.id)
 
           if @favorite_form.save
             @item = @favorite_form.favorite
@@ -85,15 +66,9 @@ module GobiertoData
         # DELETE /api/v1/data/resource_type/resource_id/favorites/1
         # DELETE /api/v1/data/resource_type/resource_id/favorites/1.json
         def destroy
-          find_item
+          @item.destroy
 
-          if @item.present?
-            @item.destroy
-
-            head :no_content
-          else
-            send_not_found
-          end
+          head :no_content
         end
 
         private
@@ -127,10 +102,6 @@ module GobiertoData
                              end
         end
 
-        def favorite_params
-          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:user_id])
-        end
-
         def filter_params
           return unless params[:filter].present?
 
@@ -142,11 +113,11 @@ module GobiertoData
         end
 
         def find_item
-          @item = filtered_relation.find_by(id: params[:id])
+          @item = filtered_relation.find_by(user_id: current_user.id)
         end
 
         def find_user
-          @user = User.find_by(id: params[:user_id])
+          @user = current_site.users.find_by(id: filter_params&.dig(:user_id)) || current_user
         end
 
         def links(self_key = nil)
@@ -156,14 +127,47 @@ module GobiertoData
             index: send("gobierto_data_api_v1_#{resource_type}_favorites_path", filter: filter_params),
             new: send("new_gobierto_data_api_v1_#{resource_type}_favorite_path", filter: filter_params)
           }.tap do |hash|
-            if resource_type == :dataset
-              hash[:user_favorited_queries] = send("user_favorited_queries_gobierto_data_api_v1_#{resource_type}_favorites_path", user_id: params[:user_id])
-            end
-            if [:dataset, :query].include? resource_type
-              hash[:user_favorited_visualizations] = send("user_favorited_visualizations_gobierto_data_api_v1_#{resource_type}_favorites_path", user_id: params[:user_id])
-            end
             hash[:self] = hash.delete(self_key) if self_key.present?
           end
+        end
+
+        def allow_author!
+          render(json: { message: "Unauthorized" }, status: :unauthorized, adapter: :json_api) && return unless find_item
+        end
+
+        def user_favorites
+          @user_favorites ||= begin
+                                find_favorited
+                                find_user
+                                return GobiertoData::Favorite.none unless @user.present?
+
+                                user_favs = @user.data_favorites
+                                case resource_type
+
+                                when :dataset
+                                  user_favs.where(
+                                    favorited: @favorited.visualizations
+                                  ).or(
+                                    user_favs.where(
+                                      favorited: @favorited.queries
+                                    ).or(
+                                      user_favs.where(
+                                        favorited: @favorited
+                                      )
+                                    )
+                                  ).order(favorited_type: :asc).recent
+                                when :query
+                                  user_favs.where(
+                                    favorited: @favorited.visualizations
+                                  ).or(
+                                    user_favs.where(
+                                      favorited: @favorited
+                                    )
+                                  ).order(favorited_type: :asc).recent
+                                else
+                                  user_favs.where(favorited: @favorited)
+                                end
+                              end
         end
       end
     end

@@ -3,12 +3,6 @@
 module User::ApiAuthenticationHelper
   extend ActiveSupport::Concern
 
-  included do
-    if respond_to?(:helper_method)
-      helper_method :current_user, :user_authenticated?
-    end
-  end
-
   private
 
   def current_user
@@ -34,6 +28,6 @@ module User::ApiAuthenticationHelper
   end
 
   def token
-    @token = request.headers["token"] || params["token"]
+    @token = request.headers["Authorization"] || params["token"]
   end
 end

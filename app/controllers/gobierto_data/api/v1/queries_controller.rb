@@ -173,8 +173,7 @@ module GobiertoData
                 data: gobierto_data_api_v1_query_path(id),
                 metadata: meta_gobierto_data_api_v1_query_path(id),
                 visualizations: gobierto_data_api_v1_visualizations_path(filter: { query_id: id }),
-                favorites: gobierto_data_api_v1_query_favorites_path(@item),
-                user_favorited_visualizations: user_favorited_visualizations_gobierto_data_api_v1_query_favorites_path(@item)
+                favorites: gobierto_data_api_v1_query_favorites_path(@item)
               )
             end
 

@@ -59,7 +59,7 @@ module GobiertoBudgets
 
     def total_budget_per_inhabitant(requested_year = year, kind = GobiertoBudgets::BudgetLine::EXPENSE)
       amount = total_budget_updated(fallback: true).to_f
-      population = population(requested_year) || population(requested_year - 1) || population(requested_year - 2)
+      population = population(requested_year) || population(requested_year - 1) || population(requested_year - 2) || population(requested_year - 3) || population(requested_year - 4)
 
       (amount / population).to_f
     end

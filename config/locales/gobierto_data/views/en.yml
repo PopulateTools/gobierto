@@ -44,3 +44,4 @@ en:
       private: Private
       queryName: Query name
       guide: Guide to using the SQL editor
+      queryExecuted: Query executed in

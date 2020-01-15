@@ -1,15 +1,15 @@
 <template>
   <div>
-    <CodeMirror id="codemirror" />
+    <SQLEditor id="codemirror" />
   </div>
 </template>
 
 <script>
-import CodeMirror from "./EditorSQL.vue";
+import SQLEditor from "./SQLEditor.vue";
 export default {
   name: "Data",
   components: {
-    CodeMirror,
+    SQLEditor,
   },
   data() {
     return {

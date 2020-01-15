@@ -44,3 +44,4 @@ es:
       private: Privada
       queryName: Nombre consulta
       guide: Guía para usar el editor SQL
+      queryExecuted: Consulta ejecutada en

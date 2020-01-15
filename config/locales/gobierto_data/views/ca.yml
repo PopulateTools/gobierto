@@ -44,3 +44,4 @@ ca:
       private: Privat
       queryName: Nom consulta
       guide: Guia per utilitzar l'editor SQL
+      queryExecuted: Consulta executada en

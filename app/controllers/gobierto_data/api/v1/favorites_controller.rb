@@ -5,7 +5,7 @@ module GobiertoData
     module V1
       class FavoritesController < BaseController
 
-        before_action :authenticate_user!, except: [:index, :user_favorited_queries, :user_favorited_visualizations, :new]
+        before_action :authenticate_user!, except: [:index, :new]
         before_action :allow_author!, only: [:destroy]
 
         # GET /api/v1/data/resource_type/resource_id/favorites
@@ -25,40 +25,6 @@ module GobiertoData
                     meta["#{res_type}_favorited"] = @user.data_favorites.exists?(favorited: @favorited.send(res_type)) if @favorited.respond_to?(res_type)
                   end
                 end
-              )
-            end
-          end
-        end
-
-        # GET /api/v1/data/resource_type/resource_id/user_favorited_queries?user_id=1
-        # GET /api/v1/data/resource_type/resource_id/user_favorited_queries.json?user_id=1
-        def user_favorited_queries
-          find_favorited
-          find_user
-          respond_to do |format|
-            format.json do
-              render(
-                json: GobiertoData::Query.favorited_by_user(@user, parent: @favorited),
-                exclude_relationships: true,
-                links: links(:user_favorited_queries),
-                adapter: :json_api
-              )
-            end
-          end
-        end
-
-        # GET /api/v1/data/resource_type/resource_id/user_favorited_visualizations?user_id=1
-        # GET /api/v1/data/resource_type/resource_id/user_favorited_visualizations.json?user_id=1
-        def user_favorited_visualizations
-          find_favorited
-          find_user
-          respond_to do |format|
-            format.json do
-              render(
-                json: GobiertoData::Visualization.favorited_by_user(@user, parent: @favorited),
-                exclude_relationships: true,
-                links: links(:user_favorited_visualizations),
-                adapter: :json_api
               )
             end
           end
@@ -161,12 +127,6 @@ module GobiertoData
             index: send("gobierto_data_api_v1_#{resource_type}_favorites_path", filter: filter_params),
             new: send("new_gobierto_data_api_v1_#{resource_type}_favorite_path", filter: filter_params)
           }.tap do |hash|
-            if resource_type == :dataset
-              hash[:user_favorited_queries] = send("user_favorited_queries_gobierto_data_api_v1_#{resource_type}_favorites_path", user_id: params[:user_id])
-            end
-            if [:dataset, :query].include? resource_type
-              hash[:user_favorited_visualizations] = send("user_favorited_visualizations_gobierto_data_api_v1_#{resource_type}_favorites_path", user_id: params[:user_id])
-            end
             hash[:self] = hash.delete(self_key) if self_key.present?
           end
         end

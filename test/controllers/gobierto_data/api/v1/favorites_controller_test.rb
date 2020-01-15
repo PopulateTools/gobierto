@@ -197,53 +197,6 @@ module GobiertoData
           end
         end
 
-        # GET /api/v1/data/datasets/slug/favorites/user_favorited_queries?user_id=1
-        def test_user_favorited_queries_on_dataset
-          with(site: site) do
-            get user_favorited_queries_gobierto_data_api_v1_dataset_favorites_path(dataset.slug, user_id: user.id)
-
-            assert_response :success
-
-            response_data = response.parsed_body
-
-            favorited_ids = response_data["data"].map { |element| element["id"].to_i }
-
-            assert_includes favorited_ids, query.id
-            refute_includes favorited_ids, other_user_query_favorite.favorited.id
-            refute_includes favorited_ids, other_dataset_query_favorite.favorited.id
-          end
-        end
-
-        def test_user_favorited_visualizations_on_dataset
-          with(site: site) do
-            get user_favorited_visualizations_gobierto_data_api_v1_dataset_favorites_path(dataset.slug, user_id: user.id)
-
-            assert_response :success
-
-            response_data = response.parsed_body
-
-            favorited_ids = response_data["data"].map { |element| element["id"].to_i }
-
-            assert_includes favorited_ids, visualization.id
-            assert_includes favorited_ids, other_visualization.id
-          end
-        end
-
-        def test_user_favorited_visualizations_on_query
-          with(site: site) do
-            get user_favorited_visualizations_gobierto_data_api_v1_query_favorites_path(query, user_id: user.id)
-
-            assert_response :success
-
-            response_data = response.parsed_body
-
-            favorited_ids = response_data["data"].map { |element| element["id"].to_i }
-
-            assert_includes favorited_ids, visualization.id
-            refute_includes favorited_ids, other_visualization.id
-          end
-        end
-
         def test_create_dataset_favorite_without_token
           with(site: site) do
             assert_no_difference "GobiertoData::Favorite.count", 1 do

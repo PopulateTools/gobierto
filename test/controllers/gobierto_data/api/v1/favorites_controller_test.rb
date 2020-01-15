@@ -166,6 +166,7 @@ module GobiertoData
 
             assert response_data.has_key? "meta"
             assert response_data["meta"]["self_favorited"]
+            assert response_data["meta"].has_key? "dataset_favorited"
             refute response_data["meta"]["dataset_favorited"]
           end
         end
@@ -192,7 +193,9 @@ module GobiertoData
 
             assert response_data.has_key? "meta"
             assert response_data["meta"]["self_favorited"]
+            assert response_data["meta"].has_key? "query_favorited"
             refute response_data["meta"]["query_favorited"]
+            assert response_data["meta"].has_key? "dataset_favorited"
             refute response_data["meta"]["dataset_favorited"]
           end
         end

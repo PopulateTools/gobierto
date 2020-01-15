@@ -143,6 +143,7 @@ es:
     polls:
       no_unanswered_polls: No hay encuestas pendientes de contestar.
       opinion: Opine
+    previous: anterior
   sites:
     events:
       sites_site_created: Sitio creado

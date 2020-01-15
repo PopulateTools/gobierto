@@ -137,6 +137,7 @@ en:
     polls:
       no_unanswered_polls: There are no polls to answer.
       opinion: Opinion
+    previous: previous
   sites:
     events:
       sites_site_created: Site created

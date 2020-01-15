@@ -73,7 +73,7 @@ module GobiertoBudgets
     end
 
     def total_income_budget_per_inhabitant(params = {})
-      population = population(year) || population(year - 1) || population(year - 2)
+      population = population(year) || population(year - 1) || population(year - 2)  || population(year - 3) || population(year - 4)
 
       total_income_budget(params).to_f / population
     end

@@ -44,7 +44,7 @@ module GobiertoData
       end
 
       def test_connection_config(config, connection_key = :read_db_config)
-        with_connection(config, connection_key: connection_key) do
+        with_connection(config&.with_indifferent_access, connection_key: connection_key) do
           connection.present?
         end
       end

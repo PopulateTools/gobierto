@@ -6,7 +6,8 @@ module GobiertoAdmin
 
       attr_writer(
         :site_id,
-        :db_config
+        :db_config,
+        :frontend_enabled
       )
 
       delegate :persisted?, to: :gobierto_module_settings
@@ -31,6 +32,10 @@ module GobiertoAdmin
 
       def db_config
         @db_config ||= gobierto_module_settings.db_config.present? ? JSON.pretty_generate(gobierto_module_settings.db_config) : nil
+      end
+
+      def frontend_enabled
+        @frontend_enabled ||= !gobierto_module_settings.frontend_disabled
       end
 
       private
@@ -68,6 +73,7 @@ module GobiertoAdmin
           settings_attributes.module_name = module_name
           settings_attributes.site_id = site_id
           settings_attributes.db_config = db_config_format
+          settings_attributes.frontend_disabled = frontend_enabled != "1"
         end
 
         if @gobierto_module_settings.save

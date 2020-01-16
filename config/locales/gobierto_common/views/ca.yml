@@ -157,6 +157,7 @@ ca:
       main_budget_levels_legend_up: Han pujat
       main_budget_levels_per_inhabitant: per habitant
       main_budget_levels_tooltip_article: des de
+      main_budget_levels_tooltip_article_last: des de l'anterior
       main_budget_levels_tooltip_down: Ha baixat un
       main_budget_levels_tooltip_up: Ha pujat un
       mean: 'Edat mitja: %{age} anys'
@@ -171,7 +172,7 @@ ca:
       percent: "% de progrés"
       percent_log: "% de progrés (log)"
       previous_year_diff: Canvi any anterior
-      proposal: Proposta
+      project: Projecte
       questions: Preguntes
       reduce: Reduir
       thousand: mil

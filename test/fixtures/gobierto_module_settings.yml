@@ -147,7 +147,7 @@ gobierto_citizens_charters_settings_madrid:
   module_name: "GobiertoCitizensCharters"
   settings: <%= { "categories_vocabulary_id": ActiveRecord::FixtureSet.identify(:citizens_services_categories) }.to_json %>
 
-gobierto_cata_settings_madrid:
+gobierto_data_settings_madrid:
   site: madrid
   module_name: "GobiertoData"
   settings: <%= {

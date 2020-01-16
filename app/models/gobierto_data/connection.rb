@@ -8,9 +8,10 @@ module GobiertoData
 
     class << self
 
-      def execute_query(site, query, include_stats: true)
-        with_connection(db_config(site), fallback: null_query) do
+      def execute_query(site, query, include_stats: true, write: false)
+        connection_key = write ? :write_db_config : :read_db_config
 
+        with_connection(db_config(site), fallback: null_query, connection_key: connection_key) do
           event = nil
           if include_stats
             ActiveSupport::Notifications.subscribe("sql.active_record") do |name, start, finish, id, payload|
@@ -40,21 +41,22 @@ module GobiertoData
       end
 
       def db_config(site)
-        site&.gobierto_data_settings&.db_config
+        site&.gobierto_data_settings&.db_config&.with_indifferent_access
       end
 
-      def test_connection_config(config)
-        with_connection(config) do
+      def test_connection_config(config, connection_key = :read_db_config)
+        with_connection(config&.with_indifferent_access, connection_key: connection_key) do
           connection.present?
         end
       end
 
       private
 
-      def with_connection(db_conf, fallback: nil)
+      def with_connection(db_conf, fallback: nil, connection_key: :read_db_config)
         base_connection_config = connection_config
         return fallback if db_conf.nil?
 
+        db_conf = db_conf[connection_key] if db_conf.has_key?(connection_key)
         establish_connection(db_conf)
         yield
       ensure

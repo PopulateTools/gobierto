@@ -151,7 +151,10 @@ gobierto_data_settings_madrid:
   site: madrid
   module_name: "GobiertoData"
   settings: <%= {
-    db_config: Rails.configuration.database_configuration["test"]
+    db_config: {
+      read_db_config: Rails.configuration.database_configuration["test"],
+      write_db_config: Rails.configuration.database_configuration["test"]
+    }
   }.to_json %>
 
 gobierto_budgets_settings_organization_wadus:

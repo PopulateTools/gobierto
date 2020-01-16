@@ -57,11 +57,20 @@ module GobiertoBudgets
       )
     end
 
-    def total_budget_per_inhabitant(requested_year = year, kind = GobiertoBudgets::BudgetLine::EXPENSE)
-      amount = total_budget_updated(fallback: true).to_f
-      population = population(requested_year) || population(requested_year - 1) || population(requested_year - 2) || population(requested_year - 3) || population(requested_year - 4)
+    def total_budget_per_inhabitant(params = {})
+      amount = total_budget(params)
 
-      (amount / population).to_f
+      return nil unless amount
+
+      (amount.to_f / population_with_fallback(params[:requested_year] || year)).to_f
+    end
+
+    def total_budget_per_inhabitant_updated(params = {})
+      amount = total_budget_updated(params)
+
+      return nil unless amount
+
+      (amount.to_f / population_with_fallback(params[:requested_year] || year)).to_f
     end
 
     def total_income_budget(params = {})
@@ -73,9 +82,7 @@ module GobiertoBudgets
     end
 
     def total_income_budget_per_inhabitant(params = {})
-      population = population(year) || population(year - 1) || population(year - 2)  || population(year - 3) || population(year - 4)
-
-      total_income_budget(params).to_f / population
+      total_income_budget(params).to_f / population_with_fallback(year)
     end
 
     def total_budget_executed(params = {})
@@ -322,6 +329,20 @@ module GobiertoBudgets
         year: params[:year] || year,
         kind: params[:kind] || BudgetLine::EXPENSE
       }
+    end
+
+    def population_with_fallback(requested_year)
+      fallback = 0
+      population = nil
+
+      loop do
+        population = population(requested_year - fallback)
+        fallback += 1 if population.nil?
+
+        break if population.present? || fallback >= 4
+       end
+
+       population
     end
 
   end

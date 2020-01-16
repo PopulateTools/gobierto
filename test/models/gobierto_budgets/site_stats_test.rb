@@ -76,13 +76,13 @@ module GobiertoBudgets
       end
     end
 
-    def test_total_budget_per_inhabitant
+    def test_total_budget_per_inhabitant_updated
       # when no data
-      assert_equal 0.0, stats.total_budget_per_inhabitant
+      assert_equal 0.0, stats.total_budget_per_inhabitant_updated
 
       # when initial estimate
       with factory: total(forecast: TOTAL_BUDGET) do
-        assert_equal(TOTAL_BUDGET / POPULATION, stats.total_budget_per_inhabitant)
+        assert_equal(TOTAL_BUDGET / POPULATION, stats.total_budget_per_inhabitant_updated)
       end
 
       # when updated data
@@ -90,7 +90,7 @@ module GobiertoBudgets
       f2 = total(forecast_updated: UPDATED_TOTAL_BUDGET)
 
       with factories: [f1, f2] do
-        assert_equal(UPDATED_TOTAL_BUDGET / POPULATION, stats.total_budget_per_inhabitant)
+        assert_equal(UPDATED_TOTAL_BUDGET / POPULATION, stats.total_budget_per_inhabitant_updated)
       end
     end
 

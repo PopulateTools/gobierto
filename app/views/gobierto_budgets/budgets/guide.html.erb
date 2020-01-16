@@ -68,7 +68,7 @@
         <% if @site_stats.population_data? %>
           <div class="number">
             <p><%= t('.expenses_per_inhabitant') %></p>
-            <div><%= format_currency @site_stats.total_budget_per_inhabitant %>/hab</div>
+            <div><%= format_currency @site_stats.total_budget_per_inhabitant_updated %>/hab</div>
           </div>
         <% end %>
 

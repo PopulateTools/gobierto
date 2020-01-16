@@ -249,6 +249,7 @@ en:
         income_per_inhabitant_tooltip: Starting budget divided by the inhabitants
         inhabitants: Inhabitants
         inhabitants_tooltip: Number of inhabitants
+        initial_estimate: Initial estimate
         less: less
         level_1_category: Level 1 category
         level_2_category: Level 2 category

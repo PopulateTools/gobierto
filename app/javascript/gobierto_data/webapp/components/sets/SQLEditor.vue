@@ -40,14 +40,50 @@ export default {
       queryEditor: 'SELECT%20*%20FROM%20gp_people',
       url: '',
       urlPath: '',
-      endPoint: ''
+      endPoint: '',
+      recentQueries: [],
+      newRecentQuery: null
+    }
+  },
+  watch: {
+    queryEditor(queryEditor) {
+      localStorage.queryEditor = queryEditor;
     }
   },
   mounted() {
     this.getData()
     this.$root.$on('updateCodeQuery', this.newQuery)
+    this.$root.$on('runRencentQuery', this.runRecentQuery)
+    if (localStorage.getItem('recentQueries')) {
+      try {
+        this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
+      } catch (e) {
+        localStorage.removeItem('recentQueries');
+      }
+    }
   },
   methods: {
+    runRecentQuery(value) {
+      let newQueryRecentAgain = this.recentQueries[value]
+      let oneLine = newQueryRecentAgain.replace(/\n/g, ' ');
+      newQueryRecentAgain = oneLine.replace(/  +/g, ' ');
+      this.newQuery(newQueryRecentAgain)
+    },
+    addRecentQuery() {
+      if (!this.newRecentQuery) {
+        return;
+      }
+
+      this.recentQueries.push(this.newRecentQuery);
+      this.newRecentQuery = '';
+      this.saveRecentQuery();
+    },
+    saveRecentQuery() {
+      const parsed = JSON.stringify(this.recentQueries);
+      localStorage.setItem('recentQueries', parsed);
+
+      this.$root.$emit('storeQuery', this.recentQueries)
+    },
     getData() {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';
@@ -72,8 +108,10 @@ export default {
     newQuery(value) {
       this.queryEditor = value
       this.queryEditor = encodeURIComponent(this.queryEditor.trim())
+      this.newRecentQuery = this.queryEditor
       this.keysData = Object.keys(this.data[0])
       this.getData()
+      this.addRecentQuery()
     }
   }
 }

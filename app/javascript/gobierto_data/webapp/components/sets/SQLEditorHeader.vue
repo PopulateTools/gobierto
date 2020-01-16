@@ -9,15 +9,22 @@
         color="var(--color-base)"
         background="#fff"
       />
-      <Button
-        :text="labelRecents"
-        :class="removeLabelBtn ? 'remove-label' : ''"
-        :disabled="disabledRecents"
-        class="btn-sql-editor"
-        icon="history"
-        color="var(--color-base)"
-        background="#fff"
-      />
+      <div style="display: inline-block; position: relative;">
+        <Button
+          :text="labelRecents"
+          :class="removeLabelBtn ? 'remove-label' : ''"
+          :disabled="disabledRecents"
+          class="btn-sql-editor"
+          icon="history"
+          color="var(--color-base)"
+          background="#fff"
+          @click.native="recentQueries()"
+        />
+        <RecentQueries
+          v-if="storeQueries"
+          :class="{ 'active': isActive }"
+        />
+      </div>
       <Button
         :text="labelQueries"
         :class="removeLabelBtn ? 'remove-label' : ''"
@@ -114,14 +121,17 @@
 </template>
 <script>
 import Button from './../commons/Button.vue';
+import RecentQueries from './../commons/RecentQueries.vue';
 
 export default {
   name: 'SQLEditorHeader',
   components: {
-    Button
+    Button,
+    RecentQueries
   },
   data() {
     return {
+      storeQueries: [],
       disabledRecents: true,
       disabledQueries: false,
       disabledSave: true,
@@ -138,6 +148,8 @@ export default {
       showLabelPrivate: true,
       removeLabelBtn: false,
       showLabelModified: false,
+      showActiveRecent: false,
+      isActive: false,
       labelSave: '',
       labelRecents: '',
       labelQueries: '',
@@ -166,8 +178,12 @@ export default {
     this.$root.$on('activeSave', this.activeSave);
     this.$root.$on('updateCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
+    this.$root.$on('storeQuery', this.showStoreQueries)
   },
   methods: {
+    showStoreQueries(value) {
+      this.$root.$emit('showRecentQueries', value)
+    },
     activeSave(value) {
       this.disabledRecents = value;
       this.disabledSave = value;
@@ -238,6 +254,9 @@ export default {
       let oneLine = this.codeQuery.replace(/\n/g, ' ');
       this.codeQuery = oneLine.replace(/  +/g, ' ');
       this.$root.$emit('updateCodeQuery', this.codeQuery)
+    },
+    recentQueries() {
+      this.isActive = !this.isActive;
     }
   }
 };

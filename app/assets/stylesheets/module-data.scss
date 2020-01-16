@@ -93,6 +93,7 @@
     font-weight: normal;
     border-radius: 3px;
     color: $color_main_negative;
+    position: relative;
   }
 
   &-sets-nav--tab {
@@ -301,6 +302,15 @@
         border-width: 8px;
       }
 
+    }
+  }
+
+  &-sql-editor-recent-queries {
+    display: none;
+    background-color: #fff;
+    z-index: 10;
+    &.active {
+      display: block;
     }
   }
 

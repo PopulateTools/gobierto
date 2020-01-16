@@ -3,9 +3,11 @@
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader />
       <SQLEditorCode />
-      <SQLEditorTable
+      <SQLEditorTabs
         v-if="data"
         :items="data"
+        :active-tab="activeTabIndex"
+        @active-tab="activeTabIndex = $event"
       />
     </div>
   </div>
@@ -14,17 +16,18 @@
 import axios from 'axios';
 import SQLEditorCode from "./SQLEditorCode.vue";
 import SQLEditorHeader from "./SQLEditorHeader.vue";
-import SQLEditorTable from "./SQLEditorTable.vue";
+import SQLEditorTabs from "./SQLEditorTabs.vue";
 
 export default {
   name: 'SQLEditor',
   components: {
     SQLEditorCode,
     SQLEditorHeader,
-    SQLEditorTable
+    SQLEditorTabs
   },
   data() {
     return {
+      activeTabIndex: 0,
       rawData: [],
       columns: [],
       data: null,

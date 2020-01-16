@@ -16,6 +16,7 @@ ca:
       dataset: Conjunt de dades
       queries: Consultes
       visualizations: Visualitzacions
+      visualization: Visualitzacion
       dashboards: Dashboards
       analysis: Anàlisi
       news: Notícies
@@ -45,3 +46,4 @@ ca:
       queryName: Nom consulta
       guide: Guia per utilitzar l'editor SQL
       queryExecuted: Consulta executada en
+      table: Tabla

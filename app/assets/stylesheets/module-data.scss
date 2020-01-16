@@ -393,6 +393,17 @@
     input[type="checkbox"]:checked + label {
       background-color: transparent;
     }
+
+    .gobierto-data-tab-sidebar--tab {
+      width: auto;
+      margin-right: 1rem;
+      font-weight: normal;
+
+      i {
+        color: var(--color-base);
+      }
+    }
+
   }
 
   &-sql-editor-toolbar {
@@ -467,6 +478,7 @@
       tr,
       th {
         border-top: 0;
+        letter-spacing: 0;
       }
 
       th {

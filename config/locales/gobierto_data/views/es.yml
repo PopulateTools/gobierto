@@ -16,6 +16,7 @@ es:
       dataset: Conjunto de datos
       queries: Consultas
       visualizations: Visualizaciones
+      visualization: Visualizacion
       dashboards: Dashboards
       analysis: Análisis
       news: Noticias
@@ -45,3 +46,4 @@ es:
       queryName: Nombre consulta
       guide: Guía para usar el editor SQL
       queryExecuted: Consulta ejecutada en
+      table: Tabla

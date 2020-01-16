@@ -8,9 +8,10 @@ module GobiertoData
 
     class << self
 
-      def execute_query(site, query, include_stats: true)
-        with_connection(db_config(site), fallback: null_query) do
+      def execute_query(site, query, include_stats: true, write: false)
+        connection_key = write ? :write_db_config : :read_db_config
 
+        with_connection(db_config(site), fallback: null_query, connection_key: connection_key) do
           event = nil
           if include_stats
             ActiveSupport::Notifications.subscribe("sql.active_record") do |name, start, finish, id, payload|

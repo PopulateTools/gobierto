@@ -49,7 +49,7 @@ module GobiertoData
         File.open("#{base_path}_schema.json", "w") { |file| file.write(JSON.pretty_generate(statements.schema)) } if schema_file.blank?
         File.open("#{base_path}_script.sql", "w") { |file| file.write(statements.sql_code) }
       end
-      Connection.execute_query(site, statements.sql_code)
+      Connection.execute_query(site, statements.sql_code, write: true)
     end
 
     private

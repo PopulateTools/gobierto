@@ -78,11 +78,16 @@ module GobiertoBudgets
 
     def test_total_budget_per_inhabitant_updated
       # when no data
-      assert_equal 0.0, stats.total_budget_per_inhabitant_updated
+      assert_nil stats.total_budget_per_inhabitant_updated
 
       # when initial estimate
       with factory: total(forecast: TOTAL_BUDGET) do
-        assert_equal(TOTAL_BUDGET / POPULATION, stats.total_budget_per_inhabitant_updated)
+        assert_nil stats.total_budget_per_inhabitant_updated
+      end
+
+      # when initial estimate and fallback allowed
+      with factory: total(forecast: TOTAL_BUDGET) do
+        assert_equal(TOTAL_BUDGET / POPULATION, stats.total_budget_per_inhabitant_updated(fallback: true))
       end
 
       # when updated data

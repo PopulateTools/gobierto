@@ -90,7 +90,7 @@ class SiteConfiguration
   end
 
   def modules_with_notifications
-    modules & MODULES_WITH_NOTIFICATONS
+    modules_with_frontend_enabled & MODULES_WITH_NOTIFICATONS
   end
 
   def default_modules

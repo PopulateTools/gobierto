@@ -192,7 +192,7 @@ module GobiertoBudgets
                year1 = options.fetch(:year1)
                year2 = options.fetch(:year2)
 
-               if [:total_budget, :total_income_budget, :total_income_budget_per_inhabitant].include?(variable1)
+               if [:total_budget, :total_income_budget, :total_budget_per_inhabitant, :total_income_budget_per_inhabitant].include?(variable1)
                  year1_arg = { year: year1 }
                  year2_arg = { year: year2 }
                else
@@ -207,7 +207,7 @@ module GobiertoBudgets
 
                ((v1.to_f - v2.to_f) / v2.to_f) * 100
              else
-               year_arg = if [:total_budget, :total_income_budget, :total_income_budget_per_inhabitant].include?(variable1)
+               year_arg = if [:total_budget, :total_income_budget, :total_budget_per_inhabitant, :total_income_budget_per_inhabitant].include?(variable1)
                             { year: year }
                           else
                             year

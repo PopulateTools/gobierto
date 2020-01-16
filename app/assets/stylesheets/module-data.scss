@@ -254,6 +254,8 @@
 
   &-container-btn-download-data {
     position: relative;
+    width: max-content;
+    display: flex;
   }
 
   &-btn-download-data-modal {
@@ -264,7 +266,8 @@
     position: absolute;
     width: 200px;
     display: none;
-    top: 67px;
+    top: 100%;
+    right: 0;
 
     &.active {
       display: block;
@@ -462,6 +465,26 @@
 
   &-sql-editor-footer-records {
     padding-right: .5rem;
+  }
+
+  &-sql-editor-tabs {
+    margin-top: 2rem;
+
+    .gobierto-data-container-btn-download-data {
+      width: 100%;
+    }
+
+    .gobierto-data-btn-download-data-modal {
+      margin-top: 1rem;
+    }
+
+    .gobierto-data-btn-download-data {
+      padding: .25rem;
+      min-width: auto;
+      text-transform: none;
+      margin: 0;
+      margin-left: auto;
+    }
   }
 
   table {

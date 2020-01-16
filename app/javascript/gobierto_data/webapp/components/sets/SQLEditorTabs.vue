@@ -1,5 +1,5 @@
 <template>
-  <div class="pure-g">
+  <div class="pure-g gobierto-data-sql-editor-tabs">
     <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column gobierto-data-layout-sidebar">
       <nav class="gobierto-data-tabs-sidebar">
         <ul>
@@ -26,7 +26,9 @@
         </ul>
       </nav>
     </div>
-    <DownloadButton />
+    <div class="pure-u-lg-1-4">
+      <DownloadButton />
+    </div>
     <SQLEditorTable
       v-if="activeTab === 0"
       :items="items"

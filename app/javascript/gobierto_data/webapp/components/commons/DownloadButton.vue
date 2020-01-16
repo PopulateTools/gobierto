@@ -1,6 +1,7 @@
 <template>
   <div class="gobierto-data-container-btn-download-data">
     <Button
+      v-clickoutside="closeMenu"
       :text="labelDownloadData"
       icon="download"
       color="var(--color-base)"
@@ -36,14 +37,39 @@ export default {
   components: {
     Button
   },
+  directives: {
+    clickoutside: {
+      bind: function(el, binding, vnode) {
+        el.clickOutsideEvent = function(event) {
+          if (!(el == event.target || el.contains(event.target))) {
+            vnode.context[binding.expression](event);
+          }
+        };
+        document.body.addEventListener('click', el.clickOutsideEvent)
+      },
+      unbind: function(el) {
+        document.body.removeEventListener('click', el.clickOutsideEvent)
+      },
+      stopProp(event) { event.stopPropagation() }
+    }
+  },
   data() {
     return {
       labelDownloadData: "",
-      isActive: false
+      isActive: false,
+      dataLink: ''
     }
   },
   created() {
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
+  },
+  methods: {
+    showModalButton() {
+      this.isActive = !this.isActive;
+    },
+    closeMenu() {
+      this.isActive = false
+    }
   }
 }
 

@@ -453,6 +453,53 @@
     padding-right: .5rem;
   }
 
+  table {
+    &.gobierto-data-sql-editor-table {
+      table-layout: fixed;
+      overflow-x: scroll;
+      width: auto;
+      border: 1px solid rgba(#666, .1);
+      border-top: 0;
+      font-size: 14px;
+      color: #666;
+
+      thead,
+      tr,
+      th {
+        border-top: 0;
+      }
+
+      th {
+        font-weight: 600;
+      }
+
+      td {
+        border-top: 0;
+        border-right: 1px solid rgba(#666, .1);
+      }
+    }
+  }
+
+  &-sql-editor-table-header {
+    th {
+      font-weight: bold;
+    }
+  }
+
+  &-sql-editor-table-body {
+    tr {
+
+      &:nth-child(even) {
+        background-color: rgba(#eeb33f, .05);
+      }
+
+      &:nth-child(odd) {
+        background-color: rgba(#eeb33f, .2);
+      }
+    }
+  }
+
+
 
 
 }

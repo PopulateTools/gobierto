@@ -179,7 +179,9 @@ export default {
       labelModifiedQuery: '',
       nameQuery: '',
       codeQuery: '',
-      endPoint: ''
+      endPoint: '',
+      privacyStatus: '',
+      propertiesQueries: []
     };
   },
   created() {
@@ -198,6 +200,8 @@ export default {
     this.$root.$on('updateCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
     this.$root.$on('storeQuery', this.showStoreQueries)
+
+    console.info("this.privateQuery", this.privateQuery);
   },
   methods: {
     showStoreQueries(value) {
@@ -229,6 +233,9 @@ export default {
         this.disableInputName = true;
 
         this.postQuery()
+
+        this.propertiesQueries = [ this.nameQuery, this.codeQuery, this.privacyStatus]
+        this.$root.$emit('saveYourQueries', this.propertiesQueries)
       } else {
         this.saveQueryState = true;
         this.showBtnCancel = true;
@@ -287,17 +294,19 @@ export default {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/queries'
       this.url = `${this.urlPath}${this.endPoint}`
+      this.privacyStatus = this.privateQuery === false ? 'close' : 'open'
 
       let data = {
           "data": {
               "type": "gobierto_data-queries",
               "attributes": {
+                  "name": this.nameQuery,
                   "name_translations": {
                       "en": "Query from API",
                       "es": "Query desde la API"
                   },
-                  "privacy_status": "open",
-                  "sql": "select * from gp_people",
+                  "privacy_status": this.privacyStatus,
+                  "sql": this.codeQuery,
                   "dataset_id": 1,
                   "user_id": 90
               }

@@ -101,8 +101,9 @@ export default {
   },
   methods: {
     updateRecordsDuration(values) {
-      this.numberRecords = values[0]
-      this.timeQuery = values[1].toFixed(2)
+      const { 0: numberRecords, 1: timeQuery } = values
+      this.numberRecords = numberRecords
+      this.timeQuery = timeQuery.toFixed(2)
     },
     saveQueryState(value) {
       this.saveQueryState = value;

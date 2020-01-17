@@ -42,7 +42,8 @@ export default {
       urlPath: '',
       endPoint: '',
       recentQueries: [],
-      newRecentQuery: null
+      newRecentQuery: null,
+      trimQuery: false
     }
   },
   watch: {
@@ -64,6 +65,7 @@ export default {
   },
   methods: {
     runRecentQuery(value) {
+      this.trimQuery = true
       let newQueryRecentAgain = this.recentQueries[value]
       let oneLine = newQueryRecentAgain.replace(/\n/g, ' ');
       newQueryRecentAgain = oneLine.replace(/  +/g, ' ');
@@ -107,11 +109,14 @@ export default {
     },
     newQuery(value) {
       this.queryEditor = value
-      this.queryEditor = encodeURIComponent(this.queryEditor.trim())
+      if (this.trimQuery === false) {
+        this.queryEditor = encodeURIComponent(this.queryEditor.trim())
+      }
       this.newRecentQuery = this.queryEditor
       this.keysData = Object.keys(this.data[0])
       this.getData()
       this.addRecentQuery()
+      this.trimQuery = false
     }
   }
 }

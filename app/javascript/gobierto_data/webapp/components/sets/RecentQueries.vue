@@ -26,7 +26,7 @@ export default {
       this.items = value
     },
     runRecentQuery(value) {
-      this.$root.$emit('runRencentQuery', value)
+      this.$root.$emit('runRencentQuery', value, false)
     }
   }
 }

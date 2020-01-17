@@ -121,7 +121,7 @@
 </template>
 <script>
 import Button from './../commons/Button.vue';
-import RecentQueries from './../commons/RecentQueries.vue';
+import RecentQueries from './RecentQueries.vue';
 
 export default {
   name: 'SQLEditorHeader',

@@ -46,11 +46,6 @@ export default {
       trimQuery: false
     }
   },
-  watch: {
-    queryEditor(queryEditor) {
-      localStorage.queryEditor = queryEditor;
-    }
-  },
   mounted() {
     this.getData()
     this.$root.$on('updateCodeQuery', this.newQuery)
@@ -76,9 +71,14 @@ export default {
         return;
       }
 
-      this.recentQueries.push(this.newRecentQuery);
-      this.newRecentQuery = '';
-      this.saveRecentQuery();
+      if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
+         return
+      } else {
+        this.recentQueries.push(this.newRecentQuery);
+        this.newRecentQuery = '';
+        this.saveRecentQuery();
+      }
+
     },
     saveRecentQuery() {
       const parsed = JSON.stringify(this.recentQueries);

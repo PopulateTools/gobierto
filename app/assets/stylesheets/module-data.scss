@@ -94,6 +94,11 @@
     border-radius: 3px;
     color: $color_main_negative;
     position: relative;
+    transition: background-color .3s ease-in;
+
+    &:hover {
+      background-color: rgba(var(--color-base-string), 0.2) !important;
+    }
   }
 
   &-sets-nav--tab {
@@ -309,6 +314,7 @@
     display: none;
     background-color: #fff;
     z-index: 10;
+
     &.active {
       display: block;
     }
@@ -324,6 +330,7 @@
     border-radius: 0;
     text-align: left;
     font-weight: normal;
+    box-sizing: border-box;
 
     &:hover {
       background-color: rgba(var(--color-base-string), .1);
@@ -497,11 +504,14 @@
     }
   }
 
+  &-sql-editor-table-container {
+    width: 100%;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+
   table {
     &.gobierto-data-sql-editor-table {
-      table-layout: fixed;
-      overflow-x: scroll;
-      width: auto;
       border: 1px solid rgba(#666, .1);
       border-top: 0;
       font-size: 14px;
@@ -544,8 +554,40 @@
     }
   }
 
+  &-recent-queries-list-element {
+    background-color: transparent;
+    padding: .5rem;
+    font-size: 14px;
+    font-weight: normal;
+    color: #000;
+    display: block;
+    width: 100%;
+    border-radius: 0;
+    text-align: left;
+    text-transform: none !important;
+    box-sizing: border-box;
+    position: relative;
 
+    &:hover {
+      background-color: rgba(var(--color-base-string), .1);
 
+      &::before {
+        display: inline-block;
+      }
+    }
+
+    &::before {
+      padding: .25rem;
+      content: attr(data-id);
+      background-color: var(--color-base);
+      width: max-content;
+      display: none;
+      color: #fff;
+      position: absolute;
+      left: 0;
+      z-index: 10;
+    }
+  }
 
 }
 

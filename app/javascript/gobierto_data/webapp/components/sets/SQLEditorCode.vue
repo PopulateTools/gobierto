@@ -40,7 +40,7 @@ export default {
   name: 'SQLEditorCode',
   data() {
     return {
-      code: 'SELECT * FROM mobiliario_urbano',
+      code: 'SELECT * FROM gp_people',
       labelGuide: '',
       labelQueryExecuted: '',
       labelRecords: '',
@@ -78,6 +78,7 @@ export default {
     this.labelRecords = I18n.t('gobierto_data.projects.records');
     this.$root.$on('saveQueryState', this.saveQueryState);
     this.$root.$on('recordsDuration', this.updateRecordsDuration);
+    this.$root.$on('updateCode', this.updateCode)
   },
   mounted() {
     this.cm = this.$refs.myCm.codemirror;
@@ -89,15 +90,19 @@ export default {
       table_4: [],
       table_5: [],
       table_6: []
-    };
-    window.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.keyCode == 32) {
+    }
+    /*window.addEventListener('keydown', e => {
+      if (e.keyCode == 32) {
         this.formatCode();
-        /*this.cm.setCursor(this.cm.lineCount(), 0);*/
+        this.cm.setCursor(this.cm.lineCount(), 0);
+        this.cm.setCursor(this.cm.lineCount(), 0);
       }
-    });
+    })
+    */
 
     this.cmOption.hintOptions.tables = tables;
+
+    this.onCmReady(this.cm)
   },
   methods: {
     updateRecordsDuration(values) {
@@ -111,7 +116,7 @@ export default {
     onCmReady(cm) {
       cm.on('keypress', () => {
         this.$root.$emit('activeSave', false);
-        cm.showHint()
+        /*cm.showHint()*/
         if (this.saveQueryState === true) {
           this.$root.$emit('updateActiveSave', true, false);
         }
@@ -129,6 +134,9 @@ export default {
     saveCode() {
       const saveQuery = this.code;
       this.arrayQuerys.push(saveQuery);
+    },
+    updateCode(value) {
+      this.code = value.replace(/%20/g, ' ').replace(/%/g, ' ');
     }
   }
 };

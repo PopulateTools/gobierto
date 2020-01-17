@@ -1,5 +1,26 @@
 <template>
   <div>
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <h2 class="gobierto-data-title-dataset">
+          {{ titleDataset }}
+        </h2>
+      </div>
+      <div class="pure-u-1-2 gobierto-data-buttons">
+        <Button
+          :text="labelFav"
+          icon="star"
+          color="#fff"
+          background="var(--color-base)"
+        />
+        <Button
+          :text="labelFollow"
+          icon="bell"
+          color="#fff"
+          background="var(--color-base)"
+        />
+      </div>
+    </div>
     <nav class="gobierto-data-sets-nav">
       <ul>
         <li
@@ -39,7 +60,10 @@
         </li>
       </ul>
     </nav>
-    <Summary v-if="activeTab === 0" />
+    <Summary
+      v-if="activeTab === 0 && rawMetaData"
+      :items="summaryInfo"
+    />
     <Data v-else-if="activeTab === 1" />
     <Queries v-else-if="activeTab === 2" />
     <Visualizations v-else-if="activeTab === 3" />
@@ -47,6 +71,8 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
+import Button from "./../commons/Button.vue";
 import Summary from "./Summary.vue";
 import Data from "./Data.vue";
 import Queries from "./Queries.vue";
@@ -61,7 +87,8 @@ export default {
     Data,
     Queries,
     Visualizations,
-    Downloads
+    Downloads,
+    Button
   },
   props: {
     activeTab: {
@@ -75,21 +102,55 @@ export default {
       labelData: "",
       labelQueries: "",
       labelVisualizations: "",
-      labelDownload: ""
+      labelDownload: "",
+      labelFav: "",
+      labelFollow: "",
+      titleDataset: "",
+      rawMetaData: null,
+      summaryInfo: [],
+      dateUpdated: ''
     }
   },
+  mounted() {
+    this.getData()
+  },
+
   created() {
     this.labelSummary = I18n.t("gobierto_data.projects.summary")
     this.labelData = I18n.t("gobierto_data.projects.data")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelVisualizations = I18n.t("gobierto_data.projects.visualizations")
     this.labelDownload = I18n.t("gobierto_data.projects.download")
+    this.labelFav = I18n.t("gobierto_data.projects.fav")
+    this.labelFollow = I18n.t("gobierto_data.projects.follow")
   },
   methods: {
+    getData() {
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/datasets';
+      this.nameDataset = '/agendas-de-politicos/meta'
+      this.url = `${this.urlPath}${this.endPoint}${this.nameDataset}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawMetaData = response.data
+
+          this.titleDataset = this.rawMetaData.data.attributes.name
+
+          this.summaryInfo = [this.rawMetaData.data.attributes.updated_at]
+
+          this.$root.$emit('summaryInfo', this.summaryInfo)
+          this.$root.$emit('nameDataset', this.titleDataset)
+
+        })
+        .catch(e => {
+          console.error(e);
+        })
+    },
     activateTab(index) {
       this.$emit("active-tab", index);
     }
   }
-};
+}
 
 </script>

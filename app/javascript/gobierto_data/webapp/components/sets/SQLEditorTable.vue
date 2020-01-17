@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="gobierto-data-sql-editor-table-container">
     <table
       class="gobierto-data-sql-editor-table"
     >

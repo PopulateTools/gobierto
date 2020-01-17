@@ -13,19 +13,20 @@
       :class="{ 'active': isActive }"
       class="gobierto-data-btn-download-data-modal arrow-top"
     >
-      <!-- //TODO ACTIONS -->
-      <button class="gobierto-data-btn-download-data-modal-element">
+      <a
+        :href="fileCSV"
+        class="gobierto-data-btn-download-data-modal-element"
+        download="data.csv"
+      >
         CSV
-      </button>
-      <button class="gobierto-data-btn-download-data-modal-element">
+      </a>
+      <a
+        :href="fileJSON"
+        class="gobierto-data-btn-download-data-modal-element"
+        download="data.json"
+      >
         JSON
-      </button>
-      <button class="gobierto-data-btn-download-data-modal-element">
-        XLXS
-      </button>
-      <button class="gobierto-data-btn-download-data-modal-element">
-        OTHER
-      </button>
+      </a>
     </div>
   </div>
 </template>
@@ -57,11 +58,14 @@ export default {
     return {
       labelDownloadData: "",
       isActive: false,
-      dataLink: ''
+      dataLink: '',
+      fileCSV: '',
+      fileJSON: ''
     }
   },
   created() {
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
+    this.$root.$on('sendFiles', this.arrayFiles)
   },
   methods: {
     showModalButton() {
@@ -69,6 +73,11 @@ export default {
     },
     closeMenu() {
       this.isActive = false
+    },
+    arrayFiles(values) {
+      const { 0: fileCSV, 1: fileJSON } = values
+      this.fileCSV = fileCSV
+      this.fileJSON = fileJSON
     }
   }
 }

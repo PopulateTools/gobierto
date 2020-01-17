@@ -11,6 +11,7 @@
       />
       <div style="display: inline-block; position: relative;">
         <Button
+          v-clickoutside="closeMenu"
           :text="labelRecents"
           :class="removeLabelBtn ? 'remove-label' : ''"
           :disabled="disabledRecents"
@@ -120,6 +121,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
 
@@ -128,6 +130,22 @@ export default {
   components: {
     Button,
     RecentQueries
+  },
+  directives: {
+    clickoutside: {
+      bind: function(el, binding, vnode) {
+        el.clickOutsideEvent = function(event) {
+          if (!(el == event.target || el.contains(event.target))) {
+            vnode.context[binding.expression](event);
+          }
+        };
+        document.body.addEventListener('click', el.clickOutsideEvent)
+      },
+      unbind: function(el) {
+        document.body.removeEventListener('click', el.clickOutsideEvent)
+      },
+      stopProp(event) { event.stopPropagation() }
+    }
   },
   data() {
     return {
@@ -160,7 +178,8 @@ export default {
       labelEdit: '',
       labelModifiedQuery: '',
       nameQuery: '',
-      codeQuery: ''
+      codeQuery: '',
+      endPoint: ''
     };
   },
   created() {
@@ -208,6 +227,8 @@ export default {
         this.removeLabelBtn = true;
         this.showLabelModified = false;
         this.disableInputName = true;
+
+        this.postQuery()
       } else {
         this.saveQueryState = true;
         this.showBtnCancel = true;
@@ -240,6 +261,7 @@ export default {
         this.removeLabelBtn = true;
         this.showLabelModified = false;
         this.disableInputName = true;
+
       } else {
         this.showBtnCancel = false;
         this.showBtnEdit = false;
@@ -257,6 +279,40 @@ export default {
     },
     recentQueries() {
       this.isActive = !this.isActive;
+    },
+    closeMenu() {
+      this.isActive = false
+    },
+    postQuery() {
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/queries'
+      this.url = `${this.urlPath}${this.endPoint}`
+
+      let data = {
+          "data": {
+              "type": "gobierto_data-queries",
+              "attributes": {
+                  "name_translations": {
+                      "en": "Query from API",
+                      "es": "Query desde la API"
+                  },
+                  "privacy_status": "open",
+                  "sql": "select * from gp_people",
+                  "dataset_id": 1,
+                  "user_id": 90
+              }
+          }
+      }
+      axios.post(this.url, data, {
+        headers: {
+          'Content-type': 'application/json',
+        }
+      }).then(response => {
+          this.resp = response;
+      })
+      .catch(e => {
+          console.error(e);
+      });
     }
   }
 };

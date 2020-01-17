@@ -43,7 +43,8 @@ export default {
       endPoint: '',
       recentQueries: [],
       newRecentQuery: null,
-      trimQuery: false
+      trimQuery: false,
+      nameDataset: ''
     }
   },
   mounted() {
@@ -72,24 +73,28 @@ export default {
       }
 
       if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
-         return
+        this.$root.$emit('storeQuery', this.recentQueries)
       } else {
         this.recentQueries.push(this.newRecentQuery);
         this.newRecentQuery = '';
         this.saveRecentQuery();
       }
-
     },
     saveRecentQuery() {
       const parsed = JSON.stringify(this.recentQueries);
       localStorage.setItem('recentQueries', parsed);
-
       this.$root.$emit('storeQuery', this.recentQueries)
     },
     getData() {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';
       this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+
+      this.fileCSV = `${this.urlPath}${this.endPoint}.csv?sql=${this.queryEditor}&csv_separator=semicolon`
+      this.fileJSON = `${this.urlPath}${this.endPoint}.json?sql=${this.queryEditor}`
+      this.arrayFiles = [this.fileCSV, this.fileJSON]
+      this.$root.$emit('sendFiles', this.arrayFiles)
+
       axios
         .get(this.url)
         .then(response => {
@@ -105,7 +110,7 @@ export default {
         })
         .catch(e => {
           console.error(e);
-        });
+        })
     },
     newQuery(value) {
       this.queryEditor = value

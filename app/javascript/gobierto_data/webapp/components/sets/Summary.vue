@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Info />
+    <Info :items="items" />
     <DownloadButton />
     <Resources :items="filesDataset" />
     <Queries />
@@ -20,6 +20,12 @@ export default {
     Queries,
     DownloadButton,
     Info
+  },
+  props: {
+    items: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {

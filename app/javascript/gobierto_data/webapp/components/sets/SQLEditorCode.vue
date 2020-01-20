@@ -40,7 +40,7 @@ export default {
   name: 'SQLEditorCode',
   data() {
     return {
-      code: 'SELECT * FROM mataro_budgets LIMIT 50 OFFSET 200',
+      code: 'SELECT * FROM grupos_interes LIMIT 50',
       labelGuide: '',
       labelQueryExecuted: '',
       labelRecords: '',

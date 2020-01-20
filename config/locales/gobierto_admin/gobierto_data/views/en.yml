@@ -7,6 +7,8 @@ en:
           edit:
             db_config_placeholder: '{"pool":5, "adapter":"postgresql", "database":"gobierto_test",
               "encoding":"unicode", "password":"gobierto", "username":"gobierto"}'
+            frontend: Front-end
+            frontend_enabled: Visible
             title: Configuration
             update: Update
           title: Preferences

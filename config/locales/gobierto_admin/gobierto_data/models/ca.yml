@@ -8,6 +8,7 @@ ca:
         table_name: Nom de la taula
       gobierto_admin/gobierto_data/settings_form:
         db_config: Configuració de la connexió a la base de dades
+        frontend_enabled: Front-end visible
     errors:
       models:
         gobierto_admin/gobierto_data/dataset_form:

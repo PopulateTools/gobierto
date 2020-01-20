@@ -7,7 +7,7 @@
 
   </header>
 
-  <% current_site.configuration.modules.each do |site_module| %>
+  <% current_site.configuration.modules_with_frontend_enabled.each do |site_module| %>
     <%= render_if_exists "#{site_module.underscore}/exports/index" %>
   <% end %>
 

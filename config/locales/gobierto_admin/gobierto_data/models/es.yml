@@ -8,6 +8,7 @@ es:
         table_name: Nombre de la tabla
       gobierto_admin/gobierto_data/settings_form:
         db_config: Configuración de la conexión a la base de datos
+        frontend_enabled: Interfaz pública visible
     errors:
       models:
         gobierto_admin/gobierto_data/dataset_form:

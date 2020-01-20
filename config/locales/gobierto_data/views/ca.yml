@@ -2,8 +2,6 @@
 ca:
   gobierto_data:
     datasets:
-      index:
-        title: Conjunts de dades
       show:
         title: Conjunt de dades %{dataset_name}
     events:
@@ -13,37 +11,37 @@ ca:
       application:
         gobierto_data: Dades
     projects:
-      dataset: Conjunt de dades
-      queries: Consultes
-      visualizations: Visualitzacions
-      visualization: Visualitzacion
-      dashboards: Dashboards
       analysis: Anàlisi
-      news: Notícies
-      info: Informació
       api: API
+      cancel: Cancel·lar
       categories: Categories
-      sets: Conjunts
-      summary: Resum
+      dashboards: Dashboards
       data: Dades
+      dataset: Conjunt de dades
       download: Descàrrega
+      downloadData: Descarregar dades
+      edit: Edita
       fav: Favorit
       follow: Seguir
-      updated: Actualizat
       frequency: Freqüència
-      subject: Tema
-      downloadData: Descarregar dades
-      resources: Recursos
-      yourQueries: Les teves consultes
-      save: Desar
-      recents: Recents
-      runQuery: Executar consulta
-      cancel: Cancel·lar
-      edit: Edita
-      modifiedQuery: Consulta modificada
-      records: Registres
-      private: Privat
-      queryName: Nom consulta
       guide: Guia per utilitzar l'editor SQL
+      info: Informació
+      modifiedQuery: Consulta modificada
+      news: Notícies
+      private: Privat
+      queries: Consultes
       queryExecuted: Consulta executada en
+      queryName: Nom consulta
+      recents: Recents
+      records: Registres
+      resources: Recursos
+      runQuery: Executar consulta
+      save: Desar
+      sets: Conjunts
+      subject: Tema
+      summary: Resum
       table: Tabla
+      updated: Actualizat
+      visualization: Visualitzacion
+      visualizations: Visualitzacions
+      yourQueries: Les teves consultes

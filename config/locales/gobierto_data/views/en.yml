@@ -2,8 +2,6 @@
 en:
   gobierto_data:
     datasets:
-      index:
-        title: Datasets
       show:
         title: Dataset %{dataset_name}
     events:
@@ -13,37 +11,37 @@ en:
       application:
         gobierto_data: Data
     projects:
-      dataset: Datasets
-      queries: Queries
-      visualizations: Visualizations
-      visualization: Visualization
-      dashboards: Dashboards
       analysis: Analysis
-      news: News
-      info: Information
       api: API
+      cancel: Cancel
       categories: Categories
-      sets: Sets
-      summary: Summary
+      dashboards: Dashboards
       data: Data
+      dataset: Datasets
       download: Download
+      downloadData: Download Data
+      edit: Edit
       fav: Favorite
       follow: Follow
-      updated: Updated
       frequency: Frequency
-      subject: Subject
-      downloadData: Download Data
-      resources: Resources
-      yourQueries: Your queries
-      save: Save
-      recents: Recents
-      runQuery: Run query
-      cancel: Cancel
-      edit: Edit
-      modifiedQuery: Modified Query
-      records: Records
-      private: Private
-      queryName: Query name
       guide: Guide to using the SQL editor
+      info: Information
+      modifiedQuery: Modified Query
+      news: News
+      private: Private
+      queries: Queries
       queryExecuted: Query executed in
+      queryName: Query name
+      recents: Recents
+      records: Records
+      resources: Resources
+      runQuery: Run query
+      save: Save
+      sets: Sets
+      subject: Subject
+      summary: Summary
       table: Table
+      updated: Updated
+      visualization: Visualization
+      visualizations: Visualizations
+      yourQueries: Your queries

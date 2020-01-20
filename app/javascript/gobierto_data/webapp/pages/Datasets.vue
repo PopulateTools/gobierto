@@ -9,7 +9,7 @@
 import LayoutTabs from "./../layouts/LayoutTabs.vue";
 
 export default {
-  name: "Datasets",
+  name: "DataSets",
   components: {
     LayoutTabs
   }

@@ -37,7 +37,7 @@ export default {
       links:[],
       link: '',
       queryDurationRecors: [],
-      queryEditor: 'SELECT%20*%20FROM%20gp_people',
+      queryEditor: 'SELECT%20*%20FROM%20mataro_budgets%20LIMIT%2050%20OFFSET%200',
       url: '',
       urlPath: '',
       endPoint: '',

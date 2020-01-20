@@ -201,7 +201,6 @@ export default {
     this.$root.$on('updateActiveSave', this.updateActiveSave);
     this.$root.$on('storeQuery', this.showStoreQueries)
 
-    console.info("this.privateQuery", this.privateQuery);
   },
   methods: {
     showStoreQueries(value) {

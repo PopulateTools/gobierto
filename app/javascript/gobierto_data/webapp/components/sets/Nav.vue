@@ -128,7 +128,7 @@ export default {
     getData() {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/datasets';
-      this.nameDataset = '/agendas-de-politicos/meta'
+      this.nameDataset = '/presupuestos/meta'
       this.url = `${this.urlPath}${this.endPoint}${this.nameDataset}`
       axios
         .get(this.url)

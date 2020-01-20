@@ -46,11 +46,6 @@ export default {
     this.labelYourQueries = I18n.t("gobierto_data.projects.yourQueries")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.$root.$on('saveYourQueries', this.listYourQueries)
-  },
-  methods: {
-    listYourQueries(values) {
-      const { 0: name, 1: code, 2: privacy } = values
-    }
   }
 }
 

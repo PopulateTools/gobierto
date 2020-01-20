@@ -40,6 +40,8 @@ en:
       sets: Sets
       subject: Subject
       summary: Summary
+      table: Table
+      visualization: Visualization
       updated: Updated
       visualizations: Visualizations
       yourQueries: Your queries

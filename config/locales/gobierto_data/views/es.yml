@@ -40,6 +40,8 @@ es:
       sets: Conjuntos
       subject: Tema
       summary: Resumen
+      table: Tabla
+      visualization: Visualización
       updated: Actualizado
       visualizations: Visualizaciones
       yourQueries: Tus consultas

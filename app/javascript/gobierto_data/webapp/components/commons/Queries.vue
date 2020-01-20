@@ -39,12 +39,13 @@ export default {
   data() {
     return {
       labelQueries: '',
-      labelYourQueries: ''
+      labelYourQueries: '',
     }
   },
   created() {
     this.labelYourQueries = I18n.t("gobierto_data.projects.yourQueries")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
+    this.$root.$on('saveYourQueries', this.listYourQueries)
   }
 }
 

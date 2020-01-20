@@ -9,15 +9,23 @@
         color="var(--color-base)"
         background="#fff"
       />
-      <Button
-        :text="labelRecents"
-        :class="removeLabelBtn ? 'remove-label' : ''"
-        :disabled="disabledRecents"
-        class="btn-sql-editor"
-        icon="history"
-        color="var(--color-base)"
-        background="#fff"
-      />
+      <div style="display: inline-block; position: relative;">
+        <Button
+          v-clickoutside="closeMenu"
+          :text="labelRecents"
+          :class="removeLabelBtn ? 'remove-label' : ''"
+          :disabled="disabledRecents"
+          class="btn-sql-editor"
+          icon="history"
+          color="var(--color-base)"
+          background="#fff"
+          @click.native="recentQueries()"
+        />
+        <RecentQueries
+          v-if="storeQueries"
+          :class="{ 'active': isActive }"
+        />
+      </div>
       <Button
         :text="labelQueries"
         :class="removeLabelBtn ? 'remove-label' : ''"
@@ -113,15 +121,35 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 import Button from './../commons/Button.vue';
+import RecentQueries from './RecentQueries.vue';
 
 export default {
   name: 'SQLEditorHeader',
   components: {
-    Button
+    Button,
+    RecentQueries
+  },
+  directives: {
+    clickoutside: {
+      bind: function(el, binding, vnode) {
+        el.clickOutsideEvent = function(event) {
+          if (!(el == event.target || el.contains(event.target))) {
+            vnode.context[binding.expression](event);
+          }
+        };
+        document.body.addEventListener('click', el.clickOutsideEvent)
+      },
+      unbind: function(el) {
+        document.body.removeEventListener('click', el.clickOutsideEvent)
+      },
+      stopProp(event) { event.stopPropagation() }
+    }
   },
   data() {
     return {
+      storeQueries: [],
       disabledRecents: true,
       disabledQueries: false,
       disabledSave: true,
@@ -138,6 +166,8 @@ export default {
       showLabelPrivate: true,
       removeLabelBtn: false,
       showLabelModified: false,
+      showActiveRecent: false,
+      isActive: false,
       labelSave: '',
       labelRecents: '',
       labelQueries: '',
@@ -148,7 +178,10 @@ export default {
       labelEdit: '',
       labelModifiedQuery: '',
       nameQuery: '',
-      codeQuery: ''
+      codeQuery: '',
+      endPoint: '',
+      privacyStatus: '',
+      propertiesQueries: []
     };
   },
   created() {
@@ -166,8 +199,14 @@ export default {
     this.$root.$on('activeSave', this.activeSave);
     this.$root.$on('updateCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
+    this.$root.$on('storeQuery', this.showStoreQueries)
+
+    console.info("this.privateQuery", this.privateQuery);
   },
   methods: {
+    showStoreQueries(value) {
+      this.$root.$emit('showRecentQueries', value)
+    },
     activeSave(value) {
       this.disabledRecents = value;
       this.disabledSave = value;
@@ -192,6 +231,11 @@ export default {
         this.removeLabelBtn = true;
         this.showLabelModified = false;
         this.disableInputName = true;
+
+        this.postQuery()
+
+        this.propertiesQueries = [ this.nameQuery, this.codeQuery, this.privacyStatus]
+        this.$root.$emit('saveYourQueries', this.propertiesQueries)
       } else {
         this.saveQueryState = true;
         this.showBtnCancel = true;
@@ -224,6 +268,7 @@ export default {
         this.removeLabelBtn = true;
         this.showLabelModified = false;
         this.disableInputName = true;
+
       } else {
         this.showBtnCancel = false;
         this.showBtnEdit = false;
@@ -233,6 +278,50 @@ export default {
         this.removeLabelBtn = false;
         this.saveQueryState = false;
       }
+    },
+    runQuery() {
+      let oneLine = this.codeQuery.replace(/\n/g, ' ');
+      this.codeQuery = oneLine.replace(/  +/g, ' ');
+      this.$root.$emit('updateCodeQuery', this.codeQuery)
+    },
+    recentQueries() {
+      this.isActive = !this.isActive;
+    },
+    closeMenu() {
+      this.isActive = false
+    },
+    postQuery() {
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/queries'
+      this.url = `${this.urlPath}${this.endPoint}`
+      this.privacyStatus = this.privateQuery === false ? 'close' : 'open'
+
+      let data = {
+          "data": {
+              "type": "gobierto_data-queries",
+              "attributes": {
+                  "name": this.nameQuery,
+                  "name_translations": {
+                      "en": "Query from API",
+                      "es": "Query desde la API"
+                  },
+                  "privacy_status": this.privacyStatus,
+                  "sql": this.codeQuery,
+                  "dataset_id": 1,
+                  "user_id": 90
+              }
+          }
+      }
+      axios.post(this.url, data, {
+        headers: {
+          'Content-type': 'application/json',
+        }
+      }).then(response => {
+          this.resp = response;
+      })
+      .catch(e => {
+          console.error(e);
+      });
     }
   }
 };

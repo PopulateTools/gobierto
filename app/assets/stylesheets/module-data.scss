@@ -93,6 +93,12 @@
     font-weight: normal;
     border-radius: 3px;
     color: $color_main_negative;
+    position: relative;
+    transition: background-color .3s ease-in;
+
+    &:hover {
+      background-color: rgba(var(--color-base-string), 0.2) !important;
+    }
   }
 
   &-sets-nav--tab {
@@ -254,6 +260,8 @@
 
   &-container-btn-download-data {
     position: relative;
+    width: max-content;
+    display: flex;
   }
 
   &-btn-download-data-modal {
@@ -264,7 +272,8 @@
     position: absolute;
     width: 200px;
     display: none;
-    top: 67px;
+    top: 100%;
+    right: 0;
 
     &.active {
       display: block;
@@ -301,6 +310,16 @@
     }
   }
 
+  &-sql-editor-recent-queries {
+    display: none;
+    background-color: #fff;
+    z-index: 10;
+
+    &.active {
+      display: block;
+    }
+  }
+
   &-btn-download-data-modal-element {
     background-color: transparent;
     transition: background-color .3s ease-in;
@@ -311,6 +330,7 @@
     border-radius: 0;
     text-align: left;
     font-weight: normal;
+    box-sizing: border-box;
 
     &:hover {
       background-color: rgba(var(--color-base-string), .1);
@@ -393,6 +413,17 @@
     input[type="checkbox"]:checked + label {
       background-color: transparent;
     }
+
+    .gobierto-data-tab-sidebar--tab {
+      width: auto;
+      margin-right: 1rem;
+      font-weight: normal;
+
+      i {
+        color: var(--color-base);
+      }
+    }
+
   }
 
   &-sql-editor-toolbar {
@@ -453,7 +484,110 @@
     padding-right: .5rem;
   }
 
+  &-sql-editor-tabs {
+    margin-top: 2rem;
 
+    .gobierto-data-container-btn-download-data {
+      width: 100%;
+    }
+
+    .gobierto-data-btn-download-data-modal {
+      margin-top: 1rem;
+    }
+
+    .gobierto-data-btn-download-data {
+      padding: .25rem;
+      min-width: auto;
+      text-transform: none;
+      margin: 0;
+      margin-left: auto;
+    }
+  }
+
+  &-sql-editor-table-container {
+    width: 100%;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+
+  table {
+    &.gobierto-data-sql-editor-table {
+      border: 1px solid rgba(#666, .1);
+      border-top: 0;
+      font-size: 14px;
+      color: #666;
+
+      thead,
+      tr,
+      th {
+        border-top: 0;
+        letter-spacing: 0;
+      }
+
+      th {
+        font-weight: 600;
+      }
+
+      td {
+        border-top: 0;
+        border-right: 1px solid rgba(#666, .1);
+      }
+    }
+  }
+
+  &-sql-editor-table-header {
+    th {
+      font-weight: bold;
+    }
+  }
+
+  &-sql-editor-table-body {
+    tr {
+
+      &:nth-child(even) {
+        background-color: rgba(#eeb33f, .05);
+      }
+
+      &:nth-child(odd) {
+        background-color: rgba(#eeb33f, .2);
+      }
+    }
+  }
+
+  &-recent-queries-list-element {
+    background-color: transparent;
+    padding: .5rem;
+    font-size: 14px;
+    font-weight: normal;
+    color: #000;
+    display: block;
+    width: 100%;
+    border-radius: 0;
+    text-align: left;
+    text-transform: none !important;
+    box-sizing: border-box;
+    position: relative;
+
+    &:hover {
+      background-color: rgba(var(--color-base-string), .1);
+
+      &::before {
+        display: inline-block;
+      }
+    }
+
+    &::before {
+      padding: .25rem;
+      content: attr(data-id);
+      background-color: var(--color-base);
+      width: max-content;
+      display: none;
+      color: #fff;
+      position: absolute;
+      left: 0;
+      z-index: 10;
+    }
+  }
 
 }
 

@@ -25,17 +25,12 @@ export class GobiertoDataController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () => import("../webapp/pages/Home.vue");
-      const Sets = () => import("../webapp/pages/Sets.vue");
-      const Queries = () => import("../webapp/pages/Queries.vue");
-      const Categories = () => import("../webapp/pages/Categories.vue");
+
 
       const router = new VueRouter({
         mode: "history",
         routes: [
-          { path: "/datasets", name: "home", component: Home },
-          { path: "/datasets/conjuntos", name: "datasets", component: Sets },
-          { path: "/datasets/consultas", name: "queries", component: Queries },
-          { path: "/datasets/visualizaciones", name: "visualizations", component: Categories }
+          { path: "/datasets", name: "home", component: Home }
         ]
       });
 

@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoAttachments
     module Api
       class AttachmentsController < ::GobiertoAdmin::Api::BaseController
-        include ::GobiertoCommon::SecuredWithToken
+        include ::GobiertoCommon::SecuredWithAdminToken
         skip_before_action :authenticate_admin!, :set_admin_with_token
         before_action :set_admin_by_session_or_token
 

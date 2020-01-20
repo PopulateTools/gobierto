@@ -47,6 +47,10 @@ class UserTest < ActiveSupport::TestCase
     @santander_user ||= users(:susan)
   end
 
+  def user_primary_api_token
+    @user_primary_api_token ||= user_api_tokens(:dennis_primary_api_token)
+  end
+
   def test_by_user_site_scope
     subject = User.by_site(madrid_site)
 
@@ -82,4 +86,29 @@ class UserTest < ActiveSupport::TestCase
     Timecop.freeze(birthdate.change(year: 2005, month: 3, day: 1)) { assert_equal 1, user.age }
   end
 
+  def test_primary_api_token_on_creation
+    new_user = User.create(
+      email: "wadus@example.org",
+      site: user.site
+    )
+    assert new_user.primary_api_token.present?
+  end
+
+  def test_primary_api_token
+    assert_equal user_primary_api_token, user.primary_api_token
+
+    user.primary_api_token.destroy
+    assert_nil user.primary_api_token
+  end
+
+  def test_primary_api_token!
+    assert_equal user_primary_api_token, user.primary_api_token!
+
+    user.primary_api_token.destroy
+
+    assert_difference "User::ApiToken.count", 1 do
+      refute_nil user.primary_api_token!
+      assert user.api_tokens.primary.exists?
+    end
+  end
 end

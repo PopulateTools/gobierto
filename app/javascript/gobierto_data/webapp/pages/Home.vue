@@ -14,7 +14,7 @@
 
 <script>
 import Nav from "./../components/Nav.vue";
-import DataSets from "./../pages/DataSets.vue";
+import DataSets from "./DataSets.vue";
 
 export default {
   name: "Home",

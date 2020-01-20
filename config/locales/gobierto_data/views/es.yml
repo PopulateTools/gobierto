@@ -2,8 +2,6 @@
 es:
   gobierto_data:
     datasets:
-      index:
-        title: Conjuntos de datos
       show:
         title: Conjunto de datos %{dataset_name}
     events:
@@ -13,35 +11,35 @@ es:
       application:
         gobierto_data: Datos
     projects:
-      dataset: Conjunto de datos
-      queries: Consultas
-      visualizations: Visualizaciones
-      dashboards: Dashboards
       analysis: Análisis
-      news: Noticias
-      info: Información
       api: API
+      cancel: Cancelar
       categories: Categorías
-      sets: Conjuntos
-      summary: Resumen
+      dashboards: Dashboards
       data: Datos
+      dataset: Conjunto de datos
       download: Descargar
+      downloadData: Descargar datos
+      edit: Editar
       fav: Favorito
       follow: Seguir
-      updated: Actualizado
       frequency: Frecuencia
-      subject: Tema
-      downloadData: Descargar datos
-      resources: Recursos
-      yourQueries: Tus consultas
-      save: Guardar
-      recents: Recientes
-      runQuery: Ejecutar consulta
-      cancel: Cancelar
-      edit: Editar
-      modifiedQuery: Consulta modificada
-      records: Registros
-      private: Privada
-      queryName: Nombre consulta
       guide: Guía para usar el editor SQL
+      info: Información
+      modifiedQuery: Consulta modificada
+      news: Noticias
+      private: Privada
+      queries: Consultas
       queryExecuted: Consulta ejecutada en
+      queryName: Nombre consulta
+      recents: Recientes
+      records: Registros
+      resources: Recursos
+      runQuery: Ejecutar consulta
+      save: Guardar
+      sets: Conjuntos
+      subject: Tema
+      summary: Resumen
+      updated: Actualizado
+      visualizations: Visualizaciones
+      yourQueries: Tus consultas

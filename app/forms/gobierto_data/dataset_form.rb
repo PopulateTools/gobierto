@@ -109,7 +109,12 @@ module GobiertoData
       begin
         source_data = data_file.present? ? data_file.tempfile : URI.open(data_path)
         temp_file.write(source_data.read.force_encoding("UTF-8"))
-        @load_status = @resource.load_data_from_file(temp_file.path, csv_separator: csv_separator, schema_file: schema, append: append)
+        @load_status = @resource.load_data_from_file(
+          temp_file.path,
+          csv_separator: csv_separator,
+          schema_file: schema.is_a?(String) ? JSON.parse(schema) : schema,
+          append: append
+        )
         @schema = @load_status[:schema]
         if @load_status[:db_result].has_key?(:errors)
           errors.add(:schema, @load_status[:db_result][:errors].map { |error| error[:sql] }.join("\n"))

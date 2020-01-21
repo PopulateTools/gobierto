@@ -7,7 +7,8 @@ module GobiertoData
 
     attr_accessor(
       :site_id,
-      :data_path
+      :data_path,
+      :data_file
     )
 
     attr_writer(
@@ -102,11 +103,12 @@ module GobiertoData
     end
 
     def load_data
-      return unless data_path.present?
+      return unless [data_file, data_path].any?(&:present?)
 
       temp_file = Tempfile.new(["data", ".csv"])
       begin
-        temp_file.write(URI.open(data_path).read.encode("UTF-8"))
+        source_data = data_file.present? ? data_file.tempfile : URI.open(data_path)
+        temp_file.write(source_data.read.force_encoding("UTF-8"))
         @load_status = @resource.load_data_from_file(temp_file.path, csv_separator: csv_separator, schema_file: schema, append: append)
         @schema = @load_status[:schema]
         if @load_status[:db_result].has_key?(:errors)

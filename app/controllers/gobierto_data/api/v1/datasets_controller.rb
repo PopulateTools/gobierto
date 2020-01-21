@@ -162,7 +162,20 @@ module GobiertoData
         end
 
         def dataset_params
-          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:name_translations, :name, :table_name, :slug, :data_path, :csv_separator, :schema, :append])
+          if request.content_mime_type.symbol == :multipart_form
+            params.require(:dataset).permit(
+              :data_file,
+              :name,
+              :table_name,
+              :slug,
+              :csv_separator,
+              :schema,
+              :append,
+              name_translations: [*I18n.available_locales]
+            )
+          else
+            ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:name_translations, :name, :table_name, :slug, :data_path, :csv_separator, :schema, :append])
+          end
         end
       end
     end

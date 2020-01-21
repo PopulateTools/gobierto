@@ -85,8 +85,8 @@ module GobiertoPeople
 
     def self.department_people_linked_through_invitations_sql(params = {})
       people = GobiertoPeople::Invitation.select("DISTINCT(person_id)")
-                                                     .where(department_id: params[:department_id])
-                                                     .reorder("")
+                                         .where(department_id: params[:department_id])
+                                         .reorder("")
       people = people.where("start_date >= ?", params[:from_date]) if params[:from_date]
       people = people.where("end_date < ?", params[:to_date]) if params[:to_date]
       people.to_sql
@@ -95,8 +95,8 @@ module GobiertoPeople
 
     def self.department_people_linked_through_gifts_sql(params = {})
       people = GobiertoPeople::Gift.select("DISTINCT(person_id)")
-                                         .where(department_id: params[:department_id])
-                                         .reorder("")
+                                   .where(department_id: params[:department_id])
+                                   .reorder("")
       people = people.where("date >= ?", params[:from_date]) if params[:from_date]
       people = people.where("date < ?", params[:to_date]) if params[:to_date]
       people.to_sql

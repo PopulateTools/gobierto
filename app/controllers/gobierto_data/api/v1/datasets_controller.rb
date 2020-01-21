@@ -114,7 +114,6 @@ module GobiertoData
             render(
               json: @form,
               serializer: ::GobiertoData::DatasetFormSerializer,
-              status: :created,
               exclude_links: true,
               links: links(:metadata),
               adapter: :json_api

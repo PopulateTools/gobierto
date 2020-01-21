@@ -13,7 +13,6 @@ es:
           marcha.
     projects:
       back: ver todo
-      date: Seleccione fecha
       detail_title: Detalle del proyecto
       empty: Sin resultados
       exit: Salir

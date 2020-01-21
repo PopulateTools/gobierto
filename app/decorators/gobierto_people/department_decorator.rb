@@ -31,7 +31,8 @@ module GobiertoPeople
 
     def people
       @people ||= QueryWithEvents.new(
-        source: object.people.active.with_event_attendances(site),
+        source: object.people(from_date: filter_start_date, to_date: filter_end_date)
+                      .active.with_event_attendances(site),
         start_date: filter_start_date,
         end_date: filter_end_date
       )

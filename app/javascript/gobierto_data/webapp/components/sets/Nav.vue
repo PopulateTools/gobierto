@@ -61,8 +61,7 @@
       </ul>
     </nav>
     <Summary
-      v-if="activeTab === 0 && rawMetaData"
-      :items="summaryInfo"
+      v-if="activeTab === 0"
     />
     <Data v-else-if="activeTab === 1" />
     <Queries v-else-if="activeTab === 2" />
@@ -71,7 +70,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import Button from "./../commons/Button.vue";
 import Summary from "./Summary.vue";
 import Data from "./Data.vue";
@@ -111,10 +109,6 @@ export default {
       dateUpdated: ''
     }
   },
-  mounted() {
-    this.getData()
-  },
-
   created() {
     this.labelSummary = I18n.t("gobierto_data.projects.summary")
     this.labelData = I18n.t("gobierto_data.projects.data")
@@ -125,28 +119,6 @@ export default {
     this.labelFollow = I18n.t("gobierto_data.projects.follow")
   },
   methods: {
-    getData() {
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/datasets';
-      this.nameDataset = '/grupos-interes-gencat/meta'
-      this.url = `${this.urlPath}${this.endPoint}${this.nameDataset}`
-      axios
-        .get(this.url)
-        .then(response => {
-          this.rawMetaData = response.data
-
-          this.titleDataset = this.rawMetaData.data.attributes.name
-
-          this.summaryInfo = [this.rawMetaData.data.attributes.updated_at]
-
-          this.$root.$emit('summaryInfo', this.summaryInfo)
-          this.$root.$emit('nameDataset', this.titleDataset)
-
-        })
-        .catch(e => {
-          console.error(e);
-        })
-    },
     activateTab(index) {
       this.$emit("active-tab", index);
     }

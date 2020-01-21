@@ -37,7 +37,7 @@ export default {
       links:[],
       link: '',
       queryDurationRecors: [],
-      queryEditor: 'SELECT%20*%20FROM%20grupos_interes%20LIMIT%2050',
+      queryEditor: 'SELECT%20*%20FROM%20gp_people%20LIMIT%2050',
       url: '',
       urlPath: '',
       endPoint: '',
@@ -48,7 +48,6 @@ export default {
     }
   },
   mounted() {
-    this.getData()
     this.$root.$on('updateCodeQuery', this.newQuery)
     this.$root.$on('runRencentQuery', this.runRecentQuery)
     if (localStorage.getItem('recentQueries')) {
@@ -58,6 +57,9 @@ export default {
         localStorage.removeItem('recentQueries');
       }
     }
+  },
+  created() {
+    this.getData()
   },
   methods: {
     runRecentQuery(value) {
@@ -98,6 +100,7 @@ export default {
       axios
         .get(this.url)
         .then(response => {
+          this.data = []
           this.rawData = response.data
           this.meta = this.rawData.meta
           this.links = this.rawData.links
@@ -109,16 +112,17 @@ export default {
 
         })
         .catch(e => {
-          console.error(e);
+          this.$root.$emit('apiError', e)
+          this.data = []
         })
     },
     newQuery(value) {
+      this.data = []
       this.queryEditor = value
       if (this.trimQuery === false) {
         this.queryEditor = encodeURIComponent(this.queryEditor.trim())
       }
       this.newRecentQuery = this.queryEditor
-      this.keysData = Object.keys(this.data[0])
       this.getData()
       this.addRecentQuery()
       this.trimQuery = false

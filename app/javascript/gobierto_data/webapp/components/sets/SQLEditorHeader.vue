@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="gobierto-data-sql-editor-toolbar">
-      <Button
+      <!-- <Button
         v-if="showBtnRemove"
         :text="undefined"
         class="btn-sql-editor"
         icon="times"
         color="var(--color-base)"
         background="#fff"
-      />
+      /> -->
       <div style="display: inline-block; position: relative;">
         <Button
           v-clickoutside="closeMenu"
@@ -182,7 +182,7 @@ export default {
       endPoint: '',
       privacyStatus: '',
       propertiesQueries: []
-    };
+    }
   },
   created() {
     this.labelSave = I18n.t('gobierto_data.projects.save');
@@ -200,7 +200,6 @@ export default {
     this.$root.$on('updateCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
     this.$root.$on('storeQuery', this.showStoreQueries)
-
   },
   methods: {
     showStoreQueries(value) {
@@ -282,6 +281,7 @@ export default {
       let oneLine = this.codeQuery.replace(/\n/g, ' ');
       this.codeQuery = oneLine.replace(/  +/g, ' ');
       this.$root.$emit('updateCodeQuery', this.codeQuery)
+      this.$root.$emit('showMessages', true)
     },
     recentQueries() {
       this.isActive = !this.isActive;

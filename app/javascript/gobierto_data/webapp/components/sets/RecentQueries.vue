@@ -31,8 +31,8 @@ export default {
     this.$root.$on('showRecentQueries', this.createList)
   },
   methods: {
-    createList(value) {
-      this.items = value
+    createList(queries) {
+      this.items = queries
     },
     runRecentQuery(value, code) {
       this.$root.$emit('runRencentQuery', value, false)

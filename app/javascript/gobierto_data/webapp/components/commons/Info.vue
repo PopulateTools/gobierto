@@ -44,12 +44,6 @@
 <script>
 export default {
   name: "Info",
-  props: {
-    items: {
-      type: Array,
-      required: true
-    }
-  },
   data() {
     return {
       labelUpdated: '',
@@ -61,9 +55,6 @@ export default {
       datasetSubject: '',
       datasetDescription: ''
     }
-  },
-  mounted() {
-    this.updateSummaryInfo(this.items)
   },
   created() {
     this.labelUpdated = I18n.t("gobierto_data.projects.updated")

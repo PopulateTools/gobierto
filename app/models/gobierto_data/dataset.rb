@@ -37,20 +37,27 @@ module GobiertoData
                        end
     end
 
-    def load_data_from_file(file_path, schema_file: nil, export_files: false, csv_separator: ",")
-      schema = schema_file.present? ? JSON.parse(File.read(schema_file)).deep_symbolize_keys : {}
+    def load_data_from_file(file_path, schema_file: nil, csv_separator: ",")
+      schema = if schema_file.blank?
+                 {}
+               elsif schema_file.is_a? Hash
+                 schema_file.deep_symbolize_keys
+               else
+                 JSON.parse(File.read(schema_file)).deep_symbolize_keys
+               end
       statements = GobiertoData::Datasets::CreationStatements.new(
         dataset: self,
         source_file: file_path,
         schema: schema,
         csv_separator: csv_separator
       )
-      if export_files
-        base_path = File.join(File.dirname(file_path), File.basename(file_path, ".*"))
-        File.open("#{base_path}_schema.json", "w") { |file| file.write(JSON.pretty_generate(statements.schema)) } if schema_file.blank?
-        File.open("#{base_path}_script.sql", "w") { |file| file.write(statements.sql_code) }
-      end
-      Connection.execute_query(site, statements.sql_code, write: true)
+      query_result = Connection.execute_query(site, statements.transaction_sql_code, write: true)
+      touch(:data_updated_at) unless query_result.has_key?(:errors)
+      {
+        db_result: query_result,
+        schema: statements.schema,
+        script: statements.transaction_sql_code
+      }
     end
 
     private

@@ -37,6 +37,10 @@ module GobiertoData
         ].join("\n")
       end
 
+      def transaction_sql_code
+        "BEGIN;\n#{sql_code}\nCOMMIT;"
+      end
+
       private
 
       def create_raw_temp_table

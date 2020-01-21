@@ -6,6 +6,9 @@ module GobiertoData
       class DatasetsController < BaseController
 
         include ::GobiertoCommon::CustomFieldsApi
+        include ::GobiertoCommon::SecuredWithAdminToken
+
+        skip_before_action :set_admin_with_token, except: [:new, :create, :update, :destroy]
 
         # GET /api/v1/data/datasets
         # GET /api/v1/data/datasets.json
@@ -73,6 +76,54 @@ module GobiertoData
           )
         end
 
+        def new
+          @form = DatasetForm.new(name_translations: available_locales_hash, site_id: current_site.id)
+
+          render(
+            json: @form,
+            serializer: ::GobiertoData::DatasetFormSerializer,
+            exclude_links: true,
+            links: links(:new),
+            adapter: :json_api
+          )
+        end
+
+        def create
+          @form = DatasetForm.new(dataset_params.merge(site_id: current_site.id))
+
+          if @form.save
+            @item = @form.resource
+            render(
+              json: @form,
+              serializer: ::GobiertoData::DatasetFormSerializer,
+              status: :created,
+              exclude_links: true,
+              links: links(:metadata),
+              adapter: :json_api
+            )
+          else
+            api_errors_render(@form, adapter: :json_api)
+          end
+        end
+
+        def update
+          find_item
+          @form = DatasetForm.new(dataset_params.merge(id: @item.id, site_id: current_site.id))
+
+          if @form.save
+            render(
+              json: @form,
+              serializer: ::GobiertoData::DatasetFormSerializer,
+              status: :created,
+              exclude_links: true,
+              links: links(:metadata),
+              adapter: :json_api
+            )
+          else
+            api_errors_render(@form, adapter: :json_api)
+          end
+        end
+
         private
 
         def base_relation
@@ -89,16 +140,18 @@ module GobiertoData
 
         def links(self_key = nil)
           id = @item&.id
+          slug = @item&.slug
           {
             index: gobierto_data_api_v1_datasets_path,
             datasets_meta: meta_gobierto_data_api_v1_datasets_path,
             queries: gobierto_data_api_v1_queries_path,
-            visualizations: gobierto_data_api_v1_visualizations_path
+            visualizations: gobierto_data_api_v1_visualizations_path,
+            new: new_gobierto_data_api_v1_visualization_path
           }.tap do |hash|
             if id.present?
               hash.merge!(
-                data: gobierto_data_api_v1_dataset_path(params[:slug]),
-                metadata: meta_gobierto_data_api_v1_dataset_path(params[:slug]),
+                data: gobierto_data_api_v1_dataset_path(params.fetch(:slug, slug)),
+                metadata: meta_gobierto_data_api_v1_dataset_path(params.fetch(:slug, slug)),
                 queries: gobierto_data_api_v1_queries_path(filter: { dataset_id: id }),
                 visualizations: gobierto_data_api_v1_visualizations_path(filter: { dataset_id: id }),
                 favorites: gobierto_data_api_v1_dataset_favorites_path(@item.slug)
@@ -109,6 +162,9 @@ module GobiertoData
           end
         end
 
+        def dataset_params
+          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:name_translations, :name, :table_name, :slug, :data_path, :csv_separator, :schema])
+        end
       end
     end
   end

@@ -117,6 +117,9 @@ module GobiertoData
         else
           true
         end
+      rescue CSV::MalformedCSVError
+        errors.add(data_file.present? ? :data_file : :data_path, "CSV file malformed or with wrong encoding (expected UTF-8)")
+        false
       ensure
         temp_file.close
         temp_file.unlink

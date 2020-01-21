@@ -11,7 +11,6 @@ en:
           those that will start soon, and the medium-term plans. Detail on the annual
           investment plan and mechanisms for monitoring the works in progress.
     projects:
-      all: All
       back: see all
       detail_title: Project detail
       empty: No results
@@ -20,7 +19,6 @@ en:
       list: List
       loading: Loading data...
       map: Map
-      none: None
       reset: Clean filters
       see: See again
       showall: Show all

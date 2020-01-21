@@ -191,3 +191,5 @@ es:
       block_header:
         all: Todas
         none: Ninguna
+      calendar:
+        date: Seleccione fecha

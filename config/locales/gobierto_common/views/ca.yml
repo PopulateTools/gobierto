@@ -191,3 +191,5 @@ ca:
       block_header:
         all: Totes
         none: Cap
+      calendar:
+        date: Escolliu data

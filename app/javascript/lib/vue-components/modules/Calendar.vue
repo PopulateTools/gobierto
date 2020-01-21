@@ -1,5 +1,5 @@
 <template>
-  <div class="investments-home-aside--calendar-button">
+  <div>
     <div>
       <strong>{{ labelDate }}</strong>
       <i class="fas fa-caret-down" />
@@ -7,7 +7,7 @@
     <small>{{ startDateFmt }}{{ endDate ? " - " : "" }}{{ endDateFmt }}</small>
     <input
       type="text"
-      class="investments-home-aside--calendar-input datepicker-here"
+      class="datepicker-here"
     >
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
     }
   },
   created() {
-    this.labelDate = I18n.t("gobierto_investments.projects.date");
+    this.labelDate = I18n.t("gobierto_common.vue_components.calendar.date");
   },
   mounted() {
     this.setDatePicker();

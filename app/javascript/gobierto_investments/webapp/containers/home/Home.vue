@@ -35,6 +35,7 @@
           <!-- Filter type: calendar -->
           <template v-if="filter.type === 'daterange'">
             <Calendar
+              class="investments-home-aside--calendar-button"
               :saved-start-date="filter.savedStartDate"
               :saved-end-date="filter.savedEndDate"
               @calendar-change="e => handleCalendarFilter({ ...e, filter })"
@@ -109,12 +110,11 @@ import Main from "./Main.vue";
 import Nav from "./Nav.vue";
 import Article from "./Article.vue";
 import Loading from "../../components/Loading.vue";
-import Calendar from "../../components/Calendar.vue";
 import Checkbox from "../../components/Checkbox.vue";
 import RangeBars from "../../components/RangeBars.vue";
 import axios from "axios";
 
-import { BlockHeader } from "lib/vue-components";
+import { BlockHeader, Calendar } from "lib/vue-components";
 import { CommonsMixin, baseUrl } from "../../mixins/common.js";
 import { store } from "../../mixins/store";
 

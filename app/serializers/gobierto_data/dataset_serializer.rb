@@ -5,7 +5,7 @@ module GobiertoData
     include Rails.application.routes.url_helpers
     include ::GobiertoCommon::HasCustomFieldsAttributes
 
-    attributes :id, :name, :slug, :updated_at
+    attributes :id, :name, :slug, :table_name, :data_updated_at
 
     attribute :links, unless: :exclude_links? do
       slug = object.slug

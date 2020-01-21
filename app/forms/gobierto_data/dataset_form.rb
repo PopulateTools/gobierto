@@ -24,7 +24,7 @@ module GobiertoData
     validates :table_name, :name, presence: true
     validates :name_translations, translated_attribute_presence: true
 
-    delegate :persisted?, to: :resource
+    delegate :persisted?, :data_updated_at, to: :resource
 
     def resource
       @resource ||= resource_class.find_by(id: @id) || build_resource

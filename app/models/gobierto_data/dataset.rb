@@ -37,7 +37,7 @@ module GobiertoData
                        end
     end
 
-    def load_data_from_file(file_path, schema_file: nil, csv_separator: ",")
+    def load_data_from_file(file_path, schema_file: nil, csv_separator: ",", append: false)
       schema = if schema_file.blank?
                  {}
                elsif schema_file.is_a? Hash
@@ -49,7 +49,8 @@ module GobiertoData
         dataset: self,
         source_file: file_path,
         schema: schema,
-        csv_separator: csv_separator
+        csv_separator: csv_separator,
+        append: append
       )
       query_result = Connection.execute_query(site, statements.transaction_sql_code, write: true)
       touch(:data_updated_at) unless query_result.has_key?(:errors)

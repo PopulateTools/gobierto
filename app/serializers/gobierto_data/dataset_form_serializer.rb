@@ -5,7 +5,7 @@ module GobiertoData
     include Rails.application.routes.url_helpers
     include ::GobiertoCommon::HasCustomFieldsAttributes
 
-    attributes :id, :name, :name_translations, :table_name, :slug, :data_path, :csv_separator, :schema
+    attributes :id, :name, :name_translations, :table_name, :slug, :data_path, :csv_separator, :schema, :append
 
     def current_site
       Site.find_by(id: object.site_id) || instance_options[:site]

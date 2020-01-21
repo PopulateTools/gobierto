@@ -163,7 +163,7 @@ module GobiertoData
         end
 
         def dataset_params
-          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:name_translations, :name, :table_name, :slug, :data_path, :csv_separator, :schema])
+          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:name_translations, :name, :table_name, :slug, :data_path, :csv_separator, :schema, :append])
         end
       end
     end

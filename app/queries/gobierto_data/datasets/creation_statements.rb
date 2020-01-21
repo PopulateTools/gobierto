@@ -7,11 +7,12 @@ module GobiertoData
     class CreationStatements
       attr_reader :schema
 
-      def initialize(dataset:, source_file:, schema:, csv_separator:)
+      def initialize(dataset:, source_file:, schema:, csv_separator:, append:)
         @dataset = dataset
         @base_table_name = dataset.table_name
         @source_file = source_file
         @csv_separator = csv_separator
+        @append = append
         @schema = schema.present? ? schema.deep_symbolize_keys : inspect_csv_schema(source_file, csv_separator: csv_separator)
         @transform_functions = @schema.inject({}) do |functions, (column, params)|
           functions.update(
@@ -52,12 +53,20 @@ module GobiertoData
       end
 
       def create_destination_table
-        <<-SQL
-        DROP TABLE IF EXISTS #{@base_table_name};
-        CREATE TABLE #{@base_table_name}(
-          #{@transform_functions.map { |column, f| "#{column} #{f.output_type}" }.join(",\n")}
-        );
-        SQL
+        if @append
+          <<-SQL
+          CREATE TABLE IF NOT EXISTS #{@base_table_name}(
+            #{@transform_functions.map { |column, f| "#{column} #{f.output_type}" }.join(",\n")}
+          );
+          SQL
+        else
+          <<-SQL
+          DROP TABLE IF EXISTS #{@base_table_name};
+          CREATE TABLE #{@base_table_name}(
+            #{@transform_functions.map { |column, f| "#{column} #{f.output_type}" }.join(",\n")}
+          );
+          SQL
+        end
       end
 
       def extract_csv_operation

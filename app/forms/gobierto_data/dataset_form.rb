@@ -43,6 +43,10 @@ module GobiertoData
       @table_name ||= resource.table_name
     end
 
+    def append
+      @append ||= false
+    end
+
     def name_translations
       @name_translations ||= begin
                                (resource.name_translations || available_locales_blank_translations).tap do |translations|
@@ -103,7 +107,7 @@ module GobiertoData
       temp_file = Tempfile.new(["data", ".csv"])
       begin
         temp_file.write(URI.open(data_path).read.encode("UTF-8"))
-        @load_status = @resource.load_data_from_file(temp_file.path, csv_separator: csv_separator, schema_file: schema)
+        @load_status = @resource.load_data_from_file(temp_file.path, csv_separator: csv_separator, schema_file: schema, append: append)
         @schema = @load_status[:schema]
         if @load_status[:db_result].has_key?(:errors)
           errors.add(:schema, @load_status[:db_result][:errors].map { |error| error[:sql] }.join("\n"))

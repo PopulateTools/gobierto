@@ -16,6 +16,7 @@ module GobiertoData
       :table_name,
       :name_translations,
       :schema,
+      :schema_file,
       :csv_separator,
       :name,
       :slug,
@@ -72,6 +73,14 @@ module GobiertoData
       @schema ||= {}
     end
 
+    def schema_file
+      if @schema_file.present?
+        @schema_file.tempfile.path
+      else
+        schema.is_a?(String) ? JSON.parse(schema) : schema
+      end
+    end
+
     def slug
       @slug ||= resource.slug
     end
@@ -112,7 +121,7 @@ module GobiertoData
         @load_status = @resource.load_data_from_file(
           temp_file.path,
           csv_separator: csv_separator,
-          schema_file: schema.is_a?(String) ? JSON.parse(schema) : schema,
+          schema_file: schema_file,
           append: append
         )
         @schema = @load_status[:schema]

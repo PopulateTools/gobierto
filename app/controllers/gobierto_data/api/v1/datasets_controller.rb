@@ -170,6 +170,7 @@ module GobiertoData
               :slug,
               :csv_separator,
               :schema,
+              :schema_file,
               :append,
               name_translations: [*I18n.available_locales]
             )

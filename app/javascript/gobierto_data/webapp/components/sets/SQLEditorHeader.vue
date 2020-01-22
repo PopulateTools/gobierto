@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="gobierto-data-sql-editor-toolbar">
-      <Button
+      <!-- <Button
         v-if="showBtnRemove"
         :text="undefined"
         class="btn-sql-editor"
         icon="times"
         color="var(--color-base)"
         background="#fff"
-      />
-      <div style="display: inline-block; position: relative;">
+      /> -->
+      <div class="gobierto-data-sql-editor-container-recent-queries">
         <Button
           v-clickoutside="closeMenu"
           :text="labelRecents"
@@ -22,8 +22,11 @@
           @click.native="recentQueries()"
         />
         <RecentQueries
-          v-if="storeQueries"
-          :class="{ 'active': isActive }"
+          v-if="showStoreQueries"
+          :class="[
+            directionLeft ? 'modal-left': 'modal-right',
+            isActive ? 'active' : ''
+          ]"
         />
       </div>
       <Button
@@ -116,7 +119,18 @@
         color="var(--color-base)"
         background="#fff"
         @click.native="runQuery()"
-      />
+      >
+        <div
+          v-if="showSpinner"
+          class="spinner-box"
+        >
+          <div class="pulse-container">
+            <div class="pulse-bubble pulse-bubble-1" />
+            <div class="pulse-bubble pulse-bubble-2" />
+            <div class="pulse-bubble pulse-bubble-3" />
+          </div>
+        </div>
+      </Button>
     </div>
   </div>
 </template>
@@ -149,7 +163,7 @@ export default {
   },
   data() {
     return {
-      storeQueries: [],
+      showStoreQueries: [],
       disabledRecents: true,
       disabledQueries: false,
       disabledSave: true,
@@ -181,8 +195,12 @@ export default {
       codeQuery: '',
       endPoint: '',
       privacyStatus: '',
-      propertiesQueries: []
-    };
+      propertiesQueries: [],
+      directionLeft: true,
+      url: '',
+      urlPath: '',
+      showSpinner: false
+    }
   },
   created() {
     this.labelSave = I18n.t('gobierto_data.projects.save');
@@ -197,22 +215,21 @@ export default {
     this.labelGuide = I18n.t('gobierto_data.projects.guide');
 
     this.$root.$on('activeSave', this.activeSave);
-    this.$root.$on('updateCode', this.updateQuery);
+    this.$root.$on('sendCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
-    this.$root.$on('storeQuery', this.showStoreQueries)
-
+    this.$root.$on('storeQuery', this.showshowStoreQueries)
   },
   methods: {
-    showStoreQueries(value) {
-      this.$root.$emit('showRecentQueries', value)
+    showshowStoreQueries(queries) {
+      this.$root.$emit('showRecentQueries', queries)
     },
     activeSave(value) {
       this.disabledRecents = value;
       this.disabledSave = value;
       this.disabledRunQuery = value;
     },
-    updateQuery(value) {
-      this.codeQuery = value;
+    updateQuery(code) {
+      this.codeQuery = code;
     },
     updateActiveSave(activeLabel, disableLabel) {
       this.showLabelModified = activeLabel;
@@ -279,9 +296,53 @@ export default {
       }
     },
     runQuery() {
-      let oneLine = this.codeQuery.replace(/\n/g, ' ');
-      this.codeQuery = oneLine.replace(/  +/g, ' ');
-      this.$root.$emit('updateCodeQuery', this.codeQuery)
+      this.showSpinner = true;
+      this.queryEditor = encodeURI(this.codeQuery)
+      this.$root.$emit('postRecentQuery', this.codeQuery)
+      this.$root.$emit('showMessages', false)
+
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/data';
+      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+      this.fileCSV = `${this.urlPath}${this.endPoint}.csv?sql=${this.queryEditor}&csv_separator=semicolon`
+      this.fileJSON = `${this.urlPath}${this.endPoint}.json?sql=${this.queryEditor}`
+      this.arrayFiles = [this.fileCSV, this.fileJSON]
+      this.$root.$emit('sendFiles', this.arrayFiles)
+
+      axios
+        .get(this.url)
+        .then(response => {
+          this.data = []
+          this.keysData = []
+          this.rawData = response.data
+          this.meta = this.rawData.meta
+          this.data = this.rawData.data
+
+          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+
+          this.keysData = Object.keys(this.data[0])
+
+          this.$root.$emit('recordsDuration', this.queryDurationRecors)
+          this.$root.$emit('sendData', this.keysData, this.data)
+          this.$root.$emit('showMessages', true)
+
+          setTimeout(() => {
+            this.showSpinner = false
+          }, 300)
+
+        })
+        .catch(error => {
+          const messageError = error.response.data.errors[0].sql
+          this.$root.$emit('apiError', messageError)
+
+          this.data = []
+          this.keysData = []
+          this.$root.$emit('sendData', this.keysData, this.data)
+
+          setTimeout(() => {
+            this.showSpinner = false
+          }, 300)
+        })
     },
     recentQueries() {
       this.isActive = !this.isActive;
@@ -318,9 +379,13 @@ export default {
       }).then(response => {
           this.resp = response;
       })
-      .catch(e => {
-          console.error(e);
+      .catch(error => {
+        console.error(error);
       });
+    },
+    runRecentQuery(code) {
+      this.codeQuery = code
+      this.runQuery()
     }
   }
 };

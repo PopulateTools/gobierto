@@ -1,17 +1,20 @@
 <template>
-  <div class="gobierto-data-btn-download-data-modal arrow-top gobierto-data-sql-editor-recent-queries">
-    <button
-      v-for="(item, index) in items"
-      :key="index"
-      :data-id="item | replace()"
-      class="gobierto-data-recent-queries-list-element"
-      @click="runRecentQuery(index, item)"
-    >
-      {{ item | truncate(30, '...') | replace() }}
-    </button>
+  <div class="gobierto-data-sql-editor-recent-queries arrow-top">
+    <div class="gobierto-data-btn-download-data-modal-container">
+      <button
+        v-for="(item, index) in items"
+        :key="index"
+        :data-id="item | replace()"
+        class="gobierto-data-recent-queries-list-element"
+        @click="runRecentQuery(item)"
+      >
+        {{ item | truncate(30, '...') | replace() }}
+      </button>
+    </div>
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   name: "RecentQueries",
   filters: {
@@ -31,12 +34,49 @@ export default {
     this.$root.$on('showRecentQueries', this.createList)
   },
   methods: {
-    createList(value) {
-      this.items = value
+    createList(queries) {
+      this.items = queries
     },
-    runRecentQuery(value, code) {
-      this.$root.$emit('runRencentQuery', value, false)
+    runRecentQuery(code) {
+      this.queryEditor = encodeURI(code)
+      this.$root.$emit('postRecentQuery', code)
+      this.$root.$emit('showMessages', false)
+
       this.$root.$emit('updateCode', code)
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/data';
+      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+      this.fileCSV = `${this.urlPath}${this.endPoint}.csv?sql=${this.queryEditor}&csv_separator=semicolon`
+      this.fileJSON = `${this.urlPath}${this.endPoint}.json?sql=${this.queryEditor}`
+      this.arrayFiles = [this.fileCSV, this.fileJSON]
+      this.$root.$emit('sendFiles', this.arrayFiles)
+
+      axios
+        .get(this.url)
+        .then(response => {
+          this.data = []
+          this.keysData = []
+          this.rawData = response.data
+          this.meta = this.rawData.meta
+          this.data = this.rawData.data
+
+          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+
+          this.keysData = Object.keys(this.data[0])
+
+          this.$root.$emit('recordsDuration', this.queryDurationRecors)
+          this.$root.$emit('sendData', this.keysData, this.data)
+          this.$root.$emit('showMessages', true)
+
+        })
+        .catch(error => {
+          const messageError = error.response.data.errors[0].sql
+          this.$root.$emit('apiError', messageError)
+
+          this.data = []
+          this.keysData = []
+          this.$root.$emit('sendData', this.keysData, this.data)
+        })
     }
   }
 }

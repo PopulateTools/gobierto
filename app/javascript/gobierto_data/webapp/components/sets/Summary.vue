@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Info :items="items" />
+  <div class="gobierto-data-sets-nav--tab-container">
+    <Info />
     <DownloadButton />
     <Resources :items="filesDataset" />
     <Queries />
@@ -20,12 +20,6 @@ export default {
     Queries,
     DownloadButton,
     Info
-  },
-  props: {
-    items: {
-      type: Array,
-      required: true
-    }
   },
   data() {
     return {

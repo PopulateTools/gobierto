@@ -7,27 +7,37 @@
         :options="cmOption"
         @ready="onCmReady"
         @input="onCmCodeChange"
-        @blur="formatCode"
+        @focus="inputCode"
       />
     </div>
-    <div class="gobierto-data-sql-editor-footer">
-      <span class="gobierto-data-sql-editor-footer-records">
-        {{ numberRecords }} {{ labelRecords }}
-      </span>
-      <span class="gobierto-data-sql-editor-footer-time">
-        {{ labelQueryExecuted }} {{ timeQuery }}s
-      </span>
-      <a
-        href=""
-        class="gobierto-data-sql-editor-footer-guide"
-      >
-        {{ labelGuide }}
-      </a>
+    <div
+      v-if="showMessages"
+      class="gobierto-data-sql-editor-footer"
+    >
+      <div v-if="showApiError">
+        <span class="gobierto-data-sql-error-message">
+          {{ stringError }}
+        </span>
+      </div>
+      <div v-else>
+        <span class="gobierto-data-sql-editor-footer-records">
+          {{ numberRecords }} {{ labelRecords }}
+        </span>
+        <span class="gobierto-data-sql-editor-footer-time">
+          {{ labelQueryExecuted }} {{ timeQuery }}ms
+        </span>
+        <a
+          href=""
+          class="gobierto-data-sql-editor-footer-guide"
+        >
+          {{ labelGuide }}
+        </a>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import sqlFormatter from 'sql-formatter';
+/*import sqlFormatter from 'sql-formatter';*/
 import 'codemirror/mode/sql/sql.js';
 import 'codemirror/addon/selection/active-line.js';
 import 'codemirror/addon/hint/show-hint.css';
@@ -40,12 +50,15 @@ export default {
   name: 'SQLEditorCode',
   data() {
     return {
-      code: 'SELECT * FROM grupos_interes LIMIT 50',
+      code: 'SELECT * FROM gp_people LIMIT 50',
       labelGuide: '',
       labelQueryExecuted: '',
       labelRecords: '',
       numberRecords: '',
       timeQuery: '',
+      stringError: '',
+      showMessages: false,
+      showApiError: false,
       cmOption: {
         tabSize: 2,
         styleActiveLine: false,
@@ -79,6 +92,8 @@ export default {
     this.$root.$on('saveQueryState', this.saveQueryState);
     this.$root.$on('recordsDuration', this.updateRecordsDuration);
     this.$root.$on('updateCode', this.updateCode)
+    this.$root.$on('apiError', this.showError)
+    this.$root.$on('showMessages', this.handleShowMessages)
   },
   mounted() {
     this.cm = this.$refs.myCm.codemirror;
@@ -122,21 +137,32 @@ export default {
         }
       })
     },
+    inputCode() {
+      this.$root.$emit('activeSave', false)
+      this.$root.$emit('activateModalRecent')
+      this.$root.$emit('sendCode', this.code);
+    },
     formatCode() {
-      this.commands.selectAll(this.cm);
+      //Convert to button or shortcut
+      /*this.commands.selectAll(this.cm);
       const formaterCode = sqlFormatter.format(this.code);
-      this.cm.setValue(formaterCode);
+      this.cm.setValue(formaterCode);*/
     },
     onCmCodeChange(newCode) {
       this.code = newCode;
-      this.$root.$emit('updateCode', this.code);
+      this.$root.$emit('sendCode', this.code);
     },
-    saveCode() {
-      const saveQuery = this.code;
-      this.arrayQuerys.push(saveQuery);
+    updateCode(newCode) {
+      this.code = unescape(newCode)
     },
-    updateCode(value) {
-      this.code = value.replace(/%20/g, ' ').replace(/%/g, ' ');
+    handleShowMessages(showTrue){
+      this.showMessages = false
+      this.showMessages = showTrue
+      this.showApiError = false
+    },
+    showError(message) {
+      this.showApiError = true
+      this.stringError = message
     }
   }
 };

@@ -131,7 +131,7 @@ module GobiertoData
           temp_file.path,
           csv_separator: csv_separator,
           schema_file: schema_file,
-          append: append
+          append: append.is_a?(String) ? append == "true" : append
         )
         @schema = @load_status[:schema]
         if @load_status[:db_result].has_key?(:errors)

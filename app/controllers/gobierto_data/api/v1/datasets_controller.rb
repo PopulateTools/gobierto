@@ -175,7 +175,20 @@ module GobiertoData
               name_translations: [*I18n.available_locales]
             )
           else
-            ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:name_translations, :name, :table_name, :slug, :data_path, :csv_separator, :schema, :append])
+            ActiveModelSerializers::Deserialization.jsonapi_parse(
+              params,
+              only: [
+                :name_translations,
+                :name,
+                :table_name,
+                :slug,
+                :data_path,
+                :local_data,
+                :csv_separator,
+                :schema,
+                :append
+              ]
+            )
           end
         end
       end

@@ -20,7 +20,8 @@ module GobiertoData
       :csv_separator,
       :name,
       :slug,
-      :append
+      :append,
+      :local_data
     )
 
     validates :table_name, :name, presence: true
@@ -47,6 +48,10 @@ module GobiertoData
 
     def append
       @append ||= false
+    end
+
+    def local_data
+      @local_data ||= false
     end
 
     def name_translations
@@ -87,6 +92,10 @@ module GobiertoData
 
     private
 
+    def open_data
+      local_data ? File.open(data_path, "r") : URI.open(data_path)
+    end
+
     def build_resource
       resource_class.new
     end
@@ -116,7 +125,7 @@ module GobiertoData
 
       temp_file = Tempfile.new(["data", ".csv"])
       begin
-        source_data = data_file.present? ? data_file.tempfile : URI.open(data_path)
+        source_data = data_file.present? ? data_file.tempfile : open_data
         temp_file.write(source_data.read.force_encoding("UTF-8"))
         @load_status = @resource.load_data_from_file(
           temp_file.path,

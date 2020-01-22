@@ -18,6 +18,7 @@ es:
       exit: Salir
       gallery: Galería
       list: Lista
+      loading: Cargando datos...
       map: Mapa
       reset: Limpiar filtros
       see: Ver de nuevo

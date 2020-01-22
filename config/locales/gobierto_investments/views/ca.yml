@@ -17,6 +17,7 @@ ca:
       exit: Sortir
       gallery: Galeria
       list: Llista
+      loading: Carregant dades...
       map: Mapa
       reset: Netejeu filtres
       see: Vegeu-ho de nou

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="gobierto-data-sets-nav--tab-container">
     <SQLEditor id="codemirror" />
   </div>
 </template>
@@ -9,7 +9,7 @@ import SQLEditor from "./SQLEditor.vue";
 export default {
   name: "Data",
   components: {
-    SQLEditor,
+    SQLEditor
   },
   data() {
     return {

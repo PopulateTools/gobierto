@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="gobierto-data-sets-nav--tab-container">
     <QueriesCode />
   </div>
 </template>

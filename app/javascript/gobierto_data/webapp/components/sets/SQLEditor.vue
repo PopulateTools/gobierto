@@ -36,21 +36,18 @@ export default {
       meta:[],
       links:[],
       link: '',
-      queryDurationRecors: [],
       queryEditor: 'SELECT%20*%20FROM%20grupos_interes%20LIMIT%2050',
       url: '',
       urlPath: '',
       endPoint: '',
       recentQueries: [],
       newRecentQuery: null,
-      trimQuery: false,
       nameDataset: ''
     }
   },
   mounted() {
-    this.getData()
-    this.$root.$on('updateCodeQuery', this.newQuery)
-    this.$root.$on('runRencentQuery', this.runRecentQuery)
+    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
+    this.$root.$on('activateModalRecent', this.saveRecentQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
         this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
@@ -58,15 +55,9 @@ export default {
         localStorage.removeItem('recentQueries');
       }
     }
+    this.getData()
   },
   methods: {
-    runRecentQuery(value) {
-      this.trimQuery = true
-      let newQueryRecentAgain = this.recentQueries[value]
-      let oneLine = newQueryRecentAgain.replace(/\n/g, ' ');
-      newQueryRecentAgain = oneLine.replace(/  +/g, ' ');
-      this.newQuery(newQueryRecentAgain)
-    },
     addRecentQuery() {
       if (!this.newRecentQuery) {
         return;
@@ -100,28 +91,23 @@ export default {
         .then(response => {
           this.rawData = response.data
           this.meta = this.rawData.meta
-          this.links = this.rawData.links
           this.data = this.rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          this.keysData = Object.keys(this.data[0])
 
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
+          this.$root.$emit('sendData', this.keysData)
 
         })
-        .catch(e => {
-          console.error(e);
+        .catch(error => {
+          this.$root.$emit('apiError', error)
+          this.data = []
+          this.keysData = []
+          this.$root.$emit('sendData', this.keysData)
         })
     },
-    newQuery(value) {
-      this.queryEditor = value
-      if (this.trimQuery === false) {
-        this.queryEditor = encodeURIComponent(this.queryEditor.trim())
-      }
-      this.newRecentQuery = this.queryEditor
-      this.keysData = Object.keys(this.data[0])
-      this.getData()
+    saveNewRecentQuery(query) {
+      this.newRecentQuery = query
       this.addRecentQuery()
-      this.trimQuery = false
     }
   }
 }

@@ -27,7 +27,11 @@
       </nav>
     </div>
     <div class="pure-u-lg-1-4">
-      <DownloadButton />
+      <DownloadButton
+        :class="[
+          directionLeft ? 'modal-left': 'modal-right'
+        ]"
+      />
     </div>
     <SQLEditorTable
       v-if="activeTab === 0"
@@ -62,7 +66,8 @@ export default {
   data() {
     return {
       labelTable: "",
-      labelVisualization: ""
+      labelVisualization: "",
+      directionLeft: false,
     }
   },
   created() {

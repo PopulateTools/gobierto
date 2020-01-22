@@ -19,7 +19,7 @@
         class="gobierto-data-sql-editor-table-body"
       >
         <tr
-          v-for="(row, idx) of items"
+          v-for="(row, idx) of mutableList"
           :key="idx"
         >
           <td
@@ -46,15 +46,34 @@ export default {
   },
   data() {
     return {
-      columns: [],
-      keysData: []
+      keysData: [],
+      mutableList: this.items
     }
   },
+  watch:{
+      items: function(){
+          this.mutableList = JSON.parse(this.items);
+      }
+  },
   mounted() {
-    this.keysData = Object.keys(this.items[0])
+    this.$root.$on('sendData', this.destroyTable)
+    this.keysData = Object.keys(this.mutableList[0])
   },
   created() {
     this.labelSave = I18n.t('gobierto_data.projects.save');
+  },
+  methods: {
+    destroyTable(keys, data) {
+      this.keysData = []
+      this.data = []
+      setTimeout(() => {
+        this.showTable(keys, data)
+      }, 10)
+    },
+    showTable(keys, data) {
+      this.keysData = keys
+      this.mutableList = data
+    }
   }
 }
 </script>

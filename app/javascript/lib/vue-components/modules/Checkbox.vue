@@ -1,13 +1,13 @@
 <template>
-  <div class="investments-home-aside--checkbox">
+  <div>
     <input
-      :id="`investments-home-aside--checkbox-${id}`"
+      :id="`checkbox-${id}-${seed}`"
       :checked="checked"
       type="checkbox"
       @change="marked = !marked"
     >
     <label
-      :for="`investments-home-aside--checkbox-${id}`"
+      :for="`checkbox-${id}-${seed}`"
     >
       <div>
         {{ title }}
@@ -18,11 +18,8 @@
 </template>
 
 <script>
-import { CommonsMixin } from "../mixins/common.js";
-
 export default {
   name: "Checkbox",
-  mixins: [CommonsMixin],
   props: {
     title: {
       type: String,
@@ -43,7 +40,8 @@ export default {
   },
   data() {
     return {
-      marked: false
+      marked: false,
+      seed: Math.random().toString(36).substring(7)
     }
   },
   watch: {

@@ -6,7 +6,7 @@
         :key="index"
         :data-id="item | replace()"
         class="gobierto-data-recent-queries-list-element"
-        @click="runRecentQuery(index, item)"
+        @click="runRecentQuery(item)"
       >
         {{ item | truncate(50, '...') | replace() }}
       </button>
@@ -36,8 +36,9 @@ export default {
     createList(queries) {
       this.items = queries
     },
-    runRecentQuery(value, code) {
-      this.$root.$emit('runRencentQuery', value, false)
+    runRecentQuery(code) {
+      this.queryEditor = unescape(code)
+      this.$root.$emit('runRencentQuery', this.queryEditor)
       this.$root.$emit('updateCode', code)
     }
   }

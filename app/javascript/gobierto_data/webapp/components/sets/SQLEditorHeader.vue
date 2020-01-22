@@ -203,21 +203,22 @@ export default {
     this.labelGuide = I18n.t('gobierto_data.projects.guide');
 
     this.$root.$on('activeSave', this.activeSave);
-    this.$root.$on('updateCode', this.updateQuery);
+    this.$root.$on('sendCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
     this.$root.$on('storeQuery', this.showStoreQueries)
+    this.$root.$on('runRencentQuery', this.runRecentQuery)
   },
   methods: {
-    showStoreQueries(value) {
-      this.$root.$emit('showRecentQueries', value)
+    showStoreQueries(queries) {
+      this.$root.$emit('showRecentQueries', queries)
     },
     activeSave(value) {
       this.disabledRecents = value;
       this.disabledSave = value;
       this.disabledRunQuery = value;
     },
-    updateQuery(value) {
-      this.codeQuery = value;
+    updateQuery(code) {
+      this.codeQuery = code;
     },
     updateActiveSave(activeLabel, disableLabel) {
       this.showLabelModified = activeLabel;
@@ -284,15 +285,13 @@ export default {
       }
     },
     runQuery() {
-      let oneLine = this.codeQuery.replace(/\n/g, ' ');
-      this.queryEditor = oneLine.replace(/  +/g, ' ');
-/*      this.$root.$emit('updateCodeQuery', this.codeQuery)*/
+      this.queryEditor = encodeURI(this.codeQuery)
+      this.$root.$emit('postRecentQuery', this.codeQuery)
       this.$root.$emit('showMessages', true)
 
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';
       this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
-
       this.fileCSV = `${this.urlPath}${this.endPoint}.csv?sql=${this.queryEditor}&csv_separator=semicolon`
       this.fileJSON = `${this.urlPath}${this.endPoint}.json?sql=${this.queryEditor}`
       this.arrayFiles = [this.fileCSV, this.fileJSON]
@@ -302,7 +301,7 @@ export default {
         .get(this.url)
         .then(response => {
           this.data = []
-          this.data = []
+          this.keysData = []
           this.rawData = response.data
           this.meta = this.rawData.meta
           this.data = this.rawData.data
@@ -315,8 +314,10 @@ export default {
           this.$root.$emit('keysTable', this.keysData, this.data)
 
         })
-        .catch(e => {
-          this.$root.$emit('apiError', e)
+        .catch(error => {
+          const messageError = error.response.data.errors[0].sql
+          this.$root.$emit('apiError', messageError)
+
           this.data = []
           this.keysData = []
           this.$root.$emit('keysTable', this.keysData)
@@ -357,9 +358,13 @@ export default {
       }).then(response => {
           this.resp = response;
       })
-      .catch(e => {
-          console.error(e);
+      .catch(error => {
+        console.error(error);
       });
+    },
+    runRecentQuery(code) {
+      this.codeQuery = code
+      this.runQuery()
     }
   }
 };

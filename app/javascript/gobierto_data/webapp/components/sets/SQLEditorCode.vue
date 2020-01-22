@@ -138,8 +138,8 @@ export default {
       })
     },
     inputCode() {
-      this.$root.$emit('activeSave', false);
-      this.$root.$emit('showRecentQueries', true);
+      this.$root.$emit('activeSave', false)
+      this.$root.$emit('activateModalRecent')
     },
     formatCode() {
       //Convert to button or shortcut
@@ -149,10 +149,10 @@ export default {
     },
     onCmCodeChange(newCode) {
       this.code = newCode;
-      this.$root.$emit('updateCode', this.code);
+      this.$root.$emit('sendCode', this.code);
     },
-    updateCode(value) {
-      this.code = value.replace(/%20/g, ' ').replace(/%/g, ' ');
+    updateCode(newCode) {
+      this.code = unescape(newCode)
     },
     handleShowMessages(showTrue){
       this.showMessages = showTrue

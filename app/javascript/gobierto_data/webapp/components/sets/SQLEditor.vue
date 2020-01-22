@@ -36,19 +36,18 @@ export default {
       meta:[],
       links:[],
       link: '',
-      queryDurationRecors: [],
+      queryEditor: 'SELECT%20*%20FROM%20gp_people%20LIMIT%2050',
       url: '',
       urlPath: '',
       endPoint: '',
       recentQueries: [],
       newRecentQuery: null,
-      trimQuery: false,
       nameDataset: ''
     }
   },
   mounted() {
-    this.$root.$on('updateCodeQuery', this.newQuery)
-    this.$root.$on('runRencentQuery', this.runRecentQuery)
+    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
+    this.$root.$on('activateModalRecent', this.saveRecentQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
         this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
@@ -59,13 +58,6 @@ export default {
     this.getData()
   },
   methods: {
-    runRecentQuery(value) {
-      this.trimQuery = true
-      let newQueryRecentAgain = this.recentQueries[value]
-      let oneLine = newQueryRecentAgain.replace(/\n/g, ' ');
-      newQueryRecentAgain = oneLine.replace(/  +/g, ' ');
-      this.newQuery(newQueryRecentAgain)
-    },
     addRecentQuery() {
       if (!this.newRecentQuery) {
         return;
@@ -87,7 +79,7 @@ export default {
     getData() {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';
-      this.url = `${this.urlPath}${this.endPoint}`
+      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
 
       this.fileCSV = `${this.urlPath}${this.endPoint}.csv?sql=${this.queryEditor}&csv_separator=semicolon`
       this.fileJSON = `${this.urlPath}${this.endPoint}.json?sql=${this.queryEditor}`
@@ -106,23 +98,16 @@ export default {
           this.$root.$emit('keysTable', this.keysData)
 
         })
-        .catch(e => {
-          this.$root.$emit('apiError', e)
+        .catch(error => {
+          this.$root.$emit('apiError', error)
           this.data = []
           this.keysData = []
           this.$root.$emit('keysTable', this.keysData)
         })
     },
-    newQuery(value) {
-      this.data = []
-      this.queryEditor = value
-      if (this.trimQuery === false) {
-        this.queryEditor = encodeURIComponent(this.queryEditor.trim())
-      }
-      this.newRecentQuery = this.queryEditor
-      this.getData()
+    saveNewRecentQuery(query) {
+      this.newRecentQuery = query
       this.addRecentQuery()
-      this.trimQuery = false
     }
   }
 }

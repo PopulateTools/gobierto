@@ -1,6 +1,7 @@
 <template>
   <Loading
     v-if="isFetchingData"
+    :message="labelLoading"
     class="investments--loading"
   />
   <div
@@ -144,6 +145,7 @@ export default {
       activeTabIndex: store.state.currentTab || 0,
       labelSummary: "",
       labelReset: "",
+      labelLoading: "",
       activeFilters: store.state.activeFilters || new Map(),
       defaultFilters: store.state.defaultFilters || new Map(),
       isFetchingData: false,
@@ -153,6 +155,7 @@ export default {
   async created() {
     this.labelSummary = I18n.t("gobierto_investments.projects.summary");
     this.labelReset = I18n.t("gobierto_investments.projects.reset");
+    this.labelLoading = I18n.t("gobierto_investments.projects.loading");
 
     if (this.items.length) {
       this.updateDOM()

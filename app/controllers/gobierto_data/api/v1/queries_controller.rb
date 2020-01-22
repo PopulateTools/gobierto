@@ -5,6 +5,9 @@ module GobiertoData
     module V1
       class QueriesController < BaseController
 
+        before_action :authenticate_user!, except: [:index, :show, :meta, :new]
+        before_action :allow_author!, only: [:update, :destroy]
+
         # GET /api/v1/data/queries
         # GET /api/v1/data/queries.json
         # GET /api/v1/data/queries.csv
@@ -71,7 +74,7 @@ module GobiertoData
         # GET /api/v1/data/queries/new
         # GET /api/v1/data/queries/new.json
         def new
-          @item = base_relation.new(name_translations: available_locales_hash)
+          @item = base_relation.new(name_translations: available_locales_hash, user: current_user)
 
           render(
             json: @item,
@@ -85,7 +88,7 @@ module GobiertoData
         # POST /api/v1/data/queries
         # POST /api/v1/data/queries.json
         def create
-          @query_form = QueryForm.new(query_params.merge(site_id: current_site.id))
+          @query_form = QueryForm.new(query_params.merge(site_id: current_site.id, user_id: current_user.id))
 
           if @query_form.save
             @item = @query_form.query
@@ -105,7 +108,6 @@ module GobiertoData
         # PUT /api/v1/data/queries/1
         # PUT /api/v1/data/queries/1.json
         def update
-          find_item
           @query_form = QueryForm.new(query_params.except(*ignored_attributes_on_update).merge(site_id: current_site.id, id: @item.id))
 
           if @query_form.save
@@ -124,8 +126,6 @@ module GobiertoData
         # DELETE /api/v1/data/queries/1
         # DELETE /api/v1/data/queries/1.json
         def destroy
-          find_item
-
           @item.destroy
 
           head :no_content
@@ -146,7 +146,7 @@ module GobiertoData
         end
 
         def query_params
-          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:user_id, :dataset_id, :name_translations, :name, :privacy_status, :sql])
+          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:dataset_id, :name_translations, :name, :privacy_status, :sql])
         end
 
         def filter_params
@@ -172,7 +172,8 @@ module GobiertoData
               hash.merge!(
                 data: gobierto_data_api_v1_query_path(id),
                 metadata: meta_gobierto_data_api_v1_query_path(id),
-                visualizations: gobierto_data_api_v1_visualizations_path(filter: { query_id: id })
+                visualizations: gobierto_data_api_v1_visualizations_path(filter: { query_id: id }),
+                favorites: gobierto_data_api_v1_query_favorites_path(@item)
               )
             end
 
@@ -182,6 +183,11 @@ module GobiertoData
 
         def ignored_attributes_on_update
           [:dataset_id, :user_id]
+        end
+
+        def allow_author!
+          find_item
+          render(json: { message: "Unauthorized" }, status: :unauthorized, adapter: :json_api) && return if @item.user != current_user
         end
 
       end

@@ -1,7 +1,7 @@
 <menu class="sub_sections">
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
-      <% current_site.configuration.modules.each do |site_module| %>
+      <% current_site.configuration.modules_with_frontend_enabled.each do |site_module| %>
         <li><%= render_if_exists "#{site_module.underscore}/exports/nav_item" %></li>
       <% end %>
     </ul>

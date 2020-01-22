@@ -56,7 +56,7 @@
     <% if in_elaboration? %>
       <div class="pure-u-1-1 metric_box">
         <div class="highlight-proposal">
-          <p><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: @year) %></p>
+          <p><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: Date.current.year) %></p>
         </div>
       </div>
     <% end %>

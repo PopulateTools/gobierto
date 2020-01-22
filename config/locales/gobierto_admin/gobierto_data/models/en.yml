@@ -8,6 +8,7 @@ en:
         table_name: Table name
       gobierto_admin/gobierto_data/settings_form:
         db_config: Database connection configuration
+        frontend_enabled: Front-end visible
     errors:
       models:
         gobierto_admin/gobierto_data/dataset_form:

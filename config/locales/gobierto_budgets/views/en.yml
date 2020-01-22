@@ -249,6 +249,7 @@ en:
         income_per_inhabitant_tooltip: Starting budget divided by the inhabitants
         inhabitants: Inhabitants
         inhabitants_tooltip: Number of inhabitants
+        initial_estimate: Initial estimate
         less: less
         level_1_category: Level 1 category
         level_2_category: Level 2 category
@@ -317,7 +318,7 @@ en:
         description: Government team publishes a draft of next year budget to discuss
           with the opposition and the citiziens. All together we can create the best
           budget for %{place_name}.
-        diff_previous_year: vs. %{year}
+        diff_previous: vs. previous
         expenses_per_inhabitant: Expense per person
         expenses_per_inhabitant_tooltip: Starting budget divided by the amount of
           inhabitants

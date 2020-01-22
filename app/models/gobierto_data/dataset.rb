@@ -5,10 +5,11 @@ require_dependency "gobierto_data"
 module GobiertoData
   class Dataset < ApplicationRecord
     include GobiertoCommon::Sluggable
+    include GobiertoData::Favoriteable
 
     belongs_to :site
-    has_many :queries, dependent: :destroy
-    has_many :visualizations, through: :queries
+    has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"
+    has_many :visualizations, through: :queries, class_name: "GobiertoData::Visualization"
 
     translates :name
 
@@ -26,9 +27,11 @@ module GobiertoData
                          db_config = Connection.db_config(site)
                          return if db_config.blank?
 
+                         db_config = db_config.fetch(:read_db_config, db_config)
+
                          Class.new(Connection).tap do |connection_model|
                            Connection.const_set(internal_rails_class_name, connection_model)
-                           connection_model.establish_connection(connection_model.db_config(site))
+                           connection_model.establish_connection(db_config)
                            connection_model.table_name = table_name
                          end
                        end
@@ -47,7 +50,7 @@ module GobiertoData
         File.open("#{base_path}_schema.json", "w") { |file| file.write(JSON.pretty_generate(statements.schema)) } if schema_file.blank?
         File.open("#{base_path}_script.sql", "w") { |file| file.write(statements.sql_code) }
       end
-      Connection.execute_query(site, statements.sql_code)
+      Connection.execute_query(site, statements.sql_code, write: true)
     end
 
     private

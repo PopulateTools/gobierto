@@ -19,6 +19,18 @@ module GobiertoData
           @user ||= users(:dennis)
         end
 
+        def user_token
+          @user_token ||= user_api_tokens(:dennis_primary_api_token)
+        end
+
+        def other_user
+          @other_user ||= users(:peter)
+        end
+
+        def other_user_token
+          @other_user_token ||= user_api_tokens(:peter_primary_api_token)
+        end
+
         def query
           @query ||= gobierto_data_queries(:users_count_query)
         end
@@ -88,8 +100,7 @@ module GobiertoData
                 },
                 privacy_status: "open",
                 sql: "select count(*) from users where bio is not null",
-                dataset_id: dataset.id,
-                user_id: user.id
+                dataset_id: dataset.id
               }
             }
           }
@@ -351,15 +362,40 @@ module GobiertoData
         end
 
         # POST /api/v1/data/queries
+        def test_create_without_token
+          with(site: site) do
+            assert_no_difference "GobiertoData::Query.count" do
+              post gobierto_data_api_v1_queries_path, params: valid_params
+
+              assert_response :unauthorized
+            end
+          end
+        end
+
+        # POST /api/v1/data/queries
+        def test_create_with_invalid_token
+          with(site: site) do
+            assert_no_difference "GobiertoData::Query.count" do
+              post gobierto_data_api_v1_queries_path, headers: { Authorization: "wadus" }, params: valid_params
+
+              assert_response :unauthorized
+            end
+          end
+        end
+
+        # POST /api/v1/data/queries
         def test_create
           with(site: site) do
             assert_difference "GobiertoData::Query.count", 1 do
-              post gobierto_data_api_v1_queries_path, params: valid_params, as: :json
+              post gobierto_data_api_v1_queries_path, params: valid_params, headers: { Authorization: user_token.token }, as: :json
 
               assert_response :created
               response_data = response.parsed_body
 
               new_query = Query.last
+
+              assert_equal user, new_query.user
+
               # data
               assert response_data.has_key? "data"
               resource_data = response_data["data"]
@@ -367,10 +403,11 @@ module GobiertoData
 
               # attributes
               attributes = attributes_data(new_query)
-              %w(name_translations privacy_status sql dataset_id user_id).each do |attribute|
+              %w(name_translations privacy_status sql dataset_id).each do |attribute|
                 assert resource_data["attributes"].has_key? attribute
                 assert_equal attributes[attribute], resource_data["attributes"][attribute]
               end
+              assert_equal user.id, resource_data["attributes"]["user_id"]
 
               # relationships
               assert resource_data.has_key? "relationships"
@@ -390,7 +427,7 @@ module GobiertoData
         # POST /api/v1/data/queries
         def test_create_invalid_params
           with(site: site) do
-            post gobierto_data_api_v1_queries_path, params: {}, as: :json
+            post gobierto_data_api_v1_queries_path, params: {}, headers: { Authorization: user_token.token }, as: :json
 
             assert_response :unprocessable_entity
             response_data = response.parsed_body
@@ -400,10 +437,37 @@ module GobiertoData
         end
 
         # PUT /api/v1/data/queries/1
+        def test_update_without_token
+          with(site: site) do
+            put gobierto_data_api_v1_query_path(query), params: valid_params, as: :json
+
+            assert_response :unauthorized
+          end
+        end
+
+        # PUT /api/v1/data/queries/1
+        def test_update_with_invalid_token
+          with(site: site) do
+            put gobierto_data_api_v1_query_path(query), params: valid_params, headers: { Authorization: "wadus" }, as: :json
+
+            assert_response :unauthorized
+          end
+        end
+
+        # PUT /api/v1/data/queries/1
+        def test_update_with_other_user_token
+          with(site: site) do
+            put gobierto_data_api_v1_query_path(query), params: valid_params, headers: { Authorization: other_user_token.token }, as: :json
+
+            assert_response :unauthorized
+          end
+        end
+
+        # PUT /api/v1/data/queries/1
         def test_update
           with(site: site) do
             assert_no_difference "GobiertoData::Query.count" do
-              put gobierto_data_api_v1_query_path(query), params: valid_params, as: :json
+              put gobierto_data_api_v1_query_path(query), params: valid_params, headers: { Authorization: user_token.token }, as: :json
 
               assert_response :success
               response_data = response.parsed_body
@@ -415,10 +479,11 @@ module GobiertoData
 
               # attributes
               attributes = valid_params[:data][:attributes].with_indifferent_access
-              %w(name_translations privacy_status sql dataset_id user_id).each do |attribute|
+              %w(name_translations privacy_status sql dataset_id).each do |attribute|
                 assert resource_data["attributes"].has_key? attribute
                 assert_equal attributes[attribute], resource_data["attributes"][attribute]
               end
+              assert_equal user.id, resource_data["attributes"]["user_id"]
 
               # relationships
               assert resource_data.has_key? "relationships"
@@ -438,7 +503,7 @@ module GobiertoData
         # PUT /api/v1/data/queries/1
         def test_update_invalid_params
           with(site: site) do
-            put gobierto_data_api_v1_query_path(query), params: {}, as: :json
+            put gobierto_data_api_v1_query_path(query), params: {}, headers: { Authorization: user_token.token }, as: :json
 
             assert_response :unprocessable_entity
             response_data = response.parsed_body
@@ -448,11 +513,44 @@ module GobiertoData
         end
 
         # DELETE /api/v1/data/queries/1
+        def test_delete_without_token
+          with(site: site) do
+            assert_no_difference "GobiertoData::Query.count" do
+              delete gobierto_data_api_v1_query_path(query), as: :json
+
+              assert_response :unauthorized
+            end
+          end
+        end
+
+        # DELETE /api/v1/data/queries/1
+        def test_delete_with_invalid_token
+          with(site: site) do
+            assert_no_difference "GobiertoData::Query.count" do
+              delete gobierto_data_api_v1_query_path(query), headers: { Authorization: "wadus" }, as: :json
+
+              assert_response :unauthorized
+            end
+          end
+        end
+
+        # DELETE /api/v1/data/queries/1
+        def test_delete_with_other_user_token
+          with(site: site) do
+            assert_no_difference "GobiertoData::Query.count" do
+              delete gobierto_data_api_v1_query_path(query), headers: { Authorization: other_user_token.token }, as: :json
+
+              assert_response :unauthorized
+            end
+          end
+        end
+
+        # DELETE /api/v1/data/queries/1
         def test_delete
           id = query.id
           assert_difference "GobiertoData::Query.count", -1 do
             with(site: site) do
-              delete gobierto_data_api_v1_query_path(id), as: :json
+              delete gobierto_data_api_v1_query_path(id), headers: { Authorization: user_token.token }, as: :json
 
               assert_response :no_content
 

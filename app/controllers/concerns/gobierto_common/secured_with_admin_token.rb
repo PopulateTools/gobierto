@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoCommon
-  module SecuredWithToken
+  module SecuredWithAdminToken
     extend ActiveSupport::Concern
 
     included do

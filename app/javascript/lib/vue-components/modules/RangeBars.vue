@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="range-slider">
     <div
-      :id="`range-bars-${random}`"
-      class="investments-home-aside--bars"
+      :id="`range-bars-${seed}`"
+      class="range-slider--bars"
     >
       <div
         v-for="bar in rangeBars"
@@ -21,10 +21,10 @@
       :data-min="min"
       :data-max="max"
       :data-default="rangeDefault"
-      :data-range-bars-selector="`#range-bars-${random}`"
+      :data-range-bars-selector="`#range-bars-${seed}`"
       class="investments-home-aside--slider js-range-slider"
     />
-    <div class="investments-home-aside--bars-values">
+    <div class="range-slider--values">
       <span>{{ selectedMin | money({ minimumFractionDigits: 0 }) }}</span>
       <span>{{ selectedMax | money({ minimumFractionDigits: 0 }) }}</span>
     </div>
@@ -32,12 +32,11 @@
 </template>
 
 <script>
-import { RangeSlider } from "lib/shared";
-import { CommonsMixin } from "../mixins/common.js";
+import { RangeSlider, VueFiltersMixin } from "lib/shared";
 
 export default {
   name: "RangeBars",
-  mixins: [CommonsMixin],
+  mixins: [VueFiltersMixin],
   props: {
     min: {
       type: Number,
@@ -70,7 +69,7 @@ export default {
       defaultRange: [this.min, this.max],
       selectedMin: this.savedMin || this.min,
       selectedMax: this.savedMax || this.max,
-      random: Math.random()
+      seed: Math.random()
         .toString(36)
         .substring(7)
     };

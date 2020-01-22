@@ -63,7 +63,7 @@ module GobiertoData
     end
 
     def name
-      name_translations[I18n.locale]
+      name_translations.with_indifferent_access[I18n.locale]
     end
 
     def save

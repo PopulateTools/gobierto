@@ -9,7 +9,7 @@
         color="var(--color-base)"
         background="#fff"
       /> -->
-      <div style="display: inline-block; position: relative;">
+      <div class="gobierto-data-sql-editor-container-recent-queries">
         <Button
           v-clickoutside="closeMenu"
           :text="labelRecents"
@@ -23,7 +23,10 @@
         />
         <RecentQueries
           v-if="storeQueries"
-          :class="{ 'active': isActive }"
+          :class="[
+            directionLeft ? 'modal-left': 'modal-right',
+            isActive ? 'active' : ''
+          ]"
         />
       </div>
       <Button
@@ -181,7 +184,10 @@ export default {
       codeQuery: '',
       endPoint: '',
       privacyStatus: '',
-      propertiesQueries: []
+      propertiesQueries: [],
+      directionLeft: true,
+      url: '',
+      urlPath: ''
     }
   },
   created() {
@@ -279,9 +285,42 @@ export default {
     },
     runQuery() {
       let oneLine = this.codeQuery.replace(/\n/g, ' ');
-      this.codeQuery = oneLine.replace(/  +/g, ' ');
-      this.$root.$emit('updateCodeQuery', this.codeQuery)
+      this.queryEditor = oneLine.replace(/  +/g, ' ');
+/*      this.$root.$emit('updateCodeQuery', this.codeQuery)*/
       this.$root.$emit('showMessages', true)
+
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/data';
+      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+
+      this.fileCSV = `${this.urlPath}${this.endPoint}.csv?sql=${this.queryEditor}&csv_separator=semicolon`
+      this.fileJSON = `${this.urlPath}${this.endPoint}.json?sql=${this.queryEditor}`
+      this.arrayFiles = [this.fileCSV, this.fileJSON]
+      this.$root.$emit('sendFiles', this.arrayFiles)
+
+      axios
+        .get(this.url)
+        .then(response => {
+          this.data = []
+          this.data = []
+          this.rawData = response.data
+          this.meta = this.rawData.meta
+          this.data = this.rawData.data
+
+          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+
+          this.keysData = Object.keys(this.data[0])
+
+          this.$root.$emit('recordsDuration', this.queryDurationRecors)
+          this.$root.$emit('keysTable', this.keysData, this.data)
+
+        })
+        .catch(e => {
+          this.$root.$emit('apiError', e)
+          this.data = []
+          this.keysData = []
+          this.$root.$emit('keysTable', this.keysData)
+        })
     },
     recentQueries() {
       this.isActive = !this.isActive;

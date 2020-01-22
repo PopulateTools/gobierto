@@ -37,7 +37,6 @@ export default {
       links:[],
       link: '',
       queryDurationRecors: [],
-      queryEditor: 'SELECT%20*%20FROM%20gp_people%20LIMIT%2050',
       url: '',
       urlPath: '',
       endPoint: '',
@@ -57,8 +56,6 @@ export default {
         localStorage.removeItem('recentQueries');
       }
     }
-  },
-  created() {
     this.getData()
   },
   methods: {
@@ -90,7 +87,7 @@ export default {
     getData() {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';
-      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+      this.url = `${this.urlPath}${this.endPoint}`
 
       this.fileCSV = `${this.urlPath}${this.endPoint}.csv?sql=${this.queryEditor}&csv_separator=semicolon`
       this.fileJSON = `${this.urlPath}${this.endPoint}.json?sql=${this.queryEditor}`
@@ -100,20 +97,20 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          this.data = []
           this.rawData = response.data
           this.meta = this.rawData.meta
-          this.links = this.rawData.links
           this.data = this.rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          this.keysData = Object.keys(this.data[0])
 
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
+          this.$root.$emit('keysTable', this.keysData)
 
         })
         .catch(e => {
           this.$root.$emit('apiError', e)
           this.data = []
+          this.keysData = []
+          this.$root.$emit('keysTable', this.keysData)
         })
     },
     newQuery(value) {

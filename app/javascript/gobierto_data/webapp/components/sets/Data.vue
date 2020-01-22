@@ -9,7 +9,7 @@ import SQLEditor from "./SQLEditor.vue";
 export default {
   name: "Data",
   components: {
-    SQLEditor,
+    SQLEditor
   },
   data() {
     return {

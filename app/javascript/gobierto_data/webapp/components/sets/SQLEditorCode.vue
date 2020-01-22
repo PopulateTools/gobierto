@@ -140,7 +140,6 @@ export default {
     inputCode() {
       this.$root.$emit('activeSave', false);
       this.$root.$emit('showRecentQueries', true);
-
     },
     formatCode() {
       //Convert to button or shortcut
@@ -151,10 +150,6 @@ export default {
     onCmCodeChange(newCode) {
       this.code = newCode;
       this.$root.$emit('updateCode', this.code);
-    },
-    saveCode() {
-      const saveQuery = this.code;
-      this.arrayQuerys.push(saveQuery);
     },
     updateCode(value) {
       this.code = value.replace(/%20/g, ' ').replace(/%/g, ' ');

@@ -279,23 +279,31 @@
     border-radius: 3px;
     padding: .5rem 0;
     position: absolute;
-    width: 200px;
+    width: 250px;
     display: none;
     top: 100%;
-    right: 0;
+    height: 160px;
+
+    &.modal-left {
+      left: 0;
+    }
+
+    &.modal-right {
+      right: 0;
+    }
 
     &.active {
       display: block;
     }
 
-    &.arrow-top {
+    &.arrow-top.modal-left,
+    &.arrow-top.modal-right {
       background: #fff;
       border: 1px solid var(--color-base);
 
       &::after,
       &::before {
         bottom: 100%;
-        left: 90%;
         border: solid transparent;
         content: ' ';
         height: 0;
@@ -317,18 +325,38 @@
       }
 
     }
+
+    &.arrow-top.modal-left {
+
+      &::after,
+      &::before {
+        left: 10%;
+      }
+    }
+
+    &.arrow-top.modal-right {
+
+      &::after,
+      &::before {
+        right: 90%;
+      }
+    }
+  }
+
+  &-btn-download-data-modal-container {
+    overflow: scroll;
+    height: 100%;
   }
 
   &-sql-editor-recent-queries {
     display: none;
     background-color: #fff;
     z-index: 10;
-    height: 160px;
-    overflow: scroll;
 
     &.active {
       display: block;
     }
+
   }
 
   &-btn-download-data-modal-element {
@@ -599,13 +627,23 @@
       position: absolute;
       left: 0;
       z-index: 10;
+      width: 100%;
     }
   }
 
   &-sql-error-message {
     font-size: 1rem;
     font-weight: bold;
-    color: #4D0905;
+    color: #B62323;
+  }
+
+  &-sql-editor-container-recent-queries {
+    display: inline-block;
+    position: relative;
+
+    .gobierto-data-btn-download-data-modal {
+      top: 130%;
+    }
   }
 
 

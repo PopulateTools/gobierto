@@ -1,5 +1,8 @@
 <template>
-  <Loading v-if="isFetchingData" />
+  <Loading
+    v-if="isFetchingData"
+    class="investments--loading"
+  />
   <div
     v-else
     class="investments"
@@ -109,12 +112,11 @@ import Aside from "./Aside.vue";
 import Main from "./Main.vue";
 import Nav from "./Nav.vue";
 import Article from "./Article.vue";
-import Loading from "../../components/Loading.vue";
 import Checkbox from "../../components/Checkbox.vue";
 import RangeBars from "../../components/RangeBars.vue";
 import axios from "axios";
 
-import { BlockHeader, Calendar } from "lib/vue-components";
+import { BlockHeader, Calendar, Loading } from "lib/vue-components";
 import { CommonsMixin, baseUrl } from "../../mixins/common.js";
 import { store } from "../../mixins/store";
 

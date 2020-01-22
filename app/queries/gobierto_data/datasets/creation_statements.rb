@@ -7,13 +7,14 @@ module GobiertoData
     class CreationStatements
       attr_reader :schema
 
-      def initialize(dataset:, source_file:, schema:, csv_separator:, append:)
+      def initialize(dataset, source_file, schema, opts = {})
         @dataset = dataset
         @base_table_name = dataset.table_name
         @source_file = source_file
-        @csv_separator = csv_separator
-        @append = append
-        @schema = schema.present? ? schema.deep_symbolize_keys : inspect_csv_schema(source_file, csv_separator: csv_separator)
+        @csv_separator = opts.fetch(:csv_separator, ",")
+        @append = opts.fetch(:append, false)
+        @use_stdin = opts.fetch(:use_stdin, false)
+        @schema = schema.present? ? schema.deep_symbolize_keys : inspect_csv_schema(source_file, csv_separator: @csv_separator)
         @transform_functions = @schema.inject({}) do |functions, (column, params)|
           functions.update(
             column => SqlFunction::Transformation.new(
@@ -70,7 +71,11 @@ module GobiertoData
       end
 
       def extract_csv_operation
-        "COPY #{@base_table_name}_raw (#{schema.keys.join(", ")}) FROM '#{@source_file}' DELIMITER '#{@csv_separator}' CSV HEADER NULL '';"
+        if @use_stdin
+          "COPY #{@base_table_name}_raw (#{schema.keys.join(", ")}) FROM STDIN DELIMITER '#{@csv_separator}' CSV HEADER NULL '';"
+        else
+          "COPY #{@base_table_name}_raw (#{schema.keys.join(", ")}) FROM '#{@source_file}' DELIMITER '#{@csv_separator}' CSV HEADER NULL '';"
+        end
       end
 
       def define_transform_functions

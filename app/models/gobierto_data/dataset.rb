@@ -46,13 +46,15 @@ module GobiertoData
                  JSON.parse(File.read(schema_file)).deep_symbolize_keys
                end
       statements = GobiertoData::Datasets::CreationStatements.new(
-        dataset: self,
-        source_file: file_path,
-        schema: schema,
+        self,
+        file_path,
+        schema,
         csv_separator: csv_separator,
-        append: append
+        append: append,
+        use_stdin: true
       )
-      query_result = Connection.execute_query(site, statements.transaction_sql_code, write: true)
+
+      query_result = Connection.execute_write_query_from_file_using_stdin(site, statements.sql_code, file_path: file_path)
       touch(:data_updated_at) unless query_result.has_key?(:errors)
       {
         db_result: query_result,

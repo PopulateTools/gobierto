@@ -193,3 +193,5 @@ en:
         none: None
       calendar:
         date: Choose date
+      loading:
+        loading: Loading data...

@@ -1,5 +1,5 @@
 <template>
-  <div class="investments--loading">
+  <div>
     <i class="fas fa-spinner fa-spin" /> {{ labelLoading }}
   </div>
 </template>
@@ -13,7 +13,7 @@ export default {
     };
   },
   created() {
-    this.labelLoading = I18n.t("gobierto_investments.projects.loading");
+    this.labelLoading = I18n.t("gobierto_common.vue_components.loading.loading");
   }
 };
 </script>

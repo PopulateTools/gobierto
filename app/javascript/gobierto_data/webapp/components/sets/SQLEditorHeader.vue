@@ -22,7 +22,7 @@
           @click.native="recentQueries()"
         />
         <RecentQueries
-          v-if="storeQueries"
+          v-if="showStoreQueries"
           :class="[
             directionLeft ? 'modal-left': 'modal-right',
             isActive ? 'active' : ''
@@ -119,7 +119,18 @@
         color="var(--color-base)"
         background="#fff"
         @click.native="runQuery()"
-      />
+      >
+        <div
+          v-if="showSpinner"
+          class="spinner-box"
+        >
+          <div class="pulse-container">
+            <div class="pulse-bubble pulse-bubble-1" />
+            <div class="pulse-bubble pulse-bubble-2" />
+            <div class="pulse-bubble pulse-bubble-3" />
+          </div>
+        </div>
+      </Button>
     </div>
   </div>
 </template>
@@ -152,7 +163,7 @@ export default {
   },
   data() {
     return {
-      storeQueries: [],
+      showStoreQueries: [],
       disabledRecents: true,
       disabledQueries: false,
       disabledSave: true,
@@ -187,7 +198,8 @@ export default {
       propertiesQueries: [],
       directionLeft: true,
       url: '',
-      urlPath: ''
+      urlPath: '',
+      showSpinner: false
     }
   },
   created() {
@@ -205,11 +217,10 @@ export default {
     this.$root.$on('activeSave', this.activeSave);
     this.$root.$on('sendCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
-    this.$root.$on('storeQuery', this.showStoreQueries)
-    this.$root.$on('runRencentQuery', this.runRecentQuery)
+    this.$root.$on('storeQuery', this.showshowStoreQueries)
   },
   methods: {
-    showStoreQueries(queries) {
+    showshowStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)
     },
     activeSave(value) {
@@ -285,9 +296,10 @@ export default {
       }
     },
     runQuery() {
+      this.showSpinner = true;
       this.queryEditor = encodeURI(this.codeQuery)
       this.$root.$emit('postRecentQuery', this.codeQuery)
-      this.$root.$emit('showMessages', true)
+      this.$root.$emit('showMessages', false)
 
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';
@@ -311,7 +323,12 @@ export default {
           this.keysData = Object.keys(this.data[0])
 
           this.$root.$emit('recordsDuration', this.queryDurationRecors)
-          this.$root.$emit('keysTable', this.keysData, this.data)
+          this.$root.$emit('sendData', this.keysData, this.data)
+          this.$root.$emit('showMessages', true)
+
+          setTimeout(() => {
+            this.showSpinner = false
+          }, 300)
 
         })
         .catch(error => {
@@ -320,7 +337,11 @@ export default {
 
           this.data = []
           this.keysData = []
-          this.$root.$emit('keysTable', this.keysData)
+          this.$root.$emit('sendData', this.keysData, this.data)
+
+          setTimeout(() => {
+            this.showSpinner = false
+          }, 300)
         })
     },
     recentQueries() {

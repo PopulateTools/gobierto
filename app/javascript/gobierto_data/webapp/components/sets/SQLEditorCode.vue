@@ -140,6 +140,7 @@ export default {
     inputCode() {
       this.$root.$emit('activeSave', false)
       this.$root.$emit('activateModalRecent')
+      this.$root.$emit('sendCode', this.code);
     },
     formatCode() {
       //Convert to button or shortcut
@@ -155,6 +156,7 @@ export default {
       this.code = unescape(newCode)
     },
     handleShowMessages(showTrue){
+      this.showMessages = false
       this.showMessages = showTrue
       this.showApiError = false
     },

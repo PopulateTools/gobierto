@@ -56,14 +56,21 @@ export default {
       }
   },
   mounted() {
-    this.$root.$on('keysTable', this.getKeys)
+    this.$root.$on('sendData', this.destroyTable)
     this.keysData = Object.keys(this.mutableList[0])
   },
   created() {
     this.labelSave = I18n.t('gobierto_data.projects.save');
   },
   methods: {
-    getKeys(keys, data) {
+    destroyTable(keys, data) {
+      this.keysData = []
+      this.data = []
+      setTimeout(() => {
+        this.showTable(keys, data)
+      }, 10)
+    },
+    showTable(keys, data) {
       this.keysData = keys
       this.mutableList = data
     }

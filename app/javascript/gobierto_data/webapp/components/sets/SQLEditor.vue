@@ -95,14 +95,14 @@ export default {
 
           this.keysData = Object.keys(this.data[0])
 
-          this.$root.$emit('keysTable', this.keysData)
+          this.$root.$emit('sendData', this.keysData)
 
         })
         .catch(error => {
           this.$root.$emit('apiError', error)
           this.data = []
           this.keysData = []
-          this.$root.$emit('keysTable', this.keysData)
+          this.$root.$emit('sendData', this.keysData)
         })
     },
     saveNewRecentQuery(query) {

@@ -40,7 +40,8 @@ module GobiertoData
             dataset.id.to_s,
             dataset.name,
             dataset.slug,
-            dataset.updated_at.to_s,
+            dataset.table_name,
+            dataset.data_updated_at.to_s,
             GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_category)&.value_string
           ]
         end
@@ -81,10 +82,10 @@ module GobiertoData
             assert_response :success
 
             response_data = response.parsed_body
-            parsed_csv = CSV.parse(response_data)
+            parsed_csv = CSV.parse(response_data).map { |row| row.map(&:to_s) }
 
             assert_equal datasets_count + 1, parsed_csv.count
-            assert_equal %w(id name slug updated_at category), parsed_csv.first
+            assert_equal %w(id name slug table_name data_updated_at category), parsed_csv.first
             assert_includes parsed_csv, array_data(dataset)
             refute_includes parsed_csv, array_data(other_site_dataset)
           end
@@ -118,7 +119,7 @@ module GobiertoData
             assert_equal 1, parsed_xlsx.worksheets.count
             sheet = parsed_xlsx.worksheets.first
             assert_nil sheet[datasets_count + 1]
-            assert_equal %w(id name slug updated_at category), sheet[0].cells.map(&:value)
+            assert_equal %w(id name slug table_name data_updated_at category), sheet[0].cells.map(&:value)
             values = (1..datasets_count).map do |row_number|
               sheet[row_number].cells.map { |cell| cell.value.to_s }
             end

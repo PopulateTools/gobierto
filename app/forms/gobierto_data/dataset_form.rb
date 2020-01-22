@@ -92,8 +92,13 @@ module GobiertoData
 
     private
 
-    def open_data
-      local_data ? File.open(data_path, "r") : URI.open(data_path)
+    def source_data
+      if data_file.present?
+        data_file.tempfile.rewind
+        data_file.tempfile
+      else
+        local_data ? File.open(data_path, "r") : URI.open(data_path)
+      end
     end
 
     def build_resource
@@ -125,8 +130,8 @@ module GobiertoData
 
       temp_file = Tempfile.new(["data", ".csv"])
       begin
-        source_data = data_file.present? ? data_file.tempfile : open_data
         temp_file.write(source_data.read.force_encoding("UTF-8"))
+        temp_file.rewind
         @load_status = @resource.load_data_from_file(
           temp_file.path,
           csv_separator: csv_separator,

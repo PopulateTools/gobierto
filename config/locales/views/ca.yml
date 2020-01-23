@@ -143,6 +143,7 @@ ca:
     polls:
       no_unanswered_polls: No hi ha enquestes pendents de contestar.
       opinion: Opineu
+    previous: anterior
   sites:
     events:
       sites_site_created: Site creat

@@ -78,7 +78,6 @@ export class VisSlider {
         .attr('y', '60%')
         .attr('text-anchor', 'end')
         .attr('x', (2 / 3 * (x(maxYear) - x(years[years.length - 2]))))
-        .text(I18n.t('gobierto_common.visualizations.proposal'));
     }
 
 
@@ -131,8 +130,9 @@ export class VisSlider {
       .attr('x', function(d) {
         return x(d)
       })
-      .text(function(d) {
-        return d
+      .text(function(year) {
+        if (year > new Date().getFullYear()) { return I18n.t('gobierto_common.visualizations.project') }
+        return year;
       })
       .classed('active', function(d) {
         return d == currentYear;

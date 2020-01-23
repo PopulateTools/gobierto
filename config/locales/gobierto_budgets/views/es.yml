@@ -255,6 +255,7 @@ es:
           de habitantes
         inhabitants: Habitantes
         inhabitants_tooltip: Número de habitantes
+        initial_estimate: Estimación inicial
         less: menos
         level_1_category: Categoría nivel 1
         level_2_category: Categoría nivel 2
@@ -326,7 +327,7 @@ es:
         description: El equipo de gobierno publica el borrador del presupuesto del
           próximo ejercicio para debatir en abierto con oposición y vecinos. Entre
           todos podemos elaborar el presupuesto que más conviene a %{place_name}.
-        diff_previous_year: vs. %{year}
+        diff_previous: vs. anterior
         expenses_per_inhabitant: Gasto por habitante
         expenses_per_inhabitant_tooltip: Presupuesto inicial dividido por el número
           de habitantes

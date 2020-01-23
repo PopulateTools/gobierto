@@ -619,7 +619,8 @@ window.GobiertoBudgets.InvoicesController = (function() {
           autosearch: true,
           align: "center",
           css: "break",
-          width: 30
+          width: 30,
+          itemTemplate: value => value.substring(0, 16)
         },
         {
           name: "provider_name",

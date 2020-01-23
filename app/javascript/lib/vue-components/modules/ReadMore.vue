@@ -6,13 +6,13 @@
         v-if="isFeatureEnable"
         data-toggle
       >
-        <a>Ver más</a>
+        <a>{{ seeMore }}</a>
       </span>
     </div>
     <div>
       {{ lastChars }}
       <span data-toggle>
-        <a>Ver menos</a>
+        <a>{{ seeLess }}</a>
       </span>
     </div>
   </div>
@@ -24,6 +24,14 @@ import { readMore } from "lib/shared";
 export default {
   name: "ReadMore",
   props: {
+    seeMore: {
+      type: String,
+      default: I18n.t("gobierto_common.vue_components.read_more.more")
+    },
+    seeLess: {
+      type: String,
+      default: I18n.t("gobierto_common.vue_components.read_more.less")
+    },
     roundChars: {
       type: Number,
       default: 150

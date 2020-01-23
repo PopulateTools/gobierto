@@ -30,7 +30,7 @@ export class GobiertoDataController {
       const router = new VueRouter({
         mode: "history",
         routes: [
-          { path: "/datasets", name: "home", component: Home }
+          { path: "/datos", name: "home", component: Home }
         ]
       });
 

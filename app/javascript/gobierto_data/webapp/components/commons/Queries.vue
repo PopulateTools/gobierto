@@ -7,7 +7,7 @@
     <div class="gobierto-data-summary-queries-panel pure-g">
       <div class="pure-u-1-2">
         <div class="gobierto-data-summary-queries-element">
-          <h3 @click="toggle = !toggle" class="gobierto-data-summary-queries-panel-title">
+          <h3 class="gobierto-data-summary-queries-panel-title">
             <i
               class="fas fa-caret-down"
               style="color: var(--color-base);"
@@ -16,7 +16,6 @@
           </h3>
           <div
             v-for="(item, index) in items"
-            v-show="toggle"
             :key="index"
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
@@ -26,7 +25,7 @@
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
 
             <div
-              v-if="item.attributes.privacy_status === 'close'"
+              v-if="item.attributes.privacy_status === 'closed'"
               class="gobierto-data-summary-queries-container-icon"
             >
               <i
@@ -79,7 +78,6 @@
           </h3>
           <div
             v-for="(item, index) in items"
-            v-show="toggle"
             :key="index"
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
@@ -155,9 +153,7 @@ export default {
         .get(this.url)
         .then(response => {
           this.rawData = response.data
-          console.log("this.rawData", this.rawData);
           this.items = this.rawData.data
-          console.log("this.items", this.items);
           this.numberQueries = this.items.length
           this.numberFavQueries = 0
           this.totalQueries = this.items.length + this.numberFavQueries

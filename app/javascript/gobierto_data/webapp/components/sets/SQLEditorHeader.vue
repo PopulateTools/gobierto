@@ -231,6 +231,7 @@ export default {
     this.$root.$on('updateActiveSave', this.updateActiveSave);
     this.$root.$on('storeQuery', this.showshowStoreQueries)
     this.$root.$on('sendQueryParams', this.queryParams)
+
   },
   methods: {
     queryParams(queryParams) {
@@ -384,7 +385,29 @@ export default {
     closeYourQueries() {
       this.isHidden = true
     },
+
+    deleteQuery(index) {
+      const HTMLString = document.getElementsByTagName('body')[0].innerHTML;
+      var myRegexp = /token:(.*)/g;
+      var match = HTMLString.match(myRegexp);
+      const tokenString = match[1]
+      const cleanToken = tokenString.replace(/token: "/g, '').replace(/"/g, '');
+      const URL = `/api/v1/data/queries/${index}`
+      axios.delete(URL, {
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': `${cleanToken}`
+        }
+      });
+    },
     postQuery() {
+
+      const HTMLString = document.getElementsByTagName('body')[0].innerHTML;
+      var myRegexp = /token:(.*)/g;
+      var match = HTMLString.match(myRegexp);
+      const tokenString = match[1]
+      const cleanToken = tokenString.replace(/token: "/g, '').replace(/"/g, '');
+
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/queries'
       this.url = `${this.urlPath}${this.endPoint}`
@@ -396,26 +419,25 @@ export default {
               "attributes": {
                   "name": this.nameQuery,
                   "name_translations": {
-                      "en": "Query from API",
-                      "es": "Query desde la API"
+                      "en": this.nameQuery,
+                      "es": this.nameQuery
                   },
                   "privacy_status": this.privacyStatus,
                   "sql": this.codeQuery,
-                  "dataset_id": 1,
-                  "user_id": 90
+                  "dataset_id": 1
               }
           }
       }
       axios.post(this.url, data, {
         headers: {
           'Content-type': 'application/json',
+          'Authorization': `${cleanToken}`
         }
       }).then(response => {
           this.resp = response;
       })
       .catch(error => {
         const messageError = error.response
-        console.log("messageError", messageError);
       });
     },
     runRecentQuery(code) {

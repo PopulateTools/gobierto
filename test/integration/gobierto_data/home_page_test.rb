@@ -13,19 +13,12 @@ module GobiertoData
       @site ||= sites(:madrid)
     end
 
-    def dataset
-      @dataset ||= gobierto_data_datasets(:users_dataset)
-    end
-
     def test_home_page
       with_current_site(site) do
         visit @path
 
         within("nav.main-nav") do
           assert has_content? "Data"
-        end
-        within("div.container", match: :first) do
-          assert has_content? dataset.name
         end
 
         assert_equal @path, current_path
@@ -41,9 +34,6 @@ module GobiertoData
 
         within("nav.main-nav") do
           assert has_no_content? "Data"
-        end
-        within("div.container", match: :first) do
-          assert has_no_content? dataset.name
         end
 
         refute_equal @path, current_path

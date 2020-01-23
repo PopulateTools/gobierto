@@ -17,6 +17,7 @@
           >
             <span>{{ labelSets }}</span>
           </li>
+
           <li
             :class="{ 'is-active': activeTab === 2 }"
             class="gobierto-data-tab-sidebar--tab"
@@ -26,6 +27,15 @@
           </li>
         </ul>
       </nav>
+      <div
+        v-if="activeTab === 1"
+      >
+        <a
+          @click.prevent="nav(slugDataset)"
+        >
+          {{ titleDataset }}
+        </a>
+      </div>
     </div>
     <Categories v-if="activeTab === 0" />
     <Sets v-if="activeTab === 1" />
@@ -35,6 +45,7 @@
 
 
 <script>
+import axios from 'axios';
 import Categories from "./../pages/Categories.vue";
 import Queries from "./../pages/Queries.vue";
 import Sets from "./../pages/Sets.vue";
@@ -56,17 +67,42 @@ export default {
     return {
       labelSets: "",
       labelQueries: "",
-      labelCategories: ""
+      labelCategories: "",
+      titleDataset: '',
+      slugDataset: ''
     }
   },
   created() {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
+
+    this.urlPath = location.origin
+    this.endPoint = '/api/v1/data/datasets';
+    this.url = `${this.urlPath}${this.endPoint}`
+
+    axios
+      .get(this.url)
+      .then(response => {
+        this.rawData = response.data
+        console.log("this.rawData", this.rawData);
+
+        this.titleDataset = this.rawData.data[0].attributes.name
+        this.slugDataset = this.rawData.data[0].attributes.slug
+
+      })
+      .catch(error => {
+        console.log(error)
+
+      })
+
   },
   methods: {
     activateTab(index) {
       this.$emit("active-tab", index);
+    },
+    nav(slugDataset) {
+      this.$router.push({ name: "dataset", params: { id: slugDataset } });
     }
   }
 };

@@ -25,14 +25,14 @@ export class GobiertoDataController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () => import("../webapp/pages/Home.vue");
-      const DataSets = () => import("../webapp/pages/DataSets.vue");
+      const Sets = () => import("../webapp/pages/Sets.vue");
 
 
       const router = new VueRouter({
         mode: "history",
         routes: [
           { path: "/datasets", name: "home", component: Home },
-          { path: "/datasets/:id", name: "dataset", component: DataSets },
+          { path: "/datasets/:id", name: "dataset", component: Sets },
         ]
       });
 

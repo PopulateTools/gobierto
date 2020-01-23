@@ -326,10 +326,6 @@ export default {
           this.$root.$emit('sendData', this.keysData, this.data)
           this.$root.$emit('showMessages', true)
 
-          setTimeout(() => {
-            this.showSpinner = false
-          }, 300)
-
         })
         .catch(error => {
           const messageError = error.response.data.errors[0].sql
@@ -339,10 +335,11 @@ export default {
           this.keysData = []
           this.$root.$emit('sendData', this.keysData, this.data)
 
-          setTimeout(() => {
-            this.showSpinner = false
-          }, 300)
         })
+
+        setTimeout(() => {
+          this.showSpinner = false
+        }, 300)
     },
     recentQueries() {
       this.isActive = !this.isActive;

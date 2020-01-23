@@ -161,6 +161,7 @@ export default {
       this.showApiError = false
     },
     showError(message) {
+      this.showMessages = true
       this.showApiError = true
       this.stringError = message
     }

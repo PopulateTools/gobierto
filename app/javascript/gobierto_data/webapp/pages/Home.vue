@@ -6,7 +6,9 @@
           :active-tab="activeTabIndex"
           @active-tab="activeTabIndex = $event"
         />
-        <DataSets />
+        <LayoutTabs>
+          <template v-slot:sidebar />
+        </LayoutTabs>
       </div>
     </div>
   </div>
@@ -22,13 +24,13 @@ const cleanToken = tokenString.replace(/token: "/g, '').replace(/"/g, '');
 
 
 import Nav from "./../components/Nav.vue";
-import DataSets from "./DataSets.vue";
+import LayoutTabs from "./../layouts/LayoutTabs.vue";
 
 export default {
   name: "Home",
   components: {
     Nav,
-    DataSets
+    LayoutTabs
   },
   data() {
     return {

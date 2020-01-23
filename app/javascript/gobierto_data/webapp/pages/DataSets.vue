@@ -1,17 +1,23 @@
 <template>
   <div>
-    <LayoutTabs>
-      <template v-slot:sidebar />
-    </LayoutTabs>
+    <NavDatasets
+      :active-tab="activeTabIndex"
+      @active-tab="activeTabIndex = $event"
+    />
   </div>
 </template>
 <script>
-import LayoutTabs from "./../layouts/LayoutTabs.vue";
+import NavDatasets from "./../components/sets/Nav.vue";
 
 export default {
   name: "DataSets",
   components: {
-    LayoutTabs
+    NavDatasets
+  },
+  data() {
+    return {
+      activeTabIndex: 0
+    }
   }
 }
 

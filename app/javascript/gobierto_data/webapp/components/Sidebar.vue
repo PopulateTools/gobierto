@@ -30,11 +30,11 @@
       <div
         v-if="activeTab === 1"
       >
-        <a
+        <button
           @click.prevent="nav(slugDataset)"
         >
           {{ titleDataset }}
-        </a>
+        </button>
       </div>
     </div>
     <Categories v-if="activeTab === 0" />

@@ -12,7 +12,11 @@ module GobiertoData
     end
 
     attribute :columns do
-      object.rails_model.column_names
+      object.rails_model.columns.inject({}) do |columns, column|
+        columns.update(
+          column.name => column.type
+        )
+      end
     end
 
     attribute :data_preview do

@@ -4,6 +4,7 @@ import HorizontalCarousel from "./modules/HorizontalCarousel.vue"
 import Loading from "./modules/Loading.vue"
 import Checkbox from "./modules/Checkbox.vue"
 import RangeBars from "./modules/RangeBars.vue"
+import ReadMore from "./modules/ReadMore.vue"
 
 export {
   BlockHeader,
@@ -11,5 +12,6 @@ export {
   HorizontalCarousel,
   Loading,
   Checkbox,
-  RangeBars
+  RangeBars,
+  ReadMore
 }

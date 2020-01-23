@@ -34,11 +34,9 @@
   window.populateDataYear = {
     currentYear: <%= @selected_year || Date.current.year %>
   };
-  <% if current_module == "gobierto_data" %>
-    window.gobiertoData = {
-      token: "<%= current_user&.primary_api_token&.token %>"
-    };
-  <% end %>
+  window.gobiertoAPI = {
+    token: "<%= current_user&.primary_api_token&.token %>"
+  };
 </script>
 
 <!-- page controller initialization -->

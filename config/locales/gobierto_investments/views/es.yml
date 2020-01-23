@@ -12,7 +12,6 @@ es:
           el plan anual de inversiones y mecanismos de seguimiento de las obras en
           marcha.
     projects:
-      all: Todas
       back: ver todo
       date: Seleccione fecha
       detail_title: Detalle del proyecto
@@ -22,7 +21,6 @@ es:
       list: Lista
       loading: Cargando datos...
       map: Mapa
-      none: Ninguna
       reset: Limpiar filtros
       see: Ver de nuevo
       showall: Ver todo

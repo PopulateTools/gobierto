@@ -1,19 +1,18 @@
 <template>
-  <div class="investments-home-aside--block-header">
+  <div>
     <strong>{{ title }}</strong>
     <a
       v-if="seeLink"
       @click="selectAll"
-    >{{ labelAlt ? labelNone : labelAll }}</a>
+    >{{
+      labelAlt ? labelNone : labelAll
+    }}</a>
   </div>
 </template>
 
 <script>
-import { CommonsMixin } from "../mixins/common.js";
-
 export default {
   name: "BlockHeader",
-  mixins: [CommonsMixin],
   props: {
     title: {
       type: String,
@@ -32,15 +31,15 @@ export default {
     return {
       labelAll: "",
       labelNone: ""
-    }
+    };
   },
   created() {
-    this.labelAll = I18n.t("gobierto_investments.projects.all")
-    this.labelNone = I18n.t("gobierto_investments.projects.none")
+    this.labelAll = I18n.t("gobierto_common.vue_components.block_header.all");
+    this.labelNone = I18n.t("gobierto_common.vue_components.block_header.none");
   },
   methods: {
     selectAll() {
-      this.$emit('select-all')
+      this.$emit("select-all");
     }
   }
 };

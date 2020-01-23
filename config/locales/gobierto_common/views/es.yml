@@ -187,3 +187,7 @@ es:
       women: Mujeres
       youth: Menores
       youth_info: El %{percent} de la población tiene menos de %{limit} años
+    vue_components:
+      block_header:
+        all: Todas
+        none: Ninguna

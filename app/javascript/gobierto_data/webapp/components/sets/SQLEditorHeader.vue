@@ -414,7 +414,8 @@ export default {
           this.resp = response;
       })
       .catch(error => {
-        console.error(error);
+        const messageError = error.response
+        console.log("messageError", messageError);
       });
     },
     runRecentQuery(code) {

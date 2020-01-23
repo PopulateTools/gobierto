@@ -8,7 +8,7 @@
         class="gobierto-data-recent-queries-list-element"
         @click="runRecentQuery(item)"
       >
-        {{ item | truncate(30, '...') | replace() }}
+        {{ item | truncate(50, '...') | replace() }}
       </button>
     </div>
   </div>

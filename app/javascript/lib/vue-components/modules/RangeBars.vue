@@ -22,7 +22,7 @@
       :data-max="max"
       :data-default="rangeDefault"
       :data-range-bars-selector="`#range-bars-${seed}`"
-      class="investments-home-aside--slider js-range-slider"
+      class="js-range-slider"
     />
     <div class="range-slider--values">
       <span>{{ selectedMin | money({ minimumFractionDigits: 0 }) }}</span>

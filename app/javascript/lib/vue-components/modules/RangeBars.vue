@@ -5,9 +5,9 @@
       class="range-slider--bars"
     >
       <div
-        v-for="bar in rangeBars"
+        v-for="bar in histogram"
         :key="bar.id"
-        :style="{ height: `${100 * (bar.count / total)}%` }"
+        :style="{ height: `${100 * (bar.count / totalItems)}%` }"
       >
         <span>{{
           rangeMin(bar.start) | money({ minimumFractionDigits: 0 })
@@ -46,7 +46,7 @@ export default {
       type: Number,
       default: 100
     },
-    total: {
+    totalItems: {
       type: Number,
       default: 1
     },
@@ -58,7 +58,7 @@ export default {
       type: Number,
       default: null
     },
-    rangeBars: {
+    histogram: {
       type: Array,
       default: () => []
     }

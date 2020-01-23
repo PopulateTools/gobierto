@@ -120,6 +120,9 @@ import { BlockHeader, Calendar, Loading, Checkbox, RangeBars } from "lib/vue-com
 import { CommonsMixin, baseUrl } from "../../mixins/common.js";
 import { store } from "../../mixins/store";
 
+// TODO: This configuration should come from API request, not from file
+import CONFIGURATION from "./mataro.conf.js";
+
 export default {
   name: "Home",
   components: {
@@ -194,8 +197,6 @@ export default {
         axios.get(`${baseUrl}/meta?stats=true`)
       ]);
 
-      this.dictionary = attributesDictionary;
-
       let items = this.setData(__items__);
       let phases = [];
       let filters = [];
@@ -216,7 +217,8 @@ export default {
         // Add dictionary of phases in order to fulfill project page
         items = items.map(item => ({ ...item, phasesDictionary: __phases__ }));
 
-        filters = this.getFilters(filtersFromConfiguration) || [];
+        const middleware = new Middleware({ dictionary: attributesDictionary, availableFilters: CONFIGURATION })
+        filters = middleware.getFilters(filtersFromConfiguration) || [];
 
         if (filters.length) {
           this.activeFilters = new Map();

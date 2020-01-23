@@ -11,26 +11,6 @@ export const CommonsMixin = {
     nav(item) {
       this.$router.push({ name: "project", params: { id: item.id, item } });
     },
-    getFilters(stats) {
-      const { availableFilters } = CONFIGURATION;
-      const filters = [];
-      for (let index = 0; index < availableFilters.length; index++) {
-        const { id: key, ...rest } = availableFilters[index];
-        const element = stats[key];
-        const { field_type: type, vocabulary_terms: options = [], name_translations: title = {} } = this.getAttributesByKey(key);
-
-        filters.push({
-          ...element,
-          ...rest,
-          title: this.translate(title),
-          options: Array.isArray(options) ? options.map(opt => ({ ...opt, title: this.translate(opt.name_translations) })) : [],
-          type: type ? type : key,
-          key
-        });
-      }
-
-      return filters;
-    },
     getPhases(stats) {
       const {
         phases: { id }
@@ -97,15 +77,6 @@ export const CommonsMixin = {
       }
 
       return Array.isArray(spreadData) ? this.setData(spreadData) : this.setItem(spreadData);
-    },
-    getAttributesByKey(prop) {
-      const { attributes = {} } =
-        this.dictionary.find(entry => {
-          const { attributes: { uid = "" } = {} } = entry;
-          return uid === prop;
-        }) || {};
-
-      return attributes;
     }
   }
 };

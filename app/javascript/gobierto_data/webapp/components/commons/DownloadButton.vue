@@ -85,10 +85,9 @@ export default {
   created() {
     this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
-    this.$root.$on('sendFiles', this.arrayFiles)
-
     this.urlPath = location.origin
-    this.endPoint = '/api/v1/data/datasets/agendas-de-politicos';
+    this.endPoint = '/api/v1/data/datasets/agendas-de-politicos'
+    this.endPointSQL = '/api/v1/data/data.csv?sql='
     this.fileCSV = `${this.urlPath}${this.endPoint}.csv`
     this.fileJSON = `${this.urlPath}${this.endPoint}`
     this.fileXLSX = `${this.urlPath}${this.endPoint}.xlsx`
@@ -103,14 +102,10 @@ export default {
       this.isActive = false
     },
     updateCode(sqlQuery) {
-      console.log("sqlQuery", sqlQuery);
       this.code = sqlQuery
-      this.sqlfileCSV = `${this.fileCSV}?sql=${this.code}&csv_separator=semicolon`
-      console.log("this.sqlfileCSV", this.sqlfileCSV);
-      this.sqlfileXLSX = `${this.fileJSON}?sql=${this.code}&csv_separator=semicolon`
-      console.log("this.sqlfileXLSX", this.sqlfileXLSX);
-      this.sqlfileJSON = `${this.fileXLSX}?sql=${this.code}&csv_separator=semicolon`
-      console.log("this.sqlfileJSON", this.sqlfileJSON);
+      this.sqlfileCSV = `${this.urlPath}${this.endPointSQL}${this.code}&csv_separator=semicolon`
+      this.sqlfileXLSX = `${this.urlPath}${this.endPointSQL}${this.code}`
+      this.sqlfileJSON = `${this.urlPath}${this.endPointSQL}${this.code}`
     }
   }
 }

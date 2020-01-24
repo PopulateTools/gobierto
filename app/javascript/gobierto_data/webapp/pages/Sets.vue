@@ -1,14 +1,18 @@
 <template>
-  <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
-    <DataSets />
+  <div class="gobierto-data">
+    <LayoutDataset>
+      <DataSets />
+    </LayoutDataset>
   </div>
 </template>
 <script>
+import LayoutDataset from "./../layouts/LayoutDataset.vue";
 import DataSets from "./DataSets.vue";
 
 export default {
   name: "Sets",
   components: {
+    LayoutDataset,
     DataSets
   },
   data() {

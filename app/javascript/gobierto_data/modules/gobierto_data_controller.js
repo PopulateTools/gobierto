@@ -30,11 +30,17 @@ export class GobiertoDataController {
 
       const router = new VueRouter({
         mode: "history",
-        routes: [
-          { path: "/datasets", name: "home", component: Home },
-          { path: "/datasets/:id", name: "dataset", component: Sets },
+        routes: [{
+            path: "/datasets",
+            name: "home", component: Home
+          },
+          {
+            path: "/datasets/:id",
+            name: "dataset",
+            component: Sets
+          }
         ]
-      });
+      })
 
       const baseTitle = document.title;
       router.afterEach(to => {

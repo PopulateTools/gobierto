@@ -63,7 +63,8 @@ export default {
   },
   props: {
     editor: {
-      type: Boolean
+      type: Boolean,
+      default: false
     }
   },
   data() {

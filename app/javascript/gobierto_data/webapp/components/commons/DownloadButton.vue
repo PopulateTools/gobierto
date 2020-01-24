@@ -11,7 +11,7 @@
     />
     <div
       :class="{ 'active': isActive }"
-      class="gobierto-data-btn-download-data-modal arrow-top"
+      class="gobierto-data-btn-download-data-modal"
     >
       <a
         :href="fileCSV"

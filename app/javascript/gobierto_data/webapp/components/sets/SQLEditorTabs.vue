@@ -31,6 +31,7 @@
         :class="[
           directionLeft ? 'modal-left': 'modal-right'
         ]"
+        class="arrow-top"
       />
     </div>
     <SQLEditorTable

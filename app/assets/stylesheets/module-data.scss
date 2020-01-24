@@ -276,21 +276,13 @@
     width: max-content;
     display: flex;
 
-    &.modal-right {
+
+    &.arrow-top {
+
       .gobierto-data-btn-download-data-modal {
-        width: inherit;
-        max-width: 125px;
         height: auto;
-        right: 0;
-      }
-
-      .gobierto-data-btn-download-data-modal-element {
-        text-align: right;
-      }
-
-      .arrow-top {
-        background: #fff;
-        border: 1px solid var(--color-base);
+        width: auto;
+        min-width: 200px;
 
         &::after,
         &::before {
@@ -316,6 +308,32 @@
           border-width: 8px;
         }
       }
+
+      &.modal-left {
+
+        .gobierto-data-btn-download-data-modal {
+
+          &::after,
+          &::before {
+            left: 10%;
+          }
+        }
+
+      }
+    }
+
+    &.modal-right {
+      .gobierto-data-btn-download-data-modal {
+        width: inherit;
+        max-width: 125px;
+        height: auto;
+        right: 0;
+      }
+
+      .gobierto-data-btn-download-data-modal-element {
+        text-align: right;
+      }
+
     }
   }
 
@@ -330,6 +348,7 @@
     display: none;
     top: 100%;
     height: 160px;
+    background-color: #fff;
 
     &.modal-left {
       left: 0;

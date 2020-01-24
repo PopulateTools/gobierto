@@ -144,6 +144,7 @@
   </div>
 </template>
 <script>
+import getToken from './../../../lib/helpers';
 import axios from 'axios';
 import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
@@ -211,7 +212,8 @@ export default {
       directionLeft: true,
       url: '',
       urlPath: '',
-      showSpinner: false
+      showSpinner: false,
+      token: ''
     }
   },
   created() {
@@ -231,6 +233,8 @@ export default {
     this.$root.$on('updateActiveSave', this.updateActiveSave);
     this.$root.$on('storeQuery', this.showshowStoreQueries)
     this.$root.$on('sendQueryParams', this.queryParams)
+
+    this.token = getToken()
 
   },
   methods: {
@@ -385,28 +389,17 @@ export default {
     closeYourQueries() {
       this.isHidden = true
     },
-
     deleteQuery(index) {
-      const HTMLString = document.getElementsByTagName('body')[0].innerHTML;
-      var myRegexp = /token:(.*)/g;
-      var match = HTMLString.match(myRegexp);
-      const tokenString = match[1]
-      const cleanToken = tokenString.replace(/token: "/g, '').replace(/"/g, '');
       const URL = `/api/v1/data/queries/${index}`
       axios.delete(URL, {
         headers: {
           'Content-type': 'application/json',
-          'Authorization': `${cleanToken}`
+          'Authorization': `${this.token}`
         }
       });
     },
     postQuery() {
 
-      const HTMLString = document.getElementsByTagName('body')[0].innerHTML;
-      var myRegexp = /token:(.*)/g;
-      var match = HTMLString.match(myRegexp);
-      const tokenString = match[1]
-      const cleanToken = tokenString.replace(/token: "/g, '').replace(/"/g, '');
 
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/queries'
@@ -431,7 +424,7 @@ export default {
       axios.post(this.url, data, {
         headers: {
           'Content-type': 'application/json',
-          'Authorization': `${cleanToken}`
+          'Authorization': `${this.token}`
         }
       }).then(response => {
           this.resp = response;

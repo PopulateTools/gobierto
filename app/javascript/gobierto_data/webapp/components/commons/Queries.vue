@@ -7,7 +7,10 @@
     <div class="gobierto-data-summary-queries-panel pure-g">
       <div class="pure-u-1-2">
         <div class="gobierto-data-summary-queries-element">
-          <h3 class="gobierto-data-summary-queries-panel-title">
+          <h3
+            class="gobierto-data-summary-queries-panel-title"
+            @click="toggle()"
+          >
             <i
               class="fas fa-caret-down"
               style="color: var(--color-base);"
@@ -16,6 +19,7 @@
           </h3>
           <div
             v-for="(item, index) in items"
+            v-show="showSection"
             :key="index"
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
@@ -60,7 +64,10 @@
           </div>
         </div>
         <div class="gobierto-data-summary-queries-element">
-          <h3 class="gobierto-data-summary-queries-panel-title">
+          <h3
+            class="gobierto-data-summary-queries-panel-title"
+            @click="toggle"
+          >
             <i
               class="fas fa-caret-down"
               style="color: var(--color-base);"
@@ -69,7 +76,10 @@
           </h3>
         </div>
         <div class="gobierto-data-summary-queries-element">
-          <h3 class="gobierto-data-summary-queries-panel-title">
+          <h3
+            class="gobierto-data-summary-queries-panel-title"
+            @click="toggle"
+          >
             <i
               class="fas fa-caret-down"
               style="color: var(--color-base);"
@@ -78,6 +88,7 @@
           </h3>
           <div
             v-for="(item, index) in items"
+            v-show="showSection"
             :key="index"
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
@@ -129,7 +140,8 @@ export default {
       sqlCode: '',
       numberQueries: '',
       numberFavQueries: '',
-      totalQueries: ''
+      totalQueries: '',
+      showSection: true
     }
   },
   created() {
@@ -171,6 +183,9 @@ export default {
       this.queryCode = item.attributes.sql
       this.$root.$emit('sendQueryParams', this.queryParams)
       this.$root.$emit('sendQueryCode', this.queryCode)
+    },
+    toggle() {
+      this.showSection = !this.showSection
     }
   }
 }

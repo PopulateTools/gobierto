@@ -60,9 +60,7 @@ export default {
     },
     items: {
       type: Array,
-      default: () => {
-        return []
-      }
+      default: () => []
     }
   },
   data() {

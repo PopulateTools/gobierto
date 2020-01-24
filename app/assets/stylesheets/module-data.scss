@@ -261,6 +261,9 @@
 
   &-summary-queries-sql-code {
     padding: 1rem;
+    font-family: monospace;
+    font-size: 12px;
+    color: #666;
   }
 
   &-btn-download-data {
@@ -783,14 +786,6 @@
     display: inline-block;
     width: 90%;
   }
-
-  &-summary-queries-sql-code {
-    font-family: monospace;
-    font-size: 12px;
-    color: #666;
-  }
-
-
 
   &-summary-queries-container-icon {
     display: inline-block;

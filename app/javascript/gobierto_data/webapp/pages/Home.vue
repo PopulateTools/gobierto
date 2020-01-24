@@ -15,14 +15,6 @@
 </template>
 
 <script>
-
-const HTMLString = document.getElementsByTagName('body')[0].innerHTML;
-var myRegexp = /token:(.*)/g;
-var match = HTMLString.match(myRegexp);
-const tokenString = match[1]
-const cleanToken = tokenString.replace(/token: "/g, '').replace(/"/g, '');
-
-
 import Nav from "./../components/Nav.vue";
 import LayoutTabs from "./../layouts/LayoutTabs.vue";
 

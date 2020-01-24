@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       activeTabIndex: 0,
-      activeTabSidebar: 0
+      activeTabSidebar: 1
     }
   }
 }

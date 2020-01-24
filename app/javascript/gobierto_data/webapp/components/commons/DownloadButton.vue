@@ -14,18 +14,25 @@
       class="gobierto-data-btn-download-data-modal"
     >
       <a
-        :href="fileCSV"
+        :href="editor ? sqlfileCSV : fileCSV"
         class="gobierto-data-btn-download-data-modal-element"
         download="data.csv"
       >
         CSV
       </a>
       <a
-        :href="fileJSON"
+        :href="editor ? sqlfileJSON : fileJSON"
         class="gobierto-data-btn-download-data-modal-element"
         download="data.json"
       >
         JSON
+      </a>
+      <a
+        :href="editor ? sqlfileXLSX : fileXLSX"
+        class="gobierto-data-btn-download-data-modal-element"
+        download="data.xlsx"
+      >
+        XLSX
       </a>
     </div>
   </div>
@@ -54,18 +61,39 @@ export default {
       stopProp(event) { event.stopPropagation() }
     }
   },
+  props: {
+    editor: {
+      type: Boolean
+    }
+  },
   data() {
     return {
       labelDownloadData: "",
+      code: '',
       isActive: false,
       dataLink: '',
       fileCSV: '',
-      fileJSON: ''
+      fileXLSX: '',
+      fileJSON: '',
+      sqlfileCSV: '',
+      sqlfileXLSX: '',
+      sqlfileJSON: '',
+      urlPath: location.origin,
+      endPoint: ''
     }
   },
   created() {
+    this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
     this.$root.$on('sendFiles', this.arrayFiles)
+
+    this.urlPath = location.origin
+    this.endPoint = '/api/v1/data/datasets/agendas-de-politicos';
+    this.fileCSV = `${this.urlPath}${this.endPoint}.csv`
+    this.fileJSON = `${this.urlPath}${this.endPoint}`
+    this.fileXLSX = `${this.urlPath}${this.endPoint}.xlsx`
+
+
   },
   methods: {
     showModalButton() {
@@ -74,10 +102,15 @@ export default {
     closeMenu() {
       this.isActive = false
     },
-    arrayFiles(values) {
-      const { 0: fileCSV, 1: fileJSON } = values
-      this.fileCSV = fileCSV
-      this.fileJSON = fileJSON
+    updateCode(sqlQuery) {
+      console.log("sqlQuery", sqlQuery);
+      this.code = sqlQuery
+      this.sqlfileCSV = `${this.fileCSV}?sql=${this.code}&csv_separator=semicolon`
+      console.log("this.sqlfileCSV", this.sqlfileCSV);
+      this.sqlfileXLSX = `${this.fileJSON}?sql=${this.code}&csv_separator=semicolon`
+      console.log("this.sqlfileXLSX", this.sqlfileXLSX);
+      this.sqlfileJSON = `${this.fileXLSX}?sql=${this.code}&csv_separator=semicolon`
+      console.log("this.sqlfileJSON", this.sqlfileJSON);
     }
   }
 }

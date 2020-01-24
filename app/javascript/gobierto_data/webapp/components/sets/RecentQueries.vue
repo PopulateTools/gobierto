@@ -47,10 +47,6 @@ export default {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';
       this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
-      this.fileCSV = `${this.urlPath}${this.endPoint}.csv?sql=${this.queryEditor}&csv_separator=semicolon`
-      this.fileJSON = `${this.urlPath}${this.endPoint}.json?sql=${this.queryEditor}`
-      this.arrayFiles = [this.fileCSV, this.fileJSON]
-      this.$root.$emit('sendFiles', this.arrayFiles)
 
       axios
         .get(this.url)

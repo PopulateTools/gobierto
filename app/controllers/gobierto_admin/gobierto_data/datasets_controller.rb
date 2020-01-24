@@ -77,7 +77,7 @@ module GobiertoAdmin
       end
 
       def ignored_dataset_attributes
-        %w(created_at updated_at site_id)
+        %w(created_at updated_at data_updated_at site_id)
       end
 
       def find_dataset

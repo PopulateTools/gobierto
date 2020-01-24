@@ -14,7 +14,7 @@ module GobiertoData
         @csv_separator = opts.fetch(:csv_separator, ",")
         @append = opts.fetch(:append, false)
         @use_stdin = opts.fetch(:use_stdin, false)
-        @schema = schema.present? ? schema.deep_symbolize_keys : inspect_csv_schema(source_file, csv_separator: @csv_separator)
+        @schema = inspect_csv_schema(source_file, csv_separator: @csv_separator).merge((schema || {}).deep_symbolize_keys)
         @transform_functions = @schema.inject({}) do |functions, (column, params)|
           functions.update(
             column => SqlFunction::Transformation.new(

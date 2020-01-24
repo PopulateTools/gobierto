@@ -427,6 +427,7 @@ export default {
       })
       .catch(error => {
         const messageError = error.response
+        console.error(messageError)
       });
     },
     runRecentQuery(code) {

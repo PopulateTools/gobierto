@@ -11,6 +11,7 @@ es:
       application:
         gobierto_data: Datos
     projects:
+      all: Todas
       analysis: Análisis
       api: API
       cancel: Cancelar
@@ -22,6 +23,7 @@ es:
       downloadData: Descargar datos
       edit: Editar
       fav: Favorito
+      favs: Favoritas
       follow: Seguir
       frequency: Frecuencia
       guide: Guía para usar el editor SQL
@@ -45,5 +47,3 @@ es:
       visualization: Visualización
       visualizations: Visualizaciones
       yourQueries: Tus consultas
-      favs: Favoritas
-      all: Todas

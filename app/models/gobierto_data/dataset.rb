@@ -20,6 +20,10 @@ module GobiertoData
       [name]
     end
 
+    def available_formats
+      [:json, :csv, :xlsx]
+    end
+
     def rails_model
       @rails_model ||= begin
                          return Connection.const_get(internal_rails_class_name) if Connection.const_defined?(internal_rails_class_name)

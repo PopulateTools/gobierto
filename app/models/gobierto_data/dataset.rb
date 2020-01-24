@@ -5,10 +5,11 @@ require_dependency "gobierto_data"
 module GobiertoData
   class Dataset < ApplicationRecord
     include GobiertoCommon::Sluggable
+    include GobiertoData::Favoriteable
 
     belongs_to :site
-    has_many :queries, dependent: :destroy
-    has_many :visualizations, through: :queries
+    has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"
+    has_many :visualizations, through: :queries, class_name: "GobiertoData::Visualization"
 
     translates :name
 
@@ -19,6 +20,10 @@ module GobiertoData
       [name]
     end
 
+    def available_formats
+      [:json, :csv, :xlsx]
+    end
+
     def rails_model
       @rails_model ||= begin
                          return Connection.const_get(internal_rails_class_name) if Connection.const_defined?(internal_rails_class_name)
@@ -26,28 +31,40 @@ module GobiertoData
                          db_config = Connection.db_config(site)
                          return if db_config.blank?
 
+                         db_config = db_config.fetch(:read_db_config, db_config)
+
                          Class.new(Connection).tap do |connection_model|
                            Connection.const_set(internal_rails_class_name, connection_model)
-                           connection_model.establish_connection(connection_model.db_config(site))
+                           connection_model.establish_connection(db_config)
                            connection_model.table_name = table_name
                          end
                        end
     end
 
-    def load_data_from_file(file_path, schema_file: nil, export_files: false, csv_separator: ",")
-      schema = schema_file.present? ? JSON.parse(File.read(schema_file)).deep_symbolize_keys : {}
+    def load_data_from_file(file_path, schema_file: nil, csv_separator: ",", append: false)
+      schema = if schema_file.blank?
+                 {}
+               elsif schema_file.is_a? Hash
+                 schema_file.deep_symbolize_keys
+               else
+                 JSON.parse(File.read(schema_file)).deep_symbolize_keys
+               end
       statements = GobiertoData::Datasets::CreationStatements.new(
-        dataset: self,
-        source_file: file_path,
-        schema: schema,
-        csv_separator: csv_separator
+        self,
+        file_path,
+        schema,
+        csv_separator: csv_separator,
+        append: append,
+        use_stdin: true
       )
-      if export_files
-        base_path = File.join(File.dirname(file_path), File.basename(file_path, ".*"))
-        File.open("#{base_path}_schema.json", "w") { |file| file.write(JSON.pretty_generate(statements.schema)) } if schema_file.blank?
-        File.open("#{base_path}_script.sql", "w") { |file| file.write(statements.sql_code) }
-      end
-      Connection.execute_query(site, statements.sql_code)
+
+      query_result = Connection.execute_write_query_from_file_using_stdin(site, statements.sql_code, file_path: file_path)
+      touch(:data_updated_at) unless query_result.has_key?(:errors)
+      {
+        db_result: query_result,
+        schema: statements.schema,
+        script: statements.transaction_sql_code
+      }
     end
 
     private

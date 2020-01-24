@@ -43,6 +43,12 @@ class SiteConfiguration
     @modules.select { |site_module| SITE_MODULES.include?(site_module) }
   end
 
+  def modules_with_frontend_enabled
+    modules.reject do |site_module|
+      GobiertoModuleSettings.find_by(site_id: site_id, module_name: site_module)&.frontend_disabled
+    end
+  end
+
   def available_module?(site_module)
     modules.include?(site_module)
   end
@@ -84,7 +90,7 @@ class SiteConfiguration
   end
 
   def modules_with_notifications
-    modules & MODULES_WITH_NOTIFICATONS
+    modules_with_frontend_enabled & MODULES_WITH_NOTIFICATONS
   end
 
   def default_modules

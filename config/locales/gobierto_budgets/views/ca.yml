@@ -265,6 +265,7 @@ ca:
         income_per_inhabitant_tooltip: Pressupost inicial dividit pel nombre d’habitants
         inhabitants: Habitants
         inhabitants_tooltip: Nombre d’habitants
+        initial_estimate: Estimació inicial
         less: menys
         level_1_category: Categoria nivell 1
         level_2_category: Categoria nivell 2
@@ -335,7 +336,7 @@ ca:
         description: L'equip de govern publica l’esborrany del pressupost del pròxim
           exercici per compartir en obert amb l'oposició i els veïns i veïnes. Entre
           tots i totes podem elaborar el pressupost més adient per a %{place_name}.
-        diff_previous_year: vs. %{year}
+        diff_previous: vs. anterior
         expenses_per_inhabitant: Despesa per habitant
         expenses_per_inhabitant_tooltip: Pressupost inicial dividit pel nombre d'habitants
         explore_the_detail: Explora el detall

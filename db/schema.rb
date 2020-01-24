@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_12_104759) do
+ActiveRecord::Schema.define(version: 2020_01_17_102016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -530,7 +530,18 @@ ActiveRecord::Schema.define(version: 2019_12_12_104759) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "data_updated_at"
     t.index ["site_id"], name: "index_gdata_datasets_on_site_id"
+  end
+
+  create_table "gdata_favorites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "favorited_type"
+    t.bigint "favorited_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["favorited_type", "favorited_id"], name: "index_gdata_favorites_on_favorited_type_and_favorited_id"
+    t.index ["user_id"], name: "index_gdata_favorites_on_user_id"
   end
 
   create_table "gdata_queries", force: :cascade do |t|
@@ -540,6 +551,8 @@ ActiveRecord::Schema.define(version: 2019_12_12_104759) do
     t.integer "privacy_status", default: 0, null: false
     t.string "sql"
     t.jsonb "options"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["dataset_id"], name: "index_gdata_queries_on_dataset_id"
     t.index ["user_id"], name: "index_gdata_queries_on_user_id"
   end
@@ -550,6 +563,8 @@ ActiveRecord::Schema.define(version: 2019_12_12_104759) do
     t.jsonb "name_translations"
     t.integer "privacy_status", default: 0, null: false
     t.jsonb "spec"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["query_id"], name: "index_gdata_visualizations_on_query_id"
     t.index ["user_id"], name: "index_gdata_visualizations_on_user_id"
   end
@@ -1015,6 +1030,17 @@ ActiveRecord::Schema.define(version: 2019_12_12_104759) do
     t.integer "site_id"
     t.index ["key"], name: "index_translations_on_key"
     t.index ["locale"], name: "index_translations_on_locale"
+  end
+
+  create_table "user_api_tokens", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name"
+    t.string "token"
+    t.boolean "primary", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_user_api_tokens_on_token", unique: true
+    t.index ["user_id"], name: "index_user_api_tokens_on_user_id"
   end
 
   create_table "user_notifications", id: :serial, force: :cascade do |t|

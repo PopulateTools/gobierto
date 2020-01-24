@@ -29,15 +29,24 @@
           ]"
         />
       </div>
-      <Button
-        :text="labelQueries"
-        :class="removeLabelBtn ? 'remove-label' : ''"
-        :disabled="disabledQueries"
-        class="btn-sql-editor"
-        icon="list"
-        color="var(--color-base)"
-        background="#fff"
-      />
+      <div class="gobierto-data-sql-editor-your-queries">
+        <Button
+          v-clickoutside="closeYourQueries"
+          :text="labelQueries"
+          :class="removeLabelBtn ? 'remove-label' : ''"
+          :disabled="disabledQueries"
+          class="btn-sql-editor"
+          icon="list"
+          color="var(--color-base)"
+          background="#fff"
+          @click.native="isHidden = !isHidden; listYourQueries()"
+        />
+        <Queries
+          v-if="!isHidden"
+          :class=" directionLeft ? 'modal-left': 'modal-right'"
+          class="gobierto-data-sql-editor-your-queries-container arrow-top"
+        />
+      </div>
       <div
         v-if="saveQueryState"
         class="gobierto-data-sql-editor-container-save"
@@ -67,7 +76,7 @@
         </label>
         <i
           :class="privateQuery ? 'fa-lock' : 'fa-lock-open'"
-          style="color: #A0C51D;"
+          :style="privateQuery ? 'color: #D0021B;' : 'color: #A0C51D;'"
           class="fas"
         />
         <span
@@ -135,15 +144,18 @@
   </div>
 </template>
 <script>
+import getToken from './../../../lib/helpers';
 import axios from 'axios';
 import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
+import Queries from './Queries.vue';
 
 export default {
   name: 'SQLEditorHeader',
   components: {
     Button,
-    RecentQueries
+    RecentQueries,
+    Queries
   },
   directives: {
     clickoutside: {
@@ -177,6 +189,7 @@ export default {
       showBtnRun: true,
       showBtnSave: true,
       showBtnRemove: true,
+      isHidden: true,
       showLabelPrivate: true,
       removeLabelBtn: false,
       showLabelModified: false,
@@ -199,7 +212,8 @@ export default {
       directionLeft: true,
       url: '',
       urlPath: '',
-      showSpinner: false
+      showSpinner: false,
+      token: ''
     }
   },
   created() {
@@ -218,8 +232,35 @@ export default {
     this.$root.$on('sendCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
     this.$root.$on('storeQuery', this.showshowStoreQueries)
+    this.$root.$on('sendQueryParams', this.queryParams)
+
+    this.token = getToken()
+
   },
   methods: {
+    queryParams(queryParams) {
+      this.showBtnCancel = false;
+      this.showBtnEdit = true;
+      this.showBtnSave = false;
+      this.showBtnRemove = false;
+      this.showLabelPrivate = false;
+      this.removeLabelBtn = true;
+      this.showLabelModified = false;
+      this.disableInputName = true;
+      this.saveQueryState = true;
+
+      this.labelQueryName = queryParams[0]
+      this.privacyStatus = queryParams[1]
+
+      if (this.privacyStatus === 'open') {
+        this.privateQuery = false
+      } else {
+        this.privateQuery = true
+      }
+    },
+    listYourQueries() {
+      this.$root.$emit('listYourQueries')
+    },
     showshowStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)
     },
@@ -238,6 +279,7 @@ export default {
       this.disableInputName = disableLabel;
     },
     saveQueryName() {
+      this.showSaveQueries = true
       if (this.saveQueryState === true && this.nameQuery.length > 0) {
         this.showBtnCancel = false;
         this.showBtnEdit = true;
@@ -249,9 +291,6 @@ export default {
         this.disableInputName = true;
 
         this.postQuery()
-
-        this.propertiesQueries = [ this.nameQuery, this.codeQuery, this.privacyStatus]
-        this.$root.$emit('saveYourQueries', this.propertiesQueries)
       } else {
         this.saveQueryState = true;
         this.showBtnCancel = true;
@@ -304,10 +343,6 @@ export default {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';
       this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
-      this.fileCSV = `${this.urlPath}${this.endPoint}.csv?sql=${this.queryEditor}&csv_separator=semicolon`
-      this.fileJSON = `${this.urlPath}${this.endPoint}.json?sql=${this.queryEditor}`
-      this.arrayFiles = [this.fileCSV, this.fileJSON]
-      this.$root.$emit('sendFiles', this.arrayFiles)
 
       axios
         .get(this.url)
@@ -347,11 +382,25 @@ export default {
     closeMenu() {
       this.isActive = false
     },
+    closeYourQueries() {
+      this.isHidden = true
+    },
+    deleteQuery(index) {
+      const URL = `/api/v1/data/queries/${index}`
+      axios.delete(URL, {
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': `${this.token}`
+        }
+      });
+    },
     postQuery() {
+
+
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/queries'
       this.url = `${this.urlPath}${this.endPoint}`
-      this.privacyStatus = this.privateQuery === false ? 'close' : 'open'
+      this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
 
       let data = {
           "data": {
@@ -359,25 +408,26 @@ export default {
               "attributes": {
                   "name": this.nameQuery,
                   "name_translations": {
-                      "en": "Query from API",
-                      "es": "Query desde la API"
+                      "en": this.nameQuery,
+                      "es": this.nameQuery
                   },
                   "privacy_status": this.privacyStatus,
                   "sql": this.codeQuery,
-                  "dataset_id": 1,
-                  "user_id": 90
+                  "dataset_id": 1
               }
           }
       }
       axios.post(this.url, data, {
         headers: {
           'Content-type': 'application/json',
+          'Authorization': `${this.token}`
         }
       }).then(response => {
           this.resp = response;
       })
       .catch(error => {
-        console.error(error);
+        const messageError = error.response
+        console.error(messageError)
       });
     },
     runRecentQuery(code) {

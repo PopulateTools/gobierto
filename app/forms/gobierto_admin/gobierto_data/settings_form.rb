@@ -6,7 +6,8 @@ module GobiertoAdmin
 
       attr_writer(
         :site_id,
-        :db_config
+        :db_config,
+        :frontend_enabled
       )
 
       delegate :persisted?, to: :gobierto_module_settings
@@ -33,12 +34,16 @@ module GobiertoAdmin
         @db_config ||= gobierto_module_settings.db_config.present? ? JSON.pretty_generate(gobierto_module_settings.db_config) : nil
       end
 
+      def frontend_enabled
+        @frontend_enabled ||= !gobierto_module_settings.frontend_disabled
+      end
+
       private
 
       def db_config_format
         return if db_config.blank?
 
-        JSON.parse(db_config)
+        JSON.parse(db_config).with_indifferent_access
       rescue JSON::ParserError
         errors.add :db_config, :invalid_format
       end
@@ -46,7 +51,10 @@ module GobiertoAdmin
       def db_config_connection
         return if errors.added? :db_config, :invalid_format
 
-        ::GobiertoData::Connection.test_connection_config(db_config_format)
+        config = db_config_format
+
+        ::GobiertoData::Connection.test_connection_config(config, :read_db_config)
+        ::GobiertoData::Connection.test_connection_config(config, :write_db_config) if config&.has_key?(:write_db_config)
       rescue ActiveRecord::ActiveRecordError => e
         errors.add(:db_config, :invalid_connection, error_message: e.message)
       end
@@ -67,7 +75,8 @@ module GobiertoAdmin
         @gobierto_module_settings = gobierto_module_settings.tap do |settings_attributes|
           settings_attributes.module_name = module_name
           settings_attributes.site_id = site_id
-          settings_attributes.db_config = db_config_format
+          settings_attributes.db_config = db_config_clean
+          settings_attributes.frontend_disabled = frontend_enabled != "1"
         end
 
         if @gobierto_module_settings.save
@@ -76,6 +85,13 @@ module GobiertoAdmin
           promote_errors(@gobierto_module_settings.errors)
           false
         end
+      end
+
+      def db_config_clean
+        config = db_config_format
+        return config if config.blank?
+
+        config.has_key?(:read_db_config) ? config.slice(:read_db_config, :write_db_config) : { read_db_config: config }
       end
 
     end

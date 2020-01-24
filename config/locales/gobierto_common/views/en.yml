@@ -157,6 +157,7 @@ en:
       main_budget_levels_legend_up: Has increased
       main_budget_levels_per_inhabitant: per inhabitant
       main_budget_levels_tooltip_article: since
+      main_budget_levels_tooltip_article_last: from the previous
       main_budget_levels_tooltip_down: Has gone down
       main_budget_levels_tooltip_up: Has risen
       mean: 'Average age: %{age} years'
@@ -171,7 +172,7 @@ en:
       percent: "% of progress"
       percent_log: "% of progress (log)"
       previous_year_diff: Previous year diff
-      proposal: Proposal
+      project: Project
       questions: Questions
       reduce: Reduce
       thousand: thousand
@@ -186,3 +187,9 @@ en:
       women: Women
       youth: Minors
       youth_info: The %{percent} of the population is younger than %{limit} years
+    vue_components:
+      block_header:
+        all: All
+        none: None
+      calendar:
+        date: Choose date

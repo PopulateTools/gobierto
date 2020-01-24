@@ -36,7 +36,7 @@
     <% end %>
   <% else %>
     <!-- Modules loop -->
-    <% current_site.configuration.modules.each do |site_module| %>
+    <% current_site.configuration.modules_with_frontend_enabled.each do |site_module| %>
       <div class="navigation-wrap">
         <div class="navigation-item column">
           <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main", { show_active: false } %>

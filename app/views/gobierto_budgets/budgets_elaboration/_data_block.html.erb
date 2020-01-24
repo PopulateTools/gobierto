@@ -14,7 +14,7 @@
   </div>
 
   <div class="highlight-proposal">
-    <p><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: @year) %></p>
+    <p><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: Date.current.year) %></p>
   </div>
 
   <div class="pure-g metric_boxes">
@@ -24,16 +24,16 @@
         <div id="metric_box_1" class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant_tooltip') %>">
           <div class="inner">
             <h3><%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant') %></h3>
-            <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant(@year, @kind) %></div>
-            <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_budget_per_inhabitant) %> vs <%= @year - 1 %></div>
+            <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant(year: @year, kind: @kind) %></div>
+            <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_budget_per_inhabitant) %> vs <%= t("shared.previous") %></div>
           </div>
         </div>
       <% else %>
         <div id="metric_box_1" class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.income_per_inhabitant_tooltip') %>">
           <div class="inner">
             <h3><%= t('gobierto_budgets.budgets_elaboration.index.income_per_inhabitant') %></h3>
-            <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant(@year, @kind) %></div>
-            <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_income_budget_per_inhabitant) %> vs <%= @year - 1 %></div>
+            <div class="metric"><%= format_currency @site_stats.total_income_budget_per_inhabitant(year: @year, kind: @kind) %></div>
+            <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_income_budget_per_inhabitant) %> vs <%= t("shared.previous") %></div>
           </div>
         </div>
       <% end %>
@@ -44,7 +44,7 @@
         <div class="inner">
           <h3><%= t('gobierto_budgets.budgets_elaboration.index.total_expenses') %></h3>
           <div class="metric"><%= format_currency @site_stats.total_budget %></div>
-          <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_budget) %> vs <%= @year - 1 %></div>
+          <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_budget) %> vs <%= t("shared.previous") %></div>
         </div>
       </div>
     <% else %>
@@ -52,7 +52,7 @@
         <div class="inner">
           <h3><%= t('gobierto_budgets.budgets_elaboration.index.total_income') %></h3>
           <div class="metric"><%= format_currency @site_stats.total_income_budget %></div>
-          <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_income_budget) %> vs <%= @year - 1 %></div>
+          <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_income_budget) %> vs <%= t("shared.previous") %></div>
         </div>
       </div>
     <% end %>
@@ -120,7 +120,7 @@
           <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
           <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
           <th class="highlight-proposal" colspan="4">
-            <p class="left"><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: @year) %></p>
+            <p class="left"><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: Date.current.year) %></p>
           </th>
         </tr>
         <tr>
@@ -128,7 +128,7 @@
           <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
           <th class="highlight-proposal"><%= t('gobierto_budgets.budgets_elaboration.index.category_value') %></th>
           <th class="highlight-proposal"><%= t('gobierto_budgets.budgets_elaboration.index.category_percentage') %></th>
-          <th class="highlight-proposal"><%= t('gobierto_budgets.budgets_elaboration.index.diff_previous_year', year: @year - 1) %></th>
+          <th class="highlight-proposal"><%= t('gobierto_budgets.budgets_elaboration.index.diff_previous') %></th>
         </tr>
       </thead>
 

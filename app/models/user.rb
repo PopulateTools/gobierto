@@ -14,15 +14,19 @@ class User < ApplicationRecord
   has_many :id_number_verifications, class_name: "User::Verification::IdNumber"
   has_many :subscriptions, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :api_tokens, dependent: :destroy
   has_many :custom_records, dependent: :destroy, class_name: "GobiertoCommon::CustomUserFieldRecord"
   has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
   has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
   has_many :votes, dependent: :destroy, class_name: "GobiertoParticipation::Vote"
   has_many :comment, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
 
+  after_create :primary_api_token!
+
   # GobiertoData
   has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"
   has_many :visualizations, dependent: :destroy, class_name: "GobiertoData::Visualization"
+  has_many :data_favorites, dependent: :destroy, class_name: "GobiertoData::Favorite"
 
   accepts_nested_attributes_for :custom_records
 
@@ -60,6 +64,14 @@ class User < ApplicationRecord
     if value.present?
       super(value.downcase)
     end
+  end
+
+  def primary_api_token!
+    primary_api_token || api_tokens.primary.create
+  end
+
+  def primary_api_token
+    api_tokens.primary.take
   end
 
 end

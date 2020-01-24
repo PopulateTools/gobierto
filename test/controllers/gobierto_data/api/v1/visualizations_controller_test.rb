@@ -266,6 +266,40 @@ module GobiertoData
           end
         end
 
+        # GET /api/v1/data/visualizations.json?user_id=1
+        def test_index_filtered_by_user_with_different_user_token
+          with(site: site) do
+            get gobierto_data_api_v1_visualizations_path(filter: { user_id: user.id }), headers: { Authorization: other_user_token.token }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            visualizations_names = response_data["data"].map { |item| item.dig("attributes", "name") }
+            assert_includes visualizations_names, user_visualization.name
+            refute_includes visualizations_names, closed_visualization.name
+            assert_includes visualizations_names, other_dataset_visualization.name
+          end
+        end
+
+        # GET /api/v1/data/visualizations.json?user_id=1
+        def test_index_filtered_by_user_with_same_user_token
+          with(site: site) do
+            get gobierto_data_api_v1_visualizations_path(filter: { user_id: user.id }), headers: { Authorization: user_token.token }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            visualizations_names = response_data["data"].map { |item| item.dig("attributes", "name") }
+            assert_includes visualizations_names, user_visualization.name
+            assert_includes visualizations_names, closed_visualization.name
+            assert_includes visualizations_names, other_dataset_visualization.name
+          end
+        end
+
         # GET /api/v1/data/visualizations/1.json
         def test_show
           with(site: site) do

@@ -86,7 +86,7 @@ export default {
     this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
     this.urlPath = location.origin
-    this.endPoint = '/api/v1/data/datasets/grupos-interes-gencat'
+    this.endPoint = '/api/v1/data/datasets/agendas-de-politicos'
     this.endPointSQL = '/api/v1/data/data.csv?sql='
     this.fileCSV = `${this.urlPath}${this.endPoint}.csv`
     this.fileJSON = `${this.urlPath}${this.endPoint}`

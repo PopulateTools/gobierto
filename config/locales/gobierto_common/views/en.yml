@@ -187,3 +187,9 @@ en:
       women: Women
       youth: Minors
       youth_info: The %{percent} of the population is younger than %{limit} years
+    vue_components:
+      block_header:
+        all: All
+        none: None
+      calendar:
+        date: Choose date

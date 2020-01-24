@@ -1,4 +1,9 @@
 .gobierto-data {
+
+  :root {
+    --transition: .1s ease-in;
+  }
+
   @include min-screen(768) {
     @include gutters(66px)
   }
@@ -94,7 +99,7 @@
     border-radius: 3px;
     color: $color_main_negative;
     position: relative;
-    transition: background-color .1s ease-in;
+    transition: background-color var(--transition);
 
     &:hover {
       background-color: rgba(var(--color-base-string), 0.2) !important;
@@ -115,7 +120,7 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     cursor: pointer;
-    transition: background-color .1s ease-in;
+    transition: background-color var(--transition);
 
     &:hover {
       background-color: rgba(var(--color-base-string), .05);
@@ -247,12 +252,11 @@
     font-weight: bold;
     font-size: 16px;
     line-height: 20px;
-    color: #666;
+    color: rgba(102, 102, 102, .75);
     display: inline-block;
-  }
-
-  &-summary-queries-element {
-    padding: 1rem;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    padding-left: 1rem;
   }
 
   &-summary-queries-sql-code {
@@ -272,21 +276,13 @@
     width: max-content;
     display: flex;
 
-    &.modal-right {
+
+    &.arrow-top {
+
       .gobierto-data-btn-download-data-modal {
-        width: inherit;
-        max-width: 125px;
         height: auto;
-        right: 0;
-      }
-
-      .gobierto-data-btn-download-data-modal-element {
-        text-align: right;
-      }
-
-      .arrow-top {
-        background: #fff;
-        border: 1px solid var(--color-base);
+        width: auto;
+        min-width: 200px;
 
         &::after,
         &::before {
@@ -312,6 +308,32 @@
           border-width: 8px;
         }
       }
+
+      &.modal-left {
+
+        .gobierto-data-btn-download-data-modal {
+
+          &::after,
+          &::before {
+            left: 10%;
+          }
+        }
+
+      }
+    }
+
+    &.modal-right {
+      .gobierto-data-btn-download-data-modal {
+        width: inherit;
+        max-width: 125px;
+        height: auto;
+        right: 0;
+      }
+
+      .gobierto-data-btn-download-data-modal-element {
+        text-align: right;
+      }
+
     }
   }
 
@@ -322,10 +344,11 @@
     border-radius: 3px;
     padding: .5rem 0;
     position: absolute;
-    width: 250px;
+    width: 350px;
     display: none;
     top: 100%;
     height: 160px;
+    background-color: #fff;
 
     &.modal-left {
       left: 0;
@@ -410,7 +433,7 @@
 
   &-btn-download-data-modal-element {
     background-color: transparent;
-    transition: background-color .3s ease-in;
+    transition: background-color var(--transition);
     padding: .5rem 1rem;
     color: #000;
     display: block;
@@ -687,6 +710,91 @@
     font-size: 14px;
     font-weight: 600;
     color: #b62323;
+  }
+
+  &-sql-editor-your-queries {
+    display: inline-block;
+    position: relative;
+  }
+
+  &-sql-editor-your-queries-container {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    background: white;
+    padding: 0;
+    z-index: 10;
+    width: 50vw;
+
+    .gobierto-data-summary-queries-panel {
+      border-color: var(--color-base);
+    }
+
+    &.arrow-top {
+
+      .gobierto-data-summary-queries-panel {
+        &::after,
+        &::before {
+          bottom: 100%;
+          border: solid transparent;
+          content: ' ';
+          height: 0;
+          width: 0;
+          left: 5%;
+          position: absolute;
+          border-color: rgba(255, 255, 255, 0);
+        }
+
+        &::before {
+          border-bottom-color: var(--color-base) !important;
+          margin-left: -9px;
+          border-width: 9px;
+        }
+
+        &::after {
+          border-bottom-color: #fff !important;
+          margin-left: -8px;
+          border-width: 8px;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  .border-color-queries {
+    border-left: 1px solid var(--color-base);
+    width: calc(50% - 1px);
+  }
+
+  &-summary-queries-container {
+    padding: .25rem 2rem;
+    padding-top: 0;
+    cursor: pointer;
+    transition: background-color var(--transition);
+
+    &:hover {
+      background-color: rgba(var(--color-base-string), 0.1);
+    }
+  }
+
+  &-summary-queries-container-name {
+    font-size: 14px;
+    color: #666;
+    display: inline-block;
+    width: 90%;
+  }
+
+  &-summary-queries-sql-code {
+    font-family: monospace;
+    font-size: 12px;
+    color: #666;
+  }
+
+
+
+  &-summary-queries-container-icon {
+    display: inline-block;
+    width: 4%;
   }
 
   .spinner-box {

@@ -31,6 +31,8 @@
         :class="[
           directionLeft ? 'modal-left': 'modal-right'
         ]"
+        class="arrow-top"
+        :editor="true"
       />
     </div>
     <SQLEditorTable
@@ -67,7 +69,7 @@ export default {
     return {
       labelTable: "",
       labelVisualization: "",
-      directionLeft: false,
+      directionLeft: false
     }
   },
   created() {

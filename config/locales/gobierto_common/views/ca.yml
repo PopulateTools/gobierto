@@ -187,3 +187,9 @@ ca:
       women: Dones
       youth: Menors
       youth_info: El %{percent} de la població té menys de %{limit} anys
+    vue_components:
+      block_header:
+        all: Totes
+        none: Cap
+      calendar:
+        date: Escolliu data

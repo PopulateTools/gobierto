@@ -1,7 +1,13 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
     <Info />
-    <DownloadButton />
+    <DownloadButton
+      :class="[
+        directionLeft ? 'modal-left': 'modal-right'
+      ]"
+      class="arrow-top"
+      :editor="false"
+    />
     <Resources :items="filesDataset" />
     <Queries />
   </div>
@@ -25,6 +31,7 @@ export default {
     return {
       isActive: false,
       labelDownloadData: "",
+      directionLeft: true,
       filesDataset: [{
           file: {
             name: 'Actuaciones Bomberos Enero 2019.xls',

@@ -1,7 +1,7 @@
 import { VueFiltersMixin } from "lib/shared";
 
-// custom configurations
-import CONFIGURATION from "./mataro.conf.js";
+// TODO: This configuration should come from API request, not from file
+import CONFIGURATION from "../conf/mataro.conf.js";
 
 export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`;
 
@@ -15,7 +15,7 @@ export const CommonsMixin = {
       const {
         phases: { id }
       } = CONFIGURATION;
-      const { vocabulary_terms = [] } = this.getAttributesByKey(id);
+      const { vocabulary_terms = [] } = this.middleware.getAttributesByKey(id);
       const { distribution = [] } = stats[id];
       return vocabulary_terms.map(term => {
         const { name_translations: title = {} } = term;
@@ -29,7 +29,7 @@ export const CommonsMixin = {
       });
     },
     getItem(element, attributes) {
-      const attr = this.getAttributesByKey(element.id);
+      const attr = this.middleware.getAttributesByKey(element.id);
 
       let value = attributes[element.id];
 

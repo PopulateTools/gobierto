@@ -1,16 +1,16 @@
 import { translate } from "lib/shared"
 
-export default class Middleware {
-  constructor({ dictionary, availableFilters }) {
+export class Middleware {
+  constructor({ dictionary, filters }) {
     this.dictionary = dictionary || []
-    this.availableFilters = availableFilters || []
+    this.filters = filters || []
   }
 
   getFilters(stats) {
     const filters = [];
 
-    for (let index = 0; index < this.availableFilters.length; index++) {
-      const { id: key, ...rest } = this.availableFilters[index];
+    for (let index = 0; index < this.filters.length; index++) {
+      const { id: key, ...rest } = this.filters[index];
       const element = stats[key];
       const { field_type: type, vocabulary_terms: options = [], name_translations: title = {} } = this.getAttributesByKey(key);
 

@@ -6,7 +6,6 @@
         directionLeft ? 'modal-left': 'modal-right'
       ]"
       class="arrow-top"
-      :editor="false"
     />
     <Resources :items="filesDataset" />
     <Queries />

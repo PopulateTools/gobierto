@@ -284,7 +284,7 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    minitest-retry (0.1.9)
+    minitest-retry (0.2.0)
       minitest (>= 5.0)
     minitest-stub-const (0.6)
     minitest-stub_any_instance (1.0.2)

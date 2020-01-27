@@ -82,6 +82,7 @@ export default {
 
         this.$root.$emit('nameDataset', this.titleDataset)
         this.$root.$emit('sendTableName', this.tableName)
+        this.$root.$emit('sendSlug', this.slugDataset)
 
       })
       .catch(error => {

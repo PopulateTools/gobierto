@@ -33,8 +33,8 @@
           :class="[
             directionLeft ? 'modal-left': 'modal-right'
           ]"
-          class="arrow-top"
           :slug-name="slug"
+          class="arrow-top"
         />
       </keep-alive>
     </div>

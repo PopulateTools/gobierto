@@ -1,6 +1,8 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <QueriesCode />
+    <QueriesCode
+      :array-queries="items"
+    />
   </div>
 </template>
 
@@ -12,6 +14,15 @@ export default {
   name: "Queries",
   components: {
     QueriesCode
+  },
+  props: {
+    items: {
+      type: Array,
+      required: true
+    }
+  },
+  created(){
+    console.log(this.items)
   }
 }
 </script>

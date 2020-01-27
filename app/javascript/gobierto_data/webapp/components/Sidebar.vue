@@ -27,19 +27,15 @@
       </ul>
     </nav>
     <div
-      v-if="activeTab === 1 || activeTab === 4 && allDatasets"
+      v-if="activeTab === 1 || activeTab === 4"
     >
-      <div
-        v-for="(item, index) in allDatasets"
-        :key="index"
-        :item="item"
+      <span
         class="gobierto-data-sidebar-datasets-links"
+        @click.prevent="nav(slugDataset)"
       >
         <i class="fas fa-caret-down" />
-        <span
-          @click="nav(slugDataset)"
-        >{{ allDatasets[0].attributes.name }}</span>
-      </div>
+        {{ titleDataset }}
+      </span>
     </div>
   </div>
 </template>
@@ -63,8 +59,7 @@ export default {
       labelCategories: "",
       titleDataset: '',
       slugDataset: '',
-      tableName: '',
-      allDatasets: null
+      tableName: ''
     }
   },
   created() {
@@ -81,18 +76,18 @@ export default {
       .then(response => {
         this.rawData = response.data
 
-        this.allDatasets = this.rawData.data
-
         this.titleDataset = this.rawData.data[0].attributes.name
         this.slugDataset = this.rawData.data[0].attributes.slug
         this.tableName = this.rawData.data[0].attributes.table_name
 
+        this.$root.$emit('nameDataset', this.titleDataset)
         this.$root.$emit('sendTableName', this.tableName)
         this.$root.$emit('sendSlug', this.slugDataset)
 
       })
       .catch(error => {
         console.error(error)
+
       })
 
   },

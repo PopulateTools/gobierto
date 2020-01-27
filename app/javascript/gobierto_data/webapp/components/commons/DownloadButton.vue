@@ -7,45 +7,44 @@
       color="var(--color-base)"
       background="#fff"
       class="gobierto-data-btn-download-data"
-      @click.native="isHidden = !isHidden"
+      @click.native="isHidden = !isHidden; getData()"
     />
-    <keep-alive>
-      <transition
-        name="fade"
-        mode="out-in"
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <div
+        v-show="!isHidden && rawData"
+        class="gobierto-data-btn-download-data-modal"
       >
-        <div
-          v-show="!isHidden"
-          class="gobierto-data-btn-download-data-modal"
+        <a
+          :href="editor ? sqlfileCSV : fileCSV"
+          class="gobierto-data-btn-download-data-modal-element"
+          download="data.csv"
         >
-          <a
-            :href="editor ? sqlfileCSV : fileCSV"
-            class="gobierto-data-btn-download-data-modal-element"
-            download="data.csv"
-          >
-            CSV
-          </a>
-          <a
-            :href="editor ? sqlfileJSON : fileJSON"
-            class="gobierto-data-btn-download-data-modal-element"
-            download="data.json"
-          >
-            JSON
-          </a>
-          <a
-            :href="editor ? sqlfileXLSX : fileXLSX"
-            class="gobierto-data-btn-download-data-modal-element"
-            download="data.xlsx"
-          >
-            XLSX
-          </a>
-        </div>
-      </transition>
-    </keep-alive>
+          CSV
+        </a>
+        <a
+          :href="editor ? sqlfileJSON : fileJSON"
+          class="gobierto-data-btn-download-data-modal-element"
+          download="data.json"
+        >
+          JSON
+        </a>
+        <a
+          :href="editor ? sqlfileXLSX : fileXLSX"
+          class="gobierto-data-btn-download-data-modal-element"
+          download="data.xlsx"
+        >
+          XLSX
+        </a>
+      </div>
+    </transition>
   </div>
 </template>
 <script>
 
+import axios from 'axios';
 import Button from "./Button.vue";
 export default {
   name: 'DownloadButton',
@@ -87,34 +86,48 @@ export default {
       sqlfileXLSX: '',
       sqlfileJSON: '',
       urlPath: location.origin,
-      endPoint: ''
+      endPoint: '',
+      nameDataset: '',
+      rawData: null
     }
   },
   created() {
-    this.$root.$on('sendSlug', this.changeSlug)
     this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
-    this.urlPath = location.origin
-    this.endPoint = '/api/v1/data/datasets/grupost-de-interes'
     this.endPointSQL = '/api/v1/data/data.csv?sql='
-    this.fileCSV = `${this.urlPath}${this.endPoint}.csv`
-    this.fileJSON = `${this.urlPath}${this.endPoint}`
-    this.fileXLSX = `${this.urlPath}${this.endPoint}.xlsx`
-
-
   },
   methods: {
-    showModalButton() {
-      this.isActive = !this.isActive;
-    },
     closeMenu() {
-      this.isActive = false
+      this.isHidden = true
     },
     updateCode(sqlQuery) {
       this.code = sqlQuery
       this.sqlfileCSV = `${this.urlPath}${this.endPointSQL}${this.code}&csv_separator=semicolon`
       this.sqlfileXLSX = `${this.urlPath}${this.endPointSQL}${this.code}`
       this.sqlfileJSON = `${this.urlPath}${this.endPointSQL}${this.code}`
+    },
+    getData() {
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/datasets';
+
+      this.url = `${this.urlPath}${this.endPoint}`
+
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.allDatasets = this.rawData.data
+
+          this.slugDataset = this.rawData.data[0].attributes.slug
+          this.tableName = this.rawData.data[0].attributes.table_name
+
+          this.fileCSV = `${this.urlPath}${this.endPoint}${this.nameDataset}.csv`
+          this.fileJSON = `${this.urlPath}${this.endPoint}${this.nameDataset}`
+          this.fileXLSX = `${this.urlPath}${this.endPoint}${this.nameDataset}.xlsx`
+        })
+        .catch(error => {
+          console.error(error)
+        })
     }
   }
 }

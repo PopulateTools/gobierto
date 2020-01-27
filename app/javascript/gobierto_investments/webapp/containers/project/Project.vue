@@ -82,9 +82,7 @@ export default {
           vm.phases = vm.getPhases(filtersFromConfiguration);
         }
 
-        // Optional callback to update data in background, setup in CONFIGURATION object
-        // eslint-disable-next-line require-atomic-updates
-        vm.project = await vm.alterDataObjectOptional(project);
+        vm.project = project
       });
     } else {
       next();

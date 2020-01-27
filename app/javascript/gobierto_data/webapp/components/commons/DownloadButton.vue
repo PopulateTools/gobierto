@@ -95,8 +95,12 @@ export default {
     this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
     this.urlPath = location.origin
-
+    this.endPoint = '/api/v1/data/datasets/grupost-de-interes'
     this.endPointSQL = '/api/v1/data/data.csv?sql='
+    this.fileCSV = `${this.urlPath}${this.endPoint}.csv`
+    this.fileJSON = `${this.urlPath}${this.endPoint}`
+    this.fileXLSX = `${this.urlPath}${this.endPoint}.xlsx`
+
 
   },
   methods: {
@@ -111,12 +115,6 @@ export default {
       this.sqlfileCSV = `${this.urlPath}${this.endPointSQL}${this.code}&csv_separator=semicolon`
       this.sqlfileXLSX = `${this.urlPath}${this.endPointSQL}${this.code}`
       this.sqlfileJSON = `${this.urlPath}${this.endPointSQL}${this.code}`
-    },
-    changeSlug(slug){
-      this.endPoint = `/api/v1/data/datasets/${slug}`
-      this.fileCSV = `${this.urlPath}${this.endPoint}.csv`
-      this.fileJSON = `${this.urlPath}${this.endPoint}`
-      this.fileXLSX = `${this.urlPath}${this.endPoint}.xlsx`
     }
   }
 }

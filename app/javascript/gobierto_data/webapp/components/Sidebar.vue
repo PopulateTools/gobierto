@@ -29,11 +29,13 @@
     <div
       v-if="activeTab === 1 || activeTab === 4"
     >
-      <button
+      <span
+        class="gobierto-data-sidebar-datasets-links"
         @click.prevent="nav(slugDataset)"
       >
+        <i class="fas fa-caret-down" />
         {{ titleDataset }}
-      </button>
+      </span>
     </div>
   </div>
 </template>
@@ -56,7 +58,8 @@ export default {
       labelQueries: "",
       labelCategories: "",
       titleDataset: '',
-      slugDataset: ''
+      slugDataset: '',
+      tableName: ''
     }
   },
   created() {
@@ -75,6 +78,10 @@ export default {
 
         this.titleDataset = this.rawData.data[0].attributes.name
         this.slugDataset = this.rawData.data[0].attributes.slug
+        this.tableName = this.rawData.data[0].attributes.table_name
+
+        this.$root.$emit('nameDataset', this.titleDataset)
+        this.$root.$emit('sendTableName', this.tableName)
 
       })
       .catch(error => {

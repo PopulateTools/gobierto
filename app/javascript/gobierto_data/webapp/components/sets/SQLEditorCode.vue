@@ -50,7 +50,7 @@ export default {
   name: 'SQLEditorCode',
   data() {
     return {
-      code: `SELECT * FROM grupos_interes LIMIT 50`,
+      code: '',
       labelGuide: '',
       labelQueryExecuted: '',
       labelRecords: '',
@@ -96,7 +96,7 @@ export default {
     this.$root.$on('showMessages', this.handleShowMessages)
     this.$root.$on('sendQueryCode', this.queryCode)
 
-    this.$root.$emit('sendTableName', this.tableName)
+    this.$root.$on('sendTableName', this.tableName)
   },
   mounted() {
     this.cm = this.$refs.myCm.codemirror;
@@ -170,6 +170,9 @@ export default {
       this.showMessages = true
       this.showApiError = true
       this.stringError = message
+    },
+    tableName(table) {
+      this.code = `SELECT * FROM ${table} LIMIT 50`
     }
   }
 };

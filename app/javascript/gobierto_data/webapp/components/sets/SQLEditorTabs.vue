@@ -27,13 +27,15 @@
       </nav>
     </div>
     <div class="pure-u-lg-1-4">
-      <DownloadButton
-        :editor="true"
-        :class="[
-          directionLeft ? 'modal-left': 'modal-right'
-        ]"
-        class="arrow-top"
-      />
+      <keep-alive>
+        <DownloadButton
+          :editor="true"
+          :class="[
+            directionLeft ? 'modal-left': 'modal-right'
+          ]"
+          class="arrow-top"
+        />
+      </keep-alive>
     </div>
     <SQLEditorTable
       v-if="activeTab === 0"

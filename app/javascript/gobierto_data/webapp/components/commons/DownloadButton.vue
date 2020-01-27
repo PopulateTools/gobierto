@@ -7,34 +7,41 @@
       color="var(--color-base)"
       background="#fff"
       class="gobierto-data-btn-download-data"
-      @click.native="showModalButton"
+      @click.native="isHidden = !isHidden"
     />
-    <div
-      :class="{ 'active': isActive }"
-      class="gobierto-data-btn-download-data-modal"
-    >
-      <a
-        :href="editor ? sqlfileCSV : fileCSV"
-        class="gobierto-data-btn-download-data-modal-element"
-        download="data.csv"
+    <keep-alive>
+      <transition
+        name="fade"
+        mode="out-in"
       >
-        CSV
-      </a>
-      <a
-        :href="editor ? sqlfileJSON : fileJSON"
-        class="gobierto-data-btn-download-data-modal-element"
-        download="data.json"
-      >
-        JSON
-      </a>
-      <a
-        :href="editor ? sqlfileXLSX : fileXLSX"
-        class="gobierto-data-btn-download-data-modal-element"
-        download="data.xlsx"
-      >
-        XLSX
-      </a>
-    </div>
+        <div
+          v-show="!isHidden"
+          class="gobierto-data-btn-download-data-modal"
+        >
+          <a
+            :href="editor ? sqlfileCSV : fileCSV"
+            class="gobierto-data-btn-download-data-modal-element"
+            download="data.csv"
+          >
+            CSV
+          </a>
+          <a
+            :href="editor ? sqlfileJSON : fileJSON"
+            class="gobierto-data-btn-download-data-modal-element"
+            download="data.json"
+          >
+            JSON
+          </a>
+          <a
+            :href="editor ? sqlfileXLSX : fileXLSX"
+            class="gobierto-data-btn-download-data-modal-element"
+            download="data.xlsx"
+          >
+            XLSX
+          </a>
+        </div>
+      </transition>
+    </keep-alive>
   </div>
 </template>
 <script>
@@ -71,7 +78,7 @@ export default {
     return {
       labelDownloadData: "",
       code: '',
-      isActive: false,
+      isHidden: true,
       dataLink: '',
       fileCSV: '',
       fileXLSX: '',

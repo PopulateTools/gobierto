@@ -7,6 +7,7 @@
         v-if="data"
         :items="data"
         :link="link"
+        :slug="slugName"
         :active-tab="activeTabIndex"
         @active-tab="activeTabIndex = $event"
       />
@@ -25,6 +26,12 @@ export default {
     SQLEditorCode,
     SQLEditorHeader,
     SQLEditorTabs
+  },
+  props: {
+    slugName: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {

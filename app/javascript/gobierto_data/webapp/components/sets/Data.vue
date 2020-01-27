@@ -1,6 +1,9 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <SQLEditor id="codemirror" />
+    <SQLEditor
+      id="codemirror"
+      :slug-name="item"
+    />
   </div>
 </template>
 
@@ -10,6 +13,12 @@ export default {
   name: "Data",
   components: {
     SQLEditor
+  },
+  props: {
+    item: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {

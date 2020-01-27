@@ -62,11 +62,18 @@
     </nav>
     <Summary
       v-if="activeTab === 0"
+      :item="slugName"
     />
-    <Data v-else-if="activeTab === 1" />
+    <Data
+      v-else-if="activeTab === 1"
+      :item="slugName"
+    />
     <Queries v-else-if="activeTab === 2" />
     <Visualizations v-else-if="activeTab === 3" />
-    <Downloads v-else-if="activeTab === 4" />
+    <Downloads
+      v-else-if="activeTab === 4"
+      :item="slugName"
+    />
   </div>
 </template>
 <script>
@@ -103,7 +110,8 @@ export default {
       labelDownload: "",
       labelFav: "",
       labelFollow: "",
-      titleDataset: ""
+      titleDataset: "",
+      slugName: ''
     }
   },
   created() {
@@ -116,6 +124,7 @@ export default {
     this.labelFollow = I18n.t("gobierto_data.projects.follow")
 
     this.$root.$on('nameDataset', this.sendTitleDataset)
+    this.$root.$on('sendSlug', this.sendSlug)
   },
   methods: {
     activateTab(index) {
@@ -123,6 +132,9 @@ export default {
     },
     sendTitleDataset(title) {
       this.titleDataset = title
+    },
+    sendSlug(slug) {
+      this.slugName = slug
     }
   }
 

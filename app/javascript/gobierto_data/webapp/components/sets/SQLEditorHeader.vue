@@ -48,6 +48,7 @@
           >
             <Queries
               v-show="!isHidden"
+              :items="arrayQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
             />
@@ -220,7 +221,8 @@ export default {
       url: '',
       urlPath: '',
       showSpinner: false,
-      token: ''
+      token: '',
+      arrayQueries: ''
     }
   },
   created() {
@@ -267,7 +269,24 @@ export default {
       this.runQuery()
     },
     listYourQueries() {
-      this.$root.$emit('listYourQueries')
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/queries'
+      this.url = `${this.urlPath}${this.endPoint}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.items = this.rawData.data
+          this.numberQueries = this.items.length
+          this.numberFavQueries = 0
+          this.totalQueries = this.items.length + this.numberFavQueries
+
+          this.arrayQueries = this.items
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
     },
     showshowStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)

@@ -263,6 +263,8 @@ export default {
       } else {
         this.privateQuery = true
       }
+
+      this.runQuery()
     },
     listYourQueries() {
       this.$root.$emit('listYourQueries')
@@ -413,10 +415,6 @@ export default {
               "type": "gobierto_data-queries",
               "attributes": {
                   "name": this.nameQuery,
-                  "name_translations": {
-                      "en": this.nameQuery,
-                      "es": this.nameQuery
-                  },
                   "privacy_status": this.privacyStatus,
                   "sql": this.codeQuery,
                   "dataset_id": 1

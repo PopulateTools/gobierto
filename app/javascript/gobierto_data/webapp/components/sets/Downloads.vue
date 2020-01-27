@@ -1,11 +1,13 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <DownloadButton
-      :class="[
-        directionLeft ? 'modal-left': 'modal-right'
-      ]"
-      class="arrow-top"
-    />
+    <keep-alive>
+      <DownloadButton
+        :class="[
+          directionLeft ? 'modal-left': 'modal-right'
+        ]"
+        class="arrow-top"
+      />
+    </keep-alive>
     <Resources :items="filesDataset" />
   </div>
 </template>

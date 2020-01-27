@@ -41,11 +41,18 @@
           background="#fff"
           @click.native="isHidden = !isHidden; listYourQueries()"
         />
-        <Queries
-          v-if="!isHidden"
-          :class=" directionLeft ? 'modal-left': 'modal-right'"
-          class="gobierto-data-sql-editor-your-queries-container arrow-top"
-        />
+        <keep-alive>
+          <transition
+            name="fade"
+            mode="out-in"
+          >
+            <Queries
+              v-show="!isHidden"
+              :class=" directionLeft ? 'modal-left': 'modal-right'"
+              class="gobierto-data-sql-editor-your-queries-container arrow-top"
+            />
+          </transition>
+        </keep-alive>
       </div>
       <div
         v-if="saveQueryState"
@@ -104,7 +111,7 @@
       <Button
         v-if="showBtnCancel"
         :text="labelCancel"
-        class="btn-sql-editor"
+        class="btn-sql-editor btn-sql-editor-cancel"
         icon="undefined"
         color="var(--color-base)"
         background="#fff"
@@ -235,7 +242,6 @@ export default {
     this.$root.$on('sendQueryParams', this.queryParams)
 
     this.token = getToken()
-
   },
   methods: {
     queryParams(queryParams) {

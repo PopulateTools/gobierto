@@ -117,12 +117,18 @@ export default {
     this.labelDownload = I18n.t("gobierto_data.projects.download")
     this.labelFav = I18n.t("gobierto_data.projects.fav")
     this.labelFollow = I18n.t("gobierto_data.projects.follow")
+
+    this.$root.$on('nameDataset', this.sendTitleDataset)
   },
   methods: {
     activateTab(index) {
       this.$emit("active-tab", index);
+    },
+    sendTitleDataset(title) {
+      this.titleDataset = title
     }
   }
+
 }
 
 </script>

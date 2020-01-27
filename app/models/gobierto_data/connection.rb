@@ -34,6 +34,23 @@ module GobiertoData
         failed_query(e.message)
       end
 
+      def execute_write_query_from_file_using_stdin(site, query, file_path: nil)
+        return unless file_path.present?
+
+        with_connection(db_config(site), fallback: null_query, connection_key: :write_db_config) do
+          raw_connection = connection.raw_connection
+
+          execution = raw_connection.copy_data(query) do
+            File.open(file_path, "r").each do |line|
+              raw_connection.put_copy_data line
+            end
+          end
+          { result: execution }
+        end
+      rescue ActiveRecord::StatementInvalid => e
+        failed_query(e.message)
+      end
+
       def tables(site)
         with_connection(db_config(site)) do
           connection.tables

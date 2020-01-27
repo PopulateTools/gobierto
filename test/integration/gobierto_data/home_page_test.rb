@@ -21,8 +21,10 @@ module GobiertoData
       with_current_site(site) do
         visit @path
 
-        within("div.container", match: :first) do
+        within("nav.main-nav") do
           assert has_content? "Data"
+        end
+        within("div.container", match: :first) do
           assert has_content? dataset.name
         end
 
@@ -37,8 +39,10 @@ module GobiertoData
       with_current_site(site) do
         visit @path
 
-        within("div.container", match: :first) do
+        within("nav.main-nav") do
           assert has_no_content? "Data"
+        end
+        within("div.container", match: :first) do
           assert has_no_content? dataset.name
         end
 

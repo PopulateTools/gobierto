@@ -50,7 +50,7 @@ export default {
   name: 'SQLEditorCode',
   data() {
     return {
-      code: `SELECT * FROM gp_people LIMIT 50`,
+      code: `SELECT * FROM grupos_interes LIMIT 50`,
       labelGuide: '',
       labelQueryExecuted: '',
       labelRecords: '',

@@ -25,14 +25,22 @@ export class GobiertoDataController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () => import("../webapp/pages/Home.vue");
+      const Sets = () => import("../webapp/pages/Sets.vue");
 
 
       const router = new VueRouter({
         mode: "history",
-        routes: [
-          { path: "/datos", name: "home", component: Home }
+        routes: [{
+            path: "/datos",
+            name: "home", component: Home
+          },
+          {
+            path: "/datos/:id",
+            name: "dataset",
+            component: Sets
+          }
         ]
-      });
+      })
 
       const baseTitle = document.title;
       router.afterEach(to => {

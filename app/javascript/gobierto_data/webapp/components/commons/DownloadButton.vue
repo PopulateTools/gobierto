@@ -7,34 +7,41 @@
       color="var(--color-base)"
       background="#fff"
       class="gobierto-data-btn-download-data"
-      @click.native="showModalButton"
+      @click.native="isHidden = !isHidden"
     />
-    <div
-      :class="{ 'active': isActive }"
-      class="gobierto-data-btn-download-data-modal"
-    >
-      <a
-        :href="editor ? sqlfileCSV : fileCSV"
-        class="gobierto-data-btn-download-data-modal-element"
-        download="data.csv"
+    <keep-alive>
+      <transition
+        name="fade"
+        mode="out-in"
       >
-        CSV
-      </a>
-      <a
-        :href="editor ? sqlfileJSON : fileJSON"
-        class="gobierto-data-btn-download-data-modal-element"
-        download="data.json"
-      >
-        JSON
-      </a>
-      <a
-        :href="editor ? sqlfileXLSX : fileXLSX"
-        class="gobierto-data-btn-download-data-modal-element"
-        download="data.xlsx"
-      >
-        XLSX
-      </a>
-    </div>
+        <div
+          v-show="!isHidden"
+          class="gobierto-data-btn-download-data-modal"
+        >
+          <a
+            :href="editor ? sqlfileCSV : fileCSV"
+            class="gobierto-data-btn-download-data-modal-element"
+            download="data.csv"
+          >
+            CSV
+          </a>
+          <a
+            :href="editor ? sqlfileJSON : fileJSON"
+            class="gobierto-data-btn-download-data-modal-element"
+            download="data.json"
+          >
+            JSON
+          </a>
+          <a
+            :href="editor ? sqlfileXLSX : fileXLSX"
+            class="gobierto-data-btn-download-data-modal-element"
+            download="data.xlsx"
+          >
+            XLSX
+          </a>
+        </div>
+      </transition>
+    </keep-alive>
   </div>
 </template>
 <script>
@@ -63,14 +70,15 @@ export default {
   },
   props: {
     editor: {
-      type: Boolean
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       labelDownloadData: "",
       code: '',
-      isActive: false,
+      isHidden: true,
       dataLink: '',
       fileCSV: '',
       fileXLSX: '',
@@ -83,15 +91,12 @@ export default {
     }
   },
   created() {
+    this.$root.$on('sendSlug', this.changeSlug)
     this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
     this.urlPath = location.origin
-    this.endPoint = '/api/v1/data/datasets/grupost-de-interes'
-    this.endPointSQL = '/api/v1/data/data.csv?sql='
-    this.fileCSV = `${this.urlPath}${this.endPoint}.csv`
-    this.fileJSON = `${this.urlPath}${this.endPoint}`
-    this.fileXLSX = `${this.urlPath}${this.endPoint}.xlsx`
 
+    this.endPointSQL = '/api/v1/data/data.csv?sql='
 
   },
   methods: {
@@ -106,6 +111,12 @@ export default {
       this.sqlfileCSV = `${this.urlPath}${this.endPointSQL}${this.code}&csv_separator=semicolon`
       this.sqlfileXLSX = `${this.urlPath}${this.endPointSQL}${this.code}`
       this.sqlfileJSON = `${this.urlPath}${this.endPointSQL}${this.code}`
+    },
+    changeSlug(slug){
+      this.endPoint = `/api/v1/data/datasets/${slug}`
+      this.fileCSV = `${this.urlPath}${this.endPoint}.csv`
+      this.fileJSON = `${this.urlPath}${this.endPoint}`
+      this.fileXLSX = `${this.urlPath}${this.endPoint}.xlsx`
     }
   }
 }

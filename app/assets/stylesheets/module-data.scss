@@ -38,6 +38,10 @@
 
   &-layout-sidebar {
     height: 100%;
+
+    &.gobierto-data-layout-column {
+      padding-right: 0 !important;
+    }
   }
 
   &-tabs-sidebar {
@@ -102,7 +106,7 @@
     transition: background-color var(--transition);
 
     &:hover {
-      background-color: rgba(var(--color-base-string), 0.2) !important;
+      background-color: rgba(var(--color-base-string), .2) !important;
     }
   }
 
@@ -261,6 +265,9 @@
 
   &-summary-queries-sql-code {
     padding: 1rem;
+    font-family: monospace;
+    font-size: 12px;
+    color: #666;
   }
 
   &-btn-download-data {
@@ -283,6 +290,7 @@
         height: auto;
         width: auto;
         min-width: 200px;
+        display: block;
 
         &::after,
         &::before {
@@ -538,6 +546,12 @@
       }
     }
 
+    .btn-sql-editor-cancel {
+      i {
+        display: none;
+      }
+    }
+
   }
 
   &-sql-editor-toolbar {
@@ -784,14 +798,6 @@
     width: 90%;
   }
 
-  &-summary-queries-sql-code {
-    font-family: monospace;
-    font-size: 12px;
-    color: #666;
-  }
-
-
-
   &-summary-queries-container-icon {
     display: inline-block;
     width: 4%;
@@ -844,6 +850,20 @@
     to {
       opacity: .25;
       transform: scale(.75);
+    }
+  }
+
+  &-sidebar-datasets-links {
+    font-size: 14px;
+    color: #000;
+    cursor: pointer;
+
+    i {
+      color: var(--color-base);
+    }
+
+    &:hover {
+      color: var(--color-base);
     }
   }
 

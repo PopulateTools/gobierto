@@ -1,19 +1,19 @@
 <template>
-  <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
-    <NavDatasets
-      :active-tab="activeTabIndex"
-      @active-tab="activeTabIndex = $event"
-    />
+  <div class="gobierto-data">
+    <LayoutDataset>
+      <DataSets />
+    </LayoutDataset>
   </div>
 </template>
 <script>
-
-import NavDatasets from "./../components/sets/Nav.vue";
+import LayoutDataset from "./../layouts/LayoutDataset.vue";
+import DataSets from "./DataSets.vue";
 
 export default {
   name: "Sets",
   components: {
-    NavDatasets
+    LayoutDataset,
+    DataSets
   },
   data() {
     return {

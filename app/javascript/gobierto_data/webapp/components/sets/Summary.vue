@@ -6,7 +6,6 @@
         directionLeft ? 'modal-left': 'modal-right'
       ]"
       class="arrow-top"
-      :editor="false"
     />
     <Resources :items="filesDataset" />
     <Queries />
@@ -32,6 +31,7 @@ export default {
       isActive: false,
       labelDownloadData: "",
       directionLeft: true,
+      title: '',
       filesDataset: [{
           file: {
             name: 'Actuaciones Bomberos Enero 2019.xls',

@@ -28,11 +28,11 @@
     </div>
     <div class="pure-u-lg-1-4">
       <DownloadButton
+        :editor="true"
         :class="[
           directionLeft ? 'modal-left': 'modal-right'
         ]"
         class="arrow-top"
-        :editor="true"
       />
     </div>
     <SQLEditorTable
@@ -60,9 +60,7 @@ export default {
     },
     items: {
       type: Array,
-      default: () => {
-        return []
-      }
+      default: () => []
     }
   },
   data() {

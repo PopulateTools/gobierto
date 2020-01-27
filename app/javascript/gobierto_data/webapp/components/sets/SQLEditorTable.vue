@@ -51,9 +51,9 @@ export default {
     }
   },
   watch:{
-      items: function(){
-          this.mutableList = JSON.parse(this.items);
-      }
+    items: function(){
+        this.mutableList = JSON.parse(this.items);
+    }
   },
   mounted() {
     this.$root.$on('sendData', this.destroyTable)

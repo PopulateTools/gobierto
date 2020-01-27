@@ -36,7 +36,7 @@ export default {
       meta:[],
       links:[],
       link: '',
-      queryEditor: 'SELECT%20*%20FROM%20grupos_interes%20LIMIT%2050',
+      queryEditor: 'SELECT%20*%20FROM%20gp_people%20LIMIT%2050',
       url: '',
       urlPath: '',
       endPoint: '',

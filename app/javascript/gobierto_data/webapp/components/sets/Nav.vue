@@ -103,10 +103,7 @@ export default {
       labelDownload: "",
       labelFav: "",
       labelFollow: "",
-      titleDataset: "",
-      rawMetaData: null,
-      summaryInfo: [],
-      dateUpdated: ''
+      titleDataset: ""
     }
   },
   created() {

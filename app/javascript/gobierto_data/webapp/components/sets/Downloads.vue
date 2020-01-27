@@ -6,6 +6,7 @@
           directionLeft ? 'modal-left': 'modal-right'
         ]"
         class="arrow-top"
+        :slug-name="item"
       />
     </keep-alive>
     <Resources :items="filesDataset" />
@@ -21,6 +22,12 @@ export default {
   components: {
     Resources,
     DownloadButton
+  },
+  props: {
+    item: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {

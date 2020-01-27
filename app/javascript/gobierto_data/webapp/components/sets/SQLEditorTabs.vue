@@ -34,6 +34,7 @@
             directionLeft ? 'modal-left': 'modal-right'
           ]"
           class="arrow-top"
+          :slug-name="slug"
         />
       </keep-alive>
     </div>
@@ -63,6 +64,10 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    slug: {
+      type: String,
+      required: true
     }
   },
   data() {

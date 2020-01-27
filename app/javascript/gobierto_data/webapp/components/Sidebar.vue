@@ -96,7 +96,7 @@ export default {
       this.$emit("active-tab", index);
     },
     nav(slugDataset) {
-      this.$router.push({ name: "dataset", params: { id: slugDataset } });
+      this.$router.push({ name: "dataset", params: { id: slugDataset, books: this.titleDataset } });
     }
   }
 };

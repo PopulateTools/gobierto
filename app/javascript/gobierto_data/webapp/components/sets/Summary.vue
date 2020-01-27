@@ -7,6 +7,7 @@
           directionLeft ? 'modal-left': 'modal-right'
         ]"
         class="arrow-top"
+        :slug-name="item"
       />
     </keep-alive>
     <Resources :items="filesDataset" />
@@ -28,12 +29,19 @@ export default {
     DownloadButton,
     Info
   },
+  props: {
+    item: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       isActive: false,
       labelDownloadData: "",
       directionLeft: true,
       title: '',
+      slug: '',
       filesDataset: [{
           file: {
             name: 'Actuaciones Bomberos Enero 2019.xls',

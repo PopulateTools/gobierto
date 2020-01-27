@@ -25,7 +25,7 @@
           <a
             :href="editor ? sqlfileCSV : item"
             class="gobierto-data-btn-download-data-modal-element"
-            download="data.csv"
+            :download="titleDataset"
           >
             {{ key }}
           </a>
@@ -85,7 +85,8 @@ export default {
       endPoint: '',
       rawData: null,
       slugDataset: '',
-      links: []
+      links: [],
+      titleDataset: ''
     }
   },
   created() {
@@ -115,6 +116,7 @@ export default {
         .then(response => {
           this.rawData = response.data
           this.links = this.rawData.data.attributes.formats
+          this.titleDataset = this.rawData.data.attributes.name
         })
         .catch(error => {
           console.error(error)

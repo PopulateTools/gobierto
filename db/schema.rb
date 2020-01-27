@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_13_173645) do
+ActiveRecord::Schema.define(version: 2020_01_17_102016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -530,6 +530,7 @@ ActiveRecord::Schema.define(version: 2020_01_13_173645) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "data_updated_at"
     t.index ["site_id"], name: "index_gdata_datasets_on_site_id"
   end
 
@@ -550,6 +551,8 @@ ActiveRecord::Schema.define(version: 2020_01_13_173645) do
     t.integer "privacy_status", default: 0, null: false
     t.string "sql"
     t.jsonb "options"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["dataset_id"], name: "index_gdata_queries_on_dataset_id"
     t.index ["user_id"], name: "index_gdata_queries_on_user_id"
   end
@@ -560,6 +563,8 @@ ActiveRecord::Schema.define(version: 2020_01_13_173645) do
     t.jsonb "name_translations"
     t.integer "privacy_status", default: 0, null: false
     t.jsonb "spec"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["query_id"], name: "index_gdata_visualizations_on_query_id"
     t.index ["user_id"], name: "index_gdata_visualizations_on_user_id"
   end

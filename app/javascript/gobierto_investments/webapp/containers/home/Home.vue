@@ -117,8 +117,12 @@ import Article from "./Article.vue";
 import axios from "axios";
 
 import { BlockHeader, Calendar, Loading, Checkbox, RangeBars } from "lib/vue-components";
+import { Middleware } from "lib/shared";
 import { CommonsMixin, baseUrl } from "../../mixins/common.js";
 import { store } from "../../mixins/store";
+
+// TODO: This configuration should come from API request, not from file
+import CONFIGURATION from "../../conf/mataro.conf.js";
 
 export default {
   name: "Home",
@@ -138,7 +142,6 @@ export default {
     return {
       items: store.state.items || [],
       subsetItems: [],
-      dictionary: [],
       filters: store.state.filters || [],
       phases: store.state.phases || [],
       activeTabIndex: store.state.currentTab || 0,
@@ -157,7 +160,7 @@ export default {
     this.labelLoading = I18n.t("gobierto_investments.projects.loading");
 
     if (this.items.length) {
-      this.updateDOM()
+      this.updateDOM();
     } else {
       this.isFetchingData = true;
 
@@ -170,13 +173,13 @@ export default {
       this.defaultFilters = this.clone(filters);
       this.filters = filters;
 
-      this.updateDOM()
+      this.updateDOM();
     }
   },
   methods: {
     setActiveTab(value) {
-      this.activeTabIndex = value
-      store.addCurrentTab(value)
+      this.activeTabIndex = value;
+      store.addCurrentTab(value);
     },
     async getItems() {
       const [
@@ -194,7 +197,12 @@ export default {
         axios.get(`${baseUrl}/meta?stats=true`)
       ]);
 
-      this.dictionary = attributesDictionary;
+      const { availableFilters } = CONFIGURATION
+      // Middleware receives both the dictionary of all possible attributes, and the selected filters for the site
+      this.middleware = new Middleware({
+        dictionary: attributesDictionary,
+        filters: availableFilters
+      });
 
       let items = this.setData(__items__);
       let phases = [];
@@ -216,13 +224,15 @@ export default {
         // Add dictionary of phases in order to fulfill project page
         items = items.map(item => ({ ...item, phasesDictionary: __phases__ }));
 
-        filters = this.getFilters(filtersFromConfiguration) || [];
+        filters = this.middleware.getFilters(filtersFromConfiguration) || [];
 
         if (filters.length) {
           this.activeFilters = new Map();
 
           // initialize active filters
-          filters.forEach(filter => this.activeFilters.set(filter.key, undefined));
+          filters.forEach(filter =>
+            this.activeFilters.set(filter.key, undefined)
+          );
 
           // save the filters
           store.addFilters(filters);
@@ -250,14 +260,15 @@ export default {
     },
     filterItems(filter, key) {
       this.activeFilters.set(key, filter);
-      this.updateDOM()
+      this.updateDOM();
       // save the selected filters
       store.addActiveFilters(this.activeFilters);
     },
     updateDOM() {
       this.subsetItems = this.applyFiltersCallbacks(this.activeFilters);
-      this.filters.forEach(filter => this.calculateOptionCounters(filter))
-      this.isFiltering = [...this.activeFilters.values()].filter(Boolean).length > 0;
+      this.filters.forEach(filter => this.calculateOptionCounters(filter));
+      this.isFiltering =
+        [...this.activeFilters.values()].filter(Boolean).length > 0;
     },
     applyFiltersCallbacks(activeFilters) {
       let results = this.items;
@@ -270,9 +281,13 @@ export default {
       return results;
     },
     cleanFilters() {
-      this.filters.splice(0, this.filters.length, ...this.clone(this.defaultFilters));
+      this.filters.splice(
+        0,
+        this.filters.length,
+        ...this.clone(this.defaultFilters)
+      );
       this.activeFilters.clear();
-      this.updateDOM()
+      this.updateDOM();
     },
     handleIsEverythingChecked({ filter }) {
       filter.isEverythingChecked = !filter.isEverythingChecked;
@@ -355,24 +370,29 @@ export default {
       this.filterItems(callback, key);
     },
     clone(data) {
-      return JSON.parse(JSON.stringify(data))
+      return JSON.parse(JSON.stringify(data));
     },
     calculateOptionCounters(filter) {
       const counter = ({ key, id }) => {
         // Clone current filters
-        const __activeFilters__ = new Map(this.activeFilters)
+        const __activeFilters__ = new Map(this.activeFilters);
         // Ignore same key callbacks (as if none of the same category are selected)
-        __activeFilters__.set(key, undefined)
+        __activeFilters__.set(key, undefined);
         // Get the items based on these new active filters
-        const __items__ = this.applyFiltersCallbacks(__activeFilters__)
+        const __items__ = this.applyFiltersCallbacks(__activeFilters__);
 
-        return __items__.filter(({ attributes }) => attributes[key].map(g => g.id).includes(id)).length
-      }
-      const { key, options = [] } = filter
+        return __items__.filter(({ attributes }) =>
+          attributes[key].map(g => g.id).includes(id)
+        ).length;
+      };
+      const { key, options = [] } = filter;
       if (options.length) {
-        filter.options = options.map(o => ({ ...o, counter: counter({ id: o.id, key }) }))
-        const index = this.filters.findIndex(d => d.key === key)
-        this.filters.splice(index, 1, filter)
+        filter.options = options.map(o => ({
+          ...o,
+          counter: counter({ id: o.id, key })
+        }));
+        const index = this.filters.findIndex(d => d.key === key);
+        this.filters.splice(index, 1, filter);
       }
     }
   }

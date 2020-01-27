@@ -24,8 +24,8 @@
         >
           <a
             :href="editor ? sqlfileCSV : item"
-            class="gobierto-data-btn-download-data-modal-element"
             :download="titleDataset"
+            class="gobierto-data-btn-download-data-modal-element"
           >
             {{ key }}
           </a>

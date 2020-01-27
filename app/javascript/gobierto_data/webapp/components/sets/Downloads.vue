@@ -5,8 +5,8 @@
         :class="[
           directionLeft ? 'modal-left': 'modal-right'
         ]"
-        class="arrow-top"
         :slug-name="item"
+        class="arrow-top"
       />
     </keep-alive>
     <Resources :items="filesDataset" />

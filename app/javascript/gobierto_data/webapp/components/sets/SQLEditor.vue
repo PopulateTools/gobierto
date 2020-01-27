@@ -30,20 +30,25 @@ export default {
     return {
       activeTabIndex: 0,
       rawData: [],
+      rawDataSlug: [],
       columns: [],
       data: null,
       keysData: [],
       meta:[],
       links:[],
       link: '',
-      queryEditor: 'SELECT%20*%20FROM%20grupos_interes%20LIMIT%2050',
+      queryEditor: '',
       url: '',
-      urlPath: '',
+      urlPath: location.origin,
       endPoint: '',
       recentQueries: [],
       newRecentQuery: null,
-      nameDataset: ''
+      nameDataset: '',
+      tableName: ''
     }
+  },
+  created(){
+    this.$root.$on('sendTable', this.tableName)
   },
   mounted() {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
@@ -55,7 +60,7 @@ export default {
         localStorage.removeItem('recentQueries');
       }
     }
-    this.getData()
+    this.getSlug()
   },
   methods: {
     addRecentQuery() {
@@ -76,8 +81,24 @@ export default {
       localStorage.setItem('recentQueries', parsed);
       this.$root.$emit('storeQuery', this.recentQueries)
     },
+    getSlug() {
+      this.endPointSlug = '/api/v1/data/datasets';
+      this.urlSlug = `${this.urlPath}${this.endPointSlug}`
+      axios
+        .get(this.urlSlug)
+        .then(response => {
+          this.rawDataSlug = response.data
+          this.tableName = this.rawDataSlug.data[0].attributes.table_name
+          this.$root.$emit('sendTableName', this.tableName)
+          this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20LIMIT%2050`
+          this.getData()
+
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    },
     getData() {
-      this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';
       this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
 

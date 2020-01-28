@@ -226,6 +226,37 @@ module GobiertoData
           end
         end
 
+        # GET /api/v1/data/queries.json?user_id=1
+        def test_index_filtered_by_user_with_different_user_token
+          with(site: site) do
+            get gobierto_data_api_v1_queries_path(filter: { user_id: other_user.id }), headers: { Authorization: user_token.token }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            assert_empty(response_data["data"])
+          end
+        end
+
+        # GET /api/v1/data/queries.json?user_id=1
+        def test_index_filtered_by_user_with_same_user_token
+          with(site: site) do
+            get gobierto_data_api_v1_queries_path(filter: { user_id: other_user.id }), headers: { Authorization: other_user_token.token }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            queries_names = response_data["data"].map { |item| item.dig("attributes", "name") }
+            assert_includes queries_names, closed_query.name
+            refute_includes queries_names, user_query.name
+            refute_includes queries_names, other_dataset_query.name
+          end
+        end
+
         # GET /api/v1/data/queries.json?user_id=1&dataset_id=1
         def test_index_filtered_by_user_and_dataset
           with(site: site) do

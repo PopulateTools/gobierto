@@ -123,8 +123,8 @@ export default {
           this.meta = this.rawData.meta
           this.data = this.rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
+          /*this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          this.$root.$emit('recordsDuration', this.queryDurationRecors)*/
 
           this.keysData = Object.keys(this.data[0])
           this.$root.$emit('sendData', this.keysData)

@@ -130,7 +130,21 @@ export default {
         })
         .catch(error => {
           console.error(error)
-
+        })
+    },
+    getMeta() {
+      this.urlPath = location.origin
+      this.endPoint = `/api/v1/data/datasets/${this.slugDataset}/meta`
+      this.url = `${this.urlPath}${this.endPoint}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
+          this.nav(this.slugDataset)
+        })
+        .catch(error => {
+          console.error(error)
         })
     },
     getQueries() {

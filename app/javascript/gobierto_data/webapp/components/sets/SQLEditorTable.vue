@@ -29,9 +29,17 @@
         </tr>
       </tbody>
     </table>
+    <button
+      v-show="showTotalRows"
+      class="gobierto-data-btn-blue btn-sql-editor btn-sql-show-all"
+      @click="queryTotal()"
+    >
+      Mostrar todas las filas
+    </button>
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   name: 'SQLEditorTable',
   props: {
@@ -45,7 +53,8 @@ export default {
   data() {
     return {
       keysData: [],
-      mutableList: this.items
+      mutableList: this.items,
+      showTotalRows: false
     }
   },
   watch:{
@@ -56,11 +65,16 @@ export default {
   mounted() {
     this.$root.$on('sendData', this.destroyTable)
     this.keysData = Object.keys(this.mutableList[0])
+    this.showAllRows()
+    this.$root.$on('sendCompleteQuery', this.updateQuery)
   },
   created() {
     this.labelSave = I18n.t('gobierto_data.projects.save');
   },
   methods: {
+    updateQuery(code) {
+      this.queryEditor = code
+    },
     destroyTable(keys, data) {
       this.keysData = []
       this.data = []
@@ -71,6 +85,41 @@ export default {
     showTable(keys, data) {
       this.keysData = keys
       this.mutableList = data
+    },
+    showAllRows() {
+      if (this.$route.params.rowsDataset > 100) {
+        this.showTotalRows = true
+      }
+    },
+    queryTotal() {
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/data';
+      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+
+      axios
+        .get(this.url)
+        .then(response => {
+          this.data = []
+          this.keysData = []
+          this.rawData = response.data
+          this.meta = this.rawData.meta
+          this.data = this.rawData.data
+
+          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+
+          this.keysData = Object.keys(this.data[0])
+
+          this.$root.$emit('recordsDuration', this.queryDurationRecors)
+          this.$root.$emit('sendData', this.keysData, this.data)
+          this.$root.$emit('showMessages', true)
+
+        })
+        .catch(error => {
+          this.$root.$emit('apiError', error)
+          this.data = []
+          this.keysData = []
+          this.$root.$emit('sendData', this.keysData)
+        })
     }
   }
 }

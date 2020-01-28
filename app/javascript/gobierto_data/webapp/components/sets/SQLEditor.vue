@@ -107,7 +107,7 @@ export default {
         .get(this.urlSlug)
         .then(response => {
           this.rawDataSlug = response.data
-          this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
+          this.queryEditor = `SELECT%20*%20FROM%20(SELECT%20*%20FROM%20${this.tableName})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
           this.getData()
 
         })
@@ -126,8 +126,8 @@ export default {
           this.meta = this.rawData.meta
           this.data = this.rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
+          /*this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          this.$root.$emit('recordsDuration', this.queryDurationRecors)*/
 
           this.keysData = Object.keys(this.data[0])
           this.$root.$emit('sendData', this.keysData)

@@ -98,6 +98,7 @@ export default {
     this.$root.$on('sendQueryCode', this.queryCode)
 
     this.tableName = this.$route.params.tableName
+    this.numberRecords = this.$route.params.rowsDataset
 
     this.$root.$on('sendYourCode', this.queryCode);
 

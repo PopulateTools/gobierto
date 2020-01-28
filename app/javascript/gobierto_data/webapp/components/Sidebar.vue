@@ -102,7 +102,8 @@ export default {
           id: slugDataset,
           numberId: this.numberId,
           titleDataset: this.titleDataset,
-          tableName: this.tableName
+          tableName: this.tableName,
+          rowsDataset: this.numberRows
         }
     })
     },
@@ -126,16 +127,26 @@ export default {
           this.slugDataset = this.rawData.data[index].attributes.slug
           this.tableName = this.rawData.data[index].attributes.table_name
 
-          this.$root.$emit('nameDataset', this.titleDataset)
-          this.$root.$emit('sendTableName', this.tableName)
-          this.$root.$emit('sendSlug', this.slugDataset)
-          this.$root.$emit('sendIdDataset', this.idDataset)
-          this.nav(this.slugDataset)
+          this.getMeta()
 
         })
         .catch(error => {
           console.error(error)
-
+        })
+    },
+    getMeta() {
+      this.urlPath = location.origin
+      this.endPoint = `/api/v1/data/datasets/${this.slugDataset}/meta`
+      this.url = `${this.urlPath}${this.endPoint}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
+          this.nav(this.slugDataset)
+        })
+        .catch(error => {
+          console.error(error)
         })
     }
   }

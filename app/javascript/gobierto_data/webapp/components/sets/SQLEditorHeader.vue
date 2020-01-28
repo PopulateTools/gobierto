@@ -259,9 +259,16 @@ export default {
       this.runQuery()
     },
     queryParams(queryParams) {
-      this.disabledRecents = false;
-      this.disabledSave = false;
-      this.disabledRunQuery = false;
+      this.showSaveQueries = true
+      this.showBtnCancel = true;
+      this.showBtnEdit = false;
+      this.showBtnSave = true;
+      this.showBtnRemove = false;
+      this.showLabelPrivate = true;
+      this.removeLabelBtn = true;
+      this.showLabelModified = false;
+      this.disableInputName = false;
+      this.saveQueryState = true
 
       this.labelQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]
@@ -273,7 +280,6 @@ export default {
         this.privateQuery = true
       }
 
-      this.runQuery()
     },
     showshowStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)
@@ -351,6 +357,15 @@ export default {
     runQuery() {
       this.showSpinner = true;
       this.queryEditor = encodeURI(this.codeQuery)
+
+      if (this.queryEditor.includes('LIMIT')) {
+        this.queryEditor = this.queryEditor
+      } else {
+        this.$root.$emit('sendCompleteQuery', this.queryEditor)
+        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
+        this.queryEditor = this.code
+      }
+
       this.$root.$emit('postRecentQuery', this.codeQuery)
       this.$root.$emit('showMessages', false)
 

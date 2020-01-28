@@ -25,14 +25,14 @@ export default {
       titleDataset: '',
       arrayQueries: [],
       numberId: '',
-      datasetId: 0
+      datasetId: 0,
+      slugDataset: ''
     }
   },
   created() {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
     this.numberId = this.$route.params.numberId
-
     this.userId = getUserId()
   },
   methods: {
@@ -63,8 +63,8 @@ export default {
         .then(response => {
           this.rawData = response.data
           this.titleDataset = this.rawData.data[0].attributes.name
+          this.slugDataset = this.rawData.data[0].attributes.slug
           this.getQueries()
-
         })
         .catch(error => {
           console.error(error)

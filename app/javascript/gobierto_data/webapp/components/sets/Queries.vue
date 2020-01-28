@@ -1,11 +1,10 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
     <QueriesCode
-      :array-queries="items"
+      :array-queries="arrayQueries"
     />
   </div>
 </template>
-
 <script>
 
 import QueriesCode from "./../commons/Queries.vue";
@@ -16,13 +15,10 @@ export default {
     QueriesCode
   },
   props: {
-    items: {
+    arrayQueries: {
       type: Array,
       required: true
     }
-  },
-  created(){
-    console.log(this.items)
   }
 }
 </script>

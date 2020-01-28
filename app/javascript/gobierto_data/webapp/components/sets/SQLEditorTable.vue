@@ -1,8 +1,6 @@
 <template>
   <div class="gobierto-data-sql-editor-table-container">
-    <table
-      class="gobierto-data-sql-editor-table"
-    >
+    <table class="gobierto-data-sql-editor-table">
       <thead>
         <tr>
           <th

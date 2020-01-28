@@ -42,6 +42,30 @@ export class GobiertoDataController {
         ]
       })
 
+      const baseTitle = document.title;
+
+      router.afterEach(to => {
+        // Wait 2 ticks
+        Vue.nextTick(() =>
+          Vue.nextTick(() => {
+            let title = baseTitle;
+            if (to.name === "dataset") {
+              const { id: projectTitle } = to.params;
+
+              if (projectTitle) {
+                const titleI18n = projectTitle
+                  ? `${projectTitle} · `
+                  : "";
+
+                title = `${titleI18n}${baseTitle}`;
+              }
+            }
+
+            document.title = title;
+          })
+        );
+      })
+
       new Vue({
         router,
         data: options,

@@ -86,5 +86,5 @@ export default {
       this.$emit("active-tab", index);
     }
   }
-};
+}
 </script>

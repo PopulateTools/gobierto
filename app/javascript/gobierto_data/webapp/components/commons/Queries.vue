@@ -5,17 +5,17 @@
         <div class="gobierto-data-summary-queries-element">
           <h3
             class="gobierto-data-summary-queries-panel-title"
-            @click="toggle()"
+            @click="showYourQueries = !showYourQueries"
           >
             <i
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
-            {{ labelYourQueries }} ({{ numberQueries }})
+            {{ labelYourQueries }} ({{ arrayQueries.length }})
           </h3>
           <div
             v-for="(item, index) in arrayQueries"
-            v-show="showSection"
+            v-show="showYourQueries"
             :key="index"
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
@@ -62,7 +62,7 @@
         <div class="gobierto-data-summary-queries-element">
           <h3
             class="gobierto-data-summary-queries-panel-title"
-            @click="toggle"
+            @click="showYourFavQueries = !showYourFavQueries"
           >
             <i
               class="fas fa-caret-down"
@@ -74,21 +74,22 @@
         <div class="gobierto-data-summary-queries-element">
           <h3
             class="gobierto-data-summary-queries-panel-title"
-            @click="toggle"
+            @click="showYourTotalQueries = !showYourTotalQueries"
           >
             <i
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
-            {{ labelAll }} ({{ totalQueries }})
+            {{ labelAll }} ({{ arrayQueries.length + numberFavQueries }})
           </h3>
           <div
             v-for="(item, index) in arrayQueries"
-            v-show="showSection"
+            v-show="showYourTotalQueries"
             :key="index"
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
+            @click="sendQuery(item)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
 
@@ -136,13 +137,15 @@ export default {
       labelYourQueries: '',
       labelFavs: '',
       labelAll: '',
-      items: null,
       hideCode: true,
       sqlCode: '',
-      numberQueries: '',
-      numberFavQueries: '',
-      totalQueries: '',
-      showSection: true
+      numberQueries: this.arrayQueries.length,
+      numberFavQueries: 0,
+      totalQueries: this.arrayQueries.length + this.numberFavQueries,
+      showSection: true,
+      showYourQueries: true,
+      showYourFavQueries: false,
+      showYourTotalQueries: false
     }
   },
   created() {
@@ -150,23 +153,25 @@ export default {
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelFavs = I18n.t("gobierto_data.projects.favs")
     this.labelAll = I18n.t("gobierto_data.projects.all")
-    console.log(this.arrayQueries)
   },
   methods: {
     showCode(index) {
       this.hideCode = false
-      this.sqlCode = this.items[index].attributes.sql
+      this.sqlCode = this.arrayQueries[index].attributes.sql
     },
     sendQuery(item) {
-      this.queryParams = [item.attributes.name, item.attributes.privacy_status ]
+      this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql ]
       this.queryCode = item.attributes.sql
       this.$root.$emit('sendQueryParams', this.queryParams)
       this.$root.$emit('sendQueryCode', this.queryCode)
     },
     toggle() {
       this.showSection = !this.showSection
-    }
+    },
+   /* changeTab(value) {
+      const sqlCode = value.attributes.sql
+      this.$root.$emit('changeNavTab', sqlCode)
+    }*/
   }
 }
-
 </script>

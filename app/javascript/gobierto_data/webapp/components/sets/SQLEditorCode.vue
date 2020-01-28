@@ -57,7 +57,7 @@ export default {
       numberRecords: '',
       timeQuery: '',
       stringError: '',
-      showMessages: false,
+      showMessages: true,
       showApiError: false,
       cmOption: {
         tabSize: 2,
@@ -97,6 +97,8 @@ export default {
     this.$root.$on('sendQueryCode', this.queryCode)
 
     this.$root.$on('sendTableName', this.tableName)
+
+    this.$root.$on('sendYourCode', this.queryCode);
   },
   mounted() {
     this.cm = this.$refs.myCm.codemirror;
@@ -172,8 +174,8 @@ export default {
       this.stringError = message
     },
     tableName(table) {
-      this.code = `SELECT * FROM ${table} LIMIT 50`
+      this.code = `SELECT * FROM ${table}`
     }
   }
-};
+}
 </script>

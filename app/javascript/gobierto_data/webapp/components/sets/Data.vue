@@ -3,6 +3,8 @@
     <SQLEditor
       id="codemirror"
       :slug-name="item"
+      :array-queries="arrayQueries"
+      :dataset-id="datasetId"
     />
   </div>
 </template>
@@ -18,11 +20,14 @@ export default {
     item: {
       type: String,
       required: true
-    }
-  },
-  data() {
-    return {
-
+    },
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
+    datasetId: {
+      type: Number,
+      required: true
     }
   }
 }

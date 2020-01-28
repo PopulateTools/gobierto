@@ -63,12 +63,18 @@
     <Summary
       v-if="activeTab === 0"
       :item="slugName"
+      :array-queries="arrayQueries"
     />
     <Data
       v-else-if="activeTab === 1"
       :item="slugName"
+      :array-queries="arrayQueries"
+      :dataset-id="datasetId"
     />
-    <Queries v-else-if="activeTab === 2" />
+    <Queries
+      v-else-if="activeTab === 2"
+      :array-queries="arrayQueries"
+    />
     <Visualizations v-else-if="activeTab === 3" />
     <Downloads
       v-else-if="activeTab === 4"
@@ -99,6 +105,14 @@ export default {
     activeTab: {
       type: Number,
       default: 0
+    },
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
+    datasetId: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -125,8 +139,14 @@ export default {
 
     this.$root.$on('nameDataset', this.sendTitleDataset)
     this.$root.$on('sendSlug', this.sendSlug)
+    this.$root.$on('changeNavTab', this.changeTab)
   },
   methods: {
+    changeTab() {
+      this.activateTab(1)
+      /*this.$root.$emit('sendYourQuery', sqlCode)
+      this.$root.$emit('sendYourCode', sqlCode)*/
+    },
     activateTab(index) {
       this.$emit("active-tab", index);
     },
@@ -137,7 +157,6 @@ export default {
       this.slugName = slug
     }
   }
-
 }
 
 </script>

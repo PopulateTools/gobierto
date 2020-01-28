@@ -107,7 +107,7 @@ export default {
         .get(this.urlSlug)
         .then(response => {
           this.rawDataSlug = response.data
-          this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
+          this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20LIMIT%20100%20OFFSET%200`
           this.getData()
 
         })

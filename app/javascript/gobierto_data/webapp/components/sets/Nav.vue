@@ -69,7 +69,6 @@
       v-else-if="activeTab === 1"
       :item="slugName"
       :array-queries="arrayQueries"
-      :dataset-id="datasetId"
     />
     <Queries
       v-else-if="activeTab === 2"
@@ -109,10 +108,6 @@ export default {
     arrayQueries: {
       type: Array,
       required: true
-    },
-    datasetId: {
-      type: Number,
-      required: true
     }
   },
   data() {
@@ -137,9 +132,10 @@ export default {
     this.labelFav = I18n.t("gobierto_data.projects.fav")
     this.labelFollow = I18n.t("gobierto_data.projects.follow")
 
-    this.$root.$on('nameDataset', this.sendTitleDataset)
-    this.$root.$on('sendSlug', this.sendSlug)
     this.$root.$on('changeNavTab', this.changeTab)
+
+    this.titleDataset = this.$route.params.titleDataset
+    this.slugName = this.$route.params.id
   },
   methods: {
     changeTab() {
@@ -149,12 +145,6 @@ export default {
     },
     activateTab(index) {
       this.$emit("active-tab", index);
-    },
-    sendTitleDataset(title) {
-      this.titleDataset = title
-    },
-    sendSlug(slug) {
-      this.slugName = slug
     }
   }
 }

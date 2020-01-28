@@ -106,6 +106,29 @@ module GobiertoData
           )
         end
 
+        def send_download(content, format, base_filename)
+          case format
+          when :json
+            send_data(
+              ActiveModelSerializers::SerializableResource.new(
+                content
+              ).to_json,
+              filename: "#{base_filename}.json"
+            )
+          when :csv
+            headers["Content-Disposition"] = "attachment"
+            render(
+              csv: content,
+              filename: base_filename
+            )
+          when :xlsx
+            send_data(
+              content,
+              filename: "#{base_filename}.xlsx"
+            )
+          end
+        end
+
         def render_csv(content)
           headers["Content-Disposition"] = "inline"
           headers["Content-Type"] = "text/plain; charset=utf-8"

@@ -357,7 +357,6 @@ export default {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';
       this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
-
       axios
         .get(this.url)
         .then(response => {

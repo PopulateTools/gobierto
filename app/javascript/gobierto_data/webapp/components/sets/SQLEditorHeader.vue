@@ -39,7 +39,7 @@
           icon="list"
           color="var(--color-base)"
           background="#fff"
-          @click.native="isHidden = !isHidden; listYourQueries()"
+          @click.native="isHidden = !isHidden"
         />
         <keep-alive>
           <transition
@@ -48,6 +48,7 @@
           >
             <Queries
               v-show="!isHidden"
+              :array-queries="arrayQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
             />
@@ -180,6 +181,16 @@ export default {
       stopProp(event) { event.stopPropagation() }
     }
   },
+  props: {
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
+    datasetId: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       showStoreQueries: [],
@@ -235,28 +246,30 @@ export default {
     this.labelModifiedQuery = I18n.t('gobierto_data.projects.modifiedQuery');
     this.labelGuide = I18n.t('gobierto_data.projects.guide');
 
+    this.$root.$on('sendQueryCode', this.updateQuery)
     this.$root.$on('activeSave', this.activeSave);
     this.$root.$on('sendCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
     this.$root.$on('storeQuery', this.showshowStoreQueries)
     this.$root.$on('sendQueryParams', this.queryParams)
+    this.$root.$on('sendYourQuery', this.runYourQuery)
+
 
     this.token = getToken()
   },
   methods: {
+    runYourQuery(code) {
+      this.queryEditor = code
+      this.runQuery()
+    },
     queryParams(queryParams) {
-      this.showBtnCancel = false;
-      this.showBtnEdit = true;
-      this.showBtnSave = false;
-      this.showBtnRemove = false;
-      this.showLabelPrivate = false;
-      this.removeLabelBtn = true;
-      this.showLabelModified = false;
-      this.disableInputName = true;
-      this.saveQueryState = true;
+      this.disabledRecents = false;
+      this.disabledSave = false;
+      this.disabledRunQuery = false;
 
       this.labelQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]
+      this.codeQuery = queryParams[2]
 
       if (this.privacyStatus === 'open') {
         this.privateQuery = false
@@ -265,9 +278,6 @@ export default {
       }
 
       this.runQuery()
-    },
-    listYourQueries() {
-      this.$root.$emit('listYourQueries')
     },
     showshowStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)
@@ -403,13 +413,10 @@ export default {
       });
     },
     postQuery() {
-
-
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/queries'
       this.url = `${this.urlPath}${this.endPoint}`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
-
       let data = {
           "data": {
               "type": "gobierto_data-queries",
@@ -417,7 +424,7 @@ export default {
                   "name": this.nameQuery,
                   "privacy_status": this.privacyStatus,
                   "sql": this.codeQuery,
-                  "dataset_id": 1
+                  "dataset_id": this.datasetId
               }
           }
       }
@@ -428,6 +435,7 @@ export default {
         }
       }).then(response => {
           this.resp = response;
+          this.$root.$emit('reloadQueries')
       })
       .catch(error => {
         const messageError = error.response
@@ -439,5 +447,5 @@ export default {
       this.runQuery()
     }
   }
-};
+}
 </script>

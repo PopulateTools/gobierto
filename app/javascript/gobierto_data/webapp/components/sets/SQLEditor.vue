@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="gobierto-data-sql-editor">
-      <SQLEditorHeader />
+      <SQLEditorHeader
+        :array-queries="arrayQueries"
+        :dataset-id="datasetId"
+      />
       <SQLEditorCode />
       <SQLEditorTabs
         v-if="data"
@@ -31,6 +34,14 @@ export default {
     slugName: {
       type: String,
       required: true
+    },
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
+    datasetId: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -56,6 +67,7 @@ export default {
   },
   created(){
     this.$root.$on('sendTable', this.tableName)
+    this.$root.$on('sendYourCode', this.runYourQuery)
   },
   mounted() {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
@@ -70,6 +82,11 @@ export default {
     this.getSlug()
   },
   methods: {
+    runYourQuery(sqlCode){
+      this.queryDefault = false
+      this.getSlug()
+      this.queryEditor = sqlCode
+    },
     addRecentQuery() {
       if (!this.newRecentQuery) {
         return;
@@ -97,7 +114,7 @@ export default {
           this.rawDataSlug = response.data
           this.tableName = this.rawDataSlug.data[0].attributes.table_name
           this.$root.$emit('sendTableName', this.tableName)
-          this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20LIMIT%2050`
+          this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
           this.getData()
 
         })
@@ -116,8 +133,10 @@ export default {
           this.meta = this.rawData.meta
           this.data = this.rawData.data
 
-          this.keysData = Object.keys(this.data[0])
+          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          this.$root.$emit('recordsDuration', this.queryDurationRecors)
 
+          this.keysData = Object.keys(this.data[0])
           this.$root.$emit('sendData', this.keysData)
 
         })

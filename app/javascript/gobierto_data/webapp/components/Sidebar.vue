@@ -27,15 +27,19 @@
       </ul>
     </nav>
     <div
-      v-if="activeTab === 1 || activeTab === 4"
+      v-if="activeTab === 1 || activeTab === 4 && allDatasets"
     >
-      <span
+      <div
+        v-for="(item, index) in allDatasets"
+        :key="index"
+        :item="item"
         class="gobierto-data-sidebar-datasets-links"
-        @click.prevent="nav(slugDataset)"
       >
         <i class="fas fa-caret-down" />
-        {{ titleDataset }}
-      </span>
+        <span
+          @click="nav(slugDataset)"
+        >{{ allDatasets[0].attributes.name }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -59,7 +63,8 @@ export default {
       labelCategories: "",
       titleDataset: '',
       slugDataset: '',
-      tableName: ''
+      tableName: '',
+      allDatasets: null
     }
   },
   created() {
@@ -76,6 +81,9 @@ export default {
       .then(response => {
         this.rawData = response.data
 
+        this.allDatasets = this.rawData.data
+        this.idDataset = this.rawData.data[0].id
+
         this.titleDataset = this.rawData.data[0].attributes.name
         this.slugDataset = this.rawData.data[0].attributes.slug
         this.tableName = this.rawData.data[0].attributes.table_name
@@ -83,11 +91,11 @@ export default {
         this.$root.$emit('nameDataset', this.titleDataset)
         this.$root.$emit('sendTableName', this.tableName)
         this.$root.$emit('sendSlug', this.slugDataset)
+        this.$root.$emit('sendIdDataset', this.idDataset)
 
       })
       .catch(error => {
         console.error(error)
-
       })
 
   },
@@ -96,7 +104,7 @@ export default {
       this.$emit("active-tab", index);
     },
     nav(slugDataset) {
-      this.$router.push({ name: "dataset", params: { id: slugDataset, books: this.titleDataset } });
+      this.$router.push({ name: "dataset", params: { id: slugDataset } });
     }
   }
 };

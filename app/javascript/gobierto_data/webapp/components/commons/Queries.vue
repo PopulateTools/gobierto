@@ -1,25 +1,21 @@
 <template>
   <div class="gobierto-data-summary-queries">
-    <!-- <h2 class="gobierto-data-tabs-section-title">
-      <i class="fas fa-caret-down" />
-      {{ labelQueries }}
-    </h2> -->
     <div class="gobierto-data-summary-queries-panel pure-g">
       <div class="pure-u-1-2">
         <div class="gobierto-data-summary-queries-element">
           <h3
             class="gobierto-data-summary-queries-panel-title"
-            @click="toggle()"
+            @click="showYourQueries = !showYourQueries"
           >
             <i
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
-            {{ labelYourQueries }} ({{ numberQueries }})
+            {{ labelYourQueries }} ({{ arrayQueries.length }})
           </h3>
           <div
-            v-for="(item, index) in items"
-            v-show="showSection"
+            v-for="(item, index) in arrayQueries"
+            v-show="showYourQueries"
             :key="index"
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
@@ -66,7 +62,7 @@
         <div class="gobierto-data-summary-queries-element">
           <h3
             class="gobierto-data-summary-queries-panel-title"
-            @click="toggle"
+            @click="showYourFavQueries = !showYourFavQueries"
           >
             <i
               class="fas fa-caret-down"
@@ -78,21 +74,22 @@
         <div class="gobierto-data-summary-queries-element">
           <h3
             class="gobierto-data-summary-queries-panel-title"
-            @click="toggle"
+            @click="showYourTotalQueries = !showYourTotalQueries"
           >
             <i
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
-            {{ labelAll }} ({{ totalQueries }})
+            {{ labelAll }} ({{ arrayQueries.length + numberFavQueries }})
           </h3>
           <div
-            v-for="(item, index) in items"
-            v-show="showSection"
+            v-for="(item, index) in arrayQueries"
+            v-show="showYourTotalQueries"
             :key="index"
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
+            @click="sendQuery(item)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
 
@@ -126,22 +123,29 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 export default {
   name: "Queries",
+  props: {
+    arrayQueries: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       labelQueries: '',
       labelYourQueries: '',
       labelFavs: '',
       labelAll: '',
-      items: null,
       hideCode: true,
       sqlCode: '',
-      numberQueries: '',
-      numberFavQueries: '',
-      totalQueries: '',
-      showSection: true
+      numberQueries: this.arrayQueries.length,
+      numberFavQueries: 0,
+      totalQueries: this.arrayQueries.length + this.numberFavQueries,
+      showSection: true,
+      showYourQueries: true,
+      showYourFavQueries: false,
+      showYourTotalQueries: false
     }
   },
   created() {
@@ -149,46 +153,25 @@ export default {
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelFavs = I18n.t("gobierto_data.projects.favs")
     this.labelAll = I18n.t("gobierto_data.projects.all")
-
-    this.$root.$on('listYourQueries', this.listYourQueries)
-
-  },
-  mounted() {
-    this.listYourQueries()
   },
   methods: {
-    listYourQueries() {
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/queries'
-      this.url = `${this.urlPath}${this.endPoint}`
-      axios
-        .get(this.url)
-        .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.numberQueries = this.items.length
-          this.numberFavQueries = 0
-          this.totalQueries = this.items.length + this.numberFavQueries
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        })
-    },
     showCode(index) {
       this.hideCode = false
-      this.sqlCode = this.items[index].attributes.sql
+      this.sqlCode = this.arrayQueries[index].attributes.sql
     },
     sendQuery(item) {
-      this.queryParams = [item.attributes.name, item.attributes.privacy_status ]
+      this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql ]
       this.queryCode = item.attributes.sql
       this.$root.$emit('sendQueryParams', this.queryParams)
       this.$root.$emit('sendQueryCode', this.queryCode)
     },
     toggle() {
       this.showSection = !this.showSection
-    }
+    },
+   /* changeTab(value) {
+      const sqlCode = value.attributes.sql
+      this.$root.$emit('changeNavTab', sqlCode)
+    }*/
   }
 }
-
 </script>

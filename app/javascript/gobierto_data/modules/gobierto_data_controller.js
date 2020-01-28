@@ -49,7 +49,6 @@ export class GobiertoDataController {
             let title = baseTitle;
             if (to.name === "dataset") {
               const { titleDataset: projectTitle } = to.params;
-              console.log("to.params", to.params);
 
               if (projectTitle) {
                 const titleI18n = projectTitle

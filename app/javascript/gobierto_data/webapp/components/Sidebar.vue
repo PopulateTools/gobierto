@@ -33,15 +33,30 @@
         v-for="(item, index) in allDatasets"
         :key="index"
         :item="item"
-        class="gobierto-data-sidebar-datasets-links"
+        class="gobierto-data-sidebar-datasets"
       >
-        <i
-          :class="listColumns ? 'fa-caret-down': 'fa-caret-right'"
-          class="fas"
-        />
-        <span
-          @click="getDataDataset(index); listColumns = !listColumns"
-        >{{ item.attributes.name }}</span>
+        <div class="gobierto-data-sidebar-datasets-links-container">
+          <i
+            :class="listColumns ? 'fa-caret-down': 'fa-caret-right'"
+            class="fas"
+          />
+          <span
+            @click="getDataDataset(index); listColumns = !listColumns"
+          >{{ item.attributes.name }}</span>
+          <div
+            v-for="(indexValue) in index"
+            :key="indexValue"
+            :item="indexValue"
+          >
+            <span
+              v-for="(items, key, indexColumns) in columns"
+              :key="indexColumns"
+              class="gobierto-data-sidebar-datasets-links-columns"
+            >
+              {{ key }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -103,7 +118,7 @@ export default {
         .get(this.url)
         .then(response => {
           this.rawData = response.data
-          console.log("this.rawData", this.rawData);
+          this.columns = this.rawData.data
 
         })
         .catch(error => {
@@ -131,7 +146,6 @@ export default {
     getData(index) {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/datasets/'
-
       this.url = `${this.urlPath}${this.endPoint}`
       axios
         .get(this.url)

@@ -8,6 +8,7 @@ en:
       application:
         gobierto_data: Data
     projects:
+      all: All
       analysis: Analysis
       api: API
       cancel: Cancel
@@ -19,6 +20,7 @@ en:
       downloadData: Download Data
       edit: Edit
       fav: Favorite
+      favs: Favorites
       follow: Follow
       frequency: Frequency
       guide: Guide to using the SQL editor
@@ -37,6 +39,8 @@ en:
       sets: Sets
       subject: Subject
       summary: Summary
+      table: Table
       updated: Updated
+      visualization: Visualization
       visualizations: Visualizations
       yourQueries: Your queries

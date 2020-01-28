@@ -8,6 +8,7 @@ ca:
       application:
         gobierto_data: Dades
     projects:
+      all: Totes
       analysis: Anàlisi
       api: API
       cancel: Cancel·lar
@@ -19,6 +20,7 @@ ca:
       downloadData: Descarregar dades
       edit: Edita
       fav: Favorit
+      favs: Favorites
       follow: Seguir
       frequency: Freqüència
       guide: Guia per utilitzar l'editor SQL
@@ -37,6 +39,8 @@ ca:
       sets: Conjunts
       subject: Tema
       summary: Resum
+      table: Taula
       updated: Actualizat
+      visualization: Visualització
       visualizations: Visualitzacions
       yourQueries: Les teves consultes

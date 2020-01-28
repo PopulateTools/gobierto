@@ -11,6 +11,7 @@
 <script>
 import axios from 'axios';
 import NavDatasets from "./../components/sets/Nav.vue";
+import { getUserId } from "./../../lib/helpers";
 
 export default {
   name: "DataSets",
@@ -31,12 +32,15 @@ export default {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
     this.numberId = this.$route.params.numberId
+
+    this.userId = getUserId()
   },
   methods: {
     getQueries() {
       this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/queries?=filter[dataset_id]='
-      this.url = `${this.urlPath}${this.endPoint}${this.numberId}`
+      this.endPoint = '/api/v1/data/queries?filter[dataset_id]='
+      this.filterId = `&filter[user_id]=${this.userId}`
+      this.url = `${this.urlPath}${this.endPoint}${this.numberId}${this.filterId}`
       axios
         .get(this.url)
         .then(response => {
@@ -58,7 +62,6 @@ export default {
         .get(this.url)
         .then(response => {
           this.rawData = response.data
-          this.numberId = this.rawData.data[0].id
           this.titleDataset = this.rawData.data[0].attributes.name
           this.getQueries()
 

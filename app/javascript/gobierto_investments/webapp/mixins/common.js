@@ -32,12 +32,12 @@ export const CommonsMixin = {
       });
     },
     getItem(element, attributes) {
-      const { id, multiple, composite } = element;
+      const { id, flat, composite } = element;
       const attr = this.middleware.getAttributesByKey(id);
 
       let value = attributes[id];
 
-      if (multiple) {
+      if (flat) {
         value = this.translate(attributes[id][0].name_translations);
       }
 

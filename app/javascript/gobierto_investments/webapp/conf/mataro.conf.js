@@ -22,11 +22,11 @@ export default {
     },
     {
       id: "estat",
-      multiple: true
+      flat: true
     },
     {
       id: "nom-servei-gestor",
-      multiple: true
+      flat: true
     },
     {
       id: "tipus-projecte"
@@ -38,7 +38,7 @@ export default {
   availableGalleryFields: [
     {
       id: "estat",
-      multiple: true
+      flat: true
     },
     {
       id: "data-inici",
@@ -65,7 +65,7 @@ export default {
     },
     {
       id: "estat",
-      multiple: true
+      flat: true
     },
     {
       id: "import",
@@ -75,7 +75,7 @@ export default {
   availableProjectFields: [
     {
       id: "nom-servei-gestor",
-      multiple: true
+      flat: true
     },
     {
       id: "tipus"
@@ -85,7 +85,7 @@ export default {
     },
     {
       id: "tipus-projecte",
-      multiple: true
+      flat: true
     },
     {
       id: "adreca"
@@ -95,7 +95,7 @@ export default {
     },
     {
       id: "estat",
-      multiple: true
+      flat: true
     },
     {
       type: "separator"

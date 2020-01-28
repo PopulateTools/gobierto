@@ -32,7 +32,7 @@ export const CommonsMixin = {
       });
     },
     getItem(element, attributes) {
-      const { id, multiple, custom } = element;
+      const { id, multiple, composite } = element;
       const attr = this.middleware.getAttributesByKey(id);
 
       let value = attributes[id];
@@ -41,7 +41,7 @@ export const CommonsMixin = {
         value = this.translate(attributes[id][0].name_translations);
       }
 
-      if (custom) {
+      if (composite) {
         const { template, params } = element;
         // pattern matches:  :PARAM   :PARAM-NAME
         const paramsPattern = new RegExp(/:(\w+[-\w+]*)/, "gi");
@@ -54,8 +54,9 @@ export const CommonsMixin = {
 
           replaceStr = attributes[value]
 
-          // If the param has a pattern, then extract such part from the field
-          if (pattern) {
+          // If the param has a pattern, then, extract such part from the field
+          // If there's no replaceStr, ignore this step
+          if (replaceStr && pattern) {
             const fieldPattern = new RegExp(pattern, "gi")
             replaceStr = replaceStr.replace(fieldPattern, (match, ...args) => {
               const [group] = args

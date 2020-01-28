@@ -117,6 +117,7 @@ export default {
         .get(this.url)
         .then(response => {
           this.rawData = response.data
+          console.log("this.rawData", this.rawData);
           this.numberId = this.rawData.data[index].id
           this.titleDataset = this.rawData.data[index].attributes.name
 
@@ -131,6 +132,23 @@ export default {
           this.$root.$emit('sendSlug', this.slugDataset)
           this.$root.$emit('sendIdDataset', this.idDataset)
           this.nav(this.slugDataset)
+          this.getMeta()
+
+        })
+        .catch(error => {
+          console.error(error)
+
+        })
+    },
+    getMeta() {
+      this.urlPath = location.origin
+      this.endPoint = `/api/v1/data/datasets/${this.slugDataset}/meta`
+      this.url = `${this.urlPath}${this.endPoint}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          console.log("this.rawData", this.rawData);z
 
         })
         .catch(error => {

@@ -4,7 +4,6 @@
       v-if="arrayQueries"
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
-      :dataset-id="datasetId"
       @active-tab="activeTabIndex = $event"
     />
   </div>
@@ -31,6 +30,7 @@ export default {
   created() {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
+    this.numberId = this.$route.params.numberId
   },
   methods: {
     getQueries() {

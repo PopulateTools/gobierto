@@ -3,7 +3,6 @@
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
         :array-queries="arrayQueries"
-        :dataset-id="datasetId"
       />
       <SQLEditorCode />
       <SQLEditorTabs
@@ -38,10 +37,6 @@ export default {
     arrayQueries: {
       type: Array,
       required: true
-    },
-    datasetId: {
-      type: Number,
-      required: true
     }
   },
   data() {
@@ -66,8 +61,8 @@ export default {
     }
   },
   created(){
-    this.$root.$on('sendTable', this.tableName)
     this.$root.$on('sendYourCode', this.runYourQuery)
+    this.tableName = this.$route.params.tableName
   },
   mounted() {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
@@ -112,8 +107,6 @@ export default {
         .get(this.urlSlug)
         .then(response => {
           this.rawDataSlug = response.data
-          this.tableName = this.rawDataSlug.data[0].attributes.table_name
-          this.$root.$emit('sendTableName', this.tableName)
           this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
           this.getData()
 

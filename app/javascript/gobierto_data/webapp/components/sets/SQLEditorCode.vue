@@ -59,6 +59,7 @@ export default {
       stringError: '',
       showMessages: true,
       showApiError: false,
+      tableName: '',
       cmOption: {
         tabSize: 2,
         styleActiveLine: false,
@@ -96,9 +97,11 @@ export default {
     this.$root.$on('showMessages', this.handleShowMessages)
     this.$root.$on('sendQueryCode', this.queryCode)
 
-    this.$root.$on('sendTableName', this.tableName)
+    this.tableName = this.$route.params.tableName
 
     this.$root.$on('sendYourCode', this.queryCode);
+
+    this.code = `SELECT * FROM ${this.tableName}`
   },
   mounted() {
     this.cm = this.$refs.myCm.codemirror;
@@ -172,9 +175,6 @@ export default {
       this.showMessages = true
       this.showApiError = true
       this.stringError = message
-    },
-    tableName(table) {
-      this.code = `SELECT * FROM ${table}`
     }
   }
 }

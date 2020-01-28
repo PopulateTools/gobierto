@@ -37,7 +37,7 @@
       >
         <i class="fas fa-caret-down" />
         <span
-          @click="nav(slugDataset)"
+          @click="getDataDataset(index)"
         >{{ item.attributes.name }}</span>
       </div>
     </div>
@@ -64,7 +64,8 @@ export default {
       titleDataset: '',
       slugDataset: '',
       tableName: '',
-      allDatasets: null
+      allDatasets: null,
+      numberId: ''
     }
   },
   created() {
@@ -82,17 +83,8 @@ export default {
         this.rawData = response.data
 
         this.allDatasets = this.rawData.data
-        this.idDataset = this.rawData.data[0].id
 
         this.titleDataset = this.rawData.data[0].attributes.name
-        this.slugDataset = this.rawData.data[0].attributes.slug
-        this.tableName = this.rawData.data[0].attributes.table_name
-
-        this.$root.$emit('nameDataset', this.titleDataset)
-        this.$root.$emit('sendTableName', this.tableName)
-        this.$root.$emit('sendSlug', this.slugDataset)
-        this.$root.$emit('sendIdDataset', this.idDataset)
-
       })
       .catch(error => {
         console.error(error)
@@ -104,7 +96,47 @@ export default {
       this.$emit("active-tab", index);
     },
     nav(slugDataset) {
-      this.$router.push({ name: "dataset", params: { id: slugDataset } });
+      this.$router.push({
+        name: "dataset",
+        params: {
+          id: slugDataset,
+          numberId: this.numberId,
+          titleDataset: this.titleDataset,
+          tableName: this.tableName
+        }
+    })
+    },
+    getDataDataset(index) {
+      this.getData(index)
+    },
+    getData(index) {
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/datasets/'
+      this.url = `${this.urlPath}${this.endPoint}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.numberId = this.rawData.data[index].id
+          this.titleDataset = this.rawData.data[index].attributes.name
+
+          this.idDataset = this.rawData.data[index].id
+
+          this.titleDataset = this.rawData.data[index].attributes.name
+          this.slugDataset = this.rawData.data[index].attributes.slug
+          this.tableName = this.rawData.data[index].attributes.table_name
+
+          this.$root.$emit('nameDataset', this.titleDataset)
+          this.$root.$emit('sendTableName', this.tableName)
+          this.$root.$emit('sendSlug', this.slugDataset)
+          this.$root.$emit('sendIdDataset', this.idDataset)
+          this.nav(this.slugDataset)
+
+        })
+        .catch(error => {
+          console.error(error)
+
+        })
     }
   }
 };

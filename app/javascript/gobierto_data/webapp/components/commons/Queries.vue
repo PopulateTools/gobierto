@@ -8,7 +8,8 @@
             @click="showYourQueries = !showYourQueries"
           >
             <i
-              class="fas fa-caret-down"
+              :class="showYourQueries ? 'fa-caret-down': 'fa-caret-right'"
+              class="fas"
               style="color: var(--color-base);"
             />
             {{ labelYourQueries }} ({{ arrayQueries.length }})

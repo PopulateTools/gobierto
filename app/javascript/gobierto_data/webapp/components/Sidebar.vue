@@ -35,9 +35,12 @@
         :item="item"
         class="gobierto-data-sidebar-datasets-links"
       >
-        <i class="fas fa-caret-down" />
+        <i
+          :class="listColumns ? 'fa-caret-down': 'fa-caret-right'"
+          class="fas"
+        />
         <span
-          @click="getDataDataset(index)"
+          @click="getDataDataset(index); listColumns = !listColumns"
         >{{ item.attributes.name }}</span>
       </div>
     </div>
@@ -65,7 +68,8 @@ export default {
       slugDataset: '',
       tableName: '',
       allDatasets: null,
-      numberId: ''
+      numberId: '',
+      listColumns: false
     }
   },
   created() {
@@ -83,15 +87,30 @@ export default {
         this.rawData = response.data
 
         this.allDatasets = this.rawData.data
-
-        this.titleDataset = this.rawData.data[0].attributes.name
+        this.titleDataset = this.allDatasets[0].attributes.slug
+        this.getColumns()
       })
       .catch(error => {
         console.error(error)
       })
-
   },
   methods: {
+    getColumns() {
+      this.urlPath = location.origin
+      this.endPoint = `/api/v1/data/datasets/${this.titleDataset}`
+      this.url = `${this.urlPath}${this.endPoint}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          console.log("this.rawData", this.rawData);
+
+        })
+        .catch(error => {
+          console.error(error)
+
+        })
+    },
     activateTab(index) {
       this.$emit("active-tab", index);
     },
@@ -112,6 +131,7 @@ export default {
     getData(index) {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/datasets/'
+
       this.url = `${this.urlPath}${this.endPoint}`
       axios
         .get(this.url)

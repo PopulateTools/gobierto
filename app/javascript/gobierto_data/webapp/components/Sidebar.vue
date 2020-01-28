@@ -117,7 +117,6 @@ export default {
         .get(this.url)
         .then(response => {
           this.rawData = response.data
-          console.log("this.rawData", this.rawData);
           this.numberId = this.rawData.data[index].id
           this.titleDataset = this.rawData.data[index].attributes.name
 
@@ -148,7 +147,6 @@ export default {
         .get(this.url)
         .then(response => {
           this.rawData = response.data
-          console.log("this.rawData", this.rawData);z
 
         })
         .catch(error => {

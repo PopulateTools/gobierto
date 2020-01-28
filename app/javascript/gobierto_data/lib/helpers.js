@@ -1,7 +1,9 @@
-export default function getToken() {
+function getToken() {
   return window.gobiertoAPI.token
 }
 
-export function getUserId() {
-  return window.current_user_id
+function getUserId() {
+  return window.gobiertoAPI.current_user_id
 }
+
+export { getToken, getUserId }

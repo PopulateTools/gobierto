@@ -152,7 +152,7 @@
   </div>
 </template>
 <script>
-import getToken from './../../../lib/helpers';
+import { getToken } from './../../../lib/helpers';
 import axios from 'axios';
 import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';

@@ -35,6 +35,7 @@
     currentYear: <%= @selected_year || Date.current.year %>
   };
   window.gobiertoAPI = {
+    current_user_id: "<%= current_user&.id %>",
     token: "<%= current_user&.primary_api_token&.token %>"
   };
 </script>

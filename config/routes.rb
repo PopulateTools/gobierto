@@ -499,7 +499,7 @@ Rails.application.routes.draw do
     end
 
     # Gobierto Exports module
-    namespace :gobierto_exports, path: "datos" do
+    namespace :gobierto_exports, path: "descarga-datos" do
       constraints GobiertoSiteConstraint.new do
         root "exports#index"
       end
@@ -561,8 +561,7 @@ Rails.application.routes.draw do
     # Gobierto Data module
     namespace :gobierto_data, path: "/" do
       constraints GobiertoSiteConstraint.new do
-        resources :datasets, only: [:index, :show], param: :slug, path: "datasets"
-        get "/datasets" => "datasets#index", as: :root
+        get "/datos" => "welcome#index", as: :root
 
         # API
         namespace :api, path: "/" do

@@ -1,7 +1,7 @@
 import { VueFiltersMixin } from "lib/shared";
 
-// custom configurations
-import CONFIGURATION from "./mataro.conf.js";
+// TODO: This configuration should come from API request, not from file
+import CONFIGURATION from "../conf/mataro.conf.js";
 
 export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`;
 
@@ -11,31 +11,11 @@ export const CommonsMixin = {
     nav(item) {
       this.$router.push({ name: "project", params: { id: item.id, item } });
     },
-    getFilters(stats) {
-      const { availableFilters } = CONFIGURATION;
-      const filters = [];
-      for (let index = 0; index < availableFilters.length; index++) {
-        const { id: key, ...rest } = availableFilters[index];
-        const element = stats[key];
-        const { field_type: type, vocabulary_terms: options = [], name_translations: title = {} } = this.getAttributesByKey(key);
-
-        filters.push({
-          ...element,
-          ...rest,
-          title: this.translate(title),
-          options: Array.isArray(options) ? options.map(opt => ({ ...opt, title: this.translate(opt.name_translations) })) : [],
-          type: type ? type : key,
-          key
-        });
-      }
-
-      return filters;
-    },
     getPhases(stats) {
       const {
         phases: { id }
       } = CONFIGURATION;
-      const { vocabulary_terms = [] } = this.getAttributesByKey(id);
+      const { vocabulary_terms = [] } = this.middleware.getAttributesByKey(id);
       const { distribution = [] } = stats[id];
       return vocabulary_terms.map(term => {
         const { name_translations: title = {} } = term;
@@ -49,7 +29,7 @@ export const CommonsMixin = {
       });
     },
     getItem(element, attributes) {
-      const attr = this.getAttributesByKey(element.id);
+      const attr = this.middleware.getAttributesByKey(element.id);
 
       let value = attributes[element.id];
 
@@ -97,15 +77,6 @@ export const CommonsMixin = {
       }
 
       return Array.isArray(spreadData) ? this.setData(spreadData) : this.setItem(spreadData);
-    },
-    getAttributesByKey(prop) {
-      const { attributes = {} } =
-        this.dictionary.find(entry => {
-          const { attributes: { uid = "" } = {} } = entry;
-          return uid === prop;
-        }) || {};
-
-      return attributes;
     }
   }
 };

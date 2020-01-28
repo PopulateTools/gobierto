@@ -35,6 +35,7 @@ import Aside from "./Aside.vue";
 import Main from "./Main.vue";
 import axios from "axios";
 import { CommonsMixin, baseUrl } from "../../mixins/common.js";
+import { Middleware } from "lib/shared";
 
 export default {
   name: "Project",
@@ -68,7 +69,10 @@ export default {
       ]);
 
       next(async vm => {
-        vm.dictionary = attributesDictionary;
+        vm.middleware = new Middleware({
+          dictionary: attributesDictionary
+        });
+
         let project = vm.setItem(item);
 
         // Update $router
@@ -80,7 +84,7 @@ export default {
 
         // Optional callback to update data in background, setup in CONFIGURATION object
         // eslint-disable-next-line require-atomic-updates
-        vm.project = await vm.alterDataObjectOptional(project)
+        vm.project = await vm.alterDataObjectOptional(project);
       });
     } else {
       next();

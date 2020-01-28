@@ -338,7 +338,7 @@
       input[type="checkbox"]:checked + label {
         $space: 1em;
 
-        width: calc(100% + $space);
+        width: calc(100% + #{$space});
         margin-left: - $space / 2;
         margin-right: - $space / 2;
         padding-left: $space / 2;

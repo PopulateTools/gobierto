@@ -575,6 +575,7 @@ Rails.application.routes.draw do
               end
               member do
                 get "meta" => "datasets#dataset_meta"
+                get :download, format: true
               end
             end
             resources :queries, except: [:edit], defaults: { format: "json" } do
@@ -582,6 +583,7 @@ Rails.application.routes.draw do
               resources :favorites, only: [:index]
               member do
                 get :meta
+                get :download, format: true
               end
             end
             resources :visualizations, except: [:edit], defaults: { format: "json" } do

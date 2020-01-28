@@ -8,7 +8,7 @@
             {{ labelUpdated }}
           </span>
           <span class="gobierto-data-summary-header-container-text">
-            12 oct 2019
+            {{ datasetDate }}
           </span>
         </div>
         <div class="gobierto-data-summary-header-container">
@@ -17,7 +17,7 @@
             {{ labelFrequency }}
           </span>
           <span class="gobierto-data-summary-header-container-text">
-            Anual
+            {{ datasetFrequency }}
           </span>
         </div>
         <div class="gobierto-data-summary-header-container">
@@ -29,7 +29,7 @@
             href=""
             class="gobierto-data-summary-header-container-text-link"
           >
-            Urbanismo e infraestructuras
+            {{ datasetSubject }}
           </a>
         </div>
       </div>
@@ -50,7 +50,10 @@ export default {
       labelFrequency: '',
       labelSubject: '',
       labelDownloadData: '',
-      datasetDescription: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
+      datasetDate: '',
+      datasetFrequency: '',
+      datasetSubject: '',
+      datasetDescription: ''
     }
   },
   created() {
@@ -58,6 +61,24 @@ export default {
     this.labelFrequency = I18n.t("gobierto_data.projects.frequency")
     this.labelSubject = I18n.t("gobierto_data.projects.subject")
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
+  },
+  methods: {
+    updateSummaryInfo(values) {
+      const { 0: updatedDate, 1: frequency, 2: subject, 3: description } = values
+
+      this.datasetDate = this.datasetDate === undefined ? '' : updatedDate
+      this.datasetFrequency = this.datasetFrequency === undefined ? '' : frequency
+      this.datasetSubject = this.datasetSubject === undefined ? '' : subject
+      this.datasetDescription = this.datasetDescription === undefined ? '' : description
+
+      this.datasetDate = new Date(this.datasetDate)
+      this.datasetDate = this.datasetDate.toLocaleDateString('es-ES', {
+          day : 'numeric',
+          month : 'short',
+          year : 'numeric'
+      })
+
+    }
   }
 }
 

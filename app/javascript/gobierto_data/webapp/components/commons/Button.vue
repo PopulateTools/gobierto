@@ -9,6 +9,7 @@
       class="fas"
     />
     {{ text }}
+    <slot />
   </button>
 </template>
 <script>

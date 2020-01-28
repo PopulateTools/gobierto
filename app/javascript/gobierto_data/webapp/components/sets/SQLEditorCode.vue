@@ -7,27 +7,37 @@
         :options="cmOption"
         @ready="onCmReady"
         @input="onCmCodeChange"
-        @blur="formatCode"
+        @focus="inputCode"
       />
     </div>
-    <div class="gobierto-data-sql-editor-footer">
-      <span class="gobierto-data-sql-editor-footer-records">
-        {{ numberRecords }} {{ labelRecords }}
-      </span>
-      <span class="gobierto-data-sql-editor-footer-time">
-        {{ labelQueryExecuted }} {{ timeQuery }}s
-      </span>
-      <a
-        href=""
-        class="gobierto-data-sql-editor-footer-guide"
-      >
-        {{ labelGuide }}
-      </a>
+    <div
+      v-if="showMessages"
+      class="gobierto-data-sql-editor-footer"
+    >
+      <div v-if="showApiError">
+        <span class="gobierto-data-sql-error-message">
+          {{ stringError }}
+        </span>
+      </div>
+      <div v-else>
+        <span class="gobierto-data-sql-editor-footer-records">
+          {{ numberRecords }} {{ labelRecords }}
+        </span>
+        <span class="gobierto-data-sql-editor-footer-time">
+          {{ labelQueryExecuted }} {{ timeQuery }}ms
+        </span>
+        <a
+          href=""
+          class="gobierto-data-sql-editor-footer-guide"
+        >
+          {{ labelGuide }}
+        </a>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import sqlFormatter from 'sql-formatter';
+/*import sqlFormatter from 'sql-formatter';*/
 import 'codemirror/mode/sql/sql.js';
 import 'codemirror/addon/selection/active-line.js';
 import 'codemirror/addon/hint/show-hint.css';
@@ -40,12 +50,16 @@ export default {
   name: 'SQLEditorCode',
   data() {
     return {
-      code: 'SELECT * FROM mobiliario_urbano',
+      code: '',
       labelGuide: '',
       labelQueryExecuted: '',
       labelRecords: '',
-      numberRecords: '1337',
-      timeQuery: '0.1',
+      numberRecords: '',
+      timeQuery: '',
+      stringError: '',
+      showMessages: true,
+      showApiError: false,
+      tableName: '',
       cmOption: {
         tabSize: 2,
         styleActiveLine: false,
@@ -77,6 +91,17 @@ export default {
     this.labelQueryExecuted = I18n.t('gobierto_data.projects.queryExecuted');
     this.labelRecords = I18n.t('gobierto_data.projects.records');
     this.$root.$on('saveQueryState', this.saveQueryState);
+    this.$root.$on('recordsDuration', this.updateRecordsDuration);
+    this.$root.$on('updateCode', this.updateCode)
+    this.$root.$on('apiError', this.showError)
+    this.$root.$on('showMessages', this.handleShowMessages)
+    this.$root.$on('sendQueryCode', this.queryCode)
+
+    this.tableName = this.$route.params.tableName
+
+    this.$root.$on('sendYourCode', this.queryCode);
+
+    this.code = `SELECT * FROM ${this.tableName}`
   },
   mounted() {
     this.cm = this.$refs.myCm.codemirror;
@@ -88,47 +113,69 @@ export default {
       table_4: [],
       table_5: [],
       table_6: []
-    };
-    window.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.keyCode == 32) {
+    }
+    /*window.addEventListener('keydown', e => {
+      if (e.keyCode == 32) {
         this.formatCode();
-        /*this.cm.setCursor(this.cm.lineCount(), 0);*/
+        this.cm.setCursor(this.cm.lineCount(), 0);
+        this.cm.setCursor(this.cm.lineCount(), 0);
       }
-    });
+    })
+    */
 
     this.cmOption.hintOptions.tables = tables;
+
+    this.onCmReady(this.cm)
   },
   methods: {
+    queryCode(code){
+      this.code = code
+    },
+    updateRecordsDuration(values) {
+      const { 0: numberRecords, 1: timeQuery } = values
+      this.numberRecords = numberRecords
+      this.timeQuery = timeQuery.toFixed(2)
+    },
     saveQueryState(value) {
       this.saveQueryState = value;
     },
     onCmReady(cm) {
       cm.on('keypress', () => {
         this.$root.$emit('activeSave', false);
-        cm.showHint()
+        /*cm.showHint()*/
         if (this.saveQueryState === true) {
           this.$root.$emit('updateActiveSave', true, false);
         }
       })
     },
-    formatCode() {
-      this.commands.selectAll(this.cm);
-      const formaterCode = sqlFormatter.format(this.code);
-      this.cm.setValue(formaterCode);
+    inputCode() {
+      this.$root.$emit('activeSave', false)
+      this.$root.$emit('activateModalRecent')
+      this.$root.$emit('sendCode', this.code);
     },
-    runQuery() {
-      let oneLine = this.code.replace(/\n/g, ' ');
-      oneLine = oneLine.replace(/  +/g, ' ');
-      alert('Run Query ' + oneLine);
+    formatCode() {
+      //Convert to button or shortcut
+      /*this.commands.selectAll(this.cm);
+      const formaterCode = sqlFormatter.format(this.code);
+      this.cm.setValue(formaterCode);*/
     },
     onCmCodeChange(newCode) {
       this.code = newCode;
-      this.$root.$emit('updateCode', this.code);
+      this.$root.$emit('sendCode', this.code);
     },
-    saveCode() {
-      const saveQuery = this.code;
-      this.arrayQuerys.push(saveQuery);
+    updateCode(newCode) {
+      this.code = unescape(newCode)
+    },
+    handleShowMessages(showTrue){
+      this.showMessages = false
+      this.showMessages = showTrue
+      this.showApiError = false
+    },
+    showError(message) {
+      this.showMessages = true
+      this.showApiError = true
+      this.stringError = message
     }
   }
-};
+}
 </script>

@@ -1,9 +1,6 @@
 ---
 en:
   gobierto_data:
-    datasets:
-      show:
-        title: Dataset %{dataset_name}
     events:
       gobierto_data_dataset_dataset_created: Dataset created
       gobierto_data_dataset_dataset_updated: Dataset updated
@@ -11,6 +8,7 @@ en:
       application:
         gobierto_data: Data
     projects:
+      all: All
       analysis: Analysis
       api: API
       cancel: Cancel
@@ -22,6 +20,7 @@ en:
       downloadData: Download Data
       edit: Edit
       fav: Favorite
+      favs: Favorites
       follow: Follow
       frequency: Frequency
       guide: Guide to using the SQL editor
@@ -40,6 +39,8 @@ en:
       sets: Sets
       subject: Subject
       summary: Summary
+      table: Table
       updated: Updated
+      visualization: Visualization
       visualizations: Visualizations
       yourQueries: Your queries

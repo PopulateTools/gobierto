@@ -226,6 +226,37 @@ module GobiertoData
           end
         end
 
+        # GET /api/v1/data/queries.json?user_id=1
+        def test_index_filtered_by_user_with_different_user_token
+          with(site: site) do
+            get gobierto_data_api_v1_queries_path(filter: { user_id: other_user.id }), headers: { Authorization: user_token.token }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            assert_empty(response_data["data"])
+          end
+        end
+
+        # GET /api/v1/data/queries.json?user_id=1
+        def test_index_filtered_by_user_with_same_user_token
+          with(site: site) do
+            get gobierto_data_api_v1_queries_path(filter: { user_id: other_user.id }), headers: { Authorization: other_user_token.token }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            queries_names = response_data["data"].map { |item| item.dig("attributes", "name") }
+            assert_includes queries_names, closed_query.name
+            refute_includes queries_names, user_query.name
+            refute_includes queries_names, other_dataset_query.name
+          end
+        end
+
         # GET /api/v1/data/queries.json?user_id=1&dataset_id=1
         def test_index_filtered_by_user_and_dataset
           with(site: site) do
@@ -317,6 +348,7 @@ module GobiertoData
               assert resource_data["attributes"].has_key? attribute
               assert_equal attributes[attribute], resource_data["attributes"][attribute]
             end
+            assert resource_data["attributes"].has_key? "formats"
 
             # relationships
             assert resource_data.has_key? "relationships"
@@ -333,6 +365,52 @@ module GobiertoData
             assert_includes links, gobierto_data_api_v1_query_path(query)
             assert_includes links, meta_gobierto_data_api_v1_query_path(query)
             assert_includes links, gobierto_data_api_v1_visualizations_path(filter: { query_id: query.id })
+          end
+        end
+
+        # GET /api/v1/data/queries/1/download.json
+        def test_query_download_as_json
+          with(site: site) do
+            get download_gobierto_data_api_v1_query_path(query, format: :json), as: :json
+
+            assert_response :success
+            assert_match(/attachment; filename="?#{query.file_basename}.json"?/, response.headers["content-disposition"])
+            response_data = response.parsed_body
+            assert_equal 1, response_data.count
+            assert_equal [{ "count" => 7 }], response_data
+          end
+        end
+
+        # GET /api/v1/data/queries/1/download.csv
+        def test_query_download_as_csv
+          with(site: site) do
+            get download_gobierto_data_api_v1_query_path(query, format: :csv), as: :csv
+
+            assert_response :success
+            assert_match(/attachment; filename="?#{query.file_basename}.csv"?/, response.headers["content-disposition"])
+            response_data = response.parsed_body
+            parsed_csv = CSV.parse(response_data)
+
+            assert_equal 2, parsed_csv.count
+            assert_equal %w(count), parsed_csv.first
+            assert_equal %w(7), parsed_csv.last
+          end
+        end
+
+        # GET /api/v1/data/queries/1/download.xlsx
+        def test_query_download_as_xlsx
+          with(site: site) do
+            get download_gobierto_data_api_v1_query_path(query, format: :xlsx), as: :xlsx
+
+            assert_response :success
+            assert_match(/attachment; filename="?#{query.file_basename}.xlsx"?/, response.headers["content-disposition"])
+            parsed_xlsx = RubyXL::Parser.parse_buffer response.parsed_body
+
+            assert_equal 1, parsed_xlsx.worksheets.count
+            sheet = parsed_xlsx.worksheets.first
+            assert_nil sheet[2]
+            assert_equal %w(count), sheet[0].cells.map(&:value)
+            assert_equal [7], sheet[1].cells.map(&:value)
           end
         end
 

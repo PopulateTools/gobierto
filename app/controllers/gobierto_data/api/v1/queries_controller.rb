@@ -5,7 +5,7 @@ module GobiertoData
     module V1
       class QueriesController < BaseController
 
-        before_action :authenticate_user!, except: [:index, :show, :meta, :new]
+        before_action :authenticate_user!, except: [:index, :show, :meta, :new, :download]
         before_action :allow_author!, only: [:update, :destroy]
 
         # GET /api/v1/data/queries
@@ -58,6 +58,28 @@ module GobiertoData
           end
         end
 
+        # GET /api/v1/data/queries/1/download.json
+        # GET /api/v1/data/queries/1/download.csv
+        # GET /api/v1/data/queries/1/download.xlsx
+        def download
+          find_item
+          query_result = @item.result
+          basename = @item.file_basename
+          respond_to do |format|
+            format.json do
+              send_download(query_result.fetch(:result, ""), :json, basename)
+            end
+
+            format.csv do
+              send_download(csv_from_query_result(query_result.fetch(:result, ""), csv_options_params), :csv, basename)
+            end
+
+            format.xlsx do
+              send_download(xlsx_from_query_result(query_result.fetch(:result, ""), name: @item.name).read, :xlsx, basename)
+            end
+          end
+        end
+
         # GET /api/v1/data/queries/1/meta
         # GET /api/v1/data/queries/1/meta.json
         def meta
@@ -65,6 +87,7 @@ module GobiertoData
 
           render(
             json: @item,
+            serializer: ::GobiertoData::QueryMetaSerializer,
             exclude_links: true,
             links: links(:metadata),
             adapter: :json_api
@@ -154,7 +177,11 @@ module GobiertoData
         end
 
         def filtered_relation
-          base_relation.where(filter_params)
+          if user_authenticated? && filter_params[:user_id].present? && current_user.id == filter_params[:user_id].to_i
+            base_relation.unscope(where: :privacy_status).where(filter_params)
+          else
+            base_relation.where(filter_params)
+          end
         end
 
         def find_item

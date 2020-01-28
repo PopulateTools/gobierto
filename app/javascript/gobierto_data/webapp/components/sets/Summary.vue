@@ -1,9 +1,17 @@
 <template>
-  <div>
+  <div class="gobierto-data-sets-nav--tab-container">
     <Info />
-    <DownloadButton />
+    <keep-alive>
+      <DownloadButton
+        :class="[
+          directionLeft ? 'modal-left': 'modal-right'
+        ]"
+        :slug-name="item"
+        class="arrow-top"
+      />
+    </keep-alive>
     <Resources :items="filesDataset" />
-    <Queries />
+    <Queries :array-queries="arrayQueries" />
   </div>
 </template>
 
@@ -21,79 +29,24 @@ export default {
     DownloadButton,
     Info
   },
+  props: {
+    item: {
+      type: String,
+      required: true
+    },
+    arrayQueries: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       isActive: false,
       labelDownloadData: "",
+      directionLeft: true,
       filesDataset: [{
           file: {
             name: 'Actuaciones Bomberos Enero 2019.xls',
-            size: '232kb'
-          }
-        },
-        {
-          file: {
-            name: 'Actuaciones Bomberos Febrero 2019.xls',
-            size: '232kb'
-          }
-        },
-        {
-          file: {
-            name: 'Actuaciones Bomberos Marzo 2019.xls',
-            size: '232kb'
-          }
-        },
-        {
-          file: {
-            name: 'Actuaciones Bomberos Abril 2019.xls',
-            size: '232kb'
-          }
-        },
-        {
-          file: {
-            name: 'Actuaciones Bomberos Mayo 2019.xls',
-            size: '232kb'
-          }
-        },
-        {
-          file: {
-            name: 'Actuaciones Bomberos Junio 2019.xls',
-            size: '232kb'
-          }
-        },
-        {
-          file: {
-            name: 'Actuaciones Bomberos Julio 2019.xls',
-            size: '232kb'
-          }
-        },
-        {
-          file: {
-            name: 'Actuaciones Bomberos Agosto 2019.xls',
-            size: '232kb'
-          }
-        },
-        {
-          file: {
-            name: 'Actuaciones Bomberos Septiembre 2019.xls',
-            size: '232kb'
-          }
-        },
-        {
-          file: {
-            name: 'Actuaciones Bomberos Octubre 2019.xls',
-            size: '232kb'
-          }
-        },
-        {
-          file: {
-            name: 'Actuaciones Bomberos Noviembre 2019.xls',
-            size: '232kb'
-          }
-        },
-        {
-          file: {
-            name: 'Actuaciones Bomberos Diciembre 2019.xls',
             size: '232kb'
           }
         }
@@ -102,13 +55,6 @@ export default {
   },
   created() {
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
-  },
-  methods: {
-    showModalButton() {
-      this.isActive = !this.isActive;
-    }
   }
-
 }
-
 </script>

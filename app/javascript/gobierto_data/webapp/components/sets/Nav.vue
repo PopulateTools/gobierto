@@ -1,5 +1,26 @@
 <template>
   <div>
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <h2 class="gobierto-data-title-dataset">
+          {{ titleDataset }}
+        </h2>
+      </div>
+      <div class="pure-u-1-2 gobierto-data-buttons">
+        <Button
+          :text="labelFav"
+          icon="star"
+          color="#fff"
+          background="var(--color-base)"
+        />
+        <Button
+          :text="labelFollow"
+          icon="bell"
+          color="#fff"
+          background="var(--color-base)"
+        />
+      </div>
+    </div>
     <nav class="gobierto-data-sets-nav">
       <ul>
         <li
@@ -39,14 +60,29 @@
         </li>
       </ul>
     </nav>
-    <Summary v-if="activeTab === 0" />
-    <Data v-else-if="activeTab === 1" />
-    <Queries v-else-if="activeTab === 2" />
+    <Summary
+      v-if="activeTab === 0"
+      :item="slugName"
+      :array-queries="arrayQueries"
+    />
+    <Data
+      v-else-if="activeTab === 1"
+      :item="slugName"
+      :array-queries="arrayQueries"
+    />
+    <Queries
+      v-else-if="activeTab === 2"
+      :array-queries="arrayQueries"
+    />
     <Visualizations v-else-if="activeTab === 3" />
-    <Downloads v-else-if="activeTab === 4" />
+    <Downloads
+      v-else-if="activeTab === 4"
+      :item="slugName"
+    />
   </div>
 </template>
 <script>
+import Button from "./../commons/Button.vue";
 import Summary from "./Summary.vue";
 import Data from "./Data.vue";
 import Queries from "./Queries.vue";
@@ -61,12 +97,17 @@ export default {
     Data,
     Queries,
     Visualizations,
-    Downloads
+    Downloads,
+    Button
   },
   props: {
     activeTab: {
       type: Number,
       default: 0
+    },
+    arrayQueries: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -75,7 +116,11 @@ export default {
       labelData: "",
       labelQueries: "",
       labelVisualizations: "",
-      labelDownload: ""
+      labelDownload: "",
+      labelFav: "",
+      labelFollow: "",
+      titleDataset: "",
+      slugName: ''
     }
   },
   created() {
@@ -84,12 +129,24 @@ export default {
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelVisualizations = I18n.t("gobierto_data.projects.visualizations")
     this.labelDownload = I18n.t("gobierto_data.projects.download")
+    this.labelFav = I18n.t("gobierto_data.projects.fav")
+    this.labelFollow = I18n.t("gobierto_data.projects.follow")
+
+    this.$root.$on('changeNavTab', this.changeTab)
+
+    this.titleDataset = this.$route.params.titleDataset
+    this.slugName = this.$route.params.id
   },
   methods: {
+    changeTab() {
+      this.activateTab(1)
+      /*this.$root.$emit('sendYourQuery', sqlCode)
+      this.$root.$emit('sendYourCode', sqlCode)*/
+    },
     activateTab(index) {
       this.$emit("active-tab", index);
     }
   }
-};
+}
 
 </script>

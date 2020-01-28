@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export default {
   title: {
     id: "title_translations"
@@ -140,7 +138,7 @@ export default {
     {
       id: "budget",
       type: "link",
-      custom: true,
+      composite: true,
       template: "/presupuestos/partidas/:BUDGETLINE/:YEAR/custom/G",
       params: [{
         key: "BUDGETLINE",

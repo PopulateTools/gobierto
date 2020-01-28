@@ -207,6 +207,50 @@ module GobiertoData
           end
         end
 
+        # GET /api/v1/data/datasets/dataset-slug/download.json
+        def test_dataset_download_as_json
+          with(site: site) do
+            get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :json), as: :json
+
+            assert_response :success
+            assert_match(/attachment; filename="?#{dataset.slug}.json"?/, response.headers["content-disposition"])
+            response_data = response.parsed_body
+
+            assert_equal dataset.rails_model.count, response_data.count
+            assert_equal dataset.rails_model.all.map(&:id).sort, response_data.map { |row| row["id"] }.sort
+          end
+        end
+
+        # GET /api/v1/data/datasets/dataset-slug/download.csv
+        def test_dataset_download_as_csv
+          with(site: site) do
+            get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :csv), as: :csv
+
+            assert_response :success
+            assert_match(/attachment; filename="?#{dataset.slug}.csv"?/, response.headers["content-disposition"])
+            response_data = response.parsed_body
+            parsed_csv = CSV.parse(response_data)
+
+            assert_equal dataset.rails_model.count + 1, parsed_csv.count
+          end
+        end
+
+        # GET /api/v1/data/datasets/dataset-slug/download.xlsx
+        def test_dataset_download_as_xlsx
+          with(site: site) do
+            get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :xlsx), as: :xlsx
+
+            assert_response :success
+            assert_match(/attachment; filename="?#{dataset.slug}.xlsx"?/, response.headers["content-disposition"])
+            parsed_xlsx = RubyXL::Parser.parse_buffer response.parsed_body
+
+            assert_equal 1, parsed_xlsx.worksheets.count
+            sheet = parsed_xlsx.worksheets.first
+            refute_nil sheet[dataset.rails_model.count]
+            assert_nil sheet[dataset.rails_model.count + 1]
+          end
+        end
+
       end
     end
   end

@@ -62,6 +62,29 @@ module GobiertoData
           end
         end
 
+        # GET /api/v1/data/datasets/dataset-slug/download.json
+        # GET /api/v1/data/datasets/dataset-slug/download.csv
+        # GET /api/v1/data/datasets/dataset-slug/download.xlsx
+        def download
+          find_item
+          relation = @item.rails_model.all
+          query_result = execute_query relation
+          basename = @item.slug
+          respond_to do |format|
+            format.json do
+              send_download(query_result.fetch(:result, ""), :json, basename)
+            end
+
+            format.csv do
+              send_download(csv_from_query_result(query_result.fetch(:result, ""), csv_options_params), :csv, basename)
+            end
+
+            format.xlsx do
+              send_download(xlsx_from_query_result(query_result.fetch(:result, ""), name: @item.name).read, :xlsx, basename)
+            end
+          end
+        end
+
         # GET /api/v1/data/datasets/dataset-slug/metadata
         # GET /api/v1/data/datasets/dataset-slug/metadata.json
         def dataset_meta

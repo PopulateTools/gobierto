@@ -38,7 +38,7 @@
         <i class="fas fa-caret-down" />
         <span
           @click="nav(slugDataset)"
-        >{{ allDatasets[0].attributes.name }}</span>
+        >{{ item.attributes.name }}</span>
       </div>
     </div>
   </div>

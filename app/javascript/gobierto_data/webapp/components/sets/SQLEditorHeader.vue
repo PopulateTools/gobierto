@@ -259,9 +259,16 @@ export default {
       this.runQuery()
     },
     queryParams(queryParams) {
-      this.disabledRecents = false;
-      this.disabledSave = false;
-      this.disabledRunQuery = false;
+      this.showSaveQueries = true
+      this.showBtnCancel = true;
+      this.showBtnEdit = false;
+      this.showBtnSave = true;
+      this.showBtnRemove = false;
+      this.showLabelPrivate = true;
+      this.removeLabelBtn = true;
+      this.showLabelModified = false;
+      this.disableInputName = false;
+      this.saveQueryState = true
 
       this.labelQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]
@@ -273,7 +280,6 @@ export default {
         this.privateQuery = true
       }
 
-      this.runQuery()
     },
     showshowStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)

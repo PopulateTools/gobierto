@@ -3,9 +3,6 @@
 <div class="column">
     <div class="m_b_2">
     <div class="container sandbox">
-        <% @datasets.each do |dataset| %>
-            <%= link_to(dataset.name, gobierto_data_dataset_path(dataset.slug)) %>
-        <% end %>
         <div id="gobierto-datos-app"
              data-site-name="<%= @site.name %>"
              data-logo-url="<%= @site.configuration.logo_with_fallback %>"

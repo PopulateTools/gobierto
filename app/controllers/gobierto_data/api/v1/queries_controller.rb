@@ -154,7 +154,11 @@ module GobiertoData
         end
 
         def filtered_relation
-          base_relation.where(filter_params)
+          if user_authenticated? && filter_params[:user_id].present? && current_user.id == filter_params[:user_id].to_i
+            base_relation.unscope(where: :privacy_status).where(filter_params)
+          else
+            base_relation.where(filter_params)
+          end
         end
 
         def find_item

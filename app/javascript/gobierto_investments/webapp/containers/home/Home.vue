@@ -62,6 +62,7 @@
               :title="option.title"
               :checked="option.isOptionChecked"
               :counter="option.counter"
+              class="investments-home-aside--checkbox"
               @checkbox-change="e => handleCheckboxStatus({ ...e, filter })"
             />
           </template>
@@ -113,12 +114,11 @@ import Aside from "./Aside.vue";
 import Main from "./Main.vue";
 import Nav from "./Nav.vue";
 import Article from "./Article.vue";
-import Checkbox from "../../components/Checkbox.vue";
 import RangeBars from "../../components/RangeBars.vue";
 import axios from "axios";
 
+import { BlockHeader, Calendar, Loading, Checkbox } from "lib/vue-components";
 import { Middleware } from "lib/shared";
-import { BlockHeader, Calendar, Loading } from "lib/vue-components";
 import { CommonsMixin, baseUrl } from "../../mixins/common.js";
 import { store } from "../../mixins/store";
 

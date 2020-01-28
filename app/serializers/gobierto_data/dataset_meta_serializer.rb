@@ -24,7 +24,7 @@ module GobiertoData
     attribute :formats do
       object.available_formats.inject({}) do |formats, format|
         formats.update(
-          format => gobierto_data_api_v1_dataset_path(object.slug, format: format)
+          format => download_gobierto_data_api_v1_dataset_path(object.slug, format: format)
         )
       end
     end

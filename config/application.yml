@@ -63,6 +63,9 @@ default: &default
     -
       name: Gobierto Investments
       namespace: GobiertoInvestments
+    -
+      name: Gobierto Data
+      namespace: GobiertoData
   dns_config:
     cname_record_target: site.gobierto.test
     a_record_target: 222.111.222.11

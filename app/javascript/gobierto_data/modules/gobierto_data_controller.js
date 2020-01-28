@@ -16,9 +16,7 @@ export class GobiertoDataController {
     if (entryPoint) {
       const htmlRouterBlock = `
         <keep-alive>
-          <transition name="fade" mode="out-in">
-            <router-view :key="$route.fullPath"></router-view>
-          </transition>
+          <router-view :key="$route.fullPath"></router-view>
         </keep-alive>
       `;
 
@@ -32,9 +30,7 @@ export class GobiertoDataController {
         mode: "history",
         routes: [
           { path: "/datos", name: "home", component: Home },
-          { path: "/datos/conjuntos", name: "datasets", component: Sets },
-          { path: "/datos/consultas", name: "queries", component: Queries },
-          { path: "/datos/visualizaciones", name: "visualizations", component: Categories }
+          { path: "/datos/:id", name: "datasets", component: Sets }
         ]
       })
 

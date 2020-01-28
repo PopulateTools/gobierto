@@ -8,7 +8,7 @@
         class="gobierto-data-recent-queries-list-element"
         @click="runRecentQuery(item)"
       >
-        {{ item | truncate(50, '...') | replace() }}
+        {{ item | replace() }}
       </button>
     </div>
   </div>
@@ -42,7 +42,6 @@ export default {
       this.queryEditor = encodeURI(code)
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false)
-
       this.$root.$emit('updateCode', code)
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';

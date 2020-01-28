@@ -11,32 +11,50 @@ import './components/featuredBudgetLine.js'
 import './components/visLine.js'
 
 $(document).on('turbolinks:load ajax:complete ajaxSuccess', function() {
-  if($('#expense-treemap').length && !$('#expense-treemap .treemap_node').length){
-    let expenseTreemap = new VisTreemap('#expense-treemap', 'big', true);
-    expenseTreemap.render($('#expense-treemap').data('functional-url'));
+  const selectorExpenseTreemap = "#expense-treemap"
+  const selectorTreemap = "#treemap"
+  const selectorTreemapNode = ".treemap_node"
+
+  const nodeExpenseTreemap = document.querySelector(selectorExpenseTreemap)
+  const nodeTreemap = document.querySelector(selectorTreemap)
+  const nodeExpenTreemapNode = document.querySelector(`${selectorExpenseTreemap} ${selectorTreemapNode}`)
+  const nodeTreemapTreemapNode = document.querySelector(`${selectorTreemap} ${selectorTreemapNode}`)
+
+  if (nodeExpenseTreemap && !nodeExpenTreemapNode) {
+    const expenseTreemap = new VisTreemap(selectorExpenseTreemap, 'big', true);
+    const { ["functional-url"]: url } = nodeExpenseTreemap.dataset
+
+    console.log(url);
+
+    // TODO: Comprobar que el nodo siga existiendo en el resize
+    if (url) {
+      expenseTreemap.render(url);
+    }
 
     window.addEventListener("resize", _.debounce(function () {
-      expenseTreemap.render($('#expense-treemap').data('functional-url'));
+      if (url) {
+        expenseTreemap.render(url);
+      }
     }, 250));
   }
 
-  if($('#treemap').length && !$('#treemap .treemap_node').length){
-    let expenseTreemap = new VisTreemap('#treemap', 'big', true);
-    expenseTreemap.render($('#treemap').data('url'));
+  // if (nodeTreemap && !nodeTreemapTreemapNode) {
+  //   let expenseTreemap = new VisTreemap('#treemap', 'big', true);
+  //   expenseTreemap.render($('').data('url'));
 
-    window.addEventListener("resize", _.debounce(function () {
-      expenseTreemap.render($('#treemap').data('url'));
-    }, 250));
-  }
+  //   window.addEventListener("resize", _.debounce(function () {
+  //     expenseTreemap.render($('#treemap').data('url'));
+  //   }, 250));
+  // }
 })
 
 $(document).on('turbolinks:load', function() {
 
-  if(!isDesktop()) {
+  if (!isDesktop()) {
     $('.open_line_browser').hide();
   }
 
-  if($('.vis-bubbles-expense').length && $('.vis-bubbles-income').length && !$('.vis-bubbles-expense svg').length && !$('.vis-bubbles-income svg').length) {
+  if ($('.vis-bubbles-expense').length && $('.vis-bubbles-income').length && !$('.vis-bubbles-expense svg').length && !$('.vis-bubbles-income svg').length) {
     var getBubbleData = new getBudgetLevelData();
 
     getBubbleData.getData(function() {
@@ -86,7 +104,7 @@ $(document).on('turbolinks:load', function() {
 
   $(".stick_ip").stick_in_parent()
     .on("sticky_kit:stick", function() {
-      if($('.bread_links span').length)
+      if ($('.bread_links span').length)
         return;
       var title = $('h1').text();
       var breadLinksHtml = $('.bread_links').html();

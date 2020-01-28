@@ -20,7 +20,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="sendQuery(item)"
+            @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
 
@@ -89,7 +89,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="sendQuery(item)"
+            @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
 
@@ -123,6 +123,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   name: "Queries",
   props: {
@@ -168,10 +169,52 @@ export default {
     toggle() {
       this.showSection = !this.showSection
     },
-   /* changeTab(value) {
+    runYourQuery(code) {
+      this.showSpinner = true;
+      this.queryEditor = encodeURI(code)
+      this.$root.$emit('postRecentQuery', code)
+      this.$root.$emit('showMessages', false)
+      this.$root.$emit('updateCode', code)
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/data';
+      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+
+      axios
+        .get(this.url)
+        .then(response => {
+          this.data = []
+          this.keysData = []
+          this.rawData = response.data
+          this.meta = this.rawData.meta
+          this.data = this.rawData.data
+
+          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+
+          this.keysData = Object.keys(this.data[0])
+
+          this.$root.$emit('recordsDuration', this.queryDurationRecors)
+          this.$root.$emit('sendData', this.keysData, this.data)
+          this.$root.$emit('showMessages', true)
+          this.$root.$emit('sendQueryCode', this.queryCode)
+
+        })
+        .catch(error => {
+          const messageError = error.response.data.errors[0].sql
+          this.$root.$emit('apiError', messageError)
+
+          this.data = []
+          this.keysData = []
+          this.$root.$emit('sendData', this.keysData, this.data)
+        })
+
+        setTimeout(() => {
+          this.showSpinner = false
+        }, 300)
+    },
+    changeTab(value) {
       const sqlCode = value.attributes.sql
       this.$root.$emit('changeNavTab', sqlCode)
-    }*/
+    }
   }
 }
 </script>

@@ -89,6 +89,8 @@ export default {
     showAllRows() {
       if (this.$route.params.rowsDataset > 100) {
         this.showTotalRows = true
+      } else {
+        this.showTotalRows = false
       }
     },
     queryTotal() {

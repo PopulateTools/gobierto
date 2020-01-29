@@ -160,12 +160,12 @@ module GobiertoData
           if find_dataset.present?
             @dataset.queries.open
           else
-            current_site.queries.open
+            current_site.queries.send(valid_preview_token? ? :itself : :active).open
           end
         end
 
         def find_dataset
-          @dataset = current_site.datasets.find_by(id: params[:dataset_id])
+          @dataset = current_site.datasets.send(valid_preview_token? ? :itself : :active).find_by(id: params[:dataset_id])
         end
 
         def query_params

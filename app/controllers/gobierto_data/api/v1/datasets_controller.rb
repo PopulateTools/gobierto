@@ -149,7 +149,7 @@ module GobiertoData
         private
 
         def base_relation
-          current_site.datasets
+          current_site.datasets.send(valid_preview_token? ? :itself : :active)
         end
 
         def find_item

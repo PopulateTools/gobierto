@@ -8,7 +8,8 @@ module GobiertoData
     attr_accessor(
       :site_id,
       :data_path,
-      :data_file
+      :data_file,
+      :visibility_level
     )
 
     attr_writer(
@@ -115,6 +116,7 @@ module GobiertoData
         attributes.table_name = table_name
         attributes.name_translations = name_translations
         attributes.slug = slug
+        attributes.visibility_level = visibility_level
       end
 
       if @resource.save && load_data

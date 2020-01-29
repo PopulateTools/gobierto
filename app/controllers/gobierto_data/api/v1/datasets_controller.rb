@@ -195,6 +195,7 @@ module GobiertoData
               :schema,
               :schema_file,
               :append,
+              :visibility_level,
               name_translations: [*I18n.available_locales]
             )
           else
@@ -208,7 +209,9 @@ module GobiertoData
                 :data_path,
                 :local_data,
                 :csv_separator,
-                :append
+                :schema,
+                :append,
+                :visibility_level
               ]
             ).merge(
               schema: schema_json_param

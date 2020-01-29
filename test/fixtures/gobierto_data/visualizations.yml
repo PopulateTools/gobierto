@@ -53,3 +53,10 @@ events_count_closed_visualization:
   name_translations: <%= { en: "Events count visualization closed", es: "Visualización de cuenta de eventos cerrada" }.to_json %>
   privacy_status: <%= GobiertoData::Visualization.privacy_statuses["closed"] %>
   spec: "{}"
+
+draft_dataset_visualization:
+  query: draft_dataset_query
+  user: dennis
+  name_translations: <%= { en: "Interest Groups by domain visualization", es: "Visualización de grupos de interés por dominio" }.to_json %>
+  privacy_status: <%= GobiertoData::Visualization.privacy_statuses["closed"] %>
+  spec: "{}"

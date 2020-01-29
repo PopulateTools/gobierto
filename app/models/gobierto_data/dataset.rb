@@ -13,6 +13,8 @@ module GobiertoData
 
     translates :name
 
+    enum visibility_level: { draft: 0, active: 1 }
+
     validates :site, :name, :slug, :table_name, presence: true
     validates(
       :table_name,

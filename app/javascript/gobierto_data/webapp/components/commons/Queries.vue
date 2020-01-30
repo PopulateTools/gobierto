@@ -89,7 +89,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="sendQuery(item)"
+            @click="sendQuery(item); changeTab()"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
 

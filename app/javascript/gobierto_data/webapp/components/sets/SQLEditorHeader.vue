@@ -30,17 +30,20 @@
         />
       </div>
       <div class="gobierto-data-sql-editor-your-queries">
-        <Button
-          v-clickoutside="closeYourQueries"
+        <button
+          ref="button"
           :text="labelQueries"
           :class="removeLabelBtn ? 'remove-label' : ''"
           :disabled="disabledQueries"
-          class="btn-sql-editor"
-          icon="list"
-          color="var(--color-base)"
-          background="#fff"
-          @click.native="isHidden = !isHidden"
-        />
+          class="btn-sql-editor btn-sql-editor-queries gobierto-data-btn-blue"
+          @click="isHidden = !isHidden"
+        >
+          <i
+            style="color: inherit"
+            class="fas fa-list"
+          />
+          {{ labelQueries }}
+        </button>
         <keep-alive>
           <transition
             name="fade"
@@ -48,6 +51,10 @@
           >
             <Queries
               v-show="!isHidden"
+              v-closable="{
+                exclude: ['button'],
+                handler: 'closeYourQueries'
+              }"
               :array-queries="arrayQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
@@ -158,6 +165,7 @@ import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
 import Queries from './Queries.vue';
 
+let handleOutsideClick
 export default {
   name: 'SQLEditorHeader',
   components: {
@@ -179,6 +187,30 @@ export default {
         document.body.removeEventListener('click', el.clickOutsideEvent)
       },
       stopProp(event) { event.stopPropagation() }
+    },
+    closable : {
+      bind (el, binding, vnode) {
+        handleOutsideClick = (e) => {
+          e.stopPropagation()
+          const { handler, exclude } = binding.value
+          let clickedOnExcludedEl = false
+          exclude.forEach(refName => {
+            if (!clickedOnExcludedEl) {
+              const excludedEl = vnode.context.$refs[refName]
+              clickedOnExcludedEl = excludedEl.contains(e.target)
+            }
+          })
+          if (!el.contains(e.target) && !clickedOnExcludedEl) {
+            vnode.context[handler]()
+          }
+        }
+        document.addEventListener('click', handleOutsideClick)
+        document.addEventListener('touchstart', handleOutsideClick)
+      },
+      unbind () {
+        document.removeEventListener('click', handleOutsideClick)
+        document.removeEventListener('touchstart', handleOutsideClick)
+      }
     }
   },
   props: {
@@ -249,6 +281,8 @@ export default {
     this.$root.$on('storeQuery', this.showshowStoreQueries)
     this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('sendYourQuery', this.runYourQuery)
+
+    this.$root.$on('closeQueriesModal', this.closeYourQueries);
 
     this.datasetId = this.$route.params.numberId
     this.token = getToken()

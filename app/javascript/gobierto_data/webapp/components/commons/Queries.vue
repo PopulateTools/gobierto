@@ -20,7 +20,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item)"
+            @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item);changeTab(index); closeModal()"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
 
@@ -145,8 +145,8 @@ export default {
       totalQueries: this.arrayQueries.length + this.numberFavQueries,
       showSection: true,
       showYourQueries: true,
-      showYourFavQueries: false,
-      showYourTotalQueries: false
+      showYourFavQueries: true,
+      showYourTotalQueries: true
     }
   },
   created() {
@@ -156,6 +156,9 @@ export default {
     this.labelAll = I18n.t("gobierto_data.projects.all")
   },
   methods: {
+    closeModal() {
+      this.$root.$emit('closeQueriesModal');
+    },
     showCode(index) {
       this.hideCode = false
       this.sqlCode = this.arrayQueries[index].attributes.sql
@@ -220,8 +223,7 @@ export default {
         }, 300)
     },
     changeTab(value) {
-      const sqlCode = value.attributes.sql
-      this.$root.$emit('changeNavTab', sqlCode)
+      this.$root.$emit('changeNavTab', value)
     }
   }
 }

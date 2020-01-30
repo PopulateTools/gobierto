@@ -60,25 +60,27 @@
         </li>
       </ul>
     </nav>
-    <Summary
-      v-if="activeTab === 0"
-      :item="slugName"
-      :array-queries="arrayQueries"
-    />
-    <Data
-      v-else-if="activeTab === 1"
-      :item="slugName"
-      :array-queries="arrayQueries"
-    />
-    <Queries
-      v-else-if="activeTab === 2"
-      :array-queries="arrayQueries"
-    />
-    <Visualizations v-else-if="activeTab === 3" />
-    <Downloads
-      v-else-if="activeTab === 4"
-      :item="slugName"
-    />
+    <keep-alive>
+      <Summary
+        v-if="activeTab === 0"
+        :item="slugName"
+        :array-queries="arrayQueries"
+      />
+      <Data
+        v-else-if="activeTab === 1"
+        :item="slugName"
+        :array-queries="arrayQueries"
+      />
+      <Queries
+        v-else-if="activeTab === 2"
+        :array-queries="arrayQueries"
+      />
+      <Visualizations v-else-if="activeTab === 3" />
+      <Downloads
+        v-else-if="activeTab === 4"
+        :item="slugName"
+      />
+    </keep-alive>
   </div>
 </template>
 <script>
@@ -148,5 +150,4 @@ export default {
     }
   }
 }
-
 </script>

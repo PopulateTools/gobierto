@@ -505,6 +505,11 @@
         float: right;
         position: relative;
       }
+
+      &.btn-sql-editor-queries {
+        background-color: #fff;
+        color: var(--color-base);
+      }
     }
 
     input[type="text"] {
@@ -876,7 +881,7 @@
   .btn-sql-show-all {
     display: block;
     margin: 0 auto;
-    margin-top: 0.5rem;
+    margin-top: .5rem;
   }
 }
 

@@ -54,7 +54,8 @@ export default {
     return {
       keysData: [],
       mutableList: this.items,
-      showTotalRows: false
+      showTotalRows: false,
+      tableName: ''
     }
   },
   watch:{
@@ -67,6 +68,7 @@ export default {
     this.keysData = Object.keys(this.mutableList[0])
     this.showAllRows()
     this.$root.$on('sendCompleteQuery', this.updateQuery)
+    this.tableName = this.$route.params.tableName
   },
   created() {
     this.labelSave = I18n.t('gobierto_data.projects.save');
@@ -96,6 +98,10 @@ export default {
     queryTotal() {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/data';
+      if (this.queryEditor === undefined) {
+        this.queryEditor =
+        this.code = `SELECT * FROM ${this.tableName}`
+      }
       this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
 
       axios

@@ -3,15 +3,9 @@
     <p>Visualizations</p>
   </div>
 </template>
-
 <script>
 
 export default {
-  name: "Visualizations",
-  data() {
-    return {
-
-    }
-  }
+  name: "Visualizations"
 }
 </script>

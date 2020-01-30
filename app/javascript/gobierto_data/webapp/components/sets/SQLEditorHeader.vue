@@ -158,7 +158,8 @@
   </div>
 </template>
 <script>
-import { getToken } from './../../../lib/helpers';
+import { getToken } from './../../../lib/helpers'
+import { baseUrl } from "./../../../lib/commons.js";
 import axios from 'axios';
 import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
@@ -250,7 +251,6 @@ export default {
       propertiesQueries: [],
       directionLeft: true,
       url: '',
-      urlPath: '',
       showSpinner: false,
       token: ''
     }
@@ -381,9 +381,8 @@ export default {
       this.$root.$emit('postRecentQuery', this.codeQuery)
       this.$root.$emit('showMessages', false)
 
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/data';
-      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+      this.endPoint = `${baseUrl}/data`
+      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
         .get(this.url)
@@ -427,9 +426,7 @@ export default {
       this.isHidden = true
     },
     postQuery() {
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/queries'
-      this.url = `${this.urlPath}${this.endPoint}`
+      this.endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
       let data = {
           "data": {
@@ -442,7 +439,7 @@ export default {
               }
           }
       }
-      axios.post(this.url, data, {
+      axios.post(this.endPoint, data, {
         headers: {
           'Content-type': 'application/json',
           'Authorization': `${this.token}`

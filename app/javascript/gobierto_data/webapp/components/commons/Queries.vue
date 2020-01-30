@@ -121,6 +121,7 @@
 <script>
 import axios from 'axios';
 import { getToken, getUserId } from './../../../lib/helpers';
+import { baseUrl } from "./../../../lib/commons.js"
 export default {
   name: "Queries",
   data() {
@@ -139,7 +140,6 @@ export default {
       showYourFavQueries: true,
       showYourTotalQueries: true,
       token: '',
-      urlPath: '',
       endPoint: '',
       filterId: '',
       url: '',
@@ -181,7 +181,7 @@ export default {
       this.$root.$emit('changeNavTab')
     },
     deleteQuery(index) {
-      this.endPointDelete = `/api/v1/data/queries/${index}`
+      this.endPointDelete = `${baseUrl}/queries/${index}`
       axios.delete(this.endPointDelete, {
         headers: {
           'Content-type': 'application/json',
@@ -189,10 +189,9 @@ export default {
         }
       })
 
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/queries?filter[dataset_id]='
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=`
       this.filterId = `&filter[user_id]=${this.userId}`
-      this.url = `${this.urlPath}${this.endPoint}${this.numberId}${this.filterId}`
+      this.url = `${this.endPoint}${this.numberId}${this.filterId}`
       axios
         .get(this.url)
         .then(response => {
@@ -219,9 +218,8 @@ export default {
         this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
         this.queryEditor = this.code
       }
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/data';
-      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+      this.endPoint = `${baseUrl}/data`
+      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
         .get(this.url)

@@ -38,6 +38,7 @@
 
 import axios from 'axios';
 import Button from "./Button.vue";
+import { baseUrl } from "./../../../lib/commons.js";
 export default {
   name: 'DownloadButton',
   components: {
@@ -81,7 +82,6 @@ export default {
       sqlfileCSV: '',
       sqlfileXLSX: '',
       sqlfileJSON: '',
-      urlPath: location.origin,
       endPoint: '',
       rawData: null,
       slugDataset: '',
@@ -92,7 +92,7 @@ export default {
   created() {
     this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
-    this.endPointSQL = '/api/v1/data/data.csv?sql='
+    this.endPointSQL = `${baseUrl}/data.csv?sql=`
     this.slugDataset = this.slugName
   },
   methods: {
@@ -107,9 +107,8 @@ export default {
     },
     getData() {
       this.slugDataset = this.slugName
-      this.urlPath = location.origin
-      this.endPoint = `/api/v1/data/datasets/${this.slugDataset}/meta`;
-      this.url = `${this.urlPath}${this.endPoint}`
+      this.endPoint = `${baseUrl}/datasets/${this.slugDataset}/meta`
+      this.url = `${this.endPoint}`
 
       axios
         .get(this.url)

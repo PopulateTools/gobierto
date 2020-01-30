@@ -7,8 +7,9 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
-import NavDatasets from "./../components/sets/Nav.vue";
+import axios from 'axios'
+import { baseUrl } from "./../../lib/commons.js"
+import NavDatasets from "./../components/sets/Nav.vue"
 
 export default {
   name: "DataSets",
@@ -29,11 +30,9 @@ export default {
   },
   methods: {
     getData() {
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/datasets/'
-      this.url = `${this.urlPath}${this.endPoint}`
+      this.endPoint = `${baseUrl}/datasets/`
       axios
-        .get(this.url)
+        .get(this.endPoint)
         .then(response => {
           this.rawData = response.data
           this.titleDataset = this.rawData.data[0].attributes.name

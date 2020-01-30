@@ -20,7 +20,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item);changeTab(index); closeModal()"
+            @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item); closeModal()"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
 
@@ -221,9 +221,6 @@ export default {
         setTimeout(() => {
           this.showSpinner = false
         }, 300)
-    },
-    changeTab(value) {
-      this.$root.$emit('changeNavTab', value)
     }
   }
 }

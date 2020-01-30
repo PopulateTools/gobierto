@@ -259,9 +259,12 @@ export default {
       this.runQuery()
     },
     queryParams(queryParams) {
+      this.saveQueryState = true;
+      this.showBtnCancel = true;
+      this.showBtnSave = true;
       this.disabledRecents = false;
       this.disabledSave = false;
-      this.disabledRunQuery = false;
+      this.$root.$emit('saveQueryState', true);
 
       this.labelQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]

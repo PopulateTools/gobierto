@@ -63,6 +63,10 @@ module GobiertoAdmin
             select "vocabularies", from: "dataset_table_name"
             fill_in "dataset_slug", with: "vocabularies-slug"
 
+            within ".widget_save" do
+              find("label", text: "Published").click
+            end
+
             click_button "Create"
 
             assert has_message?("Dataset created correctly.")

@@ -190,7 +190,7 @@ export default {
   data() {
     return {
       showStoreQueries: [],
-      disabledRecents: true,
+      disabledRecents: false,
       disabledQueries: false,
       disabledSave: true,
       disabledRunQuery: true,

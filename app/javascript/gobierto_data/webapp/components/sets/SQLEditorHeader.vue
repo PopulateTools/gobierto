@@ -1,16 +1,5 @@
 <template>
   <div>
-    <div
-      v-show="noLogin"
-      class="gobierto-data-no-login-container"
-    >
-      <a
-        class="button open_remote_modal gobierto-data-no-login-text"
-        href="/user/sessions/new?open_modal=true"
-      >
-        Haz login o regístrate para poner preguntas
-      </a>
-    </div>
     <div class="gobierto-data-sql-editor-toolbar">
       <!-- <Button
         v-if="showBtnRemove"
@@ -118,7 +107,7 @@
         icon="save"
         color="var(--color-base)"
         background="#fff"
-        @click.native="saveQueryName()"
+        @click.native="noLogin ? goToLogin() : saveQueryName()"
       />
       <Button
         v-if="showBtnCancel"
@@ -265,8 +254,13 @@ export default {
     this.datasetId = this.$route.params.numberId
     this.token = getToken()
     this.userId = getUserId()
+
+    this.noLogin = this.userId === "" ? true : false
   },
   methods: {
+    goToLogin() {
+      location.href='/user/sessions/new?open_modal=true'
+    },
     runYourQuery(code) {
       this.queryEditor = code
       this.runQuery()
@@ -307,26 +301,22 @@ export default {
     },
     saveQueryName() {
       this.showSaveQueries = true
-      if (this.userId === "") {
-        this.noLogin = true
-      } else {
-        if (this.saveQueryState === true && this.nameQuery.length > 0) {
-          this.showBtnCancel = false;
-          this.showBtnEdit = true;
-          this.showBtnSave = false;
-          this.showBtnRemove = false;
-          this.showLabelPrivate = false;
-          this.removeLabelBtn = true;
-          this.showLabelModified = false;
-          this.disableInputName = true;
+      if (this.saveQueryState === true && this.nameQuery.length > 0) {
+        this.showBtnCancel = false;
+        this.showBtnEdit = true;
+        this.showBtnSave = false;
+        this.showBtnRemove = false;
+        this.showLabelPrivate = false;
+        this.removeLabelBtn = true;
+        this.showLabelModified = false;
+        this.disableInputName = true;
 
-          this.postQuery()
-        } else {
-          this.saveQueryState = true;
-          this.showBtnCancel = true;
-          this.setFocus();
-          this.$root.$emit('saveQueryState', true);
-        }
+        this.postQuery()
+      } else {
+        this.saveQueryState = true;
+        this.showBtnCancel = true;
+        this.setFocus();
+        this.$root.$emit('saveQueryState', true);
       }
     },
     setFocus() {

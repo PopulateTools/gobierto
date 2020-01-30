@@ -880,11 +880,8 @@
     }
   }
 
-  .fa-caret-down {
-
-    &.rotate-caret {
-      transform: rotate(270deg);
-    }
+  .rotate-caret {
+    transform: rotate(270deg);
   }
 
 }

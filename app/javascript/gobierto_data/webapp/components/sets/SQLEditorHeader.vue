@@ -50,11 +50,11 @@
             mode="out-in"
           >
             <Queries
-              v-show="!isHidden"
               v-closable="{
                 exclude: ['button'],
                 handler: 'closeYourQueries'
               }"
+              v-show="!isHidden"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
             />

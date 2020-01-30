@@ -8,8 +8,8 @@
             @click="showYourQueries = !showYourQueries"
           >
             <i
-              class="fas fa-caret-down"
               :class="showYourQueries ? '' : 'rotate-caret'"
+              class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
             {{ labelYourQueries }} ({{ arrayQueries.length }})
@@ -47,21 +47,6 @@
                 class="fas fa-lock-open"
               />
             </div>
-            <!-- <div
-              v-if="item.attributes.favorites === 'star'"
-              class="gobierto-data-summary-queries-container-icon"
-            >
-              <i
-                style="color: #D0021B"
-                class="fas fa-lock-close"
-              />
-            </div>
-            <div v-else>
-              <i
-                style="color: rgb(160, 197, 29)"
-                class="fas fa-lock-open"
-              />
-            </div> -->
           </div>
         </div>
         <div class="gobierto-data-summary-queries-element">
@@ -70,8 +55,8 @@
             @click="showYourFavQueries = !showYourFavQueries"
           >
             <i
-              class="fas fa-caret-down"
               :class="showYourFavQueries ? '' : 'rotate-caret'"
+              class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
             {{ labelFavs }} ({{ numberFavQueries }})
@@ -83,8 +68,8 @@
             @click="showYourTotalQueries = !showYourTotalQueries"
           >
             <i
-              class="fas fa-caret-down"
               :class="showYourTotalQueries ? '' : 'rotate-caret'"
+              class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
             {{ labelAll }} ({{ arrayQueries.length + numberFavQueries }})
@@ -146,9 +131,9 @@ export default {
       labelAll: '',
       hideCode: true,
       sqlCode: '',
-      numberQueries: Number,
+      numberQueries: 0,
       numberFavQueries: 0,
-      totalQueries: Number,
+      totalQueries: 0,
       showSection: true,
       showYourQueries: true,
       showYourFavQueries: true,

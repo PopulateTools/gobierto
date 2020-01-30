@@ -32,13 +32,29 @@
       <div
         v-for="(item, index) in allDatasets"
         :key="index"
-        :item="item"
-        class="gobierto-data-sidebar-datasets-links"
+        class="gobierto-data-sidebar-datasets"
       >
-        <i class="fas fa-caret-down" />
-        <span
-          @click="getDataDataset(index)"
-        >{{ item.attributes.name }}</span>
+        <div class="gobierto-data-sidebar-datasets-links-container">
+          <i
+            class="fas fa-caret-down"
+          />
+          <span
+            @click="getDataDataset(index)"
+          >{{ item.attributes.name }}</span>
+          <div
+            v-for="(indexValue) in index"
+            :key="indexValue"
+            :item="indexValue"
+          >
+            <span
+              v-for="(items, key, indexColumns) in columns"
+              :key="indexColumns"
+              class="gobierto-data-sidebar-datasets-links-columns"
+            >
+              {{ items }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -87,8 +103,28 @@ export default {
         console.error(error)
       })
 
+    this.getColumns()
+
   },
   methods: {
+    getColumns() {
+      this.urlPath = location.origin
+      this.endPoint = `/api/v1/data/datasets/${this.slugDataset}`
+      this.url = `${this.urlPath}${this.endPoint}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.keysData = this.rawData.data
+
+          this.columns = Object.keys(this.keysData[0])
+
+        })
+        .catch(error => {
+          console.error(error)
+
+        })
+    },
     activateTab(index) {
       this.$emit("active-tab", index);
     },
@@ -126,6 +162,7 @@ export default {
           this.$root.$emit('sendTableName', this.tableName)
           this.$root.$emit('sendSlug', this.slugDataset)
           this.nav(this.slugDataset)
+
 
         })
         .catch(error => {

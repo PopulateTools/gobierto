@@ -65,7 +65,7 @@
           v-model="labelQueryName"
           type="text"
           class="gobierto-data-sql-editor-container-save-text"
-          @keyup="nameQuery = $event.target.value; onSave()"
+          @keyup="labelQueryName = $event.target.value; onSave()"
         >
         <input
           v-if="showLabelPrivate"
@@ -218,7 +218,6 @@ export default {
       labelQueryName: '',
       labelEdit: '',
       labelModifiedQuery: '',
-      nameQuery: '',
       codeQuery: '',
       endPoint: '',
       privacyStatus: '',
@@ -304,7 +303,7 @@ export default {
     },
     saveQueryName() {
       this.showSaveQueries = true
-      if (this.saveQueryState === true && this.nameQuery.length > 0) {
+      if (this.saveQueryState === true && this.labelQueryName.length > 0) {
         this.showBtnCancel = false;
         this.showBtnEdit = true;
         this.showBtnSave = false;
@@ -338,7 +337,7 @@ export default {
       this.disableInputName = false;
     },
     cancelQuery() {
-      if (this.nameQuery.length > 0) {
+      if (this.labelQueryName.length > 0) {
         this.showBtnCancel = false;
         this.showBtnEdit = true;
         this.showBtnSave = false;
@@ -427,7 +426,7 @@ export default {
           "data": {
               "type": "gobierto_data-queries",
               "attributes": {
-                  "name": this.nameQuery,
+                  "name": this.labelQueryName,
                   "privacy_status": this.privacyStatus,
                   "sql": this.codeQuery,
                   "dataset_id": this.datasetId

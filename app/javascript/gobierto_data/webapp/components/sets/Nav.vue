@@ -142,8 +142,6 @@ export default {
   methods: {
     changeTab() {
       this.activateTab(1)
-      /*this.$root.$emit('sendYourQuery', sqlCode)
-      this.$root.$emit('sendYourCode', sqlCode)*/
     },
     activateTab(index) {
       this.$emit("active-tab", index);

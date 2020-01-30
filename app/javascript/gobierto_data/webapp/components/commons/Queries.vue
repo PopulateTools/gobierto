@@ -169,7 +169,7 @@ export default {
       this.showSection = !this.showSection
     },
     changeTab() {
-      this.$root.$emit('changeNavTab', 1)
+      this.$root.$emit('changeNavTab')
     }
   }
 }

@@ -20,7 +20,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="sendQuery(item)"
+            @click="sendQuery(item); changeTab()"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
 
@@ -168,10 +168,9 @@ export default {
     toggle() {
       this.showSection = !this.showSection
     },
-   /* changeTab(value) {
-      const sqlCode = value.attributes.sql
-      this.$root.$emit('changeNavTab', sqlCode)
-    }*/
+    changeTab() {
+      this.$root.$emit('changeNavTab', 1)
+    }
   }
 }
 </script>

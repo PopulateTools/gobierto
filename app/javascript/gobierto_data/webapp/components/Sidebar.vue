@@ -141,6 +141,9 @@ export default {
         .then(response => {
           this.rawData = response.data
           this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
+          this.arrayFormats = this.rawData.data.attributes.formats
+          this.columns = this.rawData.data.attributes.columns
+          this.columns = Object.keys(this.columns)
           this.nav(this.slugDataset)
         })
         .catch(error => {

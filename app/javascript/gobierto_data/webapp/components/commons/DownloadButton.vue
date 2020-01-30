@@ -22,16 +22,22 @@
           :key="index"
           :item="item"
         >
-          <a
-            :href="editor ? sqlfileCSV : item"
-            :download="titleDataset"
-            class="gobierto-data-btn-download-data-modal-element"
+          <div
+            v-for="(item, key, index) in links"
+            :key="index"
+            :item="item"
           >
-            {{ key }}
-          </a>
+            <a
+              :href="editor ? sqlfileCSV : item"
+              :download="titleDataset"
+              class="gobierto-data-btn-download-data-modal-element"
+            >
+              {{ key }}
+            </a>
+          </div>
         </div>
-      </div>
-    </transition>
+      </transition>
+    </keep-alive>
   </div>
 </template>
 <script>
@@ -87,5 +93,4 @@ export default {
     }
   }
 }
-
 </script>

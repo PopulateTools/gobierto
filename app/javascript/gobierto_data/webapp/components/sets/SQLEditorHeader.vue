@@ -62,6 +62,10 @@
                 handler: 'closeYourQueries'
               }"
               v-show="!isHidden"
+              v-closable="{
+                exclude: ['button'],
+                handler: 'closeYourQueries'
+              }"
               :array-queries="arrayQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
@@ -173,6 +177,7 @@ import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
 import Queries from './Queries.vue';
 
+let handleOutsideClick
 export default {
   name: 'SQLEditorHeader',
   components: {

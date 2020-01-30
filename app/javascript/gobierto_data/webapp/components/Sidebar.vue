@@ -47,7 +47,7 @@
 
 <script>
 import axios from 'axios';
-
+import { getUserId } from "./../../lib/helpers";
 export default {
   name: "Sidebar",
   props: {
@@ -65,10 +65,12 @@ export default {
       slugDataset: '',
       tableName: '',
       allDatasets: null,
-      numberId: ''
+      numberId: '',
+      arrayQueries: []
     }
   },
   created() {
+    this.userId = getUserId()
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
@@ -102,7 +104,8 @@ export default {
           id: slugDataset,
           numberId: this.numberId,
           titleDataset: this.titleDataset,
-          tableName: this.tableName
+          tableName: this.tableName,
+          arrayQueries: this.arrayQueries
         }
     })
     },
@@ -130,14 +133,34 @@ export default {
           this.$root.$emit('sendTableName', this.tableName)
           this.$root.$emit('sendSlug', this.slugDataset)
           this.$root.$emit('sendIdDataset', this.idDataset)
-          this.nav(this.slugDataset)
+          this.getQueries()
+
 
         })
         .catch(error => {
           console.error(error)
 
         })
-    }
+    },
+    getQueries() {
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/queries?filter[dataset_id]='
+      this.filterId = `&filter[user_id]=${this.userId}`
+      this.url = `${this.urlPath}${this.endPoint}${this.numberId}${this.filterId}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.items = this.rawData.data
+          this.arrayQueries = this.items
+          this.datasetId = parseInt(this.numberId)
+          this.nav(this.slugDataset)
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
+    },
   }
 };
 </script>

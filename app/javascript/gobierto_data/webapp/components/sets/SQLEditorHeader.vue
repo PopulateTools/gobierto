@@ -55,7 +55,6 @@
                 exclude: ['button'],
                 handler: 'closeYourQueries'
               }"
-              :array-queries="arrayQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
             />
@@ -211,12 +210,6 @@ export default {
         document.removeEventListener('click', handleOutsideClick)
         document.removeEventListener('touchstart', handleOutsideClick)
       }
-    }
-  },
-  props: {
-    arrayQueries: {
-      type: Array,
-      required: true
     }
   },
   data() {
@@ -432,15 +425,6 @@ export default {
     },
     closeYourQueries() {
       this.isHidden = true
-    },
-    deleteQuery(index) {
-      const URL = `/api/v1/data/queries/${index}`
-      axios.delete(URL, {
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': `${this.token}`
-        }
-      });
     },
     postQuery() {
       this.urlPath = location.origin

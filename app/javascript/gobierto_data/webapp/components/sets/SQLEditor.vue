@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="gobierto-data-sql-editor">
-      <SQLEditorHeader
-        :array-queries="arrayQueries"
-      />
+      <SQLEditorHeader />
       <SQLEditorCode />
       <SQLEditorTabs
         v-if="data"
@@ -32,10 +30,6 @@ export default {
   props: {
     slugName: {
       type: String,
-      required: true
-    },
-    arrayQueries: {
-      type: Array,
       required: true
     }
   },

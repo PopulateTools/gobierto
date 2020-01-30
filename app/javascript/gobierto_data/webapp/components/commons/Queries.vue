@@ -9,6 +9,7 @@
           >
             <i
               class="fas fa-caret-down"
+              :class="showYourQueries ? '' : 'rotate-caret'"
               style="color: var(--color-base);"
             />
             {{ labelYourQueries }} ({{ arrayQueries.length }})
@@ -20,24 +21,28 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item); closeModal(); changeTab()"
           >
-            <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
-
+            <span
+              class="gobierto-data-summary-queries-container-name"
+              @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item); closeModal(); changeTab()"
+            >
+              {{ item.attributes.name }}
+            </span>
             <div
-              v-if="item.attributes.privacy_status === 'closed'"
               class="gobierto-data-summary-queries-container-icon"
             >
+              <!-- <i
+                class="fas fa-trash-alt icons-your-queries"
+                style="color: var(--color-base);"
+                @click="deleteQuery(item.id)"
+              /> -->
               <i
+                v-if="item.attributes.privacy_status === 'closed'"
                 style="color: #D0021B"
                 class="fas fa-lock-close"
               />
-            </div>
-            <div
-              v-else
-              class="gobierto-data-summary-queries-container-icon"
-            >
               <i
+                v-else
                 style="color: rgb(160, 197, 29)"
                 class="fas fa-lock-open"
               />
@@ -66,6 +71,7 @@
           >
             <i
               class="fas fa-caret-down"
+              :class="showYourFavQueries ? '' : 'rotate-caret'"
               style="color: var(--color-base);"
             />
             {{ labelFavs }} ({{ numberFavQueries }})
@@ -78,6 +84,7 @@
           >
             <i
               class="fas fa-caret-down"
+              :class="showYourTotalQueries ? '' : 'rotate-caret'"
               style="color: var(--color-base);"
             />
             {{ labelAll }} ({{ arrayQueries.length + numberFavQueries }})
@@ -92,7 +99,11 @@
             @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item); closeModal(); changeTab()"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
-
+            <!-- <i
+              class="fas fa-trash-alt"
+              style="color: var(--color-base);"
+              @click="deleteQuery(item.id)"
+            /> -->
             <div
               v-if="item.attributes.privacy_status === 'close'"
               class="gobierto-data-summary-queries-container-icon"
@@ -124,14 +135,9 @@
 </template>
 <script>
 import axios from 'axios';
+import { getToken, getUserId } from './../../../lib/helpers';
 export default {
   name: "Queries",
-  props: {
-    arrayQueries: {
-      type: Array,
-      required: true
-    }
-  },
   data() {
     return {
       labelQueries: '',
@@ -140,20 +146,34 @@ export default {
       labelAll: '',
       hideCode: true,
       sqlCode: '',
-      numberQueries: this.arrayQueries.length,
+      numberQueries: Number,
       numberFavQueries: 0,
-      totalQueries: this.arrayQueries.length + this.numberFavQueries,
+      totalQueries: Number,
       showSection: true,
       showYourQueries: true,
       showYourFavQueries: true,
-      showYourTotalQueries: true
+      showYourTotalQueries: true,
+      token: '',
+      urlPath: '',
+      endPoint: '',
+      filterId: '',
+      url: '',
+      endPointDelete: '',
+      numberId: ''
     }
   },
   created() {
+    this.arrayQueries = this.$route.params.arrayQueries
+    this.numberId = this.$route.params.numberId
+    this.numberQueries = this.arrayQueries.length
+    this.totalQueries = this.arrayQueries.length + this.numberFavQueries
+
     this.labelYourQueries = I18n.t("gobierto_data.projects.yourQueries")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelFavs = I18n.t("gobierto_data.projects.favs")
     this.labelAll = I18n.t("gobierto_data.projects.all")
+    this.token = getToken()
+    this.userId = getUserId()
   },
   methods: {
     closeModal() {
@@ -174,6 +194,31 @@ export default {
     },
     changeTab() {
       this.$root.$emit('changeNavTab')
+    },
+    deleteQuery(index) {
+      this.endPointDelete = `/api/v1/data/queries/${index}`
+      axios.delete(this.endPointDelete, {
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': `${this.token}`
+        }
+      })
+
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/queries?filter[dataset_id]='
+      this.filterId = `&filter[user_id]=${this.userId}`
+      this.url = `${this.urlPath}${this.endPoint}${this.numberId}${this.filterId}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.items = this.rawData.data
+          this.arrayQueries = this.items
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
     },
     runYourQuery(code) {
       this.showSpinner = true;

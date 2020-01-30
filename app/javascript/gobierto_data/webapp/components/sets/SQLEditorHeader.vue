@@ -62,10 +62,10 @@
         <input
           ref="inputText"
           :class="disableInputName ? 'disable-input-text' : ' '"
-          :placeholder="labelQueryName"
+          v-model="labelQueryName"
           type="text"
           class="gobierto-data-sql-editor-container-save-text"
-          @keyup="nameQuery = $event.target.value"
+          @keyup="nameQuery = $event.target.value; onSave()"
         >
         <input
           v-if="showLabelPrivate"
@@ -254,16 +254,23 @@ export default {
     this.token = getToken()
   },
   methods: {
+    onSave() {
+      this.disabledSave = false
+    },
     runYourQuery(code) {
       this.queryEditor = code
       this.runQuery()
     },
     queryParams(queryParams) {
       this.saveQueryState = true;
-      this.showBtnCancel = true;
-      this.showBtnSave = true;
+      this.showBtnCancel = false;
+      this.showBtnSave = false;
       this.disabledRecents = false;
-      this.disabledSave = false;
+      this.disabledSave = true;
+      this.showBtnEdit = true;
+      this.removeLabelBtn = true;
+      this.showLabelPrivate = false;
+      this.disableInputName = true;
       this.$root.$emit('saveQueryState', true);
 
       this.labelQueryName = queryParams[0]

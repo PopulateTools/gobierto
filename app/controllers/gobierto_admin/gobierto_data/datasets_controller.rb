@@ -72,6 +72,7 @@ module GobiertoAdmin
         params.require(:dataset).permit(
           :table_name,
           :slug,
+          :visibility_level,
           name_translations: [*I18n.available_locales]
         )
       end

@@ -14,6 +14,9 @@ module GobiertoAdmin
         :admin_id,
         :ip
       )
+      attr_writer(
+        :visibility_level
+      )
 
       validates :site_id, presence: true
       validate :table_reachable
@@ -25,6 +28,10 @@ module GobiertoAdmin
       notify_changed :name_translations, :table_name, :slug, as: :attribute
       use_publisher Publishers::AdminGobiertoDataActivity
       use_trackable_subject :dataset
+
+      def visibility_level
+        @visibility_level ||= "draft"
+      end
 
       def save
         save_dataset if valid?
@@ -40,6 +47,10 @@ module GobiertoAdmin
 
       def available_table_names
         ::GobiertoData::Connection.tables(site)
+      end
+
+      def available_visibility_levels
+        dataset_class.visibility_levels
       end
 
       private
@@ -58,6 +69,7 @@ module GobiertoAdmin
           attributes.name_translations = name_translations
           attributes.table_name = table_name
           attributes.slug = slug.blank? ? nil : slug
+          attributes.visibility_level = visibility_level
         end
 
         if @dataset.valid?

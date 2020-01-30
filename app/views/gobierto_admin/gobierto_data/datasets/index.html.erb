@@ -20,6 +20,7 @@
       <th class="icon_col"></th>
       <th><%= t(".header.name") %></th>
       <th><%= t(".header.table_name") %></th>
+      <th><%= t(".header.status") %></th>
       <th class="icon_col"></th>
     </tr>
   </thead>
@@ -36,6 +37,14 @@
       </td>
       <td>
         <%= dataset.table_name %>
+      </td>
+      <td class="visibility_level">
+        <% if dataset.draft? %>
+          <i class="fas fa-lock"></i>
+        <% else %>
+          <i class="fas fa-check"></i>
+        <% end %>
+        <%= t("gobierto_admin.shared.save_widget.visibility_level.#{dataset.visibility_level}") %>
       </td>
       <td>
         <%= link_to admin_data_dataset_path(dataset.id),

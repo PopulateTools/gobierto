@@ -20,6 +20,7 @@ es:
         index:
           header:
             name: Nombre
+            status: Estado
             table_name: Nombre de la tabla
           new: Nuevo
           title: Conjuntos de datos

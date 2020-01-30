@@ -39,19 +39,19 @@
             class="fas fa-caret-down"
           />
           <span
-            @click="getDataDataset(index)"
+            class="gobierto-data-sidebar-datasets-name"
+            @click="getData(index); isActive === item.id"
           >{{ item.attributes.name }}</span>
           <div
-            v-for="(indexValue) in index"
-            :key="indexValue"
-            :item="indexValue"
+            v-show="isActive === index"
           >
             <span
-              v-for="(items, key, indexColumns) in columns"
-              :key="indexColumns"
+              v-for="(column, i) in columns"
+              :key="i"
+              :item="i"
               class="gobierto-data-sidebar-datasets-links-columns"
             >
-              {{ items }}
+              {{ column }}
             </span>
           </div>
         </div>
@@ -98,18 +98,17 @@ export default {
         this.allDatasets = this.rawData.data
 
         this.titleDataset = this.rawData.data[0].attributes.name
+        this.slugDataset = this.rawData.data[0].attributes.slug
+        this.getColumns(this.slugDataset)
       })
       .catch(error => {
         console.error(error)
       })
-
-    this.getColumns()
-
   },
   methods: {
-    getColumns() {
+    getColumns(slugDataset) {
       this.urlPath = location.origin
-      this.endPoint = `/api/v1/data/datasets/${this.slugDataset}`
+      this.endPoint = `/api/v1/data/datasets/${slugDataset}`
       this.url = `${this.urlPath}${this.endPoint}`
       axios
         .get(this.url)
@@ -129,6 +128,7 @@ export default {
       this.$emit("active-tab", index);
     },
     nav(slugDataset) {
+      this.getColumns(this.slugDataset)
       this.$router.push({
         name: "dataset",
         params: {
@@ -139,9 +139,6 @@ export default {
           arrayQueries: this.arrayQueries
         }
     })
-    },
-    getDataDataset(index) {
-      this.getData(index)
     },
     getData(index) {
       this.endPoint = `${baseUrl}/datasets/`
@@ -162,7 +159,6 @@ export default {
           this.$root.$emit('sendTableName', this.tableName)
           this.$root.$emit('sendSlug', this.slugDataset)
           this.nav(this.slugDataset)
-
 
         })
         .catch(error => {

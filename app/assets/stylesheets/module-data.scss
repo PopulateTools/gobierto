@@ -356,7 +356,7 @@
     width: 30rem;
     display: none;
     top: 100%;
-    height: 160px;
+    height: 210px;
     background-color: #fff;
 
     &.modal-left {
@@ -433,8 +433,7 @@
     background-color: #fff;
     z-index: 10;
     top: 135%;
-    width: 50rem;
-    max-width: 50rem;
+    width: 50vw;
 
     &.active {
       display: block;
@@ -699,7 +698,6 @@
     padding: .5rem;
     font-size: 14px;
     font-weight: normal;
-    color: #000;
     display: block;
     width: 100%;
     border-radius: 0;
@@ -707,6 +705,7 @@
     text-transform: none !important;
     box-sizing: border-box;
     position: relative;
+    color: #666;
 
     &:hover {
       background-color: rgba(var(--color-base-string), .1);
@@ -714,21 +713,6 @@
       &::before {
         display: inline-block;
       }
-    }
-
-    &::before {
-      padding: .5rem;
-      content: attr(data-id);
-      background-color: var(--color-base);
-      width: max-content;
-      display: none;
-      color: #fff;
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 10;
-      width: 100%;
-
     }
   }
 

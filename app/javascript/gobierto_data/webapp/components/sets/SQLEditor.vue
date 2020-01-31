@@ -3,6 +3,7 @@
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
         :array-queries="arrayQueries"
+        :dataset-id="datasetId"
       />
       <SQLEditorCode
         :table-name="tableName"
@@ -11,7 +12,6 @@
         v-if="data"
         :items="data"
         :link="link"
-        :slug="slugName"
         :active-tab="activeTabIndex"
         @active-tab="activeTabIndex = $event"
       />
@@ -32,16 +32,16 @@ export default {
     SQLEditorTabs
   },
   props: {
-    slugName: {
-      type: String,
-      required: true
-    },
     tableName: {
       type: String,
       required: true
     },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    datasetId: {
+      type: Number,
       required: true
     }
   },

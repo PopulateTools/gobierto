@@ -37,13 +37,7 @@ export class GobiertoDataController {
           {
             path: "/datos/:id",
             name: "dataset",
-            component: Sets,
-            params: {
-              id: this.slugDataset,
-              numberId: this.numberId,
-              titleDataset: this.titleDataset,
-              tableName: this.tableName
-            }
+            component: Sets
           }
         ]
       })

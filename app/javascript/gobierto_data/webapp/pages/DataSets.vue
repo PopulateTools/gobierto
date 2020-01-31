@@ -5,6 +5,8 @@
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
       :table-name="tableName"
+      :dataset-id="datasetId"
+      :title-dataset="titleDataset"
       @active-tab="activeTabIndex = $event"
     />
   </div>
@@ -50,7 +52,6 @@ export default {
           this.rawData = response.data
           this.items = this.rawData.data
           this.arrayQueries = this.items
-          this.datasetId = parseInt(this.numberId)
         })
         .catch(error => {
           const messageError = error.response
@@ -70,9 +71,9 @@ export default {
           this.titleDataset = this.rawData.data.attributes.name
           this.slugDataset = this.rawData.data.attributes.slug
           this.tableName = this.rawData.data.attributes.table_name
+          this.datasetId = parseInt(this.idDataset)
 
           this.$root.$emit('nameDataset', this.titleDataset)
-          this.$root.$emit('sendIdDataset', this.idDataset)
 
           this.getQueries()
 

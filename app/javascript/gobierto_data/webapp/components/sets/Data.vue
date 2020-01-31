@@ -2,8 +2,8 @@
   <div class="gobierto-data-sets-nav--tab-container">
     <SQLEditor
       id="codemirror"
-      :slug-name="item"
       :table-name="tableName"
+      :dataset-id="datasetId"
       :array-queries="arrayQueries"
     />
   </div>
@@ -17,8 +17,8 @@ export default {
     SQLEditor
   },
   props: {
-    item: {
-      type: String,
+    datasetId: {
+      type: Number,
       required: true
     },
     tableName: {

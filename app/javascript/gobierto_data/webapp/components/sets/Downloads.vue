@@ -5,7 +5,6 @@
         :class="[
           directionLeft ? 'modal-left': 'modal-right'
         ]"
-        :slug-name="item"
         class="arrow-top"
       />
     </keep-alive>
@@ -22,12 +21,6 @@ export default {
   components: {
     Resources,
     DownloadButton
-  },
-  props: {
-    item: {
-      type: String,
-      required: true
-    }
   },
   data() {
     return {

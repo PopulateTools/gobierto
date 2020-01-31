@@ -128,7 +128,6 @@ export default {
           this.$root.$emit('nameDataset', this.titleDataset)
           this.$root.$emit('sendTableName', this.tableName)
           this.$root.$emit('sendSlug', this.slugDataset)
-          this.$root.$emit('sendIdDataset', this.idDataset)
           this.nav(this.slugDataset)
 
         })

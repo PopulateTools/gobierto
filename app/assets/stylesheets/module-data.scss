@@ -1,8 +1,9 @@
-.gobierto-data {
+:root {
+  --transition: .1s ease-in;
+  --shadow: 0 2px 20px rgba(0, 0, 0, .3);
+}
 
-  :root {
-    --transition: .1s ease-in;
-  }
+.gobierto-data {
 
   @include min-screen(768) {
     @include gutters(66px)
@@ -15,7 +16,6 @@
 
   &-home-nav--tab {
     list-style: none;
-
     display: inline-block;
     color: var(--color-base);
     text-transform: uppercase;
@@ -348,7 +348,7 @@
 
   &-btn-download-data-modal,
   &-sql-editor-recent-queries {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, .3);
+    box-shadow: var(--shadow);
     border: 1px solid var(--color-base);
     border-radius: 3px;
     padding: .5rem 0;
@@ -744,6 +744,7 @@
   }
 
   &-sql-editor-your-queries-container {
+    box-shadow: var(--shadow);
     position: absolute;
     top: 45px;
     left: 0;

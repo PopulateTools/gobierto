@@ -128,6 +128,8 @@ es:
       invalid: no es válido
       invalid_consultation_response: No se ha podido guardar la consulta. Por favor,
         revisa los valores e inténtalo de nuevo.
+      invalid_table_name: Debe comenzar con una letra o un guión bajo; el resto solo
+        puede contener letras, dígitos o guiones bajos
       less_than: debe ser menor que %{count}
       less_than_or_equal_to: debe ser menor que o igual a %{count}
       not_a_number: no es un número

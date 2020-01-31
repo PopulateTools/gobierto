@@ -253,6 +253,7 @@ export default {
 
     this.datasetId = this.$route.params.numberId
     this.token = getToken()
+
     this.userId = getUserId()
 
     this.noLogin = this.userId === "" ? true : false

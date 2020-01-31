@@ -38,28 +38,13 @@
 
 import axios from 'axios';
 import Button from "./Button.vue";
-import { baseUrl } from "./../../../lib/commons.js";
+import { baseUrl, CommonsMixin } from "./../../../lib/commons.js";
 export default {
   name: 'DownloadButton',
   components: {
     Button
   },
-  directives: {
-    clickoutside: {
-      bind: function(el, binding, vnode) {
-        el.clickOutsideEvent = function(event) {
-          if (!(el == event.target || el.contains(event.target))) {
-            vnode.context[binding.expression](event);
-          }
-        };
-        document.body.addEventListener('click', el.clickOutsideEvent)
-      },
-      unbind: function(el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent)
-      },
-      stopProp(event) { event.stopPropagation() }
-    }
-  },
+  mixins: [CommonsMixin],
   props: {
     editor: {
       type: Boolean,

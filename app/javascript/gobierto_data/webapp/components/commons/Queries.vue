@@ -81,7 +81,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item); closeModal(); changeTab()"
+            @click="handleQueries(arrayQueries[index].attributes.sql, item)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
             <!-- <i
@@ -161,6 +161,12 @@ export default {
     this.userId = getUserId()
   },
   methods: {
+    handleQueries(sql, item) {
+      this.runYourQuery(sql)
+      this.sendQuery(item)
+      this.closeModal()
+      this.changeTab()
+    },
     closeModal() {
       this.$root.$emit('closeQueriesModal');
     },
@@ -180,8 +186,8 @@ export default {
     changeTab() {
       this.$root.$emit('changeNavTab')
     },
-    deleteQuery(index) {
-      this.endPointDelete = `${baseUrl}/queries/${index}`
+    deleteQuery(id) {
+      this.endPointDelete = `${baseUrl}/queries/${id}`
       axios.delete(this.endPointDelete, {
         headers: {
           'Content-type': 'application/json',

@@ -159,13 +159,12 @@
 </template>
 <script>
 import { getToken } from './../../../lib/helpers'
-import { baseUrl } from "./../../../lib/commons.js";
+import { baseUrl, CommonsMixin } from "./../../../lib/commons.js";
 import axios from 'axios';
 import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
 import Queries from './Queries.vue';
 
-let handleOutsideClick
 export default {
   name: 'SQLEditorHeader',
   components: {
@@ -173,46 +172,7 @@ export default {
     RecentQueries,
     Queries
   },
-  directives: {
-    clickoutside: {
-      bind: function(el, binding, vnode) {
-        el.clickOutsideEvent = function(event) {
-          if (!(el == event.target || el.contains(event.target))) {
-            vnode.context[binding.expression](event);
-          }
-        };
-        document.body.addEventListener('click', el.clickOutsideEvent)
-      },
-      unbind: function(el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent)
-      },
-      stopProp(event) { event.stopPropagation() }
-    },
-    closable : {
-      bind (el, binding, vnode) {
-        handleOutsideClick = (e) => {
-          e.stopPropagation()
-          const { handler, exclude } = binding.value
-          let clickedOnExcludedEl = false
-          exclude.forEach(refName => {
-            if (!clickedOnExcludedEl) {
-              const excludedEl = vnode.context.$refs[refName]
-              clickedOnExcludedEl = excludedEl.contains(e.target)
-            }
-          })
-          if (!el.contains(e.target) && !clickedOnExcludedEl) {
-            vnode.context[handler]()
-          }
-        }
-        document.addEventListener('click', handleOutsideClick)
-        document.addEventListener('touchstart', handleOutsideClick)
-      },
-      unbind () {
-        document.removeEventListener('click', handleOutsideClick)
-        document.removeEventListener('touchstart', handleOutsideClick)
-      }
-    }
-  },
+  mixins: [CommonsMixin],
   data() {
     return {
       showStoreQueries: [],

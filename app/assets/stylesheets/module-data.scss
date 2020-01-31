@@ -433,8 +433,8 @@
     background-color: #fff;
     z-index: 10;
     top: 135%;
-    width: max-content;
-    min-width: 50rem;
+    width: 50rem;
+    max-width: 50rem;
 
     &.active {
       display: block;

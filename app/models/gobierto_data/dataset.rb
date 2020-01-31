@@ -26,6 +26,8 @@ module GobiertoData
     )
     validates :slug, uniqueness: { scope: :site_id }
 
+    before_save :set_schema, if: :will_save_change_to_visibility_level?
+
     def attributes_for_slug
       [name]
     end
@@ -69,6 +71,7 @@ module GobiertoData
       )
 
       query_result = Connection.execute_write_query_from_file_using_stdin(site, statements.sql_code, file_path: file_path)
+      set_schema
       touch(:data_updated_at) unless query_result.has_key?(:errors)
       {
         db_result: query_result,
@@ -78,6 +81,14 @@ module GobiertoData
     end
 
     private
+
+    def set_schema
+      if draft?
+        Connection.execute_query(site, "ALTER TABLE IF EXISTS #{table_name} SET SCHEMA draft", write: true)
+      else
+        Connection.execute_query(site, "ALTER TABLE IF EXISTS #{table_name} SET SCHEMA public", write: true)
+      end
+    end
 
     def internal_rails_class_name
       @internal_rails_class_name ||= "site_id_#{site.id}_table_#{table_name}".classify

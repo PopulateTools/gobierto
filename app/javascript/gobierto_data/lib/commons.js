@@ -37,6 +37,7 @@ export const CommonsMixin = {
         document.addEventListener('touchstart', handleOutsideClick)
       },
       unbind () {
+        let handleOutsideClick
         document.removeEventListener('click', handleOutsideClick)
         document.removeEventListener('touchstart', handleOutsideClick)
       }

@@ -6,6 +6,8 @@ module GobiertoAdmin
   module GobiertoData
     module Datasets
       class CreateDatasetTest < ActionDispatch::IntegrationTest
+        self.use_transactional_tests = false
+
         def setup
           super
           @path = new_admin_data_dataset_path

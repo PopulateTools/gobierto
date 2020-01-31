@@ -157,7 +157,7 @@ module GobiertoData
         end
 
         def execute_query(relation)
-          GobiertoData::Connection.execute_query(current_site, relation.to_sql)
+          GobiertoData::Connection.execute_query(current_site, relation.to_sql, include_draft: valid_preview_token?)
         end
 
         def links(self_key = nil)

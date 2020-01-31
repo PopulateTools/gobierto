@@ -261,7 +261,7 @@
     display: inline-block;
     margin-top: 10px;
     margin-bottom: 6px;
-    padding-left: 1rem;
+    padding-left: .5rem;
   }
 
   &-summary-queries-sql-code {
@@ -787,8 +787,7 @@
   }
 
   &-summary-queries-container {
-    padding: .25rem 2rem;
-    padding-top: 0;
+    padding: 0 .5rem .5rem 1.75rem;
     cursor: pointer;
     transition: background-color var(--transition);
 
@@ -806,7 +805,7 @@
 
   &-summary-queries-container-icon {
     display: inline-block;
-    width: 4%;
+    width: 8%;
   }
 
   .spinner-box {

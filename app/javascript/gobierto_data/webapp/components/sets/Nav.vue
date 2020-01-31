@@ -69,6 +69,7 @@
       v-else-if="activeTab === 1"
       :item="slugName"
       :array-queries="arrayQueries"
+      :table-name="tableName"
     />
     <Queries
       v-else-if="activeTab === 2"
@@ -108,6 +109,10 @@ export default {
     arrayQueries: {
       type: Array,
       required: true
+    },
+    tableName: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -134,7 +139,8 @@ export default {
 
     this.$root.$on('changeNavTab', this.changeTab)
 
-    this.titleDataset = this.$route.params.titleDataset
+    this.$root.$on('nameDataset', this.getTitle)
+
     this.slugName = this.$route.params.id
   },
   methods: {
@@ -145,6 +151,9 @@ export default {
     },
     activateTab(index) {
       this.$emit("active-tab", index);
+    },
+    getTitle(title) {
+      this.titleDataset = title
     }
   }
 }

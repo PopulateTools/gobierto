@@ -3,6 +3,7 @@
     <SQLEditor
       id="codemirror"
       :slug-name="item"
+      :table-name="tableName"
       :array-queries="arrayQueries"
     />
   </div>
@@ -17,6 +18,10 @@ export default {
   },
   props: {
     item: {
+      type: String,
+      required: true
+    },
+    tableName: {
       type: String,
       required: true
     },

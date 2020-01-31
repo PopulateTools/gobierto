@@ -4,6 +4,7 @@
       v-if="arrayQueries"
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
+      :table-name="tableName"
       @active-tab="activeTabIndex = $event"
     />
   </div>
@@ -25,13 +26,15 @@ export default {
       titleDataset: '',
       arrayQueries: [],
       numberId: '',
-      datasetId: 0
+      datasetId: 0,
+      tableName: ''
     }
   },
   created() {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
     this.numberId = this.$route.params.numberId
+
 
     this.userId = getUserId()
   },
@@ -40,7 +43,7 @@ export default {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/queries?filter[dataset_id]='
       this.filterId = `&filter[user_id]=${this.userId}`
-      this.url = `${this.urlPath}${this.endPoint}${this.numberId}${this.filterId}`
+      this.url = `${this.urlPath}${this.endPoint}${this.idDataset}${this.filterId}`
       axios
         .get(this.url)
         .then(response => {
@@ -56,13 +59,21 @@ export default {
     },
     getData() {
       this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/datasets/'
+      this.endPoint = `/api/v1/data/datasets/${this.$route.params.id}/meta`
       this.url = `${this.urlPath}${this.endPoint}`
       axios
         .get(this.url)
         .then(response => {
           this.rawData = response.data
-          this.titleDataset = this.rawData.data[0].attributes.name
+          this.titleDataset = this.rawData.data.attributes.name
+          this.idDataset = this.rawData.data.id
+          this.titleDataset = this.rawData.data.attributes.name
+          this.slugDataset = this.rawData.data.attributes.slug
+          this.tableName = this.rawData.data.attributes.table_name
+
+          this.$root.$emit('nameDataset', this.titleDataset)
+          this.$root.$emit('sendIdDataset', this.idDataset)
+
           this.getQueries()
 
         })

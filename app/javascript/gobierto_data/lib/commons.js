@@ -15,32 +15,6 @@ export const CommonsMixin = {
         document.body.removeEventListener('click', el.clickOutsideEvent)
       },
       stopProp(event) { event.stopPropagation() }
-    },
-    closable : {
-      bind (el, binding, vnode) {
-        let handleOutsideClick
-        handleOutsideClick = (e) => {
-          e.stopPropagation()
-          const { handler, exclude } = binding.value
-          let clickedOnExcludedEl = false
-          exclude.forEach(refName => {
-            if (!clickedOnExcludedEl) {
-              const excludedEl = vnode.context.$refs[refName]
-              clickedOnExcludedEl = excludedEl.contains(e.target)
-            }
-          })
-          if (!el.contains(e.target) && !clickedOnExcludedEl) {
-            vnode.context[handler]()
-          }
-        }
-        document.addEventListener('click', handleOutsideClick)
-        document.addEventListener('touchstart', handleOutsideClick)
-      },
-      unbind () {
-        let handleOutsideClick
-        document.removeEventListener('click', handleOutsideClick)
-        document.removeEventListener('touchstart', handleOutsideClick)
-      }
     }
-  },
+  }
 }

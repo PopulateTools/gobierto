@@ -27,20 +27,22 @@
       </ul>
     </nav>
     <div
-      v-if="activeTab === 1 || activeTab === 4 && allDatasets"
+      v-if="activeTab === 1"
     >
       <div
         v-for="(item, index) in allDatasets"
         :key="index"
         class="gobierto-data-sidebar-datasets"
       >
-        <div class="gobierto-data-sidebar-datasets-links-container">
+        <div
+          class="gobierto-data-sidebar-datasets-links-container"
+          @click="getData(index)"
+        >
           <i
             class="fas fa-caret-down"
           />
           <span
             class="gobierto-data-sidebar-datasets-name"
-            @click="getData(index); isActive === item.id"
           >{{ item.attributes.name }}</span>
           <div
             v-show="isActive === index"
@@ -69,6 +71,10 @@ export default {
     activeTab: {
       type: Number,
       default: 0
+    },
+    allDatasets: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -117,18 +123,17 @@ export default {
           this.keysData = this.rawData.data
 
           this.columns = Object.keys(this.keysData[0])
-
+          /*this.nav(slugDataset)*/
         })
         .catch(error => {
           console.error(error)
 
         })
     },
-    activateTab(index) {
-      this.$emit("active-tab", index);
+    activateTab(value) {
+      this.$emit("active-tab", value);
     },
     nav(slugDataset) {
-      this.getColumns(this.slugDataset)
       this.$router.push({
         name: "dataset",
         params: {

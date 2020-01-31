@@ -14,7 +14,7 @@ module GobiertoData
         @csv_separator = opts.fetch(:csv_separator, ",")
         @append = opts.fetch(:append, false)
         @use_stdin = opts.fetch(:use_stdin, false)
-        @schema = inspect_csv_schema(source_file, csv_separator: @csv_separator).merge((schema || {}).deep_symbolize_keys)
+        @schema = complete_schema_with_defaults(source_file, schema)
         @transform_functions = @schema.inject({}) do |functions, (column, params)|
           functions.update(
             column => SqlFunction::Transformation.new(
@@ -51,6 +51,14 @@ module GobiertoData
 
       def create_transformed_temp_table
         "CREATE TEMP TABLE #{@base_table_name}_transformed(\n#{@transform_functions.map { |column, f| "#{column} #{f.output_type}" }.join(",\n")}\n);"
+      end
+
+      def complete_schema_with_defaults(source_file, schema_definition)
+        default_schema = inspect_csv_schema(source_file, csv_separator: @csv_separator)
+        schema_definition = (schema_definition || {}).deep_symbolize_keys
+        default_schema.map do |default_column, default_value|
+          schema_definition.find { |_, value| value[:original_name] == default_value[:original_name] } || [default_column, default_value]
+        end.to_h
       end
 
       def create_destination_table

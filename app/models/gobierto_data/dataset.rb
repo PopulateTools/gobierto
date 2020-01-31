@@ -14,6 +14,14 @@ module GobiertoData
     translates :name
 
     validates :site, :name, :slug, :table_name, presence: true
+    validates(
+      :table_name,
+      format: {
+        with: /\A[a-zA-Z_][a-zA-Z0-9_]+\z/,
+        message: I18n.t("errors.messages.invalid_table_name")
+      },
+      length: { maximum: 50 }
+    )
     validates :slug, uniqueness: { scope: :site_id }
 
     def attributes_for_slug

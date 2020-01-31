@@ -54,8 +54,9 @@ module GobiertoData
         failed_query(e.message)
       end
 
-      def tables(site)
-        with_connection(db_config(site)) do
+      def tables(site, include_draft: false)
+        with_connection(db_config(site), connection_key: connection_key_from_options(false, include_draft)) do
+          connection.execute("SET search_path TO draft, public") if include_draft
           connection.tables
         end
       end

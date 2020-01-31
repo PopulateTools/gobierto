@@ -36,14 +36,15 @@
       >
         <div
           class="gobierto-data-sidebar-datasets-links-container"
-          @click="getData(index)"
         >
           <i
             class="fas fa-caret-down"
           />
-          <span
+          <a
+            :href="$route.fullPath"
             class="gobierto-data-sidebar-datasets-name"
-          >{{ item.attributes.name }}</span>
+            @click="nav(slugDataset)"
+          >{{ item.attributes.name }}</a>
           <div
             v-show="isActive === index"
           >
@@ -113,7 +114,6 @@ export default {
           this.keysData = this.rawData.data
 
           this.columns = Object.keys(this.keysData[0])
-          /*this.nav(slugDataset)*/
         })
         .catch(error => {
           console.error(error)
@@ -152,7 +152,7 @@ export default {
           this.slugDataset = this.rawData.data[index].attributes.slug
           this.tableName = this.rawData.data[index].attributes.table_name
 
-          this.getColumns(this.slugDataset)
+          /*this.getColumns(this.slugDataset)*/
         })
         .catch(error => {
           console.error(error)

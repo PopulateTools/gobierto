@@ -58,5 +58,5 @@ draft_dataset_visualization:
   query: draft_dataset_query
   user: dennis
   name_translations: <%= { en: "Interest Groups by domain visualization", es: "Visualización de grupos de interés por dominio" }.to_json %>
-  privacy_status: <%= GobiertoData::Visualization.privacy_statuses["closed"] %>
+  privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
   spec: "{}"

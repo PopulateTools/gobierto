@@ -24,6 +24,7 @@ export default {
       rawData: '',
       titleDataset: '',
       arrayQueries: [],
+      allDatasets: [],
       numberId: '',
       datasetId: 0
     }
@@ -62,7 +63,8 @@ export default {
         .get(this.url)
         .then(response => {
           this.rawData = response.data
-          this.titleDataset = this.rawData.data[0].attributes.name
+          this.allDatasets = this.rawData.data
+          this.titleDataset = this.allDatasets[0].attributes.name
           this.getQueries()
 
         })

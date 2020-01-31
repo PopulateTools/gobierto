@@ -277,6 +277,7 @@ export default {
 
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
 
+
     this.datasetId = this.$route.params.numberId
     this.token = getToken()
   },

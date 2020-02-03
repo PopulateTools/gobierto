@@ -25,7 +25,7 @@
           <transition
             name="fade"
             mode="out-in"
-            >
+          >
             <RecentQueries
               v-show="isActive"
               :class="[
@@ -34,7 +34,7 @@
               ]"
             />
           </transition>
-      </keep-alive>
+        </keep-alive>
       </div>
       <div class="gobierto-data-sql-editor-your-queries">
         <Button

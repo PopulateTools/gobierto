@@ -56,13 +56,21 @@ export default {
     },
     getData() {
       this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/datasets/'
+      this.endPoint = `/api/v1/data/datasets/${this.$route.params.id}/meta`
       this.url = `${this.urlPath}${this.endPoint}`
       axios
         .get(this.url)
         .then(response => {
           this.rawData = response.data
-          this.titleDataset = this.rawData.data[0].attributes.name
+          this.titleDataset = this.rawData.data.attributes.name
+          this.idDataset = this.rawData.data.id
+          this.titleDataset = this.rawData.data.attributes.name
+          this.slugDataset = this.rawData.data.attributes.slug
+          this.tableName = this.rawData.data.attributes.table_name
+          this.datasetId = parseInt(this.idDataset)
+
+          this.$root.$emit('nameDataset', this.titleDataset)
+
           this.getQueries()
 
         })

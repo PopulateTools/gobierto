@@ -7,18 +7,18 @@
       color="var(--color-base)"
       background="#fff"
       class="gobierto-data-btn-download-data"
-      @click.native="isHidden = !isHidden; getData()"
+      @click.native="isHidden = !isHidden"
     />
     <transition
       name="fade"
       mode="out-in"
     >
       <div
-        v-show="!isHidden && rawData"
+        v-show="!isHidden"
         class="gobierto-data-btn-download-data-modal"
       >
         <div
-          v-for="(item, key, index) in links"
+          v-for="(item, key, index) in arrayFormats"
           :key="index"
           :item="item"
         >
@@ -36,7 +36,6 @@
 </template>
 <script>
 
-import axios from 'axios';
 import Button from "./Button.vue";
 export default {
   name: 'DownloadButton',
@@ -63,6 +62,10 @@ export default {
     editor: {
       type: Boolean,
       default: false
+    },
+    arrayFormats: {
+      type: Object,
+      required: true
     }
   },
   data() {
@@ -100,23 +103,6 @@ export default {
       this.sqlfileCSV = `${this.urlPath}${this.endPointSQL}${this.code}&csv_separator=semicolon`
       this.sqlfileXLSX = `${this.urlPath}${this.endPointSQL}${this.code}`
       this.sqlfileJSON = `${this.urlPath}${this.endPointSQL}${this.code}`
-    },
-    getData() {
-      this.slugDataset = this.slugName
-      this.urlPath = location.origin
-      this.endPoint = `/api/v1/data/datasets/${this.slugDataset}/meta`;
-      this.url = `${this.urlPath}${this.endPoint}`
-
-      axios
-        .get(this.url)
-        .then(response => {
-          this.rawData = response.data
-          this.links = this.rawData.data.attributes.formats
-          this.titleDataset = this.rawData.data.attributes.name
-        })
-        .catch(error => {
-          console.error(error)
-        })
     }
   }
 }

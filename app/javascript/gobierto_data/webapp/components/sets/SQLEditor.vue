@@ -10,6 +10,7 @@
       />
       <SQLEditorTabs
         v-if="data"
+        :array-formats="arrayFormats"
         :items="data"
         :link="link"
         :active-tab="activeTabIndex"
@@ -38,6 +39,10 @@ export default {
     },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    arrayFormats: {
+      type: Object,
       required: true
     },
     datasetId: {

@@ -5,6 +5,7 @@
         :class="[
           directionLeft ? 'modal-left': 'modal-right'
         ]"
+        :array-formats="arrayFormats"
         class="arrow-top"
       />
     </keep-alive>
@@ -21,6 +22,12 @@ export default {
   components: {
     Resources,
     DownloadButton
+  },
+  props: {
+    arrayFormats: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {

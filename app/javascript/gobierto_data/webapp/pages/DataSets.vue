@@ -4,6 +4,7 @@
       v-if="arrayQueries"
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
+      :array-formats="arrayFormats"
       :table-name="tableName"
       :dataset-id="datasetId"
       :title-dataset="titleDataset"
@@ -29,7 +30,8 @@ export default {
       arrayQueries: [],
       numberId: '',
       datasetId: 0,
-      tableName: ''
+      tableName: '',
+      arrayFormats:{}
     }
   },
   created() {
@@ -71,6 +73,7 @@ export default {
           this.titleDataset = this.rawData.data.attributes.name
           this.slugDataset = this.rawData.data.attributes.slug
           this.tableName = this.rawData.data.attributes.table_name
+          this.arrayFormats = this.rawData.data.attributes.formats
           this.datasetId = parseInt(this.idDataset)
 
           this.$root.$emit('nameDataset', this.titleDataset)

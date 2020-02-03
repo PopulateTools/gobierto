@@ -63,10 +63,6 @@ export default {
   created(){
     this.$root.$on('sendYourCode', this.runYourQuery)
     this.tableName = this.$route.params.tableName
-  },
-  mounted() {
-    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
-    this.$root.$on('activateModalRecent', this.saveRecentQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
         this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
@@ -74,6 +70,10 @@ export default {
         localStorage.removeItem('recentQueries');
       }
     }
+    this.$root.$on('activateModalRecent', this.loadRecentQuery)
+  },
+  mounted() {
+    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
     this.getSlug()
   },
   methods: {

@@ -21,13 +21,20 @@
           background="#fff"
           @click.native="recentQueries()"
         />
-        <RecentQueries
-          v-if="showStoreQueries"
-          :class="[
-            directionLeft ? 'modal-left': 'modal-right',
-            isActive ? 'active' : ''
-          ]"
-        />
+        <keep-alive>
+          <transition
+            name="fade"
+            mode="out-in"
+            >
+            <RecentQueries
+              v-show="isActive"
+              :class="[
+                directionLeft ? 'modal-left': 'modal-right',
+                isActive ? 'active' : ''
+              ]"
+            />
+          </transition>
+      </keep-alive>
       </div>
       <div class="gobierto-data-sql-editor-your-queries">
         <Button

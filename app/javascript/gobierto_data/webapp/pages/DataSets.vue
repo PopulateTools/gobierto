@@ -37,7 +37,7 @@ export default {
     }
   },
   created() {
-    this.getData()
+    /*this.getData()*/
     this.$root.$on('reloadQueries', this.getQueries)
     this.userId = getUserId()
   },

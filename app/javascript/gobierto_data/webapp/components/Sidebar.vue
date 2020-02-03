@@ -40,11 +40,11 @@
           <i
             class="fas fa-caret-down"
           />
-          <a
-            :href="$route.fullPath"
+          <span
             class="gobierto-data-sidebar-datasets-name"
-            @click="nav(slugDataset)"
-          >{{ item.attributes.name }}</a>
+            @click.stop="getData(index)"
+          >{{ item.attributes.name }}
+          </span>
           <div
             v-show="isActive === index"
           >
@@ -72,10 +72,6 @@ export default {
     activeTab: {
       type: Number,
       default: 0
-    },
-    allDatasets: {
-      type: Array,
-      required: true
     }
   },
   data() {
@@ -113,8 +109,8 @@ export default {
       })
   },
   methods: {
-    getColumns(slugDataset) {
-      this.urlPath = location.origin
+    firstColumns(slugDataset) {
+      console.log("slugDataset", slugDataset);
       this.endPoint = `/api/v1/data/datasets/${slugDataset}`
       this.url = `${this.urlPath}${this.endPoint}`
       axios
@@ -124,6 +120,28 @@ export default {
           this.keysData = this.rawData.data
 
           this.columns = Object.keys(this.keysData[0])
+        })
+        .catch(error => {
+          console.error(error)
+
+        })
+    },
+    getColumns(slugDataset) {
+      console.log("slugDataset", slugDataset);
+      console.log('peticion')
+      this.urlPath = location.origin
+      this.endPoint = `/api/v1/data/datasets/${slugDataset}`
+      this.url = `${this.urlPath}${this.endPoint}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.keysData = this.rawData.data
+
+          this.columns = []
+          this.columns = Object.keys(this.keysData[0])
+          console.log("this.columns", this.columns);
+          this.nav(slugDataset)
         })
         .catch(error => {
           console.error(error)

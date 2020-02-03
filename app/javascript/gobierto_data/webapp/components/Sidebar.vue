@@ -27,24 +27,23 @@
       </ul>
     </nav>
     <div
-      v-if="activeTab === 1"
+      v-if="activeTab === 1 || activeTab === 4 && allDatasets"
     >
       <div
         v-for="(item, index) in allDatasets"
         :key="index"
         class="gobierto-data-sidebar-datasets"
       >
-        <div
-          class="gobierto-data-sidebar-datasets-links-container"
-        >
+        <div class="gobierto-data-sidebar-datasets-links-container">
           <i
             class="fas fa-caret-down"
+            :class="{ 'rotate-caret': caretActive }"
+            @click="getColumns(item.attributes.slug, index)"
           />
           <span
             class="gobierto-data-sidebar-datasets-name"
-            @click.stop="getData(index)"
-          >{{ item.attributes.name }}
-          </span>
+            @click="getData(index)"
+          >{{ item.attributes.name }}</span>
           <div
             v-show="isActive === index"
           >
@@ -110,25 +109,6 @@ export default {
   },
   methods: {
     firstColumns(slugDataset) {
-      console.log("slugDataset", slugDataset);
-      this.endPoint = `/api/v1/data/datasets/${slugDataset}`
-      this.url = `${this.urlPath}${this.endPoint}`
-      axios
-        .get(this.url)
-        .then(response => {
-          this.rawData = response.data
-          this.keysData = this.rawData.data
-
-          this.columns = Object.keys(this.keysData[0])
-        })
-        .catch(error => {
-          console.error(error)
-
-        })
-    },
-    getColumns(slugDataset) {
-      console.log("slugDataset", slugDataset);
-      console.log('peticion')
       this.urlPath = location.origin
       this.endPoint = `/api/v1/data/datasets/${slugDataset}`
       this.url = `${this.urlPath}${this.endPoint}`
@@ -138,18 +118,32 @@ export default {
           this.rawData = response.data
           this.keysData = this.rawData.data
 
-          this.columns = []
           this.columns = Object.keys(this.keysData[0])
-          console.log("this.columns", this.columns);
-          this.nav(slugDataset)
         })
         .catch(error => {
           console.error(error)
 
         })
     },
-    activateTab(value) {
-      this.$emit("active-tab", value);
+    getColumns(slugDataset, index) {
+      this.isActive = index
+      this.urlPath = location.origin
+      this.endPoint = `/api/v1/data/datasets/${slugDataset}`
+      this.url = `${this.urlPath}${this.endPoint}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.keysData = this.rawData.data
+          this.columns = Object.keys(this.keysData[0])
+        })
+        .catch(error => {
+          console.error(error)
+
+        })
+    },
+    activateTab(index) {
+      this.$emit("active-tab", index);
     },
     nav(slugDataset) {
       this.$router.push({

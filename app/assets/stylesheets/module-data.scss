@@ -881,5 +881,10 @@
     display: block;
     padding-left: 1rem;
   }
+
+  .rotate-caret {
+    transform: rotate(270deg);
+  }
+
 }
 

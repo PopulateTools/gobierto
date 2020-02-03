@@ -27,24 +27,23 @@
       </ul>
     </nav>
     <div
-      v-if="activeTab === 1"
+      v-if="activeTab === 1 || activeTab === 4 && allDatasets"
     >
       <div
         v-for="(item, index) in allDatasets"
         :key="index"
         class="gobierto-data-sidebar-datasets"
       >
-        <div
-          class="gobierto-data-sidebar-datasets-links-container"
-        >
+        <div class="gobierto-data-sidebar-datasets-links-container">
           <i
             class="fas fa-caret-down"
+            :class="{ 'rotate-caret': caretActive }"
+            @click="getColumns(item.attributes.slug, index)"
           />
           <span
             class="gobierto-data-sidebar-datasets-name"
-            @click.stop="getData(index)"
-          >{{ item.attributes.name }}
-          </span>
+            @click="getData(index)"
+          >{{ item.attributes.name }}</span>
           <div
             v-show="isActive === index"
           >
@@ -83,17 +82,11 @@ export default {
       titleDataset: '',
       slugDataset: '',
       tableName: '',
+      allDatasets: null,
       numberId: '',
-      columns: [],
+      columns: '',
       isActive: 0,
-      allDatasets: []
-    }
-  },
-  watch:{
-    columns: function(){
-        console.log("this.columns", this.columns);
-        this.columns = this.columns
-        console.log("this.columns", this.columns);
+      caretActive: true
     }
   },
   created() {
@@ -109,39 +102,19 @@ export default {
       .get(this.url)
       .then(response => {
         this.rawData = response.data
+
         this.allDatasets = this.rawData.data
-        console.log("this.allDatasets", this.allDatasets);
+
         this.titleDataset = this.rawData.data[0].attributes.name
-        this.firstSlug = this.rawData.data[0].attributes.slug
-        this.firstColumns(this.firstSlug)
+        this.slugDataset = this.rawData.data[0].attributes.slug
+        this.firstColumns(this.slugDataset)
       })
       .catch(error => {
         console.error(error)
       })
-
-
   },
   methods: {
     firstColumns(slugDataset) {
-      console.log("slugDataset", slugDataset);
-      this.endPoint = `/api/v1/data/datasets/${slugDataset}`
-      this.url = `${this.urlPath}${this.endPoint}`
-      axios
-        .get(this.url)
-        .then(response => {
-          this.rawData = response.data
-          this.keysData = this.rawData.data
-
-          this.columns = Object.keys(this.keysData[0])
-        })
-        .catch(error => {
-          console.error(error)
-
-        })
-    },
-    getColumns(slugDataset) {
-      console.log("slugDataset", slugDataset);
-      console.log('peticion')
       this.urlPath = location.origin
       this.endPoint = `/api/v1/data/datasets/${slugDataset}`
       this.url = `${this.urlPath}${this.endPoint}`
@@ -151,30 +124,45 @@ export default {
           this.rawData = response.data
           this.keysData = this.rawData.data
 
-          this.columns = []
           this.columns = Object.keys(this.keysData[0])
-          console.log("this.columns", this.columns);
-          this.nav(slugDataset)
         })
         .catch(error => {
           console.error(error)
 
         })
     },
-    activateTab(value) {
-      this.$emit("active-tab", value);
+    getColumns(slugDataset, index) {
+      this.isActive = index
+      this.urlPath = location.origin
+      this.endPoint = `/api/v1/data/datasets/${slugDataset}`
+      this.url = `${this.urlPath}${this.endPoint}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.keysData = this.rawData.data
+          this.columns = Object.keys(this.keysData[0])
+        })
+        .catch(error => {
+          console.error(error)
+
+        })
+    },
+    activateTab(index) {
+      this.$emit("active-tab", index);
     },
     nav(slugDataset) {
       this.$router.push({
         name: "dataset",
         params: {
-          id: slugDataset
+          id: slugDataset,
+          numberId: this.numberId,
+          titleDataset: this.titleDataset,
+          tableName: this.tableName
         }
     })
     },
     getData(index) {
-      this.isActive = index
-      console.log("this.isActive", this.isActive);
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/datasets/'
       this.url = `${this.urlPath}${this.endPoint}`
@@ -191,7 +179,11 @@ export default {
           this.slugDataset = this.rawData.data[index].attributes.slug
           this.tableName = this.rawData.data[index].attributes.table_name
 
-          this.getColumns(this.slugDataset)
+          this.$root.$emit('nameDataset', this.titleDataset)
+          this.$root.$emit('sendTableName', this.tableName)
+          this.$root.$emit('sendSlug', this.slugDataset)
+          this.$root.$emit('sendIdDataset', this.idDataset)
+          this.nav(this.slugDataset)
         })
         .catch(error => {
           console.error(error)

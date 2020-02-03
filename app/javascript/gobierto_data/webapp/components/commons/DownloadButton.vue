@@ -63,10 +63,6 @@ export default {
     editor: {
       type: Boolean,
       default: false
-    },
-    slugName: {
-      type: String,
-      required: true
     }
   },
   data() {
@@ -93,7 +89,7 @@ export default {
     this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
     this.endPointSQL = '/api/v1/data/data.csv?sql='
-    this.slugDataset = this.slugName
+    this.slugName = this.$route.params.id
   },
   methods: {
     closeMenu() {

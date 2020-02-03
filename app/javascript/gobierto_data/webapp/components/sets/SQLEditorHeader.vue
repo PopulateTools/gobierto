@@ -185,6 +185,10 @@ export default {
     arrayQueries: {
       type: Array,
       required: true
+    },
+    datasetId: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -250,7 +254,6 @@ export default {
     this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('sendYourQuery', this.runYourQuery)
 
-    this.datasetId = this.$route.params.numberId
     this.token = getToken()
   },
   methods: {

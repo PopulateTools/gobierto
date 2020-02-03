@@ -61,11 +61,8 @@
     </div>
   </div>
 </template>
-
-
 <script>
 import axios from 'axios';
-
 export default {
   name: "Sidebar",
   props: {
@@ -90,6 +87,8 @@ export default {
     }
   },
   created() {
+
+
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
@@ -182,7 +181,6 @@ export default {
           this.$root.$emit('nameDataset', this.titleDataset)
           this.$root.$emit('sendTableName', this.tableName)
           this.$root.$emit('sendSlug', this.slugDataset)
-          this.$root.$emit('sendIdDataset', this.idDataset)
           this.nav(this.slugDataset)
         })
         .catch(error => {

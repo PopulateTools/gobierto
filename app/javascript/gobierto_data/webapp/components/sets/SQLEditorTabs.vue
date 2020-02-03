@@ -33,7 +33,6 @@
           :class="[
             directionLeft ? 'modal-left': 'modal-right'
           ]"
-          :slug-name="slug"
           class="arrow-top"
         />
       </keep-alive>
@@ -64,10 +63,6 @@ export default {
     items: {
       type: Array,
       default: () => []
-    },
-    slug: {
-      type: String,
-      required: true
     }
   },
   data() {

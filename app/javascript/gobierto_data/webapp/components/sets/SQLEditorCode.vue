@@ -48,6 +48,12 @@ import 'codemirror/src/model/selection_updates.js';
 
 export default {
   name: 'SQLEditorCode',
+  props: {
+    tableName: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       code: '',
@@ -59,7 +65,6 @@ export default {
       stringError: '',
       showMessages: true,
       showApiError: false,
-      tableName: '',
       cmOption: {
         tabSize: 2,
         styleActiveLine: false,
@@ -96,8 +101,6 @@ export default {
     this.$root.$on('apiError', this.showError)
     this.$root.$on('showMessages', this.handleShowMessages)
     this.$root.$on('sendQueryCode', this.queryCode)
-
-    this.tableName = this.$route.params.tableName
 
     this.$root.$on('sendYourCode', this.queryCode);
 

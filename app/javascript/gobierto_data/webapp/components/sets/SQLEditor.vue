@@ -3,13 +3,15 @@
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
         :array-queries="arrayQueries"
+        :dataset-id="datasetId"
       />
-      <SQLEditorCode />
+      <SQLEditorCode
+        :table-name="tableName"
+      />
       <SQLEditorTabs
         v-if="data"
         :items="data"
         :link="link"
-        :slug="slugName"
         :active-tab="activeTabIndex"
         @active-tab="activeTabIndex = $event"
       />
@@ -30,12 +32,16 @@ export default {
     SQLEditorTabs
   },
   props: {
-    slugName: {
+    tableName: {
       type: String,
       required: true
     },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    datasetId: {
+      type: Number,
       required: true
     }
   },
@@ -56,13 +62,11 @@ export default {
       endPoint: '',
       recentQueries: [],
       newRecentQuery: null,
-      nameDataset: '',
-      tableName: ''
+      nameDataset: ''
     }
   },
   created(){
     this.$root.$on('sendYourCode', this.runYourQuery)
-    this.tableName = this.$route.params.tableName
   },
   mounted() {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
@@ -77,6 +81,7 @@ export default {
     this.getSlug()
   },
   methods: {
+
     runYourQuery(sqlCode){
       this.queryDefault = false
       this.getSlug()
@@ -101,12 +106,13 @@ export default {
       this.$root.$emit('storeQuery', this.recentQueries)
     },
     getSlug() {
-      this.endPointSlug = '/api/v1/data/datasets';
+      this.endPointSlug = `/api/v1/data/datasets/${this.$route.params.id}/meta`
       this.urlSlug = `${this.urlPath}${this.endPointSlug}`
       axios
         .get(this.urlSlug)
         .then(response => {
           this.rawDataSlug = response.data
+          this.slugDataset = this.rawDataSlug.data.attributes.slug
           this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
           this.getData()
 

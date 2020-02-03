@@ -87,7 +87,7 @@ module GobiertoData
       end
 
       def function_call(attribute)
-        "#{function_name}(#{attribute})"
+        "#{function_name}(\"#{attribute}\")"
       end
 
     end

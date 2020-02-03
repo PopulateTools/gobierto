@@ -128,6 +128,8 @@ ca:
       invalid: no és vàlid
       invalid_consultation_response: No s'ha desat la consulta. Per favor, revisa
         els valors i prova de nou.
+      invalid_table_name: Ha de començar per una lletra o un guió baix; la resta només
+        pot contenir lletres, dígits o guions baixos
       less_than: ha de ser menor que %{count}
       less_than_or_equal_to: ha de ser menor o igual a %{count}
       not_a_number: no és un número

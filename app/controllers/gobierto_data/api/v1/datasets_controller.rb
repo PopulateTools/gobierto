@@ -208,11 +208,17 @@ module GobiertoData
                 :data_path,
                 :local_data,
                 :csv_separator,
-                :schema,
                 :append
               ]
+            ).merge(
+              schema: schema_json_param
             )
           end
+        end
+
+        def schema_json_param
+          schema_param = params.dig(:data, :attributes, :schema)
+          schema_param.is_a?(::ActionController::Parameters) ? schema_param.to_unsafe_h : {}
         end
       end
     end

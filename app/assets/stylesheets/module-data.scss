@@ -728,6 +728,9 @@
   }
 
   &-sql-editor-your-queries-container {
+    @include min-screen(768) {
+      width: 50vw;
+    }
     box-shadow: var(--shadow);
     position: absolute;
     top: 45px;
@@ -735,7 +738,7 @@
     background: white;
     padding: 0;
     z-index: 10;
-    width: 50vw;
+    width: 70vw;
 
     .gobierto-data-summary-queries-panel {
       border-color: var(--color-base);

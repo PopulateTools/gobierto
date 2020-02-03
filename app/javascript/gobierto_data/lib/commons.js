@@ -19,12 +19,12 @@ export const CommonsMixin = {
   }
 }
 
-let handleOutsideClick
+//TODO
 export const closableMixin = {
   directives: {
     closable : {
       bind (el, binding, vnode) {
-        handleOutsideClick = (e) => {
+        const handleOutsideClick = (e) => {
           e.stopPropagation()
           const { handler, exclude } = binding.value
           let clickedOnExcludedEl = false

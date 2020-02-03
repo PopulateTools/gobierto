@@ -37,8 +37,8 @@
         <div class="gobierto-data-sidebar-datasets-links-container">
           <i
             class="fas fa-caret-down"
-            :class="{ 'rotate-caret': caretActive }"
-            @click="getColumns(item.attributes.slug, index)"
+            :class="{ 'rotate-caret' : active_el == index }"
+            @click="getColumns(item.attributes.slug)"
           />
           <span
             class="gobierto-data-sidebar-datasets-name"
@@ -125,8 +125,8 @@ export default {
 
         })
     },
-    getColumns(slugDataset, index) {
-      this.isActive = true
+    getColumns(slugDataset) {
+      this.caretActive = !this.caretActive;
       this.urlPath = location.origin
       this.endPoint = `/api/v1/data/datasets/${slugDataset}`
       this.url = `${this.urlPath}${this.endPoint}`

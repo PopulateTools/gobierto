@@ -19,7 +19,7 @@ export const CommonsMixin = {
   }
 }
 
-//TODO
+//TODO: extract handleOutsideClick outside directive
 export const closableMixin = {
   directives: {
     closable : {

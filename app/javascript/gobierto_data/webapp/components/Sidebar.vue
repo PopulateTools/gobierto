@@ -45,7 +45,7 @@
             @click="getData(index)"
           >{{ item.attributes.name }}</span>
           <div
-            v-show="isActive === index"
+            v-show="!isActive"
           >
             <span
               v-for="(column, i) in columns"
@@ -132,7 +132,7 @@ export default {
         })
     },
     getColumns(slugDataset, index) {
-      this.isActive = index
+      this.isActive = true
       this.urlPath = location.origin
       this.endPoint = `/api/v1/data/datasets/${slugDataset}`
       this.url = `${this.urlPath}${this.endPoint}`

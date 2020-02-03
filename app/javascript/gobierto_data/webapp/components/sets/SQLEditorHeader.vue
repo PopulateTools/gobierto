@@ -73,7 +73,7 @@
           :checked="privateQuery"
           type="checkbox"
           class="gobierto-data-sql-editor-container-save-checkbox"
-          @input="privateQuery = $event.target.checked"
+          @input="privateQueryValue($event.target.checked)"
         >
         <label
           v-if="showLabelPrivate"
@@ -417,6 +417,10 @@ export default {
           'Authorization': `${this.token}`
         }
       });
+    },
+    privateQueryValue(valuePrivate) {
+      this.disabledSave = false
+      this.privateQuery = valuePrivate
     },
     postQuery() {
       this.urlPath = location.origin

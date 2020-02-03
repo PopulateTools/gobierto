@@ -107,7 +107,7 @@
         icon="save"
         color="var(--color-base)"
         background="#fff"
-        @click.native="noLogin ? goToLogin() : saveQueryName()"
+        @click.native="userLogged()"
       />
       <Button
         v-if="showBtnCancel"
@@ -259,6 +259,12 @@ export default {
     this.noLogin = this.userId === "" ? true : false
   },
   methods: {
+    userLogged() {
+      if (this.noLogin)
+        this.goToLogin()
+      else
+        this.saveQueryName()
+    },
     goToLogin() {
       location.href='/user/sessions/new?open_modal=true'
     },

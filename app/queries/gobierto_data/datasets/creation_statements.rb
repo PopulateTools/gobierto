@@ -14,7 +14,7 @@ module GobiertoData
         @csv_separator = opts.fetch(:csv_separator, ",")
         @append = opts.fetch(:append, false)
         @use_stdin = opts.fetch(:use_stdin, false)
-        @schema = inspect_csv_schema(source_file, csv_separator: @csv_separator).merge((schema || {}).deep_symbolize_keys)
+        @schema = complete_schema_with_defaults(source_file, schema)
         @transform_functions = @schema.inject({}) do |functions, (column, params)|
           functions.update(
             column => SqlFunction::Transformation.new(
@@ -46,25 +46,33 @@ module GobiertoData
       private
 
       def create_raw_temp_table
-        "CREATE TEMP TABLE #{@base_table_name}_raw(\n#{schema.map { |column, _| "#{column} TEXT" }.join(",\n")}\n);"
+        "CREATE TEMP TABLE #{@base_table_name}_raw(\n#{schema.map { |column, _| "\"#{column}\" TEXT" }.join(",\n")}\n);"
       end
 
       def create_transformed_temp_table
-        "CREATE TEMP TABLE #{@base_table_name}_transformed(\n#{@transform_functions.map { |column, f| "#{column} #{f.output_type}" }.join(",\n")}\n);"
+        "CREATE TEMP TABLE #{@base_table_name}_transformed(\n#{@transform_functions.map { |column, f| "\"#{column}\" #{f.output_type}" }.join(",\n")}\n);"
+      end
+
+      def complete_schema_with_defaults(source_file, schema_definition)
+        default_schema = inspect_csv_schema(source_file, csv_separator: @csv_separator)
+        schema_definition = (schema_definition || {}).deep_symbolize_keys
+        default_schema.map do |default_column, default_value|
+          schema_definition.find { |_, value| value[:original_name] == default_value[:original_name] } || [default_column, default_value]
+        end.to_h
       end
 
       def create_destination_table
         if @append
           <<-SQL
           CREATE TABLE IF NOT EXISTS #{@base_table_name}(
-            #{@transform_functions.map { |column, f| "#{column} #{f.output_type}" }.join(",\n")}
+            #{@transform_functions.map { |column, f| "\"#{column}\" #{f.output_type}" }.join(",\n")}
           );
           SQL
         else
           <<-SQL
           DROP TABLE IF EXISTS #{@base_table_name};
           CREATE TABLE #{@base_table_name}(
-            #{@transform_functions.map { |column, f| "#{column} #{f.output_type}" }.join(",\n")}
+            #{@transform_functions.map { |column, f| "\"#{column}\" #{f.output_type}" }.join(",\n")}
           );
           SQL
         end
@@ -72,9 +80,9 @@ module GobiertoData
 
       def extract_csv_operation
         if @use_stdin
-          "COPY #{@base_table_name}_raw (#{schema.keys.join(", ")}) FROM STDIN DELIMITER '#{@csv_separator}' CSV HEADER NULL '';"
+          "COPY #{@base_table_name}_raw (#{quoted_columns.join(", ")}) FROM STDIN DELIMITER '#{@csv_separator}' CSV HEADER NULL '';"
         else
-          "COPY #{@base_table_name}_raw (#{schema.keys.join(", ")}) FROM '#{@source_file}' DELIMITER '#{@csv_separator}' CSV HEADER NULL '';"
+          "COPY #{@base_table_name}_raw (#{quoted_columns.join(", ")}) FROM '#{@source_file}' DELIMITER '#{@csv_separator}' CSV HEADER NULL '';"
         end
       end
 
@@ -89,7 +97,7 @@ module GobiertoData
       def transform_operation
         <<-SQL
         INSERT INTO #{@base_table_name}_transformed (
-          #{schema.keys.join(",\n")}
+          #{quoted_columns.join(",\n")}
         )
         SELECT #{ @transform_functions.map { |column, f| f.function_call(column) }.join(",\n")}
         from #{@base_table_name}_raw;
@@ -99,7 +107,7 @@ module GobiertoData
       def load_operation
         <<-SQL
         insert into #{@base_table_name}(
-          #{schema.keys.join(",\n")}
+          #{quoted_columns.join(",\n")}
         )
         SELECT *
         from #{@base_table_name}_transformed;
@@ -121,6 +129,10 @@ module GobiertoData
             col_name => { original_name: col, type: "text" }
           )
         end
+      end
+
+      def quoted_columns
+        schema.keys.map { |key| "\"#{key}\"" }
       end
     end
   end

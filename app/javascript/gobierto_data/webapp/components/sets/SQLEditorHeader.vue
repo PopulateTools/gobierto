@@ -65,7 +65,7 @@
           v-model="labelQueryName"
           type="text"
           class="gobierto-data-sql-editor-container-save-text"
-          @keyup="labelQueryName = $event.target.value; onSave()"
+          @keyup="onSave($event.target.value)"
         >
         <input
           v-if="showLabelPrivate"
@@ -253,8 +253,9 @@ export default {
     this.token = getToken()
   },
   methods: {
-    onSave() {
+    onSave(queryName) {
       this.disabledSave = false
+      this.labelQueryName = queryName
     },
     runYourQuery(code) {
       this.queryEditor = code

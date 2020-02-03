@@ -159,7 +159,7 @@
 </template>
 <script>
 import { getToken } from './../../../lib/helpers'
-import { baseUrl, CommonsMixin } from "./../../../lib/commons.js";
+import { baseUrl, CommonsMixin, closableMixin } from "./../../../lib/commons.js";
 import axios from 'axios';
 import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
@@ -172,35 +172,7 @@ export default {
     RecentQueries,
     Queries
   },
-  directives: {
-    closable : {
-      bind (el, binding, vnode) {
-        let handleOutsideClick
-        handleOutsideClick = (e) => {
-          e.stopPropagation()
-          const { handler, exclude } = binding.value
-          let clickedOnExcludedEl = false
-          exclude.forEach(refName => {
-            if (!clickedOnExcludedEl) {
-              const excludedEl = vnode.context.$refs[refName]
-              clickedOnExcludedEl = excludedEl.contains(e.target)
-            }
-          })
-          if (!el.contains(e.target) && !clickedOnExcludedEl) {
-            vnode.context[handler]()
-          }
-        }
-        document.addEventListener('click', handleOutsideClick)
-        document.addEventListener('touchstart', handleOutsideClick)
-      },
-      unbind () {
-        let handleOutsideClick
-        document.removeEventListener('click', handleOutsideClick)
-        document.removeEventListener('touchstart', handleOutsideClick)
-      }
-    }
-  },
-  mixins: [CommonsMixin],
+  mixins: [CommonsMixin, closableMixin],
   data() {
     return {
       showStoreQueries: [],

@@ -1,7 +1,7 @@
 <template>
   <div class="gobierto-data">
     <LayoutDataset>
-      <DataSets />
+      <DataSets  />
     </LayoutDataset>
   </div>
 </template>
@@ -18,11 +18,27 @@ export default {
   data() {
     return {
       activeTabIndex: 0,
-      rawData: ''
+      route: this.$route.fullPath
     }
   },
-  created() {
-
+  beforeRouteEnter (to, from, next) {
+    if (from.path !== "/datos") {
+      next(vm => {
+          vm.sendActiveTab(to.path);
+          next();
+      })
+    } else {
+      next()
+    }
+  },
+  methods: {
+    sendActiveTab(to) {
+      if (to === this.route) {
+        console.info('son iguales')
+      } else {
+        this.$root.$emit('activeTabIndex', 1)
+      }
+    }
   }
 }
 

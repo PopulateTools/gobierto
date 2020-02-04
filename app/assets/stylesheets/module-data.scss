@@ -433,7 +433,9 @@
     background-color: #fff;
     z-index: 10;
     top: 135%;
-    width: 50vw;
+    width: 40vw;
+    max-height: 600px;
+    height: 25vw;
 
     &.active {
       display: block;
@@ -706,6 +708,7 @@
     box-sizing: border-box;
     position: relative;
     color: #666;
+    font-family: monospace;
 
     &:hover {
       background-color: rgba(var(--color-base-string), .1);

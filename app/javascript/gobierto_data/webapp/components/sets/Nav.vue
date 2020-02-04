@@ -137,6 +137,13 @@ export default {
     this.titleDataset = this.$route.params.titleDataset
     this.slugName = this.$route.params.id
   },
+  beforeRouteEnter (to, from, next) {
+    if (to.path === "/user/sessions/new?open_modal=true") {
+      next()
+    } else {
+      next()
+    }
+  },
   methods: {
     changeTab() {
       this.activateTab(1)

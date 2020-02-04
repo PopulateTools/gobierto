@@ -6,7 +6,7 @@
         :class="[
           directionLeft ? 'modal-left': 'modal-right'
         ]"
-        :slug-name="item"
+        :array-formats="arrayFormats"
         class="arrow-top"
       />
     </keep-alive>
@@ -30,12 +30,12 @@ export default {
     Info
   },
   props: {
-    item: {
-      type: String,
-      required: true
-    },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    arrayFormats: {
+      type: Object,
       required: true
     }
   },

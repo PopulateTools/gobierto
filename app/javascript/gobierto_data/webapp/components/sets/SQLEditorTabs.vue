@@ -30,10 +30,10 @@
       <keep-alive>
         <DownloadButton
           :editor="true"
+          :array-formats="arrayFormats"
           :class="[
             directionLeft ? 'modal-left': 'modal-right'
           ]"
-          :slug-name="slug"
           class="arrow-top"
         />
       </keep-alive>
@@ -61,13 +61,13 @@ export default {
       type: Number,
       default: 0
     },
+    arrayFormats: {
+      type: Object,
+      required: true
+    },
     items: {
       type: Array,
       default: () => []
-    },
-    slug: {
-      type: String,
-      required: true
     }
   },
   data() {

@@ -64,8 +64,8 @@ export default {
       type: Boolean,
       default: false
     },
-    slugName: {
-      type: String,
+    arrayFormats: {
+      type: Object,
       required: true
     }
   },
@@ -92,8 +92,7 @@ export default {
     this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
     this.endPointSQL = '/api/v1/data/data.csv?sql='
-    this.slugDataset = this.slugName
-    this.links = this.$route.params.arrayFormats
+    this.slugName = this.$route.params.id
   },
   methods: {
     closeMenu() {

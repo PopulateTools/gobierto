@@ -43,11 +43,8 @@
     </div>
   </div>
 </template>
-
-
 <script>
 import axios from 'axios';
-
 export default {
   name: "Sidebar",
   props: {
@@ -70,6 +67,8 @@ export default {
     }
   },
   created() {
+
+
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")

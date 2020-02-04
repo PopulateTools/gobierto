@@ -4,6 +4,10 @@
       v-if="arrayQueries"
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
+      :array-formats="arrayFormats"
+      :table-name="tableName"
+      :dataset-id="datasetId"
+      :title-dataset="titleDataset"
       @active-tab="activeTabIndex = $event"
     />
   </div>
@@ -26,7 +30,8 @@ export default {
       arrayQueries: [],
       numberId: '',
       datasetId: 0,
-      slugDataset: ''
+      tableName: '',
+      arrayFormats:{}
     }
   },
   created() {
@@ -40,14 +45,13 @@ export default {
       this.urlPath = location.origin
       this.endPoint = '/api/v1/data/queries?filter[dataset_id]='
       this.filterId = `&filter[user_id]=${this.userId}`
-      this.url = `${this.urlPath}${this.endPoint}${this.numberId}${this.filterId}`
+      this.url = `${this.urlPath}${this.endPoint}${this.idDataset}${this.filterId}`
       axios
         .get(this.url)
         .then(response => {
           this.rawData = response.data
           this.items = this.rawData.data
           this.arrayQueries = this.items
-          this.datasetId = parseInt(this.numberId)
         })
         .catch(error => {
           const messageError = error.response
@@ -56,14 +60,22 @@ export default {
     },
     getData() {
       this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/datasets/'
+      this.endPoint = `/api/v1/data/datasets/${this.$route.params.id}/meta`
       this.url = `${this.urlPath}${this.endPoint}`
       axios
         .get(this.url)
         .then(response => {
           this.rawData = response.data
-          this.titleDataset = this.rawData.data[0].attributes.name
-          this.slugDataset = this.rawData.data[0].attributes.slug
+          this.titleDataset = this.rawData.data.attributes.name
+          this.idDataset = this.rawData.data.id
+          this.titleDataset = this.rawData.data.attributes.name
+          this.slugDataset = this.rawData.data.attributes.slug
+          this.tableName = this.rawData.data.attributes.table_name
+          this.arrayFormats = this.rawData.data.attributes.formats
+          this.datasetId = parseInt(this.idDataset)
+
+          this.$root.$emit('nameDataset', this.titleDataset)
+
           this.getQueries()
         })
         .catch(error => {

@@ -64,11 +64,14 @@
       v-if="activeTab === 0"
       :item="slugName"
       :array-queries="arrayQueries"
+      :array-formats="arrayFormats"
     />
     <Data
       v-else-if="activeTab === 1"
-      :item="slugName"
+      :dataset-id="datasetId"
       :array-queries="arrayQueries"
+      :table-name="tableName"
+      :array-formats="arrayFormats"
     />
     <Queries
       v-else-if="activeTab === 2"
@@ -77,7 +80,7 @@
     <Visualizations v-else-if="activeTab === 3" />
     <Downloads
       v-else-if="activeTab === 4"
-      :item="slugName"
+      :array-formats="arrayFormats"
     />
   </div>
 </template>
@@ -105,8 +108,24 @@ export default {
       type: Number,
       default: 0
     },
+    datasetId: {
+      type: Number,
+      default: 0
+    },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    arrayFormats: {
+      type: Object,
+      required: true
+    },
+    tableName: {
+      type: String,
+      required: true
+    },
+    titleDataset: {
+      type: String,
       required: true
     }
   },
@@ -119,7 +138,6 @@ export default {
       labelDownload: "",
       labelFav: "",
       labelFollow: "",
-      titleDataset: "",
       slugName: ''
     }
   },
@@ -134,14 +152,12 @@ export default {
 
     this.$root.$on('changeNavTab', this.changeTab)
 
-    this.titleDataset = this.$route.params.titleDataset
+
     this.slugName = this.$route.params.id
   },
   methods: {
     changeTab() {
       this.activateTab(1)
-      /*this.$root.$emit('sendYourQuery', sqlCode)
-      this.$root.$emit('sendYourCode', sqlCode)*/
     },
     activateTab(index) {
       this.$emit("active-tab", index);

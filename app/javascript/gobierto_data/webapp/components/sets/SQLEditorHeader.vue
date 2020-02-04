@@ -217,6 +217,10 @@ export default {
     arrayQueries: {
       type: Array,
       required: true
+    },
+    datasetId: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -284,7 +288,6 @@ export default {
 
     this.$root.$on('closeQueriesModal', this.closeYourQueries);
 
-    this.datasetId = this.$route.params.numberId
     this.token = getToken()
   },
   methods: {

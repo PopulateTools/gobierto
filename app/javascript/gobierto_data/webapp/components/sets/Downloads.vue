@@ -5,7 +5,7 @@
         :class="[
           directionLeft ? 'modal-left': 'modal-right'
         ]"
-        :slug-name="item"
+        :array-formats="arrayFormats"
         class="arrow-top"
       />
     </keep-alive>
@@ -24,8 +24,8 @@ export default {
     DownloadButton
   },
   props: {
-    item: {
-      type: String,
+    arrayFormats: {
+      type: Object,
       required: true
     }
   },

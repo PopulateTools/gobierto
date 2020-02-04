@@ -873,6 +873,13 @@
   &-sidebar-datasets-name {
     font-size: 14px;
     cursor: pointer;
+    color: #000;
+    text-decoration: none;
+  }
+
+  &-sidebar-caret-icon {
+    color: var(--color-base);
+    cursor: pointer;
   }
 
   &-sidebar-datasets-links-columns {

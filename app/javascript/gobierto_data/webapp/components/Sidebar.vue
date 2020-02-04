@@ -40,10 +40,12 @@
             :class="{'rotate-caret': !item.selected}"
             @click="$set(item, 'selected', !item.selected); getColumns(item.attributes.slug)"
           />
-          <span
+          <a
+            :href="$route.fullPath"
             class="gobierto-data-sidebar-datasets-name"
-            @click="getData(index)"
-          >{{ item.attributes.name }}</span>
+            @click.prevent.stop="getData(item.id)"
+          >{{ item.attributes.name }}
+          </a>
           <div
             v-show="item.selected"
           >
@@ -86,8 +88,6 @@ export default {
     }
   },
   created() {
-
-
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")

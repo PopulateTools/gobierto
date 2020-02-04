@@ -433,10 +433,10 @@
     background-color: #fff;
     z-index: 10;
     top: 135%;
-    width: 40vw;
+    width: 50vw;
     max-height: 600px;
-    height: 25vw;
-
+    height: 35vw;
+    max-width: 750px;
     &.active {
       display: block;
     }

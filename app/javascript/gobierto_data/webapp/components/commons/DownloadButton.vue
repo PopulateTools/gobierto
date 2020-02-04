@@ -37,27 +37,13 @@
 <script>
 
 import Button from "./Button.vue";
+import { baseUrl, CommonsMixin } from "./../../../lib/commons.js";
 export default {
   name: 'DownloadButton',
   components: {
     Button
   },
-  directives: {
-    clickoutside: {
-      bind: function(el, binding, vnode) {
-        el.clickOutsideEvent = function(event) {
-          if (!(el == event.target || el.contains(event.target))) {
-            vnode.context[binding.expression](event);
-          }
-        };
-        document.body.addEventListener('click', el.clickOutsideEvent)
-      },
-      unbind: function(el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent)
-      },
-      stopProp(event) { event.stopPropagation() }
-    }
-  },
+  mixins: [CommonsMixin],
   props: {
     editor: {
       type: Boolean,
@@ -80,16 +66,15 @@ export default {
       sqlfileCSV: '',
       sqlfileXLSX: '',
       sqlfileJSON: '',
-      urlPath: location.origin,
       endPoint: '',
-      rawData: null
+      rawData: null,
+      titleDataset: ''
     }
   },
   created() {
     this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
-    this.endPointSQL = '/api/v1/data/data.csv?sql='
-    this.slugName = this.$route.params.id
+    this.endPointSQL = `${baseUrl}/data.csv?sql=`
   },
   methods: {
     closeMenu() {

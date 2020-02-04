@@ -8,6 +8,7 @@
             @click="showYourQueries = !showYourQueries"
           >
             <i
+              :class="showYourQueries ? '' : 'rotate-caret'"
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
@@ -20,43 +21,32 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="sendQuery(item)"
           >
-            <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
-
+            <span
+              class="gobierto-data-summary-queries-container-name"
+              @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item); closeModal(); changeTab()"
+            >
+              {{ item.attributes.name }}
+            </span>
             <div
-              v-if="item.attributes.privacy_status === 'closed'"
               class="gobierto-data-summary-queries-container-icon"
             >
+              <!-- <i
+                class="fas fa-trash-alt icons-your-queries"
+                style="color: var(--color-base);"
+                @click="deleteQuery(item.id)"
+              /> -->
               <i
+                v-if="item.attributes.privacy_status === 'closed'"
                 style="color: #D0021B"
                 class="fas fa-lock-close"
               />
-            </div>
-            <div
-              v-else
-              class="gobierto-data-summary-queries-container-icon"
-            >
               <i
+                v-else
                 style="color: rgb(160, 197, 29)"
                 class="fas fa-lock-open"
               />
             </div>
-            <!-- <div
-              v-if="item.attributes.favorites === 'star'"
-              class="gobierto-data-summary-queries-container-icon"
-            >
-              <i
-                style="color: #D0021B"
-                class="fas fa-lock-close"
-              />
-            </div>
-            <div v-else>
-              <i
-                style="color: rgb(160, 197, 29)"
-                class="fas fa-lock-open"
-              />
-            </div> -->
           </div>
         </div>
         <div class="gobierto-data-summary-queries-element">
@@ -65,6 +55,7 @@
             @click="showYourFavQueries = !showYourFavQueries"
           >
             <i
+              :class="showYourFavQueries ? '' : 'rotate-caret'"
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
@@ -77,6 +68,7 @@
             @click="showYourTotalQueries = !showYourTotalQueries"
           >
             <i
+              :class="showYourTotalQueries ? '' : 'rotate-caret'"
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
@@ -89,10 +81,14 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="sendQuery(item)"
+            @click="handleQueries(arrayQueries[index].attributes.sql, item)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
-
+            <!-- <i
+              class="fas fa-trash-alt"
+              style="color: var(--color-base);"
+              @click="deleteQuery(item.id)"
+            /> -->
             <div
               v-if="item.attributes.privacy_status === 'close'"
               class="gobierto-data-summary-queries-container-icon"
@@ -123,6 +119,9 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
+import { getToken, getUserId } from './../../../lib/helpers';
+import { baseUrl } from "./../../../lib/commons.js"
 export default {
   name: "Queries",
   props: {
@@ -139,22 +138,43 @@ export default {
       labelAll: '',
       hideCode: true,
       sqlCode: '',
-      numberQueries: this.arrayQueries.length,
+      numberQueries: 0,
       numberFavQueries: 0,
-      totalQueries: this.arrayQueries.length + this.numberFavQueries,
+      totalQueries: 0,
       showSection: true,
       showYourQueries: true,
-      showYourFavQueries: false,
-      showYourTotalQueries: false
+      showYourFavQueries: true,
+      showYourTotalQueries: true,
+      token: '',
+      endPoint: '',
+      filterId: '',
+      url: '',
+      endPointDelete: '',
+      numberId: ''
     }
   },
   created() {
+    this.numberId = this.$route.params.numberId
+    this.numberQueries = this.arrayQueries.length
+    this.totalQueries = this.arrayQueries.length + this.numberFavQueries
+
     this.labelYourQueries = I18n.t("gobierto_data.projects.yourQueries")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelFavs = I18n.t("gobierto_data.projects.favs")
     this.labelAll = I18n.t("gobierto_data.projects.all")
+    this.token = getToken()
+    this.userId = getUserId()
   },
   methods: {
+    handleQueries(sql, item) {
+      this.runYourQuery(sql)
+      this.sendQuery(item)
+      this.closeModal()
+      this.changeTab()
+    },
+    closeModal() {
+      this.$root.$emit('closeQueriesModal');
+    },
     showCode(index) {
       this.hideCode = false
       this.sqlCode = this.arrayQueries[index].attributes.sql
@@ -168,10 +188,82 @@ export default {
     toggle() {
       this.showSection = !this.showSection
     },
-   /* changeTab(value) {
-      const sqlCode = value.attributes.sql
-      this.$root.$emit('changeNavTab', sqlCode)
-    }*/
+    changeTab() {
+      this.$root.$emit('changeNavTab')
+    },
+    deleteQuery(id) {
+      this.endPointDelete = `${baseUrl}/queries/${id}`
+      axios.delete(this.endPointDelete, {
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': `${this.token}`
+        }
+      })
+
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=`
+      this.filterId = `&filter[user_id]=${this.userId}`
+      this.url = `${this.endPoint}${this.numberId}${this.filterId}`
+      axios
+        .get(this.url)
+        .then(response => {
+          this.rawData = response.data
+          this.items = this.rawData.data
+          this.arrayQueries = this.items
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
+    },
+    runYourQuery(code) {
+      this.showSpinner = true;
+      this.queryEditor = encodeURI(code)
+      this.$root.$emit('postRecentQuery', code)
+      this.$root.$emit('showMessages', false)
+      this.$root.$emit('updateCode', code)
+
+      if (this.queryEditor.includes('LIMIT')) {
+        this.queryEditor = this.queryEditor
+      } else {
+        this.$root.$emit('sendCompleteQuery', this.queryEditor)
+        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
+        this.queryEditor = this.code
+      }
+      this.endPoint = `${baseUrl}/data`
+      this.url = `${this.endPoint}?sql=${this.queryEditor}`
+
+      axios
+        .get(this.url)
+        .then(response => {
+          this.data = []
+          this.keysData = []
+          this.rawData = response.data
+          this.meta = this.rawData.meta
+          this.data = this.rawData.data
+
+          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+
+          this.keysData = Object.keys(this.data[0])
+
+          this.$root.$emit('recordsDuration', this.queryDurationRecors)
+          this.$root.$emit('sendData', this.keysData, this.data)
+          this.$root.$emit('showMessages', true)
+          this.$root.$emit('sendQueryCode', this.queryCode)
+
+        })
+        .catch(error => {
+          const messageError = error.response.data.errors[0].sql
+          this.$root.$emit('apiError', messageError)
+
+          this.data = []
+          this.keysData = []
+          this.$root.$emit('sendData', this.keysData, this.data)
+        })
+
+        setTimeout(() => {
+          this.showSpinner = false
+        }, 300)
+    }
   }
 }
 </script>

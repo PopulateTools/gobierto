@@ -1,8 +1,6 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <QueriesCode
-      :array-queries="arrayQueries"
-    />
+    <QueriesCode :array-queries="arrayQueries" />
   </div>
 </template>
 <script>

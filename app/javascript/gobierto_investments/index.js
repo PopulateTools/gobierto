@@ -1,3 +1,5 @@
+import "../../assets/stylesheets/module-investments.scss"
+
 import { InvestmentsController } from "./modules/investments_controller.js";
 
 document.addEventListener('DOMContentLoaded', () => {

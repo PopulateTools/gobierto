@@ -79,9 +79,8 @@
 
 <script>
 import DictionaryItem from "../../components/DictionaryItem.vue";
-import ReadMore from "../../components/ReadMore.vue";
 
-import { HorizontalCarousel } from "lib/vue-components";
+import { HorizontalCarousel, ReadMore } from "lib/vue-components";
 import { ImageLightbox } from "lib/shared";
 import { CommonsMixin } from "../../mixins/common.js";
 

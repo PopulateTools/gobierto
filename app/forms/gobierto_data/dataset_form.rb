@@ -97,7 +97,7 @@ module GobiertoData
         data_file.tempfile.rewind
         data_file.tempfile
       else
-        local_data ? File.open(data_path, "r") : URI.open(data_path)
+        local_data ? File.open(data_path, "r") : URI.open(data_path, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
       end
     end
 

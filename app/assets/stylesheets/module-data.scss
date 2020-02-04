@@ -516,6 +516,11 @@
         float: right;
         position: relative;
       }
+
+      &.btn-sql-editor-queries {
+        background-color: #fff;
+        color: var(--color-base);
+      }
     }
 
     input[type="text"] {
@@ -803,11 +808,13 @@
     color: #666;
     display: inline-block;
     width: 90%;
+    position: relative;
+    z-index: 1;
   }
 
   &-summary-queries-container-icon {
     display: inline-block;
-    width: 4%;
+    width: 9%;
   }
 
   .spinner-box {
@@ -873,5 +880,10 @@
       color: var(--color-base);
     }
   }
+
+  .rotate-caret {
+    transform: rotate(270deg);
+  }
+
 }
 

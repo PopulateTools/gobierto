@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="gobierto-data-sql-editor">
-      <SQLEditorHeader
-        :array-queries="arrayQueries"
-      />
+      <SQLEditorHeader />
       <SQLEditorCode />
       <SQLEditorTabs
         v-if="data"
@@ -21,6 +19,7 @@ import axios from 'axios';
 import SQLEditorCode from "./SQLEditorCode.vue";
 import SQLEditorHeader from "./SQLEditorHeader.vue";
 import SQLEditorTabs from "./SQLEditorTabs.vue";
+import { baseUrl } from "./../../../lib/commons.js"
 
 export default {
   name: 'SQLEditor',
@@ -32,10 +31,6 @@ export default {
   props: {
     slugName: {
       type: String,
-      required: true
-    },
-    arrayQueries: {
-      type: Array,
       required: true
     }
   },
@@ -52,7 +47,6 @@ export default {
       link: '',
       queryEditor: '',
       url: '',
-      urlPath: location.origin,
       endPoint: '',
       recentQueries: [],
       newRecentQuery: null,
@@ -95,6 +89,9 @@ export default {
         this.saveRecentQuery();
       }
     },
+    loadRecentQuery() {
+      this.$root.$emit('storeQuery', this.recentQueries)
+    },
     saveRecentQuery() {
       const parsed = JSON.stringify(this.recentQueries);
       localStorage.setItem('recentQueries', parsed);
@@ -104,10 +101,9 @@ export default {
       this.$root.$emit('storeQuery', this.recentQueries)
     },
     getSlug() {
-      this.endPointSlug = '/api/v1/data/datasets';
-      this.urlSlug = `${this.urlPath}${this.endPointSlug}`
+      this.endPointSlug = `${baseUrl}/datasets`
       axios
-        .get(this.urlSlug)
+        .get(this.endPointSlug)
         .then(response => {
           this.rawDataSlug = response.data
           this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
@@ -119,8 +115,8 @@ export default {
         })
     },
     getData() {
-      this.endPoint = '/api/v1/data/data';
-      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+      this.endPoint = `${baseUrl}/data`
+      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
         .get(this.url)

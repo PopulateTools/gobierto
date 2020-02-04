@@ -36,18 +36,18 @@
       >
         <div class="gobierto-data-sidebar-datasets-links-container">
           <i
-            class="fas fa-caret-down"
+            class="fas fa-caret-down gobierto-data-sidebar-icon"
             :class="{'rotate-caret': !item.selected}"
-            @click="$set(item, 'selected', !item.selected); getColumns(item.attributes.slug)"
+            @click="visible = !visible; getColumns(item.attributes.slug)"
           />
           <a
-            :href="'datos/' + item.attributes.slug"
+            :href="item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
             @click.prevent.stop="getData(item.id)"
           >{{ item.attributes.name }}
           </a>
           <div
-            v-show="item.selected"
+            v-show="!visible"
           >
             <span
               v-for="(column, i) in columns"
@@ -84,7 +84,8 @@ export default {
       allDatasets: null,
       numberId: '',
       columns: '',
-      selected: 0
+      selected: 0,
+      visible: false
     }
   },
   created() {

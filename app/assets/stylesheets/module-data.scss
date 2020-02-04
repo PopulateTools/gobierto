@@ -889,6 +889,11 @@
     padding-left: 1rem;
   }
 
+  &-sidebar-icon {
+    color: var(--color-base);
+    cursor: pointer;
+  }
+
   .rotate-caret {
     transform: rotate(270deg);
   }

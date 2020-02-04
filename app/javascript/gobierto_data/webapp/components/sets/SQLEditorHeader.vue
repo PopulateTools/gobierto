@@ -68,10 +68,10 @@
         <input
           ref="inputText"
           :class="disableInputName ? 'disable-input-text' : ' '"
-          :placeholder="labelQueryName"
+          v-model="labelQueryName"
           type="text"
           class="gobierto-data-sql-editor-container-save-text"
-          @keyup="nameQuery = $event.target.value"
+          @keyup="onSave($event.target.value)"
         >
         <input
           v-if="showLabelPrivate"
@@ -79,7 +79,7 @@
           :checked="privateQuery"
           type="checkbox"
           class="gobierto-data-sql-editor-container-save-checkbox"
-          @input="privateQuery = $event.target.checked"
+          @input="privateQueryValue($event.target.checked)"
         >
         <label
           v-if="showLabelPrivate"
@@ -204,7 +204,6 @@ export default {
       labelQueryName: '',
       labelEdit: '',
       labelModifiedQuery: '',
-      nameQuery: '',
       codeQuery: '',
       endPoint: '',
       privacyStatus: '',
@@ -242,14 +241,25 @@ export default {
     this.token = getToken()
   },
   methods: {
+    onSave(queryName) {
+      this.disabledSave = false
+      this.labelQueryName = queryName
+    },
     runYourQuery(code) {
       this.queryEditor = code
       this.runQuery()
     },
     queryParams(queryParams) {
+      this.saveQueryState = true;
+      this.showBtnCancel = false;
+      this.showBtnSave = false;
       this.disabledRecents = false;
-      this.disabledSave = false;
-      this.disabledRunQuery = false;
+      this.disabledSave = true;
+      this.showBtnEdit = true;
+      this.removeLabelBtn = true;
+      this.showLabelPrivate = false;
+      this.disableInputName = true;
+      this.$root.$emit('saveQueryState', true);
 
       this.labelQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]
@@ -282,7 +292,7 @@ export default {
     },
     saveQueryName() {
       this.showSaveQueries = true
-      if (this.saveQueryState === true && this.nameQuery.length > 0) {
+      if (this.saveQueryState === true && this.labelQueryName.length > 0) {
         this.showBtnCancel = false;
         this.showBtnEdit = true;
         this.showBtnSave = false;
@@ -316,7 +326,7 @@ export default {
       this.disableInputName = false;
     },
     cancelQuery() {
-      if (this.nameQuery.length > 0) {
+      if (this.labelQueryName.length > 0) {
         this.showBtnCancel = false;
         this.showBtnEdit = true;
         this.showBtnSave = false;
@@ -393,7 +403,7 @@ export default {
           "data": {
               "type": "gobierto_data-queries",
               "attributes": {
-                  "name": this.nameQuery,
+                  "name": this.labelQueryName,
                   "privacy_status": this.privacyStatus,
                   "sql": this.codeQuery,
                   "dataset_id": this.datasetId

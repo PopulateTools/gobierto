@@ -1,17 +1,16 @@
 <template>
   <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
     <NavDatasets
-      v-if="arrayQueries"
       :active-tab="activeTabIndex"
-      :array-queries="arrayQueries"
       @active-tab="activeTabIndex = $event"
     />
   </div>
 </template>
 <script>
-import axios from 'axios';
-import NavDatasets from "./../components/sets/Nav.vue";
-import { getUserId } from "./../../lib/helpers";
+import axios from 'axios'
+import { baseUrl } from "./../../lib/commons"
+import { getUserId } from "./../../lib/helpers"
+import NavDatasets from "./../components/sets/Nav.vue"
 
 export default {
   name: "DataSets",
@@ -23,26 +22,20 @@ export default {
       activeTabIndex: 0,
       rawData: '',
       titleDataset: '',
-      arrayQueries: [],
-      numberId: '',
       datasetId: 0
     }
   },
   created() {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
-    this.numberId = this.$route.params.numberId
 
     this.userId = getUserId()
   },
   methods: {
     getQueries() {
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/queries?filter[dataset_id]='
-      this.filterId = `&filter[user_id]=${this.userId}`
-      this.url = `${this.urlPath}${this.endPoint}${this.numberId}${this.filterId}`
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios
-        .get(this.url)
+        .get(this.endPoint)
         .then(response => {
           this.rawData = response.data
           this.items = this.rawData.data
@@ -55,20 +48,17 @@ export default {
         })
     },
     getData() {
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/datasets/'
-      this.url = `${this.urlPath}${this.endPoint}`
+      this.endPoint = `${baseUrl}/datasets/`
       axios
-        .get(this.url)
+        .get(this.endPoint)
         .then(response => {
           this.rawData = response.data
           this.titleDataset = this.rawData.data[0].attributes.name
+          this.datasetId = this.rawData.data[0].id
           this.getQueries()
-
         })
         .catch(error => {
           console.error(error)
-
         })
     }
   }

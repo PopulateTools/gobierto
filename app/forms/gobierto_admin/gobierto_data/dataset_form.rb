@@ -46,7 +46,7 @@ module GobiertoAdmin
       end
 
       def available_table_names
-        ::GobiertoData::Connection.tables(site, include_draft: true)
+        ::GobiertoData::Connection.tables(site, include_draft: true).sort
       end
 
       def available_visibility_levels

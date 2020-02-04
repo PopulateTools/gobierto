@@ -18,7 +18,7 @@ module GobiertoAdmin
         :visibility_level
       )
 
-      validates :site_id, presence: true
+      validates :site_id, :visibility_level, presence: true
       validate :table_reachable
 
       delegate :persisted?, to: :dataset

@@ -24,7 +24,7 @@ module GobiertoData
       },
       length: { maximum: 50 }
     )
-    validates :slug, uniqueness: { scope: :site_id }
+    validates :slug, :table_name, uniqueness: { scope: :site_id }
 
     before_save :set_schema, if: :will_save_change_to_visibility_level?
 

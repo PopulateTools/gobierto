@@ -41,7 +41,7 @@
             @click="$set(item, 'selected', !item.selected); getColumns(item.attributes.slug)"
           />
           <a
-            :href="$route.fullPath"
+            :href="'datos/' + item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
             @click.prevent.stop="getData(item.id)"
           >{{ item.attributes.name }}

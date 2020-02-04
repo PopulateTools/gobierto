@@ -99,6 +99,8 @@ export default {
 
         this.allDatasets = this.rawData.data
 
+        this.allDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+
         this.titleDataset = this.rawData.data[0].attributes.name
         this.slugDataset = this.rawData.data[0].attributes.slug
         this.getColumns(this.slugDataset)

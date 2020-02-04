@@ -30,25 +30,31 @@
         />
       </div>
       <div class="gobierto-data-sql-editor-your-queries">
-        <Button
-          v-clickoutside="closeYourQueries"
+        <button
+          ref="button"
           :text="labelQueries"
           :class="removeLabelBtn ? 'remove-label' : ''"
           :disabled="disabledQueries"
-          class="btn-sql-editor"
-          icon="list"
-          color="var(--color-base)"
-          background="#fff"
-          @click.native="isHidden = !isHidden"
-        />
+          class="btn-sql-editor btn-sql-editor-queries gobierto-data-btn-blue"
+          @click="isHidden = !isHidden"
+        >
+          <i
+            style="color: inherit"
+            class="fas fa-list"
+          />
+          {{ labelQueries }}
+        </button>
         <keep-alive>
           <transition
             name="fade"
             mode="out-in"
           >
             <Queries
+              v-closable="{
+                exclude: ['button'],
+                handler: 'closeYourQueries'
+              }"
               v-show="!isHidden"
-              :array-queries="arrayQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
             />
@@ -152,7 +158,8 @@
   </div>
 </template>
 <script>
-import { getToken } from './../../../lib/helpers';
+import { getToken } from './../../../lib/helpers'
+import { baseUrl, CommonsMixin, closableMixin } from "./../../../lib/commons.js";
 import axios from 'axios';
 import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
@@ -165,28 +172,7 @@ export default {
     RecentQueries,
     Queries
   },
-  directives: {
-    clickoutside: {
-      bind: function(el, binding, vnode) {
-        el.clickOutsideEvent = function(event) {
-          if (!(el == event.target || el.contains(event.target))) {
-            vnode.context[binding.expression](event);
-          }
-        };
-        document.body.addEventListener('click', el.clickOutsideEvent)
-      },
-      unbind: function(el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent)
-      },
-      stopProp(event) { event.stopPropagation() }
-    }
-  },
-  props: {
-    arrayQueries: {
-      type: Array,
-      required: true
-    }
-  },
+  mixins: [CommonsMixin, closableMixin],
   data() {
     return {
       showStoreQueries: [],
@@ -224,7 +210,6 @@ export default {
       propertiesQueries: [],
       directionLeft: true,
       url: '',
-      urlPath: '',
       showSpinner: false,
       token: ''
     }
@@ -248,6 +233,9 @@ export default {
     this.$root.$on('storeQuery', this.showshowStoreQueries)
     this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('sendYourQuery', this.runYourQuery)
+
+    this.$root.$on('closeQueriesModal', this.closeYourQueries)
+
 
     this.datasetId = this.$route.params.numberId
     this.token = getToken()
@@ -364,9 +352,8 @@ export default {
       this.$root.$emit('postRecentQuery', this.codeQuery)
       this.$root.$emit('showMessages', false)
 
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/data';
-      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+      this.endPoint = `${baseUrl}/data`
+      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
         .get(this.url)
@@ -409,23 +396,8 @@ export default {
     closeYourQueries() {
       this.isHidden = true
     },
-    deleteQuery(index) {
-      const URL = `/api/v1/data/queries/${index}`
-      axios.delete(URL, {
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': `${this.token}`
-        }
-      });
-    },
-    privateQueryValue(valuePrivate) {
-      this.disabledSave = false
-      this.privateQuery = valuePrivate
-    },
     postQuery() {
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/queries'
-      this.url = `${this.urlPath}${this.endPoint}`
+      this.endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
       let data = {
           "data": {
@@ -438,7 +410,7 @@ export default {
               }
           }
       }
-      axios.post(this.url, data, {
+      axios.post(this.endPoint, data, {
         headers: {
           'Content-type': 'application/json',
           'Authorization': `${this.token}`

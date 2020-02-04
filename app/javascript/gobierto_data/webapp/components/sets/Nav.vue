@@ -60,25 +60,24 @@
         </li>
       </ul>
     </nav>
-    <Summary
-      v-if="activeTab === 0"
-      :item="slugName"
-      :array-queries="arrayQueries"
-    />
-    <Data
-      v-else-if="activeTab === 1"
-      :item="slugName"
-      :array-queries="arrayQueries"
-    />
-    <Queries
-      v-else-if="activeTab === 2"
-      :array-queries="arrayQueries"
-    />
-    <Visualizations v-else-if="activeTab === 3" />
-    <Downloads
-      v-else-if="activeTab === 4"
-      :item="slugName"
-    />
+    <keep-alive>
+      <Summary
+        v-if="activeTab === 0"
+        :item="slugName"
+      />
+      <Data
+        v-else-if="activeTab === 1"
+        :item="slugName"
+      />
+      <Queries
+        v-else-if="activeTab === 2"
+      />
+      <Visualizations v-else-if="activeTab === 3" />
+      <Downloads
+        v-else-if="activeTab === 4"
+        :item="slugName"
+      />
+    </keep-alive>
   </div>
 </template>
 <script>
@@ -104,10 +103,6 @@ export default {
     activeTab: {
       type: Number,
       default: 0
-    },
-    arrayQueries: {
-      type: Array,
-      required: true
     }
   },
   data() {
@@ -140,8 +135,6 @@ export default {
   methods: {
     changeTab() {
       this.activateTab(1)
-      /*this.$root.$emit('sendYourQuery', sqlCode)
-      this.$root.$emit('sendYourCode', sqlCode)*/
     },
     activateTab(index) {
       this.$emit("active-tab", index);

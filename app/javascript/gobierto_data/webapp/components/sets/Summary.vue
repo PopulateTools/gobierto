@@ -11,7 +11,7 @@
       />
     </keep-alive>
     <Resources :items="filesDataset" />
-    <Queries :array-queries="arrayQueries" />
+    <Queries />
   </div>
 </template>
 
@@ -32,10 +32,6 @@ export default {
   props: {
     item: {
       type: String,
-      required: true
-    },
-    arrayQueries: {
-      type: Array,
       required: true
     }
   },

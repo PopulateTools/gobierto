@@ -3,7 +3,6 @@
     <SQLEditor
       id="codemirror"
       :slug-name="item"
-      :array-queries="arrayQueries"
     />
   </div>
 </template>
@@ -18,10 +17,6 @@ export default {
   props: {
     item: {
       type: String,
-      required: true
-    },
-    arrayQueries: {
-      type: Array,
       required: true
     }
   }

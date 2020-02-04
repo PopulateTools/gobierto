@@ -82,10 +82,7 @@ export default {
       sqlfileJSON: '',
       urlPath: location.origin,
       endPoint: '',
-      rawData: null,
-      slugDataset: '',
-      links: [],
-      titleDataset: ''
+      rawData: null
     }
   },
   created() {

@@ -37,15 +37,15 @@
         <div class="gobierto-data-sidebar-datasets-links-container">
           <i
             class="fas fa-caret-down"
-            :class="{ 'rotate-caret' : active_el == index }"
-            @click="getColumns(item.attributes.slug)"
+            :class="{'rotate-caret': !item.selected}"
+            @click="$set(item, 'selected', !item.selected); getColumns(item.attributes.slug)"
           />
           <span
             class="gobierto-data-sidebar-datasets-name"
             @click="getData(index)"
           >{{ item.attributes.name }}</span>
           <div
-            v-show="!isActive"
+            v-show="item.selected"
           >
             <span
               v-for="(column, i) in columns"
@@ -82,8 +82,7 @@ export default {
       allDatasets: null,
       numberId: '',
       columns: '',
-      isActive: 0,
-      caretActive: false
+      selected: 0
     }
   },
   created() {

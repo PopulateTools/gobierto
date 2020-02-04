@@ -5,6 +5,8 @@ module GobiertoAdmin
     class DatasetsController < GobiertoAdmin::GobiertoData::BaseController
       include CustomFieldsHelper
 
+      helper_method :preview_url
+
       def index
         @datasets = current_site.datasets.order(id: :desc)
       end
@@ -85,6 +87,10 @@ module GobiertoAdmin
         current_site.datasets.find(params[:id])
       end
 
+      def preview_url(dataset, options = {})
+        options[:preview_token] = current_admin.preview_token unless dataset.active?
+        gobierto_data_datasets_url(dataset.slug, options)
+      end
     end
   end
 end

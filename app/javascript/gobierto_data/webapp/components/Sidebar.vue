@@ -38,16 +38,18 @@
           <i
             :class="{'rotate-caret': toggle !== index }"
             class="fas fa-caret-down gobierto-data-sidebar-icon"
+            @active-toggle="toggle = $event"
             @click="getColumns(item.attributes.slug, index)"
           />
           <a
             :href="item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
-            @click.prevent="getData(index)"
+            @click.prevent.stop="getData(index)"
           >{{ item.attributes.name }}
           </a>
           <div
             v-show="toggle === index"
+            @active-toggle="toggle = $event"
           >
             <span
               v-for="(column, i) in columns"
@@ -86,7 +88,8 @@ export default {
       allDatasets: null,
       numberId: '',
       columns: '',
-      toggle: 0
+      toggle: 0,
+      initAxios: false
     }
   },
   created() {
@@ -94,28 +97,34 @@ export default {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
-
-    this.endPoint = `${baseUrl}/datasets`
-
-    this.$root.$on('toggleId', this.toggleIndex)
-
-    axios
-      .get(this.endPoint)
-      .then(response => {
-        this.rawData = response.data
-
-        this.allDatasets = this.rawData.data
-        this.allDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
-
-        this.titleDataset = this.rawData.data[0].attributes.name
-        this.slugDataset = this.rawData.data[0].attributes.slug
-        this.firstColumns(this.slugDataset)
-      })
-      .catch(error => {
-        console.error(error)
-      })
+    this.$root.$on('activeToggle', this.activeToggle)
+    this.initData()
   },
   methods: {
+    initData(){
+      if (this.initAxios === false) {
+        this.endPoint = `${baseUrl}/datasets`
+        axios
+          .get(this.endPoint)
+          .then(response => {
+            this.rawData = response.data
+
+            this.allDatasets = this.rawData.data
+            this.allDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+
+            this.titleDataset = this.rawData.data[0].attributes.name
+            this.slugDataset = this.rawData.data[0].attributes.slug
+            this.firstColumns(this.slugDataset)
+            this.initAxios = true
+          })
+          .catch(error => {
+            console.error(error)
+          })
+        }
+      },
+    activeToggle(value){
+      this.handleToggle(value)
+    },
     firstColumns(slugDataset) {
       this.urlPath = location.origin
       this.endPoint = `/api/v1/data/datasets/${slugDataset}`
@@ -181,32 +190,34 @@ export default {
           this.slugDataset = this.rawData[index].attributes.slug
           this.tableName = this.rawData[index].attributes.table_name
 
-          this.$root.$emit('nameDataset', this.titleDataset)
-          this.$root.$emit('sendTableName', this.tableName)
-          this.$root.$emit('sendSlug', this.slugDataset)
-          this.nav(this.slugDataset)
+          this.$root.$emit('sendIndexValue', index)
+          this.nav(this.slugDataset, index)
         })
         .catch(error => {
           console.error(error)
 
         })
     },
-    getQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.numberId}&filter[user_id]=${this.userId}`
+    getDataDatasets() {
+      this.urlPath = location.origin
+      this.endPoint = `/api/v1/data/datasets/${this.slugDataset}/meta`
+      this.url = `${this.urlPath}${this.endPoint}`
       axios
         .get(this.endPoint)
         .then(response => {
           this.rawData = response.data
-          this.items = this.rawData.data
-          this.arrayQueries = this.items
-          this.datasetId = parseInt(this.numberId)
-          this.nav(this.slugDataset)
+          this.titleDataset = this.rawData.data.attributes.name
+          this.idDataset = this.rawData.data.id
+          this.slugDataset = this.rawData.data.attributes.slug
+          this.tableName = this.rawData.data.attributes.table_name
+          this.datasetId = parseInt(this.idDataset)
+          this.getQueries()
         })
         .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
+          console.error(error)
         })
-    },
+    }
+
   }
 };
 </script>

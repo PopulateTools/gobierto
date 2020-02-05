@@ -132,7 +132,8 @@ export default {
       labelDownload: "",
       labelFav: "",
       labelFollow: "",
-      slugName: ''
+      slugName: '',
+      title: ''
     }
   },
   created() {
@@ -145,7 +146,6 @@ export default {
     this.labelFollow = I18n.t("gobierto_data.projects.follow")
 
     this.$root.$on('changeNavTab', this.changeTab)
-
 
     this.slugName = this.$route.params.id
   },

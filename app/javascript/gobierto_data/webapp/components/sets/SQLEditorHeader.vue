@@ -21,13 +21,20 @@
           background="#fff"
           @click.native="recentQueries()"
         />
-        <RecentQueries
-          v-if="showStoreQueries"
-          :class="[
-            directionLeft ? 'modal-left': 'modal-right',
-            isActive ? 'active' : ''
-          ]"
-        />
+        <keep-alive>
+          <transition
+            name="fade"
+            mode="out-in"
+          >
+            <RecentQueries
+              v-show="isActive"
+              :class="[
+                directionLeft ? 'modal-left': 'modal-right',
+                isActive ? 'active' : ''
+              ]"
+            />
+          </transition>
+        </keep-alive>
       </div>
       <div class="gobierto-data-sql-editor-your-queries">
         <button
@@ -187,7 +194,7 @@ export default {
   data() {
     return {
       showStoreQueries: [],
-      disabledRecents: true,
+      disabledRecents: false,
       disabledQueries: false,
       disabledSave: true,
       disabledRunQuery: true,
@@ -303,6 +310,10 @@ export default {
       this.showBtnSave = activeLabel;
       this.showBtnEdit = disableLabel;
       this.disableInputName = disableLabel;
+    },
+    privateQueryValue(valuePrivate) {
+      this.disabledSave = false
+      this.privateQuery = valuePrivate
     },
     saveQueryName() {
       this.showSaveQueries = true

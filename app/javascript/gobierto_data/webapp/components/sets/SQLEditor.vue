@@ -106,12 +106,12 @@ export default {
         this.saveRecentQuery();
       }
     },
-    loadRecentQuery() {
-      this.$root.$emit('storeQuery', this.recentQueries)
-    },
     saveRecentQuery() {
       const parsed = JSON.stringify(this.recentQueries);
       localStorage.setItem('recentQueries', parsed);
+      this.$root.$emit('storeQuery', this.recentQueries)
+    },
+    loadRecentQuery() {
       this.$root.$emit('storeQuery', this.recentQueries)
     },
     getSlug() {

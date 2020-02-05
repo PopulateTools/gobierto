@@ -36,8 +36,8 @@
       >
         <div class="gobierto-data-sidebar-datasets-links-container">
           <i
-            class="fas fa-caret-down gobierto-data-sidebar-icon"
             :class="{'rotate-caret': toggle !== index }"
+            class="fas fa-caret-down gobierto-data-sidebar-icon"
             @click="getColumns(item.attributes.slug, index)"
           />
           <a
@@ -156,7 +156,7 @@ export default {
     activateTab(index) {
       this.$emit("active-tab", index);
     },
-    nav(slugDataset, index) {
+    nav(slugDataset) {
       this.$router.push({
         name: "dataset",
         params: {

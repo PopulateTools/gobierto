@@ -37,17 +37,17 @@
         <div class="gobierto-data-sidebar-datasets-links-container">
           <i
             class="fas fa-caret-down gobierto-data-sidebar-icon"
-            :class="{'rotate-caret': !item.selected}"
-            @click="visible = !visible; getColumns(item.attributes.slug)"
+            :class="{'rotate-caret': toggle !== index }"
+            @click="getColumns(item.attributes.slug, index)"
           />
           <a
             :href="item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
-            @click.prevent.stop="getData(item.id)"
+            @click.prevent="getData(index)"
           >{{ item.attributes.name }}
           </a>
           <div
-            v-show="!visible"
+            v-show="toggle === index"
           >
             <span
               v-for="(column, i) in columns"
@@ -84,8 +84,7 @@ export default {
       allDatasets: null,
       numberId: '',
       columns: '',
-      selected: 0,
-      visible: false
+      toggle: 0
     }
   },
   created() {
@@ -103,7 +102,6 @@ export default {
         this.rawData = response.data
 
         this.allDatasets = this.rawData.data
-
         this.allDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
 
         this.titleDataset = this.rawData.data[0].attributes.name
@@ -129,10 +127,10 @@ export default {
         })
         .catch(error => {
           console.error(error)
-
         })
     },
-    getColumns(slugDataset) {
+    getColumns(slugDataset, index) {
+      this.toggle = this.toggle !== index ? index : null;
       this.caretActive = !this.caretActive;
       this.urlPath = location.origin
       this.endPoint = `/api/v1/data/datasets/${slugDataset}`
@@ -171,14 +169,16 @@ export default {
         .get(this.url)
         .then(response => {
           this.rawData = response.data
-          this.numberId = this.rawData.data[index].id
-          this.titleDataset = this.rawData.data[index].attributes.name
+          this.rawData = this.rawData.data
+          this.rawData = this.rawData.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+          this.numberId = this.rawData[index].id
+          this.titleDataset = this.rawData[index].attributes.name
 
-          this.idDataset = this.rawData.data[index].id
+          this.idDataset = this.rawData[index].id
 
-          this.titleDataset = this.rawData.data[index].attributes.name
-          this.slugDataset = this.rawData.data[index].attributes.slug
-          this.tableName = this.rawData.data[index].attributes.table_name
+          this.titleDataset = this.rawData[index].attributes.name
+          this.slugDataset = this.rawData[index].attributes.slug
+          this.tableName = this.rawData[index].attributes.table_name
 
           this.$root.$emit('nameDataset', this.titleDataset)
           this.$root.$emit('sendTableName', this.tableName)

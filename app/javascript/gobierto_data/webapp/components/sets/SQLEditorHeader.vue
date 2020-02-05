@@ -57,10 +57,6 @@
             mode="out-in"
           >
             <Queries
-              v-closable="{
-                exclude: ['button'],
-                handler: 'closeYourQueries'
-              }"
               v-show="!isHidden"
               v-closable="{
                 exclude: ['button'],
@@ -185,50 +181,7 @@ export default {
     RecentQueries,
     Queries
   },
-<<<<<<< HEAD
-  directives: {
-    clickoutside: {
-      bind: function(el, binding, vnode) {
-        el.clickOutsideEvent = function(event) {
-          if (!(el == event.target || el.contains(event.target))) {
-            vnode.context[binding.expression](event);
-          }
-        };
-        document.body.addEventListener('click', el.clickOutsideEvent)
-      },
-      unbind: function(el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent)
-      },
-      stopProp(event) { event.stopPropagation() }
-    },
-    closable : {
-      bind (el, binding, vnode) {
-        handleOutsideClick = (e) => {
-          e.stopPropagation()
-          const { handler, exclude } = binding.value
-          let clickedOnExcludedEl = false
-          exclude.forEach(refName => {
-            if (!clickedOnExcludedEl) {
-              const excludedEl = vnode.context.$refs[refName]
-              clickedOnExcludedEl = excludedEl.contains(e.target)
-            }
-          })
-          if (!el.contains(e.target) && !clickedOnExcludedEl) {
-            vnode.context[handler]()
-          }
-        }
-        document.addEventListener('click', handleOutsideClick)
-        document.addEventListener('touchstart', handleOutsideClick)
-      },
-      unbind () {
-        document.removeEventListener('click', handleOutsideClick)
-        document.removeEventListener('touchstart', handleOutsideClick)
-      }
-    }
-  },
-=======
   mixins: [CommonsMixin, closableMixin],
->>>>>>> a7572afeb28d10ca8590033e2b35083196aa5591
   props: {
     arrayQueries: {
       type: Array,
@@ -300,13 +253,7 @@ export default {
     this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('sendYourQuery', this.runYourQuery)
 
-<<<<<<< HEAD
     this.$root.$on('closeQueriesModal', this.closeYourQueries);
-=======
-    this.$root.$on('closeQueriesModal', this.closeYourQueries)
-
->>>>>>> a7572afeb28d10ca8590033e2b35083196aa5591
-
     this.token = getToken()
   },
   methods: {
@@ -319,18 +266,6 @@ export default {
       this.runQuery()
     },
     queryParams(queryParams) {
-<<<<<<< HEAD
-      this.showSaveQueries = true
-      this.showBtnCancel = true;
-      this.showBtnEdit = false;
-      this.showBtnSave = true;
-      this.showBtnRemove = false;
-      this.showLabelPrivate = true;
-      this.removeLabelBtn = true;
-      this.showLabelModified = false;
-      this.disableInputName = false;
-      this.saveQueryState = true
-=======
       this.saveQueryState = true;
       this.showBtnCancel = false;
       this.showBtnSave = false;
@@ -341,7 +276,6 @@ export default {
       this.showLabelPrivate = false;
       this.disableInputName = true;
       this.$root.$emit('saveQueryState', true);
->>>>>>> a7572afeb28d10ca8590033e2b35083196aa5591
 
       this.labelQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]
@@ -374,10 +308,6 @@ export default {
       this.showBtnSave = activeLabel;
       this.showBtnEdit = disableLabel;
       this.disableInputName = disableLabel;
-    },
-    privateQueryValue(valuePrivate) {
-      this.disabledSave = false
-      this.privateQuery = valuePrivate
     },
     saveQueryName() {
       this.showSaveQueries = true

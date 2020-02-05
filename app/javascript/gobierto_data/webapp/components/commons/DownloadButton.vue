@@ -19,7 +19,7 @@
           class="gobierto-data-btn-download-data-modal"
         >
           <div
-            v-for="(item, key, index) in links"
+            v-for="(item, key, index) in arrayFormats"
             :key="index"
             :item="item"
           >

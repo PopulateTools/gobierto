@@ -36,12 +36,6 @@ export default {
   created() {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
-<<<<<<< HEAD
-    this.numberId = this.$route.params.numberId
-=======
-
-
->>>>>>> a7572afeb28d10ca8590033e2b35083196aa5591
     this.userId = getUserId()
   },
   methods: {

@@ -23,6 +23,7 @@ import axios from 'axios';
 import SQLEditorCode from "./SQLEditorCode.vue";
 import SQLEditorHeader from "./SQLEditorHeader.vue";
 import SQLEditorTabs from "./SQLEditorTabs.vue";
+import { baseUrl } from "./../../../lib/commons.js"
 
 export default {
   name: 'SQLEditor',
@@ -58,7 +59,6 @@ export default {
       link: '',
       queryEditor: '',
       url: '',
-      urlPath: location.origin,
       endPoint: '',
       recentQueries: [],
       newRecentQuery: null,
@@ -70,7 +70,6 @@ export default {
   },
   mounted() {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
-    this.$root.$on('activateModalRecent', this.saveRecentQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
         this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
@@ -78,6 +77,7 @@ export default {
         localStorage.removeItem('recentQueries');
       }
     }
+    this.$root.$on('activateModalRecent', this.loadRecentQuery)
     this.getSlug()
   },
   methods: {
@@ -105,14 +105,15 @@ export default {
       localStorage.setItem('recentQueries', parsed);
       this.$root.$emit('storeQuery', this.recentQueries)
     },
+    loadRecentQuery() {
+      this.$root.$emit('storeQuery', this.recentQueries)
+    },
     getSlug() {
-      this.endPointSlug = `/api/v1/data/datasets/${this.$route.params.id}/meta`
-      this.urlSlug = `${this.urlPath}${this.endPointSlug}`
+      this.endPointSlug = `${baseUrl}/datasets`
       axios
-        .get(this.urlSlug)
+        .get(this.endPointSlug)
         .then(response => {
           this.rawDataSlug = response.data
-          this.slugDataset = this.rawDataSlug.data.attributes.slug
           this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
           this.getData()
 
@@ -122,8 +123,8 @@ export default {
         })
     },
     getData() {
-      this.endPoint = '/api/v1/data/data';
-      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+      this.endPoint = `${baseUrl}/data`
+      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
         .get(this.url)

@@ -101,6 +101,7 @@ export default {
     this.$root.$on('apiError', this.showError)
     this.$root.$on('showMessages', this.handleShowMessages)
     this.$root.$on('sendQueryCode', this.queryCode)
+    this.$root.$emit('activateModalRecent')
 
     this.$root.$on('sendYourCode', this.queryCode);
 

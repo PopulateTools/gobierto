@@ -1,7 +1,6 @@
 <template>
   <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
     <NavDatasets
-      v-if="arrayQueries"
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
       :table-name="tableName"
@@ -12,9 +11,10 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
-import NavDatasets from "./../components/sets/Nav.vue";
-import { getUserId } from "./../../lib/helpers";
+import axios from 'axios'
+import { baseUrl } from "./../../lib/commons"
+import { getUserId } from "./../../lib/helpers"
+import NavDatasets from "./../components/sets/Nav.vue"
 
 export default {
   name: "DataSets",
@@ -36,19 +36,13 @@ export default {
   created() {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
-    this.numberId = this.$route.params.numberId
-
-
     this.userId = getUserId()
   },
   methods: {
     getQueries() {
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/queries?filter[dataset_id]='
-      this.filterId = `&filter[user_id]=${this.userId}`
-      this.url = `${this.urlPath}${this.endPoint}${this.idDataset}${this.filterId}`
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios
-        .get(this.url)
+        .get(this.endPoint)
         .then(response => {
           this.rawData = response.data
           this.items = this.rawData.data
@@ -64,7 +58,7 @@ export default {
       this.endPoint = `/api/v1/data/datasets/${this.$route.params.id}/meta`
       this.url = `${this.urlPath}${this.endPoint}`
       axios
-        .get(this.url)
+        .get(this.endPoint)
         .then(response => {
           this.rawData = response.data
           this.titleDataset = this.rawData.data.attributes.name
@@ -77,11 +71,9 @@ export default {
           this.$root.$emit('nameDataset', this.titleDataset)
 
           this.getQueries()
-
         })
         .catch(error => {
           console.error(error)
-
         })
     }
   }

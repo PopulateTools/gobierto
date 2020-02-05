@@ -197,27 +197,7 @@ export default {
           console.error(error)
 
         })
-    },
-    getDataDatasets() {
-      this.urlPath = location.origin
-      this.endPoint = `/api/v1/data/datasets/${this.slugDataset}/meta`
-      this.url = `${this.urlPath}${this.endPoint}`
-      axios
-        .get(this.endPoint)
-        .then(response => {
-          this.rawData = response.data
-          this.titleDataset = this.rawData.data.attributes.name
-          this.idDataset = this.rawData.data.id
-          this.slugDataset = this.rawData.data.attributes.slug
-          this.tableName = this.rawData.data.attributes.table_name
-          this.datasetId = parseInt(this.idDataset)
-          this.getQueries()
-        })
-        .catch(error => {
-          console.error(error)
-        })
     }
-
   }
 };
 </script>

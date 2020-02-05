@@ -672,7 +672,8 @@ export class VisLineasJ {
       }
     });
 
-    return chosenYear;
+    // set default date if it's undefined
+    return chosenYear || new Date();
   }
 
   _mouseover() {

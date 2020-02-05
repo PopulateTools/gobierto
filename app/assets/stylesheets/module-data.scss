@@ -1,8 +1,9 @@
-.gobierto-data {
+:root {
+  --transition: .1s ease-in;
+  --shadow: 0 2px 20px rgba(0, 0, 0, .3);
+}
 
-  :root {
-    --transition: .1s ease-in;
-  }
+.gobierto-data {
 
   @include min-screen(768) {
     @include gutters(66px)
@@ -15,7 +16,6 @@
 
   &-home-nav--tab {
     list-style: none;
-
     display: inline-block;
     color: var(--color-base);
     text-transform: uppercase;
@@ -348,7 +348,7 @@
 
   &-btn-download-data-modal,
   &-sql-editor-recent-queries {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, .3);
+    box-shadow: var(--shadow);
     border: 1px solid var(--color-base);
     border-radius: 3px;
     padding: .5rem 0;
@@ -356,7 +356,7 @@
     width: 30rem;
     display: none;
     top: 100%;
-    height: 160px;
+    height: 210px;
     background-color: #fff;
 
     &.modal-left {
@@ -419,7 +419,7 @@
   }
 
   &-btn-download-data-modal-container {
-    overflow: scroll;
+    overflow-y: scroll;
     height: 100%;
   }
 
@@ -433,9 +433,20 @@
     background-color: #fff;
     z-index: 10;
     top: 135%;
-
+    width: 50vw;
+    max-height: 600px;
+    height: 35vw;
+    max-width: 750px;
     &.active {
       display: block;
+    }
+
+    &.arrow-top.modal-left {
+
+      &::after,
+      &::before {
+        left: 2%;
+      }
     }
 
   }
@@ -504,6 +515,11 @@
       &.btn-sql-editor-run {
         float: right;
         position: relative;
+      }
+
+      &.btn-sql-editor-queries {
+        background-color: #fff;
+        color: var(--color-base);
       }
     }
 
@@ -689,7 +705,6 @@
     padding: .5rem;
     font-size: 14px;
     font-weight: normal;
-    color: #000;
     display: block;
     width: 100%;
     border-radius: 0;
@@ -697,6 +712,8 @@
     text-transform: none !important;
     box-sizing: border-box;
     position: relative;
+    color: #666;
+    font-family: monospace;
 
     &:hover {
       background-color: rgba(var(--color-base-string), .1);
@@ -704,21 +721,6 @@
       &::before {
         display: inline-block;
       }
-    }
-
-    &::before {
-      padding: .5rem;
-      content: attr(data-id);
-      background-color: var(--color-base);
-      width: max-content;
-      display: none;
-      color: #fff;
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 10;
-      width: 100%;
-
     }
   }
 
@@ -734,13 +736,17 @@
   }
 
   &-sql-editor-your-queries-container {
+    @include min-screen(768) {
+      width: 50vw;
+    }
+    box-shadow: var(--shadow);
     position: absolute;
     top: 45px;
     left: 0;
     background: white;
     padding: 0;
     z-index: 10;
-    width: 50vw;
+    width: 70vw;
 
     .gobierto-data-summary-queries-panel {
       border-color: var(--color-base);
@@ -802,6 +808,8 @@
     color: #666;
     display: inline-block;
     width: 90%;
+    position: relative;
+    z-index: 1;
   }
 
   &-summary-queries-container-icon {
@@ -872,5 +880,10 @@
       color: var(--color-base);
     }
   }
+
+  .rotate-caret {
+    transform: rotate(270deg);
+  }
+
 }
 

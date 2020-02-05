@@ -14,6 +14,7 @@
         :items="data"
         :link="link"
         :active-tab="activeTabIndex"
+        :array-queries="arrayQueries"
         @active-tab="activeTabIndex = $event"
       />
     </div>
@@ -24,6 +25,7 @@ import axios from 'axios';
 import SQLEditorCode from "./SQLEditorCode.vue";
 import SQLEditorHeader from "./SQLEditorHeader.vue";
 import SQLEditorTabs from "./SQLEditorTabs.vue";
+import { baseUrl } from "./../../../lib/commons.js"
 
 export default {
   name: 'SQLEditor',
@@ -54,7 +56,6 @@ export default {
     return {
       activeTabIndex: 0,
       rawData: [],
-      rawDataSlug: [],
       columns: [],
       data: null,
       keysData: [],
@@ -63,19 +64,13 @@ export default {
       link: '',
       queryEditor: '',
       url: '',
-      urlPath: location.origin,
       endPoint: '',
       recentQueries: [],
-      newRecentQuery: null,
-      nameDataset: ''
+      newRecentQuery: null
     }
   },
   created(){
     this.$root.$on('sendYourCode', this.runYourQuery)
-  },
-  mounted() {
-    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
-    this.$root.$on('activateModalRecent', this.saveRecentQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
         this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
@@ -83,10 +78,14 @@ export default {
         localStorage.removeItem('recentQueries');
       }
     }
-    this.getSlug()
+    this.$root.$on('activateModalRecent', this.loadRecentQuery)
+  },
+  mounted() {
+    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
+    this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
+    this.getData()
   },
   methods: {
-
     runYourQuery(sqlCode){
       this.queryDefault = false
       this.getSlug()
@@ -110,25 +109,12 @@ export default {
       localStorage.setItem('recentQueries', parsed);
       this.$root.$emit('storeQuery', this.recentQueries)
     },
-    getSlug() {
-      this.endPointSlug = `/api/v1/data/datasets/${this.$route.params.id}/meta`
-      this.urlSlug = `${this.urlPath}${this.endPointSlug}`
-      axios
-        .get(this.urlSlug)
-        .then(response => {
-          this.rawDataSlug = response.data
-          this.slugDataset = this.rawDataSlug.data.attributes.slug
-          this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
-          this.getData()
-
-        })
-        .catch(error => {
-          console.error(error)
-        })
+    loadRecentQuery() {
+      this.$root.$emit('storeQuery', this.recentQueries)
     },
     getData() {
-      this.endPoint = '/api/v1/data/data';
-      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+      this.endPoint = `${baseUrl}/data`
+      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
         .get(this.url)

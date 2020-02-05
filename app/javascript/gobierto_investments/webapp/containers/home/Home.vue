@@ -74,7 +74,7 @@
               class="investments-home-aside--block-header"
             />
             <RangeBars
-              :range-bars="
+              :histogram="
                 (filter.histogram || []).map((item, i) => ({
                   ...item,
                   id: item.bucket || i
@@ -84,7 +84,7 @@
               :max="Math.ceil(parseFloat(filter.max))"
               :saved-min="filter.savedMin"
               :saved-max="filter.savedMax"
-              :total="parseFloat(filter.count)"
+              :total-items="parseFloat(filter.count)"
               @range-change="e => handleRangeFilter({ ...e, filter })"
             />
           </template>
@@ -114,10 +114,9 @@ import Aside from "./Aside.vue";
 import Main from "./Main.vue";
 import Nav from "./Nav.vue";
 import Article from "./Article.vue";
-import RangeBars from "../../components/RangeBars.vue";
 import axios from "axios";
 
-import { BlockHeader, Calendar, Loading, Checkbox } from "lib/vue-components";
+import { BlockHeader, Calendar, Loading, Checkbox, RangeBars } from "lib/vue-components";
 import { Middleware } from "lib/shared";
 import { CommonsMixin, baseUrl } from "../../mixins/common.js";
 import { store } from "../../mixins/store";

@@ -193,3 +193,6 @@ en:
         none: None
       calendar:
         date: Choose date
+      read_more:
+        less: See less
+        more: See more

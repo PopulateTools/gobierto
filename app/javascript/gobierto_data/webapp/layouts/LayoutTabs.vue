@@ -21,7 +21,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import Sidebar from "./../components/Sidebar.vue";
 import Nav from "./../components/Nav.vue";
 
@@ -36,23 +35,6 @@ export default {
       activeTabSidebar: 0,
       allDatasets: []
     }
-  },
-  created(){
-    this.urlPath = location.origin
-    this.endPoint = '/api/v1/data/datasets';
-    this.url = `${this.urlPath}${this.endPoint}`
-
-    axios
-      .get(this.url)
-      .then(response => {
-        this.rawData = response.data
-
-        this.allDatasets = this.rawData.data
-
-      })
-      .catch(error => {
-        console.error(error)
-      })
   }
 }
 

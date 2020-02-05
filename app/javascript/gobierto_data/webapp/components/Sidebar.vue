@@ -97,6 +97,8 @@ export default {
 
     this.endPoint = `${baseUrl}/datasets`
 
+    this.$root.$on('toggleId', this.toggleIndex)
+
     axios
       .get(this.endPoint)
       .then(response => {
@@ -131,7 +133,7 @@ export default {
         })
     },
     getColumns(slugDataset, index) {
-      this.toggle = this.toggle !== index ? index : null;
+      this.handleToggle(index)
       this.caretActive = !this.caretActive;
       this.urlPath = location.origin
       this.endPoint = `/api/v1/data/datasets/${slugDataset}`
@@ -148,18 +150,17 @@ export default {
 
         })
     },
+    handleToggle(index) {
+      this.toggle = this.toggle !== index ? index : null;
+    },
     activateTab(index) {
       this.$emit("active-tab", index);
     },
-    nav(slugDataset) {
+    nav(slugDataset, index) {
       this.$router.push({
         name: "dataset",
         params: {
-          id: slugDataset,
-          numberId: this.numberId,
-          titleDataset: this.titleDataset,
-          tableName: this.tableName,
-          arrayQueries: this.arrayQueries
+          id: slugDataset
         }
     })
     },

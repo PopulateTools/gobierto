@@ -10,9 +10,11 @@
       />
       <SQLEditorTabs
         v-if="data"
+        :array-formats="arrayFormats"
         :items="data"
         :link="link"
         :active-tab="activeTabIndex"
+        :array-queries="arrayQueries"
         @active-tab="activeTabIndex = $event"
       />
     </div>
@@ -41,6 +43,10 @@ export default {
       type: Array,
       required: true
     },
+    arrayFormats: {
+      type: Object,
+      required: true
+    },
     datasetId: {
       type: Number,
       required: true
@@ -50,7 +56,6 @@ export default {
     return {
       activeTabIndex: 0,
       rawData: [],
-      rawDataSlug: [],
       columns: [],
       data: null,
       keysData: [],
@@ -61,15 +66,11 @@ export default {
       url: '',
       endPoint: '',
       recentQueries: [],
-      newRecentQuery: null,
-      nameDataset: ''
+      newRecentQuery: null
     }
   },
   created(){
     this.$root.$on('sendYourCode', this.runYourQuery)
-  },
-  mounted() {
-    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
         this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
@@ -78,10 +79,13 @@ export default {
       }
     }
     this.$root.$on('activateModalRecent', this.loadRecentQuery)
-    this.getSlug()
+  },
+  mounted() {
+    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
+    this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
+    this.getData()
   },
   methods: {
-
     runYourQuery(sqlCode){
       this.queryDefault = false
       this.getSlug()
@@ -107,20 +111,6 @@ export default {
     },
     loadRecentQuery() {
       this.$root.$emit('storeQuery', this.recentQueries)
-    },
-    getSlug() {
-      this.endPointSlug = `${baseUrl}/datasets`
-      axios
-        .get(this.endPointSlug)
-        .then(response => {
-          this.rawDataSlug = response.data
-          this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
-          this.getData()
-
-        })
-        .catch(error => {
-          console.error(error)
-        })
     },
     getData() {
       this.endPoint = `${baseUrl}/data`

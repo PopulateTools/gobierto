@@ -5,6 +5,7 @@
       :table-name="tableName"
       :dataset-id="datasetId"
       :array-queries="arrayQueries"
+      :array-formats="arrayFormats"
     />
   </div>
 </template>
@@ -27,6 +28,10 @@ export default {
     },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    arrayFormats: {
+      type: Object,
       required: true
     }
   }

@@ -251,7 +251,6 @@ export default {
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
 
 
-    this.datasetId = this.$route.params.numberId
     this.token = getToken()
   },
   methods: {
@@ -286,6 +285,10 @@ export default {
       }
 
       this.runQuery()
+    },
+    privateQueryValue(valuePrivate) {
+      this.disabledSave = false
+      this.privateQuery = valuePrivate
     },
     showshowStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)

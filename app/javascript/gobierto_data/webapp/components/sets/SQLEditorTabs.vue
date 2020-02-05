@@ -30,6 +30,7 @@
       <keep-alive>
         <DownloadButton
           :editor="true"
+          :array-formats="arrayFormats"
           :class="[
             directionLeft ? 'modal-left': 'modal-right'
           ]"
@@ -59,6 +60,10 @@ export default {
     activeTab: {
       type: Number,
       default: 0
+    },
+    arrayFormats: {
+      type: Object,
+      required: true
     },
     items: {
       type: Array,

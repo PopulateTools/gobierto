@@ -3,6 +3,7 @@
     <NavDatasets
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
+      :array-formats="arrayFormats"
       :table-name="tableName"
       :dataset-id="datasetId"
       :title-dataset="titleDataset"
@@ -27,9 +28,9 @@ export default {
       rawData: '',
       titleDataset: '',
       arrayQueries: [],
-      allDatasets: [],
       datasetId: 0,
-      tableName: ''
+      tableName: '',
+      arrayFormats:{}
     }
   },
   created() {
@@ -53,19 +54,16 @@ export default {
         })
     },
     getData() {
-      this.urlPath = location.origin
-      this.endPoint = `/api/v1/data/datasets/${this.$route.params.id}/meta`
-      this.url = `${this.urlPath}${this.endPoint}`
+      this.url = `${baseUrl}/datasets/${this.$route.params.id}/meta`
       axios
-        .get(this.endPoint)
+        .get(this.url)
         .then(response => {
           this.rawData = response.data
           this.titleDataset = this.rawData.data.attributes.name
-          this.idDataset = this.rawData.data.id
-          this.titleDataset = this.rawData.data.attributes.name
+          this.datasetId = parseInt(this.rawData.data.id)
           this.slugDataset = this.rawData.data.attributes.slug
           this.tableName = this.rawData.data.attributes.table_name
-          this.datasetId = parseInt(this.idDataset)
+          this.arrayFormats = this.rawData.data.attributes.formats
 
           this.$root.$emit('nameDataset', this.titleDataset)
 

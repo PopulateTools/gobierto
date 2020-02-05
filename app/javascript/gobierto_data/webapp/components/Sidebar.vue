@@ -112,7 +112,7 @@ export default {
 
           this.indexToggle = this.allDatasets.findIndex(dataset => dataset.attributes.slug == slug)
           this.toggle = this.indexToggle
-          if (this.toggle < 0) {
+          if (this.toggle === -1) {
             this.toggle = 0
           }
           this.slugDataset = this.$route.params.id

@@ -64,12 +64,14 @@
       <Summary
         v-if="activeTab === 0"
         :array-queries="arrayQueries"
+        :array-formats="arrayFormats"
       />
       <Data
         v-else-if="activeTab === 1"
         :dataset-id="datasetId"
         :array-queries="arrayQueries"
         :table-name="tableName"
+        :array-formats="arrayFormats"
       />
       <Queries
         v-else-if="activeTab === 2"
@@ -78,6 +80,7 @@
       <Visualizations v-else-if="activeTab === 3" />
       <Downloads
         v-else-if="activeTab === 4"
+        :array-formats="arrayFormats"
       />
     </keep-alive>
   </div>
@@ -112,6 +115,10 @@ export default {
     },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    arrayFormats: {
+      type: Object,
       required: true
     },
     tableName: {

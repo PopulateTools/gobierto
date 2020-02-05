@@ -23,7 +23,7 @@
           :item="item"
         >
           <div
-            v-for="(item, key, index) in links"
+            v-for="(item, key, index) in arrayFormats"
             :key="index"
             :item="item"
           >

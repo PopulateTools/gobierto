@@ -57,10 +57,6 @@
             mode="out-in"
           >
             <Queries
-              v-closable="{
-                exclude: ['button'],
-                handler: 'closeYourQueries'
-              }"
               v-show="!isHidden"
               v-closable="{
                 exclude: ['button'],
@@ -324,10 +320,6 @@ export default {
       this.showBtnSave = activeLabel;
       this.showBtnEdit = disableLabel;
       this.disableInputName = disableLabel;
-    },
-    privateQueryValue(valuePrivate) {
-      this.disabledSave = false
-      this.privateQuery = valuePrivate
     },
     saveQueryName() {
       this.showSaveQueries = true

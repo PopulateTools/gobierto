@@ -87,7 +87,7 @@ export default {
       allDatasets: null,
       numberId: '',
       columns: '',
-      toggle: 0
+      toggle: null
     }
   },
   created() {
@@ -95,7 +95,6 @@ export default {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
-    this.$root.$on('activeToggle', this.activeToggle)
     this.initData()
   },
   methods: {
@@ -110,16 +109,13 @@ export default {
           this.allDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
 
           this.titleDataset = this.rawData.data[0].attributes.name
-          this.slugDataset = this.rawData.data[0].attributes.slug
+          this.slugDataset = this.$route.params.id
           this.firstColumns(this.slugDataset)
           this.initAxios = true
         })
         .catch(error => {
           console.error(error)
         })
-      },
-    activeToggle(value){
-      this.handleToggle(value)
     },
     firstColumns(slugDataset) {
       this.urlPath = location.origin
@@ -186,7 +182,6 @@ export default {
           this.slugDataset = this.rawData[index].attributes.slug
           this.tableName = this.rawData[index].attributes.table_name
 
-          this.$root.$emit('sendIndexValue', index)
           this.nav(this.slugDataset, index)
         })
         .catch(error => {

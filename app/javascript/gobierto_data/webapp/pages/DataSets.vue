@@ -36,7 +36,6 @@ export default {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
     this.userId = getUserId()
-    this.$root.$on('sendIndexValue', this.setIndex)
   },
   methods: {
     setIndex(value) {

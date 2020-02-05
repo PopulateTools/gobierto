@@ -38,7 +38,6 @@
           <i
             :class="{'rotate-caret': toggle !== index }"
             class="fas fa-caret-down gobierto-data-sidebar-icon"
-            @active-toggle="toggle = $event"
             @click="getColumns(item.attributes.slug, index)"
           />
           <a
@@ -116,25 +115,23 @@ export default {
   },
   methods: {
     initData(){
-      if (this.initAxios === false) {
-        this.endPoint = `${baseUrl}/datasets`
-        axios
-          .get(this.endPoint)
-          .then(response => {
-            this.rawData = response.data
+      this.endPoint = `${baseUrl}/datasets`
+      axios
+        .get(this.endPoint)
+        .then(response => {
+          this.rawData = response.data
 
-            this.allDatasets = this.rawData.data
-            this.allDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+          this.allDatasets = this.rawData.data
+          this.allDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
 
-            this.titleDataset = this.rawData.data[0].attributes.name
-            this.slugDataset = this.rawData.data[0].attributes.slug
-            this.firstColumns(this.slugDataset)
-            this.initAxios = true
-          })
-          .catch(error => {
-            console.error(error)
-          })
-        }
+          this.titleDataset = this.rawData.data[0].attributes.name
+          this.slugDataset = this.rawData.data[0].attributes.slug
+          this.firstColumns(this.slugDataset)
+          this.initAxios = true
+        })
+        .catch(error => {
+          console.error(error)
+        })
       },
     activeToggle(value){
       this.handleToggle(value)

@@ -213,6 +213,7 @@ export default {
         .catch(error => {
           console.error(error)
         })
+<<<<<<< HEAD
     },
     getMeta() {
       this.urlPath = location.origin
@@ -249,7 +250,6 @@ export default {
           console.error(error)
         })
     }
-
   }
 };
 </script>

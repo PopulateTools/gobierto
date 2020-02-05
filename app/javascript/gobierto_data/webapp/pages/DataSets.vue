@@ -40,8 +40,12 @@ export default {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
     this.userId = getUserId()
+    this.$root.$on('sendIndexValue', this.setIndex)
   },
   methods: {
+    setIndex(value) {
+      this.$root.$emit('activeToggle', value)
+    },
     getQueries() {
       this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios

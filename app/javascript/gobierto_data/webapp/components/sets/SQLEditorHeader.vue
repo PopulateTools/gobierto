@@ -21,13 +21,20 @@
           background="#fff"
           @click.native="recentQueries()"
         />
-        <RecentQueries
-          v-if="showStoreQueries"
-          :class="[
-            directionLeft ? 'modal-left': 'modal-right',
-            isActive ? 'active' : ''
-          ]"
-        />
+        <keep-alive>
+          <transition
+            name="fade"
+            mode="out-in"
+          >
+            <RecentQueries
+              v-show="isActive"
+              :class="[
+                directionLeft ? 'modal-left': 'modal-right',
+                isActive ? 'active' : ''
+              ]"
+            />
+          </transition>
+        </keep-alive>
       </div>
       <div class="gobierto-data-sql-editor-your-queries">
         <button
@@ -50,6 +57,10 @@
             mode="out-in"
           >
             <Queries
+              v-closable="{
+                exclude: ['button'],
+                handler: 'closeYourQueries'
+              }"
               v-show="!isHidden"
               v-closable="{
                 exclude: ['button'],
@@ -69,10 +80,10 @@
         <input
           ref="inputText"
           :class="disableInputName ? 'disable-input-text' : ' '"
-          :placeholder="labelQueryName"
+          v-model="labelQueryName"
           type="text"
           class="gobierto-data-sql-editor-container-save-text"
-          @keyup="nameQuery = $event.target.value"
+          @keyup="onSave($event.target.value)"
         >
         <input
           v-if="showLabelPrivate"
@@ -80,7 +91,7 @@
           :checked="privateQuery"
           type="checkbox"
           class="gobierto-data-sql-editor-container-save-checkbox"
-          @input="privateQuery = $event.target.checked"
+          @input="privateQueryValue($event.target.checked)"
         >
         <label
           v-if="showLabelPrivate"
@@ -159,7 +170,8 @@
   </div>
 </template>
 <script>
-import { getToken } from './../../../lib/helpers';
+import { getToken } from './../../../lib/helpers'
+import { baseUrl, CommonsMixin, closableMixin } from "./../../../lib/commons.js";
 import axios from 'axios';
 import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
@@ -173,6 +185,7 @@ export default {
     RecentQueries,
     Queries
   },
+<<<<<<< HEAD
   directives: {
     clickoutside: {
       bind: function(el, binding, vnode) {
@@ -213,6 +226,9 @@ export default {
       }
     }
   },
+=======
+  mixins: [CommonsMixin, closableMixin],
+>>>>>>> a7572afeb28d10ca8590033e2b35083196aa5591
   props: {
     arrayQueries: {
       type: Array,
@@ -226,7 +242,7 @@ export default {
   data() {
     return {
       showStoreQueries: [],
-      disabledRecents: true,
+      disabledRecents: false,
       disabledQueries: false,
       disabledSave: true,
       disabledRunQuery: true,
@@ -254,14 +270,12 @@ export default {
       labelQueryName: '',
       labelEdit: '',
       labelModifiedQuery: '',
-      nameQuery: '',
       codeQuery: '',
       endPoint: '',
       privacyStatus: '',
       propertiesQueries: [],
       directionLeft: true,
       url: '',
-      urlPath: '',
       showSpinner: false,
       token: ''
     }
@@ -286,16 +300,26 @@ export default {
     this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('sendYourQuery', this.runYourQuery)
 
+<<<<<<< HEAD
     this.$root.$on('closeQueriesModal', this.closeYourQueries);
+=======
+    this.$root.$on('closeQueriesModal', this.closeYourQueries)
+
+>>>>>>> a7572afeb28d10ca8590033e2b35083196aa5591
 
     this.token = getToken()
   },
   methods: {
+    onSave(queryName) {
+      this.disabledSave = false
+      this.labelQueryName = queryName
+    },
     runYourQuery(code) {
       this.queryEditor = code
       this.runQuery()
     },
     queryParams(queryParams) {
+<<<<<<< HEAD
       this.showSaveQueries = true
       this.showBtnCancel = true;
       this.showBtnEdit = false;
@@ -306,6 +330,18 @@ export default {
       this.showLabelModified = false;
       this.disableInputName = false;
       this.saveQueryState = true
+=======
+      this.saveQueryState = true;
+      this.showBtnCancel = false;
+      this.showBtnSave = false;
+      this.disabledRecents = false;
+      this.disabledSave = true;
+      this.showBtnEdit = true;
+      this.removeLabelBtn = true;
+      this.showLabelPrivate = false;
+      this.disableInputName = true;
+      this.$root.$emit('saveQueryState', true);
+>>>>>>> a7572afeb28d10ca8590033e2b35083196aa5591
 
       this.labelQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]
@@ -317,6 +353,10 @@ export default {
         this.privateQuery = true
       }
 
+    },
+    privateQueryValue(valuePrivate) {
+      this.disabledSave = false
+      this.privateQuery = valuePrivate
     },
     showshowStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)
@@ -335,9 +375,13 @@ export default {
       this.showBtnEdit = disableLabel;
       this.disableInputName = disableLabel;
     },
+    privateQueryValue(valuePrivate) {
+      this.disabledSave = false
+      this.privateQuery = valuePrivate
+    },
     saveQueryName() {
       this.showSaveQueries = true
-      if (this.saveQueryState === true && this.nameQuery.length > 0) {
+      if (this.saveQueryState === true && this.labelQueryName.length > 0) {
         this.showBtnCancel = false;
         this.showBtnEdit = true;
         this.showBtnSave = false;
@@ -371,7 +415,7 @@ export default {
       this.disableInputName = false;
     },
     cancelQuery() {
-      if (this.nameQuery.length > 0) {
+      if (this.labelQueryName.length > 0) {
         this.showBtnCancel = false;
         this.showBtnEdit = true;
         this.showBtnSave = false;
@@ -406,9 +450,8 @@ export default {
       this.$root.$emit('postRecentQuery', this.codeQuery)
       this.$root.$emit('showMessages', false)
 
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/data';
-      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+      this.endPoint = `${baseUrl}/data`
+      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
         .get(this.url)
@@ -451,32 +494,21 @@ export default {
     closeYourQueries() {
       this.isHidden = true
     },
-    deleteQuery(index) {
-      const URL = `/api/v1/data/queries/${index}`
-      axios.delete(URL, {
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': `${this.token}`
-        }
-      });
-    },
     postQuery() {
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/queries'
-      this.url = `${this.urlPath}${this.endPoint}`
+      this.endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
       let data = {
           "data": {
               "type": "gobierto_data-queries",
               "attributes": {
-                  "name": this.nameQuery,
+                  "name": this.labelQueryName,
                   "privacy_status": this.privacyStatus,
                   "sql": this.codeQuery,
                   "dataset_id": this.datasetId
               }
           }
       }
-      axios.post(this.url, data, {
+      axios.post(this.endPoint, data, {
         headers: {
           'Content-type': 'application/json',
           'Authorization': `${this.token}`

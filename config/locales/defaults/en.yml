@@ -128,6 +128,8 @@ en:
       invalid: is invalid
       invalid_consultation_response: Consultation couldn't be saved. Please, review
         the responses and try again
+      invalid_table_name: Must start with a letter or an underscore; the rest can
+        only contain letters, digits or underscores
       less_than: must be less than %{count}
       less_than_or_equal_to: must be less than or equal to %{count}
       not_a_number: is not a number

@@ -44,7 +44,9 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from 'axios'
+import { baseUrl } from "./../../lib/commons"
+import { getUserId } from "./../../lib/helpers"
 export default {
   name: "Sidebar",
   props: {
@@ -67,18 +69,15 @@ export default {
     }
   },
   created() {
-
-
+    this.userId = getUserId()
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
 
-    this.urlPath = location.origin
-    this.endPoint = '/api/v1/data/datasets';
-    this.url = `${this.urlPath}${this.endPoint}`
+    this.endPoint = `${baseUrl}/datasets`
 
     axios
-      .get(this.url)
+      .get(this.endPoint)
       .then(response => {
         this.rawData = response.data
 
@@ -103,9 +102,7 @@ export default {
           numberId: this.numberId,
           titleDataset: this.titleDataset,
           tableName: this.tableName,
-          rowsDataset: this.numberRows,
-          arrayFormats: this.arrayFormats,
-          columnKeys: this.columns
+          arrayQueries: this.arrayQueries
         }
     })
     },
@@ -113,11 +110,9 @@ export default {
       this.getData(index)
     },
     getData(index) {
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/datasets/'
-      this.url = `${this.urlPath}${this.endPoint}`
+      this.endPoint = `${baseUrl}/datasets/`
       axios
-        .get(this.url)
+        .get(this.endPoint)
         .then(response => {
           this.rawData = response.data
           this.numberId = this.rawData.data[index].id
@@ -153,7 +148,23 @@ export default {
         .catch(error => {
           console.error(error)
         })
-    }
+    },
+    getQueries() {
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.numberId}&filter[user_id]=${this.userId}`
+      axios
+        .get(this.endPoint)
+        .then(response => {
+          this.rawData = response.data
+          this.items = this.rawData.data
+          this.arrayQueries = this.items
+          this.datasetId = parseInt(this.numberId)
+          this.nav(this.slugDataset)
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
+    },
   }
 };
 </script>

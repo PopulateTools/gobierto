@@ -193,3 +193,6 @@ ca:
         none: Cap
       calendar:
         date: Escolliu data
+      read_more:
+        less: Vegeu-ne menys
+        more: Vegeu-ne mès

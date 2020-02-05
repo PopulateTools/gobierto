@@ -43,8 +43,6 @@
     </div>
   </div>
 </template>
-
-
 <script>
 import axios from 'axios'
 import { baseUrl } from "./../../lib/commons"
@@ -66,8 +64,6 @@ export default {
       slugDataset: '',
       tableName: '',
       allDatasets: null,
-      numberId: '',
-      arrayQueries: []
     }
   },
   created() {
@@ -129,9 +125,7 @@ export default {
           this.$root.$emit('nameDataset', this.titleDataset)
           this.$root.$emit('sendTableName', this.tableName)
           this.$root.$emit('sendSlug', this.slugDataset)
-          this.$root.$emit('sendIdDataset', this.idDataset)
-          this.getQueries()
-
+          this.nav(this.slugDataset)
 
         })
         .catch(error => {

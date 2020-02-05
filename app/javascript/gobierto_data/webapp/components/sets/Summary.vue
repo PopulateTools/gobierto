@@ -6,12 +6,12 @@
         :class="[
           directionLeft ? 'modal-left': 'modal-right'
         ]"
-        :slug-name="item"
+        :array-formats="arrayFormats"
         class="arrow-top"
       />
     </keep-alive>
     <Resources :items="filesDataset" />
-    <Queries />
+    <Queries :array-queries="arrayQueries" />
   </div>
 </template>
 
@@ -30,8 +30,12 @@ export default {
     Info
   },
   props: {
-    item: {
-      type: String,
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
+    arrayFormats: {
+      type: Object,
       required: true
     }
   },

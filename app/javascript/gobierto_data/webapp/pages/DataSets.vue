@@ -2,6 +2,11 @@
   <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
     <NavDatasets
       :active-tab="activeTabIndex"
+      :array-queries="arrayQueries"
+      :array-formats="arrayFormats"
+      :table-name="tableName"
+      :dataset-id="datasetId"
+      :title-dataset="titleDataset"
       @active-tab="activeTabIndex = $event"
     />
   </div>
@@ -22,12 +27,16 @@ export default {
       activeTabIndex: 0,
       rawData: '',
       titleDataset: '',
-      datasetId: 0
+      arrayQueries: [],
+      datasetId: 0,
+      tableName: '',
+      arrayFormats:{}
     }
   },
   created() {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
+
 
     this.userId = getUserId()
   },
@@ -40,7 +49,6 @@ export default {
           this.rawData = response.data
           this.items = this.rawData.data
           this.arrayQueries = this.items
-          this.datasetId = parseInt(this.numberId)
         })
         .catch(error => {
           const messageError = error.response
@@ -48,13 +56,19 @@ export default {
         })
     },
     getData() {
-      this.endPoint = `${baseUrl}/datasets/`
+      this.url = `${baseUrl}/datasets/${this.$route.params.id}/meta`
       axios
-        .get(this.endPoint)
+        .get(this.url)
         .then(response => {
           this.rawData = response.data
-          this.titleDataset = this.rawData.data[0].attributes.name
-          this.datasetId = this.rawData.data[0].id
+          this.titleDataset = this.rawData.data.attributes.name
+          this.datasetId = parseInt(this.rawData.data.id)
+          this.slugDataset = this.rawData.data.attributes.slug
+          this.tableName = this.rawData.data.attributes.table_name
+          this.arrayFormats = this.rawData.data.attributes.formats
+
+          this.$root.$emit('nameDataset', this.titleDataset)
+
           this.getQueries()
         })
         .catch(error => {

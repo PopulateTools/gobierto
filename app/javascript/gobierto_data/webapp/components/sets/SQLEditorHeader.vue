@@ -62,6 +62,7 @@
                 handler: 'closeYourQueries'
               }"
               v-show="!isHidden"
+              :array-queries="arrayQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
             />
@@ -180,6 +181,16 @@ export default {
     Queries
   },
   mixins: [CommonsMixin, closableMixin],
+  props: {
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
+    datasetId: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       showStoreQueries: [],
@@ -244,7 +255,6 @@ export default {
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
 
 
-    this.datasetId = this.$route.params.numberId
     this.token = getToken()
   },
   methods: {
@@ -279,6 +289,10 @@ export default {
       }
 
       this.runQuery()
+    },
+    privateQueryValue(valuePrivate) {
+      this.disabledSave = false
+      this.privateQuery = valuePrivate
     },
     showshowStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)

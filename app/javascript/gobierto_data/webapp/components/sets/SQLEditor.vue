@@ -1,14 +1,20 @@
 <template>
   <div>
     <div class="gobierto-data-sql-editor">
-      <SQLEditorHeader />
-      <SQLEditorCode />
+      <SQLEditorHeader
+        :array-queries="arrayQueries"
+        :dataset-id="datasetId"
+      />
+      <SQLEditorCode
+        :table-name="tableName"
+      />
       <SQLEditorTabs
         v-if="data"
+        :array-formats="arrayFormats"
         :items="data"
         :link="link"
-        :slug="slugName"
         :active-tab="activeTabIndex"
+        :array-queries="arrayQueries"
         @active-tab="activeTabIndex = $event"
       />
     </div>
@@ -29,8 +35,20 @@ export default {
     SQLEditorTabs
   },
   props: {
-    slugName: {
+    tableName: {
       type: String,
+      required: true
+    },
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
+    arrayFormats: {
+      type: Object,
+      required: true
+    },
+    datasetId: {
+      type: Number,
       required: true
     }
   },
@@ -38,7 +56,6 @@ export default {
     return {
       activeTabIndex: 0,
       rawData: [],
-      rawDataSlug: [],
       columns: [],
       data: null,
       keysData: [],
@@ -49,14 +66,11 @@ export default {
       url: '',
       endPoint: '',
       recentQueries: [],
-      newRecentQuery: null,
-      nameDataset: '',
-      tableName: ''
+      newRecentQuery: null
     }
   },
   created(){
     this.$root.$on('sendYourCode', this.runYourQuery)
-    this.tableName = this.$route.params.tableName
     if (localStorage.getItem('recentQueries')) {
       try {
         this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
@@ -68,7 +82,8 @@ export default {
   },
   mounted() {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
-    this.getSlug()
+    this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
+    this.getData()
   },
   methods: {
     runYourQuery(sqlCode){
@@ -96,20 +111,6 @@ export default {
     },
     loadRecentQuery() {
       this.$root.$emit('storeQuery', this.recentQueries)
-    },
-    getSlug() {
-      this.endPointSlug = `${baseUrl}/datasets`
-      axios
-        .get(this.endPointSlug)
-        .then(response => {
-          this.rawDataSlug = response.data
-          this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
-          this.getData()
-
-        })
-        .catch(error => {
-          console.error(error)
-        })
     },
     getData() {
       this.endPoint = `${baseUrl}/data`

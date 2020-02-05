@@ -2,7 +2,10 @@
   <div class="gobierto-data-sets-nav--tab-container">
     <SQLEditor
       id="codemirror"
-      :slug-name="item"
+      :table-name="tableName"
+      :dataset-id="datasetId"
+      :array-queries="arrayQueries"
+      :array-formats="arrayFormats"
     />
   </div>
 </template>
@@ -15,8 +18,20 @@ export default {
     SQLEditor
   },
   props: {
-    item: {
+    datasetId: {
+      type: Number,
+      required: true
+    },
+    tableName: {
       type: String,
+      required: true
+    },
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
+    arrayFormats: {
+      type: Object,
       required: true
     }
   }

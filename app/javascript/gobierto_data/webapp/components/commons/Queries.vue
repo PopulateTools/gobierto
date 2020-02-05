@@ -124,6 +124,12 @@ import { getToken, getUserId } from './../../../lib/helpers';
 import { baseUrl } from "./../../../lib/commons.js"
 export default {
   name: "Queries",
+  props: {
+    arrayQueries: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       labelQueries: '',
@@ -148,7 +154,6 @@ export default {
     }
   },
   created() {
-    this.arrayQueries = this.$route.params.arrayQueries
     this.numberId = this.$route.params.numberId
     this.numberQueries = this.arrayQueries.length
     this.totalQueries = this.arrayQueries.length + this.numberFavQueries

@@ -63,19 +63,24 @@
     <keep-alive>
       <Summary
         v-if="activeTab === 0"
-        :item="slugName"
+        :array-queries="arrayQueries"
+        :array-formats="arrayFormats"
       />
       <Data
         v-else-if="activeTab === 1"
-        :item="slugName"
+        :dataset-id="datasetId"
+        :array-queries="arrayQueries"
+        :table-name="tableName"
+        :array-formats="arrayFormats"
       />
       <Queries
         v-else-if="activeTab === 2"
+        :array-queries="arrayQueries"
       />
       <Visualizations v-else-if="activeTab === 3" />
       <Downloads
         v-else-if="activeTab === 4"
-        :item="slugName"
+        :array-formats="arrayFormats"
       />
     </keep-alive>
   </div>
@@ -103,6 +108,26 @@ export default {
     activeTab: {
       type: Number,
       default: 0
+    },
+    datasetId: {
+      type: Number,
+      default: 0
+    },
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
+    arrayFormats: {
+      type: Object,
+      required: true
+    },
+    tableName: {
+      type: String,
+      required: true
+    },
+    titleDataset: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -114,7 +139,6 @@ export default {
       labelDownload: "",
       labelFav: "",
       labelFollow: "",
-      titleDataset: "",
       slugName: ''
     }
   },
@@ -129,7 +153,7 @@ export default {
 
     this.$root.$on('changeNavTab', this.changeTab)
 
-    this.titleDataset = this.$route.params.titleDataset
+
     this.slugName = this.$route.params.id
   },
   methods: {

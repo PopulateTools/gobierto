@@ -127,9 +127,13 @@ export default {
 
           this.indexToggle = this.allDatasets.findIndex(dataset => dataset.attributes.slug == slug)
           this.toggle = this.indexToggle
+          if (this.toggle < 0) {
+            this.toggle = 0
+          }
           this.slugDataset = this.$route.params.id
           this.titleDataset = this.rawData.data[0].attributes.name
-          this.firstColumns(this.slugDataset)
+          this.slugDefault = this.rawData.data[0].attributes.slug
+          this.firstColumns(this.slugDefault)
         })
         .catch(error => {
           console.error(error)
@@ -144,7 +148,6 @@ export default {
         .then(response => {
           this.rawData = response.data
           this.keysData = this.rawData.data
-
           this.columns = Object.keys(this.keysData[0])
         })
         .catch(error => {

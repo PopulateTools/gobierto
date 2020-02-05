@@ -66,7 +66,7 @@ export default {
       sqlfileCSV: '',
       sqlfileXLSX: '',
       sqlfileJSON: '',
-      endPoint: '',
+      endPointSQL: '',
       rawData: null,
       titleDataset: ''
     }

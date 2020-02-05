@@ -194,10 +194,7 @@ export default {
           this.rawData = this.rawData.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
           this.numberId = this.rawData[index].id
           this.titleDataset = this.rawData[index].attributes.name
-
-
           this.idDataset = this.rawData[index].id
-
           this.titleDataset = this.rawData[index].attributes.name
           this.slugDataset = this.rawData[index].attributes.slug
           this.tableName = this.rawData[index].attributes.table_name

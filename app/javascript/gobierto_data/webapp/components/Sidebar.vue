@@ -43,12 +43,11 @@
           <a
             :href="item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
-            @click.prevent.stop="getData(index)"
+            @click.prevent="getData(index)"
           >{{ item.attributes.name }}
           </a>
           <div
             v-show="toggle === index"
-            @active-toggle="toggle = $event"
           >
             <span
               v-for="(column, i) in columns"
@@ -121,13 +120,16 @@ export default {
         .then(response => {
           this.rawData = response.data
 
-          this.allDatasets = this.rawData.data
-          this.allDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+          this.sortDatasets = this.rawData.data
+          this.allDatasets = this.sortDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
 
-          this.titleDataset = this.rawData.data[0].attributes.name
+          let slug = this.$route.params.id
+
+          this.indexToggle = this.allDatasets.findIndex(dataset => dataset.attributes.slug == slug)
+          this.toggle = this.indexToggle
           this.slugDataset = this.$route.params.id
+          this.titleDataset = this.rawData.data[0].attributes.name
           this.firstColumns(this.slugDataset)
-          this.initAxios = true
         })
         .catch(error => {
           console.error(error)
@@ -182,6 +184,7 @@ export default {
     })
     },
     getData(index) {
+
       this.endPoint = `${baseUrl}/datasets/`
       axios
         .get(this.endPoint)
@@ -191,6 +194,7 @@ export default {
           this.rawData = this.rawData.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
           this.numberId = this.rawData[index].id
           this.titleDataset = this.rawData[index].attributes.name
+
 
           this.idDataset = this.rawData[index].id
 

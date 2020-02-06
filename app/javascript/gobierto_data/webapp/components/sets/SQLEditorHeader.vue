@@ -63,6 +63,7 @@
               }"
               v-show="!isHidden"
               :array-queries="arrayQueries"
+              :public-queries="publicQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
             />
@@ -183,6 +184,10 @@ export default {
   mixins: [CommonsMixin, closableMixin],
   props: {
     arrayQueries: {
+      type: Array,
+      required: true
+    },
+    publicQueries: {
       type: Array,
       required: true
     },

@@ -3,6 +3,7 @@
     <NavDatasets
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
+      :public-queries="publicQueries"
       :array-formats="arrayFormats"
       :table-name="tableName"
       :dataset-id="datasetId"
@@ -28,6 +29,7 @@ export default {
       rawData: '',
       titleDataset: '',
       arrayQueries: [],
+      publicQueries: [],
       datasetId: 0,
       tableName: '',
       arrayFormats:{}
@@ -36,8 +38,6 @@ export default {
   created() {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
-
-
     this.userId = getUserId()
   },
   methods: {
@@ -63,7 +63,6 @@ export default {
           this.rawData = response.data
           this.items = this.rawData.data
           this.publicQueries = this.items
-          console.log("this.publicQueries", this.publicQueries);
         })
         .catch(error => {
           const messageError = error.response
@@ -85,6 +84,7 @@ export default {
           this.$root.$emit('nameDataset', this.titleDataset)
 
           this.getQueries()
+          this.getPublicQueries()
         })
         .catch(error => {
           console.error(error)

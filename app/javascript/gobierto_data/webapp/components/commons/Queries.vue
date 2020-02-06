@@ -75,13 +75,13 @@
             {{ labelAll }} ({{ arrayQueries.length + numberFavQueries }})
           </h3>
           <div
-            v-for="(item, index) in arrayQueries"
+            v-for="(item, index) in publicQueries"
             v-show="showYourTotalQueries"
             :key="index"
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="handleQueries(arrayQueries[index].attributes.sql, item)"
+            @click="handleQueries(publicQueries[index].attributes.sql, item)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
             <!-- <i
@@ -126,6 +126,10 @@ export default {
   name: "Queries",
   props: {
     arrayQueries: {
+      type: Array,
+      required: true
+    },
+    publicQueries: {
       type: Array,
       required: true
     }

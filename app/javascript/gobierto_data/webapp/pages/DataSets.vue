@@ -46,7 +46,7 @@ export default {
         .then(response => {
           this.rawData = response.data
           this.items = this.rawData.data
-          this.arrayQueries = this.items
+          this.arrayQueries = this.items.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
         })
         .catch(error => {
           const messageError = error.response

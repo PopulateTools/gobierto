@@ -1,5 +1,8 @@
 <template>
-  <div class="gobierto-data-sql-editor-recent-queries arrow-top">
+  <div
+    v-if="orderItems"
+    class="gobierto-data-sql-editor-recent-queries arrow-top"
+  >
     <div class="gobierto-data-btn-download-data-modal-container">
       <div class="gobierto-data-summary-queries-element">
         <button
@@ -44,7 +47,6 @@ export default {
   },
   created() {
     this.$root.$on('showRecentQueries', this.createList)
-    this.$root.$on('storeQueryByDataset', this.createList)
     this.$root.$on('storeQuery', this.createList)
   },
   methods: {

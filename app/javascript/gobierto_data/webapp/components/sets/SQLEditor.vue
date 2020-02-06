@@ -94,8 +94,7 @@ export default {
     if (localStorage.getItem('recentQueries')) {
       try {
         this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
-        this.localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
-        this.saveRecentQuery()
+        this.localQueries = JSON.parse(localStorage.getItem('savedData'));
       } catch (e) {
         localStorage.removeItem('recentQueries');
       }
@@ -115,7 +114,7 @@ export default {
       this.queryEditor = sqlCode
     },
     addRecentQuery() {
-      console.log('addrecentquery')
+      console.log('hola')
       if (!this.newRecentQuery) {
         return;
       }
@@ -134,7 +133,7 @@ export default {
           }
           this.newRecentQuery = '';
 
-
+          this.localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
           this.tempRecentQueries = [ ...this.localQueries, ...this.orderRecentQueries ]
           this.totalRecentQueries = this.tempRecentQueries
           this.orderRecentQueries = []
@@ -145,6 +144,7 @@ export default {
       }
     },
     saveRecentQuery() {
+      console.log('svaed')
       localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
       this.$root.$emit('storeQueryByDataset', this.totalRecentQueries)
       this.$root.$emit('storeQuery', this.totalRecentQueries)

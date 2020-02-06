@@ -43,11 +43,12 @@
           <a
             :href="item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
-            @click.prevent="getData(index)"
+            @click="getData(index)"
           >{{ item.attributes.name }}
           </a>
           <div
-            v-if="toggle === index"
+            v-show="toggle === index"
+            class="gobierto-data-sidebar-datasets-container-columns"
           >
             <span
               v-for="(column, i) in columns"
@@ -117,6 +118,11 @@ export default {
             slug = this.allDatasets[0].attributes.slug
           }
           this.firstColumns(slug)
+          let firstElement = this.allDatasets.find(dataset => dataset.attributes.slug == slug)
+          let filteredArray = this.allDatasets.filter(dataset => dataset.attributes.slug !== slug)
+          filteredArray.unshift(firstElement)
+          this.allDatasets = filteredArray
+          this.toggle = 0
         })
         .catch(error => {
           console.error(error)
@@ -182,7 +188,6 @@ export default {
           this.titleDataset = this.rawData[index].attributes.name
           this.slugDataset = this.rawData[index].attributes.slug
           this.tableName = this.rawData[index].attributes.table_name
-
           this.nav(this.slugDataset)
         })
         .catch(error => {

@@ -878,6 +878,16 @@
     }
   }
 
+  &-sidebar-datasets-container-columns {
+    &::after {
+      content: '';
+      width: 100%;
+      border-bottom: 2px solid rgba(102, 102, 102, 0.2);
+      display: block;
+      margin: 1rem 0;
+    }
+  }
+
   &-sidebar-datasets-name {
     font-size: 14px;
     cursor: pointer;

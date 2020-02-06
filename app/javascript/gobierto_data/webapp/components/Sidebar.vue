@@ -41,7 +41,7 @@
             @click="getColumns(item.attributes.slug, index)"
           />
           <a
-            :href="item.attributes.slug"
+            :href="'/datos/' + item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
             @click="getData(index)"
           >{{ item.attributes.name }}

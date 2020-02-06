@@ -114,7 +114,6 @@ export default {
       this.queryEditor = sqlCode
     },
     addRecentQuery() {
-      console.log('hola')
       if (!this.newRecentQuery) {
         return;
       }
@@ -144,12 +143,11 @@ export default {
       }
     },
     saveRecentQuery() {
-      console.log('svaed')
       localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
-      this.$root.$emit('storeQueryByDataset', this.totalRecentQueries)
       this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     loadRecentQuery() {
+      this.totalRecentQueries = this.localQueries
       this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     getData() {

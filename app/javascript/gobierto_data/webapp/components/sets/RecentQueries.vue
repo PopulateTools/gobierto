@@ -38,18 +38,21 @@ export default {
     return {
       items: [],
       filterItemsByDataset: [],
-      filterItemsByQuery: []
+      filterItemsByQuery: [],
+      orderItems: []
     }
   },
   created() {
     this.$root.$on('showRecentQueries', this.createList)
     this.$root.$on('storeQueryByDataset', this.createList)
+    this.$root.$on('storeQuery', this.createList)
   },
   methods: {
     createList(queries) {
       this.items = queries
       this.filterItemsByDataset = this.items.filter(item => item.dataset.includes(this.tableName));
       this.filterItemsByQuery = this.filterItemsByDataset.filter(item => item.text.includes(this.tableName));
+      this.orderItems = this.filterItemsByQuery.reverse()
     },
     runRecentQuery(code) {
       this.showSpinner = true;

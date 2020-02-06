@@ -40,12 +40,12 @@
             class="fas fa-caret-down gobierto-data-sidebar-icon"
             @click="getColumns(item.attributes.slug, index)"
           />
-          <span
+          <a
             :href="item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
             @click.prevent="getData(index)"
           >{{ item.attributes.name }}
-          </span>
+          </a>
           <div
             v-if="toggle === index"
           >
@@ -114,9 +114,8 @@ export default {
           this.toggle = this.indexToggle
           if (this.toggle === -1) {
             this.toggle = 0
+            slug = this.allDatasets[0].attributes.slug
           }
-          this.slugDataset = this.$route.params.id
-          this.titleDataset = this.rawData.data[0].attributes.name
           this.firstColumns(slug)
         })
         .catch(error => {

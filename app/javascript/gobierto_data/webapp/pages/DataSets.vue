@@ -57,6 +57,21 @@ export default {
           console.error(messageError)
         })
     },
+    getPublicQueries() {
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
+      axios
+        .get(this.endPoint)
+        .then(response => {
+          this.rawData = response.data
+          this.items = this.rawData.data
+          this.publicQueries = this.items
+          console.log("this.publicQueries", this.publicQueries);
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
+    },
     getData() {
       this.url = `${baseUrl}/datasets/${this.$route.params.id}/meta`
       axios

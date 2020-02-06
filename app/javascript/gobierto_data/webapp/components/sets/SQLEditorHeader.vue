@@ -240,7 +240,8 @@ export default {
       showSpinner: false,
       token: '',
       noLogin: false,
-      queryId: ''
+      queryId: '',
+      oldQueryName: ''
     }
   },
   created() {
@@ -273,6 +274,10 @@ export default {
     this.noLogin = this.userId === "" ? true : false
   },
   methods: {
+    onSave(queryName) {
+      this.disabledSave = false
+      this.labelQueryName = queryName
+    },
     userLogged() {
       if (this.noLogin)
         this.goToLogin()
@@ -299,10 +304,10 @@ export default {
       this.$root.$emit('saveQueryState', true);
 
       this.labelQueryName = queryParams[0]
+      this.oldQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]
       this.codeQuery = queryParams[2]
       this.queryId = parseInt(queryParams[3])
-      console.log("this.queryId", this.queryId);
 
       if (this.privacyStatus === 'open') {
         this.privateQuery = false
@@ -454,18 +459,12 @@ export default {
     postQuery() {
       this.endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
-      console.log("${this.queryId", this.queryId);
-
-      if (this.codeQuery === this.codeQuery) {
+      if (this.oldQueryName === this.labelQueryName) {
         this.endPoint = `${baseUrl}/queries/${this.queryId}`
         let dataUpdate = {
             "data": {
                 "type": "gobierto_data-queries",
                 "attributes": {
-                    "name_translations": {
-                        "en": "Query from API updated",
-                        "es": "Query desde la API updated"
-                    },
                     "privacy_status": this.privacyStatus,
                     "sql": this.codeQuery
                 }
@@ -486,7 +485,6 @@ export default {
           console.error(messageError)
         });
       } else {
-        console.log('es diferente')
         let data = {
             "data": {
                 "type": "gobierto_data-queries",

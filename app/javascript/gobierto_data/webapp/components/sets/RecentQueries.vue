@@ -2,13 +2,14 @@
   <div class="gobierto-data-sql-editor-recent-queries arrow-top">
     <div class="gobierto-data-btn-download-data-modal-container">
       <button
-        v-for="(item, index) in items"
+        v-for="(item, index) in filterItemsByQuery"
         :key="index"
         :data-id="item | replace()"
         class="gobierto-data-recent-queries-list-element"
-        @click="runRecentQuery(item)"
+        @click="runRecentQuery(index)"
       >
-        {{ item | replace() }}
+        {{ item.text }}
+        {{ item.index }}
       </button>
     </div>
   </div>
@@ -26,17 +27,28 @@ export default {
       return text.replace(/%20/g, ' ').replace(/%/g, ' ');
     }
   },
+  props: {
+    tableName: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
-      items: []
+      items: [],
+      filterItemsByDataset: [],
+      filterItemsByQuery: []
     }
   },
   created() {
     this.$root.$on('showRecentQueries', this.createList)
+    this.$root.$on('storeQueryByDataset', this.createList)
   },
   methods: {
     createList(queries) {
       this.items = queries
+      this.filterItemsByDataset = this.items.filter(item => item.dataset.includes(this.tableName));
+      this.filterItemsByQuery = this.filterItemsByDataset.filter(item => item.text.includes(this.tableName));
     },
     runRecentQuery(code) {
       this.showSpinner = true;
@@ -46,7 +58,6 @@ export default {
       this.$root.$emit('updateCode', code)
       this.endPoint = `${baseUrl}/data`
       this.url = `${this.endPoint}?sql=${this.queryEditor}`
-
       axios
         .get(this.url)
         .then(response => {

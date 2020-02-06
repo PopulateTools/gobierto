@@ -28,6 +28,7 @@
           >
             <RecentQueries
               v-show="isActive"
+              :table-name="tableName"
               :class="[
                 directionLeft ? 'modal-left': 'modal-right',
                 isActive ? 'active' : ''
@@ -189,6 +190,10 @@ export default {
     datasetId: {
       type: Number,
       required: true
+    },
+    tableName: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -320,10 +325,6 @@ export default {
       this.showBtnSave = activeLabel;
       this.showBtnEdit = disableLabel;
       this.disableInputName = disableLabel;
-    },
-    privateQueryValue(valuePrivate) {
-      this.disabledSave = false
-      this.privateQuery = valuePrivate
     },
     saveQueryName() {
       this.showSaveQueries = true

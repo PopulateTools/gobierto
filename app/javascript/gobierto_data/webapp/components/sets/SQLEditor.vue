@@ -106,7 +106,7 @@ export default {
       }
 
       if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
-        this.$root.$emit('storeQuery', this.recentQueries)
+        this.$root.$emit('store', this.recentQueries)
       } else {
         this.recentQueries.push(this.newRecentQuery);
         localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));

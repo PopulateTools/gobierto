@@ -144,9 +144,7 @@ export default {
         })
     },
     firstColumns(slugDataset) {
-      this.urlPath = location.origin
-      this.endPoint = `/api/v1/data/datasets/${slugDataset}`
-      this.url = `${this.urlPath}${this.endPoint}`
+      this.url = `${baseUrl}/datasets/${slugDataset}`
       axios
         .get(this.url)
         .then(response => {
@@ -159,9 +157,7 @@ export default {
         })
     },
     getColumns(slugDataset, index) {
-      this.urlPath = location.origin
-      this.endPoint = `/api/v1/data/datasets/${slugDataset}`
-      this.url = `${this.urlPath}${this.endPoint}`
+      this.url = `${baseUrl}/datasets/${slugDataset}`
       axios
         .get(this.url)
         .then(response => {

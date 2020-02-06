@@ -230,7 +230,8 @@ export default {
       url: '',
       showSpinner: false,
       token: '',
-      noLogin: false
+      noLogin: false,
+      queryId: ''
     }
   },
   created() {
@@ -291,6 +292,8 @@ export default {
       this.labelQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]
       this.codeQuery = queryParams[2]
+      this.queryId = parseInt(queryParams[3])
+      console.log("this.queryId", this.queryId);
 
       if (this.privacyStatus === 'open') {
         this.privateQuery = false
@@ -320,10 +323,6 @@ export default {
       this.showBtnSave = activeLabel;
       this.showBtnEdit = disableLabel;
       this.disableInputName = disableLabel;
-    },
-    privateQueryValue(valuePrivate) {
-      this.disabledSave = false
-      this.privateQuery = valuePrivate
     },
     saveQueryName() {
       this.showSaveQueries = true
@@ -434,30 +433,64 @@ export default {
     postQuery() {
       this.endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
-      let data = {
-          "data": {
-              "type": "gobierto_data-queries",
-              "attributes": {
-                  "name": this.labelQueryName,
-                  "privacy_status": this.privacyStatus,
-                  "sql": this.codeQuery,
-                  "dataset_id": this.datasetId
-              }
-          }
-      }
-      axios.post(this.endPoint, data, {
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': `${this.token}`
+      console.log("${this.queryId", this.queryId);
+
+      if (this.codeQuery === this.codeQuery) {
+        this.endPoint = `${baseUrl}/queries/${this.queryId}`
+        let dataUpdate = {
+            "data": {
+                "type": "gobierto_data-queries",
+                "attributes": {
+                    "name_translations": {
+                        "en": "Query from API updated",
+                        "es": "Query desde la API updated"
+                    },
+                    "privacy_status": this.privacyStatus,
+                    "sql": this.codeQuery
+                }
+            }
         }
-      }).then(response => {
-          this.resp = response;
-          this.$root.$emit('reloadQueries')
-      })
-      .catch(error => {
-        const messageError = error.response
-        console.error(messageError)
-      });
+
+        axios.put(this.endPoint, dataUpdate, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `${this.token}`
+          }
+        }).then(response => {
+            this.resp = response;
+            this.$root.$emit('reloadQueries')
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        });
+      } else {
+        console.log('es diferente')
+        let data = {
+            "data": {
+                "type": "gobierto_data-queries",
+                "attributes": {
+                    "name": this.labelQueryName,
+                    "privacy_status": this.privacyStatus,
+                    "sql": this.codeQuery,
+                    "dataset_id": this.datasetId
+                }
+            }
+        }
+        axios.post(this.endPoint, data, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `${this.token}`
+          }
+        }).then(response => {
+            this.resp = response;
+            this.$root.$emit('reloadQueries')
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        });
+      }
     },
     runRecentQuery(code) {
       this.codeQuery = code

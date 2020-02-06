@@ -72,7 +72,7 @@
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
-            {{ labelAll }} ({{ arrayQueries.length + numberFavQueries }})
+            {{ labelAll }} ({{ publicQueries.length }})
           </h3>
           <div
             v-for="(item, index) in publicQueries"

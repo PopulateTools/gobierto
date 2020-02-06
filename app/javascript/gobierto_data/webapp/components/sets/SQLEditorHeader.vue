@@ -310,6 +310,7 @@ export default {
       this.privateQuery = valuePrivate
     },
     showshowStoreQueries(queries) {
+      console.log("queries", queries);
       this.$root.$emit('showRecentQueries', queries)
     },
     activeSave(value) {

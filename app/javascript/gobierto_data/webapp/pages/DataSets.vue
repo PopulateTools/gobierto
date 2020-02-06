@@ -36,13 +36,10 @@ export default {
   created() {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
-
-
     this.userId = getUserId()
   },
   methods: {
     getQueries() {
-      console.log('reload queries')
       this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios
         .get(this.endPoint)

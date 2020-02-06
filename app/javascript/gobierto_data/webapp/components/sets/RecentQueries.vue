@@ -28,17 +28,28 @@ export default {
       return text.replace(/%20/g, ' ').replace(/%/g, ' ');
     }
   },
+  props: {
+    tableName: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
-      items: []
+      items: [],
+      filterItemsByDataset: [],
+      filterItemsByQuery: []
     }
   },
   created() {
     this.$root.$on('showRecentQueries', this.createList)
+    this.$root.$on('storeQueryByDataset', this.createList)
   },
   methods: {
     createList(queries) {
       this.items = queries
+      this.filterItemsByDataset = this.items.filter(item => item.dataset.includes(this.tableName));
+      this.filterItemsByQuery = this.filterItemsByDataset.filter(item => item.text.includes(this.tableName));
     },
     runRecentQuery(code) {
       this.showSpinner = true;
@@ -59,7 +70,6 @@ export default {
 
       this.endPoint = `${baseUrl}/data`
       this.url = `${this.endPoint}?sql=${this.queryEditor}`
-
       axios
         .get(this.url)
         .then(response => {

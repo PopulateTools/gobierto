@@ -80,10 +80,16 @@ export default {
       url: '',
       endPoint: '',
       recentQueries: [],
-      newRecentQuery: null
+      newRecentQuery: null,
+      orderRecentQueries: [],
+      totalRecentQueries: [],
+      tempRecentQueries: [],
+      localQueries: [],
+      localTableName : ''
     }
   },
   created(){
+    this.localTableName = this.tableName
     this.$root.$on('sendYourCode', this.runYourQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
@@ -92,6 +98,7 @@ export default {
         localStorage.removeItem('recentQueries');
       }
     }
+    this.addRecentQuery()
     this.$root.$on('activateModalRecent', this.loadRecentQuery)
   },
   mounted() {
@@ -106,6 +113,7 @@ export default {
       this.queryEditor = sqlCode
     },
     addRecentQuery() {
+      console.log('addrecentquery')
       if (!this.newRecentQuery) {
         return;
       }
@@ -113,17 +121,34 @@ export default {
         this.$root.$emit('storeQuery', this.recentQueries)
       } else {
         this.recentQueries.push(this.newRecentQuery);
-        this.newRecentQuery = '';
-        this.saveRecentQuery();
+        localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));
+
+        if (this.localTableName === this.tableName) {
+          for (let i = 0; i < 1; i++) {
+            this.orderRecentQueries[i] = {
+              dataset: this.tableName,
+              text: this.newRecentQuery
+            }
+          }
+          this.newRecentQuery = '';
+
+          this.localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
+          this.tempRecentQueries = [ ...this.localQueries, ...this.orderRecentQueries ]
+          this.totalRecentQueries = this.tempRecentQueries
+          this.orderRecentQueries = []
+
+          this.saveRecentQuery();
+        }
       }
     },
     saveRecentQuery() {
-      const parsed = JSON.stringify(this.recentQueries);
-      localStorage.setItem('recentQueries', parsed);
-      this.$root.$emit('storeQuery', this.recentQueries)
+      console.log('saveRecentQuery')
+      localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
+      this.$root.$emit('storeQueryByDataset', this.totalRecentQueries)
+      this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     loadRecentQuery() {
-      this.$root.$emit('storeQuery', this.recentQueries)
+      this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     getData() {
       this.endPoint = `${baseUrl}/data`

@@ -28,6 +28,7 @@
           >
             <RecentQueries
               v-show="isActive"
+              :table-name="tableName"
               :class="[
                 directionLeft ? 'modal-left': 'modal-right',
                 isActive ? 'active' : ''

@@ -431,6 +431,7 @@
     top: 135%;
     width: 50vw;
     max-width: 750px;
+
     &.active {
       display: block;
     }
@@ -442,6 +443,7 @@
         left: 20px;
       }
     }
+
     .gobierto-data-summary-queries-element {
       height: max-content;
       max-height: 30vw;

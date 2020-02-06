@@ -40,14 +40,14 @@
             class="fas fa-caret-down gobierto-data-sidebar-icon"
             @click="getColumns(item.attributes.slug, index)"
           />
-          <a
+          <span
             :href="item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
             @click.prevent="getData(index)"
           >{{ item.attributes.name }}
-          </a>
+          </span>
           <div
-            v-show="toggle === index"
+            v-if="toggle === index"
           >
             <span
               v-for="(column, i) in columns"
@@ -86,7 +86,7 @@ export default {
       allDatasets: [],
       numberId: '',
       columns: '',
-      toggle: 0,
+      toggle: null,
       indexToggle: null
     }
   },
@@ -117,8 +117,7 @@ export default {
           }
           this.slugDataset = this.$route.params.id
           this.titleDataset = this.rawData.data[0].attributes.name
-          this.slugDefault = this.rawData.data[0].attributes.slug
-          this.firstColumns(this.slugDefault)
+          this.firstColumns(slug)
         })
         .catch(error => {
           console.error(error)
@@ -140,8 +139,6 @@ export default {
         })
     },
     getColumns(slugDataset, index) {
-      this.handleToggle(index)
-      this.caretActive = !this.caretActive;
       this.urlPath = location.origin
       this.endPoint = `/api/v1/data/datasets/${slugDataset}`
       this.url = `${this.urlPath}${this.endPoint}`
@@ -151,6 +148,7 @@ export default {
           this.rawData = response.data
           this.keysData = this.rawData.data
           this.columns = Object.keys(this.keysData[0])
+          this.handleToggle(index)
         })
         .catch(error => {
           console.error(error)
@@ -169,10 +167,9 @@ export default {
         params: {
           id: slugDataset
         }
-    })
+    }, () => {})
     },
     getData(index) {
-
       this.endPoint = `${baseUrl}/datasets/`
       axios
         .get(this.endPoint)
@@ -187,7 +184,7 @@ export default {
           this.slugDataset = this.rawData[index].attributes.slug
           this.tableName = this.rawData[index].attributes.table_name
 
-          this.nav(this.slugDataset, index)
+          this.nav(this.slugDataset)
         })
         .catch(error => {
           console.error(error)

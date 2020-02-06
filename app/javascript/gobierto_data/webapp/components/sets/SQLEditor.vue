@@ -94,6 +94,8 @@ export default {
     if (localStorage.getItem('recentQueries')) {
       try {
         this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
+        this.localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
+        this.saveRecentQuery()
       } catch (e) {
         localStorage.removeItem('recentQueries');
       }
@@ -132,17 +134,17 @@ export default {
           }
           this.newRecentQuery = '';
 
-          this.localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
+
           this.tempRecentQueries = [ ...this.localQueries, ...this.orderRecentQueries ]
           this.totalRecentQueries = this.tempRecentQueries
           this.orderRecentQueries = []
+          localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
 
           this.saveRecentQuery();
         }
       }
     },
     saveRecentQuery() {
-      console.log('saveRecentQuery')
       localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
       this.$root.$emit('storeQueryByDataset', this.totalRecentQueries)
       this.$root.$emit('storeQuery', this.totalRecentQueries)

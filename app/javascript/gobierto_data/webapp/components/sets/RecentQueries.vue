@@ -4,7 +4,7 @@
       <button
         v-for="(item, index) in filterItemsByQuery"
         :key="index"
-        :data-id="item | replace()"
+        :data-id="item.text | replace()"
         class="gobierto-data-recent-queries-list-element"
         @click="runRecentQuery(index)"
       >

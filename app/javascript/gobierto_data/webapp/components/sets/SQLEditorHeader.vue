@@ -121,7 +121,7 @@
         icon="save"
         color="var(--color-base)"
         background="#fff"
-        @click.native="saveQueryName()"
+        @click.native="userLogged()"
       />
       <Button
         v-if="showBtnCancel"
@@ -166,7 +166,7 @@
   </div>
 </template>
 <script>
-import { getToken } from './../../../lib/helpers'
+import { getToken, getUserId } from './../../../lib/helpers'
 import { baseUrl, CommonsMixin, closableMixin } from "./../../../lib/commons.js";
 import axios from 'axios';
 import Button from './../commons/Button.vue';
@@ -230,7 +230,8 @@ export default {
       directionLeft: true,
       url: '',
       showSpinner: false,
-      token: ''
+      token: '',
+      noLogin: false
     }
   },
   created() {
@@ -255,11 +256,20 @@ export default {
 
     this.$root.$on('closeQueriesModal', this.closeYourQueries);
     this.token = getToken()
+
+    this.userId = getUserId()
+
+    this.noLogin = this.userId === "" ? true : false
   },
   methods: {
-    onSave(queryName) {
-      this.disabledSave = false
-      this.labelQueryName = queryName
+    userLogged() {
+      if (this.noLogin)
+        this.goToLogin()
+      else
+        this.saveQueryName()
+    },
+    goToLogin() {
+      location.href='/user/sessions/new?open_modal=true'
     },
     runYourQuery(code) {
       this.queryEditor = code

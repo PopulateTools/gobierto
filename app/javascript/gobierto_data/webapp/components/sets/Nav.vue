@@ -152,6 +152,7 @@ export default {
     this.labelFollow = I18n.t("gobierto_data.projects.follow")
 
     this.$root.$on('changeNavTab', this.changeTab)
+    this.$root.$on('activeTabIndex', this.changeTab)
 
 
     this.slugName = this.$route.params.id

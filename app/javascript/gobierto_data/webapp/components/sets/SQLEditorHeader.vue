@@ -66,6 +66,7 @@
               :array-queries="arrayQueries"
               :public-queries="publicQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
+              tabindex="-1"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
             />
           </transition>

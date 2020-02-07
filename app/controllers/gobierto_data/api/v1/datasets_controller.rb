@@ -99,6 +99,18 @@ module GobiertoData
           )
         end
 
+        def stats
+          find_item
+
+          render(
+            json: @item,
+            serializer: ::GobiertoData::DatasetStatsSerializer,
+            exclude_links: true,
+            links: links(:stats),
+            adapter: :json_api
+          )
+        end
+
         def new
           @form = DatasetForm.new(name_translations: available_locales_hash, site_id: current_site.id)
 
@@ -174,6 +186,7 @@ module GobiertoData
               hash.merge!(
                 data: gobierto_data_api_v1_dataset_path(params.fetch(:slug, slug)),
                 metadata: meta_gobierto_data_api_v1_dataset_path(params.fetch(:slug, slug)),
+                stats: stats_gobierto_data_api_v1_dataset_path(params.fetch(:slug, slug)),
                 queries: gobierto_data_api_v1_queries_path(filter: { dataset_id: id }),
                 visualizations: gobierto_data_api_v1_visualizations_path(filter: { dataset_id: id }),
                 favorites: gobierto_data_api_v1_dataset_favorites_path(@item.slug)

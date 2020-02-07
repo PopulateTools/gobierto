@@ -48,3 +48,6 @@ en:
       visualization: Visualization
       visualizations: Visualizations
       yourQueries: Your queries
+      buttonRecentQueries: See recent queries (r)
+      buttonQueries: See queries (r)
+      buttonRunQuery: Run query (CMD/WIN + Enter)

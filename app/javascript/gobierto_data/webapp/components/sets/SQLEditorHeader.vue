@@ -393,7 +393,7 @@ export default {
       }
 
       this.$root.$emit('postRecentQuery', this.codeQuery)
-      this.$root.$emit('showMessages', false)
+      this.$root.$emit('showMessages', false, true)
 
       this.endPoint = `${baseUrl}/data`
       this.url = `${this.endPoint}?sql=${this.queryEditor}`
@@ -413,12 +413,13 @@ export default {
 
           this.$root.$emit('recordsDuration', this.queryDurationRecors)
           this.$root.$emit('sendData', this.keysData, this.data)
-          this.$root.$emit('showMessages', true)
+          this.$root.$emit('showMessages', true, false)
 
         })
         .catch(error => {
           const messageError = error.response.data.errors[0].sql
           this.$root.$emit('apiError', messageError)
+
 
           this.data = []
           this.keysData = []

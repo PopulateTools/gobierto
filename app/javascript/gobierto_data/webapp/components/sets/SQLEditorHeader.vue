@@ -237,7 +237,8 @@ export default {
       url: '',
       showSpinner: false,
       token: '',
-      noLogin: false
+      noLogin: false,
+      editorFocus: false
     }
   },
   created() {
@@ -264,6 +265,7 @@ export default {
     this.$root.$on('sendYourQuery', this.runYourQuery)
 
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
+    this.$root.$on('focusEditor', this.activateShortcuts)
 
 
     this.token = getToken()
@@ -272,17 +274,26 @@ export default {
 
     this.noLogin = this.userId === "" ? true : false
 
-    window.addEventListener('keydown', e => {
-      if (e.keyCode == 67) {
-        this.openYourQueries()
-      } else if (e.keyCode == 82) {
-        this.showRecentQueries()
-      } else if (e.metaKey && e.keyCode == 13) {
-        this.runQuery()
-      }
-    })
+    this.activateShortcuts()
   },
   methods: {
+    activateShortcuts(value = false) {
+      this.editorFocus = value
+      if (this.editorFocus === false) {
+        window.addEventListener('keydown', e => {
+          if (e.keyCode == 67) {
+            this.openYourQueries()
+          } else if (e.keyCode == 82) {
+            this.showRecentQueries()
+          }
+        })
+      }
+      window.addEventListener('keydown', e => {
+        if (e.metaKey && e.keyCode == 13) {
+          this.runQuery()
+        }
+      })
+    },
     userLogged() {
       if (this.noLogin)
         this.goToLogin()

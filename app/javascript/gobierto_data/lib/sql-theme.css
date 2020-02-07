@@ -1,0 +1,21 @@
+.sql {
+  color: #0000FF;
+}
+
+.sql::after,
+.table::after {
+  content: 'sql';
+  padding-left: 1.5rem;
+  font-style: italic;
+  float: right;
+  color: #F0964D;
+}
+
+.table {
+  color: #8A2BE2;
+}
+
+.table::after {
+  content: 'tabla';
+  color: #111;
+}

@@ -74,21 +74,29 @@ export default {
     return {
       labelTable: "",
       labelVisualization: "",
-      directionLeft: false
+      directionLeft: false,
+      editorFocus: false
     }
   },
   created() {
     this.labelTable = I18n.t("gobierto_data.projects.table")
     this.labelVisualization = I18n.t("gobierto_data.projects.visualization")
-    window.addEventListener('keydown', e => {
-      if (e.keyCode == 84) {
-        this.$emit("active-tab", 0)
-      } else if (e.keyCode == 86) {
-        this.$emit("active-tab", 1);
-      }
-    })
+    this.$root.$on('focusEditor', this.activateShortcuts)
+
   },
   methods: {
+    activateShortcuts(value = true) {
+      this.editorFocus = value
+      if (this.editorFocus === false) {
+        window.addEventListener('keydown', e => {
+          if (e.keyCode == 84) {
+            this.$emit("active-tab", 0)
+          } else if (e.keyCode == 86) {
+            this.$emit("active-tab", 1);
+          }
+        })
+      }
+    },
     activateTab(index) {
       this.$emit("active-tab", index);
     }

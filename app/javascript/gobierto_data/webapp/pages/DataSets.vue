@@ -4,6 +4,7 @@
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
       :array-formats="arrayFormats"
+      :array-columns="arrayColumns"
       :table-name="tableName"
       :dataset-id="datasetId"
       :title-dataset="titleDataset"
@@ -30,13 +31,14 @@ export default {
       arrayQueries: [],
       datasetId: 0,
       tableName: '',
-      arrayFormats:{}
+      arrayFormats:{},
+      arrayColumns: [],
+      keyColumns: []
     }
   },
   created() {
     this.getData()
     this.$root.$on('reloadQueries', this.getQueries)
-
 
     this.userId = getUserId()
   },
@@ -66,6 +68,9 @@ export default {
           this.slugDataset = this.rawData.data.attributes.slug
           this.tableName = this.rawData.data.attributes.table_name
           this.arrayFormats = this.rawData.data.attributes.formats
+          this.keyColumns = this.rawData.data.attributes.columns
+
+          this.arrayColumns = Object.keys(this.keyColumns)
 
           this.$root.$emit('nameDataset', this.titleDataset)
 

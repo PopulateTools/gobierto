@@ -70,6 +70,7 @@
         v-else-if="activeTab === 1"
         :dataset-id="datasetId"
         :array-queries="arrayQueries"
+        :array-columns="arrayColumns"
         :table-name="tableName"
         :array-formats="arrayFormats"
       />
@@ -117,6 +118,10 @@ export default {
       type: Array,
       required: true
     },
+    arrayColumns: {
+      type: Array,
+      required: true
+    },
     arrayFormats: {
       type: Object,
       required: true
@@ -153,7 +158,6 @@ export default {
 
     this.$root.$on('changeNavTab', this.changeTab)
     this.$root.$on('activeTabIndex', this.changeTab)
-
 
     this.slugName = this.$route.params.id
   },

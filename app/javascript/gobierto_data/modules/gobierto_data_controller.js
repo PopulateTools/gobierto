@@ -5,7 +5,6 @@ import VueCodemirror from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 
 Vue.use(VueRouter);
-Vue.use(VueCodemirror);
 Vue.config.productionTip = false;
 
 export class GobiertoDataController {

@@ -6,10 +6,10 @@
       :dataset-id="datasetId"
       :array-queries="arrayQueries"
       :array-formats="arrayFormats"
+      :array-columns="arrayColumns"
     />
   </div>
 </template>
-
 <script>
 import SQLEditor from "./SQLEditor.vue";
 export default {
@@ -24,6 +24,10 @@ export default {
     },
     tableName: {
       type: String,
+      required: true
+    },
+    arrayColumns: {
+      type: Array,
       required: true
     },
     arrayQueries: {

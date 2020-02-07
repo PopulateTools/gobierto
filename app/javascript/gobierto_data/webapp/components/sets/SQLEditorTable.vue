@@ -39,6 +39,7 @@
   </div>
 </template>
 <script>
+import { baseUrl } from "./../../../lib/commons.js";
 import axios from 'axios';
 export default {
   name: 'SQLEditorTable',
@@ -48,19 +49,26 @@ export default {
       default: () => {
         return []
       }
+    },
+    numberRows: {
+      type: Number,
+      required: true
+    },
+    tableName: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
       keysData: [],
       mutableList: this.items,
-      showTotalRows: false,
-      tableName: ''
+      showTotalRows: false
     }
   },
   watch:{
     items: function(){
-        this.mutableList = JSON.parse(this.items);
+      this.mutableList = JSON.parse(this.items);
     }
   },
   mounted() {
@@ -68,12 +76,19 @@ export default {
     this.keysData = Object.keys(this.mutableList[0])
     this.showAllRows()
     this.$root.$on('sendCompleteQuery', this.updateQuery)
-    this.tableName = this.$route.params.tableName
+    this.$root.$on('hiddeShowButtonColumns', this.hideButton)
+    this.$root.$on('ShowButtonColumns', this.showButton)
   },
   created() {
     this.labelSave = I18n.t('gobierto_data.projects.save');
   },
   methods: {
+    hideButton() {
+      this.showTotalRows = false
+    },
+    showButton() {
+      this.showTotalRows = true
+    },
     updateQuery(code) {
       this.queryEditor = code
     },
@@ -89,20 +104,19 @@ export default {
       this.mutableList = data
     },
     showAllRows() {
-      if (this.$route.params.rowsDataset > 100) {
+      if (this.numberRows > 100) {
         this.showTotalRows = true
       } else {
         this.showTotalRows = false
       }
     },
     queryTotal() {
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/data';
+      this.showTotalRows = false
+      this.endPoint = `${baseUrl}/data`
       if (this.queryEditor === undefined) {
-        this.queryEditor =
-        this.code = `SELECT * FROM ${this.tableName}`
+        this.queryEditor = `SELECT * FROM ${this.tableName}`
       }
-      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
+      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
         .get(this.url)

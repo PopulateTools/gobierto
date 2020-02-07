@@ -97,10 +97,7 @@ export default {
         name: "dataset",
         params: {
           id: slugDataset,
-          numberId: this.numberId,
-          titleDataset: this.titleDataset,
-          tableName: this.tableName,
-          arrayQueries: this.arrayQueries
+          title: this.titleDataset
         }
     })
     },

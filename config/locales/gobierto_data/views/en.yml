@@ -37,6 +37,7 @@ en:
       runQuery: Run query
       save: Save
       sets: Sets
+      showRows: Show all rows
       subject: Subject
       summary: Summary
       table: Table

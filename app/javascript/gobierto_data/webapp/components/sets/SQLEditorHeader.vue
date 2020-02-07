@@ -173,7 +173,6 @@ import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
 import Queries from './Queries.vue';
 
-let handleOutsideClick
 export default {
   name: 'SQLEditorHeader',
   components: {
@@ -188,6 +187,10 @@ export default {
       required: true
     },
     datasetId: {
+      type: Number,
+      required: true
+    },
+    numberRows: {
       type: Number,
       required: true
     }
@@ -383,7 +386,9 @@ export default {
 
       if (this.queryEditor.includes('LIMIT')) {
         this.queryEditor = this.queryEditor
+        this.$root.$emit('hiddeShowButtonColumns')
       } else {
+        this.$root.$emit('ShowButtonColumns')
         this.$root.$emit('sendCompleteQuery', this.queryEditor)
         this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
         this.queryEditor = this.code

@@ -4,6 +4,7 @@
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
       :array-formats="arrayFormats"
+      :number-rows="numberRows"
       :table-name="tableName"
       :dataset-id="datasetId"
       :title-dataset="titleDataset"
@@ -28,6 +29,7 @@ export default {
       rawData: '',
       titleDataset: '',
       arrayQueries: [],
+      numberRows: 0,
       datasetId: 0,
       tableName: '',
       arrayFormats:{}
@@ -66,6 +68,7 @@ export default {
           this.slugDataset = this.rawData.data.attributes.slug
           this.tableName = this.rawData.data.attributes.table_name
           this.arrayFormats = this.rawData.data.attributes.formats
+          this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
 
           this.$root.$emit('nameDataset', this.titleDataset)
 

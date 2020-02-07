@@ -72,6 +72,7 @@
         :array-queries="arrayQueries"
         :table-name="tableName"
         :array-formats="arrayFormats"
+        :number-rows="numberRows"
       />
       <Queries
         v-else-if="activeTab === 2"
@@ -115,6 +116,10 @@ export default {
     },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    numberRows: {
+      type: Number,
       required: true
     },
     arrayFormats: {

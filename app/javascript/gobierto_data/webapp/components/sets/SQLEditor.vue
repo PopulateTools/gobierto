@@ -4,6 +4,7 @@
       <SQLEditorHeader
         :array-queries="arrayQueries"
         :dataset-id="datasetId"
+        :number-rows="numberRows"
       />
       <SQLEditorCode
         :table-name="tableName"
@@ -13,8 +14,10 @@
         :array-formats="arrayFormats"
         :items="data"
         :link="link"
+        :table-name="tableName"
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
+        :number-rows="numberRows"
         @active-tab="activeTabIndex = $event"
       />
     </div>
@@ -45,6 +48,10 @@ export default {
     },
     arrayFormats: {
       type: Object,
+      required: true
+    },
+    numberRows: {
+      type: Number,
       required: true
     },
     datasetId: {
@@ -114,6 +121,14 @@ export default {
     },
     getData() {
       this.endPoint = `${baseUrl}/data`
+
+      if (this.queryEditor.includes('LIMIT')) {
+        this.queryEditor = this.queryEditor
+      } else {
+        this.$root.$emit('sendCompleteQuery', this.queryEditor)
+        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
+        this.queryEditor = this.code
+      }
       this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios

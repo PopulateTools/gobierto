@@ -1,11 +1,14 @@
 <template>
-  <div class="gobierto-data-sql-editor-recent-queries arrow-top">
+  <div
+    class="gobierto-data-sql-editor-recent-queries arrow-top"
+    tabindex="-1"
+  >
     <div class="gobierto-data-btn-download-data-modal-container">
       <button
         v-for="(item, index) in items"
+        ref="button"
         :key="index"
         :class="{'active-query': currentItem === index}"
-        :tabindex="index"
         :data-id="item | replace()"
         class="gobierto-data-recent-queries-list-element"
         @click="runRecentQuery(item)"

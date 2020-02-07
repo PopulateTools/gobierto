@@ -145,6 +145,7 @@
       />
       <Button
         v-if="showBtnRun"
+        v-hotkey.stop="keymap"
         :text="labelRunQuery"
         :disabled="disabledRunQuery"
         class="btn-sql-editor btn-sql-editor-run"
@@ -244,6 +245,17 @@ export default {
       queryId: '',
       userIdQuery: '',
       oldQueryName: ''
+    }
+  },
+  computed: {
+    keymap(){
+      return {
+        'meta+enter': this.runQuery,
+        r: this.showRecentQueries,
+        c: this.openYourQueries,
+        t: this.openYourQueries,
+        v: this.openYourQueries
+      }
     }
   },
   created() {
@@ -459,11 +471,17 @@ export default {
     recentQueries() {
       this.isActive = !this.isActive;
     },
+    showRecentQueries() {
+      this.isActive = true;
+    },
     closeMenu() {
       this.isActive = false
     },
     closeYourQueries() {
       this.isHidden = true
+    },
+    openYourQueries() {
+      this.isHidden = false
     },
     postQuery() {
       this.endPoint = `${baseUrl}/queries`

@@ -714,7 +714,8 @@
     color: #666;
     font-family: monospace;
 
-    &:hover {
+    &:hover,
+    &.active-query {
       background-color: rgba(var(--color-base-string), .1);
 
       &::before {

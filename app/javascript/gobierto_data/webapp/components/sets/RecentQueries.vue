@@ -38,7 +38,17 @@ export default {
     this.$root.$on('showRecentQueries', this.createList)
     this.$root.$on('storeQuery', this.createList)
   },
+  mounted(){
+    document.addEventListener("keyup", this.nextItem);
+  },
   methods: {
+    nextItem () {
+      if (event.keyCode == 38 && this.currentItem > 0) {
+        this.currentItem--
+      } else if (event.keyCode == 40 && this.currentItem < this.items.length) {
+        this.currentItem++
+      }
+    },
     createList(queries) {
       if (queries === null || queries === undefined) {
         this.orderItems = []

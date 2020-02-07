@@ -268,6 +268,8 @@ export default {
         this.openYourQueries()
       } else if (e.keyCode == 82) {
         this.showRecentQueries()
+      } else if (e.metaKey && e.keyCode == 13) {
+        this.runQuery()
       }
     })
   },

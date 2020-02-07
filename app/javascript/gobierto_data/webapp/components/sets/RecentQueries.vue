@@ -23,14 +23,6 @@ import axios from 'axios'
 import { baseUrl } from "./../../../lib/commons.js";
 export default {
   name: "RecentQueries",
-  filters: {
-    truncate: function (text, length, suffix) {
-        return text.substring(0, length) + suffix;
-    },
-    replace: function(text) {
-      return text.replace(/%20/g, ' ').replace(/%/g, ' ');
-    }
-  },
   props: {
     tableName: {
       type: String,

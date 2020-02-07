@@ -31,6 +31,7 @@ import SQLEditorCode from "./SQLEditorCode.vue";
 import SQLEditorHeader from "./SQLEditorHeader.vue";
 import SQLEditorTabs from "./SQLEditorTabs.vue";
 import { baseUrl } from "./../../../lib/commons.js"
+import "./../../../lib/sql-theme.css"
 
 export default {
   name: 'SQLEditor',
@@ -108,7 +109,6 @@ export default {
       if (!this.newRecentQuery) {
         return;
       }
-
       if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
         this.$root.$emit('storeQuery', this.recentQueries)
       } else {

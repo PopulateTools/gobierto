@@ -33,7 +33,9 @@ export default {
       numberRows: 0,
       datasetId: 0,
       tableName: '',
-      arrayFormats:{}
+      arrayFormats:{},
+      arrayColumns: [],
+      keyColumns: []
     }
   },
   created() {

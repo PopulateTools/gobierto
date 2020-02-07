@@ -11,7 +11,6 @@
     />
   </div>
 </template>
-
 <script>
 import SQLEditor from "./SQLEditor.vue";
 export default {
@@ -26,6 +25,10 @@ export default {
     },
     tableName: {
       type: String,
+      required: true
+    },
+    arrayColumns: {
+      type: Array,
       required: true
     },
     arrayQueries: {

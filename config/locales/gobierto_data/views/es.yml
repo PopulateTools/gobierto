@@ -44,3 +44,6 @@ es:
       visualization: Visualización
       visualizations: Visualizaciones
       yourQueries: Tus consultas
+      buttonRecentQueries: Ver consultas recientes (r)
+      buttonQueries: Ver consultas (c)
+      buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)

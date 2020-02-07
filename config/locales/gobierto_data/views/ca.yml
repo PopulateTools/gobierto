@@ -44,3 +44,6 @@ ca:
       visualization: Visualització
       visualizations: Visualitzacions
       yourQueries: Les teves consultes
+      buttonRecentQueries: Veure consultes recents (r)
+      buttonQueries: Veure consultes (c)
+      buttonRunQuery: Executar consulta (CMD/WIN + Enter)

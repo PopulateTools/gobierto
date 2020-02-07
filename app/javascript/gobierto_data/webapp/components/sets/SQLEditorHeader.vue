@@ -15,6 +15,7 @@
           :text="labelRecents"
           :class="removeLabelBtn ? 'remove-label' : ''"
           :disabled="disabledRecents"
+          :title="labelbuttonRecentQueries"
           class="btn-sql-editor"
           icon="history"
           color="var(--color-base)"
@@ -42,6 +43,7 @@
           :text="labelQueries"
           :class="removeLabelBtn ? 'remove-label' : ''"
           :disabled="disabledQueries"
+          :title="labelbuttonQueries"
           class="btn-sql-editor btn-sql-editor-queries gobierto-data-btn-blue"
           @click="isHidden = !isHidden"
         >
@@ -146,6 +148,7 @@
         v-if="showBtnRun"
         :text="labelRunQuery"
         :disabled="disabledRunQuery"
+        :title="labelButtonRunQuery"
         class="btn-sql-editor btn-sql-editor-run"
         icon="play"
         color="var(--color-base)"
@@ -223,6 +226,9 @@ export default {
       labelQueryName: '',
       labelEdit: '',
       labelModifiedQuery: '',
+      labelbuttonRecentQueries: '',
+      labelbuttonQueries: '',
+      labelButtonRunQuery: '',
       codeQuery: '',
       endPoint: '',
       privacyStatus: '',
@@ -245,6 +251,9 @@ export default {
     this.labelEdit = I18n.t('gobierto_data.projects.edit');
     this.labelModifiedQuery = I18n.t('gobierto_data.projects.modifiedQuery');
     this.labelGuide = I18n.t('gobierto_data.projects.guide');
+    this.labelbuttonQueries = I18n.t('gobierto_data.projects.buttonQueries');
+    this.labelbuttonRecentQueries = I18n.t('gobierto_data.projects.buttonRecentQueries');
+    this.labelButtonRunQuery = I18n.t('gobierto_data.projects.buttonRunQuery');
 
     this.$root.$on('sendQueryCode', this.updateQuery)
     this.$root.$on('activeSave', this.activeSave);

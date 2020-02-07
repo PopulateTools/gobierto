@@ -82,7 +82,7 @@ export default {
     this.labelTable = I18n.t("gobierto_data.projects.table")
     this.labelVisualization = I18n.t("gobierto_data.projects.visualization")
     this.$root.$on('focusEditor', this.activateShortcuts)
-
+    this.activateShortcuts(false)
   },
   methods: {
     activateShortcuts(value = true) {

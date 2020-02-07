@@ -887,5 +887,9 @@
     transform: rotate(270deg);
   }
 
+  .CodeMirror-scroll {
+    overflow: hidden !important;
+  }
+
 }
 

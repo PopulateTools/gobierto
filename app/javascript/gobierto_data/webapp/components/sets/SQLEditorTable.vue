@@ -34,7 +34,7 @@
       class="gobierto-data-btn-blue btn-sql-editor btn-sql-show-all"
       @click="queryTotal()"
     >
-      Mostrar todas las filas
+      {{ labelButtonRows }}
     </button>
   </div>
 </template>
@@ -63,7 +63,8 @@ export default {
     return {
       keysData: [],
       mutableList: this.items,
-      showTotalRows: false
+      showTotalRows: false,
+      labelButtonRows: ''
     }
   },
   watch:{
@@ -80,7 +81,7 @@ export default {
     this.$root.$on('ShowButtonColumns', this.showButton)
   },
   created() {
-    this.labelSave = I18n.t('gobierto_data.projects.save');
+    this.labelButtonRows = I18n.t('gobierto_data.projects.showRows');
   },
   methods: {
     hideButton() {

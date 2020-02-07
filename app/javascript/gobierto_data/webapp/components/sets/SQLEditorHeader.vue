@@ -253,9 +253,7 @@ export default {
       return {
         'meta+enter': this.runQuery,
         r: this.showRecentQueries,
-        c: this.openYourQueries,
-        t: this.openYourQueries,
-        v: this.openYourQueries
+        c: this.openYourQueries
       }
     }
   },
@@ -473,7 +471,12 @@ export default {
       this.isActive = !this.isActive;
     },
     showRecentQueries() {
-      this.isActive = true;
+      if (this.isActive === true) {
+        this.isActive = false
+      } else {
+        this.isActive = true;
+        this.isHidden = true
+      }
     },
     closeMenu() {
       this.isActive = false
@@ -482,7 +485,12 @@ export default {
       this.isHidden = true
     },
     openYourQueries() {
-      this.isHidden = false
+      if (this.isHidden === false) {
+        this.isHidden = true
+      } else {
+        this.isHidden = false
+        this.isActive = false
+      }
     },
     postQuery() {
       this.endPoint = `${baseUrl}/queries`

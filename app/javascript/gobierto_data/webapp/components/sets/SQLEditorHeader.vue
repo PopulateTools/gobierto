@@ -321,10 +321,6 @@ export default {
       this.showBtnEdit = disableLabel;
       this.disableInputName = disableLabel;
     },
-    privateQueryValue(valuePrivate) {
-      this.disabledSave = false
-      this.privateQuery = valuePrivate
-    },
     saveQueryName() {
       this.showSaveQueries = true
       if (this.saveQueryState === true && this.labelQueryName.length > 0) {

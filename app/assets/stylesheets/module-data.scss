@@ -885,5 +885,53 @@
     transform: rotate(270deg);
   }
 
+  .sql {
+    color: blue;
+  }
+
+  .sql:after {
+    content: "sql";
+    padding-left: 20px;
+    font-style: italic;
+    float: right;
+    color: gray;
+  }
+
+  .table {
+    color: blueviolet;
+  }
+  .table:after {
+    content: "table";
+    padding-left: 20px;
+    font-style: italic;
+    float: right;
+    color: gray;
+  }
+
+
+  .column {
+    color: brown;
+  }
+  .column:after {
+    content: "column";
+    padding-left: 20px;
+    font-style: italic;
+    float: right;
+    color: gray;
+  }
+
+
+  .pf {
+    color: cadetblue;
+  }
+  .pf:after {
+    content: "procfunc";
+    padding-left: 20px;
+    font-style: italic;
+    float: right;
+    color: gray;
+  }
+
+
 }
 

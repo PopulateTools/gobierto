@@ -73,7 +73,6 @@ export default {
           this.keysData = []
           this.$root.$emit('sendData', this.keysData, this.data)
         })
-
         setTimeout(() => {
           this.showSpinner = false
         }, 300)

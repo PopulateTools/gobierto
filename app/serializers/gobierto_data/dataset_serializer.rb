@@ -11,7 +11,8 @@ module GobiertoData
       slug = object.slug
       {
         data: gobierto_data_api_v1_dataset_path(slug),
-        metadata: meta_gobierto_data_api_v1_dataset_path(slug)
+        metadata: meta_gobierto_data_api_v1_dataset_path(slug),
+        stats: stats_gobierto_data_api_v1_dataset_path(slug)
       }
     end
 

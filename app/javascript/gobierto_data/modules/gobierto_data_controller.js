@@ -1,10 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import VueCodemirror from 'vue-codemirror'
+import VueHotkey from 'v-hotkey'
+
 import 'codemirror/lib/codemirror.css'
 
 Vue.use(VueRouter);
 Vue.use(VueCodemirror);
+Vue.use(VueHotkey)
 Vue.config.productionTip = false;
 
 export class GobiertoDataController {

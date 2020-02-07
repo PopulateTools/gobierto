@@ -75,8 +75,8 @@
       >
         <input
           ref="inputText"
-          :class="disableInputName ? 'disable-input-text' : ' '"
           v-model="labelQueryName"
+          :class="disableInputName ? 'disable-input-text' : ' '"
           type="text"
           class="gobierto-data-sql-editor-container-save-text"
           @keyup="onSave($event.target.value)"
@@ -143,6 +143,7 @@
       />
       <Button
         v-if="showBtnRun"
+        v-hotkey.stop="keymap"
         :text="labelRunQuery"
         :disabled="disabledRunQuery"
         class="btn-sql-editor btn-sql-editor-run"
@@ -233,6 +234,17 @@ export default {
       noLogin: false
     }
   },
+  computed: {
+    keymap(){
+      return {
+        'meta+enter': this.runQuery,
+        r: this.showRecentQueries,
+        c: this.openYourQueries,
+        t: this.openYourQueries,
+        v: this.openYourQueries
+      }
+    }
+  },
   created() {
     this.labelSave = I18n.t('gobierto_data.projects.save');
     this.labelRecents = I18n.t('gobierto_data.projects.recents');
@@ -320,10 +332,6 @@ export default {
       this.showBtnSave = activeLabel;
       this.showBtnEdit = disableLabel;
       this.disableInputName = disableLabel;
-    },
-    privateQueryValue(valuePrivate) {
-      this.disabledSave = false
-      this.privateQuery = valuePrivate
     },
     saveQueryName() {
       this.showSaveQueries = true
@@ -425,11 +433,17 @@ export default {
     recentQueries() {
       this.isActive = !this.isActive;
     },
+    showRecentQueries() {
+      this.isActive = true;
+    },
     closeMenu() {
       this.isActive = false
     },
     closeYourQueries() {
       this.isHidden = true
+    },
+    openYourQueries() {
+      this.isHidden = false
     },
     postQuery() {
       this.endPoint = `${baseUrl}/queries`

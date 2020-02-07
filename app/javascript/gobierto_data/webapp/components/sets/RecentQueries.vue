@@ -4,6 +4,8 @@
       <button
         v-for="(item, index) in items"
         :key="index"
+        :class="{'active-query': currentItem === index}"
+        :tabindex="index"
         :data-id="item | replace()"
         class="gobierto-data-recent-queries-list-element"
         @click="runRecentQuery(item)"
@@ -28,13 +30,24 @@ export default {
   },
   data() {
     return {
-      items: []
+      items: [],
+      currentItem: 0
     }
   },
   created() {
     this.$root.$on('showRecentQueries', this.createList)
   },
+  mounted(){
+    document.addEventListener("keyup", this.nextItem);
+  },
   methods: {
+    nextItem () {
+      if (event.keyCode == 38 && this.currentItem > 0) {
+        this.currentItem--
+      } else if (event.keyCode == 40 && this.currentItem < this.items.length) {
+        this.currentItem++
+      }
+    },
     createList(queries) {
       this.items = queries
     },

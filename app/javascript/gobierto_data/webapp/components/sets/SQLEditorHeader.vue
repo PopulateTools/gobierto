@@ -146,7 +146,6 @@
       />
       <Button
         v-if="showBtnRun"
-        v-hotkey.stop="keymap"
         :text="labelRunQuery"
         :disabled="disabledRunQuery"
         class="btn-sql-editor btn-sql-editor-run"
@@ -248,15 +247,6 @@ export default {
       oldQueryName: ''
     }
   },
-  computed: {
-    keymap(){
-      return {
-        'meta+enter': this.runQuery,
-        r: this.showRecentQueries,
-        c: this.openYourQueries
-      }
-    }
-  },
   created() {
     this.labelSave = I18n.t('gobierto_data.projects.save');
     this.labelRecents = I18n.t('gobierto_data.projects.recents');
@@ -284,6 +274,14 @@ export default {
     this.userId = getUserId()
 
     this.noLogin = this.userId === "" ? true : false
+
+    window.addEventListener('keydown', e => {
+      if (e.keyCode == 67) {
+        this.openYourQueries()
+      } else if (e.keyCode == 82) {
+        this.showRecentQueries()
+      }
+    })
   },
   methods: {
     hideEdit(){

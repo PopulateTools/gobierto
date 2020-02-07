@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     nextItem () {
+
       if (event.keyCode == 38 && this.currentItem > 0) {
         this.currentItem--
       } else if (event.keyCode == 40 && this.currentItem < this.items.length) {

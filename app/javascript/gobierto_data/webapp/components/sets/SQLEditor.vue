@@ -84,6 +84,8 @@ export default {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
     this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
     this.getData()
+
+
   },
   methods: {
     runYourQuery(sqlCode){

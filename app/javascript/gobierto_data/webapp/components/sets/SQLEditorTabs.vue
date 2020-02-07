@@ -80,6 +80,13 @@ export default {
   created() {
     this.labelTable = I18n.t("gobierto_data.projects.table")
     this.labelVisualization = I18n.t("gobierto_data.projects.visualization")
+    window.addEventListener('keydown', e => {
+      if (e.keyCode == 84) {
+        this.$emit("active-tab", 0)
+      } else if (e.keyCode == 86) {
+        this.$emit("active-tab", 1);
+      }
+    })
   },
   methods: {
     activateTab(index) {

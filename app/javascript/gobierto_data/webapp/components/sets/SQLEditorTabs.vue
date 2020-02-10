@@ -81,21 +81,23 @@ export default {
   created() {
     this.labelTable = I18n.t("gobierto_data.projects.table")
     this.labelVisualization = I18n.t("gobierto_data.projects.visualization")
-    this.$root.$on('focusEditor', this.activateShortcuts)
-    this.activateShortcuts(false)
+    this.$root.$on('blurEditor', this.activateShortcutsListener)
+    this.$root.$on('focusEditor', this.removeShortcutsListener)
+    this.activateShortcutsListener()
   },
   methods: {
-    activateShortcuts(value = true) {
-      this.editorFocus = value
-      if (this.editorFocus === false) {
-        window.addEventListener('keydown', e => {
-          if (e.keyCode == 84) {
-            this.$emit("active-tab", 0)
-          } else if (e.keyCode == 86) {
-            this.$emit("active-tab", 1);
-          }
-        })
+    shortcutsListener(e) {
+      if (e.keyCode == 84) {
+        this.$emit("active-tab", 0)
+      } else if (e.keyCode == 86) {
+        this.$emit("active-tab", 1);
       }
+    },
+    activateShortcutsListener(){
+      window.addEventListener("keydown", this.shortcutsListener, true);
+    },
+    removeShortcutsListener(){
+      window.removeEventListener("keydown", this.shortcutsListener, true);
     },
     activateTab(index) {
       this.$emit("active-tab", index);

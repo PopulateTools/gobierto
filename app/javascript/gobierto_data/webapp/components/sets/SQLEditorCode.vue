@@ -129,11 +129,11 @@ export default {
       this.$root.$emit('activeSave', false)
       this.$root.$emit('activateModalRecent')
       this.$root.$emit('sendCode', this.code);
-      this.$root.$emit('focusEditor', true)
+      this.$root.$emit('focusEditor')
     })
 
     this.editor.on('blur', () => {
-      this.$root.$emit('focusEditor', false)
+      this.$root.$emit('blurEditor')
     })
 
     this.editor.on('change', editor => {

@@ -265,8 +265,9 @@ export default {
     this.$root.$on('sendYourQuery', this.runYourQuery)
 
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
-    this.$root.$on('focusEditor', this.activateShortcuts)
 
+    this.$root.$on('blurEditor', this.activateShortcutsListener)
+    this.$root.$on('focusEditor', this.removeShortcutsListener)
 
     this.token = getToken()
 
@@ -274,25 +275,26 @@ export default {
 
     this.noLogin = this.userId === "" ? true : false
 
-    this.activateShortcuts()
+    this.activateShortcutsListener()
+    window.addEventListener('keydown', e => {
+      if (e.metaKey && e.keyCode == 13) {
+        this.runQuery()
+      }
+    })
   },
   methods: {
-    activateShortcuts(value = false) {
-      this.editorFocus = value
-      if (this.editorFocus === false) {
-        window.addEventListener('keydown', e => {
-          if (e.keyCode == 67) {
-            this.openYourQueries()
-          } else if (e.keyCode == 82) {
-            this.showRecentQueries()
-          }
-        })
+    shortcutsListener(e) {
+      if (e.keyCode == 67) {
+        this.openYourQueries()
+      } else if (e.keyCode == 82) {
+        this.showRecentQueries()
       }
-      window.addEventListener('keydown', e => {
-        if (e.metaKey && e.keyCode == 13) {
-          this.runQuery()
-        }
-      })
+    },
+    activateShortcutsListener(){
+      window.addEventListener("keydown", this.shortcutsListener, true);
+    },
+    removeShortcutsListener(){
+      window.removeEventListener("keydown", this.shortcutsListener, true);
     },
     userLogged() {
       if (this.noLogin)

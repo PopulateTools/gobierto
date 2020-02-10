@@ -38,6 +38,8 @@ module GobiertoData
 
     def rails_model
       @rails_model ||= begin
+                         return unless internal_rails_class_name
+
                          return Connection.const_get(internal_rails_class_name) if Connection.const_defined?(internal_rails_class_name)
 
                          db_config = Connection.db_config(site)
@@ -93,6 +95,8 @@ module GobiertoData
     end
 
     def internal_rails_class_name
+      return unless site.present? && table_name.present?
+
       @internal_rails_class_name ||= "site_id_#{site.id}_table_#{table_name}".classify
     end
   end

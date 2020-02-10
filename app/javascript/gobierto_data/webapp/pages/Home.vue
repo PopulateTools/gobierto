@@ -20,8 +20,6 @@ export default {
     return {
       activeTabIndex: 0
     }
-  },
-  methods: {
   }
 }
 </script>

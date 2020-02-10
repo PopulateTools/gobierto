@@ -43,7 +43,7 @@
           <a
             :href="'/datos/' + item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
-            @click="getData(index)"
+            @click.prevent="nav(item.attributes.slug, item.attributes.name)"
           >{{ item.attributes.name }}
           </a>
           <div
@@ -87,7 +87,7 @@ export default {
       allDatasets: [],
       numberId: '',
       columns: '',
-      toggle: null,
+      toggle: 0,
       indexToggle: null
     }
   },
@@ -153,7 +153,6 @@ export default {
         })
         .catch(error => {
           console.error(error)
-
         })
     },
     handleToggle(index) {
@@ -162,34 +161,15 @@ export default {
     activateTab(index) {
       this.$emit("active-tab", index);
     },
-    nav(slugDataset) {
+    nav(slugDataset, nameDataset) {
+      this.toggle = 0
       this.$router.push({
         name: "dataset",
         params: {
-          id: slugDataset
+          id: slugDataset,
+          title: nameDataset
         }
     }, () => {})
-    },
-    getData(index) {
-      this.endPoint = `${baseUrl}/datasets/`
-      axios
-        .get(this.endPoint)
-        .then(response => {
-          this.rawData = response.data
-          this.rawData = this.rawData.data
-          this.rawData = this.rawData.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
-          this.numberId = this.rawData[index].id
-          this.titleDataset = this.rawData[index].attributes.name
-          this.idDataset = this.rawData[index].id
-          this.titleDataset = this.rawData[index].attributes.name
-          this.slugDataset = this.rawData[index].attributes.slug
-          this.tableName = this.rawData[index].attributes.table_name
-          this.nav(this.slugDataset)
-        })
-        .catch(error => {
-          console.error(error)
-
-        })
     }
   }
 };

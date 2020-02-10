@@ -5,6 +5,7 @@
       :table-name="tableName"
       :dataset-id="datasetId"
       :array-queries="arrayQueries"
+      :public-queries="publicQueries"
       :array-formats="arrayFormats"
     />
   </div>
@@ -30,10 +31,18 @@ export default {
       type: Array,
       required: true
     },
+    publicQueries: {
+      type: Array,
+      required: true
+    },
     arrayFormats: {
       type: Object,
       required: true
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    const id = to.params.id
+    next()
   }
 }
 </script>

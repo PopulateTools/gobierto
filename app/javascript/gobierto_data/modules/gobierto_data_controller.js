@@ -35,7 +35,8 @@ export class GobiertoDataController {
         mode: "history",
         routes: [{
             path: "/datos",
-            name: "home", component: Home
+            name: "home",
+            component: Home
           },
           {
             path: "/datos/:id",
@@ -43,27 +44,27 @@ export class GobiertoDataController {
             component: Sets,
             children: [
              {
-               path: "/datos/:id/resumen",
+               path: "resumen",
                name: "resumen",
                component: Summary
              },
              {
-               path: "/datos/:id/editor",
+               path: "editor",
                name: "editor",
                component: Editor
              },
              {
-               path: "/datos/:id/consultas",
+               path: "consultas",
                name: "consultas",
                component: Queries
              },
              {
-               path: "/datos/:id/visualizaciones",
+               path: "visualizaciones",
                name: "visualizaciones",
                component: Visualizations
              },
              {
-               path: "/datos/:id/descarga",
+               path: "descarga",
                name: "descarga",
                component: Downloads
              }
@@ -80,7 +81,7 @@ export class GobiertoDataController {
           Vue.nextTick(() => {
             let title = baseTitle;
             if (to.name === "dataset") {
-              const { id: projectTitle } = to.params;
+              const { title: projectTitle } = to.params;
 
               if (projectTitle) {
                 const titleI18n = projectTitle

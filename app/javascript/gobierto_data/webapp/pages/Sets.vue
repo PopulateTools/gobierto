@@ -19,6 +19,7 @@
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
         :array-formats="arrayFormats"
+        :public-queries="publicQueries"
         :table-name="tableName"
         :dataset-id="datasetId"
         :title-dataset="titleDataset"

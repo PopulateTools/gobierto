@@ -21,11 +21,13 @@ module GobiertoData
       :name,
       :slug,
       :append,
-      :local_data
+      :local_data,
+      :visibility_level
     )
 
-    validates :table_name, :name, presence: true
+    validates :table_name, :name, :visibility_level, presence: true
     validates :name_translations, translated_attribute_presence: true
+    validates :visibility_level, inclusion: { in: Dataset.visibility_levels.keys }
 
     delegate :persisted?, :data_updated_at, to: :resource
 
@@ -64,6 +66,10 @@ module GobiertoData
 
     def name
       name_translations.with_indifferent_access[I18n.locale]
+    end
+
+    def visibility_level
+      @visibility_level ||= "draft"
     end
 
     def save
@@ -115,6 +121,7 @@ module GobiertoData
         attributes.table_name = table_name
         attributes.name_translations = name_translations
         attributes.slug = slug
+        attributes.visibility_level = visibility_level
       end
 
       if @resource.save && load_data

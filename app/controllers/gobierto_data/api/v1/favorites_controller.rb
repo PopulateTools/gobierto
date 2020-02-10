@@ -71,11 +71,11 @@ module GobiertoData
         def find_favorited
           @favorited = case resource_type
                        when :dataset
-                         current_site.datasets.find_by(slug: params[:dataset_slug])
+                         current_site.datasets.send(valid_preview_token? ? :itself : :active).find_by(slug: params[:dataset_slug])
                        when :query
-                         current_site.queries.find_by(id: params[:query_id])
+                         current_site.queries.send(valid_preview_token? ? :itself : :active).find_by(id: params[:query_id])
                        when :visualization
-                         current_site.visualizations.find_by(id: params[:visualization_id])
+                         current_site.visualizations.send(valid_preview_token? ? :itself : :active).find_by(id: params[:visualization_id])
                        end
         end
 

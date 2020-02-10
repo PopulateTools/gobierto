@@ -6,6 +6,7 @@ module GobiertoData
       class BaseController < ApiBaseController
         include ActionController::MimeResponds
         include ::User::ApiAuthenticationHelper
+        include ::PreviewTokenHelper
 
         before_action { module_enabled!(current_site, "GobiertoData", false) }
 

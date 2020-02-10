@@ -19,8 +19,8 @@ module GobiertoData
           @user ||= users(:dennis)
         end
 
-        def datasets_count
-          @datasets_count ||= site.datasets.count
+        def active_datasets_count
+          @active_datasets_count ||= site.datasets.active.count
         end
 
         def dataset
@@ -64,7 +64,7 @@ module GobiertoData
             response_data = response.parsed_body
 
             assert response_data.has_key? "data"
-            assert_equal datasets_count, response_data["data"].count
+            assert_equal active_datasets_count, response_data["data"].count
             datasets_names = response_data["data"].map { |item| item.dig("attributes", "name") }
             assert_includes datasets_names, dataset.name
             refute_includes datasets_names, other_site_dataset.name
@@ -84,7 +84,7 @@ module GobiertoData
             response_data = response.parsed_body
             parsed_csv = CSV.parse(response_data).map { |row| row.map(&:to_s) }
 
-            assert_equal datasets_count + 1, parsed_csv.count
+            assert_equal active_datasets_count + 1, parsed_csv.count
             assert_equal %w(id name slug table_name data_updated_at category), parsed_csv.first
             assert_includes parsed_csv, array_data(dataset)
             refute_includes parsed_csv, array_data(other_site_dataset)
@@ -118,9 +118,9 @@ module GobiertoData
 
             assert_equal 1, parsed_xlsx.worksheets.count
             sheet = parsed_xlsx.worksheets.first
-            assert_nil sheet[datasets_count + 1]
+            assert_nil sheet[active_datasets_count + 1]
             assert_equal %w(id name slug table_name data_updated_at category), sheet[0].cells.map(&:value)
-            values = (1..datasets_count).map do |row_number|
+            values = (1..active_datasets_count).map do |row_number|
               sheet[row_number].cells.map { |cell| cell.value.to_s }
             end
             assert_includes values, array_data(dataset)

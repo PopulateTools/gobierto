@@ -149,7 +149,7 @@ module GobiertoData
         private
 
         def base_relation
-          current_site.datasets
+          current_site.datasets.send(valid_preview_token? ? :itself : :active)
         end
 
         def find_item
@@ -157,7 +157,7 @@ module GobiertoData
         end
 
         def execute_query(relation)
-          GobiertoData::Connection.execute_query(current_site, relation.to_sql)
+          GobiertoData::Connection.execute_query(current_site, relation.to_sql, include_draft: valid_preview_token?)
         end
 
         def links(self_key = nil)
@@ -195,6 +195,7 @@ module GobiertoData
               :schema,
               :schema_file,
               :append,
+              :visibility_level,
               name_translations: [*I18n.available_locales]
             )
           else
@@ -208,7 +209,9 @@ module GobiertoData
                 :data_path,
                 :local_data,
                 :csv_separator,
-                :append
+                :schema,
+                :append,
+                :visibility_level
               ]
             ).merge(
               schema: schema_json_param

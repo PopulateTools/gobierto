@@ -9,6 +9,7 @@ module GobiertoAdmin
         def setup
           super
           @path = edit_admin_data_dataset_path(dataset)
+          @draft_path = edit_admin_data_dataset_path(draft_dataset)
         end
 
         def admin
@@ -29,6 +30,10 @@ module GobiertoAdmin
 
         def dataset
           @dataset ||= gobierto_data_datasets(:users_dataset)
+        end
+
+        def draft_dataset
+          @draft_dataset ||= gobierto_data_datasets(:draft_dataset)
         end
 
         def test_regular_admin_permissions_not_authorized
@@ -102,6 +107,17 @@ module GobiertoAdmin
               assert has_message?("Dataset updated correctly.")
               assert has_select?("Category", selected: "Economy")
             end
+          end
+        end
+
+        def publish_dataset
+          with(site: site, admin: admin, js: true) do
+            within ".widget_save" do
+              find("label", text: "Published").click
+            end
+            click_button "Update"
+
+            assert has_message?("Dataset updated correctly.")
           end
         end
       end

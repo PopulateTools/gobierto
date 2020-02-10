@@ -109,16 +109,16 @@ module GobiertoData
           elsif find_query.present?
             @query.visualizations.open
           else
-            current_site.visualizations.open
+            current_site.visualizations.send(valid_preview_token? ? :itself : :active).open
           end
         end
 
         def find_query
-          @query = current_site.queries.find_by(id: params[:query_id])
+          @query = current_site.queries.send(valid_preview_token? ? :itself : :active).find_by(id: params[:query_id])
         end
 
         def find_dataset
-          @dataset = current_site.datasets.find_by(id: params[:dataset_id])
+          @dataset = current_site.datasets.send(valid_preview_token? ? :itself : :active).find_by(id: params[:dataset_id])
         end
 
         def visualization_params

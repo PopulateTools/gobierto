@@ -54,6 +54,7 @@ module GobiertoAdmin
         config = db_config_format
 
         ::GobiertoData::Connection.test_connection_config(config, :read_db_config)
+        ::GobiertoData::Connection.test_connection_config(config, :read_draft_db_config) if config&.has_key?(:read_draft_db_config)
         ::GobiertoData::Connection.test_connection_config(config, :write_db_config) if config&.has_key?(:write_db_config)
       rescue ActiveRecord::ActiveRecordError => e
         errors.add(:db_config, :invalid_connection, error_message: e.message)
@@ -91,7 +92,7 @@ module GobiertoAdmin
         config = db_config_format
         return config if config.blank?
 
-        config.has_key?(:read_db_config) ? config.slice(:read_db_config, :write_db_config) : { read_db_config: config }
+        config.has_key?(:read_db_config) ? config.slice(:read_db_config, :read_draft_db_config, :write_db_config) : { read_db_config: config }
       end
 
     end

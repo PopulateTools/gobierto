@@ -42,6 +42,7 @@ module GobiertoData
             dataset.slug,
             dataset.table_name,
             dataset.data_updated_at.to_s,
+            dataset.rails_model&.columns_hash&.transform_values(&:type)&.to_s,
             GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_category)&.value_string
           ]
         end
@@ -68,6 +69,10 @@ module GobiertoData
             datasets_names = response_data["data"].map { |item| item.dig("attributes", "name") }
             assert_includes datasets_names, dataset.name
             refute_includes datasets_names, other_site_dataset.name
+            first_item_keys = response_data["data"].first["attributes"].keys
+            %w(name slug data_updated_at columns).each do |attribute|
+              assert_includes first_item_keys, attribute
+            end
             assert response_data.has_key? "links"
             assert_includes response_data["links"].values, gobierto_data_api_v1_datasets_path
             assert_includes response_data["links"].values, meta_gobierto_data_api_v1_datasets_path
@@ -85,7 +90,7 @@ module GobiertoData
             parsed_csv = CSV.parse(response_data).map { |row| row.map(&:to_s) }
 
             assert_equal active_datasets_count + 1, parsed_csv.count
-            assert_equal %w(id name slug table_name data_updated_at category), parsed_csv.first
+            assert_equal %w(id name slug table_name data_updated_at columns category), parsed_csv.first
             assert_includes parsed_csv, array_data(dataset)
             refute_includes parsed_csv, array_data(other_site_dataset)
           end
@@ -119,7 +124,7 @@ module GobiertoData
             assert_equal 1, parsed_xlsx.worksheets.count
             sheet = parsed_xlsx.worksheets.first
             assert_nil sheet[active_datasets_count + 1]
-            assert_equal %w(id name slug table_name data_updated_at category), sheet[0].cells.map(&:value)
+            assert_equal %w(id name slug table_name data_updated_at columns category), sheet[0].cells.map(&:value)
             values = (1..active_datasets_count).map do |row_number|
               sheet[row_number].cells.map { |cell| cell.value.to_s }
             end
@@ -189,8 +194,9 @@ module GobiertoData
             assert_equal resource_data["id"], dataset.id.to_s
 
             # attributes
-            %w(name slug updated_at data_summary columns formats data_preview).each do |attribute|
-              resource_data["attributes"].has_key? attribute
+            attributes_keys = resource_data["attributes"].keys
+            %w(name slug data_updated_at data_summary columns formats data_preview).each do |attribute|
+              assert_includes attributes_keys, attribute
             end
             assert resource_data["attributes"].has_key?(datasets_category.uid)
 

@@ -22,7 +22,6 @@
 <script>
 import Sidebar from "./../components/Sidebar.vue";
 import Nav from "./../components/Nav.vue";
-
 export default {
   components: {
     Sidebar,

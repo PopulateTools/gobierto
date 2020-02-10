@@ -16,9 +16,7 @@ export class GobiertoDataController {
     if (entryPoint) {
       const htmlRouterBlock = `
         <keep-alive>
-          <transition name="fade" mode="out-in">
-            <router-view :key="$route.fullPath"></router-view>
-          </transition>
+          <router-view :key="$route.fullPath"></router-view>
         </keep-alive>
       `;
 
@@ -26,6 +24,11 @@ export class GobiertoDataController {
 
       const Home = () => import("../webapp/pages/Home.vue");
       const Sets = () => import("../webapp/pages/Sets.vue");
+      const Summary = () => import("../webapp/components/sets/Summary.vue");
+      const Editor = () => import("../webapp/components/sets/Data.vue");
+      const Queries = () => import("../webapp/components/sets/Queries.vue");
+      const Visualizations = () => import("../webapp/components/sets/Visualizations.vue");
+      const Downloads = () => import("../webapp/components/sets/Downloads.vue");
 
 
       const router = new VueRouter({
@@ -37,7 +40,34 @@ export class GobiertoDataController {
           {
             path: "/datos/:id",
             name: "dataset",
-            component: Sets
+            component: Sets,
+            children: [
+             {
+               path: "/datos/:id/resumen",
+               name: "resumen",
+               component: Summary
+             },
+             {
+               path: "/datos/:id/editor",
+               name: "editor",
+               component: Editor
+             },
+             {
+               path: "/datos/:id/consultas",
+               name: "consultas",
+               component: Queries
+             },
+             {
+               path: "/datos/:id/visualizaciones",
+               name: "visualizaciones",
+               component: Visualizations
+             },
+             {
+               path: "/datos/:id/descarga",
+               name: "descarga",
+               component: Downloads
+             }
+           ]
           }
         ]
       })

@@ -5,6 +5,7 @@
       :table-name="tableName"
       :dataset-id="datasetId"
       :array-queries="arrayQueries"
+      :public-queries="publicQueries"
       :array-formats="arrayFormats"
     />
   </div>
@@ -27,6 +28,10 @@ export default {
       required: true
     },
     arrayQueries: {
+      type: Array,
+      required: true
+    },
+    publicQueries: {
       type: Array,
       required: true
     },

@@ -3,6 +3,7 @@
     <NavDatasets
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
+      :public-queries="publicQueries"
       :array-formats="arrayFormats"
       :table-name="tableName"
       :dataset-id="datasetId"
@@ -26,6 +27,10 @@ export default {
       default: 0
     },
     arrayQueries: {
+      type: Array,
+      required: true
+    },
+    publicQueries: {
       type: Array,
       required: true
     },

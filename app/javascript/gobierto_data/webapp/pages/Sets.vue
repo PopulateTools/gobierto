@@ -19,6 +19,7 @@
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
         :array-formats="arrayFormats"
+        :public-queries="publicQueries"
         :table-name="tableName"
         :dataset-id="datasetId"
         :title-dataset="titleDataset"
@@ -54,6 +55,7 @@ export default {
       rawData: '',
       titleDataset: '',
       arrayQueries: [],
+      publicQueries: [],
       datasetId: 0,
       tableName: '',
       arrayFormats: {}
@@ -98,6 +100,7 @@ export default {
           this.$root.$emit('nameDataset', this.titleDataset)
 
           this.getQueries()
+          this.getPublicQueries()
         })
         .catch(error => {
           console.error(error)
@@ -116,7 +119,21 @@ export default {
         .catch(error => {
           console.error(error)
         })
-    }
+    },
+    getPublicQueries() {
+     this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
+     axios
+       .get(this.endPoint)
+       .then(response => {
+         this.rawData = response.data
+         this.items = this.rawData.data
+         this.publicQueries = this.items
+       })
+       .catch(error => {
+         const messageError = error.response
+         console.error(messageError)
+       })
+   }
   }
 }
 

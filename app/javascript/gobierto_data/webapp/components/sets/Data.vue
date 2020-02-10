@@ -40,8 +40,9 @@ export default {
       required: true
     }
   },
-  beforeRouteEnter (to, from, next) {
-    const id = to.params.id
+  beforeRouteLeave (to, from, next) {
+    const id = to.params
+    console.log("id", id);
     next()
   }
 }

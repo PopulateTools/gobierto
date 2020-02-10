@@ -566,6 +566,7 @@ Rails.application.routes.draw do
         get "/datos/:id/resumen" => "welcome#index"
         get "/datos/:id/editor" => "welcome#index"
         get "/datos/:id/consultas" => "welcome#index"
+        get "/datos/:id/q/:queryId" => "welcome#index"
         get "/datos/:id/visualizaciones" => "welcome#index"
         get "/datos/:id/descarga" => "welcome#index"
 

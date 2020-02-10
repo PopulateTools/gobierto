@@ -15,15 +15,18 @@
           <slot name="sidebar" />
         </template>
       </Sidebar>
-      <DataSets
-        :active-tab="activeTabIndex"
-        :array-queries="arrayQueries"
-        :array-formats="arrayFormats"
-        :public-queries="publicQueries"
-        :table-name="tableName"
-        :dataset-id="datasetId"
-        :title-dataset="titleDataset"
-      />
+      <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
+        <NavDatasets
+          :active-tab="activeTabIndex"
+          :array-queries="arrayQueries"
+          :public-queries="publicQueries"
+          :array-formats="arrayFormats"
+          :table-name="tableName"
+          :dataset-id="datasetId"
+          :title-dataset="titleDataset"
+          @active-tab="activeTabIndex = $event"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -31,7 +34,7 @@
 import axios from 'axios'
 import { getUserId } from "./../../lib/helpers"
 import { baseUrl } from "./../../lib/commons"
-import DataSets from "./DataSets.vue";
+import NavDatasets from "./../components/sets/Nav.vue";
 import Sidebar from "./../components/Sidebar.vue";
 import Nav from "./../components/Nav.vue";
 
@@ -40,7 +43,7 @@ export default {
   components: {
     Sidebar,
     Nav,
-    DataSets
+    NavDatasets
   },
   props: {
     activeTab: {
@@ -50,7 +53,6 @@ export default {
   },
   data() {
     return {
-      activeTabIndex: 0,
       activeTabSidebar: 1,
       rawData: '',
       titleDataset: '',
@@ -58,16 +60,25 @@ export default {
       publicQueries: [],
       datasetId: 0,
       tableName: '',
-      arrayFormats: {}
+      arrayFormats: {},
+      activeTabIndex: this.$route.params.activeTab
     }
   },
   beforeRouteEnter (to, from, next) {
     const id = to.params.id
-    next(vm => vm.getData(id))
+
+    next((vm) => {
+      vm.getData(id)
+    })
+
   },
   created() {
     this.userId = getUserId()
     this.$root.$on('reloadQueries', this.getQueries)
+    this.$root.$on('tabDownload', (value) => {
+      console.log("value", value);
+      this.activeTabIndex = value
+    })
     this.getData(this.$route.params.id)
   },
   methods: {

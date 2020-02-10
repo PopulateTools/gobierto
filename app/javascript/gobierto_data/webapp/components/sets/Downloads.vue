@@ -26,7 +26,16 @@ export default {
   props: {
     arrayFormats: {
       type: Object,
-      required: true
+      required: true,
+      activeTabIndex: 0
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    console.log("from", from);
+    console.log("to", to);
+    if (to.name === 'descarga') {
+      vm => vm.activeTabIndex = 4
+      next()
     }
   },
   data() {
@@ -39,6 +48,11 @@ export default {
           }
         }
       ]
+    }
+  },
+  methods: {
+    consoleL() {
+      console.log(this.activeTabIndex)
     }
   }
 }

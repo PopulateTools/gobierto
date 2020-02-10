@@ -43,7 +43,7 @@
           <a
             :href="'/datos/' + item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
-            @click.prevent="nav(item.attributes.slug, item.attributes.name)"
+            @click.prevent="nav(item.attributes.slug, item.attributes.name, index)"
           >{{ item.attributes.name }}
           </a>
           <div
@@ -161,13 +161,14 @@ export default {
     activateTab(index) {
       this.$emit("active-tab", index);
     },
-    nav(slugDataset, nameDataset) {
+    nav(slugDataset, nameDataset, index) {
       this.toggle = 0
       this.$router.push({
         name: "dataset",
         params: {
           id: slugDataset,
-          title: nameDataset
+          title: nameDataset,
+          activeTab: index
         }
     }, () => {})
     }

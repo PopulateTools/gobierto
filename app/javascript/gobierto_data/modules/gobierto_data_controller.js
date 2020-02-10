@@ -36,11 +36,13 @@ export class GobiertoDataController {
         routes: [{
             path: "/datos",
             name: "home",
+            props: true,
             component: Home
           },
           {
             path: "/datos/:id",
             name: "dataset",
+            props: true,
             component: Sets,
             children: [
              {
@@ -67,6 +69,11 @@ export class GobiertoDataController {
                path: "descarga",
                name: "descarga",
                component: Downloads
+             },
+             {
+               path: "q/:queryId",
+               name: "queries",
+               component: Editor
              }
            ]
           }

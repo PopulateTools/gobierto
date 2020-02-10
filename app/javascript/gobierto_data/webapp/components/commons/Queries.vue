@@ -22,12 +22,13 @@
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
           >
-            <span
+            <a
+              :href="'/datos/' + pathQueries + '/q/' + index"
               class="gobierto-data-summary-queries-container-name"
               @click="handleQueries(arrayQueries[index].attributes.sql, item)"
             >
               {{ item.attributes.name }}
-            </span>
+            </a>
             <div
               class="gobierto-data-summary-queries-container-icon"
             >
@@ -154,7 +155,8 @@ export default {
       filterId: '',
       url: '',
       endPointDelete: '',
-      numberId: ''
+      numberId: '',
+      pathQueries: this.$parent.$root._route.params.id
     }
   },
   created() {
@@ -267,6 +269,16 @@ export default {
         setTimeout(() => {
           this.showSpinner = false
         }, 300)
+    },
+    nav(index) {
+      this.$router.push({
+        name: "queries",
+        params: {
+          queryId: index,
+          tabActive: 1
+        }
+    }, () => {})
+      this.changeTab()
     }
   }
 }

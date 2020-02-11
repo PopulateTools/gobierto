@@ -11,8 +11,19 @@ module GobiertoData
       slug = object.slug
       {
         data: gobierto_data_api_v1_dataset_path(slug),
-        metadata: meta_gobierto_data_api_v1_dataset_path(slug)
+        metadata: meta_gobierto_data_api_v1_dataset_path(slug),
+        stats: stats_gobierto_data_api_v1_dataset_path(slug)
       }
+    end
+
+    attribute :columns do
+      if model_present?
+        object.rails_model.columns.inject({}) do |columns, column|
+          columns.update(
+            column.name => column.type
+          )
+        end
+      end
     end
 
     def current_site
@@ -21,6 +32,10 @@ module GobiertoData
 
     def exclude_links?
       instance_options[:exclude_links]
+    end
+
+    def model_present?
+      object.rails_model.present? && object.rails_model.table_exists?
     end
 
   end

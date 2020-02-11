@@ -57,12 +57,13 @@
             mode="out-in"
           >
             <Queries
+              v-show="!isHidden"
               v-closable="{
                 exclude: ['button'],
                 handler: 'closeYourQueries'
               }"
-              v-show="!isHidden"
               :array-queries="arrayQueries"
+              :public-queries="publicQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
             />
@@ -186,7 +187,15 @@ export default {
       type: Array,
       required: true
     },
+    publicQueries: {
+      type: Array,
+      required: true
+    },
     datasetId: {
+      type: Number,
+      required: true
+    },
+    numberRows: {
       type: Number,
       required: true
     }
@@ -310,7 +319,6 @@ export default {
         this.privateQuery = true
       }
 
-      this.runQuery()
     },
     privateQueryValue(valuePrivate) {
       this.disabledSave = false
@@ -392,8 +400,19 @@ export default {
     runQuery() {
       this.showSpinner = true;
       this.queryEditor = encodeURI(this.codeQuery)
+
+      if (this.queryEditor.includes('LIMIT')) {
+        this.queryEditor = this.queryEditor
+        this.$root.$emit('hiddeShowButtonColumns')
+      } else {
+        this.$root.$emit('ShowButtonColumns')
+        this.$root.$emit('sendCompleteQuery', this.queryEditor)
+        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
+        this.queryEditor = this.code
+      }
+
       this.$root.$emit('postRecentQuery', this.codeQuery)
-      this.$root.$emit('showMessages', false)
+      this.$root.$emit('showMessages', false, true)
 
       this.endPoint = `${baseUrl}/data`
       this.url = `${this.endPoint}?sql=${this.queryEditor}`
@@ -413,12 +432,13 @@ export default {
 
           this.$root.$emit('recordsDuration', this.queryDurationRecors)
           this.$root.$emit('sendData', this.keysData, this.data)
-          this.$root.$emit('showMessages', true)
+          this.$root.$emit('showMessages', true, false)
 
         })
         .catch(error => {
           const messageError = error.response.data.errors[0].sql
           this.$root.$emit('apiError', messageError)
+
 
           this.data = []
           this.keysData = []

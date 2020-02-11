@@ -14,4 +14,12 @@ class GobiertoModuleSettings < ApplicationRecord
     end
   end
 
+  def public_api_settings
+    self.settings ||= {}
+
+    self.settings.select do |_, value|
+      value.is_a?(Hash) && value.fetch("exposed_in_public_api", false)
+    end
+  end
+
 end

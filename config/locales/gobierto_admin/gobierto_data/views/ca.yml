@@ -20,8 +20,10 @@ ca:
         index:
           header:
             name: Nom
+            status: Estat
             table_name: Nom de la taula
           new: Nou
           title: Conjunts de dades
+          view_dataset: Veure conjunt de dades
         new:
           title: Nou conjunt de dades

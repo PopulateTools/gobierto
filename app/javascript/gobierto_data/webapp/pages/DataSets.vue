@@ -3,7 +3,9 @@
     <NavDatasets
       :active-tab="activeTabIndex"
       :array-queries="arrayQueries"
+      :public-queries="publicQueries"
       :array-formats="arrayFormats"
+      :number-rows="numberRows"
       :table-name="tableName"
       :dataset-id="datasetId"
       :title-dataset="titleDataset"
@@ -13,8 +15,8 @@
 </template>
 <script>
 import axios from 'axios'
-import { baseUrl } from "./../../lib/commons"
 import { getUserId } from "./../../lib/helpers"
+import { baseUrl } from "./../../lib/commons"
 import NavDatasets from "./../components/sets/Nav.vue"
 
 export default {
@@ -28,6 +30,8 @@ export default {
       rawData: '',
       titleDataset: '',
       arrayQueries: [],
+      publicQueries: [],
+      numberRows: 0,
       datasetId: 0,
       tableName: '',
       arrayFormats:{}
@@ -53,6 +57,20 @@ export default {
           console.error(messageError)
         })
     },
+    getPublicQueries() {
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
+      axios
+        .get(this.endPoint)
+        .then(response => {
+          this.rawData = response.data
+          this.items = this.rawData.data
+          this.publicQueries = this.items
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
+    },
     getData() {
       this.url = `${baseUrl}/datasets/${this.$route.params.id}/meta`
       axios
@@ -64,10 +82,12 @@ export default {
           this.slugDataset = this.rawData.data.attributes.slug
           this.tableName = this.rawData.data.attributes.table_name
           this.arrayFormats = this.rawData.data.attributes.formats
+          this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
 
           this.$root.$emit('nameDataset', this.titleDataset)
 
           this.getQueries()
+          this.getPublicQueries()
         })
         .catch(error => {
           console.error(error)
@@ -75,5 +95,4 @@ export default {
     }
   }
 }
-
 </script>

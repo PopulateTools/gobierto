@@ -63,6 +63,7 @@
               }"
               v-show="!isHidden"
               :array-queries="arrayQueries"
+              :public-queries="publicQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
             />
@@ -186,8 +187,8 @@ export default {
       type: Array,
       required: true
     },
-    datasetId: {
-      type: Number,
+    publicQueries: {
+      type: Array,
       required: true
     }
   },
@@ -320,10 +321,6 @@ export default {
       this.showBtnSave = activeLabel;
       this.showBtnEdit = disableLabel;
       this.disableInputName = disableLabel;
-    },
-    privateQueryValue(valuePrivate) {
-      this.disabledSave = false
-      this.privateQuery = valuePrivate
     },
     saveQueryName() {
       this.showSaveQueries = true

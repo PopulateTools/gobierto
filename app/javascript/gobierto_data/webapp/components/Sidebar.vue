@@ -161,7 +161,7 @@ export default {
     activateTab(index) {
       this.$emit("active-tab", index);
     },
-    nav(slugDataset, nameDataset, index) {
+    nav(slugDataset, nameDataset) {
       this.toggle = 0
       this.$router.push({
         name: "dataset",

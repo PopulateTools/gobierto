@@ -45,7 +45,6 @@ export class GobiertoDataController {
             name: "dataset",
             props: true,
             component: Sets,
-            linkActiveClass: 'active',
             children: [
              {
                path: "",
@@ -55,6 +54,7 @@ export class GobiertoDataController {
              {
                path: "editor",
                name: "editor",
+               props: true,
                component: Editor
              },
              {

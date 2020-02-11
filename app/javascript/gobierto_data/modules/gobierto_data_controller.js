@@ -30,12 +30,14 @@ export class GobiertoDataController {
         mode: "history",
         routes: [{
             path: "/datos",
-            name: "home", component: Home
+            name: "home",
+            component: Home
           },
           {
             path: "/datos/:id",
             name: "dataset",
-            component: Sets
+            component: Sets,
+            props: true
           }
         ]
       })

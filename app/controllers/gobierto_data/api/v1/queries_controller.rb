@@ -34,7 +34,7 @@ module GobiertoData
         # GET /api/v1/data/queries/1.xlsx
         def show
           find_item
-          query_result = @item.result
+          query_result = @item.result(include_draft: valid_preview_token?)
           respond_to do |format|
             format.json do
               render(
@@ -63,7 +63,7 @@ module GobiertoData
         # GET /api/v1/data/queries/1/download.xlsx
         def download
           find_item
-          query_result = @item.result
+          query_result = @item.result(include_draft: valid_preview_token?)
           basename = @item.file_basename
           respond_to do |format|
             format.json do
@@ -160,12 +160,12 @@ module GobiertoData
           if find_dataset.present?
             @dataset.queries.open
           else
-            current_site.queries.open
+            current_site.queries.send(valid_preview_token? ? :itself : :active).open
           end
         end
 
         def find_dataset
-          @dataset = current_site.datasets.find_by(id: params[:dataset_id])
+          @dataset = current_site.datasets.send(valid_preview_token? ? :itself : :active).find_by(id: params[:dataset_id])
         end
 
         def query_params

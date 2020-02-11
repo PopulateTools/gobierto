@@ -18,3 +18,10 @@ events_count_query:
   name_translations: <%= { en: "Published events", es: "Eventos publicados" }.to_json %>
   privacy_status: <%= GobiertoData::Query.privacy_statuses["open"] %>
   sql: "select * from events where state = <%= GobiertoCalendars::Event.states["published"] %>"
+
+draft_dataset_query:
+  dataset: draft_dataset
+  user: dennis
+  name_translations: <%= { en: "Interest Groups by domain", es: "Grupos de interés por dominio" }.to_json %>
+  privacy_status: <%= GobiertoData::Query.privacy_statuses["open"] %>
+  sql: "select sites.domain, count(*) from gp_interest_groups join sites on gp_interest_groups.site_id = sites.id group by sites.domain"

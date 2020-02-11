@@ -9,6 +9,7 @@
       </div>
       <Sidebar
         :active-tab="activeTabSidebar"
+        :all-datasets="allDatasets"
         @active-tab="activeTabSidebar = $event"
       >
         <template v-slot:sidebar>
@@ -20,10 +21,8 @@
   </div>
 </template>
 <script>
-
 import Sidebar from "./../components/Sidebar.vue";
 import Nav from "./../components/Nav.vue";
-
 export default {
   components: {
     Sidebar,
@@ -32,7 +31,8 @@ export default {
   data() {
     return {
       activeTabIndex: 0,
-      activeTabSidebar: 0
+      activeTabSidebar: 0,
+      allDatasets: []
     }
   }
 }

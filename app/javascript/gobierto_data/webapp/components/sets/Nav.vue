@@ -64,12 +64,14 @@
       <Summary
         v-if="activeTab === 0"
         :array-queries="arrayQueries"
+        :public-queries="publicQueries"
         :array-formats="arrayFormats"
       />
       <Data
         v-else-if="activeTab === 1"
         :dataset-id="datasetId"
         :array-queries="arrayQueries"
+        :public-queries="publicQueries"
         :table-name="tableName"
         :array-formats="arrayFormats"
         :number-rows="numberRows"
@@ -77,6 +79,7 @@
       <Queries
         v-else-if="activeTab === 2"
         :array-queries="arrayQueries"
+        :public-queries="publicQueries"
       />
       <Visualizations v-else-if="activeTab === 3" />
       <Downloads
@@ -122,6 +125,10 @@ export default {
       type: Number,
       required: true
     },
+    publicQueries: {
+      type: Array,
+      required: true
+    },
     arrayFormats: {
       type: Object,
       required: true
@@ -144,7 +151,8 @@ export default {
       labelDownload: "",
       labelFav: "",
       labelFollow: "",
-      slugName: ''
+      slugName: '',
+      title: ''
     }
   },
   created() {
@@ -158,7 +166,6 @@ export default {
 
     this.$root.$on('changeNavTab', this.changeTab)
     this.$root.$on('activeTabIndex', this.changeTab)
-
 
     this.slugName = this.$route.params.id
   },

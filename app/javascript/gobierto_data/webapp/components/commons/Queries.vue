@@ -24,7 +24,7 @@
           >
             <span
               class="gobierto-data-summary-queries-container-name"
-              @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item); closeModal(); changeTab()"
+              @click="handleQueries(arrayQueries[index].attributes.sql, item)"
             >
               {{ item.attributes.name }}
             </span>
@@ -72,16 +72,16 @@
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
-            {{ labelAll }} ({{ arrayQueries.length + numberFavQueries }})
+            {{ labelAll }} ({{ publicQueries.length }})
           </h3>
           <div
-            v-for="(item, index) in arrayQueries"
+            v-for="(item, index) in publicQueries"
             v-show="showYourTotalQueries"
             :key="index"
             class="gobierto-data-summary-queries-container"
-            @mouseover="showCode(index)"
+            @mouseover="showCodePublic(index)"
             @mouseleave="hideCode = true"
-            @click="handleQueries(arrayQueries[index].attributes.sql, item)"
+            @click="handleQueries(publicQueries[index].attributes.sql, item)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
             <!-- <i
@@ -126,6 +126,10 @@ export default {
   name: "Queries",
   props: {
     arrayQueries: {
+      type: Array,
+      required: true
+    },
+    publicQueries: {
       type: Array,
       required: true
     }
@@ -178,6 +182,10 @@ export default {
     showCode(index) {
       this.hideCode = false
       this.sqlCode = this.arrayQueries[index].attributes.sql
+    },
+    showCodePublic(index) {
+      this.hideCode = false
+      this.sqlCode = this.publicQueries[index].attributes.sql
     },
     sendQuery(item) {
       this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql ]

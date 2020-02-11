@@ -3,6 +3,7 @@
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
         :array-queries="arrayQueries"
+        :public-queries="publicQueries"
         :dataset-id="datasetId"
         :number-rows="numberRows"
       />
@@ -44,6 +45,10 @@ export default {
       required: true
     },
     arrayQueries: {
+      type: Array,
+      required: true
+    },
+    publicQueries: {
       type: Array,
       required: true
     },

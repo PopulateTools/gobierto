@@ -7,10 +7,12 @@
           @active-tab="activeTabTopIndex = $event"
         />
       </div>
-      <Sidebar
-        :active-tab="activeTabSidebar"
-        @active-tab="activeTabSidebar = $event"
-      />
+      <keep-alive>
+        <Sidebar
+          :active-tab="activeTabSidebar"
+          @active-tab="activeTabSidebar = $event"
+        />
+      </keep-alive>
       <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
         <NavDatasets
           :active-tab="activeTabIndex"
@@ -75,6 +77,8 @@ export default {
         vm.activeTabIndex = 3
       } else if (to.name === 'descarga') {
         vm.activeTabIndex = 4
+      } else if (to.name === 'queries') {
+        this.activeTabIndex = 2
       }
     })
   },
@@ -89,6 +93,8 @@ export default {
       this.activeTabIndex = 3
     } else if (to.name === 'descarga') {
       this.activeTabIndex = 4
+    } else if (to.name === 'queries') {
+      this.activeTabIndex = 2
     }
     next()
   },

@@ -7,6 +7,7 @@
       :array-queries="arrayQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
+      :number-rows="numberRows"
     />
   </div>
 </template>
@@ -29,6 +30,10 @@ export default {
     },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    numberRows: {
+      type: Number,
       required: true
     },
     publicQueries: {

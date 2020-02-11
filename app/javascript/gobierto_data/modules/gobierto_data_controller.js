@@ -50,11 +50,11 @@ export class GobiertoDataController {
           Vue.nextTick(() => {
             let title = baseTitle;
             if (to.name === "dataset") {
-              const { title: projectTitle } = to.params;
+              const { titleDataset: dataset } = to.params;
 
-              if (projectTitle) {
-                const titleI18n = projectTitle
-                  ? `${projectTitle} · `
+              if (dataset) {
+                const titleI18n = dataset
+                  ? `${dataset} · `
                   : "";
 
                 title = `${titleI18n}${baseTitle}`;

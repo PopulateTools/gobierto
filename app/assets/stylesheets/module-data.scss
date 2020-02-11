@@ -920,8 +920,19 @@
     cursor: pointer;
   }
 
+  .btn-sql-show-all {
+    display: block;
+    margin: 1rem auto;
+    padding: 0.5rem;
+  }
+
   .rotate-caret {
     transform: rotate(270deg);
+  }
+
+  &-sql-editor-footer {
+    display: inline-block;
+    width: max-content;
   }
 
 }

@@ -44,7 +44,10 @@
       :number-rows="numberRows"
       :table-name="tableName"
     />
-    <SQLEditorVisualizations v-if="activeTab === 1" />
+    <SQLEditorVisualizations
+      v-if="activeTab === 1"
+      :items="items"
+    />
   </div>
 </template>
 <script>

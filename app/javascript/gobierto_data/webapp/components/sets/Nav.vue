@@ -74,8 +74,12 @@
   </div>
 </template>
 <script>
+import Button from './../commons/Button.vue';
 export default {
   name: "NavSets",
+  components: {
+    Button
+  },
   props: {
     activeTab: {
       type: Number,

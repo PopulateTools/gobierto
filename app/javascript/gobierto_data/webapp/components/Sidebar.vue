@@ -43,7 +43,7 @@
           <a
             :href="'/datos/' + item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
-            @click.stop="nav(item.attributes.slug, item.attributes.name, index)"
+            @click="nav(item.attributes.slug, item.attributes.name, index)"
           >{{ item.attributes.name }}
           </a>
           <div

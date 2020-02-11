@@ -8,10 +8,11 @@ module GobiertoData
 
     class << self
 
-      def execute_query(site, query, include_stats: true, write: false)
-        connection_key = write ? :write_db_config : :read_db_config
+      def execute_query(site, query, include_stats: true, write: false, include_draft: false)
+        with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(write, include_draft)) do
+          connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if write
+          connection.execute("SET search_path TO draft, public") if write || include_draft
 
-        with_connection(db_config(site), fallback: null_query, connection_key: connection_key) do
           event = nil
           if include_stats
             ActiveSupport::Notifications.subscribe("sql.active_record") do |name, start, finish, id, payload|
@@ -34,10 +35,12 @@ module GobiertoData
         failed_query(e.message)
       end
 
-      def execute_write_query_from_file_using_stdin(site, query, file_path: nil)
+      def execute_write_query_from_file_using_stdin(site, query, file_path: nil, include_draft: false)
         return unless file_path.present?
 
         with_connection(db_config(site), fallback: null_query, connection_key: :write_db_config) do
+          connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if include_draft
+
           raw_connection = connection.raw_connection
 
           execution = raw_connection.copy_data(query) do
@@ -51,8 +54,9 @@ module GobiertoData
         failed_query(e.message)
       end
 
-      def tables(site)
-        with_connection(db_config(site)) do
+      def tables(site, include_draft: false)
+        with_connection(db_config(site), connection_key: connection_key_from_options(false, include_draft)) do
+          connection.execute("SET search_path TO draft, public") if include_draft
           connection.tables
         end
       end
@@ -78,6 +82,12 @@ module GobiertoData
         yield
       ensure
         establish_connection(base_connection_config)
+      end
+
+      def connection_key_from_options(write, include_draft)
+        access_mode_key = write ? "write_" : "read_"
+        draft_key = include_draft && !write ? "draft_" : ""
+        :"#{access_mode_key}#{draft_key}db_config"
       end
 
       def null_query

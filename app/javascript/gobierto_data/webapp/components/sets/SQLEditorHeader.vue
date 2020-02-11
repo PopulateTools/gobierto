@@ -241,6 +241,7 @@ export default {
       token: '',
       noLogin: false,
       queryId: '',
+      userIdQuery: '',
       oldQueryName: ''
     }
   },
@@ -312,6 +313,7 @@ export default {
       this.privacyStatus = queryParams[1]
       this.codeQuery = queryParams[2]
       this.queryId = parseInt(queryParams[3])
+      this.userIdQuery = queryParams[3]
 
       if (this.privacyStatus === 'open') {
         this.privateQuery = false
@@ -462,7 +464,7 @@ export default {
     postQuery() {
       this.endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
-      if (this.oldQueryName === this.labelQueryName) {
+      if (this.oldQueryName === this.labelQueryName && this.getUserId === this.userIdQuery) {
         this.endPoint = `${baseUrl}/queries/${this.queryId}`
         let dataUpdate = {
             "data": {

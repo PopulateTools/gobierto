@@ -191,7 +191,7 @@ export default {
       this.sqlCode = this.publicQueries[index].attributes.sql
     },
     sendQuery(item) {
-      this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql, item.id ]
+      this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql, item.id, item.attributes.user_id ]
       this.queryCode = item.attributes.sql
       this.$root.$emit('sendQueryParams', this.queryParams)
       this.$root.$emit('sendQueryCode', this.queryCode)

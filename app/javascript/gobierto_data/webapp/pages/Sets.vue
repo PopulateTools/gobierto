@@ -61,10 +61,7 @@ export default {
       arrayFormats: {}
     }
   },
-  beforeRouteEnter (to, from, next) {
-    const id = to.params.id
-    next(vm => vm.getData(id))
-  },
+
   created() {
     this.userId = getUserId()
     this.$root.$on('reloadQueries', this.getQueries)

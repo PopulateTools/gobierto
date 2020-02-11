@@ -67,7 +67,7 @@ export default {
       meta:[],
       links:[],
       link: '',
-      queryEditor: '',
+      queryEditor: `SELECT%20*%20FROM%20${this.tableName}%20`,
       url: '',
       endPoint: '',
       recentQueries: [],
@@ -87,7 +87,6 @@ export default {
   },
   mounted() {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
-    this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
     this.getData()
   },
   methods: {
@@ -120,7 +119,6 @@ export default {
     getData() {
       this.endPoint = `${baseUrl}/data`
       this.url = `${this.endPoint}?sql=${this.queryEditor}`
-
       axios
         .get(this.url)
         .then(response => {

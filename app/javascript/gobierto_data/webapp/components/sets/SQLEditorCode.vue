@@ -56,7 +56,7 @@ export default {
   },
   data() {
     return {
-      code: '',
+      code: `SELECT * FROM ${this.tableName}`,
       labelGuide: '',
       labelQueryExecuted: '',
       labelRecords: '',
@@ -104,8 +104,6 @@ export default {
     this.$root.$emit('activateModalRecent')
 
     this.$root.$on('sendYourCode', this.queryCode);
-
-    this.code = `SELECT * FROM ${this.tableName}`
   },
   mounted() {
     this.cm = this.$refs.myCm.codemirror;

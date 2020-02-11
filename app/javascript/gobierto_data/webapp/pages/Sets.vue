@@ -66,7 +66,6 @@ export default {
   beforeRouteEnter (to, from, next) {
     const id = to.params.id
     next((vm) => {
-      vm.getData(id)
       if (to.name === 'resumen') {
         vm.activeTabIndex = 0
       } else if (to.name === 'editor') {
@@ -78,7 +77,7 @@ export default {
       } else if (to.name === 'descarga') {
         vm.activeTabIndex = 4
       } else if (to.name === 'queries') {
-        this.activeTabIndex = 2
+        vm.activeTabIndex = 1
       }
     })
   },
@@ -94,7 +93,7 @@ export default {
     } else if (to.name === 'descarga') {
       this.activeTabIndex = 4
     } else if (to.name === 'queries') {
-      this.activeTabIndex = 2
+      this.activeTabIndex = 1
     }
     next()
   },

@@ -68,8 +68,8 @@ export default {
     }
   },
   watch:{
-    items: function(){
-      this.mutableList = JSON.parse(this.items);
+    items: function(newValue){
+      this.mutableList = JSON.parse(newValue);
     }
   },
   mounted() {

@@ -22,19 +22,19 @@
           :key="index"
           :item="item"
         >
-          <div
+          <template
             v-for="(item, key, index) in arrayFormats"
-            :key="index"
-            :item="item"
           >
             <a
+              :key="index"
+              :item="item"
               :href="editor ? sqlfileCSV : item"
               :download="titleDataset"
               class="gobierto-data-btn-download-data-modal-element"
             >
               {{ key }}
             </a>
-          </div>
+          </template>
         </div>
       </transition>
     </keep-alive>

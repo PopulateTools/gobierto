@@ -256,6 +256,7 @@ export default {
     this.$root.$on('sendYourQuery', this.runYourQuery)
 
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
+    this.$root.$on('disableEdit', this.hideEdit)
 
 
     this.token = getToken()
@@ -265,6 +266,9 @@ export default {
     this.noLogin = this.userId === "" ? true : false
   },
   methods: {
+    hideEdit(){
+      this.showBtnEdit = false
+    },
     onSave(queryName) {
       this.disabledSave = false
       this.labelQueryName = queryName

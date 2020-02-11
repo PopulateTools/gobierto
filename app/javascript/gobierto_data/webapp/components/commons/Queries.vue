@@ -24,7 +24,7 @@
           >
             <span
               class="gobierto-data-summary-queries-container-name"
-              @click="handleQueries(arrayQueries[index].attributes.sql, item)"
+              @click="handleQueries(arrayQueries[index].attributes.sql, item, false)"
             >
               {{ item.attributes.name }}
             </span>
@@ -81,7 +81,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
-            @click="handleQueries(arrayQueries[index].attributes.sql, item)"
+            @click="handleQueries(arrayQueries[index].attributes.sql, item, true)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
             <!-- <i
@@ -166,11 +166,14 @@ export default {
     this.userId = getUserId()
   },
   methods: {
-    handleQueries(sql, item) {
+    handleQueries(sql, item, anonymusQuery) {
       this.runYourQuery(sql)
       this.sendQuery(item)
       this.closeModal()
       this.changeTab()
+      if (anonymusQuery === true) {
+        this.$root.$emit('disableEdit')
+      }
     },
     closeModal() {
       this.$root.$emit('closeQueriesModal');

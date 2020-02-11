@@ -5,6 +5,7 @@ users_dataset:
   slug: users-dataset
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
 
 events_dataset:
   site: madrid
@@ -13,6 +14,16 @@ events_dataset:
   slug: events-dataset
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
+
+draft_dataset:
+  site: madrid
+  name_translations: <%= { en: "Interest Groups", es: "Grupos de Interés" }.to_json %>
+  table_name: gp_interest_groups
+  slug: interest-groups-dataset
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+  visibility_level: <%= GobiertoData::Dataset.visibility_levels["draft"] %>
 
 santander_dataset:
   site: santander
@@ -21,3 +32,4 @@ santander_dataset:
   slug: santander-dataset
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+  visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>

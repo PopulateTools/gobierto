@@ -19,9 +19,7 @@ export default {
   data() {
     return {
       activeTabIndex: 0
-    };
-  },
-  methods: {
+    }
   }
 }
 </script>

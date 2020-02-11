@@ -153,6 +153,7 @@ gobierto_data_settings_madrid:
   settings: <%= {
     db_config: {
       read_db_config: Rails.configuration.database_configuration["test"],
+      read_draft_db_config: Rails.configuration.database_configuration["test"],
       write_db_config: Rails.configuration.database_configuration["test"]
     }
   }.to_json %>

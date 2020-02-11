@@ -72,12 +72,12 @@ module GobiertoData
           @other_dataset ||= gobierto_data_datasets(:events_dataset)
         end
 
-        def visualizations_count
-          @visualizations_count ||= site.visualizations.count
+        def active_visualizations_count
+          @active_visualizations_count ||= site.visualizations.active.count
         end
 
-        def open_visualizations_count
-          @open_visualizations_count ||= site.visualizations.open.count
+        def open_active_visualizations_count
+          @open_active_visualizations_count ||= site.visualizations.active.open.count
         end
 
         def attributes_data(visualization)
@@ -145,8 +145,8 @@ module GobiertoData
             response_data = response.parsed_body
 
             assert response_data.has_key? "data"
-            refute_equal visualizations_count, response_data["data"].count
-            assert_equal open_visualizations_count, response_data["data"].count
+            refute_equal active_visualizations_count, response_data["data"].count
+            assert_equal open_active_visualizations_count, response_data["data"].count
             visualizations_names = response_data["data"].map { |item| item.dig("attributes", "name") }
             assert_includes visualizations_names, open_visualization.name
             refute_includes visualizations_names, closed_visualization.name
@@ -167,8 +167,8 @@ module GobiertoData
             response_data = response.parsed_body
             parsed_csv = CSV.parse(response_data)
 
-            refute_equal visualizations_count + 1, parsed_csv.count
-            assert_equal open_visualizations_count + 1, parsed_csv.count
+            refute_equal active_visualizations_count + 1, parsed_csv.count
+            assert_equal open_active_visualizations_count + 1, parsed_csv.count
             assert_equal %w(id name privacy_status spec query_id user_id), parsed_csv.first
             assert_includes parsed_csv, array_data(open_visualization)
             refute_includes parsed_csv, array_data(closed_visualization)
@@ -202,9 +202,9 @@ module GobiertoData
 
             assert_equal 1, parsed_xlsx.worksheets.count
             sheet = parsed_xlsx.worksheets.first
-            assert_nil sheet[open_visualizations_count + 1]
+            assert_nil sheet[open_active_visualizations_count + 1]
             assert_equal %w(id name privacy_status spec query_id user_id), sheet[0].cells.map(&:value)
-            values = (1..open_visualizations_count).map do |row_number|
+            values = (1..open_active_visualizations_count).map do |row_number|
               sheet[row_number].cells.map { |cell| cell.value.to_s }
             end
             assert_includes values, array_data(open_visualization)

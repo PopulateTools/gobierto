@@ -876,9 +876,6 @@
   }
 
   &-sidebar-datasets-links {
-    font-size: 14px;
-    color: #000;
-    cursor: pointer;
 
     i {
       color: var(--color-base);
@@ -887,6 +884,40 @@
     &:hover {
       color: var(--color-base);
     }
+  }
+
+  &-sidebar-datasets-container-columns {
+    &::after {
+      content: '';
+      width: 100%;
+      border-bottom: 2px solid rgba(102, 102, 102, 0.2);
+      display: block;
+      margin: 1rem 0;
+    }
+  }
+
+  &-sidebar-datasets-name {
+    font-size: 14px;
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
+  }
+
+  &-sidebar-caret-icon {
+    color: var(--color-base);
+    cursor: pointer;
+  }
+
+  &-sidebar-datasets-links-columns {
+    font-size: 14px;
+    opacity: .5;
+    display: block;
+    padding-left: 1rem;
+  }
+
+  &-sidebar-icon {
+    color: var(--color-base);
+    cursor: pointer;
   }
 
   .rotate-caret {

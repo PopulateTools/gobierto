@@ -13,9 +13,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
-import { baseUrl } from "./../../lib/commons"
-import { getUserId } from "./../../lib/helpers"
+
 import NavDatasets from "./../components/sets/Nav.vue"
 
 export default {
@@ -92,5 +90,4 @@ export default {
     }
   }
 }
-
 </script>

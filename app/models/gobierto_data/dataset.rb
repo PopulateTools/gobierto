@@ -13,6 +13,8 @@ module GobiertoData
 
     translates :name
 
+    enum visibility_level: { draft: 0, active: 1 }
+
     validates :site, :name, :slug, :table_name, presence: true
     validates(
       :table_name,
@@ -22,27 +24,33 @@ module GobiertoData
       },
       length: { maximum: 50 }
     )
-    validates :slug, uniqueness: { scope: :site_id }
+    validates :slug, :table_name, uniqueness: { scope: :site_id }
+
+    before_save :set_schema, if: :will_save_change_to_visibility_level?
 
     def attributes_for_slug
       [name]
     end
 
     def available_formats
-      [:json, :csv, :xlsx]
+      [:csv, :json, :xlsx]
     end
 
     def rails_model
       @rails_model ||= begin
+                         return unless internal_rails_class_name
+
                          return Connection.const_get(internal_rails_class_name) if Connection.const_defined?(internal_rails_class_name)
 
                          db_config = Connection.db_config(site)
                          return if db_config.blank?
 
-                         db_config = db_config.fetch(:read_db_config, db_config)
+                         db_config = db_config.values_at(:read_draft_db_config, :read_db_config).compact.first || db_config
 
                          Class.new(Connection).tap do |connection_model|
                            Connection.const_set(internal_rails_class_name, connection_model)
+                           connection_model.connection.execute("SET search_path TO draft, public")
+
                            connection_model.establish_connection(db_config)
                            connection_model.table_name = table_name
                          end
@@ -67,6 +75,7 @@ module GobiertoData
       )
 
       query_result = Connection.execute_write_query_from_file_using_stdin(site, statements.sql_code, file_path: file_path)
+      set_schema
       touch(:data_updated_at) unless query_result.has_key?(:errors)
       {
         db_result: query_result,
@@ -77,7 +86,17 @@ module GobiertoData
 
     private
 
+    def set_schema
+      if draft?
+        Connection.execute_query(site, "ALTER TABLE IF EXISTS #{table_name} SET SCHEMA draft", write: true)
+      else
+        Connection.execute_query(site, "ALTER TABLE IF EXISTS #{table_name} SET SCHEMA public", write: true)
+      end
+    end
+
     def internal_rails_class_name
+      return unless site.present? && table_name.present?
+
       @internal_rails_class_name ||= "site_id_#{site.id}_table_#{table_name}".classify
     end
   end

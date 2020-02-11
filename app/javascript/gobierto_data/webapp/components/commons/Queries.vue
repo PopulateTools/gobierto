@@ -24,7 +24,7 @@
           >
             <span
               class="gobierto-data-summary-queries-container-name"
-              @click="runYourQuery(arrayQueries[index].attributes.sql);sendQuery(item); closeModal(); changeTab()"
+              @click="handleQueries(arrayQueries[index].attributes.sql, item)"
             >
               {{ item.attributes.name }}
             </span>

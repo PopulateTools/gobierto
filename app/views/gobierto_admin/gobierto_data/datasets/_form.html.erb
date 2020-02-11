@@ -47,19 +47,7 @@
 
     <div class="pure-u-1 pure-u-md-2-24"></div>
 
-    <div class="pure-u-1 pure-u-md-1-4 ">
-
-      <div class="stick_in_parent">
-
-        <div class="widget_save ">
-
-          <%= f.submit class: "button" %>
-
-        </div>
-
-      </div>
-
-    </div>
+    <%= render partial: 'gobierto_admin/shared/save_widget', locals: { f: f, levels: @dataset_form.available_visibility_levels } %>
 
   </div>
 <% end %>

@@ -37,6 +37,12 @@ module GobiertoData
           sql: "select (to_date(nullif(trim($1), '#null_value'), '#date_format'));",
           optional_params: { date_format: "DD-MON-YYY", null_value: "" }
         },
+        time: {
+          input_type: "text",
+          output_type: "time",
+          sql: "select (to_timestamp(nullif(trim($1), '#null_value'), '#time_format')::time);",
+          optional_params: { time_format: "HH24:MI", null_value: "" }
+        },
         timestamp: {
           input_type: "text",
           output_type: "timestamp",

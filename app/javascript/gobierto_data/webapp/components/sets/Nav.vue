@@ -146,7 +146,8 @@ export default {
       labelDownload: "",
       labelFav: "",
       labelFollow: "",
-      slugName: ''
+      slugName: '',
+      title: ''
     }
   },
   created() {
@@ -160,7 +161,6 @@ export default {
 
     this.$root.$on('changeNavTab', this.changeTab)
     this.$root.$on('activeTabIndex', this.changeTab)
-
 
     this.slugName = this.$route.params.id
   },

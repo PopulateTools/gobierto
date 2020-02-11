@@ -39,11 +39,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-  beforeRouteLeave (to, from, next) {
-    const id = to.params
-    console.log("id", id);
-    next()
   }
 }
 </script>

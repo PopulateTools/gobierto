@@ -16,7 +16,7 @@ export class GobiertoDataController {
     if (entryPoint) {
       const htmlRouterBlock = `
         <keep-alive>
-          <router-view :key="$route.fullPath"></router-view>
+          <router-view/>
         </keep-alive>
       `;
 
@@ -32,6 +32,7 @@ export class GobiertoDataController {
 
 
       const router = new VueRouter({
+
         mode: "history",
         routes: [{
             path: "/datos",
@@ -44,9 +45,10 @@ export class GobiertoDataController {
             name: "dataset",
             props: true,
             component: Sets,
+            linkActiveClass: 'active',
             children: [
              {
-               path: "resumen",
+               path: "",
                name: "resumen",
                component: Summary
              },

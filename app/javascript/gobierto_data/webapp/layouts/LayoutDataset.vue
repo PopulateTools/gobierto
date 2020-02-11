@@ -10,12 +10,7 @@
       <Sidebar
         :active-tab="activeTabSidebar"
         @active-tab="activeTabSidebar = $event"
-      >
-        <template v-slot:sidebar>
-          <slot name="sidebar" />
-        </template>
-      </Sidebar>
-      <slot />
+      />
     </div>
   </div>
 </template>
@@ -34,5 +29,4 @@ export default {
     }
   }
 }
-
 </script>

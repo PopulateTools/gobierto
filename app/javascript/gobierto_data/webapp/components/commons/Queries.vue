@@ -25,7 +25,7 @@
             <a
               :href="'/datos/' + pathQueries + '/q/' + index"
               class="gobierto-data-summary-queries-container-name"
-              @click="handleQueries(arrayQueries[index].attributes.sql, item)"
+              @click.prevent="handleQueries(arrayQueries[index].attributes.sql, item, index)"
             >
               {{ item.attributes.name }}
             </a>
@@ -172,11 +172,12 @@ export default {
     this.userId = getUserId()
   },
   methods: {
-    handleQueries(sql, item) {
+    handleQueries(sql, item,index) {
       this.runYourQuery(sql)
       this.sendQuery(item)
       this.closeModal()
       this.changeTab()
+      this.nav(index)
     },
     closeModal() {
       this.$root.$emit('closeQueriesModal');
@@ -227,7 +228,6 @@ export default {
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false)
       this.$root.$emit('updateCode', code)
-
       if (this.queryEditor.includes('LIMIT')) {
         this.queryEditor = this.queryEditor
       } else {
@@ -274,8 +274,7 @@ export default {
       this.$router.push({
         name: "queries",
         params: {
-          queryId: index,
-          tabActive: 1
+          queryId: index
         }
     }, () => {})
       this.changeTab()

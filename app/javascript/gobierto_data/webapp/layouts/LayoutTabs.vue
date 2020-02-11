@@ -11,11 +11,7 @@
         :active-tab="activeTabSidebar"
         :all-datasets="allDatasets"
         @active-tab="activeTabSidebar = $event"
-      >
-        <template v-slot:sidebar>
-          <slot name="sidebar" />
-        </template>
-      </Sidebar>
+      />
       <slot />
     </div>
   </div>

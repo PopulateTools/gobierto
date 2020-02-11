@@ -3,18 +3,14 @@
     <div class="pure-g gutters m_b_1">
       <div class="pure-u-1 pure-u-lg-4-4">
         <Nav
-          :active-tab="activeTabIndex"
-          @active-tab="activeTabIndex = $event"
+          :active-tab="activeTabTopIndex"
+          @active-tab="activeTabTopIndex = $event"
         />
       </div>
       <Sidebar
         :active-tab="activeTabSidebar"
         @active-tab="activeTabSidebar = $event"
-      >
-        <template v-slot:sidebar>
-          <slot name="sidebar" />
-        </template>
-      </Sidebar>
+      />
       <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
         <NavDatasets
           :active-tab="activeTabIndex"
@@ -54,6 +50,7 @@ export default {
   data() {
     return {
       activeTabSidebar: 1,
+      activeTabTopIndex: 0,
       rawData: '',
       titleDataset: '',
       arrayQueries: [],
@@ -61,24 +58,43 @@ export default {
       datasetId: 0,
       tableName: '',
       arrayFormats: {},
-      activeTabIndex: this.$route.params.activeTab
+      activeTabIndex: 0
     }
   },
   beforeRouteEnter (to, from, next) {
     const id = to.params.id
-
     next((vm) => {
       vm.getData(id)
+      if (to.name === 'resumen') {
+        vm.activeTabIndex = 0
+      } else if (to.name === 'editor') {
+        vm.activeTabIndex = 1
+      } else if (to.name === 'consultas') {
+        vm.activeTabIndex = 2
+      } else if (to.name === 'visualizaciones') {
+        vm.activeTabIndex = 3
+      } else if (to.name === 'descarga') {
+        vm.activeTabIndex = 4
+      }
     })
-
+  },
+  beforeRouteUpdate (to, from, next) {
+    if (to.name === 'resumen') {
+      this.activeTabIndex = 0
+    } else if (to.name === 'editor') {
+      this.activeTabIndex = 1
+    } else if (to.name === 'consultas') {
+      this.activeTabIndex = 2
+    } else if (to.name === 'visualizaciones') {
+      this.activeTabIndex = 3
+    } else if (to.name === 'descarga') {
+      this.activeTabIndex = 4
+    }
+    next()
   },
   created() {
     this.userId = getUserId()
     this.$root.$on('reloadQueries', this.getQueries)
-    this.$root.$on('tabDownload', (value) => {
-      console.log("value", value);
-      this.activeTabIndex = value
-    })
     this.getData(this.$route.params.id)
   },
   methods: {

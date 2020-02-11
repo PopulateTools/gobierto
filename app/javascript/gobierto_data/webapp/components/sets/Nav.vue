@@ -61,54 +61,21 @@
       </ul>
     </nav>
     <keep-alive>
-      <Summary
-        v-if="activeTab === 0"
-        :array-queries="arrayQueries"
-        :public-queries="publicQueries"
-        :array-formats="arrayFormats"
-      />
-      <Data
-        v-else-if="activeTab === 1"
+      <router-view
         :dataset-id="datasetId"
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
         :table-name="tableName"
         :array-formats="arrayFormats"
-      />
-      <Queries
-        v-else-if="activeTab === 2"
-        :array-queries="arrayQueries"
-        :public-queries="publicQueries"
-      />
-      <Visualizations
-        v-else-if="activeTab === 3"
-      />
-      <Downloads
-        v-else-if="activeTab === 4"
-        :array-formats="arrayFormats"
+        :active-tab="activeTab"
+        @active-tab="activeTabIndex = $event"
       />
     </keep-alive>
   </div>
 </template>
 <script>
-import Button from "./../commons/Button.vue";
-import Summary from "./Summary.vue";
-import Data from "./Data.vue";
-import Queries from "./Queries.vue";
-import Visualizations from "./Visualizations.vue";
-import Downloads from "./Downloads.vue";
-
-
 export default {
   name: "NavSets",
-  components: {
-    Summary,
-    Data,
-    Queries,
-    Visualizations,
-    Downloads,
-    Button
-  },
   props: {
     activeTab: {
       type: Number,
@@ -152,6 +119,10 @@ export default {
       title: ''
     }
   },
+  beforeRouteUpdate (to, from, next) {
+    this.$emit("active-tab", 2)
+    next()
+  },
   created() {
     this.labelSummary = I18n.t("gobierto_data.projects.summary")
     this.labelData = I18n.t("gobierto_data.projects.data")
@@ -171,12 +142,12 @@ export default {
       this.activateTab(1)
     },
     activateTab(index, label) {
+      this.$emit("active-tab", index)
       this.$router.push({
         name: label,
         params: {
           id: this.$route.params.id,
-          title: label,
-          activeTab: index
+          title: label
         }
     }, () => {})
     }

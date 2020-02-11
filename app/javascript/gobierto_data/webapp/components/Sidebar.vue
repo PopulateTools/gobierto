@@ -43,7 +43,7 @@
           <a
             :href="'/datos/' + item.attributes.slug"
             class="gobierto-data-sidebar-datasets-name"
-            @click.prevent="nav(item.attributes.slug, item.attributes.name, index)"
+            @click.stop="nav(item.attributes.slug, item.attributes.name, index)"
           >{{ item.attributes.name }}
           </a>
           <div
@@ -167,8 +167,7 @@ export default {
         name: "dataset",
         params: {
           id: slugDataset,
-          title: nameDataset,
-          activeTab: index
+          title: nameDataset
         }
     }, () => {})
     }

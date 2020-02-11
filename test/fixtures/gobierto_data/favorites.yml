@@ -57,3 +57,21 @@ janet_events_count_closed_visualization:
   favorited: events_count_closed_visualization (GobiertoData::Visualization)
   created_at: <%= 1.day.ago %>
   updated_at: <%= 1.day.ago %>
+
+draft_dataset_favorite:
+  user: dennis
+  favorited: draft_dataset (GobiertoData::Dataset)
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+
+draft_query_favorite:
+  user: dennis
+  favorited: draft_dataset_query (GobiertoData::Query)
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+
+draft_visualization_favorite:
+  user: dennis
+  favorited: draft_dataset_visualization (GobiertoData::Visualization)
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>

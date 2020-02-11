@@ -15,12 +15,26 @@ module GobiertoData
       }
     end
 
+    attribute :columns do
+      if model_present?
+        object.rails_model.columns.inject({}) do |columns, column|
+          columns.update(
+            column.name => column.type
+          )
+        end
+      end
+    end
+
     def current_site
       Site.find_by(id: object.site_id) || instance_options[:site]
     end
 
     def exclude_links?
       instance_options[:exclude_links]
+    end
+
+    def model_present?
+      object.rails_model.present? && object.rails_model.table_exists?
     end
 
   end

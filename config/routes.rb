@@ -576,6 +576,7 @@ Rails.application.routes.draw do
               end
               member do
                 get "meta" => "datasets#dataset_meta"
+                get "stats" => "datasets#stats"
                 get :download, format: true
               end
             end

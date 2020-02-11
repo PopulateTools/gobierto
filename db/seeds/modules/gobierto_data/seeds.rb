@@ -2,6 +2,31 @@
 
 module GobiertoSeeds
   class Recipe
+    DEFAULT_CATEGORY_NAMES = [
+      "Sector público",
+      "Transporte",
+      "Medio ambiente",
+      "Ciencia y tecnología",
+      "Economía",
+      "Medio Rural",
+      "Demografía",
+      "Hacienda",
+      "Educación",
+      "Cultura y ocio",
+      "Turismo",
+      "Empleo",
+      "Sociedad y bienestar",
+      "Urbanismo e infraestructuras",
+      "Comercio",
+      "Legislación y justicia",
+      "Salud",
+      "Seguridad",
+      "Industria",
+      "Energía",
+      "Deporte",
+      "Vivienda"
+    ].freeze
+
     def self.run(site)
       description = site.custom_fields.localized_string.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: "description")
       if description.new_record?
@@ -15,7 +40,7 @@ module GobiertoSeeds
       if frequency.new_record?
         vocabulary = site.vocabularies.find_or_initialize_by(slug: "datasets-frequency")
         if vocabulary.new_record?
-          vocabulary.name_translations = { ca: "Freqüència", en: "Frequency", es: "Frecuencia" }
+          vocabulary.name_translations = { ca: "Freqüència de conjunt de dades", en: "Dataset frequency", es: "Frecuencia de conjunto de datos" }
           vocabulary.save
           vocabulary.terms.create(name_translations: { ca: "Anual", en: "Annual", es: "Anual" })
           vocabulary.terms.create(name_translations: { ca: "Trimestral", en: "Quarterly", es: "Trimestral" })
@@ -36,14 +61,18 @@ module GobiertoSeeds
 
       vocabulary = site.vocabularies.find_or_initialize_by(slug: "datasets-category")
       if vocabulary.new_record?
-        vocabulary.name_translations = { ca: "Categoria", en: "Category", es: "Categoría" }
+        vocabulary.name_translations = { ca: "Categoria de conjunt de dades", en: "Dataset Category", es: "Categoría de conjunto de datos" }
         vocabulary.save
-        vocabulary.terms.create(name_translations: { ca: "General", en: "General", es: "General" })
+        DEFAULT_CATEGORY_NAMES.each do |category_name|
+          vocabulary.terms.create(
+            name_translations: Hash[site.configuration.available_locales.product([category_name])]
+          )
+        end
       end
       category.name_translations = { ca: "Categoria", en: "Category", es: "Categoría" }
       category.position = 3
       category.options = {
-        configuration: { vocabulary_type: "single_select" },
+        configuration: { vocabulary_type: "multiple_select" },
         vocabulary_id: vocabulary.id.to_s
       }
       category.save

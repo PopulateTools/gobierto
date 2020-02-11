@@ -24,7 +24,7 @@
           >
             <span
               class="gobierto-data-summary-queries-container-name"
-              @click="handleQueries(arrayQueries[index].attributes.sql, item)"
+              @click="handleQueries(arrayQueries[index].attributes.sql, item, false)"
             >
               {{ item.attributes.name }}
             </span>
@@ -170,11 +170,14 @@ export default {
     this.userId = getUserId()
   },
   methods: {
-    handleQueries(sql, item) {
+    handleQueries(sql, item, anonymusQuery) {
       this.runYourQuery(sql)
       this.sendQuery(item)
       this.closeModal()
       this.changeTab()
+      if (anonymusQuery === true) {
+        this.$root.$emit('disableEdit')
+      }
     },
     closeModal() {
       this.$root.$emit('closeQueriesModal');

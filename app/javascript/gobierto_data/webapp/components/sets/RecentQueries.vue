@@ -1,15 +1,17 @@
 <template>
   <div class="gobierto-data-sql-editor-recent-queries arrow-top">
     <div class="gobierto-data-btn-download-data-modal-container">
-      <button
-        v-for="(item, index) in items"
-        :key="index"
-        :data-id="item | replace()"
-        class="gobierto-data-recent-queries-list-element"
-        @click="runRecentQuery(item)"
-      >
-        {{ item | replace() }}
-      </button>
+      <div class="gobierto-data-summary-queries-element">
+        <button
+          v-for="(item, index) in items"
+          :key="index"
+          :data-id="item | replace()"
+          class="gobierto-data-recent-queries-list-element"
+          @click="runRecentQuery(item)"
+        >
+          {{ item | replace() }}
+        </button>
+      </div>
     </div>
   </div>
 </template>

@@ -73,14 +73,14 @@
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
-            {{ labelAll }} ({{ publicQueries.length + numberFavQueries }})
+            {{ labelAll }} ({{ publicQueries.length }})
           </h3>
           <div
             v-for="(item, index) in publicQueries"
             v-show="showYourTotalQueries"
             :key="index"
             class="gobierto-data-summary-queries-container"
-            @mouseover="showCode(index)"
+            @mouseover="showCodePublic(index)"
             @mouseleave="hideCode = true"
             @click="handleQueries(publicQueries[index].attributes.sql, item)"
           >
@@ -185,6 +185,10 @@ export default {
     showCode(index) {
       this.hideCode = false
       this.sqlCode = this.arrayQueries[index].attributes.sql
+    },
+    showCodePublic(index) {
+      this.hideCode = false
+      this.sqlCode = this.publicQueries[index].attributes.sql
     },
     sendQuery(item) {
       this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql ]

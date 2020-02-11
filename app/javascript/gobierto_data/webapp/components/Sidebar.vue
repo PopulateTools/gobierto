@@ -38,7 +38,7 @@
           <i
             :class="{'rotate-caret': toggle !== index }"
             class="fas fa-caret-down gobierto-data-sidebar-icon"
-            @click="getColumns(item.attributes.slug, index)"
+            @click="handleToggle(index)"
           />
           <a
             :href="'/datos/' + item.attributes.slug"
@@ -51,12 +51,12 @@
             class="gobierto-data-sidebar-datasets-container-columns"
           >
             <span
-              v-for="(column, i) in columns"
+              v-for="(column, i) in item.attributes.columns"
               :key="i"
               :item="i"
               class="gobierto-data-sidebar-datasets-links-columns"
             >
-              {{ column }}
+              {{ i }}
             </span>
           </div>
         </div>
@@ -117,39 +117,11 @@ export default {
             this.toggle = 0
             slug = this.allDatasets[0].attributes.slug
           }
-          this.firstColumns(slug)
           let firstElement = this.allDatasets.find(dataset => dataset.attributes.slug == slug)
           let filteredArray = this.allDatasets.filter(dataset => dataset.attributes.slug !== slug)
           filteredArray.unshift(firstElement)
           this.allDatasets = filteredArray
           this.toggle = 0
-        })
-        .catch(error => {
-          console.error(error)
-        })
-    },
-    firstColumns(slugDataset) {
-      this.url = `${baseUrl}/datasets/${slugDataset}`
-      axios
-        .get(this.url)
-        .then(response => {
-          this.rawData = response.data
-          this.keysData = this.rawData.data
-          this.columns = Object.keys(this.keysData[0])
-        })
-        .catch(error => {
-          console.error(error)
-        })
-    },
-    getColumns(slugDataset, index) {
-      this.url = `${baseUrl}/datasets/${slugDataset}`
-      axios
-        .get(this.url)
-        .then(response => {
-          this.rawData = response.data
-          this.keysData = this.rawData.data
-          this.columns = Object.keys(this.keysData[0])
-          this.handleToggle(index)
         })
         .catch(error => {
           console.error(error)

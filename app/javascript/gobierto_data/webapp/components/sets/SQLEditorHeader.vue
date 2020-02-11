@@ -190,6 +190,10 @@ export default {
     publicQueries: {
       type: Array,
       required: true
+    },
+    datasetId: {
+      type: Number,
+      required: true
     }
   },
   data() {

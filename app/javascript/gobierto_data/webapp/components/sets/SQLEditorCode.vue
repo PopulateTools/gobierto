@@ -18,7 +18,7 @@
           v-if="recordsLoader"
           class="gobierto-data-sql-editor-footer-records"
         >
-          Cargando...
+          {{ labelLoading }}...
         </div>
         <div v-if="showApiError">
           <span class="gobierto-data-sql-error-message">
@@ -34,7 +34,6 @@
           </span>
         </div>
       </div>
-
     </div>
     <a
       href=""
@@ -72,6 +71,7 @@ export default {
       labelGuide: '',
       labelQueryExecuted: '',
       labelRecords: '',
+      labelLoading: '',
       numberRecords: '',
       timeQuery: '',
       stringError: '',
@@ -108,6 +108,7 @@ export default {
     this.labelGuide = I18n.t('gobierto_data.projects.guide');
     this.labelQueryExecuted = I18n.t('gobierto_data.projects.queryExecuted');
     this.labelRecords = I18n.t('gobierto_data.projects.records');
+    this.labelLoading = I18n.t('gobierto_data.projects.loading');
     this.$root.$on('saveQueryState', this.saveQueryState);
     this.$root.$on('recordsDuration', this.updateRecordsDuration);
     this.$root.$on('updateCode', this.updateCode)

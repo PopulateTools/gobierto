@@ -31,9 +31,6 @@ export default {
   },
   data() {
     return {
-      items: [],
-      filterItemsByDataset: [],
-      filterItemsByQuery: [],
       orderItems: []
     }
   },
@@ -46,12 +43,10 @@ export default {
       if (queries === null || queries === undefined) {
         this.orderItems = []
       } else {
-        this.items = queries
-        this.filterItemsByDataset = this.items.filter(item => item.dataset.includes(this.
-        tableName));
-        this.filterItemsByQuery = this.filterItemsByDataset.filter(item => item.text.includes(
-        this.tableName));
-        this.orderItems = this.filterItemsByQuery.reverse()
+        const items = queries
+        const filterItemsByDataset = items.filter(item => item.dataset.includes(this.tableName));
+        const filterItemsByQuery = filterItemsByDataset.filter(item => item.text.includes(this.tableName));
+        this.orderItems = filterItemsByQuery.reverse()
       }
     },
     runRecentQuery(code) {

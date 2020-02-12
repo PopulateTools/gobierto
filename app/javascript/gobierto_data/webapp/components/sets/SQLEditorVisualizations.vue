@@ -1,8 +1,6 @@
 <template>
   <div id="container">
-    <perspective-viewer
-      class='perspective-viewer-dark'
-    />
+    <perspective-viewer />
   </div>
 </template>
 <script>

@@ -20,6 +20,7 @@
         :array-queries="arrayQueries"
         :array-formats="arrayFormats"
         :public-queries="publicQueries"
+        :number-rows="numberRows"
         :table-name="tableName"
         :dataset-id="datasetId"
         :title-dataset="titleDataset"
@@ -29,7 +30,7 @@
 </template>
 <script>
 import axios from 'axios'
-import { getUserId } from "./../../lib/helpers"
+import { getUserId, getToken } from "./../../lib/helpers"
 import { baseUrl } from "./../../lib/commons"
 import DataSets from "./DataSets.vue";
 import Sidebar from "./../components/Sidebar.vue";

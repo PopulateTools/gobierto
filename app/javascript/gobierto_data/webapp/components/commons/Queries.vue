@@ -31,20 +31,20 @@
             <div
               class="gobierto-data-summary-queries-container-icon"
             >
-              <!-- <i
+              <i
                 class="fas fa-trash-alt icons-your-queries"
                 style="color: var(--color-base);"
-                @click="deleteQuery(item.id)"
-              /> -->
+                @click="deleteQuery(item.id, index)"
+              />
               <i
                 v-if="item.attributes.privacy_status === 'closed'"
                 style="color: #D0021B"
-                class="fas fa-lock-close"
+                class="fas fa-lock icons-your-queries"
               />
               <i
                 v-else
                 style="color: rgb(160, 197, 29)"
-                class="fas fa-lock-open"
+                class="fas fa-lock-open icons-your-queries"
               />
             </div>
           </div>
@@ -84,28 +84,13 @@
             @click="handleQueries(publicQueries[index].attributes.sql, item)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
-            <!-- <i
-              class="fas fa-trash-alt"
-              style="color: var(--color-base);"
-              @click="deleteQuery(item.id)"
-            /> -->
             <div
-              v-if="item.attributes.privacy_status === 'close'"
               class="gobierto-data-summary-queries-container-icon"
             >
-              <i
-                style="color: #D0021B"
-                class="fas fa-lock-close"
-              />
-            </div>
-            <div
-              v-else
-              class="gobierto-data-summary-queries-container-icon"
-            >
-              <i
+              <!-- <i
                 style="color: rgb(160, 197, 29)"
-                class="fas fa-lock-open"
-              />
+                class="fas fa-lock"
+              /> -->
             </div>
           </div>
         </div>
@@ -202,7 +187,11 @@ export default {
     changeTab() {
       this.$root.$emit('changeNavTab')
     },
-    deleteQuery(id) {
+    deleteQuery(id, index) {
+      this.$delete(this.arrayQueries, index)
+      this.deleteQueryApi(id)
+    },
+    deleteQueryApi(id) {
       this.endPointDelete = `${baseUrl}/queries/${id}`
       axios.delete(this.endPointDelete, {
         headers: {

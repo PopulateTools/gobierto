@@ -20,6 +20,7 @@
         :array-queries="arrayQueries"
         :array-formats="arrayFormats"
         :public-queries="publicQueries"
+        :number-rows="numberRows"
         :table-name="tableName"
         :dataset-id="datasetId"
         :title-dataset="titleDataset"
@@ -29,7 +30,7 @@
 </template>
 <script>
 import axios from 'axios'
-import { getUserId } from "./../../lib/helpers"
+import { getUserId, getToken } from "./../../lib/helpers"
 import { baseUrl } from "./../../lib/commons"
 import DataSets from "./DataSets.vue";
 import Sidebar from "./../components/Sidebar.vue";
@@ -57,6 +58,7 @@ export default {
       arrayQueries: [],
       publicQueries: [],
       datasetId: 0,
+      numberRows: 0,
       tableName: '',
       arrayFormats: {}
     }
@@ -67,6 +69,7 @@ export default {
   },
   created() {
     this.userId = getUserId()
+    this.token = getToken()
     this.$root.$on('reloadQueries', this.getQueries)
     this.getData(this.$route.params.id)
   },
@@ -74,7 +77,12 @@ export default {
     getQueries() {
       this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios
-        .get(this.endPoint)
+        .get(this.endPoint, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `${this.token}`
+          }
+        })
         .then(response => {
           this.rawData = response.data
           this.items = this.rawData.data
@@ -96,6 +104,7 @@ export default {
           this.slugDataset = this.rawData.data.attributes.slug
           this.tableName = this.rawData.data.attributes.table_name
           this.arrayFormats = this.rawData.data.attributes.formats
+          this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
 
           this.$root.$emit('nameDataset', this.titleDataset)
 

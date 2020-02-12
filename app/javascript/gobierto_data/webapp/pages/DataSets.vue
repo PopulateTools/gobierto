@@ -14,9 +14,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
-import { getUserId } from "./../../lib/helpers"
-import { baseUrl } from "./../../lib/commons"
 import NavDatasets from "./../components/sets/Nav.vue"
 
 export default {
@@ -24,74 +21,43 @@ export default {
   components: {
     NavDatasets
   },
-  data() {
-    return {
-      activeTabIndex: 0,
-      rawData: '',
-      titleDataset: '',
-      arrayQueries: [],
-      publicQueries: [],
-      numberRows: 0,
-      datasetId: 0,
-      tableName: '',
-      arrayFormats:{}
+  props: {
+    activeTab: {
+      type: Number,
+      default: 0
+    },
+    datasetId: {
+      type: Number,
+      default: 0
+    },
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
+    numberRows: {
+      type: Number,
+      required: true
+    },
+    publicQueries: {
+      type: Array,
+      required: true
+    },
+    arrayFormats: {
+      type: Object,
+      required: true
+    },
+    tableName: {
+      type: String,
+      required: true
+    },
+    titleDataset: {
+      type: String,
+      required: true
     }
   },
-  created() {
-    this.getData()
-    this.$root.$on('reloadQueries', this.getQueries)
-    this.userId = getUserId()
-  },
-  methods: {
-    getQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
-      axios
-        .get(this.endPoint)
-        .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.arrayQueries = this.items
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        })
-    },
-    getPublicQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
-      axios
-        .get(this.endPoint)
-        .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.publicQueries = this.items
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        })
-    },
-    getData() {
-      this.url = `${baseUrl}/datasets/${this.$route.params.id}/meta`
-      axios
-        .get(this.url)
-        .then(response => {
-          this.rawData = response.data
-          this.titleDataset = this.rawData.data.attributes.name
-          this.datasetId = parseInt(this.rawData.data.id)
-          this.slugDataset = this.rawData.data.attributes.slug
-          this.tableName = this.rawData.data.attributes.table_name
-          this.arrayFormats = this.rawData.data.attributes.formats
-          this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
-
-          this.$root.$emit('nameDataset', this.titleDataset)
-
-          this.getQueries()
-          this.getPublicQueries()
-        })
-        .catch(error => {
-          console.error(error)
-        })
+  data() {
+    return {
+      activeTabIndex: 0
     }
   }
 }

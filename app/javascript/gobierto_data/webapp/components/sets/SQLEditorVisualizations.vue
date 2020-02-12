@@ -36,6 +36,10 @@ export default {
     initPerspective(data){
       const viewer = document.getElementsByTagName("perspective-viewer")[0];
       viewer.load(data);
+    },
+    updatePerspective(values) {
+      const viewer = document.getElementsByTagName("perspective-viewer")[0];
+      viewer.update(values);
     }
   }
 }

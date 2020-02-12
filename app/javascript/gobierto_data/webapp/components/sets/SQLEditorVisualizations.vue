@@ -1,9 +1,17 @@
 <template>
   <div id="container">
-    <perspective-viewer editable />
+    <perspective-viewer
+      class='perspective-viewer-dark'
+    />
   </div>
 </template>
 <script>
+import perspective from "@finos/perspective";
+import viewer from "@finos/perspective-viewer";
+import "@finos/perspective-viewer-hypergrid";
+import "@finos/perspective-viewer-d3fc";
+import "@finos/perspective-viewer/themes/all-themes.css";
+
 export default {
   name: 'SQLEditorVisualizations',
   props: {
@@ -51,7 +59,7 @@ export default {
       this.viewer.load(table);
     },
     updatePerspectiveData(values) {
-      this.viewer.load(values);
+      this.viewer.update(values);
     },
     updatePerspectiveColumns(values) {
       var table = perspective.worker().table(values);

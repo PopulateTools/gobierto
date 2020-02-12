@@ -14,7 +14,10 @@ export default {
   },
   data() {
     return {
-      dataPerspective: []
+      dataPerspective: [],
+      viewer: '',
+      initColumns: [],
+      newColumns: []
     }
   },
   watch:{
@@ -25,21 +28,35 @@ export default {
   created(){
     this.$root.$on('sendDataViz', this.updateValues)
     this.$nextTick(() => {
+      this.viewer = document.getElementsByTagName("perspective-viewer")[0];
       this.dataPerspective = this.items
       this.initPerspective(this.dataPerspective)
     })
   },
   methods: {
     updateValues(values) {
-      this.initPerspective(values)
+      this.newColumns = []
+      this.newColumns = Object.keys(values[0])
+      if (JSON.stringify(this.newColumns) === JSON.stringify(this.initColumns)) {
+        this.viewer.setAttribute('columns', JSON.stringify(this.newColumns))
+        this.updatePerspectiveData(values)
+      } else {
+        this.viewer.setAttribute('columns', JSON.stringify(this.newColumns))
+        this.updatePerspectiveColumns(values)
+      }
     },
     initPerspective(data){
-      const viewer = document.getElementsByTagName("perspective-viewer")[0];
-      viewer.load(data);
+      this.initColumns = Object.keys(data[0])
+      var table = perspective.worker().table(data);
+      this.viewer.load(table);
     },
-    updatePerspective(values) {
-      const viewer = document.getElementsByTagName("perspective-viewer")[0];
-      viewer.update(values);
+    updatePerspectiveData(values) {
+      this.viewer.load(values);
+    },
+    updatePerspectiveColumns(values) {
+      var table = perspective.worker().table(values);
+      this.viewer.load(table);
+      this.initColumns = this.newColumns
     }
   }
 }

@@ -97,11 +97,6 @@ export default {
       }
     };
   },
-  computed: {
-    codemirror() {
-      return this.$refs.myCm.codemirror;
-    }
-  },
   created() {
     this.labelGuide = I18n.t('gobierto_data.projects.guide');
     this.labelQueryExecuted = I18n.t('gobierto_data.projects.queryExecuted');
@@ -123,7 +118,7 @@ export default {
   mounted() {
     this.mergeTables()
 
-    this.editor = CodeMirror.fromTextArea(this.$refs.myCm, this.cmOption
+    this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption
     )
 
     this.editor.on("keypress", editor => {

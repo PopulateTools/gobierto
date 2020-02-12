@@ -57,6 +57,7 @@ export default {
       this.viewer.load(table);
     },
     updatePerspectiveData(values) {
+      this.viewer.clear()
       this.viewer.load(values);
     },
     updatePerspectiveColumns(values) {

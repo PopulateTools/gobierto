@@ -32,13 +32,34 @@
       <div
         v-for="(item, index) in allDatasets"
         :key="index"
-        :item="item"
-        class="gobierto-data-sidebar-datasets-links"
+        class="gobierto-data-sidebar-datasets"
       >
-        <i class="fas fa-caret-down" />
-        <span
-          @click="getDataDataset(index)"
-        >{{ item.attributes.name }}</span>
+        <div class="gobierto-data-sidebar-datasets-links-container">
+          <i
+            :class="{'rotate-caret': toggle !== index }"
+            class="fas fa-caret-down gobierto-data-sidebar-icon"
+            @click="handleToggle(index)"
+          />
+          <a
+            :href="'/datos/' + item.attributes.slug"
+            class="gobierto-data-sidebar-datasets-name"
+            @click.prevent="nav(item.attributes.slug, item.attributes.name)"
+          >{{ item.attributes.name }}
+          </a>
+          <div
+            v-show="toggle === index"
+            class="gobierto-data-sidebar-datasets-container-columns"
+          >
+            <span
+              v-for="(column, i) in item.attributes.columns"
+              :key="i"
+              :item="i"
+              class="gobierto-data-sidebar-datasets-links-columns"
+            >
+              {{ i }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -63,7 +84,11 @@ export default {
       titleDataset: '',
       slugDataset: '',
       tableName: '',
-      allDatasets: null,
+      allDatasets: [],
+      numberId: '',
+      columns: '',
+      toggle: 0,
+      indexToggle: null
     }
   },
   created() {
@@ -71,81 +96,53 @@ export default {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
-
-    this.endPoint = `${baseUrl}/datasets`
-
-    axios
-      .get(this.endPoint)
-      .then(response => {
-        this.rawData = response.data
-
-        this.allDatasets = this.rawData.data
-
-        this.titleDataset = this.rawData.data[0].attributes.name
-      })
-      .catch(error => {
-        console.error(error)
-      })
-
+    this.initData()
   },
   methods: {
+    initData(){
+      this.endPoint = `${baseUrl}/datasets`
+      axios
+        .get(this.endPoint)
+        .then(response => {
+          this.rawData = response.data
+
+          this.sortDatasets = this.rawData.data
+          this.allDatasets = this.sortDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+
+          let slug = this.$route.params.id
+
+          this.indexToggle = this.allDatasets.findIndex(dataset => dataset.attributes.slug == slug)
+          this.toggle = this.indexToggle
+          if (this.toggle === -1) {
+            this.toggle = 0
+            slug = this.allDatasets[0].attributes.slug
+          }
+          let firstElement = this.allDatasets.find(dataset => dataset.attributes.slug == slug)
+          let filteredArray = this.allDatasets.filter(dataset => dataset.attributes.slug !== slug)
+          filteredArray.unshift(firstElement)
+          this.allDatasets = filteredArray
+          this.toggle = 0
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    },
+    handleToggle(index) {
+      this.toggle = this.toggle !== index ? index : null;
+    },
     activateTab(index) {
       this.$emit("active-tab", index);
     },
-    nav(slugDataset) {
+    nav(slugDataset, nameDataset) {
+      this.toggle = 0
       this.$router.push({
         name: "dataset",
         params: {
           id: slugDataset,
-          title: this.titleDataset
+          title: nameDataset
         }
-    })
-    },
-    getDataDataset(index) {
-      this.getData(index)
-    },
-    getData(index) {
-      this.endPoint = `${baseUrl}/datasets/`
-      axios
-        .get(this.endPoint)
-        .then(response => {
-          this.rawData = response.data
-          this.numberId = this.rawData.data[index].id
-          this.titleDataset = this.rawData.data[index].attributes.name
-
-          this.idDataset = this.rawData.data[index].id
-
-          this.titleDataset = this.rawData.data[index].attributes.name
-          this.slugDataset = this.rawData.data[index].attributes.slug
-          this.tableName = this.rawData.data[index].attributes.table_name
-
-          this.$root.$emit('nameDataset', this.titleDataset)
-          this.$root.$emit('sendTableName', this.tableName)
-          this.$root.$emit('sendSlug', this.slugDataset)
-          this.nav(this.slugDataset)
-
-        })
-        .catch(error => {
-          console.error(error)
-
-        })
-    },
-    getQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.numberId}&filter[user_id]=${this.userId}`
-      axios
-        .get(this.endPoint)
-        .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.arrayQueries = this.items
-          this.datasetId = parseInt(this.numberId)
-          this.nav(this.slugDataset)
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        })
-    },
+    }, () => {})
+    }
   }
 };
 </script>

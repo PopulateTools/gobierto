@@ -16,9 +16,7 @@ export class GobiertoDataController {
     if (entryPoint) {
       const htmlRouterBlock = `
         <keep-alive>
-          <transition name="fade" mode="out-in">
-            <router-view :key="$route.fullPath"></router-view>
-          </transition>
+          <router-view :key="$route.fullPath"></router-view>
         </keep-alive>
       `;
 
@@ -32,12 +30,14 @@ export class GobiertoDataController {
         mode: "history",
         routes: [{
             path: "/datos",
-            name: "home", component: Home
+            name: "home",
+            component: Home
           },
           {
             path: "/datos/:id",
             name: "dataset",
-            component: Sets
+            component: Sets,
+            props: true
           }
         ]
       })
@@ -50,10 +50,11 @@ export class GobiertoDataController {
           Vue.nextTick(() => {
             let title = baseTitle;
             if (to.name === "dataset") {
-              const { title: titleDataset } = to.params;
-              if (titleDataset) {
-                const titleI18n = titleDataset
-                  ? `${titleDataset} · `
+              const { titleDataset: dataset } = to.params;
+
+              if (dataset) {
+                const titleI18n = dataset
+                  ? `${dataset} · `
                   : "";
 
                 title = `${titleI18n}${baseTitle}`;

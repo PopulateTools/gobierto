@@ -153,7 +153,21 @@ gobierto_data_settings_madrid:
   settings: <%= {
     db_config: {
       read_db_config: Rails.configuration.database_configuration["test"],
+      read_draft_db_config: Rails.configuration.database_configuration["test"],
       write_db_config: Rails.configuration.database_configuration["test"]
+    },
+    api_configuration: {
+      "exposed_in_public_api" => true,
+      "availableFilters" => [
+        { "id" => "daterange", "startKey" => "start-date", "endKey" => "end-date" },
+        { "id" => "status", "multiple" => true },
+        { "id" => "service-name", "multiple" => true },
+        { "id" => "type" },
+        { "id" => "import" }
+      ]
+    },
+    api_private_configuration: {
+      "privateData" => "Secret"
     }
   }.to_json %>
 

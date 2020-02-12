@@ -562,7 +562,7 @@ Rails.application.routes.draw do
     namespace :gobierto_data, path: "/" do
       constraints GobiertoSiteConstraint.new do
         get "/datos" => "welcome#index", as: :root
-        get "/datos/:id" => "welcome#index"
+        get "/datos/:id" => "welcome#index", as: :datasets
 
         # API
         namespace :api, path: "/" do
@@ -576,6 +576,7 @@ Rails.application.routes.draw do
               end
               member do
                 get "meta" => "datasets#dataset_meta"
+                get "stats" => "datasets#stats"
                 get :download, format: true
               end
             end
@@ -591,6 +592,17 @@ Rails.application.routes.draw do
               resource :favorite, only: [:create, :destroy]
               resources :favorites, only: [:index]
             end
+          end
+        end
+      end
+    end
+
+    # Common API
+    namespace :gobierto_common, path: "/" do
+      constraints GobiertoSiteConstraint.new do
+        namespace :api, path: "/" do
+          namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1" do
+            get ":module_name/configuration" => "configuration#show", as: :configuration
           end
         end
       end

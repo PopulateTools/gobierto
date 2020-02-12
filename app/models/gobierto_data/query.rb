@@ -13,10 +13,12 @@ module GobiertoData
 
     translates :name
 
-    delegate :site, to: :dataset
+    scope :active, -> { joins(:dataset).where(GobiertoData::Dataset.table_name => { visibility_level: GobiertoData::Dataset.visibility_levels[:active] }) }
 
-    def result
-      Connection.execute_query(site, sql)
+    delegate :site, :visibility_level, to: :dataset
+
+    def result(include_draft: false)
+      Connection.execute_query(site, sql, include_draft: include_draft)
     end
 
     def file_basename

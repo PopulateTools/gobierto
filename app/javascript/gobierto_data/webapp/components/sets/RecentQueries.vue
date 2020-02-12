@@ -48,11 +48,21 @@ export default {
       }
     },
     runRecentQuery(code) {
-      this.showSpinner = true;
       this.queryEditor = encodeURI(code)
       this.$root.$emit('postRecentQuery', code)
-      this.$root.$emit('showMessages', false)
+      this.$root.$emit('showMessages', false, true)
       this.$root.$emit('updateCode', code)
+
+      if (this.queryEditor.includes('LIMIT')) {
+        this.queryEditor = this.queryEditor
+        this.$root.$emit('hiddeShowButtonColumns')
+      } else {
+        this.$root.$emit('ShowButtonColumns')
+        this.$root.$emit('sendCompleteQuery', this.queryEditor)
+        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
+        this.queryEditor = this.code
+      }
+
       this.endPoint = `${baseUrl}/data`
       this.url = `${this.endPoint}?sql=${this.queryEditor}`
       axios
@@ -71,6 +81,7 @@ export default {
           this.$root.$emit('recordsDuration', queryDurationRecors)
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true)
+          this.$root.$emit('runSpinner')
 
         })
         .catch(error => {
@@ -81,10 +92,6 @@ export default {
           const keysData = []
           this.$root.$emit('sendData', keysData, data)
         })
-
-        setTimeout(() => {
-          this.showSpinner = false
-        }, 300)
     }
   }
 }

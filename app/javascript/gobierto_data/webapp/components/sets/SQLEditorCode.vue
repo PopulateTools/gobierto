@@ -89,7 +89,7 @@ export default {
         mode: 'text/x-sql',
         hintOptions: {
           completeSingle: false,
-          hint: this.hint
+          hint: {}
         },
         showCursorWhenSelecting: true,
         theme: 'default',
@@ -114,6 +114,7 @@ export default {
     this.$root.$emit('activateModalRecent')
     this.numberRecords = this.numberRows
 
+
     this.$root.$on('sendYourCode', this.queryCode);
 
     this.code = `SELECT * FROM ${this.tableName}`
@@ -123,6 +124,8 @@ export default {
 
     this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption
     )
+
+    this.cmOption.hintOptions.hint = this.hint
 
     this.editor.on("keypress", editor => {
       editor.showHint()

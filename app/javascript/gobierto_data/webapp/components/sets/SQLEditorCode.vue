@@ -1,11 +1,9 @@
 <template>
   <div>
-    <div class="codemirror">
-      <textarea
-        ref="myCm"
-        v-model="code"
-      />
-    </div>
+    <textarea
+      ref="queryEditor"
+      v-model="code"
+    />
     <div class="gobierto-data-sql-editor-footer">
       <div v-if="showMessages">
         <div v-if="showApiError">
@@ -90,11 +88,6 @@ export default {
       }
     };
   },
-  computed: {
-    codemirror() {
-      return this.$refs.myCm.codemirror;
-    }
-  },
   created() {
     this.labelGuide = I18n.t('gobierto_data.projects.guide');
     this.labelQueryExecuted = I18n.t('gobierto_data.projects.queryExecuted');
@@ -114,7 +107,7 @@ export default {
   mounted() {
     this.mergeTables()
 
-    this.editor = CodeMirror.fromTextArea(this.$refs.myCm, this.cmOption
+    this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption
     )
 
     this.editor.on("keypress", editor => {

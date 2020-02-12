@@ -29,9 +29,6 @@ export default {
   },
   data() {
     return {
-      items: [],
-      filterItemsByDataset: [],
-      filterItemsByQuery: [],
       orderItems: []
     }
   },
@@ -44,12 +41,10 @@ export default {
       if (queries === null || queries === undefined) {
         this.orderItems = []
       } else {
-        this.items = queries
-        this.filterItemsByDataset = this.items.filter(item => item.dataset.includes(this.
-        tableName));
-        this.filterItemsByQuery = this.filterItemsByDataset.filter(item => item.text.includes(
-        this.tableName));
-        this.orderItems = this.filterItemsByQuery.reverse()
+        const items = queries
+        const filterItemsByDataset = items.filter(item => item.dataset.includes(this.tableName));
+        const filterItemsByQuery = filterItemsByDataset.filter(item => item.text.includes(this.tableName));
+        this.orderItems = filterItemsByQuery.reverse()
       }
     },
     runRecentQuery(code) {
@@ -63,18 +58,18 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          this.data = []
-          this.keysData = []
-          this.rawData = response.data
-          this.meta = this.rawData.meta
-          this.data = this.rawData.data
+          let data = []
+          let keysData = []
+          const rawData = response.data
+          const meta = rawData.meta
+          data = rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          const queryDurationRecors = [meta.rows, meta.duration]
 
-          this.keysData = Object.keys(this.data[0])
+          keysData = Object.keys(data[0])
 
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
-          this.$root.$emit('sendData', this.keysData, this.data)
+          this.$root.$emit('recordsDuration', queryDurationRecors)
+          this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true)
 
         })
@@ -82,9 +77,9 @@ export default {
           const messageError = error.response.data.errors[0].sql
           this.$root.$emit('apiError', messageError)
 
-          this.data = []
-          this.keysData = []
-          this.$root.$emit('sendData', this.keysData, this.data)
+          const data = []
+          const keysData = []
+          this.$root.$emit('sendData', keysData, data)
         })
 
         setTimeout(() => {

@@ -99,6 +99,18 @@ module GobiertoData
           )
         end
 
+        def stats
+          find_item
+
+          render(
+            json: @item,
+            serializer: ::GobiertoData::DatasetStatsSerializer,
+            exclude_links: true,
+            links: links(:stats),
+            adapter: :json_api
+          )
+        end
+
         def new
           @form = DatasetForm.new(name_translations: available_locales_hash, site_id: current_site.id)
 
@@ -149,7 +161,7 @@ module GobiertoData
         private
 
         def base_relation
-          current_site.datasets
+          current_site.datasets.send(valid_preview_token? ? :itself : :active)
         end
 
         def find_item
@@ -157,7 +169,7 @@ module GobiertoData
         end
 
         def execute_query(relation)
-          GobiertoData::Connection.execute_query(current_site, relation.to_sql)
+          GobiertoData::Connection.execute_query(current_site, relation.to_sql, include_draft: valid_preview_token?)
         end
 
         def links(self_key = nil)
@@ -174,6 +186,7 @@ module GobiertoData
               hash.merge!(
                 data: gobierto_data_api_v1_dataset_path(params.fetch(:slug, slug)),
                 metadata: meta_gobierto_data_api_v1_dataset_path(params.fetch(:slug, slug)),
+                stats: stats_gobierto_data_api_v1_dataset_path(params.fetch(:slug, slug)),
                 queries: gobierto_data_api_v1_queries_path(filter: { dataset_id: id }),
                 visualizations: gobierto_data_api_v1_visualizations_path(filter: { dataset_id: id }),
                 favorites: gobierto_data_api_v1_dataset_favorites_path(@item.slug)
@@ -195,6 +208,7 @@ module GobiertoData
               :schema,
               :schema_file,
               :append,
+              :visibility_level,
               name_translations: [*I18n.available_locales]
             )
           else
@@ -208,7 +222,9 @@ module GobiertoData
                 :data_path,
                 :local_data,
                 :csv_separator,
-                :append
+                :schema,
+                :append,
+                :visibility_level
               ]
             ).merge(
               schema: schema_json_param

@@ -14,8 +14,11 @@ module GobiertoAdmin
         :admin_id,
         :ip
       )
+      attr_writer(
+        :visibility_level
+      )
 
-      validates :site_id, presence: true
+      validates :site_id, :visibility_level, presence: true
       validate :table_reachable
 
       delegate :persisted?, to: :dataset
@@ -25,6 +28,10 @@ module GobiertoAdmin
       notify_changed :name_translations, :table_name, :slug, as: :attribute
       use_publisher Publishers::AdminGobiertoDataActivity
       use_trackable_subject :dataset
+
+      def visibility_level
+        @visibility_level ||= "draft"
+      end
 
       def save
         save_dataset if valid?
@@ -39,7 +46,11 @@ module GobiertoAdmin
       end
 
       def available_table_names
-        ::GobiertoData::Connection.tables(site)
+        ::GobiertoData::Connection.tables(site, include_draft: true).sort
+      end
+
+      def available_visibility_levels
+        dataset_class.visibility_levels
       end
 
       private
@@ -58,6 +69,7 @@ module GobiertoAdmin
           attributes.name_translations = name_translations
           attributes.table_name = table_name
           attributes.slug = slug.blank? ? nil : slug
+          attributes.visibility_level = visibility_level
         end
 
         if @dataset.valid?
@@ -74,9 +86,9 @@ module GobiertoAdmin
       end
 
       def table_reachable
-        query_result = ::GobiertoData::Connection.execute_query(site, Arel.sql("SELECT COUNT(*) FROM #{table_name} LIMIT 1"))
+        query_result = ::GobiertoData::Connection.execute_query(site, Arel.sql("SELECT COUNT(*) FROM #{table_name} LIMIT 1"), include_draft: true)
 
-        errors.add(:table_name, :invalid_table, error_message: query_result[:error]) if query_result.is_a?(Hash) && query_result.has_key?(:error)
+        errors.add(:table_name, :invalid_table, error_message: query_result[:error]) if query_result.is_a?(Hash) && query_result.has_key?(:errors)
       end
     end
   end

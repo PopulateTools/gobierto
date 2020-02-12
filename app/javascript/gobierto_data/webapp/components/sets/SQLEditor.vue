@@ -3,19 +3,24 @@
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
         :array-queries="arrayQueries"
+        :public-queries="publicQueries"
         :dataset-id="datasetId"
+        :number-rows="numberRows"
       />
       <SQLEditorCode
         :table-name="tableName"
         :array-columns="arrayColumns"
+        :number-rows="numberRows"
       />
       <SQLEditorTabs
         v-if="data"
         :array-formats="arrayFormats"
         :items="data"
         :link="link"
+        :table-name="tableName"
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
+        :number-rows="numberRows"
         @active-tab="activeTabIndex = $event"
       />
     </div>
@@ -49,8 +54,16 @@ export default {
       type: Array,
       required: true
     },
+    publicQueries: {
+      type: Array,
+      required: true
+    },
     arrayFormats: {
       type: Object,
+      required: true
+    },
+    numberRows: {
+      type: Number,
       required: true
     },
     datasetId: {
@@ -119,6 +132,14 @@ export default {
     },
     getData() {
       this.endPoint = `${baseUrl}/data`
+
+      if (this.queryEditor.includes('LIMIT')) {
+        this.queryEditor = this.queryEditor
+      } else {
+        this.$root.$emit('sendCompleteQuery', this.queryEditor)
+        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
+        this.queryEditor = this.code
+      }
       this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
@@ -128,8 +149,6 @@ export default {
           this.meta = this.rawData.meta
           this.data = this.rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
 
           this.keysData = Object.keys(this.data[0])
           this.$root.$emit('sendData', this.keysData)

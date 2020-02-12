@@ -7,6 +7,10 @@ class GobiertoModuleSettingsTest < ActiveSupport::TestCase
     @gobierto_people_settings ||= gobierto_module_settings(:gobierto_people_settings_madrid)
   end
 
+  def gobierto_data_settings
+    @gobierto_data_settings ||= gobierto_module_settings(:gobierto_data_settings_madrid)
+  end
+
   def test_dynamic_setters
     module_settings = GobiertoModuleSettings.new
     module_settings.first_setting = "foo"
@@ -27,5 +31,10 @@ class GobiertoModuleSettingsTest < ActiveSupport::TestCase
   def test_dynamic_getters
     assert_equal "Home text English", gobierto_people_settings.home_text_en
     assert_nil gobierto_people_settings.wrong_field
+  end
+
+  def test_public_api_settings
+    assert_includes gobierto_data_settings.public_api_settings.keys, "api_configuration"
+    refute_includes gobierto_data_settings.public_api_settings.keys, "api_private_configuration"
   end
 end

@@ -64,6 +64,7 @@
       <Summary
         v-if="activeTab === 0"
         :array-queries="arrayQueries"
+        :public-queries="publicQueries"
         :array-formats="arrayFormats"
       />
       <Data
@@ -71,12 +72,15 @@
         :dataset-id="datasetId"
         :array-queries="arrayQueries"
         :array-columns="arrayColumns"
+        :public-queries="publicQueries"
         :table-name="tableName"
         :array-formats="arrayFormats"
+        :number-rows="numberRows"
       />
       <Queries
         v-else-if="activeTab === 2"
         :array-queries="arrayQueries"
+        :public-queries="publicQueries"
       />
       <Visualizations v-else-if="activeTab === 3" />
       <Downloads
@@ -118,6 +122,14 @@ export default {
       type: Array,
       required: true
     },
+    numberRows: {
+      type: Number,
+      required: true
+    },
+    publicQueries: {
+      type: Array,
+      required: true
+    },
     arrayColumns: {
       type: Array,
       required: true
@@ -144,7 +156,8 @@ export default {
       labelDownload: "",
       labelFav: "",
       labelFollow: "",
-      slugName: ''
+      slugName: '',
+      title: ''
     }
   },
   created() {
@@ -170,5 +183,4 @@ export default {
     }
   }
 }
-
 </script>

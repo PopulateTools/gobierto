@@ -5,8 +5,10 @@
       :table-name="tableName"
       :dataset-id="datasetId"
       :array-queries="arrayQueries"
+      :public-queries="publicQueries"
       :array-formats="arrayFormats"
       :array-columns="arrayColumns"
+      :number-rows="numberRows"
     />
   </div>
 </template>
@@ -31,6 +33,14 @@ export default {
       required: true
     },
     arrayQueries: {
+      type: Array,
+      required: true
+    },
+    numberRows: {
+      type: Number,
+      required: true
+    },
+    publicQueries: {
       type: Array,
       required: true
     },

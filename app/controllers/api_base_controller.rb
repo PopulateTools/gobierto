@@ -7,6 +7,8 @@ class ApiBaseController < ActionController::API
 
   before_action :disable_cors
 
+  rescue_from ActiveRecord::RecordNotFound, with: -> { send_not_found }
+
   def preferred_locale
     @preferred_locale ||= begin
                             locale_param = params[:locale]

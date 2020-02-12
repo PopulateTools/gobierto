@@ -39,13 +39,12 @@
       </keep-alive>
     </div>
     <SQLEditorTable
-      v-if="activeTab === 0"
+      v-if="activeTab === 2"
       :items="items"
       :number-rows="numberRows"
       :table-name="tableName"
     />
     <SQLEditorVisualizations
-      v-if="activeTab === 1"
       :items="items"
     />
   </div>

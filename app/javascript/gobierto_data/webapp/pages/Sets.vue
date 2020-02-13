@@ -71,6 +71,7 @@ export default {
     this.userId = getUserId()
     this.token = getToken()
     this.$root.$on('reloadQueries', this.getQueries)
+    this.$root.$on('reloadPublicQueries', this.getPublicQueries)
     this.getData(this.$route.params.id)
   },
   methods: {
@@ -101,7 +102,6 @@ export default {
           this.rawData = response.data
           this.titleDataset = this.rawData.data.attributes.name
           this.datasetId = parseInt(this.rawData.data.id)
-          this.slugDataset = this.rawData.data.attributes.slug
           this.tableName = this.rawData.data.attributes.table_name
           this.arrayFormats = this.rawData.data.attributes.formats
           this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
@@ -115,7 +115,7 @@ export default {
           console.error(error)
         })
     },
-    getColumns(slugDataset, index) {
+    getColumns(slugDataset) {
       this.url = `${baseUrl}/datasets/${slugDataset}`
       axios
         .get(this.url)
@@ -123,7 +123,6 @@ export default {
           this.rawData = response.data
           this.keysData = this.rawData.data
           this.columns = Object.keys(this.keysData[0])
-          this.handleToggle(index)
         })
         .catch(error => {
           console.error(error)

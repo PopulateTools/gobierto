@@ -237,19 +237,22 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          this.data = []
-          this.keysData = []
-          this.rawData = response.data
-          this.meta = this.rawData.meta
-          this.data = this.rawData.data
+          let data = []
+          let keysData = []
+          const rawData = response.data
+          const meta = rawData.meta
+          data = rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          const queryDurationRecors = [ meta.rows, meta.duration]
 
-          this.keysData = Object.keys(this.data[0])
+          keysData = Object.keys(data[0])
 
           this.$root.$emit('recordsDuration', queryDurationRecors)
           this.$root.$emit('sendData', keysData, data)
+<<<<<<< HEAD
           this.$root.$emit('sendDataViz', data)
+=======
+>>>>>>> 335eea72a... reload public queries
           this.$root.$emit('showMessages', true, false)
           this.$root.$emit('sendQueryCode', this.queryCode)
 

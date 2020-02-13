@@ -24,7 +24,7 @@
           >
             <span
               class="gobierto-data-summary-queries-container-name"
-              @click="handleQueries(arrayQueries[index].attributes.sql, item)"
+              @click="handleQueries(arrayQueries[index].attributes.sql, item, false)"
             >
               {{ item.attributes.name }}
             </span>
@@ -81,7 +81,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCodePublic(index)"
             @mouseleave="hideCode = true"
-            @click="handleQueries(publicQueries[index].attributes.sql, item)"
+            @click="handleQueries(publicQueries[index].attributes.sql, item, true)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
             <div
@@ -155,11 +155,14 @@ export default {
     this.userId = getUserId()
   },
   methods: {
-    handleQueries(sql, item) {
+    handleQueries(sql, item, anonymusQuery) {
       this.runYourQuery(sql)
       this.sendQuery(item)
       this.closeModal()
       this.changeTab()
+      if (anonymusQuery === true) {
+        this.$root.$emit('disableEdit')
+      }
     },
     closeModal() {
       this.$root.$emit('closeQueriesModal');
@@ -173,7 +176,7 @@ export default {
       this.sqlCode = this.publicQueries[index].attributes.sql
     },
     sendQuery(item) {
-      this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql ]
+      this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql, item.id, item.attributes.user_id ]
       this.queryCode = item.attributes.sql
       this.$root.$emit('sendQueryParams', this.queryParams)
       this.$root.$emit('sendQueryCode', this.queryCode)

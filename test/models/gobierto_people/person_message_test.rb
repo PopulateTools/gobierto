@@ -12,6 +12,10 @@ module GobiertoPeople
       @subject ||= GobiertoPeople::PersonMessage.new name: "Sender", email: "foo@example.com", person: person, body: "This is my message"
     end
 
+    def site
+      @sites ||= sites(:madrid)
+    end
+
     def test_valid
       assert subject.valid?
     end
@@ -21,7 +25,7 @@ module GobiertoPeople
       refute ActionMailer::Base.deliveries.empty?
       email = ActionMailer::Base.deliveries.last
 
-      assert_equal ["admin@gobierto.dev"], email.from
+      assert_equal [site.organization_email], email.from
       assert_equal ["foo@example.com"], email.reply_to
       assert_equal [person.email], email.to
       assert_equal "You have received a new message from Transparencia y Participción", email.subject

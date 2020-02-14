@@ -4,22 +4,14 @@ class ApplicationMailer < ActionMailer::Base
   private
 
   def from
-    site_from || default_from
+    @site.organization_email.presence || default_organization_address
   end
 
-  def site_from
-    @site.presence && "#{@site.name} <#{APP_CONFIG["email_config"]["default_email"]}>"
+  def default_organization_address
+    "#{@site.name} <no-reply@#{site_host}>"
   end
 
   def site_host
     @site.try(:domain) || ENV["HOST"]
-  end
-
-  def default_from
-    APP_CONFIG["email_config"]["default_from"]
-  end
-
-  def default_reply_to
-    APP_CONFIG["email_config"]["default_reply_to"]
   end
 end

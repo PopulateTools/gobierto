@@ -36,6 +36,10 @@ module GobiertoAdmin
           @draft_dataset ||= gobierto_data_datasets(:draft_dataset)
         end
 
+        def attachment
+          @attachment ||= gobierto_attachments_attachments(:xlsx_attachment)
+        end
+
         def test_regular_admin_permissions_not_authorized
           with(site: site, admin: unauthorized_regular_admin) do
             visit @path
@@ -110,14 +114,38 @@ module GobiertoAdmin
           end
         end
 
-        def publish_dataset
+        def test_publish_dataset
           with(site: site, admin: admin, js: true) do
+            visit @path
+
             within ".widget_save" do
               find("label", text: "Published").click
             end
             click_button "Update"
 
             assert has_message?("Dataset updated correctly.")
+          end
+        end
+
+        def test_dataset_attachments
+          with(site: site, admin: admin, js: true) do
+            visit @path
+
+            within "#gobierto-attachment" do
+              assert has_content?("TXT PDF Attachment Name")
+              assert has_no_content?("XLSX Attachment Name")
+            end
+
+            click_button "Include file"
+
+            assert has_content?("XLSX Attachment Name")
+            click_link("XLSX Attachment Name")
+
+            within "#gobierto-attachment" do
+              assert has_content?("XLSX Attachment Name")
+            end
+
+            assert_includes dataset.attachments, attachment
           end
         end
       end

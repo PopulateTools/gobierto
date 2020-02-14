@@ -22,4 +22,7 @@ xlsx_attachment_event_reading_club:
   attachable: reading_club
   attachable_type: GobiertoCalendars::Event
 
-
+users_dataset_pdf_attachment:
+  site: madrid
+  attachment: txt_pdf_attachment
+  attachable: users_dataset (GobiertoData::Dataset)

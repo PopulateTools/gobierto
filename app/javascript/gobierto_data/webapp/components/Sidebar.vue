@@ -5,14 +5,14 @@
         <li
           :class="{ 'is-active': activeTab === 0 }"
           class="gobierto-data-tab-sidebar--tab"
-          @click="activateTab(0)"
+          @click="activateTab('SidebarCategories', 0)"
         >
           <span>{{ labelCategories }}</span>
         </li>
         <li
           :class="{ 'is-active': activeTab === 1 || activeTab === 4 }"
           class="gobierto-data-tab-sidebar--tab"
-          @click="activateTab(1)"
+          @click="activateTab('SidebarDatasets', 1)"
         >
           <span>{{ labelSets }}</span>
         </li>
@@ -20,56 +20,29 @@
         <li
           :class="{ 'is-active': activeTab === 2 }"
           class="gobierto-data-tab-sidebar--tab"
-          @click="activateTab(2)"
+          @click="activateTab('SidebarQueries', 2)"
         >
           <span>{{ labelQueries }}</span>
         </li>
       </ul>
     </nav>
-    <div
-      v-if="activeTab === 1 || activeTab === 4 && allDatasets"
-    >
-      <div
-        v-for="(item, index) in allDatasets"
-        :key="index"
-        class="gobierto-data-sidebar-datasets"
-      >
-        <div class="gobierto-data-sidebar-datasets-links-container">
-          <i
-            :class="{'rotate-caret': toggle !== index }"
-            class="fas fa-caret-down gobierto-data-sidebar-icon"
-            @click="handleToggle(index)"
-          />
-          <a
-            :href="'/datos/' + item.attributes.slug"
-            class="gobierto-data-sidebar-datasets-name"
-            @click.prevent="nav(item.attributes.slug, item.attributes.name)"
-          >{{ item.attributes.name }}
-          </a>
-          <div
-            v-show="toggle === index"
-            class="gobierto-data-sidebar-datasets-container-columns"
-          >
-            <span
-              v-for="(column, i) in item.attributes.columns"
-              :key="i"
-              :item="i"
-              class="gobierto-data-sidebar-datasets-links-columns"
-            >
-              {{ i }}
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <component
+      :is="selectedComponent"
+      v-bind="componentProperties"
+    />
   </div>
 </template>
 <script>
-import axios from 'axios'
-import { baseUrl } from "./../../lib/commons"
-import { getUserId } from "./../../lib/helpers"
+import SidebarCategories from './SidebarCategories.vue';
+import SidebarDatasets from './SidebarDatasets.vue';
+import SidebarQueries from './SidebarQueries.vue';
 export default {
   name: "Sidebar",
+  components: {
+    SidebarCategories,
+    SidebarDatasets,
+    SidebarQueries
+  },
   props: {
     activeTab: {
       type: Number,
@@ -81,68 +54,42 @@ export default {
       labelSets: "",
       labelQueries: "",
       labelCategories: "",
-      titleDataset: '',
-      slugDataset: '',
-      tableName: '',
-      allDatasets: [],
-      numberId: '',
-      columns: '',
-      toggle: 0,
-      indexToggle: null
+      selectedComponent: 'SidebarCategories'
+    }
+  },
+  computed: {
+    componentProperties: function() {
+      if (this.selectedComponent === 'SidebarCategories') {
+        return {
+          parentId: 0
+        }
+      } else if (this.selectedComponent === 'SidebarDatasets') {
+        return {
+          parentId: 1
+        }
+      } else if (this.selectedComponent === 'SidebarQueries') {
+        return {
+          parentId: 2
+        }
+      }
     }
   },
   created() {
-    this.userId = getUserId()
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
-    this.initData()
+  },
+  mounted() {
+    this.$root.$on('value', data => {
+      this.selectedComponent = data
+    })
   },
   methods: {
-    initData(){
-      this.endPoint = `${baseUrl}/datasets`
-      axios
-        .get(this.endPoint)
-        .then(response => {
-          this.rawData = response.data
-
-          this.sortDatasets = this.rawData.data
-          this.allDatasets = this.sortDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
-
-          let slug = this.$route.params.id
-
-          this.indexToggle = this.allDatasets.findIndex(dataset => dataset.attributes.slug == slug)
-          this.toggle = this.indexToggle
-          if (this.toggle === -1) {
-            this.toggle = 0
-            slug = this.allDatasets[0].attributes.slug
-          }
-          let firstElement = this.allDatasets.find(dataset => dataset.attributes.slug == slug)
-          let filteredArray = this.allDatasets.filter(dataset => dataset.attributes.slug !== slug)
-          filteredArray.unshift(firstElement)
-          this.allDatasets = filteredArray
-          this.toggle = 0
-        })
-        .catch(error => {
-          console.error(error)
-        })
-    },
-    handleToggle(index) {
-      this.toggle = this.toggle !== index ? index : null;
-    },
-    activateTab(index) {
+    activateTab(value, index) {
+      this.selectedComponent = value
       this.$emit("active-tab", index);
-    },
-    nav(slugDataset, nameDataset) {
-      this.toggle = 0
-      this.$router.push({
-        name: "dataset",
-        params: {
-          id: slugDataset,
-          title: nameDataset
-        }
-    }, () => {})
+
     }
   }
-};
+}
 </script>

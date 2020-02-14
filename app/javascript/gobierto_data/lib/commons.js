@@ -1,5 +1,7 @@
 export const baseUrl = `${location.origin}/api/v1/data`
 
+import CONFIGURATION from "./mataro.conf.js";
+
 export const CommonsMixin = {
   directives: {
     clickoutside: {
@@ -46,6 +48,48 @@ export const closableMixin = {
         document.removeEventListener('click', handleOutsideClick)
         document.removeEventListener('touchstart', handleOutsideClick)
       }
+    }
+  }
+}
+
+export const categoriesMixin = {
+  methods: {
+
+    getItem(element, attributes) {
+      const attr = this.middleware.getAttributesByKey(element.id);
+
+      let value = attributes[element.id];
+
+      if (element.multiple) {
+        value = this.translate(attributes[element.id][0].name_translations);
+      }
+
+      return {
+        ...attr,
+        ...element,
+        name: this.translate(attr.name_translations),
+        value: value
+      };
+    },
+    setItem(element) {
+      return {
+        ...element,
+
+      };
+    },
+    setData(data) {
+      return data.map(element => this.setItem(element));
+    },
+    async alterDataObjectOptional(data) {
+      const { itemSpecialConfiguration } = CONFIGURATION;
+
+      let spreadData = data;
+      if (itemSpecialConfiguration) {
+        const { fn = () => data } = itemSpecialConfiguration;
+        spreadData = await fn(data);
+      }
+
+      return Array.isArray(spreadData) ? this.setData(spreadData) : this.setItem(spreadData);
     }
   }
 }

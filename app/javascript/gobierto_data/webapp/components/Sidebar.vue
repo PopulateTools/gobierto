@@ -28,7 +28,8 @@
     </nav>
     <component
       :is="selectedComponent"
-      v-bind="filters"
+      :filters="filters"
+      :datasets="datasets"
     />
   </div>
 </template>
@@ -51,6 +52,10 @@ export default {
     filters: {
       type: Array,
       default: () => []
+    },
+    datasets: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -61,30 +66,12 @@ export default {
       selectedComponent: 'SidebarCategories'
     }
   },
-  computed: {
-    componentProperties: function() {
-      if (this.selectedComponent === 'SidebarCategories') {
-        return {
-          parentId: 0
-        }
-      } else if (this.selectedComponent === 'SidebarDatasets') {
-        return {
-          parentId: 1
-        }
-      } else if (this.selectedComponent === 'SidebarQueries') {
-        return {
-          parentId: 2
-        }
-      }
-    }
-  },
   created() {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
   },
   mounted() {
-    console.log(this.filters)
     this.$root.$on('value', data => {
       this.selectedComponent = data
     })
@@ -93,7 +80,6 @@ export default {
     activateTab(value, index) {
       this.selectedComponent = value
       this.$emit("active-tab", index);
-
     }
   }
 }

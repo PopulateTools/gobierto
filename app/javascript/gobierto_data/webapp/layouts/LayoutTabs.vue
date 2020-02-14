@@ -11,8 +11,10 @@
         :active-tab="activeTabSidebar"
         :all-datasets="allDatasets"
         :filters="filters"
+        :datasets="datasets"
         @active-tab="activeTabSidebar = $event"
       />
+      <slot />
     </div>
   </div>
 </template>
@@ -29,6 +31,10 @@ export default {
     filters: {
       type: Array,
       default: () => []
+    },
+    datasets: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -37,9 +43,6 @@ export default {
       activeTabSidebar: 0,
       allDatasets: []
     }
-  },
-  mounted() {
-    console.log(this.filters)
   }
 }
 

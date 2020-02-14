@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>Datasets</p>
     <div
       v-for="(item, index) in allDatasets"
       :key="index"
@@ -36,7 +37,7 @@
 </template>
 <script>
 export default {
-  name: "Sidebar",
+  name: "SidebarDatasets",
   props: {
     allDatasets: {
       type: Array,

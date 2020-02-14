@@ -10,9 +10,9 @@
       <Sidebar
         :active-tab="activeTabSidebar"
         :all-datasets="allDatasets"
+        :filters="filters"
         @active-tab="activeTabSidebar = $event"
       />
-      <slot />
     </div>
   </div>
 </template>
@@ -20,9 +20,16 @@
 import Sidebar from "./../components/Sidebar.vue";
 import Nav from "./../components/Nav.vue";
 export default {
+  name: "LayoutTabs",
   components: {
     Sidebar,
     Nav
+  },
+  props: {
+    filters: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
@@ -30,6 +37,9 @@ export default {
       activeTabSidebar: 0,
       allDatasets: []
     }
+  },
+  mounted() {
+    console.log(this.filters)
   }
 }
 

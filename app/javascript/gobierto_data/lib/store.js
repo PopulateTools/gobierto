@@ -10,7 +10,7 @@ export const store = {
     this.state.items = value;
   },
   addDatasets(value) {
-    this.state.items = value;
+    this.state.datasets = value;
   },
   addFilters(value) {
     this.state.filters = value;

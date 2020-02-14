@@ -4,7 +4,11 @@ class ApplicationMailer < ActionMailer::Base
   private
 
   def from
-    @site.organization_email.presence || default_organization_address
+    if @site
+      @site.organization_email.presence || default_organization_address
+    else
+      default_from
+    end
   end
 
   def default_organization_address
@@ -13,5 +17,9 @@ class ApplicationMailer < ActionMailer::Base
 
   def site_host
     @site.try(:domain) || ENV["HOST"]
+  end
+
+  def default_from
+    APP_CONFIG["email_config"]["default_from"]
   end
 end

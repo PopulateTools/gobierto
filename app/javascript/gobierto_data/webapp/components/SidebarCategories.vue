@@ -1,7 +1,5 @@
 <template>
-  <div class="pure-u-1 pure-u-lg-1-4">
-    <p>Categories</p>
-    {{ filters }}
+  <div class="pure-u-1 pure-u-lg-4-4">
     <aside class="investments-home-aside--gap">
       <div
         v-for="filter in filters"
@@ -23,7 +21,7 @@
           :checked="option.isOptionChecked"
           :counter="option.counter"
           class="investments-home-aside--checkbox"
-          @checkbox-change="e => handleCheckboxStatus({ ...e, filter })"
+          @checkbox-change="e => sendCheckboxStatus({ ...e, filter })"
         />
       </div>
     </aside>
@@ -38,9 +36,9 @@ export default {
     Checkbox
   },
   props: {
-    allDatasets: {
-      type: Array,
-      default: () => []
+    activeTab: {
+      type: Number,
+      default: 0
     },
     filters: {
       type: Array,
@@ -67,18 +65,8 @@ export default {
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
   },
   methods: {
-    handleToggle(index) {
-      this.toggle = this.toggle !== index ? index : null;
-    },
-    nav(slugDataset, nameDataset) {
-      this.toggle = 0
-      this.$router.push({
-        name: "dataset",
-        params: {
-          id: slugDataset,
-          title: nameDataset
-        }
-    }, () => {})
+    sendCheckboxStatus({ id, value, filter }) {
+      this.$root.$emit("sendCheckbox", { id, value, filter })
     }
   }
 };

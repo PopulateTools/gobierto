@@ -1,8 +1,7 @@
 <template>
   <div>
-    <p>Datasets</p>
     <div
-      v-for="(item, index) in allDatasets"
+      v-for="(item, index) in listDatasets"
       :key="index"
       class="gobierto-data-sidebar-datasets"
     >
@@ -15,7 +14,7 @@
         <a
           :href="'/datos/' + item.attributes.slug"
           class="gobierto-data-sidebar-datasets-name"
-          @click.prevent="nav(item.attributes.slug, item.attributes.name)"
+          @click.prevent="nav(item.attributes.slug, item.attributes.name, index)"
         >{{ item.attributes.name }}
         </a>
         <div
@@ -39,7 +38,7 @@
 export default {
   name: "SidebarDatasets",
   props: {
-    allDatasets: {
+    datasets: {
       type: Array,
       default: () => []
     }
@@ -49,11 +48,7 @@ export default {
       labelSets: "",
       labelQueries: "",
       labelCategories: "",
-      titleDataset: '',
-      slugDataset: '',
-      tableName: '',
-      numberId: '',
-      columns: '',
+      listDatasets: [],
       toggle: 0,
       indexToggle: null
     }
@@ -62,12 +57,30 @@ export default {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
+    this.orderDatasets()
   },
   methods: {
+    orderDatasets() {
+      const sortDatasets = this.datasets
+      const allDatasets = sortDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+      let slug = this.$route.params.id
+      const indexToggle = allDatasets.findIndex(dataset => dataset.attributes.slug == slug)
+      this.toggle = indexToggle
+      if (this.toggle === -1) {
+        this.toggle = 0
+        slug = allDatasets[0].attributes.slug
+      }
+      let firstElement = allDatasets.find(dataset => dataset.attributes.slug == slug)
+      let filteredArray = allDatasets.filter(dataset => dataset.attributes.slug !== slug)
+      filteredArray.unshift(firstElement)
+      this.listDatasets = filteredArray
+      this.toggle = 0
+    },
     handleToggle(index) {
       this.toggle = this.toggle !== index ? index : null;
     },
     nav(slugDataset, nameDataset) {
+      this.$root.$emit('changeView', this.listDatasets)
       this.toggle = 0
       this.$router.push({
         name: "dataset",

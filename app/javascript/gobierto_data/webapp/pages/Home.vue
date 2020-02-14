@@ -2,13 +2,12 @@
   <div class="gobierto-data">
     <LayoutTabs
       :filters="filters"
+      :datasets="subsetItems"
     >
-      <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
-        <div style="background-color: rgba(113, 184, 193, .1); color: #71B8C1; height: 40vh; widht: 100%; padding: 1rem; font-weight: bold;">
-          Promo - Intro al módulo
-        </div>
-        <InfoList :items="datasets" />
-      </div>
+      <component
+        :is="currentView"
+        :items="subsetItemsOrder"
+      />
     </LayoutTabs>
   </div>
 </template>
@@ -16,6 +15,7 @@
 <script>
 import LayoutTabs from "./../layouts/LayoutTabs.vue";
 import InfoList from "./../components/commons/InfoList.vue";
+import DataSets from "./DataSets.vue";
 import { Middleware } from "lib/shared";
 import { categoriesMixin, baseUrl } from "./../../lib/commons"
 import { store } from "./../../lib/store";
@@ -27,14 +27,17 @@ export default {
   name: "Home",
   components: {
     LayoutTabs,
-    InfoList
+    InfoList,
+    DataSets
   },
   mixins: [categoriesMixin],
   data() {
     return {
       activeTabIndex: 0,
+      currentView: 'InfoList',
       items: store.state.items || [],
       subsetItems: [],
+      subsetItemsOrder: [],
       filters: store.state.filters || [],
       activeFilters: store.state.activeFilters || new Map(),
       defaultFilters: store.state.defaultFilters || new Map(),
@@ -47,83 +50,15 @@ export default {
           subject: 'Urbanismo e infraestructuras',
           description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
         }
-      },
-      {
-        file: {
-          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
-          date: '12 de octubre de 2019',
-          frequency: 'Anual',
-          subject: 'Urbanismo e infraestructuras',
-          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
-        }
-      },
-      {
-        file: {
-          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
-          date: '12 de octubre de 2019',
-          frequency: 'Anual',
-          subject: 'Urbanismo e infraestructuras',
-          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
-        }
-      },
-      {
-        file: {
-          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
-          date: '12 de octubre de 2019',
-          frequency: 'Anual',
-          subject: 'Urbanismo e infraestructuras',
-          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
-        }
-      },
-      {
-        file: {
-          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
-          date: '12 de octubre de 2019',
-          frequency: 'Anual',
-          subject: 'Urbanismo e infraestructuras',
-          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
-        }
-      },
-      {
-        file: {
-          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
-          date: '12 de octubre de 2019',
-          frequency: 'Anual',
-          subject: 'Urbanismo e infraestructuras',
-          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
-        }
-      },
-      {
-        file: {
-          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
-          date: '12 de octubre de 2019',
-          frequency: 'Anual',
-          subject: 'Urbanismo e infraestructuras',
-          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
-        }
-      },
-      {
-        file: {
-          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
-          date: '12 de octubre de 2019',
-          frequency: 'Anual',
-          subject: 'Urbanismo e infraestructuras',
-          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
-        }
-      },
-      {
-        file: {
-          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
-          date: '12 de octubre de 2019',
-          frequency: 'Anual',
-          subject: 'Urbanismo e infraestructuras',
-          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
-        }
-      }
-      ]
+      }]
     }
   },
   async created() {
+    this.$root.$on('changeView', (values) => {
+      this.currentView = 'DataSets'
+      this.subsetItemsOrder = values[0]
+    })
+    this.$root.$on("sendCheckbox", this.handleCheckboxStatus)
     if (this.items.length) {
       this.updateDOM();
     } else {
@@ -141,6 +76,9 @@ export default {
     }
   },
   methods: {
+    setCurrentView() {
+      this.currentView = 'DataSets'
+    },
     async getItems() {
       const [
         {
@@ -195,6 +133,7 @@ export default {
 
       // Once items is updated, assign again the result
       this.subsetItems = itemsUpdated;
+      this.subsetItemsOrder = this.subsetItems;
 
       // save the items
       store.addItems(itemsUpdated);

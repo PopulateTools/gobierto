@@ -28,7 +28,8 @@
     </nav>
     <component
       :is="selectedComponent"
-      v-bind="filters"
+      :filters="filters"
+      :datasets="datasets"
     />
   </div>
 </template>
@@ -49,6 +50,10 @@ export default {
       default: 0
     },
     filters: {
+      type: Array,
+      default: () => []
+    },
+    datasets: {
       type: Array,
       default: () => []
     }

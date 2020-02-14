@@ -102,7 +102,9 @@ import Data from "./Data.vue";
 import Queries from "./Queries.vue";
 import Visualizations from "./Visualizations.vue";
 import Downloads from "./Downloads.vue";
-
+import axios from 'axios'
+import { baseUrl } from "./../../../lib/commons"
+import { getUserId } from "./../../../lib/helpers"
 
 export default {
   name: "NavSets",
@@ -133,19 +135,12 @@ export default {
     },
     arrayFormats: {
       type: Object,
-      required: true
-    },
-    tableName: {
-      type: String,
-      required: true
-    },
-    titleDataset: {
-      type: String,
-      required: true
+      default: () => []
     }
   },
   data() {
     return {
+      activeTab: 0,
       labelSummary: "",
       labelData: "",
       labelQueries: "",
@@ -154,7 +149,13 @@ export default {
       labelFav: "",
       labelFollow: "",
       slugName: '',
-      title: ''
+      title: '',
+      tableName: '',
+      titleDataset: '',
+      arrayQueries: [],
+      numberRows: 0,
+      arrayFormats: {},
+      publicQueries: []
     }
   },
   created() {
@@ -170,13 +171,67 @@ export default {
     this.$root.$on('activeTabIndex', this.changeTab)
 
     this.slugName = this.$route.params.id
+
+    this.setValuesDataset()
   },
   methods: {
     changeTab() {
       this.activateTab(1)
     },
     activateTab(index) {
+      this.activeTab = index
       this.$emit("active-tab", index);
+    },
+    setValuesDataset(){
+      this.tableName = this.items.attributes.slug
+      this.titleDataset = this.items.attributes.name
+      const url = `${baseUrl}/datasets/${this.tableName}/meta`
+      axios
+        .get(url)
+        .then(response => {
+          const rawData = response.data
+          this.datasetId = parseInt(rawData.data.id)
+          this.slugDataset = rawData.data.attributes.slug
+          this.tableName = rawData.data.attributes.table_name
+          this.arrayFormats = rawData.data.attributes.formats
+          this.numberRows = rawData.data.attributes.data_summary.number_of_rows
+
+          this.$root.$emit('nameDataset', this.titleDataset)
+
+          this.getQueries()
+          this.getPublicQueries()
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    },
+    getQueries() {
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${getUserId}`
+      axios
+        .get(this.endPoint)
+        .then(response => {
+          const rawData = response.data
+          const items = rawData.data
+          this.arrayQueries = items
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
+    },
+     getPublicQueries() {
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
+      axios
+        .get(this.endPoint)
+        .then(response => {
+          const rawData = response.data
+          const items = rawData.data
+          this.publicQueries = items
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
     }
   }
 }

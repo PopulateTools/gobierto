@@ -3,7 +3,7 @@
     <h1
       class="gobierto-data-title-dataset gobierto-data-title-dataset-big"
     >
-      {{ item.file.title }}
+      {{ items }}
     </h1>
     <div class="pure-g">
       <div class="pure-u-1-2 gobierto-data-summary-header">
@@ -13,7 +13,7 @@
             {{ labelUpdated }}
           </span>
           <span class="gobierto-data-summary-header-container-text">
-            {{ item.file.date }}
+            {{ items.file.date }}
           </span>
         </div>
         <div class="gobierto-data-summary-header-container">
@@ -22,7 +22,7 @@
             {{ labelFrequency }}
           </span>
           <span class="gobierto-data-summary-header-container-text">
-            {{ item.file.frequency }}
+            {{ items.file.frequency }}
           </span>
         </div>
         <div class="gobierto-data-summary-header-container">
@@ -34,7 +34,7 @@
             href=""
             class="gobierto-data-summary-header-container-text-link"
           >
-            {{ item.file.subject }}
+            {{ item.attributes.category[0].name_translations.es }}
           </a>
         </div>
       </div>
@@ -50,8 +50,8 @@
 export default {
   name: "Info",
   props: {
-    item: {
-      type: Object,
+    items: {
+      type: Array,
       required: true
     }
   },

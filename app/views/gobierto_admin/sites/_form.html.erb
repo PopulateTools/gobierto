@@ -56,6 +56,11 @@
         </div>
       </div>
 
+      <div class="form_item input_text">
+        <%= f.label :organization_email %>
+        <%= f.text_field(:organization_email, placeholder: t(".placeholders.organization_email")) %>
+      </div>
+
       <div class="form_block">
 
         <% if f.object.logo_url.present? %>

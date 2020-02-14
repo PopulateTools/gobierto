@@ -72,10 +72,6 @@ default: &default
   admins:
     preset_admin_email: "admin@gobierto.dev"
     preset_admin_name: "Gobierto Admin"
-  email_config:
-    default_email: "admin@gobierto.dev"
-    default_from: "Gobierto <admin@gobierto.dev>"
-    default_reply_to: "Gobierto <admin@gobierto.dev>"
   services:
     municipalities_suggestions_endpoint: <%= ENV["MUNICIPALITIES_SUGGESTIONS_ENDPOINT"] %>
   gobierto_budgets:

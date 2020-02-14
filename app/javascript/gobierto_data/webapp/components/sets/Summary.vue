@@ -11,7 +11,10 @@
       />
     </keep-alive>
     <Resources :items="filesDataset" />
-    <Queries :array-queries="arrayQueries" />
+    <Queries
+      :array-queries="arrayQueries"
+      :public-queries="publicQueries"
+    />
   </div>
 </template>
 
@@ -31,6 +34,10 @@ export default {
   },
   props: {
     arrayQueries: {
+      type: Array,
+      required: true
+    },
+    publicQueries: {
       type: Array,
       required: true
     },

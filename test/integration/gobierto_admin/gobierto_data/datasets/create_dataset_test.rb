@@ -6,6 +6,8 @@ module GobiertoAdmin
   module GobiertoData
     module Datasets
       class CreateDatasetTest < ActionDispatch::IntegrationTest
+        self.use_transactional_tests = false
+
         def setup
           super
           @path = new_admin_data_dataset_path
@@ -62,6 +64,10 @@ module GobiertoAdmin
             fill_in "dataset_name_translations_es", with: "Vocabularios"
             select "vocabularies", from: "dataset_table_name"
             fill_in "dataset_slug", with: "vocabularies-slug"
+
+            within ".widget_save" do
+              find("label", text: "Published").click
+            end
 
             click_button "Create"
 

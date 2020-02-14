@@ -20,8 +20,10 @@ en:
         index:
           header:
             name: Name
+            status: Status
             table_name: Table name
           new: New
           title: Datasets
+          view_dataset: See dataset
         new:
           title: New dataset

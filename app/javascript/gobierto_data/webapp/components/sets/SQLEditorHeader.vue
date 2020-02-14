@@ -59,12 +59,13 @@
             mode="out-in"
           >
             <Queries
+              v-show="!isHidden"
               v-closable="{
                 exclude: ['button'],
                 handler: 'closeYourQueries'
               }"
-              v-show="!isHidden"
               :array-queries="arrayQueries"
+              :public-queries="publicQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               tabindex="-1"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
@@ -190,7 +191,15 @@ export default {
       type: Array,
       required: true
     },
+    publicQueries: {
+      type: Array,
+      required: true
+    },
     datasetId: {
+      type: Number,
+      required: true
+    },
+    numberRows: {
       type: Number,
       required: true
     }
@@ -239,6 +248,9 @@ export default {
       token: '',
       noLogin: false,
       editorFocus: false
+      queryId: '',
+      userIdQuery: '',
+      oldQueryName: ''
     }
   },
   created() {
@@ -265,12 +277,12 @@ export default {
     this.$root.$on('sendYourQuery', this.runYourQuery)
 
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
+    this.$root.$on('disableEdit', this.hideEdit)
 
     this.$root.$on('blurEditor', this.activateShortcutsListener)
     this.$root.$on('focusEditor', this.removeShortcutsListener)
 
     this.token = getToken()
-
     this.userId = getUserId()
 
     this.noLogin = this.userId === "" ? true : false
@@ -295,6 +307,13 @@ export default {
     },
     removeShortcutsListener(){
       window.removeEventListener("keydown", this.shortcutsListener, true);
+    },
+    hideEdit(){
+      this.showBtnEdit = false
+    },
+    onSave(queryName) {
+      this.disabledSave = false
+      this.labelQueryName = queryName
     },
     userLogged() {
       if (this.noLogin)
@@ -322,8 +341,11 @@ export default {
       this.$root.$emit('saveQueryState', true);
 
       this.labelQueryName = queryParams[0]
+      this.oldQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]
       this.codeQuery = queryParams[2]
+      this.queryId = parseInt(queryParams[3])
+      this.userIdQuery = queryParams[4].toString()
 
       if (this.privacyStatus === 'open') {
         this.privateQuery = false
@@ -331,7 +353,6 @@ export default {
         this.privateQuery = true
       }
 
-      this.runQuery()
     },
     privateQueryValue(valuePrivate) {
       this.disabledSave = false
@@ -413,8 +434,19 @@ export default {
     runQuery() {
       this.showSpinner = true;
       this.queryEditor = encodeURI(this.codeQuery)
+
+      if (this.queryEditor.includes('LIMIT')) {
+        this.queryEditor = this.queryEditor
+        this.$root.$emit('hiddeShowButtonColumns')
+      } else {
+        this.$root.$emit('ShowButtonColumns')
+        this.$root.$emit('sendCompleteQuery', this.queryEditor)
+        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
+        this.queryEditor = this.code
+      }
+
       this.$root.$emit('postRecentQuery', this.codeQuery)
-      this.$root.$emit('showMessages', false)
+      this.$root.$emit('showMessages', false, true)
 
       this.endPoint = `${baseUrl}/data`
       this.url = `${this.endPoint}?sql=${this.queryEditor}`
@@ -434,12 +466,13 @@ export default {
 
           this.$root.$emit('recordsDuration', this.queryDurationRecors)
           this.$root.$emit('sendData', this.keysData, this.data)
-          this.$root.$emit('showMessages', true)
+          this.$root.$emit('showMessages', true, false)
 
         })
         .catch(error => {
           const messageError = error.response.data.errors[0].sql
           this.$root.$emit('apiError', messageError)
+
 
           this.data = []
           this.keysData = []
@@ -479,30 +512,57 @@ export default {
     postQuery() {
       this.endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
-      let data = {
-          "data": {
-              "type": "gobierto_data-queries",
-              "attributes": {
-                  "name": this.labelQueryName,
-                  "privacy_status": this.privacyStatus,
-                  "sql": this.codeQuery,
-                  "dataset_id": this.datasetId
-              }
-          }
-      }
-      axios.post(this.endPoint, data, {
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': `${this.token}`
+      if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
+        this.endPoint = `${baseUrl}/queries/${this.queryId}`
+        let dataUpdate = {
+            "data": {
+                "type": "gobierto_data-queries",
+                "attributes": {
+                    "privacy_status": this.privacyStatus,
+                    "sql": this.codeQuery
+                }
+            }
         }
-      }).then(response => {
-          this.resp = response;
-          this.$root.$emit('reloadQueries')
-      })
-      .catch(error => {
-        const messageError = error.response
-        console.error(messageError)
-      });
+
+        axios.put(this.endPoint, dataUpdate, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `${this.token}`
+          }
+        }).then(response => {
+            this.resp = response;
+            this.$root.$emit('reloadQueries')
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        });
+      } else {
+        let data = {
+            "data": {
+                "type": "gobierto_data-queries",
+                "attributes": {
+                    "name": this.labelQueryName,
+                    "privacy_status": this.privacyStatus,
+                    "sql": this.codeQuery,
+                    "dataset_id": this.datasetId
+                }
+            }
+        }
+        axios.post(this.endPoint, data, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `${this.token}`
+          }
+        }).then(response => {
+            this.resp = response;
+            this.$root.$emit('reloadQueries')
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        });
+      }
     },
     runRecentQuery(code) {
       this.codeQuery = code

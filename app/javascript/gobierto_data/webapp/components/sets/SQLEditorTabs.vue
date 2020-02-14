@@ -41,6 +41,8 @@
     <SQLEditorTable
       v-if="activeTab === 0"
       :items="items"
+      :number-rows="numberRows"
+      :table-name="tableName"
     />
     <SQLEditorVisualizations v-if="activeTab === 1" />
   </div>
@@ -65,9 +67,17 @@ export default {
       type: Object,
       required: true
     },
+    numberRows: {
+      type: Number,
+      required: true
+    },
     items: {
       type: Array,
       default: () => []
+    },
+    tableName: {
+      type: String,
+      required: true
     }
   },
   data() {

@@ -25,6 +25,7 @@ ca:
       frequency: Freqüència
       guide: Guia per utilitzar l'editor SQL
       info: Informació
+      loading: Carregant
       modifiedQuery: Consulta modificada
       news: Notícies
       private: Privat
@@ -37,6 +38,7 @@ ca:
       runQuery: Executar consulta
       save: Desar
       sets: Conjunts
+      showRows: Mostra totes les files
       subject: Tema
       summary: Resum
       table: Taula

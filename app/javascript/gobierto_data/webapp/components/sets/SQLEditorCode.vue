@@ -6,8 +6,16 @@
         v-model="code"
       />
     </div>
-    <div class="gobierto-data-sql-editor-footer">
+    <div
+      class="gobierto-data-sql-editor-footer"
+    >
       <div v-if="showMessages">
+        <div
+          v-if="recordsLoader"
+          class="gobierto-data-sql-editor-footer-records"
+        >
+          {{ labelLoading }}...
+        </div>
         <div v-if="showApiError">
           <span class="gobierto-data-sql-error-message">
             {{ stringError }}
@@ -20,15 +28,15 @@
           <span class="gobierto-data-sql-editor-footer-time">
             {{ labelQueryExecuted }} {{ timeQuery }}ms
           </span>
-          <a
-            href=""
-            class="gobierto-data-sql-editor-footer-guide"
-          >
-            {{ labelGuide }}
-          </a>
         </div>
       </div>
     </div>
+    <a
+      href=""
+      class="gobierto-data-sql-editor-footer-guide"
+    >
+      {{ labelGuide }}
+    </a>
   </div>
 </template>
 <script>
@@ -53,6 +61,10 @@ export default {
       type: Array,
       required: true
     },
+    numberRows: {
+      type: Number,
+      required: true
+    }
   },
   data() {
     return {
@@ -61,6 +73,7 @@ export default {
       labelGuide: '',
       labelQueryExecuted: '',
       labelRecords: '',
+      labelLoading: '',
       numberRecords: '',
       timeQuery: '',
       stringError: '',
@@ -69,6 +82,7 @@ export default {
       sqlAutocomplete: sqlKeywords,
       arrayMutated: [],
       autoCompleteKeys: [],
+      recordsLoader: false,
       cmOption: {
         tabSize: 2,
         styleActiveLine: false,
@@ -99,6 +113,7 @@ export default {
     this.labelGuide = I18n.t('gobierto_data.projects.guide');
     this.labelQueryExecuted = I18n.t('gobierto_data.projects.queryExecuted');
     this.labelRecords = I18n.t('gobierto_data.projects.records');
+    this.labelLoading = I18n.t('gobierto_data.projects.loading');
     this.$root.$on('saveQueryState', this.saveQueryState);
     this.$root.$on('recordsDuration', this.updateRecordsDuration);
     this.$root.$on('updateCode', this.updateCode)
@@ -106,6 +121,7 @@ export default {
     this.$root.$on('showMessages', this.handleShowMessages)
     this.$root.$on('sendQueryCode', this.queryCode)
     this.$root.$emit('activateModalRecent')
+    this.numberRecords = this.numberRows
 
     this.$root.$on('sendYourCode', this.queryCode);
 
@@ -179,12 +195,14 @@ export default {
       this.code = unescape(newCode)
       this.editor.setValue(this.code)
     },
-    handleShowMessages(showTrue){
+    handleShowMessages(showTrue, showLoader){
+      this.recordsLoader = showLoader
       this.showMessages = false
       this.showMessages = showTrue
       this.showApiError = false
     },
     showError(message) {
+      this.recordsLoader = false
       this.showMessages = true
       this.showApiError = true
       this.stringError = message

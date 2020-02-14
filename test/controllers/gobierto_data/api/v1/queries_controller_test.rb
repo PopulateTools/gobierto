@@ -55,12 +55,12 @@ module GobiertoData
           @other_dataset ||= gobierto_data_datasets(:events_dataset)
         end
 
-        def queries_count
-          @queries_count ||= site.queries.count
+        def active_queries_count
+          @active_queries_count ||= site.queries.active.count
         end
 
-        def open_queries_count
-          @open_queries_count ||= site.queries.open.count
+        def open_active_queries_count
+          @open_active_queries_count ||= site.queries.active.open.count
         end
 
         def attributes_data(query)
@@ -124,8 +124,8 @@ module GobiertoData
             response_data = response.parsed_body
 
             assert response_data.has_key? "data"
-            refute_equal queries_count, response_data["data"].count
-            assert_equal open_queries_count, response_data["data"].count
+            refute_equal active_queries_count, response_data["data"].count
+            assert_equal open_active_queries_count, response_data["data"].count
             queries_names = response_data["data"].map { |item| item.dig("attributes", "name") }
             assert_includes queries_names, open_query.name
             refute_includes queries_names, closed_query.name
@@ -147,8 +147,8 @@ module GobiertoData
             response_data = response.parsed_body
             parsed_csv = CSV.parse(response_data)
 
-            refute_equal queries_count + 1, parsed_csv.count
-            assert_equal open_queries_count + 1, parsed_csv.count
+            refute_equal active_queries_count + 1, parsed_csv.count
+            assert_equal open_active_queries_count + 1, parsed_csv.count
             assert_equal %w(id name privacy_status sql dataset_id user_id), parsed_csv.first
             assert_includes parsed_csv, array_data(open_query)
             refute_includes parsed_csv, array_data(closed_query)
@@ -182,9 +182,9 @@ module GobiertoData
 
             assert_equal 1, parsed_xlsx.worksheets.count
             sheet = parsed_xlsx.worksheets.first
-            assert_nil sheet[open_queries_count + 1]
+            assert_nil sheet[open_active_queries_count + 1]
             assert_equal %w(id name privacy_status sql dataset_id user_id), sheet[0].cells.map(&:value)
-            values = (1..open_queries_count).map do |row_number|
+            values = (1..open_active_queries_count).map do |row_number|
               sheet[row_number].cells.map { |cell| cell.value.to_s }
             end
             assert_includes values, array_data(open_query)

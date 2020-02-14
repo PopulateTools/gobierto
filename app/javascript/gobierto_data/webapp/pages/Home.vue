@@ -1,6 +1,8 @@
 <template>
   <div class="gobierto-data">
-    <LayoutTabs>
+    <LayoutTabs
+      :filters="filters"
+    >
       <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
         <div style="background-color: rgba(113, 184, 193, .1); color: #71B8C1; height: 40vh; widht: 100%; padding: 1rem; font-weight: bold;">
           Promo - Intro al módulo
@@ -197,7 +199,6 @@ export default {
       // save the items
       store.addItems(itemsUpdated);
       store.addDatasets(itemsUpdated);
-      console.log("store", store);
 
       return {
         filters,

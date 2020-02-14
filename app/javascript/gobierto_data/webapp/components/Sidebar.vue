@@ -28,7 +28,7 @@
     </nav>
     <component
       :is="selectedComponent"
-      v-bind="componentProperties"
+      v-bind="filters"
     />
   </div>
 </template>
@@ -47,6 +47,10 @@ export default {
     activeTab: {
       type: Number,
       default: 0
+    },
+    filters: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -80,6 +84,7 @@ export default {
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
   },
   mounted() {
+    console.log(this.filters)
     this.$root.$on('value', data => {
       this.selectedComponent = data
     })

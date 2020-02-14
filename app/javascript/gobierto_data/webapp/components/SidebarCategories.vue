@@ -1,41 +1,48 @@
 <template>
   <div class="pure-u-1 pure-u-lg-1-4">
-    <Aside
-      v-slot="{ filter }"
-      :filters="filters"
-    >
-      <BlockHeader
-        :title="filter.title"
-        :label-alt="filter.isEverythingChecked"
-        class="investments-home-aside--block-header"
-        see-link
-        @select-all="e => handleIsEverythingChecked({ ...e, filter })"
-      />
-      <Checkbox
-        v-for="option in filter.options"
-        :id="option.id"
-        :key="option.id"
-        :title="option.title"
-        :checked="option.isOptionChecked"
-        :counter="option.counter"
-        class="investments-home-aside--checkbox"
-        @checkbox-change="e => handleCheckboxStatus({ ...e, filter })"
-      />
-    </Aside>
+    <p>Categories</p>
+    {{ filters }}
+    <aside class="investments-home-aside--gap">
+      <div
+        v-for="filter in filters"
+        :key="filter.key"
+        class="investments-home-aside--block"
+      >
+        <BlockHeader
+          :title="filter.title"
+          :label-alt="filter.isEverythingChecked"
+          class="investments-home-aside--block-header"
+          see-link
+          @select-all="e => handleIsEverythingChecked({ ...e, filter })"
+        />
+        <Checkbox
+          v-for="option in filter.options"
+          :id="option.id"
+          :key="option.id"
+          :title="option.title"
+          :checked="option.isOptionChecked"
+          :counter="option.counter"
+          class="investments-home-aside--checkbox"
+          @checkbox-change="e => handleCheckboxStatus({ ...e, filter })"
+        />
+      </div>
+    </aside>
   </div>
 </template>
 <script>
-import Aside from "./../pages/Aside.vue";
 import { BlockHeader, Checkbox } from "lib/vue-components";
 export default {
-  name: "Sidebar",
+  name: "SidebarCategories",
   components: {
-    Aside,
     BlockHeader,
     Checkbox
   },
   props: {
     allDatasets: {
+      type: Array,
+      default: () => []
+    },
+    filters: {
       type: Array,
       default: () => []
     }

@@ -1,5 +1,7 @@
 export const baseUrl = `${location.origin}/api/v1/data`
 
+import CONFIGURATION from "./mataro.conf.js";
+
 export const CommonsMixin = {
   directives: {
     clickoutside: {

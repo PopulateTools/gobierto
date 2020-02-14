@@ -244,7 +244,10 @@ export default {
       url: '',
       showSpinner: false,
       token: '',
-      noLogin: false
+      noLogin: false,
+      queryId: '',
+      userIdQuery: '',
+      oldQueryName: ''
     }
   },
   created() {
@@ -268,9 +271,11 @@ export default {
     this.$root.$on('sendYourQuery', this.runYourQuery)
     this.$root.$on('runSpinner', this.runSpinner)
 
-    this.$root.$on('closeQueriesModal', this.closeYourQueries);
-    this.token = getToken()
+    this.$root.$on('closeQueriesModal', this.closeYourQueries)
+    this.$root.$on('disableEdit', this.hideEdit)
 
+
+    this.token = getToken()
     this.userId = getUserId()
 
     this.noLogin = this.userId === "" ? true : false
@@ -281,6 +286,13 @@ export default {
       setTimeout(() => {
         this.showSpinner = false
       }, 300)
+    },
+    hideEdit(){
+      this.showBtnEdit = false
+    },
+    onSave(queryName) {
+      this.disabledSave = false
+      this.labelQueryName = queryName
     },
     userLogged() {
       if (this.noLogin)
@@ -308,8 +320,11 @@ export default {
       this.$root.$emit('saveQueryState', true);
 
       this.labelQueryName = queryParams[0]
+      this.oldQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]
       this.codeQuery = queryParams[2]
+      this.queryId = parseInt(queryParams[3])
+      this.userIdQuery = queryParams[4].toString()
 
       if (this.privacyStatus === 'open') {
         this.privateQuery = false
@@ -460,30 +475,57 @@ export default {
     postQuery() {
       this.endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
-      let data = {
-          "data": {
-              "type": "gobierto_data-queries",
-              "attributes": {
-                  "name": this.labelQueryName,
-                  "privacy_status": this.privacyStatus,
-                  "sql": this.codeQuery,
-                  "dataset_id": this.datasetId
-              }
-          }
-      }
-      axios.post(this.endPoint, data, {
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': `${this.token}`
+      if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
+        this.endPoint = `${baseUrl}/queries/${this.queryId}`
+        let dataUpdate = {
+            "data": {
+                "type": "gobierto_data-queries",
+                "attributes": {
+                    "privacy_status": this.privacyStatus,
+                    "sql": this.codeQuery
+                }
+            }
         }
-      }).then(response => {
-          this.resp = response;
-          this.$root.$emit('reloadQueries')
-      })
-      .catch(error => {
-        const messageError = error.response
-        console.error(messageError)
-      });
+
+        axios.put(this.endPoint, dataUpdate, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `${this.token}`
+          }
+        }).then(response => {
+            this.resp = response;
+            this.$root.$emit('reloadQueries')
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        });
+      } else {
+        let data = {
+            "data": {
+                "type": "gobierto_data-queries",
+                "attributes": {
+                    "name": this.labelQueryName,
+                    "privacy_status": this.privacyStatus,
+                    "sql": this.codeQuery,
+                    "dataset_id": this.datasetId
+                }
+            }
+        }
+        axios.post(this.endPoint, data, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `${this.token}`
+          }
+        }).then(response => {
+            this.resp = response;
+            this.$root.$emit('reloadQueries')
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        });
+      }
     },
     runRecentQuery(code) {
       this.codeQuery = code

@@ -12,10 +12,6 @@ module GobiertoPeople
       @subject ||= GobiertoPeople::PersonMessage.new name: "Sender", email: "foo@example.com", person: person, body: "This is my message"
     end
 
-    def site
-      @sites ||= sites(:madrid)
-    end
-
     def test_valid
       assert subject.valid?
     end

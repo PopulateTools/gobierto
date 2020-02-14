@@ -217,9 +217,9 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.arrayQueries = this.items
+          const rawData = response.data
+          const items = rawData.data
+          this.arrayQueries = items
         })
         .catch(error => {
           const messageError = error.response
@@ -270,9 +270,9 @@ export default {
           this.$root.$emit('apiError', messageError)
 
 
-          this.data = []
-          this.keysData = []
-          this.$root.$emit('sendData', this.keysData, this.data)
+          const data = []
+          const keysData = []
+          this.$root.$emit('sendData', keysData, data)
         })
 
         setTimeout(() => {

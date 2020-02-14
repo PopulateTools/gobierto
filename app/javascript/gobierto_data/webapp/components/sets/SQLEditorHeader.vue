@@ -443,9 +443,9 @@ export default {
           this.$root.$emit('apiError', messageError)
 
 
-          this.data = []
-          this.keysData = []
-          this.$root.$emit('sendData', this.keysData, this.data)
+          const data = []
+          const keysData = []
+          this.$root.$emit('sendData', keysData, data)
 
         })
 

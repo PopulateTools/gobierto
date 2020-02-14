@@ -20,7 +20,7 @@ en:
           domain: gobierto.burjassot.es
           google_analytics_id: UA-000000-01
           name: Ayuntamiento de Burjassot
-          organization_email: contact@email.com
+          reply_to_email: contact@email.com
           organization_name: Burjassot
           populate_data_api_token: API Token Populate Data
           title: Transparencia y Participación

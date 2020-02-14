@@ -8,6 +8,7 @@ class User::UserMailer < ApplicationMailer
 
     mail(
       from: from,
+      reply_to: reply_to,
       to: @user.email,
       subject: t(".subject", site_name: @site.name)
     )
@@ -20,6 +21,7 @@ class User::UserMailer < ApplicationMailer
 
     mail(
       from: from,
+      reply_to: reply_to,
       to: @user.email,
       subject: t(".subject")
     )
@@ -34,6 +36,7 @@ class User::UserMailer < ApplicationMailer
 
     mail(
       from: from,
+      reply_to: reply_to,
       to: @user.email,
       subject: t(".subject")
     )

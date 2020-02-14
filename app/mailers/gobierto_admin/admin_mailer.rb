@@ -7,6 +7,7 @@ module GobiertoAdmin
 
       mail(
         from: from,
+        reply_to: reply_to,
         to: @admin.email,
         subject: t(".subject")
       )
@@ -19,6 +20,7 @@ module GobiertoAdmin
 
       mail(
         from: from,
+        reply_to: reply_to,
         to: @admin.email,
         subject: t('.subject')
       )

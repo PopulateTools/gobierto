@@ -27,7 +27,7 @@ madrid:
   organization_id: <%= INE::Places::Place.find_by_slug("madrid").id %>
   organization_url: http://www.madrid.es
   organization_type: Ayuntamiento
-  organization_email: contact@madrid.es
+  reply_to_email: contact@madrid.es
   organization_address: Fake St., 123
   organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["active"] %>
@@ -49,7 +49,7 @@ santander:
   organization_id: <%= INE::Places::Place.find_by_slug("santander").id %>
   organization_url: http://www.santander.es
   organization_type: Ayuntamiento
-  organization_email: contact@santander.es
+  reply_to_email: contact@santander.es
   organization_address: Fake St., 123
   organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["draft"] %>
@@ -70,7 +70,7 @@ huesca:
   organization_id: <%= INE::Places::Place.find_by_slug("huesca").id %>
   organization_url: http://www.huesca.es
   organization_type: Ayuntamiento
-  organization_email: contact@huesca.es
+  reply_to_email: contact@huesca.es
   organization_address: Fake St., 123
   organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["draft"] %>
@@ -92,7 +92,7 @@ cortegada:
   organization_id: <%= INE::Places::Place.find_by_slug("cortegada").id %>
   organization_url: http://www.cortegada.es
   organization_type: Ayuntamiento
-  organization_email: contact@cortegada.test
+  reply_to_email: contact@cortegada.test
   organization_address: Fake St., 123
   organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["active"] %>
@@ -114,7 +114,7 @@ organization_wadus:
   organization_id: "wadus"
   organization_url:
   organization_type:
-  organization_email:
+    reply_to_email:
   organization_address:
   organization_document_number:
   visibility_level: <%= Site.visibility_levels["active"] %>

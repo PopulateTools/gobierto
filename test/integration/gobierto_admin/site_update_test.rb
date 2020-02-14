@@ -42,7 +42,7 @@ module GobiertoAdmin
             fill_in "site_name_translations_es", with: "Site Name"
             fill_in "site_organization_name", with: "Site Location"
             fill_in "site_domain", with: "test.gobierto.test"
-            fill_in "site_organization_email", with: "contact-email@example.com"
+            fill_in "site_reply_to_email", with: "contact-email@example.com"
             fill_in "site_head_markup", with: "Site Head markup"
             fill_in "site_foot_markup", with: "Site Foot markup"
             fill_in "site_links_markup", with: "Site Links markup"
@@ -84,7 +84,7 @@ YAML
             assert has_field?("site_title_translations_es", with: "Site Title")
             assert has_field?("site_organization_name", with: "Site Location")
             assert has_field?("site_domain", with: "test.gobierto.test")
-            assert has_field?("site_organization_email", with: "contact-email@example.com")
+            assert has_field?("site_reply_to_email", with: "contact-email@example.com")
             assert has_field?("site_head_markup", with: "Site Head markup")
             assert has_field?("site_foot_markup", with: "Site Foot markup")
             assert has_field?("site_links_markup", with: "Site Links markup")

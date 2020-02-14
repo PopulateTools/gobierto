@@ -14,7 +14,7 @@ module GobiertoAdmin
       :organization_name,
       :organization_url,
       :organization_type,
-      :organization_email,
+      :reply_to_email,
       :organization_address,
       :organization_document_number,
       :head_markup,
@@ -187,7 +187,7 @@ module GobiertoAdmin
         site_attributes.organization_id = organization_id
         site_attributes.organization_url = organization_url
         site_attributes.organization_type = organization_type
-        site_attributes.organization_email = organization_email
+        site_attributes.reply_to_email = reply_to_email
         site_attributes.organization_address = organization_address
         site_attributes.organization_document_number = organization_document_number
         site_attributes.visibility_level = visibility_level

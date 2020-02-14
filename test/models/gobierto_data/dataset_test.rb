@@ -12,6 +12,10 @@ module GobiertoData
       @site ||= sites(:madrid)
     end
 
+    def attachments_collection
+      @attachments_collection ||= gobierto_common_collections(:users_dataset_attachments_collection)
+    end
+
     def test_valid
       assert subject.valid?
     end
@@ -27,6 +31,8 @@ module GobiertoData
     end
 
     def test_attachments_collection!
+      attachments_collection.destroy
+
       assert_nil subject.attachments_collection
       subject.attachments_collection!
       assert subject.attachments_collection.present?

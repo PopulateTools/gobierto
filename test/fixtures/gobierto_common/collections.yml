@@ -495,3 +495,33 @@ santander_cms_pages:
   slug: santander-cms-pages
   container: santander (Site)
   item_type: GobiertoCms::Page
+
+## Gobierto Data collections
+
+users_dataset_attachments_collection:
+  site: madrid
+  title_translations: <%= {"en" => "Users attachments", "es" => "Adjuntos de usuarios" }.to_json %>
+  slug: users-dataset-attachments
+  container: users_dataset (GobiertoData::Dataset)
+  item_type: GobiertoAttachments::Attachment
+
+events_dataset_attachments_collection:
+  site: madrid
+  title_translations: <%= {"en" => "Events attachments", "es" => "Adjuntos de eventos" }.to_json %>
+  slug: events-dataset-attachments
+  container: events_dataset (GobiertoData::Dataset)
+  item_type: GobiertoAttachments::Attachment
+
+draft_dataset_attachments_collection:
+  site: madrid
+  title_translations: <%= {"en" => "Interest groups attachments", "es" => "Adjuntos de grupos de interés" }.to_json %>
+  slug: interest-groups-dataset-attachments
+  container: draft_dataset (GobiertoData::Dataset)
+  item_type: GobiertoAttachments::Attachment
+
+santander_dataset_attachments_collection:
+  site: santander
+  title_translations: <%= {"en" => "Santander dataset attachments", "es" => "Adjuntos de conjunto de datos de Santander" }.to_json %>
+  slug: santander-dataset-attachments
+  container: santander_dataset (GobiertoData::Dataset)
+  item_type: GobiertoAttachments::Attachment

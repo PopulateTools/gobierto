@@ -57,6 +57,17 @@ module GobiertoData
                        end
     end
 
+    def columns_stats
+      rails_model.columns.inject({}) do |columns, column|
+        columns.update(
+          column.name => {
+            type: column.type,
+            stats: scrutinizer.stats(column)
+          }
+        )
+      end
+    end
+
     def load_data_from_file(file_path, schema_file: nil, csv_separator: ",", append: false)
       schema = if schema_file.blank?
                  {}
@@ -98,6 +109,10 @@ module GobiertoData
       return unless site.present? && table_name.present?
 
       @internal_rails_class_name ||= "site_id_#{site.id}_table_#{table_name}".classify
+    end
+
+    def scrutinizer
+      @scrutinizer ||= GobiertoData::Datasets::Scrutinizer.new(dataset: self)
     end
   end
 end

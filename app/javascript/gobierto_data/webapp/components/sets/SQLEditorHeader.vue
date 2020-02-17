@@ -57,11 +57,11 @@
             mode="out-in"
           >
             <Queries
+              v-show="!isHidden"
               v-closable="{
                 exclude: ['button'],
                 handler: 'closeYourQueries'
               }"
-              v-show="!isHidden"
               :array-queries="arrayQueries"
               :public-queries="publicQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
@@ -198,6 +198,10 @@ export default {
     tableName: {
       type: String,
       default: ''
+    },
+    numberRows: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -236,6 +240,9 @@ export default {
       showSpinner: false,
       token: '',
       noLogin: false,
+      queryId: '',
+      userIdQuery: '',
+      oldQueryName: '',
       queryEditor: ''
     }
   },
@@ -259,6 +266,7 @@ export default {
     this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('sendYourQuery', this.runYourQuery)
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
+    this.$root.$on('disableEdit', this.hideEdit)
 
     this.token = getToken()
     this.userId = getUserId()
@@ -278,6 +286,13 @@ export default {
         this.codeQuery = this.publicQueries[codeQueryFromRoute].attributes.sql
         this.runQuery()
       }
+    },
+    hideEdit(){
+      this.showBtnEdit = false
+    },
+    onSave(queryName) {
+      this.disabledSave = false
+      this.labelQueryName = queryName
     },
     userLogged() {
       if (this.noLogin)
@@ -305,8 +320,11 @@ export default {
       this.$root.$emit('saveQueryState', true);
 
       this.labelQueryName = queryParams[0]
+      this.oldQueryName = queryParams[0]
       this.privacyStatus = queryParams[1]
       this.codeQuery = queryParams[2]
+      this.queryId = parseInt(queryParams[3])
+      this.userIdQuery = queryParams[4].toString()
 
       if (this.privacyStatus === 'open') {
         this.privateQuery = false
@@ -395,7 +413,7 @@ export default {
     runQuery() {
 
       this.showSpinner = true;
-      this.$root.$emit('showMessages', false)
+      this.$root.$emit('showMessages', false, true)
 
       const endPoint = `${baseUrl}/data`
       const url = `${endPoint}?sql=${this.codeQuery}`
@@ -414,14 +432,15 @@ export default {
 
           this.$root.$emit('recordsDuration', this.queryDurationRecors)
           this.$root.$emit('sendData', this.keysData, this.data)
-          this.$root.$emit('showMessages', true)
           this.queryEditor = encodeURI(this.codeQuery)
           this.$root.$emit('postRecentQuery', this.codeQuery)
+          this.$root.$emit('showMessages', true, false)
 
         })
         .catch(error => {
           const messageError = error.response.data.errors[0].sql
           this.$root.$emit('apiError', messageError)
+
 
           this.data = []
           this.keysData = []
@@ -445,30 +464,57 @@ export default {
     postQuery() {
       const endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
-      let data = {
-          "data": {
-              "type": "gobierto_data-queries",
-              "attributes": {
-                  "name": this.labelQueryName,
-                  "privacy_status": this.privacyStatus,
-                  "sql": this.codeQuery,
-                  "dataset_id": this.datasetId
-              }
-          }
-      }
-      axios.post(endPoint, data, {
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': `${this.token}`
+      if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
+        this.endPoint = `${baseUrl}/queries/${this.queryId}`
+        let dataUpdate = {
+            "data": {
+                "type": "gobierto_data-queries",
+                "attributes": {
+                    "privacy_status": this.privacyStatus,
+                    "sql": this.codeQuery
+                }
+            }
         }
-      }).then(response => {
-          this.resp = response;
-          this.$root.$emit('reloadQueries')
-      })
-      .catch(error => {
-        const messageError = error.response
-        console.error(messageError)
-      });
+
+        axios.put(this.endPoint, dataUpdate, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `${this.token}`
+          }
+        }).then(response => {
+            this.resp = response;
+            this.$root.$emit('reloadQueries')
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        });
+      } else {
+        let data = {
+            "data": {
+                "type": "gobierto_data-queries",
+                "attributes": {
+                    "name": this.labelQueryName,
+                    "privacy_status": this.privacyStatus,
+                    "sql": this.codeQuery,
+                    "dataset_id": this.datasetId
+                }
+            }
+        }
+        axios.post(this.endPoint, data, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `${this.token}`
+          }
+        }).then(response => {
+            this.resp = response;
+            this.$root.$emit('reloadQueries')
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        });
+      }
     },
     runRecentQuery(code) {
       this.codeQuery = code

@@ -10,11 +10,13 @@
       />
       <SQLEditorCode
         :table-name="tableName"
+        :number-rows="numberRows"
       />
       <SQLEditorTabs
         :array-formats="arrayFormats"
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
+        :number-rows="numberRows"
         @active-tab="activeTabIndex = $event"
       />
     </div>
@@ -47,6 +49,10 @@ export default {
     },
     arrayFormats: {
       type: Object,
+      required: true
+    },
+    numberRows: {
+      type: Number,
       required: true
     },
     datasetId: {

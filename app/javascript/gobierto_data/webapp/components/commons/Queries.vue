@@ -82,7 +82,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCodePublic(index)"
             @mouseleave="hideCode = true"
-            @click="handleQueries(publicQueries[index].attributes.sql, item)"
+            @click="handleQueries(publicQueries[index].attributes.sql, item, true)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
             <!-- <i
@@ -191,7 +191,7 @@ export default {
       this.sqlCode = this.publicQueries[index].attributes.sql
     },
     sendQuery(item) {
-      this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql ]
+      this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql, item.id, item.attributes.user_id ]
       this.queryCode = item.attributes.sql
       this.$root.$emit('sendQueryParams', this.queryParams)
       this.$root.$emit('sendQueryCode', this.queryCode)
@@ -230,17 +230,20 @@ export default {
       this.showSpinner = true;
       this.queryEditor = encodeURI(code)
       this.$root.$emit('postRecentQuery', code)
-      this.$root.$emit('showMessages', false)
+      this.$root.$emit('showMessages', false, true)
       this.$root.$emit('updateCode', code)
       if (this.queryEditor.includes('LIMIT')) {
         this.queryEditor = this.queryEditor
+        this.$root.$emit('hiddeShowButtonColumns')
       } else {
+        this.$root.$emit('ShowButtonColumns')
         this.$root.$emit('sendCompleteQuery', this.queryEditor)
         this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
         this.queryEditor = this.code
       }
-      this.endPoint = `${baseUrl}/data`
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/data';
+      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
 
       axios
         .get(this.url)
@@ -257,7 +260,7 @@ export default {
 
           this.$root.$emit('recordsDuration', this.queryDurationRecors)
           this.$root.$emit('sendData', this.keysData, this.data)
-          this.$root.$emit('showMessages', true)
+          this.$root.$emit('showMessages', true, false)
           this.$root.$emit('sendQueryCode', this.queryCode)
 
 
@@ -265,6 +268,7 @@ export default {
         .catch(error => {
           const messageError = error.response.data.errors[0].sql
           this.$root.$emit('apiError', messageError)
+
 
           this.data = []
           this.keysData = []

@@ -123,7 +123,7 @@ GEM
       json
       simplecov
       url
-    concurrent-ruby (1.1.5)
+    concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
     cookies_eu (1.7.6)
       js_cookie_rails (~> 2.2.0)
@@ -215,8 +215,8 @@ GEM
     invisible_captcha (0.12.2)
       rails (>= 3.2.0)
     jaro_winkler (1.5.4)
-    jbuilder (2.9.1)
-      activesupport (>= 4.2.0)
+    jbuilder (2.10.0)
+      activesupport (>= 5.0.0)
     jmespath (1.4.0)
     jquery-rails (4.3.5)
       rails-dom-testing (>= 1, < 3)
@@ -297,7 +297,7 @@ GEM
       connection_pool (~> 2.2)
     netrc (0.11.0)
     nio4r (2.5.2)
-    nokogiri (1.10.7)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     nori (2.6.0)
     ntlm-http (0.1.1)
@@ -469,7 +469,7 @@ GEM
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
-    webmock (3.8.1)
+    webmock (3.8.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)

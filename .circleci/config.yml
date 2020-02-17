@@ -13,7 +13,7 @@ defaults: &defaults
       environment:
         POSTGRES_USER: gobierto
         POSTGRES_DB: gobierto_test
-        POSTGRES_PASSWORD: ""
+        POSTGRES_PASSWORD: gobierto
     - image: elasticsearch:2.4.1
     - image: redis:4.0.9
 

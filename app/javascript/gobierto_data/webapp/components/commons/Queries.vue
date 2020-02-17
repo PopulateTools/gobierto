@@ -153,6 +153,7 @@ export default {
     this.labelAll = I18n.t("gobierto_data.projects.all")
     this.token = getToken()
     this.userId = getUserId()
+
   },
   methods: {
     handleQueries(sql, item, anonymusQuery) {
@@ -192,14 +193,16 @@ export default {
       this.deleteQueryApi(id)
     },
     deleteQueryApi(id) {
-      this.endPointDelete = `${baseUrl}/queries/${id}`
-      axios.delete(this.endPointDelete, {
+      const endPointDelete = `${baseUrl}/queries/${id}`
+      axios.delete(endPointDelete, {
         headers: {
           'Content-type': 'application/json',
           'Authorization': `${this.token}`
         }
-      })
-      this.$root.$emit('reloadPublicQueries')
+      }
+      ).then(
+        this.$root.$emit('reloadPublicQueries')
+      )
     },
     runYourQuery(code) {
       this.showSpinner = true;

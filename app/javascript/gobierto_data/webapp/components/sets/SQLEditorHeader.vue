@@ -85,6 +85,7 @@
           type="text"
           class="gobierto-data-sql-editor-container-save-text"
           @keyup="onSave($event.target.value)"
+          @focus="removeShortcutsListener"
         >
         <input
           v-if="showLabelPrivate"

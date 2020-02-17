@@ -5,14 +5,14 @@
         <li
           :class="{ 'is-active': activeTab === 0 }"
           class="gobierto-data-tab-sidebar--tab"
-          @click="activateTab('SidebarCategories', 0)"
+          @click="activateTab(0)"
         >
           <span>{{ labelCategories }}</span>
         </li>
         <li
-          :class="{ 'is-active': activeTab === 1 || activeTab === 4 }"
+          :class="{ 'is-active': activeTab === 1 }"
           class="gobierto-data-tab-sidebar--tab"
-          @click="activateTab('SidebarDatasets', 1)"
+          @click="activateTab(1)"
         >
           <span>{{ labelSets }}</span>
         </li>
@@ -20,16 +20,23 @@
         <li
           :class="{ 'is-active': activeTab === 2 }"
           class="gobierto-data-tab-sidebar--tab"
-          @click="activateTab('SidebarQueries', 2)"
+          @click="activateTab(2)"
         >
           <span>{{ labelQueries }}</span>
         </li>
       </ul>
     </nav>
-    <component
-      :is="selectedComponent"
+    <SidebarCategories
+      v-if="activeTab === 0"
+      :filters="filters"
+    />
+    <SidebarDatasets
+      v-if="activeTab === 1"
       :filters="filters"
       :datasets="datasets"
+    />
+    <SidebarQueries
+      v-if="activeTab === 2"
     />
   </div>
 </template>
@@ -62,8 +69,7 @@ export default {
     return {
       labelSets: "",
       labelQueries: "",
-      labelCategories: "",
-      selectedComponent: 'SidebarCategories'
+      labelCategories: ""
     }
   },
   created() {
@@ -71,14 +77,8 @@ export default {
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
   },
-  mounted() {
-    this.$root.$on('value', data => {
-      this.selectedComponent = data
-    })
-  },
   methods: {
-    activateTab(value, index) {
-      this.selectedComponent = value
+    activateTab(index) {
       this.$emit("active-tab", index);
     }
   }

@@ -1,40 +1,49 @@
 <template>
   <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
-    <div style="background-color: rgba(113, 184, 193, .1); color: #71B8C1; height: 40vh; widht: 100%; padding: 1rem; font-weight: bold;">
+    <div style="background-color: rgba(113, 184, 193, .1); color: #71B8C1; height: 40vh; widht: 100%; padding: 1rem; font-weight: bold; margin-bottom: 1rem;">
       Promo - Intro al módulo
     </div>
-    <!-- <div
-      v-for="(item, index) in items"
+    <div
+      v-for="(item, index) in datasets"
       :key="index"
       class="gobierto-data-info-list-element"
     >
       <h1
         class="gobierto-data-title-dataset gobierto-data-title-dataset-big"
       >
-        {{ item }}
+        {{ item.attributes.name }}
       </h1>
       <div class="pure-g">
         <div class="pure-u-1-2 gobierto-data-summary-header">
           <div class="gobierto-data-summary-header-container">
-            <i class="fas fa-clock" />
+            <i
+              class="fas fa-clock"
+              style="color: var(--color-base); opacity: .25"
+            />
             <span class="gobierto-data-summary-header-container-label">
               {{ labelUpdated }}
             </span>
             <span class="gobierto-data-summary-header-container-text">
-              {{ item }}
+              {{ item.attributes.name }}
             </span>
           </div>
           <div class="gobierto-data-summary-header-container">
-            <i class="fas fa-calendar" />
+            <i
+              class="fas fa-calendar"
+              style="color: var(--color-base); opacity: .25"
+            />
             <span class="gobierto-data-summary-header-container-label">
               {{ labelFrequency }}
             </span>
             <span class="gobierto-data-summary-header-container-text">
-              {{ item }}
+              {{ item.attributes.frequency[0].name_translations.es }}
             </span>
           </div>
           <div class="gobierto-data-summary-header-container">
-            <i class="fas fa-tag" />
+            <i
+              class="fas fa-tag"
+              style="color: var(--color-base); opacity: .25"
+            />
             <span class="gobierto-data-summary-header-container-label">
               {{ labelSubject }}
             </span>
@@ -48,20 +57,20 @@
         </div>
         <div class="pure-u-1-2">
           <p class="gobierto-data-summary-header-description">
-            {{ item.file.description }}
+            {{ item.attributes.description }}
           </p>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: "InfoList",
   props: {
-    items: {
+    datasets: {
       type: Array,
-      required: true
+      default: () => []
     }
   },
   data() {

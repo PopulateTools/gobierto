@@ -1,26 +1,35 @@
 <template>
   <div class="pure-u-1 pure-u-lg-4-4">
-    <aside class="investments-home-aside--gap">
+    <aside class="gobierto-data-filters">
       <div
-        v-for="filter in filters"
-        :key="filter.key"
-        class="investments-home-aside--block"
+        v-for="(filter, index) in filters"
+        :key="filter.key + index"
+        :class="!filter.key ? 'gobierto-data-filters-element-no-margin' : ''"
+        class="gobierto-data-filters-element"
       >
-        <BlockHeader
-          :title="filter.title"
-          :label-alt="filter.isEverythingChecked"
-          class="investments-home-aside--block-header"
-          see-link
-          @select-all="e => handleIsEverythingChecked({ ...e, filter })"
-        />
+        <div>
+          <i
+            :class="filter.key ? '' : 'rotate-caret'"
+            class="fas fa-caret-down sidebar-filter-caret"
+            style="color: var(--color-base);"
+            @click="filter.key = !filter.key"
+          />
+          <BlockHeader
+            :title="filter.title"
+            :label-alt="filter.isEverythingChecked"
+            class="gobierto-data-filters-header"
+            @select-all="e => handleIsEverythingChecked({ ...e, filter })"
+          />
+        </div>
         <Checkbox
           v-for="option in filter.options"
+          v-show="filter.key"
           :id="option.id"
           :key="option.id"
           :title="option.title"
           :checked="option.isOptionChecked"
           :counter="option.counter"
-          class="investments-home-aside--checkbox"
+          class="gobierto-data-filters--checkbox"
           @checkbox-change="e => sendCheckboxStatus({ ...e, filter })"
         />
       </div>
@@ -49,14 +58,7 @@ export default {
     return {
       labelSets: "",
       labelQueries: "",
-      labelCategories: "",
-      titleDataset: '',
-      slugDataset: '',
-      tableName: '',
-      numberId: '',
-      columns: '',
-      toggle: 0,
-      indexToggle: null
+      labelCategories: ""
     }
   },
   created() {

@@ -66,6 +66,9 @@
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
         :array-formats="arrayFormats"
+        :description-dataset="descriptionDataset"
+        :category-dataset="categoryDataset"
+        :frequency-dataset="frequencyDataset"
       />
       <Data
         v-else-if="activeTab === 1"
@@ -110,12 +113,6 @@ export default {
     Downloads,
     Button
   },
-  props: {
-    items: {
-      type: Object,
-      default: () => []
-    }
-  },
   data() {
     return {
       activeTab: 0,
@@ -127,13 +124,16 @@ export default {
       labelFav: "",
       labelFollow: "",
       slugName: '',
-      title: '',
       tableName: '',
       titleDataset: '',
       arrayQueries: [],
       numberRows: 0,
       arrayFormats: {},
-      publicQueries: []
+      publicQueries: [],
+      userId: '',
+      descriptionDataset: '',
+      categoryDataset: '',
+      frequencyDataset: ''
     }
   },
   created() {
@@ -147,8 +147,10 @@ export default {
 
     this.$root.$on('changeNavTab', this.changeTab)
     this.$root.$on('activeTabIndex', this.changeTab)
+    this.$root.$on('reloadQueries', this.getQueries)
 
     this.slugName = this.$route.params.id
+    this.userId = getUserId()
 
     this.setValuesDataset()
   },
@@ -161,22 +163,21 @@ export default {
       this.$emit("active-tab", index);
     },
     setValuesDataset(){
-      this.tableName = this.items.attributes.slug
-      this.titleDataset = this.items.attributes.name
-      const url = `${baseUrl}/datasets/${this.tableName}/meta`
+      const url = `${baseUrl}/datasets/${this.slugName}/meta`
       axios
         .get(url)
         .then(response => {
           const rawData = response.data
           this.datasetId = parseInt(rawData.data.id)
+          this.titleDataset = rawData.data.attributes.name
           this.slugDataset = rawData.data.attributes.slug
           this.tableName = rawData.data.attributes.table_name
           this.arrayFormats = rawData.data.attributes.formats
           this.numberRows = rawData.data.attributes.data_summary.number_of_rows
+          this.frequencyDataset = rawData.data.attributes.frequency[0].name_translations.es
+          this.categoryDataset = rawData.data.attributes.category[0].name_translations.es
+          this.descriptionDataset = rawData.data.attributes.description
 
-          this.$root.$emit('nameDataset', this.titleDataset)
-
-          this.getQueries()
           this.getPublicQueries()
         })
         .catch(error => {
@@ -184,7 +185,7 @@ export default {
         })
     },
     getQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${getUserId}`
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios
         .get(this.endPoint)
         .then(response => {
@@ -205,6 +206,9 @@ export default {
           const rawData = response.data
           const items = rawData.data
           this.publicQueries = items
+          if (this.userId !== '') {
+            this.getQueries()
+          }
         })
         .catch(error => {
           const messageError = error.response

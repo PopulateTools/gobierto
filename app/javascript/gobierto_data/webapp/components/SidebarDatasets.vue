@@ -80,7 +80,6 @@ export default {
       this.toggle = this.toggle !== index ? index : null;
     },
     nav(slugDataset, nameDataset) {
-      this.$root.$emit('changeView', this.listDatasets)
       this.toggle = 0
       this.$router.push({
         name: "dataset",

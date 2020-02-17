@@ -31,11 +31,6 @@
             <div
               class="gobierto-data-summary-queries-container-icon"
             >
-              <!-- <i
-                class="fas fa-trash-alt icons-your-queries"
-                style="color: var(--color-base);"
-                @click="deleteQuery(item.id)"
-              /> -->
               <i
                 v-if="item.attributes.privacy_status === 'closed'"
                 style="color: #D0021B"
@@ -84,11 +79,6 @@
             @click="handleQueries(publicQueries[index].attributes.sql, item, true)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
-            <!-- <i
-              class="fas fa-trash-alt"
-              style="color: var(--color-base);"
-              @click="deleteQuery(item.id)"
-            /> -->
             <div
               v-if="item.attributes.privacy_status === 'close'"
               class="gobierto-data-summary-queries-container-icon"

@@ -29,13 +29,14 @@ export class GobiertoDataController {
         routes: [{
             path: "/datos",
             name: "home",
-            component: Home
+            component: Home,
+            props: { currentComponent: 'InfoList', activateTabSidebar: 0 }
           },
           {
             path: "/datos/:id",
             name: "dataset",
             component: Home,
-            props: true
+            props: { currentComponent: 'DataSets', activateTabSidebar: 1 }
           }
         ]
       })

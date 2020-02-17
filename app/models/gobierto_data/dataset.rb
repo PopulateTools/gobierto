@@ -29,8 +29,6 @@ module GobiertoData
     validates :slug, :table_name, uniqueness: { scope: :site_id }
 
     before_save :set_schema, if: :will_save_change_to_visibility_level?
-    after_create :create_attachments_collection
-    after_destroy :delete_attachments_collection
 
     def attributes_for_slug
       [name]
@@ -99,33 +97,7 @@ module GobiertoData
       }
     end
 
-    def attachments_collection!
-      return if new_record?
-
-      attachments_collection || create_attachments_collection
-    end
-
-    def attachments_collection
-      @attachments_collection ||= site.collections.find_by(container: self, item_type: "GobiertoAttachments::Attachment")
-    end
-
     private
-
-    def create_attachments_collection
-      site.collections.create!(
-        container: self,
-        item_type: "GobiertoAttachments::Attachment",
-        slug: "attachments-#{slug}",
-        title_translations: name_translations
-      )
-    end
-
-    def delete_attachments_collection
-      return unless attachments_collection.present?
-
-      site.attachments.where(collection: attachments_collection).destroy_all
-      attachments_collection.destroy
-    end
 
     def set_schema
       if draft?

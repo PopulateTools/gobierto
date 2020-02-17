@@ -28,6 +28,9 @@ module GobiertoSeeds
     ].freeze
 
     def self.run(site)
+      # Initialize module collection
+      GobiertoData.attachments_collection!(site)
+
       description = site.custom_fields.localized_paragraph.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: "description")
       if description.new_record?
         description.name_translations = { ca: "Descripció", en: "Description", es: "Descripción" }

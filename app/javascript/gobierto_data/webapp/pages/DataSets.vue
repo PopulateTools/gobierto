@@ -51,9 +51,9 @@ export default {
       axios
         .get(this.endPoint)
         .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.arrayQueries = this.items.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
+          const rawData = response.data
+          const items = rawData.data
+          this.arrayQueries = items.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
         })
         .catch(error => {
           const messageError = error.response
@@ -65,9 +65,9 @@ export default {
       axios
         .get(this.endPoint)
         .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.publicQueries = this.items
+          const rawData = response.data
+          const items = rawData.data
+          this.publicQueries = items
         })
         .catch(error => {
           const messageError = error.response

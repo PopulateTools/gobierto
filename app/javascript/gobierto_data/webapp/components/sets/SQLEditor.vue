@@ -5,6 +5,7 @@
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
         :dataset-id="datasetId"
+        :table-name="tableName"
         :number-rows="numberRows"
       />
       <SQLEditorCode
@@ -85,18 +86,23 @@ export default {
       url: '',
       endPoint: '',
       recentQueries: [],
-      newRecentQuery: null
+      newRecentQuery: null,
+      localTableName : ''
     }
   },
   created(){
+    this.localTableName = this.tableName
     this.$root.$on('sendYourCode', this.runYourQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
-        this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
+        const recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
+        const localQueries = JSON.parse(localStorage.getItem('savedData'));
+        this.addRecentQuery(recentQueries, localQueries)
       } catch (e) {
         localStorage.removeItem('recentQueries');
       }
     }
+
     this.$root.$on('activateModalRecent', this.loadRecentQuery)
   },
   mounted() {
@@ -110,25 +116,44 @@ export default {
       this.getSlug()
       this.queryEditor = sqlCode
     },
-    addRecentQuery() {
+    addRecentQuery(recentQueries, localQueries) {
       if (!this.newRecentQuery) {
         return;
       }
-      if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
-        this.$root.$emit('storeQuery', this.recentQueries)
+
+      if (Object.values(recentQueries).indexOf(this.newRecentQuery) > -1) {
+        this.$root.$emit('store', recentQueries)
       } else {
-        this.recentQueries.push(this.newRecentQuery);
-        this.newRecentQuery = '';
-        this.saveRecentQuery();
+        recentQueries.push(this.newRecentQuery);
+        localStorage.setItem('recentQueries', JSON.stringify(recentQueries));
+
+        if (this.localTableName === this.tableName) {
+          let orderRecentQueries
+          for (let i = 0; i < 1; i++) {
+            orderRecentQueries[i] = {
+              dataset: this.tableName,
+              text: this.newRecentQuery
+            }
+          }
+          this.newRecentQuery = '';
+
+          localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
+          const tempRecentQueries = [ ...localQueries, ...orderRecentQueries ]
+          const totalRecentQueries = tempRecentQueries
+          orderRecentQueries = []
+          localStorage.setItem("savedData", JSON.stringify(totalRecentQueries));
+
+          this.saveRecentQuery(totalRecentQueries);
+        }
       }
     },
-    saveRecentQuery() {
-      const parsed = JSON.stringify(this.recentQueries);
-      localStorage.setItem('recentQueries', parsed);
-      this.$root.$emit('storeQuery', this.recentQueries)
+    saveRecentQuery(totalRecentQueries) {
+      localStorage.setItem("savedData", JSON.stringify(totalRecentQueries));
+      this.$root.$emit('storeQuery', totalRecentQueries)
     },
     loadRecentQuery() {
-      this.$root.$emit('storeQuery', this.recentQueries)
+      const localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
+      this.$root.$emit('storeQuery', localQueries)
     },
     getData() {
       this.endPoint = `${baseUrl}/data`
@@ -145,20 +170,18 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          this.rawData = response.data
-          this.meta = this.rawData.meta
-          this.data = this.rawData.data
+          const rawData = response.data
+          const data = rawData.data
 
 
-          this.keysData = Object.keys(this.data[0])
-          this.$root.$emit('sendData', this.keysData)
+          const keysData = Object.keys(data[0])
+          this.$root.$emit('sendData', keysData)
 
         })
         .catch(error => {
           this.$root.$emit('apiError', error)
-          this.data = []
-          this.keysData = []
-          this.$root.$emit('sendData', this.keysData)
+          const keysData = []
+          this.$root.$emit('sendData', keysData)
         })
     },
     saveNewRecentQuery(query) {

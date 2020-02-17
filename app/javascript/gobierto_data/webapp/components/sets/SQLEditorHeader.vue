@@ -185,20 +185,23 @@ export default {
   props: {
     arrayQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     publicQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     datasetId: {
       type: Number,
-      required: true
+      default: 0
+    },
+    tableName: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
-      showStoreQueries: [],
       disabledRecents: false,
       disabledQueries: false,
       disabledSave: true,
@@ -228,11 +231,8 @@ export default {
       labelEdit: '',
       labelModifiedQuery: '',
       codeQuery: '',
-      endPoint: '',
       privacyStatus: '',
-      propertiesQueries: [],
       directionLeft: true,
-      url: '',
       showSpinner: false,
       token: '',
       noLogin: false,
@@ -255,7 +255,7 @@ export default {
     this.$root.$on('activeSave', this.activeSave);
     this.$root.$on('sendCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
-    this.$root.$on('storeQuery', this.showshowStoreQueries)
+    this.$root.$on('storeQuery', this.showStoreQueries)
     this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('sendYourQuery', this.runYourQuery)
 
@@ -267,10 +267,14 @@ export default {
     this.userId = getUserId()
 
     this.noLogin = this.userId === "" ? true : false
-    this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
-    this.runQuery()
+    this.initRequest()
   },
   methods: {
+    initRequest() {
+      if (this.$route.name !== 'queries') {
+        this.runQuery()
+      }
+    },
     userLogged() {
       if (this.noLogin)
         this.goToLogin()
@@ -312,7 +316,7 @@ export default {
       this.disabledSave = false
       this.privateQuery = valuePrivate
     },
-    showshowStoreQueries(queries) {
+    showStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)
     },
     activeSave(value) {
@@ -386,16 +390,15 @@ export default {
       }
     },
     runQuery() {
+      this.codeQuery = `SELECT%20*%20FROM%20${this.tableName}%20`
       this.showSpinner = true;
-      this.queryEditor = encodeURI(this.codeQuery)
-      this.$root.$emit('postRecentQuery', this.codeQuery)
       this.$root.$emit('showMessages', false)
 
-      this.endPoint = `${baseUrl}/data`
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${this.codeQuery}`
 
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           this.data = []
           this.keysData = []
@@ -410,6 +413,8 @@ export default {
           this.$root.$emit('recordsDuration', this.queryDurationRecors)
           this.$root.$emit('sendData', this.keysData, this.data)
           this.$root.$emit('showMessages', true)
+          this.queryEditor = encodeURI(this.codeQuery)
+          this.$root.$emit('postRecentQuery', this.codeQuery)
 
         })
         .catch(error => {
@@ -436,7 +441,7 @@ export default {
       this.isHidden = true
     },
     postQuery() {
-      this.endPoint = `${baseUrl}/queries`
+      const endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
       let data = {
           "data": {
@@ -449,7 +454,7 @@ export default {
               }
           }
       }
-      axios.post(this.endPoint, data, {
+      axios.post(endPoint, data, {
         headers: {
           'Content-type': 'application/json',
           'Authorization': `${this.token}`

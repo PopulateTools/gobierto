@@ -103,7 +103,6 @@ export default {
     this.$root.$on('sendQueryCode', this.queryCode)
     this.$root.$emit('activateModalRecent')
 
-    this.$root.$on('sendYourCode', this.queryCode);
   },
   mounted() {
     this.cm = this.$refs.myCm.codemirror;

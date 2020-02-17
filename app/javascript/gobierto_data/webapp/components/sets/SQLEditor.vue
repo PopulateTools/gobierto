@@ -5,14 +5,13 @@
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
         :dataset-id="datasetId"
+        :table-name="tableName"
       />
       <SQLEditorCode
         :table-name="tableName"
       />
       <SQLEditorTabs
         :array-formats="arrayFormats"
-        :items="data"
-        :link="link"
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
         @active-tab="activeTabIndex = $event"
@@ -57,22 +56,11 @@ export default {
   data() {
     return {
       activeTabIndex: 0,
-      rawData: [],
-      columns: [],
-      data: null,
-      keysData: [],
-      meta:[],
-      links:[],
-      link: '',
-      url: '',
-      endPoint: '',
       recentQueries: [],
-      newRecentQuery: null,
-      initQuery: true
+      newRecentQuery: null
     }
   },
   created(){
-    this.$root.$on('sendYourCode', this.runYourQuery)
     this.$root.$on('activateModalRecent', this.loadRecentQuery)
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
     if (localStorage.getItem('recentQueries')) {
@@ -84,15 +72,10 @@ export default {
     }
   },
   methods: {
-    runYourQuery(sqlCode){
-      this.queryDefault = false
-      this.queryEditor = sqlCode
-    },
     addRecentQuery() {
       if (!this.newRecentQuery) {
         return;
       }
-
       if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
         this.$root.$emit('storeQuery', this.recentQueries)
       } else {

@@ -39,7 +39,7 @@ module GobiertoCommon
     private
 
     def touch_associated_custom_field_items
-      CustomFieldRecord.where(custom_field: CustomField.vocabulary_options.for_vocabulary(self)).each { |record| record.item.touch }
+      CustomFieldRecord.where(custom_field: CustomField.vocabulary_options.for_vocabulary(self)).each { |record| record&.item&.touch }
     end
   end
 end

@@ -258,20 +258,24 @@ export default {
     this.$root.$on('storeQuery', this.showStoreQueries)
     this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('sendYourQuery', this.runYourQuery)
-
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
 
-
     this.token = getToken()
-
     this.userId = getUserId()
-
     this.noLogin = this.userId === "" ? true : false
-    this.initRequest()
+    this.codeQuery = `SELECT%20*%20FROM%20${this.tableName}%20`
+
+    if (this.$route.name !== 'queries') {
+      this.runQuery()
+    }
+
+    this.requestQuery()
   },
   methods: {
-    initRequest() {
-      if (this.$route.name !== 'queries') {
+    requestQuery(){
+      if (this.$route.name === 'queries' && this.publicQueries !== '') {
+        const codeQueryFromRoute = this.$route.params.queryId
+        this.codeQuery = this.publicQueries[codeQueryFromRoute].attributes.sql
         this.runQuery()
       }
     },
@@ -310,7 +314,6 @@ export default {
         this.privateQuery = true
       }
 
-      this.runQuery()
     },
     privateQueryValue(valuePrivate) {
       this.disabledSave = false
@@ -390,13 +393,12 @@ export default {
       }
     },
     runQuery() {
-      this.codeQuery = `SELECT%20*%20FROM%20${this.tableName}%20`
+
       this.showSpinner = true;
       this.$root.$emit('showMessages', false)
 
       const endPoint = `${baseUrl}/data`
       const url = `${endPoint}?sql=${this.codeQuery}`
-
       axios
         .get(url)
         .then(response => {

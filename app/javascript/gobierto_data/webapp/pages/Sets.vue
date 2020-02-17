@@ -15,7 +15,7 @@
       </keep-alive>
       <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
         <NavDatasets
-          v-if="tableName"
+          v-if="dataLoaded"
           :active-tab="activeTabIndex"
           :array-queries="arrayQueries"
           :public-queries="publicQueries"
@@ -56,12 +56,13 @@ export default {
       activeTabTopIndex: 0,
       rawData: '',
       titleDataset: '',
-      arrayQueries: [],
+      arrayQueries: null,
       publicQueries: [],
       datasetId: 0,
       tableName: '',
       arrayFormats: {},
-      activeTabIndex: 0
+      activeTabIndex: 0,
+      dataLoaded: false
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -160,6 +161,7 @@ export default {
          this.rawData = response.data
          this.items = this.rawData.data
          this.publicQueries = this.items
+         this.dataLoaded = true
        })
        .catch(error => {
          const messageError = error.response

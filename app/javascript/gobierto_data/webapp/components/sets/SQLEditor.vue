@@ -2,6 +2,7 @@
   <div>
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
+        v-if="publicQueries"
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
         :dataset-id="datasetId"

@@ -19,7 +19,7 @@ module GobiertoAdmin
 
       def edit
         @dataset = find_dataset
-        @dataset_attachments_collection = @dataset.attachments_collection!
+        @dataset_attachments_collection = ::GobiertoData.attachments_collection!(current_site)
 
         @dataset_form = DatasetForm.new(
           @dataset.attributes.except(*ignored_dataset_attributes).merge(site_id: current_site.id, admin_id: current_admin.id, ip: remote_ip)
@@ -45,7 +45,7 @@ module GobiertoAdmin
 
       def update
         @dataset = find_dataset
-        @dataset_attachments_collection = @dataset.attachments_collection!
+        @dataset_attachments_collection = ::GobiertoData.attachments_collection!(current_site)
 
         @dataset_form = DatasetForm.new(
           dataset_params.merge(id: params[:id], site_id: current_site.id, admin_id: current_admin.id, ip: remote_ip)

@@ -260,6 +260,7 @@ export default {
           this.$root.$emit('showMessages', true)
           this.$root.$emit('sendQueryCode', this.queryCode)
 
+
         })
         .catch(error => {
           const messageError = error.response.data.errors[0].sql

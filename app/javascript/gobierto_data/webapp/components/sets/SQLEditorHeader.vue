@@ -235,7 +235,8 @@ export default {
       url: '',
       showSpinner: false,
       token: '',
-      noLogin: false
+      noLogin: false,
+      queryEditor: ''
     }
   },
   created() {
@@ -266,6 +267,8 @@ export default {
     this.userId = getUserId()
 
     this.noLogin = this.userId === "" ? true : false
+    this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
+    this.runQuery()
   },
   methods: {
     userLogged() {

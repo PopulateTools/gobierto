@@ -51,7 +51,7 @@ export default {
   props: {
     tableName: {
       type: String,
-      required: true
+      default: ''
     }
   },
   data() {

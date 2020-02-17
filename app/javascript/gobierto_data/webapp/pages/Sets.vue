@@ -15,6 +15,7 @@
       </keep-alive>
       <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
         <NavDatasets
+          v-if="tableName"
           :active-tab="activeTabIndex"
           :array-queries="arrayQueries"
           :public-queries="publicQueries"
@@ -64,7 +65,6 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    const id = to.params.id
     next((vm) => {
       if (to.name === 'resumen') {
         vm.activeTabIndex = 0

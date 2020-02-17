@@ -1,5 +1,8 @@
 <template>
-  <div class="gobierto-data-sql-editor-table-container">
+  <div
+    v-if="keysData"
+    class="gobierto-data-sql-editor-table-container"
+  >
     <table class="gobierto-data-sql-editor-table">
       <thead>
         <tr>
@@ -50,14 +53,11 @@ export default {
   },
   watch:{
     items: function(){
-        this.mutableList = JSON.parse(this.items);
+      this.mutableList = JSON.parse(this.items);
     }
   },
-  mounted() {
-    this.$root.$on('sendData', this.destroyTable)
-    this.keysData = Object.keys(this.mutableList[0])
-  },
   created() {
+    this.$root.$on('sendData', this.destroyTable)
     this.labelSave = I18n.t('gobierto_data.projects.save');
   },
   methods: {

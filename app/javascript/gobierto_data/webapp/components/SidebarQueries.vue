@@ -5,8 +5,6 @@
 </template>
 <script>
 export default {
-  name: "SidebarQueries",
-  created() {
-  }
-};
+  name: "SidebarQueries"
+}
 </script>

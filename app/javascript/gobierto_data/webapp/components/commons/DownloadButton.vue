@@ -63,33 +63,27 @@ export default {
   data() {
     return {
       labelDownloadData: "",
-      code: '',
       isHidden: true,
-      dataLink: '',
-      fileCSV: '',
-      fileXLSX: '',
-      fileJSON: '',
       sqlfileCSV: '',
       sqlfileXLSX: '',
       sqlfileJSON: '',
-      endPointSQL: '',
       titleDataset: ''
     }
   },
   created() {
     this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
-    this.endPointSQL = `${baseUrl}/data.csv?sql=`
   },
   methods: {
     closeMenu() {
       this.isHidden = true
     },
     updateCode(sqlQuery) {
-      this.code = sqlQuery
-      this.sqlfileCSV = `${this.urlPath}${this.endPointSQL}${this.code}&csv_separator=semicolon`
-      this.sqlfileXLSX = `${this.urlPath}${this.endPointSQL}${this.code}`
-      this.sqlfileJSON = `${this.urlPath}${this.endPointSQL}${this.code}`
+      const code = sqlQuery
+      const endPointSQL = `${baseUrl}/data.csv?sql=`
+      this.sqlfileCSV = `${endPointSQL}${code}&csv_separator=semicolon`
+      this.sqlfileXLSX = `${endPointSQL}${code}`
+      this.sqlfileJSON = `${endPointSQL}${code}`
     }
   }
 }

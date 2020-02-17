@@ -1,21 +1,19 @@
 <template>
-  <div class="gobierto-data">
+  <div
+    v-if="isFetchingData"
+    class="gobierto-data"
+  >
     <LayoutTabs
       :filters="filters"
       :datasets="subsetItems"
-    >
-      <component
-        :is="currentView"
-        :items="subsetItemsOrder"
-      />
-    </LayoutTabs>
+      :current-view="currentComponent"
+      :current-tab="activateTabSidebar"
+    />
   </div>
 </template>
 
 <script>
 import LayoutTabs from "./../layouts/LayoutTabs.vue";
-import InfoList from "./../components/commons/InfoList.vue";
-import DataSets from "./DataSets.vue";
 import { Middleware } from "lib/shared";
 import { categoriesMixin, baseUrl } from "./../../lib/commons"
 import { store } from "./../../lib/store";
@@ -26,47 +24,38 @@ import axios from "axios";
 export default {
   name: "Home",
   components: {
-    LayoutTabs,
-    InfoList,
-    DataSets
+    LayoutTabs
   },
   mixins: [categoriesMixin],
+  props: {
+    currentComponent: {
+      type: String,
+      default: ''
+    },
+    activateTabSidebar: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
-      activeTabIndex: 0,
-      currentView: 'InfoList',
       items: store.state.items || [],
       subsetItems: [],
-      subsetItemsOrder: [],
       filters: store.state.filters || [],
       activeFilters: store.state.activeFilters || new Map(),
       defaultFilters: store.state.defaultFilters || new Map(),
-      isFetchingData: false,
-      datasets: [{
-        file: {
-          title: 'Mobiliario urbano. Juegos en áreas actividades de mayores',
-          date: '12 de octubre de 2019',
-          frequency: 'Anual',
-          subject: 'Urbanismo e infraestructuras',
-          description: 'Este conjuntos de datos contiene el detalle de más de 1.200 elementos para actividades de mayores de la ciudad de Madrid con su tipología y coordenadas. En este portal tambien están disponibles otros.'
-        }
-      }]
+      isFetchingData: false
     }
   },
   async created() {
-    this.$root.$on('changeView', (values) => {
-      this.currentView = 'DataSets'
-      this.subsetItemsOrder = values[0]
-    })
     this.$root.$on("sendCheckbox", this.handleCheckboxStatus)
     if (this.items.length) {
       this.updateDOM();
     } else {
-      this.isFetchingData = true;
 
       const { items, filters } = await this.getItems();
 
-      this.isFetchingData = false;
+      this.isFetchingData = true;
 
       this.items = items;
       this.defaultFilters = filters
@@ -74,6 +63,7 @@ export default {
 
       this.updateDOM();
     }
+    this.isFetchingData = true;
   },
   methods: {
     setCurrentView() {
@@ -133,7 +123,6 @@ export default {
 
       // Once items is updated, assign again the result
       this.subsetItems = itemsUpdated;
-      this.subsetItemsOrder = this.subsetItems;
 
       // save the items
       store.addItems(itemsUpdated);

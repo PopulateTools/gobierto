@@ -6,9 +6,6 @@
     </h2>
     <div class="gobierto-data-resources-list">
       <ResourcesItem
-        v-for="(item, index) in items"
-        :key="index"
-        :item="item"
         class="gobierto-data-resources-list-element"
       />
     </div>
@@ -20,12 +17,6 @@ export default {
   name: "Resources",
   components: {
     ResourcesItem
-  },
-  props: {
-    items: {
-      type: Array,
-      required: true
-    }
   },
   data() {
     return {

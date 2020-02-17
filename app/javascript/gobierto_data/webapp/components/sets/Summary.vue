@@ -1,6 +1,10 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <Info />
+    <Info
+      :description-dataset="descriptionDataset"
+      :category-dataset="categoryDataset"
+      :frequency-dataset="frequencyDataset"
+    />
     <keep-alive>
       <DownloadButton
         :class="[
@@ -10,7 +14,7 @@
         class="arrow-top"
       />
     </keep-alive>
-    <Resources :items="filesDataset" />
+    <Resources />
     <Queries
       :array-queries="arrayQueries"
       :public-queries="publicQueries"
@@ -35,33 +39,34 @@ export default {
   props: {
     arrayQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     publicQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     arrayFormats: {
       type: Object,
-      required: true
+      default: () => {}
+    },
+    descriptionDataset: {
+      type: String,
+      default: ''
+    },
+    categoryDataset: {
+      type: String,
+      default: ''
+    },
+    frequencyDataset: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
       isActive: false,
-      labelDownloadData: "",
-      directionLeft: true,
-      filesDataset: [{
-          file: {
-            name: 'Actuaciones Bomberos Enero 2019.xls',
-            size: '232kb'
-          }
-        }
-      ]
+      directionLeft: true
     }
-  },
-  created() {
-    this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
   }
 }
 </script>

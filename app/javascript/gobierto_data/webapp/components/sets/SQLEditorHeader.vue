@@ -489,6 +489,7 @@ export default {
         }).then(response => {
             this.resp = response;
             this.$root.$emit('reloadQueries')
+            this.$root.$emit('reloadPublicQueries')
         })
         .catch(error => {
           const messageError = error.response

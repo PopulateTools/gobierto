@@ -24,6 +24,7 @@ class SiteConfiguration
   DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze
 
   MODULES_WITH_NOTIFICATONS = ["GobiertoPeople", "GobiertoBudgetConsultations", "GobiertoParticipation"]
+  MODULES_WITH_COLLECTIONS = ["GobiertoParticipation", "GobiertoData"]
 
   attr_accessor *PROPERTIES
 
@@ -91,6 +92,10 @@ class SiteConfiguration
 
   def modules_with_notifications
     modules_with_frontend_enabled & MODULES_WITH_NOTIFICATONS
+  end
+
+  def modules_with_collections
+    modules & MODULES_WITH_COLLECTIONS
   end
 
   def default_modules

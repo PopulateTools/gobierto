@@ -1,27 +1,9 @@
 <template>
   <div>
     <div class="gobierto-data-sql-editor">
-      <SQLEditorHeader
-        :array-queries="arrayQueries"
-        :public-queries="publicQueries"
-        :dataset-id="datasetId"
-        :table-name="tableName"
-        :number-rows="numberRows"
-      />
-      <SQLEditorCode
-        :table-name="tableName"
-        :number-rows="numberRows"
-      />
-      <SQLEditorTabs
-        v-if="dataLoaded"
-        :array-formats="arrayFormats"
-        :items="items"
-        :table-name="tableName"
-        :active-tab="activeTabIndex"
-        :array-queries="arrayQueries"
-        :number-rows="numberRows"
-        @active-tab="activeTabIndex = $event"
-      />
+      <SQLEditorHeader :array-queries="arrayQueries" :public-queries="publicQueries" :dataset-id="datasetId" :table-name="tableName" :number-rows="numberRows" />
+      <SQLEditorCode :table-name="tableName" :array-columns="arrayColumns" :number-rows="numberRows" />
+      <SQLEditorTabs v-if="dataLoaded" :array-formats="arrayFormats" :items="items" :table-name="tableName" :active-tab="activeTabIndex" :array-queries="arrayQueries" :number-rows="numberRows" @active-tab="activeTabIndex = $event" />
     </div>
   </div>
 </template>
@@ -31,6 +13,7 @@ import SQLEditorCode from "./SQLEditorCode.vue";
 import SQLEditorHeader from "./SQLEditorHeader.vue";
 import SQLEditorTabs from "./SQLEditorTabs.vue";
 import { baseUrl } from "./../../../lib/commons.js"
+import "./../../../lib/sql-theme.css"
 
 export default {
   name: 'SQLEditor',
@@ -46,6 +29,10 @@ export default {
     },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    arrayColumns: {
+      type: Object,
       required: true
     },
     publicQueries: {
@@ -72,19 +59,23 @@ export default {
       link: '',
       queryEditor: '',
       recentQueries: [],
+      orderRecentQueries: [],
+      totalRecentQueries: [],
+      tempRecentQueries: [],
+      localQueries: [],
       newRecentQuery: null,
-      localTableName : '',
+      localTableName: '',
       dataLoaded: false
     }
   },
-  created(){
+  created() {
     this.localTableName = this.tableName
     this.$root.$on('sendYourCode', this.runYourQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
-        const recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
-        const localQueries = JSON.parse(localStorage.getItem('savedData'));
-        this.addRecentQuery(recentQueries, localQueries)
+        this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
+        this.localQueries = JSON.parse(localStorage.getItem('savedData'));
+        this.addRecentQuery()
       } catch (e) {
         localStorage.removeItem('recentQueries');
       }
@@ -98,47 +89,42 @@ export default {
     this.getData()
   },
   methods: {
-    runYourQuery(sqlCode){
+    runYourQuery(sqlCode) {
       this.queryEditor = sqlCode
     },
-    addRecentQuery(recentQueries, localQueries) {
+    addRecentQuery() {
       if (!this.newRecentQuery) {
         return;
       }
-
-      if (Object.values(recentQueries).indexOf(this.newRecentQuery) > -1) {
-        this.$root.$emit('store', recentQueries)
+      if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
+        this.$root.$emit('storeQuery', this.recentQueries)
       } else {
-        recentQueries.push(this.newRecentQuery);
-        localStorage.setItem('recentQueries', JSON.stringify(recentQueries));
-
+        this.recentQueries.push(this.newRecentQuery);
+        localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));
         if (this.localTableName === this.tableName) {
-          let orderRecentQueries
           for (let i = 0; i < 1; i++) {
-            orderRecentQueries[i] = {
+            this.orderRecentQueries[i] = {
               dataset: this.tableName,
               text: this.newRecentQuery
             }
           }
           this.newRecentQuery = '';
-
-          localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
-          const tempRecentQueries = [ ...localQueries, ...orderRecentQueries ]
-          const totalRecentQueries = tempRecentQueries
-          orderRecentQueries = []
-          localStorage.setItem("savedData", JSON.stringify(totalRecentQueries));
-
-          this.saveRecentQuery(totalRecentQueries);
+          this.localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
+          this.tempRecentQueries = [...this.localQueries, ...this.orderRecentQueries]
+          this.totalRecentQueries = this.tempRecentQueries
+          this.orderRecentQueries = []
+          localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
+          this.saveRecentQuery();
         }
       }
     },
-    saveRecentQuery(totalRecentQueries) {
-      localStorage.setItem("savedData", JSON.stringify(totalRecentQueries));
-      this.$root.$emit('storeQuery', totalRecentQueries)
+    saveRecentQuery() {
+      localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
+      this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     loadRecentQuery() {
-      const localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
-      this.$root.$emit('storeQuery', localQueries)
+      this.totalRecentQueries = this.localQueries
+      this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     getData() {
       const endPoint = `${baseUrl}/data`
@@ -176,4 +162,5 @@ export default {
     }
   }
 }
+
 </script>

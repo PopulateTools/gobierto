@@ -74,6 +74,7 @@
         v-else-if="activeTab === 1"
         :dataset-id="datasetId"
         :array-queries="arrayQueries"
+        :array-columns="arrayColumns"
         :public-queries="publicQueries"
         :table-name="tableName"
         :array-formats="arrayFormats"
@@ -173,6 +174,7 @@ export default {
           this.slugDataset = rawData.data.attributes.slug
           this.tableName = rawData.data.attributes.table_name
           this.arrayFormats = rawData.data.attributes.formats
+          this.arrayColumns = rawData.data.attributes.columns
           this.numberRows = rawData.data.attributes.data_summary.number_of_rows
           this.frequencyDataset = rawData.data.attributes.frequency[0].name_translations.es
           this.categoryDataset = rawData.data.attributes.category[0].name_translations.es

@@ -42,7 +42,7 @@ export default {
         this.orderItems = []
       } else {
         const items = queries
-        const filterItemsByDataset = items.filter(item => item.dataset.includes(this.tableName));
+        const filterItemsByDataset = items.filter(item => item.dataset === this.tableName);
         const filterItemsByQuery = filterItemsByDataset.filter(item => item.text.includes(this.tableName));
         this.orderItems = filterItemsByQuery.reverse()
       }
@@ -52,8 +52,9 @@ export default {
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false, true)
       this.$root.$emit('updateCode', code)
+      this.queryEditorLowerCase = this.queryEditor.toLowerCase()
 
-      if (this.queryEditor.includes('LIMIT')) {
+      if (this.queryEditorLowerCase.includes('limit')) {
         this.queryEditor = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {
@@ -92,6 +93,9 @@ export default {
           const keysData = []
           this.$root.$emit('sendData', keysData, data)
         })
+        setTimeout(() => {
+          this.showSpinner = false
+        }, 300)
     }
   }
 }

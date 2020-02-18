@@ -413,8 +413,9 @@ export default {
     runQuery() {
       this.showSpinner = true;
       this.queryEditor = encodeURI(this.codeQuery)
+      this.queryEditorLowerCase = this.queryEditor.toLowerCase()
 
-      if (this.queryEditor.includes('LIMIT')) {
+      if (this.queryEditorLowerCase.includes('limit')) {
         this.queryEditor = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {
@@ -441,7 +442,7 @@ export default {
 
           const queryDurationRecors = [meta.rows, meta.duration]
 
-          keysData = Object.keys(this.data[0])
+          keysData = Object.keys(data[0])
 
           this.$root.$emit('recordsDuration', queryDurationRecors)
           this.$root.$emit('sendData', keysData, data)

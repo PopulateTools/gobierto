@@ -10,13 +10,11 @@
       <Sidebar
         :active-tab="activeTabSidebar"
         :filters="filters"
-        :datasets="datasets"
         @active-tab="activeTabSidebar = $event"
       />
       <component
         :is="currentView"
-        :datasets="datasets"
-        :all-datasets="datasets"
+        :all-datasets="allDatasets"
       />
     </div>
   </div>
@@ -36,10 +34,6 @@ export default {
   },
   props: {
     filters: {
-      type: Array,
-      default: () => []
-    },
-    datasets: {
       type: Array,
       default: () => []
     },

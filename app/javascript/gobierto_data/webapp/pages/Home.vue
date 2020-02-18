@@ -5,8 +5,7 @@
   >
     <LayoutTabs
       :filters="filters"
-      :datasets="subsetItems"
-      :all-datasetes="datasetItems"
+      :all-datasets="subsetItems"
       :current-view="currentComponent"
       :current-tab="activateTabSidebar"
     />
@@ -42,7 +41,6 @@ export default {
     return {
       items: store.state.items || [],
       subsetItems: [],
-      datasetItems: [],
       filters: store.state.filters || [],
       activeFilters: store.state.activeFilters || new Map(),
       defaultFilters: store.state.defaultFilters || new Map(),
@@ -60,6 +58,7 @@ export default {
       this.isFetchingData = true;
 
       this.items = items;
+
       this.defaultFilters = filters
       this.filters = filters;
 
@@ -93,7 +92,7 @@ export default {
         dictionary: attributesDictionary,
         filters: availableFilters
       });
-
+      store.addDatasets(__items__);
       let items = this.setData(__items__);
       let filters = [];
 
@@ -119,7 +118,7 @@ export default {
 
       // Assign this object BEFORE next function for better performance
       this.subsetItems = items;
-      this.datasetItems = items;
+
 
       // Optional callback to update data in background, setup in CONFIGURATION object
       const itemsUpdated = await this.alterDataObjectOptional(items);
@@ -129,7 +128,7 @@ export default {
 
       // save the items
       store.addItems(itemsUpdated);
-      store.addDatasets(itemsUpdated);
+
 
       return {
         filters,

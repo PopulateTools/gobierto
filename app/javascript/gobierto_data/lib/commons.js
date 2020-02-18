@@ -49,3 +49,138 @@ export const closableMixin = {
     }
   }
 }
+
+export const sqlKeywords = [
+  {
+    className: "sql",
+    text: "ALTER"
+  },
+  {
+    className: "sql",
+    text: "AND"
+  },
+  {
+    className: "sql",
+    text: "AS"
+  },
+  {
+    className: "sql",
+    text: "ASC"
+  },
+  {
+    className: "sql",
+    text: "BETWEEN"
+  },
+  {
+    className: "sql",
+    text: "BY"
+  },
+  {
+    className: "sql",
+    text: "COUNT"
+  },
+  {
+    className: "sql",
+    text: "CREATE"
+  },
+  {
+    className: "sql",
+    text: "DELETE"
+  },
+  {
+    className: "sql",
+    text: "DESC"
+  },
+  {
+    className: "sql",
+    text: "DISTINCT"
+  },
+  {
+    className: "sql",
+    text: "DROP"
+  },
+  {
+    className: "sql",
+    text: "FROM"
+  },
+  {
+    className: "sql",
+    text: "GROUP"
+  },
+  {
+    className: "sql",
+    text: "HAVING"
+  },
+  {
+    className: "sql",
+    text: "IN"
+  },
+  {
+    className: "sql",
+    text: "INSERT"
+  },
+  {
+    className: "sql",
+    text: "INTO"
+  },
+  {
+    className: "sql",
+    text: "IS"
+  },
+  {
+    className: "sql",
+    text: "JOIN"
+  },
+  {
+    className: "sql",
+    text: "LIKE"
+  },
+  {
+    className: "sql",
+    text: "NOT"
+  },
+  {
+    className: "sql",
+    text: "ON"
+  },
+  {
+    className: "sql",
+    text: "OR"
+  },
+  {
+    className: "sql",
+    text: "ORDER"
+  },
+  {
+    className: "sql",
+    text: "SELECT"
+  },
+  {
+    className: "sql",
+    text: "SET"
+  },
+  {
+    className: "sql",
+    text: "TABLE"
+  },
+  {
+    className: "sql",
+    text: "UNION"
+  },
+  {
+    className: "sql",
+    text: "UPDATE"
+  },
+  {
+    className: "sql",
+    text: "VALUES"
+  },
+  {
+    className: "sql",
+    text: "WHERE"
+  },
+  {
+    className: "sql",
+    text: "LIMIT"
+  }
+]

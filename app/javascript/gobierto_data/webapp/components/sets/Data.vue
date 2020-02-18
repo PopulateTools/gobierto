@@ -7,11 +7,11 @@
       :array-queries="arrayQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
+      :array-columns="arrayColumns"
       :number-rows="numberRows"
     />
   </div>
 </template>
-
 <script>
 import SQLEditor from "./SQLEditor.vue";
 export default {
@@ -26,6 +26,10 @@ export default {
     },
     tableName: {
       type: String,
+      required: true
+    },
+    arrayColumns: {
+      type: Array,
       required: true
     },
     arrayQueries: {

@@ -1,25 +1,11 @@
 <template>
   <div>
-    <div class="codemirror">
-      <codemirror
-        ref="myCm"
-        v-model="code"
-        :options="cmOption"
-        @ready="onCmReady"
-        @input="onCmCodeChange"
-        @focus="inputCode"
-      />
-    </div>
-    <div
-      class="gobierto-data-sql-editor-footer"
-    >
+    <textarea
+      ref="queryEditor"
+      v-model="code"
+    />
+    <div class="gobierto-data-sql-editor-footer">
       <div v-if="showMessages">
-        <div
-          v-if="recordsLoader"
-          class="gobierto-data-sql-editor-footer-records"
-        >
-          {{ labelLoading }}...
-        </div>
         <div v-if="showApiError">
           <span class="gobierto-data-sql-error-message">
             {{ stringError }}
@@ -32,6 +18,12 @@
           <span class="gobierto-data-sql-editor-footer-time">
             {{ labelQueryExecuted }} {{ timeQuery }}ms
           </span>
+          <a
+            href=""
+            class="gobierto-data-sql-editor-footer-guide"
+          >
+            {{ labelGuide }}
+          </a>
         </div>
       </div>
     </div>
@@ -45,19 +37,24 @@
 </template>
 <script>
 /*import sqlFormatter from 'sql-formatter';*/
+import CodeMirror from "codemirror";
 import 'codemirror/mode/sql/sql.js';
 import 'codemirror/addon/selection/active-line.js';
 import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/addon/hint/show-hint.js';
 import 'codemirror/addon/hint/sql-hint.js';
-import { commands } from 'codemirror/src/edit/commands.js';
 import 'codemirror/src/model/selection_updates.js';
+import { sqlKeywords } from "./../../../lib/commons.js"
 
 export default {
   name: 'SQLEditorCode',
   props: {
     tableName: {
       type: String,
+      required: true
+    },
+    arrayColumns: {
+      type: Array,
       required: true
     },
     numberRows: {
@@ -67,6 +64,7 @@ export default {
   },
   data() {
     return {
+      editor: null,
       code: '',
       labelGuide: '',
       labelQueryExecuted: '',
@@ -77,6 +75,9 @@ export default {
       stringError: '',
       showMessages: true,
       showApiError: false,
+      sqlAutocomplete: sqlKeywords,
+      arrayMutated: [],
+      autoCompleteKeys: [],
       recordsLoader: false,
       cmOption: {
         tabSize: 2,
@@ -88,7 +89,7 @@ export default {
         mode: 'text/x-sql',
         hintOptions: {
           completeSingle: false,
-          tables: {}
+          hint: {}
         },
         showCursorWhenSelecting: true,
         theme: 'default',
@@ -98,11 +99,6 @@ export default {
         }
       }
     };
-  },
-  computed: {
-    codemirror() {
-      return this.$refs.myCm.codemirror;
-    }
   },
   created() {
     this.labelGuide = I18n.t('gobierto_data.projects.guide');
@@ -118,37 +114,52 @@ export default {
     this.$root.$emit('activateModalRecent')
     this.numberRecords = this.numberRows
 
+
     this.$root.$on('sendYourCode', this.queryCode);
 
     this.code = `SELECT * FROM ${this.tableName}`
   },
   mounted() {
-    this.cm = this.$refs.myCm.codemirror;
-    this.commands = commands;
-    const tables = {
-      table_1: [],
-      table_2: [],
-      table_3: [],
-      table_4: [],
-      table_5: [],
-      table_6: []
-    }
-    /*window.addEventListener('keydown', e => {
-      if (e.keyCode == 32) {
-        this.formatCode();
-        this.cm.setCursor(this.cm.lineCount(), 0);
-        this.cm.setCursor(this.cm.lineCount(), 0);
+    this.mergeTables()
+
+    this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption
+    )
+
+    this.cmOption.hintOptions.hint = this.hint
+
+    this.editor.on("keypress", editor => {
+      editor.showHint()
+      this.$root.$emit('activeSave', false);
+      if (this.saveQueryState === true) {
+        this.$root.$emit('updateActiveSave', true, false);
       }
     })
-    */
 
-    this.cmOption.hintOptions.tables = tables;
+    this.editor.on('focus', editor => {
+      this.code = editor.getValue()
+      this.$root.$emit('activeSave', false)
+      this.$root.$emit('activateModalRecent')
+      this.$root.$emit('sendCode', this.code);
+    })
 
-    this.onCmReady(this.cm)
+    this.editor.on('change', editor => {
+      this.code = editor.getValue()
+      this.$root.$emit('sendCode', this.code);
+    })
   },
   methods: {
+    mergeTables(){
+      for (let i = 0; i < this.arrayColumns.length; i++) {
+        this.arrayMutated[i] = {
+          className: 'table',
+          text: this.arrayColumns[i]
+        }
+      }
+      this.autoCompleteKeys = [ ...this.arrayMutated, ...this.sqlAutocomplete]
+    },
     queryCode(code){
       this.code = code
+      this.editor.setValue(this.code)
     },
     updateRecordsDuration(values) {
       const { 0: numberRecords, 1: timeQuery } = values
@@ -157,15 +168,6 @@ export default {
     },
     saveQueryState(value) {
       this.saveQueryState = value;
-    },
-    onCmReady(cm) {
-      cm.on('keypress', () => {
-        this.$root.$emit('activeSave', false);
-        /*cm.showHint()*/
-        if (this.saveQueryState === true) {
-          this.$root.$emit('updateActiveSave', true, false);
-        }
-      })
     },
     inputCode() {
       this.$root.$emit('activeSave', false)
@@ -178,12 +180,10 @@ export default {
       const formaterCode = sqlFormatter.format(this.code);
       this.cm.setValue(formaterCode);*/
     },
-    onCmCodeChange(newCode) {
-      this.code = newCode;
-      this.$root.$emit('sendCode', this.code);
-    },
     updateCode(newCode) {
+      this.$root.$emit('sendCode', this.code);
       this.code = unescape(newCode)
+      this.editor.setValue(this.code)
     },
     handleShowMessages(showTrue, showLoader){
       this.recordsLoader = showLoader
@@ -196,6 +196,43 @@ export default {
       this.showMessages = true
       this.showApiError = true
       this.stringError = message
+    },
+    suggest(searchString) {
+      let token = searchString
+      if (searchString.startsWith(".")) token = searchString.substring(1)
+      else token = searchString.toLowerCase()
+      let resu = []
+      let N = this.autoCompleteKeys.length
+
+      for (let i = 0; i < N; i++) {
+        let keyword = this.autoCompleteKeys[i].text.toLowerCase()
+        let suggestion = null
+        if (keyword.startsWith(token)) {
+          suggestion = Object.assign({ score: N + (N - i) }, this.autoCompleteKeys[i])
+        } else if (keyword.includes(token)) {
+          suggestion = Object.assign({ score: N - i }, this.autoCompleteKeys[i])
+        }
+        if (suggestion) resu.push(suggestion)
+      }
+
+      if (searchString.startsWith(".")) {
+        resu.forEach(s => {
+          if (s.className == "column") s.score += N
+          else if (s.className == "sql") s.score -= N
+          return s
+        })
+      }
+      return resu.sort((a, b) => b.score - a.score);
+    },
+    hint(editor) {
+      let cur = editor.getCursor();
+      let token = editor.getTokenAt(cur);
+      let searchString = token.string;
+      return {
+        list: this.suggest(searchString),
+        from: CodeMirror.Pos(cur.line, token.start),
+        to: CodeMirror.Pos(cur.line, token.end)
+      };
     }
   }
 }

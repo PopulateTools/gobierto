@@ -5,6 +5,7 @@
       :array-queries="arrayQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
+      :array-columns="arrayColumns"
       :number-rows="numberRows"
       :table-name="tableName"
       :dataset-id="datasetId"
@@ -34,7 +35,9 @@ export default {
       numberRows: 0,
       datasetId: 0,
       tableName: '',
-      arrayFormats:{}
+      arrayFormats:{},
+      arrayColumns: [],
+      keyColumns: []
     }
   },
   created() {
@@ -48,9 +51,9 @@ export default {
       axios
         .get(this.endPoint)
         .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.arrayQueries = this.items.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
+          const rawData = response.data
+          const items = rawData.data
+          this.arrayQueries = items.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
         })
         .catch(error => {
           const messageError = error.response
@@ -62,9 +65,9 @@ export default {
       axios
         .get(this.endPoint)
         .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.publicQueries = this.items
+          const rawData = response.data
+          const items = rawData.data
+          this.publicQueries = items
         })
         .catch(error => {
           const messageError = error.response
@@ -82,6 +85,9 @@ export default {
           this.slugDataset = this.rawData.data.attributes.slug
           this.tableName = this.rawData.data.attributes.table_name
           this.arrayFormats = this.rawData.data.attributes.formats
+          this.keyColumns = this.rawData.data.attributes.columns
+
+          this.arrayColumns = Object.keys(this.keyColumns)
           this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
 
           this.$root.$emit('nameDataset', this.titleDataset)

@@ -16,6 +16,7 @@
       <component
         :is="currentView"
         :datasets="datasets"
+        :all-datasets="datasets"
       />
     </div>
   </div>
@@ -39,6 +40,10 @@ export default {
       default: () => []
     },
     datasets: {
+      type: Array,
+      default: () => []
+    },
+    allDatasets: {
       type: Array,
       default: () => []
     },

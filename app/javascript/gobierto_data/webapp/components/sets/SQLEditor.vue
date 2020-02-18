@@ -79,8 +79,6 @@ export default {
       links:[],
       link: '',
       queryEditor: '',
-      url: '',
-      endPoint: '',
       recentQueries: [],
       localQueries: [],
       orderRecentQueries: [],

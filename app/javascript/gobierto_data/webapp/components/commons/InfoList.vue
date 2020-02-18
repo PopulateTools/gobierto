@@ -1,18 +1,20 @@
 <template>
   <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
-    <div style="background-color: rgba(113, 184, 193, .1); color: #71B8C1; height: 40vh; widht: 100%; padding: 1rem; font-weight: bold; margin-bottom: 1rem;">
+    <div class="gobierto-data-infolist">
       Promo - Intro al módulo
     </div>
     <div
-      v-for="(item, index) in datasets"
+      v-for="(item, index) in allDatasets"
       :key="index"
       class="gobierto-data-info-list-element"
     >
-      <h1
+      <a
+        :href="'/datos/' + item.attributes.slug"
         class="gobierto-data-title-dataset gobierto-data-title-dataset-big"
+        @click.prevent="nav(item.attributes.slug)"
       >
         {{ item.attributes.name }}
-      </h1>
+      </a>
       <div class="pure-g">
         <div class="pure-u-1-2 gobierto-data-summary-header">
           <div class="gobierto-data-summary-header-container">
@@ -68,7 +70,7 @@
 export default {
   name: "InfoList",
   props: {
-    datasets: {
+    allDatasets: {
       type: Array,
       default: () => []
     }
@@ -86,6 +88,16 @@ export default {
     this.labelFrequency = I18n.t("gobierto_data.projects.frequency")
     this.labelSubject = I18n.t("gobierto_data.projects.subject")
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
+  },
+  methods: {
+    nav(slugDataset) {
+      this.$router.push({
+        name: "dataset",
+        params: {
+          id: slugDataset
+        }
+      }, () => {})
+    }
   }
 }
 </script>

@@ -24,7 +24,7 @@
           >
             <span
               class="gobierto-data-summary-queries-container-name"
-              @click="handleQueries(arrayQueries[index].attributes.sql, item)"
+              @click="handleQueries(arrayQueries[index].attributes.sql, item, false)"
             >
               {{ item.attributes.name }}
             </span>
@@ -81,7 +81,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCodePublic(index)"
             @mouseleave="hideCode = true"
-            @click="handleQueries(publicQueries[index].attributes.sql, item)"
+            @click="handleQueries(publicQueries[index].attributes.sql, item, true)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
             <!-- <i
@@ -170,11 +170,14 @@ export default {
     this.userId = getUserId()
   },
   methods: {
-    handleQueries(sql, item) {
+    handleQueries(sql, item, anonymusQuery) {
       this.runYourQuery(sql)
       this.sendQuery(item)
       this.closeModal()
       this.changeTab()
+      if (anonymusQuery === true) {
+        this.$root.$emit('disableEdit')
+      }
     },
     closeModal() {
       this.$root.$emit('closeQueriesModal');
@@ -188,7 +191,7 @@ export default {
       this.sqlCode = this.publicQueries[index].attributes.sql
     },
     sendQuery(item) {
-      this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql ]
+      this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql, item.id, item.attributes.user_id ]
       this.queryCode = item.attributes.sql
       this.$root.$emit('sendQueryParams', this.queryParams)
       this.$root.$emit('sendQueryCode', this.queryCode)
@@ -214,9 +217,9 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.arrayQueries = this.items
+          const rawData = response.data
+          const items = rawData.data
+          this.arrayQueries = items
         })
         .catch(error => {
           const messageError = error.response
@@ -224,7 +227,6 @@ export default {
         })
     },
     runYourQuery(code) {
-      this.showSpinner = true;
       this.queryEditor = encodeURI(code)
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false, true)
@@ -246,21 +248,22 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          this.data = []
-          this.keysData = []
-          this.rawData = response.data
-          this.meta = this.rawData.meta
-          this.data = this.rawData.data
+          let data = []
+          let keysData = []
+          const rawData = response.data
+          const meta = rawData.meta
+          data = rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          const queryDurationRecors = [meta.rows, meta.duration]
 
-          this.keysData = Object.keys(this.data[0])
+          keysData = Object.keys(data[0])
 
           this.$root.$emit('recordsDuration', this.queryDurationRecors)
           this.$root.$emit('sendData', this.keysData, this.data)
           this.$root.$emit('sendDataViz', this.data)
           this.$root.$emit('showMessages', true, false)
           this.$root.$emit('sendQueryCode', this.queryCode)
+          this.$root.$emit('runSpinner')
 
         })
         .catch(error => {
@@ -268,14 +271,10 @@ export default {
           this.$root.$emit('apiError', messageError)
 
 
-          this.data = []
-          this.keysData = []
-          this.$root.$emit('sendData', this.keysData, this.data)
+          const data = []
+          const keysData = []
+          this.$root.$emit('sendData', keysData, data)
         })
-
-        setTimeout(() => {
-          this.showSpinner = false
-        }, 300)
     }
   }
 }

@@ -41,14 +41,18 @@ export default {
   },
   methods: {
     updateValues(values) {
-      this.newColumns = []
-      this.newColumns = Object.keys(values[0])
-      if (JSON.stringify(this.newColumns) === JSON.stringify(this.initColumns)) {
-        this.viewer.setAttribute('columns', JSON.stringify(this.newColumns))
-        this.updatePerspectiveData(values)
+      if (values.length  === 0) {
+        this.viewer.delete()
       } else {
-        this.viewer.setAttribute('columns', JSON.stringify(this.newColumns))
-        this.updatePerspectiveColumns(values)
+        this.newColumns = []
+        this.newColumns = Object.keys(values[0])
+        if (JSON.stringify(this.newColumns) === JSON.stringify(this.initColumns)) {
+          this.viewer.setAttribute('columns', JSON.stringify(this.newColumns))
+          this.updatePerspectiveData(values)
+        } else {
+          this.viewer.setAttribute('columns', JSON.stringify(this.newColumns))
+          this.updatePerspectiveColumns(values)
+        }
       }
     },
     initPerspective(data){

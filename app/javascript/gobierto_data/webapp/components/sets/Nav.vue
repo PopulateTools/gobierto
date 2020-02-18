@@ -71,6 +71,7 @@
         v-else-if="activeTab === 1"
         :dataset-id="datasetId"
         :array-queries="arrayQueries"
+        :array-columns="arrayColumns"
         :public-queries="publicQueries"
         :table-name="tableName"
         :array-formats="arrayFormats"
@@ -126,6 +127,10 @@ export default {
       required: true
     },
     publicQueries: {
+      type: Array,
+      required: true
+    },
+    arrayColumns: {
       type: Array,
       required: true
     },

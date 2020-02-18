@@ -76,9 +76,9 @@ export default {
       axios
         .get(this.endPoint)
         .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.arrayQueries = this.items
+          const rawData = response.data
+          const items = rawData.data
+          this.arrayQueries = items
         })
         .catch(error => {
           const messageError = error.response
@@ -90,12 +90,12 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          this.rawData = response.data
-          this.titleDataset = this.rawData.data.attributes.name
-          this.datasetId = parseInt(this.rawData.data.id)
-          this.slugDataset = this.rawData.data.attributes.slug
-          this.tableName = this.rawData.data.attributes.table_name
-          this.arrayFormats = this.rawData.data.attributes.formats
+          const rawData = response.data
+          this.titleDataset = rawData.data.attributes.name
+          this.datasetId = parseInt(rawData.data.id)
+          this.slugDataset = rawData.data.attributes.slug
+          this.tableName = rawData.data.attributes.table_name
+          this.arrayFormats = rawData.data.attributes.formats
 
           this.$root.$emit('nameDataset', this.titleDataset)
 
@@ -111,9 +111,9 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          this.rawData = response.data
-          this.keysData = this.rawData.data
-          this.columns = Object.keys(this.keysData[0])
+          const rawData = response.data
+          const keysData = rawData.data
+          this.columns = Object.keys(keysData[0])
           this.handleToggle(index)
         })
         .catch(error => {
@@ -125,9 +125,9 @@ export default {
      axios
        .get(this.endPoint)
        .then(response => {
-         this.rawData = response.data
-         this.items = this.rawData.data
-         this.publicQueries = this.items
+         const rawData = response.data
+         const items = rawData.data
+         this.publicQueries = items
        })
        .catch(error => {
          const messageError = error.response

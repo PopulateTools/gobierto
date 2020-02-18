@@ -18,12 +18,6 @@
           <span class="gobierto-data-sql-editor-footer-time">
             {{ labelQueryExecuted }} {{ timeQuery }}ms
           </span>
-          <a
-            href=""
-            class="gobierto-data-sql-editor-footer-guide"
-          >
-            {{ labelGuide }}
-          </a>
         </div>
       </div>
     </div>
@@ -122,7 +116,7 @@ export default {
   mounted() {
     this.mergeTables()
 
-    this.editor = CodeMirror.fromTextArea(this.$refs.myCm, this.cmOption)
+    this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption)
 
     this.cmOption.hintOptions.hint = this.hint
 

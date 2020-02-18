@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import VueCodemirror from 'vue-codemirror'
 
 import 'codemirror/lib/codemirror.css'
 

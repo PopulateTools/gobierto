@@ -7,7 +7,7 @@
       :filters="filters"
       :all-datasets="subsetItems"
       :current-view="currentComponent"
-      :current-tab="activateTabSidebar"
+      :current-tab="currentTab"
     />
   </div>
 </template>
@@ -48,6 +48,11 @@ export default {
     }
   },
   async created() {
+    if(this.$route.params.tabSidebar === 0) {
+      this.currentTab = this.$route.params.tabSidebar
+    } else {
+      this.currentTab = this.activateTabSidebar
+    }
     this.$root.$on("sendCheckbox", this.handleCheckboxStatus)
     if (this.items.length) {
       this.updateDOM();

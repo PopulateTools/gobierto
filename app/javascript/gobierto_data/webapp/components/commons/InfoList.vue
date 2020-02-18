@@ -94,7 +94,8 @@ export default {
       this.$router.push({
         name: "dataset",
         params: {
-          id: slugDataset
+          id: slugDataset,
+          tabSidebar: 0
         }
       }, () => {})
     }

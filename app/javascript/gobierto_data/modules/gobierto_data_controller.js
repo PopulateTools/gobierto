@@ -35,12 +35,6 @@ export class GobiertoDataController {
             name: "dataset",
             component: Home,
             props: { currentComponent: 'DataSets', activateTabSidebar: 1 }
-          },
-          {
-            path: "/datos/:id",
-            name: "dataset",
-            component: Home,
-            props: { currentComponent: 'DataSets', activateTabSidebar: 0 }
           }
         ]
       })

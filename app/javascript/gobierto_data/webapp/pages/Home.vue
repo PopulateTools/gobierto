@@ -6,6 +6,7 @@
     <LayoutTabs
       :filters="filters"
       :datasets="subsetItems"
+      :all-datasetes="datasetItems"
       :current-view="currentComponent"
       :current-tab="activateTabSidebar"
     />
@@ -41,6 +42,7 @@ export default {
     return {
       items: store.state.items || [],
       subsetItems: [],
+      datasetItems: [],
       filters: store.state.filters || [],
       activeFilters: store.state.activeFilters || new Map(),
       defaultFilters: store.state.defaultFilters || new Map(),
@@ -117,6 +119,7 @@ export default {
 
       // Assign this object BEFORE next function for better performance
       this.subsetItems = items;
+      this.datasetItems = items;
 
       // Optional callback to update data in background, setup in CONFIGURATION object
       const itemsUpdated = await this.alterDataObjectOptional(items);

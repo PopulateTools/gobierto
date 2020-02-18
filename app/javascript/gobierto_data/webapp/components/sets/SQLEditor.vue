@@ -13,10 +13,9 @@
         :number-rows="numberRows"
       />
       <SQLEditorTabs
-        v-if="data"
+        v-if="dataLoaded"
         :array-formats="arrayFormats"
-        :items="data"
-        :link="link"
+        :items="items"
         :table-name="tableName"
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
@@ -69,19 +68,13 @@ export default {
   data() {
     return {
       activeTabIndex: 0,
-      rawData: [],
-      columns: [],
       data: null,
-      keysData: [],
-      meta:[],
-      links:[],
       link: '',
       queryEditor: '',
-      url: '',
-      endPoint: '',
       recentQueries: [],
       newRecentQuery: null,
-      localTableName : ''
+      localTableName : '',
+      dataLoaded: false
     }
   },
   created(){
@@ -106,8 +99,6 @@ export default {
   },
   methods: {
     runYourQuery(sqlCode){
-      this.queryDefault = false
-      this.getSlug()
       this.queryEditor = sqlCode
     },
     addRecentQuery(recentQueries, localQueries) {
@@ -150,7 +141,7 @@ export default {
       this.$root.$emit('storeQuery', localQueries)
     },
     getData() {
-      this.endPoint = `${baseUrl}/data`
+      const endPoint = `${baseUrl}/data`
 
       if (this.queryEditor.includes('LIMIT')) {
         this.queryEditor = this.queryEditor
@@ -159,14 +150,15 @@ export default {
         this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
         this.queryEditor = this.code
       }
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
+      const url = `${endPoint}?sql=${this.queryEditor}`
 
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           const rawData = response.data
           const data = rawData.data
-
+          this.items = data
+          this.dataLoaded = true
 
           const keysData = Object.keys(data[0])
           this.$root.$emit('sendData', keysData)

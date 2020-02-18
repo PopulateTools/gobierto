@@ -76,6 +76,7 @@
 
   &-title-dataset {
     font-family: $font_headings;
+    text-decoration: none;
     font-weight: bold;
     font-size: 20px;
     line-height: 1.2;
@@ -1022,5 +1023,15 @@
   .sidebar-filter-caret {
     display: inline-block;
     cursor: pointer;
+  }
+
+  &-infolist {
+    background-color: rgba(113, 184, 193, .1);
+    color: #71b8c1;
+    height: 40vh;
+    width: 100%;
+    padding: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
   }
 }

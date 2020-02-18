@@ -47,9 +47,9 @@ export default {
   },
   methods: {
     getQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
+      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios
-        .get(this.endPoint)
+        .get(endPoint)
         .then(response => {
           const rawData = response.data
           const items = rawData.data
@@ -61,9 +61,9 @@ export default {
         })
     },
     getPublicQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
+      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
       axios
-        .get(this.endPoint)
+        .get(endPoint)
         .then(response => {
           const rawData = response.data
           const items = rawData.data
@@ -75,20 +75,20 @@ export default {
         })
     },
     getData() {
-      this.url = `${baseUrl}/datasets/${this.$route.params.id}/meta`
+      const url = `${baseUrl}/datasets/${this.$route.params.id}/meta`
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
-          this.rawData = response.data
-          this.titleDataset = this.rawData.data.attributes.name
-          this.datasetId = parseInt(this.rawData.data.id)
-          this.slugDataset = this.rawData.data.attributes.slug
-          this.tableName = this.rawData.data.attributes.table_name
-          this.arrayFormats = this.rawData.data.attributes.formats
-          this.keyColumns = this.rawData.data.attributes.columns
+          const rawData = response.data
+          this.titleDataset = rawData.data.attributes.name
+          this.datasetId = parseInt(rawData.data.id)
+          this.slugDataset = rawData.data.attributes.slug
+          this.tableName = rawData.data.attributes.table_name
+          this.arrayFormats = rawData.data.attributes.formats
+          this.keyColumns = rawData.data.attributes.columns
 
           this.arrayColumns = Object.keys(this.keyColumns)
-          this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
+          this.numberRows = rawData.data.attributes.data_summary.number_of_rows
 
           this.$root.$emit('nameDataset', this.titleDataset)
 

@@ -122,15 +122,15 @@ export default {
       type: Array,
       required: true
     },
+    arrayColumns: {
+      type: Array,
+      required: true
+    },
     numberRows: {
       type: Number,
       required: true
     },
     publicQueries: {
-      type: Array,
-      required: true
-    },
-    arrayColumns: {
       type: Array,
       required: true
     },

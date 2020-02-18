@@ -717,7 +717,8 @@
     color: #666;
     font-family: monospace;
 
-    &:hover {
+    &:hover,
+    &.active-query {
       background-color: rgba(var(--color-base-string), .1);
 
       &::before {
@@ -928,6 +929,10 @@
 
   .rotate-caret {
     transform: rotate(270deg);
+  }
+
+  .CodeMirror-scroll {
+    overflow: hidden !important;
   }
 
   &-sql-editor-footer {

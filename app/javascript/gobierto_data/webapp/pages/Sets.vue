@@ -52,7 +52,6 @@ export default {
     return {
       activeTabIndex: 0,
       activeTabSidebar: 1,
-      rawData: '',
       titleDataset: '',
       arrayQueries: [],
       publicQueries: [],
@@ -72,9 +71,9 @@ export default {
   },
   methods: {
     getQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
+      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios
-        .get(this.endPoint)
+        .get(endPoint)
         .then(response => {
           const rawData = response.data
           const items = rawData.data
@@ -86,9 +85,9 @@ export default {
         })
     },
     getData(id) {
-      this.url = `${baseUrl}/datasets/${id}/meta`
+      const url = `${baseUrl}/datasets/${id}/meta`
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           const rawData = response.data
           this.titleDataset = rawData.data.attributes.name
@@ -107,9 +106,9 @@ export default {
         })
     },
     getColumns(slugDataset, index) {
-      this.url = `${baseUrl}/datasets/${slugDataset}`
+      const url = `${baseUrl}/datasets/${slugDataset}`
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           const rawData = response.data
           const keysData = rawData.data
@@ -121,9 +120,9 @@ export default {
         })
     },
     getPublicQueries() {
-     this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
+     const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
      axios
-       .get(this.endPoint)
+       .get(endPoint)
        .then(response => {
          const rawData = response.data
          const items = rawData.data

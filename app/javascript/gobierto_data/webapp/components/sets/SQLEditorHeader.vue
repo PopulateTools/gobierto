@@ -461,11 +461,11 @@ export default {
       this.$root.$emit('postRecentQuery', this.codeQuery)
       this.$root.$emit('showMessages', false, true)
 
-      this.endPoint = `${baseUrl}/data`
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${this.queryEditor}`
 
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           let data = []
           let keysData = []
@@ -475,7 +475,7 @@ export default {
 
           const queryDurationRecors = [meta.rows, meta.duration]
 
-          keysData = Object.keys(this.data[0])
+          keysData = Object.keys(data[0])
 
           this.$root.$emit('recordsDuration', queryDurationRecors)
           this.$root.$emit('sendData', keysData, data)
@@ -523,10 +523,10 @@ export default {
       }
     },
     postQuery() {
-      this.endPoint = `${baseUrl}/queries`
+      const endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
       if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
-        this.endPoint = `${baseUrl}/queries/${this.queryId}`
+        const endPoint = `${baseUrl}/queries/${this.queryId}`
         let dataUpdate = {
             "data": {
                 "type": "gobierto_data-queries",
@@ -537,7 +537,7 @@ export default {
             }
         }
 
-        axios.put(this.endPoint, dataUpdate, {
+        axios.put(endPoint, dataUpdate, {
           headers: {
             'Content-type': 'application/json',
             'Authorization': `${this.token}`
@@ -562,7 +562,7 @@ export default {
                 }
             }
         }
-        axios.post(this.endPoint, data, {
+        axios.post(endPoint, data, {
           headers: {
             'Content-type': 'application/json',
             'Authorization': `${this.token}`

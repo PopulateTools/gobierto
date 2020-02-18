@@ -14,9 +14,9 @@
         :number-rows="numberRows"
       />
       <SQLEditorTabs
-        v-if="data"
+        v-if="items"
         :array-formats="arrayFormats"
-        :items="data"
+        :items="items"
         :link="link"
         :table-name="tableName"
         :active-tab="activeTabIndex"
@@ -77,7 +77,7 @@ export default {
       activeTabIndex: 0,
       rawData: [],
       columns: [],
-      data: null,
+      items: null,
       keysData: [],
       meta:[],
       links:[],
@@ -86,6 +86,10 @@ export default {
       url: '',
       endPoint: '',
       recentQueries: [],
+      orderRecentQueries: [],
+      totalRecentQueries: [],
+      tempRecentQueries: [],
+      localQueries: [],
       newRecentQuery: null,
       localTableName : ''
     }
@@ -95,9 +99,9 @@ export default {
     this.$root.$on('sendYourCode', this.runYourQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
-        const recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
-        const localQueries = JSON.parse(localStorage.getItem('savedData'));
-        this.addRecentQuery(recentQueries, localQueries)
+        this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
+        this.localQueries = JSON.parse(localStorage.getItem('savedData'));
+        this.addRecentQuery()
       } catch (e) {
         localStorage.removeItem('recentQueries');
       }
@@ -109,56 +113,51 @@ export default {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
     this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
     this.getData()
-
-
   },
   methods: {
     runYourQuery(sqlCode){
-      this.queryDefault = false
-      this.getSlug()
       this.queryEditor = sqlCode
     },
-    addRecentQuery(recentQueries, localQueries) {
+    addRecentQuery() {
       if (!this.newRecentQuery) {
         return;
       }
-
-      if (Object.values(recentQueries).indexOf(this.newRecentQuery) > -1) {
-        this.$root.$emit('store', recentQueries)
+      if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
+        this.$root.$emit('storeQuery', this.recentQueries)
       } else {
-        recentQueries.push(this.newRecentQuery);
-        localStorage.setItem('recentQueries', JSON.stringify(recentQueries));
+        this.recentQueries.push(this.newRecentQuery);
+        localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));
 
         if (this.localTableName === this.tableName) {
-          let orderRecentQueries
           for (let i = 0; i < 1; i++) {
-            orderRecentQueries[i] = {
+            this.orderRecentQueries[i] = {
               dataset: this.tableName,
               text: this.newRecentQuery
             }
           }
           this.newRecentQuery = '';
 
-          localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
-          const tempRecentQueries = [ ...localQueries, ...orderRecentQueries ]
-          const totalRecentQueries = tempRecentQueries
-          orderRecentQueries = []
-          localStorage.setItem("savedData", JSON.stringify(totalRecentQueries));
+          this.localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
+          this.tempRecentQueries = [ ...this.localQueries, ...this.orderRecentQueries ]
+          this.totalRecentQueries = this.tempRecentQueries
+          this.orderRecentQueries = []
+          localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
 
-          this.saveRecentQuery(totalRecentQueries);
+          this.saveRecentQuery();
         }
       }
     },
-    saveRecentQuery(totalRecentQueries) {
-      localStorage.setItem("savedData", JSON.stringify(totalRecentQueries));
-      this.$root.$emit('storeQuery', totalRecentQueries)
+    saveRecentQuery() {
+      localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
+      this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     loadRecentQuery() {
-      const localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
-      this.$root.$emit('storeQuery', localQueries)
+      this.totalRecentQueries = this.localQueries
+      this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     getData() {
-      this.endPoint = `${baseUrl}/data`
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${this.queryEditor}`
 
       if (this.queryEditor.includes('LIMIT')) {
         this.queryEditor = this.queryEditor
@@ -167,13 +166,13 @@ export default {
         this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
         this.queryEditor = this.code
       }
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           const rawData = response.data
           const data = rawData.data
+          this.items = data
 
 
           const keysData = Object.keys(data[0])

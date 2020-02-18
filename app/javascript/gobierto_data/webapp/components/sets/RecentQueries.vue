@@ -9,11 +9,11 @@
         ref="button"
         :key="index"
         :class="{'active-query': currentItem === index}"
-        :data-id="item"
+        :data-id="item.text"
         class="gobierto-data-recent-queries-list-element"
-        @click="runRecentQuery(item)"
+        @click="runRecentQuery(item.text)"
       >
-        {{ item }}
+        {{ item.text }}
       </button>
     </div>
   </div>
@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      orderItems: [],
+      orderItems: null,
       currentItem: 0
     }
   },
@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     nextItem () {
-
       if (event.keyCode == 38 && this.currentItem > 0) {
         this.currentItem--
       } else if (event.keyCode == 40 && this.currentItem < this.items.length) {
@@ -56,7 +55,7 @@ export default {
         this.orderItems = []
       } else {
         const items = queries
-        const filterItemsByDataset = items.filter(item => item.dataset.includes(this.tableName));
+        const filterItemsByDataset = items.filter(item => item.dataset === this.tableName);
         const filterItemsByQuery = filterItemsByDataset.filter(item => item.text.includes(this.tableName));
         this.orderItems = filterItemsByQuery.reverse()
       }
@@ -77,10 +76,10 @@ export default {
         this.queryEditor = this.code
       }
 
-      this.endPoint = `${baseUrl}/data`
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${this.queryEditor}`
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           let data = []
           let keysData = []

@@ -48,12 +48,10 @@
     <div class="pure-u-1 pure-u-md-2-24"></div>
 
     <%= render layout: 'gobierto_admin/shared/save_widget', locals: { f: f, levels: @dataset_form.available_visibility_levels } do %>
-      <% if @dataset_form.persisted? %>
-        <div class="admin_side_actions">
-          <%= render "gobierto_admin/shared/admin_widget_attachment", { attachable_type: @dataset_form.dataset.class.name, attachable_id: @dataset_form.dataset.id } %>
-          <%= f.hidden_field :attachment_ids, id: "attachmentsIdsAfterCreated" %>
-        </div>
-      <% end %>
+      <div class="admin_side_actions">
+        <%= render "gobierto_admin/shared/admin_widget_attachment", { attachable_type: @dataset_form.dataset.class.name, attachable_id: @dataset_form.dataset.id } %>
+        <%= f.hidden_field :attachment_ids, id: "attachmentsIdsAfterCreated" %>
+      </div>
     <% end %>
 
   </div>

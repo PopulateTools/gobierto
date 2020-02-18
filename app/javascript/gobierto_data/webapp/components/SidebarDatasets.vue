@@ -35,14 +35,9 @@
   </div>
 </template>
 <script>
+import { store } from "./../../lib/store";
 export default {
   name: "SidebarDatasets",
-  props: {
-    datasets: {
-      type: Array,
-      default: () => []
-    }
-  },
   data() {
     return {
       labelSets: "",
@@ -50,7 +45,8 @@ export default {
       labelCategories: "",
       listDatasets: [],
       toggle: 0,
-      indexToggle: null
+      indexToggle: null,
+      items: store.state.datasets || []
     }
   },
   created() {
@@ -61,7 +57,7 @@ export default {
   },
   methods: {
     orderDatasets() {
-      const sortDatasets = this.datasets
+      const sortDatasets = this.items
       const allDatasets = sortDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
       let slug = this.$route.params.id
       const indexToggle = allDatasets.findIndex(dataset => dataset.attributes.slug == slug)

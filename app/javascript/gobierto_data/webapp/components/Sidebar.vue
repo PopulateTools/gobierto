@@ -33,7 +33,6 @@
     <SidebarDatasets
       v-if="activeTab === 1"
       :filters="filters"
-      :datasets="datasets"
     />
     <SidebarQueries
       v-if="activeTab === 2"
@@ -57,10 +56,6 @@ export default {
       default: 0
     },
     filters: {
-      type: Array,
-      default: () => []
-    },
-    datasets: {
       type: Array,
       default: () => []
     }

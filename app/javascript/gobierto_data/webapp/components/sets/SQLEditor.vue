@@ -10,6 +10,7 @@
       />
       <SQLEditorCode
         :table-name="tableName"
+        :array-columns="arrayColumns"
         :number-rows="numberRows"
       />
       <SQLEditorTabs
@@ -32,6 +33,7 @@ import SQLEditorCode from "./SQLEditorCode.vue";
 import SQLEditorHeader from "./SQLEditorHeader.vue";
 import SQLEditorTabs from "./SQLEditorTabs.vue";
 import { baseUrl } from "./../../../lib/commons.js"
+import "./../../../lib/sql-theme.css"
 
 export default {
   name: 'SQLEditor',
@@ -46,6 +48,10 @@ export default {
       required: true
     },
     arrayQueries: {
+      type: Array,
+      required: true
+    },
+    arrayColumns: {
       type: Array,
       required: true
     },

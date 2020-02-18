@@ -5,6 +5,7 @@
       :array-queries="arrayQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
+      :array-columns="arrayColumns"
       :number-rows="numberRows"
       :table-name="tableName"
       :dataset-id="datasetId"
@@ -34,7 +35,9 @@ export default {
       numberRows: 0,
       datasetId: 0,
       tableName: '',
-      arrayFormats:{}
+      arrayFormats:{},
+      arrayColumns: [],
+      keyColumns: []
     }
   },
   created() {
@@ -76,13 +79,16 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          const rawData = response.data
-          this.titleDataset = rawData.data.attributes.name
-          this.datasetId = parseInt(rawData.data.id)
-          this.slugDataset = rawData.data.attributes.slug
-          this.tableName = rawData.data.attributes.table_name
-          this.arrayFormats = rawData.data.attributes.formats
-          this.numberRows = rawData.data.attributes.data_summary.number_of_rows
+          this.rawData = response.data
+          this.titleDataset = this.rawData.data.attributes.name
+          this.datasetId = parseInt(this.rawData.data.id)
+          this.slugDataset = this.rawData.data.attributes.slug
+          this.tableName = this.rawData.data.attributes.table_name
+          this.arrayFormats = this.rawData.data.attributes.formats
+          this.keyColumns = this.rawData.data.attributes.columns
+
+          this.arrayColumns = Object.keys(this.keyColumns)
+          this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
 
           this.$root.$emit('nameDataset', this.titleDataset)
 

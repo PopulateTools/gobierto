@@ -92,6 +92,9 @@ export default {
           const keysData = []
           this.$root.$emit('sendData', keysData, data)
         })
+        setTimeout(() => {
+          this.showSpinner = false
+        }, 300)
     }
   }
 }

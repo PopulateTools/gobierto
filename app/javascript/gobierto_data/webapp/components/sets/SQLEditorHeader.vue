@@ -28,6 +28,7 @@
           >
             <RecentQueries
               v-show="isActive"
+              :table-name="tableName"
               :class="[
                 directionLeft ? 'modal-left': 'modal-right',
                 isActive ? 'active' : ''
@@ -195,6 +196,10 @@ export default {
       type: Number,
       required: true
     },
+    tableName: {
+      type: String,
+      required: true
+    },
     numberRows: {
       type: Number,
       required: true
@@ -264,6 +269,7 @@ export default {
     this.$root.$on('storeQuery', this.showshowStoreQueries)
     this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('sendYourQuery', this.runYourQuery)
+    this.$root.$on('runSpinner', this.runSpinner)
 
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
     this.$root.$on('disableEdit', this.hideEdit)
@@ -275,6 +281,12 @@ export default {
     this.noLogin = this.userId === "" ? true : false
   },
   methods: {
+    runSpinner() {
+      this.showSpinner = true;
+      setTimeout(() => {
+        this.showSpinner = false
+      }, 300)
+    },
     hideEdit(){
       this.showBtnEdit = false
     },
@@ -421,18 +433,18 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          this.data = []
-          this.keysData = []
-          this.rawData = response.data
-          this.meta = this.rawData.meta
-          this.data = this.rawData.data
+          let data = []
+          let keysData = []
+          const rawData = response.data
+          const meta = rawData.meta
+          data = rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          const queryDurationRecors = [meta.rows, meta.duration]
 
-          this.keysData = Object.keys(this.data[0])
+          keysData = Object.keys(this.data[0])
 
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
-          this.$root.$emit('sendData', this.keysData, this.data)
+          this.$root.$emit('recordsDuration', queryDurationRecors)
+          this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true, false)
 
         })
@@ -441,9 +453,9 @@ export default {
           this.$root.$emit('apiError', messageError)
 
 
-          this.data = []
-          this.keysData = []
-          this.$root.$emit('sendData', this.keysData, this.data)
+          const data = []
+          const keysData = []
+          this.$root.$emit('sendData', keysData, data)
 
         })
 

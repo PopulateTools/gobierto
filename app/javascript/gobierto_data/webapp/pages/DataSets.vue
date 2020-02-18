@@ -5,6 +5,7 @@
       :array-queries="arrayQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
+      :array-columns="arrayColumns"
       :number-rows="numberRows"
       :table-name="tableName"
       :dataset-id="datasetId"
@@ -43,6 +44,10 @@ export default {
       required: true
     },
     arrayFormats: {
+      type: Object,
+      required: true
+    },
+    arrayColumns: {
       type: Object,
       required: true
     },

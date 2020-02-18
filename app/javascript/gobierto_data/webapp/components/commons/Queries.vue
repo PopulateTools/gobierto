@@ -205,7 +205,6 @@ export default {
       )
     },
     runYourQuery(code) {
-      this.showSpinner = true;
       this.queryEditor = encodeURI(code)
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false, true)
@@ -241,6 +240,7 @@ export default {
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true, false)
           this.$root.$emit('sendQueryCode', this.queryCode)
+          this.$root.$emit('runSpinner')
 
         })
         .catch(error => {
@@ -252,10 +252,6 @@ export default {
           const keysData = []
           this.$root.$emit('sendData', keysData, data)
         })
-
-        setTimeout(() => {
-          this.showSpinner = false
-        }, 300)
     }
   }
 }

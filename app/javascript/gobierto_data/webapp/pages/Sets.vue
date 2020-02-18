@@ -19,6 +19,7 @@
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
         :array-formats="arrayFormats"
+        :array-columns="arrayColumns"
         :public-queries="publicQueries"
         :number-rows="numberRows"
         :table-name="tableName"
@@ -53,9 +54,9 @@ export default {
     return {
       activeTabIndex: 0,
       activeTabSidebar: 1,
-      rawData: '',
       titleDataset: '',
       arrayQueries: [],
+      arrayColumns: {},
       publicQueries: [],
       datasetId: 0,
       numberRows: 0,
@@ -76,18 +77,13 @@ export default {
   },
   methods: {
     getQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
+      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios
-        .get(this.endPoint, {
-          headers: {
-            'Content-type': 'application/json',
-            'Authorization': `${this.token}`
-          }
-        })
+        .get(endPoint)
         .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.arrayQueries = this.items
+          const rawData = response.data
+          const items = rawData.data
+          this.arrayQueries = items
         })
         .catch(error => {
           const messageError = error.response
@@ -95,16 +91,17 @@ export default {
         })
     },
     getData(id) {
-      this.url = `${baseUrl}/datasets/${id}/meta`
+      const url = `${baseUrl}/datasets/${id}/meta`
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
-          this.rawData = response.data
-          this.titleDataset = this.rawData.data.attributes.name
-          this.datasetId = parseInt(this.rawData.data.id)
-          this.tableName = this.rawData.data.attributes.table_name
-          this.arrayFormats = this.rawData.data.attributes.formats
-          this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
+          const rawData = response.data
+          this.titleDataset = rawData.data.attributes.name
+          this.datasetId = parseInt(rawData.data.id)
+          this.tableName = rawData.data.attributes.table_name
+          this.arrayColumns = rawData.data.attributes.columns
+          this.arrayFormats = rawData.data.attributes.formats
+          this.numberRows = rawData.data.attributes.data_summary.number_of_rows
 
           this.$root.$emit('nameDataset', this.titleDataset)
 
@@ -115,27 +112,27 @@ export default {
           console.error(error)
         })
     },
-    getColumns(slugDataset) {
-      this.url = `${baseUrl}/datasets/${slugDataset}`
+    getColumns(slugDataset, index) {
+      const url = `${baseUrl}/datasets/${slugDataset}`
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
-          this.rawData = response.data
-          this.keysData = this.rawData.data
-          this.columns = Object.keys(this.keysData[0])
+          const rawData = response.data
+          const keysData = rawData.data
+          this.columns = Object.keys(keysData[0])
         })
         .catch(error => {
           console.error(error)
         })
     },
     getPublicQueries() {
-     this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
+     const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
      axios
-       .get(this.endPoint)
+       .get(endPoint)
        .then(response => {
-         this.rawData = response.data
-         this.items = this.rawData.data
-         this.publicQueries = this.items
+         const rawData = response.data
+         const items = rawData.data
+         this.publicQueries = items
        })
        .catch(error => {
          const messageError = error.response

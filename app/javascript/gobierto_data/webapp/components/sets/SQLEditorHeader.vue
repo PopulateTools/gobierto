@@ -444,7 +444,7 @@ export default {
       this.url = `${this.endPoint}?sql=${query}`
 
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           this.data = []
           this.keysData = []
@@ -503,11 +503,11 @@ export default {
       }
     },
     postQuery() {
-      this.endPoint = `${baseUrl}/queries`
+      const endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
 
       if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
-        this.endPoint = `${baseUrl}/queries/${this.queryId}`
+        const endPoint = `${baseUrl}/queries/${this.queryId}`
         let dataUpdate = {
             "data": {
                 "type": "gobierto_data-queries",
@@ -518,7 +518,7 @@ export default {
             }
         }
 
-        axios.put(this.endPoint, dataUpdate, {
+        axios.put(endPoint, dataUpdate, {
           headers: {
             'Content-type': 'application/json',
             'Authorization': `${this.token}`
@@ -544,7 +544,7 @@ export default {
                 }
             }
         }
-        axios.post(this.endPoint, data, {
+        axios.post(endPoint, data, {
           headers: {
             'Content-type': 'application/json',
             'Authorization': `${this.token}`

@@ -113,14 +113,14 @@ export default {
     },
     queryTotal() {
       this.showTotalRows = false
-      this.endPoint = `${baseUrl}/data`
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${this.queryEditor}`
       if (this.queryEditor === undefined) {
         this.queryEditor = `SELECT * FROM ${this.tableName}`
       }
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           let data = []
           let keysData = []

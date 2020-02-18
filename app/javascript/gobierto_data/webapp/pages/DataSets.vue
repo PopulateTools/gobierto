@@ -42,9 +42,9 @@ export default {
   },
   methods: {
     getQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
+      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios
-        .get(this.endPoint)
+        .get(endPoint)
         .then(response => {
           const rawData = response.data
           const items = rawData.data
@@ -56,9 +56,9 @@ export default {
         })
     },
     getPublicQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
+      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
       axios
-        .get(this.endPoint)
+        .get(endPoint)
         .then(response => {
           const rawData = response.data
           const items = rawData.data
@@ -70,9 +70,9 @@ export default {
         })
     },
     getData() {
-      this.url = `${baseUrl}/datasets/${this.$route.params.id}/meta`
+      const url = `${baseUrl}/datasets/${this.$route.params.id}/meta`
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           const rawData = response.data
           this.titleDataset = rawData.data.attributes.name

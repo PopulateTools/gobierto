@@ -12,9 +12,9 @@
         :number-rows="numberRows"
       />
       <SQLEditorTabs
-        v-if="data"
+        v-if="items"
         :array-formats="arrayFormats"
-        :items="data"
+        :items="items"
         :link="link"
         :table-name="tableName"
         :active-tab="activeTabIndex"
@@ -73,7 +73,7 @@ export default {
       activeTabIndex: 0,
       rawData: [],
       columns: [],
-      data: null,
+      items: null,
       keysData: [],
       meta:[],
       links:[],
@@ -109,8 +109,6 @@ export default {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
     this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
     this.getData()
-
-
   },
   methods: {
     runYourQuery(sqlCode){
@@ -149,11 +147,12 @@ export default {
       this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     loadRecentQuery() {
-      const localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
-      this.$root.$emit('storeQuery', localQueries)
+      this.totalRecentQueries = this.localQueries
+      this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     getData() {
-      this.endPoint = `${baseUrl}/data`
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${this.queryEditor}`
 
       let query = ''
       if (this.queryEditor.includes('LIMIT')) {
@@ -167,10 +166,11 @@ export default {
       this.url = `${this.endPoint}?sql=${query}`
 
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           const rawData = response.data
           const data = rawData.data
+          this.items = data
 
 
           const keysData = Object.keys(data[0])

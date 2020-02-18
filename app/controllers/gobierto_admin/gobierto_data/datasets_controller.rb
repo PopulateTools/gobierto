@@ -6,6 +6,7 @@ module GobiertoAdmin
       include CustomFieldsHelper
 
       helper_method :preview_url
+      before_action :set_attachments_collection, only: [:new, :create, :edit, :update]
 
       def index
         @datasets = current_site.datasets.order(id: :desc)
@@ -19,8 +20,6 @@ module GobiertoAdmin
 
       def edit
         @dataset = find_dataset
-        @dataset_attachments_collection = ::GobiertoData.attachments_collection!(current_site)
-
         @dataset_form = DatasetForm.new(
           @dataset.attributes.except(*ignored_dataset_attributes).merge(site_id: current_site.id, admin_id: current_admin.id, ip: remote_ip)
         )
@@ -45,8 +44,6 @@ module GobiertoAdmin
 
       def update
         @dataset = find_dataset
-        @dataset_attachments_collection = ::GobiertoData.attachments_collection!(current_site)
-
         @dataset_form = DatasetForm.new(
           dataset_params.merge(id: params[:id], site_id: current_site.id, admin_id: current_admin.id, ip: remote_ip)
         )
@@ -88,6 +85,10 @@ module GobiertoAdmin
 
       def find_dataset
         current_site.datasets.find(params[:id])
+      end
+
+      def set_attachments_collection
+        @dataset_attachments_collection = ::GobiertoData.attachments_collection!(current_site)
       end
 
       def preview_url(dataset, options = {})

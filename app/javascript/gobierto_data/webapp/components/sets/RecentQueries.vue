@@ -1,19 +1,19 @@
 <template>
   <div
+    v-if="orderItems"
     class="gobierto-data-sql-editor-recent-queries arrow-top"
-    tabindex="-1"
   >
     <div class="gobierto-data-btn-download-data-modal-container">
       <button
-        v-for="(item, index) in items"
+        v-for="(item, index) in orderItems"
         ref="button"
         :key="index"
         :class="{'active-query': currentItem === index}"
-        :data-id="item | replace()"
+        :data-id="item"
         class="gobierto-data-recent-queries-list-element"
         @click="runRecentQuery(item)"
       >
-        {{ item | replace() }}
+        {{ item }}
       </button>
     </div>
   </div>
@@ -23,22 +23,21 @@ import axios from 'axios'
 import { baseUrl } from "./../../../lib/commons.js";
 export default {
   name: "RecentQueries",
-  filters: {
-    truncate: function (text, length, suffix) {
-        return text.substring(0, length) + suffix;
-    },
-    replace: function(text) {
-      return text.replace(/%20/g, ' ').replace(/%/g, ' ');
+  props: {
+    tableName: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
-      items: [],
+      orderItems: [],
       currentItem: 0
     }
   },
   created() {
     this.$root.$on('showRecentQueries', this.createList)
+    this.$root.$on('storeQuery', this.createList)
   },
   mounted(){
     document.addEventListener("keyup", this.nextItem);
@@ -53,10 +52,16 @@ export default {
       }
     },
     createList(queries) {
-      this.items = queries
+      if (queries === null || queries === undefined) {
+        this.orderItems = []
+      } else {
+        const items = queries
+        const filterItemsByDataset = items.filter(item => item.dataset.includes(this.tableName));
+        const filterItemsByQuery = filterItemsByDataset.filter(item => item.text.includes(this.tableName));
+        this.orderItems = filterItemsByQuery.reverse()
+      }
     },
     runRecentQuery(code) {
-      this.showSpinner = true;
       this.queryEditor = encodeURI(code)
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false, true)
@@ -74,33 +79,32 @@ export default {
 
       this.endPoint = `${baseUrl}/data`
       this.url = `${this.endPoint}?sql=${this.queryEditor}`
-
       axios
         .get(this.url)
         .then(response => {
-          this.data = []
-          this.keysData = []
-          this.rawData = response.data
-          this.meta = this.rawData.meta
-          this.data = this.rawData.data
+          let data = []
+          let keysData = []
+          const rawData = response.data
+          const meta = rawData.meta
+          data = rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          const queryDurationRecors = [meta.rows, meta.duration]
 
-          this.keysData = Object.keys(this.data[0])
+          keysData = Object.keys(data[0])
 
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
-          this.$root.$emit('sendData', this.keysData, this.data)
-          this.$root.$emit('showMessages', true, false)
+          this.$root.$emit('recordsDuration', queryDurationRecors)
+          this.$root.$emit('sendData', keysData, data)
+          this.$root.$emit('showMessages', true)
+          this.$root.$emit('runSpinner')
 
         })
         .catch(error => {
           const messageError = error.response.data.errors[0].sql
           this.$root.$emit('apiError', messageError)
 
-
-          this.data = []
-          this.keysData = []
-          this.$root.$emit('sendData', this.keysData, this.data)
+          const data = []
+          const keysData = []
+          this.$root.$emit('sendData', keysData, data)
         })
         setTimeout(() => {
           this.showSpinner = false

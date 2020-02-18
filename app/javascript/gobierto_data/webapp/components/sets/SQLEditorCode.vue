@@ -1,21 +1,11 @@
 <template>
   <div>
-    <div class="codemirror">
-      <textarea
-        ref="myCm"
-        v-model="code"
-      />
-    </div>
-    <div
-      class="gobierto-data-sql-editor-footer"
-    >
+    <textarea
+      ref="queryEditor"
+      v-model="code"
+    />
+    <div class="gobierto-data-sql-editor-footer">
       <div v-if="showMessages">
-        <div
-          v-if="recordsLoader"
-          class="gobierto-data-sql-editor-footer-records"
-        >
-          {{ labelLoading }}...
-        </div>
         <div v-if="showApiError">
           <span class="gobierto-data-sql-error-message">
             {{ stringError }}
@@ -28,6 +18,12 @@
           <span class="gobierto-data-sql-editor-footer-time">
             {{ labelQueryExecuted }} {{ timeQuery }}ms
           </span>
+          <a
+            href=""
+            class="gobierto-data-sql-editor-footer-guide"
+          >
+            {{ labelGuide }}
+          </a>
         </div>
       </div>
     </div>
@@ -93,7 +89,7 @@ export default {
         mode: 'text/x-sql',
         hintOptions: {
           completeSingle: false,
-          hint: this.hint
+          hint: {}
         },
         showCursorWhenSelecting: true,
         theme: 'default',
@@ -103,11 +99,6 @@ export default {
         }
       }
     };
-  },
-  computed: {
-    codemirror() {
-      return this.$refs.myCm.codemirror;
-    }
   },
   created() {
     this.labelGuide = I18n.t('gobierto_data.projects.guide');
@@ -123,6 +114,7 @@ export default {
     this.$root.$emit('activateModalRecent')
     this.numberRecords = this.numberRows
 
+
     this.$root.$on('sendYourCode', this.queryCode);
 
     this.code = `SELECT * FROM ${this.tableName}`
@@ -131,6 +123,8 @@ export default {
     this.mergeTables()
 
     this.editor = CodeMirror.fromTextArea(this.$refs.myCm, this.cmOption)
+
+    this.cmOption.hintOptions.hint = this.hint
 
     this.editor.on("keypress", editor => {
       editor.showHint()

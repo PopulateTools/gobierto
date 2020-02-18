@@ -1,21 +1,28 @@
+:root {
+  --sql-code: #0000FF;
+  --table-code: #8A2BE2;
+  --table-hover: #111;
+  --sql-hover: #F0964D;
+}
+
 .sql {
-  color: #0000FF;
+  color: var(--sql-code);
 }
 
 .sql::after,
 .table::after {
-  content: 'sql';
+  content: 'SQL';
   padding-left: 1.5rem;
   font-style: italic;
   float: right;
-  color: #F0964D;
+  color: var(--sql-hover);
 }
 
 .table {
-  color: #8A2BE2;
+  color: var(--table-code);
 }
 
 .table::after {
-  content: 'tabla';
-  color: #111;
+  content: 'COLUMN';
+  color: var(--table-code);
 }

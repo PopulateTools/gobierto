@@ -48,10 +48,6 @@ export default {
       required: true
     },
     arrayColumns: {
-      type: Array,
-      required: true
-    },
-    arrayColumns: {
       type: Object,
       required: true
     },

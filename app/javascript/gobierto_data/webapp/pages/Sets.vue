@@ -112,7 +112,7 @@ export default {
           console.error(error)
         })
     },
-    getColumns(slugDataset, index) {
+    getColumns(slugDataset) {
       const url = `${baseUrl}/datasets/${slugDataset}`
       axios
         .get(url)

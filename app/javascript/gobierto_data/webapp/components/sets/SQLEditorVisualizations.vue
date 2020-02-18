@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div id="gobierto-data-visualization">
     <perspective-viewer />
   </div>
 </template>
@@ -21,7 +21,6 @@ export default {
   data() {
     return {
       dataPerspective: [],
-      viewer: '',
       initColumns: [],
       newColumns: []
     }
@@ -68,17 +67,3 @@ export default {
   }
 }
 </script>
-<style>
-#container {
-  background-color: #ccc;
-  width: 100%;
-  height: 100%;
-  letter-spacing: 0;
-}
-
-perspective-viewer {
-  overflow: hidden;
-  width: 100%;
-  height: 600px;
-}
-</style>

@@ -86,6 +86,9 @@ export default {
       url: '',
       endPoint: '',
       recentQueries: [],
+      localQueries: [],
+      orderRecentQueries: [],
+      totalRecentQueries: [],
       newRecentQuery: null,
       localTableName : ''
     }
@@ -95,9 +98,9 @@ export default {
     this.$root.$on('sendYourCode', this.runYourQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
-        const recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
-        const localQueries = JSON.parse(localStorage.getItem('savedData'));
-        this.addRecentQuery(recentQueries, localQueries)
+        this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
+        this.localQueries = JSON.parse(localStorage.getItem('savedData'));
+        this.addRecentQuery()
       } catch (e) {
         localStorage.removeItem('recentQueries');
       }
@@ -112,44 +115,40 @@ export default {
   },
   methods: {
     runYourQuery(sqlCode){
-      this.queryDefault = false
-      this.getSlug()
       this.queryEditor = sqlCode
     },
-    addRecentQuery(recentQueries, localQueries) {
+    addRecentQuery() {
       if (!this.newRecentQuery) {
         return;
       }
 
-      if (Object.values(recentQueries).indexOf(this.newRecentQuery) > -1) {
-        this.$root.$emit('store', recentQueries)
+      if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
+        this.$root.$emit('store', this.recentQueries)
       } else {
-        recentQueries.push(this.newRecentQuery);
-        localStorage.setItem('recentQueries', JSON.stringify(recentQueries));
+        this.recentQueries.push(this.newRecentQuery);
+        localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));
 
         if (this.localTableName === this.tableName) {
-          let orderRecentQueries
           for (let i = 0; i < 1; i++) {
-            orderRecentQueries[i] = {
+            this.orderRecentQueries[i] = {
               dataset: this.tableName,
               text: this.newRecentQuery
             }
           }
           this.newRecentQuery = '';
 
-          localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
-          const tempRecentQueries = [ ...localQueries, ...orderRecentQueries ]
-          const totalRecentQueries = tempRecentQueries
-          orderRecentQueries = []
-          localStorage.setItem("savedData", JSON.stringify(totalRecentQueries));
+          const tempRecentQueries = [ ...this.localQueries, ...this.orderRecentQueries ]
+          this.totalRecentQueries = tempRecentQueries
+          this.orderRecentQueries = []
+          localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
 
-          this.saveRecentQuery(totalRecentQueries);
+          this.saveRecentQuery(this.totalRecentQueries);
         }
       }
     },
-    saveRecentQuery(totalRecentQueries) {
-      localStorage.setItem("savedData", JSON.stringify(totalRecentQueries));
-      this.$root.$emit('storeQuery', totalRecentQueries)
+    saveRecentQuery() {
+      localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
+      this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     loadRecentQuery() {
       const localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
@@ -176,7 +175,7 @@ export default {
 
 
           const keysData = Object.keys(data[0])
-          this.$root.$emit('sendData', keysData)
+          this.$root.$emit('sendDataViz', keysData)
 
         })
         .catch(error => {

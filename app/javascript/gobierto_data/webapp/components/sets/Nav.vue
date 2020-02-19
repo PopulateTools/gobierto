@@ -102,7 +102,7 @@ import Visualizations from "./Visualizations.vue";
 import Downloads from "./Downloads.vue";
 import axios from 'axios'
 import { baseUrl } from "./../../../lib/commons"
-import { getUserId } from "./../../../lib/helpers"
+import { getUserId, getToken } from "./../../../lib/helpers"
 
 export default {
   name: "NavSets",
@@ -152,6 +152,7 @@ export default {
 
     this.slugName = this.$route.params.id
     this.userId = getUserId()
+    this.token = getToken()
 
     this.setValuesDataset()
   },
@@ -187,9 +188,9 @@ export default {
         })
     },
     getQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
+      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios
-        .get(this.endPoint)
+        .get(endPoint)
         .then(response => {
           const rawData = response.data
           const items = rawData.data
@@ -201,16 +202,14 @@ export default {
         })
     },
      getPublicQueries() {
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
+      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
       axios
-        .get(this.endPoint)
+        .get(endPoint)
         .then(response => {
           const rawData = response.data
           const items = rawData.data
           this.publicQueries = items
-          if (this.userId !== '') {
-            this.getQueries()
-          }
+          this.getQueries()
         })
         .catch(error => {
           const messageError = error.response

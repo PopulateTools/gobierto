@@ -23,6 +23,7 @@
           />
         </div>
         <Checkbox
+          v-if="option.counter > 0"
           v-for="option in filter.options"
           v-show="filter.key"
           :id="option.id"

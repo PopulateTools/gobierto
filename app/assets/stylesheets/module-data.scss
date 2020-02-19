@@ -40,6 +40,9 @@
 
   &-layout-sidebar {
     height: 100%;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
 
     &.gobierto-data-layout-column {
       padding-right: 0 !important;

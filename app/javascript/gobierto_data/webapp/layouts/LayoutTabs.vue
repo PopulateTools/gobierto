@@ -11,11 +11,12 @@
         :active-tab="activeTab"
         :filters="filters"
         @active-tab-sidebar="activeTab = $event"
+        @update-tab-sidebar="updateTab"
       />
       <component
         :is="currentComponent"
         :all-datasets="allDatasets"
-        @change-view="currentComponent = $event"
+        @change-view="updateComponent"
       />
     </div>
   </div>
@@ -62,6 +63,14 @@ export default {
   created() {
     this.currentComponent = this.currentView
     this.activeTab = this.currentTab
+  },
+  methods: {
+    updateTab(values) {
+      console.log(values)
+    },
+    updateComponent(values) {
+      console.log(values)
+    }
   }
 }
 </script>

@@ -118,8 +118,6 @@ export default {
       this.toggle = this.toggle !== index ? index : null;
     },
     nav(slugDataset, nameDataset) {
-      const index = 1
-      this.$emit('active-tab-sidebar', index)
       this.toggle = 0
       this.$router.push({
         name: "dataset",

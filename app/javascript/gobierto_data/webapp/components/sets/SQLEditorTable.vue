@@ -128,11 +128,11 @@ export default {
           const meta = rawData.meta
           data = rawData.data
 
-          const queryDurationRecors = [meta.rows, meta.duration]
+          const queryDurationRecords = [ meta.rows, meta.duration ]
 
           keysData = Object.keys(this.data[0])
 
-          this.$root.$emit('recordsDuration', queryDurationRecors)
+          this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true)
 

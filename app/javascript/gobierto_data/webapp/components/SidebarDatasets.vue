@@ -24,7 +24,6 @@
           <div v-if="showLess">
             <template v-for="(column, i) in lessColumns">
               <span
-                v-if="i < 5"
                 :key="i"
                 :item="i"
                 class="gobierto-data-sidebar-datasets-links-columns"
@@ -43,7 +42,12 @@
               {{ i }}
             </span>
           </div>
-          <button @click="showLess = false"></button>
+          <span
+            v-if="showLess"
+            class="gobierto-data-sidebar-datasets-links-columns-see-more"
+            @click="showLess = false">
+            {{ labelSeeMore }}
+          </span>
         </div>
       </div>
     </div>
@@ -58,6 +62,7 @@ export default {
       labelSets: "",
       labelQueries: "",
       labelCategories: "",
+      labelSeeMore: "",
       listDatasets: [],
       toggle: 0,
       indexToggle: null,
@@ -70,6 +75,7 @@ export default {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
+    this.labelSeeMore = I18n.t("gobierto_data.projects.seeMore")
     this.orderDatasets()
   },
   methods: {
@@ -91,6 +97,7 @@ export default {
       this.sliceColumns()
     },
     handleToggle(index) {
+      this.showLess = true
       this.sliceColumns()
       this.toggle = this.toggle !== index ? index : null;
     },
@@ -106,7 +113,7 @@ export default {
     },
     sliceColumns() {
       const allColumns = Object.keys(this.listDatasets[0].attributes.columns)
-      this.lessColumns = allColumns.slice(0, 10)
+      this.lessColumns = allColumns.slice(0, 2)
     }
   }
 };

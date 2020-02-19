@@ -30,6 +30,7 @@ export default {
   props: {
     currentComponent: {
       type: String,
+      required: true,
       default: ''
     },
     activateTabSidebar: {
@@ -41,6 +42,8 @@ export default {
     return {
       items: store.state.items || [],
       subsetItems: [],
+      currentView: '',
+      currentTab: 0,
       filters: store.state.filters || [],
       activeFilters: store.state.activeFilters || new Map(),
       defaultFilters: store.state.defaultFilters || new Map(),
@@ -179,15 +182,12 @@ export default {
       this.handleCheckboxFilter(filter);
     },
     handleCheckboxStatus({ id, value, filter }) {
-      this.$router.push({
-        name: "home"
-      }, () => {})
-      this.currentView = 'InfoList'
       const index = filter.options.findIndex(d => d.id === id);
       filter.options[index].isOptionChecked = value;
       this.handleCheckboxFilter(filter);
     },
     handleCheckboxFilter(filter) {
+      this.updateHome()
       const { key, options } = filter;
       const checkboxesSelected = new Map();
       options.forEach(({ id, isOptionChecked }) =>
@@ -236,6 +236,18 @@ export default {
         const index = this.filters.findIndex(d => d.key === key);
         this.filters.splice(index, 1, filter);
       }
+    },
+    updateHome() {
+      const index = 0
+      this.$emit('change-view', 'InfoList')
+      this.$emit('active-tab-sidebar', index)
+      this.$router.push({
+        name: "home",
+        params: {
+          tabSidebar: 0,
+          currentComponent: 'InfoList'
+        }
+      }, () => {})
     }
   }
 }

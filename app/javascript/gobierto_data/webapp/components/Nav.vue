@@ -6,7 +6,7 @@
           :href="'/datos/'"
           :class="{ 'is-active': activeTab === 0 }"
           class="gobierto-data-home-nav--tab"
-          @click.prevent="nav()"
+          @click.stop="nav(0)"
         >
           <span>{{ labelDatasets }}</span>
         </a>
@@ -99,12 +99,12 @@ export default {
     activateTab(index) {
       this.$emit("active-tab", index);
     },
-    nav() {
+    nav(index) {
+      this.$emit("active-tab", index);
+      this.$emit('change-view', 'InfoList')
+      this.$emit('active-tab-sidebar', 0)
       this.$router.push({
-        name: "home",
-        params: {
-          tabSidebar: 0
-        }
+        name: "home"
       }, () => {})
     }
   }

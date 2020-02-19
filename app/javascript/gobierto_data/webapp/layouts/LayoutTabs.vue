@@ -8,13 +8,14 @@
         />
       </div>
       <Sidebar
-        :active-tab="activeTabSidebar"
+        :active-tab="activeTab"
         :filters="filters"
-        @active-tab="activeTabSidebar = $event"
+        @active-tab-sidebar="activeTab = $event"
       />
       <component
-        :is="currentView"
+        :is="currentComponent"
         :all-datasets="allDatasets"
+        @change-view="currentComponent = $event"
       />
     </div>
   </div>
@@ -43,6 +44,7 @@ export default {
     },
     currentView: {
       type: String,
+      required: true,
       default: ''
     },
     currentTab: {
@@ -53,11 +55,13 @@ export default {
   data() {
     return {
       activeTabIndex: 0,
-      activeTabSidebar: 0
+      activeTab: 0,
+      currentComponent: ''
     }
   },
   created() {
-    this.activeTabSidebar = this.currentTab
+    this.currentComponent = this.currentView
+    this.activeTab = this.currentTab
   }
 }
 </script>

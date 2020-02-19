@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     activateTab(index) {
-      this.$emit("active-tab", index);
+      this.$emit("active-tab-sidebar", index);
     }
   }
 }

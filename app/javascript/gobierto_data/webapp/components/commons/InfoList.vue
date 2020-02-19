@@ -58,7 +58,7 @@
           </div>
         </div>
         <div class="pure-u-1-2">
-          <p class="gobierto-data-summary-header-description">
+          <p v-model="item.attributes.description" class="gobierto-data-summary-header-description">
             {{ item.attributes.description }}
           </p>
         </div>

@@ -165,6 +165,12 @@
     box-sizing: border-box;
   }
 
+  &-summary-header-description {
+    margin-top: 0;
+    font-size: 14px;
+    color: #666;
+  }
+
   &-summary-header-container {
     margin: .5rem 0;
   }

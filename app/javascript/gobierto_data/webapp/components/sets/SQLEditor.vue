@@ -148,12 +148,12 @@ export default {
     },
     getData() {
       const endPoint = `${baseUrl}/data`
-      const url = `${endPoint}?sql=${this.queryEditor}`
 
       let query = ''
       if (this.queryEditor.includes('LIMIT')) {
         query = this.queryEditor
       } else {
+        this.$root.$emit('ShowButtonColumns')
         this.$root.$emit('sendCompleteQuery', this.queryEditor)
         query = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
       }

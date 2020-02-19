@@ -69,7 +69,7 @@
         :description-dataset="descriptionDataset"
         :category-dataset="categoryDataset"
         :frequency-dataset="frequencyDataset"
-        :resource-list="resourcesList"
+        :resources-list="resourcesList"
       />
     </keep-alive>
 

@@ -9,7 +9,7 @@
         class="arrow-top"
       />
     </keep-alive>
-    <Resources :items="filesDataset" />
+    <Resources :resource-list="resourcesList" />
   </div>
 </template>
 
@@ -26,6 +26,10 @@ export default {
   props: {
     arrayFormats: {
       type: Object,
+      required: true
+    },
+    resourcesList: {
+      type: Array,
       required: true
     }
   },

@@ -6,6 +6,7 @@
     </h2>
     <div class="gobierto-data-resources-list">
       <ResourcesItem
+        :resource-list="resourcesList"
         class="gobierto-data-resources-list-element"
       />
     </div>
@@ -17,6 +18,12 @@ export default {
   name: "Resources",
   components: {
     ResourcesItem
+  },
+  props: {
+    resourcesList: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {

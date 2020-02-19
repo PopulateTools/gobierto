@@ -69,6 +69,7 @@
         :description-dataset="descriptionDataset"
         :category-dataset="categoryDataset"
         :frequency-dataset="frequencyDataset"
+        :resource-list="resourcesList"
       />
       <Data
         v-else-if="activeTab === 1"
@@ -89,6 +90,7 @@
       <Downloads
         v-else-if="activeTab === 4"
         :array-formats="arrayFormats"
+        :resource-list="resourcesList"
       />
     </keep-alive>
   </div>
@@ -131,6 +133,7 @@ export default {
       numberRows: 0,
       arrayFormats: {},
       publicQueries: [],
+      resourcesList: [],
       userId: '',
       descriptionDataset: '',
       categoryDataset: '',
@@ -170,6 +173,7 @@ export default {
         .get(url)
         .then(response => {
           const rawData = response.data
+          const resourcesData = response.included
           this.datasetId = parseInt(rawData.data.id)
           this.titleDataset = rawData.data.attributes.name
           this.slugDataset = rawData.data.attributes.slug
@@ -180,6 +184,7 @@ export default {
           this.frequencyDataset = rawData.data.attributes.frequency[0].name_translations.es
           this.categoryDataset = rawData.data.attributes.category[0].name_translations.es
           this.descriptionDataset = rawData.data.attributes.description
+          this.resourcesList = resourcesData
 
           this.getPublicQueries()
         })

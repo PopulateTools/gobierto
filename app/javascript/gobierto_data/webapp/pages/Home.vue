@@ -6,7 +6,7 @@
     <LayoutTabs
       :filters="filters"
       :all-datasets="subsetItems"
-      :current-view="currentComponent"
+      :current-view="currentView"
       :current-tab="currentTab"
     />
   </div>
@@ -48,12 +48,14 @@ export default {
     }
   },
   async created() {
+    this.currentView = this.currentComponent
     if (this.$route.params.tabSidebar === 0) {
       this.currentTab = this.$route.params.tabSidebar
     } else {
       this.currentTab = this.activateTabSidebar
     }
     this.$root.$on("sendCheckbox", this.handleCheckboxStatus)
+    this.$root.$on("selectAll", this.handleIsEverythingChecked)
     if (this.items.length) {
       this.updateDOM();
     } else {
@@ -177,7 +179,7 @@ export default {
       this.handleCheckboxFilter(filter);
     },
     handleCheckboxStatus({ id, value, filter }) {
-      this.currentComponent = 'InfoList'
+      this.currentView = 'InfoList'
       const index = filter.options.findIndex(d => d.id === id);
       filter.options[index].isOptionChecked = value;
       this.handleCheckboxFilter(filter);

@@ -18,7 +18,8 @@
             :title="filter.title"
             :label-alt="filter.isEverythingChecked"
             class="gobierto-data-filters-header"
-            @select-all="e => handleIsEverythingChecked({ ...e, filter })"
+            see-link
+            @select-all="e => selectAllCheckbox({ ...e, filter })"
           />
         </div>
         <Checkbox
@@ -69,6 +70,9 @@ export default {
   methods: {
     sendCheckboxStatus({ id, value, filter }) {
       this.$root.$emit("sendCheckbox", { id, value, filter })
+    },
+    selectAllCheckbox({ filter }) {
+      this.$root.$emit("selectAll", { filter })
     }
   }
 };

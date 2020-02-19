@@ -69,7 +69,7 @@
         :description-dataset="descriptionDataset"
         :category-dataset="categoryDataset"
         :frequency-dataset="frequencyDataset"
-        :resource-list="resourcesList"
+        :resources-list="resourcesList"
       />
       <Data
         v-else-if="activeTab === 1"
@@ -90,7 +90,7 @@
       <Downloads
         v-else-if="activeTab === 4"
         :array-formats="arrayFormats"
-        :resource-list="resourcesList"
+        :resources-list="resourcesList"
       />
     </keep-alive>
   </div>

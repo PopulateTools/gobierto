@@ -14,7 +14,7 @@
         class="arrow-top"
       />
     </keep-alive>
-    <Resources :resource-list="resourcesList" />
+    <Resources :resources-list="resourcesList" />
     <Queries
       :array-queries="arrayQueries"
       :public-queries="publicQueries"
@@ -63,7 +63,8 @@ export default {
     },
     resourcesList: {
       type: Array,
-      required: true
+      required: true,
+      default: () => []
     }
   },
   data() {

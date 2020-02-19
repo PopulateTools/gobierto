@@ -6,7 +6,7 @@
     </h2>
     <div class="gobierto-data-resources-list">
       <ResourcesItem
-        :resource-list="resourcesList"
+        :resources-list="resourcesList"
         class="gobierto-data-resources-list-element"
       />
     </div>
@@ -22,7 +22,8 @@ export default {
   props: {
     resourcesList: {
       type: Array,
-      required: true
+      required: true,
+      default: () => []
     }
   },
   data() {

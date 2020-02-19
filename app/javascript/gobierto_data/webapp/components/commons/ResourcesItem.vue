@@ -31,7 +31,8 @@ export default {
   props: {
     resourcesList: {
       type: Array,
-      required: true
+      required: true,
+      default: () => []
     }
   },
 }

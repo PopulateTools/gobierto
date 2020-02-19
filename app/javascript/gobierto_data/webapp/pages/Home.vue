@@ -179,6 +179,9 @@ export default {
       this.handleCheckboxFilter(filter);
     },
     handleCheckboxStatus({ id, value, filter }) {
+      this.$router.push({
+        name: "home"
+      }, () => {})
       this.currentView = 'InfoList'
       const index = filter.options.findIndex(d => d.id === id);
       filter.options[index].isOptionChecked = value;

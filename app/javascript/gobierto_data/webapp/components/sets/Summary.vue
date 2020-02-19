@@ -14,7 +14,7 @@
         class="arrow-top"
       />
     </keep-alive>
-    <Resources />
+    <Resources :resource-list="resourcesList" />
     <Queries
       :array-queries="arrayQueries"
       :public-queries="publicQueries"
@@ -60,6 +60,10 @@ export default {
     frequencyDataset: {
       type: String,
       default: ''
+    },
+    resourcesList: {
+      type: Array,
+      required: true
     }
   },
   data() {

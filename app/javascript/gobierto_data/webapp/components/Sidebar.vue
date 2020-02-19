@@ -21,7 +21,6 @@
           :class="{ 'is-active': activeTab === 2 }"
           class="gobierto-data-tab-sidebar--tab"
           @click="activateTab(2)"
-          @change-view="updateComponent"
         >
           <span>{{ labelQueries }}</span>
         </li>

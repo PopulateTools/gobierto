@@ -101,8 +101,6 @@ export default {
     },
     nav(index) {
       this.$emit("active-tab", index);
-      this.$emit('change-view', 'InfoList')
-      this.$emit('active-tab-sidebar', 0)
       this.$router.push({
         name: "home"
       }, () => {})

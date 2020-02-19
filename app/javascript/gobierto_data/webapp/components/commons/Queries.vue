@@ -31,20 +31,20 @@
             <div
               class="gobierto-data-summary-queries-container-icon"
             >
-              <!-- <i
+              <i
                 class="fas fa-trash-alt icons-your-queries"
                 style="color: var(--color-base);"
-                @click="deleteQuery(item.id)"
-              /> -->
+                @click="deleteQuery(item.id, index)"
+              />
               <i
                 v-if="item.attributes.privacy_status === 'closed'"
                 style="color: #D0021B"
-                class="fas fa-lock-close"
+                class="fas fa-lock icons-your-queries"
               />
               <i
                 v-else
                 style="color: rgb(160, 197, 29)"
-                class="fas fa-lock-open"
+                class="fas fa-lock-open icons-your-queries"
               />
             </div>
           </div>
@@ -84,28 +84,13 @@
             @click="handleQueries(publicQueries[index].attributes.sql, item, true)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
-            <!-- <i
-              class="fas fa-trash-alt"
-              style="color: var(--color-base);"
-              @click="deleteQuery(item.id)"
-            /> -->
             <div
-              v-if="item.attributes.privacy_status === 'close'"
               class="gobierto-data-summary-queries-container-icon"
             >
-              <i
-                style="color: #D0021B"
-                class="fas fa-lock-close"
-              />
-            </div>
-            <div
-              v-else
-              class="gobierto-data-summary-queries-container-icon"
-            >
-              <i
+              <!-- <i
                 style="color: rgb(160, 197, 29)"
-                class="fas fa-lock-open"
-              />
+                class="fas fa-lock"
+              /> -->
             </div>
           </div>
         </div>
@@ -168,6 +153,7 @@ export default {
     this.labelAll = I18n.t("gobierto_data.projects.all")
     this.token = getToken()
     this.userId = getUserId()
+
   },
   methods: {
     handleQueries(sql, item, anonymusQuery) {
@@ -202,29 +188,21 @@ export default {
     changeTab() {
       this.$root.$emit('changeNavTab')
     },
-    deleteQuery(id) {
-      this.endPointDelete = `${baseUrl}/queries/${id}`
-      axios.delete(this.endPointDelete, {
+    deleteQuery(id, index) {
+      this.$delete(this.arrayQueries, index)
+      this.deleteQueryApi(id)
+    },
+    deleteQueryApi(id) {
+      const endPointDelete = `${baseUrl}/queries/${id}`
+      axios.delete(endPointDelete, {
         headers: {
           'Content-type': 'application/json',
           'Authorization': `${this.token}`
         }
-      })
-
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=`
-      this.filterId = `&filter[user_id]=${this.userId}`
-      this.url = `${this.endPoint}${this.numberId}${this.filterId}`
-      axios
-        .get(this.url)
-        .then(response => {
-          const rawData = response.data
-          const items = rawData.data
-          this.arrayQueries = items
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        })
+      }
+      ).then(
+        this.$root.$emit('reloadPublicQueries')
+      )
     },
     runYourQuery(code) {
       this.queryEditor = encodeURI(code)
@@ -254,11 +232,11 @@ export default {
           const meta = rawData.meta
           data = rawData.data
 
-          const queryDurationRecors = [meta.rows, meta.duration]
+          const queryDurationRecords = [ meta.rows, meta.duration ]
 
           keysData = Object.keys(data[0])
 
-          this.$root.$emit('recordsDuration', queryDurationRecors)
+          this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true, false)
           this.$root.$emit('sendQueryCode', this.queryCode)

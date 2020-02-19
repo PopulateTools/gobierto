@@ -342,16 +342,17 @@ export default {
       this.runQuery()
     },
     queryParams(queryParams) {
-      this.saveQueryState = true;
-      this.showBtnCancel = false;
-      this.showBtnSave = false;
-      this.disabledRecents = false;
-      this.disabledSave = true;
-      this.showBtnEdit = true;
-      this.removeLabelBtn = true;
-      this.showLabelPrivate = false;
-      this.disableInputName = true;
-      this.$root.$emit('saveQueryState', true);
+      this.saveQueryState = true
+      this.showBtnCancel = false
+      this.showBtnSave = false
+      this.disabledRecents = false
+      this.disabledSave = true
+      this.showBtnEdit = true
+      this.removeLabelBtn = true
+      this.showLabelPrivate = false
+      this.disableInputName = true
+      this.showLabelModified = false
+      this.$root.$emit('saveQueryState', true)
 
       this.labelQueryName = queryParams[0]
       this.oldQueryName = queryParams[0]
@@ -365,28 +366,31 @@ export default {
       } else {
         this.privateQuery = true
       }
-
     },
     privateQueryValue(valuePrivate) {
       this.disabledSave = false
       this.privateQuery = valuePrivate
+      this.showLabelModified = true
+      this.showBtnSave = true
+      this.showBtnEdit = false
     },
     showshowStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)
     },
     activeSave(value) {
-      this.disabledRecents = value;
-      this.disabledSave = value;
-      this.disabledRunQuery = value;
+      this.disabledRecents = value
+      this.disabledSave = value
+      this.disabledRunQuery = value
     },
     updateQuery(code) {
-      this.codeQuery = code;
+      this.codeQuery = code
     },
     updateActiveSave(activeLabel, disableLabel) {
-      this.showLabelModified = activeLabel;
-      this.showBtnSave = activeLabel;
-      this.showBtnEdit = disableLabel;
-      this.disableInputName = disableLabel;
+      this.showLabelModified = activeLabel
+      this.showLabelPrivate = activeLabel
+      this.showBtnSave = activeLabel
+      this.showBtnEdit = disableLabel
+      this.disableInputName = disableLabel
     },
     saveQueryName() {
       this.showSaveQueries = true
@@ -473,11 +477,11 @@ export default {
           const meta = rawData.meta
           data = rawData.data
 
-          const queryDurationRecors = [meta.rows, meta.duration]
+          const queryDurationRecords = [ meta.rows, meta.duration ]
 
           keysData = Object.keys(data[0])
 
-          this.$root.$emit('recordsDuration', queryDurationRecors)
+          this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true, false)
 
@@ -545,6 +549,7 @@ export default {
         }).then(response => {
             this.resp = response;
             this.$root.$emit('reloadQueries')
+            this.$root.$emit('reloadPublicQueries')
         })
         .catch(error => {
           const messageError = error.response

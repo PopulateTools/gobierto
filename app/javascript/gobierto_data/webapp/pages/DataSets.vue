@@ -15,9 +15,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
-import { getUserId } from "./../../lib/helpers"
-import { baseUrl } from "./../../lib/commons"
 import NavDatasets from "./../components/sets/Nav.vue"
 
 export default {
@@ -25,79 +22,47 @@ export default {
   components: {
     NavDatasets
   },
-  data() {
-    return {
-      activeTabIndex: 0,
-      rawData: '',
-      titleDataset: '',
-      arrayQueries: [],
-      publicQueries: [],
-      numberRows: 0,
-      datasetId: 0,
-      tableName: '',
-      arrayFormats:{},
-      arrayColumns: [],
-      keyColumns: []
+  props: {
+    activeTab: {
+      type: Number,
+      default: 0
+    },
+    datasetId: {
+      type: Number,
+      default: 0
+    },
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
+    numberRows: {
+      type: Number,
+      required: true
+    },
+    publicQueries: {
+      type: Array,
+      required: true
+    },
+    arrayFormats: {
+      type: Object,
+      required: true
+    },
+    arrayColumns: {
+      type: Object,
+      required: true
+    },
+    tableName: {
+      type: String,
+      required: true
+    },
+    titleDataset: {
+      type: String,
+      required: true
     }
   },
-  created() {
-    this.getData()
-    this.$root.$on('reloadQueries', this.getQueries)
-    this.userId = getUserId()
-  },
-  methods: {
-    getQueries() {
-      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
-      axios
-        .get(endPoint)
-        .then(response => {
-          const rawData = response.data
-          const items = rawData.data
-          this.arrayQueries = items.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        })
-    },
-    getPublicQueries() {
-      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
-      axios
-        .get(endPoint)
-        .then(response => {
-          const rawData = response.data
-          const items = rawData.data
-          this.publicQueries = items
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        })
-    },
-    getData() {
-      const url = `${baseUrl}/datasets/${this.$route.params.id}/meta`
-      axios
-        .get(url)
-        .then(response => {
-          const rawData = response.data
-          this.titleDataset = rawData.data.attributes.name
-          this.datasetId = parseInt(rawData.data.id)
-          this.slugDataset = rawData.data.attributes.slug
-          this.tableName = rawData.data.attributes.table_name
-          this.arrayFormats = rawData.data.attributes.formats
-          this.keyColumns = rawData.data.attributes.columns
-
-          this.arrayColumns = Object.keys(this.keyColumns)
-          this.numberRows = rawData.data.attributes.data_summary.number_of_rows
-
-          this.$root.$emit('nameDataset', this.titleDataset)
-
-          this.getQueries()
-          this.getPublicQueries()
-        })
-        .catch(error => {
-          console.error(error)
-        })
+  data() {
+    return {
+      activeTabIndex: 0
     }
   }
 }

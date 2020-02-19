@@ -6,7 +6,9 @@
     <div class="gobierto-data-btn-download-data-modal-container">
       <button
         v-for="(item, index) in orderItems"
+        ref="button"
         :key="index"
+        :class="{'active-query': currentItem === index}"
         :data-id="item.text"
         class="gobierto-data-recent-queries-list-element"
         @click="runRecentQuery(item.text)"
@@ -29,14 +31,25 @@ export default {
   },
   data() {
     return {
-      orderItems: []
+      orderItems: null,
+      currentItem: 0
     }
   },
   created() {
     this.$root.$on('showRecentQueries', this.createList)
     this.$root.$on('storeQuery', this.createList)
   },
+  mounted(){
+    document.addEventListener("keyup", this.nextItem);
+  },
   methods: {
+    nextItem () {
+      if (event.keyCode == 38 && this.currentItem > 0) {
+        this.currentItem--
+      } else if (event.keyCode == 40 && this.currentItem < this.items.length) {
+        this.currentItem++
+      }
+    },
     createList(queries) {
       if (queries === null || queries === undefined) {
         this.orderItems = []
@@ -64,10 +77,10 @@ export default {
         this.queryEditor = this.code
       }
 
-      this.endPoint = `${baseUrl}/data`
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${this.queryEditor}`
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           let data = []
           let keysData = []
@@ -75,11 +88,11 @@ export default {
           const meta = rawData.meta
           data = rawData.data
 
-          const queryDurationRecors = [meta.rows, meta.duration]
+          const queryDurationRecords = [ meta.rows, meta.duration ]
 
           keysData = Object.keys(data[0])
 
-          this.$root.$emit('recordsDuration', queryDurationRecors)
+          this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true)
           this.$root.$emit('runSpinner')

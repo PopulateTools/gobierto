@@ -55,7 +55,12 @@ export default {
   data() {
     return {
       activeTabIndex: 0,
-      data: null,
+      rawData: [],
+      columns: [],
+      items: null,
+      keysData: [],
+      meta:[],
+      links:[],
       link: '',
       queryEditor: '',
       recentQueries: [],
@@ -126,6 +131,7 @@ export default {
     },
     getData() {
       const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${this.queryEditor}`
 
       if (this.queryEditor.includes('LIMIT')) {
         this.queryEditor = this.queryEditor
@@ -134,7 +140,6 @@ export default {
         this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
         this.queryEditor = this.code
       }
-      const url = `${endPoint}?sql=${this.queryEditor}`
 
       axios
         .get(url)

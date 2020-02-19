@@ -116,8 +116,7 @@ export default {
   mounted() {
     this.mergeTables()
 
-    this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption
-    )
+    this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption)
 
     this.cmOption.hintOptions.hint = this.hint
 
@@ -134,6 +133,11 @@ export default {
       this.$root.$emit('activeSave', false)
       this.$root.$emit('activateModalRecent')
       this.$root.$emit('sendCode', this.code);
+      this.$root.$emit('focusEditor')
+    })
+
+    this.editor.on('blur', () => {
+      this.$root.$emit('blurEditor')
     })
 
     this.editor.on('change', editor => {

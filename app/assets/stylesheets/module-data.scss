@@ -1010,4 +1010,19 @@
     font-weight: bold;
     margin-bottom: 1rem;
   }
+
+  &-sidebar-datasets-links-columns-see-more {
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--color-base);
+    text-decoration: underline;
+    padding-left: 1rem;
+    padding-top: .5rem;
+    text-transform: none;
+    transition: font-weight var(--transition);
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
 }

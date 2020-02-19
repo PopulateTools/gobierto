@@ -42,12 +42,24 @@
               {{ i }}
             </span>
           </div>
-          <span
+          <template
             v-if="showLess"
-            class="gobierto-data-sidebar-datasets-links-columns-see-more"
-            @click="showLess = false">
-            {{ labelSeeMore }}
-          </span>
+          >
+            <span
+              class="gobierto-data-sidebar-datasets-links-columns-see-more"
+              @click="showLess = false"
+            >
+              {{ labelSeeMore }}
+            </span>
+          </template>
+          <template v-else>
+            <span
+              class="gobierto-data-sidebar-datasets-links-columns-see-more"
+              @click="showLess = true"
+            >
+              {{ labelSeeLess }}
+            </span>
+          </template>
         </div>
       </div>
     </div>
@@ -63,6 +75,7 @@ export default {
       labelQueries: "",
       labelCategories: "",
       labelSeeMore: "",
+      labelSeeLess: "",
       listDatasets: [],
       toggle: 0,
       indexToggle: null,
@@ -76,6 +89,7 @@ export default {
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
     this.labelSeeMore = I18n.t("gobierto_data.projects.seeMore")
+    this.labelSeeLess = I18n.t("gobierto_data.projects.seeLess")
     this.orderDatasets()
   },
   methods: {

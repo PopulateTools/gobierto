@@ -37,6 +37,8 @@ ca:
       resources: Recursos
       runQuery: Executar consulta
       save: Desar
+      seeLess: Veure menys
+      seeMore: Veure més
       sets: Conjunts
       showRows: Mostra totes les files
       subject: Tema
@@ -46,4 +48,3 @@ ca:
       visualization: Visualització
       visualizations: Visualitzacions
       yourQueries: Les teves consultes
-      seeMore: Veure més

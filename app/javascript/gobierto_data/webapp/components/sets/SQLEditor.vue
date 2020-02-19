@@ -1,9 +1,28 @@
 <template>
   <div>
     <div class="gobierto-data-sql-editor">
-      <SQLEditorHeader :array-queries="arrayQueries" :public-queries="publicQueries" :dataset-id="datasetId" :table-name="tableName" :number-rows="numberRows" />
-      <SQLEditorCode :table-name="tableName" :array-columns="arrayColumns" :number-rows="numberRows" />
-      <SQLEditorTabs v-if="dataLoaded" :array-formats="arrayFormats" :items="items" :table-name="tableName" :active-tab="activeTabIndex" :array-queries="arrayQueries" :number-rows="numberRows" @active-tab="activeTabIndex = $event" />
+      <SQLEditorHeader
+        :array-queries="arrayQueries"
+        :public-queries="publicQueries"
+        :dataset-id="datasetId"
+        :table-name="tableName"
+        :number-rows="numberRows"
+      />
+      <SQLEditorCode
+        :table-name="tableName"
+        :array-columns="arrayColumns"
+        :number-rows="numberRows"
+      />
+      <SQLEditorTabs
+        v-if="dataLoaded"
+        :array-formats="arrayFormats"
+        :items="items"
+        :table-name="tableName"
+        :active-tab="activeTabIndex"
+        :array-queries="arrayQueries"
+        :number-rows="numberRows"
+        @active-tab="activeTabIndex = $event"
+      />
     </div>
   </div>
 </template>

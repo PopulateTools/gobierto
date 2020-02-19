@@ -40,6 +40,8 @@ es:
       resources: Recursos
       runQuery: Ejecutar consulta
       save: Guardar
+      seeLess: Ver menos
+      seeMore: Ver más
       sets: Conjuntos
       showRows: Mostrar todas las filas
       subject: Tema
@@ -51,4 +53,3 @@ es:
       visualization: Visualización
       visualizations: Visualizaciones
       yourQueries: Tus consultas
-      seeMore: Ver más

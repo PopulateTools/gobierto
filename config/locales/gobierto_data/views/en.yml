@@ -40,6 +40,8 @@ en:
       resources: Resources
       runQuery: Run query
       save: Save
+      seeLess: See less
+      seeMore: See more
       sets: Sets
       showRows: Show all rows
       subject: Subject
@@ -51,4 +53,3 @@ en:
       visualization: Visualization
       visualizations: Visualizations
       yourQueries: Your queries
-      seeMore: See more

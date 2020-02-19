@@ -123,12 +123,10 @@ export default {
         localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));
 
         if (this.localTableName === this.tableName) {
-          for (let i = 0; i < 1; i++) {
-            this.orderRecentQueries[i] = {
-              dataset: this.tableName,
-              text: this.newRecentQuery
-            }
-          }
+          this.orderRecentQueries = [{
+            dataset: this.tableName,
+            text: this.newRecentQuery
+          }]
           this.newRecentQuery = '';
 
           const tempRecentQueries = [ ...this.localQueries, ...this.orderRecentQueries ]

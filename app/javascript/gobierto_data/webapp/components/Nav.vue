@@ -2,13 +2,14 @@
   <div>
     <nav class="gobierto-data-home-nav">
       <ul>
-        <li
+        <a
+          :href="'/datos/'"
           :class="{ 'is-active': activeTab === 0 }"
           class="gobierto-data-home-nav--tab"
-          @click="activateTab(0)"
+          @click.prevent="nav()"
         >
           <span>{{ labelDatasets }}</span>
-        </li>
+        </a>
         <li
           :class="{ 'is-active': activeTab === 1 }"
           class="gobierto-data-home-nav--tab"
@@ -62,7 +63,6 @@
     </nav>
   </div>
 </template>
-
 <script>
 export default {
   name: "HomeNav",
@@ -81,7 +81,8 @@ export default {
       labelAnalysis: "",
       labelNews: "",
       labelInformation: "",
-      labelAPI: ""
+      labelAPI: "",
+      slug: ''
     }
   },
   created() {
@@ -97,7 +98,16 @@ export default {
   methods: {
     activateTab(index) {
       this.$emit("active-tab", index);
+    },
+    nav() {
+      this.$router.push({
+        name: "home",
+        params: {
+          tabSidebar: 0
+        }
+      }, () => {})
     }
   }
 };
+
 </script>

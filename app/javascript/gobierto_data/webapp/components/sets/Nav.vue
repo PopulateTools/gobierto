@@ -216,7 +216,12 @@ export default {
     getQueries() {
       const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
       axios
-        .get(endPoint)
+        .get(endPoint, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `${this.token}`
+          }
+        })
         .then(response => {
           const rawData = response.data
           const items = rawData.data

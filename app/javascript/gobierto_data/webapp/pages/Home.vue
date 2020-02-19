@@ -177,6 +177,7 @@ export default {
       this.handleCheckboxFilter(filter);
     },
     handleCheckboxStatus({ id, value, filter }) {
+      this.currentComponent = 'InfoList'
       const index = filter.options.findIndex(d => d.id === id);
       filter.options[index].isOptionChecked = value;
       this.handleCheckboxFilter(filter);

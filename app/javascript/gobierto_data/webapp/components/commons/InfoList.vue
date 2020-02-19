@@ -95,7 +95,7 @@ export default {
         name: "dataset",
         params: {
           id: slugDataset,
-          tabSidebar: 0
+          tabSidebar: 1
         }
       }, () => {})
     }

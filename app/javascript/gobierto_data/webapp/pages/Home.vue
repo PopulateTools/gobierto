@@ -48,7 +48,7 @@ export default {
     }
   },
   async created() {
-    if(this.$route.params.tabSidebar === 0) {
+    if (this.$route.params.tabSidebar === 0) {
       this.currentTab = this.$route.params.tabSidebar
     } else {
       this.currentTab = this.activateTabSidebar

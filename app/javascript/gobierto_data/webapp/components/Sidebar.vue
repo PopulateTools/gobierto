@@ -21,6 +21,7 @@
           :class="{ 'is-active': activeTab === 2 }"
           class="gobierto-data-tab-sidebar--tab"
           @click="activateTab(2)"
+          @change-view="updateComponent"
         >
           <span>{{ labelQueries }}</span>
         </li>
@@ -75,6 +76,9 @@ export default {
   methods: {
     activateTab(index) {
       this.$emit("active-tab-sidebar", index);
+    },
+    updateComponent(values) {
+      console.log('hola')
     }
   }
 }

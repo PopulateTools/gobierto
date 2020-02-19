@@ -238,9 +238,6 @@ export default {
       }
     },
     updateHome() {
-      const index = 0
-      this.$emit('change-view', 'InfoList')
-      this.$emit('active-tab-sidebar', index)
       this.$router.push({
         name: "home",
         params: {

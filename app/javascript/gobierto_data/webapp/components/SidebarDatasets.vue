@@ -110,11 +110,11 @@ export default {
       filteredArray.unshift(firstElement)
       this.listDatasets = filteredArray
       this.toggle = 0
-      this.sliceColumns()
+      this.sliceColumns(0)
     },
     handleToggle(index) {
       this.showLess = true
-      this.sliceColumns()
+      this.sliceColumns(index)
       this.toggle = this.toggle !== index ? index : null;
     },
     nav(slugDataset, nameDataset) {
@@ -128,8 +128,8 @@ export default {
         }
     }, () => {})
     },
-    sliceColumns() {
-      const allColumns = Object.keys(this.listDatasets[0].attributes.columns)
+    sliceColumns(index) {
+      const allColumns = Object.keys(this.listDatasets[index].attributes.columns)
       this.lessColumns = allColumns.slice(0, 10)
     }
   }

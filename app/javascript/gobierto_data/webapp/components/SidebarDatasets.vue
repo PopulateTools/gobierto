@@ -21,14 +21,29 @@
           v-show="toggle === index"
           class="gobierto-data-sidebar-datasets-container-columns"
         >
-          <span
-            v-for="(column, i) in item.attributes.columns"
-            :key="i"
-            :item="i"
-            class="gobierto-data-sidebar-datasets-links-columns"
-          >
-            {{ i }}
-          </span>
+          <div v-if="showLess">
+            <template v-for="(column, i) in lessColumns">
+              <span
+                v-if="i < 5"
+                :key="i"
+                :item="i"
+                class="gobierto-data-sidebar-datasets-links-columns"
+              >
+                {{ column }}
+              </span>
+            </template>
+          </div>
+          <div v-else>
+            <span
+              v-for="(column, i) in item.attributes.columns"
+              :key="i"
+              :item="i"
+              class="gobierto-data-sidebar-datasets-links-columns"
+            >
+              {{ i }}
+            </span>
+          </div>
+          <button @click="showLess = false"></button>
         </div>
       </div>
     </div>
@@ -46,6 +61,8 @@ export default {
       listDatasets: [],
       toggle: 0,
       indexToggle: null,
+      showLess: true,
+      lessColumns: [],
       items: store.state.datasets || []
     }
   },
@@ -71,8 +88,10 @@ export default {
       filteredArray.unshift(firstElement)
       this.listDatasets = filteredArray
       this.toggle = 0
+      this.sliceColumns()
     },
     handleToggle(index) {
+      this.sliceColumns()
       this.toggle = this.toggle !== index ? index : null;
     },
     nav(slugDataset, nameDataset) {
@@ -84,6 +103,10 @@ export default {
           title: nameDataset
         }
     }, () => {})
+    },
+    sliceColumns() {
+      const allColumns = Object.keys(this.listDatasets[0].attributes.columns)
+      this.lessColumns = allColumns.slice(0, 10)
     }
   }
 };

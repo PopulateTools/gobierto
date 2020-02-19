@@ -42,24 +42,26 @@
               {{ i }}
             </span>
           </div>
-          <template
-            v-if="showLess"
-          >
-            <span
-              class="gobierto-data-sidebar-datasets-links-columns-see-more"
-              @click="showLess = false"
+          <div v-if="Object.keys(item.attributes.columns).length > 10">
+            <template
+              v-if="showLess"
             >
-              {{ labelSeeMore }}
-            </span>
-          </template>
-          <template v-else>
-            <span
-              class="gobierto-data-sidebar-datasets-links-columns-see-more"
-              @click="showLess = true"
-            >
-              {{ labelSeeLess }}
-            </span>
-          </template>
+              <span
+                class="gobierto-data-sidebar-datasets-links-columns-see-more"
+                @click="showLess = false"
+              >
+                {{ labelSeeMore }}
+              </span>
+            </template>
+            <template v-else>
+              <span
+                class="gobierto-data-sidebar-datasets-links-columns-see-more"
+                @click="showLess = true"
+              >
+                {{ labelSeeLess }}
+              </span>
+            </template>
+          </div>
         </div>
       </div>
     </div>
@@ -116,18 +118,21 @@ export default {
       this.toggle = this.toggle !== index ? index : null;
     },
     nav(slugDataset, nameDataset) {
+      const index = 1
+      this.$emit('active-tab-sidebar', index)
       this.toggle = 0
       this.$router.push({
         name: "dataset",
         params: {
           id: slugDataset,
+          tabSidebar: 1,
           title: nameDataset
         }
     }, () => {})
     },
     sliceColumns() {
       const allColumns = Object.keys(this.listDatasets[0].attributes.columns)
-      this.lessColumns = allColumns.slice(0, 2)
+      this.lessColumns = allColumns.slice(0, 10)
     }
   }
 };

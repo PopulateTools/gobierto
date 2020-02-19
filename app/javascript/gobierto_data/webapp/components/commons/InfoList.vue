@@ -91,11 +91,15 @@ export default {
   },
   methods: {
     nav(slugDataset) {
+      const index = 1
+      this.$emit('change-view', 'DataSets')
+      this.$emit('active-tab-sidebar', index)
       this.$router.push({
         name: "dataset",
         params: {
           id: slugDataset,
-          tabSidebar: 1
+          tabSidebar: 1,
+          currentComponent: 'DataSets'
         }
       }, () => {})
     }

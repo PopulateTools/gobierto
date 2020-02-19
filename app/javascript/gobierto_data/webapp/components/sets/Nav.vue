@@ -70,6 +70,7 @@
         :category-dataset="categoryDataset"
         :frequency-dataset="frequencyDataset"
         :resources-list="resourcesList"
+        :date-updated="dateUpdated"
       />
     </keep-alive>
 
@@ -161,6 +162,7 @@ export default {
       publicQueries: [],
       resourcesList: [],
       userId: '',
+      dateUpdated: '',
       descriptionDataset: '',
       categoryDataset: '',
       frequencyDataset: ''
@@ -209,6 +211,13 @@ export default {
           this.frequencyDataset = rawData.data.attributes.frequency[0].name_translations.es
           this.categoryDataset = rawData.data.attributes.category[0].name_translations.es
           this.descriptionDataset = rawData.data.attributes.description
+          const dateFromApi = rawData.data.attributes.frequency[0].updated_at
+          const newDateFromApi = new Date(dateFromApi)
+          this.dateUpdated = newDateFromApi.toLocaleDateString('es-ES', {
+              day : 'numeric',
+              month : 'short',
+              year : 'numeric'
+          })
           this.resourcesList = resourcesData
 
           this.getPublicQueries()

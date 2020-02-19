@@ -11,6 +11,7 @@
             {{ labelUpdated }}
           </span>
           <span class="gobierto-data-summary-header-container-text">
+            {{ dateUpdated }}
           </span>
         </div>
         <div class="gobierto-data-summary-header-container">
@@ -62,6 +63,10 @@ export default {
       default: ''
     },
     frequencyDataset: {
+      type: String,
+      default: ''
+    },
+    dateUpdated: {
       type: String,
       default: ''
     }

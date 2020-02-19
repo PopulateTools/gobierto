@@ -4,6 +4,7 @@
       :description-dataset="descriptionDataset"
       :category-dataset="categoryDataset"
       :frequency-dataset="frequencyDataset"
+      :date-updated="dateUpdated"
     />
     <keep-alive>
       <DownloadButton
@@ -65,6 +66,10 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    dateUpdated: {
+      type: String,
+      default: ''
     }
   },
   data() {

@@ -233,6 +233,7 @@ export default {
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true, false)
           this.$root.$emit('sendQueryCode', this.queryCode)
+          this.$root.$emit('activateModalRecent')
           this.$root.$emit('runSpinner')
 
         })

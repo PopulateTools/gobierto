@@ -893,12 +893,13 @@
   &-sql-editor-footer {
     display: inline-block;
     width: max-content;
+    max-width: 70%;
   }
 
   &-visualization {
     background-color: #ccc;
     width: 100%;
-    height: 100%;
+    height: 600px;
     letter-spacing: 0;
   }
 

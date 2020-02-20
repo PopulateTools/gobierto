@@ -258,9 +258,9 @@ export default {
 
           this.keysData = Object.keys(this.data[0])
 
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
-          this.$root.$emit('sendData', this.keysData, this.data)
-          this.$root.$emit('sendDataViz', this.data)
+          this.$root.$emit('recordsDuration', queryDurationRecors)
+          this.$root.$emit('sendData', keysData, data)
+          this.$root.$emit('sendDataViz', data)
           this.$root.$emit('showMessages', true, false)
           this.$root.$emit('sendQueryCode', this.queryCode)
 

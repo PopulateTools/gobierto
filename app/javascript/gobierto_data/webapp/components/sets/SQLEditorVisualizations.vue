@@ -1,5 +1,5 @@
 <template>
-  <div id="gobierto-data-visualization">
+  <div class="gobierto-data-visualization">
     <perspective-viewer />
   </div>
 </template>

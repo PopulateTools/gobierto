@@ -4,21 +4,23 @@
       ref="queryEditor"
       v-model="code"
     />
-    <div class="gobierto-data-sql-editor-footer">
-      <div v-if="showMessages">
-        <div v-if="showApiError">
-          <span class="gobierto-data-sql-error-message">
-            {{ stringError }}
-          </span>
-        </div>
-        <div v-else>
-          <span class="gobierto-data-sql-editor-footer-records">
-            {{ numberRecords }} {{ labelRecords }}
-          </span>
-          <span class="gobierto-data-sql-editor-footer-time">
-            {{ labelQueryExecuted }} {{ timeQuery }}ms
-          </span>
-        </div>
+    <div
+      v-if="showMessages"
+      class="gobierto-data-sql-editor-footer"
+    >
+      <span
+        v-if="showApiError"
+        class="gobierto-data-sql-error-message"
+      >
+        {{ stringError }}
+      </span>
+      <div v-else>
+        <span class="gobierto-data-sql-editor-footer-records">
+          {{ numberRecords }} {{ labelRecords }}
+        </span>
+        <span class="gobierto-data-sql-editor-footer-time">
+          {{ labelQueryExecuted }} {{ timeQuery }}ms
+        </span>
       </div>
     </div>
     <a

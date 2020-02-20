@@ -130,7 +130,7 @@ export default {
 
           const queryDurationRecors = [meta.rows, meta.duration]
 
-          keysData = Object.keys(this.data[0])
+          keysData = Object.keys(data[0])
 
           this.$root.$emit('recordsDuration', queryDurationRecors)
           this.$root.$emit('sendData', keysData, data)

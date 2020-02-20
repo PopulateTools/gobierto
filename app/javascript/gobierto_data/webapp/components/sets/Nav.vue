@@ -61,24 +61,51 @@
       </ul>
     </nav>
     <keep-alive>
-      <router-view
-        :dataset-id="datasetId"
-        :array-queries="arrayQueries"
-        :public-queries="publicQueries"
-        :table-name="tableName"
-        :array-formats="arrayFormats"
-        :active-tab="activeTab"
-        @active-tab="activeTabIndex = $event"
-      />
-    </keep-alive>
+       <Summary
+         v-if="activeTab === 0"
+         :array-queries="arrayQueries"
+         :public-queries="publicQueries"
+         :array-formats="arrayFormats"
+       />
+       <Data
+         v-else-if="activeTab === 1"
+         :dataset-id="datasetId"
+         :array-queries="arrayQueries"
+         :array-columns="arrayColumns"
+         :public-queries="publicQueries"
+         :table-name="tableName"
+         :array-formats="arrayFormats"
+         :number-rows="numberRows"
+       />
+       <Queries
+         v-else-if="activeTab === 2"
+         :array-queries="arrayQueries"
+         :public-queries="publicQueries"
+       />
+       <Visualizations v-else-if="activeTab === 3" />
+       <Downloads
+         v-else-if="activeTab === 4"
+         :array-formats="arrayFormats"
+       />
+     </keep-alive>
   </div>
 </template>
 <script>
 import Button from './../commons/Button.vue';
+import Summary from "./Summary.vue";
+import Data from "./Data.vue";
+import Queries from "./Queries.vue";
+import Visualizations from "./Visualizations.vue";
+import Downloads from "./Downloads.vue";
 export default {
   name: "NavSets",
   components: {
-    Button
+    Button,
+    Summary,
+    Data,
+    Queries,
+    Visualizations,
+    Downloads
   },
   props: {
     activeTab: {
@@ -102,6 +129,10 @@ export default {
       required: true
     },
     arrayFormats: {
+      type: Object,
+      required: true
+    },
+    arrayColumns: {
       type: Object,
       required: true
     },

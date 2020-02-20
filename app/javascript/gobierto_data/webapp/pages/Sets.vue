@@ -20,9 +20,11 @@
           :array-queries="arrayQueries"
           :public-queries="publicQueries"
           :array-formats="arrayFormats"
+          :array-columns="arrayColumns"
           :table-name="tableName"
           :dataset-id="datasetId"
           :title-dataset="titleDataset"
+          :number-rows="numberRows"
           @active-tab="activeTabIndex = $event"
         />
       </div>
@@ -59,8 +61,10 @@ export default {
       arrayQueries: null,
       publicQueries: [],
       datasetId: 0,
+      numberRows: 0,
       tableName: '',
       arrayFormats: {},
+      arrayColumns: {},
       activeTabIndex: 0,
       dataLoaded: false
     }
@@ -112,6 +116,7 @@ export default {
           this.rawData = response.data
           this.items = this.rawData.data
           this.arrayQueries = this.items
+          this.dataLoaded = true
         })
         .catch(error => {
           const messageError = error.response
@@ -128,11 +133,13 @@ export default {
           this.datasetId = parseInt(this.rawData.data.id)
           this.slugDataset = this.rawData.data.attributes.slug
           this.tableName = this.rawData.data.attributes.table_name
+          this.numberRows = this.rawData.data.attributes.data_summary.number_of_rows
           this.arrayFormats = this.rawData.data.attributes.formats
+          this.arrayColumns = this.rawData.data.attributes.columns
 
           this.$root.$emit('nameDataset', this.titleDataset)
 
-          this.getQueries()
+
           this.getPublicQueries()
         })
         .catch(error => {
@@ -161,7 +168,7 @@ export default {
          this.rawData = response.data
          this.items = this.rawData.data
          this.publicQueries = this.items
-         this.dataLoaded = true
+         this.getQueries()
        })
        .catch(error => {
          const messageError = error.response

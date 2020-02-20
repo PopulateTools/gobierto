@@ -7,6 +7,7 @@
         :public-queries="publicQueries"
         :dataset-id="datasetId"
         :table-name="tableName"
+        :number-rows="numberRows"
       />
       <SQLEditorCode
         :table-name="tableName"
@@ -16,6 +17,7 @@
         :array-formats="arrayFormats"
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
+        :table-name="tableName"
         :number-rows="numberRows"
         @active-tab="activeTabIndex = $event"
       />

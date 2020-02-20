@@ -2,35 +2,29 @@
   <div class="pure-u-1 pure-u-lg-4-4">
     <aside class="gobierto-data-filters">
       <div
-        v-for="(filter, index) in filters"
-        :key="filter.key + index"
+        v-for="filter in filters"
+        :key="filter.title"
         :class="!filter.key ? 'gobierto-data-filters-element-no-margin' : ''"
         class="gobierto-data-filters-element"
       >
         <div>
-          <i
-            :class="filter.key ? '' : 'rotate-caret'"
-            class="fas fa-caret-down sidebar-filter-caret"
-            style="color: var(--color-base);"
-            @click="filter.key = !filter.key"
-          />
           <BlockHeader
             :title="filter.title"
             :label-alt="filter.isEverythingChecked"
-            class="gobierto-data-filters-header"
+            :class="filter.key ? '' : 'gobierto-filter-rotate-icon'"
             see-link
+            @toggle="e => filter.key = !filter.key"
             @select-all="e => selectAllCheckbox({ ...e, filter })"
           />
         </div>
         <Checkbox
           v-for="option in filter.options"
-          v-show="filter.key && option.counter > 0"
+          v-show="filter.key"
           :id="option.id"
           :key="option.id"
           :title="option.title"
           :checked="option.isOptionChecked"
           :counter="option.counter"
-          class="gobierto-data-filters--checkbox"
           @checkbox-change="e => sendCheckboxStatus({ ...e, filter })"
         />
       </div>

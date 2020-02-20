@@ -2,11 +2,11 @@ export default {
   availableFilters: [
     {
       id: "frequency",
-      multiple: true
+      flat: true
     },
     {
       id: "category",
-      multiple: true
+      flat: true
     }
   ]
 }

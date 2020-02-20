@@ -1,0 +1,29 @@
+.gobierto-filter-block-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: .75rem;
+  line-height: 14px;
+  padding-top: 1em;
+}
+
+.gobierto-filter-block-header--title {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.gobierto-filter-block-header--link {
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.gobierto-filter-block-header--icon {
+  cursor: pointer;
+  transition: transform ease-in .1s;
+}
+
+.gobierto-filter-rotate-icon {
+  i {
+    transform: rotate(270deg);
+  }
+}

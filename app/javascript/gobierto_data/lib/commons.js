@@ -31,9 +31,11 @@ export const closableMixin = {
           const { handler, exclude } = binding.value
           let clickedOnExcludedEl = false
           exclude.forEach(refName => {
-            if (!clickedOnExcludedEl) {
+            if (!clickedOnExcludedEl ) {
               const excludedEl = vnode.context.$refs[refName]
-              clickedOnExcludedEl = excludedEl.contains(e.target)
+              if (excludedEl !== undefined) {
+                clickedOnExcludedEl = excludedEl.contains(e.target)
+              }
             }
           })
           if (!el.contains(e.target) && !clickedOnExcludedEl) {

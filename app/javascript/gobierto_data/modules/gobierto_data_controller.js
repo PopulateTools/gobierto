@@ -13,9 +13,7 @@ export class GobiertoDataController {
     const entryPoint = document.getElementById(selector);
     if (entryPoint) {
       const htmlRouterBlock = `
-        <keep-alive>
           <router-view :key="$route.fullPath"></router-view>
-        </keep-alive>
       `;
 
       entryPoint.innerHTML = htmlRouterBlock;

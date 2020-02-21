@@ -160,24 +160,24 @@ module GobiertoData
           row_num = 0
           Enumerator.new do |lines|
             lines << "{\"data\":["
-            execute_stream_query(sql) do |execution|
+            with_query(sql) do |execution|
               time = Benchmark.measure do
-                execution.stream_each do |row|
+                execution.each do |row|
                   row_num += 1
                   lines << row.to_json
                   lines << "," unless row_num == total_rows
                 end
               end
-              lines << "],\"meta\":{\"duration\":#{time.real},\"rows\":#{total_rows},\"status\":\"#{execution.cmd_status}\"}}"
+              lines << "],\"meta\":{\"duration\":#{1_000 * time.real},\"rows\":#{total_rows},\"status\":\"#{execution.cmd_status}\"}}"
             end
           end
         end
 
         def csv_stream_data(sql, options = {})
           Enumerator.new do |lines|
-            execute_stream_query(sql) do |execution|
+            with_query(sql) do |execution|
               lines << CSV.generate_line(execution.fields, **options)
-              execution.stream_each_row do |row|
+              execution.each_row do |row|
                 lines << CSV.generate_line(row, **options)
               end
             end
@@ -198,6 +198,15 @@ module GobiertoData
           GobiertoData::Connection.execute_stream_query(current_site, Arel.sql(sql), include_draft: valid_preview_token?) do |execution|
             yield(execution)
           end
+        end
+
+        def with_query(sql)
+          query_execution = GobiertoData::Connection.execute_query(current_site, Arel.sql(sql), include_stats: false, include_draft: valid_preview_token?)
+          yield(query_execution[:result])
+        end
+
+        def execute_query(sql)
+          GobiertoData::Connection.execute_query(current_site, Arel.sql(sql), include_draft: valid_preview_token?)
         end
       end
     end

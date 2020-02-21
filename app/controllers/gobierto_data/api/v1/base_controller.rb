@@ -131,8 +131,7 @@ module GobiertoData
         end
 
         def render_csv(content)
-          headers["Content-Disposition"] = "inline"
-          headers["Content-Type"] = "text/plain; charset=utf-8"
+          set_csv_headers
           render(
             plain: content
           )
@@ -146,6 +145,60 @@ module GobiertoData
           end
         end
 
+        def set_streaming_headers
+          headers["X-Accel-Buffering"] = "no"
+          headers["Cache-Control"] = "no-cache"
+          headers.delete("Content-Length")
+        end
+
+        def set_csv_headers
+          headers["Content-Disposition"] = "inline"
+          headers["Content-Type"] = "text/plain; charset=utf-8"
+        end
+
+        def json_stream_data(sql, total_rows)
+          row_num = 0
+          Enumerator.new do |lines|
+            lines << "{\"data\":["
+            execute_stream_query(sql) do |execution|
+              time = Benchmark.measure do
+                execution.stream_each do |row|
+                  row_num += 1
+                  lines << row.to_json
+                  lines << "," unless row_num == total_rows
+                end
+              end
+              lines << "],\"meta\":{\"duration\":#{time.real},\"rows\":#{total_rows},\"status\":\"#{execution.cmd_status}\"}}"
+            end
+          end
+        end
+
+        def csv_stream_data(sql, options = {})
+          Enumerator.new do |lines|
+            execute_stream_query(sql) do |execution|
+              lines << CSV.generate_line(execution.fields, **options)
+              execution.stream_each_row do |row|
+                lines << CSV.generate_line(row, **options)
+              end
+            end
+          end
+        end
+
+        def query_rows_count(sql)
+          return if sql.blank?
+
+          query_result = GobiertoData::Connection.execute_query(current_site, Arel.sql("select count(*) from (#{sql}) as query"), include_draft: valid_preview_token?)
+
+          return query_result if query_result.has_key?(:errors)
+
+          query_result[:result].first["count"]
+        end
+
+        def execute_stream_query(sql)
+          GobiertoData::Connection.execute_stream_query(current_site, Arel.sql(sql), include_draft: valid_preview_token?) do |execution|
+            yield(execution)
+          end
+        end
       end
     end
   end

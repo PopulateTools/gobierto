@@ -36,24 +36,24 @@ module GobiertoData
         def json_live_stream_data(sql, total_rows)
           row_num = 0
           response.stream.write "{\"data\":["
-          execute_stream_query(sql) do |execution|
+          with_query(sql) do |execution|
             time = Benchmark.measure do
-              execution.stream_each do |row|
+              execution.each do |row|
                 row_num += 1
                 response.stream.write row.to_json
                 response.stream.write "," unless row_num == total_rows
               end
             end
-            response.stream.write "],\"meta\":{\"duration\":#{time.real},\"rows\":#{total_rows},\"status\":\"#{execution.cmd_status}\"}}"
+            response.stream.write "],\"meta\":{\"duration\":#{1_000 * time.real},\"rows\":#{total_rows},\"status\":\"#{execution.cmd_status}\"}}"
           end
         ensure
           response.stream.close
         end
 
         def csv_live_stream_data(sql, options = {})
-          execute_stream_query(sql) do |execution|
+          with_query(sql) do |execution|
             response.stream.write CSV.generate_line(execution.fields, **options)
-            execution.stream_each_row do |row|
+            execution.each_row do |row|
               response.stream.write CSV.generate_line(row, **options)
             end
           end

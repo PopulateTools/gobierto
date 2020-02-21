@@ -38,7 +38,7 @@ module GobiertoData
         def show
           find_item
           relation = @item.rails_model.all
-          query_result = execute_query relation
+          query_result = execute_query relation.to_sql
           respond_to do |format|
             format.json do
               render(
@@ -68,7 +68,7 @@ module GobiertoData
         def download
           find_item
           relation = @item.rails_model.all
-          query_result = execute_query relation
+          query_result = execute_query relation.to_sql
           basename = @item.slug
           respond_to do |format|
             format.json do
@@ -167,10 +167,6 @@ module GobiertoData
 
         def find_item
           @item = base_relation.find_by!(slug: params[:slug])
-        end
-
-        def execute_query(relation)
-          GobiertoData::Connection.execute_query(current_site, relation.to_sql, include_draft: valid_preview_token?)
         end
 
         def links(self_key = nil)

@@ -53,12 +53,6 @@ module GobiertoData
           end
         end
 
-        private
-
-        def execute_query(sql)
-          GobiertoData::Connection.execute_query(current_site, Arel.sql(sql), include_draft: valid_preview_token?)
-        end
-
       end
     end
   end

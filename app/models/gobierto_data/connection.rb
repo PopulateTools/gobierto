@@ -8,6 +8,22 @@ module GobiertoData
 
     class << self
 
+      def execute_stream_query(site, query, write: false, include_draft: false)
+        with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(write, include_draft)) do
+
+          connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if write
+          connection.execute("SET search_path TO draft, public") if write || include_draft
+
+          raw_connection = connection.raw_connection
+          raw_connection.send_query(query) || null_query
+          raw_connection.set_single_row_mode
+          execution = raw_connection.get_result
+          yield(execution)
+        end
+      rescue ActiveRecord::StatementInvalid => e
+        yield(failed_query(e.message))
+      end
+
       def execute_query(site, query, include_stats: true, write: false, include_draft: false)
         with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(write, include_draft)) do
           connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if write

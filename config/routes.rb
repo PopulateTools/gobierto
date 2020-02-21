@@ -568,6 +568,7 @@ Rails.application.routes.draw do
         namespace :api, path: "/" do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1/data" do
             get "data" => "query#index", as: :root, defaults: { format: "json" }
+            get "stream_data" => "query#stream_data", defaults: { format: "json" }
             resources :datasets, param: :slug, defaults: { format: "json" } do
               resource :favorite, only: [:create, :destroy]
               resources :favorites, only: [:index]

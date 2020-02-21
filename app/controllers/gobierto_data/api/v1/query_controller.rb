@@ -31,6 +31,28 @@ module GobiertoData
           end
         end
 
+        def stream_data
+          total_rows = query_rows_count(params[:sql])
+
+          if total_rows.is_a?(Hash)
+            render json: total_rows.slice(:errors), status: :bad_request, adapter: :json_api
+          else
+            set_streaming_headers
+            response.status = 200
+
+            respond_to do |format|
+              format.json do
+                self.response_body = json_stream_data(params[:sql], total_rows)
+              end
+
+              format.csv do
+                set_csv_headers
+                self.response_body = csv_stream_data(params[:sql], csv_options_params)
+              end
+            end
+          end
+        end
+
         private
 
         def execute_query(sql)

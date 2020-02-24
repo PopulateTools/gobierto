@@ -47,6 +47,7 @@ es:
         populate_data_api_token: API token Populate Data
         privacy_page_id: Página de privacidad
         raw_configuration_variables: Otras variables de configuración
+        reply_to_email: Dirección de respuesta en correos-e
         title: Nombre del sitio
       gobierto_admin/user_form:
         email: Email

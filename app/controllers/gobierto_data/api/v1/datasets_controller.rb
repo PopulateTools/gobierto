@@ -93,6 +93,7 @@ module GobiertoData
           render(
             json: @item,
             serializer: ::GobiertoData::DatasetMetaSerializer,
+            include: [:attachments],
             exclude_links: true,
             links: links(:metadata),
             adapter: :json_api

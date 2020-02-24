@@ -8,6 +8,10 @@ module GobiertoData
       @subject ||= gobierto_data_datasets(:users_dataset)
     end
 
+    def site
+      @site ||= sites(:madrid)
+    end
+
     def test_valid
       assert subject.valid?
     end

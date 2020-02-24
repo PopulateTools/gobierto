@@ -7,26 +7,28 @@
         :class="!filter.key ? 'gobierto-data-filters-element-no-margin' : ''"
         class="gobierto-data-filters-element"
       >
-        <div>
-          <BlockHeader
-            :title="filter.title"
-            :label-alt="filter.isEverythingChecked"
-            :class="filter.key ? '' : 'gobierto-filter-rotate-icon'"
-            see-link
-            @toggle="e => filter.key = !filter.key"
-            @select-all="e => selectAllCheckbox({ ...e, filter })"
+        <template v-if="filter.type === 'vocabulary_options'">
+          <div>
+            <BlockHeader
+              :title="filter.title"
+              :label-alt="filter.isEverythingChecked"
+              :class="filter.key ? '' : 'gobierto-filter-rotate-icon'"
+              see-link
+              @toggle="e => filter.key = !filter.key"
+              @select-all="e => selectAllCheckbox({ ...e, filter })"
+            />
+          </div>
+          <Checkbox
+            v-for="option in filter.options"
+            v-show="filter.key"
+            :id="option.id"
+            :key="option.id"
+            :title="option.title"
+            :checked="option.isOptionChecked"
+            :counter="option.counter"
+            @checkbox-change="e => sendCheckboxStatus({ ...e, filter })"
           />
-        </div>
-        <Checkbox
-          v-for="option in filter.options"
-          v-show="filter.key"
-          :id="option.id"
-          :key="option.id"
-          :title="option.title"
-          :checked="option.isOptionChecked"
-          :counter="option.counter"
-          @checkbox-change="e => sendCheckboxStatus({ ...e, filter })"
-        />
+        </template>
       </div>
     </aside>
   </div>

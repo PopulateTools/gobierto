@@ -38,7 +38,6 @@
               {{ labelFrequency }}
             </span>
             <span class="gobierto-data-summary-header-container-text">
-              {{ item.attributes.frequency[0].name_translations.es }}
             </span>
           </div>
           <div class="gobierto-data-summary-header-container">
@@ -53,7 +52,6 @@
               href=""
               class="gobierto-data-summary-header-container-text-link"
             >
-              {{ item.attributes.category[0].name_translations.es }}
             </a>
           </div>
         </div>

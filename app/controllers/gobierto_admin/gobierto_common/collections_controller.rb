@@ -131,7 +131,7 @@ module GobiertoAdmin
       def modules_with_collections_options
         current_site.configuration.modules_with_collections.map do |module_name|
           [
-            "#{t("gobierto_admin.shared.module")}: #{t("gobierto_admin.layouts.application.modules.#{module_name.underscore.gsub(/\Agobierto_/,"")}")}",
+            "#{t("gobierto_admin.shared.module")}: #{t("gobierto_admin.layouts.application.modules.#{module_name.underscore.gsub(/\Agobierto_/, "")}")}",
             module_name
           ]
         end

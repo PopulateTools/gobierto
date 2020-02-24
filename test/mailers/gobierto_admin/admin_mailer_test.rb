@@ -5,12 +5,12 @@ require "test_helper"
 module GobiertoAdmin
   class AdminMailerTest < ActionMailer::TestCase
 
-    def admin
-      @admin ||= gobierto_admin_admins(:tony)
-    end
+    attr_accessor :admin, :site
 
-    def site
-      admin.sites.first
+    def setup
+      super
+      @admin = gobierto_admin_admins(:tony)
+      @site = sites(:santander)
     end
 
     def test_invitation_instructions
@@ -18,8 +18,8 @@ module GobiertoAdmin
 
       refute ActionMailer::Base.deliveries.empty?
 
-      assert_equal ["admin@gobierto.dev"], email.from
-      assert_equal ["admin@gobierto.dev"], email.reply_to
+      assert_equal ["no-reply@gobierto.dev"], email.from
+      assert_equal [site.reply_to_email], email.reply_to
       assert_equal [admin.email], email.to
       assert_equal "You have been invitited to collaborate in Gobierto", email.subject
       assert_match %r{http://#{site.domain}/admin}, email.body.to_s
@@ -30,8 +30,8 @@ module GobiertoAdmin
 
       refute ActionMailer::Base.deliveries.empty?
 
-      assert_equal ["admin@gobierto.dev"], email.from
-      assert_equal ["admin@gobierto.dev"], email.reply_to
+      assert_equal ["no-reply@gobierto.dev"], email.from
+      assert_equal [site.reply_to_email], email.reply_to
       assert_equal [admin.email], email.to
       assert_equal "Reset password instructions", email.subject
       assert_match %r{http://#{site.domain}/admin}, email.body.to_s

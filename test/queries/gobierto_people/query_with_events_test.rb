@@ -54,7 +54,7 @@ module GobiertoPeople
 
     def test_query
       query = QueryWithEvents.new(source: site_source)
-      assert_equal 21, query.count
+      assert_equal 25, query.count
 
       query = QueryWithEvents.new(source: department_source)
       assert_equal 4, query.count
@@ -69,10 +69,10 @@ module GobiertoPeople
       assert_equal 4, query.count
 
       query = QueryWithEvents.new(source: site_departments_source)
-      assert_equal 2, query.count
+      assert_equal 5, query.count
 
       query = QueryWithEvents.new(source: people_with_events_in_department_source)
-      assert_equal 1, query.count
+      assert_equal 2, query.count
     end
 
     def test_query_with_start_date
@@ -97,14 +97,14 @@ module GobiertoPeople
       assert_equal 2, query.count
 
       query = QueryWithEvents.new(source: people_with_events_in_department_source, start_date: start_date)
-      assert_equal 1, query.count
+      assert_equal 2, query.count
     end
 
     def test_query_with_end_date
       end_date = 1.day.ago
 
       query = QueryWithEvents.new(source: site_source, end_date: end_date)
-      assert_equal 9, query.count
+      assert_equal 13, query.count
 
       query = QueryWithEvents.new(source: department_source, end_date: end_date)
       assert_equal 3, query.count
@@ -119,10 +119,10 @@ module GobiertoPeople
       assert_equal 2, query.count
 
       query = QueryWithEvents.new(source: site_departments_source, end_date: end_date)
-      assert_equal 1, query.count
+      assert_equal 4, query.count
 
       query = QueryWithEvents.new(source: people_with_events_in_department_source, end_date: end_date)
-      assert_equal 1, query.count
+      assert_equal 2, query.count
     end
 
     def test_query_with_start_and_end_dates

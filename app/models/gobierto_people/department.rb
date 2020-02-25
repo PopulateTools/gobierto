@@ -42,7 +42,7 @@ module GobiertoPeople
     end
 
     def people(params = {})
-      GobiertoPeople::QueryWithEvents.filter_department_people(
+      GobiertoPeople::QueryWithEvents.filter_people(
         params.slice(:from_date, :to_date)
               .merge(people_relation: site.people, department_id: id)
       ).distinct

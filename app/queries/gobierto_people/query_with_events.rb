@@ -26,7 +26,7 @@ module GobiertoPeople
       @relation = yield(@relation)
     end
 
-    def self.filter_department_people(params = {})
+    def self.filter_people(params = {})
       params[:people_relation].left_outer_joins(attending_person_events: :event)
                               .where(%{
         #{people_linked_throught_events_sql(params)} OR

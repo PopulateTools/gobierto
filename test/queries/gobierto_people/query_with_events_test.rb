@@ -190,6 +190,9 @@ module GobiertoPeople
       assert_equal 0, query.count
     end
 
+    ## filter_people > filtering by site
+    ## ---------------------------
+
     def test_filter_people_filter_by_site
       included_person = create_person("Included person", badajoz)
       create_person("Excluded person", madrid)
@@ -198,6 +201,9 @@ module GobiertoPeople
 
       assert array_match([included_person], people)
     end
+
+    ## filter_people > test linking to other tables
+    ## ---------------------------
 
     def test_filter_people_linked_through_events
       included_person = create_person("Included person", badajoz)
@@ -303,6 +309,9 @@ module GobiertoPeople
       assert array_match([included_person], people)
     end
 
+    ## filter_people > filtering by department
+    ## ---------------------------
+
     def test_filter_people_filter_by_department_events
       included_person = create_person("Included department event person", badajoz)
       excluded_person = create_person("Excluded department event person", badajoz)
@@ -315,6 +324,10 @@ module GobiertoPeople
       )
 
       assert array_match([included_person], people)
+    end
+
+    def test_filter_people_filter_by_department_events_and_dates
+      skip "Pending"
     end
 
     def test_filter_people_filter_by_department_gifts
@@ -331,6 +344,10 @@ module GobiertoPeople
       assert array_match([included_person], people)
     end
 
+    def test_filter_people_filter_by_department_gifts_and_dates
+      skip "Pending"
+    end
+
     def test_filter_people_filter_by_department_invitations
       included_person = create_person("Included department invitation person", badajoz)
       excluded_person = create_person("Excluded department invitation person", badajoz)
@@ -343,6 +360,10 @@ module GobiertoPeople
       )
 
       assert array_match([included_person], people)
+    end
+
+    def test_filter_people_filter_by_department_invitations_and_dates
+      skip "Pending"
     end
 
     def test_filter_people_filter_by_department_trips
@@ -359,9 +380,12 @@ module GobiertoPeople
       assert array_match([included_person], people)
     end
 
-    def test_filter_people_by_department_and_dates
-      skip
+    def test_filter_people_filter_by_department_trips_and_dates
+      skip "Pending"
     end
+
+    ## filter_people > filtering by interest_group
+    ## ---------------------------
 
     def test_filter_people_filter_by_interest_group
       included_person = create_person("Included person", badajoz)

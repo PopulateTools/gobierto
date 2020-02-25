@@ -43,10 +43,23 @@ module GobiertoPeople
     ## private
 
     def self.department_people_linked_throught_events_sql(params = {})
-      sql = sanitize_sql(["(gc_events.department_id = ?", params[:department_id]])
-      sql += sanitize_sql([" AND gc_events.starts_at >= ?", params[:from_date]]) if params[:from_date]
-      sql += sanitize_sql([" AND gc_events.ends_at < ?", params[:to_date]]) if params[:to_date]
-      "#{sql})"
+      sql = ""
+
+      sql += sanitize_sql([" gc_events.department_id = ?", params[:department_id]]) if params[:department_id]
+
+      if params[:from_date] && sql.blank?
+        sql += sanitize_sql([" gc_events.starts_at >= ?", params[:from_date]])
+      elsif params[:from_date]
+        sql += sanitize_sql([" AND gc_events.starts_at >= ?", params[:from_date]])
+      end
+
+      if params[:to_date] && sql.blank?
+        sql += sanitize_sql([" gc_events.ends_at < ?", params[:to_date]])
+      elsif params[:to_date]
+        sql += sanitize_sql([" AND gc_events.ends_at < ?", params[:to_date]])
+      end
+
+      "(#{sql})"
     end
 
     def self.department_people_linked_through_trips_sql(params = {})

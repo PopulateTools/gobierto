@@ -10,6 +10,10 @@ module GobiertoPeople
 
     include ::EventHelpers
 
+    FAR_PAST = EventHelpers::TIME_ALIASES[:far_past]
+    PAST = EventHelpers::TIME_ALIASES[:past]
+    FUTURE = EventHelpers::TIME_ALIASES[:future]
+
     attr_accessor(
       :justice_department,
       :coca_cola_interest_group,
@@ -78,8 +82,20 @@ module GobiertoPeople
       @excluded_madrid_person = GobiertoPeople::Factory.person(name: "Excluded person", site: madrid)
     end
 
-    def create_gift(person, department)
-      GobiertoPeople::Factory.gift(person: person, department: department)
+    def create_gift(person, department, params = {})
+      GobiertoPeople::Factory.gift(params.merge(person: person, department: department))
+    end
+
+    def create_person(name, site)
+      GobiertoPeople::Factory.person(name: name, site: site)
+    end
+
+    def create_invitation(person, department, params = {})
+      GobiertoPeople::Factory.invitation(params.merge(person: person, department: department))
+    end
+
+    def create_trip(person, department, params = {})
+      GobiertoPeople::Factory.trip(params.merge(person: person, department: department))
     end
 
     # TODO: improve this tests and remove magic numbers
@@ -213,7 +229,18 @@ module GobiertoPeople
     end
 
     def test_filter_people_linked_through_gifts_filters_by_dates
-      skip
+      included_person = create_person("Included person", badajoz)
+      excluded_person = create_person("Excluded person", badajoz)
+      create_gift(included_person, badajoz_department, date: PAST)
+      create_gift(excluded_person, badajoz_department, date: FUTURE)
+
+      people = GobiertoPeople::QueryWithEvents.filter_people(
+        people_relation: badajoz.people,
+        from_date: FAR_PAST,
+        to_date: PAST + 2.days
+      )
+
+      assert array_match([included_person], people)
     end
 
     def test_filter_people_linked_through_trips
@@ -228,7 +255,18 @@ module GobiertoPeople
     end
 
     def test_filter_people_linked_through_trips_filters_by_dates
-      skip
+      included_person = create_person("Included person", badajoz)
+      excluded_person = create_person("Excluded person", badajoz)
+      create_trip(included_person, badajoz_department, start_date: PAST, end_date: PAST + 1.day)
+      create_trip(excluded_person, badajoz_department, start_date: FUTURE, end_date: FUTURE + 1.day)
+
+      people = GobiertoPeople::QueryWithEvents.filter_people(
+        people_relation: badajoz.people,
+        from_date: FAR_PAST,
+        to_date: PAST + 2.days
+      )
+
+      assert array_match([included_person], people)
     end
 
     def test_filter_people_linked_through_invitations
@@ -243,7 +281,18 @@ module GobiertoPeople
     end
 
     def test_filter_people_linked_through_invitations_filters_by_dates
-      skip
+      included_person = create_person("Included person", badajoz)
+      excluded_person = create_person("Excluded person", badajoz)
+      create_invitation(included_person, badajoz_department, start_date: PAST, end_date: PAST + 1.day)
+      create_invitation(excluded_person, badajoz_department, start_date: FUTURE, end_date: FUTURE + 1.day)
+
+      people = GobiertoPeople::QueryWithEvents.filter_people(
+        people_relation: badajoz.people,
+        from_date: FAR_PAST,
+        to_date: PAST + 2.days
+      )
+
+      assert array_match([included_person], people)
     end
 
     def test_filter_people_filter_by_department

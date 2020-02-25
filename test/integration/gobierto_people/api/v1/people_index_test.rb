@@ -46,7 +46,7 @@ module GobiertoPeople
         end
 
         def site_people_count
-          2
+          madrid.people.active.size
         end
 
         # tamara is linked through events, richard via trips

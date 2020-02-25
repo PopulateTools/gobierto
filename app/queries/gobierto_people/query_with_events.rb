@@ -29,7 +29,7 @@ module GobiertoPeople
     def self.filter_people(params = {})
       params[:people_relation].left_outer_joins(attending_person_events: :event)
                               .where(%{
-        #{people_linked_throught_events_sql(params)} OR
+        #{people_linked_throught_events_sql(params)}
         gp_people.id IN (#{people_linked_through_trips_sql(params)}) OR
         gp_people.id IN (#{people_linked_through_invitations_sql(params)}) OR
         gp_people.id IN (#{people_linked_through_gifts_sql(params)})
@@ -59,7 +59,7 @@ module GobiertoPeople
         sql += sanitize_sql([" AND gc_events.ends_at < ?", params[:to_date]])
       end
 
-      "(#{sql})"
+      sql.present? ? "(#{sql}) OR " : nil
     end
     private_class_method :people_linked_throught_events_sql
 

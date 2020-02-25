@@ -206,7 +206,18 @@ module GobiertoPeople
     end
 
     def test_filter_people_linked_through_events_filters_by_dates
-      skip
+      included_person = create_person("Included person", badajoz)
+      excluded_person = create_person("Excluded person", badajoz)
+      create_event(person: included_person, department: badajoz_department, site: badajoz, starts_at: :far_past)
+      create_event(person: excluded_person, department: badajoz_department, site: badajoz, starts_at: :future)
+
+      people = GobiertoPeople::QueryWithEvents.filter_people(
+        people_relation: badajoz.people,
+        from_date: FAR_PAST,
+        to_date: PAST
+      )
+
+      assert array_match([included_person], people)
     end
 
     def test_filter_people_linked_through_gifts

@@ -8,11 +8,9 @@ module GobiertoPeople
         before_action :check_active_submodules
 
         def index
-          top_people = PeopleQuery.new(
-            relation: current_site.people,
-            conditions: permitted_conditions,
-            limit: params[:limit]
-          ).results
+          top_people = GobiertoPeople::QueryWithEvents.filter_people(
+            permitted_conditions.merge(people_relation: current_site.people.active)
+          ).distinct
 
           if params[:include_history] == "true"
             records = PeopleEventsHistoryQuery.new(

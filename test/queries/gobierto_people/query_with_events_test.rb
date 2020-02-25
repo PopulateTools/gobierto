@@ -74,14 +74,6 @@ module GobiertoPeople
       justice_department.people.with_event_attendances(site)
     end
 
-    def create_included_person
-      @included_person = GobiertoPeople::Factory.person(name: "Included person", site: badajoz)
-    end
-
-    def create_excluded_madrid_person
-      @excluded_madrid_person = GobiertoPeople::Factory.person(name: "Excluded person", site: madrid)
-    end
-
     def create_gift(person, department, params = {})
       GobiertoPeople::Factory.gift(params.merge(person: person, department: department))
     end
@@ -203,14 +195,14 @@ module GobiertoPeople
     end
 
     def test_filter_people_linked_through_events
-      create_included_person
-      create_excluded_madrid_person
-      create_event(person: @included_person, department: badajoz_department, site: badajoz)
-      create_event(person: @excluded_madrid_person, department: madrid_department)
+      included_person = create_person("Included person", badajoz)
+      excluded_person = create_person("Excluded person", madrid)
+      create_event(person: included_person, department: badajoz_department, site: badajoz)
+      create_event(person: excluded_person, department: madrid_department)
 
       people = GobiertoPeople::QueryWithEvents.filter_people(people_relation: badajoz.people)
 
-      assert array_match([@included_person], people)
+      assert array_match([included_person], people)
     end
 
     def test_filter_people_linked_through_events_filters_by_dates
@@ -218,14 +210,14 @@ module GobiertoPeople
     end
 
     def test_filter_people_linked_through_gifts
-      create_included_person
-      create_excluded_madrid_person
-      create_gift(@included_person, badajoz_department)
-      create_gift(@excluded_madrid_person, madrid_department)
+      included_person = create_person("Included person", badajoz)
+      excluded_person = create_person("Excluded person", madrid)
+      create_gift(included_person, badajoz_department)
+      create_gift(excluded_person, madrid_department)
 
       people = GobiertoPeople::QueryWithEvents.filter_people(people_relation: badajoz.people)
 
-      assert array_match([@included_person], people)
+      assert array_match([included_person], people)
     end
 
     def test_filter_people_linked_through_gifts_filters_by_dates
@@ -244,14 +236,14 @@ module GobiertoPeople
     end
 
     def test_filter_people_linked_through_trips
-      create_included_person
-      create_excluded_madrid_person
-      GobiertoPeople::Factory.trip(person: @included_person, department: badajoz_department)
-      GobiertoPeople::Factory.trip(person: @excluded_madrid_person, department: madrid_department)
+      included_person = create_person("Included person", badajoz)
+      excluded_person = create_person("Excluded person", madrid)
+      GobiertoPeople::Factory.trip(person: included_person, department: badajoz_department)
+      GobiertoPeople::Factory.trip(person: excluded_person, department: madrid_department)
 
       people = GobiertoPeople::QueryWithEvents.filter_people(people_relation: badajoz.people)
 
-      assert array_match([@included_person], people)
+      assert array_match([included_person], people)
     end
 
     def test_filter_people_linked_through_trips_filters_by_dates
@@ -270,14 +262,14 @@ module GobiertoPeople
     end
 
     def test_filter_people_linked_through_invitations
-      create_included_person
-      create_excluded_madrid_person
-      GobiertoPeople::Factory.invitation(person: @included_person, department: badajoz_department)
-      GobiertoPeople::Factory.invitation(person: @excluded_madrid_person, department: madrid_department)
+      included_person = create_person("Included person", badajoz)
+      excluded_person = create_person("Excluded person", madrid)
+      GobiertoPeople::Factory.invitation(person: included_person, department: badajoz_department)
+      GobiertoPeople::Factory.invitation(person: excluded_person, department: madrid_department)
 
       people = GobiertoPeople::QueryWithEvents.filter_people(people_relation: badajoz.people)
 
-      assert array_match([@included_person], people)
+      assert array_match([included_person], people)
     end
 
     def test_filter_people_linked_through_invitations_filters_by_dates
@@ -337,9 +329,9 @@ module GobiertoPeople
     end
 
     def test_filter_people_filter_by_interest_group
-      included_event_person = create_included_person
+      included_person = create_person("Included person", badajoz)
       excluded_event_person = GobiertoPeople::Factory.person(name: "Excluded person", site: badajoz)
-      create_event(person: included_event_person, interest_group: @bank_interest_group, site: badajoz)
+      create_event(person: included_person, interest_group: @bank_interest_group, site: badajoz)
       create_event(person: excluded_event_person, interest_group: @oil_interest_group, site: badajoz)
 
       people = GobiertoPeople::QueryWithEvents.filter_people(
@@ -347,7 +339,7 @@ module GobiertoPeople
         interest_group_id: @bank_interest_group.id
       )
 
-      assert array_match([included_event_person], people)
+      assert array_match([included_person], people)
     end
 
     def test_filter_people_filter_by_interest_group_and_dates

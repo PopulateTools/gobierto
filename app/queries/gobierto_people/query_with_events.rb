@@ -29,10 +29,10 @@ module GobiertoPeople
     def self.filter_department_people(params = {})
       params[:people_relation].left_outer_joins(attending_person_events: :event)
                               .where(%{
-        #{department_people_linked_throught_events_sql(params)} OR
-        gp_people.id IN (#{department_people_linked_through_trips_sql(params)}) OR
-        gp_people.id IN (#{department_people_linked_through_invitations_sql(params)}) OR
-        gp_people.id IN (#{department_people_linked_through_gifts_sql(params)})
+        #{people_linked_throught_events_sql(params)} OR
+        gp_people.id IN (#{people_linked_through_trips_sql(params)}) OR
+        gp_people.id IN (#{people_linked_through_invitations_sql(params)}) OR
+        gp_people.id IN (#{people_linked_through_gifts_sql(params)})
       })
     end
 
@@ -42,7 +42,7 @@ module GobiertoPeople
 
     ## private
 
-    def self.department_people_linked_throught_events_sql(params = {})
+    def self.people_linked_throught_events_sql(params = {})
       sql = ""
 
       sql += sanitize_sql([" gc_events.department_id = ?", params[:department_id]]) if params[:department_id]
@@ -61,36 +61,40 @@ module GobiertoPeople
 
       "(#{sql})"
     end
+    private_class_method :people_linked_throught_events_sql
 
-    def self.department_people_linked_through_trips_sql(params = {})
+    def self.people_linked_through_trips_sql(params = {})
       people = GobiertoPeople::Trip.select("DISTINCT(person_id)")
-                                   .where(department_id: params[:department_id])
-                                   .reorder("")
+      people = people.where(department_id: params[:department_id]) if params[:department_id]
+      people = people.reorder("")
+
       people = people.where("start_date >= ?", params[:from_date]) if params[:from_date]
       people = people.where("end_date < ?", params[:to_date]) if params[:to_date]
       people.to_sql
     end
-    private_class_method :department_people_linked_through_trips_sql
+    private_class_method :people_linked_through_trips_sql
 
-    def self.department_people_linked_through_invitations_sql(params = {})
+    def self.people_linked_through_invitations_sql(params = {})
       people = GobiertoPeople::Invitation.select("DISTINCT(person_id)")
-                                         .where(department_id: params[:department_id])
-                                         .reorder("")
+      people = people.where(department_id: params[:department_id]) if params[:department_id]
+      people = people.reorder("")
+
       people = people.where("start_date >= ?", params[:from_date]) if params[:from_date]
       people = people.where("end_date < ?", params[:to_date]) if params[:to_date]
       people.to_sql
     end
-    private_class_method :department_people_linked_through_invitations_sql
+    private_class_method :people_linked_through_invitations_sql
 
-    def self.department_people_linked_through_gifts_sql(params = {})
+    def self.people_linked_through_gifts_sql(params = {})
       people = GobiertoPeople::Gift.select("DISTINCT(person_id)")
-                                   .where(department_id: params[:department_id])
-                                   .reorder("")
+      people = people.where(department_id: params[:department_id]) if params[:department_id]
+      people = people.reorder("")
+
       people = people.where("date >= ?", params[:from_date]) if params[:from_date]
       people = people.where("date < ?", params[:to_date]) if params[:to_date]
       people.to_sql
     end
-    private_class_method :department_people_linked_through_gifts_sql
+    private_class_method :people_linked_through_gifts_sql
 
     private
 

@@ -303,41 +303,60 @@ module GobiertoPeople
       assert array_match([included_person], people)
     end
 
-    def test_filter_people_filter_by_department
-      # setup
-      included_department_event_person = GobiertoPeople::Factory.person(name: "Included department event person", site: badajoz)
-      excluded_department_event_person = GobiertoPeople::Factory.person(name: "Excluded department event person", site: badajoz)
+    def test_filter_people_filter_by_department_events
+      included_person = create_person("Included department event person", badajoz)
+      excluded_person = create_person("Excluded department event person", badajoz)
+      create_event(person: included_person, department: ecology_department, site: badajoz)
+      create_event(person: excluded_person, department: industry_department, site: badajoz)
 
-      included_department_gift_person = GobiertoPeople::Factory.person(name: "Included department gift person", site: badajoz)
-      excluded_department_gift_person = GobiertoPeople::Factory.person(name: "Excluded department gift person", site: badajoz)
-
-      included_department_invitation_person = GobiertoPeople::Factory.person(name: "Included department invitation person", site: badajoz)
-      excluded_department_invitation_person = GobiertoPeople::Factory.person(name: "Excluded department invitation person", site: badajoz)
-
-      included_department_trip_person = GobiertoPeople::Factory.person(name: "Included department trip person", site: badajoz)
-      excluded_department_trip_person = GobiertoPeople::Factory.person(name: "Excluded department trip person", site: badajoz)
-
-      create_event(person: included_department_event_person, department: ecology_department, site: badajoz)
-      create_event(person: excluded_department_event_person, department: industry_department, site: badajoz)
-
-      create_gift(included_department_gift_person, ecology_department)
-      create_gift(excluded_department_gift_person, industry_department)
-
-      GobiertoPeople::Factory.invitation(person: included_department_invitation_person, department: ecology_department)
-      GobiertoPeople::Factory.invitation(person: excluded_department_invitation_person, department: industry_department)
-
-      GobiertoPeople::Factory.trip(person: included_department_trip_person, department: ecology_department)
-      GobiertoPeople::Factory.trip(person: excluded_department_trip_person, department: industry_department)
-
-      # execution
       people = GobiertoPeople::QueryWithEvents.filter_people(
         people_relation: GobiertoPeople::Person.all,
         department_id: ecology_department.id
       )
 
-      # assertions
-      expected_people = [included_department_event_person, included_department_gift_person, included_department_invitation_person, included_department_trip_person]
-      assert array_match(expected_people, people)
+      assert array_match([included_person], people)
+    end
+
+    def test_filter_people_filter_by_department_gifts
+      included_person = create_person("Included department gift person", badajoz)
+      excluded_person = create_person("Excluded department gift person", badajoz)
+      create_gift(included_person, ecology_department)
+      create_gift(excluded_person, industry_department)
+
+      people = GobiertoPeople::QueryWithEvents.filter_people(
+        people_relation: GobiertoPeople::Person.all,
+        department_id: ecology_department.id
+      )
+
+      assert array_match([included_person], people)
+    end
+
+    def test_filter_people_filter_by_department_invitations
+      included_person = create_person("Included department invitation person", badajoz)
+      excluded_person = create_person("Excluded department invitation person", badajoz)
+      create_invitation(included_person, ecology_department)
+      create_invitation(excluded_person, industry_department)
+
+      people = GobiertoPeople::QueryWithEvents.filter_people(
+        people_relation: GobiertoPeople::Person.all,
+        department_id: ecology_department.id
+      )
+
+      assert array_match([included_person], people)
+    end
+
+    def test_filter_people_filter_by_department_trips
+      included_person = create_person("Included department trip person", badajoz)
+      excluded_person = create_person("Excluded department trip person", badajoz)
+      create_trip(included_person, ecology_department)
+      create_trip(excluded_person, industry_department)
+
+      people = GobiertoPeople::QueryWithEvents.filter_people(
+        people_relation: GobiertoPeople::Person.all,
+        department_id: ecology_department.id
+      )
+
+      assert array_match([included_person], people)
     end
 
     def test_filter_people_by_department_and_dates

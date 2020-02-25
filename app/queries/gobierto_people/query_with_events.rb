@@ -27,13 +27,20 @@ module GobiertoPeople
     end
 
     def self.filter_people(params = {})
-      params[:people_relation].left_outer_joins(attending_person_events: :event)
-                              .where(%{
-        #{people_linked_throught_events_sql(params)}
-        gp_people.id IN (#{people_linked_through_trips_sql(params)}) OR
-        gp_people.id IN (#{people_linked_through_invitations_sql(params)}) OR
-        gp_people.id IN (#{people_linked_through_gifts_sql(params)})
-      })
+      people = params[:people_relation].left_outer_joins(attending_person_events: :event)
+
+      # Filtering by interest_group is not compatible with invitations etc.
+      # since only events are linked to interest groups
+      if params[:interest_group_id]
+        people.where("gc_events.interest_group_id = ?", params[:interest_group_id])
+      else
+        people.where(%{
+          #{people_linked_throught_events_sql(params)}
+          gp_people.id IN (#{people_linked_through_trips_sql(params)}) OR
+          gp_people.id IN (#{people_linked_through_invitations_sql(params)}) OR
+          gp_people.id IN (#{people_linked_through_gifts_sql(params)})
+        })
+      end
     end
 
     def self.sanitize_sql(sql_array)

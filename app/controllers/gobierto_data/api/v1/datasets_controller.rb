@@ -44,7 +44,7 @@ module GobiertoData
               render(
                 json:
                 {
-                  data: query_result.delete(:result),
+                  data: extract_preview(query_result),
                   meta: query_result,
                   links: links(:data)
                 },

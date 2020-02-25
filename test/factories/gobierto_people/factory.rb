@@ -65,6 +65,16 @@ module GobiertoPeople
       )
     end
 
+    def self.interest_group(params = {})
+      name = params[:name] || "Interest group name"
+
+      GobiertoPeople::InterestGroup.create!(
+        site: params[:site] || default_site,
+        name: name,
+        slug: name.parameterize
+      )
+    end
+
     def self.default_site
       @default_site ||= Site.find(fixture(:madrid))
     end

@@ -33,6 +33,8 @@ module GobiertoPeople
       # since only events are linked to interest groups
       if params[:interest_group_id]
         people.where("gc_events.interest_group_id = ?", params[:interest_group_id])
+      elsif params[:department_id].blank? && params[:from_date].blank? && params[:to_date].blank?
+        people
       else
         people.where(%{
           #{people_linked_throught_events_sql(params)}

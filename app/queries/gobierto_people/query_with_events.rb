@@ -32,7 +32,7 @@ module GobiertoPeople
       # Filtering by interest_group is not compatible with invitations etc.
       # since only events are linked to interest groups
       if params[:interest_group_id]
-        people.where("gc_events.interest_group_id = ?", params[:interest_group_id])
+        people.where(people_linked_throught_events_sql(params))
       elsif params[:department_id].blank? && params[:from_date].blank? && params[:to_date].blank?
         people
       else
@@ -56,6 +56,12 @@ module GobiertoPeople
 
       sql += sanitize_sql([" gc_events.department_id = ?", params[:department_id]]) if params[:department_id]
 
+      if params[:interest_group_id] && sql.blank?
+        sql += sanitize_sql([" gc_events.interest_group_id = ?", params[:interest_group_id]]) if params[:interest_group_id]
+      elsif params[:interest_group_id]
+        sql += sanitize_sql([" AND gc_events.interest_group_id = ?", params[:interest_group_id]]) if params[:interest_group_id]
+      end
+
       if params[:from_date] && sql.blank?
         sql += sanitize_sql([" gc_events.starts_at >= ?", params[:from_date]])
       elsif params[:from_date]
@@ -68,7 +74,9 @@ module GobiertoPeople
         sql += sanitize_sql([" AND gc_events.ends_at < ?", params[:to_date]])
       end
 
-      sql.present? ? "(#{sql}) OR " : nil
+      return nil unless sql.present?
+
+      params[:interest_group_id].present? ? sql : "(#{sql}) OR "
     end
     private_class_method :people_linked_throught_events_sql
 

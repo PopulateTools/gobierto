@@ -191,7 +191,12 @@ module GobiertoPeople
     end
 
     def test_filter_people_filter_by_site
-      skip
+      included_person = create_person("Included person", badajoz)
+      create_person("Excluded person", madrid)
+
+      people = GobiertoPeople::QueryWithEvents.filter_people(people_relation: badajoz.people)
+
+      assert array_match([included_person], people)
     end
 
     def test_filter_people_linked_through_events
@@ -341,7 +346,7 @@ module GobiertoPeople
 
     def test_filter_people_filter_by_interest_group
       included_person = create_person("Included person", badajoz)
-      excluded_event_person = GobiertoPeople::Factory.person(name: "Excluded person", site: badajoz)
+      excluded_event_person = create_person("Excluded person", badajoz)
       create_event(person: included_person, interest_group: @bank_interest_group, site: badajoz)
       create_event(person: excluded_event_person, interest_group: @oil_interest_group, site: badajoz)
 
@@ -354,7 +359,19 @@ module GobiertoPeople
     end
 
     def test_filter_people_filter_by_interest_group_and_dates
-      skip
+      included_person = create_person("Included person", badajoz)
+      excluded_person = create_person("Excluded person", badajoz)
+      create_event(person: included_person, interest_group: @bank_interest_group, site: badajoz, starts_at: :far_past)
+      create_event(person: excluded_person, interest_group: @bank_interest_group, site: badajoz, starts_at: :future)
+
+      people = GobiertoPeople::QueryWithEvents.filter_people(
+        people_relation: GobiertoPeople::Person.all,
+        interest_group_id: @bank_interest_group.id,
+        from_date: FAR_PAST,
+        to_date: PAST + 2.days
+      )
+
+      assert array_match([included_person], people)
     end
 
   end

@@ -7,6 +7,7 @@ module GobiertoPlans
     include GobiertoCommon::Moderable
     include GobiertoCommon::HasVocabulary
     include GobiertoAdmin::HasPermissionsGroup
+    include GobiertoCommon::HasCustomFieldRecords
 
     belongs_to :author, class_name: "GobiertoAdmin::Admin", foreign_key: :admin_id
     has_and_belongs_to_many :categories, class_name: "GobiertoCommon::Term", association_foreign_key: :category_id, join_table: :gplan_categories_nodes

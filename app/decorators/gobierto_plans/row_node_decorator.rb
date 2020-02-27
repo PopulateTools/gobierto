@@ -115,12 +115,22 @@ module GobiertoPlans
                                     "Node.End" => :ends_at }
     end
 
-    def plan_options_keys
-      @plan_options_keys ||= @plan.nodes.map { |node| node.options&.keys }.uniq.flatten.compact.uniq
+    def plan_custom_fields_keys
+      @plan_custom_fields_keys ||= custom_fields.map(&:uid)
+    end
+
+    def custom_fields
+      @custom_fields ||= ::GobiertoCommon::CustomFieldRecordsForm.new(
+        item: Node.new,
+        instance: @plan,
+        site_id: @plan.site_id
+      ).available_custom_fields.where(
+        field_type: ::GobiertoCommon::CustomField.csv_importable_field_types
+      )
     end
 
     def plan_nodes_extra_columns
-      plan_options_keys.map do |key|
+      plan_custom_fields_keys.map do |key|
         "Node.#{ key }"
       end
     end
@@ -161,8 +171,8 @@ module GobiertoPlans
     end
 
     def node_extra_values
-      plan_options_keys.map do |key|
-        node.options && node.options[key]
+      custom_fields.map do |custom_field|
+        node.custom_field_records.find_by(custom_field: custom_field)&.value_string
       end
     end
 

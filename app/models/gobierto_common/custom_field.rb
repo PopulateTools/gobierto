@@ -47,6 +47,18 @@ module GobiertoCommon
       [:single_select, :multiple_select, :tags]
     end
 
+    def self.csv_importable_field_types
+      [:localized_string,
+       :string,
+       :localized_paragraph,
+       :paragraph,
+       :color,
+       :image,
+       :date,
+       :vocabulary_options,
+       :numeric]
+    end
+
     def self.field_types_with_multiple_setting
       %w(image)
     end

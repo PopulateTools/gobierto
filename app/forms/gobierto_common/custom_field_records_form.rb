@@ -34,20 +34,18 @@ module GobiertoCommon
     end
 
     def custom_field_records=(attributes)
-      @custom_field_records ||= begin
-                                  attributes.to_h.map do |attribute, value|
-                                    custom_field = site.custom_fields.find_by(uid: attribute)
+      @custom_field_records = attributes.to_h.map do |attribute, value|
+        custom_field = site.custom_fields.find_by(uid: attribute)
 
-                                    next unless custom_field.present?
+        next unless custom_field.present?
 
-                                    record = site.custom_field_records.find_or_initialize_by(
-                                      custom_field: custom_field,
-                                      item: item
-                                    )
-                                    record.value = single_value(value, record)
-                                    ::GobiertoCommon::CustomFieldRecordDecorator.new(record)
-                                  end.compact
-                                end
+        record = site.custom_field_records.find_or_initialize_by(
+          custom_field: custom_field,
+          item: item
+        )
+        record.value = single_value(value, record)
+        ::GobiertoCommon::CustomFieldRecordDecorator.new(record)
+      end.compact
     end
 
     def save

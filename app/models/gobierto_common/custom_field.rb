@@ -52,6 +52,8 @@ module GobiertoCommon
        :string,
        :localized_paragraph,
        :paragraph,
+       :single_option,
+       :multiple_options,
        :color,
        :image,
        :date,

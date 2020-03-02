@@ -77,6 +77,10 @@ module GobiertoCommon
       /paragraph/.match field_type
     end
 
+    def csv_importable?
+      self.class.csv_importable_field_types.include? field_type.to_sym
+    end
+
     def self.searchable_fields
       [:localized_string, :string, :localized_paragraph, :paragraph]
     end

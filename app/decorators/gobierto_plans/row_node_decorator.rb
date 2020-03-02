@@ -69,6 +69,23 @@ module GobiertoPlans
       @plan.statuses_vocabulary.present?
     end
 
+    def extra_attributes
+      node_data.except("Title", "Status", "Start", "End", "Progress")
+    end
+
+    def custom_field_records_values
+      extra_attributes.inject({}) do |values, (uid, plain_text_value)|
+        next(values) unless plan_custom_fields_keys.include?(uid)
+
+        value_decorator = ::GobiertoCommon::PlainCustomFieldValueDecorator.new(custom_fields.find_by(uid: uid))
+        value_decorator.allow_vocabulary_terms_creation = true
+        value_decorator.plain_text_value = plain_text_value
+        values.update(
+          uid => value_decorator.value
+        )
+      end
+    end
+
     protected
 
     def node_data
@@ -91,7 +108,6 @@ module GobiertoPlans
 
     def node_attributes
       attributes = node_mandatory_columns.invert.transform_values { |column| object[column] }
-      attributes[:options] = node_data.except("Title", "Status", "Start", "End", "Progress")
 
       attributes[:status_id] = @plan.statuses_vocabulary.terms.with_name(attributes[:status_name]&.strip).take&.id if status_term_required?
       @status_missing = status_term_required? ? attributes[:status_id].blank? : attributes[:status_name].present?

@@ -25,9 +25,6 @@ class SiteConfiguration
   MODULES_WITH_NOTIFICATONS = %w(GobiertoPeople GobiertoBudgetConsultations GobiertoParticipation).freeze
   MODULES_WITH_COLLECTIONS = %w(GobiertoParticipation GobiertoData).freeze
 
-  MODULES_WITH_NOTIFICATONS = ["GobiertoPeople", "GobiertoBudgetConsultations", "GobiertoParticipation"]
-  MODULES_WITH_COLLECTIONS = ["GobiertoParticipation", "GobiertoData"]
-
   attr_accessor *PROPERTIES
 
   alias :site_modules :modules

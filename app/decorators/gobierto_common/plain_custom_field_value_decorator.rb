@@ -76,6 +76,8 @@ module GobiertoCommon
 
     def splitted_plain_text_value
       (CSV.parse_line(plain_text_value.tr("\n", ",")) || []).compact.map(&:strip)
+    rescue CSV::MalformedCSVError
+      plain_text_value.tr("\n", ",").split(",").compact.map(&:strip)
     end
   end
 end

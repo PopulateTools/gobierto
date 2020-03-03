@@ -44,11 +44,11 @@ module GobiertoCommon::CustomFieldValue
     end
 
     def test_vocabulary_multiple_select_value_string
-      assert_equal "#{mammal_term.name}, #{dog_term.name}", multiple_select_record.value_string
+      assert_equal "#{mammal_term.name},#{dog_term.name}", multiple_select_record.value_string
     end
 
     def test_vocabulary_tags_value_string
-      assert_equal "#{mammal_term.name}, #{dog_term.name}", multiple_tags_select_record.value_string
+      assert_equal "#{mammal_term.name},#{dog_term.name}", multiple_tags_select_record.value_string
     end
 
     def test_vocabulary_single_select_filter_value

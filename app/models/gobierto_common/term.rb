@@ -16,7 +16,9 @@ module GobiertoCommon
     has_many :terms, dependent: :nullify
     belongs_to :parent_term, class_name: name, foreign_key: :term_id
 
-    validates :vocabulary, :name, :slug, :position, :level, presence: true
+    validates :vocabulary, :slug, :position, :level, presence: true
+    validates :name_translations, translated_attribute_presence: true
+
     validates :slug, uniqueness: { scope: :vocabulary_id }
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }

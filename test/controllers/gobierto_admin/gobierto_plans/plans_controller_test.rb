@@ -30,6 +30,21 @@ module GobiertoAdmin
         @project ||= gobierto_plans_nodes(:political_agendas)
       end
 
+      def project_custom_fields
+        @project_custom_fields ||= [:madrid_node_global,
+                                    :madrid_plans_custom_field_localized_description,
+                                    :madrid_plans_custom_field_color,
+                                    :madrid_plans_custom_field_image,
+                                    :madrid_plans_custom_field_vocabulary_single_select,
+                                    :madrid_plans_custom_field_vocabulary_multiple_select,
+                                    :madrid_plans_custom_field_vocabulary_tags,
+                                    :madrid_custom_field_budgets_plugin,
+                                    :madrid_custom_field_progress_plugin,
+                                    :madrid_custom_field_table_plugin,
+                                    :madrid_custom_field_human_resources_table_plugin,
+                                    :madrid_custom_field_indicators_table_plugin].map { |id| gobierto_common_custom_fields(id) }
+      end
+
       def test_export_csv
         with(site: site, admin: admin) do
           get admin_plans_plan_export_csv_url(plan)
@@ -40,6 +55,7 @@ module GobiertoAdmin
           parsed_response = CSV.parse(response.body, headers: true)
           assert_equal 2, parsed_response.length
           last_row = parsed_response[1]
+          last_row_headers = last_row.headers
 
           assert_equal project.categories.first.parent_term.parent_term.name, last_row["Level 0"]
           assert_equal project.categories.first.parent_term.name, last_row["Level 1"]
@@ -49,8 +65,15 @@ module GobiertoAdmin
           assert_equal project.progress, last_row["Node.Progress"].to_f
           assert_equal project.starts_at, Date.parse(last_row["Node.Start"])
           assert_equal project.ends_at, Date.parse(last_row["Node.End"])
-          assert_equal project.options["objetivos"], last_row["Node.objetivos"]
-          assert_equal project.options["temporality"], last_row["Node.temporality"]
+          project_custom_fields.each do |project_custom_field|
+            if project_custom_field.csv_importable?
+              assert_includes last_row_headers, "Node.#{project_custom_field.uid}"
+              custom_field_record = project.custom_field_record_with_uid(project_custom_field.uid)
+              assert_equal custom_field_record.value_string, last_row["Node.#{project_custom_field.uid}"]
+            else
+              refute_includes last_row_headers, "Node.#{project_custom_field.uid}"
+            end
+          end
         end
       end
 

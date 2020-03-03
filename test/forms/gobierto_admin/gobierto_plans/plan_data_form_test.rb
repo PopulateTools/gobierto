@@ -51,10 +51,17 @@ module GobiertoAdmin
         assert_equal 75.0, uploaded_node.progress
         assert_equal Date.parse("2016-06-04"), uploaded_node.starts_at
         assert_equal Date.parse("2018-12-31"), uploaded_node.ends_at
-        assert_equal "project", uploaded_node.options["Type"]
-        assert_equal "Wadus", uploaded_node.options["Goals"]
-        assert uploaded_node.options.has_key? "Custom Field 1"
-        assert_equal "Sample", uploaded_node.options["Custom Field 1"]
+
+        custom_fields_values = {
+          "description" => /This is a description to be saved in a custom field/,
+          "madrid-vocabulary-single-select" => /Bird/,
+          "madrid-vocabulary-multiple-select" => /Bird,Swift,Pigeon/,
+          "madrid-vocabulary-tags" => /Pigeon.*New tag, with comma/
+        }
+
+        custom_fields_values.each do |uid, value|
+          assert_match value, uploaded_node.custom_field_record_with_uid(uid).value_string
+        end
       end
     end
   end

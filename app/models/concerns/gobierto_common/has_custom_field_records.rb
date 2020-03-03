@@ -7,6 +7,10 @@ module GobiertoCommon
     included do
       if has_custom_fields_enabled?
         has_many :custom_field_records, as: :item, class_name: "GobiertoCommon::CustomFieldRecord", dependent: :destroy
+
+        def custom_field_record_with_uid(uid)
+          custom_field_records.joins(:custom_field).find_by(custom_fields: { uid: uid })
+        end
       end
     end
 

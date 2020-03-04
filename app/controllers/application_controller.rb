@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     :cache_key_preffix
   )
 
-  before_action :authenticate_user_in_site, :apply_engines_overrides
+  before_action :authenticate_user_in_site, :apply_engines_overrides, :allow_iframe_embed
 
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -34,6 +34,20 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def allow_iframe_embed
+    if params.has_key?(:embed)
+      response.headers.delete "X-Frame-Options"
+    end
+  end
+
+  def default_url_options
+    if params.has_key?(:embed)
+      { embed: true }
+    else
+      {}
+    end
+  end
 
   def authenticate_user_in_site
     if (Rails.env.production? || Rails.env.staging?) && @site && @site.password_protected?

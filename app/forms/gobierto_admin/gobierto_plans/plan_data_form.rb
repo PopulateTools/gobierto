@@ -90,7 +90,7 @@ module GobiertoAdmin
           raise CSVRowInvalid, row_decorator.to_csv unless REQUIRED_COLUMNS.all? { |column| row_decorator[column].present? } && node.save
           raise StatusMissing, row_decorator.to_csv if row_decorator.status_missing
 
-          custom_fields_form = GobiertoCommon::CustomFieldRecordsForm.new(
+          custom_fields_form = ::GobiertoCommon::CustomFieldRecordsForm.new(
             site_id: @plan.site.id,
             item: node,
             instance: @plan,

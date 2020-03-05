@@ -949,6 +949,7 @@ ActiveRecord::Schema.define(version: 2020_03_09_152257) do
     t.bigint "status_id"
     t.integer "published_version"
     t.integer "position"
+    t.string "external_id"
     t.index ["admin_id"], name: "index_gplan_nodes_on_admin_id"
     t.index ["name_translations"], name: "index_gplan_nodes_on_name_translations", using: :gin
     t.index ["position"], name: "index_gplan_nodes_on_position"

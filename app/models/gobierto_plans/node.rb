@@ -8,11 +8,12 @@ module GobiertoPlans
     include GobiertoCommon::HasVocabulary
     include GobiertoAdmin::HasPermissionsGroup
     include GobiertoCommon::HasCustomFieldRecords
+    include GobiertoCommon::HasExternalId
 
     belongs_to :author, class_name: "GobiertoAdmin::Admin", foreign_key: :admin_id
     has_and_belongs_to_many :categories, class_name: "GobiertoCommon::Term", association_foreign_key: :category_id, join_table: :gplan_categories_nodes
 
-    has_paper_trail skip: [:visibility_level, :published_version]
+    has_paper_trail skip: [:visibility_level, :published_version, :external_id]
     has_vocabulary :statuses
     belongs_to :status, class_name: "GobiertoCommon::Term"
 

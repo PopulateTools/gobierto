@@ -96,7 +96,7 @@ module GobiertoAdmin
             site_id: @plan.site.id,
             item: node,
             instance: @plan,
-            with_version: false
+            with_version: true
           )
 
           custom_fields_form.custom_field_records = row_decorator.custom_field_records_values

@@ -164,7 +164,7 @@ module GobiertoPlans
     end
 
     def plan_categories_range
-      @plan.categories.minimum(:level)..@plan.categories.maximum(:level)
+      @plan.categories.present? ? @plan.categories.minimum(:level)..@plan.categories.maximum(:level) : 0..2
     end
 
     def categories_hierarchy(category)

@@ -1,42 +1,34 @@
 <template>
   <div class="gobierto-data-visualization">
-    <perspective-viewer />
+    <perspective-viewer ref="perspective-viewer" />
   </div>
 </template>
 <script>
 import perspective from "@finos/perspective";
-import viewer from "@finos/perspective-viewer";
+import "@finos/perspective-viewer";
 import "@finos/perspective-viewer-hypergrid";
 import "@finos/perspective-viewer-d3fc";
 import "@finos/perspective-viewer/themes/all-themes.css";
 
 export default {
-  name: 'SQLEditorVisualizations',
+  name: "SQLEditorVisualizations",
   props: {
     items: {
       type: Array,
       default: () => []
     }
   },
-  data() {
-    return {
-      dataPerspective: [],
-      initColumns: [],
-      newColumns: []
-    }
+  created() {
+    this.$root.$on("sendDataViz", this.updateValues);
+    this.$root.$on("exportPerspectiveConfig", this.exportPerspectiveConfig);
   },
-  watch:{
-    items: function(newValue){
-      this.dataPerspective = JSON.parse(newValue);
-    }
+  mounted() {
+    this.viewer = this.$refs["perspective-viewer"];
+    this.initPerspective(this.items);
   },
-  created(){
-    this.$root.$on('sendDataViz', this.updateValues)
-    this.$nextTick(() => {
-      this.viewer = document.getElementsByTagName("perspective-viewer")[0];
-      this.dataPerspective = this.items
-      this.initPerspective(this.dataPerspective)
-    })
+  beforeDestroy() {
+    this.$root.$off("sendDataViz", this.updateValues);
+    this.$root.$off("exportPerspectiveConfig", this.exportPerspectiveConfig);
   },
   methods: {
     updateValues(values) {
@@ -50,20 +42,26 @@ export default {
         this.updatePerspectiveColumns(values)
       }
     },
-    initPerspective(data){
-      this.initColumns = Object.keys(data[0])
-      var table = perspective.worker().table(data);
+    initPerspective(data) {
+      const table = perspective.worker().table(data);
+
+      this.initColumns = Object.keys(data[0]);
       this.viewer.load(table);
     },
     updatePerspectiveData(values) {
-      this.viewer.clear()
+      this.viewer.clear();
       this.viewer.load(values);
     },
     updatePerspectiveColumns(values) {
-      var table = perspective.worker().table(values);
+      const table = perspective.worker().table(values);
+
       this.viewer.load(table);
-      this.initColumns = this.newColumns
+      this.initColumns = this.newColumns;
+    },
+    exportPerspectiveConfig() {
+      const config = this.viewer.save()
+      this.$root.$emit("saveVisualization", config);
     }
   }
-}
+};
 </script>

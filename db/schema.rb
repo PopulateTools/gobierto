@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_29_160520) do
+ActiveRecord::Schema.define(version: 2020_02_14_113010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -374,9 +374,9 @@ ActiveRecord::Schema.define(version: 2020_01_29_160520) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
+    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
@@ -990,7 +990,7 @@ ActiveRecord::Schema.define(version: 2020_01_29_160520) do
     t.string "organization_name"
     t.string "organization_url"
     t.string "organization_type"
-    t.string "organization_email"
+    t.string "reply_to_email"
     t.string "organization_address"
     t.string "organization_document_number"
     t.datetime "created_at", null: false

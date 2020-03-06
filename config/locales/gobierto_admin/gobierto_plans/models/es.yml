@@ -29,6 +29,9 @@ es:
         gobierto_admin/gobierto_plans/plan_data_form:
           attributes:
             base:
+              external_id_taken: 'El campo external_id ya está en uso, bien porque
+                otra fila tiene el mismo external_id o porque estaba vacía y automáticamente
+                se asignó el mismo valor. Contenido de la fila: %{row_data}'
               file_not_found: Fichero no encontrado
               invalid_columns: No están todas las columnas necesarias
               invalid_format: Formato de fichero inválido

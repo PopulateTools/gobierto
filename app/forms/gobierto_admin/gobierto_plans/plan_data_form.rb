@@ -5,6 +5,7 @@ module GobiertoAdmin
     class PlanDataForm < BaseForm
       class CSVRowInvalid < ArgumentError; end
       class StatusMissing < ArgumentError; end
+      class ExternalIdTaken < ArgumentError; end
 
       REQUIRED_COLUMNS = %w(Node.Title).freeze
 
@@ -48,8 +49,8 @@ module GobiertoAdmin
       rescue CSVRowInvalid => e
         errors.add(:base, :invalid_row, row_data: e.message)
         false
-      rescue StatusMissing => e
-        errors.add(:base, :status_missing, row_data: e.message)
+      rescue StatusMissing, ExternalIdTaken => e
+        errors.add(:base, e.class.name.demodulize.underscore.to_sym, row_data: e.message)
         false
       rescue ActiveRecord::RecordNotDestroyed
         errors.add(:base, :used_resource)
@@ -87,6 +88,7 @@ module GobiertoAdmin
           end
           next unless (node = row_decorator.node).present?
 
+          raise ExternalIdTaken, row_decorator.to_csv if row_decorator.external_id_taken?
           raise CSVRowInvalid, row_decorator.to_csv unless REQUIRED_COLUMNS.all? { |column| row_decorator[column].present? } && node.save
           raise StatusMissing, row_decorator.to_csv if row_decorator.status_missing
 

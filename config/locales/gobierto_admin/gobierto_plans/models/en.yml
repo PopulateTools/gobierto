@@ -29,6 +29,9 @@ en:
         gobierto_admin/gobierto_plans/plan_data_form:
           attributes:
             base:
+              external_id_taken: 'The external_id field is already in use, either
+                because another row has the same external_id or because it was empty
+                and this value was automatically assigned. Row content: %{row_data}'
               file_not_found: File not found
               invalid_columns: Required columns are missing
               invalid_format: Invalid file format

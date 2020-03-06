@@ -51,6 +51,7 @@ module GobiertoAdmin
         assert_equal 75.0, uploaded_node.progress
         assert_equal Date.parse("2016-06-04"), uploaded_node.starts_at
         assert_equal Date.parse("2018-12-31"), uploaded_node.ends_at
+        assert_equal "ext_16", uploaded_node.external_id
 
         custom_fields_values = {
           "description" => /This is a description to be saved in a custom field/,

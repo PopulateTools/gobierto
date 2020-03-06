@@ -175,7 +175,7 @@ export default {
             },
             privacy_status: "open",
             spec: config,
-            query_id: 1,
+            query_id: "79",
             user_id: this.userId
           }
         }

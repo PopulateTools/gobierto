@@ -25,5 +25,18 @@ module GobiertoCommon
         base_id.to_s
       end
     end
+
+    def scoped_new_external_id(relation = nil)
+      relation ||= self.class.all
+
+      base_id = (relation.where.not(external_id: nil).count + 1).to_s
+      return base_id unless relation.where(external_id: base_id).exists?
+
+      max_numeric_external_id = relation.where("external_id ~* ?", "^\\d+$").pluck(:external_id).map(&:to_i).max
+
+      return (max_numeric_external_id + 1).to_s unless max_numeric_external_id.blank? || relation.where(external_id: max_numeric_external_id + 1).exists?
+
+      new_external_id
+    end
   end
 end

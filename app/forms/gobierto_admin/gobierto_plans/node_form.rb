@@ -158,7 +158,7 @@ module GobiertoAdmin
       end
 
       def external_id
-        @external_id ||= node.external_id || node.new_external_id
+        @external_id ||= node.external_id || node.scoped_new_external_id(plan.nodes)
       end
 
       private

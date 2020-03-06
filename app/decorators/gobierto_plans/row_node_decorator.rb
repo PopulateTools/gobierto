@@ -61,8 +61,13 @@ module GobiertoPlans
                     node.published_version = 1
                     node.build_moderation(stage: :approved)
                     node.categories << category unless node.categories.include?(category)
+                    node.external_id = node.scoped_new_external_id(@plan.nodes) if node.external_id.blank?
                   end
                 end
+    end
+
+    def external_id_taken?
+      @plan.nodes.where.not(id: node.id).where(external_id: node.external_id).exists?
     end
 
     def status_term_required?
@@ -124,7 +129,8 @@ module GobiertoPlans
     end
 
     def node_mandatory_columns
-      @node_mandatory_columns ||= { "Node.Title" => :"name_#{ locale }",
+      @node_mandatory_columns ||= { "Node.external_id" => :external_id,
+                                    "Node.Title" => :"name_#{ locale }",
                                     "Node.Status" => :status_name,
                                     "Node.Progress" => :progress,
                                     "Node.Start" => :starts_at,

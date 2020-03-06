@@ -95,7 +95,7 @@ module GobiertoPlans
       assert_equal Date.parse(csv_input.by_row[0]["Node.Start"]), first_node.starts_at
       assert_equal Date.parse(csv_input.by_row[0]["Node.End"]), first_node.ends_at
 
-      extra_headers = csv_headers - ["Level 1", "Level 2", "Level 3", "Node.Title", "Node.Status", "Node.Progress", "Node.Start", "Node.End"]
+      extra_headers = csv_headers - ["Level 1", "Level 2", "Level 3", "Node.Title", "Node.Status", "Node.Progress", "Node.Start", "Node.End", "Node.external_id"]
 
       extra_headers.each do |extra_header|
         uid = extra_header.gsub(/\ANode\./, "")

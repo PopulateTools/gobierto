@@ -25,19 +25,6 @@ function parseURL(url) {
   }
 }
 
-function iFrame() {
-  let node = document.getElementById("gobierto-embed");
-  if (node === null) { throw "Iframe gobierto-embed not found!"; }
-  return node;
-}
-
-function removeSubstring(original, substr) {
-  let originalPathName = parseURL(original).pathname;
-  let pathName = parseURL(substr).pathname;
-  let newPath = originalPathName.replace(pathName, "");
-  return (newPath === "" ? "/" : newPath);
-}
-
 function postMessageHandler(event) {
   // Uncomment to debug
   // console.log("We've got a message!");
@@ -45,12 +32,18 @@ function postMessageHandler(event) {
   // console.log("* Origin:", event.origin);
   // console.log("* Source:", event.source);
 
-  // set document title
+  // Set document title
   window.document.title = event.data.title;
 
-  // calculate new path based on the iframe src and the url provided in the message
-  let newPath = removeSubstring(event.data.href + event.data.hash, iFrame().src);
+  // Calculate new path based on the iframe src and the url provided in the message
+  let newPath = containerPathName + event.data.href + event.data.hash;
   history.replaceState(event.data, event.data.title, newPath)
+}
+
+// The pathname of the page containing the iframe
+let containerPathName = window.location.pathname
+if (containerPathName[containerPathName.length - 1] === "/") {
+  containerPathName = containerPathName.slice(0, -1);
 }
 
 window.addEventListener("message", postMessageHandler, false);
@@ -68,3 +61,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
   gobiertoEmbed.appendChild(iframe)
 });
+

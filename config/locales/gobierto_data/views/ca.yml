@@ -43,6 +43,7 @@ ca:
       summary: Resum
       table: Taula
       updated: Actualizat
+      visEmpty: Cap visualització disponible
       visName: Nom visualització
       visualization: Visualització
       visualizations: Visualitzacions

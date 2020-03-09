@@ -20,6 +20,7 @@
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
         :number-rows="numberRows"
+        :current-query="currentQuery"
         @active-tab="activeTabIndex = $event"
       />
     </div>
@@ -84,7 +85,8 @@ export default {
       orderRecentQueries: [],
       totalRecentQueries: [],
       newRecentQuery: null,
-      localTableName : ''
+      localTableName : '',
+      currentQuery: ''
     }
   },
   created(){
@@ -150,14 +152,16 @@ export default {
     getData() {
       this.endPoint = `${baseUrl}/data`
 
+      let query = ''
       if (this.queryEditor.includes('LIMIT')) {
-        this.queryEditor = this.queryEditor
+        query = this.queryEditor
       } else {
         this.$root.$emit('sendCompleteQuery', this.queryEditor)
-        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
-        this.queryEditor = this.code
+        query = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
       }
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
+
+      this.currentQuery = this.queryEditor
+      this.url = `${this.endPoint}?sql=${query}`
 
       axios
         .get(this.url)
@@ -178,6 +182,7 @@ export default {
     },
     saveNewRecentQuery(query) {
       this.newRecentQuery = query
+      this.currentQuery = query
       this.addRecentQuery()
     }
   }

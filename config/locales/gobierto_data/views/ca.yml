@@ -43,6 +43,7 @@ ca:
       summary: Resum
       table: Taula
       updated: Actualizat
+      visName: Nom visualització
       visualization: Visualització
       visualizations: Visualitzacions
       yourQueries: Les teves consultes

@@ -58,9 +58,9 @@ export default {
       this.viewer.load(table);
       this.initColumns = this.newColumns;
     },
-    exportPerspectiveConfig() {
+    exportPerspectiveConfig(opts) {
       const config = this.viewer.save()
-      this.$root.$emit("saveVisualization", config);
+      this.$root.$emit("saveVisualization", config, opts);
     }
   }
 };

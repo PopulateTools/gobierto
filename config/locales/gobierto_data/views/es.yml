@@ -43,6 +43,7 @@ es:
       summary: Resumen
       table: Tabla
       updated: Actualizado
+      visName: Nombre visualización
       visualization: Visualización
       visualizations: Visualizaciones
       yourQueries: Tus consultas

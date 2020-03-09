@@ -97,10 +97,10 @@ module GobiertoData
     end
 
     def test_invalid_missing_attributes
-      form = subject.new(valid_attributes.except(:site_id, :query_id, :user_id, :spec, :name, :name_translations))
+      form = subject.new(valid_attributes.except(:site_id, :user_id, :spec, :name, :name_translations))
 
       refute form.valid?
-      %w(site query user spec name_translations).each do |attribute|
+      %w(site user spec name_translations).each do |attribute|
         assert form.errors[attribute].include? "can't be blank"
       end
     end

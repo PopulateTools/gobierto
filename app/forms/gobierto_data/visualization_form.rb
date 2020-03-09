@@ -19,7 +19,7 @@ module GobiertoData
       :spec
     )
 
-    validates :query, :site, :user, :spec, presence: true
+    validates :site, :user, :spec, presence: true
     validates :name_translations, translated_attribute_presence: true
     validate :spec_validation
 
@@ -73,7 +73,7 @@ module GobiertoData
 
     def save_visualization
       @visualization = visualization.tap do |attributes|
-        attributes.query_id = query.id
+        attributes.query_id = query&.id
         attributes.sql = sql
         attributes.user_id = user.id
         attributes.name_translations = name_translations

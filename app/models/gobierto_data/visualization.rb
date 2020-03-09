@@ -17,5 +17,11 @@ module GobiertoData
 
     validates :query, :user, :name, presence: true
     delegate :site, :dataset, :visibility_level, to: :query
+
+    def result(include_draft: false)
+      return unless sql.present?
+
+      Connection.execute_query(site, sql, include_draft: include_draft)
+    end
   end
 end

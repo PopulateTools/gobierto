@@ -64,9 +64,6 @@ export default {
     exportPerspectiveConfig(opts) {
       const config = this.viewer.save()
       this.$root.$emit("saveVisualization", config, opts);
-    },
-    restorePerspectiveConfig(config) {
-      this.viewer.restore(config)
     }
   }
 };

@@ -165,8 +165,8 @@ export default {
       };
 
       this.postVisualization(data)
-        .then(response => {
-          // TODO:
+        .then(() => {
+          // TODO: send a message about OK response
         })
         .catch(error => {
           const messageError = error.response;

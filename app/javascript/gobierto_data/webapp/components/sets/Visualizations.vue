@@ -1,18 +1,22 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <template v-if="visualizations.length">
-      <template v-for="{ data, links, config } in visualizations">
-        <SQLEditorVisualizations
-          :key="links.self"
-          :items="data"
-          :config="config"
-        />
+    <div class="gobierto-data-visualization--grid">
+      <template v-if="visualizations.length">
+        <template v-for="{ data, links, config, name } in visualizations">
+          <div :key="links.self">
+            <h4>{{ name }}</h4>
+            <SQLEditorVisualizations
+              :items="data"
+              :config="config"
+            />
+          </div>
+        </template>
       </template>
-    </template>
 
-    <template v-else>
-      {{ labelVisEmpty }}
-    </template>
+      <template v-else>
+        {{ labelVisEmpty }}
+      </template>
+    </div>
   </div>
 </template>
 
@@ -43,13 +47,13 @@ export default {
     if (data.length) {
       for (let index = 0; index < data.length; index++) {
         const { attributes } = data[index];
-        const { query_id: id, spec } = attributes;
+        const { query_id: id, spec, name } = attributes;
 
         // Get my queries, if they're stored
         const { data: queryData } = await this.getQuery(id)
 
         // Append the visualization configuration
-        const visualization = { ...queryData, config: spec }
+        const visualization = { ...queryData, config: spec, name }
 
         this.visualizations.push(visualization);
       }

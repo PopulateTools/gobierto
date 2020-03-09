@@ -48,12 +48,12 @@ module GobiertoPeople
         redirect_to gobierto_people_person_events_path(@person.slug) and return
       end
 
-      @upcoming_events = @person.attending_events.upcoming.sorted.first(3)
+      @upcoming_events = @person.owned_attending_events.upcoming.sorted.first(3)
       @latest_activity = ActivityCollectionDecorator.new(Activity.for_recipient(@person).limit(30).sorted.page(params[:page]))
 
       # custom engine
       @last_events = QueryWithEvents.new(
-        source: @person.attending_events
+        source: @person.owned_attending_events
                        .published
                        .with_interest_group
                        .sorted_backwards

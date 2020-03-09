@@ -601,6 +601,7 @@
     font-size: 14px;
     color: #666;
     padding: 0 .25rem;
+    cursor: pointer;
   }
 
   &-sql-editor-modified-label {
@@ -634,10 +635,6 @@
 
   &-sql-editor-tabs {
     margin-top: 2rem;
-
-    .gobierto-data-container-btn-download-data {
-      width: 100%;
-    }
 
     .gobierto-data-btn-download-data-modal {
       margin-top: 1rem;

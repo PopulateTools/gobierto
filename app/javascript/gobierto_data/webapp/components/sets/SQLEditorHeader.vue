@@ -77,8 +77,8 @@
       >
         <input
           ref="inputText"
-          :class="disableInputName ? 'disable-input-text' : ' '"
           v-model="labelQueryName"
+          :class="disableInputName ? 'disable-input-text' : ' '"
           type="text"
           class="gobierto-data-sql-editor-container-save-text"
           @keyup="onSave($event.target.value)"
@@ -274,7 +274,6 @@ export default {
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
     this.$root.$on('disableEdit', this.hideEdit)
 
-
     this.token = getToken()
     this.userId = getUserId()
 
@@ -414,21 +413,21 @@ export default {
       this.showSpinner = true;
       this.queryEditor = encodeURI(this.codeQuery)
 
+      let query = ''
       if (this.queryEditor.includes('LIMIT')) {
-        this.queryEditor = this.queryEditor
+        query = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {
         this.$root.$emit('ShowButtonColumns')
         this.$root.$emit('sendCompleteQuery', this.queryEditor)
-        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
-        this.queryEditor = this.code
+        query = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
       }
 
       this.$root.$emit('postRecentQuery', this.codeQuery)
       this.$root.$emit('showMessages', false, true)
 
       this.endPoint = `${baseUrl}/data`
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
+      this.url = `${this.endPoint}?sql=${query}`
 
       axios
         .get(this.url)
@@ -476,6 +475,7 @@ export default {
     postQuery() {
       this.endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
+
       if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
         this.endPoint = `${baseUrl}/queries/${this.queryId}`
         let dataUpdate = {

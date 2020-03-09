@@ -26,60 +26,20 @@
         </nav>
       </div>
 
-      <div class="pure-u-1 pure-u-lg-2-3">
-        <div class="pure-g">
-          <div class="pure-u-1 pure-u-lg-3-4">
-            <div class="gobierto-data-sql-editor-container-save">
-              <input
-                ref="inputText"
-                v-model="labelQueryName"
-                type="text"
-                class="gobierto-data-sql-editor-container-save-text"
-                @keyup="onSave($event.target.value)"
-              >
-              <label
-                :for="labelPrivate"
-                class="gobierto-data-sql-editor-container-save-label"
-              >
-                <input
-                  :id="labelPrivate"
-                  :checked="privateQuery"
-                  type="checkbox"
-                  class="gobierto-data-sql-editor-container-save-checkbox"
-                  @input="privateQueryValue($event.target.checked)"
-                >
-                {{ labelPrivate }}
-              </label>
-              <i
-                :class="privateQuery ? 'fa-lock' : 'fa-lock-open'"
-                :style="privateQuery ? 'color: #D0021B;' : 'color: #A0C51D;'"
-                class="fas"
-              />
-
-              <SaveChartButton />
-
-              <Button
-                :text="labelCancel"
-                class="btn-sql-editor btn-sql-editor-cancel"
-                icon="undefined"
-                color="var(--color-base)"
-                background="#fff"
-                @click.native="cancelQuery()"
-              />
-            </div>
-          </div>
-
-          <div class="pure-u-1 pure-u-lg-1-4">
-            <keep-alive>
-              <DownloadButton
-                :editor="true"
-                :array-formats="arrayFormats"
-                :class="[directionLeft ? 'modal-left' : 'modal-right']"
-                class="arrow-top"
-              />
-            </keep-alive>
-          </div>
-        </div>
+      <div
+        class="pure-u-1 pure-u-lg-2-3"
+        style="text-align: right"
+      >
+        <SaveChartButton />
+        <keep-alive>
+          <DownloadButton
+            :editor="true"
+            :array-formats="arrayFormats"
+            :class="[directionLeft ? 'modal-left' : 'modal-right']"
+            style="display: inline-block"
+            class="arrow-top"
+          />
+        </keep-alive>
       </div>
     </div>
     <SQLEditorTable
@@ -113,6 +73,10 @@ export default {
       type: Number,
       default: 0
     },
+    arrayQueries: {
+      type: Array,
+      required: true
+    },
     arrayFormats: {
       type: Object,
       required: true
@@ -128,15 +92,16 @@ export default {
     tableName: {
       type: String,
       required: true
+    },
+    currentQuery: {
+      type: String,
+      default: ""
     }
   },
   data() {
     return {
       labelTable: "",
       labelVisualization: "",
-      labelPrivate: "",
-      labelCancel: "",
-      labelQueryName: "",
       directionLeft: false,
       privateQuery: false
     };
@@ -144,9 +109,6 @@ export default {
   created() {
     this.labelTable = I18n.t("gobierto_data.projects.table");
     this.labelVisualization = I18n.t("gobierto_data.projects.visualization");
-    this.labelPrivate = I18n.t('gobierto_data.projects.private');
-    this.labelCancel = I18n.t('gobierto_data.projects.cancel');
-    this.labelQueryName = I18n.t('gobierto_data.projects.queryName');
 
     this.token = getToken();
     this.userId = getUserId();
@@ -161,23 +123,43 @@ export default {
     activateTab(index) {
       this.$emit("active-tab", index);
     },
-    saveVisualization(config) {
+    saveVisualization(config, opts) {
       if (this.noLogin) this.goToLogin();
 
       const endPoint = `${baseUrl}/visualizations`;
+      const { name, privacy } = opts;
+
+      // default attributes
+      let attributes = {
+        name_translations: {
+          en: name,
+          es: name
+        },
+        privacy_status: privacy ? "closed" : "open",
+        spec: config,
+        user_id: this.userId
+      };
+
+      // Get the id if the query matches with a stored query
+      const { id } =
+        this.arrayQueries.find(
+          ({ attributes }) =>
+            attributes.sql === decodeURIComponent(this.currentQuery).trim()
+        ) || {};
+
+      // Depending whether the query was stored in database or not,
+      // we must save the query_id or the query, instead
+      if (id) {
+        attributes = { ...attributes, query_id: id }
+      } else {
+        attributes = { ...attributes, query: this.currentQuery }
+      }
+
+      // POST data obj
       const data = {
         data: {
           type: "gobierto_data-visualizations",
-          attributes: {
-            name_translations: {
-              en: "New visualization",
-              es: "Nueva visualizacion"
-            },
-            privacy_status: "open",
-            spec: config,
-            query_id: "79",
-            user_id: this.userId
-          }
+          attributes
         }
       };
 

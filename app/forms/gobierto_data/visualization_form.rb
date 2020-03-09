@@ -3,6 +3,7 @@
 module GobiertoData
   class VisualizationForm < BaseForm
     include ::GobiertoCore::TranslationsHelpers
+    include HasSqlAttribute
 
     attr_accessor(
       :id,
@@ -73,6 +74,7 @@ module GobiertoData
     def save_visualization
       @visualization = visualization.tap do |attributes|
         attributes.query_id = query.id
+        attributes.sql = sql
         attributes.user_id = user.id
         attributes.name_translations = name_translations
         attributes.privacy_status = privacy_status

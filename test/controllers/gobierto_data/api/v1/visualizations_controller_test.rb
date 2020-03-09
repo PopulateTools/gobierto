@@ -87,6 +87,7 @@ module GobiertoData
             name_translations: visualization.name_translations,
             privacy_status: visualization.privacy_status,
             spec: visualization.spec,
+            sql: visualization.sql,
             query_id: visualization.query_id,
             user_id: visualization.user_id
           }.with_indifferent_access
@@ -99,6 +100,7 @@ module GobiertoData
             attributes[:name],
             attributes[:privacy_status],
             attributes[:spec].to_s,
+            attributes[:sql],
             attributes[:query_id].to_s,
             attributes[:user_id].to_s
           ]
@@ -116,6 +118,7 @@ module GobiertoData
                   es: "Nueva visualización"
                 },
                 privacy_status: "open",
+                sql: "select count(*) from users where bio is not null",
                 spec: {
                   "x" => 1,
                   "y" => 2,
@@ -169,7 +172,8 @@ module GobiertoData
 
             refute_equal active_visualizations_count + 1, parsed_csv.count
             assert_equal open_active_visualizations_count + 1, parsed_csv.count
-            assert_equal %w(id name privacy_status spec query_id user_id), parsed_csv.first
+            assert_equal %w(id name privacy_status spec sql query_id user_id), parsed_csv.first
+
             assert_includes parsed_csv, array_data(open_visualization)
             refute_includes parsed_csv, array_data(closed_visualization)
           end
@@ -203,12 +207,12 @@ module GobiertoData
             assert_equal 1, parsed_xlsx.worksheets.count
             sheet = parsed_xlsx.worksheets.first
             assert_nil sheet[open_active_visualizations_count + 1]
-            assert_equal %w(id name privacy_status spec query_id user_id), sheet[0].cells.map(&:value)
+            assert_equal %w(id name privacy_status spec sql query_id user_id), sheet[0].cells.map(&:value)
             values = (1..open_active_visualizations_count).map do |row_number|
               sheet[row_number].cells.map { |cell| cell.value.to_s }
             end
-            assert_includes values, array_data(open_visualization)
-            refute_includes values, array_data(closed_visualization)
+            assert_includes values, array_data(open_visualization).map(&:to_s)
+            refute_includes values, array_data(closed_visualization).map(&:to_s)
           end
         end
 
@@ -402,7 +406,7 @@ module GobiertoData
 
               # attributes
               attributes = attributes_data(new_visualization)
-              %w(name_translations privacy_status spec query_id).each do |attribute|
+              %w(name_translations privacy_status spec sql query_id).each do |attribute|
                 assert resource_data["attributes"].has_key? attribute
                 assert_equal attributes[attribute], resource_data["attributes"][attribute]
               end
@@ -476,7 +480,7 @@ module GobiertoData
 
               # attributes
               attributes = valid_params[:data][:attributes].with_indifferent_access
-              %w(name_translations privacy_status spec query_id).each do |attribute|
+              %w(name_translations privacy_status spec sql query_id).each do |attribute|
                 assert resource_data["attributes"].has_key? attribute
                 assert_equal attributes[attribute], resource_data["attributes"][attribute]
               end

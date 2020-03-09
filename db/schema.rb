@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_14_113010) do
+ActiveRecord::Schema.define(version: 2020_03_09_131827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -566,6 +566,7 @@ ActiveRecord::Schema.define(version: 2020_02_14_113010) do
     t.jsonb "spec"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "sql"
     t.index ["query_id"], name: "index_gdata_visualizations_on_query_id"
     t.index ["user_id"], name: "index_gdata_visualizations_on_user_id"
   end

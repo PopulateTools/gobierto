@@ -1,7 +1,5 @@
 <template>
-  <div class="gobierto-data-visualization">
-    <perspective-viewer ref="perspective-viewer" />
-  </div>
+  <perspective-viewer ref="perspective-viewer" />
 </template>
 <script>
 import perspective from "@finos/perspective";
@@ -16,6 +14,10 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    config: {
+      type: Object,
+      default: () => {}
     }
   },
   created() {
@@ -47,6 +49,7 @@ export default {
 
       this.initColumns = Object.keys(data[0]);
       this.viewer.load(table);
+      this.viewer.restore(this.config);
     },
     updatePerspectiveData(values) {
       this.viewer.clear();
@@ -61,6 +64,9 @@ export default {
     exportPerspectiveConfig(opts) {
       const config = this.viewer.save()
       this.$root.$emit("saveVisualization", config, opts);
+    },
+    restorePerspectiveConfig(config) {
+      this.viewer.restore(config)
     }
   }
 };

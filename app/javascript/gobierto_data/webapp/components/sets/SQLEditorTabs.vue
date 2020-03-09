@@ -48,7 +48,10 @@
       :number-rows="numberRows"
       :table-name="tableName"
     />
-    <SQLEditorVisualizations :items="items" />
+
+    <div class="gobierto-data-visualization">
+      <SQLEditorVisualizations :items="items" />
+    </div>
   </div>
 </template>
 <script>
@@ -56,9 +59,8 @@ import SQLEditorTable from "./SQLEditorTable.vue";
 import SQLEditorVisualizations from "./SQLEditorVisualizations.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
 import SaveChartButton from "./../commons/SaveChartButton.vue";
-import { getToken, getUserId } from "./../../../lib/helpers";
-import { baseUrl } from "./../../../lib/commons.js";
-import axios from "axios";
+import { getUserId } from "./../../../lib/helpers";
+import { VisualizationFactoryMixin } from "./../../../lib/visualizations";
 
 export default {
   name: "SQLEditorTabs",
@@ -68,6 +70,7 @@ export default {
     DownloadButton,
     SaveChartButton
   },
+  mixins: [VisualizationFactoryMixin],
   props: {
     activeTab: {
       type: Number,
@@ -110,7 +113,6 @@ export default {
     this.labelTable = I18n.t("gobierto_data.projects.table");
     this.labelVisualization = I18n.t("gobierto_data.projects.visualization");
 
-    this.token = getToken();
     this.userId = getUserId();
     this.noLogin = this.userId === "" ? true : false;
 
@@ -126,7 +128,6 @@ export default {
     saveVisualization(config, opts) {
       if (this.noLogin) this.goToLogin();
 
-      const endPoint = `${baseUrl}/visualizations`;
       const { name, privacy } = opts;
 
       // default attributes
@@ -150,9 +151,9 @@ export default {
       // Depending whether the query was stored in database or not,
       // we must save the query_id or the query, instead
       if (id) {
-        attributes = { ...attributes, query_id: id }
+        attributes = { ...attributes, query_id: id };
       } else {
-        attributes = { ...attributes, query: this.currentQuery }
+        attributes = { ...attributes, query: this.currentQuery };
       }
 
       // POST data obj
@@ -163,17 +164,9 @@ export default {
         }
       };
 
-      axios
-        .post(endPoint, data, {
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `${this.token}`
-          }
-        })
+      this.postVisualization(data)
         .then(response => {
-          console.log(response);
-
-          // this.$root.$emit('reloadQueries')
+          // TODO:
         })
         .catch(error => {
           const messageError = error.response;

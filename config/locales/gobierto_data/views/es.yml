@@ -43,6 +43,7 @@ es:
       summary: Resumen
       table: Tabla
       updated: Actualizado
+      visEmpty: No hay visualizaciones disponibles
       visName: Nombre visualización
       visualization: Visualización
       visualizations: Visualizaciones

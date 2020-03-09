@@ -940,6 +940,10 @@
     letter-spacing: 0;
   }
 
+  &-visualization--grid {
+    @include grid(1rem, 2)
+  }
+
   perspective-viewer {
     overflow: hidden;
     width: 100%;

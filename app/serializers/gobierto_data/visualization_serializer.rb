@@ -7,7 +7,7 @@ module GobiertoData
     attributes :id
     attribute :name, unless: :with_translations?
     attribute :name_translations, if: :with_translations?
-    attributes :privacy_status, :spec, :query_id, :user_id
+    attributes :privacy_status, :spec, :sql, :query_id, :user_id
     belongs_to :query, unless: :exclude_relationships?
     belongs_to :user, unless: :exclude_relationships?
 

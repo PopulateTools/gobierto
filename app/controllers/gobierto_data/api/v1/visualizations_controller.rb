@@ -122,7 +122,7 @@ module GobiertoData
         end
 
         def visualization_params
-          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:query_id, :name_translations, :name, :privacy_status, :spec])
+          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:query_id, :name_translations, :name, :privacy_status, :spec, :sql])
         end
 
         def filter_params

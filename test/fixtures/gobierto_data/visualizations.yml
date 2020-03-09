@@ -47,6 +47,27 @@ events_count_open_visualization:
   privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
   spec: "{}"
 
+visualization_with_sql_and_blank_query:
+  user: dennis
+  name_translations: <%= { en: "Users by gender", es: "Usuarios por género"}.to_json %>
+  privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
+  sql: "select gender, count(id) from users group by gender"
+  spec: <%= {
+    "$schema" => "https://vega.github.io/schema/vega/v5.json",
+    "description" => "A specification outline example.",
+    "width" => 500,
+    "height" => 200,
+    "padding" => 5,
+    "autosize" => "pad",
+    "signals" => [],
+    "data" => [],
+    "scales" => [],
+    "projections" => [],
+    "axes" => [],
+    "legends" => [],
+    "marks" => []
+  }.to_json %>
+
 events_count_closed_visualization:
   query: events_count_query
   user: dennis

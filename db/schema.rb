@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_14_113010) do
+ActiveRecord::Schema.define(version: 2020_03_09_152257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -559,13 +559,16 @@ ActiveRecord::Schema.define(version: 2020_02_14_113010) do
   end
 
   create_table "gdata_visualizations", force: :cascade do |t|
-    t.bigint "query_id"
     t.bigint "user_id"
     t.jsonb "name_translations"
     t.integer "privacy_status", default: 0, null: false
     t.jsonb "spec"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "sql"
+    t.bigint "query_id"
+    t.bigint "dataset_id"
+    t.index ["dataset_id"], name: "index_gdata_visualizations_on_dataset_id"
     t.index ["query_id"], name: "index_gdata_visualizations_on_query_id"
     t.index ["user_id"], name: "index_gdata_visualizations_on_user_id"
   end

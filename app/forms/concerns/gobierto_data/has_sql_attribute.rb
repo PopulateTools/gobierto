@@ -11,7 +11,7 @@ module GobiertoData
     end
 
     def sql_validation
-      return if sql.blank?
+      return if site.blank? || sql.blank?
 
       query_test = Connection.execute_query(site, "explain #{sql}", include_stats: false)
       if query_test.has_key? :errors

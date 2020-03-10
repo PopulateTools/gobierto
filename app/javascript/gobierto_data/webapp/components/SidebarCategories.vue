@@ -62,7 +62,6 @@ export default {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
-    console.log(this.filters)
   },
   methods: {
     sendCheckboxStatus({ id, value, filter }) {

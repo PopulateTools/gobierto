@@ -40,9 +40,9 @@ es:
       resources: Recursos
       runQuery: Ejecutar consulta
       save: Guardar
-      seeLess: Ver menos
-      seeMore: Ver más
       sets: Conjuntos
+      showAll: Ver todo
+      showLess: Ver menos
       showRows: Mostrar todas las filas
       subject: Tema
       summary: Resumen

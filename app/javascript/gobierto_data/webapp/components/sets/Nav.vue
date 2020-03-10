@@ -200,7 +200,29 @@ export default {
       axios
         .get(url)
         .then(response => {
-          const rawData = response.data
+
+         const rawData = response.data
+         const { data: {
+           id: datasetId,
+           attributes: {
+             name: titleDataset,
+             slug: slugDataset,
+             table_name: tableName,
+             columns: arrayColumns,
+             description: descriptionDataset,
+             data_summary: {
+               number_of_rows: numberRows
+             },
+             formats: arrayFormats,
+             frequency: {
+              name_translations: frequencyDataset
+             },
+             category: {
+              name_translations: categoryDataset
+             }
+           }
+         } } = rawData;
+
           const resourcesData = response.included
           this.datasetId = parseInt(rawData.data.id)
           this.titleDataset = rawData.data.attributes.name

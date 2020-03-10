@@ -40,9 +40,9 @@ en:
       resources: Resources
       runQuery: Run query
       save: Save
-      seeLess: See less
-      seeMore: See more
       sets: Sets
+      showAll: Show all
+      showLess: Show less
       showRows: Show all rows
       subject: Subject
       summary: Summary

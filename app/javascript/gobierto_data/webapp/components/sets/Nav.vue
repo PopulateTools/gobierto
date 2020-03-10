@@ -60,15 +60,17 @@
         </li>
       </ul>
     </nav>
-    <keep-alive>
+
+    <keep-alive v-if="activeTab === 0">
       <Summary
-        v-if="activeTab === 0"
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
         :array-formats="arrayFormats"
       />
+    </keep-alive>
+
+    <keep-alive v-else-if="activeTab === 1">
       <Data
-        v-else-if="activeTab === 1"
         :dataset-id="datasetId"
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
@@ -76,16 +78,20 @@
         :array-formats="arrayFormats"
         :number-rows="numberRows"
       />
+    </keep-alive>
+
+    <keep-alive v-else-if="activeTab === 2">
       <Queries
-        v-else-if="activeTab === 2"
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
       />
-      <Visualizations v-else-if="activeTab === 3" />
-      <Downloads
-        v-else-if="activeTab === 4"
-        :array-formats="arrayFormats"
-      />
+    </keep-alive>
+
+    <!-- Visualizations requires to query API on created, so we don't keep-alive it -->
+    <Visualizations v-else-if="activeTab === 3" />
+
+    <keep-alive v-else-if="activeTab === 4">
+      <Downloads :array-formats="arrayFormats" />
     </keep-alive>
   </div>
 </template>

@@ -16,6 +16,10 @@ module GobiertoData
       @subject ||= VisualizationForm
     end
 
+    def dataset
+      @dataset ||= gobierto_data_datasets(:events_dataset)
+    end
+
     def query
       @query ||= gobierto_data_queries(:events_count_query)
     end
@@ -27,17 +31,19 @@ module GobiertoData
     def valid_attributes
       @valid_attributes ||= {
         site_id: site.id,
+        dataset_id: dataset.id,
         query_id: query.id,
         user_id: user.id,
         name_translations: { es: "Nueva visualización", en: "New visualization" },
         name: "New visualization",
         privacy_status: "open",
-        spec: { a: 1, b: 2 }
+        spec: { a: 1, b: 2 },
+        sql: "select * from gc_events where state = #{::GobiertoCalendars::Event.states["published"]}"
       }
     end
 
     def test_create_new_with_valid_attributes
-      form = subject.new(valid_attributes)
+      form = subject.new(valid_attributes.except(:sql))
 
       assert form.valid?
 
@@ -94,6 +100,26 @@ module GobiertoData
 
       assert form.save
       assert form.visualization.open?
+    end
+
+    def test_valid_with_query_id_and_blank_dataset_id
+      form = subject.new(valid_attributes.except(:dataset_id))
+      assert_difference "GobiertoData::Visualization.count", 1 do
+        assert form.save
+      end
+
+      assert_equal dataset, form.dataset
+      assert_equal query, form.query
+    end
+
+    def test_valid_with_dataset_id_and_blank_query_id
+      form = subject.new(valid_attributes.except(:query_id))
+      assert_difference "GobiertoData::Visualization.count", 1 do
+        assert form.save
+      end
+
+      assert_equal dataset, form.dataset
+      assert_nil form.query
     end
 
     def test_invalid_missing_attributes

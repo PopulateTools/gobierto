@@ -3,14 +3,14 @@
 module GobiertoData
   class QueryForm < BaseForm
     include ::GobiertoCore::TranslationsHelpers
+    include HasSqlAttribute
 
     attr_accessor(
       :id,
       :site_id,
       :dataset_id,
       :user_id,
-      :name,
-      :sql
+      :name
     )
 
     attr_writer(
@@ -20,7 +20,6 @@ module GobiertoData
 
     validates :dataset, :site, :user, :sql, presence: true
     validates :name_translations, translated_attribute_presence: true
-    validate :sql_validation
 
     delegate :persisted?, to: :query
 
@@ -80,15 +79,6 @@ module GobiertoData
       promote_errors(@query.errors)
 
       false
-    end
-
-    def sql_validation
-      return if sql.blank?
-
-      query_test = Connection.execute_query(site, "explain #{sql}", include_stats: false)
-      if query_test.has_key? :errors
-        errors.add(:sql, query_test[:errors].map { |error| error[:sql] }.join("\n"))
-      end
     end
   end
 end

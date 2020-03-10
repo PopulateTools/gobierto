@@ -11,6 +11,9 @@ es:
       all: Todas
       analysis: Análisis
       api: API
+      buttonQueries: Ver consultas (c)
+      buttonRecentQueries: Ver consultas recientes (r)
+      buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)
       cancel: Cancelar
       categories: Categorías
       dashboards: Dashboards

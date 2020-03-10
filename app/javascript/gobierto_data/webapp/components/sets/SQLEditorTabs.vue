@@ -110,12 +110,17 @@ export default {
       labelTable: "",
       labelVisualization: "",
       directionLeft: false,
-      privateQuery: false
+      privateQuery: false,
+      editorFocus: false
     };
   },
   created() {
     this.labelTable = I18n.t("gobierto_data.projects.table");
     this.labelVisualization = I18n.t("gobierto_data.projects.visualization");
+
+    this.$root.$on('blurEditor', this.activateShortcutsListener)
+    this.$root.$on('focusEditor', this.removeShortcutsListener)
+    this.activateShortcutsListener()
 
     this.userId = getUserId();
     this.noLogin = this.userId === "" ? true : false;
@@ -126,6 +131,19 @@ export default {
     this.$root.$off("saveVisualization", this.saveVisualization);
   },
   methods: {
+    shortcutsListener(e) {
+      if (e.keyCode == 84) {
+        this.$emit("active-tab", 0)
+      } else if (e.keyCode == 86) {
+        this.$emit("active-tab", 1);
+      }
+    },
+    activateShortcutsListener(){
+      window.addEventListener("keydown", this.shortcutsListener, true);
+    },
+    removeShortcutsListener(){
+      window.removeEventListener("keydown", this.shortcutsListener, true);
+    },
     activateTab(index) {
       this.$emit("active-tab", index);
     },

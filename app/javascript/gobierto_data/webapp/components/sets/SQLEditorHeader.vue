@@ -15,6 +15,7 @@
           :text="labelRecents"
           :class="removeLabelBtn ? 'remove-label' : ''"
           :disabled="disabledRecents"
+          :title="labelbuttonRecentQueries"
           class="btn-sql-editor"
           icon="history"
           color="var(--color-base)"
@@ -43,6 +44,7 @@
           :text="labelQueries"
           :class="removeLabelBtn ? 'remove-label' : ''"
           :disabled="disabledQueries"
+          :title="labelbuttonQueries"
           class="btn-sql-editor btn-sql-editor-queries gobierto-data-btn-blue"
           @click="isHidden = !isHidden"
         >
@@ -66,6 +68,7 @@
               :array-queries="arrayQueries"
               :public-queries="publicQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
+              tabindex="-1"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
             />
           </transition>
@@ -82,6 +85,7 @@
           type="text"
           class="gobierto-data-sql-editor-container-save-text"
           @keyup="onSave($event.target.value)"
+          @focus="removeShortcutsListener"
         >
         <input
           v-if="showLabelPrivate"
@@ -147,6 +151,7 @@
         v-if="showBtnRun"
         :text="labelRunQuery"
         :disabled="disabledRunQuery"
+        :title="labelButtonRunQuery"
         class="btn-sql-editor btn-sql-editor-run"
         icon="play"
         color="var(--color-base)"
@@ -236,6 +241,9 @@ export default {
       labelQueryName: '',
       labelEdit: '',
       labelModifiedQuery: '',
+      labelbuttonRecentQueries: '',
+      labelbuttonQueries: '',
+      labelButtonRunQuery: '',
       codeQuery: '',
       endPoint: '',
       privacyStatus: '',
@@ -245,6 +253,7 @@ export default {
       showSpinner: false,
       token: '',
       noLogin: false,
+      editorFocus: false,
       queryId: '',
       userIdQuery: '',
       oldQueryName: ''
@@ -261,6 +270,9 @@ export default {
     this.labelEdit = I18n.t('gobierto_data.projects.edit');
     this.labelModifiedQuery = I18n.t('gobierto_data.projects.modifiedQuery');
     this.labelGuide = I18n.t('gobierto_data.projects.guide');
+    this.labelbuttonQueries = I18n.t('gobierto_data.projects.buttonQueries');
+    this.labelbuttonRecentQueries = I18n.t('gobierto_data.projects.buttonRecentQueries');
+    this.labelButtonRunQuery = I18n.t('gobierto_data.projects.buttonRunQuery');
 
     this.$root.$on('sendQueryCode', this.updateQuery)
     this.$root.$on('activeSave', this.activeSave);
@@ -274,12 +286,35 @@ export default {
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
     this.$root.$on('disableEdit', this.hideEdit)
 
+    this.$root.$on('blurEditor', this.activateShortcutsListener)
+    this.$root.$on('focusEditor', this.removeShortcutsListener)
+
     this.token = getToken()
     this.userId = getUserId()
 
     this.noLogin = this.userId === "" ? true : false
+
+    this.activateShortcutsListener()
+    window.addEventListener('keydown', e => {
+      if (e.metaKey && e.keyCode == 13) {
+        this.runQuery()
+      }
+    })
   },
   methods: {
+    shortcutsListener(e) {
+      if (e.keyCode == 67) {
+        this.openYourQueries()
+      } else if (e.keyCode == 82) {
+        this.showRecentQueries()
+      }
+    },
+    activateShortcutsListener(){
+      window.addEventListener("keydown", this.shortcutsListener, true);
+    },
+    removeShortcutsListener(){
+      window.removeEventListener("keydown", this.shortcutsListener, true);
+    },
     runSpinner() {
       this.showSpinner = true;
       setTimeout(() => {
@@ -307,16 +342,17 @@ export default {
       this.runQuery()
     },
     queryParams(queryParams) {
-      this.saveQueryState = true;
-      this.showBtnCancel = false;
-      this.showBtnSave = false;
-      this.disabledRecents = false;
-      this.disabledSave = true;
-      this.showBtnEdit = true;
-      this.removeLabelBtn = true;
-      this.showLabelPrivate = false;
-      this.disableInputName = true;
-      this.$root.$emit('saveQueryState', true);
+      this.saveQueryState = true
+      this.showBtnCancel = false
+      this.showBtnSave = false
+      this.disabledRecents = false
+      this.disabledSave = true
+      this.showBtnEdit = true
+      this.removeLabelBtn = true
+      this.showLabelPrivate = false
+      this.disableInputName = true
+      this.showLabelModified = false
+      this.$root.$emit('saveQueryState', true)
 
       this.labelQueryName = queryParams[0]
       this.oldQueryName = queryParams[0]
@@ -330,28 +366,31 @@ export default {
       } else {
         this.privateQuery = true
       }
-
     },
     privateQueryValue(valuePrivate) {
       this.disabledSave = false
       this.privateQuery = valuePrivate
+      this.showLabelModified = true
+      this.showBtnSave = true
+      this.showBtnEdit = false
     },
     showshowStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)
     },
     activeSave(value) {
-      this.disabledRecents = value;
-      this.disabledSave = value;
-      this.disabledRunQuery = value;
+      this.disabledRecents = value
+      this.disabledSave = value
+      this.disabledRunQuery = value
     },
     updateQuery(code) {
-      this.codeQuery = code;
+      this.codeQuery = code
     },
     updateActiveSave(activeLabel, disableLabel) {
-      this.showLabelModified = activeLabel;
-      this.showBtnSave = activeLabel;
-      this.showBtnEdit = disableLabel;
-      this.disableInputName = disableLabel;
+      this.showLabelModified = activeLabel
+      this.showLabelPrivate = activeLabel
+      this.showBtnSave = activeLabel
+      this.showBtnEdit = disableLabel
+      this.disableInputName = disableLabel
     },
     saveQueryName() {
       this.showSaveQueries = true
@@ -426,11 +465,11 @@ export default {
       this.$root.$emit('postRecentQuery', this.codeQuery)
       this.$root.$emit('showMessages', false, true)
 
-      this.endPoint = `${baseUrl}/data`
-      this.url = `${this.endPoint}?sql=${query}`
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${query}`
 
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           let data = []
           let keysData = []
@@ -438,11 +477,11 @@ export default {
           const meta = rawData.meta
           data = rawData.data
 
-          const queryDurationRecors = [meta.rows, meta.duration]
+          const queryDurationRecords = [ meta.rows, meta.duration ]
 
           keysData = Object.keys(data[0])
 
-          this.$root.$emit('recordsDuration', queryDurationRecors)
+          this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('sendDataViz', data)
           this.$root.$emit('showMessages', true, false)
@@ -466,18 +505,34 @@ export default {
     recentQueries() {
       this.isActive = !this.isActive;
     },
+    showRecentQueries() {
+      if (this.isActive === true) {
+        this.isActive = false
+      } else {
+        this.isActive = true;
+        this.isHidden = true
+      }
+    },
     closeMenu() {
       this.isActive = false
     },
     closeYourQueries() {
       this.isHidden = true
     },
+    openYourQueries() {
+      if (this.isHidden === false) {
+        this.isHidden = true
+      } else {
+        this.isHidden = false
+        this.isActive = false
+      }
+    },
     postQuery() {
-      this.endPoint = `${baseUrl}/queries`
+      const endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
 
       if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
-        this.endPoint = `${baseUrl}/queries/${this.queryId}`
+        const endPoint = `${baseUrl}/queries/${this.queryId}`
         let dataUpdate = {
             "data": {
                 "type": "gobierto_data-queries",
@@ -488,7 +543,7 @@ export default {
             }
         }
 
-        axios.put(this.endPoint, dataUpdate, {
+        axios.put(endPoint, dataUpdate, {
           headers: {
             'Content-type': 'application/json',
             'Authorization': `${this.token}`
@@ -496,6 +551,7 @@ export default {
         }).then(response => {
             this.resp = response;
             this.$root.$emit('reloadQueries')
+            this.$root.$emit('reloadPublicQueries')
         })
         .catch(error => {
           const messageError = error.response
@@ -513,7 +569,7 @@ export default {
                 }
             }
         }
-        axios.post(this.endPoint, data, {
+        axios.post(endPoint, data, {
           headers: {
             'Content-type': 'application/json',
             'Authorization': `${this.token}`

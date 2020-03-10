@@ -66,6 +66,7 @@ en:
         see_all: see all
         send: Send
         unpublish: Unpublish
+      module: Module
       recover:
         confirm: If you recover an element, it will be listed again
         element: Recover element

@@ -40,7 +40,7 @@ module GobiertoPeople
           refute ActionMailer::Base.deliveries.empty?
           email = ActionMailer::Base.deliveries.last
 
-          assert_equal ["admin@gobierto.dev"], email.from
+          assert_equal ["no-reply@gobierto.dev"], email.from
           assert_equal ["foo@example.com"], email.reply_to
           assert_equal [person.email], email.to
           assert_equal "You have received a new message from Transparencia y Participción", email.subject
@@ -77,7 +77,8 @@ module GobiertoPeople
           refute ActionMailer::Base.deliveries.empty?
           email = ActionMailer::Base.deliveries.last
 
-          assert_equal ["admin@gobierto.dev"], email.from
+          assert_equal ["no-reply@gobierto.dev"], email.from
+          assert_equal [user.email], email.reply_to
           assert_equal [user.email], email.reply_to
           assert_equal [person.email], email.to
           assert_equal "You have received a new message from Transparencia y Participción", email.subject

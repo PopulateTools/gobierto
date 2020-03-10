@@ -7,10 +7,10 @@ module GobiertoPeople
       def index
         if params[:date]
           @filtering_date = Date.parse(params[:date])
-          @events = @person.attending_events.by_date(@filtering_date).published
+          @events = @person.owned_attending_events.by_date(@filtering_date).published
           @events = (@filtering_date.future? ? @events.sorted : @events.sorted_backwards).page params[:page]
         else
-          @events = QueryWithEvents.new(source: @person.attending_events.published,
+          @events = QueryWithEvents.new(source: @person.owned_attending_events.published,
                                         start_date: filter_start_date,
                                         end_date: filter_end_date).upcoming.sorted.page params[:page]
         end
@@ -39,7 +39,7 @@ module GobiertoPeople
       def fullcalendar_events
         starts = Time.zone.parse(params[:start])
         ends   = Time.zone.parse(params[:end])
-        events = @person.attending_events.published.where('starts_at >= ? AND ends_at <= ?', starts, ends)
+        events = @person.owned_attending_events.published.where('starts_at >= ? AND ends_at <= ?', starts, ends)
         events.map do |event|
           ::GobiertoCalendars::FullcalendarEventSerializer.new(
             event,
@@ -54,11 +54,11 @@ module GobiertoPeople
       end
 
       def set_calendar_events
-        @calendar_events = @person.attending_events.published
+        @calendar_events = @person.owned_attending_events.published
       end
 
       def person_events_scope
-        valid_preview_token? ? @person.attending_events : @person.attending_events.published
+        valid_preview_token? ? @person.owned_attending_events : @person.owned_attending_events.published
       end
 
       def manage_event?

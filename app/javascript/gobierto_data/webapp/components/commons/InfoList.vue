@@ -26,7 +26,7 @@
               {{ labelUpdated }}
             </span>
             <span class="gobierto-data-summary-header-container-text">
-              {{ item.attributes.name }}
+              {{ item.attributes.data_updated_at }}
             </span>
           </div>
           <div class="gobierto-data-summary-header-container">

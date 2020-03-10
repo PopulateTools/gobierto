@@ -1,6 +1,6 @@
 <template>
   <div class="pure-u-1 pure-u-lg-4-4">
-    <aside v-if="filters" class="gobierto-data-filters">
+    <aside v-if="filters[0].count >= 1 || filters[1].count >= 1" class="gobierto-data-filters">
       <div
         v-for="filter in filters"
         :key="filter.title"
@@ -62,6 +62,7 @@ export default {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
+    console.log(this.filters)
   },
   methods: {
     sendCheckboxStatus({ id, value, filter }) {

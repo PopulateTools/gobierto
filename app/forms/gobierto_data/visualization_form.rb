@@ -9,6 +9,7 @@ module GobiertoData
       :id,
       :site_id,
       :query_id,
+      :dataset_id,
       :user_id,
       :name
     )
@@ -19,7 +20,7 @@ module GobiertoData
       :spec
     )
 
-    validates :site, :user, :spec, presence: true
+    validates :site, :user, :spec, :dataset, presence: true
     validates :name_translations, translated_attribute_presence: true
     validate :spec_validation
 
@@ -31,6 +32,10 @@ module GobiertoData
 
     def query
       @query ||= site.presence && site.queries.find_by(id: query_id) || visualization.query
+    end
+
+    def dataset
+      @dataset ||= query.present? ? query.dataset : site.presence && site.datasets.find_by(id: dataset_id) || visualization.dataset
     end
 
     def user
@@ -73,6 +78,7 @@ module GobiertoData
 
     def save_visualization
       @visualization = visualization.tap do |attributes|
+        attributes.dataset_id = dataset.id
         attributes.query_id = query&.id
         attributes.sql = sql
         attributes.user_id = user.id

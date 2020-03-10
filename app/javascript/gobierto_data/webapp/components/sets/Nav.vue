@@ -174,18 +174,40 @@ export default {
       axios
         .get(url)
         .then(response => {
-          const rawData = response.data
+
+         const rawData = response.data
+         const { data: {
+           id: datasetId,
+           attributes: {
+             name: titleDataset,
+             slug: slugDataset,
+             table_name: tableName,
+             columns: arrayColumns,
+             description: descriptionDataset,
+             data_summary: {
+               number_of_rows: numberRows
+             },
+             formats: arrayFormats,
+             frequency: {
+              name_translations: frequencyDataset
+             },
+             category: {
+              name_translations: categoryDataset
+             }
+           }
+         } } = rawData;
+
           const resourcesData = response.included
-          this.datasetId = parseInt(rawData.data.id)
-          this.titleDataset = rawData.data.attributes.name
-          this.slugDataset = rawData.data.attributes.slug
-          this.tableName = rawData.data.attributes.table_name
-          this.arrayFormats = rawData.data.attributes.formats
-          this.arrayColumns = rawData.data.attributes.columns
-          this.numberRows = rawData.data.attributes.data_summary.number_of_rows
-          this.frequencyDataset = rawData.data.attributes.frequency.name_translations === undefined ? '' : rawData.data.attributes.frequency.name_translations
-          this.categoryDataset = rawData.data.attributes.category.name_translations === undefined ? '' : rawData.data.attributes.category.name_translations
-          this.descriptionDataset = rawData.data.attributes.description
+          this.datasetId = parseInt(datasetId)
+          this.titleDataset = titleDataset
+          this.slugDataset = slugDataset
+          this.tableName = tableName
+          this.arrayFormats = arrayFormats
+          this.arrayColumns = arrayColumns
+          this.numberRows = numberRows
+          this.frequencyDataset = frequencyDataset === undefined ? '' : frequencyDataset
+          this.categoryDataset = categoryDataset === undefined ? '' : categoryDataset
+          this.descriptionDataset = descriptionDataset
           const dateFromApi = rawData.data.attributes.data_updated_at === undefined ? '' : rawData.data.attributes.data_updated_at
           const newDateFromApi = new Date(dateFromApi)
           this.dateUpdated = newDateFromApi.toLocaleDateString('es-ES', {

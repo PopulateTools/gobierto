@@ -151,8 +151,8 @@ export default {
     getData() {
       const endPoint = `${baseUrl}/data`
 
-      this.queryEditorLowerCase = this.queryEditor.toLowerCase()
-      if (this.queryEditorLowerCase.includes('limit')) {
+      const queryEditorLowerCase = this.queryEditor.toLowerCase()
+      if (queryEditorLowerCase.includes('limit')) {
         this.queryEditor = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {

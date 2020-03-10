@@ -451,9 +451,9 @@ export default {
     runQuery() {
       this.showSpinner = true;
       this.queryEditor = encodeURI(this.codeQuery)
-      this.queryEditorLowerCase = this.queryEditor.toLowerCase()
+      const queryEditorLowerCase = this.queryEditor.toLowerCase()
 
-      if (this.queryEditorLowerCase.includes('limit')) {
+      if (queryEditorLowerCase.includes('limit')) {
         this.queryEditor = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {

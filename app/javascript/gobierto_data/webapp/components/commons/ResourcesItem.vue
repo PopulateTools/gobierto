@@ -13,13 +13,13 @@
         :key="index"
         class="gobierto-data-resources-list-element-name"
       >
-        item.attributes.name
+        {{ item.attributes.name }}
       </span>
       <span
         :key="index"
         class="gobierto-data-resources-list-element-size"
       >
-        item.attributes.file_size
+        {{ item.attributes.file_size }}
       </span>
     </template>
   </div>

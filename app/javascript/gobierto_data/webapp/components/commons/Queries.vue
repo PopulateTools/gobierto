@@ -201,9 +201,9 @@ export default {
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false, true)
       this.$root.$emit('updateCode', code)
-      this.queryEditorLowerCase = this.queryEditor.toLowerCase()
+      const queryEditorLowerCase = this.queryEditor.toLowerCase()
 
-      if (this.queryEditorLowerCase.includes('limit')) {
+      if (queryEditorLowerCase.includes('limit')) {
         this.queryEditor = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {

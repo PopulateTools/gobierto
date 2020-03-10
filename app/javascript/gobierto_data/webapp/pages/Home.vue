@@ -130,19 +130,11 @@ export default {
       this.subsetItems = items;
 
 
-      // Optional callback to update data in background, setup in CONFIGURATION object
-      const itemsUpdated = await this.alterDataObjectOptional(items);
-
-      // Once items is updated, assign again the result
-      this.subsetItems = itemsUpdated;
-
-      // save the items
-      store.addItems(itemsUpdated);
 
 
       return {
         filters,
-        items: itemsUpdated
+        items
       };
     },
     filterItems(filter, key) {
@@ -244,7 +236,7 @@ export default {
           tabSidebar: 0,
           currentComponent: 'InfoList'
         }
-      }, () => {})
+      }).catch(err => { err })
     }
   }
 }

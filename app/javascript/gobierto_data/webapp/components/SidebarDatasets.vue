@@ -25,7 +25,6 @@
             <template v-for="(column, i) in lessColumns">
               <span
                 :key="i"
-                :item="i"
                 class="gobierto-data-sidebar-datasets-links-columns"
               >
                 {{ column }}
@@ -36,13 +35,12 @@
             <span
               v-for="(column, i) in item.attributes.columns"
               :key="i"
-              :item="i"
               class="gobierto-data-sidebar-datasets-links-columns"
             >
               {{ i }}
             </span>
           </div>
-          <div v-if="Object.keys(item.attributes.columns).length > 10">
+          <div v-if="Object.keys(item.attributes.columns).length > showMaxKeys">
             <template
               v-if="showLess"
             >
@@ -50,7 +48,7 @@
                 class="gobierto-data-sidebar-datasets-links-columns-see-more"
                 @click="showLess = false"
               >
-                {{ labelSeeMore }}
+                {{ labelshowAll }}
               </span>
             </template>
             <template v-else>
@@ -58,7 +56,7 @@
                 class="gobierto-data-sidebar-datasets-links-columns-see-more"
                 @click="showLess = true"
               >
-                {{ labelSeeLess }}
+                {{ labelshowLess }}
               </span>
             </template>
           </div>
@@ -81,6 +79,7 @@ export default {
       listDatasets: [],
       toggle: 0,
       indexToggle: null,
+      showMaxKeys: 10,
       showLess: true,
       lessColumns: [],
       items: store.state.datasets || []
@@ -90,8 +89,8 @@ export default {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
-    this.labelSeeMore = I18n.t("gobierto_data.projects.seeMore")
-    this.labelSeeLess = I18n.t("gobierto_data.projects.seeLess")
+    this.labelshowAll = I18n.t("gobierto_data.projects.showAll")
+    this.labelshowLess = I18n.t("gobierto_data.projects.showLess")
     this.orderDatasets()
   },
   methods: {
@@ -126,11 +125,11 @@ export default {
           tabSidebar: 1,
           title: nameDataset
         }
-    }, () => {})
+    }).catch(err => { err })
     },
     sliceColumns(index) {
       const allColumns = Object.keys(this.listDatasets[index].attributes.columns)
-      this.lessColumns = allColumns.slice(0, 10)
+      this.lessColumns = allColumns.slice(0, this.showMaxKeys)
     }
   }
 };

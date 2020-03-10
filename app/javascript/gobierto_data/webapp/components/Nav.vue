@@ -103,7 +103,7 @@ export default {
       this.$emit("active-tab", index);
       this.$router.push({
         name: "home"
-      }, () => {})
+      }).catch(err => { err })
     }
   }
 };

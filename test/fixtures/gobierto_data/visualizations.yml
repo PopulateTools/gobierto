@@ -1,5 +1,6 @@
 users_count_visualization:
   query: users_count_query
+  dataset: users_dataset
   user: dennis
   name_translations: <%= { en: "Users count visualization", es: "Visualización de cuenta de usuarios" }.to_json %>
   privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
@@ -21,6 +22,7 @@ users_count_visualization:
 
 census_verified_users_visualization:
   query: census_verified_users_query
+  dataset: users_dataset
   user: peter
   name_translations: <%= { en: "Verified users", es: "Usuarios verificados" }.to_json %>
   privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
@@ -42,12 +44,14 @@ census_verified_users_visualization:
 
 events_count_open_visualization:
   query: events_count_query
+  dataset: events_dataset
   user: dennis
   name_translations: <%= { en: "Events count visualization open", es: "Visualización de cuenta de eventos abierta" }.to_json %>
   privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
   spec: "{}"
 
 visualization_with_sql_and_blank_query:
+  dataset: users_dataset
   user: dennis
   name_translations: <%= { en: "Users by gender", es: "Usuarios por género"}.to_json %>
   privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
@@ -70,6 +74,7 @@ visualization_with_sql_and_blank_query:
 
 events_count_closed_visualization:
   query: events_count_query
+  dataset: events_dataset
   user: dennis
   name_translations: <%= { en: "Events count visualization closed", es: "Visualización de cuenta de eventos cerrada" }.to_json %>
   privacy_status: <%= GobiertoData::Visualization.privacy_statuses["closed"] %>
@@ -77,6 +82,7 @@ events_count_closed_visualization:
 
 draft_dataset_visualization:
   query: draft_dataset_query
+  dataset: draft_dataset
   user: dennis
   name_translations: <%= { en: "Interest Groups by domain visualization", es: "Visualización de grupos de interés por dominio" }.to_json %>
   privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>

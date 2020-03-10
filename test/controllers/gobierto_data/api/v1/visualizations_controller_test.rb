@@ -89,6 +89,7 @@ module GobiertoData
             spec: visualization.spec,
             sql: visualization.sql,
             query_id: visualization.query_id,
+            dataset_id: visualization.dataset_id,
             user_id: visualization.user_id
           }.with_indifferent_access
         end
@@ -102,31 +103,36 @@ module GobiertoData
             attributes[:spec].to_s,
             attributes[:sql],
             attributes[:query_id].to_s,
+            attributes[:dataset_id].to_s,
             attributes[:user_id].to_s
           ]
         end
 
-        def valid_params
+        def valid_params(except: [])
           {
             data:
             {
               type: "gobierto_data-visualizations",
-              attributes:
-              {
-                name_translations: {
-                  en: "New visualization",
-                  es: "Nueva visualización"
-                },
-                privacy_status: "open",
-                sql: "select count(*) from users where bio is not null",
-                spec: {
-                  "x" => 1,
-                  "y" => 2,
-                  "z" => 3
-                },
-                query_id: query.id
-              }
+              attributes: valid_attributes.except(*except)
             }
+          }
+        end
+
+        def valid_attributes
+          {
+            name_translations: {
+              en: "New visualization",
+              es: "Nueva visualización"
+            },
+            privacy_status: "open",
+            sql: "select count(*) from users where bio is not null",
+            spec: {
+              "x" => 1,
+              "y" => 2,
+              "z" => 3
+            },
+            query_id: query.id,
+            dataset_id: dataset.id
           }
         end
 
@@ -172,7 +178,7 @@ module GobiertoData
 
             refute_equal active_visualizations_count + 1, parsed_csv.count
             assert_equal open_active_visualizations_count + 1, parsed_csv.count
-            assert_equal %w(id name privacy_status spec sql query_id user_id), parsed_csv.first
+            assert_equal %w(id name privacy_status spec sql query_id dataset_id user_id), parsed_csv.first
 
             assert_includes parsed_csv, array_data(open_visualization)
             refute_includes parsed_csv, array_data(closed_visualization)
@@ -207,7 +213,7 @@ module GobiertoData
             assert_equal 1, parsed_xlsx.worksheets.count
             sheet = parsed_xlsx.worksheets.first
             assert_nil sheet[open_active_visualizations_count + 1]
-            assert_equal %w(id name privacy_status spec sql query_id user_id), sheet[0].cells.map(&:value)
+            assert_equal %w(id name privacy_status spec sql query_id dataset_id user_id), sheet[0].cells.map(&:value)
             values = (1..open_active_visualizations_count).map do |row_number|
               sheet[row_number].cells.map { |cell| cell.value.to_s }
             end
@@ -406,7 +412,7 @@ module GobiertoData
 
               # attributes
               attributes = attributes_data(new_visualization)
-              %w(name_translations privacy_status spec sql query_id).each do |attribute|
+              %w(name_translations privacy_status spec sql query_id dataset_id).each do |attribute|
                 assert resource_data["attributes"].has_key? attribute
                 assert_equal attributes[attribute], resource_data["attributes"][attribute]
               end
@@ -421,6 +427,97 @@ module GobiertoData
               assert_includes links, gobierto_data_api_v1_visualizations_path
               assert_includes links, new_gobierto_data_api_v1_visualization_path
               assert_includes links, gobierto_data_api_v1_visualization_path(new_visualization)
+            end
+          end
+        end
+
+        def test_create_with_query_and_blank_dataset
+          with(site: site) do
+            assert_difference "GobiertoData::Visualization.count", 1 do
+              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token.token }, params: valid_params(except: [:dataset_id]), as: :json
+
+              assert_response :created
+              response_data = response.parsed_body
+
+              new_visualization = Visualization.last
+
+              assert_equal user, new_visualization.user
+
+              # data
+              assert response_data.has_key? "data"
+              resource_data = response_data["data"]
+              assert_equal resource_data["id"], new_visualization.id.to_s
+
+              # attributes
+              attributes = attributes_data(new_visualization)
+              %w(name_translations privacy_status spec sql query_id dataset_id).each do |attribute|
+                assert resource_data["attributes"].has_key? attribute
+                assert_equal attributes[attribute], resource_data["attributes"][attribute]
+              end
+              assert_equal user.id, resource_data["attributes"]["user_id"]
+
+              # relationships
+              assert resource_data.has_key? "relationships"
+
+              # links
+              assert response_data.has_key? "links"
+              links = response_data["links"].values
+              assert_includes links, gobierto_data_api_v1_visualizations_path
+              assert_includes links, new_gobierto_data_api_v1_visualization_path
+              assert_includes links, gobierto_data_api_v1_visualization_path(new_visualization)
+            end
+          end
+        end
+
+        def test_create_with_dataset_and_blank_query
+          with(site: site) do
+            assert_difference "GobiertoData::Visualization.count", 1 do
+              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token.token }, params: valid_params(except: [:query_id]), as: :json
+
+              assert_response :created
+              response_data = response.parsed_body
+
+              new_visualization = Visualization.last
+
+              assert_equal user, new_visualization.user
+
+              # data
+              assert response_data.has_key? "data"
+              resource_data = response_data["data"]
+              assert_equal resource_data["id"], new_visualization.id.to_s
+
+              # attributes
+              attributes = attributes_data(new_visualization)
+
+              assert_nil resource_data["attributes"]["query_id"]
+              %w(name_translations privacy_status spec sql dataset_id).each do |attribute|
+                assert resource_data["attributes"].has_key? attribute
+                assert_equal attributes[attribute], resource_data["attributes"][attribute]
+              end
+              assert_equal user.id, resource_data["attributes"]["user_id"]
+
+              # relationships
+              assert resource_data.has_key? "relationships"
+
+              # links
+              assert response_data.has_key? "links"
+              links = response_data["links"].values
+              assert_includes links, gobierto_data_api_v1_visualizations_path
+              assert_includes links, new_gobierto_data_api_v1_visualization_path
+              assert_includes links, gobierto_data_api_v1_visualization_path(new_visualization)
+            end
+          end
+        end
+
+        def test_create_failure_with_blank_dataset_and_query
+          with(site: site) do
+            assert_no_difference "GobiertoData::Visualization.count" do
+              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token.token }, params: valid_params(except: [:query_id, :dataset_id]), as: :json
+
+              assert_response :unprocessable_entity
+              response_data = response.parsed_body
+
+              assert response_data.has_key? "errors"
             end
           end
         end

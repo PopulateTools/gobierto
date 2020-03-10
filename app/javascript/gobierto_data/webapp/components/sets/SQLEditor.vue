@@ -22,6 +22,7 @@
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
         :number-rows="numberRows"
+        :dataset-id="datasetId"
         :current-query="currentQuery"
         @active-tab="activeTabIndex = $event"
       />

@@ -96,6 +96,10 @@ export default {
       type: String,
       required: true
     },
+    datasetId: {
+      type: Number,
+      required: true
+    },
     currentQuery: {
       type: String,
       default: ""
@@ -138,7 +142,8 @@ export default {
         },
         privacy_status: privacy ? "closed" : "open",
         spec: config,
-        user_id: this.userId
+        user_id: this.userId,
+        dataset_id: this.datasetId,
       };
 
       // Get the id if the query matches with a stored query
@@ -153,7 +158,7 @@ export default {
       if (id) {
         attributes = { ...attributes, query_id: id };
       } else {
-        attributes = { ...attributes, query: this.currentQuery };
+        attributes = { ...attributes, sql: this.currentQuery };
       }
 
       // POST data obj

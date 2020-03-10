@@ -19,16 +19,6 @@ export const VisualizationFactoryMixin = {
       return axios.get(endPoint, { headers });
     },
     postVisualization(data) {
-      // Temporary, keep in localStorage
-      const recentVisualizations = JSON.parse(
-        localStorage.getItem("recentVisualizations") || "[]"
-      );
-      recentVisualizations.push(data);
-      localStorage.setItem(
-        "recentVisualizations",
-        JSON.stringify(recentVisualizations)
-      );
-
       // Return a promise to handle the response where it's invoked
       return axios.post(endPoint, data, { headers });
     }

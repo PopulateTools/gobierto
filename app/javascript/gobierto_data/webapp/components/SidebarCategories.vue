@@ -1,6 +1,6 @@
 <template>
   <div class="pure-u-1 pure-u-lg-4-4">
-    <aside class="gobierto-data-filters">
+    <aside v-if="filters" class="gobierto-data-filters">
       <div
         v-for="filter in filters"
         :key="filter.title"

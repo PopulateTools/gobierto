@@ -11,9 +11,6 @@ ca:
       all: Totes
       analysis: Anàlisi
       api: API
-      buttonQueries: Veure consultes (c)
-      buttonRecentQueries: Veure consultes recents (r)
-      buttonRunQuery: Executar consulta (CMD/WIN + Enter)
       cancel: Cancel·lar
       categories: Categories
       dashboards: Dashboards

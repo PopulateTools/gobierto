@@ -495,19 +495,3 @@ santander_cms_pages:
   slug: santander-cms-pages
   container: santander (Site)
   item_type: GobiertoCms::Page
-
-## Gobierto Data collections
-
-gobierto_data_madrid_attachments:
-  site: madrid
-  title_translations: <%= {"en" => "Madrid data documents", "es" => "Documentos de datos de Madrid" }.to_json %>
-  slug: madrid-data-attachments
-  container_type: GobiertoData
-  item_type: GobiertoAttachments::Attachment
-
-gobierto_data_santander_attachments:
-  site: santander
-  title_translations: <%= {"en" => "Santander data documents", "es" => "Documentos de datos de Santander" }.to_json %>
-  slug: santander-data-attachments
-  container_type: GobiertoData
-  item_type: GobiertoAttachments::Attachment

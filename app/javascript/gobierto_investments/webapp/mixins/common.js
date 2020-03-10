@@ -19,10 +19,7 @@ export const CommonsMixin = {
       const { distribution = [] } = stats[id];
       return vocabulary_terms.map(term => {
         const { name_translations: title = {} } = term;
-        const { count = 0 } =
-          distribution.find(
-            el => parseFloat(JSON.parse(el.value)) === parseFloat(term.id)
-          ) || {};
+        const { count = 0 } = distribution.find(el => parseFloat(JSON.parse(el.value)) === parseFloat(term.id)) || {};
 
         return {
           ...term,
@@ -32,42 +29,12 @@ export const CommonsMixin = {
       });
     },
     getItem(element, attributes) {
-      const { id, flat, composite } = element;
-      const attr = this.middleware.getAttributesByKey(id);
+      const attr = this.middleware.getAttributesByKey(element.id);
 
-      let value = attributes[id];
+      let value = attributes[element.id];
 
-      if (flat) {
-        value = this.translate(attributes[id][0].name_translations);
-      }
-
-      if (composite) {
-        const { template, params } = element;
-        // pattern matches:  :PARAM   :PARAM-NAME
-        const paramsPattern = new RegExp(/:(\w+[-\w+]*)/, "gi");
-        const paramsReplaced = template.replace(paramsPattern, (match, ...args) => {
-          let replaceStr = match
-          // get the matching group
-          const [group] = args;
-          // get the value from parameters (that will be the field_name)
-          const { value = "", pattern } = params.find(({ key }) => key === group);
-
-          replaceStr = attributes[value]
-
-          // If the param has a pattern, then, extract such part from the field
-          // If there's no replaceStr, ignore this step
-          if (replaceStr && pattern) {
-            const fieldPattern = new RegExp(pattern, "gi")
-            replaceStr = replaceStr.replace(fieldPattern, (match, ...args) => {
-              const [group] = args
-              return group
-            })
-          }
-
-          return replaceStr
-        });
-
-        value = `${location.origin}${paramsReplaced}`;
+      if (element.multiple) {
+        value = this.translate(attributes[element.id][0].name_translations);
       }
 
       return {
@@ -79,15 +46,7 @@ export const CommonsMixin = {
     },
     setItem(element) {
       const { attributes = {} } = element;
-      const {
-        title,
-        description,
-        phases,
-        location,
-        availableGalleryFields,
-        availableTableFields,
-        availableProjectFields
-      } = CONFIGURATION;
+      const { title, description, phases, location, availableGalleryFields, availableTableFields, availableProjectFields } = CONFIGURATION;
       const { id: locationId, ...restLocationOptions } = location;
 
       return {
@@ -98,26 +57,26 @@ export const CommonsMixin = {
         gallery: attributes.gallery || [],
         location: attributes[locationId],
         locationOptions: restLocationOptions || {},
-        phases: attributes[phases.id].map(element => ({
-          ...element,
-          title: this.translate(element.name_translations)
-        })),
-        phasesFieldName: this.translate(
-          this.getItem(phases, attributes).name_translations
-        ),
-        availableGalleryFields: availableGalleryFields.map(element =>
-          this.getItem(element, attributes)
-        ),
-        availableTableFields: availableTableFields.map(element =>
-          this.getItem(element, attributes)
-        ),
-        availableProjectFields: availableProjectFields.map(element =>
-          this.getItem(element, attributes)
-        )
+        phases: attributes[phases.id].map(element => ({ ...element, title: this.translate(element.name_translations) })),
+        phasesFieldName: this.translate(this.getItem(phases, attributes).name_translations),
+        availableGalleryFields: availableGalleryFields.map(element => this.getItem(element, attributes)),
+        availableTableFields: availableTableFields.map(element => this.getItem(element, attributes)),
+        availableProjectFields: availableProjectFields.map(element => this.getItem(element, attributes))
       };
     },
     setData(data) {
       return data.map(element => this.setItem(element));
+    },
+    async alterDataObjectOptional(data) {
+      const { itemSpecialConfiguration } = CONFIGURATION;
+
+      let spreadData = data;
+      if (itemSpecialConfiguration) {
+        const { fn = () => data } = itemSpecialConfiguration;
+        spreadData = await fn(data);
+      }
+
+      return Array.isArray(spreadData) ? this.setData(spreadData) : this.setItem(spreadData);
     }
   }
 };

@@ -29,7 +29,7 @@ export default {
       required: true
     },
     arrayColumns: {
-      type: Object,
+      type: Array,
       required: true
     },
     arrayQueries: {

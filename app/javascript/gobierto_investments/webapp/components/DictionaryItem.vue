@@ -48,14 +48,6 @@
       <strong class="investments-project-main--strong">{{ value }}</strong>
     </div>
 
-    <!-- Link type -->
-    <div v-else-if="type === 'link'">
-      <a
-        :href="value"
-        target="_blank"
-      >{{ value }}</a>
-    </div>
-
     <!-- Simple type -->
     <div v-else>
       {{ value }}

@@ -22,7 +22,6 @@ ca:
           name: Ajuntament de Burjassot
           organization_name: Burjassot
           populate_data_api_token: Token de API de Populate Data
-          reply_to_email: contacte@email.com
           title: Transparencia i Participció
         username: Noe d'usuari
         visibility_level:

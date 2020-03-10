@@ -97,25 +97,6 @@ module GobiertoPeople
         end
       end
 
-      def test_person_events_present_in_other_agendas
-        attributes = {
-          start_date: Time.now.tomorrow,
-          title: "Duplicated event",
-          external_id: "duplicated-event"
-        }
-        richard_event = create_event(attributes.merge(person: richard))
-        richard_event.attendees.create(person: nelson)
-        nelson_event = create_event(attributes.merge(person: nelson))
-        nelson_event.attendees.create(person: richard)
-
-        with(site: site, js: true) do
-          visit gobierto_people_person_events_path(richard.slug)
-
-          assert has_content? richard_event.title
-          assert_equal 1, page.all("div.fc-title", text: richard_event.title).count
-        end
-      end
-
       def test_person_events_index_pagination
         # SKIP: with_javascript is causing concurrency problems with the create_event() helper, since this
         # events are not visible form the test. A solution is to use fixtures as in other test in this file,

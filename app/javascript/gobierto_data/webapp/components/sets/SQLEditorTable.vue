@@ -113,14 +113,14 @@ export default {
     },
     queryTotal() {
       this.showTotalRows = false
-      const endPoint = `${baseUrl}/data`
-      const url = `${endPoint}?sql=${this.queryEditor}`
+      this.endPoint = `${baseUrl}/data`
       if (this.queryEditor === undefined) {
         this.queryEditor = `SELECT * FROM ${this.tableName}`
       }
+      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
-        .get(url)
+        .get(this.url)
         .then(response => {
           let data = []
           let keysData = []
@@ -128,11 +128,11 @@ export default {
           const meta = rawData.meta
           data = rawData.data
 
-          const queryDurationRecords = [ meta.rows, meta.duration ]
+          const queryDurationRecors = [meta.rows, meta.duration]
 
           keysData = Object.keys(data[0])
 
-          this.$root.$emit('recordsDuration', queryDurationRecords)
+          this.$root.$emit('recordsDuration', queryDurationRecors)
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true)
 

@@ -60,10 +60,6 @@ module GobiertoPeople
       end
     end
 
-    def owned_attending_events
-      attending_events.person_events.where(collection_items: { container_id: id })
-    end
-
     def as_csv
       political_group_name = political_group.try(:name)
 

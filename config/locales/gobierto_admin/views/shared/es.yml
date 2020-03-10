@@ -67,7 +67,6 @@ es:
         see_all: ver todas
         send: Enviar
         unpublish: Despublicar
-      module: Módulo
       recover:
         confirm: Si recuperas un elemento, se volverá a listar de nuevo.
         element: Recuperar elemento

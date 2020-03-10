@@ -78,7 +78,7 @@ module GobiertoAdmin
       def test_create_edit_participation_collection
         with_javascript do
           with_signed_in_admin(admin) do
-            with_current_site(site_madrid) do
+            with_current_site(site_santander) do
               visit @path
 
               within "#new-page" do
@@ -105,24 +105,6 @@ module GobiertoAdmin
               end
 
               assert has_message?("Collection was successfully updated.")
-            end
-          end
-        end
-      end
-
-      def test_create_participation_collection_not_available
-        with_javascript do
-          with_signed_in_admin(admin) do
-            with_current_site(site_santander) do
-              visit @path
-
-              within "#new-page" do
-                click_link "New"
-              end
-
-              within("select#collection_container_global_id") do
-                assert has_no_css? "option[value='GobiertoParticipation']"
-              end
             end
           end
         end

@@ -6,7 +6,6 @@ module GobiertoData
 
     has_many :queries
     has_many :visualizations
-    has_many :attachments
 
     attribute :data_summary do
       {

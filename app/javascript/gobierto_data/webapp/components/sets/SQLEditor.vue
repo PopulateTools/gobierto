@@ -54,7 +54,7 @@ export default {
       required: true
     },
     arrayColumns: {
-      type: Object,
+      type: Array,
       required: true
     },
     publicQueries: {
@@ -88,10 +88,9 @@ export default {
       url: '',
       endPoint: '',
       recentQueries: [],
+      localQueries: [],
       orderRecentQueries: [],
       totalRecentQueries: [],
-      tempRecentQueries: [],
-      localQueries: [],
       newRecentQuery: null,
       localTableName : '',
       currentQuery: ''
@@ -125,8 +124,9 @@ export default {
       if (!this.newRecentQuery) {
         return;
       }
+
       if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
-        this.$root.$emit('storeQuery', this.recentQueries)
+        this.$root.$emit('store', this.recentQueries)
       } else {
         this.recentQueries.push(this.newRecentQuery);
         localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));
@@ -140,13 +140,12 @@ export default {
           }
           this.newRecentQuery = '';
 
-          this.localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
-          this.tempRecentQueries = [ ...this.localQueries, ...this.orderRecentQueries ]
-          this.totalRecentQueries = this.tempRecentQueries
+          const tempRecentQueries = [ ...this.localQueries, ...this.orderRecentQueries ]
+          this.totalRecentQueries = tempRecentQueries
           this.orderRecentQueries = []
           localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
 
-          this.saveRecentQuery();
+          this.saveRecentQuery(this.totalRecentQueries);
         }
       }
     },
@@ -155,10 +154,12 @@ export default {
       this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     loadRecentQuery() {
-      this.totalRecentQueries = this.localQueries
-      this.$root.$emit('storeQuery', this.totalRecentQueries)
+      const localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
+      this.$root.$emit('storeQuery', localQueries)
     },
     getData() {
+      this.endPoint = `${baseUrl}/data`
+
       let query = ''
       if (this.queryEditor.includes('LIMIT')) {
         query = this.queryEditor
@@ -168,12 +169,10 @@ export default {
       }
 
       this.currentQuery = this.queryEditor
-
-      const endPoint = `${baseUrl}/data`
-      const url = `${endPoint}?sql=${query}`
+      this.url = `${this.endPoint}?sql=${query}`
 
       axios
-        .get(url)
+        .get(this.url)
         .then(response => {
           const rawData = response.data
           const data = rawData.data

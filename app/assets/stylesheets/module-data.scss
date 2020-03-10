@@ -714,8 +714,7 @@
     color: #666;
     font-family: monospace;
 
-    &:hover,
-    &.active-query {
+    &:hover {
       background-color: rgba(var(--color-base-string), .1);
 
       &::before {
@@ -813,19 +812,14 @@
     font-size: 14px;
     color: #666;
     display: inline-block;
-    width: 78%;
+    width: 90%;
     position: relative;
     z-index: 1;
   }
 
   &-summary-queries-container-icon {
     display: inline-block;
-    width: 20%;
-  }
-
-  .icons-your-queries {
-    display: inline-block;
-    max-width: 14px;
+    width: 4%;
   }
 
   .spinner-box {
@@ -933,14 +927,10 @@
     transform: rotate(270deg);
   }
 
-  .CodeMirror-scroll {
-    overflow: hidden !important;
-  }
-
   &-sql-editor-footer {
     display: inline-block;
     width: max-content;
-    max-width: 100%;
+    max-width: 70%;
   }
 
   &-visualization {

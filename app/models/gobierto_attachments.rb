@@ -6,6 +6,6 @@ module GobiertoAttachments
   end
 
   def self.permitted_attachable_types
-    %w(GobiertoCms::Page GobiertoCalendars::Event GobiertoData::Dataset)
+    %w(GobiertoCms::Page GobiertoCalendars::Event)
   end
 end

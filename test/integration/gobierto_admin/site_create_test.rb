@@ -29,7 +29,6 @@ module GobiertoAdmin
 
             fill_in "site_organization_name", with: "Site Location"
             fill_in "site_domain", with: "test.gobierto.test"
-            fill_in "site_reply_to_email", with: "contact-email@example.com"
             fill_in "site_head_markup", with: "Site Head markup"
             fill_in "site_foot_markup", with: "Site Foot markup"
             fill_in "site_links_markup", with: "Site Links markup"
@@ -71,8 +70,6 @@ YAML
           end
 
           assert has_message?("Site was successfully created")
-
-          assert_equal "contact-email@example.com", Site.last.reply_to_email
 
           within "table.site-list tbody tr", match: :first do
             assert has_content?("Site Title")

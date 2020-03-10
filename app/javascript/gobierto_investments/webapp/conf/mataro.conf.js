@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default {
   title: {
     id: "title_translations"
@@ -22,11 +24,11 @@ export default {
     },
     {
       id: "estat",
-      flat: true
+      multiple: true
     },
     {
       id: "nom-servei-gestor",
-      flat: true
+      multiple: true
     },
     {
       id: "tipus-projecte"
@@ -38,7 +40,7 @@ export default {
   availableGalleryFields: [
     {
       id: "estat",
-      flat: true
+      multiple: true
     },
     {
       id: "data-inici",
@@ -65,7 +67,7 @@ export default {
     },
     {
       id: "estat",
-      flat: true
+      multiple: true
     },
     {
       id: "import",
@@ -75,7 +77,7 @@ export default {
   availableProjectFields: [
     {
       id: "nom-servei-gestor",
-      flat: true
+      multiple: true
     },
     {
       id: "tipus"
@@ -85,7 +87,7 @@ export default {
     },
     {
       id: "tipus-projecte",
-      flat: true
+      multiple: true
     },
     {
       id: "adreca"
@@ -95,7 +97,7 @@ export default {
     },
     {
       id: "estat",
-      flat: true
+      multiple: true
     },
     {
       type: "separator"
@@ -137,17 +139,8 @@ export default {
     },
     {
       id: "budget",
-      type: "link",
-      composite: true,
-      template: "/presupuestos/partidas/:BUDGETLINE/:YEAR/custom/G",
-      params: [{
-        key: "BUDGETLINE",
-        value: "partida",
-        pattern: "[\\S]+\\.(\\d+)\\w\\.[\\S]+"
-      },{
-        key: "YEAR",
-        value: "any-partida"
-      }]
+      filter: "money",
+      type: "highlight"
     },
     {
       type: "separator"
@@ -175,5 +168,39 @@ export default {
         }]
       }
     }
-  ]
+  ],
+  itemSpecialConfiguration: {
+    fn: async data => {
+      const dataArr = Array.isArray(data) ? data : [data];
+      const filterArr = dataArr.filter(d => d.attributes.partida && d.attributes["any-partida"]);
+      const allIds = filterArr.map(d => `'${d.attributes.partida}'`).join(",");
+
+      // Avoid the query if there's no code_with_zone (partida)
+      if (allIds) {
+        const endpoint = `/api/v1/data/data`;
+        const query = `
+          SELECT code_with_zone as partida, paranyprs as year, sum(parimport) as budget
+          FROM mataro_budgets
+          WHERE "parimport" IS NOT NULL
+          AND "code_with_zone" IN (${allIds})
+          GROUP BY code_with_zone, paranyprs
+        `;
+
+        const { data: { data: sql } } = await axios.get(endpoint, {
+          params: {
+            sql: query.trim()
+          }
+        })
+
+        for (let index = 0; index < dataArr.length; index++) {
+          const { attributes: { partida, "any-partida": year } } = dataArr[index];
+          const { budget } = sql.find(d => d.partida === partida && d.year === year) || {};
+
+          dataArr[index].attributes.budget = budget ? Number(budget) : null
+        }
+      }
+
+      return Array.isArray(data) ? dataArr : dataArr[0];
+    }
+  }
 };

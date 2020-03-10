@@ -125,16 +125,7 @@ module GobiertoAdmin
 
       def find_containers
         @containers ||= container_items.map { |item| ["#{item.class.model_name.human}: #{item}", item.to_global_id] }
-        @containers.insert(1, *modules_with_collections_options)
-      end
-
-      def modules_with_collections_options
-        current_site.configuration.modules_with_collections.map do |module_name|
-          [
-            "#{t("gobierto_admin.shared.module")}: #{t("gobierto_admin.layouts.application.modules.#{module_name.underscore.gsub(/\Agobierto_/, "")}")}",
-            module_name
-          ]
-        end
+        @containers.insert(1, %w(GobiertoParticipation GobiertoParticipation))
       end
 
       def type_names

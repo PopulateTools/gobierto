@@ -35,10 +35,6 @@ module GobiertoData
           @other_site_dataset ||= gobierto_data_datasets(:santander_dataset)
         end
 
-        def attachment
-          @attachment ||= gobierto_attachments_attachments(:txt_pdf_attachment)
-        end
-
         def array_data(dataset)
           [
             dataset.id.to_s,
@@ -209,15 +205,6 @@ module GobiertoData
             resource_relationships = resource_data["relationships"]
             assert resource_relationships.has_key? "queries"
             assert resource_relationships.has_key? "visualizations"
-            assert resource_relationships.has_key? "attachments"
-
-            # included
-            assert response_data.has_key? "included"
-            included = response_data["included"]
-
-            # datasets
-            attachments_names = included.select { |item| item["type"] = "gobierto_attachments-attachments" }.map { |attachment| attachment.dig("attributes", "name") }
-            assert_includes attachments_names, attachment.name
 
             # links
             assert response_data.has_key? "links"

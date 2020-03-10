@@ -45,7 +45,7 @@ module GobiertoData
     end
 
     def table_name
-      @table_name.present? ? @table_name.parameterize.underscore : resource.table_name
+      @table_name ||= resource.table_name
     end
 
     def append

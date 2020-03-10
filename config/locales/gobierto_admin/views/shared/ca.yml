@@ -67,7 +67,6 @@ ca:
         see_all: veure totes
         send: Enviar
         unpublish: Despublicar
-      module: Mòdul
       recover:
         confirm: Si es recupera un element, es tornarà a llistar de nou.
         element: Recuperar element

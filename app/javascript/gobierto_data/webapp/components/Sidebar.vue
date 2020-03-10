@@ -100,14 +100,14 @@ export default {
   },
   methods: {
     initData(){
-      const endPoint = `${baseUrl}/datasets`
+      this.endPoint = `${baseUrl}/datasets`
       axios
-        .get(endPoint)
+        .get(this.endPoint)
         .then(response => {
-          const rawData = response.data
+          this.rawData = response.data
 
-          const sortDatasets = rawData.data
-          this.allDatasets = sortDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+          this.sortDatasets = this.rawData.data
+          this.allDatasets = this.sortDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
 
           let slug = this.$route.params.id
 

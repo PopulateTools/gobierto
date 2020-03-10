@@ -240,15 +240,22 @@ export default {
         }
       }
 
+      // Assign this object BEFORE next function for better performance
       this.subsetItems = items;
 
+      // Optional callback to update data in background, setup in CONFIGURATION object
+      const itemsUpdated = await this.alterDataObjectOptional(items);
+
+      // Once items is updated, assign again the result
+      this.subsetItems = itemsUpdated;
+
       // save the items
-      store.addItems(items);
+      store.addItems(itemsUpdated);
 
       return {
         phases,
         filters,
-        items
+        items: itemsUpdated
       };
     },
     filterItems(filter, key) {

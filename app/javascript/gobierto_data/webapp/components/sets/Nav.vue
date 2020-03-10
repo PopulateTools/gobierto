@@ -208,10 +208,10 @@ export default {
           this.tableName = rawData.data.attributes.table_name
           this.arrayFormats = rawData.data.attributes.formats
           this.numberRows = rawData.data.attributes.data_summary.number_of_rows
-          this.frequencyDataset = rawData.data.attributes.frequency[0].name_translations.es
-          this.categoryDataset = rawData.data.attributes.category[0].name_translations.es
+          this.frequencyDataset = rawData.data.attributes.frequency.name_translations === undefined ? '' : rawData.data.attributes.frequency.name_translations
+          this.categoryDataset = rawData.data.attributes.category.name_translations === undefined ? '' : rawData.data.attributes.category.name_translations
           this.descriptionDataset = rawData.data.attributes.description
-          const dateFromApi = rawData.data.attributes.frequency[0].updated_at
+          const dateFromApi = rawData.data.attributes.data_updated_at === undefined ? '' : rawData.data.attributes.data_updated_at
           const newDateFromApi = new Date(dateFromApi)
           this.dateUpdated = newDateFromApi.toLocaleDateString('es-ES', {
               day : 'numeric',

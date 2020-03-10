@@ -82,6 +82,7 @@ export default {
     }
   },
   created() {
+    console.log("allDatasets", this.allDatasets);
     this.labelUpdated = I18n.t("gobierto_data.projects.updated")
     this.labelFrequency = I18n.t("gobierto_data.projects.frequency")
     this.labelSubject = I18n.t("gobierto_data.projects.subject")

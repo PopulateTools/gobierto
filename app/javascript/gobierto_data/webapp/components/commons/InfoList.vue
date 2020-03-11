@@ -25,7 +25,7 @@
               {{ labelUpdated }}
             </span>
             <span class="gobierto-data-summary-header-container-text">
-              {{ item.attributes.data_updated_at }}
+              {{ item.attributes.data_updated_at | convertDate }}
             </span>
           </div>
           <div class="gobierto-data-summary-header-container">
@@ -47,11 +47,22 @@
             <span class="gobierto-data-summary-header-container-label">
               {{ labelSubject }}
             </span>
-            <a
-              href=""
-              class="gobierto-data-summary-header-container-text-link"
-            >
-            </a>
+            <template v-if="selectedLanguage === 'es' && item.attributes.category.name_translations !== undefined">
+              <a
+                href=""
+                class="gobierto-data-summary-header-container-text-link"
+              >
+                {{ item.attributes.category.name_translations.es }}
+              </a>
+            </template>
+            <template v-else-if="item.attributes.category.name_translations !== undefined">
+              <a
+                href=""
+                class="gobierto-data-summary-header-container-text-link"
+              >
+                {{ item.attributes.category.name_translations.ca }}
+              </a>
+            </template>
           </div>
         </div>
         <div class="pure-u-1-2">
@@ -66,6 +77,16 @@
 <script>
 export default {
   name: "InfoList",
+  filters: {
+    convertDate: function(valueDate) {
+      const newDateFromApi = new Date(valueDate)
+      return newDateFromApi.toLocaleDateString('es-ES', {
+          day : 'numeric',
+          month : 'short',
+          year : 'numeric'
+      })
+    }
+  },
   props: {
     allDatasets: {
       type: Array,
@@ -77,7 +98,8 @@ export default {
       labelUpdated: '',
       labelFrequency: '',
       labelSubject: '',
-      labelDownloadData: ''
+      labelDownloadData: '',
+      selectedLanguage: ''
     }
   },
   created() {
@@ -85,6 +107,7 @@ export default {
     this.labelFrequency = I18n.t("gobierto_data.projects.frequency")
     this.labelSubject = I18n.t("gobierto_data.projects.subject")
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
+    this.selectedLanguage = I18n.locale
   },
   methods: {
     nav(slugDataset) {

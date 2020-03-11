@@ -1,7 +1,5 @@
 export const baseUrl = `${location.origin}/api/v1/data`
 
-import CONFIGURATION from "./mataro.conf.js";
-
 export const CommonsMixin = {
   directives: {
     clickoutside: {
@@ -81,7 +79,7 @@ export const categoriesMixin = {
     },
     setData(data) {
       return data.map(element => this.setItem(element));
-    }
+    },
   }
 }
 

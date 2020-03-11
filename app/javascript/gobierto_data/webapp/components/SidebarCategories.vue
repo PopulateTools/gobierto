@@ -1,7 +1,7 @@
 <template>
   <div class="pure-u-1 pure-u-lg-4-4">
     <aside
-      v-if="filters[0].count >= 1 || filters[1].count >= 1"
+      v-if="checkFilters"
       class="gobierto-data-filters"
     >
       <div
@@ -59,6 +59,11 @@ export default {
       labelSets: "",
       labelQueries: "",
       labelCategories: ""
+    }
+  },
+  computed: {
+    checkFilters() {
+      return this.filters[0].count >= 1 || this.filters[1].count >= 1 ? true : false;
     }
   },
   created() {

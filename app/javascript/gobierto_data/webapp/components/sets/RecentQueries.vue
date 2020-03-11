@@ -52,8 +52,9 @@ export default {
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false, true)
       this.$root.$emit('updateCode', code)
+      const queryEditorLowerCase = this.queryEditor.toLowerCase()
 
-      if (this.queryEditor.includes('LIMIT')) {
+      if (queryEditorLowerCase.includes('limit')) {
         this.queryEditor = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {
@@ -63,10 +64,10 @@ export default {
         this.queryEditor = this.code
       }
 
-      this.endPoint = `${baseUrl}/data`
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${this.queryEditor}`
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
           let data = []
           let keysData = []
@@ -78,10 +79,11 @@ export default {
 
           keysData = Object.keys(data[0])
 
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
-          this.$root.$emit('sendData', this.keysData, this.data)
-          this.$root.$emit('sendDataViz', this.data)
-          this.$root.$emit('showMessages', true, false)
+          this.$root.$emit('recordsDuration', queryDurationRecords)
+          this.$root.$emit('sendData', keysData, data)
+          this.$root.$emit('showMessages', true)
+          this.$root.$emit('activateModalRecent')
+        	this.$root.$emit('sendDataViz', data)
           this.$root.$emit('runSpinner')
 
         })

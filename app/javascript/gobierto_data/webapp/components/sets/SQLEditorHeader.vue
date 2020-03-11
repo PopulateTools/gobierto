@@ -412,6 +412,7 @@ export default {
     runQuery() {
       this.showSpinner = true;
       this.queryEditor = encodeURI(this.codeQuery)
+      const queryEditorLowerCase = this.queryEditor.toLowerCase()
 
       let query = ''
       if (this.queryEditor.includes('LIMIT')) {

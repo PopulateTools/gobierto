@@ -1,8 +1,15 @@
 <template>
-  <div>
-    <strong>{{ title }}</strong>
+  <div class="gobierto-block-header">
+    <strong class="gobierto-block-header--title">
+      <i
+        class="fas fa-caret-down gobierto-block-header--icon"
+        style="color: var(--color-base);"
+        @click="toggle"
+      />
+      {{ title }}</strong>
     <a
       v-if="seeLink"
+      class="gobierto-block-header--link"
       @click="selectAll"
     >{{
       labelAlt ? labelNone : labelAll
@@ -40,6 +47,9 @@ export default {
   methods: {
     selectAll() {
       this.$emit("select-all");
+    },
+    toggle() {
+      this.$emit("toggle");
     }
   }
 };

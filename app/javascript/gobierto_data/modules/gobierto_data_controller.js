@@ -13,29 +13,28 @@ export class GobiertoDataController {
     const entryPoint = document.getElementById(selector);
     if (entryPoint) {
       const htmlRouterBlock = `
-        <keep-alive>
-          <router-view :key="$route.fullPath"></router-view>
-        </keep-alive>
+      <keep-alive>
+        <router-view :key="$route.fullPath"></router-view>
+      </keep-alive>
       `;
 
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () => import("../webapp/pages/Home.vue");
-      const Sets = () => import("../webapp/pages/Sets.vue");
-
 
       const router = new VueRouter({
         mode: "history",
         routes: [{
             path: "/datos",
             name: "home",
-            component: Home
+            component: Home,
+            props: { currentComponent: 'InfoList', activateTabSidebar: 0 }
           },
           {
             path: "/datos/:id",
             name: "dataset",
-            component: Sets,
-            props: true
+            component: Home,
+            props: { currentComponent: 'DataSets', activateTabSidebar: 1 }
           }
         ]
       })

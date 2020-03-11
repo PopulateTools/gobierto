@@ -29,9 +29,11 @@ export const closableMixin = {
           const { handler, exclude } = binding.value
           let clickedOnExcludedEl = false
           exclude.forEach(refName => {
-            if (!clickedOnExcludedEl) {
+            if (!clickedOnExcludedEl ) {
               const excludedEl = vnode.context.$refs[refName]
-              clickedOnExcludedEl = excludedEl.contains(e.target)
+              if (excludedEl !== undefined) {
+                clickedOnExcludedEl = excludedEl.contains(e.target)
+              }
             }
           })
           if (!el.contains(e.target) && !clickedOnExcludedEl) {
@@ -47,6 +49,37 @@ export const closableMixin = {
         document.removeEventListener('touchstart', handleOutsideClick)
       }
     }
+  }
+}
+
+export const categoriesMixin = {
+  methods: {
+
+    getItem(element, attributes) {
+      const attr = this.middleware.getAttributesByKey(element.id);
+
+      let value = attributes[element.id];
+
+      if (element.multiple) {
+        value = this.translate(attributes[element.id][0].name_translations);
+      }
+
+      return {
+        ...attr,
+        ...element,
+        name: this.translate(attr.name_translations),
+        value: value
+      };
+    },
+    setItem(element) {
+      return {
+        ...element,
+
+      };
+    },
+    setData(data) {
+      return data.map(element => this.setItem(element));
+    },
   }
 }
 
@@ -184,3 +217,8 @@ export const sqlKeywords = [
     text: "LIMIT"
   }
 ]
+
+/*export navMixin = {
+
+}
+*/

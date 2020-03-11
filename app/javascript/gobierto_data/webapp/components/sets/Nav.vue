@@ -176,7 +176,6 @@ export default {
         .then(response => {
 
          const rawData = response.data
-         console.log("rawData", rawData);
          const { data: {
            id: datasetId,
            attributes: {

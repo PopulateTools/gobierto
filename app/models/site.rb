@@ -90,7 +90,7 @@ class Site < ApplicationRecord
   # GobiertoData integration
   has_many :datasets, dependent: :destroy, class_name: "GobiertoData::Dataset"
   has_many :queries, through: :datasets, class_name: "GobiertoData::Query"
-  has_many :visualizations, through: :queries, class_name: "GobiertoData::Visualization"
+  has_many :visualizations, through: :datasets, class_name: "GobiertoData::Visualization"
 
   serialize :configuration_data
 

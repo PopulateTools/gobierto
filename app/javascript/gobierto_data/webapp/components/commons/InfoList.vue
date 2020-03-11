@@ -39,9 +39,9 @@
             <span class="gobierto-data-summary-header-container-label">
               {{ labelFrequency }}
             </span>
-              <span class="gobierto-data-summary-header-container-text">
-                {{ item.attributes.frequency[0].name_translations | translate }}
-              </span>
+            <span class="gobierto-data-summary-header-container-text">
+              {{ item.attributes.frequency[0].name_translations | translate }}
+            </span>
           </div>
           <div
             v-if="item.attributes.category[0].name_translations"
@@ -54,12 +54,12 @@
             <span class="gobierto-data-summary-header-container-label">
               {{ labelSubject }}
             </span>
-              <a
-                href=""
-                class="gobierto-data-summary-header-container-text-link"
-              >
-                {{ item.attributes.frequency[0].name_translations | translate }}
-              </a>
+            <a
+              href=""
+              class="gobierto-data-summary-header-container-text-link"
+            >
+              {{ item.attributes.frequency[0].name_translations | translate }}
+            </a>
           </div>
         </div>
         <div class="pure-u-1-2">

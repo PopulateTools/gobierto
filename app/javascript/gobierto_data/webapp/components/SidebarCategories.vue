@@ -63,7 +63,10 @@ export default {
   },
   computed: {
     checkFilters() {
-      return this.filters[0].count >= 1 || this.filters[1].count >= 1 ? true : false;
+      if (!this.filters.length) return false
+      return ((this.filters[0] && (this.filters[0] || {}).count >= 1)
+        || (this.filters[1] && (this.filters[1] || {}).count >= 1));
+
     }
   },
   created() {

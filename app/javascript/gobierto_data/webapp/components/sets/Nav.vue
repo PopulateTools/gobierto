@@ -184,6 +184,7 @@ export default {
              table_name: tableName,
              columns: arrayColumns,
              description: descriptionDataset,
+             data_updated_at: dateUpdated,
              data_summary: {
                number_of_rows: numberRows
              },
@@ -199,22 +200,17 @@ export default {
           this.arrayFormats = arrayFormats
           this.arrayColumns = arrayColumns
           this.numberRows = numberRows
+          this.dateUpdated = dateUpdated
           this.descriptionDataset = descriptionDataset
-          const dateFromApi = rawData.data.attributes.data_updated_at === undefined ? '' : rawData.data.attributes.data_updated_at
-          const newDateFromApi = new Date(dateFromApi)
-          this.dateUpdated = newDateFromApi.toLocaleDateString('es-ES', {
-              day : 'numeric',
-              month : 'short',
-              year : 'numeric'
-          })
           this.resourcesList = resourcesData
-          if (I18n.locale === 'es') {
-            this.frequencyDataset = rawData.data.attributes.frequency[0].name_translations.es === undefined ? '' : rawData.data.attributes.frequency[0].name_translations.es
-            this.categoryDataset = rawData.data.attributes.category[0].name_translations.es === undefined ? '' : rawData.data.attributes.category[0].name_translations.es
-          } else if (I18n.locale === 'ca') {
-            this.categoryDataset = rawData.data.attributes.category[0].name_translations.ca === undefined ? '' : rawData.data.attributes.category[0].name_translations.ca
-            this.frequencyDataset = rawData.data.attributes.frequency[0].name_translations.ca === undefined ? '' : rawData.data.attributes.frequency[0].name_translations.ca
-          }
+
+
+          const { data: { attributes } } = rawData;
+          const { frequency = [], category = [] } = attributes;
+
+          this.frequencyDataset = frequency[0].name_translations[I18n.locale]
+          this.categoryDataset = category[0].name_translations[I18n.locale]
+
           this.getPublicQueries()
         })
         .catch(error => {

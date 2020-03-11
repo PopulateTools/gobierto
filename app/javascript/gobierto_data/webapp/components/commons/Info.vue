@@ -14,7 +14,7 @@
             {{ labelUpdated }}
           </span>
           <span class="gobierto-data-summary-header-container-text">
-            {{ dateUpdated }}
+            {{ dateUpdated | convertDate }}
           </span>
         </div>
         <div
@@ -60,6 +60,7 @@
   </div>
 </template>
 <script>
+import { date } from "./../../../../lib/shared/modules/vue-filters.js";
 export default {
   name: "Info",
   props: {
@@ -78,6 +79,15 @@ export default {
     dateUpdated: {
       type: String,
       default: ''
+    }
+  },
+  filters: {
+    convertDate(valueDate) {
+      return date(valueDate, {
+        day : 'numeric',
+        month : 'short',
+        year : 'numeric'
+      })
     }
   },
   data() {

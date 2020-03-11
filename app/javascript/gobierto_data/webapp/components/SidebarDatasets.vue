@@ -40,7 +40,7 @@
               {{ i }}
             </span>
           </div>
-          <div v-if="Object.keys(item.attributes.columns).length > showMaxKeys">
+          <div v-if="showKeys()">
             <template
               v-if="showLess"
             >
@@ -131,6 +131,9 @@ export default {
     sliceColumns(index) {
       const allColumns = this.listDatasets ? Object.keys(this.listDatasets[index].attributes.columns) : []
       this.lessColumns = allColumns.slice(0, this.showMaxKeys)
+    },
+    showKeys() {
+      return Object.keys(this.listDatasets[0].attributes.columns).length > this.showMaxKeys
     }
   }
 };

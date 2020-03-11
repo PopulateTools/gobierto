@@ -17,7 +17,7 @@ import LayoutTabs from "./../layouts/LayoutTabs.vue";
 import { Middleware } from "lib/shared";
 import { categoriesMixin, baseUrl } from "./../../lib/commons"
 import { store } from "./../../lib/store";
-import CONFIGURATION from "./../../lib/mataro.conf.js";
+import CONFIGURATION from "./../../lib/gobierto-data.conf.js";
 import axios from "axios";
 
 

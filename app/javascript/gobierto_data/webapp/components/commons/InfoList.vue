@@ -25,7 +25,7 @@
               {{ labelUpdated }}
             </span>
             <span class="gobierto-data-summary-header-container-text">
-              {{ item.attributes.data_updated_at | convertDate }}
+              {{ item.attributes.data_updated_at | date }}
             </span>
           </div>
           <div
@@ -39,18 +39,10 @@
             <span class="gobierto-data-summary-header-container-label">
               {{ labelFrequency }}
             </span>
-            <template v-if="selectedLanguage === 'es' && item.attributes.frequency[0].name_translations !== undefined">
               <span class="gobierto-data-summary-header-container-text">
-                {{ item.attributes.frequency[0].name_translations.es }}
+                {{ item.attributes.frequency[0].name_translations | translate }}
               </span>
-            </template>
-            <template v-else-if="item.attributes.frequency[0].name_translations !== undefined">
-              <span class="gobierto-data-summary-header-container-text">
-                {{ item.attributes.frequency[0].name_translations.ca }}
-              </span>
-            </template>
           </div>
-
           <div
             v-if="item.attributes.category[0].name_translations"
             class="gobierto-data-summary-header-container"
@@ -62,22 +54,12 @@
             <span class="gobierto-data-summary-header-container-label">
               {{ labelSubject }}
             </span>
-            <template v-if="selectedLanguage === 'es' && item.attributes.category[0].name_translations !== undefined">
               <a
                 href=""
                 class="gobierto-data-summary-header-container-text-link"
               >
-                {{ item.attributes.category[0].name_translations.es }}
+                {{ item.attributes.frequency[0].name_translations | translate }}
               </a>
-            </template>
-            <template v-else-if="item.attributes.category.name_translations !== undefined">
-              <a
-                href=""
-                class="gobierto-data-summary-header-container-text-link"
-              >
-                {{ item.attributes.category.name_translations.ca }}
-              </a>
-            </template>
           </div>
         </div>
         <div class="pure-u-1-2">
@@ -90,18 +72,11 @@
   </div>
 </template>
 <script>
+
+import { VueFiltersMixin } from "lib/shared";
 export default {
   name: "InfoList",
-  filters: {
-    convertDate: function(valueDate) {
-      const newDateFromApi = new Date(valueDate)
-      return newDateFromApi.toLocaleDateString('es-ES', {
-          day : 'numeric',
-          month : 'short',
-          year : 'numeric'
-      })
-    }
-  },
+  mixins: [VueFiltersMixin],
   props: {
     allDatasets: {
       type: Array,
@@ -113,8 +88,7 @@ export default {
       labelUpdated: '',
       labelFrequency: '',
       labelSubject: '',
-      labelDownloadData: '',
-      selectedLanguage: ''
+      labelDownloadData: ''
     }
   },
   created() {
@@ -122,7 +96,6 @@ export default {
     this.labelFrequency = I18n.t("gobierto_data.projects.frequency")
     this.labelSubject = I18n.t("gobierto_data.projects.subject")
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
-    this.selectedLanguage = I18n.locale
   },
   methods: {
     nav(slugDataset) {

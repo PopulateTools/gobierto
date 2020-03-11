@@ -11,20 +11,20 @@ ca:
       all: Totes
       analysis: Anàlisi
       api: API
-      buttonQueries: Veure consultes (c)
-      buttonRecentQueries: Veure consultes recents (r)
-      buttonRunQuery: Executar consulta (CMD/WIN + Enter)
-      cancel: Cancel·lar
+      buttonQueries: Vegeu consultes (c)
+      buttonRecentQueries: Vegeu consultes recents (r)
+      buttonRunQuery: Executeu consulta (CMD/WIN + Enter)
+      cancel: Cancel·leu
       categories: Categories
       dashboards: Dashboards
       data: Dades
       dataset: Conjunt de dades
       download: Descàrrega
-      downloadData: Descarregar dades
-      edit: Edita
+      downloadData: Descarregueu dades
+      edit: Editeu
       fav: Favorit
       favs: Favorites
-      follow: Seguir
+      follow: Seguïu
       frequency: Freqüència
       guide: Guia per utilitzar l'editor SQL
       info: Informació
@@ -38,12 +38,12 @@ ca:
       recents: Recents
       records: Registres
       resources: Recursos
-      runQuery: Executar consulta
-      save: Desar
+      runQuery: Executeu consulta
+      save: Deseu
       sets: Conjunts
       showAll: Vegeu-ho tot
       showLess: Vegeu-ne menys
-      showRows: Mostra totes les files
+      showRows: Mostreu totes les files
       subject: Tema
       summary: Resum
       table: Taula

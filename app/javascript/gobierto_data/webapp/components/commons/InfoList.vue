@@ -28,7 +28,10 @@
               {{ item.attributes.data_updated_at | convertDate }}
             </span>
           </div>
-          <div class="gobierto-data-summary-header-container">
+          <div
+            v-if="item.attributes.frequency[0].name_translations"
+            class="gobierto-data-summary-header-container"
+          >
             <i
               class="fas fa-calendar"
               style="color: var(--color-base); opacity: .25"
@@ -36,10 +39,22 @@
             <span class="gobierto-data-summary-header-container-label">
               {{ labelFrequency }}
             </span>
-            <span class="gobierto-data-summary-header-container-text">
-            </span>
+            <template v-if="selectedLanguage === 'es' && item.attributes.frequency[0].name_translations !== undefined">
+              <span class="gobierto-data-summary-header-container-text">
+                {{ item.attributes.frequency[0].name_translations.es }}
+              </span>
+            </template>
+            <template v-else-if="item.attributes.frequency[0].name_translations !== undefined">
+              <span class="gobierto-data-summary-header-container-text">
+                {{ item.attributes.frequency[0].name_translations.ca }}
+              </span>
+            </template>
           </div>
-          <div class="gobierto-data-summary-header-container">
+
+          <div
+            v-if="item.attributes.category[0].name_translations"
+            class="gobierto-data-summary-header-container"
+          >
             <i
               class="fas fa-tag"
               style="color: var(--color-base); opacity: .25"
@@ -47,12 +62,12 @@
             <span class="gobierto-data-summary-header-container-label">
               {{ labelSubject }}
             </span>
-            <template v-if="selectedLanguage === 'es' && item.attributes.category.name_translations !== undefined">
+            <template v-if="selectedLanguage === 'es' && item.attributes.category[0].name_translations !== undefined">
               <a
                 href=""
                 class="gobierto-data-summary-header-container-text-link"
               >
-                {{ item.attributes.category.name_translations.es }}
+                {{ item.attributes.category[0].name_translations.es }}
               </a>
             </template>
             <template v-else-if="item.attributes.category.name_translations !== undefined">

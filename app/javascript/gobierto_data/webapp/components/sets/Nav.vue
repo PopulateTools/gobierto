@@ -214,7 +214,6 @@ export default {
                number_of_rows: numberRows
              },
              formats: arrayFormats
-             
            }
          } } = rawData;
 
@@ -236,10 +235,10 @@ export default {
               year : 'numeric'
           })
           this.resourcesList = resourcesData
-          if(I18n.locale === 'es') {
+          if (I18n.locale === 'es') {
             this.frequencyDataset = rawData.data.attributes.frequency[0].name_translations.es === undefined ? '' : rawData.data.attributes.frequency[0].name_translations.es
             this.categoryDataset = rawData.data.attributes.category[0].name_translations.es === undefined ? '' : rawData.data.attributes.category[0].name_translations.es
-          } else if(I18n.locale === 'ca') {
+          } else if (I18n.locale === 'ca') {
             this.categoryDataset = rawData.data.attributes.category[0].name_translations.ca === undefined ? '' : rawData.data.attributes.category[0].name_translations.ca
             this.frequencyDataset = rawData.data.attributes.frequency[0].name_translations.ca === undefined ? '' : rawData.data.attributes.frequency[0].name_translations.ca
           }

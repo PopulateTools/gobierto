@@ -1,15 +1,15 @@
 <template>
-  <div class="gobierto-filter-block-header">
-    <strong class="gobierto-filter-block-header--title">
+  <div class="gobierto-block-header">
+    <strong class="gobierto-block-header--title">
       <i
-        class="fas fa-caret-down gobierto-filter-block-header--icon"
+        class="fas fa-caret-down gobierto-block-header--icon"
         style="color: var(--color-base);"
         @click="toggle"
       />
       {{ title }}</strong>
     <a
       v-if="seeLink"
-      class="gobierto-filter-block-header--link"
+      class="gobierto-block-header--link"
       @click="selectAll"
     >{{
       labelAlt ? labelNone : labelAll

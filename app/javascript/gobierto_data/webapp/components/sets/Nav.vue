@@ -188,7 +188,8 @@ export default {
              data_summary: {
                number_of_rows: numberRows
              },
-             formats: arrayFormats
+             formats: arrayFormats,
+             frequency = [], category = []
            }
          } } = rawData;
 
@@ -203,10 +204,6 @@ export default {
           this.dateUpdated = dateUpdated
           this.descriptionDataset = descriptionDataset
           this.resourcesList = resourcesData
-
-
-          const { data: { attributes } } = rawData;
-          const { frequency = [], category = [] } = attributes;
 
           this.frequencyDataset = frequency[0].name_translations[I18n.locale]
           this.categoryDataset = category[0].name_translations[I18n.locale]

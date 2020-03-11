@@ -66,6 +66,11 @@
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
         :array-formats="arrayFormats"
+        :description-dataset="descriptionDataset"
+        :category-dataset="categoryDataset"
+        :frequency-dataset="frequencyDataset"
+        :resources-list="resourcesList"
+        :date-updated="dateUpdated"
       />
       <Data
         v-else-if="activeTab === 1"
@@ -86,6 +91,7 @@
       <Downloads
         v-else-if="activeTab === 4"
         :array-formats="arrayFormats"
+        :resources-list="resourcesList"
       />
     </keep-alive>
   </div>
@@ -97,7 +103,9 @@ import Data from "./Data.vue";
 import Queries from "./Queries.vue";
 import Visualizations from "./Visualizations.vue";
 import Downloads from "./Downloads.vue";
-
+import axios from 'axios'
+import { baseUrl } from "./../../../lib/commons"
+import { getUserId, getToken } from "./../../../lib/helpers"
 
 export default {
   name: "NavSets",
@@ -109,46 +117,9 @@ export default {
     Downloads,
     Button
   },
-  props: {
-    activeTab: {
-      type: Number,
-      default: 0
-    },
-    datasetId: {
-      type: Number,
-      default: 0
-    },
-    arrayQueries: {
-      type: Array,
-      required: true
-    },
-    arrayColumns: {
-      type: Object,
-      required: true
-    },
-    numberRows: {
-      type: Number,
-      required: true
-    },
-    publicQueries: {
-      type: Array,
-      required: true
-    },
-    arrayFormats: {
-      type: Object,
-      required: true
-    },
-    tableName: {
-      type: String,
-      required: true
-    },
-    titleDataset: {
-      type: String,
-      required: true
-    }
-  },
   data() {
     return {
+      activeTab: 0,
       labelSummary: "",
       labelData: "",
       labelQueries: "",
@@ -157,7 +128,18 @@ export default {
       labelFav: "",
       labelFollow: "",
       slugName: '',
-      title: ''
+      tableName: '',
+      titleDataset: '',
+      arrayQueries: [],
+      numberRows: 0,
+      arrayFormats: {},
+      publicQueries: [],
+      resourcesList: [],
+      userId: '',
+      dateUpdated: '',
+      descriptionDataset: '',
+      categoryDataset: '',
+      frequencyDataset: ''
     }
   },
   created() {
@@ -171,15 +153,100 @@ export default {
 
     this.$root.$on('changeNavTab', this.changeTab)
     this.$root.$on('activeTabIndex', this.changeTab)
+    this.$root.$on('reloadQueries', this.getQueries)
 
     this.slugName = this.$route.params.id
+    this.userId = getUserId()
+    this.token = getToken()
+
+    this.setValuesDataset()
   },
   methods: {
     changeTab() {
       this.activateTab(1)
     },
     activateTab(index) {
+      this.activeTab = index
       this.$emit("active-tab", index);
+    },
+    setValuesDataset(){
+      const url = `${baseUrl}/datasets/${this.slugName}/meta`
+      axios
+        .get(url)
+        .then(response => {
+
+         const rawData = response.data
+         const { data: {
+           id: datasetId,
+           attributes: {
+             name: titleDataset,
+             slug: slugDataset,
+             table_name: tableName,
+             columns: arrayColumns,
+             description: descriptionDataset,
+             data_updated_at: dateUpdated,
+             data_summary: {
+               number_of_rows: numberRows
+             },
+             formats: arrayFormats,
+             frequency = [], category = []
+           }
+         } } = rawData;
+
+          const resourcesData = response.included
+          this.datasetId = parseInt(datasetId)
+          this.titleDataset = titleDataset
+          this.slugDataset = slugDataset
+          this.tableName = tableName
+          this.arrayFormats = arrayFormats
+          this.arrayColumns = arrayColumns
+          this.numberRows = numberRows
+          this.dateUpdated = dateUpdated
+          this.descriptionDataset = descriptionDataset
+          this.resourcesList = resourcesData
+
+          this.frequencyDataset = frequency[0].name_translations[I18n.locale]
+          this.categoryDataset = category[0].name_translations[I18n.locale]
+
+          this.getPublicQueries()
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    },
+    getQueries() {
+      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
+      axios
+        .get(endPoint, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `${this.token}`
+          }
+        })
+        .then(response => {
+          const rawData = response.data
+          const items = rawData.data
+          this.arrayQueries = items
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
+    },
+     getPublicQueries() {
+      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
+      axios
+        .get(endPoint)
+        .then(response => {
+          const rawData = response.data
+          const items = rawData.data
+          this.publicQueries = items
+          this.getQueries()
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
     }
   }
 }

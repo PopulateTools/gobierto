@@ -84,14 +84,6 @@
             @click="handleQueries(publicQueries[index].attributes.sql, item, true)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
-            <div
-              class="gobierto-data-summary-queries-container-icon"
-            >
-              <!-- <i
-                style="color: rgb(160, 197, 29)"
-                class="fas fa-lock"
-              /> -->
-            </div>
           </div>
         </div>
       </div>
@@ -209,8 +201,9 @@ export default {
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false, true)
       this.$root.$emit('updateCode', code)
+      const queryEditorLowerCase = this.queryEditor.toLowerCase()
 
-      if (this.queryEditor.includes('LIMIT')) {
+      if (queryEditorLowerCase.includes('limit')) {
         this.queryEditor = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {
@@ -240,6 +233,7 @@ export default {
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true, false)
           this.$root.$emit('sendQueryCode', this.queryCode)
+          this.$root.$emit('activateModalRecent')
           this.$root.$emit('runSpinner')
 
         })

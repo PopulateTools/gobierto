@@ -8,33 +8,59 @@
         />
       </div>
       <Sidebar
-        :active-tab="activeTabSidebar"
+        :active-tab="activeTab"
+        :filters="filters"
+        @active-tab-sidebar="activeTab = $event"
+      />
+      <component
+        :is="currentComponent"
         :all-datasets="allDatasets"
-        @active-tab="activeTabSidebar = $event"
-      >
-        <template v-slot:sidebar>
-          <slot name="sidebar" />
-        </template>
-      </Sidebar>
-      <slot />
+      />
     </div>
   </div>
 </template>
 <script>
 import Sidebar from "./../components/Sidebar.vue";
 import Nav from "./../components/Nav.vue";
+import InfoList from "./../components/commons/InfoList.vue";
+import DataSets from "./../pages/DataSets.vue";
 export default {
+  name: "LayoutTabs",
   components: {
     Sidebar,
+    DataSets,
+    InfoList,
     Nav
+  },
+  props: {
+    filters: {
+      type: Array,
+      default: () => []
+    },
+    allDatasets: {
+      type: Array,
+      default: () => []
+    },
+    currentView: {
+      type: String,
+      required: true,
+      default: ''
+    },
+    currentTab: {
+      type: Number,
+      default: 0
+    }
   },
   data() {
     return {
       activeTabIndex: 0,
-      activeTabSidebar: 0,
-      allDatasets: []
+      activeTab: 0,
+      currentComponent: ''
     }
+  },
+  created() {
+    this.currentComponent = this.currentView
+    this.activeTab = this.currentTab
   }
 }
-
 </script>

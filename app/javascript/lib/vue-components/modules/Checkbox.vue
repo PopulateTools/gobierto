@@ -1,17 +1,21 @@
 <template>
-  <div>
+  <div class="gobierto-filter-checkbox">
     <input
       :id="`checkbox-${id}-${seed}`"
       :checked="checked"
       type="checkbox"
+      class="gobierto-filter-checkbox--input"
       @change="marked = !marked"
     >
     <label
       :for="`checkbox-${id}-${seed}`"
+      class="gobierto-filter-checkbox--label"
     >
-      <div>
+      <div
+        class="gobierto-filter-checkbox--label-title"
+      >
         {{ title }}
-        <i>({{ counter }})</i>
+        <i class="gobierto-filter-checkbox--label-counter">({{ counter }})</i>
       </div>
     </label>
   </div>
@@ -47,7 +51,7 @@ export default {
   watch: {
     marked(value) {
       this.$emit("checkbox-change", { id: this.id, value })
-    },
+    }
   }
 };
 </script>

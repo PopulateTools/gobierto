@@ -2,26 +2,44 @@
   <div>
     <div class="pure-g">
       <div class="pure-u-1-2 gobierto-data-summary-header">
-        <div class="gobierto-data-summary-header-container">
-          <i class="fas fa-clock" />
+        <div
+          v-if="dateUpdated"
+          class="gobierto-data-summary-header-container"
+        >
+          <i
+            class="fas fa-clock"
+            style="color: var(--color-base); opacity: .25"
+          />
           <span class="gobierto-data-summary-header-container-label">
             {{ labelUpdated }}
           </span>
           <span class="gobierto-data-summary-header-container-text">
-            {{ datasetDate }}
+            {{ dateUpdated | convertDate }}
           </span>
         </div>
-        <div class="gobierto-data-summary-header-container">
-          <i class="fas fa-calendar" />
+        <div
+          v-if="frequencyDataset"
+          class="gobierto-data-summary-header-container"
+        >
+          <i
+            class="fas fa-calendar"
+            style="color: var(--color-base); opacity: .25"
+          />
           <span class="gobierto-data-summary-header-container-label">
             {{ labelFrequency }}
           </span>
           <span class="gobierto-data-summary-header-container-text">
-            {{ datasetFrequency }}
+            {{ frequencyDataset }}
           </span>
         </div>
-        <div class="gobierto-data-summary-header-container">
-          <i class="fas fa-tag" />
+        <div
+          v-if="categoryDataset"
+          class="gobierto-data-summary-header-container"
+        >
+          <i
+            class="fas fa-tag"
+            style="color: var(--color-base); opacity: .25"
+          />
           <span class="gobierto-data-summary-header-container-label">
             {{ labelSubject }}
           </span>
@@ -29,31 +47,55 @@
             href=""
             class="gobierto-data-summary-header-container-text-link"
           >
-            {{ datasetSubject }}
+            {{ categoryDataset }}
           </a>
         </div>
       </div>
       <div class="pure-u-1-2">
         <p class="gobierto-data-summary-header-description">
-          {{ datasetDescription }}
+          {{ descriptionDataset }}
         </p>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { date } from "./../../../../lib/shared/modules/vue-filters.js";
 export default {
   name: "Info",
+  filters: {
+    convertDate(valueDate) {
+      return date(valueDate, {
+        day : 'numeric',
+        month : 'short',
+        year : 'numeric'
+      })
+    }
+  },
+  props: {
+    descriptionDataset: {
+      type: String,
+      default: ''
+    },
+    categoryDataset: {
+      type: String,
+      default: ''
+    },
+    frequencyDataset: {
+      type: String,
+      default: ''
+    },
+    dateUpdated: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       labelUpdated: '',
       labelFrequency: '',
       labelSubject: '',
-      labelDownloadData: '',
-      datasetDate: '',
-      datasetFrequency: '',
-      datasetSubject: '',
-      datasetDescription: ''
+      labelDownloadData: ''
     }
   },
   created() {
@@ -61,25 +103,6 @@ export default {
     this.labelFrequency = I18n.t("gobierto_data.projects.frequency")
     this.labelSubject = I18n.t("gobierto_data.projects.subject")
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
-  },
-  methods: {
-    updateSummaryInfo(values) {
-      const { 0: updatedDate, 1: frequency, 2: subject, 3: description } = values
-
-      this.datasetDate = this.datasetDate === undefined ? '' : updatedDate
-      this.datasetFrequency = this.datasetFrequency === undefined ? '' : frequency
-      this.datasetSubject = this.datasetSubject === undefined ? '' : subject
-      this.datasetDescription = this.datasetDescription === undefined ? '' : description
-
-      this.datasetDate = new Date(this.datasetDate)
-      this.datasetDate = this.datasetDate.toLocaleDateString('es-ES', {
-          day : 'numeric',
-          month : 'short',
-          year : 'numeric'
-      })
-
-    }
   }
 }
-
 </script>

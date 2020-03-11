@@ -41,6 +41,8 @@ es:
       runQuery: Ejecutar consulta
       save: Guardar
       sets: Conjuntos
+      showAll: Ver todo
+      showLess: Ver menos
       showRows: Mostrar todas las filas
       subject: Tema
       summary: Resumen

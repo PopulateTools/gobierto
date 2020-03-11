@@ -41,6 +41,8 @@ en:
       runQuery: Run query
       save: Save
       sets: Sets
+      showAll: Show all
+      showLess: Show less
       showRows: Show all rows
       subject: Subject
       summary: Summary

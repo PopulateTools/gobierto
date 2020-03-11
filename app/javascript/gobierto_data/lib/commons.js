@@ -81,17 +81,6 @@ export const categoriesMixin = {
     },
     setData(data) {
       return data.map(element => this.setItem(element));
-    },
-    async alterDataObjectOptional(data) {
-      const { itemSpecialConfiguration } = CONFIGURATION;
-
-      let spreadData = data;
-      if (itemSpecialConfiguration) {
-        const { fn = () => data } = itemSpecialConfiguration;
-        spreadData = await fn(data);
-      }
-
-      return Array.isArray(spreadData) ? this.setData(spreadData) : this.setItem(spreadData);
     }
   }
 }

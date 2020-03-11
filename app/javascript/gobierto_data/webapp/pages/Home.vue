@@ -129,9 +129,6 @@ export default {
       // Assign this object BEFORE next function for better performance
       this.subsetItems = items;
 
-
-
-
       return {
         filters,
         items
@@ -236,7 +233,8 @@ export default {
           tabSidebar: 0,
           currentComponent: 'InfoList'
         }
-      }).catch(err => { err })
+      // eslint-disable-next-line no-unused-vars
+      }).catch(err => {})
     }
   }
 }

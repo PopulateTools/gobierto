@@ -74,8 +74,8 @@ export default {
       labelSets: "",
       labelQueries: "",
       labelCategories: "",
-      labelSeeMore: "",
-      labelSeeLess: "",
+      labelshowAll: "",
+      labelshowLess: "",
       listDatasets: [],
       toggle: 0,
       indexToggle: null,
@@ -102,7 +102,7 @@ export default {
       this.toggle = indexToggle
       if (this.toggle === -1) {
         this.toggle = 0
-        slug = allDatasets[0].attributes.slug
+        slug = slug = allDatasets.length ? allDatasets[0].attributes.slug : ''
       }
       let firstElement = allDatasets.find(dataset => dataset.attributes.slug == slug)
       let filteredArray = allDatasets.filter(dataset => dataset.attributes.slug !== slug)
@@ -125,10 +125,11 @@ export default {
           tabSidebar: 1,
           title: nameDataset
         }
-    }).catch(err => { err })
+    // eslint-disable-next-line no-unused-vars
+    }).catch(err => {})
     },
     sliceColumns(index) {
-      const allColumns = Object.keys(this.listDatasets[index].attributes.columns)
+      const allColumns = this.listDatasets ? Object.keys(this.listDatasets[index].attributes.columns) : []
       this.lessColumns = allColumns.slice(0, this.showMaxKeys)
     }
   }

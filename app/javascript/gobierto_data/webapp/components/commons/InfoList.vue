@@ -1,7 +1,6 @@
 <template>
   <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
     <div class="gobierto-data-infolist">
-      Promo - Intro al módulo
     </div>
     <div
       v-for="(item, index) in allDatasets"
@@ -89,7 +88,6 @@ export default {
   },
   methods: {
     nav(slugDataset) {
-      const index = 1
       this.$router.push({
         name: "dataset",
         params: {
@@ -97,7 +95,8 @@ export default {
           tabSidebar: 1,
           currentComponent: 'DataSets'
         }
-      }).catch(err => { err })
+      // eslint-disable-next-line no-unused-vars
+      }).catch(err => {})
     }
   }
 }

@@ -63,6 +63,15 @@
 import { date } from "./../../../../lib/shared/modules/vue-filters.js";
 export default {
   name: "Info",
+  filters: {
+    convertDate(valueDate) {
+      return date(valueDate, {
+        day : 'numeric',
+        month : 'short',
+        year : 'numeric'
+      })
+    }
+  },
   props: {
     descriptionDataset: {
       type: String,
@@ -79,15 +88,6 @@ export default {
     dateUpdated: {
       type: String,
       default: ''
-    }
-  },
-  filters: {
-    convertDate(valueDate) {
-      return date(valueDate, {
-        day : 'numeric',
-        month : 'short',
-        year : 'numeric'
-      })
     }
   },
   data() {

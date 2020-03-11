@@ -117,6 +117,7 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
   end
 
   def test_site_updated_event_handling_for_multiple_changes
+    last_activity_id = Activity.maximum(:id)
     assert_difference "Activity.count", 3 do
       subject.site_updated Event.new(name: "activities/sites.site_updated", payload: {
                                        subject: site, author: admin, ip: IP,
@@ -128,7 +129,7 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
                                      })
     end
 
-    last_activities_action = Activity.all[1..-1].pluck(:action)
+    last_activities_action = Activity.where("id > ?", last_activity_id).pluck(:action)
     assert_includes last_activities_action, "sites.site_visibility_updated"
     assert_includes last_activities_action, "sites.site_updated"
     assert_includes last_activities_action, "sites.site_modules_updated"

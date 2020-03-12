@@ -8,7 +8,7 @@ module GobiertoData
 
     belongs_to :dataset
     belongs_to :user
-    has_many :visualizations, dependent: :destroy, class_name: "GobiertoData::Visualization"
+    has_many :visualizations, dependent: :nullify, class_name: "GobiertoData::Visualization"
     enum privacy_status: { open: 0, closed: 1 }
 
     translates :name

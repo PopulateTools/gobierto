@@ -48,8 +48,11 @@ export default {
       const table = perspective.worker().table(data);
 
       this.initColumns = Object.keys(data[0]);
+
       this.viewer.load(table);
       this.viewer.restore(this.config);
+
+      this.viewer._config_button.style.display = 'none'
     },
     updatePerspectiveData(values) {
       this.viewer.clear();

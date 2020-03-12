@@ -3,7 +3,7 @@
     <div class="gobierto-data-visualization--grid">
       <template v-if="visualizations.length">
         <template v-for="{ data, links, config, name } in visualizations">
-          <div :key="links.self">
+          <div :key="`${links.self}--${name}`">
             <h4>{{ name }}</h4>
             <SQLEditorVisualizations
               :items="data"

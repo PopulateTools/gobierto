@@ -1,5 +1,5 @@
-import { baseUrl } from "./commons.js";
-import { getToken } from "./helpers";
+import { baseUrl } from "../commons.js";
+import { getToken } from "../helpers";
 import axios from "axios";
 
 const endPoint = `${baseUrl}/visualizations`;
@@ -9,7 +9,7 @@ const headers = {
   Authorization: token
 };
 
-// Visualization factory to get/post/put/delete API data
+// Visualizations-endpoint factory to get/post/put/delete API data
 export const VisualizationFactoryMixin = {
   methods: {
     getVisualization(id) {

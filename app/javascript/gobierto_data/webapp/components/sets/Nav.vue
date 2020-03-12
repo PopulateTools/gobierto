@@ -109,6 +109,12 @@ import { getUserId, getToken } from "./../../../lib/helpers"
 
 export default {
   name: "NavSets",
+  props: {
+    activeDatasetTab: {
+      type: Number,
+      default: 0
+    }
+  },
   components: {
     Button,
     Summary,
@@ -147,6 +153,7 @@ export default {
     next()
   },
   created() {
+    this.activeTab = this.activeDatasetTab
     this.labelSummary = I18n.t("gobierto_data.projects.summary")
     this.labelData = I18n.t("gobierto_data.projects.data")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")

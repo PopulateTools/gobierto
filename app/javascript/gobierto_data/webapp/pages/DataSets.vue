@@ -10,6 +10,12 @@ import NavDatasets from "./../components/sets/Nav.vue"
 
 export default {
   name: "DataSets",
+  props: {
+    activeDatasetTab: {
+      type: Number,
+      default: 0
+    }
+  },
   components: {
     NavDatasets
   }

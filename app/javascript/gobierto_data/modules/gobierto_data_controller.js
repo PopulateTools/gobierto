@@ -15,20 +15,13 @@ export class GobiertoDataController {
     if (entryPoint) {
       const htmlRouterBlock = `
       <keep-alive>
-        <router-view></router-view>
+        <router-view :key="$route.fullPath"></router-view>
       </keep-alive>
       `;
 
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () => import("../webapp/pages/Home.vue");
-      const Sets = () => import("../webapp/pages/Sets.vue");
-      const Summary = () => import("../webapp/components/sets/Summary.vue");
-      const Editor = () => import("../webapp/components/sets/Data.vue");
-      const Queries = () => import("../webapp/components/sets/Queries.vue");
-      const Visualizations = () => import("../webapp/components/sets/Visualizations.vue");
-      const Downloads = () => import("../webapp/components/sets/Downloads.vue");
-
 
       const router = new VueRouter({
 
@@ -37,46 +30,79 @@ export class GobiertoDataController {
             path: "/datos",
             name: "home",
             component: Home,
-            props: { currentComponent: 'InfoList', activateTabSidebar: 0 }
+            props: {
+              currentComponent: 'InfoList',
+              activateTabSidebar: 0
+            }
           },
           {
             path: "/datos/:id",
             name: "dataset",
             component: Home,
-            props: { currentComponent: 'DataSets', activateTabSidebar: 1 },
-            children: [
-             {
-               path: "",
-               name: "resumen",
-               component: Summary
-             },
-             {
-               path: "editor",
-               name: "editor",
-               props: true,
-               component: Editor
-             },
-             {
-               path: "consultas",
-               name: "consultas",
-               component: Queries
-             },
-             {
-               path: "visualizaciones",
-               name: "visualizaciones",
-               component: Visualizations
-             },
-             {
-               path: "descarga",
-               name: "descarga",
-               component: Downloads
-             },
-             {
-               path: "q/:queryId",
-               name: "queries",
-               component: Editor
-             }
-           ]
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1
+            }
+          },
+          {
+            path: "/datos/:id/resumen",
+            name: "resumen",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTab: 0
+            }
+          },
+          {
+            path: "/datos/:id/editor",
+            name: "editor",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTab: 1
+            }
+          },
+          {
+            path: "/datos/:id/consultas",
+            name: "consultas",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTab: 2
+            }
+          },
+          {
+            path: "/datos/:id/visualizaciones",
+            name: "visualizaciones",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTab: 3
+            }
+          },
+          {
+            path: "/datos/:id/descarga",
+            name: "descarga",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTab: 4
+            }
+          },
+          {
+            path: "/datos/:id/q/:queryId",
+            name: "queries",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTab: 1
+            }
           }
         ]
       })

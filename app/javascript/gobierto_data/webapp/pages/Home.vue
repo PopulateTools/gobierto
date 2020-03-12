@@ -8,6 +8,7 @@
       :all-datasets="subsetItems"
       :current-view="currentView"
       :current-tab="currentTab"
+      :active-dataset-tab="activeDatasetTab"
     />
   </div>
 </template>
@@ -32,6 +33,10 @@ export default {
       type: String,
       required: true,
       default: ''
+    },
+    activeDatasetTab: {
+      type: Number,
+      default: 0
     },
     activateTabSidebar: {
       type: Number,

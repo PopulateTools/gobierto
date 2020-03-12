@@ -18,6 +18,7 @@
     list-style: none;
     display: inline-block;
     color: var(--color-base);
+    text-decoration: none;
     text-transform: uppercase;
     font-size: 15px;
     font-weight: 200;
@@ -28,6 +29,7 @@
 
     &:hover {
       border-bottom: 2px solid rgba(var(--color-base-string), 0.5);
+      text-decoration: none;
     }
 
     &.is-active {
@@ -38,6 +40,9 @@
 
   &-layout-sidebar {
     height: 100%;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
 
     &.gobierto-data-layout-column {
       padding-right: 0 !important;
@@ -76,6 +81,7 @@
 
   &-title-dataset {
     font-family: $font_headings;
+    text-decoration: none;
     font-weight: bold;
     font-size: 20px;
     line-height: 1.2;
@@ -157,6 +163,12 @@
 
   &-summary-header {
     box-sizing: border-box;
+  }
+
+  &-summary-header-description {
+    margin-top: 0;
+    font-size: 14px;
+    color: #666;
   }
 
   &-summary-header-container {
@@ -717,7 +729,8 @@
     color: #666;
     font-family: monospace;
 
-    &:hover {
+    &:hover,
+    &.active-query {
       background-color: rgba(var(--color-base-string), .1);
 
       &::before {
@@ -815,14 +828,19 @@
     font-size: 14px;
     color: #666;
     display: inline-block;
-    width: 90%;
+    width: 78%;
     position: relative;
     z-index: 1;
   }
 
   &-summary-queries-container-icon {
     display: inline-block;
-    width: 4%;
+    width: 20%;
+  }
+
+  .icons-your-queries {
+    display: inline-block;
+    max-width: 14px;
   }
 
   .spinner-box {
@@ -930,10 +948,51 @@
     transform: rotate(270deg);
   }
 
+  .CodeMirror-scroll {
+    overflow: hidden !important;
+  }
+
   &-sql-editor-footer {
     display: inline-block;
     width: max-content;
+    max-width: 100%;
   }
 
-}
+  &-filters {
+    width: 100%;
+  }
 
+  &-filters-element-no-margin {
+    margin-bottom: 0;
+  }
+
+  .sidebar-filter-caret {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  &-infolist {
+    background-color: rgba(113, 184, 193, .1);
+    color: #71b8c1;
+    height: 40vh;
+    width: 100%;
+    padding: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  &-sidebar-datasets-links-columns-see-more {
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--color-base);
+    text-decoration: underline;
+    padding-left: 1rem;
+    padding-top: .5rem;
+    text-transform: none;
+    transition: font-weight var(--transition);
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+}

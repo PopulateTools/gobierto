@@ -11,6 +11,9 @@ en:
       all: All
       analysis: Analysis
       api: API
+      buttonQueries: See queries (r)
+      buttonRecentQueries: See recent queries (r)
+      buttonRunQuery: Run query (CMD/WIN + Enter)
       cancel: Cancel
       categories: Categories
       dashboards: Dashboards
@@ -38,6 +41,8 @@ en:
       runQuery: Run query
       save: Save
       sets: Sets
+      showAll: Show all
+      showLess: Show less
       showRows: Show all rows
       subject: Subject
       summary: Summary

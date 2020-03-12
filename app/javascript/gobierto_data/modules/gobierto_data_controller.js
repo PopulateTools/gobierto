@@ -1,10 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import VueCodemirror from 'vue-codemirror'
+
 import 'codemirror/lib/codemirror.css'
 
 Vue.use(VueRouter);
-Vue.use(VueCodemirror);
 Vue.config.productionTip = false;
 
 export class GobiertoDataController {
@@ -15,9 +14,9 @@ export class GobiertoDataController {
     const entryPoint = document.getElementById(selector);
     if (entryPoint) {
       const htmlRouterBlock = `
-        <keep-alive>
-          <router-view/>
-        </keep-alive>
+      <keep-alive>
+        <router-view :key="$route.fullPath"></router-view>
+      </keep-alive>
       `;
 
       entryPoint.innerHTML = htmlRouterBlock;
@@ -38,13 +37,15 @@ export class GobiertoDataController {
             path: "/datos",
             name: "home",
             props: true,
-            component: Home
+            component: Home,
+            props: { currentComponent: 'InfoList', activateTabSidebar: 0 }
           },
           {
             path: "/datos/:id",
             name: "dataset",
             props: true,
-            component: Sets,
+            component: Home,
+            props: { currentComponent: 'DataSets', activateTabSidebar: 1 },
             children: [
              {
                path: "",

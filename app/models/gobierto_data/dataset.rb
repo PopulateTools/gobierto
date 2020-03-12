@@ -6,6 +6,8 @@ module GobiertoData
   class Dataset < ApplicationRecord
     include GobiertoCommon::Sluggable
     include GobiertoData::Favoriteable
+    include GobiertoAttachments::Attachable
+    include GobiertoCommon::Collectionable
 
     belongs_to :site
     has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"

@@ -116,35 +116,34 @@ export default {
     },
     queryTotal() {
       this.showTotalRows = false
-      this.endPoint = `${baseUrl}/data`
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${this.queryEditor}`
       if (this.queryEditor === undefined) {
         this.queryEditor = `SELECT * FROM ${this.tableName}`
       }
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
 
       axios
-        .get(this.url)
+        .get(url)
         .then(response => {
-          this.data = []
-          this.keysData = []
-          this.rawData = response.data
-          this.meta = this.rawData.meta
-          this.data = this.rawData.data
+          let data = []
+          let keysData = []
+          const rawData = response.data
+          const meta = rawData.meta
+          data = rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          const queryDurationRecords = [ meta.rows, meta.duration ]
 
-          this.keysData = Object.keys(this.data[0])
+          keysData = Object.keys(this.data[0])
 
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
-          this.$root.$emit('sendData', this.keysData, this.data)
+          this.$root.$emit('recordsDuration', queryDurationRecords)
+          this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true)
 
         })
         .catch(error => {
           this.$root.$emit('apiError', error)
-          this.data = []
-          this.keysData = []
-          this.$root.$emit('sendData', this.keysData)
+          const keysData = []
+          this.$root.$emit('sendData', keysData)
         })
     }
   }

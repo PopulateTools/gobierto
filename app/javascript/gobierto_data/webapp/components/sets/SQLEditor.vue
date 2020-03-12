@@ -11,10 +11,13 @@
       />
       <SQLEditorCode
         :table-name="tableName"
+        :array-columns="arrayColumns"
         :number-rows="numberRows"
       />
       <SQLEditorTabs
+        v-if="dataLoaded"
         :array-formats="arrayFormats"
+        :items="items"
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
         :table-name="tableName"
@@ -25,9 +28,12 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 import SQLEditorCode from "./SQLEditorCode.vue";
 import SQLEditorHeader from "./SQLEditorHeader.vue";
 import SQLEditorTabs from "./SQLEditorTabs.vue";
+import { baseUrl } from "./../../../lib/commons.js"
+import "./../../../lib/sql-theme.css"
 
 export default {
   name: 'SQLEditor',
@@ -43,6 +49,10 @@ export default {
     },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    arrayColumns: {
+      type: Object,
       required: true
     },
     publicQueries: {
@@ -65,22 +75,48 @@ export default {
   data() {
     return {
       activeTabIndex: 0,
+      rawData: [],
+      columns: [],
+      items: null,
+      keysData: [],
+      meta:[],
+      links:[],
+      link: '',
+      queryEditor: '',
       recentQueries: [],
-      newRecentQuery: null
+      orderRecentQueries: [],
+      totalRecentQueries: [],
+      tempRecentQueries: [],
+      localQueries: [],
+      newRecentQuery: null,
+      localTableName: '',
+      dataLoaded: false
     }
   },
-  created(){
-    this.$root.$on('activateModalRecent', this.loadRecentQuery)
-    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
+  created() {
+    this.localTableName = this.tableName
+    this.$root.$on('sendYourCode', this.runYourQuery)
     if (localStorage.getItem('recentQueries')) {
       try {
         this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
+        this.localQueries = JSON.parse(localStorage.getItem('savedData'));
+        this.addRecentQuery()
       } catch (e) {
         localStorage.removeItem('recentQueries');
       }
     }
+
+    this.$root.$on('activateModalRecent', this.loadRecentQuery)
+  },
+  mounted() {
+    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
+    this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
+    this.getData()
   },
   methods: {
+    runYourQuery(sqlCode) {
+      this.queryEditor = sqlCode
+    },
     addRecentQuery() {
       if (!this.newRecentQuery) {
         return;
@@ -89,17 +125,62 @@ export default {
         this.$root.$emit('storeQuery', this.recentQueries)
       } else {
         this.recentQueries.push(this.newRecentQuery);
-        this.newRecentQuery = '';
-        this.saveRecentQuery();
+        localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));
+        if (this.localTableName === this.tableName) {
+          this.orderRecentQueries = [{
+            dataset: this.tableName,
+            text: this.newRecentQuery
+          }]
+          this.newRecentQuery = '';
+          this.localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
+          this.tempRecentQueries = [...this.localQueries, ...this.orderRecentQueries]
+          this.totalRecentQueries = this.tempRecentQueries
+          this.orderRecentQueries = []
+          localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
+          this.saveRecentQuery();
+        }
       }
     },
     saveRecentQuery() {
-      const parsed = JSON.stringify(this.recentQueries);
-      localStorage.setItem('recentQueries', parsed);
-      this.$root.$emit('storeQuery', this.recentQueries)
+      localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
+      this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     loadRecentQuery() {
-      this.$root.$emit('storeQuery', this.recentQueries)
+      this.totalRecentQueries = this.localQueries
+      this.$root.$emit('storeQuery', this.totalRecentQueries)
+    },
+    getData() {
+      const endPoint = `${baseUrl}/data`
+
+      const queryEditorLowerCase = this.queryEditor.toLowerCase()
+      if (queryEditorLowerCase.includes('limit')) {
+        this.queryEditor = this.queryEditor
+        this.$root.$emit('hiddeShowButtonColumns')
+      } else {
+        this.$root.$emit('ShowButtonColumns')
+        this.$root.$emit('sendCompleteQuery', this.queryEditor)
+        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
+        this.queryEditor = this.code
+      }
+
+      const url = `${endPoint}?sql=${this.queryEditor}`
+      axios
+        .get(url)
+        .then(response => {
+          const rawData = response.data
+          const data = rawData.data
+          this.items = data
+          this.dataLoaded = true
+
+          const keysData = Object.keys(data[0])
+          this.$root.$emit('sendData', keysData)
+
+        })
+        .catch(error => {
+          this.$root.$emit('apiError', error)
+          const keysData = []
+          this.$root.$emit('sendData', keysData)
+        })
     },
     saveNewRecentQuery(query) {
       this.newRecentQuery = query
@@ -107,4 +188,5 @@ export default {
     }
   }
 }
+
 </script>

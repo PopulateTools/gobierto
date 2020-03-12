@@ -11,6 +11,9 @@ es:
       all: Todas
       analysis: Análisis
       api: API
+      buttonQueries: Ver consultas (c)
+      buttonRecentQueries: Ver consultas recientes (r)
+      buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)
       cancel: Cancelar
       categories: Categorías
       dashboards: Dashboards
@@ -38,6 +41,8 @@ es:
       runQuery: Ejecutar consulta
       save: Guardar
       sets: Conjuntos
+      showAll: Ver todo
+      showLess: Ver menos
       showRows: Mostrar todas las filas
       subject: Tema
       summary: Resumen

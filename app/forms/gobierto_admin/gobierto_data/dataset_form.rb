@@ -12,7 +12,8 @@ module GobiertoAdmin
         :table_name,
         :slug,
         :admin_id,
-        :ip
+        :ip,
+        :attachment_ids
       )
       attr_writer(
         :visibility_level
@@ -70,6 +71,10 @@ module GobiertoAdmin
           attributes.table_name = table_name
           attributes.slug = slug.blank? ? nil : slug
           attributes.visibility_level = visibility_level
+
+          if @dataset.new_record? && attachment_ids.present?
+            attributes.attachment_ids = attachment_ids.is_a?(String) ? attachment_ids.split(",") : attachment_ids
+          end
         end
 
         if @dataset.valid?

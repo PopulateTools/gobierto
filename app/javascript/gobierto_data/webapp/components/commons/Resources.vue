@@ -6,9 +6,7 @@
     </h2>
     <div class="gobierto-data-resources-list">
       <ResourcesItem
-        v-for="(item, index) in items"
-        :key="index"
-        :item="item"
+        :resources-list="resourcesList"
         class="gobierto-data-resources-list-element"
       />
     </div>
@@ -22,9 +20,10 @@ export default {
     ResourcesItem
   },
   props: {
-    items: {
+    resourcesList: {
       type: Array,
-      required: true
+      required: true,
+      default: () => []
     }
   },
   data() {

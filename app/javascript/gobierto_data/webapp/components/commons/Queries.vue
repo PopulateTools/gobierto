@@ -32,20 +32,20 @@
             <div
               class="gobierto-data-summary-queries-container-icon"
             >
-              <!-- <i
+              <i
                 class="fas fa-trash-alt icons-your-queries"
                 style="color: var(--color-base);"
-                @click="deleteQuery(item.id)"
-              /> -->
+                @click="deleteQuery(item.id, index)"
+              />
               <i
                 v-if="item.attributes.privacy_status === 'closed'"
                 style="color: #D0021B"
-                class="fas fa-lock-close"
+                class="fas fa-lock icons-your-queries"
               />
               <i
                 v-else
                 style="color: rgb(160, 197, 29)"
-                class="fas fa-lock-open"
+                class="fas fa-lock-open icons-your-queries"
               />
             </div>
           </div>
@@ -85,29 +85,6 @@
             @click="handleQueries(publicQueries[index].attributes.sql, item, true)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
-            <!-- <i
-              class="fas fa-trash-alt"
-              style="color: var(--color-base);"
-              @click="deleteQuery(item.id)"
-            /> -->
-            <div
-              v-if="item.attributes.privacy_status === 'close'"
-              class="gobierto-data-summary-queries-container-icon"
-            >
-              <i
-                style="color: #D0021B"
-                class="fas fa-lock-close"
-              />
-            </div>
-            <div
-              v-else
-              class="gobierto-data-summary-queries-container-icon"
-            >
-              <i
-                style="color: rgb(160, 197, 29)"
-                class="fas fa-lock-open"
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -170,6 +147,7 @@ export default {
     this.labelAll = I18n.t("gobierto_data.projects.all")
     this.token = getToken()
     this.userId = getUserId()
+
   },
   methods: {
     handleQueries(sql, item,index) {
@@ -202,37 +180,30 @@ export default {
     changeTab() {
       this.$root.$emit('changeNavTab')
     },
-    deleteQuery(id) {
-      this.endPointDelete = `${baseUrl}/queries/${id}`
-      axios.delete(this.endPointDelete, {
+    deleteQuery(id, index) {
+      this.$delete(this.arrayQueries, index)
+      this.deleteQueryApi(id)
+    },
+    deleteQueryApi(id) {
+      const endPointDelete = `${baseUrl}/queries/${id}`
+      axios.delete(endPointDelete, {
         headers: {
           'Content-type': 'application/json',
           'Authorization': `${this.token}`
         }
-      })
-
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=`
-      this.filterId = `&filter[user_id]=${this.userId}`
-      this.url = `${this.endPoint}${this.numberId}${this.filterId}`
-      axios
-        .get(this.url)
-        .then(response => {
-          this.rawData = response.data
-          this.items = this.rawData.data
-          this.arrayQueries = this.items
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        })
+      }
+      ).then(
+        this.$root.$emit('reloadPublicQueries')
+      )
     },
     runYourQuery(code) {
-      this.showSpinner = true;
       this.queryEditor = encodeURI(code)
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false, true)
       this.$root.$emit('updateCode', code)
-      if (this.queryEditor.includes('LIMIT')) {
+      const queryEditorLowerCase = this.queryEditor.toLowerCase()
+
+      if (queryEditorLowerCase.includes('limit')) {
         this.queryEditor = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {
@@ -248,20 +219,22 @@ export default {
       axios
         .get(this.url)
         .then(response => {
-          this.data = []
-          this.keysData = []
-          this.rawData = response.data
-          this.meta = this.rawData.meta
-          this.data = this.rawData.data
+          let data = []
+          let keysData = []
+          const rawData = response.data
+          const meta = rawData.meta
+          data = rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          const queryDurationRecords = [ meta.rows, meta.duration ]
 
-          this.keysData = Object.keys(this.data[0])
+          keysData = Object.keys(data[0])
 
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
-          this.$root.$emit('sendData', this.keysData, this.data)
+          this.$root.$emit('recordsDuration', queryDurationRecords)
+          this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true, false)
           this.$root.$emit('sendQueryCode', this.queryCode)
+          this.$root.$emit('activateModalRecent')
+          this.$root.$emit('runSpinner')
 
 
         })
@@ -270,9 +243,9 @@ export default {
           this.$root.$emit('apiError', messageError)
 
 
-          this.data = []
-          this.keysData = []
-          this.$root.$emit('sendData', this.keysData, this.data)
+          const data = []
+          const keysData = []
+          this.$root.$emit('sendData', keysData, data)
         })
 
         setTimeout(() => {

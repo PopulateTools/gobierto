@@ -156,7 +156,7 @@ module GobiertoAdmin
         :organization_name,
         :organization_url,
         :organization_type,
-        :organization_email,
+        :reply_to_email,
         :organization_address,
         :organization_document_number,
         :head_markup,

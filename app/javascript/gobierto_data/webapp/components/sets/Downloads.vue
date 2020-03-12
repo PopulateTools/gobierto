@@ -9,7 +9,7 @@
         class="arrow-top"
       />
     </keep-alive>
-    <Resources :items="filesDataset" />
+    <Resources :resources-list="resourcesList" />
   </div>
 </template>
 
@@ -26,8 +26,12 @@ export default {
   props: {
     arrayFormats: {
       type: Object,
+      required: true
+    },
+    resourcesList: {
+      type: Array,
       required: true,
-      activeTabIndex: 0
+      default: () => []
     }
   },
   data() {

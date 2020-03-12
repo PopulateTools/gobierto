@@ -9,7 +9,7 @@ module GobiertoData
 
     belongs_to :site
     has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"
-    has_many :visualizations, through: :queries, class_name: "GobiertoData::Visualization"
+    has_many :visualizations, dependent: :destroy, class_name: "GobiertoData::Visualization"
 
     translates :name
 

@@ -153,20 +153,21 @@ export default {
       this.$root.$emit('storeQuery', localQueries)
     },
     getData() {
-      const endPoint = `${baseUrl}/data`
-
       let query = ''
       const queryEditorLowerCase = this.queryEditor.toLowerCase()
       if (queryEditorLowerCase.includes('limit')) {
-        this.queryEditor = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {
         this.$root.$emit('ShowButtonColumns')
         this.$root.$emit('sendCompleteQuery', this.queryEditor)
         query = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
       }
+
       this.currentQuery = this.queryEditor
-      const url = `${endPoint}?sql=${this.queryEditor}`
+
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${query}`
+
       axios
         .get(url)
         .then(response => {

@@ -147,8 +147,6 @@ export default {
       this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
     getData() {
-      const endPoint = `${baseUrl}/data`
-
       let query = ''
       if (this.queryEditor.includes('LIMIT')) {
         query = this.queryEditor

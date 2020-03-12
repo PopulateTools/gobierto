@@ -75,7 +75,7 @@ export default {
           const meta = rawData.meta
           data = rawData.data
 
-          const queryDurationRecors = [meta.rows, meta.duration]
+          const queryDurationRecords = [meta.rows, meta.duration]
 
           keysData = Object.keys(data[0])
 
@@ -83,7 +83,7 @@ export default {
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true)
           this.$root.$emit('activateModalRecent')
-        	this.$root.$emit('sendDataViz', data)
+          this.$root.$emit('sendDataViz', data)
           this.$root.$emit('runSpinner')
 
         })

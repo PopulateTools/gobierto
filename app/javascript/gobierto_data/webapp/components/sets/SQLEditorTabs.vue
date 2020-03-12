@@ -60,7 +60,7 @@ import SQLEditorVisualizations from "./SQLEditorVisualizations.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
 import SaveChartButton from "./../commons/SaveChartButton.vue";
 import { getUserId } from "./../../../lib/helpers";
-import { VisualizationFactoryMixin } from "./../../../lib/visualizations";
+import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 
 export default {
   name: "SQLEditorTabs",

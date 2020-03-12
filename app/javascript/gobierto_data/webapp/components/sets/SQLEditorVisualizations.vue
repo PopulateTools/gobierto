@@ -51,8 +51,6 @@ export default {
 
       this.viewer.load(table);
       this.viewer.restore(this.config);
-
-      this.viewer._config_button.style.display = 'none'
     },
     updatePerspectiveData(values) {
       this.viewer.clear();

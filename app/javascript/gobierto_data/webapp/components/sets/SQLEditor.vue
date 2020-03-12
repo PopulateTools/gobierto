@@ -28,11 +28,10 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import SQLEditorCode from "./SQLEditorCode.vue";
 import SQLEditorHeader from "./SQLEditorHeader.vue";
 import SQLEditorTabs from "./SQLEditorTabs.vue";
-import { baseUrl } from "./../../../lib/commons.js"
+import { DataFactoryMixin } from "./../../../lib/factories/data"
 import "./../../../lib/sql-theme.css"
 
 export default {
@@ -42,6 +41,7 @@ export default {
     SQLEditorHeader,
     SQLEditorTabs
   },
+  mixins: [DataFactoryMixin],
   props: {
     tableName: {
       type: String,
@@ -105,8 +105,9 @@ export default {
   },
   mounted() {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
-    this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
-    this.getData()
+    this.queryEditor = `SELECT * FROM ${this.tableName} `
+
+    this.prepareData()
   },
   methods: {
     runYourQuery(sqlCode){
@@ -146,21 +147,23 @@ export default {
       this.totalRecentQueries = this.localQueries
       this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
-    getData() {
+    prepareData() {
       let query = ''
       if (this.queryEditor.includes('LIMIT')) {
         query = this.queryEditor
       } else {
         this.$root.$emit('ShowButtonColumns')
         this.$root.$emit('sendCompleteQuery', this.queryEditor)
-        query = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
+
+        query = `SELECT * FROM (${this.queryEditor}) AS data_limited_results LIMIT 100 OFFSET 0`
       }
 
+      // save the query in the editor
       this.currentQuery = this.queryEditor
       this.url = `${this.endPoint}?sql=${query}`
 
-      axios
-        .get(url)
+      // factory method
+      this.getData(params)
         .then(response => {
           const rawData = response.data
           const data = rawData.data
@@ -169,7 +172,6 @@ export default {
 
           const keysData = Object.keys(data[0])
           this.$root.$emit('sendDataViz', keysData)
-
         })
         .catch(error => {
           this.$root.$emit('apiError', error)

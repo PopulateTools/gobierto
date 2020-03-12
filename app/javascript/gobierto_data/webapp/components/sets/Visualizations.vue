@@ -2,8 +2,8 @@
   <div class="gobierto-data-sets-nav--tab-container">
     <div class="gobierto-data-visualization--grid">
       <template v-if="visualizations.length">
-        <template v-for="{ data, links, config, name } in visualizations">
-          <div :key="`${links.self}--${name}`">
+        <template v-for="{ data, config, name } in visualizations">
+          <div :key="name">
             <h4>{{ name }}</h4>
             <SQLEditorVisualizations
               :items="data"
@@ -21,8 +21,9 @@
 </template>
 
 <script>
-import { VisualizationFactoryMixin } from "./../../../lib/visualizations";
-import { QueriesFactoryMixin } from "./../../../lib/queries";
+import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
+import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
+import { DataFactoryMixin } from "./../../../lib/factories/data";
 import SQLEditorVisualizations from "./SQLEditorVisualizations.vue";
 
 export default {
@@ -30,7 +31,7 @@ export default {
   components: {
     SQLEditorVisualizations
   },
-  mixins: [VisualizationFactoryMixin, QueriesFactoryMixin],
+  mixins: [VisualizationFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
   data() {
     return {
       visualizations: [],
@@ -46,11 +47,21 @@ export default {
 
     if (data.length) {
       for (let index = 0; index < data.length; index++) {
-        const { attributes } = data[index];
-        const { query_id: id, spec, name } = attributes;
+        const { attributes = {} } = data[index];
+        const { query_id: id, spec = {}, name = "" } = attributes;
 
-        // Get my queries, if they're stored
-        const { data: queryData } = await this.getQuery(id)
+        let queryData = null;
+
+        if (id) {
+          // Get my queries, if they're stored
+          const { data } = await this.getQuery(id)
+          queryData = data
+        } else {
+          // Otherwise, run the sql
+          const { sql } = attributes
+          const { data } = await this.getData({ sql })
+          queryData = data
+        }
 
         // Append the visualization configuration
         const visualization = { ...queryData, config: spec, name }

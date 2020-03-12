@@ -159,6 +159,8 @@ export default {
 
       if (queryEditorLowerCase.includes('limit')) {
         this.$root.$emit('hiddeShowButtonColumns')
+
+        query = this.queryEditor
       } else {
         this.$root.$emit('ShowButtonColumns')
         this.$root.$emit('sendCompleteQuery', this.queryEditor)

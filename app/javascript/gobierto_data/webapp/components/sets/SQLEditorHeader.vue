@@ -295,10 +295,6 @@ export default {
     this.noLogin = this.userId === "" ? true : false
     this.codeQuery = `SELECT%20*%20FROM%20${this.tableName}%20`
 
-    if (this.$route.name !== 'queries') {
-      this.runQuery()
-    }
-
     this.requestQuery()
 
     this.activateShortcutsListener()

@@ -236,13 +236,10 @@ export default {
           this.$root.$emit('activateModalRecent')
           this.$root.$emit('runSpinner')
 
-
         })
         .catch(error => {
           const messageError = error.response.data.errors[0].sql
           this.$root.$emit('apiError', messageError)
-
-
           const data = []
           const keysData = []
           this.$root.$emit('sendData', keysData, data)

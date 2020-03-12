@@ -15,7 +15,7 @@ export class GobiertoDataController {
     if (entryPoint) {
       const htmlRouterBlock = `
       <keep-alive>
-        <router-view :key="$route.fullPath"></router-view>
+        <router-view></router-view>
       </keep-alive>
       `;
 
@@ -36,14 +36,12 @@ export class GobiertoDataController {
         routes: [{
             path: "/datos",
             name: "home",
-            props: true,
             component: Home,
             props: { currentComponent: 'InfoList', activateTabSidebar: 0 }
           },
           {
             path: "/datos/:id",
             name: "dataset",
-            props: true,
             component: Home,
             props: { currentComponent: 'DataSets', activateTabSidebar: 1 },
             children: [

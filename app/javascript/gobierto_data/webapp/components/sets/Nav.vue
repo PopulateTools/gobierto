@@ -169,9 +169,16 @@ export default {
     changeTab() {
       this.activateTab(1)
     },
-    activateTab(index) {
+    activateTab(index, label) {
       this.activeTab = index
-      this.$emit("active-tab", index);
+      this.$emit("active-tab", index)
+      this.$router.push({
+        name: label,
+        params: {
+          id: this.$route.params.id,
+          title: label
+        }
+    }, () => {})
     },
     setValuesDataset(){
       const url = `${baseUrl}/datasets/${this.slugName}/meta`

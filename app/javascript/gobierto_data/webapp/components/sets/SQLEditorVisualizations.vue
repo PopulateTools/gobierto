@@ -38,13 +38,12 @@ export default {
         this.viewer.delete();
       } else {
         this.newColumns = Object.keys(values[0]) || [];
-        if (
-          JSON.stringify(this.newColumns) === JSON.stringify(this.initColumns)
-        ) {
-          this.viewer.setAttribute("columns", JSON.stringify(this.newColumns));
+        this.viewer.setAttribute("columns", JSON.stringify(this.newColumns));
+        this.viewer.setAttribute("editable", JSON.stringify(false));
+
+        if (JSON.stringify(this.newColumns) === JSON.stringify(this.initColumns)) {
           this.updatePerspectiveData(values);
         } else {
-          this.viewer.setAttribute("columns", JSON.stringify(this.newColumns));
           this.updatePerspectiveColumns(values);
         }
       }
@@ -53,8 +52,11 @@ export default {
       const table = perspective.worker().table(data);
 
       this.initColumns = Object.keys(data[0]);
+
       this.viewer.load(table);
       this.viewer.restore(this.config);
+
+      this.viewer._config_button.style.display = 'none'
     },
     updatePerspectiveData(values) {
       this.viewer.clear();

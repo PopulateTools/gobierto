@@ -78,6 +78,7 @@
       <Data
         :dataset-id="datasetId"
         :array-queries="arrayQueries"
+        :array-columns="arrayColumns"
         :public-queries="publicQueries"
         :table-name="tableName"
         :array-formats="arrayFormats"
@@ -120,28 +121,6 @@ export default {
     Visualizations,
     Downloads,
     Button
-  },
-  props: {
-    activeTab: {
-      type: Number,
-      default: 0
-    },
-    datasetId: {
-      type: Number,
-      default: 0
-    },
-    arrayQueries: {
-      type: Array,
-      required: true
-    },
-    numberRows: {
-      type: Number,
-      required: true
-    },
-    arrayFormats: {
-      type: Object,
-      default: () => []
-    }
   },
   data() {
     return {
@@ -220,22 +199,15 @@ export default {
          } } = rawData;
 
           const resourcesData = response.included
-          this.datasetId = parseInt(rawData.data.id)
-          this.titleDataset = rawData.data.attributes.name
-          this.slugDataset = rawData.data.attributes.slug
-          this.tableName = rawData.data.attributes.table_name
-          this.arrayFormats = rawData.data.attributes.formats
-          this.numberRows = rawData.data.attributes.data_summary.number_of_rows
-          this.frequencyDataset = rawData.data.attributes.frequency.name_translations === undefined ? '' : rawData.data.attributes.frequency.name_translations
-          this.categoryDataset = rawData.data.attributes.category.name_translations === undefined ? '' : rawData.data.attributes.category.name_translations
-          this.descriptionDataset = rawData.data.attributes.description
-          const dateFromApi = rawData.data.attributes.data_updated_at === undefined ? '' : rawData.data.attributes.data_updated_at
-          const newDateFromApi = new Date(dateFromApi)
-          this.dateUpdated = newDateFromApi.toLocaleDateString('es-ES', {
-              day : 'numeric',
-              month : 'short',
-              year : 'numeric'
-          })
+          this.datasetId = parseInt(datasetId)
+          this.titleDataset = titleDataset
+          this.slugDataset = slugDataset
+          this.tableName = tableName
+          this.arrayFormats = arrayFormats
+          this.arrayColumns = arrayColumns
+          this.numberRows = numberRows
+          this.dateUpdated = dateUpdated
+          this.descriptionDataset = descriptionDataset
           this.resourcesList = resourcesData
 
           this.frequencyDataset = frequency[0].name_translations[I18n.locale]

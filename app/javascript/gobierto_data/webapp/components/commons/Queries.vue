@@ -81,17 +81,9 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCodePublic(index)"
             @mouseleave="hideCode = true"
-            @click="handleQueries(publicQueries[index].attributes.sql, item)"
+            @click="handleQueries(publicQueries[index].attributes.sql, item, true)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
-            <div
-              class="gobierto-data-summary-queries-container-icon"
-            >
-              <!-- <i
-                style="color: rgb(160, 197, 29)"
-                class="fas fa-lock"
-              /> -->
-            </div>
           </div>
         </div>
       </div>
@@ -199,31 +191,19 @@ export default {
           'Content-type': 'application/json',
           'Authorization': `${this.token}`
         }
-      })
-
-      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=`
-      this.filterId = `&filter[user_id]=${this.userId}`
-      this.url = `${this.endPoint}${this.numberId}${this.filterId}`
-      axios
-        .get(this.url)
-        .then(response => {
-          const rawData = response.data
-          const items = rawData.data
-          this.arrayQueries = items
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        })
+      }
+      ).then(
+        this.$root.$emit('reloadPublicQueries')
+      )
     },
     runYourQuery(code) {
-      this.showSpinner = true;
       this.queryEditor = encodeURI(code)
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false, true)
       this.$root.$emit('updateCode', code)
+      const queryEditorLowerCase = this.queryEditor.toLowerCase()
 
-      if (this.queryEditor.includes('LIMIT')) {
+      if (queryEditorLowerCase.includes('limit')) {
         this.queryEditor = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {
@@ -232,8 +212,9 @@ export default {
         this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
         this.queryEditor = this.code
       }
-      this.endPoint = `${baseUrl}/data`
-      this.url = `${this.endPoint}?sql=${this.queryEditor}`
+      this.urlPath = location.origin
+      this.endPoint = '/api/v1/data/data';
+      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
 
       axios
         .get(this.url)
@@ -250,9 +231,10 @@ export default {
 
           this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
-          this.$root.$emit('sendDataViz', data)
           this.$root.$emit('showMessages', true, false)
           this.$root.$emit('sendQueryCode', this.queryCode)
+          this.$root.$emit('activateModalRecent')
+          this.$root.$emit('runSpinner')
 
         })
         .catch(error => {
@@ -264,10 +246,6 @@ export default {
           const keysData = []
           this.$root.$emit('sendData', keysData, data)
         })
-
-        setTimeout(() => {
-          this.showSpinner = false
-        }, 300)
     }
   }
 }

@@ -95,14 +95,6 @@ export default {
     tableName: {
       type: String,
       required: true
-    },
-    datasetId: {
-      type: Number,
-      required: true
-    },
-    currentQuery: {
-      type: String,
-      default: ""
     }
   },
   data() {
@@ -110,22 +102,30 @@ export default {
       labelTable: "",
       labelVisualization: "",
       directionLeft: false,
-      privateQuery: false
-    };
+      editorFocus: false
+    }
   },
   created() {
-    this.labelTable = I18n.t("gobierto_data.projects.table");
-    this.labelVisualization = I18n.t("gobierto_data.projects.visualization");
-
-    this.userId = getUserId();
-    this.noLogin = this.userId === "" ? true : false;
-
-    this.$root.$on("saveVisualization", this.saveVisualization);
-  },
-  beforeDestroy() {
-    this.$root.$off("saveVisualization", this.saveVisualization);
+    this.labelTable = I18n.t("gobierto_data.projects.table")
+    this.labelVisualization = I18n.t("gobierto_data.projects.visualization")
+    this.$root.$on('blurEditor', this.activateShortcutsListener)
+    this.$root.$on('focusEditor', this.removeShortcutsListener)
+    this.activateShortcutsListener()
   },
   methods: {
+    shortcutsListener(e) {
+      if (e.keyCode == 84) {
+        this.$emit("active-tab", 0)
+      } else if (e.keyCode == 86) {
+        this.$emit("active-tab", 1);
+      }
+    },
+    activateShortcutsListener(){
+      window.addEventListener("keydown", this.shortcutsListener, true);
+    },
+    removeShortcutsListener(){
+      window.removeEventListener("keydown", this.shortcutsListener, true);
+    },
     activateTab(index) {
       this.$emit("active-tab", index);
     },

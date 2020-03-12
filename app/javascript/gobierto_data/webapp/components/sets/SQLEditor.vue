@@ -5,23 +5,22 @@
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
         :dataset-id="datasetId"
+        :table-name="tableName"
         :number-rows="numberRows"
       />
       <SQLEditorCode
         :table-name="tableName"
+        :array-columns="arrayColumns"
         :number-rows="numberRows"
       />
       <SQLEditorTabs
-        v-if="items"
+        v-if="dataLoaded"
         :array-formats="arrayFormats"
         :items="items"
-        :link="link"
         :table-name="tableName"
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
         :number-rows="numberRows"
-        :dataset-id="datasetId"
-        :current-query="currentQuery"
         @active-tab="activeTabIndex = $event"
       />
     </div>
@@ -31,7 +30,7 @@
 import SQLEditorCode from "./SQLEditorCode.vue";
 import SQLEditorHeader from "./SQLEditorHeader.vue";
 import SQLEditorTabs from "./SQLEditorTabs.vue";
-import { DataFactoryMixin } from "./../../../lib/factories/data"
+import { baseUrl } from "./../../../lib/commons.js"
 import "./../../../lib/sql-theme.css"
 
 export default {
@@ -49,6 +48,10 @@ export default {
     },
     arrayQueries: {
       type: Array,
+      required: true
+    },
+    arrayColumns: {
+      type: Object,
       required: true
     },
     publicQueries: {
@@ -80,15 +83,16 @@ export default {
       link: '',
       queryEditor: '',
       recentQueries: [],
-      localQueries: [],
       orderRecentQueries: [],
       totalRecentQueries: [],
+      tempRecentQueries: [],
+      localQueries: [],
       newRecentQuery: null,
-      localTableName : '',
-      currentQuery: ''
+      localTableName: '',
+      dataLoaded: false
     }
   },
-  created(){
+  created() {
     this.localTableName = this.tableName
     this.$root.$on('sendYourCode', this.runYourQuery)
     if (localStorage.getItem('recentQueries')) {
@@ -110,7 +114,7 @@ export default {
     this.prepareData()
   },
   methods: {
-    runYourQuery(sqlCode){
+    runYourQuery(sqlCode) {
       this.queryEditor = sqlCode
     },
     addRecentQuery() {
@@ -122,20 +126,18 @@ export default {
       } else {
         this.recentQueries.push(this.newRecentQuery);
         localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));
-
         if (this.localTableName === this.tableName) {
           this.orderRecentQueries = [{
             dataset: this.tableName,
             text: this.newRecentQuery
           }]
           this.newRecentQuery = '';
-
-          const tempRecentQueries = [ ...this.localQueries, ...this.orderRecentQueries ]
-          this.totalRecentQueries = tempRecentQueries
+          this.localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
+          this.tempRecentQueries = [...this.localQueries, ...this.orderRecentQueries]
+          this.totalRecentQueries = this.tempRecentQueries
           this.orderRecentQueries = []
           localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
-
-          this.saveRecentQuery(this.totalRecentQueries);
+          this.saveRecentQuery();
         }
       }
     },
@@ -147,28 +149,28 @@ export default {
       this.totalRecentQueries = this.localQueries
       this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
-    prepareData() {
-      let query = ''
-      if (this.queryEditor.includes('LIMIT')) {
-        query = this.queryEditor
+    getData() {
+      const endPoint = `${baseUrl}/data`
+
+      const queryEditorLowerCase = this.queryEditor.toLowerCase()
+      if (queryEditorLowerCase.includes('limit')) {
+        this.queryEditor = this.queryEditor
+        this.$root.$emit('hiddeShowButtonColumns')
       } else {
         this.$root.$emit('ShowButtonColumns')
         this.$root.$emit('sendCompleteQuery', this.queryEditor)
-
-        query = `SELECT * FROM (${this.queryEditor}) AS data_limited_results LIMIT 100 OFFSET 0`
+        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
+        this.queryEditor = this.code
       }
 
-      // save the query in the editor
-      this.currentQuery = this.queryEditor
-      this.url = `${this.endPoint}?sql=${query}`
-
-      // factory method
-      this.getData(params)
+      const url = `${endPoint}?sql=${this.queryEditor}`
+      axios
+        .get(url)
         .then(response => {
           const rawData = response.data
           const data = rawData.data
           this.items = data
-
+          this.dataLoaded = true
 
           const keysData = Object.keys(data[0])
           this.$root.$emit('sendDataViz', keysData)
@@ -186,4 +188,5 @@ export default {
     }
   }
 }
+
 </script>

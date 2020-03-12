@@ -9,18 +9,14 @@
       class="gobierto-data-btn-download-data"
       @click.native="isHidden = !isHidden"
     />
-    <transition
-      name="fade"
-      mode="out-in"
-    >
-      <div
-        v-show="!isHidden"
-        class="gobierto-data-btn-download-data-modal"
+    <keep-alive>
+      <transition
+        name="fade"
+        mode="out-in"
       >
         <div
-          v-for="(item, key, index) in arrayFormats"
-          :key="index"
-          :item="item"
+          v-show="!isHidden"
+          class="gobierto-data-btn-download-data-modal"
         >
           <template
             v-for="(item, key, index) in arrayFormats"
@@ -41,7 +37,6 @@
   </div>
 </template>
 <script>
-
 import Button from "./Button.vue";
 import { baseUrl, CommonsMixin } from "./../../../lib/commons.js";
 export default {

@@ -428,7 +428,7 @@ export default {
       this.queryEditor = encodeURI(this.codeQuery)
 
       let query = ''
-      if (this.queryEditor.includes('LIMIT')) {
+      if (queryEditorLowerCase.includes('limit')) {
         query = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {
@@ -443,6 +443,7 @@ export default {
       this.endPoint = `${baseUrl}/data`
       this.url = `${this.endPoint}?sql=${query}`
 
+      // TODO: use factory
       axios
         .get(url)
         .then(response => {

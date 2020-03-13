@@ -43,6 +43,9 @@
 import SidebarCategories from './SidebarCategories.vue';
 import SidebarDatasets from './SidebarDatasets.vue';
 import SidebarQueries from './SidebarQueries.vue';
+import axios from 'axios';
+import { baseUrl } from "./../../lib/commons.js";
+
 export default {
   name: "Sidebar",
   components: {

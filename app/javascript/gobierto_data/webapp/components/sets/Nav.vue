@@ -148,10 +148,6 @@ export default {
       frequencyDataset: ''
     }
   },
-  beforeRouteUpdate (to, from, next) {
-    this.$emit("active-tab", 2)
-    next()
-  },
   created() {
     this.activeTab = this.activeDatasetTab
     this.labelSummary = I18n.t("gobierto_data.projects.summary")

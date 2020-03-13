@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="gobierto-data-sql-editor">
+    <div v-if="tableName" class="gobierto-data-sql-editor">
       <SQLEditorHeader
         v-if="publicQueries"
         :array-queries="arrayQueries"
@@ -163,6 +163,7 @@ export default {
         this.queryEditor = this.code
       }
 
+      console.log("this.queryEditor", this.queryEditor);
       const url = `${endPoint}?sql=${this.queryEditor}`
       axios
         .get(url)
@@ -170,11 +171,11 @@ export default {
           const rawData = response.data
           const data = rawData.data
           this.items = data
-          this.dataLoaded = true
 
           const keysData = Object.keys(data[0])
           this.$root.$emit('sendData', keysData)
 
+          this.dataLoaded = true
         })
         .catch(error => {
           this.$root.$emit('apiError', error)

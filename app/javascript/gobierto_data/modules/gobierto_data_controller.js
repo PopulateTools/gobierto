@@ -51,7 +51,7 @@ export class GobiertoDataController {
             props: {
               currentComponent: 'DataSets',
               activateTabSidebar: 1,
-              activeDatasetTab: 0
+              activeDatasetTabProp: 0
             }
           },
           {
@@ -61,7 +61,7 @@ export class GobiertoDataController {
             props: {
               currentComponent: 'DataSets',
               activateTabSidebar: 1,
-              activeDatasetTab: 1
+              activeDatasetTabProp: 1
             }
           },
           {
@@ -71,7 +71,7 @@ export class GobiertoDataController {
             props: {
               currentComponent: 'DataSets',
               activateTabSidebar: 1,
-              activeDatasetTab: 2
+              activeDatasetTabProp: 2
             }
           },
           {
@@ -81,7 +81,7 @@ export class GobiertoDataController {
             props: {
               currentComponent: 'DataSets',
               activateTabSidebar: 1,
-              activeDatasetTab: 3
+              activeDatasetTabProp: 3
             }
           },
           {
@@ -91,7 +91,7 @@ export class GobiertoDataController {
             props: {
               currentComponent: 'DataSets',
               activateTabSidebar: 1,
-              activeDatasetTab: 4
+              activeDatasetTabProp: 4
             }
           },
           {
@@ -101,7 +101,7 @@ export class GobiertoDataController {
             props: {
               currentComponent: 'DataSets',
               activateTabSidebar: 1,
-              activeDatasetTab: 1
+              activeDatasetTabProp: 1
             }
           }
         ]

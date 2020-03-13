@@ -15,7 +15,7 @@ export class GobiertoDataController {
     if (entryPoint) {
       const htmlRouterBlock = `
       <keep-alive>
-        <router-view :key="$route.fullPath"></router-view>
+        <router-view :key="$route.params.id"></router-view>
       </keep-alive>
       `;
 

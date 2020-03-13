@@ -20,7 +20,6 @@ import { store } from "./../../lib/store";
 import CONFIGURATION from "./../../lib/gobierto-data.conf.js";
 import axios from "axios";
 
-
 export default {
   name: "Home",
   components: {

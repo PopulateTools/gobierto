@@ -452,6 +452,7 @@ export default {
       this.showSpinner = true;
       this.queryEditor = encodeURI(this.codeQuery)
       const queryEditorLowerCase = this.queryEditor.toLowerCase()
+
       let query = ''
       if (queryEditorLowerCase.includes('limit')) {
         query = this.queryEditor
@@ -466,7 +467,7 @@ export default {
       this.$root.$emit('showMessages', false, true)
 
       const endPoint = `${baseUrl}/data`
-      const url = `${endPoint}?sql=${this.queryEditor}`
+      const url = `${endPoint}?sql=${query}`
 
       // TODO: use factory
       axios

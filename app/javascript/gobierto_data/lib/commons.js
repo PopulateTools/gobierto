@@ -51,7 +51,7 @@ export const closableMixin = {
     }
   }
 }
-	
+
 export const categoriesMixin = {
   methods: {
 

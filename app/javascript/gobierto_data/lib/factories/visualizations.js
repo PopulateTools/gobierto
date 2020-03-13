@@ -16,9 +16,8 @@ export const VisualizationFactoryMixin = {
       return axios.get(`${endPoint}/${id}`, { headers });
     },
     getVisualizations(params) {
-      console.log(params);
-
-      return axios.get(endPoint, { headers });
+      const qs = new URLSearchParams(params)
+      return axios.get(`${endPoint}?${qs.toString()}`, { headers });
     },
     postVisualization(data) {
       // Return a promise to handle the response where it's invoked

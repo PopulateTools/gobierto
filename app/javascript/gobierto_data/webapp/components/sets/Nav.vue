@@ -115,9 +115,7 @@ import Data from "./Data.vue";
 import Queries from "./Queries.vue";
 import Visualizations from "./Visualizations.vue";
 import Downloads from "./Downloads.vue";
-import axios from "axios";
-import { baseUrl } from "./../../../lib/commons";
-import { getUserId, getToken } from "./../../../lib/helpers";
+import { getUserId } from "./../../../lib/helpers";
 import { translate } from "./../../../../lib/shared/modules/vue-filters";
 import { DatasetFactoryMixin } from "./../../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
@@ -154,7 +152,6 @@ export default {
       privateQueries: [],
       publicQueries: [],
       resourcesList: [],
-      userId: "",
       dateUpdated: "",
       descriptionDataset: "",
       categoryDataset: "",
@@ -173,9 +170,6 @@ export default {
     this.$root.$on("changeNavTab", this.changeTab);
     this.$root.$on("activeTabIndex", this.changeTab);
     this.$root.$on("reloadQueries", this.getPrivateQueries);
-
-    this.userId = getUserId();
-    this.token = getToken();
 
     this.setValuesDataset();
   },
@@ -225,32 +219,37 @@ export default {
           this.frequencyDataset = frequency[0].name_translations;
           this.categoryDataset = category[0].name_translations;
 
+          // Get all queries
+          this.getPrivateQueries();
           this.getPublicQueries();
         })
         .catch(error => console.error(error));
     },
     getPrivateQueries() {
-      // factory method
-      this.getQueries({
-        "filter[dataset_id]": this.datasetId,
-        "filter[user_id]": this.userId
-      }).then(({ data }) => {
-          const { data: items } = data;
-          this.privateQueries = items;
+      const userId = getUserId();
+
+      // Only if user is logged
+      if (userId) {
+        // factory method
+        this.getQueries({
+          "filter[dataset_id]": this.datasetId,
+          "filter[user_id]": userId
         })
-        .catch(({ response }) => console.error(response));
+          .then(({ data }) => {
+            const { data: items } = data;
+            this.privateQueries = items;
+          })
+          .catch(({ response }) => console.error(response));
+      }
     },
     getPublicQueries() {
       // factory method
       this.getQueries({
         "filter[dataset_id]": this.datasetId
-      }).then(({ data }) => {
+      })
+        .then(({ data }) => {
           const { data: items } = data;
           this.publicQueries = items;
-
-          if (this.userId) {
-            this.getPrivateQueries();
-          }
         })
         .catch(({ response }) => console.error(response));
     }

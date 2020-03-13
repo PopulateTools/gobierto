@@ -5,10 +5,12 @@
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
         :dataset-id="datasetId"
+        :table-name="tableName"
         :number-rows="numberRows"
       />
       <SQLEditorCode
         :table-name="tableName"
+        :array-columns="arrayColumns"
         :number-rows="numberRows"
       />
       <SQLEditorTabs
@@ -51,6 +53,10 @@ export default {
       type: Array,
       required: true
     },
+    arrayColumns: {
+      type: Object,
+      required: true
+    },
     publicQueries: {
       type: Array,
       required: true
@@ -88,7 +94,7 @@ export default {
       currentQuery: ''
     }
   },
-  created(){
+  created() {
     this.localTableName = this.tableName
     this.$root.$on('sendYourCode', this.runYourQuery)
     if (localStorage.getItem('recentQueries')) {
@@ -110,7 +116,7 @@ export default {
     this.prepareData()
   },
   methods: {
-    runYourQuery(sqlCode){
+    runYourQuery(sqlCode) {
       this.queryEditor = sqlCode
     },
     addRecentQuery() {
@@ -186,4 +192,5 @@ export default {
     }
   }
 }
+
 </script>

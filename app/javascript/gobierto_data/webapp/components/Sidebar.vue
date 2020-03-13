@@ -64,11 +64,7 @@ export default {
     return {
       labelSets: "",
       labelQueries: "",
-      labelCategories: "",
-      titleDataset: '',
-      slugDataset: '',
-      tableName: '',
-      allDatasets: null,
+      labelCategories: ""
     }
   },
   created() {
@@ -129,7 +125,7 @@ export default {
       this.toggle = this.toggle !== index ? index : null;
     },
     activateTab(index) {
-      this.$emit("active-tab", index);
+      this.$emit("active-tab-sidebar", index);
     },
     nav(slugDataset, nameDataset) {
       this.toggle = 0

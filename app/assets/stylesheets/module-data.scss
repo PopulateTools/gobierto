@@ -901,14 +901,58 @@
     }
   }
 
+  &-sidebar-datasets-container-columns {
+    &::after {
+      content: '';
+      width: 100%;
+      border-bottom: 2px solid rgba(102, 102, 102, 0.2);
+      display: block;
+      margin: 1rem 0;
+    }
+  }
+
+  &-sidebar-datasets-name {
+    font-size: 14px;
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
+  }
+
+  &-sidebar-caret-icon {
+    color: var(--color-base);
+    cursor: pointer;
+  }
+
+  &-sidebar-datasets-links-columns {
+    font-size: 14px;
+    opacity: .5;
+    display: block;
+    padding-left: 1rem;
+  }
+
+  &-sidebar-icon {
+    color: var(--color-base);
+    cursor: pointer;
+  }
+
+  .btn-sql-show-all {
+    display: block;
+    margin: 1rem auto;
+    padding: 0.5rem;
+  }
+
   .rotate-caret {
     transform: rotate(270deg);
+  }
+
+  .CodeMirror-scroll {
+    overflow: hidden !important;
   }
 
   &-sql-editor-footer {
     display: inline-block;
     width: max-content;
-    max-width: 70%;
+    max-width: 100%;
   }
 
   &-visualization {

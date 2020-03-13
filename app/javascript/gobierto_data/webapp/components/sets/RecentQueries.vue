@@ -4,17 +4,17 @@
     class="gobierto-data-sql-editor-recent-queries arrow-top"
   >
     <div class="gobierto-data-btn-download-data-modal-container">
-      <div class="gobierto-data-summary-queries-element">
-        <button
-          v-for="(item, index) in items"
-          :key="index"
-          :data-id="item | replace()"
-          class="gobierto-data-recent-queries-list-element"
-          @click="runRecentQuery(item)"
-        >
-          {{ item | replace() }}
-        </button>
-      </div>
+      <button
+        v-for="(item, index) in orderItems"
+        ref="button"
+        :key="index"
+        :class="{'active-query': currentItem === index}"
+        :data-id="item.text"
+        class="gobierto-data-recent-queries-list-element"
+        @click="runRecentQuery(item.text)"
+      >
+        {{ item.text }}
+      </button>
     </div>
   </div>
 </template>
@@ -31,7 +31,8 @@ export default {
   },
   data() {
     return {
-      orderItems: []
+      orderItems: null,
+      currentItem: 0
     }
   },
   created() {
@@ -60,13 +61,13 @@ export default {
       }
     },
     runRecentQuery(code) {
-      this.showSpinner = true;
       this.queryEditor = encodeURI(code)
       this.$root.$emit('postRecentQuery', code)
       this.$root.$emit('showMessages', false, true)
       this.$root.$emit('updateCode', code)
+      const queryEditorLowerCase = this.queryEditor.toLowerCase()
 
-      if (this.queryEditor.includes('LIMIT')) {
+      if (queryEditorLowerCase.includes('limit')) {
         this.queryEditor = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {
@@ -81,30 +82,31 @@ export default {
       axios
         .get(url)
         .then(response => {
-          this.data = []
-          this.keysData = []
-          this.rawData = response.data
-          this.meta = this.rawData.meta
-          this.data = this.rawData.data
+          let data = []
+          let keysData = []
+          const rawData = response.data
+          const meta = rawData.meta
+          data = rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          const queryDurationRecords = [ meta.rows, meta.duration ]
 
-          this.keysData = Object.keys(this.data[0])
+          keysData = Object.keys(data[0])
 
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
-          this.$root.$emit('sendData', this.keysData, this.data)
-          this.$root.$emit('sendDataViz', this.data)
-          this.$root.$emit('showMessages', true, false)
+          this.$root.$emit('recordsDuration', queryDurationRecords)
+          this.$root.$emit('sendData', keysData, data)
+          this.$root.$emit('showMessages', true)
+        this.$root.$emit('sendDataViz', data)
+          this.$root.$emit('activateModalRecent')
+          this.$root.$emit('runSpinner')
 
         })
         .catch(error => {
           const messageError = error.response.data.errors[0].sql
           this.$root.$emit('apiError', messageError)
 
-
-          this.data = []
-          this.keysData = []
-          this.$root.$emit('sendData', this.keysData, this.data)
+          const data = []
+          const keysData = []
+          this.$root.$emit('sendData', keysData, data)
         })
         setTimeout(() => {
           this.showSpinner = false

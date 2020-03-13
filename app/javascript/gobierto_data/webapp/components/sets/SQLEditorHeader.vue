@@ -201,6 +201,10 @@ export default {
       type: Number,
       required: true
     },
+    tableName: {
+      type: String,
+      required: true
+    },
     numberRows: {
       type: Number,
       required: true
@@ -249,6 +253,7 @@ export default {
       showSpinner: false,
       token: '',
       noLogin: false,
+      editorFocus: false,
       queryId: '',
       userIdQuery: '',
       oldQueryName: ''
@@ -276,26 +281,46 @@ export default {
     this.$root.$on('storeQuery', this.showshowStoreQueries)
     this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('sendYourQuery', this.runYourQuery)
+    this.$root.$on('runSpinner', this.runSpinner)
 
     this.$root.$on('closeQueriesModal', this.closeYourQueries)
     this.$root.$on('disableEdit', this.hideEdit)
+
+    this.$root.$on('blurEditor', this.activateShortcutsListener)
+    this.$root.$on('focusEditor', this.removeShortcutsListener)
 
     this.token = getToken()
     this.userId = getUserId()
 
     this.noLogin = this.userId === "" ? true : false
 
+    this.activateShortcutsListener()
     window.addEventListener('keydown', e => {
-      if (e.keyCode == 67) {
-        this.openYourQueries()
-      } else if (e.keyCode == 82) {
-        this.showRecentQueries()
-      } else if (e.metaKey && e.keyCode == 13) {
+      if (e.metaKey && e.keyCode == 13) {
         this.runQuery()
       }
     })
   },
   methods: {
+    shortcutsListener(e) {
+      if (e.keyCode == 67) {
+        this.openYourQueries()
+      } else if (e.keyCode == 82) {
+        this.showRecentQueries()
+      }
+    },
+    activateShortcutsListener(){
+      window.addEventListener("keydown", this.shortcutsListener, true);
+    },
+    removeShortcutsListener(){
+      window.removeEventListener("keydown", this.shortcutsListener, true);
+    },
+    runSpinner() {
+      this.showSpinner = true;
+      setTimeout(() => {
+        this.showSpinner = false
+      }, 300)
+    },
     hideEdit(){
       this.showBtnEdit = false
     },
@@ -440,26 +465,26 @@ export default {
       this.$root.$emit('postRecentQuery', this.codeQuery)
       this.$root.$emit('showMessages', false, true)
 
-      this.endPoint = `${baseUrl}/data`
-      this.url = `${this.endPoint}?sql=${query}`
+      const endPoint = `${baseUrl}/data`
+      const url = `${endPoint}?sql=${this.queryEditor}`
 
       // TODO: use factory
       axios
         .get(url)
         .then(response => {
-          this.data = []
-          this.keysData = []
-          this.rawData = response.data
-          this.meta = this.rawData.meta
-          this.data = this.rawData.data
+          let data = []
+          let keysData = []
+          const rawData = response.data
+          const meta = rawData.meta
+          data = rawData.data
 
-          this.queryDurationRecors = [this.meta.rows, this.meta.duration]
+          const queryDurationRecords = [ meta.rows, meta.duration ]
 
-          this.keysData = Object.keys(this.data[0])
+          keysData = Object.keys(data[0])
 
-          this.$root.$emit('recordsDuration', this.queryDurationRecors)
-          this.$root.$emit('sendData', this.keysData, this.data)
-          this.$root.$emit('sendDataViz', this.data)
+          this.$root.$emit('recordsDuration', queryDurationRecords)
+          this.$root.$emit('sendData', keysData, data)
+          this.$root.$emit('sendDataViz', data)
           this.$root.$emit('showMessages', true, false)
 
         })
@@ -506,7 +531,6 @@ export default {
     postQuery() {
       const endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
-
       if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
         const endPoint = `${baseUrl}/queries/${this.queryId}`
         let dataUpdate = {

@@ -19,7 +19,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";

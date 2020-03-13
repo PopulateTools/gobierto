@@ -78,6 +78,7 @@
       <Data
         :dataset-id="datasetId"
         :array-queries="arrayQueries"
+        :array-columns="arrayColumns"
         :public-queries="publicQueries"
         :table-name="tableName"
         :array-formats="arrayFormats"

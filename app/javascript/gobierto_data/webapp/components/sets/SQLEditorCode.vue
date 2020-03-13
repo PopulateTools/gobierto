@@ -1,21 +1,11 @@
 <template>
   <div>
-    <div class="codemirror">
-      <textarea
-        ref="myCm"
-        v-model="code"
-      />
-    </div>
-    <div
-      class="gobierto-data-sql-editor-footer"
-    >
+    <textarea
+      ref="queryEditor"
+      v-model="code"
+    />
+    <div class="gobierto-data-sql-editor-footer">
       <div v-if="showMessages">
-        <div
-          v-if="recordsLoader"
-          class="gobierto-data-sql-editor-footer-records"
-        >
-          {{ labelLoading }}...
-        </div>
         <div v-if="showApiError">
           <span class="gobierto-data-sql-error-message">
             {{ stringError }}
@@ -57,6 +47,10 @@ export default {
       type: String,
       required: true
     },
+    arrayColumns: {
+      type: Object,
+      required: true
+    },
     numberRows: {
       type: Number,
       required: true
@@ -75,6 +69,9 @@ export default {
       stringError: '',
       showMessages: true,
       showApiError: false,
+      sqlAutocomplete: sqlKeywords,
+      arrayMutated: [],
+      autoCompleteKeys: [],
       recordsLoader: false,
       cmOption: {
         tabSize: 2,
@@ -119,8 +116,7 @@ export default {
   mounted() {
     this.mergeTables()
 
-    this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption
-    )
+    this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption)
 
     this.cmOption.hintOptions.hint = this.hint
 
@@ -137,6 +133,11 @@ export default {
       this.$root.$emit('activeSave', false)
       this.$root.$emit('activateModalRecent')
       this.$root.$emit('sendCode', this.code);
+      this.$root.$emit('focusEditor')
+    })
+
+    this.editor.on('blur', () => {
+      this.$root.$emit('blurEditor')
     })
 
     this.editor.on('change', editor => {

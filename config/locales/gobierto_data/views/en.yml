@@ -48,6 +48,8 @@ en:
       summary: Summary
       table: Table
       updated: Updated
+      visEmpty: No available visualizations
+      visName: Visualization name
       visualization: Visualization
       visualizations: Visualizations
       yourQueries: Your queries

@@ -43,6 +43,7 @@
 import SidebarCategories from './SidebarCategories.vue';
 import SidebarDatasets from './SidebarDatasets.vue';
 import SidebarQueries from './SidebarQueries.vue';
+
 export default {
   name: "Sidebar",
   components: {
@@ -71,6 +72,7 @@ export default {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
+
   },
   methods: {
     activateTab(index) {

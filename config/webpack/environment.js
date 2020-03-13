@@ -26,6 +26,13 @@ environment.plugins.append(
   })
 )
 
+// Persperctive webpack
+const PerspectivePlugin = require('@finos/perspective-webpack-plugin')
+environment.plugins.append(
+  'Perspective',
+  new PerspectivePlugin()
+)
+
 environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: { name: "commons", minChunks: 5 } } }))
 environment.loaders.delete('nodeModules')
 

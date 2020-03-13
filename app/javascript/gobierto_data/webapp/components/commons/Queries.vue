@@ -81,7 +81,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCodePublic(index)"
             @mouseleave="hideCode = true"
-            @click="handleQueries(publicQueries[index].attributes.sql, item, true)"
+            @click="handleQueries(publicQueries[index].attributes.sql, item)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
           </div>
@@ -191,10 +191,22 @@ export default {
           'Content-type': 'application/json',
           'Authorization': `${this.token}`
         }
-      }
-      ).then(
-        this.$root.$emit('reloadPublicQueries')
-      )
+      })
+
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=`
+      this.filterId = `&filter[user_id]=${this.userId}`
+      this.url = `${this.endPoint}${this.numberId}${this.filterId}`
+      axios
+        .get(this.url)
+        .then(response => {
+          const rawData = response.data
+          const items = rawData.data
+          this.arrayQueries = items
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
     },
     runYourQuery(code) {
       this.queryEditor = encodeURI(code)
@@ -231,6 +243,7 @@ export default {
 
           this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
+          this.$root.$emit('sendDataViz', data)
           this.$root.$emit('showMessages', true, false)
           this.$root.$emit('sendQueryCode', this.queryCode)
           this.$root.$emit('activateModalRecent')
@@ -240,7 +253,6 @@ export default {
         .catch(error => {
           const messageError = error.response.data.errors[0].sql
           this.$root.$emit('apiError', messageError)
-
 
           const data = []
           const keysData = []

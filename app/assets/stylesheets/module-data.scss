@@ -999,4 +999,11 @@
       font-weight: bold;
     }
   }
+
+  perspective-viewer {
+    overflow: hidden;
+    width: 100%;
+    height: 600px;
+  }
+
 }

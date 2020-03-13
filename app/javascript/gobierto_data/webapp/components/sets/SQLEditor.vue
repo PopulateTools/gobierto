@@ -166,7 +166,8 @@ export default {
 
       // save the query in the editor
       this.currentQuery = this.queryEditor
-      this.url = `${this.endPoint}?sql=${query}`
+
+      const params = { sql: query }
 
       // factory method
       this.getData(params)

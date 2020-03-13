@@ -50,7 +50,9 @@ export default {
       this.initColumns = Object.keys(data[0]);
 
       this.viewer.load(table);
-      this.viewer.restore(this.config);
+      if (this.config) {
+        this.viewer.restore(this.config);
+      }
     },
     updatePerspectiveData(values) {
       this.viewer.clear();

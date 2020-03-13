@@ -97,7 +97,10 @@
     <Visualizations v-else-if="activeTab === 3" />
 
     <keep-alive v-else-if="activeTab === 4">
-      <Downloads :array-formats="arrayFormats" />
+      <Downloads
+        :array-formats="arrayFormats"
+        :resources-list="resourcesList"
+      />
     </keep-alive>
   </div>
 </template>
@@ -122,28 +125,6 @@ export default {
     Downloads,
     Button
   },
-  props: {
-    activeTab: {
-      type: Number,
-      default: 0
-    },
-    datasetId: {
-      type: Number,
-      default: 0
-    },
-    arrayQueries: {
-      type: Array,
-      required: true
-    },
-    numberRows: {
-      type: Number,
-      required: true
-    },
-    arrayFormats: {
-      type: Object,
-      default: () => []
-    }
-  },
   data() {
     return {
       activeTab: 0,
@@ -160,6 +141,7 @@ export default {
       arrayQueries: [],
       numberRows: 0,
       arrayFormats: {},
+      arrayColumns: {},
       publicQueries: [],
       resourcesList: [],
       userId: '',

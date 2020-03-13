@@ -15,7 +15,9 @@ export const VisualizationFactoryMixin = {
     getVisualization(id) {
       return axios.get(`${endPoint}/${id}`, { headers });
     },
-    getVisualizations() {
+    getVisualizations(params) {
+      console.log(params);
+
       return axios.get(endPoint, { headers });
     },
     postVisualization(data) {

@@ -30,6 +30,10 @@ export default {
   components: {
     SQLEditorVisualizations
   },
+  datasetId: {
+    type: Number,
+    required: true
+  },
   mixins: [VisualizationFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
   data() {
     return {
@@ -41,7 +45,7 @@ export default {
     this.labelVisEmpty = I18n.t("gobierto_data.projects.visEmpty");
 
     // Get all my visualizations
-    const { data: response } = await this.getVisualizations();
+    const { data: response } = await this.getVisualizations({ 'filter[dataset_id]': this.datasetId });
     const { data } = response;
 
     if (data.length) {
@@ -68,6 +72,6 @@ export default {
         this.visualizations.push(visualization);
       }
     }
-  }
+  },
 };
 </script>

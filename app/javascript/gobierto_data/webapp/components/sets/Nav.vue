@@ -21,6 +21,7 @@
         />
       </div>
     </div>
+
     <nav class="gobierto-data-sets-nav">
       <ul>
         <li
@@ -67,8 +68,8 @@
         :public-queries="publicQueries"
         :array-formats="arrayFormats"
         :description-dataset="descriptionDataset"
-        :category-dataset="categoryDataset"
-        :frequency-dataset="frequencyDataset"
+        :category-dataset="categoryDataset | translate"
+        :frequency-dataset="frequencyDataset | translate"
         :resources-list="resourcesList"
         :date-updated="dateUpdated"
       />
@@ -94,7 +95,10 @@
     </keep-alive>
 
     <!-- Visualizations requires to query API on created, so we don't keep-alive it -->
-    <Visualizations v-else-if="activeTab === 3" />
+    <Visualizations
+      v-else-if="activeTab === 3"
+      :dataset-id="datasetId"
+    />
 
     <keep-alive v-else-if="activeTab === 4">
       <Downloads
@@ -111,9 +115,12 @@ import Data from "./Data.vue";
 import Queries from "./Queries.vue";
 import Visualizations from "./Visualizations.vue";
 import Downloads from "./Downloads.vue";
-import axios from 'axios'
-import { baseUrl } from "./../../../lib/commons"
-import { getUserId, getToken } from "./../../../lib/helpers"
+import axios from "axios";
+import { baseUrl } from "./../../../lib/commons";
+import { getUserId, getToken } from "./../../../lib/helpers";
+import { translate } from "./../../../../lib/shared/modules/vue-filters";
+import { DatasetFactoryMixin } from "./../../../lib/factories/datasets";
+import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 
 export default {
   name: "NavSets",
@@ -125,6 +132,10 @@ export default {
     Downloads,
     Button
   },
+  filters: {
+    translate
+  },
+  mixins: [DatasetFactoryMixin, QueriesFactoryMixin],
   data() {
     return {
       activeTab: 0,
@@ -135,135 +146,114 @@ export default {
       labelDownload: "",
       labelFav: "",
       labelFollow: "",
-      slugName: '',
-      tableName: '',
-      titleDataset: '',
+      tableName: "",
+      titleDataset: "",
       arrayQueries: [],
       numberRows: 0,
       arrayFormats: {},
       arrayColumns: {},
       publicQueries: [],
       resourcesList: [],
-      userId: '',
-      dateUpdated: '',
-      descriptionDataset: '',
-      categoryDataset: '',
-      frequencyDataset: ''
-    }
+      userId: "",
+      dateUpdated: "",
+      descriptionDataset: "",
+      categoryDataset: "",
+      frequencyDataset: ""
+    };
   },
   created() {
-    this.labelSummary = I18n.t("gobierto_data.projects.summary")
-    this.labelData = I18n.t("gobierto_data.projects.data")
-    this.labelQueries = I18n.t("gobierto_data.projects.queries")
-    this.labelVisualizations = I18n.t("gobierto_data.projects.visualizations")
-    this.labelDownload = I18n.t("gobierto_data.projects.download")
-    this.labelFav = I18n.t("gobierto_data.projects.fav")
-    this.labelFollow = I18n.t("gobierto_data.projects.follow")
+    this.labelSummary = I18n.t("gobierto_data.projects.summary");
+    this.labelData = I18n.t("gobierto_data.projects.data");
+    this.labelQueries = I18n.t("gobierto_data.projects.queries");
+    this.labelVisualizations = I18n.t("gobierto_data.projects.visualizations");
+    this.labelDownload = I18n.t("gobierto_data.projects.download");
+    this.labelFav = I18n.t("gobierto_data.projects.fav");
+    this.labelFollow = I18n.t("gobierto_data.projects.follow");
 
-    this.$root.$on('changeNavTab', this.changeTab)
-    this.$root.$on('activeTabIndex', this.changeTab)
-    this.$root.$on('reloadQueries', this.getQueries)
+    this.$root.$on("changeNavTab", this.changeTab);
+    this.$root.$on("activeTabIndex", this.changeTab);
+    this.$root.$on("reloadQueries", this.getPrivateQueries);
 
-    this.slugName = this.$route.params.id
-    this.userId = getUserId()
-    this.token = getToken()
+    this.userId = getUserId();
+    this.token = getToken();
 
-    this.setValuesDataset()
+    this.setValuesDataset();
   },
   methods: {
     changeTab() {
-      this.activateTab(1)
+      this.activateTab(1);
     },
     activateTab(index) {
-      this.activeTab = index
+      this.activeTab = index;
       this.$emit("active-tab", index);
     },
-    setValuesDataset(){
-      const url = `${baseUrl}/datasets/${this.slugName}/meta`
-      axios
-        .get(url)
+    setValuesDataset() {
+      const { id } = this.$route.params;
+
+      // factory method
+      this.getDatasetMetadata(id)
         .then(response => {
+          const { data: raw } = response;
+          const {
+            data: {
+              id: datasetId,
+              attributes: {
+                name: titleDataset,
+                slug: slugDataset,
+                table_name: tableName,
+                columns: arrayColumns,
+                description: descriptionDataset,
+                data_updated_at: dateUpdated,
+                data_summary: { number_of_rows: numberRows },
+                formats: arrayFormats,
+                frequency = [],
+                category = []
+              }
+            }
+          } = raw;
 
-         const rawData = response.data
-         const { data: {
-           id: datasetId,
-           attributes: {
-             name: titleDataset,
-             slug: slugDataset,
-             table_name: tableName,
-             columns: arrayColumns,
-             description: descriptionDataset,
-             data_updated_at: dateUpdated,
-             data_summary: {
-               number_of_rows: numberRows
-             },
-             formats: arrayFormats,
-             frequency = [], category = []
-           }
-         } } = rawData;
+          this.datasetId = parseInt(datasetId);
+          this.titleDataset = titleDataset;
+          this.slugDataset = slugDataset;
+          this.tableName = tableName;
+          this.arrayColumns = arrayColumns;
+          this.descriptionDataset = descriptionDataset;
+          this.dateUpdated = dateUpdated;
+          this.numberRows = numberRows;
+          this.arrayFormats = arrayFormats;
+          this.resourcesList = response.included;
+          this.frequencyDataset = frequency[0].name_translations;
+          this.categoryDataset = category[0].name_translations;
 
-          const resourcesData = response.included
-          this.datasetId = parseInt(rawData.data.id)
-          this.titleDataset = rawData.data.attributes.name
-          this.slugDataset = rawData.data.attributes.slug
-          this.tableName = rawData.data.attributes.table_name
-          this.arrayFormats = rawData.data.attributes.formats
-          this.numberRows = rawData.data.attributes.data_summary.number_of_rows
-          this.frequencyDataset = rawData.data.attributes.frequency.name_translations === undefined ? '' : rawData.data.attributes.frequency.name_translations
-          this.categoryDataset = rawData.data.attributes.category.name_translations === undefined ? '' : rawData.data.attributes.category.name_translations
-          this.descriptionDataset = rawData.data.attributes.description
-          const dateFromApi = rawData.data.attributes.data_updated_at === undefined ? '' : rawData.data.attributes.data_updated_at
-          const newDateFromApi = new Date(dateFromApi)
-          this.dateUpdated = newDateFromApi.toLocaleDateString('es-ES', {
-              day : 'numeric',
-              month : 'short',
-              year : 'numeric'
-          })
-          this.resourcesList = resourcesData
-
-          this.frequencyDataset = frequency[0].name_translations[I18n.locale]
-          this.categoryDataset = category[0].name_translations[I18n.locale]
-
-          this.getPublicQueries()
+          this.getPublicQueries();
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch(error => console.error(error));
     },
-    getQueries() {
-      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}&filter[user_id]=${this.userId}`
-      axios
-        .get(endPoint, {
-          headers: {
-            'Content-type': 'application/json',
-            'Authorization': `${this.token}`
+    getPrivateQueries() {
+      // factory method
+      this.getQueries({
+        "filter[dataset_id]": this.datasetId,
+        "filter[user_id]": this.userId
+      }).then(({ data }) => {
+          const { data: items } = data;
+          this.arrayQueries = items;
+        })
+        .catch(({ response }) => console.error(response));
+    },
+    getPublicQueries() {
+      // factory method
+      this.getQueries({
+        "filter[dataset_id]": this.datasetId
+      }).then(({ data }) => {
+          const { data: items } = data;
+          this.publicQueries = items;
+
+          if (this.userId) {
+            this.getPrivateQueries();
           }
         })
-        .then(response => {
-          const rawData = response.data
-          const items = rawData.data
-          this.arrayQueries = items
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        })
-    },
-     getPublicQueries() {
-      const endPoint = `${baseUrl}/queries?filter[dataset_id]=${this.datasetId}`
-      axios
-        .get(endPoint)
-        .then(response => {
-          const rawData = response.data
-          const items = rawData.data
-          this.publicQueries = items
-          this.getQueries()
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        })
+        .catch(({ response }) => console.error(response));
     }
   }
-}
+};
 </script>

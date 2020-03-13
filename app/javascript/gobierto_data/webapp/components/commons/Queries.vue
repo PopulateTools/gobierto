@@ -22,12 +22,13 @@
             @mouseover="showCode(index)"
             @mouseleave="hideCode = true"
           >
-            <span
+            <a
+              :href="'/datos/' + pathQueries + '/q/' + index"
               class="gobierto-data-summary-queries-container-name"
-              @click="handleQueries(arrayQueries[index].attributes.sql, item, false)"
+              @click.prevent="handleQueries(arrayQueries[index].attributes.sql, item, index)"
             >
               {{ item.attributes.name }}
-            </span>
+            </a>
             <div
               class="gobierto-data-summary-queries-container-icon"
             >
@@ -131,7 +132,8 @@ export default {
       filterId: '',
       url: '',
       endPointDelete: '',
-      numberId: ''
+      numberId: '',
+      pathQueries: this.$parent.$root._route.params.id
     }
   },
   created() {
@@ -148,14 +150,12 @@ export default {
 
   },
   methods: {
-    handleQueries(sql, item, anonymusQuery) {
+    handleQueries(sql, item,index) {
       this.runYourQuery(sql)
       this.sendQuery(item)
       this.closeModal()
       this.changeTab()
-      if (anonymusQuery === true) {
-        this.$root.$emit('disableEdit')
-      }
+      this.nav(index)
     },
     closeModal() {
       this.$root.$emit('closeQueriesModal');
@@ -253,11 +253,23 @@ export default {
         .catch(error => {
           const messageError = error.response.data.errors[0].sql
           this.$root.$emit('apiError', messageError)
-
           const data = []
           const keysData = []
           this.$root.$emit('sendData', keysData, data)
         })
+
+        setTimeout(() => {
+          this.showSpinner = false
+        }, 300)
+    },
+    nav(index) {
+      this.$router.push({
+        name: "queries",
+        params: {
+          queryId: index
+        }
+    }, () => {})
+      this.changeTab()
     }
   }
 }

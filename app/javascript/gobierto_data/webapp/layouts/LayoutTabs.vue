@@ -15,6 +15,7 @@
       <component
         :is="currentComponent"
         :all-datasets="allDatasets"
+        :active-dataset-tab="activeDatasetTab"
       />
     </div>
   </div>
@@ -24,13 +25,24 @@ import Sidebar from "./../components/Sidebar.vue";
 import Nav from "./../components/Nav.vue";
 import InfoList from "./../components/commons/InfoList.vue";
 import DataSets from "./../pages/DataSets.vue";
+import Summary from '../components/sets/Summary.vue';
+import Data from '../components/sets/Data.vue';
+import Queries from '../components/sets/Queries.vue';
+import Visualizations from '../components/sets/Visualizations.vue';
+import Downloads from '../components/sets/Downloads.vue';
+
 export default {
   name: "LayoutTabs",
   components: {
     Sidebar,
     DataSets,
     InfoList,
-    Nav
+    Nav,
+    Summary,
+    Data,
+    Queries,
+    Visualizations,
+    Downloads
   },
   props: {
     filters: {
@@ -47,6 +59,10 @@ export default {
       default: ''
     },
     currentTab: {
+      type: Number,
+      default: 0
+    },
+    activeDatasetTab: {
       type: Number,
       default: 0
     }

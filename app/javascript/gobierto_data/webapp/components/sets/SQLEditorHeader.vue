@@ -191,15 +191,19 @@ export default {
   props: {
     arrayQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     publicQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     datasetId: {
       type: Number,
-      required: true
+      default: 0
+    },
+    tableName: {
+      type: String,
+      default: ''
     },
     tableName: {
       type: String,
@@ -212,7 +216,6 @@ export default {
   },
   data() {
     return {
-      showStoreQueries: [],
       disabledRecents: false,
       disabledQueries: false,
       disabledSave: true,
@@ -245,18 +248,16 @@ export default {
       labelbuttonQueries: '',
       labelButtonRunQuery: '',
       codeQuery: '',
-      endPoint: '',
       privacyStatus: '',
-      propertiesQueries: [],
       directionLeft: true,
-      url: '',
       showSpinner: false,
       token: '',
       noLogin: false,
       editorFocus: false,
       queryId: '',
       userIdQuery: '',
-      oldQueryName: ''
+      oldQueryName: '',
+      queryEditor: ''
     }
   },
   created() {
@@ -278,7 +279,7 @@ export default {
     this.$root.$on('activeSave', this.activeSave);
     this.$root.$on('sendCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
-    this.$root.$on('storeQuery', this.showshowStoreQueries)
+    this.$root.$on('storeQuery', this.showStoreQueries)
     this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('sendYourQuery', this.runYourQuery)
     this.$root.$on('runSpinner', this.runSpinner)
@@ -291,8 +292,10 @@ export default {
 
     this.token = getToken()
     this.userId = getUserId()
-
     this.noLogin = this.userId === "" ? true : false
+    this.codeQuery = `SELECT%20*%20FROM%20${this.tableName}%20`
+
+    this.requestQuery()
 
     this.activateShortcutsListener()
     window.addEventListener('keydown', e => {
@@ -320,6 +323,13 @@ export default {
       setTimeout(() => {
         this.showSpinner = false
       }, 300)
+    },
+    requestQuery(){
+      if (this.$route.name === 'queries' && this.publicQueries !== '') {
+        const codeQueryFromRoute = this.$route.params.queryId
+        this.codeQuery = this.publicQueries[codeQueryFromRoute].attributes.sql
+        this.runQuery()
+      }
     },
     hideEdit(){
       this.showBtnEdit = false
@@ -374,7 +384,7 @@ export default {
       this.showBtnSave = true
       this.showBtnEdit = false
     },
-    showshowStoreQueries(queries) {
+    showStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)
     },
     activeSave(value) {
@@ -463,7 +473,7 @@ export default {
         query = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
       }
 
-      this.$root.$emit('postRecentQuery', this.codeQuery)
+      this.showSpinner = true;
       this.$root.$emit('showMessages', false, true)
 
       const endPoint = `${baseUrl}/data`
@@ -485,6 +495,8 @@ export default {
 
           this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
+          this.queryEditor = encodeURI(this.codeQuery)
+          this.$root.$emit('postRecentQuery', this.codeQuery)
           this.$root.$emit('sendDataViz', data)
           this.$root.$emit('showMessages', true, false)
 
@@ -530,6 +542,7 @@ export default {
       }
     },
     postQuery() {
+
       const endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
       if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
@@ -559,6 +572,7 @@ export default {
           console.error(messageError)
         });
       } else {
+        const endPoint = `${baseUrl}/queries`
         let data = {
             "data": {
                 "type": "gobierto_data-queries",

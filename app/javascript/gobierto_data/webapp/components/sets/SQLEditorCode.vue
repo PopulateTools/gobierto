@@ -58,8 +58,7 @@ export default {
   },
   data() {
     return {
-      editor: null,
-      code: '',
+      code: `SELECT * FROM ${this.tableName}`,
       labelGuide: '',
       labelQueryExecuted: '',
       labelRecords: '',

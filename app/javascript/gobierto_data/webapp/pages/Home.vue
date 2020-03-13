@@ -8,6 +8,7 @@
       :all-datasets="subsetItems"
       :current-view="currentView"
       :current-tab="currentTab"
+      :active-dataset-tab="activeDatasetTab"
     />
   </div>
 </template>
@@ -36,6 +37,35 @@ export default {
       type: Number,
       default: 0
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      if (to.name === 'resumen') {
+        vm.activeDatasetTab = 0
+      } else if (to.name === 'editor') {
+        vm.activeDatasetTab = 1
+      } else if (to.name === 'consultas') {
+        vm.activeDatasetTab = 2
+      } else if (to.name === 'visualizaciones') {
+        vm.activeDatasetTab = 3
+      } else if (to.name === 'descarga') {
+        vm.activeDatasetTab = 4
+      }
+    })
+  },
+  beforeRouteUpdate (to, from, next) {
+    if (to.name === 'resumen') {
+      this.activeDatasetTab = 0
+    } else if (to.name === 'editor') {
+      this.activeDatasetTab = 1
+    } else if (to.name === 'consultas') {
+      this.activeDatasetTab = 2
+    } else if (to.name === 'visualizaciones') {
+      this.activeDatasetTab = 3
+    } else if (to.name === 'descarga') {
+      this.activeDatasetTab = 4
+    }
+    next()
   },
   data() {
     return {

@@ -1,5 +1,8 @@
 <template>
-  <div class="gobierto-data-sql-editor-table-container">
+  <div
+    v-if="keysData"
+    class="gobierto-data-sql-editor-table-container"
+  >
     <table class="gobierto-data-sql-editor-table">
       <thead>
         <tr>

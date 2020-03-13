@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="gobierto-data-sql-editor">
+    <div v-if="tableName && arrayColumns" class="gobierto-data-sql-editor">
       <SQLEditorHeader
+        v-if="publicQueries"
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
         :dataset-id="datasetId"
@@ -18,9 +19,9 @@
         :array-formats="arrayFormats"
         :items="items"
         :link="link"
-        :table-name="tableName"
         :active-tab="activeTabIndex"
         :array-queries="arrayQueries"
+        :table-name="tableName"
         :number-rows="numberRows"
         :dataset-id="datasetId"
         :current-query="currentQuery"
@@ -179,6 +180,7 @@ export default {
 
           const keysData = Object.keys(data[0])
           this.$root.$emit('sendDataViz', keysData)
+          this.dataLoaded = true
         })
         .catch(error => {
           this.$root.$emit('apiError', error)

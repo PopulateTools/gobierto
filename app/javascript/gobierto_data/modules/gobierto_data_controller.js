@@ -14,7 +14,7 @@ export class GobiertoDataController {
     if (entryPoint) {
       const htmlRouterBlock = `
       <keep-alive>
-        <router-view :key="$route.fullPath"></router-view>
+        <router-view :key="$route.params.id"></router-view>
       </keep-alive>
       `;
 
@@ -23,18 +23,85 @@ export class GobiertoDataController {
       const Home = () => import("../webapp/pages/Home.vue");
 
       const router = new VueRouter({
+
         mode: "history",
         routes: [{
             path: "/datos",
             name: "home",
             component: Home,
-            props: { currentComponent: 'InfoList', activateTabSidebar: 0 }
+            props: {
+              currentComponent: 'InfoList',
+              activateTabSidebar: 0
+            }
           },
           {
             path: "/datos/:id",
             name: "dataset",
             component: Home,
-            props: { currentComponent: 'DataSets', activateTabSidebar: 1 }
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1
+            }
+          },
+          {
+            path: "/datos/:id/resumen",
+            name: "resumen",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTabProp: 0
+            }
+          },
+          {
+            path: "/datos/:id/editor",
+            name: "editor",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTabProp: 1
+            }
+          },
+          {
+            path: "/datos/:id/consultas",
+            name: "consultas",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTabProp: 2
+            }
+          },
+          {
+            path: "/datos/:id/visualizaciones",
+            name: "visualizaciones",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTabProp: 3
+            }
+          },
+          {
+            path: "/datos/:id/descarga",
+            name: "descarga",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTabProp: 4
+            }
+          },
+          {
+            path: "/datos/:id/q/:queryId",
+            name: "queries",
+            component: Home,
+            props: {
+              currentComponent: 'DataSets',
+              activateTabSidebar: 1,
+              activeDatasetTabProp: 1
+            }
           }
         ]
       })

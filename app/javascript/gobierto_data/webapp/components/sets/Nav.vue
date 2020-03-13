@@ -2,7 +2,7 @@
   <div>
     <div class="pure-g">
       <div class="pure-u-1-2">
-        <h2 class="gobierto-data-title-dataset">
+        <h2 v-if="titleDataset" class="gobierto-data-title-dataset">
           {{ titleDataset }}
         </h2>
       </div>
@@ -26,35 +26,35 @@
         <li
           :class="{ 'is-active': activeTab === 0 }"
           class="gobierto-data-sets-nav--tab"
-          @click="activateTab(0)"
+          @click.prevent="activateTab(0, 'resumen')"
         >
           <span>{{ labelSummary }}</span>
         </li>
         <li
           :class="{ 'is-active': activeTab === 1 }"
           class="gobierto-data-sets-nav--tab"
-          @click="activateTab(1)"
+          @click.prevent="activateTab(1, 'editor')"
         >
           <span>{{ labelData }}</span>
         </li>
         <li
           :class="{ 'is-active': activeTab === 2 }"
           class="gobierto-data-sets-nav--tab"
-          @click="activateTab(2)"
+          @click.prevent="activateTab(2, 'consultas')"
         >
           <span>{{ labelQueries }}</span>
         </li>
         <li
           :class="{ 'is-active': activeTab === 3 }"
           class="gobierto-data-sets-nav--tab"
-          @click="activateTab(3)"
+          @click.prevent="activateTab(3, 'visualizaciones')"
         >
           <span>{{ labelVisualizations }}</span>
         </li>
         <li
           :class="{ 'is-active': activeTab === 4 }"
           class="gobierto-data-sets-nav--tab"
-          @click="activateTab(4)"
+          @click.prevent="activateTab(4, 'descarga')"
         >
           <span>{{ labelDownload }}</span>
         </li>
@@ -105,7 +105,7 @@
   </div>
 </template>
 <script>
-import Button from "./../commons/Button.vue";
+import Button from './../commons/Button.vue';
 import Summary from "./Summary.vue";
 import Data from "./Data.vue";
 import Queries from "./Queries.vue";
@@ -117,13 +117,19 @@ import { getUserId, getToken } from "./../../../lib/helpers"
 
 export default {
   name: "NavSets",
+  props: {
+    activeDatasetTab: {
+      type: Number,
+      default: 0
+    }
+  },
   components: {
+    Button,
     Summary,
     Data,
     Queries,
     Visualizations,
-    Downloads,
-    Button
+    Downloads
   },
   data() {
     return {
@@ -152,6 +158,7 @@ export default {
     }
   },
   created() {
+    this.activeTab = this.activeDatasetTab
     this.labelSummary = I18n.t("gobierto_data.projects.summary")
     this.labelData = I18n.t("gobierto_data.projects.data")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
@@ -174,9 +181,16 @@ export default {
     changeTab() {
       this.activateTab(1)
     },
-    activateTab(index) {
+    activateTab(index, label) {
       this.activeTab = index
-      this.$emit("active-tab", index);
+      this.$emit("active-tab", index)
+      this.$router.push({
+        name: label,
+        params: {
+          id: this.$route.params.id,
+          title: label
+        }
+    }, () => {})
     },
     setValuesDataset(){
       const url = `${baseUrl}/datasets/${this.slugName}/meta`

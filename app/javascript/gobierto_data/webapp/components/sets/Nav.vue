@@ -64,7 +64,7 @@
 
     <keep-alive v-if="activeTab === 0">
       <Summary
-        :array-queries="arrayQueries"
+        :private-queries="privateQueries"
         :public-queries="publicQueries"
         :array-formats="arrayFormats"
         :description-dataset="descriptionDataset"
@@ -78,9 +78,9 @@
     <keep-alive v-else-if="activeTab === 1">
       <Data
         :dataset-id="datasetId"
-        :array-queries="arrayQueries"
-        :array-columns="arrayColumns"
+        :private-queries="privateQueries"
         :public-queries="publicQueries"
+        :array-columns="arrayColumns"
         :table-name="tableName"
         :array-formats="arrayFormats"
         :number-rows="numberRows"
@@ -89,7 +89,7 @@
 
     <keep-alive v-else-if="activeTab === 2">
       <Queries
-        :array-queries="arrayQueries"
+        :private-queries="privateQueries"
         :public-queries="publicQueries"
       />
     </keep-alive>
@@ -148,10 +148,10 @@ export default {
       labelFollow: "",
       tableName: "",
       titleDataset: "",
-      arrayQueries: [],
       numberRows: 0,
       arrayFormats: {},
       arrayColumns: {},
+      privateQueries: [],
       publicQueries: [],
       resourcesList: [],
       userId: "",
@@ -236,7 +236,7 @@ export default {
         "filter[user_id]": this.userId
       }).then(({ data }) => {
           const { data: items } = data;
-          this.arrayQueries = items;
+          this.privateQueries = items;
         })
         .catch(({ response }) => console.error(response));
     },

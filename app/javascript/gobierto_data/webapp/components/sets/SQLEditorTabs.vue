@@ -76,7 +76,7 @@ export default {
       type: Number,
       default: 0
     },
-    arrayQueries: {
+    privateQueries: {
       type: Array,
       required: true
     },
@@ -166,7 +166,7 @@ export default {
 
       // Get the id if the query matches with a stored query
       const { id } =
-        this.arrayQueries.find(
+        this.privateQueries.find(
           ({ attributes }) =>
             attributes.sql === decodeURIComponent(this.currentQuery).trim()
         ) || {};

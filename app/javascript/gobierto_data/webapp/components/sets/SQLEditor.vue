@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="tableName" class="gobierto-data-sql-editor">
+    <div v-if="tableName && arrayColumns" class="gobierto-data-sql-editor">
       <SQLEditorHeader
         v-if="publicQueries"
         :array-queries="arrayQueries"
@@ -163,7 +163,6 @@ export default {
         this.queryEditor = this.code
       }
 
-      console.log("this.queryEditor", this.queryEditor);
       const url = `${endPoint}?sql=${this.queryEditor}`
       axios
         .get(url)

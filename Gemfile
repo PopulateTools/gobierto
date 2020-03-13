@@ -25,7 +25,7 @@ gem "bootsnap"
 gem "truncate_html"
 
 # Frontend
-gem "bourbon", "~> 6.0.0"
+gem "bourbon", "~> 7.0.0"
 gem "sass", "~> 3.4"
 gem "d3-rails", "~> 4.8"
 gem "flight-for-rails"

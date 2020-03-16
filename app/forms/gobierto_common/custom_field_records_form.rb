@@ -63,8 +63,13 @@ module GobiertoCommon
     private
 
     def version_changed?(custom_field)
+      return true unless ::GobiertoCommon::CustomFieldRecord.exists?(custom_field.id)
+
       if with_version && version_index.present?
-        (custom_field.versions[version_index]&.reify || custom_field.clone.reload).slice(*attributes_for_new_version) != custom_field.slice(*attributes_for_new_version)
+        (
+          custom_field.versions[version_index]&.reify ||
+          ::GobiertoCommon::CustomFieldRecord.find(custom_field.id)
+        ).slice(*attributes_for_new_version) != custom_field.slice(*attributes_for_new_version)
       else
         custom_field.changed?
       end

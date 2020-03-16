@@ -26,6 +26,7 @@ module GobiertoPlans
         @node = Node.new(progress: nil)
         @object = CSV::Row.new(plan_csv_columns, node_csv_values)
       end
+      new_node_version?
     end
 
     def categories
@@ -95,7 +96,21 @@ module GobiertoPlans
       end
     end
 
+    def new_node_version?
+      @new_node_version ||= begin
+                              return unless node.present? && versioned_node.present?
+
+                              attrs = ::GobiertoPlans::Node::VERSIONED_ATTRIBUTES
+
+                              versioned_node.slice(*attrs) != node.slice(*attrs)
+                            end
+    end
+
     protected
+
+    def versioned_node
+      @versioned_node ||= ::GobiertoPlans::Node.find_by_id(node.id)
+    end
 
     def find_or_intialize_node(category)
       if (external_id = node_data["external_id"]).present?

@@ -95,16 +95,27 @@ module GobiertoAdmin
           raise CSVRowInvalid, row_decorator.to_csv unless REQUIRED_COLUMNS.all? { |column| row_decorator[column].present? } && node.save
           raise StatusMissing, row_decorator.to_csv if row_decorator.status_missing
 
-          custom_fields_form = ::GobiertoCommon::CustomFieldRecordsForm.new(
-            site_id: @plan.site.id,
-            item: node,
-            instance: @plan,
-            with_version: true
-          )
-
-          custom_fields_form.custom_field_records = row_decorator.custom_field_records_values
-          custom_fields_form.save
+          save_custom_fields(row_decorator)
         end
+      end
+
+      def save_custom_fields(row_decorator)
+        node = row_decorator.node
+
+        custom_fields_form = ::GobiertoCommon::CustomFieldRecordsForm.new(
+          site_id: @plan.site.id,
+          item: node,
+          instance: @plan,
+          with_version: true,
+          version_index: 0
+        )
+
+        custom_fields_form.custom_field_records = row_decorator.custom_field_records_values
+        new_version = has_previous_nodes? && (custom_fields_form.changed? || row_decorator.new_node_version?)
+        custom_fields_form.force_new_version = new_version
+        node.touch if new_version && !row_decorator.new_node_version?
+
+        custom_fields_form.save
       end
 
       def col_sep

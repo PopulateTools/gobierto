@@ -6,6 +6,7 @@ module GobiertoAdmin
       class CSVRowInvalid < ArgumentError; end
       class StatusMissing < ArgumentError; end
       class ExternalIdTaken < ArgumentError; end
+      class CategoryNotFound < ArgumentError; end
 
       REQUIRED_COLUMNS = %w(Node.Title).freeze
 
@@ -17,11 +18,20 @@ module GobiertoAdmin
       validates :plan, :csv_file, presence: true
       validate :csv_file_format
 
+      def initialize(options = {})
+        super(options)
+        @has_previous_nodes = @plan.nodes.exists?
+      end
+
       def save
         save_plan_data if valid?
       end
 
       private
+
+      def has_previous_nodes?
+        @has_previous_nodes
+      end
 
       def plan_class
         ::GobiertoPlans::Plan
@@ -68,6 +78,9 @@ module GobiertoAdmin
         position_counter = 0
         csv_file_content.each do |row|
           row_decorator = ::GobiertoPlans::RowNodeDecorator.new(row, plan: @plan)
+
+          raise CategoryNotFound, row_decorator.to_csv if has_previous_nodes? && row_decorator.new_categories?
+
           row_decorator.categories.each do |category|
             next unless category.new_record?
 

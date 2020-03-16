@@ -70,6 +70,10 @@ module GobiertoPlans
       @plan.nodes.where.not(id: node.id).where(external_id: node.external_id).exists?
     end
 
+    def new_categories?
+      categories.any?(&:new_record?)
+    end
+
     def status_term_required?
       @plan.statuses_vocabulary.present?
     end

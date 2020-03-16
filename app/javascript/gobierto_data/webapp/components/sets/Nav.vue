@@ -24,35 +24,35 @@
     <nav class="gobierto-data-sets-nav">
       <ul>
         <li
-          :class="{ 'is-active': activeTab === 0 }"
+          :class="{ 'is-active': activeDatasetTab === 0 }"
           class="gobierto-data-sets-nav--tab"
           @click.prevent="activateTab(0, 'resumen')"
         >
           <span>{{ labelSummary }}</span>
         </li>
         <li
-          :class="{ 'is-active': activeTab === 1 }"
+          :class="{ 'is-active': activeDatasetTab === 1 }"
           class="gobierto-data-sets-nav--tab"
           @click.prevent="activateTab(1, 'editor')"
         >
           <span>{{ labelData }}</span>
         </li>
         <li
-          :class="{ 'is-active': activeTab === 2 }"
+          :class="{ 'is-active': activeDatasetTab === 2 }"
           class="gobierto-data-sets-nav--tab"
           @click.prevent="activateTab(2, 'consultas')"
         >
           <span>{{ labelQueries }}</span>
         </li>
         <li
-          :class="{ 'is-active': activeTab === 3 }"
+          :class="{ 'is-active': activeDatasetTab === 3 }"
           class="gobierto-data-sets-nav--tab"
           @click.prevent="activateTab(3, 'visualizaciones')"
         >
           <span>{{ labelVisualizations }}</span>
         </li>
         <li
-          :class="{ 'is-active': activeTab === 4 }"
+          :class="{ 'is-active': activeDatasetTab === 4 }"
           class="gobierto-data-sets-nav--tab"
           @click.prevent="activateTab(4, 'descarga')"
         >
@@ -61,7 +61,7 @@
       </ul>
     </nav>
 
-    <keep-alive v-if="activeTab === 0">
+    <keep-alive v-if="activeDatasetTab === 0">
       <Summary
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
@@ -74,7 +74,7 @@
       />
     </keep-alive>
 
-    <keep-alive v-else-if="activeTab === 1">
+    <keep-alive v-else-if="activeDatasetTab === 1">
       <Data
         :dataset-id="datasetId"
         :array-queries="arrayQueries"
@@ -86,7 +86,7 @@
       />
     </keep-alive>
 
-    <keep-alive v-else-if="activeTab === 2">
+    <keep-alive v-else-if="activeDatasetTab === 2">
       <Queries
         :array-queries="arrayQueries"
         :public-queries="publicQueries"
@@ -94,9 +94,9 @@
     </keep-alive>
 
     <!-- Visualizations requires to query API on created, so we don't keep-alive it -->
-    <Visualizations v-else-if="activeTab === 3" />
+    <Visualizations v-else-if="activeDatasetTab === 3" />
 
-    <keep-alive v-else-if="activeTab === 4">
+    <keep-alive v-else-if="activeDatasetTab === 4">
       <Downloads
         :array-formats="arrayFormats"
         :resources-list="resourcesList"
@@ -133,7 +133,6 @@ export default {
   },
   data() {
     return {
-      activeTab: 0,
       labelSummary: "",
       labelData: "",
       labelQueries: "",
@@ -146,6 +145,7 @@ export default {
       titleDataset: '',
       arrayQueries: [],
       numberRows: 0,
+      datasetId: 0,
       arrayFormats: {},
       arrayColumns: {},
       publicQueries: [],
@@ -158,7 +158,6 @@ export default {
     }
   },
   created() {
-    this.activeTab = this.activeDatasetTab
     this.labelSummary = I18n.t("gobierto_data.projects.summary")
     this.labelData = I18n.t("gobierto_data.projects.data")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
@@ -179,10 +178,9 @@ export default {
   },
   methods: {
     changeTab() {
-      this.activateTab(1)
+      this.activeDatasetTab = 1
     },
     activateTab(index, label) {
-      this.activeTab = index
       this.$emit("active-tab", index)
       this.$router.push({
         name: label,
@@ -197,7 +195,6 @@ export default {
       axios
         .get(url)
         .then(response => {
-
          const rawData = response.data
          const { data: {
            id: datasetId,

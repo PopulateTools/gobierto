@@ -36,6 +36,10 @@ export default {
     activateTabSidebar: {
       type: Number,
       default: 0
+    },
+    activeDatasetTabProp: {
+      type: Number,
+      default: 0
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -73,6 +77,7 @@ export default {
       subsetItems: [],
       currentView: '',
       currentTab: 0,
+      activeDatasetTab: 0,
       filters: store.state.filters || [],
       activeFilters: store.state.activeFilters || new Map(),
       defaultFilters: store.state.defaultFilters || new Map(),
@@ -80,6 +85,7 @@ export default {
     }
   },
   async created() {
+    this.activeDatasetTab = this.activeDatasetTabProp
     this.currentView = this.currentComponent
     if (this.$route.params.tabSidebar === 0) {
       this.currentTab = this.$route.params.tabSidebar

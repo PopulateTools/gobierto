@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="tableName && arrayColumns" class="gobierto-data-sql-editor">
+    <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
         v-if="publicQueries"
         :array-queries="arrayQueries"

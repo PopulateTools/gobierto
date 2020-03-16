@@ -1,6 +1,7 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
     <SQLEditor
+      v-if="datasetId"
       id="codemirror"
       :table-name="tableName"
       :dataset-id="datasetId"

@@ -327,6 +327,7 @@ export default {
     requestQuery(){
       if (this.$route.name === 'queries' && this.publicQueries !== '') {
         const codeQueryFromRoute = this.$route.params.queryId
+        console.log("codeQueryFromRoute", codeQueryFromRoute);
         this.codeQuery = this.publicQueries[codeQueryFromRoute].attributes.sql
         this.runQuery()
       }

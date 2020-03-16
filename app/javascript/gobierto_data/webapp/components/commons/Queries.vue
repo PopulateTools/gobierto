@@ -150,12 +150,15 @@ export default {
 
   },
   methods: {
-    handleQueries(sql, item,index) {
+    handleQueries(sql, item, index) {
+      console.log("item", item);
       this.runYourQuery(sql)
       this.sendQuery(item)
       this.closeModal()
       this.changeTab()
-      this.nav(index)
+      if (item.attributes.privacy_status === 'open') {
+        this.nav(index)
+      }
     },
     closeModal() {
       this.$root.$emit('closeQueriesModal');
@@ -232,6 +235,7 @@ export default {
           this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true, false)
+          this.$root.$emit('firstQuery', true)
           this.$root.$emit('sendQueryCode', this.queryCode)
           this.$root.$emit('activateModalRecent')
           this.$root.$emit('runSpinner')

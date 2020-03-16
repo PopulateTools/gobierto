@@ -49,7 +49,7 @@
       :table-name="tableName"
     />
 
-    <div class="gobierto-data-visualization">
+    <div class="gobierto-data-visualization--aspect-ratio-16-9">
       <SQLEditorVisualizations :items="items" />
     </div>
   </div>

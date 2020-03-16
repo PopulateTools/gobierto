@@ -960,17 +960,6 @@
     max-width: 100%;
   }
 
-  &-visualization {
-    background-color: #ccc;
-    width: 100%;
-    height: 600px;
-    letter-spacing: 0;
-  }
-
-  &-visualization--grid {
-    @include grid(1rem, 2)
-  }
-
   &-filters {
     width: 100%;
   }
@@ -1009,10 +998,39 @@
     }
   }
 
+  &-visualization--grid {
+    @include grid(16px, 2)
+  }
+
+  &-visualization--aspect-ratio-16-9 {
+    @include aspect-ratio(16, 9)
+  }
+
+  &-visualization--card {
+    background-color: rgba(var(--color-base-string), .05);
+    padding: 16px;
+    border-radius: 3px;
+  }
+
+  &-visualization--content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-visualization--title {
+    font-size: $f6;
+    font-weight: bold;
+    line-height: 20px;
+    margin: 0 0 1rem;
+  }
+
   perspective-viewer {
+    --plugin--background: transparent;
+
     overflow: hidden;
     width: 100%;
-    height: 600px;
+    height: 100%;
+    background-color: transparent;
   }
 
 }

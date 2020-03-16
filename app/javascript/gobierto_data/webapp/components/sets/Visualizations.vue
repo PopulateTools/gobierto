@@ -3,14 +3,61 @@
     <template v-if="isUserLoggged">
       <h3>{{ labelVisPrivate }}</h3>
       <div class="gobierto-data-visualization--grid">
-        <template v-if="privateVisualizations.length">
-          <template v-for="{ data, config, name } in privateVisualizations">
+        <template v-if="isPrivateLoading">
+          <Spinner />
+        </template>
+
+        <template v-else>
+          <template v-if="privateVisualizations.length">
+            <template v-for="{ data, config, name } in privateVisualizations">
+              <div :key="name">
+                <div class="gobierto-data-visualization--card">
+                  <div class="gobierto-data-visualization--aspect-ratio-16-9">
+                    <div class="gobierto-data-visualization--content">
+                      <h4 class="gobierto-data-visualization--title">
+                        {{ name }}
+                      </h4>
+                      <SQLEditorVisualizations
+                        :items="data"
+                        :config="config"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </template>
+
+          <template v-else>
+            {{ labelVisEmpty }}
+          </template>
+        </template>
+      </div>
+    </template>
+
+    <h3>{{ labelVisPublic }}</h3>
+    <div class="gobierto-data-visualization--grid">
+      <template v-if="isPublicLoading">
+        <Spinner />
+      </template>
+
+      <template v-else>
+        <template v-if="publicVisualizations.length">
+          <template v-for="{ data, config, name } in publicVisualizations">
             <div :key="name">
-              <h4>{{ name }}</h4>
-              <SQLEditorVisualizations
-                :items="data"
-                :config="config"
-              />
+              <div class="gobierto-data-visualization--card">
+                <div class="gobierto-data-visualization--aspect-ratio-16-9">
+                  <div class="gobierto-data-visualization--content">
+                    <h4 class="gobierto-data-visualization--title">
+                      {{ name }}
+                    </h4>
+                    <SQLEditorVisualizations
+                      :items="data"
+                      :config="config"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </template>
         </template>
@@ -18,31 +65,13 @@
         <template v-else>
           {{ labelVisEmpty }}
         </template>
-      </div>
-    </template>
-
-    <h3>{{ labelVisPublic }}</h3>
-    <div class="gobierto-data-visualization--grid">
-      <template v-if="publicVisualizations.length">
-        <template v-for="{ data, config, name } in publicVisualizations">
-          <div :key="name">
-            <h4>{{ name }}</h4>
-            <SQLEditorVisualizations
-              :items="data"
-              :config="config"
-            />
-          </div>
-        </template>
-      </template>
-
-      <template v-else>
-        {{ labelVisEmpty }}
       </template>
     </div>
   </div>
 </template>
 <script>
 import SQLEditorVisualizations from "./SQLEditorVisualizations.vue";
+import Spinner from "./../commons/Spinner.vue";
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { DataFactoryMixin } from "./../../../lib/factories/data";
@@ -51,7 +80,8 @@ import { getUserId } from "./../../../lib/helpers";
 export default {
   name: "Visualizations",
   components: {
-    SQLEditorVisualizations
+    SQLEditorVisualizations,
+    Spinner
   },
   mixins: [VisualizationFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
   props: {
@@ -67,7 +97,9 @@ export default {
       labelVisPublic: "",
       publicVisualizations: [],
       privateVisualizations: [],
-      isUserLoggged: false
+      isUserLoggged: false,
+      isPrivateLoading: false,
+      isPublicLoading: false
     };
   },
   created() {
@@ -84,6 +116,8 @@ export default {
   },
   methods: {
     async getPublicVisualizations() {
+      this.isPublicLoading = true
+
       const { data: response } = await this.getVisualizations({
         "filter[dataset_id]": this.datasetId
       });
@@ -92,8 +126,12 @@ export default {
       if (data.length) {
         this.publicVisualizations = await this.getDataFromVisualizations(data);
       }
+
+      this.isPublicLoading = false
     },
     async getPrivateVisualizations() {
+      this.isPrivateLoading = true
+
       if (this.userId) {
         const { data: response } = await this.getVisualizations({
           "filter[dataset_id]": this.datasetId,
@@ -107,6 +145,8 @@ export default {
           );
         }
       }
+
+      this.isPrivateLoading = false
     },
     async getDataFromVisualizations(data) {
       const visualizations = [];

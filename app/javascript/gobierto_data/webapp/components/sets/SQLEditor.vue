@@ -2,7 +2,7 @@
   <div>
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
-        :array-queries="arrayQueries"
+        :private-queries="privateQueries"
         :public-queries="publicQueries"
         :dataset-id="datasetId"
         :table-name="tableName"
@@ -20,7 +20,7 @@
         :link="link"
         :table-name="tableName"
         :active-tab="activeTabIndex"
-        :array-queries="arrayQueries"
+        :private-queries="privateQueries"
         :number-rows="numberRows"
         :dataset-id="datasetId"
         :current-query="currentQuery"
@@ -49,7 +49,7 @@ export default {
       type: String,
       required: true
     },
-    arrayQueries: {
+    privateQueries: {
       type: Array,
       required: true
     },

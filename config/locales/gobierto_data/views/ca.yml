@@ -50,6 +50,8 @@ ca:
       updated: Actualizat
       visEmpty: Cap visualització disponible
       visName: Nom visualització
+      visPrivate: Les teves visualitzacions
+      visPublic: Totes
       visualization: Visualització
       visualizations: Visualitzacions
       yourQueries: Les teves consultes

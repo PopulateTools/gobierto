@@ -12,10 +12,10 @@
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
-            {{ labelYourQueries }} ({{ arrayQueries.length }})
+            {{ labelYourQueries }} ({{ privateQueries.length }})
           </h3>
           <div
-            v-for="(item, index) in arrayQueries"
+            v-for="(item, index) in privateQueries"
             v-show="showYourQueries"
             :key="index"
             class="gobierto-data-summary-queries-container"
@@ -24,7 +24,7 @@
           >
             <span
               class="gobierto-data-summary-queries-container-name"
-              @click="handleQueries(arrayQueries[index].attributes.sql, item, false)"
+              @click="handleQueries(privateQueries[index].attributes.sql, item, false)"
             >
               {{ item.attributes.name }}
             </span>
@@ -102,7 +102,7 @@ import { baseUrl } from "./../../../lib/commons.js"
 export default {
   name: "Queries",
   props: {
-    arrayQueries: {
+    privateQueries: {
       type: Array,
       required: true
     },
@@ -136,8 +136,8 @@ export default {
   },
   created() {
     this.numberId = this.$route.params.numberId
-    this.numberQueries = this.arrayQueries.length
-    this.totalQueries = this.arrayQueries.length + this.numberFavQueries
+    this.numberQueries = this.privateQueries.length
+    this.totalQueries = this.privateQueries.length + this.numberFavQueries
 
     this.labelYourQueries = I18n.t("gobierto_data.projects.yourQueries")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
@@ -162,7 +162,7 @@ export default {
     },
     showCode(index) {
       this.hideCode = false
-      this.sqlCode = this.arrayQueries[index].attributes.sql
+      this.sqlCode = this.privateQueries[index].attributes.sql
     },
     showCodePublic(index) {
       this.hideCode = false
@@ -181,7 +181,7 @@ export default {
       this.$root.$emit('changeNavTab')
     },
     deleteQuery(id, index) {
-      this.$delete(this.arrayQueries, index)
+      this.$delete(this.privateQueries, index)
       this.deleteQueryApi(id)
     },
     deleteQueryApi(id) {
@@ -201,7 +201,7 @@ export default {
         .then(response => {
           const rawData = response.data
           const items = rawData.data
-          this.arrayQueries = items
+          this.privateQueries = items
         })
         .catch(error => {
           const messageError = error.response

@@ -38,7 +38,7 @@
             </template>
 
             <template v-else>
-              {{ labelVisEmpty }}
+              <div>{{ labelVisEmpty }}</div>
             </template>
           </template>
         </div>
@@ -82,7 +82,7 @@
           </template>
 
           <template v-else>
-            {{ labelVisEmpty }}
+            <div>{{ labelVisEmpty }}</div>
           </template>
         </template>
       </div>

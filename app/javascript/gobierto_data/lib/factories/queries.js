@@ -15,9 +15,10 @@ export const QueriesFactoryMixin = {
     getQuery(id) {
       return axios.get(`${endPoint}/${id}`, { headers });
     },
-    // getQueries() {
-    //   return axios.get(endPoint, { headers });
-    // },
+    getQueries(params) {
+      const qs = new URLSearchParams(params)
+      return axios.get(`${endPoint}?${qs.toString()}`, { headers });
+    },
     // postQuery(data) {
     //   return axios.post(endPoint, data, { headers });
     // }

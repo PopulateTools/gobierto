@@ -10,3 +10,17 @@
 .fade-leave-to {
   opacity: 0;
 }
+
+/* 
+* ====== Slide effect ======
+*/
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 200ms ease-in;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}

@@ -50,6 +50,8 @@ en:
       updated: Updated
       visEmpty: No available visualizations
       visName: Visualization name
+      visPrivate: Your visualizations
+      visPublic: All
       visualization: Visualization
       visualizations: Visualizations
       yourQueries: Your queries

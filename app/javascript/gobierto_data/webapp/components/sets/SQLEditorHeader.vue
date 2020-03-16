@@ -65,7 +65,7 @@
                 exclude: ['button'],
                 handler: 'closeYourQueries'
               }"
-              :array-queries="arrayQueries"
+              :private-queries="privateQueries"
               :public-queries="publicQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               tabindex="-1"
@@ -189,7 +189,7 @@ export default {
   },
   mixins: [CommonsMixin, closableMixin],
   props: {
-    arrayQueries: {
+    privateQueries: {
       type: Array,
       default: () => []
     },

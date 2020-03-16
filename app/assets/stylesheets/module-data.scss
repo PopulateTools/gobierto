@@ -2,6 +2,7 @@
 @import "mixins";
 @import "comp-block-checkbox";
 @import "comp-block-header";
+@import "comp-vue-dropdown";
 
 :root {
   --transition: .1s ease-in;
@@ -1015,6 +1016,14 @@
   &-visualization--content {
     display: flex;
     flex-direction: column;
+  }
+
+  &-visualization--h3 {
+    color: $color_text;
+    font-size: $f6;
+    font-weight: bold;
+    line-height: 20px;
+    opacity: .75;
   }
 
   &-visualization--title {

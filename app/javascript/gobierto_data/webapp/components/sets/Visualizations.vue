@@ -1,15 +1,68 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
     <template v-if="isUserLoggged">
-      <h3>{{ labelVisPrivate }}</h3>
+      <Dropdown>
+        <template v-slot:trigger>
+          <h3 class="gobierto-data-visualization--h3">
+            {{ labelVisPrivate }}
+            <template v-if="privateVisualizations.length">
+              ({{ privateVisualizations.length }})
+            </template>
+          </h3>
+        </template>
+
+        <div class="gobierto-data-visualization--grid">
+          <template v-if="isPrivateLoading">
+            <Spinner />
+          </template>
+
+          <template v-else>
+            <template v-if="privateVisualizations.length">
+              <template v-for="{ data, config, name } in privateVisualizations">
+                <div :key="name">
+                  <div class="gobierto-data-visualization--card">
+                    <div class="gobierto-data-visualization--aspect-ratio-16-9">
+                      <div class="gobierto-data-visualization--content">
+                        <h4 class="gobierto-data-visualization--title">
+                          {{ name }}
+                        </h4>
+                        <SQLEditorVisualizations
+                          :items="data"
+                          :config="config"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </template>
+
+            <template v-else>
+              {{ labelVisEmpty }}
+            </template>
+          </template>
+        </div>
+      </Dropdown>
+    </template>
+
+    <Dropdown>
+      <template v-slot:trigger>
+        <h3 class="gobierto-data-visualization--h3">
+          {{ labelVisPublic }}
+          <template v-if="publicVisualizations.length">
+            ({{ publicVisualizations.length }})
+          </template>
+        </h3>
+      </template>
+
       <div class="gobierto-data-visualization--grid">
-        <template v-if="isPrivateLoading">
+        <template v-if="isPublicLoading">
           <Spinner />
         </template>
 
         <template v-else>
-          <template v-if="privateVisualizations.length">
-            <template v-for="{ data, config, name } in privateVisualizations">
+          <template v-if="publicVisualizations.length">
+            <template v-for="{ data, config, name } in publicVisualizations">
               <div :key="name">
                 <div class="gobierto-data-visualization--card">
                   <div class="gobierto-data-visualization--aspect-ratio-16-9">
@@ -33,45 +86,13 @@
           </template>
         </template>
       </div>
-    </template>
-
-    <h3>{{ labelVisPublic }}</h3>
-    <div class="gobierto-data-visualization--grid">
-      <template v-if="isPublicLoading">
-        <Spinner />
-      </template>
-
-      <template v-else>
-        <template v-if="publicVisualizations.length">
-          <template v-for="{ data, config, name } in publicVisualizations">
-            <div :key="name">
-              <div class="gobierto-data-visualization--card">
-                <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                  <div class="gobierto-data-visualization--content">
-                    <h4 class="gobierto-data-visualization--title">
-                      {{ name }}
-                    </h4>
-                    <SQLEditorVisualizations
-                      :items="data"
-                      :config="config"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </template>
-        </template>
-
-        <template v-else>
-          {{ labelVisEmpty }}
-        </template>
-      </template>
-    </div>
+    </Dropdown>
   </div>
 </template>
 <script>
 import SQLEditorVisualizations from "./SQLEditorVisualizations.vue";
 import Spinner from "./../commons/Spinner.vue";
+import { Dropdown } from "lib/vue-components";
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { DataFactoryMixin } from "./../../../lib/factories/data";
@@ -81,7 +102,8 @@ export default {
   name: "Visualizations",
   components: {
     SQLEditorVisualizations,
-    Spinner
+    Spinner,
+    Dropdown
   },
   mixins: [VisualizationFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
   props: {

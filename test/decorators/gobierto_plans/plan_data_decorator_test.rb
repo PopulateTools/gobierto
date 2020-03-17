@@ -78,8 +78,9 @@ module GobiertoPlans
       end
     end
 
-    def test_csv_import
+    def test_csv_import_with_empty_plan
       plan.update_attribute(:statuses_vocabulary_id, csv_import_statuses_vocabulary.id)
+      plan.nodes.each(&:destroy)
 
       csv_input = CSV.read(csv_file, headers: true)
       csv_headers = csv_input.headers
@@ -107,8 +108,9 @@ module GobiertoPlans
       assert first_node.moderation.approved?
     end
 
-    def test_sample_csv_import
+    def test_sample_csv_import_with_empty_plan
       plan.update_attribute(:statuses_vocabulary_id, csv_import_statuses_vocabulary.id)
+      plan.nodes.each(&:destroy)
 
       GobiertoAdmin::GobiertoPlans::PlanDataForm.new(csv_file: sample_import_csv_file, plan: plan).save
 

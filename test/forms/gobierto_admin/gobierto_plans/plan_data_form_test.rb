@@ -37,6 +37,7 @@ module GobiertoAdmin
 
       def test_plan_data_upload_with_statuses_vocabulary
         plan.update_attribute(:statuses_vocabulary_id, csv_import_statuses_vocabulary.id)
+        plan.nodes.each(&:destroy)
 
         assert valid_plan_data_form.save
 

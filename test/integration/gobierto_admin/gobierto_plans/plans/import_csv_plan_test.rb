@@ -50,6 +50,7 @@ module GobiertoAdmin
       end
 
       def test_import_csv_file
+        plan.nodes.each(&:destroy)
         with(site: site, admin: admin) do
           visit path
 
@@ -89,6 +90,7 @@ module GobiertoAdmin
 
       def test_import_csv_file_without_vocabulary
         plan.update_attribute(:statuses_vocabulary_id, nil)
+        plan.nodes.each(&:destroy)
 
         with_signed_in_admin(admin) do
           with_current_site(site) do
@@ -110,6 +112,7 @@ module GobiertoAdmin
       end
 
       def test_import_csv_file_with_status_not_present_in_vocabulary
+        plan.nodes.each(&:destroy)
         blank_status_term.destroy
 
         with_signed_in_admin(admin) do
@@ -133,6 +136,7 @@ module GobiertoAdmin
 
       def test_import_csv_file_without_statuses_and_not_defined_vocabulary
         plan.update_attribute(:statuses_vocabulary_id, nil)
+        plan.nodes.each(&:destroy)
 
         with_signed_in_admin(admin) do
           with_current_site(site) do
@@ -156,6 +160,7 @@ module GobiertoAdmin
       end
 
       def test_regular_admin_manager_import
+        plan.nodes.each(&:destroy)
         allow_regular_admin_manage_plans
 
         with_signed_in_admin(regular_admin) do

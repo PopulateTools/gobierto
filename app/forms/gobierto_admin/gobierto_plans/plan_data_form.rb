@@ -52,6 +52,7 @@ module GobiertoAdmin
       def save_plan_data
         if csv_file.present?
           ActiveRecord::Base.transaction do
+            clear_categories_vocabulary unless has_previous_nodes?
             import_nodes
           end
         end
@@ -72,6 +73,14 @@ module GobiertoAdmin
         unless !csv_file_content || (REQUIRED_COLUMNS - csv_file_content.headers).blank? && csv_file_content.headers.any? { |header| /Level \d+/.match?(header) }
           errors.add(:base, :invalid_columns)
         end
+      end
+
+      def clear_categories_vocabulary
+        if @plan.categories_vocabulary.blank?
+          @plan.create_categories_vocabulary(name_translations: @plan.title_translations, site: @plan.site)
+          @plan.save
+        end
+        @plan.categories_vocabulary.terms.destroy_all
       end
 
       def import_nodes

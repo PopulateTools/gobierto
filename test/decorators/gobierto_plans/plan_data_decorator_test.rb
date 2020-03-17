@@ -28,6 +28,10 @@ module GobiertoPlans
       @csv_file ||= Rails.root.join("test/fixtures/files/gobierto_plans/plan.csv")
     end
 
+    def existing_plan_csv
+      @existing_plan_csv ||= Rails.root.join("test/fixtures/files/gobierto_plans/strategic-plan-update.csv")
+    end
+
     def sample_import_csv_file
       @sample_import_csv_file ||= Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
     end
@@ -101,7 +105,7 @@ module GobiertoPlans
       extra_headers.each do |extra_header|
         uid = extra_header.gsub(/\ANode\./, "")
         custom_field_record = first_node.custom_field_records.joins(:custom_field).find_by(custom_fields: { uid: uid })
-        assert_equal csv_input.by_row[0][extra_header], custom_field_record.value_string.strip
+        assert_equal csv_input.by_row[0][extra_header], custom_field_record.value_string&.strip
       end
       assert first_node.published?
       assert first_node.published_version.present?
@@ -128,28 +132,34 @@ module GobiertoPlans
     end
 
     def test_csv_import_with_existing_projects_and_compatible_categories
-      csv_input = CSV.read(csv_file, headers: true)
+      csv_input = CSV.read(existing_plan_csv, headers: true)
       csv_headers = csv_input.headers
 
-      form = GobiertoAdmin::GobiertoPlans::PlanDataForm.new(csv_file: sample_import_csv_file, plan: plan)
+      form = GobiertoAdmin::GobiertoPlans::PlanDataForm.new(csv_file: existing_plan_csv, plan: plan)
 
-      form.save
+      assert_difference "plan.nodes.count", 1 do
+        assert form.save
+      end
 
-      assert_equal csv_input.by_row[0]["Level 1"], first_category.parent_term.parent_term.name
-      assert_equal csv_input.by_row[0]["Level 2"], first_category.parent_term.name
-      assert_equal csv_input.by_row[0]["Level 3"], first_category.name
+      assert_equal csv_input.by_row[0]["Level 0"], first_category.parent_term.parent_term.name
+      assert_equal csv_input.by_row[0]["Level 1"], first_category.parent_term.name
+      assert_equal csv_input.by_row[0]["Level 2"], first_category.name
       assert_equal csv_input.by_row[0]["Node.Title"], first_node.name
       assert_equal csv_input.by_row[0]["Node.Status"], first_node.status.name
       assert_equal csv_input.by_row[0]["Node.Progress"].to_f, first_node.progress
       assert_equal Date.parse(csv_input.by_row[0]["Node.Start"]), first_node.starts_at
       assert_equal Date.parse(csv_input.by_row[0]["Node.End"]), first_node.ends_at
 
-      extra_headers = csv_headers - ["Level 1", "Level 2", "Level 3", "Node.Title", "Node.Status", "Node.Progress", "Node.Start", "Node.End", "Node.external_id"]
+      extra_headers = csv_headers - ["Level 0", "Level 1", "Level 2", "Level 3", "Node.Title", "Node.Status", "Node.Progress", "Node.Start", "Node.End", "Node.external_id"]
 
       extra_headers.each do |extra_header|
         uid = extra_header.gsub(/\ANode\./, "")
         custom_field_record = first_node.custom_field_records.joins(:custom_field).find_by(custom_fields: { uid: uid })
-        assert_equal csv_input.by_row[0][extra_header], custom_field_record.value_string.strip
+        if csv_input.by_row[0][extra_header].blank?
+          assert custom_field_record.value_string.blank?
+        else
+          assert_equal csv_input.by_row[0][extra_header], custom_field_record.value_string.strip
+        end
       end
       assert first_node.published?
       assert first_node.published_version.present?

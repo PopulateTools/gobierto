@@ -29,6 +29,8 @@ en:
         gobierto_admin/gobierto_plans/plan_data_form:
           attributes:
             base:
+              category_not_found: 'One of the categories couldn''t be found. Row content:
+                %{row_data}'
               external_id_taken: 'The external_id field is already in use, either
                 because another row has the same external_id or because it was empty
                 and this value was automatically assigned. Row content: %{row_data}'

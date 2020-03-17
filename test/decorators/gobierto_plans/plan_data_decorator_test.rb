@@ -116,5 +116,42 @@ module GobiertoPlans
       refute plan.nodes.draft.exists?
       assert_equal plan.nodes.count, plan.nodes.with_moderation_stage(:approved).count
     end
+
+    def test_csv_import_with_existing_projects_and_not_found_categories
+      plan.update_attribute(:statuses_vocabulary_id, csv_import_statuses_vocabulary.id)
+
+      form = GobiertoAdmin::GobiertoPlans::PlanDataForm.new(csv_file: sample_import_csv_file, plan: plan)
+      refute form.save
+      assert_match(/One of the categories couldn't be found/, form.errors.full_messages.first)
+    end
+
+    def test_csv_import_with_existing_projects_and_compatible_categories
+      csv_input = CSV.read(csv_file, headers: true)
+      csv_headers = csv_input.headers
+
+      form = GobiertoAdmin::GobiertoPlans::PlanDataForm.new(csv_file: sample_import_csv_file, plan: plan)
+
+      form.save
+
+      assert_equal csv_input.by_row[0]["Level 1"], first_category.parent_term.parent_term.name
+      assert_equal csv_input.by_row[0]["Level 2"], first_category.parent_term.name
+      assert_equal csv_input.by_row[0]["Level 3"], first_category.name
+      assert_equal csv_input.by_row[0]["Node.Title"], first_node.name
+      assert_equal csv_input.by_row[0]["Node.Status"], first_node.status.name
+      assert_equal csv_input.by_row[0]["Node.Progress"].to_f, first_node.progress
+      assert_equal Date.parse(csv_input.by_row[0]["Node.Start"]), first_node.starts_at
+      assert_equal Date.parse(csv_input.by_row[0]["Node.End"]), first_node.ends_at
+
+      extra_headers = csv_headers - ["Level 1", "Level 2", "Level 3", "Node.Title", "Node.Status", "Node.Progress", "Node.Start", "Node.End", "Node.external_id"]
+
+      extra_headers.each do |extra_header|
+        uid = extra_header.gsub(/\ANode\./, "")
+        custom_field_record = first_node.custom_field_records.joins(:custom_field).find_by(custom_fields: { uid: uid })
+        assert_equal csv_input.by_row[0][extra_header], custom_field_record.value_string.strip
+      end
+      assert first_node.published?
+      assert first_node.published_version.present?
+      assert first_node.moderation.approved?
+    end
   end
 end

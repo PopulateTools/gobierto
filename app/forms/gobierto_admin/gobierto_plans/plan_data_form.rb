@@ -59,7 +59,7 @@ module GobiertoAdmin
       rescue CSVRowInvalid => e
         errors.add(:base, :invalid_row, row_data: e.message)
         false
-      rescue StatusMissing, ExternalIdTaken => e
+      rescue StatusMissing, ExternalIdTaken, CategoryNotFound => e
         errors.add(:base, e.class.name.demodulize.underscore.to_sym, row_data: e.message)
         false
       rescue ActiveRecord::RecordNotDestroyed

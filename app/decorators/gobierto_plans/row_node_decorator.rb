@@ -26,6 +26,7 @@ module GobiertoPlans
         @node = Node.new(progress: nil)
         @object = CSV::Row.new(plan_csv_columns, node_csv_values)
       end
+      new_node_version?
     end
 
     def categories
@@ -53,7 +54,7 @@ module GobiertoPlans
                   return nil if node_data.compact.blank?
 
                   category = CategoryTermDecorator.new(categories.last)
-                  (category.nodes.where("#{ nodes_table_name }.name_translations @> ?::jsonb", { locale => node_data["Title"] }.to_json).first || category.nodes.new).tap do |node|
+                  find_or_intialize_node(category).tap do |node|
                     node.assign_attributes node_attributes.except(:status_name)
                     node.progress = progress_from_status(node.status.name) unless has_progress_column?
                     node.progress ||= 0.0
@@ -68,6 +69,10 @@ module GobiertoPlans
 
     def external_id_taken?
       @plan.nodes.where.not(id: node.id).where(external_id: node.external_id).exists?
+    end
+
+    def new_categories?
+      categories.any?(&:new_record?)
     end
 
     def status_term_required?
@@ -91,7 +96,29 @@ module GobiertoPlans
       end
     end
 
+    def new_node_version?
+      @new_node_version ||= begin
+                              return unless node.present? && versioned_node.present?
+
+                              attrs = ::GobiertoPlans::Node::VERSIONED_ATTRIBUTES
+
+                              versioned_node.slice(*attrs) != node.slice(*attrs)
+                            end
+    end
+
     protected
+
+    def versioned_node
+      @versioned_node ||= ::GobiertoPlans::Node.find_by_id(node.id)
+    end
+
+    def find_or_intialize_node(category)
+      if (external_id = node_data["external_id"]).present?
+        category.nodes.find_by(external_id: external_id)
+      else
+        category.nodes.where("#{ nodes_table_name }.name_translations @> ?::jsonb", { locale => node_data["Title"] }.to_json).first
+      end || category.nodes.new
+    end
 
     def node_data
       @node_data ||= prefixed_row_data(/\ANode\./)

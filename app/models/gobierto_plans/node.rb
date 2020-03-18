@@ -13,6 +13,8 @@ module GobiertoPlans
     belongs_to :author, class_name: "GobiertoAdmin::Admin", foreign_key: :admin_id
     has_and_belongs_to_many :categories, class_name: "GobiertoCommon::Term", association_foreign_key: :category_id, join_table: :gplan_categories_nodes
 
+    VERSIONED_ATTRIBUTES = %w(name_translations status_id progress starts_at ends_at options).freeze
+
     has_paper_trail skip: [:visibility_level, :published_version, :external_id]
     has_vocabulary :statuses
     belongs_to :status, class_name: "GobiertoCommon::Term"

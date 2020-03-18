@@ -29,6 +29,8 @@ ca:
         gobierto_admin/gobierto_plans/plan_data_form:
           attributes:
             base:
+              category_not_found: 'Alguna de les categories no s''ha pogut trobar.
+                Contingut de la fila: %{row_data}'
               external_id_taken: 'El camp external_id ja està en ús, bé perquè una
                 altra fila té el mateix external_id o perquè estava buida i automàticament
                 es va assignar el mateix valor. Contingut de la fila: %{row_data}'

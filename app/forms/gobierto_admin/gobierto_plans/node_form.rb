@@ -297,7 +297,7 @@ module GobiertoAdmin
       end
 
       def version_attributes
-        %w(name_translations status_id progress starts_at ends_at options)
+        ::GobiertoPlans::Node::VERSIONED_ATTRIBUTES
       end
 
       def ignored_attributes

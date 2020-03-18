@@ -2,7 +2,10 @@
   <div>
     <div class="pure-g">
       <div class="pure-u-1-2">
-        <h2 v-if="titleDataset" class="gobierto-data-title-dataset">
+        <h2
+          v-if="titleDataset"
+          class="gobierto-data-title-dataset"
+        >
           {{ titleDataset }}
         </h2>
       </div>

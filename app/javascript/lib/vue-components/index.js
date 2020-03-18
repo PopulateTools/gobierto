@@ -5,6 +5,7 @@ import Loading from "./modules/Loading.vue"
 import Checkbox from "./modules/Checkbox.vue"
 import RangeBars from "./modules/RangeBars.vue"
 import ReadMore from "./modules/ReadMore.vue"
+import Dropdown from "./modules/Dropdown.vue"
 
 export {
   BlockHeader,
@@ -13,5 +14,6 @@ export {
   Loading,
   Checkbox,
   RangeBars,
-  ReadMore
+  ReadMore,
+  Dropdown
 }

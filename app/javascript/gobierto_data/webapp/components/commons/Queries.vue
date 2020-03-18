@@ -12,10 +12,10 @@
               class="fas fa-caret-down"
               style="color: var(--color-base);"
             />
-            {{ labelYourQueries }} ({{ arrayQueries.length }})
+            {{ labelYourQueries }} ({{ privateQueries.length }})
           </h3>
           <div
-            v-for="(item, index) in arrayQueries"
+            v-for="(item, index) in privateQueries"
             v-show="showYourQueries"
             :key="index"
             class="gobierto-data-summary-queries-container"
@@ -25,7 +25,7 @@
             <a
               :href="'/datos/' + pathQueries + '/q/' + index"
               class="gobierto-data-summary-queries-container-name"
-              @click.prevent="handleQueries(arrayQueries[index].attributes.sql, item, index)"
+              @click.prevent="handleQueries(privateQueries[index].attributes.sql, item, false)"
             >
               {{ item.attributes.name }}
             </a>
@@ -82,7 +82,7 @@
             class="gobierto-data-summary-queries-container"
             @mouseover="showCodePublic(index)"
             @mouseleave="hideCode = true"
-            @click="handleQueries(publicQueries[index].attributes.sql, item, true)"
+            @click="handleQueries(publicQueries[index].attributes.sql, item)"
           >
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
           </div>
@@ -103,7 +103,7 @@ import { baseUrl } from "./../../../lib/commons.js"
 export default {
   name: "Queries",
   props: {
-    arrayQueries: {
+    privateQueries: {
       type: Array,
       required: true
     },
@@ -138,8 +138,8 @@ export default {
   },
   created() {
     this.numberId = this.$route.params.numberId
-    this.numberQueries = this.arrayQueries.length
-    this.totalQueries = this.arrayQueries.length + this.numberFavQueries
+    this.numberQueries = this.privateQueries.length
+    this.totalQueries = this.privateQueries.length + this.numberFavQueries
 
     this.labelYourQueries = I18n.t("gobierto_data.projects.yourQueries")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
@@ -151,7 +151,6 @@ export default {
   },
   methods: {
     handleQueries(sql, item, index) {
-      console.log("item", item);
       this.runYourQuery(sql)
       this.sendQuery(item)
       this.closeModal()
@@ -165,7 +164,7 @@ export default {
     },
     showCode(index) {
       this.hideCode = false
-      this.sqlCode = this.arrayQueries[index].attributes.sql
+      this.sqlCode = this.privateQueries[index].attributes.sql
     },
     showCodePublic(index) {
       this.hideCode = false
@@ -184,7 +183,7 @@ export default {
       this.$root.$emit('changeNavTab')
     },
     deleteQuery(id, index) {
-      this.$delete(this.arrayQueries, index)
+      this.$delete(this.privateQueries, index)
       this.deleteQueryApi(id)
     },
     deleteQueryApi(id) {
@@ -194,10 +193,22 @@ export default {
           'Content-type': 'application/json',
           'Authorization': `${this.token}`
         }
-      }
-      ).then(
-        this.$root.$emit('reloadPublicQueries')
-      )
+      })
+
+      this.endPoint = `${baseUrl}/queries?filter[dataset_id]=`
+      this.filterId = `&filter[user_id]=${this.userId}`
+      this.url = `${this.endPoint}${this.numberId}${this.filterId}`
+      axios
+        .get(this.url)
+        .then(response => {
+          const rawData = response.data
+          const items = rawData.data
+          this.privateQueries = items
+        })
+        .catch(error => {
+          const messageError = error.response
+          console.error(messageError)
+        })
     },
     runYourQuery(code) {
       this.queryEditor = encodeURI(code)
@@ -234,6 +245,7 @@ export default {
 
           this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
+          this.$root.$emit('sendDataViz', data)
           this.$root.$emit('showMessages', true, false)
           this.$root.$emit('firstQuery', true)
           this.$root.$emit('sendQueryCode', this.queryCode)

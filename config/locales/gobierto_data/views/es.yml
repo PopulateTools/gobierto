@@ -48,6 +48,10 @@ es:
       summary: Resumen
       table: Tabla
       updated: Actualizado
+      visEmpty: No hay visualizaciones disponibles
+      visName: Nombre visualización
+      visPrivate: Tus visualizaciones
+      visPublic: Todas
       visualization: Visualización
       visualizations: Visualizaciones
       yourQueries: Tus consultas

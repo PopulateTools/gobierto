@@ -3,7 +3,7 @@
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
         v-if="publicQueries"
-        :array-queries="arrayQueries"
+        :private-queries="privateQueries"
         :public-queries="publicQueries"
         :dataset-id="datasetId"
         :table-name="tableName"
@@ -15,24 +15,26 @@
         :number-rows="numberRows"
       />
       <SQLEditorTabs
-        v-if="dataLoaded"
+        v-if="items"
         :array-formats="arrayFormats"
         :items="items"
-        :active-tab="activeTabIndex"
-        :array-queries="arrayQueries"
+        :link="link"
         :table-name="tableName"
+        :active-tab="activeTabIndex"
+        :private-queries="privateQueries"
         :number-rows="numberRows"
+        :dataset-id="datasetId"
+        :current-query="currentQuery"
         @active-tab="activeTabIndex = $event"
       />
     </div>
   </div>
 </template>
 <script>
-import axios from 'axios';
 import SQLEditorCode from "./SQLEditorCode.vue";
 import SQLEditorHeader from "./SQLEditorHeader.vue";
 import SQLEditorTabs from "./SQLEditorTabs.vue";
-import { baseUrl } from "./../../../lib/commons.js"
+import { DataFactoryMixin } from "./../../../lib/factories/data"
 import "./../../../lib/sql-theme.css"
 
 export default {
@@ -42,12 +44,13 @@ export default {
     SQLEditorHeader,
     SQLEditorTabs
   },
+  mixins: [DataFactoryMixin],
   props: {
     tableName: {
       type: String,
       required: true
     },
-    arrayQueries: {
+    privateQueries: {
       type: Array,
       required: true
     },
@@ -84,13 +87,12 @@ export default {
       link: '',
       queryEditor: '',
       recentQueries: [],
+      localQueries: [],
       orderRecentQueries: [],
       totalRecentQueries: [],
-      tempRecentQueries: [],
-      localQueries: [],
       newRecentQuery: null,
-      localTableName: '',
-      dataLoaded: false
+      localTableName : '',
+      currentQuery: ''
     }
   },
   created() {
@@ -110,8 +112,9 @@ export default {
   },
   mounted() {
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
-    this.queryEditor = `SELECT%20*%20FROM%20${this.tableName}%20`
-    this.getData()
+    this.queryEditor = `SELECT * FROM ${this.tableName} `
+
+    this.prepareData()
   },
   methods: {
     runYourQuery(sqlCode) {
@@ -122,22 +125,24 @@ export default {
         return;
       }
       if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
-        this.$root.$emit('storeQuery', this.recentQueries)
+        this.$root.$emit('store', this.recentQueries)
       } else {
         this.recentQueries.push(this.newRecentQuery);
         localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));
+
         if (this.localTableName === this.tableName) {
           this.orderRecentQueries = [{
             dataset: this.tableName,
             text: this.newRecentQuery
           }]
           this.newRecentQuery = '';
-          this.localQueries = JSON.parse(localStorage.getItem('savedData') || "[]");
-          this.tempRecentQueries = [...this.localQueries, ...this.orderRecentQueries]
-          this.totalRecentQueries = this.tempRecentQueries
+
+          const tempRecentQueries = [ ...this.localQueries, ...this.orderRecentQueries ]
+          this.totalRecentQueries = tempRecentQueries
           this.orderRecentQueries = []
           localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
-          this.saveRecentQuery();
+
+          this.saveRecentQuery(this.totalRecentQueries);
         }
       }
     },
@@ -149,32 +154,32 @@ export default {
       this.totalRecentQueries = this.localQueries
       this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
-    getData() {
-      const endPoint = `${baseUrl}/data`
-
-      const queryEditorLowerCase = this.queryEditor.toLowerCase()
-      if (queryEditorLowerCase.includes('limit')) {
-        this.queryEditor = this.queryEditor
-        this.$root.$emit('hiddeShowButtonColumns')
+    prepareData() {
+      let query = ''
+      if (this.queryEditor.includes('LIMIT')) {
+        query = this.queryEditor
       } else {
         this.$root.$emit('ShowButtonColumns')
         this.$root.$emit('sendCompleteQuery', this.queryEditor)
-        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
-        this.queryEditor = this.code
+
+        query = `SELECT * FROM (${this.queryEditor}) AS data_limited_results LIMIT 100 OFFSET 0`
       }
 
-      const url = `${endPoint}?sql=${this.queryEditor}`
-      axios
-        .get(url)
+      // save the query in the editor
+      this.currentQuery = this.queryEditor
+
+      const params = { sql: query }
+
+      // factory method
+      this.getData(params)
         .then(response => {
           const rawData = response.data
           const data = rawData.data
           this.items = data
 
-          const keysData = Object.keys(data[0])
-          this.$root.$emit('sendData', keysData)
 
-          this.dataLoaded = true
+          const keysData = Object.keys(data[0])
+          this.$root.$emit('sendDataViz', keysData)
         })
         .catch(error => {
           this.$root.$emit('apiError', error)
@@ -184,6 +189,7 @@ export default {
     },
     saveNewRecentQuery(query) {
       this.newRecentQuery = query
+      this.currentQuery = query
       this.addRecentQuery()
     }
   }

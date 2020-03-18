@@ -65,7 +65,7 @@
                 exclude: ['button'],
                 handler: 'closeYourQueries'
               }"
-              :array-queries="arrayQueries"
+              :private-queries="privateQueries"
               :public-queries="publicQueries"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               tabindex="-1"
@@ -189,7 +189,7 @@ export default {
   },
   mixins: [CommonsMixin, closableMixin],
   props: {
-    arrayQueries: {
+    privateQueries: {
       type: Array,
       default: () => []
     },
@@ -327,7 +327,6 @@ export default {
     requestQuery(){
       if (this.$route.name === 'queries' && this.publicQueries !== '') {
         const codeQueryFromRoute = this.$route.params.queryId
-        console.log("codeQueryFromRoute", codeQueryFromRoute);
         this.codeQuery = this.publicQueries[codeQueryFromRoute].attributes.sql
         this.runQuery()
       }
@@ -464,22 +463,23 @@ export default {
       this.queryEditor = encodeURI(this.codeQuery)
       const queryEditorLowerCase = this.queryEditor.toLowerCase()
 
+      let query = ''
       if (queryEditorLowerCase.includes('limit')) {
-        this.queryEditor = this.queryEditor
+        query = this.queryEditor
         this.$root.$emit('hiddeShowButtonColumns')
       } else {
         this.$root.$emit('ShowButtonColumns')
         this.$root.$emit('sendCompleteQuery', this.queryEditor)
-        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
-        this.queryEditor = this.code
+        query = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
       }
 
       this.showSpinner = true;
       this.$root.$emit('showMessages', false, true)
 
       const endPoint = `${baseUrl}/data`
-      const url = `${endPoint}?sql=${this.queryEditor}`
+      const url = `${endPoint}?sql=${query}`
 
+      // TODO: use factory
       axios
         .get(url)
         .then(response => {
@@ -497,6 +497,7 @@ export default {
           this.$root.$emit('sendData', keysData, data)
           this.queryEditor = encodeURI(this.codeQuery)
           this.$root.$emit('postRecentQuery', this.codeQuery)
+          this.$root.$emit('sendDataViz', data)
           this.$root.$emit('showMessages', true, false)
 
         })

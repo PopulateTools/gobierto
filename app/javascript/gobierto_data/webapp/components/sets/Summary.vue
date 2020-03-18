@@ -17,7 +17,7 @@
     </keep-alive>
     <Resources :resources-list="resourcesList" />
     <Queries
-      :array-queries="arrayQueries"
+      :private-queries="privateQueries"
       :public-queries="publicQueries"
     />
   </div>
@@ -38,7 +38,7 @@ export default {
     Info
   },
   props: {
-    arrayQueries: {
+    privateQueries: {
       type: Array,
       default: () => []
     },

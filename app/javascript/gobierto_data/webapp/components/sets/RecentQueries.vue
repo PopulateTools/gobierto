@@ -95,6 +95,7 @@ export default {
           this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true)
+        this.$root.$emit('sendDataViz', data)
           this.$root.$emit('activateModalRecent')
           this.$root.$emit('runSpinner')
 

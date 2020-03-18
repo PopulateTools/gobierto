@@ -5,7 +5,7 @@
       id="codemirror"
       :table-name="tableName"
       :dataset-id="datasetId"
-      :array-queries="arrayQueries"
+      :private-queries="privateQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
       :array-columns="arrayColumns"
@@ -33,12 +33,12 @@ export default {
       type: Object,
       required: true
     },
-    arrayQueries: {
-      type: Array,
-      required: true
-    },
     numberRows: {
       type: Number,
+      required: true
+    },
+    privateQueries: {
+      type: Array,
       required: true
     },
     publicQueries: {

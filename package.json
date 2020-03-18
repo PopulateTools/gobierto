@@ -2,6 +2,10 @@
   "license": "SEE LICENSE IN LICENSE-AGPLv3.txt",
   "dependencies": {
     "@claviska/jquery-minicolors": "^2.3.2",
+    "@finos/perspective-viewer": "^0.4.2",
+    "@finos/perspective-viewer-d3fc": "^0.4.2",
+    "@finos/perspective-viewer-hypergrid": "^0.4.2",
+    "@finos/perspective-webpack-plugin": "^0.4.5",
     "@rails/webpacker": "^4.0.2",
     "accounting": "^0.4.1",
     "air-datepicker": "^2.2.3",

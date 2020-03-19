@@ -33,6 +33,8 @@ module GobiertoCommon
     private
 
     def find_term(term_text)
+      return if term_text.blank?
+
       vocabulary.terms.with_name_translation(term_text).take ||
         allow_vocabulary_terms_creation? && vocabulary.terms.create(name: term_text) ||
         raise(TermNotFound, { term: term_text, vocabulary: vocabulary.name, uid: uid }.to_json)
@@ -50,10 +52,10 @@ module GobiertoCommon
 
       if vocabulary_multiple_values?
         splitted_plain_text_value.map do |term|
-          find_term(term).id
+          find_term(term)&.id
         end.compact.map(&:to_s)
       else
-        find_term(plain_text_value.strip).id.to_s
+        find_term(plain_text_value.strip)&.id.to_s
       end
     end
 

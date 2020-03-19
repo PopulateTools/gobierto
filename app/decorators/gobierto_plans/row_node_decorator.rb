@@ -26,6 +26,7 @@ module GobiertoPlans
         @node = Node.new(progress: nil)
         @object = CSV::Row.new(plan_csv_columns, node_csv_values)
       end
+      @allow_custom_fields_terms_creation = options[:allow_custom_fields_terms_creation]
       new_node_version?
     end
 
@@ -88,7 +89,7 @@ module GobiertoPlans
         next(values) unless plan_custom_fields_keys.include?(uid)
 
         value_decorator = ::GobiertoCommon::PlainCustomFieldValueDecorator.new(custom_fields.find_by(uid: uid))
-        value_decorator.allow_vocabulary_terms_creation = true
+        value_decorator.allow_vocabulary_terms_creation = @allow_custom_fields_terms_creation
         value_decorator.plain_text_value = plain_text_value
         values.update(
           uid => value_decorator.value

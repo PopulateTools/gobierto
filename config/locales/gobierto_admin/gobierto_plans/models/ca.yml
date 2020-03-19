@@ -41,5 +41,7 @@ ca:
               status_missing: 'L''estat de la fila no s''ha trobat en el vocabulari
                 d''estats corresponent o hi ha un estat a la fila però no hi ha un
                 vocabulari d''estats configurat en el pla. Contingut de la fila: %{row_data}'
+              term_not_found: No ha estat possible trobar el terme '%{term}' en el
+                vocabulari '%{vocabulary}' usat per la columna 'Node.%{uid}'
               used_resource: El vocabulari empra termes que s'usen en altres parts
                 de l'aplicació

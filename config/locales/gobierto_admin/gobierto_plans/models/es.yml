@@ -42,5 +42,7 @@ es:
                 de estados correspondiente o existe un estado en la fila pero no hay
                 un vocabulario de estados configurado en el plan. Contenido de la
                 fila: %{row_data}'
+              term_not_found: No ha sido posible encontrar el término '%{term}' en
+                el vocabulario '%{vocabulary}' usado por la columna 'Node.%{uid}'
               used_resource: El vocabulario emplea términos que se usan en otras partes
                 de la aplicación

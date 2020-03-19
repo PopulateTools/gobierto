@@ -2,6 +2,7 @@
 
 module GobiertoCommon
   class PlainCustomFieldValueDecorator < BaseDecorator
+    class TermNotFound < StandardError; end
 
     attr_accessor :plain_text_value
 
@@ -11,7 +12,7 @@ module GobiertoCommon
       @object = custom_field
     end
 
-    def allow_vocabulary_terms_creation
+    def allow_vocabulary_terms_creation?
       @allow_vocabulary_terms_creation ||= false
     end
 
@@ -31,6 +32,12 @@ module GobiertoCommon
 
     private
 
+    def find_term(term_text)
+      vocabulary.terms.with_name_translation(term_text).take ||
+        allow_vocabulary_terms_creation? && vocabulary.terms.create(name: term_text) ||
+        raise(TermNotFound, { term: term_text, vocabulary: vocabulary.name, uid: uid }.to_json)
+    end
+
     def localized_value
       return unless has_localized_value?
 
@@ -41,15 +48,12 @@ module GobiertoCommon
     def vocabulary_value
       return unless has_vocabulary?
 
-      terms = vocabulary.terms
       if vocabulary_multiple_values?
         splitted_plain_text_value.map do |term|
-          terms.with_name_translation(term).take&.id ||
-            allow_vocabulary_terms_creation && terms.create(name: term)&.id
+          find_term(term).id
         end.compact.map(&:to_s)
       else
-        (terms.with_name_translation(plain_text_value.strip).take ||
-         allow_vocabulary_terms_creation && terms.create(name: plain_text_value.strip))&.id&.to_s
+        find_term(plain_text_value.strip).id.to_s
       end
     end
 

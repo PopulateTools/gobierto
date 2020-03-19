@@ -62,6 +62,9 @@ module GobiertoAdmin
       rescue StatusMissing, ExternalIdTaken, CategoryNotFound => e
         errors.add(:base, e.class.name.demodulize.underscore.to_sym, row_data: e.message)
         false
+      rescue ::GobiertoCommon::PlainCustomFieldValueDecorator::TermNotFound => e
+        errors.add(:base, e.class.name.demodulize.underscore.to_sym, JSON.parse(e.message).symbolize_keys)
+        false
       rescue ActiveRecord::RecordNotDestroyed
         errors.add(:base, :used_resource)
         false
@@ -86,7 +89,7 @@ module GobiertoAdmin
       def import_nodes
         position_counter = 0
         csv_file_content.each do |row|
-          row_decorator = ::GobiertoPlans::RowNodeDecorator.new(row, plan: @plan)
+          row_decorator = ::GobiertoPlans::RowNodeDecorator.new(row, plan: @plan, allow_custom_fields_terms_creation: !has_previous_nodes?)
 
           raise CategoryNotFound, row_decorator.to_csv if has_previous_nodes? && row_decorator.new_categories?
 

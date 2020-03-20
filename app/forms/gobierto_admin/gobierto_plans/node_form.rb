@@ -77,7 +77,7 @@ module GobiertoAdmin
         @category_options ||= begin
                                 enabled_level = plan.categories_vocabulary.maximum_level
                                 plan.categories_vocabulary.ordered_flatten_terms_tree.map do |term|
-                                  ["#{"--" * term.level} #{term.name}".strip, term.level == enabled_level ? term.id : "disabled"]
+                                  [ActiveSupport::SafeBuffer.new("#{"&nbsp;" * 6 * term.level} #{term.name}".strip), term.level == enabled_level ? term.id : "disabled"]
                                 end
                               end
       end

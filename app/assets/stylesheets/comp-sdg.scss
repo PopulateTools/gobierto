@@ -1,0 +1,91 @@
+/*
+ * SDG
+ *
+ */
+.sdg_list_grid {
+  grid-template-columns: repeat(6, 1fr);
+  display: grid;
+  grid-gap: 3vw;
+  justify-items: stretch;
+
+  img {
+    width: 100%;
+  }
+}
+
+.sdg_list_header {
+
+  .sdg_icons {
+    display: flex;
+
+    .sdg_icon {
+      max-width: calc(100% / 17);
+      height: auto;
+
+      img {
+        width: 100%;
+        height: auto;
+        display: inherit;
+      }
+    }
+  }
+
+  .sdg_label {
+    padding: 1em;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+}
+
+.sdg-1 {
+  background: #e5243b;
+}
+.sdg-2 {
+  background: #DDA63A;
+}
+.sdg-3 {
+  background: #4C9F38;
+}
+.sdg-4 {
+  background: #C5192D;
+}
+.sdg-5 {
+  background: #FF3A21;
+}
+.sdg-6 {
+  background: #26BDE2;
+}
+.sdg-7 {
+  background: #FCC30B;
+}
+.sdg-8 {
+  background: #A21942;
+}
+.sdg-9 {
+  background: #FD6925;
+}
+.sdg-10 {
+  background: #DD1367;
+}
+.sdg-11 {
+  background: #FD9D24;
+}
+.sdg-12 {
+  background: #BF8B2E;
+}
+.sdg-13 {
+  background: #3F7E44;
+}
+.sdg-14 {
+  background: #0A97D9;
+}
+.sdg-15 {
+  background: #56C02B;
+}
+.sdg-16 {
+  background: #00689D;
+}
+.sdg-17 {
+  background: #19486A;
+}

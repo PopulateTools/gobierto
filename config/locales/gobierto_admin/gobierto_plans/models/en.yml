@@ -41,5 +41,7 @@ en:
               status_missing: 'The state on the row has not been found in the corresponding
                 statuses vocabulary or there is a status in the row but none statuses
                 vocabulary has been configured in the plan. Row content: %{row_data}'
+              term_not_found: The term '%{term}' couldn't be found in the vocabulary
+                '%{vocabulary}' used by the column 'Node.%{uid}'
               used_resource: The vocabulary contains terms used in other parts of
                 the application

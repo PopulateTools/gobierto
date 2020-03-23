@@ -20,7 +20,8 @@ module GobiertoAdmin
         :configuration_data,
         :visibility_level,
         :vocabulary_id,
-        :statuses_vocabulary_id
+        :statuses_vocabulary_id,
+        :publish_last_version_automatically
       )
 
       validates :site_id, presence: true
@@ -61,6 +62,10 @@ module GobiertoAdmin
         @statuses_vocabulary_id ||= plan.statuses_vocabulary_id
       end
 
+      def publish_last_version_automatically
+        @publish_last_version_automatically ||= plan.publish_last_version_automatically? || false
+      end
+
       private
 
       def build_plan
@@ -85,6 +90,7 @@ module GobiertoAdmin
           plan_attributes.footer_translations = footer_translations
           plan_attributes.vocabulary_id = vocabulary_id
           plan_attributes.statuses_vocabulary_id = statuses_vocabulary_id
+          plan_attributes.publish_last_version_automatically = publish_last_version_automatically
         end
 
         if @plan.valid?

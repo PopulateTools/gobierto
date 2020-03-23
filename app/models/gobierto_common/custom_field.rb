@@ -32,7 +32,8 @@ module GobiertoCommon
 
     translates :name
 
-    before_create :set_uid, :set_position
+    before_validation :set_uid
+    before_create :set_position
     after_validation :check_depending_uids
 
     def self.field_types_with_options
@@ -135,7 +136,22 @@ module GobiertoCommon
     end
 
     def set_uid
-      self.uid ||= SecureRandom.uuid
+      if uid.present?
+        self.uid = uid.tr("_", " ").parameterize
+        return
+      end
+
+      base_uid = name.tr("_", " ").parameterize
+      new_uid = base_uid
+
+      if (related_uids = self.class.where("uid ~* ?", "#{ new_uid }-\\d+$").where(site_id: site_id, class_name: class_name)).exists?
+        max_count = related_uids.pluck(:uid).map { |uid| uid.scan(/\d+$/).first.to_i }.max
+        new_uid = "#{ base_uid }-#{ max_count + 1 }"
+      elsif self.class.exists?(site_id: site_id, class_name: class_name, uid: new_uid)
+        new_uid = "#{ base_uid }-2"
+      end
+
+      self.uid = new_uid
     end
 
     def set_position

@@ -39,6 +39,7 @@ en:
             slug: about-this-plan
             title: Plan title
             year: 2018
+          publish_last_version_automatically: Publish new versions of projects automatically
         import_csv:
           defaults:
             category:

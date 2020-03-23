@@ -33,7 +33,7 @@ module GobiertoAdmin
             site: site,
             class_name: "GobiertoPlans::Node",
             name_translations: { en: "Image gallery", es: "Galería de imágenes" },
-            uid: "image_gallery",
+            uid: "image-gallery",
             options: { configuration: { multiple: true } }
           )
         end
@@ -44,9 +44,9 @@ module GobiertoAdmin
 
             within "form" do
               click_link "Add image"
-              attach_file "image_gallery", Rails.root.join("test/fixtures/files/sites/logo-madrid.png")
+              attach_file "image-gallery", Rails.root.join("test/fixtures/files/sites/logo-madrid.png")
               click_link "Add image"
-              attach_file "image_gallery", Rails.root.join("test/fixtures/files/gobierto_people/people/avatar-small.jpg")
+              attach_file "image-gallery", Rails.root.join("test/fixtures/files/gobierto_people/people/avatar-small.jpg")
 
               has_css?(".new_item", count: 2)
 

@@ -17,10 +17,19 @@
 
   .sdg_icons {
     display: flex;
+    flex-wrap: wrap;
 
     .sdg_icon {
       max-width: calc(100% / 17);
       height: auto;
+
+      @include screen(480, 920) {
+        max-width: calc(100% / 9);
+      }
+
+      @include screen(480) {
+        max-width: calc(100% / 5);
+      }
 
       img {
         width: 100%;
@@ -30,14 +39,16 @@
     }
   }
 
-  .sdg_label {
-    padding: 1em;
-    color: #FFF;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
 }
 
+.sdg_label {
+  padding: 1em;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Official colors */ 
 .sdg-1 {
   background: #e5243b;
 }

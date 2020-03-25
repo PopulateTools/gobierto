@@ -91,11 +91,16 @@ module GobiertoCommon
       @site ||= Site.find_by(id: site_id || item.try(:site_id))
     end
 
+    def callback_update
+      item.respond_to?(:paper_trail) && !with_version
+    end
+
     def save_custom_fields
       return custom_field_records if with_version && !force_new_version && !changed?
 
       custom_field_records.each do |record|
         record.item_has_versions = with_version
+        record.callback_update = callback_update
 
         save_success = with_version && force_new_version && !record.changed? ? record.paper_trail.save_with_version : record.save
         unless save_success

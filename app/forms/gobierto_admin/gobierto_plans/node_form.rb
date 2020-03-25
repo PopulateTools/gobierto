@@ -27,7 +27,8 @@ module GobiertoAdmin
         :published_version,
         :version,
         :external_id,
-        :publish_last_version_automatically
+        :publish_last_version_automatically,
+        :minor_change
       )
 
       validates :plan, :admin, presence: true
@@ -166,6 +167,12 @@ module GobiertoAdmin
         @publish_last_version_automatically ||= plan.publish_last_version_automatically? && !minor_change
       end
 
+      def minor_change
+        return unless @minor_change.present?
+
+        @minor_change == "1"
+      end
+
       private
 
       def has_versions?
@@ -234,6 +241,7 @@ module GobiertoAdmin
           attributes.options = options
           attributes.status_id = status_id
           attributes.external_id = external_id
+          attributes.minor_change = minor_change
         end
       end
 

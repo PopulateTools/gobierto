@@ -144,7 +144,8 @@ module GobiertoAdmin
       end
 
       def attributes_updated?
-        return if @node.new_record? || !allow_edit_attributes?
+        return unless allow_edit_attributes?
+        return true if @node.new_record?
 
         nodes_attributes_differ?(set_node_attributes, versioned_node)
       end

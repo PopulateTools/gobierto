@@ -267,7 +267,7 @@ module GobiertoAdmin
 
         if @node.valid?
           @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?
-          force_new_version && !attributes_updated? ? @node.paper_trail.save_with_version : @node.save
+          force_new_version && !attributes_updated? ? @node.touch : @node.save
           @node.update_attribute(:published_version, @published_version) if publish_last_version_automatically
 
           set_permissions_group(@node, action_name: :edit) do |group|

@@ -26,7 +26,8 @@ module GobiertoAdmin
         :progress,
         :published_version,
         :version,
-        :external_id
+        :external_id,
+        :publish_last_version_automatically
       )
 
       validates :plan, :admin, presence: true
@@ -161,6 +162,10 @@ module GobiertoAdmin
         @external_id ||= node.external_id || node.scoped_new_external_id(plan.nodes)
       end
 
+      def publish_last_version_automatically
+        @publish_last_version_automatically ||= plan.publish_last_version_automatically? && !minor_change
+      end
+
       private
 
       def has_versions?
@@ -171,6 +176,8 @@ module GobiertoAdmin
         return if @version.present? || !has_versions?
 
         @visibility_level, @version = visibility_level.to_s.split("-")
+
+        @version ||= node.versions.length if node.versions.present? && publish_last_version_automatically
 
         @published_version = @visibility_level == "published" ? (@version || node.published_version).to_i : nil
       end
@@ -253,6 +260,7 @@ module GobiertoAdmin
         if @node.valid?
           @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?
           force_new_version && !attributes_updated? ? @node.paper_trail.save_with_version : @node.save
+          @node.update_attribute(:published_version, @published_version) if publish_last_version_automatically
 
           set_permissions_group(@node, action_name: :edit) do |group|
             group.admins << @node.owner unless @node.owner.blank? || group.admins.where(id: @node.admin_id).exists?

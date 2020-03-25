@@ -33,6 +33,7 @@ en:
         confirm: Are you sure?
         edit_version: Editing version
         last_versions: Last versions
+        minor_change: Minor change (does not save version)
         moderation: Moderation
         moderation_info:
           new: After saving your content, it can be sent to moderation.

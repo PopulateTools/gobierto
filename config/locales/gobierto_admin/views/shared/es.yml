@@ -33,6 +33,7 @@ es:
         confirm: "¿Estás seguro?"
         edit_version: Editando versión
         last_versions: Últimas versiones
+        minor_change: Cambio menor (no guarda versión)
         moderation: Moderación
         moderation_info:
           new: Una vez guardes tu contenido, podrás enviarlo a moderación.

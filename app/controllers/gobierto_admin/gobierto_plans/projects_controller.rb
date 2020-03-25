@@ -204,6 +204,7 @@ module GobiertoAdmin
             :moderation_stage,
             :status_id,
             :position,
+            :minor_change,
             name_translations: [*I18n.available_locales]
           )
         else
@@ -237,14 +238,14 @@ module GobiertoAdmin
           item: @project_form.project,
           instance: @plan,
           version_index: @version_index,
-          with_version: true
+          with_version: !@project_form.minor_change
         )
         custom_params_key = self.class.name.demodulize.gsub("Controller", "").underscore.singularize
         return if request.get? || !params.has_key?(custom_params_key)
 
         @custom_fields_form.custom_field_records = params.require(custom_params_key).permit(custom_records: {})
         @new_version = @custom_fields_form.changed? || @project_form.attributes_updated?
-        unless @project_form.project.new_record?
+        unless @project_form.project.new_record? || @project_form.minor_change
           @custom_fields_form.force_new_version = @new_version
           @project_form.force_new_version = @new_version
         end

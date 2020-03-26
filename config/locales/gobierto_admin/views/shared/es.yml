@@ -61,6 +61,7 @@ es:
           approved: Publicada
           not_published: No publicada
         publish: Publicar
+        publish_last_version_automatically: Publicar automáticamente la última versión
         publish_status: Estado
         published_version: Versión publicada
         published_version_blank: sin publicar todavía

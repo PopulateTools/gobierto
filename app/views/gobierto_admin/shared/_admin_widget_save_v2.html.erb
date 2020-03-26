@@ -19,11 +19,24 @@
                   class: "button medium light",
                 ) %>
           </div>
+
+          <% if moderated_resource.published? %>
+            <div class="form_item m_b_1">
+              <div class="options compact">
+                <div class="option">
+                  <%= f.check_box :publish_last_version_automatically %>
+                  <%= f.label :publish_last_version_automatically do %>
+                    <span></span>
+                    <%= t("gobierto_admin.shared.moderation_save_widget.publish_last_version_automatically")  %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
         <% end %>
 
         <% if versioned_resource.has_versions? %>
-
-          <% if versioned_resource.allows_minor_change? %>
+          <% if moderation_policy.edit? && versioned_resource.allows_minor_change? %>
             <div class="form_item m_b_1">
               <div class="options compact">
                 <div class="option">

@@ -33,6 +33,7 @@ ca:
         confirm: Estàs segur?
         edit_version: Editant versió
         last_versions: Últimes versions
+        minor_change: Canvi menor (no guarda versió)
         moderation: Moderació
         moderation_info:
           new: Un cop guardis el teu contingut, podràs enviar-lo a moderació.

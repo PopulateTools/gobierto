@@ -39,6 +39,8 @@ ca:
             slug: sobre-de-aquest-pla
             title: Titol del pla
             year: 2018
+          publish_last_version_automatically: Publicar les versions noves dels projectes
+            automàticament
         import_csv:
           defaults:
             category:

@@ -26,7 +26,9 @@ module GobiertoAdmin
         :progress,
         :published_version,
         :version,
-        :external_id
+        :external_id,
+        :publish_last_version_automatically,
+        :minor_change
       )
 
       validates :plan, :admin, presence: true
@@ -142,9 +144,9 @@ module GobiertoAdmin
       end
 
       def attributes_updated?
-        return if @node.new_record? || !allow_edit_attributes?
+        return unless allow_edit_attributes?
 
-        nodes_attributes_differ?(set_node_attributes, versioned_node)
+        @attributes_updated ||= @node.new_record? || nodes_attributes_differ?(set_node_attributes, versioned_node)
       end
 
       def publication_updated?
@@ -161,6 +163,16 @@ module GobiertoAdmin
         @external_id ||= node.external_id || node.scoped_new_external_id(plan.nodes)
       end
 
+      def publish_last_version_automatically
+        @publish_last_version_automatically ||= plan.publish_last_version_automatically? && !minor_change
+      end
+
+      def minor_change
+        return unless @minor_change.present?
+
+        @minor_change == "1"
+      end
+
       private
 
       def has_versions?
@@ -171,6 +183,8 @@ module GobiertoAdmin
         return if @version.present? || !has_versions?
 
         @visibility_level, @version = visibility_level.to_s.split("-")
+
+        @version ||= node.versions.length if node.versions.present? && publish_last_version_automatically
 
         @published_version = @visibility_level == "published" ? (@version || node.published_version).to_i : nil
       end
@@ -227,10 +241,11 @@ module GobiertoAdmin
           attributes.options = options
           attributes.status_id = status_id
           attributes.external_id = external_id
+          attributes.minor_change = minor_change
         end
       end
 
-      def set_version_and_visiblity_level
+      def set_version_and_visibility_level
         node.tap do |attributes|
           if allow_edit_attributes? && @version.present?
             if attributes_updated? || force_new_version
@@ -246,24 +261,30 @@ module GobiertoAdmin
         end
       end
 
+      def set_category
+        return unless allow_edit_attributes? && !@node.categories.include?(category)
+
+        @node.categories.where(vocabulary: plan.categories_vocabulary).each do |plan_category|
+          @node.categories.delete plan_category
+        end
+        node.categories << category
+      end
+
       def save_node
         set_node_attributes
-        set_version_and_visiblity_level
+        attributes_updated?
+        set_version_and_visibility_level
 
         if @node.valid?
           @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?
-          force_new_version && !attributes_updated? ? @node.paper_trail.save_with_version : @node.save
+          @node.save
+          @node.touch if force_new_version && !attributes_updated?
 
           set_permissions_group(@node, action_name: :edit) do |group|
             group.admins << @node.owner unless @node.owner.blank? || group.admins.where(id: @node.admin_id).exists?
           end
 
-          if allow_edit_attributes? && !@node.categories.include?(category)
-            @node.categories.where(vocabulary: plan.categories_vocabulary).each do |plan_category|
-              @node.categories.delete plan_category
-            end
-            node.categories << category
-          end
+          set_category
 
           # Update plan cache
           plan.touch

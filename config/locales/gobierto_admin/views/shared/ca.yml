@@ -61,6 +61,7 @@ ca:
           approved: Publicada
           not_published: No publicada
         publish: Publicar
+        publish_last_version_automatically: Publicar automàticament l'última versió
         publish_status: Estat
         published_version: Versió publicada
         published_version_blank: sense publicar encara

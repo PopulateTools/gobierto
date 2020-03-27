@@ -26,7 +26,7 @@ es:
         vocabulary_options: Vocabulario
       gobierto_admin/gobierto_common/term_form:
         description: Descripción
-        external_id: ID extern
+        external_id: ID externo
         name: Nombre
         slug: Slug
         term_id: Término Padre

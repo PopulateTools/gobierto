@@ -93,7 +93,7 @@ module GobiertoCommon
 
     attr_accessor :site
 
-    delegate :name, :field_type, :options, :uid, :required?, :has_options?, :has_localized_value?, :has_vocabulary?, to: :custom_field
+    delegate :name, :field_type, :options, :uid, :required?, :has_options?, :long_text?, :has_localized_value?, :has_vocabulary?, to: :custom_field
 
     def initialize(record)
       @object = record
@@ -128,7 +128,7 @@ module GobiertoCommon
           ApplicationController.helpers.options_for_select(custom_field.localized_options(I18n.locale), payload.present? && payload[uid])
         end
       else
-        has_localized_value? ? raw_value : value
+        long_text? ? raw_value : value
       end
     end
 

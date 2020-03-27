@@ -11,7 +11,8 @@ module GobiertoAdmin
           name_translations: { I18n.locale => "test" },
           description_translations: { I18n.locale => "test description" },
           vocabulary_id: vocabulary.id,
-          slug: nil
+          slug: nil,
+          external_id: nil
         )
       end
 
@@ -21,7 +22,8 @@ module GobiertoAdmin
           name_translations: nil,
           description_translations: nil,
           vocabulary_id: nil,
-          slug: nil
+          slug: nil,
+          external_id: nil
         )
       end
 

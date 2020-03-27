@@ -5,6 +5,8 @@ module GobiertoAdmin
     class PlanDataForm < BaseForm
       class CSVRowInvalid < ArgumentError; end
       class StatusMissing < ArgumentError; end
+      class ExternalIdTaken < ArgumentError; end
+      class CategoryNotFound < ArgumentError; end
 
       REQUIRED_COLUMNS = %w(Node.Title).freeze
 
@@ -16,11 +18,20 @@ module GobiertoAdmin
       validates :plan, :csv_file, presence: true
       validate :csv_file_format
 
+      def initialize(options = {})
+        super(options)
+        @has_previous_nodes = @plan.nodes.exists?
+      end
+
       def save
         save_plan_data if valid?
       end
 
       private
+
+      def has_previous_nodes?
+        @has_previous_nodes
+      end
 
       def plan_class
         ::GobiertoPlans::Plan
@@ -41,17 +52,20 @@ module GobiertoAdmin
       def save_plan_data
         if csv_file.present?
           ActiveRecord::Base.transaction do
-            clear_previous_data
+            clear_categories_vocabulary unless has_previous_nodes?
             import_nodes
           end
         end
       rescue CSVRowInvalid => e
         errors.add(:base, :invalid_row, row_data: e.message)
         false
-      rescue StatusMissing => e
-        errors.add(:base, :status_missing, row_data: e.message)
+      rescue StatusMissing, ExternalIdTaken, CategoryNotFound => e
+        errors.add(:base, e.class.name.demodulize.underscore.to_sym, row_data: e.message)
         false
-      rescue ActiveRecord::RecordNotDestroyed => e
+      rescue ::GobiertoCommon::PlainCustomFieldValueDecorator::TermNotFound => e
+        errors.add(:base, e.class.name.demodulize.underscore.to_sym, JSON.parse(e.message).symbolize_keys)
+        false
+      rescue ActiveRecord::RecordNotDestroyed
         errors.add(:base, :used_resource)
         false
       end
@@ -64,8 +78,7 @@ module GobiertoAdmin
         end
       end
 
-      def clear_previous_data
-        @plan.nodes.each(&:destroy)
+      def clear_categories_vocabulary
         if @plan.categories_vocabulary.blank?
           @plan.create_categories_vocabulary(name_translations: @plan.title_translations, site: @plan.site)
           @plan.save
@@ -76,7 +89,10 @@ module GobiertoAdmin
       def import_nodes
         position_counter = 0
         csv_file_content.each do |row|
-          row_decorator = ::GobiertoPlans::RowNodeDecorator.new(row, plan: @plan)
+          row_decorator = ::GobiertoPlans::RowNodeDecorator.new(row, plan: @plan, allow_custom_fields_terms_creation: !has_previous_nodes?)
+
+          raise CategoryNotFound, row_decorator.to_csv if has_previous_nodes? && row_decorator.new_categories?
+
           row_decorator.categories.each do |category|
             next unless category.new_record?
 
@@ -85,11 +101,33 @@ module GobiertoAdmin
 
             position_counter += 1
           end
-          if (node = row_decorator.node).present?
-            raise CSVRowInvalid, row_decorator.to_csv unless REQUIRED_COLUMNS.all? { |column| row_decorator[column].present? } && node.save
-            raise StatusMissing, row_decorator.to_csv if row_decorator.status_missing
-          end
+          next unless (node = row_decorator.node).present?
+
+          raise ExternalIdTaken, row_decorator.to_csv if row_decorator.external_id_taken?
+          raise CSVRowInvalid, row_decorator.to_csv unless REQUIRED_COLUMNS.all? { |column| row_decorator[column].present? } && node.save
+          raise StatusMissing, row_decorator.to_csv if row_decorator.status_missing
+
+          save_custom_fields(row_decorator)
         end
+      end
+
+      def save_custom_fields(row_decorator)
+        node = row_decorator.node
+
+        custom_fields_form = ::GobiertoCommon::CustomFieldRecordsForm.new(
+          site_id: @plan.site.id,
+          item: node,
+          instance: @plan,
+          with_version: true,
+          version_index: 0
+        )
+
+        custom_fields_form.custom_field_records = row_decorator.custom_field_records_values
+        new_version = has_previous_nodes? && (custom_fields_form.changed? || row_decorator.new_node_version?)
+        custom_fields_form.force_new_version = new_version
+        node.touch if new_version && !row_decorator.new_node_version?
+
+        custom_fields_form.save
       end
 
       def col_sep

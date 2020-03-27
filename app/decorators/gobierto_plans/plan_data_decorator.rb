@@ -18,7 +18,15 @@ module GobiertoPlans
         end
       end
 
-      return "" unless collection.present?
+      if collection.blank?
+        collection << CategoryTermDecorator.new(
+          categories_vocabulary.terms.new,
+          vocabulary: categories_vocabulary,
+          plan: self,
+          site: site
+        )
+      end
+
       CSV.generate do |csv|
         csv << RowNodeDecorator.new(collection.first).headers
         collection.each do |item|

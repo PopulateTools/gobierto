@@ -26,6 +26,8 @@ module GobiertoPlans
         @node = Node.new(progress: nil)
         @object = CSV::Row.new(plan_csv_columns, node_csv_values)
       end
+      @allow_custom_fields_terms_creation = options[:allow_custom_fields_terms_creation]
+      new_node_version?
     end
 
     def categories
@@ -53,7 +55,7 @@ module GobiertoPlans
                   return nil if node_data.compact.blank?
 
                   category = CategoryTermDecorator.new(categories.last)
-                  (category.nodes.where("#{ nodes_table_name }.name_translations @> ?::jsonb", { locale => node_data["Title"] }.to_json).first || category.nodes.new).tap do |node|
+                  find_or_intialize_node(category).tap do |node|
                     node.assign_attributes node_attributes.except(:status_name)
                     node.progress = progress_from_status(node.status.name) unless has_progress_column?
                     node.progress ||= 0.0
@@ -61,15 +63,63 @@ module GobiertoPlans
                     node.published_version = 1
                     node.build_moderation(stage: :approved)
                     node.categories << category unless node.categories.include?(category)
+                    node.external_id = node.scoped_new_external_id(@plan.nodes) if node.external_id.blank?
                   end
                 end
+    end
+
+    def external_id_taken?
+      @plan.nodes.where.not(id: node.id).where(external_id: node.external_id).exists?
+    end
+
+    def new_categories?
+      categories.any?(&:new_record?)
     end
 
     def status_term_required?
       @plan.statuses_vocabulary.present?
     end
 
+    def extra_attributes
+      node_data.except("Title", "Status", "Start", "End", "Progress")
+    end
+
+    def custom_field_records_values
+      extra_attributes.inject({}) do |values, (uid, plain_text_value)|
+        next(values) unless plan_custom_fields_keys.include?(uid)
+
+        value_decorator = ::GobiertoCommon::PlainCustomFieldValueDecorator.new(custom_fields.find_by(uid: uid))
+        value_decorator.allow_vocabulary_terms_creation = @allow_custom_fields_terms_creation
+        value_decorator.plain_text_value = plain_text_value
+        values.update(
+          uid => value_decorator.value
+        )
+      end
+    end
+
+    def new_node_version?
+      @new_node_version ||= begin
+                              return unless node.present? && versioned_node.present?
+
+                              attrs = ::GobiertoPlans::Node::VERSIONED_ATTRIBUTES
+
+                              versioned_node.slice(*attrs) != node.slice(*attrs)
+                            end
+    end
+
     protected
+
+    def versioned_node
+      @versioned_node ||= ::GobiertoPlans::Node.find_by_id(node.id)
+    end
+
+    def find_or_intialize_node(category)
+      if (external_id = node_data["external_id"]).present?
+        category.nodes.find_by(external_id: external_id)
+      else
+        category.nodes.where("#{ nodes_table_name }.name_translations @> ?::jsonb", { locale => node_data["Title"] }.to_json).first
+      end || category.nodes.new
+    end
 
     def node_data
       @node_data ||= prefixed_row_data(/\ANode\./)
@@ -91,7 +141,6 @@ module GobiertoPlans
 
     def node_attributes
       attributes = node_mandatory_columns.invert.transform_values { |column| object[column] }
-      attributes[:options] = node_data.except("Title", "Status", "Start", "End", "Progress")
 
       attributes[:status_id] = @plan.statuses_vocabulary.terms.with_name(attributes[:status_name]&.strip).take&.id if status_term_required?
       @status_missing = status_term_required? ? attributes[:status_id].blank? : attributes[:status_name].present?
@@ -108,19 +157,30 @@ module GobiertoPlans
     end
 
     def node_mandatory_columns
-      @node_mandatory_columns ||= { "Node.Title" => :"name_#{ locale }",
+      @node_mandatory_columns ||= { "Node.external_id" => :external_id,
+                                    "Node.Title" => :"name_#{ locale }",
                                     "Node.Status" => :status_name,
                                     "Node.Progress" => :progress,
                                     "Node.Start" => :starts_at,
                                     "Node.End" => :ends_at }
     end
 
-    def plan_options_keys
-      @plan_options_keys ||= @plan.nodes.map { |node| node.options&.keys }.uniq.flatten.compact.uniq
+    def plan_custom_fields_keys
+      @plan_custom_fields_keys ||= custom_fields.map(&:uid)
+    end
+
+    def custom_fields
+      @custom_fields ||= ::GobiertoCommon::CustomFieldRecordsForm.new(
+        item: Node.new,
+        instance: @plan,
+        site_id: @plan.site_id
+      ).available_custom_fields.where(
+        field_type: ::GobiertoCommon::CustomField.csv_importable_field_types
+      )
     end
 
     def plan_nodes_extra_columns
-      plan_options_keys.map do |key|
+      plan_custom_fields_keys.map do |key|
         "Node.#{ key }"
       end
     end
@@ -132,7 +192,7 @@ module GobiertoPlans
     end
 
     def plan_categories_range
-      @plan.categories.minimum(:level)..@plan.categories.maximum(:level)
+      @plan.categories.present? ? @plan.categories.minimum(:level)..@plan.categories.maximum(:level) : 0..2
     end
 
     def categories_hierarchy(category)
@@ -161,8 +221,8 @@ module GobiertoPlans
     end
 
     def node_extra_values
-      plan_options_keys.map do |key|
-        node.options && node.options[key]
+      custom_fields.map do |custom_field|
+        node.custom_field_records.find_by(custom_field: custom_field)&.value_string
       end
     end
 

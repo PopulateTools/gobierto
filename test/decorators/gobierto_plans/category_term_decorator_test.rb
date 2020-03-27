@@ -78,11 +78,11 @@ module GobiertoPlans
       )
 
 
-      assert_equal custom_field_record.versions[0].reify.value, decorator.nodes_data.first[:attributes][:custom_field_records].first[:value]
+      assert_equal custom_field_record.versions[0].reify.value_string, decorator.nodes_data.first[:attributes][:custom_field_records].first[:value]
 
       project.update_attribute(:published_version, 2)
 
-      assert_equal "<p>Short description</p>\n", decorator.nodes_data.first[:attributes][:custom_field_records].first[:value]
+      assert_equal "Short description", decorator.nodes_data.first[:attributes][:custom_field_records].first[:value]
     end
 
   end

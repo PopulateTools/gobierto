@@ -11,5 +11,11 @@ module GobiertoCommon::CustomFieldValue
       markdown(raw_value)
     end
 
+    def value_string
+      return "" unless value
+
+      raw_value
+    end
+
   end
 end

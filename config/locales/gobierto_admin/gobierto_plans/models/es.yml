@@ -29,6 +29,11 @@ es:
         gobierto_admin/gobierto_plans/plan_data_form:
           attributes:
             base:
+              category_not_found: 'Alguna de las categorías no se ha podido encontrar.
+                Contenido de la fila: %{row_data}'
+              external_id_taken: 'El campo external_id ya está en uso, bien porque
+                otra fila tiene el mismo external_id o porque estaba vacía y automáticamente
+                se asignó el mismo valor. Contenido de la fila: %{row_data}'
               file_not_found: Fichero no encontrado
               invalid_columns: No están todas las columnas necesarias
               invalid_format: Formato de fichero inválido
@@ -37,5 +42,7 @@ es:
                 de estados correspondiente o existe un estado en la fila pero no hay
                 un vocabulario de estados configurado en el plan. Contenido de la
                 fila: %{row_data}'
+              term_not_found: No ha sido posible encontrar el término '%{term}' en
+                el vocabulario '%{vocabulary}' usado por la columna 'Node.%{uid}'
               used_resource: El vocabulario emplea términos que se usan en otras partes
                 de la aplicación

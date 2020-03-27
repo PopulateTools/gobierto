@@ -25,7 +25,8 @@ module GobiertoAdmin
         :disable_attributes_edition,
         :progress,
         :published_version,
-        :version
+        :version,
+        :external_id
       )
 
       validates :plan, :admin, presence: true
@@ -33,6 +34,7 @@ module GobiertoAdmin
       validates :category, :name_translations, presence: true, if: -> { allow_edit_attributes? }
       validates :status_id, presence: true, if: -> { allow_edit_attributes? && statuses_vocabulary.present? }
       validate :options_json_format
+      validate :external_id_uniqueness_by_plan
 
       delegate :persisted?, to: :node
       delegate :site_id, :statuses_vocabulary, to: :plan
@@ -155,6 +157,10 @@ module GobiertoAdmin
         @version.to_i - node.versions.length
       end
 
+      def external_id
+        @external_id ||= node.external_id || node.scoped_new_external_id(plan.nodes)
+      end
+
       private
 
       def has_versions?
@@ -196,6 +202,10 @@ module GobiertoAdmin
         errors.add :options_json, I18n.t("errors.messages.invalid")
       end
 
+      def external_id_uniqueness_by_plan
+        errors.add :external_id, I18n.t("errors.messages.taken") if plan.nodes.where.not(id: node.id).where(external_id: external_id).exists?
+      end
+
       def versioned_node
         return node.clone.reload unless version_index
 
@@ -216,6 +226,7 @@ module GobiertoAdmin
           attributes.ends_at = ends_at
           attributes.options = options
           attributes.status_id = status_id
+          attributes.external_id = external_id
         end
       end
 
@@ -286,7 +297,7 @@ module GobiertoAdmin
       end
 
       def version_attributes
-        %w(name_translations status_id progress starts_at ends_at options)
+        ::GobiertoPlans::Node::VERSIONED_ATTRIBUTES
       end
 
       def ignored_attributes

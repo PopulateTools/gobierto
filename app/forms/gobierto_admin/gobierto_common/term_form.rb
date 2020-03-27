@@ -11,7 +11,8 @@ module GobiertoAdmin
         :name_translations,
         :description_translations,
         :slug,
-        :term_id
+        :term_id,
+        :external_id
       )
 
       delegate :persisted?, to: :term
@@ -35,6 +36,7 @@ module GobiertoAdmin
       def vocabulary
         @vocabulary ||= begin
                           return unless site
+
                           if vocabulary_id
                             site.vocabularies.find_by_id(vocabulary_id)
                           else
@@ -50,6 +52,7 @@ module GobiertoAdmin
           attributes.description_translations = description_translations
           attributes.slug = slug
           attributes.term_id = term_id
+          attributes.external_id = external_id if external_id.present?
         end
 
         return @term if @term.save

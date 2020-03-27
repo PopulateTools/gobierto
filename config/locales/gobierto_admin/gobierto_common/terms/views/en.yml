@@ -8,6 +8,7 @@ en:
         form:
           placeholders:
             description: Term description
+            external_id: ID001
             name: Term name
             slug: term
         index:

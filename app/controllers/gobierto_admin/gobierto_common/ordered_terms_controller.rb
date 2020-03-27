@@ -124,7 +124,7 @@ module GobiertoAdmin
 
       def parent_terms_for_select(relation)
         flatten_tree(relation).map do |term|
-          ["#{"--" * term.level} #{term.name}".strip, term.id]
+          [ActiveSupport::SafeBuffer.new("#{"&nbsp;" * 6 * term.level} #{term.name}".strip), term.id]
         end
       end
 

@@ -36,6 +36,9 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
         if (window.GobiertoAdmin && window.GobiertoAdmin.admin_groups_admins_controller) {
           window.GobiertoAdmin.admin_groups_admins_controller.index();
         }
+        if (window.GobiertoAdmin && window.GobiertoAdmin.terms_controller) {
+          window.GobiertoAdmin.terms_controller.form()
+        }
       }
     }
   });

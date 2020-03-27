@@ -80,7 +80,7 @@ module GobiertoCommon
               assert has_field? "term_name_translations_en", with: "Dog updated"
               assert has_field? "term_description_translations_en", with: "Dog description updated"
               assert has_field? "term_slug", with: "dog-updated"
-              assert has_select? "term_term_id", selected: "-- Cat"
+              assert has_select? "term_term_id", selected: "#{" " * 6} Cat"
 
               activity = Activity.last
               assert_equal term, activity.subject

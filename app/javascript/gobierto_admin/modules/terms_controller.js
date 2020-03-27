@@ -101,6 +101,17 @@ window.GobiertoAdmin.TermsController = (function() {
     });
   }
 
+  TermsController.prototype.form = function() {
+    _handleTermsSelectBehaviors()
+  }
+
+  function _handleTermsSelectBehaviors() {
+    $("select#term_term_id").select2()
+
+    // This should be controlled via css
+    $(".select2-container").css("padding-top", "22px");
+  }
+
   return TermsController;
 })();
 

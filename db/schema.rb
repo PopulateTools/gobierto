@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_09_152257) do
+ActiveRecord::Schema.define(version: 2020_03_27_131311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -1019,6 +1019,7 @@ ActiveRecord::Schema.define(version: 2020_03_09_152257) do
     t.bigint "term_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "external_id"
     t.index ["slug", "vocabulary_id"], name: "index_terms_on_slug_and_vocabulary_id"
     t.index ["term_id"], name: "index_terms_on_term_id"
     t.index ["vocabulary_id"], name: "index_terms_on_vocabulary_id"

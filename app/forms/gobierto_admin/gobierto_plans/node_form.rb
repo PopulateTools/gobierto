@@ -164,11 +164,13 @@ module GobiertoAdmin
       end
 
       def publish_last_version_automatically
-        @publish_last_version_automatically ||= plan.publish_last_version_automatically? && !minor_change
+        return true if @publish_last_version_automatically.is_a? TrueClass
+
+        @publish_last_version_automatically == "1"
       end
 
       def minor_change
-        return unless @minor_change.present?
+        return true if @minor_change.is_a? TrueClass
 
         @minor_change == "1"
       end
@@ -249,7 +251,7 @@ module GobiertoAdmin
         node.tap do |attributes|
           if allow_edit_attributes? && @version.present?
             if attributes_updated? || force_new_version
-              @published_version = attributes.versions.length + 1
+              @published_version = attributes.versions.length + (minor_change ? 0 : 1)
             else
               attributes.reload
             end

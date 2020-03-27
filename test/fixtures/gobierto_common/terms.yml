@@ -7,6 +7,7 @@ mammal:
   slug: <%= "animals-mammal" %>
   position: 0
   level: 0
+  external_id: 1
 
 dog:
   vocabulary: animals
@@ -16,6 +17,7 @@ dog:
   position: 0
   level: 1
   term_id: <%= ActiveRecord::FixtureSet.identify(:mammal) %>
+  external_id: 2
 
 cat:
   vocabulary: animals
@@ -25,6 +27,7 @@ cat:
   position: 1
   level: 1
   term_id: <%= ActiveRecord::FixtureSet.identify(:mammal) %>
+  external_id: 3
 
 bird:
   vocabulary: animals
@@ -33,6 +36,7 @@ bird:
   slug: <%= "animals-bird" %>
   position: 0
   level: 0
+  external_id: 4
 
 swift:
   vocabulary: animals
@@ -42,6 +46,7 @@ swift:
   position: 0
   level: 1
   term_id: <%= ActiveRecord::FixtureSet.identify(:bird) %>
+  external_id: 5
 
 pigeon:
   vocabulary: animals
@@ -51,6 +56,7 @@ pigeon:
   position: 1
   level: 1
   term_id: <%= ActiveRecord::FixtureSet.identify(:bird) %>
+  external_id: 6
 
 ## issues_vocabulary
 
@@ -61,6 +67,7 @@ culture_term:
   slug: culture
   position: 1
   level: 0
+  external_id: 1
 
 women_term:
   vocabulary: issues_vocabulary
@@ -69,6 +76,7 @@ women_term:
   slug: women
   position: 2
   level: 0
+  external_id: 2
 
 economy_term:
   vocabulary: issues_vocabulary
@@ -77,6 +85,7 @@ economy_term:
   slug: economy
   position: 3
   level: 0
+  external_id: 3
 
 sports_term:
   vocabulary: issues_vocabulary
@@ -85,6 +94,7 @@ sports_term:
   slug: sport
   position: 4
   level: 0
+  external_id: 4
 
 center_term:
   vocabulary: scopes_vocabulary
@@ -93,6 +103,7 @@ center_term:
   slug: center
   position: 1
   level: 0
+  external_id: 1
 
 old_town_term:
   vocabulary: scopes_vocabulary
@@ -101,6 +112,7 @@ old_town_term:
   slug: old-town
   position: 2
   level: 0
+  external_id: 2
 
 ## madrid_political_groups_vocabulary
 
@@ -110,6 +122,7 @@ marvel_term:
   slug: marvel
   position: 1
   level: 0
+  external_id: 1
 
 dc_term:
   vocabulary: madrid_political_groups_vocabulary
@@ -117,6 +130,7 @@ dc_term:
   slug: dc
   position: 2
   level: 0
+  external_id: 2
 
 ## plan_categories_vocabulary
 
@@ -129,6 +143,7 @@ people_and_families_plan_term:
   position: 0
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 1
 
 welfare_payments_plan_term:
   vocabulary: plan_categories_vocabulary
@@ -140,6 +155,7 @@ welfare_payments_plan_term:
   position: 1
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 2
 
 center_scholarships_plan_term:
   vocabulary: plan_categories_vocabulary
@@ -151,6 +167,7 @@ center_scholarships_plan_term:
   position: 2
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 3
 
 center_basic_needs_plan_term:
   vocabulary: plan_categories_vocabulary
@@ -162,6 +179,7 @@ center_basic_needs_plan_term:
   position: 3
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 4
 
 economy_plan_term:
   vocabulary: plan_categories_vocabulary
@@ -172,6 +190,7 @@ economy_plan_term:
   position: 4
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 5
 
 city_plan_term:
   vocabulary: plan_categories_vocabulary
@@ -182,6 +201,7 @@ city_plan_term:
   position: 5
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 6
 
 ## plan_projects_statuses_vocabulary
 
@@ -194,6 +214,7 @@ not_started_plan_status_term:
   position: 0
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 1
 
 in_progress_plan_status_term:
   vocabulary: plan_projects_statuses_vocabulary
@@ -204,6 +225,7 @@ in_progress_plan_status_term:
   position: 0
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 2
 
 active_plan_status_term:
   vocabulary: plan_projects_statuses_vocabulary
@@ -214,6 +236,7 @@ active_plan_status_term:
   position: 1
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 3
 
 ## plan_projects_statuses_vocabulary
 
@@ -226,6 +249,7 @@ pending_imported_plan_status_term:
   position: 1
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 1
 
 started_imported_plan_status_term:
   vocabulary: plan_csv_import_statuses_vocabulary
@@ -236,6 +260,7 @@ started_imported_plan_status_term:
   position: 2
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 2
 
 active_imported_plan_status_term:
   vocabulary: plan_csv_import_statuses_vocabulary
@@ -246,6 +271,7 @@ active_imported_plan_status_term:
   position: 3
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 3
 
 finished_imported_plan_status_term:
   vocabulary: plan_csv_import_statuses_vocabulary
@@ -256,6 +282,7 @@ finished_imported_plan_status_term:
   position: 4
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 4
 
 blank_imported_plan_status_term:
   vocabulary: plan_csv_import_statuses_vocabulary
@@ -266,6 +293,7 @@ blank_imported_plan_status_term:
   position: 5
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 5
 
 ## citizen_services_categories
 
@@ -277,6 +305,7 @@ social_services_term:
   position: 0
   created_at: 2018-09-10 00:00:00
   updated_at: 2018-09-10 00:00:00
+  external_id: 1
 
 culture_service_term:
   vocabulary: citizens_services_categories
@@ -286,6 +315,7 @@ culture_service_term:
   position: 1
   created_at: 2018-09-10 00:00:00
   updated_at: 2018-09-1 0 00:00:00
+  external_id: 2
 
 sports_service_term:
   vocabulary: citizens_services_categories
@@ -295,6 +325,7 @@ sports_service_term:
   position: 2
   created_at: 2018-09-10 00:00:00
   updated_at: 2018-09-10 00:00:00
+  external_id: 3
 
 ## new_plan_categories_vocabulary
 
@@ -307,6 +338,7 @@ economy_new_plan_term:
   position: 0
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 1
 
 taxes_new_plan_term:
   vocabulary: new_plan_categories_vocabulary
@@ -318,6 +350,7 @@ taxes_new_plan_term:
   position: 0
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 2
 
 public_facilities_new_plan_term:
   vocabulary: new_plan_categories_vocabulary
@@ -328,6 +361,7 @@ public_facilities_new_plan_term:
   position: 1
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 3
 
 sports_facilities_new_plan_term:
   vocabulary: new_plan_categories_vocabulary
@@ -339,6 +373,7 @@ sports_facilities_new_plan_term:
   position: 0
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 4
 
 libraries_new_plan_term:
   vocabulary: new_plan_categories_vocabulary
@@ -350,6 +385,7 @@ libraries_new_plan_term:
   position: 1
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
+  external_id: 5
 
 ## indicators_vocabulary
 
@@ -363,6 +399,7 @@ indicators_raw_savings:
   slug: indicators-raw-savings
   level: 0
   position: 0
+  external_id: 1
 
 indicators_net_savings:
   vocabulary: indicators_vocabulary
@@ -374,6 +411,7 @@ indicators_net_savings:
   slug: indicators-net-savings
   level: 0
   position: 1
+  external_id: 2
 
 indicators_births:
   vocabulary: indicators_vocabulary
@@ -385,6 +423,7 @@ indicators_births:
   slug: indicators-births
   level: 0
   position: 2
+  external_id: 3
 
 indicators_deaths:
   vocabulary: indicators_vocabulary
@@ -396,6 +435,7 @@ indicators_deaths:
   slug: indicators-deaths
   level: 0
   position: 3
+  external_id: 4
 
 ## human_resources_vocabulary
 
@@ -405,6 +445,7 @@ human_resources_supervisor:
   slug: human-resources-supervisor
   level: 0
   position: 0
+  external_id: 1
 
 human_resources_employee:
   vocabulary: human_resources_vocabulary
@@ -412,6 +453,7 @@ human_resources_employee:
   slug: human-resources-employee
   level: 0
   position: 1
+  external_id: 2
 
 ## economic_plan_categories_vocabulary
 
@@ -424,3 +466,4 @@ economy_economic_plan_term:
   slug: economy-economic-plan-term
   level: 0
   position: 0
+  external_id: 1

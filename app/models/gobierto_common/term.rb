@@ -7,6 +7,7 @@ module GobiertoCommon
     include GobiertoCommon::ActsAsTree
     include User::Subscribable
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::HasExternalId
     after_save :update_children_levels
     before_destroy :free_children
     before_validation :clear_parent_if_itself
@@ -27,6 +28,8 @@ module GobiertoCommon
       terms.name_translations ->> 'es' ILIKE :name OR
       terms.name_translations ->> 'ca' ILIKE :name), name: name.to_s)
     }
+
+    external_id_scope :same_vocabulary_terms
 
     translates :name, :description
 
@@ -73,6 +76,10 @@ module GobiertoCommon
 
     private
 
+    def same_vocabulary_terms
+      vocabulary.terms
+    end
+
     def calculate_level
       self.level = parent_term.present? ? parent_term.level + 1 : 0
     end
@@ -104,7 +111,7 @@ module GobiertoCommon
 
     def clear_parent_if_itself
       if parent_term == self
-        term_id = nil
+        self.term_id = nil
         errors.add(:term_id)
       end
     end

@@ -26,6 +26,7 @@ ca:
         vocabulary_options: Vocabulari
       gobierto_admin/gobierto_common/term_form:
         description: Descripció
+        external_id: ID externo
         name: Nom
         slug: Slug
         term_id: Térme Pare

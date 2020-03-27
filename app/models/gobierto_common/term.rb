@@ -111,7 +111,7 @@ module GobiertoCommon
 
     def clear_parent_if_itself
       if parent_term == self
-        term_id = nil
+        self.term_id = nil
         errors.add(:term_id)
       end
     end

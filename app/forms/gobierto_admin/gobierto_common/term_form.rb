@@ -18,6 +18,7 @@ module GobiertoAdmin
       delegate :persisted?, to: :term
 
       validates :name_translations, :site, :vocabulary, presence: true
+      validate :external_id_uniqueness_by_vocabulary
 
       def term
         @term ||= term_relation.find_by(id: id) || build_term
@@ -67,6 +68,12 @@ module GobiertoAdmin
 
       def site
         @site ||= Site.find_by(id: site_id)
+      end
+
+      def external_id_uniqueness_by_vocabulary
+        return unless vocabulary.present?
+
+        errors.add :external_id, I18n.t("errors.messages.taken") if vocabulary.terms.where.not(id: term.id).where(external_id: external_id).exists?
       end
     end
   end

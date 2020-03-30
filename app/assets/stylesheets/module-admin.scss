@@ -1226,3 +1226,8 @@ a.f_soft,
     opacity: 1;
   }
 }
+
+/* Extending a select2 class */
+.select2-container--default .select2-selection--single {
+  position: relative;
+}

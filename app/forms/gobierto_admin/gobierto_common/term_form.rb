@@ -71,7 +71,7 @@ module GobiertoAdmin
       end
 
       def external_id_uniqueness_by_vocabulary
-        return unless vocabulary.present?
+        return unless vocabulary.present? && external_id.present?
 
         errors.add :external_id, I18n.t("errors.messages.taken") if vocabulary.terms.where.not(id: term.id).where(external_id: external_id).exists?
       end

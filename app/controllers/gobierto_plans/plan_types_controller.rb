@@ -19,6 +19,7 @@ module GobiertoPlans
       redirect_to gobierto_plans_plan_path(slug: params[:slug], year: @years.first) and return if @year.nil?
 
       @plan = PlanDecorator.new(find_plan)
+      @sdg = SdgDecorator.new(find_plan)
 
       @site_stats = GobiertoPlans::SiteStats.new site: current_site, plan: @plan
       @plan_updated_at = @site_stats.plan_updated_at

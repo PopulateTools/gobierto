@@ -16,6 +16,13 @@ es:
       application:
         plans: Planes
     plan_types:
+      planification_sdgs:
+        sdg_projects_title: Proyectos del plan relacionados con este Objetivo
+        sdgs_description: Los Objetivos de Desarrollo Sostenible son un conjunto de
+          objetivos mundiales relacionados con los desafíos ambientales, políticos
+          y económicos con que se enfrenta nuestro mundo. Aquí puedes ver como el
+          Plan de Actuación Municipal conecta con los ODS.
+        sdgs_title: Objetivos de Desarrollo Sostenible
       show:
         desc: Descripción
         ends: Fin

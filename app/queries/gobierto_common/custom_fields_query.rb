@@ -29,6 +29,7 @@ module GobiertoCommon
       @relation = options[:relation]
       @instance = options[:instance]
       @class = options[:class] || @relation.model
+      @custom_fields = options[:custom_fields]
     end
 
     def filter(filters = {})

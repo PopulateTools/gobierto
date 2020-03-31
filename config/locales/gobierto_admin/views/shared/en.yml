@@ -60,7 +60,7 @@ en:
           approved: Published
           not_published: Not published
         publish: Publish
-        publish_last_version_automatically: Publish last version automatically
+        publish_last_version_automatically: Publish this version automatically
         publish_status: Status
         published_version: Published version
         published_version_blank: not published yet

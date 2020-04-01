@@ -4,7 +4,7 @@
   <div class="sdg_list_grid">
     <% @sdgs.sdgs_with_projects.each do |sdg| %>
       <%= link_to(
-            sdg.name,
+            image_tag(@sdgs.sdg_icon(sdg)),
             gobierto_plans_plan_sdg_path(slug: @plan.plan_type.slug, year: @plan.year, sdg_slug: sdg.slug)
           ) %>
     <% end %>

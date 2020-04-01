@@ -23,9 +23,21 @@ module GobiertoPlans
     def sdgs_distribution
       @sdgs_distribution ||= sdgs_with_projects.inject({}) do |distribution, sdg|
         distribution.update(
-          sdg => nodes_query.filter(sdg_field => { "eq" => [sdg.id.to_s] })
+          sdg => projects_by_sdg(sdg)
         )
       end
+    end
+
+    def projects_by_sdg(sdg)
+      nodes_query.filter(sdg_field => { "eq" => [sdg.id.to_s] })
+    end
+
+    def sdg_term(sdg_slug)
+      sdg_field.vocabulary.terms.find_by(slug: sdg_slug)
+    end
+
+    def sdg_icon(sdg, locale)
+      "ods/ods_goal_#{sdg.external_id}_#{locale}.png"
     end
 
     private

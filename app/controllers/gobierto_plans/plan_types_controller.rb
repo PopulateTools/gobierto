@@ -48,6 +48,17 @@ module GobiertoPlans
       end
     end
 
+    def sdg
+      @plan_type = find_plan_type
+      load_year
+      redirect_to gobierto_plans_plan_sdg_path(slug: params[:slug], year: @years.first, sdg_slug: params[:sdg_slug]) and return if @year.nil?
+
+      @plan = PlanDecorator.new(find_plan)
+      @sdgs = SdgDecorator.new(find_plan)
+      @sdg = @sdgs.sdg_term(params[:sdg_slug])
+      @projects = @sdgs.projects_by_sdg(@sdg)
+    end
+
     private
 
     def find_plan_type

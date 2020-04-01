@@ -23,6 +23,7 @@ en:
             with the SDGs.
           sdgs_title: Sustainable Development Goals
         projects:
+          sdg_projects_empty: There are no plan projects related to this Goal
           sdg_projects_title: Plan projects related to this Goal
       show:
         desc: Description

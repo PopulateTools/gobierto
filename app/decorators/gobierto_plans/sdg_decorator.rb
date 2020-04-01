@@ -13,7 +13,7 @@ module GobiertoPlans
     def sdg_records
       return [] unless sdg_field.present?
 
-      @sdg_records ||= sdg_field.records.where(item: nodes)
+      @sdg_records ||= sdg_field.records.where(item: nodes_relation)
     end
 
     def sdgs_with_projects
@@ -47,7 +47,11 @@ module GobiertoPlans
     end
 
     def nodes_query
-      @nodes_query ||= GobiertoCommon::CustomFieldsQuery.new(relation: nodes, custom_fields: site.custom_fields.where(id: sdg_field.id))
+      @nodes_query ||= GobiertoCommon::CustomFieldsQuery.new(relation: nodes_relation, custom_fields: site.custom_fields.where(id: sdg_field.id))
+    end
+
+    def nodes_relation
+      nodes.published
     end
   end
 end

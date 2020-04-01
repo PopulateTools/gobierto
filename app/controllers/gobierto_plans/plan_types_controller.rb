@@ -50,8 +50,9 @@ module GobiertoPlans
 
     def sdg
       @plan_type = find_plan_type
+      last_year = @plan_type.plans.published.maximum(:year)
       load_year
-      redirect_to gobierto_plans_plan_sdg_path(slug: params[:slug], year: @years.first, sdg_slug: params[:sdg_slug]) and return if @year.nil?
+      redirect_to gobierto_plans_plan_sdg_path(slug: params[:slug], year: last_year, sdg_slug: params[:sdg_slug]) and return if @year.nil?
 
       @plan = PlanDecorator.new(find_plan)
       @sdgs = SdgDecorator.new(find_plan)

@@ -46,7 +46,7 @@ module GobiertoAdmin
                 click_link "New"
                 click_button "Create"
 
-                assert has_alert?("Name can't be blank")
+                assert has_alert?("Name translations can't be blank")
               end
             end
           end

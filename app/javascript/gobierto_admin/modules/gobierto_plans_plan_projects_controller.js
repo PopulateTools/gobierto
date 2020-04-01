@@ -21,6 +21,13 @@ window.GobiertoAdmin.GobiertoPlansPlanProjectsController = (function() {
     })
   }
 
+  function _handleCategoriesSelectBehaviors() {
+    $("select#project_category_id").select2()
+
+    // This should be controlled via css
+    $(".select2-container").css("padding-top", "22px");
+  }
+
   GobiertoPlansPlanProjectsController.prototype.form = function(opts) {
     $(".js-admin-widget-save label").click(function(e) {
       var styleClass = $(e.target).attr("data-status-style")
@@ -32,6 +39,7 @@ window.GobiertoAdmin.GobiertoPlansPlanProjectsController = (function() {
       var newStateText = e.target.textContent.trim();
       $(".g_popup_context .i_p_status a").text(newStateText);
     })
+    _handleCategoriesSelectBehaviors()
   };
 
   return GobiertoPlansPlanProjectsController;

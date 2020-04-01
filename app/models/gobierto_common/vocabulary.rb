@@ -36,6 +36,16 @@ module GobiertoCommon
       end
     end
 
+    def copy_terms_from(origin, destination = nil)
+      parent_terms = origin.is_a?(Vocabulary) ? origin.terms.where(term_id: nil) : origin.terms
+      destination ||= self
+
+      parent_terms.each do |subterm|
+        copied_term = destination.terms.create(subterm.attributes.slice("name_translations", "description_translations", "slug", "position", "level"))
+        copy_terms_from(subterm, copied_term)
+      end
+    end
+
     private
 
     def touch_associated_custom_field_items

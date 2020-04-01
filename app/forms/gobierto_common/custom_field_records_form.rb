@@ -34,20 +34,18 @@ module GobiertoCommon
     end
 
     def custom_field_records=(attributes)
-      @custom_field_records ||= begin
-                                  attributes.to_h.map do |attribute, value|
-                                    custom_field = site.custom_fields.find_by(uid: attribute)
+      @custom_field_records = attributes.to_h.map do |attribute, value|
+        custom_field = site.custom_fields.find_by(uid: attribute)
 
-                                    next unless custom_field.present?
+        next unless custom_field.present?
 
-                                    record = site.custom_field_records.find_or_initialize_by(
-                                      custom_field: custom_field,
-                                      item: item
-                                    )
-                                    record.value = single_value(value, record)
-                                    ::GobiertoCommon::CustomFieldRecordDecorator.new(record)
-                                  end.compact
-                                end
+        record = site.custom_field_records.find_or_initialize_by(
+          custom_field: custom_field,
+          item: item
+        )
+        record.value = single_value(value, record)
+        ::GobiertoCommon::CustomFieldRecordDecorator.new(record)
+      end.compact
     end
 
     def save
@@ -65,8 +63,13 @@ module GobiertoCommon
     private
 
     def version_changed?(custom_field)
+      return true unless ::GobiertoCommon::CustomFieldRecord.exists?(custom_field.id)
+
       if with_version && version_index.present?
-        (custom_field.versions[version_index]&.reify || custom_field.clone.reload).slice(*attributes_for_new_version) != custom_field.slice(*attributes_for_new_version)
+        (
+          custom_field.versions[version_index]&.reify ||
+          ::GobiertoCommon::CustomFieldRecord.find(custom_field.id)
+        ).slice(*attributes_for_new_version) != custom_field.slice(*attributes_for_new_version)
       else
         custom_field.changed?
       end

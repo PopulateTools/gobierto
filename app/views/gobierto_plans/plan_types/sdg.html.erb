@@ -9,7 +9,7 @@
       <div class="sdg_icons">
         <% @sdgs.sdgs_with_projects.each do |sdg| %>
           <%= link_to(
-                sdg.name,
+                image_tag(@sdgs.sdg_icon(sdg)),
                 gobierto_plans_plan_sdg_path(slug: params[:slug], year: params[:year], sdg_slug: sdg.slug),
                 class:"sdg_icon #{sdg.external_id}"
               ) %>

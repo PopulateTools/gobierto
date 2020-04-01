@@ -39,6 +39,8 @@ module GobiertoPlans
     private
 
     def sdg_field
+      return if configuration_data.blank?
+
       @sdg_field ||= site.custom_fields.find_by(uid: configuration_data["sdg_uid"])
     end
 

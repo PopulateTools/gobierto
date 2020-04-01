@@ -24,6 +24,7 @@ es:
             Plan de Actuación Municipal conecta con los ODS.
           sdgs_title: Objetivos de Desarrollo Sostenible
         projects:
+          sdg_projects_empty: No hay proyectos del plan relacionados con este Objetivo
           sdg_projects_title: Proyectos del plan relacionados con este Objetivo
       show:
         desc: Descripción

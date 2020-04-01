@@ -4,8 +4,4 @@
   <div class="sdg_list_grid">
     <%= render partial: "gobierto_plans/plan_types/sdg/icons" %>
   </div>
-
-  <% @sdgs.sdgs_distribution.each do |sdg, projects| %>
-      <%= render partial: "gobierto_plans/plan_types/sdg/projects", locals: { sdg: sdg, projects: projects } %>
-  <% end %>
 </div>

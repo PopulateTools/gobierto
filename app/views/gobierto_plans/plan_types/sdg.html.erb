@@ -1,7 +1,3 @@
-<% content_for(:current_submodule_link) do %>
-  <%= link_to title(@plan.title), gobierto_plans_plan_path(slug: @plan.plan_type.slug) %>
-<% end %>
-
 <div class="column" data-turbolinks="false">
   <div class="">
     <%= render partial: "gobierto_plans/plan_types/sdg/header" %>

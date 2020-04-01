@@ -36,8 +36,8 @@ module GobiertoPlans
       sdg_field.vocabulary.terms.find_by(slug: sdg_slug)
     end
 
-    def sdg_icon(sdg, locale)
-      "ods/ods_goal_#{sdg.external_id}_#{locale}.png"
+    def sdg_icon(sdg)
+      "ods/ods_goal_#{sdg.external_id.rjust(2, "0")}_#{I18n.locale}.png"
     end
 
     private

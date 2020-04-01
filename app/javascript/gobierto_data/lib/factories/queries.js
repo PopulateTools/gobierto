@@ -22,5 +22,8 @@ export const QueriesFactoryMixin = {
     // postQuery(data) {
     //   return axios.post(endPoint, data, { headers });
     // }
+    deleteQuery(id) {
+      return axios.delete(`${endPoint}/${id}`, { headers });
+    },
   }
 };

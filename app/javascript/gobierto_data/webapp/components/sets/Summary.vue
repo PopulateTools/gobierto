@@ -17,6 +17,7 @@
     </keep-alive>
     <Resources :resources-list="resourcesList" />
     <Queries
+      :dataset-id="datasetId"
       :private-queries="privateQueries"
       :public-queries="publicQueries"
     />
@@ -38,6 +39,10 @@ export default {
     Info
   },
   props: {
+    datasetId: {
+      type: Number,
+      required: true
+    },
     privateQueries: {
       type: Array,
       default: () => []

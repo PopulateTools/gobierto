@@ -75,6 +75,7 @@
         :frequency-dataset="frequencyDataset | translate"
         :resources-list="resourcesList"
         :date-updated="dateUpdated"
+        :dataset-id="datasetId"
       />
     </keep-alive>
 
@@ -125,12 +126,6 @@ import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 
 export default {
   name: "NavSets",
-  props: {
-    activeDatasetTab: {
-      type: Number,
-      default: 0
-    }
-  },
   components: {
     Button,
     Summary,
@@ -143,6 +138,12 @@ export default {
     translate
   },
   mixins: [DatasetFactoryMixin, QueriesFactoryMixin],
+  props: {
+    activeDatasetTab: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
       labelSummary: "",

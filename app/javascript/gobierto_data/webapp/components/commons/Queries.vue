@@ -1,7 +1,93 @@
 <template>
   <div class="gobierto-data-summary-queries">
     <div class="gobierto-data-summary-queries-panel pure-g">
-      <div class="pure-u-1-2">
+      <div class="pure-u-1-2 gobierto-data-summary-queries-panel-dropdown">
+        <Dropdown @is-content-visible="showYourQueries = !showYourQueries">
+          <template v-slot:trigger>
+            <h3 class="gobierto-data-summary-queries-panel-title">
+              <Caret :rotate="showYourQueries" />
+
+              {{ labelYourQueries }} ({{ privateQueries.length }})
+            </h3>
+          </template>
+
+          <div>
+            <div
+              v-for="(item, index) in privateQueries"
+              :key="index"
+              class="gobierto-data-summary-queries-container"
+              @mouseover="showCode(index)"
+              @mouseleave="hideCode = true"
+            >
+              <a
+                :href="'/datos/' + pathQueries + '/q/' + index"
+                class="gobierto-data-summary-queries-container-name"
+                @click.prevent="handleQueries(privateQueries[index].attributes.sql, item, false)"
+              >
+                {{ item.attributes.name }}
+              </a>
+              <div class="gobierto-data-summary-queries-container-icon">
+                <i
+                  class="fas fa-trash-alt icons-your-queries"
+                  style="color: var(--color-base);"
+                  @click="deleteQuery(item.id, index)"
+                />
+                <i
+                  v-if="item.attributes.privacy_status === 'closed'"
+                  style="color: #D0021B"
+                  class="fas fa-lock icons-your-queries"
+                />
+                <i
+                  v-else
+                  style="color: rgb(160, 197, 29)"
+                  class="fas fa-lock-open icons-your-queries"
+                />
+              </div>
+            </div>
+          </div>
+        </Dropdown>
+
+        <Dropdown @is-content-visible="showYourFavQueries = !showYourFavQueries">
+          <template v-slot:trigger>
+            <h3 class="gobierto-data-summary-queries-panel-title">
+              <Caret :rotate="showYourFavQueries" />
+
+              {{ labelFavs }} ({{ numberFavQueries }})
+            </h3>
+          </template>
+
+          <!-- TODO: Favorite Queries not done -->
+          <div />
+        </Dropdown>
+
+        <Dropdown @is-content-visible="showYourTotalQueries = !showYourTotalQueries">
+          <template v-slot:trigger>
+            <h3 class="gobierto-data-summary-queries-panel-title">
+              <Caret :rotate="showYourTotalQueries" />
+
+              {{ labelAll }} ({{ publicQueries.length }})
+            </h3>
+          </template>
+
+          <div>
+            <div
+              v-for="(item, index) in publicQueries"
+              :key="index"
+              class="gobierto-data-summary-queries-container"
+              @mouseover="showCodePublic(index)"
+              @mouseleave="hideCode = true"
+              @click="handleQueries(publicQueries[index].attributes.sql, item)"
+            >
+              <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
+            </div>
+          </div>
+        </Dropdown>
+      </div>
+      <!-- TODO: Cambiar esto por el componente dropdown  -->
+      <!-- <hr>
+      <div
+        class="pure-u-1-2"
+      >
         <div class="gobierto-data-summary-queries-element">
           <h3
             class="gobierto-data-summary-queries-panel-title"
@@ -87,7 +173,8 @@
             <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
           </div>
         </div>
-      </div>
+      </div> -->
+
       <div class="pure-u-1-2 border-color-queries">
         <p class="gobierto-data-summary-queries-sql-code">
           <span v-if="!hideCode"> {{ sqlCode }}</span>
@@ -98,10 +185,17 @@
 </template>
 <script>
 import axios from 'axios';
+import { Dropdown } from "lib/vue-components";
 import { getToken, getUserId } from './../../../lib/helpers';
 import { baseUrl } from "./../../../lib/commons.js"
+import Caret from './Caret.vue'
+
 export default {
   name: "Queries",
+  components: {
+    Caret,
+    Dropdown,
+  },
   props: {
     privateQueries: {
       type: Array,
@@ -114,6 +208,7 @@ export default {
   },
   data() {
     return {
+      a: false,
       labelQueries: '',
       labelYourQueries: '',
       labelFavs: '',

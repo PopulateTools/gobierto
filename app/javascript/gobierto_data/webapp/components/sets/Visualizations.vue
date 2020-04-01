@@ -1,9 +1,11 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
     <template v-if="isUserLoggged">
-      <Dropdown>
+      <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
         <template v-slot:trigger>
           <h3 class="gobierto-data-visualization--h3">
+            <Caret :rotate="showPrivateVis" />
+
             {{ labelVisPrivate }}
             <template v-if="privateVisualizations.length">
               ({{ privateVisualizations.length }})
@@ -45,9 +47,11 @@
       </Dropdown>
     </template>
 
-    <Dropdown>
+    <Dropdown @is-content-visible="showPublicVis = !showPublicVis">
       <template v-slot:trigger>
         <h3 class="gobierto-data-visualization--h3">
+          <Caret :rotate="showPublicVis" />
+
           {{ labelVisPublic }}
           <template v-if="publicVisualizations.length">
             ({{ publicVisualizations.length }})
@@ -92,6 +96,7 @@
 <script>
 import SQLEditorVisualizations from "./SQLEditorVisualizations.vue";
 import Spinner from "./../commons/Spinner.vue";
+import Caret from "./../commons/Caret.vue";
 import { Dropdown } from "lib/vue-components";
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
@@ -103,7 +108,8 @@ export default {
   components: {
     SQLEditorVisualizations,
     Spinner,
-    Dropdown
+    Dropdown,
+    Caret
   },
   mixins: [VisualizationFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
   props: {
@@ -121,7 +127,9 @@ export default {
       privateVisualizations: [],
       isUserLoggged: false,
       isPrivateLoading: false,
-      isPublicLoading: false
+      isPublicLoading: false,
+      showPrivateVis: true,
+      showPublicVis: true,
     };
   },
   created() {

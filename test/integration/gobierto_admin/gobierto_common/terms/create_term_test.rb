@@ -63,6 +63,7 @@ module GobiertoAdmin
                 fill_in "term_name_translations_en", with: "Goat"
                 fill_in "term_description_translations_en", with: "The goat is an animal"
                 fill_in "term_slug", with: "new-goat"
+                fill_in "term_external_id", with: "animal_1"
 
                 switch_locale "ES"
                 fill_in "term_name_translations_es", with: "Cabra"
@@ -80,6 +81,7 @@ module GobiertoAdmin
                 assert has_field?("term_name_translations_en", with: "Goat")
                 assert has_field?("term_description_translations_en", with: "The goat is an animal")
                 assert has_field?("term_slug", with: "new-goat")
+                assert has_field?("term_external_id", with: "animal_1")
 
                 switch_locale "ES"
 

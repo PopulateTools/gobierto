@@ -26,6 +26,7 @@ en:
         vocabulary_options: Vocabulary
       gobierto_admin/gobierto_common/term_form:
         description: Description
+        external_id: External ID
         name: Name
         slug: Slug
         term_id: Parent Term

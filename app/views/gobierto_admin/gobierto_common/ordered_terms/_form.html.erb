@@ -27,6 +27,11 @@
       <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
     </div>
 
+    <div class="form_item input_text">
+      <%= f.label :external_id %>
+      <%= f.text_field :external_id, placeholder: t(".placeholders.external_id") %>
+    </div>
+
     <div class="form_item select_control p_1">
       <%= f.label :term_id %>
       <%= f.select :term_id,

@@ -291,6 +291,58 @@ module GobiertoAdmin
 
           assert all_versions_are_equal(project, 3)
         end
+
+        def test_minor_change_is_not_available_creating_project
+          with(site: site, admin: admin) do
+            visit create_path
+
+            within "form" do
+              assert has_no_content? "Minor change"
+            end
+          end
+        end
+
+        def test_minor_change_is_not_available_updating_project_older_version
+          with default_test_context do
+            create_project
+
+            within "form" do
+              select "Not started", from: "project_custom_records_status_value"
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+            within "form" do
+              assert has_content? "Minor change"
+            end
+            visit edit_admin_plans_plan_project_path(plan, project, version: 1)
+            within "form" do
+              assert has_no_content? "Minor change"
+            end
+          end
+        end
+
+        def test_minor_change_on_last_version
+          with default_test_context do
+            create_project
+
+            assert all_versions_are_equal(project, 1)
+            assert has_content? "Editing version\n1"
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Project with versions: Version 2"
+
+              within "div.widget_save_v2.editor" do
+                find("label", text: "Minor change (does not save version)").click
+                click_button "Save"
+              end
+            end
+
+            assert all_versions_are_equal(project, 1)
+            assert has_content? "Editing version\n1"
+          end
+        end
       end
     end
   end

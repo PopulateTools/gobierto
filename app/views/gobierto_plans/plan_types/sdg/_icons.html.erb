@@ -1,11 +1,23 @@
 <% @sdgs.sdgs_terms.each do |sdg| %>
-  <% if @sdgs.sdgs_with_projects.include?(sdg) %>
-    <%= link_to(
-          image_tag(@sdgs.sdg_icon(sdg)),
-          gobierto_plans_plan_sdg_path(slug: @plan.plan_type.slug, year: @plan.year, sdg_slug: sdg.slug),
-          class:"sdg_icon"
-        ) %>
+  <% if (icon_path = @sdgs.sdg_icon(sdg)).present? %>
+    <% if @sdgs.sdgs_with_projects.include?(sdg) %>
+      <%= link_to(
+            image_tag(icon_path),
+            gobierto_plans_plan_sdg_path(slug: @plan.plan_type.slug, year: @plan.year, sdg_slug: sdg.slug),
+            class:"sdg_icon"
+          ) %>
+    <% else %>
+      <%= image_tag(icon_path, class: "sdg_icon sdg_icon_inactive") %>
+    <% end %>
   <% else %>
-    <%= image_tag(@sdgs.sdg_icon(sdg), class:"sdg_icon sdg_icon_inactive") %>
+    <% if @sdgs.sdgs_with_projects.include?(sdg) %>
+      <%= link_to(
+            sdg.name,
+            gobierto_plans_plan_sdg_path(slug: @plan.plan_type.slug, year: @plan.year, sdg_slug: sdg.slug),
+            class:"sdg_icon"
+          ) %>
+    <% else %>
+      <div class="sdg_icon sdg_icon_inactive"><%= sdg.name %></div>
+    <% end %>
   <% end %>
 <% end %>

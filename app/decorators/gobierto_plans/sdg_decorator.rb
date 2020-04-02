@@ -39,6 +39,8 @@ module GobiertoPlans
     end
 
     def sdg_icon(sdg)
+      return unless sdg.external_id.present?
+
       "ods/ods_goal_#{sdg.external_id.rjust(2, "0")}_#{I18n.locale}.png"
     end
 

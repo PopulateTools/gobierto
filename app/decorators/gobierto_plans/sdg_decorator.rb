@@ -13,19 +13,15 @@ module GobiertoPlans
     def sdg_records
       return [] unless sdg_field.present?
 
-      @sdg_records ||= sdg_field.records.where(item: nodes)
+      @sdg_records ||= sdg_field.records.where(item: nodes_relation)
     end
 
     def sdgs_with_projects
       @sdgs_with_projects ||= sdg_records.map(&:value).flatten.uniq
     end
 
-    def sdgs_distribution
-      @sdgs_distribution ||= sdgs_with_projects.inject({}) do |distribution, sdg|
-        distribution.update(
-          sdg => projects_by_sdg(sdg)
-        )
-      end
+    def sdgs_terms
+      @sdgs_terms ||= sdg_field.vocabulary.terms.where(level: 0).sorted
     end
 
     def projects_by_sdg(sdg)
@@ -33,7 +29,7 @@ module GobiertoPlans
     end
 
     def sdg_term(sdg_slug)
-      sdg_field.vocabulary.terms.find_by(slug: sdg_slug)
+      sdgs_terms.find_by(slug: sdg_slug)
     end
 
     def sdg_icon(sdg)
@@ -43,11 +39,17 @@ module GobiertoPlans
     private
 
     def sdg_field
+      return if configuration_data.blank?
+
       @sdg_field ||= site.custom_fields.find_by(uid: configuration_data["sdg_uid"])
     end
 
     def nodes_query
-      @nodes_query ||= GobiertoCommon::CustomFieldsQuery.new(relation: nodes, custom_fields: site.custom_fields.where(id: sdg_field.id))
+      @nodes_query ||= GobiertoCommon::CustomFieldsQuery.new(relation: nodes_relation, custom_fields: site.custom_fields.where(id: sdg_field.id))
+    end
+
+    def nodes_relation
+      nodes.published
     end
   end
 end

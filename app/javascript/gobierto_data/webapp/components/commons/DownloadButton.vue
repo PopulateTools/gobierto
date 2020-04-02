@@ -66,7 +66,6 @@ export default {
     }
   },
   created() {
-    this.$root.$on('sendCode', this.updateCode);
     this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
   },
   methods: {
@@ -74,6 +73,7 @@ export default {
       this.isHidden = true
     },
     updateCode(sqlQuery) {
+      // TODO: this method do nothing
       const code = sqlQuery
       const endPointSQL = `${baseUrl}/data.csv?sql=`
       this.sqlfileCSV = `${endPointSQL}${code}&csv_separator=semicolon`

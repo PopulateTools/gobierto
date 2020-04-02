@@ -16,7 +16,8 @@
 <script>
 import LayoutTabs from "./../layouts/LayoutTabs.vue";
 import { Middleware } from "lib/shared";
-import { categoriesMixin, baseUrl } from "./../../lib/commons"
+import { categoriesMixin, baseUrl } from "./../../lib/commons";
+import { tabs } from "./../../lib/router";
 import { store } from "./../../lib/store";
 import CONFIGURATION from "./../../lib/gobierto-data.conf.js";
 import axios from "axios";
@@ -31,7 +32,7 @@ export default {
     currentComponent: {
       type: String,
       required: true,
-      default: ''
+      default: ""
     },
     activateTabSidebar: {
       type: Number,
@@ -42,69 +43,69 @@ export default {
       default: 0
     }
   },
-  beforeRouteEnter (to, from, next) {
-    next((vm) => {
-      if (to.name === 'resumen') {
-        vm.activeDatasetTab = 0
-      } else if (to.name === 'editor') {
-        vm.activeDatasetTab = 1
-      } else if (to.name === 'consultas') {
-        vm.activeDatasetTab = 2
-      } else if (to.name === 'visualizaciones') {
-        vm.activeDatasetTab = 3
-      } else if (to.name === 'descarga') {
-        vm.activeDatasetTab = 4
+  // TODO: This is not how it should work
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (to.name === tabs[0]) {
+        vm.activeDatasetTab = 0;
+      } else if (to.name === tabs[1] || to.name === 'queries') {
+        vm.activeDatasetTab = 1;
+      } else if (to.name === tabs[2]) {
+        vm.activeDatasetTab = 2;
+      } else if (to.name === tabs[3]) {
+        vm.activeDatasetTab = 3;
+      } else if (to.name === tabs[4]) {
+        vm.activeDatasetTab = 4;
       }
-    })
+    });
   },
-  beforeRouteUpdate (to, from, next) {
-    if (to.name === 'resumen') {
-      this.activeDatasetTab = 0
-    } else if (to.name === 'editor') {
-      this.activeDatasetTab = 1
-    } else if (to.name === 'consultas') {
-      this.activeDatasetTab = 2
-    } else if (to.name === 'visualizaciones') {
-      this.activeDatasetTab = 3
-    } else if (to.name === 'descarga') {
-      this.activeDatasetTab = 4
+  beforeRouteUpdate(to, from, next) {
+    if (to.name === tabs[0]) {
+      this.activeDatasetTab = 0;
+    } else if (to.name === tabs[1] || to.name === 'queries') {
+      this.activeDatasetTab = 1;
+    } else if (to.name === tabs[2]) {
+      this.activeDatasetTab = 2;
+    } else if (to.name === tabs[3]) {
+      this.activeDatasetTab = 3;
+    } else if (to.name === tabs[4]) {
+      this.activeDatasetTab = 4;
     }
-    next()
+    next();
   },
   data() {
     return {
       items: store.state.items || [],
       subsetItems: [],
-      currentView: '',
+      currentView: "",
       currentTab: 0,
       activeDatasetTab: 0,
       filters: store.state.filters || [],
       activeFilters: store.state.activeFilters || new Map(),
       defaultFilters: store.state.defaultFilters || new Map(),
       isFetchingData: false
-    }
+    };
   },
   async created() {
-    this.activeDatasetTab = this.activeDatasetTabProp
-    this.currentView = this.currentComponent
+    this.activeDatasetTab = this.activeDatasetTabProp;
+    this.currentView = this.currentComponent;
     if (this.$route.params.tabSidebar === 0) {
-      this.currentTab = this.$route.params.tabSidebar
+      this.currentTab = this.$route.params.tabSidebar;
     } else {
-      this.currentTab = this.activateTabSidebar
+      this.currentTab = this.activateTabSidebar;
     }
-    this.$root.$on("sendCheckbox", this.handleCheckboxStatus)
-    this.$root.$on("selectAll", this.handleIsEverythingChecked)
+    this.$root.$on("sendCheckbox", this.handleCheckboxStatus);
+    this.$root.$on("selectAll", this.handleIsEverythingChecked);
     if (this.items.length) {
       this.updateDOM();
     } else {
-
       const { items, filters } = await this.getItems();
 
       this.isFetchingData = true;
 
       this.items = items;
 
-      this.defaultFilters = filters
+      this.defaultFilters = filters;
       this.filters = filters;
 
       this.updateDOM();
@@ -113,7 +114,7 @@ export default {
   },
   methods: {
     setCurrentView() {
-      this.currentView = 'DataSets'
+      this.currentView = "DataSets";
     },
     async getItems() {
       const [
@@ -131,7 +132,7 @@ export default {
         axios.get(`${baseUrl}/datasets/meta?stats=true`)
       ]);
 
-      const { availableFilters } = CONFIGURATION
+      const { availableFilters } = CONFIGURATION;
       // Middleware receives both the dictionary of all possible attributes, and the selected filters for the site
       this.middleware = new Middleware({
         dictionary: attributesDictionary,
@@ -142,7 +143,6 @@ export default {
       let filters = [];
 
       if (filtersFromConfiguration) {
-
         items = items.map(item => ({ ...item }));
 
         filters = this.middleware.getFilters(filtersFromConfiguration) || [];
@@ -211,7 +211,7 @@ export default {
       this.handleCheckboxFilter(filter);
     },
     handleCheckboxFilter(filter) {
-      this.updateHome()
+      this.updateHome();
       const { key, options } = filter;
       const checkboxesSelected = new Map();
       options.forEach(({ id, isOptionChecked }) =>
@@ -262,15 +262,17 @@ export default {
       }
     },
     updateHome() {
-      this.$router.push({
-        name: "home",
-        params: {
-          tabSidebar: 0,
-          currentComponent: 'InfoList'
-        }
-      // eslint-disable-next-line no-unused-vars
-      }).catch(err => {})
+      this.$router
+        .push({
+          name: "home",
+          params: {
+            tabSidebar: 0,
+            currentComponent: "InfoList"
+          }
+          // eslint-disable-next-line no-unused-vars
+        })
+        .catch(err => {});
     }
   }
-}
+};
 </script>

@@ -2,7 +2,6 @@
   <div>
     <textarea
       ref="queryEditor"
-      v-model="code"
     />
     <div class="gobierto-data-sql-editor-footer">
       <div v-if="showMessages">
@@ -30,7 +29,6 @@
   </div>
 </template>
 <script>
-/*import sqlFormatter from 'sql-formatter';*/
 import CodeMirror from "codemirror";
 import 'codemirror/mode/sql/sql.js';
 import 'codemirror/addon/selection/active-line.js';
@@ -54,15 +52,18 @@ export default {
     numberRows: {
       type: Number,
       required: true
+    },
+    textEditorContent: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
-      code: `SELECT * FROM ${this.tableName}`,
-      labelGuide: '',
-      labelQueryExecuted: '',
-      labelRecords: '',
-      labelLoading: '',
+      labelGuide: I18n.t('gobierto_data.projects.guide') || '',
+      labelQueryExecuted: I18n.t('gobierto_data.projects.queryExecuted') || '',
+      labelRecords: I18n.t('gobierto_data.projects.records') || '',
+      labelLoading: I18n.t('gobierto_data.projects.loading') || '',
       numberRecords: '',
       timeQuery: '',
       stringError: '',
@@ -93,55 +94,50 @@ export default {
       }
     };
   },
+  watch: {
+    textEditorContent(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.setEditorValue(newValue)
+      }
+    }
+  },
   created() {
-    this.labelGuide = I18n.t('gobierto_data.projects.guide');
-    this.labelQueryExecuted = I18n.t('gobierto_data.projects.queryExecuted');
-    this.labelRecords = I18n.t('gobierto_data.projects.records');
-    this.labelLoading = I18n.t('gobierto_data.projects.loading');
     this.$root.$on('saveQueryState', this.saveQueryState);
     this.$root.$on('recordsDuration', this.updateRecordsDuration);
-    this.$root.$on('updateCode', this.updateCode)
     this.$root.$on('apiError', this.showError)
     this.$root.$on('showMessages', this.handleShowMessages)
-    this.$root.$on('sendQueryCode', this.queryCode)
     this.$root.$emit('activateModalRecent')
+
     this.numberRecords = this.numberRows
-
-
-    this.$root.$on('sendYourCode', this.queryCode);
-
-    this.code = `SELECT * FROM ${this.tableName}`
   },
   mounted() {
     this.mergeTables()
 
     this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption)
 
+    if (this.textEditorContent) {
+      this.setEditorValue(this.textEditorContent)
+    }
+
     this.cmOption.hintOptions.hint = this.hint
 
     this.editor.on("keypress", editor => {
       editor.showHint()
       this.$root.$emit('activeSave', false);
+
       if (this.saveQueryState === true) {
         this.$root.$emit('updateActiveSave', true, false);
       }
     })
 
-    this.editor.on('focus', editor => {
-      this.code = editor.getValue()
+    this.editor.on('focus', () => {
       this.$root.$emit('activeSave', false)
       this.$root.$emit('activateModalRecent')
-      this.$root.$emit('sendCode', this.code);
       this.$root.$emit('focusEditor')
     })
 
     this.editor.on('blur', () => {
       this.$root.$emit('blurEditor')
-    })
-
-    this.editor.on('change', editor => {
-      this.code = editor.getValue()
-      this.$root.$emit('sendCode', this.code);
     })
   },
   methods: {
@@ -154,10 +150,6 @@ export default {
       }
       this.autoCompleteKeys = [ ...this.arrayMutated, ...this.sqlAutocomplete]
     },
-    queryCode(code){
-      this.code = code
-      this.editor.setValue(this.code)
-    },
     updateRecordsDuration(values) {
       const { 0: numberRecords, 1: timeQuery } = values
       this.numberRecords = numberRecords
@@ -169,7 +161,6 @@ export default {
     inputCode() {
       this.$root.$emit('activeSave', false)
       this.$root.$emit('activateModalRecent')
-      this.$root.$emit('sendCode', this.code);
     },
     formatCode() {
       //Convert to button or shortcut
@@ -177,10 +168,8 @@ export default {
       const formaterCode = sqlFormatter.format(this.code);
       this.cm.setValue(formaterCode);*/
     },
-    updateCode(newCode) {
-      this.$root.$emit('sendCode', this.code);
-      this.code = unescape(newCode)
-      this.editor.setValue(this.code)
+    setEditorValue(newCode) {
+      this.editor.setValue(unescape(newCode))
     },
     handleShowMessages(showTrue, showLoader){
       this.recordsLoader = showLoader

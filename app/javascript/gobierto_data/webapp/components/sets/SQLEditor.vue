@@ -10,6 +10,7 @@
         :number-rows="numberRows"
       />
       <SQLEditorCode
+        :text-editor-content="currentQuery"
         :table-name="tableName"
         :array-columns="arrayColumns"
         :number-rows="numberRows"
@@ -85,19 +86,18 @@ export default {
       meta:[],
       links:[],
       link: '',
-      queryEditor: '',
       recentQueries: [],
       localQueries: [],
       orderRecentQueries: [],
       totalRecentQueries: [],
       newRecentQuery: null,
       localTableName : '',
-      currentQuery: ''
+      currentQuery: `SELECT * FROM ${this.tableName}`
     }
   },
   created() {
     this.localTableName = this.tableName
-    this.$root.$on('sendYourCode', this.runYourQuery)
+
     if (localStorage.getItem('recentQueries')) {
       try {
         this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
@@ -108,18 +108,22 @@ export default {
       }
     }
 
+    this.$root.$on('runQuery', this.runQuery)
+    this.$root.$on('editCurrentQuery', this.editCurrentQuery)
     this.$root.$on('activateModalRecent', this.loadRecentQuery)
+    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
   },
   mounted() {
-    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
-    this.queryEditor = `SELECT * FROM ${this.tableName} `
-
-    this.prepareData()
+    if (this.currentQuery) {
+      this.runQuery()
+    }
+  },
+  beforeDestroy() {
+    this.$root.$off('runQuery', this.runQuery)
+    this.$root.$off('postRecentQuery', this.saveNewRecentQuery)
+    this.$root.$off('activateModalRecent', this.loadRecentQuery)
   },
   methods: {
-    runYourQuery(sqlCode) {
-      this.queryEditor = sqlCode
-    },
     addRecentQuery() {
       if (!this.newRecentQuery) {
         return;
@@ -154,19 +158,19 @@ export default {
       this.totalRecentQueries = this.localQueries
       this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
-    prepareData() {
+    editCurrentQuery(text) {
+      this.currentQuery = text
+    },
+    runQuery() {
       let query = ''
-      if (this.queryEditor.includes('LIMIT')) {
-        query = this.queryEditor
+      if (this.currentQuery.includes('LIMIT')) {
+        query = this.currentQuery
       } else {
         this.$root.$emit('ShowButtonColumns')
-        this.$root.$emit('sendCompleteQuery', this.queryEditor)
+        this.$root.$emit('sendCompleteQuery', this.currentQuery)
 
-        query = `SELECT * FROM (${this.queryEditor}) AS data_limited_results LIMIT 100 OFFSET 0`
+        query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 100 OFFSET 0`
       }
-
-      // save the query in the editor
-      this.currentQuery = this.queryEditor
 
       const params = { sql: query }
 
@@ -176,7 +180,6 @@ export default {
           const rawData = response.data
           const data = rawData.data
           this.items = data
-
 
           const keysData = Object.keys(data[0])
           this.$root.$emit('sendDataViz', keysData)

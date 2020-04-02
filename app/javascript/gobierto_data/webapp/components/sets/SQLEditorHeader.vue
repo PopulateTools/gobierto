@@ -1,21 +1,13 @@
 <template>
   <div>
     <div class="gobierto-data-sql-editor-toolbar">
-      <!-- <Button
-        v-if="showBtnRemove"
-        :text="undefined"
-        class="btn-sql-editor"
-        icon="times"
-        color="var(--color-base)"
-        background="#fff"
-      /> -->
       <div class="gobierto-data-sql-editor-container-recent-queries">
         <Button
           v-clickoutside="closeMenu"
           :text="labelRecents"
           :class="removeLabelBtn ? 'remove-label' : ''"
           :disabled="disabledRecents"
-          :title="labelbuttonRecentQueries"
+          :title="labelButtonRecentQueries"
           class="btn-sql-editor"
           icon="history"
           color="var(--color-base)"
@@ -44,7 +36,7 @@
           :text="labelQueries"
           :class="removeLabelBtn ? 'remove-label' : ''"
           :disabled="disabledQueries"
-          :title="labelbuttonQueries"
+          :title="labelButtonQueries"
           class="btn-sql-editor btn-sql-editor-queries gobierto-data-btn-blue"
           @click="isHidden = !isHidden"
         >
@@ -54,6 +46,7 @@
           />
           {{ labelQueries }}
         </button>
+
         <keep-alive>
           <transition
             name="fade"
@@ -63,7 +56,7 @@
               v-show="!isHidden"
               v-closable="{
                 exclude: ['button'],
-                handler: 'closeYourQueries'
+                handler: 'closeQueriesModal'
               }"
               :private-queries="privateQueries"
               :public-queries="publicQueries"
@@ -176,6 +169,8 @@
 <script>
 import { getToken, getUserId } from './../../../lib/helpers'
 import { baseUrl, CommonsMixin, closableMixin } from "./../../../lib/commons.js";
+import { DataFactoryMixin } from "./../../../lib/factories/data";
+import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import axios from 'axios';
 import Button from './../commons/Button.vue';
 import RecentQueries from './RecentQueries.vue';
@@ -188,7 +183,7 @@ export default {
     RecentQueries,
     Queries
   },
-  mixins: [CommonsMixin, closableMixin],
+  mixins: [CommonsMixin, closableMixin, DataFactoryMixin, QueriesFactoryMixin],
   props: {
     privateQueries: {
       type: Array,
@@ -213,6 +208,18 @@ export default {
   },
   data() {
     return {
+      labelSave: I18n.t('gobierto_data.projects.save') || '',
+      labelRecents: I18n.t('gobierto_data.projects.recents') || '',
+      labelQueries: I18n.t('gobierto_data.projects.queries') || '',
+      labelRunQuery: I18n.t('gobierto_data.projects.runQuery') || '',
+      labelCancel: I18n.t('gobierto_data.projects.cancel') || '',
+      labelPrivate: I18n.t('gobierto_data.projects.private') || '',
+      labelQueryName: I18n.t('gobierto_data.projects.queryName') || '',
+      labelEdit: I18n.t('gobierto_data.projects.edit') || '',
+      labelModifiedQuery: I18n.t('gobierto_data.projects.modifiedQuery') || '',
+      labelButtonQueries: I18n.t('gobierto_data.projects.buttonQueries') || '',
+      labelButtonRecentQueries: I18n.t('gobierto_data.projects.buttonRecentQueries') || '',
+      labelButtonRunQuery: I18n.t('gobierto_data.projects.buttonRunQuery') || '',
       disabledRecents: false,
       disabledQueries: false,
       disabledSave: true,
@@ -232,19 +239,7 @@ export default {
       showLabelModified: false,
       showActiveRecent: false,
       isActive: false,
-      labelSave: '',
-      labelRecents: '',
-      labelQueries: '',
-      labelRunQuery: '',
-      labelCancel: '',
-      labelPrivate: '',
-      labelQueryName: '',
-      labelEdit: '',
-      labelModifiedQuery: '',
-      labelbuttonRecentQueries: '',
-      labelbuttonQueries: '',
-      labelButtonRunQuery: '',
-      codeQuery: '',
+      codeQuery: '', // Deprecated
       privacyStatus: '',
       directionLeft: true,
       showSpinner: false,
@@ -254,36 +249,15 @@ export default {
       queryId: '',
       userIdQuery: '',
       oldQueryName: '',
-      queryEditor: ''
     }
   },
   created() {
-    this.labelSave = I18n.t('gobierto_data.projects.save');
-    this.labelRecents = I18n.t('gobierto_data.projects.recents');
-    this.labelQueries = I18n.t('gobierto_data.projects.queries');
-    this.labelRunQuery = I18n.t('gobierto_data.projects.runQuery');
-    this.labelCancel = I18n.t('gobierto_data.projects.cancel');
-    this.labelPrivate = I18n.t('gobierto_data.projects.private');
-    this.labelQueryName = I18n.t('gobierto_data.projects.queryName');
-    this.labelEdit = I18n.t('gobierto_data.projects.edit');
-    this.labelModifiedQuery = I18n.t('gobierto_data.projects.modifiedQuery');
-    this.labelGuide = I18n.t('gobierto_data.projects.guide');
-    this.labelbuttonQueries = I18n.t('gobierto_data.projects.buttonQueries');
-    this.labelbuttonRecentQueries = I18n.t('gobierto_data.projects.buttonRecentQueries');
-    this.labelButtonRunQuery = I18n.t('gobierto_data.projects.buttonRunQuery');
-
-    this.$root.$on('sendQueryCode', this.updateQuery)
+    this.$root.$on('sendQueryParams', this.queryParams)
     this.$root.$on('activeSave', this.activeSave);
-    this.$root.$on('sendCode', this.updateQuery);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
     this.$root.$on('storeQuery', this.showStoreQueries)
-    this.$root.$on('sendQueryParams', this.queryParams)
-    this.$root.$on('sendYourQuery', this.runYourQuery)
-    this.$root.$on('runSpinner', this.runSpinner)
-
-    this.$root.$on('closeQueriesModal', this.closeYourQueries)
+    this.$root.$on('closeQueriesModal', this.closeQueriesModal)
     this.$root.$on('disableEdit', this.hideEdit)
-
     this.$root.$on('blurEditor', this.activateShortcutsListener)
     this.$root.$on('focusEditor', this.removeShortcutsListener)
 
@@ -292,9 +266,8 @@ export default {
     this.noLogin = this.userId === "" ? true : false
     this.codeQuery = `SELECT%20*%20FROM%20${this.tableName}%20`
 
-    this.requestQuery()
-
     this.activateShortcutsListener()
+
     window.addEventListener('keydown', e => {
       if (e.metaKey && e.keyCode == 13) {
         this.runQuery()
@@ -309,25 +282,11 @@ export default {
         this.showRecentQueries()
       }
     },
-    activateShortcutsListener(){
+    activateShortcutsListener() {
       window.addEventListener("keydown", this.shortcutsListener, true);
     },
-    removeShortcutsListener(){
+    removeShortcutsListener() {
       window.removeEventListener("keydown", this.shortcutsListener, true);
-    },
-    runSpinner() {
-      this.showSpinner = true;
-      setTimeout(() => {
-        this.showSpinner = false
-      }, 300)
-    },
-    requestQuery(){
-      if (this.$route.name === 'queries' && this.publicQueries !== '') {
-        const { queryId } = this.$route.params
-        const { attributes: { sql } = {} } = this.publicQueries[queryId] || {}
-        this.codeQuery = sql
-        this.runQuery()
-      }
     },
     hideEdit(){
       this.showBtnEdit = false
@@ -344,10 +303,6 @@ export default {
     },
     goToLogin() {
       location.href='/user/sessions/new?open_modal=true'
-    },
-    runYourQuery(code) {
-      this.queryEditor = code
-      this.runQuery()
     },
     queryParams(queryParams) {
       this.saveQueryState = true
@@ -389,9 +344,6 @@ export default {
       this.disabledRecents = value
       this.disabledSave = value
       this.disabledRunQuery = value
-    },
-    updateQuery(code) {
-      this.codeQuery = code
     },
     updateActiveSave(activeLabel, disableLabel) {
       this.showLabelModified = activeLabel
@@ -457,62 +409,59 @@ export default {
       }
     },
     runQuery() {
-      this.showSpinner = true;
-      this.queryEditor = encodeURI(this.codeQuery)
-      const queryEditorLowerCase = this.queryEditor.toLowerCase()
+      this.$root.$emit('runQuery')
 
-      let query = ''
-      if (queryEditorLowerCase.includes('limit')) {
-        query = this.queryEditor
-        this.$root.$emit('hiddeShowButtonColumns')
-      } else {
-        this.$root.$emit('ShowButtonColumns')
-        this.$root.$emit('sendCompleteQuery', this.queryEditor)
-        query = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
-      }
+      // this.showSpinner = true;
 
-      this.showSpinner = true;
-      this.$root.$emit('showMessages', false, true)
+      // const encodedCodeQuery = encodeURI(this.codeQuery)
 
-      const endPoint = `${baseUrl}/data`
-      const url = `${endPoint}?sql=${query}`
+      // // TODO: review event, perhaps deprecated
 
-      // TODO: use factory
-      axios
-        .get(url)
-        .then(response => {
-          let data = []
-          let keysData = []
-          const rawData = response.data
-          const meta = rawData.meta
-          data = rawData.data
+      // let query = ''
+      // if (encodedCodeQuery.toLowerCase().includes('limit')) {
+      //   query = encodedCodeQuery
+      //   this.$root.$emit('hiddeShowButtonColumns')
+      // } else {
+      //   this.$root.$emit('ShowButtonColumns')
+      //   this.$root.$emit('sendCompleteQuery', encodedCodeQuery)
+      //   query = `SELECT%20*%20FROM%20(${encodedCodeQuery})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
+      // }
 
-          const queryDurationRecords = [ meta.rows, meta.duration ]
+      // this.$root.$emit('showMessages', false, true)
 
-          keysData = Object.keys(data[0])
+      // // factory method
+      // this.getData({
+      //   sql: query
+      // })
+      //   .then(response => {
+      //     this.showSpinner = false;
 
-          this.$root.$emit('recordsDuration', queryDurationRecords)
-          this.$root.$emit('sendData', keysData, data)
-          this.queryEditor = encodeURI(this.codeQuery)
-          this.$root.$emit('postRecentQuery', this.codeQuery)
-          this.$root.$emit('sendDataViz', data)
-          this.$root.$emit('showMessages', true, false)
+      //     let data = []
+      //     let keysData = []
+      //     const rawData = response.data
+      //     const meta = rawData.meta
+      //     data = rawData.data
 
-        })
-        .catch(error => {
-          const messageError = error.response.data.errors[0].sql
-          this.$root.$emit('apiError', messageError)
+      //     const queryDurationRecords = [ meta.rows, meta.duration ]
+
+      //     keysData = Object.keys(data[0])
+
+      //     this.$root.$emit('recordsDuration', queryDurationRecords)
+      //     this.$root.$emit('sendData', keysData, data)
+      //     this.$root.$emit('postRecentQuery', this.codeQuery)
+      //     this.$root.$emit('sendDataViz', data)
+      //     this.$root.$emit('showMessages', true, false)
+      //   })
+      //   .catch(error => {
+      //     const messageError = error.response.data.errors[0].sql
+      //     this.$root.$emit('apiError', messageError)
 
 
-          const data = []
-          const keysData = []
-          this.$root.$emit('sendData', keysData, data)
+      //     const data = []
+      //     const keysData = []
+      //     this.$root.$emit('sendData', keysData, data)
 
-        })
-
-        setTimeout(() => {
-          this.showSpinner = false
-        }, 300)
+      //   })
     },
     recentQueries() {
       this.isActive = !this.isActive;
@@ -528,7 +477,7 @@ export default {
     closeMenu() {
       this.isActive = false
     },
-    closeYourQueries() {
+    closeQueriesModal() {
       this.isHidden = true
     },
     openYourQueries() {
@@ -539,8 +488,8 @@ export default {
         this.isActive = false
       }
     },
+    // TODO: sacar de aquí
     postQuery() {
-
       const endPoint = `${baseUrl}/queries`
       this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
       if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
@@ -562,7 +511,7 @@ export default {
           }
         }).then(response => {
             this.resp = response;
-            this.$root.$emit('reloadQueries')
+            this.$root.$emit('reloadPrivateQueries')
             this.$root.$emit('reloadPublicQueries')
         })
         .catch(error => {
@@ -589,7 +538,7 @@ export default {
           }
         }).then(response => {
             this.resp = response;
-            this.$root.$emit('reloadQueries')
+            this.$root.$emit('reloadPrivateQueries')
         })
         .catch(error => {
           const messageError = error.response

@@ -2,32 +2,7 @@
   <div class="gobierto-data-sql-editor-tabs">
     <div class="pure-g">
       <div
-        class="pure-u-1 pure-u-lg-1-3 gobierto-data-layout-column gobierto-data-layout-sidebar"
-      >
-        <nav class="gobierto-data-tabs-sidebar">
-          <ul>
-            <li
-              :class="{ 'is-active': activeTab === 0 }"
-              class="gobierto-data-tab-sidebar--tab"
-              @click="activateTab(0)"
-            >
-              <i class="fas fa-table" />
-              <span>{{ labelTable }}</span>
-            </li>
-            <li
-              :class="{ 'is-active': activeTab === 1 }"
-              class="gobierto-data-tab-sidebar--tab"
-              @click="activateTab(1)"
-            >
-              <i class="fas fa-chart-line" />
-              <span>{{ labelVisualization }}</span>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <div
-        class="pure-u-1 pure-u-lg-2-3"
+        class="pure-u-1"
         style="text-align: right"
       >
         <SaveChartButton />
@@ -42,12 +17,6 @@
         </keep-alive>
       </div>
     </div>
-    <SQLEditorTable
-      v-if="activeTab === 2"
-      :items="items"
-      :number-rows="numberRows"
-      :table-name="tableName"
-    />
 
     <div class="gobierto-data-visualization--aspect-ratio-16-9">
       <SQLEditorVisualizations :items="items" />
@@ -55,7 +24,6 @@
   </div>
 </template>
 <script>
-import SQLEditorTable from "./SQLEditorTable.vue";
 import SQLEditorVisualizations from "./SQLEditorVisualizations.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
 import SaveChartButton from "./../commons/SaveChartButton.vue";
@@ -65,7 +33,6 @@ import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizatio
 export default {
   name: "SQLEditorTabs",
   components: {
-    SQLEditorTable,
     SQLEditorVisualizations,
     DownloadButton,
     SaveChartButton

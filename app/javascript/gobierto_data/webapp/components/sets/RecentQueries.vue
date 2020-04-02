@@ -60,6 +60,7 @@ export default {
         this.orderItems = filterItemsByQuery.reverse()
       }
     },
+    // TODO: remove this. runQuery must be in ONLY one place
     runRecentQuery(code) {
       this.queryEditor = encodeURI(code)
       this.$root.$emit('postRecentQuery', code)
@@ -95,10 +96,8 @@ export default {
           this.$root.$emit('recordsDuration', queryDurationRecords)
           this.$root.$emit('sendData', keysData, data)
           this.$root.$emit('showMessages', true)
-        this.$root.$emit('sendDataViz', data)
+          this.$root.$emit('sendDataViz', data)
           this.$root.$emit('activateModalRecent')
-          this.$root.$emit('runSpinner')
-
         })
         .catch(error => {
           const messageError = error.response.data.errors[0].sql

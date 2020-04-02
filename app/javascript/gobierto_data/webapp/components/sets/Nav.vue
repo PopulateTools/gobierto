@@ -25,45 +25,7 @@
       </div>
     </div>
 
-    <nav class="gobierto-data-sets-nav">
-      <ul>
-        <li
-          :class="{ 'is-active': activeDatasetTab === 0 }"
-          class="gobierto-data-sets-nav--tab"
-          @click.prevent="activateTab(0, 'resumen')"
-        >
-          <span>{{ labelSummary }}</span>
-        </li>
-        <li
-          :class="{ 'is-active': activeDatasetTab === 1 }"
-          class="gobierto-data-sets-nav--tab"
-          @click.prevent="activateTab(1, 'editor')"
-        >
-          <span>{{ labelData }}</span>
-        </li>
-        <li
-          :class="{ 'is-active': activeDatasetTab === 2 }"
-          class="gobierto-data-sets-nav--tab"
-          @click.prevent="activateTab(2, 'consultas')"
-        >
-          <span>{{ labelQueries }}</span>
-        </li>
-        <li
-          :class="{ 'is-active': activeDatasetTab === 3 }"
-          class="gobierto-data-sets-nav--tab"
-          @click.prevent="activateTab(3, 'visualizaciones')"
-        >
-          <span>{{ labelVisualizations }}</span>
-        </li>
-        <li
-          :class="{ 'is-active': activeDatasetTab === 4 }"
-          class="gobierto-data-sets-nav--tab"
-          @click.prevent="activateTab(4, 'descarga')"
-        >
-          <span>{{ labelDownload }}</span>
-        </li>
-      </ul>
-    </nav>
+    <NavTabs :active-dataset-tab="activeDatasetTab" />
 
     <keep-alive v-if="activeDatasetTab === 0">
       <Summary
@@ -114,12 +76,13 @@
   </div>
 </template>
 <script>
-import Button from './../commons/Button.vue';
+import Button from "./../commons/Button.vue";
 import Summary from "./Summary.vue";
 import Data from "./Data.vue";
 import Queries from "./Queries.vue";
 import Visualizations from "./Visualizations.vue";
 import Downloads from "./Downloads.vue";
+import NavTabs from "./NavTabs.vue";
 import { getUserId } from "./../../../lib/helpers";
 import { translate } from "./../../../../lib/shared/modules/vue-filters";
 import { DatasetFactoryMixin } from "./../../../lib/factories/datasets";
@@ -133,7 +96,8 @@ export default {
     Data,
     Queries,
     Visualizations,
-    Downloads
+    Downloads,
+    NavTabs
   },
   filters: {
     translate
@@ -147,13 +111,14 @@ export default {
   },
   data() {
     return {
-      labelSummary: "",
-      labelData: "",
-      labelQueries: "",
-      labelVisualizations: "",
-      labelDownload: "",
-      labelFav: "",
-      labelFollow: "",
+      labelSummary: I18n.t("gobierto_data.projects.summary") || "",
+      labelData: I18n.t("gobierto_data.projects.data") || "",
+      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
+      labelVisualizations:
+        I18n.t("gobierto_data.projects.visualizations") || "",
+      labelDownload: I18n.t("gobierto_data.projects.download") || "",
+      labelFav: I18n.t("gobierto_data.projects.fav") || "",
+      labelFollow: I18n.t("gobierto_data.projects.follow") || "",
       tableName: "",
       titleDataset: "",
       numberRows: 0,
@@ -169,34 +134,59 @@ export default {
       frequencyDataset: ""
     };
   },
+  watch: {
+    $route(to) {
+      if (to) {
+        this.parseUrl(to)
+      }
+    }
+  },
   created() {
-    this.labelSummary = I18n.t("gobierto_data.projects.summary");
-    this.labelData = I18n.t("gobierto_data.projects.data");
-    this.labelQueries = I18n.t("gobierto_data.projects.queries");
-    this.labelVisualizations = I18n.t("gobierto_data.projects.visualizations");
-    this.labelDownload = I18n.t("gobierto_data.projects.download");
-    this.labelFav = I18n.t("gobierto_data.projects.fav");
-    this.labelFollow = I18n.t("gobierto_data.projects.follow");
-
-    this.$root.$on("changeNavTab", this.changeTab);
-    this.$root.$on("activeTabIndex", this.changeTab);
-    this.$root.$on("reloadQueries", this.getPrivateQueries);
+    this.$root.$on("reloadPublicQueries", this.getPublicQueries);
+    this.$root.$on("reloadPrivateQueries", this.getPrivateQueries);
 
     this.setValuesDataset();
   },
+  mounted() {
+    // TODO: move this after private/public queries are fulfilled
+    this.parseUrl(this.$route)
+  },
+  beforeDestroy() {
+    this.$root.$off("reloadPublicQueries", this.getPublicQueries);
+    this.$root.$off("reloadPrivateQueries", this.getPrivateQueries);
+  },
   methods: {
-    changeTab() {
-      this.activeDatasetTab = 1
-    },
-    activateTab(index, label) {
-      this.$emit("active-tab", index)
-      this.$router.push({
-        name: label,
-        params: {
-          id: this.$route.params.id,
-          title: label
-        }
-    }, () => {})
+    parseUrl(route) {
+      const {
+        params: { queryId },
+        query: { sql }
+      } = route;
+
+      let item = null;
+      if (queryId) {
+        // if has queryId it's a privateQuery
+        item = this.privateQueries[Number(queryId)];
+      } else if (sql) {
+        // if has sql it's a publicQuery
+        item = this.publicQueries.find(d => d.attributes.sql === sql);
+      }
+
+      if (item) {
+        const {
+          id,
+          attributes: { name, privacy_status, sql: itemSql, user_id }
+        } = item;
+        const queryParams = [name, privacy_status, itemSql, id, user_id];
+
+        this.$root.$emit("sendQueryParams", queryParams);
+
+        // update the editor text content
+        this.$root.$emit("editCurrentQuery", itemSql);
+        // run the query directly
+        this.$root.$emit("runQuery");
+        // close the open modals
+        this.$root.$emit("closeQueriesModal");
+      }
     },
     setValuesDataset() {
       const { id } = this.$route.params;

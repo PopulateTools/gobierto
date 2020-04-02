@@ -77,7 +77,7 @@ module GobiertoPlans
     end
 
     def status_term_required?
-      @plan.statuses_vocabulary.present?
+      @plan.statuses_vocabulary.present? && @plan.statuses_vocabulary.terms.exists?
     end
 
     def extra_attributes

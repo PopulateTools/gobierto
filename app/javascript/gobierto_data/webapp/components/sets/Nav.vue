@@ -93,6 +93,7 @@
 
     <keep-alive v-else-if="activeDatasetTab === 2">
       <Queries
+        :dataset-id="datasetId"
         :private-queries="privateQueries"
         :public-queries="publicQueries"
       />

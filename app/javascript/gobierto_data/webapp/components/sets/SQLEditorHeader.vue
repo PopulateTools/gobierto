@@ -67,6 +67,7 @@
               }"
               :private-queries="privateQueries"
               :public-queries="publicQueries"
+              :dataset-id="datasetId"
               :class=" directionLeft ? 'modal-left': 'modal-right'"
               tabindex="-1"
               class="gobierto-data-sql-editor-your-queries-container arrow-top"
@@ -199,15 +200,11 @@ export default {
     },
     datasetId: {
       type: Number,
-      default: 0
+      required: true
     },
     tableName: {
       type: String,
       default: ''
-    },
-    tableName: {
-      type: String,
-      required: true
     },
     numberRows: {
       type: Number,
@@ -326,8 +323,9 @@ export default {
     },
     requestQuery(){
       if (this.$route.name === 'queries' && this.publicQueries !== '') {
-        const codeQueryFromRoute = this.$route.params.queryId
-        this.codeQuery = this.publicQueries[codeQueryFromRoute].attributes.sql
+        const { queryId } = this.$route.params
+        const { attributes: { sql } = {} } = this.publicQueries[queryId] || {}
+        this.codeQuery = sql
         this.runQuery()
       }
     },

@@ -2,7 +2,7 @@
   <div>
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
-        v-if="publicQueries"
+        v-if="publicQueries.length"
         :private-queries="privateQueries"
         :public-queries="publicQueries"
         :dataset-id="datasetId"

@@ -60,12 +60,12 @@
             <h3 class="gobierto-data-summary-queries-panel-title">
               <Caret :rotate="showFavQueries" />
 
-              <!-- TODO: Implement -->
+              <!-- TODO: Favorite Queries -->
               {{ labelFavs }} ({{ 0 }})
             </h3>
           </template>
 
-          <!-- TODO: Favorite Queries not done -->
+          <!-- TODO: Favorite Queries -->
           <div />
         </Dropdown>
 
@@ -105,7 +105,6 @@
 <script>
 import axios from "axios";
 import { Dropdown } from "lib/vue-components";
-import { getUserId } from "./../../../lib/helpers";
 import Caret from "./Caret.vue";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 
@@ -132,10 +131,10 @@ export default {
   },
   data() {
     return {
-      labelQueries: "",
-      labelYourQueries: "",
-      labelFavs: "",
-      labelAll: "",
+      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
+      labelYourQueries: I18n.t("gobierto_data.projects.yourQueries") || "",
+      labelFavs: I18n.t("gobierto_data.projects.favs") || "",
+      labelAll: I18n.t("gobierto_data.projects.all") || "",
       hideCode: true,
       sqlCode: "",
       showSection: true,
@@ -146,12 +145,6 @@ export default {
       url: "",
       pathQueries: this.$parent.$root._route.params.id
     };
-  },
-  created() {
-    this.labelYourQueries = I18n.t("gobierto_data.projects.yourQueries");
-    this.labelQueries = I18n.t("gobierto_data.projects.queries");
-    this.labelFavs = I18n.t("gobierto_data.projects.favs");
-    this.labelAll = I18n.t("gobierto_data.projects.all");
   },
   methods: {
     handleQueries(sql, item, index) {
@@ -189,22 +182,13 @@ export default {
     changeTab() {
       this.$root.$emit("changeNavTab");
     },
-    deleteSavedQuery(id) {
+    async deleteSavedQuery(id) {
       // factory method
-      this.deleteQuery(id);
+      const { status } = await this.deleteQuery(id)
 
-      const userId = getUserId();
-      if (userId) {
-        // factory method
-        this.getQueries({
-          "filter[dataset_id]": this.datasetId,
-          "filter[user_id]": userId
-        })
-          .then(({ data }) => {
-            const { data: items } = data;
-            this.privateQueries = items;
-          })
-          .catch(({ response }) => console.error(response));
+      if (status === 204){
+        // TODO: this shouldn't be done here, nor this way. Centralize all this shared props within an state manager (vuex/store)
+        this.$delete(this.privateQueries, this.privateQueries.findIndex(d => d.id === id))
       }
     },
     runYourQuery(code) {
@@ -256,10 +240,6 @@ export default {
           const keysData = [];
           this.$root.$emit("sendData", keysData, data);
         });
-
-      setTimeout(() => {
-        this.showSpinner = false;
-      }, 300);
     },
     nav(index) {
       this.$router.push(

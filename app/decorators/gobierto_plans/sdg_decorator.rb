@@ -25,8 +25,10 @@ module GobiertoPlans
     end
 
     def projects_by_sdg(sdg)
+      filter_value = sdg_field.configuration.vocabulary_type == "single_select" ? sdg.id.to_s : [sdg.id.to_s]
+
       CollectionDecorator.new(
-        nodes_query.filter(sdg_field => { "eq" => [sdg.id.to_s] }),
+        nodes_query.filter(sdg_field => { "eq" => filter_value }),
         decorator: GobiertoPlans::ProjectDecorator,
         opts: { plan: self }
       )

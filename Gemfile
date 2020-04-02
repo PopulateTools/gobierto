@@ -39,7 +39,7 @@ gem "chroma"
 gem "font-awesome-sass", "~> 5.6"
 
 # Webpack
-gem "webpacker", "~> 4.0"
+gem "webpacker", "~> 5.0"
 
 # Elasticsearch
 gem "elasticsearch"

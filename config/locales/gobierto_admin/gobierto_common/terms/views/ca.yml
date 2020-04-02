@@ -8,6 +8,7 @@ ca:
         form:
           placeholders:
             description: Descripció del terme
+            external_id: ID001
             name: Nom del terme
             slug: terme
         index:

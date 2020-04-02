@@ -109,6 +109,7 @@ module GobiertoAdmin
         params.require(:term).permit(
           :slug,
           :term_id,
+          :external_id,
           name_translations: [*I18n.available_locales],
           description_translations: [*I18n.available_locales]
         )

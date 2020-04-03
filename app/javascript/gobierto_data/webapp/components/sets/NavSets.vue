@@ -25,10 +25,10 @@
       </div>
     </div>
 
-    <NavTabs :active-dataset-tab="activeDatasetTab" />
+    <NavDataSets :active-dataset-tab="activeDatasetTab" />
 
     <keep-alive v-if="activeDatasetTab === 0">
-      <Summary
+      <SummaryTab
         :private-queries="privateQueries"
         :public-queries="publicQueries"
         :array-formats="arrayFormats"
@@ -41,20 +41,20 @@
       />
     </keep-alive>
 
-    <keep-alive v-else-if="activeDatasetTab === 1">
-      <Data
-        :dataset-id="datasetId"
-        :private-queries="privateQueries"
-        :public-queries="publicQueries"
-        :array-columns="arrayColumns"
-        :table-name="tableName"
-        :array-formats="arrayFormats"
-        :number-rows="numberRows"
-      />
-    </keep-alive>
+    <DataTab
+      v-else-if="activeDatasetTab === 1"
+      :dataset-id="datasetId"
+      :private-queries="privateQueries"
+      :public-queries="publicQueries"
+      :array-columns="arrayColumns"
+      :table-name="tableName"
+      :array-formats="arrayFormats"
+      :number-rows="numberRows"
+    />
+    <!-- <keep-alive /> -->
 
     <keep-alive v-else-if="activeDatasetTab === 2">
-      <Queries
+      <QueriesTab
         :dataset-id="datasetId"
         :private-queries="privateQueries"
         :public-queries="publicQueries"
@@ -62,13 +62,13 @@
     </keep-alive>
 
     <!-- Visualizations requires to query API on created, so we don't keep-alive it -->
-    <Visualizations
+    <VisualizationsTab
       v-else-if="activeDatasetTab === 3"
       :dataset-id="datasetId"
     />
 
     <keep-alive v-else-if="activeDatasetTab === 4">
-      <Downloads
+      <DownloadsTab
         :array-formats="arrayFormats"
         :resources-list="resourcesList"
       />
@@ -77,12 +77,12 @@
 </template>
 <script>
 import Button from "./../commons/Button.vue";
-import Summary from "./Summary.vue";
-import Data from "./Data.vue";
-import Queries from "./Queries.vue";
-import Visualizations from "./Visualizations.vue";
-import Downloads from "./Downloads.vue";
-import NavTabs from "./NavTabs.vue";
+import SummaryTab from "./SummaryTab.vue";
+import DataTab from "./DataTab.vue";
+import QueriesTab from "./QueriesTab.vue";
+import VisualizationsTab from "./VisualizationsTab.vue";
+import DownloadsTab from "./DownloadsTab.vue";
+import NavDataSets from "./NavDataSets.vue";
 import { getUserId } from "./../../../lib/helpers";
 import { translate } from "./../../../../lib/shared/modules/vue-filters";
 import { DatasetFactoryMixin } from "./../../../lib/factories/datasets";
@@ -92,12 +92,12 @@ export default {
   name: "NavSets",
   components: {
     Button,
-    Summary,
-    Data,
-    Queries,
-    Visualizations,
-    Downloads,
-    NavTabs
+    SummaryTab,
+    DataTab,
+    QueriesTab,
+    VisualizationsTab,
+    DownloadsTab,
+    NavDataSets
   },
   filters: {
     translate
@@ -137,7 +137,7 @@ export default {
   watch: {
     $route(to) {
       if (to) {
-        this.parseUrl(to)
+        this.parseUrl(to);
       }
     }
   },
@@ -146,10 +146,6 @@ export default {
     this.$root.$on("reloadPrivateQueries", this.getPrivateQueries);
 
     this.setValuesDataset();
-  },
-  mounted() {
-    // TODO: move this after private/public queries are fulfilled
-    this.parseUrl(this.$route)
   },
   beforeDestroy() {
     this.$root.$off("reloadPublicQueries", this.getPublicQueries);
@@ -172,13 +168,7 @@ export default {
       }
 
       if (item) {
-        const {
-          id,
-          attributes: { name, privacy_status, sql: itemSql, user_id }
-        } = item;
-        const queryParams = [name, privacy_status, itemSql, id, user_id];
-
-        this.$root.$emit("sendQueryParams", queryParams);
+        const { attributes: { sql: itemSql } } = item;
 
         // update the editor text content
         this.$root.$emit("editCurrentQuery", itemSql);
@@ -188,77 +178,94 @@ export default {
         this.$root.$emit("closeQueriesModal");
       }
     },
-    setValuesDataset() {
+    async setValuesDataset() {
       const { id } = this.$route.params;
 
       // factory method
-      this.getDatasetMetadata(id)
-        .then(response => {
-          const { data: raw } = response;
-          const {
-            data: {
-              id: datasetId,
-              attributes: {
-                name: titleDataset,
-                slug: slugDataset,
-                table_name: tableName,
-                columns: arrayColumns,
-                description: descriptionDataset,
-                data_updated_at: dateUpdated,
-                data_summary: { number_of_rows: numberRows },
-                formats: arrayFormats,
-                frequency = [],
-                category = []
-              }
-            }
-          } = raw;
+      const { data: raw, included } = await this.getDatasetMetadata(id);
 
-          this.datasetId = parseInt(datasetId);
-          this.titleDataset = titleDataset;
-          this.slugDataset = slugDataset;
-          this.tableName = tableName;
-          this.arrayColumns = arrayColumns;
-          this.descriptionDataset = descriptionDataset;
-          this.dateUpdated = dateUpdated;
-          this.numberRows = numberRows;
-          this.arrayFormats = arrayFormats;
-          this.resourcesList = response.included;
-          this.frequencyDataset = frequency[0].name_translations;
-          this.categoryDataset = category[0].name_translations;
+      const {
+        data: {
+          id: datasetId,
+          attributes: {
+            name: titleDataset,
+            slug: slugDataset,
+            table_name: tableName,
+            columns: arrayColumns,
+            description: descriptionDataset,
+            data_updated_at: dateUpdated,
+            data_summary: { number_of_rows: numberRows },
+            formats: arrayFormats,
+            frequency = [],
+            category = []
+          }
+        }
+      } = raw;
 
-          // Get all queries
-          this.getPrivateQueries();
-          this.getPublicQueries();
-        })
-        .catch(error => console.error(error));
-    },
-    getPrivateQueries() {
+      this.datasetId = parseInt(datasetId);
+      this.titleDataset = titleDataset;
+      this.slugDataset = slugDataset;
+      this.tableName = tableName;
+      this.arrayColumns = arrayColumns;
+      this.descriptionDataset = descriptionDataset;
+      this.dateUpdated = dateUpdated;
+      this.numberRows = numberRows;
+      this.arrayFormats = arrayFormats;
+      this.resourcesList = included;
+      this.frequencyDataset = frequency[0].name_translations;
+      this.categoryDataset = category[0].name_translations;
+
+      // Once we have the dataset info, we request both kind of queries
+      const queriesPromises = [];
+      queriesPromises.push(this.fetchPublicQueries());
+
       const userId = getUserId();
-
-      // Only if user is logged
       if (userId) {
-        // factory method
-        this.getQueries({
-          "filter[dataset_id]": this.datasetId,
-          "filter[user_id]": userId
-        })
-          .then(({ data }) => {
-            const { data: items } = data;
-            this.privateQueries = items;
-          })
-          .catch(({ response }) => console.error(response));
+        // Do not request private queries if the user is not logged
+        queriesPromises.push(this.fetchPrivateQueries(userId));
       }
+      const [publicResponse, privateResponse] = await Promise.all( queriesPromises );
+      const {
+        data: { data: publicItems }
+      } = publicResponse;
+      this.publicQueries = publicItems;
+
+      // Only update data if there's any response
+      if (privateResponse) {
+        const {
+          data: { data: privateItems }
+        } = privateResponse;
+        this.privateQueries = privateItems;
+      }
+
+      // update the sql editor if the url contains a query
+      this.parseUrl(this.$route)
     },
-    getPublicQueries() {
+    async getPrivateQueries() {
+      const userId = getUserId();
+      const {
+        data: { data: items }
+      } = await this.fetchPrivateQueries(userId);
+      this.publicQueries = items;
+    },
+    async getPublicQueries() {
+      const {
+        data: { data: items }
+      } = await this.fetchPublicQueries();
+      this.publicQueries = items;
+    },
+    // returns a simply promise
+    fetchPrivateQueries(userId) {
       // factory method
-      this.getQueries({
-        "filter[dataset_id]": this.datasetId
-      })
-        .then(({ data }) => {
-          const { data: items } = data;
-          this.publicQueries = items;
-        })
-        .catch(({ response }) => console.error(response));
+      return this.getQueries({
+        "filter[dataset_id]": this.datasetId,
+        "filter[user_id]": userId
+      });
+    },
+    // returns a simply promise
+    fetchPublicQueries() {
+      // factory method
+      return this.getQueries({ "filter[dataset_id]": this.datasetId });
     }
   }
 };

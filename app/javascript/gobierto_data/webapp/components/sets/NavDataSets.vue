@@ -48,7 +48,7 @@
 import { tabs } from '../../../lib/router'
 
 export default {
-  name: "NavSets",
+  name: "NavDataSets",
   props: {
     activeDatasetTab: {
       type: Number,

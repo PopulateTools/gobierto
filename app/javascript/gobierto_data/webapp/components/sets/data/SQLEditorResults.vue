@@ -3,7 +3,7 @@
     <div class="pure-g">
       <div
         class="pure-u-1"
-        style="text-align: right"
+        style="text-align: right; margin-bottom: 1rem"
       >
         <SaveChartButton />
         <keep-alive>
@@ -18,22 +18,26 @@
       </div>
     </div>
 
-    <div class="gobierto-data-visualization--aspect-ratio-16-9">
-      <SQLEditorVisualizations :items="items" />
+    <!-- TODO: HIDE FOR DEBUG -->
+    <div
+      v-if="false"
+      class="gobierto-data-visualization--aspect-ratio-16-9"
+    >
+      <Visualizations :items="items" />
     </div>
   </div>
 </template>
 <script>
-import SQLEditorVisualizations from "./SQLEditorVisualizations.vue";
-import DownloadButton from "./../commons/DownloadButton.vue";
-import SaveChartButton from "./../commons/SaveChartButton.vue";
-import { getUserId } from "./../../../lib/helpers";
-import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
+import DownloadButton from "./../../commons/DownloadButton.vue";
+import SaveChartButton from "./../../commons/SaveChartButton.vue";
+import Visualizations from "./../../commons/Visualizations.vue";
+import { getUserId } from "./../../../../lib/helpers";
+import { VisualizationFactoryMixin } from "./../../../../lib/factories/visualizations";
 
 export default {
-  name: "SQLEditorTabs",
+  name: "SQLEditorResults",
   components: {
-    SQLEditorVisualizations,
+    Visualizations,
     DownloadButton,
     SaveChartButton
   },
@@ -88,32 +92,12 @@ export default {
     this.userId = getUserId();
     this.noLogin = this.userId === "" ? true : false;
 
-    this.$root.$on('blurEditor', this.activateShortcutsListener)
-    this.$root.$on('focusEditor', this.removeShortcutsListener)
-    this.activateShortcutsListener()
-
     this.$root.$on("saveVisualization", this.saveVisualization);
   },
   beforeDestroy() {
     this.$root.$off("saveVisualization", this.saveVisualization);
   },
   methods: {
-    shortcutsListener(e) {
-      if (e.keyCode == 84) {
-        this.$emit("active-tab", 0)
-      } else if (e.keyCode == 86) {
-        this.$emit("active-tab", 1);
-      }
-    },
-    activateShortcutsListener(){
-      window.addEventListener("keydown", this.shortcutsListener, true);
-    },
-    removeShortcutsListener(){
-      window.removeEventListener("keydown", this.shortcutsListener, true);
-    },
-    activateTab(index) {
-      this.$emit("active-tab", index);
-    },
     saveVisualization(config, opts) {
       if (this.noLogin) this.goToLogin();
 

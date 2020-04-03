@@ -36,7 +36,7 @@ import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/addon/hint/show-hint.js';
 import 'codemirror/addon/hint/sql-hint.js';
 import 'codemirror/src/model/selection_updates.js';
-import { sqlKeywords } from "./../../../lib/commons.js"
+import { sqlKeywords } from "./../../../../lib/commons.js"
 
 export default {
   name: 'SQLEditorCode',
@@ -106,7 +106,6 @@ export default {
     this.$root.$on('recordsDuration', this.updateRecordsDuration);
     this.$root.$on('apiError', this.showError)
     this.$root.$on('showMessages', this.handleShowMessages)
-    this.$root.$emit('activateModalRecent')
 
     this.numberRecords = this.numberRows
   },
@@ -123,7 +122,6 @@ export default {
 
     this.editor.on("keypress", editor => {
       editor.showHint()
-      this.$root.$emit('activeSave', false);
 
       if (this.saveQueryState === true) {
         this.$root.$emit('updateActiveSave', true, false);
@@ -132,13 +130,10 @@ export default {
 
     this.editor.on('focus', () => {
       this.$root.$emit('activeSave', false)
-      this.$root.$emit('activateModalRecent')
       this.$root.$emit('focusEditor')
     })
 
-    this.editor.on('blur', () => {
-      this.$root.$emit('blurEditor')
-    })
+    this.editor.on('blur', () => this.$root.$emit('blurEditor'))
   },
   methods: {
     mergeTables(){
@@ -158,18 +153,9 @@ export default {
     saveQueryState(value) {
       this.saveQueryState = value;
     },
-    inputCode() {
-      this.$root.$emit('activeSave', false)
-      this.$root.$emit('activateModalRecent')
-    },
-    formatCode() {
-      //Convert to button or shortcut
-      /*this.commands.selectAll(this.cm);
-      const formaterCode = sqlFormatter.format(this.code);
-      this.cm.setValue(formaterCode);*/
-    },
     setEditorValue(newCode) {
       this.editor.setValue(unescape(newCode))
+      this.editor.focus()
     },
     handleShowMessages(showTrue, showLoader){
       this.recordsLoader = showLoader

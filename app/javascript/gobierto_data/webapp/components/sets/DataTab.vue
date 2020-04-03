@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="gobierto-data-sets-nav--tab-container">
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
         v-if="publicQueries.length"
@@ -15,7 +15,7 @@
         :array-columns="arrayColumns"
         :number-rows="numberRows"
       />
-      <SQLEditorTabs
+      <SQLEditorResults
         v-if="items"
         :array-formats="arrayFormats"
         :items="items"
@@ -32,18 +32,18 @@
   </div>
 </template>
 <script>
-import SQLEditorCode from "./SQLEditorCode.vue";
-import SQLEditorHeader from "./SQLEditorHeader.vue";
-import SQLEditorTabs from "./SQLEditorTabs.vue";
+import SQLEditorCode from "./data/SQLEditorCode.vue";
+import SQLEditorHeader from "./data/SQLEditorHeader.vue";
+import SQLEditorResults from "./data/SQLEditorResults.vue";
 import { DataFactoryMixin } from "./../../../lib/factories/data"
 import "./../../../lib/sql-theme.css"
 
 export default {
-  name: 'SQLEditor',
+  name: 'DataTab',
   components: {
     SQLEditorCode,
     SQLEditorHeader,
-    SQLEditorTabs
+    SQLEditorResults
   },
   mixins: [DataFactoryMixin],
   props: {
@@ -110,6 +110,7 @@ export default {
 
     this.$root.$on('runQuery', this.runQuery)
     this.$root.$on('editCurrentQuery', this.editCurrentQuery)
+
     this.$root.$on('activateModalRecent', this.loadRecentQuery)
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
   },
@@ -120,6 +121,7 @@ export default {
   },
   beforeDestroy() {
     this.$root.$off('runQuery', this.runQuery)
+    this.$root.$off('editCurrentQuery', this.editCurrentQuery)
     this.$root.$off('postRecentQuery', this.saveNewRecentQuery)
     this.$root.$off('activateModalRecent', this.loadRecentQuery)
   },
@@ -160,15 +162,14 @@ export default {
     },
     editCurrentQuery(text) {
       this.currentQuery = text
+
+      console.log('editCurrentQuery', text);
     },
     runQuery() {
       let query = ''
       if (this.currentQuery.includes('LIMIT')) {
         query = this.currentQuery
       } else {
-        this.$root.$emit('ShowButtonColumns')
-        this.$root.$emit('sendCompleteQuery', this.currentQuery)
-
         query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 100 OFFSET 0`
       }
 
@@ -184,11 +185,7 @@ export default {
           const keysData = Object.keys(data[0])
           this.$root.$emit('sendDataViz', keysData)
         })
-        .catch(error => {
-          this.$root.$emit('apiError', error)
-          const keysData = []
-          this.$root.$emit('sendData', keysData)
-        })
+        .catch(error => this.$root.$emit('apiError', error))
     },
     saveNewRecentQuery(query) {
       this.newRecentQuery = query

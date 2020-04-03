@@ -40,9 +40,9 @@
   </div>
 </template>
 <script>
-import SidebarCategories from './SidebarCategories.vue';
-import SidebarDatasets from './SidebarDatasets.vue';
-import SidebarQueries from './SidebarQueries.vue';
+import SidebarCategories from './sidebar/SidebarCategories.vue';
+import SidebarDatasets from './sidebar/SidebarDatasets.vue';
+import SidebarQueries from './sidebar/SidebarQueries.vue';
 
 export default {
   name: "Sidebar",

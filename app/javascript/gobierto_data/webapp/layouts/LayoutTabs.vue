@@ -25,11 +25,13 @@ import Sidebar from "./../components/Sidebar.vue";
 import Nav from "./../components/Nav.vue";
 import InfoList from "./../components/commons/InfoList.vue";
 import DataSets from "./../pages/DataSets.vue";
-import Summary from '../components/sets/Summary.vue';
-import Data from '../components/sets/Data.vue';
-import Queries from '../components/sets/Queries.vue';
-import Visualizations from '../components/sets/Visualizations.vue';
-import Downloads from '../components/sets/Downloads.vue';
+
+// TODO: estos componentes no tienen que ir aquí, sino en un main
+import Summary from '../components/sets/SummaryTab.vue';
+import Data from '../components/sets/DataTab.vue';
+import Queries from '../components/sets/QueriesTab.vue';
+import Visualizations from '../components/sets/VisualizationsTab.vue';
+import Downloads from '../components/sets/DownloadsTab.vue';
 
 export default {
   name: "LayoutTabs",

@@ -74,7 +74,7 @@
                       <h4 class="gobierto-data-visualization--title">
                         {{ name }}
                       </h4>
-                      <SQLEditorVisualizations
+                      <Visualizations
                         :items="data"
                         :config="config"
                       />
@@ -94,9 +94,9 @@
   </div>
 </template>
 <script>
-import SQLEditorVisualizations from "./SQLEditorVisualizations.vue";
 import Spinner from "./../commons/Spinner.vue";
 import Caret from "./../commons/Caret.vue";
+import Visualizations from "./../commons/Visualizations.vue";
 import { Dropdown } from "lib/vue-components";
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
@@ -104,9 +104,9 @@ import { DataFactoryMixin } from "./../../../lib/factories/data";
 import { getUserId } from "./../../../lib/helpers";
 
 export default {
-  name: "Visualizations",
+  name: "VisualizationsTab",
   components: {
-    SQLEditorVisualizations,
+    Visualizations,
     Spinner,
     Dropdown,
     Caret

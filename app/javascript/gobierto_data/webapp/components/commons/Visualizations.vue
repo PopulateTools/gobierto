@@ -2,6 +2,7 @@
   <perspective-viewer ref="perspective-viewer" />
 </template>
 <script>
+// TODO: mover este componente a commons
 import perspective from "@finos/perspective";
 import "@finos/perspective-viewer";
 import "@finos/perspective-viewer-hypergrid";

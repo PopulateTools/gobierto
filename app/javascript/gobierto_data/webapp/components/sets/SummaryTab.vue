@@ -31,7 +31,7 @@ import DownloadButton from "./../commons/DownloadButton.vue";
 import Queries from "./../commons/Queries.vue";
 
 export default {
-  name: "Summary",
+  name: "SummaryTab",
   components: {
     Resources,
     Queries,

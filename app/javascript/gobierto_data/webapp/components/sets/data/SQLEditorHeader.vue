@@ -14,22 +14,22 @@
           background="#fff"
           @click.native="recentQueries()"
         />
-        <keep-alive>
-          <transition
-            name="fade"
-            mode="out-in"
-          >
-            <RecentQueries
-              v-show="isActive"
-              :table-name="tableName"
-              :class="[
-                directionLeft ? 'modal-left': 'modal-right',
-                isActive ? 'active' : ''
-              ]"
-            />
-          </transition>
-        </keep-alive>
+        <transition
+          name="fade"
+          mode="out-in"
+        >
+          <RecentQueries
+            v-show="isActive"
+            :table-name="tableName"
+            :class="[
+              directionLeft ? 'modal-left': 'modal-right',
+              isActive ? 'active' : ''
+            ]"
+          />
+        </transition>
+        <!-- <keep-alive /> -->
       </div>
+
       <div class="gobierto-data-sql-editor-your-queries">
         <button
           ref="button"
@@ -47,27 +47,26 @@
           {{ labelQueries }}
         </button>
 
-        <keep-alive>
-          <transition
-            name="fade"
-            mode="out-in"
-          >
-            <Queries
-              v-show="!isHidden"
-              v-closable="{
-                exclude: ['button'],
-                handler: 'closeQueriesModal'
-              }"
-              :private-queries="privateQueries"
-              :public-queries="publicQueries"
-              :dataset-id="datasetId"
-              :class=" directionLeft ? 'modal-left': 'modal-right'"
-              tabindex="-1"
-              class="gobierto-data-sql-editor-your-queries-container arrow-top"
-            />
-          </transition>
-        </keep-alive>
+        <transition
+          name="fade"
+          mode="out-in"
+        >
+          <Queries
+            v-show="!isHidden"
+            v-closable="{
+              exclude: ['button'],
+              handler: 'closeQueriesModal'
+            }"
+            :private-queries="privateQueries"
+            :public-queries="publicQueries"
+            :dataset-id="datasetId"
+            :class=" directionLeft ? 'modal-left': 'modal-right'"
+            class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
+          />
+        </transition>
+        <!-- <keep-alive /> -->
       </div>
+
       <div
         v-if="saveQueryState"
         class="gobierto-data-sql-editor-container-save"
@@ -167,14 +166,14 @@
   </div>
 </template>
 <script>
-import { getToken, getUserId } from './../../../lib/helpers'
-import { baseUrl, CommonsMixin, closableMixin } from "./../../../lib/commons.js";
-import { DataFactoryMixin } from "./../../../lib/factories/data";
-import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
+import { getToken, getUserId } from './../../../../lib/helpers'
+import { baseUrl, CommonsMixin, closableMixin } from "./../../../../lib/commons.js";
+import { DataFactoryMixin } from "./../../../../lib/factories/data";
+import { QueriesFactoryMixin } from "./../../../../lib/factories/queries";
 import axios from 'axios';
-import Button from './../commons/Button.vue';
+import Button from './../../commons/Button.vue';
+import Queries from './../../commons/Queries.vue';
 import RecentQueries from './RecentQueries.vue';
-import Queries from './Queries.vue';
 
 export default {
   name: 'SQLEditorHeader',
@@ -258,16 +257,17 @@ export default {
     this.$root.$on('storeQuery', this.showStoreQueries)
     this.$root.$on('closeQueriesModal', this.closeQueriesModal)
     this.$root.$on('disableEdit', this.hideEdit)
-    this.$root.$on('blurEditor', this.activateShortcutsListener)
-    this.$root.$on('focusEditor', this.removeShortcutsListener)
+
 
     this.token = getToken()
     this.userId = getUserId()
     this.noLogin = this.userId === "" ? true : false
     this.codeQuery = `SELECT%20*%20FROM%20${this.tableName}%20`
 
-    this.activateShortcutsListener()
+    this.$root.$on('blurEditor', this.activateShortcutsListener)
+    this.$root.$on('focusEditor', this.removeShortcutsListener)
 
+    this.activateShortcutsListener()
     window.addEventListener('keydown', e => {
       if (e.metaKey && e.keyCode == 13) {
         this.runQuery()
@@ -410,6 +410,8 @@ export default {
     },
     runQuery() {
       this.$root.$emit('runQuery')
+      console.log('DEPRECATED CODE runQuery de SQLEDITORHeader. ALERTA: EMITE EVENTO runQury');
+
 
       // this.showSpinner = true;
 

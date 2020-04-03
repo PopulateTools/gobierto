@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import NavSets from "./../components/sets/Nav.vue"
+import NavSets from "./../components/sets/NavSets.vue"
 
 export default {
   name: "DataSets",

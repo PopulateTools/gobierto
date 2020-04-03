@@ -91,10 +91,10 @@ module GobiertoAdmin
           instance: @plan
         )
         @custom_fields_form.empty_associated_vocabularies!
-          redirect_to(
-            edit_admin_plans_plan_path(@plan),
-            notice: t(".success")
-          )
+        redirect_to(
+          edit_admin_plans_plan_path(@plan),
+          notice: t(".success")
+        )
       end
 
       def recover

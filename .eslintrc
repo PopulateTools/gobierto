@@ -10,10 +10,7 @@
     "Vue": true,
     "I18n": true
   },
-  "plugins": [
-      "vueunused"
-  ],
-  "extends": ["eslint:recommended", "plugin:vue/recommended", "plugin:vueunused/recommend"],
+  "extends": ["eslint:recommended", "plugin:vue/recommended"],
   "parserOptions": {
     "parser": "babel-eslint", // https://vuejs.github.io/eslint-plugin-vue/user-guide/#what-is-the-use-the-latest-vue-eslint-parser-error
     "sourceType": "module",

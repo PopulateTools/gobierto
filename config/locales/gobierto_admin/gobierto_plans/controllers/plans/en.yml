@@ -5,6 +5,8 @@ en:
       plans:
         create:
           success_html: Plan created successfully. <a href="%{link}">View the plan</a>.
+        delete_contents:
+          success: Plan projects has been successfully deleted
         destroy:
           success: Plan archived successfully.
         import_data:

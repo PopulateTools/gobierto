@@ -5,6 +5,8 @@ ca:
       plans:
         create:
           success_html: Pla s'ha creat correctament. <a href="%{link}">Veure el pla</a>.
+        delete_contents:
+          success: Els projectes de el pla han estat correctament eliminats
         destroy:
           success: El pla s'ha esborrat correctament.
         import_data:

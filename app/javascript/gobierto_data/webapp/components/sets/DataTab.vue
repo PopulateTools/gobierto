@@ -14,6 +14,7 @@
         :array-columns="arrayColumns"
         :query-number-rows="queryNumberRows"
         :query-duration="queryDuration"
+        :query-error="queryError"
       />
       <SQLEditorResults
         v-if="items"
@@ -34,7 +35,6 @@
 import SQLEditorCode from "./data/SQLEditorCode.vue";
 import SQLEditorHeader from "./data/SQLEditorHeader.vue";
 import SQLEditorResults from "./data/SQLEditorResults.vue";
-import { DataFactoryMixin } from "./../../../lib/factories/data"
 import "./../../../lib/sql-theme.css"
 
 export default {
@@ -44,7 +44,6 @@ export default {
     SQLEditorHeader,
     SQLEditorResults
   },
-  mixins: [DataFactoryMixin],
   props: {
     tableName: {
       type: String,
@@ -73,34 +72,29 @@ export default {
     currentQuery: {
       type: String,
       default: null
-    }
+    },
+    items: {
+      type: Array,
+      default: () => []
+    },
+    queryNumberRows: {
+      type: Number,
+      default: 0
+    },
+    queryDuration: {
+      type: Number,
+      default: 0
+    },
+    queryError: {
+      type: String,
+      default: null
+    },
   },
   data() {
     return {
       activeTabIndex: 0,
-      rawData: [],
-      columns: [],
-      items: null,
-      keysData: [],
-      meta:[],
-      links:[],
       link: '',
-      recentQueries: [],
-      localQueries: [],
-      orderRecentQueries: [],
-      totalRecentQueries: [],
-      newRecentQuery: null,
-      localTableName : '',
-      queryDuration: null,
-      queryNumberRows: null,
-    }
-  },
-  watch: {
-    currentQuery(newValue, oldValue) {
-      // auto-execute the query is has changed
-      if (newValue !== oldValue) {
-        this.runQuery()
-      }
+      localTableName : ''
     }
   },
   created() {
@@ -116,25 +110,19 @@ export default {
       }
     }
 
-    this.$root.$on('activateModalRecent', this.loadRecentQuery)
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
-  },
-  mounted() {
-    if (this.currentQuery) {
-      this.runQuery()
-    }
   },
   beforeDestroy() {
     this.$root.$off('postRecentQuery', this.saveNewRecentQuery)
-    this.$root.$off('activateModalRecent', this.loadRecentQuery)
   },
   methods: {
     addRecentQuery() {
       if (!this.newRecentQuery) {
         return;
       }
+
       if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
-        this.$root.$emit('store', this.recentQueries)
+        this.$root.$emit('storeQuery', this.recentQueries)
       } else {
         this.recentQueries.push(this.newRecentQuery);
         localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));
@@ -163,30 +151,11 @@ export default {
       this.totalRecentQueries = this.localQueries
       this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
-    runQuery() {
-      let query = ''
-      if (this.currentQuery.includes('LIMIT')) {
-        query = this.currentQuery
-      } else {
-        query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 100 OFFSET 0`
-      }
-
-      const params = { sql: query }
-
-      // factory method
-      this.getData(params)
-        .then(({ data: { data: items, meta: { rows, duration } } }) => {
-          this.items = items
-          this.queryDuration = duration
-          this.queryNumberRows = rows
-        })
-        .catch(error => this.$root.$emit('apiError', error))
-    },
     saveNewRecentQuery(query) {
       this.newRecentQuery = query
       this.currentQuery = query
       this.addRecentQuery()
-    }
+    },
   }
 }
 

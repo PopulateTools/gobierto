@@ -3,27 +3,27 @@
     <div class="gobierto-data-sql-editor-toolbar">
       <div class="gobierto-data-sql-editor-container-recent-queries">
         <Button
-          v-clickoutside="closeMenu"
+          v-clickoutside="closeRecentModal"
           :text="labelRecents"
           :class="removeLabelBtn ? 'remove-label' : ''"
-          :disabled="disabledRecents"
           :title="labelButtonRecentQueries"
           class="btn-sql-editor"
           icon="history"
           color="var(--color-base)"
           background="#fff"
-          @click.native="recentQueries()"
+          @click.native="isRecentModalActive = !isRecentModalActive"
         />
+
         <transition
           name="fade"
           mode="out-in"
         >
           <RecentQueries
-            v-show="isActive"
+            v-if="isRecentModalActive"
             :table-name="tableName"
             :class="[
               directionLeft ? 'modal-left': 'modal-right',
-              isActive ? 'active' : ''
+              isRecentModalActive ? 'active' : ''
             ]"
           />
         </transition>
@@ -31,32 +31,24 @@
       </div>
 
       <div class="gobierto-data-sql-editor-your-queries">
-        <button
-          ref="button"
+        <Button
+          v-clickoutside="closeQueriesModal"
           :text="labelQueries"
           :class="removeLabelBtn ? 'remove-label' : ''"
-          :disabled="disabledQueries"
           :title="labelButtonQueries"
-          class="btn-sql-editor btn-sql-editor-queries gobierto-data-btn-blue"
-          @click="isHidden = !isHidden"
-        >
-          <i
-            style="color: inherit"
-            class="fas fa-list"
-          />
-          {{ labelQueries }}
-        </button>
+          class="btn-sql-editor"
+          icon="list"
+          color="var(--color-base)"
+          background="#fff"
+          @click.native="isQueriesModalActive = !isQueriesModalActive"
+        />
 
         <transition
           name="fade"
           mode="out-in"
         >
           <Queries
-            v-show="!isHidden"
-            v-closable="{
-              exclude: ['button'],
-              handler: 'closeQueriesModal'
-            }"
+            v-if="isQueriesModalActive"
             :private-queries="privateQueries"
             :public-queries="publicQueries"
             :dataset-id="datasetId"
@@ -78,7 +70,7 @@
           type="text"
           class="gobierto-data-sql-editor-container-save-text"
           @keyup="onSave($event.target.value)"
-          @focus="removeShortcutsListener"
+          @focus="onFocusEditor"
         >
         <input
           v-if="showLabelPrivate"
@@ -107,6 +99,7 @@
           {{ labelModifiedQuery }}
         </span>
       </div>
+
       <Button
         v-if="showBtnSave"
         :text="labelSave"
@@ -115,13 +108,13 @@
             ? 'color: #fff; background-color: var(--color-base)'
             : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
         "
-        :disabled="disabledSave"
         class="btn-sql-editor"
         icon="save"
         color="var(--color-base)"
         background="#fff"
         @click.native="userLogged()"
       />
+
       <Button
         v-if="showBtnCancel"
         :text="labelCancel"
@@ -131,6 +124,7 @@
         background="#fff"
         @click.native="cancelQuery()"
       />
+
       <Button
         v-if="showBtnEdit"
         :text="labelEdit"
@@ -140,27 +134,18 @@
         background="#fff"
         @click.native="editQuery()"
       />
+
       <Button
         v-if="showBtnRun"
         :text="labelRunQuery"
-        :disabled="disabledRunQuery"
         :title="labelButtonRunQuery"
         class="btn-sql-editor btn-sql-editor-run"
         icon="play"
         color="var(--color-base)"
         background="#fff"
-        @click.native="runQuery()"
+        @click.native="clickRunQueryHandler()"
       >
-        <div
-          v-if="showSpinner"
-          class="spinner-box"
-        >
-          <div class="pulse-container">
-            <div class="pulse-bubble pulse-bubble-1" />
-            <div class="pulse-bubble pulse-bubble-2" />
-            <div class="pulse-bubble pulse-bubble-3" />
-          </div>
-        </div>
+        <PulseSpinner v-if="showSpinner" />
       </Button>
     </div>
   </div>
@@ -173,6 +158,7 @@ import { QueriesFactoryMixin } from "./../../../../lib/factories/queries";
 import axios from 'axios';
 import Button from './../../commons/Button.vue';
 import Queries from './../../commons/Queries.vue';
+import PulseSpinner from './../../commons/PulseSpinner.vue';
 import RecentQueries from './RecentQueries.vue';
 
 export default {
@@ -180,7 +166,8 @@ export default {
   components: {
     Button,
     RecentQueries,
-    Queries
+    Queries,
+    PulseSpinner
   },
   mixins: [CommonsMixin, closableMixin, DataFactoryMixin, QueriesFactoryMixin],
   props: {
@@ -215,77 +202,65 @@ export default {
       labelButtonQueries: I18n.t('gobierto_data.projects.buttonQueries') || '',
       labelButtonRecentQueries: I18n.t('gobierto_data.projects.buttonRecentQueries') || '',
       labelButtonRunQuery: I18n.t('gobierto_data.projects.buttonRunQuery') || '',
-      disabledRecents: false,
-      disabledQueries: false,
-      disabledSave: true,
-      disabledRunQuery: true,
       disableInputName: false,
       saveQueryState: false,
-      marked: false,
       privateQuery: false,
       showBtnCancel: false,
       showBtnEdit: false,
       showBtnRun: true,
       showBtnSave: true,
       showBtnRemove: true,
-      isHidden: true,
       showLabelPrivate: true,
       removeLabelBtn: false,
       showLabelModified: false,
-      showActiveRecent: false,
-      isActive: false,
+      isQueriesModalActive: false,
+      isRecentModalActive: false,
       codeQuery: '', // Deprecated
       privacyStatus: '',
       directionLeft: true,
       showSpinner: false,
       token: '',
       noLogin: false,
-      editorFocus: false,
       queryId: '',
       userIdQuery: '',
       oldQueryName: '',
     }
   },
   created() {
-    this.$root.$on('sendQueryParams', this.queryParams)
-    this.$root.$on('activeSave', this.activeSave);
     this.$root.$on('updateActiveSave', this.updateActiveSave);
-    this.$root.$on('storeQuery', this.showStoreQueries)
-    this.$root.$on('closeQueriesModal', this.closeQueriesModal)
-    this.$root.$on('disableEdit', this.hideEdit)
-
+    // this.$root.$on('storeQuery', this.showStoreQueries)
 
     this.token = getToken()
     this.userId = getUserId()
     this.noLogin = this.userId === "" ? true : false
     this.codeQuery = `SELECT%20*%20FROM%20${this.tableName}%20`
 
-    this.$root.$on('blurEditor', this.activateShortcutsListener)
-    this.$root.$on('focusEditor', this.removeShortcutsListener)
+    this.$root.$on('blurEditor', this.onBlurEditor)
+    this.$root.$on('focusEditor', this.onFocusEditor)
 
-    this.activateShortcutsListener()
-    window.addEventListener('keydown', e => {
-      if (e.metaKey && e.keyCode == 13) {
-        this.runQuery()
-      }
-    })
+    // Allow the shortcuts at startup
+    this.onBlurEditor()
+  },
+  beforeDestroy() {
+    this.$root.$off('updateActiveSave', this.updateActiveSave);
+    this.$root.$off('blurEditor', this.onBlurEditor)
+    this.$root.$off('focusEditor', this.onFocusEditor)
   },
   methods: {
     shortcutsListener(e) {
       if (e.keyCode == 67) {
-        this.openYourQueries()
+        this.openQueriesModal()
       } else if (e.keyCode == 82) {
-        this.showRecentQueries()
+        this.openRecentModal()
       }
     },
-    activateShortcutsListener() {
+    onBlurEditor() {
+      // Enable keyboard listeners (c|r)
       window.addEventListener("keydown", this.shortcutsListener, true);
     },
-    removeShortcutsListener() {
+    onFocusEditor() {
+      // Disable keyboard listeners (c|r) for typing the query
       window.removeEventListener("keydown", this.shortcutsListener, true);
-    },
-    hideEdit(){
-      this.showBtnEdit = false
     },
     onSave(queryName) {
       this.disabledSave = false
@@ -300,32 +275,6 @@ export default {
     goToLogin() {
       location.href='/user/sessions/new?open_modal=true'
     },
-    queryParams(queryParams) {
-      this.saveQueryState = true
-      this.showBtnCancel = false
-      this.showBtnSave = false
-      this.disabledRecents = false
-      this.disabledSave = true
-      this.showBtnEdit = true
-      this.removeLabelBtn = true
-      this.showLabelPrivate = false
-      this.disableInputName = true
-      this.showLabelModified = false
-      this.$root.$emit('saveQueryState', true)
-
-      this.labelQueryName = queryParams[0]
-      this.oldQueryName = queryParams[0]
-      this.privacyStatus = queryParams[1]
-      this.codeQuery = queryParams[2]
-      this.queryId = parseInt(queryParams[3])
-      this.userIdQuery = queryParams[4].toString()
-
-      if (this.privacyStatus === 'open') {
-        this.privateQuery = false
-      } else {
-        this.privateQuery = true
-      }
-    },
     privateQueryValue(valuePrivate) {
       this.disabledSave = false
       this.privateQuery = valuePrivate
@@ -335,11 +284,6 @@ export default {
     },
     showStoreQueries(queries) {
       this.$root.$emit('showRecentQueries', queries)
-    },
-    activeSave(value) {
-      this.disabledRecents = value
-      this.disabledSave = value
-      this.disabledRunQuery = value
     },
     updateActiveSave(activeLabel, disableLabel) {
       this.showLabelModified = activeLabel
@@ -404,87 +348,20 @@ export default {
         this.saveQueryState = false;
       }
     },
-    runQuery() {
-      this.$root.$emit('runQuery')
-      console.log('DEPRECATED CODE runQuery de SQLEDITORHeader. ALERTA: EMITE EVENTO runQury');
-
-
-      // this.showSpinner = true;
-
-      // const encodedCodeQuery = encodeURI(this.codeQuery)
-
-      // // TODO: review event, perhaps deprecated
-
-      // let query = ''
-      // if (encodedCodeQuery.toLowerCase().includes('limit')) {
-      //   query = encodedCodeQuery
-      //   this.$root.$emit('hiddeShowButtonColumns')
-      // } else {
-      //   this.$root.$emit('ShowButtonColumns')
-      //   this.$root.$emit('sendCompleteQuery', encodedCodeQuery)
-      //   query = `SELECT%20*%20FROM%20(${encodedCodeQuery})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
-      // }
-
-      // this.$root.$emit('showMessages', false, true)
-
-      // // factory method
-      // this.getData({
-      //   sql: query
-      // })
-      //   .then(response => {
-      //     this.showSpinner = false;
-
-      //     let data = []
-      //     let keysData = []
-      //     const rawData = response.data
-      //     const meta = rawData.meta
-      //     data = rawData.data
-
-      //     const queryDurationRecords = [ meta.rows, meta.duration ]
-
-      //     keysData = Object.keys(data[0])
-
-      //     this.$root.$emit('recordsDuration', queryDurationRecords)
-      //     this.$root.$emit('sendData', keysData, data)
-      //     this.$root.$emit('postRecentQuery', this.codeQuery)
-      //     this.$root.$emit('sendDataViz', data)
-      //     this.$root.$emit('showMessages', true, false)
-      //   })
-      //   .catch(error => {
-      //     const messageError = error.response.data.errors[0].sql
-      //     this.$root.$emit('apiError', messageError)
-
-
-      //     const data = []
-      //     const keysData = []
-      //     this.$root.$emit('sendData', keysData, data)
-
-      //   })
+    clickRunQueryHandler() {
+      this.$root.$emit('runCurrentQuery')
     },
-    recentQueries() {
-      this.isActive = !this.isActive;
+    openRecentModal() {
+      this.isRecentModalActive = true
     },
-    showRecentQueries() {
-      if (this.isActive === true) {
-        this.isActive = false
-      } else {
-        this.isActive = true;
-        this.isHidden = true
-      }
+    closeRecentModal() {
+      this.isRecentModalActive = false
     },
-    closeMenu() {
-      this.isActive = false
+    openQueriesModal() {
+      this.isRecentModalActive = true
     },
     closeQueriesModal() {
-      this.isHidden = true
-    },
-    openYourQueries() {
-      if (this.isHidden === false) {
-        this.isHidden = true
-      } else {
-        this.isHidden = false
-        this.isActive = false
-      }
+      this.isQueriesModalActive = false
     },
     // TODO: sacar de aquí
     postQuery() {
@@ -544,10 +421,6 @@ export default {
         });
       }
     },
-    runRecentQuery(code) {
-      this.codeQuery = code
-      this.runQuery()
-    }
   }
 }
 </script>

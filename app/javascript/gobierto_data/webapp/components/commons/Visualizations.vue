@@ -10,7 +10,7 @@ import "@finos/perspective-viewer-d3fc";
 import "@finos/perspective-viewer/themes/all-themes.css";
 
 export default {
-  name: "SQLEditorVisualizations",
+  name: "Visualizations",
   props: {
     items: {
       type: Array,
@@ -21,8 +21,14 @@ export default {
       default: () => {}
     }
   },
+  watch: {
+    items(newValue, oldValue) {
+      if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+        this.updateValues(newValue)
+      }
+    }
+  },
   created() {
-    this.$root.$on("sendDataViz", this.updateValues);
     this.$root.$on("exportPerspectiveConfig", this.exportPerspectiveConfig);
   },
   mounted() {
@@ -30,7 +36,6 @@ export default {
     this.initPerspective(this.items);
   },
   beforeDestroy() {
-    this.$root.$off("sendDataViz", this.updateValues);
     this.$root.$off("exportPerspectiveConfig", this.exportPerspectiveConfig);
   },
   methods: {

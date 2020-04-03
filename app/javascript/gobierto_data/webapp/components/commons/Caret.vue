@@ -4,8 +4,8 @@
     class="fas fa-caret-down"
   />
 </template>
-<script>
 
+<script>
 export default {
   name: 'Caret',
   props: {

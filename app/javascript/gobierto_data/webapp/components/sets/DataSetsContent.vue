@@ -50,6 +50,10 @@
       :table-name="tableName"
       :array-formats="arrayFormats"
       :current-query="currentQuery"
+      :items="items"
+      :query-number-rows="queryNumberRows"
+      :query-duration="queryDuration"
+      :query-error="queryError"
     />
     <!-- <keep-alive /> -->
 
@@ -88,6 +92,7 @@ import { getUserId } from "./../../../lib/helpers";
 import { translate } from "./../../../../lib/shared/modules/vue-filters";
 import { DatasetFactoryMixin } from "./../../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
+import { DataFactoryMixin } from "./../../../lib/factories/data"
 
 export default {
   name: "DataSetsContent",
@@ -103,7 +108,7 @@ export default {
   filters: {
     translate
   },
-  mixins: [DatasetFactoryMixin, QueriesFactoryMixin],
+  mixins: [DatasetFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
   props: {
     activeDatasetTab: {
       type: Number,
@@ -112,12 +117,6 @@ export default {
   },
   data() {
     return {
-      labelSummary: I18n.t("gobierto_data.projects.summary") || "",
-      labelData: I18n.t("gobierto_data.projects.data") || "",
-      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
-      labelVisualizations:
-        I18n.t("gobierto_data.projects.visualizations") || "",
-      labelDownload: I18n.t("gobierto_data.projects.download") || "",
       labelFav: I18n.t("gobierto_data.projects.fav") || "",
       labelFollow: I18n.t("gobierto_data.projects.follow") || "",
       tableName: "",
@@ -132,7 +131,11 @@ export default {
       descriptionDataset: "",
       categoryDataset: "",
       frequencyDataset: "",
-      currentQuery: null
+      currentQuery: null,
+      items: null,
+      queryDuration: 0,
+      queryNumberRows: 0,
+      queryError: null
     };
   },
   watch: {
@@ -143,14 +146,19 @@ export default {
     }
   },
   created() {
+    // refresh public queries
     this.$root.$on("reloadPublicQueries", this.getPublicQueries);
+    // refresh private queries
     this.$root.$on("reloadPrivateQueries", this.getPrivateQueries);
+    // change the current query, triggering a new SQL execution
+    this.$root.$on("reloadCurrentQuery", this.setCurrentQuery);
 
     this.setValuesDataset();
   },
   beforeDestroy() {
     this.$root.$off("reloadPublicQueries", this.getPublicQueries);
     this.$root.$off("reloadPrivateQueries", this.getPrivateQueries);
+    this.$root.$off("reloadCurrentQuery", this.setCurrentQuery);
   },
   methods: {
     parseUrl(route) {
@@ -172,11 +180,11 @@ export default {
         const { attributes: { sql: itemSql } } = item;
 
         // update the editor text content
-        this.currentQuery = itemSql
-
-        // close the open modals
-        this.$root.$emit("closeQueriesModal");
+        this.setCurrentQuery(itemSql)
       }
+    },
+    setCurrentQuery(sql) {
+      this.currentQuery = sql
     },
     async setValuesDataset() {
       const { id } = this.$route.params;
@@ -264,7 +272,26 @@ export default {
     fetchPublicQueries() {
       // factory method
       return this.getQueries({ "filter[dataset_id]": this.datasetId });
-    }
+    },
+    runCurrentQuery() {
+      let query = ''
+      if (this.currentQuery.includes('LIMIT')) {
+        query = this.currentQuery
+      } else {
+        query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 100 OFFSET 0`
+      }
+
+      const params = { sql: query }
+
+      // factory method
+      this.getData(params)
+        .then(({ data: { data: items, meta: { rows, duration } } }) => {
+          this.items = items
+          this.queryDuration = duration
+          this.queryNumberRows = rows
+        })
+        .catch(error => (this.queryError = error))
+    },
   }
 };
 </script>

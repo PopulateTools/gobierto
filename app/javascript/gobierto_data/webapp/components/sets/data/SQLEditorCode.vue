@@ -4,21 +4,20 @@
       ref="queryEditor"
     />
     <div class="gobierto-data-sql-editor-footer">
-      <div v-if="showMessages">
-        <div v-if="showApiError">
-          <span class="gobierto-data-sql-error-message">
-            {{ stringError }}
-          </span>
-        </div>
-        <div v-else>
-          <span class="gobierto-data-sql-editor-footer-records">
-            {{ queryNumberRows }} {{ labelRecords }}
-          </span>
-          <span class="gobierto-data-sql-editor-footer-time">
-            {{ labelQueryExecuted }} {{ queryDurationParsed }}ms
-          </span>
-        </div>
-      </div>
+      <template v-if="queryError">
+        <span class="gobierto-data-sql-error-message">
+          {{ queryError }}
+        </span>
+      </template>
+
+      <template v-else>
+        <span class="gobierto-data-sql-editor-footer-records">
+          {{ queryNumberRows }} {{ labelRecords }}
+        </span>
+        <span class="gobierto-data-sql-editor-footer-time">
+          {{ labelQueryExecuted }} {{ queryDurationParsed }}ms
+        </span>
+      </template>
     </div>
     <a
       href=""
@@ -49,6 +48,10 @@ export default {
       type: Object,
       required: true
     },
+    currentQuery: {
+      type: String,
+      default: ''
+    },
     queryNumberRows: {
       type: Number,
       default: 0
@@ -57,10 +60,10 @@ export default {
       type: Number,
       default: 0
     },
-    currentQuery: {
+    queryError: {
       type: String,
-      default: ''
-    }
+      default: null
+    },
   },
   data() {
     return {
@@ -68,37 +71,14 @@ export default {
       labelQueryExecuted: I18n.t('gobierto_data.projects.queryExecuted') || '',
       labelRecords: I18n.t('gobierto_data.projects.records') || '',
       labelLoading: I18n.t('gobierto_data.projects.loading') || '',
-      stringError: '',
-      showMessages: true,
-      showApiError: false,
       sqlAutocomplete: sqlKeywords,
       arrayMutated: [],
-      autoCompleteKeys: [],
-      recordsLoader: false,
-      cmOption: {
-        tabSize: 2,
-        styleActiveLine: false,
-        lineNumbers: false,
-        styleSelectedText: false,
-        line: true,
-        foldGutter: true,
-        mode: 'text/x-sql',
-        hintOptions: {
-          completeSingle: false,
-          hint: {}
-        },
-        showCursorWhenSelecting: true,
-        theme: 'default',
-        autoIndent: true,
-        extraKeys: {
-          Ctrl: 'autocomplete'
-        }
-      }
+      autoCompleteKeys: []
     };
   },
   computed: {
     queryDurationParsed() {
-      return this.queryDuration ? this.queryDuration.toLocaleString() : 0
+      return this.queryDuration.toLocaleString()
     }
   },
   watch: {
@@ -110,34 +90,49 @@ export default {
   },
   created() {
     this.$root.$on('saveQueryState', this.saveQueryState);
-    this.$root.$on('apiError', this.showError)
-    this.$root.$on('showMessages', this.handleShowMessages)
   },
   mounted() {
     this.mergeTables()
 
-    this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption)
+    const cmOption = {
+        tabSize: 2,
+        styleActiveLine: false,
+        lineNumbers: false,
+        styleSelectedText: false,
+        line: true,
+        foldGutter: true,
+        mode: 'text/x-sql',
+        hintOptions: {
+          completeSingle: false,
+          hint: this.hint
+        },
+        showCursorWhenSelecting: true,
+        theme: 'default',
+        autoIndent: true,
+        extraKeys: {
+          Ctrl: 'autocomplete'
+        }
+      }
+
+    this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, cmOption)
 
     // update the editor content
     if (this.currentQuery) {
       this.setEditorValue(this.currentQuery)
     }
 
-    this.cmOption.hintOptions.hint = this.hint
-
     this.editor.on("keypress", editor => {
       editor.showHint()
+
+      // every single time the editor is modified, we store the query
+      this.$root.$emit('reloadCurrentQuery', editor.getValue());
 
       if (this.saveQueryState === true) {
         this.$root.$emit('updateActiveSave', true, false);
       }
     })
 
-    this.editor.on('focus', () => {
-      this.$root.$emit('activeSave', false)
-      this.$root.$emit('focusEditor')
-    })
-
+    this.editor.on('focus', () => this.$root.$emit('focusEditor'))
     this.editor.on('blur', () => this.$root.$emit('blurEditor'))
   },
   methods: {
@@ -155,18 +150,6 @@ export default {
     },
     setEditorValue(newCode) {
       this.editor.setValue(newCode)
-    },
-    handleShowMessages(showTrue, showLoader){
-      this.recordsLoader = showLoader
-      this.showMessages = false
-      this.showMessages = showTrue
-      this.showApiError = false
-    },
-    showError(message) {
-      this.recordsLoader = false
-      this.showMessages = true
-      this.showApiError = true
-      this.stringError = message
     },
     suggest(searchString) {
       let token = searchString

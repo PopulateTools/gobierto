@@ -62,7 +62,9 @@ module GobiertoCommon
 
     def empty_associated_vocabularies!
       available_custom_fields.select(&:has_vocabulary?).each do |custom_field|
-        custom_field.vocabulary.terms.destroy_all
+        next unless (vocabulary = custom_field.vocabulary).present?
+
+        vocabulary.terms.destroy_all
       end
     end
 

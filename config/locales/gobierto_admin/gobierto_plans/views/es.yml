@@ -39,6 +39,8 @@ es:
             slug: acerca-de-este-plan
             title: Título del plan
             year: 2018
+          publish_last_version_automatically: Publicar las versiones nuevas de los
+            proyectos automáticamente
         import_csv:
           defaults:
             category:

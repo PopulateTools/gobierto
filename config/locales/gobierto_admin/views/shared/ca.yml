@@ -33,6 +33,7 @@ ca:
         confirm: Estàs segur?
         edit_version: Editant versió
         last_versions: Últimes versions
+        minor_change: Canvi menor (no guarda versió)
         moderation: Moderació
         moderation_info:
           new: Un cop guardis el teu contingut, podràs enviar-lo a moderació.
@@ -60,6 +61,7 @@ ca:
           approved: Publicada
           not_published: No publicada
         publish: Publicar
+        publish_last_version_automatically: Publica automàticament aquesta versió
         publish_status: Estat
         published_version: Versió publicada
         published_version_blank: sense publicar encara

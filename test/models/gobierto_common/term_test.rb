@@ -85,6 +85,13 @@ class TermTest < ActiveSupport::TestCase
     assert_equal "term-with-long-name", new_term.slug
   end
 
+  def test_create_term_external_id
+    new_term = vocabulary.terms.new(name_translations: { en: "Term with external ID", es: "Término con ID externo" }, external_id: "wadus")
+    assert new_term.valid?
+    new_term.save
+    assert_equal "wadus", new_term.external_id
+  end
+
   def test_assign_itself_as_parent
     dog.parent_term = dog
     refute dog.valid?

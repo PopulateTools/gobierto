@@ -25,7 +25,7 @@ module GobiertoAdmin
             options_json: @project.options,
             admin: current_admin,
             version: params[:version]
-          )
+          ).merge(versions_defaults)
         )
         initialize_custom_field_form
       end
@@ -33,6 +33,7 @@ module GobiertoAdmin
       def update
         @project = @plan.nodes.find params[:id]
         @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
+        save_versions_defaults
         @unpublish_url = unpublish_admin_plans_plan_project_path(@plan, @project)
         @version_index = @project_form.version_index
         initialize_custom_field_form
@@ -66,9 +67,11 @@ module GobiertoAdmin
         @project_visibility_levels = project_visibility_levels
 
         @project_form = NodeForm.new(
-          plan_id: @plan.id,
-          options_json: {},
-          admin: current_admin
+          versions_defaults.merge(
+            plan_id: @plan.id,
+            options_json: {},
+            admin: current_admin
+          )
         )
         initialize_custom_field_form
       end
@@ -76,6 +79,7 @@ module GobiertoAdmin
       def create
         @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
         initialize_custom_field_form
+        save_versions_defaults
 
         if @project_form.save
           custom_fields_save
@@ -119,6 +123,21 @@ module GobiertoAdmin
       end
 
       private
+
+      def save_versions_defaults
+        [:publish_last_version_automatically, :minor_change].each do |param_key|
+          next unless project_params.has_key? param_key
+
+          session["#{param_key}_default"] = @project_form.send(param_key)
+        end
+      end
+
+      def versions_defaults
+        @versions_defaults ||= {
+          publish_last_version_automatically: session.fetch(:publish_last_version_automatically_default, @plan.publish_last_version_automatically?),
+          minor_change: session.fetch(:minor_change_default, false)
+        }
+      end
 
       def moderation_visibility_action(visibility_level)
         @project = @plan.nodes.find params[:id]
@@ -204,6 +223,8 @@ module GobiertoAdmin
             :moderation_stage,
             :status_id,
             :position,
+            :minor_change,
+            :publish_last_version_automatically,
             name_translations: [*I18n.available_locales]
           )
         else
@@ -237,14 +258,14 @@ module GobiertoAdmin
           item: @project_form.project,
           instance: @plan,
           version_index: @version_index,
-          with_version: true
+          with_version: !@project_form.minor_change
         )
         custom_params_key = self.class.name.demodulize.gsub("Controller", "").underscore.singularize
         return if request.get? || !params.has_key?(custom_params_key)
 
         @custom_fields_form.custom_field_records = params.require(custom_params_key).permit(custom_records: {})
         @new_version = @custom_fields_form.changed? || @project_form.attributes_updated?
-        unless @project_form.project.new_record?
+        unless @project_form.project.new_record? || @project_form.minor_change
           @custom_fields_form.force_new_version = @new_version
           @project_form.force_new_version = @new_version
         end

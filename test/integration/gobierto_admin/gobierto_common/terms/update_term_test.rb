@@ -66,6 +66,7 @@ module GobiertoCommon
                 fill_in "term_name_translations_en", with: "Dog updated"
                 fill_in "term_description_translations_en", with: "Dog description updated"
                 fill_in "term_slug", with: "dog-updated"
+                fill_in "term_external_id", with: "animal-updated"
                 select other_term.name, from: "term_term_id"
 
                 click_button "Update"
@@ -80,6 +81,7 @@ module GobiertoCommon
               assert has_field? "term_name_translations_en", with: "Dog updated"
               assert has_field? "term_description_translations_en", with: "Dog description updated"
               assert has_field? "term_slug", with: "dog-updated"
+              assert has_field? "term_external_id", with: "animal-updated"
               assert has_select? "term_term_id", selected: "#{" " * 6} Cat"
 
               activity = Activity.last

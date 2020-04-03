@@ -156,6 +156,7 @@ module GobiertoAdmin
           :css,
           :vocabulary_id,
           :statuses_vocabulary_id,
+          :publish_last_version_automatically,
           title_translations: [*I18n.available_locales],
           footer_translations: [*I18n.available_locales],
           introduction_translations: [*I18n.available_locales]

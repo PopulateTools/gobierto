@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_09_152257) do
+ActiveRecord::Schema.define(version: 2020_03_27_131311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -980,6 +980,7 @@ ActiveRecord::Schema.define(version: 2020_03_09_152257) do
     t.jsonb "footer_translations"
     t.bigint "vocabulary_id"
     t.bigint "statuses_vocabulary_id"
+    t.boolean "publish_last_version_automatically", default: false, null: false
     t.index ["archived_at"], name: "index_gplan_plans_on_archived_at"
     t.index ["plan_type_id"], name: "index_gplan_plans_on_plan_type_id"
     t.index ["site_id"], name: "index_gplan_plans_on_site_id"
@@ -1019,6 +1020,7 @@ ActiveRecord::Schema.define(version: 2020_03_09_152257) do
     t.bigint "term_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "external_id"
     t.index ["slug", "vocabulary_id"], name: "index_terms_on_slug_and_vocabulary_id"
     t.index ["term_id"], name: "index_terms_on_term_id"
     t.index ["vocabulary_id"], name: "index_terms_on_vocabulary_id"

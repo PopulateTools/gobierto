@@ -33,6 +33,7 @@ en:
         confirm: Are you sure?
         edit_version: Editing version
         last_versions: Last versions
+        minor_change: Minor change (does not save version)
         moderation: Moderation
         moderation_info:
           new: After saving your content, it can be sent to moderation.
@@ -59,6 +60,7 @@ en:
           approved: Published
           not_published: Not published
         publish: Publish
+        publish_last_version_automatically: Publish this version automatically
         publish_status: Status
         published_version: Published version
         published_version_blank: not published yet

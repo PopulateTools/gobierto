@@ -50,6 +50,7 @@
       :table-name="tableName"
       :array-formats="arrayFormats"
       :number-rows="numberRows"
+      :current-query="currentQuery"
     />
     <!-- <keep-alive /> -->
 
@@ -76,6 +77,7 @@
   </div>
 </template>
 <script>
+// TODO: este componente se debe mover a /pages, reemplazando el actual
 import Button from "./../commons/Button.vue";
 import SummaryTab from "./SummaryTab.vue";
 import DataTab from "./DataTab.vue";
@@ -89,7 +91,7 @@ import { DatasetFactoryMixin } from "./../../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 
 export default {
-  name: "NavSets",
+  name: "DataSetsContent",
   components: {
     Button,
     SummaryTab,
@@ -131,7 +133,8 @@ export default {
       dateUpdated: "",
       descriptionDataset: "",
       categoryDataset: "",
-      frequencyDataset: ""
+      frequencyDataset: "",
+      currentQuery: null
     };
   },
   watch: {
@@ -171,9 +174,8 @@ export default {
         const { attributes: { sql: itemSql } } = item;
 
         // update the editor text content
-        this.$root.$emit("editCurrentQuery", itemSql);
-        // run the query directly
-        this.$root.$emit("runQuery");
+        this.currentQuery = itemSql
+
         // close the open modals
         this.$root.$emit("closeQueriesModal");
       }

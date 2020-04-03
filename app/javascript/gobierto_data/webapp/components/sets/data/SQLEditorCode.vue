@@ -53,7 +53,7 @@ export default {
       type: Number,
       required: true
     },
-    textEditorContent: {
+    currentQuery: {
       type: String,
       default: ''
     }
@@ -95,7 +95,7 @@ export default {
     };
   },
   watch: {
-    textEditorContent(newValue, oldValue) {
+    currentQuery(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.setEditorValue(newValue)
       }
@@ -114,8 +114,9 @@ export default {
 
     this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, this.cmOption)
 
-    if (this.textEditorContent) {
-      this.setEditorValue(this.textEditorContent)
+    // update the editor content
+    if (this.currentQuery) {
+      this.setEditorValue(this.currentQuery)
     }
 
     this.cmOption.hintOptions.hint = this.hint
@@ -154,8 +155,7 @@ export default {
       this.saveQueryState = value;
     },
     setEditorValue(newCode) {
-      this.editor.setValue(unescape(newCode))
-      this.editor.focus()
+      this.editor.setValue(newCode)
     },
     handleShowMessages(showTrue, showLoader){
       this.recordsLoader = showLoader

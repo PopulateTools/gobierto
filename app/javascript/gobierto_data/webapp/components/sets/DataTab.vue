@@ -10,7 +10,7 @@
         :number-rows="numberRows"
       />
       <SQLEditorCode
-        :text-editor-content="currentQuery"
+        :current-query="currentQuery"
         :table-name="tableName"
         :array-columns="arrayColumns"
         :number-rows="numberRows"
@@ -74,6 +74,10 @@ export default {
     datasetId: {
       type: Number,
       required: true
+    },
+    currentQuery: {
+      type: String,
+      default: null
     }
   },
   data() {
@@ -92,7 +96,14 @@ export default {
       totalRecentQueries: [],
       newRecentQuery: null,
       localTableName : '',
-      currentQuery: `SELECT * FROM ${this.tableName}`
+    }
+  },
+  watch: {
+    currentQuery(newValue, oldValue) {
+      // auto-execute the query is has changed
+      if (newValue !== oldValue) {
+        this.runQuery()
+      }
     }
   },
   created() {
@@ -108,9 +119,6 @@ export default {
       }
     }
 
-    this.$root.$on('runQuery', this.runQuery)
-    this.$root.$on('editCurrentQuery', this.editCurrentQuery)
-
     this.$root.$on('activateModalRecent', this.loadRecentQuery)
     this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
   },
@@ -120,8 +128,6 @@ export default {
     }
   },
   beforeDestroy() {
-    this.$root.$off('runQuery', this.runQuery)
-    this.$root.$off('editCurrentQuery', this.editCurrentQuery)
     this.$root.$off('postRecentQuery', this.saveNewRecentQuery)
     this.$root.$off('activateModalRecent', this.loadRecentQuery)
   },
@@ -160,11 +166,6 @@ export default {
       this.totalRecentQueries = this.localQueries
       this.$root.$emit('storeQuery', this.totalRecentQueries)
     },
-    editCurrentQuery(text) {
-      this.currentQuery = text
-
-      console.log('editCurrentQuery', text);
-    },
     runQuery() {
       let query = ''
       if (this.currentQuery.includes('LIMIT')) {
@@ -175,16 +176,12 @@ export default {
 
       const params = { sql: query }
 
+      console.log('run', this.currentQuery);
+
+
       // factory method
       this.getData(params)
-        .then(response => {
-          const rawData = response.data
-          const data = rawData.data
-          this.items = data
-
-          const keysData = Object.keys(data[0])
-          this.$root.$emit('sendDataViz', keysData)
-        })
+        .then(({ data: { data: items } }) => (this.items = items))
         .catch(error => this.$root.$emit('apiError', error))
     },
     saveNewRecentQuery(query) {

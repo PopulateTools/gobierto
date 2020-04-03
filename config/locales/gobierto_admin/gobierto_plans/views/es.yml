@@ -28,6 +28,9 @@ es:
         edit:
           title: Configuración
         form:
+          delete_contents: Borrar proyectos de este plan
+          delete_contents_confirm: Confirma que quieres borrar los proyectos de este
+            plan
           export_csv: Exportar a CSV
           import_csv: Importar desde CSV
           placeholders:

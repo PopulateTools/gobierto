@@ -6,6 +6,8 @@ es:
         create:
           success_html: El plan ha sido creado correctamente. <a href="%{link}">Ver
             el plan</a>.
+        delete_contents:
+          success: Los proyectos del plan han sido correctamente eliminados
         destroy:
           success: El plan ha sido eliminado correctamente.
         import_data:

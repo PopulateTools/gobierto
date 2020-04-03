@@ -13,14 +13,14 @@
 
           <div>
             <div
-              v-for="(item, index) in privateQueries"
-              :key="index"
+              v-for="item in privateQueries"
+              :key="item.id"
               class="gobierto-data-summary-queries-container"
               @mouseover="sqlCode = item.attributes.sql"
               @mouseleave="sqlCode = null"
             >
               <router-link
-                :to="`/datos/${$route.params.id}/q/${index}`"
+                :to="`/datos/${$route.params.id}/q/${item.id}`"
                 class="gobierto-data-summary-queries-container-name"
               >
                 {{ item.attributes.name }}

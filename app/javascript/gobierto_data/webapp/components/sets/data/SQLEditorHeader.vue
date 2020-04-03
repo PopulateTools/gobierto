@@ -186,7 +186,11 @@ export default {
     tableName: {
       type: String,
       default: ''
-    }
+    },
+    queryName: {
+      type: String,
+      default: null
+    },
   },
   data() {
     return {
@@ -196,7 +200,7 @@ export default {
       labelRunQuery: I18n.t('gobierto_data.projects.runQuery') || '',
       labelCancel: I18n.t('gobierto_data.projects.cancel') || '',
       labelPrivate: I18n.t('gobierto_data.projects.private') || '',
-      labelQueryName: I18n.t('gobierto_data.projects.queryName') || '',
+      labelQueryName: this.queryName || I18n.t('gobierto_data.projects.queryName') || '',
       labelEdit: I18n.t('gobierto_data.projects.edit') || '',
       labelModifiedQuery: I18n.t('gobierto_data.projects.modifiedQuery') || '',
       labelButtonQueries: I18n.t('gobierto_data.projects.buttonQueries') || '',
@@ -249,8 +253,10 @@ export default {
   methods: {
     shortcutsListener(e) {
       if (e.keyCode == 67) {
+        // key "c"
         this.openQueriesModal()
       } else if (e.keyCode == 82) {
+        // key "r"
         this.openRecentModal()
       }
     },
@@ -358,68 +364,102 @@ export default {
       this.isRecentModalActive = false
     },
     openQueriesModal() {
-      this.isRecentModalActive = true
+      this.isQueriesModalActive = true
     },
     closeQueriesModal() {
       this.isQueriesModalActive = false
     },
+    //     queryParams(queryParams) {
+    //   this.saveQueryState = true
+    //   this.showBtnCancel = false
+    //   this.showBtnSave = false
+    //   this.disabledRecents = false
+    //   this.disabledSave = true
+    //   this.showBtnEdit = true
+    //   this.removeLabelBtn = true
+    //   this.showLabelPrivate = false
+    //   this.disableInputName = true
+    //   this.showLabelModified = false
+    //   this.$root.$emit('saveQueryState', true)
+
+    //   this.labelQueryName = queryParams[0]
+    //   this.oldQueryName = queryParams[0]
+    //   this.privacyStatus = queryParams[1]
+    //   this.codeQuery = queryParams[2]
+    //   this.queryId = parseInt(queryParams[3])
+    //   this.userIdQuery = queryParams[4].toString()
+
+    //   if (this.privacyStatus === 'open') {
+    //     this.privateQuery = false
+    //   } else {
+    //     this.privateQuery = true
+    //   }
+    // },
     // TODO: sacar de aquí
     postQuery() {
-      const endPoint = `${baseUrl}/queries`
-      this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
-      if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
-        const endPoint = `${baseUrl}/queries/${this.queryId}`
-        let dataUpdate = {
-            "data": {
-                "type": "gobierto_data-queries",
-                "attributes": {
-                    "privacy_status": this.privacyStatus,
-                    "sql": this.codeQuery
-                }
-            }
-        }
+      console.log('DEPRECATED method postQuery on SQLEditorHeader');
+      this.$root.$emit('storeCurrentQuery', { name: this.labelQueryName, privacy: this.privateQuery })
+      // if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
+      // } else {
+      //   this.$root.$emit('postCurrentQuery')
+      // }
 
-        axios.put(endPoint, dataUpdate, {
-          headers: {
-            'Content-type': 'application/json',
-            'Authorization': `${this.token}`
-          }
-        }).then(response => {
-            this.resp = response;
-            this.$root.$emit('reloadPrivateQueries')
-            this.$root.$emit('reloadPublicQueries')
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        });
-      } else {
-        const endPoint = `${baseUrl}/queries`
-        let data = {
-            "data": {
-                "type": "gobierto_data-queries",
-                "attributes": {
-                    "name": this.labelQueryName,
-                    "privacy_status": this.privacyStatus,
-                    "sql": this.codeQuery,
-                    "dataset_id": this.datasetId
-                }
-            }
-        }
-        axios.post(endPoint, data, {
-          headers: {
-            'Content-type': 'application/json',
-            'Authorization': `${this.token}`
-          }
-        }).then(response => {
-            this.resp = response;
-            this.$root.$emit('reloadPrivateQueries')
-        })
-        .catch(error => {
-          const messageError = error.response
-          console.error(messageError)
-        });
-      }
+      // const endPoint = `${baseUrl}/queries`
+      // this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
+
+      // if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
+      //   const endPoint = `${baseUrl}/queries/${this.queryId}`
+      //   let dataUpdate = {
+      //       "data": {
+      //           "type": "gobierto_data-queries",
+      //           "attributes": {
+      //               "privacy_status": this.privacyStatus,
+      //               "sql": this.codeQuery
+      //           }
+      //       }
+      //   }
+
+      //   axios.put(endPoint, dataUpdate, {
+      //     headers: {
+      //       'Content-type': 'application/json',
+      //       'Authorization': `${this.token}`
+      //     }
+      //   }).then(response => {
+      //       this.resp = response;
+      //       this.$root.$emit('reloadPrivateQueries')
+      //       this.$root.$emit('reloadPublicQueries')
+      //   })
+      //   .catch(error => {
+      //     const messageError = error.response
+      //     console.error(messageError)
+      //   });
+      // } else {
+      //   const endPoint = `${baseUrl}/queries`
+      //   let data = {
+      //       "data": {
+      //           "type": "gobierto_data-queries",
+      //           "attributes": {
+      //               "name": this.labelQueryName,
+      //               "privacy_status": this.privacyStatus,
+      //               "sql": this.codeQuery,
+      //               "dataset_id": this.datasetId
+      //           }
+      //       }
+      //   }
+      //   axios.post(endPoint, data, {
+      //     headers: {
+      //       'Content-type': 'application/json',
+      //       'Authorization': `${this.token}`
+      //     }
+      //   }).then(response => {
+      //       this.resp = response;
+      //       this.$root.$emit('reloadPrivateQueries')
+      //   })
+      //   .catch(error => {
+      //     const messageError = error.response
+      //     console.error(messageError)
+      //   });
+      // }
     },
   }
 }

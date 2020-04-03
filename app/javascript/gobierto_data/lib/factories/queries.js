@@ -22,8 +22,8 @@ export const QueriesFactoryMixin = {
     postQuery(data) {
       return axios.post(endPoint, data, { headers });
     },
-    putQuery(data) {
-      return axios.put(endPoint, data, { headers });
+    putQuery(id, data) {
+      return axios.put(`${endPoint}/${id}`, data, { headers });
     },
     deleteQuery(id) {
       return axios.delete(`${endPoint}/${id}`, { headers });

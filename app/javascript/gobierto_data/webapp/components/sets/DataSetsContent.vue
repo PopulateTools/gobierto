@@ -49,8 +49,9 @@
       :array-columns="arrayColumns"
       :table-name="tableName"
       :array-formats="arrayFormats"
-      :current-query="currentQuery"
       :items="items"
+      :query-stored="currentQuery"
+      :query-name="queryName"
       :query-number-rows="queryNumberRows"
       :query-duration="queryDuration"
       :query-error="queryError"
@@ -92,7 +93,7 @@ import { getUserId } from "./../../../lib/helpers";
 import { translate } from "./../../../../lib/shared/modules/vue-filters";
 import { DatasetFactoryMixin } from "./../../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
-import { DataFactoryMixin } from "./../../../lib/factories/data"
+import { DataFactoryMixin } from "./../../../lib/factories/data";
 
 export default {
   name: "DataSetsContent",
@@ -133,9 +134,10 @@ export default {
       frequencyDataset: "",
       currentQuery: null,
       items: null,
+      queryName: null,
       queryDuration: 0,
       queryNumberRows: 0,
-      queryError: null
+      queryError: null,
     };
   },
   watch: {
@@ -152,6 +154,10 @@ export default {
     this.$root.$on("reloadPrivateQueries", this.getPrivateQueries);
     // change the current query, triggering a new SQL execution
     this.$root.$on("reloadCurrentQuery", this.setCurrentQuery);
+    // execute the current query
+    this.$root.$on("runCurrentQuery", this.runCurrentQuery);
+    // save the query in database
+    this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
 
     this.setValuesDataset();
   },
@@ -159,6 +165,7 @@ export default {
     this.$root.$off("reloadPublicQueries", this.getPublicQueries);
     this.$root.$off("reloadPrivateQueries", this.getPrivateQueries);
     this.$root.$off("reloadCurrentQuery", this.setCurrentQuery);
+    this.$root.$off("storeCurrentQuery", this.storeCurrentQuery);
   },
   methods: {
     parseUrl(route) {
@@ -170,21 +177,26 @@ export default {
       let item = null;
       if (queryId) {
         // if has queryId it's a privateQuery
-        item = this.privateQueries[Number(queryId)];
+        item = this.privateQueries.find(d => d.id === queryId);
       } else if (sql) {
         // if has sql it's a publicQuery
         item = this.publicQueries.find(d => d.attributes.sql === sql);
       }
 
       if (item) {
-        const { attributes: { sql: itemSql } } = item;
+        const {
+          attributes: { sql: itemSql, name, user_id }
+        } = item;
+
+        this.queryName = name;
+        this.queryUserId = user_id;
 
         // update the editor text content
-        this.setCurrentQuery(itemSql)
+        this.setCurrentQuery(itemSql);
       }
     },
     setCurrentQuery(sql) {
-      this.currentQuery = sql
+      this.currentQuery = sql;
     },
     async setValuesDataset() {
       const { id } = this.$route.params;
@@ -230,7 +242,9 @@ export default {
         // Do not request private queries if the user is not logged
         queriesPromises.push(this.fetchPrivateQueries(userId));
       }
-      const [publicResponse, privateResponse] = await Promise.all( queriesPromises );
+      const [publicResponse, privateResponse] = await Promise.all(
+        queriesPromises
+      );
       const {
         data: { data: publicItems }
       } = publicResponse;
@@ -245,7 +259,7 @@ export default {
       }
 
       // update the sql editor if the url contains a query
-      this.parseUrl(this.$route)
+      this.parseUrl(this.$route);
     },
     async getPrivateQueries() {
       const userId = getUserId();
@@ -274,24 +288,57 @@ export default {
       return this.getQueries({ "filter[dataset_id]": this.datasetId });
     },
     runCurrentQuery() {
-      let query = ''
-      if (this.currentQuery.includes('LIMIT')) {
-        query = this.currentQuery
+      let query = "";
+      if (this.currentQuery.includes("LIMIT")) {
+        query = this.currentQuery;
       } else {
-        query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 100 OFFSET 0`
+        query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 100 OFFSET 0`;
       }
 
-      const params = { sql: query }
+      const params = { sql: query };
 
       // factory method
       this.getData(params)
-        .then(({ data: { data: items, meta: { rows, duration } } }) => {
-          this.items = items
-          this.queryDuration = duration
-          this.queryNumberRows = rows
-        })
-        .catch(error => (this.queryError = error))
+        .then(
+          ({
+            data: {
+              data: items,
+              meta: { rows, duration }
+            }
+          }) => {
+            this.items = items;
+            this.queryDuration = duration;
+            this.queryNumberRows = rows;
+          }
+        )
+        .catch(error => (this.queryError = error));
     },
+    storeCurrentQuery({ name, privacy }) {
+      const data = {
+        type: "gobierto_data-queries",
+        attributes: {
+          privacy_status: privacy === false ? "open" : "closed",
+          sql: this.currentQuery,
+          name,
+          dataset_id: this.datasetId
+        }
+      };
+
+      const userId = Number(getUserId());
+
+      // Only update the query is the user and the name are the same
+      if (
+        name === this.queryName &&
+        userId === this.queryUserId
+      ) {
+        const { queryId } = this.$route.params
+        // factory method
+        this.putQuery(queryId, { data });
+      } else {
+        // factory method
+        this.postQuery({ data });
+      }
+    }
   }
 };
 </script>

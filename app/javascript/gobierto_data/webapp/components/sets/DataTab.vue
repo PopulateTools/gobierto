@@ -7,11 +7,11 @@
         :public-queries="publicQueries"
         :dataset-id="datasetId"
         :table-name="tableName"
+        :query-name="queryName"
       />
       <SQLEditorCode
-        :current-query="currentQuery"
-        :table-name="tableName"
         :array-columns="arrayColumns"
+        :query-stored="queryStored"
         :query-number-rows="queryNumberRows"
         :query-duration="queryDuration"
         :query-error="queryError"
@@ -25,7 +25,7 @@
         :active-tab="activeTabIndex"
         :private-queries="privateQueries"
         :dataset-id="datasetId"
-        :current-query="currentQuery"
+        :current-query="queryStored"
         @active-tab="activeTabIndex = $event"
       />
     </div>
@@ -69,13 +69,17 @@ export default {
       type: Number,
       required: true
     },
-    currentQuery: {
-      type: String,
-      default: null
-    },
     items: {
       type: Array,
       default: () => []
+    },
+    queryStored: {
+      type: String,
+      default: null
+    },
+    queryName: {
+      type: String,
+      default: null
     },
     queryNumberRows: {
       type: Number,
@@ -109,11 +113,6 @@ export default {
         localStorage.removeItem('recentQueries');
       }
     }
-
-    this.$root.$on('postRecentQuery', this.saveNewRecentQuery)
-  },
-  beforeDestroy() {
-    this.$root.$off('postRecentQuery', this.saveNewRecentQuery)
   },
   methods: {
     addRecentQuery() {
@@ -153,7 +152,7 @@ export default {
     },
     saveNewRecentQuery(query) {
       this.newRecentQuery = query
-      this.currentQuery = query
+      this.queryStored = query
       this.addRecentQuery()
     },
   }

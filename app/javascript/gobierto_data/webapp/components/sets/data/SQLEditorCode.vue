@@ -40,15 +40,11 @@ import { sqlKeywords } from "./../../../../lib/commons.js"
 export default {
   name: 'SQLEditorCode',
   props: {
-    tableName: {
-      type: String,
-      required: true
-    },
     arrayColumns: {
       type: Object,
       required: true
     },
-    currentQuery: {
+    queryStored: {
       type: String,
       default: ''
     },
@@ -70,7 +66,6 @@ export default {
       labelGuide: I18n.t('gobierto_data.projects.guide') || '',
       labelQueryExecuted: I18n.t('gobierto_data.projects.queryExecuted') || '',
       labelRecords: I18n.t('gobierto_data.projects.records') || '',
-      labelLoading: I18n.t('gobierto_data.projects.loading') || '',
       sqlAutocomplete: sqlKeywords,
       arrayMutated: [],
       autoCompleteKeys: []
@@ -82,7 +77,7 @@ export default {
     }
   },
   watch: {
-    currentQuery(newValue, oldValue) {
+    queryStored(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.setEditorValue(newValue)
       }
@@ -117,15 +112,12 @@ export default {
     this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, cmOption)
 
     // update the editor content
-    if (this.currentQuery) {
-      this.setEditorValue(this.currentQuery)
+    if (this.queryStored) {
+      this.setEditorValue(this.queryStored)
     }
 
     this.editor.on("keypress", editor => {
       editor.showHint()
-
-      // every single time the editor is modified, we store the query
-      this.$root.$emit('reloadCurrentQuery', editor.getValue());
 
       if (this.saveQueryState === true) {
         this.$root.$emit('updateActiveSave', true, false);
@@ -133,7 +125,12 @@ export default {
     })
 
     this.editor.on('focus', () => this.$root.$emit('focusEditor'))
-    this.editor.on('blur', () => this.$root.$emit('blurEditor'))
+    this.editor.on('blur', editor => {
+      this.$root.$emit('blurEditor')
+
+      // once you lose the focus, update the query
+      this.$root.$emit('reloadCurrentQuery', editor.getValue());
+    })
   },
   methods: {
     mergeTables(){

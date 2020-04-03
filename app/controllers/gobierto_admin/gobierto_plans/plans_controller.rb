@@ -79,6 +79,24 @@ module GobiertoAdmin
         redirect_to admin_plans_plans_path, notice: t(".success")
       end
 
+      def delete_contents
+        @plan = find_plan
+
+        @plan.nodes.destroy_all
+        @plan.categories_vocabulary.terms.destroy_all
+        @plan.statuses_vocabulary.terms.destroy_all
+        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(
+          site_id: current_site.id,
+          item: @plan.nodes.new,
+          instance: @plan
+        )
+        @custom_fields_form.empty_associated_vocabularies!
+          redirect_to(
+            edit_admin_plans_plan_path(@plan),
+            notice: t(".success")
+          )
+      end
+
       def recover
         @plan = find_archived_plan
         @plan.restore

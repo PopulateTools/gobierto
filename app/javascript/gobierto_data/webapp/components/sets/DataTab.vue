@@ -7,13 +7,13 @@
         :public-queries="publicQueries"
         :dataset-id="datasetId"
         :table-name="tableName"
-        :number-rows="numberRows"
       />
       <SQLEditorCode
         :current-query="currentQuery"
         :table-name="tableName"
         :array-columns="arrayColumns"
-        :number-rows="numberRows"
+        :query-number-rows="queryNumberRows"
+        :query-duration="queryDuration"
       />
       <SQLEditorResults
         v-if="items"
@@ -23,7 +23,6 @@
         :table-name="tableName"
         :active-tab="activeTabIndex"
         :private-queries="privateQueries"
-        :number-rows="numberRows"
         :dataset-id="datasetId"
         :current-query="currentQuery"
         @active-tab="activeTabIndex = $event"
@@ -67,10 +66,6 @@ export default {
       type: Object,
       required: true
     },
-    numberRows: {
-      type: Number,
-      required: true
-    },
     datasetId: {
       type: Number,
       required: true
@@ -96,6 +91,8 @@ export default {
       totalRecentQueries: [],
       newRecentQuery: null,
       localTableName : '',
+      queryDuration: null,
+      queryNumberRows: null,
     }
   },
   watch: {
@@ -176,12 +173,13 @@ export default {
 
       const params = { sql: query }
 
-      console.log('run', this.currentQuery);
-
-
       // factory method
       this.getData(params)
-        .then(({ data: { data: items } }) => (this.items = items))
+        .then(({ data: { data: items, meta: { rows, duration } } }) => {
+          this.items = items
+          this.queryDuration = duration
+          this.queryNumberRows = rows
+        })
         .catch(error => this.$root.$emit('apiError', error))
     },
     saveNewRecentQuery(query) {

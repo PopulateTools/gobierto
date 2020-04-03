@@ -51,10 +51,6 @@ export default {
       type: Object,
       required: true
     },
-    numberRows: {
-      type: Number,
-      required: true
-    },
     items: {
       type: Array,
       default: () => []

@@ -199,10 +199,6 @@ export default {
     tableName: {
       type: String,
       default: ''
-    },
-    numberRows: {
-      type: Number,
-      required: true
     }
   },
   data() {

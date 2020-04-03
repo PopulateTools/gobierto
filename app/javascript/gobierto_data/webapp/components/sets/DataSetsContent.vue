@@ -49,7 +49,6 @@
       :array-columns="arrayColumns"
       :table-name="tableName"
       :array-formats="arrayFormats"
-      :number-rows="numberRows"
       :current-query="currentQuery"
     />
     <!-- <keep-alive /> -->
@@ -123,7 +122,6 @@ export default {
       labelFollow: I18n.t("gobierto_data.projects.follow") || "",
       tableName: "",
       titleDataset: "",
-      numberRows: 0,
       datasetId: 0,
       arrayFormats: {},
       arrayColumns: {},
@@ -196,7 +194,6 @@ export default {
             columns: arrayColumns,
             description: descriptionDataset,
             data_updated_at: dateUpdated,
-            data_summary: { number_of_rows: numberRows },
             formats: arrayFormats,
             frequency = [],
             category = []
@@ -211,7 +208,6 @@ export default {
       this.arrayColumns = arrayColumns;
       this.descriptionDataset = descriptionDataset;
       this.dateUpdated = dateUpdated;
-      this.numberRows = numberRows;
       this.arrayFormats = arrayFormats;
       this.resourcesList = included;
       this.frequencyDataset = frequency[0].name_translations;

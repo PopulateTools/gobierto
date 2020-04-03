@@ -12,10 +12,10 @@
         </div>
         <div v-else>
           <span class="gobierto-data-sql-editor-footer-records">
-            {{ numberRecords }} {{ labelRecords }}
+            {{ queryNumberRows }} {{ labelRecords }}
           </span>
           <span class="gobierto-data-sql-editor-footer-time">
-            {{ labelQueryExecuted }} {{ timeQuery }}ms
+            {{ labelQueryExecuted }} {{ queryDurationParsed }}ms
           </span>
         </div>
       </div>
@@ -49,9 +49,13 @@ export default {
       type: Object,
       required: true
     },
-    numberRows: {
+    queryNumberRows: {
       type: Number,
-      required: true
+      default: 0
+    },
+    queryDuration: {
+      type: Number,
+      default: 0
     },
     currentQuery: {
       type: String,
@@ -64,8 +68,6 @@ export default {
       labelQueryExecuted: I18n.t('gobierto_data.projects.queryExecuted') || '',
       labelRecords: I18n.t('gobierto_data.projects.records') || '',
       labelLoading: I18n.t('gobierto_data.projects.loading') || '',
-      numberRecords: '',
-      timeQuery: '',
       stringError: '',
       showMessages: true,
       showApiError: false,
@@ -94,6 +96,11 @@ export default {
       }
     };
   },
+  computed: {
+    queryDurationParsed() {
+      return this.queryDuration ? this.queryDuration.toLocaleString() : 0
+    }
+  },
   watch: {
     currentQuery(newValue, oldValue) {
       if (newValue !== oldValue) {
@@ -103,11 +110,8 @@ export default {
   },
   created() {
     this.$root.$on('saveQueryState', this.saveQueryState);
-    this.$root.$on('recordsDuration', this.updateRecordsDuration);
     this.$root.$on('apiError', this.showError)
     this.$root.$on('showMessages', this.handleShowMessages)
-
-    this.numberRecords = this.numberRows
   },
   mounted() {
     this.mergeTables()
@@ -145,11 +149,6 @@ export default {
         }
       }
       this.autoCompleteKeys = [ ...this.arrayMutated, ...this.sqlAutocomplete]
-    },
-    updateRecordsDuration(values) {
-      const { 0: numberRecords, 1: timeQuery } = values
-      this.numberRecords = numberRecords
-      this.timeQuery = timeQuery.toFixed(2)
     },
     saveQueryState(value) {
       this.saveQueryState = value;

@@ -21,6 +21,8 @@ module GobiertoPlans
     end
 
     def sdgs_terms
+      return unless sdg_field.vocabulary.present?
+
       @sdgs_terms ||= sdg_field.vocabulary.terms.where(level: 0).sorted
     end
 
@@ -35,7 +37,7 @@ module GobiertoPlans
     end
 
     def sdg_term(sdg_slug)
-      sdgs_terms.find_by(slug: sdg_slug)
+      sdgs_terms&.find_by(slug: sdg_slug)
     end
 
     def sdg_icon(sdg)

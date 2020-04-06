@@ -31,7 +31,7 @@
                   <i
                     class="fas fa-trash-alt icons-your-queries"
                     style="color: var(--color-base);"
-                    @click="deleteQuery(item.id)"
+                    @click="clickDeleteQueryHandler(item.id)"
                   />
                   <i
                     v-if="item.attributes.privacy_status === 'closed'"
@@ -131,7 +131,7 @@ export default {
     };
   },
   methods: {
-    deleteQuery(id) {
+    clickDeleteQueryHandler(id) {
       this.$root.$emit('deleteSavedQuery', id)
     }
   }

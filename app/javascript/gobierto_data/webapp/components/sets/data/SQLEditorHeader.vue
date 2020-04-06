@@ -51,12 +51,10 @@
             v-if="isQueriesModalActive"
             :private-queries="privateQueries"
             :public-queries="publicQueries"
-            :dataset-id="datasetId"
             :class=" directionLeft ? 'modal-left': 'modal-right'"
             class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
           />
         </transition>
-        <!-- <keep-alive /> -->
       </div>
 
       <div
@@ -132,11 +130,10 @@
         icon="edit"
         color="var(--color-base)"
         background="#fff"
-        @click.native="editQuery()"
+        @click.native="clickEditQueryHandler()"
       />
 
       <Button
-        v-if="showBtnRun"
         :text="labelRunQuery"
         :title="labelButtonRunQuery"
         class="btn-sql-editor btn-sql-editor-run"
@@ -151,11 +148,9 @@
   </div>
 </template>
 <script>
-import { getToken, getUserId } from './../../../../lib/helpers'
-import { baseUrl, CommonsMixin, closableMixin } from "./../../../../lib/commons.js";
-import { DataFactoryMixin } from "./../../../../lib/factories/data";
-import { QueriesFactoryMixin } from "./../../../../lib/factories/queries";
-import axios from 'axios';
+import { getUserId } from './../../../../lib/helpers'
+import { CommonsMixin, closableMixin } from "./../../../../lib/commons.js";
+
 import Button from './../../commons/Button.vue';
 import Queries from './../../commons/Queries.vue';
 import PulseSpinner from './../../commons/PulseSpinner.vue';
@@ -169,7 +164,7 @@ export default {
     Queries,
     PulseSpinner
   },
-  mixins: [CommonsMixin, closableMixin, DataFactoryMixin, QueriesFactoryMixin],
+  mixins: [CommonsMixin, closableMixin],
   props: {
     privateQueries: {
       type: Array,
@@ -178,10 +173,6 @@ export default {
     publicQueries: {
       type: Array,
       default: () => []
-    },
-    datasetId: {
-      type: Number,
-      required: true
     },
     tableName: {
       type: String,
@@ -211,7 +202,6 @@ export default {
       privateQuery: false,
       showBtnCancel: false,
       showBtnEdit: false,
-      showBtnRun: true,
       showBtnSave: true,
       showBtnRemove: true,
       showLabelPrivate: true,
@@ -219,25 +209,16 @@ export default {
       showLabelModified: false,
       isQueriesModalActive: false,
       isRecentModalActive: false,
-      codeQuery: '', // Deprecated
-      privacyStatus: '',
       directionLeft: true,
       showSpinner: false,
-      token: '',
       noLogin: false,
-      queryId: '',
-      userIdQuery: '',
-      oldQueryName: '',
     }
   },
   created() {
     this.$root.$on('updateActiveSave', this.updateActiveSave);
-    // this.$root.$on('storeQuery', this.showStoreQueries)
 
-    this.token = getToken()
     this.userId = getUserId()
     this.noLogin = this.userId === "" ? true : false
-    this.codeQuery = `SELECT%20*%20FROM%20${this.tableName}%20`
 
     this.$root.$on('blurEditor', this.onBlurEditor)
     this.$root.$on('focusEditor', this.onFocusEditor)
@@ -251,7 +232,7 @@ export default {
     this.$root.$off('focusEditor', this.onFocusEditor)
   },
   methods: {
-    shortcutsListener(e) {
+    modalShortcutsListener(e) {
       if (e.keyCode == 67) {
         // key "c"
         this.openQueriesModal()
@@ -260,13 +241,22 @@ export default {
         this.openRecentModal()
       }
     },
+    editorShortcutsListener(e) {
+      if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
+        this.clickRunQueryHandler()
+      }
+    },
     onBlurEditor() {
       // Enable keyboard listeners (c|r)
-      window.addEventListener("keydown", this.shortcutsListener, true);
+      window.addEventListener("keydown", this.modalShortcutsListener, true);
+      // Disable run query on ctrl+enter
+      window.removeEventListener("keydown", this.editorShortcutsListener, true);
     },
     onFocusEditor() {
       // Disable keyboard listeners (c|r) for typing the query
-      window.removeEventListener("keydown", this.shortcutsListener, true);
+      window.removeEventListener("keydown", this.modalShortcutsListener, true);
+      // Enable run query on ctrl+enter
+      window.addEventListener("keydown", this.editorShortcutsListener, true);
     },
     onSave(queryName) {
       this.disabledSave = false
@@ -310,7 +300,7 @@ export default {
         this.showLabelModified = false;
         this.disableInputName = true;
 
-        this.saveQuery()
+        this.clickSaveQueryHandler()
       } else {
         this.saveQueryState = true;
         this.showBtnCancel = true;
@@ -322,16 +312,6 @@ export default {
       this.$nextTick(() => {
         this.$refs.inputText.focus();
       });
-    },
-    editQuery() {
-      this.setFocus();
-      this.showBtnCancel = true;
-      this.showBtnEdit = false;
-      this.showBtnSave = true;
-      this.showBtnRemove = true;
-      this.showLabelPrivate = true;
-      this.removeLabelBtn = false;
-      this.disableInputName = false;
     },
     cancelQuery() {
       if (this.labelQueryName.length > 0) {
@@ -356,6 +336,19 @@ export default {
     },
     clickRunQueryHandler() {
       this.$root.$emit('runCurrentQuery')
+    },
+    clickSaveQueryHandler() {
+      this.$root.$emit('storeCurrentQuery', { name: this.labelQueryName, privacy: this.privateQuery })
+    },
+    clickEditQueryHandler() {
+      this.setFocus();
+      this.showBtnCancel = true;
+      this.showBtnEdit = false;
+      this.showBtnSave = true;
+      this.showBtnRemove = true;
+      this.showLabelPrivate = true;
+      this.removeLabelBtn = false;
+      this.disableInputName = false;
     },
     openRecentModal() {
       this.isRecentModalActive = true
@@ -395,9 +388,6 @@ export default {
     //     this.privateQuery = true
     //   }
     // },
-    saveQuery() {
-      this.$root.$emit('storeCurrentQuery', { name: this.labelQueryName, privacy: this.privateQuery })
-    },
   }
 }
 </script>

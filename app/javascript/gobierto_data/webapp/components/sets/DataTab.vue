@@ -5,7 +5,6 @@
         v-if="publicQueries.length"
         :private-queries="privateQueries"
         :public-queries="publicQueries"
-        :dataset-id="datasetId"
         :table-name="tableName"
         :query-name="queryName"
       />

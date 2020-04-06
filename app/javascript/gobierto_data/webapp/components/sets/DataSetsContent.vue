@@ -282,6 +282,39 @@ export default {
         this.getPrivateQueries()
       }
     },
+    async storeCurrentQuery({ name, privacy }) {
+      const data = {
+        type: "gobierto_data-queries",
+        attributes: {
+          privacy_status: privacy === false ? "open" : "closed",
+          sql: this.currentQuery,
+          name,
+          dataset_id: this.datasetId
+        }
+      };
+
+      const userId = Number(getUserId());
+      let status = null; // https://javascript.info/destructuring-assignment
+
+      // Only update the query is the user and the name are the same
+      if (
+        name === this.queryName &&
+        userId === this.queryUserId
+      ) {
+        const { queryId } = this.$route.params;
+        // factory method
+        ({ status } = await this.putQuery(queryId, { data }));
+      } else {
+        // factory method
+        ({ status } = await this.postQuery({ data }));
+      }
+
+      // reload the queries if the response was successfull
+      if ([200, 201].includes(status)) {
+        this.getPublicQueries()
+        this.getPrivateQueries()
+      }
+    },
     // returns a simply promise
     fetchPrivateQueries(userId) {
       // factory method
@@ -320,39 +353,6 @@ export default {
           }
         )
         .catch(error => (this.queryError = error));
-    },
-    async storeCurrentQuery({ name, privacy }) {
-      const data = {
-        type: "gobierto_data-queries",
-        attributes: {
-          privacy_status: privacy === false ? "open" : "closed",
-          sql: this.currentQuery,
-          name,
-          dataset_id: this.datasetId
-        }
-      };
-
-      const userId = Number(getUserId());
-      let status = null; // https://javascript.info/destructuring-assignment
-
-      // Only update the query is the user and the name are the same
-      if (
-        name === this.queryName &&
-        userId === this.queryUserId
-      ) {
-        const { queryId } = this.$route.params;
-        // factory method
-        ({ status } = await this.putQuery(queryId, { data }));
-      } else {
-        // factory method
-        ({ status } = await this.postQuery({ data }));
-      }
-
-      // reload the queries if the response was successful
-      if ([200, 201].includes(status)) {
-        this.getPublicQueries()
-        this.getPrivateQueries()
-      }
     }
   }
 };

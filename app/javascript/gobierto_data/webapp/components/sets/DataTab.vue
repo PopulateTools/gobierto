@@ -5,6 +5,7 @@
         v-if="publicQueries.length"
         :private-queries="privateQueries"
         :public-queries="publicQueries"
+        :is-query-running="isQueryRunning"
         :table-name="tableName"
         :query-name="queryName"
       />
@@ -71,6 +72,10 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    isQueryRunning: {
+      type: Boolean,
+      default: false
     },
     queryStored: {
       type: String,

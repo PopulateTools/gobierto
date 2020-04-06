@@ -27,19 +27,18 @@
 
     <NavDataSets :active-dataset-tab="activeDatasetTab" />
 
-    <keep-alive v-if="activeDatasetTab === 0">
-      <SummaryTab
-        :private-queries="privateQueries"
-        :public-queries="publicQueries"
-        :array-formats="arrayFormats"
-        :description-dataset="descriptionDataset"
-        :category-dataset="categoryDataset | translate"
-        :frequency-dataset="frequencyDataset | translate"
-        :resources-list="resourcesList"
-        :date-updated="dateUpdated"
-        :dataset-id="datasetId"
-      />
-    </keep-alive>
+    <SummaryTab
+      v-if="activeDatasetTab === 0"
+      :private-queries="privateQueries"
+      :public-queries="publicQueries"
+      :array-formats="arrayFormats"
+      :description-dataset="descriptionDataset"
+      :category-dataset="categoryDataset | translate"
+      :frequency-dataset="frequencyDataset | translate"
+      :resources-list="resourcesList"
+      :date-updated="dateUpdated"
+      :dataset-id="datasetId"
+    />
 
     <DataTab
       v-else-if="activeDatasetTab === 1"
@@ -50,36 +49,34 @@
       :table-name="tableName"
       :array-formats="arrayFormats"
       :items="items"
+      :is-query-running="isQueryRunning"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-number-rows="queryNumberRows"
       :query-duration="queryDuration"
       :query-error="queryError"
     />
-    <!-- <keep-alive /> -->
 
-    <keep-alive v-else-if="activeDatasetTab === 2">
-      <QueriesTab
-        :dataset-id="datasetId"
-        :private-queries="privateQueries"
-        :public-queries="publicQueries"
-      />
-    </keep-alive>
+    <QueriesTab
+      v-else-if="activeDatasetTab === 2"
+      :dataset-id="datasetId"
+      :private-queries="privateQueries"
+      :public-queries="publicQueries"
+    />
 
-    <!-- Visualizations requires to query API on created, so we don't keep-alive it -->
     <VisualizationsTab
       v-else-if="activeDatasetTab === 3"
       :dataset-id="datasetId"
     />
 
-    <keep-alive v-else-if="activeDatasetTab === 4">
-      <DownloadsTab
-        :array-formats="arrayFormats"
-        :resources-list="resourcesList"
-      />
-    </keep-alive>
+    <DownloadsTab
+      v-else-if="activeDatasetTab === 4"
+      :array-formats="arrayFormats"
+      :resources-list="resourcesList"
+    />
   </div>
 </template>
+
 <script>
 // TODO: este componente se debe mover a /pages, reemplazando el actual
 import Button from "./../commons/Button.vue";
@@ -106,17 +103,17 @@ export default {
     QueriesTab,
     VisualizationsTab,
     DownloadsTab,
-    NavDataSets
+    NavDataSets,
   },
   filters: {
-    translate
+    translate,
   },
   mixins: [DatasetFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
   props: {
     activeDatasetTab: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   data() {
     return {
@@ -136,6 +133,7 @@ export default {
       frequencyDataset: "",
       currentQuery: null,
       items: null,
+      isQueryRunning: false,
       queryName: null,
       queryDuration: 0,
       queryNumberRows: 0,
@@ -147,7 +145,7 @@ export default {
       if (to) {
         this.parseUrl(to);
       }
-    }
+    },
   },
   created() {
     // remove saved query
@@ -171,21 +169,21 @@ export default {
     parseUrl(route) {
       const {
         params: { queryId },
-        query: { sql }
+        query: { sql },
       } = route;
 
       let item = null;
       if (queryId) {
         // if has queryId it's a privateQuery
-        item = this.privateQueries.find(d => d.id === queryId);
+        item = this.privateQueries.find((d) => d.id === queryId);
       } else if (sql) {
         // if has sql it's a publicQuery
-        item = this.publicQueries.find(d => d.attributes.sql === sql);
+        item = this.publicQueries.find((d) => d.attributes.sql === sql);
       }
 
       if (item) {
         const {
-          attributes: { sql: itemSql, name, user_id }
+          attributes: { sql: itemSql, name, user_id },
         } = item;
 
         this.queryName = name;
@@ -216,9 +214,9 @@ export default {
             data_updated_at: dateUpdated,
             formats: arrayFormats,
             frequency = [],
-            category = []
-          }
-        }
+            category = [],
+          },
+        },
       } = raw;
 
       this.datasetId = parseInt(datasetId);
@@ -246,14 +244,14 @@ export default {
         queriesPromises
       );
       const {
-        data: { data: publicItems }
+        data: { data: publicItems },
       } = publicResponse;
       this.publicQueries = publicItems;
 
       // Only update data if there's any response
       if (privateResponse) {
         const {
-          data: { data: privateItems }
+          data: { data: privateItems },
         } = privateResponse;
         this.privateQueries = privateItems;
       }
@@ -264,22 +262,22 @@ export default {
     async getPrivateQueries() {
       const userId = getUserId();
       const {
-        data: { data: items }
+        data: { data: items },
       } = await this.fetchPrivateQueries(userId);
       this.privateQueries = items;
     },
     async getPublicQueries() {
       const {
-        data: { data: items }
+        data: { data: items },
       } = await this.fetchPublicQueries();
       this.publicQueries = items;
     },
     async deleteSavedQuery(id) {
       // factory method
-      const { status } = await this.deleteQuery(id)
+      const { status } = await this.deleteQuery(id);
 
       if (status === 204) {
-        this.getPrivateQueries()
+        this.getPrivateQueries();
       }
     },
     async storeCurrentQuery({ name, privacy }) {
@@ -289,18 +287,15 @@ export default {
           privacy_status: privacy === false ? "open" : "closed",
           sql: this.currentQuery,
           name,
-          dataset_id: this.datasetId
-        }
+          dataset_id: this.datasetId,
+        },
       };
 
       const userId = Number(getUserId());
       let status = null; // https://javascript.info/destructuring-assignment
 
       // Only update the query is the user and the name are the same
-      if (
-        name === this.queryName &&
-        userId === this.queryUserId
-      ) {
+      if (name === this.queryName && userId === this.queryUserId) {
         const { queryId } = this.$route.params;
         // factory method
         ({ status } = await this.putQuery(queryId, { data }));
@@ -311,8 +306,8 @@ export default {
 
       // reload the queries if the response was successfull
       if ([200, 201].includes(status)) {
-        this.getPublicQueries()
-        this.getPrivateQueries()
+        this.getPublicQueries();
+        this.getPrivateQueries();
       }
     },
     // returns a simply promise
@@ -320,7 +315,7 @@ export default {
       // factory method
       return this.getQueries({
         "filter[dataset_id]": this.datasetId,
-        "filter[user_id]": userId
+        "filter[user_id]": userId,
       });
     },
     // returns a simply promise
@@ -328,7 +323,9 @@ export default {
       // factory method
       return this.getQueries({ "filter[dataset_id]": this.datasetId });
     },
-    runCurrentQuery() {
+    async runCurrentQuery() {
+      this.isQueryRunning = true;
+
       let query = "";
       if (this.currentQuery.includes("LIMIT")) {
         query = this.currentQuery;
@@ -339,21 +336,22 @@ export default {
       const params = { sql: query };
 
       // factory method
-      this.getData(params)
-        .then(
-          ({
-            data: {
-              data: items,
-              meta: { rows, duration }
-            }
-          }) => {
-            this.items = items;
-            this.queryDuration = duration;
-            this.queryNumberRows = rows;
-          }
-        )
-        .catch(error => (this.queryError = error));
-    }
-  }
+      try {
+        const {
+          data: {
+            data: items,
+            meta: { rows, duration },
+          },
+        } = await this.getData(params);
+
+        this.items = items;
+        this.queryDuration = duration;
+        this.queryNumberRows = rows;
+        this.isQueryRunning = false;
+      } catch (error) {
+        this.queryError = error;
+      }
+    },
+  },
 };
 </script>

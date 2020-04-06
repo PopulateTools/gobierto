@@ -21,13 +21,9 @@
           <RecentQueries
             v-if="isRecentModalActive"
             :table-name="tableName"
-            :class="[
-              directionLeft ? 'modal-left': 'modal-right',
-              isRecentModalActive ? 'active' : ''
-            ]"
+            :class="[isRecentModalActive ? 'active' : '']"
           />
         </transition>
-        <!-- <keep-alive /> -->
       </div>
 
       <div class="gobierto-data-sql-editor-your-queries">
@@ -51,56 +47,54 @@
             v-if="isQueriesModalActive"
             :private-queries="privateQueries"
             :public-queries="publicQueries"
-            :class=" directionLeft ? 'modal-left': 'modal-right'"
             class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
           />
         </transition>
       </div>
 
-      <div
-        v-if="saveQueryState"
-        class="gobierto-data-sql-editor-container-save"
+      <input
+        v-if="isSavingDialogActive || showInputName"
+        ref="inputText"
+        v-model="labelQueryName"
+        :class="disableInputName ? 'disable-input-text' : ' '"
+        type="text"
+        class="gobierto-data-sql-editor-container-save-text"
+        @keyup="onSave($event.target.value)"
+        @focus="onFocusEditor"
+      >
+
+      <label
+        v-if="isSavingDialogActive || showLabelPrivate"
+        :for="labelPrivate"
+        class="gobierto-data-sql-editor-container-save-label"
       >
         <input
-          ref="inputText"
-          v-model="labelQueryName"
-          :class="disableInputName ? 'disable-input-text' : ' '"
-          type="text"
-          class="gobierto-data-sql-editor-container-save-text"
-          @keyup="onSave($event.target.value)"
-          @focus="onFocusEditor"
+          :id="labelPrivate"
+          :checked="isPrivateQuery"
+          type="checkbox"
+          class="gobierto-data-sql-editor-container-save-checkbox"
+          @input="clickPrivateQueryHandler($event)"
         >
+        {{ labelPrivate }}
+      </label>
 
-        <label
-          v-if="showLabelPrivate"
-          :for="labelPrivate"
-          class="gobierto-data-sql-editor-container-save-label"
-        >
-          <input
-            :id="labelPrivate"
-            :checked="privateQuery"
-            type="checkbox"
-            class="gobierto-data-sql-editor-container-save-checkbox"
-            @input="privateQueryValue($event.target.checked)"
-          >
-          {{ labelPrivate }}
-        </label>
+      <PrivateIcon
+        v-if="isSavingDialogActive || showPrivateIcon"
+        :is-closed="isPrivateQuery"
+      />
 
-        <PrivateIcon :is-closed="privateQuery" />
-
-        <span
-          v-if="showLabelModified"
-          class="gobierto-data-sql-editor-modified-label"
-        >
-          {{ labelModifiedQuery }}
-        </span>
-      </div>
+      <span
+        v-if="showLabelModified"
+        class="gobierto-data-sql-editor-modified-label"
+      >
+        {{ labelModifiedQuery }}
+      </span>
 
       <Button
         v-if="showBtnSave"
         :text="labelSave"
         :style="
-          saveQueryState
+          isSavingDialogActive
             ? 'color: #fff; background-color: var(--color-base)'
             : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
         "
@@ -118,7 +112,7 @@
         icon="undefined"
         color="var(--color-base)"
         background="#fff"
-        @click.native="cancelQuery()"
+        @click.native="clickCancelQueryHandler()"
       />
 
       <Button
@@ -140,106 +134,112 @@
         background="#fff"
         @click.native="clickRunQueryHandler()"
       >
-        <PulseSpinner v-if="showSpinner" />
+        <PulseSpinner v-if="isQueryRunning" />
       </Button>
     </div>
   </div>
 </template>
 <script>
-import { getUserId } from './../../../../lib/helpers'
+import { getUserId } from "./../../../../lib/helpers";
 import { CommonsMixin, closableMixin } from "./../../../../lib/commons.js";
 
-import Button from './../../commons/Button.vue';
-import Queries from './../../commons/Queries.vue';
-import PulseSpinner from './../../commons/PulseSpinner.vue';
-import PrivateIcon from './../../commons/PrivateIcon.vue';
-import RecentQueries from './RecentQueries.vue';
+import Button from "./../../commons/Button.vue";
+import Queries from "./../../commons/Queries.vue";
+import PulseSpinner from "./../../commons/PulseSpinner.vue";
+import PrivateIcon from "./../../commons/PrivateIcon.vue";
+import RecentQueries from "./RecentQueries.vue";
 
 export default {
-  name: 'SQLEditorHeader',
+  name: "SQLEditorHeader",
   components: {
     Button,
     RecentQueries,
     Queries,
     PulseSpinner,
-    PrivateIcon
+    PrivateIcon,
   },
   mixins: [CommonsMixin, closableMixin],
   props: {
     privateQueries: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     publicQueries: {
       type: Array,
-      default: () => []
+      default: () => [],
+    },
+    isQueryRunning: {
+      type: Boolean,
+      default: false
     },
     tableName: {
       type: String,
-      default: ''
+      default: "",
     },
     queryName: {
       type: String,
-      default: null
+      default: null,
     },
   },
   data() {
     return {
-      labelSave: I18n.t('gobierto_data.projects.save') || '',
-      labelRecents: I18n.t('gobierto_data.projects.recents') || '',
-      labelQueries: I18n.t('gobierto_data.projects.queries') || '',
-      labelRunQuery: I18n.t('gobierto_data.projects.runQuery') || '',
-      labelCancel: I18n.t('gobierto_data.projects.cancel') || '',
-      labelPrivate: I18n.t('gobierto_data.projects.private') || '',
-      labelQueryName: this.queryName || I18n.t('gobierto_data.projects.queryName') || '',
-      labelEdit: I18n.t('gobierto_data.projects.edit') || '',
-      labelModifiedQuery: I18n.t('gobierto_data.projects.modifiedQuery') || '',
-      labelButtonQueries: I18n.t('gobierto_data.projects.buttonQueries') || '',
-      labelButtonRecentQueries: I18n.t('gobierto_data.projects.buttonRecentQueries') || '',
-      labelButtonRunQuery: I18n.t('gobierto_data.projects.buttonRunQuery') || '',
+      labelSave: I18n.t("gobierto_data.projects.save") || "",
+      labelRecents: I18n.t("gobierto_data.projects.recents") || "",
+      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
+      labelRunQuery: I18n.t("gobierto_data.projects.runQuery") || "",
+      labelCancel: I18n.t("gobierto_data.projects.cancel") || "",
+      labelPrivate: I18n.t("gobierto_data.projects.private") || "",
+      labelQueryName:
+        this.queryName || I18n.t("gobierto_data.projects.queryName") || "",
+      labelEdit: I18n.t("gobierto_data.projects.edit") || "",
+      labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
+      labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
+      labelButtonRecentQueries:
+        I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
+      labelButtonRunQuery:
+        I18n.t("gobierto_data.projects.buttonRunQuery") || "",
       disableInputName: false,
-      saveQueryState: false,
-      privateQuery: false,
+      isPrivateQuery: false,
+      showBtnSave: true,
       showBtnCancel: false,
       showBtnEdit: false,
-      showBtnSave: true,
-      showBtnRemove: true,
-      showLabelPrivate: true,
-      removeLabelBtn: false,
+      showInputName: false,
+      showPrivateIcon: false,
       showLabelModified: false,
+      showLabelPrivate: false,
+      removeLabelBtn: false,
+      isSavingDialogActive: false,
       isQueriesModalActive: false,
       isRecentModalActive: false,
-      directionLeft: true,
-      showSpinner: false,
-    }
+    };
   },
   created() {
-    this.$root.$on('updateActiveSave', this.updateActiveSave);
+    this.$root.$on("updateActiveSave", this.updateActiveSave);
 
-    this.$root.$on('blurEditor', this.onBlurEditor)
-    this.$root.$on('focusEditor', this.onFocusEditor)
+    this.$root.$on("blurEditor", this.onBlurEditor);
+    this.$root.$on("focusEditor", this.onFocusEditor);
 
     // Allow the shortcuts at startup
-    this.onBlurEditor()
+    this.onBlurEditor();
   },
   beforeDestroy() {
-    this.$root.$off('updateActiveSave', this.updateActiveSave);
-    this.$root.$off('blurEditor', this.onBlurEditor)
-    this.$root.$off('focusEditor', this.onFocusEditor)
+    this.$root.$off("updateActiveSave", this.updateActiveSave);
+    this.$root.$off("blurEditor", this.onBlurEditor);
+    this.$root.$off("focusEditor", this.onFocusEditor);
   },
   methods: {
     modalShortcutsListener(e) {
       if (e.keyCode == 67) {
         // key "c"
-        this.openQueriesModal()
+        this.openQueriesModal();
       } else if (e.keyCode == 82) {
         // key "r"
-        this.openRecentModal()
+        this.openRecentModal();
       }
     },
     editorShortcutsListener(e) {
       if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
-        this.clickRunQueryHandler()
+        this.clickRunQueryHandler();
       }
     },
     onBlurEditor() {
@@ -255,126 +255,97 @@ export default {
       window.addEventListener("keydown", this.editorShortcutsListener, true);
     },
     onSave(queryName) {
-      this.disabledSave = false
-      this.labelQueryName = queryName
-    },
-    privateQueryValue(valuePrivate) {
-      this.disabledSave = false
-      this.privateQuery = valuePrivate
-      this.showLabelModified = true
-      this.showBtnSave = true
-      this.showBtnEdit = false
+      this.labelQueryName = queryName;
     },
     showStoreQueries(queries) {
-      this.$root.$emit('showRecentQueries', queries)
+      this.$root.$emit("showRecentQueries", queries);
     },
     updateActiveSave(activeLabel, disableLabel) {
-      this.showLabelModified = activeLabel
-      this.showLabelPrivate = activeLabel
-      this.showBtnSave = activeLabel
-      this.showBtnEdit = disableLabel
-      this.disableInputName = disableLabel
+      console.log("updateActiveSave", activeLabel, disableLabel);
+
+      this.showLabelModified = activeLabel;
+      this.showBtnSave = activeLabel;
+      this.showBtnEdit = disableLabel;
+      this.disableInputName = disableLabel;
     },
     setFocus() {
-      this.$nextTick(() => {
-        this.$refs.inputText.focus();
-      });
-    },
-    cancelQuery() {
-      if (this.labelQueryName.length > 0) {
-        this.showBtnCancel = false;
-        this.showBtnEdit = true;
-        this.showBtnSave = false;
-        this.showBtnRemove = false;
-        this.showLabelPrivate = false;
-        this.removeLabelBtn = true;
-        this.showLabelModified = false;
-        this.disableInputName = true;
-
-      } else {
-        this.showBtnCancel = false;
-        this.showBtnEdit = false;
-        this.showBtnSave = true;
-        this.showBtnRemove = true;
-        this.showLabelPrivate = true;
-        this.removeLabelBtn = false;
-        this.saveQueryState = false;
-      }
+      this.$nextTick(() => this.$refs.inputText.focus());
     },
     clickRunQueryHandler() {
-      this.$root.$emit('runCurrentQuery')
+      this.$root.$emit("runCurrentQuery");
     },
-    // TODO: review todo este metodo
     clickSaveQueryHandler() {
       // if there's no user, you cannot save queries
-      if (getUserId() === "") location.href='/user/sessions/new?open_modal=true'
+      if (getUserId() === "")
+        location.href = "/user/sessions/new?open_modal=true";
 
-      if (this.saveQueryState === true && this.labelQueryName.length > 0) {
-        this.showBtnCancel = false;
-        this.showBtnEdit = true;
-        this.showBtnSave = false;
-        this.showBtnRemove = false;
-        this.showLabelPrivate = false;
-        this.removeLabelBtn = true;
-        this.showLabelModified = false;
-        this.disableInputName = true;
-
-        this.$root.$emit('storeCurrentQuery', { name: this.labelQueryName, privacy: this.privateQuery })
+      if (this.isSavingDialogActive && this.labelQueryName.length > 0) {
+        this.$root.$emit("storeCurrentQuery", {
+          name: this.labelQueryName,
+          privacy: this.isPrivateQuery,
+        });
+        this.closeSavingDialog();
       } else {
-        this.saveQueryState = true;
-        this.showBtnCancel = true;
-        this.setFocus();
-        this.$root.$emit('saveQueryState', true);
+        this.openSavingDialog();
       }
     },
+    clickPrivateQueryHandler(e) {
+      const { checked } = e.target;
+      this.isPrivateQuery = checked;
+    },
     clickEditQueryHandler() {
+      this.openSavingDialog();
+    },
+    clickCancelQueryHandler() {
+      this.closeSavingDialog();
+    },
+    openSavingDialog() {
+      this.isSavingDialogActive = true;
+
       this.setFocus();
-      this.showBtnCancel = true;
-      this.showBtnEdit = false;
+
       this.showBtnSave = true;
-      this.showBtnRemove = true;
+      this.showBtnCancel = true;
+      this.showPrivateIcon = true;
       this.showLabelPrivate = true;
-      this.removeLabelBtn = false;
+      this.showInputName = true;
+
+      // enable input
+      this.showBtnEdit = false;
       this.disableInputName = false;
     },
+    closeSavingDialog() {
+      this.isSavingDialogActive = false;
+      this.showBtnCancel = false;
+      this.showLabelPrivate = false;
+
+      if (this.labelQueryName.length > 0) {
+        this.showBtnSave = false;
+
+        this.showBtnEdit = true;
+        this.removeLabelBtn = true;
+        this.showInputName = true;
+        this.disableInputName = true;
+        this.showPrivateIcon = true;
+      } else {
+        this.removeLabelBtn = false;
+        this.showInputName = false;
+        this.disableInputName = false;
+        this.showPrivateIcon = false;
+      }
+    },
     openRecentModal() {
-      this.isRecentModalActive = true
+      this.isRecentModalActive = true;
     },
     closeRecentModal() {
-      this.isRecentModalActive = false
+      this.isRecentModalActive = false;
     },
     openQueriesModal() {
-      this.isQueriesModalActive = true
+      this.isQueriesModalActive = true;
     },
     closeQueriesModal() {
-      this.isQueriesModalActive = false
+      this.isQueriesModalActive = false;
     },
-    //     queryParams(queryParams) {
-    //   this.saveQueryState = true
-    //   this.showBtnCancel = false
-    //   this.showBtnSave = false
-    //   this.disabledRecents = false
-    //   this.disabledSave = true
-    //   this.showBtnEdit = true
-    //   this.removeLabelBtn = true
-    //   this.showLabelPrivate = false
-    //   this.disableInputName = true
-    //   this.showLabelModified = false
-    //   this.$root.$emit('saveQueryState', true)
-
-    //   this.labelQueryName = queryParams[0]
-    //   this.oldQueryName = queryParams[0]
-    //   this.privacyStatus = queryParams[1]
-    //   this.codeQuery = queryParams[2]
-    //   this.queryId = parseInt(queryParams[3])
-    //   this.userIdQuery = queryParams[4].toString()
-
-    //   if (this.privacyStatus === 'open') {
-    //     this.privateQuery = false
-    //   } else {
-    //     this.privateQuery = true
-    //   }
-    // },
-  }
-}
+  },
+};
 </script>

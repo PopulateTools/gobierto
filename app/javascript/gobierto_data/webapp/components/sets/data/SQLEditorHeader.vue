@@ -426,8 +426,8 @@ export default {
       //     }
       //   }).then(response => {
       //       this.resp = response;
-      //       this.$root.$emit('reloadPrivateQueries')
-      //       this.$root.$emit('reloadPublicQueries')
+      //       this.$root.$emit('getPrivateQueries')
+      //       this.$root.$emit('getPublicQueries')
       //   })
       //   .catch(error => {
       //     const messageError = error.response
@@ -453,7 +453,7 @@ export default {
       //     }
       //   }).then(response => {
       //       this.resp = response;
-      //       this.$root.$emit('reloadPrivateQueries')
+      //       this.$root.$emit('getPrivateQueries')
       //   })
       //   .catch(error => {
       //     const messageError = error.response

@@ -149,11 +149,11 @@ export default {
   },
   created() {
     // refresh public queries
-    this.$root.$on("reloadPublicQueries", this.getPublicQueries);
+    this.$root.$on("getPublicQueries", this.getPublicQueries);
     // refresh private queries
-    this.$root.$on("reloadPrivateQueries", this.getPrivateQueries);
+    this.$root.$on("getPrivateQueries", this.getPrivateQueries);
     // change the current query, triggering a new SQL execution
-    this.$root.$on("reloadCurrentQuery", this.setCurrentQuery);
+    this.$root.$on("setCurrentQuery", this.setCurrentQuery);
     // execute the current query
     this.$root.$on("runCurrentQuery", this.runCurrentQuery);
     // save the query in database
@@ -162,9 +162,9 @@ export default {
     this.setValuesDataset();
   },
   beforeDestroy() {
-    this.$root.$off("reloadPublicQueries", this.getPublicQueries);
-    this.$root.$off("reloadPrivateQueries", this.getPrivateQueries);
-    this.$root.$off("reloadCurrentQuery", this.setCurrentQuery);
+    this.$root.$off("getPublicQueries", this.getPublicQueries);
+    this.$root.$off("getPrivateQueries", this.getPrivateQueries);
+    this.$root.$off("setCurrentQuery", this.setCurrentQuery);
     this.$root.$off("storeCurrentQuery", this.storeCurrentQuery);
   },
   methods: {
@@ -266,7 +266,7 @@ export default {
       const {
         data: { data: items }
       } = await this.fetchPrivateQueries(userId);
-      this.publicQueries = items;
+      this.privateQueries = items;
     },
     async getPublicQueries() {
       const {

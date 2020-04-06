@@ -144,7 +144,7 @@ export default {
       const { status } = await this.deleteQuery(id)
 
       if (status === 204){
-        this.$root.$emit('reloadPrivateQueries')
+        this.$root.$emit('getPrivateQueries')
       }
     },
   }

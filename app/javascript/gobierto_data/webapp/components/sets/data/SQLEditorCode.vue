@@ -129,7 +129,7 @@ export default {
       this.$root.$emit('blurEditor')
 
       // once you lose the focus, update the query
-      this.$root.$emit('reloadCurrentQuery', editor.getValue());
+      this.$root.$emit('setCurrentQuery', editor.getValue());
     })
   },
   methods: {

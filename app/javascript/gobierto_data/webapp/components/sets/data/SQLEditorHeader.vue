@@ -70,26 +70,24 @@
           @keyup="onSave($event.target.value)"
           @focus="onFocusEditor"
         >
-        <input
-          v-if="showLabelPrivate"
-          :id="labelPrivate"
-          :checked="privateQuery"
-          type="checkbox"
-          class="gobierto-data-sql-editor-container-save-checkbox"
-          @input="privateQueryValue($event.target.checked)"
-        >
+
         <label
           v-if="showLabelPrivate"
           :for="labelPrivate"
           class="gobierto-data-sql-editor-container-save-label"
         >
+          <input
+            :id="labelPrivate"
+            :checked="privateQuery"
+            type="checkbox"
+            class="gobierto-data-sql-editor-container-save-checkbox"
+            @input="privateQueryValue($event.target.checked)"
+          >
           {{ labelPrivate }}
         </label>
-        <i
-          :class="privateQuery ? 'fa-lock' : 'fa-lock-open'"
-          :style="privateQuery ? 'color: #D0021B;' : 'color: #A0C51D;'"
-          class="fas"
-        />
+
+        <PrivateIcon :is-closed="privateQuery" />
+
         <span
           v-if="showLabelModified"
           class="gobierto-data-sql-editor-modified-label"
@@ -110,7 +108,7 @@
         icon="save"
         color="var(--color-base)"
         background="#fff"
-        @click.native="userLogged()"
+        @click.native="clickSaveQueryHandler()"
       />
 
       <Button
@@ -154,6 +152,7 @@ import { CommonsMixin, closableMixin } from "./../../../../lib/commons.js";
 import Button from './../../commons/Button.vue';
 import Queries from './../../commons/Queries.vue';
 import PulseSpinner from './../../commons/PulseSpinner.vue';
+import PrivateIcon from './../../commons/PrivateIcon.vue';
 import RecentQueries from './RecentQueries.vue';
 
 export default {
@@ -162,7 +161,8 @@ export default {
     Button,
     RecentQueries,
     Queries,
-    PulseSpinner
+    PulseSpinner,
+    PrivateIcon
   },
   mixins: [CommonsMixin, closableMixin],
   props: {
@@ -211,14 +211,10 @@ export default {
       isRecentModalActive: false,
       directionLeft: true,
       showSpinner: false,
-      noLogin: false,
     }
   },
   created() {
     this.$root.$on('updateActiveSave', this.updateActiveSave);
-
-    this.userId = getUserId()
-    this.noLogin = this.userId === "" ? true : false
 
     this.$root.$on('blurEditor', this.onBlurEditor)
     this.$root.$on('focusEditor', this.onFocusEditor)
@@ -262,15 +258,6 @@ export default {
       this.disabledSave = false
       this.labelQueryName = queryName
     },
-    userLogged() {
-      if (this.noLogin)
-        this.goToLogin()
-      else
-        this.saveQueryName()
-    },
-    goToLogin() {
-      location.href='/user/sessions/new?open_modal=true'
-    },
     privateQueryValue(valuePrivate) {
       this.disabledSave = false
       this.privateQuery = valuePrivate
@@ -287,26 +274,6 @@ export default {
       this.showBtnSave = activeLabel
       this.showBtnEdit = disableLabel
       this.disableInputName = disableLabel
-    },
-    saveQueryName() {
-      this.showSaveQueries = true
-      if (this.saveQueryState === true && this.labelQueryName.length > 0) {
-        this.showBtnCancel = false;
-        this.showBtnEdit = true;
-        this.showBtnSave = false;
-        this.showBtnRemove = false;
-        this.showLabelPrivate = false;
-        this.removeLabelBtn = true;
-        this.showLabelModified = false;
-        this.disableInputName = true;
-
-        this.clickSaveQueryHandler()
-      } else {
-        this.saveQueryState = true;
-        this.showBtnCancel = true;
-        this.setFocus();
-        this.$root.$emit('saveQueryState', true);
-      }
     },
     setFocus() {
       this.$nextTick(() => {
@@ -337,8 +304,28 @@ export default {
     clickRunQueryHandler() {
       this.$root.$emit('runCurrentQuery')
     },
+    // TODO: review todo este metodo
     clickSaveQueryHandler() {
-      this.$root.$emit('storeCurrentQuery', { name: this.labelQueryName, privacy: this.privateQuery })
+      // if there's no user, you cannot save queries
+      if (getUserId() === "") location.href='/user/sessions/new?open_modal=true'
+
+      if (this.saveQueryState === true && this.labelQueryName.length > 0) {
+        this.showBtnCancel = false;
+        this.showBtnEdit = true;
+        this.showBtnSave = false;
+        this.showBtnRemove = false;
+        this.showLabelPrivate = false;
+        this.removeLabelBtn = true;
+        this.showLabelModified = false;
+        this.disableInputName = true;
+
+        this.$root.$emit('storeCurrentQuery', { name: this.labelQueryName, privacy: this.privateQuery })
+      } else {
+        this.saveQueryState = true;
+        this.showBtnCancel = true;
+        this.setFocus();
+        this.$root.$emit('saveQueryState', true);
+      }
     },
     clickEditQueryHandler() {
       this.setFocus();

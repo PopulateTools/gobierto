@@ -33,15 +33,10 @@
                     style="color: var(--color-base);"
                     @click="clickDeleteQueryHandler(item.id)"
                   />
-                  <i
-                    v-if="item.attributes.privacy_status === 'closed'"
-                    style="color: #D0021B"
-                    class="fas fa-lock icons-your-queries"
-                  />
-                  <i
-                    v-else
-                    style="color: rgb(160, 197, 29)"
-                    class="fas fa-lock-open icons-your-queries"
+
+                  <PrivateIcon
+                    :is-closed="item.attributes.privacy_status === 'closed'"
+                    class="icons-your-queries"
                   />
                 </div>
               </div>
@@ -102,12 +97,14 @@
 <script>
 import { Dropdown } from "lib/vue-components";
 import Caret from "./Caret.vue";
+import PrivateIcon from './/PrivateIcon.vue';
 
 export default {
   name: "Queries",
   components: {
     Caret,
-    Dropdown
+    Dropdown,
+    PrivateIcon
   },
   props: {
     privateQueries: {

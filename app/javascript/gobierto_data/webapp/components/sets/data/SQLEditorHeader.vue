@@ -310,7 +310,7 @@ export default {
         this.showLabelModified = false;
         this.disableInputName = true;
 
-        this.postQuery()
+        this.saveQuery()
       } else {
         this.saveQueryState = true;
         this.showBtnCancel = true;
@@ -395,71 +395,8 @@ export default {
     //     this.privateQuery = true
     //   }
     // },
-    // TODO: sacar de aquí
-    postQuery() {
-      console.log('DEPRECATED method postQuery on SQLEditorHeader');
+    saveQuery() {
       this.$root.$emit('storeCurrentQuery', { name: this.labelQueryName, privacy: this.privateQuery })
-      // if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
-      // } else {
-      //   this.$root.$emit('postCurrentQuery')
-      // }
-
-      // const endPoint = `${baseUrl}/queries`
-      // this.privacyStatus = this.privateQuery === false ? 'open' : 'closed'
-
-      // if (this.oldQueryName === this.labelQueryName && this.userId === this.userIdQuery) {
-      //   const endPoint = `${baseUrl}/queries/${this.queryId}`
-      //   let dataUpdate = {
-      //       "data": {
-      //           "type": "gobierto_data-queries",
-      //           "attributes": {
-      //               "privacy_status": this.privacyStatus,
-      //               "sql": this.codeQuery
-      //           }
-      //       }
-      //   }
-
-      //   axios.put(endPoint, dataUpdate, {
-      //     headers: {
-      //       'Content-type': 'application/json',
-      //       'Authorization': `${this.token}`
-      //     }
-      //   }).then(response => {
-      //       this.resp = response;
-      //       this.$root.$emit('getPrivateQueries')
-      //       this.$root.$emit('getPublicQueries')
-      //   })
-      //   .catch(error => {
-      //     const messageError = error.response
-      //     console.error(messageError)
-      //   });
-      // } else {
-      //   const endPoint = `${baseUrl}/queries`
-      //   let data = {
-      //       "data": {
-      //           "type": "gobierto_data-queries",
-      //           "attributes": {
-      //               "name": this.labelQueryName,
-      //               "privacy_status": this.privacyStatus,
-      //               "sql": this.codeQuery,
-      //               "dataset_id": this.datasetId
-      //           }
-      //       }
-      //   }
-      //   axios.post(endPoint, data, {
-      //     headers: {
-      //       'Content-type': 'application/json',
-      //       'Authorization': `${this.token}`
-      //     }
-      //   }).then(response => {
-      //       this.resp = response;
-      //       this.$root.$emit('getPrivateQueries')
-      //   })
-      //   .catch(error => {
-      //     const messageError = error.response
-      //     console.error(messageError)
-      //   });
-      // }
     },
   }
 }

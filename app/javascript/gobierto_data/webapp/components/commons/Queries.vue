@@ -31,7 +31,7 @@
                   <i
                     class="fas fa-trash-alt icons-your-queries"
                     style="color: var(--color-base);"
-                    @click="deleteSavedQuery(item.id)"
+                    @click="deleteQuery(item.id)"
                   />
                   <i
                     v-if="item.attributes.privacy_status === 'closed'"
@@ -102,7 +102,6 @@
 <script>
 import { Dropdown } from "lib/vue-components";
 import Caret from "./Caret.vue";
-import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 
 export default {
   name: "Queries",
@@ -110,12 +109,7 @@ export default {
     Caret,
     Dropdown
   },
-  mixins: [QueriesFactoryMixin],
   props: {
-    datasetId: {
-      type: Number,
-      required: true
-    },
     privateQueries: {
       type: Array,
       required: true
@@ -127,28 +121,19 @@ export default {
   },
   data() {
     return {
-      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelYourQueries: I18n.t("gobierto_data.projects.yourQueries") || "",
       labelFavs: I18n.t("gobierto_data.projects.favs") || "",
       labelAll: I18n.t("gobierto_data.projects.all") || "",
       sqlCode: null,
-      showSection: true,
       showPrivateQueries: true,
       showFavQueries: true,
       showPublicQueries: true,
-      endPoint: "",
-      url: ""
     };
   },
   methods: {
-    async deleteSavedQuery(id) {
-      // factory method
-      const { status } = await this.deleteQuery(id)
-
-      if (status === 204){
-        this.$root.$emit('getPrivateQueries')
-      }
-    },
+    deleteQuery(id) {
+      this.$root.$emit('deleteSavedQuery', id)
+    }
   }
 };
 </script>

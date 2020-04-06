@@ -95,6 +95,8 @@ import { DatasetFactoryMixin } from "./../../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { DataFactoryMixin } from "./../../../lib/factories/data";
 
+// THIS IS THE COMPONENT WHO KNOWS WHAT THE DATA IS ABOUT
+// EVERY SINGLE API REQUEST IS DONE THROUGHOUT THIS ONE
 export default {
   name: "DataSetsContent",
   components: {
@@ -148,10 +150,8 @@ export default {
     }
   },
   created() {
-    // refresh public queries
-    this.$root.$on("getPublicQueries", this.getPublicQueries);
-    // refresh private queries
-    this.$root.$on("getPrivateQueries", this.getPrivateQueries);
+    // remove saved query
+    this.$root.$on("deleteSavedQuery", this.deleteSavedQuery);
     // change the current query, triggering a new SQL execution
     this.$root.$on("setCurrentQuery", this.setCurrentQuery);
     // execute the current query
@@ -162,9 +162,9 @@ export default {
     this.setValuesDataset();
   },
   beforeDestroy() {
-    this.$root.$off("getPublicQueries", this.getPublicQueries);
-    this.$root.$off("getPrivateQueries", this.getPrivateQueries);
+    this.$root.$off("deleteSavedQuery", this.deleteSavedQuery);
     this.$root.$off("setCurrentQuery", this.setCurrentQuery);
+    this.$root.$off("runCurrentQuery", this.runCurrentQuery);
     this.$root.$off("storeCurrentQuery", this.storeCurrentQuery);
   },
   methods: {
@@ -274,6 +274,14 @@ export default {
       } = await this.fetchPublicQueries();
       this.publicQueries = items;
     },
+    async deleteSavedQuery(id) {
+      // factory method
+      const { status } = await this.deleteQuery(id)
+
+      if (status === 204) {
+        this.getPrivateQueries()
+      }
+    },
     // returns a simply promise
     fetchPrivateQueries(userId) {
       // factory method
@@ -313,7 +321,7 @@ export default {
         )
         .catch(error => (this.queryError = error));
     },
-    storeCurrentQuery({ name, privacy }) {
+    async storeCurrentQuery({ name, privacy }) {
       const data = {
         type: "gobierto_data-queries",
         attributes: {
@@ -325,18 +333,25 @@ export default {
       };
 
       const userId = Number(getUserId());
+      let status = null; // https://javascript.info/destructuring-assignment
 
       // Only update the query is the user and the name are the same
       if (
         name === this.queryName &&
         userId === this.queryUserId
       ) {
-        const { queryId } = this.$route.params
+        const { queryId } = this.$route.params;
         // factory method
-        this.putQuery(queryId, { data });
+        ({ status } = await this.putQuery(queryId, { data }));
       } else {
         // factory method
-        this.postQuery({ data });
+        ({ status } = await this.postQuery({ data }));
+      }
+
+      // reload the queries if the response was successful
+      if ([200, 201].includes(status)) {
+        this.getPublicQueries()
+        this.getPrivateQueries()
       }
     }
   }

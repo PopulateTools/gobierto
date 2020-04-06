@@ -88,7 +88,9 @@
 
       <div class="pure-u-1-2 border-color-queries">
         <p class="gobierto-data-summary-queries-sql-code">
-          <span v-if="sqlCode"> {{ sqlCode }}</span>
+          <transition name="fade">
+            <span v-if="sqlCode"> {{ sqlCode }}</span>
+          </transition>
         </p>
       </div>
     </div>
@@ -97,7 +99,7 @@
 <script>
 import { Dropdown } from "lib/vue-components";
 import Caret from "./Caret.vue";
-import PrivateIcon from './/PrivateIcon.vue';
+import PrivateIcon from './PrivateIcon.vue';
 
 export default {
   name: "Queries",

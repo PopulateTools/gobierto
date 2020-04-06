@@ -1,142 +1,140 @@
 <template>
-  <div>
-    <div class="gobierto-data-sql-editor-toolbar">
-      <div class="gobierto-data-sql-editor-container-recent-queries">
-        <Button
-          v-clickoutside="closeRecentModal"
-          :text="labelRecents"
-          :class="removeLabelBtn ? 'remove-label' : ''"
-          :title="labelButtonRecentQueries"
-          class="btn-sql-editor"
-          icon="history"
-          color="var(--color-base)"
-          background="#fff"
-          @click.native="isRecentModalActive = !isRecentModalActive"
-        />
-
-        <transition
-          name="fade"
-          mode="out-in"
-        >
-          <RecentQueries
-            v-if="isRecentModalActive"
-            :table-name="tableName"
-            :class="[isRecentModalActive ? 'active' : '']"
-          />
-        </transition>
-      </div>
-
-      <div class="gobierto-data-sql-editor-your-queries">
-        <Button
-          v-clickoutside="closeQueriesModal"
-          :text="labelQueries"
-          :class="removeLabelBtn ? 'remove-label' : ''"
-          :title="labelButtonQueries"
-          class="btn-sql-editor"
-          icon="list"
-          color="var(--color-base)"
-          background="#fff"
-          @click.native="isQueriesModalActive = !isQueriesModalActive"
-        />
-
-        <transition
-          name="fade"
-          mode="out-in"
-        >
-          <Queries
-            v-if="isQueriesModalActive"
-            :private-queries="privateQueries"
-            :public-queries="publicQueries"
-            class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
-          />
-        </transition>
-      </div>
-
-      <input
-        v-if="isSavingDialogActive || showInputName"
-        ref="inputText"
-        v-model="labelQueryName"
-        :class="disableInputName ? 'disable-input-text' : ' '"
-        type="text"
-        class="gobierto-data-sql-editor-container-save-text"
-        @keyup="onSave($event.target.value)"
-        @focus="onFocusEditor"
-      >
-
-      <label
-        v-if="isSavingDialogActive || showLabelPrivate"
-        :for="labelPrivate"
-        class="gobierto-data-sql-editor-container-save-label"
-      >
-        <input
-          :id="labelPrivate"
-          :checked="isPrivateQuery"
-          type="checkbox"
-          class="gobierto-data-sql-editor-container-save-checkbox"
-          @input="clickPrivateQueryHandler($event)"
-        >
-        {{ labelPrivate }}
-      </label>
-
-      <PrivateIcon
-        v-if="isSavingDialogActive || showPrivateIcon"
-        :is-closed="isPrivateQuery"
-      />
-
-      <span
-        v-if="showLabelModified"
-        class="gobierto-data-sql-editor-modified-label"
-      >
-        {{ labelModifiedQuery }}
-      </span>
-
+  <div class="gobierto-data-sql-editor-toolbar">
+    <div class="gobierto-data-sql-editor-container-recent-queries">
       <Button
-        v-if="showBtnSave"
-        :text="labelSave"
-        :style="
-          isSavingDialogActive
-            ? 'color: #fff; background-color: var(--color-base)'
-            : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
-        "
+        v-clickoutside="closeRecentModal"
+        :text="labelRecents"
+        :class="removeLabelBtn ? 'remove-label' : ''"
+        :title="labelButtonRecentQueries"
         class="btn-sql-editor"
-        icon="save"
+        icon="history"
         color="var(--color-base)"
         background="#fff"
-        @click.native="clickSaveQueryHandler()"
+        @click.native="isRecentModalActive = !isRecentModalActive"
       />
 
-      <Button
-        v-if="showBtnCancel"
-        :text="labelCancel"
-        class="btn-sql-editor btn-sql-editor-cancel"
-        icon="undefined"
-        color="var(--color-base)"
-        background="#fff"
-        @click.native="clickCancelQueryHandler()"
-      />
-
-      <Button
-        v-if="showBtnEdit"
-        :text="labelEdit"
-        class="btn-sql-editor"
-        icon="edit"
-        color="var(--color-base)"
-        background="#fff"
-        @click.native="clickEditQueryHandler()"
-      />
-
-      <Button
-        :text="labelRunQuery"
-        :title="labelButtonRunQuery"
-        class="btn-sql-editor btn-sql-editor-run"
-        icon="play"
-        color="var(--color-base)"
-        background="#fff"
-        @click.native="clickRunQueryHandler()"
+      <transition
+        name="fade"
+        mode="out-in"
       >
-        <PulseSpinner v-if="isQueryRunning" />
-      </Button>
+        <RecentQueries
+          v-if="isRecentModalActive"
+          :table-name="tableName"
+          :class="[isRecentModalActive ? 'active' : '']"
+        />
+      </transition>
     </div>
+
+    <div class="gobierto-data-sql-editor-your-queries">
+      <Button
+        v-clickoutside="closeQueriesModal"
+        :text="labelQueries"
+        :class="removeLabelBtn ? 'remove-label' : ''"
+        :title="labelButtonQueries"
+        class="btn-sql-editor"
+        icon="list"
+        color="var(--color-base)"
+        background="#fff"
+        @click.native="isQueriesModalActive = !isQueriesModalActive"
+      />
+
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <Queries
+          v-if="isQueriesModalActive"
+          :private-queries="privateQueries"
+          :public-queries="publicQueries"
+          class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
+        />
+      </transition>
+    </div>
+
+    <input
+      v-if="isSavingDialogActive || showInputName"
+      ref="inputText"
+      v-model="labelQueryName"
+      :class="disableInputName ? 'disable-input-text' : ' '"
+      type="text"
+      class="gobierto-data-sql-editor-container-save-text"
+      @keyup="keyUpSaveQueryNameHandler($event)"
+      @focus="onFocusEditor"
+    >
+
+    <label
+      v-if="isSavingDialogActive || showLabelPrivate"
+      :for="labelPrivate"
+      class="gobierto-data-sql-editor-container-save-label"
+    >
+      <input
+        :id="labelPrivate"
+        :checked="isPrivateQuery"
+        type="checkbox"
+        class="gobierto-data-sql-editor-container-save-checkbox"
+        @input="clickPrivateQueryHandler($event)"
+      >
+      {{ labelPrivate }}
+    </label>
+
+    <PrivateIcon
+      v-if="isSavingDialogActive || showPrivateIcon"
+      :is-closed="isPrivateQuery"
+    />
+
+    <span
+      v-if="isSavingDialogActive && showLabelModified"
+      class="gobierto-data-sql-editor-modified-label"
+    >
+      {{ labelModifiedQuery }}
+    </span>
+
+    <Button
+      v-if="showBtnSave"
+      :text="labelSave"
+      :style="
+        isSavingDialogActive
+          ? 'color: #fff; background-color: var(--color-base)'
+          : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
+      "
+      class="btn-sql-editor"
+      icon="save"
+      color="var(--color-base)"
+      background="#fff"
+      @click.native="clickSaveQueryHandler()"
+    />
+
+    <Button
+      v-if="showBtnCancel"
+      :text="labelCancel"
+      class="btn-sql-editor btn-sql-editor-cancel"
+      icon="undefined"
+      color="var(--color-base)"
+      background="#fff"
+      @click.native="clickCancelQueryHandler()"
+    />
+
+    <Button
+      v-if="showBtnEdit"
+      :text="labelEdit"
+      class="btn-sql-editor"
+      icon="edit"
+      color="var(--color-base)"
+      background="#fff"
+      @click.native="clickEditQueryHandler()"
+    />
+
+    <Button
+      :text="labelRunQuery"
+      :title="labelButtonRunQuery"
+      class="btn-sql-editor btn-sql-editor-run"
+      icon="play"
+      color="var(--color-base)"
+      background="#fff"
+      @click.native="clickRunQueryHandler()"
+    >
+      <PulseSpinner v-if="isQueryRunning" />
+    </Button>
   </div>
 </template>
 <script>
@@ -214,18 +212,17 @@ export default {
     };
   },
   created() {
-    this.$root.$on("updateActiveSave", this.updateActiveSave);
-
     this.$root.$on("blurEditor", this.onBlurEditor);
     this.$root.$on("focusEditor", this.onFocusEditor);
+    this.$root.$on("keyUpEditor", this.onKeyUpEditor);
 
     // Allow the shortcuts at startup
     this.onBlurEditor();
   },
   beforeDestroy() {
-    this.$root.$off("updateActiveSave", this.updateActiveSave);
     this.$root.$off("blurEditor", this.onBlurEditor);
     this.$root.$off("focusEditor", this.onFocusEditor);
+    this.$root.$off("keyUpEditor", this.onKeyUpEditor);
   },
   methods: {
     modalShortcutsListener(e) {
@@ -254,22 +251,18 @@ export default {
       // Enable run query on ctrl+enter
       window.addEventListener("keydown", this.editorShortcutsListener, true);
     },
-    onSave(queryName) {
-      this.labelQueryName = queryName;
+    onKeyUpEditor(value) {
+      this.showLabelModified = value;
     },
     showStoreQueries(queries) {
       this.$root.$emit("showRecentQueries", queries);
     },
-    updateActiveSave(activeLabel, disableLabel) {
-      console.log("updateActiveSave", activeLabel, disableLabel);
-
-      this.showLabelModified = activeLabel;
-      this.showBtnSave = activeLabel;
-      this.showBtnEdit = disableLabel;
-      this.disableInputName = disableLabel;
-    },
     setFocus() {
       this.$nextTick(() => this.$refs.inputText.focus());
+    },
+    keyUpSaveQueryNameHandler(e) {
+      const { value } = e.target;
+      this.labelQueryName = value;
     },
     clickRunQueryHandler() {
       this.$root.$emit("runCurrentQuery");
@@ -301,6 +294,8 @@ export default {
     },
     openSavingDialog() {
       this.isSavingDialogActive = true;
+
+      // TODO: avisar de que está guardando
 
       this.setFocus();
 

@@ -191,6 +191,8 @@ export default {
 
         // update the editor text content
         this.setCurrentQuery(itemSql);
+        // run such query
+        this.runCurrentQuery();
       }
     },
     setCurrentQuery(sql) {
@@ -310,19 +312,6 @@ export default {
         this.getPrivateQueries();
       }
     },
-    // returns a simply promise
-    fetchPrivateQueries(userId) {
-      // factory method
-      return this.getQueries({
-        "filter[dataset_id]": this.datasetId,
-        "filter[user_id]": userId,
-      });
-    },
-    // returns a simply promise
-    fetchPublicQueries() {
-      // factory method
-      return this.getQueries({ "filter[dataset_id]": this.datasetId });
-    },
     async runCurrentQuery() {
       this.isQueryRunning = true;
 
@@ -351,6 +340,19 @@ export default {
       } catch (error) {
         this.queryError = error;
       }
+    },
+    // returns a simply promise
+    fetchPrivateQueries(userId) {
+      // factory method
+      return this.getQueries({
+        "filter[dataset_id]": this.datasetId,
+        "filter[user_id]": userId,
+      });
+    },
+    // returns a simply promise
+    fetchPublicQueries() {
+      // factory method
+      return this.getQueries({ "filter[dataset_id]": this.datasetId });
     },
   },
 };

@@ -12,38 +12,40 @@
           </template>
 
           <div>
-            <div
-              v-for="item in privateQueries"
-              :key="item.id"
-              class="gobierto-data-summary-queries-container"
-              @mouseover="sqlCode = item.attributes.sql"
-              @mouseleave="sqlCode = null"
-            >
-              <router-link
-                :to="`/datos/${$route.params.id}/q/${item.id}`"
-                class="gobierto-data-summary-queries-container-name"
+            <transition-group name="fade">
+              <div
+                v-for="item in privateQueries"
+                :key="item.id"
+                class="gobierto-data-summary-queries-container"
+                @mouseover="sqlCode = item.attributes.sql"
+                @mouseleave="sqlCode = null"
               >
-                {{ item.attributes.name }}
-              </router-link>
+                <router-link
+                  :to="`/datos/${$route.params.id}/q/${item.id}`"
+                  class="gobierto-data-summary-queries-container-name"
+                >
+                  {{ item.attributes.name }}
+                </router-link>
 
-              <div class="gobierto-data-summary-queries-container-icon">
-                <i
-                  class="fas fa-trash-alt icons-your-queries"
-                  style="color: var(--color-base);"
-                  @click="deleteSavedQuery(item.id)"
-                />
-                <i
-                  v-if="item.attributes.privacy_status === 'closed'"
-                  style="color: #D0021B"
-                  class="fas fa-lock icons-your-queries"
-                />
-                <i
-                  v-else
-                  style="color: rgb(160, 197, 29)"
-                  class="fas fa-lock-open icons-your-queries"
-                />
+                <div class="gobierto-data-summary-queries-container-icon">
+                  <i
+                    class="fas fa-trash-alt icons-your-queries"
+                    style="color: var(--color-base);"
+                    @click="deleteSavedQuery(item.id)"
+                  />
+                  <i
+                    v-if="item.attributes.privacy_status === 'closed'"
+                    style="color: #D0021B"
+                    class="fas fa-lock icons-your-queries"
+                  />
+                  <i
+                    v-else
+                    style="color: rgb(160, 197, 29)"
+                    class="fas fa-lock-open icons-your-queries"
+                  />
+                </div>
               </div>
-            </div>
+            </transition-group>
           </div>
         </Dropdown>
 

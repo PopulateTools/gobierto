@@ -8,6 +8,8 @@ es:
             el plan</a>.
         delete_contents:
           success: Los proyectos del plan han sido correctamente eliminados
+          term_deletion_failed_html: 'El término "%{term}" del vocabulario "%{vocabulary}"
+            no puede ser borrado: %{message}'
         destroy:
           success: El plan ha sido eliminado correctamente.
         import_data:

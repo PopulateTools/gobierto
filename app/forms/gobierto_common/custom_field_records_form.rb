@@ -60,12 +60,8 @@ module GobiertoCommon
       custom_field_records.any? { |custom_field| version_changed?(custom_field) }
     end
 
-    def empty_associated_vocabularies!
-      available_custom_fields.select(&:has_vocabulary?).each do |custom_field|
-        next unless (vocabulary = custom_field.vocabulary).present?
-
-        vocabulary.terms.destroy_all
-      end
+    def associated_vocabularies
+      available_custom_fields.select(&:has_vocabulary?).map(&:vocabulary).compact
     end
 
     private

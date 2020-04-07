@@ -8,8 +8,7 @@
       background="#fff"
       class="gobierto-data-btn-download-data"
       @click.native="isHidden = !isHidden"
-    />
-    <keep-alive>
+    >
       <transition
         name="fade"
         mode="out-in"
@@ -33,7 +32,7 @@
           </template>
         </div>
       </transition>
-    </keep-alive>
+    </Button>
   </div>
 </template>
 <script>

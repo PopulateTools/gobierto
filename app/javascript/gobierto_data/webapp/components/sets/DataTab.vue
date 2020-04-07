@@ -7,6 +7,7 @@
         :public-queries="publicQueries"
         :recent-queries="recentQueries"
         :is-query-running="isQueryRunning"
+        :is-query-modified="isQueryModified"
         :query-name="queryName"
       />
       <SQLEditorCode
@@ -67,6 +68,10 @@ export default {
       default: () => []
     },
     isQueryRunning: {
+      type: Boolean,
+      default: false
+    },
+    isQueryModified: {
       type: Boolean,
       default: false
     },

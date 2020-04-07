@@ -297,6 +297,15 @@
     font-weight: bold;
     min-width: 250px;
     margin: 1rem 0;
+    position: relative;
+
+    // &.small {
+    //   padding: .25rem;
+    //   min-width: auto;
+    //   text-transform: none;
+    //   margin: 0;
+    //   margin-left: auto;
+    // }
   }
 
   &-container-btn-download-data {
@@ -436,9 +445,10 @@
     }
   }
 
-  &-sql-editor-container-recent-queries {
+  &-sql-editor-container {
     display: inline-block;
     position: relative;
+    margin-right: .5em;
   }
 
   &-sql-editor-recent-queries {
@@ -517,6 +527,7 @@
       border: 1px solid rgba(var(--color-base-string), .2);
       font-weight: 600;
       font-size: 14px;
+      margin: 0;
 
       &.isDisabled {
         opacity: .4;
@@ -532,8 +543,8 @@
       }
 
       &.btn-sql-editor-run {
-        float: right;
         position: relative;
+        margin-left: auto;
       }
 
       &.btn-sql-editor-queries {
@@ -586,17 +597,16 @@
     .btn-sql-editor-cancel {
       margin-left: .5em;
     }
-
   }
 
   &-sql-editor-toolbar {
     padding: .5rem 0;
+    display: flex;
   }
 
   &-sql-editor-container-save {
     display: inline-flex;
     align-items: baseline;
-    padding: 0 .5rem;
 
     i {
       min-width: 20px;
@@ -738,11 +748,6 @@
     font-size: 14px;
     font-weight: 600;
     color: #b62323;
-  }
-
-  &-sql-editor-your-queries {
-    display: inline-block;
-    position: relative;
   }
 
   &-sql-editor-your-queries-container {

@@ -112,17 +112,14 @@ export default {
     }
 
     this.editor.on("keyup", this.onKeyUp);
-    this.editor.on("focus", this.onFocus);
-    this.editor.on("blur", this.onBlur);
   },
   methods: {
-    onFocus() {
-      this.$root.$emit("focusEditor");
-    },
-    onBlur() {
-      this.$root.$emit("blurEditor");
-    },
-    onKeyUp(editor) {
+    onKeyUp(editor, e) {
+      // keyUp event to stop "c|r" open modals, but allow ctrl+enter to run query
+      if (!((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey)) {
+        e.stopPropagation()
+      }
+
       editor.showHint();
 
       const value = editor.getValue()
@@ -176,12 +173,14 @@ export default {
           return s;
         });
       }
+
       return resu.sort((a, b) => b.score - a.score);
     },
     hint(editor) {
-      let cur = editor.getCursor();
-      let token = editor.getTokenAt(cur);
-      let searchString = token.string;
+      const cur = editor.getCursor();
+      const token = editor.getTokenAt(cur);
+      const searchString = token.string;
+
       return {
         list: this.suggest(searchString),
         from: CodeMirror.Pos(cur.line, token.start),

@@ -50,6 +50,7 @@
       :array-formats="arrayFormats"
       :items="items"
       :is-query-running="isQueryRunning"
+      :is-query-modified="isQueryModified"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-number-rows="queryNumberRows"
@@ -140,6 +141,7 @@ export default {
       currentQuery: null,
       items: [],
       isQueryRunning: false,
+      isQueryModified: false,
       queryName: null,
       queryDuration: 0,
       queryNumberRows: 0,
@@ -212,7 +214,8 @@ export default {
         this.queryUserId = user_id;
 
         // update the editor text content
-        this.setCurrentQuery(itemSql);
+        // this.setCurrentQuery(itemSql);
+        this.currentQuery = itemSql;
         // run such query
         this.runCurrentQuery();
       }
@@ -223,6 +226,8 @@ export default {
     },
     setCurrentQuery(sql) {
       this.currentQuery = sql;
+      // TODO: test
+      this.isQueryModified = true
     },
     storeRecentQuery() {
       // if the currentQuery does not exist, nor recent, nor public, nor private queries neither
@@ -313,7 +318,7 @@ export default {
         this.parseUrl({ queryId, sql });
       } else {
         // update the editor text content
-        this.setCurrentQuery(`SELECT * FROM ${this.tableName}`);
+        this.currentQuery = `SELECT * FROM ${this.tableName}`;
       }
     },
     async getPrivateQueries() {
@@ -367,6 +372,8 @@ export default {
       // reload the queries if the response was successfull
       // 200 OK (PUT) / 201 Created (POST)
       if ([200, 201].includes(status)) {
+        this.isQueryModified = false
+
         this.getPublicQueries();
         this.getPrivateQueries();
       }

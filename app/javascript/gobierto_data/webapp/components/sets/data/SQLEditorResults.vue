@@ -7,7 +7,7 @@
       >
         <SavingDialog
           :placeholder="labelVisName"
-          @save="onSave"
+          @save="onSaveEventHandler"
         />
         <DownloadButton
           :editor="true"
@@ -52,7 +52,7 @@ export default {
     };
   },
   methods: {
-    onSave(opts) {
+    onSaveEventHandler(opts) {
       // TODO: temporal
       this.$root.$emit("exportPerspectiveConfig", opts)
     }

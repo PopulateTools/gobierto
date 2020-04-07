@@ -1,15 +1,15 @@
 <template>
   <div class="gobierto-data-sql-editor-container-save">
     <!--  only show if label name is set OR the prompt is visible  -->
-    <template v-if="isSavingPromptVisible || labelElementName">
+    <template v-if="isSavingPromptVisible || labelValue">
       <input
         ref="inputText"
-        v-model="labelElementName"
+        v-model="labelValue"
         :placeholder="placeholder"
         :disabled="!isSavingPromptVisible"
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
-        @keydown.stop="onKeyUpTextHandler"
+        @keyup.stop="onKeyUpTextHandler"
       >
     </template>
 
@@ -30,7 +30,7 @@
     </template>
 
     <!-- only show if label name is set OR the prompt is visible -->
-    <template v-if="isSavingPromptVisible || labelElementName">
+    <template v-if="isSavingPromptVisible || labelValue">
       <PrivateIcon
         :is-closed="isPrivate"
         :style="{ paddingRight: '.5em', margin: 0 }"
@@ -38,7 +38,7 @@
     </template>
 
     <!-- show edit button if there's no prompt but some name, otherwise, save button -->
-    <template v-if="!isSavingPromptVisible && labelElementName">
+    <template v-if="!isSavingPromptVisible && labelValue">
       <Button
         :text="labelEdit"
         class="btn-sql-editor"
@@ -56,11 +56,11 @@
             ? 'color: #fff; background-color: var(--color-base)'
             : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
         "
-        :disabled="isSavingPromptVisible && !labelElementName"
+        :disabled="isSavingPromptVisible && !labelValue"
         icon="save"
         color="var(--color-base)"
         background="#fff"
-        class="gobierto-data-btn-download-data"
+        class="btn-sql-editor"
         @click.native="onClickSaveHandler"
       />
     </template>
@@ -89,6 +89,10 @@ export default {
     PrivateIcon
   },
   props: {
+    value: {
+      type: String,
+      default: ''
+    },
     placeholder: {
       type: String,
       default: ''
@@ -102,7 +106,7 @@ export default {
     return {
       isPrivate: false,
       isSavingPromptVisible: false,
-      labelElementName: null,
+      labelValue: this.value,
       labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
@@ -116,21 +120,22 @@ export default {
         this.$nextTick(() => this.$refs.inputText.focus());
       } else {
         // the output is the content of the input plus the private flag
-        this.$emit('save', { name: this.labelElementName, privacy: this.isPrivate })
+        this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
 
         this.isSavingPromptVisible = false
       }
     },
     onClickCancelHandler() {
-      this.labelElementName = null
+      this.labelValue = null
       this.isSavingPromptVisible = false
     },
     onClickEditHandler() {
       this.isSavingPromptVisible = true
+      this.$nextTick(() => this.$refs.inputText.focus());
     },
     onKeyUpTextHandler(event) {
       const { value } = event.target
-      this.labelElementName = value
+      this.labelValue = value
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target

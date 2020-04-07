@@ -22,6 +22,7 @@ ca:
       download: Descàrrega
       downloadData: Descarregueu dades
       edit: Editeu
+      emptyRecentQueries: No hi ha consultes recents
       fav: Favorit
       favs: Favorites
       follow: Seguïu

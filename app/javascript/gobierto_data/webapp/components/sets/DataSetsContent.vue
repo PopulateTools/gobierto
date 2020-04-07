@@ -45,6 +45,7 @@
       :dataset-id="datasetId"
       :private-queries="privateQueries"
       :public-queries="publicQueries"
+      :recent-queries="recentQueriesFiltered"
       :array-columns="arrayColumns"
       :table-name="tableName"
       :array-formats="arrayFormats"
@@ -126,6 +127,7 @@ export default {
       arrayColumns: {},
       privateQueries: [],
       publicQueries: [],
+      recentQueries: [],
       resourcesList: [],
       dateUpdated: "",
       descriptionDataset: "",
@@ -140,10 +142,22 @@ export default {
       queryError: null,
     };
   },
+  computed: {
+    recentQueriesFiltered() {
+      return this.recentQueries
+        .filter((sql) => sql.includes(this.tableName))
+        .reverse();
+    },
+  },
   watch: {
     $route(to) {
       if (to) {
-        this.parseUrl(to);
+        const {
+          params: { queryId },
+          query: { sql },
+        } = to;
+
+        this.parseUrl({ queryId, sql });
       }
     },
   },
@@ -157,7 +171,13 @@ export default {
     // save the query in database
     this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
 
-    this.setValuesDataset();
+    this.setDatasetMetadata();
+  },
+  mounted() {
+    const recentQueries = localStorage.getItem("recentQueries");
+    if (recentQueries) {
+      this.recentQueries = JSON.parse(recentQueries);
+    }
   },
   beforeDestroy() {
     this.$root.$off("deleteSavedQuery", this.deleteSavedQuery);
@@ -166,12 +186,7 @@ export default {
     this.$root.$off("storeCurrentQuery", this.storeCurrentQuery);
   },
   methods: {
-    parseUrl(route) {
-      const {
-        params: { queryId },
-        query: { sql },
-      } = route;
-
+    parseUrl({ queryId, sql }) {
       let item = null;
       if (queryId) {
         // if has queryId it's a privateQuery
@@ -198,7 +213,26 @@ export default {
     setCurrentQuery(sql) {
       this.currentQuery = sql;
     },
-    async setValuesDataset() {
+    storeRecentQuery() {
+      // if the currentQuery does not exist, nor recent, nor public, nor private queries neither
+      // then save it in recent ones, and update localStorage
+      if (
+        !this.recentQueries.some((query) => query === this.currentQuery) &&
+        !this.publicQueries.some(
+          ({ attributes: { sql } }) => sql === this.currentQuery
+        ) &&
+        !this.privateQueries.some(
+          ({ attributes: { sql } }) => sql === this.currentQuery
+        )
+      ) {
+        this.recentQueries.push(this.currentQuery);
+        localStorage.setItem(
+          "recentQueries",
+          JSON.stringify(this.recentQueries)
+        );
+      }
+    },
+    async setDatasetMetadata() {
       const { id } = this.$route.params;
 
       // factory method
@@ -258,8 +292,18 @@ export default {
         this.privateQueries = privateItems;
       }
 
-      // update the sql editor if the url contains a query
-      this.parseUrl(this.$route);
+      const {
+        params: { queryId },
+        query: { sql },
+      } = this.$route;
+
+      if (queryId || sql) {
+        // update the sql editor if the url contains a query
+        this.parseUrl({ queryId, sql });
+      } else {
+        // update the editor text content
+        this.setCurrentQuery(`SELECT * FROM ${this.tableName}`);
+      }
     },
     async getPrivateQueries() {
       const userId = getUserId();
@@ -307,6 +351,7 @@ export default {
       }
 
       // reload the queries if the response was successfull
+      // 200 OK (PUT) / 201 Created (POST)
       if ([200, 201].includes(status)) {
         this.getPublicQueries();
         this.getPrivateQueries();
@@ -315,6 +360,10 @@ export default {
     async runCurrentQuery() {
       this.isQueryRunning = true;
 
+      // save the query executed
+      this.storeRecentQuery();
+
+      // wrap the result in an small number of records
       let query = "";
       if (this.currentQuery.includes("LIMIT")) {
         query = this.currentQuery;

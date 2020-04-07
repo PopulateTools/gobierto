@@ -5,8 +5,8 @@
         v-if="publicQueries.length"
         :private-queries="privateQueries"
         :public-queries="publicQueries"
+        :recent-queries="recentQueries"
         :is-query-running="isQueryRunning"
-        :table-name="tableName"
         :query-name="queryName"
       />
       <SQLEditorCode
@@ -20,7 +20,6 @@
         v-if="items"
         :array-formats="arrayFormats"
         :items="items"
-        :link="link"
         :table-name="tableName"
         :active-tab="activeTabIndex"
         :private-queries="privateQueries"
@@ -53,12 +52,16 @@ export default {
       type: Array,
       required: true
     },
-    arrayColumns: {
-      type: Object,
-      required: true
-    },
     publicQueries: {
       type: Array,
+      required: true
+    },
+    recentQueries: {
+      type: Array,
+      default: () => []
+    },
+    arrayColumns: {
+      type: Object,
       required: true
     },
     arrayFormats: {
@@ -101,65 +104,8 @@ export default {
   data() {
     return {
       activeTabIndex: 0,
-      link: '',
-      localTableName : ''
     }
   },
-  created() {
-    this.localTableName = this.tableName
-
-    if (localStorage.getItem('recentQueries')) {
-      try {
-        this.recentQueries = JSON.parse(localStorage.getItem('recentQueries'));
-        this.localQueries = JSON.parse(localStorage.getItem('savedData'));
-        this.addRecentQuery()
-      } catch (e) {
-        localStorage.removeItem('recentQueries');
-      }
-    }
-  },
-  methods: {
-    addRecentQuery() {
-      if (!this.newRecentQuery) {
-        return;
-      }
-
-      if (Object.values(this.recentQueries).indexOf(this.newRecentQuery) > -1) {
-        this.$root.$emit('storeQuery', this.recentQueries)
-      } else {
-        this.recentQueries.push(this.newRecentQuery);
-        localStorage.setItem('recentQueries', JSON.stringify(this.recentQueries));
-
-        if (this.localTableName === this.tableName) {
-          this.orderRecentQueries = [{
-            dataset: this.tableName,
-            text: this.newRecentQuery
-          }]
-          this.newRecentQuery = '';
-
-          const tempRecentQueries = [ ...this.localQueries, ...this.orderRecentQueries ]
-          this.totalRecentQueries = tempRecentQueries
-          this.orderRecentQueries = []
-          localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
-
-          this.saveRecentQuery(this.totalRecentQueries);
-        }
-      }
-    },
-    saveRecentQuery() {
-      localStorage.setItem("savedData", JSON.stringify(this.totalRecentQueries));
-      this.$root.$emit('storeQuery', this.totalRecentQueries)
-    },
-    loadRecentQuery() {
-      this.totalRecentQueries = this.localQueries
-      this.$root.$emit('storeQuery', this.totalRecentQueries)
-    },
-    saveNewRecentQuery(query) {
-      this.newRecentQuery = query
-      this.queryStored = query
-      this.addRecentQuery()
-    },
-  }
 }
 
 </script>

@@ -22,6 +22,7 @@ es:
       download: Descargar
       downloadData: Descargar datos
       edit: Editar
+      emptyRecentQueries: No hay consultas recientes
       fav: Favorito
       favs: Favoritas
       follow: Seguir

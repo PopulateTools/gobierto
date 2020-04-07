@@ -4,7 +4,7 @@
       <Button
         v-clickoutside="closeRecentModal"
         :text="labelRecents"
-        :class="removeLabelBtn ? 'remove-label' : ''"
+        :class="{ 'remove-label' : removeLabelBtn }"
         :title="labelButtonRecentQueries"
         class="btn-sql-editor"
         icon="history"
@@ -19,8 +19,8 @@
       >
         <RecentQueries
           v-if="isRecentModalActive"
-          :table-name="tableName"
-          :class="[isRecentModalActive ? 'active' : '']"
+          :recent-queries="recentQueries"
+          :class="{'active' : isRecentModalActive}"
         />
       </transition>
     </div>
@@ -29,7 +29,7 @@
       <Button
         v-clickoutside="closeQueriesModal"
         :text="labelQueries"
-        :class="removeLabelBtn ? 'remove-label' : ''"
+        :class="{ 'remove-label' : removeLabelBtn }"
         :title="labelButtonQueries"
         class="btn-sql-editor"
         icon="list"
@@ -55,7 +55,7 @@
       v-if="isSavingDialogActive || showInputName"
       ref="inputText"
       v-model="labelQueryName"
-      :class="disableInputName ? 'disable-input-text' : ' '"
+      :class="{ 'disable-input-text' : disableInputName }"
       type="text"
       class="gobierto-data-sql-editor-container-save-text"
       @keyup="keyUpSaveQueryNameHandler($event)"
@@ -166,13 +166,13 @@ export default {
       type: Array,
       default: () => [],
     },
+    recentQueries: {
+      type: Array,
+      default: () => []
+    },
     isQueryRunning: {
       type: Boolean,
       default: false
-    },
-    tableName: {
-      type: String,
-      default: "",
     },
     queryName: {
       type: String,
@@ -228,10 +228,10 @@ export default {
     modalShortcutsListener(e) {
       if (e.keyCode == 67) {
         // key "c"
-        this.openQueriesModal();
+        this.isQueriesModalActive ? this.closeQueriesModal() : this.openQueriesModal();
       } else if (e.keyCode == 82) {
         // key "r"
-        this.openRecentModal();
+        this.isRecentModalActive ? this.closeRecentModal() : this.openRecentModal();
       }
     },
     editorShortcutsListener(e) {
@@ -241,21 +241,18 @@ export default {
     },
     onBlurEditor() {
       // Enable keyboard listeners (c|r)
-      window.addEventListener("keydown", this.modalShortcutsListener, true);
+      document.addEventListener("keydown", this.modalShortcutsListener);
       // Disable run query on ctrl+enter
-      window.removeEventListener("keydown", this.editorShortcutsListener, true);
+      document.removeEventListener("keydown", this.editorShortcutsListener);
     },
     onFocusEditor() {
       // Disable keyboard listeners (c|r) for typing the query
-      window.removeEventListener("keydown", this.modalShortcutsListener, true);
+      document.removeEventListener("keydown", this.modalShortcutsListener);
       // Enable run query on ctrl+enter
-      window.addEventListener("keydown", this.editorShortcutsListener, true);
+      document.addEventListener("keydown", this.editorShortcutsListener);
     },
     onKeyUpEditor(value) {
       this.showLabelModified = value;
-    },
-    showStoreQueries(queries) {
-      this.$root.$emit("showRecentQueries", queries);
     },
     setFocus() {
       this.$nextTick(() => this.$refs.inputText.focus());

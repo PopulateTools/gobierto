@@ -119,15 +119,17 @@ export default {
     onFocus() {
       this.$root.$emit("focusEditor");
     },
-    onBlur(editor) {
+    onBlur() {
       this.$root.$emit("blurEditor");
-      // once you lose the focus, update the query
-      this.$root.$emit("setCurrentQuery", editor.getValue());
     },
     onKeyUp(editor) {
       editor.showHint();
+
+      const value = editor.getValue()
       // query has been modified
-      this.$root.$emit("keyUpEditor", this.queryStored !== editor.getValue());
+      this.$root.$emit("keyUpEditor", this.queryStored !== value);
+      // update the query while typing
+      this.$root.$emit("setCurrentQuery", value);
     },
     mergeTables() {
       for (let i = 0; i < this.arrayColumns.length; i++) {
@@ -139,7 +141,9 @@ export default {
       this.autoCompleteKeys = [...this.arrayMutated, ...this.sqlAutocomplete];
     },
     setEditorValue(newCode) {
+      const pos = this.editor.getCursor()
       this.editor.setValue(newCode);
+      this.editor.setCursor(pos)
     },
     suggest(searchString) {
       let token = searchString;

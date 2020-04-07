@@ -72,7 +72,9 @@ export default {
     },
     exportPerspectiveConfig(opts) {
       const config = this.viewer.save()
-      this.$root.$emit("saveVisualization", config, opts);
+      console.log("SALVARIAMOS VIS", config, opts);
+
+      // this.$root.$emit("saveVisualization", { config, opts });
     }
   }
 };

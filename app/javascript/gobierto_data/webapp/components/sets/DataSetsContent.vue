@@ -47,7 +47,6 @@
       :public-queries="publicQueries"
       :recent-queries="recentQueriesFiltered"
       :array-columns="arrayColumns"
-      :table-name="tableName"
       :array-formats="arrayFormats"
       :items="items"
       :is-query-running="isQueryRunning"
@@ -92,6 +91,7 @@ import { translate } from "./../../../../lib/shared/modules/vue-filters";
 import { DatasetFactoryMixin } from "./../../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { DataFactoryMixin } from "./../../../lib/factories/data";
+import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 
 // THIS IS THE COMPONENT WHO KNOWS WHAT THE DATA IS ABOUT
 // EVERY SINGLE API REQUEST IS DONE THROUGHOUT THIS ONE
@@ -109,7 +109,12 @@ export default {
   filters: {
     translate,
   },
-  mixins: [DatasetFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
+  mixins: [
+    DatasetFactoryMixin,
+    QueriesFactoryMixin,
+    DataFactoryMixin,
+    VisualizationFactoryMixin,
+  ],
   props: {
     activeDatasetTab: {
       type: Number,
@@ -120,7 +125,6 @@ export default {
     return {
       labelFav: I18n.t("gobierto_data.projects.fav") || "",
       labelFollow: I18n.t("gobierto_data.projects.follow") || "",
-      tableName: "",
       titleDataset: "",
       datasetId: 0,
       arrayFormats: {},
@@ -134,7 +138,7 @@ export default {
       categoryDataset: "",
       frequencyDataset: "",
       currentQuery: null,
-      items: null,
+      items: [],
       isQueryRunning: false,
       queryName: null,
       queryDuration: 0,
@@ -170,6 +174,8 @@ export default {
     this.$root.$on("runCurrentQuery", this.runCurrentQuery);
     // save the query in database
     this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
+    // save the visualization in database
+    this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
 
     this.setDatasetMetadata();
   },
@@ -184,6 +190,7 @@ export default {
     this.$root.$off("setCurrentQuery", this.setCurrentQuery);
     this.$root.$off("runCurrentQuery", this.runCurrentQuery);
     this.$root.$off("storeCurrentQuery", this.storeCurrentQuery);
+    this.$root.$off("storeCurrentVisualization", this.storeCurrentVisualization);
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -209,6 +216,10 @@ export default {
         // run such query
         this.runCurrentQuery();
       }
+    },
+    ensureUserIsLogged() {
+      if (getUserId() === "")
+        location.href = "/user/sessions/new?open_modal=true";
     },
     setCurrentQuery(sql) {
       this.currentQuery = sql;
@@ -327,10 +338,13 @@ export default {
       }
     },
     async storeCurrentQuery({ name, privacy }) {
+      // if there's no user, you cannot save queries
+      this.ensureUserIsLogged();
+
       const data = {
         type: "gobierto_data-queries",
         attributes: {
-          privacy_status: privacy === false ? "open" : "closed",
+          privacy_status: privacy ? "closed" : "open",
           sql: this.currentQuery,
           name,
           dataset_id: this.datasetId,
@@ -389,6 +403,45 @@ export default {
       } catch (error) {
         this.queryError = error;
       }
+    },
+    async storeCurrentVisualization(config, opts) {
+      // if there's no user, you cannot save visualizations
+      this.ensureUserIsLogged();
+
+      const { name, privacy } = opts;
+
+      // default attributes
+      let attributes = {
+        name_translations: {
+          en: name,
+          es: name,
+        },
+        privacy_status: privacy ? "closed" : "open",
+        spec: config,
+        user_id: this.userId,
+        dataset_id: this.datasetId,
+      };
+
+      // Get the id if the query matches with a stored query
+      const { id } = this.privateQueries.find(({ attributes: { sql } }) => sql === this.currentQuery ) || {};
+
+      // Depending whether the query was stored in database or not,
+      // we must save the query_id or the query, instead
+      if (id) {
+        attributes = { ...attributes, query_id: id };
+      } else {
+        attributes = { ...attributes, sql: this.currentQuery };
+      }
+
+      // POST data obj
+      const data = {
+        type: "gobierto_data-visualizations",
+        attributes,
+      };
+
+      // factory method
+      const { status } = await this.postVisualization({ data });
+      // TODO: indicar algo con el status OK
     },
     // returns a simply promise
     fetchPrivateQueries(userId) {

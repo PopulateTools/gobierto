@@ -17,15 +17,9 @@
         :query-error="queryError"
       />
       <SQLEditorResults
-        v-if="items"
+        v-if="items.length"
         :array-formats="arrayFormats"
         :items="items"
-        :table-name="tableName"
-        :active-tab="activeTabIndex"
-        :private-queries="privateQueries"
-        :dataset-id="datasetId"
-        :current-query="queryStored"
-        @active-tab="activeTabIndex = $event"
       />
     </div>
   </div>
@@ -44,10 +38,6 @@ export default {
     SQLEditorResults
   },
   props: {
-    tableName: {
-      type: String,
-      required: true
-    },
     privateQueries: {
       type: Array,
       required: true
@@ -100,11 +90,6 @@ export default {
       type: String,
       default: null
     },
-  },
-  data() {
-    return {
-      activeTabIndex: 0,
-    }
   },
 }
 

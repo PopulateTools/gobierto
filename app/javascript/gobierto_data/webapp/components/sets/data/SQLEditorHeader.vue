@@ -21,6 +21,7 @@
           v-if="isRecentModalActive"
           :recent-queries="recentQueries"
           :class="{'active' : isRecentModalActive}"
+          class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
         />
       </transition>
     </div>
@@ -138,14 +139,13 @@
   </div>
 </template>
 <script>
-import { getUserId } from "./../../../../lib/helpers";
 import { CommonsMixin, closableMixin } from "./../../../../lib/commons.js";
 
 import Button from "./../../commons/Button.vue";
 import Queries from "./../../commons/Queries.vue";
 import PulseSpinner from "./../../commons/PulseSpinner.vue";
 import PrivateIcon from "./../../commons/PrivateIcon.vue";
-import RecentQueries from "./RecentQueries.vue";
+import RecentQueries from "./../../commons/RecentQueries.vue";
 
 export default {
   name: "SQLEditorHeader",
@@ -229,9 +229,19 @@ export default {
       if (e.keyCode == 67) {
         // key "c"
         this.isQueriesModalActive ? this.closeQueriesModal() : this.openQueriesModal();
+
+        // close the other modal, if open
+        if (this.isRecentModalActive) {
+          this.closeRecentModal()
+        }
       } else if (e.keyCode == 82) {
         // key "r"
         this.isRecentModalActive ? this.closeRecentModal() : this.openRecentModal();
+
+        // close the other modal, if open
+        if (this.isQueriesModalActive) {
+          this.closeQueriesModal()
+        }
       }
     },
     editorShortcutsListener(e) {
@@ -265,10 +275,6 @@ export default {
       this.$root.$emit("runCurrentQuery");
     },
     clickSaveQueryHandler() {
-      // if there's no user, you cannot save queries
-      if (getUserId() === "")
-        location.href = "/user/sessions/new?open_modal=true";
-
       if (this.isSavingDialogActive && this.labelQueryName.length > 0) {
         this.$root.$emit("storeCurrentQuery", {
           name: this.labelQueryName,

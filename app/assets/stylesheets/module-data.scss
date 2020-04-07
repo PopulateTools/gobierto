@@ -302,8 +302,7 @@
   &-container-btn-download-data {
     position: relative;
     width: max-content;
-    display: flex;
-
+    display: inline-flex;
 
     &.arrow-top {
 
@@ -585,9 +584,7 @@
     }
 
     .btn-sql-editor-cancel {
-      i {
-        display: none;
-      }
+      margin-left: .5em;
     }
 
   }
@@ -597,7 +594,8 @@
   }
 
   &-sql-editor-container-save {
-    display: inline-block;
+    display: inline-flex;
+    align-items: baseline;
     padding: 0 .5rem;
 
     i {
@@ -605,20 +603,14 @@
     }
   }
 
-  &-sql-editor-container-save-checkbox {
-    display: inline-block;
-  }
-
   &-sql-editor-container-save-text {
     min-height: 31px;
-
   }
 
   &-sql-editor-container-save-label {
-    display: inline-block;
     font-size: 14px;
     color: #666;
-    padding: 0 .25rem;
+    padding-right: .5em;
     cursor: pointer;
   }
 

@@ -49,3 +49,8 @@ es:
           attributes:
             item:
               wrong_item_class: no está asociado a un item de la clase adecuada
+        gobierto_common/term:
+          attributes:
+            base:
+              has_dependent_resources_html: Está siendo usado por los siguientes recursos:</br>
+                %{dependencies_list}

@@ -3,6 +3,8 @@
 module GobiertoAdmin
   module GobiertoPlans
     class PlansController < GobiertoAdmin::GobiertoPlans::BaseController
+      class HasDependentResources < StandardError; end
+
       before_action -> { module_allowed_action!(current_admin, current_admin_module, :manage) }, except: [:index, :plan]
 
       def index
@@ -82,18 +84,31 @@ module GobiertoAdmin
       def delete_contents
         @plan = find_plan
 
-        @plan.nodes.destroy_all
-        @plan.categories_vocabulary.terms.destroy_all
-        @plan.statuses_vocabulary.terms.destroy_all
-        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(
-          site_id: current_site.id,
-          item: @plan.nodes.new,
-          instance: @plan
-        )
-        @custom_fields_form.empty_associated_vocabularies!
+        ActiveRecord::Base.transaction do
+          @plan.nodes.destroy_all
+          destroy_terms(@plan.categories_vocabulary)
+          destroy_terms(@plan.statuses_vocabulary)
+          @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(
+            site_id: current_site.id,
+            item: @plan.nodes.new,
+            instance: @plan
+          )
+          @custom_fields_form.associated_vocabularies.each do |vocabulary|
+            destroy_terms(vocabulary)
+          end
+        end
+
+        # Update plan cache
+        @plan.touch
+
         redirect_to(
           edit_admin_plans_plan_path(@plan),
           notice: t(".success")
+        )
+      rescue HasDependentResources => e
+        redirect_to(
+          edit_admin_plans_plan_path(@plan),
+          alert: e.message
         )
       end
 
@@ -150,6 +165,19 @@ module GobiertoAdmin
 
       def track_create_activity
         Publishers::GobiertoPlansPlanActivity.broadcast_event("plan_created", default_activity_params.merge(subject: @plan_form.plan))
+      end
+
+      def destroy_terms(vocabulary)
+        vocabulary.terms.each do |term|
+          next if term.destroy
+
+          raise HasDependentResources, t(
+            "gobierto_admin.gobierto_plans.plans.delete_contents.term_deletion_failed_html",
+            vocabulary: term.vocabulary.name,
+            term: term.name,
+            message: term.errors.full_messages.to_sentence
+          )
+        end
       end
 
       def track_update_activity

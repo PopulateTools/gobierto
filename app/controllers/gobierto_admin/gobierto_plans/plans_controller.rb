@@ -98,6 +98,9 @@ module GobiertoAdmin
           end
         end
 
+        # Update plan cache
+        @plan.touch
+
         redirect_to(
           edit_admin_plans_plan_path(@plan),
           notice: t(".success")

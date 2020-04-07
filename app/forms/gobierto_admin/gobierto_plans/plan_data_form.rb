@@ -54,6 +54,7 @@ module GobiertoAdmin
           ActiveRecord::Base.transaction do
             clear_categories_vocabulary unless has_previous_nodes?
             import_nodes
+            @plan.touch
           end
         end
       rescue CSVRowInvalid => e

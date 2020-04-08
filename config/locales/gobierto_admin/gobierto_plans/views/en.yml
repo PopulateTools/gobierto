@@ -28,6 +28,8 @@ en:
         edit:
           title: Configuration
         form:
+          delete_contents: Delete projects of this plan
+          delete_contents_confirm: Confirm you want to delete projects from this plan
           export_csv: Export to CSV
           import_csv: Import from CSV
           placeholders:

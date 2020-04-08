@@ -60,6 +60,10 @@ module GobiertoCommon
       custom_field_records.any? { |custom_field| version_changed?(custom_field) }
     end
 
+    def associated_vocabularies
+      available_custom_fields.select(&:has_vocabulary?).map(&:vocabulary).compact
+    end
+
     private
 
     def version_changed?(custom_field)

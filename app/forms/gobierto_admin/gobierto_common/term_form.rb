@@ -25,7 +25,7 @@ module GobiertoAdmin
       end
 
       def build_term
-        vocabulary.terms.new
+        vocabulary.terms.new(position: next_position)
       end
 
       def save
@@ -33,6 +33,10 @@ module GobiertoAdmin
       end
 
       private
+
+      def next_position
+        (vocabulary.terms.maximum(:position) || -1) + 1
+      end
 
       def vocabulary
         @vocabulary ||= begin

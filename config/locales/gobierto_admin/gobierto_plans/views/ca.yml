@@ -28,6 +28,9 @@ ca:
         edit:
           title: Configuració
         form:
+          delete_contents: Eliminar els projectes d'aquest pla
+          delete_contents_confirm: Confirma que vols eliminar els projectes d'aquest
+            pla
           export_csv: Exportar a CSV
           import_csv: Importar des CSV
           placeholders:

@@ -32,6 +32,12 @@ ca:
         term_id: Térme Pare
       gobierto_admin/gobierto_common/vocabulary_form:
         name: Nom
+    errors:
+      models:
+        gobierto_admin/gobierto_common/vocabulary_terms_import_form:
+          attributes:
+            base:
+              invalid_row: 'Hi ha una fila amb dades invàlid: %{row_data}'
     models:
       gobierto_admin/gobierto_common/collection_form: Col·lecció
       gobierto_admin/gobierto_common/term_form: Terme
@@ -43,3 +49,7 @@ ca:
           attributes:
             item:
               wrong_item_class: no està associat a un item de la classe adequada
+        gobierto_common/term:
+          attributes:
+            base:
+              has_dependent_resources_html: Està sent usat pels recursos:</br> %{dependencies_list}

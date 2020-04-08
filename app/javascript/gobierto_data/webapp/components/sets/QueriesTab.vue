@@ -1,19 +1,18 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <QueriesCode
+    <Queries
       :private-queries="privateQueries"
       :public-queries="publicQueries"
     />
   </div>
 </template>
 <script>
-
-import QueriesCode from "./../commons/Queries.vue";
+import Queries from "./../commons/Queries.vue";
 
 export default {
-  name: "Queries",
+  name: "QueriesTab",
   components: {
-    QueriesCode
+    Queries
   },
   props: {
     privateQueries: {
@@ -23,7 +22,7 @@ export default {
     publicQueries: {
       type: Array,
       required: true
-    }
+    },
   }
 }
 </script>

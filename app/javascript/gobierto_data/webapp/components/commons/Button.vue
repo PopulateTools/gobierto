@@ -4,6 +4,7 @@
     class="gobierto-data-btn-blue"
   >
     <i
+      v-if="icon"
       :class="'fa-' + icon"
       style="color: inherit;"
       class="fas"
@@ -23,7 +24,6 @@ export default {
     },
     icon: {
       type: String,
-      required: true,
       default: ''
     },
     color: {

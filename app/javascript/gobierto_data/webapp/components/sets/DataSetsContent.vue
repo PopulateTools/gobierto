@@ -27,8 +27,9 @@
 
     <NavDataSets :active-dataset-tab="activeDatasetTab" />
 
+    <!-- Only is mounted where there are attributes -->
     <SummaryTab
-      v-if="activeDatasetTab === 0"
+      v-if="activeDatasetTab === 0 && attributes"
       :private-queries="privateQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
@@ -120,7 +121,7 @@ export default {
       titleDataset: "",
       arrayFormats: {},
       arrayColumns: {},
-      attributes: {},
+      attributes: null,
       privateQueries: [],
       publicQueries: [],
       recentQueries: [],

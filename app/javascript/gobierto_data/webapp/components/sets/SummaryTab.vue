@@ -70,8 +70,7 @@ export default {
       dateUpdated: null,
     };
   },
-  updated() {
-    // We set those values in updated hook, because the component is already mounted
+  created() {
     ({
       data_updated_at: this.dateUpdated,
       category: [{ name_translations: this.category } = {}] = [],

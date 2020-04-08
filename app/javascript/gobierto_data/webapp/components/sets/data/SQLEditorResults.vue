@@ -18,7 +18,10 @@
     </div>
 
     <div class="gobierto-data-visualization--aspect-ratio-16-9">
-      <Visualizations :items="items" />
+      <Visualizations
+        ref="viewer"
+        :items="items"
+      />
     </div>
   </div>
 </template>
@@ -46,15 +49,15 @@ export default {
   },
   data() {
     return {
-      labelTable: I18n.t("gobierto_data.projects.table") || "",
-      labelVisualization: I18n.t("gobierto_data.projects.visualization") || "",
       labelVisName: I18n.t('gobierto_data.projects.visName') || "",
     };
   },
   methods: {
     onSaveEventHandler(opts) {
-      // TODO: temporal
-      this.$root.$emit("exportPerspectiveConfig", opts)
+      // get children configuration
+      const config = this.$refs.viewer.getConfig()
+
+      this.$root.$emit("storeCurrentVisualization", config, opts);
     }
   },
 };

@@ -1,7 +1,6 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
     <Queries
-      :dataset-id="datasetId"
       :private-queries="privateQueries"
       :public-queries="publicQueries"
     />
@@ -22,10 +21,6 @@ export default {
     },
     publicQueries: {
       type: Array,
-      required: true
-    },
-    datasetId: {
-      type: Number,
       required: true
     },
   }

@@ -28,7 +28,7 @@
                         <h4 class="gobierto-data-visualization--title">
                           {{ name }}
                         </h4>
-                        <SQLEditorVisualizations
+                        <Visualizations
                           :items="data"
                           :config="config"
                         />
@@ -120,9 +120,9 @@ export default {
   },
   data() {
     return {
-      labelVisEmpty: "",
-      labelVisPrivate: "",
-      labelVisPublic: "",
+      labelVisEmpty: I18n.t("gobierto_data.projects.visEmpty") || "",
+      labelVisPrivate: I18n.t("gobierto_data.projects.visPrivate") || "",
+      labelVisPublic: I18n.t("gobierto_data.projects.visPublic") || "",
       publicVisualizations: [],
       privateVisualizations: [],
       isUserLoggged: false,
@@ -133,10 +133,6 @@ export default {
     };
   },
   created() {
-    this.labelVisEmpty = I18n.t("gobierto_data.projects.visEmpty");
-    this.labelVisPrivate = I18n.t("gobierto_data.projects.visPrivate");
-    this.labelVisPublic = I18n.t("gobierto_data.projects.visPublic");
-
     this.userId = getUserId();
     this.isUserLoggged = !!this.userId;
 

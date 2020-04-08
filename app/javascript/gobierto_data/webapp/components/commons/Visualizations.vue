@@ -2,7 +2,6 @@
   <perspective-viewer ref="perspective-viewer" />
 </template>
 <script>
-// TODO: mover este componente a commons
 import perspective from "@finos/perspective";
 import "@finos/perspective-viewer";
 import "@finos/perspective-viewer-hypergrid";
@@ -28,15 +27,9 @@ export default {
       }
     }
   },
-  created() {
-    this.$root.$on("exportPerspectiveConfig", this.exportPerspectiveConfig);
-  },
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.initPerspective(this.items);
-  },
-  beforeDestroy() {
-    this.$root.$off("exportPerspectiveConfig", this.exportPerspectiveConfig);
   },
   methods: {
     updateValues(values) {
@@ -70,11 +63,9 @@ export default {
       this.viewer.load(table);
       this.initColumns = this.newColumns;
     },
-    exportPerspectiveConfig(opts) {
-      const config = this.viewer.save()
-      console.log("SALVARIAMOS VIS", config, opts);
-
-      // this.$root.$emit("saveVisualization", { config, opts });
+    getConfig() {
+      // export the visualization configuration object
+      return this.viewer.save()
     }
   }
 };

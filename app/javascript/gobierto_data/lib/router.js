@@ -3,91 +3,34 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-const Home = () => import("../webapp/pages/Home.vue");
+const Datos = () => import("../webapp/pages/Datos.vue");
+const Index = () => import("../webapp/components/Index.vue");
+const Dataset = () => import("../webapp/components/Dataset.vue");
 
 export const tabs = ['resumen', 'editor', 'consultas', 'visualizaciones', 'descarga']
 
+// https://router.vuejs.org/guide/essentials/nested-routes.html
 export const router = new VueRouter({
   mode: "history",
   routes: [{
       path: "/datos",
-      name: "home",
-      component: Home,
-      props: {
-        currentComponent: 'InfoList',
-        activateTabSidebar: 0
-      }
-    },
-    {
-      path: "/datos/:id",
-      name: "dataset",
-      component: Home,
-      props: {
-        currentComponent: 'DataSets',
-        activateTabSidebar: 1
-      }
-    },
-    {
-      path: `/datos/:id/${tabs[0]}`,
-      name: tabs[0],
-      component: Home,
-      props: {
-        currentComponent: 'DataSets',
-        activateTabSidebar: 1,
-        activeDatasetTabProp: 0
-      }
-    },
-    {
-      path: `/datos/:id/${tabs[1]}`,
-      name: tabs[1],
-      component: Home,
-      props: {
-        currentComponent: 'DataSets',
-        activateTabSidebar: 1,
-        activeDatasetTabProp: 1
-      }
-    },
-    {
-      path: `/datos/:id/${tabs[2]}`,
-      name: tabs[2],
-      component: Home,
-      props: {
-        currentComponent: 'DataSets',
-        activateTabSidebar: 1,
-        activeDatasetTabProp: 2
-      }
-    },
-    {
-      path: `/datos/:id/${tabs[3]}`,
-      name: tabs[3],
-      component: Home,
-      props: {
-        currentComponent: 'DataSets',
-        activateTabSidebar: 1,
-        activeDatasetTabProp: 3
-      }
-    },
-    {
-      path: `/datos/:id/${tabs[4]}`,
-      name: tabs[4],
-      component: Home,
-      props: {
-        currentComponent: 'DataSets',
-        activateTabSidebar: 1,
-        activeDatasetTabProp: 4
-      }
-    },
-    {
-      path: "/datos/:id/q/:queryId?",
-      name: "queries",
-      component: Home,
-      props: {
-        currentComponent: 'DataSets',
-        activateTabSidebar: 1,
-        activeDatasetTabProp: 2
-      }
-    }
-  ]
+      component: Datos,
+      children: [{
+        path: "",
+        component: Index,
+        props: { activeSidebarTab: 0 }
+      }, {
+        path: ":id/:tab?",
+        component: Dataset,
+        // send props as a function, default to tab[0], otherwise take the index
+        props: ({ params: { tab = tabs[0] } }) => ({ activeDatasetTab: tabs.indexOf(tab), activeSidebarTab: 1 })
+      }, {
+        path: ":id/q/:queryId?",
+        component: Dataset,
+        // active the editor for queries
+        props: { activeDatasetTab: 1, activeSidebarTab: 1 }
+      }]
+    }]
 })
 
 const baseTitle = document.title;

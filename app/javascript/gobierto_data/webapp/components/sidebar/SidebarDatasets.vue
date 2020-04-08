@@ -1,8 +1,8 @@
 <template>
   <div>
     <div
-      v-for="(item, index) in listDatasets"
-      :key="index"
+      v-for="({ id, attributes: { slug, name, columns }}, index) in listDatasets"
+      :key="id"
       class="gobierto-data-sidebar-datasets"
     >
       <div class="gobierto-data-sidebar-datasets-links-container">
@@ -11,12 +11,14 @@
           class="fas fa-caret-down gobierto-data-sidebar-icon"
           @click="handleToggle(index)"
         />
-        <a
-          :href="'/datos/' + item.attributes.slug"
+
+        <router-link
+          :to="`/datos/${slug}`"
           class="gobierto-data-sidebar-datasets-name"
-          @click.prevent="nav(item.attributes.slug, item.attributes.name, index)"
-        >{{ item.attributes.name }}
-        </a>
+        >
+          {{ name }}
+        </router-link>
+
         <div
           v-show="toggle === index"
           class="gobierto-data-sidebar-datasets-container-columns"
@@ -33,7 +35,7 @@
           </div>
           <div v-else>
             <span
-              v-for="(column, i) in item.attributes.columns"
+              v-for="(column, i) in columns"
               :key="i"
               class="gobierto-data-sidebar-datasets-links-columns"
             >
@@ -41,9 +43,7 @@
             </span>
           </div>
           <div v-if="showKeys()">
-            <template
-              v-if="showLess"
-            >
+            <template v-if="showLess">
               <span
                 class="gobierto-data-sidebar-datasets-links-columns-see-more"
                 @click="showLess = false"
@@ -115,18 +115,6 @@ export default {
       this.showLess = true
       this.sliceColumns(index)
       this.toggle = this.toggle !== index ? index : null;
-    },
-    nav(slugDataset, nameDataset) {
-      this.toggle = 0
-      this.$router.push({
-        name: "dataset",
-        params: {
-          id: slugDataset,
-          tabSidebar: 1,
-          title: nameDataset
-        }
-    // eslint-disable-next-line no-unused-vars
-    }).catch(err => {})
     },
     sliceColumns(index) {
       const allColumns = this.listDatasets ? Object.keys(this.listDatasets[index].attributes.columns) : []

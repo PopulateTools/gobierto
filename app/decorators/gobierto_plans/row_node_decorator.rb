@@ -156,7 +156,7 @@ module GobiertoPlans
       return if text.blank?
 
       text = text.strip
-      statuses_terms.with_name(text).take || allow_statuses_creation? && statuses_terms.create(name: text)
+      (statuses_terms.with_name(text).take || allow_statuses_creation? && statuses_terms.create(name: text))&.id
     end
 
     def statuses_terms

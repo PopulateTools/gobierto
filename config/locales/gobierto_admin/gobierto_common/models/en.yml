@@ -32,6 +32,12 @@ en:
         term_id: Parent Term
       gobierto_admin/gobierto_common/vocabulary_form:
         name: Name
+    errors:
+      models:
+        gobierto_admin/gobierto_common/vocabulary_terms_import_form:
+          attributes:
+            base:
+              invalid_row: 'There is an invalid row: %{row_data}'
     models:
       gobierto_admin/gobierto_common/collection_form: Collection
       gobierto_admin/gobierto_common/term_form: Term

@@ -43,18 +43,13 @@ module GobiertoCommon
     end
 
     def destroy
-      return false if has_dependent_resources?
+      dependent_resources_decorator = TermDependentResourcesDecorator.new(self)
+      if dependent_resources_decorator.has_dependent_resources?
+        errors.add(:base, :has_dependent_resources_html, dependencies_list: dependent_resources_decorator.dependencies_list)
+        return false
+      end
 
       super
-    end
-
-    def has_dependent_resources?
-      enabled_classes_with_vocabularies.any? do |klass|
-        klass.vocabularies.keys.any? do |association|
-          klass.where(klass.reflections[association.to_s].foreign_key => id).exists?
-        end
-      end ||
-        GobiertoPlans::CategoryTermDecorator.new(self).has_dependent_resources?
     end
 
     def last_descendants

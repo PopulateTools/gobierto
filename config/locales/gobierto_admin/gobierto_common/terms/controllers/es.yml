@@ -6,7 +6,7 @@ es:
         create:
           success: El término se ha creado correctamente.
         destroy:
-          destroy_failed: El término no ha podido ser eliminado.
+          destroy_failed: 'El término no ha podido ser eliminado: %{validation_errors}'
           success: El término ha sido eliminado correctamente.
         update:
           success: El término se ha actualizado correctamente.

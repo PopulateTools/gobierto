@@ -70,7 +70,7 @@ module GobiertoAdmin
       def destroy
         @term = find_term
 
-        if current_site.processes.where(issue: @term).blank? && @term.destroy
+        if @term.destroy
           redirect_to(
             index_path,
             notice: t(".success")
@@ -78,7 +78,7 @@ module GobiertoAdmin
         else
           redirect_to(
             index_path,
-            alert: t(".destroy_failed")
+            alert: t(".destroy_failed", validation_errors: @term.errors.full_messages.to_sentence)
           )
         end
       end

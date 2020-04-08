@@ -134,6 +134,15 @@
               <% end %>
             </div>
           </div>
+          <div class="m_v_1">
+            <%= link_to admin_plans_plan_delete_contents_path(@plan),
+                        title: t(".delete_contents"),
+                        method: :delete,
+                        data: { confirm: t(".delete_contents_confirm") } do %>
+              <i class="fas fa-undo"></i>
+              <%= t(".delete_contents") %>
+            <% end %>
+          </div>
         <% end %>
 
       </div>

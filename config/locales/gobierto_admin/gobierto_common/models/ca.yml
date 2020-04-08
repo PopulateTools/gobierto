@@ -49,3 +49,7 @@ ca:
           attributes:
             item:
               wrong_item_class: no està associat a un item de la classe adequada
+        gobierto_common/term:
+          attributes:
+            base:
+              has_dependent_resources_html: Està sent usat pels recursos:</br> %{dependencies_list}

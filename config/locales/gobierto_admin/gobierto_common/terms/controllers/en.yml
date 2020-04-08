@@ -6,7 +6,7 @@ en:
         create:
           success: Term created successfully.
         destroy:
-          destroy_failed: You can't delete a term while it has associated elements.
+          destroy_failed: 'The term couldn''t be deleted: %{validation_errors}'
           success: Term deleted successfully.
         update:
           success: Term updated successfully.

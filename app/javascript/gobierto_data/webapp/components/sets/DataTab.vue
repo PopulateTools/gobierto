@@ -59,10 +59,6 @@ export default {
       type: Object,
       required: true
     },
-    datasetId: {
-      type: Number,
-      required: true
-    },
     items: {
       type: Array,
       default: () => []

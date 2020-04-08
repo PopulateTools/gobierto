@@ -624,6 +624,12 @@
     cursor: pointer;
   }
 
+  &-sql-editor-modified-label-container {
+    display: inline-flex;
+    align-items: center;
+    margin-left: .5em;
+  }
+
   &-sql-editor-modified-label {
     font-size: 14px;
     color: #666;

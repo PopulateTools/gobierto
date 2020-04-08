@@ -1,23 +1,20 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
     <Info
-      :description-dataset="descriptionDataset"
-      :category-dataset="categoryDataset"
-      :frequency-dataset="frequencyDataset"
+      :description-dataset="description"
+      :category-dataset="category | translate"
+      :frequency-dataset="frequency | translate"
       :date-updated="dateUpdated"
     />
-    <keep-alive>
-      <DownloadButton
-        :class="[
-          directionLeft ? 'modal-left': 'modal-right'
-        ]"
-        :array-formats="arrayFormats"
-        class="arrow-top"
-      />
-    </keep-alive>
+
+    <DownloadButton
+      :array-formats="arrayFormats"
+      class="arrow-top modal-left"
+    />
+
     <Resources :resources-list="resourcesList" />
+
     <Queries
-      :dataset-id="datasetId"
       :private-queries="privateQueries"
       :public-queries="publicQueries"
     />
@@ -29,6 +26,7 @@ import Resources from "./../commons/Resources.vue";
 import Info from "./../commons/Info.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
 import Queries from "./../commons/Queries.vue";
+import { translate } from "lib/shared"
 
 export default {
   name: "SummaryTab",
@@ -36,52 +34,50 @@ export default {
     Resources,
     Queries,
     DownloadButton,
-    Info
+    Info,
+  },
+  filters: {
+    translate
   },
   props: {
-    datasetId: {
-      type: Number,
-      required: true
-    },
     privateQueries: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     publicQueries: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     arrayFormats: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
-    descriptionDataset: {
-      type: String,
-      default: ''
-    },
-    categoryDataset: {
-      type: String,
-      default: ''
-    },
-    frequencyDataset: {
-      type: String,
-      default: ''
+    datasetAttributes: {
+      type: Object,
+      default: () => {},
     },
     resourcesList: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
-    dateUpdated: {
-      type: String,
-      default: ''
-    }
   },
   data() {
     return {
-      isActive: false,
-      directionLeft: true
-    }
+      description: null,
+      category: {},
+      frequency: {},
+      dateUpdated: null,
+    };
+  },
+  updated() {
+    // We set those values in updated hook, because the component is already mounted
+    ({
+      data_updated_at: this.dateUpdated,
+      category: [{ name_translations: this.category } = {}] = [],
+      frequency: [{ name_translations: this.frequency } = {}] = [],
+      description: this.description
+    } = this.datasetAttributes) // Ouh yes, destructuring FTW 😎
   }
-}
+};
 </script>

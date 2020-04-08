@@ -31,7 +31,7 @@
                   <i
                     class="fas fa-trash-alt icons-your-queries"
                     style="color: var(--color-base);"
-                    @click="clickDeleteQueryHandler(item.id)"
+                    @click.stop="clickDeleteQueryHandler(item.id)"
                   />
 
                   <PrivateIcon

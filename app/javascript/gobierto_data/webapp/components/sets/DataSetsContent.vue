@@ -32,17 +32,12 @@
       :private-queries="privateQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
-      :description-dataset="descriptionDataset"
-      :category-dataset="categoryDataset | translate"
-      :frequency-dataset="frequencyDataset | translate"
       :resources-list="resourcesList"
-      :date-updated="dateUpdated"
-      :dataset-id="datasetId"
+      :dataset-attributes="attributes"
     />
 
     <DataTab
       v-else-if="activeDatasetTab === 1"
-      :dataset-id="datasetId"
       :private-queries="privateQueries"
       :public-queries="publicQueries"
       :recent-queries="recentQueriesFiltered"
@@ -60,7 +55,6 @@
 
     <QueriesTab
       v-else-if="activeDatasetTab === 2"
-      :dataset-id="datasetId"
       :private-queries="privateQueries"
       :public-queries="publicQueries"
     />
@@ -88,7 +82,6 @@ import VisualizationsTab from "./VisualizationsTab.vue";
 import DownloadsTab from "./DownloadsTab.vue";
 import NavDataSets from "./NavDataSets.vue";
 import { getUserId } from "./../../../lib/helpers";
-import { translate } from "./../../../../lib/shared/modules/vue-filters";
 import { DatasetFactoryMixin } from "./../../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { DataFactoryMixin } from "./../../../lib/factories/data";
@@ -107,9 +100,6 @@ export default {
     DownloadsTab,
     NavDataSets,
   },
-  filters: {
-    translate,
-  },
   mixins: [
     DatasetFactoryMixin,
     QueriesFactoryMixin,
@@ -126,18 +116,15 @@ export default {
     return {
       labelFav: I18n.t("gobierto_data.projects.fav") || "",
       labelFollow: I18n.t("gobierto_data.projects.follow") || "",
+      datasetId: 0, // possible deprecation in DATA, don't in the class
       titleDataset: "",
-      datasetId: 0,
       arrayFormats: {},
       arrayColumns: {},
+      attributes: {},
       privateQueries: [],
       publicQueries: [],
       recentQueries: [],
       resourcesList: [],
-      dateUpdated: "",
-      descriptionDataset: "",
-      categoryDataset: "",
-      frequencyDataset: "",
       currentQuery: null,
       items: [],
       isQueryRunning: false,
@@ -167,7 +154,7 @@ export default {
       }
     },
   },
-  created() {
+  async created() {
     // remove saved query
     this.$root.$on("deleteSavedQuery", this.deleteSavedQuery);
     // change the current query, triggering a new SQL execution
@@ -179,7 +166,64 @@ export default {
     // save the visualization in database
     this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
 
-    this.setDatasetMetadata();
+    const {
+      params: { id, queryId },
+      query: { sql },
+    } = this.$route;
+
+    // factory method
+    const {
+      data: {
+        data: { id: datasetId, attributes },
+      },
+      included,
+    } = await this.getDatasetMetadata(id);
+
+    this.datasetId = parseInt(datasetId);
+    this.resourcesList = included;
+    this.attributes = attributes;
+
+    const {
+      name: titleDataset,
+      table_name: tableName,
+      columns: arrayColumns,
+      formats: arrayFormats,
+    } = attributes;
+
+    this.titleDataset = titleDataset;
+    this.tableName = tableName;
+    this.arrayColumns = arrayColumns;
+    this.arrayFormats = arrayFormats;
+
+    // Once we have the dataset info, we request both kind of queries
+    const queriesPromises = [];
+    queriesPromises.push(this.getPublicQueries());
+
+    const userId = getUserId();
+    if (userId) {
+      // Do not request private queries if the user is not logged
+      queriesPromises.push(this.getPrivateQueries(userId));
+    }
+
+    // In order to update from the url, we need both public and private queries
+    const [publicResponse, privateResponse] = await Promise.all(
+      queriesPromises
+    );
+    this.setPublicQueries(publicResponse);
+
+    // Only update data if there's any response
+    if (privateResponse) {
+      this.setPrivateQueries(privateResponse);
+    }
+
+    // Once we have the queries we can parse the url
+    if (queryId || sql) {
+      // update the sql editor if the url contains a query
+      this.parseUrl({ queryId, sql });
+    } else {
+      // update the editor text content by default
+      this.currentQuery = `SELECT * FROM ${this.tableName}`;
+    }
   },
   mounted() {
     const recentQueries = localStorage.getItem("recentQueries");
@@ -192,7 +236,10 @@ export default {
     this.$root.$off("setCurrentQuery", this.setCurrentQuery);
     this.$root.$off("runCurrentQuery", this.runCurrentQuery);
     this.$root.$off("storeCurrentQuery", this.storeCurrentQuery);
-    this.$root.$off("storeCurrentVisualization", this.storeCurrentVisualization);
+    this.$root.$off(
+      "storeCurrentVisualization",
+      this.storeCurrentVisualization
+    );
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -214,8 +261,8 @@ export default {
         this.queryUserId = user_id;
 
         // update the editor text content
-        // this.setCurrentQuery(itemSql);
-        this.currentQuery = itemSql;
+        this.setCurrentQuery(itemSql);
+
         // run such query
         this.runCurrentQuery();
       }
@@ -224,22 +271,32 @@ export default {
       if (getUserId() === "")
         location.href = "/user/sessions/new?open_modal=true";
     },
+    isQueryStored(query = this.currentQuery) {
+      // check if the query passed belongs to public/private arrays, if there's no args, it uses currentQuery
+      return (
+        this.publicQueries.some(({ attributes: { sql } }) => sql === query) ||
+        this.privateQueries.some(({ attributes: { sql } }) => sql === query)
+      );
+    },
     setCurrentQuery(sql) {
-      this.currentQuery = sql;
-      // TODO: test
-      this.isQueryModified = true
+      // trigger the modified label:
+      // - hides if the new typed query is already stored
+      // - shows if the previous query was stored
+      if (this.isQueryStored(sql)) {
+        this.isQueryModified = false;
+      } else if (this.isQueryStored()) {
+        this.isQueryModified = true;
+      }
+
+      // set the new query, trimming it to remove potentially harmful voids
+      this.currentQuery = sql.trim();
     },
     storeRecentQuery() {
-      // if the currentQuery does not exist, nor recent, nor public, nor private queries neither
+      // if the currentQuery does not exist, nor recent, nor in stored queries neither
       // then save it in recent ones, and update localStorage
       if (
         !this.recentQueries.some((query) => query === this.currentQuery) &&
-        !this.publicQueries.some(
-          ({ attributes: { sql } }) => sql === this.currentQuery
-        ) &&
-        !this.privateQueries.some(
-          ({ attributes: { sql } }) => sql === this.currentQuery
-        )
+        !this.isQueryStored()
       ) {
         this.recentQueries.push(this.currentQuery);
         localStorage.setItem(
@@ -248,90 +305,28 @@ export default {
         );
       }
     },
-    async setDatasetMetadata() {
-      const { id } = this.$route.params;
-
-      // factory method
-      const { data: raw, included } = await this.getDatasetMetadata(id);
-
-      const {
-        data: {
-          id: datasetId,
-          attributes: {
-            name: titleDataset,
-            slug: slugDataset,
-            table_name: tableName,
-            columns: arrayColumns,
-            description: descriptionDataset,
-            data_updated_at: dateUpdated,
-            formats: arrayFormats,
-            frequency = [],
-            category = [],
-          },
-        },
-      } = raw;
-
-      this.datasetId = parseInt(datasetId);
-      this.titleDataset = titleDataset;
-      this.slugDataset = slugDataset;
-      this.tableName = tableName;
-      this.arrayColumns = arrayColumns;
-      this.descriptionDataset = descriptionDataset;
-      this.dateUpdated = dateUpdated;
-      this.arrayFormats = arrayFormats;
-      this.resourcesList = included;
-      this.frequencyDataset = frequency[0].name_translations;
-      this.categoryDataset = category[0].name_translations;
-
-      // Once we have the dataset info, we request both kind of queries
-      const queriesPromises = [];
-      queriesPromises.push(this.fetchPublicQueries());
-
-      const userId = getUserId();
-      if (userId) {
-        // Do not request private queries if the user is not logged
-        queriesPromises.push(this.fetchPrivateQueries(userId));
-      }
-      const [publicResponse, privateResponse] = await Promise.all(
-        queriesPromises
-      );
-      const {
-        data: { data: publicItems },
-      } = publicResponse;
-      this.publicQueries = publicItems;
-
-      // Only update data if there's any response
-      if (privateResponse) {
-        const {
-          data: { data: privateItems },
-        } = privateResponse;
-        this.privateQueries = privateItems;
-      }
-
-      const {
-        params: { queryId },
-        query: { sql },
-      } = this.$route;
-
-      if (queryId || sql) {
-        // update the sql editor if the url contains a query
-        this.parseUrl({ queryId, sql });
-      } else {
-        // update the editor text content
-        this.currentQuery = `SELECT * FROM ${this.tableName}`;
-      }
-    },
     async getPrivateQueries() {
       const userId = getUserId();
+      // factory method
+      return this.getQueries({
+        "filter[dataset_id]": this.datasetId,
+        "filter[user_id]": userId,
+      });
+    },
+    setPrivateQueries(response) {
       const {
         data: { data: items },
-      } = await this.fetchPrivateQueries(userId);
+      } = response;
       this.privateQueries = items;
     },
     async getPublicQueries() {
+      // factory method
+      return this.getQueries({ "filter[dataset_id]": this.datasetId });
+    },
+    setPublicQueries(response) {
       const {
         data: { data: items },
-      } = await this.fetchPublicQueries();
+      } = response;
       this.publicQueries = items;
     },
     async deleteSavedQuery(id) {
@@ -339,7 +334,8 @@ export default {
       const { status } = await this.deleteQuery(id);
 
       if (status === 204) {
-        this.getPrivateQueries();
+        // only delete private queries
+        this.setPrivateQueries(await this.getPrivateQueries());
       }
     },
     async storeCurrentQuery({ name, privacy }) {
@@ -372,10 +368,10 @@ export default {
       // reload the queries if the response was successfull
       // 200 OK (PUT) / 201 Created (POST)
       if ([200, 201].includes(status)) {
-        this.isQueryModified = false
+        this.isQueryModified = false;
 
-        this.getPublicQueries();
-        this.getPrivateQueries();
+        this.setPublicQueries(await this.getPublicQueries());
+        this.setPrivateQueries(await this.getPrivateQueries());
       }
     },
     async runCurrentQuery() {
@@ -430,7 +426,10 @@ export default {
       };
 
       // Get the id if the query matches with a stored query
-      const { id } = this.privateQueries.find(({ attributes: { sql } }) => sql === this.currentQuery ) || {};
+      const { id } =
+        this.privateQueries.find(
+          ({ attributes: { sql } }) => sql === this.currentQuery
+        ) || {};
 
       // Depending whether the query was stored in database or not,
       // we must save the query_id or the query, instead
@@ -449,19 +448,7 @@ export default {
       // factory method
       const { status } = await this.postVisualization({ data });
       // TODO: indicar algo con el status OK
-    },
-    // returns a simply promise
-    fetchPrivateQueries(userId) {
-      // factory method
-      return this.getQueries({
-        "filter[dataset_id]": this.datasetId,
-        "filter[user_id]": userId,
-      });
-    },
-    // returns a simply promise
-    fetchPublicQueries() {
-      // factory method
-      return this.getQueries({ "filter[dataset_id]": this.datasetId });
+      console.log("postVisualization", status);
     },
   },
 };

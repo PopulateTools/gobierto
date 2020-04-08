@@ -60,7 +60,8 @@
   </div>
 </template>
 <script>
-import { date } from "./../../../../lib/shared/modules/vue-filters.js";
+import { date } from "lib/shared"
+
 export default {
   name: "Info",
   filters: {

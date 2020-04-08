@@ -69,8 +69,8 @@
     <template v-if="isSavingPromptVisible">
       <Button
         :text="labelCancel"
-        class="btn-sql-editor btn-sql-editor-cancel"
         :icon="null"
+        class="btn-sql-editor btn-sql-editor-cancel"
         color="var(--color-base)"
         background="#fff"
         @click.native="onClickCancelHandler"

@@ -58,12 +58,14 @@
       @save="onSaveEventHandler"
     />
 
-    <span
+    <div
       v-if="isQueryModified"
-      class="gobierto-data-sql-editor-modified-label"
+      class="gobierto-data-sql-editor-modified-label-container"
     >
-      {{ labelModifiedQuery }}
-    </span>
+      <span class="gobierto-data-sql-editor-modified-label">
+        {{ labelModifiedQuery }}
+      </span>
+    </div>
 
     <Button
       :text="labelRunQuery"

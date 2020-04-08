@@ -13,7 +13,7 @@ export class GobiertoDataController {
     if (entryPoint) {
       const htmlRouterBlock = `
       <keep-alive>
-        <router-view :key="$route.params.id"></router-view>
+        <router-view></router-view>
       </keep-alive>
       `;
 

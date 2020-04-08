@@ -1,16 +1,16 @@
 <template>
-  <div class="pure-u-1 pure-u-lg-1-4 gobierto-data-layout-column gobierto-data-layout-sidebar">
+  <div>
     <nav class="gobierto-data-tabs-sidebar">
       <ul>
         <li
-          :class="{ 'is-active': activeTab === 0 }"
+          :class="{ 'is-active': currentTab === 0 }"
           class="gobierto-data-tab-sidebar--tab"
           @click="activateTab(0)"
         >
           <span>{{ labelCategories }}</span>
         </li>
         <li
-          :class="{ 'is-active': activeTab === 1 }"
+          :class="{ 'is-active': currentTab === 1 }"
           class="gobierto-data-tab-sidebar--tab"
           @click="activateTab(1)"
         >
@@ -18,7 +18,7 @@
         </li>
 
         <li
-          :class="{ 'is-active': activeTab === 2 }"
+          :class="{ 'is-active': currentTab === 2 }"
           class="gobierto-data-tab-sidebar--tab"
           @click="activateTab(2)"
         >
@@ -26,31 +26,25 @@
         </li>
       </ul>
     </nav>
-    <SidebarCategories
-      v-if="activeTab === 0"
-      :filters="filters"
-    />
-    <SidebarDatasets
-      v-if="activeTab === 1"
-      :filters="filters"
-    />
-    <SidebarQueries
-      v-if="activeTab === 2"
-    />
+
+    <keep-alive>
+      <component
+        :is="currentTabComponent"
+        :filters="filters"
+      />
+    </keep-alive>
   </div>
 </template>
 <script>
-import SidebarCategories from './sidebar/SidebarCategories.vue';
-import SidebarDatasets from './sidebar/SidebarDatasets.vue';
-import SidebarQueries from './sidebar/SidebarQueries.vue';
+// define the components as dynamic
+const COMPONENTS = [
+  () => import("./sidebar/SidebarCategories.vue"),
+  () => import("./sidebar/SidebarDatasets.vue"),
+  () => import("./sidebar/SidebarQueries.vue")
+];
 
 export default {
   name: "Sidebar",
-  components: {
-    SidebarCategories,
-    SidebarDatasets,
-    SidebarQueries
-  },
   props: {
     activeTab: {
       type: Number,
@@ -63,21 +57,21 @@ export default {
   },
   data() {
     return {
-      labelSets: "",
-      labelQueries: "",
-      labelCategories: ""
-    }
+      labelSets: I18n.t("gobierto_data.projects.sets") || "",
+      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
+      labelCategories: I18n.t("gobierto_data.projects.categories") || "",
+      currentTabComponent: null,
+      currentTab: this.activeTab
+    };
   },
   created() {
-    this.labelSets = I18n.t("gobierto_data.projects.sets")
-    this.labelQueries = I18n.t("gobierto_data.projects.queries")
-    this.labelCategories = I18n.t("gobierto_data.projects.categories")
-
+    this.currentTabComponent = COMPONENTS[this.currentTab];
   },
   methods: {
     activateTab(index) {
-      this.$emit("active-tab-sidebar", index);
+      this.currentTab = index
+      this.currentTabComponent = COMPONENTS[index];
     }
   }
-}
+};
 </script>

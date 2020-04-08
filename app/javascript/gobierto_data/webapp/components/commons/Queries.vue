@@ -14,28 +14,28 @@
           <div>
             <transition-group name="fade">
               <div
-                v-for="item in privateQueries"
-                :key="item.id"
+                v-for="{ id, attributes: { sql, name, privacy_status }} in privateQueries"
+                :key="id"
                 class="gobierto-data-summary-queries-container"
-                @mouseover="sqlCode = item.attributes.sql"
+                @mouseover="sqlCode = sql"
                 @mouseleave="sqlCode = null"
               >
                 <router-link
-                  :to="`/datos/${$route.params.id}/q/${item.id}`"
+                  :to="`/datos/${$route.params.id}/q/${id}`"
                   class="gobierto-data-summary-queries-container-name"
                 >
-                  {{ item.attributes.name }}
+                  {{ name }}
                 </router-link>
 
                 <div class="gobierto-data-summary-queries-container-icon">
                   <i
                     class="fas fa-trash-alt icons-your-queries"
                     style="color: var(--color-base);"
-                    @click.stop="clickDeleteQueryHandler(item.id)"
+                    @click.stop="clickDeleteQueryHandler(id)"
                   />
 
                   <PrivateIcon
-                    :is-closed="item.attributes.privacy_status === 'closed'"
+                    :is-closed="privacy_status === 'closed'"
                     class="icons-your-queries"
                   />
                 </div>
@@ -69,17 +69,17 @@
 
           <div>
             <div
-              v-for="(item, index) in publicQueries"
-              :key="index"
+              v-for="{ id, attributes: { sql, name }} in publicQueries"
+              :key="id"
               class="gobierto-data-summary-queries-container"
-              @mouseover="sqlCode = item.attributes.sql"
+              @mouseover="sqlCode = sql"
               @mouseleave="sqlCode = null"
             >
               <router-link
-                :to="`/datos/${$route.params.id}/q/?sql=${item.attributes.sql}`"
+                :to="`/datos/${$route.params.id}/q/${id}`"
                 class="gobierto-data-summary-queries-container-name"
               >
-                {{ item.attributes.name }}
+                {{ name }}
               </router-link>
             </div>
           </div>

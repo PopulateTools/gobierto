@@ -1,121 +1,33 @@
-<template>
-  <div
-    v-if="isFetchingData"
-    class="gobierto-data"
-  >
-    <LayoutTabs
-      :filters="filters"
-      :all-datasets="subsetItems"
-      :current-view="currentView"
-      :current-tab="currentTab"
-      :active-dataset-tab="activeDatasetTab"
-    />
-  </div>
-</template>
-
-<script>
-import LayoutTabs from "./../layouts/LayoutTabs.vue";
+import axios from "axios"
 import { Middleware } from "lib/shared";
-import { categoriesMixin, baseUrl } from "./../../lib/commons";
-import { tabs } from "./../../lib/router";
-import { store } from "./../../lib/store";
-import CONFIGURATION from "./../../lib/gobierto-data.conf.js";
-import axios from "axios";
+import { store } from "../store"
+import { baseUrl } from "../commons"
+import CONFIGURATION from "../filters.conf"
 
-export default {
-  name: "Home",
-  components: {
-    LayoutTabs
-  },
-  mixins: [categoriesMixin],
-  props: {
-    currentComponent: {
-      type: String,
-      required: true,
-      default: ""
-    },
-    activateTabSidebar: {
-      type: Number,
-      default: 0
-    },
-    activeDatasetTabProp: {
-      type: Number,
-      default: 0
-    }
-  },
-  // TODO: This is not how it should work
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      if (to.name === tabs[0]) {
-        vm.activeDatasetTab = 0;
-      } else if (to.name === tabs[1] || to.name === 'queries') {
-        vm.activeDatasetTab = 1;
-      } else if (to.name === tabs[2]) {
-        vm.activeDatasetTab = 2;
-      } else if (to.name === tabs[3]) {
-        vm.activeDatasetTab = 3;
-      } else if (to.name === tabs[4]) {
-        vm.activeDatasetTab = 4;
-      }
-    });
-  },
-  beforeRouteUpdate(to, from, next) {
-    if (to.name === tabs[0]) {
-      this.activeDatasetTab = 0;
-    } else if (to.name === tabs[1] || to.name === 'queries') {
-      this.activeDatasetTab = 1;
-    } else if (to.name === tabs[2]) {
-      this.activeDatasetTab = 2;
-    } else if (to.name === tabs[3]) {
-      this.activeDatasetTab = 3;
-    } else if (to.name === tabs[4]) {
-      this.activeDatasetTab = 4;
-    }
-    next();
-  },
+export const FiltersMixin = {
   data() {
     return {
       items: store.state.items || [],
       subsetItems: [],
-      currentView: "",
-      currentTab: 0,
-      activeDatasetTab: 0,
       filters: store.state.filters || [],
       activeFilters: store.state.activeFilters || new Map(),
       defaultFilters: store.state.defaultFilters || new Map(),
-      isFetchingData: false
-    };
+    }
   },
   async created() {
-    this.activeDatasetTab = this.activeDatasetTabProp;
-    this.currentView = this.currentComponent;
-    if (this.$route.params.tabSidebar === 0) {
-      this.currentTab = this.$route.params.tabSidebar;
-    } else {
-      this.currentTab = this.activateTabSidebar;
-    }
-    this.$root.$on("sendCheckbox", this.handleCheckboxStatus);
-    this.$root.$on("selectAll", this.handleIsEverythingChecked);
     if (this.items.length) {
       this.updateDOM();
     } else {
       const { items, filters } = await this.getItems();
 
-      this.isFetchingData = true;
-
       this.items = items;
-
       this.defaultFilters = filters;
       this.filters = filters;
 
       this.updateDOM();
     }
-    this.isFetchingData = true;
   },
   methods: {
-    setCurrentView() {
-      this.currentView = "DataSets";
-    },
     async getItems() {
       const [
         {
@@ -260,19 +172,6 @@ export default {
         const index = this.filters.findIndex(d => d.key === key);
         this.filters.splice(index, 1, filter);
       }
-    },
-    updateHome() {
-      this.$router
-        .push({
-          name: "home",
-          params: {
-            tabSidebar: 0,
-            currentComponent: "InfoList"
-          }
-          // eslint-disable-next-line no-unused-vars
-        })
-        .catch(err => {});
     }
   }
-};
-</script>
+}

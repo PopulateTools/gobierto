@@ -2,7 +2,6 @@
   <div class="gobierto-data-sets-nav--tab-container">
     <div class="gobierto-data-sql-editor">
       <SQLEditorHeader
-        v-if="publicQueries.length"
         :private-queries="privateQueries"
         :public-queries="publicQueries"
         :recent-queries="recentQueries"
@@ -43,10 +42,10 @@ export default {
       type: Array,
       required: true
     },
-    publicQueries: {
-      type: Array,
-      required: true
-    },
+    // publicQueries: {
+    //   type: Array,
+    //   required: true
+    // },
     recentQueries: {
       type: Array,
       default: () => []
@@ -92,6 +91,11 @@ export default {
       default: null
     },
   },
+  data() {
+    return {
+      publicQueries: []
+    }
+  }
 }
 
 </script>

@@ -74,24 +74,23 @@
 </template>
 
 <script>
-// TODO: este componente se debe mover a /pages, reemplazando el actual
-import Button from "./../commons/Button.vue";
-import SummaryTab from "./SummaryTab.vue";
-import DataTab from "./DataTab.vue";
-import QueriesTab from "./QueriesTab.vue";
-import VisualizationsTab from "./VisualizationsTab.vue";
-import DownloadsTab from "./DownloadsTab.vue";
-import NavDataSets from "./NavDataSets.vue";
-import { getUserId } from "./../../../lib/helpers";
-import { DatasetFactoryMixin } from "./../../../lib/factories/datasets";
-import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
-import { DataFactoryMixin } from "./../../../lib/factories/data";
-import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
+import Button from "./commons/Button.vue";
+import SummaryTab from "./sets/SummaryTab.vue";
+import DataTab from "./sets/DataTab.vue";
+import QueriesTab from "./sets/QueriesTab.vue";
+import VisualizationsTab from "./sets/VisualizationsTab.vue";
+import DownloadsTab from "./sets/DownloadsTab.vue";
+import NavDataSets from "./sets/NavDataSets.vue";
+import { getUserId } from "./../../lib/helpers";
+import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
+import { QueriesFactoryMixin } from "./../../lib/factories/queries";
+import { DataFactoryMixin } from "./../../lib/factories/data";
+import { VisualizationFactoryMixin } from "./../../lib/factories/visualizations";
 
 // THIS IS THE COMPONENT WHO KNOWS WHAT THE DATA IS ABOUT
 // EVERY SINGLE API REQUEST IS DONE THROUGHOUT THIS ONE
 export default {
-  name: "DataSetsContent",
+  name: "Main",
   components: {
     Button,
     SummaryTab,
@@ -246,11 +245,11 @@ export default {
     parseUrl({ queryId, sql }) {
       let item = null;
       if (queryId) {
-        // if has queryId it's a privateQuery
-        item = this.privateQueries.find((d) => d.id === queryId);
+        // if has id it's an stored query
+        item = [...this.privateQueries, ...this.publicQueries].find(({ id }) => id === queryId);
       } else if (sql) {
-        // if has sql it's a publicQuery
-        item = this.publicQueries.find((d) => d.attributes.sql === sql);
+        // FIXME: run normal
+        // item = this.publicQueries.find((d) => d.attributes.sql === sql);
       }
 
       if (item) {

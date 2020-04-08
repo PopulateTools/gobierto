@@ -153,10 +153,11 @@ module GobiertoPlans
     end
 
     def status_term(text)
-      return if text.blank?
+      text = text.to_s.strip
+      id = statuses_terms.with_name(text).take&.id
+      return id unless id.blank? && text.present? && allow_statuses_creation?
 
-      text = text.strip
-      (statuses_terms.with_name(text).take || allow_statuses_creation? && statuses_terms.create(name: text))&.id
+      statuses_terms.create(name: text).id
     end
 
     def statuses_terms

@@ -29,7 +29,6 @@ es:
       frequency: Frecuencia
       guide: Guía para usar el editor SQL
       info: Información
-      loading: Cargando
       modifiedQuery: Consulta modificada
       news: Noticias
       private: Privada
@@ -44,15 +43,12 @@ es:
       sets: Conjuntos
       showAll: Ver todo
       showLess: Ver menos
-      showRows: Mostrar todas las filas
       subject: Tema
       summary: Resumen
-      table: Tabla
       updated: Actualizado
       visEmpty: No hay visualizaciones disponibles
       visName: Nombre visualización
       visPrivate: Tus visualizaciones
       visPublic: Todas
-      visualization: Visualización
       visualizations: Visualizaciones
       yourQueries: Tus consultas

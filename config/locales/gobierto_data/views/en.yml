@@ -29,7 +29,6 @@ en:
       frequency: Frequency
       guide: Guide to using the SQL editor
       info: Information
-      loading: Loading
       modifiedQuery: Modified Query
       news: News
       private: Private
@@ -44,15 +43,12 @@ en:
       sets: Sets
       showAll: Show all
       showLess: Show less
-      showRows: Show all rows
       subject: Subject
       summary: Summary
-      table: Table
       updated: Updated
       visEmpty: No available visualizations
       visName: Visualization name
       visPrivate: Your visualizations
       visPublic: All
-      visualization: Visualization
       visualizations: Visualizations
       yourQueries: Your queries

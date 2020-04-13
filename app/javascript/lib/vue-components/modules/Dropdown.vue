@@ -4,10 +4,6 @@
       class="gobierto-vue-dropdown--trigger"
       @click="show"
     >
-      <i
-        :class="{'rotate-caret': !isContentVisible }"
-        class="fas fa-caret-down"
-      />
       <slot name="trigger" />
     </div>
 
@@ -30,6 +26,7 @@ export default {
   methods: {
     show() {
       this.isContentVisible = !this.isContentVisible
+      this.$emit('is-content-visible', this.isContentVisible)
     }
   }
 }

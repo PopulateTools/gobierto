@@ -18,7 +18,7 @@ import Resources from "./../commons/Resources.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
 
 export default {
-  name: "Downloads",
+  name: "DownloadsTab",
   components: {
     Resources,
     DownloadButton

@@ -297,13 +297,21 @@
     font-weight: bold;
     min-width: 250px;
     margin: 1rem 0;
+    position: relative;
+
+    // &.small {
+    //   padding: .25rem;
+    //   min-width: auto;
+    //   text-transform: none;
+    //   margin: 0;
+    //   margin-left: auto;
+    // }
   }
 
   &-container-btn-download-data {
     position: relative;
     width: max-content;
-    display: flex;
-
+    display: inline-flex;
 
     &.arrow-top {
 
@@ -437,9 +445,10 @@
     }
   }
 
-  &-sql-editor-container-recent-queries {
+  &-sql-editor-container {
     display: inline-block;
     position: relative;
+    margin-right: .5em;
   }
 
   &-sql-editor-recent-queries {
@@ -518,6 +527,7 @@
       border: 1px solid rgba(var(--color-base-string), .2);
       font-weight: 600;
       font-size: 14px;
+      margin: 0;
 
       &.isDisabled {
         opacity: .4;
@@ -533,8 +543,8 @@
       }
 
       &.btn-sql-editor-run {
-        float: right;
         position: relative;
+        margin-left: auto;
       }
 
       &.btn-sql-editor-queries {
@@ -585,41 +595,39 @@
     }
 
     .btn-sql-editor-cancel {
-      i {
-        display: none;
-      }
+      margin-left: .5em;
     }
-
   }
 
   &-sql-editor-toolbar {
     padding: .5rem 0;
+    display: flex;
   }
 
   &-sql-editor-container-save {
-    display: inline-block;
-    padding: 0 .5rem;
+    display: inline-flex;
+    align-items: baseline;
 
     i {
       min-width: 20px;
     }
   }
 
-  &-sql-editor-container-save-checkbox {
-    display: inline-block;
-  }
-
   &-sql-editor-container-save-text {
     min-height: 31px;
-
   }
 
   &-sql-editor-container-save-label {
-    display: inline-block;
     font-size: 14px;
     color: #666;
-    padding: 0 .25rem;
+    padding-right: .5em;
     cursor: pointer;
+  }
+
+  &-sql-editor-modified-label-container {
+    display: inline-flex;
+    align-items: center;
+    margin-left: .5em;
   }
 
   &-sql-editor-modified-label {
@@ -746,11 +754,6 @@
     font-size: 14px;
     font-weight: 600;
     color: #b62323;
-  }
-
-  &-sql-editor-your-queries {
-    display: inline-block;
-    position: relative;
   }
 
   &-sql-editor-your-queries-container {

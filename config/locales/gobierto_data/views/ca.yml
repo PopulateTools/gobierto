@@ -22,13 +22,13 @@ ca:
       download: Descàrrega
       downloadData: Descarregueu dades
       edit: Editeu
+      emptyRecentQueries: No hi ha consultes recents
       fav: Favorit
       favs: Favorites
       follow: Seguïu
       frequency: Freqüència
       guide: Guia per utilitzar l'editor SQL
       info: Informació
-      loading: Carregant
       modifiedQuery: Consulta modificada
       news: Notícies
       private: Privat
@@ -43,15 +43,12 @@ ca:
       sets: Conjunts
       showAll: Vegeu-ho tot
       showLess: Vegeu-ne menys
-      showRows: Mostreu totes les files
       subject: Tema
       summary: Resum
-      table: Taula
       updated: Actualizat
       visEmpty: Cap visualització disponible
       visName: Nom visualització
       visPrivate: Les teves visualitzacions
       visPublic: Totes
-      visualization: Visualització
       visualizations: Visualitzacions
       yourQueries: Les teves consultes

@@ -1,9 +1,11 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
     <template v-if="isUserLoggged">
-      <Dropdown>
+      <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
         <template v-slot:trigger>
           <h3 class="gobierto-data-visualization--h3">
+            <Caret :rotate="showPrivateVis" />
+
             {{ labelVisPrivate }}
             <template v-if="privateVisualizations.length">
               ({{ privateVisualizations.length }})
@@ -26,7 +28,7 @@
                         <h4 class="gobierto-data-visualization--title">
                           {{ name }}
                         </h4>
-                        <SQLEditorVisualizations
+                        <Visualizations
                           :items="data"
                           :config="config"
                         />
@@ -45,9 +47,11 @@
       </Dropdown>
     </template>
 
-    <Dropdown>
+    <Dropdown @is-content-visible="showPublicVis = !showPublicVis">
       <template v-slot:trigger>
         <h3 class="gobierto-data-visualization--h3">
+          <Caret :rotate="showPublicVis" />
+
           {{ labelVisPublic }}
           <template v-if="publicVisualizations.length">
             ({{ publicVisualizations.length }})
@@ -70,7 +74,7 @@
                       <h4 class="gobierto-data-visualization--title">
                         {{ name }}
                       </h4>
-                      <SQLEditorVisualizations
+                      <Visualizations
                         :items="data"
                         :config="config"
                       />
@@ -90,8 +94,9 @@
   </div>
 </template>
 <script>
-import SQLEditorVisualizations from "./SQLEditorVisualizations.vue";
 import Spinner from "./../commons/Spinner.vue";
+import Caret from "./../commons/Caret.vue";
+import Visualizations from "./../commons/Visualizations.vue";
 import { Dropdown } from "lib/vue-components";
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
@@ -99,11 +104,12 @@ import { DataFactoryMixin } from "./../../../lib/factories/data";
 import { getUserId } from "./../../../lib/helpers";
 
 export default {
-  name: "Visualizations",
+  name: "VisualizationsTab",
   components: {
-    SQLEditorVisualizations,
+    Visualizations,
     Spinner,
-    Dropdown
+    Dropdown,
+    Caret
   },
   mixins: [VisualizationFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
   props: {
@@ -114,21 +120,19 @@ export default {
   },
   data() {
     return {
-      labelVisEmpty: "",
-      labelVisPrivate: "",
-      labelVisPublic: "",
+      labelVisEmpty: I18n.t("gobierto_data.projects.visEmpty") || "",
+      labelVisPrivate: I18n.t("gobierto_data.projects.visPrivate") || "",
+      labelVisPublic: I18n.t("gobierto_data.projects.visPublic") || "",
       publicVisualizations: [],
       privateVisualizations: [],
       isUserLoggged: false,
       isPrivateLoading: false,
-      isPublicLoading: false
+      isPublicLoading: false,
+      showPrivateVis: true,
+      showPublicVis: true,
     };
   },
   created() {
-    this.labelVisEmpty = I18n.t("gobierto_data.projects.visEmpty");
-    this.labelVisPrivate = I18n.t("gobierto_data.projects.visPrivate");
-    this.labelVisPublic = I18n.t("gobierto_data.projects.visPublic");
-
     this.userId = getUserId();
     this.isUserLoggged = !!this.userId;
 

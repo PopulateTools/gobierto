@@ -564,6 +564,12 @@ Rails.application.routes.draw do
       constraints GobiertoSiteConstraint.new do
         get "/datos" => "welcome#index", as: :root
         get "/datos/:id" => "welcome#index", as: :datasets
+        get "/datos/:id/resumen" => "welcome#index"
+        get "/datos/:id/editor" => "welcome#index"
+        get "/datos/:id/consultas" => "welcome#index"
+        get "/datos/:id/q/(:queryId)" => "welcome#index"
+        get "/datos/:id/visualizaciones" => "welcome#index"
+        get "/datos/:id/descarga" => "welcome#index"
 
         # API
         namespace :api, path: "/" do

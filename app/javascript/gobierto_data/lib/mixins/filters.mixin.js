@@ -1,84 +1,33 @@
-<template>
-  <div
-    v-if="isFetchingData"
-    class="gobierto-data"
-  >
-    <LayoutTabs
-      :filters="filters"
-      :all-datasets="subsetItems"
-      :current-view="currentView"
-      :current-tab="currentTab"
-    />
-  </div>
-</template>
-
-<script>
-import LayoutTabs from "./../layouts/LayoutTabs.vue";
+import axios from "axios"
 import { Middleware } from "lib/shared";
-import { categoriesMixin, baseUrl } from "./../../lib/commons"
-import { store } from "./../../lib/store";
-import CONFIGURATION from "./../../lib/gobierto-data.conf.js";
-import axios from "axios";
+import { store } from "../store"
+import { baseUrl } from "../commons"
+import CONFIGURATION from "../filters.conf"
 
-export default {
-  name: "Home",
-  components: {
-    LayoutTabs
-  },
-  mixins: [categoriesMixin],
-  props: {
-    currentComponent: {
-      type: String,
-      required: true,
-      default: ''
-    },
-    activateTabSidebar: {
-      type: Number,
-      default: 0
-    }
-  },
+export const FiltersMixin = {
   data() {
     return {
       items: store.state.items || [],
       subsetItems: [],
-      currentView: '',
-      currentTab: 0,
       filters: store.state.filters || [],
       activeFilters: store.state.activeFilters || new Map(),
       defaultFilters: store.state.defaultFilters || new Map(),
-      isFetchingData: false
     }
   },
   async created() {
-    this.currentView = this.currentComponent
-    if (this.$route.params.tabSidebar === 0) {
-      this.currentTab = this.$route.params.tabSidebar
-    } else {
-      this.currentTab = this.activateTabSidebar
-    }
-    this.$root.$on("sendCheckbox", this.handleCheckboxStatus)
-    this.$root.$on("selectAll", this.handleIsEverythingChecked)
     if (this.items.length) {
       this.updateDOM();
     } else {
-
       const { items, filters } = await this.getItems();
 
-      this.isFetchingData = true;
-
       this.items = items;
-
-      this.defaultFilters = filters
+      this.defaultFilters = filters;
       this.filters = filters;
 
       this.updateDOM();
     }
-    this.isFetchingData = true;
   },
   methods: {
-    setCurrentView() {
-      this.currentView = 'DataSets'
-    },
     async getItems() {
       const [
         {
@@ -95,7 +44,7 @@ export default {
         axios.get(`${baseUrl}/datasets/meta?stats=true`)
       ]);
 
-      const { availableFilters } = CONFIGURATION
+      const { availableFilters } = CONFIGURATION;
       // Middleware receives both the dictionary of all possible attributes, and the selected filters for the site
       this.middleware = new Middleware({
         dictionary: attributesDictionary,
@@ -106,7 +55,6 @@ export default {
       let filters = [];
 
       if (filtersFromConfiguration) {
-
         items = items.map(item => ({ ...item }));
 
         filters = this.middleware.getFilters(filtersFromConfiguration) || [];
@@ -175,7 +123,7 @@ export default {
       this.handleCheckboxFilter(filter);
     },
     handleCheckboxFilter(filter) {
-      this.updateHome()
+      this.updateHome();
       const { key, options } = filter;
       const checkboxesSelected = new Map();
       options.forEach(({ id, isOptionChecked }) =>
@@ -224,17 +172,6 @@ export default {
         const index = this.filters.findIndex(d => d.key === key);
         this.filters.splice(index, 1, filter);
       }
-    },
-    updateHome() {
-      this.$router.push({
-        name: "home",
-        params: {
-          tabSidebar: 0,
-          currentComponent: 'InfoList'
-        }
-      // eslint-disable-next-line no-unused-vars
-      }).catch(err => {})
     }
   }
 }
-</script>

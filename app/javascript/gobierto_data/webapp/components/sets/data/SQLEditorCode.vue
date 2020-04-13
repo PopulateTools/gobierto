@@ -40,24 +40,24 @@ export default {
   props: {
     arrayColumns: {
       type: Object,
-      required: true,
+      required: true
     },
     queryStored: {
       type: String,
-      default: "",
+      default: ""
     },
     queryNumberRows: {
       type: Number,
-      default: 0,
+      default: 0
     },
     queryDuration: {
       type: Number,
-      default: 0,
+      default: 0
     },
     queryError: {
       type: String,
-      default: null,
-    },
+      default: null
+    }
   },
   data() {
     return {
@@ -66,20 +66,20 @@ export default {
       labelRecords: I18n.t("gobierto_data.projects.records") || "",
       sqlAutocomplete: sqlKeywords,
       arrayMutated: [],
-      autoCompleteKeys: [],
+      autoCompleteKeys: []
     };
   },
   computed: {
     queryDurationParsed() {
       return this.queryDuration.toLocaleString();
-    },
+    }
   },
   watch: {
     queryStored(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.setEditorValue(newValue);
       }
-    },
+    }
   },
   mounted() {
     this.mergeTables();
@@ -94,14 +94,14 @@ export default {
       mode: "text/x-sql",
       hintOptions: {
         completeSingle: false,
-        hint: this.hint,
+        hint: this.hint
       },
       showCursorWhenSelecting: true,
       theme: "default",
       autoIndent: true,
       extraKeys: {
-        Ctrl: "autocomplete",
-      },
+        Ctrl: "autocomplete"
+      }
     };
 
     this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, cmOption);
@@ -111,36 +111,39 @@ export default {
       this.setEditorValue(this.queryStored);
     }
 
-    this.editor.on("keyup", this.onKeyUp);
+    // metaKey + keyUp doesn't work with MacOS
+    // https://stackoverflow.com/questions/11818637/why-does-javascript-drop-keyup-events-when-the-metakey-is-pressed-on-mac-browser
+    this.editor.on("keydown", this.onKeyDown);
   },
   methods: {
-    onKeyUp(editor, e) {
-      // keyUp event to stop "c|r" open modals, but allow ctrl+enter to run query
-      if (!((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey)) {
-        e.stopPropagation()
+    onKeyDown(editor, e) {
+      // keyUp event to stop "c|r" open modals, but allow ctrl+enter (or cmd+enter) to run query
+      if (!((e.keyCode == 10 || e.keyCode == 13) && (e.ctrlKey || e.metaKey))) {
+        e.stopPropagation();
       }
 
-      editor.showHint();
+      // keydown needs to wait a little to update the value
+      setTimeout(() => {
+        editor.showHint();
+        const value = editor.getValue();
 
-      const value = editor.getValue()
-      // query has been modified
-      this.$root.$emit("keyUpEditor", this.queryStored !== value);
-      // update the query while typing
-      this.$root.$emit("setCurrentQuery", value);
+        // update the query while typing
+        this.$root.$emit("setCurrentQuery", value);
+      }, 250);
     },
     mergeTables() {
       for (let i = 0; i < this.arrayColumns.length; i++) {
         this.arrayMutated[i] = {
           className: "table",
-          text: this.arrayColumns[i],
+          text: this.arrayColumns[i]
         };
       }
       this.autoCompleteKeys = [...this.arrayMutated, ...this.sqlAutocomplete];
     },
     setEditorValue(newCode) {
-      const pos = this.editor.getCursor()
+      const pos = this.editor.getCursor();
       this.editor.setValue(newCode);
-      this.editor.setCursor(pos)
+      this.editor.setCursor(pos);
     },
     suggest(searchString) {
       let token = searchString;
@@ -167,7 +170,7 @@ export default {
       }
 
       if (searchString.startsWith(".")) {
-        resu.forEach((s) => {
+        resu.forEach(s => {
           if (s.className == "column") s.score += N;
           else if (s.className == "sql") s.score -= N;
           return s;
@@ -184,9 +187,9 @@ export default {
       return {
         list: this.suggest(searchString),
         from: CodeMirror.Pos(cur.line, token.start),
-        to: CodeMirror.Pos(cur.line, token.end),
+        to: CodeMirror.Pos(cur.line, token.end)
       };
-    },
-  },
+    }
+  }
 };
 </script>

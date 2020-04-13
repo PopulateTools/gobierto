@@ -143,10 +143,11 @@ export default {
     };
   },
   created() {
-    document.addEventListener("keyup", this.keyboardShortcutsListener);
+    // it has to be the same event (keydown) as SQLEditorCode
+    document.addEventListener("keydown", this.keyboardShortcutsListener);
   },
   beforeDestroy() {
-    document.removeEventListener("keyup", this.keyboardShortcutsListener);
+    document.removeEventListener("keydown", this.keyboardShortcutsListener);
   },
   methods: {
     keyboardShortcutsListener(e) {
@@ -166,7 +167,7 @@ export default {
         if (this.isQueriesModalActive) {
           this.closeQueriesModal()
         }
-      } else if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
+      } else if ((e.keyCode == 10 || e.keyCode == 13) && (e.ctrlKey || e.metaKey)) {
         this.clickRunQueryHandler();
       }
     },

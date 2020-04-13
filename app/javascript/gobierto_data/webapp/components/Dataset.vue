@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <NavDataSets :active-dataset-tab="activeDatasetTab" />
+    <DatasetNav :active-dataset-tab="activeDatasetTab" />
 
     <!-- Only is mounted where there are attributes -->
     <SummaryTab
@@ -74,13 +74,13 @@
 </template>
 
 <script>
-import Button from "./commons/Button.vue";
+import DatasetNav from "./sets/DatasetNav.vue";
 import SummaryTab from "./sets/SummaryTab.vue";
 import DataTab from "./sets/DataTab.vue";
 import QueriesTab from "./sets/QueriesTab.vue";
 import VisualizationsTab from "./sets/VisualizationsTab.vue";
 import DownloadsTab from "./sets/DownloadsTab.vue";
-import NavDataSets from "./sets/NavDataSets.vue";
+import Button from "./commons/Button.vue";
 import { getUserId } from "./../../lib/helpers";
 import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../lib/factories/queries";
@@ -98,7 +98,7 @@ export default {
     QueriesTab,
     VisualizationsTab,
     DownloadsTab,
-    NavDataSets,
+    DatasetNav,
   },
   mixins: [
     DatasetFactoryMixin,

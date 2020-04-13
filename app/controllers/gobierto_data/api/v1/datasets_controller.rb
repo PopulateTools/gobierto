@@ -18,7 +18,14 @@ module GobiertoData
           relation = filtered_relation
           respond_to do |format|
             format.json do
-              render json: relation, links: links(:index), adapter: :json_api
+              json = if base_relation.exists?
+                       Rails.cache.fetch("#{base_relation.order(:updated_at).last.cache_key}/#{valid_preview_token? ? "all" : "active"}/datasets_collection") do
+                         render_to_string json: relation, links: links(:index), each_serializer: DatasetSerializer, adapter: :json_api
+                       end
+                     else
+                       render_to_string json: relation, links: links(:index), each_serializer: DatasetSerializer, adapter: :json_api
+                     end
+              render json: json
             end
 
             format.csv do

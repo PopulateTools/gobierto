@@ -224,6 +224,7 @@ export default {
       // update the editor text content by default
       this.currentQuery = `SELECT * FROM ${this.tableName}`;
     }
+    this.runCurrentQuery();
   },
   mounted() {
     const recentQueries = localStorage.getItem("recentQueries");
@@ -262,9 +263,6 @@ export default {
 
         // update the editor text content
         this.setCurrentQuery(itemSql);
-
-        // run such query
-        this.runCurrentQuery();
       }
     },
     ensureUserIsLogged() {

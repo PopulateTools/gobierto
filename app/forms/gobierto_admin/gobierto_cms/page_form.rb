@@ -6,19 +6,22 @@ module GobiertoAdmin
 
       attr_accessor(
         :id,
-        :admin_id,
-        :site_id,
         :collection_id,
-        :visibility_level,
         :title_translations,
         :body_translations,
         :body_source_translations,
         :slug,
         :attachment_ids,
         :section,
-        :published_on,
         :template,
         :parent
+      )
+
+      attr_writer(
+        :admin_id,
+        :site_id,
+        :visibility_level,
+        :published_on
       )
 
       delegate :persisted?, to: :page
@@ -60,6 +63,10 @@ module GobiertoAdmin
 
       private
 
+      def section_instance
+        site.sections.find_by(id: section)
+      end
+
       def build_page
         page_class.new
       end
@@ -73,6 +80,8 @@ module GobiertoAdmin
       end
 
       def save_section_item(id, section, parent)
+        return if section_instance.blank? && page.section.blank?
+
         parent ||= 0
         parent_node = ::GobiertoCms::SectionItem.find_by(id: parent, section: section)
         position = if @page.parent_id == parent.to_i
@@ -83,7 +92,7 @@ module GobiertoAdmin
 
         section_item = ::GobiertoCms::SectionItem.find_or_initialize_by(item_id: id,
                                                                         item_type: "GobiertoCms::Page")
-        if section == "" && section_item.present?
+        if section_instance.blank? && section_item.present?
           section_item.destroy
         else
           section_item.update_attributes(parent_id: parent,
@@ -105,11 +114,7 @@ module GobiertoAdmin
           page_attributes.visibility_level = visibility_level
           page_attributes.published_on = published_on
           if page.new_record? && attachment_ids.present?
-            if attachment_ids.is_a?(String)
-              page_attributes.attachment_ids = attachment_ids.split(",")
-            else
-              page_attributes.attachment_ids = attachment_ids
-            end
+            page_attributes.attachment_ids = attachment_ids.is_a?(String) ? attachment_ids.split(",") : attachment_ids
           end
         end
 

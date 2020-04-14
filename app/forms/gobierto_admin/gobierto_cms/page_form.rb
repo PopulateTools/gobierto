@@ -60,6 +60,10 @@ module GobiertoAdmin
 
       private
 
+      def section_instance
+        site.sections.find_by(id: section)
+      end
+
       def build_page
         page_class.new
       end
@@ -73,6 +77,8 @@ module GobiertoAdmin
       end
 
       def save_section_item(id, section, parent)
+        return if section_instance.blank? && page.section.blank?
+
         parent ||= 0
         parent_node = ::GobiertoCms::SectionItem.find_by(id: parent, section: section)
         position = if @page.parent_id == parent.to_i
@@ -83,7 +89,7 @@ module GobiertoAdmin
 
         section_item = ::GobiertoCms::SectionItem.find_or_initialize_by(item_id: id,
                                                                         item_type: "GobiertoCms::Page")
-        if section == "" && section_item.present?
+        if section_instance.blank? && section_item.present?
           section_item.destroy
         else
           section_item.update_attributes(parent_id: parent,

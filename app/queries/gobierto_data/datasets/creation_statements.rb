@@ -57,7 +57,7 @@ module GobiertoData
         default_schema = inspect_csv_schema(source_file, csv_separator: @csv_separator)
         schema_definition = (schema_definition || {}).deep_symbolize_keys
         default_schema.map do |default_column, default_value|
-          schema_definition.find { |_, value| value[:original_name] == default_value[:original_name] } || [default_column, default_value]
+          schema_definition.find { |_, value| value[:original_name].casecmp?(default_value[:original_name]) } || [default_column, default_value]
         end.to_h
       end
 

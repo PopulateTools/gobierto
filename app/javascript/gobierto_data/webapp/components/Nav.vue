@@ -82,7 +82,6 @@ export default {
       labelNews: "",
       labelInformation: "",
       labelAPI: "",
-      slug: ''
     }
   },
   created() {

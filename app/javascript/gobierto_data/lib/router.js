@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-const Datos = () => import("../webapp/pages/Datos.vue");
+const Main = () => import("../webapp/pages/Main.vue");
 const Index = () => import("../webapp/components/Index.vue");
 const Dataset = () => import("../webapp/components/Dataset.vue");
 
@@ -14,7 +14,7 @@ export const router = new VueRouter({
   mode: "history",
   routes: [{
       path: "/datos",
-      component: Datos,
+      component: Main,
       children: [{
         path: "",
         component: Index,
@@ -40,6 +40,7 @@ router.afterEach(to => {
   Vue.nextTick(() =>
     Vue.nextTick(() => {
       let title = baseTitle;
+      // FIXME: this is not working because routes don't have a name now
       if (to.name === "dataset") {
         const { titleDataset: dataset } = to.params;
 

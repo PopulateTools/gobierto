@@ -40,6 +40,7 @@ router.afterEach(to => {
   Vue.nextTick(() =>
     Vue.nextTick(() => {
       let title = baseTitle;
+      // FIXME: this is not working because routes don't have a name now
       if (to.name === "dataset") {
         const { titleDataset: dataset } = to.params;
 

@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-const Datos = () => import("../webapp/pages/Datos.vue");
+const Main = () => import("../webapp/pages/Main.vue");
 const Index = () => import("../webapp/components/Index.vue");
 const Dataset = () => import("../webapp/components/Dataset.vue");
 
@@ -14,7 +14,7 @@ export const router = new VueRouter({
   mode: "history",
   routes: [{
       path: "/datos",
-      component: Datos,
+      component: Main,
       children: [{
         path: "",
         component: Index,

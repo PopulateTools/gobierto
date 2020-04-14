@@ -89,7 +89,7 @@ module GobiertoData
 
       query_result = Connection.execute_write_query_from_file_using_stdin(site, statements.sql_code, file_path: file_path)
       set_schema
-      touch(:data_updated_at) unless query_result.has_key?(:errors)
+      touch(:data_updated_at) unless query_result.blank? || query_result.has_key?(:errors)
       {
         db_result: query_result,
         schema: statements.schema,

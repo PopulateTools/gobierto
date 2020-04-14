@@ -6,19 +6,22 @@ module GobiertoAdmin
 
       attr_accessor(
         :id,
-        :admin_id,
-        :site_id,
         :collection_id,
-        :visibility_level,
         :title_translations,
         :body_translations,
         :body_source_translations,
         :slug,
         :attachment_ids,
         :section,
-        :published_on,
         :template,
         :parent
+      )
+
+      attr_writer(
+        :admin_id,
+        :site_id,
+        :visibility_level,
+        :published_on
       )
 
       delegate :persisted?, to: :page
@@ -111,11 +114,7 @@ module GobiertoAdmin
           page_attributes.visibility_level = visibility_level
           page_attributes.published_on = published_on
           if page.new_record? && attachment_ids.present?
-            if attachment_ids.is_a?(String)
-              page_attributes.attachment_ids = attachment_ids.split(",")
-            else
-              page_attributes.attachment_ids = attachment_ids
-            end
+            page_attributes.attachment_ids = attachment_ids.is_a?(String) ? attachment_ids.split(",") : attachment_ids
           end
         end
 

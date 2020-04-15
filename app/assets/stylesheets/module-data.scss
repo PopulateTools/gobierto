@@ -300,21 +300,6 @@
     position: relative;
   }
 
-  &-btn-download-data-orientation-top {
-    .gobierto-data-btn-download-data-modal {
-      bottom: 170%;
-      top: initial;
-      left: initial;
-
-      &::after,
-      &::before {
-        top: 100%;
-        transform: rotate(180deg);
-      }
-
-    }
-  }
-
   &-container-btn-download-data {
     position: relative;
     width: max-content;
@@ -324,9 +309,11 @@
 
       .gobierto-data-btn-download-data-modal {
         height: auto;
-        width: auto;
-        min-width: 200px;
+        width: 100%;
         display: block;
+        max-width: 200px;
+        z-index: 1;
+
 
         &::after,
         &::before {

@@ -12,6 +12,7 @@
         <DownloadButton
           :editor="true"
           :array-formats="arrayFormats"
+          orientation="top"
           class="arrow-top modal-right"
         />
       </div>
@@ -45,6 +46,10 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    orientation: {
+      type: String,
+      default: ''
     }
   },
   data() {

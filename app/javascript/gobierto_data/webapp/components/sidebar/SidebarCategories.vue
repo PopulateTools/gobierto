@@ -77,6 +77,8 @@ export default {
   methods: {
     sendCheckboxStatus({ id, value, filter }) {
       this.$root.$emit("sendCheckbox", { id, value, filter })
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push('/datos').catch(err => {})
     },
     selectAllCheckbox({ filter }) {
       this.$root.$emit("selectAll", { filter })

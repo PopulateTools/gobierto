@@ -15,6 +15,7 @@
         <router-link
           :to="`/datos/${slug}`"
           class="gobierto-data-sidebar-datasets-name"
+          @click.native="orderDatasets"
         >
           {{ name }}
         </router-link>
@@ -98,13 +99,13 @@ export default {
       const sortDatasets = this.items
       const allDatasets = sortDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
       let slug = this.$route.params.id
-      const indexToggle = allDatasets.findIndex(dataset => dataset.attributes.slug == slug)
+      const indexToggle = allDatasets.findIndex(dataset => dataset.attributes.slug === slug)
       this.toggle = indexToggle
       if (this.toggle === -1) {
         this.toggle = 0
         slug = slug = allDatasets.length ? allDatasets[0].attributes.slug : ''
       }
-      let firstElement = allDatasets.find(dataset => dataset.attributes.slug == slug)
+      let firstElement = allDatasets.find(dataset => dataset.attributes.slug === slug)
       let filteredArray = allDatasets.filter(dataset => dataset.attributes.slug !== slug)
       filteredArray.unshift(firstElement)
       this.listDatasets = filteredArray

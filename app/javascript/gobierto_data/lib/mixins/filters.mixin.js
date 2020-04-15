@@ -123,7 +123,6 @@ export const FiltersMixin = {
       this.handleCheckboxFilter(filter);
     },
     handleCheckboxFilter(filter) {
-      this.updateHome();
       const { key, options } = filter;
       const checkboxesSelected = new Map();
       options.forEach(({ id, isOptionChecked }) =>

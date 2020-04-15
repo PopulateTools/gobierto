@@ -37,5 +37,13 @@ export default {
       default: 0
     }
   },
+  created() {
+    this.$root.$on("sendCheckbox", this.handleCheckboxStatus)
+    this.$root.$on("selectAll", this.handleIsEverythingChecked)
+  },
+  beforeDestroy() {
+    this.$root.$off("sendCheckbox", this.handleCheckboxStatus)
+    this.$root.$off("selectAll", this.handleIsEverythingChecked)
+  }
 };
 </script>

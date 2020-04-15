@@ -202,6 +202,7 @@ module GobiertoData
           if request.content_mime_type.symbol == :multipart_form
             params.require(:dataset).permit(
               :data_file,
+              :data_path,
               :name,
               :table_name,
               :slug,

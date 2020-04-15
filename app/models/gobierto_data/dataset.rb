@@ -39,22 +39,24 @@ module GobiertoData
     end
 
     def rails_model
-      return unless internal_rails_class_name
+      @rails_model ||= begin
+                         return unless internal_rails_class_name
 
-      return Connection.const_get(internal_rails_class_name) if Connection.const_defined?(internal_rails_class_name)
+                         return Connection.const_get(internal_rails_class_name) if Connection.const_defined?(internal_rails_class_name)
 
-      db_config = Connection.db_config(site)
-      return if db_config.blank?
+                         db_config = Connection.db_config(site)
+                         return if db_config.blank?
 
-      db_config = db_config.values_at(:read_draft_db_config, :read_db_config).compact.first || db_config
+                         db_config = db_config.values_at(:read_draft_db_config, :read_db_config).compact.first || db_config
 
-      Class.new(Connection).tap do |connection_model|
-        Connection.const_set(internal_rails_class_name, connection_model)
-        connection_model.connection.execute("SET search_path TO draft, public")
+                         Class.new(Connection).tap do |connection_model|
+                           Connection.const_set(internal_rails_class_name, connection_model)
+                           connection_model.connection.execute("SET search_path TO draft, public")
 
-        connection_model.establish_connection(db_config)
-        connection_model.table_name = table_name
-      end
+                           connection_model.establish_connection(db_config)
+                           connection_model.table_name = table_name
+                         end
+                       end
     end
 
     def columns_stats

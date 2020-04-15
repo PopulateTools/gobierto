@@ -3,6 +3,7 @@
     <Button
       v-clickoutside="closeMenu"
       :text="labelDownloadData"
+      :class="'gobierto-data-btn-download-data-orientation-' + orientation"
       icon="download"
       color="var(--color-base)"
       background="#fff"
@@ -52,6 +53,10 @@ export default {
     arrayFormats: {
       type: Object,
       required: true
+    },
+    orientation: {
+      type: String,
+      default: ''
     }
   },
   data() {

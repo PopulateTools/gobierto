@@ -4,6 +4,8 @@
       <Sidebar
         :active-tab="activeSidebarTab"
         :filters="filters"
+        :items="items"
+        @active-tab="activeSidebarTab = $event"
       />
     </template>
 
@@ -31,19 +33,33 @@ export default {
     Sidebar
   },
   mixins: [CategoriesMixin, FiltersMixin],
-  props: {
-    activeSidebarTab: {
-      type: Number,
-      default: 0
+  data() {
+    return {
+      activeSidebarTab: 0
+    }
+  },
+  watch: {
+    $route(to) {
+      if (to.name === 'Dataset') {
+        this.activeSidebarTab = 1
+      }
     }
   },
   created() {
+    this.setActiveSidebar()
     this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus)
     this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked)
   },
   beforeDestroy() {
     this.$root.$off("sendCheckbox_TEMP", this.handleCheckboxStatus)
     this.$root.$off("selectAll_TEMP", this.handleIsEverythingChecked)
+  },
+  methods: {
+    setActiveSidebar() {
+      if (this.$route.name === 'Dataset') {
+        this.activeSidebarTab = 1
+      }
+    }
   }
 };
 </script>

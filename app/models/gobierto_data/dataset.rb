@@ -72,7 +72,7 @@ module GobiertoData
 
     def load_data_from_file(file_path, schema_file: nil, csv_separator: ",", append: false)
       schema = if schema_file.blank?
-                 {}
+                 append ? table_schema : {}
                elsif schema_file.is_a? Hash
                  schema_file.deep_symbolize_keys
                else
@@ -89,7 +89,7 @@ module GobiertoData
 
       query_result = Connection.execute_write_query_from_file_using_stdin(site, statements.sql_code, file_path: file_path)
       set_schema
-      touch(:data_updated_at) unless query_result.has_key?(:errors)
+      touch(:data_updated_at) unless query_result.blank? || query_result.has_key?(:errors)
       {
         db_result: query_result,
         schema: statements.schema,
@@ -98,6 +98,13 @@ module GobiertoData
     end
 
     private
+
+    def table_schema
+      table_columns = Connection.execute_query(site, "SELECT column_name, data_type FROM information_schema.COLUMNS WHERE table_name='#{table_name}'", write: true)
+      table_columns[:result].inject({}) do |schema, column|
+        schema.update(column["column_name"] => { "original_name" => column["column_name"], "type" => column["data_type"] })
+      end
+    end
 
     def set_schema
       if draft?

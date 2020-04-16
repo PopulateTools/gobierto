@@ -38,12 +38,12 @@ export default {
     }
   },
   created() {
-    this.$root.$on("sendCheckbox", this.handleCheckboxStatus)
-    this.$root.$on("selectAll", this.handleIsEverythingChecked)
+    this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus)
+    this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked)
   },
   beforeDestroy() {
-    this.$root.$off("sendCheckbox", this.handleCheckboxStatus)
-    this.$root.$off("selectAll", this.handleIsEverythingChecked)
+    this.$root.$off("sendCheckbox_TEMP", this.handleCheckboxStatus)
+    this.$root.$off("selectAll_TEMP", this.handleIsEverythingChecked)
   }
 };
 </script>

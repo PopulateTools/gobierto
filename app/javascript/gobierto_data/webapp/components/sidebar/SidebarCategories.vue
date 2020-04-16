@@ -75,6 +75,7 @@ export default {
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
   },
   methods: {
+    //TODO transitory functions, waiting for the filter refactor
     sendCheckboxStatus_TEMP({ id, value, filter }) {
       this.$root.$emit("sendCheckbox", { id, value, filter })
       // eslint-disable-next-line no-unused-vars

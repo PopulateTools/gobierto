@@ -30,7 +30,11 @@ export const router = new VueRouter({
         // active the editor for queries
         props: { activeDatasetTab: 1, activeSidebarTab: 1 }
       }]
-    }]
+    }],
+    scrollBehavior() {
+      const element = document.getElementById('gobierto-datos-app');
+      window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
+    }
 })
 
 const baseTitle = document.title;

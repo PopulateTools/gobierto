@@ -17,20 +17,17 @@ export const router = new VueRouter({
       component: Main,
       children: [{
         path: "",
-        component: Index,
-        props: { activeSidebarTab: 0 }
+        component: Index
       }, {
         path: ":id/:tab?",
         component: Dataset,
         name: 'Dataset',
         // send props as a function, default to tab[0], otherwise take the index
-        props: ({ params: { tab = tabs[0] } }) => ({ activeDatasetTab: tabs.indexOf(tab)})
+        props: ({ params: { tab = tabs[0] } }) => ({ activeDatasetTab: tabs.indexOf(tab) })
       }, {
         path: ":id/q/:queryId?",
         component: Dataset,
-        name: 'Dataset',
-        // active the editor for queries
-        props: { activeDatasetTab: 3, activeSidebarTab: 1 }
+        name: 'Dataset'
       }]
     }],
     scrollBehavior() {

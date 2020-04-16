@@ -35,7 +35,7 @@ module GobiertoData
           input_type: "text",
           output_type: "date",
           sql: "select (to_date(nullif(trim($1), '#null_value'), '#date_format'));",
-          optional_params: { date_format: "DD-MON-YYY", null_value: "" }
+          optional_params: { date_format: "YYY-MM-DD", null_value: "" }
         },
         time: {
           input_type: "text",
@@ -47,13 +47,13 @@ module GobiertoData
           input_type: "text",
           output_type: "timestamp",
           sql: "select (to_timestamp(nullif(trim($1), '#null_value'), '#date_format')::timestamp without time zone);",
-          optional_params: { date_format: "DD-MON-YYY", null_value: "" }
+          optional_params: { date_format: "YYY-MM-DD", null_value: "" }
         },
         timestamptz: {
           input_type: "text",
           output_type: "timestamptz",
           sql: "select (to_timestamp(nullif(trim($1), '#null_value'), '#date_format'));",
-          optional_params: { date_format: "DD-MON-YYY", null_value: "" }
+          optional_params: { date_format: "YYY-MM-DD", null_value: "" }
         },
         boolean: {
           input_type: "text",

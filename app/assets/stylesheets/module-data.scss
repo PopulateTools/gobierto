@@ -309,11 +309,9 @@
 
       .gobierto-data-btn-download-data-modal {
         height: auto;
-        width: 100%;
         display: block;
-        max-width: 200px;
         z-index: 1;
-
+        min-width: 200px;
 
         &::after,
         &::before {
@@ -359,6 +357,7 @@
         max-width: 125px;
         height: auto;
         right: 0;
+        left: initial;
       }
 
       .gobierto-data-btn-download-data-modal-element {

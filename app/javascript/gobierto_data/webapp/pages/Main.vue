@@ -2,6 +2,7 @@
   <Layout>
     <template v-slot:sidebar>
       <Sidebar
+        v-if="items.length"
         :active-tab="activeSidebarTab"
         :filters="filters"
         :items="items"

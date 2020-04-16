@@ -107,7 +107,6 @@ export default {
       this.toggle = indexToggle
       if (this.toggle === -1) {
         this.toggle = 0
-        id = allDatasets.length ? allDatasets[0].attributes.slug : ''
       }
       let firstElement = allDatasets.find(({ attributes: { slug } = {} }) => slug === id)
       let filteredArray = allDatasets.filter(({ attributes: { slug } = {} }) => slug !== id)

@@ -19,7 +19,10 @@
               see-link
               @select-all="e => selectAllCheckbox_TEMP({ ...e, filter })"
             /> -->
-            <div class="gobierto-block-header" style="flex: 1;">
+            <!-- FIXME: remove inline styles -->
+            <div class="gobierto-block-header"
+              style="flex: 1;"
+            >
               <strong class="gobierto-block-header--title">
                 <Caret :rotate="filter.isToggle" />
                 {{ filter.title }}</strong>

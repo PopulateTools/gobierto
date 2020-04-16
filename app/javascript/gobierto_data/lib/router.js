@@ -27,7 +27,8 @@ export const router = new VueRouter({
       }, {
         path: ":id/q/:queryId?",
         component: Dataset,
-        name: 'Dataset'
+        name: 'Dataset',
+        props: { activeDatasetTab: 1}
       }]
     }],
     scrollBehavior() {

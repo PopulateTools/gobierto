@@ -42,10 +42,6 @@ export default {
       type: Array,
       required: true
     },
-    // publicQueries: {
-    //   type: Array,
-    //   required: true
-    // },
     recentQueries: {
       type: Array,
       default: () => []

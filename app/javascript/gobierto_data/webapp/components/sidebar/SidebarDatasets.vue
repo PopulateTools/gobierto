@@ -105,9 +105,6 @@ export default {
 
       const indexToggle = allDatasets.findIndex(({ attributes: { slug } = {} }) => slug === id)
       this.toggle = indexToggle
-      if (this.toggle === -1) {
-        this.toggle = 0
-      }
       let firstElement = allDatasets.find(({ attributes: { slug } = {} }) => slug === id)
       let filteredArray = allDatasets.filter(({ attributes: { slug } = {} }) => slug !== id)
       filteredArray.unshift(firstElement)

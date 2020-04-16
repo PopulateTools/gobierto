@@ -67,9 +67,14 @@
   </div>
 </template>
 <script>
-import { store } from "./../../../lib/store";
 export default {
   name: "SidebarDatasets",
+  props: {
+    items: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       labelSets: "",
@@ -82,8 +87,7 @@ export default {
       indexToggle: null,
       showMaxKeys: 10,
       showLess: true,
-      lessColumns: [],
-      items: store.state.datasets || []
+      lessColumns: []
     }
   },
   created() {
@@ -96,17 +100,17 @@ export default {
   },
   methods: {
     orderDatasets() {
-      const sortDatasets = this.items
-      const allDatasets = sortDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
-      let slug = this.$route.params.id
-      const indexToggle = allDatasets.findIndex(dataset => dataset.attributes.slug === slug)
+      const allDatasets = this.items.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+      let { id } = this.$route.params || {}
+
+      const indexToggle = allDatasets.findIndex(({ attributes: { slug } = {} }) => slug === id)
       this.toggle = indexToggle
       if (this.toggle === -1) {
         this.toggle = 0
-        slug = slug = allDatasets.length ? allDatasets[0].attributes.slug : ''
+        id = allDatasets.length ? allDatasets[0].attributes.slug : ''
       }
-      let firstElement = allDatasets.find(dataset => dataset.attributes.slug === slug)
-      let filteredArray = allDatasets.filter(dataset => dataset.attributes.slug !== slug)
+      let firstElement = allDatasets.find(({ attributes: { slug } = {} }) => slug === id)
+      let filteredArray = allDatasets.filter(({ attributes: { slug } = {} }) => slug !== id)
       filteredArray.unshift(firstElement)
       this.listDatasets = filteredArray
       this.toggle = 0

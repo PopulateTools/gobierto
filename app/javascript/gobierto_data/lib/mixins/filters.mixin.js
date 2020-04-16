@@ -160,7 +160,7 @@ export const FiltersMixin = {
 
         return __items__.filter(({ attributes }) =>
           attributes[key].map(g => g.id).includes(id)
-        ).length;
+        ).length || 0;
       };
       const { key, options = [] } = filter;
       if (options.length) {

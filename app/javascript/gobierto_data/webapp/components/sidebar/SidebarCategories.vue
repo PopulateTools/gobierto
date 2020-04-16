@@ -18,7 +18,7 @@
               :class="filter.key ? '' : 'gobierto-filter-rotate-icon'"
               see-link
               @toggle="e => filter.key = !filter.key"
-              @select-all="e => selectAllCheckbox({ ...e, filter })"
+              @select-all="e => selectAllCheckbox_TEMP({ ...e, filter })"
             />
           </div>
           <Checkbox
@@ -29,7 +29,7 @@
             :title="option.title"
             :checked="option.isOptionChecked"
             :counter="option.counter"
-            @checkbox-change="e => sendCheckboxStatus({ ...e, filter })"
+            @checkbox-change="e => sendCheckboxStatus_TEMP({ ...e, filter })"
           />
         </template>
       </div>
@@ -75,13 +75,14 @@ export default {
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
   },
   methods: {
-    sendCheckboxStatus({ id, value, filter }) {
-      this.$root.$emit("sendCheckbox", { id, value, filter })
+    //TODO temporary functions, waiting for the filter refactor
+    sendCheckboxStatus_TEMP({ id, value, filter }) {
+      this.$root.$emit("sendCheckbox_TEMP", { id, value, filter })
       // eslint-disable-next-line no-unused-vars
       this.$router.push('/datos').catch(err => {})
     },
-    selectAllCheckbox({ filter }) {
-      this.$root.$emit("selectAll", { filter })
+    selectAllCheckbox_TEMP({ filter }) {
+      this.$root.$emit("selectAll_TEMP", { filter })
     }
   }
 };

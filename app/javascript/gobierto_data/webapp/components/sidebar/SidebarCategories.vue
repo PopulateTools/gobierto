@@ -5,43 +5,57 @@
       class="gobierto-data-filters"
     >
       <div
-        v-for="filter in filters"
+        v-for="filter in filtersModify"
         :key="filter.title"
-        :class="!filter.key ? 'gobierto-data-filters-element-no-margin' : ''"
+        :class="!filter.isToggle ? 'gobierto-data-filters-element-no-margin' : ''"
         class="gobierto-data-filters-element"
       >
-        <template v-if="filter.type === 'vocabulary_options'">
-          <div>
-            <BlockHeader
+        <Dropdown @is-content-visible="filter.isToggle = !filter.isToggle">
+          <template v-slot:trigger>
+            <!-- <BlockHeader
               :title="filter.title"
               :label-alt="filter.isEverythingChecked"
-              :class="filter.key ? '' : 'gobierto-filter-rotate-icon'"
+              :class="filter.isToggle ? '' : 'gobierto-filter-rotate-icon'"
               see-link
-              @toggle="e => filter.key = !filter.key"
               @select-all="e => selectAllCheckbox_TEMP({ ...e, filter })"
+            /> -->
+            <div class="gobierto-block-header" style="flex: 1;">
+              <strong class="gobierto-block-header--title">
+                <Caret :rotate="filter.isToggle" />
+                {{ filter.title }}</strong>
+              <a
+                class="gobierto-block-header--link"
+                @click.stop="e => selectAllCheckbox_TEMP({ ...e, filter })"
+              >{{
+                filter.isEverythingChecked ? labelNone : labelAll
+              }}</a>
+            </div>
+          </template>
+          <div>
+            <Checkbox
+              v-for="option in filter.options"
+              :id="option.id"
+              :key="option.id"
+              :title="option.title"
+              :checked="option.isOptionChecked"
+              :counter="option.counter"
+              @checkbox-change="e => sendCheckboxStatus_TEMP({ ...e, filter })"
             />
           </div>
-          <Checkbox
-            v-for="option in filter.options"
-            v-show="filter.key"
-            :id="option.id"
-            :key="option.id"
-            :title="option.title"
-            :checked="option.isOptionChecked"
-            :counter="option.counter"
-            @checkbox-change="e => sendCheckboxStatus_TEMP({ ...e, filter })"
-          />
-        </template>
+        </Dropdown>
       </div>
     </aside>
   </div>
 </template>
 <script>
-import { BlockHeader, Checkbox } from "lib/vue-components";
+import { BlockHeader, Checkbox, Dropdown } from "lib/vue-components";
+import Caret from "./../commons/Caret.vue";
 export default {
   name: "SidebarCategories",
   components: {
     BlockHeader,
+    Dropdown,
+    Caret,
     Checkbox
   },
   props: {
@@ -58,7 +72,9 @@ export default {
     return {
       labelSets: "",
       labelQueries: "",
-      labelCategories: ""
+      labelCategories: "",
+      labelAll: "",
+      labelNone: ""
     }
   },
   computed: {
@@ -66,13 +82,17 @@ export default {
       if (!this.filters.length) return false
       return ((this.filters[0] && (this.filters[0] || {}).count >= 1)
         || (this.filters[1] && (this.filters[1] || {}).count >= 1));
-
+    },
+    filtersModify() {
+      return this.filters.length ? this.filters.map(d => ({ ...d, isToggle: true })) : []
     }
   },
   created() {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
+    this.labelAll = I18n.t("gobierto_common.vue_components.block_header.all");
+    this.labelNone = I18n.t("gobierto_common.vue_components.block_header.none");
   },
   methods: {
     //TODO temporary functions, waiting for the filter refactor

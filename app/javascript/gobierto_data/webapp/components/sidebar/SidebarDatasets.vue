@@ -90,6 +90,13 @@ export default {
       lessColumns: []
     }
   },
+  watch: {
+    $route(to) {
+      if (to.name === 'Dataset') {
+        this.orderDatasets()
+      }
+    }
+  },
   created() {
     this.labelSets = I18n.t("gobierto_data.projects.sets")
     this.labelQueries = I18n.t("gobierto_data.projects.queries")
@@ -105,6 +112,10 @@ export default {
 
       const indexToggle = allDatasets.findIndex(({ attributes: { slug } = {} }) => slug === id)
       this.toggle = indexToggle
+      if (this.toggle === -1) {
+        this.toggle = 0
+        id = allDatasets.length ? allDatasets[0].attributes.slug : ''
+      }
       let firstElement = allDatasets.find(({ attributes: { slug } = {} }) => slug === id)
       let filteredArray = allDatasets.filter(({ attributes: { slug } = {} }) => slug !== id)
       filteredArray.unshift(firstElement)

@@ -144,7 +144,7 @@ export const FiltersMixin = {
       this.filters.splice(index, 1, filter); // To detect array mutations
 
       const checkboxFilterFn = attrs =>
-        attrs[key].find(d => checkboxesSelected.get(+d.id));
+        attrs[key] && attrs[key].find(d => checkboxesSelected.get(+d.id));
 
       const callback = size ? checkboxFilterFn : undefined;
       this.filterItems(callback, key);
@@ -159,8 +159,8 @@ export const FiltersMixin = {
         const __items__ = this.applyFiltersCallbacks(__activeFilters__);
 
         return __items__.filter(({ attributes }) =>
-          attributes[key].map(g => g.id).includes(id)
-        ).length || 0;
+          attributes[key] && attributes[key].map(g => g.id).includes(id)
+        ).length;
       };
       const { key, options = [] } = filter;
       if (options.length) {

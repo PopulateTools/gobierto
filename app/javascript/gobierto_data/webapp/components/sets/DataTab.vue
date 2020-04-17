@@ -42,16 +42,16 @@ export default {
       type: Array,
       required: true
     },
-    // publicQueries: {
-    //   type: Array,
-    //   required: true
-    // },
     recentQueries: {
       type: Array,
       default: () => []
     },
     arrayColumns: {
       type: Object,
+      required: true
+    },
+    publicQueries: {
+      type: Array,
       required: true
     },
     arrayFormats: {
@@ -90,11 +90,6 @@ export default {
       type: String,
       default: null
     },
-  },
-  data() {
-    return {
-      publicQueries: []
-    }
   }
 }
 

@@ -17,20 +17,24 @@ export const router = new VueRouter({
       component: Main,
       children: [{
         path: "",
-        component: Index,
-        props: { activeSidebarTab: 0 }
+        component: Index
       }, {
         path: ":id/:tab?",
         component: Dataset,
+        name: 'Dataset',
         // send props as a function, default to tab[0], otherwise take the index
-        props: ({ params: { tab = tabs[0] } }) => ({ activeDatasetTab: tabs.indexOf(tab), activeSidebarTab: 1 })
+        props: ({ params: { tab = tabs[0] } }) => ({ activeDatasetTab: tabs.indexOf(tab) })
       }, {
         path: ":id/q/:queryId?",
         component: Dataset,
-        // active the editor for queries
-        props: { activeDatasetTab: 1, activeSidebarTab: 1 }
+        name: 'Dataset',
+        props: { activeDatasetTab: 1 }
       }]
-    }]
+    }],
+    scrollBehavior() {
+      const element = document.getElementById('gobierto-datos-app');
+      window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
+    }
 })
 
 const baseTitle = document.title;

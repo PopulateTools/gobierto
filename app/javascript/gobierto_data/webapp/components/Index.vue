@@ -17,7 +17,7 @@
       class="gobierto-data-info-list-element"
     >
       <router-link
-        :to="`/datos/${slug}`"
+        :to="{ path:`/datos/${slug}`, params: { activeSidebarTab: 1 }}"
         class="gobierto-data-title-dataset gobierto-data-title-dataset-big"
       >
         {{ name }}

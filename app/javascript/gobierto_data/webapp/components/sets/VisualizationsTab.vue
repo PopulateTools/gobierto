@@ -26,11 +26,16 @@
                     <div class="gobierto-data-visualization--aspect-ratio-16-9">
                       <div class="gobierto-data-visualization--content">
                         <h4 class="gobierto-data-visualization--title">
-                          {{ privateVisualizations }}
+                          {{ name }}
                         </h4>
                         <PrivateIcon
                           :is-closed="privacy_status === 'closed'"
                           class="icons-your-visualizations"
+                        />
+                        <i
+                          class="fas fa-trash-alt icons-your-queries"
+                          style="color: var(--color-base);"
+                          @click.stop="deleteVisualization(id)"
                         />
                         <Visualizations
                           :items="data"
@@ -201,13 +206,22 @@ export default {
         }
 
         // Append the visualization configuration
-        const visualization = { ...queryData, config: spec, name, privacy_status };
+        const visualization = { ...queryData, config: spec, name, privacy_status, id };
 
         visualizations.push(visualization);
       }
 
       return visualizations;
-    }
+    },
+    async deleteVisualization(id) {
+      // factory method
+      const { status } = await this.deleteVisualization(id);
+
+      if (status === 204) {
+        // only delete private queries
+        this.setPrivateQueries(await this.getPrivateVisualizations());
+      }
+    },
   }
 };
 </script>

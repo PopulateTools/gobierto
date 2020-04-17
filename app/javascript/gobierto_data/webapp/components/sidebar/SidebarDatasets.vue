@@ -107,15 +107,25 @@ export default {
   },
   methods: {
     orderDatasets() {
+      //TODO Datasets should be order in filter mixin
       const allDatasets = this.items.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+
+      //Get slug from route params, we need this when user click in any dataset
       let { id } = this.$route.params || {}
 
-      const indexToggle = allDatasets.findIndex(({ attributes: { slug } = {} }) => slug === id)
+      let slugRoute = id
+      let slugDataset = null
+
+      const indexToggle = allDatasets.findIndex(({ attributes: { slug } = {} }) => slug === slugRoute)
       this.toggle = indexToggle
+
       if (this.toggle === -1) {
-        this.toggle = 0
-        id = allDatasets.length ? allDatasets[0].attributes.slug : ''
+        const { attributes: { slug } = {} } = allDatasets[0] || []
+        slugDataset = slug
       }
+
+      id = this.toggle === -1 ? slugDataset : slugRoute
+
       let firstElement = allDatasets.find(({ attributes: { slug } = {} }) => slug === id)
       let filteredArray = allDatasets.filter(({ attributes: { slug } = {} }) => slug !== id)
       filteredArray.unshift(firstElement)

@@ -3,14 +3,14 @@
     <nav class="gobierto-data-tabs-sidebar">
       <ul>
         <li
-          :class="{ 'is-active': currentTab === 0 }"
+          :class="{ 'is-active': activeTab === 0 }"
           class="gobierto-data-tab-sidebar--tab"
           @click="activateTab(0)"
         >
           <span>{{ labelCategories }}</span>
         </li>
         <li
-          :class="{ 'is-active': currentTab === 1 }"
+          :class="{ 'is-active': activeTab === 1 }"
           class="gobierto-data-tab-sidebar--tab"
           @click="activateTab(1)"
         >
@@ -18,7 +18,7 @@
         </li>
 
         <li
-          :class="{ 'is-active': currentTab === 2 }"
+          :class="{ 'is-active': activeTab === 2 }"
           class="gobierto-data-tab-sidebar--tab"
           @click="activateTab(2)"
         >
@@ -31,6 +31,7 @@
       <component
         :is="currentTabComponent"
         :filters="filters"
+        :items="items"
       />
     </keep-alive>
   </div>
@@ -53,6 +54,10 @@ export default {
     filters: {
       type: Array,
       default: () => []
+    },
+    items: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -60,17 +65,22 @@ export default {
       labelSets: I18n.t("gobierto_data.projects.sets") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelCategories: I18n.t("gobierto_data.projects.categories") || "",
-      currentTabComponent: null,
-      currentTab: this.activeTab
+      currentTabComponent: null
     };
   },
+  watch: {
+    activeTab(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.currentTabComponent = COMPONENTS[newValue];
+      }
+    }
+  },
   created() {
-    this.currentTabComponent = COMPONENTS[this.currentTab];
+    this.currentTabComponent = COMPONENTS[this.activeTab];
   },
   methods: {
     activateTab(index) {
-      this.currentTab = index
-      this.currentTabComponent = COMPONENTS[index];
+      this.$emit('active-tab', index)
     }
   }
 };

@@ -298,14 +298,6 @@
     min-width: 250px;
     margin: 1rem 0;
     position: relative;
-
-    // &.small {
-    //   padding: .25rem;
-    //   min-width: auto;
-    //   text-transform: none;
-    //   margin: 0;
-    //   margin-left: auto;
-    // }
   }
 
   &-container-btn-download-data {
@@ -317,9 +309,9 @@
 
       .gobierto-data-btn-download-data-modal {
         height: auto;
-        width: auto;
-        min-width: 200px;
         display: block;
+        z-index: 1;
+        min-width: 200px;
 
         &::after,
         &::before {
@@ -365,6 +357,7 @@
         max-width: 125px;
         height: auto;
         right: 0;
+        left: initial;
       }
 
       .gobierto-data-btn-download-data-modal-element {
@@ -383,7 +376,8 @@
     position: absolute;
     width: 30rem;
     display: none;
-    top: 100%;
+    top: 130%;
+    left: 0;
     background-color: #fff;
 
     &.modal-left {

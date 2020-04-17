@@ -69,7 +69,7 @@ module GobiertoData
     end
 
     def visibility_level
-      @visibility_level ||= "draft"
+      @visibility_level ||= resource.visibility_level
     end
 
     def save

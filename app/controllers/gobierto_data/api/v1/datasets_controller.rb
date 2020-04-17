@@ -19,7 +19,7 @@ module GobiertoData
           respond_to do |format|
             format.json do
               json = if base_relation.exists?
-                       Rails.cache.fetch("#{base_relation.order(:updated_at).last.cache_key}/#{valid_preview_token? ? "all" : "active"}/datasets_collection") do
+                       Rails.cache.fetch("#{filtered_relation.cache_key}/#{valid_preview_token? ? "all" : "active"}/datasets_collection") do
                          render_to_string json: relation, links: links(:index), each_serializer: DatasetSerializer, adapter: :json_api
                        end
                      else

@@ -108,7 +108,7 @@ export default {
   methods: {
     orderDatasets() {
       //TODO Datasets should be order in filter mixin
-      const allDatasets = this.items.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+      const allDatasets = this.items.sort(({ attributes: { name: a } = {} }, { attributes: { name: b } = {} }) => a.localeCompare(b));
 
       //Get slug from route params, we need this when user click in any dataset
       let { id } = this.$route.params || {}

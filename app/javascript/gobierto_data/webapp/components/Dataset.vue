@@ -121,6 +121,7 @@ export default {
       arrayFormats: {},
       arrayColumns: {},
       attributes: null,
+      numberRows: 0,
       privateQueries: [],
       publicQueries: [],
       recentQueries: [],
@@ -137,7 +138,6 @@ export default {
   },
   computed: {
     recentQueriesFiltered() {
-      console.log("return this.recentQueries", this.recentQueries.length);
       return this.recentQueries
         .filter((sql) => sql.includes(this.tableName))
         .reverse();
@@ -189,12 +189,16 @@ export default {
       table_name: tableName,
       columns: arrayColumns,
       formats: arrayFormats,
+      data_summary: {
+        number_of_rows: queryNumberRows
+      }
     } = attributes;
 
     this.titleDataset = titleDataset;
     this.tableName = tableName;
     this.arrayColumns = arrayColumns;
     this.arrayFormats = arrayFormats;
+    this.queryNumberRows = queryNumberRows;
 
     // Once we have the dataset info, we request both kind of queries
     const queriesPromises = [];
@@ -223,7 +227,7 @@ export default {
       this.parseUrl({ queryId, sql });
     } else {
       // update the editor text content by default
-      this.currentQuery = `SELECT * FROM ${this.tableName}`;
+      this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
     this.runCurrentQuery();
   },

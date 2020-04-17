@@ -2,6 +2,7 @@
   <i
     :class="rotate ? '' : 'rotate-caret'"
     class="fas fa-caret-down"
+    style="color: var(--color-base);"
   />
 </template>
 

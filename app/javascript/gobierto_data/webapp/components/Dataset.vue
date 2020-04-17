@@ -49,7 +49,6 @@
       :is-query-modified="isQueryModified"
       :query-stored="currentQuery"
       :query-name="queryName"
-      :query-number-rows="queryNumberRows"
       :query-duration="queryDuration"
       :query-error="queryError"
     />
@@ -121,7 +120,6 @@ export default {
       arrayFormats: {},
       arrayColumns: {},
       attributes: null,
-      numberRows: 0,
       privateQueries: [],
       publicQueries: [],
       recentQueries: [],
@@ -132,7 +130,6 @@ export default {
       isQueryModified: false,
       queryName: null,
       queryDuration: 0,
-      queryNumberRows: 0,
       queryError: null
     };
   },
@@ -188,17 +185,13 @@ export default {
       name: titleDataset,
       table_name: tableName,
       columns: arrayColumns,
-      formats: arrayFormats,
-      data_summary: {
-        number_of_rows: queryNumberRows
-      }
+      formats: arrayFormats
     } = attributes;
 
     this.titleDataset = titleDataset;
     this.tableName = tableName;
     this.arrayColumns = arrayColumns;
     this.arrayFormats = arrayFormats;
-    this.queryNumberRows = queryNumberRows;
 
     // Once we have the dataset info, we request both kind of queries
     const queriesPromises = [];

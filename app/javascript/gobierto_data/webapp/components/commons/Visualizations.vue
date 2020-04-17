@@ -30,7 +30,6 @@ export default {
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.initPerspective(this.items);
-    console.log("this.items", this.items);
   },
   methods: {
     updateValues(values) {
@@ -45,7 +44,6 @@ export default {
       }
     },
     initPerspective(data) {
-      console.log("data", data);
 
       const table = perspective.worker().table(data);
 

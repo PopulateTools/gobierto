@@ -2,7 +2,7 @@ import { baseUrl } from "../commons.js";
 import { getToken } from "../helpers";
 import axios from "axios";
 
-const endPoint = `${baseUrl}/data`;
+const endPoint = `${baseUrl}/data.csv`;
 const token = getToken();
 const headers = {
   "Content-type": "application/json",

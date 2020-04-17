@@ -121,18 +121,19 @@ export default {
       arrayFormats: {},
       arrayColumns: {},
       attributes: null,
+      numberRows: 0,
       privateQueries: [],
       publicQueries: [],
       recentQueries: [],
       resourcesList: [],
       currentQuery: null,
-      items: [],
+      items: '',
       isQueryRunning: false,
       isQueryModified: false,
       queryName: null,
       queryDuration: 0,
       queryNumberRows: 0,
-      queryError: null,
+      queryError: null
     };
   },
   computed: {
@@ -187,12 +188,16 @@ export default {
       table_name: tableName,
       columns: arrayColumns,
       formats: arrayFormats,
+      data_summary: {
+        number_of_rows: queryNumberRows
+      }
     } = attributes;
 
     this.titleDataset = titleDataset;
     this.tableName = tableName;
     this.arrayColumns = arrayColumns;
     this.arrayFormats = arrayFormats;
+    this.queryNumberRows = queryNumberRows;
 
     // Once we have the dataset info, we request both kind of queries
     const queriesPromises = [];
@@ -221,7 +226,7 @@ export default {
       this.parseUrl({ queryId, sql });
     } else {
       // update the editor text content by default
-      this.currentQuery = `SELECT * FROM ${this.tableName}`;
+      this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
     this.runCurrentQuery();
   },
@@ -382,23 +387,22 @@ export default {
       if (this.currentQuery.includes("LIMIT")) {
         query = this.currentQuery;
       } else {
-        query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 100 OFFSET 0`;
+        query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 50`;
       }
+
 
       const params = { sql: query };
 
+      //
+      const startTime = new Date().getTime();
       // factory method
       try {
         const {
-          data: {
-            data: items,
-            meta: { rows, duration },
-          },
+          data: items
         } = await this.getData(params);
 
         this.items = items;
-        this.queryDuration = duration;
-        this.queryNumberRows = rows;
+        this.queryDuration = new Date().getTime() - startTime;
         this.isQueryRunning = false;
       } catch (error) {
         this.queryError = error;

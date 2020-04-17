@@ -55,8 +55,8 @@ export default {
       required: true
     },
     items: {
-      type: Array,
-      default: () => []
+      type: String,
+      default: ''
     },
     isQueryRunning: {
       type: Boolean,

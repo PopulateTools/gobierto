@@ -110,10 +110,9 @@ module GobiertoData
         def send_download(content, format, base_filename)
           case format
           when :json
+            content = ActiveModelSerializers::SerializableResource.new(content).to_json unless content.is_a? String
             send_data(
-              ActiveModelSerializers::SerializableResource.new(
-                content
-              ).to_json,
+              content,
               filename: "#{base_filename}.json"
             )
           when :csv

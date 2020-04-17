@@ -48,6 +48,48 @@ module GobiertoData
 
         # POST /api/v1/data/datasets
         #
+        def test_dataset_creation_with_missing_params
+          with(site: site) do
+            with_stubbed_jwt_default_secret(default_secret) do
+              assert_no_difference "GobiertoData::Dataset.count" do
+                post(
+                  gobierto_data_api_v1_datasets_path,
+                  params: multipart_form_params("dataset1.csv").deep_merge(
+                    dataset: { name: nil, table_name: nil }
+                  ),
+                  headers: { "Authorization" => auth_header }
+                )
+
+                assert_response :unprocessable_entity
+                response_data = response.parsed_body
+                assert_match(/can't be blank/, response_data.to_s)
+              end
+            end
+          end
+        end
+
+        # POST /api/v1/data/datasets
+        #
+        def test_dataset_creation_with_invalid_file_upload
+          with(site: site) do
+            with_stubbed_jwt_default_secret(default_secret) do
+              assert_no_difference "GobiertoData::Dataset.count" do
+                post(
+                  gobierto_data_api_v1_datasets_path,
+                  params: multipart_form_params("schema.json"),
+                  headers: { "Authorization" => auth_header }
+                )
+
+                assert_response :unprocessable_entity
+                response_data = response.parsed_body
+                assert_match(/CSV file malformed or with wrong encoding/, response_data.to_s)
+              end
+            end
+          end
+        end
+
+        # POST /api/v1/data/datasets
+        #
         def test_dataset_creation_with_file_upload
           with(site: site) do
             with_stubbed_jwt_default_secret(default_secret) do

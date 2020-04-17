@@ -33,7 +33,6 @@ export default {
   },
   methods: {
     initPerspective(data) {
-      console.log("data", data);
 
       const table = perspective.worker().table(data);
 

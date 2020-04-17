@@ -329,7 +329,6 @@ export default {
     async deleteSavedQuery(id) {
       // factory method
       const { status } = await this.deleteQuery(id);
-      console.log("status", status);
 
       if (status === 204) {
         // only delete private queries
@@ -398,7 +397,6 @@ export default {
       }
     },
     async storeCurrentVisualization(config, opts) {
-      console.log("config", config);
       // if there's no user, you cannot save visualizations
       this.ensureUserIsLogged();
 

@@ -160,7 +160,6 @@ export default {
         "filter[dataset_id]": this.datasetId
       });
       const { data } = response;
-      console.log("data", data);
 
       if (data.length) {
         this.publicVisualizations = await this.getDataFromVisualizations(data);

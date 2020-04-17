@@ -69,8 +69,10 @@ export default {
     };
   },
   watch: {
-    activeTab(newValue) {
-      this.currentTabComponent = COMPONENTS[newValue];
+    activeTab(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.currentTabComponent = COMPONENTS[newValue];
+      }
     }
   },
   created() {

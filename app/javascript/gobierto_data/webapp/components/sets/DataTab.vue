@@ -50,6 +50,10 @@ export default {
       type: Object,
       required: true
     },
+    publicQueries: {
+      type: Array,
+      required: true
+    },
     arrayFormats: {
       type: Object,
       required: true
@@ -86,11 +90,6 @@ export default {
       type: String,
       default: null
     },
-  },
-  data() {
-    return {
-      publicQueries: []
-    }
   }
 }
 

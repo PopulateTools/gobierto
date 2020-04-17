@@ -66,11 +66,11 @@ export default {
   },
   data() {
     return {
-      labelSets: "",
-      labelQueries: "",
-      labelCategories: "",
-      labelAll: "",
-      labelNone: ""
+      labelSets:  I18n.t("gobierto_data.projects.sets") || '',
+      labelQueries:  I18n.t("gobierto_data.projects.queries") || '',
+      labelCategories:  I18n.t("gobierto_data.projects.categories") || '',
+      labelAll:  I18n.t("gobierto_common.vue_components.block_header.all") || '',
+      labelNone:  I18n.t("gobierto_common.vue_components.block_header.none") || ''
     }
   },
   computed: {
@@ -82,13 +82,6 @@ export default {
     filtersModify() {
       return this.filters.length ? this.filters.map(d => ({ ...d, isToggle: true })) : []
     }
-  },
-  created() {
-    this.labelSets = I18n.t("gobierto_data.projects.sets")
-    this.labelQueries = I18n.t("gobierto_data.projects.queries")
-    this.labelCategories = I18n.t("gobierto_data.projects.categories")
-    this.labelAll = I18n.t("gobierto_common.vue_components.block_header.all");
-    this.labelNone = I18n.t("gobierto_common.vue_components.block_header.none");
   },
   methods: {
     //TODO temporary functions, waiting for the filter refactor

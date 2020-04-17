@@ -12,8 +12,8 @@ export default {
   name: "Visualizations",
   props: {
     items: {
-      type: Array,
-      default: () => []
+      type: String,
+      default: ''
     },
     config: {
       type: Object,
@@ -22,7 +22,7 @@ export default {
   },
   watch: {
     items(newValue, oldValue) {
-      if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+      if (newValue !== oldValue) {
         this.updateValues(newValue)
       }
     }
@@ -44,6 +44,7 @@ export default {
       }
     },
     initPerspective(data) {
+
       const table = perspective.worker().table(data);
 
       this.initColumns = Object.keys(data[0]);

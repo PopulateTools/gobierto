@@ -126,17 +126,18 @@ export default {
       recentQueries: [],
       resourcesList: [],
       currentQuery: null,
-      items: [],
+      items: '',
       isQueryRunning: false,
       isQueryModified: false,
       queryName: null,
       queryDuration: 0,
       queryNumberRows: 0,
-      queryError: null,
+      queryError: null
     };
   },
   computed: {
     recentQueriesFiltered() {
+      console.log("return this.recentQueries", this.recentQueries.length);
       return this.recentQueries
         .filter((sql) => sql.includes(this.tableName))
         .reverse();
@@ -383,23 +384,22 @@ export default {
       if (this.currentQuery.includes("LIMIT")) {
         query = this.currentQuery;
       } else {
-        query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 100 OFFSET 0`;
+        query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 50`;
       }
+
 
       const params = { sql: query };
 
+      //
+      const startTime = new Date().getTime();
       // factory method
       try {
         const {
-          data: {
-            data: items,
-            meta: { rows, duration },
-          },
+          data: items
         } = await this.getData(params);
 
         this.items = items;
-        this.queryDuration = duration;
-        this.queryNumberRows = rows;
+        this.queryDuration = new Date().getTime() - startTime;
         this.isQueryRunning = false;
       } catch (error) {
         this.queryError = error;
